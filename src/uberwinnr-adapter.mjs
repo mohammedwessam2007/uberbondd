@@ -1,7 +1,11 @@
 import crypto from 'node:crypto';
 
-export const UBERWINNR_VERSION = 'uberbond.uberwinnr.v1';
+export const UBERWINNR_VERSION = 'uberbond.uberwinnr.v1.1';
 export const WINNR_API_BASE = 'https://api.winnr.app/v1';
+export const WINNR_WEBHOOK_EVENTS = Object.freeze([
+  'message.relayed','email.received','email.bounced','email.complained',
+  'domain.created','domain.ready','domain.dns_failed','email_user.created','email_user.deleted'
+]);
 
 const clean = (value, max = 2000) => String(value ?? '').trim().slice(0, max);
 const lower = (value, max = 2000) => clean(value, max).toLowerCase();
@@ -179,11 +183,12 @@ export function createWinnrApiClient({
     });
   }
 
-  async function request(method, path, { body = undefined, writeAuthorized = false } = {}) {
+  async function request(method, path, { body = undefined, writeAuthorized = false, readOnlyPost = false } = {}) {
     const verb = clean(method, 10).toUpperCase();
     const relative = requestPath(path);
-    const isWrite = !['GET', 'HEAD'].includes(verb);
-    if (isWrite && writeAuthorized !== true) {
+    const isWriteVerb = !['GET', 'HEAD'].includes(verb);
+    const isConsequentialWrite = isWriteVerb && readOnlyPost !== true;
+    if (isConsequentialWrite && writeAuthorized !== true) {
       return {
         ok: false,
         status: 'UBERWINNR_WRITE_REFUSED',
@@ -209,7 +214,7 @@ export function createWinnrApiClient({
     } catch (error) {
       return {
         ok: false,
-        status: isWrite ? 'UBERWINNR_WRITE_OUTCOME_UNCERTAIN' : 'UBERWINNR_READ_FAILED',
+        status: isConsequentialWrite ? 'UBERWINNR_WRITE_OUTCOME_UNCERTAIN' : 'UBERWINNR_READ_FAILED',
         reasonCodes: ['provider-network-error'],
         providerCalls: 1,
         automaticRetryAuthorized: false,
@@ -237,7 +242,7 @@ export function createWinnrApiClient({
     if (!response.ok) {
       return {
         ok: false,
-        status: isWrite ? 'UBERWINNR_WRITE_REFUSED_OR_FAILED' : 'UBERWINNR_READ_FAILED',
+        status: isConsequentialWrite ? 'UBERWINNR_WRITE_REFUSED_OR_FAILED' : 'UBERWINNR_READ_FAILED',
         reasonCodes: [clean(parsed?.error?.code || `http-${response.status}`, 160)],
         providerCalls: 1,
         automaticRetryAuthorized: false,
@@ -246,7 +251,7 @@ export function createWinnrApiClient({
     }
     return {
       ok: true,
-      status: isWrite ? 'UBERWINNR_WRITE_CONFIRMED' : 'UBERWINNR_READ_CONFIRMED',
+      status: isConsequentialWrite ? 'UBERWINNR_WRITE_CONFIRMED' : 'UBERWINNR_READ_CONFIRMED',
       providerCalls: 1,
       data: parsed?.data ?? parsed,
       meta: parsed?.meta ?? null,
@@ -260,8 +265,11 @@ export function createWinnrApiClient({
     version: UBERWINNR_VERSION,
     token: redactToken(rawToken),
     evidenceRef: clean(evidenceRef, 1500),
+    getAccount: () => request('GET', '/account'),
+    getUsage: () => request('GET', '/account/usage'),
     listDomains: () => request('GET', '/domains'),
     getDomain: ({ domainId } = {}) => request('GET', `/domains/${encodeURIComponent(clean(domainId, 240))}`),
+    getDnsStatus: ({ domainId } = {}) => request('GET', `/domains/${encodeURIComponent(clean(domainId, 240))}/dns-status`),
     getDnsRecords: ({ domainId } = {}) => request('GET', `/domains/${encodeURIComponent(clean(domainId, 240))}/dns-records`),
     connectOwnedDomains: ({ domains = [], manualDns = true, writeAuthorized = false } = {}) => request('POST', '/domains/connect', {
       body: {
@@ -273,11 +281,12 @@ export function createWinnrApiClient({
     verifyDns: ({ domainId, writeAuthorized = false } = {}) => request('POST', `/domains/${encodeURIComponent(clean(domainId, 240))}/verify-dns`, {
       writeAuthorized
     }),
-    checkNameservers: ({ domains = [], writeAuthorized = false } = {}) => request('POST', '/domains/check-ns', {
-      body: { domains: (Array.isArray(domains) ? domains : []).slice(0, 100).map(domain => lower(domain, 253)).filter(Boolean) },
-      writeAuthorized
+    checkDnsProvider: ({ domains = [] } = {}) => request('POST', '/domains/check-provider', {
+      body: { domains: (Array.isArray(domains) ? domains : []).slice(0, 20).map(domain => lower(domain, 253)).filter(Boolean) },
+      readOnlyPost: true
     }),
     listMailboxes: ({ domain = '' } = {}) => request('GET', `/email-users?filter[domain]=${encodeURIComponent(lower(domain, 253))}`),
+    getMailbox: ({ userId } = {}) => request('GET', `/email-users/${encodeURIComponent(clean(userId, 240))}`),
     createMailbox: ({ domain, username, name, writeAuthorized = false } = {}) => request('POST', '/email-users', {
       body: { domain: lower(domain, 253), username: lower(username, 120), name: clean(name, 200) },
       writeAuthorized
@@ -295,23 +304,71 @@ export function createWinnrApiClient({
       },
       writeAuthorized
     }),
+    listJobs: ({ limit = 25, status = '', jobType = '' } = {}) => {
+      const params = new URLSearchParams();
+      params.set('limit', String(Math.max(1, Math.min(100, Number(limit) || 25))));
+      if (clean(status, 80)) params.set('filter[status]', lower(status, 80));
+      if (clean(jobType, 120)) params.set('filter[type]', clean(jobType, 120));
+      return request('GET', `/jobs?${params.toString()}`);
+    },
     getJob: ({ jobId } = {}) => request('GET', `/jobs/${encodeURIComponent(clean(jobId, 240))}`),
     listExportFormats: () => request('GET', '/export/formats'),
     exportMailboxes: ({ format = 'default', domains = [], emails = [], allDomains = false, writeAuthorized = false } = {}) => {
       const body = { format: lower(format || 'default', 80) || 'default' };
       const domainRows = (Array.isArray(domains) ? domains : []).map(domain => lower(domain, 253)).filter(Boolean);
       const emailRows = (Array.isArray(emails) ? emails : []).map(email => lower(email, 320)).filter(emailOk);
+      const selectorCount = Number(domainRows.length > 0) + Number(emailRows.length > 0) + Number(allDomains === true);
+      if (selectorCount !== 1) {
+        return Promise.resolve({
+          ok: false,
+          status: 'UBERWINNR_EXPORT_REFUSED',
+          reasonCodes: ['exactly-one-export-selector-required'],
+          providerCalls: 0
+        });
+      }
       if (domainRows.length) body.domains = domainRows;
       if (emailRows.length) body.emails = emailRows;
       if (allDomains === true) body.getAllDomains = true;
       return request('POST', '/export', { body, writeAuthorized });
     },
-    createWebhook: ({ url, events = [], description = '', writeAuthorized = false } = {}) => request('POST', '/webhooks', {
-      body: { url: clean(url, 1500), events: (Array.isArray(events) ? events : []).map(x => clean(x, 120)).filter(Boolean), description: clean(description, 500) || undefined },
-      writeAuthorized
-    }),
+    listWebhooks: () => request('GET', '/webhooks'),
+    getWebhookDeliveries: ({ webhookId, limit = 25, cursor = '' } = {}) => {
+      const params = new URLSearchParams();
+      params.set('limit', String(Math.max(1, Math.min(100, Number(limit) || 25))));
+      if (clean(cursor, 500)) params.set('cursor', clean(cursor, 500));
+      return request('GET', `/webhooks/${encodeURIComponent(clean(webhookId, 240))}/deliveries?${params.toString()}`);
+    },
+    createWebhook: ({ url, events = [], description = '', writeAuthorized = false } = {}) => {
+      const endpoint = clean(url, 1500);
+      const requested = (Array.isArray(events) ? events : []).map(x => clean(x, 120)).filter(Boolean);
+      if (!endpoint.toLowerCase().startsWith('https://')) {
+        return Promise.resolve({ ok:false, status:'UBERWINNR_WEBHOOK_REFUSED', reasonCodes:['https-webhook-url-required'], providerCalls:0 });
+      }
+      if (!requested.length || requested.some(event => event !== '*' && !WINNR_WEBHOOK_EVENTS.includes(event))) {
+        return Promise.resolve({ ok:false, status:'UBERWINNR_WEBHOOK_REFUSED', reasonCodes:['valid-webhook-events-required'], providerCalls:0 });
+      }
+      return request('POST', '/webhooks', {
+        body: { url: endpoint, events: requested, description: clean(description, 500) || undefined },
+        writeAuthorized
+      });
+    },
+    browsePrewarmed: ({ search = '', sortBy = 'health', includeAll = false, page = 1, perPage = 50 } = {}) => {
+      const params = new URLSearchParams();
+      params.set('sort_by', lower(sortBy || 'health', 40) || 'health');
+      params.set('page', String(Math.max(1, Math.floor(Number(page) || 1))));
+      params.set('per_page', String(Math.max(1, Math.min(1000, Math.floor(Number(perPage) || 50)))));
+      if (clean(search, 200)) params.set('search', clean(search, 200));
+      if (includeAll === true) params.set('include_all', 'true');
+      return request('GET', `/prewarmed/browse?${params.toString()}`);
+    },
+    getPrewarmed: ({ domain } = {}) => request('GET', `/prewarmed/${encodeURIComponent(lower(domain, 253))}`),
+    checkPrewarmedBlocklist: ({ domain, blocklist = '' } = {}) => {
+      const suffix = clean(blocklist, 120) ? `?list=${encodeURIComponent(lower(blocklist, 120))}` : '';
+      return request('POST', `/prewarmed/${encodeURIComponent(lower(domain, 253))}/blocklist-check${suffix}`, { readOnlyPost: true });
+    },
+    listMyPrewarmed: () => request('GET', '/prewarmed/my-domains'),
     lookupMessage: ({ messageId } = {}) => request('GET', `/messages/lookup?message_id=${encodeURIComponent(clean(messageId, 500))}`),
-    rawRequest: request,
+    rawRequest: (method, path, args = {}) => request(method, path, { body: args.body, writeAuthorized: args.writeAuthorized === true }),
     truthBoundary: 'This adapter calls only the documented Winnr API after explicit account authorization and terms evidence. Writes never retry automatically because a network error after a consequential request is an uncertain outcome until reconciled.'
   });
 }

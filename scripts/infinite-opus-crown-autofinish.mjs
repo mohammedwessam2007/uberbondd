@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v4';
+const KEY='infinite_opus_crown_autofinish_20261001_v5';
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -95,7 +95,7 @@ function taskResponseFormat(){
  return {type:'json_schema',json_schema:{name:'sealed_general_crown_tasks',strict:true,schema:{
    type:'object',additionalProperties:false,required:['tasks'],properties:{tasks:{type:'array',minItems:2,maxItems:2,items:{
      type:'object',additionalProperties:false,required:['id','prompt','rubric','must_not'],properties:{
-       id:{type:'string'},prompt:{type:'string'},rubric:{type:'array',minItems:5,maxItems:8,items:{type:'string'}},
+       id:{type:'string'},prompt:{type:'string',minLength:100,maxLength:600},rubric:{type:'array',minItems:5,maxItems:8,items:{type:'string'}},
        must_not:{type:'array',items:{type:'string'}}
      }
    }}}
@@ -115,7 +115,7 @@ function gradeResponseFormat(){
 function taskGenerationMessages(){
  return [
   {role:'system',content:'You are an independent sealed benchmark custodian. Create exactly two fresh, difficult GENERAL_CROWN tasks testing broad reasoning, evidence discipline, constraint tracking, counterexample handling, and synthesis. Tasks must be self-contained, text-only, answerable without web/tools, not depend on obscure trivia, and have objective evaluation criteria. Return strict JSON only. Never mention candidate model names.'},
-  {role:'user',content:'Return {"tasks":[{"id":"t1","prompt":"...","rubric":["..."],"must_not":["..."]},{"id":"t2","prompt":"...","rubric":["..."],"must_not":["..."]}]}. Each prompt should fit under 900 UTF-8 bytes and each rubric should contain 5-8 concise requirements.'}
+  {role:'user',content:'Return {"tasks":[{"id":"t1","prompt":"...","rubric":["..."],"must_not":["..."]},{"id":"t2","prompt":"...","rubric":["..."],"must_not":["..."]}]}. HARD CONTRACT: each prompt MUST be 100-600 ASCII characters (not words), self-contained and difficult; each rubric MUST contain 5-8 concise requirements. Keep must_not concise. Do not exceed 600 characters in either prompt.'}
  ];
 }
 function evaluationMessages(tasks,blind){
@@ -158,7 +158,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    const tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
-     if(typeof t?.prompt!=='string'||Buffer.byteLength(t.prompt)>900||!Array.isArray(t.rubric)||t.rubric.length<5)throw new Error('hidden-task-contract-refused:'+i);
+     if(typeof t?.prompt!=='string'||Buffer.byteLength(t.prompt)>900||!Array.isArray(t.rubric)||t.rubric.length<5)throw new Error('hidden-task-contract-refused:'+i+':promptBytes='+Buffer.byteLength(String(t?.prompt??''))+':rubricCount='+(Array.isArray(t?.rubric)?t.rubric.length:-1));
      t.id='sealed-'+(i+1)+'-'+h(t.prompt).slice(7,19);
    }
    const taskCommitment=h(tasks.map(t=>({id:t.id,promptHash:h(t.prompt),rubricHash:h(t.rubric),mustNotHash:h(t.must_not??[])})));

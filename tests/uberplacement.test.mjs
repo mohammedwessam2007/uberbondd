@@ -32,3 +32,16 @@ test('report computes only observed seed placement and exports UberWarm fields',
  assert.equal(report.senderReports[0].spamPlacementRate,.5);
  assert.equal(uberWarmPlacementObservation(report.senderReports[0]).inboxPlacementRate,.5);
 });
+
+
+test('UberWarm placement bridge preserves missing placement as unknown rather than zero',()=>{
+ const plan={probes:[
+  {probeId:'p1',senderEmail:'s@example.com',seedEmail:'a@gmail.com',seedProvider:'google'},
+  {probeId:'p2',senderEmail:'s@example.com',seedEmail:'b@outlook.com',seedProvider:'microsoft'}
+ ]};
+ const report=compilePlacementReport({plan,observations:[]});
+ const bridged=uberWarmPlacementObservation(report.senderReports[0]);
+ assert.equal(bridged.inboxPlacementRate,null);
+ assert.equal(bridged.spamPlacementRate,null);
+ assert.equal(bridged.placementObservationCoverage,0);
+});

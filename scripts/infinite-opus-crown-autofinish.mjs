@@ -2,7 +2,9 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v1';
+const KEY='infinite_opus_crown_autofinish_20261001_v2';
+const PRIOR_KEY='infinite_opus_crown_autofinish_20261001_v1';
+const PRIOR_EXPECTED_SPEND_USD=0.010025;
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -26,8 +28,8 @@ const content=j=>{
   const c=j?.choices?.[0]?.message?.content;
   return typeof c==='string'?c:Array.isArray(c)?c.filter(x=>x?.type==='text').map(x=>x.text).join(''):'';
 };
-async function getState(store){
-  return store.transaction(async tx=>(await tx.getSettings())[KEY]??null);
+async function getState(store,key=KEY){
+  return store.transaction(async tx=>(await tx.getSettings())[key]??null);
 }
 async function setState(store,patch){
   return store.transaction(async tx=>{
@@ -106,12 +108,19 @@ function evaluationMessages(tasks,blind){
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
+ const priorV1=await getState(store,PRIOR_KEY);
+ if(priorV1?.status!=='FAILED_NO_AUTOMATIC_RETRY'||
+    priorV1?.reason!=='sealed-json-parse-failed'||
+    Math.abs(Number(priorV1?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9){
+   return {ok:false,status:'AUTOFINISH_V2_PRIOR_STATE_REFUSED',reason:'expected-v1-parse-failure-state-required'};
+ }
  if(prior?.status==='COMPLETE')return {ok:true,status:'AUTOFINISH_ALREADY_COMPLETE',receiptHash:prior.crownAdmission?.receiptHash??null};
  if(prior?.status==='RUNNING')return {ok:false,status:'AUTOFINISH_ALREADY_CLAIMED_NO_RETRY'};
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
- },newSpendUsd:0,mainSha});
+ },priorFailedAttempt:{key:PRIOR_KEY,status:priorV1.status,reason:priorV1.reason,newSpendUsd:Number(priorV1.newSpendUsd)},
+ newSpendUsd:0,mainSha});
  let spend=0;
  const charge=async spec=>{
    const r=await call(apiKey,spec); spend+=r.cost;

@@ -1,3 +1,4 @@
+import { SOURCE_KEY, recoverCrownResumeCheckpoint } from '../src/crown-resume-checkpoint.mjs';
 // Zero-spend recovery: expose only bounded metadata, never sealed payloads or secrets.
 const allowed = new Set(['status','schemaVersion','version','month','monthlyCapMicrousd','callId','taskId','model','requestedModel','observedModel','provider','providerName','providerIdentity','generationId','providerCallId','id','actualMicrousd','reservedMicrousd','worstCaseMicrousd','costUsd','newSpendUsd','startedAt','updatedAt','createdAt','settledAt','timestamp','taskCommitment','hiddenTaskCount','receiptHash','snapshotHash','answerHash','promptHash','rubricHash','kind','observedAt','providerRequestId','receiptRef']);
 const atom = value => typeof value === 'number' && Number.isFinite(value) || typeof value === 'boolean' || value === null || typeof value === 'string' && value.length <= 240 && /^[a-zA-Z0-9_.:/+ -]*$/.test(value) && !/(?:sk-|Bearer|password|secret|token=)/i.test(value);
@@ -28,5 +29,12 @@ export async function readCrownRecoveryMetadata(store){
     privateEvidencePointerPresent:typeof state?.privateEvidenceRef==='string',
     metadata:metadata(state)
   }));
-  return {status:'READ_ONLY_CROWN_RECOVERY',providerCallsPerformed:0,sealedPayloadsExposed:false,states,inventory};
+  let resumeCheckpoint={status:'NOT_PRESENT'};
+  if(settings[SOURCE_KEY]){
+   try{
+    const p=recoverCrownResumeCheckpoint(settings[SOURCE_KEY],{key:process.env.TOKEN_ENCRYPTION_KEY});
+    resumeCheckpoint={status:'VERIFIED_ENCRYPTED_PARTIAL_CHECKPOINT',hiddenTaskCount:p.tasks.length,retainedCandidateAnswers:p.calls.length,missingCandidateAnswers:p.tasks.length*2-p.calls.length,missingEvaluatorCalls:1,minimumPaidCalls:p.tasks.length*2-p.calls.length+1,taskCommitment:p.taskCommitment,inheritedSpendUsd:p.inheritedSpendUsd,sealedPayloadsExposed:false};
+   }catch{resumeCheckpoint={status:'ENCRYPTED_CHECKPOINT_NOT_VERIFIED',sealedPayloadsExposed:false};}
+  }
+  return {resumeCheckpoint,status:'READ_ONLY_CROWN_RECOVERY',providerCallsPerformed:0,sealedPayloadsExposed:false,states,inventory};
 }

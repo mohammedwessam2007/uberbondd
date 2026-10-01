@@ -36,7 +36,7 @@ const adaptiveMarket=()=>compileInfiniteOpusMarket({data:[
  {id:TYPINGMIND_CROWN_MODEL,canonical_slug:'opus-r1',pricing:{prompt:'0.000004',completion:'0.000020',input_cache_read:'0.0000002',input_cache_write:'0.000005'},context_length:1000000,top_provider:{max_completion_tokens:128000},supported_parameters:['tools','structured_outputs'],architecture:{input_modalities:['text']}}
 ]},{verifiedAt:iso,ttlMs:86400000});
 
-const admission=(provider='Anthropic',routeIdentity=TYPINGMIND_CROWN_ROUTE_IDENTITY)=>{
+const admission=(provider='Amazon Bedrock',routeIdentity=TYPINGMIND_CROWN_ROUTE_IDENTITY)=>{
  const issued=issueCrownAdmissionReceipt({
   providerCallId:'tournament-opus',exactModelId:TYPINGMIND_CROWN_MODEL,providerIdentity:provider,routeIdentity,
   taskClassRole:'GENERAL_CROWN',promptProgramHash:h('prompt'),semanticInputHash:h('input'),qualityContractHash:h('quality'),
@@ -54,7 +54,7 @@ const builderRequest=()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND
 const directRequest=()=>compileTypingMindChatRequest({model:TYPINGMIND_UBERMIND_MODEL,messages:[{role:'user',content:'Short exact explanation.'}],max_tokens:100});
 const key=usage=>({data:{label:'uberbond-runtime-20',limit:20,limit_remaining:20-usage,usage_monthly:usage,limit_reset:'monthly'}});
 
-function builderSequence({crownProvider='Anthropic',crownReview={verdict:'ACCEPT',patches:[],rewrite:''},hardScore=2}={}){
+function builderSequence({crownProvider='Amazon Bedrock',crownReview={verdict:'ACCEPT',patches:[],rewrite:''},hardScore=2}={}){
  return [
   key(0),
   {model:'typesafe/jev-1.13-20260917',answers:{
@@ -78,7 +78,7 @@ function builderSequence({crownProvider='Anthropic',crownReview={verdict:'ACCEPT
  ];
 }
 
-function directSequence({provider='Anthropic',text='Direct Crown answer'}={}){
+function directSequence({provider='Amazon Bedrock',text='Direct Crown answer'}={}){
  return [
   key(0),
   {id:'g-direct',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:text}}],usage:{cost:.002,prompt_tokens:50,completion_tokens:20,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
@@ -156,7 +156,7 @@ test('Crown structured REWRITE becomes direct Crown answer',async()=>{
 test('upstream Crown provider drift refuses authority after observed paid calls',async()=>{
  const rows=builderSequence({crownProvider:'Unexpected Provider'});let calls=0;
  const fetchImpl=async()=>{calls++;return {ok:true,status:200,text:async()=>JSON.stringify(rows.shift())};};
- const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission('Anthropic'),marketSnapshot:market(),fetchImpl,clock:()=>now});
+ const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:admission('Amazon Bedrock'),marketSnapshot:market(),fetchImpl,clock:()=>now});
  const out=await o.execute(builderRequest());
  assert.equal(out.ok,false);assert.equal(out.status,'CROWN_PROVIDER_OR_ROUTE_DRIFT_REFUSED');
  assert.equal(out.semanticAuthority,'NONE');assert.equal(out.qualityAction,'QUEUE_NEVER_DOWNGRADE');
@@ -165,7 +165,7 @@ test('upstream Crown provider drift refuses authority after observed paid calls'
 
 test('routing-policy mismatch in Crown Admission Receipt refuses before paid inference',async()=>{
  let calls=0;const fetchImpl=async()=>{calls++;throw new Error('provider-must-not-be-called');};
- const wrong=admission('Anthropic','openrouter:different-policy');
+ const wrong=admission('Amazon Bedrock','openrouter:different-policy');
  const o=createTypingMindLiveOrchestrator({store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),paidAuthorization:authorization(),crownAdmission:wrong,marketSnapshot:market(),fetchImpl,clock:()=>now});
  assert.equal(o.readiness().ok,false);
  const out=await o.execute(builderRequest());
@@ -192,7 +192,7 @@ function adaptiveWriterSequence({writerModel,shape='source_heavy',hardScore=0,in
 
   key(.000242),
   {id:'g-crown',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:JSON.stringify({verdict:'ACCEPT',patches:[],rewrite:''})}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:8,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:'Anthropic',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:8}},
+  {data:{provider_name:'Amazon Bedrock',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:8}},
   key(.002242)
  ];
 }
@@ -230,7 +230,7 @@ test('empty cheap candidate falls back to direct Opus and preserves sunk writer 
   key(.000242),
   key(.000242),
   {id:'g-direct-after-empty',model:TYPINGMIND_CROWN_MODEL,choices:[{message:{role:'assistant',content:'Direct Crown fallback'}}],usage:{cost:.002,prompt_tokens:150,completion_tokens:20,prompt_tokens_details:{cached_tokens:0,cache_write_tokens:0}}},
-  {data:{provider_name:'Anthropic',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:20}},
+  {data:{provider_name:'Amazon Bedrock',router:'openrouter/auto',model:TYPINGMIND_CROWN_MODEL,total_cost:.002,tokens_prompt:150,tokens_completion:20}},
   key(.002242)
  ];
  const fetchImpl=async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())});
@@ -267,4 +267,32 @@ test('worker budget cannot consume protected Crown reserve before any calls',asy
  const snap=await o.runtime.snapshot();
  assert.equal(snap.budget.crownEscrowRemainingMicrousd,15_000_000);
  assert.equal(snap.budget.workerAvailableMicrousd,5_000_000);
+});
+
+
+test('admitted Bedrock Crown is pinned to the same ZDR transport at live execution',async()=>{
+ const rows=directSequence({provider:'Amazon Bedrock',text:'Pinned Crown answer'});
+ const seen=[];
+ const fetchImpl=async(url,opts={})=>{
+   if(String(url).includes('/chat/completions')){
+     const body=JSON.parse(opts.body);seen.push(body);
+   }
+   const body=rows.shift();assert.ok(body,'unexpected provider call');
+   return {ok:true,status:200,text:async()=>JSON.stringify(body)};
+ };
+ const o=createTypingMindLiveOrchestrator({
+   store:makeStore(),openRouterKey:'sk-or-v1-'+'x'.repeat(32),
+   paidAuthorization:authorization(),crownAdmission:admission('Amazon Bedrock'),
+   marketSnapshot:market(),fetchImpl,clock:()=>now
+ });
+ assert.equal(o.readiness().ok,true);
+ const out=await o.execute(directRequest());
+ assert.equal(out.ok,true);
+ const crownReq=seen.find(x=>x.model===TYPINGMIND_CROWN_MODEL);
+ assert.ok(crownReq);
+ assert.deepEqual(crownReq.provider.order,['amazon-bedrock']);
+ assert.equal(crownReq.provider.allow_fallbacks,false);
+ assert.equal(crownReq.provider.zdr,true);
+ assert.equal(crownReq.provider.data_collection,'deny');
+ assert.equal(out.crownReceipt.upstreamProvider,'Amazon Bedrock');
 });

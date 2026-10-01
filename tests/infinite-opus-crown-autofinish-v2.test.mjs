@@ -39,3 +39,20 @@ test('v2 crosses the retry gate only for the exact v1 parser failure and then fa
     assert.equal(calls,1);
   } finally { globalThis.fetch=priorFetch; }
 });
+
+
+test('v2 never retries itself after any prior v2 attempt',async()=>{
+  let calls=0;
+  const priorFetch=globalThis.fetch;
+  globalThis.fetch=async()=>{calls++;throw new Error('network-should-not-run');};
+  try{
+    const seed={
+      infinite_opus_crown_autofinish_20261001_v1:{status:'FAILED_NO_AUTOMATIC_RETRY',reason:'sealed-json-parse-failed',newSpendUsd:0.010025},
+      infinite_opus_crown_autofinish_20261001_v2:{status:'FAILED_NO_AUTOMATIC_RETRY',reason:'provider-call-refused',newSpendUsd:0}
+    };
+    const out=await runCrownAutoFinish({store:makeStore(seed),apiKey:'fake',paidAuthorization:{evidenceRef:'owner-test'},mainSha:'sha'});
+    assert.equal(out.ok,false);
+    assert.equal(out.status,'AUTOFINISH_V2_ALREADY_ATTEMPTED_NO_RETRY');
+    assert.equal(calls,0);
+  } finally { globalThis.fetch=priorFetch; }
+});

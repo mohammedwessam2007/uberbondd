@@ -2,7 +2,9 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v4';
+const KEY='infinite_opus_crown_autofinish_20261001_v5';
+const PRIOR_KEY='infinite_opus_crown_autofinish_20261001_v4';
+const PRIOR_EXPECTED_SPEND_USD=0.014205;
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -43,8 +45,8 @@ const callUpperBoundUsd=({model,messages,maxTokens,responseFormat})=>{
   const inputTokensUpper=inputBytes+4096;
   return (inputTokensUpper*cap.prompt+Number(maxTokens)*cap.completion)/1_000_000;
 };
-async function getState(store){
-  return store.transaction(async tx=>(await tx.getSettings())[KEY]??null);
+async function getState(store,key=KEY){
+  return store.transaction(async tx=>(await tx.getSettings())[key]??null);
 }
 async function setState(store,patch){
   return store.transaction(async tx=>{
@@ -115,7 +117,7 @@ function gradeResponseFormat(){
 function taskGenerationMessages(){
  return [
   {role:'system',content:'You are an independent sealed benchmark custodian. Create exactly two fresh, difficult GENERAL_CROWN tasks testing broad reasoning, evidence discipline, constraint tracking, counterexample handling, and synthesis. Tasks must be self-contained, text-only, answerable without web/tools, not depend on obscure trivia, and have objective evaluation criteria. Return strict JSON only. Never mention candidate model names.'},
-  {role:'user',content:'Return {"tasks":[{"id":"t1","prompt":"...","rubric":["..."],"must_not":["..."]},{"id":"t2","prompt":"...","rubric":["..."],"must_not":["..."]}]}. Each prompt should fit under 900 UTF-8 bytes and each rubric should contain 5-8 concise requirements.'}
+  {role:'user',content:'Return {"tasks":[{"id":"t1","prompt":"...","rubric":["..."],"must_not":["..."]},{"id":"t2","prompt":"...","rubric":["..."],"must_not":["..."]}]}. Each prompt should fit under 2200 UTF-8 bytes and each rubric should contain 5-8 concise requirements.'}
  ];
 }
 function evaluationMessages(tasks,blind){
@@ -127,6 +129,8 @@ function evaluationMessages(tasks,blind){
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
+ const priorV4=await getState(store,PRIOR_KEY);
+ if(priorV4?.status!=='FAILED_NO_AUTOMATIC_RETRY'||priorV4?.reason!=='hidden-task-contract-refused:0'||Math.abs(Number(priorV4?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9)return {ok:false,status:'AUTOFINISH_V5_PRIOR_STATE_REFUSED',reason:'exact-v4-hidden-task-contract-failure-required'};
  if(prior)return {
    ok:prior.status==='COMPLETE',
    status:prior.status==='COMPLETE'?'AUTOFINISH_ALREADY_COMPLETE':'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',
@@ -158,7 +162,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    const tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
-     if(typeof t?.prompt!=='string'||Buffer.byteLength(t.prompt)>900||!Array.isArray(t.rubric)||t.rubric.length<5)throw new Error('hidden-task-contract-refused:'+i);
+     if(typeof t?.prompt!=='string'||Buffer.byteLength(t.prompt)>2400||!Array.isArray(t.rubric)||t.rubric.length<5)throw new Error('hidden-task-contract-refused:'+i);
      t.id='sealed-'+(i+1)+'-'+h(t.prompt).slice(7,19);
    }
    const taskCommitment=h(tasks.map(t=>({id:t.id,promptHash:h(t.prompt),rubricHash:h(t.rubric),mustNotHash:h(t.must_not??[])})));

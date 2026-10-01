@@ -92,6 +92,23 @@ export function compileWinnrCredentialImport({
   const rawRows = objectsFromCsv(csvText);
   const prepared = [];
   const failures = [];
+  if (!/^[a-f0-9]{64}$/i.test(String(encryptionKey || ''))) {
+    return Object.freeze({
+      version: UBERWINNR_CREDENTIAL_IMPORT_VERSION,
+      status: 'IMPORT_REFUSED',
+      inputRowCount: rawRows.length,
+      preparedCount: 0,
+      failureCount: rawRows.length || 1,
+      prepared: [],
+      failures: [{ index: null, email: null, reasonCodes: ['valid-encryption-key-required'] }],
+      sourceDigest: `sha256:${sha256(csvText)}`,
+      plaintextCredentialReturned: false,
+      providerCalls: 0,
+      messagesSent: 0,
+      externalEffectAuthority: 'NONE',
+      truthBoundary: 'Credential import is refused before secret handling unless a valid 32-byte hex encryption key is supplied.'
+    });
+  }
 
   for (let index = 0; index < rawRows.length; index += 1) {
     const row = normalizedRow(rawRows[index]);

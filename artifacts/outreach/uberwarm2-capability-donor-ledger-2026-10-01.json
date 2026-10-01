@@ -62,10 +62,25 @@
         "event-id dedupe",
         "message-id mapping",
         "domain readiness events",
-        "bounce complaint inbound events"
+        "bounce complaint inbound events",
+        "manual BYO-domain connection schema",
+        "manual DNS record retrieval and verification",
+        "credential export selector schema",
+        "write-scoped secret export boundary"
       ],
       "directCodeCopied": false,
-      "status": "ADAPTER_IMPLEMENTED_PENDING_REAL_ACCOUNT_EVIDENCE"
+      "status": "ADAPTER_IMPLEMENTED_PENDING_REAL_ACCOUNT_EVIDENCE",
+      "officialMcpRepository": "winnr-app/winnr-mcp",
+      "license": "MIT",
+      "licenseEvidence": {
+        "path": "LICENSE",
+        "sha": "945527f5007f4eb09f121448638fcbb67384e0ce"
+      },
+      "sourceEvidence": {
+        "exportToolSha": "bcec6bccd5600ee264bb16cd057d8ee876222d1c",
+        "domainToolSha": "54cbacdf3b26cfa5f9c6163e47a84981ef8b3625",
+        "mailboxToolSha": "6e3e3caa7dd1cf4c40b262257693c7ff14021f21"
+      }
     }
   ],
   "internalized": [
@@ -76,7 +91,10 @@
     "guarded Winnr REST adapter",
     "signed webhook verification",
     "uncertain-write no-retry behavior",
-    "post-purchase activation checklist"
+    "post-purchase activation checklist",
+    "Winnr manual-DNS domain adapter",
+    "Winnr credential-export adapter",
+    "encrypted Winnr generic credential import into UberFleet/UberIMAP"
   ],
   "forbidden": [
     "private source theft",

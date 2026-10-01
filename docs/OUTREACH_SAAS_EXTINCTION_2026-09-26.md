@@ -1,5 +1,18 @@
 # UberBond Outreach SaaS Extinction Ledger
 
+## 2026-10-01 supersession addendum: UberWarm²
+
+This historical 2026-09-26 ledger remains preserved, but one procurement assumption is superseded by newer source.
+
+**Old assumption:** the external sender substrate had to supply outbound transport, inbound replies **and provider warm-up**.
+
+**Current assumption after UberWarm²:** the mandatory physical substrate needs authorized outbound SMTP plus inbound IMAP/replies/forwarding. Provider warm-up is an optional supplier feature because UberBond now owns the evidence-ramp control plane through UberWarm² + UberPlacement + UberWarm + UberQuality.
+
+New donor/provenance record: `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`.  
+Current purchase gate: `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`.
+
+This does **not** claim that reputation can be fabricated internally. Real recipient-network placement, elapsed history and provider/customer outcomes remain external evidence.
+
 Date: 2026-09-26  
 Branch: `feat/outreach-saas-extinction-20260926`  
 Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is claimed by this document.

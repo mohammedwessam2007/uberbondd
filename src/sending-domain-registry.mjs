@@ -21,7 +21,7 @@ export const SENDING_DOMAIN_STATES = Object.freeze([
   'READY_FOR_LIMITED_OUTREACH', 'PAUSED', 'BLOCKED', 'UNCERTAIN', 'RETIRED'
 ]);
 
-export const OWNERSHIP_STATUSES = Object.freeze(['OWNER_CONFIRMED', 'UNVERIFIED']);
+export const OWNERSHIP_STATUSES = Object.freeze(['OWNER_CONFIRMED', 'PROVIDER_CONTROL_CONFIRMED', 'UNVERIFIED']);
 
 const DOMAIN_EVENT_TYPE = 'sending_domain_event';
 const DOMAIN_NAME_PATTERN = /^(?!-)[a-z0-9-]{1,63}(?<!-)(\.[a-z0-9-]{1,63})+$/i;
@@ -183,7 +183,8 @@ export function computeSendingDomainState(events = [], { date = new Date(), minW
   const registered = events.find(e => e.kind === 'REGISTERED');
   if (!registered) return null;
 
-  let state = registered.ownershipStatus === 'OWNER_CONFIRMED' ? 'DNS_INCOMPLETE' : 'OWNERSHIP_UNVERIFIED';
+  const controlConfirmed = ['OWNER_CONFIRMED', 'PROVIDER_CONTROL_CONFIRMED'].includes(registered.ownershipStatus);
+  let state = controlConfirmed ? 'DNS_INCOMPLETE' : 'OWNERSHIP_UNVERIFIED';
   let dns = { status: 'UNKNOWN', lastVerifiedAt: null, checks: null, reasonCodes: [] };
   let linkedMailboxIds = [];
   let warmupState = 'WARMUP_NOT_STARTED';
@@ -225,9 +226,9 @@ export function computeSendingDomainState(events = [], { date = new Date(), minW
     }
   }
 
-  if (registered.ownershipStatus !== 'OWNER_CONFIRMED') {
+  if (!controlConfirmed) {
     state = 'OWNERSHIP_UNVERIFIED';
-    statusReason = 'Domain ownership has not been confirmed.';
+    statusReason = 'Domain ownership or authorized provider control has not been confirmed.';
   } else if (dns.status === 'UNKNOWN') {
     state = 'DNS_INCOMPLETE';
     statusReason = 'DNS has not been verified yet.';

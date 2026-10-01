@@ -8,9 +8,9 @@ import { computeSendingDomainState } from '../src/sending-domain-registry.mjs';
 
 const CSV=[
   'domain,from_email,from_name,user_name,password,smtp_host,smtp_port,imap_host,imap_port,imap_username,imap_password,footer',
-  'pilot.example,sam@pilot.example,Sam,sam@pilot.example,p1,smtp.example.net,465,imap.example.net,993,sam@pilot.example,p1,',
-  'pilot.example,alex@pilot.example,Alex,alex@pilot.example,p2,smtp.example.net,465,imap.example.net,993,alex@pilot.example,p2,',
-  'pilot.example,ria@pilot.example,Ria,ria@pilot.example,p3,smtp.example.net,465,imap.example.net,993,ria@pilot.example,p3,'
+  'pilot-outreach.co,sam@pilot-outreach.co,Sam,sam@pilot-outreach.co,p1,smtp.example.net,465,imap.example.net,993,sam@pilot-outreach.co,p1,',
+  'pilot-outreach.co,alex@pilot-outreach.co,Alex,alex@pilot-outreach.co,p2,smtp.example.net,465,imap.example.net,993,alex@pilot-outreach.co,p2,',
+  'pilot-outreach.co,ria@pilot-outreach.co,Ria,ria@pilot-outreach.co,p3,smtp.example.net,465,imap.example.net,993,ria@pilot-outreach.co,p3,'
 ].join('\n');
 
 function store(){
@@ -65,7 +65,7 @@ test('post-purchase registry application is idempotent over deterministic identi
 });
 
 test('post-purchase plan refuses mixed-domain credential exports',()=>{
-  const mixed=CSV+'\nother.example,x@other.example,X,x@other.example,p,smtp.example.net,465,imap.example.net,993,x@other.example,p,';
+  const mixed=CSV+'\nother-outreach.co,x@other-outreach.co,X,x@other-outreach.co,p,smtp.example.net,465,imap.example.net,993,x@other-outreach.co,p,';
   const p=compileWinnrPostPurchaseRegistryPlan({csvText:mixed});
   assert.equal(p.ok,false);
   assert.ok(p.reasonCodes.includes('exactly-one-prewarmed-domain-required'));

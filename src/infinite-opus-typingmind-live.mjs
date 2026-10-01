@@ -21,6 +21,12 @@ export const TYPINGMIND_CROWN_MODEL='anthropic/claude-opus-5.5';
 export const TYPINGMIND_JEV_MODEL='typesafe/jev-1.13';
 export const TYPINGMIND_CROWN_ROUTE_IDENTITY='openrouter:auto-provider-zdr-deny-required-parameters-v1';
 const PLATFORM_FEE_RATE=.055;
+const CROWN_PROVIDER_SLUGS=Object.freeze({
+  'Amazon Bedrock':'amazon-bedrock',
+  'Azure':'azure',
+  'Google Vertex':'google-vertex/global',
+  'Claude Platform on AWS':'anthropic-aws'
+});
 
 const contentText=message=>{
   const c=message?.content;
@@ -51,6 +57,7 @@ export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission
   if(!(paidAuthorization?.crownRoutes??[]).includes(routeKey('openrouter',TYPINGMIND_CROWN_MODEL)))reasons.push('opus-crown-route-not-authorized');
   const crown=verifyCrownAdmissionReceipt(crownAdmission,{now,expected:{exactModelId:TYPINGMIND_CROWN_MODEL,taskClassRole:'GENERAL_CROWN',routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY}});
   if(!crown.ok)reasons.push('valid-current-general-crown-admission-required');
+  else if(!CROWN_PROVIDER_SLUGS[crownAdmission?.providerIdentity])reasons.push('supported-zdr-crown-provider-required');
   try{selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,now);selectCurrentPrice(marketSnapshot,TYPINGMIND_CROWN_MODEL,now);}
   catch{reasons.push('fresh-builder-and-crown-price-records-required');}
   return {ok:reasons.length===0,status:reasons.length?'TYPINGMIND_UBERMIND_LIVE_NOT_READY':'TYPINGMIND_UBERMIND_LIVE_READY',reasons,
@@ -93,7 +100,12 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       sessionId:payload.sessionId,
       reasoning:payload.reasoning,
       responseFormat:payload.responseFormat,
-      providerPolicy:{data_collection:'deny',require_parameters:true},
+      providerPolicy:{
+        data_collection:'deny',require_parameters:true,
+        ...(payload.model===TYPINGMIND_CROWN_MODEL && CROWN_PROVIDER_SLUGS[crownAdmission?.providerIdentity]
+          ? {order:[CROWN_PROVIDER_SLUGS[crownAdmission.providerIdentity]],allow_fallbacks:false}
+          : {})
+      },
       responseCache:payload.responseCache===true
     });
     // The runtime accounting provider is OpenRouter. Preserve the actual

@@ -2,9 +2,9 @@ import crypto from 'node:crypto';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
-const KEY='infinite_opus_crown_autofinish_20261001_v6';
-const PRIOR_KEY='infinite_opus_crown_autofinish_20261001_v5';
-const PRIOR_EXPECTED_SPEND_USD=0.01104375;
+const KEY='infinite_opus_crown_autofinish_20261001_v7';
+const PRIOR_KEY='infinite_opus_crown_autofinish_20261001_v6';
+const PRIOR_EXPECTED_SPEND_USD=0.01437375;
 const EVALUATOR='google/gemini-2.5-pro';
 const OPUS='anthropic/claude-opus-5.5';
 const SOL='openai/gpt-6.1-sol-pro';
@@ -69,7 +69,7 @@ async function generation(apiKey,id){
   throw new Error('generation-reconciliation-required:'+id);
 }
 async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoningTokens=null}){
-  const body={model,messages,max_tokens:maxTokens,stream:false,temperature:0,
+  const body={model,messages,max_tokens:maxTokens,stream:false,
     ...(responseFormat?{response_format:responseFormat}:{}),
     ...(Number.isInteger(reasoningTokens)?{reasoning:{max_tokens:reasoningTokens,exclude:true}}:{}),
     provider:{order:[provider],allow_fallbacks:false,require_parameters:true,data_collection:'deny',zdr:true,
@@ -129,8 +129,8 @@ function evaluationMessages(tasks,blind){
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
- const priorV5=await getState(store,PRIOR_KEY);
- if(priorV5?.status!=='FAILED_NO_AUTOMATIC_RETRY'||!String(priorV5?.reason||'').startsWith('provider-call-refused:anthropic/claude-opus-5.5:404:')||Math.abs(Number(priorV5?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9)return {ok:false,status:'AUTOFINISH_V6_PRIOR_STATE_REFUSED',reason:'exact-v5-zdr-provider-refusal-required'};
+ const priorV6=await getState(store,PRIOR_KEY);
+ if(priorV6?.status!=='FAILED_NO_AUTOMATIC_RETRY'||!String(priorV6?.reason||'').startsWith('provider-call-refused:anthropic/claude-opus-5.5:404:')||Math.abs(Number(priorV6?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9)return {ok:false,status:'AUTOFINISH_V7_PRIOR_STATE_REFUSED',reason:'exact-v6-parameter-routing-refusal-required'};
  if(prior)return {
    ok:prior.status==='COMPLETE',
    status:prior.status==='COMPLETE'?'AUTOFINISH_ALREADY_COMPLETE':'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY',

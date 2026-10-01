@@ -232,7 +232,8 @@
     "infinite-opus:crown:tournament": "node scripts/infinite-opus-crown-tournament-adjudicate.mjs",
     "infinite-opus:crown:admit": "node scripts/infinite-opus-crown-admission-mint.mjs",
     "test:infinite-opus:astra-activation": "node --test tests/infinite-opus-astra-activation-chain.test.mjs",
-    "infinite-opus:astra:preflight": "node scripts/infinite-opus-astra-preflight.mjs"
+    "infinite-opus:astra:preflight": "node scripts/infinite-opus-astra-preflight.mjs",
+    "outreach:winnr:doctor": "node scripts/winnr-post-purchase-doctor.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

@@ -5,7 +5,8 @@
 // into conservative cold-send caps, quarantine decisions, and the next
 // evidence UberBond needs before widening a sender.
 
-export const UBERWARM_VERSION = 'uberbond.uberwarm.v1';
+export const UBERWARM_VERSION = 'uberbond.uberwarm.v1.1';
+export const UBERWARM_MODES = Object.freeze(['PROVIDER', 'EVIDENCE_RAMP']);
 
 export const UBERWARM_STATES = Object.freeze([
   'BLOCKED',
@@ -24,6 +25,11 @@ export const DEFAULT_UBERWARM_POLICY = Object.freeze({
   maxSpamPlacementRate: 0.20,
   minInboxPlacementRate: 0.75,
   canaryDailyCap: 5,
+  evidenceCanaryDailyCap: 2,
+  minEvidenceRampDays: 7,
+  minEvidenceDeliveries: 20,
+  minPlacementObservationCoverage: 0.5,
+  minPlacementProviderCount: 2,
   rampIncrement: 5,
   maxColdDailyCap: 40
 });
@@ -53,12 +59,18 @@ function normalizedPolicy(input = {}) {
     maxSpamPlacementRate: clamp(input.maxSpamPlacementRate, base.maxSpamPlacementRate, 0, 1),
     minInboxPlacementRate: clamp(input.minInboxPlacementRate, base.minInboxPlacementRate, 0, 1),
     canaryDailyCap: finiteInt(input.canaryDailyCap, base.canaryDailyCap, 1, 1000),
+    evidenceCanaryDailyCap: finiteInt(input.evidenceCanaryDailyCap, base.evidenceCanaryDailyCap, 1, 1000),
+    minEvidenceRampDays: finiteInt(input.minEvidenceRampDays, base.minEvidenceRampDays, 0, 180),
+    minEvidenceDeliveries: finiteInt(input.minEvidenceDeliveries, base.minEvidenceDeliveries, 1, 1000000),
+    minPlacementObservationCoverage: clamp(input.minPlacementObservationCoverage, base.minPlacementObservationCoverage, 0, 1),
+    minPlacementProviderCount: finiteInt(input.minPlacementProviderCount, base.minPlacementProviderCount, 1, 20),
     rampIncrement: finiteInt(input.rampIncrement, base.rampIncrement, 1, 1000),
     maxColdDailyCap: finiteInt(input.maxColdDailyCap, base.maxColdDailyCap, 1, 10000)
   };
 }
 
 function observedNumber(value) {
+  if (value === null || value === undefined || value === '') return null;
   const parsed = Number(value);
   return Number.isFinite(parsed) ? parsed : null;
 }
@@ -95,6 +107,8 @@ export function evaluateUberWarmMailbox({ mailboxState = {}, observations = {}, 
   const paused = mailboxState.paused === true || observations.paused === true;
   const warmupStatus = String(mailboxState.warmupStatus || observations.warmupStatus || '').toUpperCase();
   const warmupDays = finiteInt(observations.warmupDays, 0, 0, 3650);
+  const warmupMode = String(mailboxState.warmupMode || observations.warmupMode || 'PROVIDER').toUpperCase();
+  const evidenceRamp = warmupMode === 'EVIDENCE_RAMP';
 
   if (!authenticated) reasons.push('mailbox-not-authenticated');
   if (paused) reasons.push('mailbox-paused');
@@ -103,7 +117,7 @@ export function evaluateUberWarmMailbox({ mailboxState = {}, observations = {}, 
     return baseResult({ state: paused ? 'QUARANTINED' : 'BLOCKED', mailboxId, address, reasons, nextEvidence, timestamp });
   }
 
-  if (warmupStatus !== 'WARMUP_COMPLETE' || warmupDays < cfg.minWarmupDays) {
+  if (!evidenceRamp && (warmupStatus !== 'WARMUP_COMPLETE' || warmupDays < cfg.minWarmupDays)) {
     reasons.push(warmupStatus !== 'WARMUP_COMPLETE' ? 'warmup-not-complete' : 'minimum-warmup-period-not-observed');
     nextEvidence.push('provider-observed-warmup-complete', `warmup-age-at-least-${cfg.minWarmupDays}-days`);
     return baseResult({ state: 'WARMING', mailboxId, address, reasons, nextEvidence, timestamp });
@@ -114,6 +128,8 @@ export function evaluateUberWarmMailbox({ mailboxState = {}, observations = {}, 
   const hardBounceRate = observedNumber(observations.hardBounceRate);
   const spamPlacementRate = observedNumber(observations.spamPlacementRate);
   const inboxPlacementRate = observedNumber(observations.inboxPlacementRate);
+  const placementCoverage = clamp(observations.placementObservationCoverage, 0, 0, 1);
+  const placementProvidersObserved = finiteInt(observations.placementProvidersObserved, 0, 0, 50);
 
   const severe = [];
   if (complaintRate != null && complaintRate > cfg.maxComplaintRate) severe.push('complaint-rate-above-policy');
@@ -129,6 +145,48 @@ export function evaluateUberWarmMailbox({ mailboxState = {}, observations = {}, 
       nextEvidence: ['fresh-provider-health-receipt', 'fresh-placement-observation', 'circuit-breaker-clearance'],
       timestamp
     });
+  }
+
+  if (evidenceRamp) {
+    if (observations.evidenceRampAuthorized !== true) {
+      return baseResult({
+        state: 'BLOCKED', mailboxId, address,
+        reasons: ['evidence-ramp-not-explicitly-enabled'],
+        nextEvidence: ['explicit-evidence-ramp-authorization'],
+        timestamp
+      });
+    }
+
+    const conditioningDays = finiteInt(observations.conditioningDays ?? warmupDays, 0, 0, 3650);
+    if (placementCoverage <= 0 || placementProvidersObserved < 1) {
+      return baseResult({
+        state: 'WARMING', mailboxId, address,
+        reasons: ['owner-controlled-placement-evidence-required-before-cold-canary'],
+        nextEvidence: ['owner-controlled-placement-probe-observation'],
+        timestamp
+      });
+    }
+
+    const evidenceGaps = [];
+    if (conditioningDays < cfg.minEvidenceRampDays) evidenceGaps.push('minimum-evidence-conditioning-period-not-observed');
+    if (delivered < cfg.minEvidenceDeliveries) evidenceGaps.push('minimum-clean-delivery-evidence-not-observed');
+    if (placementCoverage < cfg.minPlacementObservationCoverage) evidenceGaps.push('placement-observation-coverage-below-policy');
+    if (placementProvidersObserved < cfg.minPlacementProviderCount) evidenceGaps.push('recipient-provider-diversity-below-policy');
+
+    if (evidenceGaps.length) {
+      return baseResult({
+        state: 'LIMITED_CANARY', mailboxId, address, reasons: evidenceGaps,
+        coldSendCap: Math.min(cfg.evidenceCanaryDailyCap, finiteInt(observations.providerDailyCap ?? mailboxState.currentDailyCap, cfg.evidenceCanaryDailyCap, 1, 1000000)),
+        score: 0.25,
+        nextEvidence: [
+          `conditioning-age-at-least-${cfg.minEvidenceRampDays}-days`,
+          `at-least-${cfg.minEvidenceDeliveries}-observed-clean-deliveries`,
+          `placement-coverage-at-least-${cfg.minPlacementObservationCoverage}`,
+          `recipient-provider-count-at-least-${cfg.minPlacementProviderCount}`
+        ],
+        timestamp
+      });
+    }
   }
 
   const missing = [];

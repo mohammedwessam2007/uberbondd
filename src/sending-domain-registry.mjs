@@ -21,7 +21,7 @@ export const SENDING_DOMAIN_STATES = Object.freeze([
   'READY_FOR_LIMITED_OUTREACH', 'PAUSED', 'BLOCKED', 'UNCERTAIN', 'RETIRED'
 ]);
 
-export const OWNERSHIP_STATUSES = Object.freeze(['OWNER_CONFIRMED', 'UNVERIFIED']);
+export const OWNERSHIP_STATUSES = Object.freeze(['OWNER_CONFIRMED', 'PROVIDER_CONTROL_CONFIRMED', 'UNVERIFIED']);
 
 const DOMAIN_EVENT_TYPE = 'sending_domain_event';
 const DOMAIN_NAME_PATTERN = /^(?!-)[a-z0-9-]{1,63}(?<!-)(\.[a-z0-9-]{1,63})+$/i;
@@ -48,11 +48,8 @@ function failed(reasonCodes, timestamp) {
   return { ok: false, policyVersion: SENDING_DOMAIN_REGISTRY_POLICY_VERSION, reasonCodes: [...new Set(reasonCodes.filter(Boolean))], timestamp };
 }
 
-// Registers a domain the owner represents as already purchased/owned. This
-// never contacts a registrar and never verifies ownership itself -- ownership
-// verification (e.g. a DNS TXT challenge) is a real, separate capability not
-// built this wave; ownershipStatus stays whatever the caller honestly
-// supplies, defaulting to the conservative UNVERIFIED.
+// Registers a domain that is either owner-controlled or explicitly controlled through an authorized provider account. This
+// never contacts a registrar and never verifies ownership/provider control itself. Verification (for example a DNS challenge or provider entitlement receipt) remains a separate capability; ownershipStatus stays whatever the caller honestly supplies, defaulting to the conservative UNVERIFIED.
 export function registerSendingDomain({
   store, domainId, workspaceId, domain, registrar = '', ownershipStatus = 'UNVERIFIED',
   purpose = 'outreach', provider = '', simulation = false, date = new Date()
@@ -162,8 +159,8 @@ function nextSafeAction(state, ctx) {
     case 'DNS_INCOMPLETE': return 'Add the exact DNS records the provider requires, then re-run DNS verification.';
     case 'DNS_CONTRADICTORY': return 'Resolve contradictory DNS records (e.g. duplicate SPF) before proceeding -- do not add a second record.';
     case 'MAILBOX_UNVERIFIED': return 'Connect and authenticate at least one mailbox on this domain.';
-    case 'WARMUP_NOT_STARTED': return 'Request native provider warm-up for the linked mailbox.';
-    case 'WARMING': return `Warm-up is in progress. Cold outreach stays locked until at least ${ctx.minWarmupDays ?? 14} days have elapsed and the provider reports warm-up complete.`;
+    case 'WARMUP_NOT_STARTED': return 'Start an approved reputation-evidence ramp for the linked mailbox. A paid provider warm-up product is not inherently required.';
+    case 'WARMING': return 'Reputation evidence is still accumulating. Keep outreach bounded by the active evidence-ramp policy until its completion criteria are observed.';
     case 'READY_FOR_DRY_RUN': return 'Warm-up requirements are met. Owner authorization is required before any real outreach.';
     case 'READY_FOR_LIMITED_OUTREACH': return 'Owner has authorized limited outreach. Respect the configured volume caps.';
     case 'PAUSED': return 'Resolve the pause reason codes, then explicitly resume.';
@@ -183,7 +180,8 @@ export function computeSendingDomainState(events = [], { date = new Date(), minW
   const registered = events.find(e => e.kind === 'REGISTERED');
   if (!registered) return null;
 
-  let state = registered.ownershipStatus === 'OWNER_CONFIRMED' ? 'DNS_INCOMPLETE' : 'OWNERSHIP_UNVERIFIED';
+  const controlConfirmed = ['OWNER_CONFIRMED', 'PROVIDER_CONTROL_CONFIRMED'].includes(registered.ownershipStatus);
+  let state = controlConfirmed ? 'DNS_INCOMPLETE' : 'OWNERSHIP_UNVERIFIED';
   let dns = { status: 'UNKNOWN', lastVerifiedAt: null, checks: null, reasonCodes: [] };
   let linkedMailboxIds = [];
   let warmupState = 'WARMUP_NOT_STARTED';
@@ -225,9 +223,9 @@ export function computeSendingDomainState(events = [], { date = new Date(), minW
     }
   }
 
-  if (registered.ownershipStatus !== 'OWNER_CONFIRMED') {
+  if (!controlConfirmed) {
     state = 'OWNERSHIP_UNVERIFIED';
-    statusReason = 'Domain ownership has not been confirmed.';
+    statusReason = 'Domain ownership or authorized provider control has not been confirmed.';
   } else if (dns.status === 'UNKNOWN') {
     state = 'DNS_INCOMPLETE';
     statusReason = 'DNS has not been verified yet.';

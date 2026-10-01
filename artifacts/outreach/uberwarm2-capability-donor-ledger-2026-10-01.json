@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "uberbond-capability-donor-ledger-1.0.0",
+  "date": "2026-10-01",
+  "program": "UberWarm2",
+  "objective": "Internalize reputation-control software so only reputation-bearing SMTP/IMAP transport remains externally acquired.",
+  "donors": [
+    {
+      "id": "warmbly",
+      "repository": "warmbly/warmbly",
+      "observedRevision": "bada69a408f510f0bca6f4027a0c1473adc9cd65",
+      "license": "Apache-2.0",
+      "licenseEvidence": {
+        "path": "LICENSE",
+        "sha": "ca091504df3e90092cbe39f0fda0e936c36d8a41"
+      },
+      "atoms": [
+        "per-mailbox reputation state",
+        "separate ramp and cold capacity",
+        "partner diversity",
+        "placement seed isolation",
+        "quarantine and recovery states",
+        "placement-over-open evidence",
+        "rolling health windows",
+        "persistent reputation ledger",
+        "provider message-id correlation"
+      ],
+      "directCodeCopied": false,
+      "status": "DONOR_INTERNALIZED_CLEAN_ROOM"
+    },
+    {
+      "id": "warmgrid",
+      "repository": "FassihShah/WarmGrid",
+      "license": "MIT",
+      "licenseEvidence": {
+        "path": "LICENSE",
+        "sha": "acf770e0f7c1ac51ed2b5a626b4bbe9fd99f02f5"
+      },
+      "atoms": [
+        "scheduler/ramp state",
+        "per-mailbox health score",
+        "blacklist observations",
+        "content deduplication",
+        "seed inventory",
+        "SMTP+IMAP provider-neutral loop"
+      ],
+      "rejectedAtoms": [
+        "automatic synthetic reply for reputation manipulation",
+        "automatic spam rescue as manufactured engagement",
+        "closed-loop traffic presented as organic trust"
+      ],
+      "directCodeCopied": false,
+      "status": "DONOR_PARTIALLY_INTERNALIZED_CLEAN_ROOM"
+    },
+    {
+      "id": "winnr",
+      "sourceType": "external_provider_public_api",
+      "atoms": [
+        "API mailbox provisioning",
+        "SMTP/IMAP portability",
+        "async bulk jobs",
+        "signed webhooks",
+        "event-id dedupe",
+        "message-id mapping",
+        "domain readiness events",
+        "bounce complaint inbound events",
+        "manual BYO-domain connection schema",
+        "manual DNS record retrieval and verification",
+        "credential export selector schema",
+        "write-scoped secret export boundary",
+        "read-only POST classification for DNS-provider and blocklist checks",
+        "account and usage introspection",
+        "job reconciliation before retry",
+        "pre-warmed inventory browse/get/blocklist reads",
+        "pre-warmed $3/address no-base-plan procurement atom",
+        "three-address minimum pilot",
+        "two-step purchase confirmation pattern",
+        "GET-only rate-limit retry discipline",
+        "first-party minimum-term contradiction preservation",
+        "MCP no-minimum-term claim vs Help 90-day claim",
+        "separate first-charge vs committed-spend procurement gates"
+      ],
+      "directCodeCopied": false,
+      "status": "ADAPTER_IMPLEMENTED_PENDING_REAL_ACCOUNT_EVIDENCE",
+      "officialMcpRepository": "winnr-app/winnr-mcp",
+      "license": "MIT",
+      "licenseEvidence": {
+        "path": "LICENSE",
+        "sha": "945527f5007f4eb09f121448638fcbb67384e0ce"
+      },
+      "sourceEvidence": {
+        "clientSha": "09744c56544739f0b7d79cc6744150efa6b0726d",
+        "domainToolSha": "54cbacdf3b26cfa5f9c6163e47a84981ef8b3625",
+        "mailboxToolSha": "6e3e3caa7dd1cf4c40b262257693c7ff14021f21",
+        "exportToolSha": "bcec6bccd5600ee264bb16cd057d8ee876222d1c",
+        "webhookToolSha": "af11d0136e456a534de6034c55acc9de593d4620",
+        "inboxToolSha": "4a2e941963c526241f518cba042a61e99d12bba7",
+        "jobsToolSha": "44ce37e8a83750858f6e73aa47cd0b73b376a308",
+        "warmingToolSha": "ece966717ae0782fbac38a95a8e5a72355ee1df4",
+        "prewarmedToolSha": "72affbb2aa0b5ec179df51283af010b46953e942",
+        "accountToolSha": "9fd4722e2262d73eadca907b8abd04cf89ca40c3"
+      }
+    }
+  ],
+  "internalized": [
+    "evidence-ramp state machine",
+    "owner-controlled placement probe planning",
+    "placement-to-ramp evidence bridge",
+    "provider warmup optionality",
+    "guarded Winnr REST adapter",
+    "signed webhook verification",
+    "uncertain-write no-retry behavior",
+    "post-purchase activation checklist",
+    "Winnr manual-DNS domain adapter",
+    "Winnr credential-export adapter",
+    "encrypted Winnr generic credential import into UberFleet/UberIMAP",
+    "Winnr account/usage and job reconciliation reads",
+    "Winnr pre-warmed marketplace evidence adapter",
+    "Winnr pre-warmed procurement frontier compiler",
+    "raw provider write bypass prevention",
+    "webhook HTTPS/event allowlist validation",
+    "credential export selector fail-closed validation"
+  ],
+  "forbidden": [
+    "private source theft",
+    "credential theft",
+    "license stripping",
+    "trade-dress copying",
+    "provider-policy bypass",
+    "fake engagement network",
+    "spam-folder manipulation to evade filters"
+  ],
+  "irreducibleExternal": [
+    "reputation-bearing SMTP/IMAP transport",
+    "real provider account and entitlement",
+    "real recipient-network seed accounts for placement observation",
+    "elapsed reputation",
+    "recipient-network decisions",
+    "campaign-specific legal/provider eligibility",
+    "customer outcomes and cleared payment"
+  ],
+  "truthBoundary": "Winnr is a transport candidate. Written support and first-party source close many policy/API facts, but official MCP source and current Help pages conflict on the pre-warmed minimum term. No purchase authority exists until the binding term and exact committed spend are reconciled.",
+  "procurementFrontier": {
+    "observedAt": "2026-10-02",
+    "firstCashCandidate": "WINNR_PREWARMED_MINIMUM_CANARY",
+    "minimumAddresses": 3,
+    "publicListMonthlyUsd": 9,
+    "nominalNormalColdDaily": 45,
+    "startupMonthlyUsd": 69,
+    "publicPriceCrossoverAddresses": 23,
+    "publicPriceCrossoverNominalColdDaily": 345,
+    "safeToPurchase": false,
+    "remainingExternal": [
+      "explicit minimum-term reconciliation",
+      "exact minimum committed spend at authenticated checkout",
+      "live green inventory",
+      "exact first charge",
+      "authenticated Egypt/card checkout state"
+    ],
+    "firstChargePublicSupportUsd": 9,
+    "helpPageMinimumCommittedUsd": 27,
+    "mcpMinimumTermMonthsClaim": 0,
+    "helpMinimumTermMonthsClaim": 3,
+    "minimumTermConflictObserved": true,
+    "supportWrittenUseCompatible": true,
+    "egyptWrittenAvailable": true,
+    "smtpImapWrittenSupported": true,
+    "recommendedColdPerMailboxPerDay": [
+      10,
+      15
+    ],
+    "hardProviderMailCeilingPerMailboxPerDay": 50
+  }
+}

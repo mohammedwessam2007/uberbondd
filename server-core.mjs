@@ -48,6 +48,10 @@ import {
 import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
 import { buildEncryptedImapAccount } from './src/uberimap.mjs';
 import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
+import { createWinnrApiClient } from './src/uberwinnr-adapter.mjs';
+import { compileWinnrProcurementFrontier } from './src/uberwinnr-procurement-frontier.mjs';
+import { compileWinnrCredentialImport } from './src/uberwinnr-credential-import.mjs';
+import { compileWinnrPostPurchaseRegistryPlan, applyWinnrPostPurchaseRegistryPlan } from './src/uberwinnr-postpurchase.mjs';
 import { buildLeadIntakeRecord } from './src/lead-intelligence-v3.mjs';
 import { compilePublicContactSupply } from './src/ubersupply-public-contact-capacity.mjs';
 import { compileOutreachBuyList } from './src/uberbuy-outreach-bom.mjs';
@@ -95,6 +99,12 @@ const leadCaptureHits = new Map();
 const maildoso = createUberMaildosoAdapter({
   token: config.providers?.maildoso?.apiKey || '',
   baseUrl: config.providers?.maildoso?.baseUrl || 'https://api.maildoso.com'
+});
+const winnr = createWinnrApiClient({
+  token: config.providers?.winnr?.apiKey || '',
+  authorized: config.providers?.winnr?.accountAuthorized === true,
+  termsCompatible: config.providers?.winnr?.termsCompatible === true,
+  evidenceRef: config.providers?.winnr?.termsEvidenceRef || ''
 });
 
 const baseHeaders = {
@@ -1553,6 +1563,222 @@ export const requestHandler = async (req, res) => {
           id:item.account.id,slot:item.account.slot,email:item.account.email,provider:item.account.provider,
           sendingDomainId:item.account.sendingDomainId,sendingMailboxId:item.account.sendingMailboxId
         }))
+      });
+    }
+
+    const winnrUnavailable = () => ({
+      ok: false,
+      status: 'UBERWINNR_RUNTIME_BLOCKED',
+      reasonCodes: winnr?.reasonCodes || ['configured-winnr-client-required'],
+      providerCalls: 0,
+      spendCents: 0
+    });
+    const winnrRows = value => {
+      if (Array.isArray(value)) return value;
+      if (!value || typeof value !== 'object') return [];
+      for (const key of ['items','results','domains','email_users','users','data']) {
+        if (Array.isArray(value[key])) return value[key];
+      }
+      return [];
+    };
+    const winnrDomainObserved = (value, wanted, depth = 0) => {
+      if (depth > 5 || value == null) return false;
+      if (typeof value === 'string') return value.trim().toLowerCase() === String(wanted || '').trim().toLowerCase();
+      if (Array.isArray(value)) return value.some(item => winnrDomainObserved(item, wanted, depth + 1));
+      if (typeof value !== 'object') return false;
+      if (['domain','name'].some(key => typeof value[key] === 'string' && value[key].trim().toLowerCase() === String(wanted || '').trim().toLowerCase())) return true;
+      return Object.values(value).some(item => item && typeof item === 'object' && winnrDomainObserved(item, wanted, depth + 1));
+    };
+
+    if (method === 'GET' && url.pathname === '/api/providers/winnr/account') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.getAccount();
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    if (method === 'GET' && url.pathname === '/api/providers/winnr/usage') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.getUsage();
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    if (method === 'GET' && url.pathname === '/api/providers/winnr/jobs') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.listJobs({
+        limit: Number(url.searchParams.get('limit') || 25),
+        status: url.searchParams.get('status') || '',
+        jobType: url.searchParams.get('type') || ''
+      });
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    if (method === 'GET' && url.pathname === '/api/providers/winnr/prewarmed') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.browsePrewarmed({
+        search: url.searchParams.get('search') || '',
+        sortBy: url.searchParams.get('sortBy') || 'health',
+        includeAll: url.searchParams.get('includeAll') === 'true',
+        page: Number(url.searchParams.get('page') || 1),
+        perPage: Number(url.searchParams.get('perPage') || 50)
+      });
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    if (method === 'GET' && url.pathname === '/api/providers/winnr/prewarmed/my') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.listMyPrewarmed();
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    const winnrPrewarmedBlocklistMatch = url.pathname.match(/^\/api\/providers\/winnr\/prewarmed\/([^/]+)\/blocklist$/);
+    if (method === 'GET' && winnrPrewarmedBlocklistMatch) {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.checkPrewarmedBlocklist({
+        domain: decodeURIComponent(winnrPrewarmedBlocklistMatch[1]),
+        blocklist: url.searchParams.get('list') || ''
+      });
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    const winnrPrewarmedMatch = url.pathname.match(/^\/api\/providers\/winnr\/prewarmed\/([^/]+)$/);
+    if (method === 'GET' && winnrPrewarmedMatch) {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const result = await winnr.getPrewarmed({ domain: decodeURIComponent(winnrPrewarmedMatch[1]) });
+      return json(res, result.ok ? 200 : 502, result);
+    }
+    if (method === 'GET' && url.pathname === '/api/providers/winnr/prepurchase') {
+      const targetDailyCold = Math.max(1, Math.min(5000, Number(url.searchParams.get('targetDailyCold') || 45)));
+      const maxPilotSpendUsd = Math.max(0, Number(url.searchParams.get('maxPilotSpendUsd') || 15));
+      if (!winnr?.ok) {
+        const frontier = compileWinnrProcurementFrontier({
+          targetDailyCold,
+          firstCashUrgent: true,
+          publicTermsCurrent: config.providers?.winnr?.termsCompatible === true,
+          publicTermsCompatible: config.providers?.winnr?.termsCompatible === true,
+          checkoutObserved: false,
+          countryPaymentAccepted: false,
+          inventoryObserved: false,
+          exactFirstChargeObserved: false,
+          maxPilotSpendUsd
+        });
+        return json(res, 503, { ...winnrUnavailable(), frontier });
+      }
+      const account = await winnr.getAccount();
+      const usage = account.ok ? await winnr.getUsage() : { ok:false, providerCalls:0, status:'SKIPPED_ACCOUNT_READ_FAILED' };
+      const inventory = account.ok ? await winnr.browsePrewarmed({ sortBy:'health', page:1, perPage:50 }) : { ok:false, providerCalls:0, status:'SKIPPED_ACCOUNT_READ_FAILED' };
+      const inventoryRows = inventory.ok ? winnrRows(inventory.data) : [];
+      const frontier = compileWinnrProcurementFrontier({
+        targetDailyCold,
+        firstCashUrgent: true,
+        publicTermsCurrent: config.providers?.winnr?.termsCompatible === true,
+        publicTermsCompatible: config.providers?.winnr?.termsCompatible === true,
+        checkoutObserved: false,
+        countryPaymentAccepted: false,
+        inventoryObserved: inventory.ok && inventoryRows.length > 0,
+        exactFirstChargeObserved: false,
+        maxPilotSpendUsd
+      });
+      return json(res, account.ok && usage.ok && inventory.ok ? 200 : 502, {
+        ok: account.ok && usage.ok && inventory.ok,
+        status: account.ok && usage.ok && inventory.ok ? 'UBERWINNR_PREPURCHASE_OBSERVED' : 'UBERWINNR_PREPURCHASE_PARTIAL',
+        account, usage, inventory, frontier,
+        providerCalls: Number(account.providerCalls||0)+Number(usage.providerCalls||0)+Number(inventory.providerCalls||0),
+        spendCents: 0,
+        purchaseAuthority: 'NONE'
+      });
+    }
+    if (method === 'POST' && url.pathname === '/api/providers/winnr/export') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const input = await parseBody(req);
+      if (input.confirmCredentialExport !== true) throw new HttpError(400, 'confirmCredentialExport must be true');
+      const result = await winnr.exportMailboxes({
+        format: input.format || 'default',
+        domains: Array.isArray(input.domains) ? input.domains : [],
+        emails: Array.isArray(input.emails) ? input.emails : [],
+        allDomains: input.allDomains === true,
+        writeAuthorized: true
+      });
+      return json(res, result.ok ? 200 : result.status === 'UBERWINNR_WRITE_OUTCOME_UNCERTAIN' ? 409 : 400, result);
+    }
+    if (method === 'POST' && url.pathname === '/api/providers/winnr/postpurchase/import') {
+      if (!winnr?.ok) return json(res, 503, winnrUnavailable());
+      const input = await parseBody(req);
+      if (input.confirmCredentialImport !== true) throw new HttpError(400, 'confirmCredentialImport must be true');
+      if (input.confirmRouteUse !== true) throw new HttpError(400, 'confirmRouteUse must be true');
+      if (!/^[a-f0-9]{64}$/i.test(String(config.encryptionKey || ''))) throw new HttpError(409, 'TOKEN_ENCRYPTION_KEY must be configured before Winnr credential import');
+      const csvText = String(input.csvText || '');
+      if (!csvText.trim()) throw new HttpError(400, 'csvText is required');
+      const plan = compileWinnrPostPurchaseRegistryPlan({
+        csvText,
+        workspaceId: input.workspaceId || 'uberbond-outreach',
+        providerDomainId: input.providerDomainId || '',
+        providerMailboxIdsByEmail: input.providerMailboxIdsByEmail || {},
+        plannedDailyCap: Math.max(0, Math.min(2, Number(input.plannedDailyCap ?? 2)))
+      });
+      if (!plan.ok) return json(res, 400, plan);
+
+      const owned = await winnr.listMyPrewarmed();
+      if (!owned.ok) return json(res, 409, {
+        ok:false,status:'WINNR_POSTPURCHASE_ENTITLEMENT_UNRECONCILED',
+        reasonCodes:['provider-owned-prewarmed-read-required'],
+        providerReceipt:owned.receipt||null,
+        automaticRetryAuthorized:false
+      });
+      if (!winnrDomainObserved(owned.data, plan.domain.domain)) return json(res, 409, {
+        ok:false,status:'WINNR_POSTPURCHASE_ENTITLEMENT_UNRECONCILED',
+        reasonCodes:['credential-export-domain-not-observed-in-provider-account'],
+        observedDomain:plan.domain.domain,
+        providerReceipt:owned.receipt||null,
+        automaticRetryAuthorized:false
+      });
+
+      const providerDigest = String(owned.receipt?.responseDigest || '').trim();
+      if (!providerDigest) return json(res, 409, {
+        ok:false,status:'WINNR_POSTPURCHASE_ENTITLEMENT_UNRECONCILED',
+        reasonCodes:['provider-entitlement-receipt-digest-required'],
+        automaticRetryAuthorized:false
+      });
+      const applied = await applyWinnrPostPurchaseRegistryPlan({store,plan,date:new Date()});
+      if (!applied.ok) return json(res, 409, applied);
+      const routeEvidenceRef = `winnr:list-my-prewarmed:${providerDigest}`;
+      const prepared = compileWinnrCredentialImport({
+        csvText,
+        encryptionKey: config.encryptionKey,
+        workspaceId: plan.workspaceId,
+        linksByEmail: applied.linksByEmail,
+        routeEvidenceRef,
+        routeAuthorized: true,
+        termsCompatible: config.providers?.winnr?.termsCompatible === true,
+        plannedDailyCap: 2,
+        plannedHourlyCap: 1,
+        minGapSeconds: Math.max(900, Number(config.outbound?.canaryMinGapSeconds || 1800))
+      });
+      if (!['IMPORT_READY','PARTIAL_IMPORT_READY'].includes(prepared.status) || prepared.failureCount) {
+        return json(res, 400, prepared);
+      }
+      for (const row of prepared.prepared) {
+        await store.upsert('accounts', { ...row.smtpAccount, createdAt: now(), updatedAt: now() });
+        await store.upsert('accounts', { ...row.imapAccount, createdAt: now(), updatedAt: now() });
+      }
+      await store.log('winnr_postpurchase_credentials_imported', {
+        domainId: plan.domain.domainId,
+        domain: plan.domain.domain,
+        mailboxCount: prepared.preparedCount,
+        accountRowsWritten: prepared.preparedCount * 2,
+        providerEvidenceRef: routeEvidenceRef,
+        credentialStorage: 'AES_256_GCM_ENCRYPTED',
+        plaintextCredentialsLogged: false,
+        plannedDailyCap: 2
+      });
+      return json(res, 201, {
+        ok:true,
+        status:'WINNR_POSTPURCHASE_IMPORTED',
+        domainId:plan.domain.domainId,
+        mailboxes:prepared.prepared.map(row=>({
+          email:row.email,
+          smtpAccountId:row.smtpAccount.id,
+          imapAccountId:row.imapAccount.id,
+          sendingDomainId:row.smtpAccount.sendingDomainId,
+          sendingMailboxId:row.smtpAccount.sendingMailboxId
+        })),
+        providerEvidenceRef:routeEvidenceRef,
+        plaintextCredentialsReturned:false,
+        messagesSent:0,
+        spendCents:0
       });
     }
 

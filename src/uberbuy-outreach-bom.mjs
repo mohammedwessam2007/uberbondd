@@ -51,22 +51,27 @@ export function compileOutreachBuyList({
   const substrateCashRequired=outboundSubstrate?.cashRequired===true;
   const substrateCapabilities = {
     outboundSmtp: outboundSubstrate?.outboundSmtp === true,
-    inboundReplies: outboundSubstrate?.inboundReplies === true || outboundSubstrate?.inboundForwarding === true,
-    warmup: outboundSubstrate?.warmup === true
+    inboundReplies: outboundSubstrate?.inboundReplies === true || outboundSubstrate?.inboundForwarding === true
   };
+  const providerWarmupAvailable = outboundSubstrate?.warmup === true;
   const completeSubstrate = Object.values(substrateCapabilities).every(Boolean);
   external.push(row('authorized_outbound_substrate','EXTERNAL_SUBSTRATE',substrateReady&&completeSubstrate?'SATISFIED':substrateCashRequired?'BUY_REQUIRED':'ACQUIRE_OR_ACTIVATE_REQUIRED',
     substrateReady&&completeSubstrate
-      ? 'Authorized sender substrate covers outbound transport, inbound replies and warm-up'
-      : 'Acquire or activate one provider-authorized reputation-bearing substrate that covers outbound transport, inbound reply access and provider warm-up',
+      ? 'Authorized sender substrate covers outbound transport and inbound replies; UberWarm²/UberPlacement own the evidence ramp while provider warmup remains optional'
+      : 'Acquire or activate one provider-authorized reputation-bearing substrate that covers outbound transport and inbound reply access; paid provider warmup is not mandatory',
     {
       monthlyPurchaseRequired:!(substrateReady&&completeSubstrate)&&substrateCashRequired,
       cashRequirementKnown:typeof outboundSubstrate?.cashRequired==='boolean',
       candidate:clean(outboundSubstrate?.candidate,160)||null,
       observedPriceUsd:Number.isFinite(Number(outboundSubstrate?.observedPriceUsd))?Number(outboundSubstrate.observedPriceUsd):null,
       requiredCapabilities:substrateCapabilities,
-      missingCapabilities:Object.entries(substrateCapabilities).filter(([,ok])=>!ok).map(([id])=>id)
+      missingCapabilities:Object.entries(substrateCapabilities).filter(([,ok])=>!ok).map(([id])=>id),
+      providerWarmupAvailable,
+      providerWarmupRequired:false
     }));
+  external.push(row('provider_warmup_addon','OPTIONAL_SUPPLIER',providerWarmupAvailable?'OPTIONAL_AVAILABLE':'OPTIONAL_NOT_REQUIRED',
+    'UberWarm² + UberPlacement provide the evidence-first reputation ramp; an external warmup network is an optional experiment rather than a mandatory substrate dependency',
+    {monthlyPurchaseRequired:false}));
   const paymentReady=paymentRail?.live===true;
   external.push(row('payment_rail','EXTERNAL_FINANCIAL',paymentReady?'SATISFIED':'ACTIVATE_BEFORE_COLLECTION',
     paymentReady?'Live payment rail observed':'A real payment account/rail is required only before collecting buyer funds',

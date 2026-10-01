@@ -1,6 +1,6 @@
 # 00 — CURRENT COMMERCIAL OUTREACH AUTOLOAD
 
-**Last reconciled:** 2026-09-28  
+**Last reconciled:** 2026-10-01  
 **Truth class:** CURRENT COMMERCIAL DESIGN + CONTINUATION POINTER. Market demand, price acceptance, sender/provider readiness, cleared revenue and customer acceptance remain external truth.
 
 > **If the founder's request involves cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine, READ THIS FILE BEFORE BRAINSTORMING.**
@@ -20,6 +20,8 @@ This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Co
 5. `docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`
 6. `docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`
 7. `docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`
+8. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
+9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`
 
 ## V5 genome
 
@@ -75,6 +77,23 @@ A call is allowed when the buyer asks or genuine complexity/risk makes it ration
 Optimize:
 
 `expected cleared contribution profit / founder minute`
+
+## 2026-10-01 transport frontier
+
+The software boundary moved materially on 2026-10-01:
+
+- **UberWarm²** now provides an evidence-first reputation ramp over UberPlacement + UberWarm + UberQuality;
+- a paid provider warm-up network is **optional**, not a mandatory sender-substrate capability;
+- the physical purchase target is therefore narrower: authorized outbound SMTP + inbound IMAP/replies + BYO-domain/account continuity;
+- a guarded Winnr provider adapter and post-purchase canary sequence are implemented on the current upgrade lineage;
+- Winnr written support has now confirmed the described lawful B2B route, Egypt availability, international Visa/Mastercard, authorized API/MCP automation, standard SMTP/IMAP export, a $9 initial three-address pre-warmed charge, and 10–15 cold messages/mailbox/day as its recommended range;
+- a material first-party contradiction remains: Winnr's official MCP source says **no minimum term / cancel any time**, while current Help pages linked by support say **90-day minimum term**, making the minimum three-address commitment **$27** even though the first charge is $9;
+- a same-thread reconciliation request has been sent; **do not purchase** until Winnr states which term governs a new order and the exact commitment is visible/observed;
+- the first-cash candidate remains **one green 3-address pre-warmed domain**, with Startup retained as the recurring scale route around the ~23-address / $69-month public-price crossover, but this is a candidate route rather than purchase authority;
+- `SAFE_TO_PURCHASE = NO` until the term conflict, authenticated checkout, live green inventory, exact first charge and exact committed spend are reconciled;
+- **do not enable or buy a provider warm-up add-on merely because it is offered**; first use UberWarm² + owner-controlled placement evidence, then add any external warm-up network only as a measured optional experiment.
+
+Current detailed gate: `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`.
 
 ## Dynamic external truth
 

@@ -15,7 +15,9 @@ Then read:
 4. `docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`
 5. `docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`
 6. `docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`
-7. current sender/provider/legal/readiness receipts on live `main`
+7. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
+8. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`
+9. current sender/provider/legal/readiness receipts on live `main`
 
 Do not restart from generic cold-email advice.
 
@@ -160,6 +162,21 @@ These current names supersede but do not erase earlier donors:
 - Arabic + English Booking Leak Audit / Bilingual Appointment Recovery Sprint -> GCC Arabic-English Booking Parity & Revenue Leak Sprint
 
 Earlier high-ticket donor families such as White-Label AI Workflow Reliability Sprint and CRM/Payment Reconciliation Diagnostic remain recoverable historical offer lineage.
+
+## 2026-10-01 sender-substrate refinement
+
+UberBond's internal sender-control boundary now distinguishes **reputation orchestration** from the physical mailbox/transport substrate.
+
+Current internal capability:
+
+- UberWarm² evidence ramp;
+- owner-controlled recipient-network placement probes through UberPlacement;
+- bounce/complaint/placement-aware quarantine and bounded ramping;
+- provider-neutral SMTP/IMAP custody and dispatch;
+- a guarded Winnr adapter prepared for post-purchase integration;
+- provider warm-up add-ons classified as optional rather than mandatory.
+
+The irreducible external purchase remains one provider-authorized reputation-bearing SMTP/IMAP substrate. Winnr written support now confirms the described lawful B2B route, Egypt availability, authorized REST API/MCP automation, standard SMTP/IMAP export, and a $9 initial charge for the three-address pre-warmed minimum. However, first-party sources conflict materially on commitment: the official Winnr MCP source says no minimum term/cancel any time, while current Help pages linked by support say every pre-warmed purchase has a 90-day minimum, making the three-address minimum commitment $27. A same-thread reconciliation request is outstanding. The pre-warmed route remains the first-cash candidate and Startup ($69/month / 50 regular mailboxes) remains the recurring scale route near the ~23-address price crossover, but `SAFE_TO_PURCHASE = NO` until the binding term, exact minimum committed spend, authenticated checkout, live green inventory and exact first charge are observed. A $9 first charge must never be mistaken for $9 total risk.
 
 ## Provider/readiness refresh law
 

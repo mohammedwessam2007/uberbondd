@@ -138,9 +138,11 @@ export function compilePlacementReport({plan={},observations=[],now=new Date()}=
 }
 
 export function uberWarmPlacementObservation(senderReport={}){
+  const observedRate=value=>value!==null&&value!==undefined&&value!==''&&Number.isFinite(Number(value))?Number(value):null;
+  const coverage=observedRate(senderReport.observationCoverage);
   return Object.freeze({
-    inboxPlacementRate:Number.isFinite(Number(senderReport.inboxPlacementRate))?Number(senderReport.inboxPlacementRate):null,
-    spamPlacementRate:Number.isFinite(Number(senderReport.spamPlacementRate))?Number(senderReport.spamPlacementRate):null,
-    placementObservationCoverage:Number.isFinite(Number(senderReport.observationCoverage))?Number(senderReport.observationCoverage):0
+    inboxPlacementRate:observedRate(senderReport.inboxPlacementRate),
+    spamPlacementRate:observedRate(senderReport.spamPlacementRate),
+    placementObservationCoverage:coverage??0
   });
 }

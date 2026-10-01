@@ -46,7 +46,7 @@ test('a free trial keeps sender substrate an acquisition rather than a fabricate
   assert.deepEqual(r.summary.externalAcquisitionIds, ['authorized_outbound_substrate']);
 });
 
-test('sender substrate stays non-green until outbound SMTP, inbound forwarding, and warmup all exist', () => {
+test('sender substrate stays non-green until outbound SMTP and inbound replies exist; provider warmup is optional', () => {
   const r = compileOutreachBuyList({
     domainsOwned: 30,
     controlPlaneOwned: true,
@@ -57,12 +57,13 @@ test('sender substrate stays non-green until outbound SMTP, inbound forwarding, 
       cashRequired: false,
       outboundSmtp: true,
       inboundReplies: false,
-      warmup: true
+      warmup: false
     }
   });
   const row = r.external.find(x => x.id === 'authorized_outbound_substrate');
   assert.notEqual(row.status, 'SATISFIED');
   assert.deepEqual(row.missingCapabilities, ['inboundReplies']);
+  assert.equal(row.providerWarmupRequired, false);
 });
 
 test('a complete configured authorized substrate removes every mandatory outreach SaaS purchase', () => {
@@ -130,4 +131,27 @@ test('direct IMAP reply access satisfies the inbound side without a forwarding S
   const substrate = r.external.find(x => x.id === 'authorized_outbound_substrate');
   assert.equal(substrate.status, 'SATISFIED');
   assert.equal(r.internal.some(x => x.id === 'substrate_selection'), true);
+});
+
+
+test('authorized SMTP plus IMAP satisfies the substrate even when paid provider warmup is disabled', () => {
+  const r = compileOutreachBuyList({
+    domainsOwned: 30,
+    controlPlaneOwned: true,
+    outboundSubstrate: {
+      acquired: true,
+      authorized: true,
+      configured: true,
+      cashRequired: false,
+      outboundSmtp: true,
+      inboundReplies: true,
+      warmup: false
+    }
+  });
+  const substrate = r.external.find(x => x.id === 'authorized_outbound_substrate');
+  const warmup = r.external.find(x => x.id === 'provider_warmup_addon');
+  assert.equal(substrate.status, 'SATISFIED');
+  assert.equal(substrate.providerWarmupRequired, false);
+  assert.equal(warmup.status, 'OPTIONAL_NOT_REQUIRED');
+  assert.equal(warmup.monthlyPurchaseRequired, false);
 });

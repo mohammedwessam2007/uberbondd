@@ -220,6 +220,18 @@ export const config = {
       baseUrl: env.MAILDOSO_BASE_URL || 'https://api.maildoso.com',
       configured: Boolean(env.MAILDOSO_PAT || env.MAILDOSO_API_KEY)
     },
+    // Winnr transport candidate. Token presence only means a provider account
+    // can be queried. Account authority + current Terms evidence remain
+    // independent fail-closed gates before the client can make provider calls.
+    winnr: {
+      apiKey: env.WINNR_API_TOKEN || env.WINNR_API_KEY || '',
+      baseUrl: env.WINNR_BASE_URL || 'https://api.winnr.app/v1',
+      accountAuthorized: bool(env.WINNR_ACCOUNT_AUTHORIZED, false),
+      termsCompatible: bool(env.WINNR_TERMS_COMPATIBLE, false),
+      termsEvidenceRef: env.WINNR_TERMS_EVIDENCE_REF || '',
+      webhookSecret: env.WINNR_WEBHOOK_SECRET || '',
+      configured: Boolean(env.WINNR_API_TOKEN || env.WINNR_API_KEY)
+    },
     clayinbox: {
       apiKey: env.CLAYINBOX_API_KEY || '',
       baseUrl: env.CLAYINBOX_BASE_URL || 'https://app.clayinbox.ai/api/v1',

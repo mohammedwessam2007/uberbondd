@@ -17,6 +17,7 @@ import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
+import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recovery-diagnostic.mjs';
 import { runCrownAutoFinish } from './scripts/infinite-opus-crown-autofinish.mjs';
 
 const originalCreateServer = http.createServer;
@@ -681,3 +682,12 @@ if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_O
 
 export const requestHandler = createdHardenedHandler || harden(core.requestHandler);
 export default requestHandler;
+
+if (wrapperIsEntryPoint && process.env.INFINITE_OPUS_RECOVERY_DIAGNOSTIC_ONCE === '1') {
+  const recoveryStore=createStore(config);
+  void (async()=>{
+    try { await recoveryStore.init(); console.log('UBERMIND_CROWN_RECOVERY '+JSON.stringify(await readCrownRecoveryMetadata(recoveryStore))); }
+    catch { console.error('UBERMIND_CROWN_RECOVERY '+JSON.stringify({status:'STORE_READ_FAILED',providerCallsPerformed:0})); }
+    finally { await recoveryStore.close().catch(()=>{}); }
+  })();
+}

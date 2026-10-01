@@ -47,3 +47,7 @@ JEV, Frontier VM, Cognitive Supercompiler, certified residuals, compute auction,
 ## Recovery law
 
 Read parent canon first, then the manifest, tracker, this pointer, and the Work/Astra handoff. New verified source is execution truth. Historical files remain recoverable provenance and never silently override newer source.
+
+## Latest terminal recovery — 2026-10-01
+
+Read [the terminal recovery receipt](../docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) before activation. It reconciles the 84b792a/b7e481c ancestry and live Render v7 deployment, preserves unmerged PR #1109 uncertain-call lineage, and records the remaining build override and billed model-drift reconciliation gap. No automatic retry or October consent is created by this receipt.

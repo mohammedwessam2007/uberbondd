@@ -1,0 +1,132 @@
+# UberMind terminal recovery — 2026-10-01
+
+Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE
+Recovery source: b7e481c5869954ee1e8071f1de8feb8312f3417b
+Observed through connected GitHub and Render reads on 2026-10-01.
+This receipt supersedes historical operational present-tense claims without deleting their lineage.
+
+## Source and deployment reconciliation
+
+- GitHub main at recovery: b7e481c5869954ee1e8071f1de8feb8312f3417b, PR #1124 merged.
+- 84b792a976ef7598f44f4bbb6d5c0e3f0371f860 exists and is the merge base / ancestor, 32 commits behind recovery main.
+- Render service: srv-dali9vijnfac739m4vcg, uberbond-control-plane, branch main, auto-deploy off.
+- Latest observed LIVE deployment: dep-daure5npn0mc738rhcpg; source b7e481c5869954ee1e8071f1de8feb8312f3417b.
+- Deployment started 2026-10-01T01:27:50Z, finished 2026-10-01T01:29:08Z.
+- Build command still begins npm install --omit=dev and continues with an encoded one-off execution override. Exact required normal command is npm install --omit=dev. Restoration NOT observed.
+- Start command launches server.mjs and PROCESS_ROLE=worker node worker.mjs with process cleanup.
+- Worker start using PostgreSQL observed at 2026-10-01T01:28:58.805Z. This is startup evidence, not continuous endurance.
+- Database dpg-dali9dbl550s73bcf520-a reports available; external IP allowlist empty.
+- Connected database query refused because its network cannot reach the database. Do not open database networking as a workaround.
+- Current authenticated readiness, environment receipt validity, key perimeter and TypingMind saved state remain unverified in this recovery.
+
+## Historical donor branch
+
+PR #1109 is still open, head a43bc87ea4d44acceee696e403659aca66f5dc2b.
+Relative to recovery main it has one unique documentation commit and is 32 commits behind.
+It is not a later operational implementation or a source rollback.
+Its unique historical uncertain-call facts are preserved below. Its September authorization wording cannot grant October consent.
+
+## Provider evidence and uncertain calls
+
+The latest v7 log at 2026-10-01T01:29:57Z reports FAILED_NO_AUTOMATIC_RETRY:
+model-identity-drift:anthropic/claude-opus-5.5:anthropic/claude-opus-5.5-20260921
+v7 newSpendUsd was 0.01347375.
+
+Exact recovery source fetched generation metadata, then rejected model identity BEFORE returning
+the generation/cost to charge(). Therefore this number excludes the rejected Opus charge.
+The Opus generation ID, provider identity, billing amount, token counts and ledger settlement are UNKNOWN.
+Classification: DISPATCHED_UNRECONCILED; invalid for Crown under current exact identity contract.
+Do not retry, treat as zero cost, normalize the dated revision by guesswork, or create another v8 attempt.
+
+A separate v2 custodian generation is provider-reconciled in runtime metadata logs:
+- generation gen-1790816360-QrnwxpUT0ezrOTwIjNTl
+- requested/observed model google/gemini-2.5-pro
+- provider Google
+- total cost USD 0.040035
+- native prompt tokens 148; native completion tokens 3985
+- finish reason length; sealed JSON parse failed
+- classification RECONCILED_INVALID_EVIDENCE
+
+This was a custodian request, not a valid candidate observation and not Crown admission.
+Repeated diagnostic logs of that generation are one call, not multiple charges.
+
+Other attempt costs are log-reported and still require per-generation identity/billing reconciliation:
+- 2026-09-30T23:45:53Z: sealed JSON parse failed, 0.010145 USD
+- 2026-09-30T23:50:07Z: sealed JSON parse failed, 0.010025 USD
+- v4: hidden task contract refused, 0.014205 USD
+- v5: Opus provider request refused (404), prior custodian spend 0.01104375 USD
+- v6: Opus provider request refused (404), prior custodian spend 0.01437375 USD
+- v7: dated Opus identity refused, preceding custodian spend 0.01347375 USD
+
+These are not a fully reconciled provider total. The historical original uncertain Opus call remains unresolved.
+A reservation is not an observed charge. Runtime bookkeeping abandonment is not financial reconciliation.
+Raw hidden tasks, answers and rubric contents were not retrieved or exposed.
+
+## Focused source repair in this recovery
+
+- Persist generation ID before metadata reconciliation.
+- Persist safe model/provider/billing/token metadata before model identity refusal.
+- Include billed invalid evidence in attempt spend; retain pending generation for reconciliation.
+- Keep the same v7 state key and no automatic retry; no alias relaxation or new tournament.
+- Require current exact USD20 monthly authorization and the Opus Crown route before a new attempt;
+  recheck authorization before each call. Missing authorization does not consume the attempt state.
+- Repair literal backslash-n sequences in the v7 invariant test.
+- Add behavioral tests with synthetic transport fixtures only. Fixtures create zero live evidence.
+
+Local verification: 5 focused tests passed, 0 failed; changed executable source parses.
+Original v7 test was independently confirmed to fail node --check before repair.
+No real provider call, canary, key creation, purchase, credit top-up or cap increase occurred in this recovery.
+CI and deployment must be reported separately after source integration.
+
+## Quality and economics boundaries
+
+Exact current source:
+jevRawChatSuppressionAuthority: NONE
+usedToSuppressCrown: false
+JEV remains shadow/control; no admission or bypass authority was granted.
+
+Current historical modeled lanes remain unchanged:
+- generic fresh/full-context fallback: 1.0118806695078688x
+- certified residual conditional model: 14.161946017994001x
+- compiled recurrence benchmark capacity: 33,333.345x, observed fanout with modeled reference/envelope
+- production realized multiplier: UNKNOWN
+
+No authenticated E2E workload, real production franchise hit, avoided production call or realized savings
+was proven by this recovery. Crown v7 failure cannot make TypingMind ready.
+
+## Exact next missing edges
+
+1. Approve browser fallback for Render settings and zero-spend authenticated provider/runtime inspection.
+   Connected Render tools have no build-command editor; local Render credentials are absent.
+2. Restore normal build command and verify persistence without starting inference.
+3. Use internal runtime/Render shell or an already-authorized authenticated read surface to inspect sanitized
+   autofinish v0-v7 state, original ledger call and authorization receipts. Do not print settings wholesale.
+4. Identify and reconcile the already-dispatched original and v7 Opus generations using provider metadata/activity.
+   Keep sealed answers outside optimizer context; preserve costs even for invalid evidence.
+5. Determine whether sealed tasks/outputs are recoverable. Current autofinish source persists commitments,
+   not plaintext tasks or answers. Do not claim commitment hashes alone let an evaluator recover outputs.
+6. Resolve exact dated-model/revision contract with provider evidence and current admission policy;
+   do not treat a prefix match as identity proof.
+7. If current October owner authority is absent, request one bounded authorization only after zero-spend
+   recovery determines the exact missing paid operation and maximum incremental cost.
+8. Only then continue missing tournament/evaluator/admission edges, install valid receipts, deploy normally,
+   verify authenticated readiness, save TypingMind and run one bounded authorized E2E workload.
+
+Browser approval is access fallback only, not new inference or financial authorization.
+No redeployment was triggered while the unsafe temporary build override remained.
+
+## Preserved historical PR #1109 facts
+
+These are donor evidence from its exact head, not newly observed external reality:
+- original callId sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0
+- original taskId sealed-paid-0-0-805bb7d11651df598fcb
+- reported status DISPATCHED; ceiling 73,277 microusd; actual settlement UNKNOWN
+- three other planned calls reported RESERVED, not dispatched
+- claim key sealed-general-20260930-one-authorized-tournament-v1
+- snapshot sha256:cdaaf3398ee5c78f5e95b44bd45325b3545464aefb8ff3616a4aae97345dcafa
+- historical key usage 0.01136883 USD and remaining 19.98863117 USD did not establish the original bill
+- historical last runner refused complete-fresh-pricing-required before paid calls
+- historical Render deploy dep-daup5gid2mec73fiei3g on 84b792a976ef7598f44f4bbb6d5c0e3f0371f860
+- historical TypingMind prepared/unsaved and Crown absent
+- September receipt was present then; expiration cannot be converted into October authority
+- governed MiMo billing canary already reconciled; never repeat it for this activation

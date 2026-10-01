@@ -68,7 +68,7 @@ async function generation(apiKey,id){
   }
   throw new Error('generation-reconciliation-required:'+id);
 }
-async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoningTokens=null}){
+async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoningTokens=null,onGeneration=async()=>{}}){
   const body={model,messages,max_tokens:maxTokens,stream:false,
     ...(responseFormat?{response_format:responseFormat}:{}),
     ...(Number.isInteger(reasoningTokens)?{reasoning:{max_tokens:reasoningTokens,exclude:true}}:{}),
@@ -82,11 +82,20 @@ async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat
   if(!r.ok)throw new Error('provider-call-refused:'+model+':'+r.status+':'+raw.slice(0,300));
   const j=JSON.parse(raw),id=String(j?.id??'');
   if(!id)throw new Error('provider-generation-id-required:'+model);
+  // Persist identity before reconciliation so a billed response cannot disappear.
+  await onGeneration({id,model,status:'DISPATCHED_UNRECONCILED'});
   const meta=await generation(apiKey,id);
   const observedModel=String(meta.model??j.model??'');
-  if(observedModel!==model)throw new Error('model-identity-drift:'+model+':'+observedModel);
   const cost=Number(meta.total_cost);
   if(!Number.isFinite(cost)||cost<0)throw new Error('provider-bill-required:'+id);
+  await onGeneration({
+    id,model,observedModel,costUsd:cost,provider:String(meta.provider_name??''),
+    finishReason:String(j?.choices?.[0]?.finish_reason??meta.finish_reason??''),
+    promptTokens:meta.native_tokens_prompt??null,completionTokens:meta.native_tokens_completion??null,
+    reasoningTokens:meta.native_tokens_reasoning??null,
+    status:observedModel===model?'PROVIDER_RECONCILED_PENDING_EVIDENCE':'RECONCILED_INVALID_EVIDENCE'
+  });
+  if(observedModel!==model)throw new Error('model-identity-drift:'+model+':'+observedModel);
   const text=content(j),reasoning=String(j?.choices?.[0]?.message?.reasoning??'');
   return {id,text,meta,cost,model,providerName:String(meta.provider_name??''),
     finishReason:String(j?.choices?.[0]?.finish_reason??meta.finish_reason??''),
@@ -126,6 +135,14 @@ function evaluationMessages(tasks,blind){
   {role:'user',content:JSON.stringify({tasks:tasks.map(t=>({id:t.id,prompt:t.prompt,rubric:t.rubric,must_not:t.must_not})),answers:blind,output:{grades:[{task_id:'t1',candidate:'A',quality_score:0,required_regressions:0,canonical_zero_loss:true,reason:'brief'}]}})}
  ];
 }
+function currentPaidAuthority(authorization,now=Date.now()){
+ return Boolean(authorization?.evidenceRef &&
+   authorization.month===new Date(now).toISOString().slice(0,7) &&
+   authorization.maxMonthlyMicrousd===20_000_000 &&
+   Number.isFinite(Date.parse(authorization.expiresAt)) &&
+   Date.parse(authorization.expiresAt)>now &&
+   (authorization.crownRoutes??[]).includes('openrouter:'+OPUS));
+}
 export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown'}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
  const prior=await getState(store);
@@ -137,16 +154,33 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    receiptHash:prior.crownAdmission?.receiptHash??null,
    priorStatus:prior.status
  };
+ if(!currentPaidAuthority(paidAuthorization))return {ok:false,status:'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
  },newSpendUsd:0,mainSha});
  let spend=0;
  const charge=async spec=>{
+   if(!currentPaidAuthority(paidAuthorization))throw new Error('current-paid-runtime-authority-required');
    const reserve=callUpperBoundUsd(spec);
    if(spend+reserve>MAX_NEW_SPEND_USD)throw new Error('precall-new-tournament-spend-cap-refused:'+spec.model);
    await setState(store,{pendingCall:{model:spec.model,tag:spec.tag,reservedWorstCaseUsd:reserve},newSpendUsd:spend});
-   const r=await call(apiKey,spec); spend+=r.cost;
+   let chargeRecorded=false;
+   const r=await call(apiKey,{...spec,onGeneration:async observation=>{
+     // Billing is independent of evidence validity; refuse drift without losing its cost.
+     if(Number.isFinite(observation.costUsd)&&!chargeRecorded){
+       spend+=observation.costUsd; chargeRecorded=true;
+     }
+     const state=await getState(store);
+     const journal=[...(state?.generationJournal??[])];
+     const index=journal.findIndex(row=>row.id===observation.id);
+     const row={...(index>=0?journal[index]:{}),...observation,tag:spec.tag,
+       reservedWorstCaseUsd:reserve,observedAt:new Date().toISOString()};
+     if(index>=0)journal[index]=row;else journal.push(row);
+     await setState(store,{generationJournal:journal,newSpendUsd:spend,
+       pendingCall:{model:spec.model,tag:spec.tag,generationId:observation.id,
+         reservedWorstCaseUsd:reserve,reconciliationStatus:observation.status}});
+   }});
    if(spend>MAX_NEW_SPEND_USD)throw new Error('new-tournament-spend-cap-exceeded');
    await setState(store,{newSpendUsd:spend,pendingCall:null,lastGeneration:{
      id:r.id,model:r.model,costUsd:r.cost,provider:r.providerName,finishReason:r.finishReason,

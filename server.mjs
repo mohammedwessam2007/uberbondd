@@ -637,5 +637,29 @@ if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_O
   })();
 }
 
+if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
+  setTimeout(async()=>{
+    const store=createStore(config);
+    try{
+      await store.init();
+      const settings=await store.transaction(async tx=>await tx.getSettings());
+      const state=settings?.infinite_opus_crown_autofinish_20261001_v2??null;
+      if(state){
+        const safe={
+          status:state.status??null,reason:state.reason??null,newSpendUsd:state.newSpendUsd??null,
+          lastGeneration:state.lastGeneration?{
+            id:state.lastGeneration.id??null,model:state.lastGeneration.model??null,
+            costUsd:state.lastGeneration.costUsd??null,provider:state.lastGeneration.provider??null
+          }:null,
+          taskCommitment:state.taskCommitment??null,hiddenTaskCount:state.hiddenTaskCount??null
+        };
+        console.log('UBERMIND_CROWN_STATE_DIAGNOSTIC '+JSON.stringify(safe));
+      }
+    }catch(error){
+      console.error('UBERMIND_CROWN_STATE_DIAGNOSTIC '+JSON.stringify({status:'DIAGNOSTIC_FAILED',reason:String(error?.message||error)}));
+    }finally{await store.close().catch(()=>{});}
+  },8000);
+}
+
 export const requestHandler = createdHardenedHandler || harden(core.requestHandler);
 export default requestHandler;

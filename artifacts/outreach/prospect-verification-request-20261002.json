@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "uberbond.prospect-verification-request.v1",
+  "requestedAt": "2026-10-02",
+  "readOnly": true,
+  "whyItMatters": "No eligible first cold prospect can be established without seeing the agency's own published contact address and checking its pages for solicitation or harvesting notices. The requesting sandbox blocks page fetching. Guessing or pattern-inferring an address is prohibited.",
+  "offer": "Agency Revenue Leak Proof Pack",
+  "excludeAlreadyContacted": ["hello@lemonseedmarketing.com", "info@moovsoon.com", "nick@getdriive.com"],
+  "candidates": [
+    { "company": "Leadhub", "website": "https://www.leadhub.net/", "priorEvidence": "artifacts/partner-canary-public-evidence-20260829.json rank 1" },
+    { "company": "BxB Media", "website": "https://bxbknowshvac.com/", "priorEvidence": "artifacts/partner-canary-public-evidence-20260829.json rank 2" },
+    { "company": "KickCharge Creative", "website": "https://www.kickcharge.com/", "contactPage": "https://www.kickcharge.com/contact/", "priorEvidence": "artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json rank 1" },
+    { "company": "Footbridge Media", "website": "https://www.footbridgemedia.com/", "contactPage": "https://www.footbridgemedia.com/contact-us/", "priorEvidence": "first-cash-partner-candidates.json rank 4" },
+    { "company": "1SEO Digital Agency", "website": "https://1seo.com/", "priorEvidence": "partner-canary-public-evidence-20260829.json rank 5" },
+    { "company": "Powerhouse Consulting Group", "website": "https://mypowerhouse.group/", "contactPage": "https://mypowerhouse.group/contact/", "priorEvidence": "first-cash-partner-candidates.json replacement list" }
+  ],
+  "perCandidateFieldsRequired": [
+    "exactEmailAddressAsPublishedByTheAgency",
+    "sourcePageUrl",
+    "verbatimExcerptUnder200Chars",
+    "observedAtIso",
+    "noSolicitationNoticeCheckedAndAbsent (contact page, footer, terms)",
+    "noHarvestNoticeCheckedAndAbsent",
+    "agencyIsUsBasedBusinessNotIndividual",
+    "namedHomeServiceClientSiteUrl",
+    "oneRealObservedLeadPathIssueOnThatClientSiteOrExplicitlyNoneObserved"
+  ],
+  "forbidden": ["guessing or pattern-inferring any address", "inventing an observed issue", "form submissions", "sending any message", "bypassing access controls"],
+  "secretHandling": "No credentials involved. Do not record anything beyond public page content.",
+  "expectedOutput": "Per candidate: eligible or rejected with reason. Rank eligible candidates by eligibility confidence x evidence strength x offer fit x information value / reputational downside."
+}

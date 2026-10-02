@@ -37,3 +37,15 @@ The bearer transfer is NOT complete. Automatic approval review rejected reading 
 Authenticated live readiness remains unverified; attempted unauthenticated /models browser navigation returned ERR_BLOCKED_BY_CLIENT, not an application authorization response. No Test & Save and no E2E inference.
 
 Genuine boundaries: provider evidence for the dispatched-but-unbilled generation; user-controlled credential transfer. Additional paid inference remains locked. Do not ask for increased caps or rerun the tournament. After exact provider charge resolution, preserve the three hash/provider-bound candidate artifacts, execute only genuinely missing evidence under distinct valid retry authority where required, adjudicate through the unchanged court, and install an admission only if it passes.
+
+## Locked continuation source preparation — 2026-10-02
+
+The interrupted R2 remains FAILED_NO_AUTOMATIC_RETRY. A distinct R3 source path now reuses the same sealed task commitment and exactly three hash/provider-bound answers, but refuses to claim an attempt, write state or perform a network call while the exact interrupted bill remains unreconciled. It does not fabricate a bill or grant authority.
+
+After durable financial reconciliation, the path independently rechecks all six prior generation bills, then requires fresh explicit time-bounded R3 authorization for at most two missing paid calls and at most USD0.30 incremental spend. The USD0.45 total evaluation ceiling and USD20 monthly cap remain enforced. This receipt is source preparation, not owner approval; no R3 authorization has been created or installed. The expired R2 approval does not permit R3.
+
+Only the missing Sol answer and blind evaluator can dispatch. The existing quality court remains unchanged; a non-Opus winner does not mint Opus admission. Candidate and evaluator responses are encrypted before billing lookup. Null billing metadata cannot masquerade as explicit zero charge. Original failed state and retained source ciphertext remain untouched; an already-claimed R3 cannot replay.
+
+Verification: 83 focused local synthetic tests passed, 0 failed; syntax checks passed for the two changed modules and new test file. The 38 unchanged local dependency/test files matched their blobs at canonical main a41c3787444bcf1b02e2cbc770ce68b1c9481000. This proves bounded source behavior, not live Crown quality, provider charge resolution, admission, credential transfer or production savings.
+
+Current external edge remains exact provider billing/no-charge evidence for gen-1790900587-TKEqsFrik1iupnf4Ljrd. OpenRouter UI still reports no generation found and support ticket #116019 has only an automatic acknowledgment. Credential transfer retains its earlier automatic-review rejection boundary. No inference, admission installation, credential read, cap change or provider message was performed during this source preparation.

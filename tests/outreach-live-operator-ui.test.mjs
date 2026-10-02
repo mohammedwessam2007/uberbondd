@@ -50,14 +50,14 @@ test('runtime display uses GET only, preserves failed reads and redacts postal i
   assert.equal(r.sendAuthority,false);
 });
 
-async function browserGate({ canary = {reasonCodes:['identity-missing']}, launch = {certificate:{state:'BLOCKED',hardStopReasonCodes:['identity-missing']}}, fail = '', sourceText = source } = {}) {
+async function browserGate({ canary = {reasonCodes:['identity-missing']}, launch = {certificate:{state:'BLOCKED',hardStopReasonCodes:['identity-missing']}}, fail = '', launchHttpStatus = 200, sourceText = source } = {}) {
   const listeners = {};
   const events = {};
   const button={disabled:false,textContent:'',addEventListener:(key,fn)=>{listeners[key]=fn;}};
   const status={textContent:'',dataset:{}};
   const field={value:'test-bearer-not-a-real-secret',addEventListener:(key,fn)=>{events[key]=fn;}};
   const calls=[];
-  const context=vm.createContext({document:{querySelector:id=>({'#start-outreach':button,'#start-outreach-status':status,'#token':field}[id])},window:{addEventListener:(key,fn)=>{events[key]=fn;},confirm:()=>{throw Error('Unexpected send confirmation');}},setInterval:()=>1,clearInterval:()=>{},setTimeout:()=>{},fetch:async(path,opts)=>{calls.push({path,method:opts.method});if(path===fail)throw Error('read failed');return{ok:true,headers:{get:()=> 'application/json'},json:async()=>path.includes('100k') ? launch : (canary === null ? null : {state:'CANARY_STATUS',...canary})};}});
+  const context=vm.createContext({document:{querySelector:id=>({'#start-outreach':button,'#start-outreach-status':status,'#token':field}[id])},window:{addEventListener:(key,fn)=>{events[key]=fn;},confirm:()=>{throw Error('Unexpected send confirmation');}},setInterval:()=>1,clearInterval:()=>{},setTimeout:()=>{},fetch:async(path,opts)=>{calls.push({path,method:opts.method});if(path===fail)throw Error('read failed');const httpStatus=path.includes('100k') ? launchHttpStatus : 200;return{ok:httpStatus===200,status:httpStatus,headers:{get:()=> 'application/json'},json:async()=>path.includes('100k') ? launch : (canary === null ? null : {state:'CANARY_STATUS',...canary})};}});
   vm.runInContext(sourceText,context);
   assert.equal(button.disabled,true,'must start closed before authentication');
   await events['outreach-runtime-loaded']();
@@ -95,6 +95,16 @@ test('malformed successful status responses cannot open the launch control', asy
   const b=await browserGate({canary:null,launch:{certificate:{state:'CERTIFIED_100K_READY'},pressable:true}});
   assert.equal(b.button.disabled,true);
   assert.match(b.status.textContent,/UNKNOWN.*malformed/);
+});
+
+test('a canonical 409 exposes its exact blockers but a 401 never exposes readiness', async () => {
+  const launch={ok:false,reasonCodes:['runtime-bundle-file-required']};
+  const b=await browserGate({launch,launchHttpStatus:409});
+  assert.equal(b.button.disabled,true);
+  assert.match(b.status.textContent,/BLOCKED.*runtime-bundle-file-required/);
+  const unauth=await browserGate({launch,launchHttpStatus:401,canary:{readyForLiveSend:true,reasonCodes:[]}});
+  assert.equal(unauth.button.disabled,true);
+  assert.match(unauth.status.textContent,/UNKNOWN/);
 });
 
 test('hostile mutation: disregarding canary blockers is killed by the live UI behavior', async () => {

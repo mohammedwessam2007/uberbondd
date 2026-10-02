@@ -26,8 +26,8 @@ Updated: 2026-10-02
 Latest verified production runtime:
 - Render service: `uberbond-control-plane`
 - service id: `srv-dali9vijnfac739m4vcg`
-- live source: `c04f0f35ec6f5c899ca1e14af95d6be690ab3ea0`
-- live deploy: `dep-davtfm1srm7s73dar680`
+- live source: `61a6b553035db760f5627bf87b02916fad2cf27b`
+- live deploy: `dep-davto8v9nhgc738av1rg`
 - store backend reported by worker: PostgreSQL
 
 Canonical transport receipt:
@@ -119,15 +119,6 @@ Therefore the redundant failing `s=dkim` signature is not a sender-3-specific ex
 
 Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.
 
-## DKIM differential diagnosis — 2026-10-02
-
-Raw Gmail headers for all three human-phenotype canaries were compared. All three share the same authentication pattern: an aligned `cedarpointdomains.com` DKIM signature with selector `no56qfuwjhifplhcglecser6tx7warhe` passes; Amazon SES DKIM passes; SPF passes; DMARC passes; and a second `cedarpointdomains.com` signature using selector `dkim` fails. Tara and Nadia still reached Inbox while Dana reached Spam.
-
-Therefore the redundant failing `s=dkim` signature is not a sender-3-specific explanation for Dana's Spam placement. Do not mutate working DNS blindly. Winnr's current documentation says provider-hosted domains have Winnr-managed DKIM, so the redundant signature should be treated as a provider/header diagnostic until Winnr explains or repairs it.
-
-Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.
-
-
 ## Live sender quarantine
 
 Production receipt:
@@ -137,3 +128,9 @@ Production receipt:
 - scope: `SMTP_FLEET_SELECTION_ONLY`
 - IMAP custody changed: false
 - prospect send authority granted: false
+
+## Personal inbox completion — newest evidence
+
+The founder reported normal personal Inbox delivery. A fresh bounded runtime test independently verified all three senders in the connected personal Gmail INBOX, with SPF pass, aligned DKIM pass and DMARC pass on all three. Source: PR #1162 / `61a6b553035db760f5627bf87b02916fad2cf27b`; completed 2026-10-02 around 16:30Z. Receipt and message IDs: `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`.
+
+Technical integration is complete. The personal Inbox result adds a second Gmail receiving context and supersedes any interpretation that ordinal 3 is uniformly Spam-routed. It does not erase the earlier UberBond Gmail Spam result or authorize prospect volume. Ordinal 3 remains paused in fleet selection; all three IMAP accounts remain intact. The personal-canary, old phenotype and old plaintext-bootstrap sending flags are off. No additional import, purchase or automatic canary replay is needed.

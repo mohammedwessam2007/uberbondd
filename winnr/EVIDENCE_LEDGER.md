@@ -14,7 +14,8 @@ Updated: 2026-10-02
 | Final activation messages | 2 owner-controlled | Ordinal 1 was already confirmed |
 | Prospect messages | ZERO | Prospect-send authority remains frozen |
 | Runtime Gmail delivery | 3/3 DELIVERED | External receiving-provider observation |
-| Diagnostic runtime Gmail Inbox placement | 0/3 | All three diagnostic runtime probes classified Spam |\n| Human-phenotype Gmail Inbox placement | 2/3 | Ordinals 1 and 2 Inbox; ordinal 3 Spam |
+| Diagnostic runtime Gmail Inbox placement | 0/3 | All three diagnostic runtime probes classified Spam |
+| Human-phenotype Gmail Inbox placement | 2/3 | Ordinals 1 and 2 Inbox; ordinal 3 Spam |
 | Earlier Winnr web reply | INBOX | Useful contrast, not enough to promote |
 | SPF/DKIM/DMARC | PASS on inspected runtime message | Authentication alignment is not the red gate |
 | Reply canaries | 2/2 INGESTIBLE | Ordinals 2 and 3 independently found through IMAP |
@@ -22,7 +23,8 @@ Updated: 2026-10-02
 | Fixed-host blind tunnel | ACTIVE / REQUIRED | Current Render-to-Winnr SMTP path |
 | Startup $69 plan | NOT PURCHASED | Pilot must earn expansion |
 | Paid Winnr warming | NOT PURCHASED | No fake-engagement substitute |
-| Placement | SPLIT | Ordinals 1-2 candidate-green; ordinal 3 quarantined |\n| Ordinal 3 runtime quarantine | LIVE VERIFIED | WINNR_PLACEMENT_QUARANTINE_APPLIED on Render; SMTP fleet selection only; IMAP retained |
+| Placement | RECEIVING-CONTEXT DEPENDENT | Personal Gmail 3/3 Inbox; earlier human-readable UberBond Gmail 2/3 Inbox; ordinal 3 fleet pause retained |
+| Ordinal 3 runtime quarantine | LIVE VERIFIED | WINNR_PLACEMENT_QUARANTINE_APPLIED on Render; SMTP fleet selection only; IMAP retained |
 
 ## Supersession
 
@@ -61,3 +63,7 @@ The new 2/3 Inbox result supersedes the earlier assumption that the runtime path
 | DMARC | pass | pass | pass |
 
 Inference: the failed redundant selector is common-mode and does not explain Dana's sender-specific red result. Preserve as provider-side diagnostic evidence; do not edit DNS merely to chase the failing redundant signature while aligned DKIM and DMARC are passing.
+
+## Personal Inbox proof — final technical closure
+
+Personal Gmail received one new probe from each sender in INBOX (3/3), with aligned DKIM/SPF/DMARC passing. Runtime effect ledger prevented replay on a subsequent boot; sending-experiment flags are now off. Source and exact receiving-provider message IDs: `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`. The old adverse placement remains evidence for its receiving context; no prospect campaign was started.

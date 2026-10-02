@@ -88,3 +88,9 @@ The same live startup also reconfirmed:
 - reply ordinals [2,3]
 
 This closes the Winnr infrastructure activation mission at a truthful split state: two candidate-green SMTP senders, one placement-red SMTP sender quarantined, all three IMAP paths retained.
+
+## Additive final personal-inbox proof
+
+The subsequent founder-authorized personal Gmail experiment reached INBOX from all three senders. SPF, aligned DKIM and DMARC passed on all three. The experiment is durably completed and switched off. Exact source/deployment/message receipts are in `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`.
+
+The Winnr technical hookup is complete. Placement evidence is receiving-account dependent: personal Gmail 3/3 Inbox; earlier human-readable UberBond Gmail 2/3 Inbox. The earlier third-sender Spam result is preserved and its fleet pause remains. Campaign promotion remains a separate governed step; no prospects were messaged during this closure.

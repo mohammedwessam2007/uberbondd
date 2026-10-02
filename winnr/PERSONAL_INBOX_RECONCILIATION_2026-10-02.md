@@ -33,3 +33,37 @@ The experiment is disabled unless `WINNR_PERSONAL_INBOX_CANARY_ONCE=1`. Its pers
 Source validation: syntax checks passed; 14 focused tests passed, including target refusal, secret omission, concurrent-start reservation and uncertain-send non-replay. The repository-wide reachability test reports 16 pre-existing unclassified modules outside this change; that baseline is not represented as green.
 
 New receiving-provider evidence must be appended here before any placement decision changes. Even all three Inbox outcomes in a second Gmail account would not prove Microsoft/Yahoo placement or authorize high volume.
+
+## Live experiment result — COMPLETE
+
+PR #1162 merged at `61a6b553035db760f5627bf87b02916fad2cf27b`.
+Deploy `dep-davtng8u01pc73848i50` ran the bounded test and became live.
+Production receipt `WINNR_PERSONAL_CANARY_SENT` reported three accepted messages between 16:29:53Z and 16:29:59Z.
+
+| Sender ordinal | Personal Gmail message ID | Observed folder | Authentication |
+|---|---|---|---|
+| 1 | 1a0fd736c1cbe85e | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 2 | 1a0fd737750943a8 | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 3 | 1a0fd73815f9d819 | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+
+All three were independently read through the connected personal Gmail metadata API. No folder labels were changed to obtain this result. The additional failing domain DKIM selector remains common to all three, while aligned DKIM, SPF and DMARC pass. The receiving MX observed Amazon SES as the downstream delivery hop; this does not change the approved custody or fixed-host SMTP route.
+
+The next boot logged `WINNR_PERSONAL_CANARY_ALREADY_COMPLETED` at 16:31:05Z, proving that the persisted effect reservation prevented another send. The one-shot flag was then set to `0`; the old runtime-import and phenotype-send flags are also `0`. Reply verification and ordinal-3 SMTP fleet quarantine remain separate controls.
+
+Interpretation: the founder's report now has independently observed supporting evidence from a fresh personal-inbox experiment. Ordinal 3 is not uniformly Spam-routed across Gmail accounts. Earlier adverse evidence remains valid for its own recipient and phenotype. Neither experiment establishes Microsoft/Yahoo placement, population delivery rates or prospect-send authority.
+
+## Final scope decision
+
+`WINNR_TECHNICAL_INTEGRATION_COMPLETE`:
+- encrypted custody: complete;
+- SMTP and IMAP: 3/3 verified;
+- reply ingestibility: verified;
+- personal Gmail delivery and Inbox placement: 3/3 verified;
+- bounded personal experiment: completed, durably non-replayable and switched off;
+- prospect campaigns: not started;
+- ordinal 3: fleet pause retained pending a separately governed promotion decision;
+- additional spend: zero.
+
+Expanded Winnr validation: 48 focused tests passed. A pre-existing provider-contract test omitted the explicit zero-cent spend ceiling required by the unchanged production gate; the fixture now supplies that ceiling and separately proves missing budget, expired approval and wrong scope are refused. No production approval rule was relaxed.
+
+Final live deployment with sending-experiment flags disabled: `dep-davto8v9nhgc738av1rg`, source `61a6b553035db760f5627bf87b02916fad2cf27b`, LIVE at 16:32:38Z. Normal build command remains `npm install --omit=dev`.

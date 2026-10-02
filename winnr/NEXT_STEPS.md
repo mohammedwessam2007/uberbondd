@@ -27,6 +27,8 @@ This file is executable continuation state, not a generic wishlist.
 
 ## Active frontier
 
+Newest closure: technical integration is complete, including 3/3 personal Gmail Inbox delivery. Read `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` before using the historical red-state checklist below. No setup/export/import work remains. Further placement experiments and a prospect campaign are distinct next missions, not unfinished SMTP plumbing.
+
 1. Keep ordinal 3 quarantined from SMTP fleet allocation while preserving its IMAP custody.
 2. Treat ordinals 1 and 2 as placement-green candidates only for bounded next-stage validation.
 3. When an actual prospect campaign is authorized, enforce existing legal/provider/suppression/content/consequence gates and begin with a tiny cohort, not a volume jump.
@@ -70,3 +72,14 @@ Next frontier:
 - [ ] Obtain provider-diverse owner-controlled placement evidence for Tara and Nadia.
 - [ ] Keep Dana quarantined pending improved independent evidence or provider inventory replacement.
 - [ ] Ask Winnr to explain/remove the redundant failing `s=dkim` signature because Winnr manages DKIM for provider-hosted DNS.
+
+## Personal receiving-account test completed
+
+- [x] Preserve the founder's normal personal-inbox delivery report.
+- [x] Independently send one bounded owner-controlled probe per mailbox to the connected personal Gmail.
+- [x] Verify 3/3 INBOX without relabelling messages.
+- [x] Verify aligned DKIM, SPF and DMARC on all three.
+- [x] Verify durable non-replay on a subsequent runtime boot.
+- [x] Switch all completed sending-experiment flags off.
+- [x] Preserve ordinal-3 quarantine and historical adverse evidence without redefining the personal Inbox result.
+- [x] Confirm 48 focused Winnr tests pass with approval gates unchanged.

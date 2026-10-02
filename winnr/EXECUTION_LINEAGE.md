@@ -52,7 +52,7 @@ This is a compact no-amputation history. Superseded states remain recorded so fu
 
 Earlier state "SMTP 1/3, IMAP 3/3, replies pending" is superseded.
 
-Current state is:
-`SMTP 3/3 + IMAP 3/3 + REPLIES 2/2 INGESTIBLE + RUNTIME PLACEMENT 0/3 INBOX`.
+Historical diagnostic state was:
+`SMTP 3/3 + IMAP 3/3 + REPLIES 2/2 INGESTIBLE + DIAGNOSTIC PLACEMENT 0/3 INBOX`.
 
-The only activation gate still red is placement.
+It is superseded for present-tense recovery by the human-readable phenotype (2/3 UberBond Gmail Inbox) and the separate personal Gmail experiment (3/3 Inbox). See PERSONAL_INBOX_RECONCILIATION_2026-10-02.md. Technical activation is complete; prospect campaigns have not been started. Ordinal 3 remains paused because the earlier adverse placement is still useful evidence.

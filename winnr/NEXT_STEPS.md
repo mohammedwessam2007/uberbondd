@@ -21,16 +21,19 @@ This file is executable continuation state, not a generic wishlist.
 - [x] Temporary failed/fallback experiments cleaned up.
 - [x] Prospect outreach remained at zero during activation.
 
+- [x] Human-phenotype placement experiment completed: 2/3 Inbox, 1/3 Spam.
+- [x] Authentication compared across all three placement probes.
+- [x] Ordinal 3 designated for SMTP fleet quarantine.
+
 ## Active frontier
 
-1. Run a bounded owner-controlled placement phenotype experiment using the existing three senders.
-2. Observe Gmail folder placement and authentication for each exact probe.
-3. Compile the result through UberPlacement semantics.
-4. If placement materially improves, run a provider-diverse owner-controlled seed test when such seeds are genuinely available.
-5. If placement remains red, diagnose/repair or replace the Winnr inventory rather than increasing volume.
-6. Only after placement promotion, unlock a tiny cold cohort under existing legal/provider/suppression gates.
-7. Measure qualified positive replies, opportunities, cleared revenue, sender health and founder minutes.
-8. Scale only from evidence. The $69/50-mailbox Winnr Startup route remains unpurchased until the pilot earns expansion.
+1. Keep ordinal 3 quarantined from SMTP fleet allocation while preserving its IMAP custody.
+2. Treat ordinals 1 and 2 as placement-green candidates only for bounded next-stage validation.
+3. When an actual prospect campaign is authorized, enforce existing legal/provider/suppression/content/consequence gates and begin with a tiny cohort, not a volume jump.
+4. Measure bounce, complaint, reply, qualified-positive-reply, opportunity, cleared revenue and sender-health evidence.
+5. Add provider-diverse owner-controlled seed evidence when genuinely available.
+6. Re-evaluate ordinal 3 only from new external placement evidence; do not "warm through" the red state.
+7. The $69/50-mailbox Winnr Startup route remains unpurchased until the pilot earns expansion.
 
 ## Explicit non-actions
 

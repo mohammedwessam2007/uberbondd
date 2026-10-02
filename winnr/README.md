@@ -27,6 +27,11 @@ Latest additive evidence: the separate personal-Gmail test delivered all three m
 
 Machine-readable observations: [CURRENT_STATE.json](./CURRENT_STATE.json). Independent recheck: [LIVE_RECONCILIATION_2026-10-02.md](./LIVE_RECONCILIATION_2026-10-02.md). Refresh live truth before acting.
 
+
+## Active Claude Code execution overlay
+
+For the current founder-directed continuation from this recovered Winnr state into real commercial evidence, Claude Code should load `../docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` via the root `CLAUDE.md`. That overlay is intentionally open-ended: recover this vault first, then continue through the next lawful evidence-backed bottleneck rather than repeating purchase, credential import or transport setup.
+
 ## Canonical upstream evidence
 
 Do not duplicate or silently supersede these source receipts:

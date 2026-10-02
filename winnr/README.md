@@ -8,7 +8,7 @@ This directory is the durable, secret-free recovery root for UberBond's Winnr se
 
 ## Current one-line truth
 
-`PURCHASED -> PROVISIONED -> ENCRYPTED_CUSTODY -> SMTP_3_OF_3 -> IMAP_3_OF_3 -> REPLIES_2_OF_2_INGESTIBLE -> GMAIL_PLACEMENT_3_OF_3_SPAM -> PROSPECT_SEND_FROZEN`
+`PURCHASED -> PROVISIONED -> ENCRYPTED_CUSTODY -> SMTP_3_OF_3 -> IMAP_3_OF_3 -> REPLIES_2_OF_2_INGESTIBLE -> HUMAN_PHENOTYPE_GMAIL_2_OF_3_INBOX -> SMTP_ORDINAL_3_QUARANTINED`
 
 Transport is verified. Reply ingestibility is verified. Placement is not promoted.
 
@@ -19,7 +19,7 @@ Transport is verified. Reply ingestibility is verified. Placement is not promote
 3. [EVIDENCE_INDEX.md](./EVIDENCE_INDEX.md)
 4. [PLACEMENT_RECOVERY.md](./PLACEMENT_RECOVERY.md)
 5. [NEXT_STEPS.md](./NEXT_STEPS.md)
-6. [SECURITY_BOUNDARIES.md](./SECURITY_BOUNDARIES.md)
+6. [SECURITY_BOUNDARIES.md](./SECURITY_BOUNDARIES.md)\n7. [FINAL_ACTIVATION_2026-10-02.md](./FINAL_ACTIVATION_2026-10-02.md)
 
 ## Canonical upstream evidence
 

@@ -1284,5 +1284,17 @@
       "LEGAL_AUTHORITY_HOLD",
       "IDENTITY_FACT_HOLD"
     ]
+  },
+  "outreachLiveReality20261002": {
+    "receipt": "docs/receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md",
+    "machineReceipt": "artifacts/outreach/work-live-reality-closure-20261002.json",
+    "sourceMainSha": "3b92fbef5c023f7b19c5f9abb27c90960c78f5a2",
+    "deployedSha": "3b92fbef5c023f7b19c5f9abb27c90960c78f5a2",
+    "deploymentStatus": "LIVE",
+    "powerhouseProductionHistory": "PRODUCTION_HISTORY_UNKNOWN",
+    "coldSendEnabled": false,
+    "prospectMessages": 0,
+    "newSpend": 0,
+    "next": "Existing operator authentication; exact seven-ledger and protected identity/fleet/authority reads. Current Winnr account still unobserved; no first prospect effect."
   }
 }

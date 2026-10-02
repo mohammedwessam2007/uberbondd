@@ -9,6 +9,11 @@ const hash=v=>crypto.createHash('sha256').update(String(v)).digest('hex');
 const loopback=h=>['127.0.0.1','::1','localhost'].includes(String(h||'').toLowerCase());
 
 function header(value,max=1000){return clean(value,max).replace(/[\r\n]+/g,' ');}
+function formatFromHeader(from='',fromName=''){
+  const email=header(from,320);
+  const name=header(fromName,200).replace(/[\\"]/g,'').trim();
+  return name?`"${name}" <${email}>`:email;
+}
 function messageId(from=''){
   const domain=String(from||'').trim().toLowerCase().split('@').pop()?.replace(/[^a-z0-9.-]/g,'');
   const safeDomain=domain&&domain.includes('.')?domain:'uberbond.local';
@@ -19,7 +24,7 @@ function mimeMessage(message={}){
   const id=header(message.messageId,500)||messageId(message.from);
   const headers=[
     `Message-ID: ${id}`,
-    `From: ${header(message.from,320)}`,
+    `From: ${formatFromHeader(message.from,message.fromName)}`,
     `To: ${header(message.to,320)}`,
     `Subject: ${header(message.subject,998)}`,
     `Date: ${new Date().toUTCString()}`,

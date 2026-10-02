@@ -1,8 +1,9 @@
 import crypto from 'node:crypto';
+import { RESUME_KEY, SOURCE_KEY, validCrownResumeAuthority, recoverCrownResumeCheckpoint } from '../src/crown-resume-checkpoint.mjs';
 import { RECOVERY_KEY, reconcileOriginalCrownFinancialState, ORIGINAL_GENERATION } from './infinite-opus-crown-financial-recovery.mjs';
 import { REPLACEMENT_KEY, validReplacementAuthority } from '../src/crown-replacement-authority.mjs';
 import { verifyCrownProviderModel } from '../src/crown-model-identity.mjs';
-import { sealCrownCheckpoint } from '../src/crown-sealed-checkpoint.mjs';
+import { sealCrownCheckpoint, openCrownCheckpoint } from '../src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from '../src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 
@@ -72,7 +73,7 @@ async function generation(apiKey,id){
   }
   throw new Error('generation-reconciliation-required:'+id);
 }
-async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoningTokens=null,onGeneration=async()=>{}}){
+async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat=null,reasoningTokens=null,onGeneration=async()=>{},onSealedResponse=async()=>{}}){
   const body={model,messages,max_tokens:maxTokens,stream:false,
     ...(responseFormat?{response_format:responseFormat}:{}),
     ...(Number.isInteger(reasoningTokens)?{reasoning:{max_tokens:reasoningTokens,exclude:true}}:{}),
@@ -99,6 +100,7 @@ async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat
     reasoningTokens:meta.native_tokens_reasoning??null,
     status:verifyCrownProviderModel({requestedModel:model,observedModel,provider:String(meta.provider_name??'')})?'PROVIDER_RECONCILED_PENDING_EVIDENCE':'RECONCILED_INVALID_EVIDENCE'
   });
+  await onSealedResponse({id,model,text:content(j),meta,cost});
   if(!verifyCrownProviderModel({requestedModel:model,observedModel,provider:String(meta.provider_name??'')}))throw new Error('model-identity-drift:'+model+':'+observedModel);
   const text=content(j),reasoning=String(j?.choices?.[0]?.message?.reasoning??'');
   return {id,text,meta,cost,model,providerName:String(meta.provider_name??''),
@@ -147,14 +149,18 @@ function currentPaidAuthority(authorization,now=Date.now()){
    Date.parse(authorization.expiresAt)>now &&
    (authorization.crownRoutes??[]).includes('openrouter:'+OPUS));
 }
-export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown',checkpointKey=process.env.TOKEN_ENCRYPTION_KEY,replacementAuthorization=null}={}){
+export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha='unknown',checkpointKey=process.env.TOKEN_ENCRYPTION_KEY,replacementAuthorization=null,resumeAuthorization=null}={}){
  if(!store||!apiKey)return {ok:false,status:'AUTOFINISH_INPUT_MISSING'};
- const replacement=replacementAuthorization!==null;
- if(replacement&&!validReplacementAuthority(replacementAuthorization))return {ok:false,status:'EXPLICIT_REPLACEMENT_AUTHORITY_REQUIRED',providerCallsPerformed:0};
- const attemptKey=replacement?REPLACEMENT_KEY:KEY;
+ const resuming=resumeAuthorization!==null;
+ if(resuming&&!validCrownResumeAuthority(resumeAuthorization))return {ok:false,status:'EXPLICIT_MISSING_EDGE_RESUME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
+ const replacement=resuming||replacementAuthorization!==null;
+ if(replacement&&!resuming&&!validReplacementAuthority(replacementAuthorization))return {ok:false,status:'EXPLICIT_REPLACEMENT_AUTHORITY_REQUIRED',providerCallsPerformed:0};
+ const attemptKey=resuming?RESUME_KEY:replacement?REPLACEMENT_KEY:KEY;
  const readState=()=>getState(store,attemptKey);
  const setState=(s,p)=>writeState(s,p,attemptKey);
  const prior=await readState();
+ let recovered=null;
+
  const priorV6=await getState(store,PRIOR_KEY);
  if(!replacement&&(priorV6?.status!=='FAILED_NO_AUTOMATIC_RETRY'||!String(priorV6?.reason||'').startsWith('provider-call-refused:anthropic/claude-opus-5.5:404:')||Math.abs(Number(priorV6?.newSpendUsd)-PRIOR_EXPECTED_SPEND_USD)>1e-9))return {ok:false,status:'AUTOFINISH_V7_PRIOR_STATE_REFUSED',reason:'exact-v6-parameter-routing-refusal-required'};
  if(prior)return {
@@ -163,11 +169,20 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    receiptHash:prior.crownAdmission?.receiptHash??null,
    priorStatus:prior.status
  };
+ if(resuming)recovered=recoverCrownResumeCheckpoint(await getState(store,SOURCE_KEY),{key:checkpointKey});
  if(!currentPaidAuthority(paidAuthorization))return {ok:false,status:'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
  if(typeof checkpointKey!=='string'||checkpointKey.length<32)return {ok:false,status:'PRIVATE_SEALED_CHECKPOINT_KEY_REQUIRED',providerCallsPerformed:0};
  if(replacement){
   const old=await getState(store,KEY);
   if(old?.status!=='FAILED_NO_AUTOMATIC_RETRY')return {ok:false,status:'EXACT_FAILED_V7_STATE_REQUIRED',providerCallsPerformed:0};
+  if(resuming){
+   const source=await getState(store,SOURCE_KEY);
+   for(const row of source.generationJournal){
+    const observed=await generation(apiKey,row.id);
+    if(observed.id!==row.id||Number(observed.total_cost)!==row.costUsd||observed.model!==row.observedModel||observed.provider_name!==row.provider)
+     throw new Error('prior-billing-reconciliation-drift');
+   }
+  }
   const meta=await generation(apiKey,ORIGINAL_GENERATION);
   await reconcileOriginalCrownFinancialState({store,generationMetadata:meta});
   const keyResponse=await fetch('https://openrouter.ai/api/v1/key',{headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)});
@@ -185,16 +200,24 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:replacement?'FINANCIALLY_RECONCILED_INVALID_EVIDENCE':'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
- },newSpendUsd:0,mainSha,...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{})});
- let spend=0;
+ },newSpendUsd:recovered?.inheritedSpendUsd??0,mainSha,...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{}),...(resuming?{resumeAuthorization,sourceAttemptKey:SOURCE_KEY}:{})});
+ let spend=recovered?.inheritedSpendUsd??0;
+ const spendCeiling=resuming?Math.min(MAX_NEW_SPEND_USD,spend+resumeAuthorization.maxIncrementalMicrousd/1e6):MAX_NEW_SPEND_USD;
  const charge=async spec=>{
-   if(replacement&&!validReplacementAuthority(replacementAuthorization))throw new Error('replacement-authority-expired');
+   if(replacement&&!resuming&&!validReplacementAuthority(replacementAuthorization))throw new Error('replacement-authority-expired');
+   if(resuming&&!validCrownResumeAuthority(resumeAuthorization))throw new Error('resume-authority-expired');
    if(!currentPaidAuthority(paidAuthorization))throw new Error('current-paid-runtime-authority-required');
    const reserve=callUpperBoundUsd(spec);
-   if(spend+reserve>MAX_NEW_SPEND_USD)throw new Error('precall-new-tournament-spend-cap-refused:'+spec.model);
+   if(spend+reserve>spendCeiling)throw new Error('precall-new-tournament-spend-cap-refused:'+spec.model);
    await setState(store,{pendingCall:{model:spec.model,tag:spec.tag,reservedWorstCaseUsd:reserve},newSpendUsd:spend});
    let chargeRecorded=false;
-   const r=await call(apiKey,{...spec,onGeneration:async observation=>{
+   const r=await call(apiKey,{...spec,onSealedResponse:async response=>{
+     if(spec.tag!=='candidate')return;
+     const state=await readState();
+     const payload=openCrownCheckpoint(state.sealedEvidence,{key:checkpointKey,binding:attemptKey+'|'+state.taskCommitment});
+     payload.providerResponses??={}; payload.providerResponses[response.id]=response;
+     await setState(store,{sealedEvidence:sealCrownCheckpoint(payload,{key:checkpointKey,binding:attemptKey+'|'+state.taskCommitment})});
+   },onGeneration:async observation=>{
      // Billing is independent of evidence validity; refuse drift without losing its cost.
      if(Number.isFinite(observation.costUsd)&&!chargeRecorded){
        spend+=observation.costUsd; chargeRecorded=true;
@@ -209,7 +232,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
        pendingCall:{model:spec.model,tag:spec.tag,generationId:observation.id,
          reservedWorstCaseUsd:reserve,reconciliationStatus:observation.status}});
    }});
-   if(spend>MAX_NEW_SPEND_USD)throw new Error('new-tournament-spend-cap-exceeded');
+   if(spend>spendCeiling)throw new Error('new-tournament-spend-cap-exceeded');
    await setState(store,{newSpendUsd:spend,pendingCall:null,lastGeneration:{
      id:r.id,model:r.model,costUsd:r.cost,provider:r.providerName,finishReason:r.finishReason,
      contentBytes:r.contentBytes,reasoningBytes:r.reasoningBytes,reservedWorstCaseUsd:reserve
@@ -217,23 +240,31 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    return r;
  };
  try{
-   const gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:3000,reasoningTokens:512,tag:'custodian-generate',responseFormat:taskResponseFormat()});
+   let gen,tasks,taskCommitment;
+   let answers={},calls=[];
+   if(recovered){
+    ({tasks,taskCommitment,answers,calls}=recovered);
+    gen={id:recovered.custodianGenerationId};
+    await setState(store,{taskCommitment,hiddenTaskCount:tasks.length,sealedEvidence:sealCrownCheckpoint({tasks,answers,calls},{key:checkpointKey,binding:attemptKey+'|'+taskCommitment})});
+   }else{
+   gen=await charge({model:EVALUATOR,provider:'google-vertex/global',messages:taskGenerationMessages(),maxTokens:3000,reasoningTokens:512,tag:'custodian-generate',responseFormat:taskResponseFormat()});
    let taskDoc;
    try{taskDoc=parseJson(gen.text);}
    catch{throw new Error('sealed-json-parse-failed:'+gen.id+':finish='+gen.finishReason+':contentBytes='+gen.contentBytes+':reasoningBytes='+gen.reasoningBytes);}
-   const tasks=taskDoc?.tasks;
+   tasks=taskDoc?.tasks;
    if(!Array.isArray(tasks)||tasks.length!==2)throw new Error('exactly-two-hidden-tasks-required');
    for(const [i,t] of tasks.entries()){
      if(typeof t?.prompt!=='string'||Buffer.byteLength(t.prompt)>900||!Array.isArray(t.rubric)||t.rubric.length<5)throw new Error('hidden-task-contract-refused:'+i+':promptBytes='+Buffer.byteLength(String(t?.prompt??''))+':rubricCount='+(Array.isArray(t?.rubric)?t.rubric.length:-1));
      t.id='sealed-'+(i+1)+'-'+h(t.prompt).slice(7,19);
    }
-   const taskCommitment=h(tasks.map(t=>({id:t.id,promptHash:h(t.prompt),rubricHash:h(t.rubric),mustNotHash:h(t.must_not??[])})));
+   taskCommitment=h(tasks.map(t=>({id:t.id,promptHash:h(t.prompt),rubricHash:h(t.rubric),mustNotHash:h(t.must_not??[])})));
    await setState(store,{taskCommitment,hiddenTaskCount:2,sealedEvidence:sealCrownCheckpoint({tasks,answers:{},calls:[]},{key:checkpointKey,binding:attemptKey+'|'+taskCommitment})});
 
-   const answers={};
-   const calls=[];
+   }
+
    for(const t of tasks){
      for(const [model,provider] of [[OPUS,'amazon-bedrock'],[SOL,'azure']]){
+       if(calls.some(c=>c.taskId===t.id&&c.model===model))continue;
        const r=await charge({model,provider,messages:[
          {role:'system',content:'Solve the task independently. Follow every explicit constraint. Be precise and self-contained. No tools or web.'},
          {role:'user',content:t.prompt}

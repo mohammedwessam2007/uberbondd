@@ -50,7 +50,7 @@ test('invalid replacement consent dispatches nothing',async()=>{
 test('existing replacement claim prevents all metadata and inference retries',async()=>{
  const f=fixture();f.get()[REPLACEMENT_KEY]={status:'RUNNING'};const original=globalThis.fetch;
  globalThis.fetch=async()=>{throw new Error('network-must-not-run');};
- try{const r=await runCrownAutoFinish({store:f.store,apiKey:'fixture-private-key',checkpointKey:'x'.repeat(32),paidAuthorization:{evidenceRef:'oct',month:'2026-10',maxMonthlyMicrousd:20000000,expiresAt:'2026-11-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']},replacementAuthorization:auth});
+ try{const r=await runCrownAutoFinish({store:f.store,apiKey:'fixture-private-key',checkpointKey:'x'.repeat(32),paidAuthorization:{evidenceRef:'oct',month:'2026-10',maxMonthlyMicrousd:20000000,expiresAt:'2026-11-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']},replacementAuthorization:{...auth,expiresAt:new Date(Date.now()+60000).toISOString()}});
  assert.equal(r.status,'AUTOFINISH_ALREADY_ATTEMPTED_NO_RETRY');}finally{globalThis.fetch=original;}
 });
 test('protected reserve refusal happens before any paid dispatch',async()=>{
@@ -59,7 +59,7 @@ test('protected reserve refusal happens before any paid dispatch',async()=>{
  if(options?.method==='POST'){paid++;throw Error('paid-must-not-run');}
  return {ok:true,json:async()=>({data:String(url).includes('/generation')?meta:{limit:20,limit_reset:'monthly',limit_remaining:15}})};
  };
- try{const r=await runCrownAutoFinish({store:f.store,apiKey:'fixture-private-key',checkpointKey:'x'.repeat(32),paidAuthorization:{evidenceRef:'oct',month:'2026-10',maxMonthlyMicrousd:20000000,expiresAt:'2026-11-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']},replacementAuthorization:auth});
+ try{const r=await runCrownAutoFinish({store:f.store,apiKey:'fixture-private-key',checkpointKey:'x'.repeat(32),paidAuthorization:{evidenceRef:'oct',month:'2026-10',maxMonthlyMicrousd:20000000,expiresAt:'2026-11-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']},replacementAuthorization:{...auth,expiresAt:new Date(Date.now()+60000).toISOString()}});
  assert.equal(r.status,'KEY_CAP_OR_PROTECTED_CROWN_RESERVE_REFUSED');assert.equal(paid,0);
  assert.equal(f.get()[RECOVERY_KEY].retainedExactBinding,false);}finally{globalThis.fetch=original;}
 });
@@ -71,7 +71,7 @@ test('concurrent replacement triggers claim one paid attempt and preserve failed
  if(options?.method==='POST'){paid++;throw Error('fixture-single-dispatch-interrupted');}
  return {ok:true,json:async()=>({data:String(url).includes('/generation')?meta:{limit:20,limit_reset:'monthly',limit_remaining:20}})};
  };
- const options={store:f.store,apiKey:'fixture-private-key',checkpointKey:'x'.repeat(32),paidAuthorization:{evidenceRef:'oct',month:'2026-10',maxMonthlyMicrousd:20000000,expiresAt:'2026-11-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']},replacementAuthorization:auth};
+ const options={store:f.store,apiKey:'fixture-private-key',checkpointKey:'x'.repeat(32),paidAuthorization:{evidenceRef:'oct',month:'2026-10',maxMonthlyMicrousd:20000000,expiresAt:'2026-11-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']},replacementAuthorization:{...auth,expiresAt:new Date(Date.now()+60000).toISOString()}};
  try{await Promise.all([runCrownAutoFinish(options),runCrownAutoFinish(options)]);assert.equal(paid,1);assert.equal(f.get()[REPLACEMENT_KEY].status,'FAILED_NO_AUTOMATIC_RETRY');
  await runCrownAutoFinish(options);assert.equal(paid,1);}finally{globalThis.fetch=original;}
 });

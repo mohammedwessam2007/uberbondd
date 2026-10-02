@@ -58,3 +58,12 @@ Next frontier:
 3. Obtain provider-diverse owner-controlled seed evidence when genuinely available.
 4. Do not contact prospects yet from this pilot.
 5. If provider-diverse evidence and sender-specific evidence clear the gate, promote only a tiny cohort under existing 2/day/mailbox and suppression/legal controls.
+
+## DKIM diagnosis completed — 2026-10-02
+
+- [x] Compare raw Gmail authentication headers across all three phenotype messages.
+- [x] Establish that the extra failing `s=dkim` signature is common to Inbox and Spam outcomes.
+- [x] Preserve working aligned DKIM/SPF/DMARC rather than blindly changing DNS.
+- [ ] Obtain provider-diverse owner-controlled placement evidence for Tara and Nadia.
+- [ ] Keep Dana quarantined pending improved independent evidence or provider inventory replacement.
+- [ ] Ask Winnr to explain/remove the redundant failing `s=dkim` signature because Winnr manages DKIM for provider-hosted DNS.

@@ -1,13 +1,14 @@
 {
   "schemaVersion": "uberbond.message-tournament.v1",
+  "revision": "2026-10-02 r2 (re-run on same-page evidence)",
   "status": "CONDITIONAL_PENDING_VERIFICATION",
-  "notMessageReady": "Powerhouse is not yet VERIFIED_CANDIDATE (three evidence gaps). These candidates use only facts reported as verified and mint no approval, digest or effect.",
+  "notMessageReady": "Powerhouse is not yet VERIFIED_CANDIDATE: only the runtime ledger read is outstanding. These candidates use verified facts only and mint no approval, digest or effect.",
   "prospect": {
     "company": "Powerhouse Consulting Group",
     "recipient": "hello@mypowerhouse.group",
     "offerId": "REVENUE_PROOF_AND_RENEWAL_PACK",
     "client": "Sylvester Electric",
-    "observedIssue": "PUBLIC_SERVICE_PROMISE_INCONSISTENCY"
+    "observedIssue": "SAME_PAGE_PUBLIC_SERVICE_PROMISE_INCONSISTENCY"
   },
   "genome": "SELECT -> PROVE -> TIME -> MATCH -> PRE-WORK -> COMPRESS -> MICRO-ASK -> ASYNC-CLOSE",
   "constraints": {
@@ -25,12 +26,82 @@
     ],
     "cta": "Want me to send it?",
     "calendarLink": false,
-    "footerAddedSeparately": true
+    "footerAddedSeparately": true,
+    "identityPlaceholdersOnly": [
+      "LEGAL_BUSINESS_SENDER_NAME",
+      "AUTHORIZED_PUBLIC_POSTAL_ADDRESS"
+    ]
+  },
+  "rubric": {
+    "description": "Deterministic. A candidate is eligible only if it meets every hard limit, contains no banned or unsupported language. Eligible candidates are scored by the verified anchors they carry; the highest score wins; ties go to the fewer words, then to the earlier id.",
+    "anchors": [
+      {
+        "id": "client",
+        "pattern": "Sylvester Electric",
+        "points": 2
+      },
+      {
+        "id": "powerhouse_link",
+        "pattern": "Powerhouse",
+        "points": 1
+      },
+      {
+        "id": "same_page",
+        "pattern": "same page|own homepage|its homepage",
+        "flags": "i",
+        "points": 2
+      },
+      {
+        "id": "both_promises",
+        "pattern": "qualifying after-hours",
+        "flags": "i",
+        "points": 2
+      },
+      {
+        "id": "always_on_promise",
+        "pattern": "24/7",
+        "points": 1
+      },
+      {
+        "id": "corroboration",
+        "pattern": "generator|panel",
+        "flags": "i",
+        "points": 1
+      },
+      {
+        "id": "artifact_described",
+        "pattern": "one-page (reconciliation )?note",
+        "flags": "i",
+        "points": 1
+      },
+      {
+        "id": "buyer_altitude",
+        "pattern": "client QA|renewal",
+        "flags": "i",
+        "points": 2
+      }
+    ],
+    "unsupportedAfterReevaluation": [
+      {
+        "pattern": "emergency, generator and panel-service pages",
+        "flags": "i",
+        "reason": "the latest verified evidence lists only the generator-installation and electric-panel-replacement pages; an 'emergency' page is no longer supported"
+      },
+      {
+        "pattern": "ServiceTitan",
+        "reason": "no evidence Sylvester's after-hours rules live in ServiceTitan"
+      },
+      {
+        "pattern": "probably already",
+        "flags": "i",
+        "reason": "unsupported revenue claim"
+      }
+    ]
   },
   "candidates": [
     {
       "id": "A_CLIENT_QA_RENEWAL",
-      "framing": "client QA and renewal proof",
+      "framing": "client QA and renewal proof (previous winner)",
       "subject": "Sylvester availability",
       "body": "Hi there,\n\nI noticed one of Powerhouse's publicly named clients, Sylvester Electric, describes emergency service two ways on its own site: business hours plus qualifying after-hours situations on the homepage, and 24/7 on its emergency, generator and panel-service pages. I mapped the exact pages and wording into a one-page reconciliation note that could help with client QA or renewal proof. Want me to send it?"
     },
@@ -57,18 +128,30 @@
       "framing": "leads with praise of Powerhouse",
       "subject": "Great work with contractors",
       "body": "Hi there,\n\nIt's impressive how many contractors Powerhouse has helped optimize ServiceTitan, and I'm sure Sylvester Electric is a great client. Their site gives conflicting emergency-service promises, which is a definite problem and urgent to fix. I built a note with the details. Want me to send it?"
+    },
+    {
+      "id": "F_SAME_PAGE_FULL",
+      "framing": "same-page contradiction with corroborating pages",
+      "subject": "Sylvester availability",
+      "body": "Hi there,\n\nI noticed one of Powerhouse's publicly named clients, Sylvester Electric, makes two different emergency-service promises on the same page: its homepage says emergency service covers business hours and qualifying after-hours situations, and its service list further down advertises 24/7 Emergency Service. Its generator and panel pages also say 24/7. I put the exact wording into a one-page reconciliation note for client QA. Want me to send it?"
+    },
+    {
+      "id": "G_SAME_PAGE_COMPACT",
+      "framing": "same-page contradiction, compact",
+      "subject": "Sylvester homepage wording",
+      "body": "Hi there,\n\nSylvester Electric, one of Powerhouse's publicly named clients, gives two different emergency-service promises on its own homepage: business hours plus qualifying after-hours situations in one place, and 24/7 Emergency Service further down. I mapped the wording and the two service pages that say 24/7 into a one-page note for client QA or renewal proof. Want me to send it?"
     }
   ],
   "critics": [
     {
       "id": "A_CLIENT_QA_RENEWAL",
-      "verdict": "PASS",
-      "notes": "Every claim is a reported verified fact; no causation, no money, not accusatory; the artifact is described exactly as prepared; role fit is renewal/QA for a consultancy."
+      "verdict": "FAIL_SUPERSEDED_UNSUPPORTED_CLAIM",
+      "notes": "Previous winner, now falsified by stronger evidence: it cites an 'emergency' page and places the 24/7 wording only on other pages, while the verified evidence shows the contradiction on the homepage itself and lists only the generator and panel pages as corroboration. It is not preserved merely because it won before."
     },
     {
       "id": "B_HEADS_UP",
-      "verdict": "PASS_WEAKER",
-      "notes": "Safe and non-salesy, but 'rather than selling anything' protests too much in a commercial message and the consequence at buyer altitude is vaguer than A."
+      "verdict": "PASS_NOT_SELECTED",
+      "notes": "Safe and non-salesy, but 'rather than selling anything' protests too much in a commercial message and the consequence at buyer altitude is vaguer."
     },
     {
       "id": "C_COMPRESSED",
@@ -78,19 +161,29 @@
     {
       "id": "D_DISPATCH_RULES",
       "verdict": "FAIL",
-      "notes": "Unsupported assertion (no evidence Sylvester's after-hours rules live in ServiceTitan) and an unsupported revenue claim ('probably already losing calls')."
+      "notes": "Unsupported assertion (no evidence the after-hours rules live in ServiceTitan) and an unsupported revenue claim."
     },
     {
       "id": "E_CONSULTANT_PRAISE",
       "verdict": "FAIL",
-      "notes": "Generic praise and false familiarity ('impressive', 'a great client'), an unsupported 'definite problem', and manufactured urgency."
+      "notes": "Generic praise and false familiarity, an unsupported 'definite problem', and manufactured urgency."
+    },
+    {
+      "id": "F_SAME_PAGE_FULL",
+      "verdict": "PASS",
+      "notes": "Every claim maps to a verified fact: the contradiction on the same homepage, the 24/7 service-list entry, and the generator and panel corroboration. States the artifact exactly as prepared and the buyer-altitude use (client QA). No causation, money, accusation or tooling claim."
+    },
+    {
+      "id": "G_SAME_PAGE_COMPACT",
+      "verdict": "PASS_NOT_SELECTED",
+      "notes": "Accurate and compact, but drops the generator and panel corroboration, so it carries less verified specificity than F."
     }
   ],
-  "winner": "A_CLIENT_QA_RENEWAL",
-  "winnerReason": "Highest specificity from verified facts, consequence stated at buyer altitude (client QA and renewal proof), artifact described exactly as prepared, one tiny permission ask.",
-  "winnerSubjectOnlyCompressionNote": "Already one idea and one CTA; further compression would drop the page-level specificity that makes it credible.",
+  "winner": "F_SAME_PAGE_FULL",
+  "winnerReason": "Eligible and highest on the verified-anchor rubric after the stronger same-page evidence: it carries the same-page contradiction, the 24/7 service-list entry, the generator and panel corroboration, the exact artifact and a buyer-altitude use.",
+  "winnerNotPreservedByDefault": "A_CLIENT_QA_RENEWAL previously won and was re-evaluated; it now fails on an unsupported claim.",
   "doNotSendUntil": [
-    "Powerhouse reaches VERIFIED_CANDIDATE",
+    "Powerhouse reaches VERIFIED_CANDIDATE (runtime ledger read)",
     "exact approval is minted over the final message including footer",
     "LEGAL_AUTHORITY_HOLD and IDENTITY_FACT_HOLD are resolved by the founder"
   ]

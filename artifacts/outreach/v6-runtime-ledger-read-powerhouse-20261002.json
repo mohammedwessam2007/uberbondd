@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "uberbond.v6-owner-authenticated-read.v1",
+  "createdAt": "2026-10-02",
+  "escalationClass": "V6 (last resort): one authenticated read this sandbox genuinely cannot perform",
+  "v1ToV5Exhausted": "Repo and git-history searches done (no prior contact). The production store is unreachable from this sandbox (network policy plus no credential). No unauthenticated or public alternative exists, and none may be created.",
+  "effect": "READ_ONLY",
+  "doNot": [
+    "weaken auth",
+    "create a public diagnostic endpoint",
+    "log secrets",
+    "modify the database",
+    "return customer or prospect data beyond the fields below"
+  ],
+  "target": {
+    "email": "hello@mypowerhouse.group",
+    "domain": "mypowerhouse.group"
+  },
+  "correctionToTheNamedRoute": {
+    "named": "GET https://uberbond-control-plane.onrender.com/api/leadgen/intelligence",
+    "finding": "Insufficient. src/leadgen-live-snapshot.mjs returns aggregate counts plus only the top 10 leads and top 10 accounts, and suppressed or already-contacted records are excluded from those results (src/lead-generation.mjs: suppressed candidates are skipped, status sent/replied/send-uncertain/suppressed is blocked). A clean response therefore cannot distinguish 'not present' from 'present but excluded or ranked below ten'. It reports suppressionRecords only as a count.",
+    "useInstead": "the reads below"
+  },
+  "reads": [
+    {
+      "id": "SUPPRESSIONS",
+      "method": "authenticated read-only query of the production store collection `suppressions` (PostgresStore list; no HTTP route lists suppression contents, the dashboard summary exposes only a count)",
+      "match": "a row matches if value (lower-cased) equals hello@mypowerhouse.group, equals mypowerhouse.group, or the email ends with @<value> (server-core suppressionMatchesEmail); also apply send-safety suppressionLookup (value equals the email or the domain)",
+      "return": [
+        "match yes/no",
+        "matched value and reason if any (e.g. one-click-unsubscribe, complaint, hard bounce, manual)"
+      ]
+    },
+    {
+      "id": "PROSPECTS",
+      "method": "GET https://uberbond-control-plane.onrender.com/api/prospects (owner/admin bearer; returns all prospect records, so filter client-side and return only the fields below)",
+      "match": "contact.email equals the email, or domain / website host equals mypowerhouse.group",
+      "return": [
+        "prospect record yes/no",
+        "current status",
+        "previous contact timestamp if any (sentAt, previouslyContactedAt, priorContact.lastContactedAt)"
+      ]
+    },
+    {
+      "id": "OUTBOUND",
+      "method": "GET /api/outbound-reservations and GET /api/outbound-events (same bearer)",
+      "match": "recipientEmail equals the email (reservations carry kind and status; status uncertain means an unreconciled effect; outbound events carry eventType and recipientEmail)",
+      "return": [
+        "prior outbound collision yes/no",
+        "any reservation with status uncertain, dispatching or reserved yes/no"
+      ]
+    },
+    {
+      "id": "REPLIES_AND_SIGNALS",
+      "method": "GET /api/replies (same bearer)",
+      "match": "reply `from` contains the email or domain, or prospectId belongs to a matching prospect; look at classification.label for bounce and complaint (unsubscribes are recorded in suppressions with reason one-click-unsubscribe, already covered by SUPPRESSIONS)",
+      "return": [
+        "any bounce or complaint reply record yes/no"
+      ]
+    }
+  ],
+  "returnShape": {
+    "contactHistory": {
+      "repoAndHistorySearched": true,
+      "runtimeSuppressionSearched": "true after SUPPRESSIONS was read",
+      "runtimeProspectAndOutboundSearched": "true after PROSPECTS and OUTBOUND were read",
+      "hit": "true if ANY match or ANY uncertain reservation"
+    },
+    "details": [
+      "suppression match yes/no and matched value/reason",
+      "prospect record yes/no",
+      "previous contact timestamp if any",
+      "current status",
+      "prior outbound collision yes/no"
+    ]
+  },
+  "afterReturn": "Apply returned contactHistory to the Powerhouse inputRecord in artifacts/outreach/prospect-tournament-20261002.json and rerun compileProspectVerification. Clean returns VERIFIED_CANDIDATE (projection tested); any hit rejects with a deterministic reason that must not be overridden, and replacement discovery resumes.",
+  "authority": "None. Reading the ledgers authorizes no contact, send, wiring or merge."
+}

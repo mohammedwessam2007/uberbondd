@@ -16,7 +16,9 @@
         "recipient.excerpt (verbatim, contains the address)",
         "recipient.observedAt (ISO time of your fetch)",
         "recipient.sourcePageExact=true"
-      ]
+      ],
+      "status": "CLOSED_BY_MISSION_CONTROL",
+      "resolution": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/ (verbatim: \"Also available to non-clients \u2013 just email hello@mypowerhouse.group for more information!\"); repeated on /event/webinar-servicetitan-fma/ and /event/servicetitan-fma-encore/; general contact page https://mypowerhouse.group/contact/"
     },
     {
       "id": "R2_NO_HARVEST_CHECK",
@@ -27,7 +29,9 @@
         "notices.noHarvestChecked",
         "notices.noHarvestFound",
         "notices.pagesChecked (urls)"
-      ]
+      ],
+      "status": "CLOSED_BY_MISSION_CONTROL",
+      "resolution": "NO_RELEVANT_NEGATIVE_SIGNAL_FOUND_ON_CHECKED_SURFACES (contact page, privacy policy, homepage, event pages, targeted indexed searches); observed fact for those surfaces only"
     },
     {
       "id": "R3_RUNTIME_LEDGERS",
@@ -39,7 +43,9 @@
         "contactHistory.runtimeProspectAndOutboundSearched",
         "contactHistory.hit (true if ANY match)",
         "per-table match counts and the earliest and latest timestamp only"
-      ]
+      ],
+      "status": "OPEN_V6",
+      "resolution": "superseded by artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json (the named /api/leadgen/intelligence route cannot answer it)"
     },
     {
       "id": "R4_ARTIFACT_EVIDENCE",
@@ -51,8 +57,11 @@
         "verbatim wording",
         "fetchedAt",
         "screenshot refs if any"
-      ]
+      ],
+      "status": "CLOSED_BY_MISSION_CONTROL",
+      "resolution": "same-page contradiction on https://sylvesterelectric.com/ plus /generator-installation and /electric-panel-replacement; see the reconciliation draft"
     }
   ],
-  "afterReturn": "Apply the returned fields to the Powerhouse record and rerun compileProspectVerification (artifacts/outreach/prospect-tournament-20261002.json shows the current record). If it returns VERIFIED_CANDIDATE, update the conditional package to MESSAGE_READY and EFFECT_PACKAGE_READY_EXCEPT_IDENTITY_AND_LEGAL_AUTHORITY. If it rejects, record the exact deterministic reason and continue replacement discovery."
+  "afterReturn": "Apply the returned fields to the Powerhouse record and rerun compileProspectVerification (artifacts/outreach/prospect-tournament-20261002.json shows the current record). If it returns VERIFIED_CANDIDATE, update the conditional package to MESSAGE_READY and EFFECT_PACKAGE_READY_EXCEPT_IDENTITY_AND_LEGAL_AUTHORITY. If it rejects, record the exact deterministic reason and continue replacement discovery.",
+  "revision": "2026-10-02 r2"
 }

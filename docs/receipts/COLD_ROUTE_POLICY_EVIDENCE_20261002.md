@@ -276,3 +276,54 @@ Five framings in `artifacts/outreach/powerhouse-message-tournament-20261002.json
 | LEGAL_AUTHORITY_HOLD, IDENTITY_FACT_HOLD | TRUE |
 
 Effects: new spend $0; prospect messages 0; credential changes 0; production mutations 0.
+
+---
+
+# Revision 5 — 2026-10-02 (two of three Powerhouse gaps closed)
+
+Truth class: INTAKE RESULT + CORRECTION + CONDITIONAL PREPARATION. Nothing sent, wired, merged or enabled. Mission Control findings are session reports this sandbox did not fetch.
+
+## 26. Gaps 1 and 2 ingested; exactly one gap remains
+
+| Gap | State | Evidence |
+|---|---|---|
+| Exact source page | **CLOSED** | `https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/`: "Also available to non-clients – just email hello@mypowerhouse.group for more information!" (deliberate publication to non-clients). Repeated on `/event/webinar-servicetitan-fma/` and `/event/servicetitan-fma-encore/`; the general contact page `https://mypowerhouse.group/contact/` says "Have a general question or want to partner with us? We're here to help!" Publication purpose `GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT`; not privacy-only, support-only, careers-only or incidental. Publication is not consent. |
+| No-harvest / negative signal | **CLOSED**, recorded precisely as `NO_RELEVANT_NEGATIVE_SIGNAL_FOUND_ON_CHECKED_SURFACES` | Checked: current contact page, privacy policy, homepage, event pages, targeted indexed searches for harvest / solicitation / scrape / address-collection restrictions. Not stated: no vendors, no solicitation, no unsolicited email, do not harvest, do not use public email for business contact. The privacy policy concerns SMS consent, customer information and non-sharing of mobile opt-in information. This is observed fact for the checked surfaces; it is **not** encoded as "no such statement exists anywhere". |
+| Runtime suppression and prior-contact ledgers | **OPEN** | See section 27. |
+
+Intake result for Powerhouse: `INCOMPLETE`, `missingEvidence = [runtime-suppression-and-prior-contact-ledgers-not-checked]`, no rejection reasons. 5 projection tests (`tests/powerhouse-intake-projection.test.mjs`) show that a clean ledger read would return `VERIFIED_CANDIDATE` (recipient-side `ALLOW_WITH_REQUIREMENTS`, `sendAuthority: false`) and that any hit rejects. Projections are tests only; the stored result is not changed.
+
+## 27. Correction: the named production read path cannot answer the question
+
+Mission Control named `GET /api/leadgen/intelligence`. Source shows it returns **aggregate counts plus only the top 10 leads and top 10 accounts**, and suppressed or already-contacted records are excluded from those results (`src/lead-generation.mjs`: a suppressed candidate is skipped; status `sent`, `replied`, `send-uncertain` or `suppressed` is blocked). It reports suppression as a count only. A clean response therefore cannot tell "not present" from "present but excluded or ranked below ten", so it would give false assurance. No HTTP route lists suppression contents.
+
+The single atomic V6 read request is `artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json`: read-only, owner/admin credential only; suppressions via a read-only store query using the server's own matching (`suppressionMatchesEmail` and `suppressionLookup`); `GET /api/prospects`, `/api/outbound-reservations`, `/api/outbound-events` and `/api/replies` filtered to the email and domain; return only yes/no, matched value and reason, previous-contact timestamp, current status and outbound-collision flags. It does not weaken auth, add a public endpoint, log secrets or modify the database.
+
+## 28. Sylvester artifact strengthened
+
+Classification upgraded to `SAME_PAGE_PUBLIC_SERVICE_PROMISE_INCONSISTENCY`: on `https://sylvesterelectric.com/` the emergency section says service is available during business hours and for qualifying after-hours situations, and the service list later advertises "24/7 Emergency Service" and says they respond any time. Corroborating: `/generator-installation` ("24/7 availability"; offers 24/7 emergency electrical service) and `/electric-panel-replacement` ("24/7 Availability"; emergency panel/electrical service available 24/7). Fact and hypothesis kept separate; no claim of lost calls, lost sales, revenue loss, customer complaints, causation by Powerhouse, or which promise is operationally correct. Draft file updated with all URLs; fetch times are reported, not exact, and screenshots are not preserved from this sandbox.
+
+## 29. Message tournament re-run on the stronger evidence
+
+Seven candidates, deterministic eligibility and scoring (recomputed independently in `tests/powerhouse-message-candidates.test.mjs`, 6 tests). **The previous winner `A_CLIENT_QA_RENEWAL` was not preserved**: it names an "emergency" page that the latest evidence no longer lists and places the 24/7 wording only on other pages, so it fails as an unsupported claim even though it would have scored highest on specificity (eligibility gates the scoring). New winner **`F_SAME_PAGE_FULL`**: subject "Sylvester availability" (2 words), 69-word body in 4 sentences including the CTA, one idea, one CTA "Want me to send it?", no calendar link, no money, causation, accusation, false familiarity or tooling claim. `G_SAME_PAGE_COMPACT` is eligible but carries less verified specificity. Identity and footer remain placeholders; the disclosure and footer are added separately.
+
+## 30. Effect package
+
+Updated with the exact source URL and excerpt, the corroborating pages, the client pages, the artifact, the winner, route evidence inputs (`noHarvestNoticeChecked: true`), and the pending ledger read. Status `PREPARED_NOT_READY`; no digest minted (identity participates); the file contains no 64-hex value (tested).
+
+## 31. State
+
+| Flag | Value |
+|---|---|
+| PRODUCTION_READY, TRANSPORT_READY, GREEN_SENDERS_READY, DANA_QUARANTINED | TRUE per Mission Control (not re-verified here) |
+| COLD_ROUTE_TECHNICALLY_READY | TRUE |
+| COLD_ROUTE_ENABLED | FALSE |
+| POWERHOUSE_PUBLIC_PROVENANCE_READY | TRUE |
+| POWERHOUSE_NEGATIVE_SIGNAL_CHECK_READY | TRUE |
+| SYLVESTER_ARTIFACT_READY | TRUE (reported evidence; screenshots not preserved) |
+| PROSPECT_READY | **FALSE** until the production ledger read returns clean and the intake is re-run |
+| MESSAGE_READY | **FALSE** (winner prepared; depends on a verified prospect) |
+| EFFECT_PACKAGE_READY_EXCEPT_HOLDS | **FALSE** (prepared; depends on MESSAGE_READY) |
+| LEGAL_AUTHORITY_HOLD, IDENTITY_FACT_HOLD | TRUE |
+
+Effects: new spend $0; prospect messages 0; credential changes 0; production mutations 0.

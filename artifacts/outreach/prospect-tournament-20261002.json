@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.prospect-tournament.v1",
-  "revision": "2026-10-02 r4 (Powerhouse evidence ingested)",
+  "revision": "2026-10-02 r5 (gaps 1 and 2 closed; runtime ledger read outstanding)",
   "engine": "src/prospect-verification-intake.mjs",
   "offerQuartet": [
     "AGENCY_REVENUE_LEAK_PROOF_PACK",
@@ -19,6 +19,15 @@
     "rejected": 3
   },
   "prospectReady": false,
+  "readinessFlags": {
+    "POWERHOUSE_PUBLIC_PROVENANCE_READY": true,
+    "POWERHOUSE_NEGATIVE_SIGNAL_CHECK_READY": true,
+    "SYLVESTER_ARTIFACT_READY": true,
+    "PROSPECT_READY": false,
+    "MESSAGE_READY": false,
+    "EFFECT_PACKAGE_READY_EXCEPT_HOLDS": false,
+    "note": "PROSPECT_READY stays false only until the production ledger read returns clean and the deterministic intake is re-run"
+  },
   "candidates": [
     {
       "company": "Footbridge Media",
@@ -32,6 +41,27 @@
       },
       "decision": "REJECT_NEGATIVE_RECIPIENT_SIGNAL",
       "anotherChannel": "none recommended: the stance applies to unsolicited reports generally",
+      "inputRecord": {
+        "company": "Footbridge Media",
+        "website": "https://www.footbridgemedia.com/",
+        "hqCountry": "US",
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
+        "recipient": {
+          "email": "service@footbridgemedia.com",
+          "publishedRole": "UNKNOWN",
+          "sourceUrl": "https://www.footbridgemedia.com/contact-us/"
+        },
+        "negativeRecipientSignals": [
+          {
+            "kind": "PUBLISHED_ANTI_UNSOLICITED_STANCE",
+            "summary": "Footbridge published an article describing unsolicited marketing and optimization reports as the digital equivalent of cold calls, saying it receives many and generally ignores or deletes them."
+          },
+          {
+            "kind": "CONSENT_REQUIRED_STANCE",
+            "summary": "Its own email-marketing service says recipients should be existing customers or prospects already engaging with the contractor, and that marketing consent is required."
+          }
+        ]
+      },
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "Footbridge Media",
@@ -67,6 +97,27 @@
       },
       "decision": "REJECT_PARENT_OVERLAP",
       "anotherChannel": "none",
+      "inputRecord": {
+        "company": "1SEO Digital Agency",
+        "website": "https://1seo.com/",
+        "hqCountry": "US",
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
+        "currentOwnership": {
+          "status": "PART_OF_LARGER_GROUP",
+          "parentAssessment": {
+            "parent": "Scorpion",
+            "operatesUnderOwnBrand": true,
+            "parentOverlapWithOffer": "HIGH",
+            "rationale": "Scorpion RevenueMAX directly attributes booked jobs and revenue; the repo already records inseparable overlap with the lead-path evidence offer.",
+            "evidenceRef": "artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json#scorpion"
+          }
+        },
+        "recipient": {
+          "email": "info@1seo.com",
+          "publishedRole": "GENERAL_BUSINESS_INQUIRIES",
+          "sourceUrl": "https://1seo.com/contact/"
+        }
+      },
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "1SEO Digital Agency",
@@ -94,6 +145,15 @@
       },
       "decision": "REJECT_ADDRESS_NOT_A_SALES_RECIPIENT",
       "anotherChannel": "its public contact form/page remains a possible non-email route",
+      "inputRecord": {
+        "company": "KickCharge Creative",
+        "website": "https://www.kickcharge.com/",
+        "hqCountry": "US",
+        "recipient": {
+          "email": "sparky@kickcharge.com",
+          "publishedRole": "PRIVACY_ONLY"
+        }
+      },
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "KickCharge Creative",
@@ -120,22 +180,31 @@
         "identity": "Powerhouse Consulting Group, LLC; ServiceTitan lists it as a Certified Provider; its own site names Jenny Benbrook as CEO / co-founder and describes a software/FSM consultancy for home-service contractors; no acquisition or parent replacement found in current research",
         "publishedAddress": "hello@mypowerhouse.group, deliberately published",
         "verbatimEvidence": [
-          "contact page: \"Have a general question or want to partner with us? We're here to help!\"",
-          "site, repeatedly, to non-clients: \"just email hello@mypowerhouse.group for more information\"",
-          "current company article: \"contact us at hello@mypowerhouse.group\""
+          "https://mypowerhouse.group/contact/ : \"Have a general question or want to partner with us? We're here to help!\"",
+          "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/ : \"Also available to non-clients – just email hello@mypowerhouse.group for more information!\"",
+          "independently fetched confirmations repeating the same non-client email instruction: https://mypowerhouse.group/event/webinar-servicetitan-fma/ and https://mypowerhouse.group/event/servicetitan-fma-encore/"
         ],
+        "exactSourcePage": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/ (deliberate publication to NON-CLIENTS)",
+        "observedAtBasis": "Mission Control fetch during the 2026-10-02 session; exact fetch time not supplied, so the ingestion time is recorded as an upper bound",
         "publicationPurpose": "GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT (not privacy-only, support-only, legal-only, careers-only or incidental/internal). This establishes deliberate public business-contact provenance only; it does not imply consent.",
         "negativeSignalCheck": {
+          "result": "NO_RELEVANT_NEGATIVE_SIGNAL_FOUND_ON_CHECKED_SURFACES",
           "surfacesChecked": [
-            "/contact",
-            "/privacy-policy",
+            "current contact page",
+            "current privacy policy",
             "homepage",
             "current event pages",
-            "current news/resources pages"
+            "targeted indexed searches for harvest / solicitation / scrape / address-collection restrictions"
           ],
-          "found": "no blanket no-solicitation, no-vendors, no-unsolicited-email or no-commercial-contact statement",
-          "note": "the privacy policy has consumer/SMS consent and data-handling language, which is not treated as a prohibition on vendor business email",
-          "limit": "absence is reported only for the surfaces listed; no claim of exhaustive absence across the internet"
+          "notStated": [
+            "no vendors",
+            "no solicitation",
+            "no unsolicited email",
+            "do not harvest this business address",
+            "do not use public email for business contact"
+          ],
+          "note": "the privacy policy concerns SMS consent, customer information and non-sharing of mobile opt-in information; it is not treated as a prohibition on vendor business email",
+          "limit": "observed fact for the checked surfaces only; it is NOT encoded as \"no such statement exists anywhere\""
         },
         "offerRouting": {
           "chosen": "REVENUE_PROOF_AND_RENEWAL_PACK",
@@ -149,8 +218,9 @@
           "location": "Massachusetts / Southern New Hampshire"
         },
         "observedIssue": {
-          "classification": "PUBLIC_SERVICE_PROMISE_INCONSISTENCY",
-          "fact": "Sylvester Electric's current homepage says emergency service is available during business hours and for qualifying after-hours situations, and later labels one service \"24/7 Emergency Service\"; dedicated emergency, generator and panel-service pages state \"24/7 Emergency Service\" and \"24/7 availability\"",
+          "classification": "SAME_PAGE_PUBLIC_SERVICE_PROMISE_INCONSISTENCY",
+          "primaryPage": "https://sylvesterelectric.com/",
+          "fact": "On the same current homepage, the emergency section says emergency service is available during business hours and for qualifying after-hours situations, and later the service list advertises \"24/7 Emergency Service\" and says they respond any time. Corroborating: https://sylvesterelectric.com/generator-installation advertises \"24/7 availability\" and states they offer 24/7 emergency electrical service; https://sylvesterelectric.com/electric-panel-replacement advertises \"24/7 Availability\" and says emergency panel/electrical service is available 24/7.",
           "notAClaim": "not a proven lost sale, not revenue loss, not proof that customers are confused, not caused by Powerhouse",
           "hypothesis": "inconsistent emergency-availability language can create ambiguity in customer expectations and makes the client-facing digital operating story harder to reconcile"
         },
@@ -162,6 +232,63 @@
       },
       "decision": "INTAKE_RESULT_SEE_STATUS",
       "anotherChannel": "n/a",
+      "inputRecord": {
+        "company": "Powerhouse Consulting Group",
+        "website": "https://mypowerhouse.group/",
+        "hqCountry": "US",
+        "evidenceClass": "PAGE_FETCH_VERIFIED",
+        "currentOwnership": {
+          "status": "INDEPENDENT",
+          "evidenceUrl": "https://mypowerhouse.group/"
+        },
+        "recipient": {
+          "email": "hello@mypowerhouse.group",
+          "publishedRole": "GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT",
+          "sourceUrl": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/",
+          "sourcePageExact": true,
+          "excerpt": "Also available to non-clients – just email hello@mypowerhouse.group for more information!",
+          "observedAt": "2026-10-02T19:57:19.134Z"
+        },
+        "notices": {
+          "noSolicitationChecked": true,
+          "noSolicitationFound": false,
+          "noHarvestChecked": true,
+          "noHarvestFound": false,
+          "pagesChecked": [
+            "https://mypowerhouse.group/contact/",
+            "privacy policy",
+            "homepage",
+            "current event pages",
+            "targeted indexed searches for harvest / solicitation / scrape / address-collection restrictions"
+          ]
+        },
+        "offerFit": {
+          "servesHomeServiceClients": true,
+          "evidenceUrl": "https://mypowerhouse.group/",
+          "rationale": "Software/FSM consultancy serving home-service contractors with a named, current client."
+        },
+        "clientEvidence": {
+          "clientName": "Sylvester Electric",
+          "clientSiteUrl": "https://sylvesterelectric.com/",
+          "observation": {
+            "verifiable": true,
+            "text": "Homepage gives two different emergency-availability representations: business hours plus qualifying after-hours, versus 24/7 Emergency Service.",
+            "sourceUrl": "https://sylvesterelectric.com/",
+            "excerpt": "during business hours and for qualifying after-hours situations / 24/7 Emergency Service (same page); corroborated by /generator-installation and /electric-panel-replacement",
+            "observedAt": "2026-10-02T19:57:19.134Z"
+          }
+        },
+        "offerRoute": {
+          "offerId": "REVENUE_PROOF_AND_RENEWAL_PACK",
+          "rationale": "Consultancy serving multiple contractors with an ongoing client model; independent evidence of client-facing inconsistencies supports renewal and proof conversations."
+        },
+        "contactHistory": {
+          "repoAndHistorySearched": true,
+          "runtimeSuppressionSearched": false,
+          "runtimeProspectAndOutboundSearched": false,
+          "hit": false
+        }
+      },
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "Powerhouse Consulting Group",
@@ -170,8 +297,6 @@
         "evidenceClass": "PAGE_FETCH_VERIFIED",
         "rejectionReasons": [],
         "missingEvidence": [
-          "recipient-exact-source-page-not-identified",
-          "no-harvest-notice-not-checked",
           "runtime-suppression-and-prior-contact-ledgers-not-checked"
         ],
         "recipientSideEligibility": null,
@@ -192,6 +317,12 @@
       },
       "decision": "INCOMPLETE_EMAIL_PROVENANCE",
       "anotherChannel": "If no deliberately published commercial email exists, reject the EMAIL route and preserve BxB as a contact-form/phone-channel opportunity (separate consequence gates).",
+      "inputRecord": {
+        "company": "BxB Media",
+        "website": "https://bxbknowshvac.com/",
+        "hqCountry": "US",
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL"
+      },
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "BxB Media",
@@ -234,6 +365,12 @@
       },
       "decision": "INCOMPLETE_EMAIL_PROVENANCE",
       "anotherChannel": "reject the email route if no deliberately published commercial recipient is found",
+      "inputRecord": {
+        "company": "Leadhub",
+        "website": "https://www.leadhub.net/",
+        "hqCountry": "US",
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL"
+      },
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "Leadhub",

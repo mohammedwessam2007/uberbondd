@@ -28,6 +28,7 @@ async function request(path, { method = 'GET', body } = {}) {
       ? payload
       : payload?.error || payload?.message || payload?.reasonCodes?.join(', ') || `HTTP ${response.status}`;
     const error = new Error(detail);
+    error.status = response.status;
     error.payload = payload;
     throw error;
   }
@@ -35,13 +36,18 @@ async function request(path, { method = 'GET', body } = {}) {
 }
 
 const blockers = prepared => [
+  ...(prepared?.reasonCodes || []),
   ...(prepared?.certificate?.hardStopReasonCodes || []),
   ...(prepared?.certificate?.waitReasonCodes || [])
 ];
 const green = prepared => !prepared?.readFailed && prepared?.certificate?.state === 'CERTIFIED_100K_READY' && prepared?.pressable === true && blockers(prepared).length === 0;
 async function prepared() {
   try { return await request('/api/outreach/100k/status'); }
-  catch (error) { return { readFailed: true, reasonCodes: ['launch-status-unreadable'] }; }
+  catch (error) {
+    // A typed 409 is a successfully read refusal, not an auth/network failure.
+    if (error.status === 409 && error.payload?.ok === false && Array.isArray(error.payload.reasonCodes) && error.payload.reasonCodes.length) return { ...error.payload, pressable: false };
+    return { readFailed: true, reasonCodes: ['launch-status-unreadable'] };
+  }
 }
 
 // Read gates before presenting a launch control. Authentication and failed
@@ -58,7 +64,8 @@ async function refreshReadiness() {
     const canary = await request('/api/outbound/canary/status');
     if (version !== readinessVersion) throw new Error('credential-state-changed');
     if (current?.readFailed) throw new Error('launch-status-unreadable');
-    if (typeof current?.certificate?.state !== 'string' || typeof canary?.state !== 'string' || !Array.isArray(canary?.reasonCodes)) throw new Error('launch-status-malformed');
+    const launchKnown = typeof current?.certificate?.state === 'string' || (current?.ok === false && Array.isArray(current.reasonCodes) && current.reasonCodes.length > 0);
+    if (!launchKnown || typeof canary?.state !== 'string' || !Array.isArray(canary?.reasonCodes)) throw new Error('launch-status-malformed');
     const canaryCodes = canary?.reasonCodes || [];
     const canaryReady = canaryCodes.length === 0 && (canary?.readyForDryRun === true || canary?.readyForLiveSend === true);
     const ready = (green(current) && canaryCodes.length === 0) || canaryReady;

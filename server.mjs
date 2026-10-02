@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
 import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
-import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
+import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';\nimport { verifyWinnrReplyCanaries } from './src/winnr-reply-canary-verifier.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
@@ -629,6 +629,14 @@ if (wrapperIsEntryPoint) {
       ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,300)
     }));
   });
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') === '1') {
+  void verifyWinnrReplyCanaries({ config })
+    .then(result => console.log('WINNR_REPLY_CANARY_VERIFY ' + JSON.stringify(result)))
+    .catch(error => console.error('WINNR_REPLY_CANARY_VERIFY_FAILED ' + JSON.stringify({
+      ok:false,status:'WINNR_REPLY_CANARY_VERIFY_EXCEPTION',reason:String(error?.message||error).slice(0,200)
+    })));
 }
 
 if (wrapperIsEntryPoint && String(process.env.WINNR_RUNTIME_BOOTSTRAP_ONCE || '') === '1') {

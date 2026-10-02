@@ -7,6 +7,8 @@
 // The recipient-side check reuses the existing recipient-eligibility compiler.
 
 import { compileRecipientEligibility, classifyRecipientAddress } from './uberoutbound-recipient-eligibility.mjs';
+import { UBERREPLY_OFFER_PORTFOLIO } from './uberreply-four-offer-genome.mjs';
+import { contactHistoryReceiptUsable, verifyContactHistorySignature, domainOfEmail, CONTACT_HISTORY_RUNTIME_PROVENANCE, RESULT_STATUS as CONTACT_HISTORY_STATUS } from './prospect-contact-history.mjs';
 
 export const PROSPECT_INTAKE_VERSION = 'uberbond.prospect-verification-intake.v1';
 export const PROSPECT_STATUSES = Object.freeze({ VERIFIED_CANDIDATE: 'VERIFIED_CANDIDATE', REJECTED: 'REJECTED', INCOMPLETE: 'INCOMPLETE' });
@@ -19,8 +21,26 @@ export const ACCEPTED_EVIDENCE_CLASSES = Object.freeze(['PAGE_FETCH_VERIFIED', '
 // recipient signal. It is a reputational and fit rejection even where the law
 // would allow the message (REJECT_NEGATIVE_RECIPIENT_SIGNAL).
 export const NEGATIVE_RECIPIENT_SIGNAL_KINDS = Object.freeze(['PUBLISHED_ANTI_UNSOLICITED_STANCE', 'CONSENT_REQUIRED_STANCE', 'NO_VENDOR_SOLICITATION']);
-// The existing flagship offer quartet. A new offer is never invented here.
-export const OFFER_IDS = Object.freeze(['AGENCY_REVENUE_LEAK_PROOF_PACK', 'AI_AGENT_PRODUCTION_RELEASE_GATE', 'REVENUE_PROOF_AND_RENEWAL_PACK', 'GCC_BOOKING_PARITY_SPRINT']);
+// The existing flagship offer quartet, resolved from the canonical production
+// genome (UBERREPLY_OFFER_PORTFOLIO) so there is exactly one offer-id
+// namespace. October-2026 public names, former public names and the labels used
+// by earlier intake artifacts are accepted as aliases and always normalise to
+// the canonical id. A new offer is never invented here.
+export const OFFER_IDS = Object.freeze(UBERREPLY_OFFER_PORTFOLIO.map(offer => offer.offerId));
+const LEGACY_INTAKE_OFFER_LABELS = Object.freeze({
+  AGENCY_REVENUE_LEAK_PROOF_PACK: 'LEAD_TO_BOOKING_LEAK_AUDIT',
+  AI_AGENT_PRODUCTION_RELEASE_GATE: 'AI_AGENT_RELEASE_GATE',
+  REVENUE_PROOF_AND_RENEWAL_PACK: 'CLIENT_ROI_PROOF_SPRINT',
+  GCC_BOOKING_PARITY_SPRINT: 'BILINGUAL_BOOKING_LEAK_AUDIT'
+});
+const OFFER_ALIAS_INDEX = new Map([
+  ...OFFER_IDS.map(id => [id, id]),
+  ...Object.entries(LEGACY_INTAKE_OFFER_LABELS),
+  ...UBERREPLY_OFFER_PORTFOLIO.flatMap(offer => [offer.publicName, ...offer.formerPublicNames].map(name => [String(name).toUpperCase(), offer.offerId]))
+]);
+export function resolveOfferId(value) {
+  return OFFER_ALIAS_INDEX.get(String(value ?? '').trim().toUpperCase()) || null;
+}
 
 const text = (value, max = 600) => String(value ?? '').trim().slice(0, max);
 const lower = value => text(value, 500).toLowerCase();
@@ -35,9 +55,19 @@ const sameSiteFamily = (a, b) => Boolean(a && b) && (a === b || a.endsWith(`.${b
 
 /**
  * @param record externally observed facts (see artifacts/outreach/prospect-verification-request-20261002.json)
- * @param opts   { now, excludedRecipients: string[] }
+ * @param opts   { now, excludedRecipients: string[],
+ *                 contactHistoryTrust: { inProcess: true } | { secret },
+ *                 receiptMaxAgeMs }
+ *
+ * Contact history comes from `record.contactHistoryReceipt`, a typed receipt
+ * compiled by src/prospect-contact-history.mjs from the production ledgers
+ * (RUNTIME_RECEIPT provenance). A receipt that crossed a boundary must be
+ * HMAC-verified (`contactHistoryTrust.secret`); a receipt computed in-process
+ * is declared with `{ inProcess: true }`. The legacy hand-set `contactHistory`
+ * flags are still read, but only as a MANUAL_ATTESTATION that can never make a
+ * candidate runtime-ready (see `contactHistoryProvenance` in the result).
  */
-export function compileProspectVerification(record = {}, { now = new Date(), excludedRecipients = [] } = {}) {
+export function compileProspectVerification(record = {}, { now = new Date(), excludedRecipients = [], contactHistoryTrust = null, receiptMaxAgeMs } = {}) {
   const rejected = [];
   const incomplete = [];
   const rej = reason => rejected.push(reason);
@@ -104,8 +134,8 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (!ACCEPTED_EVIDENCE_CLASSES.includes(evidenceClass)) inc(evidenceClass === 'SEARCH_SUMMARY_ONLY' ? 'evidence-class-search-summary-only' : 'evidence-class-unverified');
 
   // Offer routing: exactly one existing offer, with a stated reason.
-  const offerId = text(record.offerRoute?.offerId, 60).toUpperCase();
-  if (!OFFER_IDS.includes(offerId) || text(record.offerRoute?.rationale, 400).length < 20) inc('offer-route-from-existing-quartet-required');
+  const offerId = resolveOfferId(text(record.offerRoute?.offerId, 120)) || '';
+  if (!offerId || text(record.offerRoute?.rationale, 400).length < 20) inc('offer-route-from-existing-quartet-required');
 
   // Notices: both must have been checked and found absent.
   const n = record.notices || {};
@@ -117,9 +147,31 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   // Prior contact and suppression dominate. Searching the repository and an
   // external lane's copy of main is not a substitute for UberBond's own runtime
   // suppression, prior-contact, bounce, complaint and unsubscribe ledgers.
-  const h = record.contactHistory || {};
-  if (h.hit === true) rej('prior-contact-or-suppression-runtime-ledger-hit');
-  else if (h.repoAndHistorySearched !== true || h.runtimeSuppressionSearched !== true || h.runtimeProspectAndOutboundSearched !== true) inc('runtime-suppression-and-prior-contact-ledgers-not-checked');
+  let contactHistoryProvenance = 'NONE';
+  let contactHistoryReceiptDigest = null;
+  const receipt = record.contactHistoryReceipt;
+  if (receipt && typeof receipt === 'object') {
+    const usable = contactHistoryReceiptUsable(receipt, { email, domain: domainOfEmail(email), now, maxAgeMs: receiptMaxAgeMs });
+    const trusted = contactHistoryTrust?.inProcess === true
+      || (contactHistoryTrust?.secret ? verifyContactHistorySignature(receipt, contactHistoryTrust.secret) : false);
+    if (!email) { /* recipient-email-missing already recorded */ }
+    else if (!usable.usable) inc(`contact-history-receipt-unusable:${usable.reasons[0]}`);
+    else if (!trusted) inc('contact-history-receipt-authenticity-unverified');
+    else if (receipt.status === CONTACT_HISTORY_STATUS.HIT) {
+      contactHistoryProvenance = CONTACT_HISTORY_RUNTIME_PROVENANCE;
+      contactHistoryReceiptDigest = receipt.receiptDigest;
+      rej('prior-contact-or-suppression-runtime-ledger-hit');
+      for (const code of receipt.reasonCodes || []) rej(code);
+    } else if (receipt.status === CONTACT_HISTORY_STATUS.CLEAN && receipt.overallContactHistoryHit === false) {
+      contactHistoryProvenance = CONTACT_HISTORY_RUNTIME_PROVENANCE;
+      contactHistoryReceiptDigest = receipt.receiptDigest;
+    } else inc(`contact-history-${String(receipt.status || 'unknown').toLowerCase().replace(/_/g, '-')}`);
+  } else {
+    const h = record.contactHistory || {};
+    if (h.hit === true) rej('prior-contact-or-suppression-runtime-ledger-hit');
+    else if (h.repoAndHistorySearched !== true || h.runtimeSuppressionSearched !== true || h.runtimeProspectAndOutboundSearched !== true) inc('runtime-suppression-and-prior-contact-ledgers-not-checked');
+    else contactHistoryProvenance = 'MANUAL_ATTESTATION';
+  }
   const excluded = new Set((Array.isArray(excludedRecipients) ? excludedRecipients : []).map(lower));
   if (email && excluded.has(email)) rej('prior-contact-or-suppression');
 
@@ -150,9 +202,11 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   return {
     version: PROSPECT_INTAKE_VERSION,
     company, status,
-    offerId: OFFER_IDS.includes(offerId) ? offerId : null,
+    offerId: offerId || null,
+    offerPublicName: offerId ? UBERREPLY_OFFER_PORTFOLIO.find(offer => offer.offerId === offerId).publicName : null,
     evidenceClass: ACCEPTED_EVIDENCE_CLASSES.includes(evidenceClass) ? evidenceClass : (evidenceClass || null),
-    rejectionReasons: rejected,
+    contactHistoryProvenance, contactHistoryReceiptDigest,
+    rejectionReasons: [...new Set(rejected)],
     missingEvidence: status === PROSPECT_STATUSES.REJECTED ? [] : incomplete,
     recipientSideEligibility: eligibility ? { decision: eligibility.decision, basis: eligibility.basis, evidenceId: eligibility.evidenceId } : null,
     senderSideEvaluated: false,

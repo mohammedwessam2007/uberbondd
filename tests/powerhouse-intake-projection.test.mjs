@@ -36,7 +36,7 @@ test('recorded evidence is exact: event-page source, address in the verbatim exc
 test('PROJECTION ONLY: a clean runtime ledger read would make the deterministic intake return VERIFIED_CANDIDATE (not stored as the real result)', () => {
   const projected = run(withLedger(CLEAN));
   assert.equal(projected.status, PROSPECT_STATUSES.VERIFIED_CANDIDATE, JSON.stringify(projected));
-  assert.equal(projected.offerId, 'REVENUE_PROOF_AND_RENEWAL_PACK');
+  assert.equal(projected.offerId, 'CLIENT_ROI_PROOF_SPRINT');
   assert.equal(projected.recipientSideEligibility.decision, 'ALLOW_WITH_REQUIREMENTS');
   assert.equal(projected.legalAuthorityStatus, 'HOLD_SENDER_SIDE_UNRESOLVED');
   assert.equal(projected.sendAuthority, false);

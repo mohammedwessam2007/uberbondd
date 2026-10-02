@@ -1257,5 +1257,32 @@
       3
     ],
     "personalSeedEvidenceRef": "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
+  },
+  "outreachSoftwareClosure20261002": {
+    "receipt": "docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md",
+    "gapRegister": "artifacts/outreach/outreach-software-gap-register-20261002.json",
+    "reachability": "artifacts/outreach/outreach-reachability-20261002.json",
+    "operations": [
+      "POST /api/prospect-preflight",
+      "GET /api/prospect-preflight/contact-history",
+      "GET /api/prospect-preflight/candidates",
+      "GET /api/outreach/economics",
+      "POST /api/outbound/fleet/expansion-plan"
+    ],
+    "coldRouteEnabled": false,
+    "legalAuthorityHold": true,
+    "identityFactHold": true,
+    "finalEffectDigestMinted": false,
+    "externalEffects": {
+      "messagesSent": 0,
+      "providerMutations": 0,
+      "dnsMutations": 0,
+      "newSpendUsd": 0
+    },
+    "nextExecutableAction": "After merge and deploy, an authenticated owner call to POST /api/prospect-preflight with artifacts/outreach/powerhouse-preflight-request-20261002.json returns the production-ledger verdict for the Powerhouse fixture; on a hit, Powerhouse is rejected with the exact reason and candidates come from GET /api/prospect-preflight/candidates.",
+    "remainingOwnerOrLegalHolds": [
+      "LEGAL_AUTHORITY_HOLD",
+      "IDENTITY_FACT_HOLD"
+    ]
   }
 }

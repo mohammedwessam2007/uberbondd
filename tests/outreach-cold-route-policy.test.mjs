@@ -94,7 +94,7 @@ test('generic smtp-relay cold refusal remains the default; the route-type set is
   assert.deepEqual([...OUTREACH_ROUTE_TYPES], ['SOLICITED_APPLICATION', 'EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'CONSPICUOUS_PUBLICATION', 'PUBLIC_BUSINESS_CONTACT', 'WARM_REFERRAL', 'UNKNOWN']);
 });
 
-test('the module is inert: nothing in the runtime imports it', async () => {
+test('the module is reachable only through the zero-authority preflight, and is never self-authorizing: nothing on a send path imports it', async () => {
   const { readdirSync, readFileSync, statSync } = await import('node:fs');
   const { join } = await import('node:path');
   const root = new URL('..', import.meta.url).pathname;
@@ -108,7 +108,18 @@ test('the module is inert: nothing in the runtime imports it', async () => {
     }
   };
   walk(root);
-  assert.deepEqual(importers, []);
+  // Permitted importers: the read-only preflight (envelope check), and two
+  // read-only tools that merely NAME the module (the reachability audit and the
+  // drift doctor's existence check). The send path
+  // (pipeline, governance, dispatch, fleet, worker, server) must never import it.
+  const allowed = new Set(['src/prospect-preflight.mjs', 'scripts/outreach-reachability-audit.mjs', 'src/outreach-drift-doctor.mjs']);
+  assert.deepEqual(importers.filter(file => !allowed.has(file)), []);
+  // The preflight only uses the evidence builders and the envelope verifier; it
+  // must not call the authorization verifier or the policy evaluator.
+  const preflight = readFileSync(join(root, 'src/prospect-preflight.mjs'), 'utf8');
+  assert.match(preflight, /createColdRouteEvidence/);
+  assert.match(preflight, /verifyColdRouteEnvelope/);
+  assert.doesNotMatch(preflight, /evaluateColdRoutePolicyV1|verifyColdRouteAuthorization|createColdRouteAuthorization/);
 });
 
 // ---- envelope integrity ----

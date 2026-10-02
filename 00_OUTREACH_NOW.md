@@ -138,3 +138,15 @@ Do:
 ## Subsequent personal-Gmail seed proof
 
 The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.
+
+## Outreach software closure — 2026-10-02 (generic PROSPECT_PREFLIGHT)
+
+The remaining manual seams between lead discovery and a governed first touch are now source, not procedure. Receipt and gap register: `docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md`, `artifacts/outreach/outreach-software-gap-register-20261002.json`.
+
+- **One typed operation.** `POST /api/prospect-preflight` (admin-authenticated, read-only, zero authority) reads the exact production ledgers itself, re-runs the deterministic intake, the V5 tournament and the effect-package compiler, and returns one of `READY_FOR_AUTHORIZATION`, `READY_PENDING_DRAFT_TIME_FACTS`, `DO_NOT_SEND`, `BLOCKED_EXTERNAL_FACT`, `BLOCKED_IDENTITY`, `BLOCKED_LEGAL_AUTHORITY`, `BLOCKED_SENDER_HEALTH`, `BLOCKED_CONTACT_HISTORY`. Nothing is pasted back by a human or another session. The manual V6 request is superseded by `artifacts/outreach/powerhouse-preflight-request-20261002.json`.
+- **Exact contact history.** `GET /api/prospect-preflight/contact-history?email=&domain=`: suppressions, prospects, outbound reservations/events and replies are read raw; an unread ledger is `CHECK_FAILED`, never clean. `/api/leadgen/intelligence` is aggregate and excludes suppressed/contacted rows, so it can never prove absence.
+- **Candidates and economics.** `GET /api/prospect-preflight/candidates` ranks uncontacted, unsuppressed prospects per offer with the exact missing evidence; `GET /api/outreach/economics` reports cost per verified prospect / provider-confirmed send / positive reply / opportunity / cleared dollar and cleared contribution per 1,000 sends and per founder minute, with unknown costs left UNKNOWN. `POST /api/outbound/fleet/expansion-plan` is a plan-only sender-fleet planner.
+- **The cold route is still not live.** `COLD_ROUTE_ENABLED` is FALSE. The cold-v1 policy is reachable only for envelope validation; it is not on any send path and `providerRoutePolicy` still refuses `PUBLIC_BUSINESS_CONTACT` on smtp-relay. `LEGAL_AUTHORITY_HOLD` and `IDENTITY_FACT_HOLD` remain owner/legal holds.
+- **Drift guard.** `npm run outreach:drift-doctor` fails when a current document, the hot pointer, the handoff or the provider-state representation disagrees with source.
+- Powerhouse is a fixture (`tests/fixtures/outreach/powerhouse.fixture.mjs`), not a code path. Its production-ledger result is still unknown: it needs a deployed build and an authenticated owner call.
+

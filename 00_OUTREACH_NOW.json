@@ -82,5 +82,15 @@
   "truthBoundary": "Internal design completeness is not market validation. External buyer/provider/payment evidence outranks this pointer.",
   "winnrRecoveryRoot": "winnr/README.md",
   "winnrCurrentObservations": "winnr/CURRENT_STATE.json",
-  "winnrReconciliationReceipt": "winnr/LIVE_RECONCILIATION_2026-10-02.md"
+  "winnrReconciliationReceipt": "winnr/LIVE_RECONCILIATION_2026-10-02.md",
+  "softwareClosure20261002": {
+    "receipt": "docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md",
+    "gapRegister": "artifacts/outreach/outreach-software-gap-register-20261002.json",
+    "preflightOperation": "POST /api/prospect-preflight",
+    "contactHistoryRead": "GET /api/prospect-preflight/contact-history",
+    "coldRouteEnabled": false,
+    "legalAuthorityHold": true,
+    "identityFactHold": true,
+    "supersedes": "artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json (manual V6 ledger read)"
+  }
 }

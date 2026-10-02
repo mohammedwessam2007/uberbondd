@@ -83,7 +83,11 @@ test('a search-engine summary or unclassified evidence can never verify a candid
 test('the offer must come from the existing quartet with a stated reason', () => {
   has(run(deep('A_BRAND_NEW_PRODUCT', 'offerRoute.offerId')), 'missingEvidence', 'offer-route');
   has(run(deep('short', 'offerRoute.rationale')), 'missingEvidence', 'offer-route');
-  assert.equal(run(deep('REVENUE_PROOF_AND_RENEWAL_PACK', 'offerRoute.offerId')).offerId, 'REVENUE_PROOF_AND_RENEWAL_PACK');
+  assert.equal(run(deep('REVENUE_PROOF_AND_RENEWAL_PACK', 'offerRoute.offerId')).offerId, 'CLIENT_ROI_PROOF_SPRINT');
+  // One offer-id namespace: canonical ids, public names, former public names and legacy intake labels all normalise to the canonical production-genome id.
+  for (const [alias, canonical] of [['CLIENT_ROI_PROOF_SPRINT', 'CLIENT_ROI_PROOF_SPRINT'], ['Revenue Proof & Renewal Pack', 'CLIENT_ROI_PROOF_SPRINT'], ['Client ROI Proof Sprint', 'CLIENT_ROI_PROOF_SPRINT'], ['AGENCY_REVENUE_LEAK_PROOF_PACK', 'LEAD_TO_BOOKING_LEAK_AUDIT'], ['GCC Arabic-English Booking Parity & Revenue Leak Sprint', 'BILINGUAL_BOOKING_LEAK_AUDIT'], ['AI Agent Production Release Gate', 'AI_AGENT_RELEASE_GATE']]) {
+    assert.equal(run(deep(alias, 'offerRoute.offerId')).offerId, canonical, alias);
+  }
 });
 
 test('the address must literally appear in the retained excerpt and be published on the agency\'s own site', () => {
@@ -138,7 +142,7 @@ test('Mission Control findings resolve exactly as the evidence allows', () => {
   has(power, 'missingEvidence', 'excerpt-missing');
 });
 
-test('intake is pure and inert: it does not mutate its input and nothing imports it', async () => {
+test('intake is pure: it does not mutate its input and only the zero-authority preflight composes it', async () => {
   const record = full(); const before = JSON.stringify(record);
   run(record);
   assert.equal(JSON.stringify(record), before);
@@ -155,5 +159,9 @@ test('intake is pure and inert: it does not mutate its input and nothing imports
     }
   };
   walk(root);
-  assert.deepEqual(importers, []);
+  // The only permitted importers are the zero-authority preflight composition,
+  // its read-only candidate handoff and the reachability audit that merely names it. Nothing on a send path
+  // (pipeline, governance, dispatch, worker) may import the intake.
+  const allowed = new Set(['src/prospect-preflight.mjs', 'src/prospect-preflight-handoff.mjs', 'scripts/outreach-reachability-audit.mjs', 'scripts/mutation-war.mjs']);
+  assert.deepEqual(importers.filter(file => !allowed.has(file)), []);
 });

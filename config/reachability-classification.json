@@ -1222,11 +1222,6 @@
       "gate": null,
       "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
     },
-    "src/ubereconomics-outreach.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
     "src/uberplacement.mjs": {
       "category": "RESEARCH_ONLY",
       "gate": null,
@@ -1241,6 +1236,16 @@
       "category": "RESEARCH_ONLY",
       "gate": null,
       "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/uberwarm2-registry-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Applies UberWarm2 ramp decisions to the sending-domain and sending-mailbox registries (warm-up status, pauses). It mutates mailbox state, so it is deliberately not wired until a provisioned mailbox fleet and owner authority for registry mutation exist; compileUberWarm2RegistryTransitions is a pure planner and carries no authority."
+    },
+    "src/uberwarm2-sovereign-ramp.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
     }
   }
 }

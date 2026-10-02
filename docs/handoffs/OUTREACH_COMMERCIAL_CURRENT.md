@@ -253,3 +253,8 @@ On "continue Winnr", recover `winnr/README.md` before changing sender state or r
 Technical integration is complete: encrypted SMTP/IMAP custody, 3/3 transport and observed reply ingestibility. A fresh bounded probe from each sender reached the founder personal Gmail INBOX (3/3), with aligned DKIM, SPF and DMARC passing. Test effects are durably non-replayable, all completed sending-experiment flags are off, and Render is live on the deployed #1162 source. The prior UberBond Gmail 2/3 Inbox result remains preserved; ordinal 3 stays paused in SMTP fleet selection. No prospect campaign or new paid expansion occurred. Exact latest receipts and next scope: `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`. Do not restart purchase/export/import/SMTP-repair work.
 
 Current machine state: `winnr/CURRENT_STATE.json`. Independent reconciliation: `winnr/LIVE_RECONCILIATION_2026-10-02.md`. Do not repeat purchase/export/import/transport setup.
+
+## Outreach software closure — 2026-10-02
+
+Prospect preflight is generic and production-reachable: exact production contact history, deterministic prospect verification, V5 message tournament (composed from the UberReply machinery), effect-package compilation and one typed terminal state, all read-only and zero-authority (`POST /api/prospect-preflight`). See `00_OUTREACH_NOW.md` and `docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md`. No message has been sent, no provider or DNS mutation made, and no spend incurred. The cold route remains disabled behind the legal-authority and identity holds; the Powerhouse production-ledger result is unknown until an authenticated owner call runs the preflight against a deployed build.
+

@@ -1,0 +1,100 @@
+{
+  "schemaVersion": "uberbond.prospect-preflight-request.v1",
+  "revision": "2026-10-02 r1",
+  "supersedes": "artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json (the manual V6 read: the preflight now performs the exact production ledger read itself, in-process, and consumes it directly)",
+  "purpose": "Run PROSPECT_PREFLIGHT for the Powerhouse fixture against the live production ledgers. There is nothing to paste back: the route reads suppressions, prospects, outbound reservations/events and replies itself, compiles a digest-bound contact-history receipt in-process, re-runs the deterministic intake, the V5 tournament and the effect-package compiler, and returns one typed state.",
+  "precondition": "The route exists only once a build containing /api/prospect-preflight is deployed. Verify the deployed SHA first; a 404 means the build predates it, never \"clean\".",
+  "request": {
+    "method": "POST",
+    "path": "/api/prospect-preflight",
+    "authentication": "Owner admin bearer token, supplied by the authenticated caller. Never recorded, never committed. The route returns 503 when no admin token is configured and 401 without it.",
+    "body": {
+      "record": {
+        "company": "Powerhouse Consulting Group",
+        "website": "https://mypowerhouse.group/",
+        "hqCountry": "US",
+        "evidenceClass": "PAGE_FETCH_VERIFIED",
+        "currentOwnership": {
+          "status": "INDEPENDENT",
+          "evidenceUrl": "https://mypowerhouse.group/"
+        },
+        "recipient": {
+          "email": "hello@mypowerhouse.group",
+          "publishedRole": "GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT",
+          "sourceUrl": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/",
+          "sourcePageExact": true,
+          "excerpt": "Also available to non-clients – just email hello@mypowerhouse.group for more information!",
+          "observedAt": "2026-10-02T19:57:19.134Z"
+        },
+        "notices": {
+          "noSolicitationChecked": true,
+          "noSolicitationFound": false,
+          "noHarvestChecked": true,
+          "noHarvestFound": false,
+          "pagesChecked": [
+            "https://mypowerhouse.group/contact/",
+            "privacy policy",
+            "homepage",
+            "current event pages",
+            "targeted indexed searches for harvest / solicitation / scrape / address-collection restrictions"
+          ]
+        },
+        "offerFit": {
+          "servesHomeServiceClients": true,
+          "evidenceUrl": "https://mypowerhouse.group/",
+          "rationale": "Software/FSM consultancy serving home-service contractors with a named, current client."
+        },
+        "clientEvidence": {
+          "clientName": "Sylvester Electric",
+          "clientSiteUrl": "https://sylvesterelectric.com/",
+          "observation": {
+            "verifiable": true,
+            "text": "Homepage gives two different emergency-availability representations: business hours plus qualifying after-hours, versus 24/7 Emergency Service.",
+            "sourceUrl": "https://sylvesterelectric.com/",
+            "excerpt": "during business hours and for qualifying after-hours situations / 24/7 Emergency Service (same page); corroborated by /generator-installation and /electric-panel-replacement",
+            "observedAt": "2026-10-02T19:57:19.134Z"
+          }
+        },
+        "offerRoute": {
+          "offerId": "REVENUE_PROOF_AND_RENEWAL_PACK",
+          "rationale": "Consultancy serving multiple contractors with an ongoing client model; independent evidence of client-facing inconsistencies supports renewal and proof conversations."
+        }
+      },
+      "slots": {
+        "issueCode": "same-page-public-service-promise-inconsistency",
+        "subjectNoun": "availability",
+        "observationClause": "makes two different emergency-service promises on the same page: its homepage says emergency service covers business hours and qualifying after-hours situations, and its service list further down advertises 24/7 Emergency Service",
+        "corroborationSentence": "Its generator and panel pages also say 24/7.",
+        "groundingPhrases": [
+          "qualifying after-hours situations",
+          "24/7 Emergency Service",
+          "generator",
+          "panel",
+          "24/7"
+        ],
+        "artifactPhrase": "a one-page reconciliation note",
+        "altitudePhrase": "client QA",
+        "unsupportedPatterns": [
+          {
+            "pattern": "ServiceTitan",
+            "reason": "no evidence Sylvester after-hours rules live in ServiceTitan"
+          }
+        ]
+      },
+      "artifactRef": "artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md"
+    }
+  },
+  "expectedStatesToday": {
+    "note": "With the placeholders still unresolved the best reachable state is BLOCKED_IDENTITY (or BLOCKED_SENDER_HEALTH if the fleet allocator returns no healthy mailbox). DO_NOT_SEND with prior-contact-or-suppression-runtime-ledger-hit means a production hit exists and Powerhouse is rejected with that exact reason. BLOCKED_CONTACT_HISTORY means a ledger could not be read: that is never clean.",
+    "neverReturned": [
+      "READY_FOR_AUTHORIZATION without a final owner-supplied identity and resolved sender-side legal authority"
+    ]
+  },
+  "forbidden": [
+    "sending anything",
+    "writing to production",
+    "logging the token",
+    "treating a 404, a timeout or a partial read as clean"
+  ],
+  "freshness": "The recipient evidence is checked against the cold-route 7-day maximum; if it has aged out the preflight returns BLOCKED_EXTERNAL_FACT with cold-route-evidence-stale and the observation must be re-fetched."
+}

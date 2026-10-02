@@ -208,3 +208,31 @@ It should:
 8. let real outcomes promote, repair, kill, or mutate offers and message atoms.
 
 External customer evidence outranks this document.
+
+## 2026-10-02 Winnr live activation truth
+
+The bounded three-mailbox Winnr pilot is now transport-verified but **not placement-promoted**.
+
+Verified live facts:
+- provider-leased domain: `cedarpointdomains.com`;
+- 3/3 SMTP confirmed;
+- 3/3 IMAP confirmed;
+- 6 encrypted account rows;
+- credentials stored as AES-256-GCM encrypted account tokens;
+- plaintext credential logging false;
+- two final owner-controlled SMTP canaries were accepted through the fixed-host blind TLS tunnel merged in PR #1149;
+- all three runtime canaries reached UberBond Gmail;
+- all three landed in Gmail Spam.
+
+Therefore the current distribution gate is:
+
+`TRANSPORT_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`
+
+Do not treat provider health score, blocklist score, mailbox age, SMTP acceptance, or IMAP success as evidence that cold inbox placement is ready. The Gmail spam result is stronger current external evidence.
+
+The temporary credential-free Supabase TCP probe was retired after proving Winnr:465 reachability. The authenticated fixed-host blind tunnel remains because Render cannot directly establish the Winnr SMTP connection. The relay sees only the opaque inner TLS stream; SMTP authentication and message plaintext remain inside Render and the Winnr TLS session.
+
+Canonical detailed receipt: `docs/WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md`.
+
+No cold prospect outreach is authorized until a new placement evidence cycle clears the promotion gate.
+

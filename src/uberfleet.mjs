@@ -136,6 +136,6 @@ export async function dispatchSmtpFleetAccount({
       evidence:{provider:'smtp-relay',receiptId:clean(result.providerReceiptId,500),routeEvidenceRef:clean(route.evidenceRef,1500)}
     };
   }catch(error){
-    return {classification:'UNCERTAIN',reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(error.message,500),automaticRetryAuthorized:false};
+    return {classification:'UNCERTAIN',reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(error?.message||error,500),automaticRetryAuthorized:false};
   }
 }

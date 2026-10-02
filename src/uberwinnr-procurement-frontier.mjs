@@ -154,7 +154,7 @@ export function compileWinnrProcurementFrontier({
     termEvidence: Object.freeze({
       conflictObserved: pre.minimumTermConflictObserved,
       officialMcpClaimMonths: pre.mcpMinimumTermMonthsClaim,
-      firstPartyHelpClaimMonths: pre.helpMinimumTermMonthsClaim,
+      firstPartyHelpClaimMonths: pre.staleHelpMinimumTermMonthsClaim,
       resolved: termResolutionValid,
       resolvedMinimumTermMonths: termResolutionValid ? resolvedMonths : null,
       exactMinimumCommitmentObserved: minimumCommitmentObserved === true,

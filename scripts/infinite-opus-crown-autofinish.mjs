@@ -1,5 +1,5 @@
 import crypto from 'node:crypto';
-import { RESUME_KEY, SOURCE_KEY, validCrownResumeAuthority, recoverCrownResumeCheckpoint } from '../src/crown-resume-checkpoint.mjs';
+import { RESUME_KEY, SOURCE_KEY, INTERRUPTED_RESUME_KEY, crownResumeKeys, validCrownResumeAuthority, recoverCrownResumeCheckpoint, recoverInterruptedCrownCheckpoint } from '../src/crown-resume-checkpoint.mjs';
 import { RECOVERY_KEY, reconcileOriginalCrownFinancialState, ORIGINAL_GENERATION } from './infinite-opus-crown-financial-recovery.mjs';
 import { REPLACEMENT_KEY, validReplacementAuthority } from '../src/crown-replacement-authority.mjs';
 import { verifyCrownProviderModel } from '../src/crown-model-identity.mjs';
@@ -158,7 +158,8 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
  if(resuming&&!validCrownResumeAuthority(resumeAuthorization))return {ok:false,status:'EXPLICIT_MISSING_EDGE_RESUME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
  const replacement=resuming||replacementAuthorization!==null;
  if(replacement&&!resuming&&!validReplacementAuthority(replacementAuthorization))return {ok:false,status:'EXPLICIT_REPLACEMENT_AUTHORITY_REQUIRED',providerCallsPerformed:0};
- const attemptKey=resuming?RESUME_KEY:replacement?REPLACEMENT_KEY:KEY;
+ const resumeKeys=resuming?crownResumeKeys(resumeAuthorization):null;
+ const attemptKey=resuming?resumeKeys.attemptKey:replacement?REPLACEMENT_KEY:KEY;
  const readState=()=>getState(store,attemptKey);
  const setState=(s,p)=>writeState(s,p,attemptKey);
  const prior=await readState();
@@ -172,17 +173,20 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    receiptHash:prior.crownAdmission?.receiptHash??null,
    priorStatus:prior.status
  };
- if(resuming)recovered=recoverCrownResumeCheckpoint(await getState(store,SOURCE_KEY),{key:checkpointKey});
+ if(resuming){
+  const source=await getState(store,resumeKeys.sourceKey);
+  recovered=attemptKey===INTERRUPTED_RESUME_KEY?recoverInterruptedCrownCheckpoint(source,{key:checkpointKey,originalState:await getState(store,SOURCE_KEY)}):recoverCrownResumeCheckpoint(source,{key:checkpointKey});
+ }
  if(!currentPaidAuthority(paidAuthorization))return {ok:false,status:'EXPLICIT_PAID_RUNTIME_AUTHORITY_REQUIRED',providerCallsPerformed:0};
  if(typeof checkpointKey!=='string'||checkpointKey.length<32)return {ok:false,status:'PRIVATE_SEALED_CHECKPOINT_KEY_REQUIRED',providerCallsPerformed:0};
  if(replacement){
   const old=await getState(store,KEY);
   if(old?.status!=='FAILED_NO_AUTOMATIC_RETRY')return {ok:false,status:'EXACT_FAILED_V7_STATE_REQUIRED',providerCallsPerformed:0};
   if(resuming){
-   const source=await getState(store,SOURCE_KEY);
-   for(const row of source.generationJournal){
+   const source=await getState(store,resumeKeys.sourceKey);
+   for(const row of recovered.priorBillingRows??source.generationJournal){
     const observed=await generation(apiKey,row.id);
-    if(observed.id!==row.id||Number(observed.total_cost)!==row.costUsd||observed.model!==row.observedModel||observed.provider_name!==row.provider)
+    if(observed.id!==row.id||typeof observed.total_cost!=='number'||!Number.isFinite(observed.total_cost)||observed.total_cost!==row.costUsd||observed.model!==row.observedModel||observed.provider_name!==row.provider)
      throw new Error('prior-billing-reconciliation-drift');
    }
   }
@@ -203,10 +207,15 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:replacement?'FINANCIALLY_RECONCILED_INVALID_EVIDENCE':'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
- },newSpendUsd:recovered?.inheritedSpendUsd??0,mainSha,...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{}),...(resuming?{resumeAuthorization,sourceAttemptKey:SOURCE_KEY}:{})});
+ },newSpendUsd:recovered?.inheritedSpendUsd??0,mainSha,...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{}),...(resuming?{resumeAuthorization,sourceAttemptKey:resumeKeys.sourceKey}:{})});
  let spend=recovered?.inheritedSpendUsd??0;
  const spendCeiling=resuming?Math.min(MAX_NEW_SPEND_USD,spend+resumeAuthorization.maxIncrementalMicrousd/1e6):MAX_NEW_SPEND_USD;
+ let remainingDispatches=0;
  const charge=async spec=>{
+   if(recovered?.maximumRemainingPaidCalls!==undefined){
+    if(!['candidate','custodian-grade'].includes(spec.tag)||remainingDispatches>=recovered.maximumRemainingPaidCalls)throw Error('exact-two-missing-edges-only');
+    remainingDispatches++;
+   }
    if(replacement&&!resuming&&!validReplacementAuthority(replacementAuthorization))throw new Error('replacement-authority-expired');
    if(resuming&&!validCrownResumeAuthority(resumeAuthorization))throw new Error('resume-authority-expired');
    if(!currentPaidAuthority(paidAuthorization))throw new Error('current-paid-runtime-authority-required');
@@ -215,7 +224,7 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
    await setState(store,{pendingCall:{model:spec.model,tag:spec.tag,reservedWorstCaseUsd:reserve},newSpendUsd:spend});
    let chargeRecorded=false;
    const r=await call(apiKey,{...spec,onSealedResponse:async response=>{
-     if(spec.tag!=='candidate')return;
+     if(!['candidate','custodian-grade'].includes(spec.tag))return;
      const state=await readState();
      const payload=openCrownCheckpoint(state.sealedEvidence,{key:checkpointKey,binding:attemptKey+'|'+state.taskCommitment});
      payload.providerResponses??={}; payload.providerResponses[response.id]=response;

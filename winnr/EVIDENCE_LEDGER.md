@@ -48,3 +48,16 @@ Current promotion state:
 | Prospect sends | 0 |
 
 The new 2/3 Inbox result supersedes the earlier assumption that the runtime path is uniformly spam-routed, but does not supersede the quarantine gate because ordinal 3 remains Spam and the sample is one Gmail inbox.
+
+## DKIM differential diagnosis — 2026-10-02
+
+| Signal | Tara | Nadia | Dana |
+|---|---|---|---|
+| Gmail placement | Inbox | Inbox | Spam |
+| aligned cedarpointdomains.com DKIM (long selector) | pass | pass | pass |
+| Amazon SES DKIM | pass | pass | pass |
+| cedarpointdomains.com selector `dkim` | fail | fail | fail |
+| SPF | pass | pass | pass |
+| DMARC | pass | pass | pass |
+
+Inference: the failed redundant selector is common-mode and does not explain Dana's sender-specific red result. Preserve as provider-side diagnostic evidence; do not edit DNS merely to chase the failing redundant signature while aligned DKIM and DMARC are passing.

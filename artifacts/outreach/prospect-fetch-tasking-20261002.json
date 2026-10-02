@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.prospect-fetch-tasking.v1",
-  "createdAt": "2026-10-03",
+  "createdAt": "2026-10-02",
   "readOnly": true,
   "purpose": "Finish the prospect lane with page-level evidence that the requesting sandbox cannot retrieve. Results feed compileProspectVerification (src/prospect-verification-intake.mjs); do not hand-pick a winner.",
   "stopCondition": "Stop when at least one candidate returns VERIFIED_CANDIDATE, or when every candidate and every discovery lead below has been falsified or exhausted.",

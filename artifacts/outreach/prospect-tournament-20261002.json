@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.prospect-tournament.v1",
-  "revision": "2026-10-03 r2",
+  "revision": "2026-10-02 r4 (Powerhouse evidence ingested)",
   "engine": "src/prospect-verification-intake.mjs",
   "offerQuartet": [
     "AGENCY_REVENUE_LEAK_PROOF_PACK",
@@ -117,30 +117,62 @@
       "website": "https://mypowerhouse.group/",
       "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
       "findings": {
-        "publishedAddress": "hello@mypowerhouse.group (published on the privacy page and exposed on the public site)",
-        "publicationPurpose": "contact page: \"Have a general question or want to partner with us? We're here to help!\" (partnership-oriented general contact)",
-        "fit": "ServiceTitan / FSM optimization consultancy that says it has helped over 600 contractors; not a classic digital agency",
-        "offerRouting": "Agency Revenue Leak Proof Pack is a poor fit for a consultancy. Revenue Proof & Renewal Pack (buyers include RevOps partners) is the better existing offer; Partner Revenue Assurance and white-label fulfilment concepts are relevant. No new product proposed."
+        "identity": "Powerhouse Consulting Group, LLC; ServiceTitan lists it as a Certified Provider; its own site names Jenny Benbrook as CEO / co-founder and describes a software/FSM consultancy for home-service contractors; no acquisition or parent replacement found in current research",
+        "publishedAddress": "hello@mypowerhouse.group, deliberately published",
+        "verbatimEvidence": [
+          "contact page: \"Have a general question or want to partner with us? We're here to help!\"",
+          "site, repeatedly, to non-clients: \"just email hello@mypowerhouse.group for more information\"",
+          "current company article: \"contact us at hello@mypowerhouse.group\""
+        ],
+        "publicationPurpose": "GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT (not privacy-only, support-only, legal-only, careers-only or incidental/internal). This establishes deliberate public business-contact provenance only; it does not imply consent.",
+        "negativeSignalCheck": {
+          "surfacesChecked": [
+            "/contact",
+            "/privacy-policy",
+            "homepage",
+            "current event pages",
+            "current news/resources pages"
+          ],
+          "found": "no blanket no-solicitation, no-vendors, no-unsolicited-email or no-commercial-contact statement",
+          "note": "the privacy policy has consumer/SMS consent and data-handling language, which is not treated as a prohibition on vendor business email",
+          "limit": "absence is reported only for the surfaces listed; no claim of exhaustive absence across the internet"
+        },
+        "offerRouting": {
+          "chosen": "REVENUE_PROOF_AND_RENEWAL_PACK",
+          "notChosen": "AGENCY_REVENUE_LEAK_PROOF_PACK (Powerhouse is not primarily a digital-marketing agency)",
+          "reason": "serves multiple contractors under an ongoing consultant/client model, where independent evidence of client-facing operational or conversion-chain inconsistencies can strengthen renewal and proof conversations"
+        },
+        "client": {
+          "name": "Sylvester Electric",
+          "domain": "sylvesterelectric.com",
+          "basis": "Powerhouse homepage testimonial from Nick Sylvester, Owner: \"We have been working with Powerhouse for over a year\"",
+          "location": "Massachusetts / Southern New Hampshire"
+        },
+        "observedIssue": {
+          "classification": "PUBLIC_SERVICE_PROMISE_INCONSISTENCY",
+          "fact": "Sylvester Electric's current homepage says emergency service is available during business hours and for qualifying after-hours situations, and later labels one service \"24/7 Emergency Service\"; dedicated emergency, generator and panel-service pages state \"24/7 Emergency Service\" and \"24/7 availability\"",
+          "notAClaim": "not a proven lost sale, not revenue loss, not proof that customers are confused, not caused by Powerhouse",
+          "hypothesis": "inconsistent emergency-availability language can create ambiguity in customer expectations and makes the client-facing digital operating story harder to reconcile"
+        },
+        "ledgers": {
+          "externalMainSearch": "Mission Control searched current main for hello@powerhouse: no prior-send record; domain appears in historical candidate research only",
+          "thisSessionRepoAndHistory": "repo-wide search and git history: no prior-contact record",
+          "runtime": "NOT CHECKED: UberBond runtime suppression, prior-contact, bounce, complaint and unsubscribe ledgers are in the production store, unreachable from this sandbox; an external repo search does not replace them"
+        }
       },
-      "decision": "INCOMPLETE_AWAITING_PAGE_FETCH",
+      "decision": "INTAKE_RESULT_SEE_STATUS",
       "anotherChannel": "n/a",
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "Powerhouse Consulting Group",
         "status": "INCOMPLETE",
         "offerId": "REVENUE_PROOF_AND_RENEWAL_PACK",
-        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
+        "evidenceClass": "PAGE_FETCH_VERIFIED",
         "rejectionReasons": [],
         "missingEvidence": [
-          "current-ownership-unverified",
-          "recipient-verbatim-excerpt-missing",
-          "recipient-observation-time-missing",
-          "evidence-class-unverified",
-          "no-solicitation-notice-not-checked",
+          "recipient-exact-source-page-not-identified",
           "no-harvest-notice-not-checked",
-          "home-service-client-evidence-missing",
-          "real-client-site-missing",
-          "externally-verifiable-lead-path-observation-missing"
+          "runtime-suppression-and-prior-contact-ledgers-not-checked"
         ],
         "recipientSideEligibility": null,
         "senderSideEvaluated": false,
@@ -177,6 +209,7 @@
           "offer-route-from-existing-quartet-required",
           "no-solicitation-notice-not-checked",
           "no-harvest-notice-not-checked",
+          "runtime-suppression-and-prior-contact-ledgers-not-checked",
           "home-service-client-evidence-missing",
           "real-client-site-missing",
           "externally-verifiable-lead-path-observation-missing"
@@ -218,6 +251,7 @@
           "offer-route-from-existing-quartet-required",
           "no-solicitation-notice-not-checked",
           "no-harvest-notice-not-checked",
+          "runtime-suppression-and-prior-contact-ledgers-not-checked",
           "home-service-client-evidence-missing",
           "real-client-site-missing",
           "externally-verifiable-lead-path-observation-missing"

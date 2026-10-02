@@ -176,7 +176,7 @@ Effects: new spend $0; prospect messages 0; credential changes 0; production mut
 
 ---
 
-# Revision 3 — 2026-10-03 (prospect lane resumed)
+# Revision 3 — 2026-10-02 (prospect lane resumed)
 
 Truth class: INTAKE UPDATE + SEARCH-LEVEL DISCOVERY. Nothing sent, wired, merged or enabled.
 
@@ -223,5 +223,56 @@ Neither stop condition A (a VERIFIED_CANDIDATE) nor B (set falsified and discove
 | LEGAL_AUTHORITY_HOLD, IDENTITY_FACT_HOLD | TRUE |
 
 Machine-resolvable work remains (page-level verification); it is blocked by this environment's egress, not by an owner decision.
+
+Effects: new spend $0; prospect messages 0; credential changes 0; production mutations 0.
+
+---
+
+# Revision 4 — 2026-10-02 (Powerhouse evidence ingested)
+
+Truth class: INTAKE RESULT + CONDITIONAL PREPARATION. Nothing sent, wired, merged or enabled. The Mission Control findings below are session reports; this sandbox did not fetch the pages.
+
+## 21. Powerhouse Consulting Group through the deterministic intake
+
+**Result: INCOMPLETE, with exactly three gaps. PROSPECT_READY stays FALSE.** No manual promotion.
+
+Passes: independent/private ownership (ServiceTitan lists Powerhouse Consulting Group, LLC as Certified Provider; own site names its CEO/co-founder; no acquisition found); evidence class PAGE_FETCH_VERIFIED; publication purpose `GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT` (not privacy, support, legal, careers or incidental); no no-solicitation, no-vendor, no-unsolicited-email or no-commercial-contact statement on the surfaces checked (`/contact`, `/privacy-policy`, homepage, current event and news/resources pages; no claim of exhaustive absence; SMS/consumer consent language is not treated as a vendor-email prohibition); US; corporate; address not guessed; named current client Sylvester Electric (homepage testimonial from its owner, "working with Powerhouse for over a year"); a factual observed issue; offer routed to `REVENUE_PROOF_AND_RENEWAL_PACK` (Agency Revenue Leak Proof Pack rejected as a poor fit for a consultancy).
+
+Gaps, each a read-only request in `artifacts/outreach/powerhouse-followup-request-20261002.json`:
+
+| Gap | Why it blocks |
+|---|---|
+| `recipient-exact-source-page-not-identified` (R1) | The verbatim excerpt (`just email hello@mypowerhouse.group for more information`) came from "its site" with no page URL. The site root must not be recorded as the source of an excerpt that lives on a deeper page, and a route envelope needs an exact URL. |
+| `no-harvest-notice-not-checked` (R2) | The report lists the surfaces checked for solicitation stances but not for a statement that the site will not share addresses for commercial email. Unreported is not absent. |
+| `runtime-suppression-and-prior-contact-ledgers-not-checked` (R3) | Mission Control's search of main and this session's repo-and-history search found no prior contact, but UberBond's runtime suppression, prospect, outbound, bounce, complaint and unsubscribe ledgers live in the production store, unreachable here. An external repo search does not replace them. |
+
+New intake rules from this round: an exact source page is required; the runtime ledgers must be checked and must not hit; the role `GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT` is accepted. 14 intake tests; each new rule is mutation-checked.
+
+## 22. Observed issue and artifact
+
+Fact: Sylvester Electric's current homepage says emergency service is available during business hours and for qualifying after-hours situations, and later labels one service "24/7 Emergency Service"; dedicated emergency, generator and panel-service pages state "24/7 Emergency Service" and "24/7 availability". Classification: `PUBLIC_SERVICE_PROMISE_INCONSISTENCY`.
+
+Not claimed: a lost sale, revenue loss, customer confusion, or that Powerhouse caused it. Hypothesis, kept separate: inconsistent emergency-availability language can create ambiguity in customer expectations and makes the client-facing operating story harder to reconcile. Draft artifact: `artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md` (item C URLs, timestamps and screenshots pending request R4).
+
+## 23. Message tournament (conditional)
+
+Five framings in `artifacts/outreach/powerhouse-message-tournament-20261002.json`; the critics are executable (`tests/powerhouse-message-candidates.test.mjs`, 4 tests; worsening the winner fails them). Winner `A_CLIENT_QA_RENEWAL`: subject "Sylvester availability" (2 words), body 65 words, 3 sentences, one CTA "Want me to send it?", no calendar link, no accusation, no causation, no money, no unsupported tooling claim. Rejected: C (too short), D (unsupported ServiceTitan and lost-calls claims), E (generic praise, false familiarity, urgency); B passes but is weaker.
+
+**MESSAGE_READY is FALSE:** the prospect is not VERIFIED_CANDIDATE. The candidates are prepared so that readiness flips mechanically.
+
+## 24. Effect package (prepared, not ready)
+
+`artifacts/outreach/powerhouse-effect-package-20261002.json` binds everything available (prospect, recipient, publication source, client, observed issue, offer, artifact, sender candidate, subject, body, disclosure requirement, unsubscribe schema, route and message and effect digest inputs, idempotency key, authorization TTL, pre-send revalidation list). **No final digest is minted** because identity participates in the message and remains `LEGAL_BUSINESS_SENDER_NAME` / `AUTHORIZED_PUBLIC_POSTAL_ADDRESS`; the file contains no 64-hex digest (tested). **EFFECT_PACKAGE_READY is FALSE** until the prospect verifies.
+
+## 25. State
+
+| Flag | Value |
+|---|---|
+| COLD_ROUTE_TECHNICALLY_READY | TRUE |
+| COLD_ROUTE_ENABLED | FALSE |
+| PROSPECT_READY | **FALSE**: Powerhouse INCOMPLETE (3 gaps, all machine-resolvable by the lane with page fetch and production-store read) |
+| MESSAGE_READY | **FALSE** (candidates prepared) |
+| EFFECT_PACKAGE_READY_EXCEPT_IDENTITY_AND_LEGAL_AUTHORITY | **FALSE** (inputs prepared; no digest) |
+| LEGAL_AUTHORITY_HOLD, IDENTITY_FACT_HOLD | TRUE |
 
 Effects: new spend $0; prospect messages 0; credential changes 0; production mutations 0.

@@ -26,7 +26,7 @@ Latest additive evidence: the separate personal-Gmail test delivered all three m
 8. [PERSONAL_INBOX_RECONCILIATION_2026-10-02.md](./PERSONAL_INBOX_RECONCILIATION_2026-10-02.md)
 9. [SMTP canary approval repair](../docs/receipts/WINNR_SMTP_CANARY_APPROVAL_20261002.md): fleet sender approval support and the remaining campaign gates; no new send or warming activation claimed.
 10. [First-send handoff (Terminal V2)](../docs/receipts/WINNR_TERMINAL_V2_FIRST_SEND_HANDOFF_20261002.md): current source refuses cold `PUBLIC_BUSINESS_CONTACT` routes on every provider; exact identity field set; owner queue; production unreachable from cloud session.
-11. [Cold-route policy evidence (V1, inert; rev 3)](../docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md): US evidence pointer, Egypt hold as conservative policy hold, architecture review, prospect intake and tournament (`artifacts/outreach/prospect-tournament-20261002.json`: 0 verified, 3 rejected, 3 incomplete) and the page-fetch tasking for the next lane (`artifacts/outreach/prospect-fetch-tasking-20261002.json`).
+11. [Cold-route policy evidence (V1, inert; rev 4)](../docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md): Powerhouse ingested through the intake (INCOMPLETE, 3 machine-resolvable gaps in `artifacts/outreach/powerhouse-followup-request-20261002.json`), conditional message tournament and unminted effect package under `artifacts/outreach/`.
 
 Machine-readable observations: [CURRENT_STATE.json](./CURRENT_STATE.json). Independent recheck: [LIVE_RECONCILIATION_2026-10-02.md](./LIVE_RECONCILIATION_2026-10-02.md). Refresh live truth before acting.
 

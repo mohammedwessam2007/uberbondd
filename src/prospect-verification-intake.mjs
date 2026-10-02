@@ -10,7 +10,7 @@ import { compileRecipientEligibility, classifyRecipientAddress } from './uberout
 
 export const PROSPECT_INTAKE_VERSION = 'uberbond.prospect-verification-intake.v1';
 export const PROSPECT_STATUSES = Object.freeze({ VERIFIED_CANDIDATE: 'VERIFIED_CANDIDATE', REJECTED: 'REJECTED', INCOMPLETE: 'INCOMPLETE' });
-export const SALES_ELIGIBLE_ROLES = Object.freeze(['GENERAL_BUSINESS_INQUIRIES', 'SALES_OR_PARTNERSHIPS', 'OWNER_OR_EXECUTIVE']);
+export const SALES_ELIGIBLE_ROLES = Object.freeze(['GENERAL_BUSINESS_INQUIRIES', 'GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT', 'SALES_OR_PARTNERSHIPS', 'OWNER_OR_EXECUTIVE']);
 export const NON_SALES_ROLES = Object.freeze(['PRIVACY_ONLY', 'LEGAL_ONLY', 'CAREERS_ONLY', 'CUSTOMER_SUPPORT_ONLY', 'ABUSE_OR_SECURITY']);
 // Only these evidence classes can support VERIFIED_CANDIDATE. A search-engine
 // summary never can: it does not retain the page text the address came from.
@@ -79,6 +79,9 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (NON_SALES_ROLES.includes(role)) rej(`address-published-for-${role.toLowerCase().replace(/_/g, '-')}-not-sales`);
   else if (email && !SALES_ELIGIBLE_ROLES.includes(role)) inc('published-purpose-of-address-unverified');
 
+  // The page that published the address must be named exactly. A site-level or
+  // "somewhere on the site" source cannot back a route envelope later.
+  if (email && record.recipient?.sourcePageExact !== true) inc('recipient-exact-source-page-not-identified');
   const sourceUrl = text(record.recipient?.sourceUrl, 1000);
   const excerpt = text(record.recipient?.excerpt, 400);
   if (!hostOf(sourceUrl)) inc('recipient-source-https-url-missing');
@@ -111,7 +114,12 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (n.noHarvestChecked !== true) inc('no-harvest-notice-not-checked');
   else if (n.noHarvestFound === true) rej('no-harvest-notice-present');
 
-  // Prior contact and suppression dominate.
+  // Prior contact and suppression dominate. Searching the repository and an
+  // external lane's copy of main is not a substitute for UberBond's own runtime
+  // suppression, prior-contact, bounce, complaint and unsubscribe ledgers.
+  const h = record.contactHistory || {};
+  if (h.hit === true) rej('prior-contact-or-suppression-runtime-ledger-hit');
+  else if (h.repoAndHistorySearched !== true || h.runtimeSuppressionSearched !== true || h.runtimeProspectAndOutboundSearched !== true) inc('runtime-suppression-and-prior-contact-ledgers-not-checked');
   const excluded = new Set((Array.isArray(excludedRecipients) ? excludedRecipients : []).map(lower));
   if (email && excluded.has(email)) rej('prior-contact-or-suppression');
 

@@ -64,7 +64,7 @@
   ],
   "secretHandling": "No credentials involved. Do not record anything beyond public page content.",
   "expectedOutput": "Per candidate: eligible or rejected with reason. Rank eligible candidates by eligibility confidence x evidence strength x offer fit x information value / reputational downside.",
-  "revision": "2026-10-03 r3",
+  "revision": "2026-10-02 r3",
   "intake": {
     "module": "src/prospect-verification-intake.mjs",
     "function": "compileProspectVerification(record, { now, excludedRecipients })",

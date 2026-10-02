@@ -7,9 +7,10 @@ const full = (patch = {}) => ({
   company: 'Example Home Marketing', website: 'https://agency.example/', hqCountry: 'US',
   currentOwnership: { status: 'INDEPENDENT', evidenceUrl: 'https://agency.example/about' },
   evidenceClass: 'PAGE_FETCH_VERIFIED',
+  contactHistory: { repoAndHistorySearched: true, runtimeSuppressionSearched: true, runtimeProspectAndOutboundSearched: true, hit: false },
   offerRoute: { offerId: 'AGENCY_REVENUE_LEAK_PROOF_PACK', rationale: 'Agency serves home-service clients and needs client lead-path evidence.' },
   recipient: {
-    email: 'hello@agency.example', publishedRole: 'GENERAL_BUSINESS_INQUIRIES', sourceUrl: 'https://agency.example/contact',
+    email: 'hello@agency.example', publishedRole: 'GENERAL_BUSINESS_INQUIRIES', sourceUrl: 'https://agency.example/contact', sourcePageExact: true,
     excerpt: 'General inquiries: hello@agency.example', observedAt: '2026-10-04T12:00:00.000Z'
   },
   notices: { noSolicitationChecked: true, noSolicitationFound: false, noHarvestChecked: true, noHarvestFound: false },
@@ -61,6 +62,16 @@ test('a published anti-unsolicited or consent-required stance is a negative reci
     has(r, 'rejectionReasons', `negative-recipient-signal:${kind.toLowerCase()}`);
   }
   has(run(full({ negativeRecipientSignals: [{ kind: 'WHATEVER' }] })), 'rejectionReasons', 'unrecognized');
+});
+
+test('an exact source page is required and the runtime suppression/prior-contact ledgers must be checked, not assumed', () => {
+  has(run(deep(false, 'recipient.sourcePageExact')), 'missingEvidence', 'exact-source-page');
+  has(run(deep(undefined, 'recipient.sourcePageExact')), 'missingEvidence', 'exact-source-page');
+  has(run(deep({ repoAndHistorySearched: true, runtimeSuppressionSearched: false, runtimeProspectAndOutboundSearched: true, hit: false }, 'contactHistory')), 'missingEvidence', 'runtime-suppression-and-prior-contact');
+  has(run(deep({ repoAndHistorySearched: true, runtimeSuppressionSearched: true, runtimeProspectAndOutboundSearched: false, hit: false }, 'contactHistory')), 'missingEvidence', 'runtime-suppression-and-prior-contact');
+  has(run(deep(undefined, 'contactHistory')), 'missingEvidence', 'runtime-suppression-and-prior-contact');
+  has(run(deep({ repoAndHistorySearched: true, runtimeSuppressionSearched: true, runtimeProspectAndOutboundSearched: true, hit: true }, 'contactHistory')), 'rejectionReasons', 'runtime-ledger-hit');
+  assert.equal(run(deep('GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT', 'recipient.publishedRole')).status, PROSPECT_STATUSES.VERIFIED_CANDIDATE);
 });
 
 test('a search-engine summary or unclassified evidence can never verify a candidate', () => {

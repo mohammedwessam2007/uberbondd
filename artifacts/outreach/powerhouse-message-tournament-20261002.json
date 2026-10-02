@@ -1,0 +1,97 @@
+{
+  "schemaVersion": "uberbond.message-tournament.v1",
+  "status": "CONDITIONAL_PENDING_VERIFICATION",
+  "notMessageReady": "Powerhouse is not yet VERIFIED_CANDIDATE (three evidence gaps). These candidates use only facts reported as verified and mint no approval, digest or effect.",
+  "prospect": {
+    "company": "Powerhouse Consulting Group",
+    "recipient": "hello@mypowerhouse.group",
+    "offerId": "REVENUE_PROOF_AND_RENEWAL_PACK",
+    "client": "Sylvester Electric",
+    "observedIssue": "PUBLIC_SERVICE_PROMISE_INCONSISTENCY"
+  },
+  "genome": "SELECT -> PROVE -> TIME -> MATCH -> PRE-WORK -> COMPRESS -> MICRO-ASK -> ASYNC-CLOSE",
+  "constraints": {
+    "subjectWords": [
+      2,
+      5
+    ],
+    "bodyWords": [
+      51,
+      100
+    ],
+    "sentencesExcludingGreeting": [
+      3,
+      4
+    ],
+    "cta": "Want me to send it?",
+    "calendarLink": false,
+    "footerAddedSeparately": true
+  },
+  "candidates": [
+    {
+      "id": "A_CLIENT_QA_RENEWAL",
+      "framing": "client QA and renewal proof",
+      "subject": "Sylvester availability",
+      "body": "Hi there,\n\nI noticed one of Powerhouse's publicly named clients, Sylvester Electric, describes emergency service two ways on its own site: business hours plus qualifying after-hours situations on the homepage, and 24/7 on its emergency, generator and panel-service pages. I mapped the exact pages and wording into a one-page reconciliation note that could help with client QA or renewal proof. Want me to send it?"
+    },
+    {
+      "id": "B_HEADS_UP",
+      "framing": "neutral heads-up on a client",
+      "subject": "Heads-up on Sylvester",
+      "body": "Hi there,\n\nPassing along something I noticed rather than selling anything: Sylvester Electric's site says emergency service covers business hours and qualifying after-hours situations in one place, and 24/7 in several others. I wrote down the exact pages and wording in a short note you can check against how the business actually runs. Want me to send it?"
+    },
+    {
+      "id": "C_COMPRESSED",
+      "framing": "shortest possible",
+      "subject": "Sylvester emergency wording",
+      "body": "Hi there,\n\nSylvester Electric's site gives two different emergency-service promises: business hours plus qualifying after-hours on the homepage, and 24/7 on its service pages. I put the exact pages and wording on one page. Want me to send it?"
+    },
+    {
+      "id": "D_DISPATCH_RULES",
+      "framing": "ties the mismatch to dispatch rules",
+      "subject": "Sylvester dispatch rules",
+      "body": "Hi there,\n\nIf Sylvester Electric's after-hours rules live in ServiceTitan, the public promise and the dispatch rule need to match, and its site currently says two different things about emergency availability. Your team is probably already losing calls over this. I can send a one-page note with the exact pages. Want me to send it?"
+    },
+    {
+      "id": "E_CONSULTANT_PRAISE",
+      "framing": "leads with praise of Powerhouse",
+      "subject": "Great work with contractors",
+      "body": "Hi there,\n\nIt's impressive how many contractors Powerhouse has helped optimize ServiceTitan, and I'm sure Sylvester Electric is a great client. Their site gives conflicting emergency-service promises, which is a definite problem and urgent to fix. I built a note with the details. Want me to send it?"
+    }
+  ],
+  "critics": [
+    {
+      "id": "A_CLIENT_QA_RENEWAL",
+      "verdict": "PASS",
+      "notes": "Every claim is a reported verified fact; no causation, no money, not accusatory; the artifact is described exactly as prepared; role fit is renewal/QA for a consultancy."
+    },
+    {
+      "id": "B_HEADS_UP",
+      "verdict": "PASS_WEAKER",
+      "notes": "Safe and non-salesy, but 'rather than selling anything' protests too much in a commercial message and the consequence at buyer altitude is vaguer than A."
+    },
+    {
+      "id": "C_COMPRESSED",
+      "verdict": "FAIL_LENGTH",
+      "notes": "Under the 51-word floor and drops the buyer-altitude consequence."
+    },
+    {
+      "id": "D_DISPATCH_RULES",
+      "verdict": "FAIL",
+      "notes": "Unsupported assertion (no evidence Sylvester's after-hours rules live in ServiceTitan) and an unsupported revenue claim ('probably already losing calls')."
+    },
+    {
+      "id": "E_CONSULTANT_PRAISE",
+      "verdict": "FAIL",
+      "notes": "Generic praise and false familiarity ('impressive', 'a great client'), an unsupported 'definite problem', and manufactured urgency."
+    }
+  ],
+  "winner": "A_CLIENT_QA_RENEWAL",
+  "winnerReason": "Highest specificity from verified facts, consequence stated at buyer altitude (client QA and renewal proof), artifact described exactly as prepared, one tiny permission ask.",
+  "winnerSubjectOnlyCompressionNote": "Already one idea and one CTA; further compression would drop the page-level specificity that makes it credible.",
+  "doNotSendUntil": [
+    "Powerhouse reaches VERIFIED_CANDIDATE",
+    "exact approval is minted over the final message including footer",
+    "LEGAL_AUTHORITY_HOLD and IDENTITY_FACT_HOLD are resolved by the founder"
+  ]
+}

@@ -32,3 +32,19 @@ Historical reply state `transport-capable, database receipt pending` is supersed
 
 Current promotion state:
 `TRANSPORT_GREEN -> REPLY_LOOP_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`.
+
+## Placement phenotype delta — 2026-10-02
+
+| Observation | Result |
+|---|---|
+| One-shot phenotype sends accepted | 3/3 |
+| Gmail Inbox | 2/3 |
+| Gmail Spam | 1/3 |
+| SPF | pass on 3/3 |
+| DMARC | pass on 3/3 |
+| aligned cedarpointdomains.com DKIM | pass on 3/3 |
+| Amazon SES DKIM | pass on 3/3 |
+| additional `dkim` selector | fail on 3/3 |
+| Prospect sends | 0 |
+
+The new 2/3 Inbox result supersedes the earlier assumption that the runtime path is uniformly spam-routed, but does not supersede the quarantine gate because ordinal 3 remains Spam and the sample is one Gmail inbox.

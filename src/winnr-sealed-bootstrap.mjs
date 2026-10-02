@@ -20,7 +20,16 @@ function safeResult(result={}){
     plaintextCredentialsLogged:result?.plaintextCredentialsLogged??null,
     smtpConfirmed:Number(result?.smtpConfirmed||0),
     imapConfirmed:Number(result?.imapConfirmed||0),
-    messagesSent:Number(result?.messagesSent||0)
+    messagesSent:Number(result?.messagesSent||0),
+    probes:Array.isArray(result?.probes)?result.probes.map(probe=>({
+      accountOrdinal:Number(probe?.accountOrdinal||0),
+      smtpConfirmed:probe?.smtpConfirmed===true,
+      smtpClassification:clean(probe?.smtpClassification,120)||'UNKNOWN',
+      smtpReasonCodes:Array.isArray(probe?.smtpReasonCodes)?probe.smtpReasonCodes.map(x=>clean(x,120)).slice(0,5):[],
+      smtpError:clean(probe?.smtpError,300)||null,
+      imapConfirmed:probe?.imapConfirmed===true,
+      imapStatus:clean(probe?.imapStatus,120)||'UNKNOWN'
+    })):[] 
   };
 }
 

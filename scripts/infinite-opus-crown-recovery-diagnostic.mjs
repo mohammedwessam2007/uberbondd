@@ -1,4 +1,7 @@
-import { SOURCE_KEY, recoverCrownResumeCheckpoint } from '../src/crown-resume-checkpoint.mjs';
+import crypto from 'node:crypto';
+import { SOURCE_KEY, RESUME_KEY, recoverCrownResumeCheckpoint } from '../src/crown-resume-checkpoint.mjs';
+import { openCrownCheckpoint } from '../src/crown-sealed-checkpoint.mjs';
+import { verifyCrownProviderModel } from '../src/crown-model-identity.mjs';
 // Zero-spend recovery: expose only bounded metadata, never sealed payloads or secrets.
 const allowed = new Set(['status','schemaVersion','version','month','monthlyCapMicrousd','callId','taskId','model','requestedModel','observedModel','provider','providerName','providerIdentity','generationId','providerCallId','id','actualMicrousd','reservedMicrousd','worstCaseMicrousd','costUsd','newSpendUsd','startedAt','updatedAt','createdAt','settledAt','timestamp','taskCommitment','hiddenTaskCount','receiptHash','snapshotHash','answerHash','promptHash','rubricHash','kind','observedAt','providerRequestId','receiptRef']);
 const atom = value => typeof value === 'number' && Number.isFinite(value) || typeof value === 'boolean' || value === null || typeof value === 'string' && value.length <= 240 && /^[a-zA-Z0-9_.:/+ -]*$/.test(value) && !/(?:sk-|Bearer|password|secret|token=)/i.test(value);
@@ -36,5 +39,18 @@ export async function readCrownRecoveryMetadata(store){
     resumeCheckpoint={status:'VERIFIED_ENCRYPTED_PARTIAL_CHECKPOINT',hiddenTaskCount:p.tasks.length,retainedCandidateAnswers:p.calls.length,missingCandidateAnswers:p.tasks.length*2-p.calls.length,missingEvaluatorCalls:1,minimumPaidCalls:p.tasks.length*2-p.calls.length+1,taskCommitment:p.taskCommitment,inheritedSpendUsd:p.inheritedSpendUsd,sealedPayloadsExposed:false};
    }catch{resumeCheckpoint={status:'ENCRYPTED_CHECKPOINT_NOT_VERIFIED',sealedPayloadsExposed:false};}
   }
-  return {resumeCheckpoint,status:'READ_ONLY_CROWN_RECOVERY',providerCallsPerformed:0,sealedPayloadsExposed:false,states,inventory};
+  let continuationCheckpoint={status:'NOT_PRESENT'};
+  if(settings[RESUME_KEY]){
+   try{
+    const s=settings[RESUME_KEY],p=openCrownCheckpoint(s.sealedEvidence,{key:process.env.TOKEN_ENCRYPTION_KEY,binding:RESUME_KEY+'|'+s.taskCommitment});
+    const hash=x=>'sha256:'+crypto.createHash('sha256').update(typeof x==='string'?x:JSON.stringify(x)).digest('hex');
+    const commitment=hash(p.tasks.map(t=>({id:t.id,promptHash:hash(t.prompt),rubricHash:hash(t.rubric),mustNotHash:hash(t.must_not??[])})));
+    if(p.tasks.length!==2||commitment!==s.taskCommitment||commitment!==settings[SOURCE_KEY]?.taskCommitment||p.calls.length>4)throw Error('checkpoint-refused');
+    const pairs=new Set();
+    for(const c of p.calls){const t=p.tasks.find(t=>t.id===c.taskId),pair=c.taskId+'|'+c.model;
+     if(pairs.has(pair)||!t||c.answerHash!==hash(p.answers[pair])||c.promptHash!==hash(t.prompt)||c.rubricHash!==hash(t.rubric)||!verifyCrownProviderModel({requestedModel:c.model,observedModel:c.metaModel,provider:c.providerName}))throw Error('answer-refused');pairs.add(pair);}
+    continuationCheckpoint={status:'VERIFIED_ENCRYPTED_CONTINUATION_CHECKPOINT',retainedCandidateAnswers:p.calls.length,missingCandidateAnswers:4-p.calls.length,missingEvaluatorCalls:p.gradeDoc?0:1,taskCommitment:commitment,privateInterruptedResponsePresent:Boolean(p.providerResponses?.['gen-1790900587-TKEqsFrik1iupnf4Ljrd']),sealedPayloadsExposed:false};
+   }catch{continuationCheckpoint={status:'CONTINUATION_CHECKPOINT_NOT_VERIFIED',sealedPayloadsExposed:false};}
+  }
+  return {resumeCheckpoint,continuationCheckpoint,status:'READ_ONLY_CROWN_RECOVERY',providerCallsPerformed:0,sealedPayloadsExposed:false,states,inventory};
 }

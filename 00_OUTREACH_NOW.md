@@ -1,6 +1,6 @@
 # 00 — CURRENT COMMERCIAL OUTREACH AUTOLOAD
 
-**Last reconciled:** 2026-10-01  
+**Last reconciled:** 2026-10-02
 **Truth class:** CURRENT COMMERCIAL DESIGN + CONTINUATION POINTER. Market demand, price acceptance, sender/provider readiness, cleared revenue and customer acceptance remain external truth.
 
 > **If the founder's request involves cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine, READ THIS FILE BEFORE BRAINSTORMING.**
@@ -21,7 +21,8 @@ This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Co
 6. `docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`
 7. `docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`
 8. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
-9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`
+9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md` (procurement lineage)
+10. `winnr/README.md` + `winnr/CURRENT_STATE.json` (current purchased/activated pilot)
 
 ## V5 genome
 
@@ -78,7 +79,13 @@ Optimize:
 
 `expected cleared contribution profit / founder minute`
 
-## 2026-10-01 transport frontier
+## Current Winnr frontier — 2026-10-02
+
+The $9/month three-mailbox pilot is purchased and technically activated. Live receipts show encrypted custody, SMTP 3/3, IMAP 3/3 and reply-canary ingestibility 2/2. Latest human-readable placement is 2/3 Inbox in UberBond Gmail; SMTP ordinal 3 is quarantined and all IMAP custody remains intact. The founder separately reports normal personal-Inbox arrival, retained with exact message identity/count unresolved. Campaign activation is separate and has not occurred.
+
+Recover `winnr/README.md`, `winnr/CURRENT_STATE.json` and `winnr/LIVE_RECONCILIATION_2026-10-02.md`. Do not repeat purchase/export/import/transport work or buy Startup from the historical gate below.
+
+## Historical 2026-10-01 procurement frontier
 
 The software boundary moved materially on 2026-10-01:
 
@@ -126,3 +133,7 @@ Do:
 - refresh exact current reality;
 - continue the V5 tournament and offer quartet;
 - let real outcomes mutate the system.
+
+## Subsequent personal-Gmail seed proof
+
+The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.

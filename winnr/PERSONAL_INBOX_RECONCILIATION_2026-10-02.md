@@ -18,9 +18,9 @@ Live receipts confirm:
 - no prospect-send authority granted.
 
 The fresh UberBond Gmail search found the human-readable probes at:
-- ordinal 1: `1a0fd560d2c27caa`, Inbox;
-- ordinal 2: `1a0fd5a343fb35d8`, Inbox;
-- ordinal 3: `1a0fd5c1f61eb4a6`, Spam.
+- ordinal 1: private receiving-message reference, Inbox;
+- ordinal 2: private receiving-message reference, Inbox;
+- ordinal 3: private receiving-message reference, Spam.
 
 The connected personal Gmail search found no matching cedarpointdomains.com messages at recovery time. This is a retrieval result, not a denial of the founder's observation. Gmail category PERSONAL and folder INBOX are distinct observations; preserve the exact labels.
 
@@ -40,11 +40,11 @@ PR #1162 merged at `61a6b553035db760f5627bf87b02916fad2cf27b`.
 Deploy `dep-davtng8u01pc73848i50` ran the bounded test and became live.
 Production receipt `WINNR_PERSONAL_CANARY_SENT` reported three accepted messages between 16:29:53Z and 16:29:59Z.
 
-| Sender ordinal | Personal Gmail message ID | Observed folder | Authentication |
+| Sender ordinal | Private evidence reference | Observed folder | Authentication |
 |---|---|---|---|
-| 1 | 1a0fd736c1cbe85e | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
-| 2 | 1a0fd737750943a8 | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
-| 3 | 1a0fd73815f9d819 | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 1 | private receiving-message reference | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 2 | private receiving-message reference | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 3 | private receiving-message reference | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
 
 All three were independently read through the connected personal Gmail metadata API. No folder labels were changed to obtain this result. The additional failing domain DKIM selector remains common to all three, while aligned DKIM, SPF and DMARC pass. The receiving MX observed Amazon SES as the downstream delivery hop; this does not change the approved custody or fixed-host SMTP route.
 
@@ -67,3 +67,5 @@ Interpretation: the founder's report now has independently observed supporting e
 Expanded Winnr validation: 48 focused tests passed. A pre-existing provider-contract test omitted the explicit zero-cent spend ceiling required by the unchanged production gate; the fixture now supplies that ceiling and separately proves missing budget, expired approval and wrong scope are refused. No production approval rule was relaxed.
 
 Final live deployment with sending-experiment flags disabled: `dep-davto8v9nhgc738av1rg`, source `61a6b553035db760f5627bf87b02916fad2cf27b`, LIVE at 16:32:38Z. Normal build command remains `npm install --omit=dev`.
+
+Receiving-message identifiers are retained in the founder-private `WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md` record, outside this public repository. The separate read-only recheck confirmed all three Inbox labels and passing aligned authentication without sending another message. See `winnr/CURRENT_STATE.json`.

@@ -1226,5 +1226,36 @@
     "mergedPr": 1062,
     "mergedMain": "e5858baead9ec4719669d7cec05da090f46f8224",
     "postMergeReceipt": "docs/receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json"
+  },
+  "winnrActivationReconciliation20261002": {
+    "sourceCommit": "a41c3787444bcf1b02e2cbc770ce68b1c9481000",
+    "technicalActivation": "COMPLETE",
+    "campaignActivation": "NOT_ACTIVATED",
+    "smtpConfirmed": 3,
+    "imapConfirmed": 3,
+    "replyCanaryOrdinalsFound": [
+      2,
+      3
+    ],
+    "humanPhenotypeInboxOrdinals": [
+      1,
+      2
+    ],
+    "smtpQuarantinedOrdinals": [
+      3
+    ],
+    "personalInboxReportClass": "FOUNDER_REPORTED_EXACT_MESSAGE_MAPPING_UNRESOLVED",
+    "recoveryRoot": "winnr/README.md",
+    "currentObservations": "winnr/CURRENT_STATE.json",
+    "evidenceReceipt": "winnr/LIVE_RECONCILIATION_2026-10-02.md",
+    "refreshLiveTruthRequired": true,
+    "supersedes": "Older chat/source SMTP-1-of-3 and global-placement-red continuation states; dated historical evidence is preserved.",
+    "noRestart": "Do not repeat purchase/export/import/transport setup.",
+    "personalSeedInboxOrdinals": [
+      1,
+      2,
+      3
+    ],
+    "personalSeedEvidenceRef": "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
   }
 }

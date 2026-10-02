@@ -209,7 +209,7 @@ It should:
 
 External customer evidence outranks this document.
 
-## 2026-10-02 Winnr live activation truth
+## Historical diagnostic-message checkpoint — 2026-10-02
 
 The bounded three-mailbox Winnr pilot is now transport-verified but **not placement-promoted**.
 
@@ -224,7 +224,7 @@ Verified live facts:
 - all three runtime canaries reached UberBond Gmail;
 - all three landed in Gmail Spam.
 
-Therefore the current distribution gate is:
+At that diagnostic-message checkpoint the distribution gate was:
 
 `TRANSPORT_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`
 
@@ -244,10 +244,12 @@ All Winnr purchase, custody, transport, placement, reply-verification, security-
 
 Current compressed state:
 
-`SMTP_3_OF_3 + IMAP_3_OF_3 + REPLIES_2_OF_2_INGESTIBLE + GMAIL_RUNTIME_PLACEMENT_0_OF_3_INBOX -> PROSPECT_SEND_FROZEN`
+`SMTP_3_OF_3 + IMAP_3_OF_3 + REPLIES_2_OF_2_INGESTIBLE + PERSONAL_GMAIL_3_OF_3_INBOX + SMTP_ORDINAL_3_QUARANTINED -> CAMPAIGN_NOT_ACTIVATED`
 
 On "continue Winnr", recover `winnr/README.md` before changing sender state or repeating procurement/integration work.
 
 ## Winnr personal-inbox closure — 2026-10-02
 
 Technical integration is complete: encrypted SMTP/IMAP custody, 3/3 transport and observed reply ingestibility. A fresh bounded probe from each sender reached the founder personal Gmail INBOX (3/3), with aligned DKIM, SPF and DMARC passing. Test effects are durably non-replayable, all completed sending-experiment flags are off, and Render is live on the deployed #1162 source. The prior UberBond Gmail 2/3 Inbox result remains preserved; ordinal 3 stays paused in SMTP fleet selection. No prospect campaign or new paid expansion occurred. Exact latest receipts and next scope: `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`. Do not restart purchase/export/import/SMTP-repair work.
+
+Current machine state: `winnr/CURRENT_STATE.json`. Independent reconciliation: `winnr/LIVE_RECONCILIATION_2026-10-02.md`. Do not repeat purchase/export/import/transport setup.

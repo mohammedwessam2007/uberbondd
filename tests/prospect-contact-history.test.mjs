@@ -81,6 +81,12 @@ test('prior outbound events (bounce, complaint, sent) for the email or domain hi
   }
 });
 
+test('an unrecognised reservation state is ambiguous history and blocks', () => {
+  const reads = cleanReads();
+  reads.outboundReservations = ok([{ id: 'r', recipientEmail: EMAIL, status: 'processing' }]);
+  assert.equal(run(reads).status, RESULT_STATUS.HIT);
+});
+
 test('a prior reply from the address, or linked through its prospect, hits', () => {
   let reads = cleanReads();
   reads.replies = ok([{ id: 'p', from: 'Pat <HELLO@agency.example>', classification: { label: 'negative' } }]);
@@ -114,7 +120,55 @@ test('same-domain prior contact with a different person still blocks', () => {
   assert.ok(r.findings.some(f => f.match === 'SAME_DOMAIN'));
 });
 
-test('supplementary reads (messages, provider events) can add a hit but never rescue a failed required read', () => {
+test('a website alias cannot hide a matching stored domain or linked reply', () => {
+  const reads = cleanReads();
+  reads.prospects = ok([{ id: 'p', domain: 'agency.example', website: 'https://alias.example/', status: 'ready' }]);
+  reads.replies = ok([{ id: 'r', prospectId: 'p', from: 'unrelated@else.example' }]);
+  const r = run(reads);
+  assert.equal(r.status, RESULT_STATUS.HIT);
+  assert.ok(r.findings.some(f => f.collection === 'prospects' && f.match === 'SAME_DOMAIN'));
+  assert.ok(r.findings.some(f => f.collection === 'replies' && f.match === 'LINKED_PROSPECT'));
+});
+
+test('prior contact timestamps block even when a prospect has a benign current status', () => {
+  for (const patch of [{ sentAt: NOW.toISOString() }, { previouslyContactedAt: NOW.toISOString() }, { priorContact: { lastContactedAt: NOW.toISOString() } }]) {
+    const reads = cleanReads();
+    reads.prospects = ok([{ id: 'p', contact: { email: EMAIL }, status: 'ready', ...patch }]);
+    const r = run(reads);
+    assert.equal(r.status, RESULT_STATUS.HIT);
+    assert.equal(r.findings[0].detail.previousContactAt, NOW.toISOString());
+  }
+});
+
+test('an orphaned sent message to the exact recipient or domain blocks without a prospect row', () => {
+  for (const to of [EMAIL, 'another@agency.example']) {
+    const reads = cleanReads();
+    reads.messages = ok([{ id: 'm', prospectId: 'missing-prospect', to, sentAt: NOW.toISOString() }]);
+    const r = run(reads);
+    assert.equal(r.status, RESULT_STATUS.HIT);
+    assert.equal(r.findings[0].collection, 'messages');
+  }
+});
+
+test('a canonical provider event linked by prospectId blocks without leadEmail', () => {
+  const reads = cleanReads();
+  reads.prospects = ok([{ id: 'p', contact: { email: EMAIL }, status: 'ready' }]);
+  reads.providerEvents = ok([{ id: 'e', prospectId: 'p', leadEmail: '', eventType: 'complaint' }]);
+  const r = run(reads);
+  assert.equal(r.status, RESULT_STATUS.HIT);
+  assert.ok(r.findings.some(f => f.collection === 'providerEvents' && f.match === 'LINKED_PROSPECT'));
+});
+
+test('messages and provider events are mandatory even when all other ledgers are empty', () => {
+  for (const name of ['messages', 'providerEvents']) {
+    assert.ok(REQUIRED_COLLECTIONS.includes(name));
+    const reads = cleanReads();
+    reads[name] = { ok: false, error: 'ETIMEDOUT' };
+    assert.equal(run(reads).status, RESULT_STATUS.CHECK_FAILED);
+  }
+});
+
+test('messages and provider events can add a hit but never rescue a failed required read', () => {
   const reads = cleanReads();
   reads.prospects = ok([{ id: 'p1', contact: { email: EMAIL }, status: 'ready' }]);
   reads.messages = ok([{ id: 'm1', prospectId: 'p1', kind: 'initial' }]);

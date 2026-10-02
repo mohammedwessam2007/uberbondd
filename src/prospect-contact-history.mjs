@@ -23,12 +23,12 @@ export const CONTACT_HISTORY_SCHEMA = 'uberbond.prospect-contact-history.v1';
 export const CONTACT_HISTORY_RUNTIME_PROVENANCE = 'RUNTIME_RECEIPT';
 
 export const REQUIRED_COLLECTIONS = Object.freeze([
-  'suppressions', 'prospects', 'outboundReservations', 'outboundEvents', 'replies'
+  'suppressions', 'prospects', 'outboundReservations', 'outboundEvents', 'replies', 'messages', 'providerEvents'
 ]);
-// Read when available. They can only add blocking findings; their absence does
-// not weaken a clean verdict because the required collections already cover
-// the same recipient through other keys.
-export const SUPPLEMENTARY_COLLECTIONS = Object.freeze(['messages', 'providerEvents']);
+// Retained export for callers; every canonical history ledger is required.
+// Interrupted dispatch/webhook persistence can leave evidence in only one
+// ledger, so a failed read must never be treated as redundant or clean.
+export const SUPPLEMENTARY_COLLECTIONS = Object.freeze([]);
 
 export const RESULT_STATUS = Object.freeze({
   CLEAN: 'CLEAN',
@@ -43,7 +43,6 @@ export const RESULT_STATUS = Object.freeze({
 const BENIGN_PROSPECT_STATUSES = new Set([
   '', 'new', 'imported', 'discovered', 'crawling', 'saved', 'ready', 'research-complete', 'rejected'
 ]);
-const OPEN_RESERVATION_STATUSES = new Set(['reserved', 'dispatching', 'sent', 'uncertain']);
 
 const emailOf = value => {
   const text = String(value || '').trim().toLowerCase();
@@ -132,17 +131,18 @@ export function compileContactHistory({ email, domain, reads = {}, now = new Dat
   const linkedProspectIds = new Set();
   for (const row of normalized.prospects.rows) {
     const rowEmail = emailOf(row?.contact?.email);
-    const rowDomain = domainOfSite(row?.website || row?.domain);
+    const rowDomains = [row?.website, row?.domain].map(domainOfSite).filter(Boolean);
     const sameEmail = rowEmail === exactEmail;
-    const sameDomain = rowEmail ? domainOfEmail(rowEmail) === exactDomain || rowDomain === exactDomain : rowDomain === exactDomain;
+    const sameDomain = domainOfEmail(rowEmail) === exactDomain || rowDomains.includes(exactDomain);
     if (!sameEmail && !sameDomain) continue;
     if (row?.id) linkedProspectIds.add(String(row.id));
     const status = String(row?.status || '').trim().toLowerCase();
-    const blocking = !BENIGN_PROSPECT_STATUSES.has(status);
+    const previousContactAt = row?.sentAt || row?.previouslyContactedAt || row?.priorContact?.lastContactedAt || null;
+    const blocking = Boolean(previousContactAt) || !BENIGN_PROSPECT_STATUSES.has(status);
     findings.push({
       collection: 'prospects', match: sameEmail ? 'EXACT_EMAIL' : 'SAME_DOMAIN',
       severity: blocking ? 'BLOCKING' : 'INFORMATIONAL',
-      detail: { id: row?.id || null, status, createdAt: row?.createdAt || null }
+      detail: { id: row?.id || null, status, previousContactAt, createdAt: row?.createdAt || null }
     });
   }
 
@@ -166,7 +166,7 @@ export function compileContactHistory({ email, domain, reads = {}, now = new Dat
       collection: 'outboundReservations', match: sameEmail ? 'EXACT_EMAIL' : (sameDomain ? 'SAME_DOMAIN' : 'LINKED_PROSPECT'),
       // Every reservation, whatever its state, is a prior-contact attempt or
       // an unresolved effect; cancelled ones are still history worth showing.
-      severity: OPEN_RESERVATION_STATUSES.has(status) || !status ? 'BLOCKING' : 'INFORMATIONAL',
+      severity: status === 'cancelled' ? 'INFORMATIONAL' : 'BLOCKING',
       detail: { id: row?.id || null, status, kind: row?.kind || null, followup: Number(row?.followup || 0), reservedAt: row?.reservedAt || null }
     });
   }
@@ -199,15 +199,22 @@ export function compileContactHistory({ email, domain, reads = {}, now = new Dat
 
   if (normalized.messages.ok) {
     for (const row of normalized.messages.rows) {
-      if (!(row?.prospectId && linkedProspectIds.has(String(row.prospectId)))) continue;
-      findings.push({ collection: 'messages', match: 'LINKED_PROSPECT', severity: 'BLOCKING', detail: { id: row?.id || null, kind: row?.kind || null, sentAt: row?.sentAt || null } });
+      const rowEmail = emailOf(row?.to);
+      const sameEmail = rowEmail === exactEmail;
+      const sameDomain = rowEmail && domainOfEmail(rowEmail) === exactDomain;
+      const linked = row?.prospectId && linkedProspectIds.has(String(row.prospectId));
+      if (!sameEmail && !sameDomain && !linked) continue;
+      findings.push({ collection: 'messages', match: sameEmail ? 'EXACT_EMAIL' : (sameDomain ? 'SAME_DOMAIN' : 'LINKED_PROSPECT'), severity: 'BLOCKING', detail: { id: row?.id || null, kind: row?.kind || null, sentAt: row?.sentAt || null } });
     }
   }
   if (normalized.providerEvents.ok) {
     for (const row of normalized.providerEvents.rows) {
       const rowEmail = emailOf(row?.leadEmail);
-      if (rowEmail !== exactEmail && !(rowEmail && domainOfEmail(rowEmail) === exactDomain)) continue;
-      findings.push({ collection: 'providerEvents', match: rowEmail === exactEmail ? 'EXACT_EMAIL' : 'SAME_DOMAIN', severity: 'BLOCKING', detail: { id: row?.id || null, eventType: row?.eventType || null } });
+      const sameEmail = rowEmail === exactEmail;
+      const sameDomain = rowEmail && domainOfEmail(rowEmail) === exactDomain;
+      const linked = row?.prospectId && linkedProspectIds.has(String(row.prospectId));
+      if (!sameEmail && !sameDomain && !linked) continue;
+      findings.push({ collection: 'providerEvents', match: sameEmail ? 'EXACT_EMAIL' : (sameDomain ? 'SAME_DOMAIN' : 'LINKED_PROSPECT'), severity: 'BLOCKING', detail: { id: row?.id || null, eventType: row?.eventType || null } });
     }
   }
 

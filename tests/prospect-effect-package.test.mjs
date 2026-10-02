@@ -10,7 +10,7 @@ const now = new Date('2026-10-02T21:00:00.000Z');
 const ok = rows => ({ ok: true, rows });
 function context(readsPatch = {}) {
   const record = powerhouseRecord();
-  record.contactHistoryReceipt = compileContactHistory({ email: record.recipient.email, reads: { suppressions: ok([]), prospects: ok([]), outboundReservations: ok([]), outboundEvents: ok([]), replies: ok([]), ...readsPatch }, now });
+  record.contactHistoryReceipt = compileContactHistory({ email: record.recipient.email, reads: { suppressions: ok([]), prospects: ok([]), outboundReservations: ok([]), outboundEvents: ok([]), replies: ok([]), messages: ok([]), providerEvents: ok([]), ...readsPatch }, now });
   const intake = compileProspectVerification(record, { now, contactHistoryTrust: { inProcess: true } });
   const tournament = runProspectMessageTournament({ intake, record, slots: SLOTS, artifactPrepared: true, now });
   return { record, intake, tournament };

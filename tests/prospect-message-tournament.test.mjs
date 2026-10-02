@@ -10,7 +10,7 @@ import {
 
 const now = new Date('2026-10-02T21:00:00.000Z');
 const ok = rows => ({ ok: true, rows });
-const cleanReads = () => ({ suppressions: ok([]), prospects: ok([]), outboundReservations: ok([]), outboundEvents: ok([]), replies: ok([]) });
+const cleanReads = () => ({ suppressions: ok([]), prospects: ok([]), outboundReservations: ok([]), outboundEvents: ok([]), replies: ok([]), messages: ok([]), providerEvents: ok([]) });
 
 function verified(readsPatch = {}, recordPatch = (r => r)) {
   const record = recordPatch(powerhouseRecord());

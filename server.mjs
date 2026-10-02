@@ -6,6 +6,7 @@ import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
 import { verifyWinnrReplyCanaries } from './src/winnr-reply-canary-verifier.mjs';
+import { runWinnrPlacementPhenotypeCanary } from './src/winnr-placement-phenotype-canary.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
@@ -637,6 +638,14 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') =
     .then(result => console.log('WINNR_REPLY_CANARY_VERIFY ' + JSON.stringify(result)))
     .catch(error => console.error('WINNR_REPLY_CANARY_VERIFY_FAILED ' + JSON.stringify({
       ok:false,status:'WINNR_REPLY_CANARY_VERIFY_EXCEPTION',reason:String(error?.message||error).slice(0,200)
+    })));
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_PHENOTYPE_ONCE || '') === '1') {
+  void runWinnrPlacementPhenotypeCanary({ config })
+    .then(result => console.log('WINNR_PLACEMENT_PHENOTYPE ' + JSON.stringify(result)))
+    .catch(error => console.error('WINNR_PLACEMENT_PHENOTYPE_FAILED ' + JSON.stringify({
+      ok:false,status:'WINNR_PLACEMENT_CANARY_EXCEPTION',reason:String(error?.message||error).slice(0,200)
     })));
 }
 

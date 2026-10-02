@@ -132,12 +132,21 @@ export async function runWinnrSealedBootstrapController({config,canaryTarget='ub
     }
     const envelope=JSON.parse(raw);
     const opened=openEnvelope(envelope,state,config.encryptionKey);
+    const priorConfirmed=(Array.isArray(state.smtpConfirmedOrdinals)?state.smtpConfirmedOrdinals:[])
+      .map(Number).filter(n=>Number.isInteger(n)&&n>0);
     const result=await runWinnrRuntimeBootstrap({
       config,
       csvText:opened.csvText,
-      canaryTarget
+      canaryTarget,
+      smtpSkipOrdinals:priorConfirmed,
+      smtpInterProbeDelayMs:15000
     });
     const safe=safeResult(result);
+    const newlyConfirmed=(Array.isArray(result?.probes)?result.probes:[])
+      .filter(probe=>probe?.smtpConfirmed===true)
+      .map(probe=>Number(probe.accountOrdinal))
+      .filter(n=>Number.isInteger(n)&&n>0);
+    const confirmedOrdinals=[...new Set([...priorConfirmed,...newlyConfirmed])].sort((a,b)=>a-b);
     if(result?.ok===true){
       const consumed={
         version:state.version,
@@ -148,7 +157,8 @@ export async function runWinnrSealedBootstrapController({config,canaryTarget='ub
         createdAt:state.createdAt,
         consumedAt:new Date().toISOString(),
         payloadDigest:opened.payloadDigest,
-        result:safe
+        result:safe,
+        smtpConfirmedOrdinals:confirmedOrdinals
       };
       await store.setSetting(STATE_KEY,consumed);
       await store.log('winnr_sealed_bootstrap_consumed',{
@@ -158,8 +168,15 @@ export async function runWinnrSealedBootstrapController({config,canaryTarget='ub
         plaintextCredentialsLogged:false,
         result:safe
       });
+    }else{
+      await store.setSetting(STATE_KEY,{
+        ...state,
+        smtpConfirmedOrdinals:confirmedOrdinals,
+        lastPartialAt:new Date().toISOString(),
+        lastPartialResult:safe
+      });
     }
-    return {...safe,payloadDigest:opened.payloadDigest,publicKeyFingerprint:state.publicKeyFingerprint};
+    return {...safe,smtpConfirmedOrdinals:confirmedOrdinals,payloadDigest:opened.payloadDigest,publicKeyFingerprint:state.publicKeyFingerprint};
   }catch(error){
     return {ok:false,status:'WINNR_SEALED_BOOTSTRAP_FAILED',reasonCodes:[clean(error?.message||error,300)]};
   }finally{

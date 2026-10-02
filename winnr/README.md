@@ -1,0 +1,51 @@
+# Winnr Canonical Vault
+
+Status: **CURRENT WINNR RETRIEVAL ROOT**
+
+Updated: 2026-10-02
+
+This directory is the durable, secret-free recovery root for UberBond's Winnr sender-substrate pilot. It preserves what was bought, why it was bought, what was implemented, what was externally verified, what failed, what superseded earlier conclusions, what remains blocked, and exactly how to continue without restarting the mission.
+
+## Current one-line truth
+
+`PURCHASED -> PROVISIONED -> ENCRYPTED_CUSTODY -> SMTP_3_OF_3 -> IMAP_3_OF_3 -> REPLIES_2_OF_2_INGESTIBLE -> GMAIL_PLACEMENT_3_OF_3_SPAM -> PROSPECT_SEND_FROZEN`
+
+Transport is verified. Reply ingestibility is verified. Placement is not promoted.
+
+## Read order
+
+1. [CURRENT_STATE.md](./CURRENT_STATE.md)
+2. [EXECUTION_LINEAGE.md](./EXECUTION_LINEAGE.md)
+3. [EVIDENCE_INDEX.md](./EVIDENCE_INDEX.md)
+4. [PLACEMENT_RECOVERY.md](./PLACEMENT_RECOVERY.md)
+5. [NEXT_STEPS.md](./NEXT_STEPS.md)
+6. [SECURITY_BOUNDARIES.md](./SECURITY_BOUNDARIES.md)
+
+## Canonical upstream evidence
+
+Do not duplicate or silently supersede these source receipts:
+
+- `docs/WINNR_SUPPORT_RECONCILIATION_2026-10-02.md`
+- `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`
+- `docs/receipts/WINNR_TRANSPORT_RECONCILIATION_2026-10-02.md`
+- `docs/WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md`
+- `docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`
+- `src/winnr-sealed-bootstrap.mjs`
+- `src/winnr-runtime-bootstrap.mjs`
+- `src/ubersmtp-submission-adapter.mjs`
+- `src/fixed-host-blind-tunnel.mjs`
+- `src/winnr-reply-canary-verifier.mjs`
+
+## Recovery law
+
+A future chat must recover this directory and the upstream receipts before changing Winnr transport, credentials, placement gates, sender caps, or prospect-send authority.
+
+Never infer:
+- payment from code;
+- provisioning from payment;
+- inbox placement from SMTP acceptance;
+- reply ingestion from IMAP authentication alone;
+- prospect-send readiness from vendor health/blocklist scores;
+- production Neon state from the existence of the Neon plugin.
+
+Live external evidence outranks historical vendor claims.

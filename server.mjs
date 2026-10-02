@@ -3,6 +3,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
 import { createStore } from './src/store.mjs';
+import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
@@ -617,6 +618,40 @@ if (wrapperIsEntryPoint) process.argv[1] = corePath;
 let core;
 try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_RUNTIME_BOOTSTRAP_ONCE || '') === '1') {
+  void (async () => {
+    try {
+      const encoded = String(process.env.WINNR_BOOTSTRAP_CSV_B64 || '').trim();
+      if (!encoded) throw new Error('WINNR_BOOTSTRAP_CSV_B64 is required');
+      const csvText = Buffer.from(encoded, 'base64').toString('utf8');
+      if (!csvText.trim() || Buffer.byteLength(csvText) > 2_000_000) throw new Error('Winnr bootstrap CSV refused');
+      const result = await runWinnrRuntimeBootstrap({
+        config,
+        csvText,
+        canaryTarget: String(process.env.WINNR_RUNTIME_CANARY_TARGET || '').trim()
+      });
+      console.log('WINNR_RUNTIME_BOOTSTRAP ' + JSON.stringify({
+        ok: result?.ok === true,
+        status: result?.status || 'UNKNOWN',
+        domain: result?.domain || null,
+        mailboxCount: Number(result?.mailboxCount || 0),
+        accountRowsWritten: Number(result?.accountRowsWritten || 0),
+        credentialStorage: result?.credentialStorage || null,
+        plaintextCredentialsLogged: result?.plaintextCredentialsLogged ?? null,
+        smtpConfirmed: Number(result?.smtpConfirmed || 0),
+        imapConfirmed: Number(result?.imapConfirmed || 0),
+        messagesSent: Number(result?.messagesSent || 0)
+      }));
+    } catch (error) {
+      console.error('WINNR_RUNTIME_BOOTSTRAP ' + JSON.stringify({
+        ok: false,
+        status: 'UNHANDLED',
+        reason: String(error?.message || error).slice(0, 300)
+      }));
+    }
+  })();
+}
 
 if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
   const store=createStore(config);

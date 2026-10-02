@@ -18,7 +18,20 @@
 @docs/CAPABILITY_GENOME_CANON.md
 @docs/WALLBREAKER_CANON.md
 @docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md
+@docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md
+@docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md
 @docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md
+
+## Current founder execution directive — 2026-10-02
+
+Unless a newer explicit founder instruction supersedes it, treat the Winnr first-cash mega mission imported above as the active commercial execution mission after completing the mandatory repository startup and truth refresh. It is intentionally open-ended: close the current Winnr/outreach frontier, continue through the furthest evidence-backed commercial state available, and stop only at a verified terminal state or a genuine external/owner-only blocker.
+
+
+## Active founder-directed economic execution overlay — 2026-10-02
+
+For the current Winnr -> real outreach -> first cash -> delivery -> renewal/expansion frontier, read and obey `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` after the mandatory startup/truth refresh. It preserves the complete prior Winnr mega mission and extends it into an open-ended economic reality loop covering prospect selection, governed sending, reply handling, qualification, cleared payment, fulfillment, accepted delivery, recurring revenue, scaling, failure recovery, offer/channel mutation and successor missions.
+
+This overlay does **not** supersede `AGENTS.md`, the terminal North Star, newer explicit founder instructions, live external truth, provider policy, recipient eligibility, suppression, security, spend controls or consequence authority. Its purpose is to prevent Claude Code from restarting solved work or stopping at an internal milestone when the next lawful dependency-satisfied execution step is available.
 
 ## Mandatory startup
 

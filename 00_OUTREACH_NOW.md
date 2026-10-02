@@ -87,10 +87,10 @@ The software boundary moved materially on 2026-10-01:
 - the physical purchase target is therefore narrower: authorized outbound SMTP + inbound IMAP/replies + BYO-domain/account continuity;
 - a guarded Winnr provider adapter and post-purchase canary sequence are implemented on the current upgrade lineage;
 - Winnr written support has now confirmed the described lawful B2B route, Egypt availability, international Visa/Mastercard, authorized API/MCP automation, standard SMTP/IMAP export, a $9 initial three-address pre-warmed charge, and 10–15 cold messages/mailbox/day as its recommended range;
-- a material first-party contradiction remains: Winnr's official MCP source says **no minimum term / cancel any time**, while current Help pages linked by support say **90-day minimum term**, making the minimum three-address commitment **$27** even though the first charge is $9;
-- a same-thread reconciliation request has been sent; **do not purchase** until Winnr states which term governs a new order and the exact commitment is visible/observed;
-- the first-cash candidate remains **one green 3-address pre-warmed domain**, with Startup retained as the recurring scale route around the ~23-address / $69-month public-price crossover, but this is a candidate route rather than purchase authority;
-- `SAFE_TO_PURCHASE = NO` until the term conflict, authenticated checkout, live green inventory, exact first charge and exact committed spend are reconciled;
+- Winnr same-thread written support on 2026-10-02 resolved the historical 90-day contradiction: the minimum term was removed in August 2026, new purchases are **no minimum term / cancel anytime**, and the three-address pilot has **$9 total initial committed spend** if checkout matches;
+- the purchase screen is expected to show **"Minimum term: None, cancel anytime"** before confirmation; the old 90-day Help text is preserved only as historical provenance;
+- the first-cash candidate remains **one green 3-address pre-warmed domain**, with Startup retained as the recurring scale route around the ~23-address / $69-month public-price crossover;
+- purchase is **conditionally ready** only after authenticated checkout, live green inventory, exact $9 first charge and exact $9 minimum committed spend are observed;
 - **do not enable or buy a provider warm-up add-on merely because it is offered**; first use UberWarm² + owner-controlled placement evidence, then add any external warm-up network only as a measured optional experiment.
 
 Current detailed gate: `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`.

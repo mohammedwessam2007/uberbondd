@@ -24,6 +24,7 @@ Latest additive evidence: the separate personal-Gmail test delivered all three m
 6. [SECURITY_BOUNDARIES.md](./SECURITY_BOUNDARIES.md)
 7. [FINAL_ACTIVATION_2026-10-02.md](./FINAL_ACTIVATION_2026-10-02.md)
 8. [PERSONAL_INBOX_RECONCILIATION_2026-10-02.md](./PERSONAL_INBOX_RECONCILIATION_2026-10-02.md)
+9. [SMTP canary approval repair](../docs/receipts/WINNR_SMTP_CANARY_APPROVAL_20261002.md): fleet sender approval support and the remaining campaign gates; no new send or warming activation claimed.
 
 Machine-readable observations: [CURRENT_STATE.json](./CURRENT_STATE.json). Independent recheck: [LIVE_RECONCILIATION_2026-10-02.md](./LIVE_RECONCILIATION_2026-10-02.md). Refresh live truth before acting.
 

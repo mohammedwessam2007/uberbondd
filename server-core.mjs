@@ -45,7 +45,7 @@ import {
   buildLookalikePlan,
   buildProviderPreflight
 } from './src/lead-operations.mjs';
-import { buildEncryptedSmtpAccount } from './src/uberfleet.mjs';
+import { buildEncryptedSmtpAccount, selectFleetMailbox } from './src/uberfleet.mjs';
 import { buildEncryptedImapAccount } from './src/uberimap.mjs';
 import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
 import { createWinnrApiClient } from './src/uberwinnr-adapter.mjs';
@@ -593,7 +593,8 @@ async function approveOutreachCanary(input = {}) {
   if (Number(input.followup || 0) !== 0) throw new HttpError(400, 'Only the initial canary step can be approved here');
   const runtimeConfig = configWithOwnerIdentity(await store.getSettings());
   if (runtimeConfig.outbound.launchPhase !== 'canary') throw new HttpError(409, 'Set the bounded canary launch phase before approving a canary');
-  if (!['gmail-api', 'postal'].includes(String(runtimeConfig.outbound.provider || '').toLowerCase())) throw new HttpError(409, 'The live canary provider is not approved');
+  const provider = String(runtimeConfig.outbound.provider || '').toLowerCase();
+  if (!['gmail-api', 'postal', 'smtp-relay'].includes(provider)) throw new HttpError(409, 'The live canary provider is not approved');
   if (String(runtimeConfig.outbound.approvalSecret || '').length < 32) throw new HttpError(503, 'The canary approval secret is not configured');
   if (!String(runtimeConfig.outbound.approverId || '').trim()) throw new HttpError(503, 'The canary approver identity is not configured');
 
@@ -604,7 +605,19 @@ async function approveOutreachCanary(input = {}) {
   if (campaign.approved !== true || campaign.autoSend !== true) throw new HttpError(409, 'The campaign must be approved and auto-send enabled before canary approval');
   if (!CANARY_PROSPECT_STATUSES.has(prospect.status)) throw new HttpError(409, 'The prospect must finish research before canary approval');
   if (!prospect.contact?.email) throw new HttpError(409, 'The prospect has no selected recipient email');
-  if (!prospect.inbox || !['A', 'B'].includes(String(prospect.inbox))) throw new HttpError(409, 'The prospect needs sender slot A or B');
+  if (provider === 'smtp-relay') {
+    const [accounts, senderHealth] = await Promise.all([store.list('accounts'), store.list('senderHealth')]);
+    const allocation = selectFleetMailbox({
+      prospectId: prospect.id, currentSlot: prospect.inbox, accounts, senderHealth, provider
+    });
+    // Approve the sender already shown in the stored draft. Never silently
+    // replace a missing/paused sender while signing an exact payload.
+    if (!prospect.inbox || !allocation.ok || allocation.slot !== String(prospect.inbox)) {
+      throw new HttpError(409, 'The prospect needs a healthy authorized SMTP sender in its stored draft; rerun research before approval');
+    }
+  } else if (!prospect.inbox || !['A', 'B'].includes(String(prospect.inbox))) {
+    throw new HttpError(409, 'The prospect needs sender slot A or B');
+  }
 
   const subject = String(input.subject ?? prospect.subject ?? '');
   const body = String(input.body ?? prospect.draft ?? '');

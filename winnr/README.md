@@ -25,6 +25,7 @@ Latest additive evidence: the separate personal-Gmail test delivered all three m
 7. [FINAL_ACTIVATION_2026-10-02.md](./FINAL_ACTIVATION_2026-10-02.md)
 8. [PERSONAL_INBOX_RECONCILIATION_2026-10-02.md](./PERSONAL_INBOX_RECONCILIATION_2026-10-02.md)
 9. [SMTP canary approval repair](../docs/receipts/WINNR_SMTP_CANARY_APPROVAL_20261002.md): fleet sender approval support and the remaining campaign gates; no new send or warming activation claimed.
+10. [First-send handoff (Terminal V2)](../docs/receipts/WINNR_TERMINAL_V2_FIRST_SEND_HANDOFF_20261002.md): current source refuses cold `PUBLIC_BUSINESS_CONTACT` routes on every provider; exact identity field set; owner queue; production unreachable from cloud session.
 
 Machine-readable observations: [CURRENT_STATE.json](./CURRENT_STATE.json). Independent recheck: [LIVE_RECONCILIATION_2026-10-02.md](./LIVE_RECONCILIATION_2026-10-02.md). Refresh live truth before acting.
 

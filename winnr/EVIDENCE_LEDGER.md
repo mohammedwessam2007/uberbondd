@@ -22,7 +22,7 @@ Updated: 2026-10-02
 | Fixed-host blind tunnel | ACTIVE / REQUIRED | Current Render-to-Winnr SMTP path |
 | Startup $69 plan | NOT PURCHASED | Pilot must earn expansion |
 | Paid Winnr warming | NOT PURCHASED | No fake-engagement substitute |
-| Placement | SPLIT | Ordinals 1-2 candidate-green; ordinal 3 quarantined |
+| Placement | SPLIT | Ordinals 1-2 candidate-green; ordinal 3 quarantined |\n| Ordinal 3 runtime quarantine | LIVE VERIFIED | WINNR_PLACEMENT_QUARANTINE_APPLIED on Render; SMTP fleet selection only; IMAP retained |
 
 ## Supersession
 

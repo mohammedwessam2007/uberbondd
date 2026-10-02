@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "uberbond.effect-package.v1",
+  "status": "PREPARED_NOT_READY",
+  "readyExceptIdentityAndLegalAuthority": false,
+  "blockedBy": [
+    "prospect not VERIFIED_CANDIDATE: only the production-ledger read remains (artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json)",
+    "LEGAL_AUTHORITY_HOLD",
+    "IDENTITY_FACT_HOLD"
+  ],
+  "finalDigestMinted": false,
+  "reasonNoDigest": "Identity participates in the message (signature and postal footer), so no immutable digest is minted while LEGAL_BUSINESS_SENDER_NAME and AUTHORIZED_PUBLIC_POSTAL_ADDRESS are placeholders.",
+  "bindings": {
+    "prospect": "Powerhouse Consulting Group (mypowerhouse.group)",
+    "recipient": "hello@mypowerhouse.group",
+    "recipientPublicationSource": {
+      "url": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/",
+      "excerpt": "Also available to non-clients \u2013 just email hello@mypowerhouse.group for more information!",
+      "publicationPurpose": "GENERAL_BUSINESS_AND_PARTNERSHIP_CONTACT (deliberate publication to non-clients)",
+      "corroboratingPages": [
+        "https://mypowerhouse.group/event/webinar-servicetitan-fma/",
+        "https://mypowerhouse.group/event/servicetitan-fma-encore/",
+        "https://mypowerhouse.group/contact/ (\"Have a general question or want to partner with us? We're here to help!\")"
+      ],
+      "observedAtBasis": "Mission Control fetch, 2026-10-02 session; exact fetch time not supplied (ingestion time recorded as an upper bound)",
+      "publicationIsNotConsent": true
+    },
+    "jurisdiction": "US",
+    "routeType": "PUBLIC_BUSINESS_CONTACT (cold route, cold-v1 envelope; inert and unwired)",
+    "offer": "REVENUE_PROOF_AND_RENEWAL_PACK",
+    "client": {
+      "name": "Sylvester Electric",
+      "primaryPage": "https://sylvesterelectric.com/",
+      "corroboratingPages": [
+        "https://sylvesterelectric.com/generator-installation",
+        "https://sylvesterelectric.com/electric-panel-replacement"
+      ]
+    },
+    "observedIssue": "SAME_PAGE_PUBLIC_SERVICE_PROMISE_INCONSISTENCY",
+    "artifact": "artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md (same-page contradiction with URLs; screenshots not preserved from this sandbox)",
+    "senderCandidate": "Winnr smtp-relay ordinal 1 or 2 only; ordinal 3 stays at zero. The fleet allocation result is a runtime read (UNKNOWN from this sandbox).",
+    "subject": "Sylvester availability",
+    "body": "artifacts/outreach/powerhouse-message-tournament-20261002.json winner F_SAME_PAGE_FULL (core only; footer and disclosure added separately once identity exists)",
+    "commercialDisclosureRequirement": "body must contain 'This is a commercial message from <LEGAL_BUSINESS_SENDER_NAME>.' (verified by the cold-route policy)",
+    "footerSchema": [
+      "LEGAL_BUSINESS_SENDER_NAME",
+      "AUTHORIZED_PUBLIC_POSTAL_ADDRESS"
+    ],
+    "unsubscribeSchema": {
+      "unsubscribeUrl": "signed https URL created at runtime by the pipeline (unsubscribeSecret)",
+      "oneClickUnsubscribeUrl": "signed https URL created at runtime",
+      "bodyMustContainUnsubscribeUrl": true,
+      "suppressesOnClick": true
+    }
+  },
+  "digestInputs": {
+    "routeEvidence": {
+      "schemaVersion": "uberbond.outreach-route.cold-v1",
+      "recipientEmail": "hello@mypowerhouse.group",
+      "sourceUrl": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/",
+      "sourceExcerptDigest": "sha256 of the retained excerpt",
+      "sourceObservedAt": "Mission Control fetch time (to be retained exactly; max 7 days old)",
+      "sourceExpiresAt": "observedAt + 7 days (maximum)",
+      "jurisdiction": "US",
+      "permissionScope": "COMMERCIAL_OUTREACH",
+      "relevantToRecipientRole": true,
+      "noUnsolicitedStatementPresent": false,
+      "provider": "smtp-relay",
+      "coldPolicy": {
+        "contactSource": "PUBLISHED_BUSINESS_CONTACT",
+        "collectionMethod": "MANUAL",
+        "recipientType": "CORPORATE",
+        "noSolicitationNoticeChecked": true,
+        "noHarvestNoticeChecked": true,
+        "addressGuessed": false
+      }
+    },
+    "messageDigest": [
+      "recipientEmail",
+      "subject",
+      "body (with footer)",
+      "provider=smtp-relay",
+      "inbox (allocated slot)",
+      "followup=0",
+      "listUnsubscribe"
+    ],
+    "effectPayloadDigest": [
+      "prospectId (runtime)",
+      "campaignId (runtime)",
+      "recipientEmail",
+      "subject",
+      "body",
+      "provider",
+      "inbox",
+      "followup=0",
+      "listUnsubscribe"
+    ],
+    "idempotencyKey": "initial:<prospectId> (sendIdempotencyKey)"
+  },
+  "authorization": {
+    "coldRouteAuthorization": "founder-signed, at most 7 days, maxMessagesTotal 1 for the first experiment, bound to the exact postal-address digest (inert module)",
+    "approvalTtl": "24 hours (existing governance maximum)",
+    "effectsAllowed": "exactly one message"
+  },
+  "suppressionResult": "PENDING: production ledger read (v6-runtime-ledger-read-powerhouse-20261002.json). Repo and git history: no prior contact.",
+  "fleetAllocationResult": "UNKNOWN_FROM_SANDBOX (runtime read)",
+  "preSendRevalidation": [
+    "sender health",
+    "quarantine",
+    "suppression",
+    "unsubscribe",
+    "recipient state",
+    "approval and expiry",
+    "identity",
+    "cap",
+    "reservation"
+  ],
+  "revision": "2026-10-02 r2",
+  "onVerification": "Set status to EFFECT_PACKAGE_READY_EXCEPT_IDENTITY_AND_LEGAL_AUTHORITY. Still mint no digest while identity placeholders participate."
+}

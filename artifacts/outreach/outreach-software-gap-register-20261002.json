@@ -1,0 +1,194 @@
+{
+  "schemaVersion": "uberbond.outreach-software-gap-register.v1",
+  "date": "2026-10-02",
+  "basis": "origin/main 7008c87d plus branch claude/smtp-public-business-contact-v1",
+  "dispositionClasses": [
+    "IMPLEMENTED_AND_REACHABLE",
+    "SUPERSEDED_WITH_DONATION_PRESERVED",
+    "PROVEN_NOT_ACTUALLY_A_GAP",
+    "EXTERNAL_REALITY_ONLY"
+  ],
+  "gaps": [
+    {
+      "id": "GAP-01",
+      "gap": "Production contact history required a human or another session to paste ledger truth (manual V6)",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/prospect-contact-history.mjs",
+        "GET /api/prospect-preflight/contact-history (server-core.mjs)",
+        "in-process receipt inside src/prospect-preflight.mjs",
+        "tests/prospect-contact-history*.test.mjs",
+        "mutations OUTREACH-CH-01..05, OUTREACH-ROUTE-01"
+      ],
+      "note": "Replaces the V6 request: /api/leadgen/intelligence is aggregate and excludes suppressed/contacted rows, so it cannot prove absence. The new read lists the raw ledgers read-only, treats any unread ledger as CHECK_FAILED, and returns a digest-bound receipt (HMAC-signed when it crosses a boundary)."
+    },
+    {
+      "id": "GAP-02",
+      "gap": "Prospect verification was Powerhouse-shaped JSON with hand-set ledger flags",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/prospect-verification-intake.mjs (contactHistoryReceipt, resolveOfferId)",
+        "tests/prospect-intake-contact-history.test.mjs",
+        "mutations OUTREACH-INT-01..02"
+      ],
+      "note": "Hand-set flags remain only as a MANUAL_ATTESTATION that can never be runtime-ready. The intake now resolves offers through the canonical production genome (one offer-id namespace); the earlier intake invented a parallel id set, which was duplicate debt and is fixed."
+    },
+    {
+      "id": "GAP-03",
+      "gap": "Message tournament and prework were prospect-specific hand-written JSON",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/prospect-message-tournament.mjs (composes compileUberReplyPreworkArtifact, compileUberReplyMessagePolicy, validateUberReplyRenderedMessage, scoreUberReplyMessageCandidate)",
+        "tests/prospect-message-tournament.test.mjs",
+        "mutations OUTREACH-MT-01..05"
+      ],
+      "note": "Powerhouse is a fixture (tests/fixtures/outreach/powerhouse.fixture.mjs): the generic pipeline independently re-derives the prior hand-built winner text from grounded slots and is not hard-wired to it. Two critics were added because the first generic run exposed real defects in the candidates it generated (relationship basis missing, pronoun-first opening)."
+    },
+    {
+      "id": "GAP-04",
+      "gap": "Effect package was a hand-written JSON pattern",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/prospect-effect-package.mjs",
+        "tests/prospect-effect-package.test.mjs",
+        "mutations OUTREACH-EP-01..03"
+      ],
+      "note": "No final digest while any participating fact is placeholder or missing. APPROVED, DISPATCHED and RECONCILED are mapped to their existing canonical owners (outreach-governance approvals, outbound reservations/events, reservation-recovery), not re-implemented."
+    },
+    {
+      "id": "GAP-05",
+      "gap": "Cold-route policy branch was inert and unreachable",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/outreach-cold-route-policy.mjs imported only by src/prospect-preflight.mjs (envelope builder + envelope verifier)",
+        "tests/outreach-cold-route-policy.test.mjs (importer allow-list; preflight may not import the authorization verifier or policy evaluator)"
+      ],
+      "note": "Reachable but not self-authorizing: nothing on a send path imports it, providerRoutePolicy still refuses PUBLIC_BUSINESS_CONTACT on smtp-relay, and the founder-signed authorization path stays deliberately unwired."
+    },
+    {
+      "id": "GAP-06",
+      "gap": "Generic PROSPECT_PREFLIGHT terminal operation",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/prospect-preflight.mjs",
+        "POST /api/prospect-preflight (server-core.mjs)",
+        "tests/prospect-preflight*.test.mjs",
+        "mutations OUTREACH-PF-01..03"
+      ],
+      "note": "One typed terminal state: READY_FOR_AUTHORIZATION, READY_PENDING_DRAFT_TIME_FACTS, DO_NOT_SEND, BLOCKED_EXTERNAL_FACT, BLOCKED_IDENTITY, BLOCKED_LEGAL_AUTHORITY, BLOCKED_SENDER_HEALTH, BLOCKED_CONTACT_HISTORY. Every state carries sendAuthority:false. Store access is list() only."
+    },
+    {
+      "id": "GAP-07",
+      "gap": "Historical #877: founder one-button reports STARTED on a weaker readiness model",
+      "disposition": "PROVEN_NOT_ACTUALLY_A_GAP",
+      "evidence": [
+        "public/outreach-one-button.js calls only /api/outreach/100k/status, /api/outreach/100k/start, /api/outbound/canary/status, /api/outbound/canary/start",
+        "canary status is computed server-side from evaluateOutreachGovernance, domain-mailbox gates and canaryPrerequisites",
+        "prepareSovereignOneButtonLaunch does not exist in source; compileUberLaunchRuntimeEvidence is an operator doctor path (scripts/outreach-reality-doctor.mjs)",
+        "src/outreach-drift-doctor.mjs ONE_BUTTON_* checks + tests/outreach-drift-doctor.test.mjs"
+      ],
+      "note": "The stale limitation is superseded. The drift doctor now fails if the button ever calls an undefined route, adopts an in-browser launch model, or says STARTED without a canonical start route."
+    },
+    {
+      "id": "GAP-08",
+      "gap": "outreach-automation not worker/job-handler reachable",
+      "disposition": "PROVEN_NOT_ACTUALLY_A_GAP",
+      "evidence": [
+        "config/reachability-classification.json: AWAITING_ACTIVATION / NO_OUTBOUND_AUTHORIZATION",
+        "src/pipeline.mjs pollReplies: reply -> classification -> sequence stop (nextFollowupAt null, status replied); optout/negative/bounce/complaint -> suppressions + recordOutboundEvent -> sender-health pause thresholds; automatic/out-of-office -> +7 day bounded defer; wrong_person/referral -> classification + owner action",
+        "src/uberreply-four-offer-genome.mjs compileUberReplyAsyncCloseDecision stored on the prospect"
+      ],
+      "note": "The permitted internal transitions named in the mission already run in the production reply path. outreach-automation is an owner-authored rule engine; wiring it to a worker without an owner-authored plan would add a second transition path, not close a gap. Positive classification deliberately does not become an opportunity: opportunityStage is set only after qualification evidence."
+    },
+    {
+      "id": "GAP-09",
+      "gap": "Reply taxonomy absent (stale limitation document)",
+      "disposition": "PROVEN_NOT_ACTUALLY_A_GAP",
+      "evidence": [
+        "src/uberreply-taxonomy.mjs",
+        "src/ai.mjs classifyReply uses classifyUberReply",
+        "src/pipeline.mjs pollReplies uses classifyReply and classifyDeliverySignal",
+        "drift doctor rule reply-taxonomy-absent"
+      ],
+      "note": "Labels optout, positive, negative, objection, referral, wrong_person, out_of_office, automatic, neutral with sequenceAction/suppressionRecommended/ownerActionRequired; bounce and complaint come from classifyDeliverySignal first. Unknown stays neutral/review."
+    },
+    {
+      "id": "GAP-10",
+      "gap": "compileOutreachEconomics had no production caller and coerced missing cost to a zero-looking number",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/outreach-economics-snapshot.mjs",
+        "GET /api/outreach/economics (server-core.mjs)",
+        "tests/outreach-economics-*.test.mjs",
+        "mutations OUTREACH-ECON-01..02"
+      ],
+      "note": "Reuses compileOutreachEconomics and reconcilePaymentRenewalTruthFromStore; adds no ledger. Cost metrics are UNKNOWN without cost receipts, revenue is provider-reconciled net cleared only, no metric is opens-based. Founder minutes and cost receipts are inputs: none is persisted in the store today, so every cost-denominated metric reports UNKNOWN until real receipts exist."
+    },
+    {
+      "id": "GAP-11",
+      "gap": "Lead generator -> outreach handoff required manual serialization",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/prospect-preflight-handoff.mjs",
+        "GET /api/prospect-preflight/candidates (server-core.mjs)",
+        "tests/prospect-preflight-handoff.test.mjs"
+      ],
+      "note": "Ranks uncontacted, unsuppressed corpus prospects per offer using the existing offer-fit scorer and lists the exact intake evidence still missing. It fetches nothing and guesses no address."
+    },
+    {
+      "id": "GAP-12",
+      "gap": "Provider-neutral sender-fleet expansion planner (3 -> 50 mailboxes / 30 domains)",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/winnr-expansion-planner.mjs",
+        "POST /api/outbound/fleet/expansion-plan (server-core.mjs; observed state read from the store, never from the request)",
+        "tests/winnr-expansion-planner.test.mjs",
+        "mutations OUTREACH-FLEET-01..04"
+      ],
+      "note": "PLAN / AUTHORIZED_EXTERNAL_MUTATION / OBSERVED_PROVIDER_STATE never blur; reserve pool, primary-brand protection, no replacement of a quarantined sender without an explicit retirement decision, authorization bound to the exact plan digest. No purchase, DNS write, mailbox creation or provider call is performed."
+    },
+    {
+      "id": "GAP-13",
+      "gap": "Stale documents could masquerade as current truth",
+      "disposition": "IMPLEMENTED_AND_REACHABLE",
+      "evidence": [
+        "src/outreach-drift-doctor.mjs",
+        "scripts/outreach-drift-doctor.mjs (npm run outreach:drift-doctor)",
+        "tests/outreach-drift-doctor.test.mjs",
+        "mutation OUTREACH-DRIFT-01"
+      ],
+      "note": "Compares current source, handoff, hot pointer and the provider-state representation; historical statements remain allowed with a supersession marker."
+    },
+    {
+      "id": "GAP-14",
+      "gap": "UberWarm2 modules test-only with no classification",
+      "disposition": "EXTERNAL_REALITY_ONLY",
+      "evidence": [
+        "config/reachability-classification.json: AWAITING_ACTIVATION / NO_MAILBOX_PROVISIONING_AUTHORITY"
+      ],
+      "note": "They mutate mailbox registries and plan purchases; wiring them needs a provisioned fleet and owner authority. Classified honestly rather than wired."
+    },
+    {
+      "id": "GAP-15",
+      "gap": "Reachability ratchet fails on main for 14 non-outreach modules",
+      "disposition": "EXTERNAL_REALITY_ONLY",
+      "evidence": [
+        "identical failure on origin/main 7008c87d (16 unclassified modules before this work; the 2 outreach ones are now classified)"
+      ],
+      "note": "crown-*, frontier-counterfactual-compiler, ghost-agent, infinite-opus-model-understanding, interpretation-closure, living-evidence-graph, proof-carrying-renderer, recurrence-map, semantic-*, unified-cognition-ledger, verifier-trust belong to other organs. Out of scope for this mission; reported, not hidden."
+    }
+  ],
+  "remainingExternalBlockers": [
+    "LEGAL_AUTHORITY_HOLD: sender-side (operator location, sender entity jurisdiction, controller jurisdiction) scope interpretation incl. the Egypt conservative hold; founder/counsel decision",
+    "IDENTITY_FACT_HOLD: legal business sender name, publishable physical postal address, founder authorization to publish the footer",
+    "Production-ledger result for the Powerhouse candidate: requires a deployed build and an authenticated owner call to POST /api/prospect-preflight (artifacts/outreach/powerhouse-preflight-request-20261002.json); the sandbox has no production credentials or network path",
+    "Real customer response, price acceptance, cleared payment, accepted delivery, renewal: unknown (zero observed)"
+  ],
+  "externalEffects": {
+    "messagesSent": 0,
+    "providerMutations": 0,
+    "dnsMutations": 0,
+    "newSpendUsd": 0,
+    "productionWrites": 0
+  }
+}

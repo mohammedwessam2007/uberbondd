@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "uberbond.mission-control-followup.v1",
+  "createdAt": "2026-10-02",
+  "candidate": "Powerhouse Consulting Group (mypowerhouse.group)",
+  "readOnly": true,
+  "why": "The intake resolves Powerhouse to INCOMPLETE with exactly three gaps. Closing them is read-only work that this sandbox cannot do (page fetch blocked; production store unreachable). No send, wiring or merge is involved.",
+  "secretHandling": "No credentials are written to the repository. Return counts and booleans for ledger reads, not personal data.",
+  "requests": [
+    {
+      "id": "R1_EXACT_SOURCE_PAGE",
+      "mutating": false,
+      "gap": "recipient-exact-source-page-not-identified",
+      "ask": "For the verbatim excerpt `just email hello@mypowerhouse.group for more information` (and the article line `contact us at hello@mypowerhouse.group`), return the exact page URL on mypowerhouse.group where each appears, and the time you fetched it. Prefer the single page that best shows deliberate publication for general business or partnership contact.",
+      "returnFields": [
+        "recipient.sourceUrl (exact https page)",
+        "recipient.excerpt (verbatim, contains the address)",
+        "recipient.observedAt (ISO time of your fetch)",
+        "recipient.sourcePageExact=true"
+      ],
+      "status": "CLOSED_BY_MISSION_CONTROL",
+      "resolution": "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/ (verbatim: \"Also available to non-clients \u2013 just email hello@mypowerhouse.group for more information!\"); repeated on /event/webinar-servicetitan-fma/ and /event/servicetitan-fma-encore/; general contact page https://mypowerhouse.group/contact/"
+    },
+    {
+      "id": "R2_NO_HARVEST_CHECK",
+      "mutating": false,
+      "gap": "no-harvest-notice-not-checked",
+      "ask": "Check the privacy policy, terms and footer for any statement that the site will NOT give, sell or transfer email addresses it maintains to any other party for the purpose of sending commercial email. Report found or absent, with a verbatim quote if found and the URLs checked. SMS and consumer data-handling consent language is not that statement; do not count it either way.",
+      "returnFields": [
+        "notices.noHarvestChecked",
+        "notices.noHarvestFound",
+        "notices.pagesChecked (urls)"
+      ],
+      "status": "CLOSED_BY_MISSION_CONTROL",
+      "resolution": "NO_RELEVANT_NEGATIVE_SIGNAL_FOUND_ON_CHECKED_SURFACES (contact page, privacy policy, homepage, event pages, targeted indexed searches); observed fact for those surfaces only"
+    },
+    {
+      "id": "R3_RUNTIME_LEDGERS",
+      "mutating": false,
+      "gap": "runtime-suppression-and-prior-contact-ledgers-not-checked",
+      "ask": "Using the authenticated production store (read-only), look up the email `hello@mypowerhouse.group` and the domain `mypowerhouse.group` in: suppressions (value equals the email or the domain, same matching as suppressionMatchesEmail/suppressionLookup, including one-click-unsubscribe, complaint and hard-bounce reasons); prospects (contact.email, domain or website host); outboundReservations and outbound events (recipientEmail); any bounce, complaint, unsubscribe or reply record keyed to either value. An external copy of main is not a substitute for this.",
+      "returnFields": [
+        "contactHistory.runtimeSuppressionSearched",
+        "contactHistory.runtimeProspectAndOutboundSearched",
+        "contactHistory.hit (true if ANY match)",
+        "per-table match counts and the earliest and latest timestamp only"
+      ],
+      "status": "OPEN_V6",
+      "resolution": "superseded by artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json (the named /api/leadgen/intelligence route cannot answer it)"
+    },
+    {
+      "id": "R4_ARTIFACT_EVIDENCE",
+      "mutating": false,
+      "gap": "artifact completeness (not an intake gate)",
+      "ask": "For the Sylvester Electric emergency-availability inconsistency, return for each page: the exact URL, the verbatim wording (A: business hours plus qualifying after-hours; B: 24/7 Emergency Service; C: the dedicated emergency, generator and panel-service pages stating 24/7 Emergency Service and 24/7 availability), the time fetched, and screenshots if your environment preserves them. Keep fact and hypothesis separate; no financial estimate.",
+      "returnFields": [
+        "per-page url",
+        "verbatim wording",
+        "fetchedAt",
+        "screenshot refs if any"
+      ],
+      "status": "CLOSED_BY_MISSION_CONTROL",
+      "resolution": "same-page contradiction on https://sylvesterelectric.com/ plus /generator-installation and /electric-panel-replacement; see the reconciliation draft"
+    }
+  ],
+  "afterReturn": "Apply the returned fields to the Powerhouse record and rerun compileProspectVerification (artifacts/outreach/prospect-tournament-20261002.json shows the current record). If it returns VERIFIED_CANDIDATE, update the conditional package to MESSAGE_READY and EFFECT_PACKAGE_READY_EXCEPT_IDENTITY_AND_LEGAL_AUTHORITY. If it rejects, record the exact deterministic reason and continue replacement discovery.",
+  "revision": "2026-10-02 r2"
+}

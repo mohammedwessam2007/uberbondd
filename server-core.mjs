@@ -32,6 +32,11 @@ import { resolveOmniaV9Mode } from './src/omnia-v9/integrations/config.mjs';
 import { resolveOutboundFinalAdmissionHook } from './src/omnia-v9/integrations/outbound-admission.mjs';
 import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integrations/outreach-consequence-admission.mjs';
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
+import { checkContactHistory, signContactHistoryReceipt } from './src/prospect-contact-history.mjs';
+import { runProspectPreflight } from './src/prospect-preflight.mjs';
+import { buildOutreachEconomicsSnapshot } from './src/outreach-economics-snapshot.mjs';
+import { buildPreflightHandoff } from './src/prospect-preflight-handoff.mjs';
+import { compileSenderFleetExpansionPlan } from './src/winnr-expansion-planner.mjs';
 import { buildLeadAccountIntelligence } from './src/lead-generation.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
 import { getUberReplyOffer } from './src/uberreply-four-offer-genome.mjs';
@@ -1508,6 +1513,79 @@ export const requestHandler = async (req, res) => {
 
     if (method === 'GET' && url.pathname === '/api/leadgen/intelligence') {
       return json(res, 200, await buildLiveLeadGenerationSnapshot({ store }));
+    }
+    // Exact, read-only prospect contact-history preflight. Admin-authenticated
+    // like every /api route, and additionally fail-closed when no admin token is
+    // configured (the shared auth() treats "no token" as open, which is wrong
+    // for a route that reveals who has been contacted). It reads the raw
+    // ledgers, never aggregates, never writes, and has zero send authority.
+    if (method === 'GET' && url.pathname === '/api/prospect-preflight/contact-history') {
+      if (!config.adminToken) return json(res, 503, { error: 'Admin token must be configured for prospect preflight reads', status: 'CHECK_FAILED' });
+      const receipt = await checkContactHistory({
+        store,
+        email: String(url.searchParams.get('email') || ''),
+        domain: String(url.searchParams.get('domain') || ''),
+        now: new Date()
+      });
+      return json(res, 200, config.encryptionKey && /^[a-f0-9]{64}$/i.test(String(config.encryptionKey))
+        ? signContactHistoryReceipt(receipt, config.encryptionKey)
+        : receipt);
+    }
+    // Outreach economics: cost per verified/eligible prospect, per provider-confirmed
+    // send, per qualified positive reply, per opportunity, per cleared dollar,
+    // cleared contribution per 1,000 sends and per founder minute. Read-only;
+    // unknown costs stay UNKNOWN; revenue is provider-reconciled net cleared only.
+    if (method === 'GET' && url.pathname === '/api/outreach/economics') {
+      return json(res, 200, await buildOutreachEconomicsSnapshot({ store, now: new Date() }));
+    }
+    // Lead generator -> preflight handoff: highest-fit uncontacted, unsuppressed
+    // prospects per offer, with the exact evidence still missing. Read-only; it
+    // fetches nothing, guesses no address and grants no contact authority.
+    if (method === 'GET' && url.pathname === '/api/prospect-preflight/candidates') {
+      return json(res, 200, await buildPreflightHandoff({ store, perOffer: Number(url.searchParams.get('perOffer') || 3), now: new Date() }));
+    }
+    // Sender-fleet expansion PLAN. OBSERVED state is read from the store
+    // (connected smtp-relay accounts, sender-health pauses); the target comes
+    // from the request. It is a plan only: no purchase, DNS write, mailbox
+    // creation or provider call happens here, and no cap is raised.
+    if (method === 'POST' && url.pathname === '/api/outbound/fleet/expansion-plan') {
+      if (!config.adminToken) return json(res, 503, { error: 'Admin token must be configured for fleet planning' });
+      const input = await parseBody(req) || {};
+      const [accounts, senderHealth] = await Promise.all([store.list('accounts'), store.list('senderHealth')]);
+      const paused = new Set(senderHealth.filter(row => row.paused === true).map(row => String(row.inbox || '')));
+      const stageForCap = cap => (cap >= 10 ? 3 : cap >= 5 ? 2 : cap >= 2 ? 1 : 0);
+      const mailboxes = accounts.filter(account => String(account.provider || '').toLowerCase() === 'smtp-relay').map((account, index) => ({
+        ordinal: index + 1, address: account.email, smtpVerified: account.connected === true,
+        imapVerified: false, quarantined: paused.has(String(account.slot || '')),
+        quarantineReason: paused.has(String(account.slot || '')) ? 'SENDER_HEALTH_PAUSED' : null,
+        rampStage: stageForCap(Number(account.currentDailyCap ?? account.plannedDailyCap ?? 0))
+      }));
+      return json(res, 200, compileSenderFleetExpansionPlan({
+        observed: { entitlement: null, mailboxes, domains: [] },
+        target: input.target && typeof input.target === 'object' ? input.target : {},
+        demand: input.demand && typeof input.demand === 'object' ? input.demand : null,
+        authorizations: Array.isArray(input.authorizations) ? input.authorizations : [],
+        retirementDecisions: Array.isArray(input.retirementDecisions) ? input.retirementDecisions : [],
+        now: new Date()
+      }));
+    }
+    // PROSPECT_PREFLIGHT: the single generic, zero-authority preflight operation.
+    // Same boundary as the contact-history read: admin-authenticated, fail-closed
+    // when no admin token is configured, store.list only, no provider call, no
+    // write, no send authority in any returned state.
+    if (method === 'POST' && url.pathname === '/api/prospect-preflight') {
+      if (!config.adminToken) return json(res, 503, { error: 'Admin token must be configured for prospect preflight', state: 'BLOCKED_CONTACT_HISTORY' });
+      const input = await parseBody(req) || {};
+      return json(res, 200, await runProspectPreflight({
+        store,
+        record: input.record && typeof input.record === 'object' && !Array.isArray(input.record) ? input.record : null,
+        slots: input.slots && typeof input.slots === 'object' && !Array.isArray(input.slots) ? input.slots : {},
+        artifactRef: typeof input.artifactRef === 'string' ? input.artifactRef : '',
+        identity: input.identity && typeof input.identity === 'object' ? input.identity : {},
+        senderSide: input.senderSide && typeof input.senderSide === 'object' ? input.senderSide : {},
+        campaign: input.campaign && typeof input.campaign === 'object' ? input.campaign : {},
+        now: new Date()
+      }));
     }
     if (method === 'POST' && url.pathname === '/api/leadgen/handoff') {
       const input = await parseBody(req) || {};

@@ -1,0 +1,508 @@
+{
+  "schema": "uberbond.outreach-reachability.v1",
+  "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
+  "moduleCount": 46,
+  "modules": [
+    {
+      "module": "src/governed-outreach-dispatch.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/outreach-100k-runtime-control.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/outreach-launch-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/lead-generation-benchmark.mjs",
+      "class": "CLASSIFIED_AWAITING_ACTIVATION",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": "Benchmarks the lead scorer; analysis only."
+    },
+    {
+      "module": "src/lead-generation.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/lead-intelligence-v3.mjs",
+        "src/lead-operations.mjs",
+        "src/leadgen-live-snapshot.mjs",
+        "src/uberbond-native-lead-ops.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 3,
+      "classificationReason": null
+    },
+    {
+      "module": "src/lead-intelligence-v3.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/uberbond-native-lead-ops.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/leadgen-live-snapshot.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/outreach-automation.mjs",
+      "class": "CLASSIFIED_AWAITING_ACTIVATION",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": "Wiring this without an explicit authorisation path is how a system contacts someone by accident."
+    },
+    {
+      "module": "src/outreach-cold-route-policy.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/outreach-governance.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/omnia-v9/integrations/outbound-consequence-gate.mjs",
+        "src/omnia-v9/integrations/outreach-consequence-admission.mjs",
+        "src/pipeline.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 3,
+      "classificationReason": null
+    },
+    {
+      "module": "src/outreach-workbench.mjs",
+      "class": "CLASSIFIED_AWAITING_ACTIVATION",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": "Composes outbound work; same reason."
+    },
+    {
+      "module": "src/pipeline.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "worker.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/outbound-safety-smoke.mjs"
+      ],
+      "testCount": 7,
+      "classificationReason": null
+    },
+    {
+      "module": "src/prospect-contact-history.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/prospect-effect-package.mjs",
+        "src/prospect-message-tournament.mjs",
+        "src/prospect-preflight-handoff.mjs",
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 5,
+      "classificationReason": null
+    },
+    {
+      "module": "src/prospect-effect-package.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/prospect-message-tournament.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 2,
+      "classificationReason": null
+    },
+    {
+      "module": "src/prospect-preflight-handoff.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/prospect-preflight.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/prospect-verification-intake.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/prospect-preflight-handoff.mjs",
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 5,
+      "classificationReason": null
+    },
+    {
+      "module": "src/send-safety.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/deliverability-guard.mjs",
+        "src/pipeline.mjs",
+        "src/store.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/outbound-probes.mjs"
+      ],
+      "testCount": 2,
+      "classificationReason": null
+    },
+    {
+      "module": "src/store.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "api/admin/retry-dead-letter.mjs",
+        "api/agent-mesh-cron.mjs",
+        "api/founder-center.mjs",
+        "api/founder-ops.mjs",
+        "api/payments/paypal-capture.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/agent-mesh-tick.mjs",
+        "scripts/deploy-restart-recovery-drill.mjs",
+        "scripts/founder-economic-mission-pulse.mjs",
+        "scripts/import-json.mjs",
+        "scripts/infinite-opus-doctor.mjs"
+      ],
+      "testCount": 55,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberbond-native-lead-ops.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/ubereconomics-outreach.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/outreach-economics-snapshot.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberfleet.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/outreach-100k-runtime-control.mjs",
+        "src/pipeline.mjs",
+        "src/prospect-preflight.mjs",
+        "src/uberclayinbox.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 5,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberlaunch-closure.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [
+        "scripts/uberlaunch-closure-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberlaunch-one-button.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberlaunch-runtime-evidence.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [
+        "scripts/outreach-reality-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberlead-launch-fusion.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberoutbound-genome.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/uberoutbound-promotion-gate.mjs",
+        "src/uberreply-four-offer-genome.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/uberoutbound-genome-completion-doctor.mjs",
+        "scripts/uberoutbound-genome-doctor.mjs",
+        "scripts/uberoutbound-genome-final-doctor.mjs"
+      ],
+      "testCount": 3,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberoutbound-policy-registry.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [
+        "scripts/uberoutbound-genome-completion-doctor.mjs",
+        "scripts/uberoutbound-genome-final-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberoutbound-promotion-gate.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/uberreply-four-offer-genome.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/uberoutbound-genome-final-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberoutbound-recipient-eligibility.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/outreach-cold-route-policy.mjs",
+        "src/prospect-verification-intake.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/consent-bridge-plan.mjs",
+        "scripts/recipient-eligibility.mjs"
+      ],
+      "testCount": 3,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberoutbound-research-import.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [
+        "scripts/uberoutbound-genome-final-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberplacement.mjs",
+      "class": "CLASSIFIED_RESEARCH_ONLY",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    {
+      "module": "src/uberprospect-forge.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [
+        "scripts/uberlaunch-closure-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberquality-capacity-governor.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberreply-four-offer-genome.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/pipeline.mjs",
+        "src/prospect-message-tournament.mjs",
+        "src/prospect-preflight-handoff.mjs",
+        "src/prospect-verification-intake.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/uberreply-four-offer-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberreply-prework-artifact.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/pipeline.mjs",
+        "src/prospect-message-tournament.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberreply-taxonomy.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/ai.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberreply-tournament.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberwarm-reputation-lab.mjs",
+      "class": "OPERATOR_REACHABLE",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberwarm2-registry-bridge.mjs",
+      "class": "CLASSIFIED_AWAITING_ACTIVATION",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": "Applies UberWarm2 ramp decisions to the sending-domain and sending-mailbox registries (warm-up status, pauses). It mutates mailbox state, so it is deliberately not wired until a provisioned mailbox fleet and owner authority for registry mutation exist; compileUberWarm2RegistryTransitions is a pure planner and carries no authority."
+    },
+    {
+      "module": "src/uberwarm2-sovereign-ramp.mjs",
+      "class": "CLASSIFIED_AWAITING_ACTIVATION",
+      "productionCallers": [],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    {
+      "module": "src/uberwinnr-adapter.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/uberwinnr-provider-adapter.mjs",
+        "src/winnr-runtime-bootstrap.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/winnr-post-purchase-doctor.mjs"
+      ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberwinnr-credential-import.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/uberwinnr-postpurchase.mjs",
+        "src/winnr-runtime-bootstrap.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberwinnr-postpurchase.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/winnr-runtime-bootstrap.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberwinnr-procurement-frontier.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/uberwinnr-provider-adapter.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/provider-adapter-contract.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/winnr-expansion-planner.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    }
+  ]
+}

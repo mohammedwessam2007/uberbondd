@@ -3902,6 +3902,189 @@ export const MUTATIONS = [
     replace: '        nonEmpty: present,',
     suites: ['tests/v7-proof-and-claims.test.mjs']
   },
+  // ---- Outreach software closure: prospect preflight, contact history, tournament, effect package, fleet plan, economics ----
+  {
+    id: 'OUTREACH-CH-01', guard: 'Suppression matching includes exact email, domain and @domain suffix',
+    file: 'src/prospect-contact-history.mjs',
+    find: '  return value === email || value === domain || email.endsWith(`@${value.replace(/^@/, \'\')}`);',
+    replace: '  return value === email;',
+    suites: ['tests/prospect-contact-history.test.mjs', 'tests/prospect-contact-history-route.test.mjs']
+  },
+  {
+    id: 'OUTREACH-CH-02', guard: 'An unreadable required ledger is CHECK_FAILED, never clean',
+    file: 'src/prospect-contact-history.mjs',
+    find: '  } else if (failed.length) {',
+    replace: '  } else if (failed.length && false) {',
+    suites: ['tests/prospect-contact-history.test.mjs']
+  },
+  {
+    id: 'OUTREACH-CH-03', guard: 'Prior replies from the recipient block the candidate',
+    file: 'src/prospect-contact-history.mjs',
+    find: '  for (const row of normalized.replies.rows) {',
+    replace: '  for (const row of []) {',
+    suites: ['tests/prospect-contact-history.test.mjs']
+  },
+  {
+    id: 'OUTREACH-CH-04', guard: 'A stale or future contact-history receipt is unusable',
+    file: 'src/prospect-contact-history.mjs',
+    find: '  if (!Number.isFinite(age) || age < -60_000 || age > maxAgeMs) reasons.push(\'contact-history-receipt-stale-or-future\');',
+    replace: '  void age;',
+    suites: ['tests/prospect-contact-history.test.mjs', 'tests/prospect-intake-contact-history.test.mjs']
+  },
+  {
+    id: 'OUTREACH-CH-05', guard: 'A mutated contact-history receipt fails its digest',
+    file: 'src/prospect-contact-history.mjs',
+    find: '  if (receiptDigest !== digest({ ...rest, receiptDigest: undefined })) reasons.push(\'contact-history-receipt-digest-mismatch\');',
+    replace: '  void receiptDigest;',
+    suites: ['tests/prospect-contact-history.test.mjs', 'tests/prospect-intake-contact-history.test.mjs']
+  },
+  {
+    id: 'OUTREACH-INT-01', guard: 'A boundary-crossing receipt needs a verified HMAC or in-process trust',
+    file: 'src/prospect-verification-intake.mjs',
+    find: '    else if (!trusted) inc(\'contact-history-receipt-authenticity-unverified\');',
+    replace: '    else if (false) inc(\'contact-history-receipt-authenticity-unverified\');',
+    suites: ['tests/prospect-intake-contact-history.test.mjs']
+  },
+  {
+    id: 'OUTREACH-INT-02', guard: 'A HIT receipt rejects the candidate',
+    file: 'src/prospect-verification-intake.mjs',
+    find: '      rej(\'prior-contact-or-suppression-runtime-ledger-hit\');\n      for (const code of receipt.reasonCodes || []) rej(code);',
+    replace: '      void receipt;',
+    suites: ['tests/prospect-intake-contact-history.test.mjs']
+  },
+  {
+    id: 'OUTREACH-PF-01', guard: 'A real production hit makes the preflight DO_NOT_SEND',
+    file: 'src/prospect-preflight.mjs',
+    find: '  if (contactHistory.status === CONTACT_STATUS.HIT || intake.status === PROSPECT_STATUSES.REJECTED) {',
+    replace: '  if (false) {',
+    suites: ['tests/prospect-preflight.test.mjs', 'tests/prospect-preflight-route.test.mjs']
+  },
+  {
+    id: 'OUTREACH-PF-02', guard: 'Placeholder identity blocks the preflight',
+    file: 'src/prospect-preflight.mjs',
+    find: '  if (effectPackage.blockers.some(b => b.group === \'identity\')) return out(PREFLIGHT_STATES.BLOCKED_IDENTITY, { ...base, blockerCodes: codes });',
+    replace: '  void codes;',
+    suites: ['tests/prospect-preflight.test.mjs']
+  },
+  {
+    id: 'OUTREACH-PF-03', guard: 'A claimed artifact must exist in the repository',
+    file: 'src/prospect-preflight.mjs',
+    find: '  const artifactPrepared = artifactExists(artifactRef) === true;',
+    replace: '  const artifactPrepared = true;',
+    suites: ['tests/prospect-preflight.test.mjs']
+  },
+  {
+    id: 'OUTREACH-EP-01', guard: 'Placeholder sender name blocks the effect digest',
+    file: 'src/prospect-effect-package.mjs',
+    find: '  if (isPlaceholder(legalName)) blockers.identity.push(\'legal-business-sender-name-placeholder-or-missing\');',
+    replace: '  void legalName;',
+    suites: ['tests/prospect-effect-package.test.mjs']
+  },
+  {
+    id: 'OUTREACH-EP-02', guard: 'The final effect digest is minted only when every participant is final',
+    file: 'src/prospect-effect-package.mjs',
+    find: '  const mintable = state === EFFECT_PACKAGE_STATES.READY_FOR_AUTHORIZATION && missingParticipants.length === 0;',
+    replace: '  const mintable = true;',
+    suites: ['tests/prospect-effect-package.test.mjs']
+  },
+  {
+    id: 'OUTREACH-EP-03', guard: 'An unresolved sender-side legal hold blocks the effect package',
+    file: 'src/prospect-effect-package.mjs',
+    find: '  if (senderSideHold && senderSide.resolved !== true) blockers.authority.push(\'sender-side-legal-authority-hold-unresolved\');',
+    replace: '  void senderSideHold;',
+    suites: ['tests/prospect-effect-package.test.mjs']
+  },
+  {
+    id: 'OUTREACH-MT-01', guard: 'A message may not describe an artifact that does not exist',
+    file: 'src/prospect-message-tournament.mjs',
+    find: '  if (spec.artifact.prepared !== true) failures.push(\'described-artifact-not-prepared\');',
+    replace: '  void spec;',
+    suites: ['tests/prospect-message-tournament.test.mjs']
+  },
+  {
+    id: 'OUTREACH-MT-02', guard: 'Banned money, causation, urgency and meeting language disqualifies a candidate',
+    file: 'src/prospect-message-tournament.mjs',
+    find: '  for (const rule of BANNED_LANGUAGE) if (rule.test(candidate.subject) || rule.test(candidate.body)) { failures.push(\'banned-language\'); break; }',
+    replace: '  void BANNED_LANGUAGE;',
+    suites: ['tests/prospect-message-tournament.test.mjs']
+  },
+  {
+    id: 'OUTREACH-MT-03', guard: 'A message states why the recipient is being told about the client',
+    file: 'src/prospect-message-tournament.mjs',
+    find: '  if (!candidate.body.toLowerCase().includes(spec.slots.relationshipBasis.toLowerCase())) failures.push(\'relationship-basis-not-stated\');',
+    replace: '  void spec;',
+    suites: ['tests/prospect-message-tournament.test.mjs']
+  },
+  {
+    id: 'OUTREACH-MT-04', guard: 'Message slots must be grounded in the retained observation excerpt',
+    file: 'src/prospect-message-tournament.mjs',
+    find: '    if (!excerpt.includes(phrase.toLowerCase())) reasons.push(`grounding-phrase-not-in-observation-excerpt:${phrase}`);',
+    replace: '    void phrase;',
+    suites: ['tests/prospect-message-tournament.test.mjs']
+  },
+  {
+    id: 'OUTREACH-MT-05', guard: 'The tournament runs only on a runtime-receipt-verified prospect',
+    file: 'src/prospect-message-tournament.mjs',
+    find: '  if (intake && intake.contactHistoryProvenance !== CONTACT_HISTORY_RUNTIME_PROVENANCE) reasons.push(\'contact-history-not-a-runtime-receipt\');',
+    replace: '  void intake;',
+    suites: ['tests/prospect-message-tournament.test.mjs']
+  },
+  {
+    id: 'OUTREACH-FLEET-01', guard: 'The primary brand domain is never used for cold volume',
+    file: 'src/winnr-expansion-planner.mjs',
+    find: '  const usable = domains.filter(domain => !primary.has(domain));',
+    replace: '  const usable = domains;',
+    suites: ['tests/winnr-expansion-planner.test.mjs']
+  },
+  {
+    id: 'OUTREACH-FLEET-02', guard: 'A quarantined sender is never replaced without an explicit retirement decision',
+    file: 'src/winnr-expansion-planner.mjs',
+    find: '    replacementAllowed: retirementRefs.has(m.address),',
+    replace: '    replacementAllowed: true,',
+    suites: ['tests/winnr-expansion-planner.test.mjs']
+  },
+  {
+    id: 'OUTREACH-FLEET-03', guard: 'An authorization must bind the exact plan digest',
+    file: 'src/winnr-expansion-planner.mjs',
+    find: ' && a?.planDigest === planDigest',
+    replace: '',
+    suites: ['tests/winnr-expansion-planner.test.mjs']
+  },
+  {
+    id: 'OUTREACH-FLEET-04', guard: 'A reserve pool of domains is never allocated',
+    file: 'src/winnr-expansion-planner.mjs',
+    find: '  const active = usable.slice(0, usable.length - reserveCount);',
+    replace: '  const active = usable;',
+    suites: ['tests/winnr-expansion-planner.test.mjs']
+  },
+  {
+    id: 'OUTREACH-ECON-01', guard: 'Cost-denominated metrics are UNKNOWN, never zero, without cost receipts',
+    file: 'src/outreach-economics-snapshot.mjs',
+    find: '  if (coverage === COVERAGE.NONE) return UNKNOWN(\'no-cost-data-supplied\');',
+    replace: '  void coverage;',
+    suites: ['tests/outreach-economics-snapshot.test.mjs']
+  },
+  {
+    id: 'OUTREACH-ECON-02', guard: 'Contribution is known only with complete cost coverage',
+    file: 'src/outreach-economics-snapshot.mjs',
+    find: '  const contributionKnown = coverage === COVERAGE.COMPLETE && usdNet !== null;',
+    replace: '  const contributionKnown = usdNet !== null;',
+    suites: ['tests/outreach-economics-snapshot.test.mjs']
+  },
+  {
+    id: 'OUTREACH-DRIFT-01', guard: 'A stale claim in a current document is drift when source disproves it',
+    file: 'src/outreach-drift-doctor.mjs',
+    find: '        if (rule.falseWhen(ctx)) add(',
+    replace: '        if (false) add(',
+    suites: ['tests/outreach-drift-doctor.test.mjs']
+  },
+  {
+    id: 'OUTREACH-ROUTE-01', guard: 'The contact-history read stays closed when no admin token is configured',
+    file: 'server-core.mjs',
+    find: '      if (!config.adminToken) return json(res, 503, { error: \'Admin token must be configured for prospect preflight reads\', status: \'CHECK_FAILED\' });',
+    replace: '      void config;',
+    suites: ['tests/prospect-preflight-fail-closed.test.mjs']
+  }
 ];
 
 // Two deadlines, because a hang here stops the gate rather than failing it.

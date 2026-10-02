@@ -2,7 +2,7 @@
 
 Date reconciled: 2026-10-02  
 Candidate: **Winnr pre-warmed bridge + Winnr Startup scale path**  
-State: **WAITING_MINIMUM_TERM_RECONCILIATION + AUTHENTICATED_CHECKOUT**  
+State: **TERM_RECONCILED + WAITING_AUTHENTICATED_CHECKOUT**  
 Purchase authority: **NONE**
 
 ## Current first-cash frontier
@@ -25,33 +25,28 @@ Written Winnr support on 2026-10-01 materially closed many external questions fo
 
 These are written provider representations. They do **not** prove live inventory, authenticated checkout, actual card acceptance on this account, actual charges, inbox placement or campaign legality for every recipient.
 
-## Material first-party contradiction: pre-warmed minimum term
+## Written support reconciliation: pre-warmed minimum term
 
-UberBond found a material conflict that must remain explicit.
+The historical source conflict is now resolved by same-thread written Winnr support observed on 2026-10-02.
 
-The official MIT Winnr MCP source currently says the pre-warmed marketplace has **no minimum term** and its cancellation tool says cancellation is allowed at any time.
+Support stated that:
+- the old 90-day minimum was removed in August 2026 for new and existing purchases;
+- the current rule is **no minimum term / cancel anytime**;
+- the minimum three-address pilot is **$9 charged at purchase** and **$9/month if retained**;
+- cancellation can occur from the Domains page even on day 1, with the mailboxes removed immediately and no further recurring charge;
+- the materially-blocklisted-at-handover swap/refund remedy still applies;
+- the purchase screen should display **"Minimum term: None, cancel anytime"** before confirmation.
 
-The Winnr Help pages linked by support say the opposite:
+The older Help-page 90-day text remains preserved as historical contradiction/provenance rather than silently erased. It is no longer the current binding representation according to written support.
 
-- every pre-warmed purchase has a **90-day minimum term**;
-- cancellation is disabled until day 90;
-- the buyer owes $3/address/month for three months minimum;
-- at the minimum three addresses, the Help-page commitment is therefore **$27 total minimum**: about $9 at purchase, $9 around day 30 and $9 around day 60.
+Implementation: `src/uberwinnr-procurement-frontier.mjs` v3 treats the term conflict as resolved but still fails closed until authenticated checkout, live green inventory, exact first charge and exact committed spend are observed.
 
-The Help-page rule is economically material even though the initial checkout is still $9.
-
-A same-thread follow-up was sent to Winnr asking which rule governs a new purchase today, whether the in-app confirmation shows the 90-day commitment, whether the MCP documentation is stale, and whether the defective-at-handover swap/refund exception still applies. No resolving reply has been observed yet.
-
-**UberBond will not purchase until this contradiction is reconciled.**
-
-Implementation: `src/uberwinnr-procurement-frontier.mjs` now preserves both claims and fails closed on the conflict.
-
-## Current economics, without pretending the term is resolved
+## Current economics after written support reconciliation
 
 Provider-written/public pricing currently supports:
 
-- 3 pre-warmed addresses: **$9 first month**, nominal provider recommendation roughly 30–45 cold/day total;
-- Help-page minimum commitment if its 90-day rule governs: **$27 total minimum** for those 3 addresses;
+- 3 pre-warmed addresses: **$9 first month**, **$9/month if retained**, nominal provider recommendation roughly 30–45 cold/day total;
+- written support says **no minimum term / cancel anytime**, so current minimum committed spend is the initial **$9** if checkout matches;
 - 5 addresses: $15/month;
 - 20 addresses: $60/month;
 - 23 addresses: $69/month;
@@ -83,14 +78,14 @@ Therefore Winnr's optional paid warming add-on is **not required** by UberBond's
 
 ## SAFE_TO_PURCHASE gate
 
-`SAFE_TO_PURCHASE = NO`.
+`SAFE_TO_PURCHASE = CONDITIONAL` for the bounded $9 canary. Written support cleared the term conflict, but purchase still requires authenticated checkout to match the promised no-minimum-term / $9 commitment and live green inventory.
 
 For the pre-warmed route, purchase readiness requires all of the following:
 
 - current intended-use terms remain compatible;
-- the MCP-vs-Help minimum-term contradiction is explicitly resolved;
-- exact binding minimum term is observed;
-- exact minimum committed spend is observed;
+- the written-support no-minimum-term resolution remains current;
+- authenticated checkout visibly states **"Minimum term: None, cancel anytime"** or an equivalent no-commitment term;
+- exact minimum committed spend is observed as **$9** for the three-address pilot;
 - committed spend fits a separately authorized founder ceiling;
 - authenticated checkout is observed before confirmation;
 - live green inventory is observed immediately before purchase;
@@ -106,7 +101,7 @@ Founder purchase remains the only commercial-spend action. No automatic purchase
 
 Then:
 
-`VERIFY TERM + COMMITMENT + CHARGE -> VERIFY ENTITLEMENT -> READ ACCOUNT -> RECHECK GREEN INVENTORY -> EXPORT SMTP/IMAP -> ENCRYPT -> CANONICAL REGISTRY -> OWNER SEED CANARY -> REPLY ROUNDTRIP -> UBERWARM² -> BOUNDED REAL COHORT -> EVIDENCE-GATED SCALE`
+`VERIFY CHECKOUT TERM + $9 COMMITMENT + CHARGE -> VERIFY ENTITLEMENT -> READ ACCOUNT -> RECHECK GREEN INVENTORY -> EXPORT SMTP/IMAP -> ENCRYPT -> CANONICAL REGISTRY -> OWNER SEED CANARY -> REPLY ROUNDTRIP -> UBERWARM² -> BOUNDED REAL COHORT -> EVIDENCE-GATED SCALE`
 
 No mass cold send occurs during infrastructure proof.
 

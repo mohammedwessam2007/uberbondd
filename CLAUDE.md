@@ -18,7 +18,12 @@
 @docs/CAPABILITY_GENOME_CANON.md
 @docs/WALLBREAKER_CANON.md
 @docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md
+@docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md
 @docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md
+
+## Current founder execution directive — 2026-10-02
+
+Unless a newer explicit founder instruction supersedes it, treat the Winnr first-cash mega mission imported above as the active commercial execution mission after completing the mandatory repository startup and truth refresh. It is intentionally open-ended: close the current Winnr/outreach frontier, continue through the furthest evidence-backed commercial state available, and stop only at a verified terminal state or a genuine external/owner-only blocker.
 
 ## Mandatory startup
 

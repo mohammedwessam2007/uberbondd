@@ -2,17 +2,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileWinnrProcurementFrontier } from '../src/uberwinnr-procurement-frontier.mjs';
 
-test('minimum pre-warmed pilot preserves $9 first charge and conflicting $27 Help-page commitment', () => {
+test('minimum pre-warmed pilot preserves $9 first charge and support-resolved no-minimum-term', () => {
   const r = compileWinnrProcurementFrontier({ targetDailyCold: 45, firstCashUrgent: true });
   assert.equal(r.route, 'WINNR_PREWARMED_MINIMUM_CANARY');
   assert.equal(r.minimumPilot.addresses, 3);
   assert.equal(r.minimumPilot.firstMonthUsd, 9);
-  assert.equal(r.minimumPilot.publicHelpMinimumCommittedUsd, 27);
-  assert.equal(r.minimumPilot.minimumTermConflictObserved, true);
+  assert.equal(r.minimumPilot.writtenSupportMinimumCommittedUsd, 9);
+  assert.equal(r.minimumPilot.minimumTermConflictObserved, false);
+  assert.equal(r.minimumPilot.historicalMinimumTermConflictObserved, true);
   assert.equal(r.minimumPilot.nominalNormalColdDaily, 45);
   assert.equal(r.minimumPilot.hardTechnicalMailCeilingDaily, 150);
   assert.equal(r.purchaseReady, false);
-  assert.ok(r.blockers.includes('prewarmed-minimum-term-conflict-unresolved'));
+  assert.ok(!r.blockers.includes('prewarmed-minimum-term-conflict-unresolved'));
+  assert.ok(r.blockers.includes('authenticated-checkout-required'));
 });
 
 test('300/day public-price target needs 20 pre-warmed addresses for $60/month', () => {
@@ -34,26 +36,26 @@ test('500/day crosses public recurring-price frontier toward Startup', () => {
   assert.equal(r.crossover.normalColdDailyAtCrossover, 345);
 });
 
-test('checkout and $9 first charge cannot bypass unresolved minimum-term contradiction', () => {
+test('written support resolution still requires authenticated checkout and exact commitment observation', () => {
   const r = compileWinnrProcurementFrontier({
     targetDailyCold: 45,
     publicTermsCurrent: true,
     publicTermsCompatible: true,
-    checkoutObserved: true,
+    checkoutObserved: false,
     countryPaymentAccepted: true,
     inventoryObserved: true,
-    exactFirstChargeObserved: true,
-    exactFirstChargeUsd: 9,
-    minimumCommitmentObserved: true,
-    exactMinimumCommittedUsd: 27,
+    exactFirstChargeObserved: false,
     maxPilotSpendUsd: 15,
-    maxPilotCommittedSpendUsd: 30
+    maxPilotCommittedSpendUsd: 15
   });
   assert.equal(r.purchaseReady, false);
-  assert.ok(r.blockers.includes('prewarmed-minimum-term-conflict-unresolved'));
+  assert.ok(r.blockers.includes('authenticated-checkout-required'));
+  assert.ok(r.blockers.includes('exact-first-charge-unobserved'));
+  assert.ok(r.blockers.includes('exact-minimum-commitment-unobserved'));
+  assert.ok(!r.blockers.includes('prewarmed-minimum-term-conflict-unresolved'));
 });
 
-test('resolved 90-day term still blocks when $27 commitment exceeds founder commitment ceiling', () => {
+test('unexpected 90-day checkout terms still block when $27 commitment exceeds founder ceiling', () => {
   const r = compileWinnrProcurementFrontier({
     targetDailyCold: 45,
     publicTermsCurrent: true,
@@ -85,16 +87,16 @@ test('pre-warmed route becomes procurement-ready only after exact term and commi
     exactFirstChargeObserved: true,
     exactFirstChargeUsd: 9,
     prewarmedMinimumTermConflictResolved: true,
-    resolvedPrewarmedMinimumTermMonths: 3,
+    resolvedPrewarmedMinimumTermMonths: 0,
     minimumCommitmentObserved: true,
-    exactMinimumCommittedUsd: 27,
+    exactMinimumCommittedUsd: 9,
     maxPilotSpendUsd: 15,
-    maxPilotCommittedSpendUsd: 30
+    maxPilotCommittedSpendUsd: 15
   });
   assert.equal(r.purchaseReady, true);
   assert.deepEqual(r.blockers, []);
-  assert.equal(r.termEvidence.resolvedMinimumTermMonths, 3);
-  assert.equal(r.termEvidence.exactMinimumCommittedUsd, 27);
+  assert.equal(r.termEvidence.resolvedMinimumTermMonths, 0);
+  assert.equal(r.termEvidence.exactMinimumCommittedUsd, 9);
   assert.equal(r.spendAuthorized, false);
   assert.equal(r.ownerPurchasePacket.automaticPurchaseAuthority, false);
 });
@@ -108,11 +110,11 @@ test('observed first charge above founder ceiling holds the gate closed', () => 
     exactFirstChargeObserved: true,
     exactFirstChargeUsd: 25,
     prewarmedMinimumTermConflictResolved: true,
-    resolvedPrewarmedMinimumTermMonths: 3,
+    resolvedPrewarmedMinimumTermMonths: 0,
     minimumCommitmentObserved: true,
-    exactMinimumCommittedUsd: 27,
+    exactMinimumCommittedUsd: 9,
     maxPilotSpendUsd: 15,
-    maxPilotCommittedSpendUsd: 30
+    maxPilotCommittedSpendUsd: 15
   });
   assert.equal(r.purchaseReady, false);
   assert.ok(r.blockers.includes('first-charge-exceeds-founder-pilot-ceiling'));

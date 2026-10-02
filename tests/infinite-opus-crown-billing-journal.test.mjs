@@ -19,6 +19,7 @@ test('metadata interruption preserves generation ID and blocks repeat dispatch',
 });
 import assert from 'node:assert/strict';
 import { runCrownAutoFinish } from '../scripts/infinite-opus-crown-autofinish.mjs';
+import {openCrownCheckpoint} from '../src/crown-sealed-checkpoint.mjs';
 
 const KEY='infinite_opus_crown_autofinish_20261001_v7';
 const PRIOR_KEY='infinite_opus_crown_autofinish_20261001_v6';
@@ -35,6 +36,22 @@ const authorization=()=>({evidenceRef:'SYNTHETIC-TEST-ONLY',month:new Date().toI
   maxMonthlyMicrousd:20_000_000,expiresAt:new Date(Date.now()+60000).toISOString(),
   crownRoutes:['openrouter:anthropic/claude-opus-5.5']});
 const json=data=>new Response(JSON.stringify(data),{status:200});
+
+test('candidate response survives a billing lookup exception in encrypted custody without promotion',async()=>{
+ const original=globalThis.fetch,f=fixture(),key='fixture-encryption-key-32-characters-long';let requests=0;
+ const prompt='SYNTHETIC TEST ONLY. '+'x'.repeat(100),answer='SYNTHETIC INTERRUPTED PRIVATE ANSWER';
+ globalThis.fetch=async()=>{requests++;
+  if(requests===1)return json({id:'fixture-custodian',choices:[{message:{content:JSON.stringify({tasks:[{prompt,rubric:['a','b','c','d','e']},{prompt:prompt+'2',rubric:['a','b','c','d','e']}]})},finish_reason:'stop'}]});
+  if(requests===2)return json({data:{model:'google/gemini-2.5-pro',total_cost:.01,provider_name:'Google'}});
+  if(requests===3)return json({id:'fixture-interrupted',choices:[{message:{content:answer},finish_reason:'stop'}]});
+  throw Error('SYNTHETIC_BILLING_LOOKUP_FAILED');
+ };
+ try{const r=await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret',paidAuthorization:authorization(),checkpointKey:key});assert.equal(r.status,'FAILED_NO_AUTOMATIC_RETRY');
+  const s=f.settings[KEY],p=openCrownCheckpoint(s.sealedEvidence,{key,binding:KEY+'|'+s.taskCommitment});
+  assert.equal(p.providerResponses['fixture-interrupted'].response.choices[0].message.content,answer);assert.equal(p.calls.length,0);assert.equal(s.generationJournal[1].status,'DISPATCHED_UNRECONCILED');assert.equal(s.newSpendUsd,.01);assert(!JSON.stringify(s).includes(answer));
+  await runCrownAutoFinish({store:f.store,apiKey:'fixture-secret'});assert.equal(requests,4);
+ }finally{globalThis.fetch=original;}
+});
 
 test('existing failed and running v7 attempts refuse any provider dispatch',async()=>{
   const original=globalThis.fetch;

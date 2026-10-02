@@ -7,6 +7,7 @@ import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
 import { verifyWinnrReplyCanaries } from './src/winnr-reply-canary-verifier.mjs';
 import { runWinnrPlacementPhenotypeCanary } from './src/winnr-placement-phenotype-canary.mjs';
+import { applyWinnrPlacementQuarantine } from './src/winnr-placement-quarantine.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
@@ -638,6 +639,14 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') =
     .then(result => console.log('WINNR_REPLY_CANARY_VERIFY ' + JSON.stringify(result)))
     .catch(error => console.error('WINNR_REPLY_CANARY_VERIFY_FAILED ' + JSON.stringify({
       ok:false,status:'WINNR_REPLY_CANARY_VERIFY_EXCEPTION',reason:String(error?.message||error).slice(0,200)
+    })));
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_QUARANTINE_ORDINALS || '').trim()) {
+  void applyWinnrPlacementQuarantine({ config })
+    .then(result => console.log('WINNR_PLACEMENT_QUARANTINE ' + JSON.stringify(result)))
+    .catch(error => console.error('WINNR_PLACEMENT_QUARANTINE_FAILED ' + JSON.stringify({
+      ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,200)
     })));
 }
 

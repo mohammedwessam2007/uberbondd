@@ -6,6 +6,65 @@ const STATE_KEY='winnrPlacementPhenotypeV1';
 const clean=(v,n=1000)=>String(v??'').trim().slice(0,n);
 const delay=ms=>new Promise(resolve=>setTimeout(resolve,ms));
 
+// Separate founder-authorized seed experiment; never expands prospect authority.
+const PERSONAL_TARGET='mohammedwessam306@gmail.com';
+const PERSONAL_STATE_KEY='winnrPersonalInboxCanary20261002';
+export async function runWinnrPersonalInboxCanary({
+  config, storeFactory=createStore, dispatchFn=dispatchSmtpFleetAccount,
+  target=PERSONAL_TARGET, now=new Date(), delayFn=delay
+}={}){
+  if(!config?.encryptionKey || target!==PERSONAL_TARGET)
+    return {ok:false,status:'WINNR_PERSONAL_CANARY_REFUSED',reasonCodes:['fixed-owner-target-and-encryption-required']};
+  const store=storeFactory(config);
+  try{
+    await store.init();
+    const accounts=(await store.list('accounts'))
+      .filter(a=>a?.provider==='smtp-relay'&&String(a?.slot||'').startsWith('winnr:')&&a?.connected===true)
+      .sort((a,b)=>String(a.id||'').localeCompare(String(b.id||'')));
+    if(accounts.length!==3 || new Set(accounts.map(a=>a.id)).size!==3)
+      return {ok:false,status:'WINNR_PERSONAL_CANARY_REFUSED',reasonCodes:['exact-three-distinct-connected-smtp-accounts-required']};
+    // Reserve before any effect. Overlapping boots, crashes and uncertain sends
+    // require external reconciliation, never an automatic replay.
+    const claim=await store.transaction(async tx=>{
+      if(tx.pool)await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))',[PERSONAL_STATE_KEY]);
+      const prior=(await tx.getSettings())[PERSONAL_STATE_KEY];
+      if(prior)return {claimed:false,prior};
+      await tx.setSetting(PERSONAL_STATE_KEY,{startedAt:now.toISOString(),results:[],automaticRetryAuthorized:false});
+      return {claimed:true};
+    });
+    if(!claim.claimed)return {
+      ok:Boolean(claim.prior.completedAt),
+      status:claim.prior.completedAt?'WINNR_PERSONAL_CANARY_ALREADY_COMPLETED':'WINNR_PERSONAL_CANARY_RECONCILE_REQUIRED',
+      results:claim.prior.results||[],automaticRetryAuthorized:false
+    };
+    const results=[];
+    for(let i=0;i<3;i++){
+      let result;
+      try{
+        result=await dispatchFn({account:accounts[i],encryptionKey:config.encryptionKey,message:{
+          to:PERSONAL_TARGET,fromName:'Wessam Solomon | UberBond',
+          subject:'UberBond personal inbox check',
+          body:`Hi Wessam,\n\nThis is the one-time personal inbox delivery check you requested for mailbox ${i+1} of 3. No action needed.\n\nWessam Solomon | UberBond`
+        }});
+      }catch{result={classification:'UNCERTAIN'};}
+      const classification=['ACCEPTED','REJECTED','UNCERTAIN'].includes(result?.classification)?result.classification:'UNCERTAIN';
+      results.push({ordinal:i+1,classification,messageId:classification==='ACCEPTED'?clean(result?.messageId,500)||null:null,sentAt:new Date().toISOString()});
+      const complete=results.length===3&&results.every(x=>x.classification==='ACCEPTED');
+      await store.setSetting(PERSONAL_STATE_KEY,{
+        startedAt:now.toISOString(),results,automaticRetryAuthorized:false,
+        ...(complete?{completedAt:new Date().toISOString()}:{})
+      });
+      await store.log('winnr_personal_inbox_canary_attempt',{
+        ordinal:i+1,classification,targetClass:'FIXED_OWNER_PERSONAL_GMAIL',
+        senderAddressesLogged:false,credentialsLogged:false,prospectSendAuthorityGranted:false
+      });
+      if(classification!=='ACCEPTED')return {ok:false,status:'WINNR_PERSONAL_CANARY_RECONCILE_REQUIRED',results,automaticRetryAuthorized:false};
+      if(i<2)await delayFn(2000);
+    }
+    return {ok:true,status:'WINNR_PERSONAL_CANARY_SENT',results,automaticRetryAuthorized:false,prospectSendAuthorityGranted:false};
+  }finally{await store.close().catch(()=>{});}
+}
+
 export async function runWinnrPlacementPhenotypeCanary({
   config,
   storeFactory=createStore,

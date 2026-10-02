@@ -49,3 +49,30 @@ test('generated Message-ID uses the external sender domain', async () => {
   assert.match(raw, /Message-ID: <ub-[^>]+@outreach-example\.com>/);
   assert.doesNotMatch(raw, /@uberbond\.local>/);
 });
+
+
+test('sender display name is preserved in From header without changing envelope sender', async () => {
+  let raw = '', envelopeFrom = '';
+  const transport = createUberSmtpSubmissionTransport({
+    host: 'localhost', port: 2525, secure: false,
+    authorized: true, termsCompatible: true, evidenceRef: 'receipt:test',
+    smtpSessionFactory: async () => ({
+      sendMessage: async message => {
+        raw = message.raw;
+        envelopeFrom = message.from;
+        return { accepted: true, response: '250 queued' };
+      },
+      close: async () => {}
+    })
+  });
+  const result = await transport.send({
+    from: 'sender@example.com',
+    fromName: 'Wessam Solomon | UberBond',
+    to: 'owner@example.net',
+    subject: 'quick note',
+    body: 'hello'
+  });
+  assert.equal(result.confirmed, true);
+  assert.equal(envelopeFrom, 'sender@example.com');
+  assert.match(raw, /From: "Wessam Solomon \| UberBond" <sender@example\.com>/);
+});

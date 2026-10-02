@@ -1,0 +1,186 @@
+{
+  "schemaVersion": "uberbond.prospect-tournament.v1",
+  "computedAt": "2026-10-02",
+  "engine": "src/prospect-verification-intake.mjs",
+  "offer": "Agency Revenue Leak Proof Pack",
+  "excludedAsAlreadyContacted": [
+    "hello@lemonseedmarketing.com",
+    "info@moovsoon.com",
+    "nick@getdriive.com"
+  ],
+  "summary": {
+    "verifiedCandidates": 0,
+    "incomplete": 4,
+    "rejected": 2
+  },
+  "prospectReady": false,
+  "candidates": [
+    {
+      "company": "Leadhub",
+      "website": "https://www.leadhub.net/",
+      "note": "Best fit by prior public evidence (artifacts/partner-canary-public-evidence-20260829.json rank 1). No contact page observation retained yet.",
+      "factsProvenance": "REPO_PUBLIC_EVIDENCE_ONLY",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "Leadhub",
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "us-headquarters-unverified",
+          "recipient-email-missing",
+          "recipient-source-https-url-missing",
+          "recipient-verbatim-excerpt-missing",
+          "recipient-observation-time-missing",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "BxB Media",
+      "website": "https://bxbknowshvac.com/",
+      "note": "Prior public evidence rank 2. No contact page observation retained yet.",
+      "factsProvenance": "REPO_PUBLIC_EVIDENCE_ONLY",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "BxB Media",
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "us-headquarters-unverified",
+          "recipient-email-missing",
+          "recipient-source-https-url-missing",
+          "recipient-verbatim-excerpt-missing",
+          "recipient-observation-time-missing",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "KickCharge Creative",
+      "website": "https://www.kickcharge.com/",
+      "note": "External lane: sparky@kickcharge.com is listed in the privacy-contact section, so it is not treated as a sales recipient. A different published business address would be needed.",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "KickCharge Creative",
+        "status": "REJECTED",
+        "rejectionReasons": [
+          "address-published-for-privacy-only-not-sales"
+        ],
+        "missingEvidence": [],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "Footbridge Media",
+      "website": "https://www.footbridgemedia.com/",
+      "note": "External lane: service@footbridgemedia.com is publicly listed; its general contact page encourages a contact form. Published purpose of the address, verbatim excerpt, notice checks and a real client-site observation are not yet retained.",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "Footbridge Media",
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "us-headquarters-unverified",
+          "published-purpose-of-address-unverified",
+          "recipient-verbatim-excerpt-missing",
+          "recipient-observation-time-missing",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "1SEO Digital Agency",
+      "website": "https://1seo.com/",
+      "note": "External lane: publicly lists info@1seo.com but now states it is part of Scorpion. Scorpion is already a rejected overlap candidate in this repo.",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "1SEO Digital Agency",
+        "status": "REJECTED",
+        "rejectionReasons": [
+          "part-of-larger-group-overlap-and-buyer-mismatch"
+        ],
+        "missingEvidence": [],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "Powerhouse Consulting Group",
+      "website": "https://mypowerhouse.group/",
+      "note": "Replacement-list candidate (medium-high overlap). No contact page observation retained yet.",
+      "factsProvenance": "REPO_PUBLIC_EVIDENCE_ONLY",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "Powerhouse Consulting Group",
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "us-headquarters-unverified",
+          "recipient-email-missing",
+          "recipient-source-https-url-missing",
+          "recipient-verbatim-excerpt-missing",
+          "recipient-observation-time-missing",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    }
+  ],
+  "nextEvidenceAction": "Run the external fetch lane over Leadhub, BxB Media, Footbridge Media and Powerhouse using the request file; feed each result record to compileProspectVerification. If none verify, discover replacements: do not force a winner.",
+  "truthBoundary": "No candidate is verified. Factual claims marked MISSION_CONTROL_EXTERNAL_LANE_REPORT are session reports, not retained page evidence. Nothing here is consent, authorization or a send decision."
+}

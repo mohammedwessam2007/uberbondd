@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
 import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
+import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
@@ -618,6 +619,17 @@ if (wrapperIsEntryPoint) process.argv[1] = corePath;
 let core;
 try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
+
+if (wrapperIsEntryPoint) {
+  void (async () => {
+    const result = await runWinnrSealedBootstrapController({ config });
+    console.log('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify(result));
+  })().catch(error => {
+    console.error('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify({
+      ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,300)
+    }));
+  });
+}
 
 if (wrapperIsEntryPoint && String(process.env.WINNR_RUNTIME_BOOTSTRAP_ONCE || '') === '1') {
   void (async () => {

@@ -1,8 +1,10 @@
+import { mountProspectPreflight } from './prospect-preflight-ui.js';
 const $=s=>document.querySelector(s);
 let token=''; let cache={prospects:[],campaigns:[]};
 $('#token').value='';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers,cache:'no-store'});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok){const error=new Error(data.error||data||'Request failed');error.status=res.status;throw error;}return data;};
+mountProspectPreflight({ request: api, document });
 const pill=s=>`<span class="pill ${esc(s)}">${esc(s)}</span>`;
 function metric(label,value,sub=''){return `<div class="metric"><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div>`}
 function money(v){return new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(Number(v||0))}
@@ -66,6 +68,7 @@ async function load(){
       api('/api/summary'),api('/api/prospects'),api('/api/campaigns'),api('/api/replies'),api('/api/social-tasks'),api('/api/jobs'),api('/api/leads'),api('/api/orders'),api('/api/subscriptions'),api('/api/notifications'),api('/api/discovery-runs'),api('/api/outbound/canary/status').catch(()=>null),api('/api/leadgen/intelligence').catch(()=>null),api('/api/owner/setup').catch(()=>null),api('/api/leadgen/lists').catch(()=>[]),api('/api/leadgen/control-tower').catch(()=>null)
     ]);
     cache={prospects:pros,campaigns:camps};
+    window.dispatchEvent(new Event('outreach-runtime-loaded'));
     $('#mode').textContent=`${sum.paused?'PAUSED':sum.running?'WORKING':sum.workerOnline?'WORKER ONLINE':'WORKER OFFLINE'} · ${sum.autopilot?'AUTOPILOT ON':'MANUAL MODE'}`;
     const outbound=sum.outbound||{};
     $('#outbound-status').textContent=`Outbound: ${outbound.enabled?(outbound.dryRun?'DRY RUN':outbound.globalPaused?'EMERGENCY STOPPED':'ARMED'):'DISABLED'} · ${outbound.reservedToday||0} reserved today · ${outbound.uncertain||0} uncertain`;

@@ -87,3 +87,27 @@ A separate earlier human-style Winnr web reply from the same pilot reached Inbox
 No cold prospect outreach is authorized by this pilot yet.
 
 Provider health score, blocklist status, warming age, SMTP 250 acceptance, and successful IMAP do not override the observed Gmail placement result.
+
+## Placement phenotype experiment — 2026-10-02
+
+The bounded one-shot human-readable phenotype experiment completed with provider acceptance for all three senders.
+
+Gmail external observation:
+- ordinal 1 / Tara: Inbox
+- ordinal 2 / Nadia: Inbox
+- ordinal 3 / Dana: Spam
+- phenotype Inbox rate: 2/3
+
+This materially improves over the earlier diagnostic runtime sample of 0/3 Inbox and demonstrates that message phenotype/context contributes to placement. It does not prove population-wide deliverability and does not clear the remaining sender-specific red signal.
+
+Authentication on all three phenotype messages:
+- SPF: pass
+- DMARC: pass
+- at least one aligned cedarpointdomains.com DKIM signature: pass
+- Amazon SES DKIM: pass
+- an additional cedarpointdomains.com selector named `dkim`: fail
+
+Because DMARC passes and another aligned cedarpointdomains.com DKIM signature passes, the extra failed selector is a diagnostic item, not evidence that authentication as a whole failed. Preserve it for provider/header investigation.
+
+Promotion state becomes:
+`TRANSPORT_GREEN -> REPLY_LOOP_GREEN -> PHENOTYPE_PLACEMENT_2_OF_3_INBOX -> ONE_SENDER_RED -> PROSPECT_SEND_STILL_FROZEN`.

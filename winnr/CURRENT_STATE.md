@@ -66,27 +66,26 @@ This upgrades the reply path from "transport-capable" to independently observed 
 
 ## Placement
 
-All three runtime SMTP canaries reached UberBond Gmail.
+The earlier diagnostic runtime phenotype produced 3/3 Spam.
+
+A subsequent bounded human-readable phenotype experiment preserved the explicit display identity `Wessam Solomon | UberBond` and sent one owner-controlled message per sender.
 
 Observed Gmail placement:
-- canary 1: Spam
-- canary 2: Spam
-- canary 3: Spam
+- ordinal 1: Inbox
+- ordinal 2: Inbox
+- ordinal 3: Spam
 
-Authentication evidence on the earlier inspected runtime message:
-- SPF: pass
-- DKIM: pass
-- DMARC: pass
+All three showed SPF pass, DMARC pass, two DKIM passes and the same additional failed DKIM signature.
 
-A separate earlier human-style Winnr web reply from the same pilot reached Inbox, so the domain is not proven to be uniformly spam-routed. However, the current controlled runtime placement sample is 3/3 Spam and is the stronger activation-gate evidence.
+The current evidence therefore supports sender-level quarantine rather than a domain-wide shutdown.
 
 ## Promotion state
 
-`TRANSPORT_GREEN -> REPLY_LOOP_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`
+`TRANSPORT_GREEN -> REPLY_LOOP_GREEN -> PLACEMENT_SPLIT -> ORDINALS_1_2_CANDIDATE_GREEN -> ORDINAL_3_QUARANTINED`
 
-No cold prospect outreach is authorized by this pilot yet.
+Prospect campaign authority remains separate. The activation work itself sent zero prospect messages.
 
-Provider health score, blocklist status, warming age, SMTP 250 acceptance, and successful IMAP do not override the observed Gmail placement result.
+The full final receipt is `winnr/FINAL_ACTIVATION_2026-10-02.md`.
 
 ## Placement phenotype experiment — 2026-10-02
 

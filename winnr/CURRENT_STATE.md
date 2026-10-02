@@ -26,8 +26,8 @@ Updated: 2026-10-02
 Latest verified production runtime:
 - Render service: `uberbond-control-plane`
 - service id: `srv-dali9vijnfac739m4vcg`
-- latest live source at this checkpoint: `859f95e3a99ce9d98b4d0c3fc3cb7da70517a250`
-- live deploy observed: `dep-davspif9nhgc738a3030`
+- live source: `c04f0f35ec6f5c899ca1e14af95d6be690ab3ea0`
+- live deploy: `dep-davtfm1srm7s73dar680`
 - store backend reported by worker: PostgreSQL
 
 Canonical transport receipt:
@@ -126,3 +126,14 @@ Raw Gmail headers for all three human-phenotype canaries were compared. All thre
 Therefore the redundant failing `s=dkim` signature is not a sender-3-specific explanation for Dana's Spam placement. Do not mutate working DNS blindly. Winnr's current documentation says provider-hosted domains have Winnr-managed DKIM, so the redundant signature should be treated as a provider/header diagnostic until Winnr explains or repairs it.
 
 Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.
+
+
+## Live sender quarantine
+
+Production receipt:
+- `WINNR_PLACEMENT_QUARANTINE_APPLIED`
+- paused ordinals: [3]
+- reason: `GMAIL_PLACEMENT_RED`
+- scope: `SMTP_FLEET_SELECTION_ONLY`
+- IMAP custody changed: false
+- prospect send authority granted: false

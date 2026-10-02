@@ -120,6 +120,8 @@ export async function runWinnrRuntimeBootstrap({
         accountOrdinal:i+1,
         smtpConfirmed:smtp?.classification==='ACCEPTED',
         smtpClassification:smtp?.classification||'UNKNOWN',
+        smtpReasonCodes:Array.isArray(smtp?.reasonCodes)?smtp.reasonCodes.map(x=>clean(x,120)).slice(0,5):[],
+        smtpError:clean(smtp?.dispatchError,300)||null,
         imapConfirmed:imap?.ok===true,
         imapStatus:imap?.status||'UNKNOWN'
       });

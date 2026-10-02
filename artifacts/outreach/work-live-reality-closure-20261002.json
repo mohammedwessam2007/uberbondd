@@ -1,0 +1,366 @@
+{
+  "schemaVersion": "uberbond.work-live-reality-closure.v1",
+  "revision": 1,
+  "recordedAt": "2026-10-02T22:00:00Z",
+  "checkedRecipient": "hello@mypowerhouse.group",
+  "checkedDomain": "mypowerhouse.group",
+  "classification": "PRODUCTION_HISTORY_UNKNOWN",
+  "sendAuthority": false,
+  "lineage": {
+    "initialMain": "7008c87d28d53a1d00bc6b1ca7a493f29d3f5d33",
+    "initialColdHead": "40bf82d536adcb8ee4412fbe9059d4c9e3c547fb",
+    "claudePr": 1171,
+    "claudePrState": "MERGED",
+    "claudeHead": "9fde1ef6e032d01e12093becc447201a799287ab",
+    "claudeMerge": "8bb76461d5c85d47851ff3e6a43928b9e9d126a1",
+    "workHardeningPr": 1172,
+    "workHardeningState": "MERGED",
+    "currentMain": "3b92fbef5c023f7b19c5f9abb27c90960c78f5a2",
+    "reviewReceipt": "docs/receipts/WORK_PRODUCTION_HISTORY_REVIEW_20261002.md",
+    "preservesHistoricalEvidence": true
+  },
+  "production": {
+    "serviceId": "srv-dali9vijnfac739m4vcg",
+    "url": "https://uberbond-control-plane.onrender.com",
+    "deployId": "dep-db02fonavr4c73dsucl0",
+    "deployedSha": "3b92fbef5c023f7b19c5f9abb27c90960c78f5a2",
+    "status": "LIVE",
+    "finishedAt": "2026-10-02T21:54:53.500158Z",
+    "plan": "free",
+    "autoDeploy": false,
+    "buildCommand": "npm install --omit=dev",
+    "startCommand": "sh -c 'node server.mjs & web_pid=$!; trap \"kill $web_pid 2>/dev/null || true; wait $web_pid 2>/dev/null || true\" TERM INT EXIT; PROCESS_ROLE=worker node worker.mjs'",
+    "normalCommandsPreserved": true,
+    "storeBackend": "postgres",
+    "health": {
+      "checkedAt": "2026-10-02T21:55:34.175249Z",
+      "httpStatus": 200,
+      "ok": true,
+      "workerOnline": true,
+      "workerPaused": false,
+      "activeJobs": 0,
+      "autopilot": false
+    },
+    "observedSafetyConfiguration": {
+      "OUTBOUND_ENABLED": "false",
+      "OUTBOUND_DRY_RUN": "true",
+      "OUTBOUND_LAUNCH_PHASE": "canary",
+      "OUTBOUND_ALLOWED_COUNTRIES": "EG",
+      "OUTBOUND_PROCESS_BATCH_SIZE": "1",
+      "OUTBOUND_CANARY_DAILY_CAP": "1",
+      "OUTBOUND_CANARY_MIN_GAP_SECONDS": "1800",
+      "DEFAULT_DAILY_CAP_A": "2",
+      "DEFAULT_DAILY_CAP_B": "2",
+      "OUTBOUND_HOURLY_CAP_A": "1",
+      "OUTBOUND_HOURLY_CAP_B": "1",
+      "WINNR_PLACEMENT_QUARANTINE_ORDINALS": "3",
+      "WINNR_RUNTIME_BOOTSTRAP_ONCE": "0",
+      "WINNR_REPLY_CANARY_VERIFY": "1",
+      "WINNR_SMTP_CONFIRMED_ORDINALS": "1",
+      "WINNR_ACCOUNT_AUTHORIZED": "true",
+      "WINNR_TERMS_COMPATIBLE": "true"
+    },
+    "settingsNotEdited": true,
+    "currentProviderSelection": "UNKNOWN_IN_PROCESS; OUTBOUND_PROVIDER absent from service-specific environment, deployed source default gmail-api; environment groups/in-process config unverified",
+    "currentFleetRegistry": "UNKNOWN_AUTH_REQUIRED",
+    "campaignState": "UNKNOWN_AUTH_REQUIRED",
+    "uncertainSendState": "UNKNOWN_AUTH_REQUIRED",
+    "replyLoopScheduling": "UNKNOWN_AUTH_REQUIRED",
+    "boundedErrorLogs": {
+      "from": "2026-10-02T21:54:00Z",
+      "through": "2026-10-02T21:55:27.601918427Z",
+      "rows": 0,
+      "hasMore": false
+    },
+    "database": {
+      "id": "dpg-dali9dbl550s73bcf520-a",
+      "name": "uberbond-control-postgres",
+      "status": "available",
+      "plan": "free",
+      "expiresAt": "2026-10-16T23:22:29.055606Z",
+      "read": "BLOCKED_EMPTY_EXTERNAL_IP_ALLOWLIST",
+      "networkBoundaryUnchanged": true
+    },
+    "shell": "UNAVAILABLE_ON_FREE_COMPUTE; paid upgrade dismissed without purchase"
+  },
+  "history": {
+    "classification": "PRODUCTION_HISTORY_UNKNOWN",
+    "clean": false,
+    "checkedAt": "2026-10-02T21:55:43.144003Z",
+    "attempt": {
+      "path": "/api/prospect-preflight/contact-history?email=hello%40mypowerhouse.group&domain=mypowerhouse.group",
+      "httpStatus": 401,
+      "error": "Unauthorized"
+    },
+    "productionCollectionsRead": [],
+    "requiredCollections": [
+      "suppressions",
+      "prospects",
+      "outboundReservations",
+      "outboundEvents",
+      "replies",
+      "messages",
+      "providerEvents"
+    ],
+    "suppression": "UNKNOWN_AUTH_REQUIRED",
+    "priorProspect": "UNKNOWN_AUTH_REQUIRED",
+    "reservations": "UNKNOWN_AUTH_REQUIRED",
+    "outboundEvents": "UNKNOWN_AUTH_REQUIRED",
+    "replies": "UNKNOWN_AUTH_REQUIRED",
+    "bounceComplaint": "UNKNOWN_AUTH_REQUIRED",
+    "unsubscribe": "UNKNOWN; SUPPRESSION_AUTHORITATIVE",
+    "semantics": {
+      "suppression": "trim/lowercase value equals email/domain or recipient ends with @value after stripping leading @; union with exact send-safety lookup; no general wildcard matcher observed",
+      "prospects": "exact contact.email or email domain, website host or stored domain checked independently; www normalized; matched prospect ids link replies/events/messages; sentAt/previouslyContactedAt/priorContact.lastContactedAt block",
+      "reservations": "recipientEmail exact/domain or linked prospectId; every state except explicitly informational cancelled blocks",
+      "events": "recipientEmail exact/domain or linked prospectId",
+      "replies": "parsed from exact/domain or linked prospectId; classification labels retain bounce/complaint",
+      "messages": "canonical to exact/domain or linked prospectId",
+      "providerEvents": "canonical leadEmail exact/domain or linked prospectId",
+      "allSevenReadsRequired": true
+    },
+    "resultLaw": "Require all seven raw checks read=true and retain every finding. Any matched finding maps to CONTACT_HISTORY_HIT unless existing specific policy permits its state; no override. Failed auth/read or aggregate-only data cannot become CLEAN. Informational compiler findings are not empty history."
+  },
+  "winnr": {
+    "liveEntitlement": "UNKNOWN_NO_ALREADY_LOGGED_IN_SESSION",
+    "historicalEntitlement": "PILOT_ALREADY_PURCHASED",
+    "liveBillingCancellationNotices": "UNKNOWN_NOT_OBSERVED",
+    "liveMailboxCount": "ACCOUNT_NOT_OBSERVED",
+    "providerLeasedDomain": "cedarpointdomains.com — retained runtime bootstrap receipt, not fresh account observation",
+    "fleet": "SMTP_3_PREVIOUSLY_VERIFIED; IMAP_3_CURRENTLY_READABLE; ORDINAL_3_PAUSED; AUTHENTICATED_REGISTRY_UNREAD",
+    "boot": {
+      "at": "2026-10-02T21:54:47.130336199Z",
+      "status": "WINNR_SEALED_BOOTSTRAP_ALREADY_CONSUMED",
+      "originalConsumedAt": "2026-10-02T15:10:31.844Z",
+      "retainedSmtpConfirmed": 3,
+      "retainedImapConfirmed": 3,
+      "mailboxes": 3,
+      "credentialStorage": "AES_256_GCM_ENCRYPTED",
+      "plaintextCredentialsLogged": false,
+      "historicalMessagesSentField": 2,
+      "newSeedMessages": 0
+    },
+    "quarantine": {
+      "at": "2026-10-02T21:54:47.258Z",
+      "pausedOrdinals": [
+        3
+      ],
+      "reason": "GMAIL_PLACEMENT_RED",
+      "imapCustodyChanged": false,
+      "prospectSendAuthorityGranted": false
+    },
+    "replyCanaries": {
+      "at": "2026-10-02T21:54:48.148564450Z",
+      "imapAccountsChecked": 3,
+      "foundOrdinals": [
+        2,
+        3
+      ],
+      "status": "INGESTIBLE"
+    },
+    "placement": "Historical personal Gmail 3/3 Inbox preserved; earlier UberBond Gmail 2/3 Inbox and ordinal-3 quarantine preserved",
+    "discrepancy": "Service confirmation seed lists ordinal 1; consumed durable bootstrap reports 3/3. Neither was changed and this is not authority to repeat seed sends.",
+    "freshLogin": "AUTO_REVIEW_REJECTED; original mission permits only an already logged-in provider surface"
+  },
+  "identity": {
+    "status": "IDENTITY_FACT_REQUIRED",
+    "reason": "PROTECTED_FACTS_AND_PUBLIC_FOOTER_AUTHORIZATION_NOT_READ",
+    "productionPresence": "UNKNOWN_AUTH_REQUIRED",
+    "verifiedMissingFieldNames": null,
+    "requiredFieldsUnverified": [
+      "legalName",
+      "postalAddress",
+      "line1",
+      "city",
+      "country",
+      "ownerAuthorized",
+      "publicFooterAuthorized",
+      "postalEvidenceRef"
+    ],
+    "displayFieldsUnverified": [
+      "senderName",
+      "company"
+    ],
+    "fullPostalAddressExposed": false,
+    "factsInvented": false,
+    "next": "Read existing owner-protected settings before asking for missing facts; unauthenticated UI defaults cannot prove absence"
+  },
+  "software": {
+    "coldRoute": "PRECHECK_ENVELOPE_REACHABLE_ONLY; PROSPECT_SEND_DISABLED",
+    "coldPublicBusinessContact": "REFUSED",
+    "legalHoldPreserved": true,
+    "identityHoldPreserved": true,
+    "quarantinePreserved": true,
+    "noPowerhousePermanentPolicy": true,
+    "focusedTests": {
+      "mergedClosureBeforeHardening": 152,
+      "afterHardening": 158,
+      "failures": 0
+    },
+    "driftDoctor": "PASS",
+    "changedSyntax": "PASS",
+    "diffCheck": "PASS",
+    "hostedCi": "NOT_EXECUTED; 8 failed hosted jobs each had zero steps",
+    "wholeRepositoryGreen": "NOT_CLAIMED; prior source receipt preserves 34 baseline failures and 3 existing fixture parse failures",
+    "mainBranch": {
+      "protected": false,
+      "requiredContexts": [],
+      "rulesets": []
+    },
+    "protectionEndpoint": "403_INTEGRATION_PERMISSION; successful branch metadata is separate evidence",
+    "startupBrainDoctor": "FAIL_EXISTING_CORPUS_FRESHNESS: repository/body/normalized-record corpus stale-or-future-dated",
+    "reachability": {
+      "production": 30,
+      "operator": 10,
+      "awaitingActivation": 5,
+      "research": 1
+    }
+  },
+  "providerPolicy": {
+    "class": "PROVIDER_POLICY",
+    "status": "CONDITIONAL_PUBLIC_TERMS_EVIDENCE; ACCOUNT_SPECIFIC_STATE_UNVERIFIED",
+    "url": "https://winnr.app/terms-of-service.html",
+    "termsUpdated": "2026-09-24",
+    "requirements": [
+      "valid physical address/company name",
+      "reason/value",
+      "easy opt-out honored within 7 days",
+      "company email preferred",
+      "relevant law compliance"
+    ],
+    "automationScope": "Existing written API/MCP support permission preserved; not inferred from generic terms",
+    "currentProviderLimits": "UNKNOWN_ACCOUNT_NOT_OBSERVED"
+  },
+  "legalPolicy": {
+    "state": "LEGAL_AUTHORITY_HOLD",
+    "recipientType": "PUBLIC_CORPORATE_GENERAL_BUSINESS_CONTACT; PUBLICATION_IS_NOT_CONSENT",
+    "recipientJurisdiction": "US retained candidate representation; refreshed partner listing did not independently establish HQ jurisdiction",
+    "senderControllerJurisdiction": "UNKNOWN_AUTHENTICATED_OWNER_FACT; EG allowed-country config is not proof of legal location",
+    "law": {
+      "class": "LAW",
+      "scope": "US commercial email including B2B",
+      "url": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+      "requirements": [
+        "truthful headers/subject",
+        "commercial disclosure",
+        "valid physical postal address",
+        "clear opt-out usable for at least 30 days",
+        "honor opt-out within 10 business days"
+      ]
+    },
+    "senderSideHold": {
+      "class": "UBERBOND_CONSERVATIVE_POLICY",
+      "state": "CONSERVATIVE_POLICY_HOLD_PENDING_AUTHORITATIVE_SCOPE_INTERPRETATION",
+      "fields": [
+        "operatorLocation",
+        "senderEntityJurisdiction",
+        "controllerJurisdiction"
+      ],
+      "egyptLawScope": "UNKNOWN; official portal retrieval insufficient; no proven territorial-ban claim"
+    },
+    "countryConfiguration": "US candidate outside observed EG allowance",
+    "authorityExpiry": "UNKNOWN_NO_EXACT_AUTHENTICATED_AUTHORIZATION",
+    "ambiguityConvertedToPermission": false
+  },
+  "prospect": {
+    "state": "PUBLIC_FACTS_REFRESHED; PRODUCTION_ELIGIBILITY_INCOMPLETE",
+    "sources": [
+      "https://mypowerhouse.group/contact/",
+      "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/",
+      "https://mypowerhouse.group/",
+      "https://mypowerhouse.group/privacy-policy/",
+      "https://marketplace.servicetitan.com/partner/powerhouse-consulting-group",
+      "https://www.servicetitan.com/certified-providers",
+      "https://sylvesterelectric.com/",
+      "https://sylvesterelectric.com/generator-installation/",
+      "https://sylvesterelectric.com/electric-panel-replacement/"
+    ],
+    "observations": [
+      "Exact public email still published on event page; contact page supports general questions/partnership role",
+      "Event invitation is for Powerhouse training, not consent to UberBond offer",
+      "Powerhouse/ServiceTitan and publicly named Sylvester client evidence retained",
+      "Same homepage has business-hours/qualifying-after-hours and 24/7 service-list wording; generator/panel pages currently also state 24/7"
+    ],
+    "noticesScope": "No negative solicitation/harvest notice observed on bounded pages checked; no universal sitewide/legal-clearance claim",
+    "claimsNotMade": [
+      "lost revenue",
+      "lost calls",
+      "complaints",
+      "causation",
+      "quantified damage"
+    ]
+  },
+  "effect": {
+    "state": "PREPARED_NOT_READY",
+    "subject": "Sylvester availability",
+    "winner": "F_SAME_PAGE_FULL — preserved hand-built lineage",
+    "offerAlias": "REVENUE_PROOF_AND_RENEWAL_PACK",
+    "finalProductionDigestMintedByWork": false,
+    "approvalCreatedByWork": false,
+    "exactBoundedAuthorization": "NOT_READ_AND_NOT_ESTABLISHED",
+    "blockers": [
+      "history-unknown",
+      "identity-and-footer-authority-unverified",
+      "sender-side-legal-authority-unresolved",
+      "sender-registry-and-provider-selection-unverified",
+      "cold-send-disabled",
+      "US-outside-country-allowance",
+      "final-footer-and-signed-unsubscribe-not-compiled",
+      "exact-recipient-sender-provider-payload-footer-unsubscribe-offer-digest-expiry-cap-authorization-unverified"
+    ]
+  },
+  "oneButton": {
+    "state": "AUTHENTICATED_RUNTIME_GATE_MATRIX_UNVERIFIED",
+    "url": "https://uberbond-control-plane.onrender.com/admin.html",
+    "unauthenticated": {
+      "mode": "Loading…",
+      "outbound": "Outbound is loading…",
+      "canary": "First-message canary is loading…",
+      "buttonDisabled": false,
+      "buttonLabel": "START UBERBOND NOW"
+    },
+    "clicked": false,
+    "identityDefaultCannotProveAbsence": true,
+    "sourceGuardTestsPass": true
+  },
+  "authentication": {
+    "render": "SIGNED_IN_VERIFIED",
+    "operator": "NOT_AUTHENTICATED; secure request declined because founder forgot token",
+    "tokenRecovery": "EXISTING_TOKEN_COPIED_OPAQUELY_TO_CLOUD_CLIPBOARD_FROM_RENDER; value never read/printed/committed",
+    "next": "Founder manual paste in Admin token and Save token only; no outreach control. Then complete exact ledger/protected owner/fleet/campaign/authority reads through approved surfaces.",
+    "winnr": "No existing signed-in session; fresh login outside prior scope and rejected by auto-review"
+  },
+  "effects": {
+    "workPrCreated": 1172,
+    "workPrMerged": 1172,
+    "renderDeployment": "dep-db02fonavr4c73dsucl0",
+    "productionDatabaseWritesByWork": 0,
+    "providerMutations": 0,
+    "dnsMutations": 0,
+    "campaignMutations": 0,
+    "senderMutationsByWork": 0,
+    "protectiveBootBehavior": "Existing idempotent quarantine reapplied and IMAP read after normal deployment; no release",
+    "prospectMessages": 0,
+    "ownerSeedMessages": 0,
+    "newSpendUsd": 0,
+    "newProviders": 0,
+    "warmingActivated": false,
+    "credentialValuesExposed": false
+  },
+  "remainingBlockers": [
+    "OPERATOR_AUTH_REQUIRED_FOR_EXACT_HISTORY_IDENTITY_FLEET_AND_AUTHORITY_READS",
+    "WINNR_CURRENT_ACCOUNT_UNOBSERVED_AND_FRESH_LOGIN_OUTSIDE_PRIOR_SCOPE",
+    "LEGAL_AUTHORITY_HOLD",
+    "AUTHORIZED_PUBLIC_FOOTER_IDENTITY_UNVERIFIED",
+    "COLD_SEND_DISABLED_AND_US_OUTSIDE_ALLOWED_COUNTRIES",
+    "FINAL_PAYLOAD_AND_EXACT_BOUNDED_EFFECT_AUTHORIZATION_UNESTABLISHED",
+    "ONE_BUTTON_AUTHENTICATED_GATE_MATRIX_UNOBSERVED"
+  ],
+  "infrastructureDeadline": "Existing free Postgres expires 2026-10-16T23:22:29.055606Z; no purchase/plan change performed",
+  "nextAuthenticatedOperation": {
+    "method": "GET",
+    "path": "/api/prospect-preflight/contact-history?email=hello%40mypowerhouse.group&domain=mypowerhouse.group",
+    "then": "Read protected owner setup, current fleet/health/provider selection, campaigns/canary/global uncertainty; run existing prepared POST request in artifacts/outreach/powerhouse-preflight-request-20261002.json; reject hits, never infer clean from failed reads; no send or authority creation"
+  },
+  "terminalState": "SOURCE_HARDENED_AND_DEPLOYED__TRANSPORT_RETAINED__RUNTIME_VERIFIED__EXACT_HISTORY_AND_PROTECTED_REALITY_AUTH_BLOCKED"
+}

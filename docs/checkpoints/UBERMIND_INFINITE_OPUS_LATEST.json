@@ -1,15 +1,15 @@
 {
   "schemaVersion": "uberbond.ubermind.checkpoint-pointer.v1",
-  "updatedAt": "2026-09-30T20:08:00+03:00",
-  "checkpointJson": "docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json",
-  "checkpointMarkdown": "docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md",
-  "mainAtCheckpoint": "f1958f0542738b2d38d10b17440ce9b0f86ecba2",
-  "latestMergedPr": 1075,
+  "updatedAt": "2026-10-02T19:36:20+03:00",
+  "checkpointJson": "docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-10-02_1936_EGYPT.json",
+  "mainAtCheckpoint": "b37ccae981cf1954894c9628a2d1a03037e3a0a0",
+  "latestMergedPr": 1163,
   "currentColdFrontierDashboardMultiplier": 1.55,
   "guaranteedFreshEconomicFloorMultiplier": 1,
   "milestoneTargetMultiplier": 33333.333333,
   "systemWideReuseCeiling": "UNBOUNDED_WITH_VALID_EXACT_REUSE_FANOUT",
   "realizedPortfolioMultiplier": null,
   "realizedPortfolioStatus": "UNMEASURED_UNTIL_LIVE_RECEIPTS_EXIST",
-  "recoveryLaw": "Refresh current main first; this pointer is crash recovery, not authority over newer source/evidence."
+  "recoveryLaw": "Refresh current main first; this pointer is crash recovery, not authority over newer source/evidence.",
+  "currentColdFrontierExactRatio": 1.5556938394523956
 }

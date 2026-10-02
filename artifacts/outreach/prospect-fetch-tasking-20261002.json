@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "uberbond.prospect-fetch-tasking.v1",
+  "createdAt": "2026-10-03",
+  "readOnly": true,
+  "purpose": "Finish the prospect lane with page-level evidence that the requesting sandbox cannot retrieve. Results feed compileProspectVerification (src/prospect-verification-intake.mjs); do not hand-pick a winner.",
+  "stopCondition": "Stop when at least one candidate returns VERIFIED_CANDIDATE, or when every candidate and every discovery lead below has been falsified or exhausted.",
+  "resultFile": "artifacts/outreach/prospect-fetch-results-<date>.json (array of intake records; shape in prospect-verification-request-20261002.json#intake.resultRecordShape)",
+  "evidenceClassToReturn": "PAGE_FETCH_VERIFIED. A search-engine summary or second-hand report can never produce VERIFIED_CANDIDATE.",
+  "rules": [
+    "Public pages only. No logins, form submissions, CAPTCHA or access-control bypass.",
+    "Record the exact page URL, the verbatim excerpt (must contain the address) and the observation time for every address.",
+    "Never guess or pattern-infer an address. Never use an incidental internal address from a blog or transcript.",
+    "A privacy, legal, careers, abuse or customer-support address is not a sales recipient.",
+    "Check contact page, footer, terms and privacy for anti-solicitation, no-vendor, consent-required or no-harvest statements. Report presence as a negativeRecipientSignal.",
+    "Also check the agency's own articles/services for a published stance against unsolicited marketing or optimization reports.",
+    "Confirm current ownership. If part of a larger group, fill parentAssessment (operatesUnderOwnBrand, parentOverlapWithOffer, rationale, evidenceRef).",
+    "Identify one CURRENT, publicly attributable home-service client and investigate that client's public lead path. Report only factual, observable issues (form path failure, dead appointment link, missing or buried CTA, inconsistent phone routing, intent/destination mismatch, contradictory hours, duplicated conversion paths, tracking gap visible from the public flow). If none: NO_ACTIONABLE_PUBLIC_LEAK_OBSERVED and move on.",
+    "Do not invent an issue because the offer expects one.",
+    "Check each recipient address against excludeAlreadyContacted.",
+    "Choose the offer from the existing quartet only: AGENCY_REVENUE_LEAK_PROOF_PACK, AI_AGENT_PRODUCTION_RELEASE_GATE, REVENUE_PROOF_AND_RENEWAL_PACK, GCC_BOOKING_PARITY_SPRINT. Give a reason of at least one sentence."
+  ],
+  "excludeAlreadyContacted": [
+    "hello@lemonseedmarketing.com",
+    "info@moovsoon.com",
+    "nick@getdriive.com"
+  ],
+  "alreadyFalsified": [
+    {
+      "company": "Footbridge Media",
+      "decision": "REJECT_NEGATIVE_RECIPIENT_SIGNAL"
+    },
+    {
+      "company": "1SEO Digital Agency",
+      "decision": "REJECT_PARENT_OVERLAP (Scorpion RevenueMAX)"
+    },
+    {
+      "company": "KickCharge Creative",
+      "decision": "address is privacy-only; look for a different deliberately published business address or drop the email route"
+    }
+  ],
+  "candidates": [
+    {
+      "company": "Powerhouse Consulting Group",
+      "website": "https://mypowerhouse.group/",
+      "priority": 1,
+      "why": "Mission Control reports hello@mypowerhouse.group published on the privacy page and a partnership-oriented contact page. Needs the verbatim excerpt containing the address, notice checks, ownership, and a named contractor client with a public lead path.",
+      "pagesToFetch": [
+        "home page",
+        "/contact (or equivalent)",
+        "/about",
+        "footer on any page",
+        "/privacy",
+        "/terms",
+        "one case-study or client page naming a current home-service client"
+      ],
+      "offerHint": "REVENUE_PROOF_AND_RENEWAL_PACK (consultancy / RevOps-partner profile); evaluate whether any other quartet offer fits better",
+      "specificAsk": [
+        "verbatim excerpt that contains hello@mypowerhouse.group and its page URL",
+        "whether the address is published for general/partnership inquiries (contact page) rather than privacy only",
+        "a named ServiceTitan contractor client with a public site and one observable lead-path issue"
+      ]
+    },
+    {
+      "company": "BxB Media",
+      "website": "https://bxbknowshvac.com/",
+      "priority": 2,
+      "why": "HVAC specialist serving hundreds of heating and cooling companies. No clean commercial email yet established; public contact form and phone 313.651.7157.",
+      "pagesToFetch": [
+        "home page",
+        "/contact (or equivalent)",
+        "/about",
+        "footer on any page",
+        "/privacy",
+        "/terms",
+        "one case-study or client page naming a current home-service client"
+      ],
+      "specificAsk": [
+        "search the public site for a deliberately published commercial email; if none exists, return emailRoute=REJECTED and preserve BxB as a contact-form/phone opportunity (separate consequence gates)"
+      ]
+    },
+    {
+      "company": "Leadhub",
+      "website": "https://www.leadhub.net/",
+      "priority": 2,
+      "why": "Home-services marketing; named client Go Green Heating & Cooling. No clean current commercial recipient yet established.",
+      "pagesToFetch": [
+        "home page",
+        "/contact (or equivalent)",
+        "/about",
+        "footer on any page",
+        "/privacy",
+        "/terms",
+        "one case-study or client page naming a current home-service client"
+      ],
+      "specificAsk": [
+        "find a deliberately published commercial recipient, or return emailRoute=REJECTED",
+        "its email-marketing material stresses opted-in databases: note whether any statement amounts to a no-vendor-solicitation stance",
+        "named client Go Green Heating & Cooling: observable lead-path issue on that client's public site, if any"
+      ]
+    }
+  ],
+  "discoveryLeadsToVerifyIfCandidatesFail": [
+    {
+      "company": "Lokal",
+      "note": "Cincinnati, OH; founded 2023; case study Reliable Heating and Cooling"
+    },
+    {
+      "company": "Comrade Digital",
+      "note": "Chicago, IL; roofing/contractors"
+    },
+    {
+      "company": "The Roofing Marketer",
+      "note": "roofing and home-service contractors"
+    },
+    {
+      "company": "Hook Agency",
+      "note": "case study AJ Alberts plumbing; check size"
+    },
+    {
+      "company": "Relentless Digital",
+      "note": "multi-trade; repo lists it as high overlap"
+    },
+    {
+      "company": "Think Profits",
+      "note": "case study John Sadler Plumbing & Heating"
+    },
+    {
+      "company": "Coherency.co",
+      "note": "verify US headquarters"
+    }
+  ],
+  "admissionCriteriaForNewReplacements": [
+    "clearly public business identity",
+    "public business email published for general/commercial communication",
+    "no explicit anti-solicitation signal",
+    "no harvesting restriction implied",
+    "no prior UberBond outreach",
+    "no suppression",
+    "obvious home-service client base",
+    "at least one publicly attributable client",
+    "artifact opportunity"
+  ],
+  "targetProfile": "US-based agencies serving HVAC / plumbing / electrical / roofing / pest-control / other home-service companies. Optimize candidate quality, not quantity.",
+  "authority": "None. This tasking is read-only evidence gathering. It authorizes no contact, send, form submission or spend."
+}

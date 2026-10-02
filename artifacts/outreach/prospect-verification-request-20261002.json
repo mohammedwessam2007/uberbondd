@@ -64,7 +64,7 @@
   ],
   "secretHandling": "No credentials involved. Do not record anything beyond public page content.",
   "expectedOutput": "Per candidate: eligible or rejected with reason. Rank eligible candidates by eligibility confidence x evidence strength x offer fit x information value / reputational downside.",
-  "revision": "2026-10-02 r2",
+  "revision": "2026-10-03 r3",
   "intake": {
     "module": "src/prospect-verification-intake.mjs",
     "function": "compileProspectVerification(record, { now, excludedRecipients })",
@@ -143,5 +143,6 @@
     "Footbridge Media (remaining fields)",
     "Powerhouse Consulting Group"
   ],
-  "ifNoneVerify": "Discover replacements. Do not force a winner. Home-service agencies first."
+  "ifNoneVerify": "Discover replacements. Do not force a winner. Home-service agencies first.",
+  "supersededBy": "artifacts/outreach/prospect-fetch-tasking-20261002.json for the per-candidate fetch list; results in artifacts/outreach/prospect-tournament-20261002.json"
 }

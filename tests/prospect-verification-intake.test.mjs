@@ -6,6 +6,8 @@ const now = new Date('2026-10-05T12:00:00.000Z');
 const full = (patch = {}) => ({
   company: 'Example Home Marketing', website: 'https://agency.example/', hqCountry: 'US',
   currentOwnership: { status: 'INDEPENDENT', evidenceUrl: 'https://agency.example/about' },
+  evidenceClass: 'PAGE_FETCH_VERIFIED',
+  offerRoute: { offerId: 'AGENCY_REVENUE_LEAK_PROOF_PACK', rationale: 'Agency serves home-service clients and needs client lead-path evidence.' },
   recipient: {
     email: 'hello@agency.example', publishedRole: 'GENERAL_BUSINESS_INQUIRIES', sourceUrl: 'https://agency.example/contact',
     excerpt: 'General inquiries: hello@agency.example', observedAt: '2026-10-04T12:00:00.000Z'
@@ -40,10 +42,37 @@ test('privacy-only, legal, careers and support addresses are rejected as sales r
   assert.equal(run(deep('UNKNOWN', 'recipient.publishedRole')).status, PROSPECT_STATUSES.INCOMPLETE);
 });
 
-test('part of a larger group is rejected; unverified ownership is incomplete', () => {
-  has(run(deep('PART_OF_LARGER_GROUP', 'currentOwnership.status')), 'rejectionReasons', 'larger-group');
+test('part of a larger group is assessed, not blanket-rejected: HIGH parent overlap rejects, LOW overlap with evidence proceeds, anything else is incomplete', () => {
+  const group = patch => deep({ status: 'PART_OF_LARGER_GROUP', parentAssessment: { parent: 'BigCo', operatesUnderOwnBrand: true, parentOverlapWithOffer: 'LOW', rationale: 'Parent sells media buying only; no lead attribution product.', evidenceRef: 'https://agency.example/about', ...patch } }, 'currentOwnership');
+  assert.equal(run(group({})).status, PROSPECT_STATUSES.VERIFIED_CANDIDATE);
+  has(run(group({ parentOverlapWithOffer: 'HIGH' })), 'rejectionReasons', 'parent-overlap-makes-offer-redundant');
+  has(run(group({ operatesUnderOwnBrand: false })), 'rejectionReasons', 'no-longer-operates');
+  has(run(group({ parentOverlapWithOffer: 'UNKNOWN' })), 'missingEvidence', 'unassessed');
+  has(run(group({ evidenceRef: '' })), 'missingEvidence', 'rationale-and-evidence');
+  has(run(deep({ status: 'PART_OF_LARGER_GROUP' }, 'currentOwnership')), 'missingEvidence', 'parent-company-assessment-missing');
   has(run(deep('UNKNOWN', 'currentOwnership.status')), 'missingEvidence', 'ownership');
   has(run(deep('GB', 'hqCountry')), 'missingEvidence', 'us-headquarters');
+});
+
+test('a published anti-unsolicited or consent-required stance is a negative recipient signal that rejects', () => {
+  for (const kind of ['PUBLISHED_ANTI_UNSOLICITED_STANCE', 'CONSENT_REQUIRED_STANCE', 'NO_VENDOR_SOLICITATION']) {
+    const r = run(full({ negativeRecipientSignals: [{ kind, summary: 'x' }] }));
+    assert.equal(r.status, PROSPECT_STATUSES.REJECTED);
+    has(r, 'rejectionReasons', `negative-recipient-signal:${kind.toLowerCase()}`);
+  }
+  has(run(full({ negativeRecipientSignals: [{ kind: 'WHATEVER' }] })), 'rejectionReasons', 'unrecognized');
+});
+
+test('a search-engine summary or unclassified evidence can never verify a candidate', () => {
+  has(run(deep('SEARCH_SUMMARY_ONLY', 'evidenceClass')), 'missingEvidence', 'search-summary-only');
+  has(run(deep('', 'evidenceClass')), 'missingEvidence', 'evidence-class-unverified');
+  assert.equal(run(deep('EXTERNAL_LANE_REPORT_WITH_EXCERPT', 'evidenceClass')).status, PROSPECT_STATUSES.VERIFIED_CANDIDATE);
+});
+
+test('the offer must come from the existing quartet with a stated reason', () => {
+  has(run(deep('A_BRAND_NEW_PRODUCT', 'offerRoute.offerId')), 'missingEvidence', 'offer-route');
+  has(run(deep('short', 'offerRoute.rationale')), 'missingEvidence', 'offer-route');
+  assert.equal(run(deep('REVENUE_PROOF_AND_RENEWAL_PACK', 'offerRoute.offerId')).offerId, 'REVENUE_PROOF_AND_RENEWAL_PACK');
 });
 
 test('the address must literally appear in the retained excerpt and be published on the agency\'s own site', () => {
@@ -82,15 +111,20 @@ test('without a real client site and an externally verifiable observation the ca
   assert.equal(run(deep(false, 'offerFit.servesHomeServiceClients')).status, PROSPECT_STATUSES.INCOMPLETE);
 });
 
-test('the known externally reported candidates resolve exactly as their evidence allows', () => {
-  // 1SEO: publicly lists info@1seo.com but now states it is part of Scorpion.
-  assert.equal(run({ company: '1SEO', website: 'https://1seo.com/', currentOwnership: { status: 'PART_OF_LARGER_GROUP' }, recipient: { email: 'info@1seo.com', publishedRole: 'GENERAL_BUSINESS_INQUIRIES' } }).status, PROSPECT_STATUSES.REJECTED);
-  // KickCharge: sparky@ is listed in the privacy-contact section only.
+test('Mission Control findings resolve exactly as the evidence allows', () => {
+  // Footbridge: its own published stance is the digital equivalent of ignoring cold calls; consent required for its email service.
+  const foot = run({ company: 'Footbridge Media', website: 'https://www.footbridgemedia.com/', recipient: { email: 'service@footbridgemedia.com', publishedRole: 'UNKNOWN' }, negativeRecipientSignals: [{ kind: 'PUBLISHED_ANTI_UNSOLICITED_STANCE', summary: 'article treats unsolicited marketing/optimization reports as cold-call equivalents it ignores' }, { kind: 'CONSENT_REQUIRED_STANCE', summary: 'its email service says recipients should be existing customers and consent is required' }] });
+  assert.equal(foot.status, PROSPECT_STATUSES.REJECTED);
+  // 1SEO: Scorpion's RevenueMAX attributes booked jobs and revenue (repo-recorded inseparable overlap).
+  const oneSeo = run({ company: '1SEO', website: 'https://1seo.com/', currentOwnership: { status: 'PART_OF_LARGER_GROUP', parentAssessment: { parent: 'Scorpion', operatesUnderOwnBrand: true, parentOverlapWithOffer: 'HIGH', rationale: 'Scorpion RevenueMAX directly attributes booked jobs and revenue.', evidenceRef: 'artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json#scorpion' } } });
+  assert.equal(oneSeo.status, PROSPECT_STATUSES.REJECTED);
+  has(oneSeo, 'rejectionReasons', 'parent-overlap');
+  // KickCharge: privacy-contact section only.
   assert.equal(run({ company: 'KickCharge Creative', website: 'https://www.kickcharge.com/', recipient: { email: 'sparky@kickcharge.com', publishedRole: 'PRIVACY_ONLY' } }).status, PROSPECT_STATUSES.REJECTED);
-  // Footbridge: address reported, but excerpt, notices and client observation are not yet retained.
-  const foot = run({ company: 'Footbridge Media', website: 'https://www.footbridgemedia.com/', recipient: { email: 'service@footbridgemedia.com', publishedRole: 'UNKNOWN' } });
-  assert.equal(foot.status, PROSPECT_STATUSES.INCOMPLETE);
-  assert.ok(foot.missingEvidence.length >= 5);
+  // Powerhouse: public partnership-oriented address, but no verbatim excerpt containing it, no notice checks, no client observation.
+  const power = run({ company: 'Powerhouse Consulting Group', website: 'https://mypowerhouse.group/', evidenceClass: 'EXTERNAL_LANE_REPORT_WITH_EXCERPT', recipient: { email: 'hello@mypowerhouse.group', publishedRole: 'SALES_OR_PARTNERSHIPS', sourceUrl: 'https://mypowerhouse.group/contact/' } });
+  assert.equal(power.status, PROSPECT_STATUSES.INCOMPLETE);
+  has(power, 'missingEvidence', 'excerpt-missing');
 });
 
 test('intake is pure and inert: it does not mutate its input and nothing imports it', async () => {

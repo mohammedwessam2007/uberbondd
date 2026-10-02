@@ -12,6 +12,15 @@ export const PROSPECT_INTAKE_VERSION = 'uberbond.prospect-verification-intake.v1
 export const PROSPECT_STATUSES = Object.freeze({ VERIFIED_CANDIDATE: 'VERIFIED_CANDIDATE', REJECTED: 'REJECTED', INCOMPLETE: 'INCOMPLETE' });
 export const SALES_ELIGIBLE_ROLES = Object.freeze(['GENERAL_BUSINESS_INQUIRIES', 'SALES_OR_PARTNERSHIPS', 'OWNER_OR_EXECUTIVE']);
 export const NON_SALES_ROLES = Object.freeze(['PRIVACY_ONLY', 'LEGAL_ONLY', 'CAREERS_ONLY', 'CUSTOMER_SUPPORT_ONLY', 'ABUSE_OR_SECURITY']);
+// Only these evidence classes can support VERIFIED_CANDIDATE. A search-engine
+// summary never can: it does not retain the page text the address came from.
+export const ACCEPTED_EVIDENCE_CLASSES = Object.freeze(['PAGE_FETCH_VERIFIED', 'EXTERNAL_LANE_REPORT_WITH_EXCERPT']);
+// A published stance against unsolicited or unconsented marketing is a negative
+// recipient signal. It is a reputational and fit rejection even where the law
+// would allow the message (REJECT_NEGATIVE_RECIPIENT_SIGNAL).
+export const NEGATIVE_RECIPIENT_SIGNAL_KINDS = Object.freeze(['PUBLISHED_ANTI_UNSOLICITED_STANCE', 'CONSENT_REQUIRED_STANCE', 'NO_VENDOR_SOLICITATION']);
+// The existing flagship offer quartet. A new offer is never invented here.
+export const OFFER_IDS = Object.freeze(['AGENCY_REVENUE_LEAK_PROOF_PACK', 'AI_AGENT_PRODUCTION_RELEASE_GATE', 'REVENUE_PROOF_AND_RENEWAL_PACK', 'GCC_BOOKING_PARITY_SPRINT']);
 
 const text = (value, max = 600) => String(value ?? '').trim().slice(0, max);
 const lower = value => text(value, 500).toLowerCase();
@@ -43,8 +52,19 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   // Ownership and size: independent small/mid agencies only. A larger group
   // changes who the real buyer is and the overlap with existing partners.
   const ownership = text(record.currentOwnership?.status, 40).toUpperCase();
-  if (ownership === 'PART_OF_LARGER_GROUP') rej('part-of-larger-group-overlap-and-buyer-mismatch');
-  else if (ownership !== 'INDEPENDENT') inc('current-ownership-unverified');
+  if (ownership === 'PART_OF_LARGER_GROUP') {
+    // Being part of a group is not by itself a rejection: decide whether the
+    // entity still operates as a prospect and whether the parent overlaps the offer.
+    const pa = record.currentOwnership?.parentAssessment;
+    if (!pa || typeof pa !== 'object') inc('parent-company-assessment-missing');
+    else {
+      const overlap = text(pa.parentOverlapWithOffer, 12).toUpperCase();
+      if (pa.operatesUnderOwnBrand !== true) rej('entity-no-longer-operates-as-its-own-prospect');
+      else if (overlap === 'HIGH') rej('parent-overlap-makes-offer-redundant');
+      else if (overlap !== 'LOW') inc('parent-overlap-with-offer-unassessed');
+      else if (!text(pa.rationale, 400) || !text(pa.evidenceRef, 500)) inc('parent-assessment-rationale-and-evidence-required');
+    }
+  } else if (ownership !== 'INDEPENDENT') inc('current-ownership-unverified');
   if (text(record.hqCountry, 4).toUpperCase() !== 'US') inc('us-headquarters-unverified');
 
   // Recipient: an address published by the agency on its own site, with the
@@ -68,6 +88,21 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   const observedMs = Date.parse(record.recipient?.observedAt);
   if (!Number.isFinite(observedMs)) inc('recipient-observation-time-missing');
   else if (observedMs > now.getTime() + 5 * 60_000) rej('recipient-observation-in-future');
+
+  // Negative recipient signals reject outright; they are evidence, not noise.
+  const signals = Array.isArray(record.negativeRecipientSignals) ? record.negativeRecipientSignals : [];
+  for (const sig of signals) {
+    const kind = text(sig?.kind, 60).toUpperCase();
+    rej(`negative-recipient-signal:${NEGATIVE_RECIPIENT_SIGNAL_KINDS.includes(kind) ? kind.toLowerCase() : 'unrecognized'}`);
+  }
+
+  // Evidence class: a search-engine summary cannot verify a candidate.
+  const evidenceClass = text(record.evidenceClass, 60).toUpperCase();
+  if (!ACCEPTED_EVIDENCE_CLASSES.includes(evidenceClass)) inc(evidenceClass === 'SEARCH_SUMMARY_ONLY' ? 'evidence-class-search-summary-only' : 'evidence-class-unverified');
+
+  // Offer routing: exactly one existing offer, with a stated reason.
+  const offerId = text(record.offerRoute?.offerId, 60).toUpperCase();
+  if (!OFFER_IDS.includes(offerId) || text(record.offerRoute?.rationale, 400).length < 20) inc('offer-route-from-existing-quartet-required');
 
   // Notices: both must have been checked and found absent.
   const n = record.notices || {};
@@ -107,6 +142,8 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   return {
     version: PROSPECT_INTAKE_VERSION,
     company, status,
+    offerId: OFFER_IDS.includes(offerId) ? offerId : null,
+    evidenceClass: ACCEPTED_EVIDENCE_CLASSES.includes(evidenceClass) ? evidenceClass : (evidenceClass || null),
     rejectionReasons: rejected,
     missingEvidence: status === PROSPECT_STATUSES.REJECTED ? [] : incomplete,
     recipientSideEligibility: eligibility ? { decision: eligibility.decision, basis: eligibility.basis, evidenceId: eligibility.evidenceId } : null,

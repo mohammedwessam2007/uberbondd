@@ -1,8 +1,13 @@
 {
   "schemaVersion": "uberbond.prospect-tournament.v1",
-  "computedAt": "2026-10-02",
+  "revision": "2026-10-03 r2",
   "engine": "src/prospect-verification-intake.mjs",
-  "offer": "Agency Revenue Leak Proof Pack",
+  "offerQuartet": [
+    "AGENCY_REVENUE_LEAK_PROOF_PACK",
+    "AI_AGENT_PRODUCTION_RELEASE_GATE",
+    "REVENUE_PROOF_AND_RENEWAL_PACK",
+    "GCC_BOOKING_PARITY_SPRINT"
+  ],
   "excludedAsAlreadyContacted": [
     "hello@lemonseedmarketing.com",
     "info@moovsoon.com",
@@ -10,28 +15,127 @@
   ],
   "summary": {
     "verifiedCandidates": 0,
-    "incomplete": 4,
-    "rejected": 2
+    "incomplete": 3,
+    "rejected": 3
   },
   "prospectReady": false,
   "candidates": [
     {
-      "company": "Leadhub",
-      "website": "https://www.leadhub.net/",
-      "note": "Best fit by prior public evidence (artifacts/partner-canary-public-evidence-20260829.json rank 1). No contact page observation retained yet.",
-      "factsProvenance": "REPO_PUBLIC_EVIDENCE_ONLY",
+      "company": "Footbridge Media",
+      "website": "https://www.footbridgemedia.com/",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "findings": {
+        "vertical": "HOME_SERVICE_CONTRACTOR_MARKETING",
+        "publishedAddress": "service@footbridgemedia.com (general contact page encourages a contact form)",
+        "clientEvidence": "not retained",
+        "observedLeak": "not investigated: rejected before this stage"
+      },
+      "decision": "REJECT_NEGATIVE_RECIPIENT_SIGNAL",
+      "anotherChannel": "none recommended: the stance applies to unsolicited reports generally",
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
-        "company": "Leadhub",
+        "company": "Footbridge Media",
+        "status": "REJECTED",
+        "offerId": null,
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
+        "rejectionReasons": [
+          "negative-recipient-signal:published_anti_unsolicited_stance",
+          "negative-recipient-signal:consent_required_stance"
+        ],
+        "missingEvidence": [],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "1SEO Digital Agency",
+      "website": "https://1seo.com/",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "findings": {
+        "publishedAddress": "info@1seo.com, published under \"Questions?\" on the contact page (genuinely public general-inquiry address; support@1seo.com is separately published for current clients and is not a sales recipient)",
+        "ownership": "site states \"1SEO DIGITAL AGENCY IS NOW A PART OF SCORPION\" and still operates a 1SEO-branded site",
+        "determinations": {
+          "operationalProspectEntity": "yes, still operates a branded public site",
+          "offerRedundantWithParent": "yes: Scorpion RevenueMAX already attributes booked jobs and revenue",
+          "contactTarget": "moot: 1SEO and Scorpion share the same overlap",
+          "homeServiceClientAndArtifact": "not established; not pursued after the overlap finding"
+        }
+      },
+      "decision": "REJECT_PARENT_OVERLAP",
+      "anotherChannel": "none",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "1SEO Digital Agency",
+        "status": "REJECTED",
+        "offerId": null,
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
+        "rejectionReasons": [
+          "parent-overlap-makes-offer-redundant"
+        ],
+        "missingEvidence": [],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "KickCharge Creative",
+      "website": "https://www.kickcharge.com/",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "findings": {
+        "publishedAddress": "sparky@kickcharge.com appears in the privacy-contact section only"
+      },
+      "decision": "REJECT_ADDRESS_NOT_A_SALES_RECIPIENT",
+      "anotherChannel": "its public contact form/page remains a possible non-email route",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "KickCharge Creative",
+        "status": "REJECTED",
+        "offerId": null,
+        "evidenceClass": null,
+        "rejectionReasons": [
+          "address-published-for-privacy-only-not-sales"
+        ],
+        "missingEvidence": [],
+        "recipientSideEligibility": null,
+        "senderSideEvaluated": false,
+        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
+      }
+    },
+    {
+      "company": "Powerhouse Consulting Group",
+      "website": "https://mypowerhouse.group/",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "findings": {
+        "publishedAddress": "hello@mypowerhouse.group (published on the privacy page and exposed on the public site)",
+        "publicationPurpose": "contact page: \"Have a general question or want to partner with us? We're here to help!\" (partnership-oriented general contact)",
+        "fit": "ServiceTitan / FSM optimization consultancy that says it has helped over 600 contractors; not a classic digital agency",
+        "offerRouting": "Agency Revenue Leak Proof Pack is a poor fit for a consultancy. Revenue Proof & Renewal Pack (buyers include RevOps partners) is the better existing offer; Partner Revenue Assurance and white-label fulfilment concepts are relevant. No new product proposed."
+      },
+      "decision": "INCOMPLETE_AWAITING_PAGE_FETCH",
+      "anotherChannel": "n/a",
+      "intake": {
+        "version": "uberbond.prospect-verification-intake.v1",
+        "company": "Powerhouse Consulting Group",
         "status": "INCOMPLETE",
+        "offerId": "REVENUE_PROOF_AND_RENEWAL_PACK",
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
         "rejectionReasons": [],
         "missingEvidence": [
           "current-ownership-unverified",
-          "us-headquarters-unverified",
-          "recipient-email-missing",
-          "recipient-source-https-url-missing",
           "recipient-verbatim-excerpt-missing",
           "recipient-observation-time-missing",
+          "evidence-class-unverified",
           "no-solicitation-notice-not-checked",
           "no-harvest-notice-not-checked",
           "home-service-client-evidence-missing",
@@ -49,20 +153,28 @@
     {
       "company": "BxB Media",
       "website": "https://bxbknowshvac.com/",
-      "note": "Prior public evidence rank 2. No contact page observation retained yet.",
-      "factsProvenance": "REPO_PUBLIC_EVIDENCE_ONLY",
+      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "findings": {
+        "vertical": "VERTICAL_FIT_HIGH (full-service agency; HVAC/home-service specialization; hundreds of heating and cooling companies)",
+        "emailProvenance": "EMAIL_PROVENANCE_INCOMPLETE: public contact form and phone 313.651.7157 only; no clean general commercial email established"
+      },
+      "decision": "INCOMPLETE_EMAIL_PROVENANCE",
+      "anotherChannel": "If no deliberately published commercial email exists, reject the EMAIL route and preserve BxB as a contact-form/phone-channel opportunity (separate consequence gates).",
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
         "company": "BxB Media",
         "status": "INCOMPLETE",
+        "offerId": null,
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
         "rejectionReasons": [],
         "missingEvidence": [
           "current-ownership-unverified",
-          "us-headquarters-unverified",
           "recipient-email-missing",
           "recipient-source-https-url-missing",
           "recipient-verbatim-excerpt-missing",
           "recipient-observation-time-missing",
+          "evidence-class-unverified",
+          "offer-route-from-existing-quartet-required",
           "no-solicitation-notice-not-checked",
           "no-harvest-notice-not-checked",
           "home-service-client-evidence-missing",
@@ -78,94 +190,32 @@
       }
     },
     {
-      "company": "KickCharge Creative",
-      "website": "https://www.kickcharge.com/",
-      "note": "External lane: sparky@kickcharge.com is listed in the privacy-contact section, so it is not treated as a sales recipient. A different published business address would be needed.",
+      "company": "Leadhub",
+      "website": "https://www.leadhub.net/",
       "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
+      "findings": {
+        "vertical": "VERTICAL_FIT_HIGH (home-services marketing; HVAC, plumbing and other trades; leads, booked jobs, conversions and revenue focus; named client Go Green Heating & Cooling)",
+        "emailProvenance": "EMAIL_PROVENANCE_INCOMPLETE: no clean current general commercial recipient established",
+        "recipientSignal": "its email-marketing material emphasizes opted-in customer databases; this is not by itself a ban on vendor outreach",
+        "caution": "do not use incidental internal addresses from blog transcripts"
+      },
+      "decision": "INCOMPLETE_EMAIL_PROVENANCE",
+      "anotherChannel": "reject the email route if no deliberately published commercial recipient is found",
       "intake": {
         "version": "uberbond.prospect-verification-intake.v1",
-        "company": "KickCharge Creative",
-        "status": "REJECTED",
-        "rejectionReasons": [
-          "address-published-for-privacy-only-not-sales"
-        ],
-        "missingEvidence": [],
-        "recipientSideEligibility": null,
-        "senderSideEvaluated": false,
-        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
-        "sendAuthority": false,
-        "externalEffectAuthority": "NONE",
-        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
-      }
-    },
-    {
-      "company": "Footbridge Media",
-      "website": "https://www.footbridgemedia.com/",
-      "note": "External lane: service@footbridgemedia.com is publicly listed; its general contact page encourages a contact form. Published purpose of the address, verbatim excerpt, notice checks and a real client-site observation are not yet retained.",
-      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
-      "intake": {
-        "version": "uberbond.prospect-verification-intake.v1",
-        "company": "Footbridge Media",
+        "company": "Leadhub",
         "status": "INCOMPLETE",
+        "offerId": null,
+        "evidenceClass": "EXTERNAL_LANE_REPORT_PARTIAL",
         "rejectionReasons": [],
         "missingEvidence": [
           "current-ownership-unverified",
-          "us-headquarters-unverified",
-          "published-purpose-of-address-unverified",
-          "recipient-verbatim-excerpt-missing",
-          "recipient-observation-time-missing",
-          "no-solicitation-notice-not-checked",
-          "no-harvest-notice-not-checked",
-          "home-service-client-evidence-missing",
-          "real-client-site-missing",
-          "externally-verifiable-lead-path-observation-missing"
-        ],
-        "recipientSideEligibility": null,
-        "senderSideEvaluated": false,
-        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
-        "sendAuthority": false,
-        "externalEffectAuthority": "NONE",
-        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
-      }
-    },
-    {
-      "company": "1SEO Digital Agency",
-      "website": "https://1seo.com/",
-      "note": "External lane: publicly lists info@1seo.com but now states it is part of Scorpion. Scorpion is already a rejected overlap candidate in this repo.",
-      "factsProvenance": "MISSION_CONTROL_EXTERNAL_LANE_REPORT_NOT_INDEPENDENTLY_VERIFIED",
-      "intake": {
-        "version": "uberbond.prospect-verification-intake.v1",
-        "company": "1SEO Digital Agency",
-        "status": "REJECTED",
-        "rejectionReasons": [
-          "part-of-larger-group-overlap-and-buyer-mismatch"
-        ],
-        "missingEvidence": [],
-        "recipientSideEligibility": null,
-        "senderSideEvaluated": false,
-        "legalAuthorityStatus": "HOLD_SENDER_SIDE_UNRESOLVED",
-        "sendAuthority": false,
-        "externalEffectAuthority": "NONE",
-        "truthBoundary": "A VERIFIED_CANDIDATE is an externally observed, internally consistent record. It is not consent, not authorization, and not a send decision; sender-side legal authority and a founder-signed authorization remain separate gates."
-      }
-    },
-    {
-      "company": "Powerhouse Consulting Group",
-      "website": "https://mypowerhouse.group/",
-      "note": "Replacement-list candidate (medium-high overlap). No contact page observation retained yet.",
-      "factsProvenance": "REPO_PUBLIC_EVIDENCE_ONLY",
-      "intake": {
-        "version": "uberbond.prospect-verification-intake.v1",
-        "company": "Powerhouse Consulting Group",
-        "status": "INCOMPLETE",
-        "rejectionReasons": [],
-        "missingEvidence": [
-          "current-ownership-unverified",
-          "us-headquarters-unverified",
           "recipient-email-missing",
           "recipient-source-https-url-missing",
           "recipient-verbatim-excerpt-missing",
           "recipient-observation-time-missing",
+          "evidence-class-unverified",
+          "offer-route-from-existing-quartet-required",
           "no-solicitation-notice-not-checked",
           "no-harvest-notice-not-checked",
           "home-service-client-evidence-missing",
@@ -181,6 +231,85 @@
       }
     }
   ],
-  "nextEvidenceAction": "Run the external fetch lane over Leadhub, BxB Media, Footbridge Media and Powerhouse using the request file; feed each result record to compileProspectVerification. If none verify, discover replacements: do not force a winner.",
-  "truthBoundary": "No candidate is verified. Factual claims marked MISSION_CONTROL_EXTERNAL_LANE_REPORT are session reports, not retained page evidence. Nothing here is consent, authorization or a send decision."
+  "replacementDiscovery": {
+    "method": "WebSearch only (summaries, no page text)",
+    "boundedSearches": 3,
+    "leads": [
+      {
+        "company": "Lokal",
+        "fit": "Cincinnati, OH; home-services contractors; founded 2023; month-to-month; case study: Reliable Heating and Cooling (LSA visibility)",
+        "basis": "search summary: small, named client",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      },
+      {
+        "company": "Comrade Digital",
+        "fit": "Chicago, IL; roofing and contractors",
+        "basis": "search summary",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      },
+      {
+        "company": "The Roofing Marketer",
+        "fit": "roofing and home-service contractors exclusively",
+        "basis": "search summary",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      },
+      {
+        "company": "Hook Agency",
+        "fit": "plumbing and home-service; case study: AJ Alberts (plumbing); repo first-cash list rank 3",
+        "basis": "search summary + repo list; size unverified",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      },
+      {
+        "company": "Relentless Digital",
+        "fit": "HVAC founder-led; plumbing, electrical, garage door, pest control; repo reserve list (high overlap)",
+        "basis": "search summary + repo list",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      },
+      {
+        "company": "Think Profits",
+        "fit": "case study: John Sadler Plumbing & Heating",
+        "basis": "search summary",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      },
+      {
+        "company": "Coherency.co",
+        "fit": "HVAC lead generation; founder Majed Kassar; location unverified",
+        "basis": "search summary; US HQ unverified",
+        "status": "DISCOVERED_UNVERIFIED",
+        "admittedToTournament": false,
+        "whyNotAdmitted": "none of the nine admission criteria is established from a search summary (published business email, notice checks, ownership, prior-contact/suppression, client and observable issue all need page evidence)"
+      }
+    ],
+    "excludedAsTooLargeOrOverlapping": [
+      "CI Web Group (reports 1,000+ recurring clients)",
+      "SmartSites",
+      "WebFX",
+      "NP Digital",
+      "Mediagistic (reports 500+ contractors across US and Canada)",
+      "Blue Corona",
+      "Scorpion",
+      "Disruptive Advertising",
+      "Coalition Technologies",
+      "Marketing 360"
+    ],
+    "status": "LEADS_ONLY_NOT_ADMITTED"
+  },
+  "stoppingPoint": {
+    "reached": "ENVIRONMENT_LIMITED",
+    "explanation": "This sandbox cannot fetch pages and no other lane is reachable from it. Current candidates are not all falsified (Powerhouse, BxB Media and Leadhub are INCOMPLETE, not rejected) and replacement leads are unverified, so neither A (a VERIFIED_CANDIDATE) nor B (set falsified and replacement discovery exhausted) is claimed.",
+    "unblock": "artifacts/outreach/prospect-fetch-tasking-20261002.json"
+  },
+  "truthBoundary": "No candidate is verified. Findings marked MISSION_CONTROL_EXTERNAL_LANE_REPORT are session reports, not retained page evidence. Nothing here is consent, authorization or a send decision."
 }

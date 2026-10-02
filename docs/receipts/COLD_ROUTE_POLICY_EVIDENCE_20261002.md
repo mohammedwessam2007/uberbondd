@@ -173,3 +173,55 @@ OWNER AUTHORIZES PUBLIC FOOTER USE: YES/NO
 No other founder paperwork is required by the source for the identity gate. The sender-side facts (`operatorLocation`, `senderEntityJurisdiction`, `controllerJurisdiction`) are needed only by the cold-route authorization when it is wired.
 
 Effects: new spend $0; prospect messages 0; credential changes 0; production mutations 0; cold route not wired, not merged, not enabled.
+
+---
+
+# Revision 3 — 2026-10-03 (prospect lane resumed)
+
+Truth class: INTAKE UPDATE + SEARCH-LEVEL DISCOVERY. Nothing sent, wired, merged or enabled.
+
+## 16. Intake changes (branch only)
+
+`src/prospect-verification-intake.mjs` now encodes, deterministically:
+
+- **Negative recipient signals** reject (`REJECT_NEGATIVE_RECIPIENT_SIGNAL`): a published stance against unsolicited marketing, or one requiring consent, is a reputational and fit rejection even where the law would allow the message.
+- **Parent-company assessment** replaces the earlier blanket rejection: a candidate that is part of a group is rejected only if it no longer operates as its own prospect or the parent overlaps the offer (HIGH); unassessed overlap is INCOMPLETE; LOW overlap with a rationale and evidence reference proceeds.
+- **Evidence class:** only `PAGE_FETCH_VERIFIED` or `EXTERNAL_LANE_REPORT_WITH_EXCERPT` can support VERIFIED_CANDIDATE. A search-engine summary or a partial second-hand report never can.
+- **Offer routing:** exactly one offer from the existing quartet with a stated reason; no new product.
+
+13 tests pass; mutating each new rule is caught.
+
+## 17. Mission Control findings, resolved by the intake (not independently verified here)
+
+| Candidate | Status | Basis |
+|---|---|---|
+| Footbridge Media | **REJECTED** (`negative-recipient-signal`) | published article treats unsolicited marketing/optimization reports as cold-call equivalents it ignores; its own email service says consent is required and recipients should be existing customers or engaged prospects |
+| 1SEO Digital Agency | **REJECTED** (`parent-overlap-makes-offer-redundant`) | `info@1seo.com` is a genuinely public general-inquiry address (support@ is client-only). Determinations: still an operating branded entity; the Scorpion parent's RevenueMAX already attributes booked jobs and revenue, which this repo recorded as inseparable overlap; targeting 1SEO vs Scorpion is moot; no client or artifact pursued. |
+| KickCharge Creative | **REJECTED** (this address) | `sparky@` is a privacy contact; the contact form remains a possible non-email route |
+| Powerhouse Consulting Group | INCOMPLETE | `hello@mypowerhouse.group` on its privacy page and a partnership-oriented contact page; ServiceTitan/FSM consultancy (600+ contractors), not a classic agency. Better existing offer: Revenue Proof & Renewal Pack (RevOps-partner buyer). Missing: verbatim excerpt containing the address, notice checks, ownership, a named client and an observable issue. |
+| BxB Media | INCOMPLETE | vertical fit high; contact form and phone only; no clean commercial email. If none exists, the email route is rejected and BxB is preserved as another-channel opportunity. |
+| Leadhub | INCOMPLETE | vertical fit high (named client Go Green Heating & Cooling); no clean commercial recipient; opt-in-database emphasis is not a ban on vendor outreach; incidental internal addresses from blog transcripts must not be used. |
+
+## 18. Replacement discovery
+
+Three bounded searches (search summaries only) produced seven leads: Lokal, Comrade Digital, The Roofing Marketer, Hook Agency, Relentless Digital, Think Profits, Coherency.co. **None is admitted**: none of the nine admission criteria can be established from a search summary. Too large or overlapping and excluded: CI Web Group, SmartSites, WebFX, NP Digital, Mediagistic, Blue Corona, Scorpion, Disruptive Advertising, Coalition Technologies, Marketing 360.
+
+## 19. Stopping point: ENVIRONMENT_LIMITED
+
+Neither stop condition A (a VERIFIED_CANDIDATE) nor B (set falsified and discovery exhausted) is reached, and neither is claimed. This sandbox cannot fetch pages, and no other lane is reachable from it (checked). Page-level work for Powerhouse, BxB Media, Leadhub and the seven leads is specified for the lane that can fetch in `artifacts/outreach/prospect-fetch-tasking-20261002.json`; results return as intake records. I did not use another tool's remote execution to fetch pages around the egress policy.
+
+## 20. State against the target
+
+| Flag | Value |
+|---|---|
+| PRODUCTION_READY, TRANSPORT_READY, GREEN_SENDERS_READY, DANA_QUARANTINED | TRUE per Mission Control (not re-verified from this sandbox) |
+| COLD_ROUTE_TECHNICALLY_READY | TRUE |
+| COLD_ROUTE_ENABLED | FALSE |
+| PROSPECT_READY | **FALSE** (0 verified) |
+| MESSAGE_READY | **FALSE**: depends on a VERIFIED_CANDIDATE; no template or invented observation produced |
+| EFFECT_PACKAGE_READY_EXCEPT_HOLDS | **FALSE**: depends on MESSAGE_READY |
+| LEGAL_AUTHORITY_HOLD, IDENTITY_FACT_HOLD | TRUE |
+
+Machine-resolvable work remains (page-level verification); it is blocked by this environment's egress, not by an owner decision.
+
+Effects: new spend $0; prospect messages 0; credential changes 0; production mutations 0.

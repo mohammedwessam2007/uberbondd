@@ -111,3 +111,19 @@ Because DMARC passes and another aligned cedarpointdomains.com DKIM signature pa
 
 Promotion state becomes:
 `TRANSPORT_GREEN -> REPLY_LOOP_GREEN -> PHENOTYPE_PLACEMENT_2_OF_3_INBOX -> ONE_SENDER_RED -> PROSPECT_SEND_STILL_FROZEN`.
+
+## DKIM differential diagnosis — 2026-10-02
+
+Raw Gmail headers for all three human-phenotype canaries were compared. All three share the same authentication pattern: an aligned `cedarpointdomains.com` DKIM signature with selector `no56qfuwjhifplhcglecser6tx7warhe` passes; Amazon SES DKIM passes; SPF passes; DMARC passes; and a second `cedarpointdomains.com` signature using selector `dkim` fails. Tara and Nadia still reached Inbox while Dana reached Spam.
+
+Therefore the redundant failing `s=dkim` signature is not a sender-3-specific explanation for Dana's Spam placement. Do not mutate working DNS blindly. Winnr's current documentation says provider-hosted domains have Winnr-managed DKIM, so the redundant signature should be treated as a provider/header diagnostic until Winnr explains or repairs it.
+
+Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.
+
+## DKIM differential diagnosis — 2026-10-02
+
+Raw Gmail headers for all three human-phenotype canaries were compared. All three share the same authentication pattern: an aligned `cedarpointdomains.com` DKIM signature with selector `no56qfuwjhifplhcglecser6tx7warhe` passes; Amazon SES DKIM passes; SPF passes; DMARC passes; and a second `cedarpointdomains.com` signature using selector `dkim` fails. Tara and Nadia still reached Inbox while Dana reached Spam.
+
+Therefore the redundant failing `s=dkim` signature is not a sender-3-specific explanation for Dana's Spam placement. Do not mutate working DNS blindly. Winnr's current documentation says provider-hosted domains have Winnr-managed DKIM, so the redundant signature should be treated as a provider/header diagnostic until Winnr explains or repairs it.
+
+Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.

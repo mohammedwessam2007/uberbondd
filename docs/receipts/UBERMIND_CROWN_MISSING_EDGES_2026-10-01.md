@@ -33,3 +33,13 @@ Fresh full-context modeled 1.0118806695078688x; certified residual modeled 14.16
 
 ## Authentication
 Secure Render browser sign-in timed out. The gateway bearer was not revealed, replaced or rotated. A fresh signed-in Render browser is still required to securely configure the existing bearer in TypingMind. Do not ask for credentials in chat.
+
+## Live checkpoint proof — 2026-10-02T00:05Z
+PR #1133 merged at 6e5030166f21735ca9052d249998878343ef82e9; normal LIVE deployment dep-davf9pmgekts73drjlbg finished 00:05:02.974871Z, exact same source SHA.
+PostgreSQL private checkpoint verification at 00:04:53.371398Z:
+status VERIFIED_ENCRYPTED_PARTIAL_CHECKPOINT; hiddenTaskCount 2; retainedCandidateAnswers 1; missingCandidateAnswers 3; missingEvaluatorCalls 1; minimumPaidCalls 4; inheritedSpendUsd 0.06503775; sealedPayloadsExposed false.
+Recomputed task commitment equals sha256:f94ea677f0c335badff2ac12205d2c6cf6ba9c4a9e2f34b42cf5421a24826f66. No hidden payload was emitted.
+Final exact-head source test run: 51 passed, 0 failed; time-sensitive synthetic authority fixtures corrected across UTC midnight without changing real financial consent. GitHub CI run 36943906934 jobs all had steps null and logs_url null: CI_VERIFIED remains false.
+No R2 resume authorization installed. Paid startup disabled; read-only diagnostic is being disabled after this proof. Existing monthly October runtime authority remains valid until November 1; the narrower R1 replacement authorization expired at October 2 00:00Z and is not automatically renewed.
+TypingMind custom model remains NOT_SAVED. Browser reset lost the unsaved form; configuration values remain durably recoverable. Render browser authentication remains required to securely transfer the existing gateway bearer; no new key or rotation is permitted.
+Next exact owner action: authorize maximum incremental USD0.30 for the four missing evidence calls under the unchanged USD20 monthly key limit, with no automatic retry. Prior evaluation spend USD0.06503775 is retained; total evaluation ceiling USD0.36503775. Then use the existing R2 continuation, adjudicate legitimately, install admission only if valid, verify readiness, finish TypingMind and one bounded E2E. Do not restart the tournament.

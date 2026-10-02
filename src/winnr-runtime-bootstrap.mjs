@@ -24,7 +24,9 @@ export async function runWinnrRuntimeBootstrap({
   config,
   csvText='',
   canaryTarget='',
-  workspaceId='uberbond-outreach'
+  workspaceId='uberbond-outreach',
+  smtpSkipOrdinals=[],
+  smtpInterProbeDelayMs=15000
 }={}){
   const startedAt=new Date().toISOString();
   const reasons=[];
@@ -93,15 +95,23 @@ export async function runWinnrRuntimeBootstrap({
 
     const probes=[];
     let messagesSent=0;
+    const skipSmtp=new Set((Array.isArray(smtpSkipOrdinals)?smtpSkipOrdinals:[]).map(Number).filter(n=>Number.isInteger(n)&&n>0));
+    let attemptedSmtp=0;
     for(let i=0;i<prepared.prepared.length;i++){
       const row=prepared.prepared[i];
+      const ordinal=i+1;
       let imap={ok:false,status:'NOT_RUN'};
-      let smtp={classification:'REJECTED',reasonCodes:['not-run']};
+      let smtp=skipSmtp.has(ordinal)
+        ? {classification:'PREVIOUSLY_CONFIRMED',reasonCodes:[]}
+        : {classification:'REJECTED',reasonCodes:['not-run']};
       try{
         imap=await pollImapForwardingAccount({account:row.imapAccount,encryptionKey:config.encryptionKey,limit:1});
       }catch(error){
         imap={ok:false,status:'IMAP_PROBE_EXCEPTION',error:safeFailure(error)};
       }
+      if(!skipSmtp.has(ordinal)){
+        if(attemptedSmtp>0)await new Promise(resolve=>setTimeout(resolve,Math.max(1000,Math.min(60000,Number(smtpInterProbeDelayMs)||15000))));
+        attemptedSmtp++;
       try{
         smtp=await dispatchSmtpFleetAccount({
           account:row.smtpAccount,
@@ -116,9 +126,10 @@ export async function runWinnrRuntimeBootstrap({
       }catch(error){
         smtp={classification:'REJECTED',reasonCodes:['smtp-probe-exception'],dispatchError:safeFailure(error)};
       }
+      }
       probes.push({
-        accountOrdinal:i+1,
-        smtpConfirmed:smtp?.classification==='ACCEPTED',
+        accountOrdinal:ordinal,
+        smtpConfirmed:['ACCEPTED','PREVIOUSLY_CONFIRMED'].includes(smtp?.classification),
         smtpClassification:smtp?.classification||'UNKNOWN',
         smtpReasonCodes:Array.isArray(smtp?.reasonCodes)?smtp.reasonCodes.map(x=>clean(x,120)).slice(0,5):[],
         smtpError:clean(smtp?.dispatchError,300)||null,

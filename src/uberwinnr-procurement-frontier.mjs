@@ -1,4 +1,4 @@
-export const UBERWINNR_PROCUREMENT_VERSION = 'uberbond.uberwinnr-procurement.v2';
+export const UBERWINNR_PROCUREMENT_VERSION = 'uberbond.uberwinnr-procurement.v3';
 
 export const WINNR_PUBLIC_FACTS_2026_10_02 = Object.freeze({
   observedAt: '2026-10-02',
@@ -18,10 +18,12 @@ export const WINNR_PUBLIC_FACTS_2026_10_02 = Object.freeze({
     coldRangePerMailboxPerDay: Object.freeze([10, 15]),
     totalMailPerMailboxPerDayCeiling: 50,
     mcpMinimumTermMonthsClaim: 0,
-    helpMinimumTermMonthsClaim: 3,
-    minimumTermConflictObserved: true,
-    publicHelpMinimumCommittedMonths: 3,
-    publicHelpMinimumCommittedUsdAtMinimumAddresses: 27
+    staleHelpMinimumTermMonthsClaim: 3,
+    writtenSupportResolvedMinimumTermMonths: 0,
+    minimumTermConflictObserved: false,
+    historicalMinimumTermConflictObserved: true,
+    minimumCommittedUsdAtMinimumAddresses: 9,
+    resolutionEvidence: 'WRITTEN_SUPPORT_2026_10_02_NO_MINIMUM_TERM_CANCEL_ANYTIME'
   }),
   warming: Object.freeze({
     optional: true,
@@ -32,6 +34,9 @@ export const WINNR_PUBLIC_FACTS_2026_10_02 = Object.freeze({
     internationalVisaMastercardAccepted: true,
     basePlanRequiredForPrewarmed: false,
     minimumInitialChargeUsd: 9,
+    minimumTermMonths: 0,
+    cancelAnytime: true,
+    purchaseScreenMinimumTermText: 'Minimum term: None, cancel anytime',
     smtpImapExportSupported: true,
     lawfulB2BUseDescribedByUberBondAccepted: true,
     materiallyListedAtHandoverRemedy: 'SWAP_OR_REFUND_MONTH'
@@ -56,8 +61,8 @@ export function compileWinnrProcurementFrontier({
   inventoryObserved = false,
   exactFirstChargeObserved = false,
   exactFirstChargeUsd = null,
-  prewarmedMinimumTermConflictResolved = false,
-  resolvedPrewarmedMinimumTermMonths = null,
+  prewarmedMinimumTermConflictResolved = WINNR_PUBLIC_FACTS_2026_10_02.prewarmed.minimumTermConflictObserved === false,
+  resolvedPrewarmedMinimumTermMonths = WINNR_PUBLIC_FACTS_2026_10_02.prewarmed.writtenSupportResolvedMinimumTermMonths,
   minimumCommitmentObserved = false,
   exactMinimumCommittedUsd = null,
   maxPilotSpendUsd = 15,
@@ -74,11 +79,14 @@ export function compileWinnrProcurementFrontier({
     addresses: pre.minimumAddresses,
     firstMonthUsd: minimumPilotMonthlyUsd,
     monthlyUsd: minimumPilotMonthlyUsd,
-    publicHelpMinimumCommittedMonths: pre.publicHelpMinimumCommittedMonths,
-    publicHelpMinimumCommittedUsd: pre.publicHelpMinimumCommittedUsdAtMinimumAddresses,
+    historicalHelpMinimumCommittedMonths: pre.staleHelpMinimumTermMonthsClaim,
+    historicalHelpMinimumCommittedUsd: money(minimumPilotMonthlyUsd * pre.staleHelpMinimumTermMonthsClaim),
+    writtenSupportMinimumCommittedUsd: pre.minimumCommittedUsdAtMinimumAddresses,
     mcpMinimumTermMonthsClaim: pre.mcpMinimumTermMonthsClaim,
-    helpMinimumTermMonthsClaim: pre.helpMinimumTermMonthsClaim,
+    staleHelpMinimumTermMonthsClaim: pre.staleHelpMinimumTermMonthsClaim,
+    writtenSupportResolvedMinimumTermMonths: pre.writtenSupportResolvedMinimumTermMonths,
     minimumTermConflictObserved: pre.minimumTermConflictObserved,
+    historicalMinimumTermConflictObserved: pre.historicalMinimumTermConflictObserved,
     nominalNormalColdDaily: pre.minimumAddresses * pre.normalColdPerMailboxPerDay,
     nominalColdRangeDaily: Object.freeze([
       pre.minimumAddresses * pre.coldRangePerMailboxPerDay[0],
@@ -146,7 +154,7 @@ export function compileWinnrProcurementFrontier({
     termEvidence: Object.freeze({
       conflictObserved: pre.minimumTermConflictObserved,
       officialMcpClaimMonths: pre.mcpMinimumTermMonthsClaim,
-      firstPartyHelpClaimMonths: pre.helpMinimumTermMonthsClaim,
+      firstPartyHelpClaimMonths: pre.staleHelpMinimumTermMonthsClaim,
       resolved: termResolutionValid,
       resolvedMinimumTermMonths: termResolutionValid ? resolvedMonths : null,
       exactMinimumCommitmentObserved: minimumCommitmentObserved === true,
@@ -168,17 +176,17 @@ export function compileWinnrProcurementFrontier({
     }),
     ownerPurchasePacket: Object.freeze({
       action: route === 'WINNR_PREWARMED_MINIMUM_CANARY'
-        ? 'BUY_ONE_GREEN_PREWARMED_DOMAIN_WITH_MINIMUM_3_ADDRESSES_AFTER_TERM_RECONCILIATION'
+        ? 'BUY_ONE_GREEN_PREWARMED_DOMAIN_WITH_MINIMUM_3_ADDRESSES_AFTER_AUTHENTICATED_CHECKOUT'
         : route === 'WINNR_PREWARMED_TARGET_CAPACITY'
-          ? `BUY_GREEN_PREWARMED_CAPACITY_FOR_${prewarmedAddressesForTarget}_ADDRESSES_AFTER_TERM_RECONCILIATION`
+          ? `BUY_GREEN_PREWARMED_CAPACITY_FOR_${prewarmedAddressesForTarget}_ADDRESSES_AFTER_AUTHENTICATED_CHECKOUT`
           : route === 'WINNR_STARTUP_CAPACITY_ROUTE'
             ? 'BUY_WINNR_STARTUP_AFTER_AUTHENTICATED_CHECKOUT'
             : 'NO_PURCHASE',
       expectedFirstChargeUsd: route.startsWith('WINNR_PREWARMED')
         ? (route === 'WINNR_PREWARMED_MINIMUM_CANARY' ? minimumPilot.firstMonthUsd : prewarmedMonthlyForTarget)
         : startup.monthlyUsd,
-      publicHelpMinimumCommittedUsd: prewarmedRoute
-        ? money(prewarmedMonthlyForTarget * pre.publicHelpMinimumCommittedMonths)
+      writtenSupportMinimumCommittedUsd: prewarmedRoute
+        ? prewarmedMonthlyForTarget
         : null,
       maxPilotSpendUsd: Number(maxPilotSpendUsd),
       maxPilotCommittedSpendUsd: Number(maxPilotCommittedSpendUsd),
@@ -186,6 +194,6 @@ export function compileWinnrProcurementFrontier({
     }),
     externalEffectAuthority: 'NONE',
     spendAuthorized: false,
-    truthBoundary: 'First-party Winnr evidence currently conflicts on the pre-warmed minimum term: official MCP source says no minimum term while current Help pages say 90 days. This compiler preserves that contradiction and refuses a pre-warmed purchase until the binding term and exact minimum committed spend are reconciled. Provider pacing is not send authority; UberWarm² remains the live cap authority after purchase.'
+    truthBoundary: 'Written Winnr support on 2026-10-02 resolved the historical pre-warmed term contradiction in favor of no minimum term / cancel anytime. Purchase still fails closed until authenticated checkout, live inventory, exact first charge and exact committed spend are observed. Provider pacing is not send authority; UberWarm² remains the live cap authority after purchase.'
   });
 }

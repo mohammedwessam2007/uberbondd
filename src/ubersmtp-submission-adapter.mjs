@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import net from 'node:net';
 import tls from 'node:tls';
+import { connectTlsThroughBlindWebSocketTunnel } from './fixed-host-blind-tunnel.mjs';
 
 export const UBERSMTP_SUBMISSION_VERSION = 'uberbond.ubersmtp-submission.v1';
 const clean=(v,n=2000)=>String(v??'').trim().slice(0,n);
@@ -58,6 +59,19 @@ function responseReader(socket,{timeoutMs=30000}={}){
 }
 
 async function connectSocket({host,port,secure,connectTimeoutMs}){
+  const tunnelUrl=clean(process.env.UBERSMTP_BLIND_TUNNEL_URL,2000);
+  const tunnelToken=clean(process.env.UBERSMTP_BLIND_TUNNEL_TOKEN,1000);
+  const tunnelAllowedHost=clean(process.env.UBERSMTP_BLIND_TUNNEL_ALLOWED_HOST,253).toLowerCase();
+  if(secure&&tunnelUrl&&tunnelToken&&tunnelAllowedHost===String(host||'').toLowerCase()&&Number(port)===465){
+    return connectTlsThroughBlindWebSocketTunnel({
+      url:tunnelUrl,
+      token:tunnelToken,
+      allowedHost:tunnelAllowedHost,
+      targetHost:host,
+      targetPort:port,
+      connectTimeoutMs
+    });
+  }
   return new Promise((resolve,reject)=>{
     const options={host,port};
     const socket=secure?tls.connect({...options,servername:net.isIP(host)?undefined:host,rejectUnauthorized:true}):net.createConnection(options);

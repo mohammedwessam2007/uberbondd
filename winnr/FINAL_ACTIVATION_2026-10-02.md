@@ -61,3 +61,30 @@ This is one Gmail receiving account, not population-wide deliverability proof.
 Two Inbox placements justify preserving the two green senders as candidates for the next bounded cohort. They do not justify high volume, the $69 Startup purchase, or automatic cold outreach.
 
 The quarantined sender must not be reintroduced until new external placement evidence supersedes the red state.
+
+
+## Live production closure
+
+Merged source:
+- PR #1158
+- main commit: `c04f0f35ec6f5c899ca1e14af95d6be690ab3ea0`
+
+Render activation:
+- service: `uberbond-control-plane`
+- deploy: `dep-davtfm1srm7s73dar680`
+- startup receipt: `WINNR_PLACEMENT_QUARANTINE_APPLIED`
+- appliedAt: `2026-10-02T16:13:11.670Z`
+- pausedOrdinals: `[3]`
+- reason: `GMAIL_PLACEMENT_RED`
+- scope: `SMTP_FLEET_SELECTION_ONLY`
+- imapCustodyChanged: false
+- prospectSendAuthorityGranted: false
+
+The same live startup also reconfirmed:
+- `WINNR_RUNTIME_TRANSPORT_VERIFIED`
+- SMTP 3/3
+- IMAP 3/3
+- `WINNR_REPLY_CANARIES_INGESTIBLE`
+- reply ordinals [2,3]
+
+This closes the Winnr infrastructure activation mission at a truthful split state: two candidate-green SMTP senders, one placement-red SMTP sender quarantined, all three IMAP paths retained.

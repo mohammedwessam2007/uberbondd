@@ -89,6 +89,9 @@ async function call(apiKey,{model,messages,maxTokens,provider,tag,responseFormat
   if(!id)throw new Error('provider-generation-id-required:'+model);
   // Persist identity before reconciliation so a billed response cannot disappear.
   await onGeneration({id,model,status:'DISPATCHED_UNRECONCILED'});
+  // Keep the private response even when the billing lookup is unavailable.
+  // This is encrypted custody only, never permission to admit unbilled evidence.
+  await onSealedResponse({id,model,response:j});
   const meta=await generation(apiKey,id);
   const observedModel=String(meta.model??j.model??'');
   const cost=Number(meta.total_cost);

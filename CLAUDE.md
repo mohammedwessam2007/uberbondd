@@ -26,9 +26,12 @@
 
 Unless a newer explicit founder instruction supersedes it, treat the Winnr first-cash mega mission imported above as the active commercial execution mission after completing the mandatory repository startup and truth refresh. It is intentionally open-ended: close the current Winnr/outreach frontier, continue through the furthest evidence-backed commercial state available, and stop only at a verified terminal state or a genuine external/owner-only blocker.
 
-## Active Opus 5.5 economic execution overlay
 
-For the current founder-directed Winnr -> first-cash -> recurring-revenue frontier, `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` is an active execution overlay. Read it before selecting or narrowing the commercial mission. It does not supersede AGENTS.md, the terminal North Star, current policy, or newer live truth; it exists to prevent Claude Code from stopping at a plan, restarting solved Winnr work, or terminating after the first internal milestone.
+## Active founder-directed economic execution overlay — 2026-10-02
+
+For the current Winnr -> real outreach -> first cash -> delivery -> renewal/expansion frontier, read and obey `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` after the mandatory startup/truth refresh. It is intentionally open-ended: it preserves the full prior Winnr mega mission, then continues beyond the first send through replies, qualification, cleared payment, accepted delivery, recurring revenue, scaling, failure recovery, offer/channel mutation and successor missions.
+
+This overlay does **not** supersede `AGENTS.md`, the terminal North Star, newer explicit founder instructions, live external truth, provider policy, recipient eligibility, suppression, security, spend controls or consequence authority. Its purpose is to stop Claude Code from restarting solved work or stopping at an internal milestone when the next lawful dependency-satisfied execution step is available.
 
 ## Mandatory startup
 

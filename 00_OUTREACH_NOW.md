@@ -23,6 +23,7 @@ This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Co
 8. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
 9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md` (procurement lineage)
 10. `winnr/README.md` + `winnr/CURRENT_STATE.json` (current purchased/activated pilot)
+11. `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` (active Claude Code open-ended execution overlay; subordinate to current truth/policy)
 
 ## V5 genome
 

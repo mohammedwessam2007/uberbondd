@@ -5,6 +5,7 @@ import { config } from './src/config.mjs';
 import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
+import { runWinnrHttpsEgressProbe } from './src/winnr-https-egress-probe.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
 import { prepareOutreach100kArtifacts } from './src/outreach-100k-artifact-preparer.mjs';
@@ -628,6 +629,16 @@ if (wrapperIsEntryPoint) {
     console.error('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify({
       ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,300)
     }));
+  });
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_HTTPS_PROBE_URL || '').trim() && String(process.env.WINNR_HTTPS_PROBE_TOKEN || '').trim()) {
+  void (async () => {
+    await new Promise(resolve => setTimeout(resolve, 4000));
+    const result = await runWinnrHttpsEgressProbe({ config });
+    console.log('WINNR_HTTPS_EGRESS ' + JSON.stringify(result));
+  })().catch(error => {
+    console.error('WINNR_HTTPS_EGRESS ' + JSON.stringify({ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,300)}));
   });
 }
 

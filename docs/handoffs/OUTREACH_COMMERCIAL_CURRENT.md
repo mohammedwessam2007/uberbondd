@@ -236,3 +236,14 @@ Canonical detailed receipt: `docs/WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md
 
 No cold prospect outreach is authorized until a new placement evidence cycle clears the promotion gate.
 
+
+
+## Winnr canonical recovery root — 2026-10-02
+
+All Winnr purchase, custody, transport, placement, reply-verification, security-boundary and continuation state is indexed under `winnr/README.md`.
+
+Current compressed state:
+
+`SMTP_3_OF_3 + IMAP_3_OF_3 + REPLIES_2_OF_2_INGESTIBLE + GMAIL_RUNTIME_PLACEMENT_0_OF_3_INBOX -> PROSPECT_SEND_FROZEN`
+
+On "continue Winnr", recover `winnr/README.md` before changing sender state or repeating procurement/integration work.

@@ -136,6 +136,10 @@ export async function dispatchSmtpFleetAccount({
       evidence:{provider:'smtp-relay',receiptId:clean(result.providerReceiptId,500),routeEvidenceRef:clean(route.evidenceRef,1500)}
     };
   }catch(error){
-    return {classification:'UNCERTAIN',reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(error?.message||error,500),automaticRetryAuthorized:false};
+    const nested=Array.isArray(error?.errors)
+      ? error.errors.slice(0,6).map(item=>[item?.code,item?.address,item?.port,item?.message].filter(Boolean).join(':')).filter(Boolean)
+      : [];
+    const detail=nested.length?nested.join('|'):(error?.message||error);
+    return {classification:'UNCERTAIN',reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(detail,500),automaticRetryAuthorized:false};
   }
 }

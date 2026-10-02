@@ -132,8 +132,12 @@ export async function runWinnrSealedBootstrapController({config,canaryTarget='ub
     }
     const envelope=JSON.parse(raw);
     const opened=openEnvelope(envelope,state,config.encryptionKey);
-    const priorConfirmed=(Array.isArray(state.smtpConfirmedOrdinals)?state.smtpConfirmedOrdinals:[])
-      .map(Number).filter(n=>Number.isInteger(n)&&n>0);
+    const externallyConfirmed=String(process.env.WINNR_SMTP_CONFIRMED_ORDINALS||'')
+      .split(',').map(Number).filter(n=>Number.isInteger(n)&&n>0);
+    const priorConfirmed=[...new Set([
+      ...(Array.isArray(state.smtpConfirmedOrdinals)?state.smtpConfirmedOrdinals:[]),
+      ...externallyConfirmed
+    ].map(Number).filter(n=>Number.isInteger(n)&&n>0))].sort((a,b)=>a-b);
     const result=await runWinnrRuntimeBootstrap({
       config,
       csvText:opened.csvText,

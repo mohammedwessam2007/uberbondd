@@ -64,7 +64,7 @@ Owner-controlled Gmail replies were sent back to Winnr mailboxes 2 and 3 after t
 
 UberBond's canonical worker already has encrypted IMAP reply polling wired through `replies.poll`. The temporary reply-poll cadence was reduced to one minute for observation and then restored to the normal ten-minute setting. No IMAP failure was logged during the observation window, but the successful worker path is silent, so this receipt does **not** upgrade reply ingestion from inferred to independently observed database evidence.
 
-A direct database receipt can be checked later through the Neon integration without exposing the database credential. Until then, reply ingestion remains **transport-capable but database receipt pending**.
+The live durable database was re-identified on 2026-10-02 as Render Postgres `uberbond-control-postgres` in Frankfurt, not a currently proven Neon production database. The hosted Render database connector cannot query it because the database correctly has an empty external IP allowlist. That network boundary was not weakened for diagnostics. Until an in-runtime verifier or private database path produces a positive receipt, reply ingestion remains **transport-capable but database receipt pending**.
 
 ## Cleanup
 

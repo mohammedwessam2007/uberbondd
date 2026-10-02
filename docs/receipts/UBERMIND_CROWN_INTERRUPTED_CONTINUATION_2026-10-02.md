@@ -21,3 +21,19 @@ Local focused tests: 61 passed, 0 failed. Synthetic tests prove source behavior 
 Next exact edge: reconcile the interrupted generation from provider evidence. If the bill remains unavailable, external provider evidence is required before retry. Completed tasks/answers must be reused. The blind evaluator remains missing. No whole-tournament restart, manual admission or readiness bypass.
 
 JEV raw-chat suppression authority remains NONE. Modeled fresh fallback 1.0118806695078688x; modeled certified residual 14.161946017994001x; compiled benchmark capacity 33,333.345x; production realized UNKNOWN.
+
+## Live zero-spend boundary proof — 2026-10-02T00:42Z
+PR #1136 merged at a7765aca5b23134f18118d12254aa7b11ff5cf69.
+Normal LIVE recovery deploy dep-davfrc0u01pc73ek4gjg finished 00:42:32.319585Z, exact same SHA.
+Runtime metadata GET at 00:42:22.667407908Z: DISPATCHED_UNRECONCILED, exact generation gen-1790900587-TKEqsFrik1iupnf4Ljrd, metadataHttpStatus 404, providerCallsPerformed 0. No charge was fabricated and failed state was not reset.
+Private checkpoint verification at 00:42:22.677316136Z: VERIFIED_ENCRYPTED_CONTINUATION_CHECKPOINT, retainedCandidateAnswers 3, missingCandidateAnswers 1, missingEvaluatorCalls 1, same task commitment, privateInterruptedResponsePresent false, sealedPayloadsExposed false. The third candidate response is unavailable; the three retained answers remain usable after valid continuation authority and financial reconciliation. Do not regenerate them.
+
+Clean LIVE deploy dep-davfttugekts73dtmj20 finished 00:47:59.431474Z, same a7765aca source. PostgreSQL worker started at 00:47:48.568824459Z.
+Normal build npm install --omit=dev remains persisted. INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE=0 and INFINITE_OPUS_RECOVERY_DIAGNOSTIC_ONCE=0 were checked after browser reload. One immediate clipboard comparison was stale; a targeted reveal/read of the nonsecret paid-startup flag confirmed value 0. No provider secret was revealed.
+Hosted PR #1136 workflow jobs all had steps null and logs_url null; CI_VERIFIED false. Exact pushed source matched the 61-passing-test local source.
+
+TypingMind UberMind Auto form prepared and left unsaved: ubermind/auto, gateway /api/typingmind/infinite-opus/v1/chat/completions, context 64000, number max_tokens 8192; system and streaming ON; plugins, vision/PDF/external images, thinking, caching, native tools, sampling and reasoning-effort toggles OFF; extra capability probes OFF; TypingMind Cloud proxy OFF.
+The bearer transfer is NOT complete. Automatic approval review rejected reading the private bearer into an agent variable under the owner's no-exposure rule. The materially safer direct clipboard paste failed because the virtual clipboard had no data. Clipboard cleared; no new key or rotation. Authentication field contains only the Bearer prefix. Any completion must use user-controlled private transfer or a supported non-reading secret-paste capability, never reveal the bearer in chat.
+Authenticated live readiness remains unverified; attempted unauthenticated /models browser navigation returned ERR_BLOCKED_BY_CLIENT, not an application authorization response. No Test & Save and no E2E inference.
+
+Genuine boundaries: provider evidence for the dispatched-but-unbilled generation; user-controlled credential transfer. Additional paid inference remains locked. Do not ask for increased caps or rerun the tournament. After exact provider charge resolution, preserve the three certified-by-binding candidate artifacts, execute only genuinely missing evidence under distinct valid retry authority where required, adjudicate through the unchanged court, and install an admission only if it passes.

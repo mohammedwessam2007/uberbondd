@@ -18,6 +18,7 @@ import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBea
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
 import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recovery-diagnostic.mjs';
+import { reconcileInterruptedCrownGeneration } from './scripts/infinite-opus-crown-interrupted-recovery.mjs';
 import { runCrownAutoFinish } from './scripts/infinite-opus-crown-autofinish.mjs';
 
 const originalCreateServer = http.createServer;
@@ -688,7 +689,9 @@ export default requestHandler;
 if (wrapperIsEntryPoint && process.env.INFINITE_OPUS_RECOVERY_DIAGNOSTIC_ONCE === '1') {
   const recoveryStore=createStore(config);
   void (async()=>{
-    try { await recoveryStore.init(); console.log('UBERMIND_CROWN_RECOVERY '+JSON.stringify(await readCrownRecoveryMetadata(recoveryStore))); }
+    try { await recoveryStore.init();
+      console.log('UBERMIND_CROWN_INTERRUPTED_RECOVERY '+JSON.stringify(await reconcileInterruptedCrownGeneration(recoveryStore,{apiKey:process.env.OPENROUTER_API_KEY})));
+      console.log('UBERMIND_CROWN_RECOVERY '+JSON.stringify(await readCrownRecoveryMetadata(recoveryStore))); }
     catch { console.error('UBERMIND_CROWN_RECOVERY '+JSON.stringify({status:'STORE_READ_FAILED',providerCallsPerformed:0})); }
     finally { await recoveryStore.close().catch(()=>{}); }
   })();

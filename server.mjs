@@ -6,7 +6,7 @@ import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
 import { verifyWinnrReplyCanaries } from './src/winnr-reply-canary-verifier.mjs';
-import { runWinnrPlacementPhenotypeCanary } from './src/winnr-placement-phenotype-canary.mjs';
+import { runWinnrPlacementPhenotypeCanary, runWinnrPersonalInboxCanary } from './src/winnr-placement-phenotype-canary.mjs';
 import { applyWinnrPlacementQuarantine } from './src/winnr-placement-quarantine.mjs';
 import { DurableQueue } from './src/queue.mjs';
 import { prepareOutreach100kRuntime } from './src/outreach-100k-runtime-control.mjs';
@@ -647,6 +647,14 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_QUARANTINE_ORDINAL
     .then(result => console.log('WINNR_PLACEMENT_QUARANTINE ' + JSON.stringify(result)))
     .catch(error => console.error('WINNR_PLACEMENT_QUARANTINE_FAILED ' + JSON.stringify({
       ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,200)
+    })));
+}
+
+if (wrapperIsEntryPoint && process.env.WINNR_PERSONAL_INBOX_CANARY_ONCE === '1') {
+  void runWinnrPersonalInboxCanary({ config })
+    .then(result => console.log('WINNR_PERSONAL_INBOX_CANARY ' + JSON.stringify(result)))
+    .catch(() => console.error('WINNR_PERSONAL_INBOX_CANARY ' + JSON.stringify({
+      ok:false,status:'WINNR_PERSONAL_CANARY_RECONCILE_REQUIRED',automaticRetryAuthorized:false
     })));
 }
 

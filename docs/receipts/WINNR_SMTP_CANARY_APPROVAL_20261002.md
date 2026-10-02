@@ -10,6 +10,8 @@ The endpoint now accepts SMTP under its existing permissioned canary policy and 
 
 Validation: 42 focused tests pass across the authenticated approval handler, route governance, canary dispatch, fleet allocation, operator and admin surfaces. Tests cover a permissioned SMTP approval with zero provider calls, all sender refusal cases, denial of an unsolicited public-contact route, and tampered/replayed payload protection.
 
+Changed runtime/test files pass `node --check`. The repository-wide syntax check scans 2,583 files and fails on three existing test fixtures: `durable-decision-franchise-vault`, `infinite-opus-receipt-court-runtime`, and `infinite-opus-worker-context-vault`. Each failing file is byte-identical to baseline main; no production source parse failure was reported. Full-repository syntax is therefore not claimed green.
+
 Next execution gate: obtain a complete owner-authorized publishable postal identity and actual recipient permission evidence. Re-research stale drafts under the current offer and actual SMTP assignment before exact approval. Do not label conservative cap configuration or a compiled UberWarm² plan as scheduled warm-up or delivered outreach.
 
 New spend: $0. New owner seed messages: 0. New prospect messages: 0.

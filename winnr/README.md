@@ -10,7 +10,9 @@ This directory is the durable, secret-free recovery root for UberBond's Winnr se
 
 `PURCHASED -> PROVISIONED -> ENCRYPTED_CUSTODY -> SMTP_3_OF_3 -> IMAP_3_OF_3 -> REPLIES_2_OF_2_INGESTIBLE -> HUMAN_PHENOTYPE_GMAIL_2_OF_3_INBOX -> SMTP_ORDINAL_3_QUARANTINED`
 
-Transport and reply ingestibility are verified. A separate personal-Gmail seed now has 3/3 Inbox placements; the earlier UberBond Gmail split and ordinal-3 quarantine are retained. Campaign activation remains separate.
+Transport is verified. Reply ingestibility is verified. Placement is not promoted.
+
+Latest additive evidence: the separate personal-Gmail test delivered all three messages to INBOX with SPF, aligned DKIM and DMARC passing. Technical integration is complete. Prospect campaign promotion and the existing ordinal-3 fleet pause remain separate. See `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` for exact message/deployment receipts.
 
 ## Read order
 
@@ -22,10 +24,8 @@ Transport and reply ingestibility are verified. A separate personal-Gmail seed n
 6. [SECURITY_BOUNDARIES.md](./SECURITY_BOUNDARIES.md)
 7. [FINAL_ACTIVATION_2026-10-02.md](./FINAL_ACTIVATION_2026-10-02.md)
 8. [PERSONAL_INBOX_RECONCILIATION_2026-10-02.md](./PERSONAL_INBOX_RECONCILIATION_2026-10-02.md)
-9. [LIVE_RECONCILIATION_2026-10-02.md](./LIVE_RECONCILIATION_2026-10-02.md)
 
-Machine-readable observations: [CURRENT_STATE.json](./CURRENT_STATE.json). Refresh live truth before acting.
-
+Machine-readable observations: [CURRENT_STATE.json](./CURRENT_STATE.json). Independent recheck: [LIVE_RECONCILIATION_2026-10-02.md](./LIVE_RECONCILIATION_2026-10-02.md). Refresh live truth before acting.
 
 ## Canonical upstream evidence
 

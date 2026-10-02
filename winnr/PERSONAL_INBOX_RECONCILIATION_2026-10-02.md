@@ -34,16 +34,38 @@ Source validation: syntax checks passed; 14 focused tests passed, including targ
 
 New receiving-provider evidence must be appended here before any placement decision changes. Even all three Inbox outcomes in a second Gmail account would not prove Microsoft/Yahoo placement or authorize high volume.
 
-## Subsequent independent personal-seed observation
+## Live experiment result — COMPLETE
 
-The separate personal-seed experiment completed once. Its live runtime receipt is `WINNR_PERSONAL_CANARY_SENT`, accepted 3/3; subsequent startup returned `WINNR_PERSONAL_CANARY_ALREADY_COMPLETED`, without replay. All three corresponding messages were independently read in the connected founder personal Gmail and carried INBOX and CATEGORY_UPDATES labels.
+PR #1162 merged at `61a6b553035db760f5627bf87b02916fad2cf27b`.
+Deploy `dep-davtng8u01pc73848i50` ran the bounded test and became live.
+Production receipt `WINNR_PERSONAL_CANARY_SENT` reported three accepted messages between 16:29:53Z and 16:29:59Z.
 
-| SMTP ordinal | Personal Gmail folder | SPF | Aligned domain DKIM | DMARC |
-|---|---|---|---|---|
-| 1 | Inbox | pass | pass | pass |
-| 2 | Inbox | pass | pass | pass |
-| 3 | Inbox | pass | pass | pass |
+| Sender ordinal | Private evidence reference | Observed folder | Authentication |
+|---|---|---|---|
+| 1 | private receiving-message reference | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 2 | private receiving-message reference | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
+| 3 | private receiving-message reference | INBOX; CATEGORY_UPDATES; not SPAM | SPF pass; aligned DKIM pass; DMARC pass |
 
-All three retain the common redundant failed DKIM signature already diagnosed, alongside aligned domain and SES DKIM passes. This confirms personal-Gmail Inbox arrival for the separate new seed experiment; it does not identify the founder's earlier unspecified messages. Preserve the earlier UberBond Gmail result separately: ordinals 1 and 2 Inbox, ordinal 3 Spam.
+All three were independently read through the connected personal Gmail metadata API. No folder labels were changed to obtain this result. The additional failing domain DKIM selector remains common to all three, while aligned DKIM, SPF and DMARC pass. The receiving MX observed Amazon SES as the downstream delivery hop; this does not change the approved custody or fixed-host SMTP route.
 
-Detailed receiving-message identifiers and account-specific operational evidence are retained privately in `WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md`, outside this public repository. The latest observed source includes merged PR #1162. No new send was performed by this read-only reconciliation. All three IMAP paths remain intact; ordinal-3 SMTP quarantine has not been released. One additional Gmail inbox is not provider-diverse placement proof or prospect-send authority.
+The next boot logged `WINNR_PERSONAL_CANARY_ALREADY_COMPLETED` at 16:31:05Z, proving that the persisted effect reservation prevented another send. The one-shot flag was then set to `0`; the old runtime-import and phenotype-send flags are also `0`. Reply verification and ordinal-3 SMTP fleet quarantine remain separate controls.
+
+Interpretation: the founder's report now has independently observed supporting evidence from a fresh personal-inbox experiment. Ordinal 3 is not uniformly Spam-routed across Gmail accounts. Earlier adverse evidence remains valid for its own recipient and phenotype. Neither experiment establishes Microsoft/Yahoo placement, population delivery rates or prospect-send authority.
+
+## Final scope decision
+
+`WINNR_TECHNICAL_INTEGRATION_COMPLETE`:
+- encrypted custody: complete;
+- SMTP and IMAP: 3/3 verified;
+- reply ingestibility: verified;
+- personal Gmail delivery and Inbox placement: 3/3 verified;
+- bounded personal experiment: completed, durably non-replayable and switched off;
+- prospect campaigns: not started;
+- ordinal 3: fleet pause retained pending a separately governed promotion decision;
+- additional spend: zero.
+
+Expanded Winnr validation: 48 focused tests passed. A pre-existing provider-contract test omitted the explicit zero-cent spend ceiling required by the unchanged production gate; the fixture now supplies that ceiling and separately proves missing budget, expired approval and wrong scope are refused. No production approval rule was relaxed.
+
+Final live deployment with sending-experiment flags disabled: `dep-davto8v9nhgc738av1rg`, source `61a6b553035db760f5627bf87b02916fad2cf27b`, LIVE at 16:32:38Z. Normal build command remains `npm install --omit=dev`.
+
+Receiving-message identifiers are retained in the founder-private `WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md` record, outside this public repository. The separate read-only recheck confirmed all three Inbox labels and passing aligned authentication without sending another message. See `winnr/CURRENT_STATE.json`.

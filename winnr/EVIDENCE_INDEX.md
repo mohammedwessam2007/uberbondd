@@ -28,10 +28,9 @@
 - `src/uberwarm2-sovereign-ramp.mjs`
 - Gmail is the external observation surface for the current owner-controlled seed.
 - Historical diagnostic phenotype: 3 delivered, 3 Spam.
-- Latest human-readable phenotype: 3 delivered, 2 Inbox, 1 Spam.
-- Live ordinal-3 SMTP quarantine: `WINNR_PLACEMENT_QUARANTINE_APPLIED`.
-- Independent recheck and founder personal-Inbox report: `winnr/LIVE_RECONCILIATION_2026-10-02.md`.
-- Machine-readable observations: `winnr/CURRENT_STATE.json`.
+- Human-readable phenotype: UberBond Gmail Inbox 2/3, Spam 1/3.
+- Separate personal Gmail experiment: Inbox 3/3, aligned authentication passes.
+- Current evidence: `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`.
 
 ## Reply verification
 

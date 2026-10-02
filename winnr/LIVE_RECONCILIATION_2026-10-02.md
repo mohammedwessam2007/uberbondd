@@ -38,3 +38,7 @@ On the unchanged runtime source at recovery head, the focused Winnr/SMTP/IMAP/tu
 ## Subsequent personal-Gmail seed proof
 
 The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.
+
+## Latest validation supersession
+
+Newer main includes PR #1163, which repairs the provisioning test fixture by supplying the existing required zero-cent spending ceiling and adds denial cases; production approval logic is unchanged. After reconciling that newer source, all 56 focused Winnr/SMTP/IMAP/tunnel tests passed, zero failures or skips. This supersedes the earlier 49/50 validation boundary for the newer source, while preserving why the original fixture failed.

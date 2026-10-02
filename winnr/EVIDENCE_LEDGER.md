@@ -23,7 +23,7 @@ Updated: 2026-10-02
 | Fixed-host blind tunnel | ACTIVE / REQUIRED | Current Render-to-Winnr SMTP path |
 | Startup $69 plan | NOT PURCHASED | Pilot must earn expansion |
 | Paid Winnr warming | NOT PURCHASED | No fake-engagement substitute |
-| Placement | SPLIT | Ordinals 1-2 candidate-green; ordinal 3 quarantined |
+| Placement | RECEIVING-CONTEXT DEPENDENT | Personal Gmail 3/3 Inbox; earlier human-readable UberBond Gmail 2/3 Inbox; ordinal 3 fleet pause retained |
 | Ordinal 3 runtime quarantine | LIVE VERIFIED | WINNR_PLACEMENT_QUARANTINE_APPLIED on Render; SMTP fleet selection only; IMAP retained |
 
 ## Supersession
@@ -64,10 +64,6 @@ The new 2/3 Inbox result supersedes the earlier assumption that the runtime path
 
 Inference: the failed redundant selector is common-mode and does not explain Dana's sender-specific red result. Preserve as provider-side diagnostic evidence; do not edit DNS merely to chase the failing redundant signature while aligned DKIM and DMARC are passing.
 
-## Recovery recheck and personal-Inbox report
+## Personal Inbox proof — final technical closure
 
-Live Render and receiving Gmail were independently rechecked; the two candidate-green senders and ordinal-3 quarantine remain observed. The founder reports normal personal-Inbox arrival. Preserve that report as FOUNDER_REPORTED with exact message count/IDs unresolved, alongside the distinct UberBond Gmail labels. See `LIVE_RECONCILIATION_2026-10-02.md` and `CURRENT_STATE.json`.
-
-## Subsequent personal-Gmail seed proof
-
-The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.
+Personal Gmail received one new probe from each sender in INBOX (3/3), with aligned DKIM/SPF/DMARC passing. Runtime effect ledger prevented replay on a subsequent boot; sending-experiment flags are now off. Source and exact receiving-provider message IDs: `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`. The old adverse placement remains evidence for its receiving context; no prospect campaign was started.

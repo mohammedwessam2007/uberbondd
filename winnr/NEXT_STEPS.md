@@ -27,6 +27,8 @@ This file is executable continuation state, not a generic wishlist.
 
 ## Active frontier
 
+Newest closure: technical integration is complete, including 3/3 personal Gmail Inbox delivery. Read `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` before using the historical red-state checklist below. No setup/export/import work remains. Further placement experiments and a prospect campaign are distinct next missions, not unfinished SMTP plumbing.
+
 1. Keep ordinal 3 quarantined from SMTP fleet allocation while preserving its IMAP custody.
 2. Treat ordinals 1 and 2 as placement-green candidates only for bounded next-stage validation.
 3. When an actual prospect campaign is authorized, enforce existing legal/provider/suppression/content/consequence gates and begin with a tiny cohort, not a volume jump.
@@ -49,7 +51,7 @@ Do not:
 
 ## Fresh-chat command
 
-When the founder says "continue Winnr", recover `winnr/README.md` and `winnr/CURRENT_STATE.json`; technical activation is complete. Continue only the next-stage placement/campaign frontier, without repeating procurement, import or transport setup.
+When the founder says "continue Winnr", recover `winnr/README.md` and continue from **placement recovery**, unless newer live evidence supersedes this file.
 
 ## Placement experiment result — 2026-10-02
 
@@ -71,10 +73,13 @@ Next frontier:
 - [ ] Keep Dana quarantined pending improved independent evidence or provider inventory replacement.
 - [ ] Ask Winnr to explain/remove the redundant failing `s=dkim` signature because Winnr manages DKIM for provider-hosted DNS.
 
-## Personal-Inbox report and continuation
+## Personal receiving-account test completed
 
-The founder reports normal personal-Inbox arrival. Preserve the report alongside the distinct UberBond Gmail sample; do not silently turn failed retrieval into nonexistence or unlock the quarantined sender without matched new evidence. Latest recovery receipt: `LIVE_RECONCILIATION_2026-10-02.md`.
-
-## Subsequent personal-Gmail seed proof
-
-The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.
+- [x] Preserve the founder's normal personal-inbox delivery report.
+- [x] Independently send one bounded owner-controlled probe per mailbox to the connected personal Gmail.
+- [x] Verify 3/3 INBOX without relabelling messages.
+- [x] Verify aligned DKIM, SPF and DMARC on all three.
+- [x] Verify durable non-replay on a subsequent runtime boot.
+- [x] Switch all completed sending-experiment flags off.
+- [x] Preserve ordinal-3 quarantine and historical adverse evidence without redefining the personal Inbox result.
+- [x] Confirm 48 focused Winnr tests pass with approval gates unchanged.

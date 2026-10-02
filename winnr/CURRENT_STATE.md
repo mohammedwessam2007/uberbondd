@@ -119,13 +119,6 @@ Therefore the redundant failing `s=dkim` signature is not a sender-3-specific ex
 
 Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.
 
-## DKIM differential diagnosis — 2026-10-02
-
-Raw Gmail headers for all three human-phenotype canaries were compared. All three share the same authentication pattern: an aligned `cedarpointdomains.com` DKIM signature with selector `no56qfuwjhifplhcglecser6tx7warhe` passes; Amazon SES DKIM passes; SPF passes; DMARC passes; and a second `cedarpointdomains.com` signature using selector `dkim` fails. Tara and Nadia still reached Inbox while Dana reached Spam.
-
-Therefore the redundant failing `s=dkim` signature is not a sender-3-specific explanation for Dana's Spam placement. Do not mutate working DNS blindly. Winnr's current documentation says provider-hosted domains have Winnr-managed DKIM, so the redundant signature should be treated as a provider/header diagnostic until Winnr explains or repairs it.
-
-Current placement truth remains: Tara Inbox, Nadia Inbox, Dana Spam. Dana stays quarantined from prospect sends; Tara/Nadia are not yet prospect-authorized because evidence is still a single Gmail destination.
 
 
 ## Live sender quarantine
@@ -137,3 +130,11 @@ Production receipt:
 - scope: `SMTP_FLEET_SELECTION_ONLY`
 - IMAP custody changed: false
 - prospect send authority granted: false
+
+## Independent recovery recheck
+
+Technical connector activation is complete at the split placement state above. The live deployment/build command and runtime receipts were independently rechecked. The founder reports normal personal-Inbox arrival; retain that as founder-reported evidence distinct from the receiving-account sample. Exact personal message identity/count remains unresolved at this recheck. See `LIVE_RECONCILIATION_2026-10-02.md` and machine-readable `CURRENT_STATE.json`.
+
+## Subsequent personal-Gmail seed proof
+
+The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.

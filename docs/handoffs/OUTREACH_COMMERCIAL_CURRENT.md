@@ -209,7 +209,7 @@ It should:
 
 External customer evidence outranks this document.
 
-## 2026-10-02 Winnr live activation truth
+## Historical 2026-10-02 diagnostic-message activation checkpoint
 
 The bounded three-mailbox Winnr pilot is now transport-verified but **not placement-promoted**.
 
@@ -224,11 +224,11 @@ Verified live facts:
 - all three runtime canaries reached UberBond Gmail;
 - all three landed in Gmail Spam.
 
-Therefore the current distribution gate is:
+At that diagnostic-message checkpoint the distribution gate was:
 
 `TRANSPORT_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`
 
-Do not treat provider health score, blocklist score, mailbox age, SMTP acceptance, or IMAP success as evidence that cold inbox placement is ready. The Gmail spam result is stronger current external evidence.
+Do not treat provider health score, blocklist score, mailbox age, SMTP acceptance, or IMAP success as evidence that cold inbox placement is ready. The diagnostic Gmail spam result was the external evidence for that checkpoint; the later human-readable phenotype below supersedes its current promotion interpretation.
 
 The temporary credential-free Supabase TCP probe was retired after proving Winnr:465 reachability. The authenticated fixed-host blind tunnel remains because Render cannot directly establish the Winnr SMTP connection. The relay sees only the opaque inner TLS stream; SMTP authentication and message plaintext remain inside Render and the Winnr TLS session.
 
@@ -244,6 +244,18 @@ All Winnr purchase, custody, transport, placement, reply-verification, security-
 
 Current compressed state:
 
-`SMTP_3_OF_3 + IMAP_3_OF_3 + REPLIES_2_OF_2_INGESTIBLE + GMAIL_RUNTIME_PLACEMENT_0_OF_3_INBOX -> PROSPECT_SEND_FROZEN`
+`SMTP_3_OF_3 + IMAP_3_OF_3 + REPLIES_2_OF_2_INGESTIBLE + HUMAN_PHENOTYPE_GMAIL_2_OF_3_INBOX + SMTP_ORDINAL_3_QUARANTINED -> CAMPAIGN_NOT_ACTIVATED`
 
 On "continue Winnr", recover `winnr/README.md` before changing sender state or repeating procurement/integration work.
+
+## Latest Winnr reconciliation — 2026-10-02
+
+Technical activation is complete: three encrypted SMTP/IMAP pairs, SMTP 3/3, IMAP 3/3, replies 2/2 ingestible. The human-readable phenotype reached Inbox from ordinals 1 and 2; ordinal 3 reached Spam and is quarantined from SMTP selection while IMAP remains intact. Render is live with `npm install --omit=dev`.
+
+The founder also reports normal personal-Inbox arrival; preserve as founder-reported evidence with exact message mapping unresolved, distinct from the connected UberBond Gmail sample. No purchase, export, import or transport retry is needed. No prospect campaign has been activated; candidate-green senders still require independently satisfied campaign gates.
+
+Latest human/machine pointers: `winnr/LIVE_RECONCILIATION_2026-10-02.md`, `winnr/CURRENT_STATE.json`. Earlier diagnostic and procurement sections remain dated lineage, not current instructions to repurchase or rebuild.
+
+## Subsequent personal-Gmail seed proof
+
+The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.

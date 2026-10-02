@@ -49,7 +49,7 @@ Do not:
 
 ## Fresh-chat command
 
-When the founder says "continue Winnr", recover `winnr/README.md` and continue from **placement recovery**, unless newer live evidence supersedes this file.
+When the founder says "continue Winnr", recover `winnr/README.md` and `winnr/CURRENT_STATE.json`; technical activation is complete. Continue only the next-stage placement/campaign frontier, without repeating procurement, import or transport setup.
 
 ## Placement experiment result — 2026-10-02
 
@@ -70,3 +70,11 @@ Next frontier:
 - [ ] Obtain provider-diverse owner-controlled placement evidence for Tara and Nadia.
 - [ ] Keep Dana quarantined pending improved independent evidence or provider inventory replacement.
 - [ ] Ask Winnr to explain/remove the redundant failing `s=dkim` signature because Winnr manages DKIM for provider-hosted DNS.
+
+## Personal-Inbox report and continuation
+
+The founder reports normal personal-Inbox arrival. Preserve the report alongside the distinct UberBond Gmail sample; do not silently turn failed retrieval into nonexistence or unlock the quarantined sender without matched new evidence. Latest recovery receipt: `LIVE_RECONCILIATION_2026-10-02.md`.
+
+## Subsequent personal-Gmail seed proof
+
+The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.

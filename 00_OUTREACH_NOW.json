@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-commercial-autoload-1.0.0",
-  "lastReconciled": "2026-09-28",
+  "lastReconciled": "2026-10-02",
   "missionTriggers": [
     "cold email",
     "outreach",
@@ -79,5 +79,8 @@
     "activeSubscriptionLastObserved": false,
     "safeToPayAgain": false
   },
-  "truthBoundary": "Internal design completeness is not market validation. External buyer/provider/payment evidence outranks this pointer."
+  "truthBoundary": "Internal design completeness is not market validation. External buyer/provider/payment evidence outranks this pointer.",
+  "winnrRecoveryRoot": "winnr/README.md",
+  "winnrCurrentObservations": "winnr/CURRENT_STATE.json",
+  "winnrReconciliationReceipt": "winnr/LIVE_RECONCILIATION_2026-10-02.md"
 }

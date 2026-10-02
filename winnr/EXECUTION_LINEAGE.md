@@ -52,7 +52,22 @@ This is a compact no-amputation history. Superseded states remain recorded so fu
 
 Earlier state "SMTP 1/3, IMAP 3/3, replies pending" is superseded.
 
-Current state is:
+The earlier diagnostic-message checkpoint was:
 `SMTP 3/3 + IMAP 3/3 + REPLIES 2/2 INGESTIBLE + RUNTIME PLACEMENT 0/3 INBOX`.
 
-The only activation gate still red is placement.
+35. The subsequent human-readable phenotype was accepted 3/3. Gmail observed ordinals 1 and 2 in Inbox, ordinal 3 in Spam.
+36. Raw headers showed the extra failed DKIM signature is common to all three; aligned domain DKIM, SES DKIM, SPF and DMARC passed.
+37. PR #1158 activated SMTP quarantine only for ordinal 3. All IMAP paths were retained.
+38. PR #1160 preserved the live quarantine closure receipt.
+39. The founder reported normal personal-Inbox arrival. Preserve as founder-reported placement with message identity/count unresolved until matched; this does not overwrite the separate UberBond Gmail observations.
+40. Live Render deployment, canonical build command, encrypted custody, reply verifier and ordinal-3 quarantine were independently rechecked. See `LIVE_RECONCILIATION_2026-10-02.md`.
+41. Unmerged PR #1145 was closed as an unused diagnostic superseded by #1149. Unmerged PR #1153 was closed as a stale receipt superseded by newer reply/quarantine evidence. Its unique Render Postgres/private-network correction is retained in the reconciliation receipt.
+
+Current technical activation is complete at a split placement state:
+`SMTP 3/3 + IMAP 3/3 + REPLIES 2/2 INGESTIBLE + HUMAN_PHENOTYPE 2/3 INBOX + SMTP ORDINAL 3 QUARANTINED`.
+
+Next-stage campaign readiness remains distinct from completed infrastructure activation. Do not repeat purchase, export, import or transport setup.
+
+## Subsequent personal-Gmail seed proof
+
+The separate personal-seed experiment in merged PR #1162 is now independently observed: all three messages reached personal Gmail Inbox with SPF, aligned domain DKIM and DMARC passing. Startup replay was refused as already completed. This improves the receiving-account evidence; it preserves the earlier UberBond Gmail split and does not automatically release ordinal-3 quarantine or authorize a campaign. See `winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` and `winnr/CURRENT_STATE.json`.

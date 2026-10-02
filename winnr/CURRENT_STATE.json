@@ -1,0 +1,105 @@
+{
+  "schemaVersion": "uberbond.winnr.current-observations.v1",
+  "reconciledDate": "2026-10-02",
+  "recoverySourceCommit": "a41c3787444bcf1b02e2cbc770ce68b1c9481000",
+  "refreshLiveTruthRequired": true,
+  "technicalActivation": "COMPLETE",
+  "campaignActivation": "NOT_ACTIVATED",
+  "displayIdentity": "Wessam Solomon | UberBond",
+  "provider": {
+    "name": "winnr",
+    "domain": "cedarpointdomains.com",
+    "mailboxes": 3,
+    "monthlyUsd": 9,
+    "basePlan": false,
+    "paidWarmingAddon": false,
+    "evidenceRef": "winnr/CURRENT_STATE.md"
+  },
+  "runtime": {
+    "buildCommand": "npm install --omit=dev",
+    "smtpConfirmed": 3,
+    "imapConfirmed": 3,
+    "encryptedAccountRows": 6,
+    "credentialStorage": "AES_256_GCM_ENCRYPTED",
+    "plaintextCredentialsLogged": false,
+    "transportReceiptClass": "DURABLE_ALREADY_CONSUMED_RESULT",
+    "replyCanaryOrdinalsFound": [
+      2,
+      3
+    ],
+    "replyProofClass": "INGESTIBILITY_NOT_COMMERCIAL_REPLY_PROCESSING",
+    "smtpQuarantinedOrdinals": [
+      3
+    ],
+    "imapCustodyChanged": false,
+    "evidenceRef": "winnr/FINAL_ACTIVATION_2026-10-02.md"
+  },
+  "placement": {
+    "receiverClass": "OWNER_CONTROLLED_UBERBOND_GMAIL",
+    "phenotype": "HUMAN_READABLE_NOTE",
+    "inboxOrdinals": [
+      1,
+      2
+    ],
+    "spamOrdinals": [
+      3
+    ],
+    "messages": [
+      {
+        "ordinal": 1,
+        "folder": "INBOX"
+      },
+      {
+        "ordinal": 2,
+        "folder": "INBOX"
+      },
+      {
+        "ordinal": 3,
+        "folder": "SPAM"
+      }
+    ],
+    "historicalDiagnosticPhenotype": {
+      "inbox": 0,
+      "spam": 3
+    },
+    "populationDeliverabilityProven": false,
+    "personalInboxReport": {
+      "evidenceClass": "FOUNDER_REPORTED",
+      "reportedPlacement": "NORMAL_INBOX_ARRIVAL",
+      "messageCount": null,
+      "senderMapping": "UNRESOLVED",
+      "searchResultDoesNotDisproveReport": true
+    },
+    "personalSeedExperiment": {
+      "status": "INDEPENDENTLY_OBSERVED_3_OF_3_INBOX",
+      "receiverClass": "CONNECTED_FOUNDER_PERSONAL_GMAIL",
+      "inboxOrdinals": [
+        1,
+        2,
+        3
+      ],
+      "spf": "PASS_3_OF_3",
+      "alignedDomainDkim": "PASS_3_OF_3",
+      "dmarc": "PASS_3_OF_3",
+      "additionalRedundantDkim": "FAIL_3_OF_3",
+      "runtimeSendStatus": "WINNR_PERSONAL_CANARY_SENT",
+      "runtimeReplayStatus": "WINNR_PERSONAL_CANARY_ALREADY_COMPLETED",
+      "quarantineReleased": false,
+      "evidenceRef": "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
+    }
+  },
+  "nextActions": [
+    "Preserve ordinal-3 SMTP quarantine and all IMAP custody",
+    "Validate ordinals 1 and 2 through bounded next-stage evidence",
+    "Require independent campaign legal/provider/suppression/content/consequence gates"
+  ],
+  "reconciliationEffects": {
+    "newSpendUsd": 0,
+    "prospectMessages": 0,
+    "ownerCanaryMessages": 0,
+    "credentialChanges": 0
+  },
+  "canonicalEvidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-02.md",
+  "privateEvidenceDocument": "WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md (founder-private record, not public repository content)",
+  "latestReconciledSourceCommit": "61a6b553035db760f5627bf87b02916fad2cf27b"
+}

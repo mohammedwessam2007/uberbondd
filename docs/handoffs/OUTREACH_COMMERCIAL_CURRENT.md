@@ -222,17 +222,21 @@ Verified live facts:
 - plaintext credential logging false;
 - two final owner-controlled SMTP canaries were accepted through the fixed-host blind TLS tunnel merged in PR #1149;
 - all three runtime canaries reached UberBond Gmail;
-- all three landed in Gmail Spam.
+- the two final canaries were independently re-read from Gmail and each passed SPF, DKIM, and DMARC;
+- the final mailbox-2 and mailbox-3 canaries landed in Gmail Spam / Category Updates.
 
 Therefore the current distribution gate is:
 
-`TRANSPORT_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`
+`TRANSPORT_GREEN -> AUTH_GREEN -> PLACEMENT_RED -> PROSPECT_SEND_FROZEN`
 
 Do not treat provider health score, blocklist score, mailbox age, SMTP acceptance, or IMAP success as evidence that cold inbox placement is ready. The Gmail spam result is stronger current external evidence.
 
 The temporary credential-free Supabase TCP probe was retired after proving Winnr:465 reachability. The authenticated fixed-host blind tunnel remains because Render cannot directly establish the Winnr SMTP connection. The relay sees only the opaque inner TLS stream; SMTP authentication and message plaintext remain inside Render and the Winnr TLS session.
 
+Owner-controlled Gmail replies were sent to Winnr mailboxes 2 and 3. The canonical worker has encrypted IMAP polling, but the successful path is silent, so durable reply-ingestion proof is still pending. The live durable store is Render Postgres `uberbond-control-postgres`, not a currently proven Neon production database. Its empty external IP allowlist correctly blocks the hosted Render database connector, and that boundary must not be weakened for diagnostics.
+
+PR #1151 added a one-shot sanitized reply verifier. Its first Render deploy had a literal import-newline syntax defect. PR #1152 / `859f95e3a99ce9d98b4d0c3fc3cb7da70517a250` repairs parsing and is queued behind the failed deployment, which Render continues to report as `update_in_progress` after port-scan timeout. `WINNR_REPLY_CANARY_VERIFY=1` is set so the verifier runs when the repaired revision actually starts. The currently serving transport revision remains #1149.
+
 Canonical detailed receipt: `docs/WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md`.
 
 No cold prospect outreach is authorized until a new placement evidence cycle clears the promotion gate.
-

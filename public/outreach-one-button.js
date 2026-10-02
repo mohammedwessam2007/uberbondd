@@ -2,7 +2,7 @@ const button = document.querySelector('#start-outreach');
 const status = document.querySelector('#start-outreach-status');
 const tokenField = document.querySelector('#token');
 
-if (button) button.textContent = 'START UBERBOND NOW';
+if (button) { button.textContent = 'OUTREACH STATUS UNKNOWN'; button.disabled = true; }
 
 const setStatus = (message, state = 'idle') => {
   if (!status) return;
@@ -38,18 +38,49 @@ const blockers = prepared => [
   ...(prepared?.certificate?.hardStopReasonCodes || []),
   ...(prepared?.certificate?.waitReasonCodes || [])
 ];
-const green = prepared => prepared?.certificate?.state === 'CERTIFIED_100K_READY' && prepared?.pressable === true;
+const green = prepared => !prepared?.readFailed && prepared?.certificate?.state === 'CERTIFIED_100K_READY' && prepared?.pressable === true && blockers(prepared).length === 0;
 async function prepared() {
   try { return await request('/api/outreach/100k/status'); }
-  catch (error) { return error?.payload?.prepared || error?.payload || null; }
+  catch (error) { return { readFailed: true, reasonCodes: ['launch-status-unreadable'] }; }
 }
+
+// Read gates before presenting a launch control. Authentication and failed
+// reads are UNKNOWN, never a generic optimistic start state.
+let readingReadiness = false;
+let readinessVersion = 0;
+async function refreshReadiness() {
+  if (!button || readingReadiness) return;
+  readingReadiness = true;
+  const version = readinessVersion;
+  button.disabled = true;
+  try {
+    const current = await prepared();
+    const canary = await request('/api/outbound/canary/status');
+    if (version !== readinessVersion) throw new Error('credential-state-changed');
+    if (current?.readFailed) throw new Error('launch-status-unreadable');
+    if (typeof current?.certificate?.state !== 'string' || typeof canary?.state !== 'string' || !Array.isArray(canary?.reasonCodes)) throw new Error('launch-status-malformed');
+    const canaryCodes = canary?.reasonCodes || [];
+    const canaryReady = canaryCodes.length === 0 && (canary?.readyForDryRun === true || canary?.readyForLiveSend === true);
+    const ready = (green(current) && canaryCodes.length === 0) || canaryReady;
+    button.disabled = !ready;
+    button.textContent = ready ? 'START UBERBOND NOW' : 'OUTREACH BLOCKED';
+    setStatus(ready ? 'READY · exact governed launch gates passed; final server recheck remains required' : `BLOCKED · ${[...new Set([...blockers(current), ...canaryCodes, ...(!ready && !blockers(current).length && !canaryCodes.length ? ['exact-approved-effect-required'] : [])])].join(' · ')}`, ready ? 'ready' : 'blocked');
+  } catch (error) {
+    button.disabled = true;
+    button.textContent = 'OUTREACH STATUS UNKNOWN';
+    setStatus(`UNKNOWN · ${error.message || 'launch-status-unreadable'}`, 'blocked');
+  } finally { readingReadiness = false; }
+}
+window.addEventListener('outreach-runtime-loaded', refreshReadiness);
+tokenField?.addEventListener('input', () => { readinessVersion++; button.disabled = true; button.textContent = 'OUTREACH STATUS UNKNOWN'; setStatus('UNKNOWN · authenticate and refresh current launch gates', 'blocked'); });
 
 let pollTimer = null;
 function poll() {
   if (pollTimer) return;
   pollTimer = setInterval(async () => {
+    await refreshReadiness();
     const current = await prepared();
-    if (green(current)) {
+    if (green(current) && !button.disabled) {
       button.textContent = '100K READY · PRESS TO LAUNCH';
       setStatus(`CERTIFIED · ${current.certificate.certificateId} · press once more to enqueue the exact governed corpus`, 'ready');
       clearInterval(pollTimer);
@@ -65,6 +96,8 @@ function poll() {
 
 async function startOutreach() {
   if (!button) return;
+  await refreshReadiness();
+  if (button.disabled) return;
   button.disabled = true;
   setStatus('Checking certified 100K path…', 'working');
   try {
@@ -112,7 +145,7 @@ async function startOutreach() {
   } catch (error) {
     setStatus(`REFUSED · ${error?.message || String(error)}`, 'blocked');
   } finally {
-    button.disabled = false;
+    await refreshReadiness();
   }
 }
 

@@ -25,8 +25,8 @@
     <div class="button-row"><button id="save-token">Save token</button><button class="gold" id="run">Run nightshift</button></div>
     <div class="button-row"><button id="pause">Pause worker</button><button id="resume">Resume worker</button></div>
     <div class="button-row"><button id="pause-outbound">Emergency stop outbound</button><button id="resume-outbound">Resume outbound</button></div>
-    <div class="button-row"><button class="gold" id="start-outreach">START UBERBOND OUTREACH</button></div>
-    <small id="start-outreach-status">One guarded press wakes the worker, releases the outbound pause, and starts a bounded Nightshift pulse only when live outbound and an approved auto-send campaign are already green.</small>
+    <div class="button-row"><button class="gold" id="start-outreach" disabled>OUTREACH STATUS UNKNOWN</button></div>
+    <small id="start-outreach-status">Authenticate to read the current launch blockers.</small>
     <small id="outbound-status">Outbound is loading…</small>
     <small id="canary-status">First-message canary is loading…</small>
     <small>Research works without API keys. AI, Hunter, and Gmail remain optional upgrades.</small>
@@ -34,6 +34,15 @@
 </section>
 <section class="metrics" id="revenue-metrics"></section>
 <section class="metrics" id="metrics"></section>
+<section class="pipeline-section">
+  <h2>Prospect preflight</h2>
+  <p class="hint">Read production history, run the existing message tournament, and inspect the exact blockers. These controls cannot approve or send a message.</p>
+  <label>Canonical preflight request<textarea id="prospect-preflight-request" rows="8" spellcheck="false">{}</textarea></label>
+  <div class="button-row"><button id="run-prospect-preflight">Run read-only preflight</button><button id="read-prospect-candidates">Read ranked candidates</button><button id="read-outreach-reality">Read runtime gates</button></div>
+  <pre id="prospect-preflight-result" aria-live="polite">No production preflight read yet.</pre>
+  <details><summary>Ranked candidate evidence gaps</summary><pre id="prospect-candidates-result"></pre></details>
+  <details><summary>Runtime gates</summary><pre id="outreach-reality-result"></pre></details>
+</section>
 <section class="grid two">
   <article>
     <div class="kicker">03 · LEAD INTELLIGENCE</div>

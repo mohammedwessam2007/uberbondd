@@ -12,6 +12,8 @@ This directory is the durable, secret-free recovery root for UberBond's Winnr se
 
 Transport is verified. Reply ingestibility is verified. Placement is not promoted.
 
+Latest additive evidence: the separate personal-Gmail test delivered all three messages to INBOX with SPF, aligned DKIM and DMARC passing. Technical integration is complete. Prospect campaign promotion and the existing ordinal-3 fleet pause remain separate. See `PERSONAL_INBOX_RECONCILIATION_2026-10-02.md` for exact message/deployment receipts.
+
 ## Read order
 
 1. [CURRENT_STATE.md](./CURRENT_STATE.md)

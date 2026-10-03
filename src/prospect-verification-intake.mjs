@@ -180,10 +180,20 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (email && excluded.has(email)) rej('prior-contact-or-suppression');
 
   // Offer fit and a real, externally verifiable observation.
-  if (record.offerFit?.servesHomeServiceClients !== true || !hostOf(text(record.offerFit?.evidenceUrl, 1000))) inc('home-service-client-evidence-missing');
+  // The AI flagship serves SaaS/internal agent teams as well as agencies.
+  // Do not require that an evidenced production-agent buyer serve HVAC clients.
+  // Legacy agency fit remains unchanged; the alternative needs own-site proof.
+  const aiFit = offerId === 'AI_AGENT_RELEASE_GATE'
+    && record.offerFit?.buildsProductionAgents === true
+    && sameSiteFamily(hostOf(text(record.offerFit?.evidenceUrl, 1000)), siteHost);
+  if (!aiFit && (record.offerFit?.servesHomeServiceClients !== true || !hostOf(text(record.offerFit?.evidenceUrl, 1000)))) inc('home-service-client-evidence-missing');
   const obs = record.clientEvidence?.observation;
   if (!hostOf(text(record.clientEvidence?.clientSiteUrl, 1000))) inc('real-client-site-missing');
   if (!obs || obs.verifiable !== true || !text(obs.text) || !hostOf(text(obs.sourceUrl, 1000)) || !text(obs.excerpt) || !Number.isFinite(Date.parse(obs.observedAt))) inc('externally-verifiable-lead-path-observation-missing');
+  const ownAgentEvidence = aiFit
+    && text(record.clientEvidence?.clientName, 160) === company
+    && sameSiteFamily(hostOf(text(record.clientEvidence?.clientSiteUrl, 1000)), siteHost)
+    && sameSiteFamily(hostOf(text(obs?.sourceUrl, 1000)), siteHost);
 
   let eligibility = null;
   if (!rejected.length && !incomplete.length && !deferRecipientSide) {
@@ -206,6 +216,7 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   return {
     version: PROSPECT_INTAKE_VERSION,
     company, status,
+    observationSubjectType: ownAgentEvidence ? 'PROSPECT_SYSTEM' : 'CLIENT',
     offerId: offerId || null,
     offerPublicName: offerId ? UBERREPLY_OFFER_PORTFOLIO.find(offer => offer.offerId === offerId).publicName : null,
     evidenceClass: ACCEPTED_EVIDENCE_CLASSES.includes(evidenceClass) ? evidenceClass : (evidenceClass || null),

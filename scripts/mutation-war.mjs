@@ -35,6 +35,22 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /** @type {Mutation[]} */
 export const MUTATIONS = [
+  {
+    id: 'PROSPECT-AI-01',
+    guard: 'Production-agent fit must be supported by the prospect own-site evidence',
+    file: 'src/prospect-verification-intake.mjs',
+    find: "    && sameSiteFamily(hostOf(text(record.offerFit?.evidenceUrl, 1000)), siteHost);",
+    replace: '    && true;',
+    suites: ['tests/prospect-verification-intake.test.mjs']
+  },
+  {
+    id: 'PROSPECT-AI-02',
+    guard: 'First-party AI wording cannot be used to erase a real named-client relationship',
+    file: 'src/prospect-verification-intake.mjs',
+    find: "    observationSubjectType: ownAgentEvidence ? 'PROSPECT_SYSTEM' : 'CLIENT',",
+    replace: "    observationSubjectType: true ? 'PROSPECT_SYSTEM' : 'CLIENT',",
+    suites: ['tests/prospect-message-tournament.test.mjs']
+  },
   // ---- Cognitive sovereignty: frontier quality may never be traded away ----
   {
     id: 'COG-QUALITY-01',

@@ -109,7 +109,7 @@ export function compilePreworkSpec({ intake, record, slots = {}, artifactPrepare
       subjectNoun: clean(slots.subjectNoun, 60),
       artifactPhrase: clean(slots.artifactPhrase, 120) || (prework.publicLabel ? `a one-page ${prework.publicLabel}` : ''),
       altitudePhrase: clean(slots.altitudePhrase, 120) || ALTITUDE_BY_OFFER[offer?.offerId] || '',
-      relationshipBasis: clean(slots.relationshipBasis, 120) || 'publicly named',
+      relationshipBasis: clean(slots.relationshipBasis, 120) || (intake?.observationSubjectType === 'PROSPECT_SYSTEM' ? 'published production workflow' : 'publicly named'),
       unsupportedPatterns: (Array.isArray(slots.unsupportedPatterns) ? slots.unsupportedPatterns : []).map(p => ({ pattern: clean(p.pattern, 200), flags: clean(p.flags, 8), reason: clean(p.reason, 300) }))
     },
     slotCheck,
@@ -126,6 +126,18 @@ export function generateV5Candidates({ record, intake, spec } = {}) {
   const noticed = `I noticed one of ${possessive(prospect)} publicly named clients, ${client}, ${clause}.`;
   const put = `I put the exact wording into ${artifact} for ${altitude}.`;
   const make = (id, framing, sentences, subj = subject) => ({ id, framing, subject: subj, body: `Hi there,\n\n${sentences.join(' ')} ${V5_CTA}` });
+  // First-party AI product evidence must never invent a client relationship.
+  // The intake derives this type from matching company/name/own-site evidence.
+  if (intake?.observationSubjectType === 'PROSPECT_SYSTEM') {
+    const observed = `${client}'s published production workflow ${clause}.`;
+    return [
+      make('FULL', 'first-party workflow evidence + prepared release-review artifact', [observed, corro, put].filter(Boolean)),
+      make('COMPACT', 'first-party workflow evidence + artifact', [observed, `I put the exact wording into ${artifact}.`]),
+      make('HEADS_UP', 'first-party workflow evidence + artifact', [observed, corro, `I wrote the exact wording up as ${artifact}.`].filter(Boolean)),
+      make('ALTITUDE_FIRST', 'first-party release-review evidence', [`For ${altitude} at ${prospect}: its published workflow ${clause}.`, corro, `I put the exact wording into ${artifact}.`].filter(Boolean)),
+      make('CORROBORATION_FIRST', 'first-party corroboration + observation', [corro, observed, put].filter(Boolean))
+    ];
+  }
   return [
     make('FULL', 'verified observation + corroboration + artifact + buyer altitude', [noticed, corro, put].filter(Boolean)),
     make('COMPACT', 'observation + artifact, no corroboration', [noticed, `I put the exact wording into ${artifact}.`]),

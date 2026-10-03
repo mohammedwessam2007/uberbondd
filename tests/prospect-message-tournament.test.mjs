@@ -21,6 +21,30 @@ function verified(readsPatch = {}, recordPatch = (r => r)) {
 }
 const tournament = (extra = {}, ctx = verified()) => runProspectMessageTournament({ intake: ctx.intake, record: ctx.record, slots: SLOTS, artifactPrepared: true, artifactRef: ARTIFACT, now, ...extra });
 
+test('first-party AI evidence generates release-review copy without inventing a named-client relationship', () => {
+  const ctx = verified({}, record => {
+    record.offerRoute.offerId = 'AI_AGENT_RELEASE_GATE';
+    record.offerFit = { buildsProductionAgents: true, servesHomeServiceClients: false, evidenceUrl: record.website };
+    record.clientEvidence.clientName = record.company;
+    record.clientEvidence.clientSiteUrl = record.website;
+    record.clientEvidence.observation.sourceUrl = record.website;
+    record.clientEvidence.observation.excerpt = 'lets planners adjust quantities, exclude items, and override store selections before release, then sends approved runs into production WMS systems. The same article describes expansion into initial allocation.';
+    return record;
+  });
+  assert.equal(ctx.intake.observationSubjectType, 'PROSPECT_SYSTEM');
+  const t = tournament({ slots: {
+    issueCode: 'approval-to-write-boundary', subjectNoun: 'release review',
+    observationClause: 'lets planners adjust quantities, exclude items, and override store selections before release, then sends approved runs into production WMS systems',
+    corroborationSentence: 'The same article describes expansion into initial allocation.',
+    groundingPhrases: ['adjust quantities', 'exclude items', 'override store selections', 'approved runs', 'initial allocation'],
+    artifactPhrase: 'a one-page integration QA note', altitudePhrase: 'release review'
+  } }, ctx);
+  assert.equal(t.status, 'WINNER_SELECTED', JSON.stringify(t.reasonCodes));
+  assert.doesNotMatch(t.winner.body, /publicly named|named clients|is a.*client/i);
+  assert.equal(t.sendAuthority, false);
+  assert.equal(t.finalEffectDigest, null);
+});
+
 // In the repository the artifact the message promises must exist. The mutation
 // war's sandbox does not copy artifacts/, so the check applies wherever the
 // artifacts directory is present.

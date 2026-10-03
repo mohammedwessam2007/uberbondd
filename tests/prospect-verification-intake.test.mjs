@@ -34,6 +34,23 @@ test('a fully observed independent US agency is a VERIFIED_CANDIDATE but still c
   assert.equal(r.recipientSideEligibility.decision, 'ALLOW_WITH_REQUIREMENTS');
 });
 
+test('the AI flagship accepts evidenced production-agent teams without inventing home-service clients; other gates remain', () => {
+  const record = full({
+    offerRoute: { offerId: 'AI_AGENT_RELEASE_GATE', rationale: 'A production-agent SaaS team needs evidence-bound release review.' },
+    offerFit: { servesHomeServiceClients: false, buildsProductionAgents: true, evidenceUrl: 'https://agency.example/production-agents' }
+  });
+  const result = run(record);
+  assert.equal(result.status, PROSPECT_STATUSES.VERIFIED_CANDIDATE);
+  assert.equal(result.legalAuthorityStatus, 'HOLD_SENDER_SIDE_UNRESOLVED');
+  assert.equal(result.sendAuthority, false);
+  assert.equal(run({ ...record, offerFit: { ...record.offerFit, buildsProductionAgents: false } }).status, PROSPECT_STATUSES.INCOMPLETE);
+  assert.equal(run({ ...record, offerFit: { ...record.offerFit, evidenceUrl: 'https://unrelated.example/agents' } }).status, PROSPECT_STATUSES.INCOMPLETE);
+  assert.equal(run({ ...record, offerFit: { ...record.offerFit, evidenceUrl: '' } }).status, PROSPECT_STATUSES.INCOMPLETE);
+  assert.equal(run({ ...record, offerRoute: full().offerRoute }).status, PROSPECT_STATUSES.INCOMPLETE);
+  assert.equal(run({ ...record, notices: { ...record.notices, noSolicitationFound: true } }).status, PROSPECT_STATUSES.REJECTED);
+  assert.equal(run({ ...record, contactHistory: { hit: true } }).status, PROSPECT_STATUSES.REJECTED);
+});
+
 test('privacy-only, legal, careers and support addresses are rejected as sales recipients', () => {
   for (const role of ['PRIVACY_ONLY', 'LEGAL_ONLY', 'CAREERS_ONLY', 'CUSTOMER_SUPPORT_ONLY', 'ABUSE_OR_SECURITY']) {
     const r = run(deep(role, 'recipient.publishedRole'));

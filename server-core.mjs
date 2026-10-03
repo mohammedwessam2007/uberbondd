@@ -1,4 +1,5 @@
 import http from 'node:http';
+import { createOwnerSessionManager, authorizeOwnerCookie, cookieHeader, clearCookieHeader, parseCookies, OWNER_SESSION_COOKIE, OWNER_SESSION_ABSOLUTE_MS } from './src/owner-session.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -215,12 +216,29 @@ const safeEqual = (a, b) => {
   const bb = Buffer.from(b);
   return ba.length === bb.length && crypto.timingSafeEqual(ba, bb);
 };
-const auth = req => {
-  if (!config.adminToken) return true;
+const ownerSessions = createOwnerSessionManager({ adminToken: config.adminToken });
+const bearerOk = req => {
   const header = req.headers.authorization || '';
   const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
   return safeEqual(bearer, config.adminToken);
 };
+const auth = req => {
+  if (!config.adminToken) return true;
+  const header = req.headers.authorization || '';
+  const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (safeEqual(bearer, config.adminToken)) return true;
+  return authorizeOwnerCookie(ownerSessions, req).ok;
+};
+const ownerLoginHits = new Map();
+const ownerLoginLimited = req => {
+  const minute = Math.floor(Date.now() / 60000);
+  const key = `${clientIp(req)}:${minute}`;
+  const count = (ownerLoginHits.get(key) || 0) + 1;
+  ownerLoginHits.set(key, count);
+  if (ownerLoginHits.size > 1000) for (const entry of ownerLoginHits.keys()) if (!entry.endsWith(`:${minute}`)) ownerLoginHits.delete(entry);
+  return count > 10;
+};
+const cookieSecure = req => !/^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(String(req.headers.host || ''));
 const relayConfigured = () => Boolean(config.agentRelay?.enabled && config.agentRelay?.token);
 const relayAuth = req => {
   if (!relayConfigured()) return false;
@@ -1124,6 +1142,29 @@ export const requestHandler = async (req, res) => {
     if (method === 'POST' && url.pathname === '/api/public/unsubscribe') {
       await bodyText(req);
       return json(res, 200, await applyUnsubscribe(url.searchParams.get('token') || ''));
+    }
+    if (url.pathname === '/api/owner-session/login' && method === 'POST') {
+      if (!config.adminToken) return json(res, 503, { ok: false, state: 'OWNER_SESSION_DISABLED_NO_ADMIN_TOKEN' });
+      if (ownerLoginLimited(req)) return json(res, 429, { ok: false, error: 'Too many attempts' });
+      await bodyText(req);
+      if (!bearerOk(req)) return json(res, 401, { ok: false, error: 'Unauthorized' });
+      const issued = ownerSessions.issue();
+      return json(res, 200, { ok: true, state: 'OWNER_SESSION_ACTIVE', expiresInDays: 30, authorityWidening: false },
+        { 'set-cookie': cookieHeader(issued.value, { secure: cookieSecure(req) }), 'cache-control': 'no-store' });
+    }
+    if (url.pathname === '/api/owner-session/status' && method === 'GET') {
+      if (!config.adminToken) return json(res, 200, { active: false, state: 'OWNER_SESSION_DISABLED_NO_ADMIN_TOKEN' });
+      const verdict = authorizeOwnerCookie(ownerSessions, req);
+      const extra = { 'cache-control': 'no-store' };
+      if (verdict.ok) extra['set-cookie'] = cookieHeader(ownerSessions.refreshed(verdict.payload), { secure: cookieSecure(req), maxAgeMs: Math.max(60000, OWNER_SESSION_ABSOLUTE_MS - (Date.now() - verdict.payload.iat)) });
+      return json(res, 200, { active: verdict.ok, state: verdict.ok ? 'OWNER_SESSION_ACTIVE' : 'OWNER_SESSION_ABSENT', reason: verdict.ok ? undefined : verdict.reason }, extra);
+    }
+    if (url.pathname === '/api/owner-session/logout' && method === 'POST') {
+      await bodyText(req);
+      const cookie = parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE];
+      const verdict = cookie ? ownerSessions.verify(cookie) : { ok: false };
+      if (verdict.ok) ownerSessions.revoke(verdict.sid);
+      return json(res, 200, { ok: true, state: 'OWNER_SESSION_ENDED' }, { 'set-cookie': clearCookieHeader({ secure: cookieSecure(req) }), 'cache-control': 'no-store' });
     }
     const relayPath = url.pathname === '/api/agent-relay/health'
       || url.pathname === '/api/agent-relay/tasks'

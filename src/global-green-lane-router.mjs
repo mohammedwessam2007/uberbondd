@@ -53,6 +53,7 @@ import { evaluateReachEndpoint } from './uberreach-universal-transport.mjs';
 import { routeProspect as routeLawfulChannels } from './lawful-channel-router.mjs';
 import { isPlaceholder } from './prospect-effect-package.mjs';
 import { httpsHostOf } from './host-family.mjs';
+import { evaluateEgyptCorporateRoleScope, EGYPT_SCOPE_RULE, EGYPT_SCOPE_GUIDANCE } from './egypt-corporate-role-scope.mjs';
 
 export const GLOBAL_GREEN_LANE_ROUTER_VERSION = 'uberbond.global-green-lane-router.v1';
 
@@ -334,11 +335,12 @@ export function routeGlobalGreenLane(input = {}) {
   const green = state === ROUTE_STATES.ROUTE_GREEN && GREEN_ROUTE_CLASSES.has(finalClass);
 
   // 9. Sender side + governance gate + send prerequisites (reported, never granted)
-  const senderSide = compileSenderSideState(input.sender?.senderSide || {});
+  let senderSide = compileSenderSideState(input.sender?.senderSide || {});
   const invitedBusinessContact = {
     schemaVersion: 'uberbond.invited-business-contact.v1', companyWebsite: candidate.website,
     contact: { route: 'EMAIL', address: email }, source: contact.source || {}, notices,
     invitationEvidence: Array.isArray(input.invitationEvidence) ? input.invitationEvidence : [],
+    ...(input.corporateRoleScope ? { corporateRoleScope: input.corporateRoleScope, namedPersonEvidence: contact.namedPersonEvidence || {}, recipientJurisdiction: J, scopePolicyEvidence: [EGYPT_SCOPE_RULE, EGYPT_SCOPE_GUIDANCE].map(id => registry.resolveRule(id, now)?.evidence).filter(Boolean) } : {}),
     message: { offerId: objective.offerId, offerFamily: objective.offerFamily, proposedContactPurpose: clean(input.objective?.proposedContactPurpose || input.offerRelevance?.rationale, 600) },
     providerPolicyEvidence: providerRuleId ? registry.resolveRule(providerRuleId, now)?.evidence || null : null
   };
@@ -346,6 +348,8 @@ export function routeGlobalGreenLane(input = {}) {
     ? providerRoutePolicy(providerId, 'INVITED_BUSINESS_CONTACT', { invitedBusinessContact, now }) : null;
   const providerRouteType = invitedPolicy?.ok === true ? 'INVITED_BUSINESS_CONTACT' : 'PUBLIC_BUSINESS_CONTACT';
   const governance = providerRouteType === 'INVITED_BUSINESS_CONTACT' ? invitedPolicy : providerRoutePolicy(providerId, providerRouteType);
+  const materialScope = providerRouteType === 'INVITED_BUSINESS_CONTACT' && governance.ok ? evaluateEgyptCorporateRoleScope({ senderSide: input.sender?.senderSide, proof: invitedBusinessContact, now }) : null;
+  if (materialScope?.ok) senderSide = { ...senderSide, state: 'CLEAR_NOT_APPLICABLE_BY_MATERIAL_SCOPE', clear: true, classification: null, holdingFields: [], materialScope, note: 'Egyptian sender facts unchanged; only this reviewed company-only invited contact is outside PDPL material scope. No send authority.' };
   const allocation = input.sender?.allocation;
   const prereq = {
     suppressionClean: suppression.suppressed === true || suppression.unsubscribed === true || suppression.complained === true || suppression.hardBounced === true ? { status: 'FAIL', codes: ['suppression-hit'] } : { status: 'PASS', codes: [] },
@@ -451,6 +455,7 @@ export function routeGlobalGreenLane(input = {}) {
     policyEvidence: policy.evidence,
     eligibilityEvidenceId: eligibility.evidenceId,
     historyReceiptDigest: history?.receiptDigest || null,
+    ...(materialScope?.ok ? { senderMaterialScope: materialScope } : {}),
     routePolicyVersion: GLOBAL_GREEN_LANE_ROUTER_VERSION
   } : null;
   const routeDigest = canonicalSha256({ version: GLOBAL_GREEN_LANE_ROUTER_VERSION, state, routeClass: finalClass, provisionalRouteClass, jurisdiction: J, recipientDigest, effectBinding, blockers: uniq(reasons).sort() });

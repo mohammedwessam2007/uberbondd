@@ -20,7 +20,7 @@ import { createJobHandlers } from './src/job-handlers.mjs';
 import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, relayHealthSummary, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
-import { verifyUnsubscribeToken } from './src/unsubscribe.mjs';
+import { verifyUnsubscribeToken, preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import {
   createOutreachApproval,
   createOutreachRouteEvidence,
@@ -1035,6 +1035,13 @@ async function recordOwnerRecipient(input = {}) {
 async function applyUnsubscribe(token) {
   const verified = verifyUnsubscribeToken(token, config.unsubscribeSecret);
   if (!verified) throw new HttpError(400, 'This unsubscribe link is invalid or expired');
+  if (verified.recipientEmail) {
+    try {
+      await store.add('suppressions', { id: id('sup'), value: verified.recipientEmail, reason: 'one-click-unsubscribe', createdAt: now() });
+    } catch (error) { if (!(error instanceof ConflictError)) throw error; }
+    await store.log('prepared_effect_unsubscribe', { email: verified.recipientEmail });
+    return { ok: true };
+  }
   const prospect = await store.get('prospects', verified.prospectId);
   if (!prospect?.contact?.email) throw new HttpError(404, 'The outreach record was not found');
   const email = String(prospect.contact.email).toLowerCase();
@@ -1613,6 +1620,8 @@ export const requestHandler = async (req, res) => {
     if (method === 'POST' && url.pathname === '/api/prospect-preflight') {
       if (!config.adminToken) return json(res, 503, { error: 'Admin token must be configured for prospect preflight', state: 'BLOCKED_CONTACT_HISTORY' });
       const input = await parseBody(req) || {};
+      const preparationCampaign = input.prepareEffect === true && typeof input.campaign?.campaignId === 'string' ? await store.get('campaigns', input.campaign.campaignId) : null;
+      if (input.prepareEffect === true && (!preparationCampaign || (preparationCampaign.offerId && preparationCampaign.offerId !== input.record?.corporateRoleScope?.offerId))) return json(res, 409, { error: 'An existing compatible campaign is required for effect lineage', sendAuthority: false });
       return json(res, 200, await runProspectPreflight({
         store,
         record: input.record && typeof input.record === 'object' && !Array.isArray(input.record) ? input.record : null,
@@ -1621,6 +1630,8 @@ export const requestHandler = async (req, res) => {
         identity: input.identity && typeof input.identity === 'object' ? input.identity : {},
         senderSide: input.senderSide && typeof input.senderSide === 'object' ? input.senderSide : {},
         campaign: input.campaign && typeof input.campaign === 'object' ? input.campaign : {},
+        prepareEffect: input.prepareEffect === true,
+        unsubscribeFactory: recipientEmail => preparedRecipientUnsubscribeUrls(config.baseUrl, recipientEmail, config.unsubscribeSecret),
         policyRegistry: loadPolicyEvidenceBundle({ now: new Date() }),
         registryAdapters: greenLaneRegistryAdapters,
         globalRoute: input.globalRoute && typeof input.globalRoute === 'object' && !Array.isArray(input.globalRoute) ? input.globalRoute : {},

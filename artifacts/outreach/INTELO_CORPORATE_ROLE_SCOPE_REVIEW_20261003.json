@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "uberbond.egypt-corporate-role-scope.v1",
+  "companyLevelEvidenceOnly": true,
+  "naturalPersonIdentified": false,
+  "namedPersonTargeting": false,
+  "personalDataEnrichment": false,
+  "personLinkedMailbox": false,
+  "employeeLinkedInFacts": false,
+  "individualBehavioralData": false,
+  "personalPhoneNumber": false,
+  "egyptianCitizenDataSubject": false,
+  "egyptResidentDataSubject": false,
+  "reviewedAt": "2026-10-03T18:38:00Z",
+  "reviewRef": "docs/evidence/EGYPT_PDPL_COMPANY_ROLE_SCOPE_LAW_20261003.md",
+  "offerId": "AI_AGENT_RELEASE_GATE",
+  "preworkRef": "artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md",
+  "reviewedProposal": {
+    "subject": "Intelo.ai release review",
+    "body": "Hi there,\n\nIntelo.ai's published production workflow lets planners adjust quantities, exclude items, and override store selections before release, then sends approved runs into production WMS systems. The same article describes expansion from replenishment into initial allocation once approved runs flow to production systems. I put the exact wording into a one-page integration QA note for release review. Want me to send it?",
+    "preworkDigest": "0fe40b717880ba19eda36f5d0c460ea5e78313d91bd4751fce11da2aeb132e6b"
+  },
+  "recipientEntity": {
+    "type": "CORPORATION",
+    "jurisdiction": "US",
+    "legalName": "Intelo, Inc.",
+    "sourceUrl": "https://www.intelo.ai/contact",
+    "capturedAt": "2026-10-03T18:37:00Z",
+    "excerpt": "© 2026 Intelo, Inc. All rights reserved. NORTH AMERICA: New York, United States; Dallas, United States. PARTNERSHIP OPPORTUNITIES: Integration partners and collaboration. partnerships@intelo.ai"
+  }
+}

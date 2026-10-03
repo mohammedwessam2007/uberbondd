@@ -214,6 +214,78 @@
         "supportScope": "Described lawful B2B outreach; API/MCP sequencing integration and reply ingestion",
         "supportReceiptHash": "d5c75947a897e294c8deae09b4fc99d05d741b3f708d28f484672910344ca321"
       }
+    },
+    {
+      "policyId": "sender:EG:corporate-role-no-personal-data@2026-10-03T18:19:17.630Z",
+      "ruleId": "sender:EG:corporate-role-no-personal-data",
+      "jurisdiction": "EG",
+      "authorityType": "LAW",
+      "sourceAuthority": "",
+      "sourceUrl": "https://mcit.gov.eg/Upcont/Documents/Reports%20and%20Documents_1232021000_Law_No_151_2020_Personal_Data_Protection.pdf",
+      "sourceRef": null,
+      "retrievedAt": "2026-10-03T18:19:17.630Z",
+      "effectiveAt": null,
+      "lastVerifiedAt": "2026-10-03T18:19:17.630Z",
+      "expiresAt": null,
+      "ruleScope": "SENDER_SIDE_MATERIAL_SCOPE",
+      "recipientClass": "FOREIGN_CORPORATION_COMPANY_ONLY_ROLE",
+      "senderClass": "ANY",
+      "contactType": "ANY",
+      "channel": "EMAIL",
+      "consentRequirement": "NOT_APPLICABLE_BY_MATERIAL_SCOPE",
+      "identityRequirements": [],
+      "postalRequirement": "",
+      "unsubscribeRequirement": "",
+      "specialConditions": [],
+      "exceptions": [],
+      "uncertainty": {
+        "level": "LOW",
+        "notes": "Narrow statutory-scope inference; not a territorial exemption or send approval"
+      },
+      "evidenceHash": "6244657a3913465b8bac932e955746809b2b4ddc6db6a17bb894ca0ccb26ebb5",
+      "supersedes": null,
+      "supersededBy": null,
+      "status": "ACTIVE",
+      "ownerAttestationRef": null,
+      "ruleParameters": {
+        "materialScope": "NATURAL_PERSON_PERSONAL_DATA"
+      }
+    },
+    {
+      "policyId": "sender:EG:natural-person-scope-guidance@2026-10-03T18:19:17.857Z",
+      "ruleId": "sender:EG:natural-person-scope-guidance",
+      "jurisdiction": "EG",
+      "authorityType": "REGULATOR_GUIDANCE",
+      "sourceAuthority": "",
+      "sourceUrl": "https://portal.pdpc.gov.eg/faq",
+      "sourceRef": null,
+      "retrievedAt": "2026-10-03T18:19:17.857Z",
+      "effectiveAt": null,
+      "lastVerifiedAt": "2026-10-03T18:19:17.857Z",
+      "expiresAt": null,
+      "ruleScope": "SENDER_SIDE_MATERIAL_SCOPE_GUIDANCE",
+      "recipientClass": "ANY",
+      "senderClass": "ANY",
+      "contactType": "ANY",
+      "channel": "EMAIL",
+      "consentRequirement": "NOT_APPLICABLE_BY_MATERIAL_SCOPE",
+      "identityRequirements": [],
+      "postalRequirement": "",
+      "unsubscribeRequirement": "",
+      "specialConditions": [],
+      "exceptions": [],
+      "uncertainty": {
+        "level": "LOW",
+        "notes": "Current rendered FAQ corroborates natural-person material scope"
+      },
+      "evidenceHash": "6e44bec9991a1295f4727a4e6b8b942dff807cc997b950f5e3d25f50526fa136",
+      "supersedes": null,
+      "supersededBy": null,
+      "status": "ACTIVE",
+      "ownerAttestationRef": null,
+      "ruleParameters": {
+        "dataSubject": "NATURAL_PERSON"
+      }
     }
   ]
 }

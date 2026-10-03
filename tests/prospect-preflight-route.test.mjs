@@ -20,7 +20,7 @@ test.before(async () => {
     createdArtifact = true;
   }
   dataDir = await mkdtemp(join(tmpdir(), 'uberbond-preflight-'));
-  Object.assign(process.env, { PROCESS_ROLE: 'web', STORE_BACKEND: 'json', DATA_DIR: dataDir, APP_BASE_URL: 'http://127.0.0.1:9999', ADMIN_TOKEN, NODE_ENV: 'test' });
+  Object.assign(process.env, { PROCESS_ROLE: 'web', STORE_BACKEND: 'json', DATA_DIR: dataDir, APP_BASE_URL: 'http://127.0.0.1:9999', ADMIN_TOKEN, UNSUBSCRIBE_SECRET: 'prepared-opt-out-test-secret-000000000000', NODE_ENV: 'test' });
   ({ requestHandler: handler } = await import('../server.mjs'));
 });
 test.after(async () => {
@@ -93,4 +93,16 @@ test('read-only: nothing was written to the production ledgers by any preflight'
 
 test('no GET form and no public exposure', async () => {
   assert.notEqual((await call('/api/prospect-preflight', { token: ADMIN_TOKEN })).status, 200);
+});
+
+test('prepared opt-out works without creating a prospect and only suppresses its signed exact recipient', async () => {
+  const { preparedRecipientUnsubscribeUrls } = await import('../src/unsubscribe.mjs');
+  const urls = preparedRecipientUnsubscribeUrls('https://control.example', 'prepared@company.example', process.env.UNSUBSCRIBE_SECRET);
+  const path = new URL(urls.oneClickUnsubscribeUrl).pathname + new URL(urls.oneClickUnsubscribeUrl).search;
+  assert.equal((await call(path, { method: 'POST', body: 'List-Unsubscribe=One-Click' })).status, 200);
+  assert.equal((await call(path, { method: 'POST', body: 'List-Unsubscribe=One-Click' })).status, 200);
+  assert.equal((await call(path + 'tampered', { method: 'POST' })).status, 400);
+  const history = json(await call('/api/prospect-preflight/contact-history?email=prepared%40company.example', { token: ADMIN_TOKEN }));
+  assert.equal(history.status, 'HIT');
+  assert.deepEqual(json(await call('/api/prospects', { token: ADMIN_TOKEN })), []);
 });

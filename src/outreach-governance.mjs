@@ -5,6 +5,7 @@ import { compileContactSourceBinding } from './contact-source-verifier.mjs';
 import { httpsHostOf, sameDomainFamily } from './host-family.mjs';
 import { createPolicyEvidenceRegistry } from './global-policy-evidence.mjs';
 import { recipientEligibilityCoverage } from './uberoutbound-recipient-eligibility.mjs';
+import { evaluateEgyptCorporateRoleScope } from './egypt-corporate-role-scope.mjs';
 
 const SHA256_HEX = /^[a-f0-9]{64}$/i;
 const EMPTY_SOURCE_EXCERPT_DIGEST = sha256('');
@@ -172,9 +173,11 @@ export function providerRoutePolicy(provider, routeType, { invitedBusinessContac
   return { ok: false, reason: 'outbound-provider-not-approved' };
 }
 
-export function invitedBusinessSenderSideClear(senderSide = {}) {
+export function invitedBusinessSenderSideClear(senderSide = {}, { invitedBusinessContact, now = new Date(), message = null } = {}) {
   const coverage = recipientEligibilityCoverage().senderJurisdictions;
-  return ['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every(f => coverage[text(senderSide?.[f]).toUpperCase()] === 'RECIPIENT_RULES_GOVERN');
+  if (['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every(f => coverage[text(senderSide?.[f]).toUpperCase()] === 'RECIPIENT_RULES_GOVERN')) return true;
+  if (!verifyInvitedBusinessContact(invitedBusinessContact, { now }).ok) return false;
+  return evaluateEgyptCorporateRoleScope({ senderSide, proof: invitedBusinessContact, now, message }).ok;
 }
 
 export function createOutreachRouteEvidence(input = {}, now = new Date()) {
@@ -383,7 +386,9 @@ export function evaluateOutreachGovernance({ prospect = {}, campaign = {}, cfg =
   });
   if (!routeCheck.ok) return routeCheck;
   if (route.routeType === 'INVITED_BUSINESS_CONTACT') {
-    if (!invitedBusinessSenderSideClear(route.senderSide)) return { ok: false, reason: 'invited-business-sender-side-legal-authority-hold' };
+    const core = route.invitedBusinessContact?.corporateRoleScope?.reviewedProposal;
+    const message = core ? { subject, body: body === core.body ? body : (body.startsWith(`${core.body}\n\nThis is a commercial message from `) && /^\n\nThis is a commercial message from [^\n]+\.\n[^\n]+\nUnsubscribe: https:\/\/[^\s]+$/.test(body.slice(core.body.length)) ? core.body : body) } : null;
+    if (!invitedBusinessSenderSideClear(route.senderSide, { invitedBusinessContact: route.invitedBusinessContact, now: date, message })) return { ok: false, reason: 'invited-business-sender-side-legal-authority-hold' };
   }
   const followupNumber = Number(followup || 0);
   if (!Number.isInteger(followupNumber) || followupNumber < 0 || followupNumber > 11) return { ok: false, reason: 'outreach-followup-out-of-bounds' };

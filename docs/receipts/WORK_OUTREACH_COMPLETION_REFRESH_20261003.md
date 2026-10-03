@@ -31,3 +31,7 @@ Official PDPC indexed material addresses natural-person data and consent/licensi
 107 focused source checks passed, zero failed: exact history, intake, tournament, effect package, preflight, hostile operator UI and cold-route policy. No source behavior change required. npm run brain separately reports stale/future-dated capability corpora; preserved as unrelated startup debt, not used to derail outreach or as readiness evidence.
 
 Prospect messages 0; seed messages 0; purchases/new spend $0; credential rotations 0; provider/sender/DNS/campaign mutations 0. This receipt grants no send authority. Independent facts/authority are still required before final draft-time signed unsubscribe binding or production cold-route activation.
+
+## Provider account refresh boundary
+
+Secure Winnr sign-in used the selected Google method. The OAuth transition returned 502 Bad Gateway, [Errno 111] Connection refused at accounts.google.com. A fresh Winnr account-page verification still showed sign-in. This is an authentication network boundary, not an observed MFA requirement or evidence of cancellation. No bot-detection claim and no session-bound OAuth URL retained. The October 3 earlier durable account receipt remains last verified entitlement: three separately billed active pre-warmed mailboxes at existing $9/month, renewal November 2, no unexpected restriction/billing notice. Fresh provider account entitlement is not claimed in this refresh. No alternate sign-in method was chosen without the user's choice.

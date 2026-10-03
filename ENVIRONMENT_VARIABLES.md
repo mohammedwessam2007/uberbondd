@@ -73,6 +73,16 @@ with `OUTBOUND_DRY_RUN=false` additionally requires `BUSINESS_ADDRESS`,
 | `SENDER_NAME` | `Mohamed Wessam` | From-name. |
 | `SENDER_COMPANY` | `UberBond` | From-company. |
 
+## Global green-lane router (optional, $0)
+
+| Variable | Default | Notes |
+|---|---|---|
+| `COMPANIES_HOUSE_API_KEY` | — | **Free** UK Companies House REST API key (https://developer.company-information.service.gov.uk/). Used only to read the public register for UK legal-form verification, with Basic auth (key as username). Absent: the adapter returns `CREDENTIAL_MISSING` and every UK route fails closed. It is never logged, never in output and never required for the US route. No paid registry is supported or accepted. Rate budget is held at 550 requests / 5 minutes (published limit 600). |
+
+Policy evidence is not an environment variable: it is committed data at
+`policy/outreach/global-policy-evidence.json`, written only by
+`npm run outreach:green-lane:record` (see `docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md`).
+
 ## Google / Gmail OAuth
 
 | Variable | Default | Notes |

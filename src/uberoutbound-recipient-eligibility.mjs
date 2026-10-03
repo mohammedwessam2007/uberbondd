@@ -33,6 +33,11 @@ export const CONTACT_SOURCE_KINDS = Object.freeze(['PUBLISHED_BUSINESS_CONTACT',
 export const COLLECTION_METHODS = Object.freeze(['MANUAL', 'AUTOMATED_CRAWLER', 'IMPORTED', 'PROVIDER_API', 'UNKNOWN']);
 export const RELATIONSHIPS = Object.freeze(['NONE', 'EXPLICIT_OPT_IN', 'USER_INITIATED', 'TRANSACTIONAL', 'EXISTING_CUSTOMER']);
 export const TRANSPORT_COLD_RULES = Object.freeze(['ALLOWED', 'CONSENT_REQUIRED', 'PROHIBITED', 'UNKNOWN']);
+// FULL evaluates the sender's home law as well as the recipient's. The global
+// green-lane router evaluates RECIPIENT_SIDE_ONLY and reports the sender side as
+// its own gate, instead of pretending a sender jurisdiction (the legacy intake
+// passes 'US'). Everything else in the decision is identical in both scopes.
+export const ELIGIBILITY_SCOPES = Object.freeze(['FULL', 'RECIPIENT_SIDE_ONLY']);
 
 export const DEFAULT_MAX_PROVENANCE_AGE_DAYS = 180;
 
@@ -45,8 +50,11 @@ const SOURCES = Object.freeze({
   DE_UWG_7: 'https://www.gesetze-im-internet.de/uwg_2004/__7.html',
   CH_UWG_3: 'https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/en',
   EG_PDPL_151_2020: 'https://mcit.gov.eg/Upcont/Documents/Reports%20and%20Documents_1232021000_Law_No_151_2020_Personal_Data_Protection.pdf',
+  SG_SPAM_CONTROL_ACT: 'https://sso.agc.gov.sg/Act/SCA2007',
   UBEROUTBOUND_LEGAL_MATRIX: 'src/uberoutbound-policy-registry.mjs#UBEROUTBOUND_LEGAL_MATRIX'
 });
+
+export const RECIPIENT_ELIGIBILITY_SOURCES = SOURCES;
 
 // Obligations an ALLOW_WITH_REQUIREMENTS decision can attach. Each is checked
 // against supplied sender/message facts; an unmet one keeps the decision from
@@ -77,7 +85,7 @@ const SENDER_RULES = Object.freeze({
   AE: { state: 'HOLD', reason: 'sender-jurisdiction-ae-campaign-specific-legal-review-required', source: SOURCES.UBEROUTBOUND_LEGAL_MATRIX }
 });
 
-const EU_EEA = new Set(['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO']);
+export const EU_EEA_JURISDICTIONS = new Set(['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'IS', 'LI', 'NO']);
 
 const PERSONAL_MAILBOX_DOMAINS = new Set([
   'gmail.com', 'googlemail.com', 'yahoo.com', 'ymail.com', 'rocketmail.com', 'hotmail.com', 'outlook.com', 'live.com', 'msn.com',
@@ -86,7 +94,7 @@ const PERSONAL_MAILBOX_DOMAINS = new Set([
 ]);
 const PERSONAL_MAILBOX_PATTERN = /^(yahoo|hotmail|outlook|live)\.[a-z.]{2,6}$/;
 const SYSTEM_LOCAL_PARTS = new Set(['noreply', 'no-reply', 'donotreply', 'do-not-reply', 'postmaster', 'abuse', 'hostmaster', 'mailer-daemon', 'bounce', 'bounces', 'unsubscribe']);
-const ROLE_LOCAL_PARTS = new Set(['info', 'sales', 'hello', 'contact', 'office', 'admin', 'enquiries', 'enquiry', 'inquiries', 'inquiry', 'support', 'team', 'marketing', 'partnerships', 'partners', 'business', 'press', 'media', 'bizdev', 'growth', 'ops', 'operations', 'finance', 'accounts', 'billing', 'help', 'service', 'studio', 'agency', 'mail', 'general']);
+const ROLE_LOCAL_PARTS = new Set(['info', 'sales', 'hello', 'contact', 'office', 'admin', 'enquiries', 'enquiry', 'inquiries', 'inquiry', 'support', 'team', 'marketing', 'partnerships', 'partners', 'business', 'press', 'media', 'bizdev', 'growth', 'ops', 'operations', 'finance', 'accounts', 'billing', 'help', 'service', 'studio', 'agency', 'mail', 'general', 'commercial', 'partnership', 'vendors', 'vendor', 'procurement', 'suppliers', 'supplier', 'purchasing', 'newbusiness', 'bd']);
 
 // Largest number of business days a jurisdiction allows between an opt-out and
 // it taking effect. Where the law says "promptly" the strictest encoded figure
@@ -191,6 +199,9 @@ const COLD_RULES = Object.freeze({
   CH: () => reject('uwg-art-3-consent-required-for-mass-electronic-advertising', SOURCES.CH_UWG_3),
   SA: () => reject('sa-default-deny-cold-direct-marketing-without-auditable-consent', SOURCES.UBEROUTBOUND_LEGAL_MATRIX),
   AE: () => hold('ae-campaign-specific-legal-review-required', SOURCES.UBEROUTBOUND_LEGAL_MATRIX),
+  // Singapore is representable but its cold B2B email position is not encoded:
+  // a hold names the law to review and grants nothing.
+  SG: () => hold('sg-spam-control-act-and-pdpa-campaign-specific-review-required', SOURCES.SG_SPAM_CONTROL_ACT),
   EG: () => hold('eg-consent-first-campaign-specific-review-required', SOURCES.EG_PDPL_151_2020)
 });
 
@@ -232,10 +243,17 @@ export function compileRecipientEligibility({
   transportColdB2BRule = 'UNKNOWN',
   suppression = {},
   maxProvenanceAgeDays = DEFAULT_MAX_PROVENANCE_AGE_DAYS,
+  evaluationScope = 'FULL',
   now = new Date()
 } = {}) {
   const at = now instanceof Date ? now : new Date(now);
+  const scope = enumOf(evaluationScope, ELIGIBILITY_SCOPES, 'FULL');
   const address = classifyRecipientAddress(recipient.email);
+  // The caller can know a role-looking mailbox actually belongs to a named person
+  // (the global router combines publication context with the prefix). Such an
+  // address is personal data under UK GDPR whatever its local part says.
+  const namedPerson = recipient.namedPerson === true;
+  if (namedPerson && address.addressClass === 'ROLE_BUSINESS_ADDRESS') address.addressClass = 'NAMED_OR_UNCLASSIFIED_BUSINESS_ADDRESS';
   const ctx = {
     address,
     recipientType: enumOf(recipient.type, RECIPIENT_TYPES, 'UNKNOWN'),
@@ -260,7 +278,7 @@ export function compileRecipientEligibility({
     transportColdB2BRule: enumOf(transportColdB2BRule, TRANSPORT_COLD_RULES, 'UNKNOWN')
   };
 
-  const outcome = decide(ctx, suppression, at, maxProvenanceAgeDays);
+  const outcome = decide(ctx, suppression, at, maxProvenanceAgeDays, scope);
   const { satisfied, unmet } = outcome.decision === ELIGIBILITY_DECISIONS.ALLOW_WITH_REQUIREMENTS
     ? requirementSatisfaction(outcome.requirements, ctx)
     : { satisfied: [], unmet: [] };
@@ -273,6 +291,7 @@ export function compileRecipientEligibility({
   const seed = {
     policyVersion: RECIPIENT_ELIGIBILITY_POLICY_VERSION,
     recipientDigest,
+    ...(namedPerson ? { namedPerson: true } : {}),
     recipientType: ctx.recipientType,
     recipientJurisdiction: ctx.recipientJurisdiction || null,
     senderJurisdiction: ctx.senderJurisdiction || null,
@@ -282,6 +301,7 @@ export function compileRecipientEligibility({
     relevance: ctx.relevance,
     transportColdB2BRule: ctx.transportColdB2BRule,
     postalIdentityDigest: clean(postalIdentity?.identityDigest, 128) || null,
+    evaluationScope: scope,
     decision: outcome.decision,
     basis: outcome.basis,
     requirements: outcome.requirements,
@@ -299,6 +319,8 @@ export function compileRecipientEligibility({
     recipientType: ctx.recipientType,
     recipientJurisdiction: ctx.recipientJurisdiction || null,
     senderJurisdiction: ctx.senderJurisdiction || null,
+    evaluationScope: scope,
+    senderSideEvaluated: scope === 'FULL',
     relationship: ctx.relationship,
     decision: outcome.decision,
     basis: outcome.basis,
@@ -324,7 +346,7 @@ export function compileRecipientEligibility({
   };
 }
 
-function decide(ctx, suppression, at, maxProvenanceAgeDays) {
+function decide(ctx, suppression, at, maxProvenanceAgeDays, scope = 'FULL') {
   if (!ctx.address.valid) return reject('recipient-address-invalid');
   if (suppression?.suppressed === true || suppression?.unsubscribed === true || suppression?.complained === true || suppression?.hardBounced === true) return reject('suppression-dominates');
   if (ctx.address.addressClass === 'SYSTEM_ADDRESS') return reject('system-address-not-a-marketing-recipient');
@@ -347,14 +369,16 @@ function decide(ctx, suppression, at, maxProvenanceAgeDays) {
   // Everything below is unsolicited (cold) business email.
   if (ctx.transportColdB2BRule === 'PROHIBITED' || ctx.transportColdB2BRule === 'CONSENT_REQUIRED') return reject('transport-provider-terms-forbid-cold-b2b');
   if (ctx.transportColdB2BRule !== 'ALLOWED') return hold('transport-provider-cold-b2b-rule-unknown');
-  if (!ctx.senderJurisdiction) return hold('sender-jurisdiction-required');
-  const senderRule = SENDER_RULES[ctx.senderJurisdiction];
-  if (!senderRule) return hold('sender-jurisdiction-rule-not-encoded');
-  if (senderRule.state === 'HOLD') return hold(senderRule.reason, senderRule.source);
+  if (scope === 'FULL') {
+    if (!ctx.senderJurisdiction) return hold('sender-jurisdiction-required');
+    const senderRule = SENDER_RULES[ctx.senderJurisdiction];
+    if (!senderRule) return hold('sender-jurisdiction-rule-not-encoded');
+    if (senderRule.state === 'HOLD') return hold(senderRule.reason, senderRule.source);
+  }
 
   const rule = COLD_RULES[ctx.recipientJurisdiction];
   if (rule) return rule(ctx);
-  if (EU_EEA.has(ctx.recipientJurisdiction)) return hold('eu-eea-national-eprivacy-implementation-review-required');
+  if (EU_EEA_JURISDICTIONS.has(ctx.recipientJurisdiction)) return hold('eu-eea-national-eprivacy-implementation-review-required');
   return hold('recipient-jurisdiction-rule-not-encoded');
 }
 
@@ -394,6 +418,8 @@ export function recipientEligibilityCoverage() {
     unencodedRecipientDefault: 'HOLD_FOR_REVIEW',
     senderJurisdictions: Object.fromEntries(Object.entries(SENDER_RULES).map(([code, rule]) => [code, rule.state])),
     unencodedSenderDefault: 'HOLD_FOR_REVIEW',
+    evaluationScopes: [...ELIGIBILITY_SCOPES],
+    roleLocalParts: [...ROLE_LOCAL_PARTS].sort(),
     permissionedRelationships: RELATIONSHIPS.filter(r => r !== 'NONE'),
     maxProvenanceAgeDaysDefault: DEFAULT_MAX_PROVENANCE_AGE_DAYS,
     sources: { ...SOURCES }

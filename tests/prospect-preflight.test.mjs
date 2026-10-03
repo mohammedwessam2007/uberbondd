@@ -3,8 +3,11 @@ import assert from 'node:assert/strict';
 import { powerhouseRecord as record, POWERHOUSE_SLOTS as SLOTS, POWERHOUSE_ARTIFACT_REF as ARTIFACT } from './fixtures/outreach/powerhouse.fixture.mjs';
 import { existsSync } from 'node:fs';
 import { runProspectPreflight, repositoryArtifactExists, PREFLIGHT_STATES as P } from '../src/prospect-preflight.mjs';
+import { freshPolicyRegistry } from './fixtures/outreach/global-green-lane.fixture.mjs';
 
 const now = new Date('2026-10-02T21:00:00.000Z');
+// Fresh policy evidence relative to `now`: the global route's freshness law is tested in its own suite.
+const policyRegistry = freshPolicyRegistry(now);
 const account = (slot, email) => ({ id: `acct-${slot}`, slot, email, provider: 'smtp-relay', connected: true, tokens: { enc: 'x' }, plannedDailyCap: 2, smtpRoute: { authorized: true, termsCompatible: true, evidenceRef: 'ref' } });
 const FINAL_IDENTITY = { legalBusinessSenderName: 'Example Operating LLC', authorizedPublicPostalAddress: '100 Example Street, Suite 4, Springfield, ST 00000', footerUseAuthorized: true };
 const RESOLVED = { resolved: true, operatorLocation: 'US', senderEntityJurisdiction: 'US', controllerJurisdiction: 'US', resolutionRef: 'counsel-memo-ref' };
@@ -23,7 +26,7 @@ function memoryStore(data = {}, { failOn = [] } = {}) {
 // The artifact check is injected here (the real repository check has its own test below), so these suites run in the mutation war's sandbox, which has no artifacts/ directory.
 const presentArtifacts = new Set([ARTIFACT]);
 const artifactExists = ref => presentArtifacts.has(ref);
-const run = (patch = {}, storeData, storeOpts) => runProspectPreflight({ store: memoryStore(storeData, storeOpts), record: record(), slots: SLOTS, artifactRef: ARTIFACT, artifactExists, now, ...patch });
+const run = (patch = {}, storeData, storeOpts) => runProspectPreflight({ store: memoryStore(storeData, storeOpts), record: record(), slots: SLOTS, artifactRef: ARTIFACT, artifactExists, now, policyRegistry, ...patch });
 const all = { identity: FINAL_IDENTITY, senderSide: RESOLVED, unsubscribe: UNSUB, campaign: { campaignId: 'camp_1' } };
 
 test('placeholder identity: BLOCKED_IDENTITY with the exact codes, a visible winner, no digest, zero authority', async () => {
@@ -83,7 +86,7 @@ test('a failed or partial ledger read is BLOCKED_CONTACT_HISTORY, never clean', 
     assert.equal(r.state, P.BLOCKED_CONTACT_HISTORY, name);
     assert.ok(r.blockerCodes.includes(`required-collection-unreadable:${name}`));
   }
-  const noStore = await runProspectPreflight({ store: null, record: record(), slots: SLOTS, artifactRef: ARTIFACT, artifactExists, now, ...all });
+  const noStore = await runProspectPreflight({ store: null, record: record(), slots: SLOTS, artifactRef: ARTIFACT, artifactExists, now, policyRegistry, ...all });
   assert.equal(noStore.state, P.BLOCKED_CONTACT_HISTORY);
 });
 
@@ -100,11 +103,12 @@ test('incomplete or rejected evidence maps to BLOCKED_EXTERNAL_FACT or DO_NOT_SE
   assert.equal((await run({ ...all, record: null })).state, P.BLOCKED_EXTERNAL_FACT);
 });
 
-test('stale recipient evidence fails the cold-route envelope check (7-day maximum)', async () => {
+test('stale recipient evidence fails closed (7-day maximum): the router gate fires before the cold-route envelope check', async () => {
   const stale = record(); stale.recipient.observedAt = '2026-09-20T00:00:00.000Z';
   const r = await run({ ...all, record: stale });
   assert.equal(r.state, P.BLOCKED_EXTERNAL_FACT);
-  assert.ok(r.blockerCodes.includes('cold-route-evidence-stale'));
+  assert.ok(r.blockerCodes.includes('contact-source-missing:contact-source-evidence-stale'));
+  assert.equal(r.globalRoute.green, false);
 });
 
 test('sender health: no eligible mailbox, or only paused/quarantined mailboxes, is BLOCKED_SENDER_HEALTH', async () => {
@@ -136,7 +140,7 @@ test('the real repository artifact check accepts the committed sample artifact',
 test('the preflight is strictly read-only: only list() is ever called on the store, for any outcome', async () => {
   for (const variant of [all, {}, { ...all, record: null }]) {
     const store = memoryStore();
-    await runProspectPreflight({ store, record: record(), slots: SLOTS, artifactRef: ARTIFACT, artifactExists, now, ...variant });
+    await runProspectPreflight({ store, record: record(), slots: SLOTS, artifactRef: ARTIFACT, artifactExists, now, policyRegistry, ...variant });
     assert.ok(store.calls.every(([kind]) => kind === 'list'), JSON.stringify(store.calls.filter(([k]) => k !== 'list')));
   }
 });

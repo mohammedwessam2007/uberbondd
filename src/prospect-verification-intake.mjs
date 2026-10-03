@@ -8,6 +8,7 @@
 
 import { compileRecipientEligibility, classifyRecipientAddress } from './uberoutbound-recipient-eligibility.mjs';
 import { UBERREPLY_OFFER_PORTFOLIO } from './uberreply-four-offer-genome.mjs';
+import { httpsHostOf, sameDomainFamily } from './host-family.mjs';
 import { contactHistoryReceiptUsable, verifyContactHistorySignature, domainOfEmail, CONTACT_HISTORY_RUNTIME_PROVENANCE, RESULT_STATUS as CONTACT_HISTORY_STATUS } from './prospect-contact-history.mjs';
 
 export const PROSPECT_INTAKE_VERSION = 'uberbond.prospect-verification-intake.v1';
@@ -45,13 +46,8 @@ export function resolveOfferId(value) {
 const text = (value, max = 600) => String(value ?? '').trim().slice(0, max);
 const lower = value => text(value, 500).toLowerCase();
 
-function hostOf(url) {
-  try {
-    const u = new URL(url);
-    return u.protocol === 'https:' && !u.username && !u.password ? u.hostname.toLowerCase().replace(/^www\./, '') : '';
-  } catch { return ''; }
-}
-const sameSiteFamily = (a, b) => Boolean(a && b) && (a === b || a.endsWith(`.${b}`) || b.endsWith(`.${a}`));
+const hostOf = httpsHostOf;
+const sameSiteFamily = sameDomainFamily;
 
 /**
  * @param record externally observed facts (see artifacts/outreach/prospect-verification-request-20261002.json)
@@ -67,7 +63,13 @@ const sameSiteFamily = (a, b) => Boolean(a && b) && (a === b || a.endsWith(`.${b
  * flags are still read, but only as a MANUAL_ATTESTATION that can never make a
  * candidate runtime-ready (see `contactHistoryProvenance` in the result).
  */
-export function compileProspectVerification(record = {}, { now = new Date(), excludedRecipients = [], contactHistoryTrust = null, receiptMaxAgeMs } = {}) {
+export function compileProspectVerification(record = {}, { now = new Date(), excludedRecipients = [], contactHistoryTrust = null, receiptMaxAgeMs, jurisdictionPolicy = null } = {}) {
+  // `jurisdictionPolicy` is supplied only by the global preflight. By default the
+  // intake keeps its US-only recipient-side check. With { anyHeadquarters,
+  // deferRecipientSide } the global green-lane router becomes the single owner
+  // of the recipient-side legal decision for every jurisdiction.
+  const globalJurisdiction = jurisdictionPolicy?.anyHeadquarters === true;
+  const deferRecipientSide = jurisdictionPolicy?.deferRecipientSide === true;
   const rejected = [];
   const incomplete = [];
   const rej = reason => rejected.push(reason);
@@ -95,7 +97,9 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
       else if (!text(pa.rationale, 400) || !text(pa.evidenceRef, 500)) inc('parent-assessment-rationale-and-evidence-required');
     }
   } else if (ownership !== 'INDEPENDENT') inc('current-ownership-unverified');
-  if (text(record.hqCountry, 4).toUpperCase() !== 'US') inc('us-headquarters-unverified');
+  if (globalJurisdiction) {
+    if (!/^[A-Z]{2}$/.test(text(record.hqCountry, 4).toUpperCase().replace(/^UK$/, 'GB'))) inc('headquarters-country-unverified');
+  } else if (text(record.hqCountry, 4).toUpperCase() !== 'US') inc('us-headquarters-unverified');
 
   // Recipient: an address published by the agency on its own site, with the
   // address literally present in the retained excerpt.
@@ -182,7 +186,7 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (!obs || obs.verifiable !== true || !text(obs.text) || !hostOf(text(obs.sourceUrl, 1000)) || !text(obs.excerpt) || !Number.isFinite(Date.parse(obs.observedAt))) inc('externally-verifiable-lead-path-observation-missing');
 
   let eligibility = null;
-  if (!rejected.length && !incomplete.length) {
+  if (!rejected.length && !incomplete.length && !deferRecipientSide) {
     eligibility = compileRecipientEligibility({
       recipient: { email, type: 'CORPORATE', jurisdiction: 'US' },
       relationship: 'NONE',
@@ -209,6 +213,7 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
     rejectionReasons: [...new Set(rejected)],
     missingEvidence: status === PROSPECT_STATUSES.REJECTED ? [] : incomplete,
     recipientSideEligibility: eligibility ? { decision: eligibility.decision, basis: eligibility.basis, evidenceId: eligibility.evidenceId } : null,
+    recipientSideDeferredTo: deferRecipientSide ? 'GLOBAL_GREEN_LANE_ROUTER' : null,
     senderSideEvaluated: false,
     legalAuthorityStatus: 'HOLD_SENDER_SIDE_UNRESOLVED',
     sendAuthority: false,

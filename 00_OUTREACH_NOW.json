@@ -92,5 +92,14 @@
     "legalAuthorityHold": true,
     "identityFactHold": true,
     "supersedes": "artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json (manual V6 ledger read)"
+  },
+  "globalGreenLaneRouter20261003": {
+    "receipt": "docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md",
+    "machineReceipt": "artifacts/outreach/global-green-lane-router-20261003.json",
+    "statusRoute": "GET /api/outreach/green-lane/status",
+    "policyEvidenceBundle": "policy/outreach/global-policy-evidence.json",
+    "policyEvidenceState": "EMPTY_UNTIL_LIVE_RECORDED",
+    "greenIsSendAuthority": false,
+    "coldDispatch": "INTENTIONALLY_CLOSED"
   }
 }

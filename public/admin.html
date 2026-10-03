@@ -38,10 +38,12 @@
   <h2>Prospect preflight</h2>
   <p class="hint">Read production history, run the existing message tournament, and inspect the exact blockers. These controls cannot approve or send a message.</p>
   <label>Canonical preflight request<textarea id="prospect-preflight-request" rows="8" spellcheck="false">{}</textarea></label>
-  <div class="button-row"><button id="run-prospect-preflight">Run read-only preflight</button><button id="read-prospect-candidates">Read ranked candidates</button><button id="read-outreach-reality">Read runtime gates</button></div>
+  <div class="button-row"><button id="run-prospect-preflight">Run read-only preflight</button><button id="read-prospect-candidates">Read ranked candidates</button><button id="read-outreach-reality">Read runtime gates</button><button id="read-green-lane-status">Read green-lane status</button><button id="read-green-lane-candidates">Read green-lane-only candidates</button></div>
   <pre id="prospect-preflight-result" aria-live="polite">No production preflight read yet.</pre>
   <details><summary>Ranked candidate evidence gaps</summary><pre id="prospect-candidates-result"></pre></details>
   <details><summary>Runtime gates</summary><pre id="outreach-reality-result"></pre></details>
+  <details><summary>Green-lane status: policy-evidence freshness, jurisdiction matrix, one-button route truth (GREEN is never send authority)</summary><pre id="green-lane-status-result"></pre></details>
+  <details><summary>Green-lane-only candidates (no fabricated green supply)</summary><pre id="green-lane-candidates-result"></pre></details>
 </section>
 <section class="grid two">
   <article>

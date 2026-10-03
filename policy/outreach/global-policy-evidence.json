@@ -1,0 +1,5 @@
+{
+  "schemaVersion": "uberbond.global-policy-evidence-bundle.v1",
+  "note": "Evidence rows attest that an authoritative source supports an encoded router rule as of a time. Add rows only from a live retrieval, via `node scripts/global-policy-evidence.mjs record`. An empty bundle is the honest state: every permissive rule then reports POLICY_REFRESH_REQUIRED. A row can never add a permission the router's reviewed rule logic does not already encode.",
+  "rows": []
+}

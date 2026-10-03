@@ -1,8 +1,101 @@
 {
   "schema": "uberbond.outreach-reachability.v1",
   "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-  "moduleCount": 46,
+  "moduleCount": 59,
   "modules": [
+    {
+      "module": "src/companies-house-adapter.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/corporate-legal-form-verifier.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 2,
+      "classificationReason": null
+    },
+    {
+      "module": "src/company-registry-adapter.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/companies-house-adapter.mjs",
+        "src/corporate-legal-form-verifier.mjs",
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 3,
+      "classificationReason": null
+    },
+    {
+      "module": "src/contact-source-verifier.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/global-green-lane-router.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/corporate-legal-form-verifier.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/global-green-lane-router.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/global-green-lane-router.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/green-lane-activation-truth.mjs",
+        "src/green-lane-discovery.mjs",
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 2,
+      "classificationReason": null
+    },
+    {
+      "module": "src/global-policy-evidence.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs",
+        "src/global-green-lane-router.mjs",
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [
+        "scripts/global-policy-evidence.mjs"
+      ],
+      "testCount": 5,
+      "classificationReason": null
+    },
+    {
+      "module": "src/global-route-economics.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "server-core.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/global-route-tournament.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/global-green-lane-router.mjs",
+        "src/global-route-economics.mjs",
+        "src/green-lane-discovery.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
     {
       "module": "src/governed-outreach-dispatch.mjs",
       "class": "PRODUCTION_REACHABLE",
@@ -12,6 +105,51 @@
       "operatorScriptCallers": [
         "scripts/outreach-launch-doctor.mjs"
       ],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/green-lane-activation-truth.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/prospect-preflight.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/green-lane-discovery.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/lead-generation.mjs",
+        "src/prospect-preflight-handoff.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
+      "module": "src/host-family.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/company-registry-adapter.mjs",
+        "src/contact-source-verifier.mjs",
+        "src/global-green-lane-router.mjs",
+        "src/prospect-preflight.mjs",
+        "src/prospect-verification-intake.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 0,
+      "classificationReason": null
+    },
+    {
+      "module": "src/invited-contact-classifier.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/global-green-lane-router.mjs"
+      ],
+      "operatorScriptCallers": [],
       "testCount": 1,
       "classificationReason": null
     },
@@ -34,7 +172,7 @@
         "src/uberbond-native-lead-ops.mjs"
       ],
       "operatorScriptCallers": [],
-      "testCount": 3,
+      "testCount": 4,
       "classificationReason": null
     },
     {
@@ -70,6 +208,8 @@
       "module": "src/outreach-cold-route-policy.mjs",
       "class": "PRODUCTION_REACHABLE",
       "productionCallers": [
+        "src/contact-source-verifier.mjs",
+        "src/global-green-lane-router.mjs",
         "src/prospect-preflight.mjs"
       ],
       "operatorScriptCallers": [],
@@ -81,12 +221,13 @@
       "class": "PRODUCTION_REACHABLE",
       "productionCallers": [
         "server-core.mjs",
+        "src/global-green-lane-router.mjs",
         "src/omnia-v9/integrations/outbound-consequence-gate.mjs",
         "src/omnia-v9/integrations/outreach-consequence-admission.mjs",
         "src/pipeline.mjs"
       ],
       "operatorScriptCallers": [],
-      "testCount": 3,
+      "testCount": 4,
       "classificationReason": null
     },
     {
@@ -128,6 +269,7 @@
       "module": "src/prospect-effect-package.mjs",
       "class": "PRODUCTION_REACHABLE",
       "productionCallers": [
+        "src/global-green-lane-router.mjs",
         "src/prospect-preflight.mjs"
       ],
       "operatorScriptCallers": [],
@@ -151,7 +293,7 @@
         "server-core.mjs"
       ],
       "operatorScriptCallers": [],
-      "testCount": 1,
+      "testCount": 2,
       "classificationReason": null
     },
     {
@@ -161,7 +303,7 @@
         "server-core.mjs"
       ],
       "operatorScriptCallers": [],
-      "testCount": 1,
+      "testCount": 2,
       "classificationReason": null
     },
     {
@@ -176,11 +318,23 @@
       "classificationReason": null
     },
     {
+      "module": "src/recipient-address-classifier.mjs",
+      "class": "PRODUCTION_REACHABLE",
+      "productionCallers": [
+        "src/contact-source-verifier.mjs",
+        "src/global-green-lane-router.mjs"
+      ],
+      "operatorScriptCallers": [],
+      "testCount": 1,
+      "classificationReason": null
+    },
+    {
       "module": "src/send-safety.mjs",
       "class": "PRODUCTION_REACHABLE",
       "productionCallers": [
         "server-core.mjs",
         "src/deliverability-guard.mjs",
+        "src/green-lane-discovery.mjs",
         "src/pipeline.mjs",
         "src/store.mjs"
       ],
@@ -322,8 +476,11 @@
       "module": "src/uberoutbound-recipient-eligibility.mjs",
       "class": "PRODUCTION_REACHABLE",
       "productionCallers": [
+        "src/global-green-lane-router.mjs",
+        "src/global-policy-evidence.mjs",
         "src/outreach-cold-route-policy.mjs",
-        "src/prospect-verification-intake.mjs"
+        "src/prospect-verification-intake.mjs",
+        "src/recipient-address-classifier.mjs"
       ],
       "operatorScriptCallers": [
         "scripts/consent-bridge-plan.mjs",

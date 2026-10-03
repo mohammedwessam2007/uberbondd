@@ -1,0 +1,110 @@
+{
+  "checkedRecipient": "hello@aideal.group",
+  "checkedDomain": "aideal.group",
+  "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+  "preflight": {
+    "ok": true,
+    "result": {
+      "version": "uberbond.prospect-preflight.v1",
+      "evaluatedAt": "2026-10-03T08:02:18.311Z",
+      "state": "BLOCKED_EXTERNAL_FACT",
+      "blockerCodes": [
+        "current-ownership-unverified",
+        "home-service-client-evidence-missing",
+        "real-client-site-missing",
+        "externally-verifiable-lead-path-observation-missing"
+      ],
+      "readOnly": true,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffects": 0,
+      "externalReads": 0,
+      "registryLookups": [],
+      "company": "A.IDEAL GROUP LIMITED",
+      "recipient": "hello@aideal.group",
+      "offerId": "AI_AGENT_RELEASE_GATE",
+      "contactHistory": {
+        "status": "CLEAN",
+        "hit": false,
+        "receiptDigest": "2ea236f2c983054cdc175d8c44d498f585d19dd0344ea3801a39068c1536253c",
+        "checkedAt": "2026-10-03T08:02:18.311Z"
+      },
+      "intake": {
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "provenance": "RUNTIME_RECEIPT"
+      }
+    }
+  },
+  "history": {
+    "ok": true,
+    "result": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-03T08:02:18.353Z",
+      "emailChecked": "hello@aideal.group",
+      "domainChecked": "aideal.group",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 2,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "45347410a2c363ab2ae5923acbc83a96f97c87bbe42f62ff9f844d63134d0760",
+      "signature": "78de5f79b8c8f287c8824f27f9f72741f276a33b546602b348a2043da5918393"
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

@@ -1,0 +1,399 @@
+{
+  "checkedRecipient": "hello@mypowerhouse.group",
+  "checkedDomain": "mypowerhouse.group",
+  "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+  "preflight": {
+    "ok": true,
+    "result": {
+      "version": "uberbond.prospect-preflight.v1",
+      "evaluatedAt": "2026-10-03T07:52:14.520Z",
+      "state": "BLOCKED_IDENTITY",
+      "blockerCodes": [
+        "legal-business-sender-name-placeholder-or-missing",
+        "authorized-public-postal-address-placeholder-or-missing",
+        "owner-authorization-to-publish-footer-missing",
+        "sender-side-legal-authority-hold-unresolved",
+        "signed-unsubscribe-urls-not-created"
+      ],
+      "readOnly": true,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffects": 0,
+      "externalReads": 0,
+      "registryLookups": [],
+      "company": "Powerhouse Consulting Group",
+      "recipient": "hello@mypowerhouse.group",
+      "offerId": "CLIENT_ROI_PROOF_SPRINT",
+      "contactHistory": {
+        "status": "CLEAN",
+        "hit": false,
+        "receiptDigest": "d891eba3e67c4f1a9667ee67eda06b859560ab1704722db0bea4fcec2ae20d3f",
+        "checkedAt": "2026-10-03T07:52:14.520Z"
+      },
+      "intake": {
+        "status": "VERIFIED_CANDIDATE",
+        "rejectionReasons": [],
+        "missingEvidence": [],
+        "provenance": "RUNTIME_RECEIPT"
+      },
+      "globalRoute": {
+        "state": "ROUTE_GREEN",
+        "routeClass": "US_CANSPAM_GREEN",
+        "provisionalRouteClass": null,
+        "green": true,
+        "routeDigest": "873d1d94e63f2d65058bcbc3551d87c83cf67c0066d6b029f222f1cd0b58f301",
+        "jurisdiction": "US",
+        "selected": {
+          "channel": "US_BUSINESS_EMAIL",
+          "routeClass": "US_CANSPAM_GREEN",
+          "fitness": -0.008001,
+          "executable": false
+        },
+        "fallbacks": [],
+        "legalForm": {
+          "status": "NOT_REQUIRED_FOR_JURISDICTION",
+          "recipientType": "UNKNOWN",
+          "entity": null,
+          "evidenceDigest": "dcd9e3e8c6f2eb80570d4fb956c21749ed6abdf8a3eab1ef0a0b6ada8b5d9e20"
+        },
+        "inbox": {
+          "addressClass": "GENERIC_CORPORATE_ROLE_INBOX",
+          "privacyClass": "COMPANY_LEVEL"
+        },
+        "invitation": {
+          "classification": "NOT_INVITED",
+          "strength": 0,
+          "evidenceDigest": "76a7df2558ced4493915e72ba35c743f0b8ba405f0aff2d16ec6dbebb147d64c"
+        },
+        "contactSource": {
+          "status": "BOUND",
+          "hardRejects": [],
+          "missing": [],
+          "bindingDigest": "dd74599f7e682308c408f0a0ae245ebde428b6eba30353c476e6d2f01200289f"
+        },
+        "policy": {
+          "state": "POLICY_EVIDENCE_FRESH",
+          "requiredRules": [
+            "recipient:US:can-spam-b2b-email",
+            "provider:smtp-relay:winnr:cold-b2b-lawful-use"
+          ],
+          "evidenceDigest": "f1ae87cec5349eed887f805177d733ebd02917d57bddd6e594d37ff1214a18d6",
+          "refreshRequired": []
+        },
+        "eligibility": {
+          "decision": "ALLOW_WITH_REQUIREMENTS",
+          "basis": "US_CAN_SPAM_OPT_OUT_REGIME",
+          "reasonCodes": [],
+          "requirements": [
+            "SENDER_POSTAL_IDENTITY",
+            "TRUTHFUL_SENDER_HEADERS",
+            "NON_DECEPTIVE_SUBJECT",
+            "ADVERTISEMENT_IDENTIFICATION",
+            "FUNCTIONAL_UNSUBSCRIBE"
+          ],
+          "routeTimeUnmet": [],
+          "effectTimeUnmet": [
+            "SENDER_POSTAL_IDENTITY",
+            "TRUTHFUL_SENDER_HEADERS",
+            "NON_DECEPTIVE_SUBJECT",
+            "ADVERTISEMENT_IDENTIFICATION",
+            "FUNCTIONAL_UNSUBSCRIBE"
+          ],
+          "evidenceId": "ubelig_5151b3513037fb9e4a798dadeda7b2552122fe4f36b45488a59ce6e64b817c59",
+          "evaluationScope": "RECIPIENT_SIDE_ONLY",
+          "senderSideEvaluated": false
+        },
+        "senderSide": {
+          "state": "UNRESOLVED_FACTS",
+          "clear": false,
+          "fields": {
+            "operatorLocation": "",
+            "senderEntityJurisdiction": "",
+            "controllerJurisdiction": ""
+          },
+          "missingFields": [
+            "operatorLocation",
+            "senderEntityJurisdiction",
+            "controllerJurisdiction"
+          ],
+          "holdingFields": [],
+          "classification": null,
+          "ownerResolutionRecorded": false,
+          "note": "Sender-side legal authority is a separate gate: this state is reported, never self-resolved, and never lifts a hold."
+        },
+        "governanceGate": {
+          "provider": "smtp-relay",
+          "routeType": "PUBLIC_BUSINESS_CONTACT",
+          "refused": true,
+          "reason": "smtp-relay-cold-route-requires-separate-provider-and-legal-evidence"
+        },
+        "sendPrerequisites": {
+          "suppressionClean": {
+            "status": "PASS",
+            "codes": []
+          },
+          "historyClean": {
+            "status": "PASS",
+            "codes": []
+          },
+          "identityComplete": {
+            "status": "FAIL",
+            "codes": [
+              "legal-business-sender-name-placeholder-or-missing",
+              "authorized-public-postal-address-placeholder-or-missing",
+              "owner-authorization-to-publish-footer-missing"
+            ]
+          },
+          "senderEligible": {
+            "status": "FAIL",
+            "codes": [
+              "sender-side-unresolved-facts"
+            ]
+          },
+          "providerAllowed": {
+            "status": "FAIL",
+            "codes": [
+              "governance-refuses-public-business-contact:smtp-relay-cold-route-requires-separate-provider-and-legal-evidence"
+            ]
+          },
+          "effectComplete": {
+            "status": "NOT_EVALUATED",
+            "codes": [
+              "effect-package-compiled-by-preflight"
+            ]
+          },
+          "authorizationValid": {
+            "status": "NOT_EVALUATED",
+            "codes": [
+              "founder-signed-authorization-is-a-separate-gate"
+            ]
+          }
+        },
+        "blockers": []
+      },
+      "tournament": {
+        "status": "WINNER_SELECTED",
+        "winnerId": "FULL",
+        "reasonCodes": []
+      },
+      "sender": {
+        "ok": true,
+        "slot": "winnr:tara.garcia@cedarpointdomains.com"
+      },
+      "coldRoute": {
+        "envelopeOk": true,
+        "routeDigest": "f6d75554512277b0879a72c6d0266dff74ba7cba9d4102bc3dd8b23b12c96a4a",
+        "senderSideClassification": "CONSERVATIVE_POLICY_HOLD_PENDING_AUTHORITATIVE_SCOPE_INTERPRETATION",
+        "selfAuthorizing": false
+      },
+      "message": {
+        "winner": {
+          "id": "FULL",
+          "subject": "Sylvester availability",
+          "body": "Hi there,\n\nI noticed one of Powerhouse's publicly named clients, Sylvester Electric, makes two different emergency-service promises on the same page: its homepage says emergency service covers business hours and qualifying after-hours situations, and its service list further down advertises 24/7 Emergency Service. Its generator and panel pages also say 24/7. I put the exact wording into a one-page reconciliation note for client QA. Want me to send it?",
+          "wordCount": 69,
+          "subjectWordCount": 2,
+          "sentenceCount": 4,
+          "cta": "Want me to send it?",
+          "score": 0.816375
+        },
+        "coreMessageDigest": "f1cc00c6477c379c6f36c1deea688a899be1622104d5d49e8a067e83f4aa7e1e"
+      },
+      "effectPackage": {
+        "state": "READY_EXCEPT_IDENTITY_AND_AUTHORITY",
+        "finalEffectDigest": null,
+        "placeholdersPresent": true,
+        "routeBound": true,
+        "blockers": [
+          {
+            "group": "identity",
+            "code": "legal-business-sender-name-placeholder-or-missing"
+          },
+          {
+            "group": "identity",
+            "code": "authorized-public-postal-address-placeholder-or-missing"
+          },
+          {
+            "group": "identity",
+            "code": "owner-authorization-to-publish-footer-missing"
+          },
+          {
+            "group": "authority",
+            "code": "sender-side-legal-authority-hold-unresolved"
+          },
+          {
+            "group": "draftTime",
+            "code": "signed-unsubscribe-urls-not-created"
+          }
+        ]
+      },
+      "oneButton": {
+        "version": "uberbond.green-lane-activation-truth.v1",
+        "display": "GREEN ROUTE FOUND",
+        "routeFound": true,
+        "routeClass": "US_CANSPAM_GREEN",
+        "routeDigest": "873d1d94e63f2d65058bcbc3551d87c83cf67c0066d6b029f222f1cd0b58f301",
+        "policyStale": false,
+        "gates": {
+          "suppressionClean": {
+            "gate": "suppression",
+            "status": "PASS",
+            "codes": []
+          },
+          "historyClean": {
+            "gate": "history",
+            "status": "PASS",
+            "codes": []
+          },
+          "identityComplete": {
+            "gate": "identity",
+            "status": "FAIL",
+            "codes": [
+              "legal-business-sender-name-placeholder-or-missing",
+              "authorized-public-postal-address-placeholder-or-missing",
+              "owner-authorization-to-publish-footer-missing"
+            ]
+          },
+          "senderEligible": {
+            "gate": "sender",
+            "status": "FAIL",
+            "codes": [
+              "sender-side-unresolved-facts"
+            ]
+          },
+          "providerAllowed": {
+            "gate": "provider",
+            "status": "FAIL",
+            "codes": [
+              "governance-refuses-public-business-contact:smtp-relay-cold-route-requires-separate-provider-and-legal-evidence"
+            ]
+          },
+          "effectComplete": {
+            "gate": "effect",
+            "status": "FAIL",
+            "codes": [
+              "effect-package:ready_except_identity_and_authority"
+            ]
+          },
+          "authorizationValid": {
+            "gate": "authorization",
+            "status": "FAIL",
+            "codes": [
+              "founder-signed-authorization-absent-or-unverified"
+            ]
+          }
+        },
+        "blockers": [
+          {
+            "gate": "identity",
+            "code": "legal-business-sender-name-placeholder-or-missing"
+          },
+          {
+            "gate": "identity",
+            "code": "authorized-public-postal-address-placeholder-or-missing"
+          },
+          {
+            "gate": "identity",
+            "code": "owner-authorization-to-publish-footer-missing"
+          },
+          {
+            "gate": "sender",
+            "code": "sender-side-unresolved-facts"
+          },
+          {
+            "gate": "provider",
+            "code": "governance-refuses-public-business-contact:smtp-relay-cold-route-requires-separate-provider-and-legal-evidence"
+          },
+          {
+            "gate": "effect",
+            "code": "effect-package:ready_except_identity_and_authority"
+          },
+          {
+            "gate": "authorization",
+            "code": "founder-signed-authorization-absent-or-unverified"
+          }
+        ],
+        "activationBlocked": true,
+        "automaticSendAuthority": false,
+        "sendAuthority": false,
+        "externalEffectAuthority": "NONE",
+        "externalEffectLedger": {
+          "providerCalls": 0,
+          "messages": 0,
+          "purchases": 0,
+          "deployments": 0,
+          "credentialChanges": 0,
+          "dnsChanges": 0,
+          "productionMutations": 0,
+          "spendCents": 0
+        },
+        "truthBoundary": "GREEN ROUTE FOUND is a statement about policy/evidence prerequisites, not permission. Identity, effect package, sender health, fresh policy evidence, clean history, suppression, provider governance and a verified founder-signed authorization are each separately required."
+      }
+    }
+  },
+  "history": {
+    "ok": true,
+    "result": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-03T07:52:14.521Z",
+      "emailChecked": "hello@mypowerhouse.group",
+      "domainChecked": "mypowerhouse.group",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 2,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "de76f2970a2596918cf601e53dfac2efcd1d66500764645a0ee2a40e02497f9a",
+      "signature": "ff127bbbcc57ef0a1c8bb3c4965f06b4d7ac6a3390c2e6947707b5a68406d1ba"
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

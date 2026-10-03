@@ -1,0 +1,21 @@
+{
+  "observedAt": null,
+  "observationTimePrecision": "Browser sequence after runtime observation 2026-10-03T07:58:52.686Z; exact subscription retrieval time not captured",
+  "authentication": "POSITIVE_SIGNED_IN_PROVIDER_PAGE",
+  "plan": "Pre-Warmed Only",
+  "basePlanMonthlyUsd": 0,
+  "activePrewarmedMailboxes": 3,
+  "prewarmedMailboxMonthlyUsd": 3,
+  "existingMonthlyUsd": 9,
+  "renews": "2026-11-02",
+  "domain": "cedarpointdomains.com",
+  "domainExpiry": "2027-05-24",
+  "domainAutoRenew": false,
+  "baseEmailCredits": 0,
+  "baseDomainSlots": 0,
+  "providerApiLimit": "NOT_RETRIEVED",
+  "mailboxDetailStatus": "ACCOUNT_ENTITLEMENT_ACTIVE; per-mailbox provider detail not retrieved before browser session loss",
+  "notices": "Pre-warmed marketplace upsell visible; no restriction notice observed on subscription view",
+  "providerMutation": false,
+  "spendCents": 0
+}

@@ -1,0 +1,115 @@
+{
+  "version": "uberbond.prospect-preflight-handoff.v1",
+  "generatedAt": "2026-10-03T07:52:16.546Z",
+  "mode": "GREEN_LANE_ONLY",
+  "greenLane": {
+    "LEAD_TO_BOOKING_LEAK_AUDIT": {
+      "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+      "publicName": "Agency Revenue Leak Proof Pack",
+      "version": "uberbond.green-lane-discovery.v1",
+      "mode": "GREEN_LANE_ONLY",
+      "supplyStatus": "INSUFFICIENT_GREEN_SUPPLY",
+      "greenCount": 0,
+      "notGreenCount": 0,
+      "ranked": [],
+      "notGreen": [],
+      "fabricatedGreenProspects": 0,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    "AI_AGENT_RELEASE_GATE": {
+      "offerId": "AI_AGENT_RELEASE_GATE",
+      "publicName": "AI Agent Production Release Gate",
+      "version": "uberbond.green-lane-discovery.v1",
+      "mode": "GREEN_LANE_ONLY",
+      "supplyStatus": "INSUFFICIENT_GREEN_SUPPLY",
+      "greenCount": 0,
+      "notGreenCount": 0,
+      "ranked": [],
+      "notGreen": [],
+      "fabricatedGreenProspects": 0,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    "CLIENT_ROI_PROOF_SPRINT": {
+      "offerId": "CLIENT_ROI_PROOF_SPRINT",
+      "publicName": "Revenue Proof & Renewal Pack",
+      "version": "uberbond.green-lane-discovery.v1",
+      "mode": "GREEN_LANE_ONLY",
+      "supplyStatus": "INSUFFICIENT_GREEN_SUPPLY",
+      "greenCount": 0,
+      "notGreenCount": 0,
+      "ranked": [],
+      "notGreen": [],
+      "fabricatedGreenProspects": 0,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    "BILINGUAL_BOOKING_LEAK_AUDIT": {
+      "offerId": "BILINGUAL_BOOKING_LEAK_AUDIT",
+      "publicName": "GCC Arabic-English Booking Parity & Revenue Leak Sprint",
+      "version": "uberbond.green-lane-discovery.v1",
+      "mode": "GREEN_LANE_ONLY",
+      "supplyStatus": "INSUFFICIENT_GREEN_SUPPLY",
+      "greenCount": 0,
+      "notGreenCount": 0,
+      "ranked": [],
+      "notGreen": [],
+      "fabricatedGreenProspects": 0,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  },
+  "poolSize": 1,
+  "excluded": [
+    {
+      "id": "pros_a89167c7-d125-4143-b2bb-9a4cc230b82a",
+      "reason": "prior-contact-status:rejected"
+    }
+  ],
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0,
+  "providerCalls": 0,
+  "truthBoundary": "Ranking is offer fit over supplied evidence and tags, not buyer intent, consent or permission. A candidate is preflightReady only after the exact production contact-history read and every intake gap is closed by real evidence; this handoff never fetches sources, guesses addresses or contacts anyone."
+}

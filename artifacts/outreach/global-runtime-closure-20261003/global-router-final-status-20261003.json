@@ -1,0 +1,361 @@
+{
+  "version": "uberbond.green-lane-status.v1",
+  "evaluatedAt": "2026-10-03T07:52:15.561Z",
+  "policyEvidence": {
+    "version": "uberbond.global-policy-evidence.v1",
+    "evaluatedAt": "2026-10-03T07:52:15.561Z",
+    "totalRules": 16,
+    "permissiveRules": 7,
+    "permissiveRulesFresh": 5,
+    "permissiveRulesNeedingRefresh": [
+      {
+        "ruleId": "recipient:CA:casl-conspicuous-publication",
+        "state": "MISSING",
+        "seedSourceUrl": "https://crtc.gc.ca/eng/com500/guide.htm"
+      },
+      {
+        "ruleId": "recipient:AU:spam-act-conspicuous-publication",
+        "state": "MISSING",
+        "seedSourceUrl": "https://www.acma.gov.au/avoid-sending-spam"
+      }
+    ],
+    "rejectedRows": [],
+    "loadErrors": [],
+    "rules": [
+      {
+        "ruleId": "recipient:US:can-spam-b2b-email",
+        "jurisdiction": "US",
+        "permissive": true,
+        "state": "FRESH",
+        "fresh": true,
+        "ageDays": 0,
+        "authorityType": "REGULATOR_GUIDANCE",
+        "lastVerifiedAt": "2026-10-03T07:32:30.000Z",
+        "seedSourceUrl": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+      },
+      {
+        "ruleId": "recipient:GB:pecr-corporate-subscriber-email",
+        "jurisdiction": "GB",
+        "permissive": true,
+        "state": "FRESH",
+        "fresh": true,
+        "ageDays": 0,
+        "authorityType": "REGULATOR_GUIDANCE",
+        "lastVerifiedAt": "2026-10-03T07:32:30.000Z",
+        "seedSourceUrl": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/"
+      },
+      {
+        "ruleId": "recipient:CA:casl-conspicuous-publication",
+        "jurisdiction": "CA",
+        "permissive": true,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://crtc.gc.ca/eng/com500/guide.htm"
+      },
+      {
+        "ruleId": "recipient:AU:spam-act-conspicuous-publication",
+        "jurisdiction": "AU",
+        "permissive": true,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://www.acma.gov.au/avoid-sending-spam"
+      },
+      {
+        "ruleId": "recipient:DE:uwg-7-consent",
+        "jurisdiction": "DE",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://www.gesetze-im-internet.de/uwg_2004/__7.html"
+      },
+      {
+        "ruleId": "recipient:CH:uwg-3-consent",
+        "jurisdiction": "CH",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://www.fedlex.admin.ch/eli/cc/1988/223_223_223/en"
+      },
+      {
+        "ruleId": "recipient:SA:default-deny",
+        "jurisdiction": "SA",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": null
+      },
+      {
+        "ruleId": "recipient:AE:campaign-review-hold",
+        "jurisdiction": "AE",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": null
+      },
+      {
+        "ruleId": "recipient:EG:consent-first-hold",
+        "jurisdiction": "EG",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://mcit.gov.eg/Upcont/Documents/Reports%20and%20Documents_1232021000_Law_No_151_2020_Personal_Data_Protection.pdf"
+      },
+      {
+        "ruleId": "recipient:SG:review-hold",
+        "jurisdiction": "SG",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://sso.agc.gov.sg/Act/SCA2007"
+      },
+      {
+        "ruleId": "recipient:EU_EEA:national-eprivacy-hold",
+        "jurisdiction": "EU_EEA",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": null
+      },
+      {
+        "ruleId": "recipient:UNKNOWN:fail-closed",
+        "jurisdiction": "UNKNOWN",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": null
+      },
+      {
+        "ruleId": "legal-form:GB:corporate-subscriber-classes",
+        "jurisdiction": "GB",
+        "permissive": true,
+        "state": "FRESH",
+        "fresh": true,
+        "ageDays": 0,
+        "authorityType": "REGULATOR_GUIDANCE",
+        "lastVerifiedAt": "2026-10-03T07:32:30.000Z",
+        "seedSourceUrl": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/"
+      },
+      {
+        "ruleId": "registry:GB:companies-house-terms",
+        "jurisdiction": "GB",
+        "permissive": true,
+        "state": "FRESH",
+        "fresh": true,
+        "ageDays": 0,
+        "authorityType": "PROVIDER_POLICY",
+        "lastVerifiedAt": "2026-10-03T07:32:30.000Z",
+        "seedSourceUrl": "https://developer.company-information.service.gov.uk/"
+      },
+      {
+        "ruleId": "provider:smtp-relay:winnr:cold-b2b-lawful-use",
+        "jurisdiction": "PROVIDER",
+        "permissive": true,
+        "state": "FRESH",
+        "fresh": true,
+        "ageDays": 0,
+        "authorityType": "PROVIDER_POLICY",
+        "lastVerifiedAt": "2026-10-03T07:32:30.000Z",
+        "seedSourceUrl": null
+      },
+      {
+        "ruleId": "sender:EG:conservative-hold",
+        "jurisdiction": "EG",
+        "permissive": false,
+        "state": "MISSING",
+        "fresh": false,
+        "ageDays": null,
+        "authorityType": null,
+        "lastVerifiedAt": null,
+        "seedSourceUrl": "https://mcit.gov.eg/Upcont/Documents/Reports%20and%20Documents_1232021000_Law_No_151_2020_Personal_Data_Protection.pdf"
+      }
+    ],
+    "sendAuthority": false,
+    "externalEffectAuthority": "NONE",
+    "externalEffects": 0,
+    "truthBoundary": "Evidence rows attest that a source supports an encoded rule as of a time; they never add a permission. A restrictive rule needs no freshness to stay restrictive. Every permissive rule needs fresh, hashed, authority-typed evidence before any route can be green, and GREEN is never send authority."
+  },
+  "jurisdictionMatrix": {
+    "version": "uberbond.global-green-lane-router.v1",
+    "evaluatedAt": "2026-10-03T07:52:15.561Z",
+    "rows": [
+      {
+        "jurisdiction": "GB",
+        "recipientRuleId": "recipient:GB:pecr-corporate-subscriber-email",
+        "ruleLogic": "OPT_OUT_OR_CORPORATE_SUBSCRIBER_RULE",
+        "canBeGreen": true,
+        "permissiveRuleEvidenceState": "FRESH",
+        "permissiveRuleFresh": true,
+        "highestReachableClassToday": "GREEN_WHEN_ALL_FACTS_HOLD",
+        "requiresLegalFormEvidence": true,
+        "seedSourceUrl": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/"
+      },
+      {
+        "jurisdiction": "US",
+        "recipientRuleId": "recipient:US:can-spam-b2b-email",
+        "ruleLogic": "OPT_OUT_OR_CORPORATE_SUBSCRIBER_RULE",
+        "canBeGreen": true,
+        "permissiveRuleEvidenceState": "FRESH",
+        "permissiveRuleFresh": true,
+        "highestReachableClassToday": "GREEN_WHEN_ALL_FACTS_HOLD",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business"
+      },
+      {
+        "jurisdiction": "CA",
+        "recipientRuleId": "recipient:CA:casl-conspicuous-publication",
+        "ruleLogic": "CONSPICUOUS_PUBLICATION_RULE",
+        "canBeGreen": true,
+        "permissiveRuleEvidenceState": "MISSING",
+        "permissiveRuleFresh": false,
+        "highestReachableClassToday": "POLICY_REFRESH_REQUIRED",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": "https://crtc.gc.ca/eng/com500/guide.htm"
+      },
+      {
+        "jurisdiction": "AU",
+        "recipientRuleId": "recipient:AU:spam-act-conspicuous-publication",
+        "ruleLogic": "CONSPICUOUS_PUBLICATION_RULE",
+        "canBeGreen": true,
+        "permissiveRuleEvidenceState": "MISSING",
+        "permissiveRuleFresh": false,
+        "highestReachableClassToday": "POLICY_REFRESH_REQUIRED",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": "https://www.acma.gov.au/avoid-sending-spam"
+      },
+      {
+        "jurisdiction": "SG",
+        "recipientRuleId": "recipient:SG:review-hold",
+        "ruleLogic": "HOLD_OR_REJECT_RULE",
+        "canBeGreen": false,
+        "permissiveRuleEvidenceState": "NOT_APPLICABLE",
+        "permissiveRuleFresh": null,
+        "highestReachableClassToday": "CONDITIONAL",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": "https://sso.agc.gov.sg/Act/SCA2007"
+      },
+      {
+        "jurisdiction": "AE",
+        "recipientRuleId": "recipient:AE:campaign-review-hold",
+        "ruleLogic": "HOLD_OR_REJECT_RULE",
+        "canBeGreen": false,
+        "permissiveRuleEvidenceState": "NOT_APPLICABLE",
+        "permissiveRuleFresh": null,
+        "highestReachableClassToday": "CONDITIONAL",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": null
+      },
+      {
+        "jurisdiction": "EG",
+        "recipientRuleId": "recipient:EG:consent-first-hold",
+        "ruleLogic": "HOLD_OR_REJECT_RULE",
+        "canBeGreen": false,
+        "permissiveRuleEvidenceState": "NOT_APPLICABLE",
+        "permissiveRuleFresh": null,
+        "highestReachableClassToday": "CONDITIONAL",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": "https://mcit.gov.eg/Upcont/Documents/Reports%20and%20Documents_1232021000_Law_No_151_2020_Personal_Data_Protection.pdf"
+      },
+      {
+        "jurisdiction": "UNKNOWN",
+        "recipientRuleId": "recipient:UNKNOWN:fail-closed",
+        "ruleLogic": "FAIL_CLOSED",
+        "canBeGreen": false,
+        "permissiveRuleEvidenceState": "NOT_APPLICABLE",
+        "permissiveRuleFresh": null,
+        "highestReachableClassToday": "UNKNOWN_FAIL_CLOSED",
+        "requiresLegalFormEvidence": false,
+        "seedSourceUrl": null
+      }
+    ],
+    "sendAuthority": false,
+    "externalEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    },
+    "truthBoundary": "No jurisdiction is claimed solved. Only jurisdictions whose rule logic is encoded in the reviewed eligibility compiler can ever be green, and only with fresh evidence."
+  },
+  "registries": {
+    "adapters": [
+      "GB"
+    ],
+    "refused": [],
+    "companiesHouse": {
+      "zeroCost": true,
+      "credentialConfigured": false
+    }
+  },
+  "governanceGate": {
+    "provider": "gmail-api",
+    "routeType": "PUBLIC_BUSINESS_CONTACT",
+    "refused": true,
+    "reason": "gmail-api-prohibits-unsolicited-commercial-mail"
+  },
+  "routeEconomics": {
+    "version": "uberbond.global-route-economics.v1",
+    "generatedAt": "2026-10-03T07:52:15.561Z",
+    "attribution": {
+      "status": "NO_ROUTE_ATTRIBUTION_RECORDED",
+      "stampedProspects": 0,
+      "unstampedProspects": 2,
+      "stampWriter": "NONE_ACTIVE__AWAITING_GOVERNED_DRAFT_STEP"
+    },
+    "byRouteClass": {},
+    "readOnly": true,
+    "sendAuthority": false,
+    "externalEffectAuthority": "NONE",
+    "externalEffects": 0,
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    },
+    "truthBoundary": "Unknown cost is UNKNOWN, never zero. Expected figures are labelled priors, not measurements. Actuals count only ledger facts, and attribution requires a route stamp that nothing writes until the governed draft step binds one; until then no split by route class is invented."
+  },
+  "coldDispatch": "INTENTIONALLY_CLOSED",
+  "sendAuthority": false,
+  "externalEffectAuthority": "NONE",
+  "externalEffects": 0,
+  "newRecurringCostUsd": 0
+}

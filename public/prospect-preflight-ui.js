@@ -64,4 +64,6 @@ export function mountProspectPreflight({ request, document }) {
   bind('run-prospect-preflight', 'prospect-preflight-result', () => inspectProspect({ request, input: JSON.parse(document.querySelector('#prospect-preflight-request').value) }));
   bind('read-prospect-candidates', 'prospect-candidates-result', () => request('/api/prospect-preflight/candidates'));
   bind('read-outreach-reality', 'outreach-reality-result', () => inspectRuntime({ request }));
+  bind('read-green-lane-status', 'green-lane-status-result', () => request('/api/outreach/green-lane/status'));
+  bind('read-green-lane-candidates', 'green-lane-candidates-result', () => request('/api/prospect-preflight/candidates?mode=GREEN_LANE_ONLY'));
 }

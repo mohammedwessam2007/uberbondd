@@ -13,6 +13,7 @@
 import { UBERREPLY_OFFER_PORTFOLIO, scoreUberReplyOfferFit } from './uberreply-four-offer-genome.mjs';
 import { compileProspectVerification, resolveOfferId } from './prospect-verification-intake.mjs';
 import { suppressionMatches, domainOfEmail } from './prospect-contact-history.mjs';
+import { evaluateGreenLaneCandidate, rankGreenLane, GREEN_LANE_ONLY } from './green-lane-discovery.mjs';
 
 export const PREFLIGHT_HANDOFF_VERSION = 'uberbond.prospect-preflight-handoff.v1';
 
@@ -38,7 +39,8 @@ function skeletonFrom(prospect, offerId) {
   };
 }
 
-export function compilePreflightHandoff({ prospects = [], suppressions = [], perOffer = 3, now = new Date() } = {}) {
+export function compilePreflightHandoff({ prospects = [], suppressions = [], perOffer = 3, mode = 'DEFAULT', policyRegistry = null, now = new Date() } = {}) {
+  const greenMode = String(mode || '').toUpperCase() === GREEN_LANE_ONLY;
   const limit = Math.max(1, Math.min(10, Math.floor(Number(perOffer) || 3)));
   const sup = Array.isArray(suppressions) ? suppressions : [];
   const excluded = [];
@@ -53,7 +55,19 @@ export function compilePreflightHandoff({ prospects = [], suppressions = [], per
     pool.push(prospect);
   }
   const byOffer = {};
+  const greenLane = {};
   for (const offer of UBERREPLY_OFFER_PORTFOLIO) {
+    if (greenMode) {
+      // GREEN_LANE_ONLY: route policy decides candidacy. Every pooled prospect with
+      // any offer fit is evaluated by the router; only green routes are returned,
+      // and an insufficient supply is reported as such, never filled.
+      const evaluated = pool
+        .map(prospect => ({ prospect, fit: scoreUberReplyOfferFit(offer, prospect) }))
+        .filter(row => row.fit.score > 0)
+        .map(row => evaluateGreenLaneCandidate({ prospect: row.prospect, offer, fit: row.fit, policyRegistry, now }));
+      greenLane[offer.offerId] = { offerId: offer.offerId, publicName: offer.publicName, ...rankGreenLane(evaluated, { mode: GREEN_LANE_ONLY, limit }) };
+      continue;
+    }
     const ranked = pool
       .map(prospect => ({ prospect, fit: scoreUberReplyOfferFit(offer, prospect) }))
       .filter(row => row.fit.score > 0)
@@ -76,16 +90,17 @@ export function compilePreflightHandoff({ prospects = [], suppressions = [], per
   }
   return Object.freeze({
     version: PREFLIGHT_HANDOFF_VERSION, generatedAt: new Date(now).toISOString(),
-    offers: byOffer, poolSize: pool.length, excluded,
+    mode: greenMode ? GREEN_LANE_ONLY : 'DEFAULT',
+    offers: greenMode ? undefined : byOffer, greenLane: greenMode ? greenLane : undefined, poolSize: pool.length, excluded,
     readOnly: true, sendAuthority: false, externalEffects: 0, providerCalls: 0,
     truthBoundary: 'Ranking is offer fit over supplied evidence and tags, not buyer intent, consent or permission. A candidate is preflightReady only after the exact production contact-history read and every intake gap is closed by real evidence; this handoff never fetches sources, guesses addresses or contacts anyone.'
   });
 }
 
-export async function buildPreflightHandoff({ store, perOffer = 3, now = new Date() } = {}) {
+export async function buildPreflightHandoff({ store, perOffer = 3, mode = 'DEFAULT', policyRegistry = null, now = new Date() } = {}) {
   if (!store || typeof store.list !== 'function') throw new Error('store-required');
   const [prospects, suppressions] = await Promise.all([store.list('prospects'), store.list('suppressions')]);
-  return compilePreflightHandoff({ prospects, suppressions, perOffer, now });
+  return compilePreflightHandoff({ prospects, suppressions, perOffer, mode, policyRegistry, now });
 }
 
 export { resolveOfferId };

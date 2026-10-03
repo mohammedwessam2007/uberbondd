@@ -1,5 +1,6 @@
 import { sha256 } from './omnia-v9/canonical.mjs';
 import { normalizeDomain } from './utils.mjs';
+import { evaluateGreenLaneCandidate } from './green-lane-discovery.mjs';
 
 export const LEAD_GENERATION_VERSION = 'uberbond.lead-generation.v1';
 
@@ -168,6 +169,9 @@ export function normalizeLeadQuery(input = {}) {
     requireEvidence: raw.requireEvidence !== false,
     requireContact: raw.requireContact !== false,
     skipOwned: raw.skipOwned !== false,
+    // GREEN_LANE_ONLY: keep only prospects with a currently green lawful route
+    // (honoured only when a green-lane context is supplied to the search).
+    greenLaneOnly: raw.greenLaneOnly === true || String(raw.mode || '').toUpperCase() === 'GREEN_LANE_ONLY',
     freshWithinDays: integer(raw.freshWithinDays, 180, 1, 3650),
     sort: SORTS.has(String(raw.sort || '').toLowerCase()) ? String(raw.sort).toLowerCase() : 'score',
     limit: integer(raw.limit, 50, 1, 250)
@@ -414,7 +418,7 @@ function matchesQuery(candidate, query) {
   return true;
 }
 
-export function searchLocalLeadCorpus({ prospects = [], signals = [], suppressions = [], query: rawQuery = {}, limit, now = new Date() } = {}) {
+export function searchLocalLeadCorpus({ prospects = [], signals = [], suppressions = [], query: rawQuery = {}, limit, greenLane = null, now = new Date() } = {}) {
   const query = normalizeLeadQuery({ ...rawQuery, ...(limit === undefined ? {} : { limit }) });
   const byProspect = new Map();
   for (const signal of signals || []) {
@@ -445,7 +449,15 @@ export function searchLocalLeadCorpus({ prospects = [], signals = [], suppressio
     if (!keys.length) keys.push(`id:${candidate.id}`);
     if (keys.some(key => dedupe.has(key))) { excluded.duplicate = (excluded.duplicate || 0) + 1; continue; }
     keys.forEach(key => dedupe.add(key));
+    // Route policy is consumed DURING selection: a clean lawful route outranks a
+    // nominally superior prospect whose route is unresolved. Supply is never fabricated.
+    let greenLaneEvaluation = null;
+    if (greenLane) {
+      greenLaneEvaluation = evaluateGreenLaneCandidate({ prospect: candidate, offer: greenLane.offer || {}, fit: { semanticFit: Math.min(1, score.fit / 40), evidenceConfidence: Math.min(1, score.evidence / 30) }, policyRegistry: greenLane.policyRegistry || null, economics: greenLane.economics || {}, now });
+      if (query.greenLaneOnly && !greenLaneEvaluation.summary.green) { excluded.not_green = (excluded.not_green || 0) + 1; continue; }
+    }
     rows.push({
+      greenLane: greenLaneEvaluation ? greenLaneEvaluation.summary : undefined,
       id: candidate.id, company: text(candidate.company || candidate.name, 180), domain,
       website: text(candidate.website, 500), country: text(candidate.country, 80), city: text(candidate.city, 80),
       niche: text(candidate.niche || candidate.industry, 120), contact: candidate.contact || null,
@@ -457,6 +469,10 @@ export function searchLocalLeadCorpus({ prospects = [], signals = [], suppressio
     });
   }
   rows.sort((a, b) => {
+    if (greenLane) {
+      const routeValue = (b.greenLane?.prospectValue?.value ?? 0) - (a.greenLane?.prospectValue?.value ?? 0);
+      if (routeValue) return routeValue;
+    }
     const primary = query.sort === 'intent' ? b.score.intent - a.score.intent : query.sort === 'fit' ? b.score.fit - a.score.fit : query.sort === 'freshness' ? b.score.freshness - a.score.freshness : b.score.total - a.score.total;
     return primary || b.score.total - a.score.total || a.company.localeCompare(b.company);
   });

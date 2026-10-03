@@ -1340,5 +1340,25 @@
     "prospectMessages": 0,
     "newSpendUsd": 0,
     "nextDependency": "Recover/supply authorized public identity and sender/operator/entity/controller jurisdiction facts, then resolve exact sender-side legal scope. Recompile exact effect only afterward; no present authorization or dispatch inferred."
+  },
+  "globalGreenLaneRouter20261003": {
+    "receipt": "docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md",
+    "machineReceipt": "artifacts/outreach/global-green-lane-router-20261003.json",
+    "baseSha": "1e600fd193fa2ca0d7590bbb0751150d1a3e8363",
+    "truthClass": "INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF",
+    "policyEvidenceBundle": "policy/outreach/global-policy-evidence.json",
+    "policyEvidenceState": "EMPTY_UNTIL_LIVE_RECORDED",
+    "preflightOutcomeUntilEvidenceRecorded": "BLOCKED_POLICY_REFRESH",
+    "mutationGuards": "GGL-01..GGL-25",
+    "newRecurringSoftwareCostUsd": 0,
+    "prospectMessages": 0,
+    "externalRemainder": [
+      "Record live policy evidence for each permissive rule (npm run outreach:green-lane:record) from a host with egress to the authoritative regulator/provider pages.",
+      "Provide a free COMPANIES_HOUSE_API_KEY for UK legal-form verification (absent: UK fails closed).",
+      "Publishable sender identity and sender/operator/entity/controller jurisdiction determination.",
+      "Explicit owner decision to wire governed cold dispatch (cold-v1 + smtp-relay governance)."
+    ],
+    "supersedesFrontier": "outreachAdminRecovery20261003 for runs made after this change",
+    "coldDispatch": "INTENTIONALLY_CLOSED"
   }
 }

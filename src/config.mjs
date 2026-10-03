@@ -232,6 +232,14 @@ export const config = {
       webhookSecret: env.WINNR_WEBHOOK_SECRET || '',
       configured: Boolean(env.WINNR_API_TOKEN || env.WINNR_API_KEY)
     },
+    // Companies House public REST API (UK company register). It is FREE: the
+    // only requirement is a free API key. Absent, the UK legal-form lookup
+    // reports CREDENTIAL_MISSING and the global route fails closed; nothing is
+    // ever purchased and the website is never scraped.
+    companiesHouse: {
+      apiKey: env.COMPANIES_HOUSE_API_KEY || '',
+      configured: Boolean(env.COMPANIES_HOUSE_API_KEY)
+    },
     clayinbox: {
       apiKey: env.CLAYINBOX_API_KEY || '',
       baseUrl: env.CLAYINBOX_BASE_URL || 'https://app.clayinbox.ai/api/v1',

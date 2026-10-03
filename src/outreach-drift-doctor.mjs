@@ -31,6 +31,7 @@ export const STALE_CLAIM_RULES = Object.freeze([
   { id: 'no-authenticated-mailbox', pattern: /\bno authenticated (smtp |imap )?mailbox(es)?\b/i, falseWhen: ctx => (ctx.winnr?.runtime?.smtpConfirmed || 0) > 0, because: 'winnr/CURRENT_STATE.json records SMTP/IMAP confirmed mailboxes' },
   { id: 'all-senders-spam', pattern: /\ball (three )?senders (are |land |landed )?(in )?spam\b|\bglobal placement (is )?red\b/i, falseWhen: ctx => (ctx.winnr?.placement?.inboxOrdinals || []).length > 0, because: 'winnr/CURRENT_STATE.json records inbox placements for ordinals 1 and 2' },
   { id: 'cold-route-absent', pattern: /\bno cold[- ]route (exists|is implemented)\b|\bcold route (is )?(absent|missing|does not exist)\b/i, falseWhen: ctx => ctx.exists('src/outreach-cold-route-policy.mjs'), because: 'src/outreach-cold-route-policy.mjs exists' },
+  { id: 'global-route-absent', pattern: /\bno (global )?(green[- ]lane|jurisdiction|route) router\b|\b(global )?(green[- ]lane|jurisdiction) router (is )?(absent|missing|does not exist|not implemented)\b/i, falseWhen: ctx => ctx.exists('src/global-green-lane-router.mjs') && /global-green-lane-router/.test(ctx.read('src/prospect-preflight.mjs') || ''), because: 'src/global-green-lane-router.mjs exists and src/prospect-preflight.mjs imports it' },
   { id: 'prospect-preflight-absent', pattern: /\b(no|missing) (generic )?prospect[- ]preflight\b/i, falseWhen: ctx => ctx.exists('src/prospect-preflight.mjs'), because: 'src/prospect-preflight.mjs exists and is production reachable' }
 ]);
 

@@ -4084,6 +4084,182 @@ export const MUTATIONS = [
     find: '      if (!config.adminToken) return json(res, 503, { error: \'Admin token must be configured for prospect preflight reads\', status: \'CHECK_FAILED\' });',
     replace: '      void config;',
     suites: ['tests/prospect-preflight-fail-closed.test.mjs']
+  },
+  // ---- Global green lane: constraint arbitrage, never rule evasion ----
+  {
+    id: 'GGL-01', guard: 'UNKNOWN never becomes GREEN: a fail-closed fact blocks the route',
+    file: 'src/global-green-lane-router.mjs',
+    find: "  } else if (failClosed.length) {\n    routeClass =",
+    replace: "  } else if (false) {\n    routeClass =",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-02', guard: 'Only a registry-mapped corporate form verifies a UK recipient as corporate',
+    file: "src/corporate-legal-form-verifier.mjs",
+    find: "  if (formClass === 'CORPORATE') return finish(LEGAL_FORM_STATUS.CORPORATE_VERIFIED",
+    replace: "  if (true) return finish(LEGAL_FORM_STATUS.CORPORATE_VERIFIED",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-03', guard: 'A sole trader published as non-corporate never classifies as corporate',
+    file: 'src/global-green-lane-router.mjs',
+    find: "let recipientType = legalFormRequired ? legalForm.recipientType :",
+    replace: "let recipientType = legalFormRequired ? 'CORPORATE' :",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-04', guard: 'A published company number that differs from the registry entity is an identity mismatch',
+    file: 'src/corporate-legal-form-verifier.mjs',
+    find: "  if (numberClaimed && numberMatch === false) {",
+    replace: "  if (false) {",
+    suites: ['tests/corporate-legal-form-verifier.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-05', guard: 'Registry evidence older than seven days does not verify legal form',
+    file: 'src/corporate-legal-form-verifier.mjs',
+    find: "  if (nowMs - retrievedMs > REGISTRY_EVIDENCE_MAX_AGE_DAYS * 86_400_000) {",
+    replace: "  if (false) {",
+    suites: ['tests/corporate-legal-form-verifier.test.mjs']
+  },
+  {
+    id: 'GGL-06', guard: 'A suppression hit dominates the route',
+    file: "src/global-green-lane-router.mjs",
+    find: "  const suppression = input.suppression && typeof input.suppression === 'object' ? input.suppression : {};",
+    replace: "  const suppression = {};",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-07', guard: 'The suppression gate is reported FAIL on a suppression hit',
+    file: 'src/global-green-lane-router.mjs',
+    find: "suppressionClean: suppression.suppressed === true || suppression.unsubscribed === true || suppression.complained === true || suppression.hardBounced === true ? {",
+    replace: "suppressionClean: false ? {",
+    suites: ['tests/green-lane-activation-truth.test.mjs']
+  },
+  {
+    id: 'GGL-08', guard: 'An explicit no-solicitation signal rejects the contact source',
+    file: 'src/contact-source-verifier.mjs',
+    find: "  if (notices.noSolicitationChecked === true && notices.noSolicitationFound === true) hardRejects.push('explicit-no-solicitation-signal');",
+    replace: "  if (false) hardRejects.push('explicit-no-solicitation-signal');",
+    suites: ['tests/contact-source-verifier.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-09', guard: 'A guessed or pattern-derived address is never a verified contact',
+    file: 'src/recipient-address-classifier.mjs',
+    find: "  if (signals.guessed) { reasons.push('address-was-guessed-or-pattern-derived'); return done(INBOX_CLASSES.GUESS_OR_UNVERIFIED); }",
+    replace: "  if (false) { reasons.push('address-was-guessed-or-pattern-derived'); return done(INBOX_CLASSES.GUESS_OR_UNVERIFIED); }",
+    suites: ['tests/recipient-address-classifier.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-10', guard: 'Incomplete sender identity fails the identity gate',
+    file: 'src/global-green-lane-router.mjs',
+    find: "    status: codes.length ? 'FAIL' : 'PASS', codes,",
+    replace: "    status: 'PASS', codes,",
+    suites: ['tests/global-green-lane-router.test.mjs', 'tests/green-lane-activation-truth.test.mjs']
+  },
+  {
+    id: 'GGL-11', guard: 'A missing postal identity is an unmet sender requirement',
+    file: 'src/uberoutbound-recipient-eligibility.mjs',
+    find: "    [R.SENDER_POSTAL_IDENTITY]: ctx.postalIdentity?.ok === true &&",
+    replace: "    [R.SENDER_POSTAL_IDENTITY]: true || ctx.postalIdentity?.ok === true &&",
+    suites: ['tests/uberoutbound-recipient-eligibility.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-12', guard: 'A missing functional unsubscribe is an unmet sender requirement',
+    file: 'src/uberoutbound-recipient-eligibility.mjs',
+    find: "    [R.FUNCTIONAL_UNSUBSCRIBE]: c.unsubscribeMechanism === true &&",
+    replace: "    [R.FUNCTIONAL_UNSUBSCRIBE]: true || c.unsubscribeMechanism === true &&",
+    suites: ['tests/uberoutbound-recipient-eligibility.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-13', guard: 'A failed sender allocation or sender-side hold fails the sender gate',
+    file: 'src/global-green-lane-router.mjs',
+    find: "senderEligible: !allocation ? { status: 'UNKNOWN', codes: ['sender-allocation-not-supplied'] } : (allocation.ok === true && senderSide.clear ?",
+    replace: "senderEligible: !allocation ? { status: 'UNKNOWN', codes: ['sender-allocation-not-supplied'] } : (true ?",
+    suites: ['tests/global-green-lane-router.test.mjs', 'tests/green-lane-activation-truth.test.mjs']
+  },
+  {
+    id: 'GGL-14', guard: 'Stale policy evidence cannot satisfy a permissive route',
+    file: 'src/global-policy-evidence.mjs',
+    find: "  if (ageDays > limit) return { fresh: false, state: POLICY_EVIDENCE_STATES.STALE, ageDays };",
+    replace: "  if (false) return { fresh: false, state: POLICY_EVIDENCE_STATES.STALE, ageDays };",
+    suites: ['tests/global-policy-evidence.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-15', guard: 'A green route is never send authority',
+    file: 'src/global-green-lane-router.mjs',
+    find: "    sendReady: false,",
+    replace: "    sendReady: green,",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-16', guard: 'A mutated route binding is detected after approval',
+    file: 'src/global-green-lane-router.mjs',
+    find: "  return a === b ? { ok: true, bindingDigest: a }",
+    replace: "  return true ? { ok: true, bindingDigest: a }",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-17', guard: 'Provider terms evidence that forbids cold B2B stops the route',
+    file: "src/global-green-lane-router.mjs",
+    find: "COLD_PROVIDER_VALUES.has(upper(providerParams?.coldB2BRule)) ? upper(providerParams.coldB2BRule) : null",
+    replace: "COLD_PROVIDER_VALUES.has(upper(providerParams?.coldB2BRule)) ? 'ALLOWED' : null",
+    suites: ['tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-18', guard: 'An unreported gate is UNKNOWN, never PASS',
+    file: 'src/green-lane-activation-truth.mjs',
+    find: "const entry = prereq[key] || { status: 'UNKNOWN', codes: ['gate-not-reported'] };",
+    replace: "const entry = prereq[key] || { status: 'PASS', codes: [] };",
+    suites: ['tests/green-lane-activation-truth.test.mjs']
+  },
+  {
+    id: 'GGL-19', guard: 'Activation stays blocked without a verified founder authorization',
+    file: 'src/green-lane-activation-truth.mjs',
+    find: "      status = authorizationVerified === true ? 'PASS' : 'FAIL';",
+    replace: "      status = 'PASS';",
+    suites: ['tests/green-lane-activation-truth.test.mjs']
+  },
+  {
+    id: 'GGL-20', guard: 'The route binding is part of the effect digest',
+    file: 'src/prospect-effect-package.mjs',
+    find: "    ...(routeBinding === undefined ? {} : { route: blockers.route.length ? null : routeBinding }),",
+    replace: "    ...{},",
+    suites: ['tests/prospect-preflight-global-route.test.mjs', 'tests/global-green-lane-router.test.mjs']
+  },
+  {
+    id: 'GGL-21', guard: 'Unknown route cost is never treated as zero',
+    file: 'src/global-route-tournament.mjs',
+    find: "  const unknownCostPenalty = costKnown ? 0 : ev * num(e.unknownCostPenaltyShare, 0.15);",
+    replace: "  const unknownCostPenalty = 0;",
+    suites: ['tests/global-route-tournament.test.mjs']
+  },
+  {
+    id: 'GGL-22', guard: 'Route economics keep unknown cost UNKNOWN, never zero',
+    file: 'src/global-route-economics.mjs',
+    find: "!receipts.length ? UNKNOWN('no-cost-receipts-for-route-class')",
+    replace: "!receipts.length ? known(0)",
+    suites: ['tests/global-route-economics.test.mjs']
+  },
+  {
+    id: 'GGL-23', guard: 'A paid registry adapter is refused',
+    file: 'src/company-registry-adapter.mjs',
+    find: "    if (adapter.zeroCost !== true) {",
+    replace: "    if (false) {",
+    suites: ['tests/green-lane-static-invariants.test.mjs']
+  },
+  {
+    id: 'GGL-24', guard: 'A missing registry credential never yields registry evidence',
+    file: 'src/companies-house-adapter.mjs',
+    find: "      if (!key) return result(REGISTRY_STATUS.CREDENTIAL_MISSING, query, { reasons: ['companies-house-api-key-not-configured'] });",
+    replace: "      if (false) return result(REGISTRY_STATUS.CREDENTIAL_MISSING, query, { reasons: ['companies-house-api-key-not-configured'] });",
+    suites: ['tests/companies-house-adapter.test.mjs']
+  },
+  {
+    id: 'GGL-25', guard: 'Several registry entities sharing a name are AMBIGUOUS, never silently picked',
+    file: 'src/companies-house-adapter.mjs',
+    find: "      else if (exact.length > 1) out = result(REGISTRY_STATUS.AMBIGUOUS",
+    replace: "      else if (false) out = result(REGISTRY_STATUS.AMBIGUOUS",
+    suites: ['tests/companies-house-adapter.test.mjs']
   }
 ];
 

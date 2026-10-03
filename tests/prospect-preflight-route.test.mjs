@@ -42,16 +42,22 @@ test('refused without admin credentials', async () => {
   assert.equal((await call('/api/prospect-preflight', { method: 'POST', token: 'wrong-token-value-0000000000000000', body: body() })).status, 401);
 });
 
-test('authenticated: a runtime-clean candidate with no mailbox is BLOCKED_SENDER_HEALTH, zero authority, with a real in-process contact-history receipt', async () => {
+test('authenticated: a runtime-clean candidate with no committed policy evidence is BLOCKED_POLICY_REFRESH, zero authority, with a real in-process contact-history receipt', async () => {
+  // The committed evidence bundle is empty until a live researcher records it, so
+  // the global route's freshness law applies in production exactly as it does here.
   const res = await call('/api/prospect-preflight', { method: 'POST', token: ADMIN_TOKEN, body: body() });
   assert.equal(res.status, 200);
   const r = json(res);
-  assert.equal(r.state, 'BLOCKED_SENDER_HEALTH');
+  assert.equal(r.state, 'BLOCKED_POLICY_REFRESH');
   assert.equal(r.contactHistory.status, 'CLEAN');
   assert.equal(r.intake.provenance, 'RUNTIME_RECEIPT');
+  assert.equal(r.globalRoute.state, 'POLICY_REFRESH_REQUIRED');
+  assert.equal(r.globalRoute.provisionalRouteClass, 'US_CANSPAM_GREEN');
+  assert.ok(r.policyRefreshRequired.some(x => x.ruleId === 'recipient:US:can-spam-b2b-email'));
+  assert.equal(r.oneButton.activationBlocked, true);
   assert.equal(r.sendAuthority, false);
   assert.equal(r.externalEffects, 0);
-  assert.equal(r.effectPackage.finalEffectDigest, null);
+  assert.equal(r.effectPackage, undefined, 'no effect package is compiled while the route is not green');
 });
 
 test('a real suppression written through the existing API turns the same candidate into DO_NOT_SEND', async () => {

@@ -110,9 +110,11 @@ test('the module is reachable only through the zero-authority preflight, and is 
   walk(root);
   // Permitted importers: the read-only preflight (envelope check), and two
   // read-only tools that merely NAME the module (the reachability audit and the
-  // drift doctor's existence check). The send path
+  // drift doctor's existence check), plus the two read-only global green-lane
+  // evidence modules that borrow only its CONSTANTS (the sender-side hold
+  // classification and gating fields; the evidence-age ceiling). The send path
   // (pipeline, governance, dispatch, fleet, worker, server) must never import it.
-  const allowed = new Set(['src/prospect-preflight.mjs', 'scripts/outreach-reachability-audit.mjs', 'src/outreach-drift-doctor.mjs']);
+  const allowed = new Set(['src/prospect-preflight.mjs', 'scripts/outreach-reachability-audit.mjs', 'src/outreach-drift-doctor.mjs', 'src/global-green-lane-router.mjs', 'src/contact-source-verifier.mjs']);
   assert.deepEqual(importers.filter(file => !allowed.has(file)), []);
   // The preflight only uses the evidence builders and the envelope verifier; it
   // must not call the authorization verifier or the policy evaluator.

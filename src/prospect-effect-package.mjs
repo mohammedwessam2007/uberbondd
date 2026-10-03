@@ -18,6 +18,9 @@ export const EFFECT_PACKAGE_STATES = Object.freeze({
   READY_EXCEPT_AUTHORITY: 'READY_EXCEPT_AUTHORITY',
   READY_EXCEPT_SENDER: 'READY_EXCEPT_SENDER',
   READY_EXCEPT_RUNTIME_HISTORY: 'READY_EXCEPT_RUNTIME_HISTORY',
+  // The global green-lane route is not green (or its binding is absent): the
+  // digest cannot bind a route that does not exist.
+  READY_EXCEPT_ROUTE: 'READY_EXCEPT_ROUTE',
   // Everything verifiable before a prospect record exists is final; only facts
   // the existing draft step creates per prospect (signed unsubscribe URLs bound
   // to the prospect id) remain. The digest is minted by governance at draft time.
@@ -61,10 +64,16 @@ const SENDER_SIDE_FIELDS = ['operatorLocation', 'senderEntityJurisdiction', 'con
  * @param {object} [input.unsubscribe] { unsubscribeUrl, oneClickUnsubscribeUrl } created at runtime
  * @param {object} [input.senderSide]  { resolved: boolean, operatorLocation, senderEntityJurisdiction, controllerJurisdiction, resolutionRef }
  * @param {object} [input.campaign]    { campaignId, offerLineage }
+ * @param {object|null} [input.routeBinding] effectBinding from the global green-lane router. `undefined` keeps the
+ *   legacy package (no route participant); `null` means a route was required and is not green, which withholds the
+ *   digest; an object binds route class, route policy version, policy evidence hashes, jurisdiction, legal form,
+ *   invitation and contact-source digests into the final effect digest, so any route mutation changes it.
  */
-export function compileEffectPackage({ intake, tournament, identity = {}, sender = null, unsubscribe = {}, senderSide = {}, campaign = {}, provider = 'smtp-relay', now = new Date() } = {}) {
+export function compileEffectPackage({ intake, tournament, identity = {}, sender = null, unsubscribe = {}, senderSide = {}, campaign = {}, provider = 'smtp-relay', routeBinding, now = new Date() } = {}) {
   const compiledAt = new Date(now).toISOString();
-  const blockers = { runtimeHistory: [], message: [], identity: [], authority: [], sender: [], draftTime: [] };
+  const blockers = { runtimeHistory: [], message: [], route: [], identity: [], authority: [], sender: [], draftTime: [] };
+  if (routeBinding === null) blockers.route.push('route-binding-absent-global-route-not-green');
+  else if (routeBinding !== undefined && (typeof routeBinding !== 'object' || !routeBinding.routeClass || !routeBinding.policyEvidenceDigest)) blockers.route.push('route-binding-malformed');
 
   if (!intake || intake.status !== 'VERIFIED_CANDIDATE') blockers.runtimeHistory.push('prospect-not-verified-candidate');
   if (intake && intake.contactHistoryProvenance !== CONTACT_HISTORY_RUNTIME_PROVENANCE) blockers.runtimeHistory.push('contact-history-runtime-receipt-missing');
@@ -113,6 +122,7 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
     footerAndUnsubscribe: identityFinal && unsubscribeFinal ? { unsubUrl, oneClick } : null,
     evidence: tournament?.bindings?.evidenceSnapshot?.digest || null,
     contactHistoryReceiptDigest: intake?.contactHistoryReceiptDigest || null,
+    ...(routeBinding === undefined ? {} : { route: blockers.route.length ? null : routeBinding }),
     campaignAndOfferLineage: { campaignId: text(campaign.campaignId) || null, offerId: tournament?.bindings?.offerId || intake?.offerId || null, experimentCellId: tournament?.bindings?.experimentCellId || null, candidateSetDigest: tournament?.bindings?.candidateSetDigest || null }
   };
   const missingParticipants = Object.entries(participants).filter(([, value]) => value === null || value === '' || value === undefined).map(([key]) => key);
@@ -124,8 +134,10 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
   const senderBlocked = blockers.sender.length > 0;
   const draftTimeBlocked = blockers.draftTime.length > 0;
   const historyBlocked = blockers.runtimeHistory.length > 0;
+  const routeBlocked = blockers.route.length > 0;
   let state;
   if (historyBlocked) state = EFFECT_PACKAGE_STATES.READY_EXCEPT_RUNTIME_HISTORY;
+  else if (routeBlocked) state = EFFECT_PACKAGE_STATES.READY_EXCEPT_ROUTE;
   else if (messageBlocked) state = EFFECT_PACKAGE_STATES.PREPARED;
   else if (identityBlocked && authorityBlocked) state = EFFECT_PACKAGE_STATES.READY_EXCEPT_IDENTITY_AND_AUTHORITY;
   else if (identityBlocked) state = EFFECT_PACKAGE_STATES.READY_EXCEPT_IDENTITY;
@@ -144,15 +156,16 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
     state,
     // "Everything the machine can resolve is resolved": nothing but identity
     // and sender-side legal authority remain (the two owner/legal holds).
-    readyExceptIdentityAndLegalAuthority: !historyBlocked && !messageBlocked && blockers.sender.every(code => RUNTIME_AT_SEND.has(code)),
+    readyExceptIdentityAndLegalAuthority: !historyBlocked && !messageBlocked && !routeBlocked && blockers.sender.every(code => RUNTIME_AT_SEND.has(code)),
     blockers: allBlockers,
-    machineResolvableBlockerCount: allBlockers.filter(b => ['runtimeHistory', 'message'].includes(b.group)).length + blockers.sender.filter(code => !RUNTIME_AT_SEND.has(code)).length,
+    machineResolvableBlockerCount: allBlockers.filter(b => ['runtimeHistory', 'message', 'route'].includes(b.group)).length + blockers.sender.filter(code => !RUNTIME_AT_SEND.has(code)).length,
     runtimeAtSendBlockers: [...blockers.sender.filter(code => RUNTIME_AT_SEND.has(code)), ...blockers.draftTime],
     ownerOrLegalHolds: { identity: identityBlocked, legalAuthority: authorityBlocked },
     finalEffectDigest,
     finalEffectDigestWithheldBecause: finalEffectDigest ? [] : [...new Set([...allBlockers.map(b => b.code), ...missingParticipants.map(p => `participant-not-final:${p}`)])],
     placeholdersPresent: identityBlocked,
     preview: { subject: core?.subject || null, body: renderedBody, containsPlaceholders: identityBlocked || !unsubscribeFinal },
+    routeBound: routeBinding === undefined ? null : !routeBlocked,
     participantsFinal: Object.fromEntries(Object.entries(participants).map(([key, value]) => [key, !(value === null || value === '' || value === undefined)])),
     maxEffects: 1,
     downstreamStateOwners: DOWNSTREAM_STATE_OWNERS,

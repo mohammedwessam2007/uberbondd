@@ -150,3 +150,13 @@ The remaining manual seams between lead discovery and a governed first touch are
 - **Drift guard.** `npm run outreach:drift-doctor` fails when a current document, the hot pointer, the handoff or the provider-state representation disagrees with source.
 - Powerhouse is a fixture (`tests/fixtures/outreach/powerhouse.fixture.mjs`), not a code path. Its production-ledger result is still unknown: it needs a deployed build and an authenticated owner call.
 
+
+
+## Global green-lane router — 2026-10-03
+
+Read [GLOBAL_GREEN_LANE_ROUTER_20261003.md](docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md) and the [machine receipt](artifacts/outreach/global-green-lane-router-20261003.json). Route selection is now one canonical organ: `src/global-green-lane-router.mjs` over the reviewed `compileRecipientEligibility`, fresh hashed policy evidence, zero-cost registry adapters and the existing preflight. GREEN is never send authority; `sendReady` is constant false.
+
+- **Honest state:** the committed policy-evidence bundle is empty, so every permissive route (including the Powerhouse fixture's US route) reports `BLOCKED_POLICY_REFRESH` / `POLICY_REFRESH_REQUIRED` until a live researcher records evidence with `npm run outreach:green-lane:record`. Check with `npm run outreach:green-lane:doctor` or `GET /api/outreach/green-lane/status`.
+- **UK:** legal-form verification reads the free Companies House API (`COMPANIES_HOUSE_API_KEY`, absent = fail closed). Sole traders and unverified forms never become corporate.
+- **Lead generator:** `GET /api/prospect-preflight/candidates?mode=GREEN_LANE_ONLY` returns only green rows or `INSUFFICIENT_GREEN_SUPPLY`.
+- **Unchanged:** cold dispatch stays closed (cold-v1 is US-only and inert; the provider governance gate still refuses `PUBLIC_BUSINESS_CONTACT` on smtp-relay). 0 prospect messages, $0 new spend.

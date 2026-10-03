@@ -36,6 +36,12 @@ import { checkContactHistory, signContactHistoryReceipt } from './src/prospect-c
 import { runProspectPreflight } from './src/prospect-preflight.mjs';
 import { buildOutreachEconomicsSnapshot } from './src/outreach-economics-snapshot.mjs';
 import { buildPreflightHandoff } from './src/prospect-preflight-handoff.mjs';
+import { loadPolicyEvidenceBundle, compilePolicyEvidenceStatus } from './src/global-policy-evidence.mjs';
+import { createRegistryAdapterRegistry } from './src/company-registry-adapter.mjs';
+import { createCompaniesHouseAdapter } from './src/companies-house-adapter.mjs';
+import { compileJurisdictionMatrix } from './src/global-green-lane-router.mjs';
+import { buildRouteEconomics } from './src/global-route-economics.mjs';
+import { providerRoutePolicy } from './src/outreach-governance.mjs';
 import { compileSenderFleetExpansionPlan } from './src/winnr-expansion-planner.mjs';
 import { buildLeadAccountIntelligence } from './src/lead-generation.mjs';
 import { buildRevenueOfferCatalog } from './src/revenue-offers.mjs';
@@ -1090,6 +1096,14 @@ function errorStatus(error) {
   return 500;
 }
 
+// Global green-lane router context. The registry adapter set is created once so
+// its digest-checked cache and request budget persist across requests. Companies
+// House is a FREE public API: without COMPANIES_HOUSE_API_KEY it reports
+// CREDENTIAL_MISSING and the UK route fails closed (nothing is bought or scraped).
+const greenLaneRegistryAdapters = createRegistryAdapterRegistry([
+  createCompaniesHouseAdapter({ apiKey: config.providers?.companiesHouse?.apiKey || '' })
+]);
+
 export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
@@ -1536,13 +1550,36 @@ export const requestHandler = async (req, res) => {
     // cleared contribution per 1,000 sends and per founder minute. Read-only;
     // unknown costs stay UNKNOWN; revenue is provider-reconciled net cleared only.
     if (method === 'GET' && url.pathname === '/api/outreach/economics') {
-      return json(res, 200, await buildOutreachEconomicsSnapshot({ store, now: new Date() }));
+      const at = new Date();
+      return json(res, 200, { ...(await buildOutreachEconomicsSnapshot({ store, now: at })), routeEconomics: await buildRouteEconomics({ store, now: at }) });
+    }
+    // Global green-lane readiness: per-rule policy-evidence freshness (what a live
+    // researcher must refresh), the jurisdiction matrix, the registry adapter state
+    // (credential PRESENCE only, never its value) and the provider governance gate.
+    // Read-only, admin-authenticated, fail-closed without an admin token, no authority.
+    if (method === 'GET' && url.pathname === '/api/outreach/green-lane/status') {
+      if (!config.adminToken) return json(res, 503, { error: 'Admin token must be configured for green-lane status', state: 'UNKNOWN_FAIL_CLOSED' });
+      const at = new Date();
+      const registry = loadPolicyEvidenceBundle({ now: at });
+      const governance = providerRoutePolicy(config.outbound?.provider || 'smtp-relay', 'PUBLIC_BUSINESS_CONTACT');
+      return json(res, 200, {
+        version: 'uberbond.green-lane-status.v1',
+        evaluatedAt: at.toISOString(),
+        policyEvidence: compilePolicyEvidenceStatus(registry, { now: at }),
+        jurisdictionMatrix: compileJurisdictionMatrix({ policyRegistry: registry, now: at }),
+        registries: { adapters: greenLaneRegistryAdapters.jurisdictions(), refused: greenLaneRegistryAdapters.refused, companiesHouse: { zeroCost: true, credentialConfigured: Boolean(config.providers?.companiesHouse?.configured) } },
+        governanceGate: { provider: config.outbound?.provider || 'smtp-relay', routeType: 'PUBLIC_BUSINESS_CONTACT', refused: governance.ok !== true, reason: governance.reason },
+        routeEconomics: await buildRouteEconomics({ store, now: at }),
+        coldDispatch: 'INTENTIONALLY_CLOSED',
+        sendAuthority: false, externalEffectAuthority: 'NONE', externalEffects: 0, newRecurringCostUsd: 0
+      });
     }
     // Lead generator -> preflight handoff: highest-fit uncontacted, unsuppressed
     // prospects per offer, with the exact evidence still missing. Read-only; it
     // fetches nothing, guesses no address and grants no contact authority.
     if (method === 'GET' && url.pathname === '/api/prospect-preflight/candidates') {
-      return json(res, 200, await buildPreflightHandoff({ store, perOffer: Number(url.searchParams.get('perOffer') || 3), now: new Date() }));
+      const at = new Date();
+      return json(res, 200, await buildPreflightHandoff({ store, perOffer: Number(url.searchParams.get('perOffer') || 3), mode: String(url.searchParams.get('mode') || 'DEFAULT'), policyRegistry: loadPolicyEvidenceBundle({ now: at }), now: at }));
     }
     // Sender-fleet expansion PLAN. OBSERVED state is read from the store
     // (connected smtp-relay accounts, sender-health pauses); the target comes
@@ -1584,6 +1621,9 @@ export const requestHandler = async (req, res) => {
         identity: input.identity && typeof input.identity === 'object' ? input.identity : {},
         senderSide: input.senderSide && typeof input.senderSide === 'object' ? input.senderSide : {},
         campaign: input.campaign && typeof input.campaign === 'object' ? input.campaign : {},
+        policyRegistry: loadPolicyEvidenceBundle({ now: new Date() }),
+        registryAdapters: greenLaneRegistryAdapters,
+        globalRoute: input.globalRoute && typeof input.globalRoute === 'object' && !Array.isArray(input.globalRoute) ? input.globalRoute : {},
         now: new Date()
       }));
     }

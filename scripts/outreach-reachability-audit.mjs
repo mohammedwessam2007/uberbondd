@@ -35,7 +35,10 @@ export const OUTREACH_MODULE_GLOBS = [
   'uberbond-native-lead-ops', 'uberlead-launch-fusion', 'uberprospect-forge', 'uberoutbound-genome', 'uberoutbound-policy-registry',
   'uberoutbound-promotion-gate', 'uberoutbound-recipient-eligibility', 'uberoutbound-research-import', 'outreach-workbench',
   'pipeline', 'send-safety', 'outreach-governance', 'governed-outreach-dispatch', 'store', 'uberfleet', 'leadgen-live-snapshot',
-  'winnr-expansion-planner'
+  'winnr-expansion-planner',
+  'global-green-lane-router', 'global-policy-evidence', 'global-route-tournament', 'global-route-economics', 'company-registry-adapter',
+  'companies-house-adapter', 'corporate-legal-form-verifier', 'recipient-address-classifier', 'invited-contact-classifier',
+  'contact-source-verifier', 'green-lane-activation-truth', 'green-lane-discovery', 'host-family'
 ];
 
 export function auditOutreachReachability() {

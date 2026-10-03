@@ -1,0 +1,159 @@
+{
+  "checkedRecipient": "hello@mypowerhouse.group",
+  "checkedDomain": "mypowerhouse.group",
+  "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+  "preflight": {
+    "ok": true,
+    "result": {
+      "version": "uberbond.prospect-preflight.v1",
+      "evaluatedAt": "2026-10-03T06:25:22.871Z",
+      "state": "BLOCKED_IDENTITY",
+      "blockerCodes": [
+        "legal-business-sender-name-placeholder-or-missing",
+        "authorized-public-postal-address-placeholder-or-missing",
+        "owner-authorization-to-publish-footer-missing",
+        "sender-side-legal-authority-hold-unresolved",
+        "signed-unsubscribe-urls-not-created"
+      ],
+      "readOnly": true,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffects": 0,
+      "company": "Powerhouse Consulting Group",
+      "recipient": "hello@mypowerhouse.group",
+      "offerId": "CLIENT_ROI_PROOF_SPRINT",
+      "contactHistory": {
+        "status": "CLEAN",
+        "hit": false,
+        "receiptDigest": "6bb65f5dcb79eecb7d4004675d15e33f09e1719633ee220becfb5437e0403421",
+        "checkedAt": "2026-10-03T06:25:22.871Z"
+      },
+      "intake": {
+        "status": "VERIFIED_CANDIDATE",
+        "rejectionReasons": [],
+        "missingEvidence": [],
+        "provenance": "RUNTIME_RECEIPT"
+      },
+      "tournament": {
+        "status": "WINNER_SELECTED",
+        "winnerId": "FULL",
+        "reasonCodes": []
+      },
+      "sender": {
+        "ok": true,
+        "slot": "winnr:tara.garcia@cedarpointdomains.com"
+      },
+      "coldRoute": {
+        "envelopeOk": true,
+        "routeDigest": "45cc3abc92c47a0c2c2adfe871986d69406bf6376a22f925443f90f09f023c15",
+        "senderSideClassification": "CONSERVATIVE_POLICY_HOLD_PENDING_AUTHORITATIVE_SCOPE_INTERPRETATION",
+        "selfAuthorizing": false
+      },
+      "message": {
+        "winner": {
+          "id": "FULL",
+          "subject": "Sylvester availability",
+          "body": "Hi there,\n\nI noticed one of Powerhouse's publicly named clients, Sylvester Electric, makes two different emergency-service promises on the same page: its homepage says emergency service covers business hours and qualifying after hours situations, and its service list further down advertises 24/7 Emergency Service. Its generator and panel pages also say 24/7. I put the exact wording into a one-page reconciliation note for client QA. Want me to send it?",
+          "wordCount": 70,
+          "subjectWordCount": 2,
+          "sentenceCount": 4,
+          "cta": "Want me to send it?",
+          "score": 0.81575
+        },
+        "coreMessageDigest": "00f37710eab5baea4f5edb5a5c417de5b15b7b29265f0023df0f3b387c931f04"
+      },
+      "effectPackage": {
+        "state": "READY_EXCEPT_IDENTITY_AND_AUTHORITY",
+        "finalEffectDigest": null,
+        "placeholdersPresent": true,
+        "blockers": [
+          {
+            "group": "identity",
+            "code": "legal-business-sender-name-placeholder-or-missing"
+          },
+          {
+            "group": "identity",
+            "code": "authorized-public-postal-address-placeholder-or-missing"
+          },
+          {
+            "group": "identity",
+            "code": "owner-authorization-to-publish-footer-missing"
+          },
+          {
+            "group": "authority",
+            "code": "sender-side-legal-authority-hold-unresolved"
+          },
+          {
+            "group": "draftTime",
+            "code": "signed-unsubscribe-urls-not-created"
+          }
+        ]
+      }
+    }
+  },
+  "history": {
+    "ok": true,
+    "result": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-03T06:25:22.956Z",
+      "emailChecked": "hello@mypowerhouse.group",
+      "domainChecked": "mypowerhouse.group",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 2,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "ce62bcb76f8bb0f2d2aa2d819c0a49c491ab7d46c19ac3c04782c6efb2103402",
+      "signature": "f269be616d98e58ee61647d7eb8072a7410ab8713272ccc0499589e49d2cb5db"
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

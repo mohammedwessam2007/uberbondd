@@ -42,6 +42,7 @@ test('HTTP freezing is protected, durable, idempotent and revalidation accepts o
   assert.equal(b.result.readOnly, true); assert.equal(b.result.sendAuthority, false);
   const replay = await call(request); assert.equal(replay.result.effectPackage.finalEffectDigest, digest);
   assert.equal((await call({ frozenEffectDigest: digest, identity: request.identity })).status, 400);
+  assert.equal((await call({ executeFrozenEffect: true, frozenEffectDigest: digest, subject: 'mutated' })).status, 400);
   assert.equal((await call({ frozenEffectDigest: 'f'.repeat(64) })).result.ok, false);
   assert.deepEqual(await saved.list('outboundReservations'), []); assert.deepEqual(await saved.list('outboundEvents'), []);
 });

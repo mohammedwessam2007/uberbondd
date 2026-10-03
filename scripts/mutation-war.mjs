@@ -4356,6 +4356,9 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       cpSync(join(repoRoot, 'tests'), join(root, 'tests'), { recursive: true });
       cpSync(join(repoRoot, 'scripts'), join(root, 'scripts'), { recursive: true });
       cpSync(join(repoRoot, 'config'), join(root, 'config'), { recursive: true });
+      // Policy tests load the canonical bundle. Omitting it makes an unchanged
+      // suite fail and can falsely count that fixture failure as a killed guard.
+      cpSync(join(repoRoot, 'policy'), join(root, 'policy'), { recursive: true });
       cpSync(join(repoRoot, 'migrations'), join(root, 'migrations'), { recursive: true });
       // `api` was missing, which meant no route could be mutated at all -- the
       // cron routes and the billing webhook among them. A mutation naming a file

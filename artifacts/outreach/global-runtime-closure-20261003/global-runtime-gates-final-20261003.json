@@ -1,0 +1,277 @@
+{
+  "observedAt": "2026-10-03T07:58:52.686Z",
+  "reads": {
+    "/api/summary": {
+      "ok": true,
+      "result": {
+        "storeBackend": "postgres",
+        "workerOnline": true,
+        "paused": false,
+        "autopilot": false,
+        "outbound": {
+          "enabled": false,
+          "dryRun": true,
+          "globalPaused": false,
+          "pauseReason": "",
+          "allowedCountries": [
+            "EG"
+          ],
+          "senderHealth": [
+            {
+              "id": "sender_winnr:dana.kim@cedarpointdomains.com",
+              "inbox": "winnr:dana.kim@cedarpointdomains.com",
+              "paused": true,
+              "createdAt": "2026-10-02T16:13:11.667Z",
+              "updatedAt": "2026-10-03T07:51:56.401Z",
+              "healthDate": "2026-10-02",
+              "pauseReason": "winnr-gmail-placement-red-2026-10-02",
+              "failureStreak": 0,
+              "complaintsToday": 0,
+              "hardBouncesToday": 0
+            }
+          ],
+          "reservedToday": 0,
+          "uncertain": 0
+        },
+        "accounts": [
+          {
+            "slot": "winnr-imap:dana.kim@cedarpointdomains.com",
+            "email": "dana.kim@cedarpointdomains.com",
+            "connected": true,
+            "lastReplyPoll": 0
+          },
+          {
+            "slot": "winnr:dana.kim@cedarpointdomains.com",
+            "email": "dana.kim@cedarpointdomains.com",
+            "connected": true
+          },
+          {
+            "slot": "winnr-imap:nadia.chen@cedarpointdomains.com",
+            "email": "nadia.chen@cedarpointdomains.com",
+            "connected": true,
+            "lastReplyPoll": 0
+          },
+          {
+            "slot": "winnr:nadia.chen@cedarpointdomains.com",
+            "email": "nadia.chen@cedarpointdomains.com",
+            "connected": true
+          },
+          {
+            "slot": "winnr-imap:tara.garcia@cedarpointdomains.com",
+            "email": "tara.garcia@cedarpointdomains.com",
+            "connected": true,
+            "lastReplyPoll": 0
+          },
+          {
+            "slot": "winnr:tara.garcia@cedarpointdomains.com",
+            "email": "tara.garcia@cedarpointdomains.com",
+            "connected": true
+          }
+        ]
+      }
+    },
+    "/api/owner/setup": {
+      "ok": true,
+      "result": {
+        "ok": true,
+        "identity": {
+          "recordPresent": false,
+          "legalNamePresent": false,
+          "postalAddressPresent": false,
+          "senderNamePresent": false,
+          "companyPresent": false,
+          "source": null
+        },
+        "sender": {
+          "configured": false,
+          "googleOAuthConfigured": false,
+          "connectedSenders": [
+            {
+              "slot": "winnr-imap:dana.kim@cedarpointdomains.com",
+              "email": "dana.kim@cedarpointdomains.com"
+            },
+            {
+              "slot": "winnr:dana.kim@cedarpointdomains.com",
+              "email": "dana.kim@cedarpointdomains.com"
+            },
+            {
+              "slot": "winnr-imap:nadia.chen@cedarpointdomains.com",
+              "email": "nadia.chen@cedarpointdomains.com"
+            },
+            {
+              "slot": "winnr:nadia.chen@cedarpointdomains.com",
+              "email": "nadia.chen@cedarpointdomains.com"
+            },
+            {
+              "slot": "winnr-imap:tara.garcia@cedarpointdomains.com",
+              "email": "tara.garcia@cedarpointdomains.com"
+            },
+            {
+              "slot": "winnr:tara.garcia@cedarpointdomains.com",
+              "email": "tara.garcia@cedarpointdomains.com"
+            }
+          ]
+        },
+        "recipientEvidence": {
+          "total": 0,
+          "suppressionRecords": 0,
+          "byBasis": {}
+        }
+      }
+    },
+    "/api/sender-health": {
+      "ok": true,
+      "result": [
+        {
+          "id": "sender_winnr:dana.kim@cedarpointdomains.com",
+          "inbox": "winnr:dana.kim@cedarpointdomains.com",
+          "paused": true,
+          "createdAt": "2026-10-02T16:13:11.667Z",
+          "updatedAt": "2026-10-03T07:51:56.401Z",
+          "healthDate": "2026-10-02",
+          "pauseReason": "winnr-gmail-placement-red-2026-10-02",
+          "failureStreak": 0,
+          "complaintsToday": 0,
+          "hardBouncesToday": 0
+        }
+      ]
+    },
+    "/api/outbound/canary/status": {
+      "ok": true,
+      "result": {
+        "ok": true,
+        "version": "uberbond.outreach-canary-runtime.v1",
+        "state": "CANARY_BLOCKED",
+        "provider": "gmail-api",
+        "launchPhase": "canary",
+        "mode": {
+          "outboundEnabled": false,
+          "dryRun": true,
+          "globalPaused": false
+        },
+        "canary": {
+          "dailyCap": 1,
+          "hourlyCap": 1,
+          "minGapSeconds": 1800,
+          "readyProspectId": null
+        },
+        "domainMailbox": {
+          "required": true,
+          "checks": []
+        },
+        "counts": {
+          "prospects": 2,
+          "campaigns": 5,
+          "approvedAutoSendCampaigns": 4,
+          "candidates": 1,
+          "governedReady": 0,
+          "connectedSenders": 6,
+          "suppressions": 0,
+          "activeReservations": 0
+        },
+        "prerequisites": {
+          "launchPhaseCanary": true,
+          "approvedProvider": true,
+          "approvalSecretConfigured": true,
+          "approverConfigured": true,
+          "senderIdentityConfigured": false,
+          "allowedCountriesConfigured": true,
+          "googleOAuthConfigured": false,
+          "postalConfigured": false,
+          "smtpFleetConfigured": true,
+          "providerCredentialConfigured": false,
+          "encryptionConfigured": true,
+          "unsubscribeConfigured": true,
+          "outboundEnabled": false,
+          "dryRun": true
+        },
+        "reasonCodes": [
+          "no-approved-route-and-payload",
+          "outbound-disabled",
+          "outbound-dry-run",
+          "business-address-missing",
+          "google-oauth-missing"
+        ],
+        "dryRunReasonCodes": [
+          "no-approved-route-and-payload"
+        ],
+        "governanceReasonCounts": {
+          "outreach-route-not-object": 1
+        },
+        "readyForDryRun": false,
+        "readyForLiveSend": false,
+        "pressable": false,
+        "providerCalls": 0,
+        "messagesSent": 0,
+        "automaticRetryAuthorized": false,
+        "businessEffectAuthority": "NONE",
+        "externalEffectLedger": {
+          "customerMessages": 0,
+          "providerCalls": 0,
+          "spendCents": 0,
+          "deployments": 0,
+          "dnsChanges": 0,
+          "credentialChanges": 0,
+          "paymentMutations": 0,
+          "productionMutations": 0
+        },
+        "truthBoundary": "This is a live read-only canary readiness snapshot. It proves only local configuration and durable-record state; it never proves recipient consent, inbox placement, revenue, or a provider send."
+      }
+    },
+    "/api/outreach/100k/status": {
+      "ok": false,
+      "error": "[object Object]"
+    },
+    "/api/campaigns": {
+      "ok": true,
+      "result": [
+        {
+          "id": "camp_2132a929-c7ab-4bcf-9f86-d12ad0e85799",
+          "name": "Global Digital Opportunity Scan",
+          "approved": true,
+          "autoSend": false,
+          "allowedCountries": []
+        },
+        {
+          "id": "camp_6cfe2693-5cca-4e95-8438-e243d3245fba",
+          "name": "White-Label Lead-to-Booking Leak Audit · founding lane",
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "approved": true,
+          "autoSend": true,
+          "allowedCountries": []
+        },
+        {
+          "id": "camp_e9cfb5c2-ac83-4575-8118-dfbfe16222a1",
+          "name": "Egypt founding pilot · Lead-to-Booking Leak Audit",
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "approved": true,
+          "autoSend": true,
+          "allowedCountries": []
+        },
+        {
+          "id": "camp_784b91fe-4591-4e95-93b4-827d7c13e0b7",
+          "name": "Egypt founding pilot · Lead-to-Booking Leak Audit · EG canary",
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "approved": true,
+          "autoSend": true,
+          "allowedCountries": [
+            "EG"
+          ]
+        },
+        {
+          "id": "camp_bd27ee83-ed83-4936-9104-435767e0bca8",
+          "name": "Egypt founding pilot · Client ROI Proof Sprint",
+          "offerId": "CLIENT_ROI_PROOF_SPRINT",
+          "approved": true,
+          "autoSend": true,
+          "allowedCountries": [
+            "EG"
+          ]
+        }
+      ]
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

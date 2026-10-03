@@ -136,15 +136,25 @@ test('bundle loader fails closed to an EMPTY registry: missing, oversized, corru
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
-test('the committed bundle is valid and honestly empty: every permissive rule reports it needs a live refresh', () => {
+test('the recorded UK/US bundle is valid, scoped and authority-free at its retrieval date', () => {
   const reg = loadPolicyEvidenceBundle({ now });
   assert.deepEqual(reg.loadErrors, []);
   const status = compilePolicyEvidenceStatus(reg, { now });
-  assert.equal(status.permissiveRulesFresh, 0);
-  assert.ok(status.permissiveRulesNeedingRefresh.length >= 6);
-  assert.ok(status.permissiveRulesNeedingRefresh.find(r => r.ruleId === 'recipient:US:can-spam-b2b-email').seedSourceUrl.startsWith('https://www.ftc.gov/'));
+  assert.deepEqual(reg.rejected, []);
+  assert.equal(status.permissiveRulesFresh, 5);
+  for (const id of ['recipient:US:can-spam-b2b-email', GB, 'legal-form:GB:corporate-subscriber-classes', 'registry:GB:companies-house-terms', 'provider:smtp-relay:winnr:cold-b2b-lawful-use']) {
+    assert.equal(reg.resolveRule(id, now).fresh, true, id);
+  }
+  assert.deepEqual(status.permissiveRulesNeedingRefresh.map(r => r.ruleId).sort(), ['recipient:AU:spam-act-conspicuous-publication', 'recipient:CA:casl-conspicuous-publication']);
   assert.equal(status.sendAuthority, false);
   assert.equal(DEFAULT_POLICY_EVIDENCE_BUNDLE_PATH, 'policy/outreach/global-policy-evidence.json');
+});
+
+test('an empty evidence registry still requires refresh for every permissive rule', () => {
+  const status = compilePolicyEvidenceStatus(createPolicyEvidenceRegistry({ rows: [], now }), { now });
+  assert.equal(status.permissiveRulesFresh, 0);
+  assert.equal(status.permissiveRulesNeedingRefresh.length, POLICY_RULE_CATALOG.filter(r => r.permissive).length);
+  assert.equal(status.sendAuthority, false);
 });
 
 test('the catalog is internally consistent and a restrictive rule needs no freshness to stay restrictive', () => {

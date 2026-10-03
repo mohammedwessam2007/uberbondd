@@ -1,0 +1,52 @@
+{
+  "record": {
+    "company": "A.IDEAL GROUP LIMITED",
+    "website": "https://aideal.group/",
+    "hqCountry": "GB",
+    "evidenceClass": "PAGE_FETCH_VERIFIED",
+    "recipient": {
+      "email": "hello@aideal.group",
+      "publishedRole": "GENERAL_BUSINESS_INQUIRIES",
+      "sourceUrl": "https://aideal.group/",
+      "sourcePageExact": true,
+      "excerpt": "hello@aideal.group",
+      "observedAt": "2026-10-03T06:26:44Z"
+    },
+    "companyRegistry": {
+      "url": "https://find-and-update.company-information.service.gov.uk/company/SC851331",
+      "number": "SC851331",
+      "status": "Active",
+      "legalForm": "Private limited Company",
+      "sourceRef": "turn22view0",
+      "retrievedAt": "2026-10-03"
+    },
+    "invitation": {
+      "status": "NOT_VENDOR_INVITED",
+      "note": "Consultancy/demo invitation addresses telecom-reseller customers, not an unrestricted vendor invitation."
+    },
+    "notices": {
+      "noSolicitationChecked": false,
+      "noHarvestChecked": false
+    },
+    "offerRoute": {
+      "offerId": "AI_AGENT_PRODUCTION_RELEASE_GATE",
+      "rationale": "Subscription-like deployed agent portfolio for telecom resellers with a 30-day impact review; meaningful production release and measurement stakes."
+    },
+    "observations": [
+      {
+        "url": "https://aideal.group/",
+        "sourceRef": "turn20view2",
+        "observation": "Pre-meeting agent prepares briefs 90 minutes before meetings using calendars, Companies House, websites and wholesale portals, and operational agents write into CRM workflows.",
+        "verifiedProblemClass": "MULTISOURCE_AGENT_RELEASE_ACCEPTANCE_REQUIREMENTS_NO_DEFECT_PROVEN",
+        "inferencesProhibited": [
+          "Bad briefs occur",
+          "Permission defect exists",
+          "CRM corruption",
+          "Revenue improvement verified"
+        ]
+      }
+    ]
+  },
+  "slots": {},
+  "artifactRef": ""
+}

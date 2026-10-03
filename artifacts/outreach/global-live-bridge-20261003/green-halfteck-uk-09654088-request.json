@@ -1,0 +1,61 @@
+{
+  "record": {
+    "company": "HALFTECK LTD",
+    "website": "https://www.halfteck.com/",
+    "hqCountry": "GB",
+    "evidenceClass": "PAGE_FETCH_VERIFIED",
+    "recipient": {
+      "email": "sales@halfteck.com",
+      "publishedRole": "SALES_OR_PARTNERSHIPS",
+      "sourceUrl": "https://www.halfteck.com/contact.html",
+      "sourcePageExact": true,
+      "excerpt": "sales@halfteck.com",
+      "observedAt": "2026-10-03T06:26:44Z"
+    },
+    "companyRegistry": {
+      "url": "https://find-and-update.company-information.service.gov.uk/company/09654088",
+      "number": "09654088",
+      "status": "Active",
+      "legalForm": "Private limited Company",
+      "latestSourceRef": "turn27view0",
+      "retrievedAt": "2026-10-03",
+      "lastAccountsMadeUp": "2025-09-30",
+      "lastConfirmationStatement": "2026-06-24",
+      "conflictNote": "Earlier cached response stale and direct urllib response had no results; fresh primary web response supersedes stale cache. Do not treat HTTP200 alone as registry proof."
+    },
+    "invitation": {
+      "status": "EXPLICIT_RELEVANT_SUPPLIER_INVITATION",
+      "url": "https://www.halfteck.com/contact.html",
+      "sourceRef": "turn27view3",
+      "scope": "Supplier or partnership offering overview",
+      "requiredSubjectToken": "Suppliers",
+      "scopeFit": "A brief independent contact-routing QA supplier offer fits; recruitment does not.",
+      "notBlanketConsent": true
+    },
+    "notices": {
+      "noSolicitationChecked": false,
+      "noHarvestChecked": false
+    },
+    "offerRoute": {
+      "offerId": "AI_AGENT_PRODUCTION_RELEASE_GATE",
+      "rationale": "Official site sells cloud/software/data-AI/managed services, publishes an AI Conductor practice, supports UK/Europe organisations; an independent client-facing release/QA supplier is relevant."
+    },
+    "observations": [
+      {
+        "url": "https://www.halfteck.com/contact.html",
+        "sourceRef": "turn27view3",
+        "observation": "Customer services heading presents customer-services@halfteck.com with sales@halfteck.com as the associated target, while the Email customer services route presents customerservices@halfteck.com. Three address strings occur for the same service path.",
+        "verifiedProblemClass": "PUBLIC_CONTACT_ROUTING_INCONSISTENCY",
+        "inferencesProhibited": [
+          "Mailbox nonexistence",
+          "Email loss",
+          "Lost revenue",
+          "Customer complaints",
+          "Operational fault"
+        ]
+      }
+    ]
+  },
+  "slots": {},
+  "artifactRef": ""
+}

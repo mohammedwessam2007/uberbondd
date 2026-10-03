@@ -1,0 +1,414 @@
+{
+  "schema": "uberbond.external-candidate-evidence.v1",
+  "retrievedAt": "2026-10-03",
+  "authority": "ZERO_SEND_AUTHORITY",
+  "rankingStatus": "EXTERNAL_PRIORS_ONLY_PRODUCTION_ECONOMIC_TOURNAMENT_REQUIRED",
+  "senderJurisdiction": "UNKNOWN_OWNER_FACT_REQUIRED",
+  "historyStatus": "NOT_READ_BY_RESEARCH_AGENT",
+  "candidates": [
+    {
+      "id": "halfteck-uk-09654088",
+      "rankPrior": 1,
+      "company": "HALFTECK LTD",
+      "domain": "halfteck.com",
+      "website": "https://www.halfteck.com/",
+      "recipient": "sales@halfteck.com",
+      "recipientJurisdiction": "GB",
+      "recipientType": "CORPORATE_ROLE_INBOX",
+      "companyRegistry": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/09654088",
+        "number": "09654088",
+        "status": "Active",
+        "legalForm": "Private limited Company",
+        "latestSourceRef": "turn27view0",
+        "retrievedAt": "2026-10-03",
+        "lastAccountsMadeUp": "2025-09-30",
+        "lastConfirmationStatement": "2026-06-24",
+        "conflictNote": "Earlier cached response stale and direct urllib response had no results; fresh primary web response supersedes stale cache. Do not treat HTTP200 alone as registry proof."
+      },
+      "contactSource": {
+        "url": "https://www.halfteck.com/contact.html",
+        "sourceRef": "turn27view3",
+        "emailPublished": true,
+        "guessed": false,
+        "contactPurpose": "Sales proposals, commercial discussions; supplier/partnership introductions explicitly welcomed"
+      },
+      "invitation": {
+        "status": "EXPLICIT_RELEVANT_SUPPLIER_INVITATION",
+        "url": "https://www.halfteck.com/contact.html",
+        "sourceRef": "turn27view3",
+        "scope": "Supplier or partnership offering overview",
+        "requiredSubjectToken": "Suppliers",
+        "scopeFit": "A brief independent contact-routing QA supplier offer fits; recruitment does not.",
+        "notBlanketConsent": true
+      },
+      "offerFit": [
+        "AGENCY_REVENUE_LEAK_PROOF_PACK",
+        "AI_AGENT_PRODUCTION_RELEASE_GATE"
+      ],
+      "problemEvidence": {
+        "url": "https://www.halfteck.com/contact.html",
+        "sourceRef": "turn27view3",
+        "observation": "Customer services heading presents customer-services@halfteck.com with sales@halfteck.com as the associated target, while the Email customer services route presents customerservices@halfteck.com. Three address strings occur for the same service path.",
+        "verifiedProblemClass": "PUBLIC_CONTACT_ROUTING_INCONSISTENCY",
+        "inferencesProhibited": [
+          "Mailbox nonexistence",
+          "Email loss",
+          "Lost revenue",
+          "Customer complaints",
+          "Operational fault"
+        ],
+        "independentLiveHTMLRead": {
+          "url": "https://www.halfteck.com/contact.html",
+          "httpStatus": 200,
+          "retrievedAtUTC": "2026-10-03T06:28:24.450118+00:00",
+          "method": "Public urllib read, extracted mailto link pairs only",
+          "pairs": [
+            {
+              "label": "customer-services@halfteck.com",
+              "mailto": "sales@halfteck.com"
+            },
+            {
+              "label": "Email customer services",
+              "mailto": "customerservices@halfteck.com"
+            }
+          ]
+        }
+      },
+      "preworkCandidate": "One-page reconciliation of displayed labels and actual email targets, plus a no-send verification checklist and intended-address decision table.",
+      "commercialValueEvidence": "Official site sells cloud/software/data-AI/managed services, publishes an AI Conductor practice, supports UK/Europe organisations; an independent client-facing release/QA supplier is relevant.",
+      "negativeSignals": {
+        "recruitmentRestriction": true,
+        "recruitmentRestrictionScope": "No unsolicited recruitment agency approaches or CV broadcasts",
+        "commercialNoSolicitationObserved": false,
+        "reviewedPages": [
+          "https://www.halfteck.com/",
+          "https://www.halfteck.com/contact.html",
+          "https://www.halfteck.com/services.html"
+        ],
+        "notExhaustiveSiteRestrictionAudit": true,
+        "auditedAtUTC": "2026-10-03T06:27:49.418627+00:00",
+        "noHarvestNoticeObserved": false,
+        "noSolicitationObserved": false,
+        "privacyURL": "https://www.halfteck.com/privacy-policy.html",
+        "privacySourceRef": "turn33view2",
+        "termsURL": "https://www.halfteck.com/terms.html",
+        "termsSourceRef": "turn33view3",
+        "termsUpdated": "2026-05",
+        "copyrightRestriction": "Permits view/print internal business reference; no reproduction/republishing/commercial exploitation without consent. Use original facts and own QA; no full copied content.",
+        "auditScope": "Homepage, contact, services, linked privacy and terms; no explicit automation/harvest restriction found."
+      },
+      "researchRouteCandidate": "INVITED_GREEN_SUBJECT_TO_CANONICAL_POLICY_IDENTITY_HISTORY_SENDER_AUTHORITY",
+      "profile": {
+        "observedOfferings": [
+          "software engineering",
+          "data and AI",
+          "managed services",
+          "AI-assisted software delivery"
+        ],
+        "tags": [
+          "uk-incorporated",
+          "technology-consultancy",
+          "supplier-invited",
+          "public-contact-inconsistency"
+        ],
+        "evidenceURLs": [
+          "https://www.halfteck.com/",
+          "https://www.halfteck.com/contact.html",
+          "https://www.halfteck.com/services.html"
+        ],
+        "buyerClaimLimit": "Independent own contact QA offer, not named-client agency defect."
+      },
+      "evidenceCapturedAtUTC": "2026-10-03T06:26:44.923120+00:00"
+    },
+    {
+      "id": "fulcrum-uk-11090618",
+      "rankPrior": 2,
+      "company": "FULCRUM GROUP LTD",
+      "domain": "fg-uk.com",
+      "website": "https://fg-uk.com/",
+      "recipient": "info@fg-uk.com",
+      "recipientJurisdiction": "GB",
+      "recipientType": "CORPORATE_ROLE_INBOX",
+      "companyRegistry": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/11090618",
+        "number": "11090618",
+        "status": "Active",
+        "legalForm": "Private limited Company",
+        "sourceRef": "turn14view6",
+        "retrievedAt": "2026-10-03"
+      },
+      "contactSource": {
+        "url": "https://fg-uk.com/contact/",
+        "sourceRef": "turn28view0",
+        "emailPublished": true,
+        "guessed": false,
+        "contactPurpose": "Group partnerships and procurement enquiries"
+      },
+      "invitation": {
+        "status": "EXPLICIT_GROUP_PARTNERSHIP_PROCUREMENT_INVITATION",
+        "url": "https://fg-uk.com/contact/",
+        "sourceRef": "turn28view0",
+        "scope": "Group partnership/procurement enquiries; identify product/business, situation, outcome and role",
+        "scopeFit": "Specific independent BrandBuilder release-evidence supplier proposal may fit, subject to relevance validation",
+        "notBlanketConsent": true
+      },
+      "offerFit": [
+        "AI_AGENT_PRODUCTION_RELEASE_GATE",
+        "CLIENT_ROI_PROOF_SPRINT"
+      ],
+      "problemEvidence": {
+        "url": "https://fg-uk.com/products/brandbuilder/",
+        "sourceRef": "turn28view2",
+        "observation": "BrandBuilder describes human approval before publishing, connected social channels, agent feedback into next runs, and workspace scoping across brands/roles.",
+        "verifiedProblemClass": "HIGH_CONSEQUENCE_RELEASE_BOUNDARIES_OBSERVABLE_NO_DEFECT_PROVEN",
+        "inferencesProhibited": [
+          "Approval bypass exists",
+          "Tenant isolation bug exists",
+          "Agents publish without consent",
+          "Financial damage"
+        ]
+      },
+      "preworkCandidate": "Public-scope acceptance matrix for stale approval invalidation, cross-brand isolation, duplicate publish prevention, channel outage and audit lineage. Test requirements, not unverified defect findings.",
+      "commercialValueEvidence": "Operating group with software product portfolio and recurring campaign workflow; independent release acceptance fits public approval/publish/analytics boundaries.",
+      "negativeSignals": {
+        "recruitmentRestriction": true,
+        "commercialNoSolicitationObserved": false,
+        "reviewedPages": [
+          "https://fg-uk.com/",
+          "https://fg-uk.com/contact/",
+          "https://fg-uk.com/tech/",
+          "https://fg-uk.com/products/brandbuilder/"
+        ],
+        "notExhaustiveSiteRestrictionAudit": true,
+        "noHarvestNotice": true,
+        "restrictionSource": {
+          "url": "https://fg-uk.com/terms/",
+          "sourceRef": "turn32view3",
+          "retrievedBy": "root",
+          "section": "6",
+          "summary": "Parent independently found broad automated extraction/content use anti-scrape/harvest/TDM reservation. Prior invitation does not override notice."
+        }
+      },
+      "researchRouteCandidate": "DO_NOT_SEND_NO_HARVEST_NOTICE",
+      "profile": {
+        "observedOfferings": [
+          "software product engineering",
+          "AI campaign platform",
+          "programme governance"
+        ],
+        "tags": [
+          "uk-incorporated",
+          "product-company",
+          "group-partnership-invited",
+          "human-approval-publish-boundary"
+        ],
+        "evidenceURLs": [
+          "https://fg-uk.com/tech/",
+          "https://fg-uk.com/products/brandbuilder/",
+          "https://fg-uk.com/contact/"
+        ]
+      },
+      "evidenceCapturedAtUTC": "2026-10-03T06:26:44.923120+00:00",
+      "viability": "DEFER_NO_HARVEST_NOTICE"
+    },
+    {
+      "id": "aideal-uk-SC851331",
+      "rankPrior": 3,
+      "company": "A.IDEAL GROUP LIMITED",
+      "domain": "aideal.group",
+      "website": "https://aideal.group/",
+      "recipient": "hello@aideal.group",
+      "recipientJurisdiction": "GB",
+      "recipientType": "CORPORATE_ROLE_INBOX",
+      "companyRegistry": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/SC851331",
+        "number": "SC851331",
+        "status": "Active",
+        "legalForm": "Private limited Company",
+        "sourceRef": "turn22view0",
+        "retrievedAt": "2026-10-03"
+      },
+      "contactSource": {
+        "url": "https://aideal.group/",
+        "sourceRef": "turn20view2",
+        "emailPublished": true,
+        "guessed": false
+      },
+      "invitation": {
+        "status": "NOT_VENDOR_INVITED",
+        "note": "Consultancy/demo invitation addresses telecom-reseller customers, not an unrestricted vendor invitation."
+      },
+      "offerFit": [
+        "AI_AGENT_PRODUCTION_RELEASE_GATE",
+        "CLIENT_ROI_PROOF_SPRINT"
+      ],
+      "problemEvidence": {
+        "url": "https://aideal.group/",
+        "sourceRef": "turn20view2",
+        "observation": "Pre-meeting agent prepares briefs 90 minutes before meetings using calendars, Companies House, websites and wholesale portals, and operational agents write into CRM workflows.",
+        "verifiedProblemClass": "MULTISOURCE_AGENT_RELEASE_ACCEPTANCE_REQUIREMENTS_NO_DEFECT_PROVEN",
+        "inferencesProhibited": [
+          "Bad briefs occur",
+          "Permission defect exists",
+          "CRM corruption",
+          "Revenue improvement verified"
+        ]
+      },
+      "preworkCandidate": "Acceptance checklist covering late/rescheduled meetings, stale registry provenance, unavailable provider portals, permission scope and idempotent CRM writes.",
+      "commercialValueEvidence": "Subscription-like deployed agent portfolio for telecom resellers with a 30-day impact review; meaningful production release and measurement stakes.",
+      "negativeSignals": {
+        "commercialNoSolicitationObserved": false,
+        "reviewedPages": [
+          "https://aideal.group/"
+        ],
+        "notExhaustiveSiteRestrictionAudit": true,
+        "auditedAtUTC": "2026-10-03T06:27:49.418627+00:00",
+        "noHarvestNoticeObserved": false,
+        "noSolicitationObserved": false,
+        "privacyURL": "https://aideal.group/privacy",
+        "privacySourceRef": "turn33view0",
+        "termsURL": "https://aideal.group/terms",
+        "termsSourceRef": "turn33view1",
+        "termsUpdated": "2026-07-20",
+        "copyrightRestriction": "Ordinary website IP ownership statement; do not reproduce full content.",
+        "auditScope": "Homepage, linked privacy and terms; lawful use/security restrictions, no explicit automation/harvest or supplier solicitation prohibition found."
+      },
+      "researchRouteCandidate": "UK_CORPORATE_GREEN_SUBJECT_TO_CANONICAL_POLICY_IDENTITY_HISTORY_SENDER_AUTHORITY",
+      "profile": {
+        "observedOfferings": [
+          "production AI agents for telecom resellers",
+          "CRM integration",
+          "meeting intelligence",
+          "impact review"
+        ],
+        "tags": [
+          "uk-incorporated",
+          "ai-agent-provider",
+          "calendar-triggered-agent",
+          "crm-write-effects"
+        ],
+        "evidenceURLs": [
+          "https://aideal.group/"
+        ],
+        "buyerClaimLimit": "Release requirements derived from public functionality; no runtime defect alleged."
+      },
+      "evidenceCapturedAtUTC": "2026-10-03T06:26:44.923120+00:00"
+    },
+    {
+      "id": "grid-uk-14577642",
+      "rankPrior": 4,
+      "company": "GRID DESIGN AGENCY LIMITED",
+      "domain": "griddesign.co.uk",
+      "website": "https://griddesign.co.uk/",
+      "recipient": "hello@griddesign.co.uk",
+      "recipientJurisdiction": "GB",
+      "recipientType": "CORPORATE_ROLE_INBOX",
+      "companyRegistry": {
+        "url": "https://find-and-update.company-information.service.gov.uk/company/14577642",
+        "number": "14577642",
+        "status": "Active",
+        "legalForm": "Private limited Company",
+        "sourceRef": "turn20view1",
+        "retrievedAt": "2026-10-03"
+      },
+      "contactSource": {
+        "url": "https://griddesign.co.uk/work",
+        "sourceRef": "turn27view2",
+        "emailPublished": true,
+        "guessed": false,
+        "contactPurpose": "New business"
+      },
+      "invitation": {
+        "status": "NO_RELEVANT_VENDOR_INVITATION_PROVEN",
+        "note": "Hire-us/project invitation is a client solicitation, not permission to sell supplier services."
+      },
+      "offerFit": [
+        "CLIENT_ROI_PROOF_SPRINT",
+        "AGENCY_REVENUE_LEAK_PROOF_PACK"
+      ],
+      "problemEvidence": {
+        "url": "https://griddesign.co.uk/llm-info",
+        "sourceRef": "turn20view0",
+        "observation": "Public agency information states 77% conversion uplift for The3Key alongside 99% retention and client portfolio; the summary does not provide baseline, conversion definition or measurement window.",
+        "verifiedProblemClass": "PUBLIC_SUMMARY_MEASUREMENT_CONTEXT_GAP",
+        "inferencesProhibited": [
+          "Claim false",
+          "Case-study lacks evidence elsewhere",
+          "Attribution invalid",
+          "Lost clients"
+        ],
+        "fullCaseStudyRead": "TIMEOUT_REQUIRES_RETRY_BEFORE_FINAL_MESSAGE"
+      },
+      "preworkCandidate": "Proof reconciliation worksheet mapping claim, metric definition, baseline, time window, attribution and supporting evidence references.",
+      "commercialValueEvidence": "Official site claims substantial hosting/cloud/SaaS portfolio and measurable conversion work; evidence packaging fits renewal proof needs. These are company assertions, not externally audited economics.",
+      "negativeSignals": {
+        "commercialNoSolicitationObserved": false,
+        "reviewedPages": [
+          "https://griddesign.co.uk/work",
+          "https://griddesign.co.uk/llm-info"
+        ],
+        "notExhaustiveSiteRestrictionAudit": true
+      },
+      "researchRouteCandidate": "UK_CORPORATE_GREEN_SUBJECT_TO_CANONICAL_POLICY_IDENTITY_HISTORY_SENDER_AUTHORITY",
+      "profile": {
+        "observedOfferings": [
+          "B2B web design",
+          "SaaS product design",
+          "conversion optimisation",
+          "AI product interfaces"
+        ],
+        "tags": [
+          "uk-incorporated",
+          "b2b-agency",
+          "hosting-saas-clients",
+          "conversion-proof-claims"
+        ],
+        "evidenceURLs": [
+          "https://griddesign.co.uk/llm-info",
+          "https://griddesign.co.uk/work"
+        ]
+      },
+      "evidenceCapturedAtUTC": "2026-10-03T06:26:44.923120+00:00"
+    }
+  ],
+  "rejectedOrDeferred": [
+    {
+      "company": "AP LEADS LIMITED",
+      "number": "16178226",
+      "registryStatus": "Active private limited Company",
+      "registryUrl": "https://find-and-update.company-information.service.gov.uk/company/16178226",
+      "contact": "hello@apleads.co",
+      "contactUrl": "https://apleads.co/partner",
+      "reason": "Partner page refers to invitation only for existing customers whose first system is proven, explicitly not cold application. Do not call this vendor invited."
+    },
+    {
+      "company": "CYBRAXO LTD",
+      "number": "15605119",
+      "registryStatus": "Active private limited Company",
+      "registryUrl": "https://find-and-update.company-information.service.gov.uk/company/15605119",
+      "contact": "business@cybraxo.co.uk",
+      "contactUrl": "https://cybraxo.co.uk/business-enquiries/",
+      "reason": "Explicit tech/marketing-service proposal invitation strong, but current four-offer specific problem fit unproven; ecommerce services alone not enough."
+    },
+    {
+      "company": "WONDER APPS LIMITED",
+      "number": "17181267",
+      "registryUrl": "https://find-and-update.company-information.service.gov.uk/company/17181267",
+      "contact": "hello@wonderapps.co.uk",
+      "reason": "Primary registry request inaccessible. Website self-assertion cannot establish corporate route."
+    },
+    {
+      "company": "FIXERO LTD",
+      "number": "17016058",
+      "contactUrl": "https://fixero.co.uk/business-enquiries/",
+      "reason": "Most supplier invitation scoped to tools/garden equipment distribution; insufficient fit to four current UberBond offers."
+    }
+  ],
+  "productionRankingInputs": {
+    "known": "Observable evidence, proven contact/source, incorporated status, bounded invitation scope, concrete prework potential",
+    "unknown": "QPR, expected cleared contribution, actual budget, buyer urgency, current history/suppression, sender/controller facts",
+    "rule": "Do not assign empirical economics or actual green/send authority from research priors"
+  },
+  "retrievedAtUTC": "2026-10-03T06:26:44.923120+00:00"
+}

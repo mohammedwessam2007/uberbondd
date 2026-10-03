@@ -1,0 +1,114 @@
+{
+  "checkedRecipient": "hello@aideal.group",
+  "checkedDomain": "aideal.group",
+  "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+  "preflight": {
+    "ok": true,
+    "result": {
+      "version": "uberbond.prospect-preflight.v1",
+      "evaluatedAt": "2026-10-03T06:28:27.975Z",
+      "state": "BLOCKED_EXTERNAL_FACT",
+      "blockerCodes": [
+        "current-ownership-unverified",
+        "us-headquarters-unverified",
+        "no-solicitation-notice-not-checked",
+        "no-harvest-notice-not-checked",
+        "home-service-client-evidence-missing",
+        "real-client-site-missing",
+        "externally-verifiable-lead-path-observation-missing"
+      ],
+      "readOnly": true,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffects": 0,
+      "company": "A.IDEAL GROUP LIMITED",
+      "recipient": "hello@aideal.group",
+      "offerId": "AI_AGENT_RELEASE_GATE",
+      "contactHistory": {
+        "status": "CLEAN",
+        "hit": false,
+        "receiptDigest": "473b7c828f266629b8dafe6d8d58d7e50ba4411e83eac90c61c051a2a8040a37",
+        "checkedAt": "2026-10-03T06:28:27.975Z"
+      },
+      "intake": {
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "us-headquarters-unverified",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "provenance": "RUNTIME_RECEIPT"
+      }
+    }
+  },
+  "history": {
+    "ok": true,
+    "result": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-03T06:28:28.031Z",
+      "emailChecked": "hello@aideal.group",
+      "domainChecked": "aideal.group",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 2,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "3532088c8edfcb0684b8fe8b380807587857f8ee9844f2b807c33041cb1eb70d",
+      "signature": "2ce35b3122dd8dcc17ca81b41d785eb26285fbd18a3cf50020af8fcf60b321e5"
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

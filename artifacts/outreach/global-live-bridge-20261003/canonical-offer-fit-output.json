@@ -1,0 +1,171 @@
+{
+  "sourceSha": "1e600fd193fa2ca0d7590bbb0751150d1a3e8363",
+  "generatedAt": "2026-10-03T06:31:00.231Z",
+  "module": "src/uberreply-four-offer-genome.mjs scoreUberReplyOfferFit",
+  "inputRule": "Only observed offerings/tags; evidenceConfidence default0 rather than invented confidence",
+  "rankings": [
+    {
+      "candidateId": "halfteck-uk-09654088",
+      "company": "HALFTECK LTD",
+      "contact": "sales@halfteck.com",
+      "excluded": false,
+      "routeResearch": "INVITED_GREEN_SUBJECT_TO_CANONICAL_POLICY_IDENTITY_HISTORY_SENDER_AUTHORITY",
+      "offers": [
+        {
+          "offerId": "AI_AGENT_RELEASE_GATE",
+          "score": 0.7,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.7,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "CLIENT_ROI_PROOF_SPRINT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "BILINGUAL_BOOKING_LEAK_AUDIT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        }
+      ],
+      "QPR": null,
+      "expectedClearedContribution": null,
+      "economicEvidence": "UNKNOWN_NO_EMPIRICAL_OUTCOMES"
+    },
+    {
+      "candidateId": "fulcrum-uk-11090618",
+      "company": "FULCRUM GROUP LTD",
+      "contact": "info@fg-uk.com",
+      "excluded": true,
+      "routeResearch": "DO_NOT_SEND_NO_HARVEST_NOTICE",
+      "offers": [
+        {
+          "offerId": "AI_AGENT_RELEASE_GATE",
+          "score": 0.7,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.7,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "CLIENT_ROI_PROOF_SPRINT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "BILINGUAL_BOOKING_LEAK_AUDIT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        }
+      ],
+      "QPR": null,
+      "expectedClearedContribution": null,
+      "economicEvidence": "UNKNOWN_NO_EMPIRICAL_OUTCOMES"
+    },
+    {
+      "candidateId": "aideal-uk-SC851331",
+      "company": "A.IDEAL GROUP LIMITED",
+      "contact": "hello@aideal.group",
+      "excluded": false,
+      "routeResearch": "UK_CORPORATE_GREEN_SUBJECT_TO_CANONICAL_POLICY_IDENTITY_HISTORY_SENDER_AUTHORITY",
+      "offers": [
+        {
+          "offerId": "AI_AGENT_RELEASE_GATE",
+          "score": 0.7,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.7,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "CLIENT_ROI_PROOF_SPRINT",
+          "score": 0.3,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.3,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "score": 0.15,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.15,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "BILINGUAL_BOOKING_LEAK_AUDIT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        }
+      ],
+      "QPR": null,
+      "expectedClearedContribution": null,
+      "economicEvidence": "UNKNOWN_NO_EMPIRICAL_OUTCOMES"
+    },
+    {
+      "candidateId": "grid-uk-14577642",
+      "company": "GRID DESIGN AGENCY LIMITED",
+      "contact": "hello@griddesign.co.uk",
+      "excluded": false,
+      "routeResearch": "UK_CORPORATE_GREEN_SUBJECT_TO_CANONICAL_POLICY_IDENTITY_HISTORY_SENDER_AUTHORITY",
+      "offers": [
+        {
+          "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+          "score": 0.7,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.7,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "AI_AGENT_RELEASE_GATE",
+          "score": 0.7,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.7,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "CLIENT_ROI_PROOF_SPRINT",
+          "score": 0.45,
+          "evidenceConfidence": 0,
+          "semanticFit": 0.45,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        },
+        {
+          "offerId": "BILINGUAL_BOOKING_LEAK_AUDIT",
+          "score": 0,
+          "evidenceConfidence": 0,
+          "semanticFit": 0,
+          "truthBoundary": "Fit is an explicit heuristic over supplied evidence and tags. It is not buyer intent, consent, willingness to pay, or permission to contact."
+        }
+      ],
+      "QPR": null,
+      "expectedClearedContribution": null,
+      "economicEvidence": "UNKNOWN_NO_EMPIRICAL_OUTCOMES"
+    }
+  ],
+  "sendAuthority": false,
+  "externalEffects": 0,
+  "selection": "NO_PRODUCTION_GLOBAL_SELECTION_YET"
+}

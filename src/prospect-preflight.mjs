@@ -133,7 +133,8 @@ function summarizeRoute(decision) {
 export async function runProspectPreflight({
   store, record, slots, artifactRef = '', identity = {}, senderSide = {}, unsubscribe = {}, campaign = {},
   provider = 'smtp-relay', now = new Date(), artifactExists = repositoryArtifactExists,
-  policyRegistry = null, registryAdapters = null, globalRoute = {}, prepareEffect = false, unsubscribeFactory = null
+  policyRegistry = null, registryAdapters = null, globalRoute = {}, prepareEffect = false, unsubscribeFactory = null,
+  frozenHistoryReceiptDigest = null, includeEffectParticipants = false
 } = {}) {
   const evaluatedAt = new Date(now).toISOString();
   const registryLookups = [];
@@ -167,6 +168,14 @@ export async function runProspectPreflight({
   }
   if (intake.status !== PROSPECT_STATUSES.VERIFIED_CANDIDATE) {
     return out(PREFLIGHT_STATES.BLOCKED_EXTERNAL_FACT, { ...summary, blockerCodes: [...intake.missingEvidence] });
+  }
+
+  // Internal frozen-effect revalidation only: a new exact CLEAN read proves
+  // continued safety, but never replaces the originally bound receipt bytes.
+  // HTTP callers cannot supply this option; the sealed server snapshot owns it.
+  if (frozenHistoryReceiptDigest) {
+    intake.contactHistoryReceiptDigest = frozenHistoryReceiptDigest;
+    summary.contactHistory.boundReceiptDigest = frozenHistoryReceiptDigest;
   }
 
   // 2. Sender allocation by the existing allocator (a quarantined or paused
@@ -203,7 +212,7 @@ export async function runProspectPreflight({
     invitationEvidence: Array.isArray(record.invitationEvidence) ? record.invitationEvidence : [],
     corporateRoleScope: record.corporateRoleScope || null,
     intakeChannels: Array.isArray(record.intakeChannels) ? record.intakeChannels : [],
-    history: { status: contactHistory.status, receiptDigest: contactHistory.receiptDigest || null },
+    history: { status: contactHistory.status, receiptDigest: frozenHistoryReceiptDigest || contactHistory.receiptDigest || null },
     provider: { id: provider, vendor: 'winnr' },
     sender: { identity, senderSide, allocation: sender.ok ? { ok: true, slot: sender.slot } : { ok: false, reasonCodes: sender.reasonCodes }, compliance: {} },
     policyRegistry: registry,
@@ -292,7 +301,7 @@ export async function runProspectPreflight({
     coldRoute,
     ...(invitedRoute ? { invitedRoute } : {}),
     message: { winner: tournament.winner, coreMessageDigest: tournament.bindings.coreMessageDigest },
-    effectPackage: { state: effectPackage.state, finalEffectDigest: effectPackage.finalEffectDigest, placeholdersPresent: effectPackage.placeholdersPresent, routeBound: effectPackage.routeBound, blockers: effectPackage.blockers, ...(prepareEffect ? { preview: effectPackage.preview, participantsFinal: effectPackage.participantsFinal, maxEffects: effectPackage.maxEffects, expiresAt: effectPackage.expiresAt } : {}) }
+    effectPackage: { state: effectPackage.state, finalEffectDigest: effectPackage.finalEffectDigest, placeholdersPresent: effectPackage.placeholdersPresent, routeBound: effectPackage.routeBound, blockers: effectPackage.blockers, ...(prepareEffect ? { preview: effectPackage.preview, participantsFinal: effectPackage.participantsFinal, maxEffects: effectPackage.maxEffects, expiresAt: effectPackage.expiresAt } : {}), ...(includeEffectParticipants ? { participants: effectPackage.participants } : {}) }
   };
   const withOneButton = result => ({ ...result, oneButton: activation(result) });
   const codes = effectPackage.blockers.map(b => b.code);

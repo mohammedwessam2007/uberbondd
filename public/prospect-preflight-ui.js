@@ -2,6 +2,10 @@
 // credential remains owned by admin.js; this module never receives its value.
 export async function inspectProspect({ request, input }) {
   const body = input?.request?.body || input;
+  if (body?.frozenEffectDigest) {
+    const result = await request('/api/prospect-preflight', { method: 'POST', body: JSON.stringify(body) });
+    return { preflight: { ok: true, result }, classification: result.validation?.valid === true ? 'CLEAN_EXACT_PRODUCTION_HISTORY' : 'FROZEN_EFFECT_INVALID', readOnly: true, sendAuthority: false, externalEffects: 0 };
+  }
   if (!body?.record?.recipient?.email) throw new Error('candidate-record-and-exact-recipient-required');
   const email = String(body.record.recipient.email).trim().toLowerCase();
   const domain = email.slice(email.lastIndexOf('@') + 1);
@@ -18,7 +22,7 @@ export async function inspectProspect({ request, input }) {
   const classification = h?.status === 'HIT' || h?.findings?.length
     ? 'CONTACT_HISTORY_HIT'
     : complete ? 'CLEAN_EXACT_PRODUCTION_HISTORY' : 'PRODUCTION_HISTORY_UNKNOWN';
-  return { checkedRecipient: email, checkedDomain: domain, classification, preflight, history, readOnly: true, sendAuthority: false, externalEffects: 0 };
+  return { checkedRecipient: email, checkedDomain: domain, classification, preflight, history, readOnly: body.freezeEffect !== true, sendAuthority: false, externalEffects: 0 };
 }
 
 export async function inspectRuntime({ request }) {

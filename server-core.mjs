@@ -34,6 +34,7 @@ import { createAuthoritativeOutreachConsequenceGate } from './src/omnia-v9/integ
 import { buildLiveLeadGenerationSnapshot, buildLiveLeadHandoff } from './src/leadgen-live-snapshot.mjs';
 import { checkContactHistory, signContactHistoryReceipt } from './src/prospect-contact-history.mjs';
 import { runProspectPreflight } from './src/prospect-preflight.mjs';
+import { prepareFrozenProspectEffect, validateFrozenProspectEffect } from './src/frozen-prospect-effect.mjs';
 import { buildOutreachEconomicsSnapshot } from './src/outreach-economics-snapshot.mjs';
 import { buildPreflightHandoff } from './src/prospect-preflight-handoff.mjs';
 import { loadPolicyEvidenceBundle, compilePolicyEvidenceStatus } from './src/global-policy-evidence.mjs';
@@ -1620,6 +1621,34 @@ export const requestHandler = async (req, res) => {
     if (method === 'POST' && url.pathname === '/api/prospect-preflight') {
       if (!config.adminToken) return json(res, 503, { error: 'Admin token must be configured for prospect preflight', state: 'BLOCKED_CONTACT_HISTORY' });
       const input = await parseBody(req) || {};
+      const run = (body, internal = {}) => runProspectPreflight({
+        store, record: body.record && typeof body.record === 'object' && !Array.isArray(body.record) ? body.record : null,
+        slots: body.slots && typeof body.slots === 'object' && !Array.isArray(body.slots) ? body.slots : {},
+        artifactRef: typeof body.artifactRef === 'string' ? body.artifactRef : '',
+        identity: body.identity && typeof body.identity === 'object' ? body.identity : {},
+        senderSide: body.senderSide && typeof body.senderSide === 'object' ? body.senderSide : {},
+        campaign: body.campaign && typeof body.campaign === 'object' ? body.campaign : {},
+        prepareEffect: body.prepareEffect === true,
+        unsubscribeFactory: recipientEmail => preparedRecipientUnsubscribeUrls(config.baseUrl, recipientEmail, config.unsubscribeSecret),
+        policyRegistry: loadPolicyEvidenceBundle({ now: new Date() }), registryAdapters: greenLaneRegistryAdapters,
+        globalRoute: body.globalRoute && typeof body.globalRoute === 'object' && !Array.isArray(body.globalRoute) ? body.globalRoute : {},
+        now: new Date(), ...internal
+      });
+      if (input.freezeEffect === true || input.frozenEffectDigest !== undefined) {
+        const settings = await store.getSettings();
+        const identity = ownerBusinessIdentity(settings);
+        if (!identity) return json(res, 409, { error: 'Protected owner identity is required', sendAuthority: false });
+        if (input.frozenEffectDigest !== undefined) {
+          if (Object.keys(input).some(k => k !== 'frozenEffectDigest')) return json(res, 400, { error: 'Frozen validation accepts only its digest; payload overrides are forbidden', sendAuthority: false });
+          const snapshot = settings[`frozenProspectEffect:${input.frozenEffectDigest}`];
+          const campaign = snapshot ? await store.get('campaigns', snapshot.input?.campaign?.campaignId) : null;
+          return json(res, 200, await validateFrozenProspectEffect({ store, digest: input.frozenEffectDigest, secret: config.unsubscribeSecret, run, identity, campaign }));
+        }
+        const campaign = typeof input.campaign?.campaignId === 'string' ? await store.get('campaigns', input.campaign.campaignId) : null;
+        if (!campaign || (campaign.offerId && campaign.offerId !== input.record?.corporateRoleScope?.offerId)) return json(res, 409, { error: 'An existing compatible campaign is required for effect lineage', sendAuthority: false });
+        if (identity.legalName !== input.identity?.legalBusinessSenderName || identity.postalAddress !== input.identity?.authorizedPublicPostalAddress || identity.senderName !== input.identity?.displaySenderName || identity.company !== input.identity?.company) return json(res, 409, { error: 'Input identity must match protected owner identity', sendAuthority: false });
+        return json(res, 200, await prepareFrozenProspectEffect({ store, input, secret: config.unsubscribeSecret, run, identity, campaign }));
+      }
       const preparationCampaign = input.prepareEffect === true && typeof input.campaign?.campaignId === 'string' ? await store.get('campaigns', input.campaign.campaignId) : null;
       if (input.prepareEffect === true && (!preparationCampaign || (preparationCampaign.offerId && preparationCampaign.offerId !== input.record?.corporateRoleScope?.offerId))) return json(res, 409, { error: 'An existing compatible campaign is required for effect lineage', sendAuthority: false });
       return json(res, 200, await runProspectPreflight({

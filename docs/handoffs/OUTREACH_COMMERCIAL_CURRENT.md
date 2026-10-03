@@ -263,3 +263,8 @@ Prospect preflight is generic and production-reachable: exact production contact
 ## Work final-boss reality checkpoint — 2026-10-03
 
 Read [the current Work receipt](../receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md) and [machine receipt](../../artifacts/outreach/work-final-boss-reality-20261003.json). #1174/#1175 correct live operator blockers and expose existing canonical read-only preflight; 114 focused tests pass. Winnr normal sign-in verified three active pre-warmed mailboxes at existing $9/month; do not restart procurement or transport. Powerhouse exact production history remains UNKNOWN: the execution environment disconnected during secure admin authentication, and Render SQL refuses its empty external IP allowlist. No CLEAN, final digest, cold-route authority, purchase or prospect send is claimed. Resume protected reads after connection recovery; preserve identity/legal/effect holds.
+
+
+## Superseding live history receipt — 2026-10-03
+
+[Admin recovery and exact preflight](../receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md) supersedes the earlier offline frontier. Existing token authentication restored. Powerhouse exact production history CLEAN across all seven required collections; intake VERIFIED_CANDIDATE, tournament winner FULL, sender Tara, effect READY_EXCEPT_IDENTITY_AND_AUTHORITY. Actual one-button is blocked/disabled and truthful. Identity/legal/country/provider/cold-dispatch/exact-effect authority holds remain intact. No token value, approval, spend or prospect message.

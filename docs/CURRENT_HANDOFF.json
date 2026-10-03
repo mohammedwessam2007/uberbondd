@@ -1318,5 +1318,27 @@
     "prospectMessages": 0,
     "newSpendUsd": 0,
     "nextAutomaticDependency": "Reconnect existing environment, inspect surviving secure admin session, execute prepared canonical preflight and all seven exact-history reads, retrieve protected identity/runtime facts. No procurement or seed repeats."
+  },
+  "outreachAdminRecovery20261003": {
+    "receipt": "docs/receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md",
+    "machineReceipt": "artifacts/outreach/work-admin-recovery-preflight-20261003.json",
+    "checkedAt": "2026-10-03T04:44:56.351Z",
+    "sourceSnapshotSha": "a9799c4f492517078e5b5c6ac44ed9c51bae5bb3",
+    "productionHistory": "CLEAN_EXACT_PRODUCTION_HISTORY",
+    "canonicalState": "BLOCKED_IDENTITY",
+    "intake": "VERIFIED_CANDIDATE",
+    "tournamentWinner": "FULL",
+    "sender": "winnr:tara.garcia@cedarpointdomains.com",
+    "effectState": "READY_EXCEPT_IDENTITY_AND_AUTHORITY",
+    "finalEffectDigest": null,
+    "adminAuthentication": "RESTORED_EXISTING_TOKEN",
+    "supersedesFrontier": "outreachFinalBossReality20261003",
+    "oneButton": "OUTREACH_BLOCKED_DISABLED_TRUE",
+    "identity": "NO_VALID_NORMALIZED_PROTECTED_RECORD",
+    "legalAuthority": "HOLD_UNRESOLVED",
+    "coldRoute": "INERT",
+    "prospectMessages": 0,
+    "newSpendUsd": 0,
+    "nextDependency": "Recover/supply authorized public identity and sender/operator/entity/controller jurisdiction facts, then resolve exact sender-side legal scope. Recompile exact effect only afterward; no present authorization or dispatch inferred."
   }
 }

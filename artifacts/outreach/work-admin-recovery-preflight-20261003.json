@@ -1,0 +1,282 @@
+{
+  "schemaVersion": "uberbond.work-admin-recovery-production-preflight.v1",
+  "checkedAt": "2026-10-03T04:44:56.351Z",
+  "sourceSha": "a9799c4f492517078e5b5c6ac44ed9c51bae5bb3",
+  "renderSha": "a9799c4f492517078e5b5c6ac44ed9c51bae5bb3",
+  "supersedes": [
+    "artifacts/outreach/work-final-boss-reality-20261003.json",
+    "docs/receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md"
+  ],
+  "recovery": {
+    "browserEnvironment": "RESTORED",
+    "renderSignIn": "VERIFIED",
+    "adminAuthentication": "VERIFIED_WITH_EXISTING_TOKEN",
+    "existingTokenRecoveredFrom": "EXISTING_RENDER_PROTECTED_ENVIRONMENT_NORMAL_COPY_CONTROL",
+    "tokenRotated": false,
+    "credentialStoredInReceipt": false,
+    "copyControlIncident": "The normal Copy value action unexpectedly exposed the credential in its following accessibility output. The value was not repeated, saved or committed; secure browserAuth was used for entry. No credential rotation authorized or performed."
+  },
+  "productionHistory": {
+    "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+    "recipient": "hello@mypowerhouse.group",
+    "domain": "mypowerhouse.group",
+    "history": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-03T04:44:56.351Z",
+      "emailChecked": "hello@mypowerhouse.group",
+      "domainChecked": "mypowerhouse.group",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 2,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "0158951557dc2756daed068988345bc172823dbc5256922aa3bee68c21fe1c07"
+    },
+    "canonicalPostContactHistory": {
+      "status": "CLEAN",
+      "hit": false,
+      "receiptDigest": "3e4e2631b7210c65f6d06c113b0f01eed02b1ea77ed0151599ac49e93631ec10",
+      "checkedAt": "2026-10-03T04:44:56.358Z"
+    },
+    "canonicalEndpoint": "POST /api/prospect-preflight",
+    "independentEndpoint": "GET /api/prospect-preflight/contact-history",
+    "semantics": "Deployed canonical suppressionMatchesEmail semantics; independent exact email/domain/website aliases, matching prospect IDs, recipient events/messages, sender replies, provider-event bounce/complaint history, and active/ambiguous reservations. All seven collections successfully read, no findings. Suppression authoritative for unsubscribe.",
+    "sourceIdentity": {
+      "main": "a9799c4f492517078e5b5c6ac44ed9c51bae5bb3",
+      "renderService": "srv-dali9vijnfac739m4vcg",
+      "deploy": "dep-db0548k9v7es739v7r00"
+    }
+  },
+  "preflight": {
+    "version": "uberbond.prospect-preflight.v1",
+    "evaluatedAt": "2026-10-03T04:44:56.358Z",
+    "state": "BLOCKED_IDENTITY",
+    "blockerCodes": [
+      "legal-business-sender-name-placeholder-or-missing",
+      "authorized-public-postal-address-placeholder-or-missing",
+      "owner-authorization-to-publish-footer-missing",
+      "sender-side-legal-authority-hold-unresolved",
+      "signed-unsubscribe-urls-not-created"
+    ],
+    "readOnly": true,
+    "sendAuthority": false,
+    "externalEffectAuthority": "NONE",
+    "externalEffects": 0,
+    "company": "Powerhouse Consulting Group",
+    "recipient": "hello@mypowerhouse.group",
+    "offerId": "CLIENT_ROI_PROOF_SPRINT",
+    "contactHistory": {
+      "status": "CLEAN",
+      "hit": false,
+      "receiptDigest": "3e4e2631b7210c65f6d06c113b0f01eed02b1ea77ed0151599ac49e93631ec10",
+      "checkedAt": "2026-10-03T04:44:56.358Z"
+    },
+    "intake": {
+      "status": "VERIFIED_CANDIDATE",
+      "rejectionReasons": [],
+      "missingEvidence": [],
+      "provenance": "RUNTIME_RECEIPT"
+    },
+    "tournament": {
+      "status": "WINNER_SELECTED",
+      "winnerId": "FULL",
+      "reasonCodes": []
+    },
+    "sender": {
+      "ok": true,
+      "slot": "winnr:tara.garcia@cedarpointdomains.com"
+    },
+    "coldRoute": {
+      "envelopeOk": true,
+      "routeDigest": "80264dd40de5d7d4fc02ac90cb7239dfd6295e49c19796bda2d43e91b3104369",
+      "senderSideClassification": "CONSERVATIVE_POLICY_HOLD_PENDING_AUTHORITATIVE_SCOPE_INTERPRETATION",
+      "selfAuthorizing": false
+    },
+    "message": {
+      "winner": {
+        "id": "FULL",
+        "subject": "Sylvester availability",
+        "body": "Hi there,\n\nI noticed one of Powerhouse's publicly named clients, Sylvester Electric, makes two different emergency-service promises on the same page: its homepage says emergency service covers business hours and qualifying after-hours situations, and its service list further down advertises 24/7 Emergency Service. Its generator and panel pages also say 24/7. I put the exact wording into a one-page reconciliation note for client QA. Want me to send it?",
+        "wordCount": 69,
+        "subjectWordCount": 2,
+        "sentenceCount": 4,
+        "cta": "Want me to send it?",
+        "score": 0.816375
+      },
+      "coreMessageDigest": "f1cc00c6477c379c6f36c1deea688a899be1622104d5d49e8a067e83f4aa7e1e"
+    },
+    "effectPackage": {
+      "state": "READY_EXCEPT_IDENTITY_AND_AUTHORITY",
+      "finalEffectDigest": null,
+      "placeholdersPresent": true,
+      "blockers": [
+        {
+          "group": "identity",
+          "code": "legal-business-sender-name-placeholder-or-missing"
+        },
+        {
+          "group": "identity",
+          "code": "authorized-public-postal-address-placeholder-or-missing"
+        },
+        {
+          "group": "identity",
+          "code": "owner-authorization-to-publish-footer-missing"
+        },
+        {
+          "group": "authority",
+          "code": "sender-side-legal-authority-hold-unresolved"
+        },
+        {
+          "group": "draftTime",
+          "code": "signed-unsubscribe-urls-not-created"
+        }
+      ]
+    }
+  },
+  "runtime": {
+    "observedAt": "2026-10-03T04:44:17.656Z",
+    "storeBackend": "postgres",
+    "workerOnline": true,
+    "paused": false,
+    "autopilot": false,
+    "outboundEnabled": false,
+    "dryRun": true,
+    "allowedCountries": [
+      "EG"
+    ],
+    "reservedToday": 0,
+    "uncertainSends": 0,
+    "connectedSmtpMailboxes": 3,
+    "connectedImapMailboxes": 3,
+    "quarantinedMailbox": "dana.kim@cedarpointdomains.com",
+    "quarantinedOrdinal": 3,
+    "canaryProvider": "gmail-api",
+    "smtpFleetConfigured": true,
+    "googleOAuthConfigured": false,
+    "providerCredentialConfigured": false,
+    "approvalSecretConfigured": true,
+    "encryptionConfigured": true,
+    "unsubscribeConfigured": true,
+    "exactApprovedReadyEffects": 0,
+    "canaryState": "CANARY_BLOCKED",
+    "canaryReasonCodes": [
+      "no-approved-route-and-payload",
+      "outbound-disabled",
+      "outbound-dry-run",
+      "business-address-missing",
+      "google-oauth-missing"
+    ],
+    "scaleReasonCodes": [
+      "runtime-bundle-file-required"
+    ],
+    "currentMatrixTruthful": true
+  },
+  "identity": {
+    "normalizedProtectedRecordPresent": false,
+    "protectedLegalNamePresent": false,
+    "protectedPostalAddressPresent": false,
+    "protectedSenderNamePresent": false,
+    "protectedCompanyPresent": false,
+    "rawPartialSetting": "NOT_EXPOSED_BY_CURRENT_CANONICAL_OWNER_SURFACE",
+    "publicFooterAuthorization": "NOT_ESTABLISHED",
+    "requiredFields": [
+      "legalBusinessSenderName",
+      "authorizedPublicPostalAddress",
+      "owner-authorization-to-publish-footer"
+    ],
+    "operatorEntityControllerJurisdictions": "UNRESOLVED",
+    "providerDisplayNameDoesNotSupplyAuthority": true
+  },
+  "sender": {
+    "selectedByCanonicalPreflight": "winnr:tara.garcia@cedarpointdomains.com",
+    "available": true,
+    "provider": "smtp-relay",
+    "finalEffectBound": false,
+    "ordinal3Preserved": true,
+    "globalCanaryProviderReconciled": "Different current global provider gmail-api remains accurately reported and blocked. No provider/config switch or new authorization was inferred from preflight SMTP allocation."
+  },
+  "oneButton": {
+    "liveState": "OUTREACH_BLOCKED",
+    "disabled": true,
+    "canonicalBlockersDisplayed": true,
+    "clicked": false
+  },
+  "rankedCandidateEndpoint": {
+    "queried": true,
+    "allFourOfferListsEmpty": true,
+    "poolSize": 1,
+    "alreadyRejectedRecordExcluded": true,
+    "nextCandidateNotNeeded": "Powerhouse now passes exact production history and intake; no forced override or replacement used."
+  },
+  "providerAccount": "LIVE_ENTITLEMENT_VERIFIED_IN_PREVIOUS_RECEIPT_ACTIVE_3_EXISTING_9_USD_PER_MONTH",
+  "coldDispatch": "INTENTIONALLY_INERT_NOT_BYPASSED",
+  "remainingBlockers": [
+    "legal-business-sender-name-placeholder-or-missing",
+    "authorized-public-postal-address-placeholder-or-missing",
+    "owner-authorization-to-publish-footer-missing",
+    "sender-side-legal-authority-hold-unresolved",
+    "signed-unsubscribe-urls-not-created",
+    "current-global-canary-provider-gmail-api-has-no-google-oauth",
+    "current-country-allowlist-EG-does-not-authorize-US",
+    "cold-PUBLIC_BUSINESS_CONTACT-dispatch-intentionally-inert",
+    "exact-final-effect-approval-not-present"
+  ],
+  "externalEffects": {
+    "prospectSends": 0,
+    "newSeedSends": 0,
+    "newSpendUsd": 0,
+    "credentialRotation": 0,
+    "providerChanges": 0,
+    "senderChanges": 0,
+    "campaignWrites": 0,
+    "sourceBehaviorChanges": 0
+  },
+  "frontier": "LIVE_HISTORY_VERIFIED_IDENTITY_AND_LEGAL_AUTHORITY_BLOCKED",
+  "truthBoundary": "Exact production history is CLEAN for this recipient/domain at the stated timestamps, not permanent eligibility, legal clearance, consent or send authority. VERIFIED_CANDIDATE and READY_EXCEPT_IDENTITY_AND_AUTHORITY do not authorize outreach. No exact approval or final digest minted."
+}

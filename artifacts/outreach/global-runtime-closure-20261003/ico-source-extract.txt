@@ -1,0 +1,7 @@
+Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/
+Retrieved: 2026-10-03T07:31:00Z via primary web retrieval turn36view1. Scoped extraction, not full page bytes.
+
+L147: You do not need their consent under PECR to send such messages.
+L68-71 categories: companies; limited liability partnerships; Scottish partnerships.
+
+Research interpretation: applies to corporate subscribers, not sole traders or ordinary partnerships. Identity disclosure and valid opt-out address remain required. Named-person contact adds personal-data obligations. ICO warns guidance is under review following the Data (Use and Access) Act. No sender/controller applicability clearance is implied.

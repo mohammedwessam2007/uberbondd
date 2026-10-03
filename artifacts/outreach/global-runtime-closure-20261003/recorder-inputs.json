@@ -1,0 +1,134 @@
+[
+  {
+    "ruleId": "recipient:US:can-spam-b2b-email",
+    "authorityType": "REGULATOR_GUIDANCE",
+    "sourceUrl": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+    "retrievedAt": "2026-10-03T07:32:30Z",
+    "uncertainty": {
+      "level": "LOW",
+      "notes": "Recipient-side evidence only; applicable sender laws and exact effect authority remain separate."
+    },
+    "sourceAuthority": "US Federal Trade Commission",
+    "recipientClass": "BUSINESS_OR_CONSUMER",
+    "identityRequirements": [
+      "Accurate From/To/Reply-To and initiator",
+      "Truthful subject",
+      "Clear advertisement disclosure"
+    ],
+    "postalRequirement": "Valid physical postal address",
+    "unsubscribeRequirement": "Clear opt-out; functional 30 days; honor within 10 business days",
+    "specialConditions": [
+      "Commercial purpose including B2B is in scope",
+      "No fees or unnecessary personal information to unsubscribe"
+    ],
+    "exceptions": [
+      "Narrow transactional/relationship primary-purpose exceptions"
+    ],
+    "effectiveAt": null
+  },
+  {
+    "ruleId": "recipient:GB:pecr-corporate-subscriber-email",
+    "authorityType": "REGULATOR_GUIDANCE",
+    "sourceUrl": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/",
+    "retrievedAt": "2026-10-03T07:32:30Z",
+    "uncertainty": {
+      "level": "LOW",
+      "notes": "Recipient-side evidence only; applicable sender laws and exact effect authority remain separate."
+    },
+    "sourceAuthority": "UK Information Commissioner",
+    "identityRequirements": [
+      "Do not disguise identity"
+    ],
+    "postalRequirement": "PECR valid opt-out address; provider physical address remains separate",
+    "unsubscribeRequirement": "Provide valid opt-out address; honor and screen objections",
+    "specialConditions": [
+      "Actual corporate subscriber must be verified",
+      "Named-person processing requires applicable data-protection compliance",
+      "Guidance under review after Data (Use and Access) Act"
+    ],
+    "exceptions": [
+      "Sole traders and ordinary partnerships require consent or fully evidenced soft opt-in"
+    ],
+    "effectiveAt": null
+  },
+  {
+    "ruleId": "legal-form:GB:corporate-subscriber-classes",
+    "authorityType": "REGULATOR_GUIDANCE",
+    "sourceUrl": "https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/",
+    "retrievedAt": "2026-10-03T07:32:30Z",
+    "uncertainty": {
+      "level": "LOW",
+      "notes": "Recipient-side evidence only; applicable sender laws and exact effect authority remain separate."
+    },
+    "sourceAuthority": "UK Information Commissioner",
+    "identityRequirements": [],
+    "postalRequirement": "Not a postal identity rule",
+    "unsubscribeRequirement": "Recipient rule retains opt-out requirements",
+    "specialConditions": [
+      "Separate legal personality and actual subscriber required",
+      "Registry verified entity must match company/contact domain"
+    ],
+    "exceptions": [
+      "Sole trader and ordinary partnerships are individual subscribers"
+    ],
+    "effectiveAt": null
+  },
+  {
+    "ruleId": "registry:GB:companies-house-terms",
+    "authorityType": "PROVIDER_POLICY",
+    "sourceUrl": "https://developer.company-information.service.gov.uk/developer-guidelines",
+    "retrievedAt": "2026-10-03T07:32:30Z",
+    "uncertainty": {
+      "level": "LOW",
+      "notes": "Recipient-side evidence only; applicable sender laws and exact effect authority remain separate."
+    },
+    "sourceAuthority": "Companies House Developer Hub",
+    "channel": "REGISTRY_API",
+    "identityRequirements": [
+      "API authentication; key protected in environment"
+    ],
+    "postalRequirement": "Not applicable to registry read",
+    "unsubscribeRequirement": "Not applicable to registry read",
+    "specialConditions": [
+      "Public-data GET only; no filing API",
+      "600 requests per five minutes; no evasion",
+      "TLS; keep API keys out of source tree"
+    ],
+    "exceptions": [],
+    "effectiveAt": null
+  },
+  {
+    "ruleId": "provider:smtp-relay:winnr:cold-b2b-lawful-use",
+    "authorityType": "PROVIDER_POLICY",
+    "sourceUrl": "https://winnr.app/terms-of-service.html",
+    "retrievedAt": "2026-10-03T07:32:30Z",
+    "uncertainty": {
+      "level": "LOW",
+      "notes": "Recipient-side evidence only; applicable sender laws and exact effect authority remain separate."
+    },
+    "sourceAuthority": "Winnr Software LLC",
+    "sourceRef": "docs/WINNR_SUPPORT_RECONCILIATION_2026-10-02.md",
+    "identityRequirements": [
+      "Company name",
+      "Reason for outreach",
+      "Truthful sender"
+    ],
+    "postalRequirement": "Valid physical address",
+    "unsubscribeRequirement": "Easy opt-out; honor within seven days",
+    "specialConditions": [
+      "Relevant tangible value",
+      "Company addresses preferred",
+      "All applicable laws remain mandatory",
+      "Described lawful B2B and automation scope bound to written support receipt; no generic automation waiver",
+      "Current account entitlement is independent"
+    ],
+    "exceptions": [],
+    "effectiveAt": "2026-09-24T00:00:00Z",
+    "ruleParameters": {
+      "coldB2BRule": "ALLOWED",
+      "supportEvidenceRef": "docs/WINNR_SUPPORT_RECONCILIATION_2026-10-02.md",
+      "supportScope": "Described lawful B2B outreach; API/MCP sequencing integration and reply ingestion",
+      "supportReceiptHash": "d5c75947a897e294c8deae09b4fc99d05d741b3f708d28f484672910344ca321"
+    }
+  }
+]

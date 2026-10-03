@@ -227,7 +227,7 @@ export function routeGlobalGreenLane(input = {}) {
 
   // 3. Contact typing, invitation and source binding
   const inbox = classifyRecipientInbox({ email, company: { legalName: candidate.legalName, siteHost }, source: contact.source || {}, namedPersonEvidence: contact.namedPersonEvidence || {} });
-  const invitation = classifyInvitedContact({ evidence: input.invitationEvidence || [], message: { offerFamily: objective.offerFamily, topics: input.objective?.topics || [] }, now });
+  const invitation = classifyInvitedContact({ evidence: input.invitationEvidence || [], message: { offerFamily: objective.offerFamily, topics: input.objective?.topics || [] }, siteHost, now });
   const sourceBinding = compileContactSourceBinding({ contact: { route: 'EMAIL', address: email }, source: contact.source || {}, notices, invitation, siteHost, now });
 
   if (sourceBinding.status === CONTACT_SOURCE_STATUS.REJECTED) hard.push(...sourceBinding.hardRejects.map(r => `contact-source:${r}`));
@@ -335,7 +335,17 @@ export function routeGlobalGreenLane(input = {}) {
 
   // 9. Sender side + governance gate + send prerequisites (reported, never granted)
   const senderSide = compileSenderSideState(input.sender?.senderSide || {});
-  const governance = providerRoutePolicy(providerId, 'PUBLIC_BUSINESS_CONTACT');
+  const invitedBusinessContact = {
+    schemaVersion: 'uberbond.invited-business-contact.v1', companyWebsite: candidate.website,
+    contact: { route: 'EMAIL', address: email }, source: contact.source || {}, notices,
+    invitationEvidence: Array.isArray(input.invitationEvidence) ? input.invitationEvidence : [],
+    message: { offerId: objective.offerId, offerFamily: objective.offerFamily, proposedContactPurpose: clean(input.objective?.proposedContactPurpose || input.offerRelevance?.rationale, 600) },
+    providerPolicyEvidence: providerRuleId ? registry.resolveRule(providerRuleId, now)?.evidence || null : null
+  };
+  const invitedPolicy = green && finalClass === ROUTE_CLASSES.INVITED_GREEN
+    ? providerRoutePolicy(providerId, 'INVITED_BUSINESS_CONTACT', { invitedBusinessContact, now }) : null;
+  const providerRouteType = invitedPolicy?.ok === true ? 'INVITED_BUSINESS_CONTACT' : 'PUBLIC_BUSINESS_CONTACT';
+  const governance = providerRouteType === 'INVITED_BUSINESS_CONTACT' ? invitedPolicy : providerRoutePolicy(providerId, providerRouteType);
   const allocation = input.sender?.allocation;
   const prereq = {
     suppressionClean: suppression.suppressed === true || suppression.unsubscribed === true || suppression.complained === true || suppression.hardBounced === true ? { status: 'FAIL', codes: ['suppression-hit'] } : { status: 'PASS', codes: [] },
@@ -435,6 +445,7 @@ export function routeGlobalGreenLane(input = {}) {
     recipientDigest,
     legalFormDigest: legalForm.evidenceDigest,
     invitationEvidenceDigest: invitation.invited ? invitation.evidenceDigest : null,
+    ...(providerRouteType === 'INVITED_BUSINESS_CONTACT' ? { providerRouteType, invitationScope: invitedPolicy.invitationScopes, invitationSources: invitedPolicy.invitationSources, proposedContactPurpose: invitedBusinessContact.message.proposedContactPurpose, invitedBusinessEvidenceDigest: invitedPolicy.evidenceDigest } : {}),
     contactSourceBindingDigest: sourceBinding.bindingDigest,
     policyEvidenceDigest: policy.evidenceDigest,
     policyEvidence: policy.evidence,
@@ -467,7 +478,8 @@ export function routeGlobalGreenLane(input = {}) {
     contactSource: sourceBinding,
     eligibility: { decision: eligibility.decision, basis: eligibility.basis, reasonCodes: eligibility.reasonCodes, requirements: eligibility.requirements, routeTimeUnmet, effectTimeUnmet, evidenceId: eligibility.evidenceId, evaluationScope: eligibility.evaluationScope, senderSideEvaluated: eligibility.senderSideEvaluated },
     senderSide,
-    governanceGate: { provider: providerId, routeType: 'PUBLIC_BUSINESS_CONTACT', refused: governance.ok !== true, reason: governance.reason },
+    governanceGate: { provider: providerId, routeType: providerRouteType, refused: governance.ok !== true, reason: governance.reason, ...(invitedPolicy && !invitedPolicy.ok ? { invitationQualificationFailure: invitedPolicy.reason } : {}) },
+    providerRouteEvidence: providerRouteType === 'INVITED_BUSINESS_CONTACT' ? invitedBusinessContact : null,
     sendPrerequisites: prereq,
     effectBinding,
     routeDigest,

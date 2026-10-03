@@ -1,0 +1,162 @@
+{
+  "schemaVersion": "uberbond.ubermind.checkpoint.v1",
+  "createdAt": "2026-10-03T19:25:30+03:00",
+  "repository": {
+    "fullName": "mohammedwessam2007/uberbondd",
+    "mainSha": "827df8516932d34f9a632d1ce8b718e7499b58f0"
+  },
+  "lineage": {
+    "merged": [
+      1184,
+      1183,
+      1182,
+      1181,
+      1180
+    ],
+    "open": [
+      1109,
+      1018,
+      993,
+      972
+    ],
+    "uberMindFoundation": [
+      1071,
+      1072,
+      1073,
+      1074,
+      1075
+    ]
+  },
+  "architecture": {
+    "interface": "FRONTIER(task,state,quality_contract)",
+    "hotPath": [
+      "EXACT_PRECHECK",
+      "COGNITIVE_SUPERCOMPILER",
+      "JEV_HYPERREFLEX",
+      "COGNITIVE_COMPUTE_AUCTION",
+      "ADAPTIVE_HETEROGENEOUS_SWARM",
+      "ADVERSARIAL_SYNTHESIS_COURT",
+      "LOSSLESS_FRONTIER_DELTA",
+      "MOVING_CROWN_PANTHEON",
+      "COGNITIVE_LINKER",
+      "REALITY_COURT",
+      "INTELLIGENCE_CAPITAL_EXTRACTION",
+      "JEV_SHADOW_CERTIFICATION",
+      "CODE"
+    ],
+    "laws": [
+      "QUALITY_FIXED",
+      "QUEUE_BEFORE_DOWNGRADE",
+      "JEV_CONTROL_NOT_SOVEREIGN_REASONING",
+      "REALITY_CAN_VETO_ALL_MODELS"
+    ],
+    "capital": [
+      "FRONTIER_THOUGHT_BONDS",
+      "DECISION_FRANCHISES",
+      "VERIFIER_FOUNDRY",
+      "SOLVER_TRANSPILER",
+      "LIVING_EVIDENCE_GRAPH",
+      "SEMANTIC_DEMAND_EXCHANGE",
+      "COGNITIVE_CAPSULES_SEMANTIC_ABI",
+      "COUNTEREXAMPLE_BOUNDARY_MINER",
+      "FRONTIER_CALL_PORTFOLIO_OPTIMIZER",
+      "WORLD_THOUGHT_CAPITAL_IMPORTER",
+      "SELF_EVOLVING_TASK_CLASS_COMPILERS",
+      "FRONTIER_PATCH_PROTOCOL",
+      "PREDICTIVE_COGNITIVE_PREFETCH",
+      "REFLEX_MICROSTUDENTS",
+      "INTELLIGENCE_CAPITAL_COMPOUNDING_LEDGER",
+      "SEMANTIC_E_GRAPH",
+      "GHOST_AGENTS",
+      "CROWN_BOUNDARY_QUERYING",
+      "CROSS_DOMAIN_PRIMITIVE_MINING",
+      "NEGATIVE_KNOWLEDGE_CACHE",
+      "COGNITIVE_CDN",
+      "EVIDENCE_MULTICAST",
+      "DECISION_DAG_INCREMENTAL_RECOMPUTATION"
+    ]
+  },
+  "modelRoles": {
+    "jev": "typesafe/jev-1.13: typed control/routing, shadow unless certified bounded",
+    "mimo": "xiaomi/mimo-v2.6-flash: cheap long-context bandwidth/candidate writer",
+    "deepseek": "deepseek/deepseek-v4.1-flash: divergent/coding writer or independent critic",
+    "sol": "openai/gpt-6.1-sol: strong builder with dynamic effort",
+    "solPro": "openai/gpt-6.1-sol-pro: hard residual only",
+    "opus": "anthropic/claude-opus-5.5: current general Crown candidate",
+    "others": "GLM/Sonnet/future candidates remain task-class specialists unless promoted"
+  },
+  "tariffsVerified20261003": {
+    "source": "OpenRouter public model catalog/endpoints",
+    "jev": {
+      "inputPerMillion": 0.042,
+      "outputPerMillion": 0
+    },
+    "mimo": {
+      "inputPerMillion": 0.14,
+      "outputPerMillion": 0.28
+    },
+    "deepseek": {
+      "inputPerMillion": 0.3,
+      "outputPerMillion": 1.2,
+      "note": "changed from stale processor-fabric metadata"
+    },
+    "sol": {
+      "inputPerMillion": 2,
+      "outputPerMillion": 10
+    },
+    "opus": {
+      "inputPerMillion": 4,
+      "outputPerMillion": 20
+    }
+  },
+  "multiplier": {
+    "contract": "COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1",
+    "inputTokens": 10000,
+    "outputTokens": 2000,
+    "cacheAssumption": "NONE",
+    "directOpusUsd": 0.08,
+    "mimoWriterUsd": 0.00196,
+    "opusReviewUsd": 0.04812,
+    "jevAllowanceUsd": 0.001344,
+    "uberMindPlanningUsd": 0.051424,
+    "exactColdFrontierMultiplier": 1.5556938394523956,
+    "dashboardMultiplier": 1.55,
+    "directOpusEconomicFloorMultiplier": 1,
+    "realizedPortfolioMultiplier": null,
+    "realizedLaw": "Do not count assumed reuse, synthetic fanout, unverified JEV suppression, or unobserved cache discounts.",
+    "milestoneMultiplier": 33333.333333,
+    "milestoneDefinition": "USD 1,000,000 conservative matched direct-frontier reference work at <= USD 30 observed all-in cost with zero counted quality regressions."
+  },
+  "truth": {
+    "sourceMain": "827df8516932d34f9a632d1ce8b718e7499b58f0",
+    "render": {
+      "service": "uberbond-control-plane",
+      "autoDeploy": "off",
+      "buildCommand": "npm install --omit=dev",
+      "deploy": "dep-db0gkqk9v7es73bbtj60",
+      "commit": "827df8516932d34f9a632d1ce8b718e7499b58f0",
+      "status": "live",
+      "parity": true
+    },
+    "inference": "No inference executed by this checkpoint.",
+    "caveats": [
+      "Current Crown admission/runtime authorization/client save state not re-observed here.",
+      "Processor fabric observation timestamp expired 2026-10-02 and its DeepSeek tariff is stale; docs-only scope records but does not repair runtime/config."
+    ]
+  },
+  "blockers": [
+    "Realized portfolio multiplier remains unmeasured without matched live receipts.",
+    "JEV cannot suppress required raw-chat Crown.",
+    "Fresh Crown/runtime authorization state not re-observed.",
+    "TypingMind saved cockpit state not re-observed.",
+    "Processor-fabric DeepSeek tariff metadata is stale."
+  ],
+  "nextFrontier": [
+    "Repair stale market metadata only in a separately authorized runtime/config change.",
+    "Re-observe Crown/runtime readiness before any activation claim.",
+    "Collect matched JEV/writer/Crown/provider receipts under explicit authorization.",
+    "Calculate realized portfolio multiplier only from matched quality and cost evidence.",
+    "Promote JEV only through bounded paired certification."
+  ],
+  "recoveryLaw": "Refresh main first; this checkpoint is recovery evidence, not authority over newer source or runtime."
+}

@@ -9,6 +9,7 @@
 // are mapped to the existing canonical owners instead of being re-implemented.
 import { createHash } from 'node:crypto';
 import { CONTACT_HISTORY_RUNTIME_PROVENANCE } from './prospect-contact-history.mjs';
+import { verifyInvitedBusinessContact, invitedBusinessSenderSideClear } from './outreach-governance.mjs';
 
 export const EFFECT_PACKAGE_VERSION = 'uberbond.prospect-effect-package.v1';
 
@@ -69,11 +70,15 @@ const SENDER_SIDE_FIELDS = ['operatorLocation', 'senderEntityJurisdiction', 'con
  *   digest; an object binds route class, route policy version, policy evidence hashes, jurisdiction, legal form,
  *   invitation and contact-source digests into the final effect digest, so any route mutation changes it.
  */
-export function compileEffectPackage({ intake, tournament, identity = {}, sender = null, unsubscribe = {}, senderSide = {}, campaign = {}, provider = 'smtp-relay', routeBinding, now = new Date() } = {}) {
+export function compileEffectPackage({ intake, tournament, identity = {}, sender = null, unsubscribe = {}, senderSide = {}, campaign = {}, provider = 'smtp-relay', routeBinding, invitedBusinessContact, now = new Date() } = {}) {
   const compiledAt = new Date(now).toISOString();
   const blockers = { runtimeHistory: [], message: [], route: [], identity: [], authority: [], sender: [], draftTime: [] };
   if (routeBinding === null) blockers.route.push('route-binding-absent-global-route-not-green');
   else if (routeBinding !== undefined && (typeof routeBinding !== 'object' || !routeBinding.routeClass || !routeBinding.policyEvidenceDigest)) blockers.route.push('route-binding-malformed');
+  if (routeBinding?.providerRouteType === 'INVITED_BUSINESS_CONTACT') {
+    const invitation = verifyInvitedBusinessContact(invitedBusinessContact, { now });
+    if (!invitation.ok || invitation.evidenceDigest !== routeBinding.invitedBusinessEvidenceDigest) blockers.route.push('invited-business-effect-evidence-invalid-or-changed');
+  }
 
   if (!intake || intake.status !== 'VERIFIED_CANDIDATE') blockers.runtimeHistory.push('prospect-not-verified-candidate');
   if (intake && intake.contactHistoryProvenance !== CONTACT_HISTORY_RUNTIME_PROVENANCE) blockers.runtimeHistory.push('contact-history-runtime-receipt-missing');
@@ -87,6 +92,7 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
 
   const senderSideHold = intake?.legalAuthorityStatus === 'HOLD_SENDER_SIDE_UNRESOLVED';
   if (senderSideHold && senderSide.resolved !== true) blockers.authority.push('sender-side-legal-authority-hold-unresolved');
+  if (routeBinding?.providerRouteType === 'INVITED_BUSINESS_CONTACT' && !invitedBusinessSenderSideClear(senderSide) && !blockers.authority.includes('sender-side-legal-authority-hold-unresolved')) blockers.authority.push('sender-side-legal-authority-hold-unresolved');
   if (senderSide.resolved === true) {
     for (const field of SENDER_SIDE_FIELDS) if (!text(senderSide[field], 8)) blockers.authority.push(`sender-side-field-missing:${field}`);
     if (!text(senderSide.resolutionRef, 500)) blockers.authority.push('sender-side-resolution-reference-missing');

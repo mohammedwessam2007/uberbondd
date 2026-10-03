@@ -21,6 +21,7 @@
 
 import { sha256 as canonicalSha256 } from './omnia-v9/canonical.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { httpsHostOf, sameDomainFamily } from './host-family.mjs';
 
 export const INVITED_CONTACT_CLASSIFIER_VERSION = 'uberbond.invited-contact-classifier.v1';
 export const INVITATION_MAX_AGE_DAYS = 90;
@@ -74,7 +75,7 @@ const OFFER_TOPIC_KEYWORDS = Object.freeze({
  * @param {object} [input.message]   { offerFamily?: 'AGENCY_REVENUE'|'AI'|..., topics?: string[] }
  * @param {Date}   [input.now]
  */
-export function classifyInvitedContact({ evidence = [], message = {}, now = new Date() } = {}) {
+export function classifyInvitedContact({ evidence = [], message = {}, siteHost = '', strictScope = false, now = new Date() } = {}) {
   const nowMs = new Date(now).getTime();
   const rejected = [];
   const accepted = [];
@@ -88,6 +89,7 @@ export function classifyInvitedContact({ evidence = [], message = {}, now = new 
     let hostOk = false;
     try { const u = new URL(url); hostOk = u.protocol === 'https:' && !u.username && !u.password; } catch { hostOk = false; }
     if (!hostOk) problems.push('invitation-source-url-must-be-exact-https');
+    if (siteHost && !sameDomainFamily(httpsHostOf(url), siteHost)) problems.push('invitation-source-not-first-party');
     if (!excerpt) problems.push('invitation-verbatim-excerpt-missing');
     if (!Number.isFinite(capturedMs)) problems.push('invitation-capture-time-missing');
     else if (capturedMs > nowMs + 5 * 60_000) problems.push('invitation-capture-time-in-future');
@@ -109,6 +111,19 @@ export function classifyInvitedContact({ evidence = [], message = {}, now = new 
 
   // Does the invited scope cover the message we would send?
   const fitting = atoms.filter(atom => {
+    if (strictScope) {
+      const item = accepted.find(a => a.index === atom.evidenceIndex);
+      const scopeText = `${item?.pageContext || ''} ${item?.excerpt || ''}`.toLowerCase();
+      const purpose = clean(message.proposedContactPurpose, 600).toLowerCase();
+      // Business invitation is not a job/customer-support/affiliate invitation.
+      if (/\b(?:careers?|jobs?|employment|job applications?|customer support|existing customers?|affiliates?)\b/i.test(scopeText)) return false;
+      const scopedKeywords = message.offerFamily === 'AI'
+        ? ['ai', 'agent', 'agents', 'automation', 'llm', 'release', 'reliability', 'testing', 'qa', 'integration', 'technology']
+        : message.offerFamily === 'AGENCY_REVENUE'
+          ? ['agency', 'agencies', 'client', 'clients', 'lead', 'leads', 'marketing', 'website', 'booking', 'revenue', 'tracking', 'reporting'] : [];
+      const overlaps = scopedKeywords.some(k => new RegExp(`\\b${k}\\b`, 'i').test(scopeText) && new RegExp(`\\b${k}\\b`, 'i').test(purpose));
+      if (!purpose || !overlaps) return false;
+    }
     if (PITCH_COVERING_SCOPES.has(atom.scope)) return true;
     if (atom.scope === 'SUBJECT_SPECIFIC') {
       const text = accepted.find(a => a.index === atom.evidenceIndex)?.excerpt.toLowerCase() || '';

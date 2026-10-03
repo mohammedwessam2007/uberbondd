@@ -86,12 +86,13 @@ test('legacy routes are byte-for-byte unaffected: same digest as before, same be
   refused(evaluateColdRoutePolicyV1({ route: legacyRoute, recipientEmail: 'owner@recipient.example', provider: 'smtp-relay', now, authorization: auth(), secret, sender, prospect, subject: 'x', body, senderAllocation: allocate(slot) }), 'envelope-(unknown-field|version-invalid)');
 });
 
-test('generic smtp-relay cold refusal remains the default; the route-type set is unchanged', () => {
+test('generic smtp-relay cold refusal remains the default; the separate invited type requires evidence', () => {
   assert.equal(providerRoutePolicy('smtp-relay', 'PUBLIC_BUSINESS_CONTACT').ok, false);
   assert.match(providerRoutePolicy('smtp-relay', 'PUBLIC_BUSINESS_CONTACT').reason, /smtp-relay-cold-route-requires-separate-provider-and-legal-evidence/);
   for (const provider of ['gmail-api', 'postal']) assert.equal(providerRoutePolicy(provider, 'PUBLIC_BUSINESS_CONTACT').ok, false);
   assert.equal(providerRoutePolicy('smtp-relay', 'REQUESTED_INFORMATION').ok, true);
-  assert.deepEqual([...OUTREACH_ROUTE_TYPES], ['SOLICITED_APPLICATION', 'EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'CONSPICUOUS_PUBLICATION', 'PUBLIC_BUSINESS_CONTACT', 'WARM_REFERRAL', 'UNKNOWN']);
+  assert.equal(providerRoutePolicy('smtp-relay', 'INVITED_BUSINESS_CONTACT').ok, false);
+  assert.deepEqual([...OUTREACH_ROUTE_TYPES], ['SOLICITED_APPLICATION', 'EXPLICIT_CONSENT', 'REQUESTED_INFORMATION', 'INVITED_BUSINESS_CONTACT', 'CONSPICUOUS_PUBLICATION', 'PUBLIC_BUSINESS_CONTACT', 'WARM_REFERRAL', 'UNKNOWN']);
 });
 
 test('the module is reachable only through the zero-authority preflight, and is never self-authorizing: nothing on a send path imports it', async () => {

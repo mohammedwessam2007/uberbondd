@@ -37,6 +37,7 @@ import { resolveCompanyViaRegistry } from './company-registry-adapter.mjs';
 import { compileGreenLaneActivationTruth } from './green-lane-activation-truth.mjs';
 import { createPolicyEvidenceRegistry } from './global-policy-evidence.mjs';
 import { httpsHostOf } from './host-family.mjs';
+import { createOutreachRouteEvidence, verifyOutreachRouteEvidence } from './outreach-governance.mjs';
 
 export const PROSPECT_PREFLIGHT_VERSION = 'uberbond.prospect-preflight.v1';
 
@@ -228,7 +229,20 @@ export async function runProspectPreflight({
   //    yet, which is reported, never papered over. No authorization is
   //    requested, minted or inferred here.
   let coldRoute;
-  if (routeDecision.jurisdiction.jurisdiction === 'US') {
+  let invitedRoute = null;
+  if (routeDecision.governanceGate.routeType === 'INVITED_BUSINESS_CONTACT') {
+    const route = createOutreachRouteEvidence({
+      routeType: 'INVITED_BUSINESS_CONTACT', provider, recipientEmail: email,
+      sourceUrl: record.recipient.sourceUrl, sourceExcerpt: record.recipient.excerpt,
+      sourceObservedAt: record.recipient.observedAt, jurisdiction: routeDecision.jurisdiction.jurisdiction,
+      permissionScope: 'COMMERCIAL_OUTREACH', relevantToRecipientRole: true,
+      invitedBusinessContact: routeDecision.providerRouteEvidence, senderSide
+    }, now);
+    const envelope = verifyOutreachRouteEvidence({ route, recipientEmail: email, provider, now });
+    if (!envelope.ok) return out(PREFLIGHT_STATES.BLOCKED_EXTERNAL_FACT, { ...summary, blockerCodes: [envelope.reason], oneButton: activation(null) });
+    invitedRoute = { route, envelopeOk: true, routeDigest: envelope.routeDigest, selfAuthorizing: false };
+    coldRoute = { status: 'NOT_APPLICABLE_SCOPED_INVITED_BUSINESS_CONTACT', selfAuthorizing: false };
+  } else if (routeDecision.jurisdiction.jurisdiction === 'US') {
     const route = createColdRouteEvidence({
       recipientEmail: email, sourceUrl: record.recipient.sourceUrl, sourceExcerpt: record.recipient.excerpt,
       sourceObservedAt: record.recipient.observedAt, jurisdiction: 'US', relevantToRecipientRole: true,
@@ -256,10 +270,11 @@ export async function runProspectPreflight({
 
   // 6. Effect package. No final digest while any participant is not final; the
   //    green route is bound into the digest.
-  const effectPackage = compileEffectPackage({ intake, tournament, identity, sender, unsubscribe, senderSide, campaign, provider, routeBinding: routeDecision.effectBinding, now });
+  const effectPackage = compileEffectPackage({ intake, tournament, identity, sender, unsubscribe, senderSide, campaign, provider, routeBinding: routeDecision.effectBinding, invitedBusinessContact: routeDecision.providerRouteEvidence, now });
   const base = {
     ...summary,
     coldRoute,
+    ...(invitedRoute ? { invitedRoute } : {}),
     message: { winner: tournament.winner, coreMessageDigest: tournament.bindings.coreMessageDigest },
     effectPackage: { state: effectPackage.state, finalEffectDigest: effectPackage.finalEffectDigest, placeholdersPresent: effectPackage.placeholdersPresent, routeBound: effectPackage.routeBound, blockers: effectPackage.blockers }
   };

@@ -23,7 +23,8 @@
 // READY_FOR_AUTHORIZATION. The only outbound traffic it can cause is a bounded
 // GET to an official public company registry (externalReads), never an effect. Approval, dispatch and reconciliation stay with the
 // existing governed path.
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { checkContactHistory, RESULT_STATUS as CONTACT_STATUS } from './prospect-contact-history.mjs';
@@ -132,7 +133,7 @@ function summarizeRoute(decision) {
 export async function runProspectPreflight({
   store, record, slots, artifactRef = '', identity = {}, senderSide = {}, unsubscribe = {}, campaign = {},
   provider = 'smtp-relay', now = new Date(), artifactExists = repositoryArtifactExists,
-  policyRegistry = null, registryAdapters = null, globalRoute = {}
+  policyRegistry = null, registryAdapters = null, globalRoute = {}, prepareEffect = false, unsubscribeFactory = null
 } = {}) {
   const evaluatedAt = new Date(now).toISOString();
   const registryLookups = [];
@@ -193,13 +194,14 @@ export async function runProspectPreflight({
     contact: {
       email,
       source: { url: record.recipient.sourceUrl, observedAt: record.recipient.observedAt, pageContext: record.recipient.pageContext || 'EXACT_SOURCE_PAGE', publicationType: record.recipient.publicationType || 'OWN_SITE_PAGE', collectionMethod: 'MANUAL', excerpt: record.recipient.excerpt },
-      namedPersonEvidence: record.recipient.namedPersonEvidence || {}
+      namedPersonEvidence: { ...(record.recipient.namedPersonEvidence || {}), ...(['name', 'contactName', 'fullName', 'personId', 'phone', 'linkedInUrl', 'enrichment'].some(k => record.recipient[k]) || record.personalDataEnrichment ? { present: true } : {}) }
     },
     recipient: { jurisdictionClaims, type: iso2(recipientJurisdiction) === 'GB' ? undefined : 'CORPORATE' },
     registry: { result: registryResult },
     notices: { noSolicitationChecked: record.notices?.noSolicitationChecked === true, noSolicitationFound: record.notices?.noSolicitationFound === true, noHarvestChecked: record.notices?.noHarvestChecked === true, noHarvestFound: record.notices?.noHarvestFound === true },
     offerRelevance: { relatedToRecipientRole: intake.status === PROSPECT_STATUSES.VERIFIED_CANDIDATE, rationale: String(record.offerRoute?.rationale || '') },
     invitationEvidence: Array.isArray(record.invitationEvidence) ? record.invitationEvidence : [],
+    corporateRoleScope: record.corporateRoleScope || null,
     intakeChannels: Array.isArray(record.intakeChannels) ? record.intakeChannels : [],
     history: { status: contactHistory.status, receiptDigest: contactHistory.receiptDigest || null },
     provider: { id: provider, vendor: 'winnr' },
@@ -263,6 +265,15 @@ export async function runProspectPreflight({
 
   // 5. Prework artifact + V5 tournament. The artifact must exist in the repo.
   const artifactPrepared = artifactExists(artifactRef) === true;
+  if (record.corporateRoleScope) {
+    let actualDigest = null;
+    try {
+      const root = resolve(fileURLToPath(new URL('../', import.meta.url)));
+      const path = resolve(root, artifactRef || '');
+      if (path.startsWith(root + sep) && artifactPrepared) actualDigest = createHash('sha256').update(readFileSync(path)).digest('hex');
+    } catch { /* Missing bytes cannot support a company-only inventory. */ }
+    if (record.corporateRoleScope.preworkRef !== artifactRef || !actualDigest || actualDigest !== record.corporateRoleScope.reviewedProposal?.preworkDigest) return out(PREFLIGHT_STATES.BLOCKED_LEGAL_AUTHORITY, { ...summary, blockerCodes: ['company-only-prework-digest-not-bound'], oneButton: activation(null) });
+  }
   const tournament = runProspectMessageTournament({ intake, record, slots, artifactPrepared, artifactRef, now });
   summary.tournament = { status: tournament.status, winnerId: tournament.winner?.id || null, reasonCodes: tournament.reasonCodes || [] };
   if (tournament.status !== 'WINNER_SELECTED') return out(PREFLIGHT_STATES.DO_NOT_SEND, { ...summary, blockerCodes: [...(tournament.reasonCodes || ['no-winner'])], oneButton: activation(null) });
@@ -270,13 +281,18 @@ export async function runProspectPreflight({
 
   // 6. Effect package. No final digest while any participant is not final; the
   //    green route is bound into the digest.
-  const effectPackage = compileEffectPackage({ intake, tournament, identity, sender, unsubscribe, senderSide, campaign, provider, routeBinding: routeDecision.effectBinding, invitedBusinessContact: routeDecision.providerRouteEvidence, now });
+  const effectInput = { intake, tournament, identity, sender, unsubscribe, senderSide, campaign, provider, routeBinding: routeDecision.effectBinding, invitedBusinessContact: routeDecision.providerRouteEvidence, now };
+  let effectPackage = compileEffectPackage(effectInput);
+  if (prepareEffect === true && !campaign.effectExpiresAt) return out(PREFLIGHT_STATES.BLOCKED_EXTERNAL_FACT, { ...summary, blockerCodes: ['prepared-effect-expiry-required'], oneButton: activation(null) });
+  if (prepareEffect === true && effectPackage.state === EFFECT_PACKAGE_STATES.READY_PENDING_DRAFT_TIME_FACTS && typeof unsubscribeFactory === 'function') {
+    effectPackage = compileEffectPackage({ ...effectInput, unsubscribe: unsubscribeFactory(email) });
+  }
   const base = {
     ...summary,
     coldRoute,
     ...(invitedRoute ? { invitedRoute } : {}),
     message: { winner: tournament.winner, coreMessageDigest: tournament.bindings.coreMessageDigest },
-    effectPackage: { state: effectPackage.state, finalEffectDigest: effectPackage.finalEffectDigest, placeholdersPresent: effectPackage.placeholdersPresent, routeBound: effectPackage.routeBound, blockers: effectPackage.blockers }
+    effectPackage: { state: effectPackage.state, finalEffectDigest: effectPackage.finalEffectDigest, placeholdersPresent: effectPackage.placeholdersPresent, routeBound: effectPackage.routeBound, blockers: effectPackage.blockers, ...(prepareEffect ? { preview: effectPackage.preview, participantsFinal: effectPackage.participantsFinal, maxEffects: effectPackage.maxEffects, expiresAt: effectPackage.expiresAt } : {}) }
   };
   const withOneButton = result => ({ ...result, oneButton: activation(result) });
   const codes = effectPackage.blockers.map(b => b.code);

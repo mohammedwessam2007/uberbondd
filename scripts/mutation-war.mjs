@@ -35,6 +35,19 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /** @type {Mutation[]} */
 export const MUTATIONS = [
+  { id: 'EG-SCOPE-09', guard: 'Canonical prework bytes must match the reviewed inventory', file: 'src/prospect-preflight.mjs', find: "actualDigest !== record.corporateRoleScope.reviewedProposal?.preworkDigest", replace: 'false', suites: ['tests/egypt-corporate-role-scope.test.mjs'] },
+  { id: 'EG-SCOPE-10', guard: 'Opt-out signing does not bypass unresolved legal facts', file: 'src/prospect-preflight.mjs', find: "prepareEffect === true && effectPackage.state === EFFECT_PACKAGE_STATES.READY_PENDING_DRAFT_TIME_FACTS", replace: 'prepareEffect === true', suites: ['tests/egypt-corporate-role-scope.test.mjs'] },
+  { id: 'EG-SCOPE-11', guard: 'Prepared effect expiry must be bounded', file: 'src/prospect-effect-package.mjs', find: 'Date.parse(campaign.effectExpiresAt) > +new Date(now) + 86400000', replace: 'false', suites: ['tests/prospect-effect-package.test.mjs'] },
+  ...[
+    ['EG-SCOPE-01', 'Personal-data inventory cannot be bypassed', "review.companyLevelEvidenceOnly !== true || !NEGATIVES.every(k => review[k] === false)", 'false'],
+    ['EG-SCOPE-02', 'Scope review must remain current', '!fresh(review.reviewedAt, now) || !review.reviewRef', 'false'],
+    ['EG-SCOPE-03', 'Egypt recipients remain outside this foreign corporate rule', "entity.jurisdiction === 'EG'", 'false'],
+    ['EG-SCOPE-04', 'Named-person recipient classifier cannot be bypassed', "inbox.addressClass !== 'GENERIC_CORPORATE_ROLE_INBOX' || inbox.privacyClass !== 'COMPANY_LEVEL'", 'false'],
+    ['EG-SCOPE-05', 'Policy evidence must be fresh', "if (![law, guidance, provider].every(r => r?.state === 'FRESH'))", 'if (false)'],
+    ['EG-SCOPE-06', 'Actual proposal must match reviewed company-only proposal', 'if (message && (message.subject !== proposal.subject || message.body !== proposal.body))', 'if (false)'],
+    ['EG-SCOPE-07', 'Entity publication must be first-party', '!sameDomainFamily(httpsHostOf(entity.sourceUrl), httpsHostOf(proof.companyWebsite))', 'false'],
+    ['EG-SCOPE-08', 'Reviewed offer cannot change', '!review.offerId || review.offerId !== proof.message?.offerId', 'false']
+  ].map(([id, guard, find, replace]) => ({ id, guard, file: 'src/egypt-corporate-role-scope.mjs', find, replace, suites: ['tests/egypt-corporate-role-scope.test.mjs'] })),
   {"id":"INVITED-01","guard":"Generic contact text cannot qualify as an explicit invitation","file":"src/outreach-governance.mjs","find":"if (invitation.classification !== 'INVITED_STRONG')","replace":"if (false)","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-02","guard":"Invitation scope must overlap the proposed offer purpose","file":"src/invited-contact-classifier.mjs","find":"if (strictScope) {","replace":"if (false) {","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-03","guard":"Invitation freshness cannot be ignored","file":"src/invited-contact-classifier.mjs","find":"else if (nowMs - capturedMs > INVITATION_MAX_AGE_DAYS * 86_400_000)","replace":"else if (false)","suites":["tests/invited-business-governance.test.mjs"]},
@@ -42,7 +55,7 @@ export const MUTATIONS = [
   {"id":"INVITED-05","guard":"No-solicitation notices dominate invitation permission","file":"src/contact-source-verifier.mjs","find":"if (notices.noSolicitationChecked === true && notices.noSolicitationFound === true)","replace":"if (false)","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-06","guard":"Invited green never blindly means requested information","file":"src/global-green-lane-router.mjs","find":"const providerRouteType = invitedPolicy?.ok === true ? 'INVITED_BUSINESS_CONTACT' : 'PUBLIC_BUSINESS_CONTACT';","replace":"const providerRouteType = 'REQUESTED_INFORMATION';","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-07","guard":"Cold public business contact remains refused on smtp-relay","file":"src/outreach-governance.mjs","find":"return SMTP_RELAY_CANARY_ALLOWED_ROUTE_TYPES.has(routeType)","replace":"return routeType === 'PUBLIC_BUSINESS_CONTACT' || SMTP_RELAY_CANARY_ALLOWED_ROUTE_TYPES.has(routeType)","suites":["tests/invited-business-governance.test.mjs"]},
-  {"id":"INVITED-08","guard":"Provider permission does not clear sender-side law","file":"src/outreach-governance.mjs","find":"return ['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every","replace":"return true || ['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every","suites":["tests/invited-business-governance.test.mjs"]},
+  {"id":"INVITED-08","guard":"Provider permission does not clear sender-side law","file":"src/outreach-governance.mjs","find":"if (['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every","replace":"if (true || ['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-09","guard":"An invited route never grants send authority","file":"src/global-green-lane-router.mjs","find":"sendReady: false,","replace":"sendReady: true,","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-10","guard":"Changed invitation proof invalidates effect binding","file":"src/prospect-effect-package.mjs","find":"invitation.evidenceDigest !== routeBinding.invitedBusinessEvidenceDigest","replace":"false","suites":["tests/invited-business-governance.test.mjs"]},
   {"id":"INVITED-11","guard":"Stale provider evidence never admits the invited route","file":"src/outreach-governance.mjs","find":"if (!policy.fresh || policy.evidence?.authorityType","replace":"if (false || policy.evidence?.authorityType","suites":["tests/invited-business-governance.test.mjs"]},
@@ -4018,7 +4031,7 @@ export const MUTATIONS = [
   {
     id: 'OUTREACH-EP-03', guard: 'An unresolved sender-side legal hold blocks the effect package',
     file: 'src/prospect-effect-package.mjs',
-    find: '  if (senderSideHold && senderSide.resolved !== true) blockers.authority.push(\'sender-side-legal-authority-hold-unresolved\');',
+    find: '  if (senderSideHold && senderSide.resolved !== true && !scopedClear) blockers.authority.push(\'sender-side-legal-authority-hold-unresolved\');',
     replace: '  void senderSideHold;',
     suites: ['tests/prospect-effect-package.test.mjs']
   },

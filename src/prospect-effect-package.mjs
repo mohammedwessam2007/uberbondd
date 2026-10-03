@@ -73,6 +73,7 @@ const SENDER_SIDE_FIELDS = ['operatorLocation', 'senderEntityJurisdiction', 'con
 export function compileEffectPackage({ intake, tournament, identity = {}, sender = null, unsubscribe = {}, senderSide = {}, campaign = {}, provider = 'smtp-relay', routeBinding, invitedBusinessContact, now = new Date() } = {}) {
   const compiledAt = new Date(now).toISOString();
   const blockers = { runtimeHistory: [], message: [], route: [], identity: [], authority: [], sender: [], draftTime: [] };
+  if (campaign.effectExpiresAt && (!Number.isFinite(Date.parse(campaign.effectExpiresAt)) || Date.parse(campaign.effectExpiresAt) <= +new Date(now) || Date.parse(campaign.effectExpiresAt) > +new Date(now) + 86400000)) blockers.message.push('effect-expiry-invalid-or-outside-24-hour-bound');
   if (routeBinding === null) blockers.route.push('route-binding-absent-global-route-not-green');
   else if (routeBinding !== undefined && (typeof routeBinding !== 'object' || !routeBinding.routeClass || !routeBinding.policyEvidenceDigest)) blockers.route.push('route-binding-malformed');
   if (routeBinding?.providerRouteType === 'INVITED_BUSINESS_CONTACT') {
@@ -91,8 +92,9 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
   if (identity.footerUseAuthorized !== true) blockers.identity.push('owner-authorization-to-publish-footer-missing');
 
   const senderSideHold = intake?.legalAuthorityStatus === 'HOLD_SENDER_SIDE_UNRESOLVED';
-  if (senderSideHold && senderSide.resolved !== true) blockers.authority.push('sender-side-legal-authority-hold-unresolved');
-  if (routeBinding?.providerRouteType === 'INVITED_BUSINESS_CONTACT' && !invitedBusinessSenderSideClear(senderSide) && !blockers.authority.includes('sender-side-legal-authority-hold-unresolved')) blockers.authority.push('sender-side-legal-authority-hold-unresolved');
+  const scopedClear = routeBinding?.providerRouteType === 'INVITED_BUSINESS_CONTACT' && invitedBusinessSenderSideClear(senderSide, { invitedBusinessContact, now, message: tournament?.winner ? { subject: tournament.winner.subject, body: tournament.winner.body } : null });
+  if (senderSideHold && senderSide.resolved !== true && !scopedClear) blockers.authority.push('sender-side-legal-authority-hold-unresolved');
+  if (routeBinding?.providerRouteType === 'INVITED_BUSINESS_CONTACT' && !scopedClear && !blockers.authority.includes('sender-side-legal-authority-hold-unresolved')) blockers.authority.push('sender-side-legal-authority-hold-unresolved');
   if (senderSide.resolved === true) {
     for (const field of SENDER_SIDE_FIELDS) if (!text(senderSide[field], 8)) blockers.authority.push(`sender-side-field-missing:${field}`);
     if (!text(senderSide.resolutionRef, 500)) blockers.authority.push('sender-side-resolution-reference-missing');
@@ -118,6 +120,7 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
 
   const identityFinal = blockers.identity.length === 0;
   const participants = {
+    ...(campaign.effectExpiresAt ? { expiresAt: campaign.effectExpiresAt, maxEffects: 1 } : {}),
     recipient: tournament?.bindings?.prospect?.recipient || null,
     legalBusinessSenderName: identityFinal ? legalName : null,
     authorizedPublicPostalAddress: identityFinal ? address : null,
@@ -133,6 +136,7 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
   };
   const missingParticipants = Object.entries(participants).filter(([, value]) => value === null || value === '' || value === undefined).map(([key]) => key);
   if (!participants.campaignAndOfferLineage.campaignId) missingParticipants.push('campaignAndOfferLineage.campaignId');
+  if (!participants.campaignAndOfferLineage.campaignId) blockers.draftTime.push('campaign-lineage-missing');
 
   const messageBlocked = blockers.message.length > 0;
   const identityBlocked = blockers.identity.length > 0;
@@ -174,6 +178,7 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
     routeBound: routeBinding === undefined ? null : !routeBlocked,
     participantsFinal: Object.fromEntries(Object.entries(participants).map(([key, value]) => [key, !(value === null || value === '' || value === undefined)])),
     maxEffects: 1,
+    expiresAt: campaign.effectExpiresAt || null,
     downstreamStateOwners: DOWNSTREAM_STATE_OWNERS,
     sendAuthority: false,
     externalEffectAuthority: 'NONE',

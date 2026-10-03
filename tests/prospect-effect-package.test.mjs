@@ -21,6 +21,16 @@ const UNSUB = { unsubscribeUrl: 'https://uberbond.example/unsubscribe?t=sig', on
 const RESOLVED = { resolved: true, operatorLocation: 'US', senderEntityJurisdiction: 'US', controllerJurisdiction: 'US', resolutionRef: 'counsel-memo-ref' };
 const pack = (patch = {}, ctx = context()) => compileEffectPackage({ intake: ctx.intake, tournament: ctx.tournament, campaign: { campaignId: 'camp_1' }, now, ...patch });
 
+test('prepared effect expiry is bounded and bound; missing campaign never claims readiness', () => {
+  const atoms = { identity: FINAL_IDENTITY, sender: SENDER, unsubscribe: UNSUB, senderSide: RESOLVED };
+  const a = pack({ ...atoms, campaign: { campaignId: 'camp_1', effectExpiresAt: new Date(+now + 3600000).toISOString() } });
+  const b = pack({ ...atoms, campaign: { campaignId: 'camp_1', effectExpiresAt: new Date(+now + 7200000).toISOString() } });
+  assert.equal(a.state, S.READY_FOR_AUTHORIZATION); assert.ok(a.finalEffectDigest);
+  assert.notEqual(a.finalEffectDigest, b.finalEffectDigest);
+  for (const expiry of ['invalid', new Date(+now - 1).toISOString(), new Date(+now + 86400001).toISOString()]) assert.equal(pack({ ...atoms, campaign: { campaignId: 'camp_1', effectExpiresAt: expiry } }).finalEffectDigest, null);
+  const noCampaign = pack({ ...atoms, campaign: {} }); assert.notEqual(noCampaign.state, S.READY_FOR_AUTHORIZATION); assert.equal(noCampaign.finalEffectDigest, null);
+});
+
 test('placeholder detection treats the literal placeholders, bracket tokens and blanks as non-final', () => {
   for (const v of ['', ' ', 'LEGAL_BUSINESS_SENDER_NAME', 'AUTHORIZED_PUBLIC_POSTAL_ADDRESS', '<address>', '[street]', '{addr}', 'TBD', 'N/A', 'Name LEGAL_BUSINESS_SENDER_NAME Inc', 'Acme [city]']) assert.equal(isPlaceholder(v), true, JSON.stringify(v));
   assert.equal(isPlaceholder('100 Example Street, Suite 4, Springfield, ST 00000'), false);

@@ -136,12 +136,13 @@ test('bundle loader fails closed to an EMPTY registry: missing, oversized, corru
   } finally { rmSync(root, { recursive: true, force: true }); }
 });
 
-test('the recorded UK/US bundle is valid, scoped and authority-free at its retrieval date', () => {
+test('the recorded UK/US and narrow Egypt bundle is valid, scoped and authority-free at its retrieval date', () => {
+  const now = new Date('2026-10-03T23:00:00Z');
   const reg = loadPolicyEvidenceBundle({ now });
   assert.deepEqual(reg.loadErrors, []);
   const status = compilePolicyEvidenceStatus(reg, { now });
   assert.deepEqual(reg.rejected, []);
-  assert.equal(status.permissiveRulesFresh, 5);
+  assert.equal(status.permissiveRulesFresh, 7);
   for (const id of ['recipient:US:can-spam-b2b-email', GB, 'legal-form:GB:corporate-subscriber-classes', 'registry:GB:companies-house-terms', 'provider:smtp-relay:winnr:cold-b2b-lawful-use']) {
     assert.equal(reg.resolveRule(id, now).fresh, true, id);
   }

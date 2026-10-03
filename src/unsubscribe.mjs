@@ -20,6 +20,11 @@ export function verifyUnsubscribeToken(token, secret, currentTime = Date.now()) 
   try {
     const data = JSON.parse(unb64(payload));
     if (!data.p || !Number.isFinite(Number(data.e)) || Number(data.e) < currentTime) return null;
+    if (data.k === 'RECIPIENT_OPTOUT') {
+      if (data.p !== 'prepared-effect' || !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(data.r || '') || data.r !== data.r.toLowerCase()) return null;
+      return { prospectId: 'prepared-effect', recipientEmail: data.r, expiresAt: Number(data.e) };
+    }
+    if (data.k !== undefined || data.r !== undefined) return null;
     return { prospectId: String(data.p), expiresAt: Number(data.e) };
   } catch { return null; }
 }
@@ -38,4 +43,17 @@ export function oneClickUnsubscribeUrl(baseUrl, prospectId, secret) {
   const url = new URL('/api/public/unsubscribe', baseUrl);
   url.searchParams.set('token', token);
   return url.href;
+}
+
+// Preparation needs no prospect write, campaign approval, credential extraction,
+// or send. The signature authorizes ONLY opt-out for this exact recipient.
+export function preparedRecipientUnsubscribeUrls(baseUrl, recipientEmail, secret, expiresAt = Date.now() + 365 * 86400000) {
+  const address = String(recipientEmail || '').trim().toLowerCase();
+  if (!/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(address) || String(secret || '').length < 32 || !Number.isFinite(expiresAt)) return {};
+  let base; try { base = new URL(baseUrl); } catch { return {}; }
+  if (base.protocol !== 'https:' || base.username || base.password) return {};
+  const payload = b64(JSON.stringify({ p: 'prepared-effect', e: expiresAt, k: 'RECIPIENT_OPTOUT', r: address }));
+  const signature = crypto.createHmac('sha256', secret).update(payload).digest('base64url');
+  const urls = ['/unsubscribe', '/api/public/unsubscribe'].map(path => { const u = new URL(path, base); u.searchParams.set('token', `${payload}.${signature}`); return u.href; });
+  return { unsubscribeUrl: urls[0], oneClickUnsubscribeUrl: urls[1] };
 }

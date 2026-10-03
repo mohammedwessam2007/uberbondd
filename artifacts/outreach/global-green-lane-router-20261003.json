@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "uberbond.global-green-lane-router-receipt.v1",
+  "observedAt": "2026-10-03T07:30:00Z",
+  "truthClass": "INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF",
+  "baseSha": "1e600fd193fa2ca0d7590bbb0751150d1a3e8363",
+  "branch": "claude/global-green-lane-router-20261003",
+  "humanReceipt": "docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md",
+  "implemented": [
+    "global-green-lane-router",
+    "global-policy-evidence",
+    "company-registry-adapter",
+    "companies-house-adapter",
+    "corporate-legal-form-verifier",
+    "recipient-address-classifier",
+    "invited-contact-classifier",
+    "contact-source-verifier",
+    "global-route-tournament",
+    "global-route-economics",
+    "green-lane-activation-truth",
+    "green-lane-discovery",
+    "host-family"
+  ],
+  "reused": [
+    "compileRecipientEligibility (extended with RECIPIENT_SIDE_ONLY scope)",
+    "runProspectPreflight (extended, not replaced)",
+    "compileEffectPackage (route binding)",
+    "buildPreflightHandoff",
+    "searchLocalLeadCorpus",
+    "providerRoutePolicy governance gate",
+    "outreach economics snapshot"
+  ],
+  "superseded": [],
+  "routeClasses": [
+    "INVITED_GREEN",
+    "CORPORATE_GREEN",
+    "US_CANSPAM_GREEN",
+    "PERMISSIONED_GREEN",
+    "CONSPICUOUS_PUBLICATION_GREEN",
+    "CONDITIONAL",
+    "CONSENT_REQUIRED",
+    "DO_NOT_SEND",
+    "UNKNOWN_FAIL_CLOSED"
+  ],
+  "jurisdictionMatrix": [
+    "GB",
+    "US",
+    "CA",
+    "AU",
+    "SG",
+    "AE",
+    "EG",
+    "UNKNOWN"
+  ],
+  "noJurisdictionClaimedSolved": true,
+  "policyEvidence": {
+    "bundle": "policy/outreach/global-policy-evidence.json",
+    "committedRows": 0,
+    "reason": "egress to regulator hosts blocked in build environment; no fabricated evidence",
+    "effect": "every permissive route reports POLICY_REFRESH_REQUIRED until recorded live"
+  },
+  "verification": {
+    "mutationGuards": "GGL-01..GGL-25 all KILLED individually; existing OUTREACH-* guards 26/26 KILLED after re-anchoring OUTREACH-PF-02",
+    "deterministicSuiteMine": {
+      "tests": 9129,
+      "pass": 9038,
+      "fail": 37,
+      "skipped": 54,
+      "note": "37 included 3 failures later fixed (mutation-anchor integrity x2, canon receipt-token x1); after fixes the failing set equals the main baseline"
+    },
+    "deterministicSuiteMainBaseline": {
+      "sha": "1e600fd193fa2ca0d7590bbb0751150d1a3e8363",
+      "tests": 8959,
+      "pass": 8871,
+      "fail": 34
+    },
+    "newFailuresVsMain": 0,
+    "preExistingFailuresExamples": [
+      "canon-freshness: the commit the canon names is actually in this branch history",
+      "canon-freshness: the present-tense canon describes the source the tree actually has"
+    ],
+    "syntaxCheck": "all added/changed files parse; 3 pre-existing unparsable test files on main (durable-decision-franchise-vault, infinite-opus-receipt-court-runtime, infinite-opus-worker-context-vault)",
+    "hostedCi": "not claimed; zero-step hosted jobs are infrastructure non-evidence",
+    "driftDoctor": "ok",
+    "reachability": "13 new modules PRODUCTION_REACHABLE"
+  },
+  "externalRemainder": [
+    "live policy-evidence recording",
+    "free COMPANIES_HOUSE_API_KEY",
+    "publishable sender identity and jurisdiction determination",
+    "owner decision to wire governed cold dispatch"
+  ],
+  "ledger": {
+    "newRecurringSoftwareCostUsd": 0,
+    "prospectMessagesSent": 0,
+    "providerMutations": 0,
+    "dnsMutations": 0,
+    "secretExposure": 0,
+    "winnrStartupPurchased": false,
+    "coldSendingEnabled": false,
+    "authorityWidened": false
+  }
+}

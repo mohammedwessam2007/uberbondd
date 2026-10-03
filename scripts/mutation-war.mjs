@@ -3962,7 +3962,7 @@ export const MUTATIONS = [
   {
     id: 'OUTREACH-PF-02', guard: 'Placeholder identity blocks the preflight',
     file: 'src/prospect-preflight.mjs',
-    find: '  if (effectPackage.blockers.some(b => b.group === \'identity\')) return out(PREFLIGHT_STATES.BLOCKED_IDENTITY, { ...base, blockerCodes: codes });',
+    find: '  if (effectPackage.blockers.some(b => b.group === \'identity\')) return withOneButton(out(PREFLIGHT_STATES.BLOCKED_IDENTITY, { ...base, blockerCodes: codes }));',
     replace: '  void codes;',
     suites: ['tests/prospect-preflight.test.mjs']
   },

@@ -21,7 +21,7 @@ function authentic(snapshot, secret) {
   } catch { return false; }
 }
 
-export async function validateFrozenProspectEffect({ store, digest, secret, run, now = new Date(), identity, campaign } = {}) {
+export async function validateFrozenProspectEffect({ store, digest, secret, run, now = new Date(), identity, campaign, authorizationVerified = false } = {}) {
   requireSecret(secret);
   if (!/^[a-f0-9]{64}$/.test(digest || '')) return deny('frozen-effect-digest-invalid');
   const snapshot = (await store.getSettings())[key(digest)];
@@ -34,7 +34,7 @@ export async function validateFrozenProspectEffect({ store, digest, secret, run,
     now, prepareEffect: true, includeEffectParticipants: true,
     frozenHistoryReceiptDigest: participants.contactHistoryReceiptDigest,
     unsubscribe: { unsubscribeUrl: participants.footerAndUnsubscribe.unsubUrl, oneClickUnsubscribeUrl: participants.footerAndUnsubscribe.oneClick },
-    unsubscribeFactory: null
+    unsubscribeFactory: null, authorizationVerified
   });
   if (current.state !== 'READY_FOR_AUTHORIZATION') return { ...current, ok: false, validation: { valid: false, frozenEffectDigest: digest, materialChange: current.blockerCodes }, sendAuthority: false };
   if (current.globalRoute?.governanceGate?.refused !== false) return deny('provider-route-not-permitted');

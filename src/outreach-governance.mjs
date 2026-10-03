@@ -1,5 +1,10 @@
 import crypto from 'node:crypto';
 import { canonicalize, sha256 } from './omnia-v9/canonical.mjs';
+import { classifyInvitedContact } from './invited-contact-classifier.mjs';
+import { compileContactSourceBinding } from './contact-source-verifier.mjs';
+import { httpsHostOf, sameDomainFamily } from './host-family.mjs';
+import { createPolicyEvidenceRegistry } from './global-policy-evidence.mjs';
+import { recipientEligibilityCoverage } from './uberoutbound-recipient-eligibility.mjs';
 
 const SHA256_HEX = /^[a-f0-9]{64}$/i;
 const EMPTY_SOURCE_EXCERPT_DIGEST = sha256('');
@@ -11,6 +16,7 @@ export const OUTREACH_ROUTE_TYPES = Object.freeze([
   'SOLICITED_APPLICATION',
   'EXPLICIT_CONSENT',
   'REQUESTED_INFORMATION',
+  'INVITED_BUSINESS_CONTACT',
   'CONSPICUOUS_PUBLICATION',
   'PUBLIC_BUSINESS_CONTACT',
   'WARM_REFERRAL',
@@ -49,7 +55,7 @@ const ROUTE_FIELDS = new Set([
   'schemaVersion', 'routeType', 'recipientEmail', 'sourceUrl', 'sourceExcerptDigest',
   'sourceObservedAt', 'sourceExpiresAt', 'jurisdiction', 'permissionScope',
   'relevantToRecipientRole', 'noUnsolicitedStatementPresent', 'provider',
-  'evidenceNote', 'routeDigest'
+  'evidenceNote', 'routeDigest', 'invitedBusinessContact', 'senderSide'
 ]);
 
 const APPROVAL_FIELDS = new Set([
@@ -113,8 +119,36 @@ function closedRecord(value, fields, name) {
   return unknown ? { ok: false, reason: `${name}-unknown-field:${unknown}` } : { ok: true };
 }
 
-export function providerRoutePolicy(provider, routeType) {
+// Distinct from consent or a direct request: an explicit, scoped public
+// invitation for this business proposal. Re-derive, never trust a GREEN label.
+export function verifyInvitedBusinessContact(proof, { now = new Date() } = {}) {
+  if (!proof || proof.schemaVersion !== 'uberbond.invited-business-contact.v1') return { ok: false, reason: 'invited-business-evidence-required' };
+  const siteHost = httpsHostOf(proof.companyWebsite);
+  if (!siteHost) return { ok: false, reason: 'invited-business-company-site-required' };
+  if (proof.contact?.route !== 'EMAIL' || !EMAIL_RE.test(proof.contact?.address || '')) return { ok: false, reason: 'invited-business-email-channel-required' };
+  if (!sameDomainFamily(proof.contact.address.split('@')[1], siteHost)) return { ok: false, reason: 'invited-business-recipient-company-mismatch' };
+  const invitation = classifyInvitedContact({ evidence: proof.invitationEvidence, message: proof.message, siteHost, strictScope: true, now });
+  if (invitation.classification !== 'INVITED_STRONG') return { ok: false, reason: 'invited-business-explicit-current-scoped-invitation-required' };
+  const sourceNotice = classifyInvitedContact({ evidence: [{ sourceUrl: proof.source?.url, capturedAt: proof.source?.observedAt, excerpt: proof.source?.excerpt }], now });
+  if (sourceNotice.negativeSignal) return { ok: false, reason: 'invited-business-contact-page-no-solicitation' };
+  const source = compileContactSourceBinding({ contact: proof.contact, source: proof.source, notices: proof.notices, invitation, siteHost, now });
+  if (!source.bound) return { ok: false, reason: 'invited-business-contact-source-not-bound' };
+  if (!invitation.evidence.some(e => e.sourceUrl === source.binding.officialSourceUrl || String(proof.invitationEvidence?.[e.index]?.excerpt || '').toLowerCase().includes(source.binding.contactAddress))) return { ok: false, reason: 'invited-business-channel-not-covered' };
+  const row = proof.providerPolicyEvidence;
+  const ruleId = 'provider:smtp-relay:winnr:cold-b2b-lawful-use';
+  const registry = createPolicyEvidenceRegistry({ rows: row ? [row] : [], now });
+  const policy = registry.resolveRule(ruleId, now);
+  if (!policy.fresh || policy.evidence?.authorityType !== 'PROVIDER_POLICY' || policy.evidence?.ruleParameters?.coldB2BRule !== 'ALLOWED') return { ok: false, reason: 'invited-business-provider-evidence-missing-stale-or-restrictive' };
+  if (policy.evidence.sourceUrl ? !sameDomainFamily(httpsHostOf(policy.evidence.sourceUrl), 'winnr.app') : !/^(?:winnr\/EVIDENCE_LEDGER\.md|docs\/WINNR_SUPPORT_RECONCILIATION_)/.test(policy.evidence.sourceRef || '')) return { ok: false, reason: 'invited-business-provider-source-not-authoritative' };
+  return { ok: true, invitationDigest: invitation.evidenceDigest, invitationScopes: invitation.scopes, invitationSources: invitation.evidence, contactSourceDigest: source.bindingDigest, evidenceDigest: sha256(proof), reason: 'smtp-relay-scoped-invited-business-route' };
+}
+
+export function providerRoutePolicy(provider, routeType, { invitedBusinessContact, now = new Date() } = {}) {
   const normalizedProvider = text(provider).toLowerCase();
+  if (routeType === 'INVITED_BUSINESS_CONTACT') {
+    if (normalizedProvider !== 'smtp-relay') return { ok: false, reason: 'invited-business-provider-not-reviewed' };
+    return verifyInvitedBusinessContact(invitedBusinessContact, { now });
+  }
   if (normalizedProvider === 'gmail-api') {
     return GMAIL_API_ALLOWED_ROUTE_TYPES.has(routeType)
       ? { ok: true, reason: 'gmail-api-solicited-or-consented-route' }
@@ -136,6 +170,11 @@ export function providerRoutePolicy(provider, routeType) {
       : { ok: true, reason: 'fixture-provider' };
   }
   return { ok: false, reason: 'outbound-provider-not-approved' };
+}
+
+export function invitedBusinessSenderSideClear(senderSide = {}) {
+  const coverage = recipientEligibilityCoverage().senderJurisdictions;
+  return ['operatorLocation', 'senderEntityJurisdiction', 'controllerJurisdiction'].every(f => coverage[text(senderSide?.[f]).toUpperCase()] === 'RECIPIENT_RULES_GOVERN');
 }
 
 export function createOutreachRouteEvidence(input = {}, now = new Date()) {
@@ -168,6 +207,10 @@ export function createOutreachRouteEvidence(input = {}, now = new Date()) {
     provider: text(input.provider || 'gmail-api').toLowerCase(),
     evidenceNote: text(input.evidenceNote).slice(0, 1000)
   };
+  if (base.routeType === 'INVITED_BUSINESS_CONTACT') {
+    base.invitedBusinessContact = input.invitedBusinessContact ? structuredClone(input.invitedBusinessContact) : null;
+    base.senderSide = input.senderSide ? structuredClone(input.senderSide) : null;
+  }
   return { ...base, routeDigest: sha256(base) };
 }
 
@@ -209,7 +252,8 @@ export function verifyOutreachRouteEvidence({ route, recipientEmail, provider, n
     return { ok: false, reason: 'outreach-route-canonicalization-failed' };
   }
   if (recomputed !== route.routeDigest) return { ok: false, reason: 'outreach-route-digest-mismatch' };
-  const providerPolicy = providerRoutePolicy(provider, route.routeType);
+  if (route.routeType === 'INVITED_BUSINESS_CONTACT' && (route.permissionScope !== 'COMMERCIAL_OUTREACH' || route.noUnsolicitedStatementPresent === true || route.invitedBusinessContact?.contact?.address !== route.recipientEmail || route.invitedBusinessContact?.source?.url !== route.sourceUrl || route.invitedBusinessContact?.source?.observedAt !== route.sourceObservedAt || sha256(String(route.invitedBusinessContact?.source?.excerpt || '')) !== route.sourceExcerptDigest)) return { ok: false, reason: 'invited-business-route-binding-mismatch' };
+  const providerPolicy = providerRoutePolicy(provider, route.routeType, { invitedBusinessContact: route.invitedBusinessContact, now });
   if (!providerPolicy.ok) return providerPolicy;
   return { ok: true, routeDigest: route.routeDigest, policyReason: providerPolicy.reason };
 }
@@ -338,6 +382,9 @@ export function evaluateOutreachGovernance({ prospect = {}, campaign = {}, cfg =
     maxAgeDays: cfg.outbound?.routeEvidenceMaxAgeDays
   });
   if (!routeCheck.ok) return routeCheck;
+  if (route.routeType === 'INVITED_BUSINESS_CONTACT') {
+    if (!invitedBusinessSenderSideClear(route.senderSide)) return { ok: false, reason: 'invited-business-sender-side-legal-authority-hold' };
+  }
   const followupNumber = Number(followup || 0);
   if (!Number.isInteger(followupNumber) || followupNumber < 0 || followupNumber > 11) return { ok: false, reason: 'outreach-followup-out-of-bounds' };
   if (followupNumber === 0 && (prospect.previouslyContactedAt || prospect.priorContact?.lastContactedAt)) {

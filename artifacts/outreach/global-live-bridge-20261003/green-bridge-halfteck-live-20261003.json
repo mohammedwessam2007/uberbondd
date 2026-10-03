@@ -1,0 +1,114 @@
+{
+  "checkedRecipient": "sales@halfteck.com",
+  "checkedDomain": "halfteck.com",
+  "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+  "preflight": {
+    "ok": true,
+    "result": {
+      "version": "uberbond.prospect-preflight.v1",
+      "evaluatedAt": "2026-10-03T06:28:03.057Z",
+      "state": "BLOCKED_EXTERNAL_FACT",
+      "blockerCodes": [
+        "current-ownership-unverified",
+        "us-headquarters-unverified",
+        "no-solicitation-notice-not-checked",
+        "no-harvest-notice-not-checked",
+        "home-service-client-evidence-missing",
+        "real-client-site-missing",
+        "externally-verifiable-lead-path-observation-missing"
+      ],
+      "readOnly": true,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffects": 0,
+      "company": "HALFTECK LTD",
+      "recipient": "sales@halfteck.com",
+      "offerId": "AI_AGENT_RELEASE_GATE",
+      "contactHistory": {
+        "status": "CLEAN",
+        "hit": false,
+        "receiptDigest": "15d333f133faf809a166ee2884ac1744fafbdf1f4a4ec3e9f5d69e0d380265ac",
+        "checkedAt": "2026-10-03T06:28:03.057Z"
+      },
+      "intake": {
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "us-headquarters-unverified",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "home-service-client-evidence-missing",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "provenance": "RUNTIME_RECEIPT"
+      }
+    }
+  },
+  "history": {
+    "ok": true,
+    "result": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-03T06:28:03.101Z",
+      "emailChecked": "sales@halfteck.com",
+      "domainChecked": "halfteck.com",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 2,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "17a0d2b1e1bbffda87281db885bfbce4643fba543fe076baa977bcf9cc980479",
+      "signature": "9429ad69fe82faafc1cb9aa7cc9d2955b1efed1522a63e452312dd2885db23a2"
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

@@ -177,6 +177,7 @@ export function compileEffectPackage({ intake, tournament, identity = {}, sender
     preview: { subject: core?.subject || null, body: renderedBody, containsPlaceholders: identityBlocked || !unsubscribeFinal },
     routeBound: routeBinding === undefined ? null : !routeBlocked,
     participantsFinal: Object.fromEntries(Object.entries(participants).map(([key, value]) => [key, !(value === null || value === '' || value === undefined)])),
+    participants,
     maxEffects: 1,
     expiresAt: campaign.effectExpiresAt || null,
     downstreamStateOwners: DOWNSTREAM_STATE_OWNERS,

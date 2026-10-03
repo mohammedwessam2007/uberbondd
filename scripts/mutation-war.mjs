@@ -35,6 +35,16 @@ const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 
 /** @type {Mutation[]} */
 export const MUTATIONS = [
+  ...[
+    ['FROZEN-EFFECT-01', 'Sealed snapshot integrity cannot be bypassed', '!authentic(snapshot, secret)', 'false'],
+    ['FROZEN-EFFECT-02', 'Expired effect cannot be validated', 'Date.parse(snapshot.result.effectPackage.expiresAt) <= +new Date(now)', 'false'],
+    ['FROZEN-EFFECT-03', 'Fresh exact history and safety checks cannot be replaced by the frozen result', 'const current = await run(structuredClone(snapshot.input), {', 'const current = await (async () => structuredClone(snapshot.result))(structuredClone(snapshot.input), {'],
+    ['FROZEN-EFFECT-04', 'Material binding changes cannot reuse authorization', 'current.effectPackage.finalEffectDigest !== digest', 'false'],
+    ['FROZEN-EFFECT-05', 'Frozen original history bytes must not be regenerated', 'frozenHistoryReceiptDigest: participants.contactHistoryReceiptDigest', 'frozenHistoryReceiptDigest: null'],
+    ['FROZEN-EFFECT-06', 'Protected owner identity must remain exact', 'identity.postalAddress !== snapshot.input.identity.authorizedPublicPostalAddress', 'false']
+  ].map(([id, guard, find, replace]) => ({ id, guard, file: 'src/frozen-prospect-effect.mjs', find, replace, suites: ['tests/frozen-prospect-effect.test.mjs'] })),
+  { id: 'FROZEN-EFFECT-07', guard: 'Execution validation forbids HTTP payload overrides', file: 'server-core.mjs', find: "if (Object.keys(input).some(k => k !== 'frozenEffectDigest'))", replace: 'if (false)', suites: ['tests/frozen-prospect-effect-route.test.mjs'] },
+  { id: 'FROZEN-EFFECT-08', guard: 'Original signed unsubscribe bytes must remain frozen', file: 'src/frozen-prospect-effect.mjs', find: 'unsubscribe: { unsubscribeUrl: participants.footerAndUnsubscribe.unsubUrl, oneClickUnsubscribeUrl: participants.footerAndUnsubscribe.oneClick },', replace: 'unsubscribe: {},', suites: ['tests/frozen-prospect-effect.test.mjs'] },
   { id: 'EG-SCOPE-09', guard: 'Canonical prework bytes must match the reviewed inventory', file: 'src/prospect-preflight.mjs', find: "actualDigest !== record.corporateRoleScope.reviewedProposal?.preworkDigest", replace: 'false', suites: ['tests/egypt-corporate-role-scope.test.mjs'] },
   { id: 'EG-SCOPE-10', guard: 'Opt-out signing does not bypass unresolved legal facts', file: 'src/prospect-preflight.mjs', find: "prepareEffect === true && effectPackage.state === EFFECT_PACKAGE_STATES.READY_PENDING_DRAFT_TIME_FACTS", replace: 'prepareEffect === true', suites: ['tests/egypt-corporate-role-scope.test.mjs'] },
   { id: 'EG-SCOPE-11', guard: 'Prepared effect expiry must be bounded', file: 'src/prospect-effect-package.mjs', find: 'Date.parse(campaign.effectExpiresAt) > +new Date(now) + 86400000', replace: 'false', suites: ['tests/prospect-effect-package.test.mjs'] },

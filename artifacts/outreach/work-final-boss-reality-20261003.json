@@ -1,0 +1,292 @@
+{
+  "schemaVersion": "uberbond.work-outreach-final-boss-reality.v1",
+  "observedAt": "2026-10-03T00:51:21.848Z",
+  "truthClass": "LIVE_ACCOUNT_OBSERVATIONS_SOURCE_CORRECTIONS_AND_EXTERNAL_READ_BOUNDARIES",
+  "supersedes": [
+    "artifacts/outreach/work-live-reality-closure-20261002.json",
+    "docs/receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md"
+  ],
+  "sourceSnapshot": {
+    "mainSha": "40cb3b9a8bd1f5bfd4b9ba536849d25220fb7039",
+    "treeSha": "1d29b85c5ce03129ff71e5e2164c26a3948b560d",
+    "claudeSoftwarePr": 1171,
+    "workPrsMerged": [
+      1172,
+      1173,
+      1174,
+      1175
+    ],
+    "activeConcurrentOutreachClosurePr": false,
+    "openPrNumbers": [
+      1109,
+      1018,
+      993,
+      972
+    ]
+  },
+  "render": {
+    "serviceId": "srv-dali9vijnfac739m4vcg",
+    "status": "LIVE",
+    "deployedSha": "40cb3b9a8bd1f5bfd4b9ba536849d25220fb7039",
+    "deployId": "dep-db035q2d0e5s739u53l0",
+    "finishedAt": "2026-10-02T22:42:01.183404Z",
+    "checkedAt": "2026-10-03T00:51:21.848Z",
+    "buildCommand": "npm install --omit=dev",
+    "normalStartCommandUnchanged": true,
+    "plan": "free",
+    "autoDeploy": "off",
+    "storeBackend": "POSTGRES_PREVIOUS_HEALTH_READ",
+    "latestProtectedHealth": "UNREAD_BROWSER_OFFLINE"
+  },
+  "winnr": {
+    "status": "LIVE_ENTITLEMENT_VERIFIED",
+    "observationDate": "2026-10-02",
+    "surfaces": [
+      "https://app.winnr.app/domains",
+      "https://app.winnr.app/email-users",
+      "https://app.winnr.app/settings?tab=subscription",
+      "https://app.winnr.app/settings?tab=billing",
+      "https://app.winnr.app/settings?tab=account"
+    ],
+    "authentication": "NORMAL_GOOGLE_SIGN_IN_SUCCEEDED",
+    "basePlan": "Pre-Warmed Only",
+    "baseMonthlyUsd": 0,
+    "baseEmailCredits": 0,
+    "baseDomainsUsed": 0,
+    "baseDomainsEntitled": 0,
+    "baseEmailUsersUsed": 0,
+    "baseEmailUsersEntitled": 0,
+    "activePrewarmedMailboxes": 3,
+    "monthlyUsdPerPrewarmedMailbox": 3,
+    "existingMonthlyUsd": 9,
+    "renewsOn": "2026-11-02",
+    "leasedDomain": "cedarpointdomains.com",
+    "domainExpiresOn": "2027-05-24",
+    "autoRenewPrewarmedDomains": false,
+    "mailboxes": [
+      "dana.kim@cedarpointdomains.com",
+      "nadia.chen@cedarpointdomains.com",
+      "tara.garcia@cedarpointdomains.com"
+    ],
+    "providerDisplayName": "Wessam Solomon | UberBond",
+    "providerUiDailyLimitPerMailbox": 50,
+    "providerCapIsNotSafeColdCap": true,
+    "providerMailboxHealth": "NOT_LABELLED_IN_LISTING_RUNTIME_OBSERVATIONS_SEPARATE",
+    "invoicesObserved": [
+      {
+        "date": "2026-10-02",
+        "usd": 9,
+        "status": "PAID"
+      },
+      {
+        "date": "2026-10-02",
+        "usd": 0,
+        "status": "PAID"
+      }
+    ],
+    "balanceUsd": 0,
+    "unexpectedBillingChangeObserved": false,
+    "unexpectedCancellationObserved": false,
+    "policyRestrictionNoticeObserved": false,
+    "noticeCheckScope": "BOUNDED_ACCOUNT_PAGES_ONLY",
+    "overviewTrialLabel": "No active subscription",
+    "entitlementReconciliation": "Overview/base-plan label does not negate separately active three pre-warmed mailboxes.",
+    "universalInboxSync": "ON",
+    "mutations": 0
+  },
+  "transport": {
+    "status": "CLOSED_TRANSPORT_RETAINED",
+    "latestBootAt": "2026-10-02T22:41:54.609170303Z",
+    "bootstrapStatus": "WINNR_SEALED_BOOTSTRAP_ALREADY_CONSUMED",
+    "originalConsumedAt": "2026-10-02T15:10:31.844Z",
+    "historicalSeedMessagesRecorded": 2,
+    "newSeedMessages": 0,
+    "smtpPreviouslyConfirmed": 3,
+    "imapPreviouslyConfirmed": 3,
+    "ordinal3Quarantined": true,
+    "quarantineReappliedAt": "2026-10-02T22:41:54.718Z",
+    "quarantineScope": "SMTP_FLEET_SELECTION_ONLY",
+    "imapCustodyChanged": false,
+    "latestAuthenticatedUiBeforeFinalReload": {
+      "worker": "ONLINE_MANUAL",
+      "outbound": "DISABLED",
+      "reservedToday": 0,
+      "uncertain": 0,
+      "smtpHealthyCandidates": [
+        "tara.garcia@cedarpointdomains.com",
+        "nadia.chen@cedarpointdomains.com"
+      ],
+      "smtpPaused": [
+        "dana.kim@cedarpointdomains.com"
+      ],
+      "imapHealthy": 3
+    },
+    "senderBinding": "NOT_BOUND_PENDING_EXACT_PRODUCTION_PREFLIGHT"
+  },
+  "candidate": {
+    "company": "Powerhouse Consulting Group",
+    "recipient": "hello@mypowerhouse.group",
+    "domain": "mypowerhouse.group",
+    "status": "EVIDENCE_BEARING_NOT_PRODUCTION_VERIFIED",
+    "bestCleanCandidate": null,
+    "historyClassification": "PRODUCTION_HISTORY_UNKNOWN",
+    "history": {
+      "suppressions": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "prospects": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "outboundReservations": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "outboundEvents": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "replies": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "messages": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "providerEvents": "UNKNOWN_EXACT_READ_NOT_COMPLETED",
+      "unsubscribe": "UNKNOWN_SUPPRESSION_AUTHORITATIVE",
+      "bouncesAndComplaints": "UNKNOWN_EXACT_CANONICAL_HISTORY"
+    },
+    "matchingContract": "Current deployed canonical exact-history semantics; email/domain independently normalized, stored domain and website aliases checked, prospect references joined, active/ambiguous reservations and all findings retained. CLEAN requires all seven successful reads; no aggregate absence substitutes.",
+    "preflightRequest": "artifacts/outreach/powerhouse-preflight-request-20261002.json",
+    "canonicalReads": [
+      "POST /api/prospect-preflight",
+      "GET /api/prospect-preflight/contact-history",
+      "GET /api/prospect-preflight/candidates"
+    ],
+    "offer": "REVENUE_PROOF_AND_RENEWAL_PACK",
+    "offerCanonicalAlias": "CLIENT_ROI_PROOF_SPRINT",
+    "prework": "artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md",
+    "messageTournament": "artifacts/outreach/powerhouse-message-tournament-20261002.json",
+    "conditionalMessageWinner": "F_SAME_PAGE_FULL",
+    "subject": "Sylvester availability",
+    "messageStatus": "CONDITIONAL_PENDING_PRODUCTION_VERIFICATION",
+    "publicEvidenceObservedAt": "2026-10-02T19:57:19.134Z",
+    "publicEvidenceExpiresAt": "2026-10-09T19:57:19.134Z",
+    "recipientJurisdiction": "US_REPRESENTED_NOT_INDEPENDENTLY_STRENGTHENED",
+    "publicationIsNotConsent": true,
+    "noDamageRevenueOrCausationClaim": true
+  },
+  "identity": {
+    "status": "IDENTITY_FACT_REQUIRED",
+    "authenticatedNormalizedOwnerIdentity": "NULL_BEFORE_FINAL_RELOAD",
+    "authenticatedCanaryBlocker": "business-address-missing",
+    "partialStoredIdentityFields": "UNKNOWN_NOT_PROVED_ALL_ABSENT",
+    "storedAuthorizedIdentityFullyRetrieved": false,
+    "requiredUnverifiedFields": [
+      "legalBusinessSenderName",
+      "authorizedPublicPostalAddress",
+      "ownerAuthorized",
+      "publicFooterAuthorized",
+      "postalEvidenceRef",
+      "operatorLocation",
+      "senderEntityJurisdiction",
+      "controllerJurisdiction"
+    ],
+    "providerDisplayNameIsNotLegalOrPostalAuthorization": true,
+    "sourceSurfacesReviewed": [
+      "server-core.mjs ownerSetupStatus/ownerBusinessIdentity",
+      "src/uberpostal-identity.mjs",
+      "src/outreach-launch-facts.mjs",
+      "src/uberlaunch-runtime-evidence.mjs"
+    ],
+    "residentialAddressInferred": false,
+    "postalAddressPublished": false
+  },
+  "policy": {
+    "provider": "CONDITIONAL_PERMISSION_SUBJECT_TO_LAW_IDENTITY_AND_OPTOUT",
+    "providerTermsUrl": "https://winnr.app/terms-of-service.html",
+    "providerTermsUpdated": "2026-09-24",
+    "providerOptoutDays": 7,
+    "lawUs": "CAN_SPAM_TRUTHFUL_HEADERS_SUBJECT_COMMERCIAL_DISCLOSURE_POSTAL_ADDRESS_AND_OPTOUT",
+    "lawUsSource": "https://www.ftc.gov/business-guidance/resources/can-spam-act-compliance-guide-business",
+    "egyptPrimarySource": "https://www.pdpc.gov.eg/",
+    "egyptEvidence": "Indexed official FAQ describes natural-person personal-data scope and explicit consent/licensing for electronic direct marketing. Current portal redirects; exact EDM PDF retrieval unavailable. This does not independently resolve the founder's jurisdictions or a US corporate role inbox.",
+    "legalStatus": "LEGAL_AUTHORITY_HOLD",
+    "conservativePolicy": "EXISTING_EGYPT_SENDER_HOLD_RETAINED_WITHOUT_CLAIMING_A_BLANKET_LEGAL_BAN",
+    "exactQuestion": "For founder-confirmed operator, entity and controller jurisdictions, does Egypt's PDPL/EDM consent-and-licensing regime cover this cold commercial message to the US corporate role inbox hello@mypowerhouse.group, and if so which specific consent/permit evidence is required?",
+    "ownerAuthority": "NO_VALID_EXACT_PRODUCTION_SEND_AUTHORIZATION_ESTABLISHED",
+    "coldRoute": "PUBLIC_BUSINESS_CONTACT_DISPATCH_INTENTIONALLY_INERT",
+    "lastObservedAllowedCountries": [
+      "EG"
+    ],
+    "candidateCountryAllowance": "US_NOT_ESTABLISHED"
+  },
+  "effect": {
+    "status": "PREPARED_NOT_READY",
+    "artifact": "artifacts/outreach/powerhouse-effect-package-20261002.json",
+    "finalDigestMinted": false,
+    "approved": false,
+    "remainingBindings": [
+      "exact clean production history",
+      "final eligibility/jurisdiction",
+      "authorized legal/postal identity and footer",
+      "sender-side legal resolution",
+      "current selected sender health and caps",
+      "production-reachable authorized cold route",
+      "exact final footer/unsubscribe/body/provider/sender binding",
+      "bounded current effect authorization and expiry"
+    ],
+    "sendAuthority": false
+  },
+  "oneButton": {
+    "correctionsMerged": true,
+    "prNumbers": [
+      1174,
+      1175
+    ],
+    "initialLiveStateAfterLatestDeploy": "OUTREACH_STATUS_UNKNOWN_DISABLED",
+    "authenticatedPostDeployMatrix": "NOT_VERIFIED_AUTH_INTERRUPTED_THEN_BROWSER_OFFLINE",
+    "canonicalBlockersObservedBeforeRepair": [
+      "no-approved-route-and-payload",
+      "outbound-disabled",
+      "outbound-dry-run",
+      "business-address-missing"
+    ],
+    "guards": "Unknown/failed/malformed/auth-failed states stay closed; explicit 409 refusal reason codes displayed; credential changes invalidate readiness; exact canary and scale decisions kept separate.",
+    "prospectActivationClicked": false
+  },
+  "tests": {
+    "finalFocusedPassed": 114,
+    "finalFocusedFailed": 0,
+    "previousHistoryFocusedPassed": 158,
+    "baselineUiHostileTest": "FAILED_AS_EXPECTED",
+    "syntaxValidIgnoreBlockersMutation": "KILLED",
+    "syntaxAndDiffChecks": "PASS_BEFORE_MERGE",
+    "hostedCiGreenClaimed": false,
+    "hostedRunnerDebt": "PREVIOUS_ZERO_STEP_FAILURES_RETAINED",
+    "testExecutionAfterEnvironmentOffline": "NOT_POSSIBLE_NOT_CLAIMED"
+  },
+  "access": {
+    "initialAdminAuthentication": "SUCCEEDED_VIA_SECURE_BROWSER_AUTH",
+    "postDeployAdminAuthentication": "INTERRUPTED_USER_ABORT_AFTER_5568_SECONDS_RESULT_UNVERIFIED",
+    "credentialValueReadOrPrinted": false,
+    "credentialRotated": false,
+    "browserRecoveryAttempts": 2,
+    "browserFailure": "409 Conflict environment_offline: Environment is not connected",
+    "shellFailure": "exec-server capabilities unavailable: environment_offline",
+    "renderSqlFallback": "BLOCKED_EMPTY_EXTERNAL_IP_ALLOWLIST",
+    "renderSqlCheckedAt": "2026-10-03T00:51:21.848Z",
+    "renderSqlAllowlistChanged": false,
+    "paidShellUpgradePerformed": false,
+    "productionHistoryCleanClaimed": false
+  },
+  "externalEffects": {
+    "githubReceiptPrMerged": [
+      1173
+    ],
+    "githubCorrectivePrsMerged": [
+      1174,
+      1175
+    ],
+    "normalRenderCorrectiveDeploys": 2,
+    "readOnlyProviderSignIn": true,
+    "prospectSends": 0,
+    "newSeedSends": 0,
+    "providerMutations": 0,
+    "senderMutations": 0,
+    "quarantineReleases": 0,
+    "dnsMutations": 0,
+    "campaignMutations": 0,
+    "purchases": 0,
+    "newSpendUsd": 0
+  },
+  "terminalVerdict": "OUTREACH_BLOCKED_BY_EXTERNAL_SYSTEM",
+  "terminalBlocker": "Cloud browser and shell execution environment disconnected during secure admin authentication; exact production reads cannot complete. Render SQL independently refuses access because its external IP allowlist is empty.",
+  "nextDependencySatisfiedAction": "When the existing environment is connected again, inspect the surviving admin session without reading credentials, run prepared canonical preflight and all seven exact-history reads through the new operator controls, and recover protected identity/runtime/authority facts before any owner fact request. On a hit, use existing ranked candidate endpoint and the same preflight. Never send or approve from this receipt.",
+  "truthBoundary": "This receipt supersedes dated unknown Winnr entitlement and defective generic UI observations, preserves history UNKNOWN, creates no permission, buys nothing, and does not claim outreach activation ready."
+}

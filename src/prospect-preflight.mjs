@@ -197,7 +197,7 @@ export async function runProspectPreflight({
     recipient: { jurisdictionClaims, type: iso2(recipientJurisdiction) === 'GB' ? undefined : 'CORPORATE' },
     registry: { result: registryResult },
     notices: { noSolicitationChecked: record.notices?.noSolicitationChecked === true, noSolicitationFound: record.notices?.noSolicitationFound === true, noHarvestChecked: record.notices?.noHarvestChecked === true, noHarvestFound: record.notices?.noHarvestFound === true },
-    offerRelevance: { relatedToRecipientRole: record.offerFit?.servesHomeServiceClients === true, rationale: String(record.offerRoute?.rationale || '') },
+    offerRelevance: { relatedToRecipientRole: intake.status === PROSPECT_STATUSES.VERIFIED_CANDIDATE, rationale: String(record.offerRoute?.rationale || '') },
     invitationEvidence: Array.isArray(record.invitationEvidence) ? record.invitationEvidence : [],
     intakeChannels: Array.isArray(record.intakeChannels) ? record.intakeChannels : [],
     history: { status: contactHistory.status, receiptDigest: contactHistory.receiptDigest || null },

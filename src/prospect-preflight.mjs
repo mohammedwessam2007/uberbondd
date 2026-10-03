@@ -134,7 +134,7 @@ export async function runProspectPreflight({
   store, record, slots, artifactRef = '', identity = {}, senderSide = {}, unsubscribe = {}, campaign = {},
   provider = 'smtp-relay', now = new Date(), artifactExists = repositoryArtifactExists,
   policyRegistry = null, registryAdapters = null, globalRoute = {}, prepareEffect = false, unsubscribeFactory = null,
-  frozenHistoryReceiptDigest = null, includeEffectParticipants = false
+  frozenHistoryReceiptDigest = null, includeEffectParticipants = false, authorizationVerified = false
 } = {}) {
   const evaluatedAt = new Date(now).toISOString();
   const registryLookups = [];
@@ -219,7 +219,7 @@ export async function runProspectPreflight({
     economics: globalRoute.economics, routeCosts: globalRoute.routeCosts, lawfulChannels: globalRoute.lawfulChannels
   });
   summary.globalRoute = summarizeRoute(routeDecision);
-  const activation = extra => compileGreenLaneActivationTruth({ routeDecision, preflight: extra });
+  const activation = extra => compileGreenLaneActivationTruth({ routeDecision, preflight: extra, authorizationVerified });
 
   if (routeDecision.routeClass === ROUTE_CLASSES.DO_NOT_SEND) {
     return out(PREFLIGHT_STATES.DO_NOT_SEND, { ...summary, blockerCodes: routeDecision.blockers, oneButton: activation(null) });

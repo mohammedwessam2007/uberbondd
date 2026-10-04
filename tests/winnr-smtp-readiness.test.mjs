@@ -48,6 +48,7 @@ test('SMTP transport probe authenticates and NOOPs without message commands',asy
   const result=await transport.probe();
   assert.equal(result.confirmed,true);
   assert.equal(result.state,'SMTP_AUTH_NOOP_CONFIRMED');
+  assert.equal(result.providerCalls,1);
   assert.equal(probeCalls,1);
   assert.equal(sendCalls,0);
   assert.equal(closeCalls,1);
@@ -64,11 +65,25 @@ test('fleet probe decrypts credentials but issues no message',async()=>{
     transportFactory:({username,password})=>({ok:true,async probe(){probed++;assert.equal(username,'u1');assert.equal(password,'p1');return{confirmed:true,state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'smtp-noop:x',providerResponseDigest:'b'.repeat(64),providerCalls:1,messagesSent:0};}})
   });
   assert.equal(result.classification,'READY');
+  assert.equal(result.providerCalls,1);
   assert.equal(result.messagesSent,0);
   assert.equal(probed,1);
 });
 
-test('controller probes non-quarantined accounts, initializes health, and never exposes addresses',async()=>{
+test('local credential refusal is zero provider calls and never constructs transport',async()=>{
+  let transportCalls=0;
+  const broken={...account(1),tokens:'not-an-encrypted-token'};
+  const result=await probeSmtpFleetAccount({
+    account:broken,encryptionKey:KEY,
+    transportFactory:()=>{transportCalls++;throw new Error('must-not-run');}
+  });
+  assert.equal(result.classification,'REJECTED');
+  assert.equal(result.providerCalls,0);
+  assert.equal(result.messagesSent,0);
+  assert.equal(transportCalls,0);
+});
+
+test('controller probes non-quarantined accounts without manufacturing positive sender health',async()=>{
   const store=fakeStore();
   const calls=[];
   const result=await runWinnrSmtpReadinessProbe({
@@ -76,15 +91,54 @@ test('controller probes non-quarantined accounts, initializes health, and never 
     probeFn:async({account})=>{calls.push(account.slot);return{classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:`r-${account.id}`,providerResponseDigest:'c'.repeat(64),providerCalls:1,messagesSent:0};}
   });
   assert.equal(result.ok,true);
+  assert.equal(result.checkedAccounts,2);
+  assert.equal(result.providerContactedAccounts,2);
   assert.equal(result.readyAccounts,2);
   assert.equal(result.skippedProtectiveAccounts,1);
+  assert.equal(result.providerCalls,2);
+  assert.equal(result.providerCallsComplete,true);
   assert.deepEqual(calls,['winnr:slot-1','winnr:slot-2']);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,false);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,'');
+  assert.equal(store.senderHealth.some(x=>x.inbox==='winnr:slot-1'),false);
+  assert.equal(store.senderHealth.some(x=>x.inbox==='winnr:slot-2'),false);
   assert.equal(store.senderHealth.some(x=>x.inbox==='winnr:slot-3'),false);
   assert.equal(result.messagesSent,0);
   assert.equal(result.prospectSendAuthorityGranted,false);
   assert.equal(JSON.stringify(result).includes('@'),false);
+});
+
+test('local refusal is evaluated as failure even though provider was not contacted',async()=>{
+  const store=fakeStore();
+  const result=await runWinnrSmtpReadinessProbe({
+    store,encryptionKey:KEY,quarantineOrdinalsText:'3',
+    probeFn:async({account})=>account.slot.endsWith('1')
+      ?{classification:'REJECTED',reasonCodes:['local-refusal'],providerCalls:0,messagesSent:0}
+      :{classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'r2',providerResponseDigest:'e'.repeat(64),providerCalls:1,messagesSent:0}
+  });
+  assert.equal(result.ok,false);
+  assert.equal(result.checkedAccounts,2);
+  assert.equal(result.providerContactedAccounts,1);
+  assert.equal(result.readyAccounts,1);
+  assert.equal(result.failedAccounts,1);
+  assert.equal(result.providerCalls,1);
+  assert.equal(result.providerCallsLowerBound,1);
+  assert.equal(result.results.find(x=>x.ordinal===1)?.providerCallState,'NOT_CONTACTED');
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,true);
+});
+
+test('unexpected probe throw preserves unknown provider crossing instead of inventing a call',async()=>{
+  const store=fakeStore();
+  const result=await runWinnrSmtpReadinessProbe({
+    store,encryptionKey:KEY,quarantineOrdinalsText:'2,3',
+    probeFn:async()=>{throw new Error('unexpected');}
+  });
+  assert.equal(result.ok,false);
+  assert.equal(result.checkedAccounts,1);
+  assert.equal(result.failedAccounts,1);
+  assert.equal(result.providerCalls,null);
+  assert.equal(result.providerCallsLowerBound,0);
+  assert.equal(result.providerCallsComplete,false);
+  assert.equal(result.providerCallUnknownAccounts,1);
+  assert.equal(result.results[0].providerCallState,'UNKNOWN');
 });
 
 test('probe failure protective-pauses, later success clears only the probe-created pause',async()=>{

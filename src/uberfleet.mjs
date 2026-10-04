@@ -6,6 +6,7 @@ export const UBERFLEET_VERSION='uberbond.uberfleet.v1';
 const clean=(v,n=1000)=>String(v??'').trim().slice(0,n);
 const emailOk=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim());
 const stable=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
+const exactProviderCalls=value=>Number.isInteger(Number(value))&&Number(value)>=0?Number(value):null;
 
 export function buildEncryptedSmtpAccount({
   slot='',email='',provider='smtp-relay',host='',port=465,secure=true,username='',password='',
@@ -118,21 +119,38 @@ export async function probeSmtpFleetAccount({
   const route=account?.smtpRoute||{};
   let credential;
   try{credential=openSmtpAccountCredential(account,encryptionKey);}
-  catch(error){return {classification:'REJECTED',reasonCodes:['smtp-account-credential-unavailable'],probeError:clean(error.message,300),messagesSent:0};}
-  const transport=transportFactory({
-    host:route.host,port:route.port,secure:route.secure!==false,
-    username:credential.username,password:credential.password,
-    authorized:route.authorized===true,termsCompatible:route.termsCompatible===true,
-    evidenceRef:route.evidenceRef
-  });
-  if(!transport?.ok||typeof transport.probe!=='function')return {classification:'REJECTED',reasonCodes:transport?.reasonCodes||['smtp-probe-not-ready'],messagesSent:0};
+  catch(error){return {classification:'REJECTED',reasonCodes:['smtp-account-credential-unavailable'],probeError:clean(error.message,300),providerCalls:0,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};}
+  let transport;
+  try{
+    transport=transportFactory({
+      host:route.host,port:route.port,secure:route.secure!==false,
+      username:credential.username,password:credential.password,
+      authorized:route.authorized===true,termsCompatible:route.termsCompatible===true,
+      evidenceRef:route.evidenceRef
+    });
+  }catch(error){
+    return {classification:'REJECTED',reasonCodes:['smtp-transport-factory-threw'],probeError:clean(error?.message||error,300),providerCalls:0,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};
+  }
+  if(!transport?.ok||typeof transport.probe!=='function')return {classification:'REJECTED',reasonCodes:transport?.reasonCodes||['smtp-probe-not-ready'],providerCalls:0,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};
   try{
     const result=await transport.probe();
+    const providerCalls=exactProviderCalls(result?.providerCalls);
     if(result?.confirmed!==true)return {
       classification:'UNCERTAIN',
       reasonCodes:result?.reasonCodes||['smtp-session-probe-unconfirmed'],
       state:result?.state||'SMTP_AUTH_NOOP_UNCONFIRMED',
-      providerCalls:Number(result?.providerCalls||1),
+      providerCalls,
+      messagesSent:0,
+      mailFromIssued:false,
+      recipientsIssued:0,
+      dataIssued:false,
+      automaticRetryAuthorized:false
+    };
+    if(providerCalls===null||providerCalls<1)return {
+      classification:'UNCERTAIN',
+      reasonCodes:['smtp-provider-contact-not-proven'],
+      state:result?.state||'SMTP_AUTH_NOOP_UNCONFIRMED',
+      providerCalls,
       messagesSent:0,
       mailFromIssued:false,
       recipientsIssued:0,
@@ -145,7 +163,7 @@ export async function probeSmtpFleetAccount({
       providerSessionReceiptId:clean(result.providerSessionReceiptId,500),
       providerResponseDigest:clean(result.providerResponseDigest,128),
       routeEvidenceRef:clean(route.evidenceRef,1500),
-      providerCalls:Number(result.providerCalls||1),
+      providerCalls,
       messagesSent:0,
       mailFromIssued:false,
       recipientsIssued:0,
@@ -153,7 +171,7 @@ export async function probeSmtpFleetAccount({
       truthBoundary:'Authenticated SMTP session readiness only. No message commands were issued; this does not establish reputation, inbox placement, legal authority, future acceptance, replies, or revenue.'
     };
   }catch(error){
-    return {classification:'UNCERTAIN',reasonCodes:['smtp-session-probe-threw'],probeError:clean(error?.message||error,500),providerCalls:1,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,automaticRetryAuthorized:false};
+    return {classification:'UNCERTAIN',reasonCodes:['smtp-session-probe-threw'],probeError:clean(error?.message||error,500),providerCalls:null,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,automaticRetryAuthorized:false};
   }
 }
 

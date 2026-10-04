@@ -289,11 +289,14 @@ export async function runProspectPreflight({
   summary.sender = sender.ok ? { ok: true, slot: sender.slot } : { ok: false, reasonCodes: sender.reasonCodes };
 
   // 6. Effect package. No final digest while any participant is not final; the
-  //    green route is bound into the digest.
+  //    green route is bound into the digest. Draft-time signed unsubscribe URLs
+  //    are safe deterministic facts, so resolve them whenever preparation is
+  //    requested even if an independent legal-authority blocker remains.
   const effectInput = { intake, tournament, identity, sender, unsubscribe, senderSide, campaign, provider, routeBinding: routeDecision.effectBinding, invitedBusinessContact: routeDecision.providerRouteEvidence, now };
   let effectPackage = compileEffectPackage(effectInput);
   if (prepareEffect === true && !campaign.effectExpiresAt) return out(PREFLIGHT_STATES.BLOCKED_EXTERNAL_FACT, { ...summary, blockerCodes: ['prepared-effect-expiry-required'], oneButton: activation(null) });
-  if (prepareEffect === true && effectPackage.state === EFFECT_PACKAGE_STATES.READY_PENDING_DRAFT_TIME_FACTS && typeof unsubscribeFactory === 'function') {
+  const unsubscribeMissing = effectPackage.blockers.some(blocker => blocker.code === 'signed-unsubscribe-urls-not-created');
+  if (prepareEffect === true && unsubscribeMissing && typeof unsubscribeFactory === 'function') {
     effectPackage = compileEffectPackage({ ...effectInput, unsubscribe: unsubscribeFactory(email) });
   }
   const base = {

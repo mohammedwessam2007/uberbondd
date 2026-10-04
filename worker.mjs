@@ -13,6 +13,7 @@ import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
 import { createInfiniteOpusJobHandlers } from './src/infinite-opus-native-runtime.mjs';
+import { inspectRevenueSurfaceRuntime } from './src/revenue-surface-runtime-self-check.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -71,12 +72,24 @@ const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.co
 
 console.log(`UberBond worker ${queue.workerId} started using ${config.storeBackend}`);
 
+// One-shot loopback proof after the sibling web process has had time to bind.
+// This never supplies credentials and cannot authorize or dispatch anything.
+const revenueSurfaceTimer=setTimeout(()=>{
+  void inspectRevenueSurfaceRuntime({baseUrl:`http://127.0.0.1:${config.port}`})
+    .then(result=>console.log('REVENUE_SURFACE_SELF_CHECK '+JSON.stringify(result)))
+    .catch(error=>console.error('REVENUE_SURFACE_SELF_CHECK '+JSON.stringify({
+      ok:false,status:'REVENUE_SURFACE_LIVE_SELF_CHECK_EXCEPTION',reasonClass:String(error?.code||error?.name||'ERROR').slice(0,80),credentialMaterialUsed:false,providerCalls:0,externalEffects:0,businessEffectAuthority:'NONE'
+    })));
+},5000);
+revenueSurfaceTimer.unref?.();
+
 let shuttingDown = false;
 async function shutdown(signal) {
   if (shuttingDown) return;
   shuttingDown = true;
   console.log(`Received ${signal}; worker is draining active jobs.`);
   stopScheduler();
+  clearTimeout(revenueSurfaceTimer);
   await queue.stopWorker().catch(error => console.error('Worker stop failed', error));
   await closeSharedBrowserRuntimes().catch(error => console.error('Browser runtime stop failed', error));
   await store.close();

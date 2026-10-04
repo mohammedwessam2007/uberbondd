@@ -63,6 +63,15 @@ test('persistent IMAP exception reports only a sanitized failure class',async()=
   assert.equal(JSON.stringify(store.logs).includes(secret),false);
 });
 
+test('IMAP rejection classifier exposes only the bounded protocol step',()=>{
+  const secret='do-not-echo-this';
+  assert.equal(classifyImapProbeException(new Error(`imap-command-rejected:* NO ${secret}\r\nUB0001 NO auth failed`)),'IMAP_COMMAND_REJECTED_LOGIN');
+  assert.equal(classifyImapProbeException(new Error(`imap-command-rejected:* FLAGS ()\r\nUB0002 BAD ${secret}`)),'IMAP_COMMAND_REJECTED_MAILBOX_OPEN');
+  assert.equal(classifyImapProbeException(new Error(`imap-command-rejected:UB0003 NO ${secret}`)),'IMAP_COMMAND_REJECTED_SEARCH');
+  assert.equal(classifyImapProbeException(new Error(`imap-command-rejected:UB0004 BAD ${secret}`)),'IMAP_COMMAND_REJECTED_FETCH');
+  assert.equal(classifyImapProbeException(new Error(`imap-command-rejected:${secret}`)),'IMAP_COMMAND_REJECTED_UNKNOWN');
+});
+
 test('IMAP exception classifier does not echo raw provider messages',()=>{
   const e=new Error('authentication failed super-secret');
   assert.equal(classifyImapProbeException(e),'IMAP_PROBE_EXCEPTION');

@@ -7,6 +7,17 @@ const SUBJECTS=new Map([
 ]);
 const RETRYABLE=new Set(['IMAP_CONNECT_FAILED','ETIMEDOUT','ENETUNREACH','ECONNRESET','ECONNREFUSED','EAI_AGAIN','ENOTFOUND']);
 
+function rejectedStage(message=''){
+  const match=String(message).match(/\bub(\d{4})\s+(?:no|bad)\b/i);
+  if(!match)return'UNKNOWN';
+  const step=Number(match[1]);
+  if(step===1)return'LOGIN';
+  if(step===2)return'MAILBOX_OPEN';
+  if(step===3)return'SEARCH';
+  if(step>=4)return'FETCH';
+  return'UNKNOWN';
+}
+
 export function classifyImapProbeException(error){
   const code=String(error?.code||'').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'_');
   if(code&&code!=='ERROR')return code.slice(0,80);
@@ -14,7 +25,7 @@ export function classifyImapProbeException(error){
   if(message.includes('imap-connect-failed'))return'IMAP_CONNECT_FAILED';
   if(message.includes('timeout'))return'ETIMEDOUT';
   if(message.includes('certificate')||message.includes('tls'))return'TLS_FAILURE';
-  if(message.includes('imap-command-rejected'))return'IMAP_COMMAND_REJECTED';
+  if(message.includes('imap-command-rejected'))return`IMAP_COMMAND_REJECTED_${rejectedStage(message)}`;
   if(message.includes('greeting'))return'IMAP_GREETING_ERROR';
   return'IMAP_PROBE_EXCEPTION';
 }

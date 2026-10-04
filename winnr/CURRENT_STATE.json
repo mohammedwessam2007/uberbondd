@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.winnr.current-observations.v1",
   "reconciledDate": "2026-10-04",
-  "recoverySourceCommit": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f",
+  "recoverySourceCommit": "9a0f6877171026ed70258a1cd58c2c95a9d81623",
   "refreshLiveTruthRequired": false,
   "technicalActivation": "COMPLETE",
   "campaignActivation": "NOT_ACTIVATED",
@@ -18,8 +18,8 @@
   "runtime": {
     "renderService": "uberbond-control-plane",
     "renderServiceId": "srv-dali9vijnfac739m4vcg",
-    "liveSourceCommit": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f",
-    "liveDeployId": "dep-db14p949v7es73dulpfg",
+    "liveSourceCommit": "9a0f6877171026ed70258a1cd58c2c95a9d81623",
+    "liveDeployId": "dep-db159o3ncjis73b8i7j0",
     "liveDeployStatus": "live",
     "buildCommand": "npm install --omit=dev",
     "storeBackend": "postgres",
@@ -48,16 +48,17 @@
     "oct4FixPr": 1198,
     "truthSplitPr": 1199,
     "evidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md",
-    "terminalObservedAt": "2026-10-04T12:56:14.087Z",
+    "terminalObservedAt": "2026-10-04T13:31:23.959Z",
     "finalPublicationShaReceipt": "newest GitHub issue #1188 terminal comment"
   },
   "frozenProspectCanary20261004": {
-    "truthClass": "ONE_PROVIDER_CALL__ACCEPTANCE_AND_DELIVERY_UNKNOWN__NEVER_REPLAY",
+    "truthClass": "SPECIFIC_DISPATCH_RETURNED__ACCEPTANCE_AND_DELIVERY_UNKNOWN__NEVER_REPLAY",
     "authorizedDigest": "65b86bf22f1060ee307020ac8f304e55f788ccd88cba10d37108bae35c804347",
     "sender": "nadia.chen@cedarpointdomains.com",
     "recipient": "partnerships@intelo.ai",
     "persistenceErrorObservedAt": "2026-10-04T12:11:57Z",
-    "providerCalls": 1,
+    "incidentChronology": "DISPATCH_RETURNED_BEFORE_POST_PROVIDER_LEDGER_FAILURE",
+    "providerCallsFromIncidentEvidence": 1,
     "providerAcceptance": "UNKNOWN_NOT_PERSISTED",
     "providerReference": null,
     "providerMessageId": null,
@@ -73,7 +74,26 @@
     "repairMainSha": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f",
     "repairDeployId": "dep-db14p949v7es73dulpfg",
     "repairDeployStatus": "live",
+    "canonCorrectionPr": 1221,
+    "runtimeTruthPr": 1223,
     "repairReceipt": "docs/receipts/FROZEN_PROSPECT_CANARY_RECONCILIATION_2026-10-04.md"
+  },
+  "liveEffectTruth": {
+    "observedAt": "2026-10-04T13:31:23.959Z",
+    "sourceSha": "9a0f6877171026ed70258a1cd58c2c95a9d81623",
+    "prospectMessagePerformed": null,
+    "state": "CUSTOMER_MESSAGE_EFFECT_UNKNOWN",
+    "providerBoundaryCrossedFromDurableDbOnly": null,
+    "frozenExecutionClaims": 1,
+    "frozenProviderCallAttemptClaims": 1,
+    "frozenAcceptedResults": 0,
+    "frozenRejectedResults": 0,
+    "frozenUnknownResults": 1,
+    "unresolvedDispatchClaims": 1,
+    "confirmedSentEvents": 0,
+    "uncertainSendEvents": 0,
+    "automaticRetryAuthorized": false,
+    "truthBoundary": "The old DISPATCHING claim set providerCallAttempted before SMTP invocation, so durable DB state alone cannot prove provider-boundary crossing. Separate incident chronology proves the specific Intelo dispatch returned before persistence failed. Neither source proves SMTP acceptance or customer delivery."
   },
   "placement": {
     "receiverClass": "OWNER_CONTROLLED_UBERBOND_GMAIL",
@@ -118,7 +138,7 @@
     "campaignActivated": false
   },
   "currentCommercialEffectTruth": {
-    "providerCalls": 1,
+    "providerCallsFromIncidentEvidence": 1,
     "prospectCustomerDelivery": "UNKNOWN_0_OR_1",
     "automaticRetries": 0,
     "followups": 0,
@@ -130,7 +150,7 @@
   "nextActions": [
     "Preserve ordinal-3 SMTP quarantine and all IMAP custody",
     "Treat current IMAP transport health separately from historical canary presence",
-    "Reconcile the historical frozen Intelo effect from provider/recipient evidence only; never replay it",
+    "Reconcile the historical frozen Intelo effect from independent provider/recipient evidence only; never replay it",
     "Require independent campaign legal/provider/suppression/content/consequence gates for any future effect"
   ],
   "reconciliationEffects": {
@@ -149,5 +169,5 @@
     "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
   ],
   "privateEvidenceDocument": "WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md (founder-private record, not public repository content)",
-  "latestReconciledSourceCommit": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f"
+  "latestReconciledSourceCommit": "9a0f6877171026ed70258a1cd58c2c95a9d81623"
 }

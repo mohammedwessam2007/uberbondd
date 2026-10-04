@@ -173,7 +173,7 @@ export async function dispatchSmtpFleetAccount({
   if(!transport?.ok||typeof transport.send!=='function')return {classification:'REJECTED',providerCallAttempted:false,effectBoundaryCrossed:false,reasonCodes:transport?.reasonCodes||['smtp-transport-not-ready']};
   try{
     const result=await transport.send({...message,from:message.from||account.email});
-    if(result?.confirmed!==true||!clean(result.providerReceiptId,500))return {classification:'UNCERTAIN',providerCallAttempted:true,effectBoundaryCrossed:true,reasonCodes:['smtp-provider-confirmation-required'],messageId:result?.messageId||null};
+    if(result?.confirmed!==true||!clean(result.providerReceiptId,500))return {classification:'UNCERTAIN',providerCallAttempted:null,effectBoundaryCrossed:null,reasonCodes:['smtp-provider-confirmation-required'],messageId:result?.messageId||null};
     return {
       classification:'ACCEPTED',
       providerCallAttempted:true,
@@ -187,6 +187,6 @@ export async function dispatchSmtpFleetAccount({
       ? error.errors.slice(0,6).map(item=>[item?.code,item?.address,item?.port,item?.message].filter(Boolean).join(':')).filter(Boolean)
       : [];
     const detail=nested.length?nested.join('|'):(error?.message||error);
-    return {classification:'UNCERTAIN',providerCallAttempted:true,effectBoundaryCrossed:true,reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(detail,500),automaticRetryAuthorized:false};
+    return {classification:'UNCERTAIN',providerCallAttempted:null,effectBoundaryCrossed:null,reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(detail,500),automaticRetryAuthorized:false};
   }
 }

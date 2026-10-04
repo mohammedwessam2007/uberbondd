@@ -202,7 +202,8 @@ export async function executeFrozenProspectEffect({
     && typeof providerResult.classification === 'string' ? providerResult.classification : '';
   const providerReferenceId = typeof providerResult?.providerReferenceId === 'string'
     ? providerResult.providerReferenceId.trim().slice(0, 500) : '';
-  const accepted = rawClassification === 'ACCEPTED' && Boolean(providerReferenceId);
+  const accepted = rawClassification === 'ACCEPTED' && Boolean(providerReferenceId)
+    && providerResult?.providerCallAttempted !== false && providerResult?.effectBoundaryCrossed !== false;
   const definitelyRejectedBeforeEffect = rawClassification === 'REJECTED'
     && providerResult?.providerCallAttempted === false && providerResult?.effectBoundaryCrossed === false;
   // Everything other than a receipt-backed acceptance or an explicit
@@ -211,6 +212,7 @@ export async function executeFrozenProspectEffect({
   const uncertain = !accepted && !definitelyRejectedBeforeEffect;
   const classification = accepted ? 'ACCEPTED' : definitelyRejectedBeforeEffect ? 'REJECTED' : 'UNCERTAIN';
   const providerCallAttempted = accepted ? true : definitelyRejectedBeforeEffect ? false
+    : rawClassification === 'ACCEPTED' ? null
     : providerResult?.providerCallAttempted === true && providerResult?.effectBoundaryCrossed === true ? true
       : providerResult?.providerCallAttempted === false && providerResult?.effectBoundaryCrossed === false ? false : null;
   const effectBoundaryCrossed = providerCallAttempted;

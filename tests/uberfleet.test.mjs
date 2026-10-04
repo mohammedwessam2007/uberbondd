@@ -57,12 +57,20 @@ test('SMTP transport setup rejection is explicit proof the provider boundary was
   assert.equal(r.effectBoundaryCrossed,false);
   assert.equal(sends,0);
 });
-test('SMTP response without a provider receipt is uncertain after the effect boundary',async()=>{
+test('SMTP response without a provider receipt does not prove the effect boundary',async()=>{
   const r=await dispatchSmtpFleetAccount({
     account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
     transportFactory:()=>({ok:true,send:async()=>({confirmed:false,messageId:'<unknown@x>'})})
   });
   assert.equal(r.classification,'UNCERTAIN');
-  assert.equal(r.providerCallAttempted,true);
-  assert.equal(r.effectBoundaryCrossed,true);
+  assert.equal(r.providerCallAttempted,null);
+  assert.equal(r.effectBoundaryCrossed,null);
+});
+
+test('SMTP pre-network throw cannot manufacture a crossed provider boundary',async()=>{
+  const r=await dispatchSmtpFleetAccount({account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
+    transportFactory:()=>({ok:true,send:async()=>{throw new Error('invalid MIME before network');}})});
+  assert.equal(r.classification,'UNCERTAIN');
+  assert.equal(r.providerCallAttempted,null);
+  assert.equal(r.effectBoundaryCrossed,null);
 });

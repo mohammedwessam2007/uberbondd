@@ -61,7 +61,7 @@ test('accepted frozen receipt is a confirmed message effect', () => {
         status: 'SENT',
         providerCallAttempted: true,
         effectCapRemaining: 0,
-        receipt: { providerAccepted: true, automaticRetryAuthorized: false }
+        receipt: { providerAccepted: true, providerReferenceId: 'provider-accepted-1', automaticRetryAuthorized: false }
       }
     },
     outboundEvents: []
@@ -116,9 +116,27 @@ test('unclassified adapter receipt remains unknown even without confirmed provid
 test('explicit pre-effect rejection with no provider call remains no message', () => {
   const truth = compileProspectEffectTruth({ settings: {
     'frozenProspectExecution:rejected': { status: 'PROVIDER_REJECTED', providerCallAttempted: false,
-      receipt: { providerAccepted: false, effectLedger: { providerCalls: 0 } } }
+      receipt: { classification: 'REJECTED', providerAccepted: false, providerCallAttempted: false, effectBoundaryCrossed: false, effectLedger: { providerCalls: 0 } } }
   }});
   assert.equal(truth.prospectMessagePerformed, false);
   assert.equal(truth.providerBoundaryCrossed, false);
   assert.equal(truth.frozenRejectedResults, 1);
+});
+
+test('status-only acceptance or rejection cannot resolve a malformed receipt', () => {
+  for (const status of ['SENT', 'PROVIDER_ACCEPTED_CHECKPOINTED', 'PROVIDER_REJECTED', 'PROVIDER_REJECTED_CHECKPOINTED']) {
+    const truth = compileProspectEffectTruth({ settings: {
+      'frozenProspectExecution:status-only': { status, providerCallAttempted: true }
+    }});
+    assert.equal(truth.prospectMessagePerformed, null);
+    assert.equal(truth.providerBoundaryCrossed, null);
+  }
+});
+
+test('contradictory accepted receipt cannot confirm a message', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:contradiction': { status: 'SENT', providerCallAttempted: false,
+      receipt: { providerAccepted: true, providerReferenceId: 'ref', effectBoundaryCrossed: false } }
+  }});
+  assert.equal(truth.prospectMessagePerformed, null);
 });

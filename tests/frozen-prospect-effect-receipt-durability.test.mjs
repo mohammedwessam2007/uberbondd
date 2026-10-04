@@ -164,6 +164,7 @@ test('provider acceptance is checkpointed before a secondary outbound-event ledg
 test('malformed post-adapter outcomes stay uncertain, preserve blocking history, and cannot be replayed under another digest', async () => {
   for (const [label, rawResult] of [
     ['accepted-without-provider-reference', { classification: 'ACCEPTED' }],
+    ['contradictory-acceptance', { classification: 'ACCEPTED', providerReferenceId: 'contradicted', providerCallAttempted: false, effectBoundaryCrossed: false }],
     ['rejected-without-pre-effect-proof', { classification: 'REJECTED' }],
     ['unknown-classification', { classification: 'MAYBE' }],
     ['missing-result', null],

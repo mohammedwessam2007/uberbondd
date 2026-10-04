@@ -11,7 +11,7 @@ import { buildProspectEvidenceBundle } from '../src/prospect-evidence-reconcilia
 const NOW = new Date('2026-08-23T12:00:00Z');
 
 function bundle({ suppressions = [], state = 'VALID' } = {}) {
-  return buildProspectEvidenceBundle({
+  return buildProspectEvidenceBundle({verificationTrust:()=>true,
     prospectId: 'prospect_pipeline',
     contactRoutes: [{
       route: 'buyer@example.com',

@@ -179,6 +179,6 @@ test('intake is pure: it does not mutate its input and only the zero-authority p
   // The only permitted importers are the zero-authority preflight composition,
   // its read-only candidate handoff and the reachability audit that merely names it. Nothing on a send path
   // (pipeline, governance, dispatch, worker) may import the intake.
-  const allowed = new Set(['src/prospect-preflight.mjs', 'src/prospect-preflight-handoff.mjs', 'scripts/outreach-reachability-audit.mjs', 'scripts/mutation-war.mjs', 'src/capability-graph.mjs']);
+  const allowed = new Set(['src/prospect-preflight.mjs', 'src/prospect-preflight-handoff.mjs', 'src/revenue-singularity-service.mjs', 'scripts/outreach-reachability-audit.mjs', 'scripts/mutation-war.mjs', 'src/capability-graph.mjs']);
   assert.deepEqual(importers.filter(file => !allowed.has(file)), []);
 });

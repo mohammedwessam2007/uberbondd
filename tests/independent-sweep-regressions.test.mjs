@@ -92,9 +92,9 @@ test('suppression canonicalisation does not over-block or crash on odd addresses
   assert.equal(canonicalContactRoute('a@b@example.com'), 'a@b@example.com');
   // A suppression entry that is only a tag must not suppress an unrelated
   // mailbox on the same domain.
-  const unrelated = evaluateContactRoute({
+  const unrelated = evaluateContactRoute({verificationTrust:()=>true,
     route: 'other@example.com',
-    verifications: [{ route: 'other@example.com', state: 'VALID', checkedAt: '2026-08-21T00:00:00Z' }],
+    verifications: [{ route: 'other@example.com', state: 'VALID', provider:'fixture-verifier', evidenceClass:'LICENSED_PROVIDER', checkedAt: '2026-08-21T00:00:00Z' }],
     suppressions: [{ value: '+tag@example.com' }],
     now: NOW
   });

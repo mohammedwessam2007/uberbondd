@@ -70,8 +70,8 @@ export function compileOutreachDriftReport({
   // 2. Provider-state representation consistency (hot pointer / handoff / state file).
   if (winnr && section) {
     const same = (label, a, b) => { if (JSON.stringify(a) !== JSON.stringify(b)) add('PROVIDER_STATE_CONSISTENCY', 'docs/CURRENT_HANDOFF.json', `${label}: handoff says ${JSON.stringify(a)} but winnr/CURRENT_STATE.json says ${JSON.stringify(b)}`); };
-    same('smtpConfirmed', section.smtpConfirmed, winnr.runtime?.smtpConfirmed);
-    same('imapConfirmed', section.imapConfirmed, winnr.runtime?.imapConfirmed);
+    same('smtpConfirmedHistorical', section.smtpConfirmedHistorical ?? section.smtpConfirmed, winnr.runtime?.smtpConfirmedHistorical ?? winnr.runtime?.smtpConfirmed);
+    same('imapConfirmedCurrent', section.imapConfirmedCurrent ?? section.imapConfirmed, winnr.runtime?.imapConfirmedCurrent ?? winnr.runtime?.imapConfirmed);
     same('smtpQuarantinedOrdinals', section.smtpQuarantinedOrdinals, winnr.runtime?.smtpQuarantinedOrdinals);
     same('technicalActivation', section.technicalActivation, winnr.technicalActivation);
     same('campaignActivation', section.campaignActivation, winnr.campaignActivation);

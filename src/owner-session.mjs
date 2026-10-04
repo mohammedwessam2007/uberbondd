@@ -10,7 +10,6 @@ export const OWNER_SESSION_CSRF_HEADER = 'x-uberbond-owner-csrf';
 export const OWNER_SESSION_ABSOLUTE_MS = 30 * 24 * 3600 * 1000;
 export const OWNER_SESSION_IDLE_MS = 14 * 24 * 3600 * 1000;
 const VERSION = 1;
-const MAX_REVOKED = 2000;
 
 const b64 = value => Buffer.from(value).toString('base64url');
 const unb64 = value => Buffer.from(String(value), 'base64url').toString('utf8');
@@ -33,7 +32,7 @@ export const parseCookies = header => {
 };
 
 export const createOwnerSessionManager = ({ adminToken, now = () => Date.now() } = {}) => {
-  const revoked = new Set();
+  const revoked = new Map();
   const enabled = typeof adminToken === 'string' && adminToken.length >= 16;
   const key = enabled ? deriveKey(adminToken) : null;
 
@@ -56,7 +55,7 @@ export const createOwnerSessionManager = ({ adminToken, now = () => Date.now() }
       return { ok: false, reason: 'MALFORMED' };
     }
     const t = now();
-    if (revoked.has(payload.sid)) return { ok: false, reason: 'REVOKED' };
+    if ((revoked.get(payload.sid) || 0) > t) return { ok: false, reason: 'REVOKED' };
     if (payload.iat > t + 60000) return { ok: false, reason: 'FUTURE_DATED' };
     if (t - payload.iat > OWNER_SESSION_ABSOLUTE_MS) return { ok: false, reason: 'EXPIRED_ABSOLUTE' };
     if (t - payload.seen > OWNER_SESSION_IDLE_MS) return { ok: false, reason: 'EXPIRED_IDLE' };
@@ -71,11 +70,14 @@ export const createOwnerSessionManager = ({ adminToken, now = () => Date.now() }
   };
 
   const revoke = sid => {
-    revoked.add(sid);
-    if (revoked.size > MAX_REVOKED) revoked.delete(revoked.values().next().value);
+    revoked.set(sid, now() + OWNER_SESSION_ABSOLUTE_MS);
+  };
+  const restoreRevocations = rows => {
+    revoked.clear();
+    for (const row of Array.isArray(rows) ? rows : []) if (typeof row.sid === 'string' && Number(row.expiresAt) > now()) revoked.set(row.sid, Number(row.expiresAt));
   };
 
-  return { enabled, issue, verify, refreshed, revoke };
+  return { enabled, issue, verify, refreshed, revoke, restoreRevocations };
 };
 
 export const cookieHeader = (value, { secure = true, maxAgeMs = OWNER_SESSION_ABSOLUTE_MS } = {}) =>

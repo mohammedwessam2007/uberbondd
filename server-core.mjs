@@ -1138,6 +1138,12 @@ export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
     const method = req.method;
+    if (parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE]) {
+      // Device logout survives web restarts. Failure to read revocations never
+      // resurrects a cookie by falling back to process-local memory.
+      try { ownerSessions.restoreRevocations((await store.getSettings()).ownerSessionRevocations || []); }
+      catch { return json(res, 503, { error: 'Owner session truth unavailable' }); }
+    }
     if (method === 'GET' && url.pathname === '/unsubscribe') {
       const token = url.searchParams.get('token') || '';
       const action = `/api/public/unsubscribe?token=${encodeURIComponent(token)}`;
@@ -1167,7 +1173,11 @@ export const requestHandler = async (req, res) => {
       await bodyText(req);
       const cookie = parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE];
       const verdict = cookie ? ownerSessions.verify(cookie) : { ok: false };
-      if (verdict.ok) ownerSessions.revoke(verdict.sid);
+      if (verdict.ok) {
+        if (!authorizeOwnerCookie(ownerSessions, req).ok) return json(res, 403, { error: 'Owner session CSRF refused' });
+        await store.updateSettingAtomically('ownerSessionRevocations', rows => [...(Array.isArray(rows) ? rows : []).filter(row => Number(row.expiresAt) > Date.now()), { sid: verdict.sid, expiresAt: Date.now() + OWNER_SESSION_ABSOLUTE_MS }]);
+        ownerSessions.revoke(verdict.sid);
+      }
       return json(res, 200, { ok: true, state: 'OWNER_SESSION_ENDED' }, { 'set-cookie': clearCookieHeader({ secure: cookieSecure(req) }), 'cache-control': 'no-store' });
     }
     const relayPath = url.pathname === '/api/agent-relay/health'
@@ -1199,12 +1209,14 @@ export const requestHandler = async (req, res) => {
       const radar = revenueSingularity.radarFromSnapshot(snap);
       const halted = new Set(radar.haltedProspects);
       const gs = revenueSingularity.gspotFor(store, halted);
+      const safePreflightContext = {unsubscribeFactory:email=>preparedRecipientUnsubscribeUrls(config.baseUrl,email,config.unsubscribeSecret),policyRegistry:loadPolicyEvidenceBundle({now:new Date()}),registryAdapters:greenLaneRegistryAdapters};
       const latestRun = async () => Object.values(await gs.list()).sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0] || null;
       if (method === 'GET' && rev === 'money-queue') return json(res, 200, revenueSingularity.moneyQueueFromSnapshot(snap));
       if (method === 'GET' && rev === 'reply-radar') return json(res, 200, radar);
       if (method === 'GET' && rev === 'reliability') return json(res, 200, revenueSingularity.reliabilityFromSnapshot(snap));
       if (method === 'GET' && rev === 'constellation') {
-        const infra = [{ id: 'web', status: 'OK', observedAt: now() }, { id: `store:${config.storeBackend}`, status: 'OK', observedAt: now() }];
+        const workers = await queue.liveWorkers().catch(() => null);
+        const infra = [{ id: 'web', status: 'OK', observedAt: now() }, { id: `store:${config.storeBackend}`, status: snap.readsHealthy ? 'OK' : 'DEGRADED', observedAt: now() }, { id: 'worker', status: workers?.length ? 'OK' : 'UNKNOWN', observedAt: workers?.length ? now() : null }];
         return json(res, 200, revenueSingularity.constellationFromSnapshot(snap, { at: url.searchParams.get('at'), expand: url.searchParams.get('expand'), gspotRun: await latestRun(), infra }));
       }
       if (method === 'GET' && rev === 'xray') return json(res, 200, revenueSingularity.xrayFromSnapshot(snap, String(url.searchParams.get('prospectId') || ''), await latestRun()));
@@ -1212,16 +1224,18 @@ export const requestHandler = async (req, res) => {
       if (method === 'GET' && rev === 'delivery') return json(res, 200, revenueSingularity.deliveryFromSnapshot(snap, String(url.searchParams.get('leadId') || '')));
       if (method === 'GET' && rev === 'deal') return json(res, 200, revenueSingularity.dealFromSnapshot(snap, String(url.searchParams.get('leadId') || '')));
       if (method === 'GET' && rev === 'partners') return json(res, 200, await revenueSingularity.partnersFromStore(store));
+      if (method === 'GET' && rev === 'payment-readiness') return json(res, 200, { rails: revenueSingularity.paymentRailsFromSnapshot(snap), outboundAuthority: 'NONE' });
       if (method === 'GET' && rev === 'gspot') return json(res, 200, { run: await latestRun(), liveDispatchBound: false });
       if (method === 'POST' && rev === 'demand-signals') return json(res, 200, await revenueSingularity.ingestDemandSignal(store, await parseBody(req)));
       if (method === 'POST' && rev === 'gspot/plan') {
         const body = await parseBody(req);
         const queueNow = revenueSingularity.moneyQueueFromSnapshot(snap);
-        const { run } = await gs.plan({ items: queueNow.items.slice(0, Math.min(50, Number(body.limit) || 25)), idempotencyKey: body.idempotencyKey });
-        return json(res, 200, await gs.advance(run.runId, revenueSingularity.gspotEvidenceFor(snap, queueNow, radar)));
+        const { run } = await gs.plan({ items: queueNow.items.slice(0, Math.min(50, Number(body.limit) || 25)), idempotencyKey: body.idempotencyKey || `safe:${crypto.createHash('sha256').update(JSON.stringify({queueDigest:queueNow.digest, inputs:snap.prospects.map(p=>({id:p.id,contact:p.contact,issue:p.issue,record:p.preflightRecord,slots:p.messageSlots})),senderHealth:snap.senderHealth})).digest('hex')}` });
+        return json(res, 200, await gs.advance(run.runId, revenueSingularity.safeGspotEvidenceFor(store, snap, queueNow, radar, safePreflightContext)));
       }
       if (method === 'POST' && rev === 'gspot/prepare-batch') {
         const body = await parseBody(req);
+        await gs.advance(String(body.runId || ''), revenueSingularity.safeGspotEvidenceFor(store, snap, revenueSingularity.moneyQueueFromSnapshot(snap), radar, safePreflightContext));
         const caps = {}; for (const h of snap.senderHealth) if (!h.paused) caps[h.inbox] = 1; // conservative: 1 per healthy sender
         return json(res, 200, await gs.prepareBatch(String(body.runId || ''), { maxItems: Math.min(5, Number(body.maxItems) || 3), perSenderCap: caps }));
       }

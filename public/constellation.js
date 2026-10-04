@@ -10,7 +10,7 @@ const COLORS = {
   pipeline: { DISCOVERED: '#6f7f9f', QUEUED: '#53d8ff', SENT: '#ad8cff', REPLIED: '#ffb454', HALTED: '#ff6f7d', PAID: '#54f6a9' },
   type: { core: '#ffd166', offer: '#53d8ff', sender: '#ad8cff', infra: '#9aa9c8', cluster: '#7083a8', prospect: '#7083a8' }
 };
-const LENSES = [['pipeline', 'Pipeline'], ['economic', 'Economic'], ['proof', 'Evidence'], ['buyer', 'Buyer'], ['infrastructure', 'Infra'], ['uncertainty', 'Uncertainty']];
+const LENSES = [['pipeline', 'Pipeline'], ['economic', 'Money'], ['demand', 'Demand'], ['proof', 'Proof'], ['outreach', 'Outreach'], ['reliability', 'Reliability'], ['buyer', 'Buyer'], ['infrastructure', 'Infrastructure'], ['uncertainty', 'Uncertainty']];
 const TAU = Math.PI * 2;
 const set = (el, s) => { el.textContent = s; };
 const el = (tag, s, cls) => { const e = document.createElement(tag); if (s !== undefined) e.textContent = s; if (cls) e.className = cls; return e; };
@@ -56,7 +56,9 @@ function style(n) {
   let color = base, alpha = 1, ring = null;
   if (lens === 'economic') { color = n.type === 'prospect' || n.type === 'cluster' ? heat(Math.min(1, (n.mass || 0) / 6)) : base; if (n.stage === 'PAID') ring = '#54f6a9'; }
   else if (lens === 'proof') { color = n.uncertainty === undefined ? '#526078' : heat(1 - n.uncertainty); }
-  else if (lens === 'buyer') { color = { EXPLICIT_DEMAND: '#54f6a9', SIGNAL_STACK: '#53d8ff', FIT_ONLY: '#ad8cff' }[n.lane] || (n.type === 'prospect' ? '#526078' : base); }
+  else if (lens === 'outreach') { if (n.type === 'prospect') color = COLORS.pipeline[n.stage] || '#526078'; else if (n.type !== 'sender' && n.type !== 'core') alpha = .2; }
+  else if (lens === 'reliability') { if (n.type === 'sender' || n.type === 'infra') color = { OK: '#54f6a9', DEGRADED: '#ff6f7d', UNKNOWN: '#7083a8' }[n.health] || '#7083a8'; else if (n.type === 'prospect') { alpha = .2 + .8 * (1 - (n.uncertainty ?? 1)); if (n.halted) ring = '#ff6f7d'; } }
+  else if (lens === 'buyer' || lens === 'demand') { color = { EXPLICIT_DEMAND: '#54f6a9', SIGNAL_STACK: '#53d8ff', FIT_ONLY: '#ad8cff' }[n.lane] || (n.type === 'prospect' ? '#526078' : base); }
   else if (lens === 'infrastructure') { if (n.type === 'sender' || n.type === 'infra') color = { OK: '#54f6a9', DEGRADED: '#ff6f7d', UNKNOWN: '#7083a8' }[n.health] || '#7083a8'; else alpha = 0.2; }
   else if (lens === 'uncertainty') { alpha = 0.2 + 0.8 * (1 - (n.uncertainty ?? 1)); if ((n.uncertainty ?? 1) > 0.65) ring = '#ffb454'; }
   if (n.halted) ring = '#ff6f7d';
@@ -187,7 +189,7 @@ function frame(ts) {
 
 // ---- interaction: pointer pan, pinch/wheel semantic zoom, tap select
 const ptrs = new Map(); let moved = 0, lastPinch = 0;
-cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); moved = 0; });
+cv.addEventListener('pointerdown', e => { cv.setPointerCapture(e.pointerId); ptrs.set(e.pointerId, { x: e.clientX, y: e.clientY }); if (ptrs.size === 1) moved = 0; if (ptrs.size === 2) { const [a, b] = [...ptrs.values()]; lastPinch = Math.hypot(a.x - b.x, a.y - b.y); moved = Math.max(moved, 8); } });
 cv.addEventListener('pointermove', e => {
   const p = ptrs.get(e.pointerId); if (!p) return;
   const dx = e.clientX - p.x, dy = e.clientY - p.y; moved += Math.abs(dx) + Math.abs(dy);

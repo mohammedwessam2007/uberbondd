@@ -203,7 +203,7 @@ export class Pipeline {
     if (contact?.email && !ownerRecordedContact && providerEnrichmentEnabled && this.cfg.hunterKey && contact.verified === 'unverified') {
       try {
         const verification = await verifyEmail(contact.email, this.cfg.hunterKey);
-        contact = { ...contact, verified: verification.status, verificationScore: verification.score };
+        contact = { ...contact, verified: verification.status, verificationScore: verification.score, verifications: verification.verification ? [verification.verification] : [] };
       } catch (error) {
         await this.store.log('verification_failed', { prospectId: prospect.id, error: error.message });
       }

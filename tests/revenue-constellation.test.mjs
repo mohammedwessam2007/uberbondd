@@ -19,6 +19,9 @@ const base = () => ({
     { id: 'l1', prospectId: 'p1', paymentStatus: 'paid', providerTransactionId: 'tx1', amountCents: 150000, updatedAt: iso(2) },
     { id: 'l2', prospectId: 'p3', paymentStatus: 'paid', updatedAt: iso(2) } // claimed, no provider evidence
   ],
+  orders: [{ leadId: 'l1', prospectId: 'p1', provider: 'paypal', eventName: 'capture_completed', providerEventId: 'tx1', amountCents: 150000, currency: 'USD', createdAt: iso(2) }],
+  revenueEvents: [{ leadId: 'l1', prospectId: 'p1', provider: 'paypal', providerEventId: 'capture_completed:tx1', amountCents: 150000, currency: 'USD', createdAt: iso(2) }],
+  auditLog: [{ type: 'payment_classification', leadId: 'l1', prospectId: 'p1', provider: 'paypal', eventName: 'capture_completed', eventId: 'tx1', classification: 'CLEARED_ONE_TIME_PAYMENT', amountCents: 150000, currency: 'USD', createdAt: iso(2) }],
   infra: [{ id: 'web', status: 'OK', observedAt: iso(1) }, { id: 'worker' }]
 });
 

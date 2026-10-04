@@ -1,3 +1,6 @@
+import {sealAdapterVerification} from '../src/contact-verification-trust.mjs';
+import {normalizeContactVerification} from '../src/prospect-evidence-reconciliation.mjs';
+process.env.ADMIN_TOKEN='test-only-owned-adapter-secret-00000001';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { evaluateUberWarmMailbox, compileUberWarmFleet } from '../src/uberwarm-reputation-lab.mjs';
@@ -91,14 +94,14 @@ function directSource(email = 'buyer@example.com', overrides = {}) {
 }
 
 function verification(state = 'VALID', email = 'buyer@example.com') {
-  return {
+  return sealAdapterVerification(normalizeContactVerification({
     route: email,
     state,
-    provider: 'licensed-test-provider',
+    provider:'Hunter',sourceUrl:'https://api.hunter.io/v2/email-verifier',sourceRecordId:'test-api-response',
     evidenceClass: 'LICENSED_PROVIDER',
     confidence: 0.95,
     checkedAt: NOW.toISOString()
-  };
+  }));
 }
 
 test('UberVerify accepts direct source evidence plus a VALID verification only for a later authorization gate', () => {

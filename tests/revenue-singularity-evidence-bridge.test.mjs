@@ -9,14 +9,16 @@ import {
 } from '../src/revenue-singularity-service.mjs';
 import { PROSPECT_EVIDENCE_VERSION } from '../src/prospect-evidence-reconciliation.mjs';
 
+import { sealAdapterVerification } from '../src/contact-verification-trust.mjs';
+process.env.ADMIN_TOKEN = 'test-only-verifier-adapter-key-00000001';
 const NOW = Date.parse('2026-10-04T08:00:00.000Z');
-const canonicalVerification = (route = 'owner@signal.example') => ({
+const canonicalVerification = (route = 'owner@signal.example') => sealAdapterVerification({
   version: PROSPECT_EVIDENCE_VERSION,
   verificationId: 'verify_test_owner_signal',
   route,
   state: 'VALID',
-  provider: 'uberverify',
-  sourceUrl: 'https://signal.example/verification-evidence',
+  provider: 'Hunter',
+  sourceUrl: 'https://api.hunter.io/v2/email-verifier',
   sourceRecordId: 'verify-record-1',
   evidenceClass: 'LICENSED_PROVIDER',
   confidence: 0.97,

@@ -2,11 +2,17 @@
 // Every function is read-only except `ingestDemandSignal` (appends one
 // validated, evidence-referenced signal to a prospect) and the G-SPOT run
 // bookkeeping inside createGspot. Nothing here sends, spends or deploys.
+import { createHash } from 'node:crypto';
+import { isTrustedContactVerification } from './contact-verification-trust.mjs';
 import { qualifyProspect } from './prospect-qualification-pipeline.mjs';
 import { selectUberReplyOffer } from './uberreply-four-offer-genome.mjs';
 import { compileMoneyQueue, SIGNAL_KINDS, stackSignals } from './money-queue.mjs';
 import { compileReplyRadar } from './reply-radar.mjs';
-import { compileProofLineage } from './proof-factory.mjs';
+import { checkContactHistory } from './prospect-contact-history.mjs';
+import { compileProspectVerification } from './prospect-verification-intake.mjs';
+import { runProspectMessageTournament, compilePreworkSpec } from './prospect-message-tournament.mjs';
+import { runProspectPreflight, repositoryArtifactExists } from './prospect-preflight.mjs';
+import { compileProofLineage, narrowTournamentWithCritics } from './proof-factory.mjs';
 import { createGspot } from './gspot.mjs';
 import { buildConstellation, xray as xrayProspect } from './revenue-constellation.mjs';
 import { compileOfferMarket } from './offer-market-maker.mjs';
@@ -18,10 +24,11 @@ import { compileContactHistory, RESULT_STATUS } from './prospect-contact-history
 import { buildProspectEvidenceBundle, PROSPECT_EVIDENCE_VERSION } from './prospect-evidence-reconciliation.mjs';
 import { diagnosePaymentRail, IMPLEMENTED_PAYMENT_RAILS, summarizePaymentRail } from './payment-rail-doctor.mjs';
 import { compressPayment } from './payment-compression.mjs';
+import { canonicalPaymentFacts } from './payment-renewal-truth.mjs';
 
 const pick = (o, ...k) => k.map(x => o?.[x]).find(v => v !== undefined && v !== null && v !== '');
 const HISTORY_COLLECTIONS = Object.freeze(['suppressions', 'prospects', 'outboundReservations', 'outboundEvents', 'replies', 'messages', 'providerEvents']);
-const SNAPSHOT_COLLECTIONS = Object.freeze(['prospects', 'outboundEvents', 'replies', 'senderHealth', 'leads', 'suppressions', 'leadSignals']);
+const SNAPSHOT_COLLECTIONS = Object.freeze(['prospects', 'outboundEvents', 'replies', 'senderHealth', 'leads', 'suppressions', 'leadSignals', 'orders', 'revenueEvents', 'auditLog']);
 
 // Thin in-service compatibility bridge from durable prospect records into the
 // canonical evidence/qualification shapes. This deliberately stays inside the
@@ -63,6 +70,7 @@ function canonicalContactVerifications(contact = {}, email = '') {
 
 function contactCandidate(prospect = {}) {
   const c = prospect.contact || {};
+  if (c.inferred === true || c.exact === false || c.source === 'model_inference') return null;
   const email = String(c.email || prospect.email || '').trim().toLowerCase();
   if (!email) return null;
   const sourceType = sourceTypeOf(c.source || prospect.source);
@@ -97,15 +105,26 @@ function contactCandidate(prospect = {}) {
 /** Build only from durable fields with attributable provenance. Missing
  * provenance remains missing and therefore keeps qualification closed. */
 export function evidenceBundleFromStoredProspect(prospect = {}, { suppressions = [], now = new Date() } = {}) {
-  if (prospect?.evidenceBundle?.version === PROSPECT_EVIDENCE_VERSION) return prospect.evidenceBundle;
-  if (prospect?.evidenceBundle && typeof prospect.evidenceBundle === 'object') return prospect.evidenceBundle;
   const candidate = contactCandidate(prospect);
   if (!candidate) return null;
+  const stored = prospect.evidenceBundle;
+  // Cached verdicts are never reused. Keep raw lineage, but re-evaluate the
+  // exact buyer route, current suppression and expiry on every read.
+  if (stored && String(stored.prospectId || '') !== String(prospect.id || '')) return null;
+  const route = candidate.route.route;
+  const cached = (stored?.routes || []).filter(item => item.route === route).flatMap(item => item.verification ? [item.verification] : []);
+  const verifications = [...candidate.route.verifications, ...cached].filter(item => {
+    const checked = Date.parse(item.checkedAt || '');
+    return isTrustedContactVerification(item) && Number.isFinite(checked) && checked <= new Date(now).getTime() + 60000
+      && Boolean(item.sourceRecordId || item.sourceUrl)
+      && !/^(website|public_website|unknown-provider|model|local-evidence)$/i.test(String(item.provider || ''));
+  });
   try {
     return buildProspectEvidenceBundle({
       prospectId: prospect.id,
-      personCandidates: candidate.person ? [candidate.person] : [],
-      contactRoutes: [candidate.route],
+      personCandidates: (stored?.people || []).filter(item => String(item.companyId) === String(prospect.id)).length ? stored.people.filter(item => String(item.companyId) === String(prospect.id)) : candidate.person ? [candidate.person] : [],
+      enrichmentObservations: Object.values(stored?.reconciledFields || {}).flatMap(field => field.observations || []).filter(item => String(item.prospectId || '') === String(prospect.id)),
+      contactRoutes: [{ route, verifications }],
       suppressions,
       now
     });
@@ -237,13 +256,15 @@ async function readCollection(store, key) {
 export async function snapshot(store, now = Date.now()) {
   const keys = [...new Set([...SNAPSHOT_COLLECTIONS, ...HISTORY_COLLECTIONS])];
   const reads = Object.fromEntries(await Promise.all(keys.map(async key => [key, await readCollection(store, key)])));
-  let settings = {};
-  try { settings = await store.getSettings() || {}; } catch { settings = {}; }
+  let settings = {}; let settingsHealthy = true;
+  try { settings = await store.getSettings() || {}; } catch { settings = {}; settingsHealthy = false; }
   const rows = key => reads[key]?.rows || [];
   const contactHistoryReads = Object.fromEntries(HISTORY_COLLECTIONS.map(key => [key, reads[key]]));
   return {
     prospects: rows('prospects'), outboundEvents: rows('outboundEvents'), replies: rows('replies'),
     senderHealth: rows('senderHealth'), leads: rows('leads'), suppressions: rows('suppressions'), leadSignals: rows('leadSignals'),
+    orders: rows('orders'), revenueEvents: rows('revenueEvents'), auditLog: rows('auditLog'),
+    readsHealthy: settingsHealthy && keys.every(key => reads[key]?.ok), failedReads: [...keys.filter(key => !reads[key]?.ok), ...(settingsHealthy ? [] : ['settings'])],
     contactHistoryReads, settings, now
   };
 }
@@ -287,7 +308,7 @@ export function moneyQueueFromSnapshot(s, { limit = 100 } = {}) {
     };
   });
   const sends = s.outboundEvents.filter(e => e.eventType === 'sent').length;
-  const paid = s.leads.filter(l => l.paymentStatus === 'paid' && (l.paymentEvidenceRef || l.providerTransactionId || l.providerEventId)).length;
+  const paid = canonicalPaymentFacts(s).paidLeadIds.length;
   return compileMoneyQueue({ candidates, now: s.now, outcomes: { sends, paid }, limit });
 }
 
@@ -297,7 +318,7 @@ export function reliabilityFromSnapshot(s) {
   const bounces = ev.filter(e => e.eventType === 'hard_bounce').length;
   const complaints = ev.filter(e => e.eventType === 'complaint').length;
   const replied = new Set(s.replies.map(r => r.prospectId).filter(Boolean)).size;
-  const paid = s.leads.filter(l => l.paymentStatus === 'paid' && (l.paymentEvidenceRef || l.providerTransactionId || l.providerEventId)).length;
+  const paid = canonicalPaymentFacts(s).paidLeadIds.length;
   const counts = { SENT: sent, DELIVERED: Math.max(0, sent - bounces), REPLIED: replied, QUALIFIED_REPLY: 0, PRICED: 0, PAID: paid, ACCEPTED: 0 };
   const radar = radarFromSnapshot(s);
   counts.QUALIFIED_REPLY = radar.items.filter(i => i.label === 'positive').length;
@@ -341,16 +362,48 @@ export function gspotEvidenceFor(s, moneyQueue, radar) {
   const healthy = new Map(s.senderHealth.map(h => [h.inbox, h]));
   return prospectId => {
     const p = byId.get(prospectId) || {};
-    const ev = { ...(p.gspotEvidence || {}) };
+    const ev = { safeInputRequired: true };
     const q = qById.get(prospectId);
-    if (q) ev.qualification = { eligible: true, outboundAuthority: 'NONE' };
-    if (!ev.proofRef && (p.proofFindings || p.issue)) {
-      const l = compileProofLineage({ offerId: q?.offerId, prospect: p, issue: p.issue || null, audit: p.proofFindings || [], observedAt: p.proofObservedAt || null, now: s.now });
+    ev.qualification = { eligible: Boolean(q), outboundAuthority: 'NONE' };
+    ev.suppressed = q ? false : true;
+    if (!q) { ev.effectPackageState = 'BLOCKED_CURRENT_QUALIFICATION'; ev.senderHealthy = false; }
+    if (p.proofFindings || p.issue) {
+      const l = compileProofLineage({ offerId: q?.offerId, prospect: p, issue: p.issue || null, audit: p.proofFindings || [], observedAt: p.proofObservedAt || p.issue?.evidenceObservedAt || null, now: s.now });
       if (l.ok && l.freshness === 'FRESH') { ev.proofRef = l.proofRef; ev.proofDigest = l.proofDigest; }
     }
     if (ev.senderId) { const h = healthy.get(ev.senderId); ev.senderHealthy = Boolean(h) && !h.paused; ev.senderQuarantined = Boolean(h?.paused || h?.quarantined); }
     ev.offerId = ev.offerId || q?.offerId;
     return ev;
+  };
+}
+
+/** Compute every available safe stage. Input prose never authorizes anything;
+ * missing reviewed record/slots remain an evidence blocker. */
+export function safeGspotEvidenceFor(store, s, moneyQueue, radar, preflightContext = {}) {
+  const base = gspotEvidenceFor(s, moneyQueue, radar);
+  return async prospectId => {
+    const ev = base(prospectId);
+    const p = s.prospects.find(p => p.id === prospectId);
+    if (!ev.qualification.eligible || !p?.preflightRecord || !p?.messageSlots) return ev;
+    const record = {...p.preflightRecord, offerRoute:{...p.preflightRecord.offerRoute,offerId:ev.offerId}};
+    try {
+      if (String(record.recipient?.email || '').toLowerCase() !== String(p.contact?.email || '').toLowerCase() || new URL(record.website).hostname !== new URL(p.website).hostname) return {...ev, messageValidated:false, effectPackageState:'BLOCKED_INPUT_BINDING'};
+    } catch { return {...ev,messageValidated:false,effectPackageState:'BLOCKED_INPUT_BINDING'}; }
+    const history = await checkContactHistory({store, email:p.contact.email, now:new Date(s.now)});
+    const intake = compileProspectVerification({...record, contactHistoryReceipt:history}, {now:new Date(s.now), contactHistoryTrust:{inProcess:true}, jurisdictionPolicy:{anyHeadquarters:true,deferRecipientSide:true}});
+    const prepared = repositoryArtifactExists(p.preworkArtifactRef);
+    const tournament = runProspectMessageTournament({intake, record, slots:p.messageSlots, artifactRef:p.preworkArtifactRef, artifactPrepared:prepared, now:new Date(s.now)});
+    const spec = compilePreworkSpec({intake,record,slots:p.messageSlots,artifactRef:p.preworkArtifactRef,artifactPrepared:prepared});
+    const lineage = compileProofLineage({offerId:ev.offerId,prospect:p,audit:spec.prework?.findings||[],observedAt:record.clientEvidence?.observation?.observedAt,now:s.now});
+    const critics = narrowTournamentWithCritics({tournament,lineage,claimsUsed:(lineage.claims||[]).map(c=>c.claimId),buyer:buyerFromStoredProspect(p),artifactPrepared:prepared});
+    const identity = s.settings?.businessIdentity || {};
+    const campaign = p.campaignId ? await store.get('campaigns',p.campaignId) : {};
+    const preflight = await runProspectPreflight({...preflightContext,store,record,slots:p.messageSlots,artifactRef:p.preworkArtifactRef,identity:{legalBusinessSenderName:identity.legalName,authorizedPublicPostalAddress:identity.postalAddress,footerUseAuthorized:identity.footerUseAuthorized===true},senderSide:p.preflightContext?.senderSide || {},globalRoute:p.preflightContext?.globalRoute || {},campaign:{...(campaign||{}),effectExpiresAt:campaign?.effectExpiresAt||new Date(s.now+30*60000).toISOString()},prepareEffect:true,includeEffectParticipants:true,now:new Date(s.now)});
+    const senderId = preflight.sender?.slot || preflight.effectPackage?.participants?.sender?.slot || null;
+    const health = s.senderHealth.find(h=>h.inbox===senderId);
+    const recipientHash = createHash('sha256').update(String(p.contact.email).trim().toLowerCase()).digest('hex');
+    return {...ev, ...critics, offerId:ev.offerId, proofRef:lineage.ok?lineage.proofRef:null,proofDigest:lineage.ok?lineage.proofDigest:null,
+      messageDigest:preflight.effectPackage?.finalEffectDigest||critics.messageDigest,senderId,senderHealthy:Boolean(health)&&!health.paused&&!health.quarantined,senderQuarantined:Boolean(health?.paused||health?.quarantined),recipientHash,effectPackageState:preflight.state, safePreflightBlockers:preflight.blockerCodes, messagePreparationState:tournament.status, outboundAuthority:'NONE'};
   };
 }
 
@@ -363,7 +416,8 @@ export function offerMarketFromSnapshot(s) {
     return [p.id, selectUberReplyOffer({ ...normalized, fitEvidenceConfidence: p.fitEvidenceConfidence ?? 0 })?.offer?.offerId];
   }));
   for (const e of s.outboundEvents) if (e.eventType === 'sent') { const o = offerOf.get(e.prospectId); if (o) sendsBy[o] = (sendsBy[o] || 0) + 1; }
-  for (const l of s.leads) if (l.paymentStatus === 'paid' && (l.paymentEvidenceRef || l.providerTransactionId || l.providerEventId)) { const o = offerOf.get(l.prospectId); if (o) paidBy[o] = (paidBy[o] || 0) + 1; }
+  const paidIds = new Set(canonicalPaymentFacts(s).paidLeadIds);
+  for (const l of s.leads) if (paidIds.has(l.id)) { const o = offerOf.get(l.prospectId); if (o) paidBy[o] = (paidBy[o] || 0) + 1; }
   const outcomes = {}; for (const o of new Set([...Object.keys(sendsBy), ...Object.keys(paidBy)])) outcomes[o] = { sends: sendsBy[o] || 0, clearedPayments: paidBy[o] || 0 };
   return compileOfferMarket({ outcomes });
 }
@@ -374,10 +428,16 @@ export function offerMarketFromSnapshot(s) {
  * attestations. Until trusted external receipts are bound into a canonical
  * ledger, the doctor must stay fail-closed rather than mint LIVE_READY. */
 export function paymentRailsFromSnapshot(s, env = process.env) {
+  const facts = canonicalPaymentFacts(s);
   return IMPLEMENTED_PAYMENT_RAILS.map(provider => {
+    const verified = facts.events.filter(event => event.type === 'cleared_payment' && facts.reports[event.leadId]?.ok)
+      .map(event => ({ event, order: (s.orders || []).find(order => `${order.eventName}:${order.providerEventId}` === event.id) }))
+      .filter(({ order }) => order?.provider === (provider === 'lemon_squeezy' ? 'lemonsqueezy' : provider))
+      .sort((a, b) => b.event.at - a.event.at)[0];
+    const verificationReceipt = verified ? { provider, providerEventId: verified.event.id, evidenceClass: 'PROVIDER_ORIGIN', outcome: 'RECONCILED', durable: true, verifiedAt: new Date(verified.event.at).toISOString() } : null;
     const report = diagnosePaymentRail({
       env, provider, mode: 'LIVE', at: new Date(s.now),
-      verificationReceipt: null,
+      verificationReceipt,
       kycAttestation: null
     });
     const summary = summarizePaymentRail(report);
@@ -387,7 +447,7 @@ export function paymentRailsFromSnapshot(s, env = process.env) {
       liveReady: summary.liveReady === true,
       reasonCodes: summary.reasonCodes || [],
       ownerActionQueue: summary.ownerActionQueue || [],
-      evidenceBinding: 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND'
+      evidenceBinding: verificationReceipt ? 'CANONICAL_THREE_WITNESS_PROVIDER_RECEIPT' : 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND'
     };
   });
 }
@@ -396,7 +456,15 @@ export function paymentRailsFromSnapshot(s, env = process.env) {
 export function deliveryFromSnapshot(s, leadId) {
   const l = s.leads.find(x => x.id === leadId);
   if (!l) return { ok: false, state: 'LEAD_NOT_FOUND' };
-  return { ok: true, leadId, ...advanceDelivery({ payment: l.paymentEvidence || null, scope: l.scope, acceptanceCriteria: l.acceptanceCriteria, deliverableRefs: l.deliverableRefs, claimsVerified: l.claimsVerified, acceptance: l.acceptance, caseStudyPermission: l.caseStudyPermission, valueConfirmedByCustomer: l.valueConfirmedByCustomer, usedResult: l.usedResult, recurringSignal: l.recurringSignal }) };
+  return { ok: true, leadId, ...advanceDelivery({ payment: canonicalPaymentEvidence(s, leadId), scope: l.scope, acceptanceCriteria: l.acceptanceCriteria, deliverableRefs: l.deliverableRefs, claimsVerified: l.claimsVerified, acceptance: l.acceptance, caseStudyPermission: l.caseStudyPermission, valueConfirmedByCustomer: l.valueConfirmedByCustomer, usedResult: l.usedResult, recurringSignal: l.recurringSignal }) };
+}
+
+function canonicalPaymentEvidence(s, leadId) {
+  const facts = canonicalPaymentFacts(s);
+  if (!facts.paidLeadIds.includes(leadId)) return null;
+  const event = facts.events.find(event => event.leadId === leadId && event.type === 'cleared_payment');
+  const report = facts.reports[leadId];
+  return event ? { cleared: true, source: 'provider', status: 'cleared', provider: (s.orders || []).find(order => `${order.eventName}:${order.providerEventId}` === event.id)?.provider, providerTransactionId: event.id, grossCents: report.economics.netProviderClearedRevenueCents, currency: report.economics.currency, clearedAt: new Date(event.at).toISOString() } : null;
 }
 
 /** DecisionTwin / UberClose for one lead plus the current provider-neutral live
@@ -409,7 +477,7 @@ export function dealFromSnapshot(s, leadId, env = process.env) {
   const paymentPath = compressPayment({ rails, buyerRegion: l.buyerRegion || l.country || null, amountCents, currency: l.currency || 'USD' });
   return {
     ok: true, leadId,
-    ...compileUberClose({ deal: { stage: l.dealStage, contacts: l.buyingGroup || [], paymentEvidence: l.paymentEvidence ? { cleared: l.paymentEvidence.status === 'cleared' && l.paymentEvidence.source === 'provider', providerTransactionId: l.paymentEvidence.providerTransactionId } : null, lastObjection: l.lastObjection } }),
+    ...compileUberClose({ deal: { stage: l.dealStage, contacts: l.buyingGroup || [], paymentEvidence: canonicalPaymentEvidence(s, leadId), lastObjection: l.lastObjection } }),
     paymentReadiness: rails,
     paymentPath
   };
@@ -420,4 +488,35 @@ export async function partnersFromStore(store) {
   const settings = await store.getSettings();
   const partners = Array.isArray(settings.revenuePartners) ? settings.revenuePartners : [];
   return { ...rankPartners({ partners }), diagnostics: diagnosticYield(settings.revenueDiagnostics || {}), source: 'settings.revenuePartners (owner maintained)' };
+}
+
+/** Credential-free startup receipt for the existing live organ. Reads only;
+ * never calls a verifier/payment provider, authenticates, or creates effects. */
+export async function terminalReadinessFromStore(store, env = process.env) {
+  const s = await snapshot(store);
+  const queue = moneyQueueFromSnapshot(s);
+  const sourceProviders = new Set();
+  let independentlyVerifiedRoutes = 0;
+  for (const p of s.prospects) {
+    const bundle = evidenceBundleFromStoredProspect(p, { suppressions: s.suppressions, now: new Date(s.now) });
+    independentlyVerifiedRoutes += bundle?.routes?.filter(route => route.usableForHandoff)?.length || 0;
+    for (const item of p.contact?.verifications || []) if (item.provider) sourceProviders.add(String(item.provider).slice(0, 80));
+  }
+  const exclusionCounts = {};
+  for (const item of queue.excluded || []) for (const reason of item.reasons || []) exclusionCounts[reason] = (exclusionCounts[reason] || 0) + 1;
+  const facts = canonicalPaymentFacts(s);
+  const first = queue.items[0];
+  const safeEvidence = first ? await safeGspotEvidenceFor(store,s,queue,radarFromSnapshot(s))(first.prospectId) : null;
+  return {
+    schemaVersion: 'uberbond.revenue-terminal-readiness.v1', observedAt: new Date(s.now).toISOString(),
+    sourceSha: String(env.RENDER_GIT_COMMIT || '').slice(0, 64) || null,
+    readHealthy: s.readsHealthy, failedReads: s.failedReads,
+    moneyQueue: { prospects: s.prospects.length, ranked: queue.items.length, independentlyVerifiedRoutes, exclusionCounts, verificationProviderLineage: [...sourceProviders].sort() },
+    configuredVerification: { hunterCredentialPresent: Boolean(env.HUNTER_API_KEY), providerCallsEnabled: env.LEAD_PROVIDER_CALLS_ENABLED === 'true', hunterEnabled: env.HUNTER_ENRICHMENT_ENABLED === 'true', noProviderCallPerformed: true },
+    paymentRails: paymentRailsFromSnapshot(s, env),
+    sandboxRails: IMPLEMENTED_PAYMENT_RAILS.map(provider => summarizePaymentRail(diagnosePaymentRail({ env, provider, mode: 'SANDBOX', at: new Date(s.now), verificationReceipt: null, kycAttestation: null }))),
+    commercialTruth: { retainedClearedCustomers: facts.paidLeadIds.length, providerWitnessedPaymentEvents: facts.events.filter(e => e.type === 'cleared_payment').length },
+    gspot: { liveDispatcherBound: false, convenienceAuthority: 'NONE', exactEffectAuthorityRequired: true, safeEvaluation: safeEvidence ? {prospectId:first.prospectId,proofPrepared:Boolean(safeEvidence.proofRef),messageValidated:safeEvidence.messageValidated===true,messagePreparationState:safeEvidence.messagePreparationState||null,criticReasonCodes:safeEvidence.reasonCodes||[],preflightState:safeEvidence.effectPackageState||null,blockers:safeEvidence.safePreflightBlockers||[],senderHealthy:safeEvidence.senderHealthy===true,recipientBound:Boolean(safeEvidence.recipientHash)} : null },
+    secretsExposed: false, routeValuesExposed: false, prospectMessagePerformed: false, outboundAuthority: 'NONE', businessEffectAuthority:'NONE'
+  };
 }

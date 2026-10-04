@@ -75,7 +75,7 @@ test('all expired enrichment evidence becomes STALE_ONLY', () => {
 });
 
 test('suppression dominates a later VALID verification', () => {
-  const result = evaluateContactRoute({
+  const result = evaluateContactRoute({verificationTrust:()=>true,
     route: 'buyer@example.com', verifications: [verification('VALID')],
     suppressions: [{ value: 'buyer@example.com', reason: 'unsubscribe' }], now: NOW
   });
@@ -85,7 +85,7 @@ test('suppression dominates a later VALID verification', () => {
 });
 
 test('domain suppression dominates valid address verification', () => {
-  const result = evaluateContactRoute({
+  const result = evaluateContactRoute({verificationTrust:()=>true,
     route: 'buyer@example.com', verifications: [verification('VALID')],
     suppressions: [{ value: 'example.com' }], now: NOW
   });
@@ -94,27 +94,27 @@ test('domain suppression dominates valid address verification', () => {
 
 test('stale VALID verification requires re-verification', () => {
   const stale = verification('VALID', { expiresAt: '2026-08-21T00:00:00Z' });
-  const result = evaluateContactRoute({ route: 'buyer@example.com', verifications: [stale], now: NOW });
+  const result = evaluateContactRoute({verificationTrust:()=>true, route: 'buyer@example.com', verifications: [stale], now: NOW });
   assert.equal(result.status, 'REVERIFY_REQUIRED');
   assert.equal(result.usableForHandoff, false);
 });
 
 test('catch-all and risky routes never become verified handoff routes', () => {
   for (const state of ['CATCH_ALL', 'RISKY', 'UNKNOWN']) {
-    const result = evaluateContactRoute({ route: 'buyer@example.com', verifications: [verification(state)], now: NOW });
+    const result = evaluateContactRoute({verificationTrust:()=>true, route: 'buyer@example.com', verifications: [verification(state)], now: NOW });
     assert.equal(result.status, 'NEEDS_REVIEW');
     assert.equal(result.usableForHandoff, false);
   }
 });
 
 test('temporary verifier failure defers rather than becoming invalid or valid', () => {
-  const result = evaluateContactRoute({ route: 'buyer@example.com', verifications: [verification('TEMPORARY_FAILURE')], now: NOW });
+  const result = evaluateContactRoute({verificationTrust:()=>true, route: 'buyer@example.com', verifications: [verification('TEMPORARY_FAILURE')], now: NOW });
   assert.equal(result.status, 'DEFER_TEMPORARY_FAILURE');
   assert.equal(result.usableForHandoff, false);
 });
 
 test('VALID route is evidence-ready but still carries no send authority', () => {
-  const result = evaluateContactRoute({ route: 'buyer@example.com', verifications: [verification('VALID')], now: NOW });
+  const result = evaluateContactRoute({verificationTrust:()=>true, route: 'buyer@example.com', verifications: [verification('VALID')], now: NOW });
   assert.equal(result.status, 'VERIFIED_ROUTE');
   assert.equal(result.usableForHandoff, true);
   assert.equal(result.businessEffectAuthority, 'NONE');
@@ -122,7 +122,7 @@ test('VALID route is evidence-ready but still carries no send authority', () => 
 });
 
 test('no verifier evidence stays needs-verification', () => {
-  const result = evaluateContactRoute({ route: 'buyer@example.com', verifications: [], now: NOW });
+  const result = evaluateContactRoute({verificationTrust:()=>true, route: 'buyer@example.com', verifications: [], now: NOW });
   assert.equal(result.status, 'NEEDS_VERIFICATION');
   assert.equal(result.usableForHandoff, false);
 });
@@ -132,7 +132,7 @@ test('unsupported verification states fail closed', () => {
 });
 
 test('bundle exposes conflicts and cannot authorize business effects', () => {
-  const bundle = buildProspectEvidenceBundle({
+  const bundle = buildProspectEvidenceBundle({verificationTrust:()=>true,
     prospectId: 'pros_1',
     personCandidates: [{ companyId: 'company_1', name: 'Ada', sourceType: 'public_website', sourceUrl: 'https://example.com/team' }],
     enrichmentObservations: [observation('COO'), observation('CFO', { sourceType: 'first_party', evidenceClass: 'DIRECT_FIRST_PARTY' })],

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "uberbond.observed-route-verification.v1",
+  "route": "hello@mypowerhouse.group",
+  "provider": "ClearBounce",
+  "state": "VALID",
+  "score": 95,
+  "mailboxExists": true,
+  "mxRecords": true,
+  "disposable": false,
+  "checkedAt": "2026-10-04T11:29:09.018Z",
+  "expiresAt": "2026-10-11T11:29:09.018Z",
+  "sourceUrl": "https://clearbounce.net/tools/email-checker",
+  "sourceRecordId": "browser-observation-clearbounce-powerhouse-20261004T112909Z",
+  "evidenceClass": "LICENSED_PROVIDER",
+  "observationMethod": "Independent free live mailbox-check UI, observed DOM and same-result screenshot; this ID is our observation ID, not an invented provider transaction ID.",
+  "screenshotRef": "artifacts/outreach/clearbounce-powerhouse-20261004.jpg",
+  "providerCalls": 1,
+  "messagesDelivered": 0,
+  "spendCents": 0,
+  "businessEffectAuthority": "NONE",
+  "confidence": 0.95,
+  "riskFlags": []
+}

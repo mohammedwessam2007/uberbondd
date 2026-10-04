@@ -33,7 +33,7 @@ export function radarReply(reply = {}) {
   const injection = detectReplyInjection(body);
   const material = MATERIAL.has(cls.label) || injection.length > 0;
   // An injection attempt never lowers scrutiny: it makes the thread material.
-  const stop = material && !PAUSE_ONLY.has(cls.label);
+  const stop = injection.length > 0 || (material && !PAUSE_ONLY.has(cls.label));
   return {
     replyId: String(reply.id || reply.gmailId || ''),
     prospectId: String(reply.prospectId || ''),

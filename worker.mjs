@@ -13,7 +13,9 @@ import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
 import { createInfiniteOpusJobHandlers } from './src/infinite-opus-native-runtime.mjs';
+import { runObservedRevenueFuel } from './src/revenue-observed-fuel.mjs';
 import { runRevenueRealProspectCanary } from './src/revenue-real-prospect-canary.mjs';
+import { terminalReadinessFromStore } from './src/revenue-singularity-service.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -35,6 +37,14 @@ if (String(process.env.REVENUE_REAL_CANARY || '').trim() === '1') {
     console.error(`REVENUE_REAL_PROSPECT_CANARY_FAILED ${JSON.stringify({ errorClass: String(error?.code || error?.name || 'error').slice(0, 80), outboundAuthority: 'NONE' })}`);
   }
 }
+
+if (String(process.env.REVENUE_REAL_CANARY || '').trim() === '1') {
+  try { console.log(`REVENUE_OBSERVED_FUEL ${JSON.stringify(await runObservedRevenueFuel({store, config}))}`); }
+  catch (error) { console.error(`REVENUE_OBSERVED_FUEL_REFUSED ${JSON.stringify({errorClass:String(error?.code || error?.name || 'error').slice(0,80),outboundAuthority:'NONE'})}`); }
+}
+
+try { console.log(`REVENUE_TERMINAL_READINESS ${JSON.stringify(await terminalReadinessFromStore(store))}`); }
+catch (error) { console.error(`REVENUE_TERMINAL_READINESS_REFUSED ${JSON.stringify({ errorClass: String(error?.code || error?.name || 'error').slice(0, 80), outboundAuthority: 'NONE' })}`); }
 
 const queue = new DurableQueue(store, config, console);
 let revenue;

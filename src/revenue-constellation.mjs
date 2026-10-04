@@ -9,17 +9,17 @@
 //   time:   `at` rebuilds the picture as it was (events <= at), enabling replay
 //   scale:  prospects beyond maxNodes collapse into (stage x offer) clusters
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { canonicalPaymentFacts } from './payment-renewal-truth.mjs';
+import { compileReplyRadar } from './reply-radar.mjs';
 
 export const CONSTELLATION_VERSION = 'uberbond.revenue-constellation.v1';
 export const STAGE_ORDER = Object.freeze(['DISCOVERED', 'QUEUED', 'SENT', 'REPLIED', 'HALTED', 'PAID']);
-export const LENSES = Object.freeze(['pipeline', 'economic', 'proof', 'buyer', 'infrastructure', 'uncertainty']);
+export const LENSES = Object.freeze(['pipeline', 'economic', 'proof', 'buyer', 'demand', 'outreach', 'reliability', 'infrastructure', 'uncertainty']);
 
 const t = v => { const n = Date.parse(v); return Number.isFinite(n) ? n : null; };
 const EVENT_KINDS = new Set(['sent', 'send_uncertain', 'hard_bounce', 'soft_bounce', 'complaint', 'reply', 'unsubscribe']);
 
-const isClearedLead = l => l?.paymentStatus === 'paid' && Boolean(l?.paymentEvidenceRef || l?.providerTransactionId || l?.providerEventId);
-
-export function collectEvents({ outboundEvents = [], replies = [], leads = [] } = {}) {
+export function collectEvents({ outboundEvents = [], replies = [], leads = [], orders = [], revenueEvents = [], auditLog = [], now = Date.now() } = {}) {
   const ev = [];
   for (const e of outboundEvents) {
     const at = t(e.occurredAt || e.createdAt);
@@ -29,32 +29,34 @@ export function collectEvents({ outboundEvents = [], replies = [], leads = [] } 
     const at = t(r.receivedAt || r.createdAt);
     if (at !== null) ev.push({ at, type: 'reply', prospectId: r.prospectId || null, id: r.id, label: r.label || null });
   }
-  for (const l of leads) {
-    const at = t(l.paidAt || l.updatedAt);
-    if (at !== null && isClearedLead(l)) ev.push({ at, type: 'cleared_payment', prospectId: l.prospectId || null, id: l.id, amountCents: Number(l.amountCents || 0) || null });
-  }
+  ev.push(...canonicalPaymentFacts({ leads, orders, revenueEvents, auditLog, now }).events);
   return ev.sort((a, b) => a.at - b.at || String(a.id).localeCompare(String(b.id)));
 }
 
 export function stageAt(prospect, events, atMs, haltedIds = new Set()) {
   const mine = events.filter(e => e.prospectId === prospect.id && e.at <= atMs);
-  if (mine.some(e => e.type === 'cleared_payment')) return 'PAID';
   if (haltedIds.has(prospect.id) || mine.some(e => e.type === 'unsubscribe' || e.type === 'complaint')) return 'HALTED';
+  if (mine.filter(e => e.type === 'cleared_payment' || e.type === 'payment_reversed').reduce((sum, e) => sum + e.amountCents, 0) > 0) return 'PAID';
   if (mine.some(e => e.type === 'reply')) return 'REPLIED';
   if (mine.some(e => e.type === 'sent')) return 'SENT';
-  if (prospect.queued) return 'QUEUED';
+  if (prospect.queued && t(prospect.queuedAt || prospect.createdAt) <= atMs) return 'QUEUED';
   return 'DISCOVERED';
 }
 
 export function buildConstellation({
   prospects = [], outboundEvents = [], replies = [], senderHealth = [], leads = [], moneyQueue = null, radar = null, gspotRun = null,
+  orders = [], revenueEvents = [], auditLog = [],
   infra = [], offers = [], now = Date.now(), at = null, maxNodes = 400, expand = null
 } = {}) {
   const atMs = at ? (t(at) ?? now) : now;
-  const events = collectEvents({ outboundEvents, replies, leads });
+  const fullEvents = collectEvents({ outboundEvents, replies, leads, orders, revenueEvents, auditLog, now });
+  const events = collectEvents({ outboundEvents, replies, leads, orders, revenueEvents, auditLog, now: atMs });
   const visibleEvents = events.filter(e => e.at <= atMs);
-  const halted = new Set(radar?.haltedProspects || []);
-  const rank = new Map((moneyQueue?.items || []).map(i => [i.prospectId, i]));
+  const historicalRadar = compileReplyRadar({ replies: replies.filter(r => (t(r.receivedAt || r.createdAt) ?? Infinity) <= atMs), now: atMs });
+  const halted = new Set(atMs === now ? radar?.haltedProspects || [] : historicalRadar.haltedProspects);
+  // Current qualification has no historical version ledger; never replay it as
+  // historical truth. Event-derived geometry below is rebuilt at the cursor.
+  const rank = new Map((atMs === now ? moneyQueue?.items || [] : []).map(i => [i.prospectId, i]));
   const nodes = []; const edges = [];
   const put = n => { nodes.push(n); return n; };
 
@@ -81,7 +83,7 @@ export function buildConstellation({
       const [stage, offerId] = key.split('|');
       const id = `cluster:${key}`;
       if (expand === id) { for (const p of members.slice(0, maxNodes)) addProspect(p, stage); continue; }
-      const mass = members.reduce((s, p) => s + massOf(p, rank, leads), 0);
+      const mass = members.reduce((s, p) => s + massOf(p, rank, visibleEvents), 0);
       put({ id, type: 'cluster', label: `${stage} · ${offerId}`, stage, count: members.length, truth: 'RUNTIME', mass: Math.max(1, Math.log2(1 + members.length)) + mass, uncertainty: 0.5, expandable: true });
       edges.push({ from: offerId !== 'none' ? `offer:${offerId}` : 'core:gspot', to: id, kind: 'contains', weight: members.length });
     }
@@ -90,7 +92,7 @@ export function buildConstellation({
   function addProspect(p, stage) {
     const q = rank.get(p.id);
     put({ id: `prospect:${p.id}`, type: 'prospect', label: p.company || p.domain || p.id, stage, offerId: p.offerId || null, truth: 'RUNTIME',
-      mass: massOf(p, rank, leads), rank: q?.rank ?? null, lane: q?.lane ?? null, uncertainty: q ? Math.max(0, 1 - (q.explanation?.qualification?.evidenceQuality ?? 0)) : 1, halted: halted.has(p.id) });
+      mass: massOf(p, rank, visibleEvents), rank: q?.rank ?? null, lane: q?.lane ?? null, uncertainty: q ? Math.max(0, 1 - (q.explanation?.qualification?.evidenceQuality ?? 0)) : 1, halted: halted.has(p.id) });
     edges.push({ from: p.offerId ? `offer:${p.offerId}` : 'core:gspot', to: `prospect:${p.id}`, kind: 'targets' });
   }
 
@@ -104,29 +106,38 @@ export function buildConstellation({
   }
 
   const cleared = visibleEvents.filter(e => e.type === 'cleared_payment');
+  const byCurrency = {};
+  for (const e of visibleEvents.filter(e => e.type === 'cleared_payment' || e.type === 'payment_reversed')) {
+    const c = byCurrency[e.currency] ||= { clearedAmountCents: 0, netClearedAmountCents: 0 };
+    c.netClearedAmountCents += e.amountCents; if (e.type === 'cleared_payment') c.clearedAmountCents += e.amountCents;
+  }
+  const singleCurrency = Object.values(byCurrency).length <= 1 ? Object.values(byCurrency)[0] : null;
   return {
     version: CONSTELLATION_VERSION, generatedAt: new Date(now).toISOString(), at: new Date(atMs).toISOString(), replay: atMs !== now,
     lenses: LENSES, levels: ['organism', 'cluster', 'prospect', 'xray'], clustered, maxNodes,
     nodes, edges, events: visibleEvents.slice(-500).map(e => ({ at: new Date(e.at).toISOString(), type: e.type, prospectId: e.prospectId, inbox: e.inbox || null })),
-    timeRange: events.length ? { from: new Date(events[0].at).toISOString(), to: new Date(events[events.length - 1].at).toISOString() } : null,
-    economics: { clearedPayments: cleared.length, clearedAmountCents: cleared.reduce((s, e) => s + (e.amountCents || 0), 0), note: 'Only payments with provider evidence count as cleared.' },
+    timeRange: fullEvents.length ? { from: new Date(fullEvents[0].at).toISOString(), to: new Date(fullEvents[fullEvents.length - 1].at).toISOString() } : null,
+    economics: { clearedPayments: cleared.length, clearedAmountCents: singleCurrency?.clearedAmountCents ?? (cleared.length ? null : 0), netClearedAmountCents: singleCurrency?.netClearedAmountCents ?? (cleared.length ? null : 0), byCurrency, note: 'Only canonical provider-witnessed payments count; reversals remain separate events.' },
+    replayBoundary: 'Payment/reply/send events are historical. Unversioned infrastructure, configuration and G-SPOT state are current observations, not historical proof.',
     truthBoundary: 'Every element derives from a stored record. Mass is a conservative prior until cleared payments exist; it is not revenue.',
     outboundAuthority: 'NONE', externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
 
-function massOf(p, rank, leads) {
+function massOf(p, rank, events) {
   const q = rank.get(p.id);
-  const cleared = leads.filter(l => l.prospectId === p.id && isClearedLead(l)).reduce((s, l) => s + (Number(l.amountCents) || 0), 0);
+  const paymentEvents = events.filter(e => e.prospectId === p.id && (e.type === 'cleared_payment' || e.type === 'payment_reversed'));
+  const cleared = new Set(paymentEvents.map(e=>e.currency)).size <= 1 ? Math.max(0,paymentEvents.reduce((s,e)=>s+e.amountCents,0)) : 0;
   return Math.max(0.5, Math.log10(10 + cleared / 100) + (q ? Math.max(0, q.explanation?.expectedContributionCents || 0) / 1000 : 0));
 }
 function stageHistogram(run) { const h = {}; for (const i of run.items || []) h[i.stage] = (h[i.stage] || 0) + 1; return h; }
 
 /** Prospect X-Ray: everything known (and explicitly unknown) about one prospect. */
-export function xray({ prospectId, prospects = [], outboundEvents = [], replies = [], leads = [], moneyQueue = null, radar = null, gspotRun = null, now = Date.now() } = {}) {
+export function xray({ prospectId, prospects = [], outboundEvents = [], replies = [], leads = [], orders = [], revenueEvents = [], auditLog = [], moneyQueue = null, radar = null, gspotRun = null, now = Date.now() } = {}) {
   const p = prospects.find(x => x.id === prospectId);
   if (!p) return { ok: false, state: 'PROSPECT_NOT_FOUND' };
-  const events = collectEvents({ outboundEvents, replies, leads }).filter(e => e.prospectId === prospectId);
+  const allEvents = collectEvents({ outboundEvents, replies, leads, orders, revenueEvents, auditLog, now });
+  const events = allEvents.filter(e => e.prospectId === prospectId);
   const q = (moneyQueue?.items || []).find(i => i.prospectId === prospectId);
   const item = (gspotRun?.items || []).find(i => i.prospectId === prospectId);
   const radarItems = (radar?.items || []).filter(i => i.prospectId === prospectId);
@@ -136,7 +147,7 @@ export function xray({ prospectId, prospects = [], outboundEvents = [], replies 
   if (!events.length) unknowns.push('no-outbound-events');
   return {
     ok: true, version: CONSTELLATION_VERSION, prospect: { id: p.id, company: p.company || null, domain: p.domain || null, offerId: p.offerId || null },
-    stage: stageAt(p, collectEvents({ outboundEvents, replies, leads }), now, new Set(radar?.haltedProspects || [])),
+    stage: stageAt(p, allEvents, now, new Set(radar?.haltedProspects || [])),
     moneyQueue: q ? { rank: q.rank, lane: q.lane, explanation: q.explanation } : null,
     gspot: item ? { stage: item.stage, blocks: item.blocks, history: item.history, proofRef: item.evidence?.proofRef || null, messageDigest: item.evidence?.messageDigest || null, effect: item.effect ? { idempotencyKey: item.effect.idempotencyKey, settledAt: item.effect.settledAt || null } : null } : null,
     timeline: events.map(e => ({ at: new Date(e.at).toISOString(), type: e.type, inbox: e.inbox || null })),

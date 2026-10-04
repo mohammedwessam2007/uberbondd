@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileProspectEffectTruth } from '../src/revenue-terminal-effect-truth.mjs';
 
-test('provider call with lost receipt is UNKNOWN, never false', () => {
+test('unresolved pre-dispatch claim is UNKNOWN and does not prove provider boundary crossing', () => {
   const digest = 'a'.repeat(64);
   const truth = compileProspectEffectTruth({
     settings: {
@@ -15,11 +15,40 @@ test('provider call with lost receipt is UNKNOWN, never false', () => {
     },
     outboundEvents: []
   });
-  assert.equal(truth.state, 'CUSTOMER_MESSAGE_EFFECT_UNKNOWN_AFTER_PROVIDER_BOUNDARY');
+  assert.equal(truth.state, 'CUSTOMER_MESSAGE_EFFECT_UNKNOWN');
+  assert.equal(truth.prospectMessagePerformed, null);
+  assert.equal(truth.providerBoundaryCrossed, null);
+  assert.equal(truth.frozenProviderCallAttemptClaims, 1);
+  assert.equal(truth.frozenUnknownResults, 1);
+  assert.equal(truth.unresolvedDispatchClaims, 1);
+  assert.equal(truth.automaticRetryAuthorized, false);
+});
+
+test('durable uncertain receipt proves provider boundary but keeps customer message UNKNOWN', () => {
+  const digest = 'c'.repeat(64);
+  const truth = compileProspectEffectTruth({
+    settings: {
+      [`frozenProspectExecution:${digest}`]: {
+        effectDigest: digest,
+        status: 'UNCERTAIN',
+        providerCallAttempted: true,
+        effectCapRemaining: 0,
+        receipt: {
+          providerAccepted: false,
+          effectLedger: { providerCalls: 1, customerMessages: 'UNKNOWN' },
+          providerError: { classification: 'UNCERTAIN' },
+          automaticRetryAuthorized: false
+        }
+      }
+    },
+    outboundEvents: []
+  });
+  assert.equal(truth.state, 'CUSTOMER_MESSAGE_EFFECT_UNKNOWN');
   assert.equal(truth.prospectMessagePerformed, null);
   assert.equal(truth.providerBoundaryCrossed, true);
-  assert.equal(truth.frozenProviderCallAttempts, 1);
+  assert.equal(truth.frozenProviderCallAttemptClaims, 1);
   assert.equal(truth.frozenUnknownResults, 1);
+  assert.equal(truth.unresolvedDispatchClaims, 0);
   assert.equal(truth.automaticRetryAuthorized, false);
 });
 
@@ -39,6 +68,7 @@ test('accepted frozen receipt is a confirmed message effect', () => {
   });
   assert.equal(truth.state, 'CONFIRMED_MESSAGE_EFFECT');
   assert.equal(truth.prospectMessagePerformed, true);
+  assert.equal(truth.providerBoundaryCrossed, true);
   assert.equal(truth.frozenAcceptedResults, 1);
 });
 

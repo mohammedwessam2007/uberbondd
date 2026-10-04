@@ -28,9 +28,14 @@ export async function runObservedRevenueFuel({store, config, fetchFn = fetch, no
   let p = before.prospects.find(p=>p.sourceRecordId===RECORD);
   if (!p && before.prospects.some(p=>p.domain==='mypowerhouse.group')) return refusal('EXISTING_PROSPECT_LINEAGE_COLLISION');
   const observedAt = new Date(now).toISOString();
+  // Durable preparation lineage only: no activation, cap, approval or sender.
+  const campaignId = 'camp_revenue_observed_powerhouse_20261004';
+  const campaign = await store.get('campaigns',campaignId);
+  if (!campaign) await store.add('campaigns',{id:campaignId,name:'Powerhouse observed evidence preparation',offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',niche:'Home service marketing consultancy',allowedCountries:[],dailyCaps:{A:0,B:0},maxFollowups:0,autoSend:false,approved:false,status:'DRAFT',createdAt:observedAt});
+  else if (campaign.autoSend !== false || campaign.approved !== false || campaign.dailyCaps?.A !== 0 || campaign.dailyCaps?.B !== 0) return refusal('PREPARATION_CAMPAIGN_AUTHORITY_CHANGED');
   if (!p) {
     const imported = await importProspects(store,config,[{
-      company:'Powerhouse Consulting Group',website:urls[0],niche:'Home-service software consultancy marketing operations client QA',serviceFit:.85,source:'public_website',sourceUrl:urls[0],sourceRecordId:RECORD,
+      company:'Powerhouse Consulting Group',website:urls[0],niche:'Home service software consultancy marketing operations client QA',industry:'Home service marketing consultancy',vertical:'Home service',serviceFit:.85,source:'public_website',sourceUrl:urls[0],sourceRecordId:RECORD,
       sourceMetadata:{observedAt, fitBasis:'Public trades/FSM consultancy, public named client and client-facing service wording inconsistency; commercial value remains a hypothesis.'},
       contact:{email:receipt.route,name:'Powerhouse general business contact',title:'General business and partnership contact',source:'public_website',sourceUrl:urls[2],observedAt,exact:true,inferred:false},
       issue:{title:'Publicly named client emergency-availability wording differs on the same page',code:'same-page-public-service-promise-inconsistency',evidenceUrl:urls[3],evidenceExcerpt:'Emergency service available during business hours and for qualifying after hours situations. Service list separately advertises 24/7 Emergency Service.',evidenceObservedAt:observedAt,confidence:.9,safeForOutreach:false}
@@ -42,9 +47,10 @@ export async function runObservedRevenueFuel({store, config, fetchFn = fetch, no
   reviewed.record.recipient.observedAt = observedAt;
   reviewed.record.clientEvidence.observation.observedAt = observedAt;
   reviewed.record.clientEvidence.observation.excerpt = 'during business hours and for qualifying after-hours situations / 24/7 Emergency Service (same current page)';
-  reviewed.slots.corroborationSentence = '';
+  reviewed.slots.observationClause = 'offers emergency service during business hours and for qualifying after-hours situations, while the same homepage advertises 24/7 Emergency Service';
+  reviewed.slots.corroborationSentence = 'These are two different descriptions of emergency availability on its own homepage.';
   reviewed.slots.groundingPhrases = ['during business hours', 'qualifying after-hours situations', '24/7 Emergency Service'];
-  await store.patch('prospects',p.id,{preflightRecord:reviewed.record,messageSlots:reviewed.slots,preworkArtifactRef:reviewed.artifactRef,contact:{...p.contact, verifications:[normalizeContactVerification(receipt,{now:new Date(now)})]}});
+  await store.patch('prospects',p.id,{campaignId,industry:'Home service marketing consultancy',vertical:'Home service',preflightRecord:reviewed.record,messageSlots:reviewed.slots,preworkArtifactRef:reviewed.artifactRef,contact:{...p.contact, verifications:[normalizeContactVerification(receipt,{now:new Date(now)})]}});
   await ingestDemandSignal(store,{prospectId:p.id,kind:'observed_defect',observedAt,evidenceRef:urls[3],now});
   const current = await snapshot(store,now); const queue = moneyQueueFromSnapshot(current);
   const ranked = queue.items.find(i=>i.prospectId===p.id); const excluded=queue.excluded.find(i=>i.prospectId===p.id);

@@ -298,20 +298,27 @@ export function offerMarketFromSnapshot(s) {
   return compileOfferMarket({ outcomes });
 }
 
-/** Read the live payment doctors without exposing credential values. Optional
- * durable verification/KYC evidence may be supplied through owner-maintained
- * settings. Absence stays absence and therefore cannot become LIVE_READY. */
+/** Read the live payment doctors without exposing credential values. Repository
+ * settings are configuration, not provider-origin evidence, so this surface
+ * deliberately does NOT pass settings values as verification receipts or KYC
+ * attestations. Until trusted external receipts are bound into a canonical
+ * ledger, the doctor must stay fail-closed rather than mint LIVE_READY. */
 export function paymentRailsFromSnapshot(s, env = process.env) {
-  const verification = s.settings?.paymentRailVerificationReceipts || {};
-  const kyc = s.settings?.paymentRailKycAttestations || {};
   return IMPLEMENTED_PAYMENT_RAILS.map(provider => {
     const report = diagnosePaymentRail({
       env, provider, mode: 'LIVE', at: new Date(s.now),
-      verificationReceipt: verification?.[provider] || null,
-      kycAttestation: kyc?.[provider] || null
+      verificationReceipt: null,
+      kycAttestation: null
     });
     const summary = summarizePaymentRail(report);
-    return { provider, state: summary.state, liveReady: summary.liveReady === true, reasonCodes: summary.reasonCodes || [], ownerActionQueue: summary.ownerActionQueue || [] };
+    return {
+      provider,
+      state: summary.state,
+      liveReady: summary.liveReady === true,
+      reasonCodes: summary.reasonCodes || [],
+      ownerActionQueue: summary.ownerActionQueue || [],
+      evidenceBinding: 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND'
+    };
   });
 }
 

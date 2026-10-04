@@ -1360,5 +1360,36 @@
     ],
     "supersedesFrontier": "outreachAdminRecovery20261003 for runs made after this change",
     "coldDispatch": "INTENTIONALLY_CLOSED"
+  },
+  "revenueSingularityCheckpoint_2026_10_04": {
+    "truthClass": "INTERNAL_PROGRESS_NOT_LIVE",
+    "mergedPR": "#1190 (merge a4ed66a)",
+    "implemented": [
+      "owner-session cookie",
+      "G-SPOT dry-run orchestrator",
+      "Money Queue",
+      "Reply Radar",
+      "Proof Factory + critics",
+      "Offer Market Maker",
+      "Revenue Reliability",
+      "DecisionTwin/UberClose",
+      "payment compression/truth",
+      "delivery loop",
+      "partner multiplier",
+      "Revenue Constellation /constellation.html",
+      "/api/revenue/*"
+    ],
+    "ledger": "docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md",
+    "verification": "local deterministic suite: no new failures vs origin/main (34 pre-existing); 3 omnia-v9-proof-store tests flaked under full-suite load, 0 failures in 4 isolated runs; hosted CI red on main and PR (zero-step infra, no logs retrievable)",
+    "openOwnerOrExternal": [
+      "live Render reconcile/deploy and live UI verification (no Render access or credential in the Claude cloud session; egress to api.render.com denied)",
+      "iPad Safari verification of owner session and constellation",
+      "binding G-SPOT live dispatch to governed outreach dispatch (authority-sensitive, intentionally not bound)",
+      "payment compression fed from live rail doctor",
+      "owner-maintained settings.revenuePartners",
+      "prospects need stored evidenceBundle to enter Money Queue"
+    ],
+    "nextHighestValue": "Verify live Render serves merged SHA a4ed66a, then bind real prospect evidence into the Money Queue; no live prospect send merely to test software.",
+    "externalEffects": "none"
   }
 }

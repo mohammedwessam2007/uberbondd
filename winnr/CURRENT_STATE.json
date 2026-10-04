@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.winnr.current-observations.v1",
   "reconciledDate": "2026-10-04",
-  "recoverySourceCommit": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
+  "recoverySourceCommit": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f",
   "refreshLiveTruthRequired": false,
   "technicalActivation": "COMPLETE",
   "campaignActivation": "NOT_ACTIVATED",
@@ -18,8 +18,8 @@
   "runtime": {
     "renderService": "uberbond-control-plane",
     "renderServiceId": "srv-dali9vijnfac739m4vcg",
-    "liveSourceCommit": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
-    "liveDeployId": "dep-db14bjdg1s2s738gghhg",
+    "liveSourceCommit": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f",
+    "liveDeployId": "dep-db14p949v7es73dulpfg",
     "liveDeployStatus": "live",
     "buildCommand": "npm install --omit=dev",
     "storeBackend": "postgres",
@@ -32,10 +32,7 @@
     "currentImapAttemptsEach": 1,
     "currentCanaryPresenceObserved": false,
     "currentRecentCanaryOrdinalsFound": [],
-    "historicalCanaryOrdinalsFound": [
-      2,
-      3
-    ],
+    "historicalCanaryOrdinalsFound": [2, 3],
     "historicalCanaryProofDate": "2026-10-02",
     "replyProofClass": "HISTORICAL_INGESTIBILITY_PLUS_CURRENT_TRANSPORT_HEALTH_NOT_COMMERCIAL_REPLY_PROCESSING",
     "latestReplyStatus": "WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW",
@@ -43,9 +40,7 @@
     "credentialStorage": "AES_256_GCM_ENCRYPTED",
     "plaintextCredentialsLogged": false,
     "transportReceiptClass": "CURRENT_LIVE_IMAP_PLUS_DURABLE_CONSUMED_SMTP_BOOTSTRAP",
-    "smtpQuarantinedOrdinals": [
-      3
-    ],
+    "smtpQuarantinedOrdinals": [3],
     "imapCustodyChanged": false,
     "uberImapVersion": "uberbond.uberimap.v1.2",
     "oct4RootCause": "EMPTY_SEARCH_PARSED_AS_UID_ZERO",
@@ -53,32 +48,42 @@
     "oct4FixPr": 1198,
     "truthSplitPr": 1199,
     "evidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md",
-    "terminalObservedAt": "2026-10-04T12:27:08.908Z",
+    "terminalObservedAt": "2026-10-04T12:56:14.087Z",
     "finalPublicationShaReceipt": "newest GitHub issue #1188 terminal comment"
+  },
+  "frozenProspectCanary20261004": {
+    "truthClass": "ONE_PROVIDER_CALL__ACCEPTANCE_AND_DELIVERY_UNKNOWN__NEVER_REPLAY",
+    "authorizedDigest": "65b86bf22f1060ee307020ac8f304e55f788ccd88cba10d37108bae35c804347",
+    "sender": "nadia.chen@cedarpointdomains.com",
+    "recipient": "partnerships@intelo.ai",
+    "persistenceErrorObservedAt": "2026-10-04T12:11:57Z",
+    "providerCalls": 1,
+    "providerAcceptance": "UNKNOWN_NOT_PERSISTED",
+    "providerReference": null,
+    "providerMessageId": null,
+    "customerDelivery": "UNKNOWN_0_OR_1",
+    "automaticRetries": 0,
+    "followups": 0,
+    "effectCapRemaining": 0,
+    "reservationStateAfterFailure": "DISPATCHING_RECONCILIATION_REQUIRED",
+    "automaticRetryAuthorized": false,
+    "replayPolicy": "RECONCILE_NEVER_REPLAY",
+    "rootCause": "OUTBOUND_EVENTS_PROVIDER_EVENT_ID_COLUMN_MISSING_AFTER_PROVIDER_CALL",
+    "repairPr": 1219,
+    "repairMainSha": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f",
+    "repairDeployId": "dep-db14p949v7es73dulpfg",
+    "repairDeployStatus": "live",
+    "repairReceipt": "docs/receipts/FROZEN_PROSPECT_CANARY_RECONCILIATION_2026-10-04.md"
   },
   "placement": {
     "receiverClass": "OWNER_CONTROLLED_UBERBOND_GMAIL",
     "phenotype": "HUMAN_READABLE_NOTE",
-    "inboxOrdinals": [
-      1,
-      2
-    ],
-    "spamOrdinals": [
-      3
-    ],
+    "inboxOrdinals": [1, 2],
+    "spamOrdinals": [3],
     "messages": [
-      {
-        "ordinal": 1,
-        "folder": "INBOX"
-      },
-      {
-        "ordinal": 2,
-        "folder": "INBOX"
-      },
-      {
-        "ordinal": 3,
-        "folder": "SPAM"
-      }
+      { "ordinal": 1, "folder": "INBOX" },
+      { "ordinal": 2, "folder": "INBOX" },
+      { "ordinal": 3, "folder": "SPAM" }
     ],
     "historicalDiagnosticPhenotype": {
       "inbox": 0,
@@ -95,11 +100,7 @@
     "personalSeedExperiment": {
       "status": "INDEPENDENTLY_OBSERVED_3_OF_3_INBOX",
       "receiverClass": "CONNECTED_FOUNDER_PERSONAL_GMAIL",
-      "inboxOrdinals": [
-        1,
-        2,
-        3
-      ],
+      "inboxOrdinals": [1, 2, 3],
       "spf": "PASS_3_OF_3",
       "alignedDomainDkim": "PASS_3_OF_3",
       "dmarc": "PASS_3_OF_3",
@@ -116,13 +117,24 @@
     "ordinal3SmtpQuarantineReleased": false,
     "campaignActivated": false
   },
+  "currentCommercialEffectTruth": {
+    "providerCalls": 1,
+    "prospectCustomerDelivery": "UNKNOWN_0_OR_1",
+    "automaticRetries": 0,
+    "followups": 0,
+    "bulkSends": 0,
+    "clearedRevenueCents": 0,
+    "outboundIntegrationMode": "off",
+    "campaignActivation": "NOT_ACTIVATED"
+  },
   "nextActions": [
     "Preserve ordinal-3 SMTP quarantine and all IMAP custody",
     "Treat current IMAP transport health separately from historical canary presence",
-    "Validate ordinals 1 and 2 through bounded next-stage evidence",
-    "Require independent campaign legal/provider/suppression/content/consequence gates"
+    "Reconcile the historical frozen Intelo effect from provider/recipient evidence only; never replay it",
+    "Require independent campaign legal/provider/suppression/content/consequence gates for any future effect"
   ],
   "reconciliationEffects": {
+    "scope": "Oct4 IMAP repair before the later frozen prospect canary attempt",
     "newSpendUsd": 0,
     "prospectMessages": 0,
     "ownerCanaryMessages": 0,
@@ -130,11 +142,12 @@
     "providerConfigurationChanges": 0
   },
   "canonicalEvidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md",
+  "latestAdditiveRevenueEvidenceRef": "docs/receipts/FROZEN_PROSPECT_CANARY_RECONCILIATION_2026-10-04.md",
   "historicalEvidenceRefs": [
     "winnr/FINAL_ACTIVATION_2026-10-02.md",
     "winnr/LIVE_RECONCILIATION_2026-10-02.md",
     "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
   ],
   "privateEvidenceDocument": "WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md (founder-private record, not public repository content)",
-  "latestReconciledSourceCommit": "a80bec3cd92c153cca4c4b01a00bda8355c67d66"
+  "latestReconciledSourceCommit": "8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f"
 }

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createUberSmtpSubmissionTransport } from '../src/ubersmtp-submission-adapter.mjs';
 import { probeSmtpFleetAccount } from '../src/uberfleet.mjs';
-import { runWinnrSmtpReadinessProbe, SMTP_PROBE_FAILURE_PAUSE_REASON, SMTP_PROBE_READY_REASON } from '../src/winnr-smtp-readiness.mjs';
+import { runWinnrSmtpReadinessProbe, SMTP_PROBE_FAILURE_PAUSE_REASON } from '../src/winnr-smtp-readiness.mjs';
 import { encryptJson } from '../src/crypto.mjs';
 
 const KEY='a'.repeat(64);
@@ -80,7 +80,7 @@ test('controller probes non-quarantined accounts, initializes health, and never 
   assert.equal(result.skippedProtectiveAccounts,1);
   assert.deepEqual(calls,['winnr:slot-1','winnr:slot-2']);
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,false);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,SMTP_PROBE_READY_REASON);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,'');
   assert.equal(store.senderHealth.some(x=>x.inbox==='winnr:slot-3'),false);
   assert.equal(result.messagesSent,0);
   assert.equal(result.prospectSendAuthorityGranted,false);
@@ -103,7 +103,7 @@ test('probe failure protective-pauses, later success clears only the probe-creat
     probeFn:async()=>({classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'r',providerResponseDigest:'d'.repeat(64),providerCalls:1,messagesSent:0})
   });
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,false);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,SMTP_PROBE_READY_REASON);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,'');
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.paused,true);
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.pauseReason,'manual-hold');
 });

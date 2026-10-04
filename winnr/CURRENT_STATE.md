@@ -1,5 +1,7 @@
 # Winnr Current State
 
+Terminal re-observation `2026-10-04T12:27:08.908Z`: current IMAP3/3healthy, one attempt each, recent historical canaries absent, no commercial reply or new SMTP/placement proof. Exact implementation `a80bec3cd92c153cca4c4b01a00bda8355c67d66` / `dep-db14bjdg1s2s738gghhg`; final documentation-publication deploy is in newest issue#1188 terminal comment. Quarantine and all custody preserved.
+
 Updated: 2026-10-04
 
 Canonical newest reconciliation: `winnr/LIVE_RECONCILIATION_2026-10-04.md`.
@@ -9,8 +11,8 @@ Canonical newest reconciliation: `winnr/LIVE_RECONCILIATION_2026-10-04.md`.
 Latest verified production runtime:
 - Render service: `uberbond-control-plane`
 - service id: `srv-dali9vijnfac739m4vcg`
-- live source: `1db409edc3ed25bbb4dc603e0efe927d4d62bd63`
-- live deploy: `dep-db120g7avr4c739sonu0`
+- live source: `a80bec3cd92c153cca4c4b01a00bda8355c67d66`
+- live deploy: `dep-db14bjdg1s2s738gghhg`
 - deploy status: live
 - store backend: PostgreSQL
 - normal build command: `npm install --omit=dev`

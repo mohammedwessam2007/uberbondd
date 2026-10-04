@@ -1,0 +1,330 @@
+{
+  "schemaVersion": "uberbond.revenue-terminal-runtime-receipt.v1",
+  "date": "2026-10-04",
+  "implementationSourceSha": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
+  "deployId": "dep-db14bjdg1s2s738gghhg",
+  "deployState": "live",
+  "serviceId": "srv-dali9vijnfac739m4vcg",
+  "serviceUrl": "https://uberbond-control-plane.onrender.com",
+  "webStarted": true,
+  "workerStarted": true,
+  "postgresReadsHealthy": true,
+  "records": [
+    {
+      "id": "b3c9c952-6b67-4527-a259-1df2050a8fee",
+      "timestamp": "2026-10-04T12:27:03.067899895Z",
+      "message": "UberBond Revenue Engine running on https://uberbond-control-plane.onrender.com using postgres"
+    },
+    {
+      "id": "127c1f56-9336-4d81-9fbf-946344d81ffd",
+      "timestamp": "2026-10-04T12:27:03.963003425Z",
+      "message": "WINNR_REPLY_CANARY_VERIFY {\"ok\":false,\"status\":\"WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW\",\"transportHealthy\":true,\"canaryPresenceObserved\":false,\"foundOrdinals\":[],\"expectedOrdinals\":[2,3],\"imapAccountsChecked\":3,\"accountResults\":[{\"accountId\":\"imap-a880709cfce42e987a03d465\",\"ok\":true,\"status\":\"UBERIMAP_FETCH_CONFIRMED\",\"attempts\":1},{\"accountId\":\"imap-a452049859d54310799c98b7\",\"ok\":true,\"status\":\"UBERIMAP_FETCH_CONFIRMED\",\"attempts\":1},{\"accountId\":\"imap-2bb0455477e6e91143c9d915\",\"ok\":true,\"status\":\"UBERIMAP_FETCH_CONFIRMED\",\"attempts\":1}],\"messageBodiesLogged\":false,\"senderAddressesLogged\":false,\"credentialsLogged\":false}"
+    },
+    {
+      "id": "18051c0e-51ba-449b-b536-cbae41ac8394",
+      "timestamp": "2026-10-04T12:27:04.972534869Z",
+      "message": "REVENUE_REAL_PROSPECT_CANARY {\"ok\":true,\"version\":\"uberbond.revenue-real-prospect-canary.v1\",\"status\":\"REAL_PROSPECT_MONEY_QUEUE_CANARY_OBSERVED\",\"prospectId\":\"pros_9cf3da52-2992-40bb-90d0-c4990e36ff48\",\"sourceRecordId\":\"revenue-real-canary-relai-20261004\",\"sourceUrl\":\"https://relai.ai/careers\",\"importState\":\"REUSED_EXISTING_CANARY\",\"signalState\":\"SIGNAL_ALREADY_PRESENT\",\"queueState\":\"EXCLUDED\",\"rank\":null,\"offerId\":null,\"exclusionReasons\":[\"NOT_QUALIFIED\",\"no-verified-contact-route\",\"contact-route-not-verified\"],\"expectedSafetyBoundary\":\"PUBLIC_IDENTITY_AND_DEMAND_EVIDENCE_DO_NOT_CREATE_A_VERIFIED_CONTACT_ROUTE\",\"publicContactValueLogged\":false,\"publicPageBodyLogged\":false,\"outboundAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"messages\":0,\"payments\":0,\"deployments\":0,\"providerWrites\":0,\"spendCents\":0}}"
+    },
+    {
+      "id": "8d3a4710-30b2-4c0a-92a8-98798abfb452",
+      "timestamp": "2026-10-04T12:27:08.906400004Z",
+      "message": "REVENUE_OBSERVED_FUEL {\"ok\":true,\"state\":\"REAL_VERIFIED_OPPORTUNITY_RANKED\",\"prospectId\":\"pros_d8ced49c-38e1-4d70-8b3d-61a1a2533377\",\"sourceRecordId\":\"revenue-observed-powerhouse-20261004\",\"historyState\":\"CLEAN\",\"rank\":1,\"offerId\":\"LEAD_TO_BOOKING_LEAK_AUDIT\",\"exclusionReasons\":[],\"verificationProvider\":\"ClearBounce\",\"verificationCheckedAt\":\"2026-10-04T11:29:09.018Z\",\"sourceRecheckedAt\":\"2026-10-04T12:27:04.972Z\",\"outboundAuthority\":\"NONE\",\"messages\":0,\"spendCents\":0}"
+    },
+    {
+      "id": "e81f83ed-1f2f-4dc1-b725-f9ff243f777f",
+      "timestamp": "2026-10-04T12:27:09.369309354Z",
+      "message": "REVENUE_TERMINAL_READINESS {\"schemaVersion\":\"uberbond.revenue-terminal-readiness.v1\",\"observedAt\":\"2026-10-04T12:27:08.908Z\",\"sourceSha\":\"a80bec3cd92c153cca4c4b01a00bda8355c67d66\",\"readHealthy\":true,\"failedReads\":[],\"moneyQueue\":{\"prospects\":4,\"ranked\":1,\"independentlyVerifiedRoutes\":1,\"exclusionCounts\":{\"NOT_QUALIFIED\":3,\"no-verified-contact-route\":3,\"contact-route-not-verified\":3,\"NO_OFFER_FIT\":2,\"BUYER_UNRESOLVED\":2},\"verificationProviderLineage\":[\"ClearBounce\"]},\"configuredVerification\":{\"hunterCredentialPresent\":false,\"providerCallsEnabled\":false,\"hunterEnabled\":false,\"noProviderCallPerformed\":true},\"paymentRails\":[{\"provider\":\"lemon_squeezy\",\"state\":\"SANDBOX_CONFIG_MISSING\",\"liveReady\":false,\"reasonCodes\":[\"payment-rail-credential-missing:webhookSigningSecret\",\"payment-rail-credential-missing:checkoutUrl\"],\"ownerActionQueue\":[{\"action\":\"Configure one Lemon Squeezy checkout URL.\",\"screen\":\"Lemon Squeezy -> Store -> Products\",\"minutes\":20,\"costUsd\":0,\"evidenceOfCompletion\":\"A valid HTTPS checkout URL.\"},{\"action\":\"Configure the Lemon Squeezy webhook signing secret.\",\"screen\":\"Lemon Squeezy -> Settings -> Webhooks\",\"minutes\":10,\"costUsd\":0,\"evidenceOfCompletion\":\"A provider test delivery is accepted.\"},{\"action\":\"Configure the Lemon Squeezy provider verification API credential.\",\"screen\":\"Lemon Squeezy -> Settings -> API\",\"minutes\":5,\"costUsd\":0,\"evidenceOfCompletion\":\"Credential presence is observed without exposing its value.\"}],\"evidenceBinding\":\"TRUSTED_PROVIDER_RECEIPT_NOT_BOUND\"},{\"provider\":\"paypal\",\"state\":\"LIVE_CREDENTIAL_MISSING\",\"liveReady\":false,\"reasonCodes\":[\"payment-rail-credential-missing:liveEnvironment\",\"payment-rail-credential-missing:liveClientId\",\"payment-rail-credential-missing:liveClientSecret\",\"payment-rail-credential-missing:liveWebhookId\"],\"ownerActionQueue\":[{\"action\":\"Complete the protected PayPal LIVE configuration bundle.\",\"screen\":\"PayPal Developer Dashboard + protected runtime environment\",\"minutes\":15,\"costUsd\":0,\"evidenceOfCompletion\":\"PAYPAL_ENVIRONMENT=live, live client/webhook credential presence, DATABASE_URL and HTTPS APP_BASE_URL are observed without exposing values.\"}],\"evidenceBinding\":\"TRUSTED_PROVIDER_RECEIPT_NOT_BOUND\"}],\"sandboxRails\":[{\"ok\":true,\"policyVersion\":\"uberbond.payment-rail-doctor-1.2.0\",\"provider\":\"lemon_squeezy\",\"state\":\"SANDBOX_CONFIG_MISSING\",\"liveReady\":false,\"reasonCodes\":[\"payment-rail-credential-missing:webhookSigningSecret\",\"payment-rail-credential-missing:checkoutUrl\"],\"paypalRail\":\"PAYPAL_PROVIDER_ORIGIN_LIVE_IMPLEMENTED__CONFIG_AND_EXTERNAL_EVIDENCE_REQUIRED\",\"ownerActionQueue\":[{\"action\":\"Configure one Lemon Squeezy checkout URL.\",\"screen\":\"Lemon Squeezy -> Store -> Products\",\"minutes\":20,\"costUsd\":0,\"evidenceOfCompletion\":\"A valid HTTPS checkout URL.\"},{\"action\":\"Configure the Lemon Squeezy webhook signing secret.\",\"screen\":\"Lemon Squeezy -> Settings -> Webhooks\",\"minutes\":10,\"costUsd\":0,\"evidenceOfCompletion\":\"A provider test delivery is accepted.\"},{\"action\":\"Configure the Lemon Squeezy provider verification API credential.\",\"screen\":\"Lemon Squeezy -> Settings -> API\",\"minutes\":5,\"costUsd\":0,\"evidenceOfCompletion\":\"Credential presence is observed without exposing its value.\"}],\"commercialTruth\":{\"realCustomers\":0,\"clearedRevenueCents\":0,\"acceptedPaidDeliveries\":0,\"retainedCustomers\":0},\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"implementedRails\":[\"lemon_squeezy\",\"paypal\"],\"implementationStatus\":{\"sandboxImplemented\":true,\"liveCapable\":true},\"unimplementedRails\":{\"paypal\":\"PAYPAL_PROVIDER_ORIGIN_LIVE_IMPLEMENTED__CONFIG_AND_EXTERNAL_EVIDENCE_REQUIRED\"}},{\"ok\":true,\"policyVersion\":\"uberbond.payment-rail-doctor-1.2.0\",\"provider\":\"paypal\",\"state\":\"SANDBOX_CONFIG_MISSING\",\"liveReady\":false,\"reasonCodes\":[\"payment-rail-credential-missing:sandboxClientId\",\"payment-rail-credential-missing:sandboxClientSecret\",\"payment-rail-credential-missing:sandboxWebhookId\"],\"paypalRail\":\"PAYPAL_PROVIDER_ORIGIN_LIVE_IMPLEMENTED__CONFIG_AND_EXTERNAL_EVIDENCE_REQUIRED\",\"ownerActionQueue\":[],\"commercialTruth\":{\"realCustomers\":0,\"clearedRevenueCents\":0,\"acceptedPaidDeliveries\":0,\"retainedCustomers\":0},\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0}}],\"commercialTruth\":{\"retainedClearedCustomers\":0,\"providerWitnessedPaymentEvents\":0},\"gspot\":{\"liveDispatcherBound\":false,\"convenienceAuthority\":\"NONE\",\"exactEffectAuthorityRequired\":true,\"safeEvaluation\":{\"prospectId\":\"pros_d8ced49c-38e1-4d70-8b3d-61a1a2533377\",\"proofPrepared\":true,\"messageValidated\":true,\"messagePreparationState\":\"WINNER_SELECTED\",\"criticReasonCodes\":[],\"messagePreparationReasonCodes\":[],\"preflightState\":\"BLOCKED_IDENTITY\",\"blockers\":[\"owner-authorization-to-publish-footer-missing\",\"sender-side-legal-authority-hold-unresolved\",\"signed-unsubscribe-urls-not-created\"],\"senderHealthy\":false,\"recipientBound\":true}},\"secretsExposed\":false,\"routeValuesExposed\":false,\"prospectMessagePerformed\":false,\"outboundAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}"
+    },
+    {
+      "id": "0c64fb0d-ed7b-4125-ab52-c8051348169b",
+      "timestamp": "2026-10-04T12:27:09.369473217Z",
+      "message": "OMNIA V9 outbound integration mode: off"
+    },
+    {
+      "id": "5a96ef11-7f00-4936-adce-9a0af0e34be5",
+      "timestamp": "2026-10-04T12:27:09.371184916Z",
+      "message": "UberBond worker srv-dali9vijnfac739m4vcg-hibernate-7d7d5fcb5-6qwg7:72:ff2659ed started using postgres"
+    }
+  ],
+  "diagnostic": {
+    "schemaVersion": "uberbond.revenue-terminal-readiness.v1",
+    "observedAt": "2026-10-04T12:27:08.908Z",
+    "sourceSha": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
+    "readHealthy": true,
+    "failedReads": [],
+    "moneyQueue": {
+      "prospects": 4,
+      "ranked": 1,
+      "independentlyVerifiedRoutes": 1,
+      "exclusionCounts": {
+        "NOT_QUALIFIED": 3,
+        "no-verified-contact-route": 3,
+        "contact-route-not-verified": 3,
+        "NO_OFFER_FIT": 2,
+        "BUYER_UNRESOLVED": 2
+      },
+      "verificationProviderLineage": [
+        "ClearBounce"
+      ]
+    },
+    "configuredVerification": {
+      "hunterCredentialPresent": false,
+      "providerCallsEnabled": false,
+      "hunterEnabled": false,
+      "noProviderCallPerformed": true
+    },
+    "paymentRails": [
+      {
+        "provider": "lemon_squeezy",
+        "state": "SANDBOX_CONFIG_MISSING",
+        "liveReady": false,
+        "reasonCodes": [
+          "payment-rail-credential-missing:webhookSigningSecret",
+          "payment-rail-credential-missing:checkoutUrl"
+        ],
+        "ownerActionQueue": [
+          {
+            "action": "Configure one Lemon Squeezy checkout URL.",
+            "screen": "Lemon Squeezy -> Store -> Products",
+            "minutes": 20,
+            "costUsd": 0,
+            "evidenceOfCompletion": "A valid HTTPS checkout URL."
+          },
+          {
+            "action": "Configure the Lemon Squeezy webhook signing secret.",
+            "screen": "Lemon Squeezy -> Settings -> Webhooks",
+            "minutes": 10,
+            "costUsd": 0,
+            "evidenceOfCompletion": "A provider test delivery is accepted."
+          },
+          {
+            "action": "Configure the Lemon Squeezy provider verification API credential.",
+            "screen": "Lemon Squeezy -> Settings -> API",
+            "minutes": 5,
+            "costUsd": 0,
+            "evidenceOfCompletion": "Credential presence is observed without exposing its value."
+          }
+        ],
+        "evidenceBinding": "TRUSTED_PROVIDER_RECEIPT_NOT_BOUND"
+      },
+      {
+        "provider": "paypal",
+        "state": "LIVE_CREDENTIAL_MISSING",
+        "liveReady": false,
+        "reasonCodes": [
+          "payment-rail-credential-missing:liveEnvironment",
+          "payment-rail-credential-missing:liveClientId",
+          "payment-rail-credential-missing:liveClientSecret",
+          "payment-rail-credential-missing:liveWebhookId"
+        ],
+        "ownerActionQueue": [
+          {
+            "action": "Complete the protected PayPal LIVE configuration bundle.",
+            "screen": "PayPal Developer Dashboard + protected runtime environment",
+            "minutes": 15,
+            "costUsd": 0,
+            "evidenceOfCompletion": "PAYPAL_ENVIRONMENT=live, live client/webhook credential presence, DATABASE_URL and HTTPS APP_BASE_URL are observed without exposing values."
+          }
+        ],
+        "evidenceBinding": "TRUSTED_PROVIDER_RECEIPT_NOT_BOUND"
+      }
+    ],
+    "sandboxRails": [
+      {
+        "ok": true,
+        "policyVersion": "uberbond.payment-rail-doctor-1.2.0",
+        "provider": "lemon_squeezy",
+        "state": "SANDBOX_CONFIG_MISSING",
+        "liveReady": false,
+        "reasonCodes": [
+          "payment-rail-credential-missing:webhookSigningSecret",
+          "payment-rail-credential-missing:checkoutUrl"
+        ],
+        "paypalRail": "PAYPAL_PROVIDER_ORIGIN_LIVE_IMPLEMENTED__CONFIG_AND_EXTERNAL_EVIDENCE_REQUIRED",
+        "ownerActionQueue": [
+          {
+            "action": "Configure one Lemon Squeezy checkout URL.",
+            "screen": "Lemon Squeezy -> Store -> Products",
+            "minutes": 20,
+            "costUsd": 0,
+            "evidenceOfCompletion": "A valid HTTPS checkout URL."
+          },
+          {
+            "action": "Configure the Lemon Squeezy webhook signing secret.",
+            "screen": "Lemon Squeezy -> Settings -> Webhooks",
+            "minutes": 10,
+            "costUsd": 0,
+            "evidenceOfCompletion": "A provider test delivery is accepted."
+          },
+          {
+            "action": "Configure the Lemon Squeezy provider verification API credential.",
+            "screen": "Lemon Squeezy -> Settings -> API",
+            "minutes": 5,
+            "costUsd": 0,
+            "evidenceOfCompletion": "Credential presence is observed without exposing its value."
+          }
+        ],
+        "commercialTruth": {
+          "realCustomers": 0,
+          "clearedRevenueCents": 0,
+          "acceptedPaidDeliveries": 0,
+          "retainedCustomers": 0
+        },
+        "businessEffectAuthority": "NONE",
+        "externalEffectLedger": {
+          "providerCalls": 0,
+          "messages": 0,
+          "purchases": 0,
+          "deployments": 0,
+          "credentialChanges": 0,
+          "dnsChanges": 0,
+          "productionMutations": 0,
+          "spendCents": 0
+        },
+        "implementedRails": [
+          "lemon_squeezy",
+          "paypal"
+        ],
+        "implementationStatus": {
+          "sandboxImplemented": true,
+          "liveCapable": true
+        },
+        "unimplementedRails": {
+          "paypal": "PAYPAL_PROVIDER_ORIGIN_LIVE_IMPLEMENTED__CONFIG_AND_EXTERNAL_EVIDENCE_REQUIRED"
+        }
+      },
+      {
+        "ok": true,
+        "policyVersion": "uberbond.payment-rail-doctor-1.2.0",
+        "provider": "paypal",
+        "state": "SANDBOX_CONFIG_MISSING",
+        "liveReady": false,
+        "reasonCodes": [
+          "payment-rail-credential-missing:sandboxClientId",
+          "payment-rail-credential-missing:sandboxClientSecret",
+          "payment-rail-credential-missing:sandboxWebhookId"
+        ],
+        "paypalRail": "PAYPAL_PROVIDER_ORIGIN_LIVE_IMPLEMENTED__CONFIG_AND_EXTERNAL_EVIDENCE_REQUIRED",
+        "ownerActionQueue": [],
+        "commercialTruth": {
+          "realCustomers": 0,
+          "clearedRevenueCents": 0,
+          "acceptedPaidDeliveries": 0,
+          "retainedCustomers": 0
+        },
+        "businessEffectAuthority": "NONE",
+        "externalEffectLedger": {
+          "providerCalls": 0,
+          "messages": 0,
+          "purchases": 0,
+          "deployments": 0,
+          "credentialChanges": 0,
+          "dnsChanges": 0,
+          "productionMutations": 0,
+          "spendCents": 0
+        }
+      }
+    ],
+    "commercialTruth": {
+      "retainedClearedCustomers": 0,
+      "providerWitnessedPaymentEvents": 0
+    },
+    "gspot": {
+      "liveDispatcherBound": false,
+      "convenienceAuthority": "NONE",
+      "exactEffectAuthorityRequired": true,
+      "safeEvaluation": {
+        "prospectId": "pros_d8ced49c-38e1-4d70-8b3d-61a1a2533377",
+        "proofPrepared": true,
+        "messageValidated": true,
+        "messagePreparationState": "WINNER_SELECTED",
+        "criticReasonCodes": [],
+        "messagePreparationReasonCodes": [],
+        "preflightState": "BLOCKED_IDENTITY",
+        "blockers": [
+          "owner-authorization-to-publish-footer-missing",
+          "sender-side-legal-authority-hold-unresolved",
+          "signed-unsubscribe-urls-not-created"
+        ],
+        "senderHealthy": false,
+        "recipientBound": true
+      }
+    },
+    "secretsExposed": false,
+    "routeValuesExposed": false,
+    "prospectMessagePerformed": false,
+    "outboundAuthority": "NONE",
+    "businessEffectAuthority": "NONE"
+  },
+  "liveBrowser": {
+    "observedAt": "2026-10-04T12:19:00Z",
+    "engine": "Chrome cloud browser",
+    "reusedExistingOwnerSession": true,
+    "freshTabNoTokenEntry": true,
+    "lenses": [
+      "Money",
+      "Demand",
+      "Proof",
+      "Outreach",
+      "Reliability",
+      "Infrastructure"
+    ],
+    "prospectXray": true,
+    "nodes": 10,
+    "cleared": 0,
+    "oneButtonPressed": 1,
+    "gspotState": "NOTHING_TO_AUTHORIZE",
+    "gspotStageCounts": {
+      "MESSAGE": 1
+    },
+    "authorizeDisabled": true,
+    "dispatchDisabled": true,
+    "prospectSendsObserved": 0,
+    "physicalSafari": false,
+    "semanticZoom": 2.93,
+    "realEconomicEvents": 0,
+    "realEventReplayProvenance": "No live economic events available; no particles invented. Past/future isolation verified by tests.",
+    "latestObservedAt": "2026-10-04T12:32:00Z",
+    "sessionReusedAfterDeploymentRestart": true,
+    "canonicalOfferNodeObserved": true
+  },
+  "localWebkit": {
+    "state": "WEBKIT_IPAD_LOCAL_ACCEPTANCE_PASSED",
+    "engine": "WebKit 26.5",
+    "physicalSafari": false,
+    "ownerPairingAndReload": true,
+    "logoutSurvivesRestart": true,
+    "touchPinchHandlers": true,
+    "noXss": true
+  },
+  "remainingGates": [
+    "Owner authorization to publish legal footer",
+    "Owner sender-side legal authority",
+    "Current independently observed SMTP sender-health readiness before exact dispatch; absent observations stay unknown",
+    "Provider credentials/merchant activation/KYC/provider-origin receipt",
+    "Exact future effect authorization",
+    "Physical iPad Safari",
+    "Real buyer/customer/partner behavior"
+  ],
+  "effects": {
+    "publicVerificationCalls": 1,
+    "verificationSpendCents": 0,
+    "prospectMessages": 0,
+    "seedMessages": 0,
+    "paymentWrites": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "campaignActivated": false,
+    "liveDispatcherBound": false,
+    "internalProductionEvidenceImport": true,
+    "internalUnapprovedZeroCapDraftCampaign": true,
+    "internalSafeGspotRun": true,
+    "repositoryWrites": true,
+    "authorizedExistingServiceDeploys": 3
+  },
+  "effectsReceiptScope": "THROUGH_IMPLEMENTATION_CHECKPOINT; final documentation deploy/effects in newest issue #1188 terminal comment",
+  "proofCaptures": {
+    "liveScreenshot": "artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg",
+    "localWebkitFixtureScreenshot": "artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png"
+  }
+}

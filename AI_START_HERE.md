@@ -16,6 +16,10 @@ If you are an AI, coding agent, research agent, IDE assistant, terminal agent, o
 UberBond is a long-lived accumulated organism. A new context window is not a new project.
 
 
+## Revenue terminal hot pointer
+
+For the Oct4 Revenue Singularity continuation, newest issue#1188 terminal comment plus `docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md` and `docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md` govern current recovery after refreshing main. Do not use the Oct3 closure frontier. This does not narrow the terminal life-system canon.
+
 ## Hot mission auto-routing
 
 After the constitutional startup is mounted, classify the founder's actual request before brainstorming.

@@ -1,3 +1,5 @@
+> Historical Oct4 closure lineage. Current frontier: `REVENUE_SINGULARITY_TERMINAL_20261004.md/json` and the Oct4coverage ledger; newest issue#1188 terminal comment supplies final exact main/deploySHA.
+
 # Revenue Singularity closure receipt — 2026-10-04
 
 ## Scope

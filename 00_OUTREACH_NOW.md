@@ -7,6 +7,10 @@
 
 This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Continuum. It does not redefine UberBond as an outreach company.
 
+## Oct4 terminal recovery
+
+Read newest issue#1188 terminal comment, `docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md/json` and the Oct4coverage ledger. Real Powerhouse rank1, RELAI excluded, provider cash0, G-SPOT authorityNONE. Do not recover from Oct3.
+
 ## One-line drill
 
 `REFRESH LIVE TRUTH -> LOAD V5 GENOME -> ROUTE INTO THE FOUR OFFERS -> EVIDENCE-FIRST MICRO-COHORT -> MICRO-ASK -> ASYNC CLOSE -> CLEARED REVENUE / FOUNDER-MINUTE LEARNING`

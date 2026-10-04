@@ -1,7 +1,7 @@
 {
   "schemaVersion": "uberbond.winnr.current-observations.v1",
   "reconciledDate": "2026-10-04",
-  "recoverySourceCommit": "1db409edc3ed25bbb4dc603e0efe927d4d62bd63",
+  "recoverySourceCommit": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
   "refreshLiveTruthRequired": false,
   "technicalActivation": "COMPLETE",
   "campaignActivation": "NOT_ACTIVATED",
@@ -18,8 +18,8 @@
   "runtime": {
     "renderService": "uberbond-control-plane",
     "renderServiceId": "srv-dali9vijnfac739m4vcg",
-    "liveSourceCommit": "1db409edc3ed25bbb4dc603e0efe927d4d62bd63",
-    "liveDeployId": "dep-db120g7avr4c739sonu0",
+    "liveSourceCommit": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
+    "liveDeployId": "dep-db14bjdg1s2s738gghhg",
     "liveDeployStatus": "live",
     "buildCommand": "npm install --omit=dev",
     "storeBackend": "postgres",
@@ -32,7 +32,10 @@
     "currentImapAttemptsEach": 1,
     "currentCanaryPresenceObserved": false,
     "currentRecentCanaryOrdinalsFound": [],
-    "historicalCanaryOrdinalsFound": [2, 3],
+    "historicalCanaryOrdinalsFound": [
+      2,
+      3
+    ],
     "historicalCanaryProofDate": "2026-10-02",
     "replyProofClass": "HISTORICAL_INGESTIBILITY_PLUS_CURRENT_TRANSPORT_HEALTH_NOT_COMMERCIAL_REPLY_PROCESSING",
     "latestReplyStatus": "WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW",
@@ -40,24 +43,42 @@
     "credentialStorage": "AES_256_GCM_ENCRYPTED",
     "plaintextCredentialsLogged": false,
     "transportReceiptClass": "CURRENT_LIVE_IMAP_PLUS_DURABLE_CONSUMED_SMTP_BOOTSTRAP",
-    "smtpQuarantinedOrdinals": [3],
+    "smtpQuarantinedOrdinals": [
+      3
+    ],
     "imapCustodyChanged": false,
     "uberImapVersion": "uberbond.uberimap.v1.2",
     "oct4RootCause": "EMPTY_SEARCH_PARSED_AS_UID_ZERO",
     "oct4InvalidCommand": "UID FETCH 0 (BODY.PEEK[])",
     "oct4FixPr": 1198,
     "truthSplitPr": 1199,
-    "evidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md"
+    "evidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md",
+    "terminalObservedAt": "2026-10-04T12:27:08.908Z",
+    "finalPublicationShaReceipt": "newest GitHub issue #1188 terminal comment"
   },
   "placement": {
     "receiverClass": "OWNER_CONTROLLED_UBERBOND_GMAIL",
     "phenotype": "HUMAN_READABLE_NOTE",
-    "inboxOrdinals": [1, 2],
-    "spamOrdinals": [3],
+    "inboxOrdinals": [
+      1,
+      2
+    ],
+    "spamOrdinals": [
+      3
+    ],
     "messages": [
-      {"ordinal": 1, "folder": "INBOX"},
-      {"ordinal": 2, "folder": "INBOX"},
-      {"ordinal": 3, "folder": "SPAM"}
+      {
+        "ordinal": 1,
+        "folder": "INBOX"
+      },
+      {
+        "ordinal": 2,
+        "folder": "INBOX"
+      },
+      {
+        "ordinal": 3,
+        "folder": "SPAM"
+      }
     ],
     "historicalDiagnosticPhenotype": {
       "inbox": 0,
@@ -74,7 +95,11 @@
     "personalSeedExperiment": {
       "status": "INDEPENDENTLY_OBSERVED_3_OF_3_INBOX",
       "receiverClass": "CONNECTED_FOUNDER_PERSONAL_GMAIL",
-      "inboxOrdinals": [1, 2, 3],
+      "inboxOrdinals": [
+        1,
+        2,
+        3
+      ],
       "spf": "PASS_3_OF_3",
       "alignedDomainDkim": "PASS_3_OF_3",
       "dmarc": "PASS_3_OF_3",
@@ -111,5 +136,5 @@
     "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
   ],
   "privateEvidenceDocument": "WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md (founder-private record, not public repository content)",
-  "latestReconciledSourceCommit": "1db409edc3ed25bbb4dc603e0efe927d4d62bd63"
+  "latestReconciledSourceCommit": "a80bec3cd92c153cca4c4b01a00bda8355c67d66"
 }

@@ -144,7 +144,7 @@
       "id": "20",
       "aspiration": "Hostile tests and independent red team",
       "status": "REUSED_EXISTING_AND_VERIFIED",
-      "evidence": "Final independent audit 20 pass/0 fail/1 DB skip; actual PostgreSQL 13/13",
+      "evidence": "Final graph adversarial audit 21 pass/0 fail/1 DB skip; actual PostgreSQL 13/13",
       "limit": "No production effect used as a test."
     },
     {

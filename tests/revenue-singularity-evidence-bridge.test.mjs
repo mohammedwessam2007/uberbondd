@@ -2,9 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
   evidenceBundleFromStoredProspect,
-  buyerFromStoredProspect
-} from '../src/prospect-evidence-bridge.mjs';
-import {
+  buyerFromStoredProspect,
   moneyQueueFromSnapshot,
   paymentRailsFromSnapshot,
   dealFromSnapshot

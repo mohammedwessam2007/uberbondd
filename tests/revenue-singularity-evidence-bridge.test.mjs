@@ -78,7 +78,7 @@ test('prior outbound effect remains a hard Money Queue exclusion', () => {
   assert.ok(excluded.reasons.includes('PRIOR_EFFECT_UNRESOLVED') || excluded.reasons.includes('CONTACT_HISTORY_UNVERIFIED'));
 });
 
-test('payment compression is fed by the live rail doctor and still does not create payment authority', () => {
+test('owner settings cannot mint provider-origin payment readiness', () => {
   const p = prospect();
   const settings = {
     paymentRailVerificationReceipts: {
@@ -94,10 +94,11 @@ test('payment compression is fed by the live rail doctor and still does not crea
     PAYPAL_SANDBOX_CLIENT_ID: 'present', PAYPAL_SANDBOX_CLIENT_SECRET: 'present', PAYPAL_SANDBOX_WEBHOOK_ID: 'present',
     DATABASE_URL: 'postgres://present', APP_BASE_URL: 'https://uberbond.example'
   };
-  const rails = paymentRailsFromSnapshot(s, env);
-  assert.equal(rails.find(r => r.provider === 'paypal').state, 'LIVE_READY');
+  const paypal = paymentRailsFromSnapshot(s, env).find(r => r.provider === 'paypal');
+  assert.notEqual(paypal.state, 'LIVE_READY');
+  assert.equal(paypal.liveReady, false);
+  assert.equal(paypal.evidenceBinding, 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND');
   const deal = dealFromSnapshot(s, 'lead1', env);
-  assert.equal(deal.paymentPath.ok, true);
-  assert.equal(deal.paymentPath.provider, 'paypal');
+  assert.equal(deal.paymentPath.ok, false);
   assert.equal(deal.paymentPath.outboundAuthority, 'NONE');
 });

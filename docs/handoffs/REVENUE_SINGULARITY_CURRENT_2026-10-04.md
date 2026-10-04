@@ -1,13 +1,42 @@
 # Revenue Singularity current handoff — Oct 4 terminal frontier
 
-Current founder mission is the Oct4 terminal closure under the Sovereign Cognitive Continuum. Refresh main and read newest GitHub issue#1188 terminal comment first. Oct3 coverage and older closure receipts are contained lineage, not the recovery frontier.
+Current founder mission is the Oct4 terminal closure under the Sovereign Cognitive Continuum. Refresh main and read the **newest** GitHub issue #1188 terminal comment first. Oct3 coverage and older Oct4 closure receipts are contained lineage, not the recovery frontier.
 
-Read `docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md/json` and `docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md/json`. Verified executable implementation SHA `a80bec3cd92c153cca4c4b01a00bda8355c67d66`, existing Render `dep-db14bjdg1s2s738gghhg`, LIVE at `2026-10-04T12:27:08.908Z`. Final receipt-publication deployment SHA is in newest issue#1188 comment; compare current main to Render before relying on freshness.
+Read `docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md/json`, `docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md/json`, and the additive `docs/receipts/FROZEN_PROSPECT_CANARY_RECONCILIATION_2026-10-04.md`. The latter supersedes earlier zero-prospect-effect statements for events after the owner exact-effect UI became live.
 
-Current observed reality: web+worker+Postgres healthy; Winnr IMAP3/3 one attempt each; RELAI remains excluded; real independently verified Powerhouse rank1 with fresh canonical historyCLEAN. Proof and message preparation pass, but owner footer/legal authority stops exact effect compilation. One live G-SPOT press reachesMESSAGE thenNOTHING_TO_AUTHORIZE, zero sends, no live dispatcher. Persistent owner cookie reused by new live browser tab without token repaste. Required lenses/X-Ray/semantic zoom live observed; WebKit iPad-configured developer runtime passed, physical Safari external. LemonSqueezy SANDBOX_CONFIG_MISSING, PayPal LIVE_CREDENTIAL_MISSING; provider witnesses/customer cash0.
+## Exact current executable frontier
 
-All completed owner session/core/orchestration/queue/demand/bridge/proof/offer/genome/critics/radar/twin/close/payment/delivery/renewal/referral/partner/reliability/correlation/failure/escape/Constellation/Winnr architecture is preserved. Do not rebuild it. See45-row ledger for exact classification/proof. Inherited unrelated corpus/Opus/reachability/hosted runner failures are not global-green proof or a reason to weaken revenue gates.
+- current repaired source: `8d3607d3c1466ffdfc3faf360dd59c6d04d0ba4f`
+- Render service: `srv-dali9vijnfac739m4vcg`
+- Render deploy: `dep-db14p949v7es73dulpfg`
+- deploy status: `LIVE`
+- deploy finished: `2026-10-04T12:56:12.710127Z`
+- web + worker: PostgreSQL healthy startup
+- OMNIA outbound integration mode: `off`
 
-Remaining gates are owner footer consent/legal authority, actual sender/provider readiness before execution, payment provider authentication/activation/KYC, exact future effect authority, physical iPad and real commercial behavior. No prospect messages, seed messages, spend, payment writes, campaign activation or quarantine release occurred. Safe draft campaign has approvalfalse, autoSendfalse, caps0. Manual Mohamed material replies remain unchanged.
+Current observed reality still preserves Winnr IMAP 3/3 transport health, ordinal-3 SMTP quarantine, RELAI exclusion, and real independently verified Powerhouse rank1. Payment rails remain not live-ready; provider-witnessed cleared payments and cleared revenue remain zero. Physical iPad Safari remains external proof.
 
-Recovery: refresh main → newest issue#1188 terminal comment → this handoff → terminal receipt+Oct4ledger → Winnr current reconciliation → Render exactSHA/worker/DB/transport. Revalidate route/source/history rather than carrying forward a CLEAN/VALID verdict. Route verification expiresOct11 and never becomes authority.
+## Frozen Intelo effect truth — do not replay
+
+One owner-authorized exact frozen effect crossed the SMTP provider-call boundary once before the durability repair:
+
+- digest: `65b86bf22f1060ee307020ac8f304e55f788ccd88cba10d37108bae35c804347`
+- sender -> recipient: `nadia.chen@cedarpointdomains.com` -> `partnerships@intelo.ai`
+- provider calls: `1`
+- provider acceptance: `UNKNOWN`
+- provider reference / Message-ID: not persisted
+- customer delivery: `UNKNOWN_0_OR_1`
+- automatic retries: `0`
+- follow-ups: `0`
+- effect cap remaining: `0`
+- required action: `RECONCILE_NEVER_REPLAY`
+
+The post-provider transaction failed at `2026-10-04T12:11:57Z` because `outbound_events.provider_event_id` was missing from the live schema. PR #1219 repaired this class with an additive migration, deterministic Message-ID, provider-result checkpoint before secondary ledgers, and a regression proving that a post-provider ledger failure cannot erase the receipt or reopen the effect cap.
+
+Do **not** recover any statement saying `prospect messages = 0` as current global truth. Earlier zero-effect observations remain historically valid only for their own observation windows. Current global truth is one provider call with customer-delivery count unresolved at `0-or-1`.
+
+All completed owner session/core/orchestration/queue/demand/bridge/proof/offer/genome/critics/radar/twin/close/payment/delivery/renewal/referral/partner/reliability/correlation/failure/escape/Constellation/Winnr architecture is preserved. Do not rebuild it. Inherited unrelated corpus/Opus/reachability/hosted-runner failures are not global-green proof or a reason to weaken revenue gates.
+
+Campaign activation remains `NOT_ACTIVATED`. Global outbound was not enabled by the frozen effect or its repair. No live G-SPOT dispatcher was bound by the repair. Manual Mohamed material replies remain unchanged. No retry, follow-up, bulk-send, payment movement, quarantine release, or new spend was performed by the repair.
+
+Recovery: refresh main -> newest issue #1188 comment -> this handoff -> frozen-canary reconciliation receipt -> terminal receipt + Oct4 ledger -> Winnr current reconciliation -> exact Render SHA/worker/DB/transport. Revalidate route/source/history rather than carrying forward CLEAN/VALID verdicts. Capability never creates authority.

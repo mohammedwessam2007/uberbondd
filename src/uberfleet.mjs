@@ -163,19 +163,21 @@ export async function dispatchSmtpFleetAccount({
   const route=account?.smtpRoute||{};
   let credential;
   try{credential=openSmtpAccountCredential(account,encryptionKey);}
-  catch(error){return {classification:'REJECTED',reasonCodes:['smtp-account-credential-unavailable'],dispatchError:clean(error.message,300)};}
+  catch(error){return {classification:'REJECTED',providerCallAttempted:false,effectBoundaryCrossed:false,reasonCodes:['smtp-account-credential-unavailable'],dispatchError:clean(error.message,300)};}
   const transport=transportFactory({
     host:route.host,port:route.port,secure:route.secure!==false,
     username:credential.username,password:credential.password,
     authorized:route.authorized===true,termsCompatible:route.termsCompatible===true,
     evidenceRef:route.evidenceRef
   });
-  if(!transport?.ok||typeof transport.send!=='function')return {classification:'REJECTED',reasonCodes:transport?.reasonCodes||['smtp-transport-not-ready']};
+  if(!transport?.ok||typeof transport.send!=='function')return {classification:'REJECTED',providerCallAttempted:false,effectBoundaryCrossed:false,reasonCodes:transport?.reasonCodes||['smtp-transport-not-ready']};
   try{
     const result=await transport.send({...message,from:message.from||account.email});
-    if(result?.confirmed!==true||!clean(result.providerReceiptId,500))return {classification:'UNCERTAIN',reasonCodes:['smtp-provider-confirmation-required'],messageId:result?.messageId||null};
+    if(result?.confirmed!==true||!clean(result.providerReceiptId,500))return {classification:'UNCERTAIN',providerCallAttempted:true,effectBoundaryCrossed:true,reasonCodes:['smtp-provider-confirmation-required'],messageId:result?.messageId||null};
     return {
       classification:'ACCEPTED',
+      providerCallAttempted:true,
+      effectBoundaryCrossed:true,
       providerReferenceId:clean(result.providerReceiptId,500),
       messageId:clean(result.messageId,500)||'',
       evidence:{provider:'smtp-relay',receiptId:clean(result.providerReceiptId,500),routeEvidenceRef:clean(route.evidenceRef,1500)}
@@ -185,6 +187,6 @@ export async function dispatchSmtpFleetAccount({
       ? error.errors.slice(0,6).map(item=>[item?.code,item?.address,item?.port,item?.message].filter(Boolean).join(':')).filter(Boolean)
       : [];
     const detail=nested.length?nested.join('|'):(error?.message||error);
-    return {classification:'UNCERTAIN',reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(detail,500),automaticRetryAuthorized:false};
+    return {classification:'UNCERTAIN',providerCallAttempted:true,effectBoundaryCrossed:true,reasonCodes:['smtp-provider-call-threw'],dispatchError:clean(detail,500),automaticRetryAuthorized:false};
   }
 }

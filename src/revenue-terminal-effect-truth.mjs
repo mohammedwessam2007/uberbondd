@@ -36,8 +36,7 @@ export function compileProspectEffectTruth({ settings = {}, outboundEvents = [],
 
   for (const execution of executions) {
     if (execution.automaticRetryAuthorized === true || execution?.receipt?.automaticRetryAuthorized === true) retryAuthorized = true;
-    if (execution.providerCallAttempted !== true) continue;
-    providerCallAttemptClaims += 1;
+    if (execution.providerCallAttempted === true) providerCallAttemptClaims += 1;
     const status = String(execution.status || '').trim().toUpperCase();
     const receipt = asObject(execution.receipt);
     const providerAccepted = receipt.providerAccepted;
@@ -84,7 +83,7 @@ export function compileProspectEffectTruth({ settings = {}, outboundEvents = [],
 
   const providerBoundaryCrossed = providerBoundaryConfirmed > 0
     ? true
-    : providerCallAttemptClaims > 0
+    : unknown > 0 || providerCallAttemptClaims > 0
       ? null
       : false;
 

@@ -42,5 +42,27 @@ test('SMTP dispatch maps confirmed provider receipt without exposing password',a
   });
   assert.equal(r.classification,'ACCEPTED');
   assert.equal(r.providerReferenceId,'smtp250:abc');
+  assert.equal(r.providerCallAttempted,true);
+  assert.equal(r.effectBoundaryCrossed,true);
   assert.equal(JSON.stringify(r).includes('secret'),false);
+});
+test('SMTP transport setup rejection is explicit proof the provider boundary was not crossed',async()=>{
+  let sends=0;
+  const r=await dispatchSmtpFleetAccount({
+    account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
+    transportFactory:()=>({ok:false,reasonCodes:['smtp-route-not-ready'],send:async()=>{sends++;}})
+  });
+  assert.equal(r.classification,'REJECTED');
+  assert.equal(r.providerCallAttempted,false);
+  assert.equal(r.effectBoundaryCrossed,false);
+  assert.equal(sends,0);
+});
+test('SMTP response without a provider receipt is uncertain after the effect boundary',async()=>{
+  const r=await dispatchSmtpFleetAccount({
+    account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
+    transportFactory:()=>({ok:true,send:async()=>({confirmed:false,messageId:'<unknown@x>'})})
+  });
+  assert.equal(r.classification,'UNCERTAIN');
+  assert.equal(r.providerCallAttempted,true);
+  assert.equal(r.effectBoundaryCrossed,true);
 });

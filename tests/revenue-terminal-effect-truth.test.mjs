@@ -92,3 +92,33 @@ test('unread ledgers fail closed instead of minting zero effects', () => {
   assert.equal(truth.prospectMessagePerformed, null);
   assert.equal(truth.providerBoundaryCrossed, null);
 });
+
+test('interrupted modern dispatch with unknown provider-call fact remains unknown', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:modern': { status: 'DISPATCHING', providerCallAttempted: null, effectCapRemaining: 0 }
+  }});
+  assert.equal(truth.prospectMessagePerformed, null);
+  assert.equal(truth.providerBoundaryCrossed, null);
+  assert.equal(truth.unresolvedDispatchClaims, 1);
+  assert.equal(truth.frozenProviderCallAttemptClaims, 0);
+});
+
+test('unclassified adapter receipt remains unknown even without confirmed provider invocation', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:malformed': { status: 'PROVIDER_UNCERTAIN_CHECKPOINTED', providerCallAttempted: null,
+      receipt: { providerAccepted: false, providerError: { classification: 'UNCERTAIN' }, effectLedger: { providerCalls: null } } }
+  }});
+  assert.equal(truth.prospectMessagePerformed, null);
+  assert.equal(truth.providerBoundaryCrossed, null);
+  assert.equal(truth.frozenUnknownResults, 1);
+});
+
+test('explicit pre-effect rejection with no provider call remains no message', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:rejected': { status: 'PROVIDER_REJECTED', providerCallAttempted: false,
+      receipt: { providerAccepted: false, effectLedger: { providerCalls: 0 } } }
+  }});
+  assert.equal(truth.prospectMessagePerformed, false);
+  assert.equal(truth.providerBoundaryCrossed, false);
+  assert.equal(truth.frozenRejectedResults, 1);
+});

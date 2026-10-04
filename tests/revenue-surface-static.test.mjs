@@ -2,18 +2,30 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const r = p => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
-const js = r('public/constellation.js'); const html = r('public/constellation.html'); const server = r('server-core.mjs'); const svc = r('src/revenue-singularity-service.mjs');
+const js = r('public/constellation.js'); const go = r('public/constellation-gspot.js'); const html = r('public/constellation.html'); const server = r('server-core.mjs'); const svc = r('src/revenue-singularity-service.mjs');
 
 test('constellation client is XSS-safe: no innerHTML/eval/inline handlers; untrusted text via textContent', () => {
   assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(|new Function/);
+  assert.doesNotMatch(go, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(|new Function/);
   assert.doesNotMatch(html, /<script(?![^>]*\bsrc=)[^>]*>|\son[a-z]+=/i);
   assert.match(js, /textContent = s/);
+  assert.match(go, /note\.textContent/);
 });
 
 test('constellation client never persists credentials and has no send path', () => {
   assert.doesNotMatch(js, /localStorage|sessionStorage|document\.cookie|indexedDB/);
+  assert.doesNotMatch(go, /localStorage|sessionStorage|document\.cookie|indexedDB/);
   assert.doesNotMatch(js, /\/api\/(outreach|send|dispatch-live)|messages\/send/);
+  assert.doesNotMatch(go, /\/api\/(outreach|send|dispatch-live)|messages\/send/);
   assert.match(html, /Dispatch \(dry run\)/);
+});
+
+test('one-button G-SPOT advances and freezes a batch but cannot authorize or dispatch', () => {
+  assert.match(html, /constellation-gspot\.js/);
+  assert.match(go, /\/api\/revenue\/gspot\/plan/);
+  assert.match(go, /\/api\/revenue\/gspot\/prepare-batch/);
+  assert.doesNotMatch(go, /gspot\/authorize|gspot\/dispatch/);
+  assert.match(go, /No message has been sent/);
 });
 
 test('constellation visual language remains data-bound instead of decorative fake activity', () => {

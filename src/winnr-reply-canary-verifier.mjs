@@ -39,7 +39,7 @@ export async function verifyWinnrReplyCanaries({
   pollFn=pollImapForwardingAccount,
   diagnosticFn=diagnoseWinnrImapStages
 }={}){
-  if(!config?.encryptionKey)return {ok:false,status:'WINNR_REPLY_CANARY_VERIFY_REFUSED',reasonCodes:['encryption-key-required']};
+  if(!config?.encryptionKey)return {ok:false,transportHealthy:false,canaryPresenceObserved:false,status:'WINNR_REPLY_CANARY_VERIFY_REFUSED',reasonCodes:['encryption-key-required']};
   const store=storeFactory(config);
   try{
     await store.init();
@@ -71,7 +71,14 @@ export async function verifyWinnrReplyCanaries({
       });
     }
     const foundOrdinals=[...found].sort((a,b)=>a-b);
-    const ok=[2,3].every(n=>found.has(n));
+    const canaryPresenceObserved=[2,3].every(n=>found.has(n));
+    const transportHealthy=accountResults.length>0&&accountResults.every(x=>x.ok===true&&x.status==='UBERIMAP_FETCH_CONFIRMED');
+    const ok=canaryPresenceObserved;
+    const status=canaryPresenceObserved
+      ?'WINNR_REPLY_CANARIES_INGESTIBLE'
+      :transportHealthy
+        ?'WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW'
+        :'WINNR_REPLY_CANARIES_NOT_CONFIRMED';
     const safeDiagnostic=commandDiagnostic?{
       accountId:commandDiagnostic.accountId,
       ok:commandDiagnostic.ok===true,
@@ -84,6 +91,9 @@ export async function verifyWinnrReplyCanaries({
     }:null;
     await store.log('winnr_reply_canary_verification',{
       ok,
+      status,
+      transportHealthy,
+      canaryPresenceObserved,
       foundOrdinals,
       expectedOrdinals:[2,3],
       imapAccountsChecked:accounts.length,
@@ -96,7 +106,9 @@ export async function verifyWinnrReplyCanaries({
     });
     return {
       ok,
-      status:ok?'WINNR_REPLY_CANARIES_INGESTIBLE':'WINNR_REPLY_CANARIES_NOT_CONFIRMED',
+      status,
+      transportHealthy,
+      canaryPresenceObserved,
       foundOrdinals,
       expectedOrdinals:[2,3],
       imapAccountsChecked:accounts.length,

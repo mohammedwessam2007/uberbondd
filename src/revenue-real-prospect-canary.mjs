@@ -7,6 +7,8 @@ export const REVENUE_REAL_PROSPECT_CANARY_RECORD = 'revenue-real-canary-relai-20
 
 const ZERO_EFFECTS = Object.freeze({ messages: 0, payments: 0, deployments: 0, providerWrites: 0, spendCents: 0 });
 const clean = (value, max = 1000) => String(value ?? '').trim().slice(0, max);
+const EXPECTED_ROUTE_LOCAL = 'careers';
+const EXPECTED_ROUTE_DOMAIN = 'relai.ai';
 
 function fail(status, reasonCodes = [], extra = {}) {
   return {
@@ -21,6 +23,16 @@ function fail(status, reasonCodes = [], extra = {}) {
   };
 }
 
+function publishedCareersRoute(pageText) {
+  const routes = String(pageText || '').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi) || [];
+  return routes
+    .map(route => route.toLowerCase())
+    .find(route => {
+      const [local, domain] = route.split('@');
+      return local === EXPECTED_ROUTE_LOCAL && domain === EXPECTED_ROUTE_DOMAIN;
+    }) || '';
+}
+
 /**
  * Compile a prospect only when the current first-party page still contains the
  * exact public evidence we came to observe. The public careers inbox is used as
@@ -30,12 +42,13 @@ function fail(status, reasonCodes = [], extra = {}) {
 export function compileRelaiCanaryProspect(pageText, { observedAt = new Date().toISOString() } = {}) {
   const body = String(pageText || '');
   const lower = body.toLowerCase();
+  const publishedRoute = publishedCareersRoute(body);
   const required = [
     ['reliability in production', 'production-reliability-evidence-missing'],
-    ['ai research engineer', 'ai-research-role-evidence-missing'],
-    ['careers@relai.ai', 'public-careers-route-evidence-missing']
+    ['ai research engineer', 'ai-research-role-evidence-missing']
   ];
   const missing = required.filter(([needle]) => !lower.includes(needle)).map(([, reason]) => reason);
+  if (!publishedRoute) missing.push('public-careers-route-evidence-missing');
   if (missing.length) return fail('REAL_PROSPECT_CANARY_SOURCE_REFUSED', missing, { sourceUrl: REVENUE_REAL_PROSPECT_CANARY_SOURCE });
 
   return {
@@ -47,22 +60,20 @@ export function compileRelaiCanaryProspect(pageText, { observedAt = new Date().t
       company: 'RELAI',
       website: 'https://relai.ai/',
       niche: 'AI agent SaaS engineering platform evaluation release workflow',
-      country: 'United States',
       serviceFit: 0.95,
       abilityToPay: 8,
       source: 'public_website',
       sourceUrl: REVENUE_REAL_PROSPECT_CANARY_SOURCE,
       sourceRecordId: REVENUE_REAL_PROSPECT_CANARY_RECORD,
-      sourceLicense: 'public-first-party-web-observation',
       sourceMetadata: {
         sourceType: 'public_website',
         canary: REVENUE_REAL_PROSPECT_CANARY_RECORD,
         observedAt
       },
       contact: {
-        email: 'careers@relai.ai',
+        email: publishedRoute,
         name: 'RELAI Careers',
-        title: 'AI Research hiring contact',
+        title: 'Careers recruiting contact',
         source: 'public_website',
         sourceUrl: REVENUE_REAL_PROSPECT_CANARY_SOURCE,
         observedAt,
@@ -78,8 +89,7 @@ export function compileRelaiCanaryProspect(pageText, { observedAt = new Date().t
         evidenceObservedAt: observedAt,
         confidence: 0.95,
         service: 'AI Agent Production Release Gate',
-        safeForOutreach: false,
-        sourceLicense: 'public-first-party-web-observation'
+        safeForOutreach: false
       }
     },
     demandSignal: {

@@ -20,6 +20,7 @@ import { createRegistryAdapterRegistry } from './src/company-registry-adapter.mj
 import { createCompaniesHouseAdapter } from './src/companies-house-adapter.mjs';
 import { preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import { terminalReadinessWithEffectTruth } from './src/revenue-terminal-effect-truth.mjs';
+import { runWinnrSmtpReadinessProbe } from './src/winnr-smtp-readiness.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -29,6 +30,39 @@ if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
 const store = createStore(config);
 await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
+
+// Fresh authenticated SMTP reachability without a message effect. This probe is
+// deliberately narrower than placement/reputation health: TLS -> EHLO -> AUTH ->
+// NOOP -> QUIT only. Configured placement quarantine and every non-probe pause
+// remain authoritative, and no send/consequence authority is created.
+let smtpReadinessInFlight = false;
+let smtpReadinessTimer = null;
+async function refreshWinnrSmtpReadiness() {
+  if (smtpReadinessInFlight) return null;
+  smtpReadinessInFlight = true;
+  try {
+    const result = await runWinnrSmtpReadinessProbe({
+      store,
+      encryptionKey: config.encryptionKey,
+      quarantineOrdinalsText: process.env.WINNR_PLACEMENT_QUARANTINE_ORDINALS || ''
+    });
+    console.log(`WINNR_SMTP_READINESS ${JSON.stringify(result)}`);
+    return result;
+  } catch (error) {
+    console.error(`WINNR_SMTP_READINESS_FAILED ${JSON.stringify({
+      ok: false,
+      errorClass: String(error?.code || error?.name || 'error').slice(0, 80),
+      messagesSent: 0,
+      prospectSendAuthorityGranted: false
+    })}`);
+    return null;
+  } finally {
+    smtpReadinessInFlight = false;
+  }
+}
+await refreshWinnrSmtpReadiness();
+smtpReadinessTimer = setInterval(() => { void refreshWinnrSmtpReadiness(); }, 60 * 60_000);
+smtpReadinessTimer.unref?.();
 
 // Explicit one-shot reality canary. Off by default. When enabled it performs one
 // first-party public GET and internal evidence/prospect writes only. It cannot
@@ -104,6 +138,7 @@ async function shutdown(signal) {
   if (shuttingDown) return;
   shuttingDown = true;
   console.log(`Received ${signal}; worker is draining active jobs.`);
+  if (smtpReadinessTimer) clearInterval(smtpReadinessTimer);
   stopScheduler();
   await queue.stopWorker().catch(error => console.error('Worker stop failed', error));
   await closeSharedBrowserRuntimes().catch(error => console.error('Browser runtime stop failed', error));

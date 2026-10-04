@@ -25,10 +25,14 @@ const bounded=v=>Array.isArray(v)?v.map(x=>String(x).slice(0,500)).slice(0,24):[
 export function truthFailureSummary(result={}){
   const receipt=result?.detail?.truthReceipt;
   if(!receipt||receipt.ok===true)return null;
+  const reachability=receipt.reachabilityConservation?.classificationDiagnostics||{};
   return{
     status:String(receipt.status||'UNKNOWN').slice(0,120),
     reasonCodes:bounded(receipt.reasonCodes),
     referenceIntegrityReasonCodes:bounded(receipt.referenceIntegrity?.reasonCodes),
+    reachabilityUnclassified:bounded(reachability.unclassified),
+    reachabilityStaleClassifications:bounded(reachability.staleClassifications),
+    reachabilityFounderViolations:bounded(reachability.founderInteractiveClassificationViolations),
     dirtyPaths:bounded(receipt.dirtyPaths),
     unexpectedDirtyPaths:bounded(receipt.unexpectedDirtyPaths),
     headSha:/^[0-9a-f]{40}$/i.test(String(receipt.headSha||''))?String(receipt.headSha).toLowerCase():null,

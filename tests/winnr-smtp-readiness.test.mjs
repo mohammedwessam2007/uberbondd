@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createUberSmtpSubmissionTransport } from '../src/ubersmtp-submission-adapter.mjs';
 import { probeSmtpFleetAccount } from '../src/uberfleet.mjs';
-import { runWinnrSmtpReadinessProbe, SMTP_PROBE_FAILURE_PAUSE_REASON } from '../src/winnr-smtp-readiness.mjs';
+import { runWinnrSmtpReadinessProbe, SMTP_PROBE_FAILURE_PAUSE_REASON, SMTP_PROBE_READY_RECEIPT_HOLD_REASON } from '../src/winnr-smtp-readiness.mjs';
 import { encryptJson } from '../src/crypto.mjs';
 
 const KEY='a'.repeat(64);
@@ -68,26 +68,30 @@ test('fleet probe decrypts credentials but issues no message',async()=>{
   assert.equal(probed,1);
 });
 
-test('controller probes non-quarantined accounts, initializes health, and never exposes addresses',async()=>{
+test('controller proves eligible routes but keeps sender health fail closed',async()=>{
   const store=fakeStore();
   const calls=[];
   const result=await runWinnrSmtpReadinessProbe({
     store,encryptionKey:KEY,quarantineOrdinalsText:'3',now:new Date('2026-10-04T13:00:00Z'),
-    probeFn:async({account})=>{calls.push(account.slot);return{classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:`r-${account.id}`,providerResponseDigest:'c'.repeat(64),providerCalls:1,messagesSent:0};}
+    probeFn:async({account})=>{calls.push(account.slot);return{classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:`smtp-noop:${account.id}`,providerResponseDigest:'c'.repeat(64),providerCalls:1,messagesSent:0};}
   });
   assert.equal(result.ok,true);
+  assert.equal(result.checkedAccounts,2);
+  assert.equal(result.providerContactedAccounts,2);
   assert.equal(result.readyAccounts,2);
   assert.equal(result.skippedProtectiveAccounts,1);
   assert.deepEqual(calls,['winnr:slot-1','winnr:slot-2']);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,false);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,'');
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,true);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,SMTP_PROBE_READY_RECEIPT_HOLD_REASON);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.paused,true);
   assert.equal(store.senderHealth.some(x=>x.inbox==='winnr:slot-3'),false);
+  assert.equal(result.senderHealthHeldFailClosed,true);
   assert.equal(result.messagesSent,0);
   assert.equal(result.prospectSendAuthorityGranted,false);
   assert.equal(JSON.stringify(result).includes('@'),false);
 });
 
-test('probe failure protective-pauses, later success clears only the probe-created pause',async()=>{
+test('probe failure stays paused, later success converts only probe-created hold to receipt hold',async()=>{
   const store=fakeStore({health:[{id:'manual',inbox:'winnr:slot-2',paused:true,pauseReason:'manual-hold'}]});
   const failed=await runWinnrSmtpReadinessProbe({
     store,encryptionKey:KEY,quarantineOrdinalsText:'3',
@@ -100,10 +104,42 @@ test('probe failure protective-pauses, later success clears only the probe-creat
 
   await runWinnrSmtpReadinessProbe({
     store,encryptionKey:KEY,quarantineOrdinalsText:'3',
-    probeFn:async()=>({classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'r',providerResponseDigest:'d'.repeat(64),providerCalls:1,messagesSent:0})
+    probeFn:async()=>({classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'smtp-noop:r',providerResponseDigest:'d'.repeat(64),providerCalls:1,messagesSent:0})
   });
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,false);
-  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,'');
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.paused,true);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,SMTP_PROBE_READY_RECEIPT_HOLD_REASON);
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.paused,true);
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.pauseReason,'manual-hold');
+});
+
+test('local refusal is a failed evaluated account but not a provider call',async()=>{
+  const store=fakeStore();
+  const result=await runWinnrSmtpReadinessProbe({
+    store,encryptionKey:KEY,quarantineOrdinalsText:'3',
+    probeFn:async({account})=>account.slot.endsWith('1')
+      ?{classification:'REJECTED',reasonCodes:['smtp-account-credential-unavailable'],providerCalls:0,messagesSent:0}
+      :{classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'smtp-noop:r2',providerResponseDigest:'e'.repeat(64),providerCalls:1,messagesSent:0}
+  });
+  assert.equal(result.ok,false);
+  assert.equal(result.checkedAccounts,2);
+  assert.equal(result.providerContactedAccounts,1);
+  assert.equal(result.readyAccounts,1);
+  assert.equal(result.failedAccounts,1);
+  assert.equal(result.providerCalls,1);
+  assert.equal(result.results.find(x=>x.ordinal===1)?.providerCalls,0);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,SMTP_PROBE_FAILURE_PAUSE_REASON);
+});
+
+test('READY without provider evidence is not accepted as confirmed readiness',async()=>{
+  const store=fakeStore();
+  const result=await runWinnrSmtpReadinessProbe({
+    store,encryptionKey:KEY,quarantineOrdinalsText:'2,3',
+    probeFn:async()=>({classification:'READY',providerCalls:0,messagesSent:0})
+  });
+  assert.equal(result.ok,false);
+  assert.equal(result.checkedAccounts,1);
+  assert.equal(result.readyAccounts,0);
+  assert.equal(result.failedAccounts,1);
+  assert.equal(result.providerCalls,0);
+  assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,SMTP_PROBE_FAILURE_PAUSE_REASON);
 });

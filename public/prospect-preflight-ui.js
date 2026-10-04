@@ -3,9 +3,11 @@
 export async function inspectProspect({ request, input }) {
   const body = input?.request?.body || input;
   if (body?.frozenEffectDigest) {
+    if (Object.keys(body).some(key => key !== 'frozenEffectDigest')) throw new Error('frozen-preflight-accepts-only-digest');
     const result = await request('/api/prospect-preflight', { method: 'POST', body: JSON.stringify(body) });
     return { preflight: { ok: true, result }, classification: result.validation?.valid === true ? 'CLEAN_EXACT_PRODUCTION_HISTORY' : 'FROZEN_EFFECT_INVALID', readOnly: true, sendAuthority: false, externalEffects: 0 };
   }
+  if (Object.hasOwn(body || {}, 'executeFrozenEffect')) throw new Error('execution-flag-forbidden-in-read-only-preflight');
   if (!body?.record?.recipient?.email) throw new Error('candidate-record-and-exact-recipient-required');
   const email = String(body.record.recipient.email).trim().toLowerCase();
   const domain = email.slice(email.lastIndexOf('@') + 1);

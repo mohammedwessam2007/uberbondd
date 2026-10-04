@@ -37,10 +37,6 @@ const CLASS_BY_SOURCE = Object.freeze({
   owner_import: 'DIRECT_FIRST_PARTY', first_party: 'DIRECT_FIRST_PARTY', public_website: 'DIRECT_PUBLIC',
   public_profile: 'DIRECT_PUBLIC', licensed_provider: 'LICENSED_PROVIDER', provider_api: 'LICENSED_PROVIDER'
 });
-const VERIFY_MAP = Object.freeze({
-  valid: 'VALID', deliverable: 'VALID', invalid: 'INVALID', undeliverable: 'INVALID', accept_all: 'CATCH_ALL', catch_all: 'CATCH_ALL',
-  risky: 'RISKY', unverified: 'UNKNOWN', unknown: 'UNKNOWN', temporary_failure: 'TEMPORARY_FAILURE', suppressed: 'SUPPRESSED', stale: 'STALE'
-});
 const https = value => {
   try { const u = new URL(String(value || '')); return u.protocol === 'https:' ? u.toString() : ''; }
   catch { return ''; }
@@ -53,25 +49,32 @@ const sourceTypeOf = value => SOURCE_MAP[String(value || '').trim().toLowerCase(
 const evidenceClassOf = sourceType => CLASS_BY_SOURCE[sourceType] || null;
 const contactTitle = p => String(p?.contact?.role || p?.contact?.title || p?.buyerRole || '').trim();
 
+function canonicalContactVerifications(contact = {}, email = '') {
+  const candidates = [
+    ...(Array.isArray(contact.verifications) ? contact.verifications : []),
+    ...(contact.verification && typeof contact.verification === 'object' ? [contact.verification] : [])
+  ];
+  const route = String(email || '').trim().toLowerCase();
+  return candidates.filter(item =>
+    item?.version === PROSPECT_EVIDENCE_VERSION
+    && String(item?.route || '').trim().toLowerCase() === route
+  );
+}
+
 function contactCandidate(prospect = {}) {
   const c = prospect.contact || {};
   const email = String(c.email || prospect.email || '').trim().toLowerCase();
   if (!email) return null;
   const sourceType = sourceTypeOf(c.source || prospect.source);
   if (!sourceType) return null;
-  const verificationState = VERIFY_MAP[String(c.verified || c.verificationStatus || '').trim().toLowerCase()] || null;
-  const checkedAt = c.verificationCheckedAt || c.observedAt || prospect.updatedAt || prospect.createdAt || null;
+  // Identity/address provenance and deliverability provenance are separate facts.
+  // A public page can establish that an address was published; it cannot turn a
+  // legacy `verified: valid` string into mailbox-verifier evidence. Only durable
+  // canonical verification records are reusable here. Missing verifier lineage
+  // deliberately leaves the route in NEEDS_VERIFICATION.
   const route = {
     route: email,
-    verifications: verificationState ? [{
-      route: email,
-      state: verificationState,
-      checkedAt,
-      provider: String(c.verificationProvider || c.source || sourceType).slice(0, 120),
-      sourceUrl: https(c.verificationSourceUrl || c.sourceUrl),
-      evidenceClass: evidenceClassOf(sourceType) || 'MODEL_INFERENCE',
-      confidence: clamp01(c.verificationScore) ?? (verificationState === 'VALID' || verificationState === 'INVALID' ? 0.9 : 0.5)
-    }] : []
+    verifications: canonicalContactVerifications(c, email)
   };
   const name = String(c.name || prospect.contactName || '').trim();
   const role = contactTitle(prospect);

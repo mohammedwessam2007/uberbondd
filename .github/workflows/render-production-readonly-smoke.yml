@@ -1,0 +1,73 @@
+name: Render Production Read-Only Smoke
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/render-production-readonly-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: render-production-readonly-smoke
+  cancel-in-progress: false
+
+jobs:
+  smoke:
+    runs-on: ubuntu-slim
+    timeout-minutes: 5
+    env:
+      BASE_URL: https://uberbond-control-plane.onrender.com
+    steps:
+      - name: Prove public health and Constellation shell
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp=$(mktemp -d)
+          trap 'rm -rf "$tmp"' EXIT
+
+          health_code=$(curl --silent --show-error --location --max-time 20 \
+            --output "$tmp/health.json" --write-out '%{http_code}' \
+            "$BASE_URL/api/health")
+          test "$health_code" = '200'
+
+          html_code=$(curl --silent --show-error --location --max-time 20 \
+            --output "$tmp/constellation.html" --write-out '%{http_code}' \
+            "$BASE_URL/constellation.html")
+          test "$html_code" = '200'
+          grep -q 'Revenue Constellation' "$tmp/constellation.html"
+
+          js_code=$(curl --silent --show-error --location --max-time 20 \
+            --output "$tmp/constellation.js" --write-out '%{http_code}' \
+            "$BASE_URL/constellation.js")
+          test "$js_code" = '200'
+          grep -q '/api/revenue/constellation' "$tmp/constellation.js"
+
+          css_code=$(curl --silent --show-error --location --max-time 20 \
+            --output "$tmp/constellation.css" --write-out '%{http_code}' \
+            "$BASE_URL/constellation.css")
+          test "$css_code" = '200'
+
+          printf 'PUBLIC_SURFACE_OK health=%s html=%s js=%s css=%s\n' \
+            "$health_code" "$html_code" "$js_code" "$css_code"
+
+      - name: Prove unauthenticated Revenue API is locked
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp=$(mktemp)
+          trap 'rm -f "$tmp"' EXIT
+
+          code=$(curl --silent --show-error --location --max-time 20 \
+            --output "$tmp" --write-out '%{http_code}' \
+            "$BASE_URL/api/revenue/constellation")
+          test "$code" = '401'
+          node -e "const fs=require('fs');const x=JSON.parse(fs.readFileSync(process.argv[1],'utf8'));if(x.error!=='Unauthorized')process.exit(1)" "$tmp"
+          printf 'REVENUE_AUTH_BOUNDARY_OK status=%s\n' "$code"
+
+      - name: State effect boundary
+        shell: bash
+        run: |
+          set -euo pipefail
+          printf '%s\n' 'ZERO_AUTHORITY_SMOKE: GET-only; no secrets; no POST; no admin bearer; no provider mutation.'

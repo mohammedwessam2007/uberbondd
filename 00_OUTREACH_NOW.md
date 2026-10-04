@@ -1,6 +1,6 @@
 # 00 — CURRENT COMMERCIAL OUTREACH AUTOLOAD
 
-**Last reconciled:** 2026-10-02
+**Last reconciled:** 2026-10-04
 **Truth class:** CURRENT COMMERCIAL DESIGN + CONTINUATION POINTER. Market demand, price acceptance, sender/provider readiness, cleared revenue and customer acceptance remain external truth.
 
 > **If the founder's request involves cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine, READ THIS FILE BEFORE BRAINSTORMING.**
@@ -22,7 +22,7 @@ This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Co
 7. `docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`
 8. `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`
 9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md` (procurement lineage)
-10. `winnr/README.md` + `winnr/CURRENT_STATE.json` (current purchased/activated pilot)
+10. `winnr/README.md` + `winnr/CURRENT_STATE.json` + `winnr/LIVE_RECONCILIATION_2026-10-04.md` (current purchased/activated pilot and newest runtime truth)
 11. `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` (active Claude Code open-ended execution overlay; subordinate to current truth/policy)
 
 ## V5 genome
@@ -80,11 +80,17 @@ Optimize:
 
 `expected cleared contribution profit / founder minute`
 
-## Current Winnr frontier — 2026-10-02
+## Current Winnr frontier — 2026-10-04
 
-The $9/month three-mailbox pilot is purchased and technically activated. Live receipts show encrypted custody, SMTP 3/3, IMAP 3/3 and reply-canary ingestibility 2/2. Latest human-readable placement is 2/3 Inbox in UberBond Gmail; SMTP ordinal 3 is quarantined and all IMAP custody remains intact. The founder separately reports normal personal-Inbox arrival, retained with exact message identity/count unresolved. Campaign activation is separate and has not occurred.
+The $9/month three-mailbox Winnr pilot remains technically activated and campaign activation remains `NOT_ACTIVATED`. The exact live Render runtime is source `1db409edc3ed25bbb4dc603e0efe927d4d62bd63`, deploy `dep-db120g7avr4c739sonu0`, using PostgreSQL with OMNIA outbound integration mode `off`.
 
-Recover `winnr/README.md`, `winnr/CURRENT_STATE.json` and `winnr/LIVE_RECONCILIATION_2026-10-02.md`. Do not repeat purchase/export/import/transport work or buy Startup from the historical gate below.
+Current IMAP transport is healthy: all three accounts returned `UBERIMAP_FETCH_CONFIRMED` in one attempt each. The Oct 4 red canary state was caused by an UberIMAP parser defect, not expired credentials or failed provider authentication: an empty `* SEARCH` was converted to numeric UID `0`, causing the invalid command `UID FETCH 0 (BODY.PEEK[])`. PR #1198 fixed UberIMAP v1.2 to accept only positive safe-integer UIDs; PR #1199 split **current transport health** from **recent-window historical-canary presence**.
+
+Latest status is `WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW`: transport healthy = true; current recent-window canary presence = false; found ordinals = []; historical Oct 2 bounded evidence that reply canaries [2,3] were ingested remains preserved and must not be relabeled as a fresh Oct 4 observation.
+
+SMTP ordinal 3 remains quarantined from fleet selection because of the earlier UberBond-Gmail placement red signal. The separate personal Gmail seed observed all three senders in Inbox, but that did not automatically release the quarantine. This repair changed no credentials, provider configuration, spend, campaign activation, or prospect-send authority, and sent zero prospect messages.
+
+Recover `winnr/CURRENT_STATE.json`, `winnr/CURRENT_STATE.md`, and `winnr/LIVE_RECONCILIATION_2026-10-04.md`. Do not repeat purchase/export/import/transport work, do not treat missing old canary subjects in a recent poll window as a transport outage, and do not infer campaign/send authority from technical transport health.
 
 ## Historical 2026-10-01 procurement frontier
 
@@ -149,8 +155,6 @@ The remaining manual seams between lead discovery and a governed first touch are
 - **The cold route is still not live.** `COLD_ROUTE_ENABLED` is FALSE. The cold-v1 policy is reachable only for envelope validation; it is not on any send path and `providerRoutePolicy` still refuses `PUBLIC_BUSINESS_CONTACT` on smtp-relay. `LEGAL_AUTHORITY_HOLD` and `IDENTITY_FACT_HOLD` remain owner/legal holds.
 - **Drift guard.** `npm run outreach:drift-doctor` fails when a current document, the hot pointer, the handoff or the provider-state representation disagrees with source.
 - Powerhouse is a fixture (`tests/fixtures/outreach/powerhouse.fixture.mjs`), not a code path. Its production-ledger result is still unknown: it needs a deployed build and an authenticated owner call.
-
-
 
 ## Global green-lane router — 2026-10-03
 

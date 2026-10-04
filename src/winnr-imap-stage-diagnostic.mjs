@@ -40,13 +40,21 @@ function parseTagged(buf,tag){
   return {status,responseCode};
 }
 
-async function runStage(socket,n,stage,line,{timeoutMs}={}){
+async function runStage(socket,n,stage,line,{timeoutMs,maxBytes}={}){
   const tag=`DG${String(n).padStart(4,'0')}`;
-  const waiter=waitTagged(socket,tag,{timeoutMs});
+  const waiter=waitTagged(socket,tag,{timeoutMs,maxBytes});
   socket.write(`${tag} ${line}\r\n`);
-  const response=parseTagged(await waiter,tag);
-  return {stage,status:response.status,responseCode:response.responseCode,ok:response.status==='OK'};
+  const buffer=await waiter;
+  const response=parseTagged(buffer,tag);
+  return {safe:{stage,status:response.status,responseCode:response.responseCode,ok:response.status==='OK'},buffer};
 }
+
+function searchUids(buffer){
+  const line=buffer.toString('latin1').split(/\r?\n/).find(x=>/^\* SEARCH(?:\s|$)/i.test(x))||'';
+  return line.replace(/^\* SEARCH\s*/i,'').trim().split(/\s+/).map(Number).filter(Number.isSafeInteger).filter(n=>n>0);
+}
+
+const bounded=safe=>({...safe,rawProviderTextLogged:false,credentialsLogged:false});
 
 /**
  * Read-only protocol-stage diagnostic for a Winnr IMAP account.
@@ -61,14 +69,24 @@ export async function diagnoseWinnrImapStages({account={},encryptionKey='',conne
   try{
     socket=await connectFactory({host:route.host,port:route.port,secure:route.secure!==false,timeoutMs});
     const login=await runStage(socket,1,'LOGIN',`LOGIN ${quote(credential.username)} ${quote(credential.password)}`,{timeoutMs});
-    if(!login.ok)return {...login,rawProviderTextLogged:false,credentialsLogged:false};
+    if(!login.safe.ok)return bounded(login.safe);
     const select=await runStage(socket,2,'SELECT','SELECT INBOX',{timeoutMs});
-    if(!select.ok)return {...select,rawProviderTextLogged:false,credentialsLogged:false};
+    if(!select.safe.ok)return bounded(select.safe);
     const since=account.lastReplyPoll||now-86400000;
     const search=await runStage(socket,3,'SEARCH',`UID SEARCH SINCE ${imapDate(since)}`,{timeoutMs});
-    if(!search.ok)return {...search,rawProviderTextLogged:false,credentialsLogged:false};
-    try{await runStage(socket,4,'LOGOUT','LOGOUT',{timeoutMs});}catch{}
-    return {ok:true,stage:'SEARCH',status:'OK',responseCode:'NONE',rawProviderTextLogged:false,credentialsLogged:false};
+    if(!search.safe.ok)return bounded(search.safe);
+    const uids=searchUids(search.buffer);
+    if(!uids.length){
+      try{await runStage(socket,4,'LOGOUT','LOGOUT',{timeoutMs});}catch{}
+      return {ok:true,stage:'SEARCH_EMPTY',status:'OK',responseCode:'NONE',rawProviderTextLogged:false,credentialsLogged:false};
+    }
+    const sample=uids.slice(-3);
+    for(let i=0;i<sample.length;i++){
+      const fetched=await runStage(socket,4+i,'FETCH',`UID FETCH ${sample[i]} (BODY.PEEK[])`,{timeoutMs,maxBytes:12*1024*1024});
+      if(!fetched.safe.ok)return {...bounded(fetched.safe),sampleOrdinal:i+1};
+    }
+    try{await runStage(socket,4+sample.length,'LOGOUT','LOGOUT',{timeoutMs});}catch{}
+    return {ok:true,stage:'FETCH',status:'OK',responseCode:'NONE',sampleCount:sample.length,rawProviderTextLogged:false,credentialsLogged:false};
   }catch(error){
     return {ok:false,stage:'TRANSPORT',errorClass:safeCode(error),rawProviderTextLogged:false,credentialsLogged:false};
   }finally{try{socket?.end();}catch{}}

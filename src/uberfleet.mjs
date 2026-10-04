@@ -7,6 +7,7 @@ const clean=(v,n=1000)=>String(v??'').trim().slice(0,n);
 const emailOk=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim());
 const stable=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
 const exactProviderCalls=value=>Number.isInteger(Number(value))&&Number(value)>=0?Number(value):null;
+const smtpCode=value=>Number.isInteger(Number(value))?Number(value):null;
 
 export function buildEncryptedSmtpAccount({
   slot='',email='',provider='smtp-relay',host='',port=465,secure=true,username='',password='',
@@ -139,6 +140,9 @@ export async function probeSmtpFleetAccount({
       classification:'UNCERTAIN',
       reasonCodes:result?.reasonCodes||['smtp-session-probe-unconfirmed'],
       state:result?.state||'SMTP_AUTH_NOOP_UNCONFIRMED',
+      errorClass:clean(result?.errorClass,80)||null,
+      errorStage:clean(result?.errorStage,40)||null,
+      smtpResponseCode:smtpCode(result?.smtpResponseCode),
       providerCalls,
       messagesSent:0,
       mailFromIssued:false,
@@ -171,7 +175,11 @@ export async function probeSmtpFleetAccount({
       truthBoundary:'Authenticated SMTP session readiness only. No message commands were issued; this does not establish reputation, inbox placement, legal authority, future acceptance, replies, or revenue.'
     };
   }catch(error){
-    return {classification:'UNCERTAIN',reasonCodes:['smtp-session-probe-threw'],probeError:clean(error?.message||error,500),providerCalls:null,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,automaticRetryAuthorized:false};
+    return {
+      classification:'UNCERTAIN',reasonCodes:['smtp-session-probe-threw'],probeError:clean(error?.message||error,500),
+      errorClass:clean(error?.code||error?.name,80)||null,errorStage:clean(error?.smtpStage,40)||null,smtpResponseCode:smtpCode(error?.smtpResponseCode),
+      providerCalls:null,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,automaticRetryAuthorized:false
+    };
   }
 }
 

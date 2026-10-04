@@ -24,6 +24,7 @@ This is a hot mission pointer beneath UberBond's terminal Sovereign Cognitive Co
 9. `docs/WINNR_PREPURCHASE_GATE_2026-10-01.md` (procurement lineage)
 10. `winnr/README.md` + `winnr/CURRENT_STATE.json` + `winnr/LIVE_RECONCILIATION_2026-10-04.md` (current purchased/activated pilot and newest runtime truth)
 11. `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` (active Claude Code open-ended execution overlay; subordinate to current truth/policy)
+12. `docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md` (current Revenue Singularity runtime/authority/verification frontier; supersedes the stale Revenue-Singularity-specific interpretation in the older global handoff)
 
 ## V5 genome
 

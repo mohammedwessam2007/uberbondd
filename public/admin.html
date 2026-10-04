@@ -45,6 +45,15 @@
   <details><summary>Green-lane status: policy-evidence freshness, jurisdiction matrix, one-button route truth (GREEN is never send authority)</summary><pre id="green-lane-status-result"></pre></details>
   <details><summary>Green-lane-only candidates (no fabricated green supply)</summary><pre id="green-lane-candidates-result"></pre></details>
 </section>
+<section class="pipeline-section" id="frozen-effect-execution">
+  <h2>Owner-only exact frozen-effect execution</h2>
+  <p class="hint">This separate control requires the authenticated owner session and a successful read-only validation of the same frozen digest above. It submits the exact authorized effect once; the server rechecks every binding and safety gate. Global outbound and dry-run settings are unchanged. If the response is uncertain, stop and reconcile before taking any action.</p>
+  <form id="frozen-effect-execution-form" autocomplete="off">
+    <label>Exact authorized effect digest<input id="frozen-effect-digest" name="digest" type="text" pattern="[a-f0-9]{64}" minlength="64" maxlength="64" required autocomplete="off" autocapitalize="off" spellcheck="false" inputmode="text" placeholder="64-character lowercase hex digest"></label>
+    <div class="button-row"><button class="gold" id="execute-frozen-effect" type="submit" disabled>Execute exact authorized effect once</button></div>
+  </form>
+  <pre id="frozen-effect-execution-result" aria-live="assertive">Run the read-only preflight on this exact digest first. No execution attempt has occurred in this session.</pre>
+</section>
 <section class="grid two">
   <article>
     <div class="kicker">03 · LEAD INTELLIGENCE</div>

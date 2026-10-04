@@ -1207,6 +1207,10 @@ export const requestHandler = async (req, res) => {
         return json(res, 200, revenueSingularity.constellationFromSnapshot(snap, { at: url.searchParams.get('at'), expand: url.searchParams.get('expand'), gspotRun: await latestRun(), infra }));
       }
       if (method === 'GET' && rev === 'xray') return json(res, 200, revenueSingularity.xrayFromSnapshot(snap, String(url.searchParams.get('prospectId') || ''), await latestRun()));
+      if (method === 'GET' && rev === 'offer-market') return json(res, 200, revenueSingularity.offerMarketFromSnapshot(snap));
+      if (method === 'GET' && rev === 'delivery') return json(res, 200, revenueSingularity.deliveryFromSnapshot(snap, String(url.searchParams.get('leadId') || '')));
+      if (method === 'GET' && rev === 'deal') return json(res, 200, revenueSingularity.dealFromSnapshot(snap, String(url.searchParams.get('leadId') || '')));
+      if (method === 'GET' && rev === 'partners') return json(res, 200, await revenueSingularity.partnersFromStore(store));
       if (method === 'GET' && rev === 'gspot') return json(res, 200, { run: await latestRun(), liveDispatchBound: false });
       if (method === 'POST' && rev === 'demand-signals') return json(res, 200, await revenueSingularity.ingestDemandSignal(store, await parseBody(req)));
       if (method === 'POST' && rev === 'gspot/plan') {

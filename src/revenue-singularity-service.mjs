@@ -9,6 +9,10 @@ import { compileReplyRadar } from './reply-radar.mjs';
 import { compileProofLineage } from './proof-factory.mjs';
 import { createGspot } from './gspot.mjs';
 import { buildConstellation, xray as xrayProspect, collectEvents } from './revenue-constellation.mjs';
+import { compileOfferMarket } from './offer-market-maker.mjs';
+import { compileUberClose } from './decision-twin.mjs';
+import { rankPartners, diagnosticYield } from './partner-multiplier.mjs';
+import { advanceDelivery } from './delivery-loop.mjs';
 import { localizeFailure, marketEscape, wilson, reliabilityEnvelope } from './revenue-reliability.mjs';
 
 const pick = (o, ...k) => k.map(x => o?.[x]).find(v => v !== undefined && v !== null && v !== '');
@@ -117,3 +121,33 @@ export function gspotEvidenceFor(s, moneyQueue, radar) {
 }
 
 export const gspotFor = (store, radarHalted, now = () => Date.now()) => createGspot({ store, now, isHalted: id => radarHalted.has(id) });
+
+export function offerMarketFromSnapshot(s) {
+  const sendsBy = {}; const paidBy = {};
+  const offerOf = new Map(s.prospects.map(p => [p.id, selectUberReplyOffer({ industry: p.industry, tags: p.tags, fitEvidenceConfidence: p.fitEvidenceConfidence ?? 0, ...p })?.offer?.offerId]));
+  for (const e of s.outboundEvents) if (e.eventType === 'sent') { const o = offerOf.get(e.prospectId); if (o) sendsBy[o] = (sendsBy[o] || 0) + 1; }
+  for (const l of s.leads) if (l.paymentStatus === 'paid' && (l.paymentEvidenceRef || l.providerTransactionId || l.providerEventId)) { const o = offerOf.get(l.prospectId); if (o) paidBy[o] = (paidBy[o] || 0) + 1; }
+  const outcomes = {}; for (const o of new Set([...Object.keys(sendsBy), ...Object.keys(paidBy)])) outcomes[o] = { sends: sendsBy[o] || 0, clearedPayments: paidBy[o] || 0 };
+  return compileOfferMarket({ outcomes });
+}
+
+/** Delivery state for one lead from stored fields only; absent evidence stays absent. */
+export function deliveryFromSnapshot(s, leadId) {
+  const l = s.leads.find(x => x.id === leadId);
+  if (!l) return { ok: false, state: 'LEAD_NOT_FOUND' };
+  return { ok: true, leadId, ...advanceDelivery({ payment: l.paymentEvidence || null, scope: l.scope, acceptanceCriteria: l.acceptanceCriteria, deliverableRefs: l.deliverableRefs, claimsVerified: l.claimsVerified, acceptance: l.acceptance, caseStudyPermission: l.caseStudyPermission, valueConfirmedByCustomer: l.valueConfirmedByCustomer, usedResult: l.usedResult, recurringSignal: l.recurringSignal }) };
+}
+
+/** DecisionTwin / UberClose for one lead. Stage and contacts come from stored lead fields only. */
+export function dealFromSnapshot(s, leadId) {
+  const l = s.leads.find(x => x.id === leadId);
+  if (!l) return { ok: false, state: 'LEAD_NOT_FOUND' };
+  return { ok: true, leadId, ...compileUberClose({ deal: { stage: l.dealStage, contacts: l.buyingGroup || [], paymentEvidence: l.paymentEvidence ? { cleared: l.paymentEvidence.status === 'cleared' && l.paymentEvidence.source === 'provider', providerTransactionId: l.paymentEvidence.providerTransactionId } : null, lastObjection: l.lastObjection } }) };
+}
+
+/** Owner-maintained partner list lives in settings.revenuePartners (never inferred). */
+export async function partnersFromStore(store) {
+  const settings = await store.getSettings();
+  const partners = Array.isArray(settings.revenuePartners) ? settings.revenuePartners : [];
+  return { ...rankPartners({ partners }), diagnostics: diagnosticYield(settings.revenueDiagnostics || {}), source: 'settings.revenuePartners (owner maintained)' };
+}

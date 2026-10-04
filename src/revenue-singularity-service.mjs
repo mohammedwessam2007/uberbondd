@@ -21,7 +21,7 @@ import { compressPayment } from './payment-compression.mjs';
 
 const pick = (o, ...k) => k.map(x => o?.[x]).find(v => v !== undefined && v !== null && v !== '');
 const HISTORY_COLLECTIONS = Object.freeze(['suppressions', 'prospects', 'outboundReservations', 'outboundEvents', 'replies', 'messages', 'providerEvents']);
-const SNAPSHOT_COLLECTIONS = Object.freeze(['prospects', 'outboundEvents', 'replies', 'senderHealth', 'leads', 'suppressions']);
+const SNAPSHOT_COLLECTIONS = Object.freeze(['prospects', 'outboundEvents', 'replies', 'senderHealth', 'leads', 'suppressions', 'leadSignals']);
 
 // Thin in-service compatibility bridge from durable prospect records into the
 // canonical evidence/qualification shapes. This deliberately stays inside the
@@ -38,7 +38,7 @@ const CLASS_BY_SOURCE = Object.freeze({
   public_profile: 'DIRECT_PUBLIC', licensed_provider: 'LICENSED_PROVIDER', provider_api: 'LICENSED_PROVIDER'
 });
 const https = value => {
-  try { const u = new URL(String(value || '')); return u.protocol === 'https:' ? u.toString() : ''; }
+  try { const u = new URL(String(value || '')); return u.protocol === 'https:' && !u.username && !u.password ? u.toString() : ''; }
   catch { return ''; }
 };
 const clamp01 = value => {
@@ -114,6 +114,72 @@ export function evidenceBundleFromStoredProspect(prospect = {}, { suppressions =
   }
 }
 
+const LEAD_SIGNAL_TO_DEMAND_KIND = Object.freeze({
+  first_party_inquiry: 'explicit_demand_inbound',
+  job_listing: 'explicit_demand_hiring',
+  job_change: 'switch_window_leadership',
+  new_hire: 'switch_window_leadership',
+  promotion: 'switch_window_leadership',
+  champion_job_change: 'switch_window_leadership',
+  funding: 'switch_window_funding',
+  technology: 'tech_change',
+  website_change: 'tech_change',
+  product_launch: 'tech_change',
+  public_pain_point: 'public_complaint'
+});
+const LEAD_SIGNAL_SOURCES = new Set(['owner_import', 'first_party_export', 'public_website', 'provider_api', 'licensed_export']);
+
+/** Compose existing lead intelligence into the Revenue Singularity demand model.
+ * This is deliberately narrower than the lead signal taxonomy. Generic news,
+ * provider `buying_intent`, traffic, visits, form submissions, relationships and
+ * other ambiguous signals are not upgraded into demand here. The bridge is
+ * read-only and requires fresh HTTPS evidence plus attributable source metadata. */
+export function demandSignalsFromLeadLedger(prospect = {}, leadSignals = [], now = Date.now()) {
+  const prospectId = String(prospect?.id || '');
+  const out = [];
+  const seen = new Set();
+  const add = signal => {
+    const kind = String(signal?.kind || '');
+    const evidenceRef = https(signal?.evidenceRef);
+    const observedAt = new Date(signal?.observedAt || '').toISOString?.();
+    if (!kind || !SIGNAL_KINDS[kind] || !evidenceRef || !observedAt) return;
+    const key = `${kind}|${evidenceRef}`;
+    if (seen.has(key)) return;
+    seen.add(key);
+    out.push({ ...signal, kind, evidenceRef, observedAt });
+  };
+  for (const signal of Array.isArray(prospect?.demandSignals) ? prospect.demandSignals : []) {
+    const observed = Date.parse(signal?.observedAt || '');
+    if (!Number.isFinite(observed) || observed > now + 60000) continue;
+    add(signal);
+  }
+  for (const signal of Array.isArray(leadSignals) ? leadSignals : []) {
+    if (String(signal?.prospectId || '') !== prospectId) continue;
+    const kind = LEAD_SIGNAL_TO_DEMAND_KIND[String(signal?.type || '').trim().toLowerCase()];
+    if (!kind) continue;
+    const sourceType = String(signal?.sourceType || '').trim().toLowerCase();
+    if (!LEAD_SIGNAL_SOURCES.has(sourceType)) continue;
+    const evidenceRef = https(signal?.sourceUrl);
+    if (!evidenceRef) continue;
+    const observed = Date.parse(signal?.observedAt || '');
+    if (!Number.isFinite(observed) || observed > now + 60000) continue;
+    const expires = Date.parse(signal?.expiresAt || '');
+    if (Number.isFinite(expires) && expires < now) continue;
+    const confidence = clamp01(signal?.confidence);
+    if (confidence !== null && confidence < 0.5) continue;
+    add({
+      kind,
+      observedAt: new Date(observed).toISOString(),
+      evidenceRef,
+      source: 'leadSignals',
+      leadSignalId: String(signal?.id || '').slice(0, 160),
+      sourceType,
+      confidence: confidence ?? null
+    });
+  }
+  return out;
+}
+
 const roleFit = (offerId, role) => {
   const x = String(role || '').toLowerCase();
   if (!x) return 0;
@@ -130,7 +196,7 @@ const roleFit = (offerId, role) => {
 
 /** Existing caller observations win. Only deterministic readings of stored,
  * attributable facts fill missing observations. */
-export function qualificationObservationsFromStoredProspect(prospect = {}, { selectedOffer = null, now = Date.now() } = {}) {
+export function qualificationObservationsFromStoredProspect(prospect = {}, { selectedOffer = null, now = Date.now(), demandSignals = null } = {}) {
   const observations = { ...(prospect.observations || {}) };
   const candidate = contactCandidate(prospect);
   const evidenceClass = candidate?.evidenceClass;
@@ -146,7 +212,7 @@ export function qualificationObservationsFromStoredProspect(prospect = {}, { sel
   const issue = prospect.issue;
   if (!observations.painEvidence && issue && https(issue.evidenceUrl || issue.sourceUrl)) observations.painEvidence = { value: clamp01(issue.confidence) ?? 0.65, evidenceClass: 'DIRECT_PUBLIC' };
 
-  const signals = stackSignals(prospect.demandSignals || [], now);
+  const signals = stackSignals(Array.isArray(demandSignals) ? demandSignals : prospect.demandSignals || [], now);
   if (!observations.signalStrength && signals.score > 0) observations.signalStrength = { value: signals.score, evidenceClass: 'DIRECT_PUBLIC' };
   if (!observations.timing && signals.score > 0) observations.timing = { value: Math.min(1, signals.score), evidenceClass: 'DIRECT_PUBLIC' };
   if (!observations.offerFit && offerScore !== null) observations.offerFit = { value: offerScore, evidenceClass: 'MODEL_INFERENCE' };
@@ -177,7 +243,7 @@ export async function snapshot(store, now = Date.now()) {
   const contactHistoryReads = Object.fromEntries(HISTORY_COLLECTIONS.map(key => [key, reads[key]]));
   return {
     prospects: rows('prospects'), outboundEvents: rows('outboundEvents'), replies: rows('replies'),
-    senderHealth: rows('senderHealth'), leads: rows('leads'), suppressions: rows('suppressions'),
+    senderHealth: rows('senderHealth'), leads: rows('leads'), suppressions: rows('suppressions'), leadSignals: rows('leadSignals'),
     contactHistoryReads, settings, now
   };
 }
@@ -197,7 +263,8 @@ export function moneyQueueFromSnapshot(s, { limit = 100 } = {}) {
     const offerProspect = { ...p, industry: p.industry || p.niche || p.vertical || '', vertical: p.vertical || p.niche || '' };
     const sel = selectUberReplyOffer({ ...offerProspect, fitEvidenceConfidence: p.fitEvidenceConfidence ?? p.problemEvidenceScore ?? 0 });
     const bundle = evidenceBundleFromStoredProspect(p, { suppressions: s.suppressions, now: new Date(s.now) });
-    const observations = qualificationObservationsFromStoredProspect(p, { selectedOffer: sel, now: s.now });
+    const signals = demandSignalsFromLeadLedger(p, s.leadSignals || [], s.now);
+    const observations = qualificationObservationsFromStoredProspect(p, { selectedOffer: sel, now: s.now, demandSignals: signals });
     const qualification = bundle
       ? qualifyProspect({ bundle, observations, date: new Date(s.now) })
       : { eligible: false, blocks: ['no-attributable-evidence-bundle'] };
@@ -215,7 +282,7 @@ export function moneyQueueFromSnapshot(s, { limit = 100 } = {}) {
         reasonCodes: history.reasonCodes || []
       },
       buyer,
-      signals: p.demandSignals || [],
+      signals,
       economics: { listPriceCents: Number(sel.offer?.standardPriceUsd || 0) * 100, deliveryMinutes: Number(sel.offer?.deliveryMinutes || 90) }
     };
   });

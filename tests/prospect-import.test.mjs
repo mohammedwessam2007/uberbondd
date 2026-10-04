@@ -57,6 +57,16 @@ test('validateProspect retains contact, evidence and source provenance', () => {
   assert.equal(prospect.sourceMetadata.intakeVersion, 'uberbond.prospect-import.v2');
 });
 
+test('uncampaigned prospect omits campaignId instead of emitting an empty foreign key', () => {
+  const prospect = validateProspect({ company: 'Unbound Prospect', website: 'https://unbound.example' });
+  assert.equal(Object.hasOwn(prospect, 'campaignId'), false);
+});
+
+test('real campaign binding remains explicit when supplied', () => {
+  const prospect = validateProspect({ company: 'Bound Prospect', website: 'https://bound.example' }, 'camp-real-1');
+  assert.equal(prospect.campaignId, 'camp-real-1');
+});
+
 test('importProspects persists the exact contact and provenance for later lead scoring', async () => {
   const dir = await fs.mkdtemp(path.join(os.tmpdir(), 'uberbond-prospect-intake-'));
   const store = new Store(dir);
@@ -71,4 +81,5 @@ test('importProspects persists the exact contact and provenance for later lead s
   assert.equal(stored.contact.email, 'owner@northstar.example');
   assert.equal(stored.contact.inferred, false);
   assert.equal(stored.sourceRecordId, 'row-1');
+  assert.equal(Object.hasOwn(stored, 'campaignId'), false);
 });

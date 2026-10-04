@@ -58,3 +58,17 @@ test('critics are narrow-only and carry no authority', () => {
   const r = review();
   assert.equal(r.narrowOnly, true); assert.equal(r.outboundAuthority, 'NONE'); assert.equal(r.externalEffectLedger.messages, 0);
 });
+
+import { narrowTournamentWithCritics } from '../src/proof-factory.mjs';
+test('critics may only veto a tournament winner; no winner stays no winner', () => {
+  const l = lineage();
+  const winner = { subject: good.subject, body: good.body };
+  const ok = narrowTournamentWithCritics({ tournament: { status: 'WINNER_SELECTED', winner }, lineage: l, claimsUsed: [l.claims[0].claimId], buyer: good.buyer, policy: compileUberReplyMessagePolicy({ offerId }), artifactPrepared: true });
+  assert.ok(ok.messageValidated === true || ok.reasonCodes.every(c => !c.startsWith('proof:')), JSON.stringify(ok.reasonCodes));
+  assert.equal(narrowTournamentWithCritics({ tournament: { status: 'DO_NOT_SEND', winner: null }, lineage: l }).messageValidated, false);
+  assert.equal(narrowTournamentWithCritics({}).verdict, 'DO_NOT_SEND');
+  const veto = narrowTournamentWithCritics({ tournament: { status: 'WINNER_SELECTED', winner: { subject: 'Re: hi', body: good.body } }, lineage: l, claimsUsed: [l.claims[0].claimId], buyer: good.buyer });
+  assert.equal(veto.messageValidated, false); assert.equal(veto.messageDigest, null);
+  assert.ok(veto.reasonCodes.includes('integrity:deceptive-thread-prefix'));
+  assert.equal(veto.outboundAuthority, 'NONE');
+});

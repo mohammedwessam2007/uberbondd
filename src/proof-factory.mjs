@@ -90,3 +90,19 @@ export function reviewMessageAdversarially({ subject = '', body = '', policy = {
     narrowOnly: true, outboundAuthority: 'NONE', externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }
+
+/**
+ * Narrow a tournament result with the adversarial critics. The existing
+ * tournament decides the winner; the critics may only veto it (never promote a
+ * loser, never create a winner). The output is the exact evidence G-SPOT's
+ * MESSAGE stage consumes: a message is `messageValidated` only when the
+ * tournament produced a winner AND every critic passes.
+ */
+export function narrowTournamentWithCritics({ tournament, lineage, claimsUsed = [], buyer = {}, policy = {}, artifactPrepared = false } = {}) {
+  const none = reason => ({ messageValidated: false, verdict: 'DO_NOT_SEND', reasonCodes: [reason], messageDigest: null, outboundAuthority: 'NONE' });
+  if (!tournament || tournament.status === 'DO_NOT_SEND' || !tournament.winner) return none('tournament-produced-no-winner');
+  const w = tournament.winner;
+  const review = reviewMessageAdversarially({ subject: w.subject, body: w.body, policy, lineage, claimsUsed, buyer, evidenceRefs: lineage?.evidenceRefs || [], artifactPrepared });
+  if (!review.ok) return { messageValidated: false, verdict: 'DO_NOT_SEND', reasonCodes: review.findings.map(f => `${f.critic}:${f.code}`), critics: review, messageDigest: null, outboundAuthority: 'NONE' };
+  return { messageValidated: true, verdict: 'PASS', reasonCodes: [], critics: review, messageDigest: `sha256:${sha({ subject: w.subject, body: w.body })}`, offerId: lineage?.artifact?.offerId || null, outboundAuthority: 'NONE' };
+}

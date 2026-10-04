@@ -121,6 +121,10 @@ test('provider acceptance is checkpointed before a secondary outbound-event ledg
     const result = await f.execute(async ({ message }) => {
       calls += 1;
       observedMessageId = message.messageId;
+      const dispatching = (await f.store.getSettings())[ `frozenProspectExecution:${f.digest}` ];
+      assert.equal(dispatching.status, 'DISPATCHING');
+      assert.equal(dispatching.dispatchAdapterCalls, null);
+      assert.equal(dispatching.providerCallAttempted, null);
       return {
         classification: 'ACCEPTED',
         providerReferenceId: 'smtp250:durable-provider-reference',

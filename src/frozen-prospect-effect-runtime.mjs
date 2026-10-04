@@ -180,7 +180,7 @@ export async function executeFrozenProspectEffect({
       status: 'DISPATCHING', recipient, senderSlot, senderAddress: slotAddress,
       provider: 'smtp-relay', routeClass: participants.route.routeClass, routeDigest,
       reservationId: reserved.reservation.id, authorizedAt: authorization.approvedAt,
-      dispatchClaimedAt: timestamp, dispatchAdapterCalls: 0,
+      dispatchClaimedAt: timestamp, dispatchAdapterCalls: null,
       providerCallAttempted: null, effectBoundaryCrossed: null, effectCapRemaining: 0
     };
     await tx.setSetting(executionKey(digest), dispatching);

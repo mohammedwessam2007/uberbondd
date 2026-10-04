@@ -1,5 +1,7 @@
 # Winnr Live Reconciliation — 2026-10-04
 
+Terminal re-observation `2026-10-04T12:27:08.908Z`: current IMAP3/3healthy, one attempt each, recent historical canaries absent, no commercial reply or new SMTP/placement proof. Exact implementation `a80bec3cd92c153cca4c4b01a00bda8355c67d66` / `dep-db14bjdg1s2s738gghhg`; final documentation-publication deploy is in newest issue#1188 terminal comment. Quarantine and all custody preserved.
+
 ## Purpose
 
 This receipt supersedes stale interpretations of the Winnr IMAP runtime while preserving all earlier Oct 2 transport, reply-canary, placement and personal-inbox evidence.
@@ -10,10 +12,10 @@ It records current production truth after the Revenue Singularity closure and th
 
 - Render service: `uberbond-control-plane`
 - service id: `srv-dali9vijnfac739m4vcg`
-- exact deployed source: `1db409edc3ed25bbb4dc603e0efe927d4d62bd63`
-- deploy id: `dep-db120g7avr4c739sonu0`
+- exact deployed source: `a80bec3cd92c153cca4c4b01a00bda8355c67d66`
+- deploy id: `dep-db14bjdg1s2s738gghhg`
 - deploy status: `live`
-- deploy finished: `2026-10-04T09:46:58.891167Z`
+- deploy finished: `2026-10-04T12:27:08.908Z`
 - store backend: PostgreSQL
 - build command: `npm install --omit=dev`
 - web + worker started successfully

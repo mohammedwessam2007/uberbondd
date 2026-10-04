@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-commercial-autoload-1.0.0",
-  "lastReconciled": "2026-10-02",
+  "lastReconciled": "2026-10-04",
   "missionTriggers": [
     "cold email",
     "outreach",
@@ -82,7 +82,7 @@
   "truthBoundary": "Internal design completeness is not market validation. External buyer/provider/payment evidence outranks this pointer.",
   "winnrRecoveryRoot": "winnr/README.md",
   "winnrCurrentObservations": "winnr/CURRENT_STATE.json",
-  "winnrReconciliationReceipt": "winnr/LIVE_RECONCILIATION_2026-10-02.md",
+  "winnrReconciliationReceipt": "winnr/LIVE_RECONCILIATION_2026-10-04.md",
   "softwareClosure20261002": {
     "receipt": "docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md",
     "gapRegister": "artifacts/outreach/outreach-software-gap-register-20261002.json",
@@ -98,8 +98,15 @@
     "machineReceipt": "artifacts/outreach/global-green-lane-router-20261003.json",
     "statusRoute": "GET /api/outreach/green-lane/status",
     "policyEvidenceBundle": "policy/outreach/global-policy-evidence.json",
-    "policyEvidenceState": "EMPTY_UNTIL_LIVE_RECORDED",
+    "policyEvidenceState": "RECORDED_POLICY_RULES__CURRENT_US_WINNR_ROUTE_EVALUATED__NOT_ALL_JURISDICTIONS",
     "greenIsSendAuthority": false,
     "coldDispatch": "INTENTIONALLY_CLOSED"
+  },
+  "revenueTerminal20261004": {
+    "handoff": "docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md",
+    "receipt": "docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md",
+    "ledger": "docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md",
+    "currentShaAuthority": "newest GitHub issue #1188 terminal comment + refreshed main + live Render",
+    "outboundAuthority": "NONE"
   }
 }

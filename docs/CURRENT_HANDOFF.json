@@ -1390,6 +1390,44 @@
       "prospects need stored evidenceBundle to enter Money Queue"
     ],
     "nextHighestValue": "Verify live Render serves merged SHA a4ed66a, then bind real prospect evidence into the Money Queue; no live prospect send merely to test software.",
-    "externalEffects": "none"
+    "externalEffects": "none",
+    "supersededBy": "revenueSingularityTerminal20261004"
+  },
+  "revenueSingularityTerminal20261004": {
+    "truthClass": "LIVE_VERIFIED_WITH_EXPLICIT_EXTERNAL_GATES",
+    "date": "2026-10-04",
+    "sourceImplementationSha": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
+    "verifiedDeployId": "dep-db14bjdg1s2s738gghhg",
+    "currentMainAndFinalDeployReceipt": "newest GitHub issue #1188 terminal comment; refresh exact live main",
+    "mergedSourcePRs": [
+      1214,
+      1216,
+      1217
+    ],
+    "handoff": "docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md",
+    "receipt": "docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md",
+    "machineReceipt": "docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json",
+    "ledger": "docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md",
+    "outboundAuthority": "NONE",
+    "moneyQueue": "REAL_VERIFIED_POWERHOUSE_RANK_1__RELAI_EXCLUDED",
+    "payment": "NO_LIVE_READY_RAIL__ZERO_CLEARED_WITNESSES",
+    "gspot": "LIVE_SAFE_PRESS_MESSAGE_THEN_NOTHING_TO_AUTHORIZE__NO_LIVE_DISPATCHER",
+    "winnr": "CURRENT_IMAP_3_OF_3_HEALTHY__SMTP_ORDINAL3_QUARANTINE_PRESERVED",
+    "remainingGates": [
+      "Owner authorization to publish legal footer",
+      "Owner sender-side legal authority",
+      "Current independently observed SMTP sender-health readiness before exact dispatch; absent observations stay unknown",
+      "Provider credentials/merchant activation/KYC/provider-origin receipt",
+      "Exact future effect authorization",
+      "Physical iPad Safari",
+      "Real buyer/customer/partner behavior"
+    ],
+    "commercialEffects": {
+      "prospectMessages": 0,
+      "spendCents": 0,
+      "payments": 0,
+      "campaignActivation": false
+    },
+    "supersedes": "Oct3 Revenue coverage and earlier Oct4 recovery interpretation; historical superset preserved"
   }
 }

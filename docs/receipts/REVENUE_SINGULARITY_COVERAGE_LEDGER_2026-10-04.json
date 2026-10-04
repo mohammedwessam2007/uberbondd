@@ -1,0 +1,326 @@
+{
+  "schemaVersion": "uberbond.revenue-terminal-coverage.v1",
+  "date": "2026-10-04",
+  "implementationSourceSha": "a80bec3cd92c153cca4c4b01a00bda8355c67d66",
+  "verifiedDeployId": "dep-db14bjdg1s2s738gghhg",
+  "observedAt": "2026-10-04T12:27:08.908Z",
+  "finalPublicationShaSource": "Newest terminal comment on GitHub issue #1188; refresh main and compare Render exact SHA",
+  "outboundAuthority": "NONE",
+  "aspirations": [
+    {
+      "id": "01",
+      "aspiration": "Secure persistent owner session",
+      "status": "LIVE_VERIFIED",
+      "evidence": "src/owner-session.mjs; server-core.mjs; scripts/revenue-terminal-webkit-proof.mjs",
+      "limit": "Existing live owner session reused; fresh tab reconnects without token entry. Actual local WebKit verifies durable logout/restart."
+    },
+    {
+      "id": "02",
+      "aspiration": "G-SPOT durable orchestration and one-button safe plan \u2192 advance \u2192 prepare",
+      "status": "LIVE_VERIFIED",
+      "evidence": "src/gspot.mjs; safeGspotEvidenceFor; public/constellation.js",
+      "limit": "One production press reaches MESSAGE then NOTHING_TO_AUTHORIZE at current owner/legal gates; authorize/dispatch disabled, zero sends."
+    },
+    {
+      "id": "03",
+      "aspiration": "Money Queue and UberDemand decay, stacking and explainable rank",
+      "status": "LIVE_VERIFIED",
+      "evidence": "REVENUE_OBSERVED_FUEL + REVENUE_TERMINAL_READINESS; src/money-queue.mjs",
+      "limit": "Real Powerhouse business route; observed defect is evidence, not claimed purchase intent."
+    },
+    {
+      "id": "04",
+      "aspiration": "Lawful verification, hygiene, buyer resolution and qualification",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "prospect-qualification-pipeline; prospect-evidence-reconciliation; prospect-contact-history; retained ClearBounce receipt",
+      "limit": "Public general-business/partnership route independently checked; no private email or named decision maker inferred."
+    },
+    {
+      "id": "05",
+      "aspiration": "Prospect-specific Proof Factory and lineage",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "src/proof-factory.mjs; safeGspotEvidenceFor; current first-party facts",
+      "limit": "Proof is observed wording reconciliation, not revenue-loss or conversion proof."
+    },
+    {
+      "id": "06",
+      "aspiration": "Four offers and Offer Market Maker",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "src/offer-market-maker.mjs; compileUberReplyOfferLifecycle",
+      "limit": "Existing quartet composed; controlled mutation cannot invent economic proof."
+    },
+    {
+      "id": "07",
+      "aspiration": "Max Reply Genome composition",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "prospect-message-tournament; uberreply-*; safeGspotEvidenceFor",
+      "limit": "Existing reviewed slots composed; no message dispatched."
+    },
+    {
+      "id": "08",
+      "aspiration": "Adversarial message critics",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "reviewMessageAdversarially; terminal hostile tests",
+      "limit": "Narrow-only; unsupported or unsafe output refused."
+    },
+    {
+      "id": "09",
+      "aspiration": "Deliverability, suppression, sender health and exact effect safety",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "uberoutbound-recipient-eligibility; canonical history; senderHealth; G-SPOT prepare",
+      "limit": "Ordinal-3 SMTP quarantine preserved; valid mailbox does not imply a sendable campaign."
+    },
+    {
+      "id": "10",
+      "aspiration": "Reply Radar and manual Mohamed reply control",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "src/reply-radar.mjs; cockpit UI; injection hostile test",
+      "limit": "Material/human/injected automatic replies halt automation; no automated material reply."
+    },
+    {
+      "id": "11",
+      "aspiration": "DecisionTwin, champion support and UberClose",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "src/decision-twin.mjs; GET /api/revenue/deal",
+      "limit": "Unknown contacts/acceptance/cash remain unknown."
+    },
+    {
+      "id": "12",
+      "aspiration": "Payment compression and cleared-payment truth",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "paymentRailsFromSnapshot; payment-rail-doctor; canonicalPaymentFacts",
+      "limit": "Settings cannot mint LIVE_READY; links, pending/sandbox payments cannot mint cleared cash."
+    },
+    {
+      "id": "13",
+      "aspiration": "Delivery, renewal, referral and expansion loops",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "src/delivery-loop.mjs; canonicalPaymentEvidence; GET /api/revenue/delivery",
+      "limit": "Real customer payment, delivery acceptance, referral permission and renewal remain external behavior."
+    },
+    {
+      "id": "14",
+      "aspiration": "Partner multiplier and attribution",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "src/partner-multiplier.mjs; GET /api/revenue/partners",
+      "limit": "No invented partner relationship; real partner authority/relationship required."
+    },
+    {
+      "id": "15",
+      "aspiration": "Reliability allocator, correlation firewall, failure localization, market escape and autopsy",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "src/revenue-reliability.mjs; tests/revenue-reliability-and-twin.test.mjs",
+      "limit": "Zero-data output remains conservative/uncertain; no fake calibrated success probability."
+    },
+    {
+      "id": "16",
+      "aspiration": "Revenue Constellation semantic architecture",
+      "status": "LIVE_VERIFIED",
+      "evidence": "src/revenue-constellation.mjs; public/constellation.js/css/html; WebKit acceptance",
+      "limit": "Actual live graph, zoom, six required lenses and real Prospect X-Ray observed; no physical Safari claim."
+    },
+    {
+      "id": "17",
+      "aspiration": "G-SPOT heart/core and stage visibility",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "core:gspot; stage histogram; semantic guides and safe controller",
+      "limit": "No decorative activity counted as work; live dispatch unbound."
+    },
+    {
+      "id": "18",
+      "aspiration": "Preserve admin, ops, scoring and lead capabilities",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Existing nav/surfaces; concurrent main 592b9faf exact frozen-effect owner UI",
+      "limit": "Separate owner executor preserved; no invocation performed in this mission."
+    },
+    {
+      "id": "19",
+      "aspiration": "Browser session acceptance without token repaste",
+      "status": "LIVE_VERIFIED",
+      "evidence": "Actual local WebKit 26.5 iPad-configured test; persistent cookie/new page/restart logout",
+      "limit": "Fresh live Chrome tab reused existing owner cookie without token entry; local WebKit pairing/restart proof retained separately."
+    },
+    {
+      "id": "20",
+      "aspiration": "Hostile tests and independent red team",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Final independent audit 20 pass/0 fail/1 DB skip; actual PostgreSQL 13/13",
+      "limit": "No production effect used as a test."
+    },
+    {
+      "id": "21",
+      "aspiration": "Broader canonical source verification",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Exact published tree: 9,336 tests, 9,247 pass, 33 inherited fail, 56 skip; base 35 fail",
+      "limit": "No added failing locations; three inherited invalid Infinite Opus test files; hosted CI zero-step failure, no green claim."
+    },
+    {
+      "id": "22",
+      "aspiration": "Production reachability",
+      "status": "IMPLEMENTED_AND_PRODUCTION_REACHABLE",
+      "evidence": "server-core revenue routes; worker observed-fuel/readiness startup; existing module composition",
+      "limit": "Inherited unrelated cognitive reachability debt preserved separately; Revenue source is runtime reachable."
+    },
+    {
+      "id": "23",
+      "aspiration": "PR, exact-head review, reconciliation and merge",
+      "status": "LIVE_VERIFIED",
+      "evidence": "PR #1214; identical remote/local tree; current main reconciliation",
+      "limit": "Concurrent exact frozen-effect UI preserved and combined focused gate 54 pass/0 fail/1 skip."
+    },
+    {
+      "id": "24",
+      "aspiration": "Existing Render deploy, web, worker, Postgres, Winnr and Revenue startup",
+      "status": "LIVE_VERIFIED",
+      "evidence": "Exact deploy/runtime receipt",
+      "limit": "No second service, no autoDeploy assumption, no public DB allowlist weakening."
+    },
+    {
+      "id": "25",
+      "aspiration": "Real prospect sending and first cleared cash",
+      "status": "IMPLEMENTED_AWAITING_EXACT_EFFECT_AUTHORITY",
+      "evidence": "Exact effect authority boundary; canonical provider witness triad",
+      "limit": "No test send. Buyer behavior/provider cash are external; authority remains NONE."
+    },
+    {
+      "id": "26",
+      "aspiration": "Durable leadSignals \u2192 Revenue Singularity bridge",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "demandSignalsFromLeadLedger; evidence bridge tests",
+      "limit": "Fresh attributable HTTPS signal only; generic traffic/provider buying_intent not promoted."
+    },
+    {
+      "id": "27",
+      "aspiration": "RELAI production canary preserved",
+      "status": "LIVE_VERIFIED",
+      "evidence": "Existing pros_9cf3da52-2992-40bb-90d0-c4990e36ff48 receipt; startup queue exclusions",
+      "limit": "Recruiting route not independently verified; still excluded. No gate weakened."
+    },
+    {
+      "id": "28",
+      "aspiration": "Payment live provider authentication/merchant activation/KYC",
+      "status": "BLOCKED_BY_GENUINE_EXTERNAL_OR_OWNER_ONLY_GATE",
+      "evidence": "Live payment doctor reason codes and owner action queue",
+      "limit": "Lemon Squeezy and PayPal strongest truthful states are recorded in terminal runtime receipt; no credentials/settings treated as proof."
+    },
+    {
+      "id": "29",
+      "aspiration": "Semantic zoom",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Existing zoom-dependent glyphs, labels, fields and X-Ray; WebKit render test",
+      "limit": "Real runtime data only."
+    },
+    {
+      "id": "30",
+      "aspiration": "Economic gravity and fields",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Record-derived mass, offer fields and stage economics; currency tests",
+      "limit": "Hypothesis/rank is not cleared revenue; incompatible currencies are not added."
+    },
+    {
+      "id": "31",
+      "aspiration": "Causal edges",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "collectEvents + actual sender/offer/prospect event associations",
+      "limit": "No invented activity or causal attribution from decoration."
+    },
+    {
+      "id": "32",
+      "aspiration": "Confidence and uncertainty semantics",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Node uncertainty, grey unknown infrastructure, proof/uncertainty lenses",
+      "limit": "Unknown does not turn green; zero denominator is unproven."
+    },
+    {
+      "id": "33",
+      "aspiration": "Real-event replay",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Canonical events, past-only reply radar and time range tests",
+      "limit": "Future receipts/current mass excluded from historical replay."
+    },
+    {
+      "id": "34",
+      "aspiration": "Prospect X-Ray",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "xray + safe textContent DOM",
+      "limit": "Prospect/reply/evidence content cannot become HTML or code."
+    },
+    {
+      "id": "35",
+      "aspiration": "Money/Demand/Proof/Outreach/Reliability/Infrastructure lenses",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Nine lens controls; all requested lenses exercised in actual WebKit",
+      "limit": "Current stage/evidence/health semantics retained."
+    },
+    {
+      "id": "36",
+      "aspiration": "Large-population clustering",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Existing cluster tree; 50k population regression",
+      "limit": "Synthetic scale fixture is performance evidence only, never fake production nodes."
+    },
+    {
+      "id": "37",
+      "aspiration": "Stable spatial navigation",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Deterministic layout/hash, pan/fit/focus and grid",
+      "limit": "Reload does not randomize identity positions."
+    },
+    {
+      "id": "38",
+      "aspiration": "iPad-compatible touch and pinch runtime",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Actual WebKit 26.5 iPad viewport; actual touch PointerEvent handlers",
+      "limit": "Local developer runtime, not physical hardware proof."
+    },
+    {
+      "id": "39",
+      "aspiration": "Physical iPad Safari acceptance",
+      "status": "BLOCKED_BY_GENUINE_EXTERNAL_OR_OWNER_ONLY_GATE",
+      "evidence": "Public Render lock boundary + local WebKit acceptance",
+      "limit": "Actual WebKit iPad-configured runtime and actual live Chrome session pass; physical hardware remains unavailable."
+    },
+    {
+      "id": "40",
+      "aspiration": "No fake graph particles/nodes/activity and no XSS",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Real-node/event source tests; WebKit hostile prospect fixture",
+      "limit": "Public lock correctly renders no economic graph before auth."
+    },
+    {
+      "id": "41",
+      "aspiration": "Duplicate effect and uncertain-send safety",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "Atomic JSON/real Postgres advisory lock race; durable reservation",
+      "limit": "Single-use authority consumed before callback; uncertainty never auto-retries."
+    },
+    {
+      "id": "42",
+      "aspiration": "Provider-origin evidence and private-email defenses",
+      "status": "REUSED_EXISTING_AND_VERIFIED",
+      "evidence": "contact-verification-trust; sealed owned Hunter; retained exact ClearBounce observation",
+      "limit": "Website/model/forged provider strings never deliverability proof; inferred route never admitted."
+    },
+    {
+      "id": "43",
+      "aspiration": "Hot recovery and Oct 4 zero-drop ledger",
+      "status": "SUPERSEDED_BY_STRONGER_IMPLEMENTATION_WITH_PROOF",
+      "evidence": "This current ledger plus terminal receipt, commercial handoff, root pointers and latest #1188 comment",
+      "limit": "Oct 3 ledger is historical lineage. Current code/runtime receipt and newest issue #1188 terminal comment govern recovery."
+    },
+    {
+      "id": "44",
+      "aspiration": "Exact future consequence authorization",
+      "status": "IMPLEMENTED_AWAITING_EXACT_EFFECT_AUTHORITY",
+      "evidence": "G-SPOT exact batch digest/expiry/recipient/sender/current preflight",
+      "limit": "Convenience controller cannot authorize/dispatch; no live dispatcher merely for testing."
+    },
+    {
+      "id": "45",
+      "aspiration": "Real commercial learning and customer outcomes",
+      "status": "BLOCKED_BY_GENUINE_EXTERNAL_OR_OWNER_ONLY_GATE",
+      "evidence": "Actual zero retained cleared customer/payment denominator",
+      "limit": "Replies, payments, acceptance, renewal and partner relationships require real people/providers; simulations do not satisfy them."
+    }
+  ]
+}

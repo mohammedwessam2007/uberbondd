@@ -15,6 +15,7 @@
 //   * without an injected dispatcher the run is a dry run with zero effects.
 import { createHash } from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { verifyWinnrSmtpReadinessTrust } from './winnr-smtp-readiness-trust.mjs';
 
 export const GSPOT_VERSION = 'uberbond.gspot.v1';
 export const STAGES = Object.freeze(['DEMAND', 'QUALIFIED', 'PROOF', 'MESSAGE', 'READY_FOR_AUTHORIZATION', 'AUTHORIZED', 'DISPATCHING', 'DISPATCHED', 'RECONCILED']);
@@ -22,6 +23,10 @@ export const TERMINAL_HALTS = Object.freeze(['HALTED_HUMAN_REPLY', 'BLOCKED', 'U
 const STORE_KEY = 'gspotRuns';
 const sha = v => createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex');
 const sorted = obj => Object.fromEntries(Object.entries(obj).sort(([a], [b]) => a.localeCompare(b)));
+const isWinnrSender = senderId => String(senderId || '').startsWith('winnr:');
+const senderReady = e => isWinnrSender(e.senderId)
+  ? e.winnrSmtpReadinessTrusted === true
+  : Boolean(e.senderId) && e.senderHealthy === true && e.senderQuarantined !== true;
 
 const REQUIRE = {
   QUALIFIED: e => e.qualification?.eligible === true && e.qualification?.outboundAuthority === 'NONE' ? [] : ['qualification-not-eligible'],
@@ -29,7 +34,7 @@ const REQUIRE = {
   MESSAGE: e => (e.messageDigest && e.offerId && e.messageValidated === true ? [] : ['message-not-validated']),
   READY_FOR_AUTHORIZATION: e => [
     ...(e.effectPackageState === 'READY_FOR_AUTHORIZATION' ? [] : ['effect-package-not-ready']),
-    ...(e.senderId && e.senderHealthy === true && e.senderQuarantined !== true ? [] : ['sender-not-healthy']),
+    ...(senderReady(e) ? [] : ['sender-not-healthy']),
     ...(e.recipientHash ? [] : ['recipient-binding-missing']),
     ...(e.suppressed === false ? [] : ['suppression-unverified-or-hit'])
   ]
@@ -40,6 +45,28 @@ const tick = (item, stage, at, note) => { item.stage = stage; item.history.push(
 export function createGspot({ store, now = () => Date.now(), isHalted = () => false } = {}) {
   if (!store?.getSettings || !store?.setSetting) throw new Error('GSPOT_STORE_REQUIRED');
   const iso = () => new Date(now()).toISOString();
+
+  const refreshSenderReadiness = async evidence => {
+    const e = evidence || {};
+    if (!isWinnrSender(e.senderId)) return e;
+    const trust = await verifyWinnrSmtpReadinessTrust({ store, senderId: e.senderId, nowMs: now() });
+    e.winnrSmtpReadinessTrusted = trust.trusted === true;
+    e.winnrSmtpReadinessReasonCodes = Array.isArray(trust.reasonCodes) ? trust.reasonCodes.slice(0, 12) : [];
+    e.winnrSmtpReadinessCheckedAt = trust.checkedAt || null;
+    e.winnrSmtpReadinessExpiresAt = trust.expiresAt || null;
+    return e;
+  };
+
+  const assertCurrentSenderReadiness = async senderId => {
+    if (!isWinnrSender(senderId)) return true;
+    const trust = await verifyWinnrSmtpReadinessTrust({ store, senderId, nowMs: now() });
+    if (trust.trusted !== true) {
+      const error = new Error('GSPOT_SENDER_READINESS_REVOKED');
+      error.reasonCodes = trust.reasonCodes || [];
+      throw error;
+    }
+    return true;
+  };
 
   const load = async () => (await store.getSettings())[STORE_KEY] || {};
   const save = async (run) => {
@@ -86,7 +113,7 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
     const at = iso();
     for (const item of run.items) {
       if (TERMINAL_HALTS.includes(item.stage)) continue;
-      const e = { ...(item.evidence || {}), ...(await evidenceFor(item.prospectId) || {}) };
+      const e = await refreshSenderReadiness({ ...(item.evidence || {}), ...(await evidenceFor(item.prospectId) || {}) });
       item.evidence = e;
       if (isHalted(item.prospectId)) { tick(item, 'HALTED_HUMAN_REPLY', at); continue; }
       if (e.qualification?.eligible !== true) { item.blocks = ['QUALIFIED:qualification-not-eligible']; tick(item, 'BLOCKED', at, 'current-qualification-revoked'); continue; }
@@ -112,6 +139,7 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
     for (const item of run.items) {
       if (item.stage !== 'READY_FOR_AUTHORIZATION') continue;
       if (isHalted(item.prospectId)) { tick(item, 'HALTED_HUMAN_REPLY', iso()); continue; }
+      item.evidence = await refreshSenderReadiness(item.evidence || {});
       const missing = Object.values(REQUIRE).flatMap(check => check(item.evidence || {}));
       if (missing.length || (item.offerId && item.evidence.offerId !== item.offerId)) { item.blocks = ['BATCH:current-evidence-or-offer-binding-refused', ...missing]; tick(item, 'BLOCKED', iso()); continue; }
       const sender = item.evidence.senderId;
@@ -137,6 +165,7 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
     if (batchDigest !== run.batch.batchDigest) throw new Error('GSPOT_BATCH_DIGEST_MISMATCH');
     if (Date.parse(run.batch.expiresAt) <= now()) throw new Error('GSPOT_BATCH_EXPIRED');
     if (run.authorization) throw new Error('GSPOT_ALREADY_AUTHORIZED');
+    for (const b of run.batch.items) await assertCurrentSenderReadiness(b.senderId);
     run.authorization = { batchDigest, authorizedBy, authorizedAt: iso(), maxMessages: run.batch.maxMessages, consumedAt: null };
     for (const b of run.batch.items) tick(run.items.find(i => i.prospectId === b.prospectId), 'AUTHORIZED', iso());
     run.state = 'AUTHORIZED';
@@ -175,6 +204,14 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
       if (item.stage !== 'AUTHORIZED') continue;
       if (messages >= run.authorization.maxMessages) break;
       if (isHalted(item.prospectId)) { tick(item, 'HALTED_HUMAN_REPLY', iso(), 'halted-before-dispatch'); await save(run); continue; }
+      try {
+        await assertCurrentSenderReadiness(b.senderId);
+      } catch (error) {
+        item.blocks = ['DISPATCH:sender-readiness-revoked', ...(Array.isArray(error?.reasonCodes) ? error.reasonCodes.map(r => `DISPATCH:${r}`) : [])];
+        tick(item, 'BLOCKED', iso(), 'sender-readiness-revoked-before-effect');
+        await save(run);
+        continue;
+      }
       const idempotencyKey = sha({ runId, prospectId: b.prospectId, messageDigest: b.messageDigest }).slice(0, 32);
       item.effect = { idempotencyKey, reservedAt: iso() };
       tick(item, 'DISPATCHING', iso());

@@ -13,6 +13,7 @@ const providerCallCount=probe=>{
   const n=Number(probe?.providerCalls);
   return Number.isInteger(n)&&n>=0?n:null;
 };
+const responseCode=value=>Number.isInteger(Number(value))?Number(value):null;
 
 export async function runWinnrSmtpReadinessProbe({
   store,
@@ -63,10 +64,6 @@ export async function runWinnrSmtpReadinessProbe({
       && Boolean(clean(probe?.providerSessionReceiptId,500))
       && Boolean(clean(probe?.providerResponseDigest,128));
 
-    // A positive transport probe is not sender-reputation evidence. Never create
-    // a new positive senderHealth row from readiness alone. It may only clear a
-    // protective pause that this same probe created earlier. Manual/placement/
-    // bounce/complaint holds remain sovereign.
     if(ready){
       if(isOwnProbePause(health))await store.setSenderPaused(slot,false,'');
     }else if(!health||health?.paused!==true||isOwnProbePause(health)){
@@ -81,6 +78,9 @@ export async function runWinnrSmtpReadinessProbe({
       confirmed:ready,
       state:clean(probe?.state,120)||null,
       reasonCodes:Array.isArray(probe?.reasonCodes)?probe.reasonCodes.map(x=>clean(x,120)).slice(0,6):[],
+      errorClass:ready?null:clean(probe?.errorClass,80)||null,
+      errorStage:ready?null:clean(probe?.errorStage,40)||null,
+      smtpResponseCode:ready?null:responseCode(probe?.smtpResponseCode),
       providerSessionReceiptId:ready?clean(probe?.providerSessionReceiptId,500)||null:null,
       providerResponseDigest:ready?clean(probe?.providerResponseDigest,128)||null:null,
       providerCalls,
@@ -127,7 +127,7 @@ export async function runWinnrSmtpReadinessProbe({
     legalAuthorityGranted:false,
     prospectSendAuthorityGranted:false,
     automaticRetryAuthorized:false,
-    truthBoundary:'This receipt proves only fresh authenticated SMTP session reachability for exact probed non-quarantined Winnr routes using TLS/EHLO/AUTH/NOOP/QUIT. It sends no message and proves no reputation, inbox placement, future SMTP acceptance, legal authority, buyer permission, reply, or revenue. Evaluation status and provider-contact count are tracked separately; unknown provider crossing remains unknown.'
+    truthBoundary:'This receipt proves only fresh authenticated SMTP session reachability for exact probed non-quarantined Winnr routes using TLS/EHLO/AUTH/NOOP/QUIT. It sends no message and proves no reputation, inbox placement, future SMTP acceptance, legal authority, buyer permission, reply, or revenue. Evaluation status and provider-contact count are tracked separately; unknown provider crossing remains unknown. Failure diagnostics expose only protocol stage and numeric SMTP response code, never provider response text, credentials, sender addresses, or message data.'
   };
   await store.setSetting('winnrSmtpReadinessV1',receipt);
   if(typeof store.log==='function')await store.log('winnr_smtp_readiness_probe',{

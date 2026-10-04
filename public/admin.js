@@ -3,7 +3,7 @@ const $=s=>document.querySelector(s);
 let token=''; let cache={prospects:[],campaigns:[]};
 $('#token').value='';
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers,cache:'no-store'});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok){const error=new Error(data.error||data||'Request failed');error.status=res.status;throw error;}return data;};
+const api=async(path,opts={})=>{const headers={authorization:`Bearer ${token}`,...(opts.headers||{})};if(opts.body&&typeof opts.body==='string'&&!headers['content-type'])headers['content-type']='application/json';const res=await fetch(path,{...opts,headers,cache:'no-store'});const type=res.headers.get('content-type')||'';const data=type.includes('json')?await res.json():await res.text();if(!res.ok){const error=new Error(data?.error||data||'Request failed');error.status=res.status;error.data=data;throw error;}return data;};
 mountProspectPreflight({ request: api, document });
 const pill=s=>`<span class="pill ${esc(s)}">${esc(s)}</span>`;
 function metric(label,value,sub=''){return `<div class="metric"><b>${esc(value)}</b><span>${esc(label)}</span>${sub?`<small>${esc(sub)}</small>`:''}</div>`}

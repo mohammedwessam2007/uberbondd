@@ -1,4 +1,6 @@
 import http from 'node:http';
+import * as revenueSingularity from './src/revenue-singularity-service.mjs';
+import { createOwnerSessionManager, authorizeOwnerCookie, cookieHeader, clearCookieHeader, parseCookies, OWNER_SESSION_COOKIE, OWNER_SESSION_ABSOLUTE_MS } from './src/owner-session.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
@@ -216,12 +218,29 @@ const safeEqual = (a, b) => {
   const bb = Buffer.from(b);
   return ba.length === bb.length && crypto.timingSafeEqual(ba, bb);
 };
-const auth = req => {
-  if (!config.adminToken) return true;
+const ownerSessions = createOwnerSessionManager({ adminToken: config.adminToken });
+const bearerOk = req => {
   const header = req.headers.authorization || '';
   const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
   return safeEqual(bearer, config.adminToken);
 };
+const auth = req => {
+  if (!config.adminToken) return true;
+  const header = req.headers.authorization || '';
+  const bearer = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (safeEqual(bearer, config.adminToken)) return true;
+  return authorizeOwnerCookie(ownerSessions, req).ok;
+};
+const ownerLoginHits = new Map();
+const ownerLoginLimited = req => {
+  const minute = Math.floor(Date.now() / 60000);
+  const key = `${clientIp(req)}:${minute}`;
+  const count = (ownerLoginHits.get(key) || 0) + 1;
+  ownerLoginHits.set(key, count);
+  if (ownerLoginHits.size > 1000) for (const entry of ownerLoginHits.keys()) if (!entry.endsWith(`:${minute}`)) ownerLoginHits.delete(entry);
+  return count > 10;
+};
+const cookieSecure = req => !/^(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(String(req.headers.host || ''));
 const relayConfigured = () => Boolean(config.agentRelay?.enabled && config.agentRelay?.token);
 const relayAuth = req => {
   if (!relayConfigured()) return false;
@@ -1100,6 +1119,8 @@ function errorStatus(error) {
   if (Number.isInteger(error?.status) && error.status >= 400 && error.status < 600) return error.status;
   if (error instanceof ConflictError) return 409;
   if (error instanceof StoreError && error.code === 'FOREIGN_KEY') return 422;
+  if (/^GSPOT_RUN_NOT_FOUND/.test(error.message)) return 404;
+  if (/^GSPOT_/.test(error.message)) return 409;
   if (/Too many|cap reached/i.test(error.message)) return 429;
   if (/disabled|not configured|DATABASE_URL/i.test(error.message)) return 503;
   return 500;
@@ -1126,6 +1147,29 @@ export const requestHandler = async (req, res) => {
       await bodyText(req);
       return json(res, 200, await applyUnsubscribe(url.searchParams.get('token') || ''));
     }
+    if (url.pathname === '/api/owner-session/login' && method === 'POST') {
+      if (!config.adminToken) return json(res, 503, { ok: false, state: 'OWNER_SESSION_DISABLED_NO_ADMIN_TOKEN' });
+      if (ownerLoginLimited(req)) return json(res, 429, { ok: false, error: 'Too many attempts' });
+      await bodyText(req);
+      if (!bearerOk(req)) return json(res, 401, { ok: false, error: 'Unauthorized' });
+      const issued = ownerSessions.issue();
+      return json(res, 200, { ok: true, state: 'OWNER_SESSION_ACTIVE', expiresInDays: 30, authorityWidening: false },
+        { 'set-cookie': cookieHeader(issued.value, { secure: cookieSecure(req) }), 'cache-control': 'no-store' });
+    }
+    if (url.pathname === '/api/owner-session/status' && method === 'GET') {
+      if (!config.adminToken) return json(res, 200, { active: false, state: 'OWNER_SESSION_DISABLED_NO_ADMIN_TOKEN' });
+      const verdict = authorizeOwnerCookie(ownerSessions, req);
+      const extra = { 'cache-control': 'no-store' };
+      if (verdict.ok) extra['set-cookie'] = cookieHeader(ownerSessions.refreshed(verdict.payload), { secure: cookieSecure(req), maxAgeMs: Math.max(60000, OWNER_SESSION_ABSOLUTE_MS - (Date.now() - verdict.payload.iat)) });
+      return json(res, 200, { active: verdict.ok, state: verdict.ok ? 'OWNER_SESSION_ACTIVE' : 'OWNER_SESSION_ABSENT', reason: verdict.ok ? undefined : verdict.reason }, extra);
+    }
+    if (url.pathname === '/api/owner-session/logout' && method === 'POST') {
+      await bodyText(req);
+      const cookie = parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE];
+      const verdict = cookie ? ownerSessions.verify(cookie) : { ok: false };
+      if (verdict.ok) ownerSessions.revoke(verdict.sid);
+      return json(res, 200, { ok: true, state: 'OWNER_SESSION_ENDED' }, { 'set-cookie': clearCookieHeader({ secure: cookieSecure(req) }), 'cache-control': 'no-store' });
+    }
     const relayPath = url.pathname === '/api/agent-relay/health'
       || url.pathname === '/api/agent-relay/tasks'
       || url.pathname === '/api/agent-relay/tasks/claim'
@@ -1145,6 +1189,51 @@ export const requestHandler = async (req, res) => {
     if (method === 'GET' && url.pathname === '/api/health') {
       const [pausedState, workers, queueStats] = await Promise.all([queue.pausedState(), queue.liveWorkers(), queue.stats()]);
       return json(res, 200, { ok: true, time: now(), autopilot: config.autopilot, storeBackend: config.storeBackend, processRole: config.processRole, worker: { online: workers.length > 0, paused: Boolean(pausedState.paused), activeJobs: Number(queueStats.counts?.active || 0), workers }, version: `revenue-engine-${config.version}` });
+    }
+    if (url.pathname.startsWith('/api/revenue/')) {
+      // Revenue Singularity: owner-authenticated (bearer or owner session). Read-only
+      // except demand-signal ingestion and G-SPOT run bookkeeping. No send path here:
+      // live dispatch is deliberately NOT bound, so /gspot/dispatch is always a dry run.
+      const rev = url.pathname.slice('/api/revenue/'.length);
+      const snap = await revenueSingularity.snapshot(store);
+      const radar = revenueSingularity.radarFromSnapshot(snap);
+      const halted = new Set(radar.haltedProspects);
+      const gs = revenueSingularity.gspotFor(store, halted);
+      const latestRun = async () => Object.values(await gs.list()).sort((a, b) => b.createdAt.localeCompare(a.createdAt))[0] || null;
+      if (method === 'GET' && rev === 'money-queue') return json(res, 200, revenueSingularity.moneyQueueFromSnapshot(snap));
+      if (method === 'GET' && rev === 'reply-radar') return json(res, 200, radar);
+      if (method === 'GET' && rev === 'reliability') return json(res, 200, revenueSingularity.reliabilityFromSnapshot(snap));
+      if (method === 'GET' && rev === 'constellation') {
+        const infra = [{ id: 'web', status: 'OK', observedAt: now() }, { id: `store:${config.storeBackend}`, status: 'OK', observedAt: now() }];
+        return json(res, 200, revenueSingularity.constellationFromSnapshot(snap, { at: url.searchParams.get('at'), expand: url.searchParams.get('expand'), gspotRun: await latestRun(), infra }));
+      }
+      if (method === 'GET' && rev === 'xray') return json(res, 200, revenueSingularity.xrayFromSnapshot(snap, String(url.searchParams.get('prospectId') || ''), await latestRun()));
+      if (method === 'GET' && rev === 'offer-market') return json(res, 200, revenueSingularity.offerMarketFromSnapshot(snap));
+      if (method === 'GET' && rev === 'delivery') return json(res, 200, revenueSingularity.deliveryFromSnapshot(snap, String(url.searchParams.get('leadId') || '')));
+      if (method === 'GET' && rev === 'deal') return json(res, 200, revenueSingularity.dealFromSnapshot(snap, String(url.searchParams.get('leadId') || '')));
+      if (method === 'GET' && rev === 'partners') return json(res, 200, await revenueSingularity.partnersFromStore(store));
+      if (method === 'GET' && rev === 'gspot') return json(res, 200, { run: await latestRun(), liveDispatchBound: false });
+      if (method === 'POST' && rev === 'demand-signals') return json(res, 200, await revenueSingularity.ingestDemandSignal(store, await parseBody(req)));
+      if (method === 'POST' && rev === 'gspot/plan') {
+        const body = await parseBody(req);
+        const queueNow = revenueSingularity.moneyQueueFromSnapshot(snap);
+        const { run } = await gs.plan({ items: queueNow.items.slice(0, Math.min(50, Number(body.limit) || 25)), idempotencyKey: body.idempotencyKey });
+        return json(res, 200, await gs.advance(run.runId, revenueSingularity.gspotEvidenceFor(snap, queueNow, radar)));
+      }
+      if (method === 'POST' && rev === 'gspot/prepare-batch') {
+        const body = await parseBody(req);
+        const caps = {}; for (const h of snap.senderHealth) if (!h.paused) caps[h.inbox] = 1; // conservative: 1 per healthy sender
+        return json(res, 200, await gs.prepareBatch(String(body.runId || ''), { maxItems: Math.min(5, Number(body.maxItems) || 3), perSenderCap: caps }));
+      }
+      if (method === 'POST' && rev === 'gspot/authorize') {
+        const body = await parseBody(req);
+        return json(res, 200, await gs.authorize(String(body.runId || ''), { batchDigest: String(body.batchDigest || ''), authorizedBy: 'MOHAMED' }));
+      }
+      if (method === 'POST' && rev === 'gspot/dispatch') {
+        const body = await parseBody(req);
+        return json(res, 200, await gs.dispatch(String(body.runId || '')));
+      }
+      return json(res, 404, { error: 'Unknown revenue route' });
     }
     if (method === 'GET' && url.pathname === '/api/public/config') {
       return json(res, 200, {

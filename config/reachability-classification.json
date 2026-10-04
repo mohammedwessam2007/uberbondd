@@ -717,21 +717,6 @@
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."
     },
-    "src/prospect-qualification-gate.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "Gates a score for prospects that nothing currently discovers."
-    },
-    "src/prospect-qualification-pipeline.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "Composes scorer and gate into one answer; awaits a prospect source."
-    },
-    "src/prospect-qualification.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_DISCOVERY_ADAPTER",
-      "reason": "Scores prospects that nothing currently discovers."
-    },
     "src/receivables-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",

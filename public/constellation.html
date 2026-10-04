@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,maximum-scale=1">
+<meta name="theme-color" content="#05070d"><meta name="apple-mobile-web-app-capable" content="yes">
+<title>UberBond Revenue Constellation</title>
+<link rel="stylesheet" href="/constellation.css"></head>
+<body>
+<header class="bar">
+  <strong>REVENUE CONSTELLATION</strong>
+  <nav aria-label="Existing surfaces"><a href="/admin.html">Admin &amp; leads</a><a href="/ops.html">Ops</a><a href="/uberbond.html">Command Center</a><a href="/command-center.html">Organism</a></nav>
+  <span id="status" class="chip">LOCKED</span>
+</header>
+<main class="layout">
+  <section class="stage">
+    <div class="toolbar">
+      <div id="lenses" class="seg" role="tablist" aria-label="Analytical lens"></div>
+      <label class="time">Time <input id="scrub" type="range" min="0" max="1000" value="1000" aria-label="Replay time"></label>
+      <button id="play" type="button">Play events</button>
+      <button id="live" type="button">Live</button>
+      <span id="at" class="chip">—</span>
+    </div>
+    <canvas id="cv" aria-label="Revenue constellation"></canvas>
+    <div id="legend" class="legend"></div>
+    <div id="zoomhint" class="hint">Pinch or scroll to zoom · semantic detail appears as you zoom in</div>
+  </section>
+  <aside class="side">
+    <section class="card" id="auth"><h2>Owner access</h2>
+      <form id="auth-form"><input id="owner-token" type="password" autocomplete="off" placeholder="ADMIN_TOKEN (first time on this device)"><button type="submit">Connect</button></form>
+      <div id="auth-error" class="err" role="alert"></div></section>
+    <section class="card"><h2>G-SPOT <small id="gs-state">no run</small></h2>
+      <div id="gs-stages" class="stages"></div>
+      <div class="btns"><button id="gs-plan" type="button">Plan (dry)</button><button id="gs-prepare" type="button">Prepare batch</button><button id="gs-authorize" type="button">Authorize exact batch</button><button id="gs-dispatch" type="button">Dispatch (dry run)</button></div>
+      <p class="note" id="gs-note">Live dispatch is not bound here. Authorization covers only the exact frozen batch digest, once.</p></section>
+    <section class="card"><h2>Reply Radar <small id="rr-count">0</small></h2>
+      <p class="note">Material human replies stop all prospect automation. Mohamed writes and sends every commercial reply manually.</p><ul id="rr" class="list"></ul></section>
+    <section class="card"><h2>Money Queue <small id="mq-count">0</small></h2><ul id="mq" class="list"></ul></section>
+    <section class="card"><h2>Reliability</h2><div id="rel" class="rel"></div></section>
+    <section class="card" id="xr"><h2>Prospect X-Ray</h2><div id="xr-body" class="note">Select a prospect (zoom in, then tap it).</div></section>
+  </aside>
+</main>
+<dialog id="confirm"><form method="dialog"><h3>Authorize exact batch</h3><pre id="confirm-body"></pre>
+<p class="note">This records your decision for exactly this digest. It is single-use, expires, and covers nothing else.</p>
+<menu><button value="cancel">Cancel</button><button id="confirm-ok" value="ok">I authorize this exact batch</button></menu></form></dialog>
+<script src="/owner-session.js"></script>
+<script src="/constellation.js" defer></script>
+</body></html>

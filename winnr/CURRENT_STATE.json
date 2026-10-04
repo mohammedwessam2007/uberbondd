@@ -1,8 +1,8 @@
 {
   "schemaVersion": "uberbond.winnr.current-observations.v1",
-  "reconciledDate": "2026-10-02",
-  "recoverySourceCommit": "a41c3787444bcf1b02e2cbc770ce68b1c9481000",
-  "refreshLiveTruthRequired": true,
+  "reconciledDate": "2026-10-04",
+  "recoverySourceCommit": "1db409edc3ed25bbb4dc603e0efe927d4d62bd63",
+  "refreshLiveTruthRequired": false,
   "technicalActivation": "COMPLETE",
   "campaignActivation": "NOT_ACTIVATED",
   "displayIdentity": "Wessam Solomon | UberBond",
@@ -16,47 +16,48 @@
     "evidenceRef": "winnr/CURRENT_STATE.md"
   },
   "runtime": {
+    "renderService": "uberbond-control-plane",
+    "renderServiceId": "srv-dali9vijnfac739m4vcg",
+    "liveSourceCommit": "1db409edc3ed25bbb4dc603e0efe927d4d62bd63",
+    "liveDeployId": "dep-db120g7avr4c739sonu0",
+    "liveDeployStatus": "live",
     "buildCommand": "npm install --omit=dev",
-    "smtpConfirmed": 3,
-    "imapConfirmed": 3,
+    "storeBackend": "postgres",
+    "omniaOutboundIntegrationMode": "off",
+    "smtpConfirmedHistorical": 3,
+    "imapConfirmedCurrent": 3,
+    "currentImapTransportHealthy": true,
+    "currentImapAccountsChecked": 3,
+    "currentImapProbeStatus": "UBERIMAP_FETCH_CONFIRMED_3_OF_3",
+    "currentImapAttemptsEach": 1,
+    "currentCanaryPresenceObserved": false,
+    "currentRecentCanaryOrdinalsFound": [],
+    "historicalCanaryOrdinalsFound": [2, 3],
+    "historicalCanaryProofDate": "2026-10-02",
+    "replyProofClass": "HISTORICAL_INGESTIBILITY_PLUS_CURRENT_TRANSPORT_HEALTH_NOT_COMMERCIAL_REPLY_PROCESSING",
+    "latestReplyStatus": "WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW",
     "encryptedAccountRows": 6,
     "credentialStorage": "AES_256_GCM_ENCRYPTED",
     "plaintextCredentialsLogged": false,
-    "transportReceiptClass": "DURABLE_ALREADY_CONSUMED_RESULT",
-    "replyCanaryOrdinalsFound": [
-      2,
-      3
-    ],
-    "replyProofClass": "INGESTIBILITY_NOT_COMMERCIAL_REPLY_PROCESSING",
-    "smtpQuarantinedOrdinals": [
-      3
-    ],
+    "transportReceiptClass": "CURRENT_LIVE_IMAP_PLUS_DURABLE_CONSUMED_SMTP_BOOTSTRAP",
+    "smtpQuarantinedOrdinals": [3],
     "imapCustodyChanged": false,
-    "evidenceRef": "winnr/FINAL_ACTIVATION_2026-10-02.md"
+    "uberImapVersion": "uberbond.uberimap.v1.2",
+    "oct4RootCause": "EMPTY_SEARCH_PARSED_AS_UID_ZERO",
+    "oct4InvalidCommand": "UID FETCH 0 (BODY.PEEK[])",
+    "oct4FixPr": 1198,
+    "truthSplitPr": 1199,
+    "evidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md"
   },
   "placement": {
     "receiverClass": "OWNER_CONTROLLED_UBERBOND_GMAIL",
     "phenotype": "HUMAN_READABLE_NOTE",
-    "inboxOrdinals": [
-      1,
-      2
-    ],
-    "spamOrdinals": [
-      3
-    ],
+    "inboxOrdinals": [1, 2],
+    "spamOrdinals": [3],
     "messages": [
-      {
-        "ordinal": 1,
-        "folder": "INBOX"
-      },
-      {
-        "ordinal": 2,
-        "folder": "INBOX"
-      },
-      {
-        "ordinal": 3,
-        "folder": "SPAM"
-      }
+      {"ordinal": 1, "folder": "INBOX"},
+      {"ordinal": 2, "folder": "INBOX"},
+      {"ordinal": 3, "folder": "SPAM"}
     ],
     "historicalDiagnosticPhenotype": {
       "inbox": 0,
@@ -73,11 +74,7 @@
     "personalSeedExperiment": {
       "status": "INDEPENDENTLY_OBSERVED_3_OF_3_INBOX",
       "receiverClass": "CONNECTED_FOUNDER_PERSONAL_GMAIL",
-      "inboxOrdinals": [
-        1,
-        2,
-        3
-      ],
+      "inboxOrdinals": [1, 2, 3],
       "spf": "PASS_3_OF_3",
       "alignedDomainDkim": "PASS_3_OF_3",
       "dmarc": "PASS_3_OF_3",
@@ -88,8 +85,15 @@
       "evidenceRef": "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
     }
   },
+  "authority": {
+    "prospectSendAuthorityAddedByRepair": false,
+    "automatedMaterialReplyAuthority": false,
+    "ordinal3SmtpQuarantineReleased": false,
+    "campaignActivated": false
+  },
   "nextActions": [
     "Preserve ordinal-3 SMTP quarantine and all IMAP custody",
+    "Treat current IMAP transport health separately from historical canary presence",
     "Validate ordinals 1 and 2 through bounded next-stage evidence",
     "Require independent campaign legal/provider/suppression/content/consequence gates"
   ],
@@ -97,9 +101,15 @@
     "newSpendUsd": 0,
     "prospectMessages": 0,
     "ownerCanaryMessages": 0,
-    "credentialChanges": 0
+    "credentialChanges": 0,
+    "providerConfigurationChanges": 0
   },
-  "canonicalEvidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-02.md",
+  "canonicalEvidenceRef": "winnr/LIVE_RECONCILIATION_2026-10-04.md",
+  "historicalEvidenceRefs": [
+    "winnr/FINAL_ACTIVATION_2026-10-02.md",
+    "winnr/LIVE_RECONCILIATION_2026-10-02.md",
+    "winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md"
+  ],
   "privateEvidenceDocument": "WINNR_PRIVATE_LIVE_RECONCILIATION_2026-10-02.md (founder-private record, not public repository content)",
-  "latestReconciledSourceCommit": "b37ccae981cf1954894c9628a2d1a03037e3a0a0"
+  "latestReconciledSourceCommit": "1db409edc3ed25bbb4dc603e0efe927d4d62bd63"
 }

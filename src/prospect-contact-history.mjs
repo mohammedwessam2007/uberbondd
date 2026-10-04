@@ -38,10 +38,11 @@ export const RESULT_STATUS = Object.freeze({
 });
 
 // A prospect record in one of these states has never been contacted by us.
-// Every other value (sent, replied, send-uncertain, suppressed, bounce,
-// complaint, anything new or unrecognised) blocks.
+// `queued` is the canonical state assigned by importProspects before any
+// external effect occurs, so it is informational history, never evidence of a
+// prior contact attempt. Every actual/unknown effect-bearing state still blocks.
 const BENIGN_PROSPECT_STATUSES = new Set([
-  '', 'new', 'imported', 'discovered', 'crawling', 'saved', 'ready', 'research-complete', 'rejected'
+  '', 'new', 'imported', 'discovered', 'crawling', 'saved', 'queued', 'ready', 'research-complete', 'rejected'
 ]);
 
 const emailOf = value => {

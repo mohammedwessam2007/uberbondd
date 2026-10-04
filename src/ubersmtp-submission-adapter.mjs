@@ -7,7 +7,21 @@ export const UBERSMTP_SUBMISSION_VERSION = 'uberbond.ubersmtp-submission.v1';
 const clean=(v,n=2000)=>String(v??'').trim().slice(0,n);
 const hash=v=>crypto.createHash('sha256').update(String(v)).digest('hex');
 const loopback=h=>['127.0.0.1','::1','localhost'].includes(String(h||'').toLowerCase());
+const safeStage=v=>['CONNECT','GREETING','EHLO','AUTH','NOOP','MAIL_FROM','RCPT_TO','DATA','DATA_FINAL','QUIT'].includes(String(v||'').toUpperCase())?String(v).toUpperCase():'UNKNOWN';
 
+function annotateStage(error,stage,responseCode=null){
+  const e=error instanceof Error?error:new Error('smtp-stage-failed');
+  if(!e.smtpStage)e.smtpStage=safeStage(stage);
+  if(e.smtpResponseCode==null&&Number.isInteger(Number(responseCode)))e.smtpResponseCode=Number(responseCode);
+  return e;
+}
+function commandRejected(stage,response){
+  const error=new Error(`smtp-${safeStage(stage).toLowerCase()}-rejected`);
+  error.code='SMTP_COMMAND_REJECTED';
+  error.smtpStage=safeStage(stage);
+  error.smtpResponseCode=Number.isInteger(Number(response?.code))?Number(response.code):null;
+  return error;
+}
 function header(value,max=1000){return clean(value,max).replace(/[\r\n]+/g,' ');}
 function formatFromHeader(from='',fromName=''){
   const email=header(from,320);
@@ -89,32 +103,39 @@ async function connectSocket({host,port,secure,connectTimeoutMs}){
 
 async function openSmtpSession({host,port,secure,username,password,connectTimeoutMs=10000,commandTimeoutMs=30000}){
   if(!secure&&!loopback(host))throw new Error('plaintext-smtp-only-allowed-on-loopback');
-  const socket=await connectSocket({host,port,secure,connectTimeoutMs});
+  let socket;
+  try{socket=await connectSocket({host,port,secure,connectTimeoutMs});}
+  catch(error){throw annotateStage(error,'CONNECT');}
   const read=responseReader(socket,{timeoutMs:commandTimeoutMs});
-  const expect=async(allowed)=>{const r=await read();if(!allowed.includes(r.code))throw new Error(`smtp-${r.code}:${clean(r.text,500)}`);return r;};
-  const cmd=async(line,allowed=[250])=>{socket.write(`${line}\r\n`);return expect(allowed);};
-  const greeting=await expect([220]);
-  await cmd(`EHLO ${loopback(host)?'uberbond.local':'uberbond'}`, [250]);
+  const expect=async(allowed,stage)=>{
+    let r;
+    try{r=await read();}catch(error){throw annotateStage(error,stage);}
+    if(!allowed.includes(r.code))throw commandRejected(stage,r);
+    return r;
+  };
+  const cmd=async(line,allowed=[250],stage='UNKNOWN')=>{socket.write(`${line}\r\n`);return expect(allowed,stage);};
+  const greeting=await expect([220],'GREETING');
+  await cmd(`EHLO ${loopback(host)?'uberbond.local':'uberbond'}`,[250],'EHLO');
   if(username||password){
-    if(!username||!password)throw new Error('smtp-username-and-password-required-together');
+    if(!username||!password)throw annotateStage(new Error('smtp-username-and-password-required-together'),'AUTH');
     const token=Buffer.from(`\0${username}\0${password}`,'utf8').toString('base64');
-    await cmd(`AUTH PLAIN ${token}`,[235]);
+    await cmd(`AUTH PLAIN ${token}`,[235],'AUTH');
   }
   return {
     greeting,
     async probe(){
-      const result=await cmd('NOOP',[250]);
+      const result=await cmd('NOOP',[250],'NOOP');
       return {ok:true,code:result.code,response:result.text};
     },
     async sendMessage({from,to,raw}){
-      await cmd(`MAIL FROM:<${from}>`,[250]);
-      await cmd(`RCPT TO:<${to}>`,[250,251]);
-      await cmd('DATA',[354]);
+      await cmd(`MAIL FROM:<${from}>`,[250],'MAIL_FROM');
+      await cmd(`RCPT TO:<${to}>`,[250,251],'RCPT_TO');
+      await cmd('DATA',[354],'DATA');
       socket.write(`${raw}\r\n.\r\n`);
-      const final=await expect([250]);
+      const final=await expect([250],'DATA_FINAL');
       return {accepted:true,response:final.text};
     },
-    async close(){try{await cmd('QUIT',[221,250]);}catch{} socket.end();}
+    async close(){try{await cmd('QUIT',[221,250],'QUIT');}catch{} socket.end();}
   };
 }
 
@@ -154,7 +175,19 @@ export function createUberSmtpSubmissionTransport({
           dataIssued:false
         };
       }catch(error){
-        return {confirmed:false,state:'SMTP_AUTH_NOOP_FAILED',reasonCodes:['smtp-session-probe-failed'],errorClass:clean(error?.code||error?.name||'error',80),providerCalls:1,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};
+        return {
+          confirmed:false,
+          state:'SMTP_AUTH_NOOP_FAILED',
+          reasonCodes:['smtp-session-probe-failed'],
+          errorClass:clean(error?.code||error?.name||'error',80),
+          errorStage:safeStage(error?.smtpStage),
+          smtpResponseCode:Number.isInteger(Number(error?.smtpResponseCode))?Number(error.smtpResponseCode):null,
+          providerCalls:1,
+          messagesSent:0,
+          mailFromIssued:false,
+          recipientsIssued:0,
+          dataIssued:false
+        };
       }finally{await session?.close?.().catch?.(()=>{});}
     },
     async send(message={}){

@@ -7,15 +7,36 @@ import {
   paymentRailsFromSnapshot,
   dealFromSnapshot
 } from '../src/revenue-singularity-service.mjs';
+import { PROSPECT_EVIDENCE_VERSION } from '../src/prospect-evidence-reconciliation.mjs';
 
 const NOW = Date.parse('2026-10-04T08:00:00.000Z');
+const canonicalVerification = (route = 'owner@signal.example') => ({
+  version: PROSPECT_EVIDENCE_VERSION,
+  verificationId: 'verify_test_owner_signal',
+  route,
+  state: 'VALID',
+  provider: 'uberverify',
+  sourceUrl: 'https://signal.example/verification-evidence',
+  sourceRecordId: 'verify-record-1',
+  evidenceClass: 'LICENSED_PROVIDER',
+  confidence: 0.97,
+  checkedAt: '2026-10-03T08:05:00.000Z',
+  expiresAt: null,
+  riskFlags: [],
+  providerCostCents: 0,
+  providerCalls: 0,
+  externalEffects: 0,
+  businessEffectAuthority: 'NONE'
+});
 const prospect = (overrides = {}) => ({
   id: 'pros_live_1', status: 'ready', company: 'Signal Agency', website: 'https://signal.example', domain: 'signal.example',
   source: 'public_website', niche: 'performance marketing agency HVAC', serviceFit: 0.92,
   contact: {
     email: 'owner@signal.example', name: 'Owner Person', title: 'Agency Owner',
     source: 'public_website', sourceUrl: 'https://signal.example/team', observedAt: '2026-10-03T08:00:00Z',
-    verified: 'valid', verificationScore: 0.97, exact: true, inferred: false
+    // This legacy field is deliberately present. It must NOT be enough by itself.
+    verified: 'valid', verificationScore: 0.97, exact: true, inferred: false,
+    verifications: [canonicalVerification()]
   },
   issue: {
     title: 'Lead form loses booking context', evidenceUrl: 'https://signal.example/contact',
@@ -39,7 +60,7 @@ function snap(p, { suppressions = [], outboundEvents = [], leads = [], settings 
   };
 }
 
-test('durable public prospect facts reconstruct canonical evidence without stored evidenceBundle', () => {
+test('durable public prospect facts reconstruct canonical evidence when verifier lineage is canonical', () => {
   const p = prospect();
   const bundle = evidenceBundleFromStoredProspect(p, { now: new Date(NOW) });
   assert.equal(bundle.prospectId, p.id);
@@ -48,13 +69,24 @@ test('durable public prospect facts reconstruct canonical evidence without store
   assert.equal(bundle.businessEffectAuthority, 'NONE');
 });
 
+test('legacy verified string cannot masquerade as mailbox-verifier provenance', () => {
+  const p = prospect();
+  p.contact = { ...p.contact, verifications: [] };
+  const bundle = evidenceBundleFromStoredProspect(p, { now: new Date(NOW) });
+  assert.equal(bundle.summary.verifiedRoutes, 0);
+  assert.equal(bundle.routes[0].status, 'NEEDS_VERIFICATION');
+  const out = moneyQueueFromSnapshot(snap(p));
+  assert.equal(out.items.length, 0);
+  assert.equal(out.excluded.some(x => x.prospectId === p.id), true);
+});
+
 test('buyer resolution accepts the canonical imported contact.title field', () => {
   assert.deepEqual(buyerFromStoredProspect(prospect()), {
     resolved: true, role: 'Agency Owner', email: 'owner@signal.example'
   });
 });
 
-test('Money Queue admits a source-backed ready prospect and does not require a hand-set contactHistoryVerified boolean', () => {
+test('Money Queue admits a source-backed ready prospect with canonical verifier lineage and no hand-set contactHistoryVerified boolean', () => {
   const out = moneyQueueFromSnapshot(snap(prospect()));
   assert.equal(out.items.length, 1);
   assert.equal(out.items[0].prospectId, 'pros_live_1');

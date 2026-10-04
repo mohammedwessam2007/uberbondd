@@ -155,7 +155,10 @@ export async function runRevenueRealProspectCanary({
 
   let importState = 'REUSED_EXISTING_CANARY';
   if (!prospect) {
-    const imported = await importFn(store, config, [compiled.prospect], 'revenue-real-canary-20261004');
+    // The importer fourth argument is a real campaign FK. A canary lineage label
+    // is not a campaign ID, so deliberately omit it and keep the prospect
+    // unbound to any campaign unless a real campaign owns it later.
+    const imported = await importFn(store, config, [compiled.prospect]);
     prospect = imported?.added?.[0] || null;
     if (!prospect) return fail('REAL_PROSPECT_CANARY_IMPORT_REFUSED', ['canonical-import-did-not-add-prospect'], { skipped: (imported?.skipped || []).map(item => clean(item?.reason, 120)).filter(Boolean) });
     importState = 'IMPORTED_NEW_CANARY';

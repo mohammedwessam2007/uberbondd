@@ -102,6 +102,10 @@ async function openSmtpSession({host,port,secure,username,password,connectTimeou
   }
   return {
     greeting,
+    async probe(){
+      const result=await cmd('NOOP',[250]);
+      return {ok:true,code:result.code,response:result.text};
+    },
     async sendMessage({from,to,raw}){
       await cmd(`MAIL FROM:<${from}>`,[250]);
       await cmd(`RCPT TO:<${to}>`,[250,251]);
@@ -130,6 +134,29 @@ export function createUberSmtpSubmissionTransport({
   return {
     ok:true,status:'UBERSMTP_TRANSPORT_READY',version:UBERSMTP_SUBMISSION_VERSION,
     host:h,port:p,secure:Boolean(secure),evidenceRef:clean(evidenceRef,1500),
+    async probe(){
+      let session;
+      try{
+        session=await smtpSessionFactory({host:h,port:p,secure:Boolean(secure),username,password,connectTimeoutMs,commandTimeoutMs});
+        if(typeof session?.probe!=='function')return {confirmed:false,state:'SMTP_AUTH_NOOP_UNAVAILABLE',reasonCodes:['smtp-session-probe-unavailable'],providerCalls:1,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};
+        const result=await session.probe();
+        if(result?.ok!==true)return {confirmed:false,state:'SMTP_AUTH_NOOP_UNCONFIRMED',reasonCodes:['smtp-noop-confirmation-required'],providerCalls:1,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};
+        return {
+          confirmed:true,
+          state:'SMTP_AUTH_NOOP_CONFIRMED',
+          providerSessionReceiptId:`smtp-noop:${hash(JSON.stringify({host:h,port:p,code:result.code,response:clean(result.response,1000)}))}`,
+          providerResponseDigest:hash(clean(result.response,1000)),
+          evidenceRef:clean(evidenceRef,1500),
+          providerCalls:1,
+          messagesSent:0,
+          mailFromIssued:false,
+          recipientsIssued:0,
+          dataIssued:false
+        };
+      }catch(error){
+        return {confirmed:false,state:'SMTP_AUTH_NOOP_FAILED',reasonCodes:['smtp-session-probe-failed'],errorClass:clean(error?.code||error?.name||'error',80),providerCalls:1,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false};
+      }finally{await session?.close?.().catch?.(()=>{});}
+    },
     async send(message={}){
       const to=clean(message.to,320).toLowerCase(),from=clean(message.from,320).toLowerCase();
       if(!to||!from||!clean(message.subject,998)||!clean(message.body,100000))return {confirmed:false,reasonCodes:['complete-message-required']};
@@ -148,6 +175,7 @@ export function createUberSmtpSubmissionTransport({
         };
       }finally{await session?.close?.().catch?.(()=>{});}
     },
+    probeTruthBoundary:'SMTP readiness probe performs TLS/EHLO/AUTH/NOOP/QUIT only. It sends no MAIL FROM, RCPT TO, DATA, message, seed, or prospect effect. Success proves only that the configured authenticated submission session is reachable at probe time; it does not prove reputation, inbox placement, future acceptance, reply, revenue, or legal authority.',
     truthBoundary:'A confirmed result requires an SMTP 250 response after DATA from the configured authorized submission route. It proves provider acceptance at submission time only, not inbox placement, reply, revenue, or future delivery.'
   };
 }

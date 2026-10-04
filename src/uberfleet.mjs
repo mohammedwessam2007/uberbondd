@@ -112,6 +112,51 @@ export function selectFleetMailbox({
   };
 }
 
+export async function probeSmtpFleetAccount({
+  account={},encryptionKey='',transportFactory=createUberSmtpSubmissionTransport
+}={}){
+  const route=account?.smtpRoute||{};
+  let credential;
+  try{credential=openSmtpAccountCredential(account,encryptionKey);}
+  catch(error){return {classification:'REJECTED',reasonCodes:['smtp-account-credential-unavailable'],probeError:clean(error.message,300),messagesSent:0};}
+  const transport=transportFactory({
+    host:route.host,port:route.port,secure:route.secure!==false,
+    username:credential.username,password:credential.password,
+    authorized:route.authorized===true,termsCompatible:route.termsCompatible===true,
+    evidenceRef:route.evidenceRef
+  });
+  if(!transport?.ok||typeof transport.probe!=='function')return {classification:'REJECTED',reasonCodes:transport?.reasonCodes||['smtp-probe-not-ready'],messagesSent:0};
+  try{
+    const result=await transport.probe();
+    if(result?.confirmed!==true)return {
+      classification:'UNCERTAIN',
+      reasonCodes:result?.reasonCodes||['smtp-session-probe-unconfirmed'],
+      state:result?.state||'SMTP_AUTH_NOOP_UNCONFIRMED',
+      providerCalls:Number(result?.providerCalls||1),
+      messagesSent:0,
+      mailFromIssued:false,
+      recipientsIssued:0,
+      dataIssued:false,
+      automaticRetryAuthorized:false
+    };
+    return {
+      classification:'READY',
+      state:result.state||'SMTP_AUTH_NOOP_CONFIRMED',
+      providerSessionReceiptId:clean(result.providerSessionReceiptId,500),
+      providerResponseDigest:clean(result.providerResponseDigest,128),
+      routeEvidenceRef:clean(route.evidenceRef,1500),
+      providerCalls:Number(result.providerCalls||1),
+      messagesSent:0,
+      mailFromIssued:false,
+      recipientsIssued:0,
+      dataIssued:false,
+      truthBoundary:'Authenticated SMTP session readiness only. No message commands were issued; this does not establish reputation, inbox placement, legal authority, future acceptance, replies, or revenue.'
+    };
+  }catch(error){
+    return {classification:'UNCERTAIN',reasonCodes:['smtp-session-probe-threw'],probeError:clean(error?.message||error,500),providerCalls:1,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,automaticRetryAuthorized:false};
+  }
+}
+
 export async function dispatchSmtpFleetAccount({
   account={},encryptionKey='',message={},transportFactory=createUberSmtpSubmissionTransport
 }={}){

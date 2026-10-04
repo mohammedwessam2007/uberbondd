@@ -96,12 +96,13 @@ export function validateProspect(raw, campaignId = '') {
   const sourceMetadata = raw.sourceMetadata && typeof raw.sourceMetadata === 'object' ? { ...raw.sourceMetadata } : {};
   if (importWarnings.length) sourceMetadata.importWarnings = [...new Set([...(Array.isArray(sourceMetadata.importWarnings) ? sourceMetadata.importWarnings : []), ...importWarnings])];
   sourceMetadata.intakeVersion = 'uberbond.prospect-import.v2';
+  const resolvedCampaignId = firstValue(raw.campaignId, raw.campaign_id, campaignId);
   return {
     company: company.slice(0, 180), website,
     niche: String(raw.niche || raw.industry || '').slice(0, 120),
     country: String(raw.country || '').slice(0, 80), city: String(raw.city || '').slice(0, 80),
     contactName: String(raw.contactName || raw.contact_name || '').slice(0, 120),
-    campaignId: String(raw.campaignId || raw.campaign_id || campaignId || ''),
+    ...(resolvedCampaignId ? { campaignId: resolvedCampaignId } : {}),
     abilityToPay: Number(raw.abilityToPay || raw.ability_to_pay || 8),
     serviceFit: Number(raw.serviceFit || raw.service_fit || 0),
     marketAdvantage: Number(raw.marketAdvantage || raw.market_advantage || 0),

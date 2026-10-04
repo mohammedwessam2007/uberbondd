@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "node scripts/vercel-command-center-build.mjs",
+  "buildCommand": "node --test tests/winnr-smtp-readiness.test.mjs",
   "functions": {
     "api/agent-relay.mjs": {
       "maxDuration": 60

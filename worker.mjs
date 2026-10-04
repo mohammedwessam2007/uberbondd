@@ -15,6 +15,10 @@ import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outrea
 import { createInfiniteOpusJobHandlers } from './src/infinite-opus-native-runtime.mjs';
 import { runObservedRevenueFuel } from './src/revenue-observed-fuel.mjs';
 import { runRevenueRealProspectCanary } from './src/revenue-real-prospect-canary.mjs';
+import { loadPolicyEvidenceBundle } from './src/global-policy-evidence.mjs';
+import { createRegistryAdapterRegistry } from './src/company-registry-adapter.mjs';
+import { createCompaniesHouseAdapter } from './src/companies-house-adapter.mjs';
+import { preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import { terminalReadinessFromStore } from './src/revenue-singularity-service.mjs';
 
 validateStartupConfig(config);
@@ -43,7 +47,7 @@ if (String(process.env.REVENUE_REAL_CANARY || '').trim() === '1') {
   catch (error) { console.error(`REVENUE_OBSERVED_FUEL_REFUSED ${JSON.stringify({errorClass:String(error?.code || error?.name || 'error').slice(0,80),outboundAuthority:'NONE'})}`); }
 }
 
-try { console.log(`REVENUE_TERMINAL_READINESS ${JSON.stringify(await terminalReadinessFromStore(store))}`); }
+try { console.log(`REVENUE_TERMINAL_READINESS ${JSON.stringify(await terminalReadinessFromStore(store,process.env,{policyRegistry:loadPolicyEvidenceBundle({now:new Date()}),registryAdapters:createRegistryAdapterRegistry([createCompaniesHouseAdapter({apiKey:config.providers?.companiesHouse?.apiKey||''})]),unsubscribeFactory:email=>preparedRecipientUnsubscribeUrls(config.baseUrl,email,config.unsubscribeSecret)}))}`); }
 catch (error) { console.error(`REVENUE_TERMINAL_READINESS_REFUSED ${JSON.stringify({ errorClass: String(error?.code || error?.name || 'error').slice(0, 80), outboundAuthority: 'NONE' })}`); }
 
 const queue = new DurableQueue(store, config, console);

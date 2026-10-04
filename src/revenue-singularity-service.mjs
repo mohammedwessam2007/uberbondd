@@ -398,12 +398,12 @@ export function safeGspotEvidenceFor(store, s, moneyQueue, radar, preflightConte
     const critics = narrowTournamentWithCritics({tournament,lineage,claimsUsed:(lineage.claims||[]).map(c=>c.claimId),buyer:buyerFromStoredProspect(p),artifactPrepared:prepared});
     const identity = s.settings?.businessIdentity || {};
     const campaign = p.campaignId ? await store.get('campaigns',p.campaignId) : {};
-    const preflight = await runProspectPreflight({...preflightContext,store,record,slots:p.messageSlots,artifactRef:p.preworkArtifactRef,identity:{legalBusinessSenderName:identity.legalName,authorizedPublicPostalAddress:identity.postalAddress,footerUseAuthorized:identity.footerUseAuthorized===true},senderSide:p.preflightContext?.senderSide || {},globalRoute:p.preflightContext?.globalRoute || {},campaign:{...(campaign||{}),effectExpiresAt:campaign?.effectExpiresAt||new Date(s.now+30*60000).toISOString()},prepareEffect:true,includeEffectParticipants:true,now:new Date(s.now)});
+    const preflight = await runProspectPreflight({...preflightContext,store,record,slots:p.messageSlots,artifactRef:p.preworkArtifactRef,identity:{legalBusinessSenderName:identity.legalName,authorizedPublicPostalAddress:identity.postalAddress,footerUseAuthorized:identity.footerUseAuthorized===true},senderSide:p.preflightContext?.senderSide || {},globalRoute:p.preflightContext?.globalRoute || {},campaign:{...(campaign||{}),campaignId:campaign?.campaignId||campaign?.id||null,effectExpiresAt:campaign?.effectExpiresAt||new Date(s.now+30*60000).toISOString()},prepareEffect:true,includeEffectParticipants:true,now:new Date(s.now)});
     const senderId = preflight.sender?.slot || preflight.effectPackage?.participants?.sender?.slot || null;
     const health = s.senderHealth.find(h=>h.inbox===senderId);
     const recipientHash = createHash('sha256').update(String(p.contact.email).trim().toLowerCase()).digest('hex');
     return {...ev, ...critics, offerId:ev.offerId, proofRef:lineage.ok?lineage.proofRef:null,proofDigest:lineage.ok?lineage.proofDigest:null,
-      messageDigest:preflight.effectPackage?.finalEffectDigest||critics.messageDigest,senderId,senderHealthy:Boolean(health)&&!health.paused&&!health.quarantined,senderQuarantined:Boolean(health?.paused||health?.quarantined),recipientHash,effectPackageState:preflight.state, safePreflightBlockers:preflight.blockerCodes, messagePreparationState:tournament.status, outboundAuthority:'NONE'};
+      messageDigest:preflight.effectPackage?.finalEffectDigest||critics.messageDigest,senderId,senderHealthy:Boolean(health)&&!health.paused&&!health.quarantined,senderQuarantined:Boolean(health?.paused||health?.quarantined),recipientHash,effectPackageState:preflight.state, safePreflightBlockers:preflight.blockerCodes, messagePreparationState:tournament.status, messagePreparationReasonCodes:tournament.reasonCodes||[], outboundAuthority:'NONE'};
   };
 }
 
@@ -492,7 +492,7 @@ export async function partnersFromStore(store) {
 
 /** Credential-free startup receipt for the existing live organ. Reads only;
  * never calls a verifier/payment provider, authenticates, or creates effects. */
-export async function terminalReadinessFromStore(store, env = process.env) {
+export async function terminalReadinessFromStore(store, env = process.env, preflightContext = {}) {
   const s = await snapshot(store);
   const queue = moneyQueueFromSnapshot(s);
   const sourceProviders = new Set();
@@ -506,7 +506,7 @@ export async function terminalReadinessFromStore(store, env = process.env) {
   for (const item of queue.excluded || []) for (const reason of item.reasons || []) exclusionCounts[reason] = (exclusionCounts[reason] || 0) + 1;
   const facts = canonicalPaymentFacts(s);
   const first = queue.items[0];
-  const safeEvidence = first ? await safeGspotEvidenceFor(store,s,queue,radarFromSnapshot(s))(first.prospectId) : null;
+  const safeEvidence = first ? await safeGspotEvidenceFor(store,s,queue,radarFromSnapshot(s),preflightContext)(first.prospectId) : null;
   return {
     schemaVersion: 'uberbond.revenue-terminal-readiness.v1', observedAt: new Date(s.now).toISOString(),
     sourceSha: String(env.RENDER_GIT_COMMIT || '').slice(0, 64) || null,
@@ -516,7 +516,7 @@ export async function terminalReadinessFromStore(store, env = process.env) {
     paymentRails: paymentRailsFromSnapshot(s, env),
     sandboxRails: IMPLEMENTED_PAYMENT_RAILS.map(provider => summarizePaymentRail(diagnosePaymentRail({ env, provider, mode: 'SANDBOX', at: new Date(s.now), verificationReceipt: null, kycAttestation: null }))),
     commercialTruth: { retainedClearedCustomers: facts.paidLeadIds.length, providerWitnessedPaymentEvents: facts.events.filter(e => e.type === 'cleared_payment').length },
-    gspot: { liveDispatcherBound: false, convenienceAuthority: 'NONE', exactEffectAuthorityRequired: true, safeEvaluation: safeEvidence ? {prospectId:first.prospectId,proofPrepared:Boolean(safeEvidence.proofRef),messageValidated:safeEvidence.messageValidated===true,messagePreparationState:safeEvidence.messagePreparationState||null,criticReasonCodes:safeEvidence.reasonCodes||[],preflightState:safeEvidence.effectPackageState||null,blockers:safeEvidence.safePreflightBlockers||[],senderHealthy:safeEvidence.senderHealthy===true,recipientBound:Boolean(safeEvidence.recipientHash)} : null },
+    gspot: { liveDispatcherBound: false, convenienceAuthority: 'NONE', exactEffectAuthorityRequired: true, safeEvaluation: safeEvidence ? {prospectId:first.prospectId,proofPrepared:Boolean(safeEvidence.proofRef),messageValidated:safeEvidence.messageValidated===true,messagePreparationState:safeEvidence.messagePreparationState||null,criticReasonCodes:safeEvidence.reasonCodes||[],messagePreparationReasonCodes:safeEvidence.messagePreparationReasonCodes||[],preflightState:safeEvidence.effectPackageState||null,blockers:safeEvidence.safePreflightBlockers||[],senderHealthy:safeEvidence.senderHealthy===true,recipientBound:Boolean(safeEvidence.recipientHash)} : null },
     secretsExposed: false, routeValuesExposed: false, prospectMessagePerformed: false, outboundAuthority: 'NONE', businessEffectAuthority:'NONE'
   };
 }

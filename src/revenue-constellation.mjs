@@ -57,13 +57,16 @@ export function buildConstellation({
   // Current qualification has no historical version ledger; never replay it as
   // historical truth. Event-derived geometry below is rebuilt at the cursor.
   const rank = new Map((atMs === now ? moneyQueue?.items || [] : []).map(i => [i.prospectId, i]));
+  // Bind current spatial offer fields to canonical ranked admission. Historical
+  // replay has no rank map and therefore never borrows current offer selection.
+  const graphProspects = prospects.map(p => rank.get(p.id)?.offerId ? {...p,offerId:rank.get(p.id).offerId} : p);
   const nodes = []; const edges = [];
   const put = n => { nodes.push(n); return n; };
 
   put({ id: 'core:gspot', type: 'core', label: 'G-SPOT', truth: 'RUNTIME', mass: 10, uncertainty: 0,
     state: gspotRun ? { runId: gspotRun.runId, state: gspotRun.state, stages: stageHistogram(gspotRun) } : { state: 'NO_RUN' } });
 
-  const offerIds = [...new Set([...offers.map(o => o.offerId), ...prospects.map(p => p.offerId).filter(Boolean)])].sort();
+  const offerIds = [...new Set([...offers.map(o => o.offerId), ...graphProspects.map(p => p.offerId).filter(Boolean)])].sort();
   for (const o of offerIds) { put({ id: `offer:${o}`, type: 'offer', label: o, truth: 'CONFIG', mass: 4, uncertainty: 0.3 }); edges.push({ from: 'core:gspot', to: `offer:${o}`, kind: 'governs' }); }
 
   for (const s of senderHealth) {
@@ -74,7 +77,7 @@ export function buildConstellation({
   for (const i of infra) { put({ id: `infra:${i.id}`, type: 'infra', label: i.id, truth: i.observedAt ? 'OBSERVED' : 'UNKNOWN', mass: 2, uncertainty: i.observedAt ? 0.1 : 1, health: i.status || 'UNKNOWN', observedAt: i.observedAt || null }); edges.push({ from: 'core:gspot', to: `infra:${i.id}`, kind: 'depends-on' }); }
 
   // prospects -> individually or clustered
-  const staged = prospects.filter(p => { const c = t(p.createdAt); return c === null || c <= atMs; }).map(p => ({ p, stage: stageAt(p, events, atMs, halted) }));
+  const staged = graphProspects.filter(p => { const c = t(p.createdAt); return c === null || c <= atMs; }).map(p => ({ p, stage: stageAt(p, events, atMs, halted) }));
   const clustered = staged.length > maxNodes;
   const buckets = new Map();
   if (clustered) {
@@ -93,7 +96,7 @@ export function buildConstellation({
     const q = rank.get(p.id);
     put({ id: `prospect:${p.id}`, type: 'prospect', label: p.company || p.domain || p.id, stage, offerId: p.offerId || null, truth: 'RUNTIME',
       mass: massOf(p, rank, visibleEvents), rank: q?.rank ?? null, lane: q?.lane ?? null, uncertainty: q ? Math.max(0, 1 - (q.explanation?.qualification?.evidenceQuality ?? 0)) : 1, halted: halted.has(p.id) });
-    edges.push({ from: p.offerId ? `offer:${p.offerId}` : 'core:gspot', to: `prospect:${p.id}`, kind: 'targets' });
+    edges.push({ from: p.offerId ? `offer:${p.offerId}` : 'core:gspot', to: `prospect:${p.id}`, kind: 'targets', weight:massOf(p,rank,visibleEvents) });
   }
 
   // causal trails from real events

@@ -94,3 +94,7 @@ test('xray lists unknowns explicitly and carries no authority', () => {
   const x1 = xray({ ...base(), prospectId: 'p1' });
   assert.equal(x1.stage, 'PAID'); assert.equal(x1.timeline.length, 3);
 });
+
+ test('current ranked offer supplies real spatial grouping and historical replay cannot borrow it',()=>{
+ const s=base();s.prospects[0].offerId=undefined;s.moneyQueue={items:[{prospectId:'p1',offerId:'LEAD_TO_BOOKING_LEAK_AUDIT',rank:1,explanation:{qualification:{evidenceQuality:.8}}}]};const live=buildConstellation(s);assert.equal(live.nodes.find(n=>n.id==='prospect:p1').offerId,'LEAD_TO_BOOKING_LEAK_AUDIT');assert.ok(live.nodes.some(n=>n.id==='offer:LEAD_TO_BOOKING_LEAK_AUDIT'));const edge=live.edges.find(e=>e.to==='prospect:p1'&&e.kind==='targets');assert.equal(edge.from,'offer:LEAD_TO_BOOKING_LEAK_AUDIT');assert.ok(edge.weight>0);const past=buildConstellation({...s,at:iso(30)});assert.equal(past.nodes.find(n=>n.id==='prospect:p1').offerId,null);assert.equal(past.nodes.some(n=>n.id==='offer:LEAD_TO_BOOKING_LEAK_AUDIT'),false);
+ });

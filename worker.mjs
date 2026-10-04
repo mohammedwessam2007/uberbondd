@@ -13,6 +13,7 @@ import { closeSharedBrowserRuntimes } from './src/browser-runtime-pool.mjs';
 import { routeProspectCompletion } from './src/first-cash-prospect-completion.mjs';
 import { buildLiveOutreach100kSummary, runOutreach100kBatch } from './src/outreach-100k-runtime-control.mjs';
 import { createInfiniteOpusJobHandlers } from './src/infinite-opus-native-runtime.mjs';
+import { runRevenueRealProspectCanary } from './src/revenue-real-prospect-canary.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -22,6 +23,19 @@ if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
 const store = createStore(config);
 await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
+
+// Explicit one-shot reality canary. Off by default. When enabled it performs one
+// first-party public GET and internal evidence/prospect writes only. It cannot
+// verify a route, send a message, spend money, authorize outreach, or deploy.
+if (String(process.env.REVENUE_REAL_CANARY || '').trim() === '1') {
+  try {
+    const receipt = await runRevenueRealProspectCanary({ store, config, logger: console });
+    if (!receipt?.ok) console.error(`REVENUE_REAL_PROSPECT_CANARY_REFUSED ${JSON.stringify(receipt)}`);
+  } catch (error) {
+    console.error(`REVENUE_REAL_PROSPECT_CANARY_FAILED ${JSON.stringify({ errorClass: String(error?.code || error?.name || 'error').slice(0, 80), outboundAuthority: 'NONE' })}`);
+  }
+}
+
 const queue = new DurableQueue(store, config, console);
 let revenue;
 // OMNIA_V9_MODE still controls only the non-authoritative shadow observer.

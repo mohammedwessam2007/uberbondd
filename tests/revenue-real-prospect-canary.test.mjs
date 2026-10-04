@@ -7,21 +7,26 @@ import {
   REVENUE_REAL_PROSPECT_CANARY_SOURCE
 } from '../src/revenue-real-prospect-canary.mjs';
 
+const PUBLIC_ROUTE = ['careers', 'relai.ai'].join('@');
 const PAGE = `
 <html><body>
 <h1>Help us build the learning engine for AI agents.</h1>
 <p>One of the hardest problems in AI today — reliability in production.</p>
 <h2>AI Research Engineer</h2>
 <p>creation, simulation, evaluation, and optimization of AI agents</p>
-<p>careers@relai.ai</p>
+<p>${PUBLIC_ROUTE}</p>
 </body></html>`;
 
-test('RELAI canary requires current first-party evidence and imports contact as unverified', () => {
+test('RELAI canary requires current first-party evidence and imports recruiting contact as unverified', () => {
   const result = compileRelaiCanaryProspect(PAGE, { observedAt: '2026-10-04T10:15:00.000Z' });
   assert.equal(result.ok, true);
   assert.equal(result.prospect.source, 'public_website');
   assert.equal(result.prospect.contact.source, 'public_website');
   assert.equal(result.prospect.contact.verified, 'unverified');
+  assert.equal(result.prospect.contact.title, 'Careers recruiting contact');
+  assert.equal(result.prospect.country, undefined);
+  assert.equal(result.prospect.sourceLicense, undefined);
+  assert.equal(result.prospect.issue.sourceLicense, undefined);
   assert.equal(result.prospect.issue.safeForOutreach, false);
   assert.equal(result.demandSignal.kind, 'explicit_demand_hiring');
   assert.equal(result.outboundAuthority, 'NONE');
@@ -46,6 +51,7 @@ test('production canary uses canonical importer/signal path and returns only san
   const importFn = async (_store, _config, items) => {
     assert.equal(items.length, 1);
     assert.equal(items[0].contact.verified, 'unverified');
+    assert.equal(items[0].contact.title, 'Careers recruiting contact');
     const prospect = { id: 'pros-real-1', domain: 'relai.ai', sourceRecordId: REVENUE_REAL_PROSPECT_CANARY_RECORD };
     rows.push(prospect);
     return { added: [prospect], skipped: [] };
@@ -74,7 +80,7 @@ test('production canary uses canonical importer/signal path and returns only san
   assert.deepEqual(result.exclusionReasons, ['NOT_QUALIFIED', 'no-verified-contact-route']);
   assert.equal(result.outboundAuthority, 'NONE');
   const serialized = JSON.stringify({ result, logs, messages });
-  assert.equal(serialized.includes('careers@relai.ai'), false);
+  assert.equal(serialized.includes(PUBLIC_ROUTE), false);
   assert.equal(serialized.includes('reliability in production'), false);
 });
 

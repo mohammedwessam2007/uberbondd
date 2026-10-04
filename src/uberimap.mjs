@@ -3,7 +3,7 @@ import net from 'node:net';
 import tls from 'node:tls';
 import { encryptJson, decryptJson } from './crypto.mjs';
 
-export const UBERIMAP_VERSION='uberbond.uberimap.v1';
+export const UBERIMAP_VERSION='uberbond.uberimap.v1.1';
 const clean=(v,n=2000)=>String(v??'').trim().slice(0,n);
 const hash=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
 const loopback=h=>['127.0.0.1','::1','localhost'].includes(String(h||'').toLowerCase());
@@ -35,20 +35,53 @@ function waitForData(socket,predicate,{timeoutMs=30000,maxBytes=8*1024*1024}={})
     socket.on('data',onData);socket.once('error',onError);socket.once('close',onClose);
   });
 }
-async function connect({host,port=993,secure=true,timeoutMs=10000}){
+
+function safeNetworkCode(error){
+  const code=clean(error?.code||error?.name||'',80).toUpperCase().replace(/[^A-Z0-9_-]/g,'_');
+  if(code&&code!=='ERROR')return code;
+  const message=String(error?.message||'').toLowerCase();
+  if(message.includes('timeout'))return'ETIMEDOUT';
+  if(message.includes('certificate'))return'TLS_CERTIFICATE_ERROR';
+  if(message.includes('greeting'))return'IMAP_GREETING_ERROR';
+  return'UNKNOWN_NETWORK_ERROR';
+}
+
+/**
+ * Open the IMAP socket with deterministic address-family fallback. Render and
+ * other cloud runtimes can expose DNS AAAA records without a usable IPv6 route;
+ * relying on resolver order made a healthy mailbox appear dead. IPv4 is tried
+ * first, then IPv6. TLS still validates the original hostname through SNI.
+ */
+export async function connectImapSocket({host,port=993,secure=true,timeoutMs=10000}={}){
   if(!secure&&!loopback(host))throw new Error('plaintext-imap-only-allowed-on-loopback');
-  const socket=secure
-    ? tls.connect({host,port,servername:net.isIP(host)?undefined:host,rejectUnauthorized:true})
-    : net.createConnection({host,port});
-  await new Promise((resolve,reject)=>{
-    const timer=setTimeout(()=>{socket.destroy();reject(new Error('imap-connect-timeout'));},timeoutMs);
-    const ev=secure?'secureConnect':'connect';
-    socket.once(ev,()=>{clearTimeout(timer);resolve();});
-    socket.once('error',e=>{clearTimeout(timer);reject(e);});
-  });
-  const greeting=await waitForData(socket,b=>/\r\n$/.test(b.toString('latin1')),{timeoutMs,maxBytes:65536});
-  if(!/^\*\s+(OK|PREAUTH)/i.test(greeting.toString('utf8')))throw new Error('imap-server-greeting-not-ok');
-  return socket;
+  const literal=net.isIP(host);
+  const families=literal?[literal]:[4,6];
+  const failures=[];
+  for(const family of families){
+    let socket;
+    try{
+      const options={host,port,...(literal?{}:{family})};
+      socket=secure
+        ? tls.connect({...options,servername:net.isIP(host)?undefined:host,rejectUnauthorized:true})
+        : net.createConnection(options);
+      await new Promise((resolve,reject)=>{
+        const timer=setTimeout(()=>{socket.destroy();const e=new Error('imap-connect-timeout');e.code='ETIMEDOUT';reject(e);},timeoutMs);
+        const ev=secure?'secureConnect':'connect';
+        socket.once(ev,()=>{clearTimeout(timer);resolve();});
+        socket.once('error',e=>{clearTimeout(timer);reject(e);});
+      });
+      const greeting=await waitForData(socket,b=>/\r\n$/.test(b.toString('latin1')),{timeoutMs,maxBytes:65536});
+      if(!/^\*\s+(OK|PREAUTH)/i.test(greeting.toString('utf8')))throw new Error('imap-server-greeting-not-ok');
+      return socket;
+    }catch(error){
+      try{socket?.destroy();}catch{}
+      failures.push(`${family}:${safeNetworkCode(error)}`);
+    }
+  }
+  const error=new Error(`imap-connect-failed:${failures.join('|')||'no-route'}`);
+  error.code='IMAP_CONNECT_FAILED';
+  error.reasonCodes=failures;
+  throw error;
 }
 function literalFromFetch(buffer){
   const latin=buffer.toString('latin1');
@@ -145,7 +178,7 @@ export function openImapCredential(account={},encryptionKey=''){
 }
 export function createUberImapReader({
   host='',port=993,secure=true,username='',password='',authorized=false,termsCompatible=false,evidenceRef='',
-  connectFactory=connect,timeoutMs=30000
+  connectFactory=connectImapSocket,timeoutMs=30000
 }={}){
   const reasons=[];const h=clean(host,253),p=Number(port);
   if(!h)reasons.push('imap-host-required');

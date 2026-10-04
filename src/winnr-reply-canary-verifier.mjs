@@ -5,6 +5,32 @@ const SUBJECTS=new Map([
   ['Re: UberBond Winnr runtime canary 2/3',2],
   ['Re: UberBond Winnr runtime canary 3/3',3]
 ]);
+const RETRYABLE=new Set(['IMAP_CONNECT_FAILED','ETIMEDOUT','ENETUNREACH','ECONNRESET','ECONNREFUSED','EAI_AGAIN','ENOTFOUND']);
+
+export function classifyImapProbeException(error){
+  const code=String(error?.code||'').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'_');
+  if(code&&code!=='ERROR')return code.slice(0,80);
+  const message=String(error?.message||'').toLowerCase();
+  if(message.includes('imap-connect-failed'))return'IMAP_CONNECT_FAILED';
+  if(message.includes('timeout'))return'ETIMEDOUT';
+  if(message.includes('certificate')||message.includes('tls'))return'TLS_FAILURE';
+  if(message.includes('imap-command-rejected'))return'IMAP_COMMAND_REJECTED';
+  if(message.includes('greeting'))return'IMAP_GREETING_ERROR';
+  return'IMAP_PROBE_EXCEPTION';
+}
+
+async function pollWithOneSafeRetry(pollFn,args){
+  let attempts=0,lastError=null;
+  while(attempts<2){
+    attempts+=1;
+    try{return {poll:await pollFn(args),attempts,errorClass:null};}
+    catch(error){
+      lastError=classifyImapProbeException(error);
+      if(attempts>=2||!RETRYABLE.has(lastError))break;
+    }
+  }
+  return {poll:{ok:false,status:'IMAP_PROBE_EXCEPTION',messages:[]},attempts,errorClass:lastError||'IMAP_PROBE_EXCEPTION'};
+}
 
 export async function verifyWinnrReplyCanaries({
   config,
@@ -20,14 +46,18 @@ export async function verifyWinnrReplyCanaries({
     const found=new Set();
     const accountResults=[];
     for(const account of accounts){
-      let poll;
-      try{poll=await pollFn({account:{...account,lastImapUid:0},encryptionKey:config.encryptionKey,limit:100});}
-      catch{poll={ok:false,status:'IMAP_PROBE_EXCEPTION',messages:[]};}
+      const {poll,attempts,errorClass}=await pollWithOneSafeRetry(pollFn,{account:{...account,lastImapUid:0},encryptionKey:config.encryptionKey,limit:100});
       for(const message of poll?.messages||[]){
         const ordinal=SUBJECTS.get(String(message?.subject||'').trim());
         if(ordinal)found.add(ordinal);
       }
-      accountResults.push({accountId:account.id,ok:poll?.ok===true,status:poll?.status||'UNKNOWN'});
+      accountResults.push({
+        accountId:account.id,
+        ok:poll?.ok===true,
+        status:poll?.status||'UNKNOWN',
+        attempts,
+        ...(errorClass?{errorClass}:{})
+      });
     }
     const foundOrdinals=[...found].sort((a,b)=>a-b);
     const ok=[2,3].every(n=>found.has(n));
@@ -36,6 +66,8 @@ export async function verifyWinnrReplyCanaries({
       foundOrdinals,
       expectedOrdinals:[2,3],
       imapAccountsChecked:accounts.length,
+      failedAccountCount:accountResults.filter(x=>!x.ok).length,
+      failureClasses:[...new Set(accountResults.map(x=>x.errorClass).filter(Boolean))],
       messageBodiesLogged:false,
       senderAddressesLogged:false,
       credentialsLogged:false

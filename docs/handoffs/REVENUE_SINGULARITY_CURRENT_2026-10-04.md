@@ -6,11 +6,11 @@ Read `docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md/json`, `docs/receip
 
 ## Exact current executable frontier
 
-- current live source: `9a0f6877171026ed70258a1cd58c2c95a9d81623`
+- current verified executable source: `7913a0be4d3fa5655c2b1b9bcabc29f721dfe9e9`
 - Render service: `srv-dali9vijnfac739m4vcg`
-- Render deploy: `dep-db159o3ncjis73b8i7j0`
+- Render deploy: `dep-db16n3jncjis73beisjg`
 - deploy status: `LIVE`
-- deploy finished: `2026-10-04T13:31:27.839884Z`
+- deploy finished: `2026-10-04T15:08:05.728788Z`
 - web + worker: PostgreSQL healthy startup
 - OMNIA outbound integration mode: `off`
 - SMTP ordinal 3 quarantine: preserved
@@ -56,3 +56,9 @@ All completed owner session/core/orchestration/queue/demand/bridge/proof/offer/g
 Campaign activation remains `NOT_ACTIVATED`. Global outbound was not enabled by the frozen effect or any repair. No live G-SPOT dispatcher is bound. Manual Mohamed material replies remain unchanged. No retry, follow-up, bulk-send, payment movement, quarantine release, or new spend was performed by the repair chain.
 
 Recovery: refresh main -> newest issue #1188 comment -> this handoff -> frozen-canary reconciliation receipt -> terminal receipt + Oct4 ledger -> Winnr current state -> exact Render SHA/worker/DB/transport. Revalidate route/source/history rather than carrying forward CLEAN/VALID verdicts. Capability never creates authority.
+
+## Latest continuation — PR #1222 merged and live
+
+Read `docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md` before older terminal snapshots. 110 focused tests pass; independent red-team certainty defects are repaired. Live source and startup truth are observed, not inferred from code. The final documentation deployment alignment is recorded in the newest issue #1188 comment; do not confuse the above executable observation SHA with later receipt-only commits.
+
+Fresh SMTP session probes show ordinal 1 ready, ordinal 2 failed/protectively paused, ordinal 3 quarantined. Winnr IMAP remains 3/3 healthy. No prospect message was performed by this continuation; historical Intelo delivery remains unknown and never replayable. Payment rails remain unready, cleared revenue zero, Money Queue ranked1, G-SPOT authority NONE/unbound. Physical iPad proof, live payment provider activation, footer/legal consent, independent incident evidence and buyer behavior remain genuine gates.

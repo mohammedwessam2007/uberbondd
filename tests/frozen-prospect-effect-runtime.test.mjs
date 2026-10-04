@@ -199,10 +199,11 @@ test('a changed canonical route digest cannot authorize or reach the provider', 
 test('uncertain provider result consumes cap and can never be retried automatically', async () => {
   const f = await fixture(); let calls = 0;
   try {
-    const result = await f.execute(async () => { calls++; return { classification: 'UNCERTAIN', reasonCodes: ['smtp-timeout'] }; });
+    const result = await f.execute(async () => { calls++; return { classification: 'UNCERTAIN', providerCallAttempted: true, effectBoundaryCrossed: true, reasonCodes: ['smtp-timeout'] }; });
     assert.equal(result.state, 'PROVIDER_RESULT_UNCERTAIN');
     assert.equal(result.receipt.remainingEffectCap, 0);
     assert.equal(result.receipt.effectLedger.providerCalls, 1);
+    assert.equal(result.dispatchAdapterCalls, 1);
     const replay = await f.execute(async () => { calls++; return { classification: 'ACCEPTED' }; });
     assert.equal(replay.reason, 'effect-cap-already-claimed');
     assert.equal(calls, 1);

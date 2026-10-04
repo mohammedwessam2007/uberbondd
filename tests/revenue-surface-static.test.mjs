@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 const r = p => readFileSync(new URL(`../${p}`, import.meta.url), 'utf8');
-const js = r('public/constellation.js'); const html = r('public/constellation.html'); const server = r('server-core.mjs'); const svc = r('src/revenue-singularity-service.mjs'); const bridge = r('src/prospect-evidence-bridge.mjs');
+const js = r('public/constellation.js'); const html = r('public/constellation.html'); const server = r('server-core.mjs'); const svc = r('src/revenue-singularity-service.mjs');
 
 test('constellation client is XSS-safe: no innerHTML/eval/inline handlers; untrusted text via textContent', () => {
   assert.doesNotMatch(js, /innerHTML|outerHTML|insertAdjacentHTML|document\.write|eval\(|new Function/);
@@ -38,10 +38,11 @@ test('G-SPOT authorization route authorizes only as MOHAMED over an exact digest
 
 test('service derives candidates through canonical stored evidence and live contact-history ledgers', () => {
   assert.match(svc, /evidenceBundleFromStoredProspect/);
+  assert.match(svc, /buildProspectEvidenceBundle/);
   assert.match(svc, /compileContactHistory/);
   assert.doesNotMatch(svc, /contactHistoryVerified === true/);
-  assert.match(bridge, /never invents evidence/);
-  assert.match(bridge, /businessEffectAuthority/);
+  assert.match(svc, /never invents evidence/);
+  assert.match(svc, /businessEffectAuthority:'NONE'/);
 });
 
 test('deal surface binds payment compression to provider-neutral live rail doctor', () => {

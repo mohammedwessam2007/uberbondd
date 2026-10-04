@@ -46,11 +46,14 @@ export function compileProspectEffectTruth({ settings = {}, outboundEvents = [],
     const acceptedWitness = providerAccepted === true
       && typeof receipt.providerReferenceId === 'string' && receipt.providerReferenceId.trim()
       && !['UNCERTAIN', 'REJECTED'].includes(providerClassification)
-      && execution.providerCallAttempted !== false && receipt.effectBoundaryCrossed !== false;
+      && !['UNCERTAIN', 'REJECTED'].includes(receipt.classification)
+      && execution.providerCallAttempted !== false && execution.effectBoundaryCrossed !== false
+      && receipt.providerCallAttempted !== false && receipt.effectBoundaryCrossed !== false;
     const rejectedBeforeEffect = providerAccepted === false
       && receipt.classification === 'REJECTED'
       && receipt.providerCallAttempted === false && receipt.effectBoundaryCrossed === false
-      && execution.providerCallAttempted === false;
+      && execution.providerCallAttempted === false && execution.effectBoundaryCrossed !== true
+      && receiptProviderCalls === 0 && receipt?.effectLedger?.customerMessages === 0;
     if (acceptedWitness) {
       accepted += 1;
       providerBoundaryConfirmed += 1;

@@ -116,11 +116,25 @@ test('unclassified adapter receipt remains unknown even without confirmed provid
 test('explicit pre-effect rejection with no provider call remains no message', () => {
   const truth = compileProspectEffectTruth({ settings: {
     'frozenProspectExecution:rejected': { status: 'PROVIDER_REJECTED', providerCallAttempted: false,
-      receipt: { classification: 'REJECTED', providerAccepted: false, providerCallAttempted: false, effectBoundaryCrossed: false, effectLedger: { providerCalls: 0 } } }
+      receipt: { classification: 'REJECTED', providerAccepted: false, providerCallAttempted: false, effectBoundaryCrossed: false, effectLedger: { providerCalls: 0, customerMessages: 0 } } }
   }});
   assert.equal(truth.prospectMessagePerformed, false);
   assert.equal(truth.providerBoundaryCrossed, false);
   assert.equal(truth.frozenRejectedResults, 1);
+});
+
+test('contradictory boundary and classification fields never resolve the effect', () => {
+  for (const patch of [{providerCallAttempted:false},{classification:'UNCERTAIN'},{classification:'REJECTED'}]) {
+    const truth=compileProspectEffectTruth({settings:{'frozenProspectExecution:conflict':{
+      status:'SENT',providerCallAttempted:true,receipt:{providerAccepted:true,providerReferenceId:'ref',...patch}
+    }}});
+    assert.equal(truth.prospectMessagePerformed,null);
+  }
+  const truth=compileProspectEffectTruth({settings:{'frozenProspectExecution:rejection-conflict':{
+    status:'PROVIDER_REJECTED',providerCallAttempted:false,receipt:{classification:'REJECTED',providerAccepted:false,
+      providerCallAttempted:false,effectBoundaryCrossed:false,effectLedger:{providerCalls:1,customerMessages:1}}
+  }}});
+  assert.equal(truth.prospectMessagePerformed,null);
 });
 
 test('status-only acceptance or rejection cannot resolve a malformed receipt', () => {

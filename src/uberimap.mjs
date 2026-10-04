@@ -3,7 +3,7 @@ import net from 'node:net';
 import tls from 'node:tls';
 import { encryptJson, decryptJson } from './crypto.mjs';
 
-export const UBERIMAP_VERSION='uberbond.uberimap.v1.1';
+export const UBERIMAP_VERSION='uberbond.uberimap.v1.2';
 const clean=(v,n=2000)=>String(v??'').trim().slice(0,n);
 const hash=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
 const loopback=h=>['127.0.0.1','::1','localhost'].includes(String(h||'').toLowerCase());
@@ -208,8 +208,8 @@ export function createUberImapReader({
         await command('SELECT INBOX');
         const q=Number(afterUid)>0?`UID SEARCH UID ${Math.floor(Number(afterUid))+1}:*`:`UID SEARCH SINCE ${imapDate(sinceMs)}`;
         const search=await command(q);
-        const line=search.toString('utf8').split(/\r?\n/).find(x=>/^\* SEARCH/i.test(x))||'';
-        const uids=line.replace(/^\* SEARCH\s*/i,'').trim().split(/\s+/).map(Number).filter(Number.isFinite);
+        const line=search.toString('utf8').split(/\r?\n/).find(x=>/^\* SEARCH(?:\s|$)/i.test(x))||'';
+        const uids=line.replace(/^\* SEARCH\s*/i,'').trim().split(/\s+/).map(Number).filter(Number.isSafeInteger).filter(uid=>uid>0);
         const chosen=uids.slice(-Math.max(1,Math.min(500,Number(limit)||100)));
         const messages=[];
         for(const uid of chosen){

@@ -48,8 +48,9 @@ test('production canary uses canonical importer/signal path and returns only san
     async log(type, detail) { logs.push({ type, detail }); }
   };
   const config = { maxBatch: 10 };
-  const importFn = async (_store, _config, items) => {
+  const importFn = async (_store, _config, items, campaignId) => {
     assert.equal(items.length, 1);
+    assert.equal(campaignId, undefined, 'canary lineage must never be passed as a campaign foreign key');
     assert.equal(items[0].contact.verified, 'unverified');
     assert.equal(items[0].contact.title, 'Careers recruiting contact');
     const prospect = { id: 'pros-real-1', domain: 'relai.ai', sourceRecordId: REVENUE_REAL_PROSPECT_CANARY_RECORD };

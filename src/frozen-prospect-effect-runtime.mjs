@@ -10,7 +10,7 @@ const sha = x => createHash('sha256').update(JSON.stringify(canonical(x))).diges
 const authKey = digest => `frozenProspectAuthorization:${digest}`;
 const executionKey = digest => `frozenProspectExecution:${digest}`;
 const executionClaimed = (settings, digest) => Boolean(settings[executionKey(digest)]);
-const deny = (code, extra = {}) => ({ ok: false, state: 'NOT_SENT', reason: code, providerCalls: 0, sendAuthority: false, ...extra });
+const deny = (code, extra = {}) => ({ ok: false, state: 'NOT_SENT', reason: code, providerCalls: 0, dispatchAdapterCalls: 0, sendAuthority: false, ...extra });
 const exactEmail = value => String(value || '').trim().toLowerCase();
 const safeHexEqual = (a, b) => {
   if (!/^[a-f0-9]{64}$/i.test(String(a || '')) || !/^[a-f0-9]{64}$/i.test(String(b || ''))) return false;
@@ -180,7 +180,8 @@ export async function executeFrozenProspectEffect({
       status: 'DISPATCHING', recipient, senderSlot, senderAddress: slotAddress,
       provider: 'smtp-relay', routeClass: participants.route.routeClass, routeDigest,
       reservationId: reserved.reservation.id, authorizedAt: authorization.approvedAt,
-      dispatchClaimedAt: timestamp, providerCallAttempted: true, effectCapRemaining: 0
+      dispatchClaimedAt: timestamp, dispatchAdapterCalls: null,
+      providerCallAttempted: null, effectBoundaryCrossed: null, effectCapRemaining: 0
     };
     await tx.setSetting(executionKey(digest), dispatching);
     return { authorization, account, reservation: reserved.reservation, dispatching };
@@ -197,20 +198,48 @@ export async function executeFrozenProspectEffect({
   try { providerResult = await dispatch({ account: claim.account, encryptionKey, message }); }
   catch (error) { providerResult = { classification: 'UNCERTAIN', reasonCodes: ['smtp-provider-call-threw'], dispatchError: String(error?.message || error).slice(0, 300), automaticRetryAuthorized: false }; }
   const executedAt = new Date().toISOString();
-  const classification = providerResult?.classification;
-  const accepted = classification === 'ACCEPTED' && Boolean(providerResult?.providerReferenceId);
-  const uncertain = classification === 'UNCERTAIN';
-  const providerMessageId = providerResult?.messageId || knownMessageId;
+  const rawClassification = providerResult && typeof providerResult === 'object' && !Array.isArray(providerResult)
+    && typeof providerResult.classification === 'string' ? providerResult.classification : '';
+  const providerReferenceId = typeof providerResult?.providerReferenceId === 'string'
+    ? providerResult.providerReferenceId.trim().slice(0, 500) : '';
+  const accepted = rawClassification === 'ACCEPTED' && Boolean(providerReferenceId)
+    && providerResult?.providerCallAttempted !== false && providerResult?.effectBoundaryCrossed !== false;
+  const definitelyRejectedBeforeEffect = rawClassification === 'REJECTED'
+    && providerResult?.providerCallAttempted === false && providerResult?.effectBoundaryCrossed === false;
+  // Everything other than a receipt-backed acceptance or an explicit
+  // pre-effect rejection is ambiguous. Keep recipient history blocking so a
+  // different digest cannot turn a malformed provider result into a duplicate.
+  const uncertain = !accepted && !definitelyRejectedBeforeEffect;
+  const classification = accepted ? 'ACCEPTED' : definitelyRejectedBeforeEffect ? 'REJECTED' : 'UNCERTAIN';
+  const providerCallAttempted = accepted ? true : definitelyRejectedBeforeEffect ? false
+    : rawClassification === 'ACCEPTED' ? null
+    : providerResult?.providerCallAttempted === true && providerResult?.effectBoundaryCrossed === true ? true
+      : providerResult?.providerCallAttempted === false && providerResult?.effectBoundaryCrossed === false ? false : null;
+  const effectBoundaryCrossed = providerCallAttempted;
+  const providerCalls = providerCallAttempted === true ? 1 : providerCallAttempted === false ? 0 : null;
+  const reasonCodes = Array.isArray(providerResult?.reasonCodes)
+    ? providerResult.reasonCodes.filter(code => typeof code === 'string').slice(0, 6).map(code => code.slice(0, 120))
+    : [];
+  const providerMessageId = typeof providerResult?.messageId === 'string' && providerResult.messageId.trim()
+    ? providerResult.messageId.trim().slice(0, 500) : knownMessageId;
   const receipt = {
-    provider: 'smtp-relay', providerAccepted: accepted,
-    providerReferenceId: providerResult?.providerReferenceId || null,
+    provider: 'smtp-relay', classification, providerAccepted: accepted,
+    providerReferenceId: providerReferenceId || null,
     providerMessageId,
     executedAt, recipient, sender: exactEmail(claim.account.email),
     authorizedDigest: digest, routeClass: participants.route.routeClass,
     deliveryState: accepted ? 'ACCEPTED_DELIVERY_NOT_CONFIRMED' : uncertain ? 'UNCERTAIN_REQUIRES_RECONCILIATION' : 'REJECTED',
-    effectLedger: accepted ? { providerCalls: 1, customerMessages: 1 } : uncertain ? { providerCalls: 1, customerMessages: 'UNKNOWN' } : { providerCalls: 0, customerMessages: 0 },
+    dispatchAdapterCalls: 1, providerCallAttempted, effectBoundaryCrossed,
+    effectLedger: accepted ? { dispatchAdapterCalls: 1, providerCalls: 1, customerMessages: 1 }
+      : uncertain ? { dispatchAdapterCalls: 1, providerCalls, customerMessages: 'UNKNOWN' }
+        : { dispatchAdapterCalls: 1, providerCalls: 0, customerMessages: 0 },
     remainingEffectCap: 0,
-    providerError: accepted ? null : { classification: classification || 'UNKNOWN', reasonCodes: providerResult?.reasonCodes || ['provider-result-unclassified'], dispatchError: providerResult?.dispatchError || null },
+    providerError: accepted || definitelyRejectedBeforeEffect ? null : {
+      classification: 'UNCERTAIN',
+      rawClassification: rawClassification.slice(0, 40) || null,
+      reasonCodes: reasonCodes.length ? reasonCodes : ['provider-result-unconfirmed'],
+      dispatchError: typeof providerResult?.dispatchError === 'string' ? providerResult.dispatchError.slice(0, 300) : null
+    },
     automaticRetryAuthorized: false
   };
 
@@ -219,8 +248,11 @@ export async function executeFrozenProspectEffect({
   // subject, credentials, recipient, or sender address is included.
   console.info('FROZEN_EFFECT_PROVIDER_RESULT ' + JSON.stringify({
     effectDigest: digest,
-    classification: classification || 'UNKNOWN',
+    classification,
     providerAccepted: accepted,
+    dispatchAdapterCalls: 1,
+    providerCallAttempted,
+    effectBoundaryCrossed,
     providerReferenceId: receipt.providerReferenceId,
     providerMessageId: receipt.providerMessageId,
     executedAt,
@@ -240,7 +272,9 @@ export async function executeFrozenProspectEffect({
       await tx.setSetting(executionKey(digest), {
         ...current,
         status: checkpointStatus,
-        providerCallAttempted: true,
+        dispatchAdapterCalls: 1,
+        providerCallAttempted,
+        effectBoundaryCrossed,
         effectCapRemaining: 0,
         receipt
       });
@@ -257,7 +291,7 @@ export async function executeFrozenProspectEffect({
     return {
       ok: false,
       state: 'RECEIPT_PERSISTENCE_RECONCILIATION_REQUIRED',
-      providerCalls: accepted || uncertain ? 1 : 0,
+      providerCalls, dispatchAdapterCalls: 1,
       receipt,
       sendAuthority: false,
       automaticRetryAuthorized: false,
@@ -274,19 +308,21 @@ export async function executeFrozenProspectEffect({
       const current = currentSettings[executionKey(digest)];
       if (!current || current.status !== checkpointStatus || current.effectDigest !== digest) throw new Error('frozen-effect-provider-checkpoint-lost-before-ledger-reconcile');
       await tx.markOutboundReservation(claim.reservation.id, accepted ? 'sent' : uncertain ? 'uncertain' : 'cancelled', {
-        provider: 'smtp-relay', providerReferenceId: providerResult?.providerReferenceId || null,
+        provider: 'smtp-relay', providerReferenceId: providerReferenceId || null,
         providerMessageId, effectDigest: digest, reconciledAt: executedAt
       });
       await tx.recordOutboundEvent({
         id: `frozen-${digest}`, inbox: senderSlot, eventType: accepted ? 'sent' : uncertain ? 'send_uncertain' : 'send_failed',
-        providerEventId: providerResult?.providerReferenceId || null,
+        providerEventId: providerReferenceId || null,
         recipientEmail: recipient, occurredAt: executedAt,
-        detail: { effectDigest: digest, routeClass: participants.route.routeClass, provider: 'smtp-relay', providerReferenceId: providerResult?.providerReferenceId || null, providerMessageId }
+        detail: { effectDigest: digest, routeClass: participants.route.routeClass, provider: 'smtp-relay', providerReferenceId: providerReferenceId || null, providerMessageId }
       }, thresholds);
       await tx.setSetting(executionKey(digest), {
         ...current,
         status: accepted ? 'SENT' : uncertain ? 'UNCERTAIN' : 'PROVIDER_REJECTED',
-        providerCallAttempted: true,
+        dispatchAdapterCalls: 1,
+        providerCallAttempted,
+        effectBoundaryCrossed,
         effectCapRemaining: 0,
         ledgerReconciledAt: executedAt,
         receipt
@@ -302,7 +338,7 @@ export async function executeFrozenProspectEffect({
     return {
       ok: false,
       state: 'LEDGER_RECONCILIATION_REQUIRED',
-      providerCalls: accepted || uncertain ? 1 : 0,
+      providerCalls, dispatchAdapterCalls: 1,
       receipt,
       sendAuthority: false,
       automaticRetryAuthorized: false,
@@ -310,5 +346,5 @@ export async function executeFrozenProspectEffect({
     };
   }
 
-  return { ok: accepted, state: accepted ? 'SENT_EXACTLY_ONCE' : uncertain ? 'PROVIDER_RESULT_UNCERTAIN' : 'PROVIDER_REJECTED', providerCalls: accepted || uncertain ? 1 : 0, receipt, sendAuthority: false, automaticRetryAuthorized: false };
+  return { ok: accepted, state: accepted ? 'SENT_EXACTLY_ONCE' : uncertain ? 'PROVIDER_RESULT_UNCERTAIN' : 'PROVIDER_REJECTED', providerCalls, dispatchAdapterCalls: 1, receipt, sendAuthority: false, automaticRetryAuthorized: false };
 }

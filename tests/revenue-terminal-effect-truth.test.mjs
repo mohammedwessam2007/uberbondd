@@ -61,7 +61,7 @@ test('accepted frozen receipt is a confirmed message effect', () => {
         status: 'SENT',
         providerCallAttempted: true,
         effectCapRemaining: 0,
-        receipt: { providerAccepted: true, automaticRetryAuthorized: false }
+        receipt: { providerAccepted: true, providerReferenceId: 'provider-accepted-1', automaticRetryAuthorized: false }
       }
     },
     outboundEvents: []
@@ -91,4 +91,66 @@ test('unread ledgers fail closed instead of minting zero effects', () => {
   assert.equal(truth.state, 'CHECK_FAILED');
   assert.equal(truth.prospectMessagePerformed, null);
   assert.equal(truth.providerBoundaryCrossed, null);
+});
+
+test('interrupted modern dispatch with unknown provider-call fact remains unknown', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:modern': { status: 'DISPATCHING', providerCallAttempted: null, effectCapRemaining: 0 }
+  }});
+  assert.equal(truth.prospectMessagePerformed, null);
+  assert.equal(truth.providerBoundaryCrossed, null);
+  assert.equal(truth.unresolvedDispatchClaims, 1);
+  assert.equal(truth.frozenProviderCallAttemptClaims, 0);
+});
+
+test('unclassified adapter receipt remains unknown even without confirmed provider invocation', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:malformed': { status: 'PROVIDER_UNCERTAIN_CHECKPOINTED', providerCallAttempted: null,
+      receipt: { providerAccepted: false, providerError: { classification: 'UNCERTAIN' }, effectLedger: { providerCalls: null } } }
+  }});
+  assert.equal(truth.prospectMessagePerformed, null);
+  assert.equal(truth.providerBoundaryCrossed, null);
+  assert.equal(truth.frozenUnknownResults, 1);
+});
+
+test('explicit pre-effect rejection with no provider call remains no message', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:rejected': { status: 'PROVIDER_REJECTED', providerCallAttempted: false,
+      receipt: { classification: 'REJECTED', providerAccepted: false, providerCallAttempted: false, effectBoundaryCrossed: false, effectLedger: { providerCalls: 0, customerMessages: 0 } } }
+  }});
+  assert.equal(truth.prospectMessagePerformed, false);
+  assert.equal(truth.providerBoundaryCrossed, false);
+  assert.equal(truth.frozenRejectedResults, 1);
+});
+
+test('contradictory boundary and classification fields never resolve the effect', () => {
+  for (const patch of [{providerCallAttempted:false},{classification:'UNCERTAIN'},{classification:'REJECTED'}]) {
+    const truth=compileProspectEffectTruth({settings:{'frozenProspectExecution:conflict':{
+      status:'SENT',providerCallAttempted:true,receipt:{providerAccepted:true,providerReferenceId:'ref',...patch}
+    }}});
+    assert.equal(truth.prospectMessagePerformed,null);
+  }
+  const truth=compileProspectEffectTruth({settings:{'frozenProspectExecution:rejection-conflict':{
+    status:'PROVIDER_REJECTED',providerCallAttempted:false,receipt:{classification:'REJECTED',providerAccepted:false,
+      providerCallAttempted:false,effectBoundaryCrossed:false,effectLedger:{providerCalls:1,customerMessages:1}}
+  }}});
+  assert.equal(truth.prospectMessagePerformed,null);
+});
+
+test('status-only acceptance or rejection cannot resolve a malformed receipt', () => {
+  for (const status of ['SENT', 'PROVIDER_ACCEPTED_CHECKPOINTED', 'PROVIDER_REJECTED', 'PROVIDER_REJECTED_CHECKPOINTED']) {
+    const truth = compileProspectEffectTruth({ settings: {
+      'frozenProspectExecution:status-only': { status, providerCallAttempted: true }
+    }});
+    assert.equal(truth.prospectMessagePerformed, null);
+    assert.equal(truth.providerBoundaryCrossed, null);
+  }
+});
+
+test('contradictory accepted receipt cannot confirm a message', () => {
+  const truth = compileProspectEffectTruth({ settings: {
+    'frozenProspectExecution:contradiction': { status: 'SENT', providerCallAttempted: false,
+      receipt: { providerAccepted: true, providerReferenceId: 'ref', effectBoundaryCrossed: false } }
+  }});
+  assert.equal(truth.prospectMessagePerformed, null);
 });

@@ -16,6 +16,10 @@ const safeHexEqual = (a, b) => {
   if (!/^[a-f0-9]{64}$/i.test(String(a || '')) || !/^[a-f0-9]{64}$/i.test(String(b || ''))) return false;
   return timingSafeEqual(Buffer.from(a, 'hex'), Buffer.from(b, 'hex'));
 };
+const deterministicMessageId = (digest, senderAddress) => {
+  const domain = exactEmail(senderAddress).split('@').pop()?.replace(/[^a-z0-9.-]/g, '') || 'uberbond.local';
+  return `<ubf-${String(digest || '').slice(0, 56)}@${domain}>`;
+};
 
 export function verifyFrozenProspectAuthorization({ record, digest, participants, secret, now = new Date() } = {}) {
   if (!record || record.schemaVersion !== 'uberbond.frozen-effect-authorization.v1') return { ok: false, reason: 'authorization-record-missing-or-invalid' };
@@ -183,9 +187,10 @@ export async function executeFrozenProspectEffect({
   });
   if (claim.blocked) return deny(claim.blocked, { effectCapRemaining: claim.prior?.effectCapRemaining ?? 1 });
 
+  const knownMessageId = deterministicMessageId(digest, slotAddress);
   const message = {
     to: recipient, from: exactEmail(claim.account.email), subject: participants.subject,
-    text: participants.body, body: participants.body,
+    text: participants.body, body: participants.body, messageId: knownMessageId,
     listUnsubscribe: participants.footerAndUnsubscribe?.oneClick
   };
   let providerResult;
@@ -195,10 +200,11 @@ export async function executeFrozenProspectEffect({
   const classification = providerResult?.classification;
   const accepted = classification === 'ACCEPTED' && Boolean(providerResult?.providerReferenceId);
   const uncertain = classification === 'UNCERTAIN';
+  const providerMessageId = providerResult?.messageId || knownMessageId;
   const receipt = {
     provider: 'smtp-relay', providerAccepted: accepted,
     providerReferenceId: providerResult?.providerReferenceId || null,
-    providerMessageId: providerResult?.messageId || null,
+    providerMessageId,
     executedAt, recipient, sender: exactEmail(claim.account.email),
     authorizedDigest: digest, routeClass: participants.route.routeClass,
     deliveryState: accepted ? 'ACCEPTED_DELIVERY_NOT_CONFIRMED' : uncertain ? 'UNCERTAIN_REQUIRES_RECONCILIATION' : 'REJECTED',
@@ -207,21 +213,102 @@ export async function executeFrozenProspectEffect({
     providerError: accepted ? null : { classification: classification || 'UNKNOWN', reasonCodes: providerResult?.reasonCodes || ['provider-result-unclassified'], dispatchError: providerResult?.dispatchError || null },
     automaticRetryAuthorized: false
   };
-  await store.transaction(async tx => {
-    if (tx.pool) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`frozen-prospect-effect:${digest}`]);
-    const currentSettings = await tx.getSettings();
-    const current = currentSettings[executionKey(digest)];
-    if (!current || current.status !== 'DISPATCHING' || current.effectDigest !== digest) throw new Error('frozen-effect-dispatch-claim-lost-after-provider-call');
-    await tx.markOutboundReservation(claim.reservation.id, accepted ? 'sent' : uncertain ? 'uncertain' : 'cancelled', {
-      provider: 'smtp-relay', providerReferenceId: providerResult?.providerReferenceId || null,
-      providerMessageId: providerResult?.messageId || null, effectDigest: digest, reconciledAt: executedAt
+
+  // The provider result is the irrecoverable side of the effect boundary. Log a
+  // minimal reconciliation receipt before any further database writes. No body,
+  // subject, credentials, recipient, or sender address is included.
+  console.info('FROZEN_EFFECT_PROVIDER_RESULT ' + JSON.stringify({
+    effectDigest: digest,
+    classification: classification || 'UNKNOWN',
+    providerAccepted: accepted,
+    providerReferenceId: receipt.providerReferenceId,
+    providerMessageId: receipt.providerMessageId,
+    executedAt,
+    automaticRetryAuthorized: false
+  }));
+
+  const checkpointStatus = accepted ? 'PROVIDER_ACCEPTED_CHECKPOINTED'
+    : uncertain ? 'PROVIDER_UNCERTAIN_CHECKPOINTED' : 'PROVIDER_REJECTED_CHECKPOINTED';
+  try {
+    // Commit the provider result independently. A later reservation/event-ledger
+    // failure must never erase the one fact that cannot safely be replayed.
+    await store.transaction(async tx => {
+      if (tx.pool) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`frozen-prospect-effect:${digest}`]);
+      const currentSettings = await tx.getSettings();
+      const current = currentSettings[executionKey(digest)];
+      if (!current || current.status !== 'DISPATCHING' || current.effectDigest !== digest) throw new Error('frozen-effect-dispatch-claim-lost-after-provider-call');
+      await tx.setSetting(executionKey(digest), {
+        ...current,
+        status: checkpointStatus,
+        providerCallAttempted: true,
+        effectCapRemaining: 0,
+        receipt
+      });
     });
-    await tx.recordOutboundEvent({
-      id: `frozen-${digest}`, inbox: senderSlot, eventType: accepted ? 'sent' : uncertain ? 'send_uncertain' : 'send_failed',
-      recipientEmail: recipient, occurredAt: executedAt,
-      detail: { effectDigest: digest, routeClass: participants.route.routeClass, provider: 'smtp-relay', providerReferenceId: providerResult?.providerReferenceId || null, providerMessageId: providerResult?.messageId || null }
-    }, thresholds);
-    await tx.setSetting(executionKey(digest), { ...current, status: accepted ? 'SENT' : uncertain ? 'UNCERTAIN' : 'PROVIDER_REJECTED', providerCallAttempted: true, effectCapRemaining: 0, receipt });
-  });
+  } catch (error) {
+    console.error('FROZEN_EFFECT_PROVIDER_CHECKPOINT_FAILED ' + JSON.stringify({
+      effectDigest: digest,
+      classification: classification || 'UNKNOWN',
+      providerReferenceId: receipt.providerReferenceId,
+      providerMessageId: receipt.providerMessageId,
+      error: String(error?.message || error).slice(0, 300),
+      automaticRetryAuthorized: false
+    }));
+    return {
+      ok: false,
+      state: 'RECEIPT_PERSISTENCE_RECONCILIATION_REQUIRED',
+      providerCalls: accepted || uncertain ? 1 : 0,
+      receipt,
+      sendAuthority: false,
+      automaticRetryAuthorized: false,
+      reconciliationRequired: true
+    };
+  }
+
+  try {
+    // Secondary ledgers are reconciled only after the provider result is already
+    // durable. Their failure cannot reopen the effect cap or authorize a replay.
+    await store.transaction(async tx => {
+      if (tx.pool) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`frozen-prospect-effect:${digest}`]);
+      const currentSettings = await tx.getSettings();
+      const current = currentSettings[executionKey(digest)];
+      if (!current || current.status !== checkpointStatus || current.effectDigest !== digest) throw new Error('frozen-effect-provider-checkpoint-lost-before-ledger-reconcile');
+      await tx.markOutboundReservation(claim.reservation.id, accepted ? 'sent' : uncertain ? 'uncertain' : 'cancelled', {
+        provider: 'smtp-relay', providerReferenceId: providerResult?.providerReferenceId || null,
+        providerMessageId, effectDigest: digest, reconciledAt: executedAt
+      });
+      await tx.recordOutboundEvent({
+        id: `frozen-${digest}`, inbox: senderSlot, eventType: accepted ? 'sent' : uncertain ? 'send_uncertain' : 'send_failed',
+        providerEventId: providerResult?.providerReferenceId || null,
+        recipientEmail: recipient, occurredAt: executedAt,
+        detail: { effectDigest: digest, routeClass: participants.route.routeClass, provider: 'smtp-relay', providerReferenceId: providerResult?.providerReferenceId || null, providerMessageId }
+      }, thresholds);
+      await tx.setSetting(executionKey(digest), {
+        ...current,
+        status: accepted ? 'SENT' : uncertain ? 'UNCERTAIN' : 'PROVIDER_REJECTED',
+        providerCallAttempted: true,
+        effectCapRemaining: 0,
+        ledgerReconciledAt: executedAt,
+        receipt
+      });
+    });
+  } catch (error) {
+    console.error('FROZEN_EFFECT_LEDGER_RECONCILIATION_REQUIRED ' + JSON.stringify({
+      effectDigest: digest,
+      checkpointStatus,
+      error: String(error?.message || error).slice(0, 300),
+      automaticRetryAuthorized: false
+    }));
+    return {
+      ok: false,
+      state: 'LEDGER_RECONCILIATION_REQUIRED',
+      providerCalls: accepted || uncertain ? 1 : 0,
+      receipt,
+      sendAuthority: false,
+      automaticRetryAuthorized: false,
+      reconciliationRequired: true
+    };
+  }
+
   return { ok: accepted, state: accepted ? 'SENT_EXACTLY_ONCE' : uncertain ? 'PROVIDER_RESULT_UNCERTAIN' : 'PROVIDER_REJECTED', providerCalls: accepted || uncertain ? 1 : 0, receipt, sendAuthority: false, automaticRetryAuthorized: false };
 }

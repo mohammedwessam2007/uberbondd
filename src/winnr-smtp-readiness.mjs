@@ -9,6 +9,10 @@ const digest=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
 const parseOrdinals=value=>new Set(String(value||'').split(',').map(Number).filter(n=>Number.isInteger(n)&&n>0));
 const isOwnProbePause=health=>health?.paused===true&&String(health?.pauseReason||'')===SMTP_PROBE_FAILURE_PAUSE_REASON;
 const hardProtectivePause=health=>health?.paused===true&&!isOwnProbePause(health);
+const providerCallCount=probe=>{
+  const n=Number(probe?.providerCalls);
+  return Number.isInteger(n)&&n>=0?n:null;
+};
 
 export async function runWinnrSmtpReadinessProbe({
   store,
@@ -19,10 +23,10 @@ export async function runWinnrSmtpReadinessProbe({
 }={}){
   const checkedAt=(now instanceof Date?now:new Date(now)).toISOString();
   if(!store||typeof store.list!=='function'||typeof store.setSenderPaused!=='function'||typeof store.setSetting!=='function'){
-    return {ok:false,status:'WINNR_SMTP_READINESS_REFUSED',reasonCodes:['store-capabilities-required'],messagesSent:0};
+    return {ok:false,status:'WINNR_SMTP_READINESS_REFUSED',reasonCodes:['store-capabilities-required'],providerCalls:0,messagesSent:0};
   }
   if(!/^[a-f0-9]{64}$/i.test(String(encryptionKey||''))){
-    return {ok:false,status:'WINNR_SMTP_READINESS_REFUSED',reasonCodes:['token-encryption-key-required'],messagesSent:0};
+    return {ok:false,status:'WINNR_SMTP_READINESS_REFUSED',reasonCodes:['token-encryption-key-required'],providerCalls:0,messagesSent:0};
   }
 
   const [accountsRaw,healthRaw]=await Promise.all([store.list('accounts'),store.list('senderHealth')]);
@@ -42,21 +46,29 @@ export async function runWinnrSmtpReadinessProbe({
     const protectedHold=hardProtectivePause(health);
     if(configuredHold||protectedHold){
       results.push({
-        ordinal,slotDigest:digest(slot),classification:'SKIPPED_PROTECTIVE_HOLD',confirmed:false,
+        ordinal,slotDigest:digest(slot),evaluated:false,classification:'SKIPPED_PROTECTIVE_HOLD',confirmed:false,
         configuredQuarantine:configuredHold,existingPause:health?.paused===true,
         pauseReasonClass:configuredHold?'CONFIGURED_PLACEMENT_QUARANTINE':'EXISTING_NON_PROBE_HOLD',
-        providerCalls:0,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false
+        providerCalls:0,providerCallState:'NOT_CONTACTED',messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false
       });
       continue;
     }
 
     let probe;
     try{probe=await probeFn({account,encryptionKey});}
-    catch(error){probe={classification:'UNCERTAIN',reasonCodes:['smtp-readiness-probe-threw'],probeError:clean(error?.message||error,160),providerCalls:1,messagesSent:0};}
-    const ready=probe?.classification==='READY';
+    catch(error){probe={classification:'UNCERTAIN',reasonCodes:['smtp-readiness-probe-threw'],probeError:clean(error?.message||error,160),providerCalls:null,messagesSent:0};}
+    const providerCalls=providerCallCount(probe);
+    const ready=probe?.classification==='READY'
+      && providerCalls!==null&&providerCalls>0
+      && Boolean(clean(probe?.providerSessionReceiptId,500))
+      && Boolean(clean(probe?.providerResponseDigest,128));
 
+    // A positive transport probe is not sender-reputation evidence. Never create
+    // a new positive senderHealth row from readiness alone. It may only clear a
+    // protective pause that this same probe created earlier. Manual/placement/
+    // bounce/complaint holds remain sovereign.
     if(ready){
-      if(!health||isOwnProbePause(health))await store.setSenderPaused(slot,false,'');
+      if(isOwnProbePause(health))await store.setSenderPaused(slot,false,'');
     }else if(!health||health?.paused!==true||isOwnProbePause(health)){
       await store.setSenderPaused(slot,true,SMTP_PROBE_FAILURE_PAUSE_REASON);
     }
@@ -64,13 +76,15 @@ export async function runWinnrSmtpReadinessProbe({
     results.push({
       ordinal,
       slotDigest:digest(slot),
+      evaluated:true,
       classification:ready?'READY':String(probe?.classification||'UNCERTAIN'),
       confirmed:ready,
       state:clean(probe?.state,120)||null,
       reasonCodes:Array.isArray(probe?.reasonCodes)?probe.reasonCodes.map(x=>clean(x,120)).slice(0,6):[],
       providerSessionReceiptId:ready?clean(probe?.providerSessionReceiptId,500)||null:null,
       providerResponseDigest:ready?clean(probe?.providerResponseDigest,128)||null:null,
-      providerCalls:Number(probe?.providerCalls||1),
+      providerCalls,
+      providerCallState:providerCalls===null?'UNKNOWN':providerCalls>0?'CONTACTED':'NOT_CONTACTED',
       messagesSent:0,
       mailFromIssued:false,
       recipientsIssued:0,
@@ -78,25 +92,32 @@ export async function runWinnrSmtpReadinessProbe({
     });
   }
 
-  const checked=results.filter(r=>r.providerCalls>0);
-  const readyCount=checked.filter(r=>r.confirmed===true).length;
-  const failedCount=checked.length-readyCount;
-  const skippedProtective=results.length-checked.length;
-  const ok=checked.length>0&&failedCount===0;
+  const evaluated=results.filter(r=>r.evaluated===true);
+  const contacted=results.filter(r=>Number(r.providerCalls)>0);
+  const unknownCalls=evaluated.filter(r=>r.providerCalls===null);
+  const readyCount=evaluated.filter(r=>r.confirmed===true).length;
+  const failedCount=evaluated.length-readyCount;
+  const skippedProtective=results.length-evaluated.length;
+  const providerCallsLowerBound=results.reduce((sum,r)=>sum+(Number.isInteger(r.providerCalls)&&r.providerCalls>=0?r.providerCalls:0),0);
+  const ok=evaluated.length>0&&failedCount===0;
   const receipt={
     schemaVersion:WINNR_SMTP_READINESS_VERSION,
     ok,
-    status:ok?'WINNR_SMTP_AUTH_NOOP_READY':checked.length?'WINNR_SMTP_AUTH_NOOP_PARTIAL':'WINNR_SMTP_AUTH_NOOP_NO_ELIGIBLE_ACCOUNTS',
+    status:ok?'WINNR_SMTP_AUTH_NOOP_READY':evaluated.length?'WINNR_SMTP_AUTH_NOOP_PARTIAL':'WINNR_SMTP_AUTH_NOOP_NO_ELIGIBLE_ACCOUNTS',
     checkedAt,
     expiresAt:new Date(new Date(checkedAt).getTime()+75*60_000).toISOString(),
     accountCount:accounts.length,
-    checkedAccounts:checked.length,
+    checkedAccounts:evaluated.length,
+    providerContactedAccounts:contacted.length,
     readyAccounts:readyCount,
     failedAccounts:failedCount,
     skippedProtectiveAccounts:skippedProtective,
     configuredQuarantineOrdinals:[...configuredQuarantine].sort((a,b)=>a-b),
     results,
-    providerCalls:checked.reduce((sum,r)=>sum+Number(r.providerCalls||0),0),
+    providerCalls:unknownCalls.length?null:providerCallsLowerBound,
+    providerCallsLowerBound,
+    providerCallsComplete:unknownCalls.length===0,
+    providerCallUnknownAccounts:unknownCalls.length,
     messagesSent:0,
     mailFromIssued:false,
     recipientsIssued:0,
@@ -106,13 +127,14 @@ export async function runWinnrSmtpReadinessProbe({
     legalAuthorityGranted:false,
     prospectSendAuthorityGranted:false,
     automaticRetryAuthorized:false,
-    truthBoundary:'This receipt proves only fresh authenticated SMTP session reachability for probed non-quarantined Winnr routes using TLS/EHLO/AUTH/NOOP/QUIT. It sends no message and proves no reputation, inbox placement, future SMTP acceptance, legal authority, buyer permission, reply, or revenue.'
+    truthBoundary:'This receipt proves only fresh authenticated SMTP session reachability for exact probed non-quarantined Winnr routes using TLS/EHLO/AUTH/NOOP/QUIT. It sends no message and proves no reputation, inbox placement, future SMTP acceptance, legal authority, buyer permission, reply, or revenue. Evaluation status and provider-contact count are tracked separately; unknown provider crossing remains unknown.'
   };
   await store.setSetting('winnrSmtpReadinessV1',receipt);
   if(typeof store.log==='function')await store.log('winnr_smtp_readiness_probe',{
-    status:receipt.status,checkedAccounts:receipt.checkedAccounts,readyAccounts:receipt.readyAccounts,
-    failedAccounts:receipt.failedAccounts,skippedProtectiveAccounts:receipt.skippedProtectiveAccounts,
-    providerCalls:receipt.providerCalls,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,
+    status:receipt.status,checkedAccounts:receipt.checkedAccounts,providerContactedAccounts:receipt.providerContactedAccounts,
+    readyAccounts:receipt.readyAccounts,failedAccounts:receipt.failedAccounts,skippedProtectiveAccounts:receipt.skippedProtectiveAccounts,
+    providerCalls:receipt.providerCalls,providerCallsLowerBound:receipt.providerCallsLowerBound,providerCallsComplete:receipt.providerCallsComplete,
+    providerCallUnknownAccounts:receipt.providerCallUnknownAccounts,messagesSent:0,mailFromIssued:false,recipientsIssued:0,dataIssued:false,
     senderAddressesLogged:false,credentialsLogged:false
   });
   return receipt;

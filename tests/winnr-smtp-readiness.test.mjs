@@ -58,6 +58,27 @@ test('SMTP transport probe authenticates and NOOPs without message commands',asy
   assert.equal(result.dataIssued,false);
 });
 
+test('SMTP transport failure exposes only bounded stage and numeric response code',async()=>{
+  const transport=createUberSmtpSubmissionTransport({
+    host:'smtp.example.test',port:465,secure:true,username:'u',password:'p',authorized:true,termsCompatible:true,evidenceRef:'fixture',
+    smtpSessionFactory:async()=>{
+      const error=new Error('535 raw provider response containing secret-looking detail');
+      error.code='SMTP_COMMAND_REJECTED';
+      error.smtpStage='AUTH';
+      error.smtpResponseCode=535;
+      throw error;
+    }
+  });
+  const result=await transport.probe();
+  assert.equal(result.confirmed,false);
+  assert.equal(result.errorClass,'SMTP_COMMAND_REJECTED');
+  assert.equal(result.errorStage,'AUTH');
+  assert.equal(result.smtpResponseCode,535);
+  assert.equal(result.providerCalls,1);
+  assert.equal(result.messagesSent,0);
+  assert.equal(JSON.stringify(result).includes('raw provider response'),false);
+});
+
 test('fleet probe decrypts credentials but issues no message',async()=>{
   let probed=0;
   const result=await probeSmtpFleetAccount({
@@ -68,6 +89,22 @@ test('fleet probe decrypts credentials but issues no message',async()=>{
   assert.equal(result.providerCalls,1);
   assert.equal(result.messagesSent,0);
   assert.equal(probed,1);
+});
+
+test('fleet and readiness receipt preserve bounded failure stage without raw provider text',async()=>{
+  const store=fakeStore();
+  const result=await runWinnrSmtpReadinessProbe({
+    store,encryptionKey:KEY,quarantineOrdinalsText:'3',
+    probeFn:async({account})=>account.slot.endsWith('1')
+      ?{classification:'UNCERTAIN',state:'SMTP_AUTH_NOOP_FAILED',reasonCodes:['smtp-session-probe-failed'],errorClass:'SMTP_COMMAND_REJECTED',errorStage:'AUTH',smtpResponseCode:535,providerCalls:1,messagesSent:0}
+      :{classification:'READY',state:'SMTP_AUTH_NOOP_CONFIRMED',providerSessionReceiptId:'r2',providerResponseDigest:'e'.repeat(64),providerCalls:1,messagesSent:0}
+  });
+  const failed=result.results.find(x=>x.ordinal===1);
+  assert.equal(failed.errorClass,'SMTP_COMMAND_REJECTED');
+  assert.equal(failed.errorStage,'AUTH');
+  assert.equal(failed.smtpResponseCode,535);
+  assert.equal(JSON.stringify(result).includes('@'),false);
+  assert.equal(result.messagesSent,0);
 });
 
 test('local credential refusal is zero provider calls and never constructs transport',async()=>{

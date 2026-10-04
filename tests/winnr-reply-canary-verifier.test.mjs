@@ -31,11 +31,26 @@ test('reply canary verifier proves both owner-controlled replies without returni
     pollFn
   });
   assert.equal(result.ok,true);
+  assert.equal(result.transportHealthy,true);
+  assert.equal(result.canaryPresenceObserved,true);
   assert.deepEqual(result.foundOrdinals,[2,3]);
   assert.equal(JSON.stringify(result).includes('secret body'),false);
   assert.equal(JSON.stringify(result).includes('secret@example.test'),false);
   assert.equal(store.logs[0].type,'winnr_reply_canary_verification');
   assert.equal(store.logs[0].detail.credentialsLogged,false);
+});
+
+test('healthy IMAP with no recent canary is not mislabeled as transport failure',async()=>{
+  const store=fakeStore();
+  const pollFn=async()=>({ok:true,status:'UBERIMAP_FETCH_CONFIRMED',messages:[]});
+  const result=await verifyWinnrReplyCanaries({config:{encryptionKey:'a'.repeat(64)},storeFactory:()=>store,pollFn});
+  assert.equal(result.ok,false);
+  assert.equal(result.transportHealthy,true);
+  assert.equal(result.canaryPresenceObserved,false);
+  assert.equal(result.status,'WINNR_IMAP_TRANSPORT_HEALTHY_CANARIES_NOT_OBSERVED_IN_RECENT_WINDOW');
+  assert.deepEqual(result.foundOrdinals,[]);
+  assert.equal(store.logs[0].detail.transportHealthy,true);
+  assert.equal(store.logs[0].detail.canaryPresenceObserved,false);
 });
 
 test('transient IMAP connect exception receives one read-only retry',async()=>{
@@ -48,6 +63,7 @@ test('transient IMAP connect exception receives one read-only retry',async()=>{
   };
   const result=await verifyWinnrReplyCanaries({config:{encryptionKey:'a'.repeat(64)},storeFactory:()=>store,pollFn});
   assert.equal(result.ok,true);
+  assert.equal(result.transportHealthy,true);
   assert.equal(result.accountResults.every(x=>x.attempts===2),true);
   assert.equal([...calls.values()].every(x=>x===2),true);
 });
@@ -58,6 +74,7 @@ test('persistent IMAP exception reports only a sanitized failure class',async()=
   const pollFn=async()=>{const e=new Error(`connect failed ${secret} 203.0.113.7`);e.code='ETIMEDOUT';throw e;};
   const result=await verifyWinnrReplyCanaries({config:{encryptionKey:'a'.repeat(64)},storeFactory:()=>store,pollFn});
   assert.equal(result.ok,false);
+  assert.equal(result.transportHealthy,false);
   assert.equal(result.accountResults.every(x=>x.errorClass==='ETIMEDOUT'&&x.attempts===2),true);
   assert.equal(JSON.stringify(result).includes(secret),false);
   assert.equal(JSON.stringify(store.logs).includes(secret),false);
@@ -73,6 +90,7 @@ test('command rejection triggers one bounded stage diagnostic and never echoes p
   };
   const result=await verifyWinnrReplyCanaries({config:{encryptionKey:'a'.repeat(64)},storeFactory:()=>store,pollFn,diagnosticFn});
   assert.equal(result.ok,false);
+  assert.equal(result.transportHealthy,false);
   assert.equal(diagnosticCalls,1);
   assert.deepEqual(result.commandDiagnostic,{
     accountId:'imap-2',ok:false,stage:'LOGIN',status:'NO',responseCode:'AUTHENTICATIONFAILED',errorClass:undefined,rawProviderTextLogged:false,credentialsLogged:false

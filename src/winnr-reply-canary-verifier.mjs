@@ -1,5 +1,6 @@
 import { createStore } from './store.mjs';
 import { pollImapForwardingAccount } from './uberimap.mjs';
+import { diagnoseWinnrImapStages } from './winnr-imap-stage-diagnostic.mjs';
 
 const SUBJECTS=new Map([
   ['Re: UberBond Winnr runtime canary 2/3',2],
@@ -35,7 +36,8 @@ async function pollWithOneSafeRetry(pollFn,args){
 export async function verifyWinnrReplyCanaries({
   config,
   storeFactory=createStore,
-  pollFn=pollImapForwardingAccount
+  pollFn=pollImapForwardingAccount,
+  diagnosticFn=diagnoseWinnrImapStages
 }={}){
   if(!config?.encryptionKey)return {ok:false,status:'WINNR_REPLY_CANARY_VERIFY_REFUSED',reasonCodes:['encryption-key-required']};
   const store=storeFactory(config);
@@ -45,8 +47,17 @@ export async function verifyWinnrReplyCanaries({
       .filter(a=>String(a?.provider||'').toLowerCase()==='imap-forwarding'&&String(a?.slot||'').startsWith('winnr-imap:'));
     const found=new Set();
     const accountResults=[];
+    let commandDiagnostic=null;
     for(const account of accounts){
       const {poll,attempts,errorClass}=await pollWithOneSafeRetry(pollFn,{account:{...account,lastImapUid:0},encryptionKey:config.encryptionKey,limit:100});
+      if(errorClass==='IMAP_COMMAND_REJECTED'&&!commandDiagnostic&&typeof diagnosticFn==='function'){
+        try{
+          const detail=await diagnosticFn({account:{...account,lastImapUid:0},encryptionKey:config.encryptionKey});
+          commandDiagnostic={accountId:account.id,...detail};
+        }catch(error){
+          commandDiagnostic={accountId:account.id,ok:false,stage:'DIAGNOSTIC',errorClass:classifyImapProbeException(error),rawProviderTextLogged:false,credentialsLogged:false};
+        }
+      }
       for(const message of poll?.messages||[]){
         const ordinal=SUBJECTS.get(String(message?.subject||'').trim());
         if(ordinal)found.add(ordinal);
@@ -61,6 +72,16 @@ export async function verifyWinnrReplyCanaries({
     }
     const foundOrdinals=[...found].sort((a,b)=>a-b);
     const ok=[2,3].every(n=>found.has(n));
+    const safeDiagnostic=commandDiagnostic?{
+      accountId:commandDiagnostic.accountId,
+      ok:commandDiagnostic.ok===true,
+      stage:String(commandDiagnostic.stage||'UNKNOWN').slice(0,40),
+      status:String(commandDiagnostic.status||'').slice(0,20)||undefined,
+      responseCode:String(commandDiagnostic.responseCode||'').slice(0,80)||undefined,
+      errorClass:String(commandDiagnostic.errorClass||'').slice(0,80)||undefined,
+      rawProviderTextLogged:false,
+      credentialsLogged:false
+    }:null;
     await store.log('winnr_reply_canary_verification',{
       ok,
       foundOrdinals,
@@ -68,6 +89,7 @@ export async function verifyWinnrReplyCanaries({
       imapAccountsChecked:accounts.length,
       failedAccountCount:accountResults.filter(x=>!x.ok).length,
       failureClasses:[...new Set(accountResults.map(x=>x.errorClass).filter(Boolean))],
+      ...(safeDiagnostic?{commandDiagnostic:safeDiagnostic}:{}),
       messageBodiesLogged:false,
       senderAddressesLogged:false,
       credentialsLogged:false
@@ -79,6 +101,7 @@ export async function verifyWinnrReplyCanaries({
       expectedOrdinals:[2,3],
       imapAccountsChecked:accounts.length,
       accountResults,
+      ...(safeDiagnostic?{commandDiagnostic:safeDiagnostic}:{}),
       messageBodiesLogged:false,
       senderAddressesLogged:false,
       credentialsLogged:false

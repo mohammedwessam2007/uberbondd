@@ -63,6 +63,25 @@ test('persistent IMAP exception reports only a sanitized failure class',async()=
   assert.equal(JSON.stringify(store.logs).includes(secret),false);
 });
 
+test('command rejection triggers one bounded stage diagnostic and never echoes provider secrets',async()=>{
+  const store=fakeStore();
+  let diagnosticCalls=0;
+  const pollFn=async()=>{throw new Error('imap-command-rejected: provider secret must never escape');};
+  const diagnosticFn=async()=>{
+    diagnosticCalls+=1;
+    return {ok:false,stage:'LOGIN',status:'NO',responseCode:'AUTHENTICATIONFAILED',rawProviderTextLogged:false,credentialsLogged:false,raw:'secret'};
+  };
+  const result=await verifyWinnrReplyCanaries({config:{encryptionKey:'a'.repeat(64)},storeFactory:()=>store,pollFn,diagnosticFn});
+  assert.equal(result.ok,false);
+  assert.equal(diagnosticCalls,1);
+  assert.deepEqual(result.commandDiagnostic,{
+    accountId:'imap-2',ok:false,stage:'LOGIN',status:'NO',responseCode:'AUTHENTICATIONFAILED',errorClass:undefined,rawProviderTextLogged:false,credentialsLogged:false
+  });
+  assert.equal(JSON.stringify(result).includes('provider secret'),false);
+  assert.equal(JSON.stringify(result).includes('"raw"'),false);
+  assert.equal(JSON.stringify(store.logs).includes('provider secret'),false);
+});
+
 test('IMAP exception classifier does not echo raw provider messages',()=>{
   const e=new Error('authentication failed super-secret');
   assert.equal(classifyImapProbeException(e),'IMAP_PROBE_EXCEPTION');

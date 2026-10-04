@@ -3,7 +3,6 @@ import { probeSmtpFleetAccount } from './uberfleet.mjs';
 
 export const WINNR_SMTP_READINESS_VERSION='uberbond.winnr-smtp-readiness.v1';
 export const SMTP_PROBE_FAILURE_PAUSE_REASON='winnr-smtp-auth-noop-probe-failed';
-export const SMTP_PROBE_READY_REASON='winnr-smtp-auth-noop-confirmed';
 
 const clean=(v,n=500)=>String(v??'').trim().slice(0,n);
 const digest=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
@@ -57,7 +56,7 @@ export async function runWinnrSmtpReadinessProbe({
     const ready=probe?.classification==='READY';
 
     if(ready){
-      if(!health||isOwnProbePause(health))await store.setSenderPaused(slot,false,SMTP_PROBE_READY_REASON);
+      if(!health||isOwnProbePause(health))await store.setSenderPaused(slot,false,'');
     }else if(!health||health?.paused!==true||isOwnProbePause(health)){
       await store.setSenderPaused(slot,true,SMTP_PROBE_FAILURE_PAUSE_REASON);
     }

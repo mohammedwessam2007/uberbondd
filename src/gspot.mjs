@@ -43,6 +43,16 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
 
   const load = async () => (await store.getSettings())[STORE_KEY] || {};
   const save = async (run) => {
+    if (typeof store.updateSettingAtomically === 'function') {
+      await store.updateSettingAtomically(STORE_KEY, all => {
+        all = all || {};
+        const prior = all[run.runId];
+        if (prior?.authorization?.consumedAt && !run.authorization?.consumedAt) throw new Error('GSPOT_AUTHORIZATION_ALREADY_CONSUMED');
+        all[run.runId] = run;
+        return Object.fromEntries(Object.values(all).sort((a, b) => b.createdAt.localeCompare(a.createdAt)).slice(0, 50).map(r => [r.runId, r]));
+      });
+      return run;
+    }
     const all = await load();
     all[run.runId] = run;
     // keep the most recent 50 runs only
@@ -79,11 +89,13 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
       const e = { ...(item.evidence || {}), ...(await evidenceFor(item.prospectId) || {}) };
       item.evidence = e;
       if (isHalted(item.prospectId)) { tick(item, 'HALTED_HUMAN_REPLY', at); continue; }
+      if (e.qualification?.eligible !== true) { item.blocks = ['QUALIFIED:qualification-not-eligible']; tick(item, 'BLOCKED', at, 'current-qualification-revoked'); continue; }
+      if (item.offerId && e.offerId && item.offerId !== e.offerId) { item.blocks = ['MESSAGE:offer-binding-mismatch']; tick(item, 'BLOCKED', at); continue; }
       item.blocks = [];
       for (const next of ['QUALIFIED', 'PROOF', 'MESSAGE', 'READY_FOR_AUTHORIZATION']) {
-        if (STAGES.indexOf(item.stage) >= STAGES.indexOf(next)) continue;
         const missing = REQUIRE[next](e);
-        if (missing.length) { item.blocks = missing.map(m => `${next}:${m}`); break; }
+        if (missing.length) { item.blocks = missing.map(m => `${next}:${m}`); if (STAGES.indexOf(item.stage) >= STAGES.indexOf(next)) tick(item, 'BLOCKED', at, 'current-evidence-revoked'); break; }
+        if (STAGES.indexOf(item.stage) >= STAGES.indexOf(next)) continue;
         tick(item, next, at);
       }
     }
@@ -100,6 +112,8 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
     for (const item of run.items) {
       if (item.stage !== 'READY_FOR_AUTHORIZATION') continue;
       if (isHalted(item.prospectId)) { tick(item, 'HALTED_HUMAN_REPLY', iso()); continue; }
+      const missing = Object.values(REQUIRE).flatMap(check => check(item.evidence || {}));
+      if (missing.length || (item.offerId && item.evidence.offerId !== item.offerId)) { item.blocks = ['BATCH:current-evidence-or-offer-binding-refused', ...missing]; tick(item, 'BLOCKED', iso()); continue; }
       const sender = item.evidence.senderId;
       const cap = perSenderCap[sender] ?? 0;
       if (chosen.length >= maxItems || (used[sender] || 0) >= cap) { item.blocks = ['BATCH:cap-reached']; continue; }
@@ -143,10 +157,17 @@ export function createGspot({ store, now = () => Date.now(), isHalted = () => fa
     if (!run?.authorization) throw new Error('GSPOT_NOT_AUTHORIZED');
     if (run.authorization.consumedAt) throw new Error('GSPOT_AUTHORIZATION_ALREADY_CONSUMED');
     if (typeof dispatchEffect !== 'function') return { run, dryRun: true, externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS } };
+    if (typeof store.updateSettingAtomically !== 'function') throw new Error('GSPOT_DURABLE_ATOMIC_CONSUME_REQUIRED');
     if (Date.parse(run.batch.expiresAt) <= now()) throw new Error('GSPOT_BATCH_EXPIRED');
     // Single-use: consume BEFORE any effect so a replay cannot dispatch twice.
-    run.authorization.consumedAt = iso();
-    await save(run);
+    await store.updateSettingAtomically(STORE_KEY, all => {
+      const current = all?.[runId];
+      if (!current?.authorization || current.authorization.consumedAt) throw new Error('GSPOT_AUTHORIZATION_ALREADY_CONSUMED');
+      if (current.batch.batchDigest !== run.batch.batchDigest || Date.parse(current.batch.expiresAt) <= now()) throw new Error('GSPOT_BATCH_CHANGED_OR_EXPIRED');
+      current.authorization.consumedAt = iso();
+      run = structuredClone(current);
+      return all;
+    });
     let messages = 0;
     for (const b of run.batch.items) {
       run = await get(runId);

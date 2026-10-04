@@ -465,4 +465,32 @@ export async function reconcilePaymentRenewalTruthFromStore(store, { leadId, ful
   });
 }
 
+/** Read-model facts from the existing three-witness reconciler. CRM flags and
+ * caller-provided reference strings never become economic events. */
+export function canonicalPaymentFacts({ leads = [], orders = [], revenueEvents = [], auditLog = [], now = Date.now() } = {}) {
+  const visible = rows => rows.filter(row => {
+    const at = Date.parse(row.createdAt || row.timestamp || row.detail?.timestamp || '');
+    return !Number.isFinite(at) || at <= now;
+  });
+  const events = [], paidLeadIds = [], reports = {};
+  const seen = new Set();
+  for (const lead of leads) {
+    if (!lead.id) continue;
+    const report = reconcilePaymentRenewalTruth({ lead, leadId: lead.id, leadResolved: true, orders: visible(orders), revenueEvents: visible(revenueEvents), auditLog: visible(auditLog) });
+    reports[lead.id] = report;
+    const refs = new Set([...report.verifiedProviderEventRefs, ...report.verifiedReversalEventRefs]);
+    for (const event of visible(revenueEvents)) {
+      const at = Date.parse(event.createdAt || event.timestamp || '');
+      if (event.leadId !== lead.id || !refs.has(event.providerEventId) || !Number.isFinite(at) || at > now || seen.has(event.providerEventId)) continue;
+      // Bind the graph/customer identity to the real lead, never another prospect.
+      if (event.prospectId && lead.prospectId && event.prospectId !== lead.prospectId) continue;
+      seen.add(event.providerEventId);
+      events.push({ at, type: Number(event.amountCents) > 0 ? 'cleared_payment' : 'payment_reversed', prospectId: lead.prospectId || event.prospectId || null, leadId: lead.id, id: event.providerEventId, amountCents: Number(event.amountCents), currency: event.currency || report.economics.currency });
+    }
+    const admitted = events.filter(e=>e.leadId===lead.id);
+    if (report.ok && report.status === 'PROVIDER_CLEARED_PAYMENT_PROVEN' && report.economics.netProviderClearedRevenueCents > 0 && admitted.reduce((sum,e)=>sum+e.amountCents,0)===report.economics.netProviderClearedRevenueCents) paidLeadIds.push(lead.id);
+  }
+  return { events, paidLeadIds, reports };
+}
+
 export const PAYMENT_RENEWAL_TRUTH_EXTERNAL_EFFECTS = PAYMENT_TRUTH_EFFECTS;

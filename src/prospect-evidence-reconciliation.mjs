@@ -1,3 +1,4 @@
+import { isTrustedContactVerification } from './contact-verification-trust.mjs';
 import { sha256 } from './omnia-v9/canonical.mjs';
 
 export const PROSPECT_EVIDENCE_VERSION = 'uberbond.prospect-evidence-reconciliation.v1';
@@ -230,7 +231,7 @@ export function normalizeContactVerification(input = {}, { now = new Date() } = 
   if (!validEmail(route)) throw new Error('Contact verification requires a syntactically valid email route');
   const rawState = text(input.state || input.status || 'UNKNOWN', 60).toUpperCase().replace(/[- ]/g, '_');
   if (!VERIFICATION_SET.has(rawState)) throw new Error(`Unsupported contact verification state: ${rawState}`);
-  const checkedAt = iso(input.checkedAt || input.observedAt, now);
+  const checkedAt = iso(input.checkedAt || input.observedAt);
   const expiresAt = iso(input.expiresAt);
   const provider = text(input.provider || 'unknown-provider', 120);
   const evidenceClass = normalizeEvidenceClass(input.evidenceClass || 'LICENSED_PROVIDER');
@@ -251,7 +252,8 @@ export function normalizeContactVerification(input = {}, { now = new Date() } = 
     providerCostCents: Math.max(0, Math.round(Number(input.providerCostCents) || 0)),
     providerCalls: 0,
     externalEffects: 0,
-    businessEffectAuthority: 'NONE'
+    businessEffectAuthority: 'NONE',
+    ...(input.receiptSignature ? {receiptSignature: text(input.receiptSignature, 128)} : {})
   };
 }
 
@@ -296,7 +298,7 @@ function suppressionMatches(route, suppression = {}) {
   return canonicalContactRoute(raw) === canonicalContactRoute(route);
 }
 
-export function evaluateContactRoute({ route, verifications = [], suppressions = [], now = new Date() } = {}) {
+export function evaluateContactRoute({ route, verifications = [], suppressions = [], now = new Date(), verificationTrust = isTrustedContactVerification } = {}) {
   const email = text(route, 320).toLowerCase();
   if (!validEmail(email)) throw new Error('evaluateContactRoute requires a syntactically valid email');
   const matchingSuppressions = (suppressions || []).filter(item => suppressionMatches(email, item));
@@ -308,7 +310,8 @@ export function evaluateContactRoute({ route, verifications = [], suppressions =
       businessEffectAuthority: 'NONE', externalEffects: 0
     };
   }
-  const normalized = (verifications || []).map(item => item?.version === PROSPECT_EVIDENCE_VERSION ? { ...item } : normalizeContactVerification({ ...item, route: item.route || email }, { now })).filter(item => item.route === email);
+  // A version string is not validation. Re-normalize persisted/vendor records.
+  const normalized = (verifications || []).map(item => normalizeContactVerification({ ...item, route: item.route || email }, { now })).filter(item => item.route === email);
   if (!normalized.length) return { route: email, status: 'NEEDS_VERIFICATION', usableForHandoff: false, reasonCodes: ['no-verification-evidence'], businessEffectAuthority: 'NONE', externalEffects: 0 };
   const ordered = [...normalized].sort((a, b) => String(b.checkedAt).localeCompare(String(a.checkedAt)));
 
@@ -340,6 +343,11 @@ export function evaluateContactRoute({ route, verifications = [], suppressions =
   }
 
   const latest = ordered[0];
+  const checked = Date.parse(latest.checkedAt || '');
+  const age = new Date(now).getTime() - checked;
+  if (!Number.isFinite(checked) || age < -60000 || age > 30 * 86400000) return { route: email, status: 'REVERIFY_REQUIRED', usableForHandoff: false, verification: latest, reasonCodes: ['verification-time-invalid-or-stale'], businessEffectAuthority: 'NONE', externalEffects: 0 };
+  if (!['LICENSED_PROVIDER', 'DIRECT_FIRST_PARTY'].includes(latest.evidenceClass) || /^(unknown-provider|website|public_website|model|local-evidence)$/i.test(latest.provider)) return { route: email, status: 'NEEDS_VERIFICATION', usableForHandoff: false, verification: latest, reasonCodes: ['independent-mailbox-verifier-required'], businessEffectAuthority: 'NONE', externalEffects: 0 };
+  if (latest.state === 'VALID' && !verificationTrust(latest)) return { route: email, status: 'NEEDS_VERIFICATION', usableForHandoff: false, verification: latest, reasonCodes: ['independent-verifier-provenance-not-trusted'], businessEffectAuthority: 'NONE', externalEffects: 0 };
   const expired = latest.expiresAt && Date.parse(latest.expiresAt) <= new Date(now).getTime();
   if (expired || latest.state === 'STALE') return { route: email, status: 'REVERIFY_REQUIRED', usableForHandoff: false, verification: latest, reasonCodes: ['verification-stale'], businessEffectAuthority: 'NONE', externalEffects: 0 };
   if (latest.state === 'INVALID') return { route: email, status: 'BLOCKED_INVALID', usableForHandoff: false, verification: latest, reasonCodes: ['verification-invalid'], businessEffectAuthority: 'NONE', externalEffects: 0 };
@@ -349,7 +357,7 @@ export function evaluateContactRoute({ route, verifications = [], suppressions =
   return { route: email, status: 'VERIFIED_ROUTE', usableForHandoff: latest.state === 'VALID', verification: latest, reasonCodes: [], businessEffectAuthority: 'NONE', externalEffects: 0 };
 }
 
-export function buildProspectEvidenceBundle({ prospectId = '', personCandidates = [], enrichmentObservations = [], contactRoutes = [], suppressions = [], now = new Date() } = {}) {
+export function buildProspectEvidenceBundle({ prospectId = '', personCandidates = [], enrichmentObservations = [], contactRoutes = [], suppressions = [], now = new Date(), verificationTrust = isTrustedContactVerification } = {}) {
   const normalizedPeople = personCandidates.map(item => item?.version === PROSPECT_EVIDENCE_VERSION ? { ...item } : normalizePersonCandidate(item, { now }));
   const normalizedObservations = enrichmentObservations.map(item => item?.version === PROSPECT_EVIDENCE_VERSION ? { ...item } : normalizeEnrichmentObservation(item, { now }));
   const fields = [...new Set(normalizedObservations.map(item => item.field))];
@@ -357,7 +365,7 @@ export function buildProspectEvidenceBundle({ prospectId = '', personCandidates 
   const routes = contactRoutes.map(item => {
     const route = typeof item === 'string' ? item : item.route || item.email;
     const verifications = typeof item === 'string' ? [] : item.verifications || [];
-    return evaluateContactRoute({ route, verifications, suppressions, now });
+    return evaluateContactRoute({ route, verifications, suppressions, now, verificationTrust });
   });
   const conflicts = Object.entries(reconciledFields).filter(([, result]) => result.status === 'CONFLICT').map(([field]) => field);
   return {

@@ -38,7 +38,7 @@ test('constellation visual language remains data-bound instead of decorative fak
 test('every revenue API route sits behind the owner auth gate and no live dispatcher is injected', () => {
   assert.match(server, /url\.pathname\.startsWith\('\/api\/'\)[\s\S]{0,200}!publicApi\(url\.pathname\) && !auth\(req\)/);
   const at = server.indexOf("startsWith('/api/revenue/')");
-  const block = server.slice(at, at + 4500);
+  const block = server.slice(at, server.indexOf("Unknown revenue route", at));
   assert.match(block, /gs\.dispatch\(String\(body\.runId \|\| ''\)\)\)/);
   assert.doesNotMatch(block, /dispatchEffect|governedOutreachDispatch|sendMail|smtp/i);
   assert.doesNotMatch(server, /const publicApi = [^\n]*\/api\/revenue/);
@@ -54,7 +54,7 @@ test('service derives candidates through canonical stored evidence and live cont
   assert.match(svc, /compileContactHistory/);
   assert.doesNotMatch(svc, /contactHistoryVerified === true/);
   assert.match(svc, /never invents evidence/);
-  assert.match(svc, /businessEffectAuthority:'NONE'/);
+  assert.match(svc, /businessEffectAuthority: ?'NONE'/);
 });
 
 test('deal surface binds payment compression to provider-neutral live rail doctor', () => {

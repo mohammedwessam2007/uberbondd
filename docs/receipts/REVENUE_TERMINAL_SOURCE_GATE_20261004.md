@@ -1,0 +1,16 @@
+# Revenue Singularity Oct 4 source gate
+
+Refreshed base: `da8a94d945ce12152d6d0c5bb796222931c813fe` (#1213). This supersedes the command-issuance SHA `4a3d24e1c3330221dc0b64efff2d4acc97b60635`; no Oct 3 checkpoint was used as the active frontier. Current founder instruction and issue #1188 comment 5979298771 governed this bounded closure.
+
+Preserved existing organism; repaired evidence/payment/replay/session/convenience boundaries. One actual free ClearBounce mailbox verification returned VALID, mailbox exists, 95/100 at 2026-10-04T11:29:09.018Z. The retained observation ID is explicitly our capture ID, not a fabricated provider event ID. Original same-result screenshot and JSON are under `artifacts/outreach/clearbounce-powerhouse-20261004.*`. Four current first-party source pages ground Powerhouse/Sylvester evidence. Production import will use canonical importer, exact fresh seven-ledger history, independent verifier trust, original source provenance, and zero outbound authority. RELAI remains separately preserved and excluded.
+
+Verification evidence:
+
+- 204 focused tests: 203 pass, 1 explicit real-DB skip in that process; zero failures. Additional trust-consumer regressions: 32/32 pass.
+- Real PostgreSQL 18.4: all 12 terminal hostile tests pass, including two concurrent durable dispatch calls admitting one effect. The database was a disposable local fixture, using a process-local UID/stat shim because the managed host cannot create/drop an OS user; no production permissions or database were changed. Unix sockets disabled for this fixture; TCP loopback only. Simulated dispatch callback only.
+- Actual WebKit 26.5, iPad Pro 11 viewport/touch configuration: local pairing, new page without token repaste, HttpOnly/SameSite cookie, logout after web restart, lens controls, actual touch-pointer handlers, no XSS, and one-button pre-authority stop pass. No physical Safari claim.
+- All changed JavaScript parse checks and `git diff --check` pass. Full syntax gate has the same three pre-existing invalid Infinite Opus test files; no changed file is among them.
+- Unchanged refreshed-base deterministic suite: 9,323 tests, 9,233 pass, 35 fail, 55 skip. Inherited failures include corpus/constitution snapshots, Infinite Opus, reachability/coverage, and stale handoff consistency. Scoped commercial consistency and brittle surface tests are repaired; unrelated organs were preserved.
+- Independent read-only red team reviewed the diff repeatedly; its last separate hostile run passed 38, failed 0 (DB fixture not supplied there). Reproduced verifier forgery, inferred route laundering, stale cached evidence, suppression/history refusal, cross-prospect payment, arbitrary paid flags, reply injection, stale proof/message inputs, duplicate dispatch, replay future leakage, mixed-currency totals, and restart logout revocation now have defended boundaries.
+
+External effects through this checkpoint: one free public mailbox verification, public read-only evidence retrieval, GitHub repository reads. Zero prospect/seed messages, purchases, verification-credit purchases, payment/checkout creation, payment movement, DNS/provider credential changes, or outbound authorization. Deployment and production evidence belong to the subsequent exact-current runtime receipt, not this internal source gate.

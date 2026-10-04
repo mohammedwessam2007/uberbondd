@@ -167,7 +167,7 @@ test('the full agent conversation completes inside the rehearsal, restart-safe',
 });
 
 test('a synthetic prospect reaches a disposition and still cannot be contacted', () => {
-  const bundle = buildProspectEvidenceBundle({
+  const bundle = buildProspectEvidenceBundle({verificationTrust:()=>true,
     prospectId: 'synthetic_prospect_1',
     contactRoutes: [{
       route: 'synthetic.buyer@example.invalid',

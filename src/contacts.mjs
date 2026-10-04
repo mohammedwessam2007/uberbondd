@@ -1,4 +1,6 @@
 import { isEmail, normalizeDomain } from './utils.mjs';
+import { sealAdapterVerification } from './contact-verification-trust.mjs';
+import { normalizeContactVerification } from './prospect-evidence-reconciliation.mjs';
 
 const generic = /^(info|contact|hello|admin|office|support|sales|marketing|team|enquiries|inquiries)@/i;
 function rank(email, position='') {
@@ -43,5 +45,10 @@ export async function discoverContacts(prospect, crawl, hunterKey='') {
 export async function verifyEmail(email, hunterKey='') {
   if (!hunterKey || !isEmail(email)) return {email,status:'unverified',score:0};
   const result = await hunter('email-verifier',{email},hunterKey);
-  return result.data || {email,status:'unknown',score:0};
+  const data = result.data;
+  if (!data || String(data.email || '').toLowerCase() !== String(email).toLowerCase()) return {email,status:'unknown',score:0};
+  const checkedAt = new Date().toISOString();
+  const state = ({valid:'VALID', invalid:'INVALID', accept_all:'CATCH_ALL', webmail:'UNKNOWN', disposable:'INVALID', unknown:'UNKNOWN'})[data.status] || 'UNKNOWN';
+  const verification = normalizeContactVerification({ route: email, state, provider: 'Hunter', checkedAt, expiresAt: new Date(Date.parse(checkedAt) + 7 * 86400000).toISOString(), sourceUrl: 'https://api.hunter.io/v2/email-verifier', sourceRecordId: `observed-hunter-response:${checkedAt}`, evidenceClass: 'LICENSED_PROVIDER', confidence: Number(data.score || 0) / 100 });
+  return {...data, verification: sealAdapterVerification(verification)};
 }

@@ -1,3 +1,6 @@
+import {sealAdapterVerification} from '../src/contact-verification-trust.mjs';
+import {normalizeContactVerification} from '../src/prospect-evidence-reconciliation.mjs';
+process.env.ADMIN_TOKEN='test-only-owned-adapter-secret-00000001';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compileUberReachReadiness } from '../src/uberreach-control-plane.mjs';
@@ -34,14 +37,14 @@ const contact = {
     inferred: false,
     observedAt: NOW.toISOString()
   }],
-  verifications: [{
+  verifications: [sealAdapterVerification(normalizeContactVerification({
     route: 'buyer@example.com',
     state: 'VALID',
-    provider: 'licensed-test-provider',
+    provider:'Hunter',sourceUrl:'https://api.hunter.io/v2/email-verifier',sourceRecordId:'test-api-response',
     evidenceClass: 'LICENSED_PROVIDER',
     checkedAt: NOW.toISOString(),
     confidence: 0.95
-  }]
+  }))]
 };
 
 const genomeInputs = overrides => ({

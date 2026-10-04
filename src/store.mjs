@@ -228,6 +228,7 @@ class JsonTransactionStore {
   async patch(key, id, patch) { return this.parent._patchDirect(key, id, patch); }
   async getSettings() { return structuredClone(this.parent.data.settings || {}); }
   async setSetting(key, value) { this.parent.data.settings[key] = structuredClone(value); return value; }
+  async updateSettingAtomically(key, update) { return this.setSetting(key, await update(structuredClone(this.parent.data.settings[key]))); }
   async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.parent._reserveDiscoveryCapacityDirect(date, cap, requested, runId); }
   async claimProspects(limit = 1) { return this.parent._claimProspectsDirect(limit); }
@@ -608,6 +609,7 @@ export class JsonStore {
   async patch(key, id, patch) { return this.transaction(tx => tx.patch(key, id, patch)); }
   async getSettings() { return structuredClone(this.data.settings || {}); }
   async setSetting(key, value) { return this.transaction(tx => tx.setSetting(key, value)); }
+  async updateSettingAtomically(key, update) { return this.transaction(tx => tx.updateSettingAtomically(key, update)); }
   async log(type, detail = {}) { return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() }); }
   async reserveDiscoveryCapacity(date, cap, requested, runId = '') { return this.transaction(tx => tx.reserveDiscoveryCapacity(date, cap, requested, runId)); }
   async claimProspects(limit = 1) { return this.transaction(tx => tx.claimProspects(limit)); }
@@ -774,6 +776,15 @@ export class PostgresStore {
   async setSetting(key, value) {
     await this.pool.query('INSERT INTO settings(key, value, updated_at) VALUES ($1, $2::jsonb, now()) ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()', [key, JSON.stringify(value)]);
     return value;
+  }
+
+  async updateSettingAtomically(key, update) {
+    return this.transaction(async tx => {
+      // The lock exists even before the first row, unlike SELECT FOR UPDATE.
+      await tx.pool.query('SELECT pg_advisory_xact_lock(hashtextextended($1, 0))', [`setting:${key}`]);
+      const result = await tx.pool.query('SELECT value FROM settings WHERE key = $1', [key]);
+      return tx.setSetting(key, await update(result.rows[0]?.value));
+    });
   }
 
   async log(type, detail = {}) {

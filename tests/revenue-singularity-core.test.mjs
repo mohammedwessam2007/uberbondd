@@ -6,7 +6,7 @@ import { createGspot } from '../src/gspot.mjs';
 
 const NOW = Date.parse('2026-10-04T00:00:00Z');
 const iso = d => new Date(NOW - d * 86400000).toISOString();
-const memStore = () => { const s = {}; return { getSettings: async () => structuredClone(s), setSetting: async (k, v) => { s[k] = structuredClone(v); return v; } }; };
+const memStore = () => { const s = {}; let lock = Promise.resolve(); return { getSettings: async () => structuredClone(s), setSetting: async (k, v) => { s[k] = structuredClone(v); return v; }, updateSettingAtomically(k, update) { const work = lock.then(async () => { s[k] = structuredClone(await update(structuredClone(s[k]))); return s[k]; }); lock = work.catch(() => {}); return work; } }; };
 const q = (over = {}) => ({ eligible: true, score: 0.8, evidenceQuality: 0.8, tier: 'A', blocks: [], outboundAuthority: 'NONE', ...over });
 const cand = (id, over = {}) => ({ prospectId: id, qualification: q(), offerFit: { offerId: 'agency-leak', score: 0.7 }, contactHistory: { usable: true, priorEffect: false }, buyer: { resolved: true }, signals: [], economics: { listPriceCents: 150000, deliveryMinutes: 90 }, ...over });
 

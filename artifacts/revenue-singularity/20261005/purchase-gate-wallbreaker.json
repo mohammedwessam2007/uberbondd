@@ -1,0 +1,300 @@
+{
+  "ok": true,
+  "policyVersion": "wallbreaker-1.1.1",
+  "status": "CANDIDATE_SELECTED",
+  "problem": {
+    "ok": true,
+    "policyVersion": "wallbreaker-1.1.1",
+    "problemId": "wall_5733fcafddc6d348637ec364",
+    "problem": {
+      "objective": "Prepare Winnr $69 purchase gate without spend, new outreach, fabricated legal facts, or Intelo replay",
+      "successCriteria": [
+        "Evidence-cleared route and provider-ready payment or exact external blockers"
+      ],
+      "hardConstraints": [
+        "no-new-spend",
+        "no-fabricated-legal-evidence",
+        "no-Intelo-replay"
+      ],
+      "assumptions": [],
+      "unknowns": [
+        "Exact Egypt EDM applicability to US generic corporate inbox",
+        "PayPal account verification and live credentials",
+        "Halfteck current production history and independent route verification"
+      ],
+      "requiredCapabilities": [],
+      "requiredCapabilityAtomIds": [],
+      "ownerReservedAuthority": [],
+      "riskBudget": 2,
+      "maxSpendCents": 0,
+      "maxFounderMinutes": 30,
+      "evidenceRefs": [
+        "docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md",
+        "https://www.pdpc.gov.eg/",
+        "https://www.halfteck.com/contact.html"
+      ]
+    },
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "candidateCount": 5,
+  "eligibleCount": 3,
+  "familyCount": 3,
+  "selected": {
+    "candidate": {
+      "id": "halfteck-invited-supplier",
+      "family": "first-party-invitation",
+      "mechanism": "Retain current Halfteck supplier invitation, verify exact mailbox, production history and company-only scope before admission",
+      "requiredCapabilities": [],
+      "requiredCapabilityAtomIds": [],
+      "assumptions": [],
+      "constraintViolations": [],
+      "evidenceRefs": [],
+      "reversible": true,
+      "successProbability": 0,
+      "expectedContributionCents": 0,
+      "costCents": 0,
+      "founderMinutes": 0,
+      "risk": 1,
+      "evidenceStrength": 8,
+      "novelty": 0,
+      "robustness": 0,
+      "signature": "796698664becdf31d699914e5857d57f"
+    },
+    "eligible": true,
+    "score": 30,
+    "netExpectedContributionCents": 0,
+    "reasonCodes": [
+      "evidence-thin"
+    ],
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "fallbacks": [
+    {
+      "candidate": {
+        "id": "powerhouse-legal-determination",
+        "family": "authoritative-legal-resolution",
+        "mechanism": "Obtain route-specific written PDPC or qualified Egyptian legal determination; retain hold until actual evidence arrives",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 10,
+        "risk": 1,
+        "evidenceStrength": 8,
+        "novelty": 0,
+        "robustness": 0,
+        "signature": "432568b7faf8c958fc2e4a1a5b2fd292"
+      },
+      "eligible": true,
+      "score": 30,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [
+        "evidence-thin"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "inbound-request",
+        "family": "permissioned-inbound",
+        "mechanism": "Use an actual buyer-initiated request within its recorded purpose after applicable legal review; no request currently observed",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [],
+        "evidenceRefs": [],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 0,
+        "risk": 1,
+        "evidenceStrength": 1,
+        "novelty": 0,
+        "robustness": 0,
+        "signature": "83f64c5548ffd4ff21b58e29401f33c9"
+      },
+      "eligible": true,
+      "score": 9,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [
+        "evidence-thin"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "rejected": [
+    {
+      "candidate": {
+        "id": "assumed-exemption",
+        "family": "fabricated-clearance",
+        "mechanism": "Infer Egypt regime never applies from a US corporate inbox",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [
+          "no-fabricated-legal-evidence"
+        ],
+        "evidenceRefs": [],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 0,
+        "risk": 10,
+        "evidenceStrength": 0,
+        "novelty": 0,
+        "robustness": 0,
+        "signature": "62ed9551d6800591194d4b618704d357"
+      },
+      "eligible": false,
+      "score": null,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [
+        "hard-constraint-violation",
+        "risk-budget-violation",
+        "evidence-thin"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "candidate": {
+        "id": "intelo-resend",
+        "family": "uncertain-replay",
+        "mechanism": "Resend to discover historical delivery outcome",
+        "requiredCapabilities": [],
+        "requiredCapabilityAtomIds": [],
+        "assumptions": [],
+        "constraintViolations": [
+          "no-Intelo-replay"
+        ],
+        "evidenceRefs": [],
+        "reversible": true,
+        "successProbability": 0,
+        "expectedContributionCents": 0,
+        "costCents": 0,
+        "founderMinutes": 0,
+        "risk": 10,
+        "evidenceStrength": 0,
+        "novelty": 0,
+        "robustness": 0,
+        "signature": "9c8e45bc394db5ee548ccba5d70e0136"
+      },
+      "eligible": false,
+      "score": null,
+      "netExpectedContributionCents": 0,
+      "reasonCodes": [
+        "hard-constraint-violation",
+        "risk-budget-violation",
+        "evidence-thin"
+      ],
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "failures": [],
+  "counterplans": [],
+  "missingCapabilities": [],
+  "requiredCapabilityAtomIds": [],
+  "capabilityResolution": {
+    "ok": true,
+    "policyVersion": "wallbreaker-1.1.1",
+    "status": "GENOME_QUERY_NOT_SCOPED",
+    "requiredAtomIds": [],
+    "reasonCodes": [
+      "explicit-capability-atom-ids-required-for-genome-resolution"
+    ],
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "computeTier": "CHEAP",
+  "nextSearchInstruction": "Execute only through existing consequence gates; on failure, record evidence and replan instead of blind retry.",
+  "wallbreakerReceiptId": "wbr_3e3b64ccb2a7bfb9c7445205",
+  "businessEffectAuthority": "NONE",
+  "externalEffectLedger": {
+    "providerCalls": 0,
+    "messages": 0,
+    "purchases": 0,
+    "deployments": 0,
+    "credentialChanges": 0,
+    "dnsChanges": 0,
+    "productionMutations": 0,
+    "spendCents": 0
+  },
+  "truthClass": "INTERNAL_STRATEGY_EVALUATION_NOT_LEGAL_OR_COMMERCIAL_PROOF",
+  "observedAt": "2026-10-04T22:21:27.637Z",
+  "selectedExecutionState": "EXTERNAL_EVIDENCE_AND_AUTHENTICATION_REQUIRED"
+}

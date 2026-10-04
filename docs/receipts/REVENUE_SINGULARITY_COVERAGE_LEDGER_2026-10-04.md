@@ -53,3 +53,8 @@ Every one of the historical 25 coverage rows is retained below, with 20 explicit
 | 45 | Real commercial learning and customer outcomes | `BLOCKED_BY_GENUINE_EXTERNAL_OR_OWNER_ONLY_GATE` | Actual zero retained cleared customer/payment denominator. Replies, payments, acceptance, renewal and partner relationships require real people/providers; simulations do not satisfy them. |
 
 Machine companion: `REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`. Runtime details: `REVENUE_SINGULARITY_TERMINAL_20261004.md/json`. Older receipts remain immutable lineage; current factual contradictions are preserved.
+
+
+## Superseding Oct 5 purchase-gate refresh
+
+All 45 rows above remain dated implementation lineage. For current commercial readiness, read `WORK_WINNR_69_GATE_20261005.md` and the newest #1188 comment. Protected identity/footer and signed unsubscribe are solved; do not reopen them. Payment software remains implemented, but live PayPal authentication/provider evidence is missing. Lemon Squeezy services policy excludes the current custom service offers while preserving its adapter for eligible digital-product lineages. Powerhouse sender-side legal determination remains unresolved; Halfteck explicit supplier invitation was refreshed as a research fallback, not promoted to qualified production. Intelo remains UNKNOWN/non-replayable. Fresh local WebKit passes; fresh production browser lock is observed but has no paired session. Focused suite: 102 pass, zero fail, one DB fixture skip. No purchase, prospect send or payment movement. The eight purchase criteria and exact two-item owner queue are in the Oct 5 receipt.

@@ -108,7 +108,13 @@ test('canonical preflight composes company-only scope, exact prework, signed opt
   const changed = await runProspectPreflight(prepared); assert.equal(changed.state, 'BLOCKED_LEGAL_AUTHORITY'); assert.equal(calls, 1);
   record.corporateRoleScope.reviewedProposal.preworkDigest = createHash('sha256').update(readFileSync(new URL('./egypt-corporate-role-scope.test.mjs', import.meta.url))).digest('hex');
   record.corporateRoleScope.personalDataEnrichment = true;
-  assert.equal((await runProspectPreflight(prepared)).state, 'BLOCKED_LEGAL_AUTHORITY'); assert.equal(calls, 1);
+  const personal = await runProspectPreflight(prepared);
+  assert.equal(personal.state, 'BLOCKED_LEGAL_AUTHORITY');
+  // Pure unsubscribe preparation is permitted while an independent legal hold remains.
+  assert.equal(calls, 2);
+  assert.equal(personal.effectPackage.finalEffectDigest, null);
+  assert.equal(personal.sendAuthority, false);
+  assert.equal(personal.externalEffects, 0);
   record.corporateRoleScope.personalDataEnrichment = false;
-  assert.equal((await runProspectPreflight({ ...prepared, campaign: { campaignId: 'existing-test-campaign' } })).state, 'BLOCKED_EXTERNAL_FACT'); assert.equal(calls, 1);
+  assert.equal((await runProspectPreflight({ ...prepared, campaign: { campaignId: 'existing-test-campaign' } })).state, 'BLOCKED_EXTERNAL_FACT'); assert.equal(calls, 2);
 });

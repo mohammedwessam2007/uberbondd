@@ -1,0 +1,281 @@
+{
+  "schemaVersion": "uberbond.ubermind.checkpoint.v2",
+  "createdAt": "2026-10-05T19:52:32+03:00",
+  "purpose": "Crash-safe docs-only checkpoint of UberMind / Infinite Opus exact source truth, economics, runtime boundary and recovery frontier.",
+  "repository": {
+    "fullName": "mohammedwessam2007/uberbondd",
+    "mainSha": "647d1cf794b2b22e0be3275600da4b4a157152db",
+    "latestMergedPr": 1241,
+    "latestMergedTitle": "Add crash-safe Work continuation pointer"
+  },
+  "recentLineage": [
+    {
+      "pr": 1241,
+      "state": "MERGED",
+      "donation": "Crash-safe current Work recovery pointer; documentation only."
+    },
+    {
+      "pr": 1240,
+      "state": "MERGED",
+      "donation": "Pinned current Winnr $69 readiness frontier."
+    },
+    {
+      "pr": 1239,
+      "state": "MERGED",
+      "donation": "Reconciled Winnr $69 gate with legal fallback and payment-policy evidence."
+    },
+    {
+      "pr": 1238,
+      "state": "MERGED",
+      "donation": "Finish-to-Winnr-$69 execution handoff."
+    },
+    {
+      "pr": 1237,
+      "state": "MERGED",
+      "donation": "Revenue Singularity terminal frontier receipt."
+    },
+    {
+      "pr": 1234,
+      "state": "MERGED",
+      "donation": "Signed unsubscribe preparation before authority classification."
+    },
+    {
+      "pr": 1233,
+      "state": "MERGED",
+      "donation": "Explicit owner footer authorization persistence."
+    },
+    {
+      "pr": 1232,
+      "state": "OPEN",
+      "donation": "Older protected-runtime identity promotion lineage; not merged authority."
+    },
+    {
+      "pr": 1231,
+      "state": "MERGED",
+      "donation": "Bounded SMTP readiness failure-stage visibility."
+    },
+    {
+      "pr": 1230,
+      "state": "MERGED",
+      "donation": "Live Winnr SMTP readiness truth."
+    },
+    {
+      "pr": 1071,
+      "state": "MERGED",
+      "donation": "Full Frontier VM restored above TypingMind with no-amputation law."
+    },
+    {
+      "pr": 1072,
+      "state": "MERGED",
+      "donation": "Model-mechanics processor fabric and analytical routing economics."
+    },
+    {
+      "pr": 1073,
+      "state": "MERGED",
+      "donation": "Governed live JEV shadow/control path."
+    },
+    {
+      "pr": 1074,
+      "state": "MERGED",
+      "donation": "Dynamic Sol effort and Crown ACCEPT/PATCH protocol."
+    },
+    {
+      "pr": 1075,
+      "state": "MERGED",
+      "donation": "Adaptive candidate-writer auction with direct-Opus stop-loss."
+    }
+  ],
+  "architecture": {
+    "stableInterface": "FRONTIER(task,state,quality_contract)",
+    "hotPath": [
+      "EXACT_PRECHECK",
+      "COGNITIVE_SUPERCOMPILER",
+      "JEV_HYPERREFLEX",
+      "COGNITIVE_COMPUTE_AUCTION",
+      "ADAPTIVE_HETEROGENEOUS_SWARM",
+      "ADVERSARIAL_SYNTHESIS_COURT",
+      "LOSSLESS_FRONTIER_DELTA",
+      "MOVING_CROWN_PANTHEON",
+      "COGNITIVE_LINKER",
+      "REALITY_COURT",
+      "INTELLIGENCE_CAPITAL_EXTRACTION",
+      "JEV_SHADOW_CERTIFICATION",
+      "CODE"
+    ],
+    "layers": {
+      "L0": "EXACT_SUBSTRATE / Q_EXACT",
+      "L1": "JEV_HYPERREFLEX / Q_CERTIFIED_BOUNDED only with valid passport",
+      "L2": "CHEAP_HETEROGENEOUS_EXPLORATION / proposal only",
+      "L3": "ADVERSARIAL_SYNTHESIS_COURT / consensus has no authority",
+      "L4": "CROWN_PANTHEON / Q_FRONTIER or Q_MULTI_FRONTIER",
+      "L5": "REALITY_COURT / tests, provider receipts and world outcomes can veto models",
+      "L6": "CRYSTALLIZATION / Thought Bonds -> Decision Franchises -> paired JEV -> bounded reflex -> deterministic code"
+    },
+    "supercompilerPasses": [
+      "EXACT_PRECHECK",
+      "CONSTANT_FOLDING",
+      "COMMON_SEMANTIC_SUBEXPRESSION_ELIMINATION",
+      "DEAD_BRANCH_ELIMINATION",
+      "LOOP_INVARIANT_COGNITION_HOISTING",
+      "PARTIAL_EVALUATION",
+      "COGNITIVE_VECTORIZATION",
+      "EVIDENCE_MULTICAST",
+      "SEMANTIC_DEAD_OUTPUT_ELIMINATION",
+      "BRANCH_PREDICTION_WITH_RESERVED_FALLBACK",
+      "INCREMENTAL_RECOMPILATION",
+      "CONTEXT_LOCALITY_SCHEDULING",
+      "FRONTIER_RESIDUALIZATION"
+    ],
+    "intelligenceCapital": [
+      "FRONTIER_THOUGHT_BONDS",
+      "DECISION_FRANCHISES",
+      "VERIFIER_FOUNDRY",
+      "SOLVER_TRANSPILER",
+      "LIVING_EVIDENCE_GRAPH",
+      "SEMANTIC_DEMAND_EXCHANGE",
+      "COGNITIVE_CAPSULES_SEMANTIC_ABI",
+      "COUNTEREXAMPLE_BOUNDARY_MINER",
+      "FRONTIER_CALL_PORTFOLIO_OPTIMIZER",
+      "WORLD_THOUGHT_CAPITAL_IMPORTER",
+      "SELF_EVOLVING_TASK_CLASS_COMPILERS",
+      "FRONTIER_PATCH_PROTOCOL",
+      "PREDICTIVE_COGNITIVE_PREFETCH",
+      "REFLEX_MICROSTUDENTS",
+      "INTELLIGENCE_CAPITAL_COMPOUNDING_LEDGER",
+      "SEMANTIC_E_GRAPH",
+      "GHOST_AGENTS",
+      "CROWN_BOUNDARY_QUERYING",
+      "CROSS_DOMAIN_PRIMITIVE_MINING",
+      "OUTPUT_TOKEN_SURGERY",
+      "NEGATIVE_KNOWLEDGE_CACHE",
+      "COGNITIVE_CDN",
+      "DECISION_DAG_INCREMENTAL_RECOMPUTATION"
+    ],
+    "invariants": [
+      "new_or_uncertain=>FRONTIER",
+      "bounded_certified=>JEV",
+      "exact_stable=>CODE",
+      "drift=>FRONTIER",
+      "JEV_MAY_NOT_SUPPRESS_REQUIRED_CROWN_WITHOUT_CERTIFICATION",
+      "REALITY_CAN_VETO_ALL_MODELS"
+    ]
+  },
+  "modelMechanicsRoles": {
+    "jev": {
+      "model": "typesafe/jev-1.13",
+      "role": "typed semantic control plane; vectorized Choice/Score/Noul over shared state; shadow or certified-bounded authority only"
+    },
+    "mimo": {
+      "model": "xiaomi/mimo-v2.6-flash",
+      "role": "cheap large-context/multimodal bandwidth, extraction and candidate generation; proposal only"
+    },
+    "deepseek": {
+      "model": "deepseek/deepseek-v4.1-flash",
+      "role": "divergent/counterexample and persistent cheap branch; proposal only"
+    },
+    "glmFlash": {
+      "model": "z-ai/glm-5.3-flash",
+      "role": "agentic long-context/tool-loop diversity; proposal only"
+    },
+    "sonnet": {
+      "model": "anthropic/claude-sonnet-5.5",
+      "role": "mid-tier Anthropic specialist when it shrinks Crown residual; proposal unless separately promoted"
+    },
+    "sol": {
+      "model": "openai/gpt-6.1-sol",
+      "role": "primary constructive builder with dynamic reasoning effort"
+    },
+    "solPro": {
+      "model": "openai/gpt-6.1-sol-pro",
+      "role": "hard residual only after ordinary Sol high/max evidence"
+    },
+    "opus": {
+      "model": "anthropic/claude-opus-5.5",
+      "role": "general Crown candidate for irreducible semantic delta; ACCEPT/PATCH preferred to rewrite"
+    }
+  },
+  "economics": {
+    "benchmarkContract": {
+      "name": "COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1",
+      "inputTokens": 10000,
+      "expectedFinalOutputTokens": 2000,
+      "cacheAssumption": "NONE",
+      "jevAllowanceTokens": 32000,
+      "crownAcceptTokens": 6,
+      "candidateWriter": "cheapest eligible writer under merged routing logic; no assumed cache or suppression"
+    },
+    "verifiedTariffsAtCheckpoint": {
+      "opus": {
+        "inputUsdPerMillion": 4,
+        "outputUsdPerMillion": 20,
+        "source": "OpenRouter model page observed 2026-10-05"
+      },
+      "mimo": {
+        "inputUsdPerMillion": 0.1,
+        "outputUsdPerMillion": 0.28,
+        "source": "OpenRouter model page observed 2026-10-05; headline cheapest-provider input price changed from merged fabric's 0.14"
+      },
+      "jev": {
+        "inputUsdPerMillion": 0.042,
+        "outputUsdPerMillion": 0,
+        "source": "OpenRouter model page observed 2026-10-05"
+      }
+    },
+    "calculation": {
+      "directOpusUsd": 0.08,
+      "mimoWriterUsd": 0.00156,
+      "opusDeltaReviewUsd": 0.04812,
+      "conservativeJevAllowanceUsd": 0.001344,
+      "uberMindPlanningUsd": 0.051024,
+      "canonicalColdFrontierExactMultiplier": 1.5678896205707118,
+      "dashboardMultiplier": 1.56
+    },
+    "guaranteedDirectOpusEconomicFloorMultiplier": 1,
+    "realizedPortfolioMultiplier": null,
+    "realizedPortfolioStatus": "UNMEASURED_UNTIL_MATCHED_LIVE_RECEIPTS_EXIST",
+    "milestoneTargetMultiplier": 33333.333333,
+    "milestoneDefinition": "At <= USD 30 observed all-in cost, accumulate >= USD 1,000,000 of conservative matched direct-frontier reference work with zero counted quality regressions.",
+    "antiFantasyLaw": "Never count assumed reuse, synthetic fanout, unverified JEV suppression, or unobserved cache discounts as realized savings.",
+    "tariffDrift": "Merged config/openrouter-processor-fabric-v5.json still encodes MiMo input $0.14/M while current OpenRouter headline route is $0.10/M. This checkpoint recalculates from current verified tariff without mutating runtime/config."
+  },
+  "sourceVsRuntime": {
+    "sourceMain": "647d1cf794b2b22e0be3275600da4b4a157152db",
+    "sourceTruth": "Frontier VM/JEV/Supercompiler/Reality Court/intelligence-capital and routing code are merged; later Revenue Singularity/Winnr handoffs are also merged.",
+    "lastRepoRecordedExactExecutableRenderSource": "331256bcef77e255ac4626f6c28e9f3cf32539f7",
+    "lastRepoRecordedRenderService": "srv-dali9vijnfac739m4vcg",
+    "lastRepoRecordedRenderDeploy": "dep-db1d600u01pc73dtb53g",
+    "lastRepoRecordedRenderStatus": "LIVE",
+    "currentMainRelation": "Current main is documentation/recovery material ahead of the last repo-recorded exact executable/live source; no claim that every later documentation commit was deployed.",
+    "directRenderObservation": "NOT_REOBSERVED_THIS_RUN because connector requires interactive workspace selection; no workspace was guessed.",
+    "hostedCiTruth": "Do not infer green from runner-zero/no-step or provider build-rate-limit behavior."
+  },
+  "blockers": [
+    "No matched live JEV/writer/Crown/reference receipts establish a realized portfolio multiplier.",
+    "JEV suppression remains uncertified for raw fresh frontier semantics and is not credited.",
+    "MiMo tariff metadata in merged processor fabric is stale versus current OpenRouter headline input tariff; docs-only checkpoint records drift but does not alter runtime code.",
+    "Direct Render re-observation is unavailable non-interactively without an already-selected workspace; last durable repo receipt is preserved instead.",
+    "Commercial frontier remains WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES: route-specific legal evidence and provider-origin payment LIVE_READY remain external gates; no new spend is authorized."
+  ],
+  "nextVerifiedFrontier": [
+    "Collect matched live cold-frontier receipts under the declared benchmark contract and compute the first defensible realized portfolio multiplier.",
+    "Pair JEV decisions against Crown outcomes until a bounded circuit earns zero-loss certification; only then may suppression savings be realized.",
+    "Refresh tariff metadata in a separate runtime-authorized change, never inside this docs-only checkpoint.",
+    "Re-observe exact Render parity when a workspace is explicitly selected or newer durable provider evidence appears.",
+    "Continue current Winnr/Revenue Singularity external-gate closure without weakening legal, payment, sender-health, or effect-authorization boundaries."
+  ],
+  "recovery": {
+    "law": "Refresh main first; this checkpoint preserves continuity and does not override newer source/provider/world evidence.",
+    "readOrder": [
+      "AGENTS.md",
+      "root CLAUDE.md",
+      ".claude/CLAUDE.md",
+      "newest GitHub issue #1188 comment",
+      "docs/handoffs/WORK_CURRENT.md",
+      "docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md",
+      "config/openrouter-frontier-vm-full-stack-v4.json",
+      "config/openrouter-processor-fabric-v5.json",
+      "src/openrouter-processor-auction-v5.mjs",
+      "this checkpoint"
+    ]
+  }
+}

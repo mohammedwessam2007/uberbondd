@@ -8,7 +8,7 @@ const FIELD_CLASSES = new Set([
   'FORECAST_MECHANISM', 'CALIBRATION_FIELD', 'DECISION_PACKET_FIELD'
 ]);
 const STRONG_MATCHES = new Set(['EXACT_SLUG', 'DECLARED_AND_VERIFIED']);
-const LIVE_REACHABILITY = new Set(['PRODUCTION', 'OPERATOR_ONLY']);
+const LIVE_REACHABILITY = new Set(['PRODUCTION', 'OPERATOR_ONLY', 'FOUNDER_INTERACTIVE_ONLY']);
 const unique = values => [...new Set(values.filter(Boolean))];
 
 function fail(reasonCodes, extra = {}) {
@@ -69,6 +69,11 @@ export function verifyCoverageStateEvidenceIntegrity(coverage = {}) {
       if (!LIVE_REACHABILITY.has(evidence.reachability)) add('verified-current-requires-live-reachability');
       if (evidence.matchScope !== 'WHOLE_NAME') add('verified-current-requires-whole-name-evidence');
       if (!STRONG_MATCHES.has(evidence.matchStrength)) add('verified-current-requires-strong-match');
+    }
+
+    if (state === 'ENFORCED_BY_CODE') {
+      if (sources.length === 0) add('enforced-by-code-requires-source-evidence');
+      if (tests.length === 0) add('enforced-by-code-requires-test-evidence');
     }
 
     if (state === 'PARTIAL_CURRENT' && sources.length === 0) {

@@ -14,7 +14,7 @@ import { WALLBREAKER_POLICY_VERSION } from '../src/wallbreaker.mjs';
 import { summarizeEventHorizon } from '../src/event-horizon.mjs';
 import { summarizeWorldBrainFieldMission } from '../src/world-brain-field-mission.mjs';
 
-export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.0';
+export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.1';
 export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
 export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md';
 export const EXTERNAL_CAPABILITY_REGISTRY_PATH = 'artifacts/external-skill-plugin-registry.json';
@@ -210,7 +210,10 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     corpusState,
     bodyCorpusState,
     normalizedRecordState,
-    now
+    now,
+    // The committed pilot proves the bounded pipeline executed; it is not the
+    // live world-refresh corpus. Current evidence paths retain strict freshness.
+    freshnessPolicy: 'HISTORICAL_PILOT'
   });
   if (!capabilityGenome.ok) {
     const error = new Error('capability-genome-health-failed');

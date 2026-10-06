@@ -302,6 +302,23 @@ test('a law nothing enforces stays SPEC_ONLY, which is the alarming answer', () 
   );
 });
 
+test('ENFORCED_BY_CODE carries the exact verified source and test witnesses into its row', () => {
+  const matrix = compileCoverageMatrix({
+    concepts: [lawConcept],
+    repoIndex: index,
+    enforcement: [{
+      concept: 'Capability does not create authority',
+      sources: ['src/wallbreaker.mjs'],
+      tests: ['tests/wallbreaker.test.mjs']
+    }]
+  });
+  assert.equal(matrix.ok, true, JSON.stringify(matrix));
+  assert.equal(matrix.rows[0].currentState, 'ENFORCED_BY_CODE');
+  assert.deepEqual(matrix.rows[0].currentEvidence.sourceModules, ['src/wallbreaker.mjs']);
+  assert.deepEqual(matrix.rows[0].currentEvidence.testModules, ['tests/wallbreaker.test.mjs']);
+  assert.equal(matrix.rows[0].currentEvidence.enforcementEvidenceBound, true);
+});
+
 test('an enforcement declaration naming a missing file fails the whole compile', () => {
   const matrix = compileCoverageMatrix({
     concepts: [lawConcept],

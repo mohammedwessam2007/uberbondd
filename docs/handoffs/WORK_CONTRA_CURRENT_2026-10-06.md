@@ -1,47 +1,86 @@
 # Contra first-cash continuation
 
-Status: CONTRA_BLOCKED_OWNER_PROVIDER — partial internal preparation, NOT mission terminal completion.
-Recovered main: 647d1cf794b2b22e0be3275600da4b4a157152db, refreshed October 6 Cairo. Isolated branch: work/contra-first-cash-20261006. Preserve unmerged XPay PR #1242 and all solved Revenue Singularity layers. No Winnr purchase in this mission.
+Status: `CONTRA_EGYPT_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_SETUP_PENDING`
 
-## Exact current access truth
+Recovered main: `647d1cf794b2b22e0be3275600da4b4a157152db`, refreshed October 6 Cairo. Preserve unmerged XPay PR #1242, all solved Revenue Singularity layers and the current launch law in `docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`.
 
-Latest issue #1188 comment 6001861115 confirms an existing Contra account from account emails and a sent support inquiry about Egypt-individual eligibility, QNB compatibility, address-proof alternatives and merchant/card-link review. Inquiry sent is not approval. The authenticated account has not been recovered in this browser: homepage shows Log in; the prior secure sign-in request was interrupted, and a fresh October 6 page again shows Log in. Do not create a duplicate account. No account fields, KYC, tax, payout method or provider proposal has been changed or verified.
+Contra is the preferred zero-new-recurring-cost first-cash path, but its unfinished account setup is no longer a blocker to buying Winnr. It remains a blocker to claiming the collection rail is account-ready.
 
-Prepared internal documents: docs/contracts/UBERBOND_CONTRA_MASTER_DRAFT.md and docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md. They are unsigned, unsent and not yet provider drafts. Canonical scope/acceptance recovered; price remains a hypothesis and delivery duration is not established. Do not conceal those missing facts with defaults.
+## Exact current provider truth
 
-## Provider evidence matrix
+An existing Contra account is evidenced by prior account emails. Do not create a duplicate account.
 
-All following capabilities are DOCUMENTED_SUPPORTED only, not ACCOUNT_AVAILABLE or LIVE_READY:
+Contra support directly confirmed to Mohamed on October 6 that:
 
-| Capability | Evidence / boundary |
+1. payments can be received through invoices, projects and payment links;
+2. Egyptian bank accounts are supported for payout through SWIFT;
+3. proof of address or other additional documents are requested only if the payment processor asks for them during KYC;
+4. Contra did not identify a separate merchant-review gate before these payment mechanisms, although standard payout review may occur when withdrawing.
+
+This moves the country/rail state beyond generic documentation to `EGYPT_ROUTE_PROVIDER_CONFIRMED`.
+
+It does NOT prove the exact existing account's authenticated state, KYC/tax completion, Wallet state, payout destination, available currencies, exact fees, payout timing or ability to create a payment request at this moment. Those remain account-specific observations.
+
+## Current access truth
+
+The authenticated account was not recovered in the previous browser continuation. The visible Contra page returned to Log in after the secure sign-in flow was interrupted. No account field, KYC certification, tax declaration, payout method, proposal, invoice or payment request has been changed or sent.
+
+Next account-level boundary remains: recover the EXISTING Contra account using the provider's secure sign-in flow. Passwords/OTPs are never requested in chat or retrieved from Gmail for the user.
+
+## Prepared contract/project package
+
+Prepared internal documents:
+
+- `docs/contracts/UBERBOND_CONTRA_MASTER_DRAFT.md`
+- `docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md`
+
+They remain unsigned, unsent internal drafts and are not yet provider projects.
+
+Powerhouse remains a ranked prospect, not a won client. The recovered USD 2,500 one-client figure remains a commercial hypothesis, not an approved quote or buyer acceptance. Delivery duration remains unresolved until actual systems/data/access are known. Do not hide those unknowns with invented defaults.
+
+## Capability/evidence matrix
+
+| Capability | Current truth |
 |---|---|
-| Fixed and milestone escrow | Official paid-project guide: fee funded before work; releases subject to approval; optional upfront release. Preserve actual agreement. |
-| One-off invoices / payment links | Official help/MCP describes them; do not create/send a payment request as a test. |
-| Card | Official fees guide lists valid credit/debit cards; actual account merchant eligibility unverified. |
-| ACH / SEPA | Client request/review needed under documented fees; account/client eligibility unverified. |
-| Wallet / wire / bank details | Country/account-dependent. No bank-transfer receiving details observed. |
-| Egypt EGP payout | Listed in official fees with local payout processor 1% and non-major currency FX 1%; eligibility, destination and total fees still require account/provider evidence. |
-| USD balance | Official guide describes Contra funds in USD; platform balance is not cleared bank cash. |
-| Identity / tax | Persona identity verification documented; W-8BEN collection by payment processors documented. Actual requirements/status not inspected. Owner performs biometric and personal certification. |
-| Payout timing | Standard/faster routes and review exist; no account-specific timing observed. Pending ACH/SEPA collection is not withdrawal timing or settlement proof. |
-| Fees | Free transaction fee documented as $15 for $1–499 and $29 for $500+; card base 2.9%+$0.30 plus applicable manual/international/FX charges. Recheck exact current checkout. No paid Contra subscription accepted. |
+| invoices / projects / payment links for Egyptian user | `PROVIDER_CONFIRMED` |
+| Egyptian bank payout through SWIFT | `PROVIDER_CONFIRMED` |
+| exact existing account authenticated | `NOT_YET_OBSERVED` |
+| exact account KYC/tax state | `NOT_YET_OBSERVED` |
+| exact Wallet/payment-request availability | `NOT_YET_OBSERVED` |
+| exact payout destination / QNB compatibility on this account | `NOT_YET_OBSERVED` |
+| exact current fees/timing/FX on this account | `NOT_YET_OBSERVED` |
+| fixed/milestone escrow semantics | `DOCUMENTED_SUPPORTED` |
+| official Contra MCP | `DOCUMENTED_SUPPORTED__AUTHENTICATED_SCHEMA_NOT_INSPECTED` |
+| cleared bank cash | `NONE_CLAIMED` |
 
-Primary sources reviewed: https://help.contra.com/en/articles/9322763-paid-projects ; https://help.contra.com/en/articles/9322934-fees-overview ; https://help.contra.com/en/articles/9322950-your-contra-wallet ; https://help.contra.com/en/articles/9322955-how-to-verify-your-identity-on-contra ; https://help.contra.com/en/articles/11475790-taxes-and-compliance ; https://help.contra.com/en/articles/9322944-what-to-do-if-your-payout-on-contra-is-delayed ; https://contra.com/features/mcp . Guest payment checkout is documented; do not assert guest project signature requires no lightweight onboarding.
+Official help already reviewed covers paid projects, fees, Wallet, Persona identity verification, taxes/compliance and payout delays. Contra also documents an official MCP integration with authenticated transaction/project/proposal/invoice/payment-link operations and prepare→confirm writes. Do not manufacture settlement/webhook semantics that have not been inspected.
 
-## Supported integration frontier
+## Canonical money-truth boundary
 
-Contra officially exposes MCP with authenticated transaction history, project/proposal/invoice/payment-link operations, hosted OAuth and prepare→confirm write operations whose preparation expires after 15 minutes. This is a real supported integration candidate. Do NOT claim there is no API. No authenticated MCP tool schema, settlement semantics, reversal coverage or webhook contract has been inspected; therefore no live payment adapter is implemented. Do not manufacture endpoint/event names or use private GraphQL/scraping.
+Reuse existing receivables/reconciliation/payment-verification architecture. Required truth path remains:
 
-Reuse existing src/receivables-contract.mjs, src/billing-webhook-boundary.mjs, src/billing-webhook-repository.mjs, src/payment-reconciliation-worker.mjs, src/payment-verify-cleared.mjs and delivery gates. Required path: provider-origin evidence → durable billing inbox → canonical reconciliation → witness → cleared-payment truth → delivery authorization. A manual provider evidence/import boundary is required wherever supported APIs cannot provide the exact evidence; manual entry is not self-authenticating provider proof.
+provider-origin evidence -> durable billing evidence -> canonical reconciliation -> witness -> payment truth -> delivery authorization.
 
-Keep distinct lifecycle observations:
-CONTRACT_DRAFTED → CONTRACT_SENT → CONTRACT_SIGNED → PAYMENT_REQUESTED → PAYMENT_PENDING → FUNDED_OR_ESCROWED → PROVIDER_PAID → PAYOUT_PENDING → PAYOUT_CLEARED.
-This is a vocabulary, not a mandatory linear progression or executable adapter. REFUNDED, REVERSED, DISPUTED and failed payouts can occur later and must downgrade/invalidate economic truth. Signature, invoice creation, initiated payment, escrow and wallet balance never mint cleared cash. Escrow-funded delivery is a separate policy question; do not relax current cleared-payment delivery gate to make escrow usable.
+Keep lifecycle observations distinct:
 
-## Continue internally after access
+`CONTRACT_DRAFTED -> CONTRACT_SENT -> CONTRACT_SIGNED -> PAYMENT_REQUESTED -> PAYMENT_PENDING -> FUNDED_OR_ESCROWED -> PROVIDER_PAID -> PAYOUT_PENDING -> PAYOUT_CLEARED`
 
-Inspect actual Independent account, Egypt identity/country and free plan; capture current KYC/tax/payout screens and evidence without secrets. Populate routine truthful fields from protected records, stop at owner certification/biometrics/financial account assent. Verify account payment rails, currencies, withdrawal destination, timing and fee allocation. Inspect actual standard agreement and save a reversible unsent provider draft only if creation cannot notify a client. Bind the contract compiler to canonical records without copying PII into Git. Inspect official MCP tool schemas and payment-state evidence before implementing supported adapter/owner UI; otherwise leave manual boundary fail closed. Run focused adversarial tests for any executable changes, then update receipt/handoff and review/merge verified changes.
+This is vocabulary, not a guaranteed linear progression. Refunds, reversals, disputes and failed payouts can downgrade prior economic truth. Signature, invoice creation, escrow funding and Wallet balance never mint cleared cash by themselves.
 
-Next exact owner gate: Contra login dialog → use secure sign-in for the EXISTING account → completion evidenced by an authenticated Contra account/profile/workspace. No password/OTP in chat or Gmail retrieval. KYC/tax/bank gates cannot be specified honestly before that screen is inspected. Price/timing can be decided after qualification; do not send Powerhouse anything now.
+## Continue after account access
 
-No external messages, proposals, payment requests, charges, transfers, purchases, paid plans or production changes performed by this continuation. No cash received claimed. This checkpoint is not CONTRA_FIRST_CASH_READY and does not certify every internal mission item finished.
+1. Inspect actual Independent-account country/plan/profile state without leaking secrets.
+2. Complete only the KYC/tax/address steps Contra actually requires. Owner performs biometric/certification steps.
+3. Configure the supported Egyptian SWIFT payout destination if exposed; verify the actual bank-destination acceptance, timing and fees from the account/provider.
+4. Confirm the authenticated account can create the intended invoice/project/payment-link path. Do not send a client payment request merely as a test.
+5. Inspect the actual Contra agreement/project baseline before turning the internal draft into a provider draft.
+6. Inspect authenticated MCP schemas/payment-state evidence before implementing a live adapter; otherwise keep a fail-closed manual evidence/import boundary.
+7. Preserve XPay and recovered Payoneer as backups. PayPal is not a recovery target.
+
+## Relation to Winnr
+
+Contra account completion is a `COLLECTION_READY` gate, not a `PURCHASE_READY` gate for Winnr.
+
+Winnr may be purchased once its own exact $69 terms/capacity/economics are acceptable and Mohamed explicitly authorizes the spend. Contra should then finish in parallel before UberBond relies on it to collect client money.
+
+No client message, proposal, payment request, charge, transfer, paid Contra plan or cash-received claim is authorized by this handoff.

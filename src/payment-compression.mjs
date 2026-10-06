@@ -6,9 +6,11 @@
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const PAYMENT_COMPRESSION_VERSION = 'uberbond.payment-compression.v1';
-const READY = new Set(['LIVE_READY', 'READY_FOR_LIVE']);
+const READY = new Set(['LIVE_READY', 'READY_FOR_LIVE', 'COLLECTION_READY']);
 
-/** rails: [{ provider, state, regions?, frictionSteps? }] from the rail doctor. */
+/** rails: [{ provider, state, regions?, frictionSteps? }] from a verified rail/account readiness surface.
+ * COLLECTION_READY is admitted only for the manual Contra workflow; it means the
+ * account can accept a payment request, never that cash is cleared. */
 export function compressPayment({ rails = [], buyerRegion = null, amountCents = 0, currency = 'USD' } = {}) {
   const usable = rails.filter(r => READY.has(r.state) && (!buyerRegion || !r.regions || r.regions.includes(buyerRegion)));
   const sandboxOnly = rails.filter(r => r.state === 'READY_FOR_SANDBOX');

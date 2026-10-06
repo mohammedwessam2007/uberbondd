@@ -65,7 +65,8 @@ test('fresh fully satisfied Contra observation becomes the selected collection p
   assert.equal(compressed.state, 'PAYMENT_PATH_COMPRESSED');
   assert.equal(compressed.provider, 'contra');
   assert.equal(compressed.outboundAuthority, 'NONE');
-  assert.equal(compressed.externalEffectLedger.paymentMutations, 0);
+  assert.equal(compressed.externalEffectLedger.messages, 0);
+  assert.equal(compressed.externalEffectLedger.purchases, 0);
 });
 
 test('an unresolved Contra provider requirement blocks compression again', () => {

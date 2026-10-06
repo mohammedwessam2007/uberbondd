@@ -19,7 +19,7 @@ if (!result.ok) {
 }
 const output = resolve(root, process.argv[2] || 'artifacts/cognitive/uberbond-ultimate-graph-latest.json');
 await mkdir(dirname(output), { recursive: true });
-await writeFile(output, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
+await writeFile(output, `${JSON.stringify(result)}\n`, 'utf8');
 process.stdout.write(`${JSON.stringify({
   ok: true,
   status: result.status,

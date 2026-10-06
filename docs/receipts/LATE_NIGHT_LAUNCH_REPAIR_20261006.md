@@ -48,3 +48,8 @@ This specifically prevents false bindings from generic `company-*` and `living-e
 Exact-head `b8bd02cadf37f96afd6408cf904edf83609e28a2` reduced the semantic tribunal from four invalid finite contracts to one: `total-brain:night-frontier` with only `caller-required`.
 
 Inspection showed the declared module is tested but deliberately `AWAITING_ACTIVATION` and has no runtime caller. Rather than minting a fake caller, donor classification is tightened so `CLASSIFIED_OR_UNREACHABLE` implementation evidence cannot promote a historical donor into current finite behavior. Exact/whole-name donor code that is genuinely production/operator reachable can still promote normally.
+
+
+## Coverage operator-reachability contradiction
+
+The 59fc exact-head private build still reported Night Frontier as a finite caller-less behavior. Inspection found the coverage index itself re-admitted every gated source file as `operatorReachable` immediately after excluding those files from `productionReachable`. The candidate now removes registered gated modules from both approximation lists and adds a regression asserting no classified/gated path leaks into operator reachability. The exact reachability ratchet remains authoritative for the detailed partition.

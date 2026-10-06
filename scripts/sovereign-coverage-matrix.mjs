@@ -198,11 +198,12 @@ export function repoIndex() {
     sourceFiles,
     testFiles,
     // Approximate rather than pretending: a module carrying a registered gate is
-    // deliberately unreached, and anything else with a source file is treated as
-    // operator-reachable at worst. The exact production partition lives in the
-    // reachability ratchet and is not recomputed here.
+    // deliberately unreached. Do not re-admit the same gated file through the
+    // operator approximation after excluding it from production. Ungated files
+    // are treated as reachable-at-worst here; the exact production/operator
+    // partition lives in the reachability ratchet and is not recomputed here.
     productionReachable: sourceFiles.filter(file => !gated.has(file)),
-    operatorReachable: sourceFiles
+    operatorReachable: sourceFiles.filter(file => !gated.has(file))
   };
 }
 

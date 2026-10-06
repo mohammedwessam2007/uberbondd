@@ -2,7 +2,7 @@
 
 Date: 2026-10-06 (Africa/Cairo)
 
-Status: `NIGHT_FRONTIER_DONOR_TRUTH_REPAIRED__VERCEL_RECHECK_PENDING`
+Status: `COVERAGE_REACHABILITY_CONTRADICTION_REPAIRED__VERCEL_RECHECK_PENDING`
 
 Base source inspected: `c49df1d0f2825512077e55708ee1e014f1fd45e2`
 
@@ -61,3 +61,10 @@ The repair keeps whole-name donor promotion intact, preserves partial evidence o
 The next exact-head Vercel run reduced semantic invalid contracts from 4 to 1: `total-brain:night-frontier`, `caller-required`.
 
 The declared Night Frontier module is `src/overnight/control/automation-acquisition-frontier.mjs`. It is real, tested, and intentionally classified `AWAITING_ACTIVATION` behind `NO_PROVIDER_ADAPTER_CONFIGURED`; repository search confirmed there is no runtime caller. The repair therefore does not invent a caller. Donor promotion now also requires that matched implementation evidence be currently reachable. Tested but deliberately classified/unreached donor code stays `HISTORICAL_DONOR_PRESERVED` until a real activation path exists.
+
+
+## Coverage reachability contradiction
+
+The first 59fc preview proved Night Frontier still appeared operator-reachable. Root cause was in `scripts/sovereign-coverage-matrix.mjs::repoIndex()`: registered gated modules were excluded from `productionReachable` but then all source files, including the same gated modules, were inserted into `operatorReachable`. That contradicted the comment and the canonical reachability classification.
+
+The repair excludes registered gated modules from both approximation lists. This does not claim an exact production/operator partition; the reachability ratchet remains the exact authority. It only prevents an explicitly unreached module from being re-admitted by the approximate coverage index.

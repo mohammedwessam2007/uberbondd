@@ -158,6 +158,20 @@ test('a historical donor with tested but intentionally unreached code remains hi
   }
 });
 
+test('a donor cannot become current from a fuzzy whole-name all-token verification-script match', () => {
+  const nightIndex = {
+    sourceFiles: ['scripts/night-verification-frontier-open-model-mutations.mjs'],
+    testFiles: ['tests/night-verification-frontier-open-model.test.mjs'],
+    productionReachable: [],
+    operatorReachable: ['scripts/night-verification-frontier-open-model-mutations.mjs']
+  };
+  const evidence = locateEvidence({ name: 'Night Frontier' }, nightIndex);
+  assert.equal(evidence.matchScope, 'WHOLE_NAME');
+  assert.equal(evidence.matchStrength, 'ALL_TOKENS');
+  assert.equal(evidence.reachability, 'OPERATOR_ONLY');
+  assert.equal(classifyState({ name: 'Night Frontier', class: 'NAMED_INITIATIVE' }, evidence), 'HISTORICAL_DONOR_PRESERVED');
+});
+
 test('common vocabulary cannot become evidence', () => {
   // Without this, every concept containing "system" collects every module with
   // "system" in its name, and the matrix goes green on nothing.

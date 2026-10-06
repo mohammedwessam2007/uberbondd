@@ -401,9 +401,12 @@ export function classifyState(concept, evidence) {
   // company-* module. A partial match remains visible in currentEvidence while
   // the donor itself stays historical until whole-name or declared evidence
   // binds it.
-  if (DONOR_CLASSES.includes(concept.class)
-      && (evidence?.matchScope === 'SUB_PHRASE' || evidence?.reachability === 'CLASSIFIED_OR_UNREACHABLE')) {
-    return 'HISTORICAL_DONOR_PRESERVED';
+  if (DONOR_CLASSES.includes(concept.class)) {
+    const strongCurrentDonorEvidence = evidence?.matchScope === 'WHOLE_NAME'
+      && ['EXACT_SLUG', 'DECLARED_AND_VERIFIED'].includes(evidence?.matchStrength)
+      && evidence?.reachability
+      && evidence.reachability !== 'CLASSIFIED_OR_UNREACHABLE';
+    if (!strongCurrentDonorEvidence) return 'HISTORICAL_DONOR_PRESERVED';
   }
 
   if (!evidence || evidence.matchStrength === 'NO_DISTINCTIVE_TOKENS') return 'UNKNOWN';

@@ -11,6 +11,7 @@ import { transitionCapability } from '../src/capability-genome-admission.mjs';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const atomTaxonomy = JSON.parse(fs.readFileSync(path.join(root, 'artifacts/capability-genome/capability-atoms.json'), 'utf8'));
 const evidenceTerms = JSON.parse(fs.readFileSync(path.join(root, 'artifacts/capability-genome/atom-evidence-terms.json'), 'utf8'));
+const fixtureNow = new Date('2026-09-02T04:30:00.000Z');
 
 const sourceRegistry = {
   schemaVersion: 'uberbond.capability-genome.sources.v1',
@@ -46,7 +47,7 @@ const manifest = (overrides = {}) => ({
 });
 
 const inspect = (capabilityRecords, normalizedRecordState) =>
-  inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords, normalizedRecordState });
+  inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords, normalizedRecordState, now: fixtureNow });
 
 test('normalized records are counted, and every later rung still reports zero', () => {
   const result = inspect([first, second], manifest());
@@ -96,7 +97,8 @@ test('the committed normalization receipt passes the doctor it feeds', () => {
     sourceRegistry: JSON.parse(fs.readFileSync(path.join(root, 'artifacts/capability-genome/source-registry.json'), 'utf8')),
     atomTaxonomy,
     capabilityRecords: receipt.capabilities,
-    normalizedRecordState: receipt
+    normalizedRecordState: receipt,
+    now: fixtureNow
   });
   assert.equal(result.ok, true, JSON.stringify(result.reasonCodes));
   assert.equal(result.state.worldCapabilityRecordsNormalized, 2);
@@ -110,7 +112,7 @@ test('an approved record is never counted as a normalized one', () => {
   // The counter used to read the list length, so a promoted record would have
   // been reported at the rung it left behind.
   const approved = { ...structuredClone(first), promotionState: 'APPROVED' };
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords: [approved] });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords: [approved], now: fixtureNow });
   assert.equal(result.ok, true, JSON.stringify(result.reasonCodes));
   assert.equal(result.state.worldCapabilityRecordsNormalized, 0);
   assert.equal(result.state.capabilityRecordCount, 1);

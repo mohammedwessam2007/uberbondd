@@ -2,7 +2,7 @@
 
 Date: 2026-10-06 (Africa/Cairo)
 
-Status: `REPAIR_CANDIDATE_PERSISTED__VERIFICATION_PENDING`
+Status: `REACHABILITY_CLASSIFICATION_RECOVERED__VERCEL_RECHECK_PENDING`
 
 Base source inspected: `c49df1d0f2825512077e55708ee1e014f1fd45e2`
 
@@ -37,3 +37,10 @@ The Vercel Sandbox Hobby monthly usage cap is now exhausted. Continue exact-head
 - no Intelo replay, duplicate provider account, quarantine release, or false cleared-cash claim.
 
 No prospect send, purchase, payment request, customer money movement, DNS change or credential change is authorized or performed by this repair.
+
+
+## Recovered stranded reachability work
+
+The first persisted-head Vercel builds executed source and refused current-truth regeneration because exactly 14 source modules were unclassified. PR #1209 from 2026-10-04 already contained an additions-only fail-closed reconciliation for the exact same 14 modules. That donor work was stranded on an old base, so it was not merged wholesale. Its three activation gates and 14 module classifications were transplanted onto the current repair head with provenance preserved in `docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`.
+
+This classifies latent modules. It does not wire them into runtime, admit Crown authority, create provider calls, or create a second spend ledger.

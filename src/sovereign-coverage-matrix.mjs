@@ -576,18 +576,32 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
         })
         : evidenceState;
 
+    // ENFORCED_BY_CODE is granted only from a verified enforcement declaration.
+    // Carry those exact witnesses into the row that receives the state. Without
+    // this, the compiler can truthfully verify the declaration and then emit a
+    // row whose own evidence cannot reconstruct why it was promoted.
+    const rowEvidence = enforcement && LAW_CLASSES.includes(concept.class)
+      ? {
+          ...evidence,
+          sources: [...new Set([...(evidence.sources || []), ...enforcement.sources])],
+          tests: [...new Set([...(evidence.tests || []), ...enforcement.tests])],
+          enforcementEvidenceBound: true
+        }
+      : evidence;
+
     const row = {
       canonicalId,
       literalNames: [name, ...(concept.aliases || [])].filter(Boolean),
       class: concept.class || 'CONCEPT',
       currentState,
       currentEvidence: {
-        sourceModules: evidence.sources,
-        testModules: evidence.tests,
-        reachability: evidence.reachability,
-        matchStrength: evidence.matchStrength,
-        matchScope: evidence.matchScope,
-        matchedPhrase: evidence.matchedPhrase,
+        sourceModules: rowEvidence.sources,
+        testModules: rowEvidence.tests,
+        reachability: rowEvidence.reachability,
+        matchStrength: rowEvidence.matchStrength,
+        matchScope: rowEvidence.matchScope,
+        matchedPhrase: rowEvidence.matchedPhrase,
+        enforcementEvidenceBound: rowEvidence.enforcementEvidenceBound === true,
         // Said in the row, not only in this file's header: a filename is not a
         // working feature, and a reader scanning states needs that on the row.
         boundary: 'FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME'

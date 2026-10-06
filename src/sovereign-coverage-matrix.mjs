@@ -403,7 +403,7 @@ export function classifyState(concept, evidence) {
   // binds it.
   if (DONOR_CLASSES.includes(concept.class)
       && (evidence?.matchScope === 'SUB_PHRASE' || evidence?.reachability === 'CLASSIFIED_OR_UNREACHABLE')) {
-    return 'SPEC_ONLY';
+    return 'HISTORICAL_DONOR_PRESERVED';
   }
 
   if (!evidence || evidence.matchStrength === 'NO_DISTINCTIVE_TOKENS') return 'UNKNOWN';

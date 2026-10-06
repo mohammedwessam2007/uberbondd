@@ -134,11 +134,11 @@ test('a historical donor cannot be promoted by a partial-name collision', () => 
   };
   const distribution = locateEvidence({ name: 'World Distribution and Company OS' }, collisionIndex);
   assert.equal(distribution.matchScope, 'SUB_PHRASE');
-  assert.equal(classifyState({ name: 'World Distribution and Company OS', class: 'NAMED_INITIATIVE' }, distribution), 'SPEC_ONLY');
+  assert.equal(classifyState({ name: 'World Distribution and Company OS', class: 'NAMED_INITIATIVE' }, distribution), 'HISTORICAL_DONOR_PRESERVED');
 
   const evidenceGraph = locateEvidence({ name: 'Evidence Graph and Reconciliation Network' }, collisionIndex);
   assert.equal(evidenceGraph.matchScope, 'SUB_PHRASE');
-  assert.equal(classifyState({ name: 'Evidence Graph and Reconciliation Network', class: 'ECONOMIC_DONOR' }, evidenceGraph), 'SPEC_ONLY');
+  assert.equal(classifyState({ name: 'Evidence Graph and Reconciliation Network', class: 'ECONOMIC_DONOR' }, evidenceGraph), 'HISTORICAL_DONOR_PRESERVED');
 
   const exact = locateEvidence({ name: 'Wallbreaker' }, index);
   assert.equal(classifyState({ name: 'Wallbreaker', class: 'NAMED_INITIATIVE' }, exact), 'VERIFIED_CURRENT');
@@ -154,7 +154,7 @@ test('a historical donor with tested but intentionally unreached code remains hi
   assert.equal(evidence.matchScope, 'WHOLE_NAME');
   assert.equal(evidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
   for (const klass of DONOR_CLASSES) {
-    assert.equal(classifyState({ name: 'Wallbreaker', class: klass }, evidence), 'SPEC_ONLY');
+    assert.equal(classifyState({ name: 'Wallbreaker', class: klass }, evidence), 'HISTORICAL_DONOR_PRESERVED');
   }
 });
 

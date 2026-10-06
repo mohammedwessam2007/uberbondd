@@ -108,7 +108,8 @@ function buildContract(row){
   };
 }
 
-function summarizeInvalidContracts(invalid=[]){
+function summarizeInvalidContracts(invalid=[],contracts=[]){
+  const byId=new Map((contracts||[]).map(contract=>[contract.requirementId,contract]));
   const familyCounts=new Map();
   for(const item of invalid){
     for(const reason of item?.reasonCodes||[]){
@@ -118,7 +119,19 @@ function summarizeInvalidContracts(invalid=[]){
   }
   return{
     reasonFamilyHistogram:Object.fromEntries([...familyCounts.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))),
-    sampleInvalidContracts:(invalid||[]).slice(0,25).map(item=>({requirementId:item.requirementId,reasonFamilies:[...new Set((item.reasonCodes||[]).map(reason=>String(reason).split(':',1)[0]))].sort()}))
+    sampleInvalidContracts:(invalid||[]).slice(0,25).map(item=>{
+      const contract=byId.get(item.requirementId)||{};
+      return {
+        requirementId:item.requirementId,
+        reasonFamilies:[...new Set((item.reasonCodes||[]).map(reason=>String(reason).split(':',1)[0]))].sort(),
+        sourceRefs:boundedEvidenceRefs(contract.sourceRefs||[],1200,6),
+        testRefs:boundedEvidenceRefs(contract.testRefs||[],1200,6),
+        callerRefs:boundedEvidenceRefs(contract.callerRefs||[],1200,6),
+        observableBehaviorsOrRefusals:boundedEvidenceRefs(contract.observableBehaviorsOrRefusals||[],1200,6),
+        hostileFalsifiers:boundedEvidenceRefs(contract.hostileFalsifiers||[],1200,6),
+        recoveryBehavior:contract.recoveryBehavior||null
+      };
+    })
   };
 }
 
@@ -126,7 +139,7 @@ const coverage=readJson('artifacts/sovereign/implementation-coverage-matrix.json
 const semanticCoverage=bindVerifiedEnforcementEvidence({coverage,enforcementEntries:enforcement});
 const contracts=(semanticCoverage.rows||[]).map(buildContract);
 const tribunal=compileSemanticRequirementTribunal({coverage:semanticCoverage,contracts});
-const diagnostics=summarizeInvalidContracts(tribunal.invalidContracts||[]);
+const diagnostics=summarizeInvalidContracts(tribunal.invalidContracts||[],contracts);
 const output={...tribunal,contracts,diagnostics,generatedAt:new Date().toISOString(),generator:'scripts/semantic-requirement-tribunal.mjs',truthBoundary:'Generated contracts are admitted only through the semantic tribunal. Verified enforcement declarations may carry their already-admitted source/test evidence into ENFORCED_BY_CODE semantic rows; negative-invariant classification can recognize only test titles already bound to the row. Recovery evidence is selected as a bounded set of whole bound test references so large suites cannot overflow the semantic contract field. Neither mechanism can grant state, bind unrelated tests, widen authority, or turn source/test presence into runtime/external truth.'};
 mkdirSync(join(root,'artifacts/sovereign'),{recursive:true});writeFileSync(join(root,'artifacts/sovereign/semantic-requirement-tribunal.json'),`${JSON.stringify(output,null,2)}\n`,'utf8');
 console.log(JSON.stringify({ok:tribunal.ok,status:tribunal.status,counts:tribunal.counts,semanticOrphans:tribunal.semanticOrphans?.length||0,floatingContracts:tribunal.floatingContracts?.length||0,invalidContracts:tribunal.invalidContracts?.length||0,...diagnostics,output:'artifacts/sovereign/semantic-requirement-tribunal.json'},null,2));

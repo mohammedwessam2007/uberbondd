@@ -1441,5 +1441,62 @@
     "outboundAuthority": "NONE",
     "purchasePerformed": false,
     "supersedes": "Earlier commercial blocker summaries only where contradicted; all prior organism context and dated receipts retained"
+  },
+  "commercialContinuation20261007": {
+    "status": "HEAVY_CONTINUATION_MERGED__CONTRA_OWNER_BINDING_DEPLOYING",
+    "currentMain": "6548875428ad05bd4d98bf35f82d8629c2d88791",
+    "mergedPullRequests": [
+      1252,
+      1253,
+      1254
+    ],
+    "render": {
+      "service": "srv-dali9vijnfac739m4vcg",
+      "previousExactLiveDeploy": "dep-db2obos9v7es739lj9kg",
+      "previousExactLiveSha": "3e9416ca00e42c419b4d3905f41aba8738122e91",
+      "pendingVerificationDeploy": "dep-db2oe9gm7kps73bmqbag",
+      "targetSha": "6548875428ad05bd4d98bf35f82d8629c2d88791",
+      "autoDeploy": false
+    },
+    "winnr": {
+      "status": "WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION",
+      "authorizedSpendUsd": 0,
+      "baseMonthlyUsd": 69,
+      "warmingAddonAuthorized": false
+    },
+    "contra": {
+      "route": "SELECTED_CURRENT_ROUTE",
+      "source": "src/contra-collection-readiness.mjs",
+      "ownerWriteRoute": "POST /api/owner/contra-collection-observation",
+      "ownerReadRoute": "GET /api/owner/setup",
+      "paymentRequestAuthority": "NONE",
+      "currentExternalFact": "existing account still requires owner authentication and any provider-presented identity/tax/bank assent"
+    },
+    "halfteck": {
+      "recipient": "sales@halfteck.com",
+      "history": "CLEAN_EXACT_PRODUCTION_HISTORY",
+      "invitation": "EXPLICIT_RELEVANT_SUPPLIER_INVITATION",
+      "subjectRequirement": "Suppliers",
+      "legalClassification": "RECIPIENT_PERMISSION_STRONG__NO_NAMED_PERSONAL_ROUTE__EGYPT_SENDER_LAW_UNRESOLVED",
+      "sendAuthority": "NONE"
+    },
+    "powerhouse": {
+      "legal": "EGYPT_SENDER_SIDE_LEGAL_DETERMINATION_PENDING",
+      "sendAuthority": "NONE"
+    },
+    "providers": {
+      "paypal": "DEACTIVATED",
+      "lemonSqueezy": "DORMANT_NOT_SELECTED",
+      "xpay": "REVIEW_TEST_ONLY_BACKUP",
+      "payoneer": "RECOVERY_ONLY_BACKUP"
+    },
+    "externalEffects": {
+      "prospectMessages": 0,
+      "paymentRequests": 0,
+      "winnrPurchases": 0,
+      "dnsMutations": 0,
+      "newRecurringSpendUsd": 0
+    },
+    "truthBoundary": "Current source/deploy/provider evidence outranks older commercial handoff fields preserved below as lineage."
   }
 }

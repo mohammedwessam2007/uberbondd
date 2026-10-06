@@ -1,8 +1,10 @@
 # Work current frontier — finish to Winnr $69 purchase readiness
 
+> **SUPERSEDED FOR CURRENT PURCHASE LAW — 2026-10-06.** Preserve this file as historical lineage for the Oct 5 evidence/reasoning snapshot, but do not use its all-or-nothing purchase gate as current policy. Current recovery and launch law are in `docs/handoffs/WORK_CURRENT.md` and `docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`. In particular, pending bespoke legal opinion and unfinished payment-provider account setup no longer block the Winnr purchase itself; they remain effect-specific gates for sending/collection.
+
 Date: 2026-10-05 (Africa/Cairo)
 
-Status: `WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES`
+Status: `HISTORICAL__SUPERSEDED_PURCHASE_GATE`
 
 Purpose: this is the compact CURRENT recovery handoff for ChatGPT Work. It supersedes stale SHA/deploy identifiers in older handoffs but preserves their detailed reasoning and lineage. Do not restart Revenue Singularity or redo solved work.
 
@@ -78,95 +80,44 @@ Preserve as solved unless new contradictory evidence appears:
 
 ## Current purchase-gate result
 
-The detailed receipt `docs/receipts/WORK_WINNR_69_GATE_20261005.md` is authoritative for evidence and rationale.
+The detailed receipt `docs/receipts/WORK_WINNR_69_GATE_20261005.md` is authoritative for evidence and rationale **for its Oct 5 observation window only**.
 
-Current terminal state remains:
+Historical terminal state at that time was:
 
 `WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES`
 
-The software/capability stack is not the blocker. Remaining gates are external/owner/provider evidence.
+The software/capability stack was not the blocker. Remaining gates were classified then as external/owner/provider evidence.
 
-### External gate 1 — exact sender-side legal authority
+### Historical external gate 1 — exact sender-side legal authority
 
-Powerhouse remains held because current authoritative evidence does not yet establish the exact sender-side legal authority for the known Egypt operator/controller/sender facts.
+Powerhouse was held because then-current authoritative evidence did not establish the exact sender-side legal authority for the known Egypt operator/controller/sender facts.
 
-Work must continue autonomously as far as available evidence permits:
+### Historical external gate 2 — one live payment collection path
 
-- refresh current primary-source legal evidence;
-- recover exact actor/jurisdiction/data-inventory facts already stored or explicitly supplied;
-- never invent a foreign entity, consent, permit, license, controller jurisdiction, or legal determination;
-- evaluate current permissioned/invited fallback routes already supported by UberBond;
-- Halfteck supplier invitation remains a qualified research fallback, not an automatically cleared production route;
-- if authoritative evidence still cannot resolve the exact route, stop only at `LEGAL_ROUTE_BLOCKED_EXTERNAL_EVIDENCE_REQUIRED` with the exact missing evidence / owner submission needed.
+PayPal was then selected as the zero-new-recurring-cost activation path. This is now superseded by later provider evidence: PayPal is permanently deactivated and removed from the critical path; Contra is the preferred first-cash path with Egypt/SWIFT support provider-confirmed, subject to exact account setup.
 
-### External gate 2 — one live payment collection path
+## Historical Winnr $69 readiness law
 
-PayPal is the selected zero-new-recurring-cost activation path for the current service offers.
+The eight-item law below is retained only as the Oct 5 policy snapshot and MUST NOT be used as the current purchase gate:
 
-Work must:
+1. exact intended outreach route legally/evidentially cleared or permissioned substitute;
+2. identity/footer/unsubscribe complete;
+3. fresh authenticated non-quarantined sender;
+4. current G-SPOT package blocked only on exact owner effect authorization;
+5. provider-verified payment path `LIVE_READY`;
+6. Intelo UNKNOWN isolated/non-replayable;
+7. no blocking software defect;
+8. positive incremental $69 value.
 
-- use an already-owned authenticated account/session if available;
-- inspect actual merchant/developer eligibility and live app state;
-- configure only the minimum protected live credential/webhook bundle required by the existing payment implementation;
-- prove `LIVE_READY` from provider-origin evidence, never from settings alone;
-- preserve webhook/reconciliation/cleared-payment truth;
-- never paste or log credentials;
-- do not open another paid provider commitment merely to obtain a green status.
+Current policy deliberately decouples purchase readiness from send readiness and collection readiness. See the Oct 6 launch package.
 
-Lemon Squeezy remains retained for eligible digital-product/SaaS lineages but excluded for these custom service offers under provider policy.
+## Financial authority — still current
 
-If PayPal authentication/KYC/account approval requires Mohamed, isolate the single exact owner action and continue every other internally solvable task first.
+The actual Winnr $69 upgrade remains a **new paid commitment** and still requires Mohamed's explicit financial authorization after the actual authenticated upgrade terms are inspected.
 
-## Work execution order from this frontier
+## Preserved after-purchase doctrine
 
-1. Refresh `main` and exact live Render state.
-2. Re-validate the current Powerhouse/fallback route evidence and legal gate.
-3. Continue lawful fallback qualification if it can reduce the legal blocker without weakening policy.
-4. Inspect/authenticate PayPal if a current authenticated owner session exists; otherwise isolate the exact authentication action.
-5. Re-run current G-SPOT preflight after any legal/payment change.
-6. Preserve sender holds and current healthy ordinal-1 path.
-7. Verify Constellation/owner-session only for concrete regressions; do not rearchitect.
-8. Update durable receipts/handoffs and newest #1188 frontier after every material closure.
-9. Continue until no internally solvable blocker remains.
-
-## Winnr $69 readiness law
-
-Do **not** purchase merely because additional capacity is available.
-
-Declare `WINNR_69_PURCHASE_READY` only when all are true:
-
-1. exact intended outreach route is legally/evidentially cleared OR a genuinely permissioned lawful substitute is selected;
-2. identity/footer/unsubscribe requirements remain complete;
-3. at least one exact sender route is freshly authenticated and not quarantined;
-4. G-SPOT produces a current recipient/proof/message/sender-bound package blocked only on exact owner effect authorization, not missing engineering/evidence facts;
-5. at least one provider-verified payment collection path is `LIVE_READY`;
-6. Intelo UNKNOWN remains isolated/non-replayable;
-7. no unresolved software defect prevents safe use of additional capacity;
-8. incremental expected value of the $69/month capacity is positive relative to the commitment.
-
-Physical iPad Safari proof and future buyer replies are not prerequisites for the purchase gate if the web path is otherwise verified. Real buyer behavior cannot be manufactured before real use.
-
-## Financial authority
-
-The actual Winnr $69 upgrade is a **new paid commitment**.
-
-This handoff does NOT authorize the purchase.
-
-Work must stop at `WINNR_69_PURCHASE_READY` and present:
-
-- exact Winnr purchase/upgrade screen;
-- exact current price and billing cadence;
-- exact entitlement/capacity being purchased;
-- whether it replaces or adds to the existing pilot charge;
-- current cancellation/minimum-term evidence;
-- expected incremental value / capacity justification;
-- evidence that legal/payment gates are closed.
-
-Only after Mohamed gives explicit financial authorization may Work complete the $69 purchase.
-
-## After an explicitly authorized $69 upgrade
-
-Do not redesign the system. Work should:
+After an explicitly authorized upgrade:
 
 1. verify provider-origin upgraded entitlement;
 2. inventory exact mailbox/capacity limits;
@@ -175,18 +126,6 @@ Do not redesign the system. Work should:
 5. ramp gradually from observed health rather than maximizing volume immediately;
 6. keep first-touch automation separate from manual Mohamed replies;
 7. measure qualified replies -> serious conversations -> cleared payment -> delivery -> renewal, plus bounces/complaints and founder minutes;
-8. let Revenue Reliability allocate capacity from actual outcomes;
-9. never manufacture filler volume to justify the subscription.
-
-## Stop law for Work
-
-Do not return merely with a plan, generic blocker list, or a request for sequencing.
-
-Continue through every internally solvable item, commit coherent checkpoints, merge verified work under repository law, reconcile/deploy the existing Render service where appropriate, and leave durable receipts.
-
-Stop only at:
-
-- `WINNR_69_PURCHASE_READY`, with exact evidence and purchase instructions; or
-- a genuinely irreducible owner/provider/legal blocker with an owner-action queue of at most 3 precise items.
+8. never manufacture filler volume to justify the subscription.
 
 No live prospect message merely to prove readiness. No retry of uncertain effects. No automatic material human replies. No fabricated legal/provider/payment/customer facts. No new spend without explicit owner authorization. Preserve all solved UberBond capabilities and the wider organism.

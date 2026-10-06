@@ -45,11 +45,17 @@ test('founder ops exposes canonical first-cash truth without creating customer o
   assert.equal(view.ok, true);
   assert.equal(view.businessEffectAuthority, 'NONE');
   assert.equal(view.firstCash.canonicalPath.priceUsd, 450);
+  assert.equal(view.firstCash.canonicalPath.paymentProvider, 'contra');
+  assert.equal(view.firstCash.canonicalPath.collectionState, 'ACCOUNT_SETUP_PENDING');
+  assert.equal(view.firstCash.canonicalPath.collectionLiveReady, false);
   assert.equal(view.firstCash.canonicalPath.requiresProviderOriginPaymentTruth, true);
   assert.equal(view.launchability.localConfigurationGatesClear, false);
   assert.equal(view.launchability.launchNowProven, false);
   assert.ok(view.launchability.externalActivationBlockers.includes('outbound-disabled-or-not-configured'));
   assert.ok(view.launchability.externalActivationBlockers.includes('outbound-dry-run'));
+  assert.ok(view.launchability.externalActivationBlockers.includes('collection-provider-account-setup-not-proven'));
+  assert.equal(view.providerPosture.selectedCollectionProvider, 'contra');
+  assert.equal(view.providerPosture.selectedCollectionLiveReady, false);
   assert.equal(view.privacy.rawPersonalCivilizationReachable, false);
   assert.equal(view.privacy.privateVaultDataIncluded, false);
   assert.equal(view.privacy.networkLifeStateAccessAuthorized, false);
@@ -78,6 +84,9 @@ test('configuration presence never manufactures launch proof, cleared payment, c
   });
 
   assert.equal(view.launchability.localConfigurationGatesClear, true);
+  assert.ok(view.launchability.externalActivationBlockers.includes('collection-provider-account-setup-not-proven'));
+  assert.equal(view.launchability.collectionProvider, 'contra');
+  assert.equal(view.launchability.collectionLiveReady, false);
   assert.equal(view.launchability.launchNowProven, false);
   assert.match(view.launchability.launchNowWhyNotProven, /external evidence/i);
   assert.equal(view.launchability.externalReality.clearedPaymentCount, 0);

@@ -11,7 +11,10 @@
 // source strings, so a mutation of a function in that same file matches its own
 // registration and resolves to two sites instead of one.
 import { readdirSync, statSync, accessSync, constants } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const DEFAULT_REPO_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
 const isExecutableFile = candidate => {
   try {
@@ -32,18 +35,19 @@ const isExecutableFile = candidate => {
  * variable pointing at nothing is a misconfiguration, and reading it as proof of
  * a browser would report a skip as a kill.
  */
-export function resolveChromium(env = process.env) {
+export function resolveChromium(env = process.env, { repoRoot = DEFAULT_REPO_ROOT } = {}) {
   const declared = String(env.CHROMIUM_PATH || '').trim();
   if (declared) return isExecutableFile(declared) ? declared : '';
 
-  // Render's native Node runtime installs Playwright browsers in its cache.
-  // When no root is declared, search the repository's local convention plus
-  // the two standard Playwright container/native locations. If an operator
-  // declares PLAYWRIGHT_BROWSERS_PATH, keep that root authoritative.
+  // package.json installs Playwright with PLAYWRIGHT_BROWSERS_PATH=0, which
+  // stores Chromium inside node_modules/playwright-core/.local-browsers. Search
+  // that exact repository-local contract before host-specific cache locations.
+  // A non-zero PLAYWRIGHT_BROWSERS_PATH remains authoritative.
+  const repoLocalRoot = join(repoRoot, 'node_modules', 'playwright-core', '.local-browsers');
   const configuredRoot = String(env.PLAYWRIGHT_BROWSERS_PATH || '').trim();
   const roots = configuredRoot
-    ? [configuredRoot]
-    : ['/opt/pw-browsers', '/opt/render/.cache/ms-playwright', '/ms-playwright'];
+    ? [configuredRoot === '0' ? repoLocalRoot : configuredRoot]
+    : [repoLocalRoot, '/opt/pw-browsers', '/opt/render/.cache/ms-playwright', '/ms-playwright'];
 
   const chromeBuilds = [];
   const headlessShells = [];

@@ -2,7 +2,7 @@
 
 Date: 2026-10-06 (Africa/Cairo)
 
-Status: `WINNR_69_PURCHASE_PRECHECK_READY`
+Status: `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`
 
 Purpose: this is the single short recovery pointer for current UberBond launch execution. It supersedes the Oct 5 all-or-nothing Winnr purchase-gate interpretation without deleting historical receipts.
 
@@ -15,9 +15,10 @@ Refresh `main`, then read in this order:
 3. `.claude/CLAUDE.md`
 4. newest comment on GitHub issue #1188
 5. this file
-6. `docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`
-7. `docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`
-8. prior Winnr handoffs/receipts only as lineage when needed
+6. `docs/handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md`
+7. `docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`
+8. `docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`
+9. prior Winnr handoffs/receipts only as lineage when needed
 
 Newest verified source/provider evidence outranks stale status text. Always refresh `main`; do not assume a SHA embedded in a handoff is still repository head. Do not recover from Oct 2/Oct 3 when newer evidence exists. Do not rebuild solved Revenue Singularity layers.
 
@@ -78,14 +79,15 @@ Fresh send readiness is still mandatory before a real prospect effect. Payment c
 
 ## Immediate mission
 
-Continue autonomously through every internally solvable step toward today's launch:
+Current provider-origin Winnr evidence has already closed the purchase precheck: base Startup is $69/month, monthly-only, cancelable, 50 mailboxes / 10 domain slots, optional warming is a separate add-on, and the existing pre-warmed pilot remains a separate pool. Purchase status is `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`.
 
-1. inspect exact authenticated Winnr upgrade terms;
-2. if they match the intended $69 monthly capacity with no material surprise, declare `WINNR_69_PURCHASE_READY`;
-3. obtain explicit founder authorization for the spend;
-4. purchase and reconcile entitlement/receipt;
-5. configure/warm capacity while legal + Contra finish in parallel;
-6. run fresh pre-send readiness before the first live effect;
-7. progress Contra to collection-ready without creating duplicate accounts or inventing cleared cash.
+Continue autonomously through every internally solvable step:
+
+1. finish and verify the late-night launch-readiness repair package;
+2. preserve the exact founder-only $69 base-plan spend boundary;
+3. after explicit spend authorization, purchase and reconcile entitlement/receipt without optional add-ons unless separately authorized;
+4. configure/warm capacity while legal + Contra finish in parallel;
+5. run fresh pre-send readiness before the first live effect;
+6. progress Contra to collection-ready without duplicate accounts or invented cleared cash.
 
 Stop only for genuine owner/provider boundaries. Present at most 3 owner actions. Preserve the entire wider UberBond organism.

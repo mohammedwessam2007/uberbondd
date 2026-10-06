@@ -56,7 +56,12 @@ function meaningFor(row){
   for(const artifact of row.sourceArtifacts||[]){if(!artifact.endsWith('.json')||!existsSync(join(root,artifact)))continue;try{const found=findStructuredValue(readJson(artifact),names);if(found){const serialized=JSON.stringify(found.value);return{sourceClass:artifact.includes('aliases')?'ALIAS_CANONICAL_HOME':'STRUCTURED_CANONICAL_VALUE',sourceRef:`${artifact}${found.path}`,bodyDigest:H(serialized),headingOnly:false};}}catch{/* diagnostic tribunal handles absence */}}
   return{sourceClass:'HEADING_ONLY',sourceRef:(row.sourceArtifacts||[])[0]||'UNKNOWN',bodyDigest:H((names||[]).join('|')),headingOnly:true};
 }
-let manifest=[];try{manifest=readJson('artifacts/sovereign/implementation-manifest.json').entries||[];}catch{/* fail closed through missing behavior */}
+let manifest=[];try{
+  manifest=[
+    ...(readJson('artifacts/sovereign/implementation-manifest.json').entries||[]),
+    ...(readJson('artifacts/sovereign/implementation-manifest-terminal-closure.json').entries||[])
+  ];
+}catch{/* fail closed through missing behavior */}
 let enforcement=[];try{enforcement=readJson('artifacts/sovereign/enforcement-manifest.json').entries||[];}catch{/* fail closed through missing behavior */}
 const manifestByName=new Map(manifest.map(entry=>[norm(entry.concept),entry]));
 function testTitles(paths=[]){const titles=[];for(const path of paths){const body=safeRead(path);for(const match of body.matchAll(/\btest\s*\(\s*(['"`])([^'"`]+)\1/g))titles.push(`${path}#${match[2].trim()}`);}return[...new Set(titles)];}
@@ -78,7 +83,15 @@ function buildContract(row){
   if(requirementClass==='EXTERNAL')return{requirementId:row.canonicalId,requirementClass,meaning,implementationClaim:false,externalEvidenceRequirement:`Real external or owner-origin evidence required for canonical state ${row.currentState}; repository source cannot satisfy this boundary.`};
   if(requirementClass==='ELAPSED')return{requirementId:row.canonicalId,requirementClass,meaning,implementationClaim:false,externalEvidenceRequirement:'Real elapsed-time longitudinal observation is required; clocks, fixtures and source merges cannot manufacture it.'};
   const names=row.literalNames||[],entry=names.map(n=>manifestByName.get(norm(n))).find(Boolean)||null;
-  const sourceRefs=[...(row.currentEvidence?.sourceModules||[])],testRefs=[...(row.currentEvidence?.testModules||[])],titles=testTitles(testRefs),sourceText=sourceRefs.map(path=>safeRead(path)).join('\n');
+  // Coverage keeps discovered + declared evidence for archaeology. Semantic
+  // contracts are stricter: when a verified declaration exists, its exact
+  // source/test binding is authoritative for behavioral proof so broad filename
+  // discovery cannot contaminate caller, recovery or hostile-test semantics.
+  const declaredSources=Array.isArray(entry?.sources)?entry.sources.filter(Boolean):[];
+  const declaredTests=Array.isArray(entry?.tests)?entry.tests.filter(Boolean):[];
+  const sourceRefs=declaredSources.length?[...declaredSources]:[...(row.currentEvidence?.sourceModules||[])];
+  const testRefs=declaredSources.length?[...declaredTests]:[...(row.currentEvidence?.testModules||[])];
+  const titles=testTitles(testRefs),sourceText=sourceRefs.map(path=>safeRead(path)).join('\n');
   const hostile=titles.filter(isHostileTestTitle);const recovery=titles.filter(isRecoveryTestTitle);const boundedRecovery=boundedEvidenceRefs(recovery);
   return{
     requirementId:row.canonicalId,requirementClass,meaning,

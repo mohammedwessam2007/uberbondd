@@ -10,7 +10,7 @@ const now=Date.parse('2026-09-30T20:00:00Z');
 
 function store(){
  let settings={};
- return {transaction:async fn=>fn({transactionClient:false,getSettings:async()=>structuredClone(settings),setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v);}})};
+ return {transaction:async fn=>fn({transactionClient:false,getSettings:async()=>structuredClone(settings),setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v)};}})};
 }
 const context={scope:'ECON_TEST',crownRevision:'opus-5.5-r1',qualityContractHash:h('quality'),sourceHashes:{rules:h('rules')},invalidators:{drift:false},requiredClaimIds:['decision'],authorizedProgramHash:h('program')};
 function bundle(){

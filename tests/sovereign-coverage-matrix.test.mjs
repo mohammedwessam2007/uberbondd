@@ -125,6 +125,80 @@ test('a historical donor with real code is not flattened by the category guard',
   }
 });
 
+test('a historical donor cannot be promoted by a partial-name collision', () => {
+  const collisionIndex = {
+    sourceFiles: ['src/company-registry-adapter.mjs', 'src/living-evidence-graph.mjs'],
+    testFiles: ['tests/living-evidence-graph.test.mjs'],
+    productionReachable: ['src/company-registry-adapter.mjs'],
+    operatorReachable: ['src/company-registry-adapter.mjs']
+  };
+  const distribution = locateEvidence({ name: 'World Distribution and Company OS' }, collisionIndex);
+  assert.equal(distribution.matchScope, 'SUB_PHRASE');
+  assert.equal(classifyState({ name: 'World Distribution and Company OS', class: 'NAMED_INITIATIVE' }, distribution), 'HISTORICAL_DONOR_PRESERVED');
+
+  const evidenceGraph = locateEvidence({ name: 'Evidence Graph and Reconciliation Network' }, collisionIndex);
+  assert.equal(evidenceGraph.matchScope, 'SUB_PHRASE');
+  assert.equal(classifyState({ name: 'Evidence Graph and Reconciliation Network', class: 'ECONOMIC_DONOR' }, evidenceGraph), 'HISTORICAL_DONOR_PRESERVED');
+
+  const exact = locateEvidence({ name: 'Wallbreaker' }, index);
+  assert.equal(classifyState({ name: 'Wallbreaker', class: 'NAMED_INITIATIVE' }, exact), 'VERIFIED_CURRENT');
+});
+
+test('a historical donor with tested but intentionally unreached code remains historical', () => {
+  const gated = {
+    ...index,
+    productionReachable: [],
+    operatorReachable: []
+  };
+  const evidence = locateEvidence({ name: 'Wallbreaker' }, gated);
+  assert.equal(evidence.matchScope, 'WHOLE_NAME');
+  assert.equal(evidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  for (const klass of DONOR_CLASSES) {
+    assert.equal(classifyState({ name: 'Wallbreaker', class: klass }, evidence), 'HISTORICAL_DONOR_PRESERVED');
+  }
+});
+
+test('a donor cannot become current from a fuzzy whole-name all-token verification-script match', () => {
+  const nightIndex = {
+    sourceFiles: ['scripts/night-verification-frontier-open-model-mutations.mjs'],
+    testFiles: ['tests/night-verification-frontier-open-model.test.mjs'],
+    productionReachable: [],
+    operatorReachable: ['scripts/night-verification-frontier-open-model-mutations.mjs']
+  };
+  const evidence = locateEvidence({ name: 'Night Frontier' }, nightIndex);
+  assert.equal(evidence.matchScope, 'WHOLE_NAME');
+  assert.equal(evidence.matchStrength, 'ALL_TOKENS');
+  assert.equal(evidence.reachability, 'OPERATOR_ONLY');
+  assert.equal(classifyState({ name: 'Night Frontier', class: 'NAMED_INITIATIVE' }, evidence), 'HISTORICAL_DONOR_PRESERVED');
+});
+
+test('fuzzy reachable discovery cannot launder a gated declared implementation into current donor reachability', () => {
+  const nightIndex = {
+    sourceFiles: [
+      'src/overnight/control/automation-acquisition-frontier.mjs',
+      'scripts/night-verification-frontier-open-model-mutations.mjs'
+    ],
+    testFiles: [
+      'tests/overnight-control/automation-acquisition-frontier.test.mjs',
+      'tests/night-verification-frontier-open-model.test.mjs'
+    ],
+    productionReachable: [],
+    operatorReachable: ['scripts/night-verification-frontier-open-model-mutations.mjs']
+  };
+  const discovered = locateEvidence({ name: 'Night Frontier' }, nightIndex);
+  const declared = {
+    concept: 'Night Frontier',
+    sources: ['src/overnight/control/automation-acquisition-frontier.mjs'],
+    tests: ['tests/overnight-control/automation-acquisition-frontier.test.mjs']
+  };
+  const merged = mergeDeclaredEvidence(discovered, declared, nightIndex);
+  assert.equal(merged.matchStrength, 'DECLARED_AND_VERIFIED');
+  assert.equal(merged.discoveredReachability, 'OPERATOR_ONLY');
+  assert.equal(merged.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  assert.ok(merged.sources.includes('scripts/night-verification-frontier-open-model-mutations.mjs'));
+  assert.equal(classifyState({ name: 'Night Frontier', class: 'NAMED_INITIATIVE' }, merged), 'HISTORICAL_DONOR_PRESERVED');
+});
+
 test('common vocabulary cannot become evidence', () => {
   // Without this, every concept containing "system" collects every module with
   // "system" in its name, and the matrix goes green on nothing.
@@ -234,6 +308,67 @@ test('a declaration supplies files, and the state is still derived from them', (
     manifest: declared('Thought Ocean')
   });
   assert.equal(withTests.rows[0].currentState, 'VERIFIED_CURRENT');
+});
+
+test('founder-interactive exact evidence is current without becoming unattended reachability', () => {
+  const privateIndex = {
+    sourceFiles: ['src/private-core.mjs'],
+    testFiles: ['tests/private-core.test.mjs'],
+    productionReachable: [],
+    operatorReachable: [],
+    founderInteractiveReachable: ['src/private-core.mjs']
+  };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'ORGAN' }],
+    repoIndex: privateIndex,
+    manifest: [{ concept: 'Thought Ocean', sources: ['src/private-core.mjs'], tests: ['tests/private-core.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'VERIFIED_CURRENT');
+  assert.equal(matrix.rows[0].currentEvidence.reachability, 'FOUNDER_INTERACTIVE_ONLY');
+});
+
+test('verified enforcement closes a refusal law without activating its gated runtime', () => {
+  const gatedLawIndex = {
+    sourceFiles: ['src/wallbreaker.mjs'],
+    testFiles: ['tests/wallbreaker.test.mjs'],
+    productionReachable: [],
+    operatorReachable: [],
+    founderInteractiveReachable: []
+  };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Capability does not create authority', source: 's', class: 'AUTHORITY_LAW' }],
+    repoIndex: gatedLawIndex,
+    manifest: [{ concept: 'Capability does not create authority', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }],
+    enforcement: [{ concept: 'Capability does not create authority', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'ENFORCED_BY_CODE');
+  assert.equal(matrix.rows[0].currentEvidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  assert.deepEqual(matrix.rows[0].currentEvidence.sourceModules, ['src/wallbreaker.mjs']);
+  assert.deepEqual(matrix.rows[0].currentEvidence.testModules, ['tests/wallbreaker.test.mjs']);
+  assert.equal(matrix.rows[0].testsRequired, false);
+});
+
+test('enforcement-only evidence is carried onto an enforced law row without inventing reachability', () => {
+  const gatedLawIndex = {
+    sourceFiles: ['src/wallbreaker.mjs'],
+    testFiles: ['tests/wallbreaker.test.mjs'],
+    productionReachable: [],
+    operatorReachable: [],
+    founderInteractiveReachable: []
+  };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Capability does not create authority', source: 's', class: 'AUTHORITY_LAW' }],
+    repoIndex: gatedLawIndex,
+    enforcement: [{ concept: 'Capability does not create authority', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'ENFORCED_BY_CODE');
+  assert.deepEqual(matrix.rows[0].currentEvidence.sourceModules, ['src/wallbreaker.mjs']);
+  assert.deepEqual(matrix.rows[0].currentEvidence.testModules, ['tests/wallbreaker.test.mjs']);
+  assert.equal(matrix.rows[0].currentEvidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  assert.equal(matrix.rows[0].testsRequired, false);
 });
 
 test('a declaration for an unreachable module cannot reach VERIFIED_CURRENT', () => {

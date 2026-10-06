@@ -10,6 +10,7 @@ const sourceRegistry = {
   }]
 };
 const atomTaxonomy = { schemaVersion: 'uberbond.capability-genome.atoms.v1', atoms: [{ id: 'research.search-public', verb: 'search', noun: 'public', description: 'search public data', sideEffectClass: 'READ_ONLY' }] };
+const fixtureNow = new Date('2026-09-02T04:30:00.000Z');
 const repositoryCorpus = {
   schemaVersion: 'uberbond.capability-genome.corpus-state.v1', corpusKind: 'WORLD_REPOSITORY_CANDIDATE_METADATA', sourceId: 'github-public-capability-search', evidenceClass: 'MEASURED_IMPORT',
   observedAt: '2026-08-31T15:20:00.000Z', providerCalls: 3, distinctRepositoryCandidates: 30, skillBodiesImported: 0, capabilityRecordsNormalized: 0, batchId: 'repo-pilot'
@@ -27,7 +28,7 @@ const bodyCorpus = {
 };
 
 test('doctor reports repository candidates and real skill bodies as separate truth layers', () => {
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: bodyCorpus, capabilityRecords: [] });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: bodyCorpus, capabilityRecords: [], now: fixtureNow });
   assert.equal(result.ok, true);
   assert.equal(result.state.worldRepositoryCandidateCount, 30);
   assert.equal(result.state.worldSkillBodyCount, 1);
@@ -42,11 +43,11 @@ test('doctor reports repository candidates and real skill bodies as separate tru
 });
 
 test('body evidence cannot manufacture normalization or promotion truth', () => {
-  const normalizedLie = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: { ...bodyCorpus, capabilityRecordsNormalized: 1 }, capabilityRecords: [] });
+  const normalizedLie = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: { ...bodyCorpus, capabilityRecordsNormalized: 1 }, capabilityRecords: [], now: fixtureNow });
   assert.equal(normalizedLie.ok, false);
   assert.ok(normalizedLie.reasonCodes.includes('skill-body-evidence-cannot-claim-normalized-capabilities'));
 
-  const promotionLie = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: { ...bodyCorpus, approvedCapabilities: 1 }, capabilityRecords: [] });
+  const promotionLie = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: { ...bodyCorpus, approvedCapabilities: 1 }, capabilityRecords: [], now: fixtureNow });
   assert.equal(promotionLie.ok, false);
   assert.ok(promotionLie.reasonCodes.includes('skill-body-evidence-cannot-claim-promotion'));
 });
@@ -55,7 +56,7 @@ test('body evidence must remain pinned, hashed, untrusted, and zero-authority', 
   const corrupted = structuredClone(bodyCorpus);
   corrupted.bodies[0].sourceCommit = 'main';
   corrupted.bodies[0].trustState = 'APPROVED';
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: corrupted, capabilityRecords: [] });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: repositoryCorpus, bodyCorpusState: corrupted, capabilityRecords: [], now: fixtureNow });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('body-evidence-must-remain-untrusted-zero-authority'));
   assert.ok(result.reasonCodes.includes('valid-pinned-body-evidence-required'));

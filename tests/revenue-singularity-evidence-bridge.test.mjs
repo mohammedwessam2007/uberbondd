@@ -136,3 +136,43 @@ test('owner settings cannot mint provider-origin payment readiness', () => {
   assert.equal(deal.paymentPath.ok, false);
   assert.equal(deal.paymentPath.outboundAuthority, 'NONE');
 });
+
+
+test('current collection route policy surfaces Contra and never resurrects deactivated PayPal or dormant Lemon Squeezy actions', () => {
+  const p = prospect();
+  const s = snap(p, { leads: [{ id: 'lead-route', prospectId: p.id, amountCents: 250000, currency: 'USD' }] });
+  const env = {
+    PAYPAL_ENVIRONMENT: 'live',
+    PAYPAL_LIVE_CLIENT_ID: 'present',
+    PAYPAL_LIVE_CLIENT_SECRET: 'present',
+    PAYPAL_LIVE_WEBHOOK_ID: 'present',
+    PAYPAL_SANDBOX_CLIENT_ID: 'present',
+    PAYPAL_SANDBOX_CLIENT_SECRET: 'present',
+    PAYPAL_SANDBOX_WEBHOOK_ID: 'present',
+    DATABASE_URL: 'postgres://present',
+    APP_BASE_URL: 'https://uberbond.example'
+  };
+  const rails = paymentRailsFromSnapshot(s, env);
+  const contra = rails.find(r => r.provider === 'contra');
+  const paypal = rails.find(r => r.provider === 'paypal');
+  const lemon = rails.find(r => r.provider === 'lemon_squeezy');
+  const xpay = rails.find(r => r.provider === 'xpay');
+  const payoneer = rails.find(r => r.provider === 'payoneer');
+
+  assert.equal(contra.state, 'ACCOUNT_SETUP_PENDING');
+  assert.equal(contra.liveReady, false);
+  assert.equal(contra.criticalPath, true);
+  assert.deepEqual(contra.evidenceRefs, ['docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md']);
+
+  assert.equal(paypal.state, 'DEACTIVATED');
+  assert.equal(paypal.liveReady, false);
+  assert.deepEqual(paypal.ownerActionQueue, []);
+  assert.ok(paypal.reasonCodes.includes('provider-account-permanently-deactivated'));
+
+  assert.equal(lemon.state, 'DORMANT_NOT_SELECTED');
+  assert.equal(lemon.liveReady, false);
+  assert.deepEqual(lemon.ownerActionQueue, []);
+
+  assert.equal(xpay.state, 'REVIEW_TEST_ONLY_BACKUP');
+  assert.equal(payoneer.state, 'RECOVERY_ONLY_BACKUP');
+});

@@ -532,6 +532,16 @@
         "tests/memory-truth-boundary.test.mjs"
       ],
       "note": "reconcile answers the present tense from current truth and preserves the superseded record with its donations; precedence and preservation are one rule."
+    },
+    {
+      "concept": "open/public does not mean trusted/free/approved",
+      "sources": [
+        "src/open-model-foundry.mjs"
+      ],
+      "tests": [
+        "tests/open-model-foundry.test.mjs"
+      ],
+      "note": "Open/public availability never self-promotes: rankModelCandidates rejects supply unless permissionEligible is explicitly true, and even eligible ranking carries executionAuthority NONE."
     }
   ]
 }

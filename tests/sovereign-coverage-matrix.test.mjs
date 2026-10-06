@@ -125,6 +125,25 @@ test('a historical donor with real code is not flattened by the category guard',
   }
 });
 
+test('a historical donor cannot be promoted by a partial-name collision', () => {
+  const collisionIndex = {
+    sourceFiles: ['src/company-registry-adapter.mjs', 'src/living-evidence-graph.mjs'],
+    testFiles: ['tests/living-evidence-graph.test.mjs'],
+    productionReachable: ['src/company-registry-adapter.mjs'],
+    operatorReachable: ['src/company-registry-adapter.mjs']
+  };
+  const distribution = locateEvidence({ name: 'World Distribution and Company OS' }, collisionIndex);
+  assert.equal(distribution.matchScope, 'SUB_PHRASE');
+  assert.equal(classifyState({ name: 'World Distribution and Company OS', class: 'NAMED_INITIATIVE' }, distribution), 'SPEC_ONLY');
+
+  const evidenceGraph = locateEvidence({ name: 'Evidence Graph and Reconciliation Network' }, collisionIndex);
+  assert.equal(evidenceGraph.matchScope, 'SUB_PHRASE');
+  assert.equal(classifyState({ name: 'Evidence Graph and Reconciliation Network', class: 'ECONOMIC_DONOR' }, evidenceGraph), 'SPEC_ONLY');
+
+  const exact = locateEvidence({ name: 'Wallbreaker' }, index);
+  assert.equal(classifyState({ name: 'Wallbreaker', class: 'NAMED_INITIATIVE' }, exact), 'VERIFIED_CURRENT');
+});
+
 test('common vocabulary cannot become evidence', () => {
   // Without this, every concept containing "system" collects every module with
   // "system" in its name, and the matrix goes green on nothing.

@@ -31,3 +31,13 @@ External effect ledger for this repair: messages 0; purchases 0; payment request
 Vercel genuinely executed repair head `0fdfb142050ba84a686afcedf962384197e8b093`. Both preview projects failed current-truth regeneration on the exact 14-module reachability list previously documented by PR #1209. GitHub Actions red jobs had `steps=[]` and remain runner pathology, but the Vercel failures were real executed checks.
 
 PR #1209 was inspected as donor lineage. Its classifier additions exactly matched the current unclassified list and preserve fail-closed activation. The classifications and original reconciliation receipt are therefore recovered into the current branch rather than merging the stale PR wholesale.
+
+
+## Semantic evidence collision repair
+
+The second exact-head Vercel run proved the recovered reachability classifier worked and then refused on exactly four semantic contracts. The failures traced to evidence binding, not four absent organs. The candidate now:
+- refuses to promote a historical donor from only a `SUB_PHRASE` heuristic match while preserving exact whole-name promotion;
+- loads the same terminal-closure implementation declarations in the semantic generator that coverage already uses;
+- uses a verified declaration's exact source/test set for semantic behavioral proof instead of contaminating it with broad filename matches.
+
+This specifically prevents false bindings from generic `company-*` and `living-evidence-graph` filenames and restores exact Reachability War behavioral evidence.

@@ -2,7 +2,7 @@
 
 Date: 2026-10-06 (Africa/Cairo)
 
-Status: `REACHABILITY_CLASSIFICATION_RECOVERED__VERCEL_RECHECK_PENDING`
+Status: `SEMANTIC_EVIDENCE_COLLISIONS_REPAIRED__VERCEL_RECHECK_PENDING`
 
 Base source inspected: `c49df1d0f2825512077e55708ee1e014f1fd45e2`
 
@@ -44,3 +44,13 @@ No prospect send, purchase, payment request, customer money movement, DNS change
 The first persisted-head Vercel builds executed source and refused current-truth regeneration because exactly 14 source modules were unclassified. PR #1209 from 2026-10-04 already contained an additions-only fail-closed reconciliation for the exact same 14 modules. That donor work was stranded on an old base, so it was not merged wholesale. Its three activation gates and 14 module classifications were transplanted onto the current repair head with provenance preserved in `docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`.
 
 This classifies latent modules. It does not wire them into runtime, admit Crown authority, create provider calls, or create a second spend ledger.
+
+
+## Semantic tribunal second-layer repair
+
+After reachability classification closed, exact-head Vercel advanced to the semantic tribunal and exposed four finite invalid contracts. Archaeology found two generator defects rather than four missing products:
+
+- historical donor names could be promoted from a `SUB_PHRASE` collision, causing "World Distribution and Company OS" to inherit a generic company adapter and causing "Evidence Graph and Reconciliation Network" to inherit the unrelated Infinite Opus living-evidence-graph library;
+- the semantic tribunal read only the base implementation manifest while terminal coverage also reads the terminal-closure manifest. As a result, exact declared evidence for Reachability War was polluted by broad filename discovery.
+
+The repair keeps whole-name donor promotion intact, preserves partial evidence on the row for archaeology, and makes verified declarations authoritative for semantic behavioral proof. It does not create fake implementation, runtime reachability or authority.

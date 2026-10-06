@@ -393,6 +393,16 @@ export function classifyState(concept, evidence) {
   if (STRUCTURAL_CLASSES.includes(concept.class)) return 'STRUCTURAL_NOT_A_BUILD_TARGET';
   if (ALIAS_CLASSES.includes(concept.class)) return 'ALIAS_OF_CANONICAL_CONCEPT';
 
+  // A preserved donor may be promoted by exact whole-name implementation
+  // evidence, but not by one component of a compound historical name. This
+  // prevents e.g. "Evidence Graph and Reconciliation Network" from inheriting
+  // the unrelated Infinite Opus living-evidence-graph library, and prevents
+  // "World Distribution and Company OS" from being implemented by any generic
+  // company-* module. A partial match remains visible in currentEvidence while
+  // the donor itself stays historical until whole-name or declared evidence
+  // binds it.
+  if (DONOR_CLASSES.includes(concept.class) && evidence?.matchScope === 'SUB_PHRASE') return 'SPEC_ONLY';
+
   if (!evidence || evidence.matchStrength === 'NO_DISTINCTIVE_TOKENS') return 'UNKNOWN';
   if (evidence.sources.length === 0) return 'SPEC_ONLY';
   if (evidence.tests.length === 0) return 'PARTIAL_CURRENT';

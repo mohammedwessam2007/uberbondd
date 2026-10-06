@@ -19,14 +19,14 @@ Refresh `main`, then read in this order:
 7. `docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`
 8. prior Winnr handoffs/receipts only as lineage when needed
 
-Newest verified source/provider evidence outranks stale status text. Do not recover from Oct 2/Oct 3 when newer evidence exists. Do not rebuild solved Revenue Singularity layers.
+Newest verified source/provider evidence outranks stale status text. Always refresh `main`; do not assume a SHA embedded in a handoff is still repository head. Do not recover from Oct 2/Oct 3 when newer evidence exists. Do not rebuild solved Revenue Singularity layers.
 
-## Current repository/runtime frontier
+## Repository/runtime frontier at package creation
 
-- Canonical `main`: `647d1cf794b2b22e0be3275600da4b4a157152db`.
-- Render service `srv-dali9vijnfac739m4vcg` is LIVE at exact main through deploy `dep-db1o3jad0e5s738lrg8g`.
-- Newer commercial preparation is preserved in PR #1243 / head `6075cb244a072d5e5226578262af852e52d82ee2` and XPay backup PR #1242 / head `11185528a29da478683c2e728ad505c52a404047`.
-- Current launch-package branch: `work/winnr-launch-package-20261006`.
+- Package base / last exact executable-live source before this docs-only launch revision: `647d1cf794b2b22e0be3275600da4b4a157152db`.
+- Render service `srv-dali9vijnfac739m4vcg` is LIVE through deploy `dep-db1o3jad0e5s738lrg8g` on that exact executable source. This launch package changes documentation only and does not require a production redeploy merely to make the policy current.
+- Contra commercial preparation lineage originated in PR #1243 / head `6075cb244a072d5e5226578262af852e52d82ee2`; the current launch package subsumes those contract/project drafts.
+- XPay backup lineage remains PR #1242 / head `11185528a29da478683c2e728ad505c52a404047` unless newer evidence supersedes it.
 
 ## Correct gate model
 

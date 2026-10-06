@@ -1,0 +1,26 @@
+{
+  "provider": "contra",
+  "observedAt": "REPLACE_WITH_CURRENT_ISO_TIMESTAMP",
+  "ownerAttested": false,
+  "evidenceRefs": [],
+  "existingAccountConfirmed": false,
+  "duplicateAccountCreated": false,
+  "authenticated": false,
+  "wallet": {
+    "status": "UNKNOWN",
+    "identityVerificationStatus": "UNKNOWN"
+  },
+  "taxProfileStatus": "UNKNOWN",
+  "payout": {
+    "status": "UNKNOWN",
+    "method": "UNKNOWN",
+    "country": "EG",
+    "accountOwnerMatch": false
+  },
+  "blockingRequirements": [],
+  "capabilities": {
+    "oneTimeFixedProject": false,
+    "paymentLink": false,
+    "invoice": false
+  }
+}

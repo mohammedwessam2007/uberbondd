@@ -25,6 +25,7 @@ import { buildProspectEvidenceBundle, PROSPECT_EVIDENCE_VERSION } from './prospe
 import { diagnosePaymentRail, IMPLEMENTED_PAYMENT_RAILS, summarizePaymentRail } from './payment-rail-doctor.mjs';
 import { compressPayment } from './payment-compression.mjs';
 import { canonicalPaymentFacts } from './payment-renewal-truth.mjs';
+import { compileContraCollectionReadiness, summarizeContraCollectionReadiness, defaultContraFirstCashProjectPlan } from './contra-collection-readiness.mjs';
 
 const pick = (o, ...k) => k.map(x => o?.[x]).find(v => v !== undefined && v !== null && v !== '');
 const HISTORY_COLLECTIONS = Object.freeze(['suppressions', 'prospects', 'outboundReservations', 'outboundEvents', 'replies', 'messages', 'providerEvents']);
@@ -459,27 +460,26 @@ function applyCurrentCollectionRoutePolicy(summary = {}) {
   return summary;
 }
 
-function contraCurrentCollectionRoute() {
+export function contraCurrentCollectionRoute(s = {}) {
+  const observation = s?.settings?.contraCollectionObservation || null;
+  const report = compileContraCollectionReadiness(observation, { at: new Date(s?.now || Date.now()) });
+  const summary = summarizeContraCollectionReadiness(report);
   return {
+    ...summary,
     provider: 'contra',
-    state: 'ACCOUNT_SETUP_PENDING',
-    liveReady: false,
     lifecycle: 'SELECTED_CURRENT_ROUTE',
     criticalPath: true,
-    implementationMode: 'MANUAL_PROVIDER_WORKFLOW_PENDING_AUTH',
-    reasonCodes: [
-      'provider-confirmed-egypt-receiving-and-swift-payout',
-      'exact-account-auth-kyc-wallet-payout-unverified'
-    ],
-    ownerActionQueue: [{
-      action: 'Finish the existing Contra account setup and verify Wallet/payout readiness.',
-      screen: 'Contra -> existing account -> Wallet / identity verification / payout methods',
-      minutes: 15,
-      costUsd: 0,
-      evidenceOfCompletion: 'Authenticated existing account shows current KYC/Wallet state and a usable Egyptian bank/SWIFT payout method; no duplicate account.'
-    }],
-    evidenceBinding: 'PROVIDER_GENERAL_CAPABILITY_CONFIRMED__ACCOUNT_STATE_NOT_BOUND',
-    evidenceRefs: ['docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md']
+    collectionReady: report.liveReady === true,
+    liveReady: report.liveReady === true,
+    frictionSteps: 2,
+    implementationMode: 'MANUAL_PROVIDER_WORKFLOW_OWNER_ATTESTED',
+    evidenceBinding: observation
+      ? 'OWNER_ATTESTED_CURRENT_CONTRA_UI_OBSERVATION'
+      : 'PROVIDER_GENERAL_CAPABILITY_CONFIRMED__ACCOUNT_STATE_NOT_BOUND',
+    evidenceRefs: observation?.evidenceRefs?.length
+      ? [...observation.evidenceRefs]
+      : ['docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md'],
+    projectPlan: defaultContraFirstCashProjectPlan({ priceUsd: 2500 })
   };
 }
 
@@ -531,7 +531,7 @@ export function paymentRailsFromSnapshot(s, env = process.env) {
       evidenceBinding: verificationReceipt ? 'CANONICAL_THREE_WITNESS_PROVIDER_RECEIPT' : 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND'
     });
   });
-  return [contraCurrentCollectionRoute(), ...backupCollectionRoutes(), ...implemented];
+  return [contraCurrentCollectionRoute(s), ...backupCollectionRoutes(), ...implemented];
 }
 
 /** Delivery state for one lead from stored fields only; absent evidence stays absent. */

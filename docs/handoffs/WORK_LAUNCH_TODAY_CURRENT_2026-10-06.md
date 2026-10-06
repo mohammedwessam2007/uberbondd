@@ -18,12 +18,14 @@ Separate four consequence domains:
 
 A blocker in one domain does not automatically block another. Legal uncertainty about an outbound route blocks that route's send effect; it does not by itself block buying Winnr capacity. Incomplete Contra KYC/payout setup blocks payment collection/settlement claims; it does not by itself block buying Winnr. Physical iPad proof, future buyer behavior and secondary-provider automation do not block purchase.
 
-## Exact current source/runtime frontier
+## Source/runtime frontier at package creation
 
-- Repository canonical `main`: `647d1cf794b2b22e0be3275600da4b4a157152db`.
+- Package base and last exact executable/live source before this documentation-only revision: `647d1cf794b2b22e0be3275600da4b4a157152db`.
 - Render service: `srv-dali9vijnfac739m4vcg` (`uberbond-control-plane`).
-- Live Render deploy: `dep-db1o3jad0e5s738lrg8g` at exact main `647d1cf794b2b22e0be3275600da4b4a157152db`.
-- Current commercial preparation lineage includes unmerged PR #1243 at head `6075cb244a072d5e5226578262af852e52d82ee2` and unmerged XPay PR #1242 at head `11185528a29da478683c2e728ad505c52a404047`.
+- Live Render deploy: `dep-db1o3jad0e5s738lrg8g` on exact executable source `647d1cf794b2b22e0be3275600da4b4a157152db`.
+- Always refresh repository `main` before execution; the docs-only merge that carries this package may place `main` ahead of the executable/live SHA without changing runtime behavior.
+- Contra commercial preparation lineage originated in PR #1243 / head `6075cb244a072d5e5226578262af852e52d82ee2`; the current launch package subsumes those contract/project drafts.
+- XPay backup lineage remains PR #1242 / head `11185528a29da478683c2e728ad505c52a404047` unless newer evidence supersedes it.
 - Historical Intelo effect remains `UNKNOWN_0_OR_1`, consumes its exact effect cap and is never blindly replayed.
 
 ## Solved layers — do not rebuild
@@ -50,7 +52,7 @@ Contra support directly confirmed to Mohamed that an Egyptian user can receive p
 
 This advances Contra from generic documentation to `EGYPT_ROUTE_PROVIDER_CONFIRMED`, but the exact authenticated account is still not `COLLECTION_READY` until its own login/KYC/tax/wallet/payout state is inspected and configured. Do not create a duplicate Contra account. Do not treat wallet balance, escrow or an initiated transfer as cleared bank cash.
 
-Prepared internal documents from PR #1243 remain valid starting material:
+Prepared internal documents from the Contra preparation lineage remain valid starting material:
 - `docs/contracts/UBERBOND_CONTRA_MASTER_DRAFT.md`
 - `docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md`
 

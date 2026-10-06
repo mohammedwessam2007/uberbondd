@@ -209,6 +209,48 @@ test('protected owner setup records identity and one exact recipient without ext
   assert.equal(identity.status, 200);
   assert.equal(json(identity).identity.postalAddress, '12 Evidence Street, Cairo, 11511, Egypt');
 
+  const contraPending = await call('/api/owner/contra-collection-observation', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      provider: 'contra',
+      observedAt: new Date().toISOString(),
+      ownerAttested: true,
+      evidenceRefs: ['owner:contra-wallet-screen:test'],
+      existingAccountConfirmed: true,
+      duplicateAccountCreated: false,
+      authenticated: true,
+      wallet: { status: 'PENDING', identityVerificationStatus: 'PENDING' },
+      taxProfileStatus: 'UNKNOWN',
+      payout: { status: 'UNKNOWN', method: 'UNKNOWN', country: 'EG', accountOwnerMatch: false },
+      blockingRequirements: [],
+      capabilities: { oneTimeFixedProject: false, paymentLink: false, invoice: false }
+    })
+  });
+  assert.equal(contraPending.status, 200);
+  assert.equal(json(contraPending).contra.state, 'WALLET_SETUP_REQUIRED');
+  assert.equal(json(contraPending).paymentRequestsSent, 0);
+
+  const contraReady = await call('/api/owner/contra-collection-observation', {
+    method: 'POST', token: ADMIN_TOKEN,
+    body: JSON.stringify({
+      provider: 'contra',
+      observedAt: new Date().toISOString(),
+      ownerAttested: true,
+      evidenceRefs: ['owner:contra-wallet-screen:test-ready'],
+      existingAccountConfirmed: true,
+      duplicateAccountCreated: false,
+      authenticated: true,
+      wallet: { status: 'READY', identityVerificationStatus: 'VERIFIED' },
+      taxProfileStatus: 'COMPLETE',
+      payout: { status: 'READY', method: 'SWIFT', country: 'EG', accountOwnerMatch: true },
+      blockingRequirements: [],
+      capabilities: { oneTimeFixedProject: true, paymentLink: true, invoice: true }
+    })
+  });
+  assert.equal(contraReady.status, 200);
+  assert.equal(json(contraReady).contra.state, 'COLLECTION_READY');
+  assert.equal(json(contraReady).contra.paymentRequestAuthority, 'NONE');
+
   const campaignBody = JSON.stringify({
     name: 'Owner canary intake campaign', niche: 'HVAC agencies', offer: 'Lead-path evidence sprint',
     allowedCountries: 'United Kingdom', minScore: 60, maxFollowups: 0, approved: true, autoSend: true
@@ -248,6 +290,7 @@ test('protected owner setup records identity and one exact recipient without ext
   const setup = await call('/api/owner/setup', { token: ADMIN_TOKEN });
   assert.equal(setup.status, 200);
   assert.equal(json(setup).recipientEvidence.total, 1);
+  assert.equal(json(setup).contra.state, 'COLLECTION_READY');
   const canary = await call('/api/outbound/canary/status', { token: ADMIN_TOKEN });
   assert.equal(canary.status, 200);
   assert.equal(json(canary).prerequisites.senderIdentityConfigured, true);

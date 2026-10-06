@@ -21,6 +21,7 @@ import { createCompaniesHouseAdapter } from './src/companies-house-adapter.mjs';
 import { preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import { terminalReadinessWithEffectTruth } from './src/revenue-terminal-effect-truth.mjs';
 import { runWinnrSmtpReadinessProbe } from './src/winnr-smtp-readiness.mjs';
+import { promoteOwnerBusinessIdentityFromEnv } from './src/owner-business-identity-runtime.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -30,6 +31,13 @@ if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
 const store = createStore(config);
 await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
+
+try {
+  const identityPromotion = await promoteOwnerBusinessIdentityFromEnv({ store, env: process.env });
+  console.log(`OWNER_IDENTITY_RUNTIME ${JSON.stringify(identityPromotion)}`);
+} catch (error) {
+  console.error(`OWNER_IDENTITY_RUNTIME_FAILED ${JSON.stringify({ ok:false, errorClass:String(error?.code||error?.name||'error').slice(0,80), piiLogged:false, externalEffects:0, businessEffectAuthority:'NONE' })}`);
+}
 
 // Fresh authenticated SMTP reachability without a message effect. This probe is
 // deliberately narrower than placement/reputation health: TLS -> EHLO -> AUTH ->

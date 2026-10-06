@@ -1,19 +1,19 @@
 import { buildFounderCommandCenter } from './founder-command-center.mjs';
 import { buildPrometheusControlTower } from './prometheus-control-tower.mjs';
+import { currentPaymentCollectionRoutes } from './current-payment-collection.mjs';
 
-export const FOUNDER_OPS_VIEW_VERSION = 'uberbond.founder-ops-view.v1';
+export const FOUNDER_OPS_VIEW_VERSION = 'uberbond.founder-ops-view.v2';
 
 function providerPosture(env = {}) {
-  const paypalEnvironment = String(env.PAYPAL_ENVIRONMENT || '').trim().toUpperCase() || 'UNSPECIFIED';
-  const liveMode = paypalEnvironment === 'LIVE';
-  const sandboxMode = paypalEnvironment === 'SANDBOX';
-  const liveCreds = Boolean(env.PAYPAL_LIVE_CLIENT_ID && env.PAYPAL_LIVE_CLIENT_SECRET && env.PAYPAL_LIVE_WEBHOOK_ID);
-  const sandboxCreds = Boolean(env.PAYPAL_SANDBOX_CLIENT_ID && env.PAYPAL_SANDBOX_CLIENT_SECRET && env.PAYPAL_SANDBOX_WEBHOOK_ID);
+  const routes = currentPaymentCollectionRoutes();
+  const primary = routes.find(route => route.selectedForCurrentLaunch === true) || null;
   return {
-    paypalEnvironment,
-    paypalCredentialSetConfigured: liveMode ? liveCreds : sandboxMode ? sandboxCreds : false,
-    commercialProviderConfigurationPresent: liveMode && liveCreds,
-    sandboxProviderConfigurationPresent: sandboxMode && sandboxCreds,
+    selectedCollectionProvider: primary?.provider || null,
+    selectedCollectionState: primary?.state || 'NO_CURRENT_COLLECTION_ROUTE',
+    selectedCollectionLiveReady: primary?.liveReady === true,
+    selectedCollectionReasonCodes: [...(primary?.reasonCodes || [])],
+    preservedProviderRoutes: routes.filter(route => route.selectedForCurrentLaunch !== true)
+      .map(route => ({ provider: route.provider, priority: route.priority, state: route.state, liveReady: route.liveReady === true })),
     databaseConfigured: Boolean(env.DATABASE_URL),
     adminAuthConfigured: Boolean(env.ADMIN_TOKEN),
     outboundEnabled: String(env.OUTBOUND_ENABLED || '').toLowerCase() === 'true',
@@ -23,18 +23,19 @@ function providerPosture(env = {}) {
 }
 
 function launchability({ commandCenter, provider, prometheus }) {
-  const reasons = [];
-  if (!provider.databaseConfigured) reasons.push('database-not-configured');
-  if (!provider.adminAuthConfigured) reasons.push('admin-auth-not-configured');
-  if (!provider.commercialProviderConfigurationPresent) reasons.push('live-paypal-provider-configuration-not-proven');
-  if (!provider.outboundEnabled) reasons.push('outbound-disabled-or-not-configured');
-  if (provider.outboundDryRun) reasons.push('outbound-dry-run');
+  const localReasons = [];
+  const externalReasons = [];
+  if (!provider.databaseConfigured) localReasons.push('database-not-configured');
+  if (!provider.adminAuthConfigured) localReasons.push('admin-auth-not-configured');
+  if (!provider.outboundEnabled) localReasons.push('outbound-disabled-or-not-configured');
+  if (provider.outboundDryRun) localReasons.push('outbound-dry-run');
+  if (!provider.selectedCollectionLiveReady) externalReasons.push('collection-provider-account-setup-not-proven');
 
   const outbound = commandCenter?.outbound || {};
-  if (outbound?.killSwitch?.globalOutboundPaused === true) reasons.push('outbound-globally-paused');
-  if (Number(outbound?.reservations?.unknownOutcome || 0) > 0) reasons.push('outbound-provider-outcome-reconciliation-required');
-  if (Number(outbound?.staleRecoveryPreview?.wouldRecover || 0) > 0) reasons.push('stale-outbound-reservation-recovery-required');
-  if (Number(outbound?.staleRecoveryPreview?.wouldQuarantine || 0) > 0) reasons.push('outbound-quarantine-review-required');
+  if (outbound?.killSwitch?.globalOutboundPaused === true) localReasons.push('outbound-globally-paused');
+  if (Number(outbound?.reservations?.unknownOutcome || 0) > 0) localReasons.push('outbound-provider-outcome-reconciliation-required');
+  if (Number(outbound?.staleRecoveryPreview?.wouldRecover || 0) > 0) localReasons.push('stale-outbound-reservation-recovery-required');
+  if (Number(outbound?.staleRecoveryPreview?.wouldQuarantine || 0) > 0) localReasons.push('outbound-quarantine-review-required');
 
   const money = prometheus?.money || {};
   const externalReality = {
@@ -43,21 +44,26 @@ function launchability({ commandCenter, provider, prometheus }) {
     acceptedDeliveries: prometheus?.businesses?.acceptedDeliveries ?? 'UNKNOWN',
     customers: prometheus?.businesses?.customers ?? 'UNKNOWN'
   };
-  const localConfigurationGatesClear = reasons.length === 0;
+  const localConfigurationGatesClear = localReasons.length === 0;
 
   return {
     internalSoftwarePathDeclared: Boolean(commandCenter?.canonicalFirstCashPath?.sku),
     canonicalSku: commandCenter?.canonicalFirstCashPath?.sku || null,
     canonicalPriceUsd: commandCenter?.canonicalFirstCashPath?.priceUsd ?? null,
     canonicalPaymentMethod: commandCenter?.canonicalFirstCashPath?.paymentMethod || null,
-    externalActivationBlockers: reasons,
+    localConfigurationGates: localReasons,
+    externalActivationBlockers: [...localReasons, ...externalReasons],
+    collectionProvider: provider.selectedCollectionProvider,
+    collectionState: provider.selectedCollectionState,
+    collectionLiveReady: provider.selectedCollectionLiveReady,
+    collectionReasonCodes: [...provider.selectedCollectionReasonCodes],
     localConfigurationGatesClear,
     launchNowProven: false,
     launchNowWhyNotProven: 'Sender/DNS/legal/provider-callability/customer reality are external evidence and are never inferred from environment configuration or an empty local blocker list.',
     externalReality,
     nextSafeOutboundAction: outbound?.nextSafeAction || null,
     note: localConfigurationGatesClear
-      ? 'Local configuration and currently observable local blockers are clear. This is NOT launch proof and does not prove provider callability, sender/DNS/legal readiness, a customer, payment, delivery, acceptance, or retention.'
+      ? 'Local configuration and currently observable local blockers are clear. This is NOT launch proof. The selected collection account may still require provider/owner setup, and sender/DNS/legal/customer/payment/delivery reality remains external evidence.'
       : 'Software is present but at least one local/provider/operator gate is not currently clear.',
     businessEffectAuthority: 'NONE'
   };

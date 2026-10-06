@@ -11,6 +11,7 @@ import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileCoverageMatrix } from '../src/sovereign-coverage-matrix.mjs';
 import { verifyCoverageStateEvidenceIntegrity } from '../src/coverage-state-evidence-integrity.mjs';
+import { FOUNDER_INTERACTIVE_ENTRY_POINTS, reachableFromEntryPoints } from './system-readiness.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -194,15 +195,21 @@ export function repoIndex() {
     ...walkFiles('.claude/skills', '.md')
   ];
   const testFiles = walkFiles('tests').filter(file => file.endsWith('.test.mjs'));
+  const founderInteractiveSet = reachableFromEntryPoints(FOUNDER_INTERACTIVE_ENTRY_POINTS);
+  const founderInteractiveReachable = sourceFiles.filter(file =>
+    founderInteractiveSet.has(file)
+    && classification.modules?.[file]?.category === 'DELIBERATELY_UNREACHABLE'
+  );
   return {
     sourceFiles,
     testFiles,
-    // Approximate rather than pretending: a module carrying a registered gate is
-    // deliberately unreached, and anything else with a source file is treated as
-    // operator-reachable at worst. The exact production partition lives in the
-    // reachability ratchet and is not recomputed here.
+    // Ungated files remain the conservative reachable-at-worst approximation.
+    // Founder-private code is the deliberate exception: the live import graph
+    // proves an exact founder-present path while the reachability ratchet proves
+    // the same modules remain absent from every unattended path.
     productionReachable: sourceFiles.filter(file => !gated.has(file)),
-    operatorReachable: sourceFiles
+    operatorReachable: sourceFiles.filter(file => !gated.has(file)),
+    founderInteractiveReachable
   };
 }
 

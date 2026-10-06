@@ -1,10 +1,10 @@
 # WORK CURRENT — crash-safe recovery pointer
 
-Date: 2026-10-06 (Africa/Cairo)
+Date: 2026-10-07 (Africa/Cairo)
 
-Status: `WINNR_69_PURCHASE_PRECHECK_READY`
+Status: `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`
 
-Purpose: this is the single short recovery pointer for current UberBond launch execution. It supersedes the Oct 5 all-or-nothing Winnr purchase-gate interpretation without deleting historical receipts.
+Purpose: this is the shortest authoritative recovery pointer for the current UberBond launch and repair frontier. It supersedes the Oct 5 all-or-nothing purchase-gate interpretation and the Oct 6 precheck wording without deleting either lineage.
 
 ## Recovery order
 
@@ -15,77 +15,59 @@ Refresh `main`, then read in this order:
 3. `.claude/CLAUDE.md`
 4. newest comment on GitHub issue #1188
 5. this file
-6. `docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`
-7. `docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`
-8. prior Winnr handoffs/receipts only as lineage when needed
+6. `docs/handoffs/WORK_LAUNCH_READINESS_REPAIR_CURRENT_2026-10-07.md`
+7. `docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`
+8. `docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`
+9. historical repair/Winnr receipts only when needed for lineage
 
-Newest verified source/provider evidence outranks stale status text. Always refresh `main`; do not assume a SHA embedded in a handoff is still repository head. Do not recover from Oct 2/Oct 3 when newer evidence exists. Do not rebuild solved Revenue Singularity layers.
+Newest verified source/provider evidence outranks stale status text. Always refresh `main`; never infer authority from a filename such as CURRENT/READY/FINAL.
 
-## Repository/runtime frontier at package creation
+## Gate model
 
-- Package base / last exact executable-live source before this docs-only launch revision: `647d1cf794b2b22e0be3275600da4b4a157152db`.
-- Render service `srv-dali9vijnfac739m4vcg` is LIVE through deploy `dep-db1o3jad0e5s738lrg8g` on that exact executable source. This launch package changes documentation only and does not require a production redeploy merely to make the policy current.
-- Contra commercial preparation lineage originated in PR #1243 / head `6075cb244a072d5e5226578262af852e52d82ee2`; the current launch package subsumes those contract/project drafts.
-- XPay backup lineage remains PR #1242 / head `11185528a29da478683c2e728ad505c52a404047` unless newer evidence supersedes it.
+Keep four consequence domains separate:
 
-## Correct gate model
-
-Do NOT use one giant readiness gate.
-
-Keep separate:
-
-- `PURCHASE_READY` — Winnr plan/price/terms/capacity/economics + explicit founder spend authorization.
-- `SEND_READY` — exact prospect, route, sender, legal/evidence, unsubscribe/footer, fresh transport and exact effect authorization.
-- `COLLECTION_READY` — authenticated provider account, KYC/tax/payout/payment-request ability.
+- `PURCHASE_READY` — Winnr price/terms/capacity/economics plus explicit founder spend authorization.
+- `SEND_READY` — exact prospect, lawful route, current evidence, recipient, sender, footer/unsubscribe, fresh transport and exact effect authorization.
+- `COLLECTION_READY` — authenticated collection provider account, account-specific KYC/tax/Wallet/payout/payment-request capability.
 - `DELIVERY_READY` — signed scope/dependencies plus canonical payment/delivery authorization.
 
 A blocker in one domain does not automatically block another.
 
-## Current provider/legal truth
+## Current purchase truth
 
-- Contra support confirmed Egyptian payment receipt through invoices/projects/payment links and Egyptian-bank payout through SWIFT. Exact account login/KYC/wallet/payout setup remains unverified and blocks collection readiness, not Winnr purchase.
-- Counsel replied to the Egypt PDPL/EDM inquiry requesting conflict-check identity. UberBond replied truthfully that Mohamed Wessam is acting in his personal capacity, UberBond is a project/brand, and no incorporated entity is asserted. Bespoke route opinion remains pending and blocks only routes that still require that legal resolution before sending.
-- PayPal is permanently deactivated and removed from the critical path.
-- XPay remains review/test-only backup. Payoneer requires recovery of the existing account only.
+Current provider-origin Winnr evidence has closed the purchase precheck: intended Startup base plan is $69/month, monthly-only/cancelable, 50 mailboxes and 10 domain slots; optional warming is a separate add-on; the existing pilot remains separate. The purchase state is therefore `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`.
 
-## Winnr $69 purchase law — current
+Do not charge the $69 or any optional add-on until Mohamed explicitly authorizes that financial effect.
 
-The Oct 5 requirement that legal route clearance + payment `LIVE_READY` must precede buying Winnr is superseded.
+Pending counsel, Contra KYC/payout setup, XPay approval, Payoneer recovery, physical-iPad proof, buyer behavior and a fresh pre-send G-SPOT/SMTP run are not purchase blockers. They remain relevant to their own send/collection/evidence gates.
 
-Before purchase, verify only what the purchase itself requires:
+## Current collection/legal truth
 
-1. authenticated Winnr screen shows the actual intended $69 price/cadence;
-2. entitlement/capacity is useful and materially increases usable capacity;
-3. no unexpected annual lock-in/minimum term/material add-on or materially different entitlement;
-4. incremental economics are directionally positive and capacity can be configured/warmed while downstream gates finish;
-5. no known software defect makes the capacity unusable;
-6. Mohamed gives explicit financial authorization.
+- Contra is the selected first-cash route, with Egypt receiving capability and Egyptian-bank SWIFT payout provider-confirmed. Exact existing-account authentication/KYC/tax/Wallet/payout state remains unverified, so collection is not yet account-ready.
+- XPay remains review/test-only backup.
+- Payoneer remains existing-account recovery backup.
+- PayPal is permanently deactivated and must not appear as an owner recovery action.
+- bespoke Egypt outbound counsel remains pending. It blocks only routes that still require that legal resolution before sending.
 
-Pending bespoke counsel, Contra KYC/payout, XPay approval, Payoneer recovery, physical iPad proof, future buyer behavior and fresh pre-send G-SPOT/SMTP checks are NOT purchase blockers.
+## Repair frontier
 
-Fresh send readiness is still mandatory before a real prospect effect. Payment collection readiness is still mandatory before asking/expecting the client to pay through that rail. Cleared-payment truth and delivery authorization remain separate and strict.
+PR #1251, `fix/launch-readiness-repair-20261007`, is the canonical repair lane. It subsumes the internally useful repair work from PR #1250 while retaining unique receipts/tests as lineage.
 
-## Hard no-slide boundaries
+Verified exact-head predecessor `0d21e54a47943eea19f5dd193a25a88912492159` proved on Vercel that the scale-safe repository atlas completes with full text coverage and zero truncation. The lite preview reached READY and built a 163,581-node / 650,318-edge Ultimate Graph with zero orphan nodes. This crash-safe consolidation commit changes only documentation/tests copied from preserved lineage and therefore still requires exact-head verification before merge.
+
+## Hard boundaries
 
 - no fabricated legal/provider/payment/customer facts;
-- no known-prohibited outbound route;
 - no Intelo replay;
-- no release of quarantined/protective sender holds merely for throughput;
+- no release of quarantined/protective sender holds just for throughput;
 - no claim that escrow/wallet/pending payout is cleared cash;
 - no duplicate/evasive provider accounts;
-- no spend beyond explicit founder authorization;
+- no new recurring spend without explicit founder authorization;
+- no real prospect send without the applicable exact effect authorization;
 - no delivery without applicable canonical authorization.
 
-## Immediate mission
+## Immediate execution
 
-Continue autonomously through every internally solvable step toward today's launch:
+Finish exact-head verification of PR #1251, merge only verified source into `main`, verify the exact merged SHA in production, retire PR #1250 only after its unique evidence is preserved, then stop at genuine owner/provider boundaries.
 
-1. inspect exact authenticated Winnr upgrade terms;
-2. if they match the intended $69 monthly capacity with no material surprise, declare `WINNR_69_PURCHASE_READY`;
-3. obtain explicit founder authorization for the spend;
-4. purchase and reconcile entitlement/receipt;
-5. configure/warm capacity while legal + Contra finish in parallel;
-6. run fresh pre-send readiness before the first live effect;
-7. progress Contra to collection-ready without creating duplicate accounts or inventing cleared cash.
-
-Stop only for genuine owner/provider boundaries. Present at most 3 owner actions. Preserve the entire wider UberBond organism.
+No solved Revenue Singularity layer should be rebuilt.

@@ -17,3 +17,15 @@ test('Open Model Foundry recovery tournament measures recovery success but never
   const out=planModelTournament({baseline:supply(),candidates:[supply({id:'local-b',model:'model-b',revision:'rev-2'})],taskClass:'text-generation',holdoutId:'holdout-1'});
   assert.equal(out.ok,true);assert.ok(out.tournament.measures.includes('recovery-success'));assert.equal(out.promotionAuthority,'NONE');
 });
+
+test('Open Model Foundry refuses public/open supply that lacks permission eligibility',()=>{
+  const out=rankModelCandidates({
+    candidates:[supply({permissionEligible:false})],
+    taskClass:'text-generation',
+    now:'2026-09-11T00:00:00Z'
+  });
+  assert.equal(out.ok,true);
+  assert.equal(out.selected,null);
+  assert.ok(out.rejected[0].reasonCodes.includes('permission-not-eligible'));
+  assert.equal(out.executionAuthority,'NONE');
+});

@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 
-export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.2';
+export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.3';
 
 const SOURCE_TYPES = new Set(['OFFICIAL_REGISTRY', 'PUBLIC_INDEX', 'GITHUB_API', 'PACKAGE_REGISTRY', 'ACADEMIC_CORPUS', 'APPROVED_SUPPLIER_REGISTRY']);
 const ACCESS_MODES = new Set(['API', 'PUBLIC_WEB', 'GIT_METADATA', 'LOCAL_FILE']);
@@ -26,7 +26,8 @@ function evidenceAgeDays(value, now) {
   return (current.getTime() - observed.getTime()) / 86_400_000;
 }
 
-export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date() } = {}) {
+export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date(), freshnessPolicy = 'CURRENT' } = {}) {
+  const historicalPilot = freshnessPolicy === 'HISTORICAL_PILOT';
   const reasons = [];
   const sources = sourceRegistry?.sources;
   const atoms = atomTaxonomy?.atoms;
@@ -81,7 +82,7 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (!observed) reasons.push('valid-corpus-observed-at-required');
     else {
       const ageDays = evidenceAgeDays(observed, now);
-      if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('repository-corpus-stale-or-future-dated');
+      if (ageDays < 0 || (!historicalPilot && ageDays > MAX_CORPUS_AGE_DAYS)) reasons.push('repository-corpus-stale-or-future-dated');
     }
     if (reasons.length === 0) {
       worldRepositoryCandidateCount = repositoryCandidates;
@@ -116,7 +117,7 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (!observed) reasons.push('valid-body-corpus-observed-at-required');
     else {
       const ageDays = evidenceAgeDays(observed, now);
-      if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('body-corpus-stale-or-future-dated');
+      if (ageDays < 0 || (!historicalPilot && ageDays > MAX_CORPUS_AGE_DAYS)) reasons.push('body-corpus-stale-or-future-dated');
     }
     if (Array.isArray(bodyCorpusState?.bodies)) {
       if (bodyCorpusState.bodies.length !== skillBodies) reasons.push('body-evidence-list-count-mismatch');
@@ -150,7 +151,7 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     if (!observed) reasons.push('valid-normalized-record-observed-at-required');
     else {
       const ageDays = evidenceAgeDays(observed, now);
-      if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('normalized-record-corpus-stale-or-future-dated');
+      if (ageDays < 0 || (!historicalPilot && ageDays > MAX_CORPUS_AGE_DAYS)) reasons.push('normalized-record-corpus-stale-or-future-dated');
       else normalizedRecordCorpusObservedAt = observed;
     }
   }
@@ -210,13 +211,14 @@ export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabili
     capabilityAtomCount: atoms.length,
     corpusTruth,
     runtimeTruth,
+    corpusFreshnessTruth: historicalPilot ? 'HISTORICAL_PILOT_EVIDENCE__NOT_CURRENT_WORLD_REFRESH' : 'CURRENT_FRESHNESS_ENFORCED',
     lastRefresh: refreshTimes.at(-1) || null,
     promotionTruthSource: 'CAPABILITY_RECORD_LIFECYCLE_ONLY__CORPUS_AND_BODY_METADATA_CANNOT_APPROVE_OR_ACTIVATE',
     health: 'FOUNDATION_HEALTHY'
   };
   return {
     ok: true,
-    status: 'CAPABILITY_GENOME_FOUNDATION_HEALTHY',
+    status: historicalPilot ? 'CAPABILITY_GENOME_FOUNDATION_HEALTHY_HISTORICAL_PILOT' : 'CAPABILITY_GENOME_FOUNDATION_HEALTHY',
     state,
     capabilityGraphDigest: digest({
       sources,

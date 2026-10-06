@@ -26,7 +26,7 @@ await mkdir(dirname(output), { recursive: true });
 // marker in source but may never reproduce it into its own durable artifact,
 // or the generated artifact would accidentally exempt itself from scanning.
 const fixtureMarker = ['secret-scanner', 'fixtures', 'intentional'].join('-');
-const persisted = redactSecrets(JSON.stringify(result, null, 2))
+const persisted = redactSecrets(JSON.stringify(result))
   .replaceAll(fixtureMarker, 'secret-scanner-fixture-marker-redacted');
 
 await writeFile(output, `${persisted}\n`, 'utf8');

@@ -128,10 +128,26 @@ test('owner settings cannot mint provider-origin payment readiness', () => {
     PAYPAL_SANDBOX_CLIENT_ID: 'present', PAYPAL_SANDBOX_CLIENT_SECRET: 'present', PAYPAL_SANDBOX_WEBHOOK_ID: 'present',
     DATABASE_URL: 'postgres://present', APP_BASE_URL: 'https://uberbond.example'
   };
-  const paypal = paymentRailsFromSnapshot(s, env).find(r => r.provider === 'paypal');
-  assert.notEqual(paypal.state, 'LIVE_READY');
+  const routes = paymentRailsFromSnapshot(s, env);
+  const contra = routes.find(r => r.provider === 'contra');
+  assert.equal(contra.selectedForCurrentLaunch, true);
+  assert.equal(contra.state, 'ACCOUNT_SETUP_PENDING');
+  assert.equal(contra.liveReady, false);
+  assert.equal(contra.ownerActionQueue.length, 1);
+
+  const paypal = routes.find(r => r.provider === 'paypal');
+  assert.equal(paypal.state, 'PERMANENTLY_DEACTIVATED');
   assert.equal(paypal.liveReady, false);
+  assert.equal(paypal.ownerActionQueue.length, 0);
+  assert.ok(paypal.technicalState);
   assert.equal(paypal.evidenceBinding, 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND');
+
+  const lemon = routes.find(r => r.provider === 'lemon_squeezy');
+  assert.equal(lemon.state, 'NOT_SELECTED_FOR_CURRENT_LAUNCH');
+  assert.equal(lemon.liveReady, false);
+  assert.equal(lemon.ownerActionQueue.length, 0);
+  assert.ok(lemon.technicalState);
+
   const deal = dealFromSnapshot(s, 'lead1', env);
   assert.equal(deal.paymentPath.ok, false);
   assert.equal(deal.paymentPath.outboundAuthority, 'NONE');

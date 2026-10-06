@@ -231,7 +231,8 @@ export function locateEvidence(concept, repoIndex) {
     tests: hit.tests,
     reachability: hit.sources.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
       : hit.sources.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
-        : 'CLASSIFIED_OR_UNREACHABLE',
+        : hit.sources.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
+          : 'CLASSIFIED_OR_UNREACHABLE',
     matchStrength: hit.exact ? 'EXACT_SLUG' : 'ALL_TOKENS',
     matchScope: scope,
     matchedPhrase: phrase
@@ -308,12 +309,19 @@ export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
   if (!declared) return evidence;
   const sources = [...new Set([...declared.sources, ...(evidence?.sources || [])])];
   const tests = [...new Set([...declared.tests, ...(evidence?.tests || [])])];
+  const reachabilityFor = refs => refs.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
+    : refs.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
+      : refs.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
+        : 'CLASSIFIED_OR_UNREACHABLE';
+  const declaredReachability = reachabilityFor(declared.sources);
   return {
     sources,
     tests,
-    reachability: sources.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
-      : sources.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
-        : 'CLASSIFIED_OR_UNREACHABLE',
+    // A declaration is an identity claim about its declared implementation.
+    // Fuzzy filename discoveries remain visible in the union above, but they
+    // cannot launder an unreached declared module into current reachability.
+    reachability: declaredReachability,
+    discoveredReachability: evidence?.reachability || null,
     matchStrength: 'DECLARED_AND_VERIFIED',
     matchScope: 'WHOLE_NAME',
     matchedPhrase: declared.concept
@@ -392,6 +400,22 @@ export function classifyState(concept, evidence) {
   // coverage.
   if (STRUCTURAL_CLASSES.includes(concept.class)) return 'STRUCTURAL_NOT_A_BUILD_TARGET';
   if (ALIAS_CLASSES.includes(concept.class)) return 'ALIAS_OF_CANONICAL_CONCEPT';
+
+  // A preserved donor may be promoted by exact whole-name implementation
+  // evidence, but not by one component of a compound historical name. This
+  // prevents e.g. "Evidence Graph and Reconciliation Network" from inheriting
+  // the unrelated Infinite Opus living-evidence-graph library, and prevents
+  // "World Distribution and Company OS" from being implemented by any generic
+  // company-* module. A partial match remains visible in currentEvidence while
+  // the donor itself stays historical until whole-name or declared evidence
+  // binds it.
+  if (DONOR_CLASSES.includes(concept.class)) {
+    const strongCurrentDonorEvidence = evidence?.matchScope === 'WHOLE_NAME'
+      && ['EXACT_SLUG', 'DECLARED_AND_VERIFIED'].includes(evidence?.matchStrength)
+      && evidence?.reachability
+      && evidence.reachability !== 'CLASSIFIED_OR_UNREACHABLE';
+    if (!strongCurrentDonorEvidence) return 'HISTORICAL_DONOR_PRESERVED';
+  }
 
   if (!evidence || evidence.matchStrength === 'NO_DISTINCTIVE_TOKENS') return 'UNKNOWN';
   if (evidence.sources.length === 0) return 'SPEC_ONLY';
@@ -536,15 +560,34 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
     // named parent organ. Generic concepts with no distinctive tokens remain
     // UNKNOWN, so this cannot turn common vocabulary into coverage.
     const evidenceState = classifyState({ name, ...concept }, evidence);
+    const enforcement = enforcementByConcept.get(slugify(name)) || null;
     const terminalEligible = evidenceState === 'SPEC_ONLY'
       || (evidenceState === 'UNKNOWN' && FIELD_CLASSES.includes(concept.class));
-    const currentState = terminalEligible
-      ? classifyTerminalState({ name, ...concept }, {
-        enforcement: enforcementByConcept.get(slugify(name)) || null,
-        parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null,
-        externalGate: gateByConcept.get(slugify(name)) || null
-      })
-      : evidenceState;
+    // Enforcement is a source+test claim about a refusal law, not a runtime
+    // activation claim. A law can therefore be ENFORCED_BY_CODE even when the
+    // capability it guards is intentionally gated from production.
+    const currentState = LAW_CLASSES.includes(concept.class) && enforcement
+      ? 'ENFORCED_BY_CODE'
+      : terminalEligible
+        ? classifyTerminalState({ name, ...concept }, {
+          enforcement,
+          parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null,
+          externalGate: gateByConcept.get(slugify(name)) || null
+        })
+        : evidenceState;
+
+    // ENFORCED_BY_CODE is granted only from a verified enforcement declaration.
+    // Carry those exact witnesses into the row that receives the state. Without
+    // this, the compiler can truthfully verify the declaration and then emit a
+    // row whose own evidence cannot reconstruct why it was promoted.
+    const rowEvidence = enforcement && LAW_CLASSES.includes(concept.class)
+      ? {
+          ...evidence,
+          sources: [...new Set([...(evidence.sources || []), ...enforcement.sources])],
+          tests: [...new Set([...(evidence.tests || []), ...enforcement.tests])],
+          enforcementEvidenceBound: true
+        }
+      : evidence;
 
     const row = {
       canonicalId,
@@ -552,12 +595,13 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       class: concept.class || 'CONCEPT',
       currentState,
       currentEvidence: {
-        sourceModules: evidence.sources,
-        testModules: evidence.tests,
-        reachability: evidence.reachability,
-        matchStrength: evidence.matchStrength,
-        matchScope: evidence.matchScope,
-        matchedPhrase: evidence.matchedPhrase,
+        sourceModules: rowEvidence.sources,
+        testModules: rowEvidence.tests,
+        reachability: rowEvidence.reachability,
+        matchStrength: rowEvidence.matchStrength,
+        matchScope: rowEvidence.matchScope,
+        matchedPhrase: rowEvidence.matchedPhrase,
+        enforcementEvidenceBound: rowEvidence.enforcementEvidenceBound === true,
         // Said in the row, not only in this file's header: a filename is not a
         // working feature, and a reader scanning states needs that on the row.
         boundary: 'FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME'

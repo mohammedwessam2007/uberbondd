@@ -45,8 +45,9 @@ const manifest = (overrides = {}) => ({
   ...overrides
 });
 
+const fixtureNow = new Date('2026-09-02T04:30:00.000Z');
 const inspect = (capabilityRecords, normalizedRecordState) =>
-  inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords, normalizedRecordState });
+  inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords, normalizedRecordState, now: fixtureNow });
 
 test('normalized records are counted, and every later rung still reports zero', () => {
   const result = inspect([first, second], manifest());
@@ -96,7 +97,8 @@ test('the committed normalization receipt passes the doctor it feeds', () => {
     sourceRegistry: JSON.parse(fs.readFileSync(path.join(root, 'artifacts/capability-genome/source-registry.json'), 'utf8')),
     atomTaxonomy,
     capabilityRecords: receipt.capabilities,
-    normalizedRecordState: receipt
+    normalizedRecordState: receipt,
+    now: fixtureNow
   });
   assert.equal(result.ok, true, JSON.stringify(result.reasonCodes));
   assert.equal(result.state.worldCapabilityRecordsNormalized, 2);

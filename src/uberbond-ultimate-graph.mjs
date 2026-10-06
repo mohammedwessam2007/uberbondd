@@ -2,16 +2,45 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const UBERBOND_ULTIMATE_GRAPH_SCHEMA = 'uberbond.ultimate-graph.v1';
-export const UBERBOND_ULTIMATE_GRAPH_POLICY_VERSION = 'uberbond-ultimate-graph-1.0.0';
+export const UBERBOND_ULTIMATE_GRAPH_POLICY_VERSION = 'uberbond-ultimate-graph-1.0.1';
 
 const DEEP_EDGE_TYPES = new Set(['DETAIL_DECLARED_IN', 'DETAIL_MEMBER_OF_ORGAN']);
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
-function stable(value) {
-  if (Array.isArray(value)) return value.map(stable);
-  if (!value || typeof value !== 'object') return value;
-  return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
+function updateCanonicalJson(hash, value, inArray = false) {
+  if (Array.isArray(value)) {
+    hash.update('[');
+    for (let index = 0; index < value.length; index += 1) {
+      if (index) hash.update(',');
+      const item = value[index];
+      if (item === undefined || typeof item === 'function' || typeof item === 'symbol') hash.update('null');
+      else updateCanonicalJson(hash, item, true);
+    }
+    hash.update(']');
+    return;
+  }
+  if (value && typeof value === 'object') {
+    hash.update('{');
+    let emitted = false;
+    for (const key of Object.keys(value).sort()) {
+      const child = value[key];
+      if (child === undefined || typeof child === 'function' || typeof child === 'symbol') continue;
+      if (emitted) hash.update(',');
+      emitted = true;
+      hash.update(JSON.stringify(key));
+      hash.update(':');
+      updateCanonicalJson(hash, child, false);
+    }
+    hash.update('}');
+    return;
+  }
+  const encoded = JSON.stringify(value);
+  hash.update(encoded === undefined && inArray ? 'null' : encoded ?? 'null');
 }
-function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
+function digest(value) {
+  const hash = crypto.createHash('sha256');
+  updateCanonicalJson(hash, value);
+  return hash.digest('hex');
+}
 function unique(values) { return [...new Set((values || []).filter(Boolean))]; }
 function deepNodeId(id) { return `detail:${id}`; }
 function artifactNodeId(path) { return `artifact:${path}`; }

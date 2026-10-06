@@ -7,7 +7,6 @@ import path from 'node:path';
 import { Store } from '../src/store.mjs';
 import { RevenueEngine } from '../src/revenue.mjs';
 import { buildFounderCommandCenter } from '../src/founder-command-center.mjs';
-import { CANONICAL_FIRST_CASH_PAYMENT_METHOD } from '../src/first-cash-canary-packet.mjs';
 import { LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU } from '../src/lead-path-sprint-fulfillment.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
@@ -49,29 +48,34 @@ test('legacy static checkout gaps are visible but never consume a founder action
   assert.equal(result.nonBlockingLegacyCheckoutGaps.length, 4);
   assert.ok(result.nonBlockingLegacyCheckoutGaps.every(row => row.blocksCanonicalFirstCash === false));
   assert.doesNotMatch(result.ownerActionQueue[0].action, /Configure checkout/);
-  assert.match(result.ownerActionQueue[0].action, /No binding action required/);
+  assert.match(result.ownerActionQueue[0].action, /Finish the existing Contra account setup/);
 });
 
-test('the command center names the canonical $450 bound PayPal first-cash path', async () => {
+test('the command center names the current $450 Contra-first collection path without inventing account readiness', async () => {
   const store = await tempStore();
   const result = await buildFounderCommandCenter({ store, cfg: cfg(), date: monday });
   assert.equal(result.canonicalFirstCashPath.sku, LEAD_PATH_SPRINT_SKU);
   assert.equal(result.canonicalFirstCashPath.priceUsd, LEAD_PATH_SPRINT_PRICE.amountCents / 100);
   assert.equal(result.canonicalFirstCashPath.currency, 'USD');
-  assert.equal(result.canonicalFirstCashPath.paymentMethod, CANONICAL_FIRST_CASH_PAYMENT_METHOD);
+  assert.equal(result.canonicalFirstCashPath.paymentProvider, 'contra');
+  assert.equal(result.canonicalFirstCashPath.paymentMethod, 'CONTRA_PROJECT_OR_INVOICE_OR_PAYMENT_LINK');
+  assert.equal(result.canonicalFirstCashPath.collectionState, 'ACCOUNT_SETUP_PENDING');
+  assert.equal(result.canonicalFirstCashPath.collectionLiveReady, false);
   assert.equal(result.canonicalFirstCashPath.staticCheckoutRequired, false);
-  assert.equal(result.canonicalFirstCashPath.orderEndpoint, 'POST /api/payments/paypal-order');
+  assert.equal(result.canonicalFirstCashPath.orderEndpoint, null);
   assert.equal(result.canonicalFirstCashPath.requiresProviderOriginPaymentTruth, true);
+  assert.equal(result.currentPaymentCollectionRoutes.find(route => route.provider === 'paypal').state, 'PERMANENTLY_DEACTIVATED');
   assert.match(result.whatCanMakeMoneyFirst, new RegExp(LEAD_PATH_SPRINT_SKU));
   assert.match(result.whatCanMakeMoneyFirst, /\$450/);
 });
 
-test('a fully configured system with no issues reports no binding action required', async () => {
+test('local configuration cannot erase the current Contra account-setup owner boundary', async () => {
   const store = await tempStore();
   const config = cfg();
   const result = await buildFounderCommandCenter({ store, cfg: config, date: monday });
   assert.equal(result.blocked.length, 0);
-  assert.match(result.ownerActionQueue[0].action, /No binding action required/);
+  assert.match(result.ownerActionQueue[0].action, /Finish the existing Contra account setup/);
+  assert.equal(result.canonicalFirstCashPath.collectionLiveReady, false);
 });
 
 test('the owner action queue never exceeds three actions', async () => {

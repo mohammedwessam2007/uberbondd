@@ -95,3 +95,40 @@ test('deep atlas cannot copy the secret-scanner fixture exemption into its own d
     'marker sanitization must not destroy exact source coverage evidence');
   fs.rmSync(root, { recursive: true, force: true });
 });
+
+
+test('generated JSON evidence keeps full text coverage without recursively exploding derived keys', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-deep-atlas-derived-json-'));
+  try {
+    fs.mkdirSync(path.join(root, 'artifacts'), { recursive: true });
+    const relativePath = 'artifacts/generated-large.json';
+    const generated = {};
+    for (let index = 0; index < 21050; index += 1) generated[`derived_${index}`] = { value: index };
+    fs.writeFileSync(path.join(root, relativePath), JSON.stringify(generated));
+    const featureGenome = {
+      ok: true,
+      genomeDigest: 'f'.repeat(64),
+      artifactNodes: [{
+        id: `artifact:${relativePath}`,
+        path: relativePath,
+        kind: 'EVIDENCE_OR_GENERATED_ARTIFACT',
+        primaryFamily: 'truth-evidence',
+        families: ['truth-evidence'],
+        organs: ['truth-evidence'],
+        classificationConfidence: 'FIXTURE'
+      }]
+    };
+    const result = buildUberBondRepositoryDeepAtlas({ root, featureGenome });
+    assert.equal(result.ok, true, JSON.stringify({ status: result.status, truncatedFiles: result.truncatedFiles }));
+    const coverage = result.coverage.find(row => row.path === relativePath);
+    assert.ok(coverage);
+    assert.ok(coverage.contentChunkCount > 0);
+    assert.match(coverage.textDigest, /^[a-f0-9]{64}$/);
+    assert.equal(coverage.structuralExpansion, 'DERIVED_JSON_KEYS_SKIPPED__FULL_TEXT_CHUNK_COVERAGE_PRESERVED');
+    assert.deepEqual(result.structuralExpansionSkippedFiles, [relativePath]);
+    assert.equal(result.details.some(detail => detail.sourcePath === relativePath && detail.class === 'CONFIG_KEY'), false);
+    assert.ok(result.details.some(detail => detail.sourcePath === relativePath && detail.class === 'CONTENT_CHUNK'));
+  } finally {
+    fs.rmSync(root, { recursive: true, force: true });
+  }
+});

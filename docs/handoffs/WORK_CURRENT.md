@@ -41,7 +41,8 @@ Newest verified source/provider evidence outranks stale status text. Always refr
 - PRs #1252, #1253 and #1254 merged the Contra readiness compiler, Revenue Terminal wiring and protected owner observation binding.
 - Contra becomes selectable only when a current owner-attested account observation compiles to `COLLECTION_READY`; this never grants payment-request authority or proves cash.
 - Protected write/read surfaces: `POST /api/owner/contra-collection-observation` and `GET /api/owner/setup`.
-- Render deploy `dep-db2oe9gm7kps73bmqbag` targets exact main `6548875428ad05bd4d98bf35f82d8629c2d88791`; refresh Render before claiming it LIVE.
+- Render deploy `dep-db2oe9gm7kps73bmqbag` is LIVE on exact executable main `6548875428ad05bd4d98bf35f82d8629c2d88791`.
+- Fresh runtime logs on that exact deploy show Postgres web + worker startup, Revenue Terminal `readHealthy=true`, Contra `ACCOUNT_OBSERVATION_REQUIRED`, G-SPOT `READY_FOR_AUTHORIZATION` with no authority, SMTP ordinal 1 READY, ordinal 2 UNCERTAIN at CONNECT, ordinal 3 quarantined, and IMAP transport healthy.
 - Prior exact live deploy: `dep-db2obos9v7es739lj9kg` on `3e9416ca00e42c419b4d3905f41aba8738122e91`.
 - Halfteck already has `CLEAN_EXACT_PRODUCTION_HISTORY`, a generic corporate role inbox and explicit supplier/partnership invitation. The unresolved blocker is Egyptian sender-side law, not contact history.
 - Halfteck classification: `RECIPIENT_PERMISSION_STRONG__NO_NAMED_PERSONAL_ROUTE__EGYPT_SENDER_LAW_UNRESOLVED`.

@@ -1441,5 +1441,77 @@
     "outboundAuthority": "NONE",
     "purchasePerformed": false,
     "supersedes": "Earlier commercial blocker summaries only where contradicted; all prior organism context and dated receipts retained"
+  },
+  "commercialContinuation20261007": {
+    "status": "HEAVY_CONTINUATION_MERGED_AND_LIVE__CONTRA_OWNER_OBSERVATION_REQUIRED",
+    "currentMain": "6548875428ad05bd4d98bf35f82d8629c2d88791",
+    "mergedPullRequests": [
+      1252,
+      1253,
+      1254
+    ],
+    "render": {
+      "service": "srv-dali9vijnfac739m4vcg",
+      "exactLiveDeploy": "dep-db2oe9gm7kps73bmqbag",
+      "exactLiveSha": "6548875428ad05bd4d98bf35f82d8629c2d88791",
+      "status": "LIVE",
+      "autoDeploy": false,
+      "observedAt": "2026-10-06T23:42:47.108Z"
+    },
+    "winnr": {
+      "status": "WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION",
+      "authorizedSpendUsd": 0,
+      "baseMonthlyUsd": 69,
+      "warmingAddonAuthorized": false
+    },
+    "contra": {
+      "route": "SELECTED_CURRENT_ROUTE",
+      "source": "src/contra-collection-readiness.mjs",
+      "ownerWriteRoute": "POST /api/owner/contra-collection-observation",
+      "ownerReadRoute": "GET /api/owner/setup",
+      "paymentRequestAuthority": "NONE",
+      "currentExternalFact": "existing account still requires owner authentication and any provider-presented identity/tax/bank assent"
+    },
+    "halfteck": {
+      "recipient": "sales@halfteck.com",
+      "history": "CLEAN_EXACT_PRODUCTION_HISTORY",
+      "invitation": "EXPLICIT_RELEVANT_SUPPLIER_INVITATION",
+      "subjectRequirement": "Suppliers",
+      "legalClassification": "RECIPIENT_PERMISSION_STRONG__NO_NAMED_PERSONAL_ROUTE__EGYPT_SENDER_LAW_UNRESOLVED",
+      "sendAuthority": "NONE"
+    },
+    "powerhouse": {
+      "legal": "EGYPT_SENDER_SIDE_LEGAL_DETERMINATION_PENDING",
+      "sendAuthority": "NONE"
+    },
+    "providers": {
+      "paypal": "DEACTIVATED",
+      "lemonSqueezy": "DORMANT_NOT_SELECTED",
+      "xpay": "REVIEW_TEST_ONLY_BACKUP",
+      "payoneer": "RECOVERY_ONLY_BACKUP"
+    },
+    "externalEffects": {
+      "prospectMessages": 0,
+      "paymentRequests": 0,
+      "winnrPurchases": 0,
+      "dnsMutations": 0,
+      "newRecurringSpendUsd": 0
+    },
+    "truthBoundary": "Current source/deploy/provider evidence outranks older commercial handoff fields preserved below as lineage.",
+    "runtime": {
+      "revenueTerminalReadHealthy": true,
+      "failedReads": [],
+      "contra": "ACCOUNT_OBSERVATION_REQUIRED",
+      "contraReason": "current-authenticated-account-observation-required",
+      "gspot": "READY_FOR_AUTHORIZATION",
+      "gspotBlockers": [],
+      "gspotAuthority": "NONE",
+      "smtp1": "READY",
+      "smtp2": "UNCERTAIN_CONNECT",
+      "smtp3": "QUARANTINED_GMAIL_PLACEMENT_RED",
+      "imap": "3_OF_3_TRANSPORT_HEALTHY",
+      "currentProspectMessagesConfirmedSent": 0,
+      "outboundAuthority": "NONE"
+    }
   }
 }

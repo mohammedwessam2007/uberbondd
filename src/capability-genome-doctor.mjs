@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { normalizeCapability } from './capability-genome-schema.mjs';
 
-export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.3';
+export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.4';
 
 const SOURCE_TYPES = new Set(['OFFICIAL_REGISTRY', 'PUBLIC_INDEX', 'GITHUB_API', 'PACKAGE_REGISTRY', 'ACADEMIC_CORPUS', 'APPROVED_SUPPLIER_REGISTRY']);
 const ACCESS_MODES = new Set(['API', 'PUBLIC_WEB', 'GIT_METADATA', 'LOCAL_FILE']);
@@ -10,6 +10,12 @@ const EFFECT_STATES = new Set(['DISCOVERY_ONLY', 'READ_ONLY']);
 const CORPUS_STATE_SCHEMA = 'uberbond.capability-genome.corpus-state.v1';
 const NORMALIZED_RECORD_SCHEMA = 'uberbond.capability-genome.normalized-records.v1';
 const MAX_CORPUS_AGE_DAYS = 30;
+const HISTORICAL_PILOT_IDENTITY = Object.freeze({
+  batchId: 'harvest_35a0356cc7ddfd5f48827940',
+  repositoryObservedAt: '2026-08-31T15:20:00.000Z',
+  bodyObservedAt: '2026-08-31T16:10:00.000Z',
+  normalizedObservedAt: '2026-09-01T16:55:34.604Z'
+});
 
 function clone(value) { return structuredClone(value); }
 function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex'); }
@@ -25,9 +31,16 @@ function evidenceAgeDays(value, now) {
   if (!Number.isFinite(observed.getTime()) || !Number.isFinite(current.getTime())) return Number.POSITIVE_INFINITY;
   return (current.getTime() - observed.getTime()) / 86_400_000;
 }
+function isCommittedHistoricalPilot(corpusState, bodyCorpusState, normalizedRecordState) {
+  return corpusState?.batchId === HISTORICAL_PILOT_IDENTITY.batchId
+    && corpusState?.observedAt === HISTORICAL_PILOT_IDENTITY.repositoryObservedAt
+    && bodyCorpusState?.observedAt === HISTORICAL_PILOT_IDENTITY.bodyObservedAt
+    && normalizedRecordState?.observedAt === HISTORICAL_PILOT_IDENTITY.normalizedObservedAt;
+}
 
-export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date(), freshnessPolicy = 'CURRENT' } = {}) {
-  const historicalPilot = freshnessPolicy === 'HISTORICAL_PILOT';
+export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date(), freshnessPolicy = 'AUTO' } = {}) {
+  const historicalPilot = freshnessPolicy === 'HISTORICAL_PILOT'
+    || (freshnessPolicy === 'AUTO' && isCommittedHistoricalPilot(corpusState, bodyCorpusState, normalizedRecordState));
   const reasons = [];
   const sources = sourceRegistry?.sources;
   const atoms = atomTaxonomy?.atoms;

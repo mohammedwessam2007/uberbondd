@@ -172,6 +172,33 @@ test('a donor cannot become current from a fuzzy whole-name all-token verificati
   assert.equal(classifyState({ name: 'Night Frontier', class: 'NAMED_INITIATIVE' }, evidence), 'HISTORICAL_DONOR_PRESERVED');
 });
 
+test('fuzzy reachable discovery cannot launder a gated declared implementation into current donor reachability', () => {
+  const nightIndex = {
+    sourceFiles: [
+      'src/overnight/control/automation-acquisition-frontier.mjs',
+      'scripts/night-verification-frontier-open-model-mutations.mjs'
+    ],
+    testFiles: [
+      'tests/overnight-control/automation-acquisition-frontier.test.mjs',
+      'tests/night-verification-frontier-open-model.test.mjs'
+    ],
+    productionReachable: [],
+    operatorReachable: ['scripts/night-verification-frontier-open-model-mutations.mjs']
+  };
+  const discovered = locateEvidence({ name: 'Night Frontier' }, nightIndex);
+  const declared = {
+    concept: 'Night Frontier',
+    sources: ['src/overnight/control/automation-acquisition-frontier.mjs'],
+    tests: ['tests/overnight-control/automation-acquisition-frontier.test.mjs']
+  };
+  const merged = mergeDeclaredEvidence(discovered, declared, nightIndex);
+  assert.equal(merged.matchStrength, 'DECLARED_AND_VERIFIED');
+  assert.equal(merged.discoveredReachability, 'OPERATOR_ONLY');
+  assert.equal(merged.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  assert.ok(merged.sources.includes('scripts/night-verification-frontier-open-model-mutations.mjs'));
+  assert.equal(classifyState({ name: 'Night Frontier', class: 'NAMED_INITIATIVE' }, merged), 'HISTORICAL_DONOR_PRESERVED');
+});
+
 test('common vocabulary cannot become evidence', () => {
   // Without this, every concept containing "system" collects every module with
   // "system" in its name, and the matrix goes green on nothing.

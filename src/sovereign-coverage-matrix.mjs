@@ -308,12 +308,18 @@ export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
   if (!declared) return evidence;
   const sources = [...new Set([...declared.sources, ...(evidence?.sources || [])])];
   const tests = [...new Set([...declared.tests, ...(evidence?.tests || [])])];
+  const reachabilityFor = refs => refs.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
+    : refs.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
+      : 'CLASSIFIED_OR_UNREACHABLE';
+  const declaredReachability = reachabilityFor(declared.sources);
   return {
     sources,
     tests,
-    reachability: sources.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
-      : sources.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
-        : 'CLASSIFIED_OR_UNREACHABLE',
+    // A declaration is an identity claim about its declared implementation.
+    // Fuzzy filename discoveries remain visible in the union above, but they
+    // cannot launder an unreached declared module into current reachability.
+    reachability: declaredReachability,
+    discoveredReachability: evidence?.reachability || null,
     matchStrength: 'DECLARED_AND_VERIFIED',
     matchScope: 'WHOLE_NAME',
     matchedPhrase: declared.concept

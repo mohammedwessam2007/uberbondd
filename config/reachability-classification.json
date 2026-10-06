@@ -141,6 +141,18 @@
     "NO_UBERWATT_METER_OBSERVATIONS": {
       "description": "UberWatt needs real utility-meter intervals read by the founder and measured local inference from an owned compute node. Source cannot manufacture electricity readings or benchmark runs.",
       "releasedBy": "At least three comparable founder-recorded meter intervals plus one measured local-inference run from the Windows node, recorded with their evidence references."
+    },
+    "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST": {
+      "description": "The Infinite Opus semantic closure library is implemented and test-exercised but has no production or operator host. Live Crown admission is currently absent. Deterministic local members may compute with zero semantic authority, but callability alone must never mint Crown authority.",
+      "releasedBy": "Explicit production composition into the current Infinite Opus native runtime or an operator host under existing verifier, trust, source and replay boundaries. Operations that require CURRENT_TASK_CLASS_CROWN additionally require a current verified Crown admission; paid authorization or provider-key presence alone releases nothing."
+    },
+    "NO_GHOST_AGENT_EVENT_HOST": {
+      "description": "Ghost Agent is a deterministic zero-effect shell over an already-certified Decision Franchise. Decision Franchise is production-reachable, but Ghost Agent has no typed internal event source outside its tests.",
+      "releasedBy": "Bind a genuine typed internal event source to an ACTIVE trust-pinned Decision Franchise with replay and idempotency controls while sideEffectClass remains NONE. This creates no new semantic or external-effect authority."
+    },
+    "NO_UNIFIED_COGNITION_LEDGER_BRIDGE": {
+      "description": "The authoritative live provider-spend lifecycle already resides in src/cognition-ledger.mjs. The unified cognition ledger adds cross-channel cost classes but has no production reconciliation bridge; wiring it independently would create competing money truth.",
+      "releasedBy": "A reviewed one-way, provenance-preserving reconciliation/composition path from the authoritative runtime cognition ledger and other non-cash cognition channels, with exact call/event identity and deduplication. Existing reservation, settlement and cap semantics remain authoritative."
     }
   },
   "modules": {
@@ -1231,6 +1243,76 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
       "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    "src/crown-capitalization-audit.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Audits whether reusable semantic Crown structure produced durable descendants. Implemented and exercised by the live-closure suite, but no production or operator host currently consumes it; activation must not be faked merely to satisfy reachability."
+    },
+    "src/crown-output-surgery.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Performs bounded ACCEPT/REJECT/PATCH/ADD/DELETE/BOUNDARY/INVALIDATOR/TEST transformations with stable prose regeneration explicitly unauthorized. It is a local semantic closure primitive with no current host and grants no authority by itself."
+    },
+    "src/crown-succession.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Compiles and applies Crown succession only for explicit triggers and an admitted CURRENT_TASK_CLASS_CROWN model. Live Crown admission is absent, so succession must remain fail-closed rather than becoming reachable by convention."
+    },
+    "src/frontier-counterfactual-compiler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Compiles exact frontier-cost counterfactuals from verified prompt/output/tokenizer/pricing evidence with semanticAuthority NONE. It is test-exercised but has no current production/operator consumer."
+    },
+    "src/infinite-opus-model-understanding.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Models priors and tariff reasoning with semanticAuthority NONE and no Crown-promotion shortcut. It has no production/operator host; ambiguous frontier questions remain Crown-page-fault territory until a proper host and required authority exist."
+    },
+    "src/interpretation-closure.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Closes interpretation from verified deterministic evidence or a current Crown when ambiguity/disagreement demands it. No runtime/operator host currently composes this closure layer, and agreement never mints authority."
+    },
+    "src/living-evidence-graph.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Maintains exact evidence/source/dependency invalidation across E0-E4 and CURRENT_CROWN classes. It is test-exercised semantic infrastructure with no current host; Crown drift remains an invalidator, not an activation signal."
+    },
+    "src/proof-carrying-renderer.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Renders only proof-carrying content that survives verified reverse parsing and exact content-envelope checks. No production/operator host currently uses it; making it callable would not itself prove semantic correctness."
+    },
+    "src/recurrence-map.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Maps recurring obligations, claims, source dependencies and task archetypes for reuse. It is deterministic and test-exercised but presently has no runtime/operator consumer."
+    },
+    "src/semantic-isa-v2.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Defines the typed semantic ISA with proof authority, verifier cost and invalidators while explicitly forbidding declared side-effect authority. It remains a latent library until a reviewed semantic host composes it."
+    },
+    "src/semantic-reuse-foundry.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Builds bounded exact semantic reuse artifacts with side effects NONE and explicit source/Crown invalidators. Test exercise is not production reachability; a reviewed semantic host is still missing."
+    },
+    "src/verifier-trust.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "reason": "Certifies verifier authority only from explicit proves/doesNotProve claims, mutation and false-positive/negative cases, independent cross-checks and complete obligation coverage. No production/operator semantic host consumes that trust record yet."
+    },
+    "src/ghost-agent.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_GHOST_AGENT_EVENT_HOST",
+      "reason": "A deterministic zero-effect acceleration shell over an ACTIVE certified Decision Franchise. Decision Franchise is production-reachable, but Ghost Agent itself has no typed internal event host outside tests and must not be wired merely to make reachability green."
+    },
+    "src/unified-cognition-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UNIFIED_COGNITION_LEDGER_BRIDGE",
+      "reason": "Adds provenance-aware cross-channel cognition economics, but the live provider-spend lifecycle already uses src/cognition-ledger.mjs for reservation, dispatch, settlement and budget caps. It waits for a one-way reconciliation bridge so it cannot become a second money truth."
     }
   }
 }

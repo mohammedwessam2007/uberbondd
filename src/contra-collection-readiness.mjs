@@ -1,3 +1,5 @@
+import { containsSecretValue } from './secret-patterns.mjs';
+
 const DAY_MS = 86_400_000;
 const FUTURE_SKEW_MS = 5 * 60 * 1000;
 const MAX_OBSERVATION_AGE_DAYS = 7;
@@ -82,7 +84,9 @@ export function compileContraCollectionReadiness(observation = null, { at = new 
   }
   if (safeText(observation.provider, 40).toLowerCase() !== 'contra') reasons.push('contra-provider-observation-required');
   if (observation.ownerAttested !== true) reasons.push('owner-attestation-required');
-  if (!cleanRefs(observation.evidenceRefs).length) reasons.push('non-secret-evidence-reference-required');
+  const evidenceRefs = cleanRefs(observation.evidenceRefs);
+  if (!evidenceRefs.length) reasons.push('non-secret-evidence-reference-required');
+  if (evidenceRefs.some(ref => containsSecretValue(ref))) reasons.push('evidence-reference-secret-detected');
   if (observation.existingAccountConfirmed !== true) reasons.push('existing-account-confirmation-required');
   if (observation.duplicateAccountCreated === true) reasons.push('duplicate-account-must-not-be-created');
   if (reasons.length) return base({ state: 'ACCOUNT_OBSERVATION_REQUIRED', reasonCodes: reasons, observation, reference });

@@ -11,7 +11,7 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { PAYMENT_TRUTH_POLICY_VERSION } from './payments.mjs';
 import * as core from './payment-rail-doctor-core.mjs';
 
-export const PAYMENT_RAIL_DOCTOR_VERSION = 'uberbond.payment-rail-doctor-1.2.0';
+export const PAYMENT_RAIL_DOCTOR_VERSION = 'uberbond.payment-rail-doctor-1.2.1';
 export const IMPLEMENTED_PAYMENT_RAILS = Object.freeze(['lemon_squeezy', 'paypal']);
 export const PAYMENT_RAIL_STATES = Object.freeze([
   'SANDBOX_CONFIG_MISSING',
@@ -20,6 +20,7 @@ export const PAYMENT_RAIL_STATES = Object.freeze([
   'LIVE_CREDENTIAL_MISSING',
   'LIVE_VERIFICATION_REQUIRED',
   'LIVE_KYC_REQUIRED',
+  'PROVIDER_UNAVAILABLE',
   'LIVE_READY'
 ]);
 
@@ -61,6 +62,36 @@ export const LIVE_ONLY_REQUIRED_CREDENTIALS = Object.freeze({
   ...core.LIVE_ONLY_REQUIRED_CREDENTIALS,
   paypal: Object.freeze(['liveEnvironment', 'liveClientId', 'liveClientSecret', 'liveWebhookId', 'durableInbox', 'httpsWebhookDestination'])
 });
+
+const PROVIDER_ACCOUNT_STATE_ENV = Object.freeze({
+  lemon_squeezy: 'UBERBOND_LEMON_SQUEEZY_ACCOUNT_STATE',
+  paypal: 'UBERBOND_PAYPAL_ACCOUNT_STATE'
+});
+const UNAVAILABLE_ACCOUNT_STATES = new Set(['PERMANENTLY_DEACTIVATED', 'NOT_CURRENT_COMMERCIAL_PATH']);
+
+function providerAccountState(env = process.env, provider) {
+  const key = PROVIDER_ACCOUNT_STATE_ENV[provider];
+  const value = key ? String(env?.[key] ?? '').trim().toUpperCase() : '';
+  return UNAVAILABLE_ACCOUNT_STATES.has(value) ? value : null;
+}
+
+function providerUnavailableReport({ provider, mode, accountState }) {
+  return {
+    ok: true,
+    policyVersion: PAYMENT_RAIL_DOCTOR_VERSION,
+    paymentTruthPolicyVersion: PAYMENT_TRUTH_POLICY_VERSION,
+    provider,
+    requestedMode: mode,
+    state: 'PROVIDER_UNAVAILABLE',
+    accountState,
+    implementedRails: [...IMPLEMENTED_PAYMENT_RAILS],
+    implementationStatus: PAYMENT_RAIL_IMPLEMENTATION_STATUS[provider] ? { ...PAYMENT_RAIL_IMPLEMENTATION_STATUS[provider] } : null,
+    reasonCodes: [accountState === 'PERMANENTLY_DEACTIVATED' ? 'provider-account-permanently-deactivated' : 'provider-not-current-commercial-path'],
+    commercialTruth: { realCustomers: 0, clearedRevenueCents: 0, acceptedPaidDeliveries: 0, retainedCustomers: 0 },
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
+  };
+}
 
 const present = (env, name) => Boolean(String(env?.[name] ?? '').trim());
 const httpsPresent = env => {
@@ -118,6 +149,8 @@ export function readPaymentRailEnvPresence(env = process.env) {
 export function diagnosePaymentRail(args = {}) {
   const provider = String(args.provider ?? 'lemon_squeezy').trim().toLowerCase();
   const mode = String(args.mode ?? 'SANDBOX').trim().toUpperCase();
+  const accountState = providerAccountState(args.env ?? process.env, provider);
+  if (mode === 'LIVE' && accountState) return providerUnavailableReport({ provider, mode, accountState });
 
   if (provider !== 'paypal' || mode !== 'LIVE') {
     return patchCommon(core.diagnosePaymentRail(args), provider);
@@ -191,6 +224,21 @@ export function isPaymentRailLiveReady(report) {
 
 export function summarizePaymentRail(report) {
   const provider = String(report?.provider ?? 'lemon_squeezy').trim().toLowerCase();
+  if (report?.state === 'PROVIDER_UNAVAILABLE') {
+    return {
+      ok: report?.ok === true,
+      policyVersion: PAYMENT_RAIL_DOCTOR_VERSION,
+      provider,
+      state: 'PROVIDER_UNAVAILABLE',
+      accountState: report?.accountState || null,
+      liveReady: false,
+      reasonCodes: [...(report?.reasonCodes || [])],
+      ownerActionQueue: [],
+      commercialTruth: { ...(report?.commercialTruth || {}) },
+      businessEffectAuthority: 'NONE',
+      externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
+    };
+  }
   if (provider !== 'paypal') {
     return patchCommon(core.summarizePaymentRail(report), provider);
   }

@@ -345,6 +345,30 @@ test('verified enforcement closes a refusal law without activating its gated run
   assert.equal(matrix.ok, true);
   assert.equal(matrix.rows[0].currentState, 'ENFORCED_BY_CODE');
   assert.equal(matrix.rows[0].currentEvidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  assert.deepEqual(matrix.rows[0].currentEvidence.sourceModules, ['src/wallbreaker.mjs']);
+  assert.deepEqual(matrix.rows[0].currentEvidence.testModules, ['tests/wallbreaker.test.mjs']);
+  assert.equal(matrix.rows[0].testsRequired, false);
+});
+
+test('enforcement-only evidence is carried onto an enforced law row without inventing reachability', () => {
+  const gatedLawIndex = {
+    sourceFiles: ['src/wallbreaker.mjs'],
+    testFiles: ['tests/wallbreaker.test.mjs'],
+    productionReachable: [],
+    operatorReachable: [],
+    founderInteractiveReachable: []
+  };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Capability does not create authority', source: 's', class: 'AUTHORITY_LAW' }],
+    repoIndex: gatedLawIndex,
+    enforcement: [{ concept: 'Capability does not create authority', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'ENFORCED_BY_CODE');
+  assert.deepEqual(matrix.rows[0].currentEvidence.sourceModules, ['src/wallbreaker.mjs']);
+  assert.deepEqual(matrix.rows[0].currentEvidence.testModules, ['tests/wallbreaker.test.mjs']);
+  assert.equal(matrix.rows[0].currentEvidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  assert.equal(matrix.rows[0].testsRequired, false);
 });
 
 test('a declaration for an unreachable module cannot reach VERIFIED_CURRENT', () => {

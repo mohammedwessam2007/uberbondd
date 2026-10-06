@@ -25,6 +25,7 @@ import { buildProspectEvidenceBundle, PROSPECT_EVIDENCE_VERSION } from './prospe
 import { diagnosePaymentRail, IMPLEMENTED_PAYMENT_RAILS, summarizePaymentRail } from './payment-rail-doctor.mjs';
 import { compressPayment } from './payment-compression.mjs';
 import { canonicalPaymentFacts } from './payment-renewal-truth.mjs';
+import { currentPaymentCollectionRoutes } from './current-payment-collection.mjs';
 
 const pick = (o, ...k) => k.map(x => o?.[x]).find(v => v !== undefined && v !== null && v !== '');
 const HISTORY_COLLECTIONS = Object.freeze(['suppressions', 'prospects', 'outboundReservations', 'outboundEvents', 'replies', 'messages', 'providerEvents']);
@@ -422,14 +423,14 @@ export function offerMarketFromSnapshot(s) {
   return compileOfferMarket({ outcomes });
 }
 
-/** Read the live payment doctors without exposing credential values. Repository
- * settings are configuration, not provider-origin evidence, so this surface
- * deliberately does NOT pass settings values as verification receipts or KYC
- * attestations. Until trusted external receipts are bound into a canonical
- * ledger, the doctor must stay fail-closed rather than mint LIVE_READY. */
+/** Read the technically implemented payment doctors and reconcile them with
+ * the current first-cash route truth. Old adapters remain preserved for
+ * recoverability, but an unavailable or unselected rail must never become an
+ * owner task merely because implementation exists. Configuration is still not
+ * provider-origin proof, and no route may mint cleared cash from settings. */
 export function paymentRailsFromSnapshot(s, env = process.env) {
   const facts = canonicalPaymentFacts(s);
-  return IMPLEMENTED_PAYMENT_RAILS.map(provider => {
+  const technical = IMPLEMENTED_PAYMENT_RAILS.map(provider => {
     const verified = facts.events.filter(event => event.type === 'cleared_payment' && facts.reports[event.leadId]?.ok)
       .map(event => ({ event, order: (s.orders || []).find(order => `${order.eventName}:${order.providerEventId}` === event.id) }))
       .filter(({ order }) => order?.provider === (provider === 'lemon_squeezy' ? 'lemonsqueezy' : provider))
@@ -450,6 +451,39 @@ export function paymentRailsFromSnapshot(s, env = process.env) {
       evidenceBinding: verificationReceipt ? 'CANONICAL_THREE_WITNESS_PROVIDER_RECEIPT' : 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND'
     };
   });
+
+  const technicalByProvider = new Map(technical.map(route => [route.provider, route]));
+  const current = currentPaymentCollectionRoutes().map(route => {
+    const diagnostic = technicalByProvider.get(route.provider);
+    if (!diagnostic) return route;
+    technicalByProvider.delete(route.provider);
+    return {
+      ...route,
+      technicalState: diagnostic.state,
+      technicalLiveReady: diagnostic.liveReady,
+      technicalReasonCodes: [...diagnostic.reasonCodes],
+      technicalOwnerActionQueue: diagnostic.ownerActionQueue.map(action => ({ ...action })),
+      evidenceBinding: diagnostic.evidenceBinding
+    };
+  });
+
+  for (const diagnostic of technicalByProvider.values()) {
+    current.push({
+      ...diagnostic,
+      state: 'NOT_SELECTED_FOR_CURRENT_LAUNCH',
+      liveReady: false,
+      selectedForCurrentLaunch: false,
+      priority: 'PRESERVED_TECHNICAL_CAPABILITY',
+      technicalState: diagnostic.state,
+      technicalLiveReady: diagnostic.liveReady,
+      technicalReasonCodes: [...diagnostic.reasonCodes],
+      technicalOwnerActionQueue: diagnostic.ownerActionQueue.map(action => ({ ...action })),
+      ownerActionQueue: [],
+      reasonCodes: [...diagnostic.reasonCodes, 'not-selected-for-current-launch'],
+      truthBoundary: 'Implementation is preserved for recoverability, but this rail is not selected for the current first-cash launch and must not create owner work.'
+    });
+  }
+  return current;
 }
 
 /** Delivery state for one lead from stored fields only; absent evidence stays absent. */
@@ -514,7 +548,10 @@ export async function terminalReadinessFromStore(store, env = process.env, prefl
     moneyQueue: { prospects: s.prospects.length, ranked: queue.items.length, independentlyVerifiedRoutes, exclusionCounts, verificationProviderLineage: [...sourceProviders].sort() },
     configuredVerification: { hunterCredentialPresent: Boolean(env.HUNTER_API_KEY), providerCallsEnabled: env.LEAD_PROVIDER_CALLS_ENABLED === 'true', hunterEnabled: env.HUNTER_ENRICHMENT_ENABLED === 'true', noProviderCallPerformed: true },
     paymentRails: paymentRailsFromSnapshot(s, env),
-    sandboxRails: IMPLEMENTED_PAYMENT_RAILS.map(provider => summarizePaymentRail(diagnosePaymentRail({ env, provider, mode: 'SANDBOX', at: new Date(s.now), verificationReceipt: null, kycAttestation: null }))),
+    sandboxRails: IMPLEMENTED_PAYMENT_RAILS.map(provider => {
+      const summary = summarizePaymentRail(diagnosePaymentRail({ env, provider, mode: 'SANDBOX', at: new Date(s.now), verificationReceipt: null, kycAttestation: null }));
+      return { ...summary, selectedForCurrentLaunch: false, diagnosticOnly: true, ownerActionQueue: [] };
+    }),
     commercialTruth: { retainedClearedCustomers: facts.paidLeadIds.length, providerWitnessedPaymentEvents: facts.events.filter(e => e.type === 'cleared_payment').length },
     gspot: { liveDispatcherBound: false, convenienceAuthority: 'NONE', exactEffectAuthorityRequired: true, safeEvaluation: safeEvidence ? {prospectId:first.prospectId,proofPrepared:Boolean(safeEvidence.proofRef),messageValidated:safeEvidence.messageValidated===true,messagePreparationState:safeEvidence.messagePreparationState||null,criticReasonCodes:safeEvidence.reasonCodes||[],messagePreparationReasonCodes:safeEvidence.messagePreparationReasonCodes||[],preflightState:safeEvidence.effectPackageState||null,blockers:safeEvidence.safePreflightBlockers||[],senderHealthy:safeEvidence.senderHealthy===true,recipientBound:Boolean(safeEvidence.recipientHash)} : null },
     secretsExposed: false, routeValuesExposed: false, prospectMessagePerformed: false, outboundAuthority: 'NONE', businessEffectAuthority:'NONE'

@@ -6,7 +6,15 @@
 <meta name="robots" content="noindex,nofollow">
 <meta http-equiv="refresh" content="0;url=/admin.html">
 <title>UberBond Command Center</title>
-<script>location.replace('/admin.html');</script>
+<script>
+try {
+  const fromAdmin = document.referrer && new URL(document.referrer).pathname === '/admin.html';
+  if (fromAdmin) location.replace('/storefront.html');
+  else location.replace('/admin.html');
+} catch {
+  location.replace('/admin.html');
+}
+</script>
 </head>
 <body>
 <p>Opening the <a href="/admin.html">UberBond Command Center</a>…</p>

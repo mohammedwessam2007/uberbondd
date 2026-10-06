@@ -97,3 +97,33 @@ test('C11 current-truth tribunal actually invokes the independent verifier', () 
   assert.match(source, /if\(!stateEvidenceIntegrity\.ok\)reasons\.push\(\.\.\.stateEvidenceIntegrity\.reasonCodes\)/);
   assert.match(source, /coverageStateTruth:'CURRENT_IMPLEMENTATION_STATES_INDEPENDENTLY_BOUND_TO_ROW_EVIDENCE'/);
 });
+
+test('founder-interactive-only reachability can prove current code without claiming unattended reachability', () => {
+  const result = verifyCoverageStateEvidenceIntegrity(coverage([row({
+    currentEvidence: {
+      sourceModules: ['src/personal-civilization-core.mjs'],
+      testModules: ['tests/personal-civilization-core.test.mjs'],
+      reachability: 'FOUNDER_INTERACTIVE_ONLY',
+      matchStrength: 'DECLARED_AND_VERIFIED',
+      matchScope: 'WHOLE_NAME',
+      matchedPhrase: 'Thought Ocean'
+    }
+  })]));
+  assert.equal(result.ok, true, JSON.stringify(result));
+});
+
+test('ENFORCED_BY_CODE still requires both source and test evidence', () => {
+  const result = verifyCoverageStateEvidenceIntegrity(coverage([row({
+    class: 'AUTHORITY_LAW',
+    currentState: 'ENFORCED_BY_CODE',
+    currentEvidence: {
+      sourceModules: ['src/open-model-foundry.mjs'],
+      testModules: [],
+      reachability: 'CLASSIFIED_OR_UNREACHABLE',
+      matchStrength: 'DECLARED_AND_VERIFIED',
+      matchScope: 'WHOLE_NAME'
+    }
+  })]));
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('enforced-by-code-requires-test-evidence'));
+});

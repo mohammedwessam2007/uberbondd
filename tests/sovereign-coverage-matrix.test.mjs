@@ -310,6 +310,43 @@ test('a declaration supplies files, and the state is still derived from them', (
   assert.equal(withTests.rows[0].currentState, 'VERIFIED_CURRENT');
 });
 
+test('founder-interactive exact evidence is current without becoming unattended reachability', () => {
+  const privateIndex = {
+    sourceFiles: ['src/private-core.mjs'],
+    testFiles: ['tests/private-core.test.mjs'],
+    productionReachable: [],
+    operatorReachable: [],
+    founderInteractiveReachable: ['src/private-core.mjs']
+  };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Thought Ocean', source: 's', class: 'ORGAN' }],
+    repoIndex: privateIndex,
+    manifest: [{ concept: 'Thought Ocean', sources: ['src/private-core.mjs'], tests: ['tests/private-core.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'VERIFIED_CURRENT');
+  assert.equal(matrix.rows[0].currentEvidence.reachability, 'FOUNDER_INTERACTIVE_ONLY');
+});
+
+test('verified enforcement closes a refusal law without activating its gated runtime', () => {
+  const gatedLawIndex = {
+    sourceFiles: ['src/wallbreaker.mjs'],
+    testFiles: ['tests/wallbreaker.test.mjs'],
+    productionReachable: [],
+    operatorReachable: [],
+    founderInteractiveReachable: []
+  };
+  const matrix = compileCoverageMatrix({
+    concepts: [{ name: 'Capability does not create authority', source: 's', class: 'AUTHORITY_LAW' }],
+    repoIndex: gatedLawIndex,
+    manifest: [{ concept: 'Capability does not create authority', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }],
+    enforcement: [{ concept: 'Capability does not create authority', sources: ['src/wallbreaker.mjs'], tests: ['tests/wallbreaker.test.mjs'] }]
+  });
+  assert.equal(matrix.ok, true);
+  assert.equal(matrix.rows[0].currentState, 'ENFORCED_BY_CODE');
+  assert.equal(matrix.rows[0].currentEvidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+});
+
 test('a declaration for an unreachable module cannot reach VERIFIED_CURRENT', () => {
   const unreachable = { ...index, productionReachable: [], operatorReachable: [] };
   const matrix = compileCoverageMatrix({

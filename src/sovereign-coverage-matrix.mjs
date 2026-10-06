@@ -231,7 +231,8 @@ export function locateEvidence(concept, repoIndex) {
     tests: hit.tests,
     reachability: hit.sources.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
       : hit.sources.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
-        : 'CLASSIFIED_OR_UNREACHABLE',
+        : hit.sources.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
+          : 'CLASSIFIED_OR_UNREACHABLE',
     matchStrength: hit.exact ? 'EXACT_SLUG' : 'ALL_TOKENS',
     matchScope: scope,
     matchedPhrase: phrase
@@ -310,7 +311,8 @@ export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
   const tests = [...new Set([...declared.tests, ...(evidence?.tests || [])])];
   const reachabilityFor = refs => refs.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
     : refs.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
-      : 'CLASSIFIED_OR_UNREACHABLE';
+      : refs.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
+        : 'CLASSIFIED_OR_UNREACHABLE';
   const declaredReachability = reachabilityFor(declared.sources);
   return {
     sources,
@@ -558,15 +560,21 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
     // named parent organ. Generic concepts with no distinctive tokens remain
     // UNKNOWN, so this cannot turn common vocabulary into coverage.
     const evidenceState = classifyState({ name, ...concept }, evidence);
+    const enforcement = enforcementByConcept.get(slugify(name)) || null;
     const terminalEligible = evidenceState === 'SPEC_ONLY'
       || (evidenceState === 'UNKNOWN' && FIELD_CLASSES.includes(concept.class));
-    const currentState = terminalEligible
-      ? classifyTerminalState({ name, ...concept }, {
-        enforcement: enforcementByConcept.get(slugify(name)) || null,
-        parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null,
-        externalGate: gateByConcept.get(slugify(name)) || null
-      })
-      : evidenceState;
+    // Enforcement is a source+test claim about a refusal law, not a runtime
+    // activation claim. A law can therefore be ENFORCED_BY_CODE even when the
+    // capability it guards is intentionally gated from production.
+    const currentState = LAW_CLASSES.includes(concept.class) && enforcement
+      ? 'ENFORCED_BY_CODE'
+      : terminalEligible
+        ? classifyTerminalState({ name, ...concept }, {
+          enforcement,
+          parentState: concept.parent ? parentStates.get(slugify(concept.parent)) || null : null,
+          externalGate: gateByConcept.get(slugify(name)) || null
+        })
+        : evidenceState;
 
     const row = {
       canonicalId,

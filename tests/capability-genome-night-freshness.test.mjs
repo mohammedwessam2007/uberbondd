@@ -53,3 +53,31 @@ test('doctor fails closed on future-dated normalized capability evidence', () =>
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('normalized-record-corpus-stale-or-future-dated'));
 });
+
+
+test('historical pilot mode accepts aged proof without pretending it is a current world refresh', () => {
+  const f = fixtures();
+  const result = inspectCapabilityGenome({
+    ...f,
+    capabilityRecords: f.normalizedRecordState.capabilities,
+    now: new Date('2026-10-07T00:00:00.000Z'),
+    freshnessPolicy: 'HISTORICAL_PILOT'
+  });
+  assert.equal(result.ok, true, JSON.stringify(result.reasonCodes));
+  assert.equal(result.status, 'CAPABILITY_GENOME_FOUNDATION_HEALTHY_HISTORICAL_PILOT');
+  assert.equal(result.state.corpusFreshnessTruth, 'HISTORICAL_PILOT_EVIDENCE__NOT_CURRENT_WORLD_REFRESH');
+  assert.equal(result.state.lastRefresh, '2026-09-01T16:55:34.604Z');
+});
+
+test('historical pilot mode still rejects future-dated evidence', () => {
+  const f = fixtures();
+  f.normalizedRecordState = { ...f.normalizedRecordState, observedAt: '2026-10-08T00:00:00.000Z' };
+  const result = inspectCapabilityGenome({
+    ...f,
+    capabilityRecords: f.normalizedRecordState.capabilities,
+    now: new Date('2026-10-07T00:00:00.000Z'),
+    freshnessPolicy: 'HISTORICAL_PILOT'
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('normalized-record-corpus-stale-or-future-dated'));
+});

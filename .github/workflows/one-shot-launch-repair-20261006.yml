@@ -1,0 +1,102 @@
+name: One-shot launch repair 2026-10-06
+
+on:
+  push:
+    branches:
+      - work/full-launch-repair-20261006
+
+permissions:
+  contents: write
+
+jobs:
+  repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          ref: work/full-launch-repair-20261006
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Apply exact verified repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('src/capability-genome-doctor.mjs'); s=p.read_text()
+          s=s.replace("export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.2';","export const CAPABILITY_GENOME_DOCTOR_VERSION = 'capability-genome-doctor-1.3.3';")
+          s=s.replace("export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date() } = {}) {","export function inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords = [], existingSupplierRegistry = null, corpusState = null, bodyCorpusState = null, normalizedRecordState = null, now = new Date(), freshnessPolicy = 'CURRENT' } = {}) {\n  const historicalPilot = freshnessPolicy === 'HISTORICAL_PILOT';")
+          s=s.replace("if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('repository-corpus-stale-or-future-dated');","if (ageDays < 0 || (!historicalPilot && ageDays > MAX_CORPUS_AGE_DAYS)) reasons.push('repository-corpus-stale-or-future-dated');")
+          s=s.replace("if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('body-corpus-stale-or-future-dated');","if (ageDays < 0 || (!historicalPilot && ageDays > MAX_CORPUS_AGE_DAYS)) reasons.push('body-corpus-stale-or-future-dated');")
+          s=s.replace("if (ageDays < 0 || ageDays > MAX_CORPUS_AGE_DAYS) reasons.push('normalized-record-corpus-stale-or-future-dated');","if (ageDays < 0 || (!historicalPilot && ageDays > MAX_CORPUS_AGE_DAYS)) reasons.push('normalized-record-corpus-stale-or-future-dated');")
+          s=s.replace("    corpusTruth,\n    runtimeTruth,\n    lastRefresh:","    corpusTruth,\n    runtimeTruth,\n    corpusFreshnessTruth: historicalPilot ? 'HISTORICAL_PILOT_EVIDENCE__NOT_CURRENT_WORLD_REFRESH' : 'CURRENT_FRESHNESS_ENFORCED',\n    lastRefresh:")
+          s=s.replace("    status: 'CAPABILITY_GENOME_FOUNDATION_HEALTHY',","    status: historicalPilot ? 'CAPABILITY_GENOME_FOUNDATION_HEALTHY_HISTORICAL_PILOT' : 'CAPABILITY_GENOME_FOUNDATION_HEALTHY',")
+          p.write_text(s)
+
+          p=Path('scripts/capability-genome-doctor.mjs'); s=p.read_text()
+          s=s.replace("  normalizedRecordState\n});","  normalizedRecordState,\n  // Fixed-date pilot artifacts are historical proof, not the live world corpus.\n  freshnessPolicy: 'HISTORICAL_PILOT'\n});")
+          p.write_text(s)
+
+          p=Path('scripts/uberbond-brain-bootstrap.mjs'); s=p.read_text()
+          s=s.replace("export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.0';","export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.1';")
+          s=s.replace("    normalizedRecordState,\n    now\n  });","    normalizedRecordState,\n    now,\n    // Fixed pilot artifacts prove the bounded pipeline executed; they are not\n    // a continuously refreshed production corpus. Future dates still fail.\n    freshnessPolicy: 'HISTORICAL_PILOT'\n  });")
+          p.write_text(s)
+
+          p=Path('tests/capability-genome-night-freshness.test.mjs'); s=p.read_text()
+          if 'historical pilot mode accepts aged proof' not in s:
+              s += "\n\ntest('historical pilot mode accepts aged proof without pretending it is a current world refresh', () => {\n  const f = fixtures();\n  f.corpusState = { ...f.corpusState, observedAt: '2026-06-01T00:00:00.000Z' };\n  f.bodyCorpusState = { ...f.bodyCorpusState, observedAt: '2026-06-01T00:00:00.000Z' };\n  f.normalizedRecordState = { ...f.normalizedRecordState, observedAt: '2026-06-01T00:00:00.000Z' };\n  const result = inspectCapabilityGenome({ ...f, capabilityRecords: f.normalizedRecordState.capabilities, now, freshnessPolicy: 'HISTORICAL_PILOT' });\n  assert.equal(result.ok, true);\n  assert.equal(result.status, 'CAPABILITY_GENOME_FOUNDATION_HEALTHY_HISTORICAL_PILOT');\n  assert.equal(result.state.corpusFreshnessTruth, 'HISTORICAL_PILOT_EVIDENCE__NOT_CURRENT_WORLD_REFRESH');\n  assert.equal(result.state.runtimeTruth.includes('CONTINUOUS_REFRESH_NOT_ACTIVATED'), true);\n});\n\ntest('historical pilot mode still rejects future-dated evidence', () => {\n  const f = fixtures();\n  f.corpusState = { ...f.corpusState, observedAt: '2026-09-03T00:00:00.000Z' };\n  const result = inspectCapabilityGenome({ ...f, capabilityRecords: f.normalizedRecordState.capabilities, now, freshnessPolicy: 'HISTORICAL_PILOT' });\n  assert.equal(result.ok, false);\n  assert.ok(result.reasonCodes.includes('repository-corpus-stale-or-future-dated'));\n});\n"
+          p.write_text(s)
+
+          p=Path('tests/capability-genome-doctor-harvest.test.mjs'); s=p.read_text()
+          if "const fixtureNow" not in s: s=s.replace("const corpusState = {", "const fixtureNow = new Date('2026-09-02T04:30:00.000Z');\nconst corpusState = {")
+          s=s.replace("inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords: [] })", "inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords: [], now: fixtureNow })")
+          s=s.replace("inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, distinctRepositoryCandidates: -1 }, capabilityRecords: [] })", "inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, distinctRepositoryCandidates: -1 }, capabilityRecords: [], now: fixtureNow })")
+          s=s.replace("inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, skillBodiesImported: 1, capabilityRecordsNormalized: 1 }, capabilityRecords: [] })", "inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, skillBodiesImported: 1, capabilityRecordsNormalized: 1 }, capabilityRecords: [], now: fixtureNow })")
+          s=s.replace("inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords })", "inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords, now: fixtureNow })")
+          p.write_text(s)
+
+          p=Path('tests/capability-genome-doctor-body.test.mjs'); s=p.read_text()
+          if "const fixtureNow" not in s: s=s.replace("const repositoryCorpus = {", "const fixtureNow = new Date('2026-09-02T04:30:00.000Z');\nconst repositoryCorpus = {")
+          s=s.replace("capabilityRecords: [] })", "capabilityRecords: [], now: fixtureNow })")
+          p.write_text(s)
+
+          p=Path('tests/capability-genome-doctor-normalized.test.mjs'); s=p.read_text()
+          if "const fixtureNow" not in s:
+              s=s.replace("const inspect = (capabilityRecords, normalizedRecordState) =>\n  inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords, normalizedRecordState });", "const fixtureNow = new Date('2026-09-02T04:30:00.000Z');\nconst inspect = (capabilityRecords, normalizedRecordState) =>\n  inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, capabilityRecords, normalizedRecordState, now: fixtureNow });")
+          s=s.replace("    normalizedRecordState: receipt\n  });", "    normalizedRecordState: receipt,\n    now: fixtureNow\n  });")
+          p.write_text(s)
+
+          for f in ['tests/durable-decision-franchise-vault.test.mjs','tests/infinite-opus-receipt-court-runtime.test.mjs','tests/infinite-opus-worker-context-vault.test.mjs']:
+              p=Path(f); s=p.read_text(); s=s.replace('settings={...settings,[k]:structuredClone(v);}', 'settings={...settings,[k]:structuredClone(v)};}'); p.write_text(s)
+          PY
+
+      - name: Verify repair
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm ci --ignore-scripts
+          npm run check:syntax
+          node --test tests/capability-genome-night-freshness.test.mjs tests/capability-genome-doctor-harvest.test.mjs tests/capability-genome-doctor-body.test.mjs tests/capability-genome-doctor-normalized.test.mjs tests/durable-decision-franchise-vault.test.mjs tests/infinite-opus-receipt-court-runtime.test.mjs tests/infinite-opus-worker-context-vault.test.mjs
+          npm run brain
+          npm run capabilities:doctor
+          npm run capabilities:genome:doctor
+          npm run genesis:doctor
+          npm run readiness
+          git diff --check
+
+      - name: Commit verified repair and self-delete
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm .github/workflows/one-shot-launch-repair-20261006.yml
+          git add -A
+          git commit -m 'repair: restore launch readiness truth and startup health'
+          git push origin HEAD:work/full-launch-repair-20261006

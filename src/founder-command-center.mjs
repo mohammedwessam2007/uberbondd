@@ -1,7 +1,7 @@
 import { buildOutboundOperatorSummary } from './outbound-operator-summary.mjs';
 import { compileOfferPacket, OFFER_PRODUCTS } from './offer-compiler.mjs';
 import { summarizePaymentOperatorAttention } from './payment-operator-attention.mjs';
-import { CANONICAL_FIRST_CASH_PAYMENT_METHOD } from './first-cash-canary-packet.mjs';
+import { currentPaymentCollectionRoutes } from './current-payment-collection.mjs';
 import { LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU } from './lead-path-sprint-fulfillment.mjs';
 import { deriveFounderMinuteActions } from './founder-minute-priority.mjs';
 import {
@@ -10,7 +10,7 @@ import {
 } from './nullstar-omega-transfer-bindings.mjs';
 
 // Bump when the report's shape or derivation logic changes.
-export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.3.0';
+export const COMMAND_CENTER_POLICY_VERSION = 'founder-command-center-1.4.0';
 
 const SELF_SERVE_PRODUCTS = ['full', 'strategy', 'monitoring'];
 
@@ -34,17 +34,41 @@ function checkoutReadinessTable(cfg) {
 }
 
 function canonicalFirstCashPath() {
+  const routes = currentPaymentCollectionRoutes();
+  const primary = routes.find(route => route.selectedForCurrentLaunch === true) || null;
   return {
     sku: LEAD_PATH_SPRINT_SKU,
     priceUsd: LEAD_PATH_SPRINT_PRICE.amountCents / 100,
     currency: LEAD_PATH_SPRINT_PRICE.currency,
-    paymentMethod: CANONICAL_FIRST_CASH_PAYMENT_METHOD,
-    orderEndpoint: 'POST /api/payments/paypal-order',
+    paymentProvider: primary?.provider || null,
+    paymentMethod: primary?.provider === 'contra' ? 'CONTRA_PROJECT_OR_INVOICE_OR_PAYMENT_LINK' : null,
+    collectionState: primary?.state || 'NO_CURRENT_COLLECTION_ROUTE',
+    collectionLiveReady: primary?.liveReady === true,
+    collectionReasonCodes: [...(primary?.reasonCodes || [])],
+    collectionOwnerActionQueue: (primary?.ownerActionQueue || []).map(action => ({ ...action })),
+    orderEndpoint: null,
     staticCheckoutRequired: false,
     approvalUrlPrecomputed: false,
     requiresProviderOriginPaymentTruth: true,
-    status: 'CANONICAL_PATH_DECLARED__EXTERNAL_GATES_NOT_INFERRED',
+    status: primary?.liveReady === true ? 'CURRENT_COLLECTION_ROUTE_LIVE_READY' : 'CURRENT_COLLECTION_ROUTE_SELECTED__EXTERNAL_ACCOUNT_SETUP_PENDING',
+    truthBoundary: primary?.truthBoundary || 'No current collection route is selected.',
     businessEffectAuthority: 'NONE'
+  };
+}
+
+function currentCollectionFounderAction(firstCashPath) {
+  if (firstCashPath?.collectionLiveReady === true) return null;
+  const action = firstCashPath?.collectionOwnerActionQueue?.[0];
+  if (!action) return null;
+  return {
+    action: action.action,
+    reason: 'The current first-cash collection route is provider-confirmed for Egypt but the exact existing account is not yet proven collection-ready.',
+    expectedValue: 'Makes the selected first-cash rail usable without creating a new recurring payment dependency.',
+    timeRequired: `${action.minutes ?? 'UNKNOWN'} minute(s)`,
+    cost: action.costUsd == null ? 'UNKNOWN' : `${action.costUsd}`,
+    evidence: action.evidenceOfCompletion,
+    risk: 'Do not expose passwords, OTPs, bank credentials or biometric material. Do not create a duplicate provider account.',
+    completionTest: 'Account-specific authentication, KYC/tax/wallet state and supported payout destination are verified; invoice/project/payment-link creation is available without sending a live request merely as a test.'
   };
 }
 
@@ -163,8 +187,9 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
     ok: true,
     policyVersion: COMMAND_CENTER_POLICY_VERSION,
     timestamp,
-    whatCanMakeMoneyFirst: `${LEAD_PATH_SPRINT_SKU} ($${firstCashPath.priceUsd}) via ${CANONICAL_FIRST_CASH_PAYMENT_METHOD}; real contact/payment still requires external gates and provider-origin reconciliation`,
+    whatCanMakeMoneyFirst: `${LEAD_PATH_SPRINT_SKU} (${firstCashPath.priceUsd}) via ${firstCashPath.paymentMethod || 'NO_CURRENT_COLLECTION_ROUTE'}; real contact/payment still requires external gates and provider-origin reconciliation`,
     canonicalFirstCashPath: firstCashPath,
+    currentPaymentCollectionRoutes: currentPaymentCollectionRoutes(),
     realityBoundForecasts: realityBoundForecasts({
       referenceDate,
       firstCashPath,
@@ -191,7 +216,13 @@ export async function buildFounderCommandCenter({ store, cfg = {}, revenueEngine
     blocked: [
       ...(paymentAttention.attentionRequired > 0 ? [`${paymentAttention.attentionRequired} payment event(s) need operator review`] : [])
     ],
-    ownerActionQueue: deriveFounderMinuteActions({ outbound: safeOutbound, paymentAttention, revenue }),
+    ownerActionQueue: (() => {
+      const derived = deriveFounderMinuteActions({ outbound: safeOutbound, paymentAttention, revenue });
+      const collection = currentCollectionFounderAction(firstCashPath);
+      if (!collection) return derived.slice(0, 3);
+      const useful = derived.filter(action => action?.action !== 'No binding action required');
+      return [...useful, collection].slice(0, 3);
+    })(),
     businessEffectAuthority: 'NONE'
   };
 }

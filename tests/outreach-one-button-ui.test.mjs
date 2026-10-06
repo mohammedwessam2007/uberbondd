@@ -18,6 +18,13 @@ test('admin exposes one guarded outreach start button', () => {
 test('admin exposes protected owner setup and exact canary approval surfaces', () => {
   assert.match(html, /id="owner-identity-form"/);
   assert.match(html, /name="postalAddress"/);
+  assert.match(html, /id="contra-observation-form"/);
+  assert.match(html, /id="contra-status"/);
+  assert.match(html, /name="identityVerificationStatus"/);
+  assert.match(html, /name="payoutMethod"/);
+  assert.match(html, /name="oneTimeFixedProject"/);
+  assert.match(adminJs, /\/api\/owner\/contra-collection-observation/);
+  assert.match(adminJs, /renderContraStatus/);
   assert.match(html, /id="recipient-form"/);
   assert.match(html, /name="authorizationBasis"/);
   assert.match(html, /id="canary-approval-form"/);

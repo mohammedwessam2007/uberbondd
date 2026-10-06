@@ -41,3 +41,10 @@ The second exact-head Vercel run proved the recovered reachability classifier wo
 - uses a verified declaration's exact source/test set for semantic behavioral proof instead of contaminating it with broad filename matches.
 
 This specifically prevents false bindings from generic `company-*` and `living-evidence-graph` filenames and restores exact Reachability War behavioral evidence.
+
+
+## Night Frontier final semantic residue
+
+Exact-head `b8bd02cadf37f96afd6408cf904edf83609e28a2` reduced the semantic tribunal from four invalid finite contracts to one: `total-brain:night-frontier` with only `caller-required`.
+
+Inspection showed the declared module is tested but deliberately `AWAITING_ACTIVATION` and has no runtime caller. Rather than minting a fake caller, donor classification is tightened so `CLASSIFIED_OR_UNREACHABLE` implementation evidence cannot promote a historical donor into current finite behavior. Exact/whole-name donor code that is genuinely production/operator reachable can still promote normally.

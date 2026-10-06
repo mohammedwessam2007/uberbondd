@@ -144,6 +144,20 @@ test('a historical donor cannot be promoted by a partial-name collision', () => 
   assert.equal(classifyState({ name: 'Wallbreaker', class: 'NAMED_INITIATIVE' }, exact), 'VERIFIED_CURRENT');
 });
 
+test('a historical donor with tested but intentionally unreached code remains historical', () => {
+  const gated = {
+    ...index,
+    productionReachable: [],
+    operatorReachable: []
+  };
+  const evidence = locateEvidence({ name: 'Wallbreaker' }, gated);
+  assert.equal(evidence.matchScope, 'WHOLE_NAME');
+  assert.equal(evidence.reachability, 'CLASSIFIED_OR_UNREACHABLE');
+  for (const klass of DONOR_CLASSES) {
+    assert.equal(classifyState({ name: 'Wallbreaker', class: klass }, evidence), 'SPEC_ONLY');
+  }
+});
+
 test('common vocabulary cannot become evidence', () => {
   // Without this, every concept containing "system" collects every module with
   // "system" in its name, and the matrix goes green on nothing.

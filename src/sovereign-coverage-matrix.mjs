@@ -561,6 +561,15 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
     // UNKNOWN, so this cannot turn common vocabulary into coverage.
     const evidenceState = classifyState({ name, ...concept }, evidence);
     const enforcement = enforcementByConcept.get(slugify(name)) || null;
+    // A verified enforcement declaration is itself exact repository evidence for
+    // the refusal law. Preserve any discovered/implementation evidence too, but
+    // never turn enforcement into runtime reachability.
+    const boundSources = enforcement
+      ? [...new Set([...(enforcement.sources || []), ...(evidence.sources || [])])]
+      : evidence.sources;
+    const boundTests = enforcement
+      ? [...new Set([...(enforcement.tests || []), ...(evidence.tests || [])])]
+      : evidence.tests;
     const terminalEligible = evidenceState === 'SPEC_ONLY'
       || (evidenceState === 'UNKNOWN' && FIELD_CLASSES.includes(concept.class));
     // Enforcement is a source+test claim about a refusal law, not a runtime
@@ -582,8 +591,8 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       class: concept.class || 'CONCEPT',
       currentState,
       currentEvidence: {
-        sourceModules: evidence.sources,
-        testModules: evidence.tests,
+        sourceModules: boundSources,
+        testModules: boundTests,
         reachability: evidence.reachability,
         matchStrength: evidence.matchStrength,
         matchScope: evidence.matchScope,
@@ -592,12 +601,12 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
         // working feature, and a reader scanning states needs that on the row.
         boundary: 'FILE_AND_TEST_PRESENCE_IS_INTERNAL_EVIDENCE_NOT_PROOF_OF_BEHAVIOUR_OR_EXTERNAL_OUTCOME'
       },
-      targetModule: concept.targetModule || (evidence.sources[0] || null),
+      targetModule: concept.targetModule || (boundSources[0] || null),
       owningLane: lane,
       dependencies: concept.dependencies || [],
       authorityClass: concept.authorityClass || 'NONE',
       privacyClass: concept.privacyClass || 'PUBLIC_REPOSITORY_SAFE',
-      testsRequired: concept.testsRequired ?? (evidence.tests.length === 0),
+      testsRequired: concept.testsRequired ?? (boundTests.length === 0),
       realityEvidenceRequired: concept.realityEvidenceRequired ?? false,
       supersedes: concept.supersedes || null,
       supersededBy: concept.supersededBy || null,

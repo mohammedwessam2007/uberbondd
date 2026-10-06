@@ -1443,7 +1443,7 @@
     "supersedes": "Earlier commercial blocker summaries only where contradicted; all prior organism context and dated receipts retained"
   },
   "commercialContinuation20261007": {
-    "status": "HEAVY_CONTINUATION_MERGED__CONTRA_OWNER_BINDING_DEPLOYING",
+    "status": "HEAVY_CONTINUATION_MERGED_AND_LIVE__CONTRA_OWNER_OBSERVATION_REQUIRED",
     "currentMain": "6548875428ad05bd4d98bf35f82d8629c2d88791",
     "mergedPullRequests": [
       1252,
@@ -1452,11 +1452,11 @@
     ],
     "render": {
       "service": "srv-dali9vijnfac739m4vcg",
-      "previousExactLiveDeploy": "dep-db2obos9v7es739lj9kg",
-      "previousExactLiveSha": "3e9416ca00e42c419b4d3905f41aba8738122e91",
-      "pendingVerificationDeploy": "dep-db2oe9gm7kps73bmqbag",
-      "targetSha": "6548875428ad05bd4d98bf35f82d8629c2d88791",
-      "autoDeploy": false
+      "exactLiveDeploy": "dep-db2oe9gm7kps73bmqbag",
+      "exactLiveSha": "6548875428ad05bd4d98bf35f82d8629c2d88791",
+      "status": "LIVE",
+      "autoDeploy": false,
+      "observedAt": "2026-10-06T23:42:47.108Z"
     },
     "winnr": {
       "status": "WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION",
@@ -1497,6 +1497,21 @@
       "dnsMutations": 0,
       "newRecurringSpendUsd": 0
     },
-    "truthBoundary": "Current source/deploy/provider evidence outranks older commercial handoff fields preserved below as lineage."
+    "truthBoundary": "Current source/deploy/provider evidence outranks older commercial handoff fields preserved below as lineage.",
+    "runtime": {
+      "revenueTerminalReadHealthy": true,
+      "failedReads": [],
+      "contra": "ACCOUNT_OBSERVATION_REQUIRED",
+      "contraReason": "current-authenticated-account-observation-required",
+      "gspot": "READY_FOR_AUTHORIZATION",
+      "gspotBlockers": [],
+      "gspotAuthority": "NONE",
+      "smtp1": "READY",
+      "smtp2": "UNCERTAIN_CONNECT",
+      "smtp3": "QUARANTINED_GMAIL_PLACEMENT_RED",
+      "imap": "3_OF_3_TRANSPORT_HEALTHY",
+      "currentProspectMessagesConfirmedSent": 0,
+      "outboundAuthority": "NONE"
+    }
   }
 }

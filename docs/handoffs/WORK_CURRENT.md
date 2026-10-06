@@ -25,19 +25,6 @@ Newest verified source/provider evidence outranks stale status text. Always refr
 ## Superseding 2026-10-07 commercial frontier
 
 - Current merged main: `6548875428ad05bd4d98bf35f82d8629c2d88791`.
-- PR #1252 merged the fail-closed Contra collection-readiness compiler and current Egypt generic-corporate-role legal research.
-- PR #1253 merged Contra readiness into Revenue Terminal/payment compression. Contra is selected only when the current owner-attested account observation compiles to `COLLECTION_READY`; this never grants payment-request authority or proves cash.
-- PR #1254 merged the protected owner binding: `POST /api/owner/contra-collection-observation`; `GET /api/owner/setup` now surfaces the compiled Contra state. Evidence references containing credential-shaped values are refused.
-- Render deploy `dep-db2oe9gm7kps73bmqbag` is the exact deployment now being verified for `6548875428ad05bd4d98bf35f82d8629c2d88791`. Refresh Render before present-tense LIVE claims.
-- The prior exact live deploy before this new cutover was `dep-db2obos9v7es739lj9kg` on `3e9416ca00e42c419b4d3905f41aba8738122e91`.
-- Halfteck's exact route already has `CLEAN_EXACT_PRODUCTION_HISTORY`, a published generic corporate role inbox, and an explicit supplier/partnership invitation. Its current limitation is Egyptian sender-side law, not missing contact history.
-- Current Halfteck legal classification: `RECIPIENT_PERMISSION_STRONG__NO_NAMED_PERSONAL_ROUTE__EGYPT_SENDER_LAW_UNRESOLVED`.
-- Powerhouse remains held on the unresolved Egyptian sender-side legal question; this Halfteck narrowing does not widen Powerhouse.
-- No prospect message, payment request, Winnr purchase, DNS mutation, or new recurring spend has been performed by this continuation.
-
-## Superseding 2026-10-07 commercial frontier
-
-- Current merged main: `6548875428ad05bd4d98bf35f82d8629c2d88791`.
 - PRs #1252, #1253 and #1254 merged the Contra readiness compiler, Revenue Terminal wiring and protected owner observation binding.
 - Contra becomes selectable only when a current owner-attested account observation compiles to `COLLECTION_READY`; this never grants payment-request authority or proves cash.
 - Protected write/read surfaces: `POST /api/owner/contra-collection-observation` and `GET /api/owner/setup`.

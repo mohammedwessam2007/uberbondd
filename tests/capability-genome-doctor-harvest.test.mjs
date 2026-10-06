@@ -10,13 +10,14 @@ const sourceRegistry = {
   }]
 };
 const atomTaxonomy = { schemaVersion: 'uberbond.capability-genome.atoms.v1', atoms: [{ id: 'research.search-public', verb: 'search', noun: 'public', description: 'search public data', sideEffectClass: 'READ_ONLY' }] };
+const fixtureNow = new Date('2026-09-02T04:30:00.000Z');
 const corpusState = {
   schemaVersion: 'uberbond.capability-genome.corpus-state.v1', corpusKind: 'WORLD_REPOSITORY_CANDIDATE_METADATA', sourceId: 'github-public-capability-search', evidenceClass: 'MEASURED_IMPORT',
   observedAt: '2026-08-31T15:20:00.000Z', providerCalls: 3, distinctRepositoryCandidates: 30, skillBodiesImported: 0, capabilityRecordsNormalized: 0, approvedCapabilities: 999, activeCapabilities: 999, batchId: 'pilot'
 };
 
 test('doctor reports measured repository candidates without converting them to skills or approvals', () => {
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords: [] });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords: [], now: fixtureNow });
   assert.equal(result.ok, true);
   assert.equal(result.state.worldRepositoryCandidateCount, 30);
   assert.equal(result.state.worldSkillBodyCount, 0);
@@ -28,13 +29,13 @@ test('doctor reports measured repository candidates without converting them to s
 });
 
 test('malformed corpus counts fail closed instead of becoming measured truth', () => {
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, distinctRepositoryCandidates: -1 }, capabilityRecords: [] });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, distinctRepositoryCandidates: -1 }, capabilityRecords: [], now: fixtureNow });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('nonnegative-corpus-counts-required'));
 });
 
 test('repository metadata receipts cannot manufacture skill-body or normalized-capability imports', () => {
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, skillBodiesImported: 1, capabilityRecordsNormalized: 1 }, capabilityRecords: [] });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState: { ...corpusState, skillBodiesImported: 1, capabilityRecordsNormalized: 1 }, capabilityRecords: [], now: fixtureNow });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('repository-metadata-corpus-cannot-claim-body-or-capability-import'));
 });
@@ -56,7 +57,7 @@ const capabilityRecord = (id, promotionState) => ({
 
 test('approved and active counts come only from lifecycle records, never corpus metadata counters', () => {
   const capabilityRecords = [capabilityRecord('cap-one', 'APPROVED'), capabilityRecord('cap-two', 'ACTIVE')];
-  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords });
+  const result = inspectCapabilityGenome({ sourceRegistry, atomTaxonomy, corpusState, capabilityRecords, now: fixtureNow });
   assert.equal(result.ok, true, JSON.stringify(result.reasonCodes));
   assert.equal(result.state.approvedCapabilityCount, 1);
   assert.equal(result.state.activeCapabilityCount, 1);

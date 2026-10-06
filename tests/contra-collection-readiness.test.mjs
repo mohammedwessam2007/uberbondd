@@ -40,6 +40,16 @@ test('stale or unattested UI observations fail closed', () => {
   assert.ok(unattested.reasonCodes.includes('owner-attestation-required'));
 });
 
+test('secret-bearing evidence references are refused before readiness can be minted', () => {
+  const r = compileContraCollectionReadiness(
+    readyObservation({ evidenceRefs: ['owner:screen', 'sk-proj-THISISNOTAREALKEY123456789'] }),
+    { at: AT }
+  );
+  assert.equal(r.state, 'ACCOUNT_OBSERVATION_REQUIRED');
+  assert.equal(r.liveReady, false);
+  assert.ok(r.reasonCodes.includes('evidence-reference-secret-detected'));
+});
+
 test('authentication, KYC, tax, payout and project capability are independent gates', () => {
   assert.equal(compileContraCollectionReadiness(readyObservation({ authenticated: false }), { at: AT }).state, 'ACCOUNT_AUTH_REQUIRED');
   assert.equal(compileContraCollectionReadiness(readyObservation({ wallet: { status: 'PENDING', identityVerificationStatus: 'VERIFIED' } }), { at: AT }).state, 'WALLET_SETUP_REQUIRED');

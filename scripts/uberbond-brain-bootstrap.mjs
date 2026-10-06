@@ -14,7 +14,7 @@ import { WALLBREAKER_POLICY_VERSION } from '../src/wallbreaker.mjs';
 import { summarizeEventHorizon } from '../src/event-horizon.mjs';
 import { summarizeWorldBrainFieldMission } from '../src/world-brain-field-mission.mjs';
 
-export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.0';
+export const UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION = 'uberbond-brain-bootstrap-cli-1.4.1';
 export const MEMORY_RECONCILIATION_PATH = 'artifacts/uberbond-memory-reconciliation.json';
 export const MASTER_MEMORY_RECONCILIATION_PATH = 'docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md';
 export const EXTERNAL_CAPABILITY_REGISTRY_PATH = 'artifacts/external-skill-plugin-registry.json';
@@ -210,7 +210,10 @@ export function loadUberBondBrainFromRepository({ rootDir, sourceCommit = null, 
     corpusState,
     bodyCorpusState,
     normalizedRecordState,
-    now
+    now,
+    // Startup reads the fixed Aug/Sep pilot as historical execution proof.
+    // Current-world evidence still uses the normal fail-closed freshness law.
+    freshnessPolicy: 'HISTORICAL_PILOT'
   });
   if (!capabilityGenome.ok) {
     const error = new Error('capability-genome-health-failed');
@@ -371,7 +374,7 @@ export function formatUberBondBrainPacket(packet) {
     `context: ${packet.contextDigest}`,
     `memory: ${packet.memoryDigest}`,
     `external capabilities: ${packet.externalCapabilityCount} (${packet.externalCapabilityDigest})`,
-    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; world-repos=${packet.capabilityGenome.worldRepositoryCandidateCount}; skill-bodies=${packet.capabilityGenome.worldSkillBodyCount}; normalized=${packet.capabilityGenome.worldCapabilityRecordsNormalized}; approved=${packet.capabilityGenome.approvedCapabilityCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}`,
+    `capability genome: ${packet.capabilityGenome.health}; sources=${packet.capabilityGenome.sourceCount}; measured-seeds=${packet.capabilityGenome.rawCandidateCount}; world-repos=${packet.capabilityGenome.worldRepositoryCandidateCount}; skill-bodies=${packet.capabilityGenome.worldSkillBodyCount}; normalized=${packet.capabilityGenome.worldCapabilityRecordsNormalized}; approved=${packet.capabilityGenome.approvedCapabilityCount}; active=${packet.capabilityGenome.activeCapabilityCount}; corpus=${packet.capabilityGenome.corpusTruth}; freshness=${packet.capabilityGenome.corpusFreshnessTruth}`,
     `wallbreaker: ${packet.wallbreaker.status}; ${packet.wallbreaker.policyVersion}; authority=${packet.wallbreaker.businessEffectAuthority}`,
     `event horizon: ${packet.eventHorizon.health}; champion=${packet.eventHorizon.champion.id}; challenger=${packet.eventHorizon.strongestChallenger.id}; customers=${packet.eventHorizon.commercialTruth.realCustomers}; cleared-revenue=$${packet.eventHorizon.commercialTruth.clearedRevenueUsd}`,
     `world brain: ${packet.worldBrainFieldMission.health}; champion=${packet.worldBrainFieldMission.champion}; corpus-candidates=${packet.worldBrainFieldMission.corpusCandidateCount}; authority=${packet.worldBrainFieldMission.businessEffectAuthority}`,

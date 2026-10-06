@@ -427,9 +427,90 @@ export function offerMarketFromSnapshot(s) {
  * deliberately does NOT pass settings values as verification receipts or KYC
  * attestations. Until trusted external receipts are bound into a canonical
  * ledger, the doctor must stay fail-closed rather than mint LIVE_READY. */
+export const CURRENT_COLLECTION_ROUTE_POLICY_VERSION = 'uberbond.current-collection-route-policy.v1';
+
+function applyCurrentCollectionRoutePolicy(summary = {}) {
+  const provider = String(summary.provider || '').trim().toLowerCase();
+  if (provider === 'paypal') {
+    return {
+      ...summary,
+      diagnosticState: summary.state || null,
+      state: 'DEACTIVATED',
+      liveReady: false,
+      lifecycle: 'DEACTIVATED',
+      criticalPath: false,
+      reasonCodes: ['provider-account-permanently-deactivated'],
+      ownerActionQueue: [],
+      evidenceBinding: 'OWNER_PROVIDER_ACCOUNT_UNAVAILABLE'
+    };
+  }
+  if (provider === 'lemon_squeezy') {
+    return {
+      ...summary,
+      diagnosticState: summary.state || null,
+      state: 'DORMANT_NOT_SELECTED',
+      liveReady: false,
+      lifecycle: 'DORMANT',
+      criticalPath: false,
+      reasonCodes: ['not-selected-for-current-first-cash-path'],
+      ownerActionQueue: []
+    };
+  }
+  return summary;
+}
+
+function contraCurrentCollectionRoute() {
+  return {
+    provider: 'contra',
+    state: 'ACCOUNT_SETUP_PENDING',
+    liveReady: false,
+    lifecycle: 'SELECTED_CURRENT_ROUTE',
+    criticalPath: true,
+    implementationMode: 'MANUAL_PROVIDER_WORKFLOW_PENDING_AUTH',
+    reasonCodes: [
+      'provider-confirmed-egypt-receiving-and-swift-payout',
+      'exact-account-auth-kyc-wallet-payout-unverified'
+    ],
+    ownerActionQueue: [{
+      action: 'Finish the existing Contra account setup and verify Wallet/payout readiness.',
+      screen: 'Contra -> existing account -> Wallet / identity verification / payout methods',
+      minutes: 15,
+      costUsd: 0,
+      evidenceOfCompletion: 'Authenticated existing account shows current KYC/Wallet state and a usable Egyptian bank/SWIFT payout method; no duplicate account.'
+    }],
+    evidenceBinding: 'PROVIDER_GENERAL_CAPABILITY_CONFIRMED__ACCOUNT_STATE_NOT_BOUND',
+    evidenceRefs: ['docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md']
+  };
+}
+
+function backupCollectionRoutes() {
+  return [
+    {
+      provider: 'xpay',
+      state: 'REVIEW_TEST_ONLY_BACKUP',
+      liveReady: false,
+      lifecycle: 'BACKUP',
+      criticalPath: false,
+      reasonCodes: ['provider-live-approval-pending'],
+      ownerActionQueue: [],
+      evidenceBinding: 'PROVIDER_REVIEW_STATE_ONLY'
+    },
+    {
+      provider: 'payoneer',
+      state: 'RECOVERY_ONLY_BACKUP',
+      liveReady: false,
+      lifecycle: 'BACKUP',
+      criticalPath: false,
+      reasonCodes: ['existing-account-recovery-required'],
+      ownerActionQueue: [],
+      evidenceBinding: 'EXISTING_ACCOUNT_KNOWN__CURRENT_AUTH_NOT_BOUND'
+    }
+  ];
+}
+
 export function paymentRailsFromSnapshot(s, env = process.env) {
   const facts = canonicalPaymentFacts(s);
-  return IMPLEMENTED_PAYMENT_RAILS.map(provider => {
+  const implemented = IMPLEMENTED_PAYMENT_RAILS.map(provider => {
     const verified = facts.events.filter(event => event.type === 'cleared_payment' && facts.reports[event.leadId]?.ok)
       .map(event => ({ event, order: (s.orders || []).find(order => `${order.eventName}:${order.providerEventId}` === event.id) }))
       .filter(({ order }) => order?.provider === (provider === 'lemon_squeezy' ? 'lemonsqueezy' : provider))
@@ -441,15 +522,16 @@ export function paymentRailsFromSnapshot(s, env = process.env) {
       kycAttestation: null
     });
     const summary = summarizePaymentRail(report);
-    return {
+    return applyCurrentCollectionRoutePolicy({
       provider,
       state: summary.state,
       liveReady: summary.liveReady === true,
       reasonCodes: summary.reasonCodes || [],
       ownerActionQueue: summary.ownerActionQueue || [],
       evidenceBinding: verificationReceipt ? 'CANONICAL_THREE_WITNESS_PROVIDER_RECEIPT' : 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND'
-    };
+    });
   });
+  return [contraCurrentCollectionRoute(), ...backupCollectionRoutes(), ...implemented];
 }
 
 /** Delivery state for one lead from stored fields only; absent evidence stays absent. */
@@ -514,7 +596,7 @@ export async function terminalReadinessFromStore(store, env = process.env, prefl
     moneyQueue: { prospects: s.prospects.length, ranked: queue.items.length, independentlyVerifiedRoutes, exclusionCounts, verificationProviderLineage: [...sourceProviders].sort() },
     configuredVerification: { hunterCredentialPresent: Boolean(env.HUNTER_API_KEY), providerCallsEnabled: env.LEAD_PROVIDER_CALLS_ENABLED === 'true', hunterEnabled: env.HUNTER_ENRICHMENT_ENABLED === 'true', noProviderCallPerformed: true },
     paymentRails: paymentRailsFromSnapshot(s, env),
-    sandboxRails: IMPLEMENTED_PAYMENT_RAILS.map(provider => summarizePaymentRail(diagnosePaymentRail({ env, provider, mode: 'SANDBOX', at: new Date(s.now), verificationReceipt: null, kycAttestation: null }))),
+    sandboxRails: IMPLEMENTED_PAYMENT_RAILS.map(provider => applyCurrentCollectionRoutePolicy(summarizePaymentRail(diagnosePaymentRail({ env, provider, mode: 'SANDBOX', at: new Date(s.now), verificationReceipt: null, kycAttestation: null })))),
     commercialTruth: { retainedClearedCustomers: facts.paidLeadIds.length, providerWitnessedPaymentEvents: facts.events.filter(e => e.type === 'cleared_payment').length },
     gspot: { liveDispatcherBound: false, convenienceAuthority: 'NONE', exactEffectAuthorityRequired: true, safeEvaluation: safeEvidence ? {prospectId:first.prospectId,proofPrepared:Boolean(safeEvidence.proofRef),messageValidated:safeEvidence.messageValidated===true,messagePreparationState:safeEvidence.messagePreparationState||null,criticReasonCodes:safeEvidence.reasonCodes||[],messagePreparationReasonCodes:safeEvidence.messagePreparationReasonCodes||[],preflightState:safeEvidence.effectPackageState||null,blockers:safeEvidence.safePreflightBlockers||[],senderHealthy:safeEvidence.senderHealthy===true,recipientBound:Boolean(safeEvidence.recipientHash)} : null },
     secretsExposed: false, routeValuesExposed: false, prospectMessagePerformed: false, outboundAuthority: 'NONE', businessEffectAuthority:'NONE'

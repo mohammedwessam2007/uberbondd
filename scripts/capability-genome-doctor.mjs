@@ -22,7 +22,11 @@ const result = inspectCapabilityGenome({
   existingSupplierRegistry: read('artifacts/external-skill-plugin-registry.json'),
   corpusState,
   bodyCorpusState,
-  normalizedRecordState
+  normalizedRecordState,
+  // These fixed-date repository artifacts are historical proof that the
+  // bounded harvest/body-import/normalization pipeline executed. This mode is
+  // accepted only when the exact committed pilot binding matches.
+  freshnessPolicy: 'HISTORICAL_PILOT'
 });
 console.log(JSON.stringify(result, null, 2));
 if (!result.ok) process.exitCode = 1;

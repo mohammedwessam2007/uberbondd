@@ -13,7 +13,7 @@ function makeStore(){
   transaction:async fn=>fn({
    transactionClient:false,
    getSettings:async()=>structuredClone(settings),
-   setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v);}
+   setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v)};}
   })
  };
 }

@@ -82,6 +82,23 @@
       <small id="identity-status" class="hint">No protected identity saved yet.</small>
     </form>
     <hr>
+    <h3>Contra collection readiness</h3>
+    <p class="hint">After you inspect the existing Contra account, record only what the provider screen actually shows. Never paste passwords, bank numbers, tokens, or identity documents here.</p>
+    <form id="contra-observation-form">
+      <div class="row"><label>Observed at<input name="observedAt" type="datetime-local" required></label><label>Evidence reference<input name="evidenceRef" placeholder="owner:contra-wallet-screen:2026-10-07" required></label></div>
+      <label class="check"><input name="ownerAttested" type="checkbox" required> I personally observed this current Contra account state</label>
+      <label class="check"><input name="existingAccountConfirmed" type="checkbox"> This is the existing account, not a duplicate</label>
+      <label class="check"><input name="authenticated" type="checkbox"> Signed in successfully</label>
+      <div class="row"><label>Wallet<select name="walletStatus"><option value="UNKNOWN">Unknown</option><option value="PENDING">Pending</option><option value="READY">Ready</option><option value="ACTIVE">Active</option></select></label><label>Identity/KYC<select name="identityVerificationStatus"><option value="UNKNOWN">Unknown</option><option value="PENDING">Pending</option><option value="VERIFIED">Verified</option></select></label></div>
+      <div class="row"><label>Tax profile<select name="taxProfileStatus"><option value="UNKNOWN">Unknown</option><option value="PENDING">Pending</option><option value="COMPLETE">Complete</option><option value="NOT_REQUIRED_BY_PROVIDER">Provider says not required</option></select></label><label>Payout status<select name="payoutStatus"><option value="UNKNOWN">Unknown</option><option value="PENDING">Pending</option><option value="READY">Ready</option><option value="ACTIVE">Active</option><option value="VERIFIED">Verified</option></select></label></div>
+      <div class="row"><label>Egypt payout method<select name="payoutMethod"><option value="UNKNOWN">Unknown</option><option value="SWIFT">SWIFT</option><option value="LOCAL_BANK">Local bank</option></select></label><label class="check"><input name="accountOwnerMatch" type="checkbox"> Bank account is mine / owner matched</label></div>
+      <label>Provider blockers<textarea name="blockingRequirements" rows="2" placeholder="Leave blank only when Contra shows no remaining blocking requirement. One per line."></textarea></label>
+      <div class="row"><label class="check"><input name="oneTimeFixedProject" type="checkbox"> One-Time Fixed project available</label><label class="check"><input name="paymentLink" type="checkbox"> Payment link available</label></div>
+      <label class="check"><input name="invoice" type="checkbox"> Invoice available</label>
+      <button class="gold">Record current Contra state</button>
+      <small id="contra-status" class="hint">No authenticated Contra account observation stored yet.</small>
+    </form>
+    <hr>
     <h3>Record one authorized recipient</h3>
     <p class="hint">Use a warm referral, explicit consent, or a direct request for information. Do not paste a scraped or purchased list.</p>
     <form id="recipient-form">

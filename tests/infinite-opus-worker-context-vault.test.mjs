@@ -8,7 +8,7 @@ const h=x=>crypto.createHash('sha256').update(String(x)).digest('hex');
 const now=Date.parse('2026-09-30T20:00:00Z');
 function store(){
  let settings={};
- return {transaction:async fn=>fn({transactionClient:false,getSettings:async()=>structuredClone(settings),setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v);}})};
+ return {transaction:async fn=>fn({transactionClient:false,getSettings:async()=>structuredClone(settings),setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v)};}})};
 }
 const ctx={
  scope:'WORKER_RECURRING',crownRevision:'opus-5.5-r1',qualityContractHash:h('quality'),

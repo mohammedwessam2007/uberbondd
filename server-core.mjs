@@ -914,7 +914,8 @@ async function ownerSetupStatus() {
     },
     campaigns: campaigns
       .filter(campaign => !campaign.systemKey)
-      .map(campaign => ({ id: campaign.id, name: campaign.name, offerId: campaign.offerId || null, approved: campaign.approved === true, autoSend: campaign.autoSend === true }))
+      .map(campaign => ({ id: campaign.id, name: campaign.name, offerId: campaign.offerId || null, approved: campaign.approved === true, autoSend: campaign.autoSend === true })),
+    contra: revenueSingularity.contraCurrentCollectionRoute({ settings, now: Date.now() })
   };
 }
 
@@ -949,6 +950,67 @@ async function saveOwnerBusinessIdentity(input = {}) {
     businessEffectAuthority: 'NONE',
     externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
     truthBoundary: 'The protected business identity was stored locally. It did not contact a provider or recipient.'
+  };
+}
+
+async function saveContraCollectionObservation(input = {}) {
+  const compact = (value, max = 160) => String(value ?? '').trim().slice(0, max);
+  const refs = Array.isArray(input.evidenceRefs)
+    ? [...new Set(input.evidenceRefs.map(value => compact(value, 500)).filter(Boolean))].slice(0, 20)
+    : [];
+  const blockers = Array.isArray(input.blockingRequirements)
+    ? [...new Set(input.blockingRequirements.map(value => compact(value, 160)).filter(Boolean))].slice(0, 20)
+    : input.blockingRequirements;
+  const observation = {
+    provider: 'contra',
+    observedAt: compact(input.observedAt, 80),
+    ownerAttested: input.ownerAttested === true,
+    evidenceRefs: refs,
+    existingAccountConfirmed: input.existingAccountConfirmed === true,
+    duplicateAccountCreated: input.duplicateAccountCreated === true,
+    authenticated: input.authenticated === true,
+    wallet: {
+      status: compact(input.wallet?.status, 80),
+      identityVerificationStatus: compact(input.wallet?.identityVerificationStatus, 80)
+    },
+    taxProfileStatus: compact(input.taxProfileStatus, 80),
+    payout: {
+      status: compact(input.payout?.status, 80),
+      method: compact(input.payout?.method, 80),
+      country: compact(input.payout?.country || 'EG', 8),
+      accountOwnerMatch: input.payout?.accountOwnerMatch === true
+    },
+    blockingRequirements: blockers,
+    capabilities: {
+      oneTimeFixedProject: input.capabilities?.oneTimeFixedProject === true,
+      paymentLink: input.capabilities?.paymentLink === true,
+      invoice: input.capabilities?.invoice === true
+    }
+  };
+  const contra = revenueSingularity.contraCurrentCollectionRoute({
+    settings: { contraCollectionObservation: observation },
+    now: Date.now()
+  });
+  if (contra.state === 'ACCOUNT_OBSERVATION_REQUIRED') {
+    throw new HttpError(400, `Contra observation refused: ${contra.reasonCodes.join(', ')}`);
+  }
+  await store.setSetting('contraCollectionObservation', observation);
+  await store.log('contra_collection_observation_saved', {
+    state: contra.state,
+    collectionReady: contra.collectionReady === true,
+    evidenceRefCount: refs.length,
+    providerCalls: 0,
+    paymentRequestsSent: 0,
+    externalEffects: 0
+  });
+  return {
+    ok: true,
+    contra,
+    providerCalls: 0,
+    paymentRequestsSent: 0,
+    businessEffectAuthority: 'NONE',
+    externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS },
+    truthBoundary: 'This stores an owner-attested reading of the existing Contra account only. It does not authenticate to Contra, complete KYC, create a project, request payment, move money, or prove cleared cash.'
   };
 }
 
@@ -1401,6 +1463,9 @@ export const requestHandler = async (req, res) => {
     }
     if (method === 'POST' && url.pathname === '/api/owner/business-identity') {
       return json(res, 200, await saveOwnerBusinessIdentity(await parseBody(req)));
+    }
+    if (method === 'POST' && url.pathname === '/api/owner/contra-collection-observation') {
+      return json(res, 200, await saveContraCollectionObservation(await parseBody(req)));
     }
     if (method === 'POST' && url.pathname === '/api/owner/recipient') {
       const result = await recordOwnerRecipient(await parseBody(req));

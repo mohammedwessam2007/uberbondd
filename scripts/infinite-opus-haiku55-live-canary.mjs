@@ -28,7 +28,9 @@ const safe=row=>({
   inputTokens:Number.isFinite(Number(row?.inputTokens))?Number(row.inputTokens):null,
   outputTokens:Number.isFinite(Number(row?.outputTokens))?Number(row.outputTokens):null,
   outputDigest:typeof row?.outputDigest==='string'?row.outputDigest:null,
-  providerCallsPerformed:Number.isFinite(Number(row?.providerCallsPerformed))?Number(row.providerCallsPerformed):0,
+  reason:typeof row?.reason==='string'?String(row.reason).slice(0,220):null,
+  providerCallsPerformed:row?.providerCallsPerformed===null?null:
+    (Number.isFinite(Number(row?.providerCallsPerformed))?Number(row.providerCallsPerformed):0),
   semanticAuthority:'NONE',
   crownSuppressionAuthority:'NONE',
   businessEffectAuthority:'NONE',
@@ -171,4 +173,60 @@ export async function runGovernedHaiku55LiveCanary({
   };
   await store.transaction(async tx=>await tx.setSetting(HAIKU55_LIVE_CANARY_SETTING,row));
   return safe(row);
+}
+
+
+export async function inspectGovernedHaiku55LiveCanaryState(store){
+  if(!store||typeof store.transaction!=='function')throw new Error('haiku55-live-canary-store-required');
+  return store.transaction(async tx=>{
+    const settings=await tx.getSettings();
+    const canary=settings?.[HAIKU55_LIVE_CANARY_SETTING]??null;
+    const runtime=settings?.infiniteOpusRuntimeV1??null;
+    const call=Array.isArray(runtime?.ledger?.calls)
+      ? runtime.ledger.calls.find(x=>x?.callId==='openrouter-haiku55-live-canary-20261007-v1')??null
+      : null;
+    const incidents=Array.isArray(runtime?.ledger?.incidents)
+      ? runtime.ledger.incidents.filter(x=>x?.callId==='openrouter-haiku55-live-canary-20261007-v1')
+      : [];
+    return {
+      ok:true,
+      status:'HAIKU_5_5_LIVE_CANARY_READONLY_STATE',
+      canary:canary?{
+        status:canary.status??null,
+        reason:typeof canary.reason==='string'?String(canary.reason).slice(0,220):null,
+        claimedAt:canary.claimedAt??null,
+        observedAt:canary.observedAt??null,
+        model:canary.model??TYPINGMIND_HAIKU55_MODEL,
+        modelRevision:canary.modelRevision??null,
+        upstreamProvider:canary.upstreamProvider??null,
+        providerRequestId:canary.providerRequestId??null,
+        actualCostUsd:Number.isFinite(Number(canary.actualCostUsd))?Number(canary.actualCostUsd):null,
+        providerCallsPerformed:canary.providerCallsPerformed===null?null:
+          (Number.isFinite(Number(canary.providerCallsPerformed))?Number(canary.providerCallsPerformed):null),
+        automaticRetryAuthorized:false
+      }:null,
+      ledgerCall:call?{
+        callId:call.callId,
+        taskId:call.taskId,
+        model:call.model,
+        provider:call.provider,
+        role:call.role,
+        status:call.status,
+        ceilingMicrousd:Number.isFinite(Number(call.ceilingMicrousd))?Number(call.ceilingMicrousd):null,
+        actualMicrousd:Number.isFinite(Number(call.actualMicrousd))?Number(call.actualMicrousd):null,
+        receiptRef:call.receiptRef??null,
+        receiptHash:call.receiptHash??null,
+        reservedDate:call.reservedDate??null,
+        settledDate:call.settledDate??null
+      }:null,
+      ledgerIncidents:incidents.map(x=>({reason:x.reason??null})),
+      providerInferenceCallsPerformed:0,
+      providerMetadataCallsPerformed:0,
+      spendUsd:0,
+      hiddenOutputExposed:false,
+      semanticAuthority:'NONE',
+      crownSuppressionAuthority:'NONE',
+      truthBoundary:'Read-only durable reconciliation state. RESERVED proves no runtime dispatch marker. DISPATCHED means provider crossing or charge may be unknown and forbids replay. SETTLED binds an observed cost receipt. This diagnostic performs no provider call.'
+    };
+  });
 }

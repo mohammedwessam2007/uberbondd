@@ -2,6 +2,7 @@ import { semanticHash } from './semantic-closure-kernel.mjs';
 
 export const OPENROUTER_JEV_MODEL='typesafe/jev-1.13';
 export const OPENROUTER_JEV_MODEL_PAGE='https://openrouter.ai/typesafe/jev-1.13/api';
+export const OPENROUTER_JEV_ENDPOINTS_API='https://openrouter.ai/api/v1/models/typesafe/jev-1.13/endpoints';
 
 const htmlText=html=>String(html??'')
   .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi,' ')
@@ -19,6 +20,87 @@ const numberFrom=(text,re)=>{
   const n=Number(String(m[1]).replaceAll(',',''));
   return Number.isFinite(n)&&n>=0?n:null;
 };
+
+const perTokenRate=value=>{
+  if(typeof value!=='string'||!/^\d+(?:\.\d+)?$/.test(value))return null;
+  const n=Number(value)*1e6;
+  return Number.isFinite(n)&&n>=0?n:null;
+};
+
+export function compileOpenRouterJevEndpointPriceRecord(payload,{verifiedAt,ttlMs=10*60*1000}={}){
+  const at=Date.parse(verifiedAt);
+  if(!Number.isFinite(at)||!Number.isSafeInteger(ttlMs)||ttlMs<1||ttlMs>86400000)
+    throw new Error('bounded-jev-endpoint-observation-required');
+  const data=payload?.data;
+  if(!data||data.id!==OPENROUTER_JEV_MODEL||!Array.isArray(data.endpoints)||!data.endpoints.length||data.endpoints.length>100)
+    throw new Error('exact-jev-endpoint-metadata-required');
+
+  const live=data.endpoints.filter(row=>row&&typeof row==='object'&&(row.status===0||row.status==null));
+  if(!live.length)throw new Error('live-jev-endpoint-required');
+  const normalized=live.map(row=>{
+    const input=perTokenRate(row?.pricing?.prompt);
+    const output=perTokenRate(row?.pricing?.completion);
+    const context=Number(row.context_length??row.max_prompt_tokens);
+    if(input==null||output==null||!Number.isFinite(context)||context<1024)
+      throw new Error('fixed-jev-endpoint-price-required');
+    return {
+      input,output,context,
+      providerName:typeof row.provider_name==='string'?row.provider_name:null,
+      modelId:row.model_id??null,
+      endpointHash:semanticHash(row)
+    };
+  });
+  if(normalized.some(row=>row.modelId&&row.modelId!==OPENROUTER_JEV_MODEL))
+    throw new Error('jev-endpoint-model-identity-drift');
+
+  const input=Math.max(...normalized.map(row=>row.input));
+  const output=Math.max(...normalized.map(row=>row.output));
+  const context=Math.min(...normalized.map(row=>row.context));
+  const expiresAt=new Date(at+ttlMs).toISOString();
+  const body={
+    model:OPENROUTER_JEV_MODEL,
+    modelRevision:null,
+    provider:'openrouter',
+    sourceRef:OPENROUTER_JEV_ENDPOINTS_API,
+    sourceRecordHash:semanticHash({
+      model:OPENROUTER_JEV_MODEL,
+      endpoints:normalized.map(row=>({
+        input:row.input,output:row.output,context:row.context,
+        providerName:row.providerName,modelId:row.modelId,endpointHash:row.endpointHash
+      }))
+    }),
+    verifiedAt:new Date(at).toISOString(),
+    expiresAt,
+    inputUsdPerMillion:input,
+    outputUsdPerMillion:output,
+    cacheReadUsdPerMillion:null,
+    cacheWriteUsdPerMillion:null,
+    cacheWrite1hUsdPerMillion:null,
+    priceOverrides:[],
+    otherChargesPerUnit:{},
+    contextTokens:context,
+    maxOutputTokens:1,
+    tools:false,
+    structuredOutput:true,
+    modalities:['text'],
+    supportedParameters:['state','questions'],
+    batch:false,
+    flex:'UNKNOWN',
+    privacy:'ROUTE_DEPENDENT_UNVERIFIED',
+    rateLimits:'UNKNOWN',
+    latency:'UNKNOWN',
+    throughput:'UNKNOWN',
+    reliability:'UNKNOWN',
+    callableOnOwnerAccount:'METADATA_OBSERVED_NOT_INFERENCE_PROVEN',
+    routeEndpoint:'https://openrouter.ai/api/alpha/decisions',
+    priceAdmission:'PUBLIC_PRICE_CANDIDATE',
+    routeKind:'OPENROUTER_DECISIONS',
+    upstreamProviders:[...new Set(normalized.map(row=>row.providerName).filter(Boolean))].sort(),
+    pricingPolicy:'HIGHEST_ACTIVE_ENDPOINT_PRICE_RESERVED',
+    semanticAuthority:'NONE'
+  };
+  return {...body,recordDigest:semanticHash(body)};
+}
 
 export function compileOpenRouterJevPublicPriceRecord(html,{verifiedAt,ttlMs=10*60*1000}={}){
   const at=Date.parse(verifiedAt);

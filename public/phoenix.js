@@ -143,6 +143,32 @@ async function restoreFromVault(id){
   window.scrollTo({top:0,behavior:'smooth'});
  }catch(error){vaultMessage('Restore NOT verified: '+error.message);}
 }
+async function runPhoenixVaultSelfTest(){
+ const button=document.getElementById('vault-self-test');
+ button.disabled=true;
+ try{
+  const stamp='2026-10-08T00:00:00.000Z';
+  const body={
+    schemaVersion:SCHEMA,sourceType:'MANUAL_LOCAL_DRAFT_NOT_FULL_CHAT_EXPORT',
+    exportedAt:stamp,mainSha:null,moonshotCorpusSha:CORPUS,
+    entries:[{id:'checkpoint-1',kind:'TEST',summary:'PHOENIX synthetic owner-session vault canary; no customer data.',source:'APP_SELF_TEST_ONLY',recordedAt:stamp}],
+    truthBoundary:'MANUALLY_ENTERED_MATERIAL_ONLY; SOURCE_NOT_REVALIDATED; ZERO_EXTERNAL_EFFECT_AUTHORITY'
+  };
+  const capsule={body,digest:await digestOf(body)};
+  const saved=await vaultApi('/api/phoenix/capsules',{
+    method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(capsule)
+  });
+  if(!saved.ok || saved.digest!==capsule.digest || !/^phx_[0-9a-f]{64}$/.test(saved.id))throw Error('Save receipt mismatch');
+  const retrieved=await vaultApi('/api/phoenix/capsules/'+encodeURIComponent(saved.id));
+  if(!retrieved.ok || retrieved.capsule?.digest!==capsule.digest
+     || await digestOf(retrieved.capsule.body)!==capsule.digest
+     || retrieved.capsule.body.entries[0].summary!==body.entries[0].summary)throw Error('Restore receipt mismatch');
+  vaultMessage('PHOENIX_APP_ROUNDTRIP_VERIFIED · owner-authenticated save and restore of one harmless synthetic checkpoint. No client data was used.');
+ }catch(error){
+  vaultMessage('PHOENIX_APP_ROUNDTRIP_NOT_VERIFIED · '+error.message+'. Log in to the UberBond Command Center and retry; do not assume saved.');
+ }finally{button.disabled=false;}
+}
+document.getElementById('vault-self-test').addEventListener('click',()=>{void runPhoenixVaultSelfTest();});
 document.getElementById('save-app').addEventListener('click',()=>{void saveToUberBond();});
 document.getElementById('refresh-app').addEventListener('click',()=>{void loadVaultList();});
 

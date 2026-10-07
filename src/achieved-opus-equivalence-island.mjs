@@ -5,7 +5,7 @@ export const DEFAULT_EQUIVALENCE_SOURCES=Object.freeze([
   'open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json',
   'config/absolute-frontier-quality-lock.json',
   'config/infinite-opus-first-real-workload.json',
-  'config/infinite-opus-live-market-candidates.json'
+  'config/opus-equivalence-reference-2026-10-07.json'
 ]);
 
 const digest=value=>'sha256:'+crypto.createHash('sha256').update(

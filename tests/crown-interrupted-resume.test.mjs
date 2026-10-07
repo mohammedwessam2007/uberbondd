@@ -43,6 +43,20 @@ function quarantinedInterrupted(){
  return {state,originalState,payload};
 }
 const authority=now=>({operation:'resume-existing-sealed-general-crown-evaluation',attemptKey:INTERRUPTED_RESUME_KEY,sourceKey:RESUME_KEY,maxIncrementalMicrousd:150000,maxTotalEvaluationMicrousd:450000,monthlyCapMicrousd:20000000,maxRemainingPaidCalls:2,evidenceRef:'owner-approved-two-missing-crown-edges-r3',authorizedAt:new Date(now-1000).toISOString(),expiresAt:new Date(now+60000).toISOString()});
+const recoveredFinancialReceipt=()=>({
+ schemaVersion:'uberbond.crown-financial-recovery.v1',
+ status:'RECONCILED_INVALID_TOURNAMENT_EVIDENCE',
+ callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
+ generationId:'gen-1790807964-m6HWX42a5VtncUFVBpL1',
+ actualMicrousd:11224,
+ cancelledUndispatchedCallIds:['sealed-call-f66120a25e6c3904971db18c18be096b48457d23','sealed-call-1e9d0e3549707791fe40af7a15be2e84b76c8bec','sealed-call-60225eada977cb91f4c1d44960138ad0c31e7e12'],
+ bindingMethod:'FORENSIC_SINGLE_DISPATCH_WINDOW',retainedExactBinding:false,
+ providerRequestId:'req-1790807964-Ve3fJIrYt0PXl3LqGRb0',
+ observedModel:'anthropic/claude-opus-5.5-20260921',providerIdentity:'Amazon Bedrock',
+ evidenceRef:'docs/receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md',
+ semanticAuthority:'NONE',oldHiddenTaskContaminated:true,oldAnswersUnavailable:true,
+ reconciledAt:'2026-10-01T00:00:00Z'
+});
 test('reconciled interrupted state preserves three answers and exactly two missing edges',()=>{
  const {state,originalState}=interrupted(),p=recoverInterruptedCrownCheckpoint(state,{key,originalState});
  assert.equal(p.calls.length,3);assert.equal(p.maximumRemainingPaidCalls,2);assert.equal(p.priorBillingRows.length,6);assert.equal(p.inheritedSpendUsd,state.newSpendUsd);
@@ -104,20 +118,16 @@ test('expired interrupted continuation permission performs no reads, writes or n
  }finally{globalThis.fetch=original;}
 });
 
-test('independent provider recheck rejects null billing as evidence of explicit zero charge',async()=>{
+test('corrupted durable historical financial recovery is refused without provider re-query or paid call',async()=>{
  const {state,originalState}=interrupted(),now=Date.now();
- state.newSpendUsd-=state.generationJournal[2].costUsd;state.generationJournal[2].costUsd=0;state.financialReconciliation.costUsd=0;
- const settings={[SOURCE_KEY]:originalState,[RESUME_KEY]:state,infinite_opus_crown_autofinish_20261001_v7:{status:'FAILED_NO_AUTOMATIC_RETRY'}};
- const before=JSON.stringify(settings);let writes=0,paid=0;
+ const bad={...recoveredFinancialReceipt(),actualMicrousd:0};
+ const settings={[SOURCE_KEY]:originalState,[RESUME_KEY]:state,infinite_opus_crown_autofinish_20261001_v7:{status:'FAILED_NO_AUTOMATIC_RETRY'},infinite_opus_crown_financial_recovery_20261001_r1:bad};
+ let writes=0,network=0;
  const store={transaction:async fn=>fn({getSettings:async()=>settings,setSetting:async()=>{writes++;}})};
- const original=globalThis.fetch;globalThis.fetch=async(url,o={})=>{
-  if(o.method==='POST'){paid++;throw Error('must-not-dispatch');}
-  const id=new URL(url).searchParams.get('id'),row=[...originalState.generationJournal,...state.generationJournal].find(r=>r.id===id);
-  return {ok:true,json:async()=>({data:{id,model:row.observedModel,provider_name:row.provider,total_cost:id===INTERRUPTED_GENERATION?null:row.costUsd}})};
- };
+ const original=globalThis.fetch;globalThis.fetch=async()=>{network++;throw Error('must-not-call-provider');};
  try{
-  await assert.rejects(runCrownAutoFinish({store,apiKey:'synthetic',checkpointKey:key,resumeAuthorization:authority(now),paidAuthorization:{evidenceRef:'SYNTHETIC',month:new Date(now).toISOString().slice(0,7),maxMonthlyMicrousd:20000000,expiresAt:new Date(now+60000).toISOString(),crownRoutes:['openrouter:anthropic/claude-opus-5.5']}}),/prior-billing-reconciliation-drift/);
-  assert.equal(writes,0);assert.equal(paid,0);assert.equal(JSON.stringify(settings),before);
+  await assert.rejects(runCrownAutoFinish({store,apiKey:'synthetic',checkpointKey:key,resumeAuthorization:authority(now),paidAuthorization:{evidenceRef:'SYNTHETIC',month:new Date(now).toISOString().slice(0,7),maxMonthlyMicrousd:20000000,expiresAt:new Date(now+60000).toISOString(),crownRoutes:['openrouter:anthropic/claude-opus-5.5']}}),/existing-original-financial-recovery-refused/);
+  assert.equal(writes,0);assert.equal(network,0);
  }finally{globalThis.fetch=original;}
 });
 
@@ -126,7 +136,7 @@ test('reconciled continuation executes only missing Sol answer and grader, prese
  Object.assign(originalState.generationJournal[0],{model:'google/gemini-2.5-pro',observedModel:'google/gemini-2.5-pro',provider:'Google'});
  Object.assign(originalState.generationJournal[1],{model:'anthropic/claude-opus-5.5',observedModel:'anthropic/claude-opus-5.5-20260921',provider:'Amazon Bedrock'});
  Object.assign(originalState.generationJournal[2],{model:'openai/gpt-6.1-sol-pro',observedModel:'openai/gpt-6.1-sol-pro-20260929',provider:'Azure'});
- let settings={[SOURCE_KEY]:originalState,[RESUME_KEY]:state,infinite_opus_crown_autofinish_20261001_v7:{status:'FAILED_NO_AUTOMATIC_RETRY'},infinite_opus_crown_financial_recovery_20261001_r1:{status:'RECONCILED_INVALID_TOURNAMENT_EVIDENCE',generationId:'gen-1790807964-m6HWX42a5VtncUFVBpL1'}};
+ let settings={[SOURCE_KEY]:originalState,[RESUME_KEY]:state,infinite_opus_crown_autofinish_20261001_v7:{status:'FAILED_NO_AUTOMATIC_RETRY'},infinite_opus_crown_financial_recovery_20261001_r1:recoveredFinancialReceipt()};
  const store={transaction:async fn=>fn({getSettings:async()=>settings,setSetting:async(k,v)=>{settings[k]=v;}})};
  const original=globalThis.fetch,observed={},paid=[];
  globalThis.fetch=async(url,o={})=>{

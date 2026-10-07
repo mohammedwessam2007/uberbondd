@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "uberbond.open-router.current-runtime.v1",
+  "observedAt": "2026-10-07T09:22:00Z",
+  "status": "INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS",
+  "authority": "CURRENT_RUNTIME_OVERLAY__SUPERSEDES_STALE_ACTIVATION_INSTRUCTIONS_ONLY",
+  "noAmputation": true,
+  "repository": {
+    "repositoryHeadAtObservation": "74b67029dda1f4f6b75b288204615b6b6318e6be",
+    "exactExecutableLiveSha": "a1321dedcc1387090b889f94191de3415487676c",
+    "exactRenderDeploy": "dep-db2p2tid0e5s73dt7400",
+    "docsOnlyHeadAheadOfExecutable": true
+  },
+  "cockpit": {
+    "ui": "TypingMind",
+    "customModelName": "UberMind Auto",
+    "modelId": "ubermind/auto",
+    "endpoint": "https://uberbond-control-plane.onrender.com/api/typingmind/infinite-opus/v1/chat/completions",
+    "gatewayBearerPresentInProtectedRuntime": true,
+    "directOpenRouterKeyRequiredInTypingMind": false,
+    "savedState": "NOT_VERIFIED_SAVED",
+    "finalUiBoundary": "PRIVATE_TEST_AND_SAVE_AFTER_VALID_CURRENT_CROWN_ADMISSION"
+  },
+  "openRouter": {
+    "runtimeKeyPresentInProtectedRuntime": true,
+    "currentRuntimeAuthorization": true,
+    "authorizationMonth": "2026-10",
+    "maxMonthlyMicrousd": 20000000,
+    "maxMonthlyUsd": 20,
+    "providerCallsByLatestActivationDiagnostic": 0,
+    "spendAuthorizedByLatestActivationDiagnostic": false,
+    "currentGeneralCrownAdmission": false,
+    "blocker": "crown-admission-absent"
+  },
+  "crownRecovery": {
+    "hiddenTaskCount": 2,
+    "retainedCandidateAnswers": 3,
+    "totalCandidateAnswers": 4,
+    "missingCandidateAnswers": 1,
+    "missingEvaluatorCalls": 1,
+    "exactRemainingPaidCalls": 2,
+    "maximumIncrementalMicrousd": 300000,
+    "maximumIncrementalUsd": 0.3,
+    "maximumTotalEvaluationMicrousd": 450000,
+    "maximumTotalEvaluationUsd": 0.45,
+    "exactOwnerConfirmation": "RESUME_EXACT_TWO_MISSING_EDGES_MAX_0_30_USD",
+    "vanishedGeneration": "gen-1790900587-TKEqsFrik1iupnf4Ljrd",
+    "vanishedGenerationAccounting": "UNKNOWN_ACTUAL_BILL__FULL_PRECALL_RESERVE_QUARANTINED",
+    "hiddenPayloadsExposed": false,
+    "automaticRetry": false
+  },
+  "productionClosures": {
+    "boundedOwnerResumeRoute": true,
+    "durableVerifiedCrownAdmissionResolution": true,
+    "unifiedCognitionOneWayBridge": true,
+    "governedSemanticClosureHost": true,
+    "ghostAgentRealQueueEventHost": true,
+    "currentActivationGatesReleased": [
+      "NO_UNIFIED_COGNITION_LEDGER_BRIDGE",
+      "NO_INFINITE_OPUS_SEMANTIC_CLOSURE_HOST",
+      "NO_GHOST_AGENT_EVENT_HOST"
+    ]
+  },
+  "canonicalArchitecture": [
+    "TypingMind private cockpit",
+    "UberBond OpenAI-compatible gateway",
+    "ubermind/auto",
+    "governed OpenRouter runtime key",
+    "Frontier VM / JEV / Supercompiler control fabric",
+    "task-class Crown admission",
+    "Reality Court / proof ledger / Cognitive Capital"
+  ],
+  "currentProviderReality": {
+    "openRouter": "OpenAI-compatible API; current provider catalog exposes retention/BYOK metadata and ZDR-capable providers. Request/account guardrails remain provider reality, not repo assertions.",
+    "typingMind": "Current public custom-model flow is manual Add Custom Model -> OpenAI-compatible endpoint/auth -> Test & Save."
+  },
+  "historicalFolderLaw": "Files dated 2026-09-29 and 2026-09-30 remain immutable lineage/donor evidence unless a newer current overlay explicitly promotes their instruction. Do not execute stale key-placement, market-roster, tournament-start, or activation-order text as present-tense instructions.",
+  "researchOnlyNotActivationBlockers": [
+    "src/cognitive-superoptimizer.mjs",
+    "src/frontier-deferred-compute-planner.mjs",
+    "src/frontier-intelligence-vm.mjs",
+    "src/frontier-quality-market-compiler.mjs",
+    "src/frontier-vm-burnin.mjs",
+    "src/frontier-vm-longitudinal-evaluator.mjs",
+    "src/infinite-opus-provider.mjs",
+    "src/infinite-opus-runtime.mjs",
+    "src/infinite-opus-store.mjs",
+    "src/infinite-opus-task-compilers.mjs",
+    "src/reasoning-architecture-lab.mjs",
+    "src/uberplacement.mjs",
+    "src/uberrelay.mjs",
+    "src/ubersubstrate.mjs"
+  ],
+  "remainingOwnerOrExternalBoundaries": [
+    {
+      "id": "GENERAL_CROWN_EXACT_TWO_EDGE_SPEND",
+      "type": "OWNER_FINANCIAL_AUTHORIZATION",
+      "exactScope": "At most USD 0.30 incremental OpenRouter spend for exactly two missing sealed calls.",
+      "satisfied": false
+    },
+    {
+      "id": "TYPINGMIND_PRIVATE_TEST_AND_SAVE",
+      "type": "OWNER_PRIVATE_UI",
+      "exactScope": "After valid current Crown admission, privately Test & Save UberMind Auto with the already-protected gateway bearer.",
+      "satisfied": false
+    }
+  ],
+  "externalEffectsAtObservation": {
+    "newInferenceCalls": 0,
+    "newOpenRouterSpendUsd": 0,
+    "customerMessages": 0,
+    "paymentActions": 0,
+    "purchases": 0,
+    "dnsChanges": 0
+  },
+  "truthBoundary": "This overlay records current source/runtime/provider-observation truth. It does not itself authorize spend, inference, customer effects, Crown promotion, or TypingMind private UI actions."
+}

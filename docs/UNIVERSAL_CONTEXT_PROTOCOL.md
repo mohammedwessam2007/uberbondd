@@ -15,6 +15,10 @@ The invariant is:
 
 > resident context is small; retrievable context is complete; provenance is preserved; no useful lineage is amputated.
 
+## Cross-chat founder 890 source inheritance
+
+Every UberBond fresh session must mount the compact `docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md` continuity law. Its original 890 stable IDs and immutable literal corpus manifest are a **permanent L0 inherited search universe**. Mission-level L3 hydration selects relevant exact bodies and adjacent/counterfactual ideas; selection is not deletion. After material work, preserve new cross-links and experiment reality states in durable layers. No ChatGPT Project, Memory or outside-chat source hydration can be assumed without actual access. For account-wide coverage, the founder may add the short bootstrap in that document to ChatGPT Custom Instructions and Project Instructions.
+
 ## Context pyramid
 
 ### L0 — constitutional kernel

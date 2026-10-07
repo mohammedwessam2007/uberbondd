@@ -21,6 +21,10 @@ Mandatory terminal context:
 - `artifacts/uberbond-total-brain.json`
 - Total Brain overlays, Perpetual Frontier/GENESIS canon, current system/readiness, current handoff, current `main`, open/draft/recent PRs/issues and recent merged PRs.
 
+## Founder 890 universe is permanently inherited
+
+The founder's October 8, 2026 cross-chat instruction is canonical: all 890 original founder moonshot ideas remain recoverable, addressable, and eligible for cross-domain UberBond synthesis, including future chats and new agent sessions. Read `docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`, `docs/FOUNDER_MOONSHOT_LITERAL_CORPUS_890.md`, and `artifacts/research/founder-moonshot-literal-corpus/manifest.json` before narrowing the project. Preserve all 890 stable IDs and bodies as immutable source; use relevant shards in working context and track actual realization stage independently. The 890 are a baseline to surpass through GENESIS, never a ceiling, a completed feasibility claim, or a mandate to paste every body into every prompt.
+
 ## Terminal North Star
 
 UberBond's terminal destination is the **Sovereign Cognitive Continuum**.

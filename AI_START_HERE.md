@@ -16,6 +16,10 @@ If you are an AI, coding agent, research agent, IDE assistant, terminal agent, o
 UberBond is a long-lived accumulated organism. A new context window is not a new project.
 
 
+## Always-on 890-founder-idea inheritance
+
+For **every future UberBond-related chat, model, agent and mission**, mount `docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md` before narrowing scope. All 890 literal ideas are permanently preserved, available for cross-domain synthesis and addressable through `artifacts/research/founder-moonshot-literal-corpus/manifest.json`; only task-relevant original entries need to be hydrated at a time. The canonical universe extends past 890 through GENESIS. Never treat 890/890 source recovery or routing as 890/890 implementation, nor imply a ChatGPT chat without repository access automatically has the source bytes.
+
 ## Revenue terminal hot pointer
 
 For the Oct4 Revenue Singularity continuation, newest issue#1188 terminal comment plus `docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md` and `docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md` govern current recovery after refreshing main. Do not use the Oct3 closure frontier. This does not narrow the terminal life-system canon.

@@ -22,6 +22,8 @@ import { createJobHandlers } from './src/job-handlers.mjs';
 import { AGENT_RELAY_JOB_TYPE, CLOUD_AGENT_RELAY_POLICY_VERSION, claimCloudRelayTask, createCloudRelayTask, heartbeatCloudRelayTask, listCloudRelayTasks, relayHealthSummary, submitCloudRelayResult } from './src/cloud-agent-relay.mjs';
 import { normalizeCountryList } from './src/send-safety.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
+import { resolveDurableCrownAdmission } from './src/crown-durable-admission.mjs';
+import { OPUS_CANONICAL_REVISION } from './src/crown-model-identity.mjs';
 import { verifyUnsubscribeToken, preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import {
   createOutreachApproval,
@@ -2445,7 +2447,31 @@ const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
 if (isEntryPoint) {
   server.listen(config.port, () => {
     console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`);
-    console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env)));
+    void (async()=>{
+      let environmentReceipt=null;
+      try{
+        const raw=String(process.env.INFINITE_OPUS_CROWN_ADMISSION_JSON||'').trim();
+        if(raw){const parsed=JSON.parse(raw);if(parsed&&typeof parsed==='object'&&!Array.isArray(parsed))environmentReceipt=parsed;}
+      }catch{}
+      let crownResolution={ok:false,receipt:null,source:null};
+      try{
+        crownResolution=await resolveDurableCrownAdmission(store,{
+          environmentReceipt,
+          expected:{
+            exactModelId:'anthropic/claude-opus-5.5',
+            modelRevision:OPUS_CANONICAL_REVISION,
+            taskClassRole:'GENERAL_CROWN',
+            routeIdentity:'openrouter:auto-provider-zdr-deny-required-parameters-v1'
+          }
+        });
+      }catch(error){
+        console.error('INFINITE_OPUS_DURABLE_CROWN_DIAGNOSTIC_REFUSED '+JSON.stringify({status:'DURABLE_CROWN_READ_FAILED',reason:String(error?.message||error).slice(0,200),providerCallsPerformed:0}));
+      }
+      console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env,{
+        trustedCrownAdmissionOverride:crownResolution.receipt,
+        trustedCrownAdmissionSource:crownResolution.source
+      })));
+    })().catch(error=>console.error('INFINITE_OPUS_ACTIVATION_DIAGNOSTIC_FAILED '+JSON.stringify({reason:String(error?.message||error).slice(0,200),providerCallsPerformed:0})));
   });
 }
 

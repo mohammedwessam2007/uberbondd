@@ -1,3 +1,5 @@
+> **CURRENT RUNTIME SUPERSESSION — 2026-10-07:** Current executable truth is in `79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json` and `80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`. Historical setup below is preserved as lineage, not present-tense activation authority. The protected runtime already has the OpenRouter runtime key and private TypingMind gateway bearer; the October USD 20 runtime authorization is current; the sealed Crown evaluation retains 3/4 candidate answers and needs exactly two missing calls, max USD 0.30 incremental, only after explicit founder spend authorization. Do not recreate keys, restart the tournament, rerun the historical canary, or put a direct OpenRouter key into the canonical TypingMind custom model. TypingMind private Test & Save remains after a valid current Crown admission exists.
+
 # Open Router — UberMind Frontier-Max Program
 
 Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF

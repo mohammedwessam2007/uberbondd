@@ -1,3 +1,5 @@
+> **SUPERSEDED FOR CURRENT ACTIVATION FRONTIER ON 2026-10-07:** Preserve this document as activation lineage, but do not execute its old setup order as present-tense instructions. The runtime OpenRouter key, private TypingMind gateway bearer, October USD 20 runtime authorization and historical MiMo canary are already established. Current exact live main is `a1321dedcc1387090b889f94191de3415487676c` on Render deploy `dep-db2p2tid0e5s73dt7400`. The sole current Infinite Opus activation blocker is `crown-admission-absent`: sealed recovery retains 3/4 candidate answers and requires exactly two missing paid calls, maximum USD 0.30 incremental spend, only after explicit owner authorization. After a valid Crown admission exists, TypingMind private Test & Save remains the final cockpit UI boundary. Do not recreate keys, rerun the canary, or restart the tournament from scratch.
+
 # Infinite Opus Work / Astra terminal activation handoff — 2026-09-30
 
 ## Authority

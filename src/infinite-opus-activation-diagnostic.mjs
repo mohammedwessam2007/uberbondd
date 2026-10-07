@@ -9,7 +9,7 @@ const parseObject=raw=>{
 };
 const currentMonth=now=>new Date(now).toISOString().slice(0,7);
 
-export function inspectInfiniteOpusActivationEnvironment(env=process.env,{now=Date.now()}={}){
+export function inspectInfiniteOpusActivationEnvironment(env=process.env,{now=Date.now(),trustedCrownAdmissionOverride=null,trustedCrownAdmissionSource=null}={}){
   const blockers=[];
   const openRouterKeyPresent=text(env.OPENROUTER_API_KEY).length>=16;
   const gatewayTokenPresent=text(env.UBERMIND_TYPINGMIND_GATEWAY_TOKEN).length>=32;
@@ -31,7 +31,8 @@ export function inspectInfiniteOpusActivationEnvironment(env=process.env,{now=Da
   if(!paidPresent)blockers.push('paid-authorization-absent');
   else if(!paidCurrent)blockers.push('paid-authorization-not-current-or-not-bounded');
 
-  const crown=parseObject(env.INFINITE_OPUS_CROWN_ADMISSION_JSON);
+  const envCrown=parseObject(env.INFINITE_OPUS_CROWN_ADMISSION_JSON);
+  const crown=trustedCrownAdmissionOverride&&typeof trustedCrownAdmissionOverride==='object'&&!Array.isArray(trustedCrownAdmissionOverride)?trustedCrownAdmissionOverride:envCrown;
   const crownPresent=Boolean(crown);
   const crownCurrent=Boolean(
     crown &&
@@ -51,7 +52,7 @@ export function inspectInfiniteOpusActivationEnvironment(env=process.env,{now=Da
     runtimeOpenRouterKeyPresent:openRouterKeyPresent,
     typingMindGatewayTokenPresent:gatewayTokenPresent,
     paidAuthorization:{present:paidPresent,current:paidCurrent,month:paid?.month??null,maxMonthlyMicrousd:paid?.maxMonthlyMicrousd??null},
-    crownAdmission:{present:crownPresent,current:crownCurrent,model:crown?.exactModelId??null,taskClassRole:crown?.taskClassRole??null},
+    crownAdmission:{present:crownPresent,current:crownCurrent,model:crown?.exactModelId??null,taskClassRole:crown?.taskClassRole??null,source:trustedCrownAdmissionOverride?(trustedCrownAdmissionSource||'TRUSTED_RUNTIME_OVERRIDE'):(envCrown?'ENVIRONMENT':null)},
     secretValuesExposed:false,
     providerCallPerformed:false,
     spendAuthorizedByDiagnostic:false

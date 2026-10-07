@@ -542,6 +542,7 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {
+      const unifiedCognition=await runtime.unifiedCognition();
       const scoreboard = buildInfiniteOpusScoreboard({
         runtimeSnapshot: snapshot,
         globalLedgerSummary: {},
@@ -549,7 +550,7 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
         routeInventory: { ungoverned: routeInventory.routes.filter(row => !String(row.status).startsWith('GOVERNED') && !String(row.status).startsWith('FAIL_CLOSED') && row.status !== 'ONLY_ZERO_CASH_ALLOWED_IN_INFINITE_OPUS_MODE' && row.status !== 'NONCASH_GOVERNED').map(row => row.id) },
         deployment: { sourceReady: true, liveConnected: false, productionDeployed: false, ownerOnlyBlockers: ['OPENROUTER_RUNTIME_KEY_PRIVATE_CONFIGURATION','TINY_BOUNDED_PAID_CANARY_AUTHORIZATION','SEALED_GENERAL_CROWN_EVIDENCE'] }
       });
-      return sendJson(res, 200, { ok: true, perimeter, snapshot, scoreboard });
+      return sendJson(res, 200, { ok: true, perimeter, snapshot, unifiedCognition, scoreboard });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/queue') {
       return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });

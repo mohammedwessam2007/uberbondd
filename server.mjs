@@ -35,6 +35,7 @@ import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
 import { runGovernedHaiku55LiveCanary } from './scripts/infinite-opus-haiku55-live-canary.mjs';
+import { reconcileHaiku55Canary } from './scripts/infinite-opus-haiku55-canary-reconcile.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
@@ -1094,6 +1095,11 @@ if (wrapperIsEntryPoint) {
           providerCallsPerformed:0,actualCostUsd:0,automaticRetryAuthorized:false
         };
         console.log('UBERMIND_HAIKU55_LIVE_CANARY '+JSON.stringify(haikuCanary));
+        const haikuReconciliation=await reconcileHaiku55Canary({
+          store,
+          apiKey:String(process.env.OPENROUTER_API_KEY||'')
+        });
+        console.log('UBERMIND_HAIKU55_CANARY_RECONCILIATION '+JSON.stringify(haikuReconciliation));
         const canary=await runGovernedJevLiveCanary({
           store,
           apiKey:String(process.env.OPENROUTER_API_KEY||''),

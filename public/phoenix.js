@@ -44,7 +44,8 @@ document.getElementById('add').addEventListener('click',()=>{
   if(entries.length>=MAX)throw Error('120 entries reached. Export now, then start a linked checkpoint.');
   const e=validateEntry({id:'checkpoint-'+(entries.length+1),kind:ids.kind.value,summary:ids.summary.value.trim(),source:ids.source.value.trim(),recordedAt:new Date().toISOString()});
   entries.push(e);lastExport=null;ids.summary.value='';ids.source.value='';
-  render();status('Recorded in this tab. Export before leaving or reloading. Nothing was uploaded.');
+  render();status('Recorded in this tab. Save to UberBond or export before leaving.');
+  if(document.getElementById('auto-app-save').checked) void saveToUberBond();
  }catch(error){status(error.message);}
 });
 document.getElementById('clear').addEventListener('click',()=>{
@@ -87,4 +88,62 @@ document.getElementById('import').addEventListener('change',async event=>{
   lastExport=data;render();status('Integrity matched. Source truth and original-chat completeness remain unverified.');
  }catch(error){status(error.message);}finally{event.target.value='';}
 });
+
+const vaultStatus=document.getElementById('vault-status');
+function vaultMessage(v){vaultStatus.textContent=v;}
+async function vaultApi(path,options={}){
+ const response=await fetch(path,{credentials:'same-origin',cache:'no-store',...options});
+ const json=await response.json().catch(()=>({status:'INVALID_RESPONSE'}));
+ if(!response.ok)throw Error(json.status||json.reason||('HTTP_'+response.status));
+ return json;
+}
+async function saveToUberBond(){
+ try{
+  if(!entries.length)throw Error('Record a checkpoint first.');
+  const body=makeBody(),capsule={body,digest:await digestOf(body)};
+  const result=await vaultApi('/api/phoenix/capsules',{
+    method:'POST',headers:{'content-type':'application/json'},
+    body:JSON.stringify(capsule)
+  });
+  lastExport=capsule;render();
+  vaultMessage(result.status+' · '+result.entryCount+' checkpoint(s) · '+result.digest.slice(0,12)+'…');
+  return true;
+ }catch(error){
+  vaultMessage('App-backed save NOT confirmed: '+error.message+'. Use Export PHOENIX file as fallback.');
+  return false;
+ }
+}
+async function loadVaultList(){
+ const host=document.getElementById('vault-list');host.replaceChildren();
+ try{
+  const result=await vaultApi('/api/phoenix/capsules');
+  vaultMessage('UberBond returned '+result.capsules.length+' latest saved version(s). App-owned storage only; no ChatGPT transcript sync.');
+  for(const item of result.capsules){
+   const li=document.createElement('li');
+   const button=document.createElement('button');
+   button.type='button';button.textContent='Restore '+item.entryCount+' entries · '+item.createdAt.slice(0,16);
+   button.addEventListener('click',()=>{void restoreFromVault(item.id);});
+   li.append(button);host.append(li);
+  }
+  if(!result.capsules.length)host.textContent='No saved capsules found.';
+ }catch(error){vaultMessage('Could not read protected vault: '+error.message+'. Log in to the UberBond Command Center first.');}
+}
+async function restoreFromVault(id){
+ try{
+  const result=await vaultApi('/api/phoenix/capsules/'+encodeURIComponent(id));
+  const data=result.capsule;
+  if(!data?.body||data.body.moonshotCorpusSha!==CORPUS || data.body.schemaVersion!==SCHEMA)throw Error('Wrong capsule schema/ancestry');
+  if(await digestOf(data.body)!==data.digest)throw Error('Stored capsule integrity mismatch');
+  if(!Array.isArray(data.body.entries)||data.body.entries.length>MAX)throw Error('Invalid restored event count');
+  data.body.entries.forEach((e,i)=>{validateEntry(e);if(e.id!=='checkpoint-'+(i+1))throw Error('Missing checkpoint ordinal');});
+  if(data.body.mainSha!==null&&!/^[0-9a-f]{40}$/.test(data.body.mainSha))throw Error('Bad main SHA');
+  entries=data.body.entries.map(e=>({...e}));
+  ids.main.value=data.body.mainSha||'';lastExport=data;render();
+  vaultMessage('Restored '+entries.length+' exact saved entries from UberBond. Source evidence still needs fresh verification.');
+  window.scrollTo({top:0,behavior:'smooth'});
+ }catch(error){vaultMessage('Restore NOT verified: '+error.message);}
+}
+document.getElementById('save-app').addEventListener('click',()=>{void saveToUberBond();});
+document.getElementById('refresh-app').addEventListener('click',()=>{void loadVaultList();});
+
 render();

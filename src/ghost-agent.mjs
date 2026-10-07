@@ -26,7 +26,7 @@ export function compileGhostAgentFromFranchise({
   return ghost;
 }
 
-export function executeGhostAgent({ghost,event,currentContext,now=Date.now()}={}){
+export function executeGhostAgent({ghost,event,currentContext,now=Date.now(),semanticCanonicalizers={}}={}){
   try{
     if(ghost?.schemaVersion!=='uberbond.ghost-agent.v1'||ghost.ghostHash!==semanticHash({...ghost,ghostHash:undefined}))throw new Error('untampered-ghost-agent-required');
     if(!plain(event)||!id(event.eventId)||!id(event.type))throw new Error('typed-event-required');
@@ -46,7 +46,7 @@ export function executeGhostAgent({ghost,event,currentContext,now=Date.now()}={}
     };
     const result=executeDecisionFranchise({
       record:ghost.franchiseRecord,trustPin:ghost.franchiseTrustPin,
-      task,currentContext,now
+      task,currentContext,now,semanticCanonicalizers
     });
     if(!result.ok)return {
       ok:false,status:'GHOST_AGENT_DECOMPILE_TO_FRONTIER',
@@ -77,13 +77,13 @@ export function executeGhostAgent({ghost,event,currentContext,now=Date.now()}={}
   }
 }
 
-export function verifyGhostAgentBatch({ghost,events,currentContext,now=Date.now()}={}){
+export function verifyGhostAgentBatch({ghost,events,currentContext,now=Date.now(),semanticCanonicalizers={}}={}){
   if(!Array.isArray(events)||events.length>100000)throw new Error('bounded-ghost-event-batch-required');
   const ids=new Set();let executed=0,slept=0,decompiled=0;
   for(const event of events){
     if(!event?.eventId||ids.has(event.eventId))throw new Error('distinct-event-ids-required');
     ids.add(event.eventId);
-    const out=executeGhostAgent({ghost,event,currentContext,now});
+    const out=executeGhostAgent({ghost,event,currentContext,now,semanticCanonicalizers});
     if(out.status==='GHOST_AGENT_EXECUTED')executed++;
     else if(out.status==='GHOST_AGENT_SLEEP')slept++;
     else decompiled++;

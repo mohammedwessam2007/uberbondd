@@ -19,7 +19,7 @@ import { compileCognitionEconomicPerimeter } from './src/cognition-economic-peri
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
-import { compileOpenRouterJevPublicPriceRecord, augmentInfiniteOpusMarketWithDecisionRecord, OPENROUTER_JEV_MODEL_PAGE } from './src/openrouter-decision-market.mjs';
+import { compileOpenRouterJevPublicPriceRecord, compileOpenRouterJevEndpointPriceRecord, augmentInfiniteOpusMarketWithDecisionRecord, OPENROUTER_JEV_MODEL_PAGE, OPENROUTER_JEV_ENDPOINTS_API } from './src/openrouter-decision-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, inspectJevShadowReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
@@ -372,27 +372,60 @@ async function currentInfiniteOpusPublicMarket() {
   if (Buffer.byteLength(raw) > 10_000_000) throw new Error('openrouter-public-model-catalog-too-large');
   let market=compileInfiniteOpusMarket(JSON.parse(raw), { verifiedAt: new Date(now).toISOString(), ttlMs: 10 * 60 * 1000 });
 
-  // OpenRouter's ordinary /api/v1/models catalog currently does not enumerate
-  // pinned Decisions models such as typesafe/jev-1.13. Observe the exact public
-  // Jev model page separately and fail closed if the fixed price cannot be
-  // parsed. This metadata fetch performs no inference and spends no model funds.
-  try{
-    const decisionResponse=await fetch(OPENROUTER_JEV_MODEL_PAGE,{signal:AbortSignal.timeout(20_000)});
-    if(!decisionResponse.ok)throw new Error('openrouter-jev-public-page-unavailable');
-    const decisionHtml=await decisionResponse.text();
-    const jevRecord=compileOpenRouterJevPublicPriceRecord(decisionHtml,{
-      verifiedAt:new Date(now).toISOString(),ttlMs:10*60*1000
-    });
-    market=augmentInfiniteOpusMarketWithDecisionRecord(market,jevRecord);
-  }catch(error){
+  // The generic model catalog omits pinned Decisions SKUs. Prefer OpenRouter's
+  // authenticated endpoint metadata for the exact pinned Jev model. This is a
+  // metadata GET, not inference, and does not spend model funds. Fall back to
+  // the public model page only if metadata is unavailable.
+  let decisionRecord=null;
+  const decisionErrors=[];
+  const runtimeKey=String(process.env.OPENROUTER_API_KEY||'').trim();
+  if(runtimeKey){
+    try{
+      const endpointResponse=await fetch(OPENROUTER_JEV_ENDPOINTS_API,{
+        headers:{authorization:'Bearer '+runtimeKey},
+        signal:AbortSignal.timeout(20_000)
+      });
+      if(!endpointResponse.ok)throw new Error('openrouter-jev-endpoint-metadata-http-'+endpointResponse.status);
+      const endpointText=await endpointResponse.text();
+      if(Buffer.byteLength(endpointText)>2_000_000)throw new Error('openrouter-jev-endpoint-metadata-too-large');
+      decisionRecord=compileOpenRouterJevEndpointPriceRecord(JSON.parse(endpointText),{
+        verifiedAt:new Date(now).toISOString(),ttlMs:10*60*1000
+      });
+    }catch(error){decisionErrors.push('endpoint:'+String(error?.message||error).slice(0,120));}
+  }else decisionErrors.push('endpoint:runtime-openrouter-key-absent');
+
+  if(!decisionRecord){
+    try{
+      const decisionResponse=await fetch(OPENROUTER_JEV_MODEL_PAGE,{signal:AbortSignal.timeout(20_000)});
+      if(!decisionResponse.ok)throw new Error('openrouter-jev-public-page-http-'+decisionResponse.status);
+      const decisionHtml=await decisionResponse.text();
+      decisionRecord=compileOpenRouterJevPublicPriceRecord(decisionHtml,{
+        verifiedAt:new Date(now).toISOString(),ttlMs:10*60*1000
+      });
+    }catch(error){decisionErrors.push('public:'+String(error?.message||error).slice(0,120));}
+  }
+
+  if(decisionRecord){
+    market=augmentInfiniteOpusMarketWithDecisionRecord(market,decisionRecord);
+    market.decisionMarket={
+      ...market.decisionMarket,
+      status:'JEV_FIXED_PRICE_OBSERVED',
+      observationMode:decisionRecord.sourceRef===OPENROUTER_JEV_ENDPOINTS_API?'AUTHENTICATED_ENDPOINT_METADATA':'PUBLIC_MODEL_PAGE_FALLBACK',
+      providerMetadataCallsPerformed:decisionRecord.sourceRef===OPENROUTER_JEV_ENDPOINTS_API?1:0,
+      providerInferenceCallsPerformed:0,
+      spendUsd:0
+    };
+  }else{
     market={
       ...market,
       decisionMarket:{
         observed:false,
         models:[],
-        sourceRef:OPENROUTER_JEV_MODEL_PAGE,
-        status:'JEV_PUBLIC_PRICE_OBSERVATION_FAILED',
-        reason:String(error?.message||error).slice(0,180),
+        sourceRef:OPENROUTER_JEV_ENDPOINTS_API,
+        fallbackSourceRef:OPENROUTER_JEV_MODEL_PAGE,
+        status:'JEV_FIXED_PRICE_OBSERVATION_FAILED',
+        reasons:decisionErrors.slice(0,4),
+        providerMetadataCallsPerformed:runtimeKey?1:0,
         providerInferenceCallsPerformed:0,
         spendUsd:0
       }

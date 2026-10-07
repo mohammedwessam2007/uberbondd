@@ -739,59 +739,145 @@ if (wrapperIsEntryPoint) {
   void (async()=>{
     const store=createStore(config);
     const key='infinite_opus_crown_resume_20261002_r3';
+    const OPUS='anthropic/claude-opus-5.5';
+    const SOL='openai/gpt-6.1-sol-pro';
+    const hash=value=>'sha256:'+crypto.createHash('sha256').update(typeof value==='string'?value:JSON.stringify(value)).digest('hex');
+    const extractContent=j=>{
+      const m=j?.choices?.[0]?.message??{};
+      if(typeof m.content==='string')return m.content;
+      if(m.parsed&&typeof m.parsed==='object')return JSON.stringify(m.parsed);
+      if(Array.isArray(m.content))return m.content.map(x=>typeof x==='string'?x:(typeof x?.text==='string'?x.text:(typeof x?.text?.value==='string'?x.text.value:(typeof x?.content==='string'?x.content:'')))).join('');
+      return '';
+    };
+    const parseJson=text=>{
+      const raw=String(text??'').trim().replace(/^\`\`\`(?:json)?\s*/i,'').replace(/\s*\`\`\`$/,'');
+      try{return JSON.parse(raw);}catch{}
+      const a=raw.indexOf('{'),b=raw.lastIndexOf('}');
+      if(a>=0&&b>a)return JSON.parse(raw.slice(a,b+1));
+      throw new Error('sealed-grade-json-parse-failed');
+    };
     try{
       await store.init();
       const settings=await store.transaction(async tx=>await tx.getSettings());
       const state=settings?.[key]??null;
       const evaluatorId=String(state?.reason||'').replace(/^generation-reconciliation-required:/,'');
-      const row=Array.isArray(state?.generationJournal)?state.generationJournal.find(r=>r.id===evaluatorId):null;
-      if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||state?.reason!=='generation-reconciliation-required:'+evaluatorId||
-         !row||row.model!=='google/gemini-2.5-pro'||row.tag!=='custodian-grade'||!state?.sealedEvidence){
-        console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({ok:false,status:'EXACT_EVALUATOR_INTERRUPTION_NOT_PRESENT',providerInferenceCalls:0}));
+      const evaluatorRow=Array.isArray(state?.generationJournal)?state.generationJournal.find(r=>r.id===evaluatorId):null;
+      if(!state?.sealedEvidence||!evaluatorRow||evaluatorRow.status!=='PROVIDER_RECONCILED_PENDING_EVIDENCE'||
+         evaluatorRow.model!=='google/gemini-2.5-pro'||!Number.isFinite(Number(evaluatorRow.costUsd))){
+        console.log('UBERMIND_SEALED_LOCAL_ADJUDICATION '+JSON.stringify({
+          ok:false,status:'RECONCILED_EVALUATOR_REQUIRED',providerCallsPerformed:0,hiddenPayloadsExposed:false
+        }));
       }else{
-        const apiKey=String(process.env.OPENROUTER_API_KEY||'');
-        if(!apiKey)throw new Error('openrouter-runtime-key-required');
-        let metaRow=row;
-        if(row.status==='DISPATCHED_UNRECONCILED'){
-          const response=await fetch('https://openrouter.ai/api/v1/generation?id='+encodeURIComponent(evaluatorId),{
-            method:'GET',headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)
-          });
-          if(!response.ok){
-            console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
-              ok:false,status:'EVALUATOR_METADATA_UNAVAILABLE',id:evaluatorId,metadataHttpStatus:response.status,
-              providerInferenceCalls:0,hiddenPayloadsExposed:false
-            }));
-            return;
-          }
-          const body=await response.json(),meta=body?.data??{};
-          const costUsd=Number(meta.total_cost),observedModel=String(meta.model??''),provider=String(meta.provider_name??'');
-          if(!Number.isFinite(costUsd)||costUsd<0||costUsd>row.reservedWorstCaseUsd||
-             !verifyCrownProviderModel({requestedModel:row.model,observedModel,provider}))
-            throw new Error('evaluator-bill-or-identity-refused');
-          metaRow={...row,status:'PROVIDER_RECONCILED_PENDING_EVIDENCE',costUsd,observedModel,provider,
-            reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'};
-          const journal=state.generationJournal.map(item=>item.id===evaluatorId?metaRow:item);
-          await store.transaction(async tx=>await tx.setSetting(key,{
-            ...state,generationJournal:journal,newSpendUsd:Number(state.newSpendUsd)+costUsd,
-            evaluatorFinancialReconciliation:{id:evaluatorId,costUsd,observedModel,provider,reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'},
-            updatedAt:new Date().toISOString()
-          }));
-          console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
-            ok:true,status:'EVALUATOR_BILL_AND_IDENTITY_RECONCILED',id:evaluatorId,costUsd,observedModel,provider,
-            totalEvaluationSpendUsd:Number(state.newSpendUsd)+costUsd,providerInferenceCalls:0,hiddenPayloadsExposed:false
-          }));
-        }else{
-          console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
-            ok:row.status==='PROVIDER_RECONCILED_PENDING_EVIDENCE',
-            status:row.status==='PROVIDER_RECONCILED_PENDING_EVIDENCE'?'EVALUATOR_ALREADY_RECONCILED':'EVALUATOR_STATE_REFUSED',
-            id:evaluatorId,costUsd:row.costUsd??null,provider:row.provider??null,providerInferenceCalls:0
-          }));
+        const checkpointKey=String(process.env.TOKEN_ENCRYPTION_KEY||'');
+        const payload=openCrownCheckpoint(state.sealedEvidence,{key:checkpointKey,binding:key+'|'+state.taskCommitment});
+        const tasks=payload?.tasks,answers=payload?.answers,calls=payload?.calls;
+        const rawEvaluator=payload?.providerResponses?.[evaluatorId]?.response;
+        if(!Array.isArray(tasks)||tasks.length!==2||!answers||Object.keys(answers).length!==4||
+           !Array.isArray(calls)||calls.length!==4||!rawEvaluator)
+          throw new Error('complete-four-answer-sealed-checkpoint-required');
+        for(const task of tasks)for(const model of [OPUS,SOL])
+          if(typeof answers[task.id+'|'+model]!=='string'||!answers[task.id+'|'+model])
+            throw new Error('paired-answer-missing');
+        const gradeDoc=parseJson(extractContent(rawEvaluator));
+        const grades=gradeDoc?.grades;
+        if(!Array.isArray(grades)||grades.length!==4)throw new Error('four-blind-grades-required');
+        const mapping={};
+        for(const task of tasks){
+          const flip=parseInt(hash(task.id).slice(-2),16)%2===1;
+          const order=flip?[SOL,OPUS]:[OPUS,SOL];
+          mapping[task.id]={A:order[0],B:order[1]};
         }
+        const byPair=new Map();
+        for(const grade of grades){
+          const model=mapping[grade.task_id]?.[grade.candidate];
+          if(!model)throw new Error('blind-grade-mapping-failed');
+          const pair=grade.task_id+'|'+model;
+          if(byPair.has(pair))throw new Error('duplicate-grade');
+          const score=Number(grade.quality_score),reg=Number(grade.required_regressions);
+          if(!Number.isFinite(score)||score<0||score>100||!Number.isInteger(reg)||reg<0)
+            throw new Error('invalid-grade');
+          byPair.set(pair,{score,reg,zero:grade.canonical_zero_loss===true});
+        }
+        if(byPair.size!==4)throw new Error('complete-paired-grade-set-required');
+        const perTask=tasks.map(task=>{
+          const opus=byPair.get(task.id+'|'+OPUS),sol=byPair.get(task.id+'|'+SOL);
+          const opusCall=calls.find(c=>c.taskId===task.id&&c.model===OPUS);
+          const solCall=calls.find(c=>c.taskId===task.id&&c.model===SOL);
+          if(!opus||!sol||!opusCall||!solCall)throw new Error('paired-call-grade-required');
+          const solSameOrBetter=opus.zero&&opus.reg===0&&sol.zero&&sol.reg===0&&sol.score>=opus.score;
+          return {
+            taskIdHash:hash(task.id),
+            opus:{qualityScore:opus.score,requiredRegressions:opus.reg,canonicalZeroLoss:opus.zero,costUsd:Number(opusCall.cost)},
+            sol:{qualityScore:sol.score,requiredRegressions:sol.reg,canonicalZeroLoss:sol.zero,costUsd:Number(solCall.cost)},
+            solSameOrBetter
+          };
+        });
+        const opusCost=perTask.reduce((sum,row)=>sum+row.opus.costUsd,0);
+        const solCost=perTask.reduce((sum,row)=>sum+row.sol.costUsd,0);
+        const strictSameQuality=perTask.every(row=>row.solSameOrBetter);
+        const measuredFactor=strictSameQuality&&solCost>0?opusCost/solCost:null;
+
+        const hiddenTasks=tasks.map(task=>({
+          taskId:task.id,role:'GENERAL_CROWN',
+          qualityDimensions:['correctness','constraint_fidelity','evidence_discipline','counterexamples','synthesis'],
+          sealedExpectedRef:'sealed://custodian/'+state.taskCommitment+'/'+task.id
+        }));
+        const candidates=[{model:OPUS,roles:['GENERAL_CROWN']},{model:SOL,roles:['GENERAL_CROWN']}];
+        const candidateSnapshotHash=hash({models:[OPUS,SOL],mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown'),taskCommitment:state.taskCommitment});
+        const observations=calls.map(call=>{
+          const grade=byPair.get(call.taskId+'|'+call.model);
+          return {
+            taskId:call.taskId,model:call.model,role:'GENERAL_CROWN',hiddenTask:true,
+            providerBillObserved:true,
+            modelIdentityVerified:verifyCrownProviderModel({requestedModel:call.model,observedModel:call.metaModel,provider:call.providerName}),
+            requiredRegressions:grade.reg,
+            sealedTrialRef:'sealed://trial/'+call.id,
+            canonicalZeroLossCertified:grade.zero&&grade.reg===0,
+            qualityScore:grade.score,costUsd:Number(call.cost)
+          };
+        });
+        const compiled=compileCrownTournament({
+          candidateSnapshotHash,hiddenTasks,candidates,
+          budgetAuthorizationRef:state.resumeAuthorization?.evidenceRef??'owner-approved-two-missing-crown-edges-r3'
+        });
+        if(!compiled.ok)throw new Error('tournament-compile:'+compiled.status);
+        const adjudicated=adjudicateCrownTournament({plan:compiled.plan,observations});
+        if(!adjudicated.ok||adjudicated.status!=='TASK_CLASS_CROWN_CANDIDATE_EVIDENCE_READY')
+          throw new Error('tournament-adjudication:'+adjudicated.status);
+        const selected=adjudicated.roles?.GENERAL_CROWN;
+        if(!selected)throw new Error('general-crown-not-selected');
+
+        const result={
+          ok:true,
+          status:strictSameQuality?'MEASURED_CHEAP_OPUS_QUALITY_EQUIVALENCE_ACHIEVED':'MEASURED_CHEAP_OPUS_QUALITY_EQUIVALENCE_NOT_ACHIEVED',
+          winner:selected.candidate,
+          taskCount:2,
+          strictSameOrBetterEveryTask:strictSameQuality,
+          observedPairedQualityRegressions:perTask.filter(row=>!row.solSameOrBetter).length,
+          perTask,
+          opusCandidateCostUsd:Number(opusCost.toFixed(9)),
+          solCandidateCostUsd:Number(solCost.toFixed(9)),
+          measuredCandidateCostCompressionFactor:measuredFactor==null?null:Number(measuredFactor.toFixed(6)),
+          candidateCostReductionPercent:strictSameQuality&&opusCost>0?Number(((1-solCost/opusCost)*100).toFixed(4)):null,
+          evaluatorCostUsd:Number(evaluatorRow.costUsd),
+          totalEvaluationSpendUsd:Number(state.newSpendUsd),
+          providerCallsPerformed:0,
+          hiddenPayloadsExposed:false,
+          truthBoundary:'Measured only on the two sealed open-ended tasks. Equivalence requires zero required regressions for both models and Sol score >= Opus on every paired task. No wider task-distribution claim is made.'
+        };
+        await store.transaction(async tx=>await tx.setSetting('infinite_opus_measured_quality_20261007_v1',{
+          ...result,
+          taskCommitment:state.taskCommitment,
+          evaluatorGenerationId:evaluatorId,
+          observedAt:new Date().toISOString(),
+          sourceAttemptKey:key
+        }));
+        console.log('UBERMIND_SEALED_LOCAL_ADJUDICATION '+JSON.stringify(result));
       }
     }catch(error){
-      console.error('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
-        ok:false,status:'EVALUATOR_RECONCILIATION_FAILED',reason:String(error?.message||error).slice(0,240),
-        providerInferenceCalls:0,hiddenPayloadsExposed:false
+      console.error('UBERMIND_SEALED_LOCAL_ADJUDICATION '+JSON.stringify({
+        ok:false,status:'LOCAL_ADJUDICATION_FAILED',reason:String(error?.message||error).slice(0,260),
+        providerCallsPerformed:0,hiddenPayloadsExposed:false
       }));
     }finally{await store.close().catch(()=>{});}
   })();

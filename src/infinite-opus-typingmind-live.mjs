@@ -11,6 +11,7 @@ import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { selectCurrentPrice } from './infinite-opus-market.mjs';
 import { verifyCrownAdmissionReceipt } from './crown-admission.mjs';
 import { verifyCertifiedFrontierResidual, crownResidualMessages } from './certified-frontier-residual.mjs';
+import { recordJevCalibrationObservation } from './jev-calibration-vault.mjs';
 import { buildBuilderMessages, buildCrownReviewMessages, buildDirectCrownMessages,
   CROWN_REVIEW_RESPONSE_FORMAT, openAICompatibleCompletion, openAICompatibleDirectCrownCompletion,
   stableModelSessionId } from './infinite-opus-typingmind-gateway.mjs';
@@ -551,6 +552,42 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
           fallback:residualUsed?null:'FULL_CONTEXT_CROWN'
         }
       };
+
+      let jevCalibration=null;
+      if(jevShadow.ok===true){
+        try{
+          jevCalibration=await recordJevCalibrationObservation(store,{
+            requestFingerprint:request.requestFingerprint,
+            sessionRoot:request.sessionRoot,
+            jevModel:TYPINGMIND_JEV_MODEL,
+            jevModelRevision:jevShadow.observedModelRevision??null,
+            jevAnswers,
+            selectedWriterId:writerId,
+            writerModel,
+            crownOutcome:completion.uberbond.status,
+            jevCostMicrousd:jevCost,
+            writerCostMicrousd:writerCost,
+            criticCostMicrousd:criticCost,
+            crownCostMicrousd:crownCost,
+            jevProviderRequestId:jevShadow.providerRequestId??null,
+            writerProviderRequestId:writer.providerRequestId??null,
+            crownProviderRequestId:crown.providerRequestId??null
+          },clock());
+          completion.uberbond.jevCalibration={
+            status:jevCalibration.status,
+            observationId:jevCalibration.observationId,
+            totalObservations:jevCalibration.summary?.totalObservations??null,
+            promotionState:jevCalibration.summary?.promotionState??'SHADOW',
+            crownSuppressionAuthority:'NONE'
+          };
+        }catch(error){
+          completion.uberbond.jevCalibration={
+            status:'JEV_CALIBRATION_RECORD_FAILED',
+            reason:String(error?.message||error).slice(0,160),
+            crownSuppressionAuthority:'NONE'
+          };
+        }
+      }
 
       const writerReceipt={providerRequestId:writer.providerRequestId??null,model:writerModel,costMicrousd:writerCost,reasoningEffort};
       return {ok:true,status:'TYPINGMIND_UBERMIND_FRONTIER_RESPONSE',completion,

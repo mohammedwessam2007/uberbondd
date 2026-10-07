@@ -24,6 +24,10 @@ For **every future UberBond-related chat, model, agent and mission**, mount `doc
 
 For the Oct4 Revenue Singularity continuation, newest issue#1188 terminal comment plus `docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md` and `docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md` govern current recovery after refreshing main. Do not use the Oct3 closure frontier. This does not narrow the terminal life-system canon.
 
+## PHOENIX long-chat survival
+
+When the founder reports a slow, exhausted, crashing or lost conversation, follow docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md. Recover existing GitHub/main/Project files, rehydrate any user-provided PHOENIX capsule, run its missing-event/source-reconciliation challenge and continue. The public /phoenix.html page is an explicit, locally exported emergency capture tool, **not** automatic access to ChatGPT's private conversation history. Do not substitute a reassuring summary for verified recovery.
+
 ## Hot mission auto-routing
 
 After the constitutional startup is mounted, classify the founder's actual request before brainstorming.

@@ -19,6 +19,8 @@ import { compileCognitionEconomicPerimeter } from './src/cognition-economic-peri
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
+import { compileOpenRouterJevDecisionEvidence, augmentInfiniteOpusMarketWithDecisionRecord,
+  OPENROUTER_JEV_DECISION_MODEL, OPENROUTER_JEV_DECISION_PAGE } from './src/openrouter-decision-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
 import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, inspectJevShadowReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
@@ -365,11 +367,36 @@ async function resolveCurrentCrownAdmission(store){
 async function currentInfiniteOpusPublicMarket() {
   const now = Date.now();
   if (infiniteOpusPublicMarketCache && Date.parse(infiniteOpusPublicMarketCache.expiresAt) > now + 60_000) return infiniteOpusPublicMarketCache;
+  const verifiedAt = new Date(now).toISOString(), ttlMs = 10 * 60 * 1000;
   const response = await fetch('https://openrouter.ai/api/v1/models', { signal: AbortSignal.timeout(20_000) });
   if (!response.ok) throw new Error('openrouter-public-model-catalog-unavailable');
   const raw = await response.text();
   if (Buffer.byteLength(raw) > 10_000_000) throw new Error('openrouter-public-model-catalog-too-large');
-  infiniteOpusPublicMarketCache = compileInfiniteOpusMarket(JSON.parse(raw), { verifiedAt: new Date(now).toISOString(), ttlMs: 10 * 60 * 1000 });
+  let snapshot = compileInfiniteOpusMarket(JSON.parse(raw), { verifiedAt, ttlMs });
+
+  // OpenRouter Decisions SKUs are not guaranteed to appear in the ordinary
+  // /api/v1/models chat catalog. Observe Jev from its current public Decisions
+  // model page instead of fabricating absence or pinning an unrefreshed price.
+  if (!snapshot.records.some(row => row.model === OPENROUTER_JEV_DECISION_MODEL && row.priceAdmission === 'PUBLIC_PRICE_CANDIDATE')) {
+    try {
+      const jevResponse = await fetch(OPENROUTER_JEV_DECISION_PAGE, { signal: AbortSignal.timeout(20_000) });
+      if (!jevResponse.ok) throw new Error('openrouter-jev-public-page-unavailable');
+      const jevRaw = await jevResponse.text();
+      const jevRecord = compileOpenRouterJevDecisionEvidence(jevRaw, { verifiedAt, ttlMs });
+      snapshot = augmentInfiniteOpusMarketWithDecisionRecord(snapshot, jevRecord);
+    } catch (error) {
+      snapshot = {
+        ...snapshot,
+        supplementalMarketErrors:[{
+          marketClass:'DECISIONS_API',
+          model:OPENROUTER_JEV_DECISION_MODEL,
+          observedAt:verifiedAt,
+          reason:String(error?.message||error).slice(0,240)
+        }]
+      };
+    }
+  }
+  infiniteOpusPublicMarketCache = snapshot;
   return infiniteOpusPublicMarketCache;
 }
 

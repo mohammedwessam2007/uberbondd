@@ -64,7 +64,7 @@ function eventRecord(event) {
   if (truthClass === 'FOUNDER_ATTESTED' && ref.kind !== 'FOUNDER_ATTESTED') fail('FOUNDER_SOURCE_REQUIRED');
   const ancestors = Array.isArray(event.moonshotIds) ? [...event.moonshotIds] : [];
   if (ancestors.length > 20 || new Set(ancestors).size !== ancestors.length
-      || ancestors.some(x => typeof x !== 'string' || !/^founder-moonshot-0(?:00[1-9]|0[1-9]\d|[1-8]\d\d|890)$/.test(x))) fail('MOONSHOT_ANCESTRY_INVALID');
+      || ancestors.some(x => typeof x !== 'string' || !/^founder-moonshot-0(?:00[1-9]|0[1-9]\d|[1-7]\d\d|8(?:[0-8]\d|90))$/.test(x))) fail('MOONSHOT_ANCESTRY_INVALID');
   return {id,kind,truthClass,summary,source:ref,moonshotIds:ancestors.sort()};
 }
 function bodyOf(capsule) {

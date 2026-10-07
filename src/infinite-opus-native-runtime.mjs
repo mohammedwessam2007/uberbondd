@@ -512,7 +512,14 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             !Number.isSafeInteger(payload.inputTokenCeiling) || payload.inputTokenCeiling < 1 || payload.inputTokenCeiling > 300000) throw new Error('bounded-paid-payload-required');
         const ceiling = estimateCognitionCeiling({ route, inputTokens: payload.inputTokenCeiling, maxOutputTokens: payload.maxTokens, now: clock(), overheadRate: platformFeeRate });
         if (ceiling > reserved.ceilingMicrousd) throw new Error('fresh-price-reservation-too-small');
-        if (payload.model !== reserved.model || payload.task?.taskId !== reserved.taskId || !Number.isSafeInteger(payload.costCeilingCents) || payload.costCeilingCents < 1 || payload.costCeilingCents * 10000 > reserved.ceilingMicrousd) throw new Error('exact-dispatch-reservation-binding-required');
+        const legacyCeilingMicrousd=Number.isSafeInteger(payload.costCeilingCents)&&payload.costCeilingCents>=1
+          ? payload.costCeilingCents*10000 : null;
+        const exactCeilingMicrousd=Number.isSafeInteger(payload.costCeilingMicrousd)&&payload.costCeilingMicrousd>=1
+          ? payload.costCeilingMicrousd : legacyCeilingMicrousd;
+        if (payload.model !== reserved.model || payload.task?.taskId !== reserved.taskId ||
+            !Number.isSafeInteger(exactCeilingMicrousd) || exactCeilingMicrousd < ceiling ||
+            exactCeilingMicrousd > reserved.ceilingMicrousd)
+          throw new Error('exact-dispatch-reservation-binding-required');
         state.ledger = markCognitionDispatched(state.ledger, callId, today());
         if (reserved.role === 'CROWN') state.receipts.push({kind: 'CROWN_DISPATCH',callId,observedAt:clock()});
         await persist(tx, state);

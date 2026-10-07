@@ -25,7 +25,7 @@ import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-ac
 import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recovery-diagnostic.mjs';
 import { reconcileInterruptedCrownGeneration } from './scripts/infinite-opus-crown-interrupted-recovery.mjs';
 import { runCrownAutoFinish } from './scripts/infinite-opus-crown-autofinish.mjs';
-import { OPUS_CANONICAL_REVISION } from './src/crown-model-identity.mjs';
+import { OPUS_CANONICAL_REVISION, verifyCrownProviderModel } from './src/crown-model-identity.mjs';
 import { compileCrownOwnerResumeAuthority, CROWN_OWNER_RESUME_CONFIRMATION } from './src/crown-owner-resume-authority.mjs';
 import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
@@ -737,49 +737,47 @@ if (wrapperIsEntryPoint) {
     const store=createStore(config);
     try{
       await store.init();
-      const compiled=compileCrownOwnerResumeAuthority({
-        approved:true,
-        confirmation:CROWN_OWNER_RESUME_CONFIRMATION,
-        maximumIncrementalUsd:0.30
-      },{now:Date.now(),ttlMs:15*60*1000});
-      if(!compiled.ok)throw new Error('owner-resume-authority-compile-failed:'+compiled.status);
-      const apiKey=String(process.env.OPENROUTER_API_KEY||'');
-      const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
-      if(!apiKey||!paidAuthorization)throw new Error('crown-runtime-inputs-missing');
-      const reconciliation=await reconcileInterruptedCrownGeneration(store,{apiKey});
-      if(!['RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER','UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED'].includes(reconciliation.status))
-        throw new Error('crown-interrupted-generation-not-safe-to-continue:'+reconciliation.status);
-      const recovery=await readCrownRecoveryMetadata(store);
-      if(recovery.continuationCheckpoint?.status!=='VERIFIED_ENCRYPTED_CONTINUATION_CHECKPOINT'||
-         recovery.continuationCheckpoint?.missingCandidateAnswers!==1||
-         recovery.continuationCheckpoint?.missingEvaluatorCalls!==1)
-        throw new Error('exact-two-missing-crown-edges-not-proven');
-      const result=await runCrownAutoFinish({
-        store,apiKey,paidAuthorization,
-        checkpointKey:process.env.TOKEN_ENCRYPTION_KEY,
-        resumeAuthorization:compiled.authority,
-        mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
-      });
-      let durableAdmission=null;
-      if(result?.ok===true&&result?.receipt){
-        durableAdmission=await persistDurableCrownAdmission(store,result.receipt,{
-          expected:currentCrownExpected(),sourceAttemptKey:INTERRUPTED_RESUME_KEY
+      const key='infinite_opus_crown_resume_20261002_r3';
+      const settings=await store.transaction(async tx=>await tx.getSettings());
+      const state=settings?.[key]??null;
+      const generationId=String(state?.reason||'').replace(/^generation-reconciliation-required:/,'');
+      const row=Array.isArray(state?.generationJournal)?state.generationJournal.find(r=>r.id===generationId):null;
+      if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||state?.reason!=='generation-reconciliation-required:'+generationId||
+         !row||row.model!=='openai/gpt-6.1-sol-pro'||!state?.sealedEvidence){
+        console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'EXACT_R3_INTERRUPTION_NOT_PRESENT',providerInferenceCalls:0}));
+      }else if(row.status==='PROVIDER_RECONCILED_PENDING_EVIDENCE'){
+        console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:true,status:'R3_CANDIDATE_ALREADY_RECONCILED',id:generationId,costUsd:row.costUsd,provider:row.provider,providerInferenceCalls:0}));
+      }else if(row.status!=='DISPATCHED_UNRECONCILED'||!Number.isFinite(row.reservedWorstCaseUsd)||row.reservedWorstCaseUsd<=0){
+        console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'R3_DISPATCH_BINDING_REFUSED',id:generationId,providerInferenceCalls:0}));
+      }else{
+        const apiKey=String(process.env.OPENROUTER_API_KEY||'');
+        if(!apiKey)throw new Error('openrouter-runtime-key-required');
+        const response=await fetch('https://openrouter.ai/api/v1/generation?id='+encodeURIComponent(generationId),{
+          method:'GET',headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)
         });
+        if(!response.ok){
+          console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'R3_CANDIDATE_METADATA_UNAVAILABLE',id:generationId,metadataHttpStatus:response.status,providerInferenceCalls:0}));
+        }else{
+          const body=await response.json(),meta=body?.data??{};
+          const costUsd=Number(meta.total_cost),observedModel=String(meta.model??''),provider=String(meta.provider_name??'');
+          if(!Number.isFinite(costUsd)||costUsd<0||costUsd>row.reservedWorstCaseUsd||
+             !verifyCrownProviderModel({requestedModel:row.model,observedModel,provider}))
+            throw new Error('r3-candidate-bill-or-identity-refused');
+          const nextJournal=state.generationJournal.map(item=>item.id===generationId?{
+            ...item,status:'PROVIDER_RECONCILED_PENDING_EVIDENCE',costUsd,observedModel,provider,
+            reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'
+          }:item);
+          const nextSpend=Number(state.newSpendUsd)+costUsd;
+          await store.transaction(async tx=>await tx.setSetting(key,{
+            ...state,generationJournal:nextJournal,newSpendUsd:nextSpend,
+            candidateFinancialReconciliation:{id:generationId,costUsd,observedModel,provider,reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'},
+            updatedAt:new Date().toISOString()
+          }));
+          console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:true,status:'R3_CANDIDATE_BILL_AND_IDENTITY_RECONCILED',id:generationId,costUsd,observedModel,provider,newSpendUsd:nextSpend,providerInferenceCalls:0,hiddenPayloadsExposed:false}));
+        }
       }
-      console.log('UBERMIND_OWNER_AUTHORIZED_CROWN_RESUME '+JSON.stringify({
-        ok:result?.ok===true,
-        status:result?.status??'UNKNOWN',
-        crownAdmissionReceiptHash:result?.receipt?.receiptHash??result?.receiptHash??null,
-        durableAdmissionStatus:durableAdmission?.status??null,
-        maximumIncrementalUsd:compiled.maximumIncrementalUsd,
-        maximumRemainingPaidCalls:compiled.maximumRemainingPaidCalls,
-        hiddenPayloadsExposed:false
-      }));
     }catch(error){
-      console.error('UBERMIND_OWNER_AUTHORIZED_CROWN_RESUME '+JSON.stringify({
-        ok:false,status:'FAILED_NO_AUTOMATIC_RETRY',reason:String(error?.message||error).slice(0,300),
-        hiddenPayloadsExposed:false
-      }));
+      console.error('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'R3_RECONCILIATION_FAILED',reason:String(error?.message||error).slice(0,220),providerInferenceCalls:0,hiddenPayloadsExposed:false}));
     }finally{await store.close().catch(()=>{});}
   })();
 }

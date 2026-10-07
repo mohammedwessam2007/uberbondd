@@ -19,6 +19,12 @@ test('admin exposes protected owner setup and exact canary approval surfaces', (
   assert.match(html, /id="owner-identity-form"/);
   assert.match(html, /name="postalAddress"/);
   assert.match(html, /id="contra-observation-form"/);
+  assert.match(html, /id="crown-resume-form"/);
+  assert.match(html, /RESUME_EXACT_TWO_MISSING_EDGES_MAX_0_30_USD/);
+  assert.match(html, /max \$0\.30/i);
+  assert.match(adminJs, /\/api\/admin\/infinite-opus\/crown-recovery/);
+  assert.match(adminJs, /\/api\/admin\/infinite-opus\/crown-resume/);
+  assert.match(adminJs, /renderInfiniteOpusStatus/);
   assert.match(html, /id="contra-status"/);
   assert.match(html, /name="identityVerificationStatus"/);
   assert.match(html, /name="payoutMethod"/);

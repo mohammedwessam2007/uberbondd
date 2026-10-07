@@ -13,4 +13,13 @@ test('metadata-only recovery settles once and preserves failed state and private
 for(const [label,data] of [['wrong id',{...bill,id:'other'}],['provider drift',{...bill,provider_name:'Other'}],['model drift',{...bill,model:bill.model+'new'}],['missing cost',{...bill,total_cost:undefined}],['negative cost',{...bill,total_cost:-1}],['over reservation',{...bill,total_cost:.05}]])test(label+' remains uncertain with no mutation',async()=>{
  const f=fixture(),before=JSON.stringify(f.settings);const r=await reconcileInterruptedCrownGeneration(f.store,{apiKey:'SYNTHETIC',fetchImpl:async()=>({ok:true,json:async()=>({data})})});assert.equal(r.status,'DISPATCHED_UNRECONCILED');assert.equal(JSON.stringify(f.settings),before);
 });
-test('provider 404 does not mean free, absent or safe to retry',async()=>{const f=fixture(),before=JSON.stringify(f.settings);const r=await reconcileInterruptedCrownGeneration(f.store,{apiKey:'SYNTHETIC',fetchImpl:async()=>({ok:false,status:404})});assert.equal(r.status,'DISPATCHED_UNRECONCILED');assert.equal(r.metadataHttpStatus,404);assert.equal(r.costUsd,undefined);assert.equal(JSON.stringify(f.settings),before);});
+test('provider 404 is quarantined at the full precall reserve without inventing an actual bill',async()=>{
+ const f=fixture();const beforeSpend=f.settings[RESUME_KEY].newSpendUsd;
+ const r=await reconcileInterruptedCrownGeneration(f.store,{apiKey:'SYNTHETIC',fetchImpl:async()=>({ok:false,status:404})});
+ assert.equal(r.status,'UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED');assert.equal(r.metadataHttpStatus,404);assert.equal(r.actualCostUsd,null);assert.equal(r.conservativeLiabilityUsd,.04);
+ const s=f.settings[RESUME_KEY],row=s.generationJournal[0];assert.equal(s.status,'FAILED_NO_AUTOMATIC_RETRY');assert.equal(s.newSpendUsd,beforeSpend);
+ assert.equal(row.status,'UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED');assert.equal(row.actualCostUsd,null);assert.equal(row.conservativeLiabilityUsd,.04);
+ assert.equal(s.financialQuarantine.semanticAuthority,'NONE');assert.equal(s.sealedEvidence.ciphertext,'PRIVATE_UNCHANGED');
+ const replay=await reconcileInterruptedCrownGeneration(f.store,{apiKey:'SYNTHETIC',fetchImpl:async()=>{throw Error('must-not-read');}});
+ assert.equal(replay.status,'UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED');
+});

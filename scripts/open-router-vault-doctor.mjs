@@ -1,3 +1,4 @@
+import { auditOpenRouterCanon } from './open-router-canon-doctor.mjs';
 import fs from 'node:fs';
 
 const REQUIRED = [
@@ -31,6 +32,8 @@ const REQUIRED = [
   'open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md',
   'open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json',
   'open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json',
+  'open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json',
+  'open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md',
   'open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json',
   'open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md',
   'open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md',
@@ -253,6 +256,9 @@ for (const token of [
   if (!readme.includes(token)) failures.push(`readme-v3-token-missing:${token}`);
 }
 
+const currentCanon=auditOpenRouterCanon();
+if(!currentCanon.ok) failures.push(...currentCanon.failures.map(x=>`current-canon:${x}`));
+
 console.log(JSON.stringify({
   ok: failures.length === 0,
   status: failures.length ? 'OPEN_ROUTER_VAULT_BROKEN' : 'OPEN_ROUTER_V5_FRONTIER_VM_VAULT_COMPLETE_AND_RECOVERABLE',
@@ -272,7 +278,10 @@ console.log(JSON.stringify({
   opusQualityInsaneVolumeFabric: opusQualityVolume ? 'FOUNDER_DIRECTED_ARCHITECTURE_PRE_LIVE_PROOF' : null,
   oneDollarDay247OpusQualityMode: oneDollarMode ? 'FOUNDER_DIRECTED_OPERATING_ARCHITECTURE_PRE_LIVE_PROOF' : null,
   byConstructionOpusEquivalence: byConstruction ? 'FOUNDER_DIRECTED_FORMAL_EQUIVALENCE_ARCHITECTURE_PRE_LIVE_PROOF' : null,
-  wessamSingularityWarRoom: warRoom?.schemaVersion ?? null
+  wessamSingularityWarRoom: warRoom?.schemaVersion ?? null,
+  currentCanon: currentCanon.status,
+  currentCrownBlocker: currentCanon.crownBlocker,
+  exactRemainingPaidCalls: currentCanon.exactRemainingPaidCalls
 }, null, 2));
 
 if (failures.length) process.exitCode = 1;

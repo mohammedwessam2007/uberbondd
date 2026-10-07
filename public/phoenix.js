@@ -92,7 +92,10 @@ document.getElementById('import').addEventListener('change',async event=>{
 const vaultStatus=document.getElementById('vault-status');
 function vaultMessage(v){vaultStatus.textContent=v;}
 async function vaultApi(path,options={}){
- const response=await fetch(path,{credentials:'same-origin',cache:'no-store',...options});
+ const response=await fetch(path,{
+  ...options,credentials:'same-origin',cache:'no-store',
+  headers:{...(options.headers||{}),'x-uberbond-owner-csrf':'1'}
+ });
  const json=await response.json().catch(()=>({status:'INVALID_RESPONSE'}));
  if(!response.ok)throw Error(json.status||json.reason||('HTTP_'+response.status));
  return json;

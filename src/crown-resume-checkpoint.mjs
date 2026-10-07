@@ -18,22 +18,39 @@ export function validCrownResumeAuthority(a,now=Date.now()){
  Number.isFinite(Date.parse(a.expiresAt))&&Date.parse(a.expiresAt)>now;
 }
 // Prepare only the exact two missing edges. This function creates no authority
-// and refuses the current unreconciled live state before opening sealed payloads.
+// and requires either an exact bill or a full-reserve UNKNOWN-charge quarantine before opening sealed payloads.
 export function recoverInterruptedCrownCheckpoint(state,{key,originalState}){
  if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||state.reason!=='generation-reconciliation-required:'+INTERRUPTED_GENERATION)
   throw Error('exact-interrupted-failure-required');
  const journal=state.generationJournal;
  const ids=['gen-1790900525-TFyAeL3TpSP6ZWMsspuj','gen-1790900555-jEUGzgL7rKDIKYiOft6V',INTERRUPTED_GENERATION];
  const bill=state.financialReconciliation;
- if(!Array.isArray(journal)||journal.length!==3||journal.some((r,i)=>r.id!==ids[i]||!Number.isFinite(r.costUsd)||r.costUsd<0)||
- journal[2].status!=='RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER'||bill?.id!==INTERRUPTED_GENERATION||bill?.status!==journal[2].status||bill?.semanticAuthority!=='NONE'||
- bill.costUsd!==journal[2].costUsd||bill.observedModel!==journal[2].observedModel||bill.provider!==journal[2].provider||
- !Number.isFinite(Date.parse(bill.reconciledAt))||!Number.isFinite(journal[2].reservedWorstCaseUsd)||journal[2].reservedWorstCaseUsd<=0||journal[2].costUsd>journal[2].reservedWorstCaseUsd)
-  throw Error('fully-reconciled-interrupted-billing-required');
+ const quarantine=state.financialQuarantine;
+ const third=Array.isArray(journal)?journal[2]:null;
+ const exactBill=third?.status==='RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER';
+ const maxReserveQuarantine=third?.status==='UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED';
+ if(!Array.isArray(journal)||journal.length!==3||journal.some((r,i)=>r.id!==ids[i])||
+ !Number.isFinite(journal[0]?.costUsd)||journal[0].costUsd<0||!Number.isFinite(journal[1]?.costUsd)||journal[1].costUsd<0||
+ !Number.isFinite(third?.reservedWorstCaseUsd)||third.reservedWorstCaseUsd<=0||
+ !(exactBill||maxReserveQuarantine))throw Error('fully-reconciled-or-max-reserved-interrupted-billing-required');
+ if(exactBill&&(
+   !Number.isFinite(third.costUsd)||third.costUsd<0||third.costUsd>third.reservedWorstCaseUsd||
+   bill?.id!==INTERRUPTED_GENERATION||bill?.status!==third.status||bill?.semanticAuthority!=='NONE'||
+   bill.costUsd!==third.costUsd||bill.observedModel!==third.observedModel||bill.provider!==third.provider||
+   !Number.isFinite(Date.parse(bill.reconciledAt))
+ ))throw Error('fully-reconciled-interrupted-billing-required');
+ if(maxReserveQuarantine&&(
+   third.actualCostUsd!==null||third.conservativeLiabilityUsd!==third.reservedWorstCaseUsd||third.metadataHttpStatus!==404||third.semanticAuthority!=='NONE'||
+   quarantine?.id!==INTERRUPTED_GENERATION||quarantine?.status!==third.status||quarantine?.actualCostUsd!==null||
+   quarantine?.conservativeLiabilityUsd!==third.reservedWorstCaseUsd||quarantine?.metadataHttpStatus!==404||quarantine?.semanticAuthority!=='NONE'||
+   quarantine?.reconciliationPolicy!=='RETAIN_MAX_PRECALL_RESERVE_UNTIL_PROVIDER_EVIDENCE_ARRIVES'||!Number.isFinite(Date.parse(quarantine.quarantinedAt))
+ ))throw Error('max-reserve-quarantine-integrity-required');
  if(journal.slice(0,2).some(r=>r.status!=='PROVIDER_RECONCILED_PENDING_EVIDENCE')||Math.abs(journal[0].costUsd-.018610)>1e-12||Math.abs(journal[1].costUsd-.026936)>1e-12||
- journal.some(r=>!verifyCrownProviderModel({requestedModel:r.model,observedModel:r.observedModel,provider:r.provider})))throw Error('interrupted-billing-identity-drift');
+ journal.slice(0,2).some(r=>!verifyCrownProviderModel({requestedModel:r.model,observedModel:r.observedModel,provider:r.provider}))||
+ (exactBill&&!verifyCrownProviderModel({requestedModel:third.model,observedModel:third.observedModel,provider:third.provider})))throw Error('interrupted-billing-identity-drift');
  const original=recoverCrownResumeCheckpoint(originalState,{key});
- if(!Number.isFinite(state.newSpendUsd)||Math.abs(original.inheritedSpendUsd+journal.reduce((s,r)=>s+r.costUsd,0)-state.newSpendUsd)>1e-12)
+ const exactThirdCost=exactBill?third.costUsd:0;
+ if(!Number.isFinite(state.newSpendUsd)||Math.abs(original.inheritedSpendUsd+journal[0].costUsd+journal[1].costUsd+exactThirdCost-state.newSpendUsd)>1e-12)
   throw Error('interrupted-spend-total-drift');
  const p=openCrownCheckpoint(state.sealedEvidence,{key,binding:RESUME_KEY+'|'+state.taskCommitment});
  if(!Array.isArray(p.tasks)||p.tasks.length!==2||p.calls?.length!==3||p.gradeDoc||original.calls[0].taskId!==p.tasks[0].id||original.calls[0].model!=='anthropic/claude-opus-5.5'||
@@ -46,8 +63,8 @@ export function recoverInterruptedCrownCheckpoint(state,{key,originalState}){
   (i===0&&hash(c)!==hash(original.calls[0])))throw Error('interrupted-answer-trust-pin-refused');
  }
  if(Object.keys(p.answers??{}).length!==3)throw Error('unexpected-interrupted-answer');
- return {...p,taskCommitment:state.taskCommitment,inheritedSpendUsd:state.newSpendUsd,custodianGenerationId:original.custodianGenerationId,
-  priorBillingRows:[...originalState.generationJournal,...journal],maximumRemainingPaidCalls:2};
+ return {...p,taskCommitment:state.taskCommitment,inheritedSpendUsd:state.newSpendUsd,uncertainChargeLiabilityUsd:maxReserveQuarantine?third.reservedWorstCaseUsd:0,
+  custodianGenerationId:original.custodianGenerationId,priorBillingRows:[...originalState.generationJournal,...journal],maximumRemainingPaidCalls:2};
 }
 export function recoverCrownResumeCheckpoint(state,{key}){
  if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||

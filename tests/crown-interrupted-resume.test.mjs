@@ -33,10 +33,25 @@ function interrupted(){
   sealedEvidence:sealCrownCheckpoint(payload,{key,binding:RESUME_KEY+'|'+originalState.taskCommitment})};
  return {state,originalState,payload};
 }
+function quarantinedInterrupted(){
+ const {state,originalState,payload}=interrupted();
+ const third=state.generationJournal[2],known=third.costUsd;
+ delete third.costUsd; delete third.observedModel; delete third.provider;
+ third.status='UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED';third.actualCostUsd=null;third.conservativeLiabilityUsd=third.reservedWorstCaseUsd;third.metadataHttpStatus=404;third.semanticAuthority='NONE';
+ state.newSpendUsd-=known;delete state.financialReconciliation;
+ state.financialQuarantine={id:INTERRUPTED_GENERATION,status:third.status,model:third.model,actualCostUsd:null,conservativeLiabilityUsd:third.reservedWorstCaseUsd,metadataHttpStatus:404,semanticAuthority:'NONE',reconciliationPolicy:'RETAIN_MAX_PRECALL_RESERVE_UNTIL_PROVIDER_EVIDENCE_ARRIVES',quarantinedAt:'2026-10-07T00:00:00Z'};
+ return {state,originalState,payload};
+}
 const authority=now=>({operation:'resume-existing-sealed-general-crown-evaluation',attemptKey:INTERRUPTED_RESUME_KEY,sourceKey:RESUME_KEY,maxIncrementalMicrousd:150000,maxTotalEvaluationMicrousd:450000,monthlyCapMicrousd:20000000,maxRemainingPaidCalls:2,evidenceRef:'owner-approved-two-missing-crown-edges-r3',authorizedAt:new Date(now-1000).toISOString(),expiresAt:new Date(now+60000).toISOString()});
 test('reconciled interrupted state preserves three answers and exactly two missing edges',()=>{
  const {state,originalState}=interrupted(),p=recoverInterruptedCrownCheckpoint(state,{key,originalState});
  assert.equal(p.calls.length,3);assert.equal(p.maximumRemainingPaidCalls,2);assert.equal(p.priorBillingRows.length,6);assert.equal(p.inheritedSpendUsd,state.newSpendUsd);
+});
+test('max-reserve quarantine preserves unknown actual cost while making bounded continuation recoverable',()=>{
+ const {state,originalState}=quarantinedInterrupted(),p=recoverInterruptedCrownCheckpoint(state,{key,originalState});
+ assert.equal(p.calls.length,3);assert.equal(p.maximumRemainingPaidCalls,2);assert.equal(p.inheritedSpendUsd,state.newSpendUsd);
+ assert.equal(p.uncertainChargeLiabilityUsd,state.generationJournal[2].reservedWorstCaseUsd);
+ assert.equal(state.generationJournal[2].actualCostUsd,null);assert.equal(state.financialQuarantine.semanticAuthority,'NONE');
 });
 test('explicit reconciled zero charge is valid; absent charge is never zero',()=>{
  const {state,originalState}=interrupted();state.generationJournal[2].costUsd=0;state.financialReconciliation.costUsd=0;state.newSpendUsd-=.000001;

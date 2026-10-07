@@ -185,6 +185,11 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
   if(resuming){
    const source=await getState(store,resumeKeys.sourceKey);
    for(const row of recovered.priorBillingRows??source.generationJournal){
+    if(row.status==='UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED'){
+     if(row.actualCostUsd!==null||!Number.isFinite(row.conservativeLiabilityUsd)||row.conservativeLiabilityUsd!==row.reservedWorstCaseUsd||row.semanticAuthority!=='NONE')
+      throw new Error('prior-quarantine-integrity-drift');
+     continue;
+    }
     const observed=await generation(apiKey,row.id);
     if(observed.id!==row.id||typeof observed.total_cost!=='number'||!Number.isFinite(observed.total_cost)||observed.total_cost!==row.costUsd||observed.model!==row.observedModel||observed.provider_name!==row.provider)
      throw new Error('prior-billing-reconciliation-drift');
@@ -194,7 +199,9 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
   await reconcileOriginalCrownFinancialState({store,generationMetadata:meta});
   const keyResponse=await fetch('https://openrouter.ai/api/v1/key',{headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)});
   const keyBody=keyResponse.ok?await keyResponse.json():null,policy=keyBody?.data;
-  if(Number(policy?.limit)!==20||policy?.limit_reset!=='monthly'||Number(policy?.limit_remaining)<15+MAX_NEW_SPEND_USD)
+  const uncertainLiabilityUsd=Number(recovered?.uncertainChargeLiabilityUsd||0);
+  const maxAuthorizedAdditionalUsd=resuming?resumeAuthorization.maxIncrementalMicrousd/1e6:MAX_NEW_SPEND_USD;
+  if(Number(policy?.limit)!==20||policy?.limit_reset!=='monthly'||Number(policy?.limit_remaining)<15+maxAuthorizedAdditionalUsd+uncertainLiabilityUsd)
    return {ok:false,status:'KEY_CAP_OR_PROTECTED_CROWN_RESERVE_REFUSED',providerCallsPerformed:0};
  }
  const claimed=await store.transaction(async tx=>{
@@ -207,9 +214,15 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
  await setState(store,{status:'RUNNING',startedAt:new Date().toISOString(),oldUncertainTournament:{
    status:replacement?'FINANCIALLY_RECONCILED_INVALID_EVIDENCE':'ABANDONED_UNCERTAIN_NO_RETRY',callId:'sealed-call-06264df855de7eedeb12982dfad2909db0cdcfb0',
    taskId:'sealed-paid-0-0-805bb7d11651df598fcb',reservedWorstCaseUsd:OLD_UNCERTAIN_RESERVE_USD
- },newSpendUsd:recovered?.inheritedSpendUsd??0,mainSha,...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{}),...(resuming?{resumeAuthorization,sourceAttemptKey:resumeKeys.sourceKey}:{})});
+ },newSpendUsd:recovered?.inheritedSpendUsd??0,uncertainChargeLiabilityUsd:recovered?.uncertainChargeLiabilityUsd??0,
+ economicExposureUsd:(recovered?.inheritedSpendUsd??0)+(recovered?.uncertainChargeLiabilityUsd??0),mainSha,
+ ...(replacement?{replacementAuthorization,financialRecoveryKey:RECOVERY_KEY}:{}),...(resuming?{resumeAuthorization,sourceAttemptKey:resumeKeys.sourceKey}:{})});
  let spend=recovered?.inheritedSpendUsd??0;
- const spendCeiling=resuming?Math.min(MAX_NEW_SPEND_USD,spend+resumeAuthorization.maxIncrementalMicrousd/1e6):MAX_NEW_SPEND_USD;
+ const uncertainLiabilityUsd=recovered?.uncertainChargeLiabilityUsd??0;
+ const remainingEvaluationEnvelopeUsd=Math.max(0,MAX_NEW_SPEND_USD-spend-uncertainLiabilityUsd);
+ const authorizedAdditionalUsd=resuming?Math.min(resumeAuthorization.maxIncrementalMicrousd/1e6,remainingEvaluationEnvelopeUsd):remainingEvaluationEnvelopeUsd;
+ const spendCeiling=spend+authorizedAdditionalUsd;
+ if(resuming&&authorizedAdditionalUsd<=0)return {ok:false,status:'CROWN_EVALUATION_ENVELOPE_EXHAUSTED',providerCallsPerformed:0};
  let remainingDispatches=0;
  const charge=async spec=>{
    if(recovered?.maximumRemainingPaidCalls!==undefined){
@@ -240,12 +253,12 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
      const row={...(index>=0?journal[index]:{}),...observation,tag:spec.tag,
        reservedWorstCaseUsd:reserve,observedAt:new Date().toISOString()};
      if(index>=0)journal[index]=row;else journal.push(row);
-     await setState(store,{generationJournal:journal,newSpendUsd:spend,
+     await setState(store,{generationJournal:journal,newSpendUsd:spend,economicExposureUsd:spend+uncertainLiabilityUsd,
        pendingCall:{model:spec.model,tag:spec.tag,generationId:observation.id,
          reservedWorstCaseUsd:reserve,reconciliationStatus:observation.status}});
    }});
    if(spend>spendCeiling)throw new Error('new-tournament-spend-cap-exceeded');
-   await setState(store,{newSpendUsd:spend,pendingCall:null,lastGeneration:{
+   await setState(store,{newSpendUsd:spend,economicExposureUsd:spend+uncertainLiabilityUsd,pendingCall:null,lastGeneration:{
      id:r.id,model:r.model,costUsd:r.cost,provider:r.providerName,finishReason:r.finishReason,
      contentBytes:r.contentBytes,reasoningBytes:r.reasoningBytes,reservedWorstCaseUsd:reserve
    }});

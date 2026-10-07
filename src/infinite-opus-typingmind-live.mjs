@@ -530,7 +530,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       completion.uberbond.jevShadow={
         status:jevShadow.status??null,model:TYPINGMIND_JEV_MODEL,semanticAuthority:'NONE',
         usedToSuppressCrown:false,usedToSelectWriter:jevShadow.ok===true,
-        usedToTuneWorker:(writerId==='sol'||writerId==='solPro')&&jevShadow.ok===true,reasoningEffort,
+        usedToTuneWorker:writerId==='sol'&&jevShadow.ok===true,reasoningEffort,
         observedModelRevision:jevShadow.observedModelRevision??null,costUsd:jevCost/1e6,
         answers:jevAnswers
       };
@@ -613,7 +613,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         },
         jev:{mode:jevShadow.ok?'SHADOW_CONTROL_OBSERVED':'SHADOW_SKIPPED_OR_FAILED',
           usedToSuppressCrown:false,usedToSelectWriter:jevShadow.ok===true,
-          usedToTuneWorker:(writerId==='sol'||writerId==='solPro')&&jevShadow.ok===true,reasoningEffort,
+          usedToTuneWorker:writerId==='sol'&&jevShadow.ok===true,reasoningEffort,
           status:jevShadow.status??null,answers:jevAnswers,costMicrousd:jevCost}
       };
     }

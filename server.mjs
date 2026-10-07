@@ -763,7 +763,7 @@ let core;
 try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
 
-if (wrapperIsEntryPoint) {
+if (wrapperIsEntryPoint && String(process.env.UBERMIND_REPLAY_MEASURED_DOMINANCE||'')==='1') {
   void (async()=>{
     const store=createStore(config);
     const key='infinite_opus_crown_resume_20261002_r3';
@@ -936,6 +936,73 @@ if (wrapperIsEntryPoint) {
         providerCallsPerformed:0,hiddenPayloadsExposed:false
       }));
     }finally{await store.close().catch(()=>{});}
+  })();
+}
+
+if (wrapperIsEntryPoint) {
+  void (async()=>{
+    const store=createStore(config);
+    try{
+      await store.init();
+      const settings=await store.transaction(async tx=>await tx.getSettings());
+      const measured=settings?.infinite_opus_measured_reference_dominance_20261007_v1??null;
+      console.log('UBERMIND_MEASURED_REFERENCE_DOMINANCE_RECEIPT '+JSON.stringify(measured?{
+        ok:measured.ok===true,
+        status:measured.status??null,
+        taskCount:measured.taskCount??null,
+        opusCandidateCostUsd:measured.opusCandidateCostUsd??null,
+        solCandidateCostUsd:measured.solCandidateCostUsd??null,
+        measuredCandidateCostCompressionFactor:measured.measuredCandidateCostCompressionFactor??null,
+        candidateCostReductionPercent:measured.candidateCostReductionPercent??null,
+        evaluatorCostUsd:measured.evaluatorCostUsd??null,
+        strictSameOrBetterEveryTask:measured.strictSameOrBetterEveryTask===true,
+        observedSolRequiredRegressions:measured.observedSolRequiredRegressions??null,
+        observedOpusRequiredRegressions:measured.observedOpusRequiredRegressions??null,
+        observedAt:measured.observedAt??null,
+        sourceAttemptKey:measured.sourceAttemptKey??null,
+        providerCallsPerformed:0,
+        hiddenPayloadsExposed:false,
+        truthBoundary:measured.truthBoundary??null
+      }:{
+        ok:false,status:'MEASURED_REFERENCE_DOMINANCE_RECEIPT_NOT_FOUND',
+        providerCallsPerformed:0,hiddenPayloadsExposed:false
+      }));
+    }catch(error){
+      console.error('UBERMIND_MEASURED_REFERENCE_DOMINANCE_RECEIPT '+JSON.stringify({
+        ok:false,status:'MEASURED_REFERENCE_DOMINANCE_RECEIPT_READ_FAILED',
+        reason:String(error?.message||error).slice(0,200),
+        providerCallsPerformed:0,hiddenPayloadsExposed:false
+      }));
+    }finally{await store.close().catch(()=>{});}
+  })();
+
+  void (async()=>{
+    try{
+      const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+      const marketSnapshot=await currentInfiniteOpusPublicMarket();
+      const readiness=inspectJevShadowReadiness({
+        paidAuthorization,
+        marketSnapshot,
+        openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)
+      });
+      console.log('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
+        ...readiness,
+        crownAdmissionRequired:false,
+        providerInferenceCalls:0,
+        modelInferenceCalls:0,
+        spendAuthorizedByDiagnostic:false,
+        secretValuesExposed:false,
+        truthBoundary:'Current public model-market plus protected runtime prerequisite check only. No Jev decision inference was executed and Crown suppression remains forbidden.'
+      }));
+    }catch(error){
+      console.error('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
+        ok:false,status:'JEV_SHADOW_READINESS_DIAGNOSTIC_FAILED',
+        reason:String(error?.message||error).slice(0,200),
+        crownAdmissionRequired:false,
+        providerInferenceCalls:0,modelInferenceCalls:0,
+        spendAuthorizedByDiagnostic:false,secretValuesExposed:false
+      }));
+    }
   })();
 }
 

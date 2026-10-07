@@ -281,6 +281,30 @@ test('paid callback crash holds dispatched budget and refuses duplicate dispatch
   assert.equal((await runtime.snapshot()).budget.reservedMicrousd,10000);
 });
 
+test('micro-priced control calls can bind exact microusd ceilings below one cent', async t => {
+  const { store } = await nativeStore(t);
+  const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW,
+    paidAuthorization:{ evidenceRef:'synthetic://owner',month:'2026-09',maxMonthlyMicrousd:20000000,expiresAt:'2026-10-01T00:00:00Z' },
+    routePrices:[{model:'typesafe/jev-1.13',provider:'openrouter',sourceRef:'synthetic://price',verifiedAt:'2026-09-29T21:00:00Z',expiresAt:'2026-09-30T21:00:00Z',contextTokens:32000,maxOutputTokens:1,inputUsdPerMillion:.042,outputUsdPerMillion:0}],
+    paidExecutor:async () => ({
+      ok:true,providerRequestId:'jev-micro-1',observedModel:'typesafe/jev-1.13',provider:'openrouter',
+      result:{answers:{}},usage:{costBasis:'OPENROUTER_USAGE_COST_OBSERVED',costUsd:.00005}
+    }) });
+  const prepared=await runtime.preparePaidCall({
+    callId:'jev-micro-call',taskId:'jev-micro-task',model:'typesafe/jev-1.13',provider:'openrouter',
+    qualityClass:'Q_SHADOW_CONTROL',role:'WORKER',cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd:100
+  });
+  assert.equal(prepared.ok,true);
+  const out=await runtime.dispatchPaidCall('jev-micro-call',{
+    model:'typesafe/jev-1.13',task:{taskId:'jev-micro-task'},
+    costCeilingMicrousd:100,maxTokens:1,inputTokenCeiling:2048
+  });
+  assert.equal(out.ok,true);
+  assert.equal(out.status,'PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY');
+  assert.equal(out.observedCostMicrousd,50);
+  assert.equal((await runtime.snapshot()).budget.monthSpentMicrousd,50);
+});
+
 test('provider response without observed bill keeps reservation held', async t => {
   const { store } = await nativeStore(t);
   const runtime = createInfiniteOpusRuntime({ store,clock:() => NOW,

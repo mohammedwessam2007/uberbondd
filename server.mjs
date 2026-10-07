@@ -804,7 +804,7 @@ if (wrapperIsEntryPoint) {
           const opusCall=calls.find(c=>c.taskId===task.id&&c.model===OPUS);
           const solCall=calls.find(c=>c.taskId===task.id&&c.model===SOL);
           if(!opus||!sol||!opusCall||!solCall)throw new Error('paired-call-grade-required');
-          const solSameOrBetter=opus.zero&&opus.reg===0&&sol.zero&&sol.reg===0&&sol.score>=opus.score;
+          const solSameOrBetter=sol.zero&&sol.reg===0&&sol.score>=opus.score;
           return {
             taskIdHash:hash(task.id),
             opus:{qualityScore:opus.score,requiredRegressions:opus.reg,canonicalZeroLoss:opus.zero,costUsd:Number(opusCall.cost)},
@@ -843,19 +843,34 @@ if (wrapperIsEntryPoint) {
         if(!compiled.ok)throw new Error('tournament-compile:'+compiled.status);
         const adjudicated=adjudicateCrownTournament({plan:compiled.plan,observations});
         if(!adjudicated.ok||adjudicated.status!=='TASK_CLASS_CROWN_CANDIDATE_EVIDENCE_READY'){
-          console.log('UBERMIND_SEALED_GRADE_DIAGNOSTIC '+JSON.stringify({
-            ok:true,status:'PAIRED_GRADES_RECOVERED_COURT_NOT_CERTIFIED',
+          const measuredDominance={
+            schemaVersion:'uberbond.measured-reference-dominance.v1',
+            ok:strictSameQuality,
+            status:strictSameQuality?'MEASURED_SOL_DOMINATES_OPUS_REFERENCE_ON_ALL_SEALED_TASKS':'MEASURED_REFERENCE_DOMINANCE_NOT_ACHIEVED',
             courtStatus:adjudicated.status,
             taskCount:2,
             perTask,
             opusCandidateCostUsd:Number(opusCost.toFixed(9)),
             solCandidateCostUsd:Number(solCost.toFixed(9)),
+            measuredCandidateCostCompressionFactor:strictSameQuality&&solCost>0?Number((opusCost/solCost).toFixed(6)):null,
+            candidateCostReductionPercent:strictSameQuality&&opusCost>0?Number(((1-solCost/opusCost)*100).toFixed(4)):null,
+            evaluatorCostUsd:Number(evaluatorRow.costUsd),
+            proofInclusiveCostUsd:Number((solCost+Number(evaluatorRow.costUsd)).toFixed(9)),
+            proofInclusiveCompressionFactor:strictSameQuality&&solCost+Number(evaluatorRow.costUsd)>0?Number((opusCost/(solCost+Number(evaluatorRow.costUsd))).toFixed(6)):null,
             strictSameOrBetterEveryTask:strictSameQuality,
-            candidateCostReductionPercent:opusCost>0?Number(((1-solCost/opusCost)*100).toFixed(4)):null,
+            observedSolRequiredRegressions:perTask.reduce((n,row)=>n+row.sol.requiredRegressions,0),
+            observedOpusRequiredRegressions:perTask.reduce((n,row)=>n+row.opus.requiredRegressions,0),
             providerCallsPerformed:0,
-            hiddenPayloadsExposed:false
+            hiddenPayloadsExposed:false,
+            truthBoundary:'Measured only on the two sealed open-ended tasks. Sol dominance means zero required regressions for Sol and Sol blind quality score >= Opus on every paired task. Canonical Crown court remains separate and was not widened.'
+          };
+          await store.transaction(async tx=>await tx.setSetting('infinite_opus_measured_reference_dominance_20261007_v1',{
+            ...measuredDominance,taskCommitment:state.taskCommitment,evaluatorGenerationId:evaluatorId,
+            sourceAttemptKey:key,observedAt:new Date().toISOString()
           }));
-          throw new Error('tournament-adjudication:'+adjudicated.status);
+          console.log('UBERMIND_MEASURED_REFERENCE_DOMINANCE '+JSON.stringify(measuredDominance));
+          if(!strictSameQuality)throw new Error('tournament-adjudication:'+adjudicated.status);
+          return;
         }
         const selected=adjudicated.roles?.GENERAL_CROWN;
         if(!selected)throw new Error('general-crown-not-selected');

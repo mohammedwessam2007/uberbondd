@@ -261,11 +261,17 @@ export function chooseAdaptiveCandidateWriter({
   const routes={
     mimo:availableRoutes.mimo??null,
     deepseek:availableRoutes.deepseek??null,
-    sol:availableRoutes.sol??null
+    sol:availableRoutes.sol??null,
+    solPro:availableRoutes.solPro??null
   };
   const eligible=[];
   if(hard>=2){
-    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'JEV_HARD_RESIDUAL'});
+    // The 2026-10-07 sealed two-task experiment is a routing prior only:
+    // Sol Pro beat the Opus 5.5 reference on both tested tasks with zero required
+    // regressions at ~50% lower candidate cost. It does not create semantic
+    // authority or a population-level guarantee, so Crown rules remain separate.
+    if(routes.solPro)eligible.push({id:'solPro',route:routes.solPro,reason:'JEV_HARD_RESIDUAL__MEASURED_SOL_PRO_PRIOR'});
+    if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'HARD_RESIDUAL_STANDARD_SOL_FALLBACK'});
   }else if(shape==='coding'){
     if(routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'CODING_DIVERGENT_CED_PRIOR'});
     if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});

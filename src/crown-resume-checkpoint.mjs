@@ -18,7 +18,7 @@ export function validCrownResumeAuthority(a,now=Date.now()){
  Number.isFinite(Date.parse(a.expiresAt))&&Date.parse(a.expiresAt)>now;
 }
 // Prepare only the exact two missing edges. This function creates no authority
-// and refuses the current unreconciled live state before opening sealed payloads.
+// and requires either an exact bill or a full-reserve UNKNOWN-charge quarantine before opening sealed payloads.
 export function recoverInterruptedCrownCheckpoint(state,{key,originalState}){
  if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||state.reason!=='generation-reconciliation-required:'+INTERRUPTED_GENERATION)
   throw Error('exact-interrupted-failure-required');
@@ -26,7 +26,7 @@ export function recoverInterruptedCrownCheckpoint(state,{key,originalState}){
  const ids=['gen-1790900525-TFyAeL3TpSP6ZWMsspuj','gen-1790900555-jEUGzgL7rKDIKYiOft6V',INTERRUPTED_GENERATION];
  const bill=state.financialReconciliation;
  const quarantine=state.financialQuarantine;
- const third=journal[2];
+ const third=Array.isArray(journal)?journal[2]:null;
  const exactBill=third?.status==='RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER';
  const maxReserveQuarantine=third?.status==='UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED';
  if(!Array.isArray(journal)||journal.length!==3||journal.some((r,i)=>r.id!==ids[i])||

@@ -214,9 +214,28 @@ export function buildGenericJevControlQuestions(){
 }
 
 
+export function effectiveRouteRates(route,inputTokens=0){
+  if(!route||!Number.isFinite(route.inputUsdPerMillion)||!Number.isFinite(route.outputUsdPerMillion))return null;
+  if(!Number.isFinite(inputTokens)||inputTokens<0)return null;
+  const rates={
+    inputUsdPerMillion:Number(route.inputUsdPerMillion),
+    outputUsdPerMillion:Number(route.outputUsdPerMillion),
+    cacheReadUsdPerMillion:Number.isFinite(route.cacheReadUsdPerMillion)?Number(route.cacheReadUsdPerMillion):Number(route.inputUsdPerMillion)
+  };
+  for(const tier of route.priceOverrides??[]){
+    if(Number.isFinite(Number(tier?.minPromptTokens))&&inputTokens>=Number(tier.minPromptTokens)){
+      if(Number.isFinite(Number(tier.inputUsdPerMillion)))rates.inputUsdPerMillion=Math.max(rates.inputUsdPerMillion,Number(tier.inputUsdPerMillion));
+      if(Number.isFinite(Number(tier.outputUsdPerMillion)))rates.outputUsdPerMillion=Math.max(rates.outputUsdPerMillion,Number(tier.outputUsdPerMillion));
+      if(Number.isFinite(Number(tier.cacheReadUsdPerMillion)))rates.cacheReadUsdPerMillion=Math.max(rates.cacheReadUsdPerMillion,Number(tier.cacheReadUsdPerMillion));
+    }
+  }
+  return rates;
+}
+
 function routeCost(route,inputTokens,outputTokens){
-  if(!route||!Number.isFinite(route.inputUsdPerMillion)||!Number.isFinite(route.outputUsdPerMillion))return Infinity;
-  return usdPerToken(route.inputUsdPerMillion,inputTokens)+usdPerToken(route.outputUsdPerMillion,outputTokens);
+  const rates=effectiveRouteRates(route,inputTokens);
+  if(!rates)return Infinity;
+  return usdPerToken(rates.inputUsdPerMillion,inputTokens)+usdPerToken(rates.outputUsdPerMillion,outputTokens);
 }
 
 export function estimateWriterThenCrownAcceptUsd({
@@ -261,6 +280,7 @@ export function chooseAdaptiveCandidateWriter({
   const routes={
     mimo:availableRoutes.mimo??null,
     deepseek:availableRoutes.deepseek??null,
+    haiku:availableRoutes.haiku??null,
     sol:availableRoutes.sol??null,
     solPro:availableRoutes.solPro??null
   };
@@ -273,9 +293,11 @@ export function chooseAdaptiveCandidateWriter({
     if(routes.solPro)eligible.push({id:'solPro',route:routes.solPro,reason:'JEV_HARD_RESIDUAL__MEASURED_SOL_PRO_PRIOR'});
     if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'HARD_RESIDUAL_STANDARD_SOL_FALLBACK'});
   }else if(shape==='coding'){
+    if(routes.haiku)eligible.push({id:'haiku',route:routes.haiku,reason:'HAIKU_5_5_NEW_MARKET_SHADOW__CROWN_SUPERVISED'});
     if(routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'CODING_DIVERGENT_CED_PRIOR'});
     if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});
   }else if(shape==='source_heavy'||shape==='research'){
+    if(routes.haiku)eligible.push({id:'haiku',route:routes.haiku,reason:'HAIKU_5_5_NEW_MARKET_SHADOW__TIER_AWARE'});
     if(routes.mimo)eligible.push({id:'mimo',route:routes.mimo,reason:'CHEAP_LONG_CONTEXT_BANDWIDTH'});
     if(routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'CHEAP_DIVERGENT_LONG_CONTEXT'});
     if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});
@@ -284,6 +306,7 @@ export function chooseAdaptiveCandidateWriter({
     // can execute here. Sol remains the safest text-only candidate writer.
     if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'TOOLS_DISABLED_TEXT_ONLY_GATEWAY'});
   }else{
+    if(hard<=1&&routes.haiku)eligible.push({id:'haiku',route:routes.haiku,reason:'HAIKU_5_5_ROUTINE_SHADOW__CROWN_SUPERVISED'});
     if(hard<=0&&routes.mimo)eligible.push({id:'mimo',route:routes.mimo,reason:'ROUTINE_CHEAP_DRAFT'});
     if(hard<=1&&routes.deepseek)eligible.push({id:'deepseek',route:routes.deepseek,reason:'ROUTINE_DIVERGENT_DRAFT'});
     if(routes.sol)eligible.push({id:'sol',route:routes.sol,reason:'STRONG_BUILDER_FALLBACK'});
@@ -326,18 +349,25 @@ export function estimateIndependentCriticSurchargeUsd({
   criticRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,criticOutputTokens=600
 }={}){
   if(!criticRoute||!crownRoute)return Infinity;
-  return routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens)+
-    usdPerToken(crownRoute.inputUsdPerMillion,criticOutputTokens);
+  const critic=routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens);
+  const crownWithoutCritic=estimateRouteWithCacheUsd({
+    route:crownRoute,inputTokens:inputTokens+candidateOutputTokens,outputTokens:0
+  });
+  const crownWithCritic=estimateRouteWithCacheUsd({
+    route:crownRoute,inputTokens:inputTokens+candidateOutputTokens+criticOutputTokens,outputTokens:0
+  });
+  return critic+Math.max(0,crownWithCritic-crownWithoutCritic);
 }
 
 
 export function estimateRouteWithCacheUsd({route,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){
-  if(!route||!Number.isFinite(route.inputUsdPerMillion)||!Number.isFinite(route.outputUsdPerMillion))return Infinity;
+  const rates=effectiveRouteRates(route,inputTokens);
+  if(!rates)return Infinity;
   const cached=Math.max(0,Math.min(Number(cachedInputTokens)||0,inputTokens));
   const fresh=Math.max(0,inputTokens-cached);
-  return usdPerToken(route.inputUsdPerMillion,fresh)+
-    usdPerToken(route.cacheReadUsdPerMillion??route.inputUsdPerMillion,cached)+
-    usdPerToken(route.outputUsdPerMillion,outputTokens);
+  return usdPerToken(rates.inputUsdPerMillion,fresh)+
+    usdPerToken(rates.cacheReadUsdPerMillion,cached)+
+    usdPerToken(rates.outputUsdPerMillion,outputTokens);
 }
 
 export function estimateDirectCrownUsd({crownRoute,inputTokens=0,cachedInputTokens=0,outputTokens=0}={}){

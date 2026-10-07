@@ -21,7 +21,7 @@ import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs'
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileOpenRouterJevPublicPriceRecord, compileOpenRouterJevEndpointPriceRecord, augmentInfiniteOpusMarketWithDecisionRecord, OPENROUTER_JEV_MODEL_PAGE, OPENROUTER_JEV_ENDPOINTS_API } from './src/openrouter-decision-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
-import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, inspectJevShadowReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, inspectJevShadowReadiness, inspectHaiku55ShadowReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
 import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recovery-diagnostic.mjs';
 import { reconcileInterruptedCrownGeneration } from './scripts/infinite-opus-crown-interrupted-recovery.mjs';
@@ -1061,6 +1061,16 @@ if (wrapperIsEntryPoint) {
         marketSnapshot,
         openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)
       });
+      const haiku55=inspectHaiku55ShadowReadiness({marketSnapshot});
+      console.log('UBERMIND_HAIKU55_SHADOW_READINESS '+JSON.stringify({
+        ...haiku55,
+        externallyObservedReleaseDate:'2026-10-07',
+        externalReleaseEvidenceClass:'EXTERNAL_CURRENT_NEWS__RUNTIME_ROUTE_INDEPENDENT',
+        providerMetadataCallsPerformed:0,
+        providerInferenceCallsPerformed:0,
+        spendAuthorizedByDiagnostic:false,
+        secretValuesExposed:false
+      }));
       console.log('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
         ...readiness,
         crownAdmissionRequired:false,

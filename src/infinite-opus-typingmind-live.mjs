@@ -20,6 +20,7 @@ export const TYPINGMIND_BUILDER_MODEL='openai/gpt-6.1-sol';
 export const TYPINGMIND_SOL_PRO_MODEL='openai/gpt-6.1-sol-pro';
 export const TYPINGMIND_MIMO_MODEL='xiaomi/mimo-v2.6-flash';
 export const TYPINGMIND_DEEPSEEK_MODEL='deepseek/deepseek-v4.1-flash';
+export const TYPINGMIND_HAIKU55_MODEL='anthropic/claude-haiku-5.5';
 export const TYPINGMIND_CROWN_MODEL='anthropic/claude-opus-5.5';
 export const TYPINGMIND_JEV_MODEL='typesafe/jev-1.13';
 export const TYPINGMIND_CROWN_ROUTE_IDENTITY='openrouter:auto-provider-zdr-deny-required-parameters-v1';
@@ -76,6 +77,33 @@ export function inspectJevShadowReadiness({paidAuthorization,marketSnapshot,open
   };
 }
 
+export function inspectHaiku55ShadowReadiness({marketSnapshot,now=Date.now()}={}){
+  let route=null;
+  const reasons=[];
+  try{route=selectCurrentPrice(marketSnapshot,TYPINGMIND_HAIKU55_MODEL,now);}
+  catch{reasons.push('current-openrouter-haiku-5.5-fixed-price-route-not-observed');}
+  return {
+    ok:reasons.length===0,
+    status:reasons.length?'HAIKU_5_5_OPENROUTER_ROUTE_NOT_OBSERVED':'HAIKU_5_5_OPENROUTER_SHADOW_ROUTE_READY',
+    reasons,
+    model:TYPINGMIND_HAIKU55_MODEL,
+    modelRevision:route?.modelRevision??null,
+    inputUsdPerMillion:route?.inputUsdPerMillion??null,
+    outputUsdPerMillion:route?.outputUsdPerMillion??null,
+    cacheReadUsdPerMillion:route?.cacheReadUsdPerMillion??null,
+    priceOverrides:route?.priceOverrides??[],
+    contextTokens:route?.contextTokens??null,
+    maxOutputTokens:route?.maxOutputTokens??null,
+    callableOnOwnerAccount:route?.callableOnOwnerAccount??'UNKNOWN',
+    providerInferenceCallsPerformed:0,
+    spendUsd:0,
+    semanticAuthority:'NONE',
+    crownSuppressionAuthority:'NONE',
+    eligibleRole:route?'CROWN_SUPERVISED_SHADOW_WRITER':null,
+    truthBoundary:'Catalog presence and current fixed pricing are discovery evidence only. This grants no account callability, quality equivalence, Crown status, or semantic authority.'
+  };
+}
+
 export function inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent=false,now=Date.now()}={}){
   const reasons=[];
   if(!openRouterKeyPresent)reasons.push('runtime-openrouter-key-absent');
@@ -97,9 +125,10 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
   if(!ready.ok)return {readiness:()=>ready,execute:async()=>({ok:false,status:ready.status,reasons:ready.reasons,providerCallsPerformed:0,semanticAuthority:'NONE'})};
   const builderRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_BUILDER_MODEL,clock());
   const crownRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_CROWN_MODEL,clock());
-  let mimoRoute=null,deepseekRoute=null,solProRoute=null,jevRoute=null;
+  let mimoRoute=null,deepseekRoute=null,haikuRoute=null,solProRoute=null,jevRoute=null;
   try{mimoRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_MIMO_MODEL,clock());}catch{}
   try{deepseekRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_DEEPSEEK_MODEL,clock());}catch{}
+  try{haikuRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_HAIKU55_MODEL,clock());}catch{}
   try{solProRoute=selectCurrentPrice(marketSnapshot,TYPINGMIND_SOL_PRO_MODEL,clock());}catch{}
   try{
     const observed=selectCurrentPrice(marketSnapshot,TYPINGMIND_JEV_MODEL,clock());
@@ -148,7 +177,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
   };
   const runtime=createInfiniteOpusRuntime({
     store,clock,paidExecutor,paidAuthorization,
-    routePrices:[builderRoute,crownRoute,...(mimoRoute?[mimoRoute]:[]),...(deepseekRoute?[deepseekRoute]:[]),...(solProRoute?[solProRoute]:[]),...(jevRoute?[jevRoute]:[])],
+    routePrices:[builderRoute,crownRoute,...(mimoRoute?[mimoRoute]:[]),...(deepseekRoute?[deepseekRoute]:[]),...(haikuRoute?[haikuRoute]:[]),...(solProRoute?[solProRoute]:[]),...(jevRoute?[jevRoute]:[])],
     platformFeeRate:PLATFORM_FEE_RATE
   });
 
@@ -195,7 +224,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
 
   const routeByModel=new Map([[TYPINGMIND_BUILDER_MODEL,builderRoute],[TYPINGMIND_CROWN_MODEL,crownRoute],
     ...(mimoRoute?[[TYPINGMIND_MIMO_MODEL,mimoRoute]]:[]),...(deepseekRoute?[[TYPINGMIND_DEEPSEEK_MODEL,deepseekRoute]]:[]),
-    ...(solProRoute?[[TYPINGMIND_SOL_PRO_MODEL,solProRoute]]:[])]);
+    ...(haikuRoute?[[TYPINGMIND_HAIKU55_MODEL,haikuRoute]]:[]),...(solProRoute?[[TYPINGMIND_SOL_PRO_MODEL,solProRoute]]:[])]);
   const CACHE_PROFILE_KEY='infinite_opus_typingmind_cache_profiles_v1',CACHE_PROFILE_TTL_MS=240000,CACHE_PROFILE_MAX_SESSIONS=128;
   async function readWarmCacheProfile(sessionRoot){
     return store.transaction(async tx=>{
@@ -274,12 +303,13 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     return {ok:true,crownText};
   }
 
-  const writerModelById={mimo:TYPINGMIND_MIMO_MODEL,deepseek:TYPINGMIND_DEEPSEEK_MODEL,sol:TYPINGMIND_BUILDER_MODEL,solPro:TYPINGMIND_SOL_PRO_MODEL};
+  const writerModelById={mimo:TYPINGMIND_MIMO_MODEL,deepseek:TYPINGMIND_DEEPSEEK_MODEL,haiku:TYPINGMIND_HAIKU55_MODEL,sol:TYPINGMIND_BUILDER_MODEL,solPro:TYPINGMIND_SOL_PRO_MODEL};
   function buildAdaptiveWriterMessages(request,writerId){
     const messages=buildBuilderMessages(request);
     const extra={
       mimo:' Use your cheap long-context bandwidth to produce a complete answer candidate. Preserve every material constraint; do not summarize away requirements.',
       deepseek:' Prioritize rigorous reasoning, coding correctness, counterexamples, and internal consistency. Produce a complete answer candidate, not a critique.',
+      haiku:' Produce a fast, complete candidate with careful constraint fidelity. You are a newly released shadow challenger under Crown supervision, not semantic authority. Preserve evidence and uncertainty rather than guessing.',
       sol:' Use the assigned reasoning effort efficiently. Produce the complete strongest candidate so Crown can accept with minimal output.',
       solPro:' This is a hard-residual lane. Spend reasoning only on the irreducible semantic difficulty and produce the complete strongest candidate. Do not claim Crown authority.'
     }[writerId]??' Produce a complete answer candidate.';
@@ -346,7 +376,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
         crownRoute,inputTokens:request.inputTokenCeiling,cachedInputTokens:crownCachedInputTokens,outputTokens:request.maxTokens
       });
       const lowerBound=cheapestPossibleWriterLowerBound({
-        writerRoutes:[mimoRoute,deepseekRoute,builderRoute,solProRoute].filter(Boolean),
+        writerRoutes:[mimoRoute,deepseekRoute,haikuRoute,builderRoute,solProRoute].filter(Boolean),
         crownRoute,
         inputTokens:request.inputTokenCeiling,
         candidateOutputTokens:request.maxTokens,
@@ -373,7 +403,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       const jevAnswers=jevShadow.ok?jevShadow.proposal?.answers??{}:{};
       let writerDecision=jevShadow.ok?chooseAdaptiveCandidateWriter({
         jevAnswers,
-        availableRoutes:{mimo:mimoRoute,deepseek:deepseekRoute,sol:builderRoute,solPro:solProRoute},
+        availableRoutes:{mimo:mimoRoute,deepseek:deepseekRoute,haiku:haikuRoute,sol:builderRoute,solPro:solProRoute},
         crownRoute,
         inputTokens:request.inputTokenCeiling,
         candidateOutputTokens:request.maxTokens,

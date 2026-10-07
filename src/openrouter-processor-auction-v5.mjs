@@ -349,8 +349,14 @@ export function estimateIndependentCriticSurchargeUsd({
   criticRoute,crownRoute,inputTokens=0,candidateOutputTokens=0,criticOutputTokens=600
 }={}){
   if(!criticRoute||!crownRoute)return Infinity;
-  return routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens)+
-    usdPerToken(crownRoute.inputUsdPerMillion,criticOutputTokens);
+  const critic=routeCost(criticRoute,inputTokens+candidateOutputTokens,criticOutputTokens);
+  const crownWithoutCritic=estimateRouteWithCacheUsd({
+    route:crownRoute,inputTokens:inputTokens+candidateOutputTokens,outputTokens:0
+  });
+  const crownWithCritic=estimateRouteWithCacheUsd({
+    route:crownRoute,inputTokens:inputTokens+candidateOutputTokens+criticOutputTokens,outputTokens:0
+  });
+  return critic+Math.max(0,crownWithCritic-crownWithoutCritic);
 }
 
 

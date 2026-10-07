@@ -174,7 +174,10 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
     if(!jevRoute)return {ok:false,status:'JEV_MARKET_ROUTE_UNAVAILABLE_SHADOW_SKIPPED',providerCallsPerformed:0,semanticAuthority:'NONE'};
     try{
       const {state,questions,inputTokenCeiling,estimatedMicrousd}=buildJevEnvelope(request);
-      const ceilingMicrousd=Math.max(10000,Math.ceil(estimatedMicrousd/10000)*10000);
+      // Jev is micro-priced. Reserve in exact microusd rather than forcing the
+      // generic one-cent payload floor. The native ledger still re-checks the
+      // fresh route ceiling immediately before dispatch.
+      const ceilingMicrousd=Math.max(100,Math.ceil(estimatedMicrousd/100)*100);
       const taskId='tm-jev-'+crypto.randomUUID(),callId='or-jev-'+crypto.randomUUID();
       const prepared=await runtime.preparePaidCall({callId,taskId,model:TYPINGMIND_JEV_MODEL,provider:'openrouter',
         qualityClass:'Q_SHADOW_CONTROL',role:'WORKER',cacheState:'MISS_OR_UNKNOWN',ceilingMicrousd});
@@ -182,7 +185,7 @@ export function createTypingMindLiveOrchestrator({store,openRouterKey,paidAuthor
       return runtime.dispatchPaidCall(callId,{
         model:TYPINGMIND_JEV_MODEL,
         task:{taskId,objective:'TypingMind UberMind Jev shadow control tensor',consequenceClass:'LOCAL_PREPARATION'},
-        maxTokens:1,inputTokenCeiling,costCeilingCents:centsFor(ceilingMicrousd),
+        maxTokens:1,inputTokenCeiling,costCeilingMicrousd:ceilingMicrousd,
         decisionRequest:{model:TYPINGMIND_JEV_MODEL,state,questions}
       });
     }catch(error){

@@ -20,7 +20,7 @@ import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
-import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, inspectJevShadowReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
 import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recovery-diagnostic.mjs';
 import { reconcileInterruptedCrownGeneration } from './scripts/infinite-opus-crown-interrupted-recovery.mjs';
@@ -427,17 +427,20 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   if(req.method==='POST'&&!admitTypingMindGatewayRequest())return sendTypingMindJson(req,res,429,{ok:false,status:'TYPINGMIND_GATEWAY_RATE_LIMITED',providerCallsPerformed:0,qualityAction:'WAIT'});
   if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
     const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
-    let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']},crownResolution={ok:false,source:null,receipt:null};
+    let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']},jev={ok:false,status:'JEV_SHADOW_NOT_READY',reasons:['public-market-not-observed']},crownResolution={ok:false,source:null,receipt:null};
     try{
       crownResolution=await withUberSocketStore(store=>resolveCurrentCrownAdmission(store));
       marketSnapshot=await currentInfiniteOpusPublicMarket();
-      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission:crownResolution.receipt,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)});
+      const openRouterKeyPresent=Boolean(process.env.OPENROUTER_API_KEY);
+      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission:crownResolution.receipt,marketSnapshot,openRouterKeyPresent});
+      jev=inspectJevShadowReadiness({paidAuthorization,marketSnapshot,openRouterKeyPresent});
     }catch{}
     return sendTypingMindJson(req,res,200,{
       object: 'list',
       data: [{ id: 'ubermind/auto', object: 'model', created: 0, owned_by: 'uberbond' }],
-      uberbond: {...gatewayStatus({ runtimeConnected: live.ok, crownAdmissionValid: live.ok, jevShadowReady: false }),
-        liveReadiness:live.status??'TYPINGMIND_UBERMIND_LIVE_NOT_READY',reasons:live.reasons??[],crownAdmissionSource:crownResolution.source??null}
+      uberbond: {...gatewayStatus({ runtimeConnected: live.ok, crownAdmissionValid:crownResolution.ok, jevShadowReady:jev.ok }),
+        liveReadiness:live.status??'TYPINGMIND_UBERMIND_LIVE_NOT_READY',reasons:live.reasons??[],
+        crownAdmissionSource:crownResolution.source??null,jevShadowReadiness:jev}
     });
   }
   if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendTypingMindJson(req,res,404,{ error: 'TypingMind UberMind route not found' });
@@ -544,6 +547,21 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
         paidInferenceTriggered: false,
         economicPerimeterPlan: perimeter.ok ? perimeter.status : 'REFUSED',
         truthBoundary: 'This endpoint proves source/runtime availability only. It does not prove OpenRouter credentials, provider callability, deployment endurance, current Crown roles, spend, or savings.'
+      });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/jev-readiness') {
+      const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+      let marketSnapshot=null;
+      try{marketSnapshot=await currentInfiniteOpusPublicMarket();}
+      catch(error){return sendJson(res,503,{ok:false,status:'PUBLIC_MODEL_MARKET_UNAVAILABLE',error:String(error?.message||error),providerCallPerformed:false,spendAuthorized:false});}
+      const readiness=inspectJevShadowReadiness({
+        paidAuthorization,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)
+      });
+      return sendJson(res,readiness.ok?200:409,{
+        ...readiness,
+        crownAdmissionRequiredForReadiness:false,
+        paidInferenceTriggered:false,
+        truthBoundary:'This is a zero-inference readiness check. It proves current route/catalog and runtime authority prerequisites only; it does not authorize or execute a Jev provider call and cannot suppress Crown.'
       });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {

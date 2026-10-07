@@ -47,5 +47,35 @@ export function createGovernedJevRuntimeService({store,apiKey,paidAuthorization,
     const result=await runtime.dispatchPaidCall(callId,{model:OPENROUTER_JEV_MODEL,task:{taskId,objective:'UberBond governed bounded Jev decision',consequenceClass:'NONE'},maxTokens:1,inputTokenCeiling,costCeilingMicrousd:ceilingMicrousd,decisionRequest:{model:OPENROUTER_JEV_MODEL,state,questions}});
     return {...result,schemaVersion:GOVERNED_JEV_SERVICE_SCHEMA,operationId,digest,estimatedMicrousd,ceilingMicrousd,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE',businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'};
   }
-  return {model:OPENROUTER_JEV_MODEL,route:structuredClone(route),runtime,executeDecision};
+  async function triagePageFault({taskId,maximumSpendUsd=.001}={}){
+    if(!validId(taskId))throw new Error('governed-jev-page-fault-task-id-required');
+    const pending=await runtime.listPendingJevTriage({limit:64});
+    if(!pending.ok)return {...pending,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'};
+    const row=pending.rows.find(x=>x.taskId===taskId);
+    if(!row)return {ok:true,status:'JEV_PAGE_FAULT_NOT_PENDING_OR_ALREADY_TRIAGED',taskId,providerCallsPerformed:0,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'};
+    const plan=row.jevPlan;
+    const operationId='native-pagefault-'+hash({taskId,planDigest:plan.planDigest}).slice(7,39);
+    const result=await executeDecision({
+      operationId,
+      state:plan.state,
+      questions:plan.questions,
+      inputTokenCeiling:2048,
+      maximumSpendUsd
+    });
+    if(!result.ok)return {...result,taskId,planDigest:plan.planDigest,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'};
+    const recorded=await runtime.recordJevPageFaultTriage({
+      taskId,
+      planDigest:plan.planDigest,
+      providerRequestId:result.providerRequestId,
+      observedModelRevision:result.observedModelRevision,
+      upstreamProvider:result.upstreamProvider,
+      actualMicrousd:Number(result.observedCostMicrousd),
+      answers:result.proposal?.answers??{}
+    });
+    return {...recorded,observedCostMicrousd:Number(result.observedCostMicrousd),providerCallsPerformed:1,
+      modelRevision:result.observedModelRevision??null,upstreamProvider:result.upstreamProvider??null,
+      semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'};
+  }
+
+  return {model:OPENROUTER_JEV_MODEL,route:structuredClone(route),runtime,executeDecision,triagePageFault};
 }

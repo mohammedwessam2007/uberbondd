@@ -34,6 +34,7 @@ import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-seman
 import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
+import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
@@ -1079,6 +1080,13 @@ if (wrapperIsEntryPoint) {
           marketSnapshot
         });
         console.log('UBERMIND_JEV_LIVE_CANARY '+JSON.stringify(canary));
+        const triage=await runPendingNativeJevTriage({
+          store,
+          apiKey:String(process.env.OPENROUTER_API_KEY||''),
+          paidAuthorization,
+          marketSnapshot
+        });
+        console.log('UBERMIND_JEV_PAGE_FAULT_TRIAGE '+JSON.stringify(triage));
       }finally{await store.close().catch(()=>{});}
     }catch(error){
       console.error('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({

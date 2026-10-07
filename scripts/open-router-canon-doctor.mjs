@@ -21,6 +21,8 @@ export function auditOpenRouterCanon({root=defaultRoot}={}){
   const ownerResume=read(root,'src/crown-owner-resume-authority.mjs');
 
   if(overlay.schemaVersion!=='uberbond.open-router.current-runtime.v1')failures.push('current-overlay-schema-mismatch');
+  if(overlay.repository?.sourceBindingMode!=='EXTERNAL_GIT_MAIN_AND_RENDER_RECEIPT'||overlay.repository?.embeddedCurrentHeadForbidden!==true)failures.push('nonselfreferential-source-binding-required');
+  if(Object.hasOwn(overlay.repository??{},'exactExecutableLiveSha')||Object.hasOwn(overlay.repository??{},'repositoryHeadAtObservation'))failures.push('self-referential-current-sha-forbidden');
   if(overlay.status!=='INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS')failures.push('current-overlay-status-mismatch');
   if(overlay.openRouter?.currentGeneralCrownAdmission!==false||overlay.openRouter?.blocker!=='crown-admission-absent')failures.push('current-crown-blocker-truth-drift');
   if(overlay.crownRecovery?.exactRemainingPaidCalls!==2||overlay.crownRecovery?.maximumIncrementalMicrousd!==300000)failures.push('bounded-crown-resume-overlay-drift');
@@ -86,7 +88,8 @@ export function auditOpenRouterCanon({root=defaultRoot}={}){
     schemaVersion:'uberbond.open-router.canon-doctor.v1',
     folderFileCount:names.length,
     manifestInventoryCount:listed.length,
-    executableLiveSha:overlay.repository?.exactExecutableLiveSha??null,
+    sourceBindingMode:overlay.repository?.sourceBindingMode??null,
+    embeddedCurrentHeadForbidden:overlay.repository?.embeddedCurrentHeadForbidden===true,
     crownBlocker:overlay.openRouter?.blocker??null,
     exactRemainingPaidCalls:overlay.crownRecovery?.exactRemainingPaidCalls??null,
     maximumIncrementalUsd:overlay.crownRecovery?.maximumIncrementalUsd??null,

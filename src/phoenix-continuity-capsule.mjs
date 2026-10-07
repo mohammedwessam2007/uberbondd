@@ -3,7 +3,7 @@ import crypto from 'node:crypto';
 export const PHOENIX_CAPSULE_VERSION = 'uberbond.phoenix-continuity-capsule.v1';
 export const PHOENIX_MOONSHOT_CORPUS_SHA = '23bb3c1813e3b5997d8ec76c801db2d5c59baf780573fb496da867d90d7017f0';
 export const PHOENIX_MOONSHOT_MANIFEST = 'artifacts/research/founder-moonshot-literal-corpus/manifest.json';
-const SOURCE_KINDS = new Set(['REPOSITORY', 'ISSUE', 'PR', 'PRIVATE_ATTACHMENT', 'PROVIDER', 'FOUNDER_ATTESTED', 'CHAT_ONLY', 'RESEARCH']);
+const SOURCE_KINDS = new Set(['REPOSITORY', 'ISSUE', 'PR', 'PRIVATE_ATTACHMENT', 'PROVIDER', 'FOUNDER_ATTESTED', 'CHAT_ONLY', 'RESEARCH', 'RUNTIME', 'RUN_LOG']);
 const CLAIM_KINDS = new Set(['GOAL','DECISION','IMPLEMENTATION','TEST','EXTERNAL_EVIDENCE','BLOCKER','UNKNOWN','FAILED_ATTEMPT','DONOR','NEXT_ACTION','CONTRADICTION']);
 const AUTHORITY = new Set(['GOAL_ONLY','SOURCE_OBSERVED','TESTED','MERGED','DEPLOYED','PROVIDER_ATTESTED','FOUNDER_ATTESTED','HYPOTHESIS','UNKNOWN']);
 const SHA = /^[a-f0-9]{64}$/;
@@ -62,6 +62,9 @@ function eventRecord(event) {
       && ['CHAT_ONLY','FOUNDER_ATTESTED'].includes(ref.kind)) fail('AUTHORITY_SOURCE_MISMATCH');
   if (truthClass === 'PROVIDER_ATTESTED' && ref.kind !== 'PROVIDER') fail('PROVIDER_SOURCE_REQUIRED');
   if (truthClass === 'FOUNDER_ATTESTED' && ref.kind !== 'FOUNDER_ATTESTED') fail('FOUNDER_SOURCE_REQUIRED');
+  if (truthClass === 'DEPLOYED' && ref.kind !== 'RUNTIME') fail('RUNTIME_WITNESS_REQUIRED');
+  if (truthClass === 'TESTED' && ref.kind !== 'RUN_LOG') fail('EXECUTED_TEST_WITNESS_REQUIRED');
+  if (truthClass === 'MERGED' && !['PR','REPOSITORY'].includes(ref.kind)) fail('MERGE_SOURCE_REQUIRED');
   const ancestors = Array.isArray(event.moonshotIds) ? [...event.moonshotIds] : [];
   if (ancestors.length > 20 || new Set(ancestors).size !== ancestors.length
       || ancestors.some(x => typeof x !== 'string' || !/^founder-moonshot-0(?:00[1-9]|0[1-9]\d|[1-7]\d\d|8(?:[0-8]\d|90))$/.test(x))) fail('MOONSHOT_ANCESTRY_INVALID');

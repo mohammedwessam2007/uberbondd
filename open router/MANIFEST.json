@@ -6,7 +6,7 @@
   "baseCurrentMainSha": "2e7b07838adfbde188d3b91cc61951b0ae759431",
   "observedBranchHeadBeforeManifest": "5f140aebac316db98371273f70546c2b5ce4fec8",
   "folder": "open router/",
-  "expectedFinalFolderFileCount": 60,
+  "expectedFinalFolderFileCount": 108,
   "files": [
     {
       "path": "open router/00_FINAL_SYSTEM.md",
@@ -30,8 +30,8 @@
     },
     {
       "path": "open router/04_TYPINGMIND_IPAD_SETUP.md",
-      "blobSha": "4c9ab34e9f904e229e351fff5fb5208038b41d94",
-      "size": 3047
+      "blobSha": "039ba9b2be3dae8030061c67c60008c184c6174f",
+      "size": 3871
     },
     {
       "path": "open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md",
@@ -156,12 +156,252 @@
     {
       "path": "open router/28_E0_E4_LIVE_PROOF_LEDGER.md",
       "blobSha": "967636a29b3ee74c65f9db6006019eccbf2391e9",
-      "size": 2528
+      "size": 2530
+    },
+    {
+      "path": "open router/31_PROCESSOR_FABRIC_V5_2026-09-30.json",
+      "blobSha": "50e68b02f9c431dbbaa3d10e3181df22b0524555",
+      "size": 9222
+    },
+    {
+      "path": "open router/32_PROCESSOR_AUCTION_V5_2026-09-30.mjs",
+      "blobSha": "c7d9c1d394742150a3568a9a0429946d514ebc31",
+      "size": 15962
+    },
+    {
+      "path": "open router/33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs",
+      "blobSha": "e5890ef7d6cc02b1e5b35370d723d066724f2386",
+      "size": 10213
+    },
+    {
+      "path": "open router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json",
+      "blobSha": "76af175709b2cebe72db616a1ee2ad39a304c5c2",
+      "size": 10143
+    },
+    {
+      "path": "open router/35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json",
+      "blobSha": "96b683285c77439496d86d7db38a7ba76e99c831",
+      "size": 7909
+    },
+    {
+      "path": "open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md",
+      "blobSha": "90a529b5ca070951bed390df386ce0c3b6efc3a5",
+      "size": 8497
+    },
+    {
+      "path": "open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md",
+      "blobSha": "49006866e5464a97f9433da928ff01a6eee83b59",
+      "size": 10994
+    },
+    {
+      "path": "open router/38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs",
+      "blobSha": "24b7a87772e601d291767e37e3bbfb144005ad27",
+      "size": 2886
+    },
+    {
+      "path": "open router/39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json",
+      "blobSha": "309b14ec250332420023c8f96da3f637f9f011fe",
+      "size": 6117
+    },
+    {
+      "path": "open router/40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs",
+      "blobSha": "db4849797ab5274390a2d6906b026d3ef2b21abb",
+      "size": 5893
+    },
+    {
+      "path": "open router/41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs",
+      "blobSha": "efef226d5a9577dd37bd98bf25ebea90d43707e3",
+      "size": 4154
+    },
+    {
+      "path": "open router/42_TYPINGMIND_ROLE_MAP_2026-09-30.json",
+      "blobSha": "9cf7b47dad6a70556e92b54a7a49f99a82458fd7",
+      "size": 3498
+    },
+    {
+      "path": "open router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md",
+      "blobSha": "3ffad7b161deb83b1ba3b1c829ada214619f6dca",
+      "size": 4467
+    },
+    {
+      "path": "open router/44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs",
+      "blobSha": "c0cb05b8c134efb322b9b8957723ab796c4afb91",
+      "size": 12453
+    },
+    {
+      "path": "open router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs",
+      "blobSha": "927e73f6e8bdcfa358bbf66e50406857a7336c4a",
+      "size": 29015
+    },
+    {
+      "path": "open router/46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs",
+      "blobSha": "d9822bf41cc84bd3ea075ce09a043527ea7f0629",
+      "size": 7897
+    },
+    {
+      "path": "open router/47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs",
+      "blobSha": "b1efb2425952efe765888c9c4c52f56521716888",
+      "size": 19864
+    },
+    {
+      "path": "open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md",
+      "blobSha": "490ad7f1ebee00e7e7cec7cccba1c32e4c1cdd8c",
+      "size": 11749
+    },
+    {
+      "path": "open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs",
+      "blobSha": "0a0f72a0f2dc986c2483b4cdc71f566c5e04d9f9",
+      "size": 4842
+    },
+    {
+      "path": "open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs",
+      "blobSha": "2ed363bf0d6a8717ffb0a9a044f4f1b8ba7fbe4b",
+      "size": 2931
+    },
+    {
+      "path": "open router/53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json",
+      "blobSha": "e9d4464ab967138563948869d8d0a74582072777",
+      "size": 3852
+    },
+    {
+      "path": "open router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md",
+      "blobSha": "c5af3957509437401123801be7da62f13a3b2008",
+      "size": 3159
+    },
+    {
+      "path": "open router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs",
+      "blobSha": "ca83a6f84b3c4d709d6a98bc8b3a507ba48b2954",
+      "size": 7524
+    },
+    {
+      "path": "open router/56_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs",
+      "blobSha": "fa0da582066fc0c96671e01ba1cbe01f8face836",
+      "size": 2639
+    },
+    {
+      "path": "open router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs",
+      "blobSha": "48c406cc915ba98941086b96eafd4f7b9e18db7b",
+      "size": 4667
+    },
+    {
+      "path": "open router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs",
+      "blobSha": "03bcc8001d279e2079e9b642dea88ddd6ae1ce3c",
+      "size": 3574
+    },
+    {
+      "path": "open router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs",
+      "blobSha": "59bf78a939b384fb9c2ed5032eebaf39a873e8a1",
+      "size": 6788
+    },
+    {
+      "path": "open router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs",
+      "blobSha": "a91ca455be8b3c1076a5c41f10024d7b028ad473",
+      "size": 19851
+    },
+    {
+      "path": "open router/61_CROWN_ADMISSION_2026-09-30.mjs",
+      "blobSha": "9eef3223b192b4a5405348e4930391fe6da533a6",
+      "size": 3575
+    },
+    {
+      "path": "open router/62_COGNITION_LEDGER_2026-09-30.mjs",
+      "blobSha": "d9e07318f48e3871431db549f8751c93a47f7db6",
+      "size": 14437
+    },
+    {
+      "path": "open router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs",
+      "blobSha": "058739dce78ef6aa23fd4e49fd3a909f2ced90d6",
+      "size": 17053
+    },
+    {
+      "path": "open router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs",
+      "blobSha": "a554df12e8dab8439932c83bfb3ace979ae35bb7",
+      "size": 3550
+    },
+    {
+      "path": "open router/65_INFINITE_OPUS_TASK_COMPILERS_2026-09-30.mjs",
+      "blobSha": "d2b8e25a00b6e39fea644b61285eb35b272f06dd",
+      "size": 7547
+    },
+    {
+      "path": "open router/66_INFINITE_OPUS_MARKET_2026-09-30.mjs",
+      "blobSha": "844d246118a50fde616da9b0750be298bd4941c6",
+      "size": 3559
+    },
+    {
+      "path": "open router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs",
+      "blobSha": "34b8ea38ffc0d863a0c91303a16cce8e1368fd0f",
+      "size": 713
+    },
+    {
+      "path": "open router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs",
+      "blobSha": "68064d7e22bdb59c65b56f85bbbcf9d20080f910",
+      "size": 3843
+    },
+    {
+      "path": "open router/69_OPENROUTER_CANARY_2026-09-30.mjs",
+      "blobSha": "14945dea1c58f0e143c0466b1a7538d440eed029",
+      "size": 4494
+    },
+    {
+      "path": "open router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs",
+      "blobSha": "a881caf605850bf6084b1a243d0ee34475132360",
+      "size": 29422
+    },
+    {
+      "path": "open router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml",
+      "blobSha": "9e8aac354780e366f80312332d828fc1fe120ded",
+      "size": 2127
+    },
+    {
+      "path": "open router/72_ENV_CONTRACT_SNAPSHOT_2026-09-30.example",
+      "blobSha": "1b574693161a20ca698e07fbe9a4eac6456b9a81",
+      "size": 6673
+    },
+    {
+      "path": "open router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json",
+      "blobSha": "5439131b0e8dab0217c71c34ae63478632c21236",
+      "size": 6867
+    },
+    {
+      "path": "open router/74_MULTIPLIER_TRACKER_2026-09-30.json",
+      "blobSha": "fc12e4ef8121489915a9fc7356edbe43bc2b92d4",
+      "size": 28200
+    },
+    {
+      "path": "open router/75_RECOVERY_POINTER_2026-09-30.md",
+      "blobSha": "72726eb48412bbf3b2ab594d3f6d321917ca3a69",
+      "size": 3847
+    },
+    {
+      "path": "open router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json",
+      "blobSha": "42ca7cb386e846b126f6dd4beea37c0800678c75",
+      "size": 1548
+    },
+    {
+      "path": "open router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json",
+      "blobSha": "44036aa0c76c23e26bcb54d2fd0c93180575436c",
+      "size": 1655
+    },
+    {
+      "path": "open router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md",
+      "blobSha": "9da07d0ba9ae7ea321d19f031f6dfd7b1870d6cf",
+      "size": 1376
+    },
+    {
+      "path": "open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json",
+      "blobSha": "f8221ba05034423a3e2dfcec87f1a2d8aec0cf26",
+      "size": 5044
+    },
+    {
+      "path": "open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md",
+      "blobSha": "d34a0294f08e29250d9591e78faad4332fc8d2b9",
+      "size": 4999
     },
     {
       "path": "open router/ACTIVATION_CHECKLIST.md",
-      "blobSha": "16db7b64e2dcfaf1917ba4ee2a6ffaf6b597f557",
-      "size": 7681
+      "blobSha": "c39b131ac53a60e65b22b154b5dcedc64d96fb1e",
+      "size": 8505
     },
     {
       "path": "open router/ARCHITECTURE.md",
@@ -250,8 +490,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "2616803dc9a04d1e95563ca07345a9e02ca4fce2",
-      "size": 30566
+      "blobSha": "f9a6030b46467844640465a827088c2b8f36694b",
+      "size": 34739
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -260,8 +500,8 @@
     },
     {
       "path": "open router/README.md",
-      "blobSha": "8344f672730e5e8b3285c672fd70a18511b20fe8",
-      "size": 21961
+      "blobSha": "e3a8b64dc94924c3681e69380fdd40872301ca51",
+      "size": 22785
     },
     {
       "path": "open router/RECOVERY_AUDIT_V4_2026-09-29.md",
@@ -419,5 +659,14 @@
     "mergedMain": "e77d223d18a8634f2735ce3440e3cab2fec32578",
     "liveProviderCallsObserved": 0,
     "crownPromoted": false
+  },
+  "currentRuntimeReconciliation": {
+    "observedAt": "2026-10-07T09:22:00Z",
+    "status": "CURRENT_RUNTIME_OVERLAY_INDEXED",
+    "machineTruth": "open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json",
+    "humanTruth": "open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md",
+    "canonDoctor": "scripts/open-router-canon-doctor.mjs",
+    "selfExcludedManifest": true,
+    "inventoryLaw": "expectedFinalFolderFileCount includes MANIFEST.json; files[] inventories every other current folder file by Git blob SHA and byte size."
   }
 }

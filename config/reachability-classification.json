@@ -149,10 +149,6 @@
     "NO_GHOST_AGENT_EVENT_HOST": {
       "description": "Ghost Agent is a deterministic zero-effect shell over an already-certified Decision Franchise. Decision Franchise is production-reachable, but Ghost Agent has no typed internal event source outside its tests.",
       "releasedBy": "Bind a genuine typed internal event source to an ACTIVE trust-pinned Decision Franchise with replay and idempotency controls while sideEffectClass remains NONE. This creates no new semantic or external-effect authority."
-    },
-    "NO_UNIFIED_COGNITION_LEDGER_BRIDGE": {
-      "description": "The authoritative live provider-spend lifecycle already resides in src/cognition-ledger.mjs. The unified cognition ledger adds cross-channel cost classes but has no production reconciliation bridge; wiring it independently would create competing money truth.",
-      "releasedBy": "A reviewed one-way, provenance-preserving reconciliation/composition path from the authoritative runtime cognition ledger and other non-cash cognition channels, with exact call/event identity and deduplication. Existing reservation, settlement and cap semantics remain authoritative."
     }
   },
   "modules": {
@@ -1308,11 +1304,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_GHOST_AGENT_EVENT_HOST",
       "reason": "A deterministic zero-effect acceleration shell over an ACTIVE certified Decision Franchise. Decision Franchise is production-reachable, but Ghost Agent itself has no typed internal event host outside tests and must not be wired merely to make reachability green."
-    },
-    "src/unified-cognition-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UNIFIED_COGNITION_LEDGER_BRIDGE",
-      "reason": "Adds provenance-aware cross-channel cognition economics, but the live provider-spend lifecycle already uses src/cognition-ledger.mjs for reservation, dispatch, settlement and budget caps. It waits for a one-way reconciliation bridge so it cannot become a second money truth."
     }
   }
 }

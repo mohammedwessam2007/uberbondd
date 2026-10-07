@@ -29,6 +29,7 @@ import { OPUS_CANONICAL_REVISION } from './src/crown-model-identity.mjs';
 import { compileCrownOwnerResumeAuthority } from './src/crown-owner-resume-authority.mjs';
 import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
+import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -627,6 +628,22 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
         businessEffectAuthority:'NONE',
         sideEffectAuthority:'NONE'
       });
+    }
+    if (url.pathname === '/api/admin/infinite-opus/semantic-closure') {
+      const crownResolution=await resolveCurrentCrownAdmission(store);
+      const host=createInfiniteOpusSemanticClosureHost({currentCrownAdmission:crownResolution.receipt});
+      if(req.method==='GET')return sendJson(res,200,host.manifest());
+      if(req.method==='POST'){
+        let body;try{body=await readSmallJsonBody(req,300000);}
+        catch(error){return sendJson(res,400,{ok:false,status:'SEMANTIC_CLOSURE_BODY_REFUSED',error:String(error?.message||error),providerCallsPerformed:0});}
+        try{
+          const out=host.execute(String(body.action||''),body.payload??{});
+          return sendJson(res,out.ok===false?409:200,out);
+        }catch(error){
+          return sendJson(res,409,{ok:false,status:'SEMANTIC_CLOSURE_EXECUTION_REFUSED',error:String(error?.message||error),providerCallsPerformed:0,businessEffectAuthority:'NONE',externalEffectAuthority:'NONE'});
+        }
+      }
+      return sendJson(res,405,{ok:false,error:'Method Not Allowed'});
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/references') {
       return sendJson(res, 200, await runtime.listReferenceContracts());

@@ -70,3 +70,21 @@ Do not commit private owner-specific capsules or raw transcripts to a public or 
 - Future feature candidates: authenticated private append-only Postgres capsule ledger, automatic app-owned conversation event capture, encrypted cross-device recovery, checkpoint schedule, verified fork-merging and independent source witness service. These are explicitly **NOT BUILT** in v1.
 
 Authority remains NONE for spending, customer messages, credential changes, deployments, legal determinations or financial actions. Nothing here promotes a simulated feat, an old idea, code, or a synthetic test to real-world success.
+
+## 2026-10-08: Native app-owned vault upgrade
+
+Founder's follow-up: PHOENIX must be part of UberBond's own app, not an isolated download page.
+
+- New `src/phoenix-owner-vault.mjs`: validates exact bounded owner-authored checkpoint schema, source labels, all IDs, and 890-corpus SHA; hashes are integrity, not evidence authority.
+- New `migrations/20261008_phoenix_owner_vault.sql`: append-only table with unique digest, entry bounds, and recent index.
+- Updated `src/store.mjs`: first-party JSON/Postgres collection; no new SaaS.
+- Updated `server-core.mjs`: authenticated owner-only POST/GET/list under `/api/phoenix/capsules`. Explicitly refuses when ADMIN_TOKEN is missing; existing bearer or owner cookie/CSRF authentication required.
+- Updated `/phoenix.html` and `/phoenix.js`: Save in UberBond, read list, restore, and opt-in automatic save on each manually entered checkpoint.
+- Founder Ops cockpit now has a PHOENIX entry. Local export remains an offline fallback.
+- Tests in `tests/phoenix-owner-vault.test.mjs` cover tamper, missing IDs, 890 lineage, idempotency, restore integrity, claim limits, and restricted metadata listing.
+
+Native persistence preserves material checkpoints entered into this first-party app after authenticated write success. It does NOT automatically read ChatGPT native conversation history; an unrecorded thought can still be lost. A fresh ChatGPT chat cannot read owner-authenticated database bytes without access or user-provided file.
+
+The notes are access controlled but NOT end-to-end encrypted by PHOENIX. Do not store passwords, private financial documents, personal identification, or raw confidential customer transcripts. Database/provider backup, account credentials, availability and key custody remain separate concerns.
+
+Git merge is not production deployment. Render autoDeploy was observed disabled; deploying requires confirmed workspace and a readback of current live commit, database migration, protected save and restore.

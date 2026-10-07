@@ -30,6 +30,7 @@ import { compileCrownOwnerResumeAuthority } from './src/crown-owner-resume-autho
 import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
+import { runAchievedOpusEquivalenceDoctor } from './scripts/infinite-opus-achieved-equivalence-doctor.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -730,6 +731,18 @@ if (wrapperIsEntryPoint) process.argv[1] = corePath;
 let core;
 try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
+
+if (wrapperIsEntryPoint) {
+  try {
+    const result=runAchievedOpusEquivalenceDoctor();
+    console.log('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify(result));
+  } catch (error) {
+    console.error('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify({
+      ok:false,status:'EQUIVALENCE_ISLAND_DOCTOR_EXCEPTION',reason:String(error?.message||error).slice(0,300),
+      providerCallsPerformed:0,modelInferenceCallsPerformed:0,externalApiSpendUsd:0
+    }));
+  }
+}
 
 if (wrapperIsEntryPoint) {
   void (async () => {

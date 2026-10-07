@@ -269,6 +269,81 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           unrestrictedProseCertified: false });
       });
     },
+    async listPendingJevTriage({limit=16}={}) {
+      if(!Number.isSafeInteger(limit)||limit<1||limit>64)return zero({ok:false,status:'JEV_TRIAGE_LIMIT_REFUSED',providerCallsPerformed:0,semanticAuthority:'NONE'});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const rows=Object.values(state.debts)
+          .filter(d=>d.status!=='SETTLED'&&d.jevPlan&&!d.jevTriage)
+          .sort((a,b)=>String(a.taskId).localeCompare(String(b.taskId)))
+          .slice(0,limit)
+          .map(d=>({
+            taskId:d.taskId,
+            taskClass:d.taskClass,
+            stakes:d.stakes,
+            closureReasons:Array.isArray(d.reasons)?[...d.reasons]:[],
+            jevPlan:structuredClone(d.jevPlan),
+            semanticAuthority:'NONE',
+            crownSuppressionAuthority:'NONE'
+          }));
+        return zero({ok:true,status:'PENDING_JEV_PAGE_FAULT_TRIAGE',count:rows.length,rows,providerCallsPerformed:0,semanticAuthority:'NONE'});
+      });
+    },
+    async recordJevPageFaultTriage(record={}) {
+      safePayload(record);
+      const safeAnswers={};
+      for(const [key,value] of Object.entries(record.answers??{})){
+        if(!value||typeof value!=='object')continue;
+        if(typeof value.choice==='string')safeAnswers[key]={type:'choice',choice:String(value.choice).slice(0,80),confidence:Number.isFinite(Number(value.confidence))?Number(value.confidence):null};
+        else if(Number.isFinite(Number(value.score)))safeAnswers[key]={type:'score',score:Number(value.score),confidence:Number.isFinite(Number(value.confidence))?Number(value.confidence):null};
+        else if(Number.isFinite(Number(value.noul)))safeAnswers[key]={type:'noul',noul:Number(value.noul)};
+      }
+      if(!identity(record.taskId)||!prefixedDigest(record.planDigest)||typeof record.providerRequestId!=='string'||!record.providerRequestId||
+         typeof record.observedModelRevision!=='string'||!record.observedModelRevision.startsWith('typesafe/jev-1.13')||
+         !Number.isSafeInteger(record.actualMicrousd)||record.actualMicrousd<0||record.actualMicrousd>1000||
+         !Object.keys(safeAnswers).length)
+        return zero({ok:false,status:'JEV_PAGE_FAULT_TRIAGE_RECORD_REFUSED',providerCallsPerformed:0,semanticAuthority:'NONE'});
+      return transact(store,async tx=>{
+        const state=await stateFor(tx),debt=state.debts[record.taskId];
+        if(!debt||debt.status==='SETTLED'||!debt.jevPlan)return zero({ok:false,status:'CURRENT_UNSETTLED_JEV_PAGE_FAULT_REQUIRED',providerCallsPerformed:0,semanticAuthority:'NONE'});
+        if(debt.jevPlan.planDigest!==record.planDigest)return zero({ok:false,status:'JEV_PAGE_FAULT_PLAN_DRIFT_REFUSED',providerCallsPerformed:0,semanticAuthority:'NONE'});
+        if(debt.jevTriage){
+          if(debt.jevTriage.providerRequestId===record.providerRequestId&&debt.jevTriage.planDigest===record.planDigest)
+            return zero({ok:true,status:'IDEMPOTENT_JEV_PAGE_FAULT_TRIAGE',taskId:record.taskId,recommendedLane:debt.jevTriage.recommendedLane,providerCallsPerformed:0,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'});
+          return zero({ok:false,status:'JEV_PAGE_FAULT_TRIAGE_CONFLICT',providerCallsPerformed:0,semanticAuthority:'NONE'});
+        }
+        const hard=Number(safeAnswers.hard_reasoning?.score);
+        const shape=String(safeAnswers.task_shape?.choice??'').toLowerCase();
+        const compression=Number(safeAnswers.source_compression_value?.score);
+        const crownNeed=Number(safeAnswers.crown_necessity?.noul);
+        const recommendedLane=hard>=2?'SOL_PRO_HARD_RESIDUAL':
+          shape==='coding'?'DEEPSEEK_THEN_SOL':
+          compression>=1?'MIMO_STRUCTURE_THEN_SOL':
+          'SOL_STANDARD';
+        const reviewRecommendation=Number.isFinite(crownNeed)&&crownNeed>=.5?'FRONTIER_REVIEW_RECOMMENDED':'BOUNDED_PREWORK_FIRST';
+        debt.jevTriage={
+          planDigest:record.planDigest,
+          observedAt:new Date(clock()).toISOString(),
+          providerRequestId:record.providerRequestId,
+          model:'typesafe/jev-1.13',
+          observedModelRevision:record.observedModelRevision,
+          upstreamProvider:typeof record.upstreamProvider==='string'?record.upstreamProvider:null,
+          actualMicrousd:record.actualMicrousd,
+          answers:safeAnswers,
+          recommendedLane,
+          reviewRecommendation,
+          semanticAuthority:'NONE',
+          crownSuppressionAuthority:'NONE'
+        };
+        state.receipts.push({kind:'JEV_PAGE_FAULT_TRIAGE_OBSERVED',taskId:record.taskId,planDigest:record.planDigest,
+          providerRequestId:record.providerRequestId,actualMicrousd:record.actualMicrousd,recommendedLane,reviewRecommendation,
+          observedAt:clock(),semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'});
+        await persist(tx,state);
+        return zero({ok:true,status:'JEV_PAGE_FAULT_TRIAGE_OBSERVED_NONAUTHORITATIVE',taskId:record.taskId,
+          recommendedLane,reviewRecommendation,providerCallsPerformed:0,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE',
+          debtStatus:debt.status});
+      });
+    },
     async demandPlan() {
       return transact(store, async tx => {
         const state = await stateFor(tx);

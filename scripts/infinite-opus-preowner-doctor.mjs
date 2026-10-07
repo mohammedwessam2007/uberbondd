@@ -54,7 +54,7 @@ const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provabl
  'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs',
  'tests/openrouter-jev-governed-adapter.test.mjs', 'tests/openrouter-processor-auction-v5.test.mjs',
  'tests/openrouter-full-stack-no-amputation.test.mjs', 'tests/server-typingmind-boundary.test.mjs', 'tests/infinite-opus-astra-activation-chain.test.mjs',
- 'tests/crown-owner-resume-authority.test.mjs', 'tests/crown-durable-admission.test.mjs', 'tests/infinite-opus-owner-resume-server-boundary.test.mjs', 'tests/unified-cognition-ledger-bridge.test.mjs', 'tests/infinite-opus-semantic-closure-host.test.mjs', 'tests/native-runtime-decision-franchise.test.mjs'];
+ 'tests/crown-owner-resume-authority.test.mjs', 'tests/crown-durable-admission.test.mjs', 'tests/infinite-opus-owner-resume-server-boundary.test.mjs', 'tests/unified-cognition-ledger-bridge.test.mjs', 'tests/infinite-opus-semantic-closure-host.test.mjs', 'tests/native-runtime-decision-franchise.test.mjs', 'tests/open-router-canon-doctor.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {
  cwd: root, encoding: 'utf8', timeout: 60_000, maxBuffer: 2_000_000,
  env: { PATH: process.env.PATH, TZ: 'UTC' }

@@ -721,5 +721,20 @@
     "historicalCertifiedResidualScope": "MODELED_CANONICAL_SOURCE_HEAVY_COLD_PATH__EXACT_ROUTE_PLUS_DEEPSEEK_FUSED_SOURCE_WORKER_PLUS_OPUS_ACCEPT__UNCERTIFIED_JEV_E0_E4_FANOUT_EXCLUDED",
     "currentCheckpointClass": "EXECUTED_BENCHMARK_CAPACITY_NOT_PRODUCTION_REALIZED",
     "currentCheckpointTruthBoundary": "2,352,942 distinct E3 decisions and zero provider calls were observed; fair direct task geometry and observed all-in production economics must still settle the receipt court."
+  },
+  "currentRuntimeOverlay": {
+    "schemaVersion": "uberbond.open-router.current-runtime-pointer.v1",
+    "observedAt": "2026-10-07T09:22:00Z",
+    "machineTruth": "79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json",
+    "humanTruth": "80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md",
+    "currentStatus": "INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS",
+    "executableLiveSha": "a1321dedcc1387090b889f94191de3415487676c",
+    "renderDeploy": "dep-db2p2tid0e5s73dt7400",
+    "currentCrownBlocker": "crown-admission-absent",
+    "exactRemainingPaidCalls": 2,
+    "maximumIncrementalSpendUsd": 0.3,
+    "directOpenRouterKeyRequiredInTypingMind": false,
+    "typingMindSavedState": "NOT_VERIFIED_SAVED",
+    "precedence": "For present-tense runtime/activation facts this overlay outranks September setup instructions while preserving them as lineage."
   }
 }

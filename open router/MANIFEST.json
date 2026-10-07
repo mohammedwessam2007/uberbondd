@@ -390,13 +390,13 @@
     },
     {
       "path": "open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json",
-      "blobSha": "f8221ba05034423a3e2dfcec87f1a2d8aec0cf26",
-      "size": 5044
+      "blobSha": "3fe558294a3dd90454715dd389681a398ced5231",
+      "size": 5838
     },
     {
       "path": "open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md",
-      "blobSha": "d34a0294f08e29250d9591e78faad4332fc8d2b9",
-      "size": 4999
+      "blobSha": "262c4942694319fb93ccffd96826c05591ec3369",
+      "size": 5465
     },
     {
       "path": "open router/ACTIVATION_CHECKLIST.md",
@@ -490,8 +490,8 @@
     },
     {
       "path": "open router/OPEN_ROUTER_UBERMIND_CANON.json",
-      "blobSha": "f9a6030b46467844640465a827088c2b8f36694b",
-      "size": 34739
+      "blobSha": "327e5f3e66754df32f8dbdf36d045767c25bee76",
+      "size": 35093
     },
     {
       "path": "open router/OPERATING_SPEC.json",
@@ -661,12 +661,14 @@
     "crownPromoted": false
   },
   "currentRuntimeReconciliation": {
-    "observedAt": "2026-10-07T09:22:00Z",
+    "observedAt": "2026-10-07T09:38:10Z",
     "status": "CURRENT_RUNTIME_OVERLAY_INDEXED",
     "machineTruth": "open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json",
     "humanTruth": "open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md",
     "canonDoctor": "scripts/open-router-canon-doctor.mjs",
     "selfExcludedManifest": true,
-    "inventoryLaw": "expectedFinalFolderFileCount includes MANIFEST.json; files[] inventories every other current folder file by Git blob SHA and byte size."
+    "inventoryLaw": "expectedFinalFolderFileCount includes MANIFEST.json; files[] inventories every other current folder file by Git blob SHA and byte size.",
+    "sourceBindingMode": "EXTERNAL_GIT_MAIN_AND_RENDER_RECEIPT",
+    "selfReferentialHeadForbidden": true
   }
 }

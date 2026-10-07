@@ -9,7 +9,7 @@ import { redactSecrets } from './secret-patterns.mjs';
 import { createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions } from './provable-execution-ledger.mjs';
 import { validateProvableWorkItem } from './provable-reference-economics.mjs';
 import { createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognitiveCapitalAsset, closeCognitiveCapitalLedger, auditCognitiveCapitalEconomics } from './cognitive-capital-ledger.mjs';
-import { executeDecisionFranchise } from './decision-franchise.mjs';
+import { compileGhostAgentFromFranchise,executeGhostAgent } from './ghost-agent.mjs';
 import { certifyExhaustiveCrownDecisionFranchise } from './decision-franchise-certifier.mjs';
 import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash } from './frontier-thought-bond.mjs';
 import { deriveUnifiedCognitionHistory } from './unified-cognition-ledger-bridge.mjs';
@@ -122,7 +122,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         if (Object.keys(state.tasks).length >= 10000 && !prior) throw new Error('archive-checkpoint-required-before-capacity-growth');
         if (prior?.status === 'CLOSED_DECISION_FRANCHISE') {
           return zero({ ok:true, status:'IDEMPOTENT_DECISION_FRANCHISE_HIT', decision:structuredClone(prior.decision),
-            franchiseId:prior.franchiseId, proofClass:'E3', semanticAuthority:'CERTIFIED_BOUNDED_POLICY', providerCallsPerformed:0 });
+            franchiseId:prior.franchiseId, proofClass:'E3', semanticAuthority:'CERTIFIED_BOUNDED_POLICY',
+            executionShell:prior.executionShell??'DECISION_FRANCHISE_DIRECT_LEGACY',providerCallsPerformed:0 });
         }
 
         // Exact-before-JEV: attempt independently admitted Decision Franchises
@@ -137,10 +138,15 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           };
           const candidates=liveDecisionFranchises
             .filter(row=>row?.record?.spec?.taskClass===task.taskClass)
-            .map(row=>({row,out:executeDecisionFranchise({
-              record:row.record,trustPin:row.trustPin,task:franchiseTask,
-              currentContext:context,now:clock(),semanticCanonicalizers
-            })}))
+            .map(row=>{
+              const ghost=compileGhostAgentFromFranchise({
+                record:row.record,trustPin:row.trustPin,
+                eventType:'cognition.infinite-opus.execute',payloadField:'payload',
+                compiledAt:row.record.mintedAt??new Date(clock()).toISOString()
+              });
+              const event={eventId:task.taskId,type:'cognition.infinite-opus.execute',payload:structuredClone(task.payload)};
+              return {row,ghost,out:executeGhostAgent({ghost,event,currentContext:context,now:clock(),semanticCanonicalizers})};
+            })
             .filter(x=>x.out.ok);
           if (candidates.length > 1) {
             state.receipts.push({kind:'DECISION_FRANCHISE_AMBIGUITY',taskId:task.taskId,observedAt:clock(),candidateCount:candidates.length});
@@ -148,8 +154,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             return zero({ok:false,status:'AMBIGUOUS_DECISION_FRANCHISE_PAGE_FAULT',providerCallsPerformed:0,semanticAuthority:'NONE'});
           }
           if (candidates.length === 1) {
-            const hit=candidates[0].out, franchiseHash=hit.franchiseHash;
-            state.tasks[task.taskId]={taskHash,status:'CLOSED_DECISION_FRANCHISE',decision:structuredClone(hit.decision),franchiseId:hit.franchiseId,franchiseHash};
+            const hit=candidates[0].out, ghost=candidates[0].ghost, franchiseHash=hit.franchiseHash;
+            state.tasks[task.taskId]={taskHash,status:'CLOSED_DECISION_FRANCHISE',decision:structuredClone(hit.decision),franchiseId:hit.franchiseId,franchiseHash,executionShell:'GHOST_AGENT',ghostHash:ghost.ghostHash};
             const asset=state.capital[franchiseHash]??{
               assetId:franchiseHash,kind:'DECISION_FRANCHISE',qualityType:'E3_CERTIFIED_BOUNDED_POLICY',
               createdAt:clock(),tasksServedCount:0,providerCallsAvoided:0,status:'VALID_FOR_CURRENT_TYPED_SCOPE'
@@ -159,7 +165,8 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             asset.lastValidatedAt=clock();
             state.capital[franchiseHash]=asset;
             state.receipts.push({kind:'DECISION_FRANCHISE_HIT',taskId:task.taskId,executionClass:'E3',
-              franchiseId:hit.franchiseId,franchiseHash,observedAt:clock(),providerCallsPerformed:0});
+              franchiseId:hit.franchiseId,franchiseHash,executionShell:'GHOST_AGENT',ghostHash:ghost.ghostHash,
+              eventType:'cognition.infinite-opus.execute',observedAt:clock(),providerCallsPerformed:0});
 
             let reference=null;
             if (typeof referenceContractResolver === 'function') reference=await referenceContractResolver({
@@ -188,7 +195,7 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
             } else state.receipts.push({kind:'REFERENCE_CONTRACT_MISSING',taskId:task.taskId,executionClass:'E3',observedAt:clock()});
             await persist(tx,state);
             return zero({ok:true,status:'CLOSED_DECISION_FRANCHISE',decision:structuredClone(hit.decision),
-              franchiseId:hit.franchiseId,franchiseHash,proofClass:'E3',
+              franchiseId:hit.franchiseId,franchiseHash,proofClass:'E3',executionShell:'GHOST_AGENT',ghostHash:ghost.ghostHash,
               semanticAuthority:'CERTIFIED_BOUNDED_POLICY',providerCallsPerformed:0});
           }
         }

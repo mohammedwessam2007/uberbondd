@@ -6,6 +6,23 @@ Status: `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`
 
 Purpose: this is the single short recovery pointer for current UberBond launch execution. It supersedes the Oct 5 all-or-nothing Winnr purchase-gate interpretation without deleting historical receipts.
 
+## Superseding Infinite Opus frontier — 2026-10-07
+
+- Exact executable main and Render live SHA: `a1321dedcc1387090b889f94191de3415487676c`; deploy `dep-db2p2tid0e5s73dt7400`.
+- PRs #1257-#1261 closed the vanished-bill quarantine, exact two-edge owner resume boundary, durable Crown admission resolution, one-way Unified Cognition bridge, governed semantic closure host, and Ghost Agent's genuine queue-event host.
+- Current protected runtime already has the OpenRouter runtime key, TypingMind gateway bearer, and current October USD 20 runtime authorization. Do **not** recreate keys or rerun the historical MiMo canary.
+- Current activation diagnostic has exactly one blocker: `crown-admission-absent`. The diagnostic performed zero provider inference and authorized zero spend.
+- Sealed Crown recovery proves 2 hidden tasks, 3/4 candidate answers retained, exactly 1 missing candidate answer and exactly 1 missing evaluator call. Hidden task/answer payloads remain sealed.
+- Vanished generation `gen-1790900587-TKEqsFrik1iupnf4Ljrd` has unknown actual bill and is conservatively quarantined at its full pre-call reserve. It is not evidence and is not coerced to zero.
+- The only supported paid continuation is exactly two missing calls, maximum USD 0.30 incremental spend, within the existing USD 0.45 total evaluation envelope and USD 20 monthly cap. This still requires explicit owner spend authorization.
+- A successful verified Opus Crown receipt now persists durably and is consumed automatically by the TypingMind gateway; manual receipt copying is no longer required.
+- Unified Cognition is now a production-reachable one-way derived view. `src/cognition-ledger.mjs` remains the only provider-spend reservation/dispatch/settlement authority.
+- The 12-module semantic closure cluster is production-reachable through an authenticated zero-effect admin host. Operator payloads cannot self-mint Crown/E2/tokenizer/price/reverse-parser authority.
+- Ghost Agent is production-reachable from the real `cognition.infinite-opus.execute` queue event and shells only ACTIVE trust-pinned side-effect-free Decision Franchises with zero inference.
+- Historical Frontier VM / cognitive-superoptimizer / old optional Infinite Opus library modules remain `RESEARCH_ONLY`; they are preserved but are not present activation blockers.
+- TypingMind's private `UberMind Auto` custom-model save remains externally unverified. Complete private Test & Save only after current Crown admission exists; never expose the gateway bearer in chat or Git.
+- New provider inference calls in this continuation: 0. New OpenRouter spend: USD 0. Customer messages/payment actions/purchases/DNS changes: 0.
+
 ## Recovery order
 
 Refresh `main`, then read in this order:

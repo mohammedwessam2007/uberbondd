@@ -4,8 +4,8 @@ import crypto from 'node:crypto';
 import { compileInfiniteOpusMarket } from '../src/infinite-opus-market.mjs';
 import { issueCrownAdmissionReceipt } from '../src/crown-admission.mjs';
 import { compileTypingMindChatRequest, TYPINGMIND_UBERMIND_MODEL } from '../src/infinite-opus-typingmind-gateway.mjs';
-import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness,
-  TYPINGMIND_JEV_MODEL,TYPINGMIND_BUILDER_MODEL,TYPINGMIND_MIMO_MODEL,TYPINGMIND_DEEPSEEK_MODEL,
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, inspectHaiku55ShadowReadiness,
+  TYPINGMIND_JEV_MODEL,TYPINGMIND_BUILDER_MODEL,TYPINGMIND_MIMO_MODEL,TYPINGMIND_DEEPSEEK_MODEL,TYPINGMIND_HAIKU55_MODEL,
   TYPINGMIND_CROWN_MODEL,TYPINGMIND_CROWN_ROUTE_IDENTITY } from '../src/infinite-opus-typingmind-live.mjs';
 
 const h=x=>'sha256:'+crypto.createHash('sha256').update(String(x)).digest('hex');
@@ -308,4 +308,31 @@ test('served Crown revision drift settles the bill, freezes ledger and emits no 
  const rows=directSequence();rows[2].data.model='anthropic/claude-opus-5.5-20260922';const store=makeStore();
  const o=createTypingMindLiveOrchestrator({store,openRouterKey:'fixture-key-32-characters-long',paidAuthorization:authorization(),crownAdmission:admission(),marketSnapshot:market(),fetchImpl:async()=>({ok:true,status:200,text:async()=>JSON.stringify(rows.shift())}),clock:()=>now});
  const out=await o.execute(directRequest());assert.equal(out.ok,false);assert.equal(out.status,'COST_RECORDED_RUNTIME_FROZEN');assert.equal(out.completion,undefined);const ledger=store.dump().infiniteOpusRuntimeV1.ledger;assert.equal(ledger.calls[0].actualMicrousd,2000);assert.ok(ledger.incidents.some(i=>i.reason==='PROVIDER_IDENTITY_CHANGED'));
+});
+
+
+test('Haiku 5.5 shadow readiness is zero-call and requires a current fixed-price OpenRouter route',()=>{
+ const absent=inspectHaiku55ShadowReadiness({marketSnapshot:market(),now});
+ assert.equal(absent.ok,false);
+ assert.equal(absent.status,'HAIKU_5_5_OPENROUTER_ROUTE_NOT_OBSERVED');
+ assert.equal(absent.providerInferenceCallsPerformed,0);
+ assert.equal(absent.semanticAuthority,'NONE');
+
+ const withHaiku=compileInfiniteOpusMarket({data:[
+  {id:TYPINGMIND_HAIKU55_MODEL,canonical_slug:'anthropic/claude-haiku-5.5-20261007',
+   pricing:{prompt:'0.0000001',completion:'0.0000005',input_cache_read:'0.00000001',
+    overrides:[{min_prompt_tokens:100000,prompt:'0.0000005',completion:'0.0000025',input_cache_read:'0.00000005'}]},
+   context_length:1000000,top_provider:{max_completion_tokens:128000},
+   supported_parameters:['reasoning','reasoning_effort','tools','structured_outputs'],
+   architecture:{input_modalities:['text','image']}}
+ ]},{verifiedAt:iso,ttlMs:86400000});
+ const ready=inspectHaiku55ShadowReadiness({marketSnapshot:withHaiku,now});
+ assert.equal(ready.ok,true);
+ assert.equal(ready.status,'HAIKU_5_5_OPENROUTER_SHADOW_ROUTE_READY');
+ assert.equal(ready.inputUsdPerMillion,.1);
+ assert.equal(ready.outputUsdPerMillion,.5);
+ assert.equal(ready.priceOverrides[0].inputUsdPerMillion,.5);
+ assert.equal(ready.callableOnOwnerAccount,'UNKNOWN');
+ assert.equal(ready.eligibleRole,'CROWN_SUPERVISED_SHADOW_WRITER');
+ assert.equal(ready.crownSuppressionAuthority,'NONE');
 });

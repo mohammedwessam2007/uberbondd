@@ -19,11 +19,14 @@ iPad / TypingMind
 
 TypingMind is the cockpit. OpenRouter is the supplier market/transport. UberBond owns policy, routing, proof, memory, capital, safety and authority boundaries.
 
-## Exact current executable truth
+## Current executable truth without self-referential SHA drift
 
-- repository head at observation: `74b67029dda1f4f6b75b288204615b6b6318e6be`
-- exact executable live SHA: `a1321dedcc1387090b889f94191de3415487676c`
-- exact Render deploy: `dep-db2p2tid0e5s73dt7400`
+This versioned file does **not** pretend it can encode its own future squash-merge SHA. Exact present-tense source/deploy identity must be resolved from current Git `main` plus the latest verified Render receipt.
+
+Runtime receipts already established this semantic state, including the first canon-reconciliation deployment `dep-db3158flk1mc7392scm0` on source `e45e95733261576faa8eb667888cfba58702ed68`. Later docs/canon commits do not make those embedded IDs a permanent current-head pointer.
+
+- source binding mode: **EXTERNAL_GIT_MAIN_AND_RENDER_RECEIPT**
+- Revenue Terminal on the canon-reconciliation deploy: **readHealthy=true**
 - OpenRouter runtime key present in protected runtime: **yes**
 - private TypingMind gateway bearer present in protected runtime: **yes**
 - October runtime authorization current: **yes**

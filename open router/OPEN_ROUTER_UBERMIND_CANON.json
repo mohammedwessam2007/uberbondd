@@ -724,17 +724,23 @@
   },
   "currentRuntimeOverlay": {
     "schemaVersion": "uberbond.open-router.current-runtime-pointer.v1",
-    "observedAt": "2026-10-07T09:22:00Z",
+    "observedAt": "2026-10-07T09:38:10Z",
     "machineTruth": "79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json",
     "humanTruth": "80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md",
     "currentStatus": "INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS",
-    "executableLiveSha": "a1321dedcc1387090b889f94191de3415487676c",
-    "renderDeploy": "dep-db2p2tid0e5s73dt7400",
     "currentCrownBlocker": "crown-admission-absent",
     "exactRemainingPaidCalls": 2,
     "maximumIncrementalSpendUsd": 0.3,
     "directOpenRouterKeyRequiredInTypingMind": false,
     "typingMindSavedState": "NOT_VERIFIED_SAVED",
-    "precedence": "For present-tense runtime/activation facts this overlay outranks September setup instructions while preserving them as lineage."
+    "precedence": "For present-tense runtime/activation facts this overlay outranks September setup instructions. Exact current Git/Render identity must always be refreshed externally; embedded receipt SHAs are historical receipts, not a self-referential current-head claim.",
+    "sourceBindingMode": "EXTERNAL_GIT_MAIN_AND_RENDER_RECEIPT",
+    "embeddedCurrentHeadForbidden": true,
+    "firstCanonReconciliationDeployReceipt": {
+      "executableSha": "e45e95733261576faa8eb667888cfba58702ed68",
+      "renderDeploy": "dep-db3158flk1mc7392scm0",
+      "status": "LIVE",
+      "revenueTerminalReadHealthy": true
+    }
   }
 }

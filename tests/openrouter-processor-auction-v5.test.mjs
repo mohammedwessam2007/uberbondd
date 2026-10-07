@@ -309,3 +309,18 @@ test('Haiku 5.5 can enter routine JEV shadow auction but never the hard-residual
   });
   assert.equal(hard.eligible.some(x=>x.id==='haiku'),false);
 });
+
+
+test('critic surcharge includes whole-call Crown repricing when critic crosses a tier',()=>{
+  const tieredCrown={
+    model:'anthropic/claude-opus-tier-fixture',
+    inputUsdPerMillion:1,outputUsdPerMillion:1,cacheReadUsdPerMillion:1,
+    priceOverrides:[{minPromptTokens:10000,inputUsdPerMillion:4,outputUsdPerMillion:4,cacheReadUsdPerMillion:4}]
+  };
+  const critic=route('critic/model',.1,.2,.1);
+  const surcharge=estimateIndependentCriticSurchargeUsd({
+    criticRoute:critic,crownRoute:tieredCrown,inputTokens:9000,candidateOutputTokens:900,criticOutputTokens:200
+  });
+  const naiveCriticOnly=.1*9900/1e6+.2*200/1e6;
+  assert.ok(surcharge>naiveCriticOnly+.02);
+});

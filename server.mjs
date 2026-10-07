@@ -33,6 +33,7 @@ import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
 import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
+import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
@@ -1068,6 +1069,17 @@ if (wrapperIsEntryPoint) {
         secretValuesExposed:false,
         truthBoundary:'Current public model-market plus protected runtime prerequisite check only. No Jev decision inference was executed and Crown suppression remains forbidden.'
       }));
+      const store=createStore(config);
+      try{
+        await store.init();
+        const canary=await runGovernedJevLiveCanary({
+          store,
+          apiKey:String(process.env.OPENROUTER_API_KEY||''),
+          paidAuthorization,
+          marketSnapshot
+        });
+        console.log('UBERMIND_JEV_LIVE_CANARY '+JSON.stringify(canary));
+      }finally{await store.close().catch(()=>{});}
     }catch(error){
       console.error('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
         ok:false,status:'JEV_SHADOW_READINESS_DIAGNOSTIC_FAILED',

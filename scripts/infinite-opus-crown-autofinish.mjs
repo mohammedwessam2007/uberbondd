@@ -183,20 +183,22 @@ export async function runCrownAutoFinish({store,apiKey,paidAuthorization,mainSha
   const old=await getState(store,KEY);
   if(old?.status!=='FAILED_NO_AUTOMATIC_RETRY')return {ok:false,status:'EXACT_FAILED_V7_STATE_REQUIRED',providerCallsPerformed:0};
   if(resuming){
-   const source=await getState(store,resumeKeys.sourceKey);
-   for(const row of recovered.priorBillingRows??source.generationJournal){
-    if(row.status==='UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED'){
-     if(row.actualCostUsd!==null||!Number.isFinite(row.conservativeLiabilityUsd)||row.conservativeLiabilityUsd!==row.reservedWorstCaseUsd||row.semanticAuthority!=='NONE')
+   // recoverInterruptedCrownCheckpoint has already re-opened the sealed checkpoint,
+   // pinned retained-answer hashes, exact historical generation IDs/costs, known
+   // provider identities and the full-reserve quarantine. Do not make historical
+   // provider retention a new authority source.
+   for(const row of recovered.priorBillingRows??[]){
+    if(row.status==='UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED' &&
+      (row.actualCostUsd!==null||!Number.isFinite(row.conservativeLiabilityUsd)||row.conservativeLiabilityUsd!==row.reservedWorstCaseUsd||row.semanticAuthority!=='NONE'))
       throw new Error('prior-quarantine-integrity-drift');
-     continue;
-    }
-    const observed=await generation(apiKey,row.id);
-    if(observed.id!==row.id||typeof observed.total_cost!=='number'||!Number.isFinite(observed.total_cost)||observed.total_cost!==row.costUsd||observed.model!==row.observedModel||observed.provider_name!==row.provider)
-     throw new Error('prior-billing-reconciliation-drift');
    }
   }
-  const meta=await generation(apiKey,ORIGINAL_GENERATION);
-  await reconcileOriginalCrownFinancialState({store,generationMetadata:meta});
+  const financialSettings=await store.transaction(async tx=>await tx.getSettings());
+  if(financialSettings[RECOVERY_KEY]) validateExistingOriginalCrownFinancialRecovery(financialSettings[RECOVERY_KEY]);
+  else {
+   const meta=await generation(apiKey,ORIGINAL_GENERATION);
+   await reconcileOriginalCrownFinancialState({store,generationMetadata:meta});
+  }
   const keyResponse=await fetch('https://openrouter.ai/api/v1/key',{headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)});
   const keyBody=keyResponse.ok?await keyResponse.json():null,policy=keyBody?.data;
   const uncertainLiabilityUsd=Number(recovered?.uncertainChargeLiabilityUsd||0);

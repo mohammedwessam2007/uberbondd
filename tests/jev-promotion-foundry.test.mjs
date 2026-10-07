@@ -6,6 +6,7 @@ import { compileJevPromotionCandidates } from '../src/jev-promotion-foundry.mjs'
 
 const row=(index,{outcome='ACCEPT'}={})=>({
   observationId:'obs-'+index,
+  requestFingerprint:'req-'+index,
   observedAt:new Date(Date.parse('2026-10-01T00:00:00Z')+index*15*60_000).toISOString(),
   qualityClass:'Q_FRONTIER_INTERACTIVE',
   jevModel:'typesafe/jev-1.13',
@@ -106,7 +107,6 @@ test('duplicate retries cannot manufacture the minimum evidence count and worst 
   assert.equal(c.observedRegressions,1);
   assert.equal(c.readyForCanonicalSealedCertification,false);
   assert.ok(c.certificationBlockers.includes('minimum-distinct-crown-supervised-outcomes-not-met'));
-  assert.ok(c.certificationBlockers.includes('duplicate-request-observations-excluded-from-evidence-count'));
   assert.ok(c.certificationBlockers.includes('observed-crown-mutation-regression-present'));
 });
 

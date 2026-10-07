@@ -31,6 +31,7 @@ import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './sr
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
 import { runAchievedOpusEquivalenceDoctor } from './scripts/infinite-opus-achieved-equivalence-doctor.mjs';
+import { finalizeR3WithoutNewInference } from './src/crown-r3-zero-inference-finalizer.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -737,53 +738,16 @@ if (wrapperIsEntryPoint) {
     const store=createStore(config);
     try{
       await store.init();
-      const settings=await store.transaction(async tx=>await tx.getSettings());
-      const rows=Object.entries(settings||{})
-        .filter(([key])=>key.startsWith('infinite_opus_crown_'))
-        .map(([key,state])=>({
-          key,
-          status:state?.status??null,
-          reason:state?.reason??null,
-          newSpendUsd:Number.isFinite(Number(state?.newSpendUsd))?Number(state.newSpendUsd):null,
-          sourceAttemptKey:state?.sourceAttemptKey??null,
-          sealedEvidencePresent:Boolean(state?.sealedEvidence),
-          pendingCall:state?.pendingCall?{
-            model:state.pendingCall.model??null,
-            tag:state.pendingCall.tag??null,
-            generationId:state.pendingCall.generationId??null,
-            reservedWorstCaseUsd:Number.isFinite(Number(state.pendingCall.reservedWorstCaseUsd))?Number(state.pendingCall.reservedWorstCaseUsd):null,
-            reconciliationStatus:state.pendingCall.reconciliationStatus??null
-          }:null,
-          generationJournal:Array.isArray(state?.generationJournal)?state.generationJournal.map(row=>({
-            id:row?.id??null,
-            model:row?.model??null,
-            status:row?.status??null,
-            costUsd:Number.isFinite(Number(row?.costUsd))?Number(row.costUsd):null,
-            provider:row?.provider??null,
-            observedModel:row?.observedModel??null,
-            reservedWorstCaseUsd:Number.isFinite(Number(row?.reservedWorstCaseUsd))?Number(row.reservedWorstCaseUsd):null
-          })):[],
-          resumeAuthorization:state?.resumeAuthorization?{
-            attemptKey:state.resumeAuthorization.attemptKey??null,
-            sourceKey:state.resumeAuthorization.sourceKey??null,
-            maxIncrementalMicrousd:state.resumeAuthorization.maxIncrementalMicrousd??null,
-            maxRemainingPaidCalls:state.resumeAuthorization.maxRemainingPaidCalls??null,
-            evidenceRef:state.resumeAuthorization.evidenceRef??null
-          }:null
-        }));
-      console.log('UBERMIND_CROWN_SAFE_STATE_INVENTORY '+JSON.stringify({
-        ok:true,
-        count:rows.length,
-        rows,
-        providerInferenceCalls:0,
-        providerMetadataCalls:0,
-        hiddenPayloadsExposed:false
-      }));
+      const result=await finalizeR3WithoutNewInference({
+        store,
+        apiKey:String(process.env.OPENROUTER_API_KEY||''),
+        checkpointKey:process.env.TOKEN_ENCRYPTION_KEY,
+        mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown'),
+        paidAuthorization:parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON')
+      });
+      console.log('UBERMIND_R3_ZERO_INFERENCE_FINALIZATION '+JSON.stringify(result));
     }catch(error){
-      console.error('UBERMIND_CROWN_SAFE_STATE_INVENTORY '+JSON.stringify({
-        ok:false,status:'STATE_INVENTORY_FAILED',reason:String(error?.message||error).slice(0,240),
-        providerInferenceCalls:0,providerMetadataCalls:0,hiddenPayloadsExposed:false
-      }));
+      console.error('UBERMIND_R3_ZERO_INFERENCE_FINALIZATION '+JSON.stringify({ok:false,status:'FINALIZATION_FAILED',reason:String(error?.message||error).slice(0,260),providerInferenceCalls:0,hiddenPayloadsExposed:false}));
     }finally{await store.close().catch(()=>{});}
   })();
 }

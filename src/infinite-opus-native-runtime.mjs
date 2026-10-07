@@ -12,6 +12,7 @@ import { createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognit
 import { executeDecisionFranchise } from './decision-franchise.mjs';
 import { certifyExhaustiveCrownDecisionFranchise } from './decision-franchise-certifier.mjs';
 import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash } from './frontier-thought-bond.mjs';
+import { deriveUnifiedCognitionHistory } from './unified-cognition-ledger-bridge.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
@@ -279,6 +280,18 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
           activeCognitiveCapitalCampaignId:state.activeCognitiveCapitalCampaignId,
           paidConnected: Boolean(paidExecutor && paidAuthorization),
           providerCallsPerformedBySnapshot: 0 });
+      });
+    },
+    async unifiedCognition() {
+      return transact(store,async tx=>{
+        const state=await stateFor(tx);
+        const history=deriveUnifiedCognitionHistory({
+          currentLedger:state.ledger,
+          archivedLedgers:state.archivedLedgers??{},
+          channelId:'infinite-opus-runtime',
+          authorizationRef:paidAuthorization?.evidenceRef??'runtime-authority:unavailable'
+        });
+        return zero({...history,providerCallsPerformed:0});
       });
     },
     async provableEconomics(actualAllInMicrousd) {

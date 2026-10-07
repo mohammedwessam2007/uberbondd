@@ -30,6 +30,9 @@ import { compileCrownOwnerResumeAuthority, CROWN_OWNER_RESUME_CONFIRMATION } fro
 import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
+import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
+import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
+import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
 import { runAchievedOpusEquivalenceDoctor } from './scripts/infinite-opus-achieved-equivalence-doctor.mjs';
 
 const originalCreateServer = http.createServer;
@@ -735,54 +738,60 @@ finally { process.argv[1] = originalArgv1; http.createServer = originalCreateSer
 if (wrapperIsEntryPoint) {
   void (async()=>{
     const store=createStore(config);
+    const key='infinite_opus_crown_resume_20261002_r3';
     try{
       await store.init();
       const settings=await store.transaction(async tx=>await tx.getSettings());
-      const rows=Object.entries(settings||{})
-        .filter(([key])=>key.startsWith('infinite_opus_crown_'))
-        .map(([key,state])=>({
-          key,
-          status:state?.status??null,
-          reason:state?.reason??null,
-          newSpendUsd:Number.isFinite(Number(state?.newSpendUsd))?Number(state.newSpendUsd):null,
-          sourceAttemptKey:state?.sourceAttemptKey??null,
-          sealedEvidencePresent:Boolean(state?.sealedEvidence),
-          pendingCall:state?.pendingCall?{
-            model:state.pendingCall.model??null,
-            tag:state.pendingCall.tag??null,
-            generationId:state.pendingCall.generationId??null,
-            reservedWorstCaseUsd:Number.isFinite(Number(state.pendingCall.reservedWorstCaseUsd))?Number(state.pendingCall.reservedWorstCaseUsd):null,
-            reconciliationStatus:state.pendingCall.reconciliationStatus??null
-          }:null,
-          generationJournal:Array.isArray(state?.generationJournal)?state.generationJournal.map(row=>({
-            id:row?.id??null,
-            model:row?.model??null,
-            status:row?.status??null,
-            costUsd:Number.isFinite(Number(row?.costUsd))?Number(row.costUsd):null,
-            provider:row?.provider??null,
-            observedModel:row?.observedModel??null,
-            reservedWorstCaseUsd:Number.isFinite(Number(row?.reservedWorstCaseUsd))?Number(row.reservedWorstCaseUsd):null
-          })):[],
-          resumeAuthorization:state?.resumeAuthorization?{
-            attemptKey:state.resumeAuthorization.attemptKey??null,
-            sourceKey:state.resumeAuthorization.sourceKey??null,
-            maxIncrementalMicrousd:state.resumeAuthorization.maxIncrementalMicrousd??null,
-            maxRemainingPaidCalls:state.resumeAuthorization.maxRemainingPaidCalls??null,
-            evidenceRef:state.resumeAuthorization.evidenceRef??null
-          }:null
-        }));
-      console.log('UBERMIND_CROWN_SAFE_STATE_INVENTORY '+JSON.stringify({
-        ok:true,
-        count:rows.length,
-        rows,
-        providerInferenceCalls:0,
-        providerMetadataCalls:0,
-        hiddenPayloadsExposed:false
-      }));
+      const state=settings?.[key]??null;
+      const evaluatorId=String(state?.reason||'').replace(/^generation-reconciliation-required:/,'');
+      const row=Array.isArray(state?.generationJournal)?state.generationJournal.find(r=>r.id===evaluatorId):null;
+      if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||state?.reason!=='generation-reconciliation-required:'+evaluatorId||
+         !row||row.model!=='google/gemini-2.5-pro'||row.tag!=='custodian-grade'||!state?.sealedEvidence){
+        console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({ok:false,status:'EXACT_EVALUATOR_INTERRUPTION_NOT_PRESENT',providerInferenceCalls:0}));
+      }else{
+        const apiKey=String(process.env.OPENROUTER_API_KEY||'');
+        if(!apiKey)throw new Error('openrouter-runtime-key-required');
+        let metaRow=row;
+        if(row.status==='DISPATCHED_UNRECONCILED'){
+          const response=await fetch('https://openrouter.ai/api/v1/generation?id='+encodeURIComponent(evaluatorId),{
+            method:'GET',headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)
+          });
+          if(!response.ok){
+            console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
+              ok:false,status:'EVALUATOR_METADATA_UNAVAILABLE',id:evaluatorId,metadataHttpStatus:response.status,
+              providerInferenceCalls:0,hiddenPayloadsExposed:false
+            }));
+            return;
+          }
+          const body=await response.json(),meta=body?.data??{};
+          const costUsd=Number(meta.total_cost),observedModel=String(meta.model??''),provider=String(meta.provider_name??'');
+          if(!Number.isFinite(costUsd)||costUsd<0||costUsd>row.reservedWorstCaseUsd||
+             !verifyCrownProviderModel({requestedModel:row.model,observedModel,provider}))
+            throw new Error('evaluator-bill-or-identity-refused');
+          metaRow={...row,status:'PROVIDER_RECONCILED_PENDING_EVIDENCE',costUsd,observedModel,provider,
+            reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'};
+          const journal=state.generationJournal.map(item=>item.id===evaluatorId?metaRow:item);
+          await store.transaction(async tx=>await tx.setSetting(key,{
+            ...state,generationJournal:journal,newSpendUsd:Number(state.newSpendUsd)+costUsd,
+            evaluatorFinancialReconciliation:{id:evaluatorId,costUsd,observedModel,provider,reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'},
+            updatedAt:new Date().toISOString()
+          }));
+          console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
+            ok:true,status:'EVALUATOR_BILL_AND_IDENTITY_RECONCILED',id:evaluatorId,costUsd,observedModel,provider,
+            totalEvaluationSpendUsd:Number(state.newSpendUsd)+costUsd,providerInferenceCalls:0,hiddenPayloadsExposed:false
+          }));
+        }else{
+          console.log('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
+            ok:row.status==='PROVIDER_RECONCILED_PENDING_EVIDENCE',
+            status:row.status==='PROVIDER_RECONCILED_PENDING_EVIDENCE'?'EVALUATOR_ALREADY_RECONCILED':'EVALUATOR_STATE_REFUSED',
+            id:evaluatorId,costUsd:row.costUsd??null,provider:row.provider??null,providerInferenceCalls:0
+          }));
+        }
+      }
     }catch(error){
-      console.error('UBERMIND_CROWN_SAFE_STATE_INVENTORY '+JSON.stringify({
-        ok:false,status:'STATE_INVENTORY_FAILED',reason:String(error?.message||error).slice(0,240),
-        providerInferenceCalls:0,providerMetadataCalls:0,hiddenPayloadsExposed:false
+      console.error('UBERMIND_EVALUATOR_RECONCILIATION '+JSON.stringify({
+        ok:false,status:'EVALUATOR_RECONCILIATION_FAILED',reason:String(error?.message||error).slice(0,240),
+        providerInferenceCalls:0,hiddenPayloadsExposed:false
       }));
     }finally{await store.close().catch(()=>{});}
   })();

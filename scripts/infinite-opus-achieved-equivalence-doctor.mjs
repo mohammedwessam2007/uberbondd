@@ -11,14 +11,14 @@ export function runAchievedOpusEquivalenceDoctor({root=process.cwd()}={}){
     const full=path.join(root,relative);
     sourceDocuments[relative]=JSON.parse(fs.readFileSync(full,'utf8'));
   }
-  const market=sourceDocuments['config/infinite-opus-live-market-candidates.json'];
-  const opus=(market?.candidates||[]).find(row=>row?.model==='anthropic/claude-opus-5.5');
-  if(!opus)throw new Error('current-opus-reference-candidate-required');
+  const reference=sourceDocuments['config/opus-equivalence-reference-2026-10-07.json'];
+  if(reference?.model!=='anthropic/claude-opus-5.5')throw new Error('current-opus-reference-candidate-required');
+  if(!Number.isFinite(Date.parse(reference.expiresAt))||Date.parse(reference.expiresAt)<=Date.now())throw new Error('fresh-opus-reference-evidence-required');
   return evaluateSourceGroundedEquivalence({
     sourceDocuments,
-    referenceModel:opus.model,
-    inputUsdPerMillion:Number(opus.inputUsdPerMillion),
-    outputUsdPerMillion:Number(opus.outputUsdPerMillion)
+    referenceModel:reference.model,
+    inputUsdPerMillion:Number(reference.pricing?.inputUsdPerMillion),
+    outputUsdPerMillion:Number(reference.pricing?.outputUsdPerMillion)
   });
 }
 

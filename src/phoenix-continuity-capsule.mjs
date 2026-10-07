@@ -8,7 +8,7 @@ const CLAIM_KINDS = new Set(['GOAL','DECISION','IMPLEMENTATION','TEST','EXTERNAL
 const AUTHORITY = new Set(['GOAL_ONLY','SOURCE_OBSERVED','TESTED','MERGED','DEPLOYED','PROVIDER_ATTESTED','FOUNDER_ATTESTED','HYPOTHESIS','UNKNOWN']);
 const SHA = /^[a-f0-9]{64}$/;
 const GIT_SHA = /^[a-f0-9]{40}$/;
-const ID = /^[a-z0-9][a-z0-9._-]{1,99}$/;
+const ID = /^[a-z0-9][a-z0-9._-]{0,99}$/;
 const SECRET = /(\b(?:sk-proj|sk-live|ghp_|gho_|github_pat_|xoxb-|xoxp-|Bearer\s+[a-z0-9_.-]{12,}|password\s*[:=]\s*\S+|api[_-]?key\s*[:=]\s*\S+|-----BEGIN (?:RSA|OPENSSH|PRIVATE) KEY)\b)/i;
 
 function fail(code) { throw new Error('PHOENIX_' + code); }

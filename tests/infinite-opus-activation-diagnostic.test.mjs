@@ -46,3 +46,26 @@ test('activation diagnostic fail-closes absent or stale authority without provid
  assert.equal(out.providerCallPerformed,false);
  assert.equal(out.spendAuthorizedByDiagnostic,false);
 });
+
+
+test('trusted durable Crown override supersedes absent env receipt without exposing authority material',()=>{
+ const env={
+   OPENROUTER_API_KEY:'sk-or-v1-'+'x'.repeat(40),
+   UBERMIND_TYPINGMIND_GATEWAY_TOKEN:'g'.repeat(48),
+   INFINITE_OPUS_PAID_AUTHORIZATION_JSON:JSON.stringify({
+     evidenceRef:'owner://authorization',month:'2026-09',maxMonthlyMicrousd:20_000_000,
+     expiresAt:'2026-10-01T00:00:00Z',crownRoutes:['openrouter:anthropic/claude-opus-5.5']
+   })
+ };
+ const durable={
+   exactModelId:'anthropic/claude-opus-5.5',taskClassRole:'GENERAL_CROWN',
+   routeIdentity:'openrouter:auto-provider-zdr-deny-required-parameters-v1',
+   expiresAt:'2026-10-01T00:00:00Z',receiptHash:'sha256:'+'a'.repeat(64)
+ };
+ const out=inspectInfiniteOpusActivationEnvironment(env,{now,trustedCrownAdmissionOverride:durable,trustedCrownAdmissionSource:'DURABLE_CANON'});
+ assert.equal(out.status,'INFINITE_OPUS_ACTIVATION_ENV_PRESENT_AND_CURRENT');
+ assert.equal(out.crownAdmission.current,true);
+ assert.equal(out.crownAdmission.source,'DURABLE_CANON');
+ assert.equal(JSON.stringify(out).includes(durable.receiptHash),false);
+ assert.equal(out.providerCallPerformed,false);
+});

@@ -40,6 +40,20 @@ function signatureFor(row){
   };
 }
 
+function independentObservations(rows){
+  const byRequest=new Map();
+  const severity=row=>row?.rewriteRequired===true?2:row?.patchRequired===true?1:0;
+  for(const row of rows){
+    const key=String(row?.requestFingerprint??'');
+    if(!key)continue;
+    const current=byRequest.get(key);
+    if(!current||severity(row)>severity(current)||
+      (severity(row)===severity(current)&&Date.parse(row.observedAt)<Date.parse(current.observedAt)))
+      byRequest.set(key,row);
+  }
+  return [...byRequest.values()].sort((a,b)=>Date.parse(a.observedAt)-Date.parse(b.observedAt));
+}
+
 function stableWindows(rows,count){
   const sorted=[...rows].sort((a,b)=>Date.parse(a.observedAt)-Date.parse(b.observedAt));
   if(!sorted.length||!Number.isSafeInteger(count)||count<1)return[];
@@ -66,7 +80,8 @@ function stableWindows(rows,count){
 export function compileJevPromotionCandidates(state={},{
   minimumOutcomes=100,
   stableWindowCount=3,
-  minimumWindowOutcomes=20
+  minimumWindowOutcomes=20,
+  minimumTemporalSpanMs=24*60*60*1000
 }={}){
   const rows=Array.isArray(state?.observations)?state.observations:[];
   if(state?.schemaVersion&&state.schemaVersion!==JEV_CALIBRATION_SCHEMA)
@@ -74,7 +89,8 @@ export function compileJevPromotionCandidates(state={},{
       providerCallsPerformed:0,spendUsd:0,crownSuppressionAuthority:'NONE'};
   if(!Number.isSafeInteger(minimumOutcomes)||minimumOutcomes<20||
      !Number.isSafeInteger(stableWindowCount)||stableWindowCount<3||
-     !Number.isSafeInteger(minimumWindowOutcomes)||minimumWindowOutcomes<1)
+     !Number.isSafeInteger(minimumWindowOutcomes)||minimumWindowOutcomes<1||
+     !Number.isSafeInteger(minimumTemporalSpanMs)||minimumTemporalSpanMs<60*60*1000)
     return {ok:false,status:'JEV_PROMOTION_FOUNDRY_REFUSED',reasons:['valid-zero-loss-promotion-bounds-required'],
       providerCallsPerformed:0,spendUsd:0,crownSuppressionAuthority:'NONE'};
 
@@ -89,12 +105,16 @@ export function compileJevPromotionCandidates(state={},{
 
   const candidates=[];
   for(const [signatureDigest,group] of groups){
-    const obs=[...group.rows].sort((a,b)=>Date.parse(a.observedAt)-Date.parse(b.observedAt));
+    const rawObs=[...group.rows].sort((a,b)=>Date.parse(a.observedAt)-Date.parse(b.observedAt));
+    const obs=independentObservations(rawObs);
     const accepted=obs.filter(x=>x.acceptedWithoutMutation===true).length;
     const patched=obs.filter(x=>x.patchRequired===true).length;
     const rewritten=obs.filter(x=>x.rewriteRequired===true).length;
     const regressions=patched+rewritten;
     const windows=stableWindows(obs,stableWindowCount);
+    const firstAt=obs.length?Date.parse(obs[0].observedAt):NaN;
+    const lastAt=obs.length?Date.parse(obs.at(-1).observedAt):NaN;
+    const temporalSpanMs=Number.isFinite(firstAt)&&Number.isFinite(lastAt)?Math.max(0,lastAt-firstAt):0;
     const currentAllInMicrousd=sum(obs,row=>
       Number(row.costsMicrousd?.jev??0)+Number(row.costsMicrousd?.writer??0)+
       Number(row.costsMicrousd?.critic??0)+Number(row.costsMicrousd?.crown??0));
@@ -102,7 +122,9 @@ export function compileJevPromotionCandidates(state={},{
       Number(row.costsMicrousd?.jev??0)+Number(row.costsMicrousd?.writer??0)+Number(row.costsMicrousd?.critic??0));
     const observedCrownMicrousd=sum(obs,row=>row.costsMicrousd?.crown??0);
     const blockers=[];
-    if(obs.length<minimumOutcomes)blockers.push('minimum-crown-supervised-outcomes-not-met');
+    if(obs.length<minimumOutcomes)blockers.push('minimum-distinct-crown-supervised-outcomes-not-met');
+    if(rawObs.length>obs.length)blockers.push('duplicate-request-observations-excluded-from-evidence-count');
+    if(temporalSpanMs<minimumTemporalSpanMs)blockers.push('minimum-temporal-coverage-not-met');
     if(regressions>0)blockers.push('observed-crown-mutation-regression-present');
     if(!group.signature.jevModelRevision)blockers.push('jev-model-revision-unbound');
     if(!group.signature.crownModel||!group.signature.crownModelRevision)blockers.push('crown-model-revision-unbound');
@@ -115,7 +137,12 @@ export function compileJevPromotionCandidates(state={},{
       candidateId:'jevreflex_'+signatureDigest.slice(7,31),
       signatureDigest,
       taskDomain:group.signature,
+      rawObservationCount:rawObs.length,
       observationCount:obs.length,
+      uniqueRequestCount:obs.length,
+      duplicateObservationCount:Math.max(0,rawObs.length-obs.length),
+      temporalSpanMs,
+      minimumTemporalSpanMs,
       acceptedWithoutMutation:accepted,
       patched,
       rewritten,
@@ -143,7 +170,7 @@ export function compileJevPromotionCandidates(state={},{
       ]:[],
       automaticPromotionAuthorized:false,
       crownSuppressionAuthority:'NONE',
-      truthBoundary:'Observed Crown ACCEPT means no mutation was required on this exact supervised request. It is calibration evidence only. Even a zero-loss 100+ observation domain cannot suppress Crown until the independent canonical sealed certificate is minted and current.'
+      truthBoundary:'Observed Crown ACCEPT means no mutation was required on this exact supervised request. Promotion evidence counts distinct request fingerprints only; repeated requests are deduplicated using the worst observed Crown outcome and cannot manufacture sample size. Even a temporally stable zero-loss 100+ distinct-request domain cannot suppress Crown until the independent canonical sealed certificate is minted and current.'
     });
   }
 

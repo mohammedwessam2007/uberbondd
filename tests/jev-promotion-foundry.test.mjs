@@ -6,7 +6,7 @@ import { compileJevPromotionCandidates } from '../src/jev-promotion-foundry.mjs'
 
 const row=(index,{outcome='ACCEPT'}={})=>({
   observationId:'obs-'+index,
-  observedAt:new Date(Date.parse('2026-10-01T00:00:00Z')+index*60_000).toISOString(),
+  observedAt:new Date(Date.parse('2026-10-01T00:00:00Z')+index*15*60_000).toISOString(),
   qualityClass:'Q_FRONTIER_INTERACTIVE',
   jevModel:'typesafe/jev-1.13',
   jevModelRevision:'typesafe/jev-1.13-20260917',
@@ -47,7 +47,11 @@ test('100+ stable zero-mutation Crown-supervised outcomes become certification-r
   assert.equal(out.automaticPromotionAuthorized,false);
   assert.equal(out.crownSuppressionAuthority,'NONE');
   const c=out.candidates[0];
+  assert.equal(c.rawObservationCount,120);
   assert.equal(c.observationCount,120);
+  assert.equal(c.uniqueRequestCount,120);
+  assert.equal(c.duplicateObservationCount,0);
+  assert.ok(c.temporalSpanMs>=24*60*60*1000);
   assert.equal(c.observedRegressions,0);
   assert.equal(c.readyForCanonicalSealedCertification,true);
   assert.equal(c.status,'READY_FOR_CANONICAL_SEALED_CERTIFICATION');
@@ -78,7 +82,7 @@ test('small clean samples remain shadow evidence and cannot become authority',()
   const c=out.candidates[0];
   assert.equal(c.status,'ACCUMULATING_CROWN_SUPERVISION');
   assert.equal(c.readyForCanonicalSealedCertification,false);
-  assert.ok(c.certificationBlockers.includes('minimum-crown-supervised-outcomes-not-met'));
+  assert.ok(c.certificationBlockers.includes('minimum-distinct-crown-supervised-outcomes-not-met'));
   assert.equal(out.crownSuppressionAuthority,'NONE');
 });
 
@@ -90,6 +94,30 @@ test('missing exact model revisions blocks certification even with 100 clean out
   assert.ok(c.certificationBlockers.includes('crown-model-revision-unbound'));
 });
 
+
+test('duplicate retries cannot manufacture the minimum evidence count and worst duplicate outcome wins',()=>{
+  const rows=Array.from({length:120},(_,i)=>({...row(i),requestFingerprint:'same-request'}));
+  rows[119]={...rows[119],crownOutcome:'CROWN_PATCHED_BUILDER',acceptedWithoutMutation:false,patchRequired:true};
+  const out=compileJevPromotionCandidates(state(rows));
+  const c=out.candidates[0];
+  assert.equal(c.rawObservationCount,120);
+  assert.equal(c.uniqueRequestCount,1);
+  assert.equal(c.duplicateObservationCount,119);
+  assert.equal(c.observedRegressions,1);
+  assert.equal(c.readyForCanonicalSealedCertification,false);
+  assert.ok(c.certificationBlockers.includes('minimum-distinct-crown-supervised-outcomes-not-met'));
+  assert.ok(c.certificationBlockers.includes('duplicate-request-observations-excluded-from-evidence-count'));
+  assert.ok(c.certificationBlockers.includes('observed-crown-mutation-regression-present'));
+});
+
+test('100 distinct wins compressed into too little wall-clock time remain non-promotable',()=>{
+  const rows=Array.from({length:120},(_,i)=>({...row(i),observedAt:new Date(Date.parse('2026-10-01T00:00:00Z')+i*60_000).toISOString()}));
+  const out=compileJevPromotionCandidates(state(rows));
+  const c=out.candidates[0];
+  assert.equal(c.uniqueRequestCount,120);
+  assert.equal(c.readyForCanonicalSealedCertification,false);
+  assert.ok(c.certificationBlockers.includes('minimum-temporal-coverage-not-met'));
+});
 test('server promotion foundry is read-only and explicitly cannot suppress Crown',()=>{
   const source=fs.readFileSync(new URL('../server.mjs',import.meta.url),'utf8');
   assert.match(source,/\/api\/admin\/infinite-opus\/jev-promotion-foundry/);

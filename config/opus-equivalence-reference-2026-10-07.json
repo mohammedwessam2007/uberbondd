@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "uberbond.opus-equivalence.reference.v1",
+  "observedAt": "2026-10-07T20:30:00Z",
+  "expiresAt": "2026-10-08T23:59:59Z",
+  "model": "anthropic/claude-opus-5.5",
+  "pricing": {
+    "inputUsdPerMillion": 4,
+    "outputUsdPerMillion": 20,
+    "cacheReadUsdPerMillion": 0.2,
+    "cacheWriteUsdPerMillion": 5,
+    "openRouterStandardPlatformFeeRate": 0.055
+  },
+  "contextTokens": 1000000,
+  "evidence": [
+    "https://openrouter.ai/anthropic/claude-opus-5.5",
+    "https://www.anthropic.com/claude/opus",
+    "https://www.anthropic.com/claude-opus-5-5",
+    "https://openrouter.ai/pricing"
+  ],
+  "truthBoundary": "Fresh public pricing and availability evidence observed 2026-10-07. This certifies only the direct-reference tariff and model availability used by the exact equivalence island; it does not crown Opus 5.5 or establish general model superiority."
+}

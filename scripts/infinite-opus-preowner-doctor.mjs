@@ -52,7 +52,7 @@ for(const p of ['config/infinite-opus-canary-authorization.template.json','confi
 const testPaths = ['tests/provable-reference-economics.test.mjs', 'tests/provable-execution-ledger.test.mjs',
  'tests/infinite-opus-live-closure.test.mjs', 'tests/infinite-opus-compilers.test.mjs', 'tests/infinite-opus-model-understanding.test.mjs',
  'tests/infinite-opus-typingmind-gateway.test.mjs', 'tests/infinite-opus-typingmind-live.test.mjs',
- 'tests/openrouter-jev-governed-adapter.test.mjs', 'tests/openrouter-processor-auction-v5.test.mjs',
+ 'tests/openrouter-jev-governed-adapter.test.mjs', 'tests/openrouter-decision-market.test.mjs', 'tests/openrouter-processor-auction-v5.test.mjs',
  'tests/openrouter-full-stack-no-amputation.test.mjs', 'tests/server-typingmind-boundary.test.mjs', 'tests/infinite-opus-astra-activation-chain.test.mjs',
  'tests/crown-owner-resume-authority.test.mjs', 'tests/crown-durable-admission.test.mjs', 'tests/infinite-opus-owner-resume-server-boundary.test.mjs', 'tests/unified-cognition-ledger-bridge.test.mjs', 'tests/infinite-opus-semantic-closure-host.test.mjs', 'tests/native-runtime-decision-franchise.test.mjs', 'tests/jev-promotion-foundry.test.mjs', 'tests/open-router-canon-doctor.test.mjs'];
 const testRun = spawnSync(process.execPath, ['--test', ...testPaths], {

@@ -31,6 +31,7 @@ import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './sr
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
 import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
+import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
@@ -572,6 +573,17 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
         providerCallsPerformed:0,
         paidInferenceTriggered:false,
         truthBoundary:'Crown-supervised JEV shadow outcomes only. This summary stores no raw prompts, candidate answers, or Crown outputs and grants no Crown-suppression authority.'
+      });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/jev-promotion-foundry') {
+      const foundry=await readJevPromotionFoundry(store);
+      return sendJson(res,200,{
+        ...foundry,
+        providerCallsPerformed:0,
+        paidInferenceTriggered:false,
+        automaticPromotionAuthorized:false,
+        crownSuppressionAuthority:'NONE',
+        truthBoundary:'This zero-call surface discovers bounded JEV domains that may be ready for canonical sealed certification. It cannot mint the canonical zero-loss certificate, cannot self-promote, and cannot suppress Crown.'
       });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {

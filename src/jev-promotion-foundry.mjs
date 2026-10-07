@@ -123,7 +123,6 @@ export function compileJevPromotionCandidates(state={},{
     const observedCrownMicrousd=sum(obs,row=>row.costsMicrousd?.crown??0);
     const blockers=[];
     if(obs.length<minimumOutcomes)blockers.push('minimum-distinct-crown-supervised-outcomes-not-met');
-    if(rawObs.length>obs.length)blockers.push('duplicate-request-observations-excluded-from-evidence-count');
     if(temporalSpanMs<minimumTemporalSpanMs)blockers.push('minimum-temporal-coverage-not-met');
     if(regressions>0)blockers.push('observed-crown-mutation-regression-present');
     if(!group.signature.jevModelRevision)blockers.push('jev-model-revision-unbound');

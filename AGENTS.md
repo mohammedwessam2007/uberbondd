@@ -39,6 +39,10 @@ Canonical relationship:
 
 The founder's 2026-10-08 explicit instruction makes **all original 890 moonshot ideas**, not just the famous examples or newest active experiments, a permanent addressable input to every UberBond mission. **Before mission selection**, read `docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md` and the canonical manifest at `artifacts/research/founder-moonshot-literal-corpus/manifest.json`. Preserve stable IDs `founder-moonshot-0001` through `founder-moonshot-0890`; retrieve task-relevant original bodies and scan cross-domain dependencies/descendants. Do not load all bodies indiscriminately, silently drop unchosen ideas, renumber the corpus, or confuse substrate routing with scientific/physical realization. New ideas expand beyond 890 rather than replacing this foundation. If the corpus cannot be accessed, label recovery incomplete instead of guessing.
 
+## PHOENIX continuity checkpoint law
+
+For any long or material UberBond ChatGPT/agent session, recover docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md before claiming that conversation context is safely portable. After material decisions or implementation, write source-backed durable artifacts and an exact, source-labeled PHOENIX checkpoint where practical; preserve unresolved CHAT_ONLY facts explicitly and never claim unseen chat content recovered. A receiving session must account for checkpoint IDs, changed main and source truth before continuing. This complements rather than replaces Master Memory, Current Handoff, Wormhole, Total Brain and 890 founder corpus.
+
 ## Mandatory startup
 
 Before proposing or changing UberBond:

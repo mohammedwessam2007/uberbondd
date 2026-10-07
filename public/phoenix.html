@@ -54,8 +54,17 @@ a{color:#9cdbed}a:focus-visible,button:focus-visible{outline:3px solid #f0cc86}
 <input id="import" type="file" accept=".json,application/json">
 <p id="digest" class="mono small"></p>
 </section>
+<section class="card" id="vault">
+<h2>3. Save inside UberBond</h2>
+<p>First-party continuity vault using the existing UberBond owner session and database. Requires login in the <a href="/admin.html">Command Center</a>. You control whether a checkpoint is uploaded to the app. No additional subscription.</p>
+<label><input id="auto-app-save" type="checkbox" style="width:auto;min-height:0;margin-right:9px">Automatically save each new checkpoint to UberBond's own database</label>
+<div class="actions"><button id="save-app" class="primary" type="button">Save to UberBond</button><button id="refresh-app" type="button">Show saved checkpoints</button></div>
+<p id="vault-status" role="status" class="status">No app-backed save verified in this tab.</p>
+<ul id="vault-list"></ul>
+<p class="small">Notes stored in the app's database are not end-to-end encrypted by PHOENIX. Never enter credentials or private account documents. Saving a note does not automatically transmit it to a different ChatGPT conversation; export a file to attach there when necessary.</p>
+</section>
 <section class="card">
-<h2>3. Repository-backed resurrection</h2>
+<h2>4. Repository-backed resurrection</h2>
 <p>After opening a new ChatGPT Project chat, attach your exported capsule and paste the rescue message. The repository-side PHOENIX validator detects missing entries and source drift. Start with <a href="https://github.com/mohammedwessam2007/uberbondd/blob/main/AI_START_HERE.md">UberBond startup law</a> and the <a href="https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md">890-idea protocol</a>.</p>
 <p class="small">Integrity hash ≠ signed authorship, completeness of the original conversation, current deployment proof, client payment or authority to execute consequences.</p>
 </section>

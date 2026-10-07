@@ -1,6 +1,7 @@
 import http from 'node:http';
 import * as revenueSingularity from './src/revenue-singularity-service.mjs';
 import { savePhoenixLocalDraft, listPhoenixCapsules, readPhoenixCapsule } from './src/phoenix-owner-vault.mjs';
+import { runPhoenixRuntimeDoctor } from './src/phoenix-runtime-doctor.mjs';
 import { createOwnerSessionManager, authorizeOwnerCookie, cookieHeader, clearCookieHeader, parseCookies, OWNER_SESSION_COOKIE, OWNER_SESSION_ABSOLUTE_MS } from './src/owner-session.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -89,6 +90,8 @@ validateStartupConfig(config);
 const root = path.dirname(fileURLToPath(import.meta.url));
 const store = createStore(config);
 await store.init();
+const phoenixRuntimeDoctor = await runPhoenixRuntimeDoctor(store);
+console.info('PHOENIX_RUNTIME_DOCTOR',JSON.stringify(phoenixRuntimeDoctor));
 const queue = new DurableQueue(store, config, console);
 let revenue;
 const omniaV9Mode = resolveOmniaV9Mode(process.env);

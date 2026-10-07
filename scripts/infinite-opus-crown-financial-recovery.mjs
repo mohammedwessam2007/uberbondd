@@ -10,6 +10,22 @@ export const UNDISPATCHED=[
  'sealed-call-1e9d0e3549707791fe40af7a15be2e84b76c8bec',
  'sealed-call-60225eada977cb91f4c1d44960138ad0c31e7e12'
 ];
+export function validateExistingOriginalCrownFinancialRecovery(r){
+ if(r?.schemaVersion!=='uberbond.crown-financial-recovery.v1'||
+   r.status!=='RECONCILED_INVALID_TOURNAMENT_EVIDENCE'||
+   r.callId!==ORIGINAL_CALL||r.generationId!==ORIGINAL_GENERATION||r.actualMicrousd!==11224||
+   !Array.isArray(r.cancelledUndispatchedCallIds)||r.cancelledUndispatchedCallIds.length!==UNDISPATCHED.length||
+   r.cancelledUndispatchedCallIds.some((id,i)=>id!==UNDISPATCHED[i])||
+   r.bindingMethod!=='FORENSIC_SINGLE_DISPATCH_WINDOW'||r.retainedExactBinding!==false||
+   r.providerRequestId!=='req-1790807964-Ve3fJIrYt0PXl3LqGRb0'||
+   !verifyCrownProviderModel({requestedModel:'anthropic/claude-opus-5.5',observedModel:r.observedModel,provider:r.providerIdentity})||
+   r.evidenceRef!=='docs/receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md'||
+   r.semanticAuthority!=='NONE'||r.oldHiddenTaskContaminated!==true||r.oldAnswersUnavailable!==true||
+   !Number.isFinite(Date.parse(r.reconciledAt)))
+   throw new Error('existing-original-financial-recovery-refused');
+ return r;
+}
+
 export function validateOriginalGeneration(d){
  if(d?.id!==ORIGINAL_GENERATION ||
  d?.request_id!=='req-1790807964-Ve3fJIrYt0PXl3LqGRb0' ||
@@ -21,15 +37,11 @@ export function validateOriginalGeneration(d){
  return d;
 }
 export async function reconcileOriginalCrownFinancialState({store,generationMetadata}){
- const d=validateOriginalGeneration(generationMetadata);
  return store.transaction(async tx=>{
   if(tx.transactionClient===true)await tx.pool.query('SELECT pg_advisory_xact_lock($1)',[1347375955]);
   const settings=await tx.getSettings();
-  if(settings[RECOVERY_KEY]) {
-   const prior=settings[RECOVERY_KEY];
-   if(prior.status!=='RECONCILED_INVALID_TOURNAMENT_EVIDENCE'||prior.generationId!==d.id)throw new Error('contradictory-financial-recovery');
-   return prior;
-  }
+  if(settings[RECOVERY_KEY]) return validateExistingOriginalCrownFinancialRecovery(settings[RECOVERY_KEY]);
+  const d=validateOriginalGeneration(generationMetadata);
   const state=structuredClone(settings.infiniteOpusRuntimeV1);
   const claim=settings[ORIGINAL_CLAIM];
   if(!state||claim?.status!=='CLAIMED'||

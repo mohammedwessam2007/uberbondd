@@ -36,6 +36,19 @@ test('admin exposes protected owner setup and exact canary approval surfaces', (
   assert.match(adminJs, /COMMERCIAL_OUTREACH/);
 });
 
+test('admin exposes exact Infinite Opus Crown founder press and native UberMind cockpit', () => {
+  assert.match(html, /id="infinite-opus-crown-authorize"/);
+  assert.match(html, /id="infinite-opus-liability-ack"/);
+  assert.match(html, /id="ubermind-chat-form"/);
+  assert.match(html, /ubermind\/auto/);
+  assert.match(html, /api\/typingmind\/infinite-opus\/v1\/chat\/completions/);
+  assert.match(adminJs, /\/api\/admin\/infinite-opus\/crown-continuation/);
+  assert.match(adminJs, /confirmMaxIncrementalMicrousd/);
+  assert.match(adminJs, /acknowledgeUnknownHistoricalChargeAtFullReserve/);
+  assert.match(adminJs, /\/api\/admin\/infinite-opus\/chat/);
+  assert.match(adminJs, /Authorize exactly 2 Crown edges/);
+});
+
 test('one-button starts internal mission when 100K is not green and preserves certified send gate', () => {
   assert.match(js, /CERTIFIED_100K_READY/);
   assert.match(js, /hardStopReasonCodes/);

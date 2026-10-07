@@ -35,6 +35,10 @@ Canonical relationship:
 
 `MOHAMED PROVIDES WILL -> UBERBOND PROVIDES INTELLIGENCE -> REALITY PROVIDES FEEDBACK`
 
+## Mandatory founder 890-idea inheritance (all future UberBond sessions)
+
+The founder's 2026-10-08 explicit instruction makes **all original 890 moonshot ideas**, not just the famous examples or newest active experiments, a permanent addressable input to every UberBond mission. **Before mission selection**, read `docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md` and the canonical manifest at `artifacts/research/founder-moonshot-literal-corpus/manifest.json`. Preserve stable IDs `founder-moonshot-0001` through `founder-moonshot-0890`; retrieve task-relevant original bodies and scan cross-domain dependencies/descendants. Do not load all bodies indiscriminately, silently drop unchosen ideas, renumber the corpus, or confuse substrate routing with scientific/physical realization. New ideas expand beyond 890 rather than replacing this foundation. If the corpus cannot be accessed, label recovery incomplete instead of guessing.
+
 ## Mandatory startup
 
 Before proposing or changing UberBond:

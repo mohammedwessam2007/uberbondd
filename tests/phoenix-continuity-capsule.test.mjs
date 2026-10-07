@@ -121,3 +121,19 @@ test('maximum per-capsule work bounded but multi-checkpoint chain supported',()=
  const a=make({events:rows});assert.equal(a.events.length,400);
  assert.throws(()=>make({events:[...rows,e('overflow')]}),/PHOENIX_EVENT_COUNT/);
 });
+
+test('deployed claim requires a runtime witness rather than a repository file',()=>{
+ assert.throws(()=>make({events:[e('deploy-1',{kind:'IMPLEMENTATION',truthClass:'DEPLOYED'})]}),/PHOENIX_RUNTIME_WITNESS_REQUIRED/);
+ const c=make({events:[e('deploy-1',{kind:'IMPLEMENTATION',truthClass:'DEPLOYED',source:{kind:'RUNTIME',locator:'Render live deploy with exact SHA'}})]});
+ assert.equal(c.events[0].truthClass,'DEPLOYED');
+});
+test('tested claim requires actual execution log witness',()=>{
+ assert.throws(()=>make({events:[e('test-1',{kind:'TEST',truthClass:'TESTED'})]}),/PHOENIX_EXECUTED_TEST_WITNESS_REQUIRED/);
+ const c=make({events:[e('test-1',{kind:'TEST',truthClass:'TESTED',source:{kind:'RUN_LOG',locator:'Executed 27 scoped test assertions'}})]});
+ assert.equal(c.events[0].truthClass,'TESTED');
+});
+test('merged claim cannot be laundered from private chat or a provider reply',()=>{
+ assert.throws(()=>make({events:[e('merge-1',{kind:'IMPLEMENTATION',truthClass:'MERGED',source:{kind:'PROVIDER',locator:'Support email'}})]}),/PHOENIX_MERGE_SOURCE_REQUIRED/);
+ const c=make({events:[e('merge-1',{kind:'IMPLEMENTATION',truthClass:'MERGED',source:{kind:'PR',locator:'https://github.com/mohammedwessam2007/uberbondd/pull/1287'}})]});
+ assert.equal(c.events[0].truthClass,'MERGED');
+});

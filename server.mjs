@@ -842,8 +842,21 @@ if (wrapperIsEntryPoint) {
         });
         if(!compiled.ok)throw new Error('tournament-compile:'+compiled.status);
         const adjudicated=adjudicateCrownTournament({plan:compiled.plan,observations});
-        if(!adjudicated.ok||adjudicated.status!=='TASK_CLASS_CROWN_CANDIDATE_EVIDENCE_READY')
+        if(!adjudicated.ok||adjudicated.status!=='TASK_CLASS_CROWN_CANDIDATE_EVIDENCE_READY'){
+          console.log('UBERMIND_SEALED_GRADE_DIAGNOSTIC '+JSON.stringify({
+            ok:true,status:'PAIRED_GRADES_RECOVERED_COURT_NOT_CERTIFIED',
+            courtStatus:adjudicated.status,
+            taskCount:2,
+            perTask,
+            opusCandidateCostUsd:Number(opusCost.toFixed(9)),
+            solCandidateCostUsd:Number(solCost.toFixed(9)),
+            strictSameOrBetterEveryTask:strictSameQuality,
+            candidateCostReductionPercent:opusCost>0?Number(((1-solCost/opusCost)*100).toFixed(4)):null,
+            providerCallsPerformed:0,
+            hiddenPayloadsExposed:false
+          }));
           throw new Error('tournament-adjudication:'+adjudicated.status);
+        }
         const selected=adjudicated.roles?.GENERAL_CROWN;
         if(!selected)throw new Error('general-crown-not-selected');
 

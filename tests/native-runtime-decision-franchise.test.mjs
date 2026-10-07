@@ -76,6 +76,7 @@ test('native runtime closes franchise task before any model and records E3 proof
  const out=await runtime.execute(task(1));
  assert.equal(out.ok,true);assert.equal(out.status,'CLOSED_DECISION_FRANCHISE');
  assert.deepEqual(out.decision,{route:'CROWN'});assert.equal(out.providerCallsPerformed,0);assert.equal(out.proofClass,'E3');
+ assert.equal(out.executionShell,'GHOST_AGENT');assert.match(out.ghostHash,/^[a-f0-9]{64}$/);
  const econ=await runtime.provableEconomics(1000);
  assert.equal(econ.ok,true);assert.equal(econ.certifiedExecutions,1);assert.ok(econ.referenceCompressionFactor>1);
 });
@@ -85,7 +86,7 @@ test('replay is idempotent and does not need model inference',async()=>{
  const runtime=createInfiniteOpusRuntime({store:makeStore(),clock:()=>now,contextLoader:async()=>context(),decisionFranchises:[f]});
  const first=await runtime.execute(task(2));const second=await runtime.execute(task(2));
  assert.equal(first.status,'CLOSED_DECISION_FRANCHISE');assert.equal(second.status,'IDEMPOTENT_DECISION_FRANCHISE_HIT');
- assert.deepEqual(first.decision,second.decision);assert.equal(second.providerCallsPerformed,0);
+ assert.deepEqual(first.decision,second.decision);assert.equal(first.executionShell,'GHOST_AGENT');assert.equal(second.executionShell,'GHOST_AGENT');assert.equal(second.providerCallsPerformed,0);
 });
 
 test('two simultaneously valid franchises fail closed instead of voting',async()=>{

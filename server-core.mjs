@@ -1,5 +1,6 @@
 import http from 'node:http';
 import * as revenueSingularity from './src/revenue-singularity-service.mjs';
+import { savePhoenixLocalDraft, listPhoenixCapsules, readPhoenixCapsule } from './src/phoenix-owner-vault.mjs';
 import { createOwnerSessionManager, authorizeOwnerCookie, cookieHeader, clearCookieHeader, parseCookies, OWNER_SESSION_COOKIE, OWNER_SESSION_ABSOLUTE_MS } from './src/owner-session.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
@@ -1256,6 +1257,33 @@ export const requestHandler = async (req, res) => {
     if ((url.pathname.startsWith('/api/') || url.pathname === '/oauth/google/start')
       && !relayPath && !publicApi(url.pathname) && !auth(req)) {
       return json(res, 401, { error: 'Unauthorized' });
+    }
+
+    // PHOENIX first-party continuity vault: never open just because ADMIN_TOKEN
+    // is absent. Cookie requests inherit the owner session's origin/CSRF gate.
+    if (url.pathname === '/api/phoenix/capsules' || url.pathname.startsWith('/api/phoenix/capsules/')) {
+      if (!config.adminToken) return json(res, 503, {ok:false,status:'PHOENIX_OWNER_AUTH_UNCONFIGURED'});
+      if (!(bearerOk(req) || authorizeOwnerCookie(ownerSessions, req).ok)) return json(res, 403, {ok:false,status:'PHOENIX_OWNER_ONLY'});
+      if (url.pathname === '/api/phoenix/capsules' && method === 'GET') {
+        return json(res, 200, await listPhoenixCapsules(store,{limit:20}));
+      }
+      if (url.pathname === '/api/phoenix/capsules' && method === 'POST') {
+        const body = await parseBody(req);
+        try {return json(res, 201, await savePhoenixLocalDraft(store,body));}
+        catch(error) {
+          if(error.phoenixCode) return json(res, 422,{ok:false,status:'PHOENIX_INVALID_CAPSULE',reason:error.phoenixCode});
+          throw error;
+        }
+      }
+      const match = method === 'GET' && url.pathname.match(/^\/api\/phoenix\/capsules\/(phx_[0-9a-f]{64})$/);
+      if (match) {
+        try {const result=await readPhoenixCapsule(store,match[1]);return json(res,result.ok?200:404,result);}
+        catch(error) {
+          if(error.phoenixCode)return json(res,422,{ok:false,status:'PHOENIX_INVALID_CAPSULE',reason:error.phoenixCode});
+          throw error;
+        }
+      }
+      return json(res,405,{ok:false,status:'PHOENIX_METHOD_NOT_ALLOWED'});
     }
 
     if (method === 'GET' && url.pathname === '/api/health') {

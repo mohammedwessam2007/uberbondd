@@ -5,7 +5,8 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
   estimateDirectOpusUsd, estimateSolThenOpusAcceptUsd, estimateCompressedFrontierUsd, estimateFusedMimoFrontierUsd, estimateJevControlUsd,
   chooseFreshFrontierPath, buildGenericJevControlQuestions, estimateWriterThenCrownAcceptUsd,
   cheapestPossibleWriterLowerBound, chooseAdaptiveCandidateWriter, shouldRunIndependentCritic,
-  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd, chooseCheapestFusedSourceWorker, exactCriticPolicy } from '../src/openrouter-processor-auction-v5.mjs';
+  estimateIndependentCriticSurchargeUsd, estimateRouteWithCacheUsd, estimateDirectCrownUsd, chooseCheapestFusedSourceWorker, exactCriticPolicy,
+  effectiveRouteRates } from '../src/openrouter-processor-auction-v5.mjs';
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
@@ -271,4 +272,40 @@ test('writer lower bound honors per-model warm cache rather than assuming every 
     cachedInputByModel:{'deepseek/deepseek-v4.1-flash':100000}
   });
   assert.ok(warm.usd<=cold.usd);
+});
+
+
+test('route economics applies current long-context override before JEV ranks writers',()=>{
+  const haiku={
+    model:'anthropic/claude-haiku-5.5',
+    inputUsdPerMillion:.1,outputUsdPerMillion:.5,cacheReadUsdPerMillion:.01,
+    priceOverrides:[{minPromptTokens:100000,inputUsdPerMillion:.5,outputUsdPerMillion:2.5,cacheReadUsdPerMillion:.05}]
+  };
+  assert.deepEqual(effectiveRouteRates(haiku,99999),{
+    inputUsdPerMillion:.1,outputUsdPerMillion:.5,cacheReadUsdPerMillion:.01
+  });
+  assert.deepEqual(effectiveRouteRates(haiku,100000),{
+    inputUsdPerMillion:.5,outputUsdPerMillion:2.5,cacheReadUsdPerMillion:.05
+  });
+  const short=estimateRouteWithCacheUsd({route:haiku,inputTokens:99999,outputTokens:1000});
+  const long=estimateRouteWithCacheUsd({route:haiku,inputTokens:100000,outputTokens:1000});
+  assert.ok(long>short*4);
+});
+
+test('Haiku 5.5 can enter routine JEV shadow auction but never the hard-residual lane',()=>{
+  const haiku=route('anthropic/claude-haiku-5.5',.1,.5,.01);
+  const routine=chooseAdaptiveCandidateWriter({
+    jevAnswers:{task_shape:{choice:'other'},hard_reasoning:{score:1}},
+    availableRoutes:{haiku,mimo:mimoRoute,deepseek:deepseekRoute,sol:solRoute},
+    crownRoute,inputTokens:5000,candidateOutputTokens:2000
+  });
+  assert.equal(routine.eligible.some(x=>x.id==='haiku'),true);
+  assert.equal(routine.selected.id,'haiku');
+
+  const hard=chooseAdaptiveCandidateWriter({
+    jevAnswers:{task_shape:{choice:'research'},hard_reasoning:{score:2}},
+    availableRoutes:{haiku,mimo:mimoRoute,deepseek:deepseekRoute,sol:solRoute},
+    crownRoute,inputTokens:5000,candidateOutputTokens:2000
+  });
+  assert.equal(hard.eligible.some(x=>x.id==='haiku'),false);
 });

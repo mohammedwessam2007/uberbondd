@@ -20,11 +20,15 @@ import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
-import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness } from './src/infinite-opus-typingmind-live.mjs';
+import { createTypingMindLiveOrchestrator, inspectTypingMindLiveReadiness, TYPINGMIND_CROWN_MODEL, TYPINGMIND_CROWN_ROUTE_IDENTITY } from './src/infinite-opus-typingmind-live.mjs';
 import { inspectInfiniteOpusActivationEnvironment } from './src/infinite-opus-activation-diagnostic.mjs';
 import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recovery-diagnostic.mjs';
 import { reconcileInterruptedCrownGeneration } from './scripts/infinite-opus-crown-interrupted-recovery.mjs';
 import { runCrownAutoFinish } from './scripts/infinite-opus-crown-autofinish.mjs';
+import { OPUS_CANONICAL_REVISION } from './src/crown-model-identity.mjs';
+import { compileCrownOwnerResumeAuthority } from './src/crown-owner-resume-authority.mjs';
+import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
+import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 
 const originalCreateServer = http.createServer;
 const originalArgv1 = process.argv[1];
@@ -336,6 +340,21 @@ function parseJsonEnvironment(name) {
   } catch { return null; }
 }
 
+const currentCrownExpected=()=>({
+  exactModelId:TYPINGMIND_CROWN_MODEL,
+  modelRevision:OPUS_CANONICAL_REVISION,
+  taskClassRole:'GENERAL_CROWN',
+  routeIdentity:TYPINGMIND_CROWN_ROUTE_IDENTITY
+});
+
+async function resolveCurrentCrownAdmission(store){
+  return resolveDurableCrownAdmission(store,{
+    environmentReceipt:parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON'),
+    expected:currentCrownExpected()
+  });
+}
+
+
 async function currentInfiniteOpusPublicMarket() {
   const now = Date.now();
   if (infiniteOpusPublicMarketCache && Date.parse(infiniteOpusPublicMarketCache.expiresAt) > now + 60_000) return infiniteOpusPublicMarketCache;
@@ -403,17 +422,17 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   if(req.method==='POST'&&!admitTypingMindGatewayRequest())return sendTypingMindJson(req,res,429,{ok:false,status:'TYPINGMIND_GATEWAY_RATE_LIMITED',providerCallsPerformed:0,qualityAction:'WAIT'});
   if (req.method === 'GET' && url.pathname === '/api/typingmind/infinite-opus/v1/models') {
     const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
-    const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
-    let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']};
+    let marketSnapshot=null,live={ok:false,reasons:['public-market-not-observed']},crownResolution={ok:false,source:null,receipt:null};
     try{
+      crownResolution=await withUberSocketStore(store=>resolveCurrentCrownAdmission(store));
       marketSnapshot=await currentInfiniteOpusPublicMarket();
-      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)});
+      live=inspectTypingMindLiveReadiness({paidAuthorization,crownAdmission:crownResolution.receipt,marketSnapshot,openRouterKeyPresent:Boolean(process.env.OPENROUTER_API_KEY)});
     }catch{}
     return sendTypingMindJson(req,res,200,{
       object: 'list',
       data: [{ id: 'ubermind/auto', object: 'model', created: 0, owned_by: 'uberbond' }],
       uberbond: {...gatewayStatus({ runtimeConnected: live.ok, crownAdmissionValid: live.ok, jevShadowReady: false }),
-        liveReadiness:live.status??'TYPINGMIND_UBERMIND_LIVE_NOT_READY',reasons:live.reasons??[]}
+        liveReadiness:live.status??'TYPINGMIND_UBERMIND_LIVE_NOT_READY',reasons:live.reasons??[],crownAdmissionSource:crownResolution.source??null}
     });
   }
   if (req.method !== 'POST' || url.pathname !== '/api/typingmind/infinite-opus/v1/chat/completions') return sendTypingMindJson(req,res,404,{ error: 'TypingMind UberMind route not found' });
@@ -427,7 +446,8 @@ async function brokerTypingMindInfiniteOpus(req, res, url) {
   catch (error) { return sendTypingMindJson(req,res,400,{ error: String(error?.message || error) }); }
 
   const paidAuthorization = parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
-  const crownAdmission = parseJsonEnvironment('INFINITE_OPUS_CROWN_ADMISSION_JSON');
+  const crownResolution = await withUberSocketStore(store=>resolveCurrentCrownAdmission(store));
+  const crownAdmission = crownResolution.receipt;
   const openRouterKey = String(process.env.OPENROUTER_API_KEY || '');
   let marketSnapshot;
   try { marketSnapshot = await currentInfiniteOpusPublicMarket(); }
@@ -535,7 +555,77 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/activation') {
-      return sendJson(res, 200, { ok:true, ...inspectInfiniteOpusActivationEnvironment(process.env), paidInferenceTriggered:false });
+      const environment=inspectInfiniteOpusActivationEnvironment(process.env);
+      const crownResolution=await resolveCurrentCrownAdmission(store);
+      const blockers=crownResolution.ok
+        ? environment.blockers.filter(reason=>!String(reason).startsWith('crown-admission-'))
+        : environment.blockers;
+      return sendJson(res, 200, {
+        ok:true,...environment,
+        status:blockers.length?'INFINITE_OPUS_ACTIVATION_ENV_BLOCKED':'INFINITE_OPUS_ACTIVATION_ENV_PRESENT_AND_CURRENT',
+        blockers,
+        crownAdmission:crownResolution.ok?{
+          present:true,current:true,model:crownResolution.receipt.exactModelId,taskClassRole:crownResolution.receipt.taskClassRole,
+          receiptHash:crownResolution.receipt.receiptHash,source:crownResolution.source
+        }:environment.crownAdmission,
+        paidInferenceTriggered:false
+      });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/crown-recovery') {
+      const recovery=await readCrownRecoveryMetadata(store);
+      const crownResolution=await resolveCurrentCrownAdmission(store);
+      return sendJson(res,200,{
+        ok:true,status:crownResolution.ok?'GENERAL_CROWN_CURRENT':'GENERAL_CROWN_RECOVERY_REQUIRED',
+        resumeCheckpoint:recovery.resumeCheckpoint,
+        continuationCheckpoint:recovery.continuationCheckpoint,
+        crownAdmission:{current:crownResolution.ok,source:crownResolution.source??null,receiptHash:crownResolution.receipt?.receiptHash??null},
+        paidInferenceTriggered:false,
+        maximumOwnerResumeIncrementalUsd:0.30,
+        maximumRemainingPaidCalls:2,
+        truthBoundary:'Read-only recovery exposes commitments and counts only. Hidden tasks, rubrics, answers, credentials and provider secrets are not returned.'
+      });
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/crown-resume') {
+      let body; try { body=await readSmallJsonBody(req,16_384); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CROWN_RESUME_BODY_REFUSED',error:String(error?.message||error)}); }
+      const compiled=compileCrownOwnerResumeAuthority(body);
+      if(!compiled.ok)return sendJson(res,400,compiled);
+      const apiKey=String(process.env.OPENROUTER_API_KEY||'');
+      const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+      if(!apiKey||!paidAuthorization)return sendJson(res,409,{ok:false,status:'CROWN_RUNTIME_INPUTS_MISSING',providerCallsPerformed:0});
+      const reconciliation=await reconcileInterruptedCrownGeneration(store,{apiKey});
+      if(!['RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER','UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED'].includes(reconciliation.status)){
+        return sendJson(res,409,{ok:false,status:'CROWN_INTERRUPTED_GENERATION_NOT_SAFE_TO_CONTINUE',reconciliation,providerCallsPerformed:0});
+      }
+      const recovery=await readCrownRecoveryMetadata(store);
+      if(recovery.continuationCheckpoint?.status!=='VERIFIED_ENCRYPTED_CONTINUATION_CHECKPOINT'||
+         recovery.continuationCheckpoint?.missingCandidateAnswers!==1||
+         recovery.continuationCheckpoint?.missingEvaluatorCalls!==1){
+        return sendJson(res,409,{ok:false,status:'EXACT_TWO_MISSING_CROWN_EDGES_NOT_PROVEN',
+          continuationCheckpoint:recovery.continuationCheckpoint,providerCallsPerformed:0});
+      }
+      const result=await runCrownAutoFinish({
+        store,apiKey,paidAuthorization,
+        checkpointKey:process.env.TOKEN_ENCRYPTION_KEY,
+        resumeAuthorization:compiled.authority,
+        mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
+      });
+      let durableAdmission=null;
+      if(result?.ok===true&&result?.receipt){
+        durableAdmission=await persistDurableCrownAdmission(store,result.receipt,{
+          expected:currentCrownExpected(),sourceAttemptKey:INTERRUPTED_RESUME_KEY
+        });
+      }
+      return sendJson(res,result?.ok===true?200:409,{
+        ...result,
+        receipt:undefined,
+        crownAdmissionReceiptHash:result?.receipt?.receiptHash??null,
+        durableAdmission,
+        maximumIncrementalUsd:compiled.maximumIncrementalUsd,
+        maximumRemainingPaidCalls:compiled.maximumRemainingPaidCalls,
+        businessEffectAuthority:'NONE',
+        sideEffectAuthority:'NONE'
+      });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/references') {
       return sendJson(res, 200, await runtime.listReferenceContracts());

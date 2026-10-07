@@ -1,14 +1,26 @@
 {
   "schemaVersion": "uberbond.open-router.current-runtime.v1",
-  "observedAt": "2026-10-07T09:22:00Z",
+  "observedAt": "2026-10-07T09:38:10Z",
   "status": "INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS",
   "authority": "CURRENT_RUNTIME_OVERLAY__SUPERSEDES_STALE_ACTIVATION_INSTRUCTIONS_ONLY",
   "noAmputation": true,
   "repository": {
-    "repositoryHeadAtObservation": "74b67029dda1f4f6b75b288204615b6b6318e6be",
-    "exactExecutableLiveSha": "a1321dedcc1387090b889f94191de3415487676c",
-    "exactRenderDeploy": "dep-db2p2tid0e5s73dt7400",
-    "docsOnlyHeadAheadOfExecutable": true
+    "sourceBindingMode": "EXTERNAL_GIT_MAIN_AND_RENDER_RECEIPT",
+    "embeddedCurrentHeadForbidden": true,
+    "reason": "A versioned file cannot truthfully encode its own eventual squash-merge SHA. Resolve exact current source/deploy from Git main plus the latest verified Render receipt.",
+    "lastPreCanonRuntimeReceipt": {
+      "executableSha": "a1321dedcc1387090b889f94191de3415487676c",
+      "renderDeploy": "dep-db2p2tid0e5s73dt7400",
+      "semanticRuntimeStatus": "INFINITE_OPUS_INTERNAL_CLOSURES_LIVE"
+    },
+    "firstCanonReconciliationDeployReceipt": {
+      "executableSha": "e45e95733261576faa8eb667888cfba58702ed68",
+      "renderDeploy": "dep-db3158flk1mc7392scm0",
+      "status": "LIVE",
+      "revenueTerminalReadHealthy": true,
+      "activationBlocker": "crown-admission-absent"
+    },
+    "resolutionLaw": "Never use an embedded historical SHA as present-tense head. Refresh Git main and Render before exact deployment claims."
   },
   "cockpit": {
     "ui": "TypingMind",
@@ -112,5 +124,5 @@
     "purchases": 0,
     "dnsChanges": 0
   },
-  "truthBoundary": "This overlay records current source/runtime/provider-observation truth. It does not itself authorize spend, inference, customer effects, Crown promotion, or TypingMind private UI actions."
+  "truthBoundary": "This overlay records current semantic/runtime/provider state while exact present-tense Git/Render identity is resolved externally to avoid self-referential SHA drift. It does not authorize spend, inference, customer effects, Crown promotion, or TypingMind private UI actions."
 }

@@ -34,6 +34,7 @@ import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-seman
 import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
+import { runGovernedHaiku55LiveCanary } from './scripts/infinite-opus-haiku55-live-canary.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
@@ -1083,6 +1084,16 @@ if (wrapperIsEntryPoint) {
       const store=createStore(config);
       try{
         await store.init();
+        const haikuCanary=haiku55.ok?await runGovernedHaiku55LiveCanary({
+          store,
+          apiKey:String(process.env.OPENROUTER_API_KEY||''),
+          paidAuthorization,
+          marketSnapshot
+        }):{
+          ok:false,status:'HAIKU_5_5_LIVE_CANARY_SKIPPED_ROUTE_NOT_READY',
+          providerCallsPerformed:0,actualCostUsd:0,automaticRetryAuthorized:false
+        };
+        console.log('UBERMIND_HAIKU55_LIVE_CANARY '+JSON.stringify(haikuCanary));
         const canary=await runGovernedJevLiveCanary({
           store,
           apiKey:String(process.env.OPENROUTER_API_KEY||''),

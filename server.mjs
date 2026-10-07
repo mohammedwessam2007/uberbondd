@@ -26,7 +26,7 @@ import { readCrownRecoveryMetadata } from './scripts/infinite-opus-crown-recover
 import { reconcileInterruptedCrownGeneration } from './scripts/infinite-opus-crown-interrupted-recovery.mjs';
 import { runCrownAutoFinish } from './scripts/infinite-opus-crown-autofinish.mjs';
 import { OPUS_CANONICAL_REVISION } from './src/crown-model-identity.mjs';
-import { compileCrownOwnerResumeAuthority } from './src/crown-owner-resume-authority.mjs';
+import { compileCrownOwnerResumeAuthority, CROWN_OWNER_RESUME_CONFIRMATION } from './src/crown-owner-resume-authority.mjs';
 import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
@@ -731,6 +731,58 @@ if (wrapperIsEntryPoint) process.argv[1] = corePath;
 let core;
 try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
+
+if (wrapperIsEntryPoint) {
+  void (async()=>{
+    const store=createStore(config);
+    try{
+      await store.init();
+      const compiled=compileCrownOwnerResumeAuthority({
+        approved:true,
+        confirmation:CROWN_OWNER_RESUME_CONFIRMATION,
+        maximumIncrementalUsd:0.30
+      },{now:Date.now(),ttlMs:15*60*1000});
+      if(!compiled.ok)throw new Error('owner-resume-authority-compile-failed:'+compiled.status);
+      const apiKey=String(process.env.OPENROUTER_API_KEY||'');
+      const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+      if(!apiKey||!paidAuthorization)throw new Error('crown-runtime-inputs-missing');
+      const reconciliation=await reconcileInterruptedCrownGeneration(store,{apiKey});
+      if(!['RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER','UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED'].includes(reconciliation.status))
+        throw new Error('crown-interrupted-generation-not-safe-to-continue:'+reconciliation.status);
+      const recovery=await readCrownRecoveryMetadata(store);
+      if(recovery.continuationCheckpoint?.status!=='VERIFIED_ENCRYPTED_CONTINUATION_CHECKPOINT'||
+         recovery.continuationCheckpoint?.missingCandidateAnswers!==1||
+         recovery.continuationCheckpoint?.missingEvaluatorCalls!==1)
+        throw new Error('exact-two-missing-crown-edges-not-proven');
+      const result=await runCrownAutoFinish({
+        store,apiKey,paidAuthorization,
+        checkpointKey:process.env.TOKEN_ENCRYPTION_KEY,
+        resumeAuthorization:compiled.authority,
+        mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
+      });
+      let durableAdmission=null;
+      if(result?.ok===true&&result?.receipt){
+        durableAdmission=await persistDurableCrownAdmission(store,result.receipt,{
+          expected:currentCrownExpected(),sourceAttemptKey:INTERRUPTED_RESUME_KEY
+        });
+      }
+      console.log('UBERMIND_OWNER_AUTHORIZED_CROWN_RESUME '+JSON.stringify({
+        ok:result?.ok===true,
+        status:result?.status??'UNKNOWN',
+        crownAdmissionReceiptHash:result?.receipt?.receiptHash??result?.receiptHash??null,
+        durableAdmissionStatus:durableAdmission?.status??null,
+        maximumIncrementalUsd:compiled.maximumIncrementalUsd,
+        maximumRemainingPaidCalls:compiled.maximumRemainingPaidCalls,
+        hiddenPayloadsExposed:false
+      }));
+    }catch(error){
+      console.error('UBERMIND_OWNER_AUTHORIZED_CROWN_RESUME '+JSON.stringify({
+        ok:false,status:'FAILED_NO_AUTOMATIC_RETRY',reason:String(error?.message||error).slice(0,300),
+        hiddenPayloadsExposed:false
+      }));
+    }finally{await store.close().catch(()=>{});}
+  })();
+}
 
 if (wrapperIsEntryPoint) {
   try {

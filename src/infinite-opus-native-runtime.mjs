@@ -13,6 +13,7 @@ import { compileGhostAgentFromFranchise,executeGhostAgent } from './ghost-agent.
 import { certifyExhaustiveCrownDecisionFranchise } from './decision-franchise-certifier.mjs';
 import { verifyFrontierThoughtBond, thoughtBondAuthorityId, thoughtBondSlotHash } from './frontier-thought-bond.mjs';
 import { deriveUnifiedCognitionHistory } from './unified-cognition-ledger-bridge.mjs';
+import { compileNativeJevPageFaultPlan } from './native-jev-page-fault.mjs';
 
 export const INFINITE_OPUS_TASK_SCHEMA = 'uberbond.infinite-opus.task.v1';
 const SETTING = 'infiniteOpusRuntimeV1';
@@ -211,14 +212,21 @@ export function createInfiniteOpusRuntime({ store, contextLoader, authorityRecor
         if (!closure.ok) {
           if (!task.obligation) throw new Error('typed-unresolved-obligation-required');
           state.negativeKnowledge.push({ failureId: semanticHash({ taskHash, context, reasons: closure.reasonCodes }), reasons: closure.reasonCodes, taskClass: task.taskClass, observedAt: clock(), semanticAuthority: 'NONE' });
+          const jevCompiled=compileNativeJevPageFaultPlan({task,context,closureReasons:closure.reasonCodes});
+          const jevPlan=jevCompiled.ok?jevCompiled.plan:null;
           const debt = { taskId: task.taskId, taskClass: task.taskClass, obligation: task.obligation,
             context, stakes: task.stakes, deadline: task.deadline ?? null,
-            reasons: closure.reasonCodes, status: 'AWAITING_TRUSTED_SEMANTIC_AUTHORITY' };
+            reasons: closure.reasonCodes, status: 'AWAITING_TRUSTED_SEMANTIC_AUTHORITY',
+            jevPlan:jevPlan?structuredClone(jevPlan):null };
           state.debts[task.taskId] = debt;
-          state.tasks[task.taskId] = { taskHash, status: 'PAGE_FAULT', artifactHash: null };
-          state.receipts.push({ kind: 'PAGE_FAULT', taskId: task.taskId, observedAt: clock(), reasons: closure.reasonCodes });
+          state.tasks[task.taskId] = { taskHash, status: 'PAGE_FAULT', artifactHash: null,
+            jevPlanDigest:jevPlan?.planDigest??null };
+          state.receipts.push({ kind: 'PAGE_FAULT', taskId: task.taskId, observedAt: clock(), reasons: closure.reasonCodes,
+            jevPlanDigest:jevPlan?.planDigest??null,jevMode:jevPlan?.mode??null,
+            jevProviderCallsPerformed:0,jevMaySuppressCrown:false });
           await persist(tx, state);
-          return zero({ ok: false, status: 'CROWN_PAGE_FAULT_QUEUED', reasons: closure.reasonCodes, providerCallsPerformed: 0 });
+          return zero({ ok: false, status: 'CROWN_PAGE_FAULT_QUEUED', reasons: closure.reasonCodes,
+            jevPlan,providerCallsPerformed: 0 });
         }
         const output = renderClosedClaims({ artifact, closure, context, now: clock() });
         if (task.request && !cacheHit?.ok && task.request.freshnessClass !== 'LIVE') state.cache = putExactResponse(state.cache, { request: task.request, artifact, closure, createdAt: clock(), ttlMs: task.cacheTtlMs ?? 300000 });

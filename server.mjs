@@ -30,6 +30,7 @@ import { compileCrownOwnerResumeAuthority, CROWN_OWNER_RESUME_CONFIRMATION } fro
 import { resolveDurableCrownAdmission, persistDurableCrownAdmission } from './src/crown-durable-admission.mjs';
 import { INTERRUPTED_RESUME_KEY } from './src/crown-resume-checkpoint.mjs';
 import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-semantic-closure-host.mjs';
+import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
@@ -562,6 +563,15 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
         crownAdmissionRequiredForReadiness:false,
         paidInferenceTriggered:false,
         truthBoundary:'This is a zero-inference readiness check. It proves current route/catalog and runtime authority prerequisites only; it does not authorize or execute a Jev provider call and cannot suppress Crown.'
+      });
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/jev-calibration') {
+      const summary=await readJevCalibrationSummary(store);
+      return sendJson(res,200,{
+        ok:true,...summary,
+        providerCallsPerformed:0,
+        paidInferenceTriggered:false,
+        truthBoundary:'Crown-supervised JEV shadow outcomes only. This summary stores no raw prompts, candidate answers, or Crown outputs and grants no Crown-suppression authority.'
       });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {

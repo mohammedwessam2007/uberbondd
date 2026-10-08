@@ -85,7 +85,7 @@ export function createGovernedJevRuntimeService({store,apiKey,paidAuthorization,
   async function executeDecisionTensor({batchId,requests,maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001}={}){
     const plan=compileJevSharedStateTensor({batchId,requests});
     if(!plan.ok)return plan;
-    return executeGovernedJevTensor({plan,executeDecision,lookupValidatedPublicAnswer:publicReuse.read,recordValidatedPublicAnswer:publicReuse.record,maximumTotalSpendUsd,maximumPerGroupSpendUsd});
+    return executeGovernedJevTensor({plan,executeDecision,lookupValidatedPublicAnswer:publicReuse.read,claimExactPublicDecision:publicReuse.claim,releaseUncalledPublicDecision:publicReuse.releaseUncalled,recordValidatedPublicAnswer:publicReuse.record,maximumTotalSpendUsd,maximumPerGroupSpendUsd});
   }
 
   // This is an explicit opt-in governed paid call, NOT an automatic background

@@ -75,7 +75,7 @@ export async function runJevTensorOneShotCanary({
 }={}){
  if(typeof store?.transaction!=='function')throw Error('jev-tensor-canary-durable-store-required');
  const prev=await store.transaction(async tx=>(await tx.getSettings())?.[JEV_TENSOR_CANARY_KEY]??null);
- if(prev)return safeView(prev);
+ if(prev)return {...safeView(prev),providerCallsPerformedThisBoot:0,previouslyPersisted:true};
  const today=clock();
  if(!paidAuthorization?.evidenceRef||!Number.isFinite(Date.parse(paidAuthorization.expiresAt))||
    Date.parse(paidAuthorization.expiresAt)<=today||
@@ -100,7 +100,7 @@ export async function runJevTensorOneShotCanary({
    });
    return {claimed:true};
  });
- if(!claimed.claimed)return safeView(claimed.prior);
+ if(!claimed.claimed)return {...safeView(claimed.prior),providerCallsPerformedThisBoot:0,previouslyPersisted:true};
  let response;
  try{
    response=await service.executeDecisionTensor({
@@ -143,5 +143,5 @@ export async function runJevTensorOneShotCanary({
    automaticRetryAuthorized:false
  };
  await store.transaction(async tx=>tx.setSetting(JEV_TENSOR_CANARY_KEY,row));
- return safeView(row);
+ return {...safeView(row),providerCallsPerformedThisBoot:Number.isSafeInteger(providerCalls)?providerCalls:null,previouslyPersisted:false};
 }

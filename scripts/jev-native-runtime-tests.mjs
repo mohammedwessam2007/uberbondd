@@ -10,7 +10,9 @@ const tests=[
   'tests/jev-tensor-one-shot-live-canary.test.mjs',
   'tests/jev-tensor-provider-metadata-readback.test.mjs',
   'tests/ubermind-890-evidence-flywheel.test.mjs',
-  'tests/ubermind-sealed-reference-bridge.test.mjs'
+  'tests/ubermind-sealed-reference-bridge.test.mjs',
+  'tests/provable-reference-economics.test.mjs',
+  'tests/ubermind-33k-reality-gate.test.mjs'
 ];
 
 /** Native Node verification. Only deterministic mock-provider tests. Never

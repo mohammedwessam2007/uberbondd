@@ -8,7 +8,7 @@ const refuse=(why,details={})=>({ok:false,status:'WORKLOAD_INTAKE_REFUSED',
  reason:why,providerCallsPerformed:0,spendAuthorized:false,...details});
 
 export function precommitPublicWorkload({campaignId,asOf,taskRows=[]}={}){
- if(!valid(campaignId)||!Number.isFinite(Date.parse(asOf))||
+ if(!valid(campaignId)||typeof asOf!=='string'||!Number.isFinite(Date.parse(asOf))||
    !Array.isArray(taskRows)||!taskRows.length||taskRows.length>4096)
    return refuse('bounded-dated-campaign-required');
  const names=new Set(),fingerprints=new Set(),sources=new Set(),items=[];
@@ -19,6 +19,7 @@ export function precommitPublicWorkload({campaignId,asOf,taskRows=[]}={}){
      typeof row.sourceUrl!=='string'||
      !/^https:\/\/github\.com\/[^/]+\/[^/]+\/(issues|pull)\/\d+$/.test(row.sourceUrl)||
      row.dataClass!=='PUBLIC'||row.sourcePubliclyAccessible!==true||
+     typeof row.sourceObservedAt!=='string'||
      !Number.isFinite(Date.parse(row.sourceObservedAt))||
      Date.parse(row.sourceObservedAt)>Date.parse(asOf))
      return refuse('public-source-provenance-or-distinctness-unverified');
@@ -120,7 +121,8 @@ export function reviewPairedWorkloadSubmission({manifest,records=[]}={}){
    if(!t||Object.keys(r).some(k=>!allowedPairFields.has(k))||
       submitted.has(r.taskId)||r.taskContentDigest!==t.taskContentDigest||
       !digest(r.candidateOutputDigest)||!digest(r.frontierOutputDigest)||
-      r.candidateOutputDigest===r.frontierOutputDigest||
+      // Identical candidate/reference answers are legitimate matched outcomes.
+      // This staging layer must not exclude them and bias later audits.
       !valid(r.graderReceiptRef)||!valid(r.candidateProviderReceiptRef)||
       !valid(r.frontierProviderReceiptRef)||
       !Number.isSafeInteger(r.candidateMicrousd)||r.candidateMicrousd<0||

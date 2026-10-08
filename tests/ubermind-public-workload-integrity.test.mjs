@@ -147,3 +147,33 @@ test('unknown paired receipt metadata cannot perturb commitment or conceal a for
  const b=paired(1);
  assert.equal(reviewPairedWorkloadSubmission({manifest:m,records:[b]}).ok,true);
 });
+
+test('identical candidate and reference outputs stage without selection bias',()=>{
+ const m=make([source(1)]);
+ const r=paired(1,{frontierOutputDigest:h('candidate-1')});
+ const out=reviewPairedWorkloadSubmission({manifest:m,records:[r]});
+ assert.equal(out.ok,true);
+ assert.equal(out.pairedSubmissions,1);
+ assert.equal(out.independentQualityVerified,0);
+ assert.equal(out.providerInvoicesIndependentlyAuthenticated,0);
+ assert.equal(out.empiricallyAdmittedSamples,0);
+ assert.equal(out.empiricalMultiplier,null);
+ assert.equal(out.global33333xConfirmed,false);
+});
+
+test('precommit refuses non-string asOf dates before producing invalid manifests',()=>{
+ for(const bad of [new Date(asOf),Date.parse(asOf),{toString(){throw new Error('untrusted')}}]){
+  assert.doesNotThrow(()=>precommitPublicWorkload({campaignId:'forge-test',asOf:bad,
+    taskRows:[source(1)]}));
+  assert.equal(precommitPublicWorkload({campaignId:'forge-test',asOf:bad,
+    taskRows:[source(1)]}).ok,false);
+ }
+});
+
+test('precommit refuses non-string source timestamps before producing invalid manifests',()=>{
+ for(const bad of [new Date('2026-10-08T09:00:00Z'),Date.parse(asOf)]){
+  const m=make([source(1,{sourceObservedAt:bad})]);
+  assert.equal(m.ok,false);
+ }
+ assert.equal(verifyPublicWorkloadManifest(make()),true);
+});

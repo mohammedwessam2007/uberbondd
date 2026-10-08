@@ -75,7 +75,9 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
     ids.add(row.requestId);
     if(!validateScope(row.scope))return refusal('complete-identical-authority-scope-required',{requestId:row.requestId});
     if(!isObj(row.state))return refusal('object-state-required',{requestId:row.requestId});
-    const serialized=JSON.stringify({state:row.state,questions:row.questions});
+    let serialized;
+    try {serialized=JSON.stringify({state:row.state,questions:row.questions});}
+    catch {return refusal('canonical-state-required',{requestId:row.requestId});}
     if(typeof serialized!=='string'||serialized!==redactSecrets(serialized))
       return refusal('secret-bearing-tensor-refused',{requestId:row.requestId});
     if(!isObj(row.questions)||!Object.keys(row.questions).length)

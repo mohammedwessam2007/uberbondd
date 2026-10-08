@@ -170,3 +170,101 @@ export function expandScaledJevAnswers({plan,shardResults=[]}={}){
    semanticAuthority:'NONE',crownSuppressionAuthority:'NONE',
    truthBoundary:'Restoring validated advisory answers is not a provider inference, independent grade, invoice, or real economic savings proof.'};
 }
+
+
+/**
+ * Safely compose EXISTING governed tensor execution across exact-duplicate
+ * scaled shards. This is opt-in: caller must supply the existing authorized
+ * paid tensor executor; the function never touches a network by itself.
+ * Reserve the ENTIRE batch ceiling before the first external effect.
+ */
+export async function executeScaledJevUnderBudget({
+ batchId,requests=[],executeShard,
+ maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001
+}={}){
+ const denied=(status,extra={})=>({ok:false,status,
+   providerCallsPerformed:0,observedCostMicrousd:0,
+   automaticRetryAuthorized:false,semanticAuthority:'NONE',
+   crownSuppressionAuthority:'NONE',businessEffectAuthority:'NONE',...extra});
+ const totalMicro=Math.floor(maximumTotalSpendUsd*1e6);
+ const groupMicro=Math.floor(maximumPerGroupSpendUsd*1e6);
+ if(typeof executeShard!=='function'||
+    !Number.isFinite(maximumTotalSpendUsd)||maximumTotalSpendUsd<=0||
+    maximumTotalSpendUsd>.005||!Number.isFinite(maximumPerGroupSpendUsd)||
+    maximumPerGroupSpendUsd<=0||maximumPerGroupSpendUsd>.001||
+    !Number.isSafeInteger(totalMicro)||!Number.isSafeInteger(groupMicro)||
+    groupMicro<100||totalMicro<groupMicro)
+   return denied('JEV_SCALED_EXECUTION_POLICY_REFUSED');
+ const plan=compileScaledJevPreflight({batchId,requests});
+ if(!plan.ok)return denied('JEV_SCALED_PREFLIGHT_REQUIRED',{reason:plan.reason});
+ const groupCount=plan.plans.reduce((sum,shard)=>sum+shard.compiled.groupCount,0);
+ const reservedMicro=groupCount*groupMicro;
+ if(!Number.isSafeInteger(reservedMicro)||reservedMicro>totalMicro)
+   return denied('JEV_SCALED_GLOBAL_RESERVATION_EXCEEDS_BOUND',{
+     groupCount,requiredReservationMicrousd:reservedMicro,
+     maximumTotalMicrousd:totalMicro,planDigest:plan.planDigest
+   });
+ const shardResults=[],shardReceipts=[];
+ let confirmedCalls=0,confirmedCost=0;
+ const hold=(status,extra={})=>({
+   ok:false,status,
+   // A thrown dispatch or a partial result can already have crossed the
+   // provider boundary. Never invent zero cost or allow automatic retry.
+   providerCallsPerformed:null,observedCostMicrousd:null,
+   observedProviderCallsLowerBound:confirmedCalls,
+   observedCostLowerBoundMicrousd:confirmedCost,
+   completedShardCount:shardResults.length,
+   shardReceipts,planDigest:plan.planDigest,
+   automaticRetryAuthorized:false,semanticAuthority:'NONE',
+   crownSuppressionAuthority:'NONE',businessEffectAuthority:'NONE',...extra
+ });
+ for(const [shardIndex,shard] of plan.plans.entries()){
+   const shardCeilingMicrousd=shard.compiled.groupCount*groupMicro;
+   let observed;
+   try {
+     observed=await executeShard({
+       batchId:shard.batchId,requests:shard.requests,
+       maximumTotalSpendUsd:shardCeilingMicrousd/1e6,
+       maximumPerGroupSpendUsd:groupMicro/1e6,
+       shardIndex,planDigest:plan.planDigest
+     });
+   }catch {
+     return hold('JEV_SCALED_DISPATCH_UNCERTAIN_NO_RETRY',{failedShardIndex:shardIndex});
+   }
+   const calls=observed?.providerCallsPerformed,cost=observed?.observedCostMicrousd;
+   // Refuse any unknown, incomplete or larger-than-reserved result before
+   // exposing advisory fanout to consumers.
+   if(observed?.ok!==true||
+      observed.status!=='JEV_TENSOR_ADVISORY_DECISIONS_OBSERVED'||
+      !Number.isSafeInteger(calls)||calls<0||calls>shard.compiled.groupCount||
+      !Number.isSafeInteger(cost)||cost<0||cost>shardCeilingMicrousd)
+     return hold('JEV_SCALED_PARTIAL_OR_UNRECONCILED_NO_RETRY',{failedShardIndex:shardIndex});
+   confirmedCalls+=calls;
+   confirmedCost+=cost;
+   shardResults.push(observed);
+   shardReceipts.push({
+     shardIndex,groupCount:shard.compiled.groupCount,
+     providerCallsPerformed:calls,observedCostMicrousd:cost
+   });
+ }
+ let expanded;
+ try{expanded=expandScaledJevAnswers({plan,shardResults});}
+ catch{return hold('JEV_SCALED_FANOUT_INTEGRITY_HOLD');}
+ if(!expanded.ok)return hold('JEV_SCALED_FANOUT_INTEGRITY_HOLD',{reason:expanded.reason});
+ return {...expanded,
+   status:'JEV_SCALED_GOVERNED_ADVISORY_COMPLETE',
+   planDigest:plan.planDigest,
+   originalQuestionCount:plan.originalQuestionCount,
+   exactRedundanciesEliminated:plan.exactRedundanciesEliminated,
+   requiredGovernedShardCount:plan.plans.length,
+   governedGroupCount:groupCount,
+   reservedCeilingMicrousd:reservedMicro,
+   observedCostMicrousd:confirmedCost,
+   providerCallsPerformed:confirmedCalls,shardReceipts,
+   automaticRetryAuthorized:false,
+   independentlyVerifiedSavingsUsd:null,
+   generalFrontierEquivalenceProven:false,
+   businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',
+   truthBoundary:'A bounded, authorized governed JEV typed-advisory batch was faned out after exact scope/state/question coalescing. Counts are not distinct reasoning tasks; provider cost is subject to separate bill reconciliation. No Crown authority, frontier quality claim, 33,333x economic proof or automatic retry is granted.'
+ };
+}

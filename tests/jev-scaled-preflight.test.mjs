@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {compileScaledJevPreflight,expandScaledJevAnswers} from '../src/jev-scaled-preflight.mjs';
+import {compileScaledJevPreflight,expandScaledJevAnswers,executeScaledJevUnderBudget} from '../src/jev-scaled-preflight.mjs';
+import {compileJevSharedStateTensor} from '../src/jev-shared-state-tensor.mjs';
 
 const SHA='a'.repeat(64);
 const scope=(tenantId='owner')=>({
@@ -136,4 +137,120 @@ test('malformed advisory probability is blocked before mass fanout',()=>{
  const result=expandScaledJevAnswers({plan:p,shardResults:forged});
  assert.equal(result.ok,false);
  assert.equal(result.reason,'invalid-governed-shard-answer');
+});
+
+const fakeGovernedShard=async({batchId,requests})=>{
+ const compiled=compileJevSharedStateTensor({batchId,requests});
+ assert.equal(compiled.ok,true);
+ return {ok:true,status:'JEV_TENSOR_ADVISORY_DECISIONS_OBSERVED',
+  providerCallsPerformed:compiled.groupCount,
+  observedCostMicrousd:compiled.groupCount*10,
+  answers:requests.map(r=>({requestId:r.requestId,questionId:'v',
+   answer:{type:'noul',noul:.85},semanticAuthority:'NONE'}))
+ };
+};
+
+test('end-to-end scaled executor fans out 2048 exact public questions with one governed group',async()=>{
+ let executed=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'large-execution',requests:makeRows(2048),
+  executeShard:async arg=>{executed++;return fakeGovernedShard(arg);}
+ });
+ assert.equal(r.ok,true);
+ assert.equal(r.status,'JEV_SCALED_GOVERNED_ADVISORY_COMPLETE');
+ assert.equal(r.originalQuestionCount,2048);
+ assert.equal(r.restoredAnswerCount,2048);
+ assert.equal(r.exactRedundanciesEliminated,2047);
+ assert.equal(r.governedGroupCount,1);
+ assert.equal(r.providerCallsPerformed,1);
+ assert.equal(r.observedCostMicrousd,10);
+ assert.equal(r.independentlyVerifiedSavingsUsd,null);
+ assert.equal(r.generalFrontierEquivalenceProven,false);
+ assert.equal(r.semanticAuthority,'NONE');
+ assert.equal(executed,1);
+});
+
+test('all planned shards execute in order with one pre-reserved global budget',async()=>{
+ const inputs=Array.from({length:35},(_,i)=>row(i,{scope:scope('tenant-'+i)}));
+ let executed=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'bounded-35-scopes',requests:inputs,
+  maximumTotalSpendUsd:.005,maximumPerGroupSpendUsd:.0001,
+  executeShard:async arg=>{
+   executed++;
+   assert.equal(arg.maximumPerGroupSpendUsd,.0001);
+   return fakeGovernedShard(arg);
+  }
+ });
+ assert.equal(r.ok,true);
+ assert.ok(r.requiredGovernedShardCount>=2);
+ assert.equal(r.governedGroupCount,35);
+ assert.equal(r.providerCallsPerformed,35);
+ assert.equal(r.observedCostMicrousd,350);
+ assert.equal(r.restoredAnswerCount,35);
+ assert.equal(executed,r.requiredGovernedShardCount);
+});
+
+test('51 separate authority scopes refuse at global bound BEFORE any model request',async()=>{
+ const inputs=Array.from({length:51},(_,i)=>row(i,{scope:scope('tenant-'+i)}));
+ let calls=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'global-reservation-refusal',requests:inputs,
+  maximumTotalSpendUsd:.005,maximumPerGroupSpendUsd:.0001,
+  executeShard:async arg=>{calls++;return fakeGovernedShard(arg);}
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'JEV_SCALED_GLOBAL_RESERVATION_EXCEEDS_BOUND');
+ assert.equal(r.providerCallsPerformed,0);
+ assert.equal(calls,0);
+});
+
+test('provider error after first shard aborts entire fanout and marks cost unknown',async()=>{
+ const inputs=Array.from({length:35},(_,i)=>row(i,{scope:scope('tenant-'+i)}));
+ let calls=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'partial-batch-unknown',requests:inputs,
+  maximumTotalSpendUsd:.005,maximumPerGroupSpendUsd:.0001,
+  executeShard:async arg=>{calls++;if(calls===2)throw Error('lost provider response');return fakeGovernedShard(arg);}
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'JEV_SCALED_DISPATCH_UNCERTAIN_NO_RETRY');
+ assert.equal(r.automaticRetryAuthorized,false);
+ assert.equal(r.providerCallsPerformed,null);
+ assert.equal(r.observedCostMicrousd,null);
+ assert.equal(r.completedShardCount,1);
+ assert.equal(r.answers,undefined);
+ assert.equal(calls,2);
+});
+
+test('tampered or missing answer in a fully returned shard never leaks partial output',async()=>{
+ const r=await executeScaledJevUnderBudget({
+  batchId:'forged-result',requests:makeRows(3),
+  executeShard:async arg=>({
+   ...await fakeGovernedShard(arg),
+   answers:[{requestId:'atom-00001',questionId:'v',answer:{type:'noul',noul:15},semanticAuthority:'NONE'}]
+  })
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'JEV_SCALED_FANOUT_INTEGRITY_HOLD');
+ assert.equal(r.providerCallsPerformed,null);
+ assert.equal(r.answers,undefined);
+});
+
+test('unsupported spend ceiling or per-group minimum refuses before even compiling work',async()=>{
+ let calls=0;
+ for(const args of [
+  {maximumTotalSpendUsd:.1},
+  {maximumPerGroupSpendUsd:.00001},
+  {maximumTotalSpendUsd:.00005},
+  {maximumPerGroupSpendUsd:Infinity}
+ ]){
+  const r=await executeScaledJevUnderBudget({
+   batchId:'bad-cost',requests:[row(0)],
+   executeShard:async()=>{calls++;throw Error('should not invoke');},...args
+  });
+  assert.equal(r.ok,false);
+  assert.equal(r.status,'JEV_SCALED_EXECUTION_POLICY_REFUSED');
+ }
+ assert.equal(calls,0);
 });

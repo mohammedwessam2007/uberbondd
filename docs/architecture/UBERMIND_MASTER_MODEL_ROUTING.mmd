@@ -1,0 +1,57 @@
+flowchart TD
+  ROOT["Founder-directed sovereign cognitive continuum"] --> IN["Mission, user question, code issue, life or revenue workflow"]
+  I890["All 890 original founder ideas via 10 indexed shards"] -. "relevant ideas + provenance" .-> CTX
+  GEN["GENESIS: propose successors beyond idea 0890"] -. "new possibilities, not proof" .-> CTX
+  MEM["Total Brain / PHOENIX / knowledge graph / negative knowledge"] -. "history + counterexamples" .-> CTX
+  CAP["Capability Genome / skills / tool and permission registry"] -. "minimum safe tools" .-> CTX
+  MARKET["Market refresh / cost and model failure maps / task-class admission"] -. "eligible providers" .-> ROUTER
+
+  IN --> CTX["Context compiler: exact source, quality contract, task class, freshness, privacy, consequences"]
+  CTX --> AUTH{"Scope, permission, cost, quality and effect gates passed?"}
+  AUTH -- "No" --> HOLD["HOLD / ask for authority / safe offline plan"]
+  AUTH -- "Yes" --> EXACT{"E0-E4 exact code, solver, certified franchise or trustworthy cache?"}
+  EXACT -- "Yes" --> VERIFY["Deterministic execute + verify source and applicability"]
+  EXACT -- "No" --> JEV["JEV 1.13 Hyperreflex: Noul / Choice / Score, advisory"]
+  JEV --> JPLAN["Exact shared-state tensor / scoped cache / durable single-flight / budget-aware batches"]
+  JPLAN --> JUDGE{"Certified bounded output with no material unresolved judgment?"}
+  JUDGE -- "Yes" --> VERIFY
+  JUDGE -- "No or unknown" --> ROUTER["Adaptive model market: quality first, cheapest eligible route"]
+  ROUTER --> BASE{"Novel or uncertified frontier task?"}
+  BASE -- "Yes" --> CLEAN["Preserve independent moving-Crown clean reference"]
+  BASE -- "No" --> N2
+  CLEAN --> N2["N=2 independent cheap lineages, parallel"]
+  N2 --> DIS["JEV disagreement / uncertainty / marginal search-value advisory"]
+  DIS --> GAP{"Material disagreement, novelty or unresolved claim?"}
+  GAP -- "No, separately verified" --> CONVERGE["Bounded synthesis, proof and source checks"]
+  GAP -- "Yes" --> EXPAND["N=4 then N=8 only if justified; task specialists if needed"]
+  EXPAND --> ROLES["Adversarial roles: falsifier, framebreaker, counterfactual, evidence hunter, minority preserver"]
+  ROLES --> DOSSIER["Claim graph + unresolved semantic delta + tests"]
+  DOSSIER --> CROWN["Moving Frontier Crown: task-class winner; Opus / Astra / Sol Pro / Sonnet challengers"]
+  CROWN --> CONVERGE
+  CONVERGE --> REALITY["Reality Court: tests, external source, quality, regressions, economic truth"]
+  VERIFY --> REALITY
+  REALITY --> ACCEPT{"Meets quality contract and permission boundary?"}
+  ACCEPT -- "No" --> HOLD
+  ACCEPT -- "Yes" --> EFFECT{"Consequential external effect?"}
+  EFFECT -- "No" --> OUTPUT["Return artifact or complete permitted internal operation"]
+  EFFECT -- "Yes" --> PERMIT["Specific founder authorization + legal/provider policy + budget"]
+  PERMIT -- "Approved" --> ACT["Governed tool / deployment / distribution / payment action"]
+  PERMIT -- "Not approved" --> HOLD
+  ACT --> RECEIPT["Reconcile actual effects, delivered acceptance and cleared cash"]
+  OUTPUT --> LEARN["Proof, error, prediction, cost and latency learning loop"]
+  RECEIPT --> LEARN
+  LEARN --> MEM
+  LEARN -. "bounded circuit proposal" .-> JEV
+  LEARN -. "benchmark and revoke" .-> ROUTER
+  LEARN -. "hypotheses and successors" .-> GEN
+
+  classDef reality fill:#dff5ec,stroke:#148a55,color:#073e27
+  classDef gate fill:#fff3d9,stroke:#bd7900,color:#4f3200
+  classDef model fill:#eef0ff,stroke:#6654b5,color:#1d1850
+  classDef held fill:#ffe6e6,stroke:#ba3b3b,color:#6a1010
+  classDef memory fill:#e5f0ff,stroke:#2866a1,color:#112e58
+  class ROOT,I890,GEN,MEM,CAP,MARKET memory
+  class AUTH,EXACT,JUDGE,BASE,GAP,ACCEPT,EFFECT,PERMIT gate
+  class JEV,JPLAN,N2,EXPAND,ROLES,CROWN,ROUTER,DIS,DOSSIER model
+  class HOLD held
+  class VERIFY,CONVERGE,REALITY,OUTPUT,ACT,RECEIPT,LEARN reality

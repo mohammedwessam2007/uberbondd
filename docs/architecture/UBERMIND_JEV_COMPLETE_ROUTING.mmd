@@ -1,0 +1,34 @@
+flowchart TD
+  SOURCE["Source-bound PUBLIC work, e.g. verified GitHub issues; transient snippets only"] --> ENTRY["JEV scope check: tenant / credential / source digest / quality / freshness / no side effects"]
+  ENTRY --> TYPE["Hyperreflex: Noul / Choice / Score; typed advisory questions"]
+  TYPE --> GROUP["Decision tensor: identical scope and state; de-duplicate exact questions"]
+  GROUP --> PLAN["W11 scaled plan and governed execution: bounded shards and original-ID fanout"]
+  PLAN --> LOOKUP{"W16 prior billed exact PUBLIC answer valid and current?"}
+  LOOKUP -- "Yes" --> HIT["Reuse correct typed answer, zero new provider inference"]
+  LOOKUP -- "No" --> CLAIM{"W17 durable cross-worker single-flight owner claim acquired?"}
+  CLAIM -- "No / dispatch uncertain" --> SAFE["HOLD without automatic retry or invented zero charge"]
+  CLAIM -- "Yes" --> BUDGET{"W19 only fresh groups reserved; current price / auth / key / ledger and aggregate bound valid?"}
+  BUDGET -- "No" --> SAFE
+  BUDGET -- "Yes" --> POST["Gov. JEV /alpha/decisions POST under hard per-call cap"]
+  POST --> RECON{"Provider identity, typed output and cost settled?"}
+  RECON -- "No" --> SAFE
+  RECON -- "Yes" --> RECORD["W16 durable answer record + actual cost receipt"]
+  HIT --> FANOUT["Restore each original bounded advisory answer"]
+  RECORD --> FANOUT
+  FANOUT --> CLASS{"Material human/frontier judgment still needed?"}
+  CLASS -- "Yes or unknown" --> FRONT["Independent workers or task-class Frontier Crown"]
+  CLASS -- "No, certified finite domain" --> LOW["Bounded output, independently governed"]
+  FRONT --> RISK["Shadow audit and drift monitoring"]
+  LOW --> RISK
+  RISK --> CIRCUIT["Frontier-to-JEV: propose / shadow / compare / certify bounded circuit / compile code"]
+  CIRCUIT -. "verified new circuit only" .-> TYPE
+  DOCTOR["W18 claim doctor; W9 read-only page-fault inventory"] -. "monitor, no retry authority" .-> SAFE
+  REAL["W20 source-verified real-issue JEV shadow precommit, NOT inference"] --> SOURCE
+  classDef entry fill:#e8f5e9,stroke:#31804a,color:#14401d
+  classDef stop fill:#ffe8e8,stroke:#bc3333,color:#5b1515
+  classDef decision fill:#fff4d8,stroke:#bf861f,color:#473000
+  classDef blue fill:#e4f0ff,stroke:#3273b7,color:#123a68
+  class SOURCE,ENTRY,TYPE,GROUP,PLAN,POST,RECORD,HIT,FANOUT,LOW,CIRCUIT,REAL entry
+  class LOOKUP,CLAIM,BUDGET,RECON,CLASS decision
+  class SAFE stop
+  class DOCTOR,FRONT,RISK blue

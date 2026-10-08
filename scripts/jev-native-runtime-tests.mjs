@@ -6,7 +6,8 @@ const tests=[
   'tests/jev-shared-state-tensor.test.mjs',
   'tests/jev-native-pagefault-triage.test.mjs',
   'tests/jev-governed-runtime-service.test.mjs',
-  'tests/openrouter-jev-governed-adapter.test.mjs'
+  'tests/openrouter-jev-governed-adapter.test.mjs',
+  'tests/jev-tensor-one-shot-live-canary.test.mjs'
 ];
 
 /** Native Node verification. Only deterministic mock-provider tests. Never

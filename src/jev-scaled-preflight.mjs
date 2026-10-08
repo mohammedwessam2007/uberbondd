@@ -180,6 +180,7 @@ export function expandScaledJevAnswers({plan,shardResults=[]}={}){
  */
 export async function executeScaledJevUnderBudget({
  batchId,requests=[],executeShard,
+ lookupValidatedPublicAnswer=null,
  maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001
 }={}){
  const denied=(status,extra={})=>({ok:false,status,
@@ -198,14 +199,50 @@ export async function executeScaledJevUnderBudget({
  const plan=compileScaledJevPreflight({batchId,requests});
  if(!plan.ok)return denied('JEV_SCALED_PREFLIGHT_REQUIRED',{reason:plan.reason});
  const groupCount=plan.plans.reduce((sum,shard)=>sum+shard.compiled.groupCount,0);
- const reservedMicro=groupCount*groupMicro;
+ // W19 already knows how to validate source/tenant/credential/price-bound
+ // billed prior PUBLIC answers. Preflight the ENTIRE scaled batch using the
+ // SAME protected read-only adapter before any shard can cross a provider.
+ // Any unknown or poisoned answer aborts with zero dispatched calls.
+ let eligibleCachedGroups=0;
+ if(lookupValidatedPublicAnswer!==null){
+   if(typeof lookupValidatedPublicAnswer!=='function')
+     return denied('JEV_SCALED_CACHE_PREFLIGHT_POLICY_REFUSED');
+   for(const shard of plan.plans){
+     for(const group of shard.compiled.groups){
+       let observed;
+       try{observed=await lookupValidatedPublicAnswer({
+         scope:group.scope,state:group.state,questions:group.questions,
+         inputTokenCeiling:group.inputTokenCeiling
+       });}
+       catch{return denied('JEV_SCALED_CACHE_PREFLIGHT_UNKNOWN_NO_DISPATCH');}
+       if(observed?.ok!==true)
+         return denied('JEV_SCALED_CACHE_PREFLIGHT_REFUSED_NO_DISPATCH');
+       if(observed.result!==null&&observed.result!==undefined){
+         if(observed.status!=='JEV_PUBLIC_EXACT_PRIOR_ANSWER_REUSED'||
+           observed.result.ok!==true||
+           observed.result.reusedPriorAnswer!==true||
+           observed.result.providerCallsPerformed!==0||
+           observed.result.observedCostMicrousd!==0)
+           return denied('JEV_SCALED_CACHE_PREFLIGHT_UNTRUSTED_HIT');
+         eligibleCachedGroups++;
+       }
+     }
+   }
+ }
+ const freshGroupCount=groupCount-eligibleCachedGroups;
+ const reservedMicro=freshGroupCount*groupMicro;
  if(!Number.isSafeInteger(reservedMicro)||reservedMicro>totalMicro)
    return denied('JEV_SCALED_GLOBAL_RESERVATION_EXCEEDS_BOUND',{
-     groupCount,requiredReservationMicrousd:reservedMicro,
+     groupCount,eligibleCachedGroups,freshGroupCount,
+     requiredReservationMicrousd:reservedMicro,
      maximumTotalMicrousd:totalMicro,planDigest:plan.planDigest
    });
  const shardResults=[],shardReceipts=[];
  let confirmedCalls=0,confirmedCost=0;
+ // The initial cache snapshot is ONLY a conservative admission hint.
+ // Any prior hit can expire before execution. The actual tensor rechecks
+ // every group and may only spend the unconsumed GLOBAL ceiling.
+ let remainingMicro=totalMicro;
  const hold=(status,extra={})=>({
    ok:false,status,
    // A thrown dispatch or a partial result can already have crossed the
@@ -219,7 +256,12 @@ export async function executeScaledJevUnderBudget({
    crownSuppressionAuthority:'NONE',businessEffectAuthority:'NONE',...extra
  });
  for(const [shardIndex,shard] of plan.plans.entries()){
-   const shardCeilingMicrousd=shard.compiled.groupCount*groupMicro;
+   const shardCeilingMicrousd=Math.min(
+     shard.compiled.groupCount*groupMicro,remainingMicro);
+   // If an earlier shard consumed the budget, never reach another shard.
+   if(shardCeilingMicrousd<groupMicro)
+     return hold('JEV_SCALED_GLOBAL_BUDGET_EXHAUSTED_NO_RETRY',{
+       failedShardIndex:shardIndex});
    let observed;
    try {
      observed=await executeShard({
@@ -241,6 +283,7 @@ export async function executeScaledJevUnderBudget({
      return hold('JEV_SCALED_PARTIAL_OR_UNRECONCILED_NO_RETRY',{failedShardIndex:shardIndex});
    confirmedCalls+=calls;
    confirmedCost+=cost;
+   remainingMicro-=cost;
    shardResults.push(observed);
    shardReceipts.push({
      shardIndex,groupCount:shard.compiled.groupCount,
@@ -258,7 +301,10 @@ export async function executeScaledJevUnderBudget({
    exactRedundanciesEliminated:plan.exactRedundanciesEliminated,
    requiredGovernedShardCount:plan.plans.length,
    governedGroupCount:groupCount,
+   eligibleCachedGroupsAtPreflight:eligibleCachedGroups,
+   freshGroupsAtPreflight:freshGroupCount,
    reservedCeilingMicrousd:reservedMicro,
+   globalBudgetCeilingMicrousd:totalMicro,
    observedCostMicrousd:confirmedCost,
    providerCallsPerformed:confirmedCalls,shardReceipts,
    automaticRetryAuthorized:false,

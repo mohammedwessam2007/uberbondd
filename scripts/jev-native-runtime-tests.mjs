@@ -16,7 +16,8 @@ const tests=[
   'tests/ubermind-cheapest-eligible-reference.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',
-  'tests/ubermind-public-workload-integrity.test.mjs'
+  'tests/ubermind-public-workload-integrity.test.mjs',
+  'tests/ubermind-public-issue-intake.test.mjs'
 ];
 
 /** Native Node verification. Only deterministic mock-provider tests. Never

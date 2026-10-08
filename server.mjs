@@ -35,6 +35,7 @@ import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
 import { runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState } from './scripts/infinite-opus-haiku55-live-canary.mjs';
+import { reconcileHaiku55CanaryWithoutReplay } from './scripts/infinite-opus-haiku55-canary-reconcile.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
@@ -1086,6 +1087,12 @@ if (wrapperIsEntryPoint) {
         await store.init();
         const haikuState=await inspectGovernedHaiku55LiveCanaryState(store);
         console.log('UBERMIND_HAIKU55_CANARY_STATE '+JSON.stringify(haikuState));
+        const haikuReconciliation=await reconcileHaiku55CanaryWithoutReplay({
+          store,apiKey:String(process.env.OPENROUTER_API_KEY||'')
+        }).catch(()=>({ok:false,status:'HAIKU_5_5_RECONCILIATION_UNAVAILABLE',
+          automaticRetryAuthorized:false,reconciliationInferenceCallsPerformed:0,
+          semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'}));
+        console.log('UBERMIND_HAIKU55_RECONCILIATION '+JSON.stringify(haikuReconciliation));
         const haikuCanary=haiku55.ok?await runGovernedHaiku55LiveCanary({
           store,
           apiKey:String(process.env.OPENROUTER_API_KEY||''),

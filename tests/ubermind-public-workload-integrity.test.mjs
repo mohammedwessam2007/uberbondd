@@ -127,3 +127,23 @@ test('hostile circular and extra metadata is refused without crashing',()=>{
  assert.equal(verifyPublicWorkloadManifest(m),false);
  assert.equal(reviewPairedWorkloadSubmission({manifest:m,records:[]}).ok,false);
 });
+
+test('paired receipt with circular extraneous metadata refuses without crashing',()=>{
+ const m=make(),r=paired(1);r.untrusted=r;
+ assert.doesNotThrow(()=>reviewPairedWorkloadSubmission({manifest:m,records:[r]}));
+ const out=reviewPairedWorkloadSubmission({manifest:m,records:[r]});
+ assert.equal(out.ok,false);assert.equal(out.spendAuthorized,false);
+});
+
+test('caller-supplied manifest authority aliases do not get silently staged',()=>{
+ const m=make();m.externallyVerified=true;
+ assert.equal(verifyPublicWorkloadManifest(m),false);
+ assert.equal(reviewPairedWorkloadSubmission({manifest:m,records:[]}).ok,false);
+});
+
+test('unknown paired receipt metadata cannot perturb commitment or conceal a forged grade',()=>{
+ const m=make(),a=paired(1);a.independentQualityVerified=true;
+ assert.equal(reviewPairedWorkloadSubmission({manifest:m,records:[a]}).ok,false);
+ const b=paired(1);
+ assert.equal(reviewPairedWorkloadSubmission({manifest:m,records:[b]}).ok,true);
+});

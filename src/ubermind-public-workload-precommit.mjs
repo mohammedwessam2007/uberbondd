@@ -67,6 +67,12 @@ export function verifyPublicWorkloadManifest(manifest){
     manifest.empiricalMultiplier!==null||manifest.global33333xConfirmed!==false||
     manifest.providerCallsPerformed!==0||manifest.spendAuthorized!==false||
     !digest(manifest.manifestDigest))return false;
+ const allowedManifestFields=new Set(['ok','schemaVersion','status','campaignId',
+  'asOf','taskCount','manifestDigest','items','precommittedExistingPublicTasks',
+  'independentFreshHoldoutsAdmitted','qualityPairedSamplesAdmitted',
+  'empiricalMultiplier','global33333xConfirmed','providerCallsPerformed',
+  'spendAuthorized','truthBoundary']);
+ if(Object.keys(manifest).some(k=>!allowedManifestFields.has(k)))return false;
  const ids=new Set(),hashes=new Set(),sources=new Set();
  const allowedItemFields=new Set(['taskId','taskClass','taskContentDigest',
   'sourceUrl','sourceObservedAt','permissionForProviderBenchmarkReuseVerified',
@@ -105,9 +111,14 @@ export function reviewPairedWorkloadSubmission({manifest,records=[]}={}){
    !Array.isArray(records)||records.length>manifest.taskCount)
    return refuse('valid-precommit-and-bounded-pairs-required');
  const submitted=new Map(),itemById=new Map(manifest.items.map(x=>[x.taskId,x]));
+ const allowedPairFields=new Set(['taskId','taskContentDigest',
+  'candidateOutputDigest','frontierOutputDigest','graderReceiptRef',
+  'candidateProviderReceiptRef','frontierProviderReceiptRef',
+  'candidateMicrousd','frontierMicrousd']);
  for(const r of records){
    const t=itemById.get(r?.taskId);
-   if(!t||submitted.has(r.taskId)||r.taskContentDigest!==t.taskContentDigest||
+   if(!t||Object.keys(r).some(k=>!allowedPairFields.has(k))||
+      submitted.has(r.taskId)||r.taskContentDigest!==t.taskContentDigest||
       !digest(r.candidateOutputDigest)||!digest(r.frontierOutputDigest)||
       r.candidateOutputDigest===r.frontierOutputDigest||
       !valid(r.graderReceiptRef)||!valid(r.candidateProviderReceiptRef)||
@@ -115,7 +126,14 @@ export function reviewPairedWorkloadSubmission({manifest,records=[]}={}){
       !Number.isSafeInteger(r.candidateMicrousd)||r.candidateMicrousd<0||
       !Number.isSafeInteger(r.frontierMicrousd)||r.frontierMicrousd<0)
      return refuse('pair-digest-or-receipt-binding-invalid');
-   submitted.set(r.taskId,r);
+   // Bind only validated receipt fields; never stringify arbitrary submitter metadata.
+   submitted.set(r.taskId,{taskId:r.taskId,taskContentDigest:r.taskContentDigest,
+     candidateOutputDigest:r.candidateOutputDigest,
+     frontierOutputDigest:r.frontierOutputDigest,
+     graderReceiptRef:r.graderReceiptRef,
+     candidateProviderReceiptRef:r.candidateProviderReceiptRef,
+     frontierProviderReceiptRef:r.frontierProviderReceiptRef,
+     candidateMicrousd:r.candidateMicrousd,frontierMicrousd:r.frontierMicrousd});
  }
  return {ok:true,status:'PAIRED_WORKLOAD_RECEIPTS_STAGED_FOR_INDEPENDENT_AUDIT',
    taskCount:manifest.taskCount,manifestDigest:manifest.manifestDigest,

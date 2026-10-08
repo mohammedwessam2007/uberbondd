@@ -48,6 +48,8 @@ test('successful synthetic provider response proves mapped answers and observed 
  assert.equal(calls,1);
  const second=await runJevTensorOneShotCanary(input(store,serviceFactory));
  assert.equal(second.ok,true);assert.equal(calls,1);
+ assert.equal(second.providerCallsPerformedThisBoot,0);
+ assert.equal(second.previouslyPersisted,true);
 });
 test('uncertain provider crossing claims once and is never silently replayed',async()=>{
  const store=mkStore();let calls=0;

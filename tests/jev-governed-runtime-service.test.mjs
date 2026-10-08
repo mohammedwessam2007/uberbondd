@@ -134,3 +134,48 @@ test('provider failure after dispatch is retained and never automatically retrie
   assert.equal(second.ok,false);
   assert.equal(calls,after);
 });
+
+test('governed runtime executes 40 exact public consumer requests with one paid JEV Decisions call',async()=>{
+ const s=store();let getCount=0,postCount=0;
+ const fetchImpl=async(url,options={})=>{
+  if(String(url).endsWith('/v1/key')){
+   getCount++;
+   return response({data:{label:'fixture',limit:20,limit_remaining:19.99,
+    usage_monthly:.01,limit_reset:'monthly'}});
+  }
+  if(String(url).endsWith('/alpha/decisions')){
+   postCount++;
+   const request=JSON.parse(options.body);
+   const answers=Object.fromEntries(Object.keys(request.questions).map(k=>
+    [k,{type:'noul',noul:.85}]));
+   return response({id:'jev-scaled-fixture-'+postCount,
+    model:'typesafe/jev-1.13-20260917',provider:'TypeSafe',
+    answers,usage:{cost:.00002,input_tokens:480,output_tokens:1}});
+  }
+  throw Error('unexpected provider URL');
+ };
+ const service=createGovernedJevRuntimeService({
+  store:s,apiKey:'sk-or-v1-fixture-key-long-enough',
+  paidAuthorization:auth,marketSnapshot:market(),fetchImpl,clock:()=>NOW
+ });
+ const scope={tenantId:'owner',credentialScopeId:'one-credential',
+  dataClass:'PUBLIC',qualityContractHash:'a'.repeat(64),
+  sourceDigest:'b'.repeat(64),freshnessClass:'IMMUTABLE',
+  sideEffectClass:'NONE'};
+ const requests=Array.from({length:40},(_,i)=>({
+  requestId:'consumer-'+i,scope,state:{kind:'PUBLIC_FIXTURE'},
+  questions:{route:{type:'noul',instructions:'Is this public signal ambiguous?'}}
+ }));
+ const out=await service.executeScaledDecisionTensor({
+  batchId:'live-shaped-public-40',requests,maximumTotalSpendUsd:.005
+ });
+ assert.equal(out.ok,true);
+ assert.equal(out.providerCallsPerformed,1);
+ assert.equal(out.observedCostMicrousd,20);
+ assert.equal(out.restoredAnswerCount,40);
+ assert.equal(out.exactRedundanciesEliminated,39);
+ assert.equal(out.semanticAuthority,'NONE');
+ assert.equal(postCount,1);
+ assert.equal(getCount,2);
+ assert.equal((await service.runtime.snapshot()).budget.monthSpentMicrousd,20);
+});

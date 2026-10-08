@@ -36,9 +36,11 @@ if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpire
 // never requests model inference, mints Crown authority, or writes provider state.
 // Repeated identical evidence is suppressed instead of spamming the runtime.
 let lastUberMindProofDigest=null;
-function tickUberMindProofFlywheel(){
+async function tickUberMindProofFlywheel(){
   try{
-    const report=runUberMind890ProofCycle();
+    const historical=await store.transaction(async tx=>
+      (await tx.getSettings())?.infinite_opus_measured_reference_dominance_20261007_v1??null);
+    const report=runUberMind890ProofCycle({historicalMeasuredReferenceDominance:historical});
     const digest=report.stateDigest??report.status;
     if(digest!==lastUberMindProofDigest||!report.ok){
       console.log('UBERMIND_890_PROOF_LOOP '+JSON.stringify({
@@ -48,6 +50,11 @@ function tickUberMindProofFlywheel(){
         donorIds:report.donorIds??[],
         exactIslandDoctorStatus:report.exactIslandDoctorStatus??null,
         independentHoldoutsObserved:report.actualIndependentFrontierHoldoutsInCycle??null,
+        historicalSealedPairStatus:report.historicalSealedPairSummaryStatus??null,
+        historicDistinctTaskCount:report.historicalSealedDistinctTaskCount??null,
+        historicCandidateOnlyFactor:report.historicalCandidateOnlyFactor??null,
+        historicProofInclusiveFactor:report.historicalProofInclusiveFactor??null,
+        historicPairIndependentlyAuthenticatedHere:false,
         global33333xConfirmed:false,
         paidCallsPerformed:0,spendAuthorized:false,
         stateDigest:report.stateDigest??null

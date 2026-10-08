@@ -105,7 +105,7 @@ export function createJevPublicAnswerReuse({store,route,paidAuthorization,clock=
        originalObservedCostMicrousd:result.observedCostMicrousd,
        observedModelRevision:result.observedModelRevision??null,
        upstreamProvider:result.upstreamProvider??null};
-     if(items[x.key]){
+     if(items[x.key]&&items[x.key].expiresAt>x.now){
        if(items[x.key].answerDigest!==row.answerDigest||
          items[x.key].providerRequestId!==row.providerRequestId)
          return fail('conflicting-billed-answer-must-not-overwrite');

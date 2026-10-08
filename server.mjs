@@ -35,6 +35,7 @@ import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
 import { runJevTensorOneShotCanary } from './scripts/jev-tensor-one-shot-live-canary.mjs';
+import { readJevTensorProviderBilling } from './scripts/jev-tensor-provider-metadata-readback.mjs';
 import { runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState } from './scripts/infinite-opus-haiku55-live-canary.mjs';
 import { reconcileHaiku55CanaryWithoutReplay } from './scripts/infinite-opus-haiku55-canary-reconcile.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
@@ -1126,6 +1127,13 @@ if (wrapperIsEntryPoint) {
               automaticRetryAuthorized:false,semanticAuthority:'NONE',
               crownSuppressionAuthority:'NONE'};
         console.log('UBERMIND_JEV_TENSOR_LIVE_CANARY '+JSON.stringify(tensorLiveCanary));
+        const tensorBillingReadback=jevNativeProof.ok
+          ? await readJevTensorProviderBilling({
+              store,apiKey:String(process.env.OPENROUTER_API_KEY||'')
+            })
+          : {ok:false,status:'JEV_TENSOR_METADATA_SKIPPED_NATIVE_TESTS_UNVERIFIED',
+              providerMetadataCallsThisBoot:0,providerInferenceCallsThisBoot:0};
+        console.log('UBERMIND_JEV_TENSOR_PROVIDER_BILLING '+JSON.stringify(tensorBillingReadback));
         const triage=await runPendingNativeJevTriage({
           store,
           apiKey:String(process.env.OPENROUTER_API_KEY||''),

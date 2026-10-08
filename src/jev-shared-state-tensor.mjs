@@ -1,4 +1,5 @@
 import { semanticHash } from './semantic-closure-kernel.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
 
 export const JEV_TENSOR_SCHEMA='uberbond.jev-shared-state-tensor.v1';
 const MODEL='typesafe/jev-1.13';
@@ -31,7 +32,7 @@ function validateQuestion(question){
   return question.criteria.every(x=>typeof x==='string'&&x.length>0&&x.length<=1000);
 }
 function validateScope(s){
-  return isObj(s)&&
+  return isObj(s)&&Object.keys(s).length===7&&
     ['tenantId','credentialScopeId','dataClass','qualityContractHash','sourceDigest','freshnessClass','sideEffectClass']
       .every(k=>Object.hasOwn(s,k))&&
     SAFE.test(s.tenantId)&&SAFE.test(s.credentialScopeId)&&
@@ -45,6 +46,18 @@ const sizeOf=(state,questions)=>{
   return {bytes,inputTokenCeiling:bytes+128}; // conservative 1 UTF-8 byte/token, not measured usage
 };
 const limitOk=x=>x.bytes<=MAX_PAYLOAD_BYTES&&x.inputTokenCeiling<=MAX_INPUT_TOKENS;
+const validProb=x=>typeof x==='number'&&Number.isFinite(x)&&x>=0&&x<=1;
+function validateAnswer(answer,question){
+ if(!isObj(answer)||answer.type!==question.type)return false;
+ if(answer.type==='noul')return validProb(answer.noul);
+ if(answer.type==='choice')return typeof answer.choice==='string'&&Object.hasOwn(question.criteria,answer.choice)&&
+   (answer.confidence===undefined||validProb(answer.confidence));
+ if(answer.type==='score')return typeof answer.score==='number'&&Number.isFinite(answer.score)&&
+   answer.score>=0&&answer.score<=question.criteria.length-1&&
+   (answer.confidence===undefined||validProb(answer.confidence));
+ return false;
+}
+
 
 /**
  * Compile same-state, same-authority-scope typed questions into one bounded Jev
@@ -62,6 +75,9 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
     ids.add(row.requestId);
     if(!validateScope(row.scope))return refusal('complete-identical-authority-scope-required',{requestId:row.requestId});
     if(!isObj(row.state))return refusal('object-state-required',{requestId:row.requestId});
+    const serialized=JSON.stringify({state:row.state,questions:row.questions});
+    if(typeof serialized!=='string'||serialized!==redactSecrets(serialized))
+      return refusal('secret-bearing-tensor-refused',{requestId:row.requestId});
     if(!isObj(row.questions)||!Object.keys(row.questions).length)
       return refusal('bounded-typed-questions-required',{requestId:row.requestId});
     const entries=Object.entries(row.questions);
@@ -204,7 +220,7 @@ export async function executeGovernedJevTensor({plan,executeDecision,
       return fail('JEV_TENSOR_ANSWER_COMPLETENESS_REFUSED',{providerCallsPerformed:performed,results});
     for(const m of group.mapping){
       const a=actual[m.questionId];
-      if(!isObj(a)||a.type!==group.questions[m.questionId].type)
+      if(!validateAnswer(a,group.questions[m.questionId]))
         return fail('JEV_TENSOR_ANSWER_TYPE_REFUSED',{providerCallsPerformed:performed,results});
       answers.push({requestId:m.requestId,questionId:m.originalQuestionId,answer:structuredClone(a),
         providerRequestId:result.providerRequestId??null,semanticAuthority:'NONE'});

@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { POST as paypalOrder } from './api/payments/paypal-order.mjs';
 import { GET as paypalCapture } from './api/payments/paypal-capture.mjs';
 import { POST as paypalWebhook } from './api/webhooks/paypal.mjs';
+import { POST as xpayWebhook } from './api/webhooks/xpay.mjs';
 import { createPortablePayPalBridge } from './src/portable-paypal-bridge.mjs';
 
 // Compose outside the canonical hardened server facade rather than importing
@@ -23,7 +24,7 @@ let requestHandler = null;
 http.createServer = function createPortableServer(hardenedHandler, ...rest) {
   requestHandler = createPortablePayPalBridge({
     coreHandler: hardenedHandler,
-    handlers: { order: paypalOrder, capture: paypalCapture, webhook: paypalWebhook }
+    handlers: { order: paypalOrder, capture: paypalCapture, webhook: paypalWebhook, xpayWebhook }
   });
   return nativeCreateServer.call(http, requestHandler, ...rest);
 };
@@ -44,7 +45,7 @@ try {
 if (!requestHandler) {
   requestHandler = createPortablePayPalBridge({
     coreHandler: serverFacade.requestHandler,
-    handlers: { order: paypalOrder, capture: paypalCapture, webhook: paypalWebhook }
+    handlers: { order: paypalOrder, capture: paypalCapture, webhook: paypalWebhook, xpayWebhook }
   });
 }
 

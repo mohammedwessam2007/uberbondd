@@ -23,6 +23,7 @@ const tests=[
   'tests/ubermind-real-work-counter.test.mjs',
   'tests/ubermind-exact-source-work.test.mjs',
   'tests/ubermind-operational-work-scoreboard.test.mjs',
+  'tests/ubermind-public-issue-backlog.test.mjs',
   'tests/contra-collection-readiness.test.mjs',
   'tests/server-request-handler.test.mjs'
 ];

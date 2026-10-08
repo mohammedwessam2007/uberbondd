@@ -49,6 +49,9 @@ export function runJevNativeTests(){
     testsCount!==null&&testsCount>=20&&passed===testsCount&&failed===0;
   const failedCaseNames=stdout.split('\n').filter(x=>/^not ok [0-9]+ - /.test(x))
     .slice(0,6).map(x=>x.replace(/^not ok \d+ - /,'').slice(0,140));
+  // Controlled fixture diagnostics only, never raw TAP or arbitrary assertions.
+  const w12SafeDiagnostics=[...stdout.matchAll(/W12_DIAG_[A-Z_]+:[A-Za-z0-9_:-]{1,180}/g)]
+    .slice(0,6).map(x=>x[0]);
   return {
     schemaVersion:JEV_NATIVE_TEST_RECEIPT_SCHEMA,ok,
     status:ok?'JEV_NATIVE_NODE_REGRESSION_SUITE_PASSED':'JEV_NATIVE_NODE_REGRESSION_INCOMPLETE',
@@ -57,7 +60,7 @@ export function runJevNativeTests(){
     tests:testsCount,passed,failed,
     exitCode:child.status,signal:child.signal??null,
     durationMs:Date.now()-start,
-    failedCaseNames,
+    failedCaseNames,w12SafeDiagnostics,
     launchFailureCode:child.error?.code??null,
     providerCallsPerformed:0,paidInferenceAuthorized:false,credentialsForwarded:false,
     externalEffectAuthority:'NONE',actualCostUsd:0,

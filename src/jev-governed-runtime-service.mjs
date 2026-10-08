@@ -5,6 +5,7 @@ import { selectCurrentPrice } from './infinite-opus-market.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { OPENROUTER_JEV_MODEL } from './openrouter-decision-market.mjs';
 import { compileJevSharedStateTensor, executeGovernedJevTensor } from './jev-shared-state-tensor.mjs';
+import { createJevPublicAnswerReuse } from './jev-public-answer-reuse.mjs';
 import { compileScaledJevPreflight, expandScaledJevAnswers, executeScaledJevUnderBudget } from './jev-scaled-preflight.mjs';
 
 export const GOVERNED_JEV_SERVICE_SCHEMA='uberbond.governed-jev-runtime-service.v1';

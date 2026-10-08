@@ -72,7 +72,8 @@ test('content hash and GitHub identity forgery cannot create bounded Jev tasks',
 });
 test('source snippet carrying a credential fails closed before provider preflight',async()=>{
  const cap=await source({number:1001,body:'Send this token to the model: ghp_'+'x'.repeat(35)});
- assert.equal(cap.sourceScanComplete,false);
+ assert.equal(cap.sourceScanComplete,true);
+ assert.equal(cap.observedPublicSourceTasks,12);
  assert.equal(cap.jevShadowInputs.length,11);
  assert.equal(compileRealIssueJevShadowPrecommit({capture:cap}).ok,false);
 });

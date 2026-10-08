@@ -231,3 +231,60 @@ test('two independent PUBLIC Jev batches reuse exact prior validated answers, no
  assert.equal(second.semanticAuthority,'NONE');
  assert.equal(second.crownSuppressionAuthority,'NONE');
 });
+
+
+test('two concurrent public Jev batches across separate worker instances never double-bill the same decision',async()=>{
+ let state={},queue=Promise.resolve(),posts=0;
+ const sharedStore={transaction:async fn=>{
+   let unlock;
+   const gate=new Promise(r=>{unlock=r;});
+   const prior=queue;queue=gate;await prior;
+   try{return await fn({
+     transactionClient:false,
+     getSettings:async()=>structuredClone(state),
+     setSetting:async(k,v)=>{state={...state,[k]:structuredClone(v)};}
+   });}finally{unlock();}
+ }};
+ let unblockPost,signalPost;
+ const postStarted=new Promise(resolve=>{signalPost=resolve;});
+ const postReleased=new Promise(resolve=>{unblockPost=resolve;});
+ const fetchImpl=async(url,options={})=>{
+   if(String(url).endsWith('/v1/key'))return response({data:{
+     label:'fixture',limit:20,limit_remaining:20,usage_monthly:0,limit_reset:'monthly'}});
+   if(String(url).endsWith('/alpha/decisions')){
+     posts++;signalPost();await postReleased;
+     const body=JSON.parse(options.body);
+     return response({id:'jev-real-shaped-singleflight-fixture',
+       model:'typesafe/jev-1.13-20261007',provider:'TypeSafe',
+       answers:Object.fromEntries(Object.keys(body.questions).map(q=>[q,{type:'noul',noul:.77}])),
+       usage:{cost:.00002,input_tokens:460,output_tokens:0}});
+   }
+   throw Error('unexpected-provider-path');
+ };
+ const opts={store:sharedStore,apiKey:'sk-or-v1-fixture-key-long-enough',
+   paidAuthorization:auth,marketSnapshot:market(),fetchImpl,clock:()=>NOW};
+ const a=createGovernedJevRuntimeService(opts);
+ const b=createGovernedJevRuntimeService(opts);
+ const scope={tenantId:'owner',credentialScopeId:'same-credential',
+   dataClass:'PUBLIC',qualityContractHash:'a'.repeat(64),
+   sourceDigest:'b'.repeat(64),freshnessClass:'IMMUTABLE',sideEffectClass:'NONE'};
+ const req=id=>[{requestId:id,scope,state:{kind:'EXACT_SAME_PUBLIC_STATE'},
+   questions:{q:{type:'noul',instructions:'Same exact question?'}}}];
+ const leader=a.executeDecisionTensor({batchId:'concurrent-A',requests:req('request-A')});
+ await postStarted;
+ const rival=await b.executeDecisionTensor({batchId:'concurrent-B',requests:req('request-B')});
+ assert.equal(rival.ok,false);
+ assert.equal(rival.status,'JEV_TENSOR_IDENTICAL_PUBLIC_DISPATCH_HELD');
+ assert.equal(rival.providerCallsPerformed,0);
+ assert.equal(posts,1);
+ unblockPost();
+ const first=await leader;
+ assert.equal(first.ok,true);
+ assert.equal(first.providerCallsPerformed,1);
+ const restored=await b.executeDecisionTensor({batchId:'concurrent-B',requests:req('request-B')});
+ assert.equal(restored.ok,true);
+ assert.equal(restored.providerCallsPerformed,0);
+ assert.equal(restored.observedCostMicrousd,0);
+ assert.deepEqual(restored.answers[0].answer,first.answers[0].answer);
+ assert.equal(posts,1);
+});

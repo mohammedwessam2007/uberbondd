@@ -47,6 +47,8 @@ export function createJevPublicAnswerReuse({store,route,clock=Date.now}={}){
      if(!obj(items))return fail('poisoned-reuse-ledger');
      const row=items[x.key];
      if(!row)return {ok:true,status:'JEV_PUBLIC_REUSE_MISS',result:null};
+     if(Number.isFinite(row.expiresAt)&&row.expiresAt<=x.now)
+       return {ok:true,status:'JEV_PUBLIC_REUSE_EXPIRED_REVALIDATION_REQUIRED',result:null};
      if(row.key!==x.key||row.bindingDigest!==sha(x.binding)||
        !Number.isFinite(row.cachedAt)||row.cachedAt>x.now||
        !Number.isFinite(row.expiresAt)||row.expiresAt<=x.now||

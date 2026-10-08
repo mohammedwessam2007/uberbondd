@@ -78,7 +78,59 @@ export function createJevPublicAnswerReuse({store,route,paidAuthorization,clock=
          empiricalMultiplier:null}};
    });
  }
- async function record(input,result){
+
+ // Durable, transaction-locked claim comes BEFORE any paid model dispatch.
+ // A second process may never buy the same exact public decision while one
+ // claim is pending. A crash after claim stays HELD (not a retry trigger).
+ async function claim(input,operationId){
+   const x=identity(input);
+   if(!x)return {ok:true,status:'JEV_PUBLIC_CLAIM_INELIGIBLE',claimed:false};
+   if(typeof operationId!=='string'||!/^[A-Za-z0-9_.:-]{1,180}$/.test(operationId))
+     return fail('bounded-operation-identity-required');
+   return store.transaction(async tx=>{
+     if(tx.transactionClient===true)await tx.pool.query(
+       'SELECT pg_advisory_xact_lock(hashtextextended($1, 0))',['setting:'+KEY]);
+     const settings=await tx.getSettings(),ledger=settings[KEY]??{};
+     const items=ledger.items??{},pending=ledger.pending??{};
+     if(!obj(items)||!obj(pending))return fail('invalid-protected-singleflight-ledger');
+     const existing=items[x.key];
+     if(existing&&existing.expiresAt>x.now)
+       return {ok:true,status:'JEV_PUBLIC_PRIOR_RESULT_ALREADY_AVAILABLE',claimed:false,recheck:true};
+     if(pending[x.key])
+       return {ok:false,status:'JEV_PUBLIC_EXACT_REQUEST_ALREADY_IN_FLIGHT_OR_UNCERTAIN',
+         reason:'durable-claim-exists-no-automatic-retry',providerCallsPerformed:0,
+         semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'};
+     if(Object.keys(pending).length>=64)return fail('too-many-unreconciled-public-dispatches');
+     const next={...pending,[x.key]:{key:x.key,
+       bindingDigest:sha(x.binding),operationId,
+       claimedAt:x.now,status:'CLAIMED_BEFORE_PROVIDER_EFFECT'}};
+     await tx.setSetting(KEY,{schemaVersion:'uberbond.jev-public-answer-reuse.v1',
+       ...ledger,items,pending:next});
+     return {ok:true,status:'JEV_PUBLIC_DURABLE_DISPATCH_CLAIMED',
+       claimed:true,providerCallsPerformed:0};
+   });
+ }
+ // Only a caller with a recorded zero-call outcome may release the claim.
+ // A dispatched/uncertain bill remains held for explicit reconciliation.
+ async function releaseUncalled(input,operationId){
+   const x=identity(input);
+   if(!x)return {ok:true,released:false,status:'JEV_PUBLIC_NOT_CLAIMED'};
+   return store.transaction(async tx=>{
+     if(tx.transactionClient===true)await tx.pool.query(
+       'SELECT pg_advisory_xact_lock(hashtextextended($1, 0))',['setting:'+KEY]);
+     const settings=await tx.getSettings(),ledger=settings[KEY]??{},pending=ledger.pending??{};
+     if(!obj(pending))return fail('invalid-protected-singleflight-ledger');
+     const claim=pending[x.key];
+     if(!claim)return {ok:true,released:false,status:'JEV_PUBLIC_CLAIM_ALREADY_ABSENT'};
+     if(claim.operationId!==operationId||claim.bindingDigest!==sha(x.binding))
+       return fail('claim-release-identity-mismatch');
+     const next={...pending};delete next[x.key];
+     await tx.setSetting(KEY,{schemaVersion:'uberbond.jev-public-answer-reuse.v1',
+       ...ledger,pending:next});
+     return {ok:true,released:true,status:'JEV_PUBLIC_PROVEN_UNCALLED_RELEASED'};
+   });
+ }
+ async function record(input,result,operationId=null){
    const x=identity(input);
    if(!x)return {ok:true,status:'PUBLIC_REUSE_RECORD_INELIGIBLE',recorded:false};
    if(result?.ok!==true||result.providerCallsPerformed!==1||
@@ -98,6 +150,12 @@ export function createJevPublicAnswerReuse({store,route,paidAuthorization,clock=
      const old=settings[KEY]?.items??{};
      if(!obj(old))return fail('poisoned-reuse-ledger');
      const items={...old};
+     const pending=settings[KEY]?.pending??{};
+     if(!obj(pending))return fail('invalid-protected-pending-claims');
+     const claimed=pending[x.key]??null;
+     if(claimed&&(claimed.operationId!==operationId||claimed.bindingDigest!==sha(x.binding)))
+       return fail('billed-result-not-owner-of-protected-claim');
+
      const row={key:x.key,bindingDigest:sha(x.binding),
        cachedAt:x.now,expiresAt:x.expiresAt,
        answers,answerDigest:sha(answers),
@@ -115,10 +173,12 @@ export function createJevPublicAnswerReuse({store,route,paidAuthorization,clock=
      const list=Object.values(items).filter(v=>Number.isFinite(v?.expiresAt)&&v.expiresAt>x.now)
        .sort((a,b)=>a.cachedAt-b.cachedAt);
      while(list.length>MAX)list.shift();
+     const remaining={...pending};
+     if(claimed)delete remaining[x.key];
      await tx.setSetting(KEY,{schemaVersion:'uberbond.jev-public-answer-reuse.v1',
-       items:Object.fromEntries(list.map(v=>[v.key,v]))});
+       items:Object.fromEntries(list.map(v=>[v.key,v])),pending:remaining});
      return {ok:true,status:'VALIDATED_PUBLIC_ANSWER_REUSE_RECORDED',recorded:true};
    });
  }
- return {read,record,ttlMs:TTL_MS,maxEntries:MAX};
+ return {read,claim,releaseUncalled,record,ttlMs:TTL_MS,maxEntries:MAX};
 }

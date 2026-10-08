@@ -149,7 +149,8 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
  * uncertain dispatch and never silently accept partial/misaddressed answers.
  */
 export async function executeGovernedJevTensor({plan,executeDecision,
-  lookupValidatedPublicAnswer=null,recordValidatedPublicAnswer=null,
+  lookupValidatedPublicAnswer=null,claimExactPublicDecision=null,
+  releaseUncalledPublicDecision=null,recordValidatedPublicAnswer=null,
   maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001}={}){
   const fail=(status,extra={})=>({ok:false,status,...extra,
     automaticRetryAuthorized:false,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'});
@@ -213,12 +214,34 @@ export async function executeGovernedJevTensor({plan,executeDecision,
         {providerCallsPerformed:performed,results});
       if(stored.result){result=stored.result;reused=true;}
     }
+    let claimed=false;
     if(!reused){
-      try{result=await executeDecision({operationId:group.operationId,
-        state:group.state,questions:group.questions,inputTokenCeiling:group.inputTokenCeiling,
-        maximumSpendUsd:maximumPerGroupSpendUsd});}
-      catch{return fail('JEV_TENSOR_DISPATCH_UNCERTAIN_HOLD',
-        {providerCallsPerformed:null,results});}
+      if(typeof claimExactPublicDecision==='function'){
+        let lease;
+        try{lease=await claimExactPublicDecision(reuseInput,group.operationId);}
+        catch{return fail('JEV_TENSOR_DURABLE_CLAIM_UNCERTAIN_HOLD',
+          {providerCallsPerformed:performed,results});}
+        if(lease?.ok!==true)return fail('JEV_TENSOR_IDENTICAL_PUBLIC_DISPATCH_HELD',
+          {providerCallsPerformed:performed,results,reason:lease?.status??'UNKNOWN'});
+        claimed=lease.claimed===true;
+        if(lease.recheck===true){
+          let second;
+          try{second=await lookupValidatedPublicAnswer(reuseInput);}
+          catch{return fail('JEV_TENSOR_RECHECK_UNKNOWN_NO_DISPATCH',
+            {providerCallsPerformed:performed,results});}
+          if(second?.ok!==true||!second.result)
+            return fail('JEV_TENSOR_RECHECK_AUTHORITY_REQUIRED',
+              {providerCallsPerformed:performed,results});
+          result=second.result;reused=true;
+        }
+      }
+      if(!reused){
+        try{result=await executeDecision({operationId:group.operationId,
+          state:group.state,questions:group.questions,inputTokenCeiling:group.inputTokenCeiling,
+          maximumSpendUsd:maximumPerGroupSpendUsd});}
+        catch{return fail('JEV_TENSOR_DISPATCH_UNCERTAIN_HOLD',
+          {providerCallsPerformed:null,results});}
+      }
     }
     const n=result?.providerCallsPerformed;
     if(n!==0&&n!==1)return fail('JEV_TENSOR_PROVIDER_CALL_COUNT_UNKNOWN',{providerCallsPerformed:null,results});
@@ -226,7 +249,16 @@ export async function executeGovernedJevTensor({plan,executeDecision,
     results.push({operationId:group.operationId,status:result?.status??'UNKNOWN',
       providerCallsPerformed:n,providerRequestId:result?.providerRequestId??null,
       actualCostMicrousd:result?.observedCostMicrousd??null});
-    if(!result?.ok)return fail('JEV_TENSOR_PARTIAL_OR_REFUSED_NO_RETRY',{providerCallsPerformed:performed,results});
+    if(!result?.ok){
+      if(claimed&&n===0&&typeof releaseUncalledPublicDecision==='function'){
+        try{const released=await releaseUncalledPublicDecision(reuseInput,group.operationId);
+          if(released?.ok!==true)return fail('JEV_TENSOR_ZERO_CALL_RELEASE_HELD',
+            {providerCallsPerformed:performed,results});}
+        catch{return fail('JEV_TENSOR_ZERO_CALL_RELEASE_UNKNOWN',
+          {providerCallsPerformed:performed,results});}
+      }
+      return fail('JEV_TENSOR_PARTIAL_OR_REFUSED_NO_RETRY',{providerCallsPerformed:performed,results});
+    }
     const cost=result.observedCostMicrousd;
     if(!Number.isSafeInteger(cost)||cost<0)return fail('JEV_TENSOR_BILLING_UNKNOWN',{providerCallsPerformed:performed,results});
     charged+=cost;
@@ -245,8 +277,12 @@ export async function executeGovernedJevTensor({plan,executeDecision,
     // Only store after the full shape and per-question answer validation,
     // and never let cache-write failure invalidate or replay a billed call.
     if(!reused&&typeof recordValidatedPublicAnswer==='function'){
-      try{await recordValidatedPublicAnswer(reuseInput,result);}
-      catch{/* No replay: provider charge and validated answers already exist. */}
+      let recorded;
+      try{recorded=await recordValidatedPublicAnswer(reuseInput,result,group.operationId);}
+      catch{return fail('JEV_TENSOR_POST_BILL_RECORD_UNCERTAIN_HOLD',
+        {providerCallsPerformed:performed,results});}
+      if(recorded?.ok!==true)return fail('JEV_TENSOR_POST_BILL_RECORD_REFUSED_HOLD',
+        {providerCallsPerformed:performed,results});
     }
   }
   return {ok:true,status:'JEV_TENSOR_ADVISORY_DECISIONS_OBSERVED',

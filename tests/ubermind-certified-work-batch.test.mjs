@@ -37,6 +37,7 @@ const run=(items,overrides={})=>executeCertifiedFranchiseWorkBatch({
 
 test('materializes 1024 bounded distinct responses with just two independently cross-checked states',()=>{
   const out=run(Array.from({length:1024},(_,i)=>task(i)));
+  console.log('W12_DIAG_FIRST:'+String(out.reason??out.status).replace(/[^A-Za-z0-9_-]/g,'_').slice(0,100)+':'+out.completedOutputs.length+':'+String(out.distinctCertifiedSemanticStateCount??0));
   assert.equal(out.ok,true);
   assert.equal(out.status,'CERTIFIED_WORK_BATCH_MATERIALIZED');
   assert.equal(out.completedOutputs.length,1024);
@@ -65,6 +66,7 @@ test('a single out-of-domain task invalidates the entire batch, with no partial 
 test('duplicate task identity and payload replay fail closed without output leakage',()=>{
   const repeated=task(1);
   const out=run([task(0),repeated,structuredClone(repeated)]);
+  console.log('W12_DIAG_DUPLICATE:'+String(out.reason??out.status).replace(/[^A-Za-z0-9_-]/g,'_').slice(0,100));
   assert.equal(out.ok,false);
   assert.equal(out.reason,'duplicate-task-or-identity-replay');
   assert.deepEqual(out.completedOutputs,[]);
@@ -90,6 +92,7 @@ test('nondeterministic canonicalizers are detected by compiled-vs-interpreter sh
   const out=run([task(0)],{semanticCanonicalizers:{
     risk:{canonicalize(){return {ok:true,value:(reads++%2?'HIGH':'LOW'),transformed:true};}}
   }});
+  console.log('W12_DIAG_CANONICALIZER:'+String(out.reason??out.status).replace(/[^A-Za-z0-9_-]/g,'_').slice(0,100));
   assert.equal(out.ok,false);
   assert.equal(out.reason,'compiled-interpreter-non-equivalence');
   assert.deepEqual(out.completedOutputs,[]);

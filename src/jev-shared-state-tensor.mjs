@@ -183,10 +183,10 @@ export async function executeGovernedJevTensor({plan,executeDecision,
   }
   const maxCalls=Math.floor(maximumTotalSpendUsd*1e6);
   const reservedPerGroup=Math.floor(maximumPerGroupSpendUsd*1e6);
-  if(reservedPerGroup<1||plan.groups.length*reservedPerGroup>maxCalls)
+  if(reservedPerGroup<1||reservedPerGroup>maxCalls)
     return fail('JEV_TENSOR_TOTAL_RESERVATION_EXCEEDS_BOUND',{providerCallsPerformed:0});
   const results=[],answers=[];
-  let performed=0,charged=0;
+  let performed=0,charged=0,paidGroupReservations=0,reusedGroupCount=0,reusedAnswerCount=0;
   for(const [ordinal,group] of plan.groups.entries()){
     if(group.ordinal!==ordinal||!validateScope(group.scope)||group.scope.dataClass!=='PUBLIC'||
       !isObj(group.state)||!isObj(group.questions)||
@@ -236,6 +236,21 @@ export async function executeGovernedJevTensor({plan,executeDecision,
         }
       }
       if(!reused){
+        // Reserve only fresh work. Cached validated answers use no provider
+        // budget. Held claims never authorize a new paid crossing.
+        if((paidGroupReservations+1)*reservedPerGroup>maxCalls){
+          if(claimed&&typeof releaseUncalledPublicDecision==='function'){
+            try{
+              const released=await releaseUncalledPublicDecision(reuseInput,group.operationId);
+              if(released?.ok!==true)return fail('JEV_TENSOR_BUDGET_UNCALLED_RELEASE_HELD',
+                {providerCallsPerformed:performed,results});
+            }catch{return fail('JEV_TENSOR_BUDGET_UNCALLED_RELEASE_UNKNOWN',
+              {providerCallsPerformed:performed,results});}
+          }
+          return fail('JEV_TENSOR_TOTAL_RESERVATION_EXCEEDS_BOUND',
+            {providerCallsPerformed:performed,results});
+        }
+        paidGroupReservations++;
         try{result=await executeDecision({operationId:group.operationId,
           state:group.state,questions:group.questions,inputTokenCeiling:group.inputTokenCeiling,
           maximumSpendUsd:maximumPerGroupSpendUsd});}
@@ -258,6 +273,10 @@ export async function executeGovernedJevTensor({plan,executeDecision,
           {providerCallsPerformed:performed,results});}
       }
       return fail('JEV_TENSOR_PARTIAL_OR_REFUSED_NO_RETRY',{providerCallsPerformed:performed,results});
+    }
+    if(reused){
+      reusedGroupCount++;
+      reusedAnswerCount+=group.mapping.length;
     }
     const cost=result.observedCostMicrousd;
     if(!Number.isSafeInteger(cost)||cost<0)return fail('JEV_TENSOR_BILLING_UNKNOWN',{providerCallsPerformed:performed,results});
@@ -288,6 +307,12 @@ export async function executeGovernedJevTensor({plan,executeDecision,
   return {ok:true,status:'JEV_TENSOR_ADVISORY_DECISIONS_OBSERVED',
     providerCallsPerformed:performed,observedCostMicrousd:charged,results,answers,
     originalQuestionCount:plan.originalQuestionCount,groupCount:plan.groupCount,
+    exactPriorAnswerGroupsReused:reusedGroupCount,
+    exactPriorQuestionAnswersRestored:reusedAnswerCount,
+    freshProviderGroupReservations:paidGroupReservations,
+    totalMaxSpendMicrousd:maxCalls,
+    // These are reuse facts, not matched frontier-quality or observed savings.
+    independentlyAuditedEconomicMultiplier:null,
     savingsEvidence:'NO_MATCHED_COUNTERFACTUAL_OBSERVED',
     semanticAuthority:'NONE',crownSuppressionAuthority:'NONE',
     automaticRetryAuthorized:false,externalEffectAuthority:'NONE'};

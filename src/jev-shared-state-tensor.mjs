@@ -78,7 +78,7 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
   }
   const groups=[];
   for(const context of contexts.values()){
-    let questions=Object.create(null),mapping=[],n=0;
+    let questions=Object.create(null),mapping=[],n=0,exactQuestionIds=new Map();
     const flush=()=>{
       if(!mapping.length)return;
       const next={...questions},size=sizeOf(context.state,next);
@@ -88,9 +88,14 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
         questions:next,mapping:[...mapping],questionCount:n,
         inputTokenCeiling:size.inputTokenCeiling,payloadBytes:size.bytes,
         semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'});
-      questions=Object.create(null);mapping=[];n=0;
+      questions=Object.create(null);mapping=[];n=0;exactQuestionIds=new Map();
     };
     for(const row of context.rows)for(const entry of row.entries){
+      const questionDigest=semanticHash(entry.question);
+      if(exactQuestionIds.has(questionDigest)){
+        mapping.push({questionId:exactQuestionIds.get(questionDigest),requestId:row.requestId,originalQuestionId:entry.id});
+        continue;
+      }
       const questionId='q_'+String(n+1).padStart(3,'0');
       const proposal={...questions,[questionId]:entry.question};
       if(n===MAX_QUESTIONS||!limitOk(sizeOf(context.state,proposal))){
@@ -102,6 +107,7 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
         return refusal('single-question-exceeds-jev-context',{requestId:row.requestId});
       questions=candidate;
       mapping.push({questionId:id,requestId:row.requestId,originalQuestionId:entry.id});
+      exactQuestionIds.set(questionDigest,id);
       n++;
     }
     flush();
@@ -141,7 +147,7 @@ export async function executeGovernedJevTensor({plan,executeDecision,
   const rows=new Map();
   for(const group of plan.groups){
     if(!group||!Array.isArray(group.mapping)||!group.mapping.length||
-      group.mapping.length!==Object.keys(group.questions??{}).length)
+      new Set(group.mapping.map(x=>x.questionId)).size!==Object.keys(group.questions??{}).length)
       return fail('JEV_TENSOR_MAPPING_REFUSED',{providerCallsPerformed:0});
     for(const item of group.mapping){
       if(!ID.test(item.questionId)||!SAFE.test(item.requestId)||!ID.test(item.originalQuestionId)||
@@ -164,7 +170,7 @@ export async function executeGovernedJevTensor({plan,executeDecision,
     if(group.ordinal!==ordinal||!validateScope(group.scope)||group.scope.dataClass!=='PUBLIC'||
       !isObj(group.state)||!isObj(group.questions)||
       Object.entries(group.questions).some(([k,q])=>!ID.test(k)||!validateQuestion(q))||
-      group.mapping.length>MAX_QUESTIONS||
+      Object.keys(group.questions).length>MAX_QUESTIONS||
       !limitOk(sizeOf(group.state,group.questions))||
       !Number.isSafeInteger(group.inputTokenCeiling)||
       group.inputTokenCeiling<sizeOf(group.state,group.questions).inputTokenCeiling||
@@ -192,7 +198,7 @@ export async function executeGovernedJevTensor({plan,executeDecision,
     charged+=cost;
     if(charged>maxCalls)return fail('JEV_TENSOR_BUDGET_BREACHED',{providerCallsPerformed:performed,results});
     const actual=result.proposal?.answers;
-    if(!isObj(actual)||Object.keys(actual).length!==group.mapping.length||
+    if(!isObj(actual)||Object.keys(actual).length!==Object.keys(group.questions).length||
       group.mapping.some(x=>!Object.hasOwn(actual,x.questionId)))
       return fail('JEV_TENSOR_ANSWER_COMPLETENESS_REFUSED',{providerCallsPerformed:performed,results});
     for(const m of group.mapping){

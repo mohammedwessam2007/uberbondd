@@ -120,3 +120,10 @@ test('self-promoted manifest summary cannot create authority without being in ha
   assert.equal(verifyPublicWorkloadManifest(mutated),false);
  }
 });
+
+test('hostile circular and extra metadata is refused without crashing',()=>{
+ const m=make();m.items[0].loop=m.items[0];
+ assert.doesNotThrow(()=>verifyPublicWorkloadManifest(m));
+ assert.equal(verifyPublicWorkloadManifest(m),false);
+ assert.equal(reviewPairedWorkloadSubmission({manifest:m,records:[]}).ok,false);
+});

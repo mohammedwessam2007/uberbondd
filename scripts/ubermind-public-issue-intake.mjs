@@ -21,34 +21,41 @@ export async function capturePublicIssueWorkload({
     selectedIssueNumbers.length>50||new Set(selectedIssueNumbers).size!==selectedIssueNumbers.length||
     selectedIssueNumbers.some(n=>!Number.isSafeInteger(n)||n<1))
    return reason('PUBLIC_SOURCE_SCOPE_NOT_AUTHORIZED');
- let response;
- try{response=await fetchImpl('https://api.github.com/repos/'+OWNER+'/'+REPO+'/issues?state=open&per_page=100',{
-  headers:{Accept:'application/vnd.github+json', 'User-Agent':'UberBond-Public-Workload-Evidence'},
-  signal:AbortSignal.timeout(7000)
- });}
- catch{return reason('PUBLIC_GITHUB_READ_ONLY_SOURCE_UNAVAILABLE');}
- if(!response?.ok)return reason('PUBLIC_GITHUB_READ_ONLY_HTTP_UNAVAILABLE',
-   {httpStatus:response?.status??null});
- let raw;
- try{raw=await response.json();}
- catch{return reason('PUBLIC_GITHUB_SOURCE_JSON_UNAVAILABLE');}
- if(!Array.isArray(raw)||raw.length>100)
-   return reason('PUBLIC_GITHUB_BOUNDED_SOURCE_REQUIRED');
- const lookup=new Map(raw.filter(x=>!x.pull_request).map(x=>[x.number,x]));
- const candidates=[];
- for(const number of selectedIssueNumbers){
-  const row=lookup.get(number);
-  if(!row||row.state!=='open'||row.html_url!=='https://github.com/'+OWNER+'/'+REPO+'/issues/'+number||
+ // Query only the explicit approved public issue numbers. GitHub's first
+ // /issues?per_page=100 page is not an exhaustive historical source inventory.
+ const candidates=[],sourceReadFailures=[];
+ const load=async number=>{
+  let response;
+  try{response=await fetchImpl('https://api.github.com/repos/'+OWNER+'/'+REPO+'/issues/'+number,{
+   headers:{Accept:'application/vnd.github+json','User-Agent':'UberBond-Public-Workload-Evidence'},
+   signal:AbortSignal.timeout(7000)
+  });}
+  catch{return {number,failure:'SOURCE_REQUEST_FAILED'};}
+  if(!response?.ok)return {number,failure:'SOURCE_HTTP_UNAVAILABLE',httpStatus:response?.status??null};
+  let row;
+  try{row=await response.json();}
+  catch{return {number,failure:'SOURCE_JSON_UNAVAILABLE'};}
+  if(!row||typeof row!=='object'||row.pull_request||
+     row.number!==number||row.state!=='open'||
+     row.html_url!=='https://github.com/'+OWNER+'/'+REPO+'/issues/'+number||
      typeof row.title!=='string'||typeof row.body!=='string'||
      row.body.length>300000||!Number.isFinite(Date.parse(row.updated_at)))
-    continue;
-  // Content version bound to issue number, original text and UPDATED timestamp.
-  // Raw title/body deliberately discarded immediately after hashing.
-  candidates.push({taskId:'issue-'+number,taskClass:'PUBLIC_REPOSITORY_ISSUE_WORK',
+   return {number,failure:'SOURCE_VERSION_OR_TYPE_UNVERIFIED'};
+  return {number,candidate:{
+   taskId:'issue-'+number,taskClass:'PUBLIC_REPOSITORY_ISSUE_WORK',
    taskContentDigest:sha(JSON.stringify([number,row.title,row.body,row.updated_at])),
    sourceUrl:row.html_url,sourceObservedAt:row.updated_at,
    dataClass:'PUBLIC',sourcePubliclyAccessible:true,
-   externalConsentVerified:false});
+   externalConsentVerified:false}};
+ };
+ // Four bounded read-only requests at a time, with individual 7s aborts.
+ for(let i=0;i<selectedIssueNumbers.length;i+=4){
+  const batch=await Promise.all(selectedIssueNumbers.slice(i,i+4).map(load));
+  for(const entry of batch){
+   if(entry.candidate)candidates.push(entry.candidate);
+   else sourceReadFailures.push({issueNumber:entry.number,
+     reason:entry.failure,httpStatus:entry.httpStatus??null});
+  }
  }
  if(!candidates.length)return reason('NO_VERIFIABLE_OPEN_PUBLIC_ISSUE_SOURCES');
  const now=new Date(clock()).toISOString();
@@ -56,7 +63,8 @@ export async function capturePublicIssueWorkload({
  if(!plan.ok)return reason('SOURCE_WORKLOAD_PRECOMMIT_REFUSED',{precommitFailureClass:plan.reason});
  return {ok:true,schemaVersion:PUBLIC_ISSUE_INTAKE,
   status:'REAL_PUBLIC_GITHUB_ISSUE_CANDIDATE_INTAKE_ONLY',
-  sourceRepo:OWNER+'/'+REPO,liveIssueCount:raw.filter(x=>!x.pull_request).length,
+  sourceRepo:OWNER+'/'+REPO,liveIssueCount:null,selectedOpenIssueCount:candidates.length,
+  sourceScanComplete:sourceReadFailures.length===0,sourceReadFailures,
   selectedSourceCount:selectedIssueNumbers.length,
   observedPublicSourceTasks:plan.taskCount,
   sourceCommitmentDigest:plan.manifestDigest,
@@ -68,5 +76,5 @@ export async function capturePublicIssueWorkload({
   benchmarkReuseConsentVerified:false,empiricalMultiplier:null,
   global33333xConfirmed:false,
   sourceRefs:plan.items.map(x=>x.sourceUrl),
-  truthBoundary:'Actual accessible GitHub issue title+body versions were hashed and bound to source refs. They are historical visible project work, NOT fresh independent blind tasks, not automatically consented for model reuse, and have no paired provider outputs, quality grades, audited economics or multiplier admission.'};
+  truthBoundary:'Only explicitly selected public GitHub issue IDs were read and their exact title+body versions hashed. Partial source reads are labeled with failures; liveIssueCount is null because repository-wide listing was not performed. These are historical visible project tasks, NOT fresh independent blind tasks or provider-reuse permission, and have no paired outputs, grades, audited economics or multiplier admission.'};
 }

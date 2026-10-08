@@ -97,16 +97,28 @@ export function compileUberMindEvidenceFlywheel({
  const fingerprints=new Set();
  // A single upstream bill or blind-grade receipt must not be counted as
  // independent evidence for multiple tasks without verified batch allocation.
- const candidateReceipts=new Set(),referenceReceipts=new Set(),evaluatorReceipts=new Set();
+ const candidateReceipts=new Set(),referenceReceipts=new Set(),evaluatorReceipts=new Set(),allProviderReceipts=new Set();
+ const classContracts=new Map();
  for(const row of observations){
    if(!validObservation(row))return refuse('invalid-independent-observation');
    const key=row.taskFingerprint;
    if(fingerprints.has(key))return refuse('duplicate-holdout-fingerprint');
    if(candidateReceipts.has(row.candidateProviderReceiptRef)||
       referenceReceipts.has(row.referenceProviderReceiptRef)||
+      allProviderReceipts.has(row.candidateProviderReceiptRef)||
+      allProviderReceipts.has(row.referenceProviderReceiptRef)||
+      row.candidateProviderReceiptRef===row.referenceProviderReceiptRef||
       evaluatorReceipts.has(row.independentEvaluatorReceiptRef))
      return refuse('replayed-provider-or-evaluator-receipt');
+   const prior=classContracts.get(row.taskClass);
+   if(prior&&(prior.qualityContractHash!==row.qualityContractHash||
+      prior.candidateLane!==row.candidateLane))
+     return refuse('mixed-quality-contract-or-candidate-lane-within-task-class');
+   if(!prior)classContracts.set(row.taskClass,{
+     qualityContractHash:row.qualityContractHash,candidateLane:row.candidateLane});
    fingerprints.add(key);
+   allProviderReceipts.add(row.candidateProviderReceiptRef);
+   allProviderReceipts.add(row.referenceProviderReceiptRef);
    candidateReceipts.add(row.candidateProviderReceiptRef);
    referenceReceipts.add(row.referenceProviderReceiptRef);
    evaluatorReceipts.add(row.independentEvaluatorReceiptRef);

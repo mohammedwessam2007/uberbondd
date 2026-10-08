@@ -95,16 +95,36 @@ export function compileUberMindEvidenceFlywheel({
    !expectedTaskClasses.every(safeId)||new Set(expectedTaskClasses).size!==expectedTaskClasses.length)
    return refuse('bounded-task-classes-required');
  const fingerprints=new Set();
+ // A single upstream bill or blind-grade receipt must not be counted as
+ // independent evidence for multiple tasks without verified batch allocation.
+ const candidateReceipts=new Set(),referenceReceipts=new Set(),evaluatorReceipts=new Set();
  for(const row of observations){
    if(!validObservation(row))return refuse('invalid-independent-observation');
    const key=row.taskFingerprint;
    if(fingerprints.has(key))return refuse('duplicate-holdout-fingerprint');
+   if(candidateReceipts.has(row.candidateProviderReceiptRef)||
+      referenceReceipts.has(row.referenceProviderReceiptRef)||
+      evaluatorReceipts.has(row.independentEvaluatorReceiptRef))
+     return refuse('replayed-provider-or-evaluator-receipt');
    fingerprints.add(key);
+   candidateReceipts.add(row.candidateProviderReceiptRef);
+   referenceReceipts.add(row.referenceProviderReceiptRef);
+   evaluatorReceipts.add(row.independentEvaluatorReceiptRef);
  }
  const classes=new Map(expectedTaskClasses.map(x=>[x,[]]));
  for(const row of observations){
    if(!classes.has(row.taskClass))classes.set(row.taskClass,[]);
    classes.get(row.taskClass).push(row);
+ }
+ // Model all real costs in safe integer microusd; overflow is uncertainty,
+ // never a giant invented savings ratio or an exception after admission.
+ let globalCandidate=0,globalReference=0;
+ for(const row of observations){
+   if(!Number.isSafeInteger(globalCandidate+row.candidateCostMicrousd)||
+      !Number.isSafeInteger(globalReference+row.referenceCostMicrousd))
+     return refuse('aggregate-provider-cost-out-of-safe-range');
+   globalCandidate+=row.candidateCostMicrousd;
+   globalReference+=row.referenceCostMicrousd;
  }
  const taskClassReports=[...classes].map(([taskClass,rows])=>{
    const successes=rows.filter(r=>r.candidateQuality>=r.referenceQuality).length;
@@ -141,7 +161,7 @@ export function compileUberMindEvidenceFlywheel({
  return {ok:true,schemaVersion:UBERMIND_FLYWHEEL_SCHEMA,
    status:target?'EVIDENCE_THRESHOLD_MET_REQUIRES_EXTERNAL_AUDIT':
      'PARK_UNTIL_NEW_INDEPENDENT_EVIDENCE',
-   assessedAt:new Date(now).toISOString(),
+   assessedAt:Number.isFinite(new Date(now).getTime())?new Date(now).toISOString():null,
    originalFounderIdeasScanned:890,
    donorMechanismCount:founderCorpus.verifiedDonors.length,
    donorIdeaIds:founderCorpus.verifiedDonors.map(x=>x.id),

@@ -38,6 +38,8 @@ This route is automatic for commercial/outreach missions but remains subordinate
 
 If the mission concerns **OpenRouter, TypingMind, Jev, frontier-quality-per-dollar, the $30 cognition budget, AI swarms/subagents, the moving Frontier Crown/Pantheon, or maximizing market intelligence without quality loss**, immediately read `open router/README.md`, `open router/OPEN_ROUTER_UBERMIND_CANON.json`, and `open router/MANIFEST.json` after the normal constitutional startup. Do not restart from generic model recommendations or assume any September 2026 model remains the current Crown.
 
+**2026-10-08 890 PROOF FLYWHEEL:** For UberMind quality, budget, JEV and ongoing self-improvement missions, follow `docs/handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md` after the current UberMind handoff. The full original 890/890 literal corpus is an immutable donor universe, while the new hourly evidence monitor is zero-spend, read-only and cannot certify general Crown quality or 33,333x savings on self-attested evidence. Do not restart the old Oct7 Crown experiment or replay the Oct8 JEV tensor canary.
+
 **2026-10-08 HOT CORRECTION:** Before relying on historical `open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json` or `80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`, read `docs/handoffs/UBERMIND_CURRENT_2026-10-08.md` plus the newest issue #1188 comments. The historical two missing Crown-evaluation calls WERE executed later on October 7 (PR #1272 evidence); do not request their repetition. General Crown admission remains absent, and Haiku 5.5's original canary dispatch/charge is still UNKNOWN. Never conflate these two independent gates or promote an empirical 2-task result into general equivalence.
 
 ## Mandatory first action

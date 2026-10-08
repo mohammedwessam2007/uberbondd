@@ -23,6 +23,7 @@ import { terminalReadinessWithEffectTruth } from './src/revenue-terminal-effect-
 import { runWinnrSmtpReadinessProbe } from './src/winnr-smtp-readiness.mjs';
 import { runUberMind890ProofCycle } from './scripts/ubermind-890-evidence-cycle.mjs';
 import { reconcileUberMindRealWorkCounter } from './src/ubermind-real-work-counter.mjs';
+import { runUberMindLiveSourceWork, compileSourceWorkCheckpoint } from './src/ubermind-exact-source-work.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -32,6 +33,54 @@ if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
 const store = createStore(config);
 await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
+
+// W13: one genuine, bounded, zero-inference source-work execution per deployed
+// source snapshot. Keep its immutable/version-deduped progress ledger separate
+// from the E3 native task counter and independently audited economic multiplier.
+async function executeUberMindSourceWorkAtStartup(){
+  const work=runUberMindLiveSourceWork();
+  if(!work.ok){
+    console.error('UBERMIND_SOURCE_WORK '+JSON.stringify({
+      ok:false,status:work.status,reason:work.reason,
+      providerCallsPerformed:0,actualModelSpendUsd:0
+    }));
+    return;
+  }
+  const observedAt=new Date().toISOString();
+  try{
+    const checkpoint=await store.transaction(async tx=>{
+      // Multiple deployments/processes cannot count one source revision twice.
+      if(tx.transactionClient===true)await tx.pool.query(
+        'SELECT pg_advisory_xact_lock(hashtextextended($1, 0))',
+        ['setting:ubermindExactSourceWorkV1']);
+      const prior=(await tx.getSettings())?.ubermindExactSourceWorkV1??null;
+      const next=compileSourceWorkCheckpoint({prior,work,observedAt});
+      if(next.ok&&next.changed)await tx.setSetting('ubermindExactSourceWorkV1',next.ledger);
+      return next;
+    });
+    console.log('UBERMIND_SOURCE_WORK '+JSON.stringify({
+      ok:checkpoint.ok&&work.ok,
+      status:checkpoint.status,
+      verifiedSourceCount:work.verifiedSourceCount,
+      exactAnswersActuallyResolvedAndVerified:work.materializedOutputCount,
+      sourceRevisionNewToProtectedLedger:checkpoint.changed===true,
+      // First observation is a BASELINE; prior exact work is not newly invented.
+      newIndependentModelHoldouts:0,
+      matchedFrontierCostMultiplier:null,
+      global33333xConfirmed:false,
+      receiptBatchDigest:work.receiptBatchDigest,
+      sourceBatchDigest:work.sourceBatchDigest,
+      providerCallsPerformed:0,actualModelSpendUsd:0
+    }));
+  }catch(error){
+    console.error('UBERMIND_SOURCE_WORK '+JSON.stringify({
+      ok:false,status:'PROTECTED_SOURCE_WORK_CHECKPOINT_UNAVAILABLE',
+      errorClass:String(error?.name??'Error').slice(0,60),
+      providerCallsPerformed:0,actualModelSpendUsd:0
+    }));
+  }
+}
+await executeUberMindSourceWorkAtStartup();
 
 // Zero-spend UberMind evidence monitor. Re-evaluates source truth every hour,
 // never requests model inference, mints Crown authority, or writes provider state.

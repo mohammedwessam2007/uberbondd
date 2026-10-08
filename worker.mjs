@@ -98,6 +98,12 @@ async function tickUberMindPublicIssueBacklog(){
         selectedSourceCount:capture.selectedSourceCount??null,
         verifiedSourceCount:capture.observedPublicSourceTasks??0,
         sourceReadFailureCount:capture.sourceReadFailures?.length??0,
+        sourceFailureClasses:(capture.sourceReadFailures??[]).reduce((acc,row)=>{
+          const reason=String(row.reason??'UNKNOWN').slice(0,50);
+          const code=Number.isSafeInteger(row.httpStatus)?row.httpStatus:null;
+          const key=reason+':'+String(code??'N/A');
+          acc[key]=(acc[key]??0)+1;return acc;
+        },{}),
         issueCandidatesNewlyAdmitted:0,
         providerCallsPerformed:0,paidInferenceAuthorized:false
       }));

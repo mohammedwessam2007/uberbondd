@@ -21,6 +21,7 @@ import { createCompaniesHouseAdapter } from './src/companies-house-adapter.mjs';
 import { preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import { terminalReadinessWithEffectTruth } from './src/revenue-terminal-effect-truth.mjs';
 import { runWinnrSmtpReadinessProbe } from './src/winnr-smtp-readiness.mjs';
+import { runUberMind890ProofCycle } from './scripts/ubermind-890-evidence-cycle.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -30,6 +31,40 @@ if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
 const store = createStore(config);
 await store.init();
 if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpiredArtifacts().catch(error => console.error('Artifact cleanup failed', error));
+
+// Zero-spend UberMind evidence monitor. Re-evaluates source truth every hour,
+// never requests model inference, mints Crown authority, or writes provider state.
+// Repeated identical evidence is suppressed instead of spamming the runtime.
+let lastUberMindProofDigest=null;
+function tickUberMindProofFlywheel(){
+  try{
+    const report=runUberMind890ProofCycle();
+    const digest=report.stateDigest??report.status;
+    if(digest!==lastUberMindProofDigest||!report.ok){
+      console.log('UBERMIND_890_PROOF_LOOP '+JSON.stringify({
+        ok:report.ok,status:report.status,
+        founderIdeasVerified:report.founderIdeasVerified??null,
+        shardDigestsVerified:report.shardDigestsVerified??null,
+        donorIds:report.donorIds??[],
+        exactIslandDoctorStatus:report.exactIslandDoctorStatus??null,
+        independentHoldoutsObserved:report.actualIndependentFrontierHoldoutsInCycle??null,
+        global33333xConfirmed:false,
+        paidCallsPerformed:0,spendAuthorized:false,
+        stateDigest:report.stateDigest??null
+      }));
+      lastUberMindProofDigest=digest;
+    }
+  }catch(error){
+    console.error('UBERMIND_890_PROOF_LOOP_FAILED '+JSON.stringify({
+      status:'READ_ONLY_EVIDENCE_CYCLE_UNAVAILABLE',
+      reasonClass:String(error?.name??'Error').slice(0,60),paidCallsPerformed:0
+    }));
+  }
+}
+tickUberMindProofFlywheel();
+const uberMindEvidenceInterval=setInterval(tickUberMindProofFlywheel,60*60_000);
+uberMindEvidenceInterval.unref?.();
+
 
 // Fresh authenticated SMTP reachability without a message effect. This probe is
 // deliberately narrower than placement/reputation health: TLS -> EHLO -> AUTH ->

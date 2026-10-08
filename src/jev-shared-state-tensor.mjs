@@ -201,6 +201,27 @@ export async function executeGovernedJevTensor({plan,executeDecision,
   }
   if([...rows.values()].reduce((n,row)=>n+Object.keys(row.questions).length,0)!==plan.originalQuestionCount)
     return fail('JEV_TENSOR_TOTAL_QUESTION_COUNT_REFUSED',{providerCallsPerformed:0});
+  // Zero-effect, complete-batch budget preflight: do not pay for group 1
+  // only to discover group 2 cannot fit the *total* bounded budget.
+  // Count only source-valid existing cache hits. A later miss still passes
+  // through the stricter per-group reservation gate immediately before call.
+  let eligibleCachedGroups=0;
+  if(typeof lookupValidatedPublicAnswer==='function'){
+    for(const group of plan.groups){
+      let cached;
+      try{cached=await lookupValidatedPublicAnswer({
+        scope:group.scope,state:group.state,questions:group.questions,
+        inputTokenCeiling:group.inputTokenCeiling
+      });}catch{return fail('JEV_TENSOR_BUDGET_PREFLIGHT_CACHE_UNKNOWN',
+        {providerCallsPerformed:0});}
+      if(cached?.ok!==true)return fail('JEV_TENSOR_BUDGET_PREFLIGHT_CACHE_REFUSED',
+        {providerCallsPerformed:0});
+      if(cached.result)eligibleCachedGroups++;
+    }
+  }
+  if((plan.groups.length-eligibleCachedGroups)*reservedPerGroup>maxCalls)
+    return fail('JEV_TENSOR_TOTAL_RESERVATION_EXCEEDS_BOUND',
+      {providerCallsPerformed:0,eligibleCachedGroups});
   for(const group of plan.groups){
     let result,reused=false;
     const reuseInput={scope:group.scope,state:group.state,

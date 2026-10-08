@@ -158,3 +158,39 @@ test('invalid clock does not crash deterministic evidence accounting',()=>{
  assert.equal(out.assessedAt,null);
  assert.equal(out.generalCrownAuthority,'NONE');
 });
+
+test('cross-lane provider receipt swap cannot create a second independent bill',()=>{
+ const a=observation(1),b=observation(2,{
+  referenceProviderReceiptRef:a.candidateProviderReceiptRef
+ });
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),observations:[a,b]});
+ assert.equal(out.ok,false);
+ assert.equal(out.reason,'replayed-provider-or-evaluator-receipt');
+});
+
+test('single receipt cannot claim to bill both candidate and frontier for same task',()=>{
+ const a=observation(1,{referenceProviderReceiptRef:'fixture:candidate:1'});
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),observations:[a]});
+ assert.equal(out.ok,false);
+ assert.equal(out.reason,'replayed-provider-or-evaluator-receipt');
+});
+
+test('task-class review cannot pool incompatible quality contracts or candidate lanes',()=>{
+ const a=observation(1);
+ for(const override of [{qualityContractHash:G},{candidateLane:'CROWN_REFERENCE'}]){
+  const b=observation(2,override);
+  const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+   observations:[a,b],verifiedIndependentReceipts:true});
+  assert.equal(out.ok,false);
+  assert.equal(out.reason,'mixed-quality-contract-or-candidate-lane-within-task-class');
+ }
+});
+
+test('different task classes may properly have different quality contracts and candidate lanes',()=>{
+ const a=observation(1),b=observation(2,{taskClass:'NEW_CLASS',
+  candidateLane:'CROWN_REFERENCE',qualityContractHash:G});
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),observations:[a,b]});
+ assert.equal(out.ok,true);
+ assert.equal(out.taskClassReports.length,2);
+ assert.equal(out.generalCrownAuthority,'NONE');
+});

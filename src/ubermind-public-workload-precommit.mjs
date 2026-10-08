@@ -18,7 +18,7 @@ export function precommitPublicWorkload({campaignId,asOf,taskRows=[]}={}){
      fingerprints.has(row.taskContentDigest)||
      typeof row.sourceUrl!=='string'||
      !/^https:\/\/github\.com\/[^/]+\/[^/]+\/(issues|pull)\/\d+$/.test(row.sourceUrl)||
-     row.dataClass!=='PUBLIC'||row.externalConsentVerified!==true||
+     row.dataClass!=='PUBLIC'||row.sourcePubliclyAccessible!==true||
      !Number.isFinite(Date.parse(row.sourceObservedAt))||
      Date.parse(row.sourceObservedAt)>Date.parse(asOf))
      return refuse('public-source-provenance-or-distinctness-unverified');
@@ -26,6 +26,7 @@ export function precommitPublicWorkload({campaignId,asOf,taskRows=[]}={}){
    items.push({taskId:row.taskId,taskClass:row.taskClass,
       taskContentDigest:row.taskContentDigest,sourceUrl:row.sourceUrl,
       sourceObservedAt:row.sourceObservedAt,
+      permissionForProviderBenchmarkReuseVerified:row.externalConsentVerified===true,
       // A public issue may already have been discussed in prior chats.
       // Its precommitment does not independently prove fresh holdout status.
       independentOriginAuditStatus:'PENDING',

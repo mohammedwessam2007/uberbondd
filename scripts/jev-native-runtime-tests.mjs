@@ -28,6 +28,7 @@ const tests=[
   'tests/ubermind-operational-work-scoreboard.test.mjs',
   'tests/ubermind-public-issue-backlog.test.mjs',
   'tests/ubermind-real-issue-jev-shadow.test.mjs',
+  'tests/ubermind-architecture-atlas.test.mjs',
   'tests/contra-collection-readiness.test.mjs',
   'tests/server-request-handler.test.mjs'
 ];

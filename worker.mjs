@@ -26,6 +26,7 @@ import { reconcileUberMindRealWorkCounter } from './src/ubermind-real-work-count
 import { inspectJevPendingClaims } from './src/ubermind-jev-pending-doctor.mjs';
 import { capturePublicIssueWorkload } from './scripts/ubermind-public-issue-intake.mjs';
 import { compilePublicIssueBacklog } from './src/ubermind-public-issue-backlog.mjs';
+import { compileRealIssueJevShadowPrecommit } from './src/ubermind-real-issue-jev-shadow.mjs';
 import { runUberMindLiveSourceWork, compileSourceWorkCheckpoint } from './src/ubermind-exact-source-work.mjs';
 
 validateStartupConfig(config);
@@ -92,7 +93,7 @@ async function tickUberMindPublicIssueBacklog(){
   if(publicIssueIntakeRunning)return;
   publicIssueIntakeRunning=true;
   try{
-    const capture=await capturePublicIssueWorkload();
+    const capture=await capturePublicIssueWorkload({includeJevShadowInputs:true});
     if(!capture.ok||capture.sourceScanComplete!==true){
       console.log('UBERMIND_LIVE_WORK_INTAKE '+JSON.stringify({
         ok:false,status:'LIVE_GITHUB_SOURCE_READ_INCOMPLETE',
@@ -121,6 +122,51 @@ async function tickUberMindPublicIssueBacklog(){
         await tx.setSetting('ubermindLivePublicIssueBacklogV1',next.ledger);
       return next;
     });
+    // W20: compile actual source-verified public GitHub issue versions into
+    // bounded, typed Jev shadow questions without sending issue text to a
+    // provider, authorizing paid inference or granting task-quality authority.
+    const shadow=compileRealIssueJevShadowPrecommit({capture});
+    if(shadow.ok){
+      const recorded=await store.transaction(async tx=>{
+        if(tx.transactionClient===true)await tx.pool.query(
+          'SELECT pg_advisory_xact_lock(hashtextextended($1, 0))',
+          ['setting:ubermindJevRealIssueShadowPrecommitV1']);
+        const prior=(await tx.getSettings())?.ubermindJevRealIssueShadowPrecommitV1??null;
+        if(prior?.precommitDigest===shadow.precommitDigest)
+          return {status:'EXISTING_REAL_SOURCE_JEV_SHADOW_PRECOMMIT',newSourceVersion:false};
+        const oldVersions=Array.isArray(prior?.versions)?prior.versions:[];
+        if(oldVersions.length>=64)
+          return {status:'JEV_SHADOW_PRECOMMIT_VERSION_ARCHIVE_REQUIRED',newSourceVersion:false};
+        const receipt={schemaVersion:shadow.schemaVersion,
+          sourceVersionDigest:shadow.sourceVersionDigest,
+          precommitDigest:shadow.precommitDigest,
+          realSourceIssuesPrecommitted:shadow.realSourceIssuesPrecommitted,
+          originalTypedAdvisoryQuestions:shadow.originalTypedAdvisoryQuestions,
+          boundedGovernedBatchCount:shadow.boundedGovernedBatchCount,
+          paidInferenceAuthorized:false,independentQualityEvidence:false,
+          lastObservedAt:observedAt,
+          versions:[...oldVersions,{precommitDigest:shadow.precommitDigest,
+            sourceVersionDigest:shadow.sourceVersionDigest,
+            issueCount:shadow.realSourceIssuesPrecommitted,observedAt}]};
+        await tx.setSetting('ubermindJevRealIssueShadowPrecommitV1',receipt);
+        return {status:'NEW_REAL_SOURCE_JEV_SHADOW_PRECOMMIT',newSourceVersion:true};
+      });
+      console.log('UBERMIND_JEV_REAL_ISSUE_SHADOW '+JSON.stringify({
+        ok:true,status:recorded.status,
+        newSourceVersion:recorded.newSourceVersion,
+        precommitDigest:shadow.precommitDigest,
+        sourceVersionDigest:shadow.sourceVersionDigest,
+        realSourceIssuesPrecommitted:shadow.realSourceIssuesPrecommitted,
+        originalTypedAdvisoryQuestions:shadow.originalTypedAdvisoryQuestions,
+        boundedGovernedBatchCount:shadow.boundedGovernedBatchCount,
+        newFrontierQualityHoldouts:0,providerCallsPerformed:0,
+        paidInferenceAuthorized:false,empiricalMultiplier:null,
+        externalEffectAuthority:'NONE'
+      }));
+    }else console.log('UBERMIND_JEV_REAL_ISSUE_SHADOW '+JSON.stringify({
+      ok:false,status:shadow.status,reason:shadow.reason,
+      providerCallsPerformed:0,paidInferenceAuthorized:false
+    }));
     console.log('UBERMIND_LIVE_WORK_INTAKE '+JSON.stringify({
       ok:result.ok,status:result.status,
       publicOpenWorkCandidates:result.retainedOpenIssueCount??0,

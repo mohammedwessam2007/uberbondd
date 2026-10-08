@@ -1,5 +1,5 @@
 const unknown=x=>x==null?'UNKNOWN':x;
-export function buildInfiniteOpusScoreboard({runtimeSnapshot={},globalLedgerSummary={},provableEconomics={},roles={},typingMindPerimeter={},routeInventory={},deployment={}}={}){
+export function buildInfiniteOpusScoreboard({runtimeSnapshot={},globalLedgerSummary={},provableEconomics={},roles={},typingMindPerimeter={},routeInventory={},deployment={},sourceWorkProgress={},nativeWorkProgress={}}={}){
  const budget=runtimeSnapshot.budget??{},metrics=runtimeSnapshot.metrics??{};
  return {
   CURRENT_MAIN:unknown(deployment.currentMain),SOURCE_READY:unknown(deployment.sourceReady),LIVE_CONNECTED:unknown(deployment.liveConnected),PRODUCTION_DEPLOYED:unknown(deployment.productionDeployed),

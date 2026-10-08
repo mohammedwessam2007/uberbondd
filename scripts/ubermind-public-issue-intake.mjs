@@ -57,7 +57,9 @@ export async function capturePublicIssueWorkload({
      reason:entry.failure,httpStatus:entry.httpStatus??null});
   }
  }
- if(!candidates.length)return reason('NO_VERIFIABLE_OPEN_PUBLIC_ISSUE_SOURCES');
+ if(!candidates.length)return reason('NO_VERIFIABLE_OPEN_PUBLIC_ISSUE_SOURCES',{
+  selectedSourceCount:selectedIssueNumbers.length,sourceScanComplete:false,sourceReadFailures
+ });
  const now=new Date(clock()).toISOString();
  const plan=precommitPublicWorkload({campaignId:'oct2026-public-issue-work-intake',asOf:now,taskRows:candidates});
  if(!plan.ok)return reason('SOURCE_WORKLOAD_PRECOMMIT_REFUSED',{precommitFailureClass:plan.reason});

@@ -98,6 +98,7 @@ async function tickUberMindPublicIssueBacklog(){
       console.log('UBERMIND_LIVE_WORK_INTAKE '+JSON.stringify({
         ok:false,status:'LIVE_GITHUB_SOURCE_READ_INCOMPLETE',
         selectedSourceCount:capture.selectedSourceCount??null,
+        sourceAuthenticationMode:capture.sourceAuthenticationMode??'UNAVAILABLE',
         verifiedSourceCount:capture.observedPublicSourceTasks??0,
         sourceReadFailureCount:capture.sourceReadFailures?.length??0,
         sourceFailureClasses:(capture.sourceReadFailures??[]).reduce((acc,row)=>{
@@ -174,6 +175,7 @@ async function tickUberMindPublicIssueBacklog(){
       newDistinctIssueCandidates:result.newDistinctIssueCandidates??0,
       previouslySeenIssueVersionsChanged:result.changedExistingIssueVersions??0,
       sourceVersionDigest:capture.sourceVersionDigest,
+      sourceAuthenticationMode:capture.sourceAuthenticationMode??'UNAVAILABLE',
       newIndependentQualityHoldouts:0,
       completedEconomicWork:0,
       benchmarkPermissionGranted:false,customerConsentProven:false,

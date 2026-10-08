@@ -132,8 +132,12 @@ export async function executeGovernedJevTensor({plan,executeDecision,
     !Number.isFinite(maximumPerGroupSpendUsd)||maximumPerGroupSpendUsd<=0||maximumPerGroupSpendUsd>.001||
     typeof executeDecision!=='function')
     return fail('JEV_TENSOR_EXECUTION_INPUT_REFUSED',{providerCallsPerformed:0});
-  // Recompile before any network crossing. An untrusted or altered plan cannot
-  // sneak in different questions/authority under a previous digest.
+  // Validate the complete plan before any network crossing.
+  if(plan.groups.length===0||plan.groups.length>MAX_GROUPS||
+    plan.groupCount!==plan.groups.length||
+    !Number.isSafeInteger(plan.originalQuestionCount)||plan.originalQuestionCount<1||
+    plan.originalQuestionCount>1024)
+    return fail('JEV_TENSOR_PLAN_SHAPE_REFUSED',{providerCallsPerformed:0});
   const rows=new Map();
   for(const group of plan.groups){
     if(!group||!Array.isArray(group.mapping)||!group.mapping.length||
@@ -157,7 +161,9 @@ export async function executeGovernedJevTensor({plan,executeDecision,
   const results=[],answers=[];
   let performed=0,charged=0;
   for(const [ordinal,group] of plan.groups.entries()){
-    if(group.ordinal!==ordinal||!validateScope(group.scope)||!isObj(group.state)||!isObj(group.questions)||
+    if(group.ordinal!==ordinal||!validateScope(group.scope)||group.scope.dataClass!=='PUBLIC'||
+      !isObj(group.state)||!isObj(group.questions)||
+      Object.entries(group.questions).some(([k,q])=>!ID.test(k)||!validateQuestion(q))||
       group.mapping.length>MAX_QUESTIONS||
       !limitOk(sizeOf(group.state,group.questions))||
       !Number.isSafeInteger(group.inputTokenCeiling)||
@@ -166,6 +172,8 @@ export async function executeGovernedJevTensor({plan,executeDecision,
       group.operationId!=='jev-tensor-'+semanticHash({batchId:plan.batchId,ordinal,scope:group.scope,state:group.state,questions:group.questions,mapping:group.mapping}).slice(7,39))
       return fail('JEV_TENSOR_GROUP_INTEGRITY_REFUSED',{providerCallsPerformed:performed,results});
   }
+  if([...rows.values()].reduce((n,row)=>n+Object.keys(row.questions).length,0)!==plan.originalQuestionCount)
+    return fail('JEV_TENSOR_TOTAL_QUESTION_COUNT_REFUSED',{providerCallsPerformed:0});
   for(const group of plan.groups){
     let result;
     try{result=await executeDecision({operationId:group.operationId,

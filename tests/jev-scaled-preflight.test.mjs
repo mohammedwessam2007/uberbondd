@@ -254,3 +254,106 @@ test('unsupported spend ceiling or per-group minimum refuses before even compili
  }
  assert.equal(calls,0);
 });
+
+const acceptedCachedGroup=(group)=>({
+ ok:true,status:'JEV_PUBLIC_EXACT_PRIOR_ANSWER_REUSED',
+ result:{ok:true,status:'JEV_PUBLIC_EXACT_PRIOR_ANSWER_REUSED',
+  reusedPriorAnswer:true,providerCallsPerformed:0,observedCostMicrousd:0,
+  priorAnswerDigest:'sha256:'+'f'.repeat(64)}
+});
+const missGroup=()=>({ok:true,status:'JEV_PUBLIC_REUSE_MISS',result:null});
+
+test('W21 scales 35 distinct scopes using only TWO fresh group reservations on 100-micro global budget per fresh group',async()=>{
+ const inputs=Array.from({length:35},(_,i)=>row(i,{scope:scope('tenant-'+i)}));
+ const isFresh=group=>['tenant-0','tenant-33'].includes(group.scope.tenantId);
+ let reads=0,shards=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'w21-35-cache-groups',requests:inputs,
+  maximumTotalSpendUsd:.0002,maximumPerGroupSpendUsd:.0001,
+  lookupValidatedPublicAnswer:async group=>{reads++;return isFresh(group)?missGroup():acceptedCachedGroup(group);},
+  executeShard:async args=>{
+   shards++;
+   const base=await fakeGovernedShard(args);
+   return {...base,providerCallsPerformed:1,observedCostMicrousd:100};
+  }
+ });
+ assert.equal(r.ok,true);
+ assert.equal(r.governedGroupCount,35);
+ assert.equal(r.eligibleCachedGroupsAtPreflight,33);
+ assert.equal(r.freshGroupsAtPreflight,2);
+ assert.equal(r.reservedCeilingMicrousd,200);
+ assert.equal(r.globalBudgetCeilingMicrousd,200);
+ assert.equal(r.providerCallsPerformed,2);
+ assert.equal(r.observedCostMicrousd,200);
+ assert.equal(r.restoredAnswerCount,35);
+ assert.ok(shards>=2);
+ assert.equal(reads,35);
+});
+
+test('W21 all scoped publicly validated cache hits need no fresh JEV inference across several shards',async()=>{
+ const inputs=Array.from({length:40},(_,i)=>row(i,{scope:scope('cached-'+i)}));
+ let shards=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'w21-40-free-cache',requests:inputs,
+  maximumTotalSpendUsd:.0001,maximumPerGroupSpendUsd:.0001,
+  lookupValidatedPublicAnswer:async group=>acceptedCachedGroup(group),
+  executeShard:async args=>{
+   shards++;
+   const base=await fakeGovernedShard(args);
+   return {...base,providerCallsPerformed:0,observedCostMicrousd:0};
+  }
+ });
+ assert.equal(r.ok,true);
+ assert.ok(shards>=2);
+ assert.equal(r.eligibleCachedGroupsAtPreflight,40);
+ assert.equal(r.freshGroupsAtPreflight,0);
+ assert.equal(r.providerCallsPerformed,0);
+ assert.equal(r.observedCostMicrousd,0);
+ assert.equal(r.restoredAnswerCount,40);
+ assert.equal(r.independentlyVerifiedSavingsUsd,null);
+});
+
+test('W21 cache corruption/unknown read fails before any external shard can start',async()=>{
+ const inputs=Array.from({length:35},(_,i)=>row(i,{scope:scope('private-source-'+i)}));
+ let calls=0;
+ for(const response of [
+  {ok:false,status:'POISONED'},
+  {ok:true,status:'CLAIMED_BUT_UNVERIFIED',result:{ok:true,reusedPriorAnswer:true,providerCallsPerformed:0,observedCostMicrousd:0}},
+  'THROW'
+ ]){
+  const r=await executeScaledJevUnderBudget({
+   batchId:'w21-corrupt-ledger',requests:inputs,
+   maximumTotalSpendUsd:.0001,maximumPerGroupSpendUsd:.0001,
+   lookupValidatedPublicAnswer:async()=>{if(response==='THROW')throw Error('protected ledger down');return response;},
+   executeShard:async()=>{calls++;throw Error('unapproved network crossing');}
+  });
+  assert.equal(r.ok,false);
+  assert.equal(r.providerCallsPerformed,0);
+  assert.equal(r.automaticRetryAuthorized,false);
+ }
+ assert.equal(calls,0);
+});
+
+test('W21 preflight cache disappearing midbatch cannot push cumulative spend over hard ceiling',async()=>{
+ const inputs=Array.from({length:35},(_,i)=>row(i,{scope:scope('mut-'+i)}));
+ let shardIndex=0;
+ const r=await executeScaledJevUnderBudget({
+  batchId:'w21-ephemeral-hit',requests:inputs,
+  maximumTotalSpendUsd:.0001,maximumPerGroupSpendUsd:.0001,
+  lookupValidatedPublicAnswer:async group=>group.scope.tenantId==='mut-0'?missGroup():acceptedCachedGroup(group),
+  executeShard:async args=>{
+   shardIndex++;
+   if(shardIndex===1){
+    return {...await fakeGovernedShard(args),providerCallsPerformed:1,observedCostMicrousd:100};
+   }
+   throw Error('cache expired after previous reserved call');
+  }
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.providerCallsPerformed,null);
+ assert.equal(r.observedCostMicrousd,null);
+ assert.equal(r.observedCostLowerBoundMicrousd,100);
+ assert.equal(r.automaticRetryAuthorized,false);
+ assert.equal(r.answers,undefined);
+ assert.equal(shardIndex,1);
+});

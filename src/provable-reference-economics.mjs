@@ -4,7 +4,9 @@ const digest=x=>typeof x==='string'&&/^sha256:[0-9a-f]{64}$/.test(x);
 
 function mulMicrousd(tokens,usdPerMillion,mult=1){
   if(!safeInt(tokens)||!Number.isFinite(usdPerMillion)||usdPerMillion<0||!Number.isFinite(mult)||mult<0) throw new Error('valid-token-price-contract-required');
-  return Math.ceil(tokens*usdPerMillion*mult);
+  const out=Math.ceil(tokens*usdPerMillion*mult);
+  if(!safeInt(out))throw new Error('reference-cost-overflow-or-nonfinite');
+  return out;
 }
 export function directFrontierUnitCostMicrousd(ref){
   if(!ref||!ref.model||!ref.priceEvidenceRef||!ref.counterfactualOptimizationEvidenceRef) throw new Error('direct-reference-evidence-required');
@@ -23,7 +25,9 @@ export function directFrontierReferenceTotalMicrousd(item){
     if(item.directReference.responseCacheEligible!==true||!safeInt(item.directReference.responseCacheHitMicrousd)) throw new Error('identical-request-must-credit-response-cache-economics');
     return unit+(item.executionCount-1)*item.directReference.responseCacheHitMicrousd;
   }
-  return unit*item.executionCount;
+  const total=unit*item.executionCount;
+  if(!safeInt(total))throw new Error('reference-execution-count-overflow');
+  return total;
 }
 export function validateProvableWorkItem(item){
   const reasons=[];
@@ -42,12 +46,13 @@ export function validateProvableWorkItem(item){
   return {ok:reasons.length===0,reasons};
 }
 export function proveReferenceEconomics({workItems=[],actualAllInMicrousd,targetActualMicrousd=30_000_000}={}){
-  if(!Array.isArray(workItems)||!workItems.length) return {ok:false,status:'PROVABLE_WORK_ITEMS_REQUIRED'};
+  if(!Array.isArray(workItems)||!workItems.length||workItems.length>50000) return {ok:false,status:'BOUNDED_PROVABLE_WORK_ITEMS_REQUIRED'};
   if(!safeInt(actualAllInMicrousd)) return {ok:false,status:'OBSERVED_ACTUAL_ALL_IN_COST_REQUIRED'};
   const invalid=[],rows=[];let reference=0,executions=0;
   for(const item of workItems){
     const v=validateProvableWorkItem(item);if(!v.ok){invalid.push({id:item?.id??null,reasons:v.reasons});continue;}
     const ref=directFrontierReferenceTotalMicrousd(item);reference+=ref;executions+=item.executionCount;
+    if(!safeInt(reference)||!safeInt(executions))return {ok:false,status:'REFERENCE_ARITHMETIC_OVERFLOW_REFUSED'};
     rows.push({id:item.id,equivalenceClass:item.equivalenceClass,executionCount:item.executionCount,directReferenceMicrousd:ref,proofRef:item.proofRef});
   }
   if(invalid.length) return {ok:false,status:'REFERENCE_PROOF_REFUSED',invalid};

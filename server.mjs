@@ -662,6 +662,19 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {
+      const protectedProgressState=await store.getSettings();
+      const sourceWork=runUberMindLiveSourceWork();
+      const priorSourceWork=protectedProgressState?.ubermindExactSourceWorkV1??null;
+      const sourceCheck=sourceWork.ok&&priorSourceWork?
+        compileSourceWorkCheckpoint({prior:priorSourceWork,work:sourceWork,observedAt:new Date().toISOString()}):null;
+      const sourceWorkProgress={
+        verified:sourceCheck?.ok===true&&sourceCheck.changed===false,
+        verifiedSourceCount:sourceCheck?.ok===true&&sourceCheck.changed===false?sourceWork.verifiedSourceCount:null,
+        exactAnswersActuallyResolvedAndVerified:sourceCheck?.ok===true&&sourceCheck.changed===false?sourceWork.materializedOutputCount:null
+      };
+      const nativeWorkProgress=reconcileUberMindRealWorkCounter({
+        runtimeState:protectedProgressState?.infiniteOpusRuntimeV1??null
+      });
       const unifiedCognition=await runtime.unifiedCognition();
       const scoreboard = buildInfiniteOpusScoreboard({
         runtimeSnapshot: snapshot,

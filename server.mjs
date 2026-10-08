@@ -1070,7 +1070,7 @@ if (wrapperIsEntryPoint) {
       const decisionDiag=marketSnapshot?.decisionMarket||{};
       const safeMarketReason=x=>{
         const raw=String(x||'');
-        return /^(?:endpoint|public):[A-Za-z0-9_:\-./ ]{1,120}$/.test(raw)
+        return /^(?:endpoint|public):[A-Za-z0-9_: .-]{1,120}$/.test(raw)
           ?raw:'PRICE_SOURCE_ERROR_REDACTED';
       };
       console.log('UBERMIND_JEV_PRICE_SOURCE_DIAGNOSTIC '+JSON.stringify({

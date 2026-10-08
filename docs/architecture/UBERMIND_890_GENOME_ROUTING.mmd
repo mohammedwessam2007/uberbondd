@@ -1,0 +1,30 @@
+flowchart TB
+  ROOT["Verified original founder corpus: #0001–#0890; 890 distinct entries; 10 immutable shards"]
+  ROOT --> S1["0001-0089"] & S2["0090-0178"] & S3["0179-0267"] & S4["0268-0356"] & S5["0357-0445"]
+  ROOT --> S6["0446-0534"] & S7["0535-0623"] & S8["0624-0712"] & S9["0713-0801"] & S10["0802-0890"]
+  S1 --> RET["Task-relevant source retrieval with exact idea ID, literal body and provenance"]
+  S2 --> RET
+  S3 --> RET
+  S4 --> RET
+  S5 --> RET
+  S6 --> RET
+  S7 --> RET
+  S8 --> RET
+  S9 --> RET
+  S10 --> RET
+  RET --> F1["Life / Human Capability / Identity"]
+  RET --> F2["Science / Biology / Physics / Causality"]
+  RET --> F3["Economy / Revenue / Capital / Markets"]
+  RET --> F4["Knowledge / Intelligence / Proof / Memory"]
+  RET --> F5["Worlds / Civilization / Possibilities / Ontologies"]
+  F1 --> PL["Task compiler: preserve other ideas through references; no loss"]
+  F2 --> PL
+  F3 --> PL
+  F4 --> PL
+  F5 --> PL
+  PL --> M["UberMind execution and Reality Court"]
+  M --> FB["Verified outcomes, negative knowledge, failure and uncertainty"]
+  FB --> GEN["GENESIS produces new candidate descendants #0891+ without overwriting originals"]
+  GEN -. "new hypotheses" .-> RET
+  classDef original fill:#eaf3ff,stroke:#376a9e,color:#153f6a
+  class ROOT,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10 original

@@ -486,3 +486,45 @@ test('SaaS-extinction status exposes the no-surprise buy ledger without external
   assert.ok(body.buyList.external.some(item => item.id === 'authorized_outbound_substrate'));
   assert.ok(body.supply.summary.targetDailyFirstTouches === 1000);
 });
+
+test('protected Contra setup refuses missing payout country rather than assuming Egypt', async () => {
+  const core = {
+    provider: 'contra',
+    observedAt: new Date().toISOString(),
+    ownerAttested: true,
+    evidenceRefs: ['owner:contra-payout-screen:source-country-test'],
+    existingAccountConfirmed: true,
+    duplicateAccountCreated: false,
+    authenticated: true,
+    wallet: { status: 'READY', identityVerificationStatus: 'VERIFIED' },
+    taxProfileStatus: 'COMPLETE',
+    payout: { status: 'READY', method: 'SWIFT', accountOwnerMatch: true },
+    blockingRequirements: [],
+    capabilities: { oneTimeFixedProject: true, paymentLink: true, invoice: true }
+  };
+  const send = async input => call('/api/owner/contra-collection-observation', {
+    method: 'POST', token: ADMIN_TOKEN, body: JSON.stringify(input)
+  });
+  const absent = await send(core);
+  assert.equal(absent.status, 200);
+  assert.equal(json(absent).contra.state, 'PAYOUT_METHOD_REQUIRED');
+  assert.equal(json(absent).contra.liveReady, false);
+  assert.equal(json(absent).contra.paymentRequestAuthority, 'NONE');
+  assert.equal(json(absent).paymentRequestsSent, 0);
+  assert.match(json(absent).contra.reasonCodes.join(','), /payout-country-must-be-eg:UNKNOWN/);
+
+  const unknown = await send({ ...core, payout: { ...core.payout, country: '' } });
+  assert.equal(unknown.status, 200);
+  assert.equal(json(unknown).contra.state, 'PAYOUT_METHOD_REQUIRED');
+
+  const abroad = await send({ ...core, payout: { ...core.payout, country: 'US' } });
+  assert.equal(abroad.status, 200);
+  assert.equal(json(abroad).contra.state, 'PAYOUT_METHOD_REQUIRED');
+
+  const explicitlyEgypt = await send({ ...core, payout: { ...core.payout, country: 'EG' } });
+  assert.equal(explicitlyEgypt.status, 200);
+  assert.equal(json(explicitlyEgypt).contra.state, 'COLLECTION_READY');
+  assert.equal(json(explicitlyEgypt).contra.paymentRequestAuthority, 'NONE');
+  assert.equal(json(explicitlyEgypt).contra.businessEffectAuthority, 'NONE');
+  assert.equal(json(explicitlyEgypt).paymentRequestsSent, 0);
+});

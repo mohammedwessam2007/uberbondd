@@ -65,3 +65,10 @@ test('unsupported capacity catalog is refused not estimated',()=>{
   inputUsdPerMillion:4,outputUsdPerMillion:20});
  assert.equal(v.ok,false);
 });
+
+test('astronomical cost parameters refuse unsafe counterfactual arithmetic',()=>{
+ const z={...hypothetical(),directReference:{...ref(),outputTokens:Number.MAX_SAFE_INTEGER}};
+ const r=proveReferenceEconomics({workItems:[z],actualAllInMicrousd:100});
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'REFERENCE_PROOF_REFUSED');
+});

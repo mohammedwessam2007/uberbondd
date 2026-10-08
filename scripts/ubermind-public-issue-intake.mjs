@@ -15,7 +15,10 @@ const reason=(status,more={})=>({ok:false,status,sourceCandidateCount:0,
  */
 export async function capturePublicIssueWorkload({
  fetchImpl=fetch,clock=Date.now,repoOwner=OWNER,repoName=REPO,
- selectedIssueNumbers=SOURCE_IDS,includeJevShadowInputs=false
+ selectedIssueNumbers=SOURCE_IDS,includeJevShadowInputs=false,
+ // Reuse only the existing protected GitHub relay credential, if configured.
+ // A public issue reader never asks the founder for a new secret.
+ githubToken=process.env.GITHUB_TOKEN
 }={}){
  if(repoOwner!==OWNER||repoName!==REPO||
     !Array.isArray(selectedIssueNumbers)||selectedIssueNumbers.length<1||
@@ -24,11 +27,20 @@ export async function capturePublicIssueWorkload({
    return reason('PUBLIC_SOURCE_SCOPE_NOT_AUTHORIZED');
  // Query only the explicit approved public issue numbers. GitHub's first
  // /issues?per_page=100 page is not an exhaustive historical source inventory.
+ // Token is neither returned nor persisted or logged. The 12 explicit
+ // public issue numbers and read-only GET method remain unchanged.
+ const hasGithubToken=typeof githubToken==='string'&&githubToken.length>=16;
+ const sourceAuthenticationMode=hasGithubToken
+   ?'EXISTING_PROTECTED_GITHUB_TOKEN_READ_ONLY'
+   :'ANONYMOUS_GITHUB_PUBLIC_GET';
  const candidates=[],sourceReadFailures=[],shadowInputs=[];
  const load=async number=>{
   let response;
   try{response=await fetchImpl('https://api.github.com/repos/'+OWNER+'/'+REPO+'/issues/'+number,{
-   headers:{Accept:'application/vnd.github+json','User-Agent':'UberBond-Public-Workload-Evidence'},
+   headers:{Accept:'application/vnd.github+json',
+     'User-Agent':'UberBond-Public-Workload-Evidence',
+     'X-GitHub-Api-Version':'2022-11-28',
+     ...(hasGithubToken?{Authorization:'Bearer '+githubToken}:{})},
    signal:AbortSignal.timeout(7000)
   });}
   catch{return {number,failure:'SOURCE_REQUEST_FAILED'};}
@@ -73,14 +85,16 @@ export async function capturePublicIssueWorkload({
   }
  }
  if(!candidates.length)return reason('NO_VERIFIABLE_OPEN_PUBLIC_ISSUE_SOURCES',{
-  selectedSourceCount:selectedIssueNumbers.length,sourceScanComplete:false,sourceReadFailures
+  selectedSourceCount:selectedIssueNumbers.length,sourceScanComplete:false,
+  sourceAuthenticationMode,sourceReadFailures
  });
  const now=new Date(clock()).toISOString();
  const plan=precommitPublicWorkload({campaignId:'oct2026-public-issue-work-intake',asOf:now,taskRows:candidates});
  if(!plan.ok)return reason('SOURCE_WORKLOAD_PRECOMMIT_REFUSED',{precommitFailureClass:plan.reason});
  return {ok:true,schemaVersion:PUBLIC_ISSUE_INTAKE,
   status:'REAL_PUBLIC_GITHUB_ISSUE_CANDIDATE_INTAKE_ONLY',
-  sourceRepo:OWNER+'/'+REPO,liveIssueCount:null,selectedOpenIssueCount:candidates.length,
+  sourceRepo:OWNER+'/'+REPO,sourceAuthenticationMode,
+  liveIssueCount:null,selectedOpenIssueCount:candidates.length,
   sourceScanComplete:sourceReadFailures.length===0,sourceReadFailures,
   selectedSourceCount:selectedIssueNumbers.length,
   observedPublicSourceTasks:plan.taskCount,

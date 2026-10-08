@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import {precommitPublicWorkload} from '../src/ubermind-public-workload-precommit.mjs';
+import {containsSecretValue} from '../src/secret-patterns.mjs';
 
 export const PUBLIC_ISSUE_INTAKE='uberbond.ubermind-public-github-issue-intake.v1';
 const OWNER='mohammedwessam2007',REPO='uberbondd';
@@ -14,7 +15,7 @@ const reason=(status,more={})=>({ok:false,status,sourceCandidateCount:0,
  */
 export async function capturePublicIssueWorkload({
  fetchImpl=fetch,clock=Date.now,repoOwner=OWNER,repoName=REPO,
- selectedIssueNumbers=SOURCE_IDS
+ selectedIssueNumbers=SOURCE_IDS,includeJevShadowInputs=false
 }={}){
  if(repoOwner!==OWNER||repoName!==REPO||
     !Array.isArray(selectedIssueNumbers)||selectedIssueNumbers.length<1||
@@ -23,7 +24,7 @@ export async function capturePublicIssueWorkload({
    return reason('PUBLIC_SOURCE_SCOPE_NOT_AUTHORIZED');
  // Query only the explicit approved public issue numbers. GitHub's first
  // /issues?per_page=100 page is not an exhaustive historical source inventory.
- const candidates=[],sourceReadFailures=[];
+ const candidates=[],sourceReadFailures=[],shadowInputs=[];
  const load=async number=>{
   let response;
   try{response=await fetchImpl('https://api.github.com/repos/'+OWNER+'/'+REPO+'/issues/'+number,{
@@ -41,7 +42,19 @@ export async function capturePublicIssueWorkload({
      typeof row.title!=='string'||typeof row.body!=='string'||
      row.body.length>300000||!Number.isFinite(Date.parse(row.updated_at)))
    return {number,failure:'SOURCE_VERSION_OR_TYPE_UNVERIFIED'};
-  return {number,candidate:{
+  let shadowInput=null;
+  if(includeJevShadowInputs){
+    const title=row.title.slice(0,220);
+    const excerpt=row.body.slice(0,1100);
+    // Public issue content is still untrusted model input. Any credential-like
+    // source snippet must not cross into a Jev provider request.
+    if(containsSecretValue(title)||containsSecretValue(excerpt))
+      return {number,failure:'PUBLIC_SOURCE_SNIPPET_CONTAINS_CREDENTIAL'};
+    shadowInput={taskId:'issue-'+number,sourceUrl:row.html_url,
+      taskContentDigest:sha(JSON.stringify([number,row.title,row.body,row.updated_at])),
+      sourceObservedAt:row.updated_at,title,excerpt};
+  }
+  return {number,shadowInput,candidate:{
    taskId:'issue-'+number,taskClass:'PUBLIC_REPOSITORY_ISSUE_WORK',
    taskContentDigest:sha(JSON.stringify([number,row.title,row.body,row.updated_at])),
    sourceUrl:row.html_url,sourceObservedAt:row.updated_at,
@@ -52,7 +65,10 @@ export async function capturePublicIssueWorkload({
  for(let i=0;i<selectedIssueNumbers.length;i+=4){
   const batch=await Promise.all(selectedIssueNumbers.slice(i,i+4).map(load));
   for(const entry of batch){
-   if(entry.candidate)candidates.push(entry.candidate);
+   if(entry.candidate){
+    candidates.push(entry.candidate);
+    if(includeJevShadowInputs&&entry.shadowInput)shadowInputs.push(entry.shadowInput);
+   }
    else sourceReadFailures.push({issueNumber:entry.number,
      reason:entry.failure,httpStatus:entry.httpStatus??null});
   }
@@ -80,5 +96,8 @@ export async function capturePublicIssueWorkload({
   benchmarkReuseConsentVerified:false,empiricalMultiplier:null,
   global33333xConfirmed:false,
   sourceRefs:plan.items.map(x=>x.sourceUrl),
+  // Optional transient-only bounded public input for governed Jev preflight.
+  // Never persisted by the W15 backlog and never logged by the worker.
+  ...(includeJevShadowInputs?{jevShadowInputs:shadowInputs}:{}),
   truthBoundary:'Only explicitly selected public GitHub issue IDs were read and their exact title+body versions hashed. Partial source reads are labeled with failures; liveIssueCount is null because repository-wide listing was not performed. These are historical visible project tasks, NOT fresh independent blind tasks or provider-reuse permission, and have no paired outputs, grades, audited economics or multiplier admission.'};
 }

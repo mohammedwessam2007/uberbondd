@@ -7,7 +7,8 @@ const tests=[
   'tests/jev-native-pagefault-triage.test.mjs',
   'tests/jev-governed-runtime-service.test.mjs',
   'tests/openrouter-jev-governed-adapter.test.mjs',
-  'tests/jev-tensor-one-shot-live-canary.test.mjs'
+  'tests/jev-tensor-one-shot-live-canary.test.mjs',
+  'tests/jev-tensor-provider-metadata-readback.test.mjs'
 ];
 
 /** Native Node verification. Only deterministic mock-provider tests. Never

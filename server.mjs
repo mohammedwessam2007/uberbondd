@@ -42,6 +42,7 @@ import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault
 import { runJevTensorStartupDoctor } from './scripts/jev-shared-state-tensor-doctor.mjs';
 import { runJevScaledPreflightDoctor } from './scripts/jev-scaled-preflight-doctor.mjs';
 import { runJevNativeTests } from './scripts/jev-native-runtime-tests.mjs';
+import { capturePublicIssueWorkload } from './scripts/ubermind-public-issue-intake.mjs';
 import { runUberMind33kRealityDoctor } from './scripts/ubermind-33k-reality-doctor.mjs';
 import { runUberMindCheapestReferenceDoctor } from './scripts/ubermind-cheapest-reference-doctor.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
@@ -1084,6 +1085,8 @@ if (wrapperIsEntryPoint) {
       console.log('UBERMIND_JEV_SCALED_PREFLIGHT '+JSON.stringify(runJevScaledPreflightDoctor()));
       const jevNativeProof=runJevNativeTests();
       console.log('UBERMIND_JEV_NATIVE_TESTS '+JSON.stringify(jevNativeProof));
+      const publicWorkload=await capturePublicIssueWorkload();
+      console.log('UBERMIND_REAL_PUBLIC_WORK_INTAKE '+JSON.stringify(publicWorkload));
       console.log('UBERMIND_33333X_REALITY_GATE '+JSON.stringify(runUberMind33kRealityDoctor()));
       console.log('UBERMIND_FAIR_FRONTIER_REFERENCE '+JSON.stringify(runUberMindCheapestReferenceDoctor()));
       console.log('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({

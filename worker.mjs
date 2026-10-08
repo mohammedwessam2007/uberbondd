@@ -23,6 +23,7 @@ import { terminalReadinessWithEffectTruth } from './src/revenue-terminal-effect-
 import { runWinnrSmtpReadinessProbe } from './src/winnr-smtp-readiness.mjs';
 import { runUberMind890ProofCycle } from './scripts/ubermind-890-evidence-cycle.mjs';
 import { reconcileUberMindRealWorkCounter } from './src/ubermind-real-work-counter.mjs';
+import { inspectJevPendingClaims } from './src/ubermind-jev-pending-doctor.mjs';
 import { capturePublicIssueWorkload } from './scripts/ubermind-public-issue-intake.mjs';
 import { compilePublicIssueBacklog } from './src/ubermind-public-issue-backlog.mjs';
 import { runUberMindLiveSourceWork, compileSourceWorkCheckpoint } from './src/ubermind-exact-source-work.mjs';
@@ -152,13 +153,15 @@ publicIssueIntakeInterval.unref?.();
 // Repeated identical evidence is suppressed instead of spamming the runtime.
 let lastUberMindProofDigest=null;
 let lastUberMindWorkCounterDigest=null;
+let lastJevPendingDigest=null;
 async function tickUberMindProofFlywheel(){
   try{
     const evidence=await store.transaction(async tx=>{
       const settings=await tx.getSettings();
       return {
         historical:settings?.infinite_opus_measured_reference_dominance_20261007_v1??null,
-        nativeState:settings?.infiniteOpusRuntimeV1??null
+        nativeState:settings?.infiniteOpusRuntimeV1??null,
+        jevReuseState:settings?.ubermindJevPublicAnswerReuseV1??null
       };
     });
     const counter=reconcileUberMindRealWorkCounter({runtimeState:evidence.nativeState});
@@ -175,6 +178,24 @@ async function tickUberMindProofFlywheel(){
         noProviderInferencePerformedByMonitor:true
       }));
       lastUberMindWorkCounterDigest=counterDigest;
+    }
+    const pendingDoctor=inspectJevPendingClaims({
+      reuseState:evidence.jevReuseState,nativeState:evidence.nativeState,now:Date.now()
+    });
+    const pendingSignature=pendingDoctor.inventoryDigest??pendingDoctor.status+':'+pendingDoctor.reason;
+    if(pendingSignature!==lastJevPendingDigest||!pendingDoctor.ok||
+       (pendingDoctor.claimsNeedingOwnerReconciliation??0)>0){
+      console.log('UBERMIND_JEV_PENDING_CLAIMS '+JSON.stringify({
+        ok:pendingDoctor.ok,status:pendingDoctor.status,
+        pendingClaimCount:pendingDoctor.pendingClaimCount??null,
+        staleClaimCount:pendingDoctor.staleClaimCount??null,
+        claimsNeedingOwnerReconciliation:pendingDoctor.claimsNeedingOwnerReconciliation??null,
+        statusCounts:pendingDoctor.statusCounts??{},
+        inventoryDigest:pendingDoctor.inventoryDigest??null,
+        rawClaimIdentifiersExposed:false,automaticRetryAuthorized:false,
+        providerCallsPerformed:0
+      }));
+      lastJevPendingDigest=pendingSignature;
     }
     const report=runUberMind890ProofCycle({historicalMeasuredReferenceDominance:evidence.historical});
     const digest=report.stateDigest??report.status;

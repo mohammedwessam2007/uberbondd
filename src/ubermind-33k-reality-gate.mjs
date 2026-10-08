@@ -9,7 +9,7 @@ const hash=x=>crypto.createHash('sha256').update(JSON.stringify(x)).digest('hex'
 export function evaluateReferenceCapacityModel({model,sourceUrl,observedAt,
  contextTokens,maxOutputTokens,inputUsdPerMillion,outputUsdPerMillion}={}){
  if(!ID.test(model??'')||typeof sourceUrl!=='string'||!sourceUrl.startsWith('https://')||
-  !Number.isFinite(Date.parse(observedAt))||
+  typeof observedAt!=='string'||!Number.isFinite(Date.parse(observedAt))||
   !integer(contextTokens)||!integer(maxOutputTokens)||contextTokens<1||
   maxOutputTokens>contextTokens||maxOutputTokens<1||
   !finite(inputUsdPerMillion)||!finite(outputUsdPerMillion))
@@ -21,7 +21,13 @@ export function evaluateReferenceCapacityModel({model,sourceUrl,observedAt,
  const inputAtBound=contextTokens-outputAtBound;
  const maximalUsd=(inputAtBound*inputUsdPerMillion+
    outputAtBound*outputUsdPerMillion)/1_000_000;
+ if(!Number.isFinite(maximalUsd)||maximalUsd<=0)
+  return {ok:false,status:'MODEL_CATALOG_CAPACITY_UNVERIFIED',
+   reason:'NONPOSITIVE_OR_NONFINITE_MODELED_REFERENCE_COST'};
  const mathematicalMinRequests=Math.max(1,Math.ceil(1_000_000/maximalUsd));
+ if(!Number.isSafeInteger(mathematicalMinRequests))
+  return {ok:false,status:'MODEL_CATALOG_CAPACITY_UNVERIFIED',
+   reason:'MODELED_REQUEST_COUNT_OUT_OF_SAFE_RANGE'};
  return {ok:true,status:'MODELED_SINGLE_REQUEST_REFERENCE_CAPACITY_ONLY',
   model,sourceUrl,observedAt,contextTokens,maxOutputTokens,
   theoreticalMaxDirectUsdPerRequest:maximalUsd,

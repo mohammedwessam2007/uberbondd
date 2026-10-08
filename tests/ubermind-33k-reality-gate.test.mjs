@@ -72,3 +72,45 @@ test('astronomical cost parameters refuse unsafe counterfactual arithmetic',()=>
  assert.equal(r.ok,false);
  assert.equal(r.status,'REFERENCE_PROOF_REFUSED');
 });
+
+test('zero-tariff model cannot imply one million dollars of paid reference demand',()=>{
+ const r=evaluateReferenceCapacityModel({
+  model:'fixture/free-model',sourceUrl:'https://openrouter.ai/fixture/free-model',
+  observedAt:'2026-10-08T10:00:00Z',contextTokens:1000,maxOutputTokens:500,
+  inputUsdPerMillion:0,outputUsdPerMillion:0
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.reason,'NONPOSITIVE_OR_NONFINITE_MODELED_REFERENCE_COST');
+ assert.equal(r.target33333xVerified,undefined);
+});
+
+test('extreme catalog prices refuse rather than create nonfinite millionaire reference',()=>{
+ const r=evaluateReferenceCapacityModel({
+  model:'fixture/overflow',sourceUrl:'https://openrouter.ai/fixture/overflow',
+  observedAt:'2026-10-08T10:00:00Z',contextTokens:1000,maxOutputTokens:500,
+  inputUsdPerMillion:1e308,outputUsdPerMillion:1e308
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.reason,'NONPOSITIVE_OR_NONFINITE_MODELED_REFERENCE_COST');
+});
+
+test('tiny modeled charges that require nonrepresentable request count refuse',()=>{
+ const r=evaluateReferenceCapacityModel({
+  model:'fixture/tiny',sourceUrl:'https://openrouter.ai/fixture/tiny',
+  observedAt:'2026-10-08T10:00:00Z',contextTokens:1000,maxOutputTokens:500,
+  inputUsdPerMillion:1e-10,outputUsdPerMillion:1e-10
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.reason,'MODELED_REQUEST_COUNT_OUT_OF_SAFE_RANGE');
+});
+
+test('parseable non-string observedAt does not mint an unverified dated price record',()=>{
+ const r=evaluateReferenceCapacityModel({
+  model:'fixture/dated',sourceUrl:'https://openrouter.ai/fixture/dated',
+  observedAt:new Date('2026-10-08T10:00:00Z'),
+  contextTokens:1000,maxOutputTokens:500,
+  inputUsdPerMillion:4,outputUsdPerMillion:20
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'MODEL_CATALOG_CAPACITY_UNVERIFIED');
+});

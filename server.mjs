@@ -40,6 +40,7 @@ import { runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState } f
 import { reconcileHaiku55CanaryWithoutReplay } from './scripts/infinite-opus-haiku55-canary-reconcile.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { runJevTensorStartupDoctor } from './scripts/jev-shared-state-tensor-doctor.mjs';
+import { runJevScaledPreflightDoctor } from './scripts/jev-scaled-preflight-doctor.mjs';
 import { runJevNativeTests } from './scripts/jev-native-runtime-tests.mjs';
 import { runUberMind33kRealityDoctor } from './scripts/ubermind-33k-reality-doctor.mjs';
 import { runUberMindCheapestReferenceDoctor } from './scripts/ubermind-cheapest-reference-doctor.mjs';
@@ -1080,6 +1081,7 @@ if (wrapperIsEntryPoint) {
         secretValuesExposed:false
       }));
       console.log('UBERMIND_JEV_TENSOR_READINESS '+JSON.stringify(runJevTensorStartupDoctor()));
+      console.log('UBERMIND_JEV_SCALED_PREFLIGHT '+JSON.stringify(runJevScaledPreflightDoctor()));
       const jevNativeProof=runJevNativeTests();
       console.log('UBERMIND_JEV_NATIVE_TESTS '+JSON.stringify(jevNativeProof));
       console.log('UBERMIND_33333X_REALITY_GATE '+JSON.stringify(runUberMind33kRealityDoctor()));

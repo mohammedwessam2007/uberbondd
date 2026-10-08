@@ -18,6 +18,8 @@ import { createInfiniteOpusRuntime } from './src/infinite-opus-native-runtime.mj
 import { compileCognitionEconomicPerimeter } from './src/cognition-economic-perimeter.mjs';
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
+import { runUberMindLiveSourceWork, compileSourceWorkCheckpoint } from './src/ubermind-exact-source-work.mjs';
+import { reconcileUberMindRealWorkCounter } from './src/ubermind-real-work-counter.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileOpenRouterJevPublicPriceRecord, compileOpenRouterJevEndpointPriceRecord, augmentInfiniteOpusMarketWithDecisionRecord, OPENROUTER_JEV_MODEL_PAGE, OPENROUTER_JEV_ENDPOINTS_API } from './src/openrouter-decision-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';
@@ -660,15 +662,29 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
       });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/budget') {
+      const protectedProgressState=await store.getSettings();
+      const sourceWork=runUberMindLiveSourceWork();
+      const priorSourceWork=protectedProgressState?.ubermindExactSourceWorkV1??null;
+      const sourceCheck=sourceWork.ok&&priorSourceWork?
+        compileSourceWorkCheckpoint({prior:priorSourceWork,work:sourceWork,observedAt:new Date().toISOString()}):null;
+      const sourceWorkProgress={
+        verified:sourceCheck?.ok===true&&sourceCheck.changed===false,
+        verifiedSourceCount:sourceCheck?.ok===true&&sourceCheck.changed===false?sourceWork.verifiedSourceCount:null,
+        exactAnswersActuallyResolvedAndVerified:sourceCheck?.ok===true&&sourceCheck.changed===false?sourceWork.materializedOutputCount:null
+      };
+      const nativeWorkProgress=reconcileUberMindRealWorkCounter({
+        runtimeState:protectedProgressState?.infiniteOpusRuntimeV1??null
+      });
       const unifiedCognition=await runtime.unifiedCognition();
       const scoreboard = buildInfiniteOpusScoreboard({
         runtimeSnapshot: snapshot,
+        sourceWorkProgress,nativeWorkProgress,
         globalLedgerSummary: {},
         typingMindPerimeter: { status: perimeter.status, globalBudgetScope: 'CANONICAL_ONE_RUNTIME_KEY_20_USD__TYPINGMIND_GATEWAY_ONLY__MEMBER_GUARDRAIL_28_BACKSTOP' },
         routeInventory: { ungoverned: routeInventory.routes.filter(row => !String(row.status).startsWith('GOVERNED') && !String(row.status).startsWith('FAIL_CLOSED') && row.status !== 'ONLY_ZERO_CASH_ALLOWED_IN_INFINITE_OPUS_MODE' && row.status !== 'NONCASH_GOVERNED').map(row => row.id) },
         deployment: { sourceReady: true, liveConnected: false, productionDeployed: false, ownerOnlyBlockers: ['OPENROUTER_RUNTIME_KEY_PRIVATE_CONFIGURATION','TINY_BOUNDED_PAID_CANARY_AUTHORIZATION','SEALED_GENERAL_CROWN_EVIDENCE'] }
       });
-      return sendJson(res, 200, { ok: true, perimeter, snapshot, unifiedCognition, scoreboard });
+      return sendJson(res, 200, { ok: true, perimeter, snapshot, unifiedCognition, scoreboard, sourceWorkProgress, nativeWorkProgress: { ok:nativeWorkProgress.ok,status:nativeWorkProgress.status,certifiedPolicyWorkCompleted:nativeWorkProgress.certifiedPolicyWorkCompleted??null } });
     }
     if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/queue') {
       return sendJson(res, 200, { ok: true, semanticDemand: await runtime.demandPlan(), paidInferenceTriggered: false });

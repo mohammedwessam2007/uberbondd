@@ -9,7 +9,7 @@ const scope=(o={})=>({tenantId:'owner',credentialScopeId:'openrouter-key-1',
 const q=(instructions='Is this an important observation?')=>({type:'noul',instructions});
 const row=(requestId='r1',extra={})=>({requestId,state:{source:'public snapshot',turn:1},
   scope:scope(),questions:{novelty:q()},...extra});
-const fixture=(n=12)=>Array.from({length:n},(_,i)=>row('r'+i,{questions:{['k'+i]:q()}}));
+const fixture=(n=12)=>Array.from({length:n},(_,i)=>row('r'+i,{questions:{['k'+i]:q('Decision question '+i+'?')}}));
 
 test('shared state 20 decision questions compiles into one distinct-ID safe Jev request',()=>{
  const p=compileJevSharedStateTensor({batchId:'b1',requests:fixture(20)});
@@ -119,4 +119,34 @@ test('uncertain dispatch never retries and count remains unknown',async()=>{
  assert.equal(n,1);assert.equal(out.ok,false);
  assert.equal(out.providerCallsPerformed,null);
  assert.equal(out.automaticRetryAuthorized,false);
+});
+
+test('200 exact repeated decisions fan out from ONE Jev question and ONE governed call',async()=>{
+  const requests=Array.from({length:200},(_,i)=>row('rep'+i));
+  const plan=compileJevSharedStateTensor({batchId:'exact-fanout',requests});
+  assert.equal(plan.ok,true);assert.equal(plan.groupCount,1);
+  assert.equal(plan.originalQuestionCount,200);
+  assert.equal(plan.uniqueQuestionCount,1);
+  assert.equal(plan.exactQuestionDedupCount,199);
+  assert.equal(plan.groups[0].mapping.length,200);
+  assert.equal(Object.keys(plan.groups[0].questions).length,1);
+  let n=0;
+  const out=await executeGovernedJevTensor({plan,executeDecision:async params=>{
+    n++;assert.equal(Object.keys(params.questions).length,1);
+    return {ok:true,providerCallsPerformed:1,observedCostMicrousd:1,
+      providerRequestId:'gen-fixture',
+      proposal:{answers:{q_001:{type:'noul',noul:.91}}}};
+  }});
+  assert.equal(out.ok,true);assert.equal(n,1);assert.equal(out.answers.length,200);
+  assert.equal(new Set(out.answers.map(x=>x.requestId)).size,200);
+  assert.equal(out.crownSuppressionAuthority,'NONE');
+  assert.equal(out.savingsEvidence,'NO_MATCHED_COUNTERFACTUAL_OBSERVED');
+});
+test('changing a fanout mapping invalidates its exact binding before any provider call',async()=>{
+ const plan=compileJevSharedStateTensor({batchId:'mapped',requests:Array.from({length:3},(_,i)=>row('r'+i))});
+ plan.groups[0].mapping[2].requestId='other-caller';
+ let n=0;
+ const out=await executeGovernedJevTensor({plan,executeDecision:async()=>{n++}});
+ assert.equal(out.ok,false);assert.equal(out.status,'JEV_TENSOR_GROUP_INTEGRITY_REFUSED');
+ assert.equal(n,0);
 });

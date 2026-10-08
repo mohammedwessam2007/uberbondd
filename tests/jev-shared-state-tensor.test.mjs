@@ -150,3 +150,24 @@ test('changing a fanout mapping invalidates its exact binding before any provide
  assert.equal(out.ok,false);assert.equal(out.status,'JEV_TENSOR_GROUP_INTEGRITY_REFUSED');
  assert.equal(n,0);
 });
+
+test('rejects credential strings inside an otherwise public state',()=>{
+ const p=compileJevSharedStateTensor({batchId:'secret-test',requests:[
+   row('safe-shaped',{state:{key:'sk-proj-'+'a'.repeat(40)}})
+ ]});
+ assert.equal(p.ok,false);assert.equal(p.reason,'secret-bearing-tensor-refused');
+});
+test('rejects invalid Jev probability instead of laundering an invalid reply',async()=>{
+ const plan=compileJevSharedStateTensor({batchId:'invalid-prob',requests:fixture(1)});
+ const out=await executeGovernedJevTensor({plan,executeDecision:async()=>({
+   ok:true,providerCallsPerformed:1,providerRequestId:'gen',observedCostMicrousd:1,
+   proposal:{answers:{q_001:{type:'noul',noul:3}}}
+ })});
+ assert.equal(out.ok,false);assert.equal(out.status,'JEV_TENSOR_ANSWER_TYPE_REFUSED');
+});
+test('unexpected scope keys cannot quietly introduce new authority',()=>{
+ const p=compileJevSharedStateTensor({batchId:'inject',requests:[
+   row('x',{scope:scope({allowCrownSuppression:true})})
+ ]});
+ assert.equal(p.ok,false);assert.equal(p.reason,'complete-identical-authority-scope-required');
+});

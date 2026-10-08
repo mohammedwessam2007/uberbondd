@@ -40,8 +40,8 @@ All other 882 original source ideas remain preserved, addressable and unaltered.
 
 ## Executed local test evidence before PR
 - Unpatched baseline: forged manifest was accepted for staging, and malformed input threw.
-- Patched local module: `node --check` passed; `node --test tests/ubermind-public-workload-integrity.test.mjs`: **12/12 passed, 0 failed**.
-- Those 12 local tests ran in an isolated checkout-equivalent copy of this module because current environment cannot resolve github.com for a native clone. GitHub-hosted CI is required to establish integrated repository test status. The 10 new in-repository tests must also be executed in GitHub/runtime context.
+- Patched local module: `node --check` passed; `node --test tests/ubermind-public-workload-integrity.test.mjs`: **13/13 passed, 0 failed**.
+- Those 12 local tests ran in an isolated checkout-equivalent copy of this module because current environment cannot resolve github.com for a native clone. GitHub-hosted CI is required to establish integrated repository test status. The 11 new in-repository tests must also be executed in GitHub/runtime context.
 
 ## Explicit pending gates
 - Recheck latest main/branch before merge, inspect PR diff and CI. Do not merge known failing source.
@@ -53,3 +53,5 @@ ID `UBERBOND-FORGE-OMEGA-20261008-W1-INTAKE-INTEGRITY`.
 Parent main `86fae592c4e3afa26ca74d1c84762a437750feed`; corpus SHA bound above.
 Truth label `SOURCE_PATCH_LOCAL_VERIFIED__GITHUB_CI_AND_PRODUCTION_PENDING`.
 Resume: verify native PR tests, independent code review, merge only on green checks, verify exact main SHA; do not replay old provider canaries or buy Winnr.
+
+Independent adversarial follow-up found a circular-item crash in the first candidate. Patched allowlisted fields plus digest failure handling, retested 13/13 locally; included regression in repository. This is a meaningful defect caught before merge, not omitted from the record.

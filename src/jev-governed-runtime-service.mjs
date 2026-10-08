@@ -4,6 +4,7 @@ import { createOpenRouterJevGovernedAdapter } from './openrouter-jev-governed-ad
 import { selectCurrentPrice } from './infinite-opus-market.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { OPENROUTER_JEV_MODEL } from './openrouter-decision-market.mjs';
+import { compileJevSharedStateTensor, executeGovernedJevTensor } from './jev-shared-state-tensor.mjs';
 
 export const GOVERNED_JEV_SERVICE_SCHEMA='uberbond.governed-jev-runtime-service.v1';
 const FEE=.055;
@@ -77,5 +78,12 @@ export function createGovernedJevRuntimeService({store,apiKey,paidAuthorization,
       semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'};
   }
 
-  return {model:OPENROUTER_JEV_MODEL,route:structuredClone(route),runtime,executeDecision,triagePageFault};
+  async function executeDecisionTensor({batchId,requests,maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001}={}){
+    const plan=compileJevSharedStateTensor({batchId,requests});
+    if(!plan.ok)return plan;
+    return executeGovernedJevTensor({plan,executeDecision,maximumTotalSpendUsd,maximumPerGroupSpendUsd});
+  }
+
+  return {model:OPENROUTER_JEV_MODEL,route:structuredClone(route),runtime,executeDecision,triagePageFault,
+    compileDecisionTensor:compileJevSharedStateTensor,executeDecisionTensor};
 }

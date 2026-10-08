@@ -54,11 +54,24 @@ export function proveReferenceEconomics({workItems=[],actualAllInMicrousd,target
   const savings=reference-actualAllInMicrousd;
   const factor=actualAllInMicrousd>0?reference/actualAllInMicrousd:null;
   const target=1_000_000_000_000;
-  return {ok:true,status:'PROVABLE_REFERENCE_ECONOMICS',certifiedExecutions:executions,directFrontierReferenceMicrousd:reference,
+  // This function accepts caller-declared proofVerified=true, self-declared route
+  // flags and execution counts. It is a COUNTERFACTUAL ARITHMETIC ESTIMATOR,
+  // not an independently authenticated provider/customer execution ledger.
+  // Keep the mechanical benchmark for planning, but NEVER mint a real-dollar
+  // multiplier admission here. An independent audited evidence gate is required.
+  const arithmeticTarget33333x=factor!=null&&factor>=33333.333333333336&&
+    actualAllInMicrousd<=targetActualMicrousd&&reference>=target;
+  return {ok:true,status:'REFERENCE_COUNTERFACTUAL_ARITHMETIC_ONLY',certifiedExecutions:executions,directFrontierReferenceMicrousd:reference,
     actualAllInMicrousd,avoidedReferenceMicrousd:Math.max(0,savings),referenceCompressionFactor:factor,
     withinThirtyDollarEnvelope:actualAllInMicrousd<=targetActualMicrousd,
     millionDollarReferenceThresholdMet:reference>=target,
-    target33333xMet:factor!=null&&factor>=33333.333333333336&&actualAllInMicrousd<=targetActualMicrousd&&reference>=target,
-    theoremBoundary:'FOR_E0_E4_ONLY: QUALITY_EQUIVALENCE_IS_SUPPLIED_BY THE VERIFIED PROOF. THIS LEDGER PROVES COUNTERFACTUAL DIRECT-FRONTIER COST AVOIDANCE, NOT MARKET VALUE, RAW GPU FLOPS, OR E5/E6 QUALITY.' ,
+    target33333xMet:false,
+    arithmeticTarget33333xMet:arithmeticTarget33333x,
+    independentAuditStatus:'REQUIRED_NOT_SUPPLIED',
+    actualExternalDemandVerified:false,
+    independentlyVerifiedReferencePricing:false,
+    providerRealBillAuthenticatedHere:false,
+    reportedMultiplierAuthority:'NONE',
+    theoremBoundary:'STRUCTURAL_E0_E4_ARITHMETIC_ONLY: proofVerified flags and directReference tariff fields are caller supplied. This estimator alone does NOT independently verify proof custody, actual demand, model context/output limits, cheapest live eligible route, provider costs, or all-in finance. No 33,333x empirical admission may be minted by this module.' ,
     rows};
 }

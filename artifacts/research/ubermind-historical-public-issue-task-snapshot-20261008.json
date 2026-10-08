@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "uberbond.ubermind-historical-public-issue-task-snapshot.v1",
+  "observedAt": "2026-10-08T10:25:43.168Z",
+  "repository": "mohammedwessam2007/uberbondd",
+  "sourceMethod": "LIVE_GITHUB_API_ISSUE_TITLE_BODY_UPDATED_AT_SHA256",
+  "taskRows": [
+    {
+      "taskId": "issue-1211",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:dadad19979fdfb129e1369a9c14937f8ba8abf4a9e267fcab405d2ec4a09ffde",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/1211",
+      "sourceObservedAt": "2026-10-04T11:10:32Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-1206",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:1d5933302331414fe277c179f34b5074718520365caf7be97e3b3dfef905dd87",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/1206",
+      "sourceObservedAt": "2026-10-04T10:21:53Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-1001",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:9c5a057bb69fd71cbd791fed84cd4fe3dbcbee532a988ca2abc56f3481992297",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/1001",
+      "sourceObservedAt": "2026-09-25T00:12:28Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-1000",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:53d7ca4deb39b97813c860aac630ca0de721eca090763e1b88584f2494ac6e28",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/1000",
+      "sourceObservedAt": "2026-09-25T00:12:26Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-999",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:4bbe2f1ba2a5c62ef887ed63f5880adf1e4068bc4b379f71c26519e11dcad46d",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/999",
+      "sourceObservedAt": "2026-09-25T00:12:23Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-998",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:4704a345692f926ad997c5a9d29a67486cf24168afdcc6d6e33a77e0cdba7d7a",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/998",
+      "sourceObservedAt": "2026-09-25T00:12:15Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-997",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:2d08496686eaa537d7dea23e7bed3c9104b84252bc5f57d88e11c6daa6daae39",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/997",
+      "sourceObservedAt": "2026-09-25T00:12:14Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-996",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:cec6d34803afc5054e86d60a017755c96fdb116e19f3866b5d56523f4313f3b7",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/996",
+      "sourceObservedAt": "2026-09-25T00:12:10Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-995",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:c17776f1b3b74b25a2a62654e84b763acf421a7f1ab2b0844d71acf2be7dd94c",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/995",
+      "sourceObservedAt": "2026-09-25T00:12:09Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-994",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:97849190f4b039fbf161cfcec8a1f6e29bf55ad7b8108037d729344216cb4107",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/994",
+      "sourceObservedAt": "2026-09-25T00:12:07Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-908",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:a6a00cf5148bf086e8a2a3c6d0570d413355a32758427d529a9e18aed6e499d5",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/908",
+      "sourceObservedAt": "2026-09-17T16:10:02Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    },
+    {
+      "taskId": "issue-902",
+      "taskClass": "PUBLIC_REPOSITORY_ISSUE_WORK",
+      "taskContentDigest": "sha256:0a5dee984a2acfef1cf65ebfd5c9e1e3fab43178ad5e434c315a14c3bca20dea",
+      "sourceUrl": "https://github.com/mohammedwessam2007/uberbondd/issues/902",
+      "sourceObservedAt": "2026-09-15T18:25:34Z",
+      "dataClass": "PUBLIC",
+      "sourcePubliclyAccessible": true,
+      "externalConsentVerified": false
+    }
+  ],
+  "historicalSourceCount": 12,
+  "independentBlindHoldoutsAdmitted": 0,
+  "modelInferenceCallsPerformed": 0,
+  "consentForPaidBenchmarkReuseVerified": false,
+  "global33333xVerified": false,
+  "digestDefinition": "sha256(UTF8(JSON.stringify([issue.number,issue.title,issue.body,issue.updated_at])))",
+  "truthBoundary": "These are genuine 12 accessible existing public repo issue version commitments, NOT fresh task-diverse blind model evaluations, paid direct frontier baselines, buyer demand, consent for paid reuse, independent grades, or economic savings."
+}

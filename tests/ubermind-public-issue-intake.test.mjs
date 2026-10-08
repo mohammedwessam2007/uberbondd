@@ -96,3 +96,55 @@ test('deterministic source digest changes when public issue version changes',asy
  assert.equal(r1.ok,true);assert.equal(r2.ok,true);
  assert.notEqual(r1.sourceCommitmentDigest,r2.sourceCommitmentDigest);
 });
+
+test('W22 uses existing bounded GitHub token for read-only selected public issue GET without revealing it',async()=>{
+ const secret='existing-protected-fixture-credential-not-real';
+ const urls=[],headers=[];
+ const r=await capturePublicIssueWorkload({
+  selectedIssueNumbers:[902,1211],githubToken:secret,
+  clock:()=>Date.parse('2026-10-09T00:00:00Z'),
+  fetchImpl:async(url,options)=>{
+   urls.push(url);headers.push(options.headers);
+   assert.equal(options.method,undefined);
+   return {ok:true,json:async()=>issue(nFromUrl(url))};
+  }
+ });
+ assert.equal(r.ok,true);
+ assert.equal(r.sourceAuthenticationMode,'EXISTING_PROTECTED_GITHUB_TOKEN_READ_ONLY');
+ assert.equal(urls.length,2);
+ assert.ok(urls.every(x=>x.startsWith('https://api.github.com/repos/mohammedwessam2007/uberbondd/issues/')));
+ assert.ok(headers.every(x=>x.Authorization==='Bearer '+secret));
+ assert.equal(JSON.stringify(r).includes(secret),false);
+ assert.equal(r.providerCallsPerformed,0);
+ assert.equal(r.paidInferenceAuthorized,false);
+});
+
+test('W22 without a configured GitHub credential makes anonymous official public GETs only',async()=>{
+ let count=0;
+ const r=await capturePublicIssueWorkload({
+  selectedIssueNumbers:[1211],githubToken:'',
+  fetchImpl:async(url,options)=>{
+   count++;
+   assert.equal(options.headers.Authorization,undefined);
+   return {ok:true,json:async()=>issue(1211)};
+  }
+ });
+ assert.equal(r.ok,true);
+ assert.equal(r.sourceAuthenticationMode,'ANONYMOUS_GITHUB_PUBLIC_GET');
+ assert.equal(count,1);
+});
+
+test('W22 token-supplied 403 refuses complete-source claim and never leaks credential',async()=>{
+ const secret='existing-protected-fixture-credential-not-real';
+ const r=await capturePublicIssueWorkload({
+  selectedIssueNumbers:[902,1211],githubToken:secret,
+  fetchImpl:async()=>({ok:false,status:403})
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'NO_VERIFIABLE_OPEN_PUBLIC_ISSUE_SOURCES');
+ assert.equal(r.sourceAuthenticationMode,'EXISTING_PROTECTED_GITHUB_TOKEN_READ_ONLY');
+ assert.equal(r.sourceReadFailures.length,2);
+ assert.ok(r.sourceReadFailures.every(x=>x.httpStatus===403));
+ assert.equal(JSON.stringify(r).includes(secret),false);
+ assert.equal(r.providerInferenceAuthorized,false);
+});

@@ -1,0 +1,11 @@
+# Sovereign Forge Ω∞ — Wave 2 native production test integration
+
+Parent current main: `e6dafd20db25960f5e71f460377669abe7659d52`, verified Render LIVE deploy `dep-db3n64ei0phs73armvj0` at 2026-10-08T10:41:50Z.
+
+Wave 1 fixed the public workload manifest boundary: forged `ok:true` manifests and malformed/circular data refuse, self-claimed consent is not verified external permission, and untrusted quality/payment data cannot mint a multiplier. The merged source Git blob SHA-1 `5bed1ce9896b0f47179df97fb8f93d08715e2247` exactly matched the isolated local module that passed 4 historical plus 13 adversarial tests (17/17). Original 890 source corpus SHA-256 `8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109` remains unchanged.
+
+**Production observation from Wave 1:** `UBERMIND_JEV_NATIVE_TESTS` ran 96/96 original deterministic native Node v26.11.1 tests with 0 failures, no forwarded secrets, no provider calls or paid inference. `UBERMIND_890_PROOF_LOOP` verified 890 founder entries and 10 digests, but observed zero new independent holdouts. Two historical sealed comparison tasks are preserved with cost ratios conditional on their narrow scope.
+
+**Wave 2 change:** add `tests/ubermind-public-workload-integrity.test.mjs` to existing `scripts/jev-native-runtime-tests.mjs` list. The runner already sets `OPENROUTER_API_KEY:''`, `INFINITE_OPUS_PAID_AUTHORIZATION_JSON:''`, `CI:true`, and runs deterministic Node test files with 60s bounded spawn. This eliminates an observation gap caused by GitHub hosted workflows failing before any steps due inaccessible runner infrastructure. Wave 2 changes no product behavior, no billing, no provider calls, no legacy modules and no original 890 ideas. Expected new test count is 107 if all 11 new cases execute; **not yet claimed as an observed result**. Real Render boot output decides truth.
+
+PHOENIX event `UBERBOND-FORGE-OMEGA-20261008-W2-NATIVE-PROOF`. Resume: merge reviewed one-line test-file registration if no source defects, deploy exact merged SHA on existing autoDeploy-off Render service, inspect `UBERMIND_JEV_NATIVE_TESTS` timestamp, exit code, count, failed names, zero provider calls and source SHA. If failure, keep production truth red and repair. Do not purchase Winnr, send prospect emails, replay provider canaries, promote Crown, or declare cleared revenue.

@@ -8,7 +8,8 @@ const tests=[
   'tests/jev-governed-runtime-service.test.mjs',
   'tests/openrouter-jev-governed-adapter.test.mjs',
   'tests/jev-tensor-one-shot-live-canary.test.mjs',
-  'tests/jev-tensor-provider-metadata-readback.test.mjs'
+  'tests/jev-tensor-provider-metadata-readback.test.mjs',
+  'tests/ubermind-890-evidence-flywheel.test.mjs'
 ];
 
 /** Native Node verification. Only deterministic mock-provider tests. Never

@@ -103,3 +103,94 @@ test('no-idea or partial corpus inputs fail closed',()=>{
  const r=compileUberMindEvidenceFlywheel({founderCorpus:{ok:true,scannedIdeas:4}});
  assert.equal(r.ok,false);assert.equal(r.reason,'verified-full-founder-890-required');
 });
+
+test('distinct task fingerprints cannot launder one reused candidate provider receipt into many independent rows',()=>{
+ const a=observation(1),b=observation(2,{
+  candidateProviderReceiptRef:a.candidateProviderReceiptRef
+ });
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+   observations:[a,b],verifiedIndependentReceipts:true});
+ assert.equal(out.ok,false);
+ assert.equal(out.reason,'replayed-provider-or-evaluator-receipt');
+ assert.equal(out.qualityAuthority,'NONE');
+});
+
+test('distinct task fingerprints cannot reuse same frontier bill or blinded grader receipt',()=>{
+ const a=observation(1);
+ for(const field of ['referenceProviderReceiptRef','independentEvaluatorReceiptRef']){
+  const b=observation(2,{[field]:a[field]});
+  const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+    observations:[a,b],verifiedIndependentReceipts:true});
+  assert.equal(out.ok,false,field);
+  assert.equal(out.reason,'replayed-provider-or-evaluator-receipt');
+ }
+});
+
+test('aggregated safe input microusd overflow refuses instead of fabricating factor',()=>{
+ const max=Number.MAX_SAFE_INTEGER;
+ for(const field of ['candidateCostMicrousd','referenceCostMicrousd']){
+  const a=observation(1,{[field]:max}),b=observation(2,{[field]:max});
+  const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+   observations:[a,b],verifiedIndependentReceipts:true,
+   cumulativeActualAllInMicrousd:30_000_000,
+   realReferenceBaselineMicrousd:1_000_000_000_000});
+  assert.equal(out.ok,false,field);
+  assert.equal(out.reason,'aggregate-provider-cost-out-of-safe-range');
+  assert.equal(out.qualityAuthority,'NONE');
+ }
+});
+
+test('non-replayed independent rows still enter manual review only after thresholds',()=>{
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+  observations:Array.from({length:73},(_,i)=>observation(i+1)),
+  verifiedIndependentReceipts:true,
+  cumulativeActualAllInMicrousd:30_000_000,
+  realReferenceBaselineMicrousd:1_000_000_000_000});
+ assert.equal(out.ok,true);
+ assert.equal(out.status,'EVIDENCE_THRESHOLD_MET_REQUIRES_EXTERNAL_AUDIT');
+ assert.equal(out.generalCrownAuthority,'NONE');
+});
+
+test('invalid clock does not crash deterministic evidence accounting',()=>{
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+  observations:[observation(1)],now:'invalid-date'});
+ assert.equal(out.ok,true);
+ assert.equal(out.assessedAt,null);
+ assert.equal(out.generalCrownAuthority,'NONE');
+});
+
+test('cross-lane provider receipt swap cannot create a second independent bill',()=>{
+ const a=observation(1),b=observation(2,{
+  referenceProviderReceiptRef:a.candidateProviderReceiptRef
+ });
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),observations:[a,b]});
+ assert.equal(out.ok,false);
+ assert.equal(out.reason,'replayed-provider-or-evaluator-receipt');
+});
+
+test('single receipt cannot claim to bill both candidate and frontier for same task',()=>{
+ const a=observation(1,{referenceProviderReceiptRef:'fixture:candidate:1'});
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),observations:[a]});
+ assert.equal(out.ok,false);
+ assert.equal(out.reason,'replayed-provider-or-evaluator-receipt');
+});
+
+test('task-class review cannot pool incompatible quality contracts or candidate lanes',()=>{
+ const a=observation(1);
+ for(const override of [{qualityContractHash:G},{candidateLane:'CROWN_REFERENCE'}]){
+  const b=observation(2,override);
+  const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),
+   observations:[a,b],verifiedIndependentReceipts:true});
+  assert.equal(out.ok,false);
+  assert.equal(out.reason,'mixed-quality-contract-or-candidate-lane-within-task-class');
+ }
+});
+
+test('different task classes may properly have different quality contracts and candidate lanes',()=>{
+ const a=observation(1),b=observation(2,{taskClass:'NEW_CLASS',
+  candidateLane:'CROWN_REFERENCE',qualityContractHash:G});
+ const out=compileUberMindEvidenceFlywheel({founderCorpus:source(),observations:[a,b]});
+ assert.equal(out.ok,true);
+ assert.equal(out.taskClassReports.length,2);
+ assert.equal(out.generalCrownAuthority,'NONE');
+});

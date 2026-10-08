@@ -28,7 +28,7 @@ export function createGovernedJevRuntimeService({store,apiKey,paidAuthorization,
     }
   });
 
-  const publicReuse=createJevPublicAnswerReuse({store,route,clock});
+  const publicReuse=createJevPublicAnswerReuse({store,route,paidAuthorization,clock});
 
   async function executeDecision({operationId,state,questions,inputTokenCeiling=2048,maximumSpendUsd=.001}={}){
     if(!validId(operationId))throw new Error('governed-jev-operation-id-required');

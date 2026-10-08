@@ -38,6 +38,7 @@ import { runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState } f
 import { reconcileHaiku55CanaryWithoutReplay } from './scripts/infinite-opus-haiku55-canary-reconcile.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { runJevTensorStartupDoctor } from './scripts/jev-shared-state-tensor-doctor.mjs';
+import { runJevNativeTests } from './scripts/jev-native-runtime-tests.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
@@ -1075,6 +1076,7 @@ if (wrapperIsEntryPoint) {
         secretValuesExposed:false
       }));
       console.log('UBERMIND_JEV_TENSOR_READINESS '+JSON.stringify(runJevTensorStartupDoctor()));
+      console.log('UBERMIND_JEV_NATIVE_TESTS '+JSON.stringify(runJevNativeTests()));
       console.log('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
         ...readiness,
         crownAdmissionRequired:false,

@@ -10,8 +10,8 @@ const sources=()=>({[a]:{task:{id:'case',accepted:true},groups:[3,5,8]},
 test('resolves a bounded actual JSON-source workload with exact output receipts',()=>{
   const x=executeBoundedSourceWork({sourceDocuments:sources()});
   assert.equal(x.ok,true);assert.equal(x.verifiedSourceCount,2);
-  assert.equal(x.materializedOutputCount,8);
-  assert.equal(new Set(x.completedObligationIds).size,8);
+  assert.equal(x.materializedOutputCount,10);
+  assert.equal(new Set(x.completedObligationIds).size,10);
   assert.match(x.receiptBatchDigest,/^sha256:[a-f0-9]{64}$/);
   assert.equal(x.providerCallsPerformed,0);
   assert.equal(x.independentFrontierQualitySamplesAdded,0);

@@ -41,7 +41,7 @@ All other 882 original source ideas remain preserved, addressable and unaltered.
 ## Executed local test evidence before PR
 - Unpatched baseline: forged manifest was accepted for staging, and malformed input threw.
 - Patched local module: `node --check` passed; `node --test tests/ubermind-public-workload-integrity.test.mjs`: **13/13 passed, 0 failed**.
-- Those 12 local tests ran in an isolated checkout-equivalent copy of this module because current environment cannot resolve github.com for a native clone. GitHub-hosted CI is required to establish integrated repository test status. The 11 new in-repository tests must also be executed in GitHub/runtime context.
+- Those 13 local tests ran in an isolated checkout-equivalent copy of this module because current environment cannot resolve github.com for a native clone. GitHub-hosted CI is required to establish integrated repository test status. The 11 new in-repository tests must also be executed in GitHub/runtime context.
 
 ## Explicit pending gates
 - Recheck latest main/branch before merge, inspect PR diff and CI. Do not merge known failing source.
@@ -55,3 +55,9 @@ Truth label `SOURCE_PATCH_LOCAL_VERIFIED__GITHUB_CI_AND_PRODUCTION_PENDING`.
 Resume: verify native PR tests, independent code review, merge only on green checks, verify exact main SHA; do not replay old provider canaries or buy Winnr.
 
 Independent adversarial follow-up found a circular-item crash in the first candidate. Patched allowlisted fields plus digest failure handling, retested 13/13 locally; included regression in repository. This is a meaningful defect caught before merge, not omitted from the record.
+
+## Native CI and exact-source verification update
+
+- 2026-10-08: GitHub workflow runs on the exact PR head failed before any test steps ran: the CI deterministic/postgres/browser jobs and Night Verification/Postal/Exact-Head jobs each exposed zero steps. These are **NO SOURCE-TEST EVIDENCE**, not an executed failing test. Job logs returned BlobNotFound 404. Vercel status links explicitly reported build-rate limits. Do not mark the hosted suite green.
+- Independently retrieved the PR's source Git blob and compared to locally tested source using `git hash-object`: both **5bed1ce9896b0f47179df97fb8f93d08715e2247**. Node v22.16.0 local on that exact blob: source syntax PASS; 13 adversarial tests + 4 preexisting tests = **17/17 passed, 0 failed**. This establishes targeted module confidence, not full integrated CI equivalence.
+- Second review pass disclosed a circular/extra-field denial-of-service and repaired it before promotion.

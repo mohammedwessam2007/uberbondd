@@ -135,3 +135,86 @@ export function compileDecisionFranchiseExecutor({record,trustPin,currentContext
   }catch(error){reasons.push(String(error?.message||error));}
   return {ok:false,status:'FRANCHISE_COMPILATION_REFUSED',reasons:[...new Set(reasons)],semanticAuthority:'NONE'};
 }
+
+
+/**
+ * Execute a bounded set of ALREADY certified, side-effect-free policy tasks.
+ * Unlike verifyDistinctFranchiseFanout this materializes every usable answer
+ * with a bound receipt. It compiles the admitted policy once rather than
+ * revalidating it for each consumer, while shadow-checking the compiler's
+ * decision against the independent interpreter for each distinct state.
+ *
+ * This never supplies a reference-model bill, verified external demand,
+ * new quality authority, or a counterfactual dollar multiplier.
+ */
+export function executeCertifiedFranchiseWorkBatch({
+  record,trustPin,currentContext,tasks=[],now=Date.now(),semanticCanonicalizers={}
+}={}){
+  const hold=(reason,extra={})=>({
+    ok:false,status:'CERTIFIED_WORK_BATCH_ATOMIC_HOLD',reason,
+    completedOutputs:[],providerCallsPerformed:0,spendAuthorized:false,
+    externalEffectAuthority:'NONE',economicMultiplier:null,...extra
+  });
+  if(!Array.isArray(tasks)||tasks.length<1||tasks.length>4096)
+    return hold('bounded-nonempty-task-batch-required');
+  const compiled=compileDecisionFranchiseExecutor({
+    record,trustPin,currentContext,now,semanticCanonicalizers
+  });
+  if(!compiled.ok)return hold('trusted-certified-executor-required',{
+    reasons:compiled.reasons??[]
+  });
+  const ids=new Set(),fullHashes=new Set(),uniqueStateDecisions=new Map(),outputs=[];
+  for(const task of tasks){
+    const result=compiled.execute(task);
+    if(!result.ok)return hold('task-out-of-certified-domain-or-drift',{
+      failedTaskId:typeof task?.taskId==='string'?task.taskId:null,
+      reasons:result.reasons??[]
+    });
+    if(ids.has(result.taskId)||fullHashes.has(result.taskHash))
+      return hold('duplicate-task-or-identity-replay');
+    ids.add(result.taskId);fullHashes.add(result.taskHash);
+    const decisionHash=semanticHash(result.decision);
+    const previousDecision=uniqueStateDecisions.get(result.projectedStateHash);
+    if(previousDecision!==undefined&&previousDecision!==decisionHash)
+      return hold('same-state-produced-contradictory-decision');
+    if(previousDecision===undefined){
+      // Independent existing interpreter acts as a differential proof tripwire.
+      // Only unique projected states are re-executed, never duplicated tasks.
+      const independent=executeDecisionFranchise({
+        record,trustPin,task,currentContext,now,semanticCanonicalizers
+      });
+      if(!independent.ok||independent.projectedStateHash!==result.projectedStateHash||
+         semanticHash(independent.decision)!==decisionHash)
+        return hold('compiled-interpreter-non-equivalence');
+      uniqueStateDecisions.set(result.projectedStateHash,decisionHash);
+    }
+    outputs.push({
+      taskId:result.taskId,taskHash:result.taskHash,
+      projectedStateHash:result.projectedStateHash,
+      decision:structuredClone(result.decision),decisionHash,
+      franchiseId:result.franchiseId,franchiseHash:result.franchiseHash,
+      proofClass:result.proofClass
+    });
+  }
+  const contextHash=semanticHash(currentContext);
+  const batchReceiptHash=semanticHash({
+    franchiseHash:compiled.franchiseHash,contextHash,
+    outputs:outputs.map(({taskId,taskHash,projectedStateHash,decisionHash})=>
+      ({taskId,taskHash,projectedStateHash,decisionHash}))
+  });
+  return {
+    ok:true,status:'CERTIFIED_WORK_BATCH_MATERIALIZED',
+    completedOutputs:outputs,completedOutputCount:outputs.length,
+    distinctFullTaskHashCount:fullHashes.size,
+    distinctCertifiedSemanticStateCount:uniqueStateDecisions.size,
+    independentlyCrossCheckedStateCount:uniqueStateDecisions.size,
+    franchiseHash:compiled.franchiseHash,contextHash,batchReceiptHash,
+    proofClass:compiled.proofClass,semanticAuthority:'CERTIFIED_BOUNDED_POLICY',
+    providerCallsPerformed:0,spendAuthorized:false,externalEffectAuthority:'NONE',
+    independentlyVerifiedRealDemandCount:0,
+    independentlyVerifiedFrontierReferenceCostMicrousd:null,
+    independentPairedQualitySamplesAdded:0,economicMultiplier:null,
+    global33333xConfirmed:false,
+    claimBoundary:'Materialized bounded outputs are code-level executions of an already admitted policy. Distinct task IDs do not prove independent economic demand; unique semantic states are reported separately. No external frontier baseline, paid bill, general-model equivalence or 33,333x factor is inferred.'
+  };
+}

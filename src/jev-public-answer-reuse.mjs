@@ -103,6 +103,7 @@ export function createJevPublicAnswerReuse({store,route,paidAuthorization,clock=
      if(Object.keys(pending).length>=64)return fail('too-many-unreconciled-public-dispatches');
      const next={...pending,[x.key]:{key:x.key,
        bindingDigest:sha(x.binding),operationId,
+       nativeCallId:'jev-shadow-call-'+sha({operationId,state:input.state,questions:input.questions,inputTokenCeiling:input.inputTokenCeiling}).slice(7,31),
        claimedAt:x.now,status:'CLAIMED_BEFORE_PROVIDER_EFFECT'}};
      await tx.setSetting(KEY,{schemaVersion:'uberbond.jev-public-answer-reuse.v1',
        ...ledger,items,pending:next});

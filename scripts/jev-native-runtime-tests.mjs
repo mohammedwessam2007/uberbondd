@@ -7,6 +7,7 @@ const tests=[
   'tests/jev-native-pagefault-triage.test.mjs',
   'tests/jev-governed-runtime-service.test.mjs',
   'tests/jev-public-answer-reuse.test.mjs',
+  'tests/ubermind-jev-pending-doctor.test.mjs',
   'tests/openrouter-jev-governed-adapter.test.mjs',
   'tests/openrouter-decision-market.test.mjs',
   'tests/jev-tensor-one-shot-live-canary.test.mjs',

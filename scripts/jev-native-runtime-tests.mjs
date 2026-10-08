@@ -20,6 +20,7 @@ const tests=[
   'tests/ubermind-public-workload-integrity.test.mjs',
   'tests/ubermind-public-issue-intake.test.mjs',
   'tests/ubermind-certified-work-batch.test.mjs',
+  'tests/ubermind-real-work-counter.test.mjs',
   'tests/contra-collection-readiness.test.mjs',
   'tests/server-request-handler.test.mjs'
 ];

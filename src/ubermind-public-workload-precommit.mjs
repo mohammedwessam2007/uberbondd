@@ -68,8 +68,14 @@ export function verifyPublicWorkloadManifest(manifest){
     manifest.providerCallsPerformed!==0||manifest.spendAuthorized!==false||
     !digest(manifest.manifestDigest))return false;
  const ids=new Set(),hashes=new Set(),sources=new Set();
+ const allowedItemFields=new Set(['taskId','taskClass','taskContentDigest',
+  'sourceUrl','sourceObservedAt','permissionForProviderBenchmarkReuseVerified',
+  'submitterClaimsExternalConsent','independentOriginAuditStatus',
+  'independentlySealedBeforeInference','blindedBeforeCandidateRun',
+  'externalQualityJudgment','providerBilling','economicAuthority']);
  for(const item of manifest.items){
    if(!item||typeof item!=='object'||Array.isArray(item)||
+      Object.keys(item).some(k=>!allowedItemFields.has(k))||
       !valid(item.taskId)||ids.has(item.taskId)||
       !valid(item.taskClass)||!digest(item.taskContentDigest)||
       hashes.has(item.taskContentDigest)||
@@ -89,8 +95,9 @@ export function verifyPublicWorkloadManifest(manifest){
       item.economicAuthority!=='NONE')return false;
    ids.add(item.taskId);hashes.add(item.taskContentDigest);sources.add(item.sourceUrl);
  }
- return manifest.manifestDigest===sha({campaignId:manifest.campaignId,
-    asOf:manifest.asOf,items:manifest.items});
+ try{return manifest.manifestDigest===sha({campaignId:manifest.campaignId,
+    asOf:manifest.asOf,items:manifest.items});}
+ catch{return false;}
 }
 
 export function reviewPairedWorkloadSubmission({manifest,records=[]}={}){

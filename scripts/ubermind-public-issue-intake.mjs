@@ -70,6 +70,8 @@ export async function capturePublicIssueWorkload({
   selectedSourceCount:selectedIssueNumbers.length,
   observedPublicSourceTasks:plan.taskCount,
   sourceCommitmentDigest:plan.manifestDigest,
+  sourceVersionDigest:sha(JSON.stringify(plan.items.map(({taskId,taskContentDigest,sourceUrl})=>({taskId,taskContentDigest,sourceUrl})))),
+  sourceIssueVersions:plan.items.map(({taskId,taskContentDigest,sourceUrl})=>({taskId,taskContentDigest,sourceUrl})),
   // Only synthetic-independent provenance is asserted. No task is a fresh
   // sealed hidden test because these issue texts are already historical.
   historicPublicTasksNotIndependentHoldouts:plan.taskCount,

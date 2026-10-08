@@ -84,10 +84,21 @@ test('governed JEV decision executes inside sub-mill ledger and never gains auth
 test('governed JEV refuses a decision whose conservative ceiling exceeds the explicit sub-mill bound',async()=>{
   const s=store(),net=successfulFetch();
   const service=createGovernedJevRuntimeService({store:s,apiKey:'sk-or-v1-fixture-key-long-enough',paidAuthorization:auth,marketSnapshot:market(),fetchImpl:net.fetchImpl,clock:()=>NOW});
-  const out=await service.executeDecision({operationId:'fixture-too-large',state:{x:1},questions,inputTokenCeiling:32000,maximumSpendUsd:.001});
+  const out=await service.executeDecision({operationId:'fixture-too-large',state:{x:1},questions,inputTokenCeiling:31999,maximumSpendUsd:.001});
   assert.equal(out.ok,false);
   assert.equal(out.status,'JEV_DECISION_ESTIMATE_EXCEEDS_BOUND');
   assert.equal(out.providerCallsPerformed,0);
+  assert.equal(net.calls(),0);
+});
+
+test('JEV rejects an input plus output exceeding its exact 32k context, without provider calls',async()=>{
+  const s=store(),net=successfulFetch();
+  const service=createGovernedJevRuntimeService({store:s,apiKey:'sk-or-v1-fixture-key-long-enough',paidAuthorization:auth,marketSnapshot:market(),fetchImpl:net.fetchImpl,clock:()=>NOW});
+  await assert.rejects(
+    service.executeDecision({operationId:'fixture-context-overflow',state:{x:1},questions,
+      inputTokenCeiling:32000,maximumSpendUsd:.001}),
+    /route-context-or-output-cap/
+  );
   assert.equal(net.calls(),0);
 });
 

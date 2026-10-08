@@ -8,6 +8,20 @@ const MAX_ORIGINAL_QUESTIONS=65536;
 const MAX_UNIQUE_QUESTIONS=16384;
 const MAX_PROVIDER_PLANS=512;
 const isObj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x)&&Object.getPrototypeOf(x)===Object.prototype;
+const probability=x=>typeof x==='number'&&Number.isFinite(x)&&x>=0&&x<=1;
+function validAdvisory(answer,question){
+ if(!isObj(answer)||answer.type!==question?.type)return false;
+ if(answer.type==='noul')return probability(answer.noul);
+ if(answer.type==='choice')return typeof answer.choice==='string'&&
+   Object.hasOwn(question.criteria,answer.choice)&&
+   (answer.confidence===undefined||probability(answer.confidence));
+ if(answer.type==='score')return typeof answer.score==='number'&&
+   Number.isFinite(answer.score)&&answer.score>=0&&
+   answer.score<=question.criteria.length-1&&
+   (answer.confidence===undefined||probability(answer.confidence));
+ return false;
+}
+
 const refuse=(reason,extra={})=>({ok:false,status:'JEV_SCALED_PREFLIGHT_REFUSED',reason,
   providerCallsPerformed:0,paidSpendAuthorized:false,semanticAuthority:'NONE',
   crownSuppressionAuthority:'NONE',...extra});
@@ -123,8 +137,9 @@ export function expandScaledJevAnswers({plan,shardResults=[]}={}){
      return refuse('missing-or-unverified-governed-shard',{shardIndex:i});
    const allowed=new Set(expected.uniqueRequestIds);
    for(const answer of shard.answers){
+     const expectedQuestion=expected.requests.find(x=>x.requestId===answer.requestId)?.questions.v;
      if(!allowed.has(answer.requestId)||answer.questionId!=='v'||
-        uniqueAnswerMap.has(answer.requestId)||!isObj(answer.answer)||
+        uniqueAnswerMap.has(answer.requestId)||!validAdvisory(answer.answer,expectedQuestion)||
         answer.semanticAuthority!=='NONE')
        return refuse('invalid-governed-shard-answer',{shardIndex:i});
      uniqueAnswerMap.set(answer.requestId,answer.answer);

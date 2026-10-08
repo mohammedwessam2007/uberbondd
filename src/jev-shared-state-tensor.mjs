@@ -149,6 +149,7 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
  * uncertain dispatch and never silently accept partial/misaddressed answers.
  */
 export async function executeGovernedJevTensor({plan,executeDecision,
+  lookupValidatedPublicAnswer=null,recordValidatedPublicAnswer=null,
   maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001}={}){
   const fail=(status,extra={})=>({ok:false,status,...extra,
     automaticRetryAuthorized:false,semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'});
@@ -200,11 +201,25 @@ export async function executeGovernedJevTensor({plan,executeDecision,
   if([...rows.values()].reduce((n,row)=>n+Object.keys(row.questions).length,0)!==plan.originalQuestionCount)
     return fail('JEV_TENSOR_TOTAL_QUESTION_COUNT_REFUSED',{providerCallsPerformed:0});
   for(const group of plan.groups){
-    let result;
-    try{result=await executeDecision({operationId:group.operationId,
-      state:group.state,questions:group.questions,inputTokenCeiling:group.inputTokenCeiling,
-      maximumSpendUsd:maximumPerGroupSpendUsd});}
-    catch{return fail('JEV_TENSOR_DISPATCH_UNCERTAIN_HOLD',{providerCallsPerformed:null,results});}
+    let result,reused=false;
+    const reuseInput={scope:group.scope,state:group.state,
+      questions:group.questions,inputTokenCeiling:group.inputTokenCeiling};
+    if(typeof lookupValidatedPublicAnswer==='function'){
+      let stored;
+      try{stored=await lookupValidatedPublicAnswer(reuseInput);}
+      catch{return fail('JEV_TENSOR_REUSE_READ_UNKNOWN_NO_DISPATCH',
+        {providerCallsPerformed:performed,results});}
+      if(stored?.ok!==true)return fail('JEV_TENSOR_REUSE_READ_REFUSED_NO_DISPATCH',
+        {providerCallsPerformed:performed,results});
+      if(stored.result){result=stored.result;reused=true;}
+    }
+    if(!reused){
+      try{result=await executeDecision({operationId:group.operationId,
+        state:group.state,questions:group.questions,inputTokenCeiling:group.inputTokenCeiling,
+        maximumSpendUsd:maximumPerGroupSpendUsd});}
+      catch{return fail('JEV_TENSOR_DISPATCH_UNCERTAIN_HOLD',
+        {providerCallsPerformed:null,results});}
+    }
     const n=result?.providerCallsPerformed;
     if(n!==0&&n!==1)return fail('JEV_TENSOR_PROVIDER_CALL_COUNT_UNKNOWN',{providerCallsPerformed:null,results});
     performed+=n;
@@ -226,6 +241,12 @@ export async function executeGovernedJevTensor({plan,executeDecision,
         return fail('JEV_TENSOR_ANSWER_TYPE_REFUSED',{providerCallsPerformed:performed,results});
       answers.push({requestId:m.requestId,questionId:m.originalQuestionId,answer:structuredClone(a),
         providerRequestId:result.providerRequestId??null,semanticAuthority:'NONE'});
+    }
+    // Only store after the full shape and per-question answer validation,
+    // and never let cache-write failure invalidate or replay a billed call.
+    if(!reused&&typeof recordValidatedPublicAnswer==='function'){
+      try{await recordValidatedPublicAnswer(reuseInput,result);}
+      catch{/* No replay: provider charge and validated answers already exist. */}
     }
   }
   return {ok:true,status:'JEV_TENSOR_ADVISORY_DECISIONS_OBSERVED',

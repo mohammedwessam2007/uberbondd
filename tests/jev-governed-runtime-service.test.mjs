@@ -179,3 +179,55 @@ test('governed runtime executes 40 exact public consumer requests with one paid 
  assert.equal(getCount,2);
  assert.equal((await service.runtime.snapshot()).budget.monthSpentMicrousd,20);
 });
+
+
+test('two independent PUBLIC Jev batches reuse exact prior validated answers, not a second provider bill',async()=>{
+ const s=store();let providerPosts=0,verificationGets=0;
+ const fetchImpl=async(url,options={})=>{
+  if(String(url).endsWith('/v1/key')){
+   verificationGets++;
+   return response({data:{label:'fixture',limit:20,limit_remaining:20,
+     usage_monthly:0,limit_reset:'monthly'}});
+  }
+  if(String(url).endsWith('/alpha/decisions')){
+   providerPosts++;
+   const request=JSON.parse(options.body);
+   return response({id:'jev-provider-1',model:'typesafe/jev-1.13-20260917',
+     provider:'TypeSafe',answers:Object.fromEntries(
+       Object.keys(request.questions).map(k=>[k,{type:'noul',noul:.73}])),
+     usage:{cost:.00002,input_tokens:420,output_tokens:0}});
+  }
+  throw Error('unplanned-provider-request');
+ };
+ const service=createGovernedJevRuntimeService({
+  store:s,apiKey:'sk-or-v1-fixture-key-long-enough',
+  paidAuthorization:auth,marketSnapshot:market(),fetchImpl,clock:()=>NOW
+ });
+ const scope={tenantId:'owner',credentialScopeId:'owner-primary',
+  dataClass:'PUBLIC',qualityContractHash:'a'.repeat(64),
+  sourceDigest:'b'.repeat(64),freshnessClass:'IMMUTABLE',sideEffectClass:'NONE'};
+ const build=(batch)=>Array.from({length:40},(_,i)=>({
+  requestId:batch+'-'+i,scope,state:{kind:'SAME_SOURCE_BOUND_ROUTING'},
+  questions:{route:{type:'noul',instructions:'Is this event ambiguous?'}}
+ }));
+ const first=await service.executeDecisionTensor({batchId:'first-public-40',
+  requests:build('first'),maximumTotalSpendUsd:.005});
+ assert.equal(first.ok,true);
+ assert.equal(first.providerCallsPerformed,1);
+ assert.equal(first.observedCostMicrousd,20);
+ assert.equal(first.answers.length,40);
+ const second=await service.executeDecisionTensor({batchId:'second-public-40',
+  requests:build('second'),maximumTotalSpendUsd:.005});
+ assert.equal(second.ok,true);
+ assert.equal(second.providerCallsPerformed,0);
+ assert.equal(second.observedCostMicrousd,0);
+ assert.equal(second.answers.length,40);
+ assert.deepEqual(second.answers.map(x=>x.answer),first.answers.map(x=>x.answer));
+ assert.equal(second.results[0].status,'JEV_PUBLIC_EXACT_PRIOR_ANSWER_REUSED');
+ assert.equal(second.results[0].providerCallsPerformed,0);
+ assert.equal(providerPosts,1);
+ assert.equal(verificationGets,2);
+ assert.equal((await service.runtime.snapshot()).budget.monthSpentMicrousd,20);
+ assert.equal(second.semanticAuthority,'NONE');
+ assert.equal(second.crownSuppressionAuthority,'NONE');
+});

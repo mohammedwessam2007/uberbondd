@@ -1,0 +1,72 @@
+import crypto from 'node:crypto';
+import {precommitPublicWorkload} from '../src/ubermind-public-workload-precommit.mjs';
+
+export const PUBLIC_ISSUE_INTAKE='uberbond.ubermind-public-github-issue-intake.v1';
+const OWNER='mohammedwessam2007',REPO='uberbondd';
+const SOURCE_IDS=Object.freeze([1211,1206,1001,1000,999,998,997,996,995,994,908,902]);
+const sha=x=>'sha256:'+crypto.createHash('sha256').update(x).digest('hex');
+const reason=(status,more={})=>({ok:false,status,sourceCandidateCount:0,
+  independentlyAdmittedQualitySamples:0,providerCallsPerformed:0,
+  providerInferenceAuthorized:false,actualSpendUsd:0,...more});
+
+/** One read-only public GitHub issue inventory. Returns hashes and refs,
+ * NEVER issue bodies, private task data or benchmark permission.
+ */
+export async function capturePublicIssueWorkload({
+ fetchImpl=fetch,clock=Date.now,repoOwner=OWNER,repoName=REPO,
+ selectedIssueNumbers=SOURCE_IDS
+}={}){
+ if(repoOwner!==OWNER||repoName!==REPO||
+    !Array.isArray(selectedIssueNumbers)||selectedIssueNumbers.length<1||
+    selectedIssueNumbers.length>50||new Set(selectedIssueNumbers).size!==selectedIssueNumbers.length||
+    selectedIssueNumbers.some(n=>!Number.isSafeInteger(n)||n<1))
+   return reason('PUBLIC_SOURCE_SCOPE_NOT_AUTHORIZED');
+ let response;
+ try{response=await fetchImpl('https://api.github.com/repos/'+OWNER+'/'+REPO+'/issues?state=open&per_page=100',{
+  headers:{Accept:'application/vnd.github+json', 'User-Agent':'UberBond-Public-Workload-Evidence'},
+  signal:AbortSignal.timeout(7000)
+ });}
+ catch{return reason('PUBLIC_GITHUB_READ_ONLY_SOURCE_UNAVAILABLE');}
+ if(!response?.ok)return reason('PUBLIC_GITHUB_READ_ONLY_HTTP_UNAVAILABLE',
+   {httpStatus:response?.status??null});
+ let raw;
+ try{raw=await response.json();}
+ catch{return reason('PUBLIC_GITHUB_SOURCE_JSON_UNAVAILABLE');}
+ if(!Array.isArray(raw)||raw.length>100)
+   return reason('PUBLIC_GITHUB_BOUNDED_SOURCE_REQUIRED');
+ const lookup=new Map(raw.filter(x=>!x.pull_request).map(x=>[x.number,x]));
+ const candidates=[];
+ for(const number of selectedIssueNumbers){
+  const row=lookup.get(number);
+  if(!row||row.state!=='open'||row.html_url!=='https://github.com/'+OWNER+'/'+REPO+'/issues/'+number||
+     typeof row.title!=='string'||typeof row.body!=='string'||
+     row.body.length>300000||!Number.isFinite(Date.parse(row.updated_at)))
+    continue;
+  // Content version bound to issue number, original text and UPDATED timestamp.
+  // Raw title/body deliberately discarded immediately after hashing.
+  candidates.push({taskId:'issue-'+number,taskClass:'PUBLIC_REPOSITORY_ISSUE_WORK',
+   taskContentDigest:sha(JSON.stringify([number,row.title,row.body,row.updated_at])),
+   sourceUrl:row.html_url,sourceObservedAt:row.updated_at,
+   dataClass:'PUBLIC',sourcePubliclyAccessible:true,
+   externalConsentVerified:false});
+ }
+ if(!candidates.length)return reason('NO_VERIFIABLE_OPEN_PUBLIC_ISSUE_SOURCES');
+ const now=new Date(clock()).toISOString();
+ const plan=precommitPublicWorkload({campaignId:'oct2026-public-issue-work-intake',asOf:now,taskRows:candidates});
+ if(!plan.ok)return reason('SOURCE_WORKLOAD_PRECOMMIT_REFUSED',{precommitFailureClass:plan.reason});
+ return {ok:true,schemaVersion:PUBLIC_ISSUE_INTAKE,
+  status:'REAL_PUBLIC_GITHUB_ISSUE_CANDIDATE_INTAKE_ONLY',
+  sourceRepo:OWNER+'/'+REPO,liveIssueCount:raw.filter(x=>!x.pull_request).length,
+  selectedSourceCount:selectedIssueNumbers.length,
+  observedPublicSourceTasks:plan.taskCount,
+  sourceCommitmentDigest:plan.manifestDigest,
+  // Only synthetic-independent provenance is asserted. No task is a fresh
+  // sealed hidden test because these issue texts are already historical.
+  historicPublicTasksNotIndependentHoldouts:plan.taskCount,
+  independentlyAdmittedQualitySamples:0,providerCallsPerformed:0,
+  paidInferenceAuthorized:false,actualSpendUsd:0,
+  benchmarkReuseConsentVerified:false,empiricalMultiplier:null,
+  global33333xConfirmed:false,
+  sourceRefs:plan.items.map(x=>x.sourceUrl),
+  truthBoundary:'Actual accessible GitHub issue title+body versions were hashed and bound to source refs. They are historical visible project work, NOT fresh independent blind tasks, not automatically consented for model reuse, and have no paired provider outputs, quality grades, audited economics or multiplier admission.'};
+}

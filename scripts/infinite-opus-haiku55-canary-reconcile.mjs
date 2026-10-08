@@ -79,7 +79,7 @@ export async function reconcileHaiku55CanaryWithoutReplay({store,apiKey,fetchImp
   const row={...state,status:'HAIKU_5_5_LIVE_PROVIDER_CALLABILITY_PROVEN_SHADOW_ONLY',
     modelRevision:revision,upstreamProvider:provider,providerRequestId:id,
     actualCostUsd:cost,observedAt:new Date(clock()).toISOString(),
-    providerCallsPerformed:state.providerCallsPerformed??null,automaticRetryAuthorized:false};
+    providerCallsPerformed:1,automaticRetryAuthorized:false};
   await store.transaction(async tx=>await tx.setSetting(HAIKU55_LIVE_CANARY_SETTING,row));
   return result(row.status,{state:row,call:{...call,status:'SETTLED'},metadataCalls:1,observed});
 }

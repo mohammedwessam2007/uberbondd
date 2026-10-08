@@ -82,8 +82,9 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
     const flush=()=>{
       if(!mapping.length)return;
       const next={...questions},size=sizeOf(context.state,next);
-      const id='jev-tensor-'+semanticHash({batchId,scope:context.scope,state:context.state,questions:next}).slice(7,39);
-      groups.push({operationId:id,scope:structuredClone(context.scope),state:structuredClone(context.state),
+      const ordinal=groups.length;
+      const id='jev-tensor-'+semanticHash({batchId,ordinal,scope:context.scope,state:context.state,questions:next,mapping}).slice(7,39);
+      groups.push({operationId:id,ordinal,scope:structuredClone(context.scope),state:structuredClone(context.state),
         questions:next,mapping:[...mapping],questionCount:n,
         inputTokenCeiling:size.inputTokenCeiling,payloadBytes:size.bytes,
         semanticAuthority:'NONE',crownSuppressionAuthority:'NONE'});
@@ -149,25 +150,20 @@ export async function executeGovernedJevTensor({plan,executeDecision,
       rows.set(item.requestId,entry);
     }
   }
-  const reconstructed=compileJevSharedStateTensor({batchId:plan.batchId,
-    requests:[...rows.values()].map(x=>({...x,state:null,scope:null}))});
-  // Above cannot recover shared scopes from flat rows; instead validate every
-  // stored group's canonical hash and all mapping identifiers locally.
-  void reconstructed;
   const maxCalls=Math.floor(maximumTotalSpendUsd*1e6);
   const reservedPerGroup=Math.floor(maximumPerGroupSpendUsd*1e6);
   if(reservedPerGroup<1||plan.groups.length*reservedPerGroup>maxCalls)
     return fail('JEV_TENSOR_TOTAL_RESERVATION_EXCEEDS_BOUND',{providerCallsPerformed:0});
   const results=[],answers=[];
   let performed=0,charged=0;
-  for(const group of plan.groups){
-    if(!validateScope(group.scope)||!isObj(group.state)||!isObj(group.questions)||
+  for(const [ordinal,group] of plan.groups.entries()){
+    if(group.ordinal!==ordinal||!validateScope(group.scope)||!isObj(group.state)||!isObj(group.questions)||
       group.mapping.length>MAX_QUESTIONS||
       !limitOk(sizeOf(group.state,group.questions))||
       !Number.isSafeInteger(group.inputTokenCeiling)||
       group.inputTokenCeiling<sizeOf(group.state,group.questions).inputTokenCeiling||
       group.inputTokenCeiling>MAX_INPUT_TOKENS||
-      group.operationId!=='jev-tensor-'+semanticHash({batchId:plan.batchId,scope:group.scope,state:group.state,questions:group.questions}).slice(7,39))
+      group.operationId!=='jev-tensor-'+semanticHash({batchId:plan.batchId,ordinal,scope:group.scope,state:group.state,questions:group.questions,mapping:group.mapping}).slice(7,39))
       return fail('JEV_TENSOR_GROUP_INTEGRITY_REFUSED',{providerCallsPerformed:performed,results});
   }
   for(const group of plan.groups){

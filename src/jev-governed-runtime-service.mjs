@@ -5,7 +5,7 @@ import { selectCurrentPrice } from './infinite-opus-market.mjs';
 import { estimateCognitionCeiling } from './cognition-ledger.mjs';
 import { OPENROUTER_JEV_MODEL } from './openrouter-decision-market.mjs';
 import { compileJevSharedStateTensor, executeGovernedJevTensor } from './jev-shared-state-tensor.mjs';
-import { compileScaledJevPreflight, expandScaledJevAnswers } from './jev-scaled-preflight.mjs';
+import { compileScaledJevPreflight, expandScaledJevAnswers, executeScaledJevUnderBudget } from './jev-scaled-preflight.mjs';
 
 export const GOVERNED_JEV_SERVICE_SCHEMA='uberbond.governed-jev-runtime-service.v1';
 const FEE=.055;
@@ -85,8 +85,20 @@ export function createGovernedJevRuntimeService({store,apiKey,paidAuthorization,
     return executeGovernedJevTensor({plan,executeDecision,maximumTotalSpendUsd,maximumPerGroupSpendUsd});
   }
 
+  // This is an explicit opt-in governed paid call, NOT an automatic background
+  // launch. The same account, credential, source-price and monthly budget gates
+  // as executeDecisionTensor apply to every shard.
+  async function executeScaledDecisionTensor({
+    batchId,requests,maximumTotalSpendUsd=.005,maximumPerGroupSpendUsd=.001
+  }={}){
+    return executeScaledJevUnderBudget({
+      batchId,requests,maximumTotalSpendUsd,maximumPerGroupSpendUsd,
+      executeShard:async({batchId,requests,maximumTotalSpendUsd,maximumPerGroupSpendUsd})=>
+        executeDecisionTensor({batchId,requests,maximumTotalSpendUsd,maximumPerGroupSpendUsd})
+    });
+  }
   return {model:OPENROUTER_JEV_MODEL,route:structuredClone(route),runtime,executeDecision,triagePageFault,
     compileDecisionTensor:compileJevSharedStateTensor,executeDecisionTensor,
     compileScaledDecisionPreflight:compileScaledJevPreflight,
-    expandScaledDecisionAnswers:expandScaledJevAnswers};
+    expandScaledDecisionAnswers:expandScaledJevAnswers,executeScaledDecisionTensor};
 }

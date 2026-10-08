@@ -167,3 +167,53 @@ test('post-dispatch Jev network uncertainty holds cost UNKNOWN and stops before 
   assert.equal(ledger.calls.length,1);
   assert.equal(ledger.calls[0].status,'DISPATCHED');
 });
+
+test('no pending native Jev triage is readable with no model price, key or paid authorization',async()=>{
+ const store=makeStore();
+ const network=async()=>{throw Error('no provider calls allowed for zero debt');};
+ const r=await runPendingNativeJevTriage({
+  store,apiKey:'',paidAuthorization:null,marketSnapshot:null,
+  fetchImpl:network,clock:()=>NOW,maxCalls:2,maxTotalUsd:.005
+ });
+ assert.equal(r.ok,true);
+ assert.equal(r.status,'NO_UNTRIAGED_NATIVE_PAGE_FAULTS');
+ assert.equal(r.pendingAtStart,0);
+ assert.equal(r.providerCallsPerformed,0);
+ assert.equal(r.actualSpendUsd,0);
+ assert.equal(r.semanticAuthority,'NONE');
+});
+
+test('pending native debt with unobserved current Jev price remains held, never dispatched',async()=>{
+ const store=makeStore();
+ const runtime=createInfiniteOpusRuntime({store,clock:()=>NOW});
+ await runtime.execute(task('pf-no-price-1'));
+ let requests=0;
+ const r=await runPendingNativeJevTriage({
+  store,apiKey:'sk-or-v1-fixture-key-long-enough',paidAuthorization:auth,
+  marketSnapshot:null,clock:()=>NOW,maxCalls:2,maxTotalUsd:.005,
+  fetchImpl:async()=>{requests++;throw Error('must never reach provider');}
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'NATIVE_JEV_PAGE_FAULT_ROUTE_OR_AUTH_UNAVAILABLE_HOLD');
+ assert.equal(r.pendingAtStart,1);
+ assert.equal(r.providerCallsPerformed,0);
+ assert.equal(r.actualSpendUsd,0);
+ assert.equal(r.automaticRetryAuthorized,false);
+ assert.equal(requests,0);
+ const pending=await runtime.listPendingJevTriage();
+ assert.equal(pending.count,1);
+});
+
+test('pending debt with missing paid authorization remains held without network effects',async()=>{
+ const store=makeStore(),runtime=createInfiniteOpusRuntime({store,clock:()=>NOW});
+ await runtime.execute(task('pf-no-auth-1'));
+ const r=await runPendingNativeJevTriage({
+  store,apiKey:'sk-or-v1-fixture-key-long-enough',paidAuthorization:null,
+  marketSnapshot:market(),clock:()=>NOW,maxCalls:1,
+  fetchImpl:async()=>{throw Error('unexpected network');}
+ });
+ assert.equal(r.ok,false);
+ assert.equal(r.status,'NATIVE_JEV_PAGE_FAULT_ROUTE_OR_AUTH_UNAVAILABLE_HOLD');
+ assert.equal(r.providerCallsPerformed,0);
+ assert.equal((await runtime.listPendingJevTriage()).count,1);
+});

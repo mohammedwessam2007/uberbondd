@@ -1,4 +1,5 @@
 import { createGovernedJevRuntimeService } from '../src/jev-governed-runtime-service.mjs';
+import { createInfiniteOpusRuntime } from '../src/infinite-opus-native-runtime.mjs';
 
 export const NATIVE_JEV_TRIAGE_MAX_CALLS=16;
 export const NATIVE_JEV_TRIAGE_MAX_TOTAL_USD=.005;
@@ -12,9 +13,35 @@ export async function runPendingNativeJevTriage({
   if(!Number.isFinite(Number(maxTotalUsd))||Number(maxTotalUsd)<=0||Number(maxTotalUsd)>NATIVE_JEV_TRIAGE_MAX_TOTAL_USD)
     throw new Error('bounded-native-jev-triage-total-spend-required');
 
-  const service=createGovernedJevRuntimeService({store,apiKey,paidAuthorization,marketSnapshot,fetchImpl,clock});
-  const pending=await service.runtime.listPendingJevTriage({limit:maxCalls});
+  // A read-only debt inventory must not require a current paid model price.
+  // On zero pending work, report NO-OP without creating a provider adapter.
+  const readOnlyRuntime=createInfiniteOpusRuntime({store,clock});
+  const pending=await readOnlyRuntime.listPendingJevTriage({limit:maxCalls});
   if(!pending.ok)return {...pending,paidInferenceTriggered:false};
+  if(pending.count===0)return {
+    ok:true,status:'NO_UNTRIAGED_NATIVE_PAGE_FAULTS',
+    pendingAtStart:0,triagedCount:0,providerCallsPerformed:0,
+    observedProviderCallsLowerBound:0,actualSpendUsd:0,
+    observedSpendLowerBoundUsd:0,automaticRetryAuthorized:false,
+    maximumSpendUsd:Number(maxTotalUsd),results:[],
+    semanticAuthority:'NONE',crownSuppressionAuthority:'NONE',
+    businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',
+    truthBoundary:'Read-only native debt inventory was empty. No market price, provider key, or paid service was needed. This is not evidence of Jev account readiness or general quality.'
+  };
+  let service;
+  try{service=createGovernedJevRuntimeService({
+    store,apiKey,paidAuthorization,marketSnapshot,fetchImpl,clock
+  });}
+  catch{return {
+    ok:false,status:'NATIVE_JEV_PAGE_FAULT_ROUTE_OR_AUTH_UNAVAILABLE_HOLD',
+    pendingAtStart:pending.count,triagedCount:0,
+    providerCallsPerformed:0,actualSpendUsd:0,
+    observedProviderCallsLowerBound:0,observedSpendLowerBoundUsd:0,
+    automaticRetryAuthorized:false,maximumSpendUsd:Number(maxTotalUsd),
+    results:[],semanticAuthority:'NONE',crownSuppressionAuthority:'NONE',
+    businessEffectAuthority:'NONE',externalEffectAuthority:'NONE',
+    truthBoundary:'Pending semantic debts remain unresolved because current governed paid route/price/authorization was not independently available. No dispatch was attempted and no cost or quality was inferred.'
+  };}
   let observedCostMicrousd=0,knownProviderCalls=0,unknownProviderCalls=false,unknownCost=false;
   const results=[];
   for(const row of pending.rows){

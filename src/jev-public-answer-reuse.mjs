@@ -12,7 +12,7 @@ const fail=reason=>({ok:false,status:'JEV_PUBLIC_REUSE_REFUSED',reason,
  * This is an optimization for an exactly identical advisory request, NOT
  * a freshly observed quality decision, model equivalence, or paid baseline.
  */
-export function createJevPublicAnswerReuse({store,route,clock=Date.now}={}){
+export function createJevPublicAnswerReuse({store,route,paidAuthorization,clock=Date.now}={}){
  if(typeof store?.transaction!=='function'||!route||typeof clock!=='function')
    throw new Error('protected-store-and-route-required');
  function identity(input){
@@ -29,6 +29,9 @@ export function createJevPublicAnswerReuse({store,route,clock=Date.now}={}){
      inputTokenCeiling>32000)
      return null;
    const now=clock(),expiry=Date.parse(route.expiresAt);
+   if(!paidAuthorization?.evidenceRef||paidAuthorization.month!==new Date(now).toISOString().slice(0,7)||
+      !Number.isFinite(Date.parse(paidAuthorization.expiresAt))||
+      Date.parse(paidAuthorization.expiresAt)<=now)return null;
    if(!Number.isFinite(expiry)||now>=expiry||now<Date.parse(route.verifiedAt))return null;
    const routeIdentity={model:route.model,provider:route.provider,
       modelRevision:route.modelRevision??null,sourceRef:route.sourceRef,

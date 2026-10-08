@@ -53,3 +53,9 @@ To move from cheap decisions to certifiable frontier quality, the next authorize
 5. Mint task-class-limited certificates only from actual invariants with independent verification. Never infer universal equivalence or USD 1M reference savings from duplicated prompts.
 
 No recurring new subscription, inference call, outreach effect or unverified Crown promotion is performed by the flywheel itself.
+
+## Historical sealed Sol/Opus evidence bridging (additive)
+
+The two Oct7 independently blind-scored sealed tasks live in the protected Render/PostgreSQL key `infinite_opus_measured_reference_dominance_20261007_v1`. `src/ubermind-sealed-reference-bridge.mjs` verifies their **persisted summary consistency** without reopening sealed prompts or repeating provider calls: exactly 2 distinct SHA task IDs, Sol 0 regressions and higher grades, Opus one regression, paired costs USD 0.031808 candidate vs USD 0.063696 reference, and evaluator USD 0.0245325. Output remains `HISTORICAL_TWO_TASK_MEASURED_REFERENCE_SUMMARY_IMPORTED_AUDIT_PENDING`; provider metadata and original blind evaluator payload are NOT independently reverified by this bridge.
+
+Worker refresh reads only this already-persisted key, logging **2 historical summaries** separately from **0 newly authenticated frontier holdouts** and no paid effects. If the pair were independently audited at the required custody level, at least 71 further unique spotless tasks would be required merely for an illustrative 73-task Wilson lower-bound threshold on that same task class. This threshold does NOT certify general Crown quality or a 33,333x all-in economic return. Do not duplicate Oct7 provider calls.

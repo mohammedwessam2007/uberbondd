@@ -171,3 +171,13 @@ test('unexpected scope keys cannot quietly introduce new authority',()=>{
  ]});
  assert.equal(p.ok,false);assert.equal(p.reason,'complete-identical-authority-scope-required');
 });
+
+test('circular and non-JSON BigInt states fail closed instead of throwing or contacting providers',()=>{
+ const circular=row('cycle');circular.state.self=circular.state;
+ const a=compileJevSharedStateTensor({batchId:'cyclic',requests:[circular]});
+ assert.equal(a.ok,false);assert.equal(a.reason,'canonical-state-required');
+ const b=compileJevSharedStateTensor({batchId:'bigint',requests:[
+   row('big',{state:{big:1n}})
+ ]});
+ assert.equal(b.ok,false);assert.equal(b.reason,'canonical-state-required');
+});

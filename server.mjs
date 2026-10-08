@@ -18,6 +18,8 @@ import { createInfiniteOpusRuntime } from './src/infinite-opus-native-runtime.mj
 import { compileCognitionEconomicPerimeter } from './src/cognition-economic-perimeter.mjs';
 import { cognitionRouteInventory } from './src/cognition-route-inventory.mjs';
 import { buildInfiniteOpusScoreboard } from './src/infinite-opus-scoreboard.mjs';
+import { runUberMindLiveSourceWork, compileSourceWorkCheckpoint } from './src/ubermind-exact-source-work.mjs';
+import { reconcileUberMindRealWorkCounter } from './src/ubermind-real-work-counter.mjs';
 import { compileInfiniteOpusMarket } from './src/infinite-opus-market.mjs';
 import { compileOpenRouterJevPublicPriceRecord, compileOpenRouterJevEndpointPriceRecord, augmentInfiniteOpusMarketWithDecisionRecord, OPENROUTER_JEV_MODEL_PAGE, OPENROUTER_JEV_ENDPOINTS_API } from './src/openrouter-decision-market.mjs';
 import { compileTypingMindChatRequest, gatewayStatus, verifyTypingMindGatewayBearer } from './src/infinite-opus-typingmind-gateway.mjs';

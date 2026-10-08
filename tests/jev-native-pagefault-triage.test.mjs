@@ -136,3 +136,34 @@ test('bounded startup triage processes distinct debts once under aggregate ceili
   assert.equal(second.providerCallsPerformed,0);
   assert.equal(net.calls(),calls);
 });
+
+test('post-dispatch Jev network uncertainty holds cost UNKNOWN and stops before next pagefault',async()=>{
+  const st=makeStore(),runtime=createInfiniteOpusRuntime({store:st,clock:()=>NOW});
+  await runtime.execute(task('pf-uncertain-1'));
+  await runtime.execute(task('pf-uncertain-2'));
+  let generationPosts=0,metadataGETs=0;
+  const fetchImpl=async url=>{
+    if(String(url).endsWith('/v1/key'))
+      return response({data:{label:'fixture',limit:20,limit_remaining:19.9,usage_monthly:.1,limit_reset:'monthly'}});
+    if(String(url).endsWith('/alpha/decisions')){generationPosts++;throw Error('simulated network collapse after ambiguous provider crossing');}
+    metadataGETs++;throw Error('unexpected-url:'+url);
+  };
+  const out=await runPendingNativeJevTriage({
+    store:st,apiKey:'sk-or-v1-fixture-key-long-enough',paidAuthorization:auth,
+    marketSnapshot:market(),fetchImpl,clock:()=>NOW,maxCalls:2,maxTotalUsd:.005
+  });
+  assert.equal(out.ok,false);
+  assert.equal(out.status,'NATIVE_JEV_TRIAGE_DISPATCH_OR_COST_UNKNOWN_HOLD');
+  assert.equal(out.providerCallsPerformed,1);
+  assert.equal(out.actualSpendUsd,null);
+  assert.equal(out.observedSpendLowerBoundUsd,0);
+  assert.equal(out.results.length,1);
+  assert.equal(out.results[0].providerCallsPerformed,1);
+  assert.equal(out.results[0].observedCostUsd,null);
+  assert.equal(out.automaticRetryAuthorized,false);
+  assert.equal(generationPosts,1);
+  assert.equal(metadataGETs,0);
+  const ledger=st.dump().infiniteOpusRuntimeV1.ledger;
+  assert.equal(ledger.calls.length,1);
+  assert.equal(ledger.calls[0].status,'DISPATCHED');
+});

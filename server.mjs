@@ -41,6 +41,7 @@ import { reconcileHaiku55CanaryWithoutReplay } from './scripts/infinite-opus-hai
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
 import { runJevTensorStartupDoctor } from './scripts/jev-shared-state-tensor-doctor.mjs';
 import { runJevNativeTests } from './scripts/jev-native-runtime-tests.mjs';
+import { runUberMind33kRealityDoctor } from './scripts/ubermind-33k-reality-doctor.mjs';
 import { openCrownCheckpoint, sealCrownCheckpoint } from './src/crown-sealed-checkpoint.mjs';
 import { compileCrownTournament, adjudicateCrownTournament } from './src/crown-tournament.mjs';
 import { issueCrownAdmissionReceipt } from './src/crown-admission.mjs';
@@ -1080,6 +1081,7 @@ if (wrapperIsEntryPoint) {
       console.log('UBERMIND_JEV_TENSOR_READINESS '+JSON.stringify(runJevTensorStartupDoctor()));
       const jevNativeProof=runJevNativeTests();
       console.log('UBERMIND_JEV_NATIVE_TESTS '+JSON.stringify(jevNativeProof));
+      console.log('UBERMIND_33333X_REALITY_GATE '+JSON.stringify(runUberMind33kRealityDoctor()));
       console.log('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
         ...readiness,
         crownAdmissionRequired:false,

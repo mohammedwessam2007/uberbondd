@@ -1065,6 +1065,24 @@ if (wrapperIsEntryPoint) {
     try{
       const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
       const marketSnapshot=await currentInfiniteOpusPublicMarket();
+      // Reveal only public catalog observation outcome/error classes. Never log
+      // API credentials, model payloads, prompt content or unverified prices.
+      const decisionDiag=marketSnapshot?.decisionMarket||{};
+      const safeMarketReason=x=>{
+        const raw=String(x||'');
+        return /^(?:endpoint|public):[A-Za-z0-9_: .-]{1,120}$/.test(raw)
+          ?raw:'PRICE_SOURCE_ERROR_REDACTED';
+      };
+      console.log('UBERMIND_JEV_PRICE_SOURCE_DIAGNOSTIC '+JSON.stringify({
+        status:String(decisionDiag.status||'NOT_OBSERVED').slice(0,80),
+        observationMode:decisionDiag.observationMode||null,
+        sourceModels:Array.isArray(decisionDiag.models)
+          ?decisionDiag.models.filter(x=>x==='typesafe/jev-1.13'):[],
+        failureClasses:Array.isArray(decisionDiag.reasons)
+          ?decisionDiag.reasons.slice(0,4).map(safeMarketReason):[],
+        providerInferenceCallsPerformed:0,diagnosticSpendUsd:0,
+        priceOrAccountAuthority:'NONE'
+      }));
       const readiness=inspectJevShadowReadiness({
         paidAuthorization,
         marketSnapshot,

@@ -74,3 +74,18 @@ test('production market observer treats Jev public-page fetch as metadata only',
   assert.doesNotMatch(window,/dispatchPaidCall/);
   assert.doesNotMatch(window,/\/api\/alpha\/decisions.*POST/);
 });
+
+test('market failure diagnostics expose only bounded public metadata failure classes',()=>{
+ const source=fs.readFileSync(new URL('../server.mjs',import.meta.url),'utf8');
+ const start=source.indexOf('UBERMIND_JEV_PRICE_SOURCE_DIAGNOSTIC');
+ assert.ok(start>0);
+ const window=source.slice(start-550,start+600);
+ assert.match(window,/safeMarketReason/);
+ assert.match(window,/failureClasses/);
+ assert.match(window,/providerInferenceCallsPerformed:0/);
+ assert.match(window,/diagnosticSpendUsd:0/);
+ assert.match(window,/priceOrAccountAuthority:'NONE'/);
+ assert.doesNotMatch(window,/OPENROUTER_API_KEY/);
+ assert.doesNotMatch(window,/apiKey:/);
+ assert.doesNotMatch(window,/rawPricePayload/);
+});

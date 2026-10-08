@@ -22,6 +22,7 @@ import { preparedRecipientUnsubscribeUrls } from './src/unsubscribe.mjs';
 import { terminalReadinessWithEffectTruth } from './src/revenue-terminal-effect-truth.mjs';
 import { runWinnrSmtpReadinessProbe } from './src/winnr-smtp-readiness.mjs';
 import { runUberMind890ProofCycle } from './scripts/ubermind-890-evidence-cycle.mjs';
+import { reconcileUberMindRealWorkCounter } from './src/ubermind-real-work-counter.mjs';
 
 validateStartupConfig(config);
 if (config.nodeEnv === 'production' && config.processRole !== 'worker') {
@@ -36,11 +37,32 @@ if (typeof store.deleteExpiredArtifacts === 'function') await store.deleteExpire
 // never requests model inference, mints Crown authority, or writes provider state.
 // Repeated identical evidence is suppressed instead of spamming the runtime.
 let lastUberMindProofDigest=null;
+let lastUberMindWorkCounterDigest=null;
 async function tickUberMindProofFlywheel(){
   try{
-    const historical=await store.transaction(async tx=>
-      (await tx.getSettings())?.infinite_opus_measured_reference_dominance_20261007_v1??null);
-    const report=runUberMind890ProofCycle({historicalMeasuredReferenceDominance:historical});
+    const evidence=await store.transaction(async tx=>{
+      const settings=await tx.getSettings();
+      return {
+        historical:settings?.infinite_opus_measured_reference_dominance_20261007_v1??null,
+        nativeState:settings?.infiniteOpusRuntimeV1??null
+      };
+    });
+    const counter=reconcileUberMindRealWorkCounter({runtimeState:evidence.nativeState});
+    const counterDigest=counter.counterReceiptHash??counter.status+':'+counter.reason;
+    if(counterDigest!==lastUberMindWorkCounterDigest||!counter.ok){
+      console.log('UBERMIND_REAL_WORK_COUNTER '+JSON.stringify({
+        ok:counter.ok,status:counter.status,
+        certifiedPolicyWorkCompleted:counter.certifiedPolicyWorkCompleted??null,
+        proofLedgerExecutionCount:counter.proofLedgerExecutionCount??null,
+        unresolvedPageFaultCount:counter.unresolvedPageFaultCount??null,
+        independentFrontierHoldoutsAdmitted:counter.independentFrontierHoldoutsAdmitted??0,
+        independentlyAuditedEconomicMultiplier:null,global33333xConfirmed:false,
+        counterReceiptHash:counter.counterReceiptHash??null,
+        noProviderInferencePerformedByMonitor:true
+      }));
+      lastUberMindWorkCounterDigest=counterDigest;
+    }
+    const report=runUberMind890ProofCycle({historicalMeasuredReferenceDominance:evidence.historical});
     const digest=report.stateDigest??report.status;
     if(digest!==lastUberMindProofDigest||!report.ok){
       console.log('UBERMIND_890_PROOF_LOOP '+JSON.stringify({

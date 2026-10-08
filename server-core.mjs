@@ -981,7 +981,7 @@ async function saveContraCollectionObservation(input = {}) {
     payout: {
       status: compact(input.payout?.status, 80),
       method: compact(input.payout?.method, 80),
-      country: compact(input.payout?.country || 'EG', 8),
+      country: compact(input.payout?.country, 8),
       accountOwnerMatch: input.payout?.accountOwnerMatch === true
     },
     blockingRequirements: blockers,

@@ -11,22 +11,24 @@ export function precommitPublicWorkload({campaignId,asOf,taskRows=[]}={}){
  if(!valid(campaignId)||!Number.isFinite(Date.parse(asOf))||
    !Array.isArray(taskRows)||!taskRows.length||taskRows.length>4096)
    return refuse('bounded-dated-campaign-required');
- const names=new Set(),fingerprints=new Set(),items=[];
+ const names=new Set(),fingerprints=new Set(),sources=new Set(),items=[];
  for(const row of taskRows){
    if(!valid(row?.taskId)||names.has(row.taskId)||
      !valid(row.taskClass)||!digest(row.taskContentDigest)||
-     fingerprints.has(row.taskContentDigest)||
+     fingerprints.has(row.taskContentDigest)||sources.has(row.sourceUrl)||
      typeof row.sourceUrl!=='string'||
      !/^https:\/\/github\.com\/[^/]+\/[^/]+\/(issues|pull)\/\d+$/.test(row.sourceUrl)||
      row.dataClass!=='PUBLIC'||row.sourcePubliclyAccessible!==true||
      !Number.isFinite(Date.parse(row.sourceObservedAt))||
      Date.parse(row.sourceObservedAt)>Date.parse(asOf))
      return refuse('public-source-provenance-or-distinctness-unverified');
-   names.add(row.taskId);fingerprints.add(row.taskContentDigest);
+   names.add(row.taskId);fingerprints.add(row.taskContentDigest);sources.add(row.sourceUrl);
    items.push({taskId:row.taskId,taskClass:row.taskClass,
       taskContentDigest:row.taskContentDigest,sourceUrl:row.sourceUrl,
       sourceObservedAt:row.sourceObservedAt,
-      permissionForProviderBenchmarkReuseVerified:row.externalConsentVerified===true,
+      // Caller-supplied consent flags are claims, NEVER third-party verification.
+      permissionForProviderBenchmarkReuseVerified:false,
+      submitterClaimsExternalConsent:row.externalConsentVerified===true,
       // A public issue may already have been discussed in prior chats.
       // Its precommitment does not independently prove fresh holdout status.
       independentOriginAuditStatus:'PENDING',
@@ -47,13 +49,57 @@ export function precommitPublicWorkload({campaignId,asOf,taskRows=[]}={}){
    truthBoundary:'This manifest binds public, distinct task fingerprints and source identifiers. It does not prove each issue was novel, externally consented outside the given source declaration, sealed from models, independently graded, or comparable to billed frontier inference. No task enters empirical multiplier accounting from this precommit.'};
 }
 
+/** A content hash is a tamper-evident local commitment, NOT a trusted
+ * signature, third-party source witness, or independent consent proof. The
+ * paired staging boundary must re-derive it rather than trusting \`ok:true\`.
+ */
+export function verifyPublicWorkloadManifest(manifest){
+ if(!manifest||typeof manifest!=='object'||Array.isArray(manifest)||
+    manifest.ok!==true||manifest.schemaVersion!==WORKLOAD_INTAKE_SCHEMA||
+    manifest.status!=='PUBLIC_DISTINCT_TASK_MANIFEST_PRECOMMITTED_ORIGIN_AUDIT_PENDING'||
+    !valid(manifest.campaignId)||typeof manifest.asOf!=='string'||
+    !Number.isFinite(Date.parse(manifest.asOf))||
+    !Array.isArray(manifest.items)||manifest.items.length<1||
+    manifest.items.length>4096||manifest.taskCount!==manifest.items.length||
+    manifest.precommittedExistingPublicTasks!==manifest.taskCount||
+    manifest.independentFreshHoldoutsAdmitted!==0||
+    manifest.qualityPairedSamplesAdmitted!==0||
+    manifest.empiricalMultiplier!==null||manifest.global33333xConfirmed!==false||
+    manifest.providerCallsPerformed!==0||manifest.spendAuthorized!==false||
+    !digest(manifest.manifestDigest))return false;
+ const ids=new Set(),hashes=new Set(),sources=new Set();
+ for(const item of manifest.items){
+   if(!item||typeof item!=='object'||Array.isArray(item)||
+      !valid(item.taskId)||ids.has(item.taskId)||
+      !valid(item.taskClass)||!digest(item.taskContentDigest)||
+      hashes.has(item.taskContentDigest)||
+      typeof item.sourceUrl!=='string'||sources.has(item.sourceUrl)||
+      !/^https:\/\/github\.com\/[^/]+\/[^/]+\/(issues|pull)\/\d+$/.test(item.sourceUrl)||
+      typeof item.sourceObservedAt!=='string'||
+      !Number.isFinite(Date.parse(item.sourceObservedAt))||
+      Date.parse(item.sourceObservedAt)>Date.parse(manifest.asOf)||
+      item.permissionForProviderBenchmarkReuseVerified!==false||
+      (item.submitterClaimsExternalConsent!==undefined&&
+       typeof item.submitterClaimsExternalConsent!=='boolean')||
+      item.independentOriginAuditStatus!=='PENDING'||
+      item.independentlySealedBeforeInference!==false||
+      item.blindedBeforeCandidateRun!==false||
+      item.externalQualityJudgment!=='NOT_OBSERVED'||
+      item.providerBilling!=='NOT_OBSERVED'||
+      item.economicAuthority!=='NONE')return false;
+   ids.add(item.taskId);hashes.add(item.taskContentDigest);sources.add(item.sourceUrl);
+ }
+ return manifest.manifestDigest===sha({campaignId:manifest.campaignId,
+    asOf:manifest.asOf,items:manifest.items});
+}
+
 export function reviewPairedWorkloadSubmission({manifest,records=[]}={}){
- if(!manifest?.ok||manifest.schemaVersion!==WORKLOAD_INTAKE_SCHEMA||
+ if(!verifyPublicWorkloadManifest(manifest)||
    !Array.isArray(records)||records.length>manifest.taskCount)
    return refuse('valid-precommit-and-bounded-pairs-required');
- const submitted=new Map();
+ const submitted=new Map(),itemById=new Map(manifest.items.map(x=>[x.taskId,x]));
  for(const r of records){
-   const t=manifest.items.find(x=>x.taskId===r?.taskId);
+   const t=itemById.get(r?.taskId);
    if(!t||submitted.has(r.taskId)||r.taskContentDigest!==t.taskContentDigest||
       !digest(r.candidateOutputDigest)||!digest(r.frontierOutputDigest)||
       r.candidateOutputDigest===r.frontierOutputDigest||
@@ -65,7 +111,9 @@ export function reviewPairedWorkloadSubmission({manifest,records=[]}={}){
    submitted.set(r.taskId,r);
  }
  return {ok:true,status:'PAIRED_WORKLOAD_RECEIPTS_STAGED_FOR_INDEPENDENT_AUDIT',
-   taskCount:manifest.taskCount,pairedSubmissions:submitted.size,
+   taskCount:manifest.taskCount,manifestDigest:manifest.manifestDigest,
+   pairedSubmissionDigest:sha([...submitted].sort(([a],[b])=>a.localeCompare(b))),
+   pairedSubmissions:submitted.size,
    missingPairs:manifest.taskCount-submitted.size,
    independentQualityVerified:0,
    providerInvoicesIndependentlyAuthenticated:0,

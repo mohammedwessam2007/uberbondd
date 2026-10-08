@@ -96,6 +96,9 @@ export function createGovernedJevRuntimeService({store,apiKey,paidAuthorization,
   }={}){
     return executeScaledJevUnderBudget({
       batchId,requests,maximumTotalSpendUsd,maximumPerGroupSpendUsd,
+      // Reuse the current protected W16/W19 cache validator, not a caller
+      // supplied cache count. Shards independently repeat this same check.
+      lookupValidatedPublicAnswer:publicReuse.read,
       executeShard:async({batchId,requests,maximumTotalSpendUsd,maximumPerGroupSpendUsd})=>
         executeDecisionTensor({batchId,requests,maximumTotalSpendUsd,maximumPerGroupSpendUsd})
     });

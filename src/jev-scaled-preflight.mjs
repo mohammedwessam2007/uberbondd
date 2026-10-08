@@ -14,7 +14,7 @@ const refuse=(reason,extra={})=>({ok:false,status:'JEV_SCALED_PREFLIGHT_REFUSED'
 function hashPlan(plan){
  return semanticHash({batchId:plan.batchId,atomMappings:plan.atomMappings,
   plans:plan.plans.map(p=>({batchId:p.batchId,uniqueRequestIds:p.uniqueRequestIds,
-    compiledGroupIds:p.compiled.groups.map(g=>g.operationId)}))});
+    requests:p.requests,compiledGroupIds:p.compiled.groups.map(g=>g.operationId)}))});
 }
 /**
  * Exact zero-inference coalescer for a large collection of PUBLIC Jev jobs.

@@ -6,7 +6,7 @@ import { summarizeHistoricalSealedReference } from '../src/ubermind-sealed-refer
 
 export const UBERMIND_890_DOCTOR_SCHEMA='uberbond.ubermind-890-proof-cycle.v1';
 
-export function runUberMind890ProofCycle({root=process.cwd(),clock=Date.now(),historicalMeasuredReferenceDominance=null}={}){
+export function runUberMind890ProofCycle({root=process.cwd(),clock=Date.now,historicalMeasuredReferenceDominance=null}={}){
   let universe,exact;
   try{universe=recover890FounderIdeaUniverse({root});}
   catch(error){

@@ -1,5 +1,8 @@
 # WORK CURRENT — crash-safe recovery pointer
 
+**Oct 8 outreach hot addendum (read before historical sections):** `docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`. The newer audit independently rechecked GitHub main/Render source, current Oct8 Winnr SMTP NOOP/IMAP, G-SPOT, payment state, public Winnr pricing and written provider support. It **preserves** the Oct7 four-gate purchase law, historical `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`, and no-standing-outbound-authority. Owner-authenticated final $69 checkout/charge is **not observed**; existing $9 marketplace pool is separate and may continue to cost $9 in addition to Startup. Do not confuse purchasing capacity with lawful send, collected cash or a current SMTP receipt after expiry. This addendum is specific to outreach, not a replacement for the full Sovereign Continuum context.
+
+
 Date: 2026-10-07 (Africa/Cairo)
 
 Status: `WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION`

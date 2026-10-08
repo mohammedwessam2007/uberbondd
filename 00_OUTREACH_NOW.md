@@ -1,6 +1,10 @@
 # 00 — CURRENT COMMERCIAL OUTREACH AUTOLOAD
 
 **Last reconciled:** 2026-10-04
+
+**Current purchase/latest runtime overlay:** 2026-10-08. See `docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md` BEFORE relying on any 2026-10-04 present-tense sender, policy, gate or payment line below. GitHub/Render exact latest receipt on audit: 167fc1e54cf160f06bf70cca3f05ec23cb603df1, deploy dep-db3eo95g1s2s73a59v2g LIVE; future sessions MUST refresh source and live runtime. The Oct 7 launch law distinguishes `PURCHASE_READY` from `SEND_READY`, `COLLECTION_READY` and `DELIVERY_READY`; the Oct 5 all-or-nothing purchase gate is superseded. $69 Startup is NOT the same product as the existing $9 pre-warmed pilot. Owner final checkout/spend authorization required; no new send authority, paid warmup, DNS changes or service purchases are implied. Sender1 READY as of 2026-10-08T01:05Z with evidence expiry 02:20Z; sender2 CONNECT uncertain; sender3 placement quarantined; IMAP 3/3. Contra account collection not verified. Frozen Intelo effect remains UNKNOWN and non-replayable. Preserve all original material below as historical design/lineage.
+
+
 **Truth class:** CURRENT COMMERCIAL DESIGN + CONTINUATION POINTER. Market demand, price acceptance, sender/provider readiness, cleared revenue and customer acceptance remain external truth.
 
 > **If the founder's request involves cold email, outreach, offers, first revenue, reply rate, campaign launch, agency sales, async closing, or continuing the outreach machine, READ THIS FILE BEFORE BRAINSTORMING.**

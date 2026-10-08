@@ -6,6 +6,10 @@ Updated: 2026-10-02
 
 This directory is the durable, secret-free recovery root for UberBond's Winnr sender-substrate pilot. It preserves what was bought, why it was bought, what was implemented, what was externally verified, what failed, what superseded earlier conclusions, what remains blocked, and exactly how to continue without restarting the mission.
 
+## 2026-10-08 LIVE purchase/launch supersession pointer
+
+For the newest exact provider decision, read `../docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md` first. This Winnr vault remains the original purchase/transport/placement evidence corpus, not a claim that Oct 2/Oct 4 receipts are fresh today. Oct8 exact-main Render startup had one READY sender, one CONNECT UNCERTAIN, ordinal-3 quarantine, 3/3 IMAP healthy, G-SPOT preflight READY_FOR_AUTHORIZATION but outbound authority NONE. **Winnr Startup $69/month is separate from the existing pre-warmed $9/month pool** unless actual provider checkout shows otherwise; do not equate purchase readiness to permissioned prospect sending. Refresh live source/expiry and preserve the Oct4 frozen Intelo UNKNOWN/no-replay boundary. This is an additive pointer, not removal of any historical receipt.
+
 ## Current one-line truth
 
 `PURCHASED -> PROVISIONED -> ENCRYPTED_CUSTODY -> SMTP_3_OF_3 -> IMAP_3_OF_3 -> REPLIES_2_OF_2_INGESTIBLE -> HUMAN_PHENOTYPE_GMAIL_2_OF_3_INBOX -> SMTP_ORDINAL_3_QUARANTINED`

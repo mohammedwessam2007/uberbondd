@@ -34,6 +34,7 @@ import { createInfiniteOpusSemanticClosureHost } from './src/infinite-opus-seman
 import { readJevCalibrationSummary } from './src/jev-calibration-vault.mjs';
 import { readJevPromotionFoundry } from './src/jev-promotion-foundry.mjs';
 import { runGovernedJevLiveCanary } from './scripts/infinite-opus-jev-live-canary.mjs';
+import { runJevTensorOneShotCanary } from './scripts/jev-tensor-one-shot-live-canary.mjs';
 import { runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState } from './scripts/infinite-opus-haiku55-live-canary.mjs';
 import { reconcileHaiku55CanaryWithoutReplay } from './scripts/infinite-opus-haiku55-canary-reconcile.mjs';
 import { runPendingNativeJevTriage } from './scripts/infinite-opus-jev-pagefault-triage.mjs';
@@ -1076,7 +1077,8 @@ if (wrapperIsEntryPoint) {
         secretValuesExposed:false
       }));
       console.log('UBERMIND_JEV_TENSOR_READINESS '+JSON.stringify(runJevTensorStartupDoctor()));
-      console.log('UBERMIND_JEV_NATIVE_TESTS '+JSON.stringify(runJevNativeTests()));
+      const jevNativeProof=runJevNativeTests();
+      console.log('UBERMIND_JEV_NATIVE_TESTS '+JSON.stringify(jevNativeProof));
       console.log('UBERMIND_JEV_SHADOW_READINESS '+JSON.stringify({
         ...readiness,
         crownAdmissionRequired:false,
@@ -1114,6 +1116,16 @@ if (wrapperIsEntryPoint) {
           marketSnapshot
         });
         console.log('UBERMIND_JEV_LIVE_CANARY '+JSON.stringify(canary));
+        const tensorLiveCanary=jevNativeProof.ok&&readiness.ok
+          ? await runJevTensorOneShotCanary({
+              store,apiKey:String(process.env.OPENROUTER_API_KEY||''),
+              paidAuthorization,marketSnapshot
+            })
+          : {ok:false,status:'JEV_TENSOR_LIVE_CANARY_SKIPPED_UNVERIFIED_NATIVE_OR_ROUTE',
+              providerCallsPerformed:0,actualCostUsd:0,
+              automaticRetryAuthorized:false,semanticAuthority:'NONE',
+              crownSuppressionAuthority:'NONE'};
+        console.log('UBERMIND_JEV_TENSOR_LIVE_CANARY '+JSON.stringify(tensorLiveCanary));
         const triage=await runPendingNativeJevTriage({
           store,
           apiKey:String(process.env.OPENROUTER_API_KEY||''),

@@ -36,3 +36,27 @@ No paid provider calls, no provider credentials, no client outreach, no producti
 - Founder idea links: 0057 Proof Economy, 0058 Error Economy, 0059 Prediction Accounting, 0060 Civilizational Memory, 0226 Intelligence Compound Interest, 0445 Reality Profiler, 0653 Self-Falsifying, 0877 Recursion Proof. All 890 originals preserved unchanged.
 
 PHOENIX checkpoint: `UBERMIND-W12-20261008-CERTIFIED-WORK-MATERIALIZATION`.
+
+
+## W12 phase 2: operator-visible truthful counter
+
+- Added \`src/ubermind-real-work-counter.mjs\`, a zero-effect reconciler over **protected persisted** \`infiniteOpusRuntimeV1\` task, receipt and proof-ledger state. It counts finished E3 policy outcomes only after matching \`CLOSED_DECISION_FRANCHISE\` state with an exact \`DECISION_FRANCHISE_HIT\` record carrying zero inference; rejects replayed, orphan, nonzero-provider and malformed receipts, and refuses period-drifted/duplicated proof entries.
+- Wired the zero-spend, privacy-safe aggregate \`UBERMIND_REAL_WORK_COUNTER\` log to \`worker.mjs\`'s existing hourly UberMind proof cycle. It runs once at startup plus on existing hourly cadence, only reads protected settings and never exposes task bodies or secret/provider credentials. A changed receipt hash generates a new progress observation. \`NO_TRUSTED_RUNTIME_STATE_YET\` is not success.
+- Added \`tests/ubermind-real-work-counter.test.mjs\` and registered it with the existing native startup suite; no added dependency or provider account use.
+- The old proof flywheel did not observe actual task-execution counters. This is operational telemetry only. General Crown admissibility and audited economic factors remain unchanged. W12 batch-only 1024 test data is NOT written to production or counted as real work.
+
+## Focused verification actually performed
+
+GitHub branch source \`src/decision-franchise.mjs\` evaluated inside an isolated V8 host with deterministic mocked semantic dependency functions: **11 of 11 targeted assertions pass** for 1024 real function returns / two projected states, output correctness, no invented multiplier, batch atomicity, duplicate identity, expired authority, changed source, side effects, nondeterministic canonicalizers and capacity limits.
+
+GitHub branch source \`src/ubermind-real-work-counter.mjs\` evaluated inside an isolated V8 host with a deterministic mocked hash dependency: **10 of 10 targeted assertions pass** for trusted-store state counts, unknown multiplier, absent data, orphan/duplicate/nonzero-provider receipts, period drift, proof replay and malformed task identity.
+
+These are **isolated source-function checks with mocked dependencies, not execution of authored Node \`node:test\` files** and not full integration or deployment proof. GitHub Actions returned infrastructure failures with zero executed CI steps, Vercel build-rate-limited. Worker runtime is not yet claimed LIVE at this branch.
+
+## Current mission frontier
+
+1. Verify W12 code on actual Node runtime and native suite.
+2. Merge and deploy to live Render only after a defensible test/review gate, then observe \`UBERMIND_REAL_WORK_COUNTER\` against existing protected state. Every nonzero increment must correspond to a durable actually finished outcome.
+3. Inject only independently observed real tasks into the existing queue through authorized paths, audit quality and cost for distinct matched tasks, and improve the **empirical** multiplier rather than a simulated request-throughput claim.
+
+No new paid provider inference, outreach, DNS, or purchase authorized by this wave.

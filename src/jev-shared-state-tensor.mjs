@@ -115,7 +115,8 @@ export function compileJevSharedStateTensor({batchId,requests=[]}={}){
   if(groups.length>MAX_GROUPS)return refusal('too-many-request-groups');
   return {ok:true,status:'JEV_SHARED_STATE_TENSOR_PLAN_ONLY',
     schemaVersion:JEV_TENSOR_SCHEMA,batchId,groupCount:groups.length,
-    originalQuestionCount,groups,
+    originalQuestionCount,uniqueQuestionCount:groups.reduce((sum,g)=>sum+g.questionCount,0),groups,
+    exactQuestionDedupCount:originalQuestionCount-groups.reduce((sum,g)=>sum+g.questionCount,0),
     potentialIndividualRequests:originalQuestionCount,
     potentialRequestReduction:Math.max(0,originalQuestionCount-groups.length),
     savingsEvidence:'MODELED_UNVERIFIED_NO_ACTUAL_BASELINE',

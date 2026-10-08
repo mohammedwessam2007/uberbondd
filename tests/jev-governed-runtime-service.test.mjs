@@ -271,7 +271,8 @@ test('two concurrent public Jev batches across separate worker instances never d
  const req=id=>[{requestId:id,scope,state:{kind:'EXACT_SAME_PUBLIC_STATE'},
    questions:{q:{type:'noul',instructions:'Same exact question?'}}}];
  const leader=a.executeDecisionTensor({batchId:'concurrent-A',requests:req('request-A')});
- await postStarted;
+ await Promise.race([postStarted,new Promise((_,reject)=>setTimeout(
+   ()=>reject(new Error('timed-out-before-first-provider-dispatch')),3000))]);
  const rival=await b.executeDecisionTensor({batchId:'concurrent-B',requests:req('request-B')});
  assert.equal(rival.ok,false);
  assert.equal(rival.status,'JEV_TENSOR_IDENTICAL_PUBLIC_DISPATCH_HELD');

@@ -129,3 +129,11 @@ test('capacity is bounded, never silently samples a huge user submission',()=>{
  const p=compileScaledJevPreflight({batchId:'over',requests:makeRows(16385)});
  assert.equal(p.ok,false);assert.equal(p.reason,'bounded-batch-required');
 });
+
+test('malformed advisory probability is blocked before mass fanout',()=>{
+ const p=compileScaledJevPreflight({batchId:'out-of-range',requests:makeRows(5)});
+ const forged=providerResults(p);forged[0].answers[0].answer.noul=99;
+ const result=expandScaledJevAnswers({plan:p,shardResults:forged});
+ assert.equal(result.ok,false);
+ assert.equal(result.reason,'invalid-governed-shard-answer');
+});

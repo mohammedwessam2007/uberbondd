@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond-commercial-autoload-1.0.0",
-  "lastReconciled": "2026-10-04",
+  "lastReconciled": "2026-10-08",
   "missionTriggers": [
     "cold email",
     "outreach",
@@ -108,5 +108,40 @@
     "ledger": "docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md",
     "currentShaAuthority": "newest GitHub issue #1188 terminal comment + refreshed main + live Render",
     "outboundAuthority": "NONE"
+  },
+  "currentPurchaseBoundary20261008": {
+    "status": "WINNR_69_PURCHASE_PRECHECK_READY__LIVE_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING",
+    "receipt": "docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md",
+    "liveAtAudit": {
+      "sourceSha": "167fc1e54cf160f06bf70cca3f05ec23cb603df1",
+      "renderDeploy": "dep-db3eo95g1s2s73a59v2g",
+      "status": "LIVE"
+    },
+    "independentEffectDomains": [
+      "PURCHASE_READY",
+      "SEND_READY",
+      "COLLECTION_READY",
+      "DELIVERY_READY"
+    ],
+    "existingPrewarmedPilotMonthlyUsd": 9,
+    "startupPlanPublicMonthlyUsd": 69,
+    "billingWhenBothRetainedMonthlyUsdBeforeExtras": 78,
+    "authenticatedCheckoutFinalTermsObserved": false,
+    "purchasePerformed": false,
+    "newWarmingAddonAuthorized": false,
+    "providerColdSendAuthorityGranted": false,
+    "gSpotAtAudit": "READY_FOR_AUTHORIZATION__OUTBOUND_AUTHORITY_NONE",
+    "smtpAtAudit": {
+      "checkedAt": "2026-10-08T01:05:44.193Z",
+      "expiresAt": "2026-10-08T02:20:44.193Z",
+      "ordinal1": "READY",
+      "ordinal2": "CONNECT_UNCERTAIN",
+      "ordinal3": "QUARANTINED"
+    },
+    "imapTransportHealthyLastObserved": "THREE_OF_THREE",
+    "collectionReady": false,
+    "coldRouteLegalCleared": false,
+    "inteloFrozenEffect": "UNKNOWN_0_OR_1__NEVER_REPLAY",
+    "truth": "Historical readiness is not a current checkout observation; source and provider terms must be refreshed. Owned-domain inventory, physical DNS and sender ramp require postpurchase observation."
   }
 }

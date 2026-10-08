@@ -48,9 +48,8 @@ export async function capturePublicIssueWorkload({
     const excerpt=row.body.slice(0,1100);
     // Public issue content is still untrusted model input. Any credential-like
     // source snippet must not cross into a Jev provider request.
-    if(containsSecretValue(title)||containsSecretValue(excerpt))
-      return {number,failure:'PUBLIC_SOURCE_SNIPPET_CONTAINS_CREDENTIAL'};
-    shadowInput={taskId:'issue-'+number,sourceUrl:row.html_url,
+    if(!containsSecretValue(title)&&!containsSecretValue(excerpt))
+      shadowInput={taskId:'issue-'+number,sourceUrl:row.html_url,
       taskContentDigest:sha(JSON.stringify([number,row.title,row.body,row.updated_at])),
       sourceObservedAt:row.updated_at,title,excerpt};
   }

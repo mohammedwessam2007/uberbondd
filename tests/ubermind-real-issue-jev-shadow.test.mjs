@@ -43,8 +43,14 @@ test('twelve observed distinct historical public issue sources compile into thre
   for(const group of batch.plan.groups){
    assert.equal(group.scope.dataClass,'PUBLIC');
    assert.equal(group.scope.sideEffectClass,'NONE');
-   assert.equal(group.questions.route.type,'choice');
-   assert.equal(group.questions.independent_review.type,'noul');
+   // The governed tensor compiler canonicalizes question IDs to q_001,
+   // q_002, etc. Assert through its authorized original-to-compiled mapping,
+   // never expect raw caller question names in the compiled wire payload.
+   const byOriginal=Object.fromEntries(group.mapping.map(m=>[
+     m.originalQuestionId,group.questions[m.questionId]
+   ]));
+   assert.equal(byOriginal.route?.type,'choice');
+   assert.equal(byOriginal.independent_review?.type,'noul');
   }
  }
 });

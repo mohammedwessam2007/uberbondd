@@ -12,7 +12,8 @@ const tests=[
   'tests/ubermind-890-evidence-flywheel.test.mjs',
   'tests/ubermind-sealed-reference-bridge.test.mjs',
   'tests/provable-reference-economics.test.mjs',
-  'tests/ubermind-33k-reality-gate.test.mjs'
+  'tests/ubermind-33k-reality-gate.test.mjs',
+  'tests/ubermind-cheapest-eligible-reference.test.mjs'
 ];
 
 /** Native Node verification. Only deterministic mock-provider tests. Never

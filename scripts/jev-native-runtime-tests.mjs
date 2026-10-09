@@ -24,6 +24,7 @@ const tests=[
   'tests/ubermind-pro20-economics.test.mjs',
   'tests/ubermind-pro-matched-cost-benchmark.test.mjs',
   'tests/ubermind-five-hour-quality-budget.test.mjs',
+  'tests/ubermind-ultralean-skill.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',
   'tests/ubermind-public-workload-integrity.test.mjs',

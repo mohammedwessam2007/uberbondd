@@ -1,0 +1,47 @@
+flowchart TB
+  PROMPT["① YOUR ORDINARY CLAUDE PROMPT"] --> MAIN["② UBERMIND Ω⁸ | SONNET 5.5 MAIN | SINGLE ACCOUNTABLE SESSION"]
+  MAIN --> HEAT["CONTEXT HEAT ENGINE | HOT: rules + goal | WARM: relevant 890 IDs + PHOENIX | COLD: complete immutable 890 corpus + history"]
+  IDEA["ALL 890 ORIGINAL FOUNDER IDEAS + GENESIS + TOTAL BRAIN + CAPABILITY GENOME"] -. "task-relevant source pointers" .-> HEAT
+  HEAT --> CONTRACT["ACCEPTANCE CONTRACT | quality floor | source SHA | permissions | risk"]
+  CONTRACT --> EXIST{"EXACT APPROVED SOLUTION STILL APPLIES?"}
+  EXIST -- YES --> ZERO["E0–E4 EXACT ENGINE | native code / verified cache / deterministic tests | no new model inference"]
+  EXIST -- NO --> JQUESTION{"BOUNDED TYPED JEV DECISION WORTHWHILE AND SEPARATELY AUTHORIZED?"}
+  JQUESTION -- YES --> JEV["JEV 1.13 | NOUL / CHOICE / SCORE"]
+  JEV --> TENSOR["W11–W22 | semantic grouping | scoped prior-bill reuse | single-flight | fresh-budget cap | source gate"]
+  TENSOR --> SUFF{"CERTIFIED BOUNDED OUTPUT SUFFICIENT?"}
+  SUFF -- YES --> ZERO
+  SUFF -- NO --> ROUTER
+  JQUESTION -- NO --> RULES["DETERMINISTIC LOCAL ROUTER | 0 EXTRA API CHARGES"]
+  RULES --> ROUTER{"FRONTIER PRESSURE | difficulty x consequences x novelty x quota"}
+  ROUTER -- ROUTINE --> SONNET["SONNET 5.5 | PRIMARY ENGINEER | SINGLE SESSION"]
+  ROUTER -- SCOUT --> HAIKU["HAIKU 5.5 | SHORT READ-ONLY SOURCE SCOUT IF AVAILABLE"]
+  ROUTER -- DEEP --> OPUS["OPUS 5.5 | ON-CALL FRONTIER ARCHITECT | HIGH EFFORT"]
+  OPUS --> SPEC["SPEC FORGE | executable task DAG | owned paths | tests | rollback"]
+  HAIKU --> SPEC
+  SPEC --> TEAM{"INDEPENDENT PARALLELISM WORTH THE SHARED QUOTA?"}
+  TEAM -- NO --> SONNET
+  TEAM -- YES --> PAIR["BOUNDED TEAM | Sonnet builder + independent Sonnet falsifier | Haiku scout optionally"]
+  PAIR --> DELTA["SEMANTIC DELTA COMPRESSOR | changed files | failed tests | unresolved claims only"]
+  SONNET --> DELTA
+  DELTA --> HARD{"MATERIAL FRONTIER UNCERTAINTY REMAINS?"}
+  HARD -- YES --> CROWN["OPUS 5.5 | RESIDUAL REVIEW ONLY"]
+  HARD -- NO --> COURT
+  CROWN --> COURT["REALITY COURT | code/hostile tests | truth | permissions | cost receipt"]
+  ZERO --> COURT
+  COURT --> READY{"ACCEPTED RESULT + AUTHORIZED EFFECTS?"}
+  READY -- NO --> HOLD["HOLD | repair | owner action | no paid retry of unknown dispatch"]
+  READY -- YES --> OUT["ACCEPTED ANSWER OR APPROVED PR / VERIFIED DEPLOYMENT"]
+  OUT --> PHOENIX["PHOENIX COMPOUNDING | #0057 proof | #0058 error | #0059 prediction | #0060 memory | #0226 intelligence | #0653 falsifier | #0877 invariant"]
+  PHOENIX -. "source-bound future exact reuse" .-> EXIST
+  PHOENIX -. "GENESIS successor" .-> IDEA
+  BUDGET["CLAUDE PRO $20 | shared finite usage | no automatic paid Claude API / separate JEV"] -. "hard budget constraint" .-> MAIN
+  classDef source fill:#e8efff,stroke:#4d75bb,color:#163d71
+  classDef frontier fill:#eee8ff,stroke:#7950ba,color:#30205d
+  classDef safe fill:#e4f6ed,stroke:#248958,color:#174b35
+  classDef gate fill:#fff2da,stroke:#bd892a,color:#5e441a
+  classDef blocked fill:#ffe5e5,stroke:#b94343,color:#642121
+  class PROMPT,MAIN,HEAT,IDEA,CONTRACT,SPEC,DELTA,BUDGET source
+  class SONNET,HAIKU,OPUS,PAIR,CROWN frontier
+  class ZERO,JEV,TENSOR,RULES,COURT,OUT,PHOENIX safe
+  class EXIST,JQUESTION,SUFF,ROUTER,TEAM,HARD,READY gate
+  class HOLD blocked

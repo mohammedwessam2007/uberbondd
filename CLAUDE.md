@@ -18,8 +18,8 @@
 @docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md
 @docs/CAPABILITY_GENOME_CANON.md
 @docs/WALLBREAKER_CANON.md
-@docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md
-@docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md
+
+**Lean software-lane context routing, 2026-10-09:** The full original `docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md` is preserved unchanged but no longer added as an unconditional import. **For any software development, coding-agent, implementation, code review, test, PR, deployment, or runtime repair mission, read and obey its complete current content before executing the mission**, after the mandatory startup/truth refresh. The historical `docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md` remains intact and is **mandatory when recovering the August 30 workstream, PR #251, or facts inherited specifically from that checkpoint**; otherwise newer main/handoffs govern. This only replaces redundant default expansion with explicit conditional retrieval. All founder 890, life North Stars, AGENTS/canon, permissions and original files remain unaffected. Do not claim this reduces subscription usage until measured under Claude Code `/context` on matched sessions.
 
 **Context-preserving startup optimization, 2026-10-09:** Two large historical Winnr mega-mission prompts are retained unmodified at their original paths but no longer expanded as unconditional `@` startup imports. This removes only duplicate automatic loading. For an active Winnr, first-cash, outreach or commercial execution mission, **read both** `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` and `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md` during mandatory truth recovery before making task decisions; newer explicit founder instructions and higher-order constitutions retain precedence. For unrelated medical, personal, scientific and engineering prompts, load them only if relevant. Do not delete, shorten, supersede or alter the originals. Source-byte reduction is not proof of a particular token/quota saving.
 

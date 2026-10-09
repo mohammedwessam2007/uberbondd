@@ -23,7 +23,12 @@ export function runAchievedOpusEquivalenceDoctor({root=process.cwd()}={}){
 }
 
 if(process.argv[1]&&import.meta.url===new URL('file://'+process.argv[1]).href){
-  const result=runAchievedOpusEquivalenceDoctor();
+  // A refusal (e.g. expired reference evidence) is a verdict, reported in the same
+  // shape server.mjs logs at boot rather than as an uncaught stack trace.
+  let result;
+  try{result=runAchievedOpusEquivalenceDoctor();}
+  catch(error){result={ok:false,status:'EQUIVALENCE_ISLAND_DOCTOR_REFUSED',reason:String(error?.message||error).slice(0,300),
+    providerCallsPerformed:0,modelInferenceCallsPerformed:0,externalApiSpendUsd:0};}
   console.log(JSON.stringify(result,null,2));
   if(!result.ok)process.exitCode=1;
 }

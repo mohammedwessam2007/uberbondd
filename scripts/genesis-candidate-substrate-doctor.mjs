@@ -26,6 +26,9 @@ const ok=result?.bridge?.ok===true&&result.bridge.candidateRouteCount===nursery.
 console.log(JSON.stringify({
   ok,
   status:ok?'GENESIS_CANDIDATE_SUBSTRATE_DOCTOR_HEALTHY':'GENESIS_CANDIDATE_SUBSTRATE_DOCTOR_INVALID',
+  // Without this a refused corpus printed as a bare INVALID, hiding that the cause was upstream.
+  corpusStatus:validation.status??null,
+  corpusErrors:validation.ok?[]:(validation.errors||[]),
   candidateRouteCount:result?.bridge?.candidateRouteCount||0,
   moonshotSourceCount:result?.bridge?.moonshotSourceCount||0,
   houseEnergy:result?.bridge?.houseEnergy||null,

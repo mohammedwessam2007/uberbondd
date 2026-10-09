@@ -11,7 +11,7 @@ import {
 const checks = [];
 const add = (id, ok, detail = null) => checks.push({ id, ok: Boolean(ok), detail });
 
-add('version', UBERREPLY_FOUR_OFFER_GENOME_VERSION === 'uberbond.uberreply-four-offer-genome.v1', UBERREPLY_FOUR_OFFER_GENOME_VERSION);
+add('version', UBERREPLY_FOUR_OFFER_GENOME_VERSION === 'uberbond.uberreply-four-offer-genome.v2', UBERREPLY_FOUR_OFFER_GENOME_VERSION);
 add('four-distinct-offers', UBERREPLY_OFFER_PORTFOLIO.length === 4 && new Set(UBERREPLY_OFFER_PORTFOLIO.map(row => row.offerId)).size === 4, UBERREPLY_OFFER_PORTFOLIO.map(row => row.offerId));
 add('exact-100k-target', UBERREPLY_OFFER_PORTFOLIO.reduce((sum, row) => sum + row.dailyTarget, 0) === UBERREPLY_DAILY_PORTFOLIO_TARGET, UBERREPLY_DAILY_PORTFOLIO_TARGET);
 

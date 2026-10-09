@@ -1,6 +1,16 @@
 import { semanticHash } from './semantic-closure-kernel.mjs';
 
-const rate = value => typeof value === 'string' && /^\d+(\.\d+)?$/.test(value) && Number.isFinite(Number(value)) ? Number(value) * 1e6 : null;
+// Per-token USD strings become per-million rates by moving the decimal point six
+// places in the string itself. Multiplying the parsed float by 1e6 is not exact:
+// '0.0000001' became 0.09999999999999999 instead of 0.1.
+export const perTokenUsdToPerMillion = value => {
+  if (typeof value !== 'string' || !/^\d+(\.\d+)?$/.test(value)) return null;
+  const [whole, fraction = ''] = value.split('.');
+  const digits = fraction.padEnd(6, '0');
+  const perMillion = Number(`${whole}${digits.slice(0, 6)}.${digits.slice(6) || '0'}`);
+  return Number.isFinite(perMillion) ? perMillion : null;
+};
+const rate = perTokenUsdToPerMillion;
 export function compileInfiniteOpusMarket(payload, { verifiedAt, ttlMs = 86400000 } = {}) {
   const at = Date.parse(verifiedAt);
   if (!Number.isFinite(at) || !Number.isSafeInteger(ttlMs) || ttlMs < 1 || ttlMs > 86400000 || !Array.isArray(payload?.data) || payload.data.length > 10000) throw new Error('bounded-current-market-observation-required');

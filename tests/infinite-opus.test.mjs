@@ -248,7 +248,7 @@ test('native transactions conserve budget under concurrent reservation attempts'
   const attempts = await Promise.all(Array.from({ length:20 },(_,i) => runtime.preparePaidCall(call(`race-${i}`,'WORKER',1000000))));
   assert.equal(attempts.filter(r => r.ok).length,5);
   const snapshot = await runtime.snapshot();
-  assert.equal(snapshot.budget.reservedMicrousd,15000000);
+  assert.equal(snapshot.budget.reservedMicrousd,5 * 1000000);
   assert.equal(snapshot.budget.crownEscrowRemainingMicrousd,15000000);
 });
 test('empty authority queues novelty and unconnected runtime asks for no inference', async t => {
@@ -312,7 +312,7 @@ test('provider response without observed bill keeps reservation held', async t =
     routePrices:[{model:'test/model',provider:'openrouter',sourceRef:'synthetic://price',verifiedAt:'2026-09-29T21:00:00Z',expiresAt:'2026-09-30T21:00:00Z',contextTokens:1000000,maxOutputTokens:10000,inputUsdPerMillion:.01,outputUsdPerMillion:.01}],
     paidExecutor:async () => ({ ok:true,providerRequestId:'provider-call-1',observedModel:'test/model',provider:'openrouter',usage:{} }) });
   await runtime.preparePaidCall(call('bill-gap','WORKER',10000));
-  const r=await runtime.dispatchPaidCall('bill-gap',{ model:'test/model',task:{taskId:'bill-gap'},costCeilingCents:1,maxTokens:20 });
+  const r=await runtime.dispatchPaidCall('bill-gap',{ model:'test/model',task:{taskId:'bill-gap'},costCeilingCents:1,maxTokens:20,inputTokenCeiling:2048 });
   assert.equal(r.status,'OBSERVED_BILL_REQUIRED_RESERVATION_HELD');
   assert.equal((await runtime.snapshot()).budget.reservedMicrousd,10000);
 });

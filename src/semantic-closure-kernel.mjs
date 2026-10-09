@@ -39,6 +39,10 @@ export function canonicalSemanticJson(value) {
   return encoded;
 }
 export const semanticHash = value => createHash('sha256').update(canonicalSemanticJson(value)).digest('hex');
+// Self-certifying records hash every field except the one that stores the hash.
+// The field is omitted, not set to undefined: undefined is a lossy value that
+// canonicalSemanticJson rightly refuses, so `{...record, hash: undefined}` always throws.
+export const semanticHashWithout = (value, key) => { const { [key]: _omitted, ...rest } = value; return semanticHash(rest); };
 export const semanticProgramHash = artifact => semanticHash({ nodes: artifact.nodes.map(({ value, certificate, ...node }) => node), claims: artifact.claims.map(({ id, nodeId }) => ({ id, nodeId })) });
 const equal = (a, b) => canonicalSemanticJson(a) === canonicalSemanticJson(b);
 const result = (ok, status, reasonCodes = [], extra = {}) => ({

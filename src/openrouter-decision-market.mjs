@@ -1,4 +1,5 @@
 import { semanticHash } from './semantic-closure-kernel.mjs';
+import { perTokenUsdToPerMillion } from './infinite-opus-market.mjs';
 
 export const OPENROUTER_JEV_MODEL='typesafe/jev-1.13';
 export const OPENROUTER_JEV_MODEL_PAGE='https://openrouter.ai/typesafe/jev-1.13/api';
@@ -21,11 +22,8 @@ const numberFrom=(text,re)=>{
   return Number.isFinite(n)&&n>=0?n:null;
 };
 
-const perTokenRate=value=>{
-  if(typeof value!=='string'||!/^\d+(?:\.\d+)?$/.test(value))return null;
-  const n=Number(value)*1e6;
-  return Number.isFinite(n)&&n>=0?n:null;
-};
+// Exact decimal shift; Number(value)*1e6 turned '0.00000005' into 0.049999999999999996.
+const perTokenRate=perTokenUsdToPerMillion;
 
 export function compileOpenRouterJevEndpointPriceRecord(payload,{verifiedAt,ttlMs=10*60*1000}={}){
   const at=Date.parse(verifiedAt);

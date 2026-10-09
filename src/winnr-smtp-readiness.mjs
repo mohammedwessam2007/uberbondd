@@ -10,7 +10,11 @@ const parseOrdinals=value=>new Set(String(value||'').split(',').map(Number).filt
 const isOwnProbePause=health=>health?.paused===true&&String(health?.pauseReason||'')===SMTP_PROBE_FAILURE_PAUSE_REASON;
 const hardProtectivePause=health=>health?.paused===true&&!isOwnProbePause(health);
 const providerCallCount=probe=>{
-  const n=Number(probe?.providerCalls);
+  // Unknown stays unknown: Number(null) and Number('') are 0, which would turn a
+  // probe that threw mid-session into a claim that the provider was never contacted.
+  const raw=probe?.providerCalls;
+  if(raw===null||raw===undefined||(typeof raw==='string'&&!raw.trim()))return null;
+  const n=Number(raw);
   return Number.isInteger(n)&&n>=0?n:null;
 };
 const responseCode=value=>Number.isInteger(Number(value))?Number(value):null;

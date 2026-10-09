@@ -1,4 +1,4 @@
-import { semanticHash } from './semantic-closure-kernel.mjs';
+import { semanticHash, semanticHashWithout } from './semantic-closure-kernel.mjs';
 import { executeDecisionFranchise } from './decision-franchise.mjs';
 
 const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
@@ -22,13 +22,13 @@ export function compileGhostAgentFromFranchise({
     idleInferenceRequired:false,
     externalEffectAuthority:'NONE'
   };
-  ghost.ghostHash=semanticHash({...ghost,ghostHash:undefined});
+  ghost.ghostHash=semanticHashWithout(ghost,'ghostHash');
   return ghost;
 }
 
 export function executeGhostAgent({ghost,event,currentContext,now=Date.now(),semanticCanonicalizers={}}={}){
   try{
-    if(ghost?.schemaVersion!=='uberbond.ghost-agent.v1'||ghost.ghostHash!==semanticHash({...ghost,ghostHash:undefined}))throw new Error('untampered-ghost-agent-required');
+    if(ghost?.schemaVersion!=='uberbond.ghost-agent.v1'||ghost.ghostHash!==semanticHashWithout(ghost,'ghostHash'))throw new Error('untampered-ghost-agent-required');
     if(!plain(event)||!id(event.eventId)||!id(event.type))throw new Error('typed-event-required');
     if(event.type!==ghost.eventType)return {
       ok:true,status:'GHOST_AGENT_SLEEP',eventId:event.eventId,

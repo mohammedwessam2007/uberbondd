@@ -131,7 +131,10 @@ test('owner settings cannot mint provider-origin payment readiness', () => {
   const paypal = paymentRailsFromSnapshot(s, env).find(r => r.provider === 'paypal');
   assert.notEqual(paypal.state, 'LIVE_READY');
   assert.equal(paypal.liveReady, false);
-  assert.equal(paypal.evidenceBinding, 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND');
+  // PayPal is now permanently deactivated, which overrides the binding; the
+  // doctor's own verdict underneath must still refuse to treat settings as receipts.
+  assert.equal(paypal.evidenceBinding, 'OWNER_PROVIDER_ACCOUNT_UNAVAILABLE');
+  assert.equal(paypal.diagnosticState, 'LIVE_VERIFICATION_REQUIRED');
   const deal = dealFromSnapshot(s, 'lead1', env);
   assert.equal(deal.paymentPath.ok, false);
   assert.equal(deal.paymentPath.outboundAuthority, 'NONE');
@@ -159,7 +162,8 @@ test('current collection route policy surfaces Contra and never resurrects deact
   const xpay = rails.find(r => r.provider === 'xpay');
   const payoneer = rails.find(r => r.provider === 'payoneer');
 
-  assert.equal(contra.state, 'ACCOUNT_SETUP_PENDING');
+  // Since #1253 the state is computed from a current account observation; with none bound it is not set-up-pending, it is unobserved.
+  assert.equal(contra.state, 'ACCOUNT_OBSERVATION_REQUIRED');
   assert.equal(contra.liveReady, false);
   assert.equal(contra.criticalPath, true);
   assert.deepEqual(contra.evidenceRefs, ['docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md']);

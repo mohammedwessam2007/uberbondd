@@ -1,4 +1,4 @@
-import { semanticHash, impactedSemanticNodes } from './semantic-closure-kernel.mjs';
+import { semanticHash, impactedSemanticNodes, semanticHashWithout } from './semantic-closure-kernel.mjs';
 
 const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const digest=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
@@ -29,12 +29,12 @@ export function createLivingEvidenceGraph({nodes,roots,qualityContractHash,crown
   for(const node of nodes)visit(node.id);
   impactedSemanticNodes(nodes,[]);
   const graph={schemaVersion:'uberbond.living-evidence-graph.v1',qualityContractHash,crownRevision,createdAt,nodes:structuredClone(nodes),roots:structuredClone(roots)};
-  graph.graphHash=semanticHash({...graph,graphHash:undefined});
+  graph.graphHash=semanticHashWithout(graph,'graphHash');
   return graph;
 }
 
 export function planLivingEvidenceDelta({graph,currentSourceHashes,currentCrownRevision=graph?.crownRevision}={}){
-  if(graph?.schemaVersion!=='uberbond.living-evidence-graph.v1'||graph.graphHash!==semanticHash({...graph,graphHash:undefined}))throw new Error('current-untampered-evidence-graph-required');
+  if(graph?.schemaVersion!=='uberbond.living-evidence-graph.v1'||graph.graphHash!==semanticHashWithout(graph,'graphHash'))throw new Error('current-untampered-evidence-graph-required');
   if(!plain(currentSourceHashes))throw new Error('current-source-hashes-required');
   const sourceNodes=graph.nodes.filter(n=>n.kind==='SOURCE');
   const changed=[];

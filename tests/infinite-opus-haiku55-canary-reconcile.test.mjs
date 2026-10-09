@@ -22,7 +22,7 @@ const storeWith=(status='DISPATCHED',receiptRef=null)=>{
     [stateKey]:{status:'FAILED_RECONCILIATION_REQUIRED_NO_RETRY',
       reason:'lossless-json-value-required',providerCallsPerformed:null},
     infiniteOpusRuntimeV1:{schemaVersion:INFINITE_OPUS_TASK_SCHEMA,version:0,ledger,
-      tasks:{},proofLedger:createProvableExecutionLedger({period:'2026-10'})}
+      tasks:{},receipts:[],proofLedger:createProvableExecutionLedger({period:'2026-10'})}
   };
   return{
     transaction:async fn=>fn({

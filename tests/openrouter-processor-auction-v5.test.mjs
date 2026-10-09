@@ -10,6 +10,11 @@ import { chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorR
 
 const cfg=JSON.parse(fs.readFileSync(new URL('../config/openrouter-processor-fabric-v5.json',import.meta.url),'utf8'));
 
+// The estimators add floating-point products, so a total that is 0.062551 on
+// paper can come back as 0.06255100000000001. Money is compared to a pico-dollar;
+// every economic claim below is unchanged, only exact float identity is not demanded.
+const assertUsd=(actual,expected)=>assert.ok(Math.abs(actual-expected)<1e-12,`expected ${expected} USD, got ${actual}`);
+
 test('processor fabric binds every model to a distinct structural role',()=>{
   const r=processorRolesFromConfig(cfg);
   assert.equal(r.control,'typesafe/jev-1.13');
@@ -105,8 +110,11 @@ test('MiMo compression path is considered only when source anchors and lossless 
     inputTokens:200000,expectedOutputTokens:2500,compressedEvidenceTokens:5000,
     compressionLosslessContract:true,sourceAnchorsRetained:true
   });
+  assert.equal(denied.candidates.some(x=>x.path==='MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS'),false);
   assert.equal(allowed.compressionEligible,true);
-  assert.equal(allowed.selected.path,'MIMO_COMPRESS_SOL_DEEPSEEK_OPUS');
+  // Compression is now considered; the fused variant of it wins on price (next test).
+  assert.equal(allowed.candidates.some(x=>x.path==='MIMO_COMPRESS_SOL_DEEPSEEK_OPUS'),true);
+  assert.equal(allowed.selected.path,'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS');
   const c=estimateCompressedFrontierUsd({originalInputTokens:200000,compressedEvidenceTokens:5000,builderOutputTokens:2500,redTeamOutputTokens:300});
   assert.ok(c < estimateDirectOpusUsd({freshInputTokens:200000,outputTokens:2500}));
 });
@@ -118,8 +126,8 @@ test('fused MiMo evidence+candidate path removes the separate Sol builder withou
   const fused=estimateFusedMimoFrontierUsd({
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:300
   });
-  assert.equal(oldPath,0.096851);
-  assert.equal(fused,0.062551);
+  assertUsd(oldPath,0.096851);
+  assertUsd(fused,0.062551);
   assert.ok(fused<oldPath);
   assert.ok(0.85/fused>13.58);
   const chosen=chooseFreshFrontierPath({
@@ -136,8 +144,8 @@ test('accepted canonical path uses output-token surgery for RedTeam PASS instead
   const compact=estimateFusedMimoFrontierUsd({
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6
   });
-  assert.equal(verbose,0.062551);
-  assert.equal(compact,0.06122212);
+  assertUsd(verbose,0.062551);
+  assertUsd(compact,0.06122212);
   assert.ok(compact<verbose);
   assert.ok(0.85/compact>13.88);
 });
@@ -151,8 +159,8 @@ test('JEV can omit low-value independent critic while Opus Crown remains mandato
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6,
     includeIndependentCritic:false
   });
-  assert.equal(withCritic,0.06122212);
-  assert.equal(withoutCritic,0.06022);
+  assertUsd(withCritic,0.06122212);
+  assertUsd(withoutCritic,0.06022);
   assert.ok(withoutCritic<withCritic);
   assert.ok(0.85/withoutCritic>14.11);
 });
@@ -188,7 +196,8 @@ test('theoretical writer lower bound proves when JEV/prework cannot beat direct 
   const low=cheapestPossibleWriterLowerBound({
     writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:100
   });
-  assert.equal(low.model,'xiaomi/mimo-v2.6-flash');
+  // DeepSeek's lower input tariff (.13 vs MiMo's .14 per million) dominates at 100k input tokens.
+  assert.equal(low.model,'deepseek/deepseek-v4.1-flash');
   assert.ok(low.usd>estimateDirectOpusUsd({freshInputTokens:100000,outputTokens:100}));
 });
 
@@ -252,7 +261,7 @@ test('exact metadata bypasses JEV when critic decision is already deterministic'
   assert.equal(p.run,false);
   assert.equal(p.reason,'SAME_LINEAGE_NO_INDEPENDENCE_GAIN');
   const allIn=0.0299+0.03012;
-  assert.equal(allIn,0.06002);
+  assertUsd(allIn,0.06002);
   assert.ok(0.85/allIn>14.16);
 });
 

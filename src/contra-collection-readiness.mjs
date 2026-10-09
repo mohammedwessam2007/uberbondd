@@ -1,4 +1,5 @@
 import { containsSecretValue } from './secret-patterns.mjs';
+import { ZERO_CONSEQUENCE_EFFECTS } from './effect-ledgers.mjs';
 
 const DAY_MS = 86_400_000;
 const FUTURE_SKEW_MS = 5 * 60 * 1000;
@@ -16,17 +17,6 @@ export const CONTRA_COLLECTION_STATES = Object.freeze([
   'ACCOUNT_REVIEW_PENDING',
   'COLLECTION_READY'
 ]);
-
-const ZERO_EXTERNAL_EFFECTS = Object.freeze({
-  customerMessages: 0,
-  providerCalls: 0,
-  spendCents: 0,
-  deployments: 0,
-  dnsChanges: 0,
-  credentialChanges: 0,
-  paymentMutations: 0,
-  productionMutations: 0
-});
 
 const safeText = (value, max = 300) => {
   const out = String(value ?? '').trim();
@@ -61,7 +51,7 @@ function base({ state, reasonCodes, observation = null, reference }) {
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
     paymentRequestAuthority: 'NONE',
-    externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS),
+    externalEffectLedger: structuredClone(ZERO_CONSEQUENCE_EFFECTS),
     truthBoundary: state === 'COLLECTION_READY'
       ? 'COLLECTION_READY_MEANS_THE_EXISTING_ACCOUNT_APPEARS_ABLE_TO_CONTRACT_AND_COLLECT__IT_IS_NOT_A_CLIENT_A_SENT_PAYMENT_REQUEST_CLEARED_CASH_OR_PAYOUT'
       : 'GENERAL_PROVIDER_CAPABILITY_OR_CONFIGURATION_NEVER_MINTS_COLLECTION_READY_WITHOUT_CURRENT_ACCOUNT_OBSERVATION'
@@ -190,7 +180,7 @@ export function summarizeContraCollectionReadiness(report = {}) {
     paymentRequestAuthority: 'NONE',
     businessEffectAuthority: 'NONE',
     externalEffectAuthority: 'NONE',
-    externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
+    externalEffectLedger: structuredClone(ZERO_CONSEQUENCE_EFFECTS)
   };
 }
 

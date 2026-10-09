@@ -299,6 +299,14 @@ export function verifyImplementationManifest({ manifest = [], repoIndex = {}, co
   return { ok: problems.length === 0, problems, byConcept };
 }
 
+/** The strongest entry point that reaches any of these source files, read from the repo index. */
+function reachabilityOf(refs, repoIndex = {}) {
+  return refs.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
+    : refs.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
+      : refs.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
+        : 'CLASSIFIED_OR_UNREACHABLE';
+}
+
 /**
  * Folds a verified declaration into discovered evidence.
  *
@@ -309,11 +317,7 @@ export function mergeDeclaredEvidence(evidence, declared, repoIndex = {}) {
   if (!declared) return evidence;
   const sources = [...new Set([...declared.sources, ...(evidence?.sources || [])])];
   const tests = [...new Set([...declared.tests, ...(evidence?.tests || [])])];
-  const reachabilityFor = refs => refs.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
-    : refs.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
-      : refs.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
-        : 'CLASSIFIED_OR_UNREACHABLE';
-  const declaredReachability = reachabilityFor(declared.sources);
+  const declaredReachability = reachabilityOf(declared.sources, repoIndex);
   return {
     sources,
     tests,
@@ -593,7 +597,9 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       currentEvidence: {
         sourceModules: boundSources,
         testModules: boundTests,
-        reachability: evidence.reachability,
+        // Enforcement sources are real modules, so their reachability is read
+        // from the index like any other; it is not assumed to be production.
+        reachability: evidence.reachability ?? (enforcement ? reachabilityOf(boundSources, repoIndex) : null),
         matchStrength: evidence.matchStrength,
         matchScope: evidence.matchScope,
         matchedPhrase: evidence.matchedPhrase,

@@ -85,9 +85,17 @@ export function compileVerifiedSemanticCanonicalizer({
     }
     const classes=new Map();
     for(const id of byId.keys()){const root=find(id);const members=classes.get(root)??[];members.push(id);classes.set(root,members);}
+    // A rewrite receipt points from a form toward its target, so the canonical
+    // member is a target that nothing rewrites away from. Picking the smallest id
+    // regardless of direction made the result depend on how ids happen to sort:
+    // 'country.united-states' < 'country.us' sent "US" to "United States".
+    // Id order remains only as a deterministic tie-break among such sinks.
+    const rewrittenAway=new Set(rewriteReceipts.map(receipt=>receipt.from));
     const canonicalById=new Map();
     for(const members of classes.values()){
-      members.sort();const canonical=members[0];
+      members.sort();
+      const sinks=members.filter(id=>!rewrittenAway.has(id));
+      const canonical=(sinks.length?sinks:members)[0];
       for(const id of members)canonicalById.set(id,canonical);
     }
     const canonicalizerHash=hash({

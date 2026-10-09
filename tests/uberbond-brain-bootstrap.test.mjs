@@ -11,6 +11,9 @@ import {
   EXTERNAL_CAPABILITY_REGISTRY_PATH,
   CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
   CAPABILITY_GENOME_ATOM_TAXONOMY_PATH,
+  CAPABILITY_GENOME_CORPUS_STATE_PATH,
+  CAPABILITY_GENOME_BODY_CORPUS_STATE_PATH,
+  CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH,
   EVENT_HORIZON_PATH,
   WORLD_BRAIN_FIELD_MISSION_PATH,
   WORLD_BRAIN_FIELD_PARTNERS_PATH,
@@ -20,6 +23,9 @@ import { SUPPORTED_BOOTSTRAP_SCHEMAS } from '../src/uberbond-brain-context.mjs';
 
 const sourceRoot = path.resolve(new URL('..', import.meta.url).pathname);
 const sourceCommit = 'b894a4cfae8acddd6170095f2373f339ff65f15c';
+// Since 0fdfb142 the loader checks the Genome against the committed Aug/Sep pilot
+// binding, so a fixture without those three files fails before any other check runs.
+const PILOT_GENOME_PATHS = [CAPABILITY_GENOME_CORPUS_STATE_PATH, CAPABILITY_GENOME_BODY_CORPUS_STATE_PATH, CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH];
 
 function buildFixture(mutator = null) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'uberbond-brain-fixture-'));
@@ -45,6 +51,7 @@ function buildFixture(mutator = null) {
     WORLD_BRAIN_FIELD_MISSION_PATH,
     WORLD_BRAIN_FIELD_PARTNERS_PATH,
     WORLD_BRAIN_FIELD_CORPUS_PATH,
+    ...PILOT_GENOME_PATHS,
     ...bootstrap.canonPointers
   ])) {
     const absolute = path.join(root, relative);
@@ -61,6 +68,7 @@ function buildFixture(mutator = null) {
     else if (relative === WORLD_BRAIN_FIELD_MISSION_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldMission, null, 2));
     else if (relative === WORLD_BRAIN_FIELD_PARTNERS_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldPartners, null, 2));
     else if (relative === WORLD_BRAIN_FIELD_CORPUS_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldCorpus, null, 2));
+    else if (PILOT_GENOME_PATHS.includes(relative)) fs.copyFileSync(path.join(sourceRoot, relative), absolute);
     else fs.writeFileSync(absolute, `fixture for ${relative}\n`);
   }
   return root;
@@ -68,7 +76,8 @@ function buildFixture(mutator = null) {
 
 test('one-command loader validates actual bootstrap, reconciled memory, and external capability pack into a zero-effect startup packet', () => {
   const root = buildFixture();
-  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, now: '2026-08-29T05:05:00Z' });
+  // After the 2026-08-31..09-01 Genome pilot: an earlier clock correctly reads that evidence as future-dated.
+  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, now: '2026-09-02T05:05:00Z' });
   assert.equal(packet.project, 'UberBond');
   assert.equal(packet.sourceCommit, sourceCommit);
   assert.match(packet.contextDigest, /^[a-f0-9]{64}$/);
@@ -84,7 +93,12 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.equal(packet.capabilityGenome.sourceCount, 10);
   assert.equal(packet.capabilityGenome.rawCandidateCount, 8);
   assert.equal(packet.capabilityGenome.activeCapabilityCount, 0);
-  assert.equal(packet.capabilityGenome.corpusTruth, 'SEED_SUPPLIER_REGISTRY_ONLY__NO_WORLD_CORPUS_IMPORTED');
+  // The startup packet now carries the committed pilot, so its truth is the
+  // measured ladder in docs/CAPABILITY_GENOME_CANON.md -- and still nothing promoted.
+  assert.equal(packet.capabilityGenome.corpusTruth, 'MEASURED_WORLD_CAPABILITY_RECORDS_NORMALIZED__NOT_DEDUPED_NOT_SECURITY_REVIEWED_NOT_ELIGIBLE_NOT_PROMOTED');
+  assert.equal(packet.capabilityGenome.worldRepositoryCandidateCount, 30);
+  assert.equal(packet.capabilityGenome.worldCapabilityRecordsNormalized, 2);
+  assert.equal(packet.capabilityGenome.approvedCapabilityCount, 0);
   assert.equal(packet.wallbreaker.status, 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE');
   assert.equal(packet.wallbreaker.policyVersion, 'wallbreaker-1.1.1');
   assert.equal(packet.wallbreaker.businessEffectAuthority, 'NONE');

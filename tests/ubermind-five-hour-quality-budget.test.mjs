@@ -85,7 +85,9 @@ test('W33 inferior quality or unaccepted work cannot be called cost success',()=
 test('W33 no paid API plus subscription-only flag is strict',()=>{
  const a=args();a.candidate.paidExternalApiUsd:.00001;
  assert.equal(compare(a).ok,false);
- assert.equal(compare({...args(),noSeparatePaidInferenceAttested:false}).ok,false);
+ const missingBudgetAttestation=args();
+ missingBudgetAttestation.noSeparatePaidInferenceAttested=false;
+ assert.equal(compare(missingBudgetAttestation).ok,false);
 });
 test('W33 candidate using more usage is surfaced as regression, never victory',()=>{
  const a=args();a.baseline.usageAfterPercent=40;

@@ -1,0 +1,61 @@
+flowchart TD
+ FOUNDER["Founder will: Wessam Singularity → Sovereign Cognitive Continuum"] --> TASK["One accepted task / goal / coding mission"]
+ GENOME["Original 890 ideas: 10 immutable indexed shards"] -. "Retrieve only relevant literal donors" .-> CONTEXT
+ GENESIS["GENESIS proposals beyond #0890"] -. "Hypotheses, not certified solutions" .-> CONTEXT
+ MEMORY["Total Brain / PHOENIX / mistakes / accepted patches"] -. "Compressed facts + source SHA" .-> CONTEXT
+ SKILLS["Capability Genome / native tools / tests / sandboxes"] -. "Minimum sufficient capability" .-> CONTEXT
+ TASK --> CONTEXT["Context compiler: goal, source SHA, quality contract, stage, risks, owner authority"]
+ CONTEXT --> FUEL{"Pro session and weekly usage available? Check /status"}
+ FUEL -- "No" --> STOP["No paid fallback: save checkpoint and wait for legitimate reset"]
+ FUEL -- "Yes" --> EX{"Can E0–E4 exact code, cached accepted output, solver or tests finish?"}
+ EX -- "Yes" --> DETER["Execute verified deterministic work: $0 fresh Claude or Jev inference"]
+ EX -- "No" --> ROUTE{"Typed bounded decision needs actual Jev?"}
+ ROUTE -- "Yes" --> AUTHJ{"Existing independent Jev API authorization, balance, scope and budget?"}
+ AUTHJ -- "Yes" --> JEV["Jev 1.13: NOUL / CHOICE / SCORE; exact tensor coalescing; price $0.042/M input"]
+ AUTHJ -- "No" --> STATIC["Rules-based routing; no claim that Jev was invoked"]
+ JEV --> JEVSTATE["W11–W22 scoped reuse, single-flight, global fresh spend cap, source truth, unknown dispatch hold"]
+ JEVSTATE --> QUALITY{"Bounded / independently valid answer sufficient?"}
+ QUALITY -- "Yes" --> DETER
+ QUALITY -- "No / unknown" --> TIER
+ ROUTE -- "No" --> TIER
+ STATIC --> TIER
+ TIER{"How much actual cognition is justified?"}
+ TIER -- "Routine / specified" --> SON["Sonnet 5.5: medium/high; one primary builder in Claude Pro"]
+ TIER -- "Scout needed" --> HAI["Haiku 5.5: bounded read-only mapping and retrieval on Pro"]
+ TIER -- "Novel / irreversible architecture" --> OP["Opus 5.5: high/xhigh one clean architecture baseline on Pro if available"]
+ OP --> PLAN["Source-bound spec / contracts / file ownership / acceptance tests"]
+ HAI --> PLAN
+ PLAN --> MODE{"Independent parallel work reduces risk enough to justify quota?"}
+ MODE -- "No" --> SON
+ MODE -- "Yes" --> TEAM["Optional Agent Team: 1 lead + max 2 focused teammates; stop when idle"]
+ TEAM --> BUILD["Builder Sonnet: isolated worktree / bounded owned paths"]
+ TEAM --> ADV["Tester Sonnet: independent hostile tests, never approve own code"]
+ SON --> BUILD
+ BUILD --> P2P["Peer messages = typed receipts, not authority; no competing writes"]
+ ADV --> P2P
+ P2P --> REVIEW["Crown review: Opus only unresolved semantic or high-stakes deltas"]
+ REVIEW --> OUT
+ DETER --> OUT["Reality Court: tests, source, diff, conflicts, regression, secrets"]
+ OUT --> GATE{"Accepted output + effect authority?"}
+ GATE -- "No" --> HOLD["Quarantine / repair / block; report unknowns"]
+ GATE -- "Yes, internal" --> FINAL["Deliver accepted artifact, exact commit, tests, citations"]
+ GATE -- "External effect requires approval" --> OWNER["Existing specific authorization + consequence budget + CI"]
+ OWNER -- "Authorized" --> DEPLOY["Governed PR, merge, deploy, reconcile actual effects"]
+ OWNER -- "Not authorized" --> HOLD
+ DEPLOY --> FINAL
+ FINAL --> LEARN["Proof / Error / Prediction Accounting / Compression / PHOENIX"]
+ LEARN -. "Safe certified code and scoped reuse only" .-> EX
+ LEARN -. "Task-class model improvements" .-> TIER
+ LEARN -. "New idea lineage" .-> GENESIS
+ EXTERNAL["Other models: Sol, Astra, MiMo, GLM, DeepSeek, Gemini, Qwen; SEPARATE entitlement"] -. "Only if already authorized; never Pro-funded" .-> REVIEW
+ PREMIUM["Fable 5.1: PAY-AS-YOU-GO on Claude Pro; DISABLED in $20-only mode"] -. "Do not auto-route" .-> STOP
+ classDef free fill:#e8f6ee,stroke:#198754,color:#144832
+ classDef budget fill:#fff1d6,stroke:#b77914,color:#604116
+ classDef model fill:#e9edff,stroke:#5c64a6,color:#263167
+ classDef refusal fill:#fee5e5,stroke:#b83434,color:#6a1515
+ classDef foundation fill:#e6f2ff,stroke:#3c79a8,color:#183e68
+ class EX,DETER,OUT,FINAL,LEARN free
+ class FUEL,ROUTE,AUTHJ,QUALITY,TIER,MODE,GATE,OWNER budget
+ class JEV,JEVSTATE,STATIC,SON,HAI,OP,PLAN,TEAM,BUILD,ADV,P2P,REVIEW model
+ class STOP,HOLD,PREMIUM refusal
+ class FOUNDER,GENOME,GENESIS,MEMORY,SKILLS,TASK,CONTEXT,EXTERNAL foundation

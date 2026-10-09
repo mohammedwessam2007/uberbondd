@@ -1,0 +1,49 @@
+flowchart TB
+  USER(["NORMAL CLAUDE TASK • MAXIMUM ACCEPTED QUALITY • MINIMUM SUBSCRIPTION USAGE"]) --> DIR["UBERMIND Ω15 • ONE ACCOUNTABLE LEAD<br/>Claude Pro subscription • no extra API money"]
+  NORTH["WESSAM SINGULARITY • SOVEREIGN COGNITIVE CONTINUUM<br/>PERSONAL CIVILIZATION • UBERBOND • UBERMIND"] -. "Mission and permissions" .-> DIR
+  BRAIN["ALL 890 ORIGINAL FOUNDER IDEAS + GENESIS<br/>TOTAL BRAIN + PHOENIX + CAPABILITY GENOME<br/>NEGATIVE KNOWLEDGE + SOURCE/FAILURE PROVENANCE"] -. "Scoped source evidence, original corpus retained" .-> CONTRACT
+  DIR --> CONTRACT["1. LOCK TASK / QUALITY / SOURCE CONTRACT<br/>Identical acceptance suite + SHA • exact required frontier quality"]
+  CONTRACT --> EVIDENCE["2. NATIVE PRECHECK: VERIFY REAL EXACT REUSE<br/>E0–E4 • source verifier • AST/test/database<br/>Cognitive multicast • decision DAG incremental rebuild"]
+  EVIDENCE --> REUSE{"CERTIFIED EXACT ANSWER OR SUBTASK?"}
+  REUSE -- YES --> EXEC["Execute trusted deterministic procedure<br/>ZERO NEW MODEL SUBAGENTS for matching work"]
+  REUSE -- NO --> DIFF["3. IRREDUCIBLE SEMANTIC RESIDUAL<br/>Only changed sources/claims • no full history resends"]
+  DIFF --> JEV["4. JEV-STYLE LOCAL ROUTER<br/>NOUL / CHOICE / SCORE • scoped W11–W22 concepts<br/>Paid Jev provider requires separate authorization"]
+  JEV --> TASK{"5. SMALLEST MODEL THAT PROVES QUALITY?"}
+  TASK -- "Bounded read-only evidence lookup" --> SCOUT["HAIKU 5.5 SCOUT<br/>max 6 turns • Read/Grep/Glob<br/>compact source receipt only"]
+  TASK -- "Clear implementation contract" --> BUILDER["SONNET 5.5 SOLO BUILDER<br/>One worktree • code + narrow tests"]
+  TASK -- "Novel/high-consequence reasoning" --> OPUS["OPUS 5.5 FRONTIER ARCHITECT<br/>High-effort irreducible reasoning"]
+  SCOUT --> PLAN["6. SOURCE-BOUND TASK DAG<br/>Exact interfaces + owned files + tests"]
+  OPUS --> PLAN
+  PLAN --> FAN{"DO WE REALLY NEED AN AGENT TEAM?<br/>Count ALL coordinator + retry tokens"}
+  FAN -- "NO / UNKNOWN" --> BUILDER
+  FAN -- "YES, quality or value justifies" --> PEERS["OPTIONAL PARALLEL TEAM<br/>Sonnet independent builder/validator<br/>Haiku source scout, Opus only on difficult facts<br/>Each full prompt + output gets counted"]
+  PEERS --> MERGE["7. MINIMUM DELTA BACK TO THE LEAD<br/>Failing assertion + diff + source and receipt"]
+  BUILDER --> MERGE
+  MERGE --> HARD{"QUALITY GAPS STILL PRESENT?"}
+  HARD -- YES --> OPUSREVIEW["OPUS 5.5 FINAL CROWN REVIEW<br/>Pay only on genuinely unresolved frontier delta"]
+  HARD -- NO --> COURT
+  OPUSREVIEW --> COURT["8. REALITY COURT: ACCEPTED QUALITY OR REJECT<br/>Independent holdouts • security • source • permissions"]
+  EXEC --> COURT
+  COURT --> ACCEPT{"QUALITY ≥ ALL-OPUS REFERENCE?"}
+  ACCEPT -- NO --> HOLD["Repair or run necessary full Opus<br/>Cheap but wrong means NO saving"]
+  HOLD --> OPUS
+  ACCEPT -- YES --> OUTPUT["9. VERIFIED DELIVERABLE + PHOENIX CRYSTALLIZATION<br/>Proof/Error/Prediction/Civilization Git • reusable guarded circuit"]
+  OUTPUT -. "Certified matching future task" .-> REUSE
+  OUTPUT --> ACC["10. **ALL-IN MODEL COST ACCOUNTANT**<br/>Direct Opus + Sonnet + Haiku usage<br/>+ EVERY subagent, verifier, retry, reconciling turn<br/>− ONLY independently certified native reuse"]
+  ACC --> PRICE["REFERENCE API PROXY: 1M input + 200K output = $8 Opus<br/>Mix 20/50/30 = $3.66 before source reuse + subagents"]
+  PRICE --> SCENARIOS["W37 EXPLICIT SIX-AGENT-CALL OVERHEAD = $0.2512<br/>4 Haiku short scouts + 1 Sonnet verifier + 1 Opus reviewer<br/>Reuse 40%: $2.4472 / 69.41% below baseline<br/>Reuse 60%: $1.7152 / 78.56% below baseline<br/>Reuse 80%: $0.9832 / 87.71% below baseline"]
+  SCENARIOS --> FLOOR["NEED ≈85.01% CERTIFIED REUSE FOR 90% PRICE CUT<br/>NEED ≈95.93% CERTIFIED REUSE FOR 95% CUT<br/>Both CONDITIONAL • same accepted quality NOT proven"]
+  FLOOR --> QUOTA["ACTUAL CLAUDE PRO $20 MONTHLY BILL UNCHANGED<br/>Real 5-hour / weekly usage: UNKNOWN until authenticated /usage<br/>API list tariffs are NOT subscription quota conversions"]
+  QUOTA -. "Only accepted matched task+usage receipts can promote route" .-> TASK
+  classDef models fill:#EFE5FF,stroke:#7655B0,color:#3D1B68
+  classDef reuse fill:#DEF5E7,stroke:#1A8458,color:#17482F
+  classDef gate fill:#FFF0D9,stroke:#BB801E,color:#603A0D
+  classDef money fill:#E2F3FA,stroke:#327EAA,color:#194660
+  classDef anchor fill:#E9F0FF,stroke:#456AA1,color:#193A63
+  classDef reject fill:#FFE4E9,stroke:#B94B5C,color:#6B2432
+  class SCOUT,BUILDER,OPUS,PEERS,OPUSREVIEW models
+  class EVIDENCE,EXEC,DIFF,JEV,PLAN,MERGE,COURT,OUTPUT reuse
+  class REUSE,TASK,FAN,HARD,ACCEPT gate
+  class ACC,PRICE,SCENARIOS,FLOOR,QUOTA money
+  class USER,DIR,NORTH,BRAIN,CONTRACT anchor
+  class HOLD reject

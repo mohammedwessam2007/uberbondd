@@ -1,0 +1,34 @@
+flowchart TD
+  P["USER PROMPT: normal Claude or Claude Code"] --> MAIN["UBERMIND OMEGA 6: SONNET MAIN SESSION"]
+  BRAIN["890 IDEAS + GENESIS + TOTAL BRAIN + PHOENIX"] --> CTX
+  MAIN --> CTX["Selective context and acceptance contract"]
+  CTX --> EXACT{"Existing verified answer or code?"}
+  EXACT -- Yes --> CODE["Deterministic workflow / trusted reuse"]
+  EXACT -- No --> JD{"Typed decision and separate Jev authorization?"}
+  JD -- Yes --> JEV["JEV 1.13: NOUL / CHOICE / SCORE / BOUNDED TENSOR"]
+  JD -- No --> ROUTER["Local rule-based task routing"]
+  JEV --> ROUTER
+  ROUTER --> HARD{"Complexity and risk?"}
+  HARD -- Routine --> SONNET["SONNET 5.5: primary engineer"]
+  HARD -- Scout --> HAIKU["HAIKU 5.5: short read-only subagent"]
+  HARD -- Deep --> OPUS["OPUS 5.5: architecture advisor ON CALL"]
+  OPUS --> SPEC["Versioned spec / ownership / acceptance tests"]
+  HAIKU --> SPEC
+  SPEC --> TEAM{"Worth parallel usage?"}
+  TEAM -- No --> SONNET
+  TEAM -- Yes --> WORK["Sonnet builder + independent verifier / bounded worktrees"]
+  WORK --> SCRIPT["Scripted task DAG / peer receipts / diff ownership"]
+  SONNET --> SCRIPT
+  SCRIPT --> DELTA["Distill unresolved claims; no full-context duplication"]
+  DELTA --> RISK{"Frontier uncertainty remains?"}
+  RISK -- Yes --> REVIEW["OPUS 5.5: final residual review"]
+  RISK -- No --> COURT["REALITY COURT: tests, security and proof"]
+  REVIEW --> COURT
+  CODE --> COURT
+  COURT --> ACTION{"Result accepted and effects authorized?"}
+  ACTION -- Yes --> RELEASE["Deliver / approved PR / verified deployment"]
+  ACTION -- No --> HOLD["Hold / repair / owner-only authorization"]
+  RELEASE --> MEMORY["Proof and error accounting / PHOENIX / future reuse"]
+  MEMORY --> EXACT
+  FABLE["Fable 5.1 PAYG on Pro: disabled"] --> HOLD
+  PRO["$20 Claude Pro: limited shared quota, no separate API credits"] --> MAIN

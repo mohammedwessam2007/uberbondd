@@ -1,0 +1,57 @@
+flowchart TB
+  FOUNDER["01 • FOUNDER WILL + NORMAL PROMPT"] --> ROOT["UBERMIND Ω16 • OPTIMAL-PRESSURE GRAPH<br/>Highest accepted intelligence ÷ smallest total Claude Pro usage"]
+  META["WESSAM SINGULARITY → SOVEREIGN CONTINUUM<br/>PERSONAL CIVILIZATION → UBERBOND → UBERMIND<br/>890 ORIGINAL IDEAS + GENESIS + TOTAL BRAIN + PHOENIX<br/>CAPABILITY GENOME + NEGATIVE KNOWLEDGE"] -. "Task-specific immutable source pointers" .-> ROOT
+  ROOT --> CONTRACT["02 • CONTRACT LOCK<br/>Input + source digest • expected output • independent quality rubric<br/>Risk class • action authority • available session allowance"]
+  CONTRACT --> CHANGED["03 • DELTA-FIRST CONTEXT GRAPH<br/>W30 HOT18 • source path filter • AST/LSP/grep<br/>Read only unresolved facts; no history replay"]
+  CHANGED --> SOLVED{"04 • E0–E4 EXACT SOURCE REUSE?<br/>Task/source/rubric/scope/freshness match"}
+  SOLVED -- "Full task solved" --> NATIVE["DETERMINISTIC ZERO-FRESH-INFERENCE DELIVERY<br/>Script / verified source work / native tests<br/>NO SCOUTS • NO REVIEW AGENTS • NO OPUS"]
+  SOLVED -- "Partially reusable" --> DAG["05 • COGNITIVE COMPILER<br/>Semantic common-subexpression elimination<br/>Decision DAG incremental rebuild<br/>Cognitive multicast • negative knowledge"]
+  DAG --> TYPED["06 • LOCAL JEV-STYLE TYPED ROUTER<br/>NOUL • CHOICE • SCORE • W11–W22 guarded concepts<br/>Paid JEV disabled under existing $20 Pro"]
+  TYPED --> NEED{"07 • RESIDUAL QUALITY PRESSURE"}
+  NEED -- "Native tools solve" --> NATIVE
+  NEED -- "Well-specified bounded task" --> SONNET["SONNET 5.5 • SOLO IMPLEMENTER<br/>Quality-targeted code • tools • minimal logs"]
+  NEED -- "Only short source scan needed" --> HAIKU["HAIKU 5.5 • ONE SOURCE SCOUT<br/>Read/Grep/Glob • max six turns<br/>Compact path+line+digest receipt"]
+  NEED -- "Novel architecture / high-consequence" --> OPUS["OPUS 5.5 • FRONTIER CROWN<br/>Highest reasoning needed, never downgraded for price"]
+  HAIKU --> SCOPED["08 • PROOF-CARRYING TASK DAG<br/>Source receipt • typed input/output • owned files<br/>No duplicated agent prompts"]
+  OPUS --> SCOPED
+  SCOPED --> TEAM{"09 • IS A TEAM TRULY REQUIRED?"}
+  TEAM -- "No / uncertain • default" --> SONNET
+  TEAM -- "Yes • independent contracts justify total usage" --> PEERS["BOUNDED PARALLEL WORKTREES<br/>Sonnet builder / narrow Haiku scout<br/>P2P receipts • real file-ownership guards"]
+  PEERS --> MERGE["10 • MERGE ONLY VERIFIED SEMANTIC DELTAS<br/>Changed file • failing test • unresolved contradiction"]
+  SONNET --> MERGE
+  MERGE --> QUICK["11 • LOCAL REALITY CHECK<br/>AST / types / tests / policy / sources"]
+  QUICK --> RISK{"12 • INDEPENDENT VALIDATION REQUIRED<br/>BY QUALITY / SECURITY RISK?"}
+  RISK -- "Native proof sufficient" --> COURT
+  RISK -- "Hard disputed claim / unresolved risk" --> REVIEW["OPUS 5.5 ON-DEMAND ADVERSARIAL REVIEW<br/>Only source-bound disputed delta • not full transcript"]
+  RISK -- "Separate independent model essential" --> VERIFY["SONNET 5.5 CONDITIONAL VERIFIER<br/>One bounded call, only if quality floor demands"]
+  REVIEW --> COURT
+  VERIFY --> COURT["13 • REALITY COURT<br/>Full source/rubric acceptance • independent test evidence"]
+  QUICK --> COURT
+  NATIVE --> COURT
+  COURT --> ACCEPT{"QUALITY ≥ REFERENCE?"}
+  ACCEPT -- "No" --> REPAIR["TARGETED REPAIR / RESTORE FULL OPUS<br/>Cheap but incorrect is strictly worse"]
+  REPAIR --> OPUS
+  ACCEPT -- "Yes" --> DONE["14 • ACCEPTED GOVERNED OUTPUT"]
+  DONE --> PHOENIX["15 • PHOENIX COMPOUND INTEREST<br/>Certify reusable code/proof • preserve failures<br/>Capability Genome learning • never delete original 890"]
+  PHOENIX -. "Exact task match = no repeat inference" .-> SOLVED
+
+  DONE --> ECON["16 • ALL-IN ECONOMICS<br/>Main + scout + validation + Opus + retries + coordinator<br/>Savings only if same accepted quality and full meter"]
+  ECON --> OLD["Ω15 FIXED SIX-CALL HYPOTHESIS<br/>Haiku ×4 + Sonnet ×1 + Opus ×1 = $0.2512 overhead"]
+  ECON --> NEW["Ω16 CONDITIONAL ONE-SCOUT HYPOTHESIS<br/>Haiku ×1 + Sonnet (35% trigger) + Opus (15% trigger)<br/>EXPECTED overhead $0.0588 • WORST $0.2428"]
+  NEW --> MATH["At same 20/50/30 mix, 60% source reuse:<br/>Ω15 $1.7152 → Ω16 expected $1.5228<br/>78.56% → 80.965% API-equivalent reduction"]
+  MATH --> FASTER["Optional more aggressive 10/50/40 role split<br/>$1.2108 = 84.865% modeled reduction<br/>ONLY if independent quality parity proven"]
+  FASTER --> QUOTA["Actual Claude Pro 5-hour/weekly savings: UNKNOWN<br/>Fixed $20/mo bill unchanged • API tariffs ≠ private quota<br/>No paid API • no fabricated 'LIVE' telemetry"]
+  QUOTA -. "Controlled accepted task + real /usage only" .-> NEED
+
+  classDef source fill:#E9F2FF,stroke:#4873B0,color:#18365C
+  classDef model fill:#EFE6FF,stroke:#7657B6,color:#3B206B
+  classDef green fill:#E0F5EA,stroke:#2A9661,color:#14502E
+  classDef gate fill:#FFF1DA,stroke:#BA7E20,color:#603B08
+  classDef caution fill:#FEE9ED,stroke:#B64B61,color:#6C2032
+  classDef cost fill:#E2F4FB,stroke:#3080A8,color:#184863
+  class FOUNDER,ROOT,META,CONTRACT,CHANGED,SCOPED,MERGE source
+  class SONNET,HAIKU,OPUS,PEERS,REVIEW,VERIFY model
+  class NATIVE,DAG,TYPED,QUICK,COURT,DONE,PHOENIX green
+  class SOLVED,NEED,TEAM,RISK,ACCEPT gate
+  class REPAIR caution
+  class ECON,OLD,NEW,MATH,FASTER,QUOTA cost

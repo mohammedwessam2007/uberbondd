@@ -29,6 +29,7 @@ const tests=[
   'tests/ubermind-five-percent-native-preflight.test.mjs',
   'tests/ubermind-55-family-subscription-price-proxy.test.mjs',
   'tests/ubermind-55-agent-mesh-total-cost.test.mjs',
+  'tests/ubermind-conditional-agent-optimizer.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',
   'tests/ubermind-public-workload-integrity.test.mjs',

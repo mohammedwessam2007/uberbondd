@@ -27,6 +27,7 @@ const tests=[
   'tests/ubermind-ultralean-skill.test.mjs',
   'tests/ubermind-five-percent-compression-gate.test.mjs',
   'tests/ubermind-five-percent-native-preflight.test.mjs',
+  'tests/ubermind-55-family-subscription-price-proxy.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',
   'tests/ubermind-public-workload-integrity.test.mjs',

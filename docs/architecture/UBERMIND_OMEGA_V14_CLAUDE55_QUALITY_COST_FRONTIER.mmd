@@ -1,0 +1,69 @@
+flowchart TB
+  USER(["YOUR TASK • One Claude Pro account • $20/month"]) --> CONTRACT["01 SOVEREIGN QUALITY CONTRACT<br/>Exact task/source SHA + accepted frontier-standard output<br/>Security • consequences • blind tests • no extra spending"]
+  BRAIN["WESSAM SINGULARITY / SOVEREIGN CONTINUUM<br/>PERSONAL CIVILIZATION / UBERBOND<br/>ALL ORIGINAL 890 IDEAS / GENESIS / TOTAL BRAIN<br/>PHOENIX / CAPABILITY GENOME / NEGATIVE KNOWLEDGE"] -. "retrieve minimum task-relevant verified pointers" .-> CONTRACT
+
+  subgraph ZERO["02 • COMPUTE BEFORE INFERENCE (0 ADDITIONAL MODEL CALLS FOR CERTIFIED SUBTASKS)"]
+    direction LR
+    SOURCE{"Valid matching<br/>E0–E4 source-bound proof?"}
+    EXACT["Native code • hashes • DB • AST • tests<br/>Existing verified answer • no new LLM inference"]
+    DELTA["Source-conditioned semantic DAG<br/>Common subexpression elimination<br/>Multicast • incremental recomputation"]
+    SOURCE -- YES --> EXACT
+    SOURCE -- NO --> DELTA
+  end
+  CONTRACT --> SOURCE
+  EXACT --> COURT
+  DELTA --> POLICY
+
+  subgraph ROUTING["03 • QUALITY-GUARDED 5.5 FAMILY ROUTER • THE REAL PRO ACCOUNT DECIDES ELIGIBILITY"]
+    direction LR
+    POLICY{"Residual task and model suitability<br/>No quality reduction for quota"}
+    HAIKU["HAIKU 5.5 • SOURCE SCOUT<br/>Short read-only retrieval / classification<br/>API proxy $0.10 in + $0.50 out / MTok<br/>Qualifying <=100K prompts"]
+    SONNET["SONNET 5.5 • MAIN ENGINEER<br/>Scoped code / implementation / tests<br/>API proxy $2 in + $10 out / MTok"]
+    OPUS["OPUS 5.5 • FRONTIER CROWN<br/>Novel architecture / hard reasoning / disputed quality<br/>API proxy $4 in + $20 out / MTok"]
+    POLICY -- "bounded discovery" --> HAIKU
+    POLICY -- "clear deliverable" --> SONNET
+    POLICY -- "frontier uncertainty" --> OPUS
+  end
+
+  HAIKU --> PACKET
+  SONNET --> PACKET
+  OPUS --> PACKET
+
+  PACKET["04 • MINIMAL SEMANTIC DELTA<br/>Source line + changed code + remaining hard claims<br/>Do not broadcast 890 originals or full chat transcripts"] --> TEAM{"Extra agents actually improve<br/>accepted work per full Pro usage?"}
+  TEAM -- "No / unknown: SOLO" --> COURT
+  TEAM -- "Yes, decomposable" --> PEERS["Optional scoped Sonnet verifier + Haiku scout<br/>Include coordination + retries in usage"]
+  PEERS --> COURT
+
+  COURT["05 • REALITY COURT<br/>Independent held-out quality + tests + provenance<br/>Same task • same rubric • required Opus-level intelligence"] --> PASS{"Same or higher<br/>accepted quality?"}
+  PASS -- NO --> REPAIR["Escalate unresolved failure to Opus<br/>Never call inferior output a saving"]
+  REPAIR --> OPUS
+  PASS -- YES --> ACCEPT["06 • ACCEPTED OUTPUT<br/>Governed artifact / code / verified effect"]
+  ACCEPT --> PHOENIX["07 • PHOENIX CRYSTALLIZATION<br/>Proof + error + future reusable procedures<br/>Original 890 and GENESIS preserved"]
+  PHOENIX -. "matching source and quality proof next time" .-> SOURCE
+
+  subgraph PRICE["08 • ACTUAL OFFICIAL TARIFF ARITHMETIC • PRO SUBSCRIPTION QUOTA NOT EQUIVALENT"]
+    direction TB
+    OPBASE["ALL OPUS REFERENCE<br/>1M input + 200K output = $8.00 API equivalent"]
+    MIX1["BALANCED HYPOTHESIS<br/>20% Opus / 50% Sonnet / 30% Haiku<br/>$3.66 • 54.25% theoretical API-price cut"]
+    MIX2["AGGRESSIVE HYPOTHESIS<br/>10% Opus / 30% Sonnet / 60% Haiku<br/>$2.12 • 73.50% theoretical API-price cut"]
+    FLOOR["ABSOLUTE SHORT-HAIKU TOKEN-PRICE FLOOR<br/>All Haiku = $0.20 • 97.5% lower than Opus<br/>NOT equal-quality or availability guarantee"]
+    OPBASE -.-> MIX1
+    OPBASE -.-> MIX2
+    OPBASE -.-> FLOOR
+  end
+  ACCEPT --> METER["09 • ACTUAL ACCOUNT BENCHMARK<br/>Five-hour + weekly usage + all agent/retry cost<br/>Same accepted task benchmark"]
+  METER --> PRO["PRO BILL: $20/month unchanged<br/>ACTUAL 5-HOUR USAGE SAVINGS: UNKNOWN<br/>No model/API tariff → private Pro-quota conversion"]
+  METER -. "separate research comparator only" .-> PRICE
+  PRO -. "promote only empirically verified task-class policy" .-> POLICY
+  classDef memory fill:#E9F3FF,stroke:#366AB1,color:#173257
+  classDef savings fill:#DFF8EB,stroke:#19865B,color:#17452D
+  classDef model fill:#EDE5FF,stroke:#7960BB,color:#3F2777
+  classDef gate fill:#FFF2DB,stroke:#B97D1C,color:#65400A
+  classDef caution fill:#FFE5E8,stroke:#C04656,color:#651D29
+  classDef economics fill:#E7F5FA,stroke:#2A7C9E,color:#154B64
+  class USER,CONTRACT,BRAIN,PACKET,PHOENIX memory
+  class EXACT,DELTA,COURT,ACCEPT savings
+  class HAIKU,SONNET,OPUS,PEERS model
+  class SOURCE,POLICY,TEAM,PASS gate
+  class REPAIR caution
+  class OPBASE,MIX1,MIX2,FLOOR,METER,PRO economics

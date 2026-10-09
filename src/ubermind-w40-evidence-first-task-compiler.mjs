@@ -45,6 +45,7 @@ export function compileUberMindTaskRoute({
  disjointWorktrees=false,
  matchedTeamEvidence=false,
  knownAcceptanceFailure=false,
+ nativeAcceptanceStatus='not-run',
  unresolvedFrontierContradiction=false,
  opusAvailable=true
 }={}){
@@ -53,6 +54,7 @@ export function compileUberMindTaskRoute({
  if(!enumIn(novelty,['routine','complex','frontier'])||
     !enumIn(risk,['low','material','critical'])||
     !enumIn(operation,['read','code','research','decision','side-effect'])||
+    !enumIn(nativeAcceptanceStatus,['not-run','passed','failed','inconclusive'])||
     !enumIn(authorization,['NONE','EXPLICIT_OWNER'])||
     !Number.isSafeInteger(independentSubtasks)||independentSubtasks<0||independentSubtasks>32||
     [disjointWorktrees,matchedTeamEvidence,knownAcceptanceFailure,
@@ -98,7 +100,7 @@ export function compileUberMindTaskRoute({
    gates.push('IF_REPLAY_FAILS_RECOMPILE_WITHOUT_REPLAY_CERTIFICATE');
    gates.push('RUN_RELEVANT_NATIVE_ACCEPTANCE_TESTS');
  }else{
-   gates.push('RETRIEVE_TASK_RELEVANT_890_GENESIS_TOTAL_BRAIN_PH0ENIX_POINTERS');
+   gates.push('RETRIEVE_TASK_RELEVANT_890_GENESIS_TOTAL_BRAIN_PHOENIX_POINTERS');
    gates.push('RUN_NATIVE_TESTS_AND_SOURCE_CHECKS_FIRST');
    const clearScout=scout&&scout.needed&&scout.readOnly&&
      operation!=='side-effect'&&scout.leadContextTokensAvoided>
@@ -108,7 +110,8 @@ export function compileUberMindTaskRoute({
      delegates.push({name:'ubermind-haiku-scout',model:'haiku',
        effort:'low',maxTurns:6,scope:'read-only-evidence',when:'bounded-source-overload'});
    }
-   if(knownAcceptanceFailure||risk==='material'){
+   if(knownAcceptanceFailure||nativeAcceptanceStatus==='failed'||
+     (risk==='material'&&nativeAcceptanceStatus==='inconclusive')){
      delegates.push({name:'ubermind-sonnet-falsifier',model:'sonnet',
        effort:'high',maxTurns:6,scope:'read-only-falsification',
        when:'material-regression-or-quality-risk'});
@@ -118,6 +121,8 @@ export function compileUberMindTaskRoute({
        effort:'high',maxTurns:8,scope:'read-only-hard-unknown',
        when:'source-grounded-irreducible-contradiction'});
    }
+   if(risk==='material'&&nativeAcceptanceStatus==='not-run')
+     gates.push('RECOMPILE_AFTER_NATIVE_TESTS_BEFORE_OPTIONAL_FALSIFIER');
    if(frontier)gates.push('KEEP_OPUS_PRIMARY_THROUGH_HARD_REASONING');
    else gates.push('ESCALATE_ONLY_RESIDUAL_FRONTIER_FAILURE_TO_OPUS');
    if(risk==='critical'||operation==='side-effect')

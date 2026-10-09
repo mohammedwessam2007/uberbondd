@@ -26,6 +26,16 @@ test('W40 already matched exact certificate does NOT claim success and requires 
  assert.ok(r.gates.includes('RUN_EXISTING_SOURCE_VERIFIER_AGAINST_LIVE_CHECKOUT'));
  assert.equal(r.delegates.length,0);
 });
+test('W40 failed acceptance or frontier contradiction invalidates exact replay certificate',()=>{
+ for(const flags of [
+  {nativeAcceptanceStatus:'failed'},
+  {knownAcceptanceFailure:true},
+  {unresolvedFrontierContradiction:true}
+ ]){
+   const r=route({...contract,sourceReplay:proof,...flags});
+   assert.equal(r.exactNativeReplayCandidate,false);
+ }
+});
 test('W40 one source digest mismatch invalidates replay; no silent stale proof',()=>{
  const r=route({...contract,sourceReplay:{...proof,sourceDigest:A}});
  assert.equal(r.exactNativeReplayCandidate,false);

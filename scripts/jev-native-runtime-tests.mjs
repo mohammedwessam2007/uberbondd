@@ -32,6 +32,7 @@ const tests=[
   'tests/ubermind-conditional-agent-optimizer.test.mjs',
   'tests/ubermind-omega18-precision-specialists.test.mjs',
   'tests/ubermind-w40-evidence-first-task-compiler.test.mjs',
+  'tests/ubermind-w41-proof-constrained-route-auction.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',
   'tests/ubermind-public-workload-integrity.test.mjs',

@@ -80,7 +80,9 @@ export function compileUberMindTaskRoute({
  const exact=!!sourceReplay&&sourceReplay.exactEligible===true&&
    sourceReplay.taskDigest===taskDigest&&
    sourceReplay.sourceDigest===sourceDigest&&
-   sourceReplay.rubricDigest===rubricDigest;
+   sourceReplay.rubricDigest===rubricDigest&&
+   !knownAcceptanceFailure&&nativeAcceptanceStatus!=='failed'&&
+   !unresolvedFrontierContradiction;
 
  const frontier=novelty==='frontier'||risk==='critical'||
    unresolvedFrontierContradiction===true||

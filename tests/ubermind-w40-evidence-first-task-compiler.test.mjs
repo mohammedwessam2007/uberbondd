@@ -80,13 +80,29 @@ test('W40 side effects without owner authority are blocked before model',()=>{
  assert.equal(r.providerCalls,0);
 });
 test('W40 material or failed quality risk summons bounded read-only falsifier',()=>{
- const r=route({...contract,risk:'material'});
+ const r=route({...contract,risk:'material',nativeAcceptanceStatus:'inconclusive'});
  assert.equal(r.main.model,'sonnet');assert.equal(r.main.effort,'high');
  assert.equal(r.delegates[0].name,'ubermind-sonnet-falsifier');
  assert.equal(r.delegates[0].maxTurns,6);
  assert.equal(r.delegates[0].effort,'high');
  const f=route({...contract,knownAcceptanceFailure:true});
  assert.equal(f.delegates[0].name,'ubermind-sonnet-falsifier');
+});
+test('W40 risk by itself does not force an unnecessary falsifier before tests',()=>{
+ const r=route({...contract,risk:'material',nativeAcceptanceStatus:'not-run'});
+ assert.equal(r.delegates.length,0);
+ assert.ok(r.gates.includes('RECOMPILE_AFTER_NATIVE_TESTS_BEFORE_OPTIONAL_FALSIFIER'));
+});
+test('W40 passed native checks suppresses optional falsifier unless independent failure remains',()=>{
+ const r=route({...contract,risk:'material',nativeAcceptanceStatus:'passed'});
+ assert.equal(r.delegates.length,0);
+ const exception=route({...contract,risk:'material',nativeAcceptanceStatus:'passed',
+  knownAcceptanceFailure:true});
+ assert.equal(exception.delegates[0].name,'ubermind-sonnet-falsifier');
+});
+test('W40 native failed tests trigger falsifier even on otherwise routine task',()=>{
+ const r=route({...contract,nativeAcceptanceStatus:'failed'});
+ assert.equal(r.delegates[0].name,'ubermind-sonnet-falsifier');
 });
 test('W40 no duplicate extra Opus judge on Opus primary mission',()=>{
  const r=route({...contract,unresolvedFrontierContradiction:true});
@@ -115,7 +131,8 @@ test('W40 invalid hashes, risk, scout cost and bogus certificate reject',()=>{
   {...contract,independentSubtasks:-1},
   {...contract,sourceReplay:{exactEligible:true}},
   {...contract,scout:{...scope,scoutOutputTokens:-1}},
-  {...contract,authorization:'silent'}
+  {...contract,authorization:'silent'},
+  {...contract,nativeAcceptanceStatus:'passed-unverified'}
  ])assert.equal(route(arg).ok,false);
 });
 test('W40 no claimed quality, quota metrics, paid access, or deployment effects',()=>{

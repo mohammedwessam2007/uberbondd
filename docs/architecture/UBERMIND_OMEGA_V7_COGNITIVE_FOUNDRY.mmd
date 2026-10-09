@@ -1,0 +1,70 @@
+flowchart TB
+  PROMPT["01 YOUR ORDINARY PROMPT<br/>Idea / code / science / life / revenue / research"] --> GATE["UBERMIND OMEGA 7 | THE COGNITIVE FOUNDRY<br/>Quality first • scarce quota second • one accountable owner"]
+  GATE --> PRODUCT{"Where is Claude running?"}
+  PRODUCT -- "Normal Claude chat" --> CHAT["Use current user-selected model<br/>No invisible model switches or background team"]
+  PRODUCT -- "Claude Code" --> CODE["Check /model /status /context<br/>Sonnet default; opusplan where offered"]
+  CHAT --> COMPILER
+  CODE --> COMPILER
+  subgraph CONTEXT["INTELLIGENCE LIBRARY | SELECTIVE NOT BULK"]
+    FOUNDER["890 FOUNDER IDEAS | 10 IMMUTABLE SHARDS<br/>#0001–#0890 source pointers and provenance"]
+    GENESIS["GENESIS + PERSONAL CIVILIZATION<br/>Uninvented opportunities and life futures"]
+    BRAIN["TOTAL BRAIN + PHOENIX + NEGATIVE KNOWLEDGE<br/>Old decisions • known failures • exact SHAs"]
+    CAP["CAPABILITY GENOME + AGENT SKILLS<br/>Capabilities • licenses • permissions • alternatives"]
+  end
+  FOUNDER -. "Only relevant literal ideas" .-> COMPILER
+  GENESIS -. "Additive hypotheses not proof" .-> COMPILER
+  BRAIN -. "Compact verified context" .-> COMPILER
+  CAP -. "Minimum sufficient tools" .-> COMPILER
+  COMPILER["02 MISSION COMPILER + INTELLIGENCE ESCROW<br/>Acceptance test • owner authority • task DAG<br/>Carry proofs and diffs, not whole conversations"] --> EXACT{"03 PROOF-CARRYING EXACT REUSE?<br/>Same scope, quality, source, version, freshness"}
+  EXACT -- "Verified YES" --> ZERO["ZERO-FRESH-INFERENCE<br/>E0–E4 code • tests • exact answer cache"]
+  EXACT -- "NO / unknown" --> REFLEX{"04 TYPED DECISION WORTH COST?"}
+  REFLEX -- "Explicit separate JEV budget AND eligible" --> JEV["JEV 1.13 HYPERREFLEX<br/>NOUL • CHOICE • SCORE"]
+  REFLEX -- "No JEV authorization / strict Pro $20" --> RULE["LOCAL DETERMINISTIC ROUTER<br/>No imaginary Jev provider request"]
+  JEV --> TENSOR["W11–W22 BOUNDED TENSOR<br/>Deduplicate • exact prior-bill reuse • single-flight<br/>Claim doctor • fresh-spend ceiling • real source gate"]
+  TENSOR --> JUDGE{"Bounded decision independently sufficient?"}
+  JUDGE -- "Certified YES" --> ZERO
+  JUDGE -- "NO / unclear" --> ROUTER
+  RULE --> ROUTER{"05 TASK-CLASS INTELLIGENCE ALLOCATION<br/>Novelty x consequence x uncertainty x quota"}
+  ROUTER -- "Routine and well specified" --> SONNET["SONNET 5.5 | MAIN ENGINEER<br/>One focused session, medium/high as justified"]
+  ROUTER -- "Source lookup / high fan-out reads" --> HAIKU["HAIKU 5.5 | SOURCE SCOUT<br/>Bounded read-only references, if available"]
+  ROUTER -- "Novel difficult or high consequence" --> OPUS["OPUS 5.5 | FRONTIER ARCHITECT ON CALL<br/>One clean high-effort specification"]
+  OPUS --> SPEC["06 SPEC FORGE<br/>Executable plan • contracts • interfaces<br/>file owners • tests • explicit stop rules"]
+  HAIKU --> SPEC
+  SPEC --> TEAMQ{"Would parallelism increase ACCEPTED quality per quota?"}
+  TEAMQ -- "No by default" --> SONNET
+  TEAMQ -- "Yes, supported and bounded" --> BUS["07 PEER-TO-PEER TASK BUS<br/>Typed packets • owned paths • dependency gates"]
+  BUS --> BUILDER["SONNET 5.5 | BUILDER WORKTREE<br/>Small diffs • isolated implementation"]
+  BUS --> TESTER["SONNET 5.5 | ADVERSARIAL TESTER<br/>Independent red team and mutation tests"]
+  BUS --> SCOUT["HAIKU 5.5 | SCOUT<br/>AST • docs • known-regression lookup"]
+  BUILDER --> DELTA
+  TESTER --> DELTA
+  SCOUT --> DELTA
+  SONNET --> DELTA["08 DELTA COMPRESSOR<br/>Changed lines • failures • new claims • receipts<br/>No repeated canon / hidden context loss"]
+  DELTA --> RISK{"Unresolved difficult semantic contradiction?"}
+  RISK -- "Yes" --> CROWN["09 MOVING FRONTIER CROWN<br/>Opus 5.5 residual review first"]
+  RISK -- "No" --> COURT
+  CROWN --> INDEPENDENT{"Independent challenger actually needed and authorized?"}
+  INDEPENDENT -- "Yes, separate entitlement" --> COUNCIL["SOL PRO / ASTRA / OTHER QUALIFIED MODEL<br/>Framebreaker • falsifier • counterfactual"]
+  INDEPENDENT -- "No" --> COURT
+  COUNCIL --> COURT["10 REALITY COURT<br/>Trace • code tests • safety • adversarial evidence<br/>No self-certified high-quality claim"]
+  ZERO --> COURT
+  COURT --> APPROVAL{"Accepted output AND legitimate authority?"}
+  APPROVAL -- "No" --> HOLD["HOLD / targeted repair / owner blocker<br/>No retries of ambiguous paid dispatch"]
+  APPROVAL -- "Yes" --> FINISH["11 DELIVER / GOVERNED PR / RELEASE<br/>Real accepted artifact • merge SHA • live receipt"]
+  FINISH --> MEMORY["12 COMPOUND-INTEREST FACTORY<br/>Proof Economy #0057 • Error Economy #0058<br/>Prediction Accounting #0059 • Civilization Git #0061"]
+  MEMORY -. "Certified future recurrence" .-> EXACT
+  MEMORY -. "Retrievable negative knowledge" .-> BRAIN
+  MEMORY -. "GENESIS successor hypothesis" .-> GENESIS
+  MEMORY -. "New bounded circuit candidate" .-> JEV
+  MONEY["$20 CLAUDE PRO IS FIXED / LIMITED<br/>Claude API, third-party Jev, Fable are NOT free extras"] -. "Quota / spend hard gate" .-> GATE
+  FABLE["FABLE 5.1 / PAID ADVISOR<br/>Locked in strict Pro-only mode"] -. "Do not auto-invoke" .-> HOLD
+  classDef foundation fill:#e8efff,stroke:#4779b8,color:#193c70
+  classDef model fill:#f0eaff,stroke:#8052b0,color:#321a5b
+  classDef fast fill:#e4f6ec,stroke:#218756,color:#17452d
+  classDef gate fill:#fff1d8,stroke:#bf8c26,color:#63430a
+  classDef danger fill:#ffe9e9,stroke:#ba4646,color:#6b1e25
+  class PROMPT,GATE,CHAT,CODE,COMPILER,FOUNDER,GENESIS,BRAIN,CAP,MONEY foundation
+  class SONNET,OPUS,CROWN,COUNCIL,HAIKU,BUILDER,TESTER,SCOUT,DELTA,BUS,SPEC model
+  class ZERO,JEV,TENSOR,RULE,COURT,FINISH,MEMORY fast
+  class PRODUCT,EXACT,REFLEX,JUDGE,ROUTER,TEAMQ,RISK,INDEPENDENT,APPROVAL gate
+  class HOLD,FABLE danger

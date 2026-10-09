@@ -1,0 +1,45 @@
+flowchart TB
+ P["01 YOUR ORDINARY CLAUDE PROMPT"] --> MAIN["UBERMIND OMEGA 9 • CLAUDE PRO 5.5<br/>One accountable main session"]
+ BRAIN["890 original ideas • GENESIS • Total Brain<br/>PHOENIX • Capability Genome • W30 hot-18 context"] -. "Task-relevant source only" .-> COMPILER
+ MAIN --> QUOTA{"CLAUDE PRO 5H/WEEKLY ALLOWANCE AVAILABLE?"}
+ QUOTA -- No --> HOLD["Preserve state; legitimate reset; no paid API fallback"]
+ QUOTA -- Yes --> COMPILER["02 TASK QUALITY CONTRACT + SOURCE SHA<br/>Complexity • novelty • consequence"]
+ COMPILER --> EXIST{"03 CERTIFIED EXACT ANSWER/PROCEDURE?"}
+ EXIST -- Yes --> ZERO["E0–E4 CODE / VERIFIED CACHE / TESTS<br/>Zero new provider model calls"]
+ EXIST -- No --> DEC{"04 BOUNDED TYPED JEV DECISION?"}
+ DEC -- "Separately authorized" --> JEV["JEV 1.13 NOUL • CHOICE • SCORE"]
+ JEV --> TENSOR["W11–W22 scoped cache, single-flight<br/>Price/budget/source admission, unknown=hold"]
+ TENSOR --> ROUTE
+ DEC -- "Strict $20 Pro or not eligible" --> RULES["DETERMINISTIC LOCAL ROUTING<br/>Do not pretend JEV ran"]
+ RULES --> ROUTE{"05 INTELLIGENCE PRESSURE ROUTER<br/>Spend strong thinking on unresolved semantics"}
+ ROUTE -- "Read-only discovery" --> HAIKU["HAIKU 5.5 • SOURCE SCOUT<br/>Short slices • references • conditional agent"]
+ ROUTE -- "Standard code / writing" --> SONNET["SONNET 5.5 • MAIN ENGINEER<br/>One session • execute verified spec"]
+ ROUTE -- "Novel or consequential" --> OPUS["OPUS 5.5 • FRONTIER ARCHITECT<br/>One deep independent design"]
+ HAIKU --> SPEC["06 PROOF-CARRYING SPEC<br/>Acceptance tests • task DAG • owned paths"]
+ OPUS --> SPEC
+ SPEC --> MODE{"Claude Code opusplan allowed?"}
+ MODE -- Yes --> SONNET
+ MODE -- "Normal Claude chat" --> MANUAL["Selected model is manual<br/>No hidden model switching"]
+ MANUAL --> SONNET
+ SONNET --> TEAM{"07 INDEPENDENT TEAM ADDS NET VALUE?"}
+ TEAM -- "No: default" --> SOLO["SOLO + DETERMINISTIC TESTS"]
+ TEAM -- "Yes, supported" --> PEER["BORDERED WORKTREE TEAM<br/>Sonnet builder + independent falsifier<br/>Haiku scout only when worthwhile"]
+ PEER --> DELTA["08 SEND ONLY DELTAS<br/>Failures • changed files • open claims"]
+ SOLO --> DELTA
+ DELTA --> GAP{"09 UNRESOLVED HIGH-END REASONING?"}
+ GAP -- Yes --> REVIEW["OPUS 5.5 ON CALL<br/>Review critical delta only"]
+ GAP -- No --> COURT
+ REVIEW --> COURT["10 REALITY COURT<br/>Source truth • hostile tests • authority"]
+ ZERO --> COURT
+ COURT --> PASS{"Accepted quality + allowed effects?"}
+ PASS -- No --> HOLD
+ PASS -- Yes --> OUT["11 DELIVER / GOVERNED PR / LIVE RECEIPTS"]
+ OUT --> MEMORY["12 PHOENIX COMPOUNDING<br/>Proof #57 • Error #58 • Prediction #59<br/>Civilization Git #61 • Self-Falsification #653"]
+ MEMORY -. "Proven exact recurrence next prompt" .-> EXIST
+ PRO["5.5 LINEUP UNVERIFIED PRO PROJECTION<br/>Haiku short 83.5B • Sonnet 6.11B • Opus 3.05B monthly<br/>97% cache reads, not an official quota"] -. "Scenario, not a meter" .-> QUOTA
+ classDef purple fill:#eee7ff,stroke:#6f49aa,color:#29174e
+ classDef green fill:#e4f7ef,stroke:#188a5d,color:#164731
+ classDef yellow fill:#fff2dc,stroke:#aa7b24,color:#4b320c
+ class HAIKU,SONNET,OPUS,PEER,REVIEW purple
+ class ZERO,JEV,TENSOR,RULES,SOLO,OUT,MEMORY,COURT green
+ class QUOTA,EXIST,DEC,ROUTE,MODE,TEAM,GAP,PASS yellow

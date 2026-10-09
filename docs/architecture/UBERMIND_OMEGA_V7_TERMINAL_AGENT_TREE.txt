@@ -1,0 +1,124 @@
+╔═══════════════════════════════════════════════════════════════════════════════════════╗
+║      U B E R M I N D   Ω ⁷   ·   S O V E R E I G N   C O G N I T I V E   F O U N D R Y ║
+║       PROMPT FIRST  ·  SONNET MAIN  ·  OPUS ON CALL  ·  JEV REFLEX  ·  890 GENOME      ║
+╚═══════════════════════════════════════════════════════════════════════════════════════╝
+
+                     ┌─────────────────────────────────┐
+                     │    YOUR NORMAL CLAUDE PROMPT    │
+                     │    no special commands needed   │
+                     └────────────────┬────────────────┘
+                                      │
+                           ┌──────────▼───────────┐
+                           │ UBERMIND Ω7 DIRECTOR │
+                           │ task + quality floor │
+                           │ quota + authorization│
+                           └──────────┬───────────┘
+                                      │
+   ┌──────────────────────────────────┴──────────────────────────────────────┐
+   │                  THE SOVEREIGN MEMORY CONSTELLATION                      │
+   │  #0001–0890 original ideas  |  GENESIS  |  TOTAL BRAIN  |  PHOENIX       │
+   │  Negative Knowledge Graph | Capability Genome | Life / Science / Revenue│
+   │  Retrieve relevant idea IDs only.  Keep all ten source shards intact.   │
+   └──────────────────────────────────┬──────────────────────────────────────┘
+                                      │
+                          ┌───────────▼────────────┐
+                          │ COGNITIVE PRESSURE VALVE│
+                          │ already solved exactly?│
+                          └───────┬──────────┬─────┘
+                               YES│          │NO
+             ┌────────────────────▼──┐     ┌─▼─────────────────────────┐
+             │ EXACT / E0–E4 ENGINE  │     │ JEV 1.13 HYPERREFLEX?     │
+             │ code • proven cache   │     │ NOUL / CHOICE / SCORE     │
+             │ 0 NEW MODEL INFERENCE │     │ separate authority ONLY  │
+             └────────────┬──────────┘     └─┬─────────────────┬───────┘
+                          │             FUNDED│                 │NO
+                          │                   ▼                 ▼
+                          │           ┌────────────┐    ┌──────────────┐
+                          │           │ JEV TENSOR │    │ LOCAL RULES  │
+                          │           │ reuse / cap│    │ $0 extra API │
+                          │           │ source gate│    └──────┬───────┘
+                          │           └─────┬──────┘           │
+                          │                 └──────────┬───────┘
+                          │                            │
+                          │               ┌────────────▼────────────┐
+                          │               │  INTELLIGENCE MARKET    │
+                          │               │ task difficulty / risk  │
+                          │               └────────────┬────────────┘
+                          │                            │
+   ┌──────────────────────┬─────────────────────────────┴─────────────────────┐
+   │                      │                                                   │
+ ┌─▼──────────────────┐ ┌─▼──────────────────┐                  ┌─────────────▼──────────┐
+ │ HAIKU 5.5 / SCOUT  │ │ SONNET 5.5 / MAIN  │                  │ OPUS 5.5 / ON CALL      │
+ │ read-only • medium │ │ primary conductor │                  │ hard plan • high effort │
+ │ source/AST/docs    │ │ build/synthesis   │                  │ architectural veto      │
+ │ return 1 short map │ │ default 1 session │                  │ NOT always-on           │
+ └────────┬───────────┘ └────────┬───────────┘                  └─────────────┬──────────┘
+          │                      │                                             │
+          └──────────────────────┼─────────────────────────────────────────────┘
+                                 ▼
+                  ┌─────────────────────────────┐
+                  │ CONTRACTS LIVE IN CODE      │
+                  │ spec • DAG • tests • SHA    │
+                  │ owned paths • permissions   │
+                  └──────────────┬──────────────┘
+                                 │
+                      ┌──────────▼──────────┐
+                      │ PARALLELISM WORTH IT│
+                      └───────┬────────┬────┘
+                            NO│        │YES (only if worth quota)
+                       ┌──────▼─────┐  ▼
+                       │ SOLO WORK  │ ┌─────────────────────────────────────┐
+                       │ one model  │ │ BOUNDED AGENT TEAM • P2P RECEIPTS  │
+                       └──────┬─────┘ │ SONNET builder (owned worktree)     │
+                              │       │ SONNET falsifier (independent tests)│
+                              │       │ HAIKU scout (only if available)    │
+                              │       └───────────────────┬─────────────────┘
+                              │                           │
+                              └────────────┬──────────────┘
+                                           ▼
+                          ┌────────────────────────────────┐
+                          │ SEMANTIC DELTA COMPRESSOR       │
+                          │ only changed facts / bad tests  │
+                          │ claims • hashes • uncertainties│
+                          └──────────────┬─────────────────┘
+                                         │
+                             ┌───────────▼──────────┐
+                             │ FRONTIER GAP REMAINS?│
+                             └─────────┬───────┬────┘
+                                     NO│       │YES
+                              ┌────────▼──┐  ┌─▼────────────────────────────┐
+                              │ LOCAL QA  │  │ OPUS 5.5 RESIDUAL REVIEW     │
+                              │ & TESTS   │  │ independent Sol/Astra only   │
+                              └──────┬────┘  │ if separately authorized     │
+                                     │       └──────────────┬────────────────┘
+                                     └───────────┬──────────┘
+                                                 ▼
+                                 ┌───────────────────────────────┐
+                                 │ REALITY COURT • QUALITY GATE │
+                                 │ tests • safety • adversaries │
+                                 │ rollback • founder authority │
+                                 └──────────────┬────────────────┘
+                                                │
+                                   ┌────────────▼─────────────┐
+                                   │ ACCEPTED OUTPUT / PR /   │
+                                   │ VERIFIED LIVE DEPLOYMENT │
+                                   └────────────┬─────────────┘
+                                                │
+                     ┌──────────────────────────▼────────────────────────┐
+                     │ COMPOUND-INTEREST FOUNDRY                        │
+                     │ Proof Economy #57       Error Economy #58        │
+                     │ Prediction Ledger #59   Civilizational Memory #60│
+                     │ Civilization Git #61    Self-Falsifier #653      │
+                     │ Recursion Proof #877    GENESIS successor ideas  │
+                     │ CERTIFY new bounded reuse → CHEAPER NEXT PROMPT  │
+                     └──────────────────────────┬────────────────────────┘
+                                                └────────────► next prompt
+
+   ┌────────────────────────────┬─────────────────────────────────────────────┐
+   │ STRICT $20 CLAUDE PRO      │ MODEL/COST TRUTH                            │
+   │ No paid fallback           │ Included usage has 5h + weekly limits     │
+   │ Extra Jev API: disabled    │ No API included; no invisible model switch │
+   │ Fable PAYG: disabled       │ Screenshots' forks/tok-s not live evidence │
+   └────────────────────────────┴─────────────────────────────────────────────┘
+
+STATUS: ARCHITECTURE DESIGN, NOT A LIVE CLAUDE/JEV TEAM OR VERIFIED SPEED CLAIM.

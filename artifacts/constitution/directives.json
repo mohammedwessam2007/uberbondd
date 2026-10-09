@@ -5,24 +5,24 @@
     "A001",
     "A021"
   ],
-  "generatedAt": "2026-09-29T22:54:36.589Z",
-  "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
+  "generatedAt": "2026-10-09T11:53:19.057Z",
+  "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e",
   "method": "Normative sentences from the canon files in precedence order, classified as prohibition, obligation or permission, tagged by whether they govern an external effect, and linked to tests by distinctive-vocabulary overlap.",
   "counts": {
-    "directives": 268,
+    "directives": 281,
     "byClass": {
-      "PROHIBITION": 159,
+      "PROHIBITION": 171,
       "PERMISSION": 45,
-      "OBLIGATION": 64
+      "OBLIGATION": 65
     },
-    "externalEffect": 49,
-    "noTestMentionsIt": 38,
+    "externalEffect": 50,
+    "noTestMentionsIt": 40,
     "externalEffectAndNoTestMentionsIt": 2,
-    "withMutationGuard": 85,
-    "prohibitions": 159,
-    "prohibitionsWithMutationGuard": 52,
-    "externalEffectWithMutationGuard": 32,
-    "mutationAnchorsAvailable": 510,
+    "withMutationGuard": 98,
+    "prohibitions": 171,
+    "prohibitionsWithMutationGuard": 61,
+    "externalEffectWithMutationGuard": 37,
+    "mutationAnchorsAvailable": 603,
     "contradictionCandidates": 9
   },
   "reviewQueue": {
@@ -267,13 +267,13 @@
   "coverageBySource": {
     "NORTH_STAR.md": {
       "directives": 28,
-      "withMutationGuard": 4,
+      "withMutationGuard": 5,
       "externalEffect": 1,
       "externalEffectWithMutationGuard": 0
     },
     "AGENTS.md": {
-      "directives": 40,
-      "withMutationGuard": 12,
+      "directives": 44,
+      "withMutationGuard": 15,
       "externalEffect": 6,
       "externalEffectWithMutationGuard": 4
     },
@@ -284,40 +284,40 @@
       "externalEffectWithMutationGuard": 6
     },
     "UBERBOND_CANON.md": {
-      "directives": 54,
-      "withMutationGuard": 19,
+      "directives": 55,
+      "withMutationGuard": 20,
       "externalEffect": 10,
-      "externalEffectWithMutationGuard": 6
+      "externalEffectWithMutationGuard": 7
     },
     "AI_START_HERE.md": {
-      "directives": 10,
-      "withMutationGuard": 2,
-      "externalEffect": 3,
-      "externalEffectWithMutationGuard": 2
+      "directives": 18,
+      "withMutationGuard": 4,
+      "externalEffect": 4,
+      "externalEffectWithMutationGuard": 3
     },
     "docs/NORTH_STAR_PRECEDENCE.md": {
       "directives": 4,
-      "withMutationGuard": 2,
+      "withMutationGuard": 3,
       "externalEffect": 1,
       "externalEffectWithMutationGuard": 1
     },
     "docs/WALLBREAKER_CANON.md": {
       "directives": 19,
-      "withMutationGuard": 8,
+      "withMutationGuard": 9,
       "externalEffect": 6,
-      "externalEffectWithMutationGuard": 4
+      "externalEffectWithMutationGuard": 5
     },
     "docs/CAPABILITY_GENOME_CANON.md": {
       "directives": 33,
-      "withMutationGuard": 11,
+      "withMutationGuard": 13,
       "externalEffect": 5,
-      "externalEffectWithMutationGuard": 4
+      "externalEffectWithMutationGuard": 5
     },
     "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md": {
       "directives": 51,
-      "withMutationGuard": 13,
+      "withMutationGuard": 15,
       "externalEffect": 8,
-      "externalEffectWithMutationGuard": 5
+      "externalEffectWithMutationGuard": 6
     }
   },
   "perSource": {
@@ -327,24 +327,24 @@
       "uncompiled": 87
     },
     "AGENTS.md": {
-      "sentences": 134,
-      "compiled": 40,
-      "uncompiled": 93
+      "sentences": 145,
+      "compiled": 44,
+      "uncompiled": 100
     },
     "CLAUDE.md": {
-      "sentences": 143,
+      "sentences": 152,
       "compiled": 29,
-      "uncompiled": 114
+      "uncompiled": 123
     },
     "UBERBOND_CANON.md": {
-      "sentences": 256,
-      "compiled": 54,
-      "uncompiled": 202
+      "sentences": 261,
+      "compiled": 55,
+      "uncompiled": 206
     },
     "AI_START_HERE.md": {
-      "sentences": 45,
-      "compiled": 10,
-      "uncompiled": 35
+      "sentences": 65,
+      "compiled": 18,
+      "uncompiled": 47
     },
     "docs/NORTH_STAR_PRECEDENCE.md": {
       "sentences": 20,
@@ -560,7 +560,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-0a29106d",
@@ -589,13 +589,24 @@
         "evidence"
       ],
       "tests": [
+        "tests/infinite-opus-live-closure.test.mjs",
         "tests/capability-genome-body-normalize.test.mjs",
-        "tests/forecast-parent-organ.test.mjs",
-        "tests/founder-directive-reconciler.test.mjs"
+        "tests/forecast-parent-organ.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/infinite-opus-live-closure.test.mjs",
+            "shared": 5,
+            "terms": [
+              "document",
+              "research",
+              "target",
+              "claim",
+              "evidence"
+            ]
+          },
           {
             "file": "tests/capability-genome-body-normalize.test.mjs",
             "shared": 4,
@@ -615,27 +626,29 @@
               "reality",
               "evidence"
             ]
-          },
+          }
+        ]
+      },
+      "mutationGuards": [
+        "OUTREACH-DRIFT-01"
+      ],
+      "mutationLinkage": {
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
           {
-            "file": "tests/founder-directive-reconciler.test.mjs",
-            "shared": 4,
+            "id": "OUTREACH-DRIFT-01",
+            "guard": "A stale claim in a current document is drift when source disproves it",
+            "shared": 2,
             "terms": [
-              "research",
-              "claim",
-              "reality",
-              "evidence"
+              "document",
+              "claim"
             ]
           }
         ]
       },
-      "mutationGuards": [],
-      "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
-      },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-f7f5b0e5",
@@ -665,13 +678,23 @@
         "uberbond"
       ],
       "tests": [
+        "tests/sovereign-coverage-matrix.test.mjs",
         "tests/connectome-autopoiesis.test.mjs",
-        "tests/domain-mailbox-readiness.test.mjs",
-        "tests/forecast-decision-boundary.test.mjs"
+        "tests/domain-mailbox-readiness.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 4,
+            "terms": [
+              "becoming",
+              "become",
+              "organ",
+              "uberbond"
+            ]
+          },
           {
             "file": "tests/connectome-autopoiesis.test.mjs",
             "shared": 3,
@@ -689,15 +712,6 @@
               "capable",
               "uberbond"
             ]
-          },
-          {
-            "file": "tests/forecast-decision-boundary.test.mjs",
-            "shared": 3,
-            "terms": [
-              "everything",
-              "organ",
-              "uberbond"
-            ]
           }
         ]
       },
@@ -708,7 +722,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-4d830df0",
@@ -740,13 +754,37 @@
         "engine"
       ],
       "tests": [
-        "tests/memory-truth-boundary.test.mjs",
-        "tests/paid-amount-buys-what-it-paid-for.test.mjs",
-        "tests/sovereign-coverage-matrix.test.mjs"
+        "tests/prospect-verification-intake.test.mjs",
+        "tests/sovereign-coverage-matrix.test.mjs",
+        "tests/memory-truth-boundary.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/prospect-verification-intake.test.mjs",
+            "shared": 8,
+            "terms": [
+              "company",
+              "revenue",
+              "saas",
+              "product",
+              "agent",
+              "system"
+            ]
+          },
+          {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 8,
+            "terms": [
+              "uberbond",
+              "read",
+              "company",
+              "engine",
+              "system",
+              "life"
+            ]
+          },
           {
             "file": "tests/memory-truth-boundary.test.mjs",
             "shared": 7,
@@ -756,30 +794,6 @@
               "company",
               "revenue",
               "system",
-              "second"
-            ]
-          },
-          {
-            "file": "tests/paid-amount-buys-what-it-paid-for.test.mjs",
-            "shared": 7,
-            "terms": [
-              "read",
-              "company",
-              "revenue",
-              "engine",
-              "product",
-              "system"
-            ]
-          },
-          {
-            "file": "tests/sovereign-coverage-matrix.test.mjs",
-            "shared": 7,
-            "terms": [
-              "uberbond",
-              "read",
-              "engine",
-              "system",
-              "life",
               "second"
             ]
           }
@@ -792,7 +806,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-c39a73a5",
@@ -865,7 +879,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-df9f1eab",
@@ -961,7 +975,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-6770f698",
@@ -1043,7 +1057,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-dfc09225",
@@ -1076,7 +1090,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-cbd1a9b2",
@@ -1156,7 +1170,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-621eb7e2",
@@ -1229,7 +1243,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-7845688d",
@@ -1263,7 +1277,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-d657fb41",
@@ -1339,7 +1353,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-d36b916d",
@@ -1408,7 +1422,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-682cbb81",
@@ -1486,7 +1500,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-336eb488",
@@ -1520,7 +1534,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-badb7a6f",
@@ -1576,7 +1590,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-453000e8",
@@ -1645,7 +1659,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-7534cbf8",
@@ -1702,7 +1716,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-b75d5d24",
@@ -1770,7 +1784,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-4ad912d4",
@@ -1798,7 +1812,7 @@
       "tests": [
         "tests/genesis-sovereign-expansion-kernel.test.mjs",
         "tests/sandwich-descendant-admission.test.mjs",
-        "tests/constitutional-governance.test.mjs"
+        "tests/sovereign-coverage-matrix.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -1824,9 +1838,10 @@
             ]
           },
           {
-            "file": "tests/constitutional-governance.test.mjs",
-            "shared": 3,
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 4,
             "terms": [
+              "uberbond",
               "become",
               "sovereign",
               "becoming"
@@ -1841,7 +1856,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-7c087db9",
@@ -1923,7 +1938,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-d1efa9ab",
@@ -1991,7 +2006,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-d1bbb863",
@@ -2072,7 +2087,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-736ce10f",
@@ -2125,7 +2140,7 @@
           },
           {
             "file": "tests/sovereign-coverage-matrix.test.mjs",
-            "shared": 6,
+            "shared": 7,
             "terms": [
               "future",
               "cannot",
@@ -2187,7 +2202,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-fd4462ba",
@@ -2265,7 +2280,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-fcd984dd",
@@ -2351,7 +2366,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-7e594548",
@@ -2422,7 +2437,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-d0fab623",
@@ -2500,7 +2515,347 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "NORTH_STAR.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AGENTS-c5fe74d6",
+      "text": "Do not load all bodies indiscriminately, silently drop unchosen ideas, renumber the corpus, or confuse substrate routing with scientific/physical realization.",
+      "class": "PROHIBITION",
+      "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "load",
+        "bodies",
+        "indiscriminately",
+        "silently",
+        "drop",
+        "unchosen",
+        "ideas",
+        "renumber",
+        "corpus",
+        "confuse",
+        "substrate",
+        "routing"
+      ],
+      "tests": [
+        "tests/moonshot-corpus-compiler.test.mjs",
+        "tests/ubermind-architecture-atlas.test.mjs",
+        "tests/capability-genome-body-normalize.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/moonshot-corpus-compiler.test.mjs",
+            "shared": 5,
+            "terms": [
+              "silently",
+              "ideas",
+              "corpus",
+              "substrate",
+              "physical"
+            ]
+          },
+          {
+            "file": "tests/ubermind-architecture-atlas.test.mjs",
+            "shared": 4,
+            "terms": [
+              "silently",
+              "ideas",
+              "corpus",
+              "routing"
+            ]
+          },
+          {
+            "file": "tests/capability-genome-body-normalize.test.mjs",
+            "shared": 3,
+            "terms": [
+              "bodies",
+              "corpus",
+              "routing"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "provenance": "AGENTS.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AGENTS-ce41848a",
+      "text": "If the corpus cannot be accessed, label recovery incomplete instead of guessing.",
+      "class": "PROHIBITION",
+      "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "corpus",
+        "cannot",
+        "accessed",
+        "label",
+        "recovery",
+        "incomplete",
+        "instead",
+        "guessing"
+      ],
+      "tests": [
+        "tests/phoenix-continuity-capsule.test.mjs",
+        "tests/autonomy-wake-truth-first.test.mjs",
+        "tests/domain-mailbox-readiness.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/phoenix-continuity-capsule.test.mjs",
+            "shared": 5,
+            "terms": [
+              "corpus",
+              "cannot",
+              "recovery",
+              "incomplete",
+              "instead"
+            ]
+          },
+          {
+            "file": "tests/autonomy-wake-truth-first.test.mjs",
+            "shared": 4,
+            "terms": [
+              "cannot",
+              "label",
+              "incomplete",
+              "guessing"
+            ]
+          },
+          {
+            "file": "tests/domain-mailbox-readiness.test.mjs",
+            "shared": 4,
+            "terms": [
+              "cannot",
+              "recovery",
+              "incomplete",
+              "instead"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [
+        "MONEY-16",
+        "RECOVERY-LOCK-01"
+      ],
+      "mutationLinkage": {
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "MONEY-16",
+            "guard": "An incomplete payment witness resumes instead of becoming a duplicate",
+            "shared": 2,
+            "terms": [
+              "incomplete",
+              "instead"
+            ]
+          },
+          {
+            "id": "RECOVERY-LOCK-01",
+            "guard": "Two recovery workers partition the unresolved set instead of racing on the same row",
+            "shared": 2,
+            "terms": [
+              "recovery",
+              "instead"
+            ]
+          }
+        ]
+      },
+      "status": "COMPILED_WITH_MUTATION_GUARD",
+      "provenance": "AGENTS.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AGENTS-961f2bb5",
+      "text": "preserve unresolved CHAT_ONLY facts explicitly and never claim unseen chat content recovered.",
+      "class": "PROHIBITION",
+      "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "preserve",
+        "unresolved",
+        "chat",
+        "facts",
+        "explicitly",
+        "claim",
+        "unseen",
+        "content",
+        "recovered"
+      ],
+      "tests": [
+        "tests/phoenix-continuity-capsule.test.mjs",
+        "tests/nightfall-research-artifacts.test.mjs",
+        "tests/sovereign-context-fabric.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/phoenix-continuity-capsule.test.mjs",
+            "shared": 5,
+            "terms": [
+              "chat",
+              "facts",
+              "explicitly",
+              "claim",
+              "recovered"
+            ]
+          },
+          {
+            "file": "tests/nightfall-research-artifacts.test.mjs",
+            "shared": 4,
+            "terms": [
+              "preserve",
+              "explicitly",
+              "claim",
+              "recovered"
+            ]
+          },
+          {
+            "file": "tests/sovereign-context-fabric.test.mjs",
+            "shared": 4,
+            "terms": [
+              "preserve",
+              "unresolved",
+              "chat",
+              "content"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [
+        "EG-SCOPE-10"
+      ],
+      "mutationLinkage": {
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "EG-SCOPE-10",
+            "guard": "Opt-out signing does not bypass unresolved legal facts",
+            "shared": 2,
+            "terms": [
+              "unresolved",
+              "facts"
+            ]
+          }
+        ]
+      },
+      "status": "COMPILED_WITH_MUTATION_GUARD",
+      "provenance": "AGENTS.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AGENTS-d111b4a8",
+      "text": "A receiving session must account for checkpoint IDs, changed main and source truth before continuing.",
+      "class": "OBLIGATION",
+      "priority": 1,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "receiving",
+        "session",
+        "account",
+        "checkpoint",
+        "changed",
+        "main",
+        "source",
+        "truth",
+        "continuing"
+      ],
+      "tests": [
+        "tests/current-reality-freeze-integration.test.mjs",
+        "tests/phoenix-continuity-capsule.test.mjs",
+        "tests/canon-freshness.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/current-reality-freeze-integration.test.mjs",
+            "shared": 5,
+            "terms": [
+              "checkpoint",
+              "changed",
+              "main",
+              "source",
+              "truth"
+            ]
+          },
+          {
+            "file": "tests/phoenix-continuity-capsule.test.mjs",
+            "shared": 5,
+            "terms": [
+              "session",
+              "checkpoint",
+              "main",
+              "source",
+              "truth"
+            ]
+          },
+          {
+            "file": "tests/canon-freshness.test.mjs",
+            "shared": 4,
+            "terms": [
+              "changed",
+              "main",
+              "source",
+              "truth"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "provenance": "AGENTS.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-03e2bce2",
@@ -2533,7 +2888,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-dc4ac593",
@@ -2600,7 +2955,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-03c8caba",
@@ -2636,7 +2991,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-837953c8",
@@ -2689,7 +3044,7 @@
           },
           {
             "file": "tests/sovereign-coverage-matrix.test.mjs",
-            "shared": 12,
+            "shared": 14,
             "terms": [
               "personal",
               "civilization",
@@ -2732,7 +3087,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-527f65b2",
@@ -2805,13 +3160,22 @@
         ]
       },
       "mutationGuards": [
+        "FROZEN-RUNTIME-09",
         "ACCEPT-01",
-        "CASH-01",
-        "CAPGEN-01"
+        "CASH-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "FROZEN-RUNTIME-09",
+            "guard": "The current route digest must match the frozen route evidence",
+            "shared": 2,
+            "terms": [
+              "current",
+              "evidence"
+            ]
+          },
           {
             "id": "ACCEPT-01",
             "guard": "Only external customer evidence accepts a delivery",
@@ -2829,21 +3193,12 @@
               "external",
               "evidence"
             ]
-          },
-          {
-            "id": "CAPGEN-01",
-            "guard": "A durable limit cannot be claimed from thin evidence",
-            "shared": 2,
-            "terms": [
-              "durable",
-              "evidence"
-            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-4cd12240",
@@ -2875,13 +3230,37 @@
         "describes"
       ],
       "tests": [
-        "tests/omega-closure-hostile.test.mjs",
-        "tests/server-request-handler.test.mjs",
-        "tests/memory-truth-boundary.test.mjs"
+        "tests/prospect-verification-intake.test.mjs",
+        "tests/outreach-cold-route-policy.test.mjs",
+        "tests/omega-closure-hostile.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/prospect-verification-intake.test.mjs",
+            "shared": 7,
+            "terms": [
+              "website",
+              "audit",
+              "lead-path",
+              "sprint",
+              "merely",
+              "root"
+            ]
+          },
+          {
+            "file": "tests/outreach-cold-route-policy.test.mjs",
+            "shared": 6,
+            "terms": [
+              "audit",
+              "lead-path",
+              "commercial",
+              "merely",
+              "root",
+              "public"
+            ]
+          },
           {
             "file": "tests/omega-closure-hostile.test.mjs",
             "shared": 5,
@@ -2890,27 +3269,6 @@
               "commercial",
               "root",
               "documentation",
-              "describes"
-            ]
-          },
-          {
-            "file": "tests/server-request-handler.test.mjs",
-            "shared": 5,
-            "terms": [
-              "website",
-              "audit",
-              "lead-path",
-              "sprint",
-              "public"
-            ]
-          },
-          {
-            "file": "tests/memory-truth-boundary.test.mjs",
-            "shared": 4,
-            "terms": [
-              "website",
-              "audit",
-              "commercial",
               "describes"
             ]
           }
@@ -2923,7 +3281,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-7b0e4e74",
@@ -2951,13 +3309,33 @@
         "unavailable"
       ],
       "tests": [
-        "tests/uberbond-brain-context.test.mjs",
-        "tests/founder-center-api.test.mjs",
-        "tests/infinite-opus.test.mjs"
+        "tests/global-green-lane-router.test.mjs",
+        "tests/revenue-singularity-evidence-bridge.test.mjs",
+        "tests/uberbond-brain-context.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/global-green-lane-router.test.mjs",
+            "shared": 4,
+            "terms": [
+              "owner",
+              "prior",
+              "context",
+              "unavailable"
+            ]
+          },
+          {
+            "file": "tests/revenue-singularity-evidence-bridge.test.mjs",
+            "shared": 4,
+            "terms": [
+              "owner",
+              "prior",
+              "context",
+              "unavailable"
+            ]
+          },
           {
             "file": "tests/uberbond-brain-context.test.mjs",
             "shared": 4,
@@ -2965,24 +3343,6 @@
               "owner",
               "project",
               "prior",
-              "context"
-            ]
-          },
-          {
-            "file": "tests/founder-center-api.test.mjs",
-            "shared": 3,
-            "terms": [
-              "owner",
-              "prior",
-              "unavailable"
-            ]
-          },
-          {
-            "file": "tests/infinite-opus.test.mjs",
-            "shared": 3,
-            "terms": [
-              "owner",
-              "project",
               "context"
             ]
           }
@@ -2995,7 +3355,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-5c0c9f2a",
@@ -3068,7 +3428,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-37ce08d1",
@@ -3152,7 +3512,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-0ea0fcca",
@@ -3184,26 +3544,27 @@
         "economic"
       ],
       "tests": [
-        "tests/sovereign-context-doctor.test.mjs",
         "tests/sovereign-coverage-matrix.test.mjs",
+        "tests/sovereign-context-doctor.test.mjs",
         "tests/experiment-policy-consolidation.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
           {
-            "file": "tests/sovereign-context-doctor.test.mjs",
-            "shared": 5,
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 6,
             "terms": [
               "personal",
               "civilization",
               "engine",
+              "remains",
               "uberbond",
               "economic"
             ]
           },
           {
-            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "file": "tests/sovereign-context-doctor.test.mjs",
             "shared": 5,
             "terms": [
               "personal",
@@ -3232,7 +3593,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-362dd881",
@@ -3291,7 +3652,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-3e344863",
@@ -3375,7 +3736,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-04d7a211",
@@ -3461,7 +3822,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-ea4af4cf",
@@ -3559,7 +3920,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-8ebd497c",
@@ -3595,7 +3956,7 @@
       "tests": [
         "tests/memory-truth-boundary.test.mjs",
         "tests/omega-closure-hostile.test.mjs",
-        "tests/uberbond-brain-context.test.mjs"
+        "tests/sovereign-coverage-matrix.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -3625,15 +3986,15 @@
             ]
           },
           {
-            "file": "tests/uberbond-brain-context.test.mjs",
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
             "shared": 8,
             "terms": [
               "historical",
-              "opportunity",
-              "generated",
-              "omnia",
-              "current",
-              "customers"
+              "counts",
+              "rows",
+              "company",
+              "frontier",
+              "current"
             ]
           }
         ]
@@ -3657,7 +4018,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-70c7c684",
@@ -3730,7 +4091,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-ebf84bc9",
@@ -3764,7 +4125,7 @@
       "tests": [
         "tests/genesis-evolution-engine.test.mjs",
         "tests/sovereign-native-local-worker.test.mjs",
-        "tests/uberbond-cognitive-bus.test.mjs"
+        "tests/revenue-terminal-hostile.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -3794,27 +4155,39 @@
             ]
           },
           {
-            "file": "tests/uberbond-cognitive-bus.test.mjs",
+            "file": "tests/revenue-terminal-hostile.test.mjs",
             "shared": 10,
             "terms": [
+              "uberbond",
               "public",
-              "capability",
+              "actual",
               "changed",
-              "frontier",
-              "opportunity",
-              "current"
+              "material",
+              "changes"
             ]
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "FROZEN-EFFECT-04"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "FROZEN-EFFECT-04",
+            "guard": "Material binding changes cannot reuse authorization",
+            "shared": 2,
+            "terms": [
+              "material",
+              "changes"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-2969726e",
@@ -3910,7 +4283,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-0326f150",
@@ -3981,7 +4354,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-117167da",
@@ -4096,7 +4469,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-d0fab623",
@@ -4174,7 +4547,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-27838f8f",
@@ -4225,7 +4598,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-273f5c0d",
@@ -4308,8 +4681,8 @@
       },
       "mutationGuards": [
         "CONV-01",
-        "MONEY-05",
-        "PRIV-01"
+        "FROZEN-RUNTIME-03",
+        "INVITED-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
@@ -4325,28 +4698,28 @@
             ]
           },
           {
-            "id": "MONEY-05",
-            "guard": "A lead flagged paid is not payment proof",
+            "id": "FROZEN-RUNTIME-03",
+            "guard": "The effect-bound SMTP provider cannot be replaced by a global default",
             "shared": 2,
             "terms": [
-              "payment",
-              "proof"
+              "cannot",
+              "provider"
             ]
           },
           {
-            "id": "PRIV-01",
-            "guard": "The decoded provider payload is not durable business state",
+            "id": "INVITED-01",
+            "guard": "Generic contact text cannot qualify as an explicit invitation",
             "shared": 2,
             "terms": [
-              "provider",
-              "state"
+              "text",
+              "cannot"
             ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-a72989ad",
@@ -4454,7 +4827,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-91551c1b",
@@ -4544,7 +4917,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-f330902b",
@@ -4567,13 +4940,23 @@
         "uberbond"
       ],
       "tests": [
-        "tests/constitution-compiler.test.mjs"
+        "tests/constitution-compiler.test.mjs",
+        "tests/winnr-expansion-planner.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
           {
             "file": "tests/constitution-compiler.test.mjs",
+            "shared": 3,
+            "terms": [
+              "create",
+              "replacement",
+              "uberbond"
+            ]
+          },
+          {
+            "file": "tests/winnr-expansion-planner.test.mjs",
             "shared": 3,
             "terms": [
               "create",
@@ -4590,7 +4973,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-2a79a631",
@@ -4676,7 +5059,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-ed9f3e1e",
@@ -4756,7 +5139,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-3227a372",
@@ -4836,7 +5219,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-7530556e",
@@ -4919,13 +5302,22 @@
         ]
       },
       "mutationGuards": [
+        "INVITED-11",
         "MONEY-06",
-        "MONEY-09",
-        "ACCEPT-01"
+        "MONEY-09"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "INVITED-11",
+            "guard": "Stale provider evidence never admits the invited route",
+            "shared": 2,
+            "terms": [
+              "evidence",
+              "provider"
+            ]
+          },
           {
             "id": "MONEY-06",
             "guard": "Payment witnesses must agree on amount and currency, not only identity",
@@ -4943,21 +5335,12 @@
               "identity",
               "receipt"
             ]
-          },
-          {
-            "id": "ACCEPT-01",
-            "guard": "Only external customer evidence accepts a delivery",
-            "shared": 2,
-            "terms": [
-              "evidence",
-              "delivery"
-            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-86c33452",
@@ -5025,7 +5408,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-5cf48b45",
@@ -5099,7 +5482,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-e3b1b127",
@@ -5178,7 +5561,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-2b9a05b6",
@@ -5246,7 +5629,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-9821cb9d",
@@ -5303,7 +5686,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-48b0137c",
@@ -5384,7 +5767,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-a3a75200",
@@ -5418,7 +5801,7 @@
       "tests": [
         "tests/omega-closure-hostile.test.mjs",
         "tests/nightfall-research-artifacts.test.mjs",
-        "tests/sovereign-context-fabric.test.mjs"
+        "tests/prospect-verification-intake.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -5448,14 +5831,14 @@
             ]
           },
           {
-            "file": "tests/sovereign-context-fabric.test.mjs",
+            "file": "tests/prospect-verification-intake.test.mjs",
             "shared": 6,
             "terms": [
-              "state",
+              "handoff",
+              "verified",
               "unresolved",
-              "blockers",
-              "relevant",
-              "next",
+              "gates",
+              "names",
               "mission"
             ]
           }
@@ -5468,7 +5851,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-f4c74950",
@@ -5543,7 +5926,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-82b0302a",
@@ -5574,8 +5957,8 @@
       ],
       "tests": [
         "tests/sovereign-context-doctor.test.mjs",
-        "tests/memory-truth-boundary.test.mjs",
-        "tests/north-star-initiative-runtime.test.mjs"
+        "tests/egypt-corporate-role-scope.test.mjs",
+        "tests/memory-truth-boundary.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -5593,6 +5976,16 @@
             ]
           },
           {
+            "file": "tests/egypt-corporate-role-scope.test.mjs",
+            "shared": 4,
+            "terms": [
+              "stale",
+              "override",
+              "uberbond",
+              "offer"
+            ]
+          },
+          {
             "file": "tests/memory-truth-boundary.test.mjs",
             "shared": 4,
             "terms": [
@@ -5600,16 +5993,6 @@
               "uberbond",
               "historical",
               "offer"
-            ]
-          },
-          {
-            "file": "tests/north-star-initiative-runtime.test.mjs",
-            "shared": 4,
-            "terms": [
-              "stale",
-              "north",
-              "star",
-              "uberbond"
             ]
           }
         ]
@@ -5621,7 +6004,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AGENTS-3b06956f",
@@ -5679,7 +6062,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AGENTS.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-fefb064e",
@@ -5747,7 +6130,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-67baedf0",
@@ -5779,13 +6162,25 @@
         "merely"
       ],
       "tests": [
+        "tests/prospect-verification-intake.test.mjs",
         "tests/memory-truth-boundary.test.mjs",
-        "tests/consent-bridge-letter.test.mjs",
-        "tests/external-capability-control-plane.test.mjs"
+        "tests/consent-bridge-letter.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/prospect-verification-intake.test.mjs",
+            "shared": 7,
+            "terms": [
+              "website",
+              "audit",
+              "lead-path",
+              "sprint",
+              "revenue",
+              "merely"
+            ]
+          },
           {
             "file": "tests/memory-truth-boundary.test.mjs",
             "shared": 6,
@@ -5807,17 +6202,6 @@
               "revenue",
               "live",
               "site"
-            ]
-          },
-          {
-            "file": "tests/external-capability-control-plane.test.mjs",
-            "shared": 5,
-            "terms": [
-              "audit",
-              "task",
-              "current",
-              "live",
-              "exposes"
             ]
           }
         ]
@@ -5841,7 +6225,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-4802dde1",
@@ -5919,7 +6303,8 @@
         ]
       },
       "mutationGuards": [
-        "UBERCEL-03"
+        "UBERCEL-03",
+        "OUTREACH-DRIFT-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
@@ -5932,12 +6317,21 @@
               "current",
               "stale"
             ]
+          },
+          {
+            "id": "OUTREACH-DRIFT-01",
+            "guard": "A stale claim in a current document is drift when source disproves it",
+            "shared": 2,
+            "terms": [
+              "current",
+              "stale"
+            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-324b10b7",
@@ -5974,7 +6368,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-1ffff73d",
@@ -6070,7 +6464,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-3cb4bbcb",
@@ -6176,7 +6570,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-c21e209d",
@@ -6248,7 +6642,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-8cdd10a7",
@@ -6282,7 +6676,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-04e03894",
@@ -6313,8 +6707,8 @@
       ],
       "tests": [
         "tests/genesis-boundary-experiment.test.mjs",
-        "tests/admin-health-route.test.mjs",
-        "tests/agent-model-failover.test.mjs"
+        "tests/infinite-opus-live-closure.test.mjs",
+        "tests/prospect-verification-intake.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -6330,20 +6724,22 @@
             ]
           },
           {
-            "file": "tests/admin-health-route.test.mjs",
-            "shared": 3,
+            "file": "tests/infinite-opus-live-closure.test.mjs",
+            "shared": 4,
             "terms": [
               "observation",
+              "candidate",
               "patch",
-              "production"
+              "rewrite"
             ]
           },
           {
-            "file": "tests/agent-model-failover.test.mjs",
-            "shared": 3,
+            "file": "tests/prospect-verification-intake.test.mjs",
+            "shared": 4,
             "terms": [
+              "observation",
               "candidate",
-              "silent",
+              "patch",
               "production"
             ]
           }
@@ -6356,7 +6752,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-221a2464",
@@ -6390,7 +6786,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-223d0806",
@@ -6488,7 +6884,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-8ff2cfee",
@@ -6574,7 +6970,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-f5e720f0",
@@ -6632,7 +7028,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-767c6e63",
@@ -6700,7 +7096,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-1b458e39",
@@ -6731,7 +7127,7 @@
       "tests": [
         "tests/capability-genome.test.mjs",
         "tests/reachability-ratchet.test.mjs",
-        "tests/genesis-mechanism-compiler.test.mjs"
+        "tests/sovereign-coverage-matrix.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -6757,12 +7153,13 @@
             ]
           },
           {
-            "file": "tests/genesis-mechanism-compiler.test.mjs",
-            "shared": 3,
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 4,
             "terms": [
+              "discovery",
+              "installation",
               "label",
-              "becomes",
-              "fake"
+              "becomes"
             ]
           }
         ]
@@ -6774,7 +7171,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-03633ced",
@@ -6854,13 +7251,22 @@
         ]
       },
       "mutationGuards": [
+        "INVITED-08",
         "ROUTE-02",
-        "ROUTEID-01",
-        "ROUTEID-02"
+        "ROUTEID-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "INVITED-08",
+            "guard": "Provider permission does not clear sender-side law",
+            "shared": 2,
+            "terms": [
+              "provider",
+              "permission"
+            ]
+          },
           {
             "id": "ROUTE-02",
             "guard": "An unauthorized provider is never called",
@@ -6878,21 +7284,12 @@
               "provider",
               "routing"
             ]
-          },
-          {
-            "id": "ROUTEID-02",
-            "guard": "A routing selection records which model actually ran",
-            "shared": 2,
-            "terms": [
-              "model",
-              "routing"
-            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-21ee8a49",
@@ -6968,7 +7365,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-0557d36b",
@@ -7002,7 +7399,7 @@
       "tests": [
         "tests/agent-model-failover.test.mjs",
         "tests/external-capability-control-plane.test.mjs",
-        "tests/frontier-quality-market-compiler.test.mjs"
+        "tests/infinite-opus-live-closure.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -7032,13 +7429,13 @@
             ]
           },
           {
-            "file": "tests/frontier-quality-market-compiler.test.mjs",
-            "shared": 7,
+            "file": "tests/infinite-opus-live-closure.test.mjs",
+            "shared": 8,
             "terms": [
               "compute",
               "model",
-              "routing",
               "research",
+              "cannot",
               "budget",
               "data"
             ]
@@ -7084,7 +7481,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-131abcf3",
@@ -7151,7 +7548,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-05cf0881",
@@ -7256,7 +7653,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-503fd466",
@@ -7355,7 +7752,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-ee1044c0",
@@ -7407,7 +7804,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-aea5f8cf",
@@ -7526,7 +7923,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-d8ba57ae",
@@ -7563,7 +7960,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-8ae87611",
@@ -7650,7 +8047,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-14254fb5",
@@ -7752,7 +8149,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-e766f128",
@@ -7836,7 +8233,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-d0fab623",
@@ -7914,7 +8311,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CLAUDE-3b06956f",
@@ -7972,7 +8369,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "CLAUDE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-ef408498",
@@ -8050,7 +8447,8 @@
         ]
       },
       "mutationGuards": [
-        "UBERCEL-03"
+        "UBERCEL-03",
+        "OUTREACH-DRIFT-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
@@ -8063,12 +8461,100 @@
               "current",
               "stale"
             ]
+          },
+          {
+            "id": "OUTREACH-DRIFT-01",
+            "guard": "A stale claim in a current document is drift when source disproves it",
+            "shared": 2,
+            "terms": [
+              "current",
+              "stale"
+            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "UBERBOND-CANON-4b08e036",
+      "text": "The 890 are a baseline to surpass through GENESIS, never a ceiling, a completed feasibility claim, or a mandate to paste every body into every prompt.",
+      "class": "PROHIBITION",
+      "priority": 3,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "baseline",
+        "surpass",
+        "through",
+        "genesis",
+        "ceiling",
+        "completed",
+        "feasibility",
+        "claim",
+        "mandate",
+        "paste",
+        "body",
+        "prompt"
+      ],
+      "tests": [
+        "tests/genesis-boundary-experiment.test.mjs",
+        "tests/ai-employee-terminal-identity.test.mjs",
+        "tests/capability-genome-body-fetch.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/genesis-boundary-experiment.test.mjs",
+            "shared": 5,
+            "terms": [
+              "through",
+              "genesis",
+              "ceiling",
+              "completed",
+              "claim"
+            ]
+          },
+          {
+            "file": "tests/ai-employee-terminal-identity.test.mjs",
+            "shared": 4,
+            "terms": [
+              "through",
+              "completed",
+              "claim",
+              "body"
+            ]
+          },
+          {
+            "file": "tests/capability-genome-body-fetch.test.mjs",
+            "shared": 4,
+            "terms": [
+              "ceiling",
+              "completed",
+              "claim",
+              "body"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "provenance": "UBERBOND_CANON.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-2492498b",
@@ -8150,7 +8636,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-c9a1eceb",
@@ -8184,7 +8670,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-c7a66262",
@@ -8216,13 +8702,25 @@
         "discoverable"
       ],
       "tests": [
+        "tests/sovereign-coverage-matrix.test.mjs",
         "tests/founder-directive-reconciler.test.mjs",
-        "tests/genesis-ontology.test.mjs",
-        "tests/genesis-world-resilience.test.mjs"
+        "tests/genesis-ontology.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 6,
+            "terms": [
+              "mechanism",
+              "implementation",
+              "concept",
+              "literal",
+              "lineage",
+              "founder"
+            ]
+          },
           {
             "file": "tests/founder-directive-reconciler.test.mjs",
             "shared": 5,
@@ -8244,17 +8742,6 @@
               "explicitly",
               "founder"
             ]
-          },
-          {
-            "file": "tests/genesis-world-resilience.test.mjs",
-            "shared": 5,
-            "terms": [
-              "mechanism",
-              "implementation",
-              "remain",
-              "until",
-              "explicitly"
-            ]
           }
         ]
       },
@@ -8265,7 +8752,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-5ef24d5e",
@@ -8351,7 +8838,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-41cb188a",
@@ -8467,7 +8954,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-d0fab623",
@@ -8545,7 +9032,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-d75e34af",
@@ -8579,7 +9066,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-ba9fe73f",
@@ -8613,7 +9100,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-b5a5e71a",
@@ -8680,7 +9167,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-c524933b",
@@ -8764,7 +9251,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-e1ec38fe",
@@ -8797,8 +9284,8 @@
       ],
       "tests": [
         "tests/sovereign-context-doctor.test.mjs",
-        "tests/night-convergence-runtime.test.mjs",
-        "tests/north-star-initiative-runtime.test.mjs"
+        "tests/sovereign-coverage-matrix.test.mjs",
+        "tests/night-convergence-runtime.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -8816,6 +9303,18 @@
             ]
           },
           {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 8,
+            "terms": [
+              "sovereign",
+              "uberbond",
+              "company",
+              "economic",
+              "life",
+              "personal"
+            ]
+          },
+          {
             "file": "tests/night-convergence-runtime.test.mjs",
             "shared": 7,
             "terms": [
@@ -8825,18 +9324,6 @@
               "product",
               "agent",
               "software"
-            ]
-          },
-          {
-            "file": "tests/north-star-initiative-runtime.test.mjs",
-            "shared": 7,
-            "terms": [
-              "sovereign",
-              "cognitive",
-              "continuum",
-              "uberbond",
-              "personal",
-              "civilization"
             ]
           }
         ]
@@ -8848,7 +9335,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-2e285a31",
@@ -8924,7 +9411,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-2cfbe539",
@@ -8956,13 +9443,25 @@
         "aliases"
       ],
       "tests": [
-        "tests/uberbond-synaptic-map.test.mjs",
         "tests/sovereign-coverage-matrix.test.mjs",
+        "tests/uberbond-synaptic-map.test.mjs",
         "tests/uberbond-brain-bootstrap.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 14,
+            "terms": [
+              "no-drop",
+              "personal",
+              "civilization",
+              "engine",
+              "artifacts",
+              "frontier"
+            ]
+          },
           {
             "file": "tests/uberbond-synaptic-map.test.mjs",
             "shared": 14,
@@ -8973,18 +9472,6 @@
               "engine",
               "artifacts",
               "perpetual"
-            ]
-          },
-          {
-            "file": "tests/sovereign-coverage-matrix.test.mjs",
-            "shared": 13,
-            "terms": [
-              "no-drop",
-              "personal",
-              "civilization",
-              "engine",
-              "artifacts",
-              "frontier"
             ]
           },
           {
@@ -9030,7 +9517,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-1b241fb9",
@@ -9132,7 +9619,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-4716b859",
@@ -9201,7 +9688,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-09f6fe0c",
@@ -9234,7 +9721,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-f90b358e",
@@ -9268,7 +9755,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-c7af713f",
@@ -9300,13 +9787,25 @@
         "documentation"
       ],
       "tests": [
+        "tests/prospect-verification-intake.test.mjs",
         "tests/memory-truth-boundary.test.mjs",
-        "tests/server-request-handler.test.mjs",
-        "tests/first-cash-prospect-completion.test.mjs"
+        "tests/server-request-handler.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/prospect-verification-intake.test.mjs",
+            "shared": 6,
+            "terms": [
+              "website",
+              "audit",
+              "lead-path",
+              "sprint",
+              "merely",
+              "product"
+            ]
+          },
           {
             "file": "tests/memory-truth-boundary.test.mjs",
             "shared": 5,
@@ -9326,16 +9825,6 @@
               "audit",
               "lead-path",
               "sprint",
-              "product"
-            ]
-          },
-          {
-            "file": "tests/first-cash-prospect-completion.test.mjs",
-            "shared": 4,
-            "terms": [
-              "audit",
-              "sprint",
-              "current",
               "product"
             ]
           }
@@ -9360,7 +9849,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-44c6a188",
@@ -9409,7 +9898,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-9d782dff",
@@ -9443,7 +9932,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-f1ab9df8",
@@ -9476,13 +9965,25 @@
         "truth"
       ],
       "tests": [
+        "tests/invited-business-governance.test.mjs",
         "tests/autonomy-architecture.test.mjs",
-        "tests/avengers-arsenal.test.mjs",
-        "tests/browser-action-contract.test.mjs"
+        "tests/avengers-arsenal.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/invited-business-governance.test.mjs",
+            "shared": 6,
+            "terms": [
+              "explicit",
+              "router",
+              "code",
+              "cannot",
+              "customer",
+              "provider"
+            ]
+          },
           {
             "file": "tests/autonomy-architecture.test.mjs",
             "shared": 5,
@@ -9504,24 +10005,13 @@
               "cannot",
               "provider"
             ]
-          },
-          {
-            "file": "tests/browser-action-contract.test.mjs",
-            "shared": 5,
-            "terms": [
-              "code",
-              "cannot",
-              "customer",
-              "provider",
-              "truth"
-            ]
           }
         ]
       },
       "mutationGuards": [
         "UBERCEL-01",
-        "HORIZON-03",
-        "ROUTE-04"
+        "FROZEN-RUNTIME-03",
+        "INVITED-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
@@ -9537,28 +10027,28 @@
             ]
           },
           {
-            "id": "HORIZON-03",
-            "guard": "Commercial truth cannot be forged positive",
-            "shared": 2,
-            "terms": [
-              "cannot",
-              "truth"
-            ]
-          },
-          {
-            "id": "ROUTE-04",
-            "guard": "A failure another provider cannot fix is not walked around",
+            "id": "FROZEN-RUNTIME-03",
+            "guard": "The effect-bound SMTP provider cannot be replaced by a global default",
             "shared": 2,
             "terms": [
               "cannot",
               "provider"
+            ]
+          },
+          {
+            "id": "INVITED-01",
+            "guard": "Generic contact text cannot qualify as an explicit invitation",
+            "shared": 2,
+            "terms": [
+              "explicit",
+              "cannot"
             ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-cea054df",
@@ -9662,7 +10152,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-bc54e518",
@@ -9742,7 +10232,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-6e8ef15b",
@@ -9827,12 +10317,22 @@
         ]
       },
       "mutationGuards": [
+        "INVITED-01",
         "TIME-02",
         "EVID-03"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "INVITED-01",
+            "guard": "Generic contact text cannot qualify as an explicit invitation",
+            "shared": 2,
+            "terms": [
+              "cannot",
+              "contact"
+            ]
+          },
           {
             "id": "TIME-02",
             "guard": "Event time cannot move backward",
@@ -9855,7 +10355,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-38f61e6b",
@@ -9940,7 +10440,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-c56ba762",
@@ -10021,14 +10521,47 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "GGL-17",
+        "EG-SCOPE-05",
+        "INVITED-11"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "GGL-17",
+            "guard": "Provider terms evidence that forbids cold B2B stops the route",
+            "shared": 3,
+            "terms": [
+              "terms",
+              "provider",
+              "evidence"
+            ]
+          },
+          {
+            "id": "EG-SCOPE-05",
+            "guard": "Policy evidence must be fresh",
+            "shared": 2,
+            "terms": [
+              "policy",
+              "evidence"
+            ]
+          },
+          {
+            "id": "INVITED-11",
+            "guard": "Stale provider evidence never admits the invited route",
+            "shared": 2,
+            "terms": [
+              "provider",
+              "evidence"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-1c90c6ec",
@@ -10101,7 +10634,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-993a537f",
@@ -10183,7 +10716,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-eb08baf6",
@@ -10259,7 +10792,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-10a60da3",
@@ -10334,7 +10867,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-8052dffd",
@@ -10410,7 +10943,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-dc8e3cb7",
@@ -10445,7 +10978,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-d17667b4",
@@ -10531,7 +11064,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-48ac7bd8",
@@ -10615,7 +11148,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-b5b66085",
@@ -10692,7 +11225,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-543ce2de",
@@ -10774,7 +11307,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-cf7cb9d7",
@@ -10856,7 +11389,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-6e3dc4bd",
@@ -10884,8 +11417,8 @@
       ],
       "tests": [
         "tests/agent-model-failover.test.mjs",
-        "tests/cognitive-loop-crash-restart.test.mjs",
-        "tests/constitution-compiler.test.mjs"
+        "tests/sovereign-coverage-matrix.test.mjs",
+        "tests/cognitive-loop-crash-restart.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -10902,9 +11435,10 @@
             ]
           },
           {
-            "file": "tests/cognitive-loop-crash-restart.test.mjs",
-            "shared": 4,
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 5,
             "terms": [
+              "distribution",
               "action",
               "canonical",
               "decision",
@@ -10912,13 +11446,13 @@
             ]
           },
           {
-            "file": "tests/constitution-compiler.test.mjs",
+            "file": "tests/cognitive-loop-crash-restart.test.mjs",
             "shared": 4,
             "terms": [
-              "distribution",
+              "action",
               "canonical",
-              "object",
-              "bind"
+              "decision",
+              "object"
             ]
           }
         ]
@@ -10930,7 +11464,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-82c061c3",
@@ -10965,7 +11499,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-6a89e8f4",
@@ -11000,13 +11534,25 @@
         "platform"
       ],
       "tests": [
+        "tests/global-green-lane-router.test.mjs",
         "tests/constitution-unguarded-external-effect.test.mjs",
-        "tests/lite-p0.test.mjs",
-        "tests/web-context-extraction-contract.test.mjs"
+        "tests/lite-p0.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/global-green-lane-router.test.mjs",
+            "shared": 7,
+            "terms": [
+              "suppressed",
+              "recipients",
+              "private",
+              "contact",
+              "data",
+              "claimed"
+            ]
+          },
           {
             "file": "tests/constitution-unguarded-external-effect.test.mjs",
             "shared": 6,
@@ -11029,18 +11575,6 @@
               "data",
               "controls",
               "claimed"
-            ]
-          },
-          {
-            "file": "tests/web-context-extraction-contract.test.mjs",
-            "shared": 6,
-            "terms": [
-              "manufacture",
-              "private",
-              "bypass",
-              "captcha",
-              "intent",
-              "external"
             ]
           }
         ]
@@ -11074,7 +11608,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-a75b6bab",
@@ -11164,7 +11698,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-bdcdb06f",
@@ -11258,7 +11792,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-40b8d327",
@@ -11349,11 +11883,31 @@
         ]
       },
       "mutationGuards": [
+        "FROZEN-EFFECT-04",
+        "FROZEN-RUNTIME-05",
         "BOOTPLAN-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "FROZEN-EFFECT-04",
+            "guard": "Material binding changes cannot reuse authorization",
+            "shared": 2,
+            "terms": [
+              "authorization",
+              "changes"
+            ]
+          },
+          {
+            "id": "FROZEN-RUNTIME-05",
+            "guard": "Canonical founder authorization gate must pass before the provider call",
+            "shared": 2,
+            "terms": [
+              "authorization",
+              "provider"
+            ]
+          },
           {
             "id": "BOOTPLAN-01",
             "guard": "A bootstrap step that configures a provider credential is refused",
@@ -11367,7 +11921,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-764ca423",
@@ -11408,14 +11962,14 @@
         "matches": [
           {
             "file": "tests/sovereign-coverage-matrix.test.mjs",
-            "shared": 12,
+            "shared": 13,
             "terms": [
               "frontier",
+              "discovery",
               "genesis",
               "sovereign",
               "personal",
-              "civilization",
-              "engine"
+              "civilization"
             ]
           },
           {
@@ -11473,7 +12027,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-8bc30d7d",
@@ -11569,7 +12123,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-2aa70902",
@@ -11596,7 +12150,7 @@
       "tests": [
         "tests/personal-civilization-capture.test.mjs",
         "tests/founder-ops-private-isolation.test.mjs",
-        "tests/memory-sovereignty.test.mjs"
+        "tests/jev-scaled-preflight.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -11621,12 +12175,12 @@
             ]
           },
           {
-            "file": "tests/memory-sovereignty.test.mjs",
+            "file": "tests/jev-scaled-preflight.test.mjs",
             "shared": 3,
             "terms": [
               "private",
-              "life",
-              "data"
+              "data",
+              "protected"
             ]
           }
         ]
@@ -11651,7 +12205,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-570e2328",
@@ -11725,7 +12279,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-aabdbabd",
@@ -11812,7 +12366,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-c538de8e",
@@ -11895,7 +12449,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-484da119",
@@ -11969,7 +12523,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-e1a821c2",
@@ -12050,13 +12604,22 @@
         ]
       },
       "mutationGuards": [
+        "FROZEN-RUNTIME-01",
         "COG-QUALITY-03",
-        "MONEY-22",
-        "OMEGA-MATRIX-02"
+        "MONEY-22"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "FROZEN-RUNTIME-01",
+            "guard": "The current canonical payload must still hash to the authorized digest",
+            "shared": 2,
+            "terms": [
+              "current",
+              "canonical"
+            ]
+          },
           {
             "id": "COG-QUALITY-03",
             "guard": "Frontier runtime requires the canonical quality attestation",
@@ -12074,21 +12637,12 @@
               "cleared",
               "revenue"
             ]
-          },
-          {
-            "id": "OMEGA-MATRIX-02",
-            "guard": "A sub-phrase match cannot be promoted to VERIFIED_CURRENT",
-            "shared": 2,
-            "terms": [
-              "current",
-              "verified"
-            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-438867a4",
@@ -12159,7 +12713,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "UBERBOND-CANON-81521381",
@@ -12209,7 +12763,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "UBERBOND_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-c8016945",
@@ -12243,7 +12797,7 @@
       "tests": [
         "tests/forecast-adversarial-ensemble.test.mjs",
         "tests/genesis-mechanism-compiler.test.mjs",
-        "tests/present-free-will.test.mjs"
+        "tests/infinite-opus-live-closure.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -12269,7 +12823,7 @@
             ]
           },
           {
-            "file": "tests/present-free-will.test.mjs",
+            "file": "tests/infinite-opus-live-closure.test.mjs",
             "shared": 4,
             "terms": [
               "uberbond",
@@ -12287,7 +12841,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-1fb61511",
@@ -12371,7 +12925,222 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-e82d1bf1",
+      "text": "Never treat 890/890 source recovery or routing as 890/890 implementation, nor imply a ChatGPT chat without repository access automatically has the source bytes.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "treat",
+        "source",
+        "recovery",
+        "routing",
+        "implementation",
+        "imply",
+        "chatgpt",
+        "chat",
+        "repository",
+        "access",
+        "automatically",
+        "bytes"
+      ],
+      "tests": [
+        "tests/phoenix-continuity-capsule.test.mjs",
+        "tests/autonomy-architecture.test.mjs",
+        "tests/avengers-arsenal.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/phoenix-continuity-capsule.test.mjs",
+            "shared": 5,
+            "terms": [
+              "source",
+              "recovery",
+              "implementation",
+              "chat",
+              "repository"
+            ]
+          },
+          {
+            "file": "tests/autonomy-architecture.test.mjs",
+            "shared": 4,
+            "terms": [
+              "source",
+              "implementation",
+              "chatgpt",
+              "automatically"
+            ]
+          },
+          {
+            "file": "tests/avengers-arsenal.test.mjs",
+            "shared": 4,
+            "terms": [
+              "source",
+              "routing",
+              "implementation",
+              "chat"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-c1bdeee1",
+      "text": "Do not use the Oct3 closure frontier.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "closure",
+        "frontier"
+      ],
+      "tests": [],
+      "testLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_NO_TEST_MENTIONS_IT",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-c6297ea4",
+      "text": "This does not narrow the terminal life-system canon.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "narrow",
+        "terminal",
+        "life-system",
+        "canon"
+      ],
+      "tests": [],
+      "testLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_NO_TEST_MENTIONS_IT",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-8e63ff67",
+      "text": "Do not substitute a reassuring summary for verified recovery.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "substitute",
+        "reassuring",
+        "summary",
+        "verified",
+        "recovery"
+      ],
+      "tests": [
+        "tests/context-local-recovery.test.mjs",
+        "tests/domain-mailbox-readiness.test.mjs",
+        "tests/phoenix-continuity-capsule.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/context-local-recovery.test.mjs",
+            "shared": 3,
+            "terms": [
+              "summary",
+              "verified",
+              "recovery"
+            ]
+          },
+          {
+            "file": "tests/domain-mailbox-readiness.test.mjs",
+            "shared": 3,
+            "terms": [
+              "summary",
+              "verified",
+              "recovery"
+            ]
+          },
+          {
+            "file": "tests/phoenix-continuity-capsule.test.mjs",
+            "shared": 3,
+            "terms": [
+              "summary",
+              "verified",
+              "recovery"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-9a01541a",
@@ -12407,8 +13176,8 @@
       ],
       "tests": [
         "tests/omega-closure-hostile.test.mjs",
-        "tests/night-convergence-runtime.test.mjs",
-        "tests/semantic-requirement-tribunal.test.mjs"
+        "tests/revenue-terminal-hostile.test.mjs",
+        "tests/night-convergence-runtime.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -12426,6 +13195,18 @@
             ]
           },
           {
+            "file": "tests/revenue-terminal-hostile.test.mjs",
+            "shared": 6,
+            "terms": [
+              "restart",
+              "offer",
+              "default",
+              "stale",
+              "provider",
+              "state"
+            ]
+          },
+          {
             "file": "tests/night-convergence-runtime.test.mjs",
             "shared": 5,
             "terms": [
@@ -12435,39 +13216,38 @@
               "provider",
               "state"
             ]
-          },
-          {
-            "file": "tests/semantic-requirement-tribunal.test.mjs",
-            "shared": 5,
-            "terms": [
-              "restart",
-              "generic",
-              "invent",
-              "provider",
-              "state"
-            ]
           }
         ]
       },
       "mutationGuards": [
-        "PRIV-01",
-        "CONV-01"
+        "FROZEN-RUNTIME-03",
+        "INVITED-11",
+        "PRIV-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
           {
-            "id": "PRIV-01",
-            "guard": "The decoded provider payload is not durable business state",
+            "id": "FROZEN-RUNTIME-03",
+            "guard": "The effect-bound SMTP provider cannot be replaced by a global default",
             "shared": 2,
             "terms": [
-              "provider",
-              "state"
+              "default",
+              "provider"
             ]
           },
           {
-            "id": "CONV-01",
-            "guard": "Caller-asserted provider state cannot open a LIVE route",
+            "id": "INVITED-11",
+            "guard": "Stale provider evidence never admits the invited route",
+            "shared": 2,
+            "terms": [
+              "stale",
+              "provider"
+            ]
+          },
+          {
+            "id": "PRIV-01",
+            "guard": "The decoded provider payload is not durable business state",
             "shared": 2,
             "terms": [
               "provider",
@@ -12478,7 +13258,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-20c5ee12",
@@ -12507,13 +13287,24 @@
         "crown"
       ],
       "tests": [
+        "tests/openrouter-processor-auction-v5.test.mjs",
         "tests/frontier-parity-autonomy.test.mjs",
-        "tests/infinite-opus.test.mjs",
-        "tests/semantic-requirement-tribunal.test.mjs"
+        "tests/infinite-opus.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/openrouter-processor-auction-v5.test.mjs",
+            "shared": 5,
+            "terms": [
+              "generic",
+              "model",
+              "remains",
+              "current",
+              "crown"
+            ]
+          },
           {
             "file": "tests/frontier-parity-autonomy.test.mjs",
             "shared": 4,
@@ -12533,15 +13324,192 @@
               "current",
               "crown"
             ]
+          }
+        ]
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-79020ae5",
+      "text": "The full original 890/890 literal corpus is an immutable donor universe, while the new hourly evidence monitor is zero-spend, read-only and cannot certify general Crown quality or 33,333x savings on self-attested evidence.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "DURABLE_EXTERNAL_RECEIPT_OR_EXPLICIT_REFUSAL"
+      ],
+      "authorityClass": "EXTERNAL_EFFECT",
+      "authorityTerms": [
+        "spend"
+      ],
+      "distinctiveTerms": [
+        "full",
+        "original",
+        "literal",
+        "corpus",
+        "immutable",
+        "donor",
+        "universe",
+        "hourly",
+        "evidence",
+        "monitor",
+        "zero-spend",
+        "read-only"
+      ],
+      "tests": [
+        "tests/ubermind-890-evidence-flywheel.test.mjs",
+        "tests/crown-interrupted-resume.test.mjs",
+        "tests/crown-resume-checkpoint.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/ubermind-890-evidence-flywheel.test.mjs",
+            "shared": 9,
+            "terms": [
+              "literal",
+              "corpus",
+              "donor",
+              "universe",
+              "evidence",
+              "cannot"
+            ]
           },
           {
-            "file": "tests/semantic-requirement-tribunal.test.mjs",
-            "shared": 4,
+            "file": "tests/crown-interrupted-resume.test.mjs",
+            "shared": 6,
+            "terms": [
+              "original",
+              "evidence",
+              "cannot",
+              "general",
+              "crown",
+              "quality"
+            ]
+          },
+          {
+            "file": "tests/crown-resume-checkpoint.test.mjs",
+            "shared": 6,
+            "terms": [
+              "original",
+              "evidence",
+              "cannot",
+              "general",
+              "crown",
+              "quality"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [
+        "GENOME-02",
+        "NORM-02",
+        "NORM-03"
+      ],
+      "mutationLinkage": {
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "GENOME-02",
+            "guard": "Security evidence cannot be carried across revisions",
+            "shared": 2,
+            "terms": [
+              "evidence",
+              "cannot"
+            ]
+          },
+          {
+            "id": "NORM-02",
+            "guard": "An evidence phrase cannot name an atom the taxonomy lacks",
+            "shared": 2,
+            "terms": [
+              "evidence",
+              "cannot"
+            ]
+          },
+          {
+            "id": "NORM-03",
+            "guard": "One-word evidence phrases cannot mint atoms out of vocabulary",
+            "shared": 2,
+            "terms": [
+              "evidence",
+              "cannot"
+            ]
+          }
+        ]
+      },
+      "status": "COMPILED_WITH_MUTATION_GUARD",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-6faaaff3",
+      "text": "Do not restart the old Oct7 Crown experiment or replay the Oct8 JEV tensor canary.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "restart",
+        "crown",
+        "experiment",
+        "replay",
+        "tensor",
+        "canary"
+      ],
+      "tests": [
+        "tests/infinite-opus.test.mjs",
+        "tests/jev-governed-runtime-service.test.mjs",
+        "tests/jev-startup-readiness-receipt.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/infinite-opus.test.mjs",
+            "shared": 3,
             "terms": [
               "restart",
-              "generic",
-              "remains",
-              "current"
+              "crown",
+              "replay"
+            ]
+          },
+          {
+            "file": "tests/jev-governed-runtime-service.test.mjs",
+            "shared": 3,
+            "terms": [
+              "crown",
+              "tensor",
+              "canary"
+            ]
+          },
+          {
+            "file": "tests/jev-startup-readiness-receipt.test.mjs",
+            "shared": 3,
+            "terms": [
+              "crown",
+              "experiment",
+              "replay"
             ]
           }
         ]
@@ -12553,7 +13521,127 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-a29c9d45",
+      "text": "do not request their repetition.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "request",
+        "repetition"
+      ],
+      "tests": [],
+      "testLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "mutationGuards": [],
+      "mutationLinkage": {
+        "strength": "NONE",
+        "matches": []
+      },
+      "status": "COMPILED_NO_TEST_MENTIONS_IT",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
+    },
+    {
+      "id": "AI-START-HERE-c33c6ec5",
+      "text": "Never conflate these two independent gates or promote an empirical 2-task result into general equivalence.",
+      "class": "PROHIBITION",
+      "priority": 4,
+      "precedenceRank": null,
+      "precedenceState": "UNRANKED__NO_AUTHORED_PRECEDENCE",
+      "dependencies": [],
+      "conflicts": [],
+      "supersedes": [],
+      "evidenceRequirements": [
+        "REPOSITORY_TEST_OR_EXECUTABLE_CHECK"
+      ],
+      "authorityClass": "INTERNAL",
+      "authorityTerms": [],
+      "distinctiveTerms": [
+        "conflate",
+        "independent",
+        "gates",
+        "promote",
+        "empirical",
+        "task",
+        "result",
+        "general",
+        "equivalence"
+      ],
+      "tests": [
+        "tests/apotheosis-final-orchestrator.test.mjs",
+        "tests/frontier-cognitive-fabric.test.mjs",
+        "tests/frontier-council-identity-blind.test.mjs"
+      ],
+      "testLinkage": {
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/apotheosis-final-orchestrator.test.mjs",
+            "shared": 4,
+            "terms": [
+              "independent",
+              "gates",
+              "task",
+              "result"
+            ]
+          },
+          {
+            "file": "tests/frontier-cognitive-fabric.test.mjs",
+            "shared": 4,
+            "terms": [
+              "independent",
+              "task",
+              "result",
+              "general"
+            ]
+          },
+          {
+            "file": "tests/frontier-council-identity-blind.test.mjs",
+            "shared": 4,
+            "terms": [
+              "independent",
+              "task",
+              "result",
+              "general"
+            ]
+          }
+        ]
+      },
+      "mutationGuards": [
+        "AGENT-08"
+      ],
+      "mutationLinkage": {
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "AGENT-08",
+            "guard": "A result may not declare a role the task never granted",
+            "shared": 2,
+            "terms": [
+              "task",
+              "result"
+            ]
+          }
+        ]
+      },
+      "status": "COMPILED_WITH_MUTATION_GUARD",
+      "provenance": "AI_START_HERE.md",
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-23a38df4",
@@ -12637,7 +13725,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-5c32f227",
@@ -12671,7 +13759,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-d1093291",
@@ -12705,7 +13793,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-5308fd42",
@@ -12807,7 +13895,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-774f8655",
@@ -12880,7 +13968,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-START-HERE-6df4f98d",
@@ -12961,7 +14049,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "AI_START_HERE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-99b9c3d9",
@@ -13057,7 +14145,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-b6e306d3",
@@ -13124,7 +14212,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-09e20e04",
@@ -13198,14 +14286,26 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "FROZEN-EFFECT-06"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "FROZEN-EFFECT-06",
+            "guard": "Protected owner identity must remain exact",
+            "shared": 2,
+            "terms": [
+              "remain",
+              "identity"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "NORTH-STAR-PRECEDENCE-6821f6b7",
@@ -13242,7 +14342,7 @@
       "tests": [
         "tests/sovereign-coverage-matrix.test.mjs",
         "tests/omega-closure-hostile.test.mjs",
-        "tests/uberbond-brain-context.test.mjs"
+        "tests/phoenix-continuity-capsule.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -13272,14 +14372,14 @@
             ]
           },
           {
-            "file": "tests/uberbond-brain-context.test.mjs",
+            "file": "tests/phoenix-continuity-capsule.test.mjs",
             "shared": 8,
             "terms": [
-              "current",
               "repository",
               "external",
               "truth",
-              "canon",
+              "implementation",
+              "runtime",
               "provider"
             ]
           }
@@ -13324,7 +14424,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/NORTH_STAR_PRECEDENCE.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-865e57fa",
@@ -13357,7 +14457,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-711b2a59",
@@ -13440,7 +14540,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-1e604adc",
@@ -13526,14 +14626,46 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "INVITED-09",
+        "OUTREACH-PF-01",
+        "GGL-15"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "INVITED-09",
+            "guard": "An invited route never grants send authority",
+            "shared": 2,
+            "terms": [
+              "send",
+              "authority"
+            ]
+          },
+          {
+            "id": "OUTREACH-PF-01",
+            "guard": "A real production hit makes the preflight DO_NOT_SEND",
+            "shared": 2,
+            "terms": [
+              "send",
+              "production"
+            ]
+          },
+          {
+            "id": "GGL-15",
+            "guard": "A green route is never send authority",
+            "shared": 2,
+            "terms": [
+              "send",
+              "authority"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-93414335",
@@ -13569,7 +14701,7 @@
       "tests": [
         "tests/capability-genome.test.mjs",
         "tests/genesis-boundary-experiment.test.mjs",
-        "tests/sandwich-method.test.mjs"
+        "tests/invited-business-governance.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -13599,27 +14731,36 @@
             ]
           },
           {
-            "file": "tests/sandwich-method.test.mjs",
+            "file": "tests/invited-business-governance.test.mjs",
             "shared": 7,
             "terms": [
-              "capability",
-              "creates",
               "authority",
-              "better",
-              "uberbond",
-              "existing"
+              "passes",
+              "existing",
+              "policy",
+              "evidence",
+              "consent"
             ]
           }
         ]
       },
       "mutationGuards": [
+        "EG-SCOPE-05",
         "INTENT-02",
-        "WALLAUTH-01",
-        "WALLAUTH-02"
+        "WALLAUTH-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "EG-SCOPE-05",
+            "guard": "Policy evidence must be fresh",
+            "shared": 2,
+            "terms": [
+              "policy",
+              "evidence"
+            ]
+          },
           {
             "id": "INTENT-02",
             "guard": "A ready plan still carries no business effect authority",
@@ -13637,21 +14778,12 @@
               "authority",
               "plan"
             ]
-          },
-          {
-            "id": "WALLAUTH-02",
-            "guard": "A rejected capability retrieval grants no authority either",
-            "shared": 2,
-            "terms": [
-              "capability",
-              "authority"
-            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-17a9738b",
@@ -13686,8 +14818,8 @@
       ],
       "tests": [
         "tests/constraint-mutation-engine.test.mjs",
-        "tests/wallbreaker.test.mjs",
-        "tests/agent-model-failover.test.mjs"
+        "tests/global-green-lane-router.test.mjs",
+        "tests/wallbreaker.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -13705,6 +14837,18 @@
             ]
           },
           {
+            "file": "tests/global-green-lane-router.test.mjs",
+            "shared": 7,
+            "terms": [
+              "provider",
+              "failure",
+              "eligible",
+              "prior",
+              "known",
+              "ambiguous"
+            ]
+          },
+          {
             "file": "tests/wallbreaker.test.mjs",
             "shared": 7,
             "terms": [
@@ -13714,17 +14858,6 @@
               "failure",
               "eligible",
               "outcome"
-            ]
-          },
-          {
-            "file": "tests/agent-model-failover.test.mjs",
-            "shared": 5,
-            "terms": [
-              "provider",
-              "failure",
-              "remain",
-              "outcome",
-              "known"
             ]
           }
         ]
@@ -13768,7 +14901,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-f74ade1b",
@@ -13845,7 +14978,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-b3df0b68",
@@ -13879,7 +15012,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-6bede997",
@@ -13996,7 +15129,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-2410e7f8",
@@ -14030,7 +15163,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-a36e03cb",
@@ -14106,7 +15239,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-877918ac",
@@ -14135,8 +15268,8 @@
       ],
       "tests": [
         "tests/omega-closure-hostile.test.mjs",
-        "tests/agent-mesh-activation-evidence.test.mjs",
-        "tests/c21-current-head-runner.test.mjs"
+        "tests/revenue-terminal-hostile.test.mjs",
+        "tests/agent-mesh-activation-evidence.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -14153,20 +15286,21 @@
             ]
           },
           {
-            "file": "tests/agent-mesh-activation-evidence.test.mjs",
-            "shared": 3,
+            "file": "tests/revenue-terminal-hostile.test.mjs",
+            "shared": 4,
             "terms": [
               "supplied",
+              "explicitly",
               "verified",
               "process"
             ]
           },
           {
-            "file": "tests/c21-current-head-runner.test.mjs",
+            "file": "tests/agent-mesh-activation-evidence.test.mjs",
             "shared": 3,
             "terms": [
               "supplied",
-              "explicitly",
+              "verified",
               "process"
             ]
           }
@@ -14191,7 +15325,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-318f42de",
@@ -14307,7 +15441,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-baf1e144",
@@ -14334,7 +15468,7 @@
       "tests": [
         "tests/capability-genome.test.mjs",
         "tests/external-capability-control-plane.test.mjs",
-        "tests/neural-exocortex-genome.test.mjs"
+        "tests/infinite-opus-live-closure.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -14358,11 +15492,11 @@
             ]
           },
           {
-            "file": "tests/neural-exocortex-genome.test.mjs",
+            "file": "tests/infinite-opus-live-closure.test.mjs",
             "shared": 3,
             "terms": [
+              "trigger",
               "bounded",
-              "discovery",
               "planning"
             ]
           }
@@ -14375,7 +15509,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-3a9c2e59",
@@ -14409,7 +15543,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-9f4a0ff4",
@@ -14438,8 +15572,8 @@
       ],
       "tests": [
         "tests/omnia-v9-external-effect-concurrency.test.mjs",
-        "tests/omnia-v9-external-effect-crash-recovery.test.mjs",
-        "tests/apex-fqc-external-evidence-packet.test.mjs"
+        "tests/frozen-prospect-effect-runtime.test.mjs",
+        "tests/omnia-v9-external-effect-crash-recovery.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -14456,6 +15590,16 @@
             ]
           },
           {
+            "file": "tests/frozen-prospect-effect-runtime.test.mjs",
+            "shared": 4,
+            "terms": [
+              "remains",
+              "reconciled",
+              "execution",
+              "claimed"
+            ]
+          },
+          {
             "file": "tests/omnia-v9-external-effect-crash-recovery.test.mjs",
             "shared": 4,
             "terms": [
@@ -14463,15 +15607,6 @@
               "reconciled",
               "execution",
               "claimed"
-            ]
-          },
-          {
-            "file": "tests/apex-fqc-external-evidence-packet.test.mjs",
-            "shared": 3,
-            "terms": [
-              "remains",
-              "execution",
-              "readiness"
             ]
           }
         ]
@@ -14483,7 +15618,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-60abde2b",
@@ -14564,7 +15699,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-a7a1ecbd",
@@ -14594,7 +15729,7 @@
       "tests": [
         "tests/external-capability-control-plane.test.mjs",
         "tests/sovereign-institutional-harness-hardening.test.mjs",
-        "tests/nervous-system-integration.test.mjs"
+        "tests/infinite-opus-live-closure.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -14622,11 +15757,11 @@
             ]
           },
           {
-            "file": "tests/nervous-system-integration.test.mjs",
+            "file": "tests/infinite-opus-live-closure.test.mjs",
             "shared": 4,
             "terms": [
               "data",
-              "access",
+              "budget",
               "scope",
               "authority"
             ]
@@ -14652,7 +15787,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-8f4a3ca5",
@@ -14701,7 +15836,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "WALLBREAKER-CANON-dfe891ba",
@@ -14821,7 +15956,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/WALLBREAKER_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-621b71a3",
@@ -14868,7 +16003,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-ff9e96cd",
@@ -14946,11 +16081,21 @@
         ]
       },
       "mutationGuards": [
+        "INVITED-07",
         "PCIV-01"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "INVITED-07",
+            "guard": "Cold public business contact remains refused on smtp-relay",
+            "shared": 2,
+            "terms": [
+              "public",
+              "refused"
+            ]
+          },
           {
             "id": "PCIV-01",
             "guard": "A repository path is refused as a destination for private life data",
@@ -14964,7 +16109,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-f1059c0e",
@@ -14996,14 +16141,24 @@
       ],
       "tests": [
         "tests/capability-genome-body-normalize.test.mjs",
-        "tests/apex-fresh-campaign.test.mjs",
-        "tests/autonomy-command-center-wiring.test.mjs"
+        "tests/prospect-preflight-route.test.mjs",
+        "tests/apex-fresh-campaign.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
           {
             "file": "tests/capability-genome-body-normalize.test.mjs",
+            "shared": 4,
+            "terms": [
+              "bodies",
+              "sandbox",
+              "runtime",
+              "repository"
+            ]
+          },
+          {
+            "file": "tests/prospect-preflight-route.test.mjs",
             "shared": 4,
             "terms": [
               "bodies",
@@ -15020,15 +16175,6 @@
               "repository",
               "canon"
             ]
-          },
-          {
-            "file": "tests/autonomy-command-center-wiring.test.mjs",
-            "shared": 3,
-            "terms": [
-              "runtime",
-              "telemetry",
-              "repository"
-            ]
           }
         ]
       },
@@ -15039,7 +16185,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-8af00be4",
@@ -15147,7 +16293,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-3c5a7986",
@@ -15231,7 +16377,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-af56354e",
@@ -15347,7 +16493,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-48fe24b2",
@@ -15381,7 +16527,7 @@
       "tests": [
         "tests/capability-genome-harvest.test.mjs",
         "tests/github-relay.test.mjs",
-        "tests/neural-github-harvest.test.mjs"
+        "tests/infinite-opus-live-closure.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -15411,14 +16557,14 @@
             ]
           },
           {
-            "file": "tests/neural-github-harvest.test.mjs",
+            "file": "tests/infinite-opus-live-closure.test.mjs",
             "shared": 6,
             "terms": [
-              "partitions",
+              "uberbond",
+              "bounded",
               "date",
-              "partition",
               "total",
-              "results",
+              "exceeds",
               "incomplete"
             ]
           }
@@ -15443,7 +16589,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1d4ab5b5",
@@ -15510,7 +16656,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-359a58b2",
@@ -15546,7 +16692,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-2dd8138d",
@@ -15604,7 +16750,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-4eb14081",
@@ -15671,7 +16817,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-710b6c3c",
@@ -15718,7 +16864,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-c562567a",
@@ -15833,7 +16979,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-f83d901d",
@@ -15948,7 +17094,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-99f32486",
@@ -16039,7 +17185,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-5188ce0c",
@@ -16111,7 +17257,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-39f7ca8f",
@@ -16189,13 +17335,22 @@
         ]
       },
       "mutationGuards": [
+        "FROZEN-EFFECT-03",
         "SANDBOX-01",
-        "JOURNAL-03",
-        "GENOME-02"
+        "JOURNAL-03"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
         "matches": [
+          {
+            "id": "FROZEN-EFFECT-03",
+            "guard": "Fresh exact history and safety checks cannot be replaced by the frozen result",
+            "shared": 2,
+            "terms": [
+              "cannot",
+              "exact"
+            ]
+          },
           {
             "id": "SANDBOX-01",
             "guard": "A mutation cannot reach out of the sandbox into the real dependency tree",
@@ -16213,21 +17368,12 @@
               "cannot",
               "become"
             ]
-          },
-          {
-            "id": "GENOME-02",
-            "guard": "Security evidence cannot be carried across revisions",
-            "shared": 2,
-            "terms": [
-              "cannot",
-              "evidence"
-            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-34361fba",
@@ -16300,14 +17446,26 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "GGL-04"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "GGL-04",
+            "guard": "A published company number that differs from the registry entity is an identity mismatch",
+            "shared": 2,
+            "terms": [
+              "registry",
+              "identity"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-4d27d32e",
@@ -16355,7 +17513,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-d0fab623",
@@ -16433,7 +17591,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e06c450f",
@@ -16467,7 +17625,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-061e4bed",
@@ -16551,14 +17709,26 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "INVITED-07"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "INVITED-07",
+            "guard": "Cold public business contact remains refused on smtp-relay",
+            "shared": 2,
+            "terms": [
+              "public",
+              "contact"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-05388af0",
@@ -16626,7 +17796,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1376773d",
@@ -16710,7 +17880,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-a63c391e",
@@ -16794,7 +17964,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e43cf92e",
@@ -16828,7 +17998,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-e9bd96df",
@@ -16864,7 +18034,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-95ef824a",
@@ -16940,7 +18110,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-bb70be0d",
@@ -17034,7 +18204,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-6a94dfa7",
@@ -17115,7 +18285,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-1b1a3439",
@@ -17142,6 +18312,7 @@
       ],
       "tests": [
         "tests/founder-directive-reconciler.test.mjs",
+        "tests/sovereign-coverage-matrix.test.mjs",
         "tests/uberbond-total-brain.test.mjs"
       ],
       "testLinkage": {
@@ -17149,6 +18320,15 @@
         "matches": [
           {
             "file": "tests/founder-directive-reconciler.test.mjs",
+            "shared": 3,
+            "terms": [
+              "promote",
+              "world",
+              "artifacts"
+            ]
+          },
+          {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
             "shared": 3,
             "terms": [
               "promote",
@@ -17174,7 +18354,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-d8df159b",
@@ -17255,8 +18435,8 @@
       },
       "mutationGuards": [
         "PROPOSAL-02",
-        "PRIV-01",
-        "ACCEPT-01"
+        "FROZEN-RUNTIME-04",
+        "INVITED-11"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
@@ -17272,20 +18452,20 @@
             ]
           },
           {
-            "id": "PRIV-01",
-            "guard": "The decoded provider payload is not durable business state",
+            "id": "FROZEN-RUNTIME-04",
+            "guard": "Nadia sender slot must remain bound to the authorized mailbox",
             "shared": 2,
             "terms": [
-              "durable",
-              "provider"
+              "authorized",
+              "remain"
             ]
           },
           {
-            "id": "ACCEPT-01",
-            "guard": "Only external customer evidence accepts a delivery",
+            "id": "INVITED-11",
+            "guard": "Stale provider evidence never admits the invited route",
             "shared": 2,
             "terms": [
-              "external",
+              "provider",
               "evidence"
             ]
           }
@@ -17293,7 +18473,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "CAPABILITY-GENOME-CANON-87a01718",
@@ -17367,7 +18547,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/CAPABILITY_GENOME_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6edce379",
@@ -17451,7 +18631,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f40f2ca8",
@@ -17523,7 +18703,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a4674f47",
@@ -17607,7 +18787,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6ef4b9e0",
@@ -17689,7 +18869,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-123a9c73",
@@ -17770,7 +18950,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ffa5455b",
@@ -17899,7 +19079,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e56d298d",
@@ -17924,19 +19104,31 @@
         "merely",
         "popular"
       ],
-      "tests": [],
+      "tests": [
+        "tests/prospect-verification-intake.test.mjs"
+      ],
       "testLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
+        "matches": [
+          {
+            "file": "tests/prospect-verification-intake.test.mjs",
+            "shared": 3,
+            "terms": [
+              "vendor",
+              "external",
+              "merely"
+            ]
+          }
+        ]
       },
       "mutationGuards": [],
       "mutationLinkage": {
         "strength": "NONE",
         "matches": []
       },
-      "status": "COMPILED_NO_TEST_MENTIONS_IT",
+      "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-282ad157",
@@ -17974,7 +19166,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-3246563c",
@@ -18040,7 +19232,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0a62e5dc",
@@ -18101,7 +19293,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fef52a3b",
@@ -18137,7 +19329,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-d9f1acb0",
@@ -18231,7 +19423,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-32ff8717",
@@ -18312,7 +19504,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f36c33af",
@@ -18347,7 +19539,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-820e37c3",
@@ -18435,7 +19627,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11af01a4",
@@ -18472,7 +19664,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1ed46dab",
@@ -18556,7 +19748,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4c7a100c",
@@ -18641,7 +19833,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-46fe12f9",
@@ -18714,7 +19906,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e60a7282",
@@ -18820,7 +20012,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-51718ae7",
@@ -18930,7 +20122,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-aaa931a8",
@@ -18989,7 +20181,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-9d1709f1",
@@ -19074,7 +20266,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-c23f99a0",
@@ -19151,7 +20343,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f7cbddff",
@@ -19178,13 +20370,23 @@
         "copy"
       ],
       "tests": [
+        "tests/global-green-lane-router.test.mjs",
         "tests/ai-access-opportunity-registry.test.mjs",
-        "tests/apex-sealed-tournament.test.mjs",
-        "tests/capability-genome.test.mjs"
+        "tests/apex-sealed-tournament.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/global-green-lane-router.test.mjs",
+            "shared": 4,
+            "terms": [
+              "allow",
+              "sole",
+              "evidence",
+              "copy"
+            ]
+          },
           {
             "file": "tests/ai-access-opportunity-registry.test.mjs",
             "shared": 3,
@@ -19201,15 +20403,6 @@
               "compression",
               "become",
               "evidence"
-            ]
-          },
-          {
-            "file": "tests/capability-genome.test.mjs",
-            "shared": 3,
-            "terms": [
-              "sole",
-              "evidence",
-              "copy"
             ]
           }
         ]
@@ -19233,7 +20426,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-bd571341",
@@ -19312,7 +20505,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-cb93444a",
@@ -19382,14 +20575,26 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "FROZEN-EFFECT-06"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "FROZEN-EFFECT-06",
+            "guard": "Protected owner identity must remain exact",
+            "shared": 2,
+            "terms": [
+              "identity",
+              "remain"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6340a090",
@@ -19470,7 +20675,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-4e81efb3",
@@ -19548,7 +20753,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-8473d37c",
@@ -19624,7 +20829,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-212e87ff",
@@ -19703,7 +20908,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-347066dd",
@@ -19763,7 +20968,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-874c6921",
@@ -19830,7 +21035,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-db10c10f",
@@ -19903,7 +21108,8 @@
       },
       "mutationGuards": [
         "HORIZON-02",
-        "UBERCEL-01"
+        "UBERCEL-01",
+        "GGL-14"
       ],
       "mutationLinkage": {
         "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
@@ -19925,12 +21131,21 @@
               "uberbond",
               "cannot"
             ]
+          },
+          {
+            "id": "GGL-14",
+            "guard": "Stale policy evidence cannot satisfy a permissive route",
+            "shared": 2,
+            "terms": [
+              "cannot",
+              "satisfy"
+            ]
           }
         ]
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-fd073312",
@@ -20004,7 +21219,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-e0b0f379",
@@ -20041,7 +21256,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ae2b7888",
@@ -20074,7 +21289,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-77330145",
@@ -20107,7 +21322,7 @@
       "tests": [
         "tests/github-relay.test.mjs",
         "tests/uberwatt.test.mjs",
-        "tests/distribution-control-plane.test.mjs"
+        "tests/contra-collection-readiness.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
@@ -20133,12 +21348,12 @@
             ]
           },
           {
-            "file": "tests/distribution-control-plane.test.mjs",
+            "file": "tests/contra-collection-readiness.test.mjs",
             "shared": 3,
             "terms": [
-              "separate",
               "local",
-              "safety"
+              "project",
+              "general"
             ]
           }
         ]
@@ -20150,7 +21365,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-f1a1bd0e",
@@ -20178,13 +21393,22 @@
         "layers"
       ],
       "tests": [
+        "tests/egypt-corporate-role-scope.test.mjs",
         "tests/genesis-scientist.test.mjs",
-        "tests/nullstar-omega-bottleneck.test.mjs",
-        "tests/recursive-improvement-retention.test.mjs"
+        "tests/nullstar-omega-bottleneck.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/egypt-corporate-role-scope.test.mjs",
+            "shared": 3,
+            "terms": [
+              "external",
+              "systems",
+              "override"
+            ]
+          },
           {
             "file": "tests/genesis-scientist.test.mjs",
             "shared": 3,
@@ -20202,15 +21426,6 @@
               "systems",
               "higher"
             ]
-          },
-          {
-            "file": "tests/recursive-improvement-retention.test.mjs",
-            "shared": 3,
-            "terms": [
-              "external",
-              "override",
-              "higher"
-            ]
           }
         ]
       },
@@ -20221,7 +21436,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-5def0131",
@@ -20340,7 +21555,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dd81dd32",
@@ -20414,14 +21629,26 @@
           }
         ]
       },
-      "mutationGuards": [],
+      "mutationGuards": [
+        "OUTREACH-FLEET-03"
+      ],
       "mutationLinkage": {
-        "strength": "NONE",
-        "matches": []
+        "strength": "GUARD_SUBJECT_OVERLAP__THE_GUARD_ITSELF_IS_MUTATION_KILLED",
+        "matches": [
+          {
+            "id": "OUTREACH-FLEET-03",
+            "guard": "An authorization must bind the exact plan digest",
+            "shared": 2,
+            "terms": [
+              "authorization",
+              "plan"
+            ]
+          }
+        ]
       },
-      "status": "COMPILED_WITH_CANDIDATE_TESTS",
+      "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-a757dd0f",
@@ -20489,7 +21716,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-40bfc2bc",
@@ -20523,7 +21750,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-11cc88f8",
@@ -20557,7 +21784,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-56321e42",
@@ -20588,13 +21815,25 @@
         "path"
       ],
       "tests": [
+        "tests/sovereign-coverage-matrix.test.mjs",
         "tests/domain-mailbox-readiness.test.mjs",
-        "tests/memory-truth-boundary.test.mjs",
-        "tests/omnia-v9-external-effect-state-machine.test.mjs"
+        "tests/memory-truth-boundary.test.mjs"
       ],
       "testLinkage": {
         "strength": "VOCABULARY_OVERLAP_ONLY__NOT_PROOF_OF_ENFORCEMENT",
         "matches": [
+          {
+            "file": "tests/sovereign-coverage-matrix.test.mjs",
+            "shared": 6,
+            "terms": [
+              "required",
+              "uberbond",
+              "truth",
+              "company",
+              "tested",
+              "path"
+            ]
+          },
           {
             "file": "tests/domain-mailbox-readiness.test.mjs",
             "shared": 5,
@@ -20616,17 +21855,6 @@
               "company",
               "path"
             ]
-          },
-          {
-            "file": "tests/omnia-v9-external-effect-state-machine.test.mjs",
-            "shared": 5,
-            "terms": [
-              "required",
-              "core",
-              "truth",
-              "migration",
-              "path"
-            ]
           }
         ]
       },
@@ -20637,7 +21865,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-dce153cc",
@@ -20721,7 +21949,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-ef0c13a9",
@@ -20794,7 +22022,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-af2de41e",
@@ -20829,7 +22057,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-6e015714",
@@ -20899,7 +22127,7 @@
       },
       "status": "COMPILED_WITH_CANDIDATE_TESTS",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-0ecb54d0",
@@ -20937,7 +22165,7 @@
       },
       "status": "COMPILED_NO_TEST_MENTIONS_IT",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     },
     {
       "id": "AI-SKILL-PLUGIN-ASSIMILATION-CANON-1118ebd6",
@@ -21047,7 +22275,7 @@
       },
       "status": "COMPILED_WITH_MUTATION_GUARD",
       "provenance": "docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md",
-      "sourceSha": "39cb8133634e0110c9232c2921ffdbd42350c5d8"
+      "sourceSha": "90a5f062d42f9b184732beba6567c5e11a13d44e"
     }
   ]
 }

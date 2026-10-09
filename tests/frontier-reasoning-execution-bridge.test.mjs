@@ -4,7 +4,7 @@ import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 import { createFrontierSimulationExecutorFactory } from '../src/frontier-simulation-executor.mjs';
-import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { executeFrontierMember, compileFrontierExecutorWorker } from '../src/frontier-reasoning-runtime.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -215,6 +215,20 @@ test('member mutation after admission cannot execute', async () => {
   });
   assert.equal(out.ok, false);
   assert.ok(out.reasonCodes.includes('member-object-does-not-match-admitted-plan'));
+});
+
+// The forged-member test above is stopped by the admitted-plan match before the
+// worker binding is reached, so on its own it cannot show the binding checks the
+// quality attestation at all. Exercise the binding directly.
+test('worker binding refuses a FRONTIER_MAX member without the canonical quality attestation', () => {
+  const member = admittedPlan().plan.selected;
+  assert.equal(member.reasoningTier, 'FRONTIER_MAX');
+  assert.equal(compileFrontierExecutorWorker(member).ok, true);
+  const degraded = compileFrontierExecutorWorker({ ...member, absoluteQualityInvariant: { ...member.absoluteQualityInvariant, qualityDelta: 0.01 } });
+  assert.equal(degraded.ok, false);
+  assert.ok(degraded.reasonCodes.includes('absolute-frontier-quality-delta-must-be-zero'));
+  const { absoluteQualityInvariant, ...unattested } = member;
+  assert.equal(compileFrontierExecutorWorker(unattested).ok, false);
 });
 
 test('actual cost above reserved ceiling remains blocked after provenance passes', async () => {

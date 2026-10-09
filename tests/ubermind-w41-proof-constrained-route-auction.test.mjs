@@ -108,7 +108,7 @@ test('W41 higher verifier overhead can erase all savings',()=>{
 });
 test('W41 fully qualified but expensive candidate cannot defeat cheaper Opus',()=>{
  const r=run({units:[unit('a','routine',100000,20000,[
- offer('costly','model',[call('opus',100000,20000,{count:2})])]});
+ offer('costly','model',[call('opus',100000,20000,{count:2})])])]});
  assert.equal(r.decisions[0].selectedRoute,'OPUS_REFERENCE');
 });
 test('W41 malformed unit, model, counts and duplicate IDs are rejected',()=>{

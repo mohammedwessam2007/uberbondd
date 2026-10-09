@@ -1,5 +1,9 @@
 # UBERBOND FORENSIC ARCHAEOLOGY: ORIGINAL REPOSITORY THROUGH OCTOBER 10, 2026
 
+## October 10 Cairo: exact tail through 6,252 immutable main messages
+
+**Verified next cutoff:** `8d3c89ec0bca3b4b7b6a4adfcd054d4deef45e14` at `2026-10-09T23:16:23Z` (Oct 10 Cairo). GitHub pagination confirms 63 pages, 52 on page 63, oldest original SHA `229c2c85...`, current newest `8d3c89ec...`. [Full exact original commit messages 6251 and 6252, with parents and changed-file manifests](MAIN_DELTA_6251_6252_FULL_EXACT_MESSAGES.md) extend the earlier verified 6,250 original-message chain. **This is a later pinned cutoff, not retroactive replacement of the 6,243 frozen per-day index or 6,228 earlier baseline.** A subsequent docs merge is another commit and must be reindexed by a future delta. All main commits do not equal all branch/chat/provider events; complete messages do not mean all historical diffs or line-by-line semantic review. The remaining all-ref/all-version audit is explicitly unfinished.
+
 ## October 10 Cairo: exact current main extension through 6,250 commits
 
 **Further live extension:** [MAIN_DELTA_6250_FULL_EXACT_MESSAGE.jsonl.md](MAIN_DELTA_6250_FULL_EXACT_MESSAGE.jsonl.md) preserves the next exact multiline source commit `37d03dcf48443dd73c89d8b12253029c2a2da8f8`, dated 2026-10-09 23:07:40 UTC = October 10 02:07 Cairo, with six changed-file references. Combined full original main commit-message chain is **6,228 + 17 + 4 + 1 = 6,250**, through this additional frozen HEAD. This is an append-only second cutoff: earlier sentences refer to the previous 6,249-commit snapshot, not the final current source.

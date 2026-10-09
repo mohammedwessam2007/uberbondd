@@ -78,7 +78,7 @@ export function compareUberMindMatchedUsage({
   candidateReportedWeeklyUsagePoints:round(altPct),
   modeledWeeklyUsagePointDifference:round(weeklySavings),
   reportedRelativeWeeklyMeterReductionPercent:round(reduction),
-  reportedTasksPerWeeklyPercentagePointRatio:round(basePct/altPct),
+  reportedAcceptedTasksPerWeeklyPercentagePoint:round(baseline.length/altPct),
   reportedEfficiencyMultiplier:round(basePct/altPct),
   reportedApiEquivalentBaselineUsd:completeApi?round(baseApi):null,
   reportedApiEquivalentCandidateUsd:completeApi?round(altApi):null,

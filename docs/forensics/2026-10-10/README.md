@@ -1,6 +1,9 @@
 # UBERBOND FORENSIC ARCHAEOLOGY: ORIGINAL REPOSITORY THROUGH OCTOBER 10, 2026
 
-## October 10 Cairo: exact current main extension through 6,249 commits
+## October 10 Cairo: exact current main extension through 6,250 commits
+
+**Further live extension:** [MAIN_DELTA_6250_FULL_EXACT_MESSAGE.jsonl.md](MAIN_DELTA_6250_FULL_EXACT_MESSAGE.jsonl.md) preserves the next exact multiline source commit `37d03dcf48443dd73c89d8b12253029c2a2da8f8`, dated 2026-10-09 23:07:40 UTC = October 10 02:07 Cairo, with six changed-file references. Combined full original main commit-message chain is **6,228 + 17 + 4 + 1 = 6,250**, through this additional frozen HEAD. This is an append-only second cutoff: earlier sentences refer to the previous 6,249-commit snapshot, not the final current source.
+
 
 **New readback on 2026-10-10 Cairo:** the frozen 6,243 unique MAIN SHA index remains intact. Source main advanced 6 more commits through `5cb8995f89147531516340d475ee7e736733331c`, at 2026-10-09 22:32:23 UTC (October 10 01:32:23 Cairo). The pre-existing `MAIN_DELTA_6229_6245_FULL_EXACT_MESSAGES.jsonl.md` already preserved the first two extra commits beyond 6,243, through `d6696618...`. The *four later commits* have now been individually fetched, with full exact multiline messages, parent links, author/committer times and changed-file manifests, in [**MAIN_DELTA_6246_6249_FULL_EXACT_MESSAGES.jsonl.md**](MAIN_DELTA_6246_6249_FULL_EXACT_MESSAGES.jsonl.md). Combined coverage is **6,228 + 17 + 4 = 6,249** complete original MAIN commit messages, through current SHA. This remains MAIN-only ancestry and metadata; it is not the same as analyzing all 6,249 source patches or missing Project transcripts.
 

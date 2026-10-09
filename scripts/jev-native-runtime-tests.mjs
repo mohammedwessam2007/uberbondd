@@ -18,6 +18,8 @@ const tests=[
   'tests/provable-reference-economics.test.mjs',
   'tests/ubermind-33k-reality-gate.test.mjs',
   'tests/ubermind-cheapest-eligible-reference.test.mjs',
+  'tests/ubermind-opus-quality-cost-floor.test.mjs',
+  'tests/ubermind-pro20-economics.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',
   'tests/ubermind-public-workload-integrity.test.mjs',

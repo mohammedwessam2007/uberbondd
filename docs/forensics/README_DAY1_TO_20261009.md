@@ -68,6 +68,11 @@ UberWatt and Windows local node, legal/consent/green-lane and SaaS-extinction, U
 ### October 1–9: physical Winnr sender, Revenue Singularity, payment-last truth and later UberMind
 Winnr $9/three-inbox actual SMTP/IMAP integration and seed placement tests; Oct3–4 Money Queue, G-SPOT, Reply Radar, Offer Market Maker, delivery and exact effect uncertainty; Oct5–6 Wynn $69 purchase vs SEND/COLLECTION states, Contra plan; Oct7–8 model comparisons, 890 commercial crossover and budgeted JEV controls; Oct9 source-indexed leadgen recovery. Live runtime and commercial outcome remain separately evidenced.
 
+
+**Supplementary non-destructive snapshot:** `pull_requests/PRS_PAGES_{01_02,03_04,05_06}.jsonl` retains additional `baseSha` and `headRef` attributes from the original GitHub API extraction for the first 600 PRs. The `PRS_*.jsonl` six-file primary index covers all 1,156 PRs and was independently counted; the supplemental three files intentionally overlap and must not be added to the total.
+
+**Readback tests:** [`VERIFICATION_RECEIPT_2026-10-09.json`](./VERIFICATION_RECEIPT_2026-10-09.json) confirms exact sums for commits, dates, PRs, issues, branches, tree and numbered original ideas, including original mounted source SHA-256. It explicitly records remaining gaps in byte-level patch review, review comments and private chats.
+
 ## Inheritance / no-amputation
 
 Keep earlier standalone Lead OS app and 380-file Instantly capability archive as sources, not as redundant fake clones. Preserve outreach scale targets independently: 1,500 verified opportunities per day; UberProspect 2,000 records/four 500 lanes; UberReply historical 4×25K *per day* ambition; separate 100K *per month* certificate. Preserve all four October flagship offers plus previous product ladders and vertical donors. Preserve failures, test skips, cloud quota failures, sender2 intermittent CONNECT, sender3 placement quarantine, frozen Intelo UNKNOWN_0_OR_1 (no replay), and no current cleared client revenue. All 890 original literal ideas are preserved, but direct preservation != 890 implementations.

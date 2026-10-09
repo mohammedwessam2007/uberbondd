@@ -83,7 +83,7 @@ test('W33 inferior quality or unaccepted work cannot be called cost success',()=
  }
 });
 test('W33 no paid API plus subscription-only flag is strict',()=>{
- const a=args();a.candidate.paidExternalApiUsd:.00001;
+ const a=args();a.candidate.paidExternalApiUsd=.00001;
  assert.equal(compare(a).ok,false);
  const missingBudgetAttestation=args();
  missingBudgetAttestation.noSeparatePaidInferenceAttested=false;

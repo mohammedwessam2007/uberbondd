@@ -1,0 +1,57 @@
+flowchart TB
+ ROOT["01 YOUR ONE NORMAL CLAUDE PROMPT"] --> LEAD["UBERMIND OMEGA 10 • SOVEREIGN DIRECTOR<br/>One lead Claude Pro session; source+quality+spend gates"]
+ HIER["FOUNDER CONTINUUM<br/>Wessam Singularity • Personal Civilization • UberBond"] -. "Goals, authority, anti-amputation" .-> LEAD
+ GEN["890 ORIGINAL FOUNDER IDEAS + GENESIS<br/>ten immutable shards, original wording, descendants separate"] -. "Relevant source pointers only" .-> CTX
+ MEMORY["TOTAL BRAIN / PHOENIX / NEGATIVE KNOWLEDGE<br/>Error, provenance, evidence, successful verified procedures"] -. "W30 Hot18 imported kernel and on-demand context" .-> CTX
+ CAP["CAPABILITY GENOME + SKILL IMMUNE SYSTEM<br/>Approved tools, security, licenses, task-class candidates"] -. "Minimum safe toolset" .-> CTX
+ LEAD --> CTX["02 INTELLIGENCE ESCROW<br/>Source digest • accepted output contract • task delta"]
+ CTX --> PRIOR{"03 EXACT CERTIFIED RESULT OR TOOL?"}
+ PRIOR -- "YES: valid source + scope" --> CODE["NO NEW MODEL CALL<br/>E0–E4 certified cache/code/test/AST/solver"]
+ PRIOR -- "NO: unsolved or changed" --> JEVQ{"04 TYPED JEV QUESTION AND SEPARATE AUTHORITY?"}
+ JEVQ -- "YES, bounded and funded" --> JEV["JEV 1.13 HYPERREFLEX<br/>NOUL • CHOICE • SCORE; advisory only"]
+ JEV --> TENSOR["Existing W11–W22 guarded tensor<br/>Scoped reuse • single-flight • budget • admission"]
+ TENSOR --> JEVPROOF{"Scope-specific decision independently sufficient?"}
+ JEVPROOF -- YES --> CODE
+ JEVPROOF -- NO --> MARKET
+ JEVQ -- "NO: strict $20 Pro" --> ROUTE["LOCAL RULED ROUTER • NO PAID JEV CALL"]
+ ROUTE --> MARKET{"05 COGNITIVE PRESSURE VALVE<br/>Difficulty × consequences × quality × actual Pro quota"}
+ MARKET -- "Read-only source scout" --> HAIKU["HAIKU 5.5 • SOURCE SCOUT<br/>Read/Grep/Glob; max 6 turns; no cold canon bulk"]
+ MARKET -- "Normal implementation" --> SONNET["SONNET 5.5 • MAIN ENGINEER<br/>Single session; workflow-as-code; tests"]
+ MARKET -- "Novel/critical uncertainty" --> OPUS["OPUS 5.5 • FRONTIER ARCHITECT<br/>One independent high-effort spec or adjudication"]
+ HAIKU --> SPEC["06 CONTRACT COMPILER<br/>Interfaces • DAG • source SHA • owned paths • tests"]
+ OPUS --> SPEC
+ SPEC --> TEAM{"07 PARALLEL WORK NET POSITIVE AFTER TOKEN OVERHEAD?"}
+ TEAM -- "NO, default" --> SONNET
+ TEAM -- "YES, truly independent" --> BUS["OPTIONAL P2P TASK BUS<br/>Sonnet builder A • Sonnet adversarial tester B<br/>Haiku scout when source load justifies it"]
+ BUS --> DIFF["08 PROOF-CARRYING DELTAS<br/>Changed files • unresolved claims • competing hypotheses"]
+ SONNET --> DIFF
+ DIFF --> DOUBT{"09 HARD SEMANTIC DISAGREEMENT PERSISTS?"}
+ DOUBT -- NO --> REALITY
+ DOUBT -- YES --> N2["N=2 DIVERSE HYPOTHESES<br/>Only if expected quality benefit exceeds usage"]
+ N2 --> ESC{"Material unanswered error remains?"}
+ ESC -- YES --> N4["Adaptive N=4 / N=8 ONLY IF JUSTIFIED<br/>Falsifier • evidence hunter • framebreaker"]
+ ESC -- NO --> CROWN
+ N4 --> CROWN["10 MOVING FRONTIER CROWN<br/>Opus on Pro if available; qualified others only with separate permission"]
+ CROWN --> REALITY["11 REALITY COURT<br/>Independent tests • claimed vs proved output"]
+ CODE --> REALITY
+ REALITY --> ACCEPT{"12 SAME ACCEPTANCE QUALITY AND AUTHORITY?"}
+ ACCEPT -- NO --> HOLD["HOLD / REPAIR / WAIT FOR LEGITIMATE QUOTA RESET"]
+ ACCEPT -- YES --> OUTPUT["13 FINISHED DELIVERABLE / GOVERNED PR / VERIFIED EFFECT"]
+ OUTPUT --> LEARN["14 COGNITIVE COMPOUND INTEREST<br/>Cognitive multicast • decision DAG reuse • Crown call coalescing<br/>Proof #57 • Error #58 • Prediction #59 • Civilization Git #61"]
+ LEARN -. "Certified next-time reuse" .-> PRIOR
+ LEARN -. "Failure and source receipt" .-> MEMORY
+ LEARN -. "GENESIS successor hypothesis" .-> GEN
+ OUTPUT --> BENCH["15 EXACT-TASK PAIRED COST-QUALITY LEDGER<br/>Same task hash + quality suite + accepted evidence<br/>Weekly Pro meter reduction; NOT theoretical price alone"]
+ BENCH -. "Feedback on worker allocation" .-> MARKET
+ BUDGET["CLAUDE PRO $20/MONTH<br/>Shared 5h + weekly limit; NO outside API spend"] -. "Budget ceiling" .-> LEAD
+ SCREEN["TWITTER DEMO $0.47 -> $0.14 CLAIMED<br/>Different egg-drop task; unverified in our environment"] -. "Only external comparison reference" .-> BENCH
+ classDef crown fill:#eee5ff,stroke:#7052b1,color:#28134e
+ classDef savings fill:#e3f5ed,stroke:#168a59,color:#164b2f
+ classDef gate fill:#fff0d4,stroke:#b58023,color:#56370c
+ classDef memory fill:#e8f0ff,stroke:#366fae,color:#183a60
+ classDef stop fill:#ffe5e8,stroke:#b94353,color:#6a1b25
+ class HAIKU,SONNET,OPUS,BUS,N2,N4,CROWN crown
+ class JEV,TENSOR,ROUTE,CODE,DIFF,REALITY,OUTPUT,LEARN,BENCH savings
+ class PRIOR,JEVQ,JEVPROOF,MARKET,TEAM,DOUBT,ESC,ACCEPT gate
+ class ROOT,LEAD,HIER,GEN,MEMORY,CAP,CTX,SPEC,BUDGET,SCREEN memory
+ class HOLD stop

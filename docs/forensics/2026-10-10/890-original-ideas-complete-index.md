@@ -1,6 +1,6 @@
 # Founder idea universe: complete 890-idea original-title and source locator index
 
-**Verified in this audit:** ten canonical JSON shards; 890 contiguous ordinal IDs, nonempty original titles and body text, per-idea original transcript line ranges. Full exact original titles, IQ labels and literal idea bodies live in [`docs/forensics/FOUNDER_890_ORIGINAL_IDEAS_VERBATIM_2026-10-09.md`](../../FOUNDER_890_ORIGINAL_IDEAS_VERBATIM_2026-10-09.md) and the ten original shards. This file supplies every stable ID/title and original source line numbers. Ideas are neither proof nor verified implementations.
+**Verified in this audit:** ten canonical JSON shards; 890 contiguous ordinal IDs, nonempty original titles and body text, per-idea original transcript line ranges. Full exact original titles, IQ labels and literal idea bodies live in [`docs/forensics/FOUNDER_890_ORIGINAL_IDEAS_VERBATIM_2026-10-09.md`](../FOUNDER_890_ORIGINAL_IDEAS_VERBATIM_2026-10-09.md) and the ten original shards. This file supplies every stable ID/title and original source line numbers. Ideas are neither proof nor verified implementations.
 
 ID | Original literal title | Original transcript lines | Canonical shard
 ---|---|---|---

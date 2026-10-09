@@ -25,7 +25,7 @@ test('W39 independent Sonnet falsifier is explicitly bounded and read-only',()=>
 test('W39 Opus Crown is high effort, read-only and invoked only when necessary',()=>{
  assert.match(opus,/model: opus\neffort: high\ntools: Read, Grep, Glob\nmaxTurns: 8/);
  assert.match(opus,/genuinely novel\/high-consequence reasoning/);
- assert.match(opus,/never always-running/);
+ assert.match(opus,/not an always-running coordinator/);
 });
 test('W39 explicit fallback to full Opus worker and no fictitious Max switch',()=>{
  assert.match(opus,/PRIMARY WORKER/);

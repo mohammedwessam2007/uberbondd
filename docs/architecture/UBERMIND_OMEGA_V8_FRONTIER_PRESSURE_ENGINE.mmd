@@ -1,8 +1,13 @@
 flowchart TB
   PROMPT["① YOUR ORDINARY CLAUDE PROMPT"] --> MAIN["② UBERMIND Ω⁸ | SONNET 5.5 MAIN | SINGLE ACCOUNTABLE SESSION"]
-  MAIN --> HEAT["CONTEXT HEAT ENGINE | HOT: rules + goal | WARM: relevant 890 IDs + PHOENIX | COLD: complete immutable 890 corpus + history"]
+  MAIN --> HEAT["CONTEXT HEAT ENGINE | 18 direct hot CLAUDE imports | WARM: task-relevant 890 IDs / PHOENIX | COLD: untouched historical missions"]
   IDEA["ALL 890 ORIGINAL FOUNDER IDEAS + GENESIS + TOTAL BRAIN + CAPABILITY GENOME"] -. "task-relevant source pointers" .-> HEAT
-  HEAT --> CONTRACT["ACCEPTANCE CONTRACT | quality floor | source SHA | permissions | risk"]
+  HEAT --> CONDITIONAL{"Software engineering or historical first-cash mission?"}
+  CONDITIONAL -- "Coding/PR/runtime" --> FACTORY["LOAD FULL SOFTWARE FACTORY source on demand"]
+  CONDITIONAL -- "Historic Aug-30/PR251" --> RESUME["LOAD COMPLETE HISTORICAL RESUME on demand"]
+  CONDITIONAL -- "Unrelated mission" --> CONTRACT
+  FACTORY --> CONTRACT
+  RESUME --> CONTRACT["ACCEPTANCE CONTRACT | quality floor | source SHA | permissions | risk"]
   CONTRACT --> EXIST{"EXACT APPROVED SOLUTION STILL APPLIES?"}
   EXIST -- YES --> ZERO["E0–E4 EXACT ENGINE | native code / verified cache / deterministic tests | no new model inference"]
   EXIST -- NO --> JQUESTION{"BOUNDED TYPED JEV DECISION WORTHWHILE AND SEPARATELY AUTHORIZED?"}

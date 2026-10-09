@@ -44,7 +44,7 @@ test('W28 main bootstrap preserves both original long missions as on-demand sour
   'docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md',
   'docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md'
  ];
- assert.ok(imports.length<=20,'unnecessary unconditional import fanout reintroduced');
+ assert.ok(imports.length<=18,'unnecessary unconditional import fanout reintroduced');
  for(const original of originals){
   assert.equal(imports.includes(original),false,'original should be preserved but loaded only for relevant missions');
   assert.ok(contents.includes(original),'mandatory founder mission pointer disappeared');
@@ -52,4 +52,24 @@ test('W28 main bootstrap preserves both original long missions as on-demand sour
   assert.ok(src.byteLength>10000,'original mission source missing or amputated');
  }
  assert.ok(contents.includes('newer explicit founder instruction'));
+});
+
+test('W30 retains complete engineering canon and precise historical replay pointers while avoiding unconditional source expansion',async()=>{
+ const root=process.cwd();
+ const claude=await readFile(join(root,'CLAUDE.md'),'utf8');
+ const imports=parseDirectClaudeImports(claude);
+ const factory='docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md';
+ const historical='docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md';
+ assert.equal(imports.length,18);
+ for(const source of [factory,historical]){
+  assert.equal(imports.includes(source),false,'cold source should not be auto-imported');
+  assert.ok(claude.includes(source),'source pointer must remain discoverable');
+  const original=await readFile(join(root,source),'utf8');
+  assert.ok(original.length>1000,'historical source must remain complete');
+ }
+ assert.ok(claude.includes('For any software development, coding-agent, implementation'),'code tasks must load full authoritative engineering source');
+ assert.ok(claude.includes('mandatory when recovering the August 30 workstream, PR #251'),'historical recovery must remain explicit');
+ assert.ok(imports.includes('AGENTS.md'),'founder constitution must remain hot');
+ assert.ok(imports.includes('docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md'),'890 canon must remain hot');
+ assert.ok(imports.includes('NORTH_STAR.md'),'terminal north star must remain hot');
 });

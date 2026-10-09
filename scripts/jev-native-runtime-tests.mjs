@@ -20,6 +20,7 @@ const tests=[
   'tests/ubermind-cheapest-eligible-reference.test.mjs',
   'tests/ubermind-opus-quality-cost-floor.test.mjs',
   'tests/ubermind-cognitive-residual-economics.test.mjs',
+  'tests/ubermind-startup-context-audit.test.mjs',
   'tests/ubermind-pro20-economics.test.mjs',
   'tests/jev-scaled-preflight.test.mjs',
   'tests/ubermind-public-workload-precommit.test.mjs',

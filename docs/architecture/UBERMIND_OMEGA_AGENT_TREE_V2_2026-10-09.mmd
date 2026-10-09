@@ -1,0 +1,51 @@
+flowchart TD
+  YOU["FOUNDER • UBERMIND Ω • MAIN MISSION"] --> INT["TASK COMPILER<br/>Acceptance contract • quality • risk • owner authority"]
+  GEN["890 original ideas<br/>GENESIS successors"] -. relevant literal idea IDs .-> INT
+  MEM["TOTAL BRAIN + PHOENIX<br/>Known failures • source SHAs"] -. selective context .-> INT
+  CAP["CAPABILITY GENOME<br/>Tools • permissions • models"] -. minimum sufficient toolset .-> INT
+  INT --> EXACT{"Verified existing code, solver, cache or certified procedure?"}
+  EXACT -- "YES" --> FREE["E0–E4 EXACT ENGINE<br/>Reuse / deterministic tools / zero new AI inference"]
+  EXACT -- "NO" --> ROUTE{"Bounded typed decision?"}
+  ROUTE -- "YES and existing explicit separate budget" --> JEV["JEV 1.13 • HYPERREFLEX<br/>NOUL • CHOICE • SCORE"]
+  ROUTE -- "NO or no paid JEV permission" --> DEC["Deterministic protected route<br/>Never pretend Jev was called"]
+  JEV --> JT["JEV BOUNDED EXECUTOR<br/>W11 scaled tensor • W16 reuse<br/>W17 single-flight • W18 claims<br/>W19 fresh-cost reservation<br/>W20/22 public source gate"]
+  JT --> JQ{"Provably bounded decision enough?"}
+  JQ -- YES --> FREE
+  JQ -- NO --> DEC
+  DEC --> COMPLEX{"What intelligence does this task need?"}
+  COMPLEX -- "Small specified implementation" --> S["SONNET 5.5 • PRIMARY BUILDER<br/>One focused Claude Pro session"]
+  COMPLEX -- "Source map / short retrieval" --> H["HAIKU 5.5 • READ-ONLY SCOUT<br/>Short exact pointers; if available"]
+  COMPLEX -- "Novel / consequential / architectural" --> OP["OPUS 5.5 • ARCHITECT<br/>High effort; clean problem framing"]
+  H --> SPEC["SOURCE-BOUND TASK CONTRACT<br/>Interface • path ownership • tests"]
+  OP --> SPEC
+  SPEC --> TEAM{"Does parallel work earn its shared quota?"}
+  TEAM -- "NO" --> S
+  TEAM -- "YES" --> B1["SONNET 5.5 • BUILDER A<br/>Owned isolated worktree"]
+  TEAM -- "YES" --> B2["SONNET 5.5 • VERIFIER B<br/>Independent hostile tests"]
+  B1 --> BUS["Typed peer receipts / conflict-safe integration<br/>No competing writes or synthetic success"]
+  B2 --> BUS
+  S --> BUS
+  BUS --> O2["OPUS 5.5 • FINAL REVIEW<br/>Only unresolved semantic / critical issues"]
+  O2 --> COURT["REALITY COURT<br/>Unit + adversarial + security tests<br/>Diff + source/contract hashes"]
+  FREE --> COURT
+  COURT --> AUTH{"Accepted + authorized to affect external world?"}
+  AUTH -- "NO" --> HOLD["Repair, return blocked, or request specific approval"]
+  AUTH -- "YES" --> RELEASE["GOVERNED PR / MERGE / DEPLOY<br/>Verify exact Git SHA and live logs"]
+  RELEASE --> LOOP["LEARN / PHOENIX / IDEA LINEAGE<br/>Proof / Error / Prediction accounting"]
+  LOOP -. compile proven reuse .-> EXACT
+  LOOP -. improve bounded task circuits .-> JEV
+  LOOP -. task-class cost/quality evolution .-> COMPLEX
+  OTHER["ASTRA / SOL PRO / OTHER MODEL MARKET<br/>Independent challenger ONLY with separate authorized route"] -. when true frontier uncertainty remains .-> O2
+  QUOTA["$20 CLAUDE PRO<br/>Shared session + weekly limits; no Claude API credits"] -. current quota must be checked .-> COMPLEX
+  CASH["JEV PAYG separate from Pro<br/>Strict $20 mode: no paid JEV call"] -. cost and permission gate .-> JEV
+  FABLE["FABLE 5.1 excluded<br/>PAYG from start on Claude Pro"] -. no automatic premium fallback .-> HOLD
+  classDef crown fill:#ece8ff,stroke:#6d4cc1,color:#26154f
+  classDef cheap fill:#e6f4f0,stroke:#16855a,color:#13482f
+  classDef gate fill:#fff1d5,stroke:#bf8524,color:#5d3b0f
+  classDef stop fill:#fee5e7,stroke:#cb454f,color:#692229
+  classDef context fill:#e6efff,stroke:#4272b5,color:#183f74
+  class OP,O2,B1,B2,S,H crown
+  class JEV,JT,FREE,COURT,RELEASE,LOOP cheap
+  class EXACT,ROUTE,JQ,COMPLEX,TEAM,AUTH gate
+  class HOLD,FABLE stop
+  class YOU,INT,GEN,MEM,CAP,QUOTA,CASH,OTHER context

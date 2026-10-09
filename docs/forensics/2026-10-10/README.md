@@ -1,5 +1,13 @@
 # UBERBOND FORENSIC ARCHAEOLOGY: ORIGINAL REPOSITORY THROUGH OCTOBER 10, 2026
 
+## Previous original-source archive and exact full-message reconciliation
+
+**CRITICAL INHERITANCE:** A previous October 9 archaeological archive already preserved **all 6,228 full original multiline commit messages** (and author/committer/parents), 1,156 full PR descriptions, 191 full original issue bodies, 1,345 branch heads, 4,599 tracked tree identities, all 890 verbatim original idea texts, and the exact PR open/merge/issue activity atlas. It is located at [`../README_DAY1_TO_20261009.md`](../README_DAY1_TO_20261009.md) with verification receipt [`../VERIFICATION_RECEIPT_2026-10-09.json`](../VERIFICATION_RECEIPT_2026-10-09.json). Its original canon was `c042938a02f5b2b4c78cfe815679ebd66f9eee50`. It is **not** superseded, deleted or replaced by the newer title-only index.
+
+The new 6,243-SHA frozen index extends that older 6,228-commit exact-message corpus by 15 commits through `5e48a190...`. The additional [`MAIN_DELTA_6229_6245_FULL_EXACT_MESSAGES.jsonl.md`](MAIN_DELTA_6229_6245_FULL_EXACT_MESSAGES.jsonl.md) now preserves **17 full multiline messages** between the previous archive and the subsequent post-freeze W35 plus archival merge at `d6696618075a54b69e9c9d332ffce99cfcfeb4e0`. This yields a continuous source-linked 6,245-commit exact-message history **through that secondary cutoff**. Any later audit-merge commit is necessarily a new event outside the freeze and should be indexed in the next checkpoint.
+
+**Truth:** full immutable Git COMMIT MESSAGES are now covered through the stated cutoff, but not all original code PATCHES, every historical blob on every branch, every review comment or unseen Project transcript. No deletion of older source or derived capability.
+
 ## Exact snapshot and recovered universe
 
 - Project repository: `mohammedwessam2007/uberbondd`

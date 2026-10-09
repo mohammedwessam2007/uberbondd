@@ -58,7 +58,8 @@ test('the public form sends a linked or typed invitation code as attribution and
       await page.close();
       return bodies.at(-1);
     };
-    const linked = await submit(`${origin}/?code=ABCD-EFGH-JKMN`, async page => {
+    // Since d09f885d `/` redirects to the Command Center; the intake form moved intact to /storefront.html.
+    const linked = await submit(`${origin}/storefront.html?code=ABCD-EFGH-JKMN`, async page => {
       assert.equal(await page.inputValue('input[name="code"]'), 'ABCD-EFGH-JKMN', 'a linked code pre-fills the field');
     });
     assert.equal(linked.source, 'bridge:ABCDEFGHJKMN');
@@ -66,14 +67,14 @@ test('the public form sends a linked or typed invitation code as attribution and
     assert.equal(linked.followUp, false, 'the follow-up box starts unticked');
     assert.equal('code' in linked, false);
 
-    const typed = await submit(`${origin}/`, async page => {
+    const typed = await submit(`${origin}/storefront.html`, async page => {
       await page.fill('input[name="code"]', 'abcd efgh jkmn');
       await page.check('input[name="followUp"]');
     });
     assert.equal(typed.source, 'bridge:ABCDEFGHJKMN');
     assert.equal(typed.followUp, true);
 
-    const none = await submit(`${origin}/`, async () => {});
+    const none = await submit(`${origin}/storefront.html`, async () => {});
     assert.equal(none.source, undefined, 'no code, no attribution');
   } finally {
     await browser.close();

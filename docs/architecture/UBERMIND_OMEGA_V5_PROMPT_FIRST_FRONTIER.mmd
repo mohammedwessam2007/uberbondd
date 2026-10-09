@@ -1,0 +1,59 @@
+flowchart TD
+    P["1. YOU TYPE ONE PROMPT IN NORMAL CLAUDE<br/>Question • idea • code mission • research • life • revenue"]
+    P --> U["UBERMIND Ω⁵ PROMPT-FIRST DIRECTOR<br/>One lead conversation, not a permanent swarm"]
+    U --> A{"Is source material / repository accessible IN THIS SESSION?"}
+    A -- "Yes" --> R["RECOVER JUST ENOUGH CONTEXT<br/>AI_START_HERE • AGENTS • current PHOENIX<br/>Relevant #0001–#0890 idea IDs • current task files"]
+    A -- "No" --> K["USE ATTACHED MATERIAL + STATED FACTS<br/>Do not claim unseen repo or account access"]
+    R --> C["TASK CONTRACT IN ONE PASS<br/>Definition of done • quality floor • deadline • permissions"]
+    K --> C
+    C --> E{"ACCEPTED EXACT RESULT ALREADY APPLIES?"}
+    E -- "Yes + genuine proof" --> Z["0 NEW MODEL CALLS<br/>Verified code • source lookup • existing accepted result"]
+    E -- "No / applicability unknown" --> J{"BOUNDED TYPED REFLEX VALUABLE?"}
+    J -- "Yes AND separate authorization" --> JV["JEV 1.13<br/>NOUL • CHOICE • SCORE<br/>Existing governed tensor + cache + single-flight"]
+    J -- "No / strict $20 only" --> D["DETERMINISTIC LOCAL DISPATCH<br/>No fake JEV call"]
+    JV --> F{"JEV result is sufficient under independent policy?"}
+    F -- "Yes, certified scope" --> Z
+    F -- "No / high-stakes / novel" --> D
+    D --> N{"WHAT LEVEL OF INTELLIGENCE DOES THE PROMPT REQUIRE?"}
+    N -- "Routine and well specified" --> S["SONNET 5.5 FOCUSED EXECUTION<br/>One Claude session, no teammates by default"]
+    N -- "Novel / difficult / architecture" --> O["OPUS 5.5 FRONTIER PLANNING<br/>One deep plan + acceptance contract"]
+    N -- "Unknown source facts" --> H["SHORT SCOUT: LOCAL SEARCH OR HAIKU<br/>Only if actually supported and worth quota"]
+    O --> W{"WHERE ARE YOU USING CLAUDE?"}
+    W -- "CLAUDE CODE" --> SWITCH["IF AVAILABLE: /model opusplan<br/>Opus plan → Sonnet implementation<br/>Use /status to check remaining allowance"]
+    W -- "NORMAL CLAUDE CHAT" --> CHAT["KEEP ONE CONVERSATION<br/>Use Opus for difficult reasoning if available;<br/>continue without imaginary model switching"]
+    SWITCH --> T{"REAL INDEPENDENT WORK WORTH EXTRA USAGE?"}
+    CHAT --> T
+    H --> T
+    T -- "No (default)" --> SOLO["ONE WORKING AGENT<br/>Small diffs / targeted tools / concise receipts"]
+    T -- "Yes, supported & authorized" --> TEAM["BOUNDED TEAM, NOT ALWAYS-ON<br/>Sonnet builder • independent tester<br/>Haiku scout only if available<br/>Owned tasks, no file conflicts"]
+    S --> SOLO
+    TEAM --> Q["INTEGRATE ONLY DELTA CONTEXT<br/>Facts • changes • failing tests • unresolved claims"]
+    SOLO --> Q
+    Q --> V{"DOES OUTPUT MEET QUALITY & RISK CONTRACT?"}
+    V -- "Yes" --> DONE["RETURN ACCEPTED ANSWER / ARTIFACT<br/>Or authorized PR, merge and live proof"]
+    V -- "No: genuine hard problem" --> FRONTIER["ESCALATE THE RESIDUAL ONLY<br/>Opus deep review or qualified independent Crown<br/>Never drop quality solely for price"]
+    FRONTIER --> V
+    DONE --> L["PHOENIX CONTINUATION RECEIPT<br/>Task, SHA, source, tests, errors,<br/>new exact certificates, relevant 890 idea IDs"]
+    L -. "Next prompt reuses verified result" .-> E
+    L -. "New GENESIS possibilities and capabilities" .-> R
+    STOP["CLAUDE PRO $20 FIXED<br/>Shared five-hour + weekly allowance<br/>No Claude API credits, no hidden PAYG fallback"]
+    STOP -. "Quota and provider authority gate" .-> U
+    OTHER["Sol • Astra • Gemini • DeepSeek • GLM • Qwen • MiMo<br/>Only through their own authorized connectors/plans"] -. "Not paid by Claude Pro" .-> FRONTIER
+    subgraph NORTH["SOVEREIGN INTELLIGENCE CONTEXT: not reloaded wholesale"]
+       GENOME["890 ORIGINAL IDEAS + GENESIS"]
+       BRAIN["TOTAL BRAIN / PHOENIX / NEGATIVE KNOWLEDGE"]
+       CAP["CAPABILITY GENOME / REALITY COURT"]
+    end
+    GENOME -. "relevant IDs" .-> R
+    BRAIN -. "verified pointers" .-> R
+    CAP -. "approved tools + tests" .-> R
+    classDef root fill:#e6efff,stroke:#4574b5,color:#132e58
+    classDef crown fill:#eae5ff,stroke:#7052bf,color:#271951
+    classDef cheap fill:#e5f5e8,stroke:#248553,color:#194632
+    classDef gate fill:#fff1d5,stroke:#b88128,color:#5b3c11
+    classDef hold fill:#ffe6e9,stroke:#be4848,color:#67232c
+    class P,U,R,K,C,GENOME,BRAIN,CAP,STOP,OTHER root
+    class O,SWITCH,FRONTIER,TEAM,CHAT crown
+    class S,SOLO,Z,JV,D,Q,DONE,L, H cheap
+    class A,E,J,F,N,W,T,V gate
+

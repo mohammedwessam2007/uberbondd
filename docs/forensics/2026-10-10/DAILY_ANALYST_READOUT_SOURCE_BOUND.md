@@ -75,4 +75,4 @@ Date (UTC) | Main commits | Evidence-derived changes / history
 
 ## Completion boundary
 
-This chronology contains 67 dated editorial observations, but it does **not** assert that every 6,243 patch was reviewed line-by-line, that all 1,361 branch tips were exhaustively diffed, or that every Project/Library message was accessible. The exact objects are cross-indexed to enable the next audit phase. Omitted zero-main days are in the full 88-day calendar and remain potentially active through other surfaces. No customer send, paid provider, deployment or product purchase happened in this audit.
+This chronology contains 66 dated editorial observations, but it does **not** assert that every 6,243 patch was reviewed line-by-line, that all 1,361 branch tips were exhaustively diffed, or that every Project/Library message was accessible. The exact objects are cross-indexed to enable the next audit phase. Omitted zero-main days are in the full 88-day calendar and remain potentially active through other surfaces. No customer send, paid provider, deployment or product purchase happened in this audit.

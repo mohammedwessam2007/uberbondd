@@ -117,7 +117,7 @@ export function planEvidenceBoundedMinUsage({
     details.push({unitId:u.id,chosenRoute:best.routeId,baselineUsagePoints:u.baselineUsagePoints,
       modeledUsagePoints:rnd(best.usagePoints),evidence:best.evidence});
   }
-  if(baseline>100+1e-9)return held('sum-of-claimed-baseline-five-hour-meter-exceeds-100');
+  if(baseline<=0||baseline>100+1e-9)return held('sum-of-claimed-baseline-five-hour-meter-must-be-positive-at-most-100');
   return {ok:true,status:'USER_ATTESTED_ROUTE_SCENARIO_NOT_OBSERVED',
     baselineUsagePoints:rnd(baseline),candidateUsagePoints:rnd(candidate),
     modeledReductionPercent:rnd((baseline-candidate)/baseline*100),

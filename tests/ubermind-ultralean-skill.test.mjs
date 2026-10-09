@@ -65,7 +65,7 @@ test('W34 bootstrap is usable in Claude Code and separates normal chat limitatio
  assert.match(prompt,/usage is not accessible|private usage is not accessible/i);
 });
 test('W34 no invented 30 percent savings or account telemetry',()=>{
- assert.match(skill,/not a fixed 30%/);
+ assert.match(skill,/not an arbitrary 30% cap/);
  assert.match(skill,/actual_5h_usage: UNKNOWN/);
  assert.match(prompt,/UNKNOWN/);
 });

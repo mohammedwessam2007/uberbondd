@@ -19,13 +19,13 @@
 @docs/CAPABILITY_GENOME_CANON.md
 @docs/WALLBREAKER_CANON.md
 @docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md
-@docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md
-@docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md
 @docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md
+
+**Context-preserving startup optimization, 2026-10-09:** Two large historical Winnr mega-mission prompts are retained unmodified at their original paths but no longer expanded as unconditional `@` startup imports. This removes only duplicate automatic loading. For an active Winnr, first-cash, outreach or commercial execution mission, **read both** `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md` and `docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md` during mandatory truth recovery before making task decisions; newer explicit founder instructions and higher-order constitutions retain precedence. For unrelated medical, personal, scientific and engineering prompts, load them only if relevant. Do not delete, shorten, supersede or alter the originals. Source-byte reduction is not proof of a particular token/quota saving.
 
 ## Current founder execution directive — 2026-10-02
 
-Unless a newer explicit founder instruction supersedes it, treat the Winnr first-cash mega mission imported above as the active commercial execution mission after completing the mandatory repository startup and truth refresh. It is intentionally open-ended: close the current Winnr/outreach frontier, continue through the furthest evidence-backed commercial state available, and stop only at a verified terminal state or a genuine external/owner-only blocker.
+Unless a newer explicit founder instruction supersedes it, treat the preserved Winnr first-cash mega mission referenced below as the active commercial execution mission after completing the mandatory repository startup and truth refresh. It is intentionally open-ended: close the current Winnr/outreach frontier, continue through the furthest evidence-backed commercial state available, and stop only at a verified terminal state or a genuine external/owner-only blocker.
 
 
 ## Active founder-directed economic execution overlay — 2026-10-02

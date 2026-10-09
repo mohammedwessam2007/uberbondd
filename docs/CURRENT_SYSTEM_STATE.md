@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-09**
 Branch: `claude/repository-debugging-8cpveg`
-Reconciled from current head: `90a5f062d42f9b184732beba6567c5e11a13d44e`
+Reconciled from current head: `df992cae8d1c13151f1c8344b2e0a397d702e338`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

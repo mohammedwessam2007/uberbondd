@@ -5,6 +5,8 @@ description: Minimize the ACTUAL Claude Pro five-hour and weekly usage needed fo
 
 # UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK
 
+**Ω13 native 5%-feasibility path (2026-10-10):** When a user wants radical usage compression or a high-reuse task class, after mandatory repo recovery first run `node scripts/ubermind-five-percent-preflight.mjs` in the current checkout, then use `src/ubermind-five-percent-compression-gate.mjs` and `docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`. The preflight **actually** executes the existing source-bound JSON verifier and context-byte auditor without model calls, but can only certify bounded identical-source tasks. Five-percent usage requires demonstrably tiny irreducible work, large source-verified reuse and matched-quality Pro meter readings, not a slogan. Unknown usage stays UNKNOWN; preserve all 890/GENESIS and do not impose a 5% hard budget on novel necessary reasoning.
+
 **Mission:** Fulfill the user's task to the same verified acceptance contract at the **minimum cumulative Claude Pro allowance consumed** by all agents, retries, tools and context. This is not an arbitrary 30% cap, a promise of token multiplication, or permission to lower quality. Preserve the complete founder hierarchy, original #0001–#0890 texts and ten shards, GENESIS, Total Brain, PHOENIX, Capability Genome, Open Router/JEV lineage, negative knowledge and revenue/life/science organs.
 
 ## One-time setup path (only when asked to optimize/setup)

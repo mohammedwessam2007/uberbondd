@@ -209,13 +209,15 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   const obs = record.clientEvidence?.observation;
   if (!hostOf(text(record.clientEvidence?.clientSiteUrl, 1000))) inc('real-client-site-missing');
   const obsObservedMs = Date.parse(obs?.observedAt);
+  const observationExceedsFutureSkew = clockValid && Number.isFinite(obsObservedMs) && obsObservedMs > nowMs + FUTURE_SKEW_MS;
   if (!obs || obs.verifiable !== true || !text(obs.text) || !hostOf(text(obs.sourceUrl, 1000)) || !text(obs.excerpt) || !Number.isFinite(obsObservedMs)) inc('externally-verifiable-lead-path-observation-missing');
-  else if (obsObservedMs > nowMs + FUTURE_SKEW_MS) rej('lead-path-observation-in-future');
+  else if (observationExceedsFutureSkew) rej('lead-path-observation-in-future');
   // The quoted claim is the message hook. A page that changed since it was
   // observed can turn a true first touch into a false one, so an old
   // observation is a re-fetch obligation, never a reusable fact.
   else if (nowMs - obsObservedMs > maxEvidenceAgeMs) inc('lead-path-observation-stale-recheck-required');
-  const observationAgeMs = clockValid && Number.isFinite(obsObservedMs) ? Math.max(0, nowMs - obsObservedMs) : null;
+  // Rejected future claims must never be advertised as perfectly fresh.
+  const observationAgeMs = clockValid && Number.isFinite(obsObservedMs) && !observationExceedsFutureSkew ? Math.max(0, nowMs - obsObservedMs) : null;
   const evidenceFreshness = {
     scope: 'LEAD_PATH_CLAIM_OBSERVATION',
     maxAgeMs: maxEvidenceAgeMs,

@@ -128,3 +128,16 @@ test('a same-day re-observation of the page restores eligibility through the nor
   const { r } = await preflight(at, refreshed);
   assert.equal(r.state, P.READY_FOR_AUTHORIZATION, JSON.stringify(r.blockerCodes));
 });
+
+test('an unparseable evaluation clock fails closed instead of reading every observation as fresh', () => {
+  // NaN makes every age comparison false; before this guard a stale claim
+  // passed intake with recheckRequired:false and scored as perfectly fresh.
+  for (const bad of [new Date('garbage'), 'garbage', NaN]) {
+    const r = compileProspectVerification(agency(ago(48 * HOUR)), { now: bad });
+    assert.equal(r.status, PROSPECT_STATUSES.REJECTED, String(bad));
+    assert.ok(r.rejectionReasons.includes('evaluation-clock-invalid'));
+    assert.equal(r.evidenceFreshness.recheckRequired, true);
+    assert.equal(r.evidenceFreshness.freshness, 0);
+    assert.equal(r.sendAuthority, false);
+  }
+});

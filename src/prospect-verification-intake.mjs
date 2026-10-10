@@ -134,6 +134,10 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (!excerpt) inc('recipient-verbatim-excerpt-missing');
   else if (email && !excerpt.toLowerCase().includes(email)) rej('excerpt-does-not-contain-the-address');
   const nowMs = new Date(now).getTime();
+  // An unparseable evaluation clock makes every age comparison below false
+  // (NaN), which would read a stale observation as fresh. Fail closed instead.
+  const clockValid = Number.isFinite(nowMs);
+  if (!clockValid) rej('evaluation-clock-invalid');
   const maxEvidenceAgeMs = effectiveEvidenceMaxAgeMs(evidenceMaxAgeMs);
   const observedMs = Date.parse(record.recipient?.observedAt);
   if (!Number.isFinite(observedMs)) inc('recipient-observation-time-missing');
@@ -211,7 +215,7 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   // observed can turn a true first touch into a false one, so an old
   // observation is a re-fetch obligation, never a reusable fact.
   else if (nowMs - obsObservedMs > maxEvidenceAgeMs) inc('lead-path-observation-stale-recheck-required');
-  const observationAgeMs = Number.isFinite(obsObservedMs) ? Math.max(0, nowMs - obsObservedMs) : null;
+  const observationAgeMs = clockValid && Number.isFinite(obsObservedMs) ? Math.max(0, nowMs - obsObservedMs) : null;
   const evidenceFreshness = {
     scope: 'LEAD_PATH_CLAIM_OBSERVATION',
     maxAgeMs: maxEvidenceAgeMs,

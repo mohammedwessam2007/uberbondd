@@ -49,3 +49,22 @@ Privacy: GitHub repository previously observed public and raw founder history wa
 Refresh live `main` SHA and PR #1385 head and read this checkpoint, PR comments, #1188 latest comments, AGENTS.md, both CLAUDE.md files, `docs/handoffs/WORK_CURRENT.md`. Resume from the native-runner release gate. Do not redo solved code. Maintain full WESSAM / Personal Civilization / UberBond / UberMind continuity with preserved 890 source ideas and GENESIS supersets. Never equate tests to customer outcomes. Max three owner actions.
 
 **Status:** `RELEASE_CANDIDATE_COMPOSED__TARGETED_NODE37_PASS__NATIVE_FULL_CI_BLOCKED__PRODUCTION_UNCHANGED`.
+
+## PHOENIX release-runner exploration and independent retest (2026-10-10, ~16:00 Cairo)
+
+**Exact integration head reviewed:** `01759c473a89600141f05ae81d06227e90ea076e`, after the prior documentation-only addition. All **14/14 unchanged exact imported Git blobs** were independently reverified in its Git tree against PRs #1377, #1381, #1382, #1383 and #1384. The 15th diff path is this PHOENIX receipt only. Main remains `b3a268037dea4259b1bc6f837fa06bad69f3ccf3`.
+
+**CI state:** GitHub Actions for this exact head report deterministic/browser/postgres/exact-head/core-verification/postal-focused **failure**, with maintainer admission/verify/merge skipped. These failures arise without a functioning build/test runner, not from a demonstrated Node test assertion failure. **No full native repository suite was run.**
+
+**Alternative runner attempted without paid commitment:** Existing connected Vercel project `uberbondd-lite-private` (project ID `prj_ZMfDCuUva2kdMv6HnqGvIE5vihTz`), one-vCPU disposable Sandbox, source Git SHA `01759c473a89600141f05ae81d06227e90ea076e`, five-minute timeout. Vercel returned **HTTP 402 payment_required**: **"Hobby plan usage limit exceeded. Limit will be reset on 2026-11-01T00:00:00.000Z. Please upgrade to a Pro plan to continue using Vercel Sandbox."** No Sandbox was provisioned, no charge, no plan change; alternate runner is **BLOCKED_PROVIDER_QUOTA**, not a code regression. Do not bypass billing or initiate an unapproved paid plan.
+
+**Fresh independently executed proof:**
+- Native `node --test tests/money-integrity.test.mjs` rerun on Node v22.16.0: **37/37 passed, 0 failures**. Real exact-Git-source blobs `src/payment-compression.mjs` = `806605166232aa83de0093a7e53d0849e98a747a`; `src/delivery-loop.mjs` = `92dfd08c0c95e888bc4d06653f685a1038fe2ecc`. The remaining import `ZERO_EXTERNAL_EFFECTS` is a **local test shim**, not a full repo dependency.
+- Local TAP SHA256 `7cce75643c5d39b8e62718376a01dedef31ba61de891b3c4581973a57cc7fa56`.
+- Independent isolated V8 *syntax-only* parsing of **11/11** changed JavaScript modules/tests passed after stripping module imports/exports and replacing `import.meta` for this diagnostic; not native ESM loads, not full repository CI.
+- Confirmed unchanged Git blobs: **14/14** on exact head above. No changed code or merged main in this checkpoint.
+
+**Release posture:** `CANDIDATE_PREPARED__NATIVE_FULL_CI_BLOCKED`. Keep draft until a functioning no-new-paid-cost runner executes exact-head native tests with dependencies; then evaluate main merge and separate production deployment as distinct gated operations. No merchant KYC, Contra authenticated collection verification, sender-side Egypt legal authority, owner privacy decision or cleared cash is implied by this receipt.
+
+**Owner-only unblock if immediate release demanded:** obtain an operational native Node runner with free allowance or restore GitHub Actions usage in the account's billing/usage screen. Ignore Vercel Pro upgrade request unless independently authorized. No paid change made here.
+PHOENIX-ID: `UBERBOND-20261010-PR1385-SANDBOX402-EXACTBLOBS-NODE37`.

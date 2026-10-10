@@ -89,13 +89,19 @@ test('classifyPaymentEvent: fractional and unsafe provider cents never authorize
   const make = amountCents => ({ eventId: 'provider_evt_amount', eventName: 'order_created',
     custom: { lead_id: lead.id, prospect_id: lead.prospectId, product: 'full' }, amountCents,
     currency: 'USD', status: 'paid', testMode: false });
-  for (const amountCents of [4900.5, 9007199254740992, -1, NaN, Infinity]) {
+  for (const amountCents of [4900.5, 9007199254740992, -1, 0, NaN, Infinity]) {
     const out = classifyPaymentEvent({ event: make(amountCents), lead, cfg });
     assert.equal(out.classification, 'REVIEW_REQUIRED');
     assert.equal(out.shouldUnlock, false);
     assert.equal(out.shouldRecordRevenue, false);
     assert.ok(out.reasonCodes.includes('malformed-amount-or-currency'));
   }
+  const zeroEur = classifyPaymentEvent({ event: { ...make(0), currency: 'EUR' }, lead, cfg });
+  assert.equal(zeroEur.classification, 'REVIEW_REQUIRED');
+  assert.equal(zeroEur.shouldUnlock, false);
+  const positiveEur = classifyPaymentEvent({ event: { ...make(3000), currency: 'EUR' }, lead, cfg });
+  assert.equal(positiveEur.classification, 'REVIEW_REQUIRED');
+  assert.ok(positiveEur.reasonCodes.includes('provider-currency-price-unverified'));
   const exact = classifyPaymentEvent({ event: make(4900), lead, cfg });
   assert.equal(exact.classification, 'CLEARED_ONE_TIME_PAYMENT');
   assert.equal(exact.shouldUnlock, true);

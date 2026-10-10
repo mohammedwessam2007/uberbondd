@@ -59,3 +59,24 @@ test('atomization blocks corrupt original evidence and covers each entry only wh
   assert.equal(queue.batches.at(-1).ordinalEnd, 890);
   assert.match(queue.transformationBoundary, /LITERAL_SOURCE_TEXT_IS_IMMUTABLE/);
 });
+
+test('restored original transcript is a hard gate: exact bytes match the unchanged manifest', async () => {
+  const { readFile } = await import('node:fs/promises');
+  const { createHash } = await import('node:crypto');
+  const corpus = await loadFounderMoonshotLiteralCorpus();
+  const result = validateFounderMoonshotLiteralCorpus(corpus);
+  // The original was restored on main (PR #1375). From now on, a silently truncated copy must fail CI.
+  assert.equal(result.ok, true, result.errors.join('; '));
+  assert.equal(result.status, 'FOUNDER_MOONSHOT_CORPUS_EXACT_890_OF_890');
+  assert.equal(result.source.sha256, corpus.manifest.source.sha256);
+  assert.equal(result.source.bytes, corpus.manifest.source.bytes);
+  assert.equal(result.source.renderedLineCount, corpus.manifest.source.renderedLineCount);
+
+  // Hostile check: the 1,000-line truncation found on 2026-10-09 is rejected.
+  const raw = await readFile(new URL('../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt', import.meta.url));
+  const truncated = raw.subarray(0, 62611);
+  const hostile = { ...corpus, rawSourceSha256: createHash('sha256').update(truncated).digest('hex') };
+  const rejected = validateFounderMoonshotLiteralCorpus(hostile);
+  assert.equal(rejected.ok, false);
+  assert.ok(rejected.errors.some(e => e.startsWith('raw-source-sha-mismatch:')));
+});

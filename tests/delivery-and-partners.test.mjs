@@ -46,6 +46,44 @@ test('cleared truth needs every provider-origin field; checkout/self-report/futu
   assert.equal(assessPaymentEvidence({ ...good, disputed: true }).cleared, false);
 });
 
+
+test('money never clears or compresses fractional, infinite, coerced or negative cent amounts', () => {
+  const rail = [{ provider: 'contra', state: 'COLLECTION_READY' }];
+  for (const amountCents of [Infinity, NaN, 1.2, -1, 9007199254740992, '250000', true, [], {}]) {
+    const p = compressPayment({ rails: rail, amountCents });
+    assert.equal(p.ok, false);
+    assert.equal(p.state, 'NO_AMOUNT');
+  }
+  assert.equal(compressPayment({ rails: rail, amountCents: 250000 }).provider, 'contra');
+  for (const patch of [
+    { grossCents: Infinity }, { grossCents: NaN }, { grossCents: 150000.1 },
+    { grossCents: 9007199254740992 }, { grossCents: true }, { grossCents: '1e6' },
+    { feeCents: -1 }, { feeCents: Infinity }, { feeCents: 150001 },
+    { refundedCents: -1 }, { refundedCents: Infinity }, { refundedCents: NaN }
+  ]) {
+    const evidence = assessPaymentEvidence({ ...good, ...patch });
+    assert.equal(evidence.cleared, false, JSON.stringify(patch));
+    assert.equal(evidence.netCents, 0, 'invalid money must not count toward contribution');
+  }
+  assert.equal(assessPaymentEvidence({ ...good, grossCents: '150000', feeCents: '5000' }).netCents, 145000);
+  assert.equal(assessPaymentEvidence(null).cleared, false);
+});
+
+test('unverified payment and invalid delivery costs cannot mint contribution', () => {
+  for (const patch of [
+    { status: 'pending' }, { source: 'owner_attested' }, { grossCents: Infinity },
+    { refundedCents: -1 }, { feeCents: -1 }, { disputed: true }
+  ]) {
+    const result = advanceDelivery({ payment: { ...good, ...patch }, deliveryCostCents: 10000 });
+    assert.equal(result.state, 'SOLD');
+    assert.equal(result.contributionCents, null);
+  }
+  assert.equal(advanceDelivery({ payment: good, deliveryCostCents: -1 }).contributionCents, null);
+  assert.equal(advanceDelivery({ payment: good, deliveryCostCents: Infinity }).contributionCents, null);
+  assert.equal(advanceDelivery({ payment: good, deliveryCostCents: 10000 }).contributionCents, 135000);
+  assert.equal(advanceDelivery({ payment: good, deliveryCostCents: '10000' }).contributionCents, 135000);
+});
+
 test('delivery loop is forward-only and every step needs its evidence', () => {
   assert.equal(advanceDelivery({}).state, 'SOLD');
   const paid = { payment: good };

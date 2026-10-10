@@ -131,7 +131,9 @@ test('owner settings cannot mint provider-origin payment readiness', () => {
   const paypal = paymentRailsFromSnapshot(s, env).find(r => r.provider === 'paypal');
   assert.notEqual(paypal.state, 'LIVE_READY');
   assert.equal(paypal.liveReady, false);
-  assert.equal(paypal.evidenceBinding, 'TRUSTED_PROVIDER_RECEIPT_NOT_BOUND');
+  assert.equal(paypal.state, 'DEACTIVATED');
+  assert.equal(paypal.evidenceBinding, 'OWNER_PROVIDER_ACCOUNT_UNAVAILABLE');
+  assert.ok(paypal.reasonCodes.includes('provider-account-permanently-deactivated'));
   const deal = dealFromSnapshot(s, 'lead1', env);
   assert.equal(deal.paymentPath.ok, false);
   assert.equal(deal.paymentPath.outboundAuthority, 'NONE');
@@ -159,7 +161,9 @@ test('current collection route policy surfaces Contra and never resurrects deact
   const xpay = rails.find(r => r.provider === 'xpay');
   const payoneer = rails.find(r => r.provider === 'payoneer');
 
-  assert.equal(contra.state, 'ACCOUNT_SETUP_PENDING');
+  assert.equal(contra.state, 'ACCOUNT_OBSERVATION_REQUIRED');
+  assert.ok(contra.reasonCodes.includes('current-authenticated-account-observation-required'));
+  assert.equal(contra.collectionReady, false);
   assert.equal(contra.liveReady, false);
   assert.equal(contra.criticalPath, true);
   assert.deepEqual(contra.evidenceRefs, ['docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md']);

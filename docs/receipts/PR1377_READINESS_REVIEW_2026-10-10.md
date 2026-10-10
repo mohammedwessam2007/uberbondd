@@ -57,3 +57,17 @@ The fix strengthens `founder-moonshot-0483` THE TRUST GRADIENT (recency dimensio
 ## PHOENIX
 
 `UBERBOND-PR1377-READINESS-REVIEW-20261010`: the PR closes the stale-claim defect on all send-reachable paths, and the invalid-clock fail-open is fixed and mutation-tested. Release is blocked only by the CI billing lock, the Egypt sender-side legal hold, owner merge/deploy authority and the transcript-visibility decision. Claude Pro usage: UNKNOWN (not measured).
+
+## PHOENIX FOLLOW-UP: rejected-future freshness metadata (2026-10-10 Cairo)
+
+**New actual source defect independently reproduced:** On PR head `17033ddd7957e9241fd9477cd3e9320a2f584f86`, `compileProspectVerification` correctly marked an observation >5 minutes in the future `REJECTED`, but the returned `evidenceFreshness` falsely advertised `freshness: 1`, `recheckRequired: false`, `leadPathObservationAgeMs: 0`. This is a metadata fail-open/contradiction, **not** proof that an outbound send was possible.
+
+**Narrow correction on the existing draft branch, without touching sender authority:** The age computation now treats observations beyond the allowed future-skew threshold as invalid for freshness accounting. They return `leadPathObservationAgeMs: null`, `freshness: 0`, `recheckRequired: true`; `REJECTED` is preserved. Observations exactly 5 minutes ahead remain within the pre-existing skew allowance; >5min by 1ms rejects. Stale >24h and invalid-clock behavior are unchanged.
+
+**Committed evidence:** `e4a16f629218d39e3c89fa8afc681252f2dff7e2` code fix; `3d9edca7f39a7fde685f205b32f0fb77cbd715c9` adversarial test augmentation. Source blob `13773a527fb5a8d880b5cd2f0fcf345eac0f79a6`, test blob `42f2e536261dd586936d620e98e58d03ab8cdb0e`.
+
+**Verification honesty:** Independent exact-source extracted V8 function execution under clearly *stubbed imports*, **6/6** checks PASS: rejected +2h future, rejected +5min+1ms, allowed exactly +5min, allowed age 1h, blocked age 24h+1ms, invalid clock. This is **not native Node module execution and not a substitute for the registered test file or CI**. Existing `tests/prospect-evidence-freshness.test.mjs` now has one additional test and stronger future-rejection assertions (12 defined tests total); actual native run on this new head remains **UNEXECUTED** due GitHub Actions runner startup failures.
+
+**Remaining unchanged:** Public repo privacy decision, GitHub Actions zero-step billing restriction, Egypt `BLOCKED_LEGAL_AUTHORITY`, production running older `24854739d70617d57807cde5407a84266cca477c`, no merge/deploy/paid provider dispatch/customer outreach, and actual Claude Pro allowance savings UNKNOWN. This addendum supersedes the older phrase "no more source defects" for this one newly discovered metadata inconsistency; earlier results retain their proper historical source-head scope.
+
+**Next:** Run native `node --test tests/prospect-evidence-freshness.test.mjs` plus preflight, tournament, frozen-effect and G-SPOT suites on the exact new head when a compatible zero-spend runner is available; verify any new failures against current `main` before release. Do not merge or deploy solely on source-contract checks.

@@ -65,6 +65,19 @@ test('a lead-path observation dated in the future is REJECTED, not merely incomp
   const r = intake(agency(new Date(now.getTime() + 2 * HOUR).toISOString()));
   assert.equal(r.status, PROSPECT_STATUSES.REJECTED);
   assert.ok(r.rejectionReasons.includes('lead-path-observation-in-future'));
+  assert.equal(r.evidenceFreshness.recheckRequired, true, 'rejected future evidence must require re-observation');
+  assert.equal(r.evidenceFreshness.freshness, 0, 'rejected future evidence must never score as fresh');
+  assert.equal(r.evidenceFreshness.leadPathObservationAgeMs, null, 'invalid future age is not zero-age evidence');
+});
+
+test('five-minute clock-skew boundary is inclusive but +1ms must fail closed', () => {
+  const atBoundary = intake(agency(new Date(now.getTime() + 5 * 60_000).toISOString()));
+  assert.equal(atBoundary.status, PROSPECT_STATUSES.VERIFIED_CANDIDATE);
+  const beyond = intake(agency(new Date(now.getTime() + 5 * 60_000 + 1).toISOString()));
+  assert.equal(beyond.status, PROSPECT_STATUSES.REJECTED);
+  assert.ok(beyond.rejectionReasons.includes('lead-path-observation-in-future'));
+  assert.equal(beyond.evidenceFreshness.recheckRequired, true);
+  assert.equal(beyond.evidenceFreshness.freshness, 0);
 });
 
 test('a caller may tighten the window but can never widen it', () => {

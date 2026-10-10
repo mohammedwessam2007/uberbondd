@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 
 // Bump when the classification policy changes so past receipts stay
 // attributable to the policy version that produced them.
-export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.2.0';
+export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.3.0';
 
 export const FIRST_CASH_SPRINT_PRODUCT = 'lead-path-revenue-leak-evidence-sprint-usd-450';
 export const KNOWN_PRODUCTS = ['full', 'strategy', 'monitoring', FIRST_CASH_SPRINT_PRODUCT];
@@ -41,7 +41,8 @@ const REFUND_EVENTS = new Set(['order_refunded']);
 const FAILED_PAYMENT_EVENTS = new Set(['subscription_payment_failed']);
 
 function malformedAmount(amountCents) {
-  return !Number.isFinite(amountCents) || amountCents < 0;
+  // Fractional and unsafe amounts must not mint cleared-payment classifications.
+  return !Number.isSafeInteger(amountCents) || amountCents < 0;
 }
 
 // What the buyer is meant to be paying for the product they claim.

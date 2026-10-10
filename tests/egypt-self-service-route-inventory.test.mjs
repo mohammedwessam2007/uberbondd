@@ -28,6 +28,16 @@ test('EDM without self marketing permit is incomplete even with consent',()=>{
  const x=classify({...edm,edmForSelfPermitVerified:false});
  assert.ok(x.blockers.includes('EDM_FOR_SELF_PERMIT_NOT_VERIFIED'));
 });
+test('third-party EDM sender requires EDM FOR OTHERS permit, not just self permit',()=>{
+ const x=classify({...edm,edmSenderRole:'OTHERS',edmForOthersPermitVerified:false});
+ assert.ok(x.blockers.includes('EDM_FOR_OTHERS_PERMIT_NOT_VERIFIED'));
+ assert.equal(x.sendAuthority,false);
+ const y=classify({...edm,edmSenderRole:'OTHERS',edmForOthersPermitVerified:true});
+ assert.equal(y.blockers.length,0);assert.equal(y.legalClearance,false);
+});
+test('bogus sender role is rejected',()=>{
+ assert.equal(classify({...edm,edmSenderRole:'UNKNOWN'}).ok,false);
+});
 test('EDM missing free optout and record keeping flags',()=>{
  const x=classify({...edm,freeOptOutVerified:false,threeYearConsentRecordKeepingVerified:false});
  assert.ok(x.blockers.includes('FREE_OPT_OUT_MISSING'));

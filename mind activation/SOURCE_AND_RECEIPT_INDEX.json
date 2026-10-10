@@ -1,0 +1,68 @@
+{
+  "schema": "uberbond.mind-activation.source-receipt-index.v1",
+  "checkpoint_date": "2026-10-10",
+  "time_zone": "Africa/Cairo",
+  "privacy_note": "Metadata and pointers only. Does not duplicate the full public founder transcript, private credentials or customer data.",
+  "truth_classes": {
+    "I": "independently verified in this turn",
+    "R": "reported by the user or Claude",
+    "U": "not established"
+  },
+  "repository": {
+    "full_name": "mohammedwessam2007/uberbondd",
+    "public_verified": true,
+    "main_sha_at_snapshot": "cda13c65e895b679499dacba2f100bfd5812e48a"
+  },
+  "original_founder_transcript": {
+    "original_filename": "Branch · Branch · New chat.txt",
+    "canonical_manifest_path": "artifacts/research/founder-moonshot-literal-corpus/manifest.json",
+    "canonical_raw_path": "artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt",
+    "raw_sha256_verified_locally": "8a7be38681fd0bf15ebccecec099f25c86e4ea567f3b6e0892b6c73b2a319109",
+    "raw_bytes_verified_locally": 189166,
+    "rendered_lines_verified_locally": 3679,
+    "expected_idea_count": 890,
+    "shard_count": 10,
+    "duplicate_titles_preserved": [
+      625,
+      683
+    ],
+    "matching_local_uploaded_transcript": true,
+    "user_reported_claude_native_doctor": "FOUNDER_MOONSHOT_CORPUS_EXACT_890_OF_890"
+  },
+  "claude_pro": {
+    "monthly_plan_usd_reported": 20,
+    "portable_skill_path": "integrations/claude-ai/ubermind-lean/SKILL.md",
+    "project_instructions_path": "integrations/claude-ai/PROJECT_INSTRUCTIONS.md",
+    "user_reported_claude_project_activation_checks_passed": 5,
+    "skill_reported_loaded": "anthropic-skills:ubermind-lean",
+    "skill_sha256_prefix_reported": "1d43fad7",
+    "actual_five_hour_usage_saving_percent": null,
+    "actual_weekly_usage_saving_percent": null,
+    "real_multi_model_chat_swarm_established": false
+  },
+  "pull_request": {
+    "number": 1377,
+    "url": "https://github.com/mohammedwessam2007/uberbondd/pull/1377",
+    "head_sha": "27218f3be2def9357dcc2c2134145eca805de31c",
+    "base_sha": "cda13c65e895b679499dacba2f100bfd5812e48a",
+    "draft": true,
+    "merged": false,
+    "deployed": false,
+    "github_actions_workflows_failed_before_steps": 4,
+    "native_selected_tests_passed_reported": "110/110",
+    "commercial_sender_authority": "BLOCKED_LEGAL_AUTHORITY",
+    "prospect_evidence_expiry_reported_utc": "2026-10-11T00:38:00Z"
+  },
+  "risks": [
+    "public founder transcript",
+    "CI startup blocked (reported GitHub Actions account billing lock)",
+    "Egypt sender-side legal authority unresolved",
+    "draft PR not deployed",
+    "no full-task Pro usage comparison"
+  ],
+  "refs": {
+    "issue1188": "https://github.com/mohammedwessam2007/uberbondd/issues/1188",
+    "activation_checkpoint": "https://github.com/mohammedwessam2007/uberbondd/issues/1188#issuecomment-6091529196",
+    "draft_pr1377": "https://github.com/mohammedwessam2007/uberbondd/pull/1377"
+  }
+}

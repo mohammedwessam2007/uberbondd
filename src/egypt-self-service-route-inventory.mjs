@@ -16,7 +16,7 @@ const reject=reason=>({ok:false,state:'INVALID_INPUT',reason,sendAuthority:false
  * question. This INVENTORY does not pretend it has settled that question.
  */
 export function evaluateEgyptSelfServiceRoute({
- route,recipientJurisdiction='UNKNOWN',
+ route,recipientJurisdiction='UNKNOWN',edmSenderRole='SELF',
  sourceIdentityVerified=false,
  naturalPersonDataIncluded=true,
  purposeServiceOnly=false,
@@ -43,6 +43,7 @@ export function evaluateEgyptSelfServiceRoute({
   threeYearConsentRecordKeepingVerified,personalDataScopeOfficiallyResolved,
   oldObservationStale];
  if(!ROUTES.includes(route)||!TYPES.includes(recipientJurisdiction)||
+  !['SELF','OTHERS'].includes(edmSenderRole)||
   !bools.every(assertBool))
    return reject('route-jurisdiction-and-explicit-booleans-required');
  const blockers=[];
@@ -60,7 +61,8 @@ export function evaluateEgyptSelfServiceRoute({
  }else if(route==='CONSENTED_EDM'){
    add(sourceIdentityVerified,'IDENTITY_UNVERIFIED');
    add(explicitPriorConsentEvidenceVerified,'SUBJECT_EXPLICIT_PRIOR_CONSENT_MISSING');
-   add(edmForSelfPermitVerified,'EDM_FOR_SELF_PERMIT_NOT_VERIFIED');
+   if(edmSenderRole==='SELF')add(edmForSelfPermitVerified,'EDM_FOR_SELF_PERMIT_NOT_VERIFIED');
+   else add(edmForOthersPermitVerified,'EDM_FOR_OTHERS_PERMIT_NOT_VERIFIED');
    // The external sender may be the creator too; no third-party sender assumed.
    add(senderIdentityFooterVerified,'SENDER_IDENTITY_AND_PURPOSE_MISSING');
    add(freeOptOutVerified,'FREE_OPT_OUT_MISSING');
@@ -84,7 +86,7 @@ export function evaluateEgyptSelfServiceRoute({
  // A claimed date is not an independently observed page. Never approve stale.
  if(oldObservationStale)blockers.push('SAME_DAY_SOURCE_REOBSERVATION_REQUIRED');
  return {
-  ok:true,schema:EGYPT_ROUTE_SELF_SERVICE_SCHEMA,route,recipientJurisdiction,
+  ok:true,schema:EGYPT_ROUTE_SELF_SERVICE_SCHEMA,route,recipientJurisdiction,edmSenderRole,
   state:blockers.length?'SELF_SERVICE_EVIDENCE_INCOMPLETE':'SELF_SERVICE_EVIDENCE_ASSEMBLED_UNAUTHENTICATED',
   blockers,
   nonmarketingServicePath:route==='INBOUND_REQUESTED'||route==='EXISTING_CONTRACT_SERVICE_ONLY',

@@ -90,3 +90,33 @@ test('no new provider entitlement cannot silently unlock domain or mailbox slots
   assert.equal(p.capacity.currentEvidenceCapacityPerDay, 0);
   assert.equal(p.sendAuthority, false);
 });
+
+test('real provider APIs may return an integer domain slot quota as a decimal string', () => {
+  const p = check('40');
+  assert.equal(p.topology.observedDomainSlots, 40);
+  assert.equal(p.topology.domainSlotsReadyForExpansion, true);
+  assert.equal(p.topology.providerEntitlementFresh, true);
+  assert.ok(!p.blockers.some(b => b.startsWith('provider-domain-slots-')));
+});
+
+test('a historical provider entitlement is not evidence of available domain slots today', () => {
+  const p = check(40, {
+    observed: {
+      entitlement: { plan: 'WINNR_STARTUP_50', mailboxLimit: 50, domainLimit: 40, observedAt: '2026-10-02T12:00:00Z', source: 'stale-provider-readback' },
+      mailboxes: pilot, domains: []
+    }
+  });
+  assert.ok(p.blockers.includes('provider-entitlement-stale-or-undated'));
+  assert.equal(p.topology.providerEntitlementFresh, false);
+  assert.equal(p.topology.domainSlotsReadyForExpansion, false);
+  assert.equal(p.externalMutationsPerformed, 0);
+});
+
+test('a future-dated or undated quota cannot masquerade as a fresh entitlement', () => {
+  const future = check(40, { observed: { entitlement: { plan: 'Startup', mailboxLimit: 50, domainLimit: 40, observedAt: '2026-10-12T12:00:00Z' }, mailboxes: pilot, domains: [] } });
+  const missing = check(40, { observed: { entitlement: { plan: 'Startup', mailboxLimit: 50, domainLimit: 40 }, mailboxes: pilot, domains: [] } });
+  for (const p of [future, missing]) {
+    assert.ok(p.blockers.includes('provider-entitlement-stale-or-undated'));
+    assert.equal(p.topology.domainSlotsReadyForExpansion, false);
+  }
+});

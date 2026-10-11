@@ -32,7 +32,9 @@ test('independent JsonStore instances using same dir cannot steal staging files'
  const result=await Promise.allSettled([...Array.from({length:20},()=>a.save()),...Array.from({length:20},()=>b.save())]);
  assert.equal(result.filter(x=>x.status==='rejected').length,0);
  const saved=JSON.parse(await fs.readFile(a.file,'utf8'));
- assert.equal(saved.version,5);
+ assert.equal(saved.version,a.data.version);
+ assert.equal(saved.version,b.data.version);
+ assert.deepEqual(saved,a.data);
  assert.deepEqual((await fs.readdir(dir)).sort(),['db.json']);
 });
 test('failed save does not poison subsequent save queue',async t=>{
@@ -43,4 +45,17 @@ test('failed save does not poison subsequent save queue',async t=>{
  store.data.settings={recovered:true};
  await store.save();
  assert.equal(JSON.parse(await fs.readFile(store.file,'utf8')).settings.recovered,true);
+});
+
+test('opening a version-5 snapshot upgrades to current schema without discarding saved data',async t=>{
+ const dir=await fixture(t);
+ const original=new JsonStore(dir);await original.init();
+ const legacy={...structuredClone(original.data),version:5,settings:{legacySnapshot:true},phoenixCapsules:[{id:'keep-me'}]};
+ await fs.writeFile(original.file,JSON.stringify(legacy),'utf8');
+ const reloaded=new JsonStore(dir);await reloaded.init();
+ assert.equal(reloaded.data.version,6);
+ assert.deepEqual(reloaded.data.settings,{legacySnapshot:true});
+ assert.deepEqual(reloaded.data.phoenixCapsules,[{id:'keep-me'}]);
+ assert.deepEqual(JSON.parse(await fs.readFile(reloaded.file,'utf8')),reloaded.data);
+ assert.deepEqual((await fs.readdir(dir)).sort(),['db.json']);
 });

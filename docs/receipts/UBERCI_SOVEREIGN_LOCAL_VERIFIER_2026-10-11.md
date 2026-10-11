@@ -24,11 +24,11 @@ Implements a provider-independent runner above those existing tests:
 ## Local executed tests
 
 Using actual Node 22.16.0, independently ran `node --test tests/uberci-runner.test.mjs` against the exact pre-push file bytes:
-**9 passed / 0 failed / 0 skipped**.
+**10 passed / 0 failed / 0 skipped**.
 
 Unit tests use deliberately controlled test-command return values to verify fail-closed behavior. They **do not** represent a genuine full UberBond test run. Exact Git blob SHAs of the tested and published files, independently verified from GitHub:
-- `scripts/uberci-runner.mjs`: `d620d9389bf25267fe6d809130ef242db9886b82`.
-- `tests/uberci-runner.test.mjs`: `b87a54f2a9543d2d4138384f3aba8e68ebecfe1a`.
+- `scripts/uberci-runner.mjs`: `bbcdc004ce06e823eab95a10f32f1d2e7facbcce`.
+- `tests/uberci-runner.test.mjs`: `640eaecaf29d533511a9068f46c97be05a660cff`.
 
 ## Running on any legitimate isolated compute host
 

@@ -73,6 +73,7 @@ test('sender volume scenarios at 30 active days remain arithmetic, not measured'
  const a=audit();
  assert.deepEqual(a.scenarioMatrix.map(x=>[x.coldPerMailboxDay,x.mailboxesRequired,x.capacity50]),[[10,100,15000],[15,67,22500],[20,50,30000]]);
 });
+
 test('30-day scenario requires regional calendar proof rather than assumes any globally valid Saturday',()=>{
  const a=audit({providerColdPerMailboxDay:20});
  assert.equal(a.regionalBusinessCalendar.complete,false);

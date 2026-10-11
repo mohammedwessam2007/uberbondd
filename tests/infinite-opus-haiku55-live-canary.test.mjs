@@ -34,7 +34,7 @@ const makeStore=()=>{
     transaction:async fn=>fn({
       transactionClient:false,
       getSettings:async()=>structuredClone(settings),
-      setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v);}
+      setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v)};}
     }),
     dump:()=>structuredClone(settings)
   };
@@ -115,7 +115,7 @@ test('read-only diagnostic preserves unknown crossing instead of laundering null
   const store={
     transaction:async fn=>fn({
       getSettings:async()=>structuredClone(settings),
-      setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v);}
+      setSetting:async(k,v)=>{settings={...settings,[k]:structuredClone(v)};}
     })
   };
   const out=await inspectGovernedHaiku55LiveCanaryState(store);

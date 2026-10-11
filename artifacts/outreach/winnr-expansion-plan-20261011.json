@@ -1,0 +1,859 @@
+{
+  "observedOwnershipDate": "2026-09-20; registrar not independently refreshed today",
+  "observedPilotMonthlyUSD": 9,
+  "purchased": false,
+  "dnsWrites": 0,
+  "quotaEffect": {
+    "costUSD": 0,
+    "previousDomainLimit": 0,
+    "currentDomainLimit": 10,
+    "nextIncrease": "24-hour provider cooldown; future entitlement unobserved"
+  },
+  "plan": {
+    "version": "uberbond.sender-fleet-expansion-planner.v1",
+    "generatedAt": "2026-10-11T13:20:00.000Z",
+    "classes": {
+      "PLAN": "PLAN",
+      "AUTHORIZED_EXTERNAL_MUTATION": "AUTHORIZED_EXTERNAL_MUTATION",
+      "OBSERVED_PROVIDER_STATE": "OBSERVED_PROVIDER_STATE"
+    },
+    "observedState": {
+      "class": "OBSERVED_PROVIDER_STATE",
+      "entitlement": {
+        "plan": "Pre-warmed only; pilot separate SKU",
+        "mailboxLimit": 0,
+        "domainLimit": 10,
+        "observedAt": "2026-10-11T13:20:00Z",
+        "source": "Authenticated Winnr subscription UI; free increase from 0 to 10 verified"
+      },
+      "mailboxCount": 3,
+      "mailboxes": [
+        {
+          "ordinal": 1,
+          "address": "",
+          "domain": "cedarpointdomains.com",
+          "smtpVerified": true,
+          "imapVerified": true,
+          "quarantined": false,
+          "quarantineReason": null,
+          "rampStage": 0,
+          "qualityCapPerDay": null
+        },
+        {
+          "ordinal": 2,
+          "address": "",
+          "domain": "cedarpointdomains.com",
+          "smtpVerified": true,
+          "imapVerified": true,
+          "quarantined": false,
+          "quarantineReason": null,
+          "rampStage": 0,
+          "qualityCapPerDay": null
+        },
+        {
+          "ordinal": 3,
+          "address": "",
+          "domain": "cedarpointdomains.com",
+          "smtpVerified": false,
+          "imapVerified": true,
+          "quarantined": true,
+          "quarantineReason": "GMAIL_PLACEMENT_RED",
+          "rampStage": 0,
+          "qualityCapPerDay": null
+        }
+      ],
+      "domains": [
+        {
+          "domain": "uberbond.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondai.shop",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondapp.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondcloud.shop",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondconnect.online",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondcore.space",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondengine.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondflow.space",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondforge.space",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondglobal.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondgrid.space",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondgroup.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondgrowth.online",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondhq.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondinfo.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondlabs.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondlaunch.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondlink.shop",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondops.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondpartners.online",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondpilot.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondpro.shop",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondpro.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondreach.online",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondsmail.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondstack.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondworks.site",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        },
+        {
+          "domain": "uberbondworks.website",
+          "owned": true,
+          "dnsReady": false,
+          "providerLeased": false
+        }
+      ]
+    },
+    "capacity": {
+      "class": "OBSERVED_PROVIDER_STATE",
+      "currentEvidenceCapacityPerDay": 0,
+      "greenMailboxes": 2,
+      "quarantinedMailboxes": 1,
+      "plannedFullRampPerDay": 500,
+      "providerMaximumIsNotASafeSendRate": true,
+      "domainCountIsNotSendAuthority": true,
+      "domainSlotIncreaseRequiresObservedEntitlement": true
+    },
+    "topology": {
+      "class": "PLAN",
+      "targetMailboxes": 50,
+      "activeDomains": [
+        {
+          "domain": "uberbond.site",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondai.shop",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondapp.site",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondcloud.shop",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondconnect.online",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondcore.space",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondengine.website",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondflow.space",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondforge.space",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondglobal.website",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondgrid.space",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondgroup.site",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondgrowth.online",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondhq.site",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondinfo.site",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondlabs.site",
+          "mailboxes": 3,
+          "dnsReady": false,
+          "owned": true
+        },
+        {
+          "domain": "uberbondlaunch.website",
+          "mailboxes": 2,
+          "dnsReady": false,
+          "owned": true
+        }
+      ],
+      "reserveDomains": [
+        "uberbondlink.shop",
+        "uberbondops.website",
+        "uberbondpartners.online",
+        "uberbondpilot.website",
+        "uberbondpro.shop",
+        "uberbondpro.website",
+        "uberbondreach.online",
+        "uberbondsmail.site",
+        "uberbondstack.website",
+        "uberbondworks.site",
+        "uberbondworks.website"
+      ],
+      "maxMailboxesPerDomain": 3,
+      "protectedPrimaryDomains": [
+        "uberbond.agency",
+        "uberbond.cloud"
+      ],
+      "mailboxNameCount": 2,
+      "requiredDomainSlots": 17,
+      "observedDomainSlots": 10,
+      "minimumActiveDomainCount": 17,
+      "fastActivationRequested": true,
+      "fastActivationPossible": true,
+      "domainSlotsReadyForExpansion": false,
+      "providerEntitlementFresh": true,
+      "domainSlotIncreaseIsNotAssumed": true
+    },
+    "quarantine": [
+      {
+        "address": "",
+        "ordinal": 3,
+        "reason": "GMAIL_PLACEMENT_RED",
+        "capacityContribution": 0,
+        "disposition": "HOLD_QUARANTINED_NO_AUTOMATIC_REPLACEMENT",
+        "replacementAllowed": false,
+        "release": "REQUIRES_NEW_MATCHED_EVIDENCE_UNDER_EXISTING_RELEASE_POLICY"
+      }
+    ],
+    "steps": [
+      {
+        "class": "PLAN",
+        "action": "PURCHASE_PLAN",
+        "detail": {
+          "plan": "target-capacity-plan",
+          "mailboxes": 50,
+          "entitlementObserved": true
+        },
+        "reversible": false,
+        "rollback": "cancel at provider per its written terms; recurring charge only until cancelled",
+        "requires": "explicit founder spend authority for the exact charge",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbond.site",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondai.shop",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondapp.site",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondcloud.shop",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondconnect.online",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondcore.space",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondengine.website",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondflow.space",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondforge.space",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondglobal.website",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondgrid.space",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondgroup.site",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondgrowth.online",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondhq.site",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondinfo.site",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondlabs.site",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "WRITE_DNS",
+        "detail": {
+          "domain": "uberbondlaunch.website",
+          "records": [
+            "MX",
+            "SPF",
+            "DKIM",
+            "DMARC"
+          ]
+        },
+        "reversible": true,
+        "rollback": "remove the added records",
+        "requires": "explicit authorization naming the exact records",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "CREATE_MAILBOXES",
+        "detail": {
+          "perDomain": [
+            {
+              "domain": "uberbond.site",
+              "count": 3
+            },
+            {
+              "domain": "uberbondai.shop",
+              "count": 3
+            },
+            {
+              "domain": "uberbondapp.site",
+              "count": 3
+            },
+            {
+              "domain": "uberbondcloud.shop",
+              "count": 3
+            },
+            {
+              "domain": "uberbondconnect.online",
+              "count": 3
+            },
+            {
+              "domain": "uberbondcore.space",
+              "count": 3
+            },
+            {
+              "domain": "uberbondengine.website",
+              "count": 3
+            },
+            {
+              "domain": "uberbondflow.space",
+              "count": 3
+            },
+            {
+              "domain": "uberbondforge.space",
+              "count": 3
+            },
+            {
+              "domain": "uberbondglobal.website",
+              "count": 3
+            },
+            {
+              "domain": "uberbondgrid.space",
+              "count": 3
+            },
+            {
+              "domain": "uberbondgroup.site",
+              "count": 3
+            },
+            {
+              "domain": "uberbondgrowth.online",
+              "count": 3
+            },
+            {
+              "domain": "uberbondhq.site",
+              "count": 3
+            },
+            {
+              "domain": "uberbondinfo.site",
+              "count": 3
+            },
+            {
+              "domain": "uberbondlabs.site",
+              "count": 3
+            },
+            {
+              "domain": "uberbondlaunch.website",
+              "count": 2
+            }
+          ],
+          "startingRampStage": 0,
+          "startingCapPerDay": 0
+        },
+        "reversible": true,
+        "rollback": "delete the new mailboxes",
+        "requires": "purchase and domain steps complete",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "IMPORT_CREDENTIALS",
+        "detail": {
+          "storage": "encrypted custody only; never plaintext in git, logs or receipts"
+        },
+        "reversible": true,
+        "rollback": "delete the encrypted records",
+        "requires": "mailboxes exist at the provider",
+        "mutates": true,
+        "authorizationRef": null,
+        "authorized": false
+      },
+      {
+        "class": "PLAN",
+        "action": "VERIFY_SMTP_IMAP_AND_PLACEMENT",
+        "detail": {
+          "each": "new mailbox starts at ramp stage 0 with a zero cap until observed evidence earns stage 1"
+        },
+        "reversible": true,
+        "rollback": "pause the mailbox",
+        "requires": "credentials imported",
+        "mutates": false
+      }
+    ],
+    "expansionDecision": {
+      "capacityIsBinding": null,
+      "expansionRecommended": false,
+      "reason": "demand-or-current-capacity-unknown: expansion is not recommended without proof that capacity is the bottleneck",
+      "purchaseRequiresExplicitFounderSpendAuthority": true
+    },
+    "blockers": [
+      "provider-entitlement-insufficient:limit-0-need-50",
+      "provider-domain-slots-insufficient:limit-10-need-17"
+    ],
+    "refusals": [],
+    "authorizedExternalMutations": [],
+    "externalMutationsPerformed": 0,
+    "providerCalls": 0,
+    "spend": 0,
+    "sendAuthority": false,
+    "truthBoundary": "A plan is not provider truth: mailboxes, domains, DNS and entitlement exist only as far as OBSERVED_PROVIDER_STATE says. Planned capacity never raises a send cap; caps rise only from observed healthy evidence under the existing ramp.",
+    "planDigest": "2291f80fc6b6aedeca3ad95558b6ffac409b77c55a4cef043bd81d2160259b08"
+  }
+}

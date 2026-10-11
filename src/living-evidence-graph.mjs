@@ -4,6 +4,10 @@ const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const digest=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
 const id=v=>typeof v==='string'&&/^[a-zA-Z0-9_.:/-]{1,240}$/.test(v);
 const PROOF_CLASSES=new Set(['E0','E1','E2','E3','E4','CURRENT_CROWN']);
+const graphDigest=graph=>{
+  const {graphHash,...payload}=graph;
+  return semanticHash(payload);
+};
 
 export function createLivingEvidenceGraph({nodes,roots,qualityContractHash,crownRevision,createdAt=new Date().toISOString()}={}){
   if(!Array.isArray(nodes)||!nodes.length||nodes.length>100000||!Array.isArray(roots)||!roots.length)throw new Error('bounded-evidence-graph-required');
@@ -29,12 +33,12 @@ export function createLivingEvidenceGraph({nodes,roots,qualityContractHash,crown
   for(const node of nodes)visit(node.id);
   impactedSemanticNodes(nodes,[]);
   const graph={schemaVersion:'uberbond.living-evidence-graph.v1',qualityContractHash,crownRevision,createdAt,nodes:structuredClone(nodes),roots:structuredClone(roots)};
-  graph.graphHash=semanticHash({...graph,graphHash:undefined});
+  graph.graphHash=graphDigest(graph);
   return graph;
 }
 
 export function planLivingEvidenceDelta({graph,currentSourceHashes,currentCrownRevision=graph?.crownRevision}={}){
-  if(graph?.schemaVersion!=='uberbond.living-evidence-graph.v1'||graph.graphHash!==semanticHash({...graph,graphHash:undefined}))throw new Error('current-untampered-evidence-graph-required');
+  if(graph?.schemaVersion!=='uberbond.living-evidence-graph.v1'||graph.graphHash!==graphDigest(graph))throw new Error('current-untampered-evidence-graph-required');
   if(!plain(currentSourceHashes))throw new Error('current-source-hashes-required');
   const sourceNodes=graph.nodes.filter(n=>n.kind==='SOURCE');
   const changed=[];

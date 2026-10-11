@@ -20,7 +20,9 @@ export const FIRST_CASH_OFFLINE_SUITES = Object.freeze([
   'tests/delivery-and-partners.test.mjs',
   'tests/global-green-lane-router.test.mjs',
   'tests/revenue-singularity-evidence-bridge.test.mjs',
-  'tests/outreach-launch-gate.test.mjs'
+  'tests/outreach-launch-gate.test.mjs',
+  'tests/first-cash-five-pr-integration.test.mjs',
+  'tests/uberbond-deep-atlas-streamed-digest.test.mjs'
 ]);
 
 export function verifyFirstCashOffline({ spawn = spawnSync, cwd = root } = {}) {

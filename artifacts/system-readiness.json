@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-11T13:08:07.486Z",
+  "generatedAt": "2026-10-11T18:54:18.070Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "c09537543ee438941cdee0e525519042e292b39f",
-    "branch": "integration/first-cash-all-layers-20261011",
+    "head": "928564f3f0e1704fd4f21660f688f667fa101eb4",
+    "branch": "fix/json-store-atomic-save-collision-20261011",
     "sourceModules": 1086,
-    "testSuites": 1319,
-    "workingTreeClean": false
+    "testSuites": 1320,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

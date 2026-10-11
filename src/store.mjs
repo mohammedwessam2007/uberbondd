@@ -255,6 +255,8 @@ export class JsonStore {
     this.dir = dir;
     this.file = path.join(dir, 'db.json');
     this.queue = Promise.resolve();
+    // Serialize snapshot persistence separately from the transactional queue.
+    this.saveQueue = Promise.resolve();
     this.data = structuredClone(EMPTY);
   }
 
@@ -273,12 +275,25 @@ export class JsonStore {
     }
   }
 
-  async close() {}
+  async close() { await this.saveQueue; }
 
   async save() {
-    const temp = `${this.file}.tmp`;
-    await fs.writeFile(temp, JSON.stringify(this.data, null, 2));
-    await fs.rename(temp, this.file);
+    // A fixed db.json.tmp collides when two writes overlap, producing ENOENT
+    // after one rename consumes the other writer's staging file. Snapshot at
+    // invocation and serialize persistence in that order; use unique staging
+    // paths so independent JsonStore instances cannot steal each other's file.
+    const payload = JSON.stringify(this.data, null, 2);
+    const work = this.saveQueue.then(async () => {
+      const temp = `${this.file}.${process.pid}.${crypto.randomUUID()}.tmp`;
+      try {
+        await fs.writeFile(temp, payload, { flag: 'wx' });
+        await fs.rename(temp, this.file);
+      } finally {
+        await fs.rm(temp, { force: true }).catch(() => {});
+      }
+    });
+    this.saveQueue = work.catch(() => {});
+    return work;
   }
 
   async transaction(fn) {

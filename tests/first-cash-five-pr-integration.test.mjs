@@ -95,3 +95,55 @@ test('purchased slots never overcome stale lead-path evidence', () => {
   assert.equal(intake.sendAuthority, false);
   assert.equal(fleet(50, 20).sendAuthority, false);
 });
+
+// Final dispatch gate and G-SPOT are independent safeguards, not policy substitutes.
+test('final launch gate ABSTAINS with recipient legal and suppression failures', async () => {
+  const { evaluateOutreachLaunchGate } = await import('../src/outreach-launch-gate.mjs');
+  const gate = evaluateOutreachLaunchGate({
+    genome: { state: 'VERIFIED_SOURCE_READY', evidenceRef: 'synthetic-genome' },
+    domainState: { state: 'READY_FOR_LIMITED_OUTREACH', outreachState: 'AUTHORIZED', evidenceFreshness: 'FRESH' },
+    mailboxState: { authenticationStatus: 'AUTHENTICATED', warmupStatus: 'WARMUP_COMPLETE', paused: false, currentDailyCap: 10 },
+    egress: { state: 'READY', observedColdDailyCap: 10, evidenceRef: 'synthetic-egress' },
+    transport: { state: 'READY', authenticated: true, evidenceRef: 'synthetic-transport' },
+    campaignAuthorization: { authorized: true, receiptId: 'synthetic-owner' },
+    recipient: { safeForOutreach: true, email: 'hello@company.example', verificationEvidenceRef: 'synthetic-recipient' },
+    legal: { status: 'UNKNOWN', evidenceId: 'unverified', policyVersion: 'synthetic-policy' },
+    suppression: { suppressed: true },
+    recipientProvider: { state: 'READY', observedDailyBudget: 5, evidenceRef: 'synthetic-provider' }
+  });
+  assert.equal(gate.state, 'ABSTAIN');
+  assert.equal(gate.readyForGovernedCanary, false);
+  assert.equal(gate.automaticSendAuthority, false);
+  assert.equal(gate.externalEffectAuthority, 'NONE');
+  assert.ok(gate.hardStopReasonCodes.includes('suppression-dominates'));
+  assert.ok(gate.hardStopReasonCodes.includes('recipient-legal-eligibility-not-passed'));
+});
+
+test('G-SPOT does not authorize or dispatch an ineligible first-cash prospect', async () => {
+  const { createGspot } = await import('../src/gspot.mjs');
+  let settings = {};
+  const store = {
+    async getSettings() { return structuredClone(settings); },
+    async setSetting(key, value) { settings[key] = structuredClone(value); },
+    async updateSettingAtomically(key, fn) { settings[key] = fn(structuredClone(settings[key])); }
+  };
+  const engine = createGspot({ store, now: () => Date.parse(at) });
+  const original = await engine.plan({
+    items: [{ prospectId: 'synthetic-prospect', offerId: 'AGENCY_REVENUE_LEAK_PROOF_PACK' }],
+    idempotencyKey: 'synthetic-cross-organ'
+  });
+  assert.equal(original.run.state, 'PLANNED');
+  const next = await engine.advance(original.run.runId, async () => ({
+    qualification: { eligible: false, outboundAuthority: 'NONE' }
+  }));
+  assert.equal(next.items[0].stage, 'BLOCKED');
+  const batch = await engine.prepareBatch(original.run.runId, { maxItems: 1, perSenderCap: { 'sender-1': 1 } });
+  assert.equal(batch.state, 'NOTHING_TO_AUTHORIZE');
+  assert.equal(batch.batch.items.length, 0);
+  await assert.rejects(() => engine.authorize(original.run.runId, {
+    batchDigest: 'fake', authorizedBy: 'MOHAMED'
+  }));
+  await assert.rejects(() => engine.dispatch(original.run.runId, async () => {
+    throw Error('unexpected external dispatch');
+  }));
+});

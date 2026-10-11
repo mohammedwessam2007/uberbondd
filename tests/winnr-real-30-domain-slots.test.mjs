@@ -121,6 +121,7 @@ test('a future-dated or undated quota cannot masquerade as a fresh entitlement',
   }
 });
 
+
 test('fast activation uses 17 of 28 fleet domains for 50 mailboxes and needs only 20 observed slots', () => {
   const p = check(20, { target: {
     mailboxes: 50, ownedDomains: OWNED_OUTREACH_DOMAINS,

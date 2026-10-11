@@ -264,7 +264,7 @@ export class JsonStore {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 5 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: EMPTY.version };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }

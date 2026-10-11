@@ -78,7 +78,17 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
     qualityCapPerDay: Number.isFinite(Number(m?.qualityCapPerDay)) ? Math.max(0, Math.floor(Number(m.qualityCapPerDay))) : null
   }));
   const entitlement = observed.entitlement && typeof observed.entitlement === 'object'
-    ? { plan: text(observed.entitlement.plan, 60), mailboxLimit: int(observed.entitlement.mailboxLimit), observedAt: text(observed.entitlement.observedAt, 40), source: text(observed.entitlement.source, 200) }
+    ? {
+        plan: text(observed.entitlement.plan, 60),
+        mailboxLimit: int(observed.entitlement.mailboxLimit),
+        // Provider mailbox quantity is not the same entitlement as domain slots.
+        // The advertised 50-box plan may initially expose only 10 domain slots;
+        // a free increase is an option until actually observed on the account.
+        domainLimit: Number.isInteger(observed.entitlement.domainLimit)
+          && observed.entitlement.domainLimit >= 0 ? observed.entitlement.domainLimit : null,
+        observedAt: text(observed.entitlement.observedAt, 40),
+        source: text(observed.entitlement.source, 200)
+      }
     : null;
   const observedDomains = (Array.isArray(observed.domains) ? observed.domains : []).map(d => ({ domain: lower(d?.domain), owned: d?.owned === true, dnsReady: d?.dnsReady === true, providerLeased: d?.providerLeased === true }));
   const observedState = { class: STATEMENT_CLASSES.OBSERVED_PROVIDER_STATE, entitlement, mailboxCount: mailboxes.length, mailboxes, domains: observedDomains };
@@ -115,9 +125,17 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
 
   // ---- entitlement (observed, never assumed) ----
   const entitlementCovers = entitlement && entitlement.mailboxLimit >= wantMailboxes;
+  // Only domains with actually planned mailboxes consume slots; reserve domains
+  // and protected roots do not. Provider-leased pilot remains a separate SKU.
+  const requiredDomainSlots = allocation.filter(a => a.mailboxes > 0).length;
+  const observedDomainSlots = entitlement?.domainLimit ?? null;
   if (wantMailboxes > mailboxes.length) {
     if (!entitlement) blockers.push('provider-entitlement-unobserved');
     else if (!entitlementCovers) blockers.push(`provider-entitlement-insufficient:limit-${entitlement.mailboxLimit}-need-${wantMailboxes}`);
+    if (entitlement && observedDomainSlots === null) blockers.push('provider-domain-slots-unobserved');
+    else if (entitlement && requiredDomainSlots > observedDomainSlots) {
+      blockers.push(`provider-domain-slots-insufficient:limit-${observedDomainSlots}-need-${requiredDomainSlots}`);
+    }
   }
 
   // ---- quarantine and retirement: never replace to escape evidence ----
@@ -168,9 +186,17 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
       quarantinedMailboxes: quarantined.length,
       plannedFullRampPerDay,
       providerMaximumIsNotASafeSendRate: true,
-      domainCountIsNotSendAuthority: true
+      domainCountIsNotSendAuthority: true,
+      domainSlotIncreaseRequiresObservedEntitlement: true
     },
-    topology: { class: STATEMENT_CLASSES.PLAN, targetMailboxes: wantMailboxes, activeDomains: allocation, reserveDomains: reserve, maxMailboxesPerDomain: maxPerDomain, protectedPrimaryDomains: [...primary], mailboxNameCount: names.length },
+    topology: {
+      class: STATEMENT_CLASSES.PLAN, targetMailboxes: wantMailboxes,
+      activeDomains: allocation, reserveDomains: reserve, maxMailboxesPerDomain: maxPerDomain,
+      protectedPrimaryDomains: [...primary], mailboxNameCount: names.length,
+      requiredDomainSlots, observedDomainSlots,
+      domainSlotsReadyForExpansion: observedDomainSlots !== null && observedDomainSlots >= requiredDomainSlots,
+      domainSlotIncreaseIsNotAssumed: true
+    },
     quarantine: quarantineDisposition,
     steps: plannedSteps,
     expansionDecision: {

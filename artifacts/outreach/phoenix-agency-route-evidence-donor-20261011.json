@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "uberbond.phoenix-agency-research-donor.v1",
+  "date": "2026-10-11",
+  "baseMainSha": "b3a268037dea4259b1bc6f837fa06bad69f3ccf3",
+  "dependency": "PR #1388 exact head 15ac99c04af3fd10d237a935ab17a0dcc14ef636 (UNMERGED, NATIVE GREEN, HOSTED CI LOCKED)",
+  "authority": {
+    "send": false,
+    "submitForm": false,
+    "spend": false,
+    "ownerExactAuthorization": false,
+    "suppressionCurrent": false,
+    "contactHistoryCurrent": false,
+    "legalProviderRouteCleared": false,
+    "smtpFreshAtEffect": false
+  },
+  "offer": {
+    "canonName": "Agency Revenue Leak Proof Pack",
+    "historicalOfferId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+    "priceUSD": 1500,
+    "delivery": "Three client lead-path proof samples; verify actual choice in existing canonical offer router"
+  },
+  "candidates": [
+    {
+      "id": "agency-demandstream",
+      "name": "DemandStream Digital",
+      "priority": "RESEARCH_1_EXISTING_PRODUCTION_HISTORY",
+      "website": "https://demandstreamdigital.com/",
+      "recipientCandidate": "hello@demandstreamdigital.com",
+      "contactSource": "https://demandstreamdigital.com/contact",
+      "identifiedFounder": "Doug Bryson",
+      "sourceLinks": [
+        "https://demandstreamdigital.com/about",
+        "https://demandstreamdigital.com/testimonials",
+        "https://demandstreamdigital.com/website-design"
+      ],
+      "newVerifiedPublicFacts": [
+        "Agency Partners testimonials include Cole, Trevor Anderson, Jeremy; white-label fulfilment partnership is explicitly described",
+        "Website design offering says call tracking and lead capture are integrated"
+      ],
+      "commercialHypothesis": "External independent three-client lead-path acceptance/QA artifact, not a claim of a current defect",
+      "negativeEvidence": [
+        "Historical October 11 production preflight was BLOCKED_EXTERNAL_FACT / INCOMPLETE",
+        "Public contact wording is targeted to potential plumbing/HVAC clients and marketing partners, not proved permission for cold vendor pitch",
+        "Current external ownership, notices, exact recipient eligibility and three independently observed live client paths remain unverified"
+      ],
+      "historicalProductionDigest": "5e83fe46331b0ad7bfed124c087650cd17dd900879297b9ea65023286ca43bc7",
+      "status": "RESEARCH_NOT_SEND_READY"
+    },
+    {
+      "id": "agency-forward-first",
+      "name": "Forward First Media",
+      "priority": "RESEARCH_2_NEW_VENDOR_ROUTE_DISCOVERED",
+      "website": "https://forwardfirstmedia.com/",
+      "ownerOrFounder": "Dave Hempton (published founder biography)",
+      "recipientCandidate": "create@forwardfirstmedia.com",
+      "roleEmailPublication": "https://forwardfirstmedia.com/cleaning-digital-marketing/",
+      "vendorContactPage": "https://forwardfirstmedia.com/affiliate-program/",
+      "sourceLinks": [
+        "https://forwardfirstmedia.com/",
+        "https://forwardfirstmedia.com/affiliate-program/",
+        "https://forwardfirstmedia.com/about/",
+        "https://forwardfirstmedia.com/case-studies/moore-mechanical/",
+        "https://forwardfirstmedia.com/case-studies/",
+        "https://mooremech.net/"
+      ],
+      "newVerifiedPublicFacts": [
+        "Company explicitly identifies HVAC/plumbing marketing and reporting booked jobs",
+        "Published contact form has Vendor or software category, which is a potentially better legitimate inquiry route than harvesting address",
+        "Named Moore Mechanical client project and case study are public",
+        "Moore Mechanical homepage publishes 24/7 emergency line and instant booking; both may be intentional and are not a defect"
+      ],
+      "commercialHypothesis": "Independent proof snapshot of three named client landing-to-booking paths as bounded acceptance check; may be redundant because agency already audits leaks",
+      "negativeEvidence": [
+        "Vendor form invites enquiries, not implied permission to place an unsolicited commercial email or claim vendor approval",
+        "No inspected real broken link, missing call, revenue shortfall or fault has been established",
+        "No active production contact history/suppression read for this candidate",
+        "Second and third current client origin pages remain unverified; contact route, recipient country and provider eligibility require exact preflight"
+      ],
+      "status": "RESEARCH_NOT_SEND_READY"
+    },
+    {
+      "id": "agency-powerhouse",
+      "name": "Powerhouse Consulting Group",
+      "priority": "HISTORICAL_DONOR_HOLD",
+      "website": "https://mypowerhouse.group/",
+      "recipientCandidate": "hello@mypowerhouse.group",
+      "sourceLinks": [
+        "https://mypowerhouse.group/",
+        "https://sylvesterelectric.com/home"
+      ],
+      "negativeEvidence": [
+        "October 11 public source indexed but exact current /home origin fetch failed",
+        "Published webinar enquiry address does not prove supplier-invitation purpose",
+        "Historical queued-contact policy and current sender eligibility unresolved"
+      ],
+      "status": "HOLD_NO_SEND"
+    }
+  ],
+  "threePathPreworkForForwardFirst": [
+    {
+      "client": "Moore Mechanical",
+      "agencyEvidence": "https://forwardfirstmedia.com/case-studies/moore-mechanical/",
+      "clientSite": "https://mooremech.net/",
+      "observableSignals": [
+        "Published 24/7 phone coverage and instant booking CTA"
+      ],
+      "qaTest": "Verify emergency phone vs instant booking copy, call response time and mobile CTA against actual operator policy",
+      "status": "PUBLIC_INDEX_ONLY_NO_DEFECT_ASSERTED"
+    },
+    {
+      "client": "Werner Plumbing & Heating",
+      "agencyEvidence": "https://forwardfirstmedia.com/case-studies/",
+      "clientSite": "https://wernerplumbing.com/",
+      "qaTest": "Check emergency vs scheduled service booking, mobile paths and service-area fit after exact direct retrieval",
+      "status": "FRESH_ORIGIN_REQUIRED"
+    },
+    {
+      "client": "Canyon Plumbing",
+      "agencyEvidence": "https://forwardfirstmedia.com/case-studies/",
+      "clientSite": null,
+      "qaTest": "Find agency-linked exact client website and verify an authentic lead-to-booking path",
+      "status": "CLIENT_ORIGIN_NOT_YET_BOUND"
+    }
+  ],
+  "exactPreflightRequired": [
+    "fresh exact site retrieval",
+    "recipient business address/purpose",
+    "verified company owner and decision route",
+    "no-solicitation/no-harvest review",
+    "one source-bound buyer-relevant actual observation, not imagined failure",
+    "production seven-ledger contact history and suppression",
+    "same-sender fresh transport/DNS/placement",
+    "canonical $1500 offer routing",
+    "V5 tournament, signed footer/unsubscribe",
+    "exact effect package digest and founder authorization"
+  ],
+  "truth": {
+    "messageCreated": false,
+    "tournamentPassed": false,
+    "providerSend": false,
+    "formSubmitted": false,
+    "buyerAccepted": false,
+    "clearedRevenueUSD": 0,
+    "renderDeployed": false
+  },
+  "provenance": [
+    "docs/receipts/PHOENIX_FIRST_CASH_RECOVERY_EXECUTION_2026-10-11.md",
+    "artifacts/outreach/phoenix-first-campaign-research-20261011.json",
+    "https://github.com/mohammedwessam2007/uberbondd/issues/1188"
+  ]
+}

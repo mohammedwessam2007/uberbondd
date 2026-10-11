@@ -112,8 +112,17 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
   for (const domain of domains) if (primary.has(domain)) refusals.push(`primary-brand-domain-never-used-for-cold-volume:${domain}`);
   const usable = domains.filter(domain => !primary.has(domain));
   const reserveCount = usable.length ? Math.max(1, Math.ceil(usable.length * reserveFraction)) : 0;
-  const reserve = usable.slice(usable.length - reserveCount);
-  const active = usable.slice(0, usable.length - reserveCount);
+  // Optional first-purchase optimization: use no more domains than required to
+  // support the requested mailbox count within the existing per-domain safety
+  // ceiling. Remaining fleet domains become additional reserves, never sending
+  // identities. This can avoid unnecessary provider domain-slot increases.
+  const minimumActiveDomainCount = wantMailboxes ? Math.ceil(wantMailboxes / maxPerDomain) : 0;
+  const fastActivationRequested = target.fastActivation === true;
+  const fastActivationPossible = fastActivationRequested && minimumActiveDomainCount > 0
+    && minimumActiveDomainCount <= usable.length - reserveCount;
+  const activeCount = fastActivationPossible ? minimumActiveDomainCount : usable.length - reserveCount;
+  const reserve = usable.slice(activeCount);
+  const active = usable.slice(0, activeCount);
   if (!wantMailboxes) blockers.push('target-mailbox-count-required');
   if (!active.length && wantMailboxes) blockers.push('owned-sending-domains-required');
   if (wantMailboxes && active.length * maxPerDomain < wantMailboxes) blockers.push(`topology-cannot-meet-target-within-${maxPerDomain}-mailboxes-per-domain:need-${Math.ceil(wantMailboxes / maxPerDomain)}-active-domains`);
@@ -200,6 +209,7 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
       activeDomains: allocation, reserveDomains: reserve, maxMailboxesPerDomain: maxPerDomain,
       protectedPrimaryDomains: [...primary], mailboxNameCount: names.length,
       requiredDomainSlots, observedDomainSlots,
+      minimumActiveDomainCount, fastActivationRequested, fastActivationPossible,
       domainSlotsReadyForExpansion: entitlementFresh && observedDomainSlots !== null && observedDomainSlots >= requiredDomainSlots,
       providerEntitlementFresh: Boolean(entitlementFresh),
       domainSlotIncreaseIsNotAssumed: true

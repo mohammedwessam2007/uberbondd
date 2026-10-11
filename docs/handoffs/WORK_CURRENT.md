@@ -2,6 +2,8 @@
 
 **Latest durable first-cash recovery:** [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) and [`artifacts/outreach/phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json). The new main-only commits are evidence/documentation, **not** PR #1388 merger, hosted CI, sender/eligibility clearance or Render deployment. #1388 stays OPEN/DRAFT at `15ac99c04af3fd10d237a935ab17a0dcc14ef636` with 9,937/0/56 *local* native result; GitHub hosted jobs have zero steps under account billing lock (no-cost Support ticket #4845900 acknowledged). Render still verified at older `24854739d70617d57807cde5407a84266cca477c`. Prior Winnr pilot ordinals 1/2 SMTP READY at expired Oct11 receipt, ordinal 3 quarantined. Actual owner Gmail roundtrip verified. Added better published vendor routes, but **no eligible exact Winnr prospect-effect authorization, customer outreach, cleared first cash, paid upgrade, DNS mutation or deployment occurred**. Preserve all original 890 founder identities and five-PR lineage. Re-read live main/provider truth before next action.
 
+**First bounded prework sample (UNSENT):** [`docs/receipts/FORWARD_FIRST_MOORE_UNSENT_V5_PREWORK_2026-10-11.md`](../receipts/FORWARD_FIRST_MOORE_UNSENT_V5_PREWORK_2026-10-11.md). Source-linked Moore Mechanical three-path QA checklist and a 63-word, 4-sentence V5 static-shape draft for Forward First Media's published *vendor/software form*, not a production winner or an authorized email. No proven defect, no contact effect.
+
 ---
 
 # WORK CURRENT — crash-safe recovery pointer

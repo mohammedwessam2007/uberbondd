@@ -1,3 +1,7 @@
+# PHOENIX recovery update — 2026-10-11
+
+Latest verified native head `9d181939e9b981d15eecf0bf6e143b5a8a72fbfe`: 9937 passed / 0 failed / 56 skipped; relay150/150, browser3/3; real PostgreSQL initialization blocked. Hosted billing lock remains; Support4845900 open. No merge/deploy; Render24854739. SMTP1/2 READY,3 quarantined; owner roundtrip verified. Free Winnr slots0→10, no paid expansion. Campaign remains BLOCKED_EXTERNAL_FACT. Full receipt: [PHOENIX_FIRST_CASH_RECOVERY_EXECUTION_2026-10-11.md](../receipts/PHOENIX_FIRST_CASH_RECOVERY_EXECUTION_2026-10-11.md). Prior frontier/history retained below.
+
 # WORK CURRENT — crash-safe recovery pointer
 
 **Oct 10 Cairo LIVE addendum:** `docs/forensics/2026-10-10/MAIN_DELTA_6250_FULL_EXACT_MESSAGE.jsonl.md` extends exact original main commit-message continuity from 6,249 to **6,250** through `37d03dcf48443dd73c89d8b12253029c2a2da8f8` (Oct10 Cairo 02:07); newest W39 UberMind quality/effort specialist, six changed files. Archival merged changes create their own later commit. No all-patch semantic or unseen-chat completeness implied.

@@ -10,6 +10,7 @@ const parseOrdinals=value=>new Set(String(value||'').split(',').map(Number).filt
 const isOwnProbePause=health=>health?.paused===true&&String(health?.pauseReason||'')===SMTP_PROBE_FAILURE_PAUSE_REASON;
 const hardProtectivePause=health=>health?.paused===true&&!isOwnProbePause(health);
 const providerCallCount=probe=>{
+  if(probe?.providerCalls===null||probe?.providerCalls===undefined)return null;
   const n=Number(probe?.providerCalls);
   return Number.isInteger(n)&&n>=0?n:null;
 };

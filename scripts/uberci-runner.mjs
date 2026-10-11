@@ -119,7 +119,7 @@ function commandOutput(program, args, cwd) {
 }
 async function atomicJson(file, content) {
   await fs.mkdir(path.dirname(file), { recursive: true });
-  const tmp = \`\${file}.partial-\${process.pid}\`;
+  const tmp = `${file}.partial-${process.pid}`;
   await fs.writeFile(tmp, JSON.stringify(content, null, 2) + '\n', { mode: 0o600 });
   await fs.rename(tmp, file);
 }
@@ -127,7 +127,7 @@ export async function executeUberCi({ cwd = SOURCE_ROOT, expectedSha, jobs, outD
   const plan = compileUberCiPlan({ expectedSha, jobs });
   const root = path.resolve(cwd);
   const observed = await inspectGit('git', ['rev-parse', 'HEAD'], root);
-  if (observed !== expectedSha) throw new Error(\`sha-mismatch:\${observed}\`);
+  if (observed !== expectedSha) throw new Error(`sha-mismatch:${observed}`);
   const dirt = await inspectGit('git', ['status', '--porcelain', '--untracked-files=normal'], root);
   if (dirt.trim()) throw new Error('source-worktree-must-be-clean');
   const target = path.resolve(outDir || path.join(root, '.cache/uberci', expectedSha));
@@ -155,7 +155,7 @@ export async function executeUberCi({ cwd = SOURCE_ROOT, expectedSha, jobs, outD
   } else {
     for (const name of plan.selectedJobs) {
       const [exe, ...args] = COMMANDS[name];
-      receipt.jobs[name] = await captureCommand(exe, args, { cwd: root, env: environment, logFile: path.join(target, \`\${name}.log\`) });
+      receipt.jobs[name] = await captureCommand(exe, args, { cwd: root, env: environment, logFile: path.join(target, `${name}.log`) });
       receipt.claimedTestsRun = true;
       await atomicJson(path.join(target, 'receipt.json'), receipt);
     }

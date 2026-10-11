@@ -86,3 +86,14 @@ test('failed dependency install runs no test jobs and persists failure state',as
   assert.equal(r.status,'DEPENDENCY_FAILURE');
   assert.equal(r.claimedTestsRun,false);
 });
+test('postgres skip results stay red', async t => {
+  const dir = await fixture(t);
+  const captureCommand = async (_exe,args) => args[0] === 'ci'
+    ? {status:'DEPENDENCIES_INSTALLED'}
+    : args.at(-1) === 'test:postgres-real'
+      ? {status:'PASSED_WITH_TAP_EVIDENCE', evidence: {...good.evidence, skipped:1}}
+      : {...good};
+  const result = await executeUberCi(opts(dir, {captureCommand}));
+  assert.equal(result.jobs.postgres.status,'INCOMPLETE_POSTGRES_SKIPPED_TESTS');
+  assert.equal(result.status,'INCOMPLETE_OR_FAILED_VERIFICATION');
+});

@@ -23,9 +23,9 @@ The patch:
 
 For a prudent *planned* 50 new-mailbox allocation against the 30-domain registrar inventory:
 - Preserve 2 original canonical roots as protected in the existing policy.
-- From the 28 other domains, reserve `ceil(28×0.2)=6` domains, leaving **22 active potential sending domains**.
-- Distribute **50** boxes across those 22, maximum 3/domain, with first ramp stage **zero cold messages/day**. This needs **22 provider domain slots**, not merely the purchased 50 mailbox allotment.
-- Winnr Startup's published initial domain cap is 10, **free self-service increases 10 → 20 → 40 in Settings → Subscription**. The provider currently says only one increase per 24 hours. Therefore the 22-domain topology needs observation of the later 40-slot cap, which may involve at least a 24-hour spacing between two actions. A published ability to raise slots is not proof the account now has 40.
+- **Default spread strategy:** from 28 other domains, reserve `ceil(28×0.2)=6`, leaving **22 active domains**. This still requires 22 observed provider slots and thus the second self-service raise to 40.
+- **New optional first-cash-fast strategy:** set `target.fastActivation=true` to allocate **50 mailboxes across 17 active owned domains** (16 × 3 + 1 × 2), preserve both canonical roots and **11 reserve domains**. This needs only 17 provider slots; never exceeds 3 accounts per domain. All newly provisioned senders start at **zero approved cold messages/day** until actual evidence earns a cap.
+- Winnr Startup's published initial domain cap is 10, but a **single free 10 → 20 increase** can support the opt-in 17-domain strategy. The first raise is documented as immediate when eligible; subsequent raises are allowed once every 24 hours. Actual 20 slots must be observed on the authenticated account; a website claim is not the account's entitlement. If spreading across 22 domains is more desirable later, observe the later 40-slot entitlement, but do not move already-warming identities merely for cosmetic spread.
 - Account cost is published **$69/month, 50 email accounts**; owned GoDaddy domain connection is free. Optional 50-account Winnr warming costs `50×$0.60 = $30/month` when actually enabled, not part of the $69. The separate existing $9 prewarmed pilot remains a separate line item unless deliberately cancelled. If both base subscriptions and all 50 warming are retained, the listed monthly amounts sum to **$108 before checkout-specific tax/extras**. The startup product alone could remain $69 without optional warming, but un-warmed new mailboxes have no established cold volume.
 - Winnr's provider guidance recommends **at least 2 weeks of warmup, often closer to 4 for newly connected domains** and 10–20 cold sends per matured mailbox per day, not the advertised 50/day total including warming. These are provider guidelines, not actual inbox proof.
 
@@ -37,7 +37,7 @@ The exact GitHub branch source and its test dependencies were transferred lossle
 
 `node --test tests/winnr-real-30-domain-slots.test.mjs tests/winnr-expansion-planner.test.mjs`
 
-**22 passed / 0 failed / 0 skipped**: 13 pre-existing expansion planner tests + 9 actual-portfolio/regression tests. Behaviors covered include 30 (2+28) source identity, 50 on 22 after reserve, 10→20→40 slot shortage/proof, numeric-string support, 24h stale/future entitlement refusal, separate leased pilot, zero cold send cap, no authorized effects. This is a genuine local Node test receipt **not** hosted CI, not a merge/deployment, and not a provider API proof.
+**25 passed / 0 failed / 0 skipped**: 13 pre-existing expansion planner tests + 12 actual-portfolio/regression tests. Behaviors cover 30 (2+28) owned domain identity, 50 mailboxes on default 22 or opt-in fast 17, reserve sufficiency, 10→20 slot proof, numeric-string quota support, stale/future entitlement refusal, separate leased pilot, no send authority, and refusal of impossible 90-box topologies. Verified locally with Node v22.16.0 against the exact corresponding source and test Git blobs; **not** hosted CI, a merge/deployment, a current provider API readback, or permission to send.
 
 ## Purchase gate vs rollout vs first actual campaign
 

@@ -120,3 +120,50 @@ test('a future-dated or undated quota cannot masquerade as a fresh entitlement',
     assert.equal(p.topology.domainSlotsReadyForExpansion, false);
   }
 });
+
+test('fast activation uses 17 of 28 fleet domains for 50 mailboxes and needs only 20 observed slots', () => {
+  const p = check(20, { target: {
+    mailboxes: 50, ownedDomains: OWNED_OUTREACH_DOMAINS,
+    primaryBrandDomains: OWNED_ROOT_DOMAINS, reservePoolFraction: 0.20,
+    mailboxesPerDomainMax: 3, truthfulMailboxNames: ['mohamed'],
+    fastActivation: true
+  } });
+  assert.equal(p.topology.activeDomains.length, 17);
+  assert.equal(p.topology.reserveDomains.length, 11);
+  assert.equal(p.topology.requiredDomainSlots, 17);
+  assert.equal(p.topology.observedDomainSlots, 20);
+  assert.equal(p.topology.minimumActiveDomainCount, 17);
+  assert.equal(p.topology.fastActivationRequested, true);
+  assert.equal(p.topology.fastActivationPossible, true);
+  assert.equal(p.topology.domainSlotsReadyForExpansion, true);
+  assert.equal(p.topology.activeDomains.reduce((sum,d)=>sum+d.mailboxes,0),50);
+  assert.ok(p.topology.activeDomains.every(d=>d.mailboxes<=3));
+  assert.ok(OWNED_ROOT_DOMAINS.every(d=>!p.topology.activeDomains.some(x=>x.domain===d)));
+  assert.equal(p.sendAuthority, false);
+  assert.equal(p.capacity.currentEvidenceCapacityPerDay, 0);
+});
+
+test('fast activation cannot claim all 50 inboxes under initial 10-domain limit', () => {
+  const p = check(10, { target: {
+    mailboxes: 50, ownedDomains: OWNED_OUTREACH_DOMAINS,
+    primaryBrandDomains: OWNED_ROOT_DOMAINS, reservePoolFraction: 0.20,
+    mailboxesPerDomainMax: 3, truthfulMailboxNames: ['mohamed'],
+    fastActivation: true
+  } });
+  assert.equal(p.topology.requiredDomainSlots, 17);
+  assert.ok(p.blockers.includes('provider-domain-slots-insufficient:limit-10-need-17'));
+  assert.equal(p.sendAuthority, false);
+});
+
+test('fast activation rejects unsafe topology instead of silently exceeding the per-domain cap', () => {
+  const p = check(40, { target: {
+    mailboxes: 90, ownedDomains: OWNED_OUTREACH_DOMAINS,
+    primaryBrandDomains: OWNED_ROOT_DOMAINS, reservePoolFraction: 0.20,
+    mailboxesPerDomainMax: 3, truthfulMailboxNames: ['mohamed'],
+    fastActivation: true
+  } });
+  assert.equal(p.topology.fastActivationPossible, false);
+  assert.equal(p.topology.activeDomains.length, 22);
+  assert.ok(p.blockers.some(b=>b.startsWith('topology-cannot-meet-target')));
+  assert.equal(p.sendAuthority, false);
+});

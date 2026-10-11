@@ -84,8 +84,9 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
         // Provider mailbox quantity is not the same entitlement as domain slots.
         // The advertised 50-box plan may initially expose only 10 domain slots;
         // a free increase is an option until actually observed on the account.
-        domainLimit: Number.isInteger(observed.entitlement.domainLimit)
-          && observed.entitlement.domainLimit >= 0 ? observed.entitlement.domainLimit : null,
+        domainLimit: (/^(0|[1-9][0-9]*)$/.test(String(observed.entitlement.domainLimit ?? ''))
+          && Number.isSafeInteger(Number(observed.entitlement.domainLimit)))
+          ? Number(observed.entitlement.domainLimit) : null,
         observedAt: text(observed.entitlement.observedAt, 40),
         source: text(observed.entitlement.source, 200)
       }
@@ -129,9 +130,14 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
   // and protected roots do not. Provider-leased pilot remains a separate SKU.
   const requiredDomainSlots = allocation.filter(a => a.mailboxes > 0).length;
   const observedDomainSlots = entitlement?.domainLimit ?? null;
+  const entitlementObservedMs = entitlement ? Date.parse(entitlement.observedAt) : NaN;
+  const entitlementFresh = Number.isFinite(entitlementObservedMs)
+    && entitlementObservedMs <= at.getTime() + 5 * 60 * 1000
+    && at.getTime() - entitlementObservedMs <= 24 * 60 * 60 * 1000;
   if (wantMailboxes > mailboxes.length) {
     if (!entitlement) blockers.push('provider-entitlement-unobserved');
     else if (!entitlementCovers) blockers.push(`provider-entitlement-insufficient:limit-${entitlement.mailboxLimit}-need-${wantMailboxes}`);
+    if (entitlement && !entitlementFresh) blockers.push('provider-entitlement-stale-or-undated');
     if (entitlement && observedDomainSlots === null) blockers.push('provider-domain-slots-unobserved');
     else if (entitlement && requiredDomainSlots > observedDomainSlots) {
       blockers.push(`provider-domain-slots-insufficient:limit-${observedDomainSlots}-need-${requiredDomainSlots}`);
@@ -194,7 +200,8 @@ export function compileSenderFleetExpansionPlan({ observed = {}, target = {}, de
       activeDomains: allocation, reserveDomains: reserve, maxMailboxesPerDomain: maxPerDomain,
       protectedPrimaryDomains: [...primary], mailboxNameCount: names.length,
       requiredDomainSlots, observedDomainSlots,
-      domainSlotsReadyForExpansion: observedDomainSlots !== null && observedDomainSlots >= requiredDomainSlots,
+      domainSlotsReadyForExpansion: entitlementFresh && observedDomainSlots !== null && observedDomainSlots >= requiredDomainSlots,
+      providerEntitlementFresh: Boolean(entitlementFresh),
       domainSlotIncreaseIsNotAssumed: true
     },
     quarantine: quarantineDisposition,

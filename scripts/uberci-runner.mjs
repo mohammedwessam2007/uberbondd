@@ -156,6 +156,10 @@ export async function executeUberCi({ cwd = SOURCE_ROOT, expectedSha, jobs, outD
     for (const name of plan.selectedJobs) {
       const [exe, ...args] = COMMANDS[name];
       receipt.jobs[name] = await captureCommand(exe, args, { cwd: root, env: environment, logFile: path.join(target, `${name}.log`) });
+      // A real-PostgreSQL gate with skipped tests cannot certify complete database coverage.
+      if (name === 'postgres' && Number(receipt.jobs[name].evidence?.skipped || 0) > 0 && receipt.jobs[name].status === 'PASSED_WITH_TAP_EVIDENCE') {
+        receipt.jobs[name].status = 'INCOMPLETE_POSTGRES_SKIPPED_TESTS';
+      }
       receipt.claimedTestsRun = true;
       await atomicJson(path.join(target, 'receipt.json'), receipt);
     }

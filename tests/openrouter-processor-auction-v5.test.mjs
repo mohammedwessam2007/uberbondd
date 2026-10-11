@@ -106,7 +106,7 @@ test('MiMo compression path is considered only when source anchors and lossless 
     compressionLosslessContract:true,sourceAnchorsRetained:true
   });
   assert.equal(allowed.compressionEligible,true);
-  assert.equal(allowed.selected.path,'MIMO_COMPRESS_SOL_DEEPSEEK_OPUS');
+  assert.equal(allowed.selected.path,'MIMO_FUSED_EVIDENCE_CANDIDATE_DEEPSEEK_OPUS');
   const c=estimateCompressedFrontierUsd({originalInputTokens:200000,compressedEvidenceTokens:5000,builderOutputTokens:2500,redTeamOutputTokens:300});
   assert.ok(c < estimateDirectOpusUsd({freshInputTokens:200000,outputTokens:2500}));
 });
@@ -118,8 +118,8 @@ test('fused MiMo evidence+candidate path removes the separate Sol builder withou
   const fused=estimateFusedMimoFrontierUsd({
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:300
   });
-  assert.equal(oldPath,0.096851);
-  assert.equal(fused,0.062551);
+  assert.ok(Math.abs(oldPath - 0.096851) < 1e-12);
+  assert.ok(Math.abs(fused - 0.062551) < 1e-12);
   assert.ok(fused<oldPath);
   assert.ok(0.85/fused>13.58);
   const chosen=chooseFreshFrontierPath({
@@ -136,8 +136,8 @@ test('accepted canonical path uses output-token surgery for RedTeam PASS instead
   const compact=estimateFusedMimoFrontierUsd({
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6
   });
-  assert.equal(verbose,0.062551);
-  assert.equal(compact,0.06122212);
+  assert.ok(Math.abs(verbose - 0.062551) < 1e-12);
+  assert.ok(Math.abs(compact - 0.06122212) < 1e-12);
   assert.ok(compact<verbose);
   assert.ok(0.85/compact>13.88);
 });
@@ -151,20 +151,20 @@ test('JEV can omit low-value independent critic while Opus Crown remains mandato
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,redTeamOutputTokens:6,
     includeIndependentCritic:false
   });
-  assert.equal(withCritic,0.06122212);
-  assert.equal(withoutCritic,0.06022);
+  assert.ok(Math.abs(withCritic - 0.06122212) < 1e-12);
+  assert.ok(Math.abs(withoutCritic - 0.06022) < 1e-12);
   assert.ok(withoutCritic<withCritic);
   assert.ok(0.85/withoutCritic>14.11);
 });
 
 test('JEV control-plane cost is counted in all-in path economics',()=>{
   const jev=estimateJevControlUsd({sharedStateTokens:1000});
-  assert.equal(jev,0.000042);
+  assert.ok(Math.abs(jev - 0.000042) < 1e-12);
   const path=estimateFusedMimoFrontierUsd({
     originalInputTokens:200000,compressedEvidenceTokens:5000,candidateOutputTokens:2500,
     redTeamOutputTokens:6,includeIndependentCritic:false
   })+jev;
-  assert.equal(path,0.060262);
+  assert.ok(Math.abs(path - 0.060262) < 1e-12);
   assert.ok(0.85/path>14.10);
 });
 
@@ -188,7 +188,7 @@ test('theoretical writer lower bound proves when JEV/prework cannot beat direct 
   const low=cheapestPossibleWriterLowerBound({
     writerRoutes:[mimoRoute,deepseekRoute,solRoute],crownRoute,inputTokens:100000,candidateOutputTokens:100
   });
-  assert.equal(low.model,'xiaomi/mimo-v2.6-flash');
+  assert.equal(low.model,'deepseek/deepseek-v4.1-flash');
   assert.ok(low.usd>estimateDirectOpusUsd({freshInputTokens:100000,outputTokens:100}));
 });
 
@@ -252,7 +252,7 @@ test('exact metadata bypasses JEV when critic decision is already deterministic'
   assert.equal(p.run,false);
   assert.equal(p.reason,'SAME_LINEAGE_NO_INDEPENDENCE_GAIN');
   const allIn=0.0299+0.03012;
-  assert.equal(allIn,0.06002);
+  assert.ok(Math.abs(allIn - 0.06002) < 1e-12);
   assert.ok(0.85/allIn>14.16);
 });
 

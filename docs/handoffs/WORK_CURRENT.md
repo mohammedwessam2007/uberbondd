@@ -1,3 +1,11 @@
+# PHOENIX MAIN HOT CHECKPOINT — 2026-10-11
+
+**Latest durable first-cash recovery:** [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) and [`artifacts/outreach/phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json). The new main-only commits are evidence/documentation, **not** PR #1388 merger, hosted CI, sender/eligibility clearance or Render deployment. #1388 stays OPEN/DRAFT at `15ac99c04af3fd10d237a935ab17a0dcc14ef636` with 9,937/0/56 *local* native result; GitHub hosted jobs have zero steps under account billing lock (no-cost Support ticket #4845900 acknowledged). Render still verified at older `24854739d70617d57807cde5407a84266cca477c`. Prior Winnr pilot ordinals 1/2 SMTP READY at expired Oct11 receipt, ordinal 3 quarantined. Actual owner Gmail roundtrip verified. Added better published vendor routes, but **no eligible exact Winnr prospect-effect authorization, customer outreach, cleared first cash, paid upgrade, DNS mutation or deployment occurred**. Preserve all original 890 founder identities and five-PR lineage. Re-read live main/provider truth before next action.
+
+**First bounded prework sample (UNSENT):** [`docs/receipts/FORWARD_FIRST_MOORE_UNSENT_V5_PREWORK_2026-10-11.md`](../receipts/FORWARD_FIRST_MOORE_UNSENT_V5_PREWORK_2026-10-11.md). Source-linked Moore Mechanical three-path QA checklist and a 63-word, 4-sentence V5 static-shape draft for Forward First Media's published *vendor/software form*, not a production winner or an authorized email. No proven defect, no contact effect.
+
+---
+
 # PHOENIX recovery update — 2026-10-11
 
 Latest verified native head `9d181939e9b981d15eecf0bf6e143b5a8a72fbfe`: 9937 passed / 0 failed / 56 skipped; relay150/150, browser3/3; real PostgreSQL initialization blocked. Hosted billing lock remains; Support4845900 open. No merge/deploy; Render24854739. SMTP1/2 READY,3 quarantined; owner roundtrip verified. Free Winnr slots0→10, no paid expansion. Campaign remains BLOCKED_EXTERNAL_FACT. Full receipt: [PHOENIX_FIRST_CASH_RECOVERY_EXECUTION_2026-10-11.md](../receipts/PHOENIX_FIRST_CASH_RECOVERY_EXECUTION_2026-10-11.md). Prior frontier/history retained below.

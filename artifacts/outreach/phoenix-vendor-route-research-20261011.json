@@ -1,0 +1,208 @@
+{
+  "schema": "uberbond.phoenix.vendor-route-research.v1",
+  "createdDate": "2026-10-11",
+  "authoritativeMainBeforeWrite": "b3a268037dea4259b1bc6f837fa06bad69f3ccf3",
+  "status": "RESEARCH_CANDIDATES_NOT_SEND_READY",
+  "sendAuthority": false,
+  "exactOwnerApproval": false,
+  "firstOffer": {
+    "canonicalName": "Agency Revenue Leak Proof Pack",
+    "priceUSD": 1500,
+    "scope": "Three client lead paths; bounded evidence and repair-priority pack; no presumption of customer loss"
+  },
+  "candidates": [
+    {
+      "id": "FWD-FIRST-VENDOR-20261011",
+      "agency": "Forward First Media",
+      "website": "https://forwardfirstmedia.com/",
+      "ranking": "best_current_vendor-route-and-home-service-fit",
+      "recipientRoute": {
+        "kind": "PUBLISHED_VENDOR_OR_SOFTWARE_INQUIRY_FORM",
+        "url": "https://forwardfirstmedia.com/affiliate-program/",
+        "fieldChoice": "Vendor or software",
+        "targetEmail": null,
+        "purposeConfirmed": "business vendor/software inquiries via published form",
+        "senderSpecificAuthority": "NOT_RESOLVED"
+      },
+      "businessFit": {
+        "market": "HVAC, plumbing and cleaning marketing",
+        "source": "https://forwardfirstmedia.com/case-studies/"
+      },
+      "namedClient": {
+        "name": "Moore Mechanical",
+        "publicAssociationSource": "https://forwardfirstmedia.com/case-studies/moore-mechanical/",
+        "currentContract": "UNVERIFIED"
+      },
+      "qaSample": {
+        "clientPages": [
+          "https://mooremech.net/",
+          "https://mooremech.net/contact-us/",
+          "https://mooremech.net/plumbing/"
+        ],
+        "observation": "Compare phone/instant-booking/service-request affordances and after-hours promises across three published paths; claims appear coherent; no defect proven",
+        "actualScreenshotsCaptured": false,
+        "formOrPhoneTestingPerformed": false
+      },
+      "holds": [
+        "vendor form does not imply permission for generic cold email or unrelated affiliate referral",
+        "client-site control/current commercial relationship not independently proved",
+        "no observed measurable lead-path defect",
+        "source freshness must be refreshed within policy window",
+        "native production contact history not checked",
+        "sender law/provider route and Winnr time-fresh health not resolved",
+        "G-SPOT final signed digest and recipient-specific owner approval absent"
+      ],
+      "status": "PUBLISHED_VENDOR_FORM_ROUTE__NOT_EMAIL_SEND_READY"
+    },
+    {
+      "id": "ELXEL-VENDOR-20261011",
+      "agency": "Elxel Creative Agency",
+      "website": "https://elxel.com/",
+      "ranking": "explicit_direct_vendor_email_medium_offer-fit",
+      "recipientRoute": {
+        "kind": "PUBLISHED_VENDOR_AND_COLLABORATOR_EMAIL",
+        "url": "https://elxel.com/contact/",
+        "email": "info@elxel.com",
+        "purposeConfirmed": "site explicitly directs vendor/collaborator introduction; public email appears on the same contact page",
+        "senderSpecificAuthority": "NOT_RESOLVED"
+      },
+      "businessFit": {
+        "market": "Web development, digital design and marketing",
+        "source": "https://elxel.com/web-design/"
+      },
+      "namedClient": {
+        "name": "BookMe.com",
+        "publicAssociationSource": "https://elxel.com/work/book-me/",
+        "currentContract": "UNVERIFIED"
+      },
+      "qaSample": {
+        "clientPages": [
+          "https://elxel.com/work/book-me/"
+        ],
+        "observation": "Potential independent booking-journey QA service; no three-client proof or broken conversion path identified",
+        "actualScreenshotsCaptured": false
+      },
+      "holds": [
+        "Offer 1 typical home-service focus is not established",
+        "no three verified independent live client paths",
+        "exact recipient policy and current contact history unchecked",
+        "Egypt-origin sender-side authority and final preflight unverified",
+        "no exact owner approval"
+      ],
+      "status": "PUBLISHED_VENDOR_EMAIL__OFFER_FIT_NEEDS_EVIDENCE"
+    },
+    {
+      "id": "ROI-GROWTH-VENDOR-20261011",
+      "agency": "ROI Growth Media",
+      "website": "https://roigrowthmedia.com/",
+      "ranking": "published_contractor_proposals_email_but_low_current_proof",
+      "recipientRoute": {
+        "kind": "PUBLISHED_PARTNERSHIPS_AND_VENDORS_EMAIL",
+        "url": "https://roigrowthmedia.com/en/contact/",
+        "email": "adv@roigrowthmedia.com",
+        "purposeConfirmed": "contact page labels Technology and commercial partnerships; contractor proposals",
+        "senderSpecificAuthority": "NOT_RESOLVED"
+      },
+      "businessFit": {
+        "market": "International marketing agency",
+        "source": "https://roigrowthmedia.com/en/contact/"
+      },
+      "holds": [
+        "retrieved contact page older than first candidate",
+        "specific home-services agency-client fit unverified",
+        "no exact three-client-site QA artifact",
+        "fresh production eligibility and exact owner approval absent"
+      ],
+      "status": "PUBLIC_VENDOR_EMAIL__RESEARCH_ONLY"
+    }
+  ],
+  "priorProductionCandidates": {
+    "demandstream": {
+      "email": "hello@demandstreamdigital.com",
+      "preflightState": "BLOCKED_EXTERNAL_FACT",
+      "historyReceipt": "5e83fe46331b0ad7bfed124c087650cd17dd900879297b9ea65023286ca43bc7",
+      "historyReadAt": "2026-10-11T13:21:58.293Z",
+      "sendAuthority": false
+    },
+    "powerhouse": {
+      "status": "HOLD",
+      "reason": "prior offer/site/provenance drift and recipient purpose unverified"
+    }
+  },
+  "releaseGates": {
+    "integrationPR": 1388,
+    "integrationHead": "15ac99c04af3fd10d237a935ab17a0dcc14ef636",
+    "status": "OPEN_DRAFT_UNMERGED",
+    "hostedActions": "ZERO_STEP_ACCOUNT_LOCK",
+    "supportTicket": 4845900,
+    "deployedSource": "24854739d70617d57807cde5407a84266cca477c"
+  },
+  "sender": {
+    "pilotMonthlyUSD": 9,
+    "previousVerifiedSmtpOrdinals": [
+      1,
+      2
+    ],
+    "quarantined": [
+      3
+    ],
+    "lastSmtpReceiptExpiry": "2026-10-11T14:10:38.261Z",
+    "lastImap": [
+      1,
+      2,
+      3
+    ],
+    "ownerTestRoundtripConfirmed": true,
+    "dmARCConflict": "published DNS p=none versus Winnr UI p=reject",
+    "newProviderMutations": 0
+  },
+  "forbiddenInference": [
+    "A vendor inquiry channel is not blanket cold-mail consent",
+    "An indexed web case study is not an independently verified active agency contract",
+    "No call-path defect or missed revenue was established",
+    "Prior transport check after its expiration is not current sender health",
+    "No approved exact outbound message exists",
+    "Local CI pass is not hosted CI nor deployed verification"
+  ],
+  "effects": {
+    "prospectMessagesSent": 0,
+    "paidUpgrades": 0,
+    "dnsWrites": 0,
+    "productionDeployments": 0,
+    "clearedFirstCashUSD": 0
+  },
+  "provenance": [
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://forwardfirstmedia.com/affiliate-program/"
+    },
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://forwardfirstmedia.com/case-studies/moore-mechanical/"
+    },
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://mooremech.net/contact-us/"
+    },
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://mooremech.net/plumbing/"
+    },
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://elxel.com/contact/"
+    },
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://elxel.com/work/book-me/"
+    },
+    {
+      "type": "PRIMARY_FIRST_PARTY",
+      "url": "https://roigrowthmedia.com/en/contact/"
+    },
+    {
+      "type": "REPO_RECEIPT",
+      "url": "https://github.com/mohammedwessam2007/uberbondd/blob/integration/first-cash-all-layers-20261011/docs/receipts/PHOENIX_FIRST_CASH_RECOVERY_EXECUTION_2026-10-11.md"
+    }
+  ]
+}

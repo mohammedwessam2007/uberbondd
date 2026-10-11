@@ -103,7 +103,6 @@ export function compileOutreach30kFeasibility(input = {}) {
   };
 }
 
-
 // Each entry represents one calendar date in the modeled rolling period. A global
 // label alone does not magically turn Saturday into a valid business day.
 // Markets supply validated, non-overlapping eligible-recipient counts and safe

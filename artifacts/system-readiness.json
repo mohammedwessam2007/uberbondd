@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-11T19:30:29.238Z",
+  "generatedAt": "2026-10-11T23:04:57.188Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "bd7222723f0f755cab6805a56f2550d449058189",
-    "branch": "fix/disposable-postgres-rootless-runner-20261011",
+    "head": "4d5d4469dddf349797ebdacf5ba106fd9843fbce",
+    "branch": "fix/jsonstore-v6-ci-20261012",
     "sourceModules": 1086,
-    "testSuites": 1322,
+    "testSuites": 1323,
     "workingTreeClean": true
   },
   "measurements": {

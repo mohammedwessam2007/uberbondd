@@ -185,10 +185,31 @@ export function compareUberWarm3AgainstWinnr({ cohorts = [], now=new Date(), min
   const uber=sum(valid,'uber'),winnr=sum(valid,'winnr');
   const uw=wilson(uber.inbox,uber.total),wi=wilson(winnr.inbox,winnr.total);
   const providers=unique(valid.map(([,row])=>row.p));
-  const sufficientlyPowered=valid.length>=2&&providers.length>=minProviders&&
-    uber.total>=minRecipientsPerArm&&winnr.total>=minRecipientsPerArm;
-  const superior=sufficientlyPowered&&uw.low>wi.high+margin;
-  const inferior=sufficientlyPowered&&wi.low>uw.high+margin;
+  // Owner-supplied parameters may tighten evidence standards, never weaken
+  // minimum statistical safeguards or turn negative margins into victory.
+  const minSample=Math.max(100,positiveInteger(minRecipientsPerArm)??100);
+  const requiredProviders=Math.max(2,positiveInteger(minProviders)??2);
+  const minMargin=Math.max(0.02,number(margin)??0.02);
+  const balancedPairs=valid.every(([,pair])=>{
+    const ratio=pair.uber.total/pair.winnr.total;
+    return ratio>=0.8 && ratio<=1.25;
+  });
+  const providerDirections=providers.map(provider=>{
+    const sample=valid.filter(([,pair])=>pair.p===provider);
+    const u=sum(sample,'uber'),w=sum(sample,'winnr');
+    return {provider,uberRate:u.total?u.inbox/u.total:null,
+      winnrRate:w.total?w.inbox/w.total:null,
+      nUber:u.total,nWinnr:w.total};
+  });
+  const sufficientlyPowered=valid.length>=2&&providers.length>=requiredProviders&&
+    uber.total>=minSample&&winnr.total>=minSample&&balancedPairs;
+  // Prevent Simpson-style pooled "wins" masking losses in a provider type.
+  const noProviderRegression=providerDirections.every(p=>
+    p.uberRate!==null&&p.winnrRate!==null&&p.uberRate>=p.winnrRate);
+  const noProviderAdvantage=providerDirections.every(p=>
+    p.uberRate!==null&&p.winnrRate!==null&&p.winnrRate>=p.uberRate);
+  const superior=sufficientlyPowered&&noProviderRegression&&uw.low>wi.high+minMargin;
+  const inferior=sufficientlyPowered&&noProviderAdvantage&&wi.low>uw.high+minMargin;
   const status=!sufficientlyPowered?'INSUFFICIENT_REAL_CAUSAL_EVIDENCE':
     superior?'MEASURED_HIGHER_INBOX_RATE_WITH_MATCHED_EVIDENCE':
     inferior?'PAID_WARMING_MEASURED_HIGHER':'INCONCLUSIVE';
@@ -196,7 +217,7 @@ export function compareUberWarm3AgainstWinnr({ cohorts = [], now=new Date(), min
     version:UBERWARM3_ORACLE_VERSION,status,
     evidenceCounts:{validMatchedPairs:valid.length,recipientProviders:providers,
       uberWarm3:uber.total,winnr:winnr.total,excludedRows:refusals.length},
-    inboxWilson95:{uberWarm3:uw,winnr:wi},percentagePointDifference:uw&&wi?
+    inboxWilson95:{uberWarm3:uw,winnr:wi},providerDirections,balancedPairs,percentagePointDifference:uw&&wi?
       Number(((uw.rate-wi.rate)*100).toFixed(3)):null,
     paidProviderWarmingBeaten:superior,refusals,
     sendsPerformed:0,spendCents:0,

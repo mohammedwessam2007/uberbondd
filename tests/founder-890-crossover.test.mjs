@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { validateCorpus, retrieveCrossovers } from '../src/founder-890-crossover.mjs';
+const corpus = Array.from({length:890}, (_,k)=>({id:'founder-moonshot-'+String(k+1).padStart(4,'0'),ordinal:k+1,title:k===797?'Recovery Recursion':'Idea '+(k+1),body:k===797?'failure recovery regression evidence':'speculative mechanism'}));
+test('all 890 stable identities validated',()=>assert.equal(validateCorpus(corpus).length,890));
+test('missing founder idea fails closed',()=>assert.throws(()=>validateCorpus(corpus.slice(1))));
+test('duplicates fail closed',()=>assert.throws(()=>validateCorpus([...corpus.slice(0,889),corpus[0]])));
+test('recovery query surfaces mechanism with source identity',()=>assert.equal(retrieveCrossovers(corpus,'failure recovery regression',3)[0].id,'founder-moonshot-0798'));
+test('repeated query returns stable output',()=>assert.deepEqual(retrieveCrossovers(corpus,'recovery',4),retrieveCrossovers(corpus,'recovery',4)));
+test('input validation prevents empty queries',()=>assert.throws(()=>retrieveCrossovers(corpus,'',3)));

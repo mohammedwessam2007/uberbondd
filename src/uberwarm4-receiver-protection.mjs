@@ -169,6 +169,7 @@ export function compileUberWarm4ReceiverProtection({
   })).sort((a,b)=>a.senderEmail.localeCompare(b.senderEmail))):[];
   return Object.freeze({
     version:UBERWARM4_RECEIVER_VERSION,status:'OBSERVED_RECEIVER_FEEDBACK_COMPILED',
+    generatedAt:new Date(at).toISOString(),
     acceptedEvidenceCount:accepted.length,excludedEvidence:excluded,
     decisions:fleet,blockedProviderGroups:providerRows.filter(p=>p.state!=='NO_OBSERVED_INCIDENT'),
     suppressionActions:[...suppressed.values()].sort((a,b)=>a.recipientEmail.localeCompare(b.recipientEmail)),

@@ -116,6 +116,24 @@ export function compileUberWarm4ReceiverProtection({
       if(!p.reviewNotBefore||review>p.reviewNotBefore)p.reviewNotBefore=review;
       p.unresolvedIncidents.add(e.id);
       incidentById.set(e.id,{key,time:e.at});
+      if(googleQuota) {
+        // Google quota responses may be SPF-domain, DKIM-domain OR sending-IP
+        // scoped. Without independently verified sending-IP pool topology,
+        // avoid circumventing an IP hold by switching sender domain.
+        // Conservatively hold EVERY sender-domain on this recipient MX group.
+        for(const other of roster.values()) {
+          const otherKey=group(other.domain,e.provider);
+          if(!providers.has(otherKey))providers.set(otherKey,{
+            domain:other.domain,recipientProviderGroup:e.provider,
+            state:'NONE',reasonCodes:[],eventIds:[],reviewNotBefore:null,
+            unresolvedIncidents:new Set()
+          });
+          const peer=providers.get(otherKey);
+          upgrade(peer,'HOLD','unclassified-shared-ip-provider-quota-safety-hold',e.id);
+          peer.unresolvedIncidents.add(e.id);
+          if(!peer.reviewNotBefore||review>peer.reviewNotBefore)peer.reviewNotBefore=review;
+        }
+      }
     }
     if(e.kind==='AUTH_FAILURE'||(e.kind==='SMTP_PERMFAIL'&&
       ['5.7.26','5.7.1'].includes(e.enhanced))) {

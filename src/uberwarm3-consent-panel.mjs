@@ -20,7 +20,7 @@ const refused=reasons=>({ok:false,status:'UBERWARM3_PANEL_REFUSED',reasonCodes:r
  * independent receiving mailbox. No metadata alone establishes consent:
  * a verified consent receipt must be supplied by an authenticated app.
  */
-export function compileUberWarm3ConsentingPanel({records=[],verifyConsentReceipt,now=new Date()}={}) {
+export function compileUberWarm3ConsentingPanel({records=[],verifyConsentReceipt,verifyRecipientNetwork,now=new Date()}={}) {
   const at=dateMs(now),seen=new Set(),members=[],excluded=[];
   if(at===null)return refused(['invalid-current-time']);
   for(const row of Array.isArray(records)?records:[]){
@@ -30,6 +30,13 @@ export function compileUberWarm3ConsentingPanel({records=[],verifyConsentReceipt
     const proof=clean(row.consentEvidenceRef,800);
     const reasons=[];
     if(!emailOk(email)||!validProvider(provider)||!org)reasons.push('participant-identity-and-provider-required');
+    // A record merely labeling itself "Gmail" or "Outlook" is not evidence
+    // of an independent receiving network. Verify against an authenticated
+    // provider/MX identity binding before claiming network coverage.
+    let verifiedNetwork=false;
+    try { verifiedNetwork=typeof verifyRecipientNetwork==='function' &&
+      verifyRecipientNetwork({email,provider,record:row})===true; } catch {}
+    if(!verifiedNetwork)reasons.push('independent-recipient-provider-binding-required');
     if(seen.has(email))reasons.push('duplicate-participant');
     if(row.ownerControlled!==true && row.independentParticipant!==true)reasons.push('participant-ownership-required');
     let verified=false;

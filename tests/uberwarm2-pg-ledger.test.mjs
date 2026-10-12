@@ -7,7 +7,7 @@ function reservation(id = 'a'.repeat(64)) {
     reservationKey: 'uberwarm2-seed:' + id, probeId: 'p1', batchDigest: 'sha256:test',
     senderEmail: 'tara@example.com', seedEmail: 'seed@gmail.com',
     quotaWindow: '2026-10-12', senderDailyLimit: 2,
-    globalDailyLimit: 100, effectClass: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
+    globalDailyLimit: 100, seedDailyLimit: 1, effectClass: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
   };
 }
 function fakePg() {
@@ -24,12 +24,13 @@ function fakePg() {
       }
       if (sql.includes('COUNT(*)::int AS total')) {
         const sender = args[1]; return {rows: [{
-          total: seen.size, sender_total: [...states.values()].filter(x => x.sender === sender).length
+          total: seen.size, sender_total: [...states.values()].filter(x => x.sender === sender).length,
+          seed_total: [...states.values()].filter(x => x.seed === args[2]).length
         }]};
       }
       if (sql.startsWith('INSERT INTO uberwarm2_seed_probe_claims')) {
         assert.equal(txActive, true);
-        seen.add(args[0]); states.set(args[0], { sender: args[3], status: 'RESERVED' });
+        seen.add(args[0]); states.set(args[0], { sender: args[3], seed: args[4], status: 'RESERVED' });
         return {rows: []};
       }
       if (sql.includes('UPDATE uberwarm2_seed_probe_claims')) {
@@ -75,8 +76,8 @@ test('postgres ledger reserves under transaction-scoped lock and refuses replay'
 test('postgres ledger enforces two probes per sender per day', async () => {
   const pg = fakePg(), ledger = createUberWarm2PgLedger({pool: pg.pool});
   assert.equal((await ledger.claimOnceAndEnforceCaps(reservation('1'.repeat(64)))).ok, true);
-  assert.equal((await ledger.claimOnceAndEnforceCaps(reservation('2'.repeat(64)))).ok, true);
-  const rejected = await ledger.claimOnceAndEnforceCaps(reservation('3'.repeat(64)));
+  assert.equal((await ledger.claimOnceAndEnforceCaps({...reservation('2'.repeat(64)), seedEmail: 'seed2@gmail.com'})).ok, true);
+  const rejected = await ledger.claimOnceAndEnforceCaps({...reservation('3'.repeat(64)), seedEmail: 'seed3@gmail.com'});
   assert.equal(rejected.ok, false);
   assert.equal(rejected.reason, 'sender-daily-limit');
   assert.equal(pg.states.size, 2);
@@ -95,4 +96,15 @@ test('postgres ledger finalizes exactly once and observes a durable receipt', as
   const observed = await ledger.observe({reservationKey:r.reservationKey});
   assert.equal(observed.status, 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN');
   assert.equal(observed.receipt.providerMessageId, 'test-msg');
+});
+
+test('postgres ledger refuses recipient seed overload even across different senders', async () => {
+  const pg = fakePg(), ledger = createUberWarm2PgLedger({pool: pg.pool});
+  assert.equal((await ledger.claimOnceAndEnforceCaps(reservation('4'.repeat(64)))).ok, true);
+  const result = await ledger.claimOnceAndEnforceCaps({
+    ...reservation('5'.repeat(64)), senderEmail: 'nadia@example.com'
+  });
+  assert.equal(result.ok, false);
+  assert.equal(result.reason, 'seed-daily-limit');
+  assert.equal(pg.states.size, 1);
 });

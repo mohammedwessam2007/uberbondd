@@ -342,7 +342,13 @@ export function createProviderHttpAdapter({
     // use requestJson. No owner grant, forged $0 quote, or custom route may
     // enable provider-billed warm-up products. This policy can change only by
     // an explicit reviewed source change, not runtime caller input.
-    if (verb !== 'GET' && (capability === 'startWarmup' || capability === 'prewarmPurchase')) {
+    const routePath = typeof path === 'string' ? path.toLowerCase() :
+      typeof path?.path === 'string' ? path.path.toLowerCase() : '';
+    const directWarmupMutation = !READ_METHODS.has(verb) &&
+      /(?:^|\\/)(?:pre[-_]?warm(?:ups?)?|warm[-_]?ups?|warming)(?:\\/|$)/.test(routePath);
+    if ((!READ_METHODS.has(verb) &&
+         (capability === 'startWarmup' || capability === 'prewarmPurchase')) ||
+        directWarmupMutation) {
       return providerError({
         provider, capability, status: 'UBERBOND_ZERO_PAID_WARMUP_LOCK',
         reason: 'Paid vendor warm-up and pre-warm purchase are disabled. No API request is issued.',

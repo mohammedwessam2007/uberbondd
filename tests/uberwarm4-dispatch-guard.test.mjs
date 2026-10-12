@@ -113,3 +113,10 @@ test('permanent non-address 5xx must be reconciled before another sender can pro
     verifyDurableNoRetryApplied:async()=>true});
   assert.equal(ready.status,'CLEAR_TO_REEVALUATE_IN_EXISTING_DISPATCH');
 });
+
+test('an unrelated source domain cannot rotate around shared Gmail IP/MX quota hold',async()=>{
+ const r=report([r('SMTP_TEMPFAIL',{smtpResponseCode:'421',enhancedStatusCode:'4.7.28'})]);
+ const decision=await call(r,{senderEmail:'other@else.example'});
+ assert.equal(decision.status,'HOLD');
+ assert.equal(decision.recommendedMaximumFirstTouches,0);
+});

@@ -45,3 +45,34 @@ Full 50-account warm-up/30k first-touch claims remain PROJECTION_ONLY and cannot
 Original GitHub hosted Actions account billing restrictions and inability to write independent-fork verification branch (403 in previous attempt) block exact-head GitHub CI in this connector configuration. No GitHub PR merge or production deploy is approved. Review Node 22 syntax/focused tests, real transactional PostgreSQL, HMAC owner key custody, receiving-provider proof integrations, and platform authorization before rollout.
 
 All original founder 0001–0890 ideas and further GENESIS corpus remain preserved as primary canonical pointers and higher-order missions. No commercial-goal collapse of UberBond.
+
+## Continuation: 2026-10-12 exact-source hardening and remaining release hold
+
+Founder request: "Continue where you left off." The historical local implementation at `/mnt/data/uberwarm2_upgrade` passed 13/13 real `node --test` on Node 22.16.0 on October 12. **This local prototype differs from GitHub PR #1403**; DO NOT misrepresent its green Node run as source acceptance of #1403. `git ls-remote` from this container could not resolve github.com, so the exact branch could not be cloned into the Node host. Connected GitHub fetched code was behavior-tested with ESM import transformations in the V8 sandbox; cryptographic operations in that harness were deterministic mocks, not Node crypto.
+
+**Further specific code defects found and fixed on the same draft branch:**
+1. `src/uberwarm3-cash-first-governor.mjs`: before budget-driven checkout advice, fresh contact counts and active pilot daily caps must be verified via authenticated ledger callbacks. Caller-supplied plain text `evidenceRef` cannot authorize spending. Fresh owner campaign authority, legal route and actually bound production dispatch are purchase decision prerequisites. An all-in budget is TOTAL_MONTHLY by default: $69 Startup plus still-active $9 pilot requires $78, never just $69. `INCREMENTAL_AVAILABLE` is possible only if explicitly selected. No actual checkout.
+2. `src/uberwarm3-google-postmaster-v2.mjs`: use `subdomainComplianceData` only when it is exactly attributed to the requested subdomain, rather than treating a parent-domain aggregate as subdomain-specific. Independent one-click unsubscribe/honor unsubscribe verdicts can block promotion even if SPF/DKIM green. Adverse `deliverabilityStatusVerdict` remains red. Source aligns with https://developers.google.com/workspace/gmail/postmaster/reference/rest/v2/domains/getComplianceStatus .
+3. `src/uberwarm2-seed-executor.mjs`: a sender that became quarantined or a recipient who revoked consent AFTER the planning step cannot pass execution. JIT async trusted verifiers for both checks are mandatory before durable reservation and SMTP submission; unavailable/broken verifiers deny effects.
+4. `src/uberwarm2-smtp-seed-bridge.mjs`: independently refuses paused, quarantined and placement-quarantined senders, even if a historical manifest said healthy.
+5. `src/uberwarm3-consent-panel.mjs`: a user label 'GOOGLE' or 'MICROSOFT' alone cannot establish independent-network coverage. Requires trusted provider/network identity callback in addition to verified participant consent. No actual participant enrolled.
+
+**Reproducible focused test set (only after fetching exact PR #1403 head into a real Node host):**
+```sh
+node --test tests/uberplacement.test.mjs \
+  tests/uberwarm2-seed-executor.test.mjs \
+  tests/uberwarm2-pg-ledger.test.mjs \
+  tests/uberwarm2-smtp-seed-bridge.test.mjs \
+  tests/uberwarm3-reputation-oracle.test.mjs \
+  tests/uberwarm3-consent-panel.test.mjs \
+  tests/uberwarm3-google-postmaster-v2.test.mjs \
+  tests/uberwarm3-cash-first-governor.test.mjs
+```
+
+Last fetched-source V8 behavior counts after the hardening: placement 4/4, UberWarm² executor 14/14, PG 5/5, SMTP 4/4, UberWarm³ oracle 16/16, verified panel 9/9, Google Postmaster 12/12, cash-first 11/11, **75/75 total**, with separate reruns of updated suites. The initial combined harness mistakenly omitted a placement planner injection and showed 57/71; all 14 cases were subsequently re-run 14/14 with the corrected harness dependency binding. This is not proof of actual Node ESM loading or real provider operations. Exact-head runner remains blocked by original GitHub Actions account billing and fork branch-write 403, not fixed by 75 V8 unit assertions.
+
+**Current authoritative states:** original production untouched, PR draft unmerged; no SQL migration applied, no credentials exported, no Winnr Startup proof, no paid warming, no diagnostic test sends, no prospect sends and no real Gmail/Outlook cross-provider placement measured. Never treat production Source/CI blockers as proof of user fault. The previous known Money Queue had zero independently contact-qualified prospects, still not re-verified as current live truth in this continuation.
+
+**Commercial decision retained:** protect cash and existing pilot. Do not buy $30 warming or $69 extra infrastructure merely for theoretical 50-mailbox capacity. Only when verified eligible demand exceeds genuinely measured pilot capacity, legal/owner/dispatch authority and total-month affordability pass, propose founder-approved checkout. Choose genuine recipient-interest optimization over synthetic reply farming. No claim of actual superiority to Winnr before controlled real outcomes.
+
+All founder ideas 0001–0890 and GENESIS are inherited by canonical pointer, with original source and provenance retained. Nothing in this experiment supersedes UberBond's sovereign continuum goals.

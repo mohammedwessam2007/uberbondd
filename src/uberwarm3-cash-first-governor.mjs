@@ -3,6 +3,7 @@
  * Decision support only. No checkout, auto cancellation, rollout, send or
  * artificial warm-up traffic. Data inputs must come from independent ledgers.
  */
+import { compileUberWarm6EconomicDominance } from './uberwarm6-economic-dominance.mjs';
 export const UBERWARM3_CASH_FIRST_VERSION='uberbond.uberwarm3-cash-first.v1';
 const count=v=>Number.isSafeInteger(v)&&v>=0?v:null;
 const money=v=>Number.isSafeInteger(v)&&v>=0?v:null;
@@ -24,7 +25,8 @@ export function compileUberWarm3ZeroAddonDecision({
   qualifiedContactsEvidenceRef='',
   pilotCapacityEvidenceRef='',
   verifyIndependentDemandReceipt,
-  verifyPilotProviderCapacityReceipt
+  verifyPilotProviderCapacityReceipt,
+  economicDominanceInputs=null
 }={}) {
   const reasons=[];
   const qualified=count(currentVerifiedEligibleUniqueContacts);
@@ -74,6 +76,16 @@ export function compileUberWarm3ZeroAddonDecision({
     if(productionDispatcherReady!==true)reasonsToDefer.push('production-dispatch-not-enabled');
   }
   const proposeStartup= !startupPurchased&&reasonsToDefer.length===0&&forecastableNewDemand;
+  // Economic dominance is a separate conditional proof, not an assumed
+  // property of AI warming. Default no-purchase is a cash/governance decision.
+  // Independently authenticated server-owned evidence is mandatory to produce
+  // a formal certificate; merely supplying attractive numbers does not work.
+  const economicDominanceCertificate=economicDominanceInputs &&
+    typeof economicDominanceInputs==='object'
+    ? compileUberWarm6EconomicDominance({
+      ...economicDominanceInputs,
+      paidFeeCents:warmAddonPriceCents
+    }) : null;
   const recommendNewPaidWarming=false;
   const recommendedActions=[
     !verifiedLeads?'PRIORITIZE_INDEPENDENTLY_VERIFIED_ELIGIBLE_CONTACTS':
@@ -91,6 +103,11 @@ export function compileUberWarm3ZeroAddonDecision({
     paidWarmAddonRecommendation:paidWarmAddonActive?'REVIEW_EXISTING_COST_AND_ASK_OWNER_BEFORE_CANCELLING':
       'NO_NEW_PAID_ADDON',
     recommendNewPaidWarming,
+    economicDominanceCertificate,
+    paidWarmAddonBuyingRationale:
+      economicDominanceCertificate?.zeroAddonEconomicallyDominant===true
+        ? 'CERTIFIED_BOUNDED_PERIOD_ECONOMIC_DOMINANCE'
+        : 'HOLD_SPEND_PENDING_INDEPENDENT_INCREMENTAL_ROI_EVIDENCE',
     recommendedActions,
     blockerCodes:reasons,
     expansionDeferralReasons:reasonsToDefer,

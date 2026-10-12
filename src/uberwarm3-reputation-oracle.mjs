@@ -81,6 +81,16 @@ export function compileUberWarm3ReputationDecision({
     excludedEvidenceCount:excluded.length,
     verifiedEvidenceCount:recent.length
   });
+  // Google publishes <0.1% as its operating target, while 0.3% is a
+  // severe threshold. Prevent further ramp in the yellow zone rather
+  // than treating 0.15%-0.29% complaints as healthy green reputation.
+  const warning=recent.some(x=>defined(x.spamComplaintRate) &&
+    x.spamComplaintRate>=0.001 && x.spamComplaintRate<0.003);
+  if(warning)return fail('HOLD',['complaint-rate-at-or-above-0.1-percent-no-ramp'],{
+    excludedEvidenceCount:excluded.length,
+    verifiedEvidenceCount:recent.length,
+    nextEvidence:['fresh-provider-complaint-rate-below-0.1-percent']
+  });
   const authenticatedProviders=unique(recent.map(x=>x.provider));
   const placement=recent.filter(x=>x.source==='INDEPENDENT_RECEIVER' &&
     ['INBOX','SPAM'].includes(x.folder));

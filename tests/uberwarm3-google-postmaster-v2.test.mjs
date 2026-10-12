@@ -80,3 +80,28 @@ test('Google Postmaster calls only GET for allowlisted domains and never sends m
  assert.equal(call.url,'https://gmailpostmastertools.googleapis.com/v2/domains/uberbond.example/complianceStatus');
  assert.equal(r.sendsPerformed,0);
 });
+
+test('negative Google deliverability verdict overrides fully green compliance rows',()=>{
+ const response=reply([{requirement:'SPF_AND_DKIM',status:{status:'COMPLIANT'}}]);
+ response.complianceData.deliverabilityStatusVerdict={
+   state:{status:'NEEDS_WORK'},reason:'USER_FEEDBACK_NEGATIVE'
+ };
+ const r=normalizePostmasterV2Compliance({
+   domain,response,observedAt:'2026-10-12T18:00:00Z'
+ });
+ assert.equal(r.status,'NEEDS_WORK');
+ assert.equal(r.deliverabilityAdverse,true);
+ assert.equal(r.deliverabilityReason,'USER_FEEDBACK_NEGATIVE');
+});
+test('Google subdomain result is explicitly labeled registrable-domain aggregate',()=>{
+ const subdomain='mail.uberbond.example';
+ const response={...reply([{requirement:'DKIM',status:{status:'COMPLIANT'}}]),
+   name:'domains/'+subdomain+'/complianceStatus',
+   complianceData:{...reply().complianceData,domainId:'uberbond.example',
+     rowData:[{requirement:'DKIM',status:{status:'COMPLIANT'}}]}
+ };
+ const r=normalizePostmasterV2Compliance({domain:subdomain,response});
+ assert.equal(r.ok,true);
+ assert.equal(r.reportedComplianceDomain,'uberbond.example');
+ assert.equal(r.subdomainSpecificEvidenceAvailable,false);
+});

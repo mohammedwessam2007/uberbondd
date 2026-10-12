@@ -19,7 +19,7 @@ export function createUberWarm2PgLedger({ pool } = {}) {
       if (!validKey(r.reservationKey) || !r.probeId || !r.batchDigest ||
           !emailOk(r.senderEmail) || !emailOk(r.seedEmail) || r.senderEmail === r.seedEmail ||
           !validDay(r.quotaWindow) || r.senderDailyLimit !== 2 || r.globalDailyLimit !== 100 ||
-          r.effectClass !== 'OWNER_CONTROLLED_PLACEMENT_PROBE') return refused('invalid-immutable-seed-reservation');
+          r.seedDailyLimit !== 1 || r.effectClass !== 'OWNER_CONTROLLED_PLACEMENT_PROBE') return refused('invalid-immutable-seed-reservation');
       const client = await pool.connect();
       let inTransaction = false;
       try {
@@ -40,17 +40,18 @@ export function createUberWarm2PgLedger({ pool } = {}) {
           return refused('durable-one-shot-claim-already-present');
         }
         const counts = await client.query(
-          'SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE sender_email=$2)::int AS sender_total FROM uberwarm2_seed_probe_claims WHERE quota_day=$1::date',
-          [r.quotaWindow, r.senderEmail]
+          'SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE sender_email=$2)::int AS sender_total, COUNT(*) FILTER (WHERE seed_email=$3)::int AS seed_total FROM uberwarm2_seed_probe_claims WHERE quota_day=$1::date',
+          [r.quotaWindow, r.senderEmail, r.seedEmail]
         );
         const total = Number(counts.rows?.[0]?.total);
         const senderTotal = Number(counts.rows?.[0]?.sender_total);
-        if (!Number.isInteger(total) || !Number.isInteger(senderTotal) ||
-            total < 0 || senderTotal < 0)
+        const seedTotal = Number(counts.rows?.[0]?.seed_total);
+        if (!Number.isInteger(total) || !Number.isInteger(senderTotal) || !Number.isInteger(seedTotal) ||
+            total < 0 || senderTotal < 0 || seedTotal < 0)
           throw Error('unreliable-durable-cap-counts');
-        if (total >= 100 || senderTotal >= 2) {
+        if (total >= 100 || senderTotal >= 2 || seedTotal >= 1) {
           await client.query('ROLLBACK'); inTransaction = false;
-          return refused(total >= 100 ? 'global-daily-limit' : 'sender-daily-limit');
+          return refused(total >= 100 ? 'global-daily-limit' : senderTotal >= 2 ? 'sender-daily-limit' : 'seed-daily-limit');
         }
         await client.query(
           'INSERT INTO uberwarm2_seed_probe_claims (reservation_key,probe_id,batch_digest,sender_email,seed_email,quota_day) VALUES ($1,$2,$3,$4,$5,$6::date)',

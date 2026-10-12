@@ -1,9 +1,14 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  compileUberWarm3ConsentingPanel,compileUberWarm3PanelAssignments
+  compileUberWarm3ConsentingPanel as rawPanel,compileUberWarm3PanelAssignments
 } from '../src/uberwarm3-consent-panel.mjs';
 const T=new Date('2026-10-12T18:00:00Z');
+const compileUberWarm3ConsentingPanel = opts => rawPanel({
+  ...opts,verifyConsentReceipt:row=>
+    typeof row.consentEvidenceRef==='string' &&
+    row.consentEvidenceRef.startsWith('verified-consent:')
+});
 const participant=(id,provider,extra={})=>({
   email:id+'@example.net',provider,participantOrganizationId:'org-'+id,
   independentParticipant:true,optedIn:true,authenticatedConsentReceipt:true,
@@ -73,4 +78,11 @@ test('seven-day cool-off is honored and quarantined senders are excluded',()=>{
  ],now:T});
  assert.equal(r.assignments.length,1);
  assert.equal(r.assignments[0].recipientProvider,'MICROSOFT');
+});
+
+test('declarative consent fields cannot enroll anyone without a trusted validator',()=>{
+  const r=rawPanel({records:[participant('g','GOOGLE')],now:T});
+  assert.equal(r.realParticipantCount,0);
+  assert.equal(r.excluded.length,1);
+  assert.ok(r.excluded[0].reasonCodes.includes('authentic-current-consent-required'));
 });

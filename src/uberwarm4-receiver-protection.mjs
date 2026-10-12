@@ -37,7 +37,7 @@ const denied=(reasons)=>Object.freeze({
 export function compileUberWarm4ReceiverProtection({
   mailboxes=[],events=[],now=new Date(),
   verifyAuthenticatedEvent,verifyRecipientProviderGroup,verifyRecoveredCondition,
-  maxEvents=2000
+  verifyCompleteIncidentLedger,maxEvents=2000
 }={}) {
   const at=ms(now);
   if(at===null)return denied(['invalid-clock']);
@@ -53,6 +53,13 @@ export function compileUberWarm4ReceiverProtection({
       state:m.paused||m.quarantined||m.placementQuarantine?'QUARANTINE':'NONE',
       reasonCodes:[],eventIds:[]});
   }
+  // An empty recent window cannot prove an absence of unresolved old
+  // incidents. A trusted full-state ledger must certify that all active
+  // provider holds and recipient suppressions are represented in this view.
+  let complete=false;
+  try{complete=typeof verifyCompleteIncidentLedger==='function' &&
+    verifyCompleteIncidentLedger({mailboxes,events,at})===true}catch{}
+  if(!complete)return denied(['complete-durable-incident-ledger-required']);
   const seenIds=new Set(),accepted=[],excluded=[];
   for(const event of events) {
     const id=str(event?.eventId,160),sender=email(event?.senderEmail),kind=event?.kind;

@@ -338,6 +338,17 @@ export function createProviderHttpAdapter({
     const verb = String(method || 'GET').toUpperCase();
     const mutation = !readOnly && (!READ_METHODS.has(verb) || MUTATING_CAPABILITIES.has(capability));
     const operation = operationId(provider, capability, idempotencyKey);
+    // Central effect-layer lock. Generic and provider extension methods BOTH
+    // use requestJson. No owner grant, forged $0 quote, or custom route may
+    // enable provider-billed warm-up products. This policy can change only by
+    // an explicit reviewed source change, not runtime caller input.
+    if (verb !== 'GET' && (capability === 'startWarmup' || capability === 'prewarmPurchase')) {
+      return providerError({
+        provider, capability, status: 'UBERBOND_ZERO_PAID_WARMUP_LOCK',
+        reason: 'Paid vendor warm-up and pre-warm purchase are disabled. No API request is issued.',
+        timestamp, operation
+      });
+    }
     if (!configured) return providerError({ provider, capability, status: 'PROVIDER_AUTH_REQUIRED', reason: 'Provider adapter is not configured with a valid server-side API key and HTTPS base URL.', timestamp, operation });
     if (!path || !Object.values(routes).includes(path) && !String(path).startsWith('/')) return providerError({ provider, capability, status: 'ADAPTER_ROUTE_NOT_DECLARED', reason: 'The requested provider route is not declared by this adapter.', timestamp, operation });
     const secretPayloadFields = secretFields(body);
@@ -525,11 +536,11 @@ export function createProviderHttpAdapter({
       if (!body && (!mailboxIds.length || !text(destination, 120))) return providerError({ provider, capability: 'exportMailboxes', status: 'EXPORT_REQUEST_REQUIRED', reason: 'Mailbox ids and a destination are required.', timestamp: nowDate(now()).toISOString() });
       return requestJson({ capability: 'exportMailboxes', method: 'POST', path: routes.exportMailboxes, body: body || { mailbox_ids: mailboxIds, destination }, ownerApproval, idempotencyKey });
     },
-    prewarmPurchase: async ({ body = null, ownerApproval = null, idempotencyKey = '', estimatedCostCents = null } = {}) => {
-      if (!routes.prewarmPurchase) return unsupported(provider, 'prewarmPurchase');
-      if (!body) return providerError({ provider, capability: 'prewarmPurchase', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the provider-documented pre-warm purchase payload; UberBond will not guess a billable body.', timestamp: nowDate(now()).toISOString() });
-      return requestJson({ capability: 'prewarmPurchase', method: 'POST', path: routes.prewarmPurchase, body, ownerApproval, idempotencyKey, estimatedCostCents });
-    },
+    prewarmPurchase: async () => providerError({
+      provider, capability: 'prewarmPurchase', status: 'UBERBOND_ZERO_PAID_WARMUP_LOCK',
+      reason: 'No provider-billed pre-warm purchases. Cash-first owner doctrine forbids this effect.',
+      timestamp: nowDate(now()).toISOString()
+    }),
     operationStatus: async ({ operationId: requestedOperationId = '', path = '' } = {}) => {
       if (!path || !routes.operationStatusPrefix || !String(path).startsWith(routes.operationStatusPrefix)) return unsupported(provider, 'operationStatus', 'A provider-specific operation status route is required.');
       return requestJson({ capability: 'operationStatus', method: 'GET', path, query: { id: requestedOperationId } });

@@ -163,12 +163,14 @@ test('signed-server-verified upper bounds can certify free warmer for specific 3
   eligibleEvidenceRef:'eligible-queue:attested-bound',
   valueEvidenceRef:'cleared-economics:upper-bound-receipt',
   causalUpliftEvidenceRef:'experiment:independent-credible-uplift-upper',
-  futureOptionEvidenceRef:'audited-future-options:upper'
+  futureOptionEvidenceRef:'audited-future-options:upper',
+  freeOperatingCostEvidenceRef:'free-path-cost-ledger:audited-upper'
  };
  const verified={
   verifyPaidFee:()=>true,verifyEligibleUpper:()=>true,
   verifyValueUpper:()=>true,verifyCausalUpliftUpper:()=>true,
-  verifyFutureOptionUpper:()=>true
+  verifyFutureOptionUpper:()=>true,
+  verifyFreeOperatingCostUpper:()=>true
  };
  const x=rawDecision({economicDominanceInputs:{
   paidFeeCents:1, // must be overwritten by actual procurement amount
@@ -176,6 +178,7 @@ test('signed-server-verified upper bounds can certify free warmer for specific 3
   certifiedValuePerExtraInboxCentsUpper:10,
   certifiedPaidPlacementUpliftUpper:0.03,
   certifiedFutureOptionValueCentsUpper:0,
+ certifiedFreeOperatingCostCentsUpper:0,
   ...refs,...verified
  }});
  assert.equal(x.economicDominanceCertificate.paidFeeCents,3000);
@@ -188,7 +191,8 @@ test('fake impressive numeric estimates without independently verified receipt r
   certifiedEligibleUpper:9000,
   certifiedValuePerExtraInboxCentsUpper:1,
   certifiedPaidPlacementUpliftUpper:0,
-  certifiedFutureOptionValueCentsUpper:0
+  certifiedFutureOptionValueCentsUpper:0,
+  certifiedFreeOperatingCostCentsUpper:0
  }});
  assert.equal(x.economicDominanceCertificate.status,'NOT_CERTIFIED');
  assert.equal(x.paidWarmAddonBuyingRationale,'HOLD_SPEND_PENDING_INDEPENDENT_INCREMENTAL_ROI_EVIDENCE');
@@ -199,16 +203,19 @@ test('cash governor does not claim theoretical inevitability when paid could act
   eligibleEvidenceRef:'eligible-queue:attested-bound',
   valueEvidenceRef:'cleared-economics:upper-bound-receipt',
   causalUpliftEvidenceRef:'experiment:independent-credible-uplift-upper',
-  futureOptionEvidenceRef:'audited-future-options:upper'
+  futureOptionEvidenceRef:'audited-future-options:upper',
+  freeOperatingCostEvidenceRef:'free-path-cost-ledger:audited-upper'
  };
  const all={
   verifyPaidFee:()=>true,verifyEligibleUpper:()=>true,
   verifyValueUpper:()=>true,verifyCausalUpliftUpper:()=>true,
-  verifyFutureOptionUpper:()=>true
+  verifyFutureOptionUpper:()=>true,
+  verifyFreeOperatingCostUpper:()=>true
  };
  const x=rawDecision({economicDominanceInputs:{
   certifiedEligibleUpper:9000,certifiedValuePerExtraInboxCentsUpper:10,
   certifiedPaidPlacementUpliftUpper:0.05,certifiedFutureOptionValueCentsUpper:0,
+ certifiedFreeOperatingCostCentsUpper:0,
   ...refs,...all
  }});
  assert.equal(x.economicDominanceCertificate.zeroAddonEconomicallyDominant,false);

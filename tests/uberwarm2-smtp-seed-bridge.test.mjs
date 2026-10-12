@@ -59,3 +59,9 @@ test('SMTP seed bridge creates one authorized, correlated and transparent test s
   assert.equal(calls[0].to,SEEDS[0].email);
   assert.match(calls[0].messageId,/^<uw2-[a-f0-9]{32}@example.net>$/);
 });
+
+test('paused and quarantined sender cannot construct a live SMTP bridge',()=>{
+  assert.equal(build({account:{paused:true}}).bridge.ok,false);
+  assert.equal(build({account:{quarantined:true}}).bridge.ok,false);
+  assert.equal(build({account:{placementQuarantine:true}}).bridge.ok,false);
+});

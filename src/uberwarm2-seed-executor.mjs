@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { compilePlacementReport, normalizePlacementObservation } from './uberplacement.mjs';
 
 export const UBERWARM2_SEED_EXECUTION_VERSION = 'uberbond.uberwarm2-seed-execution.v1';
@@ -6,6 +6,27 @@ const email = value => String(value ?? '').trim().toLowerCase();
 const text = (value, limit = 256) => String(value ?? '').trim().slice(0, limit);
 const emailOk = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email(value));
 const sha = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+const signedApprovalPayload = a => JSON.stringify({
+  granted: a?.granted === true,
+  grantedBy: text(a?.grantedBy, 120),
+  batchDigest: text(a?.batchDigest, 130),
+  expiresAt: text(a?.expiresAt, 80),
+  evidenceRef: text(a?.evidenceRef, 500),
+  scopes: Array.isArray(a?.scopes) ? [...new Set(a.scopes.map(x => text(x, 120)))].sort() : []
+});
+export function createUberWarm2SeedApprovalProof({approval={},verificationKey=''}={}) {
+  if(typeof verificationKey !== 'string' || verificationKey.length < 32)
+    throw new Error('server-held-seed-approval-signing-key-required');
+  return createHmac('sha256', verificationKey).update(signedApprovalPayload(approval)).digest('hex');
+}
+function verifiedSignedApproval(approval,verificationKey) {
+  if(typeof verificationKey !== 'string' || verificationKey.length < 32 ||
+    typeof approval?.proof !== 'string' || !/^[a-f0-9]{64}$/.test(approval.proof))
+    return false;
+  const expected=Buffer.from(createUberWarm2SeedApprovalProof({approval,verificationKey}),'hex');
+  const actual=Buffer.from(approval.proof,'hex');
+  return expected.length===actual.length && timingSafeEqual(expected,actual);
+}
 const utcDay = date => new Date(date).toISOString().slice(0, 10);
 const finiteTime = date => { const n = new Date(date).getTime(); return Number.isFinite(n) ? n : null; };
 const denied = (status, reasonCodes) => Object.freeze({
@@ -87,7 +108,7 @@ export function compileUberWarm2SeedBatch({
  * A submit timeout remains UNKNOWN and never auto-retries.
  */
 export async function executeUberWarm2SeedProbe({
-  batch, probeId, approval, store, transport, now = new Date()
+  batch, probeId, approval, approvalVerificationKey='', store, transport, now = new Date()
 } = {}) {
   const at = finiteTime(now);
   if (at === null || !batch?.ok || !Array.isArray(batch.probes)) return denied('UBERWARM2_EXECUTION_REFUSED', ['invalid-batch-or-clock']);
@@ -101,7 +122,8 @@ export async function executeUberWarm2SeedProbe({
   if (approval?.granted !== true || !text(approval?.grantedBy, 120) ||
       !scopes.includes('uberwarm2:owner-controlled-seed-test') ||
       approval?.batchDigest !== batch.batchDigest ||
-      finiteTime(approval?.expiresAt) === null || finiteTime(approval?.expiresAt) <= at)
+      finiteTime(approval?.expiresAt) === null || finiteTime(approval?.expiresAt) <= at ||
+      !verifiedSignedApproval(approval,approvalVerificationKey))
     return denied('UBERWARM2_OWNER_APPROVAL_REQUIRED', ['exact-unexpired-seed-test-authorization-required']);
   if (!store || typeof store.claimOnceAndEnforceCaps !== 'function' || typeof store.finalize !== 'function')
     return denied('UBERWARM2_DURABLE_LEDGER_REQUIRED', ['atomic-reservation-and-caps-adapter-required']);
@@ -159,7 +181,7 @@ export async function executeUberWarm2SeedProbe({
  * A caller-supplied "INBOX" string alone is never authoritative evidence.
  */
 export function compileUberWarm2ReceivedEvidence({
-  batch = {}, receipts = [], receivingObservations = [], now = new Date()
+  batch = {}, receipts = [], receivingObservations = [], verifyReceivingObservation, now = new Date()
 } = {}) {
   if (!batch?.ok || !Array.isArray(batch.probes)) return denied('UBERWARM2_EVIDENCE_REFUSED', ['valid-seed-batch-required']);
   const canonical = { version: UBERWARM2_SEED_EXECUTION_VERSION, createdAt: batch.createdAt, probes: batch.probes };
@@ -184,6 +206,12 @@ export function compileUberWarm2ReceivedEvidence({
         receipt.providerMessageId !== text(obs.messageId, 500))) reasons.push('message-id-mismatch');
     if (obs?.observationSource !== 'RECIPIENT_PROVIDER' ||
         !text(obs.receivingProviderEvidenceRef, 800)) reasons.push('receiving-provider-receipt-required');
+    // Text references supplied by the caller are not independent proof. A
+    // server-side trusted OAuth/IMAP connector must verify this exact claim.
+    let verified=false;
+    try { verified=typeof verifyReceivingObservation === 'function' &&
+      verifyReceivingObservation({observation:obs,probe,receipt}) === true; } catch {}
+    if(!verified)reasons.push('authenticated-receiving-provider-verification-required');
     const ev = text(obs?.receivingProviderEvidenceRef, 800);
     if (ev && usedRefs.has(ev)) reasons.push('duplicate-receiving-provider-evidence');
     const time = finiteTime(obs?.observedAt);

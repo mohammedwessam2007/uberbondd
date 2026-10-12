@@ -21,11 +21,25 @@ export function normalizePostmasterV2Compliance({domain,response={},observedAt=n
   if(!domainOk(normalizedDomain)||!response||typeof response!=='object'||
       response.name!==`domains/${normalizedDomain}/complianceStatus`)
     return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',['exact-domain-resource-mismatch']);
-  const data=response.complianceData;
+  const parent=response.complianceData;
+  const sub=response.subdomainComplianceData;
+  const parentDomain=c(parent?.domainId,253).toLowerCase();
+  const subDomain=c(sub?.domainId,253).toLowerCase();
+  if(parent && (!domainOk(parentDomain) ||
+    (parentDomain!==normalizedDomain && !normalizedDomain.endsWith('.'+parentDomain))))
+    return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',['unexpected-parent-domain-identity']);
+  if(sub && subDomain!==normalizedDomain)
+    return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',['unexpected-subdomain-identity']);
+  const exactSubdomain=Boolean(sub && typeof sub==='object' && subDomain===normalizedDomain);
+  const parentOnly=Boolean(parent && parentDomain!==normalizedDomain && !exactSubdomain);
+  // Never promote registrable-parent compliance as this subdomain's result.
+  const data=exactSubdomain?sub:parentOnly?null:parent;
   if(!data||typeof data!=='object')
     return {ok:true,status:'NO_DATA',domain:normalizedDomain,checks:[],missingData:true,
+      reportedComplianceDomain:parentDomain||null,
+      subdomainSpecificEvidenceAvailable:false,
       authenticatedSource:'GMAIL_POSTMASTER_V2',sourceReceipt:c(receiptId,300)||null,
-      sendsPerformed:0,truthBoundary:'Postmaster API did not return compliance rows; missing is not a pass.'};
+      sendsPerformed:0,truthBoundary:'No exact-domain compliance was returned. A parent domain aggregate cannot certify a subdomain.'};
   const checks=[],seen=new Set(),errors=[];
   const rows=Array.isArray(data.rowData)?data.rowData:[];
   for(const raw of rows){
@@ -38,6 +52,15 @@ export function normalizePostmasterV2Compliance({domain,response={},observedAt=n
   }
   if(errors.length)return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',errors);
   const failures=checks.filter(x=>x.status==='NEEDS_WORK').map(x=>x.requirement);
+  for(const [key,name] of [
+    ['oneClickUnsubscribeVerdict','ONE_CLICK_UNSUBSCRIBE'],
+    ['honorUnsubscribeVerdict','HONOR_UNSUBSCRIBE']
+  ]) {
+    const verdictStatus=c(data[key]?.status?.status,80);
+    if(data[key] && verdictStatus==='NEEDS_WORK' && !failures.includes(name)) failures.push(name);
+    else if(data[key] && verdictStatus!=='COMPLIANT' && verdictStatus!=='NEEDS_WORK')
+      return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',['invalid-unsubscribe-verdict']);
+  }
   const verdict=data.deliverabilityStatusVerdict;
   const reason=c(verdict?.reason,100)||null;
   const state=c(verdict?.state?.status,100)||null;
@@ -58,7 +81,7 @@ export function normalizePostmasterV2Compliance({domain,response={},observedAt=n
   return Object.freeze({
     ok:true,status:verdictAdverse||failures.length?'NEEDS_WORK':checks.length?'OBSERVED_COMPLIANCE':'NO_DATA',
     domain:normalizedDomain,reportedComplianceDomain:upstreamDomainId||null,
-    subdomainSpecificEvidenceAvailable:Boolean(response.subdomainComplianceData),
+    subdomainSpecificEvidenceAvailable:exactSubdomain,
     checks,failures,missingData:checks.length===0,
     deliverabilityAdverse:verdictAdverse,
     deliverabilityVerdict:allowedStates.has(state)?state:null,

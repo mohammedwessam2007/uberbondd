@@ -20,7 +20,7 @@ const refused=reasons=>({ok:false,status:'UBERWARM3_PANEL_REFUSED',reasonCodes:r
  * independent receiving mailbox. No metadata alone establishes consent:
  * a verified consent receipt must be supplied by an authenticated app.
  */
-export function compileUberWarm3ConsentingPanel({records=[],now=new Date()}={}) {
+export function compileUberWarm3ConsentingPanel({records=[],verifyConsentReceipt,now=new Date()}={}) {
   const at=dateMs(now),seen=new Set(),members=[],excluded=[];
   if(at===null)return refused(['invalid-current-time']);
   for(const row of Array.isArray(records)?records:[]){
@@ -32,8 +32,12 @@ export function compileUberWarm3ConsentingPanel({records=[],now=new Date()}={}) 
     if(!emailOk(email)||!validProvider(provider)||!org)reasons.push('participant-identity-and-provider-required');
     if(seen.has(email))reasons.push('duplicate-participant');
     if(row.ownerControlled!==true && row.independentParticipant!==true)reasons.push('participant-ownership-required');
+    let verified=false;
+    try { verified=typeof verifyConsentReceipt==='function' &&
+      verifyConsentReceipt(row)===true; } catch {}
     if(row.optedIn !== true || row.authenticatedConsentReceipt !== true ||
-      !proof || !proof.startsWith('verified-consent:')) reasons.push('authentic-current-consent-required');
+      !proof || !proof.startsWith('verified-consent:') || !verified)
+      reasons.push('authentic-current-consent-required');
     if(!Array.isArray(row.allowedPurposes)||!row.allowedPurposes.includes('TRANSPARENT_DELIVERY_DIAGNOSTIC'))
       reasons.push('explicit-diagnostic-purpose-required');
     if(row.optedOut===true||row.suppressed===true)reasons.push('optout-or-suppression-active');

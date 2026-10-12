@@ -23,7 +23,7 @@ export async function compileUberWarm4DispatchGuard({
   senderEmail='',recipientEmail='',recipientProviderGroup='',
   receiverReport,now=new Date(),declaredExistingColdCap=0,
   verifyReceiverReport,verifyRecipientProviderGroup,verifyExistingColdCap,
-  verifyDurableSuppressionApplied,lookupCurrentRecipientSuppression,
+  verifyDurableSuppressionApplied,verifyDurableNoRetryApplied,lookupCurrentRecipientSuppression,
   verifyLegalRecipientRoute,verifyCurrentOwnerSendAuthority
 }={}) {
   const at=ms(now),from=email(senderEmail),to=email(recipientEmail);
@@ -66,6 +66,14 @@ export async function compileUberWarm4DispatchGuard({
   try{suppressionCommitted=typeof verifyDurableSuppressionApplied==='function'&&
     await verifyDurableSuppressionApplied(suppressions)===true}catch{}
   if(!suppressionCommitted)return result('DENIED',['global-feedback-suppression-not-durably-reconciled']);
+  const noRetry=Array.isArray(receiverReport.messageNoRetryActions)?
+    receiverReport.messageNoRetryActions:[];
+  if(noRetry.length) {
+    let committed=false;
+    try{committed=typeof verifyDurableNoRetryApplied==='function' &&
+      await verifyDurableNoRetryApplied(noRetry)===true}catch{}
+    if(!committed)return result('DENIED',['permanent-message-no-retry-ledger-not-durable']);
+  }
   try{if(typeof lookupCurrentRecipientSuppression==='function')
     liveSuppression=await lookupCurrentRecipientSuppression(to)}catch{}
   if(liveSuppression?.verified!==true||

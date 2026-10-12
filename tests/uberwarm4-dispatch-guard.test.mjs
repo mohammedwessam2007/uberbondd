@@ -4,7 +4,7 @@ import {compileUberWarm4ReceiverProtection} from '../src/uberwarm4-receiver-prot
 import {compileUberWarm4DispatchGuard as guard} from '../src/uberwarm4-dispatch-guard.mjs';
 const NOW='2026-10-12T20:00:00Z', sender='tara@sender.example',to='test@gmail.com',provider='GOOGLE_MX';
 const mailboxes=[{address:sender},{address:'nadia@sender.example'},{address:'other@else.example'}];
-const verifiers={verifyAuthenticatedEvent:()=>true,verifyRecipientProviderGroup:()=>true};
+const verifiers={verifyAuthenticatedEvent:()=>true,verifyRecipientProviderGroup:()=>true,verifyCompleteIncidentLedger:()=>true};
 function r(kind='SMTP_TEMPFAIL',overrides={}) {
  return {eventId:'e1',kind,senderEmail:sender,recipientEmail:to,recipientProviderGroup:provider,
  occurredAt:'2026-10-12T19:58:00Z',receivingEvidenceRef:'provider:smtp:auth:1',

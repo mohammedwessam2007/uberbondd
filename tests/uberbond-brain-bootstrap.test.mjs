@@ -11,6 +11,9 @@ import {
   EXTERNAL_CAPABILITY_REGISTRY_PATH,
   CAPABILITY_GENOME_SOURCE_REGISTRY_PATH,
   CAPABILITY_GENOME_ATOM_TAXONOMY_PATH,
+  CAPABILITY_GENOME_CORPUS_STATE_PATH,
+  CAPABILITY_GENOME_BODY_CORPUS_STATE_PATH,
+  CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH,
   EVENT_HORIZON_PATH,
   WORLD_BRAIN_FIELD_MISSION_PATH,
   WORLD_BRAIN_FIELD_PARTNERS_PATH,
@@ -63,12 +66,19 @@ function buildFixture(mutator = null) {
     else if (relative === WORLD_BRAIN_FIELD_CORPUS_PATH) fs.writeFileSync(absolute, JSON.stringify(worldBrainFieldCorpus, null, 2));
     else fs.writeFileSync(absolute, `fixture for ${relative}\n`);
   }
+  // The source registry now binds the measured historical pilot. Copy its real
+  // source-pinned receipts; an absent pilot is not a healthy empty corpus.
+  for (const relative of [CAPABILITY_GENOME_CORPUS_STATE_PATH, CAPABILITY_GENOME_BODY_CORPUS_STATE_PATH, CAPABILITY_GENOME_NORMALIZED_RECORDS_PATH]) {
+    const absolute = path.join(root, relative);
+    fs.mkdirSync(path.dirname(absolute), { recursive: true });
+    fs.copyFileSync(path.join(sourceRoot, relative), absolute);
+  }
   return root;
 }
 
 test('one-command loader validates actual bootstrap, reconciled memory, and external capability pack into a zero-effect startup packet', () => {
   const root = buildFixture();
-  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, now: '2026-08-29T05:05:00Z' });
+  const packet = loadUberBondBrainFromRepository({ rootDir: root, sourceCommit, now: '2026-09-02T05:05:00Z' });
   assert.equal(packet.project, 'UberBond');
   assert.equal(packet.sourceCommit, sourceCommit);
   assert.match(packet.contextDigest, /^[a-f0-9]{64}$/);
@@ -84,7 +94,7 @@ test('one-command loader validates actual bootstrap, reconciled memory, and exte
   assert.equal(packet.capabilityGenome.sourceCount, 10);
   assert.equal(packet.capabilityGenome.rawCandidateCount, 8);
   assert.equal(packet.capabilityGenome.activeCapabilityCount, 0);
-  assert.equal(packet.capabilityGenome.corpusTruth, 'SEED_SUPPLIER_REGISTRY_ONLY__NO_WORLD_CORPUS_IMPORTED');
+  assert.equal(packet.capabilityGenome.corpusTruth, 'MEASURED_WORLD_CAPABILITY_RECORDS_NORMALIZED__NOT_DEDUPED_NOT_SECURITY_REVIEWED_NOT_ELIGIBLE_NOT_PROMOTED');
   assert.equal(packet.wallbreaker.status, 'PROJECT_INTEGRATED_PLANNING_PRIMITIVE');
   assert.equal(packet.wallbreaker.policyVersion, 'wallbreaker-1.1.1');
   assert.equal(packet.wallbreaker.businessEffectAuthority, 'NONE');

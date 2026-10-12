@@ -24,12 +24,60 @@ const TEXT_EXTENSIONS = new Set([
 const TEXT_BASENAMES = new Set(['dockerfile', 'makefile', 'procfile', 'license', 'readme', '.gitignore', '.npmrc', '.nvmrc']);
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
-function stable(value) {
-  if (Array.isArray(value)) return value.map(stable);
-  if (!value || typeof value !== 'object') return value;
-  return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
+/**
+ * Byte-identical to SHA256(JSON.stringify(stable(value))) for the atlas' plain
+ * JSON data, but hashes incrementally. A full repository's source pointers can
+ * exceed V8's maximum single-string length; hashing them must not materialize
+ * a giant canonical JSON string or silently omit historical detail.
+ */
+export function digestDeepAtlasCanonicalJson(value) {
+  const hash = crypto.createHash('sha256');
+  let fragments = [];
+  let bufferedChars = 0;
+  const emit = fragment => {
+    fragments.push(fragment);
+    bufferedChars += fragment.length;
+    if (bufferedChars >= 64 * 1024) {
+      hash.update(fragments.join(''), 'utf8');
+      fragments = [];
+      bufferedChars = 0;
+    }
+  };
+  const walk = item => {
+    if (Array.isArray(item)) {
+      emit('[');
+      for (let i = 0; i < item.length; i += 1) {
+        if (i) emit(',');
+        walk(item[i]);
+      }
+      emit(']');
+      return;
+    }
+    if (item && typeof item === 'object') {
+      emit('{');
+      let first = true;
+      for (const key of Object.keys(item).sort()) {
+        const entry = item[key];
+        // JSON.stringify would omit these object entries, but render null
+        // in arrays. The atlas itself emits only plain JSON-compatible data.
+        if (entry === undefined || typeof entry === 'function' || typeof entry === 'symbol') continue;
+        if (!first) emit(',');
+        first = false;
+        emit(JSON.stringify(key));
+        emit(':');
+        walk(entry);
+      }
+      emit('}');
+      return;
+    }
+    const scalar = JSON.stringify(item);
+    emit(scalar === undefined ? 'null' : scalar);
+  };
+  walk(value);
+  if (fragments.length) hash.update(fragments.join(''), 'utf8');
+  return hash.digest('hex');
 }
-function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
+function digest(value) { return digestDeepAtlasCanonicalJson(value); }
 function rawDigest(value) { return crypto.createHash('sha256').update(String(value ?? '')).digest('hex'); }
 function clean(value, max = 2000) {
   return redactSecrets(String(value ?? ''))

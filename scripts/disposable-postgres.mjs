@@ -26,6 +26,12 @@ const POSTGRES_LOCALE_ENV = Object.freeze({
 });
 const POSTGRES_LOCALE_KEYS = Object.freeze(Object.keys(POSTGRES_LOCALE_ENV));
 
+// initdb forbids root, which needs a dedicated unprivileged account, but
+// a standard CI runner cannot groupadd. It can run initdb as itself.
+export function needsDedicatedPostgresOsUser(getuid = process.getuid) {
+  return typeof getuid === 'function' && getuid() === 0;
+}
+
 function applyPortablePostgresLocale() {
   const previous = Object.fromEntries(POSTGRES_LOCALE_KEYS.map(key => [key, process.env[key]]));
   Object.assign(process.env, POSTGRES_LOCALE_ENV);
@@ -66,7 +72,9 @@ export async function withDisposablePostgres(body) {
     password: 'password',
     port,
     persistent: false,
-    createPostgresUser: true,
+    // PostgreSQL rejects root at initdb, but non-root runners cannot groupadd.
+    // Only provision an OS user when we actually start as root.
+    createPostgresUser: needsDedicatedPostgresOsUser(),
     // Deleted when this returns, so an fsync buys nothing -- there is no crash
     // it could survive. On throttled container I/O the cost is not just
     // slowness: a write can sit in a backend `active`, holding no lock and

@@ -40,8 +40,8 @@ export function retrieveCrossovers(ideas, query, limit = 12) {
     }
     return score;
   });
-  const selected = [], remaining = new Set(ideas.map((_, k) => k));
-  while (selected.length < limit) {
+  const selected = [], remaining = new Set(ideas.map((_, k) => k).filter(k => scores[k] > 0));
+  while (selected.length < limit && remaining.size > 0) {
     let best = -1, merit = -Infinity;
     for (const k of remaining) {
       let overlap = 0;
@@ -51,9 +51,9 @@ export function retrieveCrossovers(ideas, query, limit = 12) {
         overlap = Math.max(overlap, common / Math.max(1, docs[k].size + docs[j].size - common));
       }
       // Later ideas receive a bounded preference, never a substitute for evidence or relevance.
-      const latePrior = k >= 712 ? .12 : 0;
+      const latePrior = scores[k] > 0 && k >= 712 ? .12 : 0;
       const m = scores[k] + latePrior - .32 * overlap;
-      if (m > merit || (m === merit && k < best)) { merit = m; best = k; }
+      if (m > merit || (m === merit && (best < 0 || k < best))) { merit = m; best = k; }
     }
     remaining.delete(best); selected.push(best);
   }
@@ -63,6 +63,7 @@ export function loadRegistry(path) {
   const raw = readFileSync(path, 'utf8');
   const data = path.endsWith('.jsonl') ? raw.split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line)) : JSON.parse(raw);
   const items = Array.isArray(data) ? data : data.ideas;
+  if (!Array.isArray(items)) throw new Error('Registry must contain an ideas array');
   return validateCorpus(items.map(x => ({ ...x, body: x.body ?? x.exact_original_body, sha256: x.sha256 ?? x.exact_source_bytes_sha256 })));
 
 }

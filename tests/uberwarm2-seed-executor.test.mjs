@@ -3,9 +3,10 @@ import assert from 'node:assert/strict';
 import { compilePlacementProbePlan, compilePlacementReport } from '../src/uberplacement.mjs';
 import {
   compileUberWarm2SeedBatch, executeUberWarm2SeedProbe,
-  compileUberWarm2ReceivedEvidence
+  compileUberWarm2ReceivedEvidence, createUberWarm2SeedApprovalProof
 } from '../src/uberwarm2-seed-executor.mjs';
 
+const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
 const T = new Date('2026-10-12T18:00:00.000Z');
 const T1 = new Date('2026-10-12T18:02:00.000Z');
 const T2 = new Date('2026-10-12T18:03:00.000Z');
@@ -29,11 +30,14 @@ function batch(mailboxes = senders, seedInboxes = seeds) {
   return compileUberWarm2SeedBatch({ placementPlan: plan, mailboxes, seedInboxes, now: T });
 }
 function approval(b) {
-  return {
+  const entry = {
     granted: true, grantedBy: 'founder', expiresAt: '2026-10-12T19:00:00Z',
     scopes: ['uberwarm2:owner-controlled-seed-test'],
     batchDigest: b.batchDigest, evidenceRef: 'owner-authorized-fixture'
   };
+  return { ...entry, proof: createUberWarm2SeedApprovalProof({
+    approval: entry, verificationKey: KEY
+  }) };
 }
 function store() {
   const seen = new Set(), finished = [];
@@ -91,14 +95,14 @@ test('real send requires exact unexpired owner authorization and a durable one-s
   });
   assert.equal(noApproval.status, 'UBERWARM2_OWNER_APPROVAL_REQUIRED');
   const noStore = await executeUberWarm2SeedProbe({
-    batch: b, probeId: p.probeId, approval: approval(b), transport: tx, now: T1
+    batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, transport: tx, now: T1
   });
   assert.equal(noStore.status, 'UBERWARM2_DURABLE_LEDGER_REQUIRED');
   assert.equal(tx.calls.length, 0);
 });
 test('authorized exact-seed submission records SMTP acceptance, not Inbox delivery, and replay is refused', async () => {
   const b = batch(), s = store(), tx = transport(), p = b.probes[0];
-  const opts = { batch: b, probeId: p.probeId, approval: approval(b), store: s, transport: tx, now: T1 };
+  const opts = { batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx, now: T1 };
   const first = await executeUberWarm2SeedProbe(opts);
   assert.equal(first.ok, true);
   assert.equal(first.status, 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN');
@@ -115,7 +119,7 @@ test('transport uncertainty must never trigger a second submission', async () =>
   const b = batch(), s = store(), p = b.probes[0], tx = { calls: 0,
     async sendOwnedSeed() { this.calls++; throw new Error('network may have submitted'); }
   };
-  const opts = { batch: b, probeId: p.probeId, approval: approval(b), store: s, transport: tx, now: T1 };
+  const opts = { batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx, now: T1 };
   const result = await executeUberWarm2SeedProbe(opts);
   assert.equal(result.ok, false);
   assert.equal(result.status, 'SUBMISSION_OUTCOME_UNCERTAIN');
@@ -125,7 +129,7 @@ test('transport uncertainty must never trigger a second submission', async () =>
 test('reservation timeout and finalization failure fail closed', async () => {
   const b = batch(), tx = transport(), p = b.probes[0];
   const failed = await executeUberWarm2SeedProbe({
-    batch: b, probeId: p.probeId, approval: approval(b),
+    batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY,
     store: { async claimOnceAndEnforceCaps() { throw Error('timeout'); }, async finalize() {} },
     transport: tx, now: T1
   });
@@ -133,7 +137,7 @@ test('reservation timeout and finalization failure fail closed', async () => {
   assert.equal(tx.calls.length, 0);
   const s = store(); s.finalize = async () => { throw Error('commit unknown'); };
   const afterSend = await executeUberWarm2SeedProbe({
-    batch: b, probeId: p.probeId, approval: approval(b), store: s, transport: tx, now: T1
+    batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx, now: T1
   });
   assert.equal(afterSend.status, 'LEDGER_FINALIZATION_UNCERTAIN');
   assert.equal(afterSend.ok, false);
@@ -143,11 +147,11 @@ test('stale, modified or forged batch cannot send', async () => {
   const b = batch(), tx = transport(), s = store(), p = b.probes[0];
   const tampered = { ...b, probes: [{ ...b.probes[0], seedEmail: 'stranger@unverified.com' }, ...b.probes.slice(1)] };
   const changed = await executeUberWarm2SeedProbe({
-    batch: tampered, probeId: p.probeId, approval: approval(b), store: s, transport: tx, now: T1
+    batch: tampered, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx, now: T1
   });
   assert.equal(changed.status, 'UBERWARM2_EXECUTION_REFUSED');
   const expired = await executeUberWarm2SeedProbe({
-    batch: b, probeId: p.probeId, approval: approval(b), store: s, transport: tx,
+    batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx,
     now: new Date('2026-10-14T18:00:00Z')
   });
   assert.equal(expired.status, 'UBERWARM2_EXECUTION_REFUSED');
@@ -156,7 +160,7 @@ test('stale, modified or forged batch cannot send', async () => {
 test('recipient-side verified placement requires exact identity, message ID, source and timestamps', async () => {
   const b = batch(), tx = transport(), s = store(), p = b.probes[0];
   const receipt = await executeUberWarm2SeedProbe({
-    batch: b, probeId: p.probeId, approval: approval(b), store: s, transport: tx, now: T1
+    batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx, now: T1
   });
   const good = {
     probeId: p.probeId, senderEmail: p.senderEmail, seedEmail: p.seedEmail,
@@ -171,7 +175,9 @@ test('recipient-side verified placement requires exact identity, message ID, sou
     { ...good, observedAt: '2026-10-11T12:00:00Z', receivingProviderEvidenceRef: 'x4' }
   ];
   const report = compileUberWarm2ReceivedEvidence({
-    batch: b, receipts: [receipt], receivingObservations: [good, ...bad], now: T2
+    batch: b, receipts: [receipt], receivingObservations: [good, ...bad], now: T2,
+    verifyReceivingObservation: ({observation}) =>
+      observation.receivingProviderEvidenceRef === 'gmail:folder-verified-id'
   });
   assert.equal(report.ok, true);
   assert.equal(report.acceptedObservations, 1);
@@ -197,4 +203,38 @@ test('raw placement observations may not impersonate different planned senders o
   const r = compilePlacementReport({ plan, observations: hijacks, now: T2 });
   assert.equal(r.observedProbes, 0);
   assert.equal(r.senderReports[0].inboxPlacementRate, null);
+});
+
+test('a forged owner approval or absent protected verifier key is denied', async () => {
+  const b = batch(), tx = transport(), s = store(), p = b.probes[0];
+  const good = approval(b);
+  const forged = {...good, grantedBy: 'attacker'};
+  const result = await executeUberWarm2SeedProbe({
+    batch:b, probeId:p.probeId, approval:forged, approvalVerificationKey:KEY,store:s,transport:tx,now:T1
+  });
+  assert.equal(result.status,'UBERWARM2_OWNER_APPROVAL_REQUIRED');
+  const missingSecret = await executeUberWarm2SeedProbe({
+    batch:b, probeId:p.probeId, approval:good,store:s,transport:tx,now:T1
+  });
+  assert.equal(missingSecret.status,'UBERWARM2_OWNER_APPROVAL_REQUIRED');
+  assert.equal(tx.calls.length,0);
+});
+test('recipient inbox evidence with only a forged string reference is rejected', async () => {
+  const b=batch(), s=store(), tx=transport(), p=b.probes[0];
+  const receipt=await executeUberWarm2SeedProbe({
+    batch:b,probeId:p.probeId,approval:approval(b),
+    approvalVerificationKey:KEY,store:s,transport:tx,now:T1
+  });
+  const claimed={
+    probeId:p.probeId,senderEmail:p.senderEmail,seedEmail:p.seedEmail,
+    seedProvider:p.seedProvider,messageId:receipt.providerMessageId,
+    folder:'INBOX',observedAt:T2.toISOString(),evidenceRef:'untrusted-self-report:fake',
+    observationSource:'RECIPIENT_PROVIDER',
+    receivingProviderEvidenceRef:'untrusted-self-report:fake'
+  };
+  const result=compileUberWarm2ReceivedEvidence({
+    batch:b,receipts:[receipt],receivingObservations:[claimed],now:T2
+  });
+  assert.equal(result.acceptedObservations,0);
+  assert.ok(result.exclusions[0].reasonCodes.includes('authenticated-receiving-provider-verification-required'));
 });

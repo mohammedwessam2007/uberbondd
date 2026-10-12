@@ -41,11 +41,26 @@ export function normalizePostmasterV2Compliance({domain,response={},observedAt=n
   const verdict=data.deliverabilityStatusVerdict;
   const reason=c(verdict?.reason,100)||null;
   const state=c(verdict?.state?.status,100)||null;
+  const redDeliverabilityReasons=new Set([
+    'SMTP_ERRORS_HIGH','SENDER_NOT_COMPLIANT','SPAM_RATE_HIGH',
+    'USER_FEEDBACK_NEGATIVE','USER_FEEDBACK_LOW'
+  ]);
+  // Compliance rows may be green while Google's separate deliverability
+  // verdict is explicitly red. Never downgrade an adverse verdict to green.
+  const verdictAdverse=state==='NEEDS_WORK'||redDeliverabilityReasons.has(reason);
+  const upstreamDomainId=c(data.domainId,253).toLowerCase();
+  // Postmaster v2 may return registrable-domain aggregate data for
+  // subdomains. Keep attribution explicit; never relabel as subdomain-only.
+  if(upstreamDomainId && !domainOk(upstreamDomainId))
+    return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',['malformed-returned-domain-id']);
   const timestamp=new Date(observedAt);
   if(!Number.isFinite(timestamp.getTime()))return deny('UBERWARM3_POSTMASTER_RESPONSE_REFUSED',['invalid-observation-time']);
   return Object.freeze({
-    ok:true,status:failures.length?'NEEDS_WORK':checks.length?'OBSERVED_COMPLIANCE':'NO_DATA',
-    domain:normalizedDomain,checks,failures,missingData:checks.length===0,
+    ok:true,status:verdictAdverse||failures.length?'NEEDS_WORK':checks.length?'OBSERVED_COMPLIANCE':'NO_DATA',
+    domain:normalizedDomain,reportedComplianceDomain:upstreamDomainId||null,
+    subdomainSpecificEvidenceAvailable:Boolean(response.subdomainComplianceData),
+    checks,failures,missingData:checks.length===0,
+    deliverabilityAdverse:verdictAdverse,
     deliverabilityVerdict:allowedStates.has(state)?state:null,
     deliverabilityReason:reason,
     lowVolumeEvidenceInsufficient:reason==='MESSAGE_VOLUME_LOW'||checks.length===0,

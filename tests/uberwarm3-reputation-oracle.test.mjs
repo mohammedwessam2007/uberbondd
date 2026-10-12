@@ -1,9 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  compileUberWarm3ReputationDecision,compareUberWarm3AgainstWinnr
+  compileUberWarm3ReputationDecision as rawDecision,compareUberWarm3AgainstWinnr as rawCompare
 } from '../src/uberwarm3-reputation-oracle.mjs';
 const T=new Date('2026-10-12T18:00:00Z');
+const compileUberWarm3ReputationDecision = args =>
+  rawDecision({...args,verifyAuthenticatedSignal:()=>true});
+const compareUberWarm3AgainstWinnr = args =>
+  rawCompare({...args,verifyExperimentCohort:()=>true});
 const M={address:'tara@example.net',authenticated:true,paused:false,conditioningDays:21,
   legalRecipientRouteCleared:true,ownerCampaignAuthority:true,
   providerColdDailyCap:15,uberWarm2ColdDailyCap:10};
@@ -110,4 +114,23 @@ test('small apparent result and identical groups remain inconclusive',()=>{
   const r=compareUberWarm3AgainstWinnr({cohorts:rows,now:T});
   assert.equal(r.status,'INCONCLUSIVE');
   assert.equal(r.paidProviderWarmingBeaten,false);
+});
+
+test('without server-side authenticated telemetry ingestion, claims fail closed',()=>{
+  const suspect=rawDecision({
+    mailbox:M,signals:[signal(),signal('MICROSOFT')],now:T
+  });
+  assert.equal(suspect.state,'NOT_READY');
+  assert.equal(suspect.coldDailyCap,0);
+  assert.equal(suspect.verifiedEvidenceCount,0);
+});
+test('without independent real-recipient verifier, a staged big win is refused',()=>{
+ const rows=['GOOGLE','MICROSOFT'].flatMap((p,i)=>[
+    cohort('pair'+i,p,'UBERWARM3_NO_ADDON',500,499),
+    cohort('pair'+i,p,'WINNR_PAID_WARMING',500,100)
+ ]);
+ const r=rawCompare({cohorts:rows,now:T});
+ assert.equal(r.status,'INSUFFICIENT_REAL_CAUSAL_EVIDENCE');
+ assert.equal(r.evidenceCounts.validMatchedPairs,0);
+ assert.equal(r.paidProviderWarmingBeaten,false);
 });

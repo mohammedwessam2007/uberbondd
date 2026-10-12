@@ -36,7 +36,7 @@ test('eligible demand below pilot capacity defers $69 despite spare budget',()=>
 });
 test('strong verified queue and owner-authorized legal route recommends a checkout, not a charge',()=>{
  const x=compileUberWarm3ZeroAddonDecision({
-   monthlyDiscretionaryBudgetCents:7000,
+   monthlyDiscretionaryBudgetCents:8000,
    currentVerifiedEligibleUniqueContacts:400,
    pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
    qualifiedContactsEvidenceRef:'verified:400',pilotCapacityEvidenceRef:'provider:live',
@@ -53,7 +53,7 @@ test('no sender proof, no cash, or no legal approval means defer',()=>{
   {campaignLegality:'UNCERTAIN'}
  ]) {
   const x=compileUberWarm3ZeroAddonDecision({
-    monthlyDiscretionaryBudgetCents:7000,
+    monthlyDiscretionaryBudgetCents:8000,
     currentVerifiedEligibleUniqueContacts:400,
     pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
     qualifiedContactsEvidenceRef:'verified:400',pilotCapacityEvidenceRef:'provider:live',
@@ -86,7 +86,7 @@ test('unverified raw prospect counts cannot override missing independent evidenc
 
 test('raw unsourced evidence reference cannot authorize purchase recommendation',()=>{
  const x=rawDecision({
-   monthlyDiscretionaryBudgetCents:7000,
+   monthlyDiscretionaryBudgetCents:8000,
    currentVerifiedEligibleUniqueContacts:400,
    pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
    qualifiedContactsEvidenceRef:'forged:400',pilotCapacityEvidenceRef:'forged:capacity',
@@ -98,7 +98,7 @@ test('raw unsourced evidence reference cannot authorize purchase recommendation'
 });
 test('spend recommendation is blocked until campaign authority and dispatcher are genuinely ready',()=>{
  const x=compileUberWarm3ZeroAddonDecision({
-   monthlyDiscretionaryBudgetCents:7000,
+   monthlyDiscretionaryBudgetCents:8000,
    currentVerifiedEligibleUniqueContacts:400,
    pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
    qualifiedContactsEvidenceRef:'verified:400',pilotCapacityEvidenceRef:'provider:live',
@@ -109,7 +109,7 @@ test('spend recommendation is blocked until campaign authority and dispatcher ar
 });
 test('a failed/throwing source verifier fails closed',()=>{
  const x=rawDecision({
-   monthlyDiscretionaryBudgetCents:7000,
+   monthlyDiscretionaryBudgetCents:8000,
    currentVerifiedEligibleUniqueContacts:400,
    pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
    qualifiedContactsEvidenceRef:'claimed:400',pilotCapacityEvidenceRef:'claimed:capacity',
@@ -119,4 +119,34 @@ test('a failed/throwing source verifier fails closed',()=>{
  });
  assert.equal(x.startupPurchaseRecommendation,'DEFER');
  assert.equal(x.knownVerifiedUniqueRecipients,null);
+});
+
+test('a strict $69 all-in budget refuses a second $69 plan when the $9 pilot remains active',()=>{
+ const base={
+   currentVerifiedEligibleUniqueContacts:400,
+   pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
+   qualifiedContactsEvidenceRef:'verified:400',pilotCapacityEvidenceRef:'provider:live',
+   campaignLegality:'READY',ownerCampaignAuthority:true,productionDispatcherReady:true
+ };
+ const insufficient=compileUberWarm3ZeroAddonDecision({
+   ...base,monthlyDiscretionaryBudgetCents:6900
+ });
+ assert.equal(insufficient.startupPurchaseRecommendation,'DEFER');
+ assert.equal(insufficient.expansionBudgetRequirementCents,7800);
+ assert.ok(insufficient.expansionDeferralReasons.includes('cash-budget-for-expansion-not-evidenced'));
+ const fullyFunded=compileUberWarm3ZeroAddonDecision({
+   ...base,monthlyDiscretionaryBudgetCents:7800
+ });
+ assert.equal(fullyFunded.startupPurchaseRecommendation,'CONSIDER_ONLY_WITH_NEW_EXPLICIT_OWNER_CHECKOUT');
+});
+test('incremental $69 is permitted only when budget is expressly above other existing commitments',()=>{
+ const x=compileUberWarm3ZeroAddonDecision({
+   budgetBasis:'INCREMENTAL_AVAILABLE',monthlyDiscretionaryBudgetCents:6900,
+   currentVerifiedEligibleUniqueContacts:400,
+   pilotVerifiedHealthySenders:2,pilotVerifiedDailyFirstTouchCap:10,
+   qualifiedContactsEvidenceRef:'verified:400',pilotCapacityEvidenceRef:'provider:live',
+   campaignLegality:'READY',ownerCampaignAuthority:true,productionDispatcherReady:true
+ });
+ assert.equal(x.expansionBudgetRequirementCents,6900);
+ assert.equal(x.startupPurchaseRecommendation,'CONSIDER_ONLY_WITH_NEW_EXPLICIT_OWNER_CHECKOUT');
 });

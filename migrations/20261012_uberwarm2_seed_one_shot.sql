@@ -24,3 +24,5 @@ CREATE INDEX IF NOT EXISTS uberwarm2_seed_probe_claims_day_idx
   ON uberwarm2_seed_probe_claims (quota_day);
 COMMENT ON TABLE uberwarm2_seed_probe_claims IS
   'One-shot owner-controlled test submissions only; cannot prove real recipient reputation. No prospect traffic.';
+CREATE INDEX IF NOT EXISTS uberwarm2_seed_probe_claims_seed_day_idx
+  ON uberwarm2_seed_probe_claims (quota_day, seed_email);

@@ -88,3 +88,9 @@ The initial source-level V8 harness passed **13/13 oracle + 7/7 panel + 6/6 Post
 ## Founder-level continuity
 
 This is a bounded distribution/quality organ inside UberBond, not a reset of the Sovereign Cognitive Continuum, Personal Civilization Engine or 890 founder ideas. All founder ideas 0001-0890 and post-890 GENESIS retain original identities, provenance and pointers; their empirical validity is neither proven nor negated by this experiment. Reuse `docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md` as the donor lineage.
+
+## October 12 final adversarial amendment
+
+The comparison oracle now applies hard minimums regardless of caller settings: >=100 real independent Inbox observations per arm, >=2 recipient providers, >=2 matched pairs and non-negative, >=2-percentage-point lower confidence bound advantage. Each matched pair must have observation count ratios within [0.8,1.25], and no receiving provider may have a lower observed UberWarm³ placement rate than Winnr. This blocks both underpowered claimed wins and misleading pooled Simpson-style victories.
+
+Tests were extended and run against exact fetched branch source under a **transformed ESM / V8 behavior harness**: oracle 16/16, consent panel 7/7, Google Postmaster v2 6/6. Together **29/29** for this newly added phase. Earlier executor mocked-crypto V8 checks 12/12; earlier PostgreSQL/SMTP suite checks require renewed exact-head Node CI. No causal claim of actual superiority, no live OAuth, no independent opt-in panel membership, no delivery experiment and no paid product activated.

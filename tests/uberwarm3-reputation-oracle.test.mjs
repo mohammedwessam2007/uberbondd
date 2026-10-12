@@ -170,9 +170,9 @@ test('unbalanced matched cohorts may not produce comparative victory',()=>{
 
 test('Google >0.1 percent complaints triggers a hold before 0.3 percent severe breach',()=>{
  const r=compileUberWarm3ReputationDecision({
-   mailbox:M,signals:[signal(),signal('MICROSOFT',{
+   mailbox:M,signals:[signal('GOOGLE',{
      source:'GMAIL_POSTMASTER_V2',spamComplaintRate:0.0015
-   })],now:T
+   }),signal('MICROSOFT')],now:T
  });
  assert.equal(r.state,'HOLD');
  assert.equal(r.coldDailyCap,0);

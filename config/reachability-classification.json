@@ -1231,6 +1231,41 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
       "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    "src/egypt-self-service-route-inventory.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Pure historical/official-source evidence inventory, not legal clearance or a send route. It remains library-only until recipient-specific permission, provider policy, issuer scope, and exact owner-effect authority are independently validated through current preflight; never promote boolean inventory fields into consent."
+    },
+    "src/egypt-self-service-commercial-route.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Pure consent/relationship classification helper, non-sending and never self-authorizing. Deliberately not production-reachable until source/issuer evidence and exact recipient-provider and owner gates are independently verified; do not treat an inbound request as marketing permission."
+    },
+    "src/ubermind-cognitive-residual-economics.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Read-only hypothetical fidelity and savings calculator using assumed certified reuse and published model tariffs. No independent real-work equivalence, provider usage, or cost receipts; do not promote to production spend."
+    },
+    "src/ubermind-five-hour-quality-budget.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Read-only paired Claude Pro five-hour usage and quality-window arithmetic, dependent on owner-supplied UI and independent-grader attestations; no authenticated quota observation or runtime inference."
+    },
+    "src/ubermind-opus-quality-cost-floor.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Published tariff arithmetic for same-model Opus quality-floor scenarios; no observed cache hits, equivalent task outcomes, paid calls, or provider billing. This is not a production inference router."
+    },
+    "src/ubermind-pro-matched-cost-benchmark.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Offline comparison of submitted paired benchmark records and subscription-meter attestations; no proven same-task quality equivalence or live account usage, and no model calls."
+    },
+    "src/ubermind-pro20-economics.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Read-only model-plan versus API tariff scenario calculator; the $20 subscription is not API prepaid credit and calculator has no provider-cost or quality proof."
     }
   }
 }

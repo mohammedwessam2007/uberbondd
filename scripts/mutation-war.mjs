@@ -57,7 +57,7 @@ export const MUTATIONS = [
   ].map(([id, guard, find, replace]) => ({ id, guard, file: id === 'FROZEN-RUNTIME-08' ? 'src/store.mjs' : 'src/frozen-prospect-effect-runtime.mjs', find, replace, suites: ['tests/frozen-prospect-effect-runtime.test.mjs'] })),
   { id: 'FROZEN-EFFECT-08', guard: 'Original signed unsubscribe bytes must remain frozen', file: 'src/frozen-prospect-effect.mjs', find: 'unsubscribe: { unsubscribeUrl: participants.footerAndUnsubscribe.unsubUrl, oneClickUnsubscribeUrl: participants.footerAndUnsubscribe.oneClick },', replace: 'unsubscribe: {},', suites: ['tests/frozen-prospect-effect.test.mjs'] },
   { id: 'EG-SCOPE-09', guard: 'Canonical prework bytes must match the reviewed inventory', file: 'src/prospect-preflight.mjs', find: "actualDigest !== record.corporateRoleScope.reviewedProposal?.preworkDigest", replace: 'false', suites: ['tests/egypt-corporate-role-scope.test.mjs'] },
-  { id: 'EG-SCOPE-10', guard: 'Opt-out signing does not bypass unresolved legal facts', file: 'src/prospect-preflight.mjs', find: "prepareEffect === true && effectPackage.state === EFFECT_PACKAGE_STATES.READY_PENDING_DRAFT_TIME_FACTS", replace: 'prepareEffect === true', suites: ['tests/egypt-corporate-role-scope.test.mjs'] },
+  { id: 'EG-SCOPE-10', guard: 'Opt-out signing does not bypass unresolved legal facts', file: 'src/prospect-effect-package.mjs', find: "senderSideHold && senderSide.resolved !== true && !scopedClear", replace: 'false', suites: ['tests/egypt-corporate-role-scope.test.mjs', 'tests/prospect-effect-package.test.mjs'] },
   { id: 'EG-SCOPE-11', guard: 'Prepared effect expiry must be bounded', file: 'src/prospect-effect-package.mjs', find: 'Date.parse(campaign.effectExpiresAt) > +new Date(now) + 86400000', replace: 'false', suites: ['tests/prospect-effect-package.test.mjs'] },
   ...[
     ['EG-SCOPE-01', 'Personal-data inventory cannot be bypassed', "review.companyLevelEvidenceOnly !== true || !NEGATIVES.every(k => review[k] === false)", 'false'],
@@ -4115,7 +4115,7 @@ export const MUTATIONS = [
   {
     id: 'OUTREACH-FLEET-04', guard: 'A reserve pool of domains is never allocated',
     file: 'src/winnr-expansion-planner.mjs',
-    find: '  const active = usable.slice(0, usable.length - reserveCount);',
+    find: '  const active = usable.slice(0, activeCount);',
     replace: '  const active = usable;',
     suites: ['tests/winnr-expansion-planner.test.mjs']
   },

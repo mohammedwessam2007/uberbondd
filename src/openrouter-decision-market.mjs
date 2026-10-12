@@ -23,7 +23,7 @@ const numberFrom=(text,re)=>{
 
 const perTokenRate=value=>{
   if(typeof value!=='string'||!/^\d+(?:\.\d+)?$/.test(value))return null;
-  const n=Number(value)*1e6;
+  const n=Number(`${value}e6`);
   return Number.isFinite(n)&&n>=0?n:null;
 };
 

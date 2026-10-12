@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
 import { repoIndex } from '../scripts/sovereign-coverage-matrix.mjs';
 
 test('coverage evidence test class contains only executable .test.mjs suites', () => {

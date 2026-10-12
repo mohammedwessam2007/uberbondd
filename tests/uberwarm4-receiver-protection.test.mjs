@@ -109,3 +109,16 @@ test('the receiver layer never sends, activates warming or buys add-ons',()=>{
   assert.equal(r.paidWarmingAddedCents,0);
   assert.equal(r.coldSendAuthority,false);
 });
+
+test('authentication 5.7.26 is a domain failure, not proof recipient address is invalid',()=>{
+  const r=run([receipt('SMTP_PERMFAIL',{smtpResponseCode:'550',enhancedStatusCode:'5.7.26'})]);
+  assert.equal(r.blockedProviderGroups[0].state,'QUARANTINE');
+  assert.equal(r.suppressionActions.length,0);
+  assert.equal(r.messageNoRetryActions.length,1);
+  assert.equal(r.messageNoRetryActions[0].requiresDurableNoRetryRecord,true);
+});
+test('ordinary mailbox-not-found 5xx both suppresses and blocks retransmission',()=>{
+  const r=run([receipt('SMTP_PERMFAIL',{smtpResponseCode:'550',enhancedStatusCode:'5.1.1'})]);
+  assert.equal(r.suppressionActions[0].reasonCode,'verified-invalid-or-disabled-recipient');
+  assert.equal(r.messageNoRetryActions.length,1);
+});

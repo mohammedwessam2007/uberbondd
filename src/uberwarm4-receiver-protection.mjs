@@ -89,7 +89,7 @@ export function compileUberWarm4ReceiverProtection({
   }
   // Ingestion order cannot permit an older "recovery" to clear a newer incident.
   accepted.sort((a,b)=>a.at-b.at||a.id.localeCompare(b.id));
-  const providers=new Map(),suppressed=new Map(),incidentById=new Map();
+  const providers=new Map(),suppressed=new Map(),incidentById=new Map(),messageNoRetry=new Map();
   const touched=new Map();
   const group=(domain,provider)=>domain+'|'+provider;
   for(const e of accepted) {
@@ -117,11 +117,21 @@ export function compileUberWarm4ReceiverProtection({
       p.unresolvedIncidents.add(e.id);incidentById.set(e.id,{key,time:e.at});
     }
     if(e.kind==='SMTP_PERMFAIL') {
-      const suppressionKey=e.recipient;
-      suppressed.set(suppressionKey,{
-        recipientEmail:e.recipient,reasonCode:'permanent-smtp-rejection-no-retry',
-        sourceEventId:e.id,requiresDurableSuppression:true
+      // RFC-style permanent SMTP failure prohibits replaying the same
+      // message. It does NOT always mean the destination is invalid.
+      // A 5.7.26 authentication reject quarantines the sender/domain but
+      // should not poison the recipient's global suppression record.
+      messageNoRetry.set(e.id,{
+        recipientEmail:e.recipient,sourceEventId:e.id,
+        reasonCode:'permanent-smtp-message-no-retry',
+        requiresDurableNoRetryRecord:true
       });
+      if(['5.1.1','5.1.10','5.2.1'].includes(e.enhanced)) {
+        suppressed.set(e.recipient,{
+          recipientEmail:e.recipient,reasonCode:'verified-invalid-or-disabled-recipient',
+          sourceEventId:e.id,requiresDurableSuppression:true
+        });
+      }
     }
     if(e.kind==='USER_COMPLAINT') {
       upgrade(m,'QUARANTINE','verified-user-complaint',e.id);
@@ -173,6 +183,7 @@ export function compileUberWarm4ReceiverProtection({
     acceptedEvidenceCount:accepted.length,excludedEvidence:excluded,
     decisions:fleet,blockedProviderGroups:providerRows.filter(p=>p.state!=='NO_OBSERVED_INCIDENT'),
     suppressionActions:[...suppressed.values()].sort((a,b)=>a.recipientEmail.localeCompare(b.recipientEmail)),
+    messageNoRetryActions:[...messageNoRetry.values()].sort((a,b)=>a.sourceEventId.localeCompare(b.sourceEventId)),
     receivingProviderGroupsObserved:providerRows.length,
     coldSendAuthority:false,effectsPerformed:0,sendsPerformed:0,paidWarmingAddedCents:0,
     action:'PERSIST_SUPPRESSIONS_AND_HOLDS_THROUGH_GOVERNED_EXTERNAL_DISPATCH; NO_AUTO_RESUME',

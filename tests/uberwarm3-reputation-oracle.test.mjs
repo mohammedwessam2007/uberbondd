@@ -134,3 +134,36 @@ test('without independent real-recipient verifier, a staged big win is refused',
  assert.equal(r.evidenceCounts.validMatchedPairs,0);
  assert.equal(r.paidProviderWarmingBeaten,false);
 });
+
+test('caller cannot lower evidence floor or set negative win margin',()=>{
+ const rows=['GOOGLE','MICROSOFT'].flatMap((p,i)=>[
+   cohort('pair'+i,p,'UBERWARM3_NO_ADDON',3,3),
+   cohort('pair'+i,p,'WINNR_PAID_WARMING',3,0)
+ ]);
+ const r=compareUberWarm3AgainstWinnr({
+   cohorts:rows,now:T,minRecipientsPerArm:1,minProviders:1,margin:-2
+ });
+ assert.equal(r.status,'INSUFFICIENT_REAL_CAUSAL_EVIDENCE');
+ assert.equal(r.paidProviderWarmingBeaten,false);
+});
+test('pooled superiority may not hide a worse recipient provider',()=>{
+ const rows=[
+   cohort('google','GOOGLE','UBERWARM3_NO_ADDON',200,199),
+   cohort('google','GOOGLE','WINNR_PAID_WARMING',200,100),
+   cohort('microsoft','MICROSOFT','UBERWARM3_NO_ADDON',200,150),
+   cohort('microsoft','MICROSOFT','WINNR_PAID_WARMING',200,151)
+ ];
+ const r=compareUberWarm3AgainstWinnr({cohorts:rows,now:T});
+ assert.equal(r.paidProviderWarmingBeaten,false);
+ assert.equal(r.status,'INCONCLUSIVE');
+ assert.equal(r.providerDirections[1].provider,'MICROSOFT');
+});
+test('unbalanced matched cohorts may not produce comparative victory',()=>{
+ const rows=['GOOGLE','MICROSOFT'].flatMap((p,i)=>[
+   cohort('pair'+i,p,'UBERWARM3_NO_ADDON',300,299),
+   cohort('pair'+i,p,'WINNR_PAID_WARMING',100,50)
+ ]);
+ const r=compareUberWarm3AgainstWinnr({cohorts:rows,now:T});
+ assert.equal(r.balancedPairs,false);
+ assert.equal(r.status,'INSUFFICIENT_REAL_CAUSAL_EVIDENCE');
+});

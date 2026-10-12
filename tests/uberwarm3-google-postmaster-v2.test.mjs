@@ -105,3 +105,55 @@ test('Google subdomain result is explicitly labeled registrable-domain aggregate
  assert.equal(r.reportedComplianceDomain,'uberbond.example');
  assert.equal(r.subdomainSpecificEvidenceAvailable,false);
 });
+
+test('registrable-domain aggregate cannot promote an unobserved subdomain',()=>{
+ const subdomain='mail.uberbond.example';
+ const response={
+   ...reply([{requirement:'SPF_AND_DKIM',status:{status:'COMPLIANT'}}]),
+   name:'domains/'+subdomain+'/complianceStatus',
+   complianceData:{...reply().complianceData,domainId:domain,
+     rowData:[{requirement:'SPF_AND_DKIM',status:{status:'COMPLIANT'}}]}
+ };
+ const r=normalizePostmasterV2Compliance({domain:subdomain,response});
+ assert.equal(r.ok,true);
+ assert.equal(r.status,'NO_DATA');
+ assert.equal(r.checks.length,0);
+ assert.equal(r.subdomainSpecificEvidenceAvailable,false);
+ assert.equal(r.reportedComplianceDomain,domain);
+});
+test('Google exact-subdomain adverse status overrides healthy registrable domain',()=>{
+ const subdomain='mail.uberbond.example';
+ const response={
+   name:'domains/'+subdomain+'/complianceStatus',
+   complianceData:{
+     domainId:domain,rowData:[{requirement:'SPF_AND_DKIM',status:{status:'COMPLIANT'}}]
+   },
+   subdomainComplianceData:{
+     domainId:subdomain,rowData:[{requirement:'DKIM',status:{status:'NEEDS_WORK'}}]
+   }
+ };
+ const r=normalizePostmasterV2Compliance({domain:subdomain,response});
+ assert.equal(r.status,'NEEDS_WORK');
+ assert.deepEqual(r.failures,['DKIM']);
+ assert.equal(r.subdomainSpecificEvidenceAvailable,true);
+ assert.equal(r.reportedComplianceDomain,subdomain);
+});
+test('independent unsubscribe verdict failure blocks green-compliance promotion',()=>{
+ const response=reply([{requirement:'SPF_AND_DKIM',status:{status:'COMPLIANT'}}]);
+ response.complianceData.honorUnsubscribeVerdict={
+   status:{status:'NEEDS_WORK'},reason:'NOT_HONORING'
+ };
+ const r=normalizePostmasterV2Compliance({domain,response});
+ assert.equal(r.status,'NEEDS_WORK');
+ assert.ok(r.failures.includes('HONOR_UNSUBSCRIBE'));
+});
+test('wrong parent or subdomain provider attribution is rejected',()=>{
+ const subdomain='mail.uberbond.example';
+ const response={
+   name:'domains/'+subdomain+'/complianceStatus',
+   complianceData:{...reply().complianceData,domainId:'evil.example'},
+   subdomainComplianceData:{domainId:'other.uberbond.example',rowData:[]}
+ };
+ const r=normalizePostmasterV2Compliance({domain:subdomain,response});
+ assert.equal(r.ok,false);
+});

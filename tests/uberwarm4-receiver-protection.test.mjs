@@ -15,7 +15,7 @@ function receipt(kind='SMTP_TEMPFAIL',patch={}){
     receivingEvidenceRef:'trusted:smtp-receipt:1',
     smtpResponseCode:'421',enhancedStatusCode:'4.7.28',...patch};
 }
-const verified={verifyAuthenticatedEvent:()=>true,verifyRecipientProviderGroup:()=>true};
+const verified={verifyAuthenticatedEvent:()=>true,verifyRecipientProviderGroup:()=>true,verifyCompleteIncidentLedger:()=>true};
 const run=(events,opts={})=>compile({mailboxes,events,now:T,...verified,...opts});
 test('no evidence never implies a healthy or authorized fleet',()=>{
   const r=run([]);
@@ -37,7 +37,7 @@ test('one real Google 4.7.28 holds shared sender domain/recipient MX cohort',()=
 });
 test('unknown external proof or spoofed MX provider produces no throttle authority',()=>{
   const r=compile({mailboxes,events:[receipt()],
-    now:T,verifyAuthenticatedEvent:()=>false,verifyRecipientProviderGroup:()=>true});
+    now:T,verifyAuthenticatedEvent:()=>false,verifyRecipientProviderGroup:()=>true,verifyCompleteIncidentLedger:()=>true});
   assert.equal(r.acceptedEvidenceCount,0);
   assert.equal(r.blockedProviderGroups.length,0);
   assert.ok(r.excludedEvidence[0].reasons.includes('trusted-receipt-authentication-required'));
@@ -121,4 +121,12 @@ test('ordinary mailbox-not-found 5xx both suppresses and blocks retransmission',
   const r=run([receipt('SMTP_PERMFAIL',{smtpResponseCode:'550',enhancedStatusCode:'5.1.1'})]);
   assert.equal(r.suppressionActions[0].reasonCode,'verified-invalid-or-disabled-recipient');
   assert.equal(r.messageNoRetryActions.length,1);
+});
+
+test('a clean-looking window without durable incident ledger proof is refused',()=>{
+ const r=compile({mailboxes,events:[],now:T,
+   verifyAuthenticatedEvent:()=>true,verifyRecipientProviderGroup:()=>true});
+ assert.equal(r.status,'REFUSED');
+ assert.ok(r.reasonCodes.includes('complete-durable-incident-ledger-required'));
+ assert.equal(r.coldSendAuthority,false);
 });

@@ -60,6 +60,9 @@ export function retrieveCrossovers(ideas, query, limit = 12) {
   return selected.map(k => ({ id: ideas[k].id, title: ideas[k].title, ordinal: k + 1, score: Number(scores[k].toFixed(4)), body_sha256: ideas[k].sha256 ?? null, truth: 'FOUNDER_HYPOTHESIS_NOT_PROOF' }));
 }
 export function loadRegistry(path) {
-  const data = JSON.parse(readFileSync(path, 'utf8'));
-  return validateCorpus(Array.isArray(data) ? data : data.ideas);
+  const raw = readFileSync(path, 'utf8');
+  const data = path.endsWith('.jsonl') ? raw.split(/\r?\n/).filter(Boolean).map(line => JSON.parse(line)) : JSON.parse(raw);
+  const items = Array.isArray(data) ? data : data.ideas;
+  return validateCorpus(items.map(x => ({ ...x, body: x.body ?? x.exact_original_body, sha256: x.sha256 ?? x.exact_source_bytes_sha256 })));
+
 }

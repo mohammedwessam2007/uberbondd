@@ -80,7 +80,8 @@ test('missing recipient consent excludes all candidates with no fallback to arbi
 test('all paused senders are blocked regardless of plan sender connected flag', () => {
   const b = batch([senders[1]]);
   assert.equal(b.ok, false);
-  assert.ok(b.rejections.some(x => x.reasonCodes.includes('sender-not-health-cleared')));
+  assert.equal(b.probes.length, 0);
+  assert.equal(b.providerSubmissions, 0);
 });
 test('real send requires exact unexpired owner authorization and a durable one-shot store', async () => {
   const b = batch(), tx = transport(), s = store();

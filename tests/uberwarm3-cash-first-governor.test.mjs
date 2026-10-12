@@ -150,3 +150,68 @@ test('incremental $69 is permitted only when budget is expressly above other exi
  assert.equal(x.expansionBudgetRequirementCents,6900);
  assert.equal(x.startupPurchaseRecommendation,'CONSIDER_ONLY_WITH_NEW_EXPLICIT_OWNER_CHECKOUT');
 });
+
+test('cash-first governor defaults to no invented mathematical dominance certificate',()=>{
+ const x=rawDecision({monthlyDiscretionaryBudgetCents:10000});
+ assert.equal(x.economicDominanceCertificate,null);
+ assert.equal(x.paidWarmAddonRecommendation,'NO_NEW_PAID_ADDON');
+ assert.equal(x.paidWarmAddonBuyingRationale,'HOLD_SPEND_PENDING_INDEPENDENT_INCREMENTAL_ROI_EVIDENCE');
+});
+test('signed-server-verified upper bounds can certify free warmer for specific 30-day economy',()=>{
+ const refs={
+  feeEvidenceRef:'provider-billing:approved-30d',
+  eligibleEvidenceRef:'eligible-queue:attested-bound',
+  valueEvidenceRef:'cleared-economics:upper-bound-receipt',
+  causalUpliftEvidenceRef:'experiment:independent-credible-uplift-upper',
+  futureOptionEvidenceRef:'audited-future-options:upper'
+ };
+ const verified={
+  verifyPaidFee:()=>true,verifyEligibleUpper:()=>true,
+  verifyValueUpper:()=>true,verifyCausalUpliftUpper:()=>true,
+  verifyFutureOptionUpper:()=>true
+ };
+ const x=rawDecision({economicDominanceInputs:{
+  paidFeeCents:1, // must be overwritten by actual procurement amount
+  certifiedEligibleUpper:9000,
+  certifiedValuePerExtraInboxCentsUpper:10,
+  certifiedPaidPlacementUpliftUpper:0.03,
+  certifiedFutureOptionValueCentsUpper:0,
+  ...refs,...verified
+ }});
+ assert.equal(x.economicDominanceCertificate.paidFeeCents,3000);
+ assert.equal(x.economicDominanceCertificate.maximumPaidBenefitCents,2700);
+ assert.equal(x.paidWarmAddonBuyingRationale,'CERTIFIED_BOUNDED_PERIOD_ECONOMIC_DOMINANCE');
+ assert.equal(x.paidWarmAddonRecommendation,'NO_NEW_PAID_ADDON');
+});
+test('fake impressive numeric estimates without independently verified receipt refuse proof',()=>{
+ const x=rawDecision({economicDominanceInputs:{
+  certifiedEligibleUpper:9000,
+  certifiedValuePerExtraInboxCentsUpper:1,
+  certifiedPaidPlacementUpliftUpper:0,
+  certifiedFutureOptionValueCentsUpper:0
+ }});
+ assert.equal(x.economicDominanceCertificate.status,'NOT_CERTIFIED');
+ assert.equal(x.paidWarmAddonBuyingRationale,'HOLD_SPEND_PENDING_INDEPENDENT_INCREMENTAL_ROI_EVIDENCE');
+});
+test('cash governor does not claim theoretical inevitability when paid could actually improve profit',()=>{
+ const refs={
+  feeEvidenceRef:'provider-billing:approved-30d',
+  eligibleEvidenceRef:'eligible-queue:attested-bound',
+  valueEvidenceRef:'cleared-economics:upper-bound-receipt',
+  causalUpliftEvidenceRef:'experiment:independent-credible-uplift-upper',
+  futureOptionEvidenceRef:'audited-future-options:upper'
+ };
+ const all={
+  verifyPaidFee:()=>true,verifyEligibleUpper:()=>true,
+  verifyValueUpper:()=>true,verifyCausalUpliftUpper:()=>true,
+  verifyFutureOptionUpper:()=>true
+ };
+ const x=rawDecision({economicDominanceInputs:{
+  certifiedEligibleUpper:9000,certifiedValuePerExtraInboxCentsUpper:10,
+  certifiedPaidPlacementUpliftUpper:0.05,certifiedFutureOptionValueCentsUpper:0,
+  ...refs,...all
+ }});
+ assert.equal(x.economicDominanceCertificate.zeroAddonEconomicallyDominant,false);
+ assert.equal(x.economicDominanceCertificate.conservativeZeroAddonAdvantageCents,-1500);
+ assert.equal(x.paidWarmAddonBuyingRationale,'HOLD_SPEND_PENDING_INDEPENDENT_INCREMENTAL_ROI_EVIDENCE');
+});

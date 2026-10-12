@@ -26,7 +26,9 @@ export function createUberWarm2SmtpSeedBridge({
       s.receiveReady === true && s.consentToTest === true &&
       typeof s.consentEvidenceRef === 'string' && s.consentEvidenceRef.trim())
     .map(s => lower(s.email)));
-  const valid = emailOk(sender) && mailboxId && account.connected === true && account.tokens &&
+  const valid = emailOk(sender) && mailboxId && account.connected === true &&
+    account.paused !== true && account.quarantined !== true &&
+    account.placementQuarantine !== true && account.tokens &&
     route.authorized === true && route.termsCompatible === true && route.evidenceRef &&
     typeof route.host === 'string' && route.host.trim() &&
     route.secure === true && String(encryptionKey) && allowed.size > 0;

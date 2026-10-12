@@ -198,7 +198,7 @@ export function compileUberWarm2ReceivedEvidence({
       continue;
     }
     usedRefs.add(ev);
-    accepted.push(normalized.observation);
+    // Preserve the validated wrapper: compilePlacementReport expects either\n    // {ok:true,observation} or raw data with a folder field. Passing the\n    // already-normalized inner row would lose its folder on re-normalization.\n    accepted.push(normalized);
   }
   const report = compilePlacementReport({
     plan: { probes: batch.probes }, observations: accepted, now

@@ -344,8 +344,12 @@ export function createProviderHttpAdapter({
     // an explicit reviewed source change, not runtime caller input.
     const routePath = typeof path === 'string' ? path.toLowerCase() :
       typeof path?.path === 'string' ? path.path.toLowerCase() : '';
+    const paidWarmRouteSegments = new Set([
+      'prewarm', 'pre-warm', 'pre_warm', 'prewarms', 'warming',
+      'warmup', 'warmups', 'warm-up', 'warm-ups'
+    ]);
     const directWarmupMutation = !READ_METHODS.has(verb) &&
-      /(?:^|\\/)(?:pre[-_]?warm(?:ups?)?|warm[-_]?ups?|warming)(?:\\/|$)/.test(routePath);
+      routePath.split('/').some(segment=>paidWarmRouteSegments.has(segment));
     if ((!READ_METHODS.has(verb) &&
          (capability === 'startWarmup' || capability === 'prewarmPurchase')) ||
         directWarmupMutation) {

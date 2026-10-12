@@ -27,13 +27,14 @@ test('no evidence never implies a healthy or authorized fleet',()=>{
 test('one real Google 4.7.28 holds shared sender domain/recipient MX cohort',()=>{
   const r=run([receipt()]);
   assert.equal(r.acceptedEvidenceCount,1);
-  assert.equal(r.blockedProviderGroups.length,1);
-  assert.equal(r.blockedProviderGroups[0].state,'HOLD');
-  assert.equal(r.blockedProviderGroups[0].recipientProviderGroup,'GOOGLE_MX');
-  assert.equal(r.blockedProviderGroups[0].domain,'sender.example');
-  assert.equal(r.blockedProviderGroups[0].reviewNotBefore,'2026-10-12T20:08:00.000Z');
-  assert.equal(r.blockedProviderGroups[0].automaticallyResumed,false);
-  assert.equal(r.blockedProviderGroups[0].permittedColdSendCap,0);
+  assert.equal(r.blockedProviderGroups.length,2);
+  const senderHold=r.blockedProviderGroups.find(x=>x.domain==='sender.example');
+  assert.equal(senderHold.state,'HOLD');
+  assert.equal(senderHold.recipientProviderGroup,'GOOGLE_MX');
+  assert.equal(senderHold.reviewNotBefore,'2026-10-12T20:08:00.000Z');
+  assert.equal(senderHold.automaticallyResumed,false);
+  assert.equal(senderHold.permittedColdSendCap,0);
+  assert.equal(r.blockedProviderGroups.some(x=>x.domain==='other.example'),true);
 });
 test('unknown external proof or spoofed MX provider produces no throttle authority',()=>{
   const r=compile({mailboxes,events:[receipt()],
@@ -75,12 +76,13 @@ test('recovery receipt without verified authenticated matching incident never au
   });
   const noClear=run([first,second]);
   assert.equal(noClear.blockedProviderGroups[0].state,'HOLD');
-  assert.equal(noClear.blockedProviderGroups[0].unresolvedIncidentIds.length,1);
+  assert.equal(noClear.blockedProviderGroups.find(x=>x.domain==='sender.example').unresolvedIncidentIds.length,1);
   const verifiedRecovery=run([first,second],{verifyRecoveredCondition:()=>true});
-  assert.equal(verifiedRecovery.blockedProviderGroups[0].automaticallyResumed,false);
-  assert.equal(verifiedRecovery.blockedProviderGroups[0].permittedColdSendCap,0);
-  assert.equal(verifiedRecovery.blockedProviderGroups[0].recoveredEvidenceRequiresNewApproval,true);
-  assert.equal(verifiedRecovery.blockedProviderGroups[0].unresolvedIncidentIds.length,0);
+  const sourceGroup=verifiedRecovery.blockedProviderGroups.find(x=>x.domain==='sender.example');
+  assert.equal(sourceGroup.automaticallyResumed,false);
+  assert.equal(sourceGroup.permittedColdSendCap,0);
+  assert.equal(sourceGroup.recoveredEvidenceRequiresNewApproval,true);
+  assert.equal(sourceGroup.unresolvedIncidentIds.length,0);
 });
 test('self-reported and replayed same event IDs cannot inflate evidence',()=>{
   const r=run([receipt(),receipt('SMTP_TEMPFAIL',{smtpResponseCode:'421'})]);
@@ -129,4 +131,10 @@ test('a clean-looking window without durable incident ledger proof is refused',(
  assert.equal(r.status,'REFUSED');
  assert.ok(r.reasonCodes.includes('complete-durable-incident-ledger-required'));
  assert.equal(r.coldSendAuthority,false);
+});
+
+test('a Google shared-quota event holds other sender domains rather than evading by rotation',()=>{
+ const r=run([receipt()]);
+ assert.ok(r.blockedProviderGroups.some(x=>x.domain==='other.example'&&x.state==='HOLD'));
+ assert.equal(r.blockedProviderGroups.every(x=>x.recipientProviderGroup==='GOOGLE_MX'),true);
 });

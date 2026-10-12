@@ -167,3 +167,14 @@ test('unbalanced matched cohorts may not produce comparative victory',()=>{
  assert.equal(r.balancedPairs,false);
  assert.equal(r.status,'INSUFFICIENT_REAL_CAUSAL_EVIDENCE');
 });
+
+test('Google >0.1 percent complaints triggers a hold before 0.3 percent severe breach',()=>{
+ const r=compileUberWarm3ReputationDecision({
+   mailbox:M,signals:[signal(),signal('MICROSOFT',{
+     source:'GMAIL_POSTMASTER_V2',spamComplaintRate:0.0015
+   })],now:T
+ });
+ assert.equal(r.state,'HOLD');
+ assert.equal(r.coldDailyCap,0);
+ assert.ok(r.reasonCodes.includes('complaint-rate-at-or-above-0.1-percent-no-ramp'));
+});

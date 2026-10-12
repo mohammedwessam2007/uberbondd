@@ -52,3 +52,15 @@ Authoritative provider/industry publications (not endorsements or empirical proo
 ### PHOENIX and 890 lineage
 
 Inherits Sovereign Cognitive Continuum, Wessam Singularity / Personal Civilization Engine hierarchy and ALL founder-moonshot-0001..0890 as stable addressable pointers via `docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`, original manifest and total memory; also GENESIS >890. This bounded email reputation subsystem does not delete, narrow or prove those missions.
+
+## Final 2026-10-12 adversarial hardening checkpoint
+
+1. A Gmail `4.7.28` may apply to SPF/DKIM domain or shared sending IP. Until independently verified IP routing is known, UberWarm⁴ now conservatively holds all known sending domains targeting the same receiving-provider group, preventing identity rotation as a hidden rate-limit bypass. This could reduce capacity; it is deliberately not sold as a performance boost. No other receiving-provider group is automatically held.
+2. Receiver event evaluation refuses a clean slate unless an independently authenticated COMPLETE DURABLE INCIDENT LEDGER callback proves old unresolved incidents and recipient suppressions have not been discarded. A short data window alone cannot clear a quarantine.
+3. Each accepted SMTP 5xx produces message-level no-retry, but only specific verified invalid/disabled-address statuses produce long-term recipient suppression. Authentication failure quarantines the infrastructure, not an innocent recipient. The dispatch guard requires durable reconciliation of both effects.
+4. The guard never returns send authority. It needs trusted current recipient-provider identity, complete fresh receiver report, durable suppression/no-retry proof, legal route, owner approval and fresh source cap. A "clean" source-only snapshot does not start or authorize a campaign.
+5. Prior UberWarm³ oracle now stops expansion at verified >=0.1% user-reported complaints and quarantines severe >=0.3%, reflecting Google published guidance.
+
+**Latest run:** 29/29 UberWarm⁴ receiver+dispatch tests and 17/17 UberWarm³ oracle tests, or **46/46 fetched-source JavaScript V8 behavioral assertions**, with authenticated-event, SMTP/DB and receiving-provider interactions represented by test fixtures. This is not independent Node 22, real Postgres, actual SMTP, sender reputation proof or an exact source CI pass. PR #1403 remains DRAFT until real exact-head CI and integrations are proven. Previously recorded 75 UberWarm²/³ behavior checks are historical earlier-head receipts, not repeated at this new head.
+
+**Operational effects:** no real warming traffic, customer outreach, purchases, DNS edits, deployments, provider warm-up enrollment, account switching or host mutations occurred through this code change. Original paid $9 pilot and ordinal #3 quarantine untouched. $69 Startup unverified and optional paid warming remains unpurchased. Public ecosystem research does not constitute a license to copy competitors' source or their proprietary recipient networks.

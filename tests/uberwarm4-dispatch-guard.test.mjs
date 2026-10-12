@@ -51,7 +51,7 @@ test('stale or forged receiver reports do not unlock cap',async()=>{
 });
 test('a recipient permanently bounced by one sender is denied to the whole sending fleet',async()=>{
  const permanent=report([r('SMTP_PERMFAIL',{smtpResponseCode:'550',enhancedStatusCode:'5.1.1'})]);
- const v=await call(permanent,{senderEmail:'nadia@sender.example'});
+ const v=await call(permanent,{senderEmail:'nadia@sender.example',verifyDurableNoRetryApplied:async()=>true});
  assert.equal(v.status,'DENIED');
  assert.ok(v.reasonCodes.includes('recipient-hard-bounced-unsubscribed-or-complained'));
 });
@@ -93,12 +93,12 @@ test('stale authority or a huge caller-supplied cap cannot inflate the capped ad
 });
 
 test('permanent authentication failure does not poison recipient but blocks pending message replay',async()=>{
-  const r=report([{
+  const protectedReport=report([{
     ...r('SMTP_PERMFAIL',{smtpResponseCode:'550',enhancedStatusCode:'5.7.26'}), eventId:'blocked-message-a'
   }]);
-  assert.equal(r.suppressionActions.length,0);
-  assert.equal(r.messageNoRetryActions.length,1);
-  const v=await call(r,{senderEmail:'nadia@sender.example',
+  assert.equal(protectedReport.suppressionActions.length,0);
+  assert.equal(protectedReport.messageNoRetryActions.length,1);
+  const v=await call(protectedReport,{senderEmail:'nadia@sender.example',
     verifyDurableNoRetryApplied:async()=>false});
   assert.equal(v.status,'HOLD');
   assert.equal(v.dispatchAuthority,'NONE');

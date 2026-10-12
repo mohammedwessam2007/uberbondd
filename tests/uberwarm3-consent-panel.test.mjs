@@ -7,7 +7,8 @@ const T=new Date('2026-10-12T18:00:00Z');
 const compileUberWarm3ConsentingPanel = opts => rawPanel({
   ...opts,verifyConsentReceipt:row=>
     typeof row.consentEvidenceRef==='string' &&
-    row.consentEvidenceRef.startsWith('verified-consent:')
+    row.consentEvidenceRef.startsWith('verified-consent:'),
+  verifyRecipientNetwork:({provider})=>['GOOGLE','MICROSOFT','YAHOO','APPLE','OTHER'].includes(provider)
 });
 const participant=(id,provider,extra={})=>({
   email:id+'@example.net',provider,participantOrganizationId:'org-'+id,
@@ -85,4 +86,24 @@ test('declarative consent fields cannot enroll anyone without a trusted validato
   assert.equal(r.realParticipantCount,0);
   assert.equal(r.excluded.length,1);
   assert.ok(r.excluded[0].reasonCodes.includes('authentic-current-consent-required'));
+});
+
+test('self-described recipient networks do not become real coverage without provider binding',()=>{
+ const r=rawPanel({
+   records:[participant('g','GOOGLE'),participant('m','MICROSOFT')],
+   verifyConsentReceipt:()=>true,now:T
+ });
+ assert.equal(r.members.length,0);
+ assert.equal(r.eligibleForTwoProviderTests,false);
+ assert.equal(r.excluded.length,2);
+ assert.ok(r.excluded[0].reasonCodes.includes('independent-recipient-provider-binding-required'));
+});
+test('a failed recipient-network identity verifier refuses apparently consenting panel members',()=>{
+ const r=rawPanel({
+   records:[participant('g','GOOGLE')],
+   verifyConsentReceipt:()=>true,
+   verifyRecipientNetwork:()=>false,now:T
+ });
+ assert.equal(r.members.length,0);
+ assert.equal(r.networkCount,0);
 });

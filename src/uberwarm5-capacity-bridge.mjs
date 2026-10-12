@@ -17,11 +17,19 @@ export function protectUberWarm5FleetCapacity({
   let verified=false;
   try{verified=typeof verifyReceiverReport==='function' &&
     verifyReceiverReport(receiverReport)===true}catch{}
+  const reportDecisions=Array.isArray(receiverReport?.decisions)?receiverReport.decisions:[];
+  const rosterAddresses=reportDecisions.map(x=>addr(x?.senderEmail));
   const reportReady=at!==null&&reportTime!==null&&reportTime<=at+300000&&
     at-reportTime<=15*60000&&verified&&
     receiverReport?.status==='OBSERVED_RECEIVER_FEEDBACK_COMPILED'&&
     Array.isArray(receiverReport?.decisions)&&
+    new Set(rosterAddresses).size===rosterAddresses.length&&
+    rosterAddresses.every(validEmail)&&
+    reportDecisions.every(x=>['NO_OBSERVED_INCIDENT','QUARANTINE'].includes(x.state))&&
     Array.isArray(receiverReport?.blockedProviderGroups)&&
+    receiverReport.blockedProviderGroups.every(x=>['HOLD','QUARANTINE'].includes(x?.state)
+      &&typeof x.domain==='string'&&x.domain.includes('.') &&
+      typeof x.recipientProviderGroup==='string'&&x.recipientProviderGroup.length>0)&&
     Array.isArray(receiverReport?.suppressionActions)&&
     Array.isArray(receiverReport?.messageNoRetryActions);
   const reportSenders=new Map((reportReady?receiverReport.decisions:[])

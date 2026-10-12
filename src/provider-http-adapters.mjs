@@ -447,11 +447,13 @@ export function createProviderHttpAdapter({
       if (!routes.warmupStatus) return unsupported(provider, 'warmupCapable', 'This provider requires a separate warm-up product or does not document a native warm-up endpoint.');
       return requestJson({ capability: 'warmupCapable', method: 'GET', path: routes.warmupStatus, query: { mailbox_id: mailboxId, domain_id: domainId } });
     },
-    startWarmup: async ({ mailboxId = '', domainId = '', providerPayload = null, ownerApproval = null, idempotencyKey = '' } = {}) => {
-      if (!routes.startWarmup) return unsupported(provider, 'startWarmup', 'No native warm-up start endpoint is documented for this provider.');
-      if (!providerPayload || typeof providerPayload !== 'object' || Array.isArray(providerPayload)) return providerError({ provider, capability: 'startWarmup', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the provider-documented warm-up payload; UberBond will not guess a purchase or activation body.', timestamp: nowDate(now()).toISOString() });
-      return normalizeStatus(await requestJson({ capability: 'startWarmup', method: 'POST', path: routes.startWarmup, body: providerPayload, ownerApproval, idempotencyKey }), 'warmup');
-    },
+    // Founder zero-paid-warming doctrine: even an apparently free provider
+    // entitlement may be stale or change price before checkout. Do not offer
+    // the native provider POST activation capability through this adapter.
+    // Owner-controlled, consent-based diagnostic probes are separate.
+    startWarmup: async () => unsupported(provider, 'startWarmup',
+      'UBERBOND_ZERO_PAID_WARMUP_LOCK: provider warm-up POST is permanently disabled; use read-only diagnostics and governed owner-controlled seeds.'),
+
     pauseWarmup: async () => unsupported(provider, 'pauseWarmup', 'Pause must be performed through the provider capability documented for the selected account; no guessed endpoint is used.'),
     warmupStatus: async ({ mailboxId = '', domainId = '' } = {}) => {
       if (!routes.warmupStatus) return unsupported(provider, 'warmupStatus', 'This provider requires a separate warm-up product or does not document a warm-up status endpoint.');

@@ -91,3 +91,25 @@ test('stale authority or a huge caller-supplied cap cannot inflate the capped ad
  assert.equal(v.recommendedMaximumFirstTouches,20);
  assert.equal(v.dispatchAuthority,'NONE');
 });
+
+test('permanent authentication failure does not poison recipient but blocks pending message replay',async()=>{
+  const r=report([{
+    ...r('SMTP_PERMFAIL',{smtpResponseCode:'550',enhancedStatusCode:'5.7.26'}), eventId:'blocked-message-a'
+  }]);
+  assert.equal(r.suppressionActions.length,0);
+  assert.equal(r.messageNoRetryActions.length,1);
+  const v=await call(r,{senderEmail:'nadia@sender.example',
+    verifyDurableNoRetryApplied:async()=>false});
+  assert.equal(v.status,'HOLD');
+  assert.equal(v.dispatchAuthority,'NONE');
+});
+test('permanent non-address 5xx must be reconciled before another sender can proceed',async()=>{
+  const p=report([r('SMTP_PERMFAIL',{smtpResponseCode:'550',
+    enhancedStatusCode:'5.5.0'})]);
+  const result=await call(p,{senderEmail:'nadia@sender.example'});
+  assert.equal(result.status,'DENIED');
+  assert.ok(result.reasonCodes.includes('permanent-message-no-retry-ledger-not-durable'));
+  const ready=await call(p,{senderEmail:'nadia@sender.example',
+    verifyDurableNoRetryApplied:async()=>true});
+  assert.equal(ready.status,'CLEAR_TO_REEVALUATE_IN_EXISTING_DISPATCH');
+});

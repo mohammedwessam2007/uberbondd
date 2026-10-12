@@ -6,7 +6,6 @@
 export const UBERWARM3_CASH_FIRST_VERSION='uberbond.uberwarm3-cash-first.v1';
 const count=v=>Number.isSafeInteger(v)&&v>=0?v:null;
 const money=v=>Number.isSafeInteger(v)&&v>=0?v:null;
-const safeReadiness=v=>['READY','UNCERTAIN','BLOCKED'].includes(v)?v:'UNCERTAIN';
 export function compileUberWarm3ZeroAddonDecision({
   monthlyDiscretionaryBudgetCents=null,
   pilotPaidCents=900,
@@ -22,7 +21,9 @@ export function compileUberWarm3ZeroAddonDecision({
   productionDispatcherReady=false,
   independentTelemetryReady=false,
   qualifiedContactsEvidenceRef='',
-  pilotCapacityEvidenceRef=''
+  pilotCapacityEvidenceRef='',
+  verifyIndependentDemandReceipt,
+  verifyPilotProviderCapacityReceipt
 }={}) {
   const reasons=[];
   const qualified=count(currentVerifiedEligibleUniqueContacts);
@@ -31,10 +32,18 @@ export function compileUberWarm3ZeroAddonDecision({
   const budget=money(monthlyDiscretionaryBudgetCents);
   const monthlyBaseCents=(startupPurchased?startupPriceCents:0)+pilotPaidCents+
     (paidWarmAddonActive?warmAddonPriceCents:0);
+  // Untrusted free-text evidence references never become spend justification.
+  // Validation callbacks must be injected from authenticated, server-controlled
+  // ledgers. Missing/throwing verifiers fail closed.
+  let demandReceiptVerified=false,capacityReceiptVerified=false;
+  try { demandReceiptVerified=typeof verifyIndependentDemandReceipt==='function'&&
+    verifyIndependentDemandReceipt({count:qualified,evidenceRef:qualifiedContactsEvidenceRef})===true; } catch {}
+  try { capacityReceiptVerified=typeof verifyPilotProviderCapacityReceipt==='function'&&
+    verifyPilotProviderCapacityReceipt({senders:pilotSenders,dailyCap:pilotCap,evidenceRef:pilotCapacityEvidenceRef})===true; } catch {}
   const verifiedLeads=qualified!==null && qualified>0 &&
-    typeof qualifiedContactsEvidenceRef==='string'&&qualifiedContactsEvidenceRef.trim();
+    typeof qualifiedContactsEvidenceRef==='string'&&qualifiedContactsEvidenceRef.trim()&&demandReceiptVerified;
   const verifiedCapacity=pilotSenders!==null&&pilotCap!==null&&pilotSenders>0&&
-    typeof pilotCapacityEvidenceRef==='string'&&pilotCapacityEvidenceRef.trim();
+    typeof pilotCapacityEvidenceRef==='string'&&pilotCapacityEvidenceRef.trim()&&capacityReceiptVerified;
   const lawful=campaignLegality==='READY';
   if(!lawful)reasons.push('verified-legal-route-not-ready');
   if(ownerCampaignAuthority!==true)reasons.push('current-owner-campaign-authority-not-established');
@@ -47,7 +56,6 @@ export function compileUberWarm3ZeroAddonDecision({
   const pilotCanCoverQueue=verifiedLeads&&verifiedCapacity&&qualified<=pilotOpportunityCapacity;
   const forecastableNewDemand=verifiedLeads&&verifiedCapacity&&qualified>pilotOpportunityCapacity;
   const affordable=budget!==null&&budget>=startupPriceCents;
-  const addonAffordable=budget!==null&&budget>=warmAddonPriceCents;
   const reasonsToDefer=[];
   if(startupPurchased!==true) {
     if(!verifiedLeads)reasonsToDefer.push('no-evidenced-eligible-volume-demand');
@@ -55,13 +63,15 @@ export function compileUberWarm3ZeroAddonDecision({
     if(pilotCanCoverQueue)reasonsToDefer.push('existing-pilot-covers-evidenced-two-week-queue');
     if(!affordable)reasonsToDefer.push('cash-budget-for-expansion-not-evidenced');
     if(!lawful)reasonsToDefer.push('market-route-legality-not-cleared');
+    if(ownerCampaignAuthority!==true)reasonsToDefer.push('owner-campaign-authorization-not-current');
+    if(productionDispatcherReady!==true)reasonsToDefer.push('production-dispatch-not-enabled');
   }
   const proposeStartup= !startupPurchased&&reasonsToDefer.length===0&&forecastableNewDemand;
   const recommendNewPaidWarming=false;
   const recommendedActions=[
     !verifiedLeads?'PRIORITIZE_INDEPENDENTLY_VERIFIED_ELIGIBLE_CONTACTS':
       !sendReady?'CLOSE_GOVERNED_CAMPAIGN_READINESS':'USE_EXISTING_VERIFIED_PILOT_CAPACITY',
-    startupPurchased?'RUN_FREE_EVIDENCE_RAMP_WITH_PAID_ADDON_DISABLED':
+    startupPurchased?(paidWarmAddonActive?'REVIEW_ACTIVE_ADDON_WITH_OWNER':'RUN_FREE_EVIDENCE_RAMP_WITHOUT_PAID_ADDON'):
       proposeStartup?'PRESENT_FRESH_MONTHLY_STARTUP_CHECKOUT_FOR_OWNER_CONFIRMATION':
       'DEFER_STARTUP_CHECKOUT_AND_PROTECT_CASH',
     'TRACK_REAL_PROVIDER_DELIVERY_COMPLAINTS_AND_CLEARED_REVENUE'

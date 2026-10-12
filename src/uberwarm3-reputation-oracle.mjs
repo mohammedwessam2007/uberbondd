@@ -28,7 +28,7 @@ const normalizedSourceProvider = provider => {
 /** Diagnostics and real receiver outcomes are intentionally distinct. */
 export function compileUberWarm3ReputationDecision({
   mailbox = {}, signals = [], now = new Date(), minIndependentProviders=2,
-  requireNewRecipientLegalClearance=true
+  requireNewRecipientLegalClearance=true, verifyAuthenticatedSignal
 }={}) {
   const at = observedAt(now);
   const address = c(mailbox.address,320).toLowerCase();
@@ -51,6 +51,10 @@ export function compileUberWarm3ReputationDecision({
     if(signal?.mailboxAddress!==address)reasons.push('signal-not-for-exact-mailbox');
     if(!p)reasons.push('unknown-recipient-provider');
     if(!signedSource(signal))reasons.push('no-authenticated-ingestion');
+    let sourceVerified=false;
+    try { sourceVerified=typeof verifyAuthenticatedSignal==='function' &&
+      verifyAuthenticatedSignal(signal)===true; } catch {}
+    if(!sourceVerified)reasons.push('independent-ingestion-verifier-required');
     if(time===null||time>at+5*60000||at-time>7*86400000)reasons.push('stale-future-or-invalid-evidence');
     if(signal?.source==='INDEPENDENT_RECEIVER'){
       if(!['INBOX','SPAM','MISSING'].includes(signal.folder))reasons.push('invalid-placement');
@@ -139,7 +143,7 @@ function wilson(success,total,z=1.959963984540054) {
  * and contact eligibility), independent ground-truth inbox evidence, and
  * enough observations. No proxy seed engagement enters this experiment.
  */
-export function compareUberWarm3AgainstWinnr({ cohorts = [], now=new Date(), minRecipientsPerArm=100, minProviders=2, margin=0.02 }={}) {
+export function compareUberWarm3AgainstWinnr({ cohorts = [], now=new Date(), minRecipientsPerArm=100, minProviders=2, margin=0.02, verifyExperimentCohort }={}) {
   const at=observedAt(now);
   const refusals=[],pairs=new Map();
   if(at===null) return {status:'REFUSED',reasonCodes:['invalid-clock']};
@@ -151,6 +155,10 @@ export function compareUberWarm3AgainstWinnr({ cohorts = [], now=new Date(), min
     if(!key || !['UBERWARM3_NO_ADDON','WINNR_PAID_WARMING'].includes(arm))reasons.push('paired-arm-identity-required');
     if(!p)reasons.push('recipient-provider-required');
     if(!signedSource(row) || row.source!=='CAMPAIGN_GOVERNED_LEDGER')reasons.push('authenticated-campaign-ledger-required');
+    let externallyVerified=false;
+    try { externallyVerified=typeof verifyExperimentCohort==='function' &&
+      verifyExperimentCohort(row)===true; } catch {}
+    if(!externallyVerified)reasons.push('authenticated-experiment-ingestion-verifier-required');
     if(row.legalRouteCleared!==true||row.ownerAuthorized!==true||row.randomizedAssignment!==true)
       reasons.push('law-approval-and-randomized-allocation-required');
     if(tested===null||inbox===null||inbox>tested)reasons.push('invalid-independent-recipient-count');

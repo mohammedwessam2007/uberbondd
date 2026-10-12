@@ -8,7 +8,8 @@
  * attributable future-option value not already counted in N*V*d.
  *
  * Paid warming's maximum defensible incremental value <= N*V*d + O.
- * If the proven recurring fee F is STRICTLY GREATER than that bound, then
+ * UberBond's own incremental running cost C must also be upper bounded.
+ * If the proven recurring fee F is STRICTLY GREATER than N*V*d + O + C, then
  * choosing zero-added-cost warming is economically dominant within the stated
  * horizon/assumptions. This does NOT establish better Inbox placement.
  *
@@ -35,16 +36,18 @@ export function compileUberWarm6EconomicDominance({
   horizonDays=30,paidFeeCents=null,
   certifiedEligibleUpper=null,certifiedValuePerExtraInboxCentsUpper=null,
   certifiedPaidPlacementUpliftUpper=null,certifiedFutureOptionValueCentsUpper=null,
+  certifiedFreeOperatingCostCentsUpper=null,
   feeEvidenceRef='',eligibleEvidenceRef='',valueEvidenceRef='',
-  causalUpliftEvidenceRef='',futureOptionEvidenceRef='',
+  causalUpliftEvidenceRef='',futureOptionEvidenceRef='',freeOperatingCostEvidenceRef='',
   verifyPaidFee,verifyEligibleUpper,verifyValueUpper,
-  verifyCausalUpliftUpper,verifyFutureOptionUpper
+  verifyCausalUpliftUpper,verifyFutureOptionUpper,verifyFreeOperatingCostUpper
 }={}) {
   const reasons=[];
   const F=int(paidFeeCents),N=int(certifiedEligibleUpper);
   const V=int(certifiedValuePerExtraInboxCentsUpper);
   const delta=frac(certifiedPaidPlacementUpliftUpper);
   const O=int(certifiedFutureOptionValueCentsUpper);
+  const C=int(certifiedFreeOperatingCostCentsUpper);
   const H=int(horizonDays);
   if(!H||H>366)reasons.push('invalid-comparison-horizon');
   if(F===null||F===0)reasons.push('positive-paid-fee-not-established');
@@ -52,12 +55,14 @@ export function compileUberWarm6EconomicDominance({
   if(V===null)reasons.push('cleared-contribution-upper-bound-unknown');
   if(delta===null)reasons.push('causal-paid-uplift-upper-bound-unknown');
   if(O===null)reasons.push('future-option-value-upper-bound-unknown');
+  if(C===null)reasons.push('free-path-operating-cost-upper-bound-unknown');
   const proofs=[
     ['paid-fee-not-verified',verifyPaidFee,{value:F,evidenceRef:feeEvidenceRef,horizonDays:H},feeEvidenceRef],
     ['eligible-volume-bound-not-verified',verifyEligibleUpper,{value:N,evidenceRef:eligibleEvidenceRef,horizonDays:H},eligibleEvidenceRef],
     ['cleared-contribution-bound-not-verified',verifyValueUpper,{value:V,evidenceRef:valueEvidenceRef,horizonDays:H},valueEvidenceRef],
     ['causal-uplift-bound-not-verified',verifyCausalUpliftUpper,{value:delta,evidenceRef:causalUpliftEvidenceRef,horizonDays:H},causalUpliftEvidenceRef],
-    ['future-option-bound-not-verified',verifyFutureOptionUpper,{value:O,evidenceRef:futureOptionEvidenceRef,horizonDays:H},futureOptionEvidenceRef]
+    ['future-option-bound-not-verified',verifyFutureOptionUpper,{value:O,evidenceRef:futureOptionEvidenceRef,horizonDays:H},futureOptionEvidenceRef],
+    ['free-operating-cost-bound-not-verified',verifyFreeOperatingCostUpper,{value:C,evidenceRef:freeOperatingCostEvidenceRef,horizonDays:H},freeOperatingCostEvidenceRef]
   ];
   for(const [reason,callback,payload,ref] of proofs) {
     if(!nonempty(ref)||!safeVerify(callback,payload))reasons.push(reason);
@@ -66,7 +71,7 @@ export function compileUberWarm6EconomicDominance({
     observedInputs:{horizonDays:H,paidFeeCents:F,certifiedEligibleUpper:N},
     nextStep:'Do not purchase automatically. Obtain independent bounded cost, eligible volume, causal uplift, cash contribution and future-option evidence.'
   });
-  const bound=N*V*delta+O;
+  const bound=N*V*delta+O+C;
   if(!Number.isFinite(bound)||bound>Number.MAX_SAFE_INTEGER)
     return noProof(['bound-arithmetic-not-safe']);
   const maximumPaidBenefitCents=Math.ceil(bound);
@@ -80,6 +85,7 @@ export function compileUberWarm6EconomicDominance({
     eligibleFirstTouchUpper:N,valuePerExtraInboxCentsUpper:V,
     paidPlacementUpliftUpper:delta,
     futureOptionValueCentsUpper:O,
+    freePathOperatingCostCentsUpper:C,
     maximumPaidBenefitCents,
     conservativeZeroAddonAdvantageCents:conservativeAdvantageCents,
     zeroAddonEconomicallyDominant:dominance,
@@ -87,7 +93,7 @@ export function compileUberWarm6EconomicDominance({
     evidenceQuality:'SERVER_VERIFIED_UPPER_BOUND_ASSERTIONS',
     doesNotAuthorizeSend:true,doesNotAuthorizeSpend:true,
     proofStatement:dominance?
-      'Within the authenticated horizon and certified upper bounds, no paid placement uplift/future option in the admitted interval can repay the verified fee.':
+      'Within the authenticated horizon and certified bounds on uplift, future benefits and the free path own costs, no paid warming uplift can repay its verified fee.':
       'The admitted evidence still permits paid warming to recover its fee. No robust economic dominance proof exists.',
     truthBoundary:'Conditional bounded-cash theorem, not a claim of universal Inbox superiority, guaranteed delivery, or a license to contact unapproved recipients.'
   });

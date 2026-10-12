@@ -70,3 +70,19 @@ test('invalid provider report missing suppression or message no-retry arrays fai
  const v=run(report({messageNoRetryActions:null}));
  assert.equal(v.totalRecommendedDailyCap,0);
 });
+
+test('forged duplicate sender roster entries fail closed instead of last-row wins',()=>{
+ const x=report();
+ x.decisions.push({senderEmail:'tara@sender.example',state:'NO_OBSERVED_INCIDENT'});
+ const r=run(x);
+ assert.equal(r.receiverReportAuthenticated,false);
+ assert.equal(r.totalRecommendedDailyCap,0);
+});
+test('a malformed blocked provider group cannot silently disappear from the holds',()=>{
+ const x=report({blockedProviderGroups:[{
+   domain:'sender.example',recipientProviderGroup:'GOOGLE_MX',state:'UNKNOWN_STATE'
+ }]});
+ const r=run(x);
+ assert.equal(r.receiverReportAuthenticated,false);
+ assert.equal(r.totalRecommendedDailyCap,0);
+});

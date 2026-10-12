@@ -111,7 +111,7 @@ export async function executeUberWarm2SeedProbe({
   const reservation = {
     reservationKey, probeId: probe.probeId, batchDigest: batch.batchDigest,
     senderEmail: probe.senderEmail, seedEmail: probe.seedEmail,
-    senderDailyLimit: 2, globalDailyLimit: 100, quotaWindow: utcDay(now),
+    senderDailyLimit: 2, seedDailyLimit: 1, globalDailyLimit: 100, quotaWindow: utcDay(now),
     effectClass: 'OWNER_CONTROLLED_PLACEMENT_PROBE',
     evidenceRef: text(approval.evidenceRef, 500) || null
   };
@@ -178,6 +178,8 @@ export function compileUberWarm2ReceivedEvidence({
     if (!probe || !receipt) reasons.push('correlated-provider-submission-required');
     if (probe && (email(obs.senderEmail) !== probe.senderEmail || email(obs.seedEmail) !== probe.seedEmail))
       reasons.push('sender-or-seed-mismatch');
+    if (probe && text(obs.seedProvider, 80).toLowerCase() !== probe.seedProvider)
+      reasons.push('seed-provider-mismatch');
     if (receipt && (receipt.senderEmail !== probe?.senderEmail || receipt.seedEmail !== probe?.seedEmail ||
         receipt.providerMessageId !== text(obs.messageId, 500))) reasons.push('message-id-mismatch');
     if (obs?.observationSource !== 'RECIPIENT_PROVIDER' ||

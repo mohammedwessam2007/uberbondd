@@ -9,17 +9,20 @@ const refs={
  eligibleEvidenceRef:'legal-ledger:verified-upper:3000',
  valueEvidenceRef:'cleared-contribution:audited-upper:10c',
  causalUpliftEvidenceRef:'matched-placement-study:upper-bound:003',
- futureOptionEvidenceRef:'future-option:accounted:zero:20261012'
+ futureOptionEvidenceRef:'future-option:accounted:zero:20261012',
+ freeOperatingCostEvidenceRef:'free-path-cost-ledger:audited:zero:20261012'
 };
 const trusted={
  verifyPaidFee:()=>true,verifyEligibleUpper:()=>true,verifyValueUpper:()=>true,
- verifyCausalUpliftUpper:()=>true,verifyFutureOptionUpper:()=>true
+ verifyCausalUpliftUpper:()=>true,verifyFutureOptionUpper:()=>true,
+ verifyFreeOperatingCostUpper:()=>true
 };
 const sample={
  paidFeeCents:3000,certifiedEligibleUpper:9000,
  certifiedValuePerExtraInboxCentsUpper:10,
  certifiedPaidPlacementUpliftUpper:0.03,
  certifiedFutureOptionValueCentsUpper:0,
+ certifiedFreeOperatingCostCentsUpper:0,
  ...refs,...trusted
 };
 test('formal robust dominance: paid fee exceeds independently bounded maximum uplift',()=>{
@@ -113,4 +116,16 @@ test('a 5 percent uplift upper with positive expected per-Inbox revenue may meri
  const x=prove({...sample,certifiedPaidPlacementUpliftUpper:0.05});
  assert.equal(x.zeroAddonEconomicallyDominant,false);
  assert.equal(x.conservativeZeroAddonAdvantageCents,-1500);
+});
+
+test('nonzero audited internal running cost can defeat an apparent free-option win',()=>{
+ const r=prove({...sample,certifiedFreeOperatingCostCentsUpper:500});
+ assert.equal(r.status,'NO_PROOF_PAID_ADDON_UNECONOMICAL');
+ assert.equal(r.maximumPaidBenefitCents,3200);
+ assert.equal(r.conservativeZeroAddonAdvantageCents,-200);
+});
+test('unverified internal operating costs cannot be swept under a zero-cost label',()=>{
+ const r=prove({...sample,verifyFreeOperatingCostUpper:undefined});
+ assert.equal(r.status,'NOT_CERTIFIED');
+ assert.ok(r.reasonCodes.includes('free-operating-cost-bound-not-verified'));
 });

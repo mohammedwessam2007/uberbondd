@@ -8,6 +8,7 @@ const count=v=>Number.isSafeInteger(v)&&v>=0?v:null;
 const money=v=>Number.isSafeInteger(v)&&v>=0?v:null;
 export function compileUberWarm3ZeroAddonDecision({
   monthlyDiscretionaryBudgetCents=null,
+  budgetBasis='TOTAL_MONTHLY',
   pilotPaidCents=900,
   startupPriceCents=6900,
   warmAddonPriceCents=3000,
@@ -55,7 +56,13 @@ export function compileUberWarm3ZeroAddonDecision({
   const pilotOpportunityCapacity=verifiedCapacity?pilotCap*pilotHorizonDays:null;
   const pilotCanCoverQueue=verifiedLeads&&verifiedCapacity&&qualified<=pilotOpportunityCapacity;
   const forecastableNewDemand=verifiedLeads&&verifiedCapacity&&qualified>pilotOpportunityCapacity;
-  const affordable=budget!==null&&budget>=startupPriceCents;
+  // Default treats founder's declared budget as the TOTAL recurring budget,
+  // including the existing $9 pilot. Avoid the $69 vs $78 trap.
+  // Incremental budget is allowed only if explicitly so labeled.
+  const costOfStartupWithCurrentPlans=monthlyBaseCents+startupPriceCents;
+  const affordabilityTarget=budgetBasis==='INCREMENTAL_AVAILABLE'?startupPriceCents:
+    budgetBasis==='TOTAL_MONTHLY'?costOfStartupWithCurrentPlans:null;
+  const affordable=budget!==null&&affordabilityTarget!==null&&budget>=affordabilityTarget;
   const reasonsToDefer=[];
   if(startupPurchased!==true) {
     if(!verifiedLeads)reasonsToDefer.push('no-evidenced-eligible-volume-demand');
@@ -95,6 +102,8 @@ export function compileUberWarm3ZeroAddonDecision({
     monthlyCommittedCents:monthlyBaseCents,
     monthlyUncommittedOptionCents:!startupPurchased?startupPriceCents:0,
     availableBudgetObserved:budget,
+    budgetBasis,
+    expansionBudgetRequirementCents:!startupPurchased?affordabilityTarget:null,
     independentTelemetryReady:independentTelemetryReady===true,
     economicTruth:'Neither MailOptimal nor Winnr nor an internal warm-up network can create externally eligible prospects, demand, revenue, or real recipient trust. Never infer an effective inbox placement rate from quota counts.',
     truthBoundary:'Read-only decision, not spend or outreach authority. Warm-up is an optional experiment; exact provider status, billing and qualified-lead ledger must be refreshed before checkout.'

@@ -1,6 +1,7 @@
 // PHOENIX: deterministic, read-only founder-idea crossover retrieval.
 // No side effects, external model calls, or authority granted by idea text.
 import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 const STOP = new Set('the and for with that this from into over across have has would could should their they are its not all new make where more than then your through using each same only which being what when while such can how one two via onto every instead'.split(' '));
 export function tokens(value) {
   return (String(value).toLowerCase().match(/[a-z][a-z0-9-]{2,}/g) || []).filter(x => !STOP.has(x));
@@ -12,7 +13,7 @@ export function validateCorpus(ideas) {
     const x = ideas[k];
     const ordinal = x.ordinal ?? x.number;
     const id = 'founder-moonshot-' + String(k + 1).padStart(4, '0');
-    if (ordinal !== k + 1 || x.id !== id || typeof x.title !== 'string' || typeof x.body !== 'string' || !x.body.trim() || seen.has(x.id)) throw new Error('Corpus identity/body mismatch at ' + id);
+    if (ordinal !== k + 1 || x.id !== id || typeof x.title !== 'string' || typeof x.body !== 'string' || !x.body.trim() || (x.sha256 && createHash('sha256').update(x.body).digest('hex') !== x.sha256) || seen.has(x.id)) throw new Error('Corpus identity/body mismatch at ' + id);
     seen.add(x.id);
   }
   return ideas;
@@ -49,7 +50,9 @@ export function retrieveCrossovers(ideas, query, limit = 12) {
         for (const t of docs[k].keys()) if (docs[j].has(t)) common++;
         overlap = Math.max(overlap, common / Math.max(1, docs[k].size + docs[j].size - common));
       }
-      const m = scores[k] - .32 * overlap;
+      // Later ideas receive a bounded preference, never a substitute for evidence or relevance.
+      const latePrior = k >= 712 ? .12 : 0;
+      const m = scores[k] + latePrior - .32 * overlap;
       if (m > merit || (m === merit && k < best)) { merit = m; best = k; }
     }
     remaining.delete(best); selected.push(best);

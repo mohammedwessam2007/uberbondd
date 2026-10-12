@@ -43,7 +43,7 @@ const qualityLeads = Array.from({ length: 1000 }, (_, i) => ({
   safeForOutreach: true, verificationStatus: 'VERIFIED'
 }));
 
-test('UberReach can expose a 1000/day quality-preserving envelope without granting send authority', () => {
+test('UberReach never trusts a 1000/day nominal capacity without current receiver incident evidence', () => {
   const mailboxes = Array.from({ length: 200 }, (_, i) => mailbox(i));
   const mailboxObservations = Object.fromEntries(mailboxes.map(row => [row.mailboxId, observations()]));
   const result = compileUberReachReadiness({
@@ -62,8 +62,59 @@ test('UberReach can expose a 1000/day quality-preserving envelope without granti
     },
     now: NOW
   });
-  assert.equal(result.capacity.qualityPreservingDailyMax, 1000);
+  assert.equal(result.capacity.qualityPreservingDailyMax, 0);
+  assert.equal(result.receiverProtectionAppliedToCapacity, true);
+  assert.equal(result.receiverProtectionAuthenticated, false);
+  assert.equal(result.senderHealth.totalRecommendedDailyCap, 0);
   assert.equal(result.capacity.qualityFloorRelaxed, false);
   assert.equal(result.externalEffectAuthority, 'NONE');
   assert.equal(result.messagesSent, 0);
+});
+
+test('authenticated complete receiver incident snapshot preserves original bounded capacity envelope',()=>{
+ const mailboxes=Array.from({length:200},(_,i)=>mailbox(i));
+ const mailboxObservations=Object.fromEntries(mailboxes.map(row=>[row.mailboxId,observations()]));
+ const report={
+   status:'OBSERVED_RECEIVER_FEEDBACK_COMPILED',generatedAt:NOW.toISOString(),
+   decisions:mailboxes.map(x=>({senderEmail:x.address,state:'NO_OBSERVED_INCIDENT'})),
+   blockedProviderGroups:[],suppressionActions:[],messageNoRetryActions:[]
+ };
+ const result=compileUberReachReadiness({
+   mailboxes,mailboxObservations,
+   receiverProtection:report,verifyReceiverReport:()=>true,
+   capacityInputs:{
+     domains:[{domain:'uberbond.agency',status:'GREEN',observedColdDailyCap:500},
+       {domain:'uberbond.cloud',status:'GREEN',observedColdDailyCap:500}],
+     egress:{totalReadyColdDailyCap:1000},
+     recipientBudgets:[{provider:'aggregate',status:'READY',observedColdDailyCap:1000}],
+     leads:qualityLeads,
+     policy:{campaignDailyCeiling:1000,minLeadScore:0.82}
+   },
+   now:NOW
+ });
+ assert.equal(result.receiverProtectionAuthenticated,true);
+ assert.equal(result.capacity.qualityPreservingDailyMax,1000);
+ assert.equal(result.externalEffectAuthority,'NONE');
+ assert.equal(result.messagesSent,0);
+});
+test('verified fleet incident overrides 1000 historical capacity to zero for affected domains',()=>{
+ const mailboxes=Array.from({length:20},(_,i)=>mailbox(i));
+ const report={
+   status:'OBSERVED_RECEIVER_FEEDBACK_COMPILED',generatedAt:NOW.toISOString(),
+   decisions:mailboxes.map(m=>({senderEmail:m.address,state:'NO_OBSERVED_INCIDENT'})),
+   blockedProviderGroups:[{domain:'uberbond.agency',recipientProviderGroup:'GOOGLE_MX',state:'HOLD'}],
+   suppressionActions:[],messageNoRetryActions:[]
+ };
+ const result=compileUberReachReadiness({
+   mailboxes,mailboxObservations:Object.fromEntries(mailboxes.map(m=>[m.mailboxId,observations()])),
+   receiverProtection:report,verifyReceiverReport:()=>true,
+   capacityInputs:{
+     domains:[{domain:'uberbond.agency',status:'GREEN',observedColdDailyCap:1000}],
+     egress:{totalReadyColdDailyCap:1000},
+     recipientBudgets:[{status:'READY',observedColdDailyCap:1000}],
+     leads:qualityLeads
+   },now:NOW
+ });
+ assert.equal(result.capacity.qualityPreservingDailyMax,0);
+ assert.equal(result.senderHealth.readyMailboxCount,0);
 });

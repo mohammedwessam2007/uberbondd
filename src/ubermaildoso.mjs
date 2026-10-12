@@ -84,6 +84,15 @@ export function createUberMaildosoAdapter({
   const root=clean(baseUrl,500).replace(/\/+$/,'');
   const configured=Boolean(secret&&root&&typeof fetchImpl==='function');
   async function call(method,path,{query,body,mutation=false,action='',approval}={}){
+    // The source-of-truth zero paid-warming policy applies even when caller
+    // forged a "*" approval or tried to update an existing warm-up plan.
+    // Read-only inspection and separately owner-approved deletion remain.
+    if(mutation && (action==='createWarmup'||action==='updateWarmup'||
+      ((method==='POST'||method==='PUT'||method==='PATCH') &&
+        String(path).startsWith('/v1/user/services/warmups'))))
+      return {ok:false,status:'UBERBOND_ZERO_PAID_WARMUP_LOCK',
+        reasonCodes:['provider-paid-warmup-activation-disabled'],
+        providerCalls:0,externalEffects:0};
     if(!configured)return {ok:false,status:'UBERMAILDOSO_NOT_CONFIGURED',reasonCodes:['maildoso-token-required'],providerCalls:0};
     if(mutation){
       const reasons=approvalReasons(approval,action);

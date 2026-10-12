@@ -108,7 +108,8 @@ export function compileUberWarm2SeedBatch({
  * A submit timeout remains UNKNOWN and never auto-retries.
  */
 export async function executeUberWarm2SeedProbe({
-  batch, probeId, approval, approvalVerificationKey='', store, transport, now = new Date()
+  batch, probeId, approval, approvalVerificationKey='', store, transport,
+  verifyCurrentSenderHealth, verifyCurrentSeedConsent, now = new Date()
 } = {}) {
   const at = finiteTime(now);
   if (at === null || !batch?.ok || !Array.isArray(batch.probes)) return denied('UBERWARM2_EXECUTION_REFUSED', ['invalid-batch-or-clock']);
@@ -129,6 +130,19 @@ export async function executeUberWarm2SeedProbe({
     return denied('UBERWARM2_DURABLE_LEDGER_REQUIRED', ['atomic-reservation-and-caps-adapter-required']);
   if (!transport || typeof transport.sendOwnedSeed !== 'function')
     return denied('UBERWARM2_TRANSPORT_REQUIRED', ['owner-approved-smtp-adapter-required']);
+  // Immutable approval alone cannot override a quarantine or recipient
+  // withdrawal that occurred after the original manifest was compiled.
+  // Fresh truth must come from protected live provider + opt-in registries.
+  let senderFresh=false,consentFresh=false;
+  try { senderFresh=typeof verifyCurrentSenderHealth==='function'&&
+    await verifyCurrentSenderHealth(probe.senderEmail,at)===true; } catch {}
+  try { consentFresh=typeof verifyCurrentSeedConsent==='function'&&
+    await verifyCurrentSeedConsent(probe.seedEmail,probe.probeId,at)===true; } catch {}
+  if(!senderFresh || !consentFresh)
+    return denied('UBERWARM2_LIVE_PREFLIGHT_REFUSED',[
+      ...(!senderFresh?['fresh-sender-health-or-quarantine-evidence-required']:[]),
+      ...(!consentFresh?['fresh-recipient-consent-evidence-required']:[])
+    ]);
   const reservationKey = `uberwarm2-seed:${sha([batch.batchDigest, probe.probeId])}`;
   const reservation = {
     reservationKey, probeId: probe.probeId, batchDigest: batch.batchDigest,

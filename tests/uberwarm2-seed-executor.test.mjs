@@ -2,11 +2,15 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { compilePlacementProbePlan, compilePlacementReport } from '../src/uberplacement.mjs';
 import {
-  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe,
+  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as rawExecuteSeedProbe,
   compileUberWarm2ReceivedEvidence, createUberWarm2SeedApprovalProof
 } from '../src/uberwarm2-seed-executor.mjs';
 
 const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
+const executeUberWarm2SeedProbe = args => rawExecuteSeedProbe({
+  ...args,verifyCurrentSenderHealth: async()=>true,
+  verifyCurrentSeedConsent: async()=>true
+});
 const T = new Date('2026-10-12T18:00:00.000Z');
 const T1 = new Date('2026-10-12T18:02:00.000Z');
 const T2 = new Date('2026-10-12T18:03:00.000Z');
@@ -237,4 +241,35 @@ test('recipient inbox evidence with only a forged string reference is rejected',
   });
   assert.equal(result.acceptedObservations,0);
   assert.ok(result.exclusions[0].reasonCodes.includes('authenticated-receiving-provider-verification-required'));
+});
+
+test('recipient withdrawal or new sender quarantine between plan and send blocks SMTP',async()=>{
+ const b=batch(),tx=transport(),s=store(),p=b.probes[0];
+ const blocked=await rawExecuteSeedProbe({
+   batch:b,probeId:p.probeId,approval:approval(b),
+   approvalVerificationKey:KEY,store:s,transport:tx,now:T1,
+   verifyCurrentSenderHealth:async()=>false,
+   verifyCurrentSeedConsent:async()=>true
+ });
+ assert.equal(blocked.status,'UBERWARM2_LIVE_PREFLIGHT_REFUSED');
+ assert.equal(tx.calls.length,0);
+ assert.equal(s.seen.size,0);
+ const withdrawn=await rawExecuteSeedProbe({
+   batch:b,probeId:p.probeId,approval:approval(b),
+   approvalVerificationKey:KEY,store:s,transport:tx,now:T1,
+   verifyCurrentSenderHealth:async()=>true,
+   verifyCurrentSeedConsent:async()=>false
+ });
+ assert.equal(withdrawn.status,'UBERWARM2_LIVE_PREFLIGHT_REFUSED');
+ assert.equal(tx.calls.length,0);
+ assert.equal(s.seen.size,0);
+});
+test('no trusted latest-sender-and-consent verifier means no send even with valid owner approval',async()=>{
+ const b=batch(),tx=transport(),s=store(),p=b.probes[0];
+ const result=await rawExecuteSeedProbe({
+   batch:b,probeId:p.probeId,approval:approval(b),
+   approvalVerificationKey:KEY,store:s,transport:tx,now:T1
+ });
+ assert.equal(result.status,'UBERWARM2_LIVE_PREFLIGHT_REFUSED');
+ assert.equal(tx.calls.length,0);
 });

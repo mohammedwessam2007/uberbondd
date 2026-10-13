@@ -83,14 +83,45 @@ export async function connectImapSocket({host,port=993,secure=true,timeoutMs=100
   error.reasonCodes=failures;
   throw error;
 }
-function literalFromFetch(buffer){
+// Walks an IMAP response the way a client must: a literal is skipped by its declared byte length, so text inside
+// a message body can never complete a command or start a fetch response. Returns the first non-undefined verdict of
+// visit(), or null when the response is incomplete or no verdict was reached.
+function walkImapResponse(buffer,visit){
   const latin=buffer.toString('latin1');
-  const m=latin.match(/BODY(?:\.PEEK)?\[\]\s+\{(\d+)\}\r\n/i);
-  if(!m)return null;
-  const start=m.index+m[0].length;
-  const len=Number(m[1]);
-  if(!Number.isFinite(len)||len<0||start+len>buffer.length)return null;
-  return buffer.subarray(start,start+len);
+  let i=0;
+  while(i<latin.length){
+    const eol=latin.indexOf('\r\n',i);
+    if(eol<0)return null;
+    const line=latin.slice(i,eol);
+    const lit=line.match(/\{(\d+)\}$/);
+    if(lit){
+      const len=Number(lit[1]);
+      const start=eol+2;
+      if(!Number.isSafeInteger(len)||start+len>latin.length)return null;
+      const verdict=visit({line,literal:buffer.subarray(start,start+len)});
+      if(verdict!==undefined)return verdict;
+      i=start+len;
+      continue;
+    }
+    const verdict=visit({line,literal:null});
+    if(verdict!==undefined)return verdict;
+    i=eol+2;
+  }
+  return null;
+}
+// OK, NO or BAD for our own tag, read only from a real response line; null while incomplete or absent.
+function imapTaggedStatus(buffer,tag){
+  return walkImapResponse(buffer,({line})=>{
+    const m=line.match(/^(\S+) (OK|NO|BAD)(?:\s|$)/i);
+    return m&&m[1]===tag?m[2].toUpperCase():undefined;
+  });
+}
+// The BODY[] literal of a single FETCH response, framed by declared length.
+function literalFromFetch(buffer){
+  return walkImapResponse(buffer,({line,literal})=>{
+    if(literal&&/BODY(?:\.PEEK)?\[\]\s+\{\d+\}$/i.test(line))return Buffer.from(literal);
+    return undefined;
+  });
 }
 function headerMap(text){
   const head=String(text||'').replace(/\r?\n[ \t]+/g,' ');
@@ -140,6 +171,16 @@ export function parseRawEmail(value){
   const from=clean(headers.from,1000);
   const fromEmail=(from.match(/<([^>]+@[^>]+)>/)?.[1]||from.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0]||'').toLowerCase();
   const refs=String(headers.references||'').match(/<[^>]+>/g)||[];
+  // Lower-cased top-level media type only (e.g. 'multipart/report'), '' when absent.
+  const contentType=String(headers['content-type']||'').match(/^\s*([^\s;,]+)/)?.[1]?.toLowerCase()||'';
+  // RFC 3834: any Auto-Submitted value other than 'no' marks a machine-generated message.
+  const autoSubmittedHeader=String(headers['auto-submitted']||'').trim();
+  const autoSubmitted=autoSubmittedHeader.length>0&&!/^no$/i.test(autoSubmittedHeader);
+  // Complaint (ARF) and unsubscribe signals the pipeline consumes. Derived from headers and the body only, bounded.
+  const reportType=String(headers['content-type']||'').match(/report-type\s*=\s*"?([^";\s]+)"?/i)?.[1]?.toLowerCase()||'';
+  const listUnsubscribe=clean(headers['list-unsubscribe'],1000)||'';
+  const bodyPart=split>=0?raw.slice(split):'';
+  const embeddedMessageIds=[...new Set((bodyPart.match(/^message-id:\s*<[^>\r\n]+>/gim)||[]).map(line=>clean(line.replace(/^message-id:\s*/i,''),500)))].slice(0,20);
   return {
     id:clean(headers['message-id'],500)||`imapmsg:${hash(raw).slice(0,32)}`,
     messageId:clean(headers['message-id'],500)||null,
@@ -147,6 +188,7 @@ export function parseRawEmail(value){
     references:refs.map(x=>clean(x,500)),
     from,fromEmail,to:clean(headers.to,1000),subject:clean(headers.subject,1000),
     date:clean(headers.date,200)||null,
+    contentType,autoSubmitted,reportType,listUnsubscribe,embeddedMessageIds,
     body:bodyText(raw,headers)
   };
 }
@@ -176,6 +218,11 @@ export function openImapCredential(account={},encryptionKey=''){
   if(x?.kind!=='imap-basic'||!clean(x.username,500)||!String(x.password||''))throw new Error('invalid-encrypted-imap-account-credential');
   return {username:clean(x.username,500),password:String(x.password)};
 }
+// The [UIDVALIDITY n] response code from SELECT; 0 when the server did not report one.
+function uidValidityFrom(buffer){
+  const value=Number(buffer.toString('utf8').match(/\[UIDVALIDITY\s+(\d+)\]/i)?.[1]);
+  return Number.isSafeInteger(value)&&value>0?value:0;
+}
 export function createUberImapReader({
   host='',port=993,secure=true,username='',password='',authorized=false,termsCompatible=false,evidenceRef='',
   connectFactory=connectImapSocket,timeoutMs=30000
@@ -184,6 +231,7 @@ export function createUberImapReader({
   if(!h)reasons.push('imap-host-required');
   if(!Number.isInteger(p)||p<1||p>65535)reasons.push('valid-imap-port-required');
   if(!username||!password)reasons.push('imap-credential-pair-required');
+  if(/[\r\n\0]/.test(String(username)+String(password)))reasons.push('imap-credential-control-characters-refused');
   if(authorized!==true)reasons.push('imap-route-authorization-required');
   if(termsCompatible!==true)reasons.push('imap-route-terms-compatibility-required');
   if(!clean(evidenceRef,1500))reasons.push('imap-route-evidence-required');
@@ -191,34 +239,61 @@ export function createUberImapReader({
   if(reasons.length)return {ok:false,status:'UBERIMAP_READER_REFUSED',reasonCodes:reasons,providerCalls:0};
   return {
     ok:true,status:'UBERIMAP_READER_READY',
-    async fetchRecent({sinceMs=Date.now()-86400000,afterUid=0,limit=100}={}){
+    async fetchRecent({sinceMs=Date.now()-86400000,afterUid=0,limit=100,expectedUidValidity=0}={}){
       const socket=await connectFactory({host:h,port:p,secure:secure!==false,timeoutMs});
       let n=0;
       const command=async line=>{
         const tag=`UB${String(++n).padStart(4,'0')}`;
-        const waiter=waitForData(socket,b=>new RegExp(`(?:^|\\r\\n)${tag} (OK|NO|BAD)\\b`,'i').test(b.toString('latin1')),{timeoutMs,maxBytes:12*1024*1024});
+        const waiter=waitForData(socket,b=>imapTaggedStatus(b,tag)!==null,{timeoutMs,maxBytes:12*1024*1024});
         socket.write(`${tag} ${line}\r\n`);
         const buf=await waiter;
-        const txt=buf.toString('utf8');
-        if(!new RegExp(`(?:^|\\r\\n)${tag} OK\\b`,'i').test(txt))throw new Error(`imap-command-rejected:${clean(txt.slice(-1000),1000)}`);
+        if(imapTaggedStatus(buf,tag)!=='OK')throw new Error(`imap-command-rejected:${clean(buf.toString('utf8').slice(-1000),1000)}`);
         return buf;
       };
       try{
         await command(`LOGIN ${quote(username)} ${quote(password)}`);
-        await command('SELECT INBOX');
-        const q=Number(afterUid)>0?`UID SEARCH UID ${Math.floor(Number(afterUid))+1}:*`:`UID SEARCH SINCE ${imapDate(sinceMs)}`;
+        const selected=await command('SELECT INBOX');
+        const uidValidity=uidValidityFrom(selected);
+        const expected=Math.max(0,Math.floor(Number(expectedUidValidity)||0));
+        if(expected>0){
+          // A mailbox whose UIDVALIDITY no longer matches has reassigned its UIDs, so a
+          // stored cursor means nothing. Fetching nothing is the only safe answer.
+          if(uidValidity===0){
+            try{await command('LOGOUT');}catch{}
+            return {ok:false,status:'UBERIMAP_UIDVALIDITY_UNAVAILABLE',reasonCodes:['imap-uidvalidity-not-reported'],uidValidity:0,messages:[],lastUid:0,providerCalls:1};
+          }
+          if(uidValidity!==expected){
+            try{await command('LOGOUT');}catch{}
+            return {ok:true,status:'UBERIMAP_UIDVALIDITY_CHANGED',uidValidity,messages:[],lastUid:0,providerCalls:1};
+          }
+        }
+        const after=Math.max(0,Math.floor(Number(afterUid)||0));
+        const q=after>0?`UID SEARCH UID ${after+1}:*`:`UID SEARCH SINCE ${imapDate(sinceMs)}`;
         const search=await command(q);
         const line=search.toString('utf8').split(/\r?\n/).find(x=>/^\* SEARCH(?:\s|$)/i.test(x))||'';
-        const uids=line.replace(/^\* SEARCH\s*/i,'').trim().split(/\s+/).map(Number).filter(Number.isSafeInteger).filter(uid=>uid>0);
-        const chosen=uids.slice(-Math.max(1,Math.min(500,Number(limit)||100)));
+        const uids=[...new Set(line.replace(/^\* SEARCH\s*/i,'').trim().split(/\s+/).map(Number).filter(Number.isSafeInteger).filter(uid=>uid>0))];
+        // Ascending cursor: only UIDs strictly newer than the cursor, oldest first, so an
+        // older unseen UID is never skipped. UID n:* can echo the newest existing UID even
+        // when that UID is not newer than n, so the strict filter is what keeps quiet polls quiet.
+        const candidates=uids.filter(uid=>uid>after).sort((a,b)=>a-b);
+        const chosen=candidates.slice(0,Math.max(1,Math.min(500,Number(limit)||100)));
+        const hasMore=candidates.length>chosen.length;
         const messages=[];
+        let lastGood=after,failedUid=0;
         for(const uid of chosen){
-          const fetched=await command(`UID FETCH ${uid} (BODY.PEEK[])`);
-          const literal=literalFromFetch(fetched); if(!literal)continue;
+          let literal=null;
+          try{literal=literalFromFetch(await command(`UID FETCH ${uid} (BODY.PEEK[])`));}catch{literal=null;}
+          // A UID whose body cannot be read ends the batch here. The cursor stays below it, so nothing after it is
+          // skipped; the pipeline decides whether it is retried or quarantined after repeated failures.
+          if(!literal){failedUid=uid;break;}
           messages.push({uid,...parseRawEmail(literal)});
+          lastGood=uid;
         }
         try{await command('LOGOUT');}catch{}
-        return {ok:true,status:'UBERIMAP_FETCH_CONFIRMED',providerCalls:1,messages,lastUid:chosen.length?Math.max(...chosen):Number(afterUid)||0,evidenceRef:clean(evidenceRef,1500)};
+        if(failedUid){
+          return {ok:true,status:'UBERIMAP_FETCH_PARTIAL',providerCalls:1,messages,lastUid:lastGood,failedUid,hasMore,uidValidity,evidenceRef:clean(evidenceRef,1500)};
+        }
+        return {ok:true,status:'UBERIMAP_FETCH_CONFIRMED',providerCalls:1,uidValidity,messages,lastUid:chosen.length?chosen[chosen.length-1]:after,hasMore,evidenceRef:clean(evidenceRef,1500)};
       }finally{socket.end();}
     }
   };
@@ -229,5 +304,9 @@ export async function pollImapForwardingAccount({account={},encryptionKey='',rea
   const route=account.imapRoute||{};
   const reader=readerFactory({host:route.host,port:route.port,secure:route.secure!==false,username:credential.username,password:credential.password,authorized:route.authorized===true,termsCompatible:route.termsCompatible===true,evidenceRef:route.evidenceRef});
   if(!reader?.ok)return reader;
-  return reader.fetchRecent({sinceMs:account.lastReplyPoll||Date.now()-86400000,afterUid:account.lastImapUid||0,limit});
+  const result=await reader.fetchRecent({
+    sinceMs:account.lastReplyPoll||Date.now()-86400000,afterUid:account.lastImapUid||0,limit,
+    expectedUidValidity:Number(account.lastImapUidValidity)||0
+  });
+  return {...result,uidValidity:Number(result?.uidValidity)||0};
 }

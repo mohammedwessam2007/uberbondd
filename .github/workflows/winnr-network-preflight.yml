@@ -1,0 +1,36 @@
+name: Winnr network preflight
+
+# Network-only reachability check for the Winnr SMTP and IMAP endpoints from a GitHub-hosted runner.
+# It uses no secrets, no credentials and no database, and it writes nothing to any server. It runs only when this
+# workflow or its script changes on the Winnr fleet branch, so it cannot fire on main or as a deploy step.
+
+on:
+  push:
+    branches:
+      - claude/winnr-fleet-integration-2026-10-13
+    paths:
+      - '.github/workflows/winnr-network-preflight.yml'
+      - 'scripts/winnr-network-preflight.mjs'
+
+permissions:
+  contents: read
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Network-only reachability (no credentials)
+        run: node scripts/winnr-network-preflight.mjs --out=winnr-network-preflight.json
+      - name: Upload the report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winnr-network-preflight
+          path: winnr-network-preflight.json
+          if-no-files-found: warn
+          retention-days: 14

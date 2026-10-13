@@ -10,7 +10,7 @@ export const COLLECTIONS = [
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
   'outboundReservations', 'senderHealth', 'outboundEvents', 'providerEvents', 'leadLists', 'replyDrafts', 'automationPlans', 'automationRuns',
-  'leadSearches', 'leadSignals', 'leadEnrichmentRuns', 'leadIntakeEvents', 'leadFieldResults', 'leadTasks', 'phoenixCapsules'
+  'leadSearches', 'leadSignals', 'leadEnrichmentRuns', 'leadIntakeEvents', 'leadFieldResults', 'leadTasks', 'phoenixCapsules', 'unlinkedReplies'
 ];
 
 const EMPTY = {
@@ -20,7 +20,7 @@ const EMPTY = {
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
   outboundReservations: [], senderHealth: [], outboundEvents: [], providerEvents: [], leadLists: [], replyDrafts: [], automationPlans: [], automationRuns: [],
-  leadSearches: [], leadSignals: [], leadEnrichmentRuns: [], leadIntakeEvents: [], leadFieldResults: [], leadTasks: [], phoenixCapsules: []
+  leadSearches: [], leadSignals: [], leadEnrichmentRuns: [], leadIntakeEvents: [], leadFieldResults: [], leadTasks: [], phoenixCapsules: [], unlinkedReplies: []
 };
 
 const MAP = {
@@ -144,6 +144,7 @@ const MAP = {
     columns: { prospectId: 'prospect_id', accountKey: 'account_key', taskType: 'task_type', status: 'status', priority: 'priority', dueAt: 'due_at', createdAt: 'created_at', updatedAt: 'updated_at' }
   },
   phoenixCapsules: { table: 'phoenix_capsules', columns: { sessionId: 'session_id', digest: 'digest', entryCount: 'entry_count', createdAt: 'created_at' } },
+  unlinkedReplies: { table: 'unlinked_replies', columns: { accountSlot: 'account_slot', receivedAt: 'received_at', createdAt: 'created_at', updatedAt: 'updated_at' } },
 };
 
 export class StoreError extends Error {

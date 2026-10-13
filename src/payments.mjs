@@ -138,8 +138,16 @@ export function classifyPaymentEvent({ event, lead, cfg = {} } = {}) {
       return { ...base, classification: 'REVIEW_REQUIRED' };
     }
   }
-  if (isPaymentBearing && event.testMode && !cfg.revenue?.allowTestUnlock) {
+  // Money-moving events include refunds: a test refund must never move real revenue either.
+  const moneyBearing = isPaymentBearing || REFUND_EVENTS.has(event.eventName);
+  if (moneyBearing && event.testMode && !cfg.revenue?.allowTestUnlock) {
     reasonCodes.push('test-mode-event-rejected');
+    return { ...base, classification: 'INVALID_OR_UNSUPPORTED' };
+  }
+  // A sandbox or test environment never becomes cleared cash, whatever the testMode flag says and whatever the
+  // test-unlock setting allows. The test-unlock path exists for non-production unlocks, not for revenue.
+  if (moneyBearing && ['sandbox', 'test'].includes(String(event.environment || '').toLowerCase())) {
+    reasonCodes.push('sandbox-environment-event-rejected');
     return { ...base, classification: 'INVALID_OR_UNSUPPORTED' };
   }
 

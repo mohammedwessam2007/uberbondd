@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "uberbond.winnr-fleet-integration-receipt.v2",
+  "generatedAt": "2026-10-13T13:13:01.484Z",
+  "baseCommitShort": "4ea739b1d80b",
+  "ownerAttestation": {
+    "kind": "owner-mission",
+    "mission": "UBERBOND_WINNR_FLEET_FINAL_INTEGRATION",
+    "dated": "2026-10-13"
+  },
+  "phases": {
+    "read": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:37:20.481Z",
+      "finishedAt": "2026-10-13T12:37:22.552Z",
+      "result": {
+        "plan": "startup",
+        "providerSeatsUsed": 50,
+        "providerSeatsLimit": 50,
+        "stripeSubscriptionStatus": "active",
+        "prewarmedSubscriptionStatus": "trialing",
+        "grantedScopes": [
+          "read",
+          "write"
+        ],
+        "startupDomains": 10,
+        "startupDomainsDnsHealthy": 10,
+        "startupDomainsRegistrarExternal": 10,
+        "startupDomainsPrewarmedTagged": 0,
+        "startupAccounts": 50,
+        "startupAccountsActive": 50,
+        "pilotDomains": 1,
+        "pilotAccounts": 3,
+        "pilotAccountsActive": 3
+      }
+    },
+    "export": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:37:25.844Z",
+      "finishedAt": "2026-10-13T12:37:26.887Z",
+      "result": {
+        "exportStatus": "UBERWINNR_WRITE_CONFIRMED",
+        "requestedDomains": 10,
+        "providerReportedCount": 50,
+        "skippedCount": 0,
+        "downloadHttpStatus": 200,
+        "csvRows": 50,
+        "csvDomains": 10,
+        "csvDomainsAllRequested": true,
+        "pilotRowsInExport": 0,
+        "credentialsReturned": false
+      }
+    },
+    "validate": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:37:26.888Z",
+      "finishedAt": "2026-10-13T12:37:26.892Z",
+      "result": {
+        "csvRows": 50,
+        "domainColumnMismatches": 0,
+        "crossCheckedRows": 50,
+        "crossCheckMismatchReasons": {},
+        "domainsReconciledToProvider": 10,
+        "credentialFieldRows": 50,
+        "imapCredentialFieldRows": 50
+      }
+    },
+    "register": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:37:29.940Z",
+      "finishedAt": "2026-10-13T12:37:30.025Z",
+      "result": {
+        "planStatus": "WINNR_POSTPURCHASE_FLEET_PLAN_READY",
+        "domainCount": 10,
+        "accountCount": 50,
+        "ownershipStatusCounts": {
+          "OWNER_CONFIRMED": 10
+        },
+        "classificationCounts": {
+          "CUSTOMER_OWNED_WINNR_DNS": 10
+        },
+        "prewarmedRegistrations": 0,
+        "applyStatus": "WINNR_POSTPURCHASE_FLEET_REGISTRY_APPLIED",
+        "eventsWritten": 110,
+        "applyReasonCodes": []
+      }
+    },
+    "import": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:37:30.026Z",
+      "finishedAt": "2026-10-13T12:37:30.240Z",
+      "result": {
+        "encryptionKeyLabel": "STAGING_ISOLATED_NOT_PRODUCTION_COMPATIBLE",
+        "productionCompatible": false,
+        "importStatus": "IMPORT_READY",
+        "inputRowCount": 50,
+        "preparedCount": 50,
+        "failureCount": 0,
+        "failureReasonCounts": {},
+        "smtpAccountsStored": 50,
+        "imapAccountsStored": 50,
+        "pendingSmtpProbePauses": 50,
+        "plaintextCredentialReturned": false
+      }
+    },
+    "probe-smtp": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:56:05.535Z",
+      "finishedAt": "2026-10-13T13:04:26.428Z",
+      "result": {
+        "encryptionKeyLabel": "STAGING_ISOLATED_NOT_PRODUCTION_COMPATIBLE",
+        "status": "WINNR_SMTP_AUTH_NOOP_PARTIAL",
+        "accountCount": 50,
+        "checkedAccounts": 50,
+        "readyAccounts": 0,
+        "failedAccounts": 50,
+        "providerContactedAccounts": 50,
+        "providerCallsComplete": true,
+        "classificationCounts": {
+          "UNCERTAIN": 50
+        },
+        "errorClassCounts": {
+          "CONNECT_TIMEOUT": 50
+        },
+        "messagesSent": 0,
+        "mailFromIssued": false,
+        "recipientsIssued": 0,
+        "dataIssued": false
+      }
+    },
+    "probe-imap": {
+      "ok": true,
+      "startedAt": "2026-10-13T13:04:26.429Z",
+      "finishedAt": "2026-10-13T13:12:46.985Z",
+      "result": {
+        "encryptionKeyLabel": "STAGING_ISOLATED_NOT_PRODUCTION_COMPATIBLE",
+        "accountCount": 50,
+        "loginAccepted": 0,
+        "classificationCounts": {
+          "TRANSPORT_UNREACHABLE": 50
+        },
+        "errorClassCounts": {
+          "ETIMEDOUT+ENOTFOUND": 50
+        },
+        "foldersSelected": 0,
+        "messageContentRead": 0,
+        "messagesSent": 0
+      }
+    },
+    "pilot-check": {
+      "ok": true,
+      "startedAt": "2026-10-13T13:12:54.348Z",
+      "finishedAt": "2026-10-13T13:12:55.588Z",
+      "result": {
+        "pilotAccountsBefore": 3,
+        "pilotAccountsPreserved": 3,
+        "pilotDomainsBefore": 1,
+        "pilotDomainsPreserved": 1,
+        "startupAccountsAfter": 50,
+        "startupAccountsActiveAfter": 50,
+        "providerSeatsUsedAfter": 50
+      }
+    },
+    "network-diagnostic": {
+      "ok": true,
+      "startedAt": "2026-10-13T12:55:30.160Z",
+      "finishedAt": "2026-10-13T12:56:00.230Z",
+      "result": {
+        "results": [
+          {
+            "label": "control-https-443",
+            "outcome": "TCP_CONNECTED"
+          },
+          {
+            "label": "smtp-submission-465",
+            "outcome": "CONNECT_TIMEOUT"
+          },
+          {
+            "label": "smtp-submission-587",
+            "outcome": "CONNECT_TIMEOUT"
+          },
+          {
+            "label": "imap-993",
+            "outcome": "CONNECT_TIMEOUT"
+          }
+        ],
+        "bytesWritten": 0,
+        "credentialsUsed": false,
+        "authenticationAttempted": false
+      }
+    },
+    "reconcile": {
+      "ok": true,
+      "startedAt": "2026-10-13T13:12:54.325Z",
+      "finishedAt": "2026-10-13T13:12:54.346Z",
+      "result": {
+        "status": "RECONCILED",
+        "counts": {
+          "startupAccounts": 50,
+          "startupAccountsActive": 50,
+          "pilotAccounts": 3,
+          "localSmtpAccounts": 50,
+          "localImapAccounts": 50,
+          "missingLocalAccounts": 0,
+          "duplicateLocalAccounts": 0,
+          "orphanLocalAccounts": 0,
+          "smtp": {
+            "READY": 0,
+            "AUTH_REJECTED": 0,
+            "NETWORK_BLOCKED": 50,
+            "TLS_FAILED": 0,
+            "FAILED_UNCLASSIFIED": 0,
+            "HELD": 0,
+            "UNTESTED": 0
+          },
+          "imap": {
+            "LOGIN_ACCEPTED": 0,
+            "AUTH_REJECTED": 0,
+            "NETWORK_BLOCKED": 50,
+            "TLS_FAILED": 0,
+            "CREDENTIAL_UNAVAILABLE": 0,
+            "FAILED_UNCLASSIFIED": 0,
+            "UNTESTED": 0
+          },
+          "pausedSmtp": 50,
+          "domainsControlConfirmed": 50,
+          "infrastructureReady": 0,
+          "outboundEligible": 0
+        },
+        "checks": {
+          "smtpChecked": 50,
+          "imapChecked": 50,
+          "smtpUntested": 0,
+          "imapUntested": 0
+        },
+        "issues": [],
+        "outboundAuthorityGranted": false,
+        "messagesSent": 0
+      }
+    }
+  }
+}

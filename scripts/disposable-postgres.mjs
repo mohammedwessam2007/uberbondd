@@ -66,7 +66,10 @@ export async function withDisposablePostgres(body) {
     password: 'password',
     port,
     persistent: false,
-    createPostgresUser: true,
+    // Only root needs a postgres OS user created for it. A non-root CI runner
+    // (GitHub's `runner`) cannot run groupadd/useradd, so asking for one there
+    // throws before initdb. Postgres then runs as the current non-root user.
+    createPostgresUser: process.getuid?.() === 0,
     // Deleted when this returns, so an fsync buys nothing -- there is no crash
     // it could survive. On throttled container I/O the cost is not just
     // slowness: a write can sit in a backend `active`, holding no lock and

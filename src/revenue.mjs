@@ -695,7 +695,9 @@ export class RevenueEngine {
             && String(row.leadId || '') === String(event.custom.lead_id || '')
             && String(row.prospectId || '') === String(event.custom.prospect_id || '')
             && String(row.product || '') === String(event.custom.product || '')
-            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase());
+            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase()
+            // A test-mode refund must never attach to a live order, or the other way round.
+            && Boolean(row.testMode) === Boolean(event.testMode));
           if (candidates.length === 1) {
             relatedOrders = candidates;
             nonFatalStateReasonCodes.push('refund-object-linkage-fallback');

@@ -1,5 +1,11 @@
 # Winnr Current State
 
+> **Superseded 2026-10-13.** The Startup plan is active: 50 of 50 Startup mailboxes on 10 Startup domains, 3 pilots
+> preserved. Live authentication is **not** verified: sandbox egress blocks SMTP 465/587 and IMAP 993 (443 control
+> connects). Latest verified state: `docs/handoffs/WINNR_FLEET_FINAL_INTEGRATION_PHOENIX_2026-10-13.md` and
+> `winnr/receipts/FLEET_INTEGRATION_RECEIPT_20261013.json`. Statements below that the Startup route is unpurchased are historical.
+
+
 Terminal re-observation `2026-10-04T12:27:08.908Z`: current IMAP3/3healthy, one attempt each, recent historical canaries absent, no commercial reply or new SMTP/placement proof. Exact implementation `a80bec3cd92c153cca4c4b01a00bda8355c67d66` / `dep-db14bjdg1s2s738gghhg`; final documentation-publication deploy is in newest issue#1188 terminal comment. Quarantine and all custody preserved.
 
 Updated: 2026-10-04

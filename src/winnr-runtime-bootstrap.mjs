@@ -1,7 +1,7 @@
 import { createStore } from './store.mjs';
 import { createWinnrApiClient } from './uberwinnr-adapter.mjs';
 import { compileWinnrPostPurchaseRegistryPlan, applyWinnrPostPurchaseRegistryPlan } from './uberwinnr-postpurchase.mjs';
-import { compileWinnrCredentialImport } from './uberwinnr-credential-import.mjs';
+import { compileWinnrCredentialImport, inspectWinnrCredentialExport } from './uberwinnr-credential-import.mjs';
 import { dispatchSmtpFleetAccount } from './uberfleet.mjs';
 import { pollImapForwardingAccount } from './uberimap.mjs';
 
@@ -30,6 +30,10 @@ export async function runWinnrRuntimeBootstrap({
 }={}){
   const startedAt=new Date().toISOString();
   const reasons=[];
+  // Ordinals are positions in the CSV, not identities. A skip list is only meaningful for the three-mailbox pilot,
+  // so a larger export refuses it before any store write or provider contact rather than skipping the wrong sender.
+  const skipCount=(Array.isArray(smtpSkipOrdinals)?smtpSkipOrdinals:[]).filter(n=>Number.isInteger(Number(n))&&Number(n)>0).length;
+  if(skipCount>0&&inspectWinnrCredentialExport(csvText).rowCount>3)return {ok:false,status:'WINNR_RUNTIME_BOOTSTRAP_REFUSED',reasonCodes:['ordinal-skip-requires-slot-keys'],providerCalls:0,messagesSent:0,startedAt};
   if(!config)reasons.push('config-required');
   if(!clean(csvText,2_000_000))reasons.push('credential-export-required');
   if(!/^[a-f0-9]{64}$/i.test(String(config?.encryptionKey||'')))reasons.push('token-encryption-key-required');
@@ -133,7 +137,7 @@ export async function runWinnrRuntimeBootstrap({
         smtpClassification:smtp?.classification||'UNKNOWN',
         smtpReasonCodes:Array.isArray(smtp?.reasonCodes)?smtp.reasonCodes.map(x=>clean(x,120)).slice(0,5):[],
         smtpError:clean(smtp?.dispatchError,300)||null,
-        imapConfirmed:imap?.ok===true,
+        imapConfirmed:imap?.ok===true&&imap?.status==='UBERIMAP_FETCH_CONFIRMED',
         imapStatus:imap?.status||'UNKNOWN'
       });
     }

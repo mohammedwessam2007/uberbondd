@@ -50,10 +50,24 @@ This resolves the earlier "Startup unpurchased" concern (see Code gaps below): t
 
 - **Export response contract is unverified.** The adapter's `exportMailboxes` posts to `/export`, which may be asynchronous (`/jobs`). Its response shape and how the CSV is delivered have not been observed. The importer expects Winnr's generic credential CSV. Do not write the runner against a guessed shape; capture one real response first.
 - **No fleet runner exists yet.** `runWinnrRuntimeBootstrap` is single-domain and sends canary emails through `dispatchSmtpFleetAccount`. It must not be used for this run. The no-send path is `runWinnrSmtpReadinessProbe` (EHLO/AUTH/NOOP/QUIT only, verified in `src/ubersmtp-submission-adapter.mjs`), and IMAP is checked with `pollImapForwardingAccount`.
-- **Positional quarantine.** `applyWinnrPlacementQuarantine` refuses unless exactly three Winnr accounts exist, so it fails closed at 53 accounts. The readiness probe's `WINNR_PLACEMENT_QUARANTINE_ORDINALS` skip is positional over accounts sorted by a hash-derived id, so with a 53-account fleet it can skip a Startup account instead of the pilot. Pilot safety still holds through the durable slot-keyed sender pause on the quarantined pilot mailbox, which the probe honours. Recommended: key the skip by slot before the live run.
+- **Positional quarantine (fixed in code, operator step required).** The readiness probe now refuses ordinal-only holds once more than three Winnr accounts exist (`ordinal-quarantine-requires-slot-keys`), and accepts `WINNR_PLACEMENT_QUARANTINE_SLOTS` for explicit slot holds. Before the live run, unset `WINNR_PLACEMENT_QUARANTINE_ORDINALS` and set `WINNR_PLACEMENT_QUARANTINE_SLOTS` to the exact `winnr:<address>` slot of the quarantined pilot mailbox, after confirming it from the store. The durable senderHealth pause on that mailbox still applies independently.
 - **Docs are older than the live account.** `winnr/CURRENT_STATE.md` and `winnr/NEXT_STEPS.md` (2026-10-04) say the $69 Startup route was unpurchased. The read-only connector now shows the Startup plan and 50 active mailboxes, so those two files should be updated in a later docs change.
 - **Required owner action for export.** Reconnect the Winnr connector with write scope (https://app.winnr.app/mcp), or provide a Read + Write token as described above. Either path must still satisfy the authorization flags and the production encryption key requirement.
 
 ## Truth boundary
 
 Nothing here proves provider entitlement, export success, credential validity, SMTP/IMAP authentication, placement, deliverability, customer demand or cleared revenue. Those remain unobserved.
+
+## Adversarial review of ffc018b (workflow wf_f8338dfe-1ad)
+
+Nine agents: three lenses (identity, credential safety, regression), each finding verified by a refuter. Six candidates, two refuted, four confirmed (three distinct issues).
+
+| Finding | Severity | Status |
+|---|---|---|
+| CSV `domain` column could bind an address to a domain it does not belong to (`uberwinnr-credential-import.mjs`). Pre-existing; reachable on the live single-domain import path. | high | **Fixed.** The address is authoritative. A disagreeing domain column is refused (`domain-column-address-mismatch`) in both the importer and the registry plan. Tests added. |
+| Positional readiness quarantine holds hash-ordered accounts at fleet size. | medium | **Fixed** as above (refuse ordinal-only holds at fleet size; slot-keyed holds). Tests added. |
+| Shared registries read the oldest 1000 events of a type before filtering by mailbox or domain (`sending-mailbox-registry.mjs`, `sending-domain-registry.mjs`, `store.mjs`). Identity guards go blind past 1000 events. Pre-existing. The test fake ignores `limit`/`orderBy`, so tests cannot catch it. | high (latent) | **Open.** Not triggered at current volume, but it must be fixed before `sending_mailbox_event` or `sending_domain_event` approaches 1000 rows. Fix in shared store and registries with entity-keyed reads, plus a fake that honours `limit` and `orderBy`. |
+| Fleet plan has no exclusion for pilot identities. | medium | **Refuted.** The fleet apply writes no accounts, and no production caller exists. Export selection still must be explicit (see above). |
+| `exactProviderCalls` in `uberfleet.mjs` still coerces `null` to `0` for a non-shipped transport. | medium (latent) | **Refuted as reachable.** The shipped adapter never returns null. Left unchanged to avoid touching shared code. |
+
+Outstanding before the live fleet run: the open registry item above should be scheduled, and the export must select the 10 Startup domains explicitly. Nothing in this review was merged or deployed.

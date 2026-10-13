@@ -5,6 +5,7 @@ import {
   compileWinnrPostPurchaseFleetPlan,
   applyWinnrPostPurchaseFleetPlan
 } from '../src/uberwinnr-postpurchase.mjs';
+import { inspectWinnrCredentialExport, compileWinnrCredentialImport } from '../src/uberwinnr-credential-import.mjs';
 
 const HEADER='domain,from_email,from_name,user_name,password,smtp_host,smtp_port,imap_host,imap_port,imap_username,imap_password,footer';
 
@@ -91,4 +92,29 @@ test('fleet apply refuses an unvalidated plan',async()=>{
   const r=await applyWinnrPostPurchaseFleetPlan({store:store(),fleetPlan:{ok:false}});
   assert.equal(r.ok,false);
   assert.ok(r.reasonCodes.includes('valid-fleet-plan-required'));
+});
+
+// A domain column that disagrees with the address is a contradiction, not a grouping hint.
+const MISMATCH_CSV=[HEADER,'beta-startup.co,sales@alpha-startup.co,Sales,sales@alpha-startup.co,secret,smtp.example.net,465,imap.example.net,993,sales@alpha-startup.co,imap-secret,'].join('\n');
+
+test('a domain column that disagrees with the address refuses the single-domain and fleet plans',()=>{
+  assert.equal(inspectWinnrCredentialExport(MISMATCH_CSV).mismatchedDomainRowCount,1);
+  const single=compileWinnrPostPurchaseRegistryPlan({csvText:MISMATCH_CSV});
+  assert.equal(single.ok,false);
+  assert.ok(single.reasonCodes.includes('domain-column-address-mismatch'));
+  const fleet=compileWinnrPostPurchaseFleetPlan({csvText:MISMATCH_CSV});
+  assert.equal(fleet.ok,false);
+  assert.ok(fleet.reasonCodes.includes('domain-column-address-mismatch'));
+});
+
+test('credential import fails a mismatched row rather than binding it to the column domain',()=>{
+  const r=compileWinnrCredentialImport({
+    csvText:MISMATCH_CSV,encryptionKey:'ab'.repeat(32),workspaceId:'uberbond-outreach',
+    linksByEmail:{'sales@alpha-startup.co':{sendingDomainId:'domain-alpha',sendingMailboxId:'mailbox-alpha'}},
+    routeEvidenceRef:'fixture:ref',routeAuthorized:true,termsCompatible:true
+  });
+  assert.equal(r.preparedCount,0);
+  assert.equal(r.failureCount,1);
+  assert.ok(r.failures[0].reasonCodes.includes('domain-column-address-mismatch'));
+  assert.equal(r.plaintextCredentialReturned,false);
 });

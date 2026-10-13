@@ -42,6 +42,7 @@ function registryPlanFromInspection({
   if(!clean(workspaceId,120))reasons.push('workspace-id-required');
   if(inspection.rowCount<1)reasons.push('credential-export-mailboxes-required');
   if(inspection.domains.length!==1)reasons.push('exactly-one-prewarmed-domain-required');
+  if((inspection.mismatchedDomainRowCount||0)>0)reasons.push('domain-column-address-mismatch');
   const domain=inspection.domains[0]||'';
   const cap=Number(plannedDailyCap);
   if(!Number.isFinite(cap)||cap<0||cap>5)reasons.push('bounded-initial-daily-cap-required');

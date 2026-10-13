@@ -7,6 +7,7 @@ export const SMTP_PROBE_FAILURE_PAUSE_REASON='winnr-smtp-auth-noop-probe-failed'
 const clean=(v,n=500)=>String(v??'').trim().slice(0,n);
 const digest=v=>crypto.createHash('sha256').update(String(v??'')).digest('hex');
 const parseOrdinals=value=>new Set(String(value||'').split(',').map(Number).filter(n=>Number.isInteger(n)&&n>0));
+const parseSlots=value=>new Set(String(value||'').split(',').map(s=>s.trim()).filter(Boolean));
 const isOwnProbePause=health=>health?.paused===true&&String(health?.pauseReason||'')===SMTP_PROBE_FAILURE_PAUSE_REASON;
 const hardProtectivePause=health=>health?.paused===true&&!isOwnProbePause(health);
 const providerCallCount=probe=>{
@@ -20,6 +21,7 @@ export async function runWinnrSmtpReadinessProbe({
   store,
   encryptionKey='',
   quarantineOrdinalsText=process.env.WINNR_PLACEMENT_QUARANTINE_ORDINALS||'',
+  quarantineSlotsText=process.env.WINNR_PLACEMENT_QUARANTINE_SLOTS||'',
   now=new Date(),
   probeFn=probeSmtpFleetAccount
 }={}){
@@ -37,6 +39,11 @@ export async function runWinnrSmtpReadinessProbe({
     .sort((a,b)=>String(a.id||'').localeCompare(String(b.id||'')));
   const healthBySlot=new Map((Array.isArray(healthRaw)?healthRaw:[]).map(row=>[String(row?.inbox||''),row]));
   const configuredQuarantine=parseOrdinals(quarantineOrdinalsText);
+  const quarantineSlots=parseSlots(quarantineSlotsText);
+  // Ordinals are positions in a hash-sorted list. They only identify the pilot while the fleet is the three-mailbox pilot.
+  if(configuredQuarantine.size>0&&accounts.length>3){
+    return {ok:false,status:'WINNR_SMTP_READINESS_REFUSED',reasonCodes:['ordinal-quarantine-requires-slot-keys'],providerCalls:0,messagesSent:0};
+  }
   const results=[];
 
   for(let i=0;i<accounts.length;i++){
@@ -44,7 +51,7 @@ export async function runWinnrSmtpReadinessProbe({
     const ordinal=i+1;
     const slot=String(account.slot||'');
     const health=healthBySlot.get(slot)||null;
-    const configuredHold=configuredQuarantine.has(ordinal);
+    const configuredHold=configuredQuarantine.has(ordinal)||quarantineSlots.has(slot);
     const protectedHold=hardProtectivePause(health);
     if(configuredHold||protectedHold){
       results.push({

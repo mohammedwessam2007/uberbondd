@@ -97,16 +97,11 @@ def rehearsal():
         checks['fingerprints']=r.canonical(fp)==r.canonical(receipt['source_fingerprints'])
         checks['sequence_values']=r.canonical(r.sequence_states(target,after['tables']))==r.canonical(receipt['source_sequences'])
         stage='ENCRYPTION_COMPATIBILITY'
-        token_key=bytes.fromhex(os.environ['TRIDENT_PRODUCTION_KEY'])
         encrypted=r.query(target,"SELECT data->'tokens' FROM public.accounts WHERE data ? 'tokens'")
-        decrypted=0
-        for (blob,) in encrypted:
-            if not isinstance(blob,dict) or not all(x in blob for x in ('iv','tag','data')):raise ValueError('UNEXPECTED_TOKEN_SHAPE')
-            plain=AESGCM(token_key).decrypt(base64.b64decode(blob['iv']),base64.b64decode(blob['data'])+base64.b64decode(blob['tag']),None)
-            if not isinstance(json.loads(plain),dict):raise ValueError('TOKEN_JSON_NOT_OBJECT')
-            decrypted+=1;plain=None
+        decrypted=None
+        # Production secret transfer was rejected. Keep this gate blocked; don't reconstruct or expose the key.
         dump.unlink()
-        out=dict(mission='TRIDENT_ISOLATED_LATEST_RESTORE',observed_at=datetime.now(timezone.utc).isoformat(),database=db,archive_sha256=hashlib.sha256(archive).hexdigest(),dump_sha256=receipt['dump_sha256'],tables=len(fp),rows=sum(x['rows'] for x in fp),checks=checks,restored_encrypted_accounts=len(encrypted),authenticated_account_decryptions=decrypted,migrations=r.query(target,'SELECT count(*) FROM public.schema_migrations')[0][0],production_cutover=False,application_startup_tested=False,mail_or_model_calls=0)
+        out=dict(mission='TRIDENT_ISOLATED_LATEST_RESTORE',observed_at=datetime.now(timezone.utc).isoformat(),database=db,archive_sha256=hashlib.sha256(archive).hexdigest(),dump_sha256=receipt['dump_sha256'],tables=len(fp),rows=sum(x['rows'] for x in fp),checks=checks,restored_encrypted_accounts=len(encrypted),authenticated_account_decryptions=decrypted,encryption_compatibility='BLOCKED_SECURE_KEY_INJECTION',migrations=r.query(target,'SELECT count(*) FROM public.schema_migrations')[0][0],production_cutover=False,application_startup_tested=False,mail_or_model_calls=0)
         print('TRIDENT_REHEARSAL_RECEIPT:'+json.dumps(out,sort_keys=True),flush=True)
     except Exception as e:print('TRIDENT_REHEARSAL_FAILURE:'+json.dumps(dict(stage=stage,error=type(e).__name__)),flush=True)
     finally:

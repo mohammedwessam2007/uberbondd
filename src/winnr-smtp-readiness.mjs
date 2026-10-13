@@ -72,9 +72,12 @@ export async function runWinnrSmtpReadinessProbe({
       && Boolean(clean(probe?.providerSessionReceiptId,500))
       && Boolean(clean(probe?.providerResponseDigest,128));
 
+    // Decide from a fresh read, never the snapshot taken before the probe. A rollback or operator hold that landed while
+    // the probe was in flight must not be overwritten by a stale "own pause" view.
+    const current=(await store.list('senderHealth')).find(row=>String(row?.inbox||'')===slot)||null;
     if(ready){
-      if(isOwnProbePause(health))await store.setSenderPaused(slot,false,'');
-    }else if(!health||health?.paused!==true||isOwnProbePause(health)){
+      if(isOwnProbePause(current))await store.setSenderPaused(slot,false,'');
+    }else if(!current||current?.paused!==true||isOwnProbePause(current)){
       await store.setSenderPaused(slot,true,SMTP_PROBE_FAILURE_PAUSE_REASON);
     }
 

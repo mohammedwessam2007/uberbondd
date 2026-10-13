@@ -1206,7 +1206,8 @@ if (wrapperIsEntryPoint) {
   }
 }
 
-if (wrapperIsEntryPoint) {
+// Opt-in only. The sealed bootstrap can send real canary mail, so an unattended boot must never start it by default.
+if (wrapperIsEntryPoint && String(process.env.WINNR_SEALED_BOOTSTRAP_AUTORUN || '') === '1') {
   void (async () => {
     const result = await runWinnrSealedBootstrapController({ config });
     console.log('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify(result));

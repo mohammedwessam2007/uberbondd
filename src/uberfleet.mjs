@@ -78,8 +78,10 @@ function todayUsage(events=[],day){
   return m;
 }
 function eligibleAccount(account,health,provider){
+  // Fail closed: an empty or unknown provider never matches any account. Only the SMTP relay route is selectable here.
+  if(provider!=='smtp-relay')return false;
   if(account?.connected!==true||!emailOk(account?.email))return false;
-  if(provider&&String(account?.provider||'').toLowerCase()!==provider)return false;
+  if(String(account?.provider||'').toLowerCase()!==provider)return false;
   if(health?.paused===true)return false;
   if(account?.provider==='smtp-relay'){
     if(!account?.smtpRoute?.authorized||!account?.smtpRoute?.termsCompatible||!clean(account?.smtpRoute?.evidenceRef,1500))return false;
@@ -91,7 +93,8 @@ export function selectFleetMailbox({
   prospectId='',currentSlot='',accounts=[],senderHealth=[],outboundEvents=[],provider='',date=new Date()
 }={}){
   const h=healthMap(senderHealth);
-  const normalizedProvider=clean(provider,80).toLowerCase();
+  const normalizedProvider=clean(provider,80);
+  if(normalizedProvider!=='smtp-relay')return {ok:false,status:'UBERFLEET_NO_ELIGIBLE_MAILBOX',reasonCodes:['provider-smtp-relay-required']};
   const candidates=(Array.isArray(accounts)?accounts:[]).filter(a=>eligibleAccount(a,h.get(String(a.slot||'')),normalizedProvider));
   if(!candidates.length)return {ok:false,status:'UBERFLEET_NO_ELIGIBLE_MAILBOX',reasonCodes:['no-healthy-connected-provider-matched-mailbox']};
   const sticky=candidates.find(a=>String(a.slot||'')===String(currentSlot||''));

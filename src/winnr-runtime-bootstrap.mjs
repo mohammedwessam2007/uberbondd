@@ -137,7 +137,7 @@ export async function runWinnrRuntimeBootstrap({
         smtpClassification:smtp?.classification||'UNKNOWN',
         smtpReasonCodes:Array.isArray(smtp?.reasonCodes)?smtp.reasonCodes.map(x=>clean(x,120)).slice(0,5):[],
         smtpError:clean(smtp?.dispatchError,300)||null,
-        imapConfirmed:imap?.ok===true,
+        imapConfirmed:imap?.ok===true&&imap?.status==='UBERIMAP_FETCH_CONFIRMED',
         imapStatus:imap?.status||'UNKNOWN'
       });
     }

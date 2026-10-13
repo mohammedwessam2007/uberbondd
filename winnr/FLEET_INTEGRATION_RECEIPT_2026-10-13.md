@@ -4,11 +4,23 @@ Status: **BLOCKED_EXTERNAL — no live Winnr action performed.**
 
 This receipt records what could and could not be verified from the execution environment on 2026-10-13. It contains no credentials, no mailbox addresses and no provider identifiers.
 
+## Read-only observation via the Winnr MCP connector (2026-10-13)
+
+The `org-connector-mcp.winnr.app` connector became available in this session. Only read tools are exposed; the connector's API token has `read` permission only. Observed counts, no mutations:
+
+- Account plan `startup`; email users **50 of 50** used; domains **10 of 20** used; pre-warmed addresses **3** (trialing); Stripe subscription `active`.
+- Domains: the pilot `cedarpointdomains.com` (pre-warmed, 3 mailboxes) plus **10 Startup domains**, all status `complete`, DNS health `healthy`.
+- Mailboxes: **50 Startup mailboxes**, 5 per domain, all `active`, created 2026-10-13 00:49–00:56 UTC; plus the **3 pilot mailboxes**, all `active`, created 2026-10-02 (unchanged).
+- Export tool `winnr_export_email_users` is **not** available in this session. The connector states export needs write scope, so credential export is blocked on token scope, not on network.
+- Export must select the 10 Startup domains explicitly by name. Do not use all-domains export, which would pull the pilot's credentials into the import.
+
+This resolves the earlier "Startup unpurchased" concern (see Code gaps below): the live account shows the Startup plan and 50 active mailboxes.
+
 ## Live counts
 
 | Step | Target | Success | Failure | Notes |
 |---|---|---|---|---|
-| Credential export via Winnr API | 50 Startup mailboxes / 10 domains | 0 | 0 | Not attempted. No Winnr token in the environment; `api.winnr.app` CONNECT refused by the sandbox proxy (403). |
+| Credential export via Winnr API | 50 Startup mailboxes / 10 domains | 0 | 0 | Not attempted. Blocked: the connector token is read-only and the export tool is not in this session. The environment has no `WINNR_API_TOKEN`; `api.winnr.app` CONNECT is refused by the sandbox proxy (403). |
 | Encrypted import into UberBond | 50 | 0 | 0 | Not attempted. Requires the export and the production `TOKEN_ENCRYPTION_KEY`. |
 | SMTP auth verification (no send) | 50 | 0 | 0 | Not attempted. |
 | IMAP auth verification (read-only) | 50 | 0 | 0 | Not attempted. |
@@ -39,7 +51,8 @@ This receipt records what could and could not be verified from the execution env
 - **Export response contract is unverified.** The adapter's `exportMailboxes` posts to `/export`, which may be asynchronous (`/jobs`). Its response shape and how the CSV is delivered have not been observed. The importer expects Winnr's generic credential CSV. Do not write the runner against a guessed shape; capture one real response first.
 - **No fleet runner exists yet.** `runWinnrRuntimeBootstrap` is single-domain and sends canary emails through `dispatchSmtpFleetAccount`. It must not be used for this run. The no-send path is `runWinnrSmtpReadinessProbe` (EHLO/AUTH/NOOP/QUIT only, verified in `src/ubersmtp-submission-adapter.mjs`), and IMAP is checked with `pollImapForwardingAccount`.
 - **Positional quarantine.** `applyWinnrPlacementQuarantine` refuses unless exactly three Winnr accounts exist, so it fails closed at 53 accounts. The readiness probe's `WINNR_PLACEMENT_QUARANTINE_ORDINALS` skip is positional over accounts sorted by a hash-derived id, so with a 53-account fleet it can skip a Startup account instead of the pilot. Pilot safety still holds through the durable slot-keyed sender pause on the quarantined pilot mailbox, which the probe honours. Recommended: key the skip by slot before the live run.
-- **Docs are older than the request.** `winnr/CURRENT_STATE.md` and `winnr/NEXT_STEPS.md` (2026-10-04) say the $69 Startup route was unpurchased. The owner says 50 Startup mailboxes are active now. That is not verifiable from this environment and has not been assumed.
+- **Docs are older than the live account.** `winnr/CURRENT_STATE.md` and `winnr/NEXT_STEPS.md` (2026-10-04) say the $69 Startup route was unpurchased. The read-only connector now shows the Startup plan and 50 active mailboxes, so those two files should be updated in a later docs change.
+- **Required owner action for export.** Reconnect the Winnr connector with write scope (https://app.winnr.app/mcp), or provide a Read + Write token as described above. Either path must still satisfy the authorization flags and the production encryption key requirement.
 
 ## Truth boundary
 

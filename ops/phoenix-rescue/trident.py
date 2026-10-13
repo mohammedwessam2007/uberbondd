@@ -67,7 +67,75 @@ def job():
     finally:
         for c in (source,target):
             if c is not None:c.close()
+
+def rehearsal():
+    source=target=None;stage='REHEARSAL_IDENTITY'
+    try:
+        import psycopg2,base64
+        from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+        tu=r.validate_url(os.environ['RESCUE_DATABASE_URL'],r.TARGET_HOST,r.TARGET_DB)
+        e=r.pg_environment(tu);key=hashlib.sha256(os.environ['ESCROW_ARCHIVE_KEY'].encode()).digest()
+        def connect(database):
+            return psycopg2.connect(host=e['PGHOST'],port=e['PGPORT'],dbname=database,user=e['PGUSER'],password=e['PGPASSWORD'],sslmode=e['PGSSLMODE'],sslrootcert=e.get('PGSSLROOTCERT'),connect_timeout=15,application_name='phoenix-isolated-rehearsal')
+        source=connect(r.TARGET_DB);source.set_session(readonly=True)
+        mission='PHOENIX_TRIDENT_READONLY_COMPARE_AND_LATEST_BACKUP:1f66236749e9cafb'
+        archive,receipt=r.query(source,'SELECT archive,receipt FROM phoenix_rescue_archive.backup WHERE mission=%s',(mission,))[0]
+        archive=bytes(archive);h=len(r.ARCHIVE_HEADER)
+        if hashlib.sha256(archive).hexdigest()!='a3665aa515092323cb9fa466ed61fb6806122953d76ccd4e9a05787e718e3025':raise ValueError('BAD_LATEST_ARCHIVE')
+        payload=AESGCM(key).decrypt(archive[h:h+12],archive[h+12:],mission.encode())
+        work=pathlib.Path('/tmp/trident-rehearsal');work.mkdir(mode=0o700,exist_ok=True);dump=work/'source.dump'
+        with zipfile.ZipFile(io.BytesIO(payload)) as a:dump.write_bytes(a.read('source.dump'))
+        if hashlib.sha256(dump.read_bytes()).hexdigest()!=receipt['dump_sha256']:raise ValueError('BAD_LATEST_DUMP')
+        db='uberbond_trident_rehearsal_20261013';target=connect(db);target.set_session(readonly=True)
+        if r.query(target,"SELECT count(*) FROM pg_tables WHERE schemaname='public'")[0][0]!=0:raise ValueError('REHEARSAL_NOT_EMPTY')
+        target.rollback();target.close();target=None
+        env=dict(e);env['PGDATABASE']=db
+        stage='ATOMIC_ISOLATED_RESTORE';r.run_pg(['pg_restore','--single-transaction','--exit-on-error','--no-owner','--no-privileges','--dbname='+db,str(dump)],env)
+        target=connect(db);target.set_session(isolation_level='REPEATABLE READ',readonly=True)
+        after=r.inventory(target);fp=r.fingerprints(target,after['tables'])
+        checks={k:r.canonical(v)==r.canonical(after[k]) for k,v in receipt['source_inventory'].items()}
+        checks['fingerprints']=r.canonical(fp)==r.canonical(receipt['source_fingerprints'])
+        checks['sequence_values']=r.canonical(r.sequence_states(target,after['tables']))==r.canonical(receipt['source_sequences'])
+        stage='ENCRYPTION_COMPATIBILITY'
+        token_key=bytes.fromhex(os.environ['TRIDENT_PRODUCTION_KEY'])
+        encrypted=r.query(target,"SELECT data->'tokens' FROM public.accounts WHERE data ? 'tokens'")
+        decrypted=0
+        for (blob,) in encrypted:
+            if not isinstance(blob,dict) or not all(x in blob for x in ('iv','tag','data')):raise ValueError('UNEXPECTED_TOKEN_SHAPE')
+            plain=AESGCM(token_key).decrypt(base64.b64decode(blob['iv']),base64.b64decode(blob['data'])+base64.b64decode(blob['tag']),None)
+            if not isinstance(json.loads(plain),dict):raise ValueError('TOKEN_JSON_NOT_OBJECT')
+            decrypted+=1;plain=None
+        dump.unlink()
+        out=dict(mission='TRIDENT_ISOLATED_LATEST_RESTORE',observed_at=datetime.now(timezone.utc).isoformat(),database=db,archive_sha256=hashlib.sha256(archive).hexdigest(),dump_sha256=receipt['dump_sha256'],tables=len(fp),rows=sum(x['rows'] for x in fp),checks=checks,restored_encrypted_accounts=len(encrypted),authenticated_account_decryptions=decrypted,migrations=r.query(target,'SELECT count(*) FROM public.schema_migrations')[0][0],production_cutover=False,application_startup_tested=False,mail_or_model_calls=0)
+        print('TRIDENT_REHEARSAL_RECEIPT:'+json.dumps(out,sort_keys=True),flush=True)
+    except Exception as e:print('TRIDENT_REHEARSAL_FAILURE:'+json.dumps(dict(stage=stage,error=type(e).__name__)),flush=True)
+    finally:
+        for c in (source,target):
+            if c is not None:c.close()
+
+def winnr_readonly():
+    if not os.getenv('TRIDENT_WINNR_TOKEN'):return
+    try:
+        import urllib.request
+        token=os.environ['TRIDENT_WINNR_TOKEN']
+        def get(path):
+            request=urllib.request.Request('https://api.winnr.app/v1/'+path,headers={'Authorization':'Bearer '+token,'Accept':'application/json','User-Agent':'UberBond-Phoenix-readonly'})
+            with urllib.request.urlopen(request,timeout=25) as response:
+                body=response.read(2000000)
+                if len(body)>=2000000:raise ValueError('PROVIDER_RESPONSE_TOO_LARGE')
+                return json.loads(body)
+        account=get('account')
+        results={}
+        for path in ('domains','email-users','prewarmed/my-domains','warming/overview'):
+            response=get(path);data=response.get('data')
+            # Only report shape/count/pagination. Do not publish provider raw records, addresses, passwords or tokens.
+            results[path]=dict(data_type=type(data).__name__,count=len(data) if isinstance(data,list) else None,has_more=response.get('meta',{}).get('has_more'),metadata_keys=sorted(response.get('meta',{}).keys()))
+            if isinstance(data,dict):results[path]['data_keys']=sorted(data.keys())
+        print('TRIDENT_WINNR_READONLY:'+json.dumps(dict(observed_at=datetime.now(timezone.utc).isoformat(),account_data_keys=sorted(account.get('data',{}).keys()),resources=results,provider_mutations=0,messages_sent=0),sort_keys=True),flush=True)
+    except Exception as e:print('TRIDENT_WINNR_READONLY_FAILURE:'+json.dumps(dict(error=type(e).__name__)),flush=True)
+
 if __name__=='__main__':
     os.umask(0o077)
-    threading.Thread(target=job,daemon=True).start()
+    threading.Thread(target=(rehearsal if os.getenv('TRIDENT_EXECUTION_GATE')=='TRIDENT_RESTORE_REHEARSAL' else job),daemon=True).start()
+    if os.getenv('TRIDENT_EXECUTION_GATE')=='TRIDENT_RESTORE_REHEARSAL':threading.Thread(target=winnr_readonly,daemon=True).start()
     HTTPServer(('0.0.0.0',int(os.getenv('PORT','10000'))),r.Health).serve_forever()

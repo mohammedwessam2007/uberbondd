@@ -6,7 +6,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
-import { probeEndpoint, runNetworkPreflight, classifyPreflightError, WINNR_PREFLIGHT_TARGETS } from '../scripts/winnr-network-preflight.mjs';
+import { probeEndpoint, runNetworkPreflight, classifyPreflightError, preflightExitCode, WINNR_PREFLIGHT_TARGETS } from '../scripts/winnr-network-preflight.mjs';
 
 // Local fixtures only. Nothing here contacts Winnr or any other host.
 
@@ -195,6 +195,21 @@ test('error classes are closed and never echo message text', () => {
   assert.equal(classifyPreflightError(Object.assign(new Error('x'), { code: 'DEPTH_ZERO_SELF_SIGNED_CERT' })), 'TLS_VERIFY_FAILED');
   assert.equal(classifyPreflightError(Object.assign(new Error('x'), { code: 'ERR_SSL_WRONG_VERSION_NUMBER' })), 'TLS_HANDSHAKE_FAILED');
   assert.equal(classifyPreflightError(new Error('unexpected fixture-secret-text')), 'UNCLASSIFIED');
+});
+
+test('--require-auth-ports exits 3 unless both authentication ports are reachable, and is informational otherwise', () => {
+  const blocked = { summary: { allAuthenticationPortsReachable: false } };
+  const reachable = { summary: { allAuthenticationPortsReachable: true } };
+  assert.equal(preflightExitCode(blocked, { requireAuthPorts: true }), 3);
+  assert.equal(preflightExitCode(reachable, { requireAuthPorts: true }), 0);
+  assert.equal(preflightExitCode(blocked, { requireAuthPorts: false }), 0, 'informational run never fails');
+  assert.equal(preflightExitCode({}, { requireAuthPorts: true }), 3, 'a malformed report is not treated as reachable');
+  assert.equal(preflightExitCode(undefined, { requireAuthPorts: true }), 3);
+});
+
+test('the auth-port gate needs both 465 and 993, not just one of them', () => {
+  const onlySmtp = { summary: { smtp465Ready: true, imap993Ready: false, allAuthenticationPortsReachable: false } };
+  assert.equal(preflightExitCode(onlySmtp, { requireAuthPorts: true }), 3);
 });
 
 test.after(() => { if (certDir) fs.rmSync(certDir, { recursive: true, force: true }); });

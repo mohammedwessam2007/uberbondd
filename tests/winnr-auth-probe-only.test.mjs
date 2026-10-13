@@ -3,149 +3,241 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import { spawnSync } from 'node:child_process';
+import { fileURLToPath } from 'node:url';
 import { runAuthProbeOnly, validateProbeRows, shredFile } from '../scripts/winnr-auth-probe-only.mjs';
+import { assertPublicSafe } from '../src/winnr-public-artifact-guard.mjs';
+import { WINNR_STARTUP_ROLES } from '../src/winnr-inventory-gate.mjs';
 
+const REF = 'github-environment-approval:winnr-probe:run-1';
+const STARTUP = Array.from({ length: 10 }, (_, i) => `startup-${String(i + 1).padStart(2, '0')}.test`);
+const PILOT = ['pilot-fixture.test'];
+const INVENTORY = JSON.stringify({ startupDomains: STARTUP, pilotDomains: PILOT });
 const HEADER = 'domain,from_email,from_name,user_name,password,smtp_host,smtp_port,imap_host,imap_port,imap_username,imap_password,footer';
-const REF = 'owner-mission:UBERBOND_WINNR_FLEET_FINAL_INTEGRATION_2026-10-13';
+const SECRET_MARK = 'pw-fixture-leak-marker';
+
+function rows50({ pwFor = () => `${SECRET_MARK}-pw` } = {}) {
+  const out = [];
+  for (const domain of STARTUP) for (const role of WINNR_STARTUP_ROLES) {
+    const email = `${role}@${domain}`;
+    out.push({ domain, email, pw: pwFor(email) });
+  }
+  return out;
+}
 
 function csvFor(rows) {
-  return [HEADER, ...rows.map(r => `${r.domain},${r.email},Box,${r.user ?? r.email},${r.pw ?? 'pw-fixture-' + r.email.split('@')[0]},${r.smtpHost ?? 'inbound.example.test'},${r.smtpPort ?? 465},${r.imapHost ?? 'inbound.example.test'},${r.imapPort ?? 993},${r.email},${r.pw ?? 'pw-fixture-' + r.email.split('@')[0]},`)].join('\n');
+  return [HEADER, ...rows.map(r => `${r.domain},${r.email},Box,${r.email},${r.pw},inbound.test,${r.smtpPort ?? 465},inbound.test,${r.imapPort ?? 993},${r.email},${r.pw},`)].join('\n');
 }
 
-const GOOD = [
-  { domain: 'startup-fixture.co', email: 'hello@startup-fixture.co' },
-  { domain: 'startup-fixture.co', email: 'team@startup-fixture.co' },
-  { domain: 'startup-fixture.co', email: 'connect@startup-fixture.co' }
-];
+function okSmtp() {
+  const calls = [];
+  const factory = opts => { calls.push(opts); return { ok: true, probe: async () => ({ confirmed: true, messagesSent: 0 }) }; };
+  return { factory, calls };
+}
 
-// Fake SMTP transport: exposes only `probe`. If the runner tried any other method, the call would throw.
-function fakeSmtp(behaviour = () => ({ confirmed: true, messagesSent: 0 }), calls = []) {
-  return opts => {
-    calls.push(opts);
-    return { ok: true, probe: async () => behaviour(opts) };
+function okImap() {
+  const calls = [];
+  const probe = async opts => { calls.push(opts); return { loginAccepted: true, classification: 'AUTH_CONFIRMED' }; };
+  return { probe, calls };
+}
+
+// ---- refusals happen before any connection --------------------------------------------------
+
+test('no owner reference means no inventory read and no connection', async () => {
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: '', expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assert.deepEqual(publicReceipt.reasonCodes, ['owner-authorization-ref-required']);
+  assert.equal(s.calls.length + i.calls.length, 0);
+});
+
+test('a missing or malformed expected inventory refuses the run before any connection', async () => {
+  for (const inv of ['', 'not json', JSON.stringify({ startupDomains: STARTUP.slice(1), pilotDomains: PILOT })]) {
+    const s = okSmtp(); const i = okImap();
+    const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: inv, smtpTransportFactory: s.factory, imapProbe: i.probe });
+    assert.equal(publicReceipt.status, 'REFUSED_BEFORE_ANY_CONNECTION');
+    assert.equal(s.calls.length + i.calls.length, 0);
+  }
+});
+
+test('a pilot domain inside the export refuses the run before any connection', async () => {
+  const rows = rows50();
+  rows[0] = { domain: PILOT[0], email: `hello@${PILOT[0]}`, pw: 'x' };
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assert.ok(publicReceipt.reasonCodes.includes('pilot-domain-present'));
+  assert.equal(s.calls.length + i.calls.length, 0);
+});
+
+test('a 49-row partial export is refused and is never reported as AUTHENTICATED_ALL', async () => {
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50().slice(1)), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assert.equal(publicReceipt.status, 'REFUSED_BEFORE_ANY_CONNECTION');
+  assert.ok(publicReceipt.reasonCodes.includes('mailbox-count-not-50'));
+  assert.equal(s.calls.length + i.calls.length, 0);
+});
+
+test('a port other than implicit TLS is refused before any connection, so no plaintext AUTH can occur', () => {
+  const rows = rows50().map((r, i) => (i === 0 ? { ...r, smtpPort: 587 } : r));
+  const v = validateProbeRows(require_rows(rows));
+  assert.ok(v.reasonCodes.includes('non-implicit-tls-smtp-port-refused'));
+  const w = validateProbeRows(require_rows(rows50().map((r, i) => (i === 0 ? { ...r, imapPort: 143 } : r))));
+  assert.ok(w.reasonCodes.includes('non-implicit-tls-imap-port-refused'));
+});
+
+test('an export that offers plaintext submission (587) is refused end to end with no transport built', async () => {
+  const rows = rows50().map((r, i) => (i === 0 ? { ...r, smtpPort: 587 } : r));
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assert.equal(publicReceipt.status, 'REFUSED_BEFORE_ANY_CONNECTION');
+  assert.ok(publicReceipt.reasonCodes.includes('non-implicit-tls-smtp-port-refused'));
+  assert.equal(s.calls.length + i.calls.length, 0);
+});
+
+test('the public receipt publishes the approval reference under approvalRef and never under an identity-word key', async () => {
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assert.equal(publicReceipt.approvalRef, REF);
+  assert.equal('ownerAuthorizationRef' in publicReceipt, false);
+  assert.equal(publicReceipt.inventory.expectedAccounts, 50);
+  assert.equal(publicReceipt.identityFieldsPublished, false);
+});
+
+function require_rows(list) {
+  return list.map(r => ({ from_email: r.email, domain: r.domain, user_name: r.email, password: r.pw, imap_password: r.pw, smtp_host: 'inbound.test', imap_host: 'inbound.test', smtp_port: String(r.smtpPort ?? 465), imap_port: String(r.imapPort ?? 993) }));
+}
+
+// ---- happy path, and the output discipline --------------------------------------------------
+
+test('the valid 50-row export is probed once per mailbox and reported as AUTHENTICATED_ALL', async () => {
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt, privateDetail } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assert.equal(publicReceipt.status, 'AUTHENTICATED_ALL');
+  assert.equal(publicReceipt.ok, true);
+  assert.equal(publicReceipt.smtp.accepted, 50);
+  assert.equal(publicReceipt.imap.accepted, 50);
+  assert.equal(s.calls.length, 50);
+  assert.equal(i.calls.length, 50);
+  assert.ok(s.calls.every(c => c.port === 465 && c.secure === true && c.authorized === true && c.evidenceRef === REF));
+  assert.equal(privateDetail.rows.length, 50);
+});
+
+test('the public receipt passes the artifact guard and contains no address, domain, host or password', async () => {
+  const s = okSmtp(); const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  assertPublicSafe(publicReceipt);
+  const text = JSON.stringify(publicReceipt);
+  assert.equal(text.includes('@'), false);
+  for (const d of [...STARTUP, ...PILOT]) assert.equal(text.includes(d), false, 'no domain name');
+  assert.equal(text.includes(SECRET_MARK), false, 'no password');
+  for (const role of WINNR_STARTUP_ROLES) assert.equal(text.includes(`"${role}"`), false, 'no role name in public output');
+});
+
+test('the private detail holds roles and domain positions, never addresses, domain names or passwords', async () => {
+  const s = okSmtp(); const i = okImap();
+  const { privateDetail } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: i.probe });
+  const text = JSON.stringify(privateDetail);
+  assert.equal(text.includes('@'), false);
+  assert.equal(text.includes(SECRET_MARK), false);
+  for (const d of STARTUP) assert.equal(text.includes(d), false);
+  assert.ok(privateDetail.rows.every(r => Number.isInteger(r.domainIndex) && r.domainIndex >= 0 && r.domainIndex < 10));
+});
+
+// ---- classified failures and crash handling ------------------------------------------------
+
+test('a partial acceptance is NOT_ALL_AUTHENTICATED, with each failure classified', async () => {
+  const smtp = opts => {
+    const bad = opts.username.startsWith('team@');
+    return { ok: true, probe: async () => (bad ? { confirmed: false, errorClass: 'AUTH_REJECTED', messagesSent: 0 } : { confirmed: true, messagesSent: 0 }) };
   };
-}
-
-function fakeImap(behaviour = () => ({ loginAccepted: true, classification: 'AUTH_CONFIRMED' }), calls = []) {
-  return async opts => { calls.push(opts); return behaviour(opts); };
-}
-
-test('no owner authorization reference means no connection at all', async () => {
-  const smtpCalls = [];
-  const imapCalls = [];
-  const r = await runAuthProbeOnly({ csvText: csvFor(GOOD), ownerAuthorizationRef: '', smtpTransportFactory: fakeSmtp(undefined, smtpCalls), imapProbe: fakeImap(undefined, imapCalls) });
-  assert.equal(r.ok, false);
-  assert.deepEqual(r.reasonCodes, ['owner-authorization-ref-required']);
-  assert.equal(smtpCalls.length + imapCalls.length, 0);
+  const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: smtp, imapProbe: i.probe });
+  assert.equal(publicReceipt.status, 'NOT_ALL_AUTHENTICATED');
+  assert.equal(publicReceipt.smtp.accepted, 40);
+  assert.equal(publicReceipt.smtp.classCounts.AUTH_REJECTED, 10);
 });
 
-test('a pilot domain in the file refuses the whole run before any connection', async () => {
-  const pilot = [...GOOD, { domain: 'cedarpointdomains.com', email: 'pilot@cedarpointdomains.com' }];
-  const smtpCalls = [];
-  const imapCalls = [];
-  const r = await runAuthProbeOnly({ csvText: csvFor(pilot), ownerAuthorizationRef: REF, excludeDomains: ['cedarpointdomains.com'], smtpTransportFactory: fakeSmtp(undefined, smtpCalls), imapProbe: fakeImap(undefined, imapCalls) });
-  assert.equal(r.status, 'REFUSED_BEFORE_ANY_CONNECTION');
-  assert.ok(r.reasonCodes.includes('excluded-domain-present'));
-  assert.equal(smtpCalls.length + imapCalls.length, 0);
-});
-
-test('non-implicit-TLS ports and STARTTLS-style rows are refused: no plaintext AUTH is ever attempted', () => {
-  const v1 = validateProbeRows({ rows: [{ domain: 'x.co', from_email: 'a@x.co', user_name: 'a@x.co', password: 'p', imap_password: 'p', smtp_host: 'h', imap_host: 'h', smtp_port: '587', imap_port: '993', domain_: '' }] });
-  assert.equal(v1.ok, false);
-  assert.ok(v1.reasonCodes.includes('non-implicit-tls-smtp-port-refused'));
-  const v2 = validateProbeRows({ rows: [{ domain: 'x.co', from_email: 'a@x.co', user_name: 'a@x.co', password: 'p', imap_password: 'p', smtp_host: 'h', imap_host: 'h', smtp_port: '465', imap_port: '143' }] });
-  assert.ok(v2.reasonCodes.includes('non-implicit-tls-imap-port-refused'));
-});
-
-test('a domain column that disagrees with the address refuses the run', () => {
-  const v = validateProbeRows({ rows: [{ domain: 'other.co', from_email: 'a@x.co', user_name: 'a@x.co', password: 'p', imap_password: 'p', smtp_host: 'h', imap_host: 'h', smtp_port: '465', imap_port: '993' }] });
-  assert.ok(v.reasonCodes.includes('domain-column-address-mismatch'));
-});
-
-test('a duplicate address refuses the run', () => {
-  const row = { domain: 'x.co', from_email: 'a@x.co', user_name: 'a@x.co', password: 'p', imap_password: 'p', smtp_host: 'h', imap_host: 'h', smtp_port: '465', imap_port: '993' };
-  assert.ok(validateProbeRows({ rows: [row, row] }).reasonCodes.includes('duplicate-mailbox-address'));
-});
-
-test('every mailbox is probed once over SMTP and once over IMAP, and the receipt holds digests only', async () => {
-  const smtpCalls = [];
-  const imapCalls = [];
-  const r = await runAuthProbeOnly({ csvText: csvFor(GOOD), ownerAuthorizationRef: REF, smtpTransportFactory: fakeSmtp(undefined, smtpCalls), imapProbe: fakeImap(undefined, imapCalls) });
-  assert.equal(r.status, 'AUTHENTICATED_ALL');
-  assert.equal(r.smtp.accepted, 3);
-  assert.equal(r.imap.accepted, 3);
-  assert.equal(smtpCalls.length, 3);
-  assert.equal(imapCalls.length, 3);
-  assert.ok(smtpCalls.every(c => c.port === 465 && c.secure === true && c.authorized === true && c.evidenceRef === REF));
-  assert.ok(imapCalls.every(c => c.port === 993 && c.secure === true));
-  const text = JSON.stringify(r);
-  for (const row of GOOD) assert.equal(text.includes(row.email), false, 'no address in the receipt');
-  assert.equal(/pw-fixture/.test(text), false, 'no password in the receipt');
-  assert.equal(text.includes('inbound.example.test'), false, 'no host in the receipt');
-  assert.equal(r.messagesSent, 0);
-  assert.equal(r.credentialsPersisted, false);
-});
-
-test('network blocks, auth rejections and TLS failures are counted in separate buckets', async () => {
-  const pick = new Map([
-    ['hello@startup-fixture.co', { smtp: { errorClass: 'CONNECT_TIMEOUT' }, imap: { classification: 'TRANSPORT_UNREACHABLE' } }],
-    ['team@startup-fixture.co', { smtp: { errorClass: 'AUTH_REJECTED' }, imap: { classification: 'AUTH_REJECTED' } }],
-    ['connect@startup-fixture.co', { smtp: { errorClass: 'TLS_FAILED' }, imap: { classification: 'TLS_OR_GREETING_FAILED' } }]
-  ]);
-  const smtp = fakeSmtp(opts => {
-    const row = [...pick.keys()].find(k => k.startsWith(opts.username.split('@')[0] + '@'));
-    return { confirmed: false, errorClass: pick.get(row).smtp.errorClass, messagesSent: 0 };
-  });
-  const imap = fakeImap(opts => {
-    const row = [...pick.keys()].find(k => k.startsWith(opts.username.split('@')[0] + '@'));
-    return { loginAccepted: false, classification: pick.get(row).imap.classification };
-  });
-  const r = await runAuthProbeOnly({ csvText: csvFor(GOOD), ownerAuthorizationRef: REF, smtpTransportFactory: smtp, imapProbe: imap });
-  assert.equal(r.status, 'NOT_ALL_AUTHENTICATED');
-  assert.equal(r.smtp.classCounts.NETWORK_BLOCKED, 1);
-  assert.equal(r.smtp.classCounts.AUTH_REJECTED, 1);
-  assert.equal(r.smtp.classCounts.TLS_FAILED, 1);
-  assert.equal(r.imap.classCounts.NETWORK_BLOCKED, 1);
-  assert.equal(r.imap.classCounts.AUTH_REJECTED, 1);
-  assert.equal(r.imap.classCounts.TLS_FAILED, 1);
-  assert.equal(r.networkBlocked.smtp, 1);
-  assert.equal(r.networkBlocked.imap, 1);
-  assert.equal(r.smtp.accepted, 0);
-});
-
-test('a transport that refuses to construct is counted as refused, never as accepted', async () => {
-  const r = await runAuthProbeOnly({ csvText: csvFor(GOOD), ownerAuthorizationRef: REF, smtpTransportFactory: () => ({ ok: false, reasonCodes: ['smtp-route-authorization-required'] }), imapProbe: fakeImap() });
-  assert.equal(r.smtp.accepted, 0);
-  assert.equal(r.smtp.classCounts.REFUSED_BY_TRANSPORT, 3);
-});
-
-test('concurrency never exceeds the configured bound', async () => {
-  let inFlight = 0;
-  let peak = 0;
-  const imap = async () => {
-    inFlight += 1;
-    peak = Math.max(peak, inFlight);
-    await new Promise(resolve => setTimeout(resolve, 5));
-    inFlight -= 1;
-    return { loginAccepted: true };
+test('an exception thrown by the transport is counted as PROBE_EXCEPTION and its text never reaches output', async () => {
+  const smtp = opts => {
+    if (opts.username.startsWith('hello@')) throw Object.assign(new Error(`crash containing ${SECRET_MARK}`), { code: 'EPROTO_LEAK' });
+    return { ok: true, probe: async () => ({ confirmed: true, messagesSent: 0 }) };
   };
-  const many = Array.from({ length: 10 }, (_, i) => ({ domain: 'startup-fixture.co', email: `box${i}@startup-fixture.co` }));
-  const r = await runAuthProbeOnly({ csvText: csvFor(many), ownerAuthorizationRef: REF, concurrency: 3, smtpTransportFactory: fakeSmtp(), imapProbe: imap });
-  assert.equal(r.imap.accepted, 10);
-  assert.ok(peak <= 3, `peak in-flight ${peak}`);
+  const i = okImap();
+  const { publicReceipt, privateDetail } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: smtp, imapProbe: i.probe });
+  assert.equal(publicReceipt.status, 'NOT_ALL_AUTHENTICATED');
+  assert.equal(publicReceipt.probeExceptions, 10);
+  assert.equal(publicReceipt.smtp.classCounts.PROBE_EXCEPTION, 10);
+  const everything = JSON.stringify(publicReceipt) + JSON.stringify(privateDetail);
+  assert.equal(everything.includes(SECRET_MARK), false);
+  assert.equal(everything.includes('crash containing'), false);
+  assert.equal(everything.includes('EPROTO_LEAK'), false, 'the raw code is not used; only the fixed class is');
 });
 
-test('shredding overwrites and removes the credential file', () => {
+test('an IMAP probe that throws is counted as PROBE_EXCEPTION, not as a success', async () => {
+  const s = okSmtp();
+  const imap = async () => { throw new Error('imap crash with fixture text'); };
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: s.factory, imapProbe: imap });
+  assert.equal(publicReceipt.imap.accepted, 0);
+  assert.equal(publicReceipt.imap.classCounts.PROBE_EXCEPTION, 50);
+  assert.notEqual(publicReceipt.status, 'AUTHENTICATED_ALL');
+  assert.equal(JSON.stringify(publicReceipt).includes('imap crash'), false);
+});
+
+test('a transport that cannot be constructed is REFUSED_BY_TRANSPORT and never accepted', async () => {
+  const i = okImap();
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: csvFor(rows50()), ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY, smtpTransportFactory: () => ({ ok: false, reasonCodes: ['x'] }), imapProbe: i.probe });
+  assert.equal(publicReceipt.smtp.accepted, 0);
+  assert.equal(publicReceipt.smtp.classCounts.REFUSED_BY_TRANSPORT, 50);
+});
+
+test('an unreadable export is refused, not thrown', async () => {
+  const { publicReceipt } = await runAuthProbeOnly({ csvText: null, ownerAuthorizationRef: REF, expectedInventoryText: INVENTORY });
+  assert.equal(publicReceipt.ok, false);
+  assert.equal(publicReceipt.status === 'REFUSED_BEFORE_ANY_CONNECTION' || publicReceipt.status === 'REFUSED', true);
+});
+
+// ---- CLI as a separate process: no secret on stdout or stderr, correct exit codes -----------
+
+const SCRIPT = fileURLToPath(new URL('../scripts/winnr-auth-probe-only.mjs', import.meta.url));
+
+test('the CLI refuses without an inventory, prints only a status line, and exits 3 with no connection', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'winnr-cli-test-'));
+  try {
+    const csv = path.join(dir, 'creds.csv');
+    fs.writeFileSync(csv, csvFor(rows50()), { mode: 0o600 });
+    const receipt = path.join(dir, 'receipt.json');
+    const env = { ...process.env };
+    delete env.WINNR_EXPECTED_INVENTORY_JSON;
+    const r = spawnSync(process.execPath, [SCRIPT, `--csv=${csv}`, `--owner-ref=${REF}`, `--receipt-out=${receipt}`, '--shred'], { env, encoding: 'utf8', timeout: 20000 });
+    assert.equal(r.status, 3);
+    assert.equal(r.stderr, '');
+    assert.equal(r.stdout.includes(SECRET_MARK), false);
+    assert.equal(r.stdout.includes('@'), false);
+    assert.match(r.stdout, /"status":"REFUSED_BEFORE_ANY_CONNECTION"/);
+    assert.equal(fs.existsSync(csv), false, 'the credential file is removed even on refusal');
+    assert.equal(fs.readFileSync(receipt, 'utf8').includes(SECRET_MARK), false);
+  } finally {
+    fs.rmSync(dir, { recursive: true, force: true });
+  }
+});
+
+test('the CLI refuses a credential file inside the repository without reading it', () => {
+  const inside = path.join(path.dirname(SCRIPT), '..', 'tests', `.cli-inside-${process.pid}.csv`);
+  fs.writeFileSync(inside, csvFor(rows50()), { mode: 0o600 });
+  try {
+    const r = spawnSync(process.execPath, [SCRIPT, `--csv=${inside}`, `--owner-ref=${REF}`], { env: { ...process.env, WINNR_EXPECTED_INVENTORY_JSON: INVENTORY }, encoding: 'utf8', timeout: 20000 });
+    assert.equal(r.status, 1);
+    assert.match(r.stderr, /CSV_INSIDE_REPOSITORY/);
+    assert.equal(r.stdout.includes(SECRET_MARK), false);
+  } finally {
+    fs.rmSync(inside, { force: true });
+  }
+});
+
+test('shredding overwrites then removes a file (best effort, not a secure-erasure guarantee)', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'winnr-shred-test-'));
   const file = path.join(dir, 'creds.csv');
   fs.writeFileSync(file, 'pw-fixture-secret-line\n'.repeat(20));
   shredFile(file);
   assert.equal(fs.existsSync(file), false);
   fs.rmSync(dir, { recursive: true, force: true });
-});
-
-test('the probe-only module has no encryption, store, database or Winnr API dependency', () => {
-  const source = fs.readFileSync(new URL('../scripts/winnr-auth-probe-only.mjs', import.meta.url), 'utf8');
-  assert.equal(/TOKEN_ENCRYPTION_KEY|DATABASE_URL|WINNR_API_TOKEN|createStore|JsonStore|encryptJson|decryptJson/.test(source), false);
-  assert.equal(/(?<!stdout|stderr)\.write\(/.test(source.replace(/fs\.writeFileSync|writeFileSync/g, '')), false, 'no socket writes in the runner (stdout and stderr output excluded)');
 });

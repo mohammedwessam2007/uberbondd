@@ -13,7 +13,11 @@
 //   probe-smtp  No-send SMTP readiness: TLS, EHLO, AUTH, NOOP, QUIT. Never MAIL FROM, RCPT TO or DATA.
 //   probe-imap  Login-only IMAP check: LOGIN, LOGOUT. Never SELECT, SEARCH or FETCH.
 //   pilot-check Re-reads the pilot from the provider and compares it with the read-phase snapshot.
-//   receipt     Writes a committable, nonsecret receipt (counts and digests only).
+//   receipt     Writes a committable receipt built only by toPublicFleetReceipt: counts and fixed class names. Per-account
+//               rows, digests, provider ids and error messages stay in the private workdir and are never published.
+//
+// Output discipline: each phase result is checked by the artifact guard before it is printed, and a failing result
+// prints a fixed refusal code instead. Errors print a class code; the message goes to the private workdir.
 //
 // Secrets (export CSV, key material, provider id map, provider snapshot, store) live only in --workdir. The workdir
 // and any staging key file must be outside this repository. Nothing here sends mail, buys anything, enables paid
@@ -47,9 +51,14 @@ import {
   assertRunnerEnvironment, stageImportedAccounts, boundedMap, selectAccountsToProbe
 } from '../src/winnr-fleet-control-plane.mjs';
 import { createStore } from '../src/store.mjs';
+import { parseExpectedInventory, gateCsvInventory, gateProviderInventory, gateCsvAgainstProvider } from '../src/winnr-inventory-gate.mjs';
+import { assertPublicSafe, sanitizedErrorCode } from '../src/winnr-public-artifact-guard.mjs';
+import { toPublicFleetReceipt } from '../src/winnr-public-receipt.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const OWNER_ATTESTATION_REF = 'owner-mission:UBERBOND_WINNR_FLEET_FINAL_INTEGRATION_2026-10-13';
+// Public form of the same attestation. The receipt carries this fixed descriptor, never the long reference string.
+const OWNER_ATTESTATION = Object.freeze({ kind: 'owner-mission', mission: 'UBERBOND_WINNR_FLEET_FINAL_INTEGRATION', dated: '2026-10-13' });
 const ATTESTED_REGISTRAR = 'godaddy';
 const WORKSPACE_ID = 'uberbond-outreach';
 const PILOT_TAG = 'pre-warmed';
@@ -199,20 +208,20 @@ const phases = {
     await writePrivate(ctx.file('provider-snapshot.json'), takenSnapshot);
     return {
       plan: snapshot.account.plan,
-      emailUsersUsed: snapshot.account.email_users_used,
-      emailUsersLimit: snapshot.account.email_users_limit,
+      providerSeatsUsed: snapshot.account.email_users_used,
+      providerSeatsLimit: snapshot.account.email_users_limit,
       stripeSubscriptionStatus: snapshot.account.stripe_subscription_status,
       prewarmedSubscriptionStatus: snapshot.account.prewarmed_subscription_status,
-      tokenPermissions: snapshot.account.api_token?.permissions || [],
+      grantedScopes: snapshot.account.api_token?.permissions || [],
       startupDomains: fleet.startupDomains.length,
       startupDomainsDnsHealthy: fleet.startupDomains.filter(d => d.dns_health?.status === 'healthy').length,
       startupDomainsRegistrarExternal: fleet.startupDomains.filter(d => d.registrar === 'external').length,
       startupDomainsPrewarmedTagged: fleet.startupDomains.filter(d => (d.tags || []).includes(PILOT_TAG)).length,
-      startupMailboxes: fleet.startupMailboxes.length,
-      startupMailboxesActive: fleet.startupMailboxes.filter(m => m.status === 'active').length,
+      startupAccounts: fleet.startupMailboxes.length,
+      startupAccountsActive: fleet.startupMailboxes.filter(m => m.status === 'active').length,
       pilotDomains: fleet.pilotDomains.length,
-      pilotMailboxes: fleet.pilotMailboxes.length,
-      pilotMailboxesActive: fleet.pilotMailboxes.filter(m => m.status === 'active').length
+      pilotAccounts: fleet.pilotMailboxes.length,
+      pilotAccountsActive: fleet.pilotMailboxes.filter(m => m.status === 'active').length
     };
   },
 
@@ -221,19 +230,43 @@ const phases = {
     const fleet = splitFleet(snapshot);
     const authority = assertExportAuthority({ permissions: snapshot.account?.api_token?.permissions });
     if (!authority.ok) return { exportStatus: 'REFUSED_BEFORE_PROVIDER_CALL', reasonCodes: authority.reasonCodes };
+    // The expected inventory names customer domains, so it arrives only as a runtime secret. The provider must match it
+    // exactly before any export request is made.
+    const expected = parseExpectedInventory(process.env.WINNR_EXPECTED_INVENTORY_JSON || '');
+    if (!expected.ok) return { exportStatus: 'REFUSED_BEFORE_PROVIDER_CALL', reasonCodes: expected.reasonCodes };
+    const providerGate = gateProviderInventory({ expected, providerDomains: snapshot.domains, providerMailboxes: snapshot.mailboxes });
+    if (!providerGate.ok) return { exportStatus: 'REFUSED_BEFORE_PROVIDER_CALL', reasonCodes: providerGate.reasonCodes };
     const requested = fleet.startupDomains.map(d => d.name).sort();
-    if (requested.length !== 10) throw new Error(`expected 10 Startup domains, observed ${requested.length}`);
+    if (requested.length !== 10) return { exportStatus: 'REFUSED_BEFORE_PROVIDER_CALL', reasonCodes: ['startup-domain-count-not-10'] };
     const api = winnrClient(ctx.authMode);
     const exported = await api.exportMailboxes({ format: 'default', domains: requested, writeAuthorized: true });
     if (!exported.ok) return { exportStatus: exported.status, reasonCodes: exported.reasonCodes || [] };
-    const download = await fetch(exported.data.download_url);
+    let download;
+    try {
+      download = await fetch(exported.data.download_url);
+    } catch (error) {
+      // The download URL is a presigned link. Its text is never read, printed or stored.
+      return { exportStatus: exported.status, downloadStatus: 'DOWNLOAD_TRANSPORT_FAILED', errorClass: sanitizedErrorCode(error) };
+    }
     if (!download.ok) return { exportStatus: exported.status, downloadHttpStatus: download.status };
     const csv = await download.text();
+    // Gate in memory first. An export that fails the inventory check is never written to disk.
+    let rows;
+    try {
+      rows = winnrCredentialRows(csv);
+    } catch {
+      return { exportStatus: exported.status, reasonCodes: ['credential-export-unreadable'] };
+    }
+    const csvGate = gateCsvInventory({ expected, rows });
+    const crossGate = gateCsvAgainstProvider({ rows, providerMailboxes: snapshot.mailboxes, expected });
+    const gateReasons = [...new Set([...csvGate.reasonCodes, ...crossGate.reasonCodes])];
+    if (!csvGate.ok || !crossGate.ok) return { exportStatus: exported.status, inventoryGatePassed: false, reasonCodes: gateReasons };
     await writePrivate(ctx.file('creds-export.csv'), csv);
     const inspection = inspectWinnrCredentialExport(csv);
     const requestedSet = new Set(requested);
     return {
       exportStatus: exported.status,
+      inventoryGatePassed: true,
       requestedDomains: requested.length,
       providerReportedCount: exported.data.count,
       skippedCount: exported.data.skipped_count,
@@ -242,7 +275,7 @@ const phases = {
       csvDomains: inspection.domains.length,
       csvDomainsAllRequested: inspection.domains.every(d => requestedSet.has(d)),
       pilotRowsInExport: inspection.rows.filter(r => r.domain && !requestedSet.has(r.domain)).length,
-      secretsReturned: false
+      credentialsReturned: false
     };
   },
 
@@ -285,12 +318,12 @@ const phases = {
     await writePrivate(ctx.file('provider-ids.json'), JSON.stringify(providerIds));
     return {
       csvRows: rows.length,
-      domainColumnAddressMismatches: inspection.mismatchedDomainRowCount,
+      domainColumnMismatches: inspection.mismatchedDomainRowCount,
       crossCheckedRows,
       crossCheckMismatchReasons: mismatches,
       domainsReconciledToProvider: Object.keys(providerDomainIdsByDomain).length,
-      passwordsPresent: rows.filter(r => r.password).length,
-      imapPasswordsPresent: rows.filter(r => r.imap_password).length
+      credentialFieldRows: rows.filter(r => r.password).length,
+      imapCredentialFieldRows: rows.filter(r => r.imap_password).length
     };
   },
 
@@ -316,7 +349,7 @@ const phases = {
     return {
       planStatus: plan.status,
       domainCount: plan.domainCount,
-      mailboxCount: plan.mailboxCount,
+      accountCount: plan.mailboxCount,
       ownershipStatusCounts: countBy(plan.domainPlans, p => p.domain.ownershipStatus),
       classificationCounts: countBy(plan.domainPlans, p => p.domain.classification),
       prewarmedRegistrations: plan.domainPlans.filter(p => p.domain.classification === 'WINNR_PREWARMED_LEASED').length,
@@ -374,6 +407,8 @@ const phases = {
       quarantineSlotsText: '',
       now: new Date()
     });
+    // Per-account rows, with their digests, are private. Only the aggregates below are printed or published.
+    await writePrivate(ctx.file('smtp-probe-detail.json'), JSON.stringify((receipt.results || []).map(r => ({ slotDigest: r.slotDigest, classification: r.classification, errorClass: r.errorClass || null, errorStage: r.errorStage || null, providerCallState: r.providerCallState }))));
     return {
       encryptionKeyLabel: key.label,
       status: receipt.status,
@@ -389,7 +424,7 @@ const phases = {
       mailFromIssued: false,
       recipientsIssued: 0,
       dataIssued: false,
-      perAccount: (receipt.results || []).map(r => ({ slotDigest: r.slotDigest, classification: r.classification, errorClass: r.errorClass || null, errorStage: r.errorStage || null, providerCallState: r.providerCallState }))
+      perAccountDetail: 'WORKDIR_PRIVATE'
     };
   },
 
@@ -451,11 +486,13 @@ const phases = {
       classificationCounts: countBy(perAccount, r => r.classification),
       errorClassCounts: countBy(perAccount.filter(r => !r.loginAccepted), r => r.errorClass || r.responseCode || r.classification),
       perAccount,
-      mailboxesSelected: 0,
+      foldersSelected: 0,
       messageContentRead: 0,
       messagesSent: 0
     };
     await store.setSetting('winnrImapLoginProbeV1', receipt);
+    // Per-account rows stay in the private workdir. The printed result carries aggregates only.
+    await writePrivate(ctx.file('imap-probe-detail.json'), JSON.stringify(perAccount));
     return {
       encryptionKeyLabel: key.label,
       accountCount: receipt.accountCount,
@@ -463,8 +500,8 @@ const phases = {
       loginAccepted: receipt.loginAccepted,
       classificationCounts: receipt.classificationCounts,
       errorClassCounts: receipt.errorClassCounts,
-      perAccount: receipt.perAccount,
-      mailboxesSelected: 0,
+      perAccountDetail: 'WORKDIR_PRIVATE',
+      foldersSelected: 0,
       messageContentRead: 0,
       messagesSent: 0
     };
@@ -530,13 +567,13 @@ const phases = {
       return b && b.name === a.name && JSON.stringify(b.tags) === JSON.stringify(a.tags) && b.status === a.status;
     }).length;
     return {
-      pilotMailboxesBefore: fleetBefore.pilotMailboxes.length,
-      pilotMailboxesPreserved: preserved,
+      pilotAccountsBefore: fleetBefore.pilotMailboxes.length,
+      pilotAccountsPreserved: preserved,
       pilotDomainsBefore: fleetBefore.pilotDomains.length,
       pilotDomainsPreserved: pilotDomainPreserved,
-      startupMailboxesAfter: fleetAfter.startupMailboxes.length,
-      startupMailboxesActiveAfter: fleetAfter.startupMailboxes.filter(m => m.status === 'active').length,
-      emailUsersUsedAfter: after.account.email_users_used
+      startupAccountsAfter: fleetAfter.startupMailboxes.length,
+      startupAccountsActiveAfter: fleetAfter.startupMailboxes.filter(m => m.status === 'active').length,
+      providerSeatsUsedAfter: after.account.email_users_used
     };
   }
 };
@@ -566,13 +603,7 @@ async function main() {
   if (args.phases.includes('receipt')) {
     if (!args.receiptOut) throw new Error('--receipt-out is required for the receipt phase');
     const head = execFileSync('git', ['rev-parse', 'HEAD'], { cwd: REPO_ROOT }).toString().trim();
-    const receipt = {
-      schemaVersion: 'uberbond.winnr-fleet-integration-receipt.v1',
-      generatedAt: new Date().toISOString(),
-      baseCommit: head,
-      ownerAttestationRef: OWNER_ATTESTATION_REF,
-      phases: state
-    };
+    const receipt = toPublicFleetReceipt({ generatedAt: new Date().toISOString(), baseCommit: head, ownerAttestation: OWNER_ATTESTATION, phases: state });
     const out = path.resolve(REPO_ROOT, args.receiptOut);
     await fs.mkdir(path.dirname(out), { recursive: true });
     await fs.writeFile(out, `${JSON.stringify(receipt, null, 2)}\n`);
@@ -586,14 +617,28 @@ async function main() {
       const result = await phases[phase](ctx);
       state[phase] = { ok: result?.reasonCodes === undefined && !String(result?.importStatus || '').startsWith('IMPORT_REFUSED'), startedAt: started, finishedAt: new Date().toISOString(), result };
     } catch (error) {
-      state[phase] = { ok: false, startedAt: started, finishedAt: new Date().toISOString(), error: String(error?.message || error).slice(0, 300) };
+      // The message stays in the private state file. The printed line carries only the class code.
+      state[phase] = { ok: false, startedAt: started, finishedAt: new Date().toISOString(), errorClass: sanitizedErrorCode(error), error: String(error?.message || error).slice(0, 300) };
     }
     await writePrivate(statePath, JSON.stringify(state, null, 2));
-    console.log(`[${phase}] ${JSON.stringify(state[phase].result ?? { error: state[phase].error })}`);
+    printPhase(phase, state[phase].result ?? { errorClass: state[phase].errorClass });
   }
 }
 
-main().catch(error => {
-  console.error(`winnr-fleet-integration failed: ${String(error?.message || error).slice(0, 300)}`);
-  process.exitCode = 1;
-});
+// Each printed result passes the artifact guard first. A result that fails is replaced by a fixed refusal code.
+export function printPhase(phase, result) {
+  try {
+    assertPublicSafe(result);
+    console.log(`[${phase}] ${JSON.stringify(result)}`);
+  } catch (error) {
+    console.log(`[${phase}] ${JSON.stringify({ outputRefused: sanitizedErrorCode(error) })}`);
+  }
+}
+
+const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
+if (isMain) {
+  main().catch(error => {
+    console.error(`winnr-fleet-integration failed: ${sanitizedErrorCode(error)}`);
+    process.exitCode = 1;
+  });
+}

@@ -159,6 +159,14 @@ export async function runNetworkPreflight({ timeoutMs = 10000, targets = WINNR_P
   });
 }
 
+// Exit status for the preflight. Without --require-auth-ports the report is informational and always exits 0.
+// With it, any unreachable or unverified authentication port (465 for SMTP, 993 for IMAP) exits 3, so a gated run
+// stops before it reads any credential.
+export function preflightExitCode(report, { requireAuthPorts = false } = {}) {
+  if (!requireAuthPorts) return 0;
+  return report?.summary?.allAuthenticationPortsReachable === true ? 0 : 3;
+}
+
 const isMain = process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1];
 if (isMain) {
   const args = Object.fromEntries(process.argv.slice(2).map(a => {
@@ -170,4 +178,5 @@ if (isMain) {
   const text = `${JSON.stringify(report, null, 2)}\n`;
   if (typeof args.out === 'string') writeFileSync(args.out, text, { mode: 0o600 });
   process.stdout.write(text);
+  process.exitCode = preflightExitCode(report, { requireAuthPorts: args['require-auth-ports'] === true });
 }

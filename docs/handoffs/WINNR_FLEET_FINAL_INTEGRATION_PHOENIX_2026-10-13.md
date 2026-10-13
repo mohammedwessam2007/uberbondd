@@ -170,3 +170,43 @@ node scripts/with-real-postgres.mjs node --test tests/winnr-postgres-fleet-store
 - `winnr/receipts/FLEET_INTEGRATION_RECEIPT_20261013.json` (this run, nonsecret)
 - `winnr/TRUSTED_RUNTIME_IMPORT_RUNBOOK.md` (procedure, not executed)
 - `docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md` (OVH candidate and port-25 notes)
+
+## Addendum — adversarial security gate before any token exposure (2026-10-13)
+
+Status: **activation package READY, NOT ACTIVE.** Nothing was activated, no secret was requested or stored, and no email,
+purchase, DNS change, deployment, production write or merge occurred.
+
+What changed on the branch:
+
+- Public output is now counts and fixed class names only. The fleet runner no longer prints per-account rows or digests,
+  and a printed result that fails the artifact guard is replaced by a fixed refusal code.
+- `src/winnr-public-receipt.mjs` is the only receipt builder. It deletes identity keys by name and runs the guard over the
+  whole receipt. The committed fleet receipt was migrated through it: 18 legacy count-key names were renamed to v2 names with
+  no value change, and the 100 per-account digest entries were removed.
+- Export is gated before any CSV is written: provider inventory first, then the CSV against the inventory and the provider.
+  The expected inventory is a runtime secret, never a repository value.
+- `scripts/winnr-network-preflight.mjs --require-auth-ports` exits 3 unless 465 and 993 are reachable.
+- `scripts/winnr-auth-probe-only.mjs` v2 refuses before any connection, uses approvalRef and identity-free key names, and
+  turns every exception into a fixed class.
+- `scripts/winnr-activation-guard.mjs` refuses a placeholder pin, a multi-commit push, a parent that is not the pin, any
+  extra changed file, and any change since the pin. It is tested against real git history.
+- `winnr/gated/winnr-auth-probe.github-workflow.yml` is restructured: an unprotected preflight job, then a probe job behind
+  `winnr-probe` with the guard first, step-scoped secrets, `run_attempt == 1`, and an upload of the public receipt only.
+
+Verification (exact commands run on this tree):
+
+- All Winnr-related suites: 269 tests in 28 files, 266 pass and 3 Postgres tests skip without a database. Under
+  `node scripts/with-real-postgres.mjs` the 3 Postgres tests pass.
+- Deterministic suite: 10,082 tests, 9,967 pass, 57 fail, 58 skip. The 57 failures are the pre-existing set (Crown, JEV, canon
+  and reachability ratchets). The reachability and coverage failures were reproduced on the base commit in a clean worktree,
+  and none involves a Winnr or gate module.
+
+Remaining owner gates (see `winnr/GITHUB_AUTH_PROBE_ACTIVATION.md` Part 1 for the iPad steps):
+
+1. Create environment `winnr-probe` with a required reviewer and a selected-branch rule.
+2. Store `WINNR_API_TOKEN` (wnr_, read and write) and `WINNR_EXPECTED_INVENTORY_JSON` as environment secrets.
+3. Explicit `activate` approval. Then an activation commit, parent equal to the reviewed commit, moves the gated file.
+4. Policy confirmation for automated authentication from a hosted runner (open risk in the activation doc).
+
+Known limits: the probe proves authentication acceptance only, not deliverability, reputation or permission to contact anyone.
+Senders remain paused until a separate eligibility decision. Cleanup is best effort, not secure erasure.

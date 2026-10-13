@@ -34,6 +34,22 @@ const REVERSAL_CLASSIFICATIONS = new Set([
 
 const PAYMENT_WITNESS_PROVIDERS = new Set(['lemonsqueezy', 'paypal']);
 
+// A witness written by a provider test or sandbox has the same shape as a real
+// one, which is what makes it dangerous: a test-mode order that reached the
+// ledger would read as cleared money. RevenueEngine writes `testMode` on the
+// order and audit rows; `environment` is read as well so a sandbox witness is
+// refused whichever field a provider uses to say so. Only an explicit test
+// marker refuses. A missing field is not evidence of a test, so real rows that
+// predate these fields keep reconciling exactly as before.
+export const TEST_MODE_WITNESS_REFUSED = 'TEST_MODE_WITNESS_REFUSED';
+const TEST_WITNESS_ENVIRONMENTS = new Set(['sandbox', 'test']);
+
+export function isTestModeWitness(row) {
+  if (!row || typeof row !== 'object') return false;
+  if (row.testMode === true || String(row.testMode ?? '').trim().toLowerCase() === 'true') return true;
+  return TEST_WITNESS_ENVIRONMENTS.has(String(row.environment ?? '').trim().toLowerCase());
+}
+
 function text(value, max = 500) {
   return String(value ?? '').trim().slice(0, max);
 }
@@ -110,7 +126,10 @@ function classificationIndex(auditLog, leadId, classifications) {
       amountCents: Number.isSafeInteger(Number(entry?.amountCents)) ? Number(entry.amountCents) : null,
       currency: text(entry?.currency, 12).toUpperCase() || null,
       policyVersion: text(entry?.policyVersion, 120) || null,
-      timestamp: text(entry?.timestamp, 80) || null
+      timestamp: text(entry?.timestamp, 80) || null,
+      // Carried through so the test-mode refusal can read the markers on the clearing witness.
+      testMode: entry?.testMode ?? null,
+      environment: text(entry?.environment, 40) || null
     });
   }
   return index;
@@ -176,6 +195,7 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
   const unverifiedReversals = [];
   const duplicateReversals = [];
   const contradicted = [];
+  const testModeRefused = [];
   const seenReversals = new Map();
   const seen = new Map();
   const duplicates = [];
@@ -185,6 +205,12 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
     const clearing = clearedIndex.get(key);
     const order = ordersIndex.get(key);
     if (positive && clearing && order) {
+      // Checked before duplicates and mismatches: a test-mode witness is not
+      // payment in any form, so it is refused outright and never admitted.
+      if (isTestModeWitness(event) || isTestModeWitness(order) || isTestModeWitness(clearing)) {
+        testModeRefused.push({ providerEventId: key, direction: 'PAYMENT', amountCents: cents(event?.amountCents) });
+        continue;
+      }
       if (seen.has(key)) {
         duplicates.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
         continue;
@@ -202,6 +228,10 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
     } else if (cents(event?.amountCents) < 0) {
       const reversal = reversalIndex.get(key);
       if (reversal && order) {
+        if (isTestModeWitness(event) || isTestModeWitness(order) || isTestModeWitness(reversal)) {
+          testModeRefused.push({ providerEventId: key, direction: 'REVERSAL', amountCents: cents(event?.amountCents) });
+          continue;
+        }
         if (seenReversals.has(key)) {
           duplicateReversals.push({ providerEventId: key, amountCents: cents(event?.amountCents) });
           continue;
@@ -226,7 +256,8 @@ function verifiedRevenueRows({ revenueEvents, clearedIndex, reversalIndex, order
     contradicted,
     reversals: sorted(reversals.map(item => ({ ...item, createdAt: item.event?.createdAt }))),
     unverifiedReversals: sorted(unverifiedReversals),
-    duplicateReversals
+    duplicateReversals,
+    testModeRefused
   };
 }
 
@@ -276,7 +307,7 @@ export function reconcilePaymentRenewalTruth({
   const unresolvedRetention = unresolvedPaymentRetentionRisks(safeAudit, leadId);
   const {
     verified, unverified, duplicates, contradicted,
-    reversals, unverifiedReversals, duplicateReversals
+    reversals, unverifiedReversals, duplicateReversals, testModeRefused
   } = verifiedRevenueRows({
     revenueEvents: safeRevenue,
     clearedIndex,
@@ -333,7 +364,11 @@ export function reconcilePaymentRenewalTruth({
   const stages = {
     CLEARED_PAYMENT: {
       status: firstPayment ? 'PROVEN' : 'NOT_PROVEN',
-      evidenceRef: firstPayment ? `payment:${firstPayment.event.providerEventId}` : null
+      evidenceRef: firstPayment ? `payment:${firstPayment.event.providerEventId}` : null,
+      // Present only when a test-mode witness was the reason no payment is proven.
+      ...(!firstPayment && testModeRefused.some(item => item.direction === 'PAYMENT')
+        ? { reason: TEST_MODE_WITNESS_REFUSED }
+        : {})
     },
     DELIVERY_RECEIPT: {
       status: Array.isArray(fulfillment?.artifactRefs) && fulfillment.artifactRefs.length && fulfillment?.deliveredAt ? 'PROVEN' : 'NOT_PROVEN',
@@ -374,6 +409,9 @@ export function reconcilePaymentRenewalTruth({
   if (fullyReversed && lead?.paymentStatus === 'paid') contradictions.push('lead-marked-paid-after-full-refund');
   if (reversals.length && acceptance.proven) contradictions.push('customer-acceptance-claimed-with-reversed-payment');
   if (unresolvedRetention.length) contradictions.push('provider-payment-retention-risk-unresolved');
+  // A test-mode witness in a live ledger is an integrity anomaly for a person to
+  // review. It is refused from proof and never summed, and it is not silent.
+  if (testModeRefused.length) contradictions.push('test-mode-payment-witness-refused');
 
   const result = {
     ok: contradictions.length === 0,
@@ -411,6 +449,7 @@ export function reconcilePaymentRenewalTruth({
     verifiedFirstPaymentProduct,
     verifiedProviderEventRefs: verified.map(item => item.event.providerEventId),
     verifiedReversalEventRefs: reversals.map(item => item.event.providerEventId),
+    refusedTestModeEventRefs: testModeRefused.map(item => item.providerEventId),
     unverifiedPositiveRevenueEventRefs: unverified.map(item => text(item.providerEventId, 400)).filter(Boolean),
     unresolvedPaymentRetentionRisks: unresolvedRetention,
     contradictions: [...new Set(contradictions)],

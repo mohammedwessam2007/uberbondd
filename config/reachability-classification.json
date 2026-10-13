@@ -1231,6 +1231,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
       "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    "src/revenue-dry-run.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Deterministic, pure rehearsal of the revenue chain on caller-supplied SIMULATED_FIXTURE data. It performs no I/O and writes nothing, and its result is labelled SIMULATED with zero cleared cash. Consumed by tests as an invariant harness. Nothing in production calls it, by design."
     }
   }
 }

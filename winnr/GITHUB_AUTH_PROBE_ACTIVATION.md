@@ -1,6 +1,6 @@
 # Winnr Startup Fleet: Authentication Probe on GitHub-Hosted Runners — Activation Package
 
-Status: **READY, NOT ACTIVE.** The workflow is in `winnr/gated/`, which GitHub never runs. Nothing in this package has
+Status: **ACTIVATED on commit `9bd655f8`, pinned to reviewed commit `3a515950`. Probe run `38414405557` concluded `AUTHENTICATED_ALL` (SMTP 50/50, IMAP 50/50). Public receipt preserved at `winnr/receipts/AUTH_PROBE_RECEIPT_38414405557.json`.** The reviewed template remains in `winnr/gated/` and must match the active workflow except for the pin. Historical status: nothing in this package had
 sent a message, bought anything, changed DNS, deployed, or written to the production store.
 
 Branch: `claude/winnr-fleet-integration-2026-10-13`. Preflight evidence: run `38404386295`, commit `e964e5d5`.

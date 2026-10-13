@@ -9,8 +9,10 @@ import { WINNR_PIN_PLACEHOLDER, WINNR_PROBE_WORKFLOW_FILE } from '../scripts/win
 // security property of the activation package, not a style check.
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const GATED = path.join(REPO_ROOT, 'winnr/gated/winnr-auth-probe.github-workflow.yml');
-const text = fs.readFileSync(GATED, 'utf8');
+const ACTIVE = path.join(REPO_ROOT, '.github/workflows/winnr-auth-probe.yml');
+const TEMPLATE = path.join(REPO_ROOT, 'winnr/gated/winnr-auth-probe.github-workflow.yml');
+const REVIEWED_PIN = '3a5159503fe476c7a481389557e1c744d1f01217';
+const text = fs.readFileSync(ACTIVE, 'utf8');
 const lines = text.split('\n');
 
 function jobBlock(name) {
@@ -23,10 +25,17 @@ function jobBlock(name) {
 const preflight = jobBlock('preflight');
 const probe = jobBlock('probe');
 
-test('the gated template is inactive: it is outside .github/workflows and no active probe workflow exists', () => {
-  assert.equal(fs.existsSync(path.join(REPO_ROOT, WINNR_PROBE_WORKFLOW_FILE)), false, 'the activation commit, not this change, creates the active file');
-  assert.match(GATED, /winnr\/gated\//);
-  assert.equal(text.startsWith('# GATED'), true);
+test('the active workflow is the reviewed template with exactly one change: the pin line', () => {
+  const template = fs.readFileSync(TEMPLATE, 'utf8');
+  const strip = value => value.replace(/WINNR_REVIEWED_CODE_SHA: '[^']*'/, 'WINNR_REVIEWED_CODE_SHA: <pin>');
+  assert.equal(strip(text), strip(template), 'the activated file must match the reviewed template apart from the pin');
+  assert.equal(text.includes(`'${WINNR_PIN_PLACEHOLDER}'`), false, 'the activated pin is not the placeholder');
+});
+
+test('the pin is exactly the reviewed commit', () => {
+  const pins = [...text.matchAll(/WINNR_REVIEWED_CODE_SHA: '([^']*)'/g)].map(m => m[1]);
+  assert.deepEqual(pins, [REVIEWED_PIN]);
+  assert.match(REVIEWED_PIN, /^[0-9a-f]{40}$/);
 });
 
 test('the trigger is exactly the Winnr fleet branch and exactly the probe workflow path', () => {
@@ -59,10 +68,6 @@ test('the probe waits for preflight and refuses a re-run, so one approval cannot
   assert.match(probe, /if: \$\{\{ github\.run_attempt == 1 \}\}/);
   assert.match(probe, /environment: winnr-probe/);
   assert.match(probe, /timeout-minutes: \d+/);
-});
-
-test('the reviewed-commit pin is a placeholder that fails closed in the template', () => {
-  assert.match(probe, new RegExp(`WINNR_REVIEWED_CODE_SHA: '${WINNR_PIN_PLACEHOLDER}'`));
 });
 
 test('the reviewed-commit guard runs before dependencies install and before any secret is referenced', () => {

@@ -207,3 +207,19 @@ test('credential import fails a mismatched row rather than binding it to the col
   assert.ok(r.failures[0].reasonCodes.includes('domain-column-address-mismatch'));
   assert.equal(r.plaintextCredentialReturned,false);
 });
+
+test('a pilot domain accidentally present in the Startup export is refused before any registry write', () => {
+  const csv=fleetCsv();
+  const withPilot=`${csv}\ncedarpointdomains.com,pilot@cedarpointdomains.com,Pilot,pilot@cedarpointdomains.com,pilot-secret,smtp.example.net,465,imap.example.net,993,pilot@cedarpointdomains.com,pilot-imap-secret,`;
+  const plan=compileWinnrPostPurchaseFleetPlan({csvText:withPilot,...providerFixtures(fleetCsv()),...ATTEST,excludedDomains:['cedarpointdomains.com']});
+  assert.equal(plan.ok,false);
+  assert.ok(plan.reasonCodes.includes('excluded-pilot-domain-in-startup-export'));
+  assert.equal(plan.messagesSent,0);
+});
+
+test('a duplicate mailbox address in one export is refused, not resolved by last-row-wins', () => {
+  const dup=fleetCsv()+'\nfleet-01-startup.co,box1@fleet-01-startup.co,Box 1,box1@fleet-01-startup.co,other-secret,smtp.example.net,465,imap.example.net,993,box1@fleet-01-startup.co,imap-other,';
+  const plan=compileWinnrPostPurchaseFleetPlan({csvText:dup,...providerFixtures(fleetCsv()),...ATTEST});
+  assert.equal(plan.ok,false);
+  assert.ok(plan.reasonCodes.includes('duplicate-mailbox-address'));
+});

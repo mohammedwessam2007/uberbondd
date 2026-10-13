@@ -27,6 +27,23 @@ const bounded = fields => Object.freeze({
   credentialsLogged: false
 });
 
+// connectImapSocket aggregates per-address-family reasons as "<family>:<CODE>" in reasonCodes. The aggregate's own
+// code is IMAP_CONNECT_FAILED, which says nothing about the cause, so the cause is read from the family reasons.
+function connectCause(error) {
+  const families = Array.isArray(error?.reasonCodes) ? error.reasonCodes.map(entry => String(entry).replace(/^[46]:/, '')) : [];
+  const own = safeCode(error);
+  if (own !== 'IMAP_CONNECT_FAILED') {
+    return { classification: UNREACHABLE.has(own) ? 'TRANSPORT_UNREACHABLE' : 'TLS_OR_GREETING_FAILED', errorClass: own };
+  }
+  if (families.length > 0 && families.every(code => UNREACHABLE.has(code))) {
+    return { classification: 'TRANSPORT_UNREACHABLE', errorClass: [...new Set(families)].join('+') };
+  }
+  if (families.some(code => /CERT|TLS|SSL|EPROTO|ERR_/.test(code))) {
+    return { classification: 'TLS_OR_GREETING_FAILED', errorClass: [...new Set(families)].join('+') };
+  }
+  return { classification: 'CONNECT_FAILED_UNCLASSIFIED', errorClass: [...new Set(families)].join('+') || 'UNKNOWN' };
+}
+
 function runTagged(socket, tag, line, timeoutMs) {
   return new Promise((resolve, reject) => {
     let buffer = '';
@@ -76,11 +93,11 @@ export async function probeWinnrImapLoginOnly({
   try {
     socket = await connectFactory({ host: route.host, port: route.port, secure: route.secure !== false, timeoutMs });
   } catch (error) {
-    const code = safeCode(error);
+    const cause = connectCause(error);
     return bounded({
-      classification: UNREACHABLE.has(code) ? 'TRANSPORT_UNREACHABLE' : 'TLS_OR_GREETING_FAILED',
+      classification: cause.classification,
       stage: 'CONNECT',
-      errorClass: code,
+      errorClass: cause.errorClass,
       connectAttempted: true,
       loginAttempted: false,
       loginAccepted: false

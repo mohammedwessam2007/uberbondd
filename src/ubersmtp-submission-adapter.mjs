@@ -22,6 +22,23 @@ function commandRejected(stage,response){
   error.smtpResponseCode=Number.isInteger(Number(response?.code))?Number(response.code):null;
   return error;
 }
+// Closed vocabulary for probe failures. Only a fixed class leaves this module, never the message text, so a
+// connect timeout is no longer indistinguishable from any other generic Error.
+const TRANSPORT_CODES=new Set(['ECONNREFUSED','ETIMEDOUT','EHOSTUNREACH','ENETUNREACH','ECONNRESET','ENOTFOUND','EAI_AGAIN','EPIPE']);
+const AUTH_REJECTION_CODES=new Set([530,534,535,454]);
+export function classifySmtpTransportError(error){
+  const message=String(error?.message||'');
+  const code=String(error?.code||'');
+  if(code==='SMTP_COMMAND_REJECTED'){
+    if(safeStage(error?.smtpStage)==='AUTH'&&AUTH_REJECTION_CODES.has(Number(error?.smtpResponseCode)))return 'AUTH_REJECTED';
+    return 'SMTP_COMMAND_REJECTED';
+  }
+  if(message==='smtp-connect-timeout')return 'CONNECT_TIMEOUT';
+  if(message==='smtp-response-timeout')return 'RESPONSE_TIMEOUT';
+  if(TRANSPORT_CODES.has(code))return code;
+  if(/^(ERR_TLS|CERT_|DEPTH_ZERO|SELF_SIGNED|UNABLE_TO_VERIFY)/.test(code))return 'TLS_FAILED';
+  return 'UNCLASSIFIED';
+}
 function header(value,max=1000){return clean(value,max).replace(/[\r\n]+/g,' ');}
 function formatFromHeader(from='',fromName=''){
   const email=header(from,320);
@@ -179,7 +196,7 @@ export function createUberSmtpSubmissionTransport({
           confirmed:false,
           state:'SMTP_AUTH_NOOP_FAILED',
           reasonCodes:['smtp-session-probe-failed'],
-          errorClass:clean(error?.code||error?.name||'error',80),
+          errorClass:classifySmtpTransportError(error),
           errorStage:safeStage(error?.smtpStage),
           smtpResponseCode:Number.isInteger(Number(error?.smtpResponseCode))?Number(error.smtpResponseCode):null,
           providerCalls:1,

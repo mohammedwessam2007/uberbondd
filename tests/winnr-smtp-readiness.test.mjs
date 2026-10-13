@@ -71,7 +71,8 @@ test('SMTP transport failure exposes only bounded stage and numeric response cod
   });
   const result=await transport.probe();
   assert.equal(result.confirmed,false);
-  assert.equal(result.errorClass,'SMTP_COMMAND_REJECTED');
+  // A 535 reply to AUTH is an authentication rejection, reported as its own closed class.
+  assert.equal(result.errorClass,'AUTH_REJECTED');
   assert.equal(result.errorStage,'AUTH');
   assert.equal(result.smtpResponseCode,535);
   assert.equal(result.providerCalls,1);

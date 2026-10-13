@@ -40,6 +40,10 @@ import { compileWinnrPostPurchaseFleetPlan, applyWinnrPostPurchaseFleetPlan } fr
 import { runWinnrSmtpReadinessProbe, SMTP_PROBE_FAILURE_PAUSE_REASON } from '../src/winnr-smtp-readiness.mjs';
 import { probeWinnrImapLoginOnly } from '../src/winnr-imap-login-probe.mjs';
 import { JsonStore } from '../src/store.mjs';
+import net from 'node:net';
+import {
+  reconcileWinnrFleet, assertCompleteListing, assertProviderSchema, assertExportAuthority, verifyStoreKeyCompatibility
+} from '../src/winnr-fleet-control-plane.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const OWNER_ATTESTATION_REF = 'owner-mission:UBERBOND_WINNR_FLEET_FINAL_INTEGRATION_2026-10-13';
@@ -113,9 +117,12 @@ async function readAccountSet(api) {
   for (const [label, result] of [['account', account], ['domains', domains], ['mailboxes', mailboxes]]) {
     if (!result.ok) throw new Error(`provider ${label} read failed: ${result.status} ${result.reasonCodes?.join(',')}`);
   }
-  if (domains.pagination?.has_more !== false || mailboxes.pagination?.has_more !== false) {
-    throw new Error('provider list is paginated beyond one page; refusing a partial fleet view');
+  for (const [label, result] of [['domains', domains], ['mailboxes', mailboxes]]) {
+    const complete = assertCompleteListing(result, label);
+    if (!complete.ok) throw new Error(`refusing partial fleet view: ${complete.reasonCodes.join(',')}`);
   }
+  const schema = assertProviderSchema({ domains: domains.data, mailboxes: mailboxes.data });
+  if (!schema.ok) throw new Error(`provider schema drift: ${schema.reasonCodes.slice(0, 5).join(',')}`);
   return { account: account.data, domains: domains.data, mailboxes: mailboxes.data };
 }
 
@@ -155,6 +162,16 @@ async function openStore(ctx) {
   return store;
 }
 
+function tcpReachability(host, port, timeoutMs) {
+  return new Promise(resolve => {
+    const socket = net.connect({ host, port });
+    const finish = outcome => { socket.destroy(); resolve(outcome); };
+    const timer = setTimeout(() => finish('CONNECT_TIMEOUT'), timeoutMs);
+    socket.once('connect', () => { clearTimeout(timer); finish('TCP_CONNECTED'); });
+    socket.once('error', error => { clearTimeout(timer); finish(String(error?.code || 'ERROR').replace(/[^A-Z0-9_]/g, '_')); });
+  });
+}
+
 const phases = {
   async read(ctx) {
     const snapshot = await readAccountSet(winnrClient());
@@ -182,6 +199,8 @@ const phases = {
   async export(ctx) {
     const snapshot = await readJson(ctx.file('provider-snapshot.json'));
     const fleet = splitFleet(snapshot);
+    const authority = assertExportAuthority({ permissions: snapshot.account?.api_token?.permissions });
+    if (!authority.ok) return { exportStatus: 'REFUSED_BEFORE_PROVIDER_CALL', reasonCodes: authority.reasonCodes };
     const requested = fleet.startupDomains.map(d => d.name).sort();
     if (requested.length !== 10) throw new Error(`expected 10 Startup domains, observed ${requested.length}`);
     const api = winnrClient();
@@ -266,6 +285,8 @@ const phases = {
       providerMailboxIdsByEmail: ids.providerMailboxIdsByEmail,
       ownerAttestedRegistrar: ATTESTED_REGISTRAR,
       ownerAttestationRef: OWNER_ATTESTATION_REF,
+      excludedDomains: (await readJson(ctx.file('provider-snapshot.json'))).domains
+        .filter(d => (d.tags || []).includes(PILOT_TAG)).map(d => d.name),
       plannedDailyCap: 2
     });
     if (!plan.ok) return { planStatus: plan.status, reasonCodes: plan.reasonCodes, failedDomainOrdinal: plan.failedDomain ? 'see-private-plan' : null };
@@ -302,6 +323,8 @@ const phases = {
       minGapSeconds: 900
     });
     const store = await openStore(ctx);
+    const compatibility = verifyStoreKeyCompatibility({ accounts: await store.list('accounts'), encryptionKey: key.hex });
+    if (!compatibility.ok) return { encryptionKeyLabel: key.label, importStatus: 'IMPORT_REFUSED', reasonCodes: compatibility.reasonCodes, undecryptableExisting: compatibility.undecryptable, plaintextCredentialReturned: false };
     let smtpStored = 0;
     let imapStored = 0;
     for (const row of compiled.prepared) {
@@ -404,7 +427,51 @@ const phases = {
     };
   },
 
-  async 'pilot-check'(ctx) {
+  // Read-only TCP reachability from this runtime. No bytes are written and no credential is used. The 443 target is a
+  // control: it shows whether the runtime reaches the provider at all, so a port-specific block is distinguishable
+  // from a total outage. A completed TCP handshake is reachability only, not authentication.
+  async 'network-diagnostic'(ctx) {
+    const targets = [
+      { label: 'control-https-443', host: 'api.winnr.app', port: 443 },
+      { label: 'smtp-submission-465', host: 'inbound.winnr.app', port: 465 },
+      { label: 'smtp-submission-587', host: 'inbound.winnr.app', port: 587 },
+      { label: 'imap-993', host: 'inbound.winnr.app', port: 993 }
+    ];
+    const results = [];
+    for (const target of targets) {
+      results.push({ label: target.label, outcome: await tcpReachability(target.host, target.port, 10000) });
+    }
+    return { results, bytesWritten: 0, credentialsUsed: false, authenticationAttempted: false };
+  },
+
+  // Reconciles provider inventory against local accounts, sender pauses, recorded probe receipts and domain ownership.
+  // Read-only apart from the reconciliation receipt it stores. Outbound eligibility stays false: no campaign
+  // authority is granted by this phase.
+  async reconcile(ctx) {
+    const snapshot = await readJson(ctx.file('provider-snapshot.json'));
+    const plan = await readJson(ctx.file('fleet-plan.json'));
+    const store = await openStore(ctx);
+    const settings = await store.getSettings();
+    const accounts = await store.list('accounts');
+    const senderHealth = await store.list('senderHealth');
+    const ownership = Object.fromEntries(plan.domainPlans.map(p => [p.domain.domain, p.domain.ownershipStatus]));
+    const report = reconcileWinnrFleet({
+      providerDomains: snapshot.domains,
+      providerMailboxes: snapshot.mailboxes,
+      localAccounts: accounts,
+      senderHealth,
+      smtpReceipt: settings.winnrSmtpReadinessV1 || null,
+      imapReceipt: settings.winnrImapLoginProbeV1 || null,
+      domainOwnershipByName: ownership,
+      snapshotTakenAt: snapshot.takenAt,
+      now: new Date(),
+      campaignAuthorityGranted: false
+    });
+    await writePrivate(ctx.file('reconciliation.json'), JSON.stringify(report));
+    return { status: report.status, counts: report.counts, checks: report.checks, issues: report.issues, outboundAuthorityGranted: false, messagesSent: 0 };
+  },
+
+ async 'pilot-check'(ctx) {
     const before = await readJson(ctx.file('provider-snapshot.json'));
     const fleetBefore = splitFleet(before);
     const after = await readAccountSet(winnrClient());

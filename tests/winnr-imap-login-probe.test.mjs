@@ -122,3 +122,28 @@ test('a password containing a line break is refused before any connection', asyn
   assert.equal(result.classification, 'CREDENTIAL_UNSAFE_FOR_LITERAL');
   assert.equal(connected, false);
 });
+
+test('an aggregate connect failure is classified by its real per-family cause, not as TLS', async () => {
+  const connectFactory = async () => {
+    const error = new Error('imap-connect-failed:4:ETIMEDOUT|6:ETIMEDOUT');
+    error.code = 'IMAP_CONNECT_FAILED';
+    error.reasonCodes = ['4:ETIMEDOUT', '6:ETIMEDOUT'];
+    throw error;
+  };
+  const result = await probeWinnrImapLoginOnly({ account: imapAccount(), encryptionKey: KEY, connectFactory, timeoutMs: 2000 });
+  assert.equal(result.classification, 'TRANSPORT_UNREACHABLE');
+  assert.equal(result.errorClass, 'ETIMEDOUT');
+  assert.equal(result.loginAttempted, false);
+});
+
+test('an aggregate connect failure with a certificate cause is TLS_OR_GREETING_FAILED', async () => {
+  const connectFactory = async () => {
+    const error = new Error('imap-connect-failed:4:CERT_HAS_EXPIRED');
+    error.code = 'IMAP_CONNECT_FAILED';
+    error.reasonCodes = ['4:CERT_HAS_EXPIRED'];
+    throw error;
+  };
+  const result = await probeWinnrImapLoginOnly({ account: imapAccount(), encryptionKey: KEY, connectFactory, timeoutMs: 2000 });
+  assert.equal(result.classification, 'TLS_OR_GREETING_FAILED');
+  assert.equal(result.errorClass, 'CERT_HAS_EXPIRED');
+});

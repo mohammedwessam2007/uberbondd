@@ -113,10 +113,16 @@ export function compileWinnrPostPurchaseFleetPlan({
   providerMailboxIdsByEmail={},
   ownerAttestedRegistrar='',
   ownerAttestationRef='',
+  excludedDomains=[],
   plannedDailyCap=2
 }={}){
   const inspection=inspectWinnrCredentialExport(csvText);
   const reasons=[];
+  // A duplicate address makes the link map ambiguous, and a pilot domain in a Startup export would pull pilot credentials in.
+  const addresses=inspection.rows.map(row=>row.email);
+  if(new Set(addresses).size!==addresses.length)reasons.push('duplicate-mailbox-address');
+  const excluded=new Set((Array.isArray(excludedDomains)?excludedDomains:[]).map(d=>String(d).toLowerCase()));
+  if(inspection.domains.some(domain=>excluded.has(domain)))reasons.push('excluded-pilot-domain-in-startup-export');
   if(!clean(workspaceId,120))reasons.push('workspace-id-required');
   if(inspection.rowCount<1)reasons.push('credential-export-mailboxes-required');
   if(inspection.domains.length<1)reasons.push('fleet-domain-required');

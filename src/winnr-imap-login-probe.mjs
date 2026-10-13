@@ -84,14 +84,26 @@ export async function probeWinnrImapLoginOnly({
   } catch (error) {
     return bounded({ classification: 'CREDENTIAL_UNAVAILABLE', stage: 'CREDENTIAL', errorClass: safeCode(error), connectAttempted: false, loginAttempted: false, loginAccepted: false });
   }
-  if (/[\r\n\0]/.test(`${credential.username}${credential.password}`)) {
+  return probeImapLoginWithCredential({
+    host: account.imapRoute?.host,
+    port: account.imapRoute?.port,
+    secure: account.imapRoute?.secure !== false,
+    username: credential.username,
+    password: credential.password,
+    connectFactory,
+    timeoutMs
+  });
+}
+
+// Login-only check from a plain credential, for the probe-only runner that holds no encryption key. The protocol is
+// identical: TLS connect, server greeting, LOGIN, LOGOUT. Nothing else is sent.
+export async function probeImapLoginWithCredential({ host, port, secure = true, username = '', password = '', connectFactory = connectImapSocket, timeoutMs = 15000 } = {}) {
+  if (/[\r\n\0]/.test(`${username}${password}`)) {
     return bounded({ classification: 'CREDENTIAL_UNSAFE_FOR_LITERAL', stage: 'CREDENTIAL', connectAttempted: false, loginAttempted: false, loginAccepted: false });
   }
-
-  const route = account.imapRoute || {};
   let socket;
   try {
-    socket = await connectFactory({ host: route.host, port: route.port, secure: route.secure !== false, timeoutMs });
+    socket = await connectFactory({ host, port, secure: secure !== false, timeoutMs });
   } catch (error) {
     const cause = connectCause(error);
     return bounded({
@@ -105,7 +117,7 @@ export async function probeWinnrImapLoginOnly({
   }
 
   try {
-    const login = await runTagged(socket, 'WL0001', `LOGIN ${quote(credential.username)} ${quote(credential.password)}`, timeoutMs);
+    const login = await runTagged(socket, 'WL0001', `LOGIN ${quote(username)} ${quote(password)}`, timeoutMs);
     if (login.status !== 'OK') {
       return bounded({
         classification: login.status === 'NO' ? 'AUTH_REJECTED' : 'PROTOCOL_REJECTED',

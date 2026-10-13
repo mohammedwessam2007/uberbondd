@@ -1,0 +1,71 @@
+# GATED — NOT ACTIVE. This file lives outside .github/workflows, so GitHub never runs it.
+# Activation requires two owner actions first (see winnr/GITHUB_AUTH_PROBE_ACTIVATION.md):
+#   1. Create the protected environment `winnr-probe` with a required reviewer.
+#   2. Store WINNR_API_TOKEN (a wnr_ token with read and write) as a secret of that environment only.
+# Only then copy this file to .github/workflows/winnr-auth-probe.yml in a commit.
+#
+# What a run does, in order:
+#   - Waits for the required reviewer. No secret is released before the approval.
+#   - Exports the Startup credential CSV through the documented Winnr export API (write-scoped token).
+#   - Runs the authentication-only probe: SMTP AUTH+NOOP+QUIT on 465, IMAP LOGIN+LOGOUT on 993. No mail is sent.
+#   - Shreds the CSV and the workspace, whether or not the probe passed.
+#   - Uploads only a digest-only receipt. No address, password, host or export URL is printed or uploaded.
+
+name: Winnr authentication probe (gated)
+
+on:
+  push:
+    branches:
+      - claude/winnr-fleet-integration-2026-10-13
+    paths:
+      - '.github/workflows/winnr-auth-probe.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: winnr-auth-probe
+  cancel-in-progress: false
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    environment: winnr-probe
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install locked dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts
+      - name: Export the Startup credential CSV (token is not printed)
+        env:
+          WINNR_API_TOKEN: ${{ secrets.WINNR_API_TOKEN }}
+        run: |
+          set -eu
+          test -n "$WINNR_API_TOKEN"
+          node scripts/winnr-fleet-integration.mjs --workdir="$RUNNER_TEMP/winnr-probe" --auth-mode=bearer --phases=read,export
+      - name: Authentication-only probe (no mail is sent)
+        run: |
+          set -eu
+          node scripts/winnr-auth-probe-only.mjs \
+            --csv="$RUNNER_TEMP/winnr-probe/creds-export.csv" \
+            --owner-ref="github-environment-approval:winnr-probe:run-${{ github.run_id }}" \
+            --exclude-domain=cedarpointdomains.com \
+            --receipt-out=winnr-auth-probe-receipt.json \
+            --timeout-ms=15000
+      - name: Destroy credential material (always)
+        if: always()
+        run: |
+          f="$RUNNER_TEMP/winnr-probe/creds-export.csv"
+          if [ -f "$f" ]; then shred -u -n 1 "$f" 2>/dev/null || rm -f "$f"; fi
+          rm -rf "$RUNNER_TEMP/winnr-probe"
+      - name: Upload the digest-only receipt (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winnr-auth-probe-receipt
+          path: winnr-auth-probe-receipt.json
+          if-no-files-found: warn
+          retention-days: 30

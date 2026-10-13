@@ -10,8 +10,9 @@ const parseOrdinals=value=>new Set(String(value||'').split(',').map(Number).filt
 const isOwnProbePause=health=>health?.paused===true&&String(health?.pauseReason||'')===SMTP_PROBE_FAILURE_PAUSE_REASON;
 const hardProtectivePause=health=>health?.paused===true&&!isOwnProbePause(health);
 const providerCallCount=probe=>{
-  const n=Number(probe?.providerCalls);
-  return Number.isInteger(n)&&n>=0?n:null;
+  // Number(null) is 0, so only a real number may count as a known provider-call total.
+  const n=probe?.providerCalls;
+  return typeof n==='number'&&Number.isInteger(n)&&n>=0?n:null;
 };
 const responseCode=value=>Number.isInteger(Number(value))?Number(value):null;
 

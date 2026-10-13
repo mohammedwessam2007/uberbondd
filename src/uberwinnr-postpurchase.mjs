@@ -22,7 +22,22 @@ export function compileWinnrPostPurchaseRegistryPlan({
   providerMailboxIdsByEmail={},
   plannedDailyCap=2
 }={}){
-  const inspection=inspectWinnrCredentialExport(csvText);
+  return registryPlanFromInspection({
+    inspection:inspectWinnrCredentialExport(csvText),
+    workspaceId,
+    providerDomainId,
+    providerMailboxIdsByEmail,
+    plannedDailyCap
+  });
+}
+
+function registryPlanFromInspection({
+  inspection,
+  workspaceId='uberbond-outreach',
+  providerDomainId='',
+  providerMailboxIdsByEmail={},
+  plannedDailyCap=2
+}={}){
   const reasons=[];
   if(!clean(workspaceId,120))reasons.push('workspace-id-required');
   if(inspection.rowCount<1)reasons.push('credential-export-mailboxes-required');
@@ -71,6 +86,83 @@ export function compileWinnrPostPurchaseRegistryPlan({
     messagesSent:0,
     externalEffectAuthority:'NONE',
     truthBoundary:'This plan maps an already-purchased provider-controlled Winnr domain and its credential export into canonical UberBond registry identities. It does not claim legal ownership of the domain, DNS health, mailbox authentication, warmup completion, inbox placement or send authority.'
+  });
+}
+
+// Fleet variant: one provider-controlled prewarmed domain per registry plan, many domains per export.
+// Each domain reuses the single-domain plan so identity, cap and no-password rules stay identical.
+export function compileWinnrPostPurchaseFleetPlan({
+  csvText='',
+  workspaceId='uberbond-outreach',
+  providerDomainIdsByDomain={},
+  providerMailboxIdsByEmail={},
+  plannedDailyCap=2
+}={}){
+  const inspection=inspectWinnrCredentialExport(csvText);
+  const reasons=[];
+  if(!clean(workspaceId,120))reasons.push('workspace-id-required');
+  if(inspection.rowCount<1)reasons.push('credential-export-mailboxes-required');
+  if(inspection.domains.length<1)reasons.push('prewarmed-domain-required');
+  if(reasons.length)return Object.freeze({
+    ok:false,status:'WINNR_POSTPURCHASE_FLEET_PLAN_REFUSED',reasonCodes:[...new Set(reasons)],
+    domainCount:0,mailboxCount:0,providerCalls:0,messagesSent:0,externalEffectAuthority:'NONE'
+  });
+
+  const domainPlans=[];
+  for(const domain of inspection.domains){
+    const rows=inspection.rows.filter(row=>row.domain===domain);
+    const plan=registryPlanFromInspection({
+      inspection:{...inspection,rows,rowCount:rows.length,domains:[domain]},
+      workspaceId,
+      providerDomainId:clean(providerDomainIdsByDomain?.[domain],240),
+      providerMailboxIdsByEmail,
+      plannedDailyCap
+    });
+    if(!plan.ok)return Object.freeze({
+      ok:false,status:'WINNR_POSTPURCHASE_FLEET_PLAN_REFUSED',reasonCodes:plan.reasonCodes,failedDomain:domain,
+      domainCount:0,mailboxCount:0,providerCalls:0,messagesSent:0,externalEffectAuthority:'NONE'
+    });
+    domainPlans.push(plan);
+  }
+
+  return Object.freeze({
+    ok:true,
+    status:'WINNR_POSTPURCHASE_FLEET_PLAN_READY',
+    version:UBERWINNR_POSTPURCHASE_VERSION,
+    workspaceId:clean(workspaceId,120),
+    domainCount:domainPlans.length,
+    mailboxCount:inspection.rowCount,
+    domainPlans:Object.freeze(domainPlans),
+    linksByEmail:Object.freeze(Object.assign({},...domainPlans.map(plan=>plan.linksByEmail))),
+    sourceDigest:inspection.sourceDigest,
+    providerCalls:0,
+    messagesSent:0,
+    externalEffectAuthority:'NONE',
+    truthBoundary:'This fleet plan maps every provider-controlled prewarmed domain in one credential export into canonical registry identities, one domain at a time. It carries no passwords, performs no provider calls and claims no ownership, DNS health, placement or sending authority.'
+  });
+}
+
+export async function applyWinnrPostPurchaseFleetPlan({store,fleetPlan,date=new Date()}={}){
+  if(fleetPlan?.ok!==true||fleetPlan?.status!=='WINNR_POSTPURCHASE_FLEET_PLAN_READY'){
+    return {ok:false,status:'WINNR_POSTPURCHASE_FLEET_APPLY_REFUSED',reasonCodes:['valid-fleet-plan-required'],eventsWritten:0};
+  }
+  let eventsWritten=0;
+  const linksByEmail={};
+  for(const plan of fleetPlan.domainPlans){
+    const applied=await applyWinnrPostPurchaseRegistryPlan({store,plan,date});
+    eventsWritten+=Number(applied?.eventsWritten||0);
+    if(!applied?.ok)return {...applied,failedDomain:plan.domain.domain,eventsWritten};
+    Object.assign(linksByEmail,applied.linksByEmail);
+  }
+  return Object.freeze({
+    ok:true,
+    status:'WINNR_POSTPURCHASE_FLEET_REGISTRY_APPLIED',
+    domainCount:fleetPlan.domainCount,
+    mailboxCount:fleetPlan.mailboxCount,
+    eventsWritten,
+    linksByEmail:Object.freeze(linksByEmail),
+    messagesSent:0,
+    externalEffectAuthority:'NONE'
   });
 }
 

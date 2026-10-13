@@ -236,3 +236,31 @@ export function reconcileWinnrFleet({
     truthBoundary: 'Reconciliation describes recorded observations only. A TCP or TLS attempt is not an authentication; an accepted LOGIN or AUTH is not deliverability, reputation or outreach permission.'
   });
 }
+
+// Environment-confusion guard for the runner. Staging key material may only meet the isolated JSON store. The
+// production key may only meet the PostgreSQL store it already protects. A production runtime refuses staging keys.
+export function assertRunnerEnvironment({ keySource = '', storeBackend = '', productionRuntime = false } = {}) {
+  const reasons = [];
+  if (!['env', 'staging-file'].includes(keySource)) reasons.push('unknown-key-source');
+  if (!['json', 'postgres'].includes(storeBackend)) reasons.push('unknown-store-backend');
+  if (keySource === 'env' && storeBackend !== 'postgres') reasons.push('production-key-requires-postgres-store');
+  if (keySource === 'staging-file' && storeBackend === 'postgres') reasons.push('staging-key-must-not-target-postgres');
+  if (keySource === 'staging-file' && productionRuntime === true) reasons.push('staging-key-refused-in-production-runtime');
+  return { ok: reasons.length === 0, reasonCodes: [...new Set(reasons)] };
+}
+
+// Stages prepared accounts so that no SMTP sender is ever selectable without a probe. The pause is written before the
+// account record, so an interruption between the two writes leaves an account that is paused, never one that is live.
+// Re-running is safe: upsert is keyed by the stable account id, and the pause reason is the probe's own.
+export async function stageImportedAccounts({ store, prepared = [], pauseReason = '' } = {}) {
+  let smtpStaged = 0;
+  let imapStaged = 0;
+  for (const row of prepared) {
+    await store.setSenderPaused(row.smtpAccount.slot, true, pauseReason);
+    await store.upsert('accounts', { ...row.smtpAccount, updatedAt: new Date().toISOString() });
+    smtpStaged += 1;
+    await store.upsert('accounts', { ...row.imapAccount, updatedAt: new Date().toISOString() });
+    imapStaged += 1;
+  }
+  return { smtpStaged, imapStaged };
+}

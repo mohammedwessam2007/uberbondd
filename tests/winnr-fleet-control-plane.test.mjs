@@ -235,3 +235,56 @@ test('reports carry digests only: no addresses, domains or secrets in output', (
   assert.equal(text.includes('hello@'), false);
   assert.equal(text.includes('fixture-password'), false);
 });
+
+import { assertRunnerEnvironment } from '../src/winnr-fleet-control-plane.mjs';
+
+test('the production key only meets PostgreSQL, and staging material never meets PostgreSQL or a production runtime', () => {
+  assert.equal(assertRunnerEnvironment({ keySource: 'env', storeBackend: 'postgres' }).ok, true);
+  assert.deepEqual(assertRunnerEnvironment({ keySource: 'env', storeBackend: 'json' }).reasonCodes, ['production-key-requires-postgres-store']);
+  assert.deepEqual(assertRunnerEnvironment({ keySource: 'staging-file', storeBackend: 'postgres' }).reasonCodes, ['staging-key-must-not-target-postgres']);
+  assert.deepEqual(assertRunnerEnvironment({ keySource: 'staging-file', storeBackend: 'json', productionRuntime: true }).reasonCodes, ['staging-key-refused-in-production-runtime']);
+  assert.equal(assertRunnerEnvironment({ keySource: 'staging-file', storeBackend: 'json' }).ok, true);
+  assert.ok(assertRunnerEnvironment({ keySource: 'unknown', storeBackend: 'json' }).reasonCodes.includes('unknown-key-source'));
+});
+
+import { stageImportedAccounts } from '../src/winnr-fleet-control-plane.mjs';
+
+function fakeImportStore({ failOnUpsertOf = null } = {}) {
+  const paused = new Map();
+  const accounts = new Map();
+  return {
+    paused, accounts,
+    async setSenderPaused(slot, value, reason) { paused.set(slot, { paused: value, reason }); },
+    async upsert(collection, row) {
+      if (failOnUpsertOf && row.slot === failOnUpsertOf) throw new Error('simulated interruption');
+      accounts.set(row.slot, { ...row, paused: paused.get(row.slot)?.paused === true });
+    }
+  };
+}
+
+const PREPARED = [{ smtpAccount: { id: 'smtp-x', slot: 'winnr:x@startup-fixture.co', connected: true }, imapAccount: { id: 'imap-x', slot: 'winnr-imap:x@startup-fixture.co', connected: true } }];
+
+test('an interrupted import never leaves an SMTP sender live and unprobed', async () => {
+  const store = fakeImportStore({ failOnUpsertOf: 'winnr:x@startup-fixture.co' });
+  await assert.rejects(stageImportedAccounts({ store, prepared: PREPARED, pauseReason: 'winnr-smtp-auth-noop-probe-failed' }));
+  // The interruption landed after the pause and before the account record: nothing is selectable.
+  assert.equal(store.paused.get('winnr:x@startup-fixture.co').paused, true);
+  assert.equal(store.accounts.has('winnr:x@startup-fixture.co'), false);
+});
+
+test('a completed import pauses every SMTP sender under the probe reason and stores both records', async () => {
+  const store = fakeImportStore();
+  const result = await stageImportedAccounts({ store, prepared: PREPARED, pauseReason: 'winnr-smtp-auth-noop-probe-failed' });
+  assert.deepEqual(result, { smtpStaged: 1, imapStaged: 1 });
+  const smtp = store.accounts.get('winnr:x@startup-fixture.co');
+  assert.equal(smtp.paused, true);
+  assert.equal(store.paused.get('winnr:x@startup-fixture.co').reason, 'winnr-smtp-auth-noop-probe-failed');
+  assert.equal(store.accounts.get('winnr-imap:x@startup-fixture.co').id, 'imap-x');
+});
+
+test('re-running the staging step is idempotent', async () => {
+  const store = fakeImportStore();
+  await stageImportedAccounts({ store, prepared: PREPARED, pauseReason: 'r' });
+  await stageImportedAccounts({ store, prepared: PREPARED, pauseReason: 'r' });
+  assert.equal(store.accounts.size, 2);
+});

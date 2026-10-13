@@ -42,8 +42,10 @@ import { probeWinnrImapLoginOnly } from '../src/winnr-imap-login-probe.mjs';
 import { JsonStore } from '../src/store.mjs';
 import net from 'node:net';
 import {
-  reconcileWinnrFleet, assertCompleteListing, assertProviderSchema, assertExportAuthority, verifyStoreKeyCompatibility
+  reconcileWinnrFleet, assertCompleteListing, assertProviderSchema, assertExportAuthority, verifyStoreKeyCompatibility,
+  assertRunnerEnvironment, stageImportedAccounts
 } from '../src/winnr-fleet-control-plane.mjs';
+import { createStore } from '../src/store.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const OWNER_ATTESTATION_REF = 'owner-mission:UBERBOND_WINNR_FLEET_FINAL_INTEGRATION_2026-10-13';
@@ -64,7 +66,7 @@ const countBy = (items, pick) => items.reduce((acc, item) => {
 }, {});
 
 function parseArgs(argv) {
-  const args = { phases: [], keySource: 'staging-file' };
+  const args = { phases: [], keySource: 'staging-file', storeBackend: 'json', authMode: 'proxy-injected' };
   for (const arg of argv) {
     const [flag, ...rest] = arg.replace(/^--/, '').split('=');
     const value = rest.join('=');
@@ -73,6 +75,8 @@ function parseArgs(argv) {
     else if (flag === 'staging-key-file') args.stagingKeyFile = value;
     else if (flag === 'key-source') args.keySource = value;
     else if (flag === 'store-dir') args.storeDir = value;
+    else if (flag === 'store-backend') args.storeBackend = value;
+    else if (flag === 'auth-mode') args.authMode = value;
     else if (flag === 'receipt-out') args.receiptOut = value;
     else throw new Error(`unknown argument: --${flag}`);
   }
@@ -99,9 +103,12 @@ async function readJson(file) {
   return JSON.parse(await fs.readFile(file, 'utf8'));
 }
 
-function winnrClient() {
+// proxy-injected: the sandbox egress proxy attaches the credential. bearer: a WINNR_API_TOKEN secret in a runtime
+// without the proxy. The token is read from the environment, never printed, and must be a wnr_ token.
+function winnrClient(authMode = 'proxy-injected') {
   const client = createWinnrApiClient({
-    authMode: 'proxy-injected',
+    authMode,
+    token: authMode === 'bearer' ? (process.env.WINNR_API_TOKEN || '') : '',
     authorized: true,
     termsCompatible: true,
     evidenceRef: OWNER_ATTESTATION_REF,
@@ -156,7 +163,14 @@ async function loadEncryptionKey(ctx) {
   return { hex, label: KEY_LABEL.staging };
 }
 
+// json: the isolated file store under the workdir. postgres: the production store, reached only through DATABASE_URL in
+// a trusted runtime. The same store interface is used either way.
 async function openStore(ctx) {
+  if (ctx.storeBackend === 'postgres') {
+    const store = createStore({ storeBackend: 'postgres', databaseUrl: process.env.DATABASE_URL || '', databaseSsl: String(process.env.DATABASE_SSL || '').toLowerCase() === 'true' });
+    await store.init();
+    return store;
+  }
   const store = new JsonStore(ctx.storeDir);
   await store.init();
   return store;
@@ -174,7 +188,7 @@ function tcpReachability(host, port, timeoutMs) {
 
 const phases = {
   async read(ctx) {
-    const snapshot = await readAccountSet(winnrClient());
+    const snapshot = await readAccountSet(winnrClient(ctx.authMode));
     const fleet = splitFleet(snapshot);
     await writePrivate(ctx.file('provider-snapshot.json'), JSON.stringify({ takenAt: new Date().toISOString(), ...snapshot }));
     return {
@@ -203,7 +217,7 @@ const phases = {
     if (!authority.ok) return { exportStatus: 'REFUSED_BEFORE_PROVIDER_CALL', reasonCodes: authority.reasonCodes };
     const requested = fleet.startupDomains.map(d => d.name).sort();
     if (requested.length !== 10) throw new Error(`expected 10 Startup domains, observed ${requested.length}`);
-    const api = winnrClient();
+    const api = winnrClient(ctx.authMode);
     const exported = await api.exportMailboxes({ format: 'default', domains: requested, writeAuthorized: true });
     if (!exported.ok) return { exportStatus: exported.status, reasonCodes: exported.reasonCodes || [] };
     const download = await fetch(exported.data.download_url);
@@ -325,15 +339,10 @@ const phases = {
     const store = await openStore(ctx);
     const compatibility = verifyStoreKeyCompatibility({ accounts: await store.list('accounts'), encryptionKey: key.hex });
     if (!compatibility.ok) return { encryptionKeyLabel: key.label, importStatus: 'IMPORT_REFUSED', reasonCodes: compatibility.reasonCodes, undecryptableExisting: compatibility.undecryptable, plaintextCredentialReturned: false };
-    let smtpStored = 0;
-    let imapStored = 0;
-    for (const row of compiled.prepared) {
-      await store.upsert('accounts', { ...row.smtpAccount, updatedAt: new Date().toISOString() });
-      await store.upsert('accounts', { ...row.imapAccount, updatedAt: new Date().toISOString() });
-      smtpStored += 1;
-      imapStored += 1;
-      await store.setSenderPaused(row.smtpAccount.slot, true, SMTP_PROBE_FAILURE_PAUSE_REASON);
-    }
+    // Pause-then-store ordering lives in stageImportedAccounts, so an interrupted import cannot leave a live, unprobed sender.
+    const { smtpStaged, imapStaged } = await stageImportedAccounts({ store, prepared: compiled.prepared, pauseReason: SMTP_PROBE_FAILURE_PAUSE_REASON });
+    const smtpStored = smtpStaged;
+    const imapStored = imapStaged;
     return {
       encryptionKeyLabel: key.label,
       productionCompatible: key.label === KEY_LABEL.env,
@@ -474,7 +483,7 @@ const phases = {
  async 'pilot-check'(ctx) {
     const before = await readJson(ctx.file('provider-snapshot.json'));
     const fleetBefore = splitFleet(before);
-    const after = await readAccountSet(winnrClient());
+    const after = await readAccountSet(winnrClient(ctx.authMode));
     const fleetAfter = splitFleet(after);
     const afterById = new Map(fleetAfter.pilotMailboxes.map(m => [m.id, m]));
     const preserved = fleetBefore.pilotMailboxes.filter(b => {
@@ -502,9 +511,14 @@ async function main() {
   const args = parseArgs(process.argv.slice(2));
   const workdir = assertOutsideRepo('--workdir', args.workdir);
   await fs.mkdir(workdir, { recursive: true, mode: 0o700 });
+  const productionRuntime = process.env.NODE_ENV === 'production';
+  const environment = assertRunnerEnvironment({ keySource: args.keySource, storeBackend: args.storeBackend, productionRuntime });
+  if (!environment.ok) throw new Error(`environment refused: ${environment.reasonCodes.join(',')}`);
   const ctx = {
     workdir,
     keySource: args.keySource,
+    storeBackend: args.storeBackend,
+    authMode: args.authMode,
     stagingKeyFile: args.keySource === 'staging-file' ? assertOutsideRepo('--staging-key-file', args.stagingKeyFile || path.join(workdir, 'staging-key.hex')) : null,
     storeDir: args.storeDir ? assertOutsideRepo('--store-dir', args.storeDir) : path.join(workdir, 'store'),
     file: name => path.join(workdir, name)

@@ -6,6 +6,7 @@ import {
   registerSendingMailbox, logSendingMailboxEvent, loadSendingMailbox
 } from './sending-mailbox-registry.mjs';
 import { inspectWinnrCredentialExport } from './uberwinnr-credential-import.mjs';
+import { WINNR_PILOT_PREWARMED_OWNERSHIP, classifyWinnrDomainOwnership } from './winnr-domain-ownership.mjs';
 
 export const UBERWINNR_POSTPURCHASE_VERSION='uberbond.uberwinnr-postpurchase.v1';
 const clean=(v,n=1000)=>String(v??'').trim().slice(0,n);
@@ -15,19 +16,23 @@ const emailOk=v=>/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v||'').trim());
 const domainIdFor=domain=>`winnr-domain-${hash(String(domain).toLowerCase()).slice(0,20)}`;
 const mailboxIdFor=email=>`winnr-mailbox-${hash(String(email).toLowerCase()).slice(0,20)}`;
 
+// Legacy single-domain plan. It is the pilot path only: the pilot domain is a pre-warmed Winnr lease, so the
+// default ownership is the pilot identity. Fleet callers must classify each domain from its provider record.
 export function compileWinnrPostPurchaseRegistryPlan({
   csvText='',
   workspaceId='uberbond-outreach',
   providerDomainId='',
   providerMailboxIdsByEmail={},
-  plannedDailyCap=2
+  plannedDailyCap=2,
+  ownership=WINNR_PILOT_PREWARMED_OWNERSHIP
 }={}){
   return registryPlanFromInspection({
     inspection:inspectWinnrCredentialExport(csvText),
     workspaceId,
     providerDomainId,
     providerMailboxIdsByEmail,
-    plannedDailyCap
+    plannedDailyCap,
+    ownership
   });
 }
 
@@ -36,13 +41,15 @@ function registryPlanFromInspection({
   workspaceId='uberbond-outreach',
   providerDomainId='',
   providerMailboxIdsByEmail={},
-  plannedDailyCap=2
+  plannedDailyCap=2,
+  ownership=WINNR_PILOT_PREWARMED_OWNERSHIP
 }={}){
   const reasons=[];
   if(!clean(workspaceId,120))reasons.push('workspace-id-required');
   if(inspection.rowCount<1)reasons.push('credential-export-mailboxes-required');
   if(inspection.domains.length!==1)reasons.push('exactly-one-prewarmed-domain-required');
   if((inspection.mismatchedDomainRowCount||0)>0)reasons.push('domain-column-address-mismatch');
+  if(!ownership?.ok)reasons.push('domain-ownership-classification-required');
   const domain=inspection.domains[0]||'';
   const cap=Number(plannedDailyCap);
   if(!Number.isFinite(cap)||cap<0||cap>5)reasons.push('bounded-initial-daily-cap-required');
@@ -60,6 +67,7 @@ function registryPlanFromInspection({
       mailboxId,
       sendingDomainId:domainId,
       providerMailboxId:clean(providerMailboxIdsByEmail?.[row.email],240)||null,
+      mailboxProvider:ownership.mailboxProvider,
       plannedDailyCap:Math.floor(cap)
     });
   });
@@ -73,9 +81,11 @@ function registryPlanFromInspection({
       domain,
       domainId,
       providerDomainId:clean(providerDomainId,240)||null,
-      ownershipStatus:'PROVIDER_CONTROL_CONFIRMED',
-      provider:'winnr-prewarmed',
-      registrar:'winnr-managed'
+      classification:ownership.classification,
+      ownershipStatus:ownership.ownershipStatus,
+      provider:ownership.provider,
+      registrar:ownership.registrar,
+      ownerAttestationRef:ownership.ownerAttestationRef||null
     }),
     mailboxes:mailboxRows,
     linksByEmail:Object.freeze(Object.fromEntries(mailboxRows.map(row=>[
@@ -92,18 +102,26 @@ function registryPlanFromInspection({
 
 // Fleet variant: one provider-controlled prewarmed domain per registry plan, many domains per export.
 // Each domain reuses the single-domain plan so identity, cap and no-password rules stay identical.
+// Every domain is classified from its own provider record. Nothing defaults to pre-warmed, so a customer-owned
+// domain can never be registered as a leased Winnr domain by omission. Mailboxes are keyed by the provider's
+// stable mailbox id and address, never by position in the export.
 export function compileWinnrPostPurchaseFleetPlan({
   csvText='',
   workspaceId='uberbond-outreach',
   providerDomainIdsByDomain={},
+  providerDomainRecordsByDomain={},
   providerMailboxIdsByEmail={},
+  ownerAttestedRegistrar='',
+  ownerAttestationRef='',
   plannedDailyCap=2
 }={}){
   const inspection=inspectWinnrCredentialExport(csvText);
   const reasons=[];
   if(!clean(workspaceId,120))reasons.push('workspace-id-required');
   if(inspection.rowCount<1)reasons.push('credential-export-mailboxes-required');
-  if(inspection.domains.length<1)reasons.push('prewarmed-domain-required');
+  if(inspection.domains.length<1)reasons.push('fleet-domain-required');
+  if(inspection.rows.some(row=>!clean(providerMailboxIdsByEmail?.[row.email],240)))reasons.push('provider-mailbox-id-required');
+  if(inspection.domains.some(domain=>!clean(providerDomainIdsByDomain?.[domain],240)))reasons.push('provider-domain-id-required');
   if(reasons.length)return Object.freeze({
     ok:false,status:'WINNR_POSTPURCHASE_FLEET_PLAN_REFUSED',reasonCodes:[...new Set(reasons)],
     domainCount:0,mailboxCount:0,providerCalls:0,messagesSent:0,externalEffectAuthority:'NONE'
@@ -112,12 +130,22 @@ export function compileWinnrPostPurchaseFleetPlan({
   const domainPlans=[];
   for(const domain of inspection.domains){
     const rows=inspection.rows.filter(row=>row.domain===domain);
+    const ownership=classifyWinnrDomainOwnership({
+      providerDomain:providerDomainRecordsByDomain?.[domain]||null,
+      ownerAttestedRegistrar,
+      ownerAttestationRef
+    });
+    if(!ownership.ok)return Object.freeze({
+      ok:false,status:'WINNR_POSTPURCHASE_FLEET_PLAN_REFUSED',reasonCodes:ownership.reasonCodes,failedDomain:domain,
+      domainCount:0,mailboxCount:0,providerCalls:0,messagesSent:0,externalEffectAuthority:'NONE'
+    });
     const plan=registryPlanFromInspection({
       inspection:{...inspection,rows,rowCount:rows.length,domains:[domain]},
       workspaceId,
       providerDomainId:clean(providerDomainIdsByDomain?.[domain],240),
       providerMailboxIdsByEmail,
-      plannedDailyCap
+      plannedDailyCap,
+      ownership
     });
     if(!plan.ok)return Object.freeze({
       ok:false,status:'WINNR_POSTPURCHASE_FLEET_PLAN_REFUSED',reasonCodes:plan.reasonCodes,failedDomain:domain,
@@ -184,7 +212,7 @@ export async function applyWinnrPostPurchaseRegistryPlan({store,plan,date=new Da
       workspaceId:plan.workspaceId,
       domain:plan.domain.domain,
       registrar:plan.domain.registrar,
-      ownershipStatus:'PROVIDER_CONTROL_CONFIRMED',
+      ownershipStatus:plan.domain.ownershipStatus,
       purpose:'outreach',
       provider:plan.domain.provider,
       simulation:false,
@@ -193,7 +221,7 @@ export async function applyWinnrPostPurchaseRegistryPlan({store,plan,date=new Da
     if(!registered.ok)return {ok:false,status:'WINNR_POSTPURCHASE_DOMAIN_REFUSED',reasonCodes:registered.reasonCodes,eventsWritten};
     await logSendingDomainEvent(store,registered.event);
     eventsWritten++;
-  }else if(domainExisting.domain!==plan.domain.domain||domainExisting.ownershipStatus!=='PROVIDER_CONTROL_CONFIRMED'){
+  }else if(domainExisting.domain!==plan.domain.domain||domainExisting.ownershipStatus!==plan.domain.ownershipStatus||domainExisting.registrar!==plan.domain.registrar){
     return {ok:false,status:'WINNR_POSTPURCHASE_DOMAIN_CONFLICT',reasonCodes:['canonical-domain-identity-conflict'],eventsWritten};
   }
 
@@ -207,7 +235,7 @@ export async function applyWinnrPostPurchaseRegistryPlan({store,plan,date=new Da
         workspaceId:plan.workspaceId,
         address:row.email,
         sendingDomainId:row.sendingDomainId,
-        provider:'winnr-prewarmed',
+        provider:row.mailboxProvider,
         providerAccountId:row.providerMailboxId||row.email,
         plannedDailyCap:row.plannedDailyCap,
         date

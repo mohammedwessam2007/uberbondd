@@ -159,8 +159,13 @@ export function normalizeWinnrEvent(event = {}) {
   return Object.freeze({ ...base, factType: 'WINNR_EVENT_OBSERVED', dataDigest: `sha256:${crypto.createHash('sha256').update(safeJson(data)).digest('hex')}` });
 }
 
+// authMode 'bearer' (default): the client holds an explicit wnr_ token and sends it.
+// authMode 'proxy-injected': the sandbox egress proxy attaches the Winnr credential to requests for
+// api.winnr.app only. This client then reads, stores and sends no token, and must not set Authorization
+// (a blank header could override the injected one). The base URL is fixed, so no other host receives calls.
 export function createWinnrApiClient({
   token = '',
+  authMode = 'bearer',
   authorized = false,
   termsCompatible = false,
   evidenceRef = '',
@@ -168,7 +173,10 @@ export function createWinnrApiClient({
 } = {}) {
   const reasons = [];
   const rawToken = clean(token, 500);
-  if (!rawToken.startsWith('wnr_')) reasons.push('winnr-api-token-required');
+  const proxyInjected = authMode === 'proxy-injected';
+  if (authMode !== 'bearer' && !proxyInjected) reasons.push('winnr-auth-mode-unsupported');
+  if (proxyInjected && rawToken) reasons.push('proxy-injected-mode-forbids-inline-token');
+  if (!proxyInjected && !rawToken.startsWith('wnr_')) reasons.push('winnr-api-token-required');
   if (authorized !== true) reasons.push('provider-account-authorization-required');
   if (termsCompatible !== true) reasons.push('provider-terms-compatibility-required');
   if (!clean(evidenceRef, 1500)) reasons.push('provider-evidence-ref-required');
@@ -198,10 +206,8 @@ export function createWinnrApiClient({
       };
     }
 
-    const headers = {
-      Authorization: `Bearer ${rawToken}`,
-      Accept: 'application/json'
-    };
+    const headers = { Accept: 'application/json' };
+    if (!proxyInjected) headers.Authorization = `Bearer ${rawToken}`;
     if (body !== undefined) headers['Content-Type'] = 'application/json';
 
     let response;
@@ -255,6 +261,7 @@ export function createWinnrApiClient({
       providerCalls: 1,
       data: parsed?.data ?? parsed,
       meta: parsed?.meta ?? null,
+      pagination: parsed?.pagination ?? null,
       receipt
     };
   }
@@ -263,7 +270,8 @@ export function createWinnrApiClient({
     ok: true,
     status: 'UBERWINNR_CLIENT_READY',
     version: UBERWINNR_VERSION,
-    token: redactToken(rawToken),
+    authMode: proxyInjected ? 'proxy-injected' : 'bearer',
+    token: proxyInjected ? 'PROXY_INJECTED' : redactToken(rawToken),
     evidenceRef: clean(evidenceRef, 1500),
     getAccount: () => request('GET', '/account'),
     getUsage: () => request('GET', '/account/usage'),
@@ -286,6 +294,9 @@ export function createWinnrApiClient({
       readOnlyPost: true
     }),
     listMailboxes: ({ domain = '' } = {}) => request('GET', `/email-users?filter[domain]=${encodeURIComponent(lower(domain, 253))}`),
+    // Whole-account reads with an explicit page size. The caller checks pagination.has_more and refuses partial sets.
+    listAllDomains: () => request('GET', '/domains?limit=100'),
+    listAllMailboxes: () => request('GET', '/email-users?limit=100'),
     getMailbox: ({ userId } = {}) => request('GET', `/email-users/${encodeURIComponent(clean(userId, 240))}`),
     createMailbox: ({ domain, username, name, writeAuthorized = false } = {}) => request('POST', '/email-users', {
       body: { domain: lower(domain, 253), username: lower(username, 120), name: clean(name, 200) },

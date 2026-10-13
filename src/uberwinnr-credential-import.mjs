@@ -223,3 +223,9 @@ export function compileWinnrCredentialImport({
     truthBoundary: 'This compiler converts an already-authorized Winnr generic credential export into encrypted UberFleet/UberIMAP account objects. It does not fetch credentials, persist accounts, mutate Winnr, authorize sending, or prove provider entitlement.'
   });
 }
+
+// Raw credential rows for cross-checks against provider-reported mailbox facts. Callers must not log these rows:
+// they include passwords.
+export function winnrCredentialRows(csvText = '') {
+  return objectsFromCsv(csvText);
+}

@@ -351,7 +351,9 @@
     ],
     "temporary_connection_file_removed": true,
     "browser_clipboard_and_connection_variables_cleared": true,
-    "backup_key_retained_in_protected_helper_env": true
+    "backup_key_retained_in_protected_helper_env": true,
+    "helper_suspended": true,
+    "helper_suspended_verified_by": "Render API and Cloud Browser 2026-10-13T20:18:25Z"
   },
   "independent_verification": {
     "public_tables": 57,
@@ -381,7 +383,8 @@
     "production_environment_accessed_or_modified": false,
     "encryption_key_accessed_or_modified": false,
     "mail_dns_or_outbound_authorization_modified": false,
-    "claude_engineering_branch_modified": false
+    "claude_engineering_branch_modified": false,
+    "http_health_check": "Root GET timed out after 20s from Work runtime; provider deployment remains LIVE on exact previous SHA. No healthy HTTP response claimed."
   },
   "limitations": [
     "Restore uses --no-owner --no-privileges; original ACL/ownership retained in custom dump, source role and membership metadata inside encrypted archive.",

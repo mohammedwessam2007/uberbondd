@@ -288,3 +288,41 @@ test('re-running the staging step is idempotent', async () => {
   await stageImportedAccounts({ store, prepared: PREPARED, pauseReason: 'r' });
   assert.equal(store.accounts.size, 2);
 });
+
+import { boundedMap, selectAccountsToProbe } from '../src/winnr-fleet-control-plane.mjs';
+
+test('bounded concurrency never exceeds its limit and keeps input order', async () => {
+  let inFlight = 0;
+  let peak = 0;
+  const items = Array.from({ length: 12 }, (_, i) => i);
+  const results = await boundedMap(items, 3, async item => {
+    inFlight += 1;
+    peak = Math.max(peak, inFlight);
+    await new Promise(resolve => setTimeout(resolve, 5));
+    inFlight -= 1;
+    return item * 2;
+  });
+  assert.ok(peak <= 3, `peak ${peak}`);
+  assert.deepEqual(results.map(r => r.value), items.map(i => i * 2));
+});
+
+test('one failing item is captured as its own failure and does not cancel the others', async () => {
+  const results = await boundedMap(['a', 'b', 'c'], 2, async item => {
+    if (item === 'b') { const e = new Error('boom'); e.code = 'ETIMEDOUT'; throw e; }
+    return item.toUpperCase();
+  });
+  assert.equal(results[0].value, 'A');
+  assert.equal(results[1].ok, false);
+  assert.equal(results[1].error, 'ETIMEDOUT');
+  assert.equal(results[2].value, 'C');
+});
+
+test('resume probes only accounts without a fresh result, and re-probes stale evidence', () => {
+  const now = new Date('2026-10-13T13:00:00Z');
+  const checkpoint = {
+    'winnr-imap:a@x.co': { checkedAt: '2026-10-13T12:50:00Z' },
+    'winnr-imap:b@x.co': { checkedAt: '2026-10-13T11:00:00Z' }
+  };
+  const todo = selectAccountsToProbe({ accountSlots: ['winnr-imap:a@x.co', 'winnr-imap:b@x.co', 'winnr-imap:c@x.co'], checkpoint, now });
+  assert.deepEqual(todo, ['winnr-imap:b@x.co', 'winnr-imap:c@x.co']);
+});

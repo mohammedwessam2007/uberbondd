@@ -43,13 +43,15 @@ export function assertProviderSchema({ domains = [], mailboxes = [] } = {}) {
 
 // Failure classes for provider API responses. Each class maps to one operator action. None of them is retried
 // automatically, because a write whose outcome is unknown must not be repeated blindly.
-export function classifyWinnrProviderFailure({ ok = false, status = '', reasonCodes = [] } = {}) {
+export function classifyWinnrProviderFailure({ ok = false, status = '', reasonCodes = [], receipt = null } = {}) {
   if (ok) return 'NONE';
   const codes = reasonCodes.map(code => String(code));
-  if (codes.includes('http-401')) return 'TOKEN_INVALID_EXPIRED_OR_NOT_INJECTED';
-  if (codes.includes('http-403')) return 'PERMISSION_DENIED';
-  if (codes.includes('http-429') || status === 'UBERWINNR_RATE_LIMITED') return 'RATE_LIMITED_NO_AUTO_RETRY';
-  if (codes.some(code => /^http-5\d\d$/.test(code))) return 'PROVIDER_UNAVAILABLE';
+  // The adapter reports the provider's own error code when one is present, so the HTTP status is read from the receipt.
+  const http = Number(receipt?.httpStatus) || Number(codes.map(code => code.match(/^http-(\d{3})$/)?.[1]).find(Boolean)) || 0;
+  if (http === 401) return 'TOKEN_INVALID_EXPIRED_OR_NOT_INJECTED';
+  if (http === 403) return 'PERMISSION_DENIED';
+  if (http === 429 || status === 'UBERWINNR_RATE_LIMITED') return 'RATE_LIMITED_NO_AUTO_RETRY';
+  if (http >= 500 && http <= 599) return 'PROVIDER_UNAVAILABLE';
   if (codes.includes('provider-network-error')) return 'NETWORK_OR_PROXY_REFUSED';
   if (status === 'UBERWINNR_WRITE_OUTCOME_UNCERTAIN') return 'WRITE_OUTCOME_UNCERTAIN_DO_NOT_RETRY';
   if (status === 'UBERWINNR_WRITE_REFUSED' || status === 'UBERWINNR_WRITE_REFUSED_OR_FAILED') return 'WRITE_NOT_AUTHORIZED_OR_FAILED';
@@ -263,4 +265,35 @@ export async function stageImportedAccounts({ store, prepared = [], pauseReason 
     imapStaged += 1;
   }
   return { smtpStaged, imapStaged };
+}
+
+// Runs fn over items with at most `limit` in flight, preserving input order in the results. A rejection inside fn is
+// captured as that item's result, so one failure never hides or cancels the others.
+export async function boundedMap(items = [], limit = 4, fn) {
+  const size = Math.max(1, Math.floor(Number(limit) || 1));
+  const results = new Array(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const index = next;
+      next += 1;
+      try {
+        results[index] = { ok: true, value: await fn(items[index], index) };
+      } catch (error) {
+        results[index] = { ok: false, error: String(error?.code || error?.name || 'Error').slice(0, 80) };
+      }
+    }
+  };
+  await Promise.all(Array.from({ length: Math.min(size, items.length) }, worker));
+  return results;
+}
+
+// Resume selection: an account is skipped only when this run already holds a result for it that is still fresh.
+// A stale or missing result is probed again. Authentication evidence must not be carried forward past its window.
+export function selectAccountsToProbe({ accountSlots = [], checkpoint = {}, now = new Date(), maxAgeMs = 30 * 60 * 1000 } = {}) {
+  const nowMs = new Date(now).getTime();
+  const fresh = new Set(Object.entries(checkpoint || {})
+    .filter(([, row]) => row && row.checkedAt && nowMs - new Date(row.checkedAt).getTime() <= maxAgeMs)
+    .map(([slot]) => slot));
+  return accountSlots.filter(slot => !fresh.has(slot));
 }

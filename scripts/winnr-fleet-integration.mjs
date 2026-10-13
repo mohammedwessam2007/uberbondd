@@ -41,9 +41,10 @@ import { runWinnrSmtpReadinessProbe, SMTP_PROBE_FAILURE_PAUSE_REASON } from '../
 import { probeWinnrImapLoginOnly } from '../src/winnr-imap-login-probe.mjs';
 import { JsonStore } from '../src/store.mjs';
 import net from 'node:net';
+import { writeFileSync } from 'node:fs';
 import {
   reconcileWinnrFleet, assertCompleteListing, assertProviderSchema, assertExportAuthority, verifyStoreKeyCompatibility,
-  assertRunnerEnvironment, stageImportedAccounts
+  assertRunnerEnvironment, stageImportedAccounts, boundedMap, selectAccountsToProbe
 } from '../src/winnr-fleet-control-plane.mjs';
 import { createStore } from '../src/store.mjs';
 
@@ -52,6 +53,7 @@ export const OWNER_ATTESTATION_REF = 'owner-mission:UBERBOND_WINNR_FLEET_FINAL_I
 const ATTESTED_REGISTRAR = 'godaddy';
 const WORKSPACE_ID = 'uberbond-outreach';
 const PILOT_TAG = 'pre-warmed';
+const IMAP_CONCURRENCY = 4;
 const KEY_LABEL = Object.freeze({
   staging: 'STAGING_ISOLATED_NOT_PRODUCTION_COMPATIBLE',
   env: 'PRODUCTION_KEY_FROM_TOKEN_ENCRYPTION_KEY'
@@ -190,7 +192,11 @@ const phases = {
   async read(ctx) {
     const snapshot = await readAccountSet(winnrClient(ctx.authMode));
     const fleet = splitFleet(snapshot);
-    await writePrivate(ctx.file('provider-snapshot.json'), JSON.stringify({ takenAt: new Date().toISOString(), ...snapshot }));
+    const takenSnapshot = JSON.stringify({ takenAt: new Date().toISOString(), ...snapshot });
+    // The pilot baseline is write-once. A later read refreshes the current snapshot but never replaces the baseline that
+    // pilot-check compares against, so a change between two reads cannot be hidden by re-baselining.
+    try { await fs.access(ctx.file('provider-snapshot-baseline.json')); } catch { await writePrivate(ctx.file('provider-snapshot-baseline.json'), takenSnapshot); }
+    await writePrivate(ctx.file('provider-snapshot.json'), takenSnapshot);
     return {
       plan: snapshot.account.plan,
       emailUsersUsed: snapshot.account.email_users_used,
@@ -387,33 +393,60 @@ const phases = {
     };
   },
 
+  // Bounded-concurrency login-only IMAP checks. Each result is checkpointed to the private workdir as it completes,
+  // so an interruption keeps finished work. A rerun probes only accounts without a fresh checkpointed result.
   async 'probe-imap'(ctx) {
     const store = await openStore(ctx);
     const key = await loadEncryptionKey(ctx);
     const accounts = (await store.list('accounts'))
       .filter(a => a?.provider === 'imap-forwarding' && String(a?.slot || '').startsWith('winnr-imap:'))
       .sort((a, b) => String(a.id || '').localeCompare(String(b.id || '')));
-    const perAccount = [];
-    for (const account of accounts) {
+    const checkpointFile = ctx.file('imap-checkpoint.json');
+    let checkpoint = {};
+    try { checkpoint = JSON.parse(await fs.readFile(checkpointFile, 'utf8')); } catch { checkpoint = {}; }
+    const toProbe = new Set(selectAccountsToProbe({ accountSlots: accounts.map(a => a.slot), checkpoint, now: new Date() }));
+    const resumedFromCheckpoint = accounts.filter(a => checkpoint[a.slot] && !toProbe.has(a.slot)).length;
+    const todo = accounts.filter(a => toProbe.has(a.slot));
+    await boundedMap(todo, IMAP_CONCURRENCY, async account => {
       const result = await probeWinnrImapLoginOnly({ account, encryptionKey: key.hex, timeoutMs: 10000 });
-      perAccount.push({
-        slotDigest: digest(account.slot),
+      const row = {
+        checkedAt: new Date().toISOString(),
         classification: result.classification,
         stage: result.stage || null,
         errorClass: result.errorClass || null,
         responseCode: result.responseCode || null,
         connectAttempted: result.connectAttempted === true,
         loginAttempted: result.loginAttempted === true,
-        loginAccepted: result.loginAccepted === true,
+        loginAccepted: result.loginAccepted === true
+      };
+      checkpoint[account.slot] = row;
+      writeFileSync(checkpointFile, JSON.stringify(checkpoint), { mode: 0o600 });
+      await store.log('winnr_imap_login_probe_result', { slotDigest: digest(account.slot), ...row, mailboxSelected: false, messageContentRead: false, credentialsLogged: false });
+      return row;
+    });
+    const perAccount = accounts.map(a => {
+      const row = checkpoint[a.slot];
+      return {
+        slotDigest: digest(a.slot),
+        classification: row ? row.classification : 'UNTESTED',
+        stage: row?.stage ?? null,
+        errorClass: row?.errorClass ?? null,
+        responseCode: row?.responseCode ?? null,
+        connectAttempted: row?.connectAttempted === true,
+        loginAttempted: row?.loginAttempted === true,
+        loginAccepted: row?.loginAccepted === true,
+        checkedAt: row?.checkedAt ?? null,
         mailboxSelected: false,
         messageContentRead: false
-      });
-    }
+      };
+    });
     const receipt = {
-      schemaVersion: 'uberbond.winnr-imap-login-probe-run.v1',
+      schemaVersion: 'uberbond.winnr-imap-login-probe-run.v2',
       checkedAt: new Date().toISOString(),
       encryptionKeyLabel: key.label,
       accountCount: accounts.length,
+      probedThisRun: todo.length,
+      resumedFromCheckpoint,
       loginAccepted: perAccount.filter(r => r.loginAccepted).length,
       classificationCounts: countBy(perAccount, r => r.classification),
       errorClassCounts: countBy(perAccount.filter(r => !r.loginAccepted), r => r.errorClass || r.responseCode || r.classification),
@@ -426,6 +459,7 @@ const phases = {
     return {
       encryptionKeyLabel: key.label,
       accountCount: receipt.accountCount,
+      probedThisRun: receipt.probedThisRun,
       loginAccepted: receipt.loginAccepted,
       classificationCounts: receipt.classificationCounts,
       errorClassCounts: receipt.errorClassCounts,
@@ -481,7 +515,7 @@ const phases = {
   },
 
  async 'pilot-check'(ctx) {
-    const before = await readJson(ctx.file('provider-snapshot.json'));
+    const before = await readJson(ctx.file('provider-snapshot-baseline.json'));
     const fleetBefore = splitFleet(before);
     const after = await readAccountSet(winnrClient(ctx.authMode));
     const fleetAfter = splitFleet(after);

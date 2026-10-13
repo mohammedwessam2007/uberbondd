@@ -68,3 +68,23 @@ test('proxy-injected writes remain gated by explicit write authorization', async
   assert.equal(refused.status, 'UBERWINNR_WRITE_REFUSED');
   assert.equal(calls.length, 0);
 });
+
+import { classifyWinnrProviderFailure } from '../src/winnr-fleet-control-plane.mjs';
+
+test('a 401 from the provider (missing, expired or revoked credential) is a token problem and is not retried', async () => {
+  const fetchImpl = async () => ({ ok: false, status: 401, headers: { get: () => null }, text: async () => JSON.stringify({ error: { code: 'unauthorized' } }) });
+  const client = createWinnrApiClient({ authMode: 'proxy-injected', ...AUTH, fetchImpl });
+  const result = await client.getAccount();
+  assert.equal(result.ok, false);
+  assert.equal(result.automaticRetryAuthorized, false);
+  assert.equal(classifyWinnrProviderFailure(result), 'TOKEN_INVALID_EXPIRED_OR_NOT_INJECTED');
+});
+
+test('a 429 is rate-limited and is not retried automatically', async () => {
+  const fetchImpl = async () => ({ ok: false, status: 429, headers: { get: (k) => (k === 'retry-after' ? '30' : null) }, text: async () => '{}' });
+  const client = createWinnrApiClient({ authMode: 'proxy-injected', ...AUTH, fetchImpl });
+  const result = await client.listAllDomains();
+  assert.equal(result.automaticRetryAuthorized, false);
+  assert.equal(result.retryAfterSeconds, 30);
+  assert.equal(classifyWinnrProviderFailure(result), 'RATE_LIMITED_NO_AUTO_RETRY');
+});

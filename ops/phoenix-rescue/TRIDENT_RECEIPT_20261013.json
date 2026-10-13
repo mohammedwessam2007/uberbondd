@@ -1,0 +1,148 @@
+{
+  "mission": "PHOENIX_TRIDENT_W",
+  "observedAt": "2026-10-13T20:58:00Z",
+  "state": "LATEST_BACKUP_AND_ISOLATED_RESTORE_VERIFIED__APPLICATION_AND_CUTOVER_BLOCKED",
+  "mainSha": "298bd585d3ba0cf1fe5cdc2f81a525eb67819608",
+  "productionSha": "24854739d70617d57807cde5407a84266cca477c",
+  "claudeDraftHead": "1cd3d43394e47fae595437b755156986ada8502f",
+  "rescueExecutedSha": "c4e06c739fdbc41201c5b0ebd2914aafd45ebf90",
+  "source": {
+    "id": "dpg-dali9dbl550s73bcf520-a",
+    "expiry": "2026-10-16T23:22:29.055606Z",
+    "plan": "free",
+    "externalAllowlist": [],
+    "productionUrlChanged": false
+  },
+  "independentKeyCustody": {
+    "group": "evg-db79asqd0e5s73foiu1g",
+    "linkedServices": 0,
+    "keyEqualityVerified": true,
+    "originalAuthenticatedDecryptionVerified": true,
+    "keyAppearedInPrivateWorkToolOutput": true,
+    "productionEncryptionKeyRevealed": false
+  },
+  "latestBackup": {
+    "snapshotObservedAt": "2026-10-13T20:47:13.612630Z",
+    "mission": "PHOENIX_TRIDENT_READONLY_COMPARE_AND_LATEST_BACKUP:1f66236749e9cafb",
+    "archiveSha256": "a3665aa515092323cb9fa466ed61fb6806122953d76ccd4e9a05787e718e3025",
+    "dumpSha256": "b95cc861dbf3a09c7a2d54580fc332b8f7b34caead75baf4f73733008e197dea",
+    "bytes": 385914,
+    "rows": 1259,
+    "tables": 57,
+    "authenticatedDecryptionVerified": true,
+    "storage": "Neon phoenix_rescue_archive.backup",
+    "independentFileExport": "BLOCKED_TOOL_RETURNED_REJECTION_NOT_ROWS",
+    "subsequentWritesIncluded": false
+  },
+  "latestRestore": {
+    "database": "uberbond_trident_rehearsal_20261013",
+    "observedAt": "2026-10-13T20:52:06.301488Z",
+    "rows": 1259,
+    "tables": 57,
+    "migrations": 20,
+    "encryptedAccounts": 6,
+    "all14Checks": true,
+    "applicationStartupTested": false,
+    "productionKeyDecryptionTested": false,
+    "originalOwnerAclMappingReviewed": false
+  },
+  "cleanup": {
+    "helper": "srv-db78ug59fdbs73da4mrg",
+    "suspended": true,
+    "observedSuspension": "2026-10-13T20:53:38.507109Z",
+    "remainingKeys": [
+      "PORT",
+      "RESCUE_ARCHIVE_KEY"
+    ],
+    "sourceAndTargetCredentialsRemoved": true,
+    "executionGateRemoved": true
+  },
+  "discrepancies": [
+    {
+      "label": "VERIFIED",
+      "finding": "Current main and draft fleet head are not deployed; production remains on24854739."
+    },
+    {
+      "label": "VERIFIED",
+      "finding": "Production changed since original1254-row snapshot; latest1259-row backup preserved four changed-table fingerprints."
+    },
+    {
+      "label": "VERIFIED",
+      "finding": "50SMTP/50IMAP/zero-send receipt read from exact repository source; original Actions ZIP not downloaded."
+    },
+    {
+      "label": "UNKNOWN",
+      "finding": "Live Startup provider status, warming, billing, current50production holds."
+    },
+    {
+      "label": "BLOCKED",
+      "finding": "Production encryption-key reveal/transfer rejected by automatic review; secure provider-native injection not established."
+    },
+    {
+      "label": "BLOCKED",
+      "finding": "Full application startup/auth/read-only UX compatibility and tested app rollback pending reviewed safe code/key binding."
+    },
+    {
+      "label": "VERIFIED",
+      "finding": "Neon PG16.15 Free0.25CU,1GB project cap,6h history; usage counters0 are not proof of no data."
+    },
+    {
+      "label": "VERIFIED",
+      "finding": "Render Free egress SMTP25/465/587 blocked; no tunnel invoked."
+    },
+    {
+      "label": "VERIFIED",
+      "finding": "Native Winnr HTTPS submission/inbox API documented; account-specific production adapter not tested."
+    },
+    {
+      "label": "BLOCKED",
+      "finding": "Render unsolicited-message policy remains a cold-dispatch blocker even over HTTPS."
+    },
+    {
+      "label": "INFERRED",
+      "finding": "Native Winnr HTTPS transport could remove SMTP-port dependency for separately permitted workloads; no provider call or policy clearance inferred."
+    },
+    {
+      "label": "BLOCKED",
+      "finding": "Contra existing-account authentication, KYC/Wallet/tax/payout/fees not observed; internal invoice only."
+    },
+    {
+      "label": "UNKNOWN",
+      "finding": "Final database-only upgrade total; dashboard compute6USD/month observed, no purchase."
+    }
+  ],
+  "commercial": {
+    "invoiceDraftOnly": true,
+    "priceUsd": 1500,
+    "sites": 3,
+    "providerInvoiceCreated": false,
+    "customerContacted": false,
+    "clearedRevenueClaimed": false
+  },
+  "authority": {
+    "productionCutover": false,
+    "productionDeployment": false,
+    "productionSenderImport": false,
+    "mailSending": false,
+    "purchases": false,
+    "dnsChanges": false,
+    "claudeBranchEdited": false
+  },
+  "blockers": [
+    "PROVIDER_NATIVE_SECURE_PRODUCTION_KEY_INJECTION",
+    "EXACT_REVIEWED_APPLICATION_REHEARSAL_AND_ENGINEERING_DEFECT_CLOSURE",
+    "WINNR_AND_CONTRA_AUTHENTICATION",
+    "FINAL_SNAPSHOT_AND_SEPARATE_CUTOVER_APPROVAL"
+  ],
+  "originalCorpus": {
+    "founderIds": "0001-0890",
+    "manifestMounted": true,
+    "mutated": false,
+    "genesisPreserved": true
+  },
+  "packageFiles": [
+    "ops/phoenix-rescue/TRIDENT_CUTOVER_PACKAGE_20261013.md",
+    "ops/phoenix-rescue/COMMERCIAL_READINESS_20261013.md",
+    "ops/phoenix-rescue/fulfillment-template/README.md"
+  ]
+}

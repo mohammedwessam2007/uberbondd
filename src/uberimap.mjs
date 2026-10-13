@@ -176,6 +176,11 @@ export function parseRawEmail(value){
   // RFC 3834: any Auto-Submitted value other than 'no' marks a machine-generated message.
   const autoSubmittedHeader=String(headers['auto-submitted']||'').trim();
   const autoSubmitted=autoSubmittedHeader.length>0&&!/^no$/i.test(autoSubmittedHeader);
+  // Complaint (ARF) and unsubscribe signals the pipeline consumes. Derived from headers and the body only, bounded.
+  const reportType=String(headers['content-type']||'').match(/report-type\s*=\s*"?([^";\s]+)"?/i)?.[1]?.toLowerCase()||'';
+  const listUnsubscribe=clean(headers['list-unsubscribe'],1000)||'';
+  const bodyPart=split>=0?raw.slice(split):'';
+  const embeddedMessageIds=[...new Set((bodyPart.match(/^message-id:\s*<[^>\r\n]+>/gim)||[]).map(line=>clean(line.replace(/^message-id:\s*/i,''),500)))].slice(0,20);
   return {
     id:clean(headers['message-id'],500)||`imapmsg:${hash(raw).slice(0,32)}`,
     messageId:clean(headers['message-id'],500)||null,
@@ -183,7 +188,7 @@ export function parseRawEmail(value){
     references:refs.map(x=>clean(x,500)),
     from,fromEmail,to:clean(headers.to,1000),subject:clean(headers.subject,1000),
     date:clean(headers.date,200)||null,
-    contentType,autoSubmitted,
+    contentType,autoSubmitted,reportType,listUnsubscribe,embeddedMessageIds,
     body:bodyText(raw,headers)
   };
 }

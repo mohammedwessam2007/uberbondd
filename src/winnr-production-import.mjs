@@ -1,8 +1,10 @@
+import crypto from 'node:crypto';
 import { decryptJson } from './crypto.mjs';
 import { compileWinnrCredentialImport, winnrCredentialRows } from './uberwinnr-credential-import.mjs';
 import { parseExpectedInventory, gateCsvInventory, gateProviderInventory, gateCsvAgainstProvider } from './winnr-inventory-gate.mjs';
 import { findDuplicateAddresses, verifyStoreKeyCompatibility } from './winnr-fleet-control-plane.mjs';
 import { assertPublicSafe, sanitizedErrorCode } from './winnr-public-artifact-guard.mjs';
+import { selectFleetMailbox } from './uberfleet.mjs';
 
 // Production import of the 50 Winnr Startup mailbox credentials into the PostgreSQL store.
 //
@@ -23,6 +25,7 @@ export const WINNR_IMPORT_RECEIPT_SETTING = 'winnrProductionImportReceipt';
 export const WINNR_IMPORT_ROLLBACK_RECEIPT_SETTING = 'winnrProductionImportRollbackReceipt';
 export const WINNR_IMPORT_LEASE_SETTING = 'winnrProductionImportLease';
 export const WINNR_IMPORT_LEASE_TTL_MS = 10 * 60 * 1000;
+export const WINNR_PRODUCTION_KEY_CHECK_LABEL = 'winnr-production-key-check-v1';
 
 const EXPECTED_ACCOUNT_COUNT = 50;
 const KEY_RE = /^[a-f0-9]{64}$/i;
@@ -30,6 +33,12 @@ const COMMIT_RE = /^[0-9a-f]{40}$/;
 const ISO_RE = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(?::\d{2}(?:\.\d+)?)?(?:Z|[+-]\d{2}:\d{2})$/;
 const SMTP_PROVIDER = 'smtp-relay';
 const IMAP_PROVIDER = 'imap-forwarding';
+const DIGEST_CONTEXT = 'uberbond.winnr-production-import.digest.v1';
+// Implicit TLS only. The import always seals secure:true, so the port must be the one where TLS starts on connect.
+const IMPLICIT_TLS_PORTS = Object.freeze({ smtp: '465', imap: '993' });
+const HOST_RE = /^(?=.{1,253}$)([a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,63}$/;
+// Running executions per store object. A second call on the same store while one is in flight is refused.
+const RUNNING_IMPORT_STORES = new WeakSet();
 
 // Plans are accepted for execution only when this module issued them in the current process. The plan and its rows
 // are frozen, so a caller cannot swap in its own account objects after planning.
@@ -42,12 +51,41 @@ const isoOf = ms => new Date(ms).toISOString();
 // Every reason code that reaches a plan, refusal or receipt passes through here. Digits are replaced by N: a code such as
 // "...-not-50" would otherwise match the guard's opaque-token pattern (32+ characters with both letters and digits).
 const publicCodes = list => [...new Set(list.map(code => String(code).replace(/[0-9]+/g, 'N')))];
+const domainOf = value => {
+  const text = lower(value);
+  const at = text.lastIndexOf('@');
+  return at >= 0 ? text.slice(at + 1) : '';
+};
+
+// Keyed digests for receipts. The key is the production encryption key, so a digest cannot be recomputed from public
+// inputs, and only 16 hex characters are ever published. The word "digest" is kept out of receipt keys because the
+// public artifact guard refuses it.
+function keyedDigest16(keyHex, label, value) {
+  const subkey = crypto.createHmac('sha256', Buffer.from(String(keyHex), 'hex')).update(DIGEST_CONTEXT).digest();
+  return crypto.createHmac('sha256', subkey).update(`${label}\n${value}`).digest('hex').slice(0, 16);
+}
+
+// Proves which key an approval was issued for without revealing it. Returns '' when the key is not 64 hex characters.
+export function winnrProductionKeyCheck(encryptionKeyHex = '') {
+  if (!KEY_RE.test(String(encryptionKeyHex ?? ''))) return '';
+  return keyedDigest16(encryptionKeyHex, 'key-check', WINNR_PRODUCTION_KEY_CHECK_LABEL);
+}
+
+// Deterministic serialisation, so two reads of the same rows in a different order compare equal.
+function stableStringify(value) {
+  if (Array.isArray(value)) return `[${value.map(stableStringify).join(',')}]`;
+  if (value && typeof value === 'object') {
+    return `{${Object.keys(value).sort().map(key => `${JSON.stringify(key)}:${stableStringify(value[key])}`).join(',')}}`;
+  }
+  return JSON.stringify(value) ?? 'null';
+}
 
 class ImportRefusal extends Error {
-  constructor(code) {
+  constructor(code, reasonCodes = []) {
     super('winnr-production-import-refused');
     this.name = 'ImportRefusal';
     this.code = code;
+    this.reasonCodes = [code, ...reasonCodes];
   }
 }
 
@@ -76,13 +114,15 @@ function validateExecutionGate(gate, nowMs, { enforceExpiry = true } = {}) {
 }
 
 // Public receipts are built from this fixed shape only. assertPublicSafe throws if a value or key leaks identity.
-function buildPublicReceipt({ kind, status, reasonCodes = [], counts = {}, recordedAt = '' }) {
+function buildPublicReceipt({ kind, status, reasonCodes = [], counts = {}, recordedAt = '', hashes = {} }) {
   const receipt = {
     version: WINNR_PRODUCTION_IMPORT_VERSION,
     kind,
     status,
     reasonCodes: publicCodes(reasonCodes),
     counts: { ...counts },
+    sourceHash16: String(hashes.sourceHash16 ?? ''),
+    destinationHash16: String(hashes.destinationHash16 ?? ''),
     externalEffectAuthority: 'NONE',
     providerCalls: 0,
     messagesSent: 0,
@@ -122,6 +162,41 @@ function linksFromProvider({ providerDomains = [], providerMailboxes = [], expec
   return links;
 }
 
+// Per-row route facts. The export's hosts and ports must equal the provider's own record for that address, the ports
+// must be the implicit-TLS ports the import seals, and the IMAP login must be the mailbox address itself.
+function routeFactReasons({ rows = [], providerMailboxes = [] } = {}) {
+  const byAddress = new Map(providerMailboxes.map(mailbox => [lower(mailbox?.full_address), mailbox]));
+  const reasons = [];
+  for (const row of rows) {
+    const email = lower(row.from_email ?? row.email);
+    const provider = byAddress.get(email);
+    if (!provider) {
+      reasons.push('route-provider-record-missing');
+      continue;
+    }
+    const smtpHost = lower(row.smtp_host);
+    const imapHost = lower(row.imap_host);
+    const smtpPort = String(row.smtp_port ?? '').trim();
+    const imapPort = String(row.imap_port ?? '').trim();
+    if (!HOST_RE.test(smtpHost) || !HOST_RE.test(imapHost)) reasons.push('route-host-invalid');
+    if (smtpHost !== lower(provider.smtp_host)) reasons.push('smtp-host-provider-mismatch');
+    if (imapHost !== lower(provider.imap_host)) reasons.push('imap-host-provider-mismatch');
+    if (smtpPort !== IMPLICIT_TLS_PORTS.smtp) reasons.push('smtp-port-not-implicit-tls');
+    if (imapPort !== IMPLICIT_TLS_PORTS.imap) reasons.push('imap-port-not-implicit-tls');
+    if (smtpPort !== String(provider.smtp_port ?? '').trim()) reasons.push('smtp-port-provider-mismatch');
+    if (imapPort !== String(provider.imap_port ?? '').trim()) reasons.push('imap-port-provider-mismatch');
+    if (lower(row.imap_username || email) !== email) reasons.push('imap-username-not-address');
+  }
+  return [...new Set(reasons)];
+}
+
+function tlsRouteVerified(row) {
+  return row.smtpAccount?.smtpRoute?.secure === true
+    && Number(row.smtpAccount.smtpRoute.port) === Number(IMPLICIT_TLS_PORTS.smtp)
+    && row.imapAccount?.imapRoute?.secure === true
+    && Number(row.imapAccount.imapRoute.port) === Number(IMPLICIT_TLS_PORTS.imap);
+}
+
 // Only planner-issued, all-50-row plans may reach execution. A plan that is refused carries no rows at all.
 export function planWinnrProductionImport({
   csvText = '',
@@ -134,22 +209,42 @@ export function planWinnrProductionImport({
   providerDomains = [],
   providerMailboxes = [],
   executionGate = null,
+  expectedPilotMailboxCount = null,
   now = new Date()
 } = {}) {
   const nowMs = toMs(now);
   const recordedAt = Number.isFinite(nowMs) ? isoOf(nowMs) : '';
   const reasons = [];
-  const counts = { rows: 0, prepared: 0, failed: 0, duplicateIdentityCount: 0, providerRecordCount: 0 };
+  const counts = {
+    rows: 0,
+    prepared: 0,
+    failed: 0,
+    duplicateIdentityCount: 0,
+    providerRecordCount: 0,
+    startupDomains: 0,
+    pilotDomains: 0,
+    credentialIdentitiesSealed: 0
+  };
   let planRows = [];
+  let scopeFacts = null;
+  let sealedIdentities = 0;
   try {
     reasons.push(...validateExecutionGate(executionGate, nowMs));
     if (executionGate?.routeAuthorized !== true) reasons.push('gate-route-authorization-required');
     if (executionGate?.termsCompatible !== true) reasons.push('gate-terms-compatibility-required');
     if (keyLabel !== WINNR_PRODUCTION_KEY_LABEL) reasons.push('key-label-not-production');
     if (!KEY_RE.test(String(encryptionKeyHex ?? ''))) reasons.push('encryption-key-hex-required');
+    // When the approval carries a key check, the supplied key must be the approved one. Absent a check, the caller's
+    // label is all that binds the key, so the production runner requires the check (see its own refusal).
+    if (executionGate?.encryptionKeyCheck !== undefined && executionGate.encryptionKeyCheck !== winnrProductionKeyCheck(encryptionKeyHex)) {
+      reasons.push('encryption-key-check-mismatch');
+    }
     if (storeBackend !== 'postgres') reasons.push('store-backend-not-postgres');
     if (!isNonEmpty(workspaceId)) reasons.push('workspace-link-required');
     if (!isNonEmpty(routeEvidenceRef)) reasons.push('route-evidence-required');
+    if (expectedPilotMailboxCount !== null && !(Number.isInteger(expectedPilotMailboxCount) && expectedPilotMailboxCount >= 0)) {
+      reasons.push('pilot-mailbox-count-invalid');
+    }
 
     const providersReadable = Array.isArray(providerDomains) && Array.isArray(providerMailboxes);
     if (!providersReadable) reasons.push('provider-inventory-required');
@@ -167,6 +262,13 @@ export function planWinnrProductionImport({
       if (!providerGate.ok) reasons.push(...providerGate.reasonCodes);
       const crossGate = gateCsvAgainstProvider({ rows, providerMailboxes, expected });
       if (!crossGate.ok) reasons.push(...crossGate.reasonCodes);
+      reasons.push(...routeFactReasons({ rows, providerMailboxes }));
+      if (expectedPilotMailboxCount !== null) {
+        // The pilot mailboxes the provider reports must be exactly the number the approval names.
+        const pilot = new Set(expected.pilotDomains);
+        const providerPilot = new Set(providerMailboxes.map(m => lower(m?.full_address)).filter(address => pilot.has(domainOf(address))));
+        if (providerPilot.size !== expectedPilotMailboxCount) reasons.push('pilot-mailbox-count-mismatch');
+      }
     }
 
     // Called here, not merely exported: a duplicated address makes the link map ambiguous.
@@ -199,6 +301,18 @@ export function planWinnrProductionImport({
         if (planRows.some(row => row.smtpAccount?.provider !== SMTP_PROVIDER || row.imapAccount?.provider !== IMAP_PROVIDER)) {
           reasons.push('plan-provider-shape-invalid');
         }
+        if (planRows.some(row => !tlsRouteVerified(row))) reasons.push('plan-tls-mode-not-verified');
+        // Every planned identity must open under the production key, for both its SMTP and its IMAP credential.
+        try {
+          for (const row of planRows) {
+            openCredential(row.smtpAccount, encryptionKeyHex, 'smtp-basic');
+            openCredential(row.imapAccount, encryptionKeyHex, 'imap-basic');
+          }
+          sealedIdentities = planRows.length;
+        } catch {
+          reasons.push('plan-ciphertext-not-sealed-under-key');
+        }
+        scopeFacts = { startupDomains: [...expected.startupDomains], pilotDomains: [...expected.pilotDomains] };
       }
     }
   } catch (error) {
@@ -210,6 +324,22 @@ export function planWinnrProductionImport({
   const status = ok ? 'PRODUCTION_IMPORT_PLAN_READY' : 'PRODUCTION_IMPORT_REFUSED';
   const reasonCodes = publicCodes(reasons);
   if (ok) counts.prepared = planRows.length;
+  // Scope facts and digests exist only for a ready plan. The destination digest is over identity-to-slot pairs, so an
+  // execution that reads back exactly the planned mapping produces the same value.
+  const issued = ok && scopeFacts ? {
+    ...scopeFacts,
+    sourceHash16: keyedDigest16(encryptionKeyHex, 'source', csvText),
+    destinationHash16: keyedDigest16(encryptionKeyHex, 'destination', planRows.flatMap(row => [
+      `${row.identity}|${row.smtpAccount.slot}`,
+      `${row.identity}|${row.imapAccount.slot}`
+    ]).sort().join('\n'))
+  } : null;
+  if (ok && issued) {
+    counts.startupDomains = issued.startupDomains.length;
+    counts.pilotDomains = issued.pilotDomains.length;
+    counts.credentialIdentitiesSealed = sealedIdentities;
+  }
+  const hashes = { sourceHash16: issued?.sourceHash16 ?? '', destinationHash16: issued?.destinationHash16 ?? '' };
   const plan = deepFreeze({
     ok,
     status,
@@ -218,7 +348,12 @@ export function planWinnrProductionImport({
     rows: ok ? planRows : [],
     storeBackend: ok ? 'postgres' : '',
     version: WINNR_PRODUCTION_IMPORT_VERSION,
-    publicReceipt: buildPublicReceipt({ kind: 'PLAN', status, reasonCodes, counts, recordedAt })
+    startupDomains: issued ? issued.startupDomains : [],
+    pilotDomains: issued ? issued.pilotDomains : [],
+    expectedPilotMailboxCount: ok ? expectedPilotMailboxCount : null,
+    sourceHash16: hashes.sourceHash16,
+    destinationHash16: hashes.destinationHash16,
+    publicReceipt: buildPublicReceipt({ kind: 'PLAN', status, reasonCodes, counts, recordedAt, hashes })
   });
   if (ok) ISSUED_PLANS.add(plan);
   return plan;
@@ -271,16 +406,119 @@ async function verifyHeldState(store, planRows) {
     const sender = healthByInbox.get(String(row.smtpAccount.slot));
     if (sender?.paused === true && sender.pauseReason === WINNR_IMPORT_HOLD_REASON) counts.verifiedSmtpHeld += 1;
     else reasonCodes.push('SMTP_SENDER_NOT_HELD');
-    if (accountByKey.has(`${SMTP_PROVIDER}|${row.smtpAccount.slot}`)) counts.verifiedSmtpAccounts += 1;
+    const smtpAccount = accountByKey.get(`${SMTP_PROVIDER}|${row.smtpAccount.slot}`);
+    if (smtpAccount) counts.verifiedSmtpAccounts += 1;
     else reasonCodes.push('SMTP_ACCOUNT_ABSENT');
+    // A slot must belong to the identity the plan mapped it to, never to another mailbox.
+    if (smtpAccount && lower(smtpAccount.email) !== row.identity) reasonCodes.push('ACCOUNT_IDENTITY_MISMATCH');
     const imap = accountByKey.get(`${IMAP_PROVIDER}|${row.imapAccount.slot}`);
     if (imap && imap.connected === false) counts.verifiedImapHeld += 1;
     else reasonCodes.push('IMAP_ACCOUNT_NOT_HELD');
+    if (imap && lower(imap.email) !== row.identity) reasonCodes.push('ACCOUNT_IDENTITY_MISMATCH');
   }
   return { ok: reasonCodes.length === 0, reasonCodes: publicCodes(reasonCodes), counts };
 }
 
-export async function executeWinnrProductionImport({
+// Pilot rows are identified by their domain. Their snapshot is compared before and after the writes.
+function pilotSnapshot({ accounts = [], senderHealth = [], pilotDomains = [] } = {}) {
+  const pilot = new Set(pilotDomains);
+  const pilotAccounts = accounts.filter(account => pilot.has(domainOf(account?.email)) || pilot.has(domainOf(account?.slot)));
+  const pilotHealth = senderHealth.filter(health => pilot.has(domainOf(health?.inbox)));
+  return {
+    rows: pilotAccounts.length + pilotHealth.length,
+    identities: new Set(pilotAccounts.map(account => lower(account.email)).filter(Boolean)).size,
+    snapshot: stableStringify({
+      accounts: pilotAccounts.map(stableStringify).sort(),
+      senderHealth: pilotHealth.map(stableStringify).sort()
+    })
+  };
+}
+
+// Counts the sender accounts that selectFleetMailbox would still choose one at a time.
+function eligibleCount(accounts, senderHealth, nowMs) {
+  let eligible = 0;
+  for (const account of accounts) {
+    const result = selectFleetMailbox({
+      prospectId: 'winnr-production-import-verify',
+      accounts: [account],
+      senderHealth,
+      provider: SMTP_PROVIDER,
+      date: new Date(nowMs)
+    });
+    if (result.ok === true) eligible += 1;
+  }
+  return eligible;
+}
+
+// Scope check after the held-state check: no pilot row changed, no pilot identity count drift, and no SMTP sender on
+// a Startup domain or in the plan is selectable. Returns the read-back destination digest for the receipt.
+async function verifyImportScope(store, { planRows, startupDomains, pilotDomains, pilotBefore, expectedPilotMailboxCount, key, nowMs }) {
+  const accounts = await store.list('accounts');
+  const senderHealth = await store.list('senderHealth');
+  const reasonCodes = [];
+  const pilotAfter = pilotSnapshot({ accounts, senderHealth, pilotDomains });
+  if (pilotAfter.snapshot !== pilotBefore.snapshot) reasonCodes.push('PILOT_ROWS_CHANGED');
+  if (expectedPilotMailboxCount !== null && pilotAfter.identities !== expectedPilotMailboxCount) reasonCodes.push('PILOT_MAILBOX_COUNT_CHANGED');
+
+  const plannedSlots = new Set(planRows.flatMap(row => [String(row.smtpAccount.slot), String(row.imapAccount.slot)]));
+  const startup = new Set(startupDomains);
+  const scope = accounts.filter(account => String(account?.provider ?? '').toLowerCase() === SMTP_PROVIDER
+    && (plannedSlots.has(String(account.slot)) || startup.has(domainOf(account.email))));
+  const eligible = eligibleCount(scope, senderHealth, nowMs);
+  if (eligible > 0) reasonCodes.push('ELIGIBLE_SENDER_AFTER_IMPORT');
+
+  const bySlot = new Map(accounts.map(account => [String(account?.slot ?? ''), account]));
+  const lines = [];
+  for (const row of planRows) {
+    const smtp = bySlot.get(String(row.smtpAccount.slot));
+    const imap = bySlot.get(String(row.imapAccount.slot));
+    if (smtp && imap) lines.push(`${lower(smtp.email)}|${smtp.slot}`, `${lower(imap.email)}|${imap.slot}`);
+  }
+  return {
+    ok: reasonCodes.length === 0,
+    reasonCodes: publicCodes(reasonCodes),
+    destinationHash16: keyedDigest16(key, 'destination', lines.sort().join('\n')),
+    counts: {
+      eligibleAfterImport: eligible,
+      scopedSmtpAccounts: scope.length,
+      pilotRowsBefore: pilotBefore.rows,
+      pilotRowsAfter: pilotAfter.rows,
+      pilotSnapshotChanged: pilotAfter.snapshot === pilotBefore.snapshot ? 0 : 1,
+      pilotIdentities: pilotAfter.identities,
+      destinationRows: lines.length / 2,
+      accountsAfter: accounts.length
+    }
+  };
+}
+
+// True when any planned key appears on more than one row of the store.
+function duplicatedFor(rows, field, wanted) {
+  const counts = new Map();
+  for (const row of rows) {
+    const value = String(row?.[field] ?? '');
+    if (wanted.has(value)) counts.set(value, (counts.get(value) || 0) + 1);
+  }
+  return [...counts.values()].some(count => count > 1);
+}
+
+// Single-flight per store object. The store's own transaction lock serialises runs across processes; this refuses a
+// second call on the same store while one is still in flight in this process.
+export async function executeWinnrProductionImport(input = {}) {
+  const store = input?.store;
+  if (!store || typeof store !== 'object') return executeImportOnce(input);
+  const nowMs = toMs(input.now ?? new Date());
+  if (RUNNING_IMPORT_STORES.has(store)) {
+    return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', ['IMPORT_ALREADY_RUNNING'], Number.isFinite(nowMs) ? isoOf(nowMs) : '');
+  }
+  RUNNING_IMPORT_STORES.add(store);
+  try {
+    return await executeImportOnce(input);
+  } finally {
+    RUNNING_IMPORT_STORES.delete(store);
+  }
+}
+
+async function executeImportOnce({
   store,
   plan,
   executionGate = null,
@@ -332,6 +570,21 @@ export async function executeWinnrProductionImport({
     const compatibility = verifyStoreKeyCompatibility({ accounts: existingAccounts, encryptionKey: key });
     if (!compatibility.ok) throw new ImportRefusal('STAGING_OR_UNREADABLE_CIPHERTEXT_PRESENT');
 
+    const existingHealth = await tx.list('senderHealth');
+    // Schema uniqueness already rejects duplicates in PostgreSQL. This refuses them for any store that does not enforce it.
+    const plannedIds = new Set(planRows.flatMap(row => [String(row.smtpAccount.id), String(row.imapAccount.id)]));
+    const plannedSlots = new Set(planRows.flatMap(row => [String(row.smtpAccount.slot), String(row.imapAccount.slot)]));
+    const plannedInboxes = new Set(planRows.map(row => String(row.smtpAccount.slot)));
+    if (duplicatedFor(existingAccounts, 'slot', plannedSlots) || duplicatedFor(existingAccounts, 'id', plannedIds)
+      || duplicatedFor(existingHealth, 'inbox', plannedInboxes)) {
+      throw new ImportRefusal('STORE_ROWS_DUPLICATED_FOR_IDENTITY');
+    }
+    // Pilot rows are snapshotted before any write and compared again before commit.
+    const pilotBefore = pilotSnapshot({ accounts: existingAccounts, senderHealth: existingHealth, pilotDomains: plan.pilotDomains });
+    if (plan.expectedPilotMailboxCount !== null && pilotBefore.identities !== plan.expectedPilotMailboxCount) {
+      throw new ImportRefusal('PILOT_MAILBOX_COUNT_MISMATCH');
+    }
+
     const bySlot = new Map();
     const byId = new Map();
     for (const account of existingAccounts) {
@@ -345,7 +598,7 @@ export async function executeWinnrProductionImport({
     if (actions.some(a => a.smtp === 'CONTRADICTION' || a.imap === 'CONTRADICTION')) throw new ImportRefusal('CREDENTIAL_CONTRADICTION');
     if (actions.some(a => a.smtp === 'COLLISION' || a.imap === 'COLLISION')) throw new ImportRefusal('ACCOUNT_IDENTITY_COLLISION');
 
-    const healthByInbox = new Map((await tx.list('senderHealth')).map(row => [String(row?.inbox ?? ''), row]));
+    const healthByInbox = new Map(existingHealth.map(row => [String(row?.inbox ?? ''), row]));
 
     let writes = 0;
     const beforeWrite = () => {
@@ -361,16 +614,33 @@ export async function executeWinnrProductionImport({
     let imapAccountWrites = 0;
     let writtenRows = 0;
     let alreadyPresentRows = 0;
+    const imapPatched = planRows.map(() => false);
+    // Pass 1, holds first: every planned SMTP sender is paused, and every present IMAP account is disconnected, before
+    // any account is created. Every planned SMTP sender is held on every run, including senders that are already
+    // present. A present sender that lacks a hold is exactly the case a missing pause would leave selectable.
     for (let index = 0; index < planRows.length; index += 1) {
       const row = planRows[index];
       const action = actions[index];
-      let rowWrote = false;
-      // Every planned SMTP sender is held on every run, including senders that are already present. A present
-      // sender that lacks a hold is exactly the case a missing pause would leave selectable.
       const inbox = String(row.smtpAccount.slot);
       beforeWrite();
       await tx.upsert('senderHealth', heldSenderRecord(healthByInbox.get(inbox), inbox, WINNR_IMPORT_HOLD_REASON, iso, day));
       pauseWrites += 1;
+      if (action.imap === 'PRESENT') {
+        // A present IMAP account must still end disconnected. Patch only the connection flag and keep its credential.
+        const existingImap = bySlot.get(String(row.imapAccount.slot)) || byId.get(String(row.imapAccount.id));
+        if (existingImap && existingImap.connected !== false) {
+          beforeWrite();
+          await tx.upsert('accounts', { ...existingImap, connected: false, updatedAt: iso });
+          imapAccountWrites += 1;
+          imapPatched[index] = true;
+        }
+      }
+    }
+    // Pass 2, account creation. Only reached once every hold above has been written in this transaction.
+    for (let index = 0; index < planRows.length; index += 1) {
+      const row = planRows[index];
+      const action = actions[index];
+      let rowWrote = imapPatched[index];
       if (action.smtp === 'WRITE') {
         beforeWrite();
         await tx.upsert('accounts', { ...row.smtpAccount, updatedAt: iso });
@@ -382,15 +652,6 @@ export async function executeWinnrProductionImport({
         await tx.upsert('accounts', { ...row.imapAccount, connected: false, updatedAt: iso });
         imapAccountWrites += 1;
         rowWrote = true;
-      } else {
-        // A present IMAP account must still end disconnected. Patch only the connection flag and keep its credential.
-        const existingImap = bySlot.get(String(row.imapAccount.slot)) || byId.get(String(row.imapAccount.id));
-        if (existingImap && existingImap.connected !== false) {
-          beforeWrite();
-          await tx.upsert('accounts', { ...existingImap, connected: false, updatedAt: iso });
-          imapAccountWrites += 1;
-          rowWrote = true;
-        }
       }
       if (rowWrote) writtenRows += 1;
       else alreadyPresentRows += 1;
@@ -399,7 +660,12 @@ export async function executeWinnrProductionImport({
     // Verify inside the transaction, before commit. A mismatch throws, so the whole batch rolls back and nothing
     // selectable is left behind. The post-commit read-back below is a second, independent check.
     const preCommit = await verifyHeldState(tx, planRows);
-    if (!preCommit.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED');
+    if (!preCommit.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED', preCommit.reasonCodes);
+    const preScope = await verifyImportScope(tx, {
+      planRows, startupDomains: plan.startupDomains, pilotDomains: plan.pilotDomains, pilotBefore,
+      expectedPilotMailboxCount: plan.expectedPilotMailboxCount, key, nowMs
+    });
+    if (!preScope.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED', preScope.reasonCodes);
 
     await tx.setSetting(WINNR_IMPORT_LEASE_SETTING, { owner: leaseOwner, released: true, releasedAt: iso, expiresAt: iso });
     return {
@@ -408,7 +674,9 @@ export async function executeWinnrProductionImport({
       alreadyPresentRows,
       pauseWrites,
       smtpAccountWrites,
-      imapAccountWrites
+      imapAccountWrites,
+      accountsBefore: existingAccounts.length,
+      pilotBefore
     };
   };
 
@@ -416,35 +684,45 @@ export async function executeWinnrProductionImport({
   try {
     report = await store.transaction(runImport);
   } catch (error) {
-    if (error instanceof ImportRefusal) return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', [error.code], iso);
+    if (error instanceof ImportRefusal) return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', error.reasonCodes, iso);
     return refusal('EXECUTE', 'PRODUCTION_IMPORT_ROLLED_BACK', ['IMPORT_TRANSACTION_ROLLED_BACK', sanitizedErrorCode(error)], iso);
   }
 
   // Read-back after commit. A failed check reports and changes nothing further.
   const verification = await verifyHeldState(store, planRows);
+  const postScope = await verifyImportScope(store, {
+    planRows, startupDomains: plan.startupDomains, pilotDomains: plan.pilotDomains, pilotBefore: report.pilotBefore,
+    expectedPilotMailboxCount: plan.expectedPilotMailboxCount, key, nowMs
+  });
+  const hashes = { sourceHash16: plan.sourceHash16, destinationHash16: postScope.destinationHash16 };
   const counts = {
     rows: EXPECTED_ACCOUNT_COUNT,
+    sourceRows: plan.counts?.rows ?? 0,
+    accountsBefore: report.accountsBefore,
     committedWrites: report.committedWrites,
     writtenRows: report.writtenRows,
     alreadyPresentRows: report.alreadyPresentRows,
     pauseWrites: report.pauseWrites,
     smtpAccountWrites: report.smtpAccountWrites,
     imapAccountWrites: report.imapAccountWrites,
-    ...verification.counts
+    ...verification.counts,
+    ...postScope.counts
   };
-  if (!verification.ok) {
+  const verifyCodes = [...verification.reasonCodes, ...postScope.reasonCodes];
+  if (verifyCodes.length) {
+    const codes = publicCodes(verifyCodes);
     return {
       ok: false,
       status: 'PRODUCTION_IMPORT_POST_VERIFY_FAILED',
-      reasonCodes: verification.reasonCodes,
+      reasonCodes: codes,
       counts,
-      publicReceipt: buildPublicReceipt({ kind: 'EXECUTE', status: 'PRODUCTION_IMPORT_POST_VERIFY_FAILED', reasonCodes: verification.reasonCodes, counts, recordedAt: iso }),
+      publicReceipt: buildPublicReceipt({ kind: 'EXECUTE', status: 'PRODUCTION_IMPORT_POST_VERIFY_FAILED', reasonCodes: codes, counts, recordedAt: iso, hashes }),
       receiptStored: false
     };
   }
 
   const status = report.writtenRows === 0 ? 'PRODUCTION_IMPORT_ALREADY_PRESENT' : 'PRODUCTION_IMPORT_EXECUTED';
-  const receipt = buildPublicReceipt({ kind: 'EXECUTE', status, reasonCodes: [], counts, recordedAt: iso });
+  const receipt = buildPublicReceipt({ kind: 'EXECUTE', status, reasonCodes: [], counts, recordedAt: iso, hashes });
   const reasonCodes = [];
   let receiptStored = true;
   try {
@@ -459,7 +737,22 @@ export async function executeWinnrProductionImport({
 
 // Keeps every imported SMTP sender paused and every imported IMAP account disconnected. Nothing is deleted, and no
 // credential is rewritten. Safe to run more than once: rows already in the rolled-back state are not written again.
-export async function rollbackWinnrProductionImport({ store, plan, executionGate = null, now = new Date() } = {}) {
+export async function rollbackWinnrProductionImport(input = {}) {
+  const store = input?.store;
+  if (!store || typeof store !== 'object') return rollbackImportOnce(input);
+  const nowMs = toMs(input.now ?? new Date());
+  if (RUNNING_IMPORT_STORES.has(store)) {
+    return refusal('ROLLBACK', 'PRODUCTION_IMPORT_ROLLBACK_REFUSED', ['IMPORT_ALREADY_RUNNING'], Number.isFinite(nowMs) ? isoOf(nowMs) : '');
+  }
+  RUNNING_IMPORT_STORES.add(store);
+  try {
+    return await rollbackImportOnce(input);
+  } finally {
+    RUNNING_IMPORT_STORES.delete(store);
+  }
+}
+
+async function rollbackImportOnce({ store, plan, executionGate = null, now = new Date() } = {}) {
   const nowMs = toMs(now);
   const iso = Number.isFinite(nowMs) ? isoOf(nowMs) : '';
   // Expiry is not enforced here. Holding senders is the fail-safe direction, so an expired approval must not block it.

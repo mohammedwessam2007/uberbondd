@@ -24,6 +24,8 @@ import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
 import { selectFleetMailbox, dispatchSmtpFleetAccount } from './uberfleet.mjs';
 import { evaluateOutreachPersonalization } from './ubertruth-outreach.mjs';
 import { pollImapForwardingAccount } from './uberimap.mjs';
+import { detectUnsubscribeIntent, leadingReplyText, boundedPreview, classifyImapPollFailure, imapBackoffMs, credentialDigest, IMAP_AUTH_FAILURE_LIMIT, IMAP_TRANSIENT_RETRY_LIMIT } from './inbound-classify.mjs';
+import { propagateSuppression, recordInboundHealthEvent, buildOperatorEscalation, recordOperatorEscalation } from './inbound-suppression-propagation.mjs';
 
 export class Pipeline {
   constructor(store, cfg, hooks = {}) {
@@ -1014,15 +1016,31 @@ export class Pipeline {
       return daemon && (!structural || String(contentType || '').toLowerCase() === 'multipart/report');
     };
     const IMAP_POISON_LIMIT = 3;
+    // Stored reply bodies are bounded previews. Classification still reads the full decoded text.
+    const REPLY_BODY_STORE_CHARS = 4000;
+    const UNLINKED_PREVIEW_CHARS = 500;
     // Log a code-style class only. Library and provider messages can echo hosts or credentials.
     const sanitizedErrorClass = error => String(error?.code || error?.name || 'ERROR').toUpperCase().replace(/[^A-Z0-9_-]/g, '_').slice(0, 80) || 'ERROR';
     // UIDVALIDITY-qualified keys, so a rebuilt mailbox cannot collide with old UIDs.
     // Legacy 'imap:slot:uid' keys stay valid for records written before this change.
     const imapExternalId = (slot, uidValidity, uid) => (uidValidity > 0 ? `imap:${slot}:v${uidValidity}:${uid}` : `imap:${slot}:${uid}`);
+    // A Message-ID is stable across UIDVALIDITY resets and across forwarding slots, so it is the dedupe key when present.
+    // Without one, the parser's content digest also survives a UIDVALIDITY reset. The UID key is the last resort.
+    const imapMessageKey = (parsed, slot, uidValidity, uid) => {
+      if (parsed.messageId) return `mid:${parsed.messageId}`;
+      if (/^imapmsg:[0-9a-f]{32}$/.test(String(parsed.id || ''))) return `imapmsg:${String(parsed.id).slice('imapmsg:'.length)}`;
+      return imapExternalId(slot, uidValidity, uid);
+    };
+    // Message-ID tokens, bracket-stripped and lower-cased. An In-Reply-To header may carry several IDs.
+    const messageIdTokens = value => {
+      const text = String(value ?? '');
+      const bracketed = text.match(/<[^<>\s]+>/g);
+      return (bracketed || text.split(/\s+/)).map(part => part.trim().replace(/^<+|>+$/g, '').toLowerCase()).filter(Boolean);
+    };
 
-    // Side effects for one classified reply. Every step is safe to repeat: suppression and the prospect status are
-    // idempotent. The completion marker is written last, so a run that stopped midway is finished by the next poll.
-    const applySideEffects = async ({ prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId }) => {
+    // Side effects for one classified reply. Every step is safe to repeat: suppression, health events, escalations and the
+    // prospect status are idempotent. The completion marker is written last, so a run that stopped midway is finished by the next poll.
+    const applySideEffects = async ({ prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId, correlation = 'none', replyId = '' }) => {
       const terminalDelivery = ['bounce', 'complaint'].includes(classification.label);
       const automatic = ['automatic', 'out_of_office'].includes(classification.label);
       await this.store.patch('prospects', prospect.id, automatic ? {
@@ -1035,25 +1053,42 @@ export class Pipeline {
       });
       const suppressedEmail = String(prospect.contact?.email || '').toLowerCase();
       if (suppressedEmail && (classification.suppressionRecommended === true || ['optout', 'negative', 'bounce', 'complaint'].includes(classification.label))) {
-        try {
-          await this.store.add('suppressions', { id: id('sup'), value: suppressedEmail, reason: classification.label, createdAt: now() });
-        } catch (error) {
-          if (!(error instanceof ConflictError)) throw error;
-        }
+        // Suppression is keyed by recipient address, so it applies to every sender slot.
+        await propagateSuppression(this.store, { email: suppressedEmail, reason: classification.label, sourceId: externalId });
       }
       if (terminalDelivery) {
         // The sending mailbox takes the health charge, never the IMAP mailbox that happened to receive the notice.
-        await this.store.recordOutboundEvent({
-          inbox: sendingSlot || prospect.inbox || '',
+        // A complaint also holds the sending slot, even below the configured complaint threshold.
+        await recordInboundHealthEvent(this.store, {
           eventType: classification.label === 'bounce' ? 'hard_bounce' : 'complaint',
-          prospectId: prospect.id, recipientEmail: prospect.contact?.email || '',
-          detail: { inboundId: externalId }
-        }, this.outboundThresholds());
+          inbox: sendingSlot || prospect.inbox || '', prospectId: prospect.id, recipientEmail: prospect.contact?.email || '',
+          externalId, thresholds: this.outboundThresholds()
+        });
+      }
+      // Operator escalation for a complaint, an unsubscribe, or a non-automatic reply inside a linked thread.
+      // The pipeline never answers these automatically.
+      const escalationKind = classification.label === 'complaint' ? 'complaint'
+        : classification.unsubscribeIntent === true ? 'unsubscribe'
+          : (correlation === 'thread' && !automatic && classification.label !== 'bounce') ? 'human_response' : '';
+      if (escalationKind) {
+        const reasonCode = {
+          complaint: classification.reasonCode || 'COMPLAINT_SIGNAL',
+          unsubscribe: 'UNSUBSCRIBE_INTENT',
+          human_response: 'THREAD_LINKED_HUMAN_REPLY'
+        }[escalationKind];
+        await recordOperatorEscalation(this.store, buildOperatorEscalation({
+          kind: escalationKind, externalId, replyId, prospectId: prospect.id, slot: sendingSlot || '',
+          correlation, label: classification.label, reasonCode, at: now()
+        }));
       }
       await this.store.patch('replies', markId, { sideEffectsDone: true });
     };
 
-    const recordReply = async ({ externalId, threadId = '', from = '', fromEmail = '', subject = '', body = '', inReplyTo = '', references = [], accountSlot = '', contentType = '', structural = false, autoSubmitted = false, persistUnlinked = false } = {}) => {
+    const recordReply = async ({
+      externalId, threadId = '', from = '', fromEmail = '', subject = '', body = '', inReplyTo = '', references = [],
+      accountSlot = '', contentType = '', structural = false, autoSubmitted = false, persistUnlinked = false,
+      listUnsubscribe = '', reportType = '', embeddedMessageIds = []
+    } = {}) => {
       if (!externalId) return false;
       const existing = await this.store.findOne('replies', { gmailId: externalId });
       if (existing) {
@@ -1064,25 +1099,54 @@ export class Pipeline {
             await applySideEffects({
               prospect: replayProspect, classification: existing.classification || { label: 'manual_review' },
               asyncCloseDecision: existing.asyncCloseDecision || null, externalId,
-              sendingSlot: existing.sendingSlot || replayProspect.inbox || '', markId: existing.id
+              sendingSlot: existing.sendingSlot || replayProspect.inbox || '', markId: existing.id,
+              correlation: existing.correlation || 'none', replyId: existing.id
             });
           }
         }
         return false;
       }
-      const replyRefs = new Set([inReplyTo, ...(Array.isArray(references) ? references : [])].filter(Boolean));
-      const linkedMessage = sentMessages.find(message => message.rfcMessageId && replyRefs.has(message.rfcMessageId));
+      // An ARF feedback report names the original message in an embedded part, so its IDs count as thread evidence.
+      const feedbackReport = structural && String(reportType || '').trim().toLowerCase() === 'feedback-report';
+      const replyTokens = new Set([
+        ...messageIdTokens(inReplyTo),
+        ...(Array.isArray(references) ? references : []).flatMap(messageIdTokens),
+        ...(feedbackReport && Array.isArray(embeddedMessageIds) ? embeddedMessageIds : []).flatMap(messageIdTokens)
+      ]);
+      const linkedMessage = sentMessages.find(message => {
+        const token = messageIdTokens(message.rfcMessageId)[0];
+        return Boolean(token) && replyTokens.has(token);
+      });
       const senderEmail = String(fromEmail || '').toLowerCase();
       const prospect = linkedMessage
         ? prospects.find(item => item.id === linkedMessage.prospectId)
         : prospects.find(item => item.contact?.email && senderEmail && item.contact.email.toLowerCase() === senderEmail);
+      const correlation = !prospect ? 'none' : (linkedMessage ? 'thread' : 'sender-address');
+      const unsubscribe = detectUnsubscribeIntent({
+        listUnsubscribe: String(listUnsubscribe || ''), subject: String(subject || ''), body: String(body || '')
+      });
       if (!prospect) {
+        // An unlinked sender is not a known recipient, but an opt-out still blocks that address. Only a high-confidence intent suppresses.
+        if (unsubscribe.intent && unsubscribe.confidence === 'high') {
+          if (senderEmail) await propagateSuppression(this.store, { email: senderEmail, reason: 'optout', sourceId: externalId });
+          await recordOperatorEscalation(this.store, buildOperatorEscalation({
+            kind: 'unsubscribe', externalId, slot: accountSlot || '', correlation: 'none', label: 'unlinked', reasonCode: 'UNLINKED_SENDER', at: now()
+          }));
+        }
+        if (feedbackReport) {
+          // A feedback report whose original message cannot be matched goes to the operator. It is never suppressed automatically.
+          await recordOperatorEscalation(this.store, buildOperatorEscalation({
+            kind: 'complaint', externalId, slot: accountSlot || '', correlation: 'none', label: 'unlinked', reasonCode: 'UNLINKED_FEEDBACK_REPORT', at: now()
+          }));
+        }
         // Unlinked IMAP replies are kept, not dropped. A bounded preview is stored, never the full third-party body.
         if (!persistUnlinked) return false;
         const record = {
-          id: `unlinked:${externalId}`, externalId, accountSlot, from, fromEmail: senderEmail,
-          subject: String(subject || '').slice(0, 300), bodyPreview: String(body || '').slice(0, 500),
-          inReplyTo: inReplyTo || null, references: Array.isArray(references) ? references.slice(0, 20) : [], receivedAt: now()
+          id: `unlinked:${externalId}`, externalId, accountSlot, from: String(from || '').slice(0, 320), fromEmail: senderEmail,
+          subject: String(subject || '').slice(0, 300), bodyPreview: boundedPreview(body, UNLINKED_PREVIEW_CHARS),
+          inReplyTo: inReplyTo || null,
+          references: Array.isArray(references) ? references.slice(0, 20).map(item => String(item).slice(0, 500)) : [],
+          receivedAt: now()
         };
         try {
           await this.store.add('unlinkedReplies', record);
@@ -1096,21 +1160,39 @@ export class Pipeline {
       const deliveryNotice = isDeliveryNotice({ fromEmail: senderEmail, contentType, structural });
       const deliverySignal = classifyDeliverySignal({ from, subject, body, threadId, id: externalId });
       const automaticLabel = label => label === 'automatic' || label === 'out_of_office';
+      // A machine-marked feedback report that names an outbound thread is a complaint even without a mailer-daemon sender.
+      // A delivery notice keeps the existing rules.
+      const machineComplaint = !deliveryNotice && Boolean(linkedMessage) && feedbackReport;
       let classification;
-      if (deliverySignal && ['bounce', 'complaint'].includes(deliverySignal.label) && !deliveryNotice) {
+      if (machineComplaint) {
+        classification = {
+          label: 'complaint', confidence: 0.97, suppressionRecommended: true, reasonCode: 'MACHINE_FEEDBACK_REPORT',
+          reason: 'Machine-marked feedback report linked to an outbound thread'
+        };
+      } else if (deliverySignal && ['bounce', 'complaint'].includes(deliverySignal.label) && !deliveryNotice) {
         classification = { label: 'manual_review', confidence: 0.5, suppressionRecommended: false, reason: 'Bounce or complaint language without a verified delivery notice' };
       } else if (deliverySignal && (deliveryNotice || autoSubmitted || !automaticLabel(deliverySignal.label))) {
         classification = deliverySignal;
       } else {
-        classification = await classifyReply(this.cfg.ai, body);
+        // Classify the reply's own words. Quoted original text (including our footer) is not the recipient speaking.
+        classification = await classifyReply(this.cfg.ai, leadingReplyText(body) || body);
       }
-      if (!deliveryNotice && ['bounce', 'complaint'].includes(classification.label)) {
+      if (!deliveryNotice && !machineComplaint && ['bounce', 'complaint'].includes(classification.label)) {
         // Downgraded: no suppression, no terminal prospect status, no outbound event.
         classification = { ...classification, label: 'manual_review', suppressionRecommended: false, reason: 'Bounce or complaint language outside a delivery notice' };
       }
       if (!deliveryNotice && !autoSubmitted && automaticLabel(classification.label)) {
         // Automatic-reply wording from a person must not schedule an automatic follow-up. Only a machine-marked reply may.
         classification = { ...classification, label: 'manual_review', reason: 'Automatic-reply wording without an Auto-Submitted header' };
+      }
+      // A clear unsubscribe from a person becomes an opt-out. A medium signal (header only, or subject only) counts only inside a linked thread.
+      const unsubscribeFires = unsubscribe.intent
+        && (unsubscribe.confidence === 'high' || (unsubscribe.confidence === 'medium' && correlation === 'thread'));
+      if (unsubscribeFires && !autoSubmitted && !deliveryNotice && !['bounce', 'complaint', 'automatic', 'out_of_office'].includes(classification.label)) {
+        classification = {
+          label: 'optout', confidence: 0.99, suppressionRecommended: true, unsubscribeIntent: true,
+          unsubscribeSource: unsubscribe.source, reason: `Unsubscribe intent (${unsubscribe.source})`
+        };
       }
       let asyncCloseDecision = null;
       if (prospect?.offerDecision?.offer?.offerId) {
@@ -1131,8 +1213,8 @@ export class Pipeline {
       const sendingSlot = linkedMessage?.inbox || prospect.inbox || accountSlot || '';
       const row = {
         id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
-        from, subject, body, classification, asyncCloseDecision, receivedAt: now(),
-        sendingSlot, sideEffectsDone: false
+        from, subject, body: boundedPreview(body, REPLY_BODY_STORE_CHARS), classification, asyncCloseDecision, receivedAt: now(),
+        sendingSlot, sideEffectsDone: false, correlation
       };
       try {
         await this.store.add('replies', row);
@@ -1140,7 +1222,9 @@ export class Pipeline {
         if (error instanceof ConflictError) return false;
         throw error;
       }
-      await applySideEffects({ prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId: row.id });
+      await applySideEffects({
+        prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId: row.id, correlation, replyId: row.id
+      });
       matched += 1;
       return true;
     };
@@ -1170,15 +1254,66 @@ export class Pipeline {
       await this.store.upsert('accounts', account);
     }
 
+    // Bounded retry, backoff and quarantine for IMAP forwarding accounts. Only the read is retried, and only for transient network
+    // errors, with a fixed and small number of attempts. Retry delays can be overridden by hooks (tests use zero delays).
+    const retryDelays = Array.isArray(this.hooks?.imapRetryDelaysMs)
+      ? this.hooks.imapRetryDelaysMs.slice(0, IMAP_TRANSIENT_RETRY_LIMIT).map(ms => Math.max(0, Number(ms) || 0))
+      : [250, 1000];
+    const sleepMs = this.hooks?.imapSleep || (ms => new Promise(resolve => setTimeout(resolve, ms)));
+    // Auth failures count toward quarantine. A failure under a different credential digest starts a new count, so a rotated
+    // credential is never held against the old one. Transient failures earn a bounded backoff window instead.
+    const failurePatchFor = (live, digest, failure) => {
+      if (failure.kind === 'auth') {
+        const count = (live.imapAuthFailureDigest === digest ? Number(live.imapAuthFailures || 0) : 0) + 1;
+        const patch = { imapAuthFailures: count, imapAuthFailureDigest: digest };
+        if (count >= IMAP_AUTH_FAILURE_LIMIT) {
+          patch.imapQuarantine = { reasonCode: 'IMAP_AUTH_REPEATED', tokenDigest: digest, quarantinedAt: now() };
+        }
+        return patch;
+      }
+      if (failure.kind === 'transient') {
+        const count = Number(live.imapTransientFailures || 0) + 1;
+        return { imapTransientFailures: count, imapNextAttemptAt: new Date(Date.now() + imapBackoffMs(count)).toISOString() };
+      }
+      return {};
+    };
+
     const forwardingAccounts = allAccounts.filter(account => String(account.provider || '').toLowerCase() === 'imap-forwarding');
     for (const account of forwardingAccounts) {
+      // The account is re-read so a rotated credential, a quarantine or a backoff window written since the snapshot is honoured.
+      const live = (await this.store.get('accounts', account.id)) || account;
+      const digest = credentialDigest(live.tokens);
+      if (live.imapQuarantine) {
+        // A quarantined mailbox is not polled. Only a changed credential releases it. The checkpoint is left untouched.
+        if (live.imapQuarantine.tokenDigest === digest) continue;
+        await this.store.patch('accounts', account.id, {
+          imapQuarantine: null, imapAuthFailures: 0, imapAuthFailureDigest: null, imapTransientFailures: 0, imapNextAttemptAt: null
+        });
+        await this.store.log('imap_credential_rotated', { accountId: account.id });
+      }
+      // A transient failure waits out its bounded backoff window instead of retrying on every cycle.
+      if (live.imapNextAttemptAt && Date.parse(live.imapNextAttemptAt) > Date.now()) continue;
       // One account's failure never stops the others. The cursor moves only to the last UID recorded in ascending
       // order, and the store patch writes cursor fields only. A concurrent hold or disconnect is never overwritten.
-      const initialCursor = Number(account.lastImapUid || 0);
+      const initialCursor = Number(live.lastImapUid || 0);
       let cursor = initialCursor;
-      let uidValidity = Number(account.lastImapUidValidity || 0);
+      let uidValidity = Number(live.lastImapUidValidity || 0);
+      let phase = 'poll';
       try {
-        const poll = await this.imapPollFn({ account, encryptionKey: this.cfg.encryptionKey, limit: 100 });
+        let poll = null;
+        let pollError = null;
+        for (let attempt = 0; ; attempt += 1) {
+          try {
+            poll = await this.imapPollFn({ account: live, encryptionKey: this.cfg.encryptionKey, limit: 100 });
+            pollError = null;
+            break;
+          } catch (error) {
+            pollError = error;
+            if (classifyImapPollFailure(error).kind !== 'transient' || attempt >= retryDelays.length) break;
+            await sleepMs(retryDelays[attempt]);
+          }
+        }
+        if (pollError) throw pollError;
         if (poll?.status === 'UBERIMAP_UIDVALIDITY_CHANGED') {
           // The mailbox reassigned its UIDs, so the stored cursor means nothing. Record nothing from this poll.
           const next = Number(poll.uidValidity || 0);
@@ -1188,16 +1323,23 @@ export class Pipeline {
         }
         if (!poll?.ok) {
           await this.store.log('imap_reply_poll_failed', { accountId: account.id, status: poll?.status || 'UNKNOWN', reasonCodes: poll?.reasonCodes || [] });
+          const patch = failurePatchFor(live, digest, classifyImapPollFailure(poll || {}));
+          if (Object.keys(patch).length) {
+            await this.store.patch('accounts', account.id, patch);
+            if (patch.imapQuarantine) {
+              await this.store.log('imap_mailbox_quarantined', { accountId: account.id, reasonCode: patch.imapQuarantine.reasonCode, authFailures: patch.imapAuthFailures });
+            }
+          }
           continue;
         }
         uidValidity = Number(poll.uidValidity || uidValidity || 0);
         const messages = [...(poll.messages || [])].sort((a, b) => Number(a.uid) - Number(b.uid));
+        phase = 'process';
         for (const parsed of messages) {
           const uid = Number(parsed.uid);
           if (!Number.isSafeInteger(uid) || uid <= 0) continue;
-          // A Message-ID is stable across UIDVALIDITY resets and across forwarding slots, so it is the dedupe key when present.
           await recordReply({
-            externalId: parsed.messageId ? `mid:${parsed.messageId}` : imapExternalId(account.slot, uidValidity, uid),
+            externalId: imapMessageKey(parsed, account.slot, uidValidity, uid),
             threadId: '',
             from: parsed.from,
             fromEmail: parsed.fromEmail,
@@ -1209,6 +1351,9 @@ export class Pipeline {
             contentType: parsed.contentType,
             structural: true,
             autoSubmitted: parsed.autoSubmitted === true,
+            listUnsubscribe: parsed.listUnsubscribe,
+            reportType: parsed.reportType,
+            embeddedMessageIds: parsed.embeddedMessageIds,
             persistUnlinked: true
           });
           cursor = Math.max(cursor, uid);
@@ -1218,7 +1363,7 @@ export class Pipeline {
         let imapPoison = null;
         if (poll.failedUid) {
           const failedUid = Number(poll.failedUid);
-          const previous = Number(account.imapPoison?.uid) === failedUid ? Number(account.imapPoison.count || 0) : 0;
+          const previous = Number(live.imapPoison?.uid) === failedUid ? Number(live.imapPoison.count || 0) : 0;
           if (previous + 1 >= IMAP_POISON_LIMIT) {
             cursor = Math.max(cursor, failedUid);
             await this.store.log('imap_uid_quarantined', { accountId: account.id, uid: failedUid, attempts: previous + 1 });
@@ -1226,12 +1371,24 @@ export class Pipeline {
             imapPoison = { uid: failedUid, count: previous + 1 };
           }
         }
-        await this.store.patch('accounts', account.id, { lastImapUid: cursor, lastImapUidValidity: uidValidity, imapPoison, lastReplyPoll: Date.now() });
+        // A successful read clears every failure counter. The cursor is written only after each message above was recorded.
+        await this.store.patch('accounts', account.id, {
+          lastImapUid: cursor, lastImapUidValidity: uidValidity, imapPoison, lastReplyPoll: Date.now(),
+          imapAuthFailures: 0, imapAuthFailureDigest: null, imapTransientFailures: 0, imapNextAttemptAt: null
+        });
       } catch (error) {
         // The batch stops here. Keep the cursor at the last recorded UID. Log a code-style class only.
         try {
-          if (cursor !== initialCursor) await this.store.patch('accounts', account.id, { lastImapUid: cursor, lastImapUidValidity: uidValidity });
-          await this.store.log('imap_reply_poll_error', { accountId: account.id, errorClass: sanitizedErrorClass(error) });
+          const failure = phase === 'poll' ? classifyImapPollFailure(error) : { kind: 'other', reasonCode: 'PROCESSING_ERROR' };
+          const patch = {
+            ...(cursor !== initialCursor ? { lastImapUid: cursor, lastImapUidValidity: uidValidity } : {}),
+            ...failurePatchFor(live, digest, failure)
+          };
+          if (Object.keys(patch).length) await this.store.patch('accounts', account.id, patch);
+          if (patch.imapQuarantine) {
+            await this.store.log('imap_mailbox_quarantined', { accountId: account.id, reasonCode: patch.imapQuarantine.reasonCode, authFailures: patch.imapAuthFailures });
+          }
+          await this.store.log('imap_reply_poll_error', { accountId: account.id, errorClass: sanitizedErrorClass(error), reasonCode: failure.reasonCode });
         } catch {
           // A failing store must not stop the remaining accounts; there is nothing safer to write.
         }

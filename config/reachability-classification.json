@@ -145,6 +145,14 @@
     "NO_UBERWATT_METER_OBSERVATIONS": {
       "description": "UberWatt needs real utility-meter intervals read by the founder and measured local inference from an owned compute node. Source cannot manufacture electricity readings or benchmark runs.",
       "releasedBy": "At least three comparable founder-recorded meter intervals plus one measured local-inference run from the Windows node, recorded with their evidence references."
+    },
+    "NO_DB_CUTOVER_AUTHORIZATION": {
+      "description": "The database compatibility and cutover tooling. No owner has authorized cutting production over to the restored copy, and no reviewed final-sync or cutover runbook has been executed. The modules are tested against disposable PostgreSQL only and are not on the boot path.",
+      "releasedBy": "Owner approval of gates G1 to G8 in docs/runbooks/DB_COMPAT_AND_CUTOVER_RUNBOOK.md, a reviewed final-sync freeze, and a wiring change reviewed on its own. Any one of those alone releases nothing."
+    },
+    "NO_INBOUND_RETENTION_PURGE_AUTHORIZATION": {
+      "description": "The inbound retention planner. It identifies records a retention window would purge. No owner has approved a retention policy or a purge, so nothing is wired to delete data.",
+      "releasedBy": "An owner-approved retention policy with its window and legal-hold rules, and a separately reviewed purge job that consumes the planner receipt."
     }
   },
   "modules": {
@@ -357,11 +365,6 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_GMAIL_READONLY_GRANT",
       "reason": "Readonly inbound sensing needs an owner-authorised gmail.readonly grant."
-    },
-    "src/inbound-classify.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_GMAIL_READONLY_GRANT",
-      "reason": "Classifies inbound messages that cannot yet be read."
     },
     "src/inbound-feedback-kernel.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -1245,6 +1248,56 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_WINNR_PRODUCTION_IMPORT_AUTHORIZATION",
       "reason": "Production-compatible Winnr credential import (plan, execute, rollback). Deliberately not wired: it writes live sender rows into the production store, so it stays unreachable until the owner-approved reviewed execution gate exists. Covered by tests/winnr-production-import.test.mjs against real Postgres."
+    },
+    "src/db-compat/canonical.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Canonical JSON and digest helper for the database compatibility package. Not on the boot path; the cutover tooling that uses it is owner-gated."
+    },
+    "src/db-compat/migration-sql.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Migration SQL analysis for the transactional migration runner. Not on the boot path; the runner is owner-gated."
+    },
+    "src/db-compat/migrations.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Migration manifest, ledger check and transactional single-file runner. Not on the boot path; owner-gated."
+    },
+    "src/db-compat/schema-snapshot.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Read-only schema snapshot and diff. Used only by owner-gated cutover checks, not by the boot path."
+    },
+    "src/db-compat/key-compat.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Encryption-key compatibility check that reports a keyed fingerprint only. Not on the boot path; owner-gated."
+    },
+    "src/db-compat/runtime-config.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Runtime configuration validation with a database target allowlist. Not on the boot path; config.mjs remains authoritative at boot until the owner gates wiring."
+    },
+    "src/db-compat/health-receipt.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_DB_CUTOVER_AUTHORIZATION",
+      "reason": "Health and migration-state receipt builder. Not on the boot path; owner-gated."
+    },
+    "src/db-compat/disposable-database.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Test-only fixture that creates and drops disposable databases with a fixed name prefix. Never imported by production code."
+    },
+    "src/inbound-retention.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_INBOUND_RETENTION_PURGE_AUTHORIZATION",
+      "reason": "Pure retention planner. Returns purge candidates and never deletes anything. Not wired."
+    },
+    "src/revenue-truth-ledger.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Pure revenue truth ledger and dashboard model. Consumes receipts and performs no external effect. Nothing in production calls it, by design."
     }
   }
 }

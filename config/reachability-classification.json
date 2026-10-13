@@ -34,6 +34,10 @@
       "description": "Every module behind this gate can, on its meaningful path, contact a real person. The owner has not authorized outbound contact. This is the gate whose accidental release is the most expensive mistake in the repository.",
       "releasedBy": "Explicit, current owner authorization for outbound contact, bound to a named channel and audience, and re-checked immediately before each irreversible send."
     },
+    "NO_WINNR_PRODUCTION_IMPORT_AUTHORIZATION": {
+      "description": "The production-compatible Winnr credential import writes live sender rows into the production store. No owner has approved that write, no reviewed execution gate exists for it, and no production key has been supplied to any runtime. The module is implemented, tested against real Postgres and held closed until then.",
+      "releasedBy": "A reviewed commit pinned in the execution gate, an owner approval reference, the exact confirmation phrase, an export made inside a trusted runtime that holds the production key, and an unexpired gate window. Any one of those alone releases nothing."
+    },
     "NO_CUSTOMER": {
       "description": "Service definition, fulfillment and retention model a customer relationship. There are zero verified customers, so there is no requirement to compile against and no delivery to accept.",
       "releasedBy": "One verified customer with a recorded requirement."
@@ -1236,6 +1240,11 @@
       "category": "RESEARCH_ONLY",
       "gate": null,
       "reason": "Deterministic, pure rehearsal of the revenue chain on caller-supplied SIMULATED_FIXTURE data. It performs no I/O and writes nothing, and its result is labelled SIMULATED with zero cleared cash. Consumed by tests as an invariant harness. Nothing in production calls it, by design."
+    },
+    "src/winnr-production-import.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_WINNR_PRODUCTION_IMPORT_AUTHORIZATION",
+      "reason": "Production-compatible Winnr credential import (plan, execute, rollback). Deliberately not wired: it writes live sender rows into the production store, so it stays unreachable until the owner-approved reviewed execution gate exists. Covered by tests/winnr-production-import.test.mjs against real Postgres."
     }
   }
 }

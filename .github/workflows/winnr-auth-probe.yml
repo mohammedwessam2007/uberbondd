@@ -62,7 +62,7 @@ jobs:
     timeout-minutes: 25
     env:
       # Replaced by the activation commit with the parent SHA of that commit. The placeholder fails closed.
-      WINNR_REVIEWED_CODE_SHA: 'PLACEHOLDER_PIN_REQUIRED'
+      WINNR_REVIEWED_CODE_SHA: '3a5159503fe476c7a481389557e1c744d1f01217'
     steps:
       - uses: actions/checkout@v4
         with:

@@ -153,3 +153,30 @@ NOT merged. Each verdict is BROKEN with the reproduced reason recorded here:
 - **F** recipient alias fold (`21570256`): the listed spellings are fixed and the table is 26/26. But the change alters behaviour where implementations disagree: `a+<k@x.com>` and `a+<m@x.com>` now stay distinct, and the spec forbids that (the repair listed it as an owner decision and shipped it anyway). Over-length input now differs at function level. A display-name opt-out followed by a separator is not honoured.
 
 Status: B, C, D+H (H portion), E, F OPEN. None is merged. Each needs a repair round on the current head with its reproduction, then independent re-review. F's bracket-after-plus change needs a decision to revert or an explicit owner ruling; the reviewer's reading is that the spec forbids it.
+
+### E-015 — Checkpoint: merged subset grows; CI red cause identified and fixed; four defects still open
+Head: `d2da2f93` on `claude/phoenix-titan-trident-monster-c-20261014` (remote SHA verified). Working PR #1405 (draft).
+
+Merged since E-014, each as its own commit:
+- **N08 complete-history reader** (`src/sending-registry-complete-history.mjs`, `src/sending-domain-registry.mjs`, `src/sending-mailbox-registry.mjs`, `tests/sending-registry-complete-history-n08.test.mjs`) from draft #1408 at `d1397424`. Source and test only. Its CI workflow and receipts were left out so the append-only ledger stays the single record. Real PostgreSQL run via an embedded server: **4/4 pass**. Commit `4e1c19c0`.
+- **Fixture contract for that reader**: `tests/uberwinnr-fleet-plan.test.mjs` and `tests/uberwinnr-postpurchase.test.mjs` stores now give each logged row a deterministic `audit-N` id and implement `count()` with `list()`'s type filter. The reader was not weakened. Focused run: **23/24 pass, 0 fail**, the one skip is the PG-gated N08 test. Same commit.
+- **Whitespace check**: `tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt` has trailing whitespace on line 156 and a blank EOF line, introduced by `c0953754`. The r3 test pins the file's sha256, so the bytes are not rewritten. Instead `.gitattributes` exempts that one path from `git diff --check`. Decision for the owner to reverse if preferred. Same commit.
+- **D** (migration ledger self-record, `96082afc`): the D half of `166fc0f0`. Suites: `db-compat-boot`, `db-compat-migrations`, `db-compat-receipt`, `migration-ledger-self-record`: 28 pass, 0 fail, 1 skipped (not in the D set).
+- **H** (idle pool sanitizer, `d2da2f93`): the five reviewer-reproduced leaks are closed. Quote-before-separator JSON keys, unencoded-space URL passwords, slash-in-password, `pass=`, plus an unreadable error now still produces an UNREADABLE line. Two regression tests added. Suites: 29/29 pass across store-idle-pool, direct-connection, migration-lock-hostile, db-compat-boot, migration-ledger-self-record. Syntax: **2966 files parse**.
+
+Reproduced-before-fix status:
+- The three fixture failures reproduced on this branch after the N08 merge (`sending-registry-history-verification-unavailable`), and are fixed.
+- The five H leaks were reproduced by the reviewer, not independently re-run on this branch before the fix. The regression tests use the reviewer's exact inputs.
+
+CI red cause: the hosted failures High reported on stacked #1410 (run 38612596240: 4 fail, 3 fixture-contract and 1 canon-freshness) are addressed by the fixture commit and the readiness regeneration still pending (see below). The hosted run on the final SHA is not yet observed.
+
+STILL OPEN, not merged, with the review reproduction recorded in E-014:
+- **B** complaint-hold race (`src/inbound-suppression-propagation.mjs`, guard `row?.paused !== true`).
+- **C** forged DSN and ARF still charged; authentication only vetoes.
+- **E** uncertain-send fence: `authorized` omitted/false still re-dispatches; `reconcileUncertainSend` not operator-only. Named scenarios are correct.
+- **F** alias fold changes behaviour where implementations disagree (bracket-after-plus). The spec forbids that; the repair shipped it anyway. Needs revert or an explicit owner ruling.
+- **Canon freshness**: `docs/CURRENT_SYSTEM_STATE.md` and `artifacts/system-readiness.json` must be regenerated with `npm run readiness` after the final source commit. Not done, because the source is not final yet.
+
+Not done in this checkpoint: full verification chain on the final immutable source, hosted run on the final SHA and merge ref, PR #1405 body update, ledger items for the owner gates (P0 database, Winnr holds, provider and DNS evidence).
+
+Safety: 0 emails sent, 0 spend, 0 DNS change, 0 deployment, 0 merge. Sender hold and send-set state unchanged from E-013.

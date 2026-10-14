@@ -1,0 +1,18 @@
+name: PHOENIX H04 H09 offline contract suite
+on:
+  push:
+    branches:
+      - high/phoenix-master-h04-h09-no-send-verification-20261015
+permissions:
+  contents: read
+jobs:
+  offline-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: node --test tests/outbound-send-authorization.test.mjs tests/outbound-stale-authorization.test.mjs tests/outbound-suppression-alias-hostile.test.mjs tests/inbound-governance-hostile.test.mjs tests/inbound-review-hostile.test.mjs tests/inbound-suppression-propagation.test.mjs tests/uberimap.test.mjs tests/winnr-reply-radar.test.mjs

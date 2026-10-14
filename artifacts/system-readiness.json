@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-14T19:32:30.917Z",
+  "generatedAt": "2026-10-14T23:37:26.261Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b3d9f2c52549c0942144362c5b8fa39a6fe901c3",
-    "branch": "main",
+    "head": "e34061d5a7830ccc0cb8b570e259d513b16194d5",
+    "branch": "high/phoenix-h01-h09-release-repair-20261015",
     "sourceModules": 1120,
     "testSuites": 1404,
     "workingTreeClean": true

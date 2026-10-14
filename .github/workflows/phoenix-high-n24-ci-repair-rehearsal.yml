@@ -1,0 +1,66 @@
+# Non-production N24 CI repair rehearsal. Changes only ephemeral Actions checkout files.
+name: PHOENIX High N24 readiness and Postal repair rehearsal
+on:
+  push:
+    branches:
+      - high/phoenix-h-latest-claude-n08-20261014
+    paths:
+      - '.github/workflows/phoenix-high-n24-ci-repair-rehearsal.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  n24-readiness-rehearsal:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Record exact checkout and baseline defect (expected nonzero, no masking of later tests)
+        run: |
+          echo "N24_REHEARSAL_SHA=$GITHUB_SHA"
+          node --test tests/canon-freshness.test.mjs > "$RUNNER_TEMP/n24-before-canon.log" 2>&1 || echo "BASELINE_CANON_FAILED_EXPECTED=1"
+          git diff --check origin/main...HEAD > "$RUNNER_TEMP/n24-before-diff.log" 2>&1 || echo "BASELINE_POSTAL_DIFF_FAILED_EXPECTED=1"
+          tail -n 15 "$RUNNER_TEMP/n24-before-canon.log"
+          tail -n 6 "$RUNNER_TEMP/n24-before-diff.log"
+      - name: Rehearse precise whitespace fix in ephemeral checkout only
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt')
+          s=p.read_text()
+          lines=s.splitlines()
+          if len(lines)<156:
+              raise SystemExit('fixture-too-short-refuse')
+          if lines[155].strip():
+              raise SystemExit('fixture-line156-has-real-content-refuse')
+          lines[155]=lines[155].rstrip(' \\t')
+          while lines and lines[-1]=='':
+              lines.pop()
+          new='\\n'.join(lines)+'\\n'
+          p.write_text(new)
+          print('FIXTURE_LINE156_WHITESPACE_REHEARSAL_ONLY=1')
+          PY
+      - name: Regenerate canonical readiness on hypothetical fixed source
+        run: npm run readiness
+      - name: Rerun real canonical freshness and working-tree whitespace checks
+        run: |
+          node --test tests/canon-freshness.test.mjs
+          git diff --check origin/main
+          git status --short
+      - name: Run Postal/source-focused tests on hypothetical repaired tree
+        run: |
+          node --test tests/postal-live-send.test.mjs tests/production-coverage-ratchet.test.mjs
+      - name: Report ephemeral changed paths, never publish or commit generated artifacts
+        if: always()
+        run: |
+          echo "N24_PREVIEW_ONLY=1"
+          git diff --name-only
+          echo "No git push, no provider calls, no production send, no secrets"

@@ -1,0 +1,41 @@
+name: PHOENIX H01 H09 source fixture and canon no-effects acceptance
+on:
+  push:
+    branches:
+      - high/phoenix-master-h01-h09-integrated-20261015
+permissions:
+  contents: read
+env:
+  CI: 'true'
+  NODE_ENV: test
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  validate-reviewed-source:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Verify already-repaired inbound fixture at exact HEAD
+        run: |
+          node --input-type=module - <<'JS'
+          import { readFileSync } from 'node:fs';
+          import assert from 'node:assert/strict';
+          const source = readFileSync('tests/inbound-reply-intelligence.test.mjs', 'utf8');
+          assert.match(source, /const sentMessage = \{[^\n]*to: 'buyer@clinic\.example\.invalid'/);
+          assert.doesNotMatch(source, /const sentMessage = \{ id: 'msg-1', prospectId: 'pros-1', rfcMessageId:/);
+          JS
+      - name: Run real inbound DSN and replay regression suites
+        run: node --test tests/inbound-reply-intelligence.test.mjs tests/inbound-review-hostile.test.mjs
+      - name: Validate generated canon without committing or changing the tree
+        run: |
+          node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+          git diff --exit-code

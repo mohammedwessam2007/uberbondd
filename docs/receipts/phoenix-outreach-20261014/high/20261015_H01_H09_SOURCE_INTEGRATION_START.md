@@ -1,0 +1,5 @@
+# PHOENIX H01 + H09 code-only integration
+Source lineage: H01 exact full-Night and merge-ref green parent `4d454957c8ce12cc90c01220c70ebd456f902da8`, H09 no-send DSN source repair donor `b4f00a3b5dbb7ff61d14afad9d5cace5399adf94`.
+Both original branches remain untouched. Four H09 source/test blobs have EXACT same pre-donor blob IDs in H01 and H09 parent, verified before transplant, so the code substitution has no semantic overlap with H01's other source changes.
+H09 changed files are exactly `src/pipeline.mjs`, `src/uberimap.mjs`, `tests/inbound-review-hostile.test.mjs`, `tests/winnr-reply-radar.test.mjs`. This new branch carries the donor contents; a focused no-provider hosted run and full PR CI must verify combined ancestry. NOT authorized to merge or deploy until source tests and complete release/production backup gates pass.
+Critical original Render PG16 expires 2026-10-16T23:22:29Z; no fresh source-current backup, original key or isolated boot yet. No contact, send, DNS, spend, provider mutation, or production cutover. SEND_SET=[].

@@ -1,0 +1,38 @@
+name: PHOENIX H N26 isolated PostgreSQL continuity proof
+on:
+  push:
+    branches:
+      - high/phoenix-h-n26-disposable-pg-proof-20261014
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  isolated-pg-recovery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install distro cryptography and PostgreSQL client only
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y postgresql-client-16 python3-psycopg2 python3-cryptography
+      - name: Unit checks and isolated complete PostgreSQL restore
+        run: |
+          echo "N26_REVIEW_SHA=$GITHUB_SHA"
+          /usr/bin/python3 -m py_compile ops/phoenix-continuity-20261014/rescue.py ops/phoenix-continuity-20261014/continuity.py ops/phoenix-continuity-20261014/test_continuity.py ops/phoenix-continuity-20261014/test_disposable_pg_continuity.py
+          /usr/bin/python3 ops/phoenix-continuity-20261014/test_continuity.py
+          /usr/bin/python3 ops/phoenix-continuity-20261014/test_disposable_pg_continuity.py

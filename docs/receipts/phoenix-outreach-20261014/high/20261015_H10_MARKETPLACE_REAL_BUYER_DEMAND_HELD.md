@@ -12,7 +12,7 @@ Web snippets with dated headings: Website & CRO Consultant $150 (search ref `tur
 Run five exact-commit tests. Independently verify that each job is still open, confirm account/platform eligibility and proposal terms, prepare truthful source-backed case-study packet. Only an authenticated user-approved Upwork application is allowed, NOT cold email. No checkout, accepted work, contract, buyer reply or cleared cash is evidenced.
 
 ## NEXT
-Check live listing/account eligibility using authorized platform access when available; otherwise keep HOLD. 
+Check live listing/account eligibility using authorized platform access when available; otherwise keep HOLD.
 
 ## SAFETY
 Zero emails, applications, payments, credentials, DNS, production migrations or deployment changes. All revenue counters remain 0 until externally observed.

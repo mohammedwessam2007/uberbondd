@@ -1,0 +1,33 @@
+# PREPARED ONLY: native secret-reference activation requires scoped owner confirmation.
+# Does not declare, change, redeploy, upgrade or cut over the existing production resources.
+services:
+  - type: web
+    name: uberbond-phoenix-continuity-20261014
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: work/phoenix-new-outreach-activation-20261014-1535
+    autoDeployTrigger: off
+    dockerContext: ops/phoenix-continuity-20261014
+    dockerfilePath: ops/phoenix-continuity-20261014/Dockerfile
+    envVars:
+      - key: SOURCE_DATABASE_URL
+        fromDatabase:
+          name: uberbond-control-postgres
+          property: connectionString
+      - key: TOKEN_ENCRYPTION_KEY
+        fromService:
+          name: uberbond-control-plane
+          type: web
+          envVarKey: TOKEN_ENCRYPTION_KEY
+      - fromGroup: uberbond-phoenix-recovery-custody-20261013
+      - key: RESCUE_DATABASE_URL
+        sync: false
+      - key: REHEARSAL_DATABASE_URL
+        sync: false
+      - key: CONTINUITY_REVIEWED_SHA
+        sync: false
+      - key: CONTINUITY_APPROVAL_EXPIRES_AT
+        sync: false
+      - key: CONTINUITY_EXECUTION_GATE
+        value: DISABLED_PENDING_SCOPED_APPROVAL

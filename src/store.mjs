@@ -4,6 +4,7 @@ import path from 'node:path';
 import { Pool } from 'pg';
 import { now } from './utils.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
+import { assertDirectMigrationConnection } from './postgres-migration-connection.mjs';
 
 export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
@@ -684,6 +685,8 @@ export class PostgresStore {
     // has already removed that client, so the next query opens a fresh one and the error needs no other handling here.
     if (this.ownsPool) this.pool.on('error', () => {});
     this.migrationsDir = path.resolve(migrationsDir || 'migrations');
+    // Kept only to prove, before any migration lock is taken, that the URL is not a transaction pooler.
+    this.databaseUrl = databaseUrl || null;
     // A scoped store inside transaction() is backed by one already-connected
     // pg Client. Nested store helpers (patch/failJob/etc.) must reuse that
     // client instead of calling client.connect() a second time.
@@ -697,6 +700,8 @@ export class PostgresStore {
   async close() { if (this.ownsPool) await this.pool.end(); }
 
   async migrate() {
+    // Refuse before taking any lock or opening a connection: a pooled session cannot hold a migration lock.
+    if (this.databaseUrl) assertDirectMigrationConnection(this.databaseUrl);
     const client = await this.pool.connect();
     // A connection lost while the session is checked out is reported as an 'error'
     // event on the client, not as a query rejection. With no listener it would

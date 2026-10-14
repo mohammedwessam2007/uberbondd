@@ -94,3 +94,21 @@ Dispatched as a workflow (`wf_cad93fd3-4b8`), one isolated worktree per defect f
 - **Not verified by me this session**: any live Render or Neon state (no access here), the helper's suspension, the `RESCUE_ARCHIVE_KEY` custody, the 2026-10-16 23:22:29 UTC expiry.
 - **P0 status after correction**: items 1–2 (source availability, backup custody, preservation of earlier archives) are supported by the receipt, with live re-confirmation still owed. Items 3–10 (non-pooler migration enforcement, original-key binding, boolean decryptability evidence for account credentials, isolated boot and crash/rollback acceptance, writer inventory, quiescence and buffering, post-snapshot reconciliation, one-writer cutover and rollback instructions) remain **OPEN**. The rescue is a point-in-time snapshot, not replication; later production writes are not copied.
 - Next executable action: repository work on item 3 (refuse migration locks through a transaction-pooler URL) can proceed without access; items 4–10 need owner-side access to the protected original key and the production runtime.
+
+### E-009 — P0 item 3 implemented: migrations refuse transaction-pooler connections
+- SOURCE: `src/postgres-migration-connection.mjs` (new) exports `assertDirectMigrationConnection`. It refuses port 6543, a host naming a pooler, `pgbouncer=true`, `pool_mode=transaction`, and an unparseable URL. Errors carry code `MIGRATION_REQUIRES_DIRECT_CONNECTION` and never echo the password.
+- SOURCE: `src/store.mjs` `PostgresStore.migrate()` calls the guard before any lock or connection. It is also the boot path (`init()` calls `migrate()`), so application startup is covered.
+- LOCAL: `node --test tests/postgres-migration-direct-connection.test.mjs tests/store-migration-lock-hostile.test.mjs tests/context-journal-migration-lock.test.mjs` → 17/17 pass. `node --test tests/store*.test.mjs` → 25 pass, 0 fail, rest skipped by the PG gate.
+- LIMIT: this detects known indicators. It cannot prove that an arbitrary custom host is not a transaction pooler. The owner-supplied direct URL remains the real control. A pool passed in without a URL is not inspected.
+- Commit: see the git log entry following this one.
+
+### E-010 — A1 receipt sent to Work (#1188 comment `6168606252`)
+- Exact A1 commits: `813cb17b`, `185a9ed1`, `10d0c132`. Receipt on `bd8146e4`: 9/9 real-PG hostile migration tests pass.
+- Not an immutable final-source admission. Boot isolation, original-key decryption, writer freeze and the final-source chain are not covered and remain open.
+
+### E-011 — Security incident: metadata only, no values (from Work comment `6158705896`, item 3)
+- Event as reported by Work: a Render copy step exposed the archive key into a private tool output; a later environment-group preparation loaded production environment values, and some credentials appeared in private tool output. The draft was discarded and no key was copied to the helper.
+- Names known from the report: `RESCUE_ARCHIVE_KEY` (archive key, used by the rescue helper; not rotated). The other affected credential names are **not enumerated** in the report.
+- Requested from Work: names only, from the Render audit log, with scope of access and time window. No values are requested or recorded here.
+- Containment position: no blind rotation of the archive or encryption key. Rotate only the credentials the audit log shows were exposed, after dependency analysis, and keep tested decryptability and recovery compatibility.
+- Status: OPEN, owned by Work for the audit names; containment decision needs the names.

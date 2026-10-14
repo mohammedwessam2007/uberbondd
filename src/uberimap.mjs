@@ -142,27 +142,53 @@ function decodePart(body,headers){
   if(enc.includes('quoted-printable'))return decodeQp(body);
   return String(body);
 }
-function bodyText(raw,headers){
-  const split=raw.search(/\r?\n\r?\n/); if(split<0)return '';
-  let body=raw.slice(raw.match(/\r?\n\r?\n/)?.index + raw.match(/\r?\n\r?\n/)?.[0].length);
-  const ct=String(headers['content-type']||'');
-  const boundary=ct.match(/boundary="?([^";]+)"?/i)?.[1];
-  if(boundary){
-    const parts=body.split(`--${boundary}`);
-    const plain=parts.find(p=>/content-type:\s*text\/plain/i.test(p));
-    if(plain){
-      const pi=plain.search(/\r?\n\r?\n/);
-      if(pi>=0){
-        const ph=headerMap(plain.slice(0,pi));
-        body=decodePart(plain.slice(pi+(plain.match(/\r?\n\r?\n/)?.[0].length||2)),ph);
-      }
+// Bounds for the reply's own plain text. A message past any cap is quarantined whole: its body is withheld, because a
+// partly read body can stand in for something the recipient never wrote.
+export const UBERIMAP_MIME_LIMITS=Object.freeze({maxDepth:8,maxParts:200,maxBodyBytes:262144});
+function mimeFault(reason){const error=new Error(reason);error.mimeReason=reason;return error;}
+// Walks the MIME tree and returns the first text/plain part, decoded, or null when the entity has none. Every part is
+// visited, so a limit breached late in the message still quarantines it. Faults throw and are caught by readPlainBody.
+function plainTextOf(entity,depth,state){
+  if(depth>UBERIMAP_MIME_LIMITS.maxDepth)throw mimeFault('MIME_DEPTH_EXCEEDED');
+  const m=/\r?\n\r?\n/.exec(entity);
+  const head=headerMap(m?entity.slice(0,m.index):entity);
+  const bodyRaw=m?entity.slice(m.index+m[0].length):'';
+  const ct=String(head['content-type']||'');
+  const media=(ct.match(/^\s*([^\s;,]+)/)?.[1]||'text/plain').toLowerCase();
+  if(media.startsWith('multipart/')){
+    const boundary=ct.match(/boundary\s*=\s*"?([^";\s]+)"?/i)?.[1];
+    if(!boundary)throw mimeFault('MIME_BOUNDARY_MISSING');
+    let text=null;
+    for(const segment of bodyRaw.split(`--${boundary}`).slice(1)){
+      if(segment.startsWith('--'))break;
+      state.parts+=1;
+      if(state.parts>UBERIMAP_MIME_LIMITS.maxParts)throw mimeFault('MIME_PART_LIMIT');
+      const found=plainTextOf(segment.replace(/^\r?\n/,''),depth+1,state);
+      if(text===null&&found!==null)text=found;
     }
-  }else body=decodePart(body,headers);
-  return clean(body
-    .replace(/\r/g,'')
-    .split('\n')
-    .filter(line=>!/^>/.test(line.trim())&&!/^On .+wrote:$/i.test(line.trim()))
-    .join('\n'),100000);
+    return text;
+  }
+  // A single-part top-level text body is read whole, as before, so an HTML-only reply still shows an opt-out. Nested parts
+  // count only as text/plain; any other binary part is never read as text.
+  if(!(media==='text/plain'||(depth===0&&media.startsWith('text/'))))return null;
+  const decoded=decodePart(bodyRaw,head);
+  state.bytes+=Buffer.byteLength(decoded,'utf8');
+  if(state.bytes>UBERIMAP_MIME_LIMITS.maxBodyBytes)throw mimeFault('MIME_BODY_TOO_LARGE');
+  return decoded;
+}
+// The reply's own words as plain text, or an empty body with a quarantine reason. Never throws.
+function readPlainBody(raw){
+  try{
+    const text=plainTextOf(raw,0,{parts:0,bytes:0});
+    if(text===null)return {body:'',quarantine:null};
+    return {body:clean(text
+      .replace(/\r/g,'')
+      .split('\n')
+      .filter(line=>!/^>/.test(line.trim())&&!/^On .+wrote:$/i.test(line.trim()))
+      .join('\n'),100000),quarantine:null};
+  }catch(error){
+    return {body:'',quarantine:error?.mimeReason||'MIME_MALFORMED'};
+  }
 }
 export function parseRawEmail(value){
   const raw=Buffer.isBuffer(value)?value.toString('utf8'):String(value||'');
@@ -181,6 +207,7 @@ export function parseRawEmail(value){
   const listUnsubscribe=clean(headers['list-unsubscribe'],1000)||'';
   const bodyPart=split>=0?raw.slice(split):'';
   const embeddedMessageIds=[...new Set((bodyPart.match(/^message-id:\s*<[^>\r\n]+>/gim)||[]).map(line=>clean(line.replace(/^message-id:\s*/i,''),500)))].slice(0,20);
+  const plain=readPlainBody(raw);
   return {
     id:clean(headers['message-id'],500)||`imapmsg:${hash(raw).slice(0,32)}`,
     messageId:clean(headers['message-id'],500)||null,
@@ -189,7 +216,8 @@ export function parseRawEmail(value){
     from,fromEmail,to:clean(headers.to,1000),subject:clean(headers.subject,1000),
     date:clean(headers.date,200)||null,
     contentType,autoSubmitted,reportType,listUnsubscribe,embeddedMessageIds,
-    body:bodyText(raw,headers)
+    // Null when the body was read whole. A quarantined message has an empty body and a reason code, and goes to review.
+    body:plain.body,mimeQuarantine:plain.quarantine
   };
 }
 export function buildEncryptedImapAccount({

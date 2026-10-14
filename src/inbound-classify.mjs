@@ -31,43 +31,46 @@ export function boundHeaders(rawHeaders, limits = {}) {
   return { headers, truncated, headerCount: list.length };
 }
 
+// A payload that hits any cap is quarantined whole: its body is withheld, never read partly. A partial reply can
+// misstate what the recipient wrote, so the caller routes the message to review instead.
 export function parseInboundMime(payload, limits = {}) {
   const cfg = { ...DEFAULT_LIMITS, ...limits };
   let partCount = 0;
   let truncated = false;
+  let quarantineReason = null;
   let maxDepthSeen = 0;
   let bytesUsed = 0;
   const chunks = [];
+  const quarantine = reason => { truncated = true; quarantineReason = quarantineReason || reason; };
 
   function visit(part, depth) {
     maxDepthSeen = Math.max(maxDepthSeen, depth);
-    if (depth > cfg.maxMimeDepth) { truncated = true; return; }
+    if (depth > cfg.maxMimeDepth) { quarantine('MIME_DEPTH_EXCEEDED'); return; }
     partCount += 1;
-    if (partCount > cfg.maxMimePartCount) { truncated = true; return; }
+    if (partCount > cfg.maxMimePartCount) { quarantine('MIME_PART_LIMIT'); return; }
     if (!part || typeof part !== 'object') return;
     if (part.mimeType === 'text/plain' && part.body?.data) {
-      if (bytesUsed >= cfg.maxDecodedBodyBytes) { truncated = true; return; }
       let decoded;
       try { decoded = Buffer.from(String(part.body.data), 'base64url').toString('utf8'); }
-      catch { truncated = true; return; }
-      const remaining = cfg.maxDecodedBodyBytes - bytesUsed;
-      const decodedBytes = Buffer.from(decoded, 'utf8');
-      const pieceBytes = decodedBytes.subarray(0, remaining);
-      if (pieceBytes.length < decodedBytes.length) truncated = true;
-      const piece = pieceBytes.toString('utf8');
-      chunks.push(piece);
-      bytesUsed += pieceBytes.length;
+      catch { quarantine('MIME_MALFORMED'); return; }
+      const decodedBytes = Buffer.byteLength(decoded, 'utf8');
+      if (bytesUsed + decodedBytes > cfg.maxDecodedBodyBytes) { quarantine('MIME_BODY_TOO_LARGE'); return; }
+      chunks.push(decoded);
+      bytesUsed += decodedBytes;
       return;
     }
     const parts = Array.isArray(part.parts) ? part.parts : [];
     for (const child of parts) {
-      if (bytesUsed >= cfg.maxDecodedBodyBytes || partCount > cfg.maxMimePartCount) { truncated = true; break; }
+      if (quarantineReason) break;
       visit(child, depth + 1);
     }
   }
 
-  try { visit(payload, 0); } catch { truncated = true; }
-  return { body: chunks.join('\n'), truncated, partCount, maxDepthSeen, bytesUsed };
+  try { visit(payload, 0); } catch { quarantine('MIME_MALFORMED'); }
+  if (quarantineReason) {
+    return { body: '', truncated: true, quarantined: true, quarantineReason, partCount, maxDepthSeen, bytesUsed };
+  }
+  return { body: chunks.join('\n'), truncated, quarantined: false, quarantineReason: null, partCount, maxDepthSeen, bytesUsed };
 }
 
 const BOUNCE_MARKERS = [/mailer-daemon/i, /delivery status notification/i, /undelivered mail/i, /failed delivery/i, /returned to sender/i];
@@ -75,17 +78,68 @@ const COMPLAINT_MARKERS = [/complaint/i, /abuse report/i, /spam report/i, /this 
 const UNSUB_MARKERS = [/unsubscribe/i, /opt.?out/i, /remove me/i, /stop emailing/i];
 const OOO_MARKERS = [/out of office/i, /automatic reply/i, /auto.?reply/i, /vacation/i, /away from (the )?office/i];
 
-export function classifyInboundEvent({ headers = {}, body = '' } = {}) {
+const SYSTEM_SENDER_LOCAL_PARTS = new Set(['mailer-daemon', 'postmaster']);
+
+// The address inside a header value. A display name is never used, and a bare address is accepted as written.
+function addressOf(value = '') {
+  const text = String(value ?? '').trim().toLowerCase();
+  return text.match(/<([^<>\s]+@[^<>\s]+)>/)?.[1] || text.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/)?.[0] || '';
+}
+
+function parameterOf(headerValue, name) {
+  return String(headerValue ?? '').match(new RegExp(`${name}\\s*=\\s*"?([^";\\s]+)"?`, 'i'))?.[1]?.toLowerCase() || '';
+}
+
+// A delivery notice is recognised only as an RFC 3464 multipart/report with report-type=delivery-status, from any sender,
+// or from mailer-daemon or postmaster at the configured sending domain. A display name or a bounce word proves nothing.
+export function isDeliveryNotice({ from = '', fromEmail = '', contentType = '', reportType = '', sendingDomain = '' } = {}) {
+  const media = String(contentType ?? '').split(';')[0].trim().toLowerCase();
+  const report = String(reportType || parameterOf(contentType, 'report-type') || '').trim().toLowerCase();
+  if (media === 'multipart/report' && report === 'delivery-status') return true;
+  const address = String(fromEmail || '').trim().toLowerCase() || addressOf(from);
+  const at = address.lastIndexOf('@');
+  if (at <= 0) return false;
+  const configured = String(sendingDomain ?? '').trim().toLowerCase().replace(/\.$/, '');
+  return configured !== '' && address.slice(at + 1) === configured && SYSTEM_SENDER_LOCAL_PARTS.has(address.slice(0, at));
+}
+
+// Message-ID tokens, bracket-stripped and lower-cased. A header may carry several IDs; a list may be passed as an array.
+function messageIdTokens(value) {
+  const text = Array.isArray(value) ? value.join(' ') : String(value ?? '');
+  const bracketed = text.match(/<[^<>\s]+>/g);
+  return (bracketed || text.split(/\s+/)).map(part => part.trim().replace(/^<+|>+$/g, '').toLowerCase()).filter(Boolean);
+}
+
+// Attributes a delivery notice to one outbound message. The notice may name the original through In-Reply-To, References
+// or an embedded Message-ID; only a stored outbound Message-ID counts. Exactly one distinct match links it. Zero matches
+// or several distinct matches leave it unlinked, so an ambiguous notice is never credited to a prospect.
+export function attributeDeliveryNotice({ isNotice = false, inReplyTo = '', references = [], embeddedMessageIds = [], outboundMessageIds = [] } = {}) {
+  if (isNotice !== true) return { status: 'NOT_A_DELIVERY_NOTICE', messageId: null, candidateCount: 0, reasonCode: 'NOT_A_DELIVERY_NOTICE' };
+  const outbound = new Map();
+  for (const id of Array.isArray(outboundMessageIds) ? outboundMessageIds : []) {
+    const token = messageIdTokens(id)[0];
+    if (token && !outbound.has(token)) outbound.set(token, String(id).trim());
+  }
+  const candidates = new Set([...messageIdTokens(inReplyTo), ...messageIdTokens(references), ...messageIdTokens(embeddedMessageIds)]);
+  const matched = [...candidates].filter(token => outbound.has(token));
+  if (matched.length === 1) return { status: 'LINKED', messageId: outbound.get(matched[0]), candidateCount: 1, reasonCode: '' };
+  return {
+    status: 'UNLINKED', messageId: null, candidateCount: matched.length,
+    reasonCode: matched.length === 0 ? 'NO_OUTBOUND_MATCH' : 'AMBIGUOUS_OUTBOUND_MATCH'
+  };
+}
+
+export function classifyInboundEvent({ headers = {}, body = '', sendingDomain = '' } = {}) {
   const lowerHeaders = Object.fromEntries(Object.entries(headers || {}).map(([key, value]) => [String(key).toLowerCase(), String(value ?? '')]));
   const from = lowerHeaders.from?.toLowerCase() || '';
   const subject = lowerHeaders.subject?.toLowerCase() || '';
   const autoSubmitted = lowerHeaders['auto-submitted']?.toLowerCase() || '';
   const text = `${subject}\n${String(body || '')}`.toLowerCase().slice(0, 20000);
 
-  if (from.includes('mailer-daemon') || from.includes('postmaster@') || BOUNCE_MARKERS.some(rx => rx.test(subject) || rx.test(text))) {
-    return { category: 'bounce', confidence: 'high' };
-  }
-  if (lowerHeaders['x-failed-recipients']) return { category: 'bounce', confidence: 'medium' };
+  if (isDeliveryNotice({ from, contentType: lowerHeaders['content-type'], sendingDomain })) return { category: 'bounce', confidence: 'high' };
+  // Bounce-looking sender, words or headers without a verified notice are unverified. They are kept unlinked, not counted as a bounce.
+  const bounceLike = SYSTEM_SENDER_LOCAL_PARTS.has(addressOf(from).split('@')[0]) || BOUNCE_MARKERS.some(rx => rx.test(subject) || rx.test(text)) || Boolean(lowerHeaders['x-failed-recipients']);
+  if (bounceLike) return { category: 'unknown', confidence: 'low', reason: 'unverified-delivery-notice' };
   if (COMPLAINT_MARKERS.some(rx => rx.test(subject) || rx.test(text))) return { category: 'complaint', confidence: 'high' };
   if (lowerHeaders['list-unsubscribe'] && UNSUB_MARKERS.some(rx => rx.test(text))) return { category: 'unsubscribe', confidence: 'medium' };
   if (UNSUB_MARKERS.some(rx => rx.test(subject))) return { category: 'unsubscribe', confidence: 'high' };
@@ -132,10 +186,13 @@ export function leadingReplyText(body = '') {
 const UNSUBSCRIBE_SCAN_CHARS = 4000;
 const UNSUB_EN_PATTERNS = [
   /\bunsubscribe\b/, /\bopt[- ]?out\b/, /\bremove me\b/, /\btake me off\b/,
-  /\bstop (?:emailing|contacting|sending|messaging)\b/, /\b(?:do not|don'?t) contact\b/, /\bno more emails?\b/
+  /\bstop (?:emailing|contacting|sending|messaging)\b/, /\b(?:do not|don'?t) contact\b/, /\bno more emails?\b/,
+  /\bplease stop\b/
 ];
-// Only a negation immediately before the phrase cancels it ("do not unsubscribe"). Looser negation is not allowed to hide an opt-out.
-const EN_NEGATION_IMMEDIATE = /\b(?:not|don'?t|do not|never|won'?t|no need to)\s+(?:to\s+)?$/;
+// A negation cancels the phrase when it sits in the same clause just before it: "do not unsubscribe", "I do not want to
+// unsubscribe", "will not opt out". The window is bounded to that clause; negation further back is not allowed to hide an opt-out.
+const EN_NEGATION_BEFORE = /\b(?:not|don'?t|do not|never|won'?t|no need to|no reason to)\s+(?:(?:want|need|wish|plan|going)\s+)?(?:to\s+)?$/;
+const EN_NEGATION_WINDOW_CHARS = 40;
 const UNSUB_AR_PHRASES = [
   'إلغاء الاشتراك', 'الغاء اشتراكي', 'ألغوا اشتراكي', 'الغي اشتراكي',
   'لا ترسلوا لي', 'لا ترسل لي', 'لا تراسلني', 'لا تراسلوني',
@@ -158,10 +215,11 @@ export function detectUnsubscribeIntent({ listUnsubscribe = '', subject = '', bo
   for (const sentence of scan.split(/[.!?\n؟۔]+/)) {
     if (!sentence.trim()) continue;
     for (const pattern of UNSUB_EN_PATTERNS) {
-      const hit = pattern.exec(sentence);
-      if (!hit) continue;
-      if (EN_NEGATION_IMMEDIATE.test(sentence.slice(Math.max(0, hit.index - 14), hit.index))) continue;
-      return intentResult('body-phrase', 'en', 'high');
+      // Every occurrence is read, so a negated first use cannot hide a later plain opt-out in the same sentence.
+      for (const hit of sentence.matchAll(new RegExp(pattern.source, 'g'))) {
+        if (EN_NEGATION_BEFORE.test(sentence.slice(Math.max(0, hit.index - EN_NEGATION_WINDOW_CHARS), hit.index))) continue;
+        return intentResult('body-phrase', 'en', 'high');
+      }
     }
     if (UNSUB_AR_PHRASES.some(phrase => sentence.includes(phrase))) return intentResult('body-phrase', 'ar', 'high');
   }
@@ -173,6 +231,17 @@ export function detectUnsubscribeIntent({ listUnsubscribe = '', subject = '', bo
   if (subjectHit) return intentResult('subject-phrase', language, 'medium');
   if (listHeader) return intentResult('list-unsubscribe-header', '', 'medium');
   return { intent: false, source: 'none', language: '', confidence: 'none' };
+}
+
+// What to do with an unsubscribe reading. A clear phrase is an opt-out. A medium signal (a List-Unsubscribe header, or a
+// subject-only phrase) is an opt-out only inside a linked thread. Any other medium signal goes to unlinked review: it is
+// never sent on, and never silently dropped.
+export const UNSUBSCRIBE_ROUTES = Object.freeze({ NONE: 'NONE', REVIEW: 'REVIEW', OPT_OUT: 'OPT_OUT' });
+export function routeUnsubscribeIntent(intent = {}, correlation = 'none') {
+  if (intent?.intent !== true) return UNSUBSCRIBE_ROUTES.NONE;
+  if (intent.confidence === 'high') return UNSUBSCRIBE_ROUTES.OPT_OUT;
+  if (intent.confidence === 'medium' && correlation === 'thread') return UNSUBSCRIBE_ROUTES.OPT_OUT;
+  return UNSUBSCRIBE_ROUTES.REVIEW;
 }
 
 // Operational classes for IMAP poll failures. The class decides whether a failure counts toward quarantine ('auth'),

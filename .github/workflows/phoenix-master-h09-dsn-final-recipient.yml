@@ -1,0 +1,25 @@
+name: PHOENIX H09 DSN final recipient fail-closed
+on:
+  push:
+    branches:
+      - high/phoenix-master-h09-dsn-final-recipient-20261015
+permissions:
+  contents: read
+jobs:
+  hostile-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: node --check src/uberimap.mjs
+      - run: node --check src/pipeline.mjs
+      - run: >-
+          node --test
+          tests/inbound-review-hostile.test.mjs
+          tests/inbound-governance-hostile.test.mjs
+          tests/uberimap.test.mjs
+          tests/winnr-reply-radar.test.mjs

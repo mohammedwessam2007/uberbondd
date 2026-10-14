@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-11T23:04:57.188Z",
+  "generatedAt": "2026-10-14T03:09:37.495Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "4d5d4469dddf349797ebdacf5ba106fd9843fbce",
-    "branch": "fix/jsonstore-v6-ci-20261012",
-    "sourceModules": 1086,
-    "testSuites": 1323,
-    "workingTreeClean": true
+    "head": "359527a377df5a04682b4f0a99d8088846a58c3a",
+    "branch": "claude/phoenix-titan-trident-monster-c-20261014",
+    "sourceModules": 1106,
+    "testSuites": 1372,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1086,
-      "reachableFromProduction": 415,
-      "reachableFromUnattendedOperatorScriptsOnly": 445,
+      "srcModules": 1106,
+      "reachableFromProduction": 419,
+      "reachableFromUnattendedOperatorScriptsOnly": 450,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 445,
-      "noEntryPointAtAll": 219,
+      "reachableFromOperatorScriptsOnly": 450,
+      "noEntryPointAtAll": 230,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],

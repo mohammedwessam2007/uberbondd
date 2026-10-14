@@ -2,9 +2,9 @@
 
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
-Last reconciled: **2026-10-11**
-Branch: `fix/jsonstore-v6-ci-20261012`
-Reconciled from current head: `4d5d4469dddf349797ebdacf5ba106fd9843fbce`
+Last reconciled: **2026-10-14**
+Branch: `claude/phoenix-titan-trident-monster-c-20261014`
+Reconciled from current head: `359527a377df5a04682b4f0a99d8088846a58c3a`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

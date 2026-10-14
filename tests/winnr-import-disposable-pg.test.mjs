@@ -373,6 +373,27 @@ test('two connections executing one plan at the same time apply it exactly once'
   }
 }));
 
+// Regression for an uncaught exception seen during server teardown. close() resolves once each pooled client has been asked
+// to end, not once its socket has closed, so the server's termination message can reach an idle client afterwards. That
+// error is emitted on the pool; with no pool listener it crashed the process, and the disposable-server harness attributed
+// it to whichever test was running. The forced emit below is the same event, delivered deterministically.
+test('an idle pooled connection terminated by the server after close() is absorbed by the pool', () => withDisposablePostgres(async url => {
+  const clients = [];
+  const store = new PostgresStore({ databaseUrl: url, ssl: false });
+  store.pool.on('connect', client => clients.push(client));
+  try {
+    await store.init();
+    await Promise.all([1, 2, 3].map(() => store.transaction(tx => tx.list('accounts'))));
+  } finally {
+    await store.close();
+  }
+  assert.ok(clients.length >= 2, 'several pooled connections were opened');
+  for (const client of clients) {
+    const termination = Object.assign(new Error('terminating connection due to administrator command'), { code: '57P01' });
+    assert.doesNotThrow(() => client.emit('error', termination), 'the termination reaches the pool, which must not crash');
+  }
+}));
+
 test('a plan issued for PostgreSQL is refused against a JSON store with a backend mismatch, and nothing is written to either store', () => withDisposablePostgres(async url => {
   const store = await openStore(url);
   const { store: json, dir } = await jsonStore();

@@ -679,6 +679,10 @@ export class PostgresStore {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
+    // pg-pool re-emits a connection error from an idle client on the pool. With no listener that is an uncaught exception,
+    // so a server terminating an idle connection (restart, admin shutdown, idle timeout) would stop the process. The pool
+    // has already removed that client, so the next query opens a fresh one and the error needs no other handling here.
+    if (this.ownsPool) this.pool.on('error', () => {});
     this.migrationsDir = path.resolve(migrationsDir || 'migrations');
     // A scoped store inside transaction() is backed by one already-connected
     // pg Client. Nested store helpers (patch/failJob/etc.) must reuse that

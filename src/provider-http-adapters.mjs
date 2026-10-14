@@ -338,6 +338,27 @@ export function createProviderHttpAdapter({
     const verb = String(method || 'GET').toUpperCase();
     const mutation = !readOnly && (!READ_METHODS.has(verb) || MUTATING_CAPABILITIES.has(capability));
     const operation = operationId(provider, capability, idempotencyKey);
+    // Central effect-layer lock. Generic and provider extension methods BOTH
+    // use requestJson. No owner grant, forged $0 quote, or custom route may
+    // enable provider-billed warm-up products. This policy can change only by
+    // an explicit reviewed source change, not runtime caller input.
+    const routePath = typeof path === 'string' ? path.toLowerCase() :
+      typeof path?.path === 'string' ? path.path.toLowerCase() : '';
+    const paidWarmRouteSegments = new Set([
+      'prewarm', 'pre-warm', 'pre_warm', 'prewarms', 'warming',
+      'warmup', 'warmups', 'warm-up', 'warm-ups'
+    ]);
+    const directWarmupMutation = !READ_METHODS.has(verb) &&
+      routePath.split('/').some(segment=>paidWarmRouteSegments.has(segment));
+    if ((!READ_METHODS.has(verb) &&
+         (capability === 'startWarmup' || capability === 'prewarmPurchase')) ||
+        directWarmupMutation) {
+      return providerError({
+        provider, capability, status: 'UBERBOND_ZERO_PAID_WARMUP_LOCK',
+        reason: 'Paid vendor warm-up and pre-warm purchase are disabled. No API request is issued.',
+        timestamp, operation
+      });
+    }
     if (!configured) return providerError({ provider, capability, status: 'PROVIDER_AUTH_REQUIRED', reason: 'Provider adapter is not configured with a valid server-side API key and HTTPS base URL.', timestamp, operation });
     if (!path || !Object.values(routes).includes(path) && !String(path).startsWith('/')) return providerError({ provider, capability, status: 'ADAPTER_ROUTE_NOT_DECLARED', reason: 'The requested provider route is not declared by this adapter.', timestamp, operation });
     const secretPayloadFields = secretFields(body);
@@ -447,11 +468,13 @@ export function createProviderHttpAdapter({
       if (!routes.warmupStatus) return unsupported(provider, 'warmupCapable', 'This provider requires a separate warm-up product or does not document a native warm-up endpoint.');
       return requestJson({ capability: 'warmupCapable', method: 'GET', path: routes.warmupStatus, query: { mailbox_id: mailboxId, domain_id: domainId } });
     },
-    startWarmup: async ({ mailboxId = '', domainId = '', providerPayload = null, ownerApproval = null, idempotencyKey = '' } = {}) => {
-      if (!routes.startWarmup) return unsupported(provider, 'startWarmup', 'No native warm-up start endpoint is documented for this provider.');
-      if (!providerPayload || typeof providerPayload !== 'object' || Array.isArray(providerPayload)) return providerError({ provider, capability: 'startWarmup', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the provider-documented warm-up payload; UberBond will not guess a purchase or activation body.', timestamp: nowDate(now()).toISOString() });
-      return normalizeStatus(await requestJson({ capability: 'startWarmup', method: 'POST', path: routes.startWarmup, body: providerPayload, ownerApproval, idempotencyKey }), 'warmup');
-    },
+    // Founder zero-paid-warming doctrine: even an apparently free provider
+    // entitlement may be stale or change price before checkout. Do not offer
+    // the native provider POST activation capability through this adapter.
+    // Owner-controlled, consent-based diagnostic probes are separate.
+    startWarmup: async () => unsupported(provider, 'startWarmup',
+      'UBERBOND_ZERO_PAID_WARMUP_LOCK: provider warm-up POST is permanently disabled; use read-only diagnostics and governed owner-controlled seeds.'),
+
     pauseWarmup: async () => unsupported(provider, 'pauseWarmup', 'Pause must be performed through the provider capability documented for the selected account; no guessed endpoint is used.'),
     warmupStatus: async ({ mailboxId = '', domainId = '' } = {}) => {
       if (!routes.warmupStatus) return unsupported(provider, 'warmupStatus', 'This provider requires a separate warm-up product or does not document a warm-up status endpoint.');
@@ -523,11 +546,11 @@ export function createProviderHttpAdapter({
       if (!body && (!mailboxIds.length || !text(destination, 120))) return providerError({ provider, capability: 'exportMailboxes', status: 'EXPORT_REQUEST_REQUIRED', reason: 'Mailbox ids and a destination are required.', timestamp: nowDate(now()).toISOString() });
       return requestJson({ capability: 'exportMailboxes', method: 'POST', path: routes.exportMailboxes, body: body || { mailbox_ids: mailboxIds, destination }, ownerApproval, idempotencyKey });
     },
-    prewarmPurchase: async ({ body = null, ownerApproval = null, idempotencyKey = '', estimatedCostCents = null } = {}) => {
-      if (!routes.prewarmPurchase) return unsupported(provider, 'prewarmPurchase');
-      if (!body) return providerError({ provider, capability: 'prewarmPurchase', status: 'PROVIDER_REQUEST_SHAPE_REQUIRED', reason: 'Supply the provider-documented pre-warm purchase payload; UberBond will not guess a billable body.', timestamp: nowDate(now()).toISOString() });
-      return requestJson({ capability: 'prewarmPurchase', method: 'POST', path: routes.prewarmPurchase, body, ownerApproval, idempotencyKey, estimatedCostCents });
-    },
+    prewarmPurchase: async () => providerError({
+      provider, capability: 'prewarmPurchase', status: 'UBERBOND_ZERO_PAID_WARMUP_LOCK',
+      reason: 'No provider-billed pre-warm purchases. Cash-first owner doctrine forbids this effect.',
+      timestamp: nowDate(now()).toISOString()
+    }),
     operationStatus: async ({ operationId: requestedOperationId = '', path = '' } = {}) => {
       if (!path || !routes.operationStatusPrefix || !String(path).startsWith(routes.operationStatusPrefix)) return unsupported(provider, 'operationStatus', 'A provider-specific operation status route is required.');
       return requestJson({ capability: 'operationStatus', method: 'GET', path, query: { id: requestedOperationId } });

@@ -45,7 +45,8 @@ function daysSince(startIso, at) {
 // missing requirement -- it never starts warm-up "optimistically."
 export async function requestMailboxWarmupStart({
   domainState, mailboxState, providerAdapter, providerPayload = null,
-  ownerApproval = null, idempotencyKey = '', date = new Date()
+  ownerApproval = null, idempotencyKey = '', date = new Date(),
+  verifyZeroCostWarmupEntitlement, verifyCurrentOwnerWarmupApproval
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -60,6 +61,44 @@ export async function requestMailboxWarmupStart({
   }
   if (reasons.length) {
     return { ok: false, policyVersion: WARMUP_ORCHESTRATOR_POLICY_VERSION, state: 'WARMUP_BLOCKED', reasonCodes: reasons, timestamp, providerReceipt: null };
+  }
+
+  // PHOENIX ZERO-ADDON BILLING FIREWALL. Providers may charge immediately
+  // when warmup starts. Even a capability check can have external effects
+  // if a provider adapter is poorly implemented, so require authenticated
+  // free-entitlement and scoped owner approval BEFORE invoking any adapter.
+  let freeEntitlement,authorized=false;
+  try {
+    if(typeof verifyZeroCostWarmupEntitlement === 'function') {
+      freeEntitlement = await verifyZeroCostWarmupEntitlement({
+        domainState,mailboxState,providerPayload,date:at
+      });
+    }
+  } catch { /* uncertain means no payment authority */ }
+  try {
+    if(typeof verifyCurrentOwnerWarmupApproval === 'function')
+      authorized = await verifyCurrentOwnerWarmupApproval({
+        ownerApproval,domainState,mailboxState,date:at,
+        requiredScope:'provider-warmup-zero-add-on-only'
+      }) === true;
+  } catch { /* uncertain means no warmup authority */ }
+  if(freeEntitlement?.verified !== true ||
+     freeEntitlement?.incrementalRecurringCostCents !== 0 ||
+     typeof freeEntitlement?.providerReceiptId !== 'string' ||
+     !freeEntitlement.providerReceiptId.trim() || !authorized) {
+    return {
+      ok:false,policyVersion:WARMUP_ORCHESTRATOR_POLICY_VERSION,
+      state:'WARMUP_BLOCKED',
+      reasonCodes:[
+        ...(freeEntitlement?.verified!==true || freeEntitlement?.incrementalRecurringCostCents!==0 ||
+          !String(freeEntitlement?.providerReceiptId||'').trim()
+          ?['authenticated-zero-cost-provider-entitlement-required']:[]),
+        ...(!authorized?['scoped-current-owner-warmup-approval-required']:[])
+      ],
+      timestamp,providerReceipt:null,
+      providerCalls:0,paidWarmupAddedCents:0,
+      externalEffectAuthority:'NONE'
+    };
   }
 
   const capability = await providerAdapter.warmupCapable();

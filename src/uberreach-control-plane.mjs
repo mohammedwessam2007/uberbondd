@@ -5,6 +5,7 @@
 // no external effects.
 
 import { compileUberWarmFleet } from './uberwarm-reputation-lab.mjs';
+import { protectUberWarm5FleetCapacity } from './uberwarm5-capacity-bridge.mjs';
 import { compileUberVerifyBatch } from './uberverify-contact-hygiene.mjs';
 import { rankUberLookalikes } from './uberlookalike-account-expander.mjs';
 import { compileQualityPreservingOutreachCapacity } from './uberquality-capacity-governor.mjs';
@@ -45,17 +46,29 @@ export function compileUberReachReadiness({
   lookalikeMinScore = 0.25,
   lookalikeLimit = 100,
   capacityInputs = null,
+  receiverProtection = null,
+  verifyReceiverReport,
   genomeInputs = null,
   launchInputs = null,
   uberReplyInputs = null,
   now = new Date()
 } = {}) {
-  const senderHealth = compileUberWarmFleet({
+  const historicalSenderHealth = compileUberWarmFleet({
     mailboxes,
     observationsByMailbox: mailboxObservations,
     policy: warmPolicy,
     now
   });
+  // The quality-preserving numeric capacity is now fail-closed on protected
+  // receiver history. Legacy non-capacity preview remains advisory only.
+  const senderHealth = capacityInputs && typeof capacityInputs === 'object'
+    ? protectUberWarm5FleetCapacity({
+      warmFleet: historicalSenderHealth,
+      receiverReport: receiverProtection,
+      verifyReceiverReport,
+      now
+    })
+    : historicalSenderHealth;
 
   const contactHygiene = compileUberVerifyBatch({ contacts, suppressions, now });
 
@@ -225,6 +238,8 @@ export function compileUberReachReadiness({
     state: blockers.length ? 'PREPARATION_BLOCKED' : 'READY_FOR_SEPARATE_AUTHORIZATION_REVIEW',
     blockers: [...new Set(blockers)],
     senderHealth,
+    receiverProtectionAppliedToCapacity:capacityInputs!==null&&typeof capacityInputs==='object',
+    receiverProtectionAuthenticated:senderHealth.receiverReportAuthenticated===true,
     contactHygiene,
     accountExpansion,
     capacity,

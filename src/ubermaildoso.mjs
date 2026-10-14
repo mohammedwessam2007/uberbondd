@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { hasWarmupKey } from './provider-http-adapters.mjs';
 
 export const UBERMAILDOSO_VERSION = 'uberbond.ubermaildoso.v1';
 
@@ -47,20 +48,40 @@ const MUTATION_ROUTES=Object.freeze({
   updateSequencer:['PUT','/v1/sequencers'],
   exportSequencer:['POST','/v1/sequencers/export']
 });
-function approvalReasons(approval={}, action=''){
+// Billable Maildoso actions need a named scope (never a wildcard), a present
+// numeric estimate and a positive spend limit at or above that estimate.
+const BILLABLE_ACTIONS=new Set(['createAccounts','createDomains']);
+function spendCents(value){
+  if(typeof value==='number')return Number.isFinite(value)&&value>=0?value:null;
+  if(typeof value==='string'&&/^\d+(\.\d+)?$/.test(value.trim()))return Number(value.trim());
+  return null;
+}
+function approvalReasons(approval={}, action='', estimatedCostCents=null){
   const r=[];
   if(approval.authorized!==true)r.push('explicit-owner-authorization-required');
   if(!clean(approval.receiptId,240))r.push('authorization-receipt-required');
   if(!clean(approval.authorizedBy,240))r.push('authorization-principal-required');
+  const billable=BILLABLE_ACTIONS.has(action);
   const scopes=Array.isArray(approval.scopes)?approval.scopes.map(x=>clean(x,120)):[];
-  if(!scopes.includes(action)&&!scopes.includes('*'))r.push('authorization-scope-required');
+  if(!scopes.includes(action)&&!(!billable&&scopes.includes('*')))r.push('authorization-scope-required');
+  if(billable&&scopes.includes('*')&&!scopes.includes(action))r.push('wildcard-scope-refused-for-billable-route');
   if(!approval.expiresAt||!Number.isFinite(Date.parse(approval.expiresAt))||Date.parse(approval.expiresAt)<=Date.now())r.push('authorization-expired-or-missing');
+  if(billable){
+    const cost=spendCents(estimatedCostCents);
+    const limit=spendCents(approval.spendLimitCents);
+    if(cost==null)r.push('spend-estimate-required');
+    if(limit==null||limit<=0)r.push('spend-limit-required');
+    else if(cost!=null&&cost>limit)r.push('spend-limit-exceeded');
+  }
   return r;
 }
+// A path parameter may not be a dot segment or carry a separator or an encoded
+// dot: WHATWG URL resolution would otherwise climb out of the intended collection.
 function pathFor(template, params={}){
   return template.replace(/\{([^}]+)\}/g,(_,key)=>{
     const value=clean(params[key],240);
     if(!value)throw new Error(`missing-path-param:${key}`);
+    if(/[\/\\]/.test(value)||/^\.{1,2}$/.test(value)||/%2e/i.test(value))throw new Error(`unsafe-path-param:${key}`);
     return encodeURIComponent(value);
   });
 }
@@ -83,7 +104,7 @@ export function createUberMaildosoAdapter({
   const secret=String(token||'');
   const root=clean(baseUrl,500).replace(/\/+$/,'');
   const configured=Boolean(secret&&root&&typeof fetchImpl==='function');
-  async function call(method,path,{query,body,mutation=false,action='',approval}={}){
+  async function call(method,path,{query,body,mutation=false,action='',approval,estimatedCostCents=null}={}){
     // The source-of-truth zero paid-warming policy applies even when caller
     // forged a "*" approval or tried to update an existing warm-up plan.
     // Read-only inspection and separately owner-approved deletion remain.
@@ -93,9 +114,15 @@ export function createUberMaildosoAdapter({
       return {ok:false,status:'UBERBOND_ZERO_PAID_WARMUP_LOCK',
         reasonCodes:['provider-paid-warmup-activation-disabled'],
         providerCalls:0,externalEffects:0};
+    // Any warm-up or pre-warm key anywhere in the body is refused for every
+    // method, whatever the action or approval scope.
+    if(hasWarmupKey(body))
+      return {ok:false,status:'UBERBOND_ZERO_PAID_WARMUP_LOCK',
+        reasonCodes:['UBERBOND_ZERO_PAID_WARMUP_LOCK'],
+        providerCalls:0,externalEffects:0};
     if(!configured)return {ok:false,status:'UBERMAILDOSO_NOT_CONFIGURED',reasonCodes:['maildoso-token-required'],providerCalls:0};
     if(mutation){
-      const reasons=approvalReasons(approval,action);
+      const reasons=approvalReasons(approval,action,estimatedCostCents);
       if(reasons.length)return {ok:false,status:'UBERMAILDOSO_MUTATION_REFUSED',reasonCodes:reasons,providerCalls:0,externalEffects:0};
     }
     const url=new URL(root+path);
@@ -137,12 +164,12 @@ export function createUberMaildosoAdapter({
       if(!path)return {ok:false,status:'UBERMAILDOSO_READ_REFUSED',reasonCodes:['unsupported-read-route'],providerCalls:0};
       return call('GET',path,{query:options.query,action:name});
     },
-    mutate:async(action,{body,params,query,approval}={})=>{
+    mutate:async(action,{body,params,query,approval,estimatedCostCents=null}={})=>{
       const spec=MUTATION_ROUTES[action];
       if(!spec)return {ok:false,status:'UBERMAILDOSO_MUTATION_REFUSED',reasonCodes:['unsupported-mutation-route'],providerCalls:0,externalEffects:0};
       let path;
       try{path=pathFor(spec[1],params);}catch(error){return {ok:false,status:'UBERMAILDOSO_MUTATION_REFUSED',reasonCodes:[clean(error.message,200)],providerCalls:0,externalEffects:0};}
-      return call(spec[0],path,{body,query,mutation:true,action,approval});
+      return call(spec[0],path,{body,query,mutation:true,action,approval,estimatedCostCents});
     },
     truthBoundary:'UberMaildoso is an authorized provider adapter. It can operate only the provider account the founder connects; it does not manufacture provider permission, mailbox reputation, deliverability, recipient eligibility, send authority, or cleared revenue.'
   };

@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { zeroPaidRouteDenial } from './provider-http-adapters.mjs';
 
 export const UBERWINNR_VERSION = 'uberbond.uberwinnr.v1.1';
 export const WINNR_API_BASE = 'https://api.winnr.app/v1';
@@ -201,6 +202,19 @@ export function createWinnrApiClient({
         ok: false,
         status: 'UBERWINNR_WRITE_REFUSED',
         reasonCodes: ['explicit-write-authorization-required'],
+        providerCalls: 0,
+        path: relative
+      };
+    }
+    // Every Winnr request, including raw ones, passes the zero-paid route policy:
+    // ambiguous paths, warm-up/pre-warm keys in a body, and purchase, billing or
+    // subscription routes for consequential writes are refused before any fetch.
+    const denial = zeroPaidRouteDenial({ method: verb, path: relative, body, readOnly: readOnlyPost === true });
+    if (denial) {
+      return {
+        ok: false,
+        status: 'UBERWINNR_ROUTE_DENIED',
+        reasonCodes: [denial.code, denial.reason],
         providerCalls: 0,
         path: relative
       };

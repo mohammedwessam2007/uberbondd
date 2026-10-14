@@ -182,14 +182,84 @@ function normalizeWorkspaceList(result) {
   };
 }
 
-function isApproved({ provider, capability, ownerApproval, now, estimatedCostCents = null } = {}) {
+// Zero-paid route policy shared by the generic transport and the Winnr client.
+// PROVIDER_ROUTE_LOCK_TOKENS deny consequential writes whose canonical route
+// names warm-up, pre-warm, purchase, billing or subscription effects.
+export const PROVIDER_ROUTE_LOCK_TOKENS = Object.freeze(['warm', 'purchase', 'billing', 'subscription']);
+const BILLABLE_CAPABILITIES = new Set(['provisionDomains', 'provisionMailboxes', 'prewarmPurchase']);
+const BILLABLE_ROUTE_TOKENS = Object.freeze(['order', 'buy', 'checkout']);
+const WARM_KEY_PATTERN = /warm/i;
+
+// Canonical route: cut at the first query or fragment delimiter, decode exactly
+// once, and fail closed on anything still ambiguous (encoded delimiters, a
+// second percent escape, backslashes, controls, spaces or dot segments).
+export function canonicalProviderRoute(path) {
+  if (typeof path !== 'string' || !path || path.length > 1500) return { ok: false, reason: 'route-missing-or-oversized' };
+  if (/[\\\x00-\x20\x7f]/.test(path)) return { ok: false, reason: 'route-has-backslash-control-or-space' };
+  let decoded;
+  try { decoded = decodeURIComponent(path.split(/[?#]/)[0]); } catch { return { ok: false, reason: 'route-percent-decoding-failed' }; }
+  if (/[\\?#%\x00-\x20\x7f]/.test(decoded)) return { ok: false, reason: 'route-ambiguous-after-decoding' };
+  if (decoded.split('/').some(segment => segment === '.' || segment === '..')) return { ok: false, reason: 'route-dot-segment' };
+  return { ok: true, canonical: decoded.toLowerCase(), raw: path.toLowerCase() };
+}
+
+// True when any object key in the body tree contains "warm" (warm-up,
+// pre-warm, warm_up, warmupEnabled, ...). Pathological depth fails closed.
+export function hasWarmupKey(value, depth = 0) {
+  if (depth > 32) return true;
+  if (Array.isArray(value)) return value.some(item => hasWarmupKey(item, depth + 1));
+  if (!value || typeof value !== 'object') return false;
+  return Object.entries(value).some(([key, child]) => WARM_KEY_PATTERN.test(key) || hasWarmupKey(child, depth + 1));
+}
+
+function routeHasToken(route, tokens, query) {
+  if (!route?.ok) return false;
+  const haystack = [route.canonical, route.raw, ...Object.entries(query || {}).flat().map(item => String(item ?? '').toLowerCase())].join('\n');
+  return tokens.some(token => haystack.includes(token));
+}
+
+// Returns { code, reason } when a request must not leave the adapter, else null.
+// `readOnly` marks a POST that only queries (for example a blocklist check); it
+// is exempt from the token lock but never from the ambiguity or body checks.
+export function zeroPaidRouteDenial({ method = 'GET', path, query = null, body = undefined, readOnly = false } = {}) {
+  const route = canonicalProviderRoute(path);
+  if (!route.ok) return { code: 'ADAPTER_ROUTE_AMBIGUOUS', reason: route.reason };
+  if (hasWarmupKey(body)) return { code: 'UBERBOND_ZERO_PAID_WARMUP_LOCK', reason: 'warm-up-or-prewarm-key-in-request-body' };
+  const consequential = !READ_METHODS.has(String(method || 'GET').toUpperCase()) && readOnly !== true;
+  if (consequential && routeHasToken(route, PROVIDER_ROUTE_LOCK_TOKENS, query)) {
+    return { code: 'UBERBOND_ZERO_PAID_WARMUP_LOCK', reason: 'paid-warmup-prewarm-purchase-billing-or-subscription-route' };
+  }
+  return null;
+}
+
+// Spend parsing is strict: a missing, blank, negative or non-numeric value is
+// null, never zero.
+function spendCents(value) {
+  if (typeof value === 'number') return Number.isFinite(value) && value >= 0 ? value : null;
+  if (typeof value === 'string' && /^\d+(\.\d+)?$/.test(value.trim())) return Number(value.trim());
+  return null;
+}
+
+function isApproved({ provider, capability, ownerApproval, now, estimatedCostCents = null, billable = false } = {}) {
   const approval = ownerApproval && typeof ownerApproval === 'object' ? ownerApproval : null;
   if (!approval?.granted || !text(approval.grantedBy, 120)) return { ok: false, status: 'OWNER_APPROVAL_REQUIRED', reason: 'This provider mutation needs explicit owner approval.' };
   const expiresAt = Date.parse(approval.expiresAt || '');
   if (!Number.isFinite(expiresAt) || expiresAt <= now.getTime()) return { ok: false, status: 'OWNER_APPROVAL_EXPIRED', reason: 'The owner approval is missing or expired.' };
   const scopes = Array.isArray(approval.scope) ? approval.scope.map(item => text(item, 160)) : [text(approval.scope, 160)];
-  const accepted = new Set([`${provider}:${capability}`, capability, '*']);
-  if (!scopes.some(scope => accepted.has(scope))) return { ok: false, status: 'OWNER_APPROVAL_SCOPE_MISMATCH', reason: `Approval does not cover ${provider}:${capability}.` };
+  const accepted = new Set([`${provider}:${capability}`, capability, ...(billable ? [] : ['*'])]);
+  if (!scopes.some(scope => accepted.has(scope))) {
+    return billable && scopes.includes('*')
+      ? { ok: false, status: 'WILDCARD_SCOPE_REFUSED_FOR_BILLABLE_ROUTE', reason: `A wildcard approval cannot authorize billable ${provider}:${capability}.` }
+      : { ok: false, status: 'OWNER_APPROVAL_SCOPE_MISMATCH', reason: `Approval does not cover ${provider}:${capability}.` };
+  }
+  if (billable) {
+    const cost = spendCents(estimatedCostCents);
+    const limit = spendCents(approval.spendLimitCents);
+    if (cost == null) return { ok: false, status: 'SPEND_ESTIMATE_REQUIRED', reason: 'A billable provider route requires a numeric estimatedCostCents.' };
+    if (limit == null || limit <= 0) return { ok: false, status: 'SPEND_LIMIT_REQUIRED', reason: 'A billable provider route requires a positive spendLimitCents.' };
+    if (cost > limit) return { ok: false, status: 'SPEND_LIMIT_EXCEEDED', reason: 'The estimated provider charge exceeds the approved spend limit.' };
+    return { ok: true };
+  }
   const cost = safeNumber(estimatedCostCents);
   const limit = safeNumber(approval.spendLimitCents);
   if (cost != null && (limit == null || cost > limit)) return { ok: false, status: 'SPEND_LIMIT_EXCEEDED', reason: 'The estimated provider charge exceeds the approved spend limit.' };
@@ -339,32 +409,26 @@ export function createProviderHttpAdapter({
     const mutation = !readOnly && (!READ_METHODS.has(verb) || MUTATING_CAPABILITIES.has(capability));
     const operation = operationId(provider, capability, idempotencyKey);
     // Central effect-layer lock. Generic and provider extension methods BOTH
-    // use requestJson. No owner grant, forged $0 quote, or custom route may
-    // enable provider-billed warm-up products. This policy can change only by
-    // an explicit reviewed source change, not runtime caller input.
-    const routePath = typeof path === 'string' ? path.toLowerCase() :
-      typeof path?.path === 'string' ? path.path.toLowerCase() : '';
-    const paidWarmRouteSegments = new Set([
-      'prewarm', 'pre-warm', 'pre_warm', 'prewarms', 'warming',
-      'warmup', 'warmups', 'warm-up', 'warm-ups'
-    ]);
-    const directWarmupMutation = !READ_METHODS.has(verb) &&
-      routePath.split('/').some(segment=>paidWarmRouteSegments.has(segment));
-    if ((!READ_METHODS.has(verb) &&
-         (capability === 'startWarmup' || capability === 'prewarmPurchase')) ||
-        directWarmupMutation) {
+    // use requestJson. No owner grant, forged $0 quote, custom route, path
+    // variant or body key may enable provider-billed warm-up products. The
+    // policy lives in zeroPaidRouteDenial and changes only by reviewed source.
+    const denial = zeroPaidRouteDenial({ method: verb, path, query, body, readOnly });
+    if ((!READ_METHODS.has(verb) && (capability === 'startWarmup' || capability === 'prewarmPurchase')) ||
+        denial?.code === 'UBERBOND_ZERO_PAID_WARMUP_LOCK') {
       return providerError({
         provider, capability, status: 'UBERBOND_ZERO_PAID_WARMUP_LOCK',
-        reason: 'Paid vendor warm-up and pre-warm purchase are disabled. No API request is issued.',
+        reason: 'Paid vendor warm-up, pre-warm, purchase, billing and subscription effects are disabled. No API request is issued.',
         timestamp, operation
       });
     }
     if (!configured) return providerError({ provider, capability, status: 'PROVIDER_AUTH_REQUIRED', reason: 'Provider adapter is not configured with a valid server-side API key and HTTPS base URL.', timestamp, operation });
     if (!path || !Object.values(routes).includes(path) && !String(path).startsWith('/')) return providerError({ provider, capability, status: 'ADAPTER_ROUTE_NOT_DECLARED', reason: 'The requested provider route is not declared by this adapter.', timestamp, operation });
+    if (denial) return providerError({ provider, capability, status: denial.code, reason: `Provider route refused: ${denial.reason}.`, timestamp, operation });
     const secretPayloadFields = secretFields(body);
     if (secretPayloadFields.length) return providerError({ provider, capability, status: 'SECRET_FIELD_REJECTED', reason: `Provider request body contains secret-shaped fields: ${secretPayloadFields.join(',')}`, timestamp, operation });
     if (mutation) {
-      const approval = isApproved({ provider, capability, ownerApproval, now: at, estimatedCostCents });
+      const billable = BILLABLE_CAPABILITIES.has(capability) || routeHasToken(canonicalProviderRoute(path), BILLABLE_ROUTE_TOKENS, query);
+      const approval = isApproved({ provider, capability, ownerApproval, now: at, estimatedCostCents, billable });
       if (!approval.ok) return providerError({ provider, capability, status: approval.status, reason: approval.reason, timestamp, operation });
       if (!text(idempotencyKey, 200)) return providerError({ provider, capability, status: 'IDEMPOTENCY_KEY_REQUIRED', reason: 'Provider mutations require a durable idempotency key.', timestamp, operation });
     }

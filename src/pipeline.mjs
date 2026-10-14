@@ -1240,7 +1240,7 @@ export class Pipeline {
       });
       if (!prospect) {
         // An unlinked sender is not a known recipient, but an opt-out still blocks that address. Only a high-confidence intent suppresses.
-        if (unsubscribe.intent && unsubscribe.confidence === 'high') {
+        if (unsubscribe.intent && unsubscribe.confidence === 'high' && !autoSubmitted && !deliveryNotice && !mimeQuarantine) {
           if (senderEmail) await propagateSuppression(this.store, { email: senderEmail, reason: 'optout', sourceId: externalId });
           await recordOperatorEscalation(this.store, buildOperatorEscalation({
             kind: 'unsubscribe', externalId, slot: accountSlot || '', correlation: 'none', label: 'unlinked', reasonCode: 'UNLINKED_SENDER', at: now()
@@ -1299,6 +1299,12 @@ export class Pipeline {
       if (!deliveryNotice && !autoSubmitted && automaticLabel(classification.label)) {
         // Automatic-reply wording from a person must not schedule an automatic follow-up. Only a machine-marked reply may.
         classification = { ...classification, label: 'manual_review', reason: 'Automatic-reply wording without an Auto-Submitted header' };
+      }
+      // Machine-generated content is not a verified human response.
+      if (autoSubmitted && !deliveryNotice && !machineComplaint && !automaticLabel(classification.label)) {
+        classification = { label: 'manual_review', confidence: 0, suppressionRecommended: false,
+          reasonCode: 'AUTO_SUBMITTED_NONHUMAN_REVIEW',
+          reason: 'Machine-generated content cannot assert human reply intent' };
       }
       // A message whose body was withheld by a MIME cap is routed to review. Its label comes from no body text, and the
       // review flag is kept whatever a header or subject signal says below.

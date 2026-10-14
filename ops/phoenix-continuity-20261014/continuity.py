@@ -33,6 +33,24 @@ def compatible_tokens(tokens, key_hex):
     except Exception:
         return False
 
+def account_token_envelopes(connection):
+    """Require source-wide coverage, not only accounts matching a filter."""
+    rows = r.query(connection,
+        "SELECT count(*),"
+        " count(*) FILTER (WHERE data ? 'tokens'),"
+        " count(*) FILTER (WHERE jsonb_typeof(data->'tokens')='object')"
+        " FROM public.accounts")
+    if len(rows) != 1 or len(rows[0]) != 3:
+        raise ValueError('ACCOUNT_TOKEN_COVERAGE_UNKNOWN')
+    total, keyed, structured = rows[0]
+    if not total or total > MAX_ENCRYPTED_ACCOUNTS or keyed != total or structured != total:
+        raise ValueError('ACCOUNT_TOKEN_COVERAGE_INCOMPLETE')
+    envelopes = [x[0] for x in r.query(connection,
+        "SELECT data->'tokens' FROM public.accounts")]
+    if len(envelopes) != total:
+        raise ValueError('ACCOUNT_TOKEN_COVERAGE_CHANGED')
+    return envelopes
+
 def job():
     if os.environ.get('CONTINUITY_EXECUTION_GATE') != GATE:
         print('PHOENIX_CONTINUITY:WAITING_FOR_EXACT_GATE', flush=True)
@@ -89,7 +107,7 @@ def job():
         fingerprints = r.fingerprints(source, inventory['tables'])
         sequences = r.sequence_states(source, inventory['tables'])
         stage = 'SOURCE_KEY_BOOLEAN'
-        blobs = [x[0] for x in r.query(source, "SELECT data->'tokens' FROM public.accounts WHERE data ? 'tokens'")]
+        blobs = account_token_envelopes(source)
         if not compatible_tokens(blobs, production_key):
             raise ValueError('SOURCE_KEY_NOT_COMPATIBLE')
         del blobs
@@ -143,7 +161,7 @@ def job():
         checks = {k:r.canonical(v)==r.canonical(after[k]) for k,v in inventory.items()}
         checks['row_fingerprints'] = r.canonical(fingerprints)==r.canonical(r.fingerprints(target,after['tables']))
         checks['sequences'] = r.canonical(sequences)==r.canonical(r.sequence_states(target,after['tables']))
-        blobs = [x[0] for x in r.query(target,"SELECT data->'tokens' FROM public.accounts WHERE data ? 'tokens'")]
+        blobs = account_token_envelopes(target)
         key_compatible = compatible_tokens(blobs,production_key)
         del blobs, production_key
         out = dict(mission=mission,observed_at=observed_at,source_read_only=True,

@@ -19,11 +19,14 @@ const renderSeedContent = probeId => ({
   body: `${UBERWARM2_SEED_TEMPLATE.bodyPrefix}${probeId}`
 });
 const seedContentDigest = c => sha({ subject: String(c?.subject ?? ''), body: String(c?.body ?? '') });
+// probeId is signed so an approval names exactly one probe. Batch-wide scope
+// let one approval authorize a second probe in the same batch.
 const signedApprovalPayload = a => JSON.stringify({
   granted: a?.granted === true,
   grantedBy: text(a?.grantedBy, 120),
   batchDigest: text(a?.batchDigest, 130),
   templateDigest: text(a?.templateDigest, 130),
+  probeId: text(a?.probeId, 250),
   expiresAt: text(a?.expiresAt, 80),
   evidenceRef: text(a?.evidenceRef, 500),
   scopes: Array.isArray(a?.scopes) ? [...new Set(a.scopes.map(x => text(x, 120)))].sort() : []
@@ -47,6 +50,8 @@ const denied = (status, reasonCodes) => Object.freeze({
   ok: false, status, reasonCodes, externalEffectAuthority: 'NONE',
   providerSubmissions: 0, verifiedPlacements: 0
 });
+// The plan and any approval for it expire together, 45 minutes after compile.
+const SEED_PLAN_WINDOW_MS = 45 * 60 * 1000;
 
 /**
  * Compile only verifiably owner-controlled, consenting seed destinations.
@@ -59,12 +64,19 @@ export function compileUberWarm2SeedBatch({
 } = {}) {
   const at = finiteTime(now);
   if (at === null) return denied('UBERWARM2_BATCH_REFUSED', ['invalid-clock']);
-  const senderMap = new Map((Array.isArray(mailboxes) ? mailboxes : [])
-    .filter(m => emailOk(m?.address || m?.email))
-    .map(m => [email(m.address || m.email), m]));
-  const seedMap = new Map((Array.isArray(seedInboxes) ? seedInboxes : [])
-    .filter(s => emailOk(s?.email))
-    .map(s => [email(s.email), s]));
+  const senderRows = (Array.isArray(mailboxes) ? mailboxes : []).filter(m => emailOk(m?.address || m?.email));
+  const seedRows = (Array.isArray(seedInboxes) ? seedInboxes : []).filter(s => emailOk(s?.email));
+  const senderAddresses = senderRows.map(m => email(m.address || m.email));
+  const seedAddresses = seedRows.map(s => email(s.email));
+  // A repeated address would let the last row silently shadow the first, so the
+  // outcome would depend on array order. Refuse the whole batch instead.
+  const batchRefusals = [];
+  if (new Set(senderAddresses).size !== senderAddresses.length) batchRefusals.push('duplicate-sender-address');
+  if (new Set(seedAddresses).size !== seedAddresses.length) batchRefusals.push('duplicate-seed-address');
+  if (seedAddresses.some(address => senderAddresses.includes(address))) batchRefusals.push('seed-is-also-active-sender');
+  if (batchRefusals.length) return denied('UBERWARM2_BATCH_REFUSED', batchRefusals);
+  const senderMap = new Map(senderRows.map(m => [email(m.address || m.email), m]));
+  const seedMap = new Map(seedRows.map(s => [email(s.email), s]));
   const source = Array.isArray(placementPlan.probes) ? placementPlan.probes : [];
   const limit = Math.min(100, Math.max(1, Math.floor(Number(maxBatch) || 100)));
   const senderLimit = Math.min(4, Math.max(1, Math.floor(Number(maxSeedsPerSender) || 2)));
@@ -83,8 +95,14 @@ export function compileUberWarm2SeedBatch({
     if (probe?.bodyToken !== probe?.probeId) reasons.push('body-correlation-token-mismatch');
     if (!sender || sender.authenticationStatus !== 'AUTHENTICATED' || sender.paused === true ||
         sender.quarantined === true || sender.placementQuarantine === true) reasons.push('sender-not-health-cleared');
+    // Each sender must carry explicit DNS, transport and provider-policy evidence.
+    if (sender && sender.dnsAuthenticated !== true) reasons.push('sender-dns-authentication-required');
+    if (sender && sender.transportAuthorized !== true) reasons.push('sender-transport-not-authorized');
+    if (sender && sender.providerPolicyCompatible !== true) reasons.push('sender-provider-policy-incompatible');
+    const permissionUntil = finiteTime(seed?.permissionExpiresAt);
     if (!seed || seed.ownerControlled !== true || seed.receiveReady !== true ||
-        seed.consentToTest !== true || !text(seed.consentEvidenceRef, 500)) reasons.push('recipient-not-proven-consenting-owned-seed');
+        seed.consentToTest !== true || !text(seed.consentEvidenceRef, 500) ||
+        permissionUntil === null || permissionUntil <= at) reasons.push('recipient-not-proven-consenting-owned-seed');
     if (senderEmail === seedEmail) reasons.push('self-send-not-accepted-as-seed-evidence');
     if ((counts.get(senderEmail) || 0) >= senderLimit) reasons.push('per-sender-batch-limit');
     if (probes.length >= limit) reasons.push('global-batch-limit');
@@ -97,6 +115,7 @@ export function compileUberWarm2SeedBatch({
       probeId: text(probe.probeId, 250), senderEmail, seedEmail,
       seedProvider: text(probe.seedProvider, 80).toLowerCase(),
       bodyToken: text(probe.bodyToken, 250),
+      permissionExpiresAt: new Date(permissionUntil).toISOString(),
       subject: content.subject,
       body: content.body,
       scope: 'OWNER_CONTROLLED_PLACEMENT_PROBE',
@@ -131,7 +150,7 @@ export async function executeUberWarm2SeedProbe({
   const canonical = { version: UBERWARM2_SEED_EXECUTION_VERSION, createdAt: batch.createdAt, probes: batch.probes };
   if (batch.batchDigest !== `sha256:${sha(canonical)}`) return denied('UBERWARM2_EXECUTION_REFUSED', ['batch-digest-invalid']);
   const batchAge = at - finiteTime(batch.createdAt);
-  if (!Number.isFinite(batchAge) || batchAge < 0 || batchAge > 24 * 60 * 60 * 1000) return denied('UBERWARM2_EXECUTION_REFUSED', ['batch-expired']);
+  if (!Number.isFinite(batchAge) || batchAge < 0 || batchAge > SEED_PLAN_WINDOW_MS) return denied('UBERWARM2_EXECUTION_REFUSED', ['batch-expired']);
   const probe = batch.probes.find(x => x.probeId === probeId);
   if (!probe || batch.probes.filter(x => x.probeId === probeId).length !== 1) return denied('UBERWARM2_EXECUTION_REFUSED', ['probe-not-in-immutable-batch']);
   const scopes = Array.isArray(approval?.scopes) ? approval.scopes : [];
@@ -139,9 +158,13 @@ export async function executeUberWarm2SeedProbe({
       !scopes.includes('uberwarm2:owner-controlled-seed-test') ||
       approval?.batchDigest !== batch.batchDigest ||
       approval?.templateDigest !== UBERWARM2_SEED_TEMPLATE_DIGEST ||
+      text(approval?.probeId, 250) !== probe.probeId ||
       finiteTime(approval?.expiresAt) === null || finiteTime(approval?.expiresAt) <= at ||
       !verifiedSignedApproval(approval,approvalVerificationKey))
     return denied('UBERWARM2_OWNER_APPROVAL_REQUIRED', ['exact-unexpired-seed-test-authorization-required']);
+  // An approval may not outlive the plan it authorizes.
+  if (finiteTime(approval.expiresAt) > finiteTime(batch.createdAt) + SEED_PLAN_WINDOW_MS)
+    return denied('UBERWARM2_OWNER_APPROVAL_REQUIRED', ['approval-exceeds-45-minute-plan-window']);
   // Compile-time rendering is not enough: the batch object can be edited and
   // its unkeyed digest recomputed. Re-render from the approved template and
   // refuse any difference before a reservation or transport call exists.
@@ -152,9 +175,17 @@ export async function executeUberWarm2SeedProbe({
     return denied('UBERWARM2_DURABLE_LEDGER_REQUIRED', ['atomic-reservation-and-caps-adapter-required']);
   if (!transport || typeof transport.sendOwnedSeed !== 'function')
     return denied('UBERWARM2_TRANSPORT_REQUIRED', ['owner-approved-smtp-adapter-required']);
+  // The adapter must declare that it is authorized and bound to this probe's
+  // sender. Checking only that a send function exists would let any adapter
+  // submit as any sender.
+  if (transport.authorizedSmtp !== true || email(transport.boundSender) !== probe.senderEmail)
+    return denied('UBERWARM2_TRANSPORT_REQUIRED', ['transport-not-bound-to-probe-sender']);
   // Immutable approval alone cannot override a quarantine or recipient
   // withdrawal that occurred after the original manifest was compiled.
   // Fresh truth must come from protected live provider + opt-in registries.
+  // Consent that lapsed after compile is not renewed by the approval.
+  if (finiteTime(probe.permissionExpiresAt) === null || finiteTime(probe.permissionExpiresAt) <= at)
+    return denied('UBERWARM2_LIVE_PREFLIGHT_REFUSED', ['recipient-permission-expired']);
   let senderFresh=false,consentFresh=false;
   try { senderFresh=typeof verifyCurrentSenderHealth==='function'&&
     await verifyCurrentSenderHealth(probe.senderEmail,at)===true; } catch {}

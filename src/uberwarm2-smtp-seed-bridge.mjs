@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { createUberSmtpSubmissionTransport } from './ubersmtp-submission-adapter.mjs';
 import { openSmtpAccountCredential } from './uberfleet.mjs';
+import { UBERWARM2_SEED_TEMPLATE } from './uberwarm2-seed-executor.mjs';
 
 export const UBERWARM2_SMTP_BRIDGE_VERSION = 'uberbond.uberwarm2-smtp-seed-bridge.v1';
 const lower = v => String(v ?? '').trim().toLowerCase();
@@ -43,29 +44,39 @@ export function createUberWarm2SmtpSeedBridge({
     boundMailboxId: mailboxId, version: UBERWARM2_SMTP_BRIDGE_VERSION,
     async sendOwnedSeed({ from, to, subject, body, probeId, reservationKey, permittedPurpose } = {}) {
       const recipient = lower(to);
+      // The body must be the approved template rendered for this probe, with no
+      // text appended. A substring test would let an attached sentence through.
       if (lower(from) !== sender || !allowed.has(recipient) ||
           permittedPurpose !== 'OWNER_CONTROLLED_PLACEMENT_PROBE' ||
           !/^uberwarm2-seed:[a-f0-9]{64}$/.test(String(reservationKey)) ||
           !/^UberBond permitted mailbox delivery test$/.test(String(subject)) ||
-          !body || !String(body).includes(String(probeId)) ||
-          !String(body).includes('No reply or other action is requested'))
+          String(body) !== `${UBERWARM2_SEED_TEMPLATE.bodyPrefix}${String(probeId)}`)
         return refused('probe-identity-purpose-or-seed-not-allowlisted');
       let secret;
       try { secret = credentialReader(account, encryptionKey); }
       catch { return refused('encrypted-credential-unavailable'); }
-      const transport = transportFactory({
-        host: route.host, port: route.port, secure: true,
-        username: secret?.username, password: secret?.password,
-        authorized: true, termsCompatible: true, evidenceRef: route.evidenceRef
-      });
+      // Errors from the factory and transport are not forwarded: a provider
+      // message may echo the username or password it was handed.
+      let transport;
+      try {
+        transport = transportFactory({
+          host: route.host, port: route.port, secure: true,
+          username: secret?.username, password: secret?.password,
+          authorized: true, termsCompatible: true, evidenceRef: route.evidenceRef
+        });
+      } catch { return refused('authorized-smtp-transport-not-ready'); }
       if (transport?.ok !== true || typeof transport.send !== 'function')
         return refused('authorized-smtp-transport-not-ready');
       // Idempotent Message-ID is a correlation token only, NOT duplicate
       // prevention; the atomic PostgreSQL reservation provides that boundary.
       const messageId = `<uw2-${sha(reservationKey).slice(0,32)}@${sender.split('@')[1]}>`;
-      const result = await transport.send({
-        from: sender, to: recipient, subject, body, messageId
-      });
+      let result;
+      try {
+        result = await transport.send({ from: sender, to: recipient, subject, body, messageId });
+      } catch {
+        // A thrown send may already have been accepted. Report it as uncertain.
+        return { ok: false, accepted: false, status: 'SMTP_OUTCOME_UNCERTAIN' };
+      }
       return result?.confirmed === true && result?.messageId
         ? { ok: true, accepted: true, messageId: String(result.messageId),
             status: 'PROVIDER_ACCEPTED_PLACEMENT_UNKNOWN' }

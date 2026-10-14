@@ -16,12 +16,14 @@ const T = new Date('2026-10-12T18:00:00.000Z');
 const T1 = new Date('2026-10-12T18:02:00.000Z');
 const T2 = new Date('2026-10-12T18:03:00.000Z');
 const senders = [
-  { mailboxId: 'tara', address: 'tara@example.net', authenticationStatus: 'AUTHENTICATED', paused: false },
-  { mailboxId: 'dana', address: 'dana@example.net', authenticationStatus: 'AUTHENTICATED', paused: true }
+  { mailboxId: 'tara', address: 'tara@example.net', authenticationStatus: 'AUTHENTICATED', paused: false,
+    dnsAuthenticated: true, transportAuthorized: true, providerPolicyCompatible: true },
+  { mailboxId: 'dana', address: 'dana@example.net', authenticationStatus: 'AUTHENTICATED', paused: true,
+    dnsAuthenticated: true, transportAuthorized: true, providerPolicyCompatible: true }
 ];
 const seeds = [
-  { email: 'owned-seed@gmail.com', ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:g' },
-  { email: 'owned-seed@outlook.com', ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:m' },
+  { email: 'owned-seed@gmail.com', ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:g', permissionExpiresAt: '2026-12-31T00:00:00Z' },
+  { email: 'owned-seed@outlook.com', ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:m', permissionExpiresAt: '2026-12-31T00:00:00Z' },
   { email: 'unrelated@yahoo.com', ownerControlled: false, receiveReady: true, consentToTest: false }
 ];
 function batch(mailboxes = senders, seedInboxes = seeds) {
@@ -34,12 +36,12 @@ function batch(mailboxes = senders, seedInboxes = seeds) {
   });
   return compileUberWarm2SeedBatch({ placementPlan: plan, mailboxes, seedInboxes, now: T });
 }
-function approval(b) {
+function approval(b, probeId = b.probes[0]?.probeId) {
   const entry = {
-    granted: true, grantedBy: 'founder', expiresAt: '2026-10-12T19:00:00Z',
+    granted: true, grantedBy: 'founder', expiresAt: '2026-10-12T18:40:00Z',
     scopes: ['uberwarm2:owner-controlled-seed-test'],
     batchDigest: b.batchDigest, templateDigest: UBERWARM2_SEED_TEMPLATE_DIGEST,
-    evidenceRef: 'owner-authorized-fixture'
+    evidenceRef: 'owner-authorized-fixture', probeId
   };
   return { ...entry, proof: createUberWarm2SeedApprovalProof({
     approval: entry, verificationKey: KEY
@@ -62,7 +64,7 @@ function store() {
 function transport() {
   const calls = [];
   return {
-    calls,
+    calls, authorizedSmtp: true, boundSender: 'tara@example.net',
     async sendOwnedSeed(x) {
       calls.push(x);
       return { ok: true, accepted: true, messageId: 'provider-message-id-' + x.probeId };
@@ -123,6 +125,7 @@ test('authorized exact-seed submission records SMTP acceptance, not Inbox delive
 });
 test('transport uncertainty must never trigger a second submission', async () => {
   const b = batch(), s = store(), p = b.probes[0], tx = { calls: 0,
+    authorizedSmtp: true, boundSender: 'tara@example.net',
     async sendOwnedSeed() { this.calls++; throw new Error('network may have submitted'); }
   };
   const opts = { batch: b, probeId: p.probeId, approval: approval(b), approvalVerificationKey: KEY, store: s, transport: tx, now: T1 };

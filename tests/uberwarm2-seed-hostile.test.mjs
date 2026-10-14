@@ -32,10 +32,13 @@ const T2 = new Date('2026-10-12T18:03:00.000Z');
 const SENDER = 'tara@example.net';
 const SEED_A = 'owned-seed@gmail.com';
 const SEED_B = 'owned-seed@outlook.com';
-const MAILBOXES = [{ mailboxId: 'tara', address: SENDER, authenticationStatus: 'AUTHENTICATED', paused: false }];
+const MAILBOXES = [{
+  mailboxId: 'tara', address: SENDER, authenticationStatus: 'AUTHENTICATED', paused: false,
+  dnsAuthenticated: true, transportAuthorized: true, providerPolicyCompatible: true
+}];
 const SEEDS = [
-  { email: SEED_A, ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:g' },
-  { email: SEED_B, ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:m' }
+  { email: SEED_A, ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:g', permissionExpiresAt: '2026-12-31T00:00:00Z' },
+  { email: SEED_B, ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-test-agreement:m', permissionExpiresAt: '2026-12-31T00:00:00Z' }
 ];
 
 function executeUberWarm2SeedProbe(args) {
@@ -64,11 +67,11 @@ function redigest(b) {
   return { ...b, batchDigest: `sha256:${createHash('sha256').update(JSON.stringify(canonical)).digest('hex')}` };
 }
 
-function approval(b, { templateDigest = TEMPLATE_DIGEST, expiresAt = '2026-10-12T19:00:00Z' } = {}) {
+function approval(b, { templateDigest = TEMPLATE_DIGEST, expiresAt = '2026-10-12T18:40:00Z', probeId = b.probes[0]?.probeId } = {}) {
   const entry = {
     granted: true, grantedBy: 'founder', expiresAt,
     scopes: ['uberwarm2:owner-controlled-seed-test'],
-    batchDigest: b.batchDigest, evidenceRef: 'owner-authorized-fixture', templateDigest
+    batchDigest: b.batchDigest, evidenceRef: 'owner-authorized-fixture', templateDigest, probeId
   };
   return { ...entry, proof: createUberWarm2SeedApprovalProof({ approval: entry, verificationKey: KEY }) };
 }
@@ -91,7 +94,7 @@ function store() {
 function transport() {
   const calls = [];
   return {
-    calls,
+    calls, authorizedSmtp: true, boundSender: SENDER,
     async sendOwnedSeed(x) {
       calls.push(x);
       return { ok: true, accepted: true, messageId: 'provider-message-id-' + x.probeId };
@@ -207,18 +210,22 @@ test('UW2-SEED-03: two sends across the UTC day boundary two minutes apart refus
     const b = batch(now, sameSeed);
     const [first, second] = b.probes;
     const tx = transport();
-    const opts = {
-      batch: b, approval: approval(b, { expiresAt: new Date(now.getTime() + 3600000).toISOString() }),
-      approvalVerificationKey: KEY, store: ledger, transport: tx
-    };
-    const sent = await settleWithin(executeUberWarm2SeedProbe({ ...opts, probeId: first.probeId, now }), 'first send');
+    // One approval per probe: an approval naming the first probe must not authorize the second.
+    const opts = { batch: b, approvalVerificationKey: KEY, store: ledger, transport: tx };
+    const expiresAt = new Date(now.getTime() + 30 * 60 * 1000).toISOString();
+    const sent = await settleWithin(executeUberWarm2SeedProbe({
+      ...opts, probeId: first.probeId, now, approval: approval(b, { expiresAt, probeId: first.probeId })
+    }), 'first send');
     assert.equal(sent.status, 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN');
     // Record the first send as yesterday's UTC bucket, two minutes before the second claim.
     await pool.query(
       "UPDATE uberwarm2_seed_probe_claims SET quota_day=$1::date, created_at=clock_timestamp() - interval '2 minutes' WHERE reservation_key=$2",
       [shiftDay(day, -1), sent.reservationKey]
     );
-    const again = await settleWithin(executeUberWarm2SeedProbe({ ...opts, probeId: second.probeId, now: new Date() }), 'second send');
+    const again = await settleWithin(executeUberWarm2SeedProbe({
+      ...opts, probeId: second.probeId, now: new Date(),
+      approval: approval(b, { expiresAt, probeId: second.probeId })
+    }), 'second send');
     assert.equal(again.ok, false);
     assert.equal(again.status, 'UBERWARM2_PROBE_NOT_CLAIMED');
     assert.ok(again.reasonCodes.includes('seed-rolling-limit'), again.reasonCodes.join(','));

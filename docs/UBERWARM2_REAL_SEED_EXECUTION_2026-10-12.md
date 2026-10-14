@@ -22,7 +22,8 @@ Already implemented before this change:
 | Layer | New artifact | What actually changed |
 |---|---|---|
 | Real probe contract | `src/uberwarm2-seed-executor.mjs` | Compile an exact manifest exclusively from authenticated, unpaused sending mailboxes and owner-controlled, receive-ready, consenting seed addresses with recorded consent evidence |
-| Approval | Same module | Requires explicit unexpired owner approval with the exact batch digest and `uberwarm2:owner-controlled-seed-test` scope |
+| Approval | Same module | Requires explicit unexpired owner approval with the exact batch digest, the template digest, the `uberwarm2:owner-controlled-seed-test` scope and the single `probeId` it authorizes. The approval may not outlive the 45-minute plan window |
+| Donor-gap closure | `tests/uberwarm2-donor-gap-closure.test.mjs` | Sender DNS-authentication, transport-authorization and provider-policy gates; refusal of duplicate sender or seed addresses and of a seed that is also a sender; recipient permission expiry at compile and at send; executor refusal of a transport not bound to the probe sender; exact template body in the SMTP bridge; no username or password in bridge results |
 | Sender execution | Same module | Optional injected `transport.sendOwnedSeed`, restricted to the manifest's sender and seed, with a literal transparent test subject/body; no automated replies, no spam rescue, no prospect messages |
 | Durable reservation | `src/uberwarm2-pg-ledger.mjs` | Shared Postgres `BEGIN` + transaction-scoped advisory day lock, atomic per-sender/day 2 probe cap, fleet/day 100 cap, durable one-shot claim and finalization |
 | Schema | `docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql` (deliberately outside `migrations/`, so the boot migrator never applies it) | Reservation table with primary key, sender/day indexes, status and safe receipt. No migration automatically applied |
@@ -35,6 +36,7 @@ All new probe operations **fail closed** when actual authenticated provider send
 ## What is NOT implemented, and must not be misrepresented
 
 - A network equivalent to Winnr's own participating real recipient inboxes.
+- A production `verifyCurrentSenderHealth` or `verifyCurrentSeedConsent`. No production route calls the seed executor. Execution therefore fails closed with `UBERWARM2_LIVE_PREFLIGHT_REFUSED` until a trusted live source supplies both verifiers. This block is deliberate, not an omission.
 - A cryptographically independently attested inbox provider feed. The caller must supply an authorized, trusted receiving-side observation adapter; arbitrary self-attested text is not proof.
 - Live warm-up activation in Render, mailbox/GoDaddy DNS mutation, additional Winnr entitlement purchase, credential injection, or sender promotion.
 - Artificial positive replies, generated replies for reputation farming, spam-folder rescue, reciprocal exchanges disguised as human engagement, or evasion of anti-abuse systems.
@@ -47,7 +49,7 @@ All new probe operations **fail closed** when actual authenticated provider send
 2. For 50 *future* Startup mailboxes, first observe actual entitlement and import credentials only through the existing protected Winnr adapter.
 3. Apply the migration on the **authorized isolated test database only**, verify schema, test the same module and store using independent PostgreSQL CI.
 4. Register a *small* number of genuine willing seed recipients across **independent** recipient networks (e.g., one Gmail and one Microsoft account), obtaining clear permission and observation access. Two Gmail aliases do not equal two independent networks.
-5. Bind an authorized authenticated SMTP provider to `transport.sendOwnedSeed`, and a **trusted** receiving-folder observation adapter to the exact provider message ID. Review batch digest and grant scoped approval. Send only a bounded transparent placement test.
+5. Bind an authorized authenticated SMTP provider to `transport.sendOwnedSeed`, and a **trusted** receiving-folder observation adapter to the exact provider message ID. Review the batch digest and grant one scoped approval per probe, each naming a single `probeId` and expiring within 45 minutes of the plan. Send only a bounded transparent placement test.
 6. Independently ingest provider/recipient observations into the existing `UberPlacement -> UberWarm -> UberQuality` decision path; keep missing evidence = missing, not successful.
 7. Permit genuine gradual correspondence with willing contacts and only separately legally eligible first touches under the campaign governance workflow.
 8. Compare real Inbox/Spam/complaint trends against the paid service without claiming equivalence until a sufficiently powered, credible controlled evaluation exists.

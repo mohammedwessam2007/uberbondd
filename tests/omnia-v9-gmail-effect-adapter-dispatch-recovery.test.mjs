@@ -7,9 +7,11 @@ import { sealTokens } from '../src/gmail.mjs';
 import { GmailEffectAdapter, generateMessageId } from '../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs';
 import { ExternalEffectExecutionStore } from '../src/omnia-v9/integrations/external-effect-execution-store.mjs';
 import { ExternalEffectEvidenceStore } from '../src/omnia-v9/integrations/external-effect-evidence-store.mjs';
+import { ADAPTER_OUTCOMES } from '../src/omnia-v9/integrations/external-effect-adapter.mjs';
 import { dispatchExternalEffect, CRASH_POINTS, CrashInjected } from '../src/omnia-v9/integrations/external-effect-dispatcher.mjs';
 import { recoverOneExecution, recoverUnresolvedExecutions, RECOVERY_ACTIONS } from '../src/omnia-v9/integrations/external-effect-recovery.mjs';
 import { createFakeGmailTransport, FAKE_GMAIL_MODES } from './helpers/fake-gmail-transport.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 /**
  * Proves the Gmail adapter is a genuine drop-in implementation of the
@@ -44,14 +46,54 @@ function freshAccount() {
   return { tokens: sealTokens(tokens, ENCRYPTION_KEY) };
 }
 
+// The package supplier builds a complete package for the exact message. gmail-api is not an admitted route, so the refusal that
+// remains is provider-not-smtp-relay: every dispatch is REJECTED before the counter, the credential and the transport.
 function makeAdapter(transport) {
   return new GmailEffectAdapter({
     cfg: { ...CFG_BASE, fetchImpl: transport.fetchImpl },
     account: freshAccount(),
     encryptionKey: ENCRYPTION_KEY,
     messageIdDomain: MESSAGE_ID_DOMAIN,
-    fromAddress: 'sender@sovereign-controlled-test.example'
+    fromAddress: 'sender@sovereign-controlled-test.example',
+    outboundAuthorizationFn: ({ message, account }) => validRoutePackage({ account, message }),
+    outboundConsentVerifier: ALLOW_CONSENT
   });
+}
+
+// The dispatcher reports only the classification, so the refusal reason is read from what adapter.dispatch returned for each call.
+function recordDispatchOutcomes(adapter) {
+  const outcomes = [];
+  const dispatch = adapter.dispatch.bind(adapter);
+  adapter.dispatch = async preparedEffect => {
+    const outcome = await dispatch(preparedEffect);
+    outcomes.push(outcome);
+    return outcome;
+  };
+  return outcomes;
+}
+
+function assertRouteRefused(outcome, transport) {
+  assert.equal(outcome.classification, ADAPTER_OUTCOMES.REJECTED);
+  assert.equal(outcome.dispatchError, 'outbound-authorization-refused');
+  assert.deepEqual(outcome.outboundRefusal.reasonCodes, ['provider-not-smtp-relay']);
+  assert.equal(outcome.evidence, null, 'a refused dispatch produces no evidence');
+  assert.equal(transport.mailbox.length, 0, 'a refused dispatch never reaches the provider');
+}
+
+// Provider-side state only: the copy a real Gmail would hold after an accepted send. The adapter never writes it. It is seeded only
+// where a scenario is about reconciling a copy the provider already holds, because the gated route can never accept a send itself.
+function seedProviderCopy(transport, intent) {
+  const { to, subject, body } = intent.effectPayload;
+  transport.injectMailboxEntry({ threadId: `gmail-thread-seed-${intent.executionId}`, headers: { 'message-id': intent.providerEffectIdentity, to, subject }, body });
+}
+
+// A crash injected before the provider call leaves the durable execution in DISPATCHING with no local evidence and no provider send,
+// which is the state recovery must reconcile. It is the only way to reach an unresolved execution without an ACCEPTED dispatch.
+async function crashBeforeProviderCall({ store, evidenceStore, adapter, intent }) {
+  await assert.rejects(
+    () => dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent, crashAt: CRASH_POINTS.IMMEDIATELY_BEFORE_PROVIDER_CALL }),
+    CrashInjected
+  );
 }
 
 function baseIntent({ id, effectPayload }) {
@@ -85,7 +127,7 @@ function dispatchAuthorized(args) {
   return dispatchExternalEffect({ ...args, finalAdmissionCheck: testOnlyFinalAdmission });
 }
 
-test('Gmail adapter through the real dispatcher: definite success reaches PROVIDER_ACCEPTED', { skip: !realPostgresUrl }, async () => {
+test('Gmail adapter through the real dispatcher: a definite-success send is REFUSED -- gmail-api is not an admitted route, so the execution ends PROVIDER_REJECTED with zero provider sends', { skip: !realPostgresUrl }, async () => {
   const pool = new Pool({ connectionString: realPostgresUrl, max: 5 });
   try {
     await migrateReal(pool);
@@ -93,14 +135,22 @@ test('Gmail adapter through the real dispatcher: definite success reaches PROVID
     const evidenceStore = new ExternalEffectEvidenceStore({ pool });
     const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
     const adapter = makeAdapter(transport);
+    const outcomes = recordDispatchOutcomes(adapter);
     const id = `gmail-happy-${suffix()}`;
-    const result = await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: baseIntent({ id }) });
-    assert.equal(result.status, 'PROVIDER_ACCEPTED');
-    assert.equal(adapter.dispatchCallCount, 1);
+    const intent = baseIntent({ id });
+    const result = await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent });
+    assert.equal(result.status, 'PROVIDER_REJECTED');
+    assert.equal(result.classification, ADAPTER_OUTCOMES.REJECTED);
+    assert.equal(outcomes.length, 1, 'the dispatcher reached adapter.dispatch exactly once');
+    assertRouteRefused(outcomes[0], transport);
+    assert.equal(adapter.dispatchCallCount, 0, 'the refusal happens before the dispatch counter');
+    assert.equal((await evidenceStore.findByType(intent.executionId, 'DISPATCH_RESPONSE')).length, 0, 'a refused dispatch writes no dispatch-response evidence');
+    const durable = await store.getById(intent.executionId);
+    assert.equal(durable.status, 'PROVIDER_REJECTED');
   } finally { await pool.end(); }
 });
 
-test('Gmail adapter checkpoint-C shape: crash immediately after Gmail accepts but before local evidence -- recovery finalizes from Gmail reconciliation, never resends', { skip: !realPostgresUrl }, async () => {
+test('Gmail adapter checkpoint-C shape (route refused): the crash is injected before the refused provider call, a provider-side mailbox copy is seeded via injectMailboxEntry to stand in for the accepted send, and recovery finalizes from reconciliation -- never resends', { skip: !realPostgresUrl }, async () => {
   const pool = new Pool({ connectionString: realPostgresUrl, max: 5 });
   try {
     await migrateReal(pool);
@@ -111,11 +161,13 @@ test('Gmail adapter checkpoint-C shape: crash immediately after Gmail accepts bu
     const id = `gmail-checkpoint-c-${suffix()}`;
     const intent = baseIntent({ id });
 
-    await assert.rejects(
-      () => dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent, crashAt: CRASH_POINTS.IMMEDIATELY_AFTER_PROVIDER_ACCEPTS }),
-      CrashInjected
-    );
-    assert.equal(transport.mailbox.length, 1, 'sanity: Gmail (fake) truly received and stored the message before the crash');
+    await crashBeforeProviderCall({ store, evidenceStore, adapter, intent });
+    assert.equal(adapter.dispatchCallCount, 0, 'sanity: the crash fired before any provider call was counted');
+    assert.equal(transport.mailbox.length, 0, 'sanity: nothing reached the (fake) Gmail mailbox through the gated route');
+
+    // The copy a real Gmail would hold had the send been accepted before the crash. Seeded on the provider side only.
+    seedProviderCopy(transport, intent);
+    assert.equal(transport.mailbox.length, 1, 'sanity: the seeded provider-side copy is present for reconciliation');
 
     const executionId = `exec-${id}`;
     const afterCrash = await store.getById(executionId);
@@ -132,7 +184,7 @@ test('Gmail adapter checkpoint-C shape: crash immediately after Gmail accepts bu
   } finally { await pool.end(); }
 });
 
-test('Gmail adapter: zero search matches remain uncertain and never free the business key for a retry', { skip: !realPostgresUrl }, async () => {
+test('Gmail adapter: zero search matches remain uncertain and never free the business key for a retry (route refused: the crash is injected before the provider call, so the execution is left DISPATCHING; no provider copy is seeded, so reconciliation finds zero matches)', { skip: !realPostgresUrl }, async () => {
   const pool = new Pool({ connectionString: realPostgresUrl, max: 5 });
   try {
     await migrateReal(pool);
@@ -142,8 +194,9 @@ test('Gmail adapter: zero search matches remain uncertain and never free the bus
     const adapter = makeAdapter(transport);
     const id = `gmail-zero-match-${suffix()}`;
     const intent = baseIntent({ id });
-    const result = await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent });
-    assert.equal(result.status, 'RESULT_UNCERTAIN');
+    await crashBeforeProviderCall({ store, evidenceStore, adapter, intent });
+    assert.equal((await store.getById(`exec-${id}`)).status, 'DISPATCHING');
+    assert.equal(transport.mailbox.length, 0, 'sanity: no provider copy exists, so the reconciliation search must return zero matches');
 
     const execution = await store.getById(`exec-${id}`);
     const recovered = await recoverOneExecution({ store, evidenceStore, adapter, execution });
@@ -151,11 +204,11 @@ test('Gmail adapter: zero search matches remain uncertain and never free the bus
     assert.equal(recovered.status, 'RESULT_UNCERTAIN');
     const stillActive = await store.findActiveByBusinessKey(intent.businessKey);
     assert.equal(stillActive.executionId, intent.executionId, 'uncertainty must retain the business-key lock');
-    assert.equal(adapter.dispatchCallCount, 1, 'the ORIGINAL attempt counted once -- recovery itself never dispatches again');
+    assert.equal(adapter.dispatchCallCount, 0, 'neither the refused attempt nor recovery reached the provider -- recovery itself never dispatches');
   } finally { await pool.end(); }
 });
 
-test('Gmail adapter: a second recovery worker cannot claim an execution the first is holding', { skip: !realPostgresUrl }, async () => {
+test('Gmail adapter: a second recovery worker cannot claim an execution the first is holding (route refused: the crash is injected before the provider call, so the execution is left DISPATCHING; no provider copy is seeded)', { skip: !realPostgresUrl }, async () => {
   // This used to start two workers with Promise.all and assert that exactly one
   // of them claimed the row. That is not a test of the locking primitive, it is
   // a test of whether the two transactions happened to overlap -- and on a fast
@@ -194,8 +247,9 @@ test('Gmail adapter: a second recovery worker cannot claim an execution the firs
     const adapter = makeAdapter(transport);
     const id = `gmail-race-${suffix()}`;
     const intent = baseIntent({ id });
-    await dispatchAuthorized({ store, evidenceStore, adapter, effectIntent: intent });
+    await crashBeforeProviderCall({ store, evidenceStore, adapter, intent });
     const executionId = `exec-${id}`;
+    assert.equal((await store.getById(executionId)).status, 'DISPATCHING', 'the held execution must be unresolved for the claim to mean anything');
 
     const unresolved = ['PREPARED', 'DISPATCHING', 'RESULT_UNCERTAIN', 'RECONCILING'];
     let signalClaimed;
@@ -204,8 +258,13 @@ test('Gmail adapter: a second recovery worker cannot claim an execution the firs
     const holderMayFinish = new Promise(resolve => { releaseHolder = resolve; });
 
     const holder = store.withTransaction(async scopedStore => {
-      const claimed = await scopedStore.claimUnresolvedForRecovery({ statuses: unresolved, limit: 1000 });
-      signalClaimed(claimed.map(row => row.executionId));
+      // Signalled in finally, so a failed claim fails the test instead of leaving it waiting on claimTaken forever.
+      let claimed = [];
+      try {
+        claimed = await scopedStore.claimUnresolvedForRecovery({ statuses: unresolved, limit: 1000 });
+      } finally {
+        signalClaimed(claimed.map(row => row.executionId));
+      }
       // The lock lives until this transaction commits, which is what the second
       // worker below has to run into.
       await holderMayFinish;
@@ -213,11 +272,11 @@ test('Gmail adapter: a second recovery worker cannot claim an execution the firs
     });
 
     const heldIds = await claimTaken;
-    assert.ok(heldIds.includes(executionId), 'the first worker did not claim the execution it was supposed to hold');
-
     const workerB = makeAdapter(transport);
     let resultsB;
     try {
+      // Inside the try: a failed claim assertion must still release the holder, or the cleanup deadlocks on the parked transaction.
+      assert.ok(heldIds.includes(executionId), 'the first worker did not claim the execution it was supposed to hold');
       resultsB = await recoverUnresolvedExecutions({ store, adapter: workerB, limit: 1000 });
     } finally {
       // Released here, not after the assertion.
@@ -236,14 +295,15 @@ test('Gmail adapter: a second recovery worker cannot claim an execution the firs
       'a second worker claimed a row the first was still holding -- FOR UPDATE SKIP LOCKED is not partitioning the unresolved set');
 
     const finalExecution = await store.getById(executionId);
-    assert.equal(finalExecution.status, 'RESULT_UNCERTAIN');
+    assert.equal(finalExecution.status, 'DISPATCHING', 'the held row is untouched: the second worker neither claimed nor transitioned it');
     // The invariant the whole test exists for. Whatever a worker claims, a
     // recovery sweep must never send anything.
     //
     // Counted on the recovery worker only. `adapter` above performed the
-    // original authorized dispatch, so its count is 1 by design, and folding it
-    // in would make this assertion pass or fail for the wrong reason.
+    // crashed-before-call attempt, which never reached the provider, so its
+    // count is 0 by design and folding it in would make this assertion pass or
+    // fail for the wrong reason.
     assert.equal(workerB.dispatchCallCount, 0, 'a recovery worker called Gmail send');
-    assert.equal(adapter.dispatchCallCount, 1, 'the original authorized dispatch should have happened exactly once');
+    assert.equal(adapter.dispatchCallCount, 0, 'the crashed attempt was injected before the provider call, so no provider dispatch happened');
   } finally { await pool.end(); }
 });

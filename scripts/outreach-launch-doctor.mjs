@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import { evaluateOutreachLaunchGate } from '../src/outreach-launch-gate.mjs';
 import { dispatchGovernedOutreach } from '../src/governed-outreach-dispatch.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from '../tests/helpers/outbound-route-package.mjs';
 
 const now = new Date('2026-09-15T00:00:00.000Z');
 const launch = evaluateOutreachLaunchGate({
@@ -37,6 +38,14 @@ const denied = await dispatchGovernedOutreach({
 assert.equal(denied.ok, false);
 assert.equal(providerCalls, 0);
 
+// The exact outbound object needs a synthetic authorization package from the same test fixture the governed-dispatch tests use.
+const confirmedMessage = { to: 'doctor@example.com', from: 'doctor@example.com', subject: 'doctor', body: 'doctor', campaignId: 'doctor-campaign' };
+const doctorAccount = { id: 'doctor-account', slot: 'A', email: 'doctor@example.com', provider: 'smtp-relay', smtpRoute: { authorized: true, termsCompatible: true } };
+// The package binds the exact object the dispatcher hands to transport.send, including the launch and authorization identifiers.
+const confirmedOutbound = {
+  to: 'doctor@example.com', from: 'doctor@example.com', subject: 'doctor', body: 'doctor', replyTo: null, listUnsubscribe: null,
+  campaignId: 'doctor-campaign', idempotencyKey: 'doctor:confirmed', launchDecisionId: launch.decisionId, authorizationReceiptId: 'doctor:dispatch-auth'
+};
 const confirmed = await dispatchGovernedOutreach({
   launchDecision: launch,
   authorization: {
@@ -47,7 +56,10 @@ const confirmed = await dispatchGovernedOutreach({
     campaignId: 'doctor-campaign',
     expiresAt: '2026-09-16T00:00:00.000Z'
   },
-  message: { to: 'doctor@example.com', subject: 'doctor', body: 'doctor', campaignId: 'doctor-campaign' },
+  message: confirmedMessage,
+  outboundAccount: doctorAccount,
+  outboundPackage: validRoutePackage({ account: doctorAccount, message: confirmedOutbound, campaignId: 'doctor-campaign' }),
+  consentVerifier: ALLOW_CONSENT,
   transportAdapter: { send: async () => { providerCalls += 1; return { confirmed: true, providerReceiptId: 'doctor-provider-receipt' }; } },
   idempotencyKey: 'doctor:confirmed',
   now

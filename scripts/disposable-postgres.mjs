@@ -28,7 +28,10 @@ const POSTGRES_LOCALE_KEYS = Object.freeze(Object.keys(POSTGRES_LOCALE_ENV));
 
 // initdb forbids root, which needs a dedicated unprivileged account, but
 // a standard CI runner cannot groupadd. It can run initdb as itself.
-export function needsDedicatedPostgresOsUser(getuid = process.getuid) {
+// A default parameter would treat an explicit undefined as "use the real UID",
+// so an unavailable lookup has to be told apart from no argument at all.
+export function needsDedicatedPostgresOsUser(...lookup) {
+  const getuid = lookup.length ? lookup[0] : process.getuid;
   return typeof getuid === 'function' && getuid() === 0;
 }
 

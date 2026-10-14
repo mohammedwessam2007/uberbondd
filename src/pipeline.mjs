@@ -22,6 +22,7 @@ import { evaluateDomainMailboxGate, DOMAIN_MAILBOX_GATE_POLICY_VERSION } from '.
 import { loadSendingDomain } from './sending-domain-registry.mjs';
 import { loadSendingMailbox } from './sending-mailbox-registry.mjs';
 import { selectFleetMailbox, dispatchSmtpFleetAccount } from './uberfleet.mjs';
+import { gateOutboundRoute } from './outbound-send-authorization.mjs';
 import { evaluateOutreachPersonalization } from './ubertruth-outreach.mjs';
 import { pollImapForwardingAccount } from './uberimap.mjs';
 import { detectUnsubscribeIntent, leadingReplyText, boundedPreview, classifyImapPollFailure, imapBackoffMs, credentialDigest, IMAP_AUTH_FAILURE_LIMIT, IMAP_TRANSIENT_RETRY_LIMIT } from './inbound-classify.mjs';
@@ -60,6 +61,10 @@ export class Pipeline {
     this.canonicalExternalEffects = hooks.canonicalExternalEffects ?? null;
     this.smtpSendFn = hooks.smtpSend || dispatchSmtpFleetAccount;
     this.imapPollFn = hooks.imapPoll || pollImapForwardingAccount;
+    // Live-route authorization. No package is built by default, so every provider branch refuses before any credential,
+    // transport or provider call. An owner-approved supplier and its consent verifier must be injected to send at all.
+    this.outboundAuthorizationFn = hooks.outboundAuthorization || null;
+    this.outboundConsentVerifier = hooks.consentVerifier;
   }
 
   async selectFleetInbox(prospect, audit = []) {
@@ -737,13 +742,47 @@ export class Pipeline {
       }
     }
 
+    // Live-route gate, before any credential, transport or provider call on every branch below. The package must bind this
+    // exact payload and sender and decideOutboundSend must allow it. Without one the reservation is released with an explicit
+    // reason and no provider effect. A supplier error is treated as a missing package, never as permission.
+    let outboundAuthorization = null;
+    try {
+      outboundAuthorization = this.outboundAuthorizationFn
+        ? await this.outboundAuthorizationFn({ message: effectPayload, account, campaign, prospect, reservation, followup })
+        : null;
+    } catch {
+      outboundAuthorization = null;
+    }
+    const outboundMessage = { ...effectPayload, authorization: outboundAuthorization || undefined };
+    // The provider branch that will actually run below. Only the SMTP effect-adapter branch is bound to the package model.
+    const routeProvider = this.cfg.outbound?.useEffectAdapter === true && ['smtp-relay', 'postal'].includes(outboundProvider) ? outboundProvider : 'gmail-api';
+    const outboundRefusal = gateOutboundRoute({ account, message: outboundMessage, consentVerifier: this.outboundConsentVerifier, routeProvider });
+    if (outboundRefusal) {
+      await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+        cancelReason: 'outbound-authorization-refused', providerReasonCodes: outboundRefusal.reasonCodes
+      });
+      return this.markSendSafety(prospect, {
+        sent: false, reason: 'outbound-authorization-refused', reservationId: reservation.id,
+        reasonCodes: outboundRefusal.reasonCodes
+      });
+    }
+
     let result;
     let providerMeta = null;
     try {
       if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'smtp-relay') {
         providerMeta = await this.smtpSendFn({
-          account, encryptionKey: this.cfg.encryptionKey, message: effectPayload
+          account, encryptionKey: this.cfg.encryptionKey, message: outboundMessage, consentVerifier: this.outboundConsentVerifier
         });
+        if (providerMeta?.classification === 'REFUSED') {
+          await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+            cancelReason: 'outbound-authorization-refused', providerReasonCodes: providerMeta.reasonCodes || []
+          });
+          return this.markSendSafety(prospect, {
+            sent: false, reason: 'outbound-authorization-refused', reservationId: reservation.id,
+            reasonCodes: providerMeta.reasonCodes || []
+          });
+        }
         if (providerMeta?.classification === 'REJECTED') {
           await this.store.markOutboundReservation(reservation.id, 'cancelled', {
             cancelReason: 'smtp-provider-rejected',
@@ -762,8 +801,18 @@ export class Pipeline {
         result = { data: { id: providerMeta.providerReferenceId, threadId: '' } };
       } else if (this.cfg.outbound?.useEffectAdapter === true && outboundProvider === 'postal') {
         providerMeta = await this.postalSendFn({
-          cfg: this.cfg, account, reservation, effectPayload, followup, now: this.clock, canonicalRuntime: this.canonicalExternalEffects
+          cfg: this.cfg, account, reservation, effectPayload: outboundMessage, followup, now: this.clock,
+          canonicalRuntime: this.canonicalExternalEffects, consentVerifier: this.outboundConsentVerifier
         });
+        if (providerMeta?.classification === 'REFUSED') {
+          await this.store.markOutboundReservation(reservation.id, 'cancelled', {
+            cancelReason: 'outbound-authorization-refused', providerReasonCodes: providerMeta.reasonCodes || []
+          });
+          return this.markSendSafety(prospect, {
+            sent: false, reason: 'outbound-authorization-refused', reservationId: reservation.id,
+            reasonCodes: providerMeta.reasonCodes || []
+          });
+        }
         if (providerMeta?.classification === 'REJECTED') {
           await this.store.markOutboundReservation(reservation.id, 'cancelled', {
             cancelReason: 'postal-provider-rejected',

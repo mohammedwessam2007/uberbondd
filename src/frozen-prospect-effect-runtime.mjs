@@ -3,6 +3,7 @@
 // OUTBOUND_ENABLED / OUTBOUND_DRY_RUN stay untouched.
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { dispatchSmtpFleetAccount, openSmtpAccountCredential } from './uberfleet.mjs';
+import { gateOutboundRoute, OUTBOUND_AUTHORIZATION_PACKAGE_MISSING } from './outbound-send-authorization.mjs';
 
 const canonical = x => Array.isArray(x) ? x.map(canonical) : x && typeof x === 'object'
   ? Object.fromEntries(Object.keys(x).sort().filter(k => x[k] !== undefined).map(k => [k, canonical(x[k])])) : x;
@@ -88,7 +89,8 @@ function checkPreflight(result, digest, participants, { requireAuthorization = f
 
 export async function executeFrozenProspectEffect({
   store, digest, secret, approvalSecret, approverId, encryptionKey, validate,
-  dispatch = dispatchSmtpFleetAccount, now = new Date(), thresholds = {}, canaryMinGapSeconds = 0
+  dispatch = dispatchSmtpFleetAccount, now = new Date(), thresholds = {}, canaryMinGapSeconds = 0,
+  outboundAuthorization = null, consentVerifier = undefined
 } = {}) {
   if (!/^[a-f0-9]{64}$/.test(digest || '')) return deny('frozen-effect-digest-invalid');
   if (typeof secret !== 'string' || secret.length < 32) return deny('frozen-effect-secret-unavailable');
@@ -127,6 +129,21 @@ export async function executeFrozenProspectEffect({
   const senderSlot = String(participants.sender.slot);
   const routeDigest = String(preflight.globalRoute.routeDigest || '');
   const timestamp = new Date(now).toISOString();
+
+  // Live-route package request, before the one-use claim, any credential open or any adapter call. The package is requested
+  // for the exact message this route will send. Without one the route refuses with an explicit reason and consumes nothing.
+  const candidate = {
+    to: recipient, from: slotAddress, subject: participants.subject, text: participants.body, body: participants.body,
+    messageId: deterministicMessageId(digest, slotAddress), listUnsubscribe: participants.footerAndUnsubscribe?.oneClick
+  };
+  let outboundPackage = null;
+  if (typeof outboundAuthorization === 'function') {
+    try { outboundPackage = await outboundAuthorization({ message: candidate }); } catch { outboundPackage = null; }
+  }
+  if (!outboundPackage || typeof outboundPackage !== 'object') {
+    return deny(OUTBOUND_AUTHORIZATION_PACKAGE_MISSING, { reasonCodes: [OUTBOUND_AUTHORIZATION_PACKAGE_MISSING] });
+  }
+
   const proposedAuthorization = makeAuthorization({ digest, participants, routeDigest, senderAddress: slotAddress, secret: approvalSecret, approverId, now });
   if (!proposedAuthorization) return deny('canonical-approver-identity-unavailable');
 
@@ -165,6 +182,9 @@ export async function executeFrozenProspectEffect({
     if (!account || account.connected !== true || String(account.provider || '').toLowerCase() !== 'smtp-relay' || !account.tokens || account.smtpRoute?.authorized !== true || account.smtpRoute?.termsCompatible !== true || !String(account.smtpRoute?.evidenceRef || '').trim()) return { blocked: 'bound-smtp-sender-unavailable-or-ineligible' };
     if (exactEmail(account.email) !== slotAddress) return { blocked: 'bound-sender-address-does-not-match-nadia-slot' };
     if (!String(account.smtpRoute?.host || '').trim() || !Number.isInteger(Number(account.smtpRoute?.port)) || Number(account.smtpRoute.port) < 1 || Number(account.smtpRoute.port) > 65535) return { blocked: 'bound-smtp-route-incomplete' };
+    // Decide on the exact bound account before any credential is opened. A refusal reserves nothing and claims nothing.
+    const gate = gateOutboundRoute({ account, message: { ...candidate, from: exactEmail(account.email), authorization: outboundPackage }, consentVerifier });
+    if (gate) return { blocked: 'outbound-authorization-refused', reasonCodes: gate.reasonCodes };
     try { openSmtpAccountCredential(account, encryptionKey); }
     catch { return { blocked: 'bound-smtp-credentials-unavailable' }; }
     const reserved = await tx.reserveOutboundSend({
@@ -186,16 +206,11 @@ export async function executeFrozenProspectEffect({
     await tx.setSetting(executionKey(digest), dispatching);
     return { authorization, account, reservation: reserved.reservation, dispatching };
   });
-  if (claim.blocked) return deny(claim.blocked, { effectCapRemaining: claim.prior?.effectCapRemaining ?? 1 });
+  if (claim.blocked) return deny(claim.blocked, { effectCapRemaining: claim.prior?.effectCapRemaining ?? 1, ...(claim.reasonCodes ? { reasonCodes: claim.reasonCodes } : {}) });
 
-  const knownMessageId = deterministicMessageId(digest, slotAddress);
-  const message = {
-    to: recipient, from: exactEmail(claim.account.email), subject: participants.subject,
-    text: participants.body, body: participants.body, messageId: knownMessageId,
-    listUnsubscribe: participants.footerAndUnsubscribe?.oneClick
-  };
+  const message = { ...candidate, from: exactEmail(claim.account.email) };
   let providerResult;
-  try { providerResult = await dispatch({ account: claim.account, encryptionKey, message }); }
+  try { providerResult = await dispatch({ account: claim.account, encryptionKey, message: { ...message, authorization: outboundPackage }, consentVerifier }); }
   catch (error) { providerResult = { classification: 'UNCERTAIN', reasonCodes: ['smtp-provider-call-threw'], dispatchError: String(error?.message || error).slice(0, 300), automaticRetryAuthorized: false }; }
   const executedAt = new Date().toISOString();
   const rawClassification = providerResult && typeof providerResult === 'object' && !Array.isArray(providerResult)
@@ -221,7 +236,7 @@ export async function executeFrozenProspectEffect({
     ? providerResult.reasonCodes.filter(code => typeof code === 'string').slice(0, 6).map(code => code.slice(0, 120))
     : [];
   const providerMessageId = typeof providerResult?.messageId === 'string' && providerResult.messageId.trim()
-    ? providerResult.messageId.trim().slice(0, 500) : knownMessageId;
+    ? providerResult.messageId.trim().slice(0, 500) : candidate.messageId;
   const receipt = {
     provider: 'smtp-relay', classification, providerAccepted: accepted,
     providerReferenceId: providerReferenceId || null,

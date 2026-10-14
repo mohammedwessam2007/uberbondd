@@ -8,8 +8,12 @@ import { Store } from '../src/store.mjs';
 import { executeFrozenProspectEffect, verifyFrozenProspectAuthorization } from '../src/frozen-prospect-effect-runtime.mjs';
 import { buildEncryptedSmtpAccount } from '../src/uberfleet.mjs';
 import { compileContactHistory } from '../src/prospect-contact-history.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 const PACKAGE = 'uberbond.prospect-effect-package.v1';
+// The bound sender account of this fixture. The route requests a package for each exact message and the fixture supplies a complete one.
+const ROUTE_ACCOUNT = { id: 'nadia-smtp', slot: 'winnr:nadia.chen@cedarpointdomains.com', email: 'nadia.chen@cedarpointdomains.com' };
+const routeGate = { outboundAuthorization: ({ message }) => validRoutePackage({ account: ROUTE_ACCOUNT, message }), consentVerifier: ALLOW_CONSENT };
 const secret = 'runtime-freeze-secret-000000000000000000000000';
 const approvalSecret = 'runtime-approval-secret-00000000000000000000000';
 const encryptionKey = 'a'.repeat(64);
@@ -107,7 +111,8 @@ async function fixture() {
     encryptionKey,
     validate,
     dispatch,
-    now: at
+    now: at,
+    ...routeGate
   });
   return { dir, store, digest, execute };
 }

@@ -1,5 +1,6 @@
 import { createStore } from './store.mjs';
 import { dispatchSmtpFleetAccount } from './uberfleet.mjs';
+import { gateOutboundRoute, requestOutboundPackage } from './outbound-send-authorization.mjs';
 
 const TARGET='uberbond.co@gmail.com';
 const STATE_KEY='winnrPlacementPhenotypeV1';
@@ -11,7 +12,8 @@ const PERSONAL_TARGET='mohammedwessam306@gmail.com';
 const PERSONAL_STATE_KEY='winnrPersonalInboxCanary20261002';
 export async function runWinnrPersonalInboxCanary({
   config, storeFactory=createStore, dispatchFn=dispatchSmtpFleetAccount,
-  target=PERSONAL_TARGET, now=new Date(), delayFn=delay
+  target=PERSONAL_TARGET, now=new Date(), delayFn=delay,
+  outboundAuthorization=null, consentVerifier=undefined
 }={}){
   if(!config?.encryptionKey || target!==PERSONAL_TARGET)
     return {ok:false,status:'WINNR_PERSONAL_CANARY_REFUSED',reasonCodes:['fixed-owner-target-and-encryption-required']};
@@ -23,6 +25,20 @@ export async function runWinnrPersonalInboxCanary({
       .sort((a,b)=>String(a.id||'').localeCompare(String(b.id||'')));
     if(accounts.length!==3 || new Set(accounts.map(a=>a.id)).size!==3)
       return {ok:false,status:'WINNR_PERSONAL_CANARY_REFUSED',reasonCodes:['exact-three-distinct-connected-smtp-accounts-required']};
+    // Exact-message gate for all three one-time sends, decided before the claim so a refusal consumes no reservation.
+    const prepared=[];
+    for(let i=0;i<accounts.length;i++){
+      const message={
+        to:PERSONAL_TARGET,from:accounts[i].email,fromName:'Wessam Solomon | UberBond',
+        subject:'UberBond personal inbox check',
+        body:`Hi Wessam,\n\nThis is the one-time personal inbox delivery check you requested for mailbox ${i+1} of 3. No action needed.\n\nWessam Solomon | UberBond`
+      };
+      const authorization=await requestOutboundPackage(outboundAuthorization,{message,account:accounts[i],ordinal:i+1});
+      const refusal=gateOutboundRoute({account:accounts[i],message:{...message,authorization:authorization||undefined},consentVerifier});
+      if(refusal)return {ok:false,status:'WINNR_PERSONAL_CANARY_REFUSED',reasonCodes:refusal.reasonCodes,automaticRetryAuthorized:false};
+      prepared.push({message:{...message,authorization}});
+    }
+
     // Reserve before any effect. Overlapping boots, crashes and uncertain sends
     // require external reconciliation, never an automatic replay.
     const claim=await store.transaction(async tx=>{
@@ -41,11 +57,7 @@ export async function runWinnrPersonalInboxCanary({
     for(let i=0;i<3;i++){
       let result;
       try{
-        result=await dispatchFn({account:accounts[i],encryptionKey:config.encryptionKey,message:{
-          to:PERSONAL_TARGET,fromName:'Wessam Solomon | UberBond',
-          subject:'UberBond personal inbox check',
-          body:`Hi Wessam,\n\nThis is the one-time personal inbox delivery check you requested for mailbox ${i+1} of 3. No action needed.\n\nWessam Solomon | UberBond`
-        }});
+        result=await dispatchFn({account:accounts[i],encryptionKey:config.encryptionKey,message:prepared[i].message,consentVerifier});
       }catch{result={classification:'UNCERTAIN'};}
       const classification=['ACCEPTED','REJECTED','UNCERTAIN'].includes(result?.classification)?result.classification:'UNCERTAIN';
       results.push({ordinal:i+1,classification,messageId:classification==='ACCEPTED'?clean(result?.messageId,500)||null:null,sentAt:new Date().toISOString()});
@@ -70,7 +82,9 @@ export async function runWinnrPlacementPhenotypeCanary({
   storeFactory=createStore,
   dispatchFn=dispatchSmtpFleetAccount,
   target=TARGET,
-  now=new Date()
+  now=new Date(),
+  outboundAuthorization=null,
+  consentVerifier=undefined
 }={}){
   if(!config?.encryptionKey)return {ok:false,status:'WINNR_PLACEMENT_CANARY_REFUSED',reasonCodes:['encryption-key-required']};
   if(String(target||'').trim().toLowerCase()!==TARGET)return {ok:false,status:'WINNR_PLACEMENT_CANARY_REFUSED',reasonCodes:['owner-controlled-target-required']};
@@ -91,18 +105,26 @@ export async function runWinnrPlacementPhenotypeCanary({
     const subject='quick note';
     const body="Hi Wessam,\n\nJust confirming everything is working after today's setup. No action needed.\n\nWessam";
 
+    // Exact-message gate for every pending send, decided before the first send so a refusal sends nothing and writes no state.
+    const preparedByOrdinal=new Map();
+    for(let i=0;i<accounts.length;i++){
+      const ordinal=i+1;
+      if(accepted.has(ordinal))continue;
+      const message={to:TARGET,from:accounts[i].email,subject,body,fromName:'Wessam Solomon | UberBond'};
+      const authorization=await requestOutboundPackage(outboundAuthorization,{message,account:accounts[i],ordinal});
+      const refusal=gateOutboundRoute({account:accounts[i],message:{...message,authorization:authorization||undefined},consentVerifier});
+      if(refusal)return {ok:false,status:'WINNR_PLACEMENT_CANARY_REFUSED',reasonCodes:refusal.reasonCodes,ordinal,automaticRetryAuthorized:false};
+      preparedByOrdinal.set(ordinal,{message:{...message,authorization}});
+    }
+
     for(let i=0;i<accounts.length;i++){
       const ordinal=i+1;
       if(accepted.has(ordinal))continue;
       const result=await dispatchFn({
         account:accounts[i],
         encryptionKey:config.encryptionKey,
-        message:{
-          to:TARGET,
-          subject,
-          body,
-          fromName:'Wessam Solomon | UberBond'
-        }
+        message:preparedByOrdinal.get(ordinal).message,
+        consentVerifier
       });
       const safe={
         ordinal,

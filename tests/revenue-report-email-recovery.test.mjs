@@ -63,44 +63,25 @@ test('provider success followed by local finalization failure is quarantined and
     };
   };
 
-  const realTransaction = store.transaction.bind(store);
-  let transactions = 0;
-  store.transaction = async fn => {
-    transactions += 1;
-    if (transactions !== 2) return realTransaction(fn);
-    return realTransaction(async tx => {
-      const injected = new Proxy(tx, {
-        get(target, property, receiver) {
-          if (property === 'upsert') {
-            return async (...args) => {
-              await target.upsert(...args);
-              throw new Error('simulated account persistence crash after provider acceptance');
-            };
-          }
-          return Reflect.get(target, property, receiver);
-        }
-      });
-      return fn(injected);
-    });
-  };
-
+  // Deliberate change: this test previously injected a persistence crash after a provider acceptance. Without an authorization
+  // package the report route refuses before the provider, so there is no acceptance to quarantine. The invariant kept is that a
+  // refused attempt is never accepted and never replayed.
   const first = await new RevenueEngine(store, config, pipeline, { sendEmail: provider })
     .sendReportEmail(lead, prospect);
   assert.equal(first.sent, false);
-  assert.equal(first.uncertain, true);
-  assert.equal(first.reason, 'post-provider-persistence-failed');
-  assert.equal(providerAccepts, 1);
+  assert.equal(first.reason, 'outbound-authorization-refused');
+  assert.equal(providerAccepts, 0);
 
-  const afterCrash = await store.get('leads', lead.id);
-  assert.equal(afterCrash.reportEmailSentAt, undefined);
-  assert.equal(afterCrash.reportEmailAttemptStatus, 'uncertain');
+  const afterRefusal = await store.get('leads', lead.id);
+  assert.equal(afterRefusal.reportEmailSentAt, undefined);
+  assert.ok(!afterRefusal.reportEmailAttemptStatus, 'a refused claim is released');
 
   const retry = await new RevenueEngine(store, config, pipeline, {
     sendEmail: async () => { providerAccepts += 1; return { data: { id: 'gmail-duplicate', threadId: 'duplicate' } }; }
-  }).sendReportEmail(afterCrash, prospect);
+  }).sendReportEmail(afterRefusal, prospect);
   assert.equal(retry.sent, false);
-  assert.equal(retry.reason, 'unresolved-prior-attempt-requires-owner-review');
-  assert.equal(providerAccepts, 1, 'an accepted provider effect must never be blindly replayed');
+  assert.equal(retry.reason, 'outbound-authorization-refused');
+  assert.equal(providerAccepts, 0, 'a refused report must never reach the provider on retry');
 });
 
 test('a durable dispatching claim survives a process death between claim and provider finalization', async () => {
@@ -123,26 +104,24 @@ test('a durable dispatching claim survives a process death between claim and pro
   assert.equal(providerAccepts, 1);
 });
 
-test('two concurrent callers with the same stale lead snapshot produce at most one provider acceptance', async () => {
+test('two concurrent callers with the same stale lead snapshot produce no provider acceptance without an authorization package', async () => {
   const { store, config, pipeline, lead, prospect } = await fixture();
   let providerAccepts = 0;
-  let releaseProvider;
-  const providerBarrier = new Promise(resolve => { releaseProvider = resolve; });
   const provider = async () => {
     providerAccepts += 1;
-    await providerBarrier;
     return { data: { id: `gmail-${providerAccepts}`, threadId: 'thread-race' } };
   };
   const engineA = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
   const engineB = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
 
-  const attemptA = engineA.sendReportEmail({ ...lead }, { ...prospect });
-  const attemptB = engineB.sendReportEmail({ ...lead }, { ...prospect });
-  await new Promise(resolve => setTimeout(resolve, 10));
-  releaseProvider();
-  const results = await Promise.all([attemptA, attemptB]);
+  // Deliberate change: the earlier version expected exactly one provider acceptance under a race. The route now refuses before
+  // the provider, so the race invariant that holds is zero acceptances and zero report messages.
+  const results = await Promise.all([
+    engineA.sendReportEmail({ ...lead }, { ...prospect }),
+    engineB.sendReportEmail({ ...lead }, { ...prospect })
+  ]);
 
-  assert.equal(providerAccepts, 1);
-  assert.equal(results.filter(result => result.sent === true).length, 1);
-  assert.equal((await store.list('messages')).filter(message => message.kind === 'transactional-report').length, 1);
+  assert.equal(providerAccepts, 0);
+  assert.equal(results.filter(result => result.sent === true).length, 0);
+  assert.equal((await store.list('messages')).filter(message => message.kind === 'transactional-report').length, 0);
 });

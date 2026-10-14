@@ -90,13 +90,15 @@ function permissiveV9Context() {
   };
 }
 
-test('v9AdmissionRequired defaults to false: sends proceed exactly as before, V9 is never consulted', async () => {
+test('v9AdmissionRequired defaults to false: V9 is never consulted, and the Gmail route refuses before the provider without a package', async () => {
   const store = await connectedStore();
   const cfg = baseCfg();
   const { pipeline, sends } = spyPipeline(store, cfg);
   const result = await pipeline.maybeSend(baseProspect(), baseCampaign());
-  assert.equal(result.sent, true);
-  assert.equal(sends(), 1);
+  // Deliberate change: this test previously asserted a Gmail send with no authorization package.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.equal(sends(), 0);
   assert.equal((await v9Decisions(store)).length, 0, 'V9 must not be consulted when the flag is off');
 });
 
@@ -122,13 +124,15 @@ test('v9AdmissionRequired=true cancels the reservation on denial rather than lea
   assert.equal(reservation.status, 'cancelled');
 });
 
-test('v9AdmissionRequired=true with a genuine owner-supplied policy context (real signed approval) allows the send through -- the composition is real end to end', async () => {
+test('v9AdmissionRequired=true with a genuine owner-supplied policy context (real signed approval) is ALLOW in V9, and the Gmail route still refuses without a package', async () => {
   const store = await connectedStore();
   const cfg = baseCfg({ outbound: { v9AdmissionRequired: true } });
   const { pipeline, sends } = spyPipeline(store, cfg, { v9Context: permissiveV9Context() });
   const result = await pipeline.maybeSend(baseProspect(), baseCampaign());
-  assert.equal(result.sent, true);
-  assert.equal(sends(), 1);
+  // Deliberate change: V9 still allows and is recorded. The Gmail route refuses before the provider without a package.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.equal(sends(), 0);
   const decisions = await v9Decisions(store);
   assert.equal(decisions.length, 1);
   assert.equal(decisions[0].detail.finalDecision, 'ALLOW');
@@ -145,18 +149,21 @@ test('a Guard denial (e.g. suppression) with v9AdmissionRequired=true still shor
   assert.equal((await v9Decisions(store)).length, 0, 'Guard already denied -- V9 must never be reached, even with a fully permissive V9 context available');
 });
 
-test('a duplicate/idempotent replay is still handled by the pre-existing contract even with v9AdmissionRequired=true', async () => {
+test('a refused V9-admitted attempt is never recorded as sent, and a replay cannot reach the provider', async () => {
   const store = await connectedStore();
   const cfg = baseCfg({ outbound: { v9AdmissionRequired: true } });
-  const { pipeline: first } = spyPipeline(store, cfg, { v9Context: permissiveV9Context() });
+  const { pipeline: first, sends: firstSends } = spyPipeline(store, cfg, { v9Context: permissiveV9Context() });
   const prospect = baseProspect();
   const campaign = baseCampaign();
+  // Deliberate change: the earlier version expected a provider send and a duplicate replay. Without a package the Gmail route
+  // refuses, so nothing is recorded as sent, and the replay must still never reach the provider.
   const firstResult = await first.maybeSend(prospect, campaign);
-  assert.equal(firstResult.sent, true);
+  assert.equal(firstResult.sent, false);
+  assert.equal(firstResult.reason, 'outbound-authorization-refused');
+  assert.equal(firstSends(), 0);
 
   const { pipeline: second, sends: secondSends } = spyPipeline(store, cfg, { v9Context: permissiveV9Context() });
   const secondResult = await second.maybeSend({ ...prospect, status: 'sent' }, campaign);
-  assert.equal(secondResult.sent, true);
-  assert.equal(secondResult.duplicate, true);
-  assert.equal(secondSends(), 0, 'a replay must never call the provider a second time');
+  assert.notEqual(secondResult.sent, true);
+  assert.equal(secondSends(), 0, 'a replay must never call the provider');
 });

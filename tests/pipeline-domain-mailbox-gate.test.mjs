@@ -146,14 +146,17 @@ test('canonical linkage is not enough: unobserved registry readiness denies befo
   assert.equal((await store.list('outboundReservations')).length, 0);
 });
 
-test('fully observed, warm, authorized registry clears its own gate and then reaches the provider boundary', async () => {
+test('fully observed, warm, authorized registry clears its own gate and is then refused at the provider boundary without an authorization package', async () => {
   const store = await makeStore({ sendingDomainId: 'd1', sendingMailboxId: 'm1', workspaceId: 'w1' });
   await seedReady(store);
   const sends = { count: 0 };
   const result = await makePipeline(store, sends).maybeSend(prospect, campaign);
 
-  assert.equal(result.sent, true);
-  assert.equal(sends.count, 1);
+  // Deliberate change: this test previously asserted a Gmail provider send with no authorization package. The domain gate
+  // still clears; the Gmail route refuses before the provider call.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.equal(sends.count, 0);
   const decision = (await store.list('auditLog')).find(row => row.type === 'domain_mailbox_gate_decision');
   assert.equal(decision.detail.decision, 'NOT_BLOCKED_BY_DOMAIN_MAILBOX_GATE');
   assert.deepEqual(decision.detail.reasonCodes, []);

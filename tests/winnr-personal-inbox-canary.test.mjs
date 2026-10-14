@@ -1,15 +1,18 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { runWinnrPersonalInboxCanary } from '../src/winnr-placement-phenotype-canary.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 function fixture(){
   const settings={},sent=[],logs=[];
-  const accounts=[1,2,3].map(n=>({id:`smtp-${n}`,slot:`winnr:${n}`,provider:'smtp-relay',connected:true}));
+  // Each sender carries the identity and authorized route the send gate binds. The package is supplied by the fixture for the exact message.
+  const accounts=[1,2,3].map(n=>({id:`smtp-${n}`,slot:`winnr:${n}`,provider:'smtp-relay',connected:true,email:`box${n}@example.invalid`,smtpRoute:{host:'smtp.example.invalid',port:465,secure:true,authorized:true,termsCompatible:true,evidenceRef:'receipt:route-1'}}));
   let queue=Promise.resolve();
   const store={init:async()=>{},list:async()=>accounts,getSettings:async()=>settings,
     setSetting:async(k,v)=>{settings[k]=structuredClone(v);},log:async(k,v)=>logs.push(v),close:async()=>{},
     transaction(fn){const next=queue.then(()=>fn(store));queue=next.catch(()=>{});return next;}};
   const options={config:{encryptionKey:'test-key'},storeFactory:()=>store,delayFn:async()=>{},
+    outboundAuthorization:({message,account})=>validRoutePackage({account,message}),consentVerifier:ALLOW_CONSENT,
     dispatchFn:async args=>{sent.push(args);return {classification:'ACCEPTED',messageId:`<probe-${sent.length}>`};}};
   return {settings,sent,logs,accounts,options};
 }

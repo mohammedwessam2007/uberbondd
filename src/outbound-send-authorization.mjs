@@ -228,3 +228,73 @@ export function decideOutboundSend(input) {
     truthBoundary: 'Pre-send authorization decision for one exact message and sender slot. It does not prove delivery, reputation, legal sufficiency or provider acceptance.'
   };
 }
+
+// Live-route gate. Every route that can open a credential, build a transport or reach a provider calls one of the
+// helpers below before that boundary. A missing package and an insufficient package both return REFUSED with explicit
+// reason codes and cross no effect boundary. Nothing here creates an approval: a route can only forward one that a
+// caller supplied, and the decision still binds the exact final bytes.
+export const OUTBOUND_AUTHORIZATION_PACKAGE_MISSING = 'OUTBOUND_AUTHORIZATION_PACKAGE_MISSING';
+
+export function refuseOutboundRoute(reasonCodes = [], decisionDigest = null) {
+  return {
+    classification: 'REFUSED',
+    providerCalls: 0,
+    providerCallAttempted: false,
+    effectBoundaryCrossed: false,
+    reasonCodes: [...new Set(reasonCodes)],
+    decisionDigest
+  };
+}
+
+// The decision input for one outbound message. It mirrors the builder used by dispatchSmtpFleetAccount: only the fields
+// named in message.authorization are read, the provider flags are true only when the caller and the account's own route
+// both say so, and the whole outbound message minus its authorization block is bound by digest.
+export function buildOutboundSendInput({ account = {}, message = {}, consentVerifier } = {}) {
+  const auth = isObject(message?.authorization) ? message.authorization : {};
+  const route = isObject(account?.smtpRoute) ? account.smtpRoute : {};
+  const input = {};
+  for (const key of ['campaignId', 'sender', 'thresholds', 'domainReceipt', 'recipient', 'suppression', 'doNotContact', 'jurisdictionEvidence', 'consent', 'campaignApproval', 'messageApproval', 'rateWindow', 'retry', 'emergencyStop']) {
+    input[key] = auth[key];
+  }
+  const { authorization: _authorization, ...outbound } = isObject(message) ? message : {};
+  input.message = { ...outbound, from: outbound.from || account?.email };
+  input.expectedSender = { accountId: account?.id, slot: account?.slot, email: account?.email };
+  input.provider = {
+    name: auth.provider?.name === account?.provider ? account?.provider : '',
+    routeAuthorized: route.authorized === true && auth.provider?.routeAuthorized === true,
+    termsCompatible: route.termsCompatible === true && auth.provider?.termsCompatible === true
+  };
+  input.verifyConsent = consentVerifier;
+  return input;
+}
+
+// Pre-effect gate for one exact outbound message from one account. Returns null only when decideOutboundSend allows it.
+// routeProvider names the provider branch the caller will actually execute. The package model admits only smtp-relay, so a
+// Gmail or Postal branch refuses even when the package is otherwise complete. Binding the branch stops an SMTP package
+// from authorizing a different provider call.
+export function gateOutboundRoute({ account, message, consentVerifier, routeProvider = 'smtp-relay' } = {}) {
+  try {
+    if (!isObject(message?.authorization)) return refuseOutboundRoute([OUTBOUND_AUTHORIZATION_PACKAGE_MISSING]);
+    if (String(routeProvider || '').trim().toLowerCase() !== 'smtp-relay') return refuseOutboundRoute(['provider-not-smtp-relay']);
+    const decision = decideOutboundSend(buildOutboundSendInput({ account, message, consentVerifier }));
+    return decision.decision === 'ALLOW' ? null : refuseOutboundRoute(decision.reasonCodes, decision.decisionDigest);
+  } catch {
+    return refuseOutboundRoute(['authorization-input-threw']);
+  }
+}
+
+// Presence check for a route that cannot yet name its account or message. It reads no field of the package.
+export function outboundAuthorizationPackageRefusal(authorization) {
+  return isObject(authorization) ? null : refuseOutboundRoute([OUTBOUND_AUTHORIZATION_PACKAGE_MISSING]);
+}
+
+// Asks a caller-injected supplier for the package that binds one exact message. A supplier that is absent, throws or
+// returns nothing yields null, which the gate refuses. A missing package is never treated as permission.
+export async function requestOutboundPackage(supplier, context) {
+  if (typeof supplier !== 'function') return null;
+  try {
+    return (await supplier(context)) || null;
+  } catch {
+    return null;
+  }
+}

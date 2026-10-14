@@ -1,0 +1,58 @@
+name: PHOENIX H01 H09 generator-owned release repair
+on:
+  push:
+    branches:
+      - high/phoenix-master-h01-h09-integrated-20261015
+permissions:
+  contents: write
+env:
+  NODE_ENV: test
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  generated-repair:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Repair source-bound test fixture, never weaken production rule
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          f=Path('tests/inbound-reply-intelligence.test.mjs')
+          s=f.read_text()
+          old="const sentMessage = { id: 'msg-1', prospectId: 'pros-1', rfcMessageId: SENT, inbox: 'imap-slot-sent' };"
+          new="const sentMessage = { id: 'msg-1', prospectId: 'pros-1', to: 'buyer@clinic.example.invalid', rfcMessageId: SENT, inbox: 'imap-slot-sent' };"
+          if s.count(old)!=1: raise SystemExit('EXPECTED_OLD_FIXTURE_MISSING')
+          f.write_text(s.replace(old,new))
+          PY
+          git diff --check
+          test "$(git diff --name-only)" = "tests/inbound-reply-intelligence.test.mjs"
+          git config user.name "PHOENIX High source bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tests/inbound-reply-intelligence.test.mjs
+          git commit -m "test(inbound): bind replay bounce fixture to exact DSN recipient"
+      - name: Regenerate official current canon and constitution
+        run: |
+          UBERBOND_CANONICAL_BRANCH=main npm run readiness
+          npm run constitution:doctor
+          git diff --check
+          git diff --name-only
+          git add docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          test "$(git diff --cached --name-only | wc -l)" -eq 3
+          git commit -m "chore(readiness): regenerate exact H01 H09 source artifacts"
+      - name: Test fixed bounce and freshness before publishing
+        run: |
+          node --test tests/inbound-reply-intelligence.test.mjs tests/inbound-review-hostile.test.mjs
+          node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Push only to the preexisting isolated release branch
+        run: git push origin HEAD:refs/heads/high/phoenix-master-h01-h09-integrated-20261015

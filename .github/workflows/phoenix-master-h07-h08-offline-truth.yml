@@ -1,0 +1,31 @@
+name: PHOENIX H07 H08 zero-spend warming truth
+on:
+  push:
+    branches:
+      - high/phoenix-master-h07-h08-zero-addon-truth-20261015
+permissions:
+  contents: read
+jobs:
+  offline-truth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: >-
+          node --test
+          tests/uberwarm2-seed-hostile.test.mjs
+          tests/uberwarm2-seed-executor.test.mjs
+          tests/uberwarm2-send-capability.test.mjs
+          tests/uberwarm3-reputation-oracle.test.mjs
+          tests/uberwarm3-google-postmaster-v2.test.mjs
+          tests/uberwarm3-zero-addon-activation-firewall.test.mjs
+          tests/uberwarm4-receiver-protection.test.mjs
+          tests/uberwarm4-dispatch-guard.test.mjs
+          tests/uberwarm5-capacity-bridge.test.mjs
+          tests/uberwarm6-economic-dominance.test.mjs
+          tests/uberwarm-firewall-hostile.test.mjs
+          tests/uberwarm-maildoso-zero-paid-mutations.test.mjs

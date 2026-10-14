@@ -64,7 +64,7 @@ function feedbackReportRaw({ inReplyTo = SENT, originalMailFrom = null, boundary
 }
 
 // A delivery status notice. The notice names its original through a top-level References header.
-function dsnRaw({ from = 'Mail Delivery <MAILER-DAEMON@mail.example.invalid>', references = '', inReplyTo = '' } = {}) {
+function dsnRaw({ from = 'Mail Delivery <MAILER-DAEMON@mail.example.invalid>', references = '', inReplyTo = '', finalRecipient = BUYER, action = 'failed', status = '5.1.1' } = {}) {
   return [
     `From: ${from}`,
     `To: ${SENDER}`,
@@ -81,9 +81,9 @@ function dsnRaw({ from = 'Mail Delivery <MAILER-DAEMON@mail.example.invalid>', r
     '--rpt-r',
     'Content-Type: message/delivery-status',
     '',
-    `Final-Recipient: rfc822; ${BUYER}`,
-    'Action: failed',
-    'Status: 5.1.1',
+    ...(finalRecipient ? [`Final-Recipient: rfc822; ${finalRecipient}`] : []),
+    ...(action ? [`Action: ${action}`] : []),
+    ...(status ? [`Status: ${status}`] : []),
     '--rpt-r--',
     ''
   ].join('\r\n');
@@ -235,15 +235,18 @@ test('F-03: a forged mailer-daemon at another domain that sends a non-delivery m
   assert.notEqual((await store.list('prospects'))[0].status, 'bounce');
 });
 
-test('F-03 alignment: a plain mailer-daemon at the configured sending domain is a delivery notice and counts as a bounce', async () => {
+test('F-03 hardening: a plain mailer-daemon without structured recipient proof cannot charge a bounce', async () => {
   const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-f3b' }), sendingAccount()], prospects: [prospect], messages: [sentMessage] });
   const raw = [
     'From: MAILER-DAEMON@uberbond.example.invalid', `To: ${SENDER}`, 'Subject: Undelivered Mail Returned to Sender', `In-Reply-To: ${SENT}`,
     'Content-Type: text/plain; charset=us-ascii', '', 'Delivery to the recipient failed permanently.', ''
   ].join('\r\n');
   await pipelineFor(store, { imapPoll: scripted([success([parsedMessage(1, raw)], { lastUid: 1 })]) }).pollReplies();
-  assert.equal((await store.list('replies'))[0].classification.label, 'bounce');
-  assert.equal((await healthOf(store, 'imap-slot-sent')).hardBouncesToday, 1);
+  assert.equal((await store.list('replies')).length, 0);
+  assert.equal(await healthOf(store, 'imap-slot-sent'), null);
+  assert.equal((await store.list('outboundEvents')).length, 0);
+  assert.equal((await store.list('prospects'))[0].status, 'sent');
+  assert.equal((await store.list('unlinkedReplies'))[0].reasonCode, 'UNVERIFIED_DELIVERY_RECIPIENT_OR_STATUS');
 });
 
 // ---------- F-05: quoted-printable bodies are decoded as UTF-8 bytes, using the declared charset ----------
@@ -309,6 +312,61 @@ test('F-08 control: a notice that names exactly one stored outbound message is l
   await pipelineFor(store, { imapPoll: scripted([success([parsedMessage(1, dsnRaw({ references: SENT }))], { lastUid: 1 })]) }).pollReplies();
   assert.equal((await store.list('replies'))[0].prospectId, 'pros-1');
   assert.equal((await healthOf(store, 'imap-slot-sent')).hardBouncesToday, 1);
+});
+
+
+test('H09 security: machine-readable Final-Recipient, Action and Status are parsed from the DSN part', () => {
+  const parsed = parseRawEmail(dsnRaw({ references: SENT }));
+  assert.deepEqual(parsed.deliveryFinalRecipients, [BUYER]);
+  assert.deepEqual(parsed.deliveryActions, ['failed']);
+  assert.deepEqual(parsed.deliveryStatuses, ['5.1.1']);
+  const fakeBody = [
+    'From: MAILER-DAEMON@mail.example.invalid', 'To: sales@uberbond.example.invalid',
+    'Content-Type: multipart/report; report-type=delivery-status; boundary="x"', '',
+    '--x', 'Content-Type: text/plain', '',
+    `Final-Recipient: rfc822; ${BUYER}`, 'Action: failed', 'Status: 5.1.1', '--x--'
+  ].join('\\r\\n');
+  assert.deepEqual(parseRawEmail(fakeBody).deliveryFinalRecipients, [], 'human-readable text is not DSN machine evidence');
+});
+
+test('H09 security: a forged DSN referencing the sent Message-ID but naming a different recipient is review-only', async () => {
+  const store = await storeWith({
+    accounts: [imapAccount({ slot: 'imap-slot-h09-forged' }), sendingAccount()],
+    prospects: [prospect], messages: [sentMessage]
+  });
+  await pipelineFor(store, {
+    imapPoll: scripted([success([
+      parsedMessage(1, dsnRaw({ references: SENT, finalRecipient: 'wrong@other.example.invalid' }))
+    ], { lastUid: 1 })])
+  }).pollReplies();
+  assert.equal((await store.list('replies')).length, 0);
+  assert.equal((await store.list('suppressions')).length, 0);
+  assert.equal((await store.list('outboundEvents')).length, 0);
+  assert.equal(await healthOf(store, 'imap-slot-sent'), null);
+  assert.equal((await store.list('prospects'))[0].status, 'sent');
+  assert.equal((await store.list('unlinkedReplies'))[0].reasonCode, 'UNVERIFIED_DELIVERY_RECIPIENT_OR_STATUS');
+});
+
+test('H09 security: missing Final-Recipient, transient 4.x and delayed notice never trigger a hard bounce', async () => {
+  const changes = [
+    {finalRecipient: null},
+    {action: 'delayed',status: '4.2.2'},
+    {action: 'failed',status: '4.2.2'},
+    {action: 'delivered',status: '2.0.0'}
+  ];
+  for (const [index, override] of changes.entries()) {
+    const store = await storeWith({
+      accounts: [imapAccount({ slot: 'imap-slot-h09-negative-' + index }), sendingAccount()],
+      prospects: [prospect], messages: [sentMessage]
+    });
+    await pipelineFor(store, { imapPoll: scripted([success([
+      parsedMessage(1, dsnRaw({ references: SENT, ...override }))
+    ], { lastUid: 1 })]) }).pollReplies();
+    assert.equal((await store.list('replies')).length, 0, 'unverified report cannot create reply on case ' + index);
+    assert.equal(await healthOf(store, 'imap-slot-sent'), null, 'unverified report cannot charge sender on case ' + index);
+    assert.equal((await store.list('suppressions')).length, 0);
+    assert.equal((await store.list('prospects'))[0].status, 'sent');
+  }
 });
 
 // ---------- F-09: a MIME-quarantined reply is stored for review with no automatic label ----------

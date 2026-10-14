@@ -136,3 +136,20 @@ Statements that hold:
 - Recovered receiver candidates: none verified in this session. No consenting seed was enumerated, and no inbox-access, consent or folder-observation scope was verified.
 - Executable send-set: **`[]`**. Approved messages: **0**. Sent messages: **0**. Cold-send authority: **NONE**.
 - No synthetic conversation, fake reply, Not-Spam action or manufactured engagement was created. Two Gmail accounts would count as one provider network if ever proposed.
+
+### E-014 — Defect repairs: independent review verdicts and merged subset
+Source of verdicts: workflow `wf_cad93fd3-4b8` journal, five BROKEN reviews read in full on this checkpoint. Nothing below is a claim of completion.
+
+Merged into `claude/phoenix-titan-trident-monster-c-20261014`:
+- **A** (JSON import conflicts inside savepoints) = `6c1eada1` → `7e527231`. Independent review: CONFIRMED_FIXED. Focused PG: `tests/json-import-postgres.test.mjs` included in the 31/31 run below.
+- **G** (refuse a concurrent Winnr import instead of queueing) = `f5596494` → `0158d57d`. Independent review: CONFIRMED_FIXED. Focused PG: `tests/winnr-import-lease-concurrency-pg.test.mjs`, `tests/winnr-import-disposable-pg.test.mjs`.
+- Combined focused run on the merged head: `node --test` over `json-import-postgres`, `winnr-import-lease-concurrency-pg`, `winnr-import-disposable-pg`, `store-migration-lock-hostile`: **31 tests, 31 pass, 0 fail, 0 skipped**. `scripts/check-syntax.mjs`: 2962 files parse.
+
+NOT merged. Each verdict is BROKEN with the reproduced reason recorded here:
+- **B** sender-health atomicity (`1b388d42`): atomicity is fixed for readiness, staging and import. Reproduced regression: `src/inbound-suppression-propagation.mjs` guard `row => row?.paused !== true` lets a complaint hold be skipped when a readiness probe failure pauses the sender in the window between the complaint's live `findOne` and `setSenderPaused`. Result: `held:false`, `holdStatus:SENDER_ALREADY_PAUSED`. ADV-7 regression also reported.
+- **C** DSN and ARF forgery (`21e1e301`): the repair's own counts reproduce, but five breaks remain on HEAD. A contradictory DSN (Final-Recipient vs Status) still charges `hard_bounce`. A forged ARF from Feedback Loop with no `Authentication-Results` still charges `complaint` and holds the slot. Authentication is only a veto, so unauthenticated forgery passes.
+- **D+H** (`166fc0f0`): **D** (migration bookkeeping, record the two unrecorded migrations) reviewed CONFIRMED_FIXED. **H** (idle pool error sanitization) BROKEN: a password inside a thrown error's `message` is emitted verbatim in `STORE_IDLE_POOL_CLIENT_ERROR`. D must be split out of the combined commit before any merge.
+- **E** UberMail uncertain-send fence (`8f41bef9`): named scenarios are correct. Two breaks remain. (1) A governed receipt with `executed=true` whose `authorized` is omitted or false is refused as a plain 403. The key is released and a same-key retry dispatches again (dispatches=2). The base behaves identically. (2) `reconcileUncertainSend` is not operator-only.
+- **F** recipient alias fold (`21570256`): the listed spellings are fixed and the table is 26/26. But the change alters behaviour where implementations disagree: `a+<k@x.com>` and `a+<m@x.com>` now stay distinct, and the spec forbids that (the repair listed it as an owner decision and shipped it anyway). Over-length input now differs at function level. A display-name opt-out followed by a separator is not honoured.
+
+Status: B, C, D+H (H portion), E, F OPEN. None is merged. Each needs a repair round on the current head with its reproduction, then independent re-review. F's bracket-after-plus change needs a decision to revert or an explicit owner ruling; the reviewer's reading is that the spec forbids it.

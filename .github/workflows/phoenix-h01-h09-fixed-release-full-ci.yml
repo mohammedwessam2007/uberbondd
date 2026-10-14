@@ -1,0 +1,83 @@
+name: PHOENIX H01 H09 fixed-release exact four-job no-effects CI
+on:
+  push:
+    branches:
+      - high/phoenix-h01-h09-release-repair-20261015
+permissions:
+  contents: read
+env:
+  CI: 'true'
+  NODE_ENV: test
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  deterministic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Record exact SHA
+        run: git rev-parse HEAD
+      - run: npm ci
+      - run: npm run check
+      - name: Hostile specific sender and import subset
+        run: node --test tests/sending-registry-complete-history-n08.test.mjs tests/winnr-production-import.test.mjs tests/winnr-production-import-hardening.test.mjs
+      - name: Verify no whitespace collisions
+        run: git diff --check origin/main...HEAD
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
+  postgres:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: uberbond
+        options: >-
+          --health-cmd "pg_isready -U postgres -d uberbond"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 10
+        ports:
+          - 5432:5432
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:postgres-real
+        env:
+          OMNIA_V9_TEST_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/uberbond
+  outbound:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node scripts/uberoutbound-genome-verify.mjs

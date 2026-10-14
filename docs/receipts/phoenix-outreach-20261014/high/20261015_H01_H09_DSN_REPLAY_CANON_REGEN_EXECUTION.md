@@ -1,0 +1,9 @@
+# PHOENIX H01+H09 replay, generated canon and exact full release verification
+
+**WE HAVE DONE:** Recovered integrated PR #1429 code and exact red deterministic logs (3 real tests: present-tense readiness freshness, compiled constitution freshness, legacy DSN replay fixture). On new isolated branch `high/phoenix-h01-h09-release-repair-20261015`, repaired missing `to` in replay fixture to honor stricter recipient-bound DSN gate, while adding hostile negative test refusing a DSN when stored outbound recipient is absent. **Did not relax actual source DSN checks.**
+
+**VERIFIED:** Commit `e34061d5a7830ccc0cb8b570e259d513b16194d5`, exact GitHub test blob `646911d05315380427b2cfc95dc3a18b3844af23`. Hosted [run 38655164726](https://github.com/mohammedwessam2007/uberbondd/actions/runs/38655164726) **SUCCESS**: 39/39 inbound/DSN tests, 8/8 canon-generation freshness tests (both zero fail). Generator workflow committed only the three allowlisted canonical artifacts to remote SHA `68275fd3e5a3da512cdbb505ef130b3cb15f49f5`, read back independent Git blobs (CURRENT_STATE `cd26f4b...`, system-readiness `c8fafdf...`, directives `346ee464...`). Canon provenance properly names the source commit `e34061d5...`, not the generator's artifact-only commit, preserving lineage. Historical readiness measurements were not promoted as new external proof.
+
+**NEXT:** Both exact-head full release CI and full Night are separately configured here; do not claim their success until actual latest-head workflows complete with all expected jobs.
+
+**BLOCKERS:** Real Render original-key source-current consistent backup and isolated app restore **NOT DONE** before 2026-10-16 23:22:29Z, original app deployment on Oct9 old source, real Winnr 50+3 account import, consented legal contacts, authorized first campaign and cash evidence remain NOT DONE. SEND_SET=[]; no provider writes, sends, charges, DNS changes, secret access, deployment or cutover.

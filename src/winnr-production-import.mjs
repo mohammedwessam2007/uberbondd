@@ -591,6 +591,10 @@ async function executeImportOnce({
   const nowMs = toMs(now);
   const iso = Number.isFinite(nowMs) ? isoOf(nowMs) : '';
   const reasons = validateExecutionGate(executionGate, nowMs);
+  // Planning checked route authority and terms compatibility once. Execution re-reads them from its own gate, so an
+  // authority withdrawn after the plan was issued refuses the import before any write.
+  if (executionGate?.routeAuthorized !== true) reasons.push('route-authorization-withdrawn');
+  if (executionGate?.termsCompatible !== true) reasons.push('terms-incompatible');
   if (!KEY_RE.test(String(encryptionKeyHex ?? ''))) reasons.push('encryption-key-hex-required');
   if (!isNonEmpty(leaseOwner)) reasons.push('lease-owner-required');
   if (!Number.isInteger(faultAfterWrites) || faultAfterWrites < 0) reasons.push('fault-after-writes-invalid');

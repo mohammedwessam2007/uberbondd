@@ -161,6 +161,8 @@ export const WINNR_IMAP_READINESS_COMMANDS=Object.freeze(['CAPABILITY','LOGIN','
 const IMAP_UNREACHABLE=new Set(['ETIMEDOUT','ECONNREFUSED','EHOSTUNREACH','ENETUNREACH','ECONNRESET','EAI_AGAIN','ENOTFOUND']);
 const safeImapCode=error=>String(error?.code||error?.name||'UNKNOWN').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'_').slice(0,80)||'UNKNOWN';
 const imapQuote=value=>`"${String(value??'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"`;
+// A port is a number or a plain decimal string. Anything else, including booleans and null, is not a port.
+const imapPortOf=value=>(typeof value==='number'||(typeof value==='string'&&/^\s*\d+\s*$/.test(value)))?Number(value):NaN;
 
 function imapTagged(socket,tag,line,timeoutMs){
   return new Promise((resolve,reject)=>{
@@ -189,14 +191,20 @@ export async function probeWinnrImapReadiness({account={},encryptionKey='',conne
     version:WINNR_IMAP_READINESS_VERSION,ok:false,commandsIssued:[],mailboxSelected:false,messagesRead:0,messagesSent:0,
     rawProviderTextLogged:false,credentialsLogged:false,...fields
   });
+  // Refused before any socket. A disconnected account is not an active IMAP account, and a route without an explicit host
+  // and port would be dialled at the connector's default address, where LOGIN would still be sent.
+  if(account?.connected!==true)return bounded({classification:'ACCOUNT_NOT_CONNECTED',stage:'ROUTE'});
+  const route=account?.imapRoute||{};
+  const host=typeof route.host==='string'?route.host.trim():'';
+  const port=imapPortOf(route.port);
+  if(!host||!Number.isInteger(port)||port<1||port>65535)return bounded({classification:'IMAP_ROUTE_ABSENT',stage:'ROUTE'});
   let credential;
   try{credential=openImapCredential(account,encryptionKey);}
   catch{return bounded({classification:'CREDENTIAL_UNAVAILABLE',stage:'CREDENTIAL'});}
   if(/[\r\n\0]/.test(`${credential.username}${credential.password}`))return bounded({classification:'CREDENTIAL_UNSAFE_FOR_LITERAL',stage:'CREDENTIAL'});
-  const route=account?.imapRoute||{};
   const sent=[];
   let socket;
-  try{socket=await connectFactory({host:route.host,port:route.port,secure:route.secure!==false,timeoutMs});}
+  try{socket=await connectFactory({host,port,secure:route.secure!==false,timeoutMs});}
   catch(error){
     const code=safeImapCode(error);
     return bounded({classification:IMAP_UNREACHABLE.has(code)?'TRANSPORT_UNREACHABLE':'CONNECT_FAILED',stage:'CONNECT',errorClass:code});

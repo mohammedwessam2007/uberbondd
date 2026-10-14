@@ -251,14 +251,29 @@ export function assertRunnerEnvironment({ keySource = '', storeBackend = '', pro
   return { ok: reasons.length === 0, reasonCodes: [...new Set(reasons)] };
 }
 
+// A protective hold is a pause under any reason other than this import's own. Staging must never clear or relabel one:
+// the readiness probe lifts a pause that carries the import reason, so a relabelled complaint hold would become selectable.
+function isProtectiveHold(health, importReason) {
+  return health?.paused === true && String(health.pauseReason ?? '') !== String(importReason ?? '');
+}
+
+// Every production store exposes findOne. A store that cannot be read cannot show an existing hold, so it is staged
+// exactly as before: paused under the import reason, which never unpauses a sender.
+async function currentSenderHealth(store, inbox) {
+  return typeof store.findOne === 'function' ? store.findOne('senderHealth', { inbox }) : null;
+}
+
 // Stages prepared accounts so that no SMTP sender is ever selectable without a probe. The pause is written before the
 // account record, so an interruption between the two writes leaves an account that is paused, never one that is live.
 // Re-running is safe: upsert is keyed by the stable account id, and the pause reason is the probe's own.
+// A protective hold is left exactly as it is, paused under its own reason.
 export async function stageImportedAccounts({ store, prepared = [], pauseReason = '' } = {}) {
   let smtpStaged = 0;
   let imapStaged = 0;
   for (const row of prepared) {
-    await store.setSenderPaused(row.smtpAccount.slot, true, pauseReason);
+    const inbox = row.smtpAccount.slot;
+    const existing = await currentSenderHealth(store, inbox);
+    if (!isProtectiveHold(existing, pauseReason)) await store.setSenderPaused(inbox, true, pauseReason);
     await store.upsert('accounts', { ...row.smtpAccount, updatedAt: new Date().toISOString() });
     smtpStaged += 1;
     await store.upsert('accounts', { ...row.imapAccount, updatedAt: new Date().toISOString() });

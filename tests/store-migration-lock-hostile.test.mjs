@@ -78,6 +78,44 @@ COMMIT;
 
 const TERMINATE_SELF = 'SELECT pg_terminate_backend(pg_backend_pid());\n';
 
+// The defect this file pins down: a migration opens its own transaction, does
+// work, records its own version, and never closes the block. PostgreSQL reports
+// no error for this file, so only a probe of the session can notice it.
+const UNCLOSED_MIGRATION = `BEGIN;
+CREATE TABLE IF NOT EXISTS hostile_unclosed (id integer);
+INSERT INTO hostile_unclosed (id) VALUES (7);
+INSERT INTO schema_migrations (version) VALUES ('002_unclosed') ON CONFLICT DO NOTHING;
+`;
+
+// Plain statements with no BEGIN at all. PostgreSQL runs them as one implicit
+// transaction and returns the session to autocommit, so they must apply cleanly.
+const PLAIN_MIGRATION = `CREATE TABLE IF NOT EXISTS hostile_apply_log (version text NOT NULL);
+INSERT INTO hostile_apply_log (version) VALUES ('001_plain');
+INSERT INTO schema_migrations (version) VALUES ('001_plain') ON CONFLICT DO NOTHING;
+`;
+
+// Counts backends that a pooled session could leave behind in an open block.
+async function idleInTransactionCount(pool) {
+  const { rows } = await settleWithin(
+    pool.query(`SELECT count(*)::int AS n FROM pg_stat_activity
+      WHERE datname = current_database() AND pid <> pg_backend_pid() AND state LIKE 'idle in transaction%'`),
+    'pg_stat_activity probe'
+  );
+  return rows[0].n;
+}
+
+// A destroyed client is torn down asynchronously, so the backend may take a moment
+// to disappear. A session that is kept idle in a transaction never does.
+async function assertNoIdleInTransaction(pool, label, ms = 2000) {
+  const deadline = Date.now() + ms;
+  for (;;) {
+    const n = await idleInTransactionCount(pool);
+    if (n === 0) return;
+    if (Date.now() >= deadline) assert.fail(`${label}: ${n} session(s) left idle in a transaction`);
+    await new Promise(resolve => setTimeout(resolve, 50));
+  }
+}
+
 test('a failing migration that opened its own BEGIN does not strand the schema lock', async () => {
   await withDisposablePostgres(async url => {
     await withMigrations({ '001_base': appliedMigration('001_base'), '002_broken': BROKEN_MIGRATION }, async dir => {
@@ -240,5 +278,104 @@ test('transaction() destroys a client whose rollback fails and rethrows the orig
     } finally {
       await closePool(pool);
     }
+  });
+});
+
+test('a migration that opens a transaction and never closes it is refused, rolled back and not recorded', async () => {
+  await withDisposablePostgres(async url => {
+    await withMigrations({ '001_base': appliedMigration('001_base'), '002_unclosed': UNCLOSED_MIGRATION }, async dir => {
+      const poolA = makePool(url);
+      const poolB = makePool(url);
+      try {
+        // PostgreSQL accepts this file without error. The runner must still refuse it,
+        // naming the file, rather than move on to the next migration.
+        const first = new PostgresStore({ pool: poolA, migrationsDir: dir });
+        await assert.rejects(
+          settleWithin(first.migrate(), 'migrate() over an unclosed transaction'),
+          error => error.code === 'MIGRATION_LEFT_TRANSACTION_OPEN' && /002_unclosed\.sql/.test(error.message)
+        );
+
+        // Its write is rolled back and its version is not recorded.
+        const { rows } = await settleWithin(
+          poolB.query(`SELECT to_regclass('public.hostile_unclosed') AS table_name,
+            (SELECT count(*)::int FROM schema_migrations WHERE version = '002_unclosed') AS recorded`),
+          'rollback check'
+        );
+        assert.equal(rows[0].table_name, null);
+        assert.equal(rows[0].recorded, 0);
+
+        // The session that ran the file is not left idle in its open transaction.
+        await assertNoIdleInTransaction(poolB, 'after the refused migration');
+
+        // A fresh store on the same pool, which held the refused session, progresses
+        // within the hang budget and reaches the same refusal. It does not inherit a
+        // poisoned session or block on a lock the refused run still holds.
+        const second = new PostgresStore({ pool: poolA, migrationsDir: dir });
+        await assert.rejects(
+          settleWithin(second.migrate(), 'second migrate() on a fresh store'),
+          error => error.code === 'MIGRATION_LEFT_TRANSACTION_OPEN'
+        );
+        await assertNoIdleInTransaction(poolB, 'after the second refused migration');
+      } finally {
+        await closePool(poolA);
+        await closePool(poolB);
+      }
+    });
+  });
+});
+
+test('a correct BEGIN...COMMIT migration still applies exactly once after an unclosed one is refused', async () => {
+  await withDisposablePostgres(async url => {
+    await withMigrations({ '001_base': appliedMigration('001_base'), '002_unclosed': UNCLOSED_MIGRATION }, async dir => {
+      const pool = makePool(url);
+      try {
+        const store = new PostgresStore({ pool, migrationsDir: dir });
+        await assert.rejects(
+          settleWithin(store.migrate(), 'refused migrate()'),
+          error => error.code === 'MIGRATION_LEFT_TRANSACTION_OPEN'
+        );
+
+        await writeMigrations(dir, { '002_unclosed': appliedMigration('002_unclosed') });
+        await settleWithin(store.migrate(), 'recovery migrate()');
+        await settleWithin(store.migrate(), 'idempotent migrate()');
+
+        const log = await settleWithin(
+          pool.query('SELECT version, count(*)::int AS n FROM hostile_apply_log GROUP BY version ORDER BY version'),
+          'apply log'
+        );
+        assert.deepEqual(log.rows, [{ version: '001_base', n: 1 }, { version: '002_unclosed', n: 1 }]);
+
+        const recorded = await settleWithin(
+          pool.query('SELECT version, count(*)::int AS n FROM schema_migrations GROUP BY version ORDER BY version'),
+          'schema_migrations rows'
+        );
+        assert.deepEqual(recorded.rows, [{ version: '001_base', n: 1 }, { version: '002_unclosed', n: 1 }]);
+        await assertNoIdleInTransaction(pool, 'after recovery');
+      } finally {
+        await closePool(pool);
+      }
+    });
+  });
+});
+
+test('a plain migration with no BEGIN is not mistaken for an open transaction', async () => {
+  await withDisposablePostgres(async url => {
+    await withMigrations({ '001_plain': PLAIN_MIGRATION }, async dir => {
+      const pool = makePool(url);
+      try {
+        const store = new PostgresStore({ pool, migrationsDir: dir });
+        await settleWithin(store.migrate(), 'migrate() over a plain migration');
+        await settleWithin(store.migrate(), 'idempotent migrate()');
+
+        const log = await settleWithin(
+          pool.query('SELECT count(*)::int AS n FROM hostile_apply_log WHERE version = $1', ['001_plain']),
+          'apply log'
+        );
+        assert.equal(log.rows[0].n, 1);
+        await assertNoIdleInTransaction(pool, 'after a plain migration');
+      } finally {
+        await closePool(pool);
+      }
+    });
   });
 });

@@ -651,6 +651,26 @@ export class JsonStore {
   }
 }
 
+// Reports whether a session is inside an explicit transaction block. A migration
+// that ends inside its own BEGIN raises no error, so the runner has to ask the
+// session. SAVEPOINT is the probe: outside a block PostgreSQL refuses it with 25P01,
+// inside an open block it succeeds, and inside a block that has already failed it
+// is refused with 25P02. The codes were checked on PostgreSQL 16. The autocommit and
+// open-block outcomes are exercised by tests/store-migration-lock-hostile.test.mjs.
+// A successful probe leaves a savepoint inside the open block, which the caller's
+// ROLLBACK removes. Any other outcome throws, so the caller treats the session
+// state as unknown.
+async function sessionInTransactionBlock(client) {
+  try {
+    await client.query('SAVEPOINT uberbond_migration_probe');
+    return true;
+  } catch (error) {
+    if (error?.code === '25P01') return false;
+    if (error?.code === '25P02') return true;
+    throw error;
+  }
+}
+
 export class PostgresStore {
   constructor({ databaseUrl, ssl = true, pool, transactionClient = false, migrationsDir } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
@@ -693,6 +713,13 @@ export class PostgresStore {
         if (applied.has(version)) continue;
         const sql = await fs.readFile(path.join(dir, file), 'utf8');
         await client.query(sql);
+        // A file may end inside its own BEGIN without COMMIT or ROLLBACK. PostgreSQL
+        // reports no error for that, so the open block is refused here. The cleanup
+        // below rolls it back, which also removes the file's schema_migrations row,
+        // so the version is never counted as applied.
+        if (await sessionInTransactionBlock(client)) {
+          throw new StoreError(`MIGRATION_LEFT_TRANSACTION_OPEN: ${file} ended inside an open transaction block without COMMIT or ROLLBACK; its statements were rolled back and its version was not recorded`, 'MIGRATION_LEFT_TRANSACTION_OPEN');
+        }
         applied.add(version);
       }
     } catch (error) {
@@ -704,7 +731,11 @@ export class PostgresStore {
     // A cleanup failure never replaces the migration error rethrown below.
     let reusable = !errored;
     if (reusable && failure) {
-      reusable = await client.query('ROLLBACK').then(() => true, error => /no transaction in progress/i.test(error?.message || ''));
+      // A ROLLBACK with no open block only emits a warning, so resolving proves little.
+      // The probe proves the session is back in autocommit. An unknown probe result
+      // keeps the session out of the pool.
+      reusable = await client.query('ROLLBACK').then(() => true, () => false);
+      if (reusable) reusable = !(await sessionInTransactionBlock(client).catch(() => true));
     }
     if (reusable && locked) {
       reusable = await client.query('SELECT pg_advisory_unlock(hashtext($1)) AS released', [lockName])

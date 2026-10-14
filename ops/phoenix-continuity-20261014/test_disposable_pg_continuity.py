@@ -82,7 +82,7 @@ def main():
     lines=output.getvalue().splitlines()
     receipts=[s.removeprefix('PHOENIX_CONTINUITY_RECEIPT:') for s in lines if s.startswith('PHOENIX_CONTINUITY_RECEIPT:')]
     if len(receipts)!=1:
-        raise AssertionError('no-successful-isolated-recovery-receipt; '+','.join(s.split(':')[0] for s in lines))
+        raise AssertionError('no-successful-isolated-recovery-receipt; '+','.join(json.dumps({k:json.loads(s.split(':',1)[1]).get(k) for k in ('stage','error_type')}) if s.startswith('PHOENIX_CONTINUITY_FAILURE:') else s.split(':')[0] for s in lines))
     receipt=json.loads(receipts[0])
     assert receipt['status']=='VERIFIED_ISOLATED_RECOVERY', receipt['status']
     assert receipt['original_key_compatible'] is True

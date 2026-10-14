@@ -343,6 +343,8 @@ export class RevenueEngine {
       const current = await this.lockReportEmailLead(tx, leadId);
       if (!current) return { persisted: false, reason: 'missing-lead' };
       if (current.reportEmailSentAt || String(current.reportEmailAttemptStatus || '').toLowerCase() === 'sent') return { persisted: false, terminal: 'sent' };
+      // A refusal happens before any provider call, so it can only release a pre-dispatch claim. An uncertain marker means a provider call may have happened.
+      if (String(current.reportEmailAttemptStatus || '').toLowerCase() === 'uncertain') return { persisted: false, reason: 'uncertain-attempt-not-released' };
       if (current.reportEmailAttemptId !== attemptId) return { persisted: false, reason: 'claim-replaced' };
       const updated = await this.upsertReportEmailLead(tx, current, {
         reportEmailAttemptId: null,

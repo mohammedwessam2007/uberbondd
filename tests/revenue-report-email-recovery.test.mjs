@@ -244,3 +244,20 @@ test('an uncertain report-email attempt is never reported as sent, even after a 
   assert.equal(retry.reason, 'unresolved-prior-attempt-requires-owner-review');
   assert.equal((await store.get('leads', lead.id)).reportEmailSentAt, undefined);
 });
+
+test('a refused release never clears an uncertain report-email attempt marker', async () => {
+  const { store, config, pipeline, lead, prospect } = await fixture();
+  const attemptId = await seedUncertainAttempt(new RevenueEngine(store, config, pipeline), lead, prospect);
+  const engine = new RevenueEngine(store, config, pipeline);
+
+  const released = await engine.releaseReportEmailAttemptRefused({
+    leadId: lead.id, attemptId, prospect, reasonCodes: ['outbound-authorization-refused']
+  });
+  assert.equal(released.persisted, false);
+  assert.equal(released.reason, 'uncertain-attempt-not-released');
+
+  const after = await store.get('leads', lead.id);
+  assert.equal(String(after.reportEmailAttemptStatus).toLowerCase(), 'uncertain');
+  assert.equal(after.reportEmailAttemptId, attemptId);
+  assert.equal(after.reportEmailRefusedAt ?? null, null);
+});

@@ -1,0 +1,52 @@
+name: PHOENIX H02 advisory classification fail-closed and canonical repair
+on:
+  push:
+    branches:
+      - high/phoenix-h02-inbound-machine-advisory-20261015
+    paths:
+      - src/inbound-classify.mjs
+      - tests/phoenix-h02-machine-advisory-boundary.test.mjs
+      - .github/workflows/phoenix-h02-advisory-repair.yml
+permissions:
+  contents: write
+jobs:
+  synthetic-advisory-regression:
+    if: github.repository == 'mohammedwessam2007/uberbondd' && github.ref == 'refs/heads/high/phoenix-h02-inbound-machine-advisory-20261015'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Run new hostile machine/human advice tests and original advisory regressions
+        run: node --test tests/phoenix-h02-machine-advisory-boundary.test.mjs tests/nervous-system-integration.test.mjs
+      - name: Regenerate readiness with the official source compiler
+        run: npm run readiness
+      - name: Regenerate constitution with the official compiler
+        run: npm run constitution:doctor
+      - name: Test canonical freshness before commit
+        run: node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Commit ONLY official generated artifacts to independent branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "high/phoenix-h02-inbound-machine-advisory-20261015"
+          git add -- docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "PHOENIX H02: refresh verified machine-advisory canon [skip ci]"
+          git push origin "HEAD:refs/heads/high/phoenix-h02-inbound-machine-advisory-20261015"

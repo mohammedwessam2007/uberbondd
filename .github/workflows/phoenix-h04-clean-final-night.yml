@@ -1,0 +1,84 @@
+# Integrated Night contract verification for H01+H09 PR #1429, no providers.
+# No production credentials, no sending or deploy rights, no GitHub write token.
+name: PHOENIX CLEAN H01 H04 final combined Night
+on:
+  push:
+    branches:
+      - high/phoenix-master-h01-h04-final-clean-20261015
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  CI: 'true'
+  NODE_ENV: test
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  night-core-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Exact reviewed SHA
+        run: echo "PHOENIX_H01_H04_CLEAN_NIGHT_SHA=$GITHUB_SHA"
+      - name: Syntax
+        run: npm run check:syntax
+      - name: Deterministic
+        run: npm run test:deterministic
+      - name: Reachability ratchet
+        run: node --test tests/reachability-ratchet.test.mjs
+      - name: Canonical mutation war
+        run: npm run test:mutation-war
+      - name: Night mutation extension
+        run: node scripts/night-verification-mutation-extension.mjs
+      - name: Relay safety
+        run: npm run test:relay-safety
+      - name: Wallbreaker
+        run: npm run test:wallbreaker
+      - name: Capability Genome
+        run: npm run test:capability-genome
+      - name: Event Horizon
+        run: npm run test:event-horizon
+      - name: Capability doctor
+        run: npm run capabilities:doctor
+      - name: Capability Genome doctor
+        run: npm run capabilities:genome:doctor
+      - name: Brain bootstrap
+        run: npm run brain
+      - name: System readiness
+        run: npm run readiness
+      - name: Production dependency audit
+        run: npm audit --omit=dev
+      - name: Git diff whitespace check
+        run: git diff --check origin/main...HEAD
+  night-postal-contract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Postal hostile and mutation guards
+        run: >-
+          node --test
+          tests/postal-ragnarok-hardening.test.mjs
+          tests/postal-ragnarok-mutation-source-guard.test.mjs
+          tests/postal-webhook-evidence.test.mjs
+          tests/postal-webhook-route.test.mjs
+      - name: Reachability ratchet
+        run: node --test tests/reachability-ratchet.test.mjs
+      - name: Git diff whitespace check
+        run: git diff --check origin/main...HEAD

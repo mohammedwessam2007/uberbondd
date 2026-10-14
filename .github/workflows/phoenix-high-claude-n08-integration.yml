@@ -1,0 +1,74 @@
+# Read-only source test: standalone N08 fix on exact Claude-owned ancestor.
+# No provider keys, no real email, no production DB, no deployment.
+name: PHOENIX H Claude plus N08 integration proof
+on:
+  push:
+    branches:
+      - high/phoenix-h-n08-plus-claude-integration-20261014
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  combined-source-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s --health-timeout 5s --health-retries 12
+    env:
+      N08_TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install from lockfile
+        run: npm ci --ignore-scripts
+      - name: Print exact integration source and verify syntax
+        run: |
+          echo "INTEGRATION_SHA=$GITHUB_SHA"
+          node --check src/sending-registry-complete-history.mjs
+          node --check src/sending-domain-registry.mjs
+          node --check src/sending-mailbox-registry.mjs
+          node --check tests/sending-registry-complete-history-n08.test.mjs
+      - name: N08 complete-history real disposable PostgreSQL + JsonStore adversarial tests
+        run: node --test tests/sending-registry-complete-history-n08.test.mjs
+      - name: Native Lead OS no-send integration tests
+        run: |
+          node --test \
+            tests/lead-generation.test.mjs \
+            tests/uberlead-launch-fusion.test.mjs \
+            tests/uberlaunch-one-button.test.mjs \
+            tests/green-lane-discovery.test.mjs
+      - name: Claude inherited outbound + import + reply hostile fixture tests
+        run: |
+          node --test \
+            tests/outbound-live-route-gating.test.mjs \
+            tests/outbound-residual-surface-gating.test.mjs \
+            tests/outbound-suppression-alias-hostile.test.mjs \
+            tests/inbound-governance-hostile.test.mjs \
+            tests/winnr-production-import-hardening.test.mjs \
+            tests/winnr-readiness-hold-race.test.mjs
+      - name: UberWarm2-6 synthetic defensive contract tests
+        run: |
+          node --test \
+            tests/uberwarm2-send-capability.test.mjs \
+            tests/uberwarm2-seed-executor.test.mjs \
+            tests/uberwarm3-consent-panel.test.mjs \
+            tests/uberwarm3-google-postmaster-v2.test.mjs \
+            tests/uberwarm3-reputation-oracle.test.mjs \
+            tests/uberwarm4-receiver-protection.test.mjs \
+            tests/uberwarm4-dispatch-guard.test.mjs \
+            tests/uberwarm5-capacity-bridge.test.mjs \
+            tests/uberwarm6-economic-dominance.test.mjs

@@ -166,7 +166,7 @@ const prospect = {
   id: 'pros-1', company: 'Clinic', website: 'https://clinic.test', domain: 'clinic.test',
   contact: { email: 'buyer@clinic.test', source: 'website' }, status: 'sent'
 };
-const sentMessage = { id: 'msg-1', prospectId: 'pros-1', rfcMessageId: SENT_ID, inbox: 'imap-slot-sent' };
+const sentMessage = { id: 'msg-1', prospectId: 'pros-1', to: 'buyer@clinic.test', rfcMessageId: SENT_ID, inbox: 'imap-slot-sent' };
 
 const humanReply = (messageId, body) => rfc822({ messageId, inReplyTo: SENT_ID, body });
 

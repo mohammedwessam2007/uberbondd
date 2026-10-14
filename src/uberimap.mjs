@@ -225,6 +225,15 @@ export function parseRawEmail(value){
   // The machine-readable original sender of an ARF report (RFC 5965). It is a claim inside the body, not an authenticated
   // header, so the pipeline only uses it to cross-check the linked outbound message.
   const originalMailFrom=(bodyPart.match(/^original-mail-from:\s*(?:rfc822;\s*)?<?([^\s<>;]+@[^\s<>;]+)>?/im)?.[1]||'').toLowerCase().slice(0,320);
+  // DSN fields are only claims inside the machine-readable message/delivery-status MIME part.
+  // Bound parsing and cross-check with the exact stored outbound recipient before health effects.
+  const dsnPart=reportType==='delivery-status'
+    ? (bodyPart.slice(0,262144).match(/^content-type:\s*message\/delivery-status[^\r\n]*\r?\n([\s\S]*?)(?=^--[^\r\n]+|$(?![\s\S]))/im)?.[1]||'') : '';
+  const deliveryFinalRecipients=[...new Set([...dsnPart.matchAll(/^final-recipient:\s*rfc822;\s*<?([^\s<>;]+@[^\s<>;]+)>?/gim)]
+    .map(match=>match[1].toLowerCase()))].slice(0,20);
+  const deliveryActions=[...new Set([...dsnPart.matchAll(/^action:\s*([a-z-]+)/gim)].map(match=>match[1].toLowerCase()))].slice(0,20);
+  const deliveryStatuses=[...new Set([...dsnPart.matchAll(/^status:\s*([245]\.\d+\.\d+)/gim)].map(match=>match[1]))].slice(0,20);
+
   const plain=readPlainBody(raw);
   return {
     id:clean(headers['message-id'],500)||`imapmsg:${hash(raw).slice(0,32)}`,
@@ -234,6 +243,7 @@ export function parseRawEmail(value){
     from,fromEmail,to:clean(headers.to,1000),subject:clean(headers.subject,1000),
     date:clean(headers.date,200)||null,
     contentType,autoSubmitted,reportType,listUnsubscribe,embeddedMessageIds,originalMailFrom,
+    deliveryFinalRecipients,deliveryActions,deliveryStatuses,
     // Null when the body was read whole. A quarantined message has an empty body and a reason code, and goes to review.
     body:plain.body,mimeQuarantine:plain.quarantine
   };

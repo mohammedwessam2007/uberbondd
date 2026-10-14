@@ -1155,7 +1155,7 @@ export class Pipeline {
     const recordReply = async ({
       externalId, threadId = '', from = '', fromEmail = '', subject = '', body = '', inReplyTo = '', references = [],
       accountSlot = '', contentType = '', structural = false, autoSubmitted = false, persistUnlinked = false,
-      listUnsubscribe = '', reportType = '', embeddedMessageIds = [], originalMailFrom = '', mimeQuarantine = null
+      listUnsubscribe = '', reportType = '', embeddedMessageIds = [], originalMailFrom = '', deliveryFinalRecipients = [], deliveryActions = [], deliveryStatuses = [], mimeQuarantine = null
     } = {}) => {
       if (!externalId) return false;
       const existing = await this.store.findOne('replies', { gmailId: externalId });
@@ -1215,14 +1215,26 @@ export class Pipeline {
       const feedbackVerified = feedbackReport && !deliveryNotice && Boolean(linkedMessage)
         && sentFrom !== '' && sentFrom === String(originalMailFrom || '').trim().toLowerCase();
       const unverifiedFeedback = feedbackReport && !deliveryNotice && !feedbackVerified;
-      const trustedLink = Boolean(linkedMessage) && !(unverifiedFeedback);
+      // A MIME label, system-sounding sender and Message-ID are all attacker-controlled claims.
+      // Even a uniquely linked RFC 3464 report cannot charge a buyer unless its one
+      // machine-readable recipient equals the outbound `to`, with permanent failure status.
+      // Multiple recipients, missing fields, delays or 4.x status go to operator review.
+      const deliveryVerified = deliveryNotice && Boolean(linkedMessage)
+        && Array.isArray(deliveryFinalRecipients) && deliveryFinalRecipients.length === 1
+        && deliveryFinalRecipients[0] === String(linkedMessage.to || '').trim().toLowerCase()
+        && Array.isArray(deliveryActions) && deliveryActions.length === 1 && deliveryActions[0] === 'failed'
+        && Array.isArray(deliveryStatuses) && deliveryStatuses.length === 1
+        && /^5\.\d+\.\d+$/.test(deliveryStatuses[0]);
+      const unverifiedDelivery = deliveryNotice && !deliveryVerified;
+      const trustedLink = Boolean(linkedMessage) && !(unverifiedFeedback || unverifiedDelivery);
       let prospect = null;
       if (trustedLink) prospect = prospects.find(item => item.id === linkedMessage.prospectId) || null;
       else if (!machineEvidence) prospect = prospects.find(item => item.contact?.email && senderEmail && item.contact.email.toLowerCase() === senderEmail) || null;
       const correlation = !prospect ? 'none' : (trustedLink ? 'thread' : 'sender-address');
       // Why a machine-marked message was not linked. Owner review reads this; nothing is charged.
       let reviewReason = '';
-      if (machineEvidence && !trustedLink) reviewReason = unverifiedFeedback && linkedMessage ? 'UNVERIFIED_FEEDBACK_REPORT' : attributionReason;
+      if (machineEvidence && !trustedLink) reviewReason = unverifiedFeedback && linkedMessage ? 'UNVERIFIED_FEEDBACK_REPORT'
+        : unverifiedDelivery && linkedMessage ? 'UNVERIFIED_DELIVERY_RECIPIENT_OR_STATUS' : attributionReason;
       const unsubscribe = detectUnsubscribeIntent({
         listUnsubscribe: String(listUnsubscribe || ''), subject: String(subject || ''), body: String(body || '')
       });
@@ -1471,6 +1483,9 @@ export class Pipeline {
             reportType: parsed.reportType,
             embeddedMessageIds: parsed.embeddedMessageIds,
             originalMailFrom: parsed.originalMailFrom,
+            deliveryFinalRecipients: parsed.deliveryFinalRecipients,
+            deliveryActions: parsed.deliveryActions,
+            deliveryStatuses: parsed.deliveryStatuses,
             mimeQuarantine: parsed.mimeQuarantine || null,
             persistUnlinked: true
           });

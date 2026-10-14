@@ -325,7 +325,7 @@ test('H09 security: machine-readable Final-Recipient, Action and Status are pars
     'Content-Type: multipart/report; report-type=delivery-status; boundary="x"', '',
     '--x', 'Content-Type: text/plain', '',
     `Final-Recipient: rfc822; ${BUYER}`, 'Action: failed', 'Status: 5.1.1', '--x--'
-  ].join('\\r\\n');
+  ].join('\r\n');
   assert.deepEqual(parseRawEmail(fakeBody).deliveryFinalRecipients, [], 'human-readable text is not DSN machine evidence');
 });
 

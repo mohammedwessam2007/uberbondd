@@ -1,0 +1,23 @@
+name: PHOENIX H04 machine-human no-provider boundary
+on:
+  push:
+    branches:
+      - high/phoenix-master-h04-machine-human-boundary-20261015
+permissions:
+  contents: read
+env:
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  hostile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node --test tests/phoenix-h04-machine-human-boundary.test.mjs

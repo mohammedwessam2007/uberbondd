@@ -1,0 +1,64 @@
+name: PHOENIX H04 exact linked boundary valid runner
+on:
+  push:
+    branches:
+      - high/phoenix-master-h04-machine-human-boundary-20261015
+permissions:
+  contents: write
+env:
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  linked-guard:
+    if: github.event.head_commit.message == 'PHOENIX H04 run valid linked correction'
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Correct the machine-generated human-intent boundary
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          file = Path('src/pipeline.mjs')
+          source = file.read_text()
+          marker = '      // A message whose body was withheld by a MIME cap is routed to review.'
+          addition = (
+              "      // Machine-generated content is not a verified human response.\n"
+              "      if (autoSubmitted && !deliveryNotice && !machineComplaint && !automaticLabel(classification.label)) {\n"
+              "        classification = { label: 'manual_review', confidence: 0, suppressionRecommended: false,\n"
+              "          reasonCode: 'AUTO_SUBMITTED_NONHUMAN_REVIEW',\n"
+              "          reason: 'Machine-generated content cannot assert human reply intent' };\n"
+              "      }\n"
+          )
+          if source.count(marker) != 1 or 'AUTO_SUBMITTED_NONHUMAN_REVIEW' in source:
+              raise SystemExit('EXACT_SOURCE_GUARD_FAILED')
+          file.write_text(source.replace(marker, addition + marker))
+          PY
+          git diff --check
+          test "$(git diff --name-only)" = "src/pipeline.mjs"
+          git config user.name "PHOENIX High source bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/pipeline.mjs
+          git commit -m "fix(inbound): refuse linked machine human-intent promotion"
+      - name: Compile official source truth
+        run: |
+          UBERBOND_CANONICAL_BRANCH=main npm run readiness
+          npm run constitution:doctor
+          git diff --check
+          git add docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          test "$(git diff --cached --name-only | wc -l)" -eq 3
+          git commit -m "chore(readiness): regenerate final machine boundary proof"
+      - name: Prove existing and new hostile cases
+        run: |
+          node --test tests/phoenix-h04-machine-human-boundary.test.mjs tests/inbound-review-hostile.test.mjs tests/inbound-reply-intelligence.test.mjs
+          node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Preserve exact isolated result
+        run: git push origin HEAD:refs/heads/high/phoenix-master-h04-machine-human-boundary-20261015

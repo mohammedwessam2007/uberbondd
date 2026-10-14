@@ -1,0 +1,22 @@
+# Read-only DNS questions to public resolvers. No account auth or sending.
+name: PHOENIX H public eleven-domain DNS observation
+on:
+  push:
+    branches:
+      - high/phoenix-h-n11-public-dns-observe-20261014
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dns-observation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - name: DNS client
+        run: |
+          command -v dig || (sudo apt-get update -qq && sudo apt-get install -y dnsutils)
+      - name: Fresh public query, no TXT material disclosed
+        run: |
+          echo "N11_OBSERVATION_SOURCE_SHA=$GITHUB_SHA"
+          python3 scripts/phoenix-high-n11-public-dns-observe-20261014.py

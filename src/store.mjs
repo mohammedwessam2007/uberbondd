@@ -228,6 +228,13 @@ class JsonTransactionStore {
   async count(key, filters = {}) { return (await this.list(key, { filters })).length; }
   async add(key, item) { return this.parent._addDirect(key, item); }
   async upsert(key, item) { return this.parent._upsertDirect(key, item); }
+  // A JSON write checks uniqueness before it touches the collection, so a rejected
+  // row leaves nothing to undo. The method exists so callers can use one shape on both stores.
+  async savepoint(fn) { return fn(this); }
+  async upsertWithStatus(key, item) {
+    const existed = (this.parent.data[key] || []).some(row => row.id === item.id);
+    return { record: await this.upsert(key, item), inserted: !existed };
+  }
   async patch(key, id, patch) { return this.parent._patchDirect(key, id, patch); }
   async getSettings() { return structuredClone(this.parent.data.settings || {}); }
   async setSetting(key, value) { this.parent.data.settings[key] = structuredClone(value); return value; }
@@ -858,14 +865,44 @@ export class PostgresStore {
     } catch (error) { throw duplicateError(error, key, record); }
   }
 
-  async upsert(key, item) {
+  // Runs fn inside a SAVEPOINT of this transaction. When fn rejects, only fn's own
+  // writes are undone and the transaction stays usable. PostgreSQL otherwise aborts
+  // the whole transaction at its first error, so every later statement fails.
+  // Outside a transaction the call is simply a transaction.
+  async savepoint(fn) {
+    if (!this.transactionClient) return this.transaction(fn);
+    const name = `uberbond_sp_${crypto.randomBytes(8).toString('hex')}`;
+    await this.pool.query(`SAVEPOINT ${name}`);
+    let result;
+    try {
+      result = await fn(this);
+    } catch (error) {
+      try {
+        await this.pool.query(`ROLLBACK TO SAVEPOINT ${name}`);
+      } catch (rollbackError) {
+        throw new StoreError(`SAVEPOINT_ROLLBACK_FAILED: ${name} could not be rolled back; the enclosing transaction must end`, 'SAVEPOINT_ROLLBACK_FAILED', rollbackError);
+      }
+      throw error;
+    }
+    await this.pool.query(`RELEASE SAVEPOINT ${name}`);
+    return result;
+  }
+
+  // Same write as upsert, and also whether this statement inserted the row. The
+  // answer comes from the database rather than from a read the caller made earlier,
+  // so a row that a racing client created in the meantime is reported as an update.
+  async upsertWithStatus(key, item) {
     const { def, record, columns, values } = postgresValues(key, item);
     const placeholders = values.map((_, index) => `$${index + 1}`);
     const updates = columns.filter(column => column !== 'id').map(column => `${column} = EXCLUDED.${column}`);
     try {
-      await this.pool.query(`INSERT INTO ${def.table} (${columns.join(', ')}) VALUES (${placeholders.join(', ')}) ON CONFLICT (id) DO UPDATE SET ${updates.join(', ')}`, values);
-      return record;
+      const result = await this.pool.query(`INSERT INTO ${def.table} (${columns.join(', ')}) VALUES (${placeholders.join(', ')}) ON CONFLICT (id) DO UPDATE SET ${updates.join(', ')} RETURNING (xmax = 0) AS inserted`, values);
+      return { record, inserted: result?.rows?.[0]?.inserted === true };
     } catch (error) { throw duplicateError(error, key, record); }
+  }
+
+  async upsert(key, item) {
+    return (await this.upsertWithStatus(key, item)).record;
   }
 
   async patch(key, id, patch) {

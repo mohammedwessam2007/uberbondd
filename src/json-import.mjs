@@ -48,6 +48,33 @@ function emptyReport(file, dryRun) {
   };
 }
 
+function duplicate(detail) {
+  return { status: 'duplicate', detail };
+}
+
+// Writes one source row and reports how it was counted. A unique-constraint
+// conflict is a duplicate, not a failure of the batch. It is reported with the
+// table, the incoming id and the constraint that rejected it. The constraint name
+// is the only database detail kept: PostgreSQL's detail text repeats the row's
+// values (an email address, for instance), and the report is written to disk.
+async function writeRow(tx, key, item) {
+  const lookup = UNIQUE_LOOKUPS[key]?.(item);
+  const existingByUnique = lookup ? await tx.findOne(key, lookup) : null;
+  if (existingByUnique && existingByUnique.id !== item.id) {
+    return duplicate({ table: key, incomingId: item.id, existingId: existingByUnique.id, fields: Object.keys(lookup) });
+  }
+  try {
+    // The savepoint confines a rejected row to its own writes. Without it, PostgreSQL
+    // aborts the whole transaction on the first conflict, and every later row fails
+    // with that abort instead of the conflict that caused it.
+    const { inserted } = await tx.savepoint(() => tx.upsertWithStatus(key, item));
+    return { status: inserted ? 'written' : 'updated' };
+  } catch (error) {
+    if (!(error instanceof ConflictError)) throw error;
+    return duplicate({ table: key, incomingId: item.id, reason: 'constraint conflict', constraint: error.cause?.constraint ?? null });
+  }
+}
+
 export async function importJsonDatabase(store, file, { dryRun = false } = {}) {
   const loaded = await loadJsonDatabase(file);
   const report = emptyReport(loaded.absolute, dryRun);
@@ -63,35 +90,24 @@ export async function importJsonDatabase(store, file, { dryRun = false } = {}) {
     return report;
   }
 
+  // The batch is all-or-nothing for everything except duplicates. A duplicate is
+  // skipped and counted; any other failure aborts the transaction, so nothing from
+  // this run is committed.
   await store.transaction(async tx => {
     for (const key of IMPORT_ORDER) {
+      const table = report.tables[key];
       for (const item of loaded.data[key] || []) {
-        const existingById = await tx.get(key, item.id);
-        const lookup = UNIQUE_LOOKUPS[key]?.(item);
-        const existingByUnique = lookup ? await tx.findOne(key, lookup) : null;
-        if (existingByUnique && existingByUnique.id !== item.id) {
-          report.tables[key].duplicates += 1;
+        const outcome = await writeRow(tx, key, item);
+        if (outcome.status === 'duplicate') {
+          table.duplicates += 1;
           report.totals.duplicates += 1;
-          report.duplicateDetails.push({ table: key, incomingId: item.id, existingId: existingByUnique.id, fields: Object.keys(lookup) });
-          continue;
-        }
-        try {
-          await tx.upsert(key, item);
-          if (existingById) {
-            report.tables[key].updated += 1;
-            report.totals.updated += 1;
-          } else {
-            report.tables[key].written += 1;
-            report.totals.written += 1;
-          }
-        } catch (error) {
-          if (error instanceof ConflictError) {
-            report.tables[key].duplicates += 1;
-            report.totals.duplicates += 1;
-            report.duplicateDetails.push({ table: key, incomingId: item.id, reason: 'constraint conflict' });
-            continue;
-          }
-          throw error;
+          report.duplicateDetails.push(outcome.detail);
+        } else if (outcome.status === 'updated') {
+          table.updated += 1;
+          report.totals.updated += 1;
+        } else {
+          table.written += 1;
+          report.totals.written += 1;
         }
       }
     }

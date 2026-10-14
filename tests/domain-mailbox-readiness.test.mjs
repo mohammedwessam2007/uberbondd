@@ -377,6 +377,19 @@ function fakeConfiguredAdapter(overrides = {}) {
   };
 }
 
+// Zero-add-on firewall (warmup-orchestrator): a warm-up start needs an
+// authenticated $0 provider entitlement and a current owner approval scoped to
+// provider-warmup-zero-add-on-only. These fake verifiers model that contract;
+// nothing here reaches a real provider.
+const ZERO_ADD_ON_SCOPE = 'provider-warmup-zero-add-on-only';
+const zeroAddOnApproval = { granted: true, grantedBy: 'owner', scope: [ZERO_ADD_ON_SCOPE], expiresAt: '2099-01-01T00:00:00.000Z' };
+const zeroAddOnVerifiers = {
+  verifyZeroCostWarmupEntitlement: async () => ({ verified: true, incrementalRecurringCostCents: 0, providerReceiptId: 'fixture-zero-add-on-entitlement' }),
+  verifyCurrentOwnerWarmupApproval: async ({ ownerApproval, requiredScope, date }) =>
+    ownerApproval?.granted === true && Array.isArray(ownerApproval.scope) && ownerApproval.scope.includes(requiredScope) &&
+    Date.parse(ownerApproval.expiresAt) > date.getTime()
+};
+
 test('warm-up: no domain/mailbox registered -> WARMUP_BLOCKED with exact reasons, never optimistic', async () => {
   const result = await requestMailboxWarmupStart({ domainState: null, mailboxState: null, providerAdapter: fakeConfiguredAdapter(), date: monday });
   assert.equal(result.state, 'WARMUP_BLOCKED');
@@ -411,7 +424,7 @@ test('warm-up: provider reports not warm-up-capable for this mailbox -> WARMUP_B
   const domainState = { dnsState: { status: 'GREEN' } };
   const mailboxState = { mailboxId: 'm1', authenticationStatus: 'AUTHENTICATED', paused: false };
   const adapter = fakeConfiguredAdapter({ warmupCapable: async () => ({ ok: false, status: 'MAILBOX_NOT_ELIGIBLE', apiKey: 'leak' }) });
-  const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: adapter, date: monday });
+  const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: adapter, ownerApproval: zeroAddOnApproval, ...zeroAddOnVerifiers, date: monday });
   assert.equal(result.state, 'WARMUP_BLOCKED');
   assert.equal(result.providerReceipt.apiKey, undefined);
 });
@@ -419,7 +432,7 @@ test('warm-up: provider reports not warm-up-capable for this mailbox -> WARMUP_B
 test('warm-up: real success path (fixture adapter) -> WARMUP_ACTIVE with a redacted receipt', async () => {
   const domainState = { dnsState: { status: 'GREEN' } };
   const mailboxState = { mailboxId: 'm1', authenticationStatus: 'AUTHENTICATED', paused: false };
-  const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: fakeConfiguredAdapter(), date: monday });
+  const result = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: fakeConfiguredAdapter(), ownerApproval: zeroAddOnApproval, ...zeroAddOnVerifiers, date: monday });
   assert.equal(result.ok, true);
   assert.equal(result.state, 'WARMUP_ACTIVE');
   assert.equal(result.providerReceipt.apiKey, undefined, 'a fabricated provider response leaking a secret must never survive into the receipt');
@@ -786,6 +799,8 @@ test('warm-up uses provider account reference instead of local mailbox id', asyn
     mailboxState,
     providerAdapter: adapter,
     providerPayload: { fixture: true },
+    ownerApproval: zeroAddOnApproval,
+    ...zeroAddOnVerifiers,
     date: monday
   });
   assert.equal(result.ok, true);
@@ -814,7 +829,7 @@ test('warm-up reconciliation uses provider account reference when available', as
 test('warm-up forwards explicit mutation authorization and idempotency to provider adapter', async () => {
   const domainState = { dnsState: { status: 'GREEN' } };
   const mailboxState = { mailboxId: 'm1', authenticationStatus: 'AUTHENTICATED', paused: false };
-  const authorization = { granted: true, grantedBy: 'owner', scope: ['startWarmup'], expiresAt: '2099-01-01T00:00:00.000Z' };
+  const authorization = { granted: true, grantedBy: 'owner', scope: ['startWarmup', ZERO_ADD_ON_SCOPE], expiresAt: '2099-01-01T00:00:00.000Z' };
   let observed = null;
   const adapter = fakeConfiguredAdapter({
     startWarmup: async args => {
@@ -829,6 +844,7 @@ test('warm-up forwards explicit mutation authorization and idempotency to provid
     providerPayload: { fixture: true },
     ownerApproval: authorization,
     idempotencyKey: 'warmup-test-1',
+    ...zeroAddOnVerifiers,
     date: monday
   });
   assert.equal(result.ok, true);

@@ -309,18 +309,20 @@ export function compileUberWarm2SeedBatch({
  * reservations AND rolling sender/global day limits across all workers.
  * A submit timeout remains UNKNOWN and never auto-retries.
  *
- * Time: `clock` (a function returning epoch ms) is read at entry and again
- * after every await. Without `clock`, a supplied `now` is fixed for the call;
- * with neither, the wall clock is read. Production callers should pass `clock`.
+ * Time: the execution clock is `clock` (a function returning epoch ms) when
+ * supplied, otherwise the wall clock. It is read at entry and again after every
+ * await. A caller-supplied `now` is NOT used here: it is a claim by the caller,
+ * and the adversarial review replayed a 43-hour-old plan under it. `now` remains
+ * only the compile-time label on a plan.
  */
 export async function executeUberWarm2SeedProbe({
   batch, probeId, approval, approvalVerificationKey = '', store, transport,
-  verifyCurrentSenderHealth, verifyCurrentSeedConsent, now, clock
+  verifyCurrentSenderHealth, verifyCurrentSeedConsent, clock
 } = {}) {
   if (clock !== undefined && typeof clock !== 'function') return denied('UBERWARM2_EXECUTION_REFUSED', ['invalid-clock']);
   const readClock = () => {
     try {
-      return clockMs(clock !== undefined ? clock() : now !== undefined ? now : Date.now());
+      return clockMs(clock !== undefined ? clock() : Date.now());
     } catch {
       return null;
     }
@@ -458,16 +460,18 @@ export async function executeUberWarm2SeedProbe({
   if (afterClaim) return afterClaim;
   // One-shot authority for exactly this transmission. Issuance fails only if a
   // capability for this key already exists in this process; nothing is sent then.
-  try { issueSendCapability(reservationKey); }
+  // The capability is bound to this exact send, so it cannot be spent on any other.
+  const sendArgs = {
+    from: probe.senderEmail, to: probe.seedEmail, subject: content.subject,
+    body: content.body, probeId: probe.probeId,
+    reservationKey, permittedPurpose: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
+  };
+  try { issueSendCapability(reservationKey, sendArgs); }
   catch { return denied('UBERWARM2_EXECUTION_REFUSED', ['send-capability-not-issued-no-transmission', 'claim-consumed-no-retry']); }
   // Once claimed, ANY failure/timeout remains uncertain until external reconciliation.
   let outcome;
   try {
-    outcome = await sendOwnedSeed.call(transport, {
-      from: probe.senderEmail, to: probe.seedEmail, subject: content.subject,
-      body: content.body, probeId: probe.probeId,
-      reservationKey, permittedPurpose: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
-    });
+    outcome = await sendOwnedSeed.call(transport, sendArgs);
   } catch {
     outcome = { ok: false, status: 'OUTCOME_UNCERTAIN' };
   } finally {

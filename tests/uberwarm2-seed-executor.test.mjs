@@ -3,12 +3,19 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { compilePlacementProbePlan, compilePlacementReport } from '../src/uberplacement.mjs';
 import {
-  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as rawExecuteSeedProbe,
+  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as realExecuteSeedProbe,
   compileUberWarm2ReceivedEvidence, createUberWarm2SeedApprovalProof,
   UBERWARM2_SEED_TEMPLATE_DIGEST, UBERWARM2_SEED_EXECUTION_VERSION, UBERWARM2_SEED_TEMPLATE
 } from '../src/uberwarm2-seed-executor.mjs';
 import { hasSendCapability } from '../src/uberwarm2-send-capability.mjs';
 
+// Test clock: a supplied `now` becomes the execution clock. The executor no
+// longer trusts a caller `now` for expiry, so tests say the time explicitly.
+const clocked = args => {
+  const { now, ...rest } = args;
+  return now === undefined || rest.clock !== undefined ? rest : { ...rest, clock: () => new Date(now).getTime() };
+};
+const rawExecuteSeedProbe = args => realExecuteSeedProbe(clocked(args));
 const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
 const executeUberWarm2SeedProbe = args => rawExecuteSeedProbe({
   ...args,verifyCurrentSenderHealth: async()=>true,
@@ -592,7 +599,7 @@ test('Y11: the transport call runs under a live one-shot send capability that is
     authorizedSmtp: true, boundSender: 'tara@example.net',
     async sendOwnedSeed(x) {
       observed.key = x.reservationKey;
-      observed.during = hasSendCapability(x.reservationKey);
+      observed.during = hasSendCapability(x.reservationKey, x);
       return { ok: true, accepted: true, messageId: 'provider-message-y11' };
     }
   };
@@ -611,7 +618,7 @@ test('Y11: the send capability is revoked even when the transport throws', async
     authorizedSmtp: true, boundSender: 'tara@example.net',
     async sendOwnedSeed(x) {
       observed.key = x.reservationKey;
-      observed.during = hasSendCapability(x.reservationKey);
+      observed.during = hasSendCapability(x.reservationKey, x);
       throw new Error('network may have submitted');
     }
   };
@@ -671,5 +678,17 @@ test('Y14: the batch row stores permissionExpiresAt as normalized ISO and the ex
   });
   assert.equal(result.ok, false);
   assert.equal(s.seen.size, 0);
+  assert.equal(tx.calls.length, 0);
+});
+
+test('a caller-supplied now does not move the execution clock: a plan older than 45 minutes is refused', async () => {
+  const b = yCompile(), p = b.probes[0], s = store(), tx = transport();
+  // T1 is the time the old executor trusted. The wall clock is far past the 45-minute plan window.
+  const result = await realExecuteSeedProbe({
+    batch: b, probeId: p.probeId, approval: ySigned(b, p.probeId), approvalVerificationKey: KEY,
+    store: s, transport: tx, now: new Date(T1.getTime()),
+  });
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('batch-expired'), result.reasonCodes.join(','));
   assert.equal(tx.calls.length, 0);
 });

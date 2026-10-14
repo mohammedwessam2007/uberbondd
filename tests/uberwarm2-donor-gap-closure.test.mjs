@@ -5,12 +5,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
-  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as rawExecute,
+  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as realExecute,
   createUberWarm2SeedApprovalProof, UBERWARM2_SEED_TEMPLATE_DIGEST
 } from '../src/uberwarm2-seed-executor.mjs';
 import { createUberWarm2SmtpSeedBridge } from '../src/uberwarm2-smtp-seed-bridge.mjs';
 import { issueSendCapability, revokeSendCapability } from '../src/uberwarm2-send-capability.mjs';
 
+// Test clock: a supplied `now` becomes the execution clock. The executor no
+// longer trusts a caller `now` for expiry, so tests say the time explicitly.
+const clocked = args => {
+  const { now, ...rest } = args;
+  return now === undefined || rest.clock !== undefined ? rest : { ...rest, clock: () => new Date(now).getTime() };
+};
+const rawExecute = args => realExecute(clocked(args));
 const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
 const MIN = 60 * 1000;
 const T = new Date('2026-10-12T18:00:00.000Z');
@@ -256,9 +263,13 @@ const sendArgs = overrides => ({
 
 // The one-shot send capability is issued by the caller for exactly one send.
 // Issued and revoked around fn so no capability outlives its test.
-async function withCapability(key, fn) {
+const bindingOf = a => ({
+  from: a.from, to: a.to, probeId: a.probeId, subject: a.subject, body: a.body,
+  permittedPurpose: a.permittedPurpose, reservationKey: a.reservationKey,
+});
+async function withCapability(key, fn, args = sendArgs()) {
   revokeSendCapability(key);
-  issueSendCapability(key);
+  issueSendCapability(key, bindingOf({ ...args, reservationKey: key }));
   try { return await fn(); } finally { revokeSendCapability(key); }
 }
 

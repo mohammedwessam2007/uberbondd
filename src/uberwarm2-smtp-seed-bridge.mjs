@@ -179,9 +179,13 @@ export function createUberWarm2SmtpSeedBridge({
         const decisions = seedDecisions(seedRows, Number(clock()));
         const seedReason = decisions.has(recipient) ? decisions.get(recipient) : 'seed-not-allowlisted';
         if (seedReason !== null) return refused(seedReason);
+        // The capability must be bound to exactly this send: sender, seed, probe,
+        // subject, body, purpose and reservation. A capability for another probe
+        // cannot authorize this one.
+        const binding = { from, to, probeId, subject, body, permittedPurpose, reservationKey };
         // Non-spending pre-check: no credential is decrypted and no transport is
         // built for a request that holds no authority.
-        if (!hasSendCapability(reservationKey)) return refused('send-capability-not-live');
+        if (!hasSendCapability(reservationKey, binding)) return refused('send-capability-not-live');
         let secret;
         try { secret = credentialReader(accountRef, encryptionKey); }
         catch { return refused('encrypted-credential-unavailable'); }
@@ -200,7 +204,7 @@ export function createUberWarm2SmtpSeedBridge({
         if (typeof send !== 'function') return refused('authorized-smtp-transport-not-ready');
         // Point of transmission: every other check has passed. The one-shot
         // authority is spent here, so no refused request above consumes it.
-        if (consumeSendCapability(reservationKey) !== true) return refused('send-capability-not-live');
+        if (consumeSendCapability(reservationKey, binding) !== true) return refused('send-capability-not-live');
         spent = true;
         // The Message-ID is a correlation token only, NOT duplicate prevention;
         // the atomic PostgreSQL reservation provides that boundary.

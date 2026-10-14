@@ -65,9 +65,14 @@ function live({ account = fresh(), allowedSeeds = SEEDS, clock, transportFactory
 }
 // Issues the one-shot capability for the duration of fn, then revokes any
 // remainder so one test cannot leak a live capability into the next.
-async function withCapability(key, fn) {
+// The capability is bound to the exact send in args, as the executor binds it.
+const bindingOf = a => ({
+  from: a.from, to: a.to, probeId: a.probeId, subject: a.subject, body: a.body,
+  permittedPurpose: a.permittedPurpose, reservationKey: a.reservationKey,
+});
+async function withCapability(key, fn, args = probeArgs()) {
   revokeSendCapability(key);
-  issueSendCapability(key);
+  issueSendCapability(key, bindingOf({ ...args, reservationKey: key }));
   try { return await fn(); } finally { revokeSendCapability(key); }
 }
 function probeArgs(probeId = 'test-probe-1', overrides = {}) {
@@ -128,10 +133,10 @@ test('X1: a refused send does not consume the capability, and a transmitted send
   await withCapability(reservationKey, async () => {
     const refusedFirst = await b.bridge.sendOwnedSeed(probeArgs('test-probe-1', { permittedPurpose: 'CAMPAIGN' }));
     assert.equal(refusedFirst.ok, false);
-    assert.equal(hasSendCapability(reservationKey), true, 'a refused request must not spend the capability');
+    assert.equal(hasSendCapability(reservationKey, bindingOf(probeArgs())), true, 'a refused request must not spend the capability');
     const accepted = await b.bridge.sendOwnedSeed(probeArgs());
     assert.equal(accepted.ok, true);
-    assert.equal(hasSendCapability(reservationKey), false, 'a transmitted send spends the capability');
+    assert.equal(hasSendCapability(reservationKey, bindingOf(probeArgs())), false, 'a transmitted send spends the capability');
     const replay = await b.bridge.sendOwnedSeed(probeArgs());
     assert.equal(replay.ok, false);
     assert.equal(replay.notTransmitted, true);
@@ -152,7 +157,7 @@ test('X1: a capability issued for one reservation cannot authorize a send under 
 test('X1: an expired capability refuses the send with zero transport calls', async () => {
   const b = live();
   revokeSendCapability(reservationKey);
-  issueSendCapability(reservationKey, { ttlMs: 1 });
+  issueSendCapability(reservationKey, bindingOf(probeArgs()), { ttlMs: 1 });
   try {
     await new Promise(resolve => setTimeout(resolve, 20));
     const r = await b.bridge.sendOwnedSeed(probeArgs());
@@ -246,10 +251,12 @@ test('X3: a seed consented then withdrawn for the same address is refused, even 
     assert.equal(refused.notTransmitted, true);
   });
   assert.equal(b.calls.length, 0);
+  // The capability is bound to the control send itself: it must be issued for test-probe-2 and OTHER_SEED.
+  const controlArgs = probeArgs('test-probe-2', { to: OTHER_SEED.email, reservationKey: keyOf('c') });
   await withCapability(keyOf('c'), async () => {
-    const control = await b.bridge.sendOwnedSeed(probeArgs('test-probe-2', { to: OTHER_SEED.email, reservationKey: keyOf('c') }));
+    const control = await b.bridge.sendOwnedSeed(controlArgs);
     assert.equal(control.ok, true, 'control: the valid seed still sends');
-  });
+  }, controlArgs);
   assert.equal(b.calls.length, 1);
 });
 
@@ -490,4 +497,14 @@ test('X8: refused, uncertain and accepted results keep the no-secret shape', asy
     for (const key of Object.keys(r)) assert.ok(ALLOWED_KEYS.has(key), key);
     assert.equal(typeof r.notTransmitted, 'boolean');
   }
+});
+
+test('a capability issued for probe A refuses a send for probe B, with no transmission', async () => {
+  const b = live();
+  await withCapability(reservationKey, async () => {
+    const r = await b.bridge.sendOwnedSeed(probeArgs('test-probe-2'));
+    assert.equal(r.ok, false);
+    assert.equal(r.notTransmitted, true);
+    assert.equal(b.calls.length, 0);
+  });
 });

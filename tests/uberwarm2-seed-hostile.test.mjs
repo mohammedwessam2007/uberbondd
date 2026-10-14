@@ -16,13 +16,20 @@ import { withDisposablePostgres } from '../scripts/disposable-postgres.mjs';
 import { createUberWarm2PgLedger } from '../src/uberwarm2-pg-ledger.mjs';
 import * as warm from '../src/uberwarm2-seed-executor.mjs';
 import {
-  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as rawExecuteSeedProbe,
+  compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as realExecuteSeedProbe,
   createUberWarm2SeedApprovalProof
 } from '../src/uberwarm2-seed-executor.mjs';
 
 const MIGRATION = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)), '..', 'docs', 'migrations-pending', '20261012_uberwarm2_seed_one_shot.sql'
 );
+// Test clock: a supplied `now` becomes the execution clock. The executor no
+// longer trusts a caller `now` for expiry, so tests say the time explicitly.
+const clocked = args => {
+  const { now, ...rest } = args;
+  return now === undefined || rest.clock !== undefined ? rest : { ...rest, clock: () => new Date(now).getTime() };
+};
+const rawExecuteSeedProbe = args => realExecuteSeedProbe(clocked(args));
 const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
 // Absent before the fix, so a missing export is a plain assertion failure rather than a load error.
 const TEMPLATE_DIGEST = warm.UBERWARM2_SEED_TEMPLATE_DIGEST ?? 'sha256:template-digest-not-exported';

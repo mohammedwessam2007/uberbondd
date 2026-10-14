@@ -1,0 +1,10 @@
+# PHOENIX N24: Proven public storefront test-route root cause | 2026-10-14 UTC
+
+**WE HAVE DONE:** High #1408's browser CI job 116060824717 timed out seeking input[name="consent"]. Actual public/index.html source has an immediate redirect to /admin.html; an example input at root is only in an INACTIVE template. The active public audit form is in public/storefront.html. Verified active required consent field, optional followUp, invitation code field, submit-audit button and script /site.js.
+
+**FIX:** Isolated branch fix/phoenix-n08-blocked-syntax-20261014 changes only THREE calls to submit() in tests/browser.test.mjs: navigate to /storefront.html rather than /, and /storefront.html?code=... rather than root ?code=.... Maintains all explicit assertions regarding required consent, independently opted-in follow-up, and invitation-code-only attribution. Does not change any public HTML/JS. Source commit 6c9c2bc12dfb148903dcc73418c9291e0015fb3e; GitHub blob 0f989bed204f935916fde30cac543e4ce78df21d; read-back verified. Previous branch commit c4b13c19e0b7099ce9cf7ead600464464a046fa7 separately fixed TWO syntax errors in tests/infinite-opus-haiku55-live-canary.test.mjs.
+
+**ACTUAL TESTS:** Original two-line syntax check failed under Node22; representative corrected fixture parsed. Current hosted CI 38625844580 and UberOutbound 38625844662 were IN_PROGRESS after 6c9c2bc. This is NOT a final full-CI pass. Embedded PG system-user-init error remains independently unresolved on earlier #1408. High #1412's separate hosted run 38618854063 is green but unmerged and not deployed.
+
+**WHAT IS LEFT:** Verify hosted exact-SHA results; High review and integration of useful test repairs; final clean Claude release and protected Render continuity N26. Original Render Free PG expires 2026-10-16T23:22:29 UTC. Winnr outbound remains held; no campaign send-eligible authorization.
+**SAFETY:** No application logic changed, no provider write, no new spend, no email, no production deploy, no merge or cutover.

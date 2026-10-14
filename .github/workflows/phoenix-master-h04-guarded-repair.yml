@@ -1,0 +1,57 @@
+name: PHOENIX H04 guarded no-provider correction
+on:
+  push:
+    branches:
+      - high/phoenix-master-h04-machine-human-boundary-20261015
+permissions:
+  contents: write
+env:
+  NODE_ENV: test
+  UBERBOND_EFFECTS_DISABLED: '1'
+  OUTBOUND_ENABLED: 'false'
+  OUTBOUND_DRY_RUN: 'true'
+jobs:
+  correct-and-prove:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 16
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Fail-closed source guard with exact precondition
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('src/pipeline.mjs')
+          original=p.read_text()
+          before="if (unsubscribe.intent && unsubscribe.confidence === 'high') {"
+          after="if (unsubscribe.intent && unsubscribe.confidence === 'high' && !autoSubmitted && !deliveryNotice && !mimeQuarantine) {"
+          if original.count(before)!=1: raise SystemExit('REVIEW_PRECONDITION_NOT_MET')
+          p.write_text(original.replace(before,after))
+          PY
+          git diff --check
+          test "$(git diff --name-only)" = "src/pipeline.mjs"
+          git config user.name "PHOENIX High source bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/pipeline.mjs
+          git commit -m "fix(inbound): machine unlinked optout text cannot silently suppress"
+      - name: Official derived evidence, never hand-edit
+        run: |
+          UBERBOND_CANONICAL_BRANCH=main npm run readiness
+          npm run constitution:doctor
+          git diff --check
+          git add docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          test "$(git diff --cached --name-only | wc -l)" -eq 3
+          git commit -m "chore(readiness): compile source-bound H04 evidence"
+      - name: Test exact guarded source against hostile and prior cases
+        run: |
+          node --test tests/phoenix-h04-machine-human-boundary.test.mjs tests/inbound-review-hostile.test.mjs tests/inbound-reply-intelligence.test.mjs
+          node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Push only this isolated branch
+        run: git push origin HEAD:refs/heads/high/phoenix-master-h04-machine-human-boundary-20261015

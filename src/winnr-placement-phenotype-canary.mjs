@@ -77,6 +77,43 @@ export async function runWinnrPersonalInboxCanary({
   }finally{await store.close().catch(()=>{});}
 }
 
+// A placement ordinal whose outcome is anything but ACCEPTED may already have crossed the provider boundary. Such an
+// ordinal is never dispatched again automatically. The run stops and the decision belongs to the owner.
+const PLACEMENT_RECONCILE_REASON='owner-reconciliation-required-prior-outcome-not-accepted';
+const PLACEMENT_CLAIM_REASON='dispatch-claimed-outcome-not-recorded';
+
+function latestPlacementRows(rows){
+  const latest=new Map();
+  for(const row of rows)latest.set(Number(row?.ordinal),row);
+  return latest;
+}
+
+// True when any ordinal's most recent recorded outcome is not ACCEPTED, which includes a claim whose outcome was never recorded.
+function placementRunBlocked(rows){
+  return [...latestPlacementRows(rows).values()].some(row=>row?.classification!=='ACCEPTED');
+}
+
+function placementRefusal(results){
+  return {ok:false,status:'WINNR_PLACEMENT_CANARY_PARTIAL',results,automaticRetryAuthorized:false,reasonCodes:[PLACEMENT_RECONCILE_REASON]};
+}
+
+// Claims one ordinal in one transaction. On PostgreSQL the advisory lock serializes overlapping calls, so the check and the
+// claim are a single step. The claim row is written before the send and replaced only after the outcome is recorded. A crash
+// in between leaves a non-ACCEPTED row, and that row blocks the next call.
+async function claimPlacementOrdinal(store,{ordinal,now}){
+  return store.transaction(async tx=>{
+    if(tx.pool)await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))',[STATE_KEY]);
+    const prior=(await tx.getSettings())?.[STATE_KEY]||{};
+    if(prior.completedAt)return {completedAt:prior.completedAt,results:prior.results||[]};
+    const rows=Array.isArray(prior.results)?prior.results:[];
+    if(placementRunBlocked(rows))return {refused:true,results:rows};
+    if(latestPlacementRows(rows).has(ordinal))return {skip:true,results:rows};
+    const results=[...rows,{ordinal,classification:'DISPATCH_CLAIMED',messageId:null,providerReferenceId:null,reasonCodes:[PLACEMENT_CLAIM_REASON],sentAt:now.toISOString()}];
+    await tx.setSetting(STATE_KEY,{startedAt:prior.startedAt||now.toISOString(),results});
+    return {claimed:true,results};
+  });
+}
+
 export async function runWinnrPlacementPhenotypeCanary({
   config,
   storeFactory=createStore,
@@ -84,7 +121,8 @@ export async function runWinnrPlacementPhenotypeCanary({
   target=TARGET,
   now=new Date(),
   outboundAuthorization=null,
-  consentVerifier=undefined
+  consentVerifier=undefined,
+  delayFn=delay
 }={}){
   if(!config?.encryptionKey)return {ok:false,status:'WINNR_PLACEMENT_CANARY_REFUSED',reasonCodes:['encryption-key-required']};
   if(String(target||'').trim().toLowerCase()!==TARGET)return {ok:false,status:'WINNR_PLACEMENT_CANARY_REFUSED',reasonCodes:['owner-controlled-target-required']};
@@ -93,6 +131,9 @@ export async function runWinnrPlacementPhenotypeCanary({
     await store.init();
     const prior=(await store.getSettings())?.[STATE_KEY]||{};
     if(prior?.completedAt)return {ok:true,status:'WINNR_PLACEMENT_CANARY_ALREADY_COMPLETED',completedAt:prior.completedAt,results:prior.results||[]};
+    // A recorded non-ACCEPTED outcome stops the run before any account read, authorization supplier call or send.
+    const earlier=Array.isArray(prior?.results)?prior.results:[];
+    if(placementRunBlocked(earlier))return placementRefusal(earlier);
 
     const accounts=(await store.list('accounts'))
       .filter(a=>a?.provider==='smtp-relay'&&String(a?.slot||'').startsWith('winnr:')&&a?.connected===true)
@@ -100,8 +141,8 @@ export async function runWinnrPlacementPhenotypeCanary({
     if(accounts.length!==3)return {ok:false,status:'WINNR_PLACEMENT_CANARY_REFUSED',reasonCodes:['exact-three-winnr-smtp-accounts-required'],observedAccountCount:accounts.length};
 
     const previous=Array.isArray(prior?.results)?prior.results:[];
-    const accepted=new Map(previous.filter(x=>x?.classification==='ACCEPTED').map(x=>[Number(x.ordinal),x]));
-    const results=[...previous];
+    const accepted=new Set([...latestPlacementRows(previous)].filter(([,row])=>row?.classification==='ACCEPTED').map(([ordinal])=>ordinal));
+    let results=[...previous];
     const subject='quick note';
     const body="Hi Wessam,\n\nJust confirming everything is working after today's setup. No action needed.\n\nWessam";
 
@@ -120,12 +161,21 @@ export async function runWinnrPlacementPhenotypeCanary({
     for(let i=0;i<accounts.length;i++){
       const ordinal=i+1;
       if(accepted.has(ordinal))continue;
-      const result=await dispatchFn({
-        account:accounts[i],
-        encryptionKey:config.encryptionKey,
-        message:preparedByOrdinal.get(ordinal).message,
-        consentVerifier
-      });
+      // Nothing reaches the provider unless this call holds the claim. A refused or already-claimed ordinal is not sent.
+      const claim=await claimPlacementOrdinal(store,{ordinal,now});
+      if(claim.completedAt)return {ok:true,status:'WINNR_PLACEMENT_CANARY_ALREADY_COMPLETED',completedAt:claim.completedAt,results:claim.results};
+      if(claim.refused)return placementRefusal(claim.results);
+      results=claim.results;
+      if(claim.skip)continue;
+      let result;
+      try{
+        result=await dispatchFn({
+          account:accounts[i],
+          encryptionKey:config.encryptionKey,
+          message:preparedByOrdinal.get(ordinal).message,
+          consentVerifier
+        });
+      }catch{result={classification:'UNCERTAIN'};}
       const safe={
         ordinal,
         classification:clean(result?.classification,80)||'UNKNOWN',
@@ -134,7 +184,8 @@ export async function runWinnrPlacementPhenotypeCanary({
         reasonCodes:Array.isArray(result?.reasonCodes)?result.reasonCodes.map(x=>clean(x,120)).filter(Boolean):[],
         sentAt:new Date().toISOString()
       };
-      results.push(safe);
+      // The recorded outcome replaces this call's claim row. It is never appended beside it.
+      results=[...results.slice(0,-1),safe];
       await store.setSetting(STATE_KEY,{startedAt:prior?.startedAt||now.toISOString(),results});
       await store.log('winnr_placement_phenotype_canary_attempt',{
         ordinal,
@@ -149,7 +200,7 @@ export async function runWinnrPlacementPhenotypeCanary({
       if(safe.classification!=='ACCEPTED'){
         return {ok:false,status:'WINNR_PLACEMENT_CANARY_PARTIAL',results,automaticRetryAuthorized:false};
       }
-      if(i<accounts.length-1)await delay(2000);
+      if(i<accounts.length-1)await delayFn(2000);
     }
 
     const latestByOrdinal=new Map();

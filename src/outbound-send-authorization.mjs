@@ -24,6 +24,29 @@ const isRate = v => typeof v === 'number' && Number.isFinite(v) && v >= 0 && v <
 const isCount = v => Number.isSafeInteger(v) && v >= 0;
 const sha256 = value => crypto.createHash('sha256').update(value).digest('hex');
 
+// The one comparison key for recipient membership in the suppression and do-not-contact lists. It removes display text,
+// every stray or paired angle bracket, and trailing dots or separators; then it drops the plus tag and folds dots in the
+// local part, mapping googlemail.com to gmail.com, because Gmail treats those spellings as one mailbox. Dots are
+// significant elsewhere. A value with no usable address comes back cleaned and lower-cased, so an unparseable entry
+// never matches a real one.
+const DOT_FOLDED_DOMAINS = new Set(['gmail.com', 'googlemail.com']);
+export function canonicalRecipientKey(value) {
+  let raw = typeof value === 'string' ? value.trim().toLowerCase() : '';
+  const angled = raw.match(/<([^<>]*)>\s*$/);
+  if (angled) raw = angled[1];
+  raw = raw.replace(/[<>]/g, '').trim().replace(/[\s.;,]+$/, '');
+  const at = raw.lastIndexOf('@');
+  if (at < 0) return raw;
+  if (at === 0 || at === raw.length - 1) return raw;
+  let local = raw.slice(0, at).split('+')[0];
+  let domain = raw.slice(at + 1);
+  if (DOT_FOLDED_DOMAINS.has(domain)) {
+    local = local.replace(/\./g, '');
+    domain = 'gmail.com';
+  }
+  return local && domain ? `${local}@${domain}` : raw;
+}
+
 // Stable JSON: keys sorted at every depth, undefined members dropped.
 function canonicalize(value) {
   if (Array.isArray(value)) return value.map(canonicalize);
@@ -90,6 +113,9 @@ function evaluateOutboundSend(input, reasons, facts) {
   if (strings && m.text !== undefined && m.text !== m.body) reasons.push('message-text-body-mismatch');
   facts.message = outboundMessageDigest(m);
   const to = wellFormed ? address(m.to) : '';
+  // Membership is checked on the canonical key even when the address is malformed, so a malformed alias of a listed
+  // recipient is refused with the suppression reason as well as message-malformed.
+  const recipientKey = typeof m.to === 'string' ? canonicalRecipientKey(m.to) : '';
 
   // Sender identity: the authorization must name the expected account, slot and email.
   const identity = x => isObject(x)
@@ -142,9 +168,9 @@ function evaluateOutboundSend(input, reasons, facts) {
 
   // Recipient eligibility: suppression, do-not-contact and evidence.
   if (!listOk(input.suppression, 'snapshotId')) reasons.push('suppression-snapshot-missing');
-  else if (to && input.suppression.entries.some(entry => address(entry) === to)) reasons.push('recipient-suppressed');
+  else if (recipientKey && input.suppression.entries.some(entry => canonicalRecipientKey(entry) === recipientKey)) reasons.push('recipient-suppressed');
   if (!listOk(input.doNotContact, 'listId')) reasons.push('do-not-contact-list-missing');
-  else if (to && input.doNotContact.entries.some(entry => address(entry) === to)) reasons.push('recipient-do-not-contact');
+  else if (recipientKey && input.doNotContact.entries.some(entry => canonicalRecipientKey(entry) === recipientKey)) reasons.push('recipient-do-not-contact');
 
   const recipient = isObject(input.recipient) ? input.recipient : {};
   facts.eligibilityEvidenceRef = digestOf(text(recipient.eligibilityEvidenceRef, 1500) || null);

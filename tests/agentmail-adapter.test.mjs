@@ -3,6 +3,11 @@ import assert from 'node:assert/strict';
 
 import { createAgentMailAdapter } from '../src/agentmail-adapter.mjs';
 import { PROVIDER_CAPABILITIES, resolveProviderAdapter, validateProviderAdapter } from '../src/provider-adapter-contract.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
+
+// AgentMail is not an admitted outbound route. The package supplier below builds a complete package for the exact message, so the
+// only refusal left is provider policy: every AgentMail send is refused with provider-not-smtp-relay before any request is built.
+const packageSupplier = ({ message, account }) => validRoutePackage({ account, message });
 
 function response(payload, status = 200, headers = {}) {
   return {
@@ -124,9 +129,12 @@ test('AgentMail mutations fail closed without approval and never retry uncertain
     fetchImpl: async () => {
       calls += 1;
       return response({ error: 'upstream' }, 503);
-    }
+    },
+    outboundAuthorizationFn: packageSupplier,
+    outboundConsentVerifier: ALLOW_CONSENT
   });
 
+  // Re-targeted: the outbound gate refuses a message send on provider policy before the approval check and before any request.
   const denied = await adapter.sendMessage({
     inboxId: 'inbox_1',
     to: 'recipient@example.com',
@@ -134,16 +142,27 @@ test('AgentMail mutations fail closed without approval and never retry uncertain
     text: 'Body',
     idempotencyKey: 'send:denied'
   });
-  assert.equal(denied.status, 'OWNER_APPROVAL_REQUIRED');
+  assert.equal(denied.status, 'OUTBOUND_AUTHORIZATION_REFUSED');
+  assert.deepEqual(denied.reasonCodes, ['provider-not-smtp-relay']);
   assert.equal(calls, 0);
 
-  const uncertain = await adapter.sendMessage({
+  const refusedWithApproval = await adapter.sendMessage({
     inboxId: 'inbox_1',
     to: 'recipient@example.com',
     subject: 'Hello',
     text: 'Body',
     ownerApproval: approval('agentmail:sendMessage'),
     idempotencyKey: 'send:uncertain'
+  });
+  assert.equal(refusedWithApproval.status, 'OUTBOUND_AUTHORIZATION_REFUSED');
+  assert.equal(calls, 0);
+
+  // The no-retry rule for uncertain writes is proven on a mailbox write that is not an outbound message: a 5xx after the request
+  // is EXTERNAL_OUTCOME_UNKNOWN, and the adapter makes exactly one request.
+  const uncertain = await adapter.provisionMailboxes({
+    mailboxes: [{ email: 'mohamed@uberbond.agency', displayName: 'Mohamed Wessam' }],
+    ownerApproval: approval('agentmail:provisionMailboxes'),
+    idempotencyKey: 'fleet:uncertain'
   });
   assert.equal(uncertain.status, 'EXTERNAL_OUTCOME_UNKNOWN');
   assert.equal(calls, 1);
@@ -155,10 +174,14 @@ test('AgentMail send and reply use documented message routes and bounded recipie
     fetchImpl: async (url, options) => {
       calls.push({ url, options, body: JSON.parse(options.body) });
       return response({ message_id: 'msg_1', thread_id: 'thread_1' });
-    }
+    },
+    outboundAuthorizationFn: packageSupplier,
+    outboundConsentVerifier: ALLOW_CONSENT
   });
   const ownerApproval = approval('agentmail:sendMessage');
 
+  // Re-targeted from a positive send: AgentMail is not an admitted route, so a complete package for the exact message is still
+  // refused on provider policy. Neither the documented send path nor the reply path is reached, and no request is built.
   const sent = await adapter.sendMessage({
     inboxId: 'inbox_1',
     to: 'recipient@example.com',
@@ -167,9 +190,8 @@ test('AgentMail send and reply use documented message routes and bounded recipie
     ownerApproval,
     idempotencyKey: 'send:1'
   });
-  assert.equal(sent.ok, true);
-  assert.equal(new URL(calls[0].url).pathname, '/v0/inboxes/inbox_1/messages/send');
-  assert.equal(calls[0].body.to, 'recipient@example.com');
+  assert.equal(sent.status, 'OUTBOUND_AUTHORIZATION_REFUSED');
+  assert.deepEqual(sent.reasonCodes, ['provider-not-smtp-relay']);
 
   const replied = await adapter.replyToMessage({
     inboxId: 'inbox_1',
@@ -179,9 +201,9 @@ test('AgentMail send and reply use documented message routes and bounded recipie
     ownerApproval,
     idempotencyKey: 'reply:1'
   });
-  assert.equal(replied.ok, true);
-  assert.equal(new URL(calls[1].url).pathname, '/v0/inboxes/inbox_1/messages/%3Cmsg_1%40example.com%3E/reply');
-  assert.equal(calls[1].body.reply_all, true);
+  assert.equal(replied.status, 'OUTBOUND_AUTHORIZATION_REFUSED');
+  assert.deepEqual(replied.reasonCodes, ['provider-not-smtp-relay']);
+  assert.equal(calls.length, 0);
 
   const tooMany = await adapter.sendMessage({
     inboxId: 'inbox_1',
@@ -190,7 +212,7 @@ test('AgentMail send and reply use documented message routes and bounded recipie
     idempotencyKey: 'send:too-many'
   });
   assert.equal(tooMany.status, 'RECIPIENT_LIMIT_EXCEEDED');
-  assert.equal(calls.length, 2);
+  assert.equal(calls.length, 0);
 });
 
 test('AgentMail domain DNS receipts are returned without guessing records', async () => {

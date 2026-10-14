@@ -21,17 +21,25 @@ export function createUberMailRuntime({
   webhookDispatcher=null,
   webhookMasterSecret='',
   now=()=>new Date(),
-  repository=null
+  repository=null,
+  outboundRoute=null,
+  outboundAuthorizationFn=null,
+  outboundConsentVerifier=undefined
 }={}){
   const store=repository||createFileUberMailRepository({filePath:statePath});
-  const transport=createUberMailUberDosoTransport({governedDispatch});
+  // Wiring only: the route, package supplier and consent verifier are forwarded unchanged. No default package source exists here,
+  // so a runtime built without an explicit supplier refuses every outbound send at the API gate and again at the bridge.
+  const transport=createUberMailUberDosoTransport({governedDispatch,outboundRoute,outboundConsentVerifier});
   const api=createUberMailAgentApi({
     repository:store,
     sendTransport:transport,
     domainVerifier,
     webhookDispatcher,
     webhookMasterSecret,
-    now
+    now,
+    outboundRoute,
+    outboundAuthorizationFn,
+    outboundConsentVerifier
   });
   const http=createUberMailAgentHttp({api});
   return {

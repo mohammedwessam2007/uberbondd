@@ -465,12 +465,16 @@ export async function runOutreach100kBatch({
       }
     };
 
+    // The dispatcher's own outbound gate binds the same account row, package and consent verifier this batch already authorized above.
     const result = await dispatchGovernedOutreach({
       launchDecision,
       authorization: outboundAuthorizationFields,
       message: outboundMessage,
       transportAdapter: gatedTransport,
       idempotencyKey,
+      outboundAccount: accountRow,
+      outboundPackage,
+      consentVerifier,
       now
     });
     if (sendRefusal) {

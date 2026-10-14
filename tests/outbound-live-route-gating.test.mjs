@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { createHash } from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 import { Store } from '../src/store.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
 import { buildEncryptedSmtpAccount, dispatchSmtpFleetAccount } from '../src/uberfleet.mjs';
@@ -389,13 +389,24 @@ async function frozenFixture({ corruptTokens = false } = {}) {
       oneButton: { gates: { authorizationValid: { status: authOk ? 'PASS' : 'FAIL' } } }
     };
   };
-  return { store, dir, digest, validate };
+  return { store, dir, digest, validate, participants };
 }
 
-function frozenRun(f, { dispatch, outboundAuthorization, consentVerifier }) {
+// Test-only approval record. The runtime never mints one. This helper stands in for the approver: it signs the exact effect digest,
+// recipient, sender slot and address, provider, route class, route digest and approver with the approval secret.
+function frozenApprovalRecord(f) {
+  const unsigned = {
+    schemaVersion: 'uberbond.frozen-effect-authorization.v1', effectDigest: f.digest, recipient: 'partnerships@intelo.ai',
+    senderSlot: FROZEN_ACCOUNT.slot, senderAddress: FROZEN_ACCOUNT.email, provider: 'smtp-relay', routeClass: 'INVITED_GREEN',
+    routeDigest: 'c'.repeat(64), effectCap: 1, approvedBy: 'founder', approvedAt: FROZEN_AT.toISOString(), expiresAt: f.participants.expiresAt
+  };
+  return { ...unsigned, signature: createHmac('sha256', FROZEN_APPROVAL).update(JSON.stringify(frozenCanonical(unsigned))).digest('hex') };
+}
+
+function frozenRun(f, { dispatch, outboundAuthorization, consentVerifier, authorization }) {
   return executeFrozenProspectEffect({
     store: f.store, digest: f.digest, secret: FROZEN_SECRET, approvalSecret: FROZEN_APPROVAL, approverId: 'founder', encryptionKey: KEY,
-    validate: f.validate, dispatch, now: FROZEN_AT, outboundAuthorization, consentVerifier
+    validate: f.validate, dispatch, now: FROZEN_AT, outboundAuthorization, consentVerifier, authorization
   });
 }
 
@@ -456,6 +467,7 @@ test('frozen route: a valid package for the exact message yields exactly one tra
     const result = await frozenRun(f, {
       outboundAuthorization: ({ message }) => validRoutePackage({ account: FROZEN_ACCOUNT, message }),
       consentVerifier: ALLOW_CONSENT,
+      authorization: frozenApprovalRecord(f),
       dispatch: args => dispatchSmtpFleetAccount({ ...args, transportFactory: transport.factory })
     });
     assert.equal(result.state, 'SENT_EXACTLY_ONCE', JSON.stringify(result));
@@ -585,12 +597,15 @@ const batchAuthorization = { authorized: true, receiptId: 'receipt-route-1', aut
 
 test('outreach 100k mirror: governedTransportBytes equals the exact object dispatchGovernedOutreach hands to the transport', async () => {
   let captured = null;
+  // The package binds the mirror bytes. The dispatcher re-derives the same object and must pass the outbound gate for it.
+  const mirror = governedTransportBytes({ message: batchMessage, idempotencyKey: 'idem-route-1', launchDecision: batchLaunch, authorization: batchAuthorization });
+  const account = smtpAccount({ slot: 'outreach-slot', email: SENDER });
   const result = await dispatchGovernedOutreach({
     launchDecision: batchLaunch, authorization: batchAuthorization, message: batchMessage, idempotencyKey: 'idem-route-1', now: MONDAY,
+    outboundAccount: account, outboundPackage: validRoutePackage({ account, message: mirror }), consentVerifier: ALLOW_CONSENT,
     transportAdapter: { send: async outbound => { captured = outbound; return { confirmed: true, providerReceiptId: 'receipt-route-1' }; } }
   });
   assert.equal(result.ok, true);
-  const mirror = governedTransportBytes({ message: batchMessage, idempotencyKey: 'idem-route-1', launchDecision: batchLaunch, authorization: batchAuthorization });
   assert.deepEqual(mirror, captured);
   assert.equal(outboundMessageDigest(mirror), outboundMessageDigest(captured));
 });

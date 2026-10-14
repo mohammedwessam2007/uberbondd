@@ -20,7 +20,11 @@ services:
           name: uberbond-control-plane
           type: web
           envVarKey: TOKEN_ENCRYPTION_KEY
-      - fromGroup: uberbond-phoenix-recovery-custody-20261013
+      - key: RESCUE_ARCHIVE_KEY
+        fromService:
+          name: uberbond-phoenix-db-rescue-20261013
+          type: web
+          envVarKey: RESCUE_ARCHIVE_KEY
       - key: RESCUE_DATABASE_URL
         sync: false
       - key: REHEARSAL_DATABASE_URL

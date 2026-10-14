@@ -1,0 +1,25 @@
+name: PHOENIX H10 platform-only truthful proposal guards
+on:
+  push:
+    branches:
+      - high/phoenix-first-cash-marketplace-buyer-20261015
+    paths:
+      - docs/offers/PHOENIX_H10_BUYER_PLATFORM_PROPOSALS_20261015.md
+      - tests/phoenix-h10-platform-proposal-packet.test.mjs
+      - .github/workflows/phoenix-h10-platform-proposal-guards.yml
+permissions:
+  contents: read
+jobs:
+  no-send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run truthful proposal and buyer provenance gates
+        run: node --test tests/phoenix-h10-platform-proposal-packet.test.mjs tests/phoenix-h10-public-marketplace-demand.test.mjs
+      - run: git diff --check origin/main...HEAD

@@ -9,6 +9,7 @@ import {
   createUberWarm2SeedApprovalProof, UBERWARM2_SEED_TEMPLATE_DIGEST
 } from '../src/uberwarm2-seed-executor.mjs';
 import { createUberWarm2SmtpSeedBridge } from '../src/uberwarm2-smtp-seed-bridge.mjs';
+import { issueSendCapability, revokeSendCapability } from '../src/uberwarm2-send-capability.mjs';
 
 const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
 const MIN = 60 * 1000;
@@ -230,8 +231,11 @@ const ACCOUNT = {
     host: 'smtp.test.invalid', secure: true, port: 465
   }
 };
+// permissionExpiresAt is required by the bridge: a seed with no canonical UTC
+// expiry in the future is excluded. Far-future so the fixture never lapses.
 const BRIDGE_SEEDS = [{
-  email: SEED_A, ownerControlled: true, receiveReady: true, consentToTest: true, consentEvidenceRef: 'owner-approval:1'
+  email: SEED_A, ownerControlled: true, receiveReady: true, consentToTest: true,
+  consentEvidenceRef: 'owner-approval:1', permissionExpiresAt: '2099-12-31T00:00:00Z'
 }];
 const RESERVATION = 'uberwarm2-seed:' + 'a'.repeat(64);
 const TEMPLATE_BODY = 'Owner-authorized delivery and inbox-placement test. No reply or other action is requested. Reference: test-probe-1';
@@ -250,14 +254,25 @@ const sendArgs = overrides => ({
   subject: 'UberBond permitted mailbox delivery test', body: TEMPLATE_BODY, ...overrides
 });
 
+// The one-shot send capability is issued by the caller for exactly one send.
+// Issued and revoked around fn so no capability outlives its test.
+async function withCapability(key, fn) {
+  revokeSendCapability(key);
+  issueSendCapability(key);
+  try { return await fn(); } finally { revokeSendCapability(key); }
+}
+
 test('the SMTP bridge sends only the exact rendered template body, with nothing appended', async () => {
   const calls = [];
   const b = bridge({ transportFactory: () => ({ ok: true, async send(v) { calls.push(v); return { confirmed: true, messageId: v.messageId }; } }) });
-  const appended = await b.sendOwnedSeed(sendArgs({ body: TEMPLATE_BODY + ' Please reply to confirm.' }));
-  assert.equal(appended.ok, false);
-  assert.equal(calls.length, 0);
-  const exact = await b.sendOwnedSeed(sendArgs());
-  assert.equal(exact.ok, true);
+  await withCapability(RESERVATION, async () => {
+    const appended = await b.sendOwnedSeed(sendArgs({ body: TEMPLATE_BODY + ' Please reply to confirm.' }));
+    assert.equal(appended.ok, false);
+    assert.equal(calls.length, 0);
+    // A refused appended body must not have spent the capability.
+    const exact = await b.sendOwnedSeed(sendArgs());
+    assert.equal(exact.ok, true);
+  });
   assert.equal(calls.length, 1);
 });
 
@@ -270,13 +285,13 @@ test('no username or password reaches a bridge result when the transport throws'
   const constructionThrow = bridge({
     transportFactory: () => { throw new Error('connect failed for encrypted-user-never-exported:never-export-password'); }
   });
-  const constructed = await constructionThrow.sendOwnedSeed(sendArgs());
+  const constructed = await withCapability(RESERVATION, () => constructionThrow.sendOwnedSeed(sendArgs()));
   assert.equal(constructed.ok, false);
   assert.doesNotMatch(JSON.stringify(constructed), /never-export|encrypted-user/);
   const sendThrow = bridge({
     transportFactory: () => ({ ok: true, async send() { throw new Error('smtp rejected never-export-password'); } })
   });
-  const sent = await sendThrow.sendOwnedSeed(sendArgs());
+  const sent = await withCapability(RESERVATION, () => sendThrow.sendOwnedSeed(sendArgs()));
   assert.equal(sent.ok, false);
   assert.doesNotMatch(JSON.stringify(sent), /never-export|encrypted-user/);
 });

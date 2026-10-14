@@ -1,0 +1,17 @@
+name: PHOENIX H10 independent effect falsifier
+on:
+  push:
+    branches:
+      - high/phoenix-master-h10-30gate-falsifier-20261015
+permissions:
+  contents: read
+jobs:
+  readonly-30-gate-assurance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/phoenix-h10-30-gate-falsifier.test.mjs

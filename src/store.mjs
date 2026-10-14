@@ -5,6 +5,7 @@ import { Pool } from 'pg';
 import { now } from './utils.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
 import { assertDirectMigrationConnection } from './postgres-migration-connection.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
 
 export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
@@ -682,6 +683,60 @@ async function sessionInTransactionBlock(client) {
   }
 }
 
+// Idle-client diagnostics. The text that leaves this module is reduced so it cannot
+// carry a credential: URLs and connection strings are replaced, as are user:password@host
+// authorities and key=value passwords and connection keywords (user, host, dbname).
+// A PostgreSQL SQLSTATE is kept only when it has the five-character shape, and the message is bounded.
+const DIAGNOSTIC_MESSAGE_LIMIT = 240;
+const SQLSTATE_SHAPE = /^[0-9A-Z]{5}$/;
+
+function sanitizeDiagnosticText(text) {
+  // URLs and authorities are removed before the shared secret redactor runs. Its
+  // rewrite of user:password@ would otherwise consume the scheme and leave the host behind.
+  const stripped = String(text ?? '')
+    .replace(/[a-z][a-z0-9+.-]*:\/\/\S*/gi, '[URL]')
+    .replace(/[^\s/:@]+:[^\s@/]+@[^\s/]+/g, '[CREDENTIAL]')
+    // A whitespace-delimited token that carries an authority ("@") is a credential candidate in full. This catches
+    // an unencoded space in a URL password (the tail after the space) and a slash inside a password with no scheme.
+    .replace(/\S*@\S*/g, '[CREDENTIAL]')
+    // libpq and JSON key/value forms. The optional quote after the key covers JSON's "password":"value" shape. A quoted
+    // value is consumed whole, so a password containing spaces leaves no fragment behind.
+    .replace(/(password|passwd|pwd|pass|sslpassword|secret|token|username|user|hostaddr|host|dbname)(["']?\s*[=:]\s*)('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|\S+)/gi, '$1$2[REDACTED]');
+  return redactSecrets(stripped)
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, DIAGNOSTIC_MESSAGE_LIMIT);
+}
+
+// Converts any thrown value into { errorClass, message[, sqlstate] } with no connection
+// string, password or URL. The raw error is never serialised.
+export function sanitizeStoreDiagnosticError(error) {
+  const rawClass = error?.constructor?.name || error?.name || 'UnknownError';
+  const errorClass = String(rawClass).replace(/[^A-Za-z0-9_]/g, '_').slice(0, 60) || 'UnknownError';
+  const source = error && typeof error === 'object' && 'message' in error ? error.message : error;
+  const diagnostic = { errorClass, message: sanitizeDiagnosticText(source) };
+  if (typeof error?.code === 'string' && SQLSTATE_SHAPE.test(error.code)) diagnostic.sqlstate = error.code;
+  return diagnostic;
+}
+
+// Writes an idle pool client error to the process log. pg-pool emits this on the pool,
+// so the listener must never throw: a failed log write must not become an uncaught exception.
+function reportIdlePoolClientError(error) {
+  // An unreadable error (a throwing message getter, say) still produces a visible line, so the
+  // diagnostic is never silently discarded. A failed log write must not throw into pg-pool.
+  let line;
+  try {
+    line = `STORE_IDLE_POOL_CLIENT_ERROR ${JSON.stringify(sanitizeStoreDiagnosticError(error))}`;
+  } catch {
+    line = 'STORE_IDLE_POOL_CLIENT_ERROR {"errorClass":"UnknownError","message":"[UNREADABLE]"}';
+  }
+  try {
+    console.error(line);
+  } catch {
+    // The pool keeps running without the diagnostic.
+  }
+}
+
 export class PostgresStore {
   constructor({ databaseUrl, ssl = true, pool, transactionClient = false, migrationsDir } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
@@ -689,8 +744,9 @@ export class PostgresStore {
     this.ownsPool = !pool;
     // pg-pool re-emits a connection error from an idle client on the pool. With no listener that is an uncaught exception,
     // so a server terminating an idle connection (restart, admin shutdown, idle timeout) would stop the process. The pool
-    // has already removed that client, so the next query opens a fresh one and the error needs no other handling here.
-    if (this.ownsPool) this.pool.on('error', () => {});
+    // has already removed that client, so the next query opens a fresh one. The error is reported as a sanitized
+    // diagnostic, so a dropped idle connection is visible in the logs without leaking the connection string.
+    if (this.ownsPool) this.pool.on('error', reportIdlePoolClientError);
     this.migrationsDir = path.resolve(migrationsDir || 'migrations');
     // Kept only to prove, before any migration lock is taken, that the URL is not a transaction pooler.
     this.databaseUrl = databaseUrl || null;

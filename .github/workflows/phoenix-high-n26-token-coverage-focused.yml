@@ -1,0 +1,28 @@
+name: PHOENIX High N26 token coverage focused verification
+
+on:
+  push:
+    branches:
+      - high/phoenix-master-n26-token-coverage-20261014
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-no-provider-test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated crypto-only test dependency
+        run: python -m pip install --disable-pip-version-check cryptography
+      - name: Check exact Python parser
+        run: python -m py_compile ops/phoenix-continuity-20261014/continuity.py ops/phoenix-continuity-20261014/rescue.py ops/phoenix-continuity-20261014/test_continuity.py
+      - name: Run adversarial token-coverage and authenticated-key fixtures without provider access
+        run: python -m unittest discover -s ops/phoenix-continuity-20261014 -p 'test_continuity.py' -v

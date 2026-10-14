@@ -74,19 +74,19 @@ def rehearsal():
         import psycopg2,base64
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
         tu=r.validate_url(os.environ['RESCUE_DATABASE_URL'],r.TARGET_HOST,r.TARGET_DB)
-        e=r.pg_environment(tu);key=hashlib.sha256(os.environ['ESCROW_ARCHIVE_KEY'].encode()).digest()
+        e=r.pg_environment(tu);key=hashlib.sha256((os.environ.get('ESCROW_ARCHIVE_KEY') or os.environ['RESCUE_ARCHIVE_KEY']).encode()).digest()
         def connect(database):
             return psycopg2.connect(host=e['PGHOST'],port=e['PGPORT'],dbname=database,user=e['PGUSER'],password=e['PGPASSWORD'],sslmode=e['PGSSLMODE'],sslrootcert=e.get('PGSSLROOTCERT'),connect_timeout=15,application_name='phoenix-isolated-rehearsal')
         source=connect(r.TARGET_DB);source.set_session(readonly=True)
-        mission='PHOENIX_TRIDENT_READONLY_COMPARE_AND_LATEST_BACKUP:1f66236749e9cafb'
+        mission='PHOENIX_TRIDENT_READONLY_COMPARE_AND_LATEST_BACKUP:e8f4784efacc4a68'
         archive,receipt=r.query(source,'SELECT archive,receipt FROM phoenix_rescue_archive.backup WHERE mission=%s',(mission,))[0]
         archive=bytes(archive);h=len(r.ARCHIVE_HEADER)
-        if hashlib.sha256(archive).hexdigest()!='a3665aa515092323cb9fa466ed61fb6806122953d76ccd4e9a05787e718e3025':raise ValueError('BAD_LATEST_ARCHIVE')
+        if hashlib.sha256(archive).hexdigest()!='db743a77d64a2a3a7fc16793a0b0133d788324ecdeccf357ba7c93a02572fcba':raise ValueError('BAD_LATEST_ARCHIVE')
         payload=AESGCM(key).decrypt(archive[h:h+12],archive[h+12:],mission.encode())
         work=pathlib.Path('/tmp/trident-rehearsal');work.mkdir(mode=0o700,exist_ok=True);dump=work/'source.dump'
         with zipfile.ZipFile(io.BytesIO(payload)) as a:dump.write_bytes(a.read('source.dump'))
         if hashlib.sha256(dump.read_bytes()).hexdigest()!=receipt['dump_sha256']:raise ValueError('BAD_LATEST_DUMP')
-        db='uberbond_trident_rehearsal_20261013';target=connect(db);target.set_session(readonly=True)
+        db='uberbond_titan_rehearsal_20261014';target=connect(db);target.set_session(readonly=True)
         if r.query(target,"SELECT count(*) FROM pg_tables WHERE schemaname='public'")[0][0]!=0:raise ValueError('REHEARSAL_NOT_EMPTY')
         target.rollback();target.close();target=None
         env=dict(e);env['PGDATABASE']=db

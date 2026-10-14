@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-14T23:24:23.168Z",
+  "generatedAt": "2026-10-14T23:43:19.450Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b3e7583aeb0e074c36232f8f219f9ded0f3c417e",
-    "branch": "main",
+    "head": "0d79953b604fde0b1bc346566212329c2a6f5e12",
+    "branch": "high/phoenix-h02-inbound-machine-advisory-20261015",
     "sourceModules": 1120,
-    "testSuites": 1405,
+    "testSuites": 1406,
     "workingTreeClean": true
   },
   "measurements": {

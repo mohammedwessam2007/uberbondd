@@ -140,6 +140,14 @@ export function classifyInboundEvent({ headers = {}, body = '', sendingDomain = 
   // Bounce-looking sender, words or headers without a verified notice are unverified. They are kept unlinked, not counted as a bounce.
   const bounceLike = SYSTEM_SENDER_LOCAL_PARTS.has(addressOf(from).split('@')[0]) || BOUNCE_MARKERS.some(rx => rx.test(subject) || rx.test(text)) || Boolean(lowerHeaders['x-failed-recipients']);
   if (bounceLike) return { category: 'unknown', confidence: 'low', reason: 'unverified-delivery-notice' };
+  // Machine-submitted mail is not a human complaint or opt-out, even when it quotes
+  // those words. A machine report lacking authenticated recipient linkage is review-only.
+  // This advisory kernel prepares local intents, never executes external effects.
+  if (autoSubmitted.trim() && autoSubmitted.trim() !== 'no') {
+    return /multipart\/report\b/i.test(lowerHeaders['content-type'] || '')
+      ? { category: 'unknown', confidence: 'low', reason: 'unverified-machine-report' }
+      : { category: 'out-of-office', confidence: 'high' };
+  }
   if (COMPLAINT_MARKERS.some(rx => rx.test(subject) || rx.test(text))) return { category: 'complaint', confidence: 'high' };
   if (lowerHeaders['list-unsubscribe'] && UNSUB_MARKERS.some(rx => rx.test(text))) return { category: 'unsubscribe', confidence: 'medium' };
   if (UNSUB_MARKERS.some(rx => rx.test(subject))) return { category: 'unsubscribe', confidence: 'high' };

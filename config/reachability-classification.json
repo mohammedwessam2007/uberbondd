@@ -153,6 +153,10 @@
     "NO_INBOUND_RETENTION_PURGE_AUTHORIZATION": {
       "description": "The inbound retention planner. It identifies records a retention window would purge. No owner has approved a retention policy or a purge, so nothing is wired to delete data.",
       "releasedBy": "An owner-approved retention policy with its window and legal-hold rules, and a separately reviewed purge job that consumes the planner receipt."
+    },
+    "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION": {
+      "description": "The zero-add-on UberWarm warm-up layers, UberWarm2 seed probes through UberWarm6 economic dominance. Their live paths can touch real mailboxes, SMTP identities, provider state and the database, and none of them has been activated. No unattended script may reach them.",
+      "releasedBy": "Explicit owner approval, recorded as durable authorization evidence, for each live activation of a zero-add-on warm-up layer, naming the layer, the exact action and an expiry. Unattended scripts never release it, and no paid warm-up add-on is ever enabled by these layers."
     }
   },
   "modules": {
@@ -1238,6 +1242,56 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
       "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    "src/uberwarm2-pg-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "PostgreSQL one-shot and daily quota ledger for UberWarm2 owner-controlled seed probes. It must run against the authoritative primary and needs the pending migration docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql, applied only by an owner-authorized runner. No owner has approved either."
+    },
+    "src/uberwarm2-seed-executor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Compiles and executes the UberWarm2 owner-controlled seed probe, which sends real SMTP test messages to owned seed addresses. It requires a server-held approval signing key and an unexpired owner approval bound to the exact batch digest, so it must never be reachable from an unattended path."
+    },
+    "src/uberwarm2-smtp-seed-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Binds one already-authorized, encrypted SMTP sending identity to the owner-controlled seed allowlist and opens a live submission transport. Wiring it would send mail from a real account, so it waits for an owner approval of each live activation."
+    },
+    "src/uberwarm3-cash-first-governor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Zero-add-on decision governor for UberWarm3. It is decision support only, and its recommendation for new paid warming is fixed to false, but its budget and sender inputs must come from independent ledgers that do not yet feed any entry point."
+    },
+    "src/uberwarm3-consent-panel.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Independent, opt-in recipient observatory for UberWarm3. It only accepts real volunteers with a verified consent receipt from an authenticated app and an independent receiving mailbox. No such panel is recruited, so an unattended path would have no genuine participant to observe."
+    },
+    "src/uberwarm3-google-postmaster-v2.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Read-only Google Postmaster Tools v2 compliance adapter. It needs a separately granted postmaster.traffic.readonly OAuth grant for each verified domain, and this classification records no such grant, so it cannot read compliance status for any sending domain."
+    },
+    "src/uberwarm3-reputation-oracle.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Evidence oracle that decides what to measure and when to stop a warm-up experiment. Its inputs must be authenticated receiving-side observations, and no live entry point ingests them, so wiring it now would decide on measurements nobody collected."
+    },
+    "src/uberwarm4-dispatch-guard.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Fail-closed, read-only dispatch decision for one intended recipient, built from receiving-provider incidents. It needs server-controlled verifiers for sender caps, durable suppression and legal permission, which no entry point supplies, and it must never gate a live send without owner approval."
+    },
+    "src/uberwarm4-receiver-protection.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Receiving-network circuit breaker that turns SMTP and complaint incidents into HOLD or QUARANTINE states. Its actionable observations require trusted authenticated ingestion that is not wired, so an unattended path would act on incidents that were never authenticated."
+    },
+    "src/uberwarm6-economic-dominance.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Economic dominance certificate comparing zero-add-on warming with a paid add-on. Its inputs must be certified upper bounds from authenticated sources that no entry point supplies, and a decision to forgo paid warming is owner-reserved. The module itself has no send or spend effects."
     },
     "src/revenue-dry-run.mjs": {
       "category": "RESEARCH_ONLY",

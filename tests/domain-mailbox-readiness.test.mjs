@@ -679,7 +679,7 @@ test('activation: full real success path -> LIVE_WARMUP_ACTIVE, with a real (red
   const domainState = { dnsState: { status: 'GREEN' } };
   const mailboxState = { authenticationStatus: 'AUTHENTICATED', paused: false };
   const resolution = { ok: true, adapter: fakeConfiguredAdapter() };
-  const result = await evaluateLiveActivation({ domainState, mailboxState, providerAdapterResolution: resolution, ownerAuthorization: { granted: true }, date: monday });
+  const result = await evaluateLiveActivation({ domainState, mailboxState, providerAdapterResolution: resolution, ownerAuthorization: { granted: true }, ownerApproval: zeroAddOnApproval, ...zeroAddOnVerifiers, date: monday });
   assert.equal(result.state, 'LIVE_WARMUP_ACTIVE');
   assert.ok(result.providerReceipt, 'LIVE_WARMUP_ACTIVE must always carry a real provider receipt');
   assert.equal(result.providerReceipt.apiKey, undefined);

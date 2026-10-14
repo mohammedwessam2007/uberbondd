@@ -1,0 +1,35 @@
+# Review-only independent host test of the exact Claude #1405 source ancestry.
+# All listed suites explicitly use fixtures, fake transports, in-memory stores;
+# no Winnr/SMTP/IMAP/Render/Neon provider access, no spend, no real messages.
+name: PHOENIX High Claude Held Security Proof
+on:
+  push:
+    branches:
+      - high/phoenix-monster-h-independent-claude-proof-20261014
+    paths:
+      - '.github/workflows/phoenix-high-claude-held-security-proof.yml'
+      - 'docs/receipts/phoenix-outreach-20261014/high/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  held-outbound-replies-fleet:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies without install scripts
+        run: npm ci --ignore-scripts
+      - name: Independent synthetic hostile tests of Claude exact inherited source
+        run: |
+          echo "CLAUDE_INDEPENDENT_HEAD_SHA=$GITHUB_SHA"
+          node --test \
+            tests/outbound-send-authorization.test.mjs \
+            tests/outbound-live-route-gating.test.mjs \
+            tests/inbound-governance-hostile.test.mjs \
+            tests/winnr-production-import-hardening.test.mjs \
+            tests/winnr-readiness-hold-race.test.mjs

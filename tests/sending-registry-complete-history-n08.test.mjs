@@ -96,3 +96,38 @@ test('N08 conservative tie ordering never allows ambiguous same-timestamp RESUME
   const events = await loadCompleteSendingRegistryEvents(store, 'sending_domain_event');
   assert.equal(events.at(-1).kind, 'PAUSED');
 });
+
+test('N08 disposable real PostgreSQL count/list recovers latest PAUSE beyond 6000 events for both registries', {
+  skip: process.env.N08_TEST_DATABASE_URL ? false : 'N08_TEST_DATABASE_URL absent: real PG not executed'
+}, async () => {
+  // This is an ephemeral CI PostgreSQL instance, never a production URL.
+  const { PostgresStore } = await import('../src/store.mjs');
+  const store = new PostgresStore({ databaseUrl: process.env.N08_TEST_DATABASE_URL, ssl: false });
+  try {
+    await store.pool.query(`CREATE TABLE IF NOT EXISTS audit_log (
+      id text PRIMARY KEY, type text NOT NULL, created_at timestamptz NOT NULL,
+      detail jsonb, data jsonb NOT NULL
+    )`);
+    await store.pool.query('TRUNCATE audit_log');
+    const all = [...fixtureRows('sending_domain_event'), ...fixtureRows('sending_mailbox_event')];
+    await store.pool.query(`INSERT INTO audit_log (id, type, created_at, detail, data)
+      SELECT x->>'id', x->>'type', (x->>'createdAt')::timestamptz,
+        x->'detail', x
+      FROM jsonb_array_elements($1::jsonb) x`, [JSON.stringify(all)]);
+    assert.equal(await store.count('auditLog', { type: 'sending_domain_event' }), 6100);
+    assert.equal(await store.count('auditLog', { type: 'sending_mailbox_event' }), 6100);
+    const domain = await loadSendingDomain(store, targetDomain, { date: observedAt });
+    assert.equal(domain.state, 'PAUSED');
+    assert.equal(domain.coldOutreachBlocked, true);
+    const mailbox = await loadSendingMailbox(store, targetMailbox, { date: observedAt });
+    assert.equal(mailbox.paused, true);
+    const domainFleet = await listSendingDomains(store, { date: observedAt });
+    assert.equal(domainFleet.length, 1);
+    assert.equal(domainFleet[0].state, 'PAUSED');
+    const mailFleet = await listSendingMailboxesForDomain(store, targetDomain, { date: observedAt });
+    assert.equal(mailFleet.length, 1);
+    assert.equal(mailFleet[0].paused, true);
+  } finally {
+    await store.close();
+  }
+});

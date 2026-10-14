@@ -15,7 +15,7 @@ def job():
         from cryptography.hazmat.primitives.ciphers.aead import AESGCM
         stage='SOURCE_IDENTITY';su=r.validate_url(os.environ['SOURCE_DATABASE_URL'],r.SOURCE_HOST,r.SOURCE_DB)
         stage='TARGET_IDENTITY';tu=r.validate_url(os.environ['RESCUE_DATABASE_URL'],r.TARGET_HOST,r.TARGET_DB)
-        stage='ESCROW_FORMAT';escrow=os.environ['ESCROW_ARCHIVE_KEY']
+        stage='ESCROW_FORMAT';escrow=os.environ.get('ESCROW_ARCHIVE_KEY') or os.environ['RESCUE_ARCHIVE_KEY']
         if len(escrow)!=64: raise ValueError('BAD_ESCROW_FORMAT')
         key=hashlib.sha256(escrow.encode()).digest()
         def connect(u,source=False):

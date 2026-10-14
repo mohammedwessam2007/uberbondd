@@ -361,7 +361,16 @@ test('two connections executing one plan at the same time apply it exactly once'
       executeWinnrProductionImport(executeArgs(storeA, plan)),
       executeWinnrProductionImport(executeArgs(storeB, plan))
     ]);
-    assert.deepEqual([a.status, b.status].sort(), ['PRODUCTION_IMPORT_ALREADY_PRESENT', 'PRODUCTION_IMPORT_EXECUTED']);
+    // The run that overlaps the winner's transaction is refused at once with IMPORT_ALREADY_RUNNING, because the winner
+    // holds the lease lock until it ends. A run that starts after the winner has committed finds the plan held. Earlier
+    // this test expected the overlapping run to queue and then report ALREADY_PRESENT, which pinned the queueing that the
+    // lease is meant to refuse. Either outcome is a no-op for that run; exactly one run applying the plan is still required.
+    const winner = [a, b].filter(result => result.status === 'PRODUCTION_IMPORT_EXECUTED');
+    assert.equal(winner.length, 1, 'exactly one run applied the plan');
+    const loser = [a, b].find(result => result !== winner[0]);
+    assert.ok(loser.status === 'PRODUCTION_IMPORT_ALREADY_PRESENT'
+      || (loser.ok === false && loser.reasonCodes.length === 1 && loser.reasonCodes[0] === 'IMPORT_ALREADY_RUNNING'),
+    `the other run must change nothing: ${loser.status} ${loser.reasonCodes.join(',')}`);
     assert.equal((await startupAccounts(storeA)).length, 100, 'fifty SMTP and fifty IMAP accounts, no duplicates');
     assert.equal((await startupHolds(storeA)).length, 50);
     const imports = (await storeA.list('auditLog')).filter(row => row.type === 'WINNR_PRODUCTION_IMPORT');

@@ -630,6 +630,13 @@ async function executeImportOnce({
   // state it is about to compare.
   const runImport = async tx => {
     if (typeof tx.updateSettingAtomically !== 'function') throw new ImportRefusal('ATOMIC_SETTING_UNAVAILABLE');
+    // A run already in flight in another transaction holds this lock until that transaction ends, and its lease is
+    // uncommitted until then. Refuse at once rather than queue behind it: queued, a second importer waits out the whole
+    // run and then finds the plan already held, so the refusal the lease promises would never be seen by a real
+    // concurrent caller. Stores without a non-blocking lock keep the blocking serialisation below.
+    if (typeof tx.tryLockSetting === 'function' && !(await tx.tryLockSetting(WINNR_IMPORT_LEASE_SETTING))) {
+      throw new ImportRefusal('IMPORT_ALREADY_RUNNING');
+    }
     await tx.updateSettingAtomically(WINNR_IMPORT_LEASE_SETTING, current => {
       const fresh = Boolean(current) && current.released !== true && Date.parse(current.expiresAt) > nowMs;
       if (fresh && current.owner !== leaseOwner) throw new ImportRefusal('IMPORT_ALREADY_RUNNING');

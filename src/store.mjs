@@ -934,6 +934,15 @@ export class PostgresStore {
     });
   }
 
+  // Non-blocking form of the lock updateSettingAtomically takes for the same key. False means another transaction holds
+  // it, so that transaction is still in flight. A caller that must not queue behind it can refuse at once. The lock is
+  // released when the enclosing transaction ends, so this is meaningful only inside transaction().
+  async tryLockSetting(key) {
+    if (!this.transactionClient) throw new StoreError('tryLockSetting requires an open transaction', 'CONFIG');
+    const result = await this.pool.query('SELECT pg_try_advisory_xact_lock(hashtextextended($1, 0)) AS locked', [`setting:${key}`]);
+    return result.rows[0]?.locked === true;
+  }
+
   async log(type, detail = {}) {
     return this.add('auditLog', { id: crypto.randomUUID(), type, detail, createdAt: now() });
   }

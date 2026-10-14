@@ -1,0 +1,47 @@
+{
+  "record": {
+    "company": "DemandStream Digital",
+    "website": "https://demandstreamdigital.com/",
+    "hqCountry": "US",
+    "evidenceClass": "PAGE_FETCH_VERIFIED",
+    "currentOwnership": {
+      "status": "UNVERIFIED",
+      "evidenceUrl": "https://demandstreamdigital.com/"
+    },
+    "recipient": {
+      "email": "hello@demandstreamdigital.com",
+      "publishedRole": "GENERAL_BUSINESS_CONTACT",
+      "sourceUrl": "https://demandstreamdigital.com/contact",
+      "sourcePageExact": true,
+      "observedAt": "2026-10-11T13:20:00Z",
+      "excerpt": "hello@demandstreamdigital.com"
+    },
+    "notices": {
+      "noSolicitationChecked": false,
+      "noHarvestChecked": false
+    },
+    "offerFit": {
+      "servesHomeServiceClients": true,
+      "evidenceUrl": "https://demandstreamdigital.com/"
+    },
+    "clientEvidence": {
+      "clientName": null,
+      "clientSiteUrl": null,
+      "observation": {
+        "verifiable": false
+      }
+    },
+    "offerRoute": {
+      "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT"
+    }
+  },
+  "slots": {
+    "issueCode": "agency-contact-route-mapping",
+    "subjectNoun": "contact routes",
+    "observationClause": "uses different public phone numbers on its homepage and contact page; these may be intentional tracking routes",
+    "artifactPhrase": "a one-page route map",
+    "altitudePhrase": "lead-path QA"
+  },
+  "prepareEffect": false,
+  "executeFrozen": false
+}

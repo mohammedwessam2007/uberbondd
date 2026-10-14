@@ -8,6 +8,7 @@ import { evaluateOutreachLaunchGate, OUTREACH_LAUNCH_STATES } from './outreach-l
 import { dispatchGovernedOutreach } from './governed-outreach-dispatch.mjs';
 import { createUberSmtpSubmissionTransport } from './ubersmtp-submission-adapter.mjs';
 import { openSmtpAccountCredential } from './uberfleet.mjs';
+import { gateOutboundRoute, requestOutboundPackage } from './outbound-send-authorization.mjs';
 
 export const OUTREACH_100K_RUNTIME_VERSION = 'uberbond.outreach-100k-runtime.v1';
 export const DEFAULT_OUTREACH_100K_BUNDLE_PATH = '/var/lib/uberbond-control/outreach-100k-runtime-bundle.json';
@@ -233,6 +234,23 @@ function dispatchAuthorization(packet = {}) {
   };
 }
 
+// Mirror of the object dispatchGovernedOutreach hands to transport.send. The authorization package must bind these exact
+// bytes, and a route test pins the mirror against the real dispatch so any drift fails closed.
+export function governedTransportBytes({ message = {}, idempotencyKey = '', launchDecision = {}, authorization = {} } = {}) {
+  return {
+    to: clean(message.to, 320).toLowerCase(),
+    from: clean(message.from, 320) || null,
+    subject: clean(message.subject, 500),
+    body: clean(message.body, 100000),
+    replyTo: clean(message.replyTo, 320) || null,
+    listUnsubscribe: clean(message.listUnsubscribe, 1200) || null,
+    campaignId: clean(message.campaignId, 240),
+    idempotencyKey: clean(idempotencyKey, 500),
+    launchDecisionId: launchDecision.decisionId,
+    authorizationReceiptId: authorization.receiptId
+  };
+}
+
 function routeFor(bundle, mailbox) {
   const routeId = clean(mailbox?.egressRouteId || mailbox?.routeId, 240);
   const egressRoute = (bundle.egressRoutes || []).find(row => clean(row?.routeId || row?.id, 240) === routeId) || null;
@@ -273,7 +291,9 @@ export async function runOutreach100kBatch({
   corpusPath = process.env.OUTREACH_100K_CORPUS_PATH || DEFAULT_OUTREACH_100K_CORPUS_PATH,
   now = new Date(),
   transportFactory = createUberSmtpSubmissionTransport,
-  credentialResolver = null
+  credentialResolver = null,
+  outboundAuthorization = null,
+  consentVerifier = undefined
 } = {}) {
   if (!store || typeof store.reserveOutboundSend !== 'function') return failure(['durable-outbound-store-required']);
   const prepared = await prepareOutreach100kRuntime({ bundlePath, corpusPath, liveSummary: payload.liveSummary || {}, now });
@@ -305,14 +325,11 @@ export async function runOutreach100kBatch({
   const receipts = [];
   const fleetAccounts = typeof store.list === 'function' ? await store.list('accounts') : [];
 
-  async function resolveSmtpCredential(mailbox, smtpRoute) {
-    if (typeof credentialResolver === 'function') {
-      const resolved = await credentialResolver({ mailbox, smtpRoute, store, cfg });
-      if (resolved?.username && resolved?.password) return { ...resolved, source: 'injected-resolver' };
-    }
+  // The sender account row for a mailbox. It is read, never decrypted, so the authorization gate can bind it before any credential is opened.
+  function findSmtpAccountRow(mailbox) {
     const mailboxId = clean(mailbox?.mailboxId, 240);
     const address = clean(mailbox?.address, 320).toLowerCase();
-    const account = (fleetAccounts || []).find(row =>
+    return (fleetAccounts || []).find(row =>
       row?.connected === true &&
       String(row?.provider || '').toLowerCase() === 'smtp-relay' &&
       (
@@ -320,7 +337,15 @@ export async function runOutreach100kBatch({
         clean(row?.sendingMailboxId, 240) === mailboxId ||
         clean(row?.email, 320).toLowerCase() === address
       )
-    );
+    ) || null;
+  }
+
+  async function resolveSmtpCredential(mailbox, smtpRoute) {
+    if (typeof credentialResolver === 'function') {
+      const resolved = await credentialResolver({ mailbox, smtpRoute, store, cfg });
+      if (resolved?.username && resolved?.password) return { ...resolved, source: 'injected-resolver' };
+    }
+    const account = findSmtpAccountRow(mailbox);
     if (account?.tokens && cfg?.encryptionKey) {
       try {
         const credential = openSmtpAccountCredential(account, cfg.encryptionKey);
@@ -354,6 +379,24 @@ export async function runOutreach100kBatch({
     }
 
     const idempotencyKey = clean(packet.idempotencyKey, 500);
+    // Live-route gate, before the reservation, any credential open and any transport. The package must bind the exact bytes
+    // dispatchGovernedOutreach will hand to the transport, and decideOutboundSend must allow them.
+    const accountRow = findSmtpAccountRow(mailbox);
+    const outboundMessage = {
+      ...packet.message,
+      from: clean(packet?.message?.from || mailbox.address, 320).toLowerCase(),
+      campaignId: clean(packet.campaignId, 240)
+    };
+    const outboundAuthorizationFields = dispatchAuthorization(packet);
+    const outboundBytes = governedTransportBytes({ message: outboundMessage, idempotencyKey, launchDecision, authorization: outboundAuthorizationFields });
+    const outboundPackage = await requestOutboundPackage(outboundAuthorization, { message: outboundBytes, account: accountRow, mailbox, packet, lineNumber });
+    const outboundRefusal = gateOutboundRoute({ account: accountRow, message: { ...outboundBytes, authorization: outboundPackage || undefined }, consentVerifier });
+    if (outboundRefusal) {
+      refused += 1;
+      receipts.push({ lineNumber, state: 'DISPATCH_REFUSED', reasonCodes: outboundRefusal.reasonCodes });
+      continue;
+    }
+
     const reservation = await store.reserveOutboundSend({
       idempotencyKey,
       prospectId: clean(packet.recipientId, 240) || null,
@@ -407,18 +450,39 @@ export async function runOutreach100kBatch({
       continue;
     }
 
+    // Exact-bytes gate at the transport boundary: the object dispatchGovernedOutreach hands over is decided again. A refusal here
+    // makes no provider call and is recorded as a refusal, never as an uncertain send.
+    let sendRefusal = null;
+    const gatedTransport = {
+      ok: true,
+      send: async outbound => {
+        const refusal = gateOutboundRoute({ account: accountRow, message: { ...outbound, authorization: outboundPackage || undefined }, consentVerifier });
+        if (refusal) {
+          sendRefusal = refusal;
+          return { confirmed: false, providerReceiptId: null };
+        }
+        return transport.send(outbound);
+      }
+    };
+
+    // The dispatcher's own outbound gate binds the same account row, package and consent verifier this batch already authorized above.
     const result = await dispatchGovernedOutreach({
       launchDecision,
-      authorization: dispatchAuthorization(packet),
-      message: {
-        ...packet.message,
-        from: clean(packet?.message?.from || mailbox.address, 320).toLowerCase(),
-        campaignId: clean(packet.campaignId, 240)
-      },
-      transportAdapter: transport,
+      authorization: outboundAuthorizationFields,
+      message: outboundMessage,
+      transportAdapter: gatedTransport,
       idempotencyKey,
+      outboundAccount: accountRow,
+      outboundPackage,
+      consentVerifier,
       now
     });
+    if (sendRefusal) {
+      await store.markOutboundReservation(reservation.reservation.id, 'cancelled', { reason: 'outbound-authorization-refused', providerReasonCodes: sendRefusal.reasonCodes });
+      refused += 1;
+      receipts.push({ lineNumber, state: 'DISPATCH_REFUSED', reasonCodes: sendRefusal.reasonCodes });
+      continue;
+    }
 
     const observedAt = new Date().toISOString();
     if (result.ok && result.state === 'PROVIDER_CONFIRMED_SEND') {

@@ -5,6 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { Store } from '../src/store.mjs';
 import { RevenueEngine } from '../src/revenue.mjs';
+import { outboundMessageDigest } from '../src/outbound-send-authorization.mjs';
 
 function cfg(dir) {
   return {
@@ -63,44 +64,25 @@ test('provider success followed by local finalization failure is quarantined and
     };
   };
 
-  const realTransaction = store.transaction.bind(store);
-  let transactions = 0;
-  store.transaction = async fn => {
-    transactions += 1;
-    if (transactions !== 2) return realTransaction(fn);
-    return realTransaction(async tx => {
-      const injected = new Proxy(tx, {
-        get(target, property, receiver) {
-          if (property === 'upsert') {
-            return async (...args) => {
-              await target.upsert(...args);
-              throw new Error('simulated account persistence crash after provider acceptance');
-            };
-          }
-          return Reflect.get(target, property, receiver);
-        }
-      });
-      return fn(injected);
-    });
-  };
-
+  // Deliberate change: this test previously injected a persistence crash after a provider acceptance. Without an authorization
+  // package the report route refuses before the provider, so there is no acceptance to quarantine. The invariant kept is that a
+  // refused attempt is never accepted and never replayed.
   const first = await new RevenueEngine(store, config, pipeline, { sendEmail: provider })
     .sendReportEmail(lead, prospect);
   assert.equal(first.sent, false);
-  assert.equal(first.uncertain, true);
-  assert.equal(first.reason, 'post-provider-persistence-failed');
-  assert.equal(providerAccepts, 1);
+  assert.equal(first.reason, 'outbound-authorization-refused');
+  assert.equal(providerAccepts, 0);
 
-  const afterCrash = await store.get('leads', lead.id);
-  assert.equal(afterCrash.reportEmailSentAt, undefined);
-  assert.equal(afterCrash.reportEmailAttemptStatus, 'uncertain');
+  const afterRefusal = await store.get('leads', lead.id);
+  assert.equal(afterRefusal.reportEmailSentAt, undefined);
+  assert.ok(!afterRefusal.reportEmailAttemptStatus, 'a refused claim is released');
 
   const retry = await new RevenueEngine(store, config, pipeline, {
     sendEmail: async () => { providerAccepts += 1; return { data: { id: 'gmail-duplicate', threadId: 'duplicate' } }; }
-  }).sendReportEmail(afterCrash, prospect);
+  }).sendReportEmail(afterRefusal, prospect);
   assert.equal(retry.sent, false);
-  assert.equal(retry.reason, 'unresolved-prior-attempt-requires-owner-review');
-  assert.equal(providerAccepts, 1, 'an accepted provider effect must never be blindly replayed');
+  assert.equal(retry.reason, 'outbound-authorization-refused');
+  assert.equal(providerAccepts, 0, 'a refused report must never reach the provider on retry');
 });
 
 test('a durable dispatching claim survives a process death between claim and provider finalization', async () => {
@@ -123,26 +105,159 @@ test('a durable dispatching claim survives a process death between claim and pro
   assert.equal(providerAccepts, 1);
 });
 
-test('two concurrent callers with the same stale lead snapshot produce at most one provider acceptance', async () => {
+test('two concurrent callers with the same stale lead snapshot produce no provider acceptance without an authorization package', async () => {
   const { store, config, pipeline, lead, prospect } = await fixture();
   let providerAccepts = 0;
-  let releaseProvider;
-  const providerBarrier = new Promise(resolve => { releaseProvider = resolve; });
   const provider = async () => {
     providerAccepts += 1;
-    await providerBarrier;
     return { data: { id: `gmail-${providerAccepts}`, threadId: 'thread-race' } };
   };
   const engineA = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
   const engineB = new RevenueEngine(store, config, pipeline, { sendEmail: provider });
 
-  const attemptA = engineA.sendReportEmail({ ...lead }, { ...prospect });
-  const attemptB = engineB.sendReportEmail({ ...lead }, { ...prospect });
-  await new Promise(resolve => setTimeout(resolve, 10));
-  releaseProvider();
-  const results = await Promise.all([attemptA, attemptB]);
+  // Deliberate change: the earlier version expected exactly one provider acceptance under a race. The route now refuses before
+  // the provider, so the race invariant that holds is zero acceptances and zero report messages.
+  const results = await Promise.all([
+    engineA.sendReportEmail({ ...lead }, { ...prospect }),
+    engineB.sendReportEmail({ ...lead }, { ...prospect })
+  ]);
 
-  assert.equal(providerAccepts, 1);
-  assert.equal(results.filter(result => result.sent === true).length, 1);
-  assert.equal((await store.list('messages')).filter(message => message.kind === 'transactional-report').length, 1);
+  assert.equal(providerAccepts, 0);
+  assert.equal(results.filter(result => result.sent === true).length, 0);
+  assert.equal((await store.list('messages')).filter(message => message.kind === 'transactional-report').length, 0);
+});
+
+// Produces an UNCERTAIN attempt through the engine's own claim and uncertainty writers. Those are the two calls a provider
+// failure makes inside sendReportEmail, so the durable state is the one production code would leave behind.
+async function seedUncertainAttempt(engine, lead, prospect) {
+  const claim = await engine.claimReportEmailAttempt(lead, prospect);
+  assert.equal(claim.ok, true);
+  const marked = await engine.markReportEmailUncertain({
+    leadId: lead.id, attemptId: claim.attemptId, prospect, reason: 'provider-result-uncertain'
+  });
+  assert.equal(marked.persisted, true);
+  return claim.attemptId;
+}
+
+// A package carrying every field the authorization model reads, bound to the exact message the engine would send. The test
+// supplies it deliberately and then proves it is never consulted: the durable uncertain marker refuses before the gate runs.
+function completeOutboundPackage({ message, account }) {
+  const campaignId = 'report-email-replay-guard';
+  return {
+    campaignId,
+    sender: {
+      accountId: account.id, slot: account.slot, email: account.email,
+      paused: false, holdReasons: [], quarantined: false, bounceRate: 0, complaintRate: 0
+    },
+    expectedSender: { accountId: account.id, slot: account.slot, email: account.email },
+    thresholds: { maxBounceRate: 0.05, maxComplaintRate: 0.001 },
+    domainReceipt: { domain: 'uberbond.example', configured: true },
+    provider: { name: 'smtp-relay', routeAuthorized: true, termsCompatible: true },
+    suppression: { snapshotId: 'suppression-replay-guard', entries: [] },
+    doNotContact: { listId: 'do-not-contact-replay-guard', entries: [] },
+    recipient: { eligibilityEvidenceRef: 'eligibility:self-submitted-intake', jurisdiction: 'us' },
+    jurisdictionEvidence: { jurisdiction: 'us', allowed: true, evidenceRef: 'jurisdiction:replay-guard' },
+    consent: { receiptRef: 'consent:replay-guard-valid' },
+    campaignApproval: { approvalRef: 'approval:replay-guard', campaignId },
+    messageApproval: { approvedDigest: outboundMessageDigest(message) },
+    rateWindow: { cap: 10, sentCount: 0 },
+    retry: { budget: 3, attempts: 0 }
+  };
+}
+
+test('an uncertain report-email attempt is not replayed when a complete outbound package and valid consent are supplied', async () => {
+  const { store, config, pipeline, lead, prospect } = await fixture();
+  const attemptId = await seedUncertainAttempt(new RevenueEngine(store, config, pipeline), lead, prospect);
+
+  let transportCalls = 0;
+  let packageRequests = 0;
+  let consentChecks = 0;
+  const engine = new RevenueEngine(store, config, pipeline, {
+    sendEmail: async () => {
+      transportCalls += 1;
+      return { data: { id: 'gmail-replay', threadId: 'thread-replay' }, tokens: { access_token: 'rotated-token' } };
+    },
+    outboundAuthorization: async context => {
+      packageRequests += 1;
+      return completeOutboundPackage(context);
+    },
+    consentVerifier: ({ consentReceiptRef }) => {
+      consentChecks += 1;
+      return consentReceiptRef === 'consent:replay-guard-valid';
+    }
+  });
+
+  // The caller's lead predates the uncertain marker, so only the durable claim can see it.
+  const result = await engine.sendReportEmail(lead, prospect);
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'unresolved-prior-attempt-requires-owner-review');
+
+  // The replay guard stopped the attempt before the outbound gate: no package was requested, no consent was checked,
+  // and the provider was never called.
+  assert.equal(packageRequests, 0, 'the outbound gate must not be reached for an unresolved prior attempt');
+  assert.equal(consentChecks, 0);
+  assert.equal(transportCalls, 0);
+
+  // The attempt is still the same unresolved uncertain attempt, not released, not sent.
+  const durable = await store.get('leads', lead.id);
+  assert.equal(durable.reportEmailAttemptStatus, 'uncertain');
+  assert.equal(durable.reportEmailAttemptId, attemptId);
+  assert.ok(durable.reportEmailUncertainAt, 'the uncertainty timestamp survives the refused replay');
+  assert.equal(durable.reportEmailSentAt, undefined);
+  assert.equal((await store.list('messages')).filter(message => message.kind === 'transactional-report').length, 0);
+
+  const decisions = (await store.list('auditLog'))
+    .filter(row => row.type === 'report_email_audit')
+    .map(row => `${row.detail.outcome}:${row.detail.reason}`);
+  assert.deepEqual(decisions, [
+    'uncertain:provider-result-uncertain',
+    'blocked:unresolved-prior-attempt-requires-owner-review'
+  ]);
+});
+
+test('an uncertain report-email attempt is never reported as sent, even after a late provider acceptance', async () => {
+  const { store, config, pipeline, lead, prospect } = await fixture();
+  const engine = new RevenueEngine(store, config, pipeline);
+  const claim = await engine.claimReportEmailAttempt(lead, prospect);
+  assert.equal(claim.ok, true);
+  const marked = await engine.markReportEmailUncertain({
+    leadId: lead.id, attemptId: claim.attemptId, prospect, reason: 'provider-result-uncertain'
+  });
+  assert.equal(marked.persisted, true);
+
+  // A provider acceptance that arrives after the uncertainty was recorded must not finalize the attempt as sent.
+  await assert.rejects(
+    engine.finalizeReportEmailAttempt(claim, { data: { id: 'gmail-late', threadId: 'thread-late' } }),
+    /report-email-claim-not-current/
+  );
+  const durable = await store.get('leads', lead.id);
+  assert.equal(durable.reportEmailAttemptStatus, 'uncertain');
+  assert.equal(durable.reportEmailSentAt, undefined);
+  assert.equal(durable.reportEmailProviderId, undefined);
+  assert.equal((await store.list('messages')).filter(message => message.kind === 'transactional-report').length, 0);
+
+  // A later caller with a fresh snapshot is refused by the same durable marker and is not reported as sent.
+  const retry = await new RevenueEngine(store, config, pipeline, {
+    sendEmail: async () => { throw new Error('a replay must never reach the provider'); }
+  }).sendReportEmail(durable, prospect);
+  assert.equal(retry.sent, false);
+  assert.equal(retry.reason, 'unresolved-prior-attempt-requires-owner-review');
+  assert.equal((await store.get('leads', lead.id)).reportEmailSentAt, undefined);
+});
+
+test('a refused release never clears an uncertain report-email attempt marker', async () => {
+  const { store, config, pipeline, lead, prospect } = await fixture();
+  const attemptId = await seedUncertainAttempt(new RevenueEngine(store, config, pipeline), lead, prospect);
+  const engine = new RevenueEngine(store, config, pipeline);
+
+  const released = await engine.releaseReportEmailAttemptRefused({
+    leadId: lead.id, attemptId, prospect, reasonCodes: ['outbound-authorization-refused']
+  });
+  assert.equal(released.persisted, false);
+  assert.equal(released.reason, 'uncertain-attempt-not-released');
+
+  const after = await store.get('leads', lead.id);
+  assert.equal(String(after.reportEmailAttemptStatus).toLowerCase(), 'uncertain');
+  assert.equal(after.reportEmailAttemptId, attemptId);
+  assert.equal(after.reportEmailRefusedAt ?? null, null);
 });

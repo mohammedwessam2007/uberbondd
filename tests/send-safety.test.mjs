@@ -7,6 +7,9 @@ import { evaluateSendEligibility, contactEligibility, sendIdempotencyKey, classi
 import { Store } from '../src/store.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
 import { createUnsubscribeToken, verifyUnsubscribeToken } from '../src/unsubscribe.mjs';
+import { buildEncryptedSmtpAccount } from '../src/uberfleet.mjs';
+import { allowOutboundConsequenceForTest } from './helpers/outbound-consequence-gate.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 const monday = new Date('2026-07-13T10:00:00.000Z');
 const campaign = { id: 'camp', approved: true, autoSend: true, allowedCountries: ['GB'], minScore: 60, dailyCaps: { A: 10 }, maxFollowups: 0 };
@@ -20,6 +23,21 @@ const prospect = {
   unsubscribeUrl: 'https://uberbond.example/unsubscribe?token=test', oneClickUnsubscribeUrl: 'https://uberbond.example/api/public/unsubscribe?token=test',
   contact: { email: 'info@clinic.example', source: 'website', verified: 'unverified' },
   score: { total: 80 }, issue: { title: 'Booking path issue', confidence: .9, safeForOutreach: true, evidenceUrl: 'https://clinic.example/book', evidenceExcerpt: 'Book button returned an error.' }
+};
+
+// The authorized SMTP route. Tests that must reach the provider boundary use it with a complete package for the exact message.
+// The Gmail route refuses without a package, so its uncertain-result and idempotency invariants are exercised here instead.
+const SMTP_KEY = 'b'.repeat(64);
+const smtpCfg = { ...cfg, encryptionKey: SMTP_KEY, outbound: { ...cfg.outbound, provider: 'smtp-relay', useEffectAdapter: true } };
+const smtpAccount = buildEncryptedSmtpAccount({
+  slot: 'A', email: 'outreach@uberbond.example', host: 'smtp.example.invalid', username: 'outreach@uberbond.example', password: 'synthetic-not-a-secret',
+  sendingDomainId: 'd1', sendingMailboxId: 'm1', sendingWorkspaceId: 'w1', routeEvidenceRef: 'receipt:route-1',
+  routeAuthorized: true, termsCompatible: true, plannedDailyCap: 10, plannedHourlyCap: 3, minGapSeconds: 0
+}, SMTP_KEY).account;
+const routeHooks = {
+  outboundConsequenceGate: allowOutboundConsequenceForTest,
+  outboundAuthorization: ({ message, account }) => validRoutePackage({ account, message }),
+  consentVerifier: ALLOW_CONSENT
 };
 
 async function tempStore() {
@@ -113,12 +131,12 @@ test('pipeline sends once and a repeated execution is stopped by the durable ide
   const store = await tempStore();
   await store.add('campaigns', campaign);
   await store.add('prospects', { ...prospect, status: 'ready', createdAt: monday.toISOString() });
-  await store.add('accounts', { id: 'acct', slot: 'A', connected: true, email: 'outreach@uberbond.example', tokens: 'unused' });
+  await store.add('accounts', smtpAccount);
   let sends = 0;
-  const pipeline = new Pipeline(store, cfg, {
+  const pipeline = new Pipeline(store, smtpCfg, {
     clock: () => monday,
-    sendEmail: async () => { sends += 1; return { data: { id: 'gmail-1', threadId: 'thread-1' } }; },
-    getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<message-1@example>' }] } } })
+    ...routeHooks,
+    smtpSend: async () => { sends += 1; return { classification: 'ACCEPTED', providerReferenceId: 'smtp250:idem-1', messageId: '<idem@example.invalid>' }; }
   });
   const first = await pipeline.maybeSend(prospect, campaign);
   const second = await pipeline.maybeSend(prospect, campaign);
@@ -133,10 +151,10 @@ test('an uncertain provider result is never automatically retried', async () => 
   const store = await tempStore();
   await store.add('campaigns', campaign);
   await store.add('prospects', { ...prospect, id: 'uncertain', domain: 'uncertain.example', website: 'https://uncertain.example', contact: { email: 'info@uncertain.example', source: 'website' }, issue: { ...prospect.issue, evidenceUrl: 'https://uncertain.example/book' }, status: 'ready' });
-  await store.add('accounts', { id: 'acct', slot: 'A', connected: true, email: 'outreach@uberbond.example', tokens: 'unused' });
+  await store.add('accounts', smtpAccount);
   let sends = 0;
   const uncertainProspect = await store.get('prospects', 'uncertain');
-  const pipeline = new Pipeline(store, cfg, { clock: () => monday, sendEmail: async () => { sends += 1; throw new Error('network timed out after dispatch'); } });
+  const pipeline = new Pipeline(store, smtpCfg, { clock: () => monday, ...routeHooks, smtpSend: async () => { sends += 1; throw new Error('network timed out after dispatch'); } });
   const first = await pipeline.maybeSend(uncertainProspect, campaign);
   const second = await pipeline.maybeSend(uncertainProspect, campaign);
   assert.equal(first.uncertain, true);

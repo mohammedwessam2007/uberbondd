@@ -102,8 +102,9 @@ test('a timed-out or 5xx mutation becomes EXTERNAL_OUTCOME_UNKNOWN and is never 
   });
   const result = await adapter.provisionMailboxes({
     mailboxes: [{ email: 'a@uberbond.example' }],
-    ownerApproval: approval('icemail:provisionMailboxes'),
-    idempotencyKey: 'mailboxes:1'
+    ownerApproval: approval('icemail:provisionMailboxes', { spendLimitCents: 100 }),
+    idempotencyKey: 'mailboxes:1',
+    estimatedCostCents: 100
   });
   assert.equal(result.status, 'EXTERNAL_OUTCOME_UNKNOWN');
   assert.equal(calls, 1);
@@ -132,4 +133,46 @@ test('configured Icemail and Mailforge resolve to real adapters while legacy pro
   assert.equal(mailforge.ok, true);
   assert.equal(instantly.ok, false);
   assert.equal(instantly.reason, 'provider-configured-but-no-live-adapter-implemented');
+});
+
+test('native provider warm-up is hard-disabled even with arbitrary price claims, approval and valid routes', async () => {
+  for (const make of [createIcemailAdapter, createMailforgeAdapter]) {
+    const providerCalls = [];
+    const provider = make({ apiKey: 'test-api-key' }, {
+      fetchImpl: async (url, options) => {
+        providerCalls.push({ url, method: options?.method });
+        return response({ ok: true, active: true });
+      }
+    });
+    for (const fakePrice of [0, 60, 3000, undefined]) {
+      const r = await provider.startWarmup({
+        mailboxId: 'mailbox-1',
+        providerPayload: { enabled: true, incrementalRecurringCostCents: fakePrice },
+        ownerApproval: approval('mailforge:startWarmup'),
+        idempotencyKey: 'allow-paid-warmup-bypass'
+      });
+      assert.equal(r.ok, false);
+      assert.equal(r.status, 'UNSUPPORTED_CAPABILITY');
+      assert.match(r.reason, /UBERBOND_ZERO_PAID_WARMUP_LOCK/);
+    }
+    assert.equal(providerCalls.length, 0, 'No provider API call or payment may occur');
+  }
+});
+
+test('generic provider warmup POST remains disabled even with a custom route supplied by a caller', async () => {
+  const { createProviderHttpAdapter } = await import('../src/provider-http-adapters.mjs');
+  let called = 0;
+  const provider = createProviderHttpAdapter({
+    providerName: 'arbitrary-provider',
+    config: { apiKey: 'test-api-key' },
+    baseUrl: 'https://example.org',
+    routes: { startWarmup: '/paid-warmup/enable', warmupStatus: '/paid-warmup/status' },
+    fetchImpl: async () => { called += 1; return response({ success: true }); }
+  });
+  const r = await provider.startWarmup({
+    mailboxId: 't', providerPayload: { enable: true }, ownerApproval: approval('arbitrary-provider:startWarmup'),
+    idempotencyKey: 'try-to-bypass'
+  });
+  assert.equal(r.status, 'UNSUPPORTED_CAPABILITY');
+  assert.equal(called, 0);
 });

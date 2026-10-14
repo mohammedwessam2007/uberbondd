@@ -17,10 +17,14 @@ function store(){
   const rows=[];
   return {
     rows,
-    async log(type,detail){rows.push({type,detail,createdAt:detail.timestamp||new Date().toISOString()});return {type,detail};},
+    async log(type,detail){const row={id:`audit-${rows.length+1}`,type,detail,createdAt:detail.timestamp||new Date().toISOString()};rows.push(row);return {id:row.id,type,detail};},
     async list(collection,{filters}={}){
       if(collection!=='auditLog')return[];
       return rows.filter(row=>!filters?.type||row.type===filters.type);
+    },
+    async count(collection,filters={}){
+      if(collection!=='auditLog')return 0;
+      return rows.filter(row=>!filters?.type||row.type===filters.type).length;
     }
   };
 }

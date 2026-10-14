@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { OUTREACH_LAUNCH_STATES } from './outreach-launch-gate.mjs';
+import { gateOutboundRoute } from './outbound-send-authorization.mjs';
 
 export const GOVERNED_OUTREACH_DISPATCH_VERSION = 'uberbond.governed-outreach-dispatch.v1';
 
@@ -36,6 +37,10 @@ export async function dispatchGovernedOutreach({
   message = {},
   transportAdapter,
   idempotencyKey,
+  outboundAccount = null,
+  outboundPackage = null,
+  consentVerifier = undefined,
+  routeProvider = 'smtp-relay',
   now = new Date()
 } = {}) {
   const reasons = [];
@@ -65,19 +70,25 @@ export async function dispatchGovernedOutreach({
     bodyDigest: sha256(clean(message.body, 100000))
   }))}`;
 
+  // Outbound gate before any transport call. The package must bind these exact bytes, which are the object handed to
+  // transportAdapter.send, and decideOutboundSend must allow them. A refusal crosses no effect boundary: providerCalls stays 0.
+  const outbound = {
+    to: recipient,
+    from: clean(message.from, 320) || null,
+    subject: clean(message.subject, 500),
+    body: clean(message.body, 100000),
+    replyTo: clean(message.replyTo, 320) || null,
+    listUnsubscribe: clean(message.listUnsubscribe, 1200) || null,
+    campaignId,
+    idempotencyKey: clean(idempotencyKey, 500),
+    launchDecisionId: launchDecision.decisionId,
+    authorizationReceiptId: authorization.receiptId
+  };
+  const outboundRefusal = gateOutboundRoute({ account: outboundAccount, message: { ...outbound, authorization: outboundPackage || undefined }, consentVerifier, routeProvider });
+  if (outboundRefusal) return failure(outboundRefusal.reasonCodes, { decisionDigest: outboundRefusal.decisionDigest });
+
   try {
-    const providerResult = await transportAdapter.send({
-      to: recipient,
-      from: clean(message.from, 320) || null,
-      subject: clean(message.subject, 500),
-      body: clean(message.body, 100000),
-      replyTo: clean(message.replyTo, 320) || null,
-      listUnsubscribe: clean(message.listUnsubscribe, 1200) || null,
-      campaignId,
-      idempotencyKey: clean(idempotencyKey, 500),
-      launchDecisionId: launchDecision.decisionId,
-      authorizationReceiptId: authorization.receiptId
-    });
+    const providerResult = await transportAdapter.send(outbound);
 
     if (providerResult?.confirmed !== true || !clean(providerResult?.providerReceiptId, 500)) {
       return {

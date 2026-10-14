@@ -66,6 +66,7 @@ import { buildEncryptedSmtpAccount, selectFleetMailbox } from './src/uberfleet.m
 import { buildEncryptedImapAccount } from './src/uberimap.mjs';
 import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
 import { createWinnrApiClient } from './src/uberwinnr-adapter.mjs';
+import { createWinnrInfrastructureAdapter } from './src/uberwinnr-provider-adapter.mjs';
 import { compileWinnrProcurementFrontier } from './src/uberwinnr-procurement-frontier.mjs';
 import { compileWinnrCredentialImport } from './src/uberwinnr-credential-import.mjs';
 import { compileWinnrPostPurchaseRegistryPlan, applyWinnrPostPurchaseRegistryPlan } from './src/uberwinnr-postpurchase.mjs';
@@ -124,6 +125,13 @@ const winnr = createWinnrApiClient({
   authorized: config.providers?.winnr?.accountAuthorized === true,
   termsCompatible: config.providers?.winnr?.termsCompatible === true,
   evidenceRef: config.providers?.winnr?.termsEvidenceRef || ''
+});
+// Owner-approval wrapper for consequential Winnr routes; it refuses before any client call.
+const winnrProvider = createWinnrInfrastructureAdapter({
+  apiKey: config.providers?.winnr?.apiKey || '',
+  accountAuthorized: config.providers?.winnr?.accountAuthorized === true,
+  termsCompatible: config.providers?.winnr?.termsCompatible === true,
+  termsEvidenceRef: config.providers?.winnr?.termsEvidenceRef || ''
 });
 
 const baseHeaders = {
@@ -2093,12 +2101,16 @@ export const requestHandler = async (req, res) => {
       if (!winnr?.ok) return json(res, 503, winnrUnavailable());
       const input = await parseBody(req);
       if (input.confirmCredentialExport !== true) throw new HttpError(400, 'confirmCredentialExport must be true');
-      const result = await winnr.exportMailboxes({
-        format: input.format || 'default',
-        domains: Array.isArray(input.domains) ? input.domains : [],
-        emails: Array.isArray(input.emails) ? input.emails : [],
-        allDomains: input.allDomains === true,
-        writeAuthorized: true
+      // Owner approval is checked by the provider wrapper before any Winnr client call.
+      // An export is zero-spend, so the approval must state spendLimitCents: 0.
+      const result = await winnrProvider.exportMailboxes({
+        body: {
+          format: input.format || 'default',
+          domains: Array.isArray(input.domains) ? input.domains : [],
+          emails: Array.isArray(input.emails) ? input.emails : [],
+          allDomains: input.allDomains === true
+        },
+        ownerApproval: input.ownerApproval ?? null
       });
       return json(res, result.ok ? 200 : result.status === 'UBERWINNR_WRITE_OUTCOME_UNCERTAIN' ? 409 : 400, result);
     }
@@ -2200,8 +2212,17 @@ export const requestHandler = async (req, res) => {
     const maildosoMutationMatch = url.pathname.match(/^\/api\/providers\/maildoso\/mutate\/([^/]+)$/);
     if (method === 'POST' && maildosoMutationMatch) {
       const input = await parseBody(req);
+      // A supplied estimate must be a non-negative integer; an absent one is forwarded as null and refused by the adapter.
+      const estimatedCostCents = input.estimatedCostCents ?? null;
+      if (estimatedCostCents !== null && !(Number.isSafeInteger(estimatedCostCents) && estimatedCostCents >= 0)) {
+        return json(res, 400, {
+          ok: false, status: 'UBERMAILDOSO_MUTATION_REFUSED',
+          reasonCodes: ['estimated-cost-cents-must-be-non-negative-integer'],
+          providerCalls: 0, externalEffects: 0
+        });
+      }
       const result = await maildoso.mutate(decodeURIComponent(maildosoMutationMatch[1]), {
-        body: input.body, params: input.params, query: input.query, approval: input.approval
+        body: input.body, params: input.params, query: input.query, approval: input.approval, estimatedCostCents
       });
       return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : result.status === 'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN' ? 409 : 400), result);
     }

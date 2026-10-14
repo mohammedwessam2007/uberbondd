@@ -92,43 +92,51 @@ test('destination provenance is recorded as self-submitted, distinguishing this 
   const entries = await reportAuditEntries(store);
   assert.equal(entries[0].detail.destinationProvenance, 'self-submitted-at-public-intake-form');
   assert.equal(entries[0].detail.effectClass, 'transactional-report-email');
-  assert.equal(sent, 1);
+  // Deliberate change: the report route refuses without an authorization package, so the provider is never called.
+  assert.equal(sent, 0);
 });
 
-test('a duplicate report (already sent) does not duplicate a send', async () => {
+test('a refused report is never recorded as sent, so a repeat attempt cannot duplicate a send', async () => {
   const { store, dir } = await tempStore();
   const config = cfg(dir);
   const { engine, lead, prospect } = await seedLead(store, config);
   let sends = 0;
   engine.sendEmailFn = async () => { sends += 1; return { data: { id: 'gmail-1', threadId: 'thread-1' } }; };
+  // Deliberate change: the earlier version expected a provider send and an already-sent duplicate. Without an authorization package
+  // the route refuses, so nothing is marked sent, and a repeat attempt is refused the same way without reaching the provider.
   const first = await engine.sendReportEmail(lead, prospect);
   const sentLead = await store.get('leads', lead.id);
   const second = await engine.sendReportEmail(sentLead, prospect);
-  assert.equal(first.sent, true);
+  assert.equal(first.sent, false);
+  assert.equal(first.reason, 'outbound-authorization-refused');
   assert.equal(second.sent, false);
-  assert.equal(second.reason, 'already-sent');
-  assert.equal(sends, 1);
+  assert.equal(sends, 0);
 });
 
-test('a provider failure is recorded as unknown, never as success, and blocks automatic retry', async () => {
+test('a refused report never reaches the provider, so no unknown outcome is recorded and the lead is not blocked', async () => {
   const { store, dir } = await tempStore();
   const config = cfg(dir);
   const { engine, lead, prospect } = await seedLead(store, config);
-  engine.sendEmailFn = async () => { throw new Error('network timed out after dispatch'); };
+  let calls = 0;
+  engine.sendEmailFn = async () => { calls += 1; throw new Error('network timed out after dispatch'); };
+  // Deliberate change: the earlier version expected a provider failure recorded as uncertain. Without a package the provider is
+  // never called, so the claim is released rather than left as an unresolved attempt.
   const first = await engine.sendReportEmail(lead, prospect);
   assert.equal(first.sent, false);
-  assert.equal(first.uncertain, true);
+  assert.equal(first.reason, 'outbound-authorization-refused');
+  assert.equal(first.uncertain, undefined);
   const afterFirst = await store.get('leads', lead.id);
   assert.equal(afterFirst.reportEmailSentAt, undefined);
-  assert.equal(afterFirst.reportEmailAttemptStatus, 'uncertain');
+  assert.ok(!afterFirst.reportEmailAttemptStatus, 'a refused claim is released, never left in flight or uncertain');
 
   const second = await engine.sendReportEmail(afterFirst, prospect);
   assert.equal(second.sent, false);
-  assert.equal(second.reason, 'unresolved-prior-attempt-requires-owner-review');
+  assert.equal(second.reason, 'outbound-authorization-refused');
+  assert.equal(calls, 0);
 
   const entries = await reportAuditEntries(store);
-  assert.equal(entries.filter(e => e.detail.outcome === 'uncertain').length, 1);
-  assert.equal(entries.filter(e => e.detail.outcome === 'sent').length, 0, 'an unresolved outcome must never be recorded as sent');
+  assert.equal(entries.filter(e => e.detail.outcome === 'uncertain').length, 0);
+  assert.equal(entries.filter(e => e.detail.outcome === 'sent').length, 0, 'a refused outcome must never be recorded as sent');
 });
 
 test('onProspectComplete never automatically retries after an uncertain outcome', async () => {
@@ -137,11 +145,12 @@ test('onProspectComplete never automatically retries after an uncertain outcome'
   const { engine, lead, prospect } = await seedLead(store, config);
   let calls = 0;
   engine.sendEmailFn = async () => { calls += 1; throw new Error('timeout'); };
+  // Deliberate change: the Gmail route refuses without a package before any provider call, so no attempt is made at all.
   await engine.onProspectComplete(prospect);
-  assert.equal(calls, 1);
+  assert.equal(calls, 0);
   // Re-fire the completion hook exactly as a real monitoring re-run would.
   await engine.onProspectComplete(await store.get('prospects', prospect.id));
-  assert.equal(calls, 1, 'a second completion event must not trigger a second attempt while the outcome is unresolved');
+  assert.equal(calls, 0, 'a refused completion event must never reach the provider on any re-run');
 });
 
 test('an unconnected/unknown provider account blocks the email before any send attempt', async () => {
@@ -186,13 +195,16 @@ test('audit data never contains the message body, access token, or credentials',
   assert.equal(entries[0].detail.policyVersion, REPORT_EMAIL_POLICY_VERSION);
 });
 
-test('a successful send is only ever recorded after the provider call actually resolves, never inferred from silence', async () => {
+test('a refused report is never recorded as sent, and the provider is never called to settle it', async () => {
   const { store, dir } = await tempStore();
   const config = cfg(dir);
   const { engine, lead, prospect } = await seedLead(store, config);
   let resolved = false;
   engine.sendEmailFn = async () => { await new Promise(r => setTimeout(r, 5)); resolved = true; return { data: { id: 'g', threadId: 't' } }; };
+  // Deliberate change: the earlier version asserted that a resolved provider call was recorded as sent. Without a package the
+  // provider is never called, so nothing can be recorded as sent from silence or otherwise.
   const result = await engine.sendReportEmail(lead, prospect);
-  assert.equal(resolved, true);
-  assert.equal(result.sent, true);
+  assert.equal(resolved, false);
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
 });

@@ -5,6 +5,7 @@ import { sealTokens } from '../src/gmail.mjs';
 import { GmailEffectAdapter, generateMessageId } from '../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs';
 import { ADAPTER_OUTCOMES } from '../src/omnia-v9/integrations/external-effect-adapter.mjs';
 import { createFakeGmailTransport, FAKE_GMAIL_MODES } from './helpers/fake-gmail-transport.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 const ENCRYPTION_KEY = crypto.randomBytes(32).toString('hex');
 const CFG_BASE = { clientId: 'fake-client', clientSecret: 'fake-secret', redirectUri: 'https://example.test/callback' };
@@ -15,14 +16,32 @@ function freshAccount() {
   return { tokens: sealTokens(tokens, ENCRYPTION_KEY) };
 }
 
+// The package supplier builds a complete package for the exact message. gmail-api is not an admitted route, so the refusal that
+// remains is provider-not-smtp-relay: every dispatch is REJECTED before the counter, the credential and the transport.
 function makeAdapter(transport) {
   return new GmailEffectAdapter({
     cfg: { ...CFG_BASE, fetchImpl: transport.fetchImpl },
     account: freshAccount(),
     encryptionKey: ENCRYPTION_KEY,
     messageIdDomain: MESSAGE_ID_DOMAIN,
-    fromAddress: 'sender@sovereign-controlled-test.example'
+    fromAddress: 'sender@sovereign-controlled-test.example',
+    outboundAuthorizationFn: ({ message, account }) => validRoutePackage({ account, message }),
+    outboundConsentVerifier: ALLOW_CONSENT
   });
+}
+
+function assertRouteRefused(result, transport) {
+  assert.equal(result.classification, ADAPTER_OUTCOMES.REJECTED);
+  assert.equal(result.dispatchError, 'outbound-authorization-refused');
+  assert.deepEqual(result.outboundRefusal.reasonCodes, ['provider-not-smtp-relay']);
+  assert.equal(result.evidence, null, 'a refused dispatch produces no evidence');
+  assert.equal(transport.mailbox.length, 0, 'a refused dispatch never reaches the provider');
+}
+
+// Provider-side state only: the copy a real Gmail would hold after an accepted send. The adapter never writes it, and a test seeds it
+// only where the scenario is about reconciliation of a copy the provider already holds.
+function seedProviderCopy(transport, prepared) {
+  transport.injectMailboxEntry({ threadId: 'gmail-thread-seed-' + prepared.businessKey, headers: { 'message-id': prepared.messageId, to: prepared.to, subject: prepared.subject }, body: prepared.body });
 }
 
 function payload(overrides = {}) {
@@ -39,14 +58,13 @@ function preparedInput(id, effectPayload = payload()) {
   };
 }
 
-test('mocked contract: definite success -- dispatch returns ACCEPTED with a real Gmail message id', async () => {
+test('mocked contract: definite success is refused -- gmail-api is not admitted, so dispatch is REJECTED with zero provider sends', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('1'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.ACCEPTED);
-  assert.ok(result.providerReferenceId);
-  assert.equal(result.evidence.lifecycle, 'ACCEPTED');
+  assertRouteRefused(result, transport);
+  assert.equal(adapter.dispatchCallCount, 0, 'the refusal happens before the dispatch counter');
 });
 
 test('mocked contract: definite rejection -- dispatch returns REJECTED, never a fabricated ACCEPTED', async () => {
@@ -54,66 +72,65 @@ test('mocked contract: definite rejection -- dispatch returns REJECTED, never a 
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('2'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.REJECTED);
-  assert.equal(transport.mailbox.length, 0, 'a truly rejected request must never appear in the provider mailbox');
+  assertRouteRefused(result, transport);
 });
 
-test('mocked contract: timeout BEFORE the request was received -- UNCERTAIN, and the provider truly never got it', async () => {
+test('mocked contract: timeout BEFORE the request was received -- the refused dispatch leaves no provider copy, and zero matches stay UNCERTAIN', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.TIMEOUT_BEFORE_REQUEST_RECEIVED });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('3'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.UNCERTAIN);
-  assert.equal(transport.mailbox.length, 0);
+  assertRouteRefused(result, transport);
   const reconciled = await adapter.reconcile({ businessKey: 'bk-3', providerEffectIdentity: prepared.messageId });
   assert.equal(reconciled.lifecycle, 'UNCERTAIN', 'a zero-result Gmail search cannot prove non-submission or authorize a retry');
   assert.equal(reconciled.detail.reason, 'zero-matches-not-proof-of-non-submission');
 });
 
-test('mocked contract: timeout AFTER the request was accepted -- UNCERTAIN locally, but reconciliation finds it', async () => {
+test('mocked contract: timeout AFTER the request was accepted -- a refused dispatch is never UNCERTAIN, and a provider copy reconciles', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.TIMEOUT_AFTER_REQUEST_ACCEPTED });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('4'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.UNCERTAIN, 'a thrown error after send is never converted into ACCEPTED locally');
-  assert.equal(transport.mailbox.length, 1, 'sanity: the provider truly did receive and store it');
+  assertRouteRefused(result, transport);
+  seedProviderCopy(transport, prepared);
   const reconciled = await adapter.reconcile({ businessKey: 'bk-4', providerEffectIdentity: prepared.messageId, expectedTo: 'recipient@example.test', expectedSubject: payload().subject });
   assert.equal(reconciled.lifecycle, 'RECONCILED_ACCEPTED');
   assert.equal(adapter.classifyOutcome(reconciled), ADAPTER_OUTCOMES.RECONCILED_ACCEPTED);
 });
 
-test('mocked contract: response lost (transient 5xx after the provider actually stored the message) -- UNCERTAIN, reconciliation recovers', async () => {
+test('mocked contract: response lost (transient 5xx) -- the refused dispatch is REJECTED, and reconciliation of a provider copy recovers', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.SERVER_ERROR });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('5'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.UNCERTAIN, '5xx must never be treated as a definite rejection');
+  assertRouteRefused(result, transport);
+  seedProviderCopy(transport, prepared);
   const reconciled = await adapter.reconcile({ businessKey: 'bk-5', providerEffectIdentity: prepared.messageId });
   assert.equal(reconciled.lifecycle, 'RECONCILED_ACCEPTED');
 });
 
-test('mocked contract: rate-limited (429) is UNCERTAIN, never REJECTED', async () => {
+test('mocked contract: rate-limited (429) is never reached -- the refused dispatch is REJECTED with zero provider sends, never UNCERTAIN', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.RATE_LIMITED });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('5b'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.UNCERTAIN);
+  assertRouteRefused(result, transport);
 });
 
-test('mocked contract: provider accepted but local receipt persistence fails -- the execution layer, not the adapter, handles this (see the dispatch/recovery test file); the adapter itself just returns ACCEPTED honestly', async () => {
+test('mocked contract: the adapter never reports ACCEPTED without a provider send -- the refused dispatch returns REJECTED with null evidence', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('6'));
   const result = await adapter.dispatch(prepared);
-  assert.equal(result.classification, ADAPTER_OUTCOMES.ACCEPTED);
-  assert.ok(result.evidence, 'the adapter always produces evidence on ACCEPTED -- whether the caller successfully persists it is the execution store\'s concern, tested directly in omnia-v9-gmail-effect-adapter-dispatch-recovery.test.mjs');
+  assertRouteRefused(result, transport);
 });
 
 test('mocked contract: search finds exactly one -- reconciles cleanly', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('7'));
-  await adapter.dispatch(prepared);
+  assertRouteRefused(await adapter.dispatch(prepared), transport);
+  seedProviderCopy(transport, prepared);
   const reconciled = await adapter.reconcile({ businessKey: 'bk-7', providerEffectIdentity: prepared.messageId });
   assert.equal(reconciled.lifecycle, 'RECONCILED_ACCEPTED');
 });
@@ -131,7 +148,8 @@ test('mocked contract: search finds multiple -- AMBIGUOUS, never resolved heuris
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('9'));
-  await adapter.dispatch(prepared);
+  assertRouteRefused(await adapter.dispatch(prepared), transport);
+  seedProviderCopy(transport, prepared);
   // Inject a second, adversarial mailbox entry with the exact same Message-ID header
   // (should never happen with a real provider, but this adapter must not assume that).
   transport.injectMailboxEntry({ threadId: 'gmail-thread-dup', headers: { 'message-id': prepared.messageId, to: prepared.to, subject: prepared.subject }, body: prepared.body });
@@ -144,7 +162,8 @@ test('mocked contract: search finds wrong recipient -- AMBIGUOUS, never trusted 
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('10'));
-  await adapter.dispatch(prepared);
+  assertRouteRefused(await adapter.dispatch(prepared), transport);
+  seedProviderCopy(transport, prepared);
   const reconciled = await adapter.reconcile({ businessKey: 'bk-10', providerEffectIdentity: prepared.messageId, expectedTo: 'someone-else@example.test' });
   assert.equal(reconciled.lifecycle, 'AMBIGUOUS');
   assert.equal(reconciled.detail.reason, 'recipient-mismatch');
@@ -154,7 +173,8 @@ test('mocked contract: search finds the same Message-ID with incompatible metada
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.DEFINITE_SUCCESS });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('11'));
-  await adapter.dispatch(prepared);
+  assertRouteRefused(await adapter.dispatch(prepared), transport);
+  seedProviderCopy(transport, prepared);
   const reconciled = await adapter.reconcile({ businessKey: 'bk-11', providerEffectIdentity: prepared.messageId, expectedSubject: 'a completely different subject' });
   assert.equal(reconciled.lifecycle, 'AMBIGUOUS');
   assert.equal(reconciled.detail.reason, 'subject-mismatch');
@@ -168,7 +188,8 @@ test('mocked contract: a provider search result whose FULL fetched message-id he
   const adapter = makeAdapter(transport);
   // A real, unrelated message -- different Message-ID -- happens to exist in the mailbox.
   const otherPrepared = await adapter.prepare(preparedInput('other'));
-  await adapter.dispatch(otherPrepared);
+  assertRouteRefused(await adapter.dispatch(otherPrepared), transport);
+  seedProviderCopy(transport, otherPrepared);
   // We reconcile for a DIFFERENT (never-dispatched) execution's Message-ID -- the loose
   // list match returns the unrelated message anyway.
   const neverDispatchedMessageId = generateMessageId('exec-never-dispatched-2', MESSAGE_ID_DOMAIN);
@@ -177,13 +198,13 @@ test('mocked contract: a provider search result whose FULL fetched message-id he
   assert.equal(reconciled.detail.reason, 'message-id-mismatch-after-fetch');
 });
 
-test('mocked contract: two attempted definite-rejection dispatches never accumulate more than one mailbox entry each (no hidden client-level auto-retry)', async () => {
+test('mocked contract: no send attempt and no hidden client-level auto-retry -- the refused dispatch leaves zero provider entries', async () => {
   const transport = createFakeGmailTransport({ mode: FAKE_GMAIL_MODES.SERVER_ERROR });
   const adapter = makeAdapter(transport);
   const prepared = await adapter.prepare(preparedInput('noretry'));
   await adapter.dispatch(prepared);
-  assert.equal(adapter.dispatchCallCount, 1, 'dispatch() must never internally retry the send call');
-  assert.equal(transport.mailbox.length, 1, 'exactly one send attempt reached the (fake) provider');
+  assert.equal(adapter.dispatchCallCount, 0, 'the gate refuses before the dispatch counter, so no send attempt is counted');
+  assert.equal(transport.mailbox.length, 0, 'no send attempt reached the (fake) provider, so there is nothing to retry');
 });
 
 test('mocked contract: classifyOutcome() maps every lifecycle to the correct adapter outcome, and unknown lifecycles fail closed to UNCERTAIN', () => {

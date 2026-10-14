@@ -32,7 +32,9 @@ function blocked(state, missingItem, beginnerSteps, timestamp, extra = {}) {
 // an explicit, caller-supplied fact; this function never infers it.
 export async function evaluateLiveActivation({
   domainState = null, mailboxState = null, providerAdapterResolution = null,
-  ownerAuthorization = null, providerPayload = null, minWarmupDays = 14, date = new Date()
+  ownerAuthorization = null, providerPayload = null, minWarmupDays = 14, date = new Date(),
+  // Zero-add-on firewall inputs: the caller's owner approval and entitlement verifiers, forwarded as given. Never synthesized here.
+  ownerApproval = null, verifyZeroCostWarmupEntitlement, verifyCurrentOwnerWarmupApproval
 } = {}) {
   const at = referenceDate(date);
   const timestamp = at.toISOString();
@@ -129,7 +131,8 @@ export async function evaluateLiveActivation({
     }
   }
 
-  const started = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: providerAdapterResolution.adapter, providerPayload, date: at });
+  // The zero-add-on firewall needs the caller's entitlement and owner approval. They are forwarded as given, never synthesized here.
+  const started = await requestMailboxWarmupStart({ domainState, mailboxState, providerAdapter: providerAdapterResolution.adapter, providerPayload, date: at, ownerApproval, verifyZeroCostWarmupEntitlement, verifyCurrentOwnerWarmupApproval });
   if (!started.ok) {
     return blocked('BLOCKED_PROVIDER_CAPABILITY', 'a successful provider warm-up start response', [`Provider warm-up start failed: ${started.reasonCodes.join(', ')}.`], timestamp, { providerReceipt: started.providerReceipt });
   }

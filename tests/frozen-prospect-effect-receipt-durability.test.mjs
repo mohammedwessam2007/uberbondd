@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -8,8 +8,12 @@ import { Store } from '../src/store.mjs';
 import { executeFrozenProspectEffect, verifyFrozenProspectAuthorization } from '../src/frozen-prospect-effect-runtime.mjs';
 import { buildEncryptedSmtpAccount } from '../src/uberfleet.mjs';
 import { compileContactHistory } from '../src/prospect-contact-history.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 const PACKAGE = 'uberbond.prospect-effect-package.v1';
+// The bound sender account of this fixture. The route requests a package for each exact message and the fixture supplies a complete one.
+const ROUTE_ACCOUNT = { id: 'nadia-smtp', slot: 'winnr:nadia.chen@cedarpointdomains.com', email: 'nadia.chen@cedarpointdomains.com' };
+const routeGate = { outboundAuthorization: ({ message }) => validRoutePackage({ account: ROUTE_ACCOUNT, message }), consentVerifier: ALLOW_CONSENT };
 const secret = 'runtime-freeze-secret-000000000000000000000000';
 const approvalSecret = 'runtime-approval-secret-00000000000000000000000';
 const encryptionKey = 'a'.repeat(64);
@@ -18,6 +22,12 @@ const at = new Date('2026-10-04T12:00:00.000Z');
 const canonical = x => Array.isArray(x) ? x.map(canonical) : x && typeof x === 'object'
   ? Object.fromEntries(Object.keys(x).sort().filter(k => x[k] !== undefined).map(k => [k, canonical(x[k])])) : x;
 const digestOf = participants => createHash('sha256').update(JSON.stringify(canonical({ version: PACKAGE, participants }))).digest('hex');
+// The approval is an external owner record supplied with the call. The fixture signs it the way that approval path would;
+// the runtime never mints it.
+const signApproval = base => {
+  const { signature, ...unsigned } = base;
+  return { ...unsigned, signature: createHmac('sha256', approvalSecret).update(JSON.stringify(canonical(unsigned))).digest('hex') };
+};
 
 async function fixture() {
   const dir = await mkdtemp(join(tmpdir(), 'frozen-receipt-durability-'));
@@ -43,6 +53,11 @@ async function fixture() {
     contactHistoryReceiptDigest: 'h'.repeat(64)
   };
   const digest = digestOf(participants);
+  const approval = signApproval({
+    schemaVersion: 'uberbond.frozen-effect-authorization.v1', effectDigest: digest, recipient: 'partnerships@intelo.ai',
+    senderSlot: participants.sender.slot, senderAddress: 'nadia.chen@cedarpointdomains.com', provider: 'smtp-relay', routeClass: 'INVITED_GREEN',
+    routeDigest: 'c'.repeat(64), effectCap: 1, approvedBy: approverId, approvedAt: at.toISOString(), expiresAt: participants.expiresAt
+  });
   await store.setSetting(`frozenProspectEffect:${digest}`, {
     version: 'uberbond.frozen-prospect-effect.v1',
     digest,
@@ -107,7 +122,9 @@ async function fixture() {
     encryptionKey,
     validate,
     dispatch,
-    now: at
+    now: at,
+    ...routeGate,
+    authorization: approval
   });
   return { dir, store, digest, execute };
 }

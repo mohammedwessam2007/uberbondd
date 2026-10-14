@@ -38,7 +38,7 @@ test('confirmed mutation returns a redacted provider receipt',async()=>{
     assert.equal(o.method,'POST');
     return{status:201,body:{created:3}};
   })});
-  const r=await a.mutate('createAccounts',{body:{accounts:[1,2,3]},approval});
+  const r=await a.mutate('createAccounts',{body:{accounts:[1,2,3]},estimatedCostCents:100,approval:{...approval,spendLimitCents:100}});
   assert.equal(r.ok,true);
   assert.equal(r.status,'UBERMAILDOSO_MUTATION_CONFIRMED');
   assert.equal(r.receipt.status,201);
@@ -47,7 +47,7 @@ test('confirmed mutation returns a redacted provider receipt',async()=>{
 
 test('thrown mutation is uncertain and never blindly retryable',async()=>{
   const a=createUberMaildosoAdapter({token:'x',fetchImpl:async()=>{throw new Error('socket reset');}});
-  const r=await a.mutate('createAccounts',{body:{},approval});
+  const r=await a.mutate('createAccounts',{body:{},estimatedCostCents:100,approval:{...approval,spendLimitCents:100}});
   assert.equal(r.ok,false);
   assert.equal(r.status,'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN');
   assert.equal(r.automaticRetryAuthorized,false);

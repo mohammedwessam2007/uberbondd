@@ -1,0 +1,84 @@
+{
+  "status": "RESEARCH_QUEUE_NOT_SEND_READY",
+  "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+  "priceUSD": 1500,
+  "sendAuthority": false,
+  "prospects": [
+    {
+      "company": "DemandStream Digital",
+      "priority": 1,
+      "website": "https://demandstreamdigital.com/",
+      "contact": "hello@demandstreamdigital.com",
+      "decisionMaker": "Doug Bryson; public founder biography",
+      "businessFit": "Published agency services for plumbing/HVAC",
+      "sourcePages": [
+        "https://demandstreamdigital.com/",
+        "https://demandstreamdigital.com/contact"
+      ],
+      "proofObservation": "Homepage and contact page publish different phone routes. May be intentional attribution; mapping needed. No loss or defect asserted.",
+      "productionHistory": "5e83fe46331b0ad7bfed124c087650cd17dd900879297b9ea65023286ca43bc7",
+      "eligibility": "INCOMPLETE",
+      "holds": [
+        "current-ownership-unverified",
+        "published-purpose-of-address-unverified",
+        "offer-route-from-existing-quartet-required",
+        "no-solicitation-notice-not-checked",
+        "no-harvest-notice-not-checked",
+        "real-client-site-missing",
+        "externally-verifiable-lead-path-observation-missing"
+      ]
+    },
+    {
+      "company": "Powerhouse Consulting Group",
+      "priority": 2,
+      "website": "https://mypowerhouse.group/",
+      "proofArtifact": "artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md",
+      "freshClientPage": "https://sylvesterelectric.com/",
+      "eligibility": "HOLD",
+      "holds": [
+        "webinar information purpose is not supplier invitation",
+        "older deployed queued-history policy hit",
+        "sender-side authority unresolved"
+      ]
+    },
+    {
+      "company": "HVAC Digital Marketing",
+      "website": "https://hvacdm.com/",
+      "eligibility": "EXCLUDED",
+      "reason": "Published US-only established partner stance; current supplier fit not established"
+    }
+  ],
+  "tournament": {
+    "version": "uberbond.prospect-message-tournament.v1",
+    "status": "DO_NOT_SEND",
+    "generatedAt": "2026-10-11T13:24:26.364Z",
+    "reasonCodes": [
+      "prospect-not-verified-candidate"
+    ],
+    "winner": null,
+    "sendAuthority": false,
+    "externalEffectAuthority": "NONE",
+    "finalEffectDigest": null
+  },
+  "proposalPreparation": {
+    "reuse": "docs/research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md",
+    "offer": "Agency Revenue Leak Proof Pack",
+    "scope": "72-hour white-label proof of three client lead paths; screenshots, severity and repair order",
+    "fixedPriceUSD": 1500,
+    "buyerAccepted": false,
+    "contractSigned": false,
+    "clearedPayment": false,
+    "deliveryUnlocked": false,
+    "replyRules": [
+      "positive reply: evidence artifact then asynchronous scope",
+      "price: fixed $1500 canonical offer",
+      "STOP: global suppression",
+      "wrong person: role clarification only",
+      "not now: defer and refresh eligibility"
+    ],
+    "finalSignedFooter": null,
+    "finalEffectPackage": null,
+    "approvalRequestReady": false
+  },
+  "tournamentInputBoundary": "Live intake is INCOMPLETE; projection maps returned provenance to tournament contactHistoryProvenance. No VERIFIED_CANDIDATE, receipt trust or winner fabricated."
+}

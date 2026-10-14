@@ -8,6 +8,7 @@
 import crypto from 'node:crypto';
 import { PAYMENT_TRUTH_POLICY_VERSION } from './payments.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
+import { isTestModeWitness, TEST_MODE_WITNESS_REFUSED } from './payment-renewal-truth.mjs';
 
 export const COMMERCIAL_OUTCOME_POLICY_VERSION = 'commercial-outcome-1.0.0';
 
@@ -47,6 +48,11 @@ function paymentProof({ outcome, paymentDecision, outcomeType }) {
   if (!paymentDecision || paymentDecision.policyVersion !== PAYMENT_TRUTH_POLICY_VERSION) {
     return { ok: false, reason: 'payment-truth-decision-required' };
   }
+  // A provider test or sandbox witness is never proof, whatever the classifier
+  // said about it. Refused before the classification is read.
+  if (isTestModeWitness(outcome) || isTestModeWitness(paymentDecision)) {
+    return { ok: false, reason: TEST_MODE_WITNESS_REFUSED };
+  }
   if (!CLEARED_CLASSIFICATIONS.has(paymentDecision.classification) || paymentDecision.shouldRecordRevenue !== true) {
     return { ok: false, reason: 'cleared-payment-classification-required' };
   }
@@ -76,6 +82,9 @@ function paymentProof({ outcome, paymentDecision, outcomeType }) {
 function refundProof({ outcome, paymentDecision }) {
   if (!paymentDecision || paymentDecision.policyVersion !== PAYMENT_TRUTH_POLICY_VERSION) {
     return { ok: false, reason: 'payment-truth-decision-required' };
+  }
+  if (isTestModeWitness(outcome) || isTestModeWitness(paymentDecision)) {
+    return { ok: false, reason: TEST_MODE_WITNESS_REFUSED };
   }
   if (paymentDecision.classification !== 'REFUND_OR_DISPUTE' || paymentDecision.shouldRecordRevenue !== true) {
     return { ok: false, reason: 'refund-or-dispute-classification-required' };

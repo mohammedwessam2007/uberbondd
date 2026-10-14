@@ -92,8 +92,11 @@ test('pipeline invokes shadow only after durable reservation is dispatching and 
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<shadow@example>' }] } } })
   });
   const result = await pipeline.maybeSend(prospect, campaign);
-  assert.equal(result.sent, true);
-  assert.deepEqual(events, ['shadow', 'gmail']);
+  // Deliberate change: the Gmail route now refuses without an authorization package, so the provider is never reached. The shadow
+  // still runs after the durable dispatching reservation and before any provider decision.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.deepEqual(events, ['shadow']);
 });
 
 test('a shadow DENY cannot block, alter, or duplicate the legacy send', async () => {
@@ -112,11 +115,13 @@ test('a shadow DENY cannot block, alter, or duplicate the legacy send', async ()
   });
   const first = await pipeline.maybeSend(prospect, campaign);
   const second = await pipeline.maybeSend(prospect, campaign);
-  assert.equal(first.sent, true);
-  assert.equal(second.sent, true);
-  assert.equal(second.duplicate, true);
+  // Deliberate change: the Gmail route refuses without a package. The invariant kept is that a DENY from the shadow changes
+  // nothing about the outcome and never reaches the provider.
+  assert.equal(first.sent, false);
+  assert.equal(first.reason, 'outbound-authorization-refused');
+  assert.equal(second.sent, false);
   assert.equal(shadowCalls, 1);
-  assert.equal(sends, 1);
+  assert.equal(sends, 0);
 });
 
 test('a shadow observer exception is converted to REVIEW and cannot suppress Gmail', async () => {
@@ -130,8 +135,10 @@ test('a shadow observer exception is converted to REVIEW and cannot suppress Gma
     getMessage: async () => ({ data: { payload: { headers: [{ name: 'Message-ID', value: '<shadow-error@example>' }] } } })
   });
   const result = await pipeline.maybeSend(prospect, campaign);
-  assert.equal(result.sent, true);
-  assert.equal(sends, 1);
+  // Deliberate change: the Gmail route refuses without a package. The shadow error still converts to REVIEW and never enforces.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.equal(sends, 0);
   const logs = await store.list('auditLog');
   const shadowLog = logs.find(row => row.type === 'omnia_v9_outbound_final_shadow');
   assert.equal(shadowLog.detail.status, 'SHADOW_ERROR');

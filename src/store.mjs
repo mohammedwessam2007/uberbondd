@@ -4,13 +4,15 @@ import path from 'node:path';
 import { Pool } from 'pg';
 import { now } from './utils.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
+import { assertDirectMigrationConnection } from './postgres-migration-connection.mjs';
+import { redactSecrets } from './secret-patterns.mjs';
 
 export const COLLECTIONS = [
   'prospects', 'campaigns', 'jobs', 'messages', 'replies', 'suppressions',
   'socialTasks', 'accounts', 'auditLog', 'leads', 'orders', 'subscriptions',
   'monitoringRuns', 'notifications', 'revenueEvents', 'discoveryRuns', 'workerHeartbeats',
   'outboundReservations', 'senderHealth', 'outboundEvents', 'providerEvents', 'leadLists', 'replyDrafts', 'automationPlans', 'automationRuns',
-  'leadSearches', 'leadSignals', 'leadEnrichmentRuns', 'leadIntakeEvents', 'leadFieldResults', 'leadTasks', 'phoenixCapsules'
+  'leadSearches', 'leadSignals', 'leadEnrichmentRuns', 'leadIntakeEvents', 'leadFieldResults', 'leadTasks', 'phoenixCapsules', 'unlinkedReplies'
 ];
 
 const EMPTY = {
@@ -20,7 +22,7 @@ const EMPTY = {
   leads: [], orders: [], subscriptions: [], monitoringRuns: [], notifications: [],
   revenueEvents: [], discoveryRuns: [], workerHeartbeats: [],
   outboundReservations: [], senderHealth: [], outboundEvents: [], providerEvents: [], leadLists: [], replyDrafts: [], automationPlans: [], automationRuns: [],
-  leadSearches: [], leadSignals: [], leadEnrichmentRuns: [], leadIntakeEvents: [], leadFieldResults: [], leadTasks: [], phoenixCapsules: []
+  leadSearches: [], leadSignals: [], leadEnrichmentRuns: [], leadIntakeEvents: [], leadFieldResults: [], leadTasks: [], phoenixCapsules: [], unlinkedReplies: []
 };
 
 const MAP = {
@@ -144,6 +146,7 @@ const MAP = {
     columns: { prospectId: 'prospect_id', accountKey: 'account_key', taskType: 'task_type', status: 'status', priority: 'priority', dueAt: 'due_at', createdAt: 'created_at', updatedAt: 'updated_at' }
   },
   phoenixCapsules: { table: 'phoenix_capsules', columns: { sessionId: 'session_id', digest: 'digest', entryCount: 'entry_count', createdAt: 'created_at' } },
+  unlinkedReplies: { table: 'unlinked_replies', columns: { accountSlot: 'account_slot', receivedAt: 'received_at', createdAt: 'created_at', updatedAt: 'updated_at' } },
 };
 
 export class StoreError extends Error {
@@ -226,6 +229,13 @@ class JsonTransactionStore {
   async count(key, filters = {}) { return (await this.list(key, { filters })).length; }
   async add(key, item) { return this.parent._addDirect(key, item); }
   async upsert(key, item) { return this.parent._upsertDirect(key, item); }
+  // A JSON write checks uniqueness before it touches the collection, so a rejected
+  // row leaves nothing to undo. The method exists so callers can use one shape on both stores.
+  async savepoint(fn) { return fn(this); }
+  async upsertWithStatus(key, item) {
+    const existed = (this.parent.data[key] || []).some(row => row.id === item.id);
+    return { record: await this.upsert(key, item), inserted: !existed };
+  }
   async patch(key, id, patch) { return this.parent._patchDirect(key, id, patch); }
   async getSettings() { return structuredClone(this.parent.data.settings || {}); }
   async setSetting(key, value) { this.parent.data.settings[key] = structuredClone(value); return value; }
@@ -255,14 +265,19 @@ export class JsonStore {
     this.dir = dir;
     this.file = path.join(dir, 'db.json');
     this.queue = Promise.resolve();
+    // Serialize snapshot persistence separately from the transactional queue.
+    this.saveQueue = Promise.resolve();
     this.data = structuredClone(EMPTY);
   }
+
+  // Declared backend identity, read-only. Production gates compare this kind; they do not use instanceof.
+  get backendKind() { return 'json'; }
 
   async init() {
     await fs.mkdir(this.dir, { recursive: true });
     try {
       const loaded = JSON.parse(await fs.readFile(this.file, 'utf8'));
-      this.data = { ...structuredClone(EMPTY), ...loaded, version: 5 };
+      this.data = { ...structuredClone(EMPTY), ...loaded, version: EMPTY.version };
       for (const key of Object.keys(EMPTY)) {
         if (!(key in this.data)) this.data[key] = structuredClone(EMPTY[key]);
       }
@@ -273,12 +288,25 @@ export class JsonStore {
     }
   }
 
-  async close() {}
+  async close() { await this.saveQueue; }
 
   async save() {
-    const temp = `${this.file}.tmp`;
-    await fs.writeFile(temp, JSON.stringify(this.data, null, 2));
-    await fs.rename(temp, this.file);
+    // A fixed db.json.tmp collides when two writes overlap, producing ENOENT
+    // after one rename consumes the other writer's staging file. Snapshot at
+    // invocation and serialize persistence in that order; use unique staging
+    // paths so independent JsonStore instances cannot steal each other's file.
+    const payload = JSON.stringify(this.data, null, 2);
+    const work = this.saveQueue.then(async () => {
+      const temp = `${this.file}.${process.pid}.${crypto.randomUUID()}.tmp`;
+      try {
+        await fs.writeFile(temp, payload, { flag: 'wx' });
+        await fs.rename(temp, this.file);
+      } finally {
+        await fs.rm(temp, { force: true }).catch(() => {});
+      }
+    });
+    this.saveQueue = work.catch(() => {});
+    return work;
   }
 
   async transaction(fn) {
@@ -635,24 +663,118 @@ export class JsonStore {
   }
 }
 
+// Reports whether a session is inside an explicit transaction block. A migration
+// that ends inside its own BEGIN raises no error, so the runner has to ask the
+// session. SAVEPOINT is the probe: outside a block PostgreSQL refuses it with 25P01,
+// inside an open block it succeeds, and inside a block that has already failed it
+// is refused with 25P02. The codes were checked on PostgreSQL 16. The autocommit and
+// open-block outcomes are exercised by tests/store-migration-lock-hostile.test.mjs.
+// A successful probe leaves a savepoint inside the open block, which the caller's
+// ROLLBACK removes. Any other outcome throws, so the caller treats the session
+// state as unknown.
+async function sessionInTransactionBlock(client) {
+  try {
+    await client.query('SAVEPOINT uberbond_migration_probe');
+    return true;
+  } catch (error) {
+    if (error?.code === '25P01') return false;
+    if (error?.code === '25P02') return true;
+    throw error;
+  }
+}
+
+// Idle-client diagnostics. The text that leaves this module is reduced so it cannot
+// carry a credential: URLs and connection strings are replaced, as are user:password@host
+// authorities and key=value passwords and connection keywords (user, host, dbname).
+// A PostgreSQL SQLSTATE is kept only when it has the five-character shape, and the message is bounded.
+const DIAGNOSTIC_MESSAGE_LIMIT = 240;
+const SQLSTATE_SHAPE = /^[0-9A-Z]{5}$/;
+
+function sanitizeDiagnosticText(text) {
+  // URLs and authorities are removed before the shared secret redactor runs. Its
+  // rewrite of user:password@ would otherwise consume the scheme and leave the host behind.
+  const stripped = String(text ?? '')
+    .replace(/[a-z][a-z0-9+.-]*:\/\/\S*/gi, '[URL]')
+    .replace(/[^\s/:@]+:[^\s@/]+@[^\s/]+/g, '[CREDENTIAL]')
+    // A whitespace-delimited token that carries an authority ("@") is a credential candidate in full. This catches
+    // an unencoded space in a URL password (the tail after the space) and a slash inside a password with no scheme.
+    .replace(/\S*@\S*/g, '[CREDENTIAL]')
+    // libpq and JSON key/value forms. The optional quote after the key covers JSON's "password":"value" shape. A quoted
+    // value is consumed whole, so a password containing spaces leaves no fragment behind.
+    .replace(/(password|passwd|pwd|pass|sslpassword|secret|token|username|user|hostaddr|host|dbname)(["']?\s*[=:]\s*)('(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|\S+)/gi, '$1$2[REDACTED]');
+  return redactSecrets(stripped)
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, DIAGNOSTIC_MESSAGE_LIMIT);
+}
+
+// Converts any thrown value into { errorClass, message[, sqlstate] } with no connection
+// string, password or URL. The raw error is never serialised.
+export function sanitizeStoreDiagnosticError(error) {
+  const rawClass = error?.constructor?.name || error?.name || 'UnknownError';
+  const errorClass = String(rawClass).replace(/[^A-Za-z0-9_]/g, '_').slice(0, 60) || 'UnknownError';
+  const source = error && typeof error === 'object' && 'message' in error ? error.message : error;
+  const diagnostic = { errorClass, message: sanitizeDiagnosticText(source) };
+  if (typeof error?.code === 'string' && SQLSTATE_SHAPE.test(error.code)) diagnostic.sqlstate = error.code;
+  return diagnostic;
+}
+
+// Writes an idle pool client error to the process log. pg-pool emits this on the pool,
+// so the listener must never throw: a failed log write must not become an uncaught exception.
+function reportIdlePoolClientError(error) {
+  // An unreadable error (a throwing message getter, say) still produces a visible line, so the
+  // diagnostic is never silently discarded. A failed log write must not throw into pg-pool.
+  let line;
+  try {
+    line = `STORE_IDLE_POOL_CLIENT_ERROR ${JSON.stringify(sanitizeStoreDiagnosticError(error))}`;
+  } catch {
+    line = 'STORE_IDLE_POOL_CLIENT_ERROR {"errorClass":"UnknownError","message":"[UNREADABLE]"}';
+  }
+  try {
+    console.error(line);
+  } catch {
+    // The pool keeps running without the diagnostic.
+  }
+}
+
 export class PostgresStore {
-  constructor({ databaseUrl, ssl = true, pool, transactionClient = false } = {}) {
+  constructor({ databaseUrl, ssl = true, pool, transactionClient = false, migrationsDir } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
+    // pg-pool re-emits a connection error from an idle client on the pool. With no listener that is an uncaught exception,
+    // so a server terminating an idle connection (restart, admin shutdown, idle timeout) would stop the process. The pool
+    // has already removed that client, so the next query opens a fresh one. The error is reported as a sanitized
+    // diagnostic, so a dropped idle connection is visible in the logs without leaking the connection string.
+    if (this.ownsPool) this.pool.on('error', reportIdlePoolClientError);
+    this.migrationsDir = path.resolve(migrationsDir || 'migrations');
+    // Kept only to prove, before any migration lock is taken, that the URL is not a transaction pooler.
+    this.databaseUrl = databaseUrl || null;
     // A scoped store inside transaction() is backed by one already-connected
     // pg Client. Nested store helpers (patch/failJob/etc.) must reuse that
     // client instead of calling client.connect() a second time.
     this.transactionClient = Boolean(transactionClient);
   }
 
+  // Declared backend identity, read-only. Production gates compare this kind; they do not use instanceof.
+  get backendKind() { return 'postgres'; }
+
   async init() { await this.migrate(); }
   async close() { if (this.ownsPool) await this.pool.end(); }
 
   async migrate() {
+    // Refuse before taking any lock or opening a connection: a pooled session cannot hold a migration lock.
+    if (this.databaseUrl) assertDirectMigrationConnection(this.databaseUrl);
     const client = await this.pool.connect();
+    // A connection lost while the session is checked out is reported as an 'error'
+    // event on the client, not as a query rejection. With no listener it would
+    // crash the process, so it is recorded here and the session is destroyed below.
+    let errored = false;
+    const onError = () => { errored = true; };
+    client.on('error', onError);
     const lockName = 'uberbond:schema-migrations';
     let locked = false;
+    let failure = null;
     try {
       await client.query('SELECT pg_advisory_lock(hashtext($1))', [lockName]);
       locked = true;
@@ -662,35 +784,85 @@ export class PostgresStore {
       )`);
       const appliedRows = await client.query('SELECT version FROM schema_migrations');
       const applied = new Set(appliedRows.rows.map(row => row.version));
-      const dir = path.resolve('migrations');
+      const dir = this.migrationsDir;
       const files = (await fs.readdir(dir)).filter(name => name.endsWith('.sql')).sort();
       for (const file of files) {
         const version = file.replace(/\.sql$/i, '');
         if (applied.has(version)) continue;
         const sql = await fs.readFile(path.join(dir, file), 'utf8');
         await client.query(sql);
+        // A file may end inside its own BEGIN without COMMIT or ROLLBACK. PostgreSQL
+        // reports no error for that, so the open block is refused here. The cleanup
+        // below rolls it back, which also removes the file's schema_migrations row,
+        // so the version is never counted as applied.
+        if (await sessionInTransactionBlock(client)) {
+          throw new StoreError(`MIGRATION_LEFT_TRANSACTION_OPEN: ${file} ended inside an open transaction block without COMMIT or ROLLBACK; its statements were rolled back and its version was not recorded`, 'MIGRATION_LEFT_TRANSACTION_OPEN');
+        }
         applied.add(version);
       }
-    } finally {
-      if (locked) await client.query('SELECT pg_advisory_unlock(hashtext($1))', [lockName]).catch(() => {});
-      client.release();
+    } catch (error) {
+      failure = error;
     }
+    // Cleanup decides only whether this session may be pooled again. A session that
+    // is still inside a transaction, or still holds the schema lock, would block or
+    // corrupt the next caller, so it is destroyed unless both are proven clean.
+    // A cleanup failure never replaces the migration error rethrown below.
+    // Every cleanup step shares one ten-second budget. A step still pending when the
+    // budget runs out leaves the session unproven, so no later step is started and
+    // release(true) destroys the session. Destroying it ends the server-side session,
+    // which releases any schema lock it still holds.
+    const cleanupDeadline = Date.now() + 10000;
+    const withinCleanup = promise => {
+      let timer;
+      const expired = new Promise(resolve => { timer = setTimeout(() => resolve(null), Math.max(0, cleanupDeadline - Date.now())); });
+      return Promise.race([promise, expired]).finally(() => clearTimeout(timer));
+    };
+    let reusable = !errored;
+    if (reusable && failure) {
+      // A ROLLBACK with no open block only emits a warning, so resolving proves little.
+      // The probe proves the session is back in autocommit. An unknown probe result
+      // keeps the session out of the pool.
+      reusable = (await withinCleanup(client.query('ROLLBACK').then(() => true, () => false))) === true;
+      if (reusable) reusable = (await withinCleanup(sessionInTransactionBlock(client).then(open => !open, () => false))) === true;
+    }
+    if (reusable && locked) {
+      reusable = (await withinCleanup(client.query('SELECT pg_advisory_unlock(hashtext($1)) AS released', [lockName])
+        .then(result => result.rows[0]?.released === true, () => false))) === true;
+    }
+    client.removeListener('error', onError);
+    client.release(reusable && !errored ? undefined : true);
+    if (failure) throw failure;
   }
 
   async transaction(fn) {
     if (this.transactionClient) return fn(this);
     const client = await this.pool.connect();
+    let errored = false;
+    const onError = () => { errored = true; };
+    client.on('error', onError);
     try {
       await client.query('BEGIN');
       const scoped = new PostgresStore({ pool: client, transactionClient: true });
       scoped.ownsPool = false;
       const result = await fn(scoped);
-      await client.query('COMMIT');
+      // A statement error that the callback swallowed leaves the transaction aborted.
+      // PostgreSQL then answers COMMIT with a ROLLBACK command tag and no error, so
+      // the tag is the only evidence that nothing was committed.
+      const committed = await client.query('COMMIT');
+      if (committed?.command !== 'COMMIT') {
+        errored = true;
+        throw new StoreError(`TRANSACTION_NOT_COMMITTED: COMMIT ended the transaction as ${committed?.command ?? 'an unknown command'}; a statement error was swallowed inside the callback, so none of its writes were committed`, 'TRANSACTION_NOT_COMMITTED');
+      }
       return result;
     } catch (error) {
-      await client.query('ROLLBACK');
+      // A ROLLBACK that fails means the connection is unusable. The client is
+      // destroyed below and the original error is still the one rethrown.
+      await client.query('ROLLBACK').catch(() => { errored = true; });
       throw error;
-    } finally { client.release(); }
+    } finally {
+      client.removeListener('error', onError);
+      client.release(errored ? true : undefined);
+    }
   }
 
   async tx(fn) { return this.transaction(fn); }
@@ -749,14 +921,44 @@ export class PostgresStore {
     } catch (error) { throw duplicateError(error, key, record); }
   }
 
-  async upsert(key, item) {
+  // Runs fn inside a SAVEPOINT of this transaction. When fn rejects, only fn's own
+  // writes are undone and the transaction stays usable. PostgreSQL otherwise aborts
+  // the whole transaction at its first error, so every later statement fails.
+  // Outside a transaction the call is simply a transaction.
+  async savepoint(fn) {
+    if (!this.transactionClient) return this.transaction(fn);
+    const name = `uberbond_sp_${crypto.randomBytes(8).toString('hex')}`;
+    await this.pool.query(`SAVEPOINT ${name}`);
+    let result;
+    try {
+      result = await fn(this);
+    } catch (error) {
+      try {
+        await this.pool.query(`ROLLBACK TO SAVEPOINT ${name}`);
+      } catch (rollbackError) {
+        throw new StoreError(`SAVEPOINT_ROLLBACK_FAILED: ${name} could not be rolled back; the enclosing transaction must end`, 'SAVEPOINT_ROLLBACK_FAILED', rollbackError);
+      }
+      throw error;
+    }
+    await this.pool.query(`RELEASE SAVEPOINT ${name}`);
+    return result;
+  }
+
+  // Same write as upsert, and also whether this statement inserted the row. The
+  // answer comes from the database rather than from a read the caller made earlier,
+  // so a row that a racing client created in the meantime is reported as an update.
+  async upsertWithStatus(key, item) {
     const { def, record, columns, values } = postgresValues(key, item);
     const placeholders = values.map((_, index) => `$${index + 1}`);
     const updates = columns.filter(column => column !== 'id').map(column => `${column} = EXCLUDED.${column}`);
     try {
-      await this.pool.query(`INSERT INTO ${def.table} (${columns.join(', ')}) VALUES (${placeholders.join(', ')}) ON CONFLICT (id) DO UPDATE SET ${updates.join(', ')}`, values);
-      return record;
+      const result = await this.pool.query(`INSERT INTO ${def.table} (${columns.join(', ')}) VALUES (${placeholders.join(', ')}) ON CONFLICT (id) DO UPDATE SET ${updates.join(', ')} RETURNING (xmax = 0) AS inserted`, values);
+      return { record, inserted: result?.rows?.[0]?.inserted === true };
     } catch (error) { throw duplicateError(error, key, record); }
+  }
+
+  async upsert(key, item) {
+    return (await this.upsertWithStatus(key, item)).record;
   }
 
   async patch(key, id, patch) {
@@ -786,6 +988,15 @@ export class PostgresStore {
       const result = await tx.pool.query('SELECT value FROM settings WHERE key = $1', [key]);
       return tx.setSetting(key, await update(result.rows[0]?.value));
     });
+  }
+
+  // Non-blocking form of the lock updateSettingAtomically takes for the same key. False means another transaction holds
+  // it, so that transaction is still in flight. A caller that must not queue behind it can refuse at once. The lock is
+  // released when the enclosing transaction ends, so this is meaningful only inside transaction().
+  async tryLockSetting(key) {
+    if (!this.transactionClient) throw new StoreError('tryLockSetting requires an open transaction', 'CONFIG');
+    const result = await this.pool.query('SELECT pg_try_advisory_xact_lock(hashtextextended($1, 0)) AS locked', [`setting:${key}`]);
+    return result.rows[0]?.locked === true;
   }
 
   async log(type, detail = {}) {

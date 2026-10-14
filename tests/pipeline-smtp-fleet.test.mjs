@@ -8,6 +8,7 @@ import { Pipeline } from '../src/pipeline.mjs';
 import { buildEncryptedSmtpAccount } from '../src/uberfleet.mjs';
 import { allowOutboundConsequenceForTest } from './helpers/outbound-consequence-gate.mjs';
 import { approveProspectForTest, TEST_OUTREACH_APPROVAL_SECRET } from './helpers/outreach-governance.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 const NOW=new Date('2026-09-28T10:00:00.000Z');
 const KEY='a'.repeat(64);
@@ -45,6 +46,8 @@ async function store(){
  return s;
 }
 test('SMTP relay canary traverses governance and authoritative effect gate exactly once',async()=>{
+ // The send now also requires an authorization package for this exact message. This fixture supplies a complete one, so the
+ // provider is still reached exactly once. Without it the send is refused before the provider (see outbound-live-route-gating).
  const s=await store();
  const approved=approveProspectForTest({
   prospect:base,campaign,cfg,date:NOW,jurisdiction:'GB',
@@ -55,6 +58,8 @@ test('SMTP relay canary traverses governance and authoritative effect gate exact
  const p=new Pipeline(s,cfg,{
   clock:()=>NOW,
   outboundConsequenceGate:allowOutboundConsequenceForTest,
+  outboundAuthorization:({message,account})=>validRoutePackage({account,message}),
+  consentVerifier:ALLOW_CONSENT,
   smtpSend:async({account,message})=>{
     sends++; assert.equal(account.slot,'smtp-1'); assert.equal(message.from,'sender@uberbond.example');
     return {classification:'ACCEPTED',providerReferenceId:'smtp250:test',messageId:'<smtp-test@example>'};

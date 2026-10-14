@@ -100,7 +100,13 @@ export function compilePlacementReport({plan={},observations=[],now=new Date()}=
     const normalized=raw?.ok&&raw.observation?raw:normalizePlacementObservation(raw);
     if(!normalized.ok)continue;
     const o=normalized.observation;
-    if(!planned.has(o.probeId))continue;
+    const expected=planned.get(o.probeId);
+    // A matching probe token by itself is not enough: otherwise one seed's
+    // apparent INBOX report could silently be attributed to another sender
+    // or a different recipient network. Fail closed on identity mismatch.
+    if(!expected || lower(expected.senderEmail,320)!==o.senderEmail ||
+       lower(expected.seedEmail,320)!==o.seedEmail ||
+       (lower(expected.seedProvider,80) && lower(expected.seedProvider,80)!==o.seedProvider))continue;
     const key=`${o.probeId}|${o.seedEmail}`;
     const prev=dedup.get(key);
     if(!prev||Date.parse(o.observedAt)>Date.parse(prev.observedAt))dedup.set(key,o);

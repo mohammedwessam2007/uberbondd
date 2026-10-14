@@ -1,9 +1,10 @@
 import { createStore } from './store.mjs';
 import { createWinnrApiClient } from './uberwinnr-adapter.mjs';
 import { compileWinnrPostPurchaseRegistryPlan, applyWinnrPostPurchaseRegistryPlan } from './uberwinnr-postpurchase.mjs';
-import { compileWinnrCredentialImport } from './uberwinnr-credential-import.mjs';
+import { compileWinnrCredentialImport, inspectWinnrCredentialExport } from './uberwinnr-credential-import.mjs';
 import { dispatchSmtpFleetAccount } from './uberfleet.mjs';
 import { pollImapForwardingAccount } from './uberimap.mjs';
+import { gateOutboundRoute, OUTBOUND_AUTHORIZATION_PACKAGE_MISSING } from './outbound-send-authorization.mjs';
 
 const clean=(v,n=2000)=>String(v??'').trim().slice(0,n);
 
@@ -26,15 +27,24 @@ export async function runWinnrRuntimeBootstrap({
   canaryTarget='',
   workspaceId='uberbond-outreach',
   smtpSkipOrdinals=[],
-  smtpInterProbeDelayMs=15000
+  smtpInterProbeDelayMs=15000,
+  outboundAuthorization=null,
+  consentVerifier=undefined
 }={}){
   const startedAt=new Date().toISOString();
   const reasons=[];
+  // Ordinals are positions in the CSV, not identities. A skip list is only meaningful for the three-mailbox pilot,
+  // so a larger export refuses it before any store write or provider contact rather than skipping the wrong sender.
+  const skipCount=(Array.isArray(smtpSkipOrdinals)?smtpSkipOrdinals:[]).filter(n=>Number.isInteger(Number(n))&&Number(n)>0).length;
+  if(skipCount>0&&inspectWinnrCredentialExport(csvText).rowCount>3)return {ok:false,status:'WINNR_RUNTIME_BOOTSTRAP_REFUSED',reasonCodes:['ordinal-skip-requires-slot-keys'],providerCalls:0,messagesSent:0,startedAt};
   if(!config)reasons.push('config-required');
   if(!clean(csvText,2_000_000))reasons.push('credential-export-required');
   if(!/^[a-f0-9]{64}$/i.test(String(config?.encryptionKey||'')))reasons.push('token-encryption-key-required');
   if(!clean(canaryTarget,320).includes('@'))reasons.push('owner-controlled-canary-target-required');
   if(reasons.length)return {ok:false,status:'WINNR_RUNTIME_BOOTSTRAP_REFUSED',reasonCodes:reasons,messagesSent:0};
+  // Without an authorization supplier the canary sends are impossible, so the bootstrap refuses before any Winnr call,
+  // store write or credential import rather than performing those steps for a send that cannot happen.
+  if(typeof outboundAuthorization!=='function')return {ok:false,status:'WINNR_RUNTIME_BOOTSTRAP_REFUSED',reasonCodes:[OUTBOUND_AUTHORIZATION_PACKAGE_MISSING],providerCalls:0,messagesSent:0,startedAt};
 
   const winnr=createWinnrApiClient({
     token:config.providers?.winnr?.apiKey||'',
@@ -113,15 +123,19 @@ export async function runWinnrRuntimeBootstrap({
         if(attemptedSmtp>0)await new Promise(resolve=>setTimeout(resolve,Math.max(1000,Math.min(60000,Number(smtpInterProbeDelayMs)||15000))));
         attemptedSmtp++;
       try{
-        smtp=await dispatchSmtpFleetAccount({
-          account:row.smtpAccount,
-          encryptionKey:config.encryptionKey,
-          message:{
-            to:clean(canaryTarget,320).toLowerCase(),
-            subject:`UberBond Winnr runtime canary ${i+1}/${prepared.prepared.length}`,
-            body:'Owner-controlled infrastructure verification from the UberBond cloud runtime. No action required.'
-          }
-        });
+        const message={
+          to:clean(canaryTarget,320).toLowerCase(),
+          from:row.smtpAccount.email,
+          subject:`UberBond Winnr runtime canary ${i+1}/${prepared.prepared.length}`,
+          body:'Owner-controlled infrastructure verification from the UberBond cloud runtime. No action required.'
+        };
+        // Exact-message gate: a package must be requested for this message from this sender account and must pass decideOutboundSend.
+        let outboundPackage=null;
+        try{outboundPackage=await outboundAuthorization({message,account:row.smtpAccount,ordinal});}catch{outboundPackage=null;}
+        const refusal=gateOutboundRoute({account:row.smtpAccount,message:{...message,authorization:outboundPackage||undefined},consentVerifier});
+        smtp=refusal
+          ? {classification:'REFUSED',reasonCodes:refusal.reasonCodes}
+          : await dispatchSmtpFleetAccount({account:row.smtpAccount,encryptionKey:config.encryptionKey,message:{...message,authorization:outboundPackage},consentVerifier});
         if(smtp?.classification==='ACCEPTED')messagesSent++;
       }catch(error){
         smtp={classification:'REJECTED',reasonCodes:['smtp-probe-exception'],dispatchError:safeFailure(error)};
@@ -133,7 +147,7 @@ export async function runWinnrRuntimeBootstrap({
         smtpClassification:smtp?.classification||'UNKNOWN',
         smtpReasonCodes:Array.isArray(smtp?.reasonCodes)?smtp.reasonCodes.map(x=>clean(x,120)).slice(0,5):[],
         smtpError:clean(smtp?.dispatchError,300)||null,
-        imapConfirmed:imap?.ok===true,
+        imapConfirmed:imap?.ok===true&&imap?.status==='UBERIMAP_FETCH_CONFIRMED',
         imapStatus:imap?.status||'UNKNOWN'
       });
     }

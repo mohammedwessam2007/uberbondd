@@ -1,4 +1,5 @@
 import { normalizeDomain } from './utils.mjs';
+import { canonicalRecipientKey } from './outbound-send-authorization.mjs';
 
 const FREE_EMAIL_DOMAINS = new Set([
   'gmail.com','googlemail.com','yahoo.com','yahoo.co.uk','outlook.com','hotmail.com','live.com',
@@ -154,8 +155,13 @@ export function countActiveOutboundReservations(reservations = [], { inbox = '',
 export async function suppressionLookup(store, { website = '', email = '' } = {}) {
   const domain = normalizeDomain(website);
   const normalizedEmail = String(email || '').trim().toLowerCase();
+  // The same canonical key the outbound send gate uses, so an alias of a suppressed address is matched here too.
+  const emailKey = canonicalRecipientKey(normalizedEmail);
+  const domainKey = canonicalRecipientKey(domain);
   const suppressions = await store.list('suppressions');
-  const match = suppressions.find(item => item.value === normalizedEmail || item.value === domain);
+  const match = suppressions.find(item => item.value === normalizedEmail || item.value === domain
+    || (emailKey !== '' && canonicalRecipientKey(item.value) === emailKey)
+    || (domainKey !== '' && canonicalRecipientKey(item.value) === domainKey));
   return { suppressed: Boolean(match), matchedValue: match?.value || '', reason: match?.reason || '' };
 }
 

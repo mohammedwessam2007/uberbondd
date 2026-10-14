@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import { sendEmail, listMessages, getMessage, parseGmailMessage } from '../../../gmail.mjs';
 import { ExternalEffectAdapter, ADAPTER_OUTCOMES } from '../external-effect-adapter.mjs';
 import { sha256 } from '../../canonical.mjs';
+import { gateOutboundRoute, requestOutboundPackage } from '../../../outbound-send-authorization.mjs';
 import {
   DEFINITE_REJECTION_HTTP_STATUSES,
   deterministicV9MessageId,
@@ -145,7 +146,7 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
    * @param {string} deps.messageIdDomain - the domain used for generated Message-IDs; must be explicit, never assumed.
    * @param {string} deps.fromAddress   - the exact From: address this adapter is allowed to send as.
    */
-  constructor({ cfg, account, encryptionKey, messageIdDomain, fromAddress, sendEmailFn = sendEmail, listMessagesFn = listMessages, getMessageFn = getMessage, parseMessageFn = parseGmailMessage } = {}) {
+  constructor({ cfg, account, encryptionKey, messageIdDomain, fromAddress, sendEmailFn = sendEmail, listMessagesFn = listMessages, getMessageFn = getMessage, parseMessageFn = parseGmailMessage, outboundAuthorizationFn = null, outboundConsentVerifier = undefined } = {}) {
     super();
     if (!cfg) throw new GmailEffectAdapterError('cfg is required', 'CONFIG');
     if (!account) throw new GmailEffectAdapterError('account is required', 'CONFIG');
@@ -160,6 +161,8 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
     this.listMessagesFn = listMessagesFn;
     this.getMessageFn = getMessageFn;
     this.parseMessageFn = parseMessageFn;
+    this.outboundAuthorizationFn = outboundAuthorizationFn;
+    this.outboundConsentVerifier = outboundConsentVerifier;
     this.dispatchCallCount = 0;
   }
 
@@ -224,8 +227,15 @@ export class GmailEffectAdapter extends ExternalEffectAdapter {
    * "automatic retry inspection" section).
    */
   async dispatch(preparedEffect) {
-    this.dispatchCallCount += 1;
     const { to, from, subject, body, messageId, threadId, replyToId, listUnsubscribe, businessKey } = preparedEffect;
+    // Live-route gate before the dispatch counter, any credential use and sendEmailFn. Gmail-API is not an admitted route, so the
+    // decision refuses here. A refused dispatch crosses no effect boundary: it is REJECTED with zero sends, never UNCERTAIN.
+    const outbound = { to, from, subject, body, messageId, threadId, replyToId, listUnsubscribe };
+    const account = { id: this.fromAddress, slot: 'gmail-effect-adapter', email: this.fromAddress, provider: 'gmail-api', smtpRoute: {} };
+    const authorization = await requestOutboundPackage(this.outboundAuthorizationFn, { message: outbound, account, businessKey });
+    const outboundRefusal = gateOutboundRoute({ account, message: { ...outbound, authorization: authorization || undefined }, consentVerifier: this.outboundConsentVerifier, routeProvider: 'gmail-api' });
+    if (outboundRefusal) return { classification: ADAPTER_OUTCOMES.REJECTED, providerReferenceId: null, evidence: null, dispatchError: 'outbound-authorization-refused', outboundRefusal: { reasonCodes: outboundRefusal.reasonCodes, decisionDigest: outboundRefusal.decisionDigest } };
+    this.dispatchCallCount += 1;
     const observedAt = new Date().toISOString();
 
     let response;

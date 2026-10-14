@@ -191,11 +191,11 @@ test('a List-Unsubscribe header counts only inside a linked thread; an unlinked 
 });
 
 test('an ARF feedback report that names an outbound thread is a complaint: suppression and a sender hold below the threshold', async () => {
-  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-fbl' })], prospects: [prospect], messages: [sentMessage] });
+  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-fbl' }), imapAccount({ slot: 'imap-slot-sent' })], prospects: [prospect], messages: [sentMessage] });
   const raw = rfc822({
     from: 'Feedback Loop <staff@feedback.example.invalid>', messageId: 'fbl-1@feedback.example.invalid', inReplyTo: SENT,
     contentType: 'multipart/report; report-type=feedback-report; boundary="fbl"',
-    body: 'This is an email abuse report for a message you sent.'
+    body: 'This is an email abuse report for a message you sent.\nOriginal-Mail-From: <imapslotsent@uberbond.example.invalid>'
   });
   const thresholds = { complaintPauseThreshold: 5, hardBouncePauseThreshold: 2, failurePauseThreshold: 3 };
   await pipelineFor(store, {
@@ -212,10 +212,10 @@ test('an ARF feedback report that names an outbound thread is a complaint: suppr
 });
 
 test('an ARF feedback report that embeds the original Message-ID is linked through that evidence', async () => {
-  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-embed' })], prospects: [prospect], messages: [sentMessage] });
+  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-embed' }), imapAccount({ slot: 'imap-slot-sent' })], prospects: [prospect], messages: [sentMessage] });
   const raw = rfc822({
     from: 'Feedback Loop <staff@feedback.example.invalid>', messageId: 'fbl-2@feedback.example.invalid',
-    contentType: 'multipart/report; report-type=feedback-report; boundary="fbl"', body: 'Abuse report.'
+    contentType: 'multipart/report; report-type=feedback-report; boundary="fbl"', body: 'Abuse report.\nOriginal-Mail-From: <imapslotsent@uberbond.example.invalid>'
   });
   await pipelineFor(store, {
     imapPoll: scripted([success([parsedMessage(1, raw, { reportType: 'feedback-report', embeddedMessageIds: [SENT] })], { lastUid: 1 })]).hook
@@ -256,10 +256,10 @@ test('a replayed hard bounce is counted once, never twice', async () => {
 });
 
 test('a replayed complaint is counted once and keeps the sender hold', async () => {
-  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-replay-fbl' })], prospects: [prospect], messages: [sentMessage] });
+  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-replay-fbl' }), imapAccount({ slot: 'imap-slot-sent' })], prospects: [prospect], messages: [sentMessage] });
   const raw = rfc822({
     from: 'Feedback Loop <staff@feedback.example.invalid>', messageId: 'fbl-r@feedback.example.invalid', inReplyTo: SENT,
-    contentType: 'multipart/report; report-type=feedback-report; boundary="fbl"', body: 'Abuse report.'
+    contentType: 'multipart/report; report-type=feedback-report; boundary="fbl"', body: 'Abuse report.\nOriginal-Mail-From: <imapslotsent@uberbond.example.invalid>'
   });
   const message = parsedMessage(1, raw, { reportType: 'feedback-report' });
   const pipeline = pipelineFor(store, { imapPoll: scripted([success([message], { lastUid: 1 })]).hook, thresholds: { complaintPauseThreshold: 9 } });

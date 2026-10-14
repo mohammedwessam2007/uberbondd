@@ -1065,8 +1065,12 @@ export class Pipeline {
     // A delivery notice is recognised by the inbound-classify rule: an RFC 3464 multipart/report with report-type
     // delivery-status from any sender, or a mailer-daemon/postmaster at a configured sending domain. A From header alone
     // is forgeable, so a bounce-looking sender at a foreign domain is never a notice.
-    const isDeliveryNoticeHere = input => isDeliveryNotice({ ...input, sendingDomain: '' })
-      || sendingDomains.some(sendingDomain => isDeliveryNotice({ ...input, sendingDomain }));
+    // A notice is charged only when it comes from a system sender (mailer-daemon or postmaster). The module's any-sender
+    // RFC 3464 recognition is not used for charging: a structured report from another sender stays manual review.
+    const systemSenderLocalPart = /^(mailer-daemon|postmaster)@/i;
+    const isDeliveryNoticeHere = input => systemSenderLocalPart.test(String(input.fromEmail || ''))
+      && (isDeliveryNotice({ ...input, sendingDomain: '' })
+        || sendingDomains.some(sendingDomain => isDeliveryNotice({ ...input, sendingDomain })));
     const IMAP_POISON_LIMIT = 3;
     // Stored reply bodies are bounded previews. Classification still reads the full decoded text.
     const REPLY_BODY_STORE_CHARS = 4000;

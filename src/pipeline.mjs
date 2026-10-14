@@ -1300,6 +1300,12 @@ export class Pipeline {
         // Automatic-reply wording from a person must not schedule an automatic follow-up. Only a machine-marked reply may.
         classification = { ...classification, label: 'manual_review', reason: 'Automatic-reply wording without an Auto-Submitted header' };
       }
+      // Machine-generated content is not a verified human response.
+      if (autoSubmitted && !deliveryNotice && !machineComplaint && !automaticLabel(classification.label)) {
+        classification = { label: 'manual_review', confidence: 0, suppressionRecommended: false,
+          reasonCode: 'AUTO_SUBMITTED_NONHUMAN_REVIEW',
+          reason: 'Machine-generated content cannot assert human reply intent' };
+      }
       // A message whose body was withheld by a MIME cap is routed to review. Its label comes from no body text, and the
       // review flag is kept whatever a header or subject signal says below.
       let reviewFlag = null;

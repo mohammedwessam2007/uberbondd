@@ -206,9 +206,12 @@ if (skipReason) {
     assert.deepEqual(await countsOf(state.copy), state.copyCountsBeforeInit);
   });
 
-  test('the health receipt for the copy names the two unrecorded migrations and nothing blocking', async () => {
+  test('the health receipt for the copy has no unrecorded migration, no blocking finding and a PASS status', async () => {
     const manifest = await buildMigrationManifest({ dir: path.join(repoRoot, 'migrations') });
-    const unrecordedFromFiles = manifest.entries.filter(e => !e.selfRecorded).map(e => e.version).sort();
+    // Every migration version is recorded by its own file or by a later recording file, so none re-runs on boot.
+    const recorded = new Set(manifest.entries.flatMap(e => e.recordedVersions));
+    const unrecordedFromFiles = manifest.entries.map(e => e.version).filter(version => !recorded.has(version)).sort();
+    assert.deepEqual(unrecordedFromFiles, []);
     const client = await connect(state.copy);
     let health;
     try {
@@ -217,13 +220,13 @@ if (skipReason) {
       await client.end();
     }
     assert.equal(health.migrationState.blockingCount, 0);
-    assert.equal(health.migrationState.unrecordedCount, unrecordedFromFiles.length);
+    assert.equal(health.migrationState.unrecordedCount, 0);
     const keyHex = 'c'.repeat(64);
     const key = checkEncryptionKeyCompatibility({ keyHex, blob: encryptJson({ check: 'synthetic' }, keyHex) });
     const runtime = validateRuntimeConfig({ DATABASE_URL: urlFor(state.copy) }, { mode: 'test', databaseAllowlist: [`127.0.0.1:${state.port}/${state.copy}`] });
     const receipt = buildHealthReceipt({ health, manifest, schemaDiffFindings: [], encryptionKey: key, runtimeConfig: runtime, generatedAt: null });
-    assert.equal(receipt.status, 'WARN');
-    assert.deepEqual(receipt.reasonCodes, ['UNRECORDED_MIGRATION_RERUNS_ON_BOOT']);
+    assert.equal(receipt.status, 'PASS');
+    assert.deepEqual(receipt.reasonCodes, []);
     assert.equal(receipt.encryptionKey.status, 'OK');
     assert.equal(receipt.runtimeConfig.ok, true);
     assert.equal(receipt.rowCounts['public.prospects'], 2);

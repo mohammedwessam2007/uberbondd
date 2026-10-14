@@ -48,6 +48,13 @@ test('self-recording is detected from executable code only', () => {
   assert.equal(analyzeMigrationSql("SELECT 'INSERT INTO schema_migrations';").selfRecorded, false);
 });
 
+test('recorded versions are the literals of executable ledger inserts, with comments removed first', () => {
+  assert.deepEqual(analyzeMigrationSql("INSERT INTO schema_migrations(version) VALUES ('b'), ('a') ON CONFLICT DO NOTHING;").recordedVersions, ['a', 'b']);
+  assert.deepEqual(analyzeMigrationSql("-- INSERT INTO schema_migrations(version) VALUES ('ghost');\nSELECT 1;").recordedVersions, []);
+  assert.deepEqual(analyzeMigrationSql("-- note 'not-a-version'\nINSERT INTO schema_migrations(version) VALUES ('real');").recordedVersions, ['real']);
+  assert.deepEqual(analyzeMigrationSql("CREATE TABLE t (x text DEFAULT 'a');").recordedVersions, []);
+});
+
 test('the manifest covers every migrations/*.sql with its sha256 and a stable digest', async () => {
   const manifest = await buildMigrationManifest({ dir: migrationsDir });
   const names = (await fs.readdir(migrationsDir)).filter(name => name.endsWith('.sql')).sort();
@@ -63,27 +70,50 @@ test('the manifest covers every migrations/*.sql with its sha256 and a stable di
   assert.deepEqual(manifest.reasonCodes, []);
 });
 
-test('the repository migrations that do not record themselves are reported, not assumed applied', async () => {
+test('every repository migration is recorded in the ledger, by its own file or by a later recording file', async () => {
   const manifest = await buildMigrationManifest({ dir: migrationsDir });
-  const unrecorded = manifest.entries.filter(e => !e.selfRecorded).map(e => e.version).sort();
-  assert.deepEqual(unrecorded, ['100_cost_stage_fulfill_learn', '20261008_phoenix_owner_vault']);
+  const recorded = new Set(manifest.entries.flatMap(e => e.recordedVersions));
+  const unrecorded = manifest.entries.map(e => e.version).filter(version => !recorded.has(version)).sort();
+  assert.deepEqual(unrecorded, [], 'no migration may be re-executed on every boot');
+  // 100_cost_stage_fulfill_learn and 20261008_phoenix_owner_vault never inserted their own row. Applied files are never
+  // edited, so the next file in the sorted order records both versions.
+  const byVersion = new Map(manifest.entries.map(e => [e.version, e]));
+  assert.equal(byVersion.get('100_cost_stage_fulfill_learn').selfRecorded, false);
+  assert.equal(byVersion.get('20261008_phoenix_owner_vault').selfRecorded, false);
+  assert.deepEqual(byVersion.get('20261014_record_unrecorded_ledger_versions').recordedVersions,
+    ['100_cost_stage_fulfill_learn', '20261008_phoenix_owner_vault', '20261014_record_unrecorded_ledger_versions']);
   for (const entry of manifest.entries) assert.deepEqual(entry.reasonCodes, [], `${entry.version} must be runnable by the transactional runner`);
 });
 
 function ledgerFor(manifest, { omit = [], extra = [] } = {}) {
-  const versions = manifest.entries.filter(e => e.selfRecorded && !omit.includes(e.version)).map(e => e.version);
+  const versions = [...new Set(manifest.entries.flatMap(e => e.recordedVersions))].filter(version => !omit.includes(version));
   return { tablePresent: true, versions: [...versions, ...extra].sort() };
 }
 
-test('a fully recorded ledger has no blocking findings; unrecorded files are warnings that name the re-run', async () => {
+test('a fully recorded ledger has no blocking findings and no re-run warning', async () => {
   const manifest = await buildMigrationManifest({ dir: migrationsDir });
   const state = checkMigrationState({ manifest, ledger: ledgerFor(manifest) });
   assert.equal(state.ok, true);
   assert.equal(state.blockingCount, 0);
   assert.equal(state.pendingCount, 0);
-  assert.equal(state.unrecordedCount, 2);
-  assert.ok(state.reasonCodes.includes('UNRECORDED_MIGRATION_RERUNS_ON_BOOT'));
+  assert.equal(state.unrecordedCount, 0);
+  assert.ok(!state.reasonCodes.includes('UNRECORDED_MIGRATION_RERUNS_ON_BOOT'));
   assert.ok(state.reasonCodes.includes('APPLIED_MIGRATION_UNVERIFIED'));
+});
+
+test('a version that no migration file records is a warning that names the re-run on every boot', async () => {
+  const manifest = await buildMigrationManifest({ dir: migrationsDir });
+  // Remove the recording file's ledger rows from the manifest, as if no file recorded the two earlier versions.
+  const withoutRecorder = {
+    ...manifest,
+    entries: manifest.entries.map(e => (e.version === '20261014_record_unrecorded_ledger_versions' ? { ...e, recordedVersions: [e.version] } : e))
+  };
+  const state = checkMigrationState({ manifest: withoutRecorder, ledger: ledgerFor(manifest) });
+  assert.equal(state.ok, true, 'a re-run is a warning, not a blocking finding');
+  assert.equal(state.unrecordedCount, 2);
+  for (const version of ['100_cost_stage_fulfill_learn', '20261008_phoenix_owner_vault']) {
+    assert.ok(state.findings.some(f => f.code === 'UNRECORDED_MIGRATION_RERUNS_ON_BOOT' && f.version === version), version);
+  }
 });
 
 test('a self-recorded migration missing from the ledger is pending and blocks', async () => {

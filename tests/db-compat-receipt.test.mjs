@@ -104,12 +104,13 @@ if (!REAL_URL) {
       assert.equal(before.schemaDigest, after.schemaDigest);
       assert.equal(before.rowCounts['public.prospects'], 1);
       assert.equal(before.totalRows, after.totalRows);
-      assert.equal(before.migrationState.unrecordedCount, 2);
+      // Every version is recorded by its own file or by 20261014_record_unrecorded_ledger_versions, so nothing re-runs on boot.
+      assert.equal(before.migrationState.unrecordedCount, 0);
       assert.equal(before.migrationState.pendingCount, 0);
       assert.equal(before.migrationState.ok, true);
       const receipt = buildHealthReceipt({ health: after, manifest, schemaDiffFindings: [] });
       assert.equal(receipt.status, 'WARN');
-      assert.deepEqual(receipt.reasonCodes, ['ENCRYPTION_KEY_NOT_CHECKED', 'RUNTIME_CONFIG_NOT_CHECKED', 'UNRECORDED_MIGRATION_RERUNS_ON_BOOT']);
+      assert.deepEqual(receipt.reasonCodes, ['ENCRYPTION_KEY_NOT_CHECKED', 'RUNTIME_CONFIG_NOT_CHECKED']);
       assert.equal(receipt.migrations.manifestEntryCount, manifest.entryCount);
       const ledger = await readMigrationLedger(client);
       assert.equal(checkMigrationState({ manifest, ledger, expectedManifest: manifest }).ok, true);

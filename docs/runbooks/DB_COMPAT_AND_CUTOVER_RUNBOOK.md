@@ -44,8 +44,8 @@ The owner enters secrets (`DATABASE_URL`, `TOKEN_ENCRYPTION_KEY`, `UNSUBSCRIBE_S
 1. **Pin the code.** Refresh `main`. Record the commit SHA that will be deployed. Build the manifest from that commit:
    `buildMigrationManifest({ dir: 'migrations' })`. Record `manifestDigest` and `entryCount`.
 2. **Health of the candidate.** On a dedicated read-only connection to the candidate, run `collectDatabaseHealth` with the manifest. Expected:
-   - no blocking codes;
-   - `UNRECORDED_MIGRATION_RERUNS_ON_BOOT` for `100_cost_stage_fulfill_learn` and `20261008_phoenix_owner_vault`. Both lack a ledger self-record and are idempotent DDL today, so `PostgresStore.migrate()` re-runs them on every boot;
+   - no blocking codes, except `MIGRATION_PENDING` for `20261014_record_unrecorded_ledger_versions` and the two versions it records (`100_cost_stage_fulfill_learn`, `20261008_phoenix_owner_vault`) on a database that has not yet booted this code. One `PostgresStore.migrate()` run clears them;
+   - no `UNRECORDED_MIGRATION_RERUNS_ON_BOOT`. `100_cost_stage_fulfill_learn` and `20261008_phoenix_owner_vault` lack a self-record, and `20261014_record_unrecorded_ledger_versions` records them, so they no longer re-run on boot. Applied files are never edited, so the fix is a new file;
    - `APPLIED_MIGRATION_UNVERIFIED` for every applied version unless an earlier manifest is supplied as `expectedManifest`.
    Any `APPLIED_MIGRATION_EDITED`, `APPLIED_MIGRATION_FILE_MISSING`, `MIGRATION_PENDING` or `SCHEMA_MIGRATIONS_TABLE_MISSING` stops the cutover.
 3. **Schema comparison.** Take `readSchemaSnapshot` of the source and of the candidate. Run `diffSchemaSnapshots(source, candidate)`. Every finding must be explained and accepted in writing. `TABLE_OWNER_CHANGED` is expected when provider role names differ; it does not change `schemaDigest`.

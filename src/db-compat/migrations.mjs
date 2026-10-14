@@ -43,6 +43,7 @@ export async function buildMigrationManifest({ dir }) {
       sha256: sha256Hex(bytes),
       bytes: bytes.length,
       selfRecorded: analysis.selfRecorded,
+      recordedVersions: analysis.recordedVersions,
       transactionShape: analysis.transactionShape,
       reasonCodes: analysis.reasonCodes
     });
@@ -71,8 +72,9 @@ export async function readMigrationLedger(client) {
  * detected only against a recorded digest. Without one, the finding is
  * APPLIED_MIGRATION_UNVERIFIED rather than a pass.
  *
- * A file with no self-record is never in the ledger, so its state cannot be
- * proven. PostgresStore.migrate() re-executes it on every boot.
+ * A version that no migration file writes to the ledger is never in the ledger, so
+ * PostgresStore.migrate() re-executes its file on every boot. A version written by a
+ * later recording file counts as recorded, because applied files are never edited.
  */
 export function checkMigrationState({ manifest, ledger, expectedManifest = null }) {
   const findings = [];
@@ -82,6 +84,7 @@ export function checkMigrationState({ manifest, ledger, expectedManifest = null 
     ? new Map(expectedManifest.entries.map(entry => [entry.version, entry.sha256]))
     : null;
   const applied = new Set(ledger.versions);
+  const recorded = new Set(manifest.entries.flatMap(entry => entry.recordedVersions ?? (entry.selfRecorded ? [entry.version] : [])));
 
   if (!ledger.tablePresent) add('SCHEMA_MIGRATIONS_TABLE_MISSING');
   for (const version of [...applied].sort()) {
@@ -95,7 +98,7 @@ export function checkMigrationState({ manifest, ledger, expectedManifest = null 
   }
   for (const entry of manifest.entries) {
     if (entry.reasonCodes.length > 0) add('MIGRATION_SQL_REFUSED', entry.version);
-    if (!entry.selfRecorded) add('UNRECORDED_MIGRATION_RERUNS_ON_BOOT', entry.version);
+    if (!recorded.has(entry.version)) add('UNRECORDED_MIGRATION_RERUNS_ON_BOOT', entry.version);
     else if (!applied.has(entry.version)) add('MIGRATION_PENDING', entry.version);
   }
   for (const code of manifest.reasonCodes) add(code);

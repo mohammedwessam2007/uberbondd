@@ -128,6 +128,7 @@ const LEDGER_INSERT = /\bINSERT\s+INTO\s+schema_migrations\b/;
  *   runner), NONE (no transaction control), or REFUSED.
  * - reasonCodes: fixed refusal codes; empty when the file can run in one transaction.
  * - selfRecorded: the file itself inserts into schema_migrations.
+ * - recordedVersions: the version literals of those inserts, sorted and unique.
  */
 export function analyzeMigrationSql(sql) {
   const statements = splitSqlStatements(sql).map(statement => ({
@@ -154,6 +155,10 @@ export function analyzeMigrationSql(sql) {
   });
   if (hasBegin !== hasCommit) reasonCodes.add('EMBEDDED_TRANSACTION_CONTROL_UNSUPPORTED');
   const selfRecorded = LEDGER_INSERT.test(statements.map(statement => statement.code).join(';'));
+  // Versions this file writes to schema_migrations. Only executable ledger inserts count, and comments are removed first.
+  const recordedVersions = [...new Set(statements
+    .filter(statement => LEDGER_INSERT.test(statement.code))
+    .flatMap(statement => quotedLiterals(statement.text)))].sort();
   const transactionShape = reasonCodes.size > 0 ? 'REFUSED' : (hasBegin && hasCommit ? 'WRAPPED' : 'NONE');
   const bodyStatements = statements
     .filter((_, index) => !(hasBegin && index === 0) && !(hasCommit && index === last))
@@ -162,9 +167,15 @@ export function analyzeMigrationSql(sql) {
     statementCount: statements.length,
     transactionShape,
     selfRecorded,
+    recordedVersions,
     reasonCodes: [...reasonCodes].sort(),
     bodyStatements
   };
+}
+
+function quotedLiterals(text) {
+  const withoutComments = String(text).replace(/--[^\n]*/g, ' ').replace(/\/\*[\s\S]*?\*\//g, ' ');
+  return [...withoutComments.matchAll(/'([^']*)'/g)].map(match => match[1]);
 }
 
 /** Statements to run inside the runner's own BEGIN/COMMIT, or a MigrationError on refusal. */

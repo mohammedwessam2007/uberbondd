@@ -4,6 +4,17 @@ const validKey = v => typeof v === 'string' && /^uberwarm2-seed:[a-f0-9]{64}$/.t
 const validDay = v => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v) &&
   !Number.isNaN(Date.parse(v + 'T00:00:00Z'));
 const refused = reason => ({ ok: false, claimed: false, capsEnforced: false, reason });
+// Daily UTC buckets and the rolling 24-hour window both apply. A caller-chosen
+// bucket cannot hide a send, and a send that straddles midnight still counts.
+function capRefusal(c) {
+  if (c.total >= 100) return 'global-daily-limit';
+  if (c.senderTotal >= 2) return 'sender-daily-limit';
+  if (c.seedTotal >= 1) return 'seed-daily-limit';
+  if (c.rollingTotal >= 100) return 'global-rolling-limit';
+  if (c.rollingSenderTotal >= 2) return 'sender-rolling-limit';
+  if (c.rollingSeedTotal >= 1) return 'seed-rolling-limit';
+  return null;
+}
 /**
  * PostgreSQL effect reservation implementation for UberWarm2 seed-only probes.
  * The migration docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql must be applied by an owner-authorized runner (not the boot migrator)
@@ -19,18 +30,26 @@ export function createUberWarm2PgLedger({ pool } = {}) {
       if (!validKey(r.reservationKey) || !r.probeId || !r.batchDigest ||
           !emailOk(r.senderEmail) || !emailOk(r.seedEmail) || r.senderEmail === r.seedEmail ||
           !validDay(r.quotaWindow) || r.senderDailyLimit !== 2 || r.globalDailyLimit !== 100 ||
-          r.seedDailyLimit !== 1 || r.effectClass !== 'OWNER_CONTROLLED_PLACEMENT_PROBE') return refused('invalid-immutable-seed-reservation');
+          r.seedDailyLimit !== 1 || r.rollingWindowHours !== 24 ||
+          r.effectClass !== 'OWNER_CONTROLLED_PLACEMENT_PROBE') return refused('invalid-immutable-seed-reservation');
       const client = await pool.connect();
       let inTransaction = false;
       try {
-        await client.query('BEGIN');
+        // READ COMMITTED is pinned explicitly so a session or server default
+        // cannot change the isolation this decision depends on.
+        await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
         inTransaction = true;
-        // Day-scoped transaction lock serializes all workers that share this
-        // table. Both global and per-sender counts are read under the lock.
-        await client.query(
-          "SELECT pg_advisory_xact_lock(hashtext('uberwarm2-seed-claims'),hashtext($1))",
-          [r.quotaWindow]
-        );
+        // One transaction-scoped lock, taken before any read and independent of
+        // the caller's label, serializes every claim against this table.
+        await client.query("SELECT pg_advisory_xact_lock(hashtext('uberwarm2-seed-claims'))");
+        // The UTC day comes from the database clock, read after the lock. The
+        // caller's quotaWindow is only a label and must name that same day.
+        const clock = await client.query("SELECT (clock_timestamp() AT TIME ZONE 'UTC')::date::text AS quota_day");
+        const quotaDay = clock.rows?.[0]?.quota_day;
+        if (quotaDay !== r.quotaWindow) {
+          await client.query('ROLLBACK'); inTransaction = false;
+          return refused('quota-window-mismatch');
+        }
         const prior = await client.query(
           'SELECT reservation_key FROM uberwarm2_seed_probe_claims WHERE reservation_key=$1',
           [r.reservationKey]
@@ -40,22 +59,33 @@ export function createUberWarm2PgLedger({ pool } = {}) {
           return refused('durable-one-shot-claim-already-present');
         }
         const counts = await client.query(
-          'SELECT COUNT(*)::int AS total, COUNT(*) FILTER (WHERE sender_email=$2)::int AS sender_total, COUNT(*) FILTER (WHERE seed_email=$3)::int AS seed_total FROM uberwarm2_seed_probe_claims WHERE quota_day=$1::date',
-          [r.quotaWindow, r.senderEmail, r.seedEmail]
+          `SELECT
+             COUNT(*) FILTER (WHERE quota_day=$1::date)::int AS total,
+             COUNT(*) FILTER (WHERE quota_day=$1::date AND sender_email=$2)::int AS sender_total,
+             COUNT(*) FILTER (WHERE quota_day=$1::date AND seed_email=$3)::int AS seed_total,
+             COUNT(*) FILTER (WHERE created_at > clock_timestamp() - interval '24 hours')::int AS rolling_total,
+             COUNT(*) FILTER (WHERE created_at > clock_timestamp() - interval '24 hours' AND sender_email=$2)::int AS rolling_sender_total,
+             COUNT(*) FILTER (WHERE created_at > clock_timestamp() - interval '24 hours' AND seed_email=$3)::int AS rolling_seed_total
+           FROM uberwarm2_seed_probe_claims
+           WHERE quota_day=$1::date OR created_at > clock_timestamp() - interval '24 hours'`,
+          [quotaDay, r.senderEmail, r.seedEmail]
         );
-        const total = Number(counts.rows?.[0]?.total);
-        const senderTotal = Number(counts.rows?.[0]?.sender_total);
-        const seedTotal = Number(counts.rows?.[0]?.seed_total);
-        if (!Number.isInteger(total) || !Number.isInteger(senderTotal) || !Number.isInteger(seedTotal) ||
-            total < 0 || senderTotal < 0 || seedTotal < 0)
+        const row = counts.rows?.[0] || {};
+        const caps = {
+          total: Number(row.total), senderTotal: Number(row.sender_total), seedTotal: Number(row.seed_total),
+          rollingTotal: Number(row.rolling_total), rollingSenderTotal: Number(row.rolling_sender_total),
+          rollingSeedTotal: Number(row.rolling_seed_total)
+        };
+        if (!Object.values(caps).every(n => Number.isInteger(n) && n >= 0))
           throw Error('unreliable-durable-cap-counts');
-        if (total >= 100 || senderTotal >= 2 || seedTotal >= 1) {
+        const reason = capRefusal(caps);
+        if (reason) {
           await client.query('ROLLBACK'); inTransaction = false;
-          return refused(total >= 100 ? 'global-daily-limit' : senderTotal >= 2 ? 'sender-daily-limit' : 'seed-daily-limit');
+          return refused(reason);
         }
         await client.query(
           'INSERT INTO uberwarm2_seed_probe_claims (reservation_key,probe_id,batch_digest,sender_email,seed_email,quota_day) VALUES ($1,$2,$3,$4,$5,$6::date)',
-          [r.reservationKey, r.probeId, r.batchDigest, r.senderEmail, r.seedEmail, r.quotaWindow]
+          [r.reservationKey, r.probeId, r.batchDigest, r.senderEmail, r.seedEmail, quotaDay]
         );
         await client.query('COMMIT'); inTransaction = false;
         return { ok: true, claimed: true, capsEnforced: true, reservationKey: r.reservationKey };

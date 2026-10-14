@@ -6,10 +6,24 @@ const email = value => String(value ?? '').trim().toLowerCase();
 const text = (value, limit = 256) => String(value ?? '').trim().slice(0, limit);
 const emailOk = value => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email(value));
 const sha = value => createHash('sha256').update(JSON.stringify(value)).digest('hex');
+// The only content an owner-controlled seed test may send. Compile renders from
+// it and execution re-renders from it, so a body or subject edited after
+// compile cannot reach the transport.
+export const UBERWARM2_SEED_TEMPLATE = Object.freeze({
+  subject: 'UberBond permitted mailbox delivery test',
+  bodyPrefix: 'Owner-authorized delivery and inbox-placement test. No reply or other action is requested. Reference: '
+});
+export const UBERWARM2_SEED_TEMPLATE_DIGEST = `sha256:${sha(UBERWARM2_SEED_TEMPLATE)}`;
+const renderSeedContent = probeId => ({
+  subject: UBERWARM2_SEED_TEMPLATE.subject,
+  body: `${UBERWARM2_SEED_TEMPLATE.bodyPrefix}${probeId}`
+});
+const seedContentDigest = c => sha({ subject: String(c?.subject ?? ''), body: String(c?.body ?? '') });
 const signedApprovalPayload = a => JSON.stringify({
   granted: a?.granted === true,
   grantedBy: text(a?.grantedBy, 120),
   batchDigest: text(a?.batchDigest, 130),
+  templateDigest: text(a?.templateDigest, 130),
   expiresAt: text(a?.expiresAt, 80),
   evidenceRef: text(a?.evidenceRef, 500),
   scopes: Array.isArray(a?.scopes) ? [...new Set(a.scopes.map(x => text(x, 120)))].sort() : []
@@ -78,12 +92,13 @@ export function compileUberWarm2SeedBatch({
       rejections.push({ probeId: text(probe?.probeId, 250) || null, reasonCodes: reasons });
       continue;
     }
+    const content = renderSeedContent(text(probe.bodyToken, 250));
     const row = Object.freeze({
       probeId: text(probe.probeId, 250), senderEmail, seedEmail,
       seedProvider: text(probe.seedProvider, 80).toLowerCase(),
       bodyToken: text(probe.bodyToken, 250),
-      subject: 'UberBond permitted mailbox delivery test',
-      body: `Owner-authorized delivery and inbox-placement test. No reply or other action is requested. Reference: ${text(probe.bodyToken, 250)}`,
+      subject: content.subject,
+      body: content.body,
       scope: 'OWNER_CONTROLLED_PLACEMENT_PROBE',
       providerEngagementClaim: 'NONE'
     });
@@ -123,9 +138,16 @@ export async function executeUberWarm2SeedProbe({
   if (approval?.granted !== true || !text(approval?.grantedBy, 120) ||
       !scopes.includes('uberwarm2:owner-controlled-seed-test') ||
       approval?.batchDigest !== batch.batchDigest ||
+      approval?.templateDigest !== UBERWARM2_SEED_TEMPLATE_DIGEST ||
       finiteTime(approval?.expiresAt) === null || finiteTime(approval?.expiresAt) <= at ||
       !verifiedSignedApproval(approval,approvalVerificationKey))
     return denied('UBERWARM2_OWNER_APPROVAL_REQUIRED', ['exact-unexpired-seed-test-authorization-required']);
+  // Compile-time rendering is not enough: the batch object can be edited and
+  // its unkeyed digest recomputed. Re-render from the approved template and
+  // refuse any difference before a reservation or transport call exists.
+  const content = renderSeedContent(probe.probeId);
+  if (seedContentDigest(content) !== seedContentDigest({ subject: probe.subject, body: probe.body }))
+    return denied('UBERWARM2_EXECUTION_REFUSED', ['probe-content-not-approved-template']);
   if (!store || typeof store.claimOnceAndEnforceCaps !== 'function' || typeof store.finalize !== 'function')
     return denied('UBERWARM2_DURABLE_LEDGER_REQUIRED', ['atomic-reservation-and-caps-adapter-required']);
   if (!transport || typeof transport.sendOwnedSeed !== 'function')
@@ -143,11 +165,14 @@ export async function executeUberWarm2SeedProbe({
       ...(!senderFresh?['fresh-sender-health-or-quarantine-evidence-required']:[]),
       ...(!consentFresh?['fresh-recipient-consent-evidence-required']:[])
     ]);
-  const reservationKey = `uberwarm2-seed:${sha([batch.batchDigest, probe.probeId])}`;
+  // Keyed on probe identity, not on the batch digest: a recompiled plan
+  // changes createdAt and therefore the digest, but not the probe it sends.
+  const reservationKey = `uberwarm2-seed:${sha(['probe-identity', probe.probeId, probe.senderEmail, probe.seedEmail])}`;
   const reservation = {
     reservationKey, probeId: probe.probeId, batchDigest: batch.batchDigest,
     senderEmail: probe.senderEmail, seedEmail: probe.seedEmail,
-    senderDailyLimit: 2, seedDailyLimit: 1, globalDailyLimit: 100, quotaWindow: utcDay(now),
+    senderDailyLimit: 2, seedDailyLimit: 1, globalDailyLimit: 100, quotaWindow: utcDay(at),
+    rollingWindowHours: 24, claimedAt: new Date(at).toISOString(),
     effectClass: 'OWNER_CONTROLLED_PLACEMENT_PROBE',
     evidenceRef: text(approval.evidenceRef, 500) || null
   };
@@ -161,8 +186,8 @@ export async function executeUberWarm2SeedProbe({
   let outcome;
   try {
     outcome = await transport.sendOwnedSeed({
-      from: probe.senderEmail, to: probe.seedEmail, subject: probe.subject,
-      body: probe.body, probeId: probe.probeId,
+      from: probe.senderEmail, to: probe.seedEmail, subject: content.subject,
+      body: content.body, probeId: probe.probeId,
       reservationKey, permittedPurpose: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
     });
   } catch {

@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createHash } from 'node:crypto';
+import { createHash, createHmac } from 'node:crypto';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -21,6 +21,12 @@ const at = new Date('2026-10-03T21:30:00.000Z');
 const canonical = x => Array.isArray(x) ? x.map(canonical) : x && typeof x === 'object'
   ? Object.fromEntries(Object.keys(x).sort().filter(k => x[k] !== undefined).map(k => [k, canonical(x[k])])) : x;
 const digestOf = participants => createHash('sha256').update(JSON.stringify(canonical({ version: PACKAGE, participants }))).digest('hex');
+// The approval is an external owner record supplied with the call. The fixture signs it the way that approval path would;
+// the runtime never mints it.
+const signApproval = base => {
+  const { signature, ...unsigned } = base;
+  return { ...unsigned, signature: createHmac('sha256', approvalSecret).update(JSON.stringify(canonical(unsigned))).digest('hex') };
+};
 
 async function fixture(overrides = {}) {
   const dir = await mkdtemp(join(tmpdir(), 'frozen-effect-runtime-'));
@@ -35,6 +41,11 @@ async function fixture(overrides = {}) {
   };
   Object.assign(participants, overrides.participants || {});
   const digest = digestOf(participants);
+  const approval = signApproval({
+    schemaVersion: 'uberbond.frozen-effect-authorization.v1', effectDigest: digest, recipient: 'partnerships@intelo.ai',
+    senderSlot: participants.sender.slot, senderAddress: 'nadia.chen@cedarpointdomains.com', provider: 'smtp-relay', routeClass: 'INVITED_GREEN',
+    routeDigest: 'c'.repeat(64), effectCap: 1, approvedBy: approverId, approvedAt: at.toISOString(), expiresAt: participants.expiresAt
+  });
   const snapshot = {
     version: 'uberbond.frozen-prospect-effect.v1', digest,
     input: { campaign: { campaignId: 'campaign-1' } },
@@ -68,8 +79,8 @@ async function fixture(overrides = {}) {
       oneButton: { gates: { authorizationValid: { status: auth.ok ? 'PASS' : 'FAIL' } } }
     };
   };
-  const execute = dispatch => executeFrozenProspectEffect({ store, digest, secret, approvalSecret, approverId, encryptionKey, validate, dispatch, now: at, ...routeGate });
-  return { dir, store, participants, digest, execute, validate };
+  const execute = dispatch => executeFrozenProspectEffect({ store, digest, secret, approvalSecret, approverId, encryptionKey, validate, dispatch, now: at, ...routeGate, authorization: approval });
+  return { dir, store, participants, digest, execute, validate, approval };
 }
 
 test('authorized exact invited SMTP effect is revalidated, signed, claimed once, dispatched and reconciled', async () => {
@@ -133,7 +144,7 @@ test('one-button authorization gate must verify the durable digest authorization
   const f = await fixture(); let calls = 0;
   try {
     const result = await executeFrozenProspectEffect({
-      store: f.store, digest: f.digest, secret, approvalSecret, approverId, encryptionKey, now: at, ...routeGate,
+      store: f.store, digest: f.digest, secret, approvalSecret, approverId, encryptionKey, now: at, ...routeGate, authorization: f.approval,
       validate: async digest => ({ ...(await f.validate(digest)), oneButton: { gates: { authorizationValid: { status: 'FAIL' } } } }),
       dispatch: async () => { calls++; return { classification: 'ACCEPTED', providerReferenceId: 'not-authorized' }; }
     });

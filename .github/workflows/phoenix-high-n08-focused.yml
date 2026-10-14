@@ -48,3 +48,10 @@ jobs:
           node --check src/sending-mailbox-registry.mjs
           node --check tests/sending-registry-complete-history-n08.test.mjs
           node --test tests/sending-registry-complete-history-n08.test.mjs
+      - name: Verify native Lead OS and Green Lane deterministic offline controls (no provider access)
+        run: |
+          node --test \
+            tests/lead-generation.test.mjs \
+            tests/uberlead-launch-fusion.test.mjs \
+            tests/uberlaunch-one-button.test.mjs \
+            tests/green-lane-discovery.test.mjs

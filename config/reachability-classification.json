@@ -1387,6 +1387,11 @@
       "category": "RESEARCH_ONLY",
       "gate": null,
       "reason": "Read-only model-plan versus API tariff scenario calculator; the $20 subscription is not API prepaid credit and calculator has no provider-cost or quality proof."
+    },
+    "src/uberwarm2-send-capability.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Process-local one-shot authority to transmit exactly one UberWarm2 owner-seed probe. The executor issues it only after a durable claim and the SMTP bridge consumes it before opening a socket. It is part of the seed path that has no production caller and no owner activation."
     }
   }
 }

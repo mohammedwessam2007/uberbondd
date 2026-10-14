@@ -1240,7 +1240,7 @@ export class Pipeline {
       });
       if (!prospect) {
         // An unlinked sender is not a known recipient, but an opt-out still blocks that address. Only a high-confidence intent suppresses.
-        if (unsubscribe.intent && unsubscribe.confidence === 'high') {
+        if (unsubscribe.intent && unsubscribe.confidence === 'high' && !autoSubmitted && !deliveryNotice && !mimeQuarantine) {
           if (senderEmail) await propagateSuppression(this.store, { email: senderEmail, reason: 'optout', sourceId: externalId });
           await recordOperatorEscalation(this.store, buildOperatorEscalation({
             kind: 'unsubscribe', externalId, slot: accountSlot || '', correlation: 'none', label: 'unlinked', reasonCode: 'UNLINKED_SENDER', at: now()

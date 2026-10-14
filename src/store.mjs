@@ -739,17 +739,27 @@ export class PostgresStore {
     // is still inside a transaction, or still holds the schema lock, would block or
     // corrupt the next caller, so it is destroyed unless both are proven clean.
     // A cleanup failure never replaces the migration error rethrown below.
+    // Every cleanup step shares one ten-second budget. A step still pending when the
+    // budget runs out leaves the session unproven, so no later step is started and
+    // release(true) destroys the session. Destroying it ends the server-side session,
+    // which releases any schema lock it still holds.
+    const cleanupDeadline = Date.now() + 10000;
+    const withinCleanup = promise => {
+      let timer;
+      const expired = new Promise(resolve => { timer = setTimeout(() => resolve(null), Math.max(0, cleanupDeadline - Date.now())); });
+      return Promise.race([promise, expired]).finally(() => clearTimeout(timer));
+    };
     let reusable = !errored;
     if (reusable && failure) {
       // A ROLLBACK with no open block only emits a warning, so resolving proves little.
       // The probe proves the session is back in autocommit. An unknown probe result
       // keeps the session out of the pool.
-      reusable = await client.query('ROLLBACK').then(() => true, () => false);
-      if (reusable) reusable = !(await sessionInTransactionBlock(client).catch(() => true));
+      reusable = (await withinCleanup(client.query('ROLLBACK').then(() => true, () => false))) === true;
+      if (reusable) reusable = (await withinCleanup(sessionInTransactionBlock(client).then(open => !open, () => false))) === true;
     }
     if (reusable && locked) {
-      reusable = await client.query('SELECT pg_advisory_unlock(hashtext($1)) AS released', [lockName])
-        .then(result => result.rows[0]?.released === true, () => false);
+      reusable = (await withinCleanup(client.query('SELECT pg_advisory_unlock(hashtext($1)) AS released', [lockName])
+        .then(result => result.rows[0]?.released === true, () => false))) === true;
     }
     client.removeListener('error', onError);
     client.release(reusable && !errored ? undefined : true);
@@ -767,7 +777,14 @@ export class PostgresStore {
       const scoped = new PostgresStore({ pool: client, transactionClient: true });
       scoped.ownsPool = false;
       const result = await fn(scoped);
-      await client.query('COMMIT');
+      // A statement error that the callback swallowed leaves the transaction aborted.
+      // PostgreSQL then answers COMMIT with a ROLLBACK command tag and no error, so
+      // the tag is the only evidence that nothing was committed.
+      const committed = await client.query('COMMIT');
+      if (committed?.command !== 'COMMIT') {
+        errored = true;
+        throw new StoreError(`TRANSACTION_NOT_COMMITTED: COMMIT ended the transaction as ${committed?.command ?? 'an unknown command'}; a statement error was swallowed inside the callback, so none of its writes were committed`, 'TRANSACTION_NOT_COMMITTED');
+      }
       return result;
     } catch (error) {
       // A ROLLBACK that fails means the connection is unusable. The client is

@@ -112,3 +112,27 @@ Dispatched as a workflow (`wf_cad93fd3-4b8`), one isolated worktree per defect f
 - Requested from Work: names only, from the Render audit log, with scope of access and time window. No values are requested or recorded here.
 - Containment position: no blind rotation of the archive or encryption key. Rotate only the credentials the audit log shows were exposed, after dependency analysis, and keep tested decryptability and recovery compatibility.
 - Status: OPEN, owned by Work for the audit names; containment decision needs the names.
+
+### E-012 — UberWarm²–⁶ acceptance matrix (source, tests, wiring, deployment, evidence reported separately)
+Read from the branch head `d411bc9b`. "Wired" means imported by non-test code under `src/`, `scripts/` or `server*.mjs`. "Deployed" means the live service, whose SHA is `24854739`, which predates these modules.
+
+| Layer | Source | Tests | Wired (non-test importers) | Reachability class | Deployed | External evidence |
+|---|---|---|---|---|---|---|
+| UberWarm² seed executor | `uberwarm2-seed-executor.mjs`, `uberwarm2-send-capability.mjs` (new) | donor-gap-closure, seed-executor, seed-hostile, send-capability | 1 (registry bridge) | AWAITING_ACTIVATION (NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION) | no | none |
+| UberWarm² SMTP seed bridge | `uberwarm2-smtp-seed-bridge.mjs` | smtp-seed-bridge | 0 | AWAITING_ACTIVATION | no | none |
+| UberWarm² PG ledger | `uberwarm2-pg-ledger.mjs` | pg-ledger, ledger-concurrency | 0 | AWAITING_ACTIVATION | no | none (migration pending, not applied) |
+| UberWarm² registry bridge / ramp | `uberwarm2-registry-bridge.mjs`, `uberwarm2-sovereign-ramp.mjs` | registry-bridge, sovereign-ramp | 1 each | AWAITING_ACTIVATION (NO_MAILBOX_PROVISIONING_AUTHORITY) | no | none |
+| UberWarm³ | 4 modules | 5 test files incl. zero-addon firewall | 0 | AWAITING_ACTIVATION | no | none; no Postmaster data |
+| UberWarm⁴ | 2 modules | 2 test files | 0 | AWAITING_ACTIVATION | no | none |
+| UberWarm⁵ capacity bridge | `uberwarm5-capacity-bridge.mjs` | capacity-bridge | 1 | AWAITING_ACTIVATION | no | none |
+| UberWarm⁶ economic dominance | `uberwarm6-economic-dominance.mjs` | economic-dominance | 1 | AWAITING_ACTIVATION | no | fixture mathematics only; not measured superiority |
+
+Statements that hold:
+- The 50 Startup SMTP AUTH and IMAP LOGIN results are historical credential-acceptance evidence. They are not placement, reputation, permission or send authority.
+- No receiving-provider observation exists for any layer. Missing data is recorded as missing, not as a healthy reputation.
+- No layer is deployed. Synthetic diagnostics are not presented as measured reputation or paid-addon dominance.
+
+### E-013 — Item 11: diagnostics and receiver candidates (nothing sent)
+- Recovered receiver candidates: none verified in this session. No consenting seed was enumerated, and no inbox-access, consent or folder-observation scope was verified.
+- Executable send-set: **`[]`**. Approved messages: **0**. Sent messages: **0**. Cold-send authority: **NONE**.
+- No synthetic conversation, fake reply, Not-Spam action or manufactured engagement was created. Two Gmail accounts would count as one provider network if ever proposed.

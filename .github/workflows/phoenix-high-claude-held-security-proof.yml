@@ -33,3 +33,15 @@ jobs:
             tests/inbound-governance-hostile.test.mjs \
             tests/winnr-production-import-hardening.test.mjs \
             tests/winnr-readiness-hold-race.test.mjs
+      - name: Run UberWarm 2-6 fixture-only, no receiver or provider effects
+        run: |
+          node --test \
+            tests/uberwarm2-send-capability.test.mjs \
+            tests/uberwarm2-seed-executor.test.mjs \
+            tests/uberwarm3-consent-panel.test.mjs \
+            tests/uberwarm3-google-postmaster-v2.test.mjs \
+            tests/uberwarm3-reputation-oracle.test.mjs \
+            tests/uberwarm4-receiver-protection.test.mjs \
+            tests/uberwarm4-dispatch-guard.test.mjs \
+            tests/uberwarm5-capacity-bridge.test.mjs \
+            tests/uberwarm6-economic-dominance.test.mjs

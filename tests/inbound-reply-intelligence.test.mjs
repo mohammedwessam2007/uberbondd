@@ -117,7 +117,7 @@ const prospect = {
   id: 'pros-1', company: 'Clinic', website: 'https://clinic.example.invalid', domain: 'clinic.example.invalid',
   contact: { email: 'buyer@clinic.example.invalid', source: 'website' }, status: 'sent'
 };
-const sentMessage = { id: 'msg-1', prospectId: 'pros-1', rfcMessageId: SENT, inbox: 'imap-slot-sent' };
+const sentMessage = { id: 'msg-1', prospectId: 'pros-1', to: 'buyer@clinic.example.invalid', rfcMessageId: SENT, inbox: 'imap-slot-sent' };
 
 const logsOf = async (store, type) => (await store.list('auditLog')).filter(row => row.type === type);
 const escalationsOf = async store => (await store.list('auditLog')).filter(row => row.type === 'inbound_operator_escalation');

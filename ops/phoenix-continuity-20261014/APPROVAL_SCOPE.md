@@ -6,7 +6,7 @@ PREPARED ONLY. No service, secret binding, backup or restore has been activated 
 
 - Create one **Free** Frankfurt Render helper `uberbond-phoenix-continuity-20261014`, automatic deploy off, from this reviewed Work branch/code SHA.
 - Use provider-native `fromDatabase` to bind the existing Render source connection and `fromService.envVarKey` to bind the existing production `TOKEN_ENCRYPTION_KEY`. Never reveal, copy to chat or change the key.
-- Link the existing recovery-custody group to access `RESCUE_ARCHIVE_KEY`. This extends sensitive access to the isolated helper and needs action-time confirmation before applying the Blueprint.
+- Bind only `RESCUE_ARCHIVE_KEY` through a provider-native `fromService.envVarKey` reference to existing suspended `uberbond-phoenix-db-rescue-20261013`. Do not link the complete custody group. Provider resolution of this individual key remains to be verified without revealing values. This extends sensitive access to the isolated helper and needs action-time confirmation before applying the Blueprint.
 - Inject direct Neon URLs only through protected provider tooling; no URL values in code, Git, logs, chat or CI artifacts.
 - Read the original Render source in a READ ONLY/REPEATABLE READ transaction; preserve a consistent encrypted snapshot by appending to the existing rescue archive table; authenticate the saved archive.
 - Restore only into a new EMPTY database `uberbond_phoenix_rehearsal_20261014_v2`; refuse nonempty targets and wrong identities. Preserve all old snapshots and three old rehearsal/reference databases.

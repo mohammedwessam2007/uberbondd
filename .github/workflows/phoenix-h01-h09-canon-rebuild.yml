@@ -1,0 +1,58 @@
+name: PHOENIX H01 H09 exact-source canon regeneration and no-send regression
+on:
+  push:
+    branches:
+      - high/phoenix-h01-h09-release-repair-20261015
+    paths:
+      - tests/inbound-reply-intelligence.test.mjs
+      - .github/workflows/phoenix-h01-h09-canon-rebuild.yml
+permissions:
+  contents: write
+concurrency:
+  group: phoenix-h01-h09-canon-rebuild
+  cancel-in-progress: false
+jobs:
+  canon-from-exact-source:
+    if: github.repository == 'mohammedwessam2007/uberbondd' && github.ref == 'refs/heads/high/phoenix-h01-h09-release-repair-20261015'
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      CI: 'true'
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Validate exact DSN replay regression before regenerating canon
+        run: node --test tests/inbound-reply-intelligence.test.mjs tests/inbound-review-hostile.test.mjs
+      - name: Refresh recorded readiness without promoting historical measurements
+        run: npm run readiness
+      - name: Recompile constitution with its own generator
+        run: npm run constitution:doctor
+      - name: Validate both generated freshness laws before commit
+        run: node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Preserve ONLY canonical generated artifacts on this dedicated branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "high/phoenix-h01-h09-release-repair-20261015"
+          git add -- docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          git diff --cached --name-only
+          if git diff --cached --quiet; then
+            echo "All canonical artifacts already fresh."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "PHOENIX H01 H09: regenerate exact verified source canon [skip ci]"
+          git push origin "HEAD:refs/heads/high/phoenix-h01-h09-release-repair-20261015"

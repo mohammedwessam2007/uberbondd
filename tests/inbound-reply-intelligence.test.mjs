@@ -117,7 +117,7 @@ const prospect = {
   id: 'pros-1', company: 'Clinic', website: 'https://clinic.example.invalid', domain: 'clinic.example.invalid',
   contact: { email: 'buyer@clinic.example.invalid', source: 'website' }, status: 'sent'
 };
-const sentMessage = { id: 'msg-1', prospectId: 'pros-1', rfcMessageId: SENT, inbox: 'imap-slot-sent' };
+const sentMessage = { id: 'msg-1', prospectId: 'pros-1', to: 'buyer@clinic.example.invalid', rfcMessageId: SENT, inbox: 'imap-slot-sent' };
 
 const logsOf = async (store, type) => (await store.list('auditLog')).filter(row => row.type === type);
 const escalationsOf = async store => (await store.list('auditLog')).filter(row => row.type === 'inbound_operator_escalation');
@@ -253,6 +253,17 @@ test('a replayed hard bounce is counted once, never twice', async () => {
   assert.equal((await store.list('outboundEvents')).length, 1);
   assert.equal((await store.list('suppressions')).length, 1);
   assert.equal((await store.list('replies'))[0].sideEffectsDone, true);
+});
+
+test('a DSN without a provable outbound recipient cannot charge any sender', async () => {
+  const missingRecipient = { ...sentMessage };
+  delete missingRecipient.to;
+  const store = await storeWith({ accounts: [imapAccount({ slot: 'imap-slot-unverified-recipient' })], prospects: [prospect], messages: [missingRecipient] });
+  await pipelineFor(store, { imapPoll: scripted([success([parsedMessage(1, dsnRaw())], { lastUid: 1 })]).hook }).pollReplies();
+  assert.equal((await store.list('replies')).length, 0);
+  assert.equal(await healthOf(store, 'imap-slot-sent'), null);
+  assert.equal((await store.list('suppressions')).length, 0);
+  assert.equal((await store.list('prospects'))[0].status, 'sent');
 });
 
 test('a replayed complaint is counted once and keeps the sender hold', async () => {

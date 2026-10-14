@@ -1,0 +1,21 @@
+name: PHOENIX H10 no-send public buyer demand receipt verification
+on:
+  push:
+    branches:
+      - high/phoenix-first-cash-marketplace-buyer-20261015
+permissions:
+  contents: read
+jobs:
+  no-fabricated-client:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --test tests/phoenix-h10-public-marketplace-demand.test.mjs
+      - run: git diff --check origin/main...HEAD

@@ -23,7 +23,7 @@ def validate_url(value, host, database):
 
 def pg_environment(u, source=False):
     # No secrets in subprocess argv, logs, or repository.
-    result = {k:v for k,v in os.environ.items() if k not in ('SOURCE_DATABASE_URL','RESCUE_DATABASE_URL','RESCUE_ARCHIVE_KEY')}
+    result = {k:v for k,v in os.environ.items() if k in ('PATH','LANG','LC_ALL','LC_CTYPE','TZ')}
     result.update(PGHOST=u.hostname, PGPORT='5432', PGDATABASE=unquote(u.path)[1:],
                   PGUSER=unquote(u.username), PGPASSWORD=unquote(u.password),
                   PGSSLMODE='require' if source else 'verify-full', PGCONNECT_TIMEOUT='15',

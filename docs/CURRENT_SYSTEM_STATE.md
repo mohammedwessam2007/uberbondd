@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-14**
 Branch: `claude/phoenix-titan-trident-monster-c-20261014`
-Reconciled from current head: `501268ffdcd461d9531d248022c2c2ccbeb3f705`
+Reconciled from current head: `c4f9c3c4a9f385084e312bae2296830704a5add9`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

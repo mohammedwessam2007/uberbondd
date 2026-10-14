@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-14T06:52:23.015Z",
+  "generatedAt": "2026-10-14T07:18:39.641Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "501268ffdcd461d9531d248022c2c2ccbeb3f705",
+    "head": "c4f9c3c4a9f385084e312bae2296830704a5add9",
     "branch": "claude/phoenix-titan-trident-monster-c-20261014",
     "sourceModules": 1106,
     "testSuites": 1378,

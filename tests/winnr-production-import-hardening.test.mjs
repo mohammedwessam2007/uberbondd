@@ -135,6 +135,11 @@ function planFor(s, overrides = {}) {
   });
 }
 
+// An approval names the digest of the one plan it approves. Nothing else in the gate is changed.
+function approvalFor(s, plan, overrides = {}) {
+  return { ...s.gate, planDigest: plan.planDigest, ...overrides };
+}
+
 // In-memory store with the same transaction semantics as the JSON store: writes are staged and committed only when the
 // callback resolves. A throw discards every staged write, including settings.
 function createFakeStore() {
@@ -171,6 +176,9 @@ function createFakeStore() {
   };
   return {
     state: base,
+    // Test double only. It declares the PostgreSQL kind so the production gate can be exercised against the transactional
+    // contract. createStore never returns this object, and no production code path receives it.
+    backendKind: 'postgres',
     ...operations(base),
     async transaction(fn) {
       const staged = structuredClone(base);
@@ -254,7 +262,7 @@ function seedPilot(store, key, roles = ['hello', 'team', 'connect']) {
 }
 
 function executeArgs(store, s, plan, extra = {}) {
-  return { store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key, ...extra };
+  return { store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key, ...extra };
 }
 
 // ---- route facts: host, port, TLS mode and provider identity -----------------
@@ -681,7 +689,7 @@ test('a second execution on the same store while one is in flight is refused, an
   assert.equal(second.ok, false);
   assert.deepEqual(second.reasonCodes, ['IMPORT_ALREADY_RUNNING']);
   assert.deepEqual(store.state, before);
-  const rollbackWhileRunning = await rollbackWinnrProductionImport({ store: parkingView, plan, executionGate: s.gate, now: NOW });
+  const rollbackWhileRunning = await rollbackWinnrProductionImport({ store: parkingView, plan, executionGate: approvalFor(s, plan), now: NOW });
   assert.equal(rollbackWhileRunning.ok, false);
   assert.ok(rollbackWhileRunning.reasonCodes.includes('IMPORT_ALREADY_RUNNING'));
   release();
@@ -744,4 +752,90 @@ test('an operator unpause of an imported sender is held again by the next run', 
   const rerun = await executeWinnrProductionImport(executeArgs(store, s, plan));
   assert.equal(rerun.ok, true, rerun.reasonCodes.join(','));
   assert.equal(store.state.senderHealth.find(h => h.inbox === target.inbox).paused, true);
+});
+
+// ---- explicit approval binding and declared backend identity -------------------------
+
+test('an approval without a planDigest is refused for execution and for rollback with approval-plan-digest-missing, and changes nothing', async () => {
+  const s = scenario();
+  const store = createFakeStore();
+  const plan = planFor(s);
+  assert.match(plan.planDigest, /^[0-9a-f]{64}$/, 'a ready plan issues a 64-hex digest for its approval to name');
+  const before = structuredClone(store.state);
+
+  const omitted = await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  assert.equal(omitted.ok, false);
+  assert.equal(omitted.status, 'PRODUCTION_IMPORT_REFUSED');
+  assert.ok(omitted.reasonCodes.includes('approval-plan-digest-missing'), omitted.reasonCodes.join(','));
+
+  const nulled = await executeWinnrProductionImport({
+    store, plan, executionGate: { ...s.gate, planDigest: null }, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+  });
+  // A null digest is a value that names no plan. It fails closed as a mismatch, not as an absent field.
+  assert.equal(nulled.ok, false);
+  assert.ok(nulled.reasonCodes.includes('approval-plan-digest-mismatch'), nulled.reasonCodes.join(','));
+
+  const rolledBack = await rollbackWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW });
+  assert.equal(rolledBack.ok, false);
+  assert.equal(rolledBack.status, 'PRODUCTION_IMPORT_ROLLBACK_REFUSED');
+  assert.ok(rolledBack.reasonCodes.includes('approval-plan-digest-missing'), rolledBack.reasonCodes.join(','));
+
+  assert.deepEqual(store.state, before, 'no refused execution or rollback changed the store');
+  assert.equal(identityLeaks(JSON.stringify([omitted, nulled, rolledBack]), s), '');
+
+  // Control: the same plan executes once its approval names the digest.
+  const accepted = await executeWinnrProductionImport(executeArgs(store, s, plan));
+  assert.equal(accepted.ok, true, accepted.reasonCodes.join(','));
+  assert.equal(accepted.status, 'PRODUCTION_IMPORT_EXECUTED');
+});
+
+test('an approval that names the digest of another plan is refused with approval-plan-digest-mismatch and changes nothing', async () => {
+  const s = scenario();
+  const store = createFakeStore();
+  const planX = planFor(s);
+  const planY = planFor(s);
+  assert.notEqual(planX.planDigest, planY.planDigest, 'two plans from separate sealings never share a digest');
+  const before = structuredClone(store.state);
+  const result = await executeWinnrProductionImport(executeArgs(store, s, planY, {
+    executionGate: approvalFor(s, planX)
+  }));
+  assert.equal(result.ok, false);
+  assert.ok(result.reasonCodes.includes('approval-plan-digest-mismatch'), result.reasonCodes.join(','));
+  assert.deepEqual(store.state, before);
+});
+
+test('a store whose declared backendKind is unrecognised or empty, or that declares none, is refused for execution and rollback', async () => {
+  const s = scenario();
+  const plan = planFor(s);
+  const cases = [
+    { label: 'unknown kind', kind: 'memory', code: 'store-backend-kind-unrecognised' },
+    { label: 'empty kind', kind: '', code: 'store-backend-kind-unrecognised' },
+    { label: 'non-production kind', kind: 'json', code: 'store-backend-mismatch' }
+  ];
+  for (const { label, kind, code } of cases) {
+    const store = createFakeStore();
+    store.backendKind = kind;
+    const before = structuredClone(store.state);
+    const executed = await executeWinnrProductionImport(executeArgs(store, s, plan));
+    assert.equal(executed.ok, false, label);
+    assert.ok(executed.reasonCodes.includes(code), `${label}: ${executed.reasonCodes.join(',')}`);
+    const rolledBack = await rollbackWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW });
+    assert.equal(rolledBack.ok, false, label);
+    assert.ok(rolledBack.reasonCodes.includes(code), `${label} rollback: ${rolledBack.reasonCodes.join(',')}`);
+    assert.deepEqual(store.state, before, `${label}: no write`);
+  }
+
+  // A store that declares no backend at all: the only identity the gate reads is absent.
+  const anonymous = createFakeStore();
+  delete anonymous.backendKind;
+  const before = structuredClone(anonymous.state);
+  const refused = await executeWinnrProductionImport(executeArgs(anonymous, s, plan));
+  assert.equal(refused.ok, false);
+  assert.ok(refused.reasonCodes.includes('store-backend-kind-unrecognised'), refused.reasonCodes.join(','));
+  assert.deepEqual(anonymous.state, before, 'no backendKind: no write');
+
+  // Control: the same plan on a store that declares the PostgreSQL kind executes.
+  const declared = createFakeStore();
+  const accepted = await executeWinnrProductionImport(executeArgs(declared, s, plan));
+  assert.equal(accepted.ok, true, accepted.reasonCodes.join(','));
 });

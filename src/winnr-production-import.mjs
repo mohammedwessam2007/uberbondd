@@ -5,7 +5,6 @@ import { parseExpectedInventory, gateCsvInventory, gateProviderInventory, gateCs
 import { findDuplicateAddresses, verifyStoreKeyCompatibility } from './winnr-fleet-control-plane.mjs';
 import { assertPublicSafe, sanitizedErrorCode } from './winnr-public-artifact-guard.mjs';
 import { selectFleetMailbox } from './uberfleet.mjs';
-import { JsonStore } from './store.mjs';
 
 // Production import of the 50 Winnr Startup mailbox credentials into the PostgreSQL store.
 //
@@ -113,6 +112,25 @@ function deepFreeze(value) {
     for (const item of Object.values(value)) deepFreeze(item);
   }
   return value;
+}
+
+// Backend identity is the store's declared, read-only backendKind. It is never inferred with instanceof. A store that
+// declares no recognised kind is refused; only 'postgres' is a production backend.
+const PRODUCTION_BACKEND_KIND = 'postgres';
+const RECOGNISED_BACKEND_KINDS = new Set(['postgres', 'json']);
+function storeBackendReasons(store) {
+  const kind = store?.backendKind;
+  if (!RECOGNISED_BACKEND_KINDS.has(kind)) return ['store-backend-kind-unrecognised'];
+  return kind === PRODUCTION_BACKEND_KIND ? [] : ['store-backend-mismatch'];
+}
+
+// An approval must name the digest of the plan it approves. An approval with no planDigest field is refused as missing.
+// Any other value that is not this plan's digest (null, an empty string, another plan's digest) fails closed as a mismatch.
+// This check is mandatory: no approval reaches a plan without naming it.
+function approvalDigestReasons(executionGate, plan) {
+  const named = executionGate?.planDigest;
+  if (named === undefined) return ['approval-plan-digest-missing'];
+  return named === plan?.planDigest ? [] : ['approval-plan-digest-mismatch'];
 }
 
 // Every gate reason comes from a closed vocabulary. An invalid clock is reported as a reason, never as a pass.
@@ -576,18 +594,15 @@ async function executeImportOnce({
   if (!KEY_RE.test(String(encryptionKeyHex ?? ''))) reasons.push('encryption-key-hex-required');
   if (!isNonEmpty(leaseOwner)) reasons.push('lease-owner-required');
   if (!Number.isInteger(faultAfterWrites) || faultAfterWrites < 0) reasons.push('fault-after-writes-invalid');
-  // The backend is taken from the store object. Any backend the caller asserts is refused, even a correct one.
+  // The backend is the store's declared backendKind. Any backend the caller asserts is refused, even a correct one.
   if (storeBackend !== undefined) reasons.push('caller-asserted-backend-refused');
-  if (store instanceof JsonStore) reasons.push('store-backend-mismatch');
+  reasons.push(...storeBackendReasons(store));
   if (!store || typeof store.transaction !== 'function') reasons.push('store-transaction-required');
   if (!ISSUED_PLANS.has(plan)) reasons.push('plan-not-issued-by-planner');
   else if (plan.ok !== true || plan.status !== 'PRODUCTION_IMPORT_PLAN_READY') reasons.push('plan-not-ready');
   if (plan?.storeBackend !== 'postgres') reasons.push('plan-store-backend-not-postgres');
-  // An approval that names a plan digest executes only the plan with that digest. An approval without one keeps the
-  // behaviour it had before digests existed; a null or mismatched digest always fails closed.
-  if (executionGate?.planDigest !== undefined && executionGate.planDigest !== plan?.planDigest) {
-    reasons.push('approval-plan-digest-mismatch');
-  }
+  // Mandatory: the approval must name this plan's digest. An approval without one never executes a plan.
+  reasons.push(...approvalDigestReasons(executionGate, plan));
   const planRows = Array.isArray(plan?.rows) ? plan.rows : [];
   if (planRows.length !== EXPECTED_ACCOUNT_COUNT) reasons.push('plan-row-count-mismatch');
   if (reasons.length) return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', reasons, iso);
@@ -839,6 +854,7 @@ async function rollbackImportOnce({ store, plan, executionGate = null, now = new
   const iso = Number.isFinite(nowMs) ? isoOf(nowMs) : '';
   // Expiry is not enforced here. Holding senders is the fail-safe direction, so an expired approval must not block it.
   const reasons = validateExecutionGate(executionGate, nowMs, { enforceExpiry: false });
+  reasons.push(...storeBackendReasons(store), ...approvalDigestReasons(executionGate, plan));
   if (!store || typeof store.transaction !== 'function') reasons.push('store-transaction-required');
   if (!ISSUED_PLANS.has(plan)) reasons.push('plan-not-issued-by-planner');
   const planRows = Array.isArray(plan?.rows) ? plan.rows : [];

@@ -261,6 +261,9 @@ export class JsonStore {
     this.data = structuredClone(EMPTY);
   }
 
+  // Declared backend identity, read-only. Production gates compare this kind; they do not use instanceof.
+  get backendKind() { return 'json'; }
+
   async init() {
     await fs.mkdir(this.dir, { recursive: true });
     try {
@@ -682,6 +685,9 @@ export class PostgresStore {
     // client instead of calling client.connect() a second time.
     this.transactionClient = Boolean(transactionClient);
   }
+
+  // Declared backend identity, read-only. Production gates compare this kind; they do not use instanceof.
+  get backendKind() { return 'postgres'; }
 
   async init() { await this.migrate(); }
   async close() { if (this.ownsPool) await this.pool.end(); }

@@ -440,3 +440,41 @@ test('a fault after seven writes rolls back holds, accounts, lease and receipt t
     await store.close();
   }
 }));
+
+test('an approval without a planDigest is refused on PostgreSQL with approval-plan-digest-missing, and writes nothing', () => withDisposablePostgres(async url => {
+  const store = await openStore(url);
+  try {
+    const plan = planWinnrProductionImport(planArgs(scenario()));
+    assert.equal(plan.ok, true, plan.reasonCodes.join(','));
+    const before = await dump(store);
+
+    const omitted = await executeWinnrProductionImport(executeArgs(store, plan, { executionGate: buildGate() }));
+    assert.equal(omitted.ok, false);
+    assert.equal(omitted.status, 'PRODUCTION_IMPORT_REFUSED');
+    assert.ok(omitted.reasonCodes.includes('approval-plan-digest-missing'), omitted.reasonCodes.join(','));
+    assert.equal(await dump(store), before, 'the refused execution changed nothing');
+    assert.equal((await startupAccounts(store)).length, 0);
+
+    // Control: the same plan, with its digest named, executes.
+    const accepted = await executeWinnrProductionImport(executeArgs(store, plan));
+    assert.equal(accepted.ok, true, accepted.reasonCodes.join(','));
+  } finally {
+    await store.close();
+  }
+}));
+
+test('the declared backendKind is read-only on PostgresStore and JsonStore, and the import reads that declaration', () => withDisposablePostgres(async url => {
+  const store = await openStore(url);
+  const { store: json, dir } = await jsonStore();
+  try {
+    assert.equal(store.backendKind, 'postgres');
+    assert.equal(json.backendKind, 'json');
+    assert.throws(() => { store.backendKind = 'json'; }, TypeError);
+    assert.throws(() => { json.backendKind = 'postgres'; }, TypeError);
+    assert.equal(store.backendKind, 'postgres');
+    assert.equal(json.backendKind, 'json');
+  } finally {
+    await store.close();
+    await fs.rm(dir, { recursive: true, force: true });
+  }
+}));

@@ -20,7 +20,7 @@ It sends no mail, makes no SMTP or IMAP connection, and makes no provider call. 
 | Approval gate | Owner | See the gate fields below. |
 | `TOKEN_ENCRYPTION_KEY` | Production environment | Never copy the key from staging. |
 
-Gate fields: `mode: "PRODUCTION_IMPORT"`, `confirmation: "IMPORT-50-WINNR-STARTUP"`, `approvalRef`, `reviewedCommit` (40 lowercase hex), `expiresAt` (ISO 8601 with offset), `expectedAccountCount: 50`, `routeAuthorized: true`, `termsCompatible: true`, `encryptionKeyCheck` (16 hex from `winnrProductionKeyCheck(productionKey)`).
+Gate fields: `mode: "PRODUCTION_IMPORT"`, `confirmation: "IMPORT-50-WINNR-STARTUP"`, `approvalRef`, `reviewedCommit` (40 lowercase hex), `expiresAt` (ISO 8601 with offset), `expectedAccountCount: 50`, `routeAuthorized: true`, `termsCompatible: true`, `encryptionKeyCheck` (16 hex from `winnrProductionKeyCheck(productionKey)`), and `planDigest` (required). `planDigest` is the 64-hex value on the plan that `planWinnrProductionImport` returns for these exact inputs. Execution and rollback both require it: an approval with no `planDigest` field is refused with `approval-plan-digest-missing`, and an approval naming any other plan's digest is refused with `approval-plan-digest-mismatch`.
 
 Inventory JSON for the dry run: `csvText`, `expectedInventoryText`, `providerDomains`, `providerMailboxes`, `workspaceId`, `routeEvidenceRef`, `storeBackend: "postgres"`, `expectedPilotMailboxCount` (the approved pilot identity count), `executionGate`.
 
@@ -48,6 +48,9 @@ Common refusals:
 | `smtp-host-provider-mismatch`, `imap-host-provider-mismatch`, `smtp-port-provider-mismatch`, `imap-port-provider-mismatch` | The export disagrees with the provider's own record for that address. |
 | `imap-username-not-address` | The IMAP login is not the mailbox address. |
 | `plan-ciphertext-not-sealed-under-key` | A planned credential does not open under the supplied key. |
+| `approval-plan-digest-missing` | The execution or rollback approval has no `planDigest` field. Plan first, then name that plan's digest in the approval. |
+| `approval-plan-digest-mismatch` | The approval names a different plan's digest, or a null or empty one. |
+| `store-backend-kind-unrecognised`, `store-backend-mismatch` | The store does not declare the `postgres` backend kind. Backend identity is the store's declared, read-only `backendKind`, not its class. |
 
 ## Step 2: execute (authorised runner only)
 
@@ -76,7 +79,7 @@ After commit, the read-back repeats the same checks. A failure there is reported
 
 ## Rollback
 
-`rollbackWinnrProductionImport` with the same plan, in the same process. It keeps every imported SMTP sender paused under `WINNR_PRODUCTION_IMPORT_ROLLED_BACK`, disconnects every IMAP account, and deletes nothing. Credentials are not rewritten. It is safe to run twice. It is not blocked by an expired approval, because holding senders is the fail-safe direction.
+`rollbackWinnrProductionImport` with the same plan, in the same process, and an approval that names that plan's `planDigest`. It keeps every imported SMTP sender paused under `WINNR_PRODUCTION_IMPORT_ROLLED_BACK`, disconnects every IMAP account, and deletes nothing. Credentials are not rewritten. It is safe to run twice. It is not blocked by an expired approval, because holding senders is the fail-safe direction.
 
 ## Interruption, retry and concurrency
 
@@ -93,6 +96,8 @@ After commit, the read-back repeats the same checks. A failure there is reported
 | Exactly 50 identities, 10 Startup domains, pilot domains excluded | `planWinnrProductionImport`, `gateCsvInventory`, `gateProviderInventory`, `gateCsvAgainstProvider` |
 | Per-row host, port, implicit TLS and IMAP login | `routeFactReasons`, `tlsRouteVerified` |
 | Key provenance and sealing | `winnrProductionKeyCheck`, `encryption-key-check-mismatch`, `plan-ciphertext-not-sealed-under-key` |
+| Approval bound to one plan | `approvalDigestReasons` (mandatory `planDigest`), `approval-plan-digest-missing`, `approval-plan-digest-mismatch` |
+| Declared backend identity | `storeBackendReasons` reads the store's `backendKind` (`postgres` for `PostgresStore`, `json` for `JsonStore`), not `instanceof` |
 | Holds before accounts; pre-commit and post-commit checks | `executeImportOnce` (pass 1 and pass 2), `verifyHeldState`, `verifyImportScope` |
 | Pilot snapshot, count and no-change check | `pilotSnapshot`, `PILOT_ROWS_CHANGED`, `PILOT_MAILBOX_COUNT_MISMATCH` |
 | Zero eligible senders | `eligibleCount` (uses `selectFleetMailbox`), `ELIGIBLE_SENDER_AFTER_IMPORT` |

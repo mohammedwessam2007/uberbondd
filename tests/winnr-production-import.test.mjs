@@ -119,6 +119,11 @@ function planFor(s, overrides = {}) {
   });
 }
 
+// An approval names the digest of the one plan it approves. Nothing else in the gate is changed.
+function approvalFor(s, plan, overrides = {}) {
+  return { ...s.gate, planDigest: plan.planDigest, ...overrides };
+}
+
 // In-memory store with the same transaction semantics as the JSON store: writes are staged and committed only when the
 // callback resolves. A throw discards every staged write, including settings.
 function createFakeStore() {
@@ -161,6 +166,9 @@ function createFakeStore() {
   };
   const store = {
     state: base,
+    // Test double only. It declares the PostgreSQL kind so the production gate can be exercised against the transactional
+    // contract. createStore never returns this object, and no production code path receives it.
+    backendKind: 'postgres',
     ...operations(base),
     async transaction(fn) {
       const staged = structuredClone(base);
@@ -299,7 +307,7 @@ test('execute on 50 rows: every SMTP sender is held, every IMAP account is disco
   const store = createFakeStore();
   const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, true, result.reasonCodes.join(','));
   assert.equal(result.status, 'PRODUCTION_IMPORT_EXECUTED');
@@ -339,8 +347,9 @@ test('execute on 50 rows: every SMTP sender is held, every IMAP account is disco
 test('execute releases its lease and stores a public receipt with an audit entry', async () => {
   const s = scenario();
   const store = createFakeStore();
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, true);
   assert.equal(result.receiptStored, true);
@@ -355,11 +364,11 @@ test('an idempotent re-run writes no new accounts, re-asserts every hold, and re
   const s = scenario();
   const store = createFakeStore();
   const plan = planFor(s);
-  await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
   const accountsBefore = structuredClone(store.state.accounts);
   const healthBefore = structuredClone(store.state.senderHealth);
   const second = await executeWinnrProductionImport({
-    store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(second.ok, true, second.reasonCodes.join(','));
   assert.equal(second.status, 'PRODUCTION_IMPORT_ALREADY_PRESENT');
@@ -383,8 +392,9 @@ test('an existing identity with different credentials refuses the whole batch an
   }, s.key).account;
   store.state.accounts.push(conflicting);
   const before = structuredClone(store.state);
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, false);
   assert.equal(result.status, 'PRODUCTION_IMPORT_REFUSED');
@@ -404,8 +414,9 @@ test('a store holding ciphertext from another key refuses with STAGING_OR_UNREAD
   }, otherKey).account;
   store.state.accounts.push(stray);
   const before = structuredClone(store.state);
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('STAGING_OR_UNREADABLE_CIPHERTEXT_PRESENT'));
@@ -419,8 +430,9 @@ test('a fresh lease held by another owner refuses with IMPORT_ALREADY_RUNNING an
     owner: 'other-run-owner', acquiredAt: '2026-10-13T11:59:00.000Z', expiresAt: '2026-10-13T12:05:00.000Z', released: false
   };
   const before = structuredClone(store.state);
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, false);
   assert.deepEqual(result.reasonCodes, ['IMPORT_ALREADY_RUNNING']);
@@ -433,8 +445,9 @@ test('an expired lease from another owner is taken over', async () => {
   store.state.settings[SETTINGS_LEASE] = {
     owner: 'other-run-owner', acquiredAt: '2026-10-13T11:00:00.000Z', expiresAt: '2026-10-13T11:10:00.000Z', released: false
   };
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, true, result.reasonCodes.join(','));
   assert.equal(store.state.settings[SETTINGS_LEASE].owner, OWNER);
@@ -446,8 +459,9 @@ test('an injected fault after 7 writes rolls back every write, the lease and the
   const s = scenario();
   const store = createFakeStore();
   const before = structuredClone(store.state);
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key, faultAfterWrites: 7
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key, faultAfterWrites: 7
   });
   assert.equal(result.ok, false);
   assert.equal(result.status, 'PRODUCTION_IMPORT_ROLLED_BACK');
@@ -474,8 +488,9 @@ test('execute refuses a plan that this module did not issue', async () => {
 test('execute refuses a plan whose ciphertext does not open with the supplied key', async () => {
   const s = scenario();
   const store = createFakeStore();
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: hex(32)
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: hex(32)
   });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('PLAN_CIPHERTEXT_NOT_READABLE_WITH_KEY'));
@@ -486,8 +501,9 @@ test('execute refuses an expired gate at execution time', async () => {
   const s = scenario();
   const store = createFakeStore();
   const later = new Date(NOW.getTime() + 2 * 60 * 60 * 1000);
+  const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan: planFor(s), executionGate: s.gate, now: later, leaseOwner: OWNER, encryptionKeyHex: s.key
+    store, plan, executionGate: approvalFor(s, plan), now: later, leaseOwner: OWNER, encryptionKeyHex: s.key
   });
   assert.equal(result.ok, false);
   assert.ok(result.reasonCodes.includes('gate-expired'));
@@ -500,9 +516,9 @@ test('rollback keeps every sender paused under the rollback reason, disconnects 
   const s = scenario();
   const store = createFakeStore();
   const plan = planFor(s);
-  await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
   const accountsBefore = structuredClone(store.state.accounts);
-  const rollback = await rollbackWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW });
+  const rollback = await rollbackWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW });
   assert.equal(rollback.ok, true, rollback.reasonCodes.join(','));
   assert.equal(rollback.status, 'PRODUCTION_IMPORT_ROLLED_BACK');
   assert.equal(rollback.counts.verifiedSmtpRolledBack, 50);
@@ -528,11 +544,11 @@ test('a second rollback changes no sender, account or credential', async () => {
   const s = scenario();
   const store = createFakeStore();
   const plan = planFor(s);
-  await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
-  await rollbackWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW });
+  await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  await rollbackWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW });
   const senders = structuredClone(store.state.senderHealth);
   const accounts = structuredClone(store.state.accounts);
-  const second = await rollbackWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW });
+  const second = await rollbackWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW });
   assert.equal(second.ok, true);
   assert.equal(second.counts.senderPauseWrites, 0);
   assert.equal(second.counts.imapHoldWrites, 0);
@@ -544,10 +560,10 @@ test('rollback is not blocked by an expired approval, because holding senders is
   const s = scenario();
   const store = createFakeStore();
   const plan = planFor(s);
-  await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
   const later = new Date(NOW.getTime() + 5 * 60 * 60 * 1000);
   const rollback = await rollbackWinnrProductionImport({
-    store, plan, executionGate: buildGate(NOW), now: later
+    store, plan, executionGate: { ...buildGate(NOW), planDigest: plan.planDigest }, now: later
   });
   assert.equal(rollback.ok, true, rollback.reasonCodes.join(','));
 });
@@ -568,8 +584,8 @@ test('every stored receipt passes the public artifact guard and carries no ident
   const s = scenario();
   const store = createFakeStore();
   const plan = planFor(s);
-  const executed = await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
-  const rolledBack = await rollbackWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW });
+  const executed = await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  const rolledBack = await rollbackWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW });
   for (const receipt of [executed.publicReceipt, rolledBack.publicReceipt, store.state.settings[SETTINGS_RECEIPT], store.state.settings[SETTINGS_ROLLBACK_RECEIPT]]) {
     assert.doesNotThrow(() => assertPublicSafe(receipt));
     assert.equal(identityLeaks(JSON.stringify(receipt), s), '');
@@ -581,7 +597,8 @@ test('every stored receipt passes the public artifact guard and carries no ident
 test('the receipt written for a successful import records counts and fixed codes only', async () => {
   const s = scenario();
   const store = createFakeStore();
-  await executeWinnrProductionImport({ store, plan: planFor(s), executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  const plan = planFor(s);
+  await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
   const receipt = store.state.settings[SETTINGS_RECEIPT];
   assert.equal(receipt.externalEffectAuthority, 'NONE');
   assert.equal(receipt.messagesSent, 0);
@@ -597,7 +614,7 @@ test('an error during a refused execution is reported as a fixed code, not as er
   const store = createFakeStore();
   const plan = planFor(s);
   const result = await executeWinnrProductionImport({
-    store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key, faultAfterWrites: 3
+    store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key, faultAfterWrites: 3
   });
   assert.equal(result.ok, false);
   assert.equal(JSON.stringify(result).includes('fault injected'), false);
@@ -608,9 +625,9 @@ test('a present sender that lost its hold row is held again on the next run and 
   const s = scenario();
   const store = createFakeStore();
   const plan = planFor(s);
-  await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
   store.state.senderHealth = [];
-  const second = await executeWinnrProductionImport({ store, plan, executionGate: s.gate, now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
+  const second = await executeWinnrProductionImport({ store, plan, executionGate: approvalFor(s, plan), now: NOW, leaseOwner: OWNER, encryptionKeyHex: s.key });
   assert.equal(second.ok, true, second.reasonCodes.join(','));
   assert.equal(store.state.senderHealth.filter(row => row.paused === true && row.pauseReason === 'WINNR_PRODUCTION_IMPORT_HOLD').length, 50);
   assert.equal(second.counts.pauseWrites, 50);

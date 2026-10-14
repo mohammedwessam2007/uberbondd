@@ -7,25 +7,35 @@ function reservation(id = 'a'.repeat(64)) {
     reservationKey: 'uberwarm2-seed:' + id, probeId: 'p1', batchDigest: 'sha256:test',
     senderEmail: 'tara@example.com', seedEmail: 'seed@gmail.com',
     quotaWindow: '2026-10-12', senderDailyLimit: 2,
-    globalDailyLimit: 100, seedDailyLimit: 1, effectClass: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
+    globalDailyLimit: 100, seedDailyLimit: 1, rollingWindowHours: 24,
+    effectClass: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
   };
 }
 function fakePg() {
   const seen = new Set(), states = new Map(), queries = [];
+  // The database clock's UTC day. The reservation quotaWindow must name it.
+  const dbClockDay = '2026-10-12';
   let txActive = false;
   const client = {
     async query(sql, args = []) {
       queries.push({sql, args});
-      if (sql === 'BEGIN') { txActive = true; return {rows: []}; }
+      if (sql.startsWith('BEGIN')) { txActive = true; return {rows: []}; }
       if (sql === 'COMMIT' || sql === 'ROLLBACK') { txActive = false; return {rows: []}; }
       if (sql.includes('pg_advisory_xact_lock')) { assert.equal(txActive, true); return {rows: []}; }
       if (sql.includes('SELECT reservation_key FROM')) {
         return {rows: seen.has(args[0]) ? [{reservation_key: args[0]}] : []};
       }
-      if (sql.includes('COUNT(*)::int AS total')) {
-        const sender = args[1]; return {rows: [{
-          total: seen.size, sender_total: [...states.values()].filter(x => x.sender === sender).length,
-          seed_total: [...states.values()].filter(x => x.seed === args[2]).length
+      if (sql.includes("clock_timestamp() AT TIME ZONE 'UTC'")) {
+        return {rows: [{quota_day: dbClockDay}]};
+      }
+      if (sql.includes('COUNT(*) FILTER')) {
+        const sender = args[1];
+        const senderTotal = [...states.values()].filter(x => x.sender === sender).length;
+        const seedTotal = [...states.values()].filter(x => x.seed === args[2]).length;
+        // Every claim in this fake was made on the same quota day, inside the rolling window.
+        return {rows: [{
+          total: seen.size, sender_total: senderTotal, seed_total: seedTotal,
+          rolling_total: seen.size, rolling_sender_total: senderTotal, rolling_seed_total: seedTotal
         }]};
       }
       if (sql.startsWith('INSERT INTO uberwarm2_seed_probe_claims')) {

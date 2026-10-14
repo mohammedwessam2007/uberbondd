@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { compilePlacementProbePlan, compilePlacementReport } from '../src/uberplacement.mjs';
 import {
   compileUberWarm2SeedBatch, executeUberWarm2SeedProbe as rawExecuteSeedProbe,
-  compileUberWarm2ReceivedEvidence, createUberWarm2SeedApprovalProof
+  compileUberWarm2ReceivedEvidence, createUberWarm2SeedApprovalProof,
+  UBERWARM2_SEED_TEMPLATE_DIGEST
 } from '../src/uberwarm2-seed-executor.mjs';
 
 const KEY = 'test-only-never-production-seed-approval-hmac-key-2026';
@@ -37,7 +38,8 @@ function approval(b) {
   const entry = {
     granted: true, grantedBy: 'founder', expiresAt: '2026-10-12T19:00:00Z',
     scopes: ['uberwarm2:owner-controlled-seed-test'],
-    batchDigest: b.batchDigest, evidenceRef: 'owner-authorized-fixture'
+    batchDigest: b.batchDigest, templateDigest: UBERWARM2_SEED_TEMPLATE_DIGEST,
+    evidenceRef: 'owner-authorized-fixture'
   };
   return { ...entry, proof: createUberWarm2SeedApprovalProof({
     approval: entry, verificationKey: KEY

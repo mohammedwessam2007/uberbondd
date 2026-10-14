@@ -102,8 +102,9 @@ test('a timed-out or 5xx mutation becomes EXTERNAL_OUTCOME_UNKNOWN and is never 
   });
   const result = await adapter.provisionMailboxes({
     mailboxes: [{ email: 'a@uberbond.example' }],
-    ownerApproval: approval('icemail:provisionMailboxes'),
-    idempotencyKey: 'mailboxes:1'
+    ownerApproval: approval('icemail:provisionMailboxes', { spendLimitCents: 100 }),
+    idempotencyKey: 'mailboxes:1',
+    estimatedCostCents: 100
   });
   assert.equal(result.status, 'EXTERNAL_OUTCOME_UNKNOWN');
   assert.equal(calls, 1);

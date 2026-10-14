@@ -104,8 +104,9 @@ test('AgentMail creates one inbox per request with provider client_id idempotenc
 
   const result = await adapter.provisionMailboxes({
     mailboxes: [{ email: 'mohamed@uberbond.agency', displayName: 'Mohamed Wessam' }],
-    ownerApproval: approval('agentmail:provisionMailboxes'),
-    idempotencyKey: 'fleet:one'
+    ownerApproval: approval('agentmail:provisionMailboxes', { spendLimitCents: 100 }),
+    idempotencyKey: 'fleet:one',
+    estimatedCostCents: 100
   });
 
   assert.equal(result.ok, true);
@@ -161,8 +162,9 @@ test('AgentMail mutations fail closed without approval and never retry uncertain
   // is EXTERNAL_OUTCOME_UNKNOWN, and the adapter makes exactly one request.
   const uncertain = await adapter.provisionMailboxes({
     mailboxes: [{ email: 'mohamed@uberbond.agency', displayName: 'Mohamed Wessam' }],
-    ownerApproval: approval('agentmail:provisionMailboxes'),
-    idempotencyKey: 'fleet:uncertain'
+    ownerApproval: approval('agentmail:provisionMailboxes', { spendLimitCents: 100 }),
+    idempotencyKey: 'fleet:uncertain',
+    estimatedCostCents: 100
   });
   assert.equal(uncertain.status, 'EXTERNAL_OUTCOME_UNKNOWN');
   assert.equal(calls, 1);

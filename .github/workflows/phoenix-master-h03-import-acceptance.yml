@@ -1,0 +1,23 @@
+name: PHOENIX H03 exact Claude source held Winnr import acceptance
+on:
+  push:
+    branches:
+      - high/phoenix-master-h03-import-acceptance-20261014
+permissions:
+  contents: read
+jobs:
+  synthetic-no-send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Run actual synthetic production import and hold regressions
+        run: node --test tests/uberwinnr-credential-import.test.mjs tests/uberwinnr-fleet-plan.test.mjs tests/winnr-production-import.test.mjs tests/winnr-production-import-hardening.test.mjs

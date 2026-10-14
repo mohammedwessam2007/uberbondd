@@ -5,6 +5,7 @@ import { parseExpectedInventory, gateCsvInventory, gateProviderInventory, gateCs
 import { findDuplicateAddresses, verifyStoreKeyCompatibility } from './winnr-fleet-control-plane.mjs';
 import { assertPublicSafe, sanitizedErrorCode } from './winnr-public-artifact-guard.mjs';
 import { selectFleetMailbox } from './uberfleet.mjs';
+import { JsonStore } from './store.mjs';
 
 // Production import of the 50 Winnr Startup mailbox credentials into the PostgreSQL store.
 //
@@ -65,6 +66,13 @@ function keyedDigest16(keyHex, label, value) {
   return crypto.createHmac('sha256', subkey).update(`${label}\n${value}`).digest('hex').slice(0, 16);
 }
 
+// Binds an approval to one plan's exact content. The full 64-character value stays on the private plan object and is
+// never placed in a public receipt.
+function planDigestOf(keyHex, value) {
+  const subkey = crypto.createHmac('sha256', Buffer.from(String(keyHex), 'hex')).update(DIGEST_CONTEXT).digest();
+  return crypto.createHmac('sha256', subkey).update(`plan\n${value}`).digest('hex');
+}
+
 // Proves which key an approval was issued for without revealing it. Returns '' when the key is not 64 hex characters.
 export function winnrProductionKeyCheck(encryptionKeyHex = '') {
   if (!KEY_RE.test(String(encryptionKeyHex ?? ''))) return '';
@@ -86,6 +94,16 @@ class ImportRefusal extends Error {
     this.name = 'ImportRefusal';
     this.code = code;
     this.reasonCodes = [code, ...reasonCodes];
+  }
+}
+
+// Thrown from inside the transaction when the store already holds the plan. The throw rolls back the lease acquired at
+// the start of the run, so a repeat execution changes no row, setting or log entry.
+class ImportNoop extends Error {
+  constructor(report) {
+    super('winnr-production-import-noop');
+    this.name = 'ImportNoop';
+    this.report = report;
   }
 }
 
@@ -340,6 +358,17 @@ export function planWinnrProductionImport({
     counts.credentialIdentitiesSealed = sealedIdentities;
   }
   const hashes = { sourceHash16: issued?.sourceHash16 ?? '', destinationHash16: issued?.destinationHash16 ?? '' };
+  // An approval that names this digest can execute only this exact plan. Execution refuses any other plan.
+  const planDigest = issued ? planDigestOf(encryptionKeyHex, stableStringify({
+    sourceHash16: issued.sourceHash16,
+    destinationHash16: issued.destinationHash16,
+    startupDomains: issued.startupDomains,
+    pilotDomains: issued.pilotDomains,
+    expectedPilotMailboxCount,
+    workspaceId,
+    routeEvidenceRef,
+    rows: planRows
+  })) : '';
   const plan = deepFreeze({
     ok,
     status,
@@ -353,6 +382,7 @@ export function planWinnrProductionImport({
     expectedPilotMailboxCount: ok ? expectedPilotMailboxCount : null,
     sourceHash16: hashes.sourceHash16,
     destinationHash16: hashes.destinationHash16,
+    planDigest,
     publicReceipt: buildPublicReceipt({ kind: 'PLAN', status, reasonCodes, counts, recordedAt, hashes })
   });
   if (ok) ISSUED_PLANS.add(plan);
@@ -491,6 +521,18 @@ async function verifyImportScope(store, { planRows, startupDomains, pilotDomains
   };
 }
 
+// Read-only checks run inside the transaction before commit, and before a no-op is accepted. Any finding throws, so the
+// whole transaction rolls back.
+async function verifyBeforeCommit(tx, { planRows, plan, pilotBefore, key, nowMs }) {
+  const preCommit = await verifyHeldState(tx, planRows);
+  if (!preCommit.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED', preCommit.reasonCodes);
+  const preScope = await verifyImportScope(tx, {
+    planRows, startupDomains: plan.startupDomains, pilotDomains: plan.pilotDomains, pilotBefore,
+    expectedPilotMailboxCount: plan.expectedPilotMailboxCount, key, nowMs
+  });
+  if (!preScope.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED', preScope.reasonCodes);
+}
+
 // True when any planned key appears on more than one row of the store.
 function duplicatedFor(rows, field, wanted) {
   const counts = new Map();
@@ -525,7 +567,8 @@ async function executeImportOnce({
   now = new Date(),
   leaseOwner = '',
   encryptionKeyHex = '',
-  faultAfterWrites = 0
+  faultAfterWrites = 0,
+  storeBackend = undefined
 } = {}) {
   const nowMs = toMs(now);
   const iso = Number.isFinite(nowMs) ? isoOf(nowMs) : '';
@@ -533,10 +576,18 @@ async function executeImportOnce({
   if (!KEY_RE.test(String(encryptionKeyHex ?? ''))) reasons.push('encryption-key-hex-required');
   if (!isNonEmpty(leaseOwner)) reasons.push('lease-owner-required');
   if (!Number.isInteger(faultAfterWrites) || faultAfterWrites < 0) reasons.push('fault-after-writes-invalid');
+  // The backend is taken from the store object. Any backend the caller asserts is refused, even a correct one.
+  if (storeBackend !== undefined) reasons.push('caller-asserted-backend-refused');
+  if (store instanceof JsonStore) reasons.push('store-backend-mismatch');
   if (!store || typeof store.transaction !== 'function') reasons.push('store-transaction-required');
   if (!ISSUED_PLANS.has(plan)) reasons.push('plan-not-issued-by-planner');
   else if (plan.ok !== true || plan.status !== 'PRODUCTION_IMPORT_PLAN_READY') reasons.push('plan-not-ready');
   if (plan?.storeBackend !== 'postgres') reasons.push('plan-store-backend-not-postgres');
+  // An approval that names a plan digest executes only the plan with that digest. An approval without one keeps the
+  // behaviour it had before digests existed; a null or mismatched digest always fails closed.
+  if (executionGate?.planDigest !== undefined && executionGate.planDigest !== plan?.planDigest) {
+    reasons.push('approval-plan-digest-mismatch');
+  }
   const planRows = Array.isArray(plan?.rows) ? plan.rows : [];
   if (planRows.length !== EXPECTED_ACCOUNT_COUNT) reasons.push('plan-row-count-mismatch');
   if (reasons.length) return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', reasons, iso);
@@ -599,6 +650,31 @@ async function executeImportOnce({
     if (actions.some(a => a.smtp === 'COLLISION' || a.imap === 'COLLISION')) throw new ImportRefusal('ACCOUNT_IDENTITY_COLLISION');
 
     const healthByInbox = new Map(existingHealth.map(row => [String(row?.inbox ?? ''), row]));
+    const isHeld = row => row?.paused === true && row.pauseReason === WINNR_IMPORT_HOLD_REASON;
+    const existingImapFor = row => bySlot.get(String(row.imapAccount.slot)) || byId.get(String(row.imapAccount.id));
+    const imapNeedsPatch = row => {
+      const existing = existingImapFor(row);
+      return Boolean(existing) && existing.connected !== false;
+    };
+    // Writes this run would make. Zero means the store already holds the plan, and the run must write nothing at all.
+    const pendingWrites = planRows.reduce((total, row, index) => total
+      + (isHeld(healthByInbox.get(String(row.smtpAccount.slot))) ? 0 : 1)
+      + (actions[index].smtp === 'WRITE' ? 1 : 0)
+      + (actions[index].imap === 'WRITE' ? 1 : 0)
+      + (actions[index].imap === 'PRESENT' && imapNeedsPatch(row) ? 1 : 0), 0);
+    if (pendingWrites === 0) {
+      await verifyBeforeCommit(tx, { planRows, plan, pilotBefore, key, nowMs });
+      throw new ImportNoop({
+        committedWrites: 0,
+        writtenRows: 0,
+        alreadyPresentRows: planRows.length,
+        pauseWrites: planRows.length,
+        smtpAccountWrites: 0,
+        imapAccountWrites: 0,
+        accountsBefore: existingAccounts.length,
+        pilotBefore
+      });
+    }
 
     let writes = 0;
     const beforeWrite = () => {
@@ -616,19 +692,22 @@ async function executeImportOnce({
     let alreadyPresentRows = 0;
     const imapPatched = planRows.map(() => false);
     // Pass 1, holds first: every planned SMTP sender is paused, and every present IMAP account is disconnected, before
-    // any account is created. Every planned SMTP sender is held on every run, including senders that are already
-    // present. A present sender that lacks a hold is exactly the case a missing pause would leave selectable.
+    // any account is created. Every planned SMTP sender is asserted held on every run, including senders that are already
+    // present, so an operator change since the last run is put back under hold. A hold that is already in place is
+    // asserted but not rewritten, so a repeat run writes nothing.
     for (let index = 0; index < planRows.length; index += 1) {
       const row = planRows[index];
       const action = actions[index];
       const inbox = String(row.smtpAccount.slot);
-      beforeWrite();
-      await tx.upsert('senderHealth', heldSenderRecord(healthByInbox.get(inbox), inbox, WINNR_IMPORT_HOLD_REASON, iso, day));
       pauseWrites += 1;
+      if (!isHeld(healthByInbox.get(inbox))) {
+        beforeWrite();
+        await tx.upsert('senderHealth', heldSenderRecord(healthByInbox.get(inbox), inbox, WINNR_IMPORT_HOLD_REASON, iso, day));
+      }
       if (action.imap === 'PRESENT') {
         // A present IMAP account must still end disconnected. Patch only the connection flag and keep its credential.
-        const existingImap = bySlot.get(String(row.imapAccount.slot)) || byId.get(String(row.imapAccount.id));
-        if (existingImap && existingImap.connected !== false) {
+        const existingImap = existingImapFor(row);
+        if (imapNeedsPatch(row)) {
           beforeWrite();
           await tx.upsert('accounts', { ...existingImap, connected: false, updatedAt: iso });
           imapAccountWrites += 1;
@@ -659,13 +738,7 @@ async function executeImportOnce({
 
     // Verify inside the transaction, before commit. A mismatch throws, so the whole batch rolls back and nothing
     // selectable is left behind. The post-commit read-back below is a second, independent check.
-    const preCommit = await verifyHeldState(tx, planRows);
-    if (!preCommit.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED', preCommit.reasonCodes);
-    const preScope = await verifyImportScope(tx, {
-      planRows, startupDomains: plan.startupDomains, pilotDomains: plan.pilotDomains, pilotBefore,
-      expectedPilotMailboxCount: plan.expectedPilotMailboxCount, key, nowMs
-    });
-    if (!preScope.ok) throw new ImportRefusal('PRE_COMMIT_VERIFY_FAILED', preScope.reasonCodes);
+    await verifyBeforeCommit(tx, { planRows, plan, pilotBefore, key, nowMs });
 
     await tx.setSetting(WINNR_IMPORT_LEASE_SETTING, { owner: leaseOwner, released: true, releasedAt: iso, expiresAt: iso });
     return {
@@ -681,11 +754,18 @@ async function executeImportOnce({
   };
 
   let report;
+  let noop = false;
   try {
     report = await store.transaction(runImport);
   } catch (error) {
-    if (error instanceof ImportRefusal) return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', error.reasonCodes, iso);
-    return refusal('EXECUTE', 'PRODUCTION_IMPORT_ROLLED_BACK', ['IMPORT_TRANSACTION_ROLLED_BACK', sanitizedErrorCode(error)], iso);
+    if (error instanceof ImportNoop) {
+      report = error.report;
+      noop = true;
+    } else if (error instanceof ImportRefusal) {
+      return refusal('EXECUTE', 'PRODUCTION_IMPORT_REFUSED', error.reasonCodes, iso);
+    } else {
+      return refusal('EXECUTE', 'PRODUCTION_IMPORT_ROLLED_BACK', ['IMPORT_TRANSACTION_ROLLED_BACK', sanitizedErrorCode(error)], iso);
+    }
   }
 
   // Read-back after commit. A failed check reports and changes nothing further.
@@ -723,6 +803,8 @@ async function executeImportOnce({
 
   const status = report.writtenRows === 0 ? 'PRODUCTION_IMPORT_ALREADY_PRESENT' : 'PRODUCTION_IMPORT_EXECUTED';
   const receipt = buildPublicReceipt({ kind: 'EXECUTE', status, reasonCodes: [], counts, recordedAt: iso, hashes });
+  // A no-op wrote nothing, so it stores no receipt and logs nothing. The earlier receipt stays exactly as it was.
+  if (noop) return { ok: true, status, reasonCodes: [], counts, publicReceipt: receipt, receiptStored: false };
   const reasonCodes = [];
   let receiptStored = true;
   try {

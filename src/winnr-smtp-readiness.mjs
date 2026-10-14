@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { probeSmtpFleetAccount } from './uberfleet.mjs';
+import { connectImapSocket, openImapCredential } from './uberimap.mjs';
 
 export const WINNR_SMTP_READINESS_VERSION='uberbond.winnr-smtp-readiness.v1';
 export const SMTP_PROBE_FAILURE_PAUSE_REASON='winnr-smtp-auth-noop-probe-failed';
@@ -149,4 +150,69 @@ export async function runWinnrSmtpReadinessProbe({
     senderAddressesLogged:false,credentialsLogged:false
   });
   return receipt;
+}
+
+// IMAP readiness for one Winnr mailbox. The only commands it may send are CAPABILITY, LOGIN and LOGOUT. It never selects
+// a mailbox, searches, fetches, stores or expunges, so no message is read or changed. It is deliberately separate from
+// the SMTP gate above and from diagnoseWinnrImapStages, which sends SELECT and FETCH and must never run as a readiness
+// step. The result is a bounded classification. Raw server text, usernames and passwords are never returned.
+export const WINNR_IMAP_READINESS_VERSION='uberbond.winnr-imap-readiness.v1';
+export const WINNR_IMAP_READINESS_COMMANDS=Object.freeze(['CAPABILITY','LOGIN','LOGOUT']);
+const IMAP_UNREACHABLE=new Set(['ETIMEDOUT','ECONNREFUSED','EHOSTUNREACH','ENETUNREACH','ECONNRESET','EAI_AGAIN','ENOTFOUND']);
+const safeImapCode=error=>String(error?.code||error?.name||'UNKNOWN').trim().toUpperCase().replace(/[^A-Z0-9_-]/g,'_').slice(0,80)||'UNKNOWN';
+const imapQuote=value=>`"${String(value??'').replace(/\\/g,'\\\\').replace(/"/g,'\\"')}"`;
+
+function imapTagged(socket,tag,line,timeoutMs){
+  return new Promise((resolve,reject)=>{
+    let buffer='';
+    const timer=setTimeout(()=>done(Object.assign(new Error('imap-readiness-timeout'),{code:'ETIMEDOUT'})),timeoutMs);
+    const onData=chunk=>{
+      buffer+=Buffer.from(chunk).toString('latin1');
+      if(buffer.length>65536)return done(Object.assign(new Error('imap-readiness-response-too-large'),{code:'IMAP_RESPONSE_TOO_LARGE'}));
+      const match=buffer.match(new RegExp(`(?:^|\\r\\n)${tag} (OK|NO|BAD)(?: \\[([A-Z0-9_-]{1,80})\\])?`,'i'));
+      if(match)done(null,{status:match[1].toUpperCase(),responseCode:(match[2]||'NONE').toUpperCase()});
+    };
+    const onError=error=>done(error);
+    const onClose=()=>done(Object.assign(new Error('imap-readiness-connection-closed'),{code:'IMAP_CONNECTION_CLOSED'}));
+    function done(error,value){
+      clearTimeout(timer);
+      socket.off('data',onData);socket.off('error',onError);socket.off('close',onClose);
+      if(error)reject(error);else resolve(value);
+    }
+    socket.on('data',onData);socket.once('error',onError);socket.once('close',onClose);
+    socket.write(`${tag} ${line}\r\n`);
+  });
+}
+
+export async function probeWinnrImapReadiness({account={},encryptionKey='',connectFactory=connectImapSocket,timeoutMs=15000}={}){
+  const bounded=fields=>Object.freeze({
+    version:WINNR_IMAP_READINESS_VERSION,ok:false,commandsIssued:[],mailboxSelected:false,messagesRead:0,messagesSent:0,
+    rawProviderTextLogged:false,credentialsLogged:false,...fields
+  });
+  let credential;
+  try{credential=openImapCredential(account,encryptionKey);}
+  catch{return bounded({classification:'CREDENTIAL_UNAVAILABLE',stage:'CREDENTIAL'});}
+  if(/[\r\n\0]/.test(`${credential.username}${credential.password}`))return bounded({classification:'CREDENTIAL_UNSAFE_FOR_LITERAL',stage:'CREDENTIAL'});
+  const route=account?.imapRoute||{};
+  const sent=[];
+  let socket;
+  try{socket=await connectFactory({host:route.host,port:route.port,secure:route.secure!==false,timeoutMs});}
+  catch(error){
+    const code=safeImapCode(error);
+    return bounded({classification:IMAP_UNREACHABLE.has(code)?'TRANSPORT_UNREACHABLE':'CONNECT_FAILED',stage:'CONNECT',errorClass:code});
+  }
+  try{
+    sent.push('CAPABILITY');
+    const capability=await imapTagged(socket,'WR0001','CAPABILITY',timeoutMs);
+    if(capability.status!=='OK')return bounded({classification:'PROTOCOL_REJECTED',stage:'CAPABILITY',responseCode:capability.responseCode,commandsIssued:[...sent]});
+    sent.push('LOGIN');
+    const login=await imapTagged(socket,'WR0002',`LOGIN ${imapQuote(credential.username)} ${imapQuote(credential.password)}`,timeoutMs);
+    if(login.status!=='OK')return bounded({classification:login.status==='NO'?'AUTH_REJECTED':'PROTOCOL_REJECTED',stage:'LOGIN',responseCode:login.responseCode,commandsIssued:[...sent]});
+    sent.push('LOGOUT');
+    try{await imapTagged(socket,'WR0003','LOGOUT',timeoutMs);}catch{/* login already answered */}
+    return bounded({ok:true,classification:'CAPABILITY_LOGIN_CONFIRMED',stage:'LOGIN',responseCode:login.responseCode,commandsIssued:[...sent]});
+  }catch(error){
+    const code=safeImapCode(error);
+    return bounded({classification:IMAP_UNREACHABLE.has(code)?'TRANSPORT_UNREACHABLE':'PROTOCOL_FAILED',stage:sent[sent.length-1]||'CAPABILITY',errorClass:code,commandsIssued:[...sent]});
+  }finally{try{socket.destroy();}catch{/* already closed */}}
 }

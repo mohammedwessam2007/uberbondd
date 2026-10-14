@@ -4,6 +4,10 @@ import { executeDecisionFranchise } from './decision-franchise.mjs';
 const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const digest=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
 const id=v=>typeof v==='string'&&/^[a-zA-Z0-9_.:/-]{1,240}$/.test(v);
+const ghostDigest = ghost => {
+  const { ghostHash, ...payload } = ghost;
+  return semanticHash(payload);
+};
 
 export function compileGhostAgentFromFranchise({
   record,trustPin,eventType,payloadField='payload',compiledAt=new Date().toISOString()
@@ -22,13 +26,13 @@ export function compileGhostAgentFromFranchise({
     idleInferenceRequired:false,
     externalEffectAuthority:'NONE'
   };
-  ghost.ghostHash=semanticHash({...ghost,ghostHash:undefined});
+  ghost.ghostHash=ghostDigest(ghost);
   return ghost;
 }
 
 export function executeGhostAgent({ghost,event,currentContext,now=Date.now(),semanticCanonicalizers={}}={}){
   try{
-    if(ghost?.schemaVersion!=='uberbond.ghost-agent.v1'||ghost.ghostHash!==semanticHash({...ghost,ghostHash:undefined}))throw new Error('untampered-ghost-agent-required');
+    if(ghost?.schemaVersion!=='uberbond.ghost-agent.v1'||ghost.ghostHash!==ghostDigest(ghost))throw new Error('untampered-ghost-agent-required');
     if(!plain(event)||!id(event.eventId)||!id(event.type))throw new Error('typed-event-required');
     if(event.type!==ghost.eventType)return {
       ok:true,status:'GHOST_AGENT_SLEEP',eventId:event.eventId,

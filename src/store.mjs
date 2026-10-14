@@ -637,10 +637,11 @@ export class JsonStore {
 }
 
 export class PostgresStore {
-  constructor({ databaseUrl, ssl = true, pool, transactionClient = false } = {}) {
+  constructor({ databaseUrl, ssl = true, pool, transactionClient = false, migrationsDir } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
+    this.migrationsDir = path.resolve(migrationsDir || 'migrations');
     // A scoped store inside transaction() is backed by one already-connected
     // pg Client. Nested store helpers (patch/failJob/etc.) must reuse that
     // client instead of calling client.connect() a second time.
@@ -652,8 +653,15 @@ export class PostgresStore {
 
   async migrate() {
     const client = await this.pool.connect();
+    // A connection lost while the session is checked out is reported as an 'error'
+    // event on the client, not as a query rejection. With no listener it would
+    // crash the process, so it is recorded here and the session is destroyed below.
+    let errored = false;
+    const onError = () => { errored = true; };
+    client.on('error', onError);
     const lockName = 'uberbond:schema-migrations';
     let locked = false;
+    let failure = null;
     try {
       await client.query('SELECT pg_advisory_lock(hashtext($1))', [lockName]);
       locked = true;
@@ -663,7 +671,7 @@ export class PostgresStore {
       )`);
       const appliedRows = await client.query('SELECT version FROM schema_migrations');
       const applied = new Set(appliedRows.rows.map(row => row.version));
-      const dir = path.resolve('migrations');
+      const dir = this.migrationsDir;
       const files = (await fs.readdir(dir)).filter(name => name.endsWith('.sql')).sort();
       for (const file of files) {
         const version = file.replace(/\.sql$/i, '');
@@ -672,15 +680,32 @@ export class PostgresStore {
         await client.query(sql);
         applied.add(version);
       }
-    } finally {
-      if (locked) await client.query('SELECT pg_advisory_unlock(hashtext($1))', [lockName]).catch(() => {});
-      client.release();
+    } catch (error) {
+      failure = error;
     }
+    // Cleanup decides only whether this session may be pooled again. A session that
+    // is still inside a transaction, or still holds the schema lock, would block or
+    // corrupt the next caller, so it is destroyed unless both are proven clean.
+    // A cleanup failure never replaces the migration error rethrown below.
+    let reusable = !errored;
+    if (reusable && failure) {
+      reusable = await client.query('ROLLBACK').then(() => true, error => /no transaction in progress/i.test(error?.message || ''));
+    }
+    if (reusable && locked) {
+      reusable = await client.query('SELECT pg_advisory_unlock(hashtext($1)) AS released', [lockName])
+        .then(result => result.rows[0]?.released === true, () => false);
+    }
+    client.removeListener('error', onError);
+    client.release(reusable && !errored ? undefined : true);
+    if (failure) throw failure;
   }
 
   async transaction(fn) {
     if (this.transactionClient) return fn(this);
     const client = await this.pool.connect();
+    let errored = false;
+    const onError = () => { errored = true; };
+    client.on('error', onError);
     try {
       await client.query('BEGIN');
       const scoped = new PostgresStore({ pool: client, transactionClient: true });
@@ -689,9 +714,14 @@ export class PostgresStore {
       await client.query('COMMIT');
       return result;
     } catch (error) {
-      await client.query('ROLLBACK');
+      // A ROLLBACK that fails means the connection is unusable. The client is
+      // destroyed below and the original error is still the one rethrown.
+      await client.query('ROLLBACK').catch(() => { errored = true; });
       throw error;
-    } finally { client.release(); }
+    } finally {
+      client.removeListener('error', onError);
+      client.release(errored ? true : undefined);
+    }
   }
 
   async tx(fn) { return this.transaction(fn); }

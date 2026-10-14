@@ -65,7 +65,7 @@ test('all six permutations of the same three-cycle of verified rewrites canonica
   }
 });
 
-test('the representative of a class is its lexicographic minimum, independent of receipt order and direction', () => {
+test('a cycle with no single target is represented by its lexicographic minimum, whichever member is queried', () => {
   const canonicalizer = compileWith(CYCLE);
   const result = canonicalizer.canonicalize('gamma-form', { currentContext: CONTEXT });
   assert.equal(result.toExpressionId, 'k.alpha');
@@ -73,12 +73,24 @@ test('the representative of a class is its lexicographic minimum, independent of
   assert.equal(result.value, 'alpha-form');
 });
 
-test('a two-member class canonicalizes to its lexicographic minimum whichever way the receipt points', () => {
+test('a single directed rewrite canonicalizes to its target, as the E2 receipt directs, in either direction', () => {
   const pair = [{ id: 'k.zeta', value: 'zeta-form' }, { id: 'k.alpha', value: 'alpha-form' }];
-  for (const direction of [receipt('rw-p', 'k.alpha', 'k.zeta'), receipt('rw-p', 'k.zeta', 'k.alpha')]) {
-    const canonicalizer = compileWith([direction], pair);
+  const toZeta = compileWith([receipt('rw-p', 'k.alpha', 'k.zeta')], pair);
+  assert.equal(toZeta.ok, true);
+  assert.equal(toZeta.canonicalize('alpha-form', { currentContext: CONTEXT }).value, 'zeta-form');
+  const toAlpha = compileWith([receipt('rw-p', 'k.zeta', 'k.alpha')], pair);
+  assert.equal(toAlpha.ok, true);
+  assert.equal(toAlpha.canonicalize('zeta-form', { currentContext: CONTEXT }).value, 'alpha-form');
+  assert.equal(toAlpha.canonicalize('alpha-form', { currentContext: CONTEXT }).status, 'ALREADY_CANONICAL');
+});
+
+test('a branching class with two targets is represented by the lexicographic minimum of those targets in every order', () => {
+  const branch = [receipt('rw-b1', 'k.alpha', 'k.gamma'), receipt('rw-b2', 'k.alpha', 'k.beta')];
+  for (const order of permutations(branch)) {
+    const canonicalizer = compileWith(order);
     assert.equal(canonicalizer.ok, true);
-    assert.equal(canonicalizer.canonicalize('zeta-form', { currentContext: CONTEXT }).value, 'alpha-form');
-    assert.equal(canonicalizer.canonicalize('alpha-form', { currentContext: CONTEXT }).status, 'ALREADY_CANONICAL');
+    const result = canonicalizer.canonicalize('alpha-form', { currentContext: CONTEXT });
+    assert.equal(result.toExpressionId, 'k.beta');
+    assert.equal(result.value, 'beta-form');
   }
 });

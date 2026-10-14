@@ -86,7 +86,15 @@ export function compileVerifiedSemanticCanonicalizer({
     const classes=new Map();
     for(const id of byId.keys()){const root=find(id);const members=classes.get(root)??[];members.push(id);classes.set(root,members);}
     const canonicalById=new Map();
-    for(const [canonical,members] of classes){
+    // The union-find root depends on the order receipts arrived in, so it is never the canonical identity. A class is
+    // represented by its single directed rewrite target (a member that receipts point to and none leave), as E2 receipts
+    // direct. A class with no single target (a cycle, or several targets) is represented by its lexicographic minimum.
+    // Both rules read only the set of receipts, so the result is the same for every arrival order.
+    const rewriteFrom=new Set(rewriteReceipts.map(receipt=>receipt.from)),rewriteTo=new Set(rewriteReceipts.map(receipt=>receipt.to));
+    for(const members of classes.values()){
+      members.sort();
+      const targets=members.filter(id=>rewriteTo.has(id)&&!rewriteFrom.has(id));
+      const canonical=(targets.length?targets:members)[0];
       for(const id of members)canonicalById.set(id,canonical);
     }
     const canonicalizerHash=hash({

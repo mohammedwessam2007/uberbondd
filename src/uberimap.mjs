@@ -133,13 +133,28 @@ function headerMap(text){
   }
   return out;
 }
-function decodeQp(s){
-  return String(s||'').replace(/=\r?\n/g,'').replace(/=([A-Fa-f0-9]{2})/g,(_,h)=>String.fromCharCode(parseInt(h,16)));
+// Quoted-printable to bytes. An escape becomes one byte; literal text keeps its UTF-8 encoding, so a multi-byte character
+// survives intact. Soft line breaks are removed first.
+function decodeQpBytes(s){
+  const text=String(s||'').replace(/=\r?\n/g,'');
+  const parts=[];let last=0;
+  for(const m of text.matchAll(/=([A-Fa-f0-9]{2})/g)){
+    if(m.index>last)parts.push(Buffer.from(text.slice(last,m.index),'utf8'));
+    parts.push(Buffer.from([parseInt(m[1],16)]));
+    last=m.index+3;
+  }
+  if(last<text.length)parts.push(Buffer.from(text.slice(last),'utf8'));
+  return Buffer.concat(parts);
+}
+// The declared charset of the part, UTF-8 when absent. An unknown label decodes as UTF-8 instead of failing the message.
+function decodeBytes(bytes,headers){
+  const label=String(headers['content-type']||'').match(/charset\s*=\s*"?([^";\s]+)"?/i)?.[1]?.toLowerCase()||'utf-8';
+  try{return new TextDecoder(label).decode(bytes);}catch{return bytes.toString('utf8');}
 }
 function decodePart(body,headers){
   const enc=String(headers['content-transfer-encoding']||'').toLowerCase();
-  if(enc.includes('base64')){try{return Buffer.from(String(body).replace(/\s+/g,''),'base64').toString('utf8');}catch{return String(body);}}
-  if(enc.includes('quoted-printable'))return decodeQp(body);
+  if(enc.includes('base64')){try{return decodeBytes(Buffer.from(String(body).replace(/\s+/g,''),'base64'),headers);}catch{return String(body);}}
+  if(enc.includes('quoted-printable'))return decodeBytes(decodeQpBytes(body),headers);
   return String(body);
 }
 // Bounds for the reply's own plain text. A message past any cap is quarantined whole: its body is withheld, because a
@@ -207,6 +222,9 @@ export function parseRawEmail(value){
   const listUnsubscribe=clean(headers['list-unsubscribe'],1000)||'';
   const bodyPart=split>=0?raw.slice(split):'';
   const embeddedMessageIds=[...new Set((bodyPart.match(/^message-id:\s*<[^>\r\n]+>/gim)||[]).map(line=>clean(line.replace(/^message-id:\s*/i,''),500)))].slice(0,20);
+  // The machine-readable original sender of an ARF report (RFC 5965). It is a claim inside the body, not an authenticated
+  // header, so the pipeline only uses it to cross-check the linked outbound message.
+  const originalMailFrom=(bodyPart.match(/^original-mail-from:\s*(?:rfc822;\s*)?<?([^\s<>;]+@[^\s<>;]+)>?/im)?.[1]||'').toLowerCase().slice(0,320);
   const plain=readPlainBody(raw);
   return {
     id:clean(headers['message-id'],500)||`imapmsg:${hash(raw).slice(0,32)}`,
@@ -215,7 +233,7 @@ export function parseRawEmail(value){
     references:refs.map(x=>clean(x,500)),
     from,fromEmail,to:clean(headers.to,1000),subject:clean(headers.subject,1000),
     date:clean(headers.date,200)||null,
-    contentType,autoSubmitted,reportType,listUnsubscribe,embeddedMessageIds,
+    contentType,autoSubmitted,reportType,listUnsubscribe,embeddedMessageIds,originalMailFrom,
     // Null when the body was read whole. A quarantined message has an empty body and a reason code, and goes to review.
     body:plain.body,mimeQuarantine:plain.quarantine
   };

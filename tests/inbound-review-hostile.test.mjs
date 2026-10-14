@@ -5,7 +5,8 @@ import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
 import { EventEmitter } from 'node:events';
-import { Store } from '../src/store.mjs';
+import { Store, createStore } from '../src/store.mjs';
+import { withDisposablePostgres } from '../scripts/disposable-postgres.mjs';
 import { Pipeline } from '../src/pipeline.mjs';
 import { buildEncryptedImapAccount, parseRawEmail, createUberImapReader, pollImapForwardingAccount } from '../src/uberimap.mjs';
 import { detectUnsubscribeIntent } from '../src/inbound-classify.mjs';
@@ -185,7 +186,7 @@ test('F-02: a forged feedback report that only names an outbound Message-ID is n
   assert.equal((await store.list('prospects'))[0].status, 'sent');
   const [unlinked] = await store.list('unlinkedReplies');
   assert.equal(unlinked.reasonCode, 'UNVERIFIED_FEEDBACK_REPORT');
-  assert.deepEqual((await escalationsOf(store)).map(row => [row.detail.kind, row.detail.reasonCode]), [['complaint', 'UNVERIFIED_FEEDBACK_REPORT']]);
+  assert.deepEqual((await escalationsOf(store)).map(row => [row.detail.kind, row.detail.reasonCode]), [['complaint', 'UNLINKED_FEEDBACK_REPORT']]);
 });
 
 test('F-02: a feedback report whose Original-Mail-From names another sender is not charged to the slot', async () => {
@@ -418,12 +419,38 @@ test('F-07: after a UIDVALIDITY change, an opt-out received before the change is
   assert.deepEqual((await store.list('suppressions')).map(row => [row.value, row.reason]), [[BUYER, 'optout']]);
 });
 
+// ---------- Real PostgreSQL: the suppression and unlinked rows these fixes write ----------
+
+test('Postgres: a thread-linked opt-out suppresses both addresses, and an ambiguous notice leaves no health charge', async () => {
+  await withDisposablePostgres(async url => {
+    const store = createStore({ storeBackend: 'postgres', databaseUrl: url, databaseSsl: false });
+    await store.init();
+    try {
+      for (const account of [imapAccount({ slot: 'imap-slot-pg' }), sendingAccount()]) await store.add('accounts', account);
+      for (const row of [prospect, secondProspect]) await store.add('prospects', row);
+      for (const message of [sentMessage, sentMessageTwo]) await store.add('messages', message);
+      const assistant = 'front-desk@clinic.example.invalid';
+      const optOut = rfc822({ from: `Front Desk <${assistant}>`, messageId: 'pg-assist-1@clinic.example.invalid', inReplyTo: SENT, body: 'Please stop sending me these.' });
+      await pipelineFor(store, { imapPoll: scripted([success([parsedMessage(1, optOut)], { lastUid: 1 })]) }).pollReplies();
+      const suppressed = (await store.list('suppressions')).map(row => row.value).sort();
+      assert.deepEqual(suppressed, [assistant, BUYER].sort());
+      const ambiguous = dsnRaw({ references: `${SENT} ${SENT_TWO}` });
+      await pipelineFor(store, { imapPoll: scripted([success([parsedMessage(2, ambiguous)], { lastUid: 2 })]) }).pollReplies();
+      assert.equal(await healthOf(store, 'imap-slot-sent'), null);
+      assert.deepEqual((await store.list('unlinkedReplies')).map(row => row.reasonCode), ['AMBIGUOUS_OUTBOUND_MATCH']);
+      assert.deepEqual((await store.list('prospects')).map(row => row.status).sort(), ['replied', 'sent']);
+    } finally {
+      await store.close?.();
+    }
+  });
+});
+
 // ---------- F-12 (semantic canonicalizer order) lives in tests/semantic-reuse-canonical-order.test.mjs ----------
 
 // ---------- Parser shape: the new review fields are present, bounded and derived from the message only ----------
 
 test('parser: an ARF feedback report exposes its machine-readable original sender without trusting the header block', () => {
-  const parsed = parseRawEmail(feedbackReportRaw({ originalMailFrom: 'Sales <SALES@uberbond.example.invalid>' }));
+  const parsed = parseRawEmail(feedbackReportRaw({ originalMailFrom: 'SALES@uberbond.example.invalid' }));
   assert.equal(parsed.reportType, 'feedback-report');
   assert.equal(parsed.originalMailFrom, 'sales@uberbond.example.invalid');
   assert.equal(parsed.from, 'Feedback Loop <staff@feedback.example.invalid>');

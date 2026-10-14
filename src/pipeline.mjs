@@ -25,7 +25,7 @@ import { selectFleetMailbox, dispatchSmtpFleetAccount } from './uberfleet.mjs';
 import { gateOutboundRoute } from './outbound-send-authorization.mjs';
 import { evaluateOutreachPersonalization } from './ubertruth-outreach.mjs';
 import { pollImapForwardingAccount } from './uberimap.mjs';
-import { detectUnsubscribeIntent, leadingReplyText, boundedPreview, classifyImapPollFailure, imapBackoffMs, credentialDigest, IMAP_AUTH_FAILURE_LIMIT, IMAP_TRANSIENT_RETRY_LIMIT } from './inbound-classify.mjs';
+import { detectUnsubscribeIntent, leadingReplyText, boundedPreview, classifyImapPollFailure, imapBackoffMs, credentialDigest, isDeliveryNotice, attributeDeliveryNotice, IMAP_AUTH_FAILURE_LIMIT, IMAP_TRANSIENT_RETRY_LIMIT } from './inbound-classify.mjs';
 import { propagateSuppression, recordInboundHealthEvent, buildOperatorEscalation, recordOperatorEscalation } from './inbound-suppression-propagation.mjs';
 
 export class Pipeline {
@@ -1051,19 +1051,22 @@ export class Pipeline {
 
   async pollReplies() {
     let matched = 0;
-    const allAccounts = (await this.store.list('accounts')).filter(account => account.connected);
+    const storedAccounts = await this.store.list('accounts');
+    const allAccounts = storedAccounts.filter(account => account.connected);
     const prospects = await this.store.list('prospects');
     const sentMessages = await this.store.list('messages');
 
     // Helpers stay inside pollReplies so the whole reply path is in one place.
-    // A delivery notice (DSN) is the only message that may carry bounce or complaint
-    // semantics: a mailer-daemon/postmaster sender, or a top-level multipart/report.
-    // Sender must be exactly mailer-daemon@ or postmaster@. IMAP messages must also be multipart/report, because a
-    // From header alone is forgeable. Gmail messages carry no structure here, so they keep the sender test only.
-    const isDeliveryNotice = ({ fromEmail = '', contentType = '', structural = false } = {}) => {
-      const daemon = /^(mailer-daemon|postmaster)@/i.test(String(fromEmail || '').trim());
-      return daemon && (!structural || String(contentType || '').toLowerCase() === 'multipart/report');
-    };
+    // The configured sending domains: the outbound override when set, and the domain of every stored sending address.
+    const sendingDomains = [...new Set([
+      String(this.cfg.outbound?.sendingDomain || '').trim().toLowerCase(),
+      ...storedAccounts.map(account => String(account.email || '').trim().toLowerCase().split('@')[1] || '')
+    ].filter(Boolean))];
+    // A delivery notice is recognised by the inbound-classify rule: an RFC 3464 multipart/report with report-type
+    // delivery-status from any sender, or a mailer-daemon/postmaster at a configured sending domain. A From header alone
+    // is forgeable, so a bounce-looking sender at a foreign domain is never a notice.
+    const isDeliveryNoticeHere = input => isDeliveryNotice({ ...input, sendingDomain: '' })
+      || sendingDomains.some(sendingDomain => isDeliveryNotice({ ...input, sendingDomain }));
     const IMAP_POISON_LIMIT = 3;
     // Stored reply bodies are bounded previews. Classification still reads the full decoded text.
     const REPLY_BODY_STORE_CHARS = 4000;
@@ -1086,10 +1089,16 @@ export class Pipeline {
       const bracketed = text.match(/<[^<>\s]+>/g);
       return (bracketed || text.split(/\s+/)).map(part => part.trim().replace(/^<+|>+$/g, '').toLowerCase()).filter(Boolean);
     };
+    // The one sending address stored for an outbound slot. Zero or several accounts for the slot yield no address.
+    const senderAddressFor = slot => {
+      if (!slot) return '';
+      const owners = storedAccounts.filter(account => account.slot === slot && String(account.email || '').trim());
+      return owners.length === 1 ? String(owners[0].email).trim().toLowerCase() : '';
+    };
 
     // Side effects for one classified reply. Every step is safe to repeat: suppression, health events, escalations and the
     // prospect status are idempotent. The completion marker is written last, so a run that stopped midway is finished by the next poll.
-    const applySideEffects = async ({ prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId, correlation = 'none', replyId = '' }) => {
+    const applySideEffects = async ({ prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId, correlation = 'none', replyId = '', senderEmail = '' }) => {
       const terminalDelivery = ['bounce', 'complaint'].includes(classification.label);
       const automatic = ['automatic', 'out_of_office'].includes(classification.label);
       await this.store.patch('prospects', prospect.id, automatic ? {
@@ -1104,6 +1113,12 @@ export class Pipeline {
       if (suppressedEmail && (classification.suppressionRecommended === true || ['optout', 'negative', 'bounce', 'complaint'].includes(classification.label))) {
         // Suppression is keyed by recipient address, so it applies to every sender slot.
         await propagateSuppression(this.store, { email: suppressedEmail, reason: classification.label, sourceId: externalId });
+      }
+      // A thread-linked opt-out also suppresses the address that sent it, which may be an assistant rather than the contact.
+      // Our own mailboxes are never suppressed by a reply.
+      const ownAddresses = new Set(storedAccounts.map(account => String(account.email || '').trim().toLowerCase()));
+      if (classification.label === 'optout' && senderEmail && senderEmail !== suppressedEmail && !ownAddresses.has(senderEmail)) {
+        await propagateSuppression(this.store, { email: senderEmail, reason: 'optout', sourceId: externalId });
       }
       if (terminalDelivery) {
         // The sending mailbox takes the health charge, never the IMAP mailbox that happened to receive the notice.
@@ -1136,7 +1151,7 @@ export class Pipeline {
     const recordReply = async ({
       externalId, threadId = '', from = '', fromEmail = '', subject = '', body = '', inReplyTo = '', references = [],
       accountSlot = '', contentType = '', structural = false, autoSubmitted = false, persistUnlinked = false,
-      listUnsubscribe = '', reportType = '', embeddedMessageIds = []
+      listUnsubscribe = '', reportType = '', embeddedMessageIds = [], originalMailFrom = '', mimeQuarantine = null
     } = {}) => {
       if (!externalId) return false;
       const existing = await this.store.findOne('replies', { gmailId: externalId });
@@ -1149,28 +1164,61 @@ export class Pipeline {
               prospect: replayProspect, classification: existing.classification || { label: 'manual_review' },
               asyncCloseDecision: existing.asyncCloseDecision || null, externalId,
               sendingSlot: existing.sendingSlot || replayProspect.inbox || '', markId: existing.id,
-              correlation: existing.correlation || 'none', replyId: existing.id
+              correlation: existing.correlation || 'none', replyId: existing.id, senderEmail: existing.fromEmail || ''
             });
           }
         }
         return false;
       }
-      // An ARF feedback report names the original message in an embedded part, so its IDs count as thread evidence.
-      const feedbackReport = structural && String(reportType || '').trim().toLowerCase() === 'feedback-report';
-      const replyTokens = new Set([
-        ...messageIdTokens(inReplyTo),
-        ...(Array.isArray(references) ? references : []).flatMap(messageIdTokens),
-        ...(feedbackReport && Array.isArray(embeddedMessageIds) ? embeddedMessageIds : []).flatMap(messageIdTokens)
-      ]);
-      const linkedMessage = sentMessages.find(message => {
-        const token = messageIdTokens(message.rfcMessageId)[0];
-        return Boolean(token) && replyTokens.has(token);
-      });
       const senderEmail = String(fromEmail || '').toLowerCase();
-      const prospect = linkedMessage
-        ? prospects.find(item => item.id === linkedMessage.prospectId)
-        : prospects.find(item => item.contact?.email && senderEmail && item.contact.email.toLowerCase() === senderEmail);
-      const correlation = !prospect ? 'none' : (linkedMessage ? 'thread' : 'sender-address');
+      // Machine-marked evidence. A feedback report is a complaint candidate; a delivery notice is a bounce candidate.
+      // Both count against a sender only when they link to exactly one stored outbound message.
+      const feedbackReport = structural && String(reportType || '').trim().toLowerCase() === 'feedback-report';
+      const deliveryNotice = isDeliveryNoticeHere({ fromEmail: senderEmail, contentType, reportType });
+      const machineEvidence = deliveryNotice || feedbackReport;
+      let linkedMessage = null;
+      let attributionReason = '';
+      if (machineEvidence) {
+        // An ARF report names the original in an embedded part, and a notice may name it the same way. Only a stored outbound
+        // Message-ID counts, and exactly one distinct match links it. Zero or several matches leave the message unlinked.
+        const attribution = attributeDeliveryNotice({
+          isNotice: true,
+          inReplyTo,
+          references: Array.isArray(references) ? references : [],
+          embeddedMessageIds: Array.isArray(embeddedMessageIds) ? embeddedMessageIds : [],
+          outboundMessageIds: sentMessages.map(message => message.rfcMessageId).filter(Boolean)
+        });
+        if (attribution.status === 'LINKED') {
+          const token = messageIdTokens(attribution.messageId)[0];
+          linkedMessage = sentMessages.find(message => messageIdTokens(message.rfcMessageId)[0] === token) || null;
+        } else {
+          attributionReason = attribution.reasonCode;
+        }
+      } else {
+        // Human and unmarked replies keep thread correlation through any matching reference.
+        const replyTokens = new Set([
+          ...messageIdTokens(inReplyTo),
+          ...(Array.isArray(references) ? references : []).flatMap(messageIdTokens)
+        ]);
+        linkedMessage = sentMessages.find(message => {
+          const token = messageIdTokens(message.rfcMessageId)[0];
+          return Boolean(token) && replyTokens.has(token);
+        }) || null;
+      }
+      // A feedback report is verified only when its linked message was sent from the address the report names as the
+      // original sender. Without that match it is a claim, not evidence, and it charges nobody.
+      const sentFrom = linkedMessage ? senderAddressFor(linkedMessage.inbox) : '';
+      const feedbackVerified = feedbackReport && !deliveryNotice && Boolean(linkedMessage)
+        && sentFrom !== '' && sentFrom === String(originalMailFrom || '').trim().toLowerCase();
+      const unverifiedFeedback = feedbackReport && !deliveryNotice && !feedbackVerified;
+      const trustedLink = Boolean(linkedMessage) && !(unverifiedFeedback);
+      let prospect = null;
+      if (trustedLink) prospect = prospects.find(item => item.id === linkedMessage.prospectId) || null;
+      else if (!machineEvidence) prospect = prospects.find(item => item.contact?.email && senderEmail && item.contact.email.toLowerCase() === senderEmail) || null;
+      const correlation = !prospect ? 'none' : (trustedLink ? 'thread' : 'sender-address');
+      // Why a machine-marked message was not linked. Owner review reads this; nothing is charged.
+      let reviewReason = '';
+      if (machineEvidence && !trustedLink) reviewReason = unverifiedFeedback && linkedMessage ? 'UNVERIFIED_FEEDBACK_REPORT' : attributionReason;
       const unsubscribe = detectUnsubscribeIntent({
         listUnsubscribe: String(listUnsubscribe || ''), subject: String(subject || ''), body: String(body || '')
       });
@@ -1183,9 +1231,11 @@ export class Pipeline {
           }));
         }
         if (feedbackReport) {
-          // A feedback report whose original message cannot be matched goes to the operator. It is never suppressed automatically.
+          // A feedback report that cannot be verified goes to the operator. It is never suppressed or charged automatically.
+          // The precise cause (unverified, ambiguous, unlinked) is kept on the stored unlinked record.
           await recordOperatorEscalation(this.store, buildOperatorEscalation({
-            kind: 'complaint', externalId, slot: accountSlot || '', correlation: 'none', label: 'unlinked', reasonCode: 'UNLINKED_FEEDBACK_REPORT', at: now()
+            kind: 'complaint', externalId, slot: accountSlot || '', correlation: 'none', label: 'unlinked',
+            reasonCode: 'UNLINKED_FEEDBACK_REPORT', at: now()
           }));
         }
         // Unlinked IMAP replies are kept, not dropped. A bounded preview is stored, never the full third-party body.
@@ -1195,6 +1245,8 @@ export class Pipeline {
           subject: String(subject || '').slice(0, 300), bodyPreview: boundedPreview(body, UNLINKED_PREVIEW_CHARS),
           inReplyTo: inReplyTo || null,
           references: Array.isArray(references) ? references.slice(0, 20).map(item => String(item).slice(0, 500)) : [],
+          reasonCode: reviewReason || null,
+          reviewFlag: mimeQuarantine ? 'MIME_QUARANTINED' : null,
           receivedAt: now()
         };
         try {
@@ -1206,17 +1258,15 @@ export class Pipeline {
         return 'unlinked';
       }
 
-      const deliveryNotice = isDeliveryNotice({ fromEmail: senderEmail, contentType, structural });
       const deliverySignal = classifyDeliverySignal({ from, subject, body, threadId, id: externalId });
       const automaticLabel = label => label === 'automatic' || label === 'out_of_office';
-      // A machine-marked feedback report that names an outbound thread is a complaint even without a mailer-daemon sender.
-      // A delivery notice keeps the existing rules.
-      const machineComplaint = !deliveryNotice && Boolean(linkedMessage) && feedbackReport;
+      // A complaint needs a verified feedback report. A delivery notice keeps the existing rules.
+      const machineComplaint = !deliveryNotice && feedbackVerified;
       let classification;
       if (machineComplaint) {
         classification = {
           label: 'complaint', confidence: 0.97, suppressionRecommended: true, reasonCode: 'MACHINE_FEEDBACK_REPORT',
-          reason: 'Machine-marked feedback report linked to an outbound thread'
+          reason: 'Verified feedback report linked to an outbound thread'
         };
       } else if (deliverySignal && ['bounce', 'complaint'].includes(deliverySignal.label) && !deliveryNotice) {
         classification = { label: 'manual_review', confidence: 0.5, suppressionRecommended: false, reason: 'Bounce or complaint language without a verified delivery notice' };
@@ -1233,6 +1283,13 @@ export class Pipeline {
       if (!deliveryNotice && !autoSubmitted && automaticLabel(classification.label)) {
         // Automatic-reply wording from a person must not schedule an automatic follow-up. Only a machine-marked reply may.
         classification = { ...classification, label: 'manual_review', reason: 'Automatic-reply wording without an Auto-Submitted header' };
+      }
+      // A message whose body was withheld by a MIME cap is routed to review. Its label comes from no body text, and the
+      // review flag is kept whatever a header or subject signal says below.
+      let reviewFlag = null;
+      if (mimeQuarantine) {
+        classification = { label: 'manual_review', confidence: 0, suppressionRecommended: false, reasonCode: 'MIME_QUARANTINED', reason: 'MIME quarantined: body withheld for owner review' };
+        reviewFlag = 'MIME_QUARANTINED';
       }
       // A clear unsubscribe from a person becomes an opt-out. A medium signal (header only, or subject only) counts only inside a linked thread.
       const unsubscribeFires = unsubscribe.intent
@@ -1262,8 +1319,8 @@ export class Pipeline {
       const sendingSlot = linkedMessage?.inbox || prospect.inbox || accountSlot || '';
       const row = {
         id: id('reply'), prospectId: prospect.id, gmailId: externalId, threadId,
-        from, subject, body: boundedPreview(body, REPLY_BODY_STORE_CHARS), classification, asyncCloseDecision, receivedAt: now(),
-        sendingSlot, sideEffectsDone: false, correlation
+        from, fromEmail: senderEmail, subject, body: boundedPreview(body, REPLY_BODY_STORE_CHARS), classification, asyncCloseDecision, receivedAt: now(),
+        sendingSlot, sideEffectsDone: false, correlation, reviewFlag
       };
       try {
         await this.store.add('replies', row);
@@ -1272,7 +1329,7 @@ export class Pipeline {
         throw error;
       }
       await applySideEffects({
-        prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId: row.id, correlation, replyId: row.id
+        prospect, classification, asyncCloseDecision, externalId, sendingSlot, markId: row.id, correlation, replyId: row.id, senderEmail
       });
       matched += 1;
       return true;
@@ -1289,6 +1346,8 @@ export class Pipeline {
       for (const reference of list.data.messages || []) {
         const full = await getMessage(this.cfg.google, account, this.cfg.encryptionKey, reference.id);
         const parsed = parseGmailMessage(full.data);
+        // The top-level Content-Type lets a Gmail delivery notice be recognised by the same structural rule as IMAP.
+        const gmailContentType = (full.data?.payload?.headers || []).find(header => String(header?.name || '').toLowerCase() === 'content-type')?.value || '';
         await recordReply({
           externalId: parsed.id,
           threadId: parsed.threadId,
@@ -1296,7 +1355,8 @@ export class Pipeline {
           fromEmail: String(parsed.from || '').match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i)?.[0] || '',
           subject: parsed.subject,
           body: parsed.body,
-          accountSlot: account.slot
+          accountSlot: account.slot,
+          contentType: gmailContentType
         });
       }
       account.lastReplyPoll = Date.now();
@@ -1365,8 +1425,11 @@ export class Pipeline {
         if (pollError) throw pollError;
         if (poll?.status === 'UBERIMAP_UIDVALIDITY_CHANGED') {
           // The mailbox reassigned its UIDs, so the stored cursor means nothing. Record nothing from this poll.
+          // The poll boundary (lastReplyPoll) is deliberately not advanced: the next search starts from the last completed
+          // poll, so replies received before the change are still searched. Re-scanned messages are deduplicated by
+          // Message-ID or content digest, so a re-scan records nothing twice.
           const next = Number(poll.uidValidity || 0);
-          await this.store.patch('accounts', account.id, { lastImapUid: 0, lastImapUidValidity: next, imapPoison: null, lastReplyPoll: Date.now() });
+          await this.store.patch('accounts', account.id, { lastImapUid: 0, lastImapUidValidity: next, imapPoison: null });
           await this.store.log('imap_uidvalidity_changed', { accountId: account.id, previousUidValidity: uidValidity, uidValidity: next });
           continue;
         }
@@ -1403,6 +1466,8 @@ export class Pipeline {
             listUnsubscribe: parsed.listUnsubscribe,
             reportType: parsed.reportType,
             embeddedMessageIds: parsed.embeddedMessageIds,
+            originalMailFrom: parsed.originalMailFrom,
+            mimeQuarantine: parsed.mimeQuarantine || null,
             persistUnlinked: true
           });
           cursor = Math.max(cursor, uid);

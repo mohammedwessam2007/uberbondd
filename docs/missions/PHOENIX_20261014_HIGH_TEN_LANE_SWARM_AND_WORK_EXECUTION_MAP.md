@@ -1,3 +1,5 @@
+> **SUPERSEDING OWNER PRIORITY, 2026-10-14:** GPT-6 High **CHAT FIRST** across ALL technical/research/test/provider API operations that connected tools safely permit. GPT Work is an exception only for a precisely specified protected Cloud Browser/UI/account-session action not achievable with High's connected tools. **This overrides every "Work-only" or "only GPT Work" allocation below, except true unavailable account/credential/UI needs.** Full mandatory protocol: [PHOENIX HIGH CHAT FIRST / WORK BY EXCEPTION](PHOENIX_20261014_HIGH_CHAT_FIRST_WORK_EXCEPTION_PROTOCOL.md). Preserve the former mapping below as historical lineage, not controlling authority. Ten issues are assignments, NOT ten already-running chats. 
+
 # PHOENIX | ONE GPT WORK + TEN GPT-6 HIGH | NEW OUTREACH, NOT OLD MVP
 **Date:** 2026-10-14. **Owner intent:** Make the recently built native UberBond Lead OS, UberDoso/OMNIA, $69 Winnr Startup 50 mailboxes/10 domains + three preserved pilots, UberWarm²–⁶, V5 message and Reply Radar chain genuinely ready for one permitted first micro-campaign. Avoid additional SaaS, unrelated singularity research, fake Inbox or fake profit.
 

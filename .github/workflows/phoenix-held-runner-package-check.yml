@@ -26,9 +26,27 @@ jobs:
           set -euo pipefail
           bash -n ops/phoenix-held-runner-20261015/entrypoint.sh
           node --check ops/phoenix-held-runner-20261015/supervise.mjs
+          node --check ops/phoenix-held-runner-20261015/assess-source-delta.mjs
+          node --check ops/phoenix-held-runner-20261015/compare-snapshots.mjs
           grep -F 'iptables -w -P OUTPUT DROP' ops/phoenix-held-runner-20261015/entrypoint.sh
           grep -F 'ip6tables -w -P OUTPUT DROP' ops/phoenix-held-runner-20261015/entrypoint.sh
           ! grep -Ei '^ *(- *name:.*production|envFrom:|secrets: inherit)' ops/phoenix-held-runner-20261015/*
+      - name: Synthetic sanitized baseline versus source comparator (no provider)
+        run: |
+          set -euo pipefail
+          cat > /tmp/phoenix-baseline.txt <<'FIXTURE'
+          PHOENIX_SANITIZED_READONLY_SNAPSHOT {"version":"PHOENIX_PRIVATE_READONLY_DELTA_V1","database":"v2","observedAtUtc":"2026-10-15T06:23:09Z","repeatableRead":true,"tableCount":1,"rowCount":2,"tables":[{"table":"fixture","rows":2,"contentSha256":"abc"}],"columnsSha256":"c","indexesSha256":"i","constraintsSha256":"k","sequencesSha256":"s","sequenceValuesVisible":true}
+          FIXTURE
+          cp /tmp/phoenix-baseline.txt /tmp/phoenix-same.txt
+          node ops/phoenix-held-runner-20261015/compare-snapshots.mjs /tmp/phoenix-baseline.txt /tmp/phoenix-same.txt | grep -q '"afterBaselineWritesObserved":false'
+          sed 's/"rowCount":2/"rowCount":3/;s/"rows":2/"rows":3/' /tmp/phoenix-same.txt > /tmp/phoenix-changed.txt
+          set +e
+          node ops/phoenix-held-runner-20261015/compare-snapshots.mjs /tmp/phoenix-baseline.txt /tmp/phoenix-changed.txt > /tmp/phoenix-result.txt
+          result=$?
+          set -e
+          test "$result" -eq 4
+          grep -q '"afterBaselineWritesObserved":true' /tmp/phoenix-result.txt
+          echo 'SANITIZED_DELTA_COMPARATOR_FIXTURES=PASS'
       - name: Build exact immutable admitted application plus outer runner
         run: |
           set -euo pipefail

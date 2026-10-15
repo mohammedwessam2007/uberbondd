@@ -35,6 +35,8 @@ test('workers, provider effects, missing kill switch and paid background flags r
 test('malformed original key, weak admin and URL target rewriting refuse', () => {
   assert.throws(()=>assertHeldRestoreConfig(env,{...cfg,encryptionKey:'invalid'}),/PROTECTED_KEYS_REQUIRED/);
   assert.throws(()=>assertHeldRestoreConfig(env,{...cfg,adminToken:'short'}),/PROTECTED_KEYS_REQUIRED/);
+  assert.deepEqual(assertHeldRestoreConfig(env,{...cfg,databaseUrl:goodUrl+'?sslmode=require&channel_binding=require'}),
+    {host:'ep-soft-cake-baiahh8q.c-8.eu-central-1.aws.neon.tech',database:'uberbond_phoenix_rehearsal_20261014_v2',onlyLoopback:true});
   assert.throws(()=>assertHeldRestoreConfig(env,{...cfg,databaseUrl:goodUrl+'?host=attacker.example'}),/ISOLATED_DATABASE_IDENTITY/);
 });
 

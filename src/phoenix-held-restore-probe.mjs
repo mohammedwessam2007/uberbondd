@@ -30,7 +30,9 @@ export function assertHeldRestoreConfig(env, cfg) {
   try { uri = new URL(cfg.databaseUrl); } catch { refused('INVALID_DATABASE_URL'); }
   if (!['postgres:', 'postgresql:'].includes(uri.protocol) || uri.hostname !== TARGET_HOST ||
       decodeURIComponent(uri.pathname) !== '/' + TARGET_DATABASE || !uri.username || !uri.password ||
-      (uri.port && uri.port !== '5432') || uri.searchParams.size || uri.hash) refused('ISOLATED_DATABASE_IDENTITY');
+      (uri.port && uri.port !== '5432') ||
+      [...uri.searchParams].some(([key,value]) => !((key === 'sslmode' || key === 'channel_binding') && value === 'require')) ||
+      uri.hash) refused('ISOLATED_DATABASE_IDENTITY');
   return { host: TARGET_HOST, database: TARGET_DATABASE, onlyLoopback: true };
 }
 

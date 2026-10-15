@@ -1,0 +1,24 @@
+name: PHOENIX H05 first-party agency contact provenance no-send gates
+on:
+  push:
+    branches:
+      - high/phoenix-h05-public-agency-contact-route-20261015
+permissions:
+  contents: read
+jobs:
+  safe-provenance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Source-bound buyer-route truth refusal
+        run: node --test tests/phoenix-h05-agency-contact-route-20261015.test.mjs
+      - run: git diff --check origin/main...HEAD

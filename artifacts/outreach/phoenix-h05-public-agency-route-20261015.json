@@ -1,0 +1,78 @@
+{
+  "schema": "uberbond.h05.first-party-public-agency-routing.v1",
+  "observedAt": "2026-10-15",
+  "authority": "NONE",
+  "sendSet": [],
+  "totalEligibleRecipients": 0,
+  "verifiedCustomerDemand": 0,
+  "verifiedServiceDefects": 0,
+  "paidOutcomes": 0,
+  "classificationRule": "PUBLIC_BUSINESS_CONTACT_IS_NOT_CONSENT_OR_A_REQUEST_TO_BUY",
+  "agencies": [
+    {
+      "id": "forward-first-media",
+      "domain": "forwardfirstmedia.com",
+      "sourceUrl": "https://forwardfirstmedia.com/about/",
+      "sourceType": "FIRST_PARTY_OFFICIAL",
+      "evidence": "Official page publishes company email create@forwardfirstmedia.com for general business inquiries and states it already handles booked jobs/revenue reporting for HVAC and plumbing clients.",
+      "publicGeneralMailbox": "create@forwardfirstmedia.com",
+      "contactForm": null,
+      "contactRouteType": "GENERAL_BUSINESS_EMAIL",
+      "explicitVendorInvitation": false,
+      "verifiedExistingRelevantCapabilities": [
+        "booked-job revenue reporting",
+        "website and advertising tracking"
+      ],
+      "verifiedPainOrDefect": false,
+      "identifiedBuyer": false,
+      "legalEligibility": "UNREVIEWED",
+      "suppressionHistory": "UNVERIFIED",
+      "sendAuthorized": false,
+      "status": "HELD_GENERAL_EMAIL_IS_NOT_OUTREACH_CONSENT"
+    },
+    {
+      "id": "elxel",
+      "domain": "elxel.com",
+      "sourceUrl": "https://elxel.com/contact/",
+      "sourceType": "FIRST_PARTY_OFFICIAL",
+      "evidence": "Official contact page explicitly invites vendors and collaborators to introduce themselves using the form, and lists info@elxel.com.",
+      "publicGeneralMailbox": "info@elxel.com",
+      "contactForm": "https://elxel.com/contact/",
+      "contactRouteType": "EXPLICIT_VENDOR_INTRODUCTION_FORM",
+      "explicitVendorInvitation": true,
+      "verifiedExistingRelevantCapabilities": [
+        "branding",
+        "web design",
+        "digital marketing"
+      ],
+      "verifiedPainOrDefect": false,
+      "identifiedBuyer": false,
+      "legalEligibility": "UNREVIEWED",
+      "suppressionHistory": "UNVERIFIED",
+      "sendAuthorized": false,
+      "status": "HELD_VENDOR_ROUTE_NOT_A_PAID_BUYER_OR_SEND_AUTHORIZATION"
+    },
+    {
+      "id": "roi-growth-media",
+      "domain": "roigrowthmedia.com",
+      "sourceUrl": "https://roigrowthmedia.com/en/about-us/",
+      "sourceType": "FIRST_PARTY_OFFICIAL",
+      "evidence": "Official about page lists performance analytics, AI automation and web/landing-page delivery and offers a generic request form; no public email extracted from that page.",
+      "publicGeneralMailbox": null,
+      "contactForm": "https://roigrowthmedia.com/en/about-us/",
+      "contactRouteType": "GENERIC_PROJECT_INQUIRY_FORM",
+      "explicitVendorInvitation": false,
+      "verifiedExistingRelevantCapabilities": [
+        "performance analytics",
+        "AI automation",
+        "website development"
+      ],
+      "verifiedPainOrDefect": false,
+      "identifiedBuyer": false,
+      "legalEligibility": "UNREVIEWED",
+      "suppressionHistory": "UNVERIFIED",
+      "sendAuthorized": false,
+      "status": "HELD_GENERIC_INQUIRY_IS_NOT_VENDOR_INVITATION"
+    }
+  ]
+}

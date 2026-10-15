@@ -1,0 +1,51 @@
+name: PHOENIX held Lead OS outreach and Winnr QA
+on:
+  push:
+    branches:
+      - high/phoenix-n26-final-admission-receipt-20261015
+    paths:
+      - .github/workflows/phoenix-held-lead-outreach-qa-20261015.yml
+permissions:
+  contents: read
+jobs:
+  exact-source-no-provider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    env:
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      OUTBOUND_EMERGENCY_STOP: 'true'
+      AUTOPILOT_ENABLED: 'false'
+      CI: 'true'
+    steps:
+      - name: Checkout ONLY previously reviewed integration source
+        uses: actions/checkout@v4
+        with:
+          ref: c1f9b4aac2278617cb0c9e04d14e29f0544dd701
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci --ignore-scripts
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Confirm exact immutable integration source
+        run: test "$(git rev-parse HEAD)" = "c1f9b4aac2278617cb0c9e04d14e29f0544dd701"
+      - name: Held Lead OS, V5, Winnr import, reply and receiver hostile evidence
+        run: >-
+          node --test --test-concurrency=3
+          tests/lead-intelligence-v3.test.mjs
+          tests/leadgen-live-snapshot.test.mjs
+          tests/leadgen-postgres-schema.test.mjs
+          tests/uberreply-v5-copy.test.mjs
+          tests/outreach-launch-facts.test.mjs
+          tests/outreach-reality-doctor.test.mjs
+          tests/prospect-preflight.test.mjs
+          tests/prospect-preflight-fail-closed.test.mjs
+          tests/winnr-production-import-hardening.test.mjs
+          tests/winnr-production-import.test.mjs
+          tests/uberwarm3-consent-panel.test.mjs
+          tests/uberwarm4-receiver-protection.test.mjs
+          tests/winnr-reply-radar.test.mjs

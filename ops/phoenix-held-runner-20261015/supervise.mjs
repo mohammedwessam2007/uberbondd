@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
 
 // This file is packaged OUTSIDE the pinned app tree. No raw stdout/stderr,
@@ -40,11 +40,13 @@ for (const signal of ['SIGTERM','SIGINT']) process.once(signal, () => {
 });
 let stdoutLimited = '';
 let stderrDiscarded = 0;
-async function awaitExit(proc, maxMs) {
-  return await Promise.race([
-    new Promise(resolve => proc.once('exit', (code, signal) => resolve({code, signal}))),
-    delay(maxMs).then(() => { proc.kill('SIGKILL'); return {code: null, signal: 'TIMEOUT'}; })
-  ]);
+function awaitExit(proc, maxMs) {
+  if (proc.exitCode !== null || proc.signalCode !== null)
+    return Promise.resolve({code: proc.exitCode, signal: proc.signalCode});
+  return new Promise(resolve => {
+    const timer = setTimeout(() => { proc.kill('SIGKILL'); resolve({code: null, signal: 'TIMEOUT'}); }, maxMs);
+    proc.once('exit', (code, signal) => { clearTimeout(timer); resolve({code, signal}); });
+  });
 }
 try {
   for (const [k,v] of Object.entries(required)) if (env[k] !== v) fail('ENVIRONMENT_SCOPE');

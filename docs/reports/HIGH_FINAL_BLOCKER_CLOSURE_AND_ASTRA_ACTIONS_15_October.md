@@ -146,3 +146,33 @@ Checkpoint issue #1188 after each real action, exact SHAs/resource IDs/sanitized
 \`\`\`
 
 **HIGH STOP CRITERION:** Engineering source/package, integration evidence, parser and final report are complete and independently read-back verified; no further safe internal source edits are evidenced. Protected provider role+host and later final-writer operations cannot be performed safely or falsely labeled complete by High's currently connected tools. This is a completion of High's bounded engineering ownership, not completion of the UberBond production business.
+
+
+---
+
+## 11. High incremental provider evidence: suspension semantics, account inventories and access limitation (15 October, later continuation)
+
+This section adds ONLY materially new evidence to the completed and previously read-back report above. It does not supersede the admitted application/runner pins, invent a usable private host, re-run archive recovery, or change any authority boundary.
+
+### Render expiry is an ACCESS/SUSPENSION deadline first, later DELETE exposure
+
+Connected original Render PostgreSQL `dpg-dali9dbl550s73bcf520-a` again returned AVAILABLE, Free PostgreSQL 16 in Frankfurt, `ipAllowList=[]`, with explicit expiry `2026-10-16T23:22:29.055606Z`. The actual Render notice dated October 10, subject `[ACTION REQUIRED] Your free Render database expires soon: uberbond-control-postgres`, explicitly says the DB will become INACCESSIBLE when suspended October 16 unless upgraded, and data is deleted only AFTER a grace period. Official Render public documentation describes a 14-day grace period after expiration (https://render.com/docs/free#free-postgresql; https://render.com/articles/platforms-with-a-real-free-tier-for-developers-in-2026). Do not mistake that later grace period for ongoing app/write access, nor claim an exact deletion instant unsupported by the account notice. Do not silently purchase an upgrade. Data changes after the 06:23:09 UTC encrypted snapshot remain UNKNOWN even though that snapshot is safely archived and restored.
+
+### New bounded connected-inventory findings
+
+- Connected Neon role listing on project `misty-moon-35132124`, branch `br-orange-wave-baqrfil7`: exactly one existing `uberbond_render_rescue_owner`; required `phoenix_n26_ro_20261015` still ABSENT. No role creation or privileged SQL attempted.
+- Railway project `1048d0ce-ef29-4654-8425-c2d4a9122ff7`, production environment `0e539a99-29d7-4087-9f5b-110d442cc3a9`: old `uberbond-web` source `mohammedwessam2007/-uberbond-revenue-engine` has FAILED July 13 deploy; separate Railway Postgres service/500MB volume exists. Not a proof of live UberBond original-Render writer or eligible NET_ADMIN host.
+- Railway project `41689b51-8922-4246-a095-a2fdd8fe77f3`, production `96b98338-3101-4d24-9e60-ef7c1fc962ca`: old `uberbond-web` and `uberbond-worker` from the different `-uberbond-revenue-engine` repository have FAILED July 13 deploys; separate Railway Postgres/500MB volume exists. No host qualification, secret reference or start was performed.
+- DigitalOcean connected inventory: zero droplets.
+- Authorized Vercel team `team_A9LnjIuS5PU0rNetsHMu1N0r` / project `prj_RWUPf14w1xIz9NK92AbNW5z7qDCg` returned 17 named sandboxes, ALL stopped and ALL `networkPolicy.mode=allow-all`; no isolated NET_ADMIN plus original-key-native secret binding plus $0 entitlement demonstrated. None resumed.
+- Connected Render app `srv-dali9vijnfac739m4vcg` remains on Free plan, web service, autoDeploy=no, main. A direct attempt to fetch its logs was blocked by provider workspace-selection policy and did NOT yield any session/writer evidence; exact workspace ownership is independently visible in Render DB metadata, but selecting workspace for tool access needs approved context. No self-selected workspace override and no public DB ingress.
+
+### Distinct next actions; do not repeat engineering
+
+**A0 (external qualified provider operator):** Get a legitimate Neon-qualified DBA/Neon support mechanism to create/attest `phoenix_n26_ro_20261015` via the NOLOGIN-first, NOINHERIT, exact 57-table SELECT-only/zero-admin matrix already in §3, and separately obtain an EXISTING private $0 NET_ADMIN OCI resource with native original `TOKEN_ENCRYPTION_KEY` reference. Both must be proven by identity and rights before A1. Name of a qualified DBA and any compliant runtime currently UNRESOLVED. Do not auto-promote a default Neon API role inheriting neon_superuser or use the owner DSN.
+
+**A1 (protected Work/Astra only after A0 actual proof):** Execute the existing 170-second supervisor at runner CODE `a189559f379687f7cefa0ba963f8c2d880203766` with immutable admitted application `c1f9b4aac2278617cb0c9e04d14e29f0544dd701`, native protected ONLY `DATABASE_URL` / `TOKEN_ENCRYPTION_KEY` / `ADMIN_TOKEN`, private bridge NET_ADMIN default-deny IPv4/IPv6, no ingress, held no-effect loopback health/summary, full sanitized admissions, verified teardown and role/key reference cleanup. Stop if any preflight is false; no live run is claimed.
+
+**A2 (separate approved private observer):** Render internal scoped read-only role/same-region session to identify post-06:23 source mutations, live writer sessions, actual web/worker/schedulers; no allowlist opening, no writer freeze. **A3** quiesce/new EMPTY target/sync/cutover needs its own separate explicit approval and rollback proof.
+
+**CHECKPOINT** WE HAVE DONE: verified more account evidence and preserved it in this append-only report. VERIFIED: Render suspension semantics, Neon target absent, Railway failed other-repo deploys and stopped Vercel allow-all sandboxes; four exact-head combined-source workflows remained successful. WHAT IS LEFT: actual role, private protected host and source observer/authorized single-writer continuity. BLOCKER: scoped provider/account authority, not missing source code. NEXT: conditional A0, then A1/A2 as individually admitted. SAFETY: source and backup untouched, no role/host/keys/mail/charges/restore/cutover, `SEND_SET=[]`.

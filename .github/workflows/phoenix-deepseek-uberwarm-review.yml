@@ -4,6 +4,8 @@ on:
     branches: [deepseek/uberwarm-live-integration-20261016]
     paths:
       - src/uberwarm2-smtp-seed-bridge.mjs
+      - src/uberwarm2-seed-executor.mjs
+      - tests/uberwarm2-seed-executor.test.mjs
       - tests/uberwarm2-live-preflight.test.mjs
       - tests/uberwarm2-pg-ledger-real.test.mjs
       - .github/workflows/phoenix-deepseek-uberwarm-review.yml

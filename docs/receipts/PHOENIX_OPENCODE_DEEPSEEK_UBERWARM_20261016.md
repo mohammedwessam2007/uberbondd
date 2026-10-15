@@ -44,3 +44,13 @@ Date: 2026-10-16 Africa/Cairo. SOURCE IMPLEMENTATION, NOT DEPLOYED.
 UberWarm3/4/5 require authentic independent receiving observations before reputation/receiver/capacity promotion. UberWarm6's zero-paid-addon economic comparison remains unchanged. Source/test evidence cannot create provider reputation, delivery, customer demand or cleared funds.
 
 External effects: only authorized public research, package downloads, free model execution, GitHub branch/PR/checkpoint and isolated synthetic tests. Messages sent=0; paid add-ons=0; purchases=0; production DB writes=0; deployments=0; main merges=0. Task Observer: no skill mutation; environment failure retained as evidence rather than weakened verification.
+
+## Independent verification and review follow-up
+
+- Draft review PR: https://github.com/mohammedwessam2007/uberbondd/pull/1446 , stacked on #1444.
+- First reviewed source `35c6520a23cd03c3f4e1bf4b97cfa6a1e6adfd22`: focused real-PostgreSQL job https://github.com/mohammedwessam2007/uberbondd/actions/runs/38813527095 SUCCESS. Independently fetched decoded job logs: **207 tests, 207 pass, 0 fail, 0 skipped**, including all six DeepSeek-authored concurrency/replay tests and historical hostile real-PG boundary case. UberOutbound exact-head also SUCCESS.
+- Additional local UberWarm3–6 and preflight subset: 121 pass, 0 fail, 0 skipped. Counts overlap the hosted suite and must not be summed as unique tests.
+- Isolated mutation: removed new quarantine predicate in a temporary source copy; corresponding hold-change test failed as intended. Canonical source never mutated by that experiment.
+- Free DeepSeek authored tests in session `ses_ebe7307c9ffeHzalPinUEt1Aa0` (17 completed steps; reported cost 0); separate source review `ses_ebe705191ffeNFXYiU3N9QbSfs` found no material factory defect but identified missing direct expiry/accessor tests and post-reservation consent timing risk.
+- Work closed both coverage gaps and changed the existing executor to re-read current health and consent **after** durable reservation, before issuing any send capability. A hold/withdrawal during database lock wait consumes the reservation without transmission or retry. This strengthens existing gates; it adds no live caller. Final revised source requires its own exact-head hosted run.
+- The adapters remain injected dependencies. Neither Work nor DeepSeek represents synthetic reader data as authenticated live Winnr state.

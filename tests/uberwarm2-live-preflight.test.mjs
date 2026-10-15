@@ -50,3 +50,18 @@ test('latency, expiry, unreadable clocks and expanded freshness bounds cannot cl
   assert.equal(await make({ maxAgeMs: 300001, readSenderHealth: async () => [sender()] }).verifyCurrentSenderHealth(email, at), false);
   assert.equal(await make({ clock: () => NaN, readSenderHealth: async () => [sender()] }).verifyCurrentSenderHealth(email, at), false);
 });
+test('live consent expiry is checked after the supplier await, independently of observation age', async () => {
+  for (const expiry of [at, at - 1, at + 50]) {
+    const p = make({ clock: () => at + 100, readSeedConsent: async () => [{
+      ...seed(), permissionExpiresAt: new Date(expiry).toISOString()
+    }] });
+    assert.equal(await p.verifyCurrentSeedConsent(email, 'probe-1', at), false);
+  }
+});
+test('supplier getter is snapshotted once and a noncloneable proxy is denied', async () => {
+  const s = sender(); let reads = 0;
+  Object.defineProperty(s, 'quarantined', { enumerable: true, get() { reads++; return reads === 1; } });
+  assert.equal(await make({ readSenderHealth: async () => [s] }).verifyCurrentSenderHealth(email, at), false);
+  assert.equal(reads, 1);
+  assert.equal(await make({ readSenderHealth: async () => [new Proxy(sender(), {})] }).verifyCurrentSenderHealth(email, at), false);
+});

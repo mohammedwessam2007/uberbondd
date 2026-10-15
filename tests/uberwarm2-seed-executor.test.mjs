@@ -80,6 +80,24 @@ function transport() {
     }
   };
 }
+test('post-reservation health or consent withdrawal consumes claim without transmission', async () => {
+  for (const revoked of ['sender', 'consent']) {
+    const b = batch(), tx = transport(), s = store(); let live = true;
+    const claim = s.claimOnceAndEnforceCaps;
+    s.claimOnceAndEnforceCaps = async r => { const result = await claim(r); live = false; return result; };
+    const result = await rawExecuteSeedProbe({
+      batch: b, probeId: b.probes[0].probeId, approval: approval(b), approvalVerificationKey: KEY,
+      store: s, transport: tx, now: T1,
+      verifyCurrentSenderHealth: async () => revoked === 'sender' ? live : true,
+      verifyCurrentSeedConsent: async () => revoked === 'consent' ? live : true
+    });
+    assert.equal(result.status, 'UBERWARM2_LIVE_PREFLIGHT_REFUSED');
+    assert.ok(result.reasonCodes.includes('claim-consumed-no-transmission-no-retry'));
+    assert.equal(tx.calls.length, 0);
+    assert.equal(s.seen.size, 1);
+    assert.equal(hasSendCapability([...s.seen][0]), false);
+  }
+});
 test('only consenting owner-controlled seeds and healthy senders reach an executable batch', () => {
   const b = batch();
   assert.equal(b.ok, true);

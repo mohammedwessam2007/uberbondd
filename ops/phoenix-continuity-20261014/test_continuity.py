@@ -1,6 +1,33 @@
 import contextlib, importlib.util, io, json, os, pathlib, subprocess, sys, unittest
+from unittest import mock
 sys.path.insert(0,str(pathlib.Path(__file__).parent))
 import continuity as c
+
+class TokenCoverageAdmission(unittest.TestCase):
+    def test_missing_envelope_refuses_before_sensitive_read(self):
+        for counts in ((6,5,5),(6,6,5),(0,0,0),(201,201,201)):
+            with self.subTest(counts=counts), mock.patch.object(c.r,'query',return_value=[counts]) as q:
+                with self.assertRaisesRegex(ValueError,'ACCOUNT_TOKEN_COVERAGE_INCOMPLETE'):
+                    c.account_token_envelopes(object())
+                self.assertEqual(q.call_count,1)
+
+    def test_unknown_aggregate_refuses(self):
+        with mock.patch.object(c.r,'query',return_value=[]) as q:
+            with self.assertRaisesRegex(ValueError,'ACCOUNT_TOKEN_COVERAGE_UNKNOWN'):
+                c.account_token_envelopes(object())
+            self.assertEqual(q.call_count,1)
+
+    def test_complete_envelopes_returned(self):
+        marker={'iv':'fixture','tag':'fixture','data':'fixture'}
+        with mock.patch.object(c.r,'query',side_effect=[[(2,2,2)],[(marker,),(marker,)]]) as q:
+            self.assertEqual(c.account_token_envelopes(object()),[marker,marker])
+            self.assertEqual(q.call_count,2)
+
+    def test_partial_second_read_refuses(self):
+        with mock.patch.object(c.r,'query',side_effect=[[(2,2,2)],[(None,)]]) as q:
+            with self.assertRaisesRegex(ValueError,'ACCOUNT_TOKEN_COVERAGE_CHANGED'):
+                c.account_token_envelopes(object())
+            self.assertEqual(q.call_count,2)
 
 class CryptoAdmission(unittest.TestCase):
     @classmethod

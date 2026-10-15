@@ -1,0 +1,39 @@
+name: PHOENIX inherited canary parser exact-source verification
+on:
+  push:
+    branches:
+      - high/phoenix-parser-exact-qa-20261015
+permissions:
+  contents: read
+jobs:
+  parser-fixture-offline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CI: 'true'
+      NODE_ENV: test
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      OUTBOUND_EMERGENCY_STOP: 'true'
+      UBERBOND_EFFECTS_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Verify immutable PR1442 corrected fixture is unchanged
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show 843479e4d95169e5171b8ce2744e5c3ca611c0a8:tests/infinite-opus-haiku55-live-canary.test.mjs > /tmp/phoenix-exact-fixture
+          cmp -s /tmp/phoenix-exact-fixture tests/infinite-opus-haiku55-live-canary.test.mjs
+      - run: npm ci --ignore-scripts
+      - name: Syntax only, no provider canary
+        run: |
+          node --check tests/infinite-opus-haiku55-live-canary.test.mjs
+          node --check scripts/infinite-opus-haiku55-live-canary.mjs
+      - name: Offline fake-provider fixture
+        run: node --test tests/infinite-opus-haiku55-live-canary.test.mjs

@@ -1,0 +1,50 @@
+name: PHOENIX DeepSeek trusted seed consent donor (no secrets)
+on:
+  push:
+    branches: [high/uberwarm-deepseek-consent-verifier-20261016]
+    paths: [.github/workflows/phoenix-deepseek-consent-donor.yml]
+permissions:
+  contents: read
+jobs:
+  free-model:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - name: Install verified free model CLI
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e .env
+          test ! -e .env.local
+          npm install -g @opencode/cli
+          opencode --version
+      - name: Generate precisely one protected consent reader, no secret exposure
+        shell: bash
+        run: |
+          set -euo pipefail
+          touch src/uberwarm2-trusted-seed-consent-supplier.mjs
+          node <<'NODE'
+          const fs=require('fs');
+          const config=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));
+          if(config.model!=='opencode/deepseek-v4.1-flash-free') process.exit(4);
+          config.permissions.push({action:'edit',resource:'src/uberwarm2-trusted-seed-consent-supplier.mjs',effect:'allow'});
+          fs.writeFileSync('opencode.jsonc',JSON.stringify(config,null,2)+'\n');
+          NODE
+          timeout 160s opencode run --standalone --auto --model opencode/deepseek-v4.1-flash-free \
+            "READ src/uberwarm2-smtp-seed-bridge.mjs and src/uberwarm3-consent-panel.mjs, then WRITE ONLY src/uberwarm2-trusted-seed-consent-supplier.mjs. Export createUberWarm2TrustedSeedConsentSupplier({ readAuthenticatedConsent, readCurrentReceiveReady, readSuppression, clock }) returning frozen {readSeedConsent}, for existing createUberWarm2LivePreflight. readSeedConsent({email,probeId,at}) MUST read ALL THREE independent trusted protected callbacks afresh on each invocation (callbacks return arrays of one row); never make any network or production calls; require exact email+probe identity, 5-minute-max canonical UTC freshness on each row, unexpired explicit consent to that probe, no withdrawn/opt-out/suppressed, owner-controlled address AND independent current recipient mailbox receiveReady===true. Require each row nonempty receipt identifier and verified/signed proof booleans, not caller-supplied string alone. Fail to [] for missing, stale, duplicate, contradictory, mismatched, expired, thrown error or impossible clock. Emit exactly one shape {email,observedAt,evidenceRef,ownerControlled:true,receiveReady:true,consentToTest:true,withdrawn:false,suppressed:false,consentEvidenceRef,probeIds:[probeId],permissionExpiresAt}. No fabricated consent or automatic verification, no followup/replies, no deployment, no SMTP, no provider paid API, no editing other files. Keep under 160 lines, syntax-valid Node ESM. Do not use shell." \
+            2>&1 | tee "$RUNNER_TEMP/model-consent.txt"
+          test -s src/uberwarm2-trusted-seed-consent-supplier.mjs
+          node --check src/uberwarm2-trusted-seed-consent-supplier.mjs
+          echo BEGIN_DONOR_SOURCE
+          sed -n '1,210p' src/uberwarm2-trusted-seed-consent-supplier.mjs
+          echo END_DONOR_SOURCE

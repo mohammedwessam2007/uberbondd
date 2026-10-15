@@ -1397,6 +1397,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
       "reason": "Read-only provider/SMTP transport, local quarantine and signed DNS-alignment observations are reconciled into one bounded sender-health row. The module deliberately has no production entry point or credentials: real protected Winnr/API transport readers, independently verified current SMTP and DNS evidence, original-key runtime and exact owner-seed authorization are not yet bound. Tests contain synthetic receipts only. Wiring before those external proof gates would confer false sending authority."
+    },
+    "src/uberwarm2-trusted-seed-consent-supplier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected read-only consent, receiving-mailbox readiness and suppression reconciler built from free DeepSeek donor. Source-level tests only; no external volunteers enrolled or authenticated consent registry connected. Deliberately unreachable until real protected source readers, specific owner consent, independently verifiable receiving account, original-key runtime and exact signed one-probe authorization are present. No autonomous messaging authority."
     }
   }
 }

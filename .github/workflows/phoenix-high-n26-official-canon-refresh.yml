@@ -48,3 +48,5 @@ jobs:
 # Re-run canonical compilers after independent Astra startup/TLS defect corrections.
 
 # Final pinned TLS and read-only transaction hardening, 2026-10-15.
+
+# N26 exact-entrypoint spawn and real certificate rejection hostile regression.

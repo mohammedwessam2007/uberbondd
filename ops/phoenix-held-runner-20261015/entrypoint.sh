@@ -10,7 +10,7 @@ die() { printf '%s\n' 'PHOENIX_RUNNER_REFUSED' >&2; exit 70; }
 [ "$(id -u)" = '0' ] || die
 [ "$(git -C /srv/uberbond rev-parse HEAD 2>/dev/null)" = "$SHA" ] || die
 [ -z "$(git -C /srv/uberbond status --porcelain --untracked-files=no 2>/dev/null)" ] || die
-[ -n "$DATABASE_URL" ] && [ -n "$TOKEN_ENCRYPTION_KEY" ] && [ -n "$ADMIN_TOKEN" ] || die
+[ -n "${DATABASE_URL:-}" ] && [ -n "${TOKEN_ENCRYPTION_KEY:-}" ] && [ -n "${ADMIN_TOKEN:-}" ] || die
 # Resolve once before lockdown. Pin the exact trusted DB hostname locally;
 # no outbound DNS is needed after the network firewall is installed.
 DB_IP="$(getent ahostsv4 "$HOST" | awk 'NR==1 {print $1}')"

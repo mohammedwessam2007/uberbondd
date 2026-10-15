@@ -1,0 +1,228 @@
+{
+  "schemaVersion": "uberbond.phoenix-public-dns-observation.v1",
+  "queries": [
+    {
+      "name": "_dmarc.cedarpointdomains.com",
+      "type": "TXT",
+      "resolver": "Google Public DNS HTTPS",
+      "source": "https://dns.google/resolve?name=_dmarc.cedarpointdomains.com&type=TXT",
+      "observedAt": "2026-10-11T12:58:40.738548+00:00",
+      "sha256": "69b1b40a8b9c23801c39326bd1e2b0b209faa602893734781319b30937d8c335",
+      "response": {
+        "Status": 0,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "_dmarc.cedarpointdomains.com.",
+            "type": 16
+          }
+        ],
+        "Answer": [
+          {
+            "name": "_dmarc.cedarpointdomains.com.",
+            "type": 16,
+            "TTL": 300,
+            "data": "v=DMARC1; p=none;"
+          }
+        ],
+        "Comment": "Response from 52.2.109.244."
+      }
+    },
+    {
+      "name": "cedarpointdomains.com",
+      "type": "TXT",
+      "resolver": "Google Public DNS HTTPS",
+      "source": "https://dns.google/resolve?name=cedarpointdomains.com&type=TXT",
+      "observedAt": "2026-10-11T12:58:46.191087+00:00",
+      "sha256": "7a23281d3793a410a0e0d70e1b6004a2e8f2bc53ff6e390122c1cd88ebe0df24",
+      "response": {
+        "Status": 0,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 16
+          }
+        ],
+        "Answer": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 16,
+            "TTL": 300,
+            "data": "v=spf1 include:amazonses.com ip4:190.102.107.128/27 ip4:107.155.97.234/32 -all"
+          }
+        ],
+        "Comment": "Response from 34.230.191.0."
+      }
+    },
+    {
+      "name": "cedarpointdomains.com",
+      "type": "MX",
+      "resolver": "Google Public DNS HTTPS",
+      "source": "https://dns.google/resolve?name=cedarpointdomains.com&type=MX",
+      "observedAt": "2026-10-11T12:58:55.183844+00:00",
+      "sha256": "fd5204e78f728bd33c33d8657218e4e4fff8e00affb721e83e333c5f2a4b3200",
+      "response": {
+        "Status": 0,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 15
+          }
+        ],
+        "Answer": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 15,
+            "TTL": 300,
+            "data": "10 inbound.cedarpointdomains.com."
+          }
+        ],
+        "Comment": "Response from 52.2.109.244."
+      }
+    },
+    {
+      "name": "cedarpointdomains.com",
+      "type": "NS",
+      "resolver": "Google Public DNS HTTPS",
+      "source": "https://dns.google/resolve?name=cedarpointdomains.com&type=NS",
+      "observedAt": "2026-10-11T12:59:01.552326+00:00",
+      "sha256": "377305e92bd5ef2192b87df1050a5cf6a3f9199edde58a891627bb4294f1dd1b",
+      "response": {
+        "Status": 0,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 2
+          }
+        ],
+        "Answer": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 2,
+            "TTL": 3600,
+            "data": "ns2.myauto1transport.com."
+          },
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 2,
+            "TTL": 3600,
+            "data": "ns1.myauto1transport.com."
+          }
+        ],
+        "Comment": "Response from 52.2.109.244."
+      }
+    },
+    {
+      "name": "dkim._domainkey.cedarpointdomains.com",
+      "type": "TXT",
+      "resolver": "Google Public DNS HTTPS",
+      "source": "https://dns.google/resolve?name=dkim._domainkey.cedarpointdomains.com&type=TXT",
+      "observedAt": "2026-10-11T12:59:07.694045+00:00",
+      "sha256": "6de84df963af097fd18bbfeccaefad1268c45db83b71f98804bfba19ed3626b2",
+      "response": {
+        "Status": 0,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "dkim._domainkey.cedarpointdomains.com.",
+            "type": 16
+          }
+        ],
+        "Answer": [
+          {
+            "name": "dkim._domainkey.cedarpointdomains.com.",
+            "type": 16,
+            "TTL": 300,
+            "data": "v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAuI+FC4lbHTJbF2FC5QrkUvFmUMz9NujkYYfo+2ql6tkZPWolmUSoX/VgEDF5UUjQ7X5F4/ktUngVEQaI4IgJB7hn6cMfZ0g8LHvkLzQz5ABPR0IBRqWiIkKpESoVlY91PzfFew+L//1/ZJahZLvjMkl+HQQNNFg+kV5blZuXCIs/0RnqaXhrLvnpqA/4kjU7NI5SFDf8JGDnvb48CVZ04Um4UMVxTkX327qy6oBJsBB4EjSfwD4NcRUBR8gFw5SbBPumiMtGscwfioOA0Mbc9B+91MpoRMYIOhdIURGDACFPLlNOTRmHApkaTdeJ/I3/7R7woGBc0oV6Qj4GUCqmhQIDAQAB"
+          }
+        ],
+        "Comment": "Response from 52.2.109.244."
+      }
+    },
+    {
+      "name": "s1.cedarpointdomains.com",
+      "type": "TXT",
+      "resolver": "Google Public DNS HTTPS",
+      "source": "https://dns.google/resolve?name=s1.cedarpointdomains.com&type=TXT",
+      "observedAt": "2026-10-11T12:59:13.746742+00:00",
+      "sha256": "24bcea882a955984fa427cbe88fe0b121154d696555f655ea4085f4ece1c940f",
+      "response": {
+        "Status": 3,
+        "TC": false,
+        "RD": true,
+        "RA": true,
+        "AD": false,
+        "CD": false,
+        "Question": [
+          {
+            "name": "s1.cedarpointdomains.com.",
+            "type": 16
+          }
+        ],
+        "Authority": [
+          {
+            "name": "cedarpointdomains.com.",
+            "type": 6,
+            "TTL": 1800,
+            "data": "ns1.myauto1transport.com. hostmaster.cedarpointdomains.com. 1789686694 10800 3600 604800 3600"
+          }
+        ],
+        "Comment": "Response from 52.2.109.244."
+      }
+    }
+  ],
+  "providerUiDmarc": "v=DMARC1; p=reject; rua=mailto:dmarc-reports@cedarpointdomains.com",
+  "observedMessageDmarcPolicy": "p=NONE sp=NONE",
+  "dnsWrites": 0,
+  "sendAuthority": false,
+  "truthBoundary": "Read-only recursive DNS observation; not a policy change or whole-zone audit. UI policy drift remains a provider configuration discrepancy.",
+  "independentDmarcResolver": {
+    "source": "https://cloudflare-dns.com/dns-query?name=_dmarc.cedarpointdomains.com&type=TXT",
+    "observedAt": "2026-10-11T13:08:08.422902+00:00",
+    "response": {
+      "Status": 0,
+      "TC": false,
+      "RD": true,
+      "RA": true,
+      "AD": false,
+      "CD": false,
+      "Question": [
+        {
+          "name": "_dmarc.cedarpointdomains.com",
+          "type": 16
+        }
+      ],
+      "Answer": [
+        {
+          "name": "_dmarc.cedarpointdomains.com",
+          "type": 16,
+          "TTL": 300,
+          "data": "\"v=DMARC1; p=none;\""
+        }
+      ]
+    }
+  }
+}

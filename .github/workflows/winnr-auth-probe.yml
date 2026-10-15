@@ -1,0 +1,112 @@
+# GATED — NOT ACTIVE. This file lives outside .github/workflows, so GitHub never runs it.
+# Activation is a single owner-approved commit. See winnr/GITHUB_AUTH_PROBE_ACTIVATION.md for the exact steps:
+#   1. Create the protected environment `winnr-probe` (required reviewer, selected-branch deployment only).
+#   2. Store two environment secrets there: WINNR_API_TOKEN and WINNR_EXPECTED_INVENTORY_JSON.
+#   3. Make one commit whose PARENT is the reviewed commit. That commit moves this file to
+#      .github/workflows/winnr-auth-probe.yml, sets WINNR_REVIEWED_CODE_SHA to the parent SHA, and changes nothing else.
+#
+# What a run does, in order:
+#   preflight  No environment and no secret. Runs the network-only reachability check and requires 465 and 993.
+#   probe      Waits for the required reviewer. Then, in order:
+#              a. Refuses unless HEAD is exactly one commit above the reviewed pin and the pin is the only code.
+#              b. Exports the Startup credential CSV through the documented Winnr export API, gated by the inventory.
+#              c. Runs the authentication-only probe: SMTP AUTH and NOOP on 465, IMAP LOGIN and LOGOUT on 993. No mail.
+#              d. Destroys the CSV and the workspace whether or not the probe passed (best effort, not secure erasure).
+#              e. Uploads only the public receipt.
+#
+# Secret exposure: WINNR_API_TOKEN reaches only the export step. WINNR_EXPECTED_INVENTORY_JSON reaches only the export
+# and probe steps. Neither is written to a file, echoed, or passed to a later job. The reviewer approval happens before
+# any secret is released, and a re-run (run_attempt > 1) is refused so one approval cannot re-expose credentials.
+
+name: Winnr authentication probe (gated)
+
+on:
+  push:
+    branches:
+      - claude/winnr-fleet-integration-2026-10-13
+    paths:
+      - '.github/workflows/winnr-auth-probe.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: winnr-auth-probe
+  cancel-in-progress: false
+
+jobs:
+  preflight:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Network-only reachability for 465 and 993 (no credential, no write)
+        run: node scripts/winnr-network-preflight.mjs --require-auth-ports --out="$RUNNER_TEMP/winnr-network-preflight.json"
+      - name: Upload the aggregate preflight result
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winnr-network-preflight
+          path: ${{ runner.temp }}/winnr-network-preflight.json
+          if-no-files-found: warn
+          retention-days: 7
+
+  probe:
+    needs: preflight
+    if: ${{ github.run_attempt == 1 }}
+    runs-on: ubuntu-latest
+    environment: winnr-probe
+    timeout-minutes: 25
+    env:
+      # Replaced by the activation commit with the parent SHA of that commit. The placeholder fails closed.
+      WINNR_REVIEWED_CODE_SHA: '3a5159503fe476c7a481389557e1c744d1f01217'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Reviewed-commit guard (refuses before any secret is released)
+        run: node scripts/winnr-activation-guard.mjs --pin="$WINNR_REVIEWED_CODE_SHA"
+      - name: Install locked dependencies without lifecycle scripts
+        run: npm ci --ignore-scripts
+      - name: Export the Startup credential CSV (token and inventory are never printed)
+        env:
+          WINNR_API_TOKEN: ${{ secrets.WINNR_API_TOKEN }}
+          WINNR_EXPECTED_INVENTORY_JSON: ${{ secrets.WINNR_EXPECTED_INVENTORY_JSON }}
+        run: |
+          set -eu
+          test -n "$WINNR_API_TOKEN"
+          test -n "$WINNR_EXPECTED_INVENTORY_JSON"
+          node scripts/winnr-fleet-integration.mjs --workdir="$RUNNER_TEMP/winnr-probe" --auth-mode=bearer --phases=read,export
+      - name: Authentication-only probe (no mail is sent)
+        env:
+          WINNR_EXPECTED_INVENTORY_JSON: ${{ secrets.WINNR_EXPECTED_INVENTORY_JSON }}
+        run: |
+          set -eu
+          mkdir -p "$RUNNER_TEMP/public"
+          node scripts/winnr-auth-probe-only.mjs \
+            --csv="$RUNNER_TEMP/winnr-probe/creds-export.csv" \
+            --owner-ref="github-environment-approval:winnr-probe:run-${{ github.run_id }}" \
+            --receipt-out="$RUNNER_TEMP/public/winnr-auth-probe-receipt.json" \
+            --detail-out="$RUNNER_TEMP/winnr-auth-probe-detail.json" \
+            --timeout-ms=15000 \
+            --shred
+      - name: Destroy credential material (always, best effort, not secure erasure)
+        if: always()
+        run: |
+          f="$RUNNER_TEMP/winnr-probe/creds-export.csv"
+          if [ -f "$f" ]; then shred -u -n 1 "$f" 2>/dev/null || rm -f "$f"; fi
+          rm -rf "$RUNNER_TEMP/winnr-probe" "$RUNNER_TEMP/winnr-auth-probe-detail.json"
+      - name: Upload only the public receipt (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: winnr-auth-probe-receipt
+          path: ${{ runner.temp }}/public/winnr-auth-probe-receipt.json
+          if-no-files-found: warn
+          retention-days: 30

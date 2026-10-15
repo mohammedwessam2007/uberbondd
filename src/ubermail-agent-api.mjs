@@ -1,4 +1,6 @@
 import crypto from 'node:crypto';
+import { requestOutboundPackage } from './outbound-send-authorization.mjs';
+import { gateUberMailOutbound, ubermailOutboundAccount, ubermailOutboundGateMessage, ubermailRecipientRefusal } from './ubermail-uberdoso-bridge.mjs';
 
 export const UBERMAIL_AGENT_API_VERSION = 'uberbond.ubermail-agent-api.v1';
 export const UBERMAIL_AGENT_API_SCHEMA = 'ubermail.agent-api.state.v1';
@@ -178,7 +180,10 @@ export function createUberMailAgentApi({
   now = () => new Date(),
   requireEffectApproval = true,
   enforceSendAllowList = false,
-  maxEvents = 10000
+  maxEvents = 10000,
+  outboundRoute = null,
+  outboundAuthorizationFn = null,
+  outboundConsentVerifier = undefined
 } = {}) {
   let mutationTail = Promise.resolve();
   const at = () => iso(now());
@@ -436,8 +441,16 @@ export function createUberMailAgentApi({
       forwardOf,
       idempotencyKey
     };
+    // Live-route gate before the transport and before any credential. Exactly one recipient, a declared smtp-relay route, a
+    // package that binds these exact bytes, and decideOutboundSend must all allow the send. A refusal crosses no effect boundary.
+    const shapeRefusal = ubermailRecipientRefusal(transportPayload);
+    if (shapeRefusal) throw new UberMailError('outbound-authorization-refused', 403, shapeRefusal.reasonCodes);
+    const outboundAccount = ubermailOutboundAccount({ inboxId: inbox.inbox_id, email: inbox.email, route: outboundRoute });
+    const authorization = await requestOutboundPackage(outboundAuthorizationFn, { message: ubermailOutboundGateMessage(transportPayload), account: outboundAccount, inboxId: inbox.inbox_id });
+    const outboundRefusal = gateUberMailOutbound({ payload: transportPayload, authorization, route: outboundRoute, consentVerifier: outboundConsentVerifier });
+    if (outboundRefusal) throw new UberMailError('outbound-authorization-refused', 403, outboundRefusal.reasonCodes);
     let outcome;
-    try { outcome = await sendTransport(transportPayload); }
+    try { outcome = await sendTransport(transportPayload, { authorization }); }
     catch (error) { throw new UberMailError('send-outcome-unknown', 502, text(error?.message || error, 500)); }
     if (!outcome || outcome.ok !== true) {
       if (outcome?.uncertain === true) throw new UberMailError('send-outcome-unknown', 502);

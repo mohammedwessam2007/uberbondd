@@ -10,7 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      # Full history: the whitespace check diffs against origin/main, and a
+      # shallow default checkout has no origin/main ref to diff against.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 22

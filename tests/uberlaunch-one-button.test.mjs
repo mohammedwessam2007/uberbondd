@@ -117,7 +117,9 @@ test('expired founder press receipt cannot dispatch', async () => {
   assert.equal(result.providerCalls, 0);
 });
 
-test('ready big button delegates to governed dispatch and never bypasses its exact action authorization', async () => {
+test('ready big button delegates to governed dispatch and is refused without an outbound package', async () => {
+  // The big button has no authorized outbound-package input today, so it passes none. The dispatcher's outbound gate refuses the
+  // send with the exact reason and no transport call. A button that could mint or assume a package would be a bypass.
   const input = readyInputs();
   const manifest = compileUberLaunchManifest(input);
   let calls = 0;
@@ -143,11 +145,12 @@ test('ready big button delegates to governed dispatch and never bypasses its exa
     idempotencyKey: 'idem-1',
     now
   });
-  assert.equal(calls, 1);
-  assert.equal(result.ok, true);
-  assert.equal(result.state, 'PROVIDER_CONFIRMED_SEND');
-  assert.equal(result.messagesSent, 1);
-  assert.equal(result.automaticRetryAuthorized, false);
+  assert.equal(calls, 0);
+  assert.equal(result.ok, false);
+  assert.equal(result.state, 'DISPATCH_REFUSED');
+  assert.deepEqual(result.reasonCodes, ['OUTBOUND_AUTHORIZATION_PACKAGE_MISSING']);
+  assert.equal(result.providerCalls, 0);
+  assert.equal(result.messagesSent, 0);
   assert.match(result.truthBoundary, /not a bypass/i);
 });
 

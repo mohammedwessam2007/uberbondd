@@ -1,0 +1,116 @@
+{
+  "checkedRecipient": "hello@demandstreamdigital.com",
+  "checkedDomain": "demandstreamdigital.com",
+  "classification": "CLEAN_EXACT_PRODUCTION_HISTORY",
+  "preflight": {
+    "ok": true,
+    "result": {
+      "version": "uberbond.prospect-preflight.v1",
+      "evaluatedAt": "2026-10-11T13:21:58.282Z",
+      "state": "BLOCKED_EXTERNAL_FACT",
+      "blockerCodes": [
+        "current-ownership-unverified",
+        "published-purpose-of-address-unverified",
+        "offer-route-from-existing-quartet-required",
+        "no-solicitation-notice-not-checked",
+        "no-harvest-notice-not-checked",
+        "real-client-site-missing",
+        "externally-verifiable-lead-path-observation-missing"
+      ],
+      "readOnly": true,
+      "sendAuthority": false,
+      "externalEffectAuthority": "NONE",
+      "externalEffects": 0,
+      "externalReads": 0,
+      "registryLookups": [],
+      "company": "DemandStream Digital",
+      "recipient": "hello@demandstreamdigital.com",
+      "offerId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+      "contactHistory": {
+        "status": "CLEAN",
+        "hit": false,
+        "receiptDigest": "2de07eea7a3838304ecb30841c4665cbf338af755bb3e1c5be1df4f61ac4acee",
+        "checkedAt": "2026-10-11T13:21:58.282Z"
+      },
+      "intake": {
+        "status": "INCOMPLETE",
+        "rejectionReasons": [],
+        "missingEvidence": [
+          "current-ownership-unverified",
+          "published-purpose-of-address-unverified",
+          "offer-route-from-existing-quartet-required",
+          "no-solicitation-notice-not-checked",
+          "no-harvest-notice-not-checked",
+          "real-client-site-missing",
+          "externally-verifiable-lead-path-observation-missing"
+        ],
+        "provenance": "RUNTIME_RECEIPT"
+      }
+    }
+  },
+  "history": {
+    "ok": true,
+    "result": {
+      "schema": "uberbond.prospect-contact-history.v1",
+      "checkedAt": "2026-10-11T13:21:58.293Z",
+      "emailChecked": "hello@demandstreamdigital.com",
+      "domainChecked": "demandstreamdigital.com",
+      "readOnly": true,
+      "externalEffects": 0,
+      "sendAuthority": false,
+      "status": "CLEAN",
+      "overallContactHistoryHit": false,
+      "reasonCodes": [],
+      "checks": {
+        "suppressions": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "prospects": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 4,
+          "error": null
+        },
+        "outboundReservations": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 1,
+          "error": null
+        },
+        "outboundEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "replies": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "messages": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        },
+        "providerEvents": {
+          "required": true,
+          "read": true,
+          "rowsExamined": 0,
+          "error": null
+        }
+      },
+      "findings": [],
+      "receiptDigest": "5e83fe46331b0ad7bfed124c087650cd17dd900879297b9ea65023286ca43bc7",
+      "signature": "be71d0d44f9ec8d44d1b825f8308ed6a0c2667f5c6cf6cf5ef8005bb0a9e95e4"
+    }
+  },
+  "readOnly": true,
+  "sendAuthority": false,
+  "externalEffects": 0
+}

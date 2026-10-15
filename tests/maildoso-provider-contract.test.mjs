@@ -65,7 +65,7 @@ test('Maildoso warmup status promotes only an explicitly matching observation', 
 });
 
 
-test('Maildoso warmup creation remains owner-approved and idempotent', async () => {
+test('Maildoso warmup creation is blocked even by an owner approval while zero-paid lock applies', async () => {
   const calls = [];
   const adapter = createMaildosoInfrastructureAdapter(providerConfig(), {
     fetchImpl: async (url, options) => {
@@ -78,7 +78,7 @@ test('Maildoso warmup creation remains owner-approved and idempotent', async () 
     idempotencyKey: 'warm-1'
   });
   assert.equal(denied.ok, false);
-  assert.equal(denied.status, 'OWNER_APPROVAL_REQUIRED');
+  assert.equal(denied.status, 'UBERBOND_ZERO_PAID_WARMUP_LOCK');
   assert.equal(calls.length, 0);
 
   const allowed = await adapter.startWarmup({
@@ -91,7 +91,7 @@ test('Maildoso warmup creation remains owner-approved and idempotent', async () 
     },
     idempotencyKey: 'warm-1'
   });
-  assert.equal(allowed.ok, true);
-  assert.equal(calls.length, 1);
-  assert.equal(calls[0].method, 'POST');
+  assert.equal(allowed.ok, false);
+  assert.equal(allowed.status, 'UBERBOND_ZERO_PAID_WARMUP_LOCK');
+  assert.equal(calls.length, 0);
 });

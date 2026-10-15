@@ -4,7 +4,8 @@ import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 import { createFrontierSimulationExecutorFactory } from '../src/frontier-simulation-executor.mjs';
-import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { compileFrontierExecutorWorker, executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { qualityInvariantAttestation } from '../src/absolute-frontier-quality-invariant.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -235,4 +236,102 @@ test('actual cost above reserved ceiling remains blocked after provenance passes
   assert.equal(out.ok, false);
   assert.equal(out.status, 'FRONTIER_EXECUTION_BUDGET_EXCEEDED');
   assert.ok(out.reasonCodes.includes('actual-cost-exceeds-frontier-reservation'));
+});
+
+// The runtime's only check of a FRONTIER_MAX member's absoluteQualityInvariant is
+// in compileFrontierExecutorWorker. executeFrontierMember reaches that boundary only
+// after the member is proven identical to the process-bound admitted plan member, so
+// a tampered or missing attestation on that path is refused earlier as an identity
+// mismatch. The attestation reason codes are therefore asserted at the direct
+// compile boundary, and the top-level path is asserted to never build an executor.
+
+const FRONTIER_MAX_MEMBER = Object.freeze({
+  profileId: profile.id,
+  provider: profile.provider,
+  model: profile.model,
+  revision: profile.revision,
+  transportProvider: profile.transportProvider,
+  transportModel: profile.transportModel,
+  reasoningTier: 'FRONTIER_MAX',
+  reasoningSettingRef: profile.reasoningBindings.FRONTIER_MAX.settingRef
+});
+
+function memberWithAttestation(attestation) {
+  const member = { ...FRONTIER_MAX_MEMBER };
+  if (attestation !== undefined) member.absoluteQualityInvariant = attestation;
+  return member;
+}
+
+// Everything the canonical validator reports for an attestation that is absent or
+// not an object at all.
+const ABSENT_ATTESTATION_CODES = [
+  'absolute-frontier-quality-policy-version-mismatch',
+  'absolute-frontier-quality-policy-digest-mismatch',
+  'absolute-frontier-quality-delta-must-be-zero',
+  'absolute-frontier-evidence-confidence-attestation-mismatch',
+  'absolute-frontier-degraded-council-prohibited',
+  'absolute-frontier-uncertainty-fallback-required'
+];
+
+test('frontier runtime refuses a FRONTIER_MAX member whose quality attestation is missing or tampered', () => {
+  const canonical = qualityInvariantAttestation();
+  const refusals = [
+    ['missing attestation', undefined, ABSENT_ATTESTATION_CODES],
+    ['null attestation', null, ABSENT_ATTESTATION_CODES],
+    ['tampered quality delta', { ...canonical, qualityDelta: 0.01 }, ['absolute-frontier-quality-delta-must-be-zero']],
+    ['tampered degraded-council permission', { ...canonical, degradedCouncilAllowed: true }, ['absolute-frontier-degraded-council-prohibited']],
+    ['tampered policy digest', { ...canonical, policyDigest: 'f'.repeat(64) }, ['absolute-frontier-quality-policy-digest-mismatch']]
+  ];
+  for (const [label, attestation, expectedCodes] of refusals) {
+    const out = compileFrontierExecutorWorker(memberWithAttestation(attestation));
+    assert.equal(out.ok, false, label);
+    assert.equal(out.status, 'FRONTIER_REASONING_RUNTIME_BLOCKED', label);
+    assert.equal(out.worker, undefined, `${label}: no executor worker may be compiled`);
+    assert.equal(out.absoluteQualityInvariant, undefined, `${label}: refused attestation must not be echoed`);
+    for (const code of expectedCodes) {
+      assert.ok(out.reasonCodes.includes(code), `${label}: expected ${code} in ${JSON.stringify(out.reasonCodes)}`);
+    }
+    assert.ok(
+      out.reasonCodes.every(code => code.startsWith('absolute-frontier-')),
+      `${label}: only attestation reasons may appear, got ${JSON.stringify(out.reasonCodes)}`
+    );
+  }
+});
+
+test('frontier runtime still compiles the same FRONTIER_MAX member when its quality attestation is valid', () => {
+  const out = compileFrontierExecutorWorker(memberWithAttestation(qualityInvariantAttestation()));
+  assert.equal(out.ok, true, JSON.stringify(out));
+  assert.equal(out.status, 'FRONTIER_EXECUTOR_WORKER_READY');
+  assert.deepEqual(out.worker, { provider: 'ai-gateway', model: 'google/gemini-frontier', reasoningEffort: 'xhigh' });
+  assert.deepEqual(out.absoluteQualityInvariant, qualityInvariantAttestation());
+});
+
+test('admitted plan never builds an executor for a member whose quality attestation is missing or tampered', async () => {
+  const plan = admittedPlan();
+  const withoutAttestation = { ...plan.plan.selected };
+  delete withoutAttestation.absoluteQualityInvariant;
+  const tampered = {
+    ...plan.plan.selected,
+    absoluteQualityInvariant: { ...plan.plan.selected.absoluteQualityInvariant, degradedCouncilAllowed: true }
+  };
+  for (const [label, member] of [['missing attestation', withoutAttestation], ['tampered attestation', tampered]]) {
+    const out = await executeFrontierMember({
+      planResult: plan,
+      member,
+      task: workerTask(plan),
+      modelExecutorFactory: createFrontierSimulationExecutorFactory({
+        responses: [{ taskId: task.taskId, model: profile.transportModel, costCents: 0, result: { answer: 'x' } }]
+      }),
+      callabilityEvidence: callability,
+      maxTokens: 100,
+      costCeilingCents: 10
+    });
+    assert.equal(out.ok, false, label);
+    assert.equal(out.execution, undefined, `${label}: no execution may be attested`);
+    assert.equal(out.ephemeralResult, undefined, `${label}: no result may be returned`);
+    assert.ok(
+      out.reasonCodes.includes('member-object-does-not-match-admitted-plan'),
+      `${label}: expected identity refusal, got ${JSON.stringify(out.reasonCodes)}`
+    );
+  }
 });

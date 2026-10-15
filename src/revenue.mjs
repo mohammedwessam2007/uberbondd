@@ -7,6 +7,7 @@ import { ConflictError } from './store.mjs';
 import { buildRevenueOfferCatalog, getRevenueOffer, isRevenueOfferId } from './revenue-offers.mjs';
 import { InputError } from './input.mjs';
 import { compileConsentReceipt } from './consent-receipt.mjs';
+import { gateOutboundRoute, requestOutboundPackage } from './outbound-send-authorization.mjs';
 
 const DAY = 86400000;
 const sha = value => crypto.createHash('sha256').update(String(value)).digest('hex');
@@ -40,6 +41,9 @@ export class RevenueEngine {
     this.hooks = hooks;
     this.publicHits = new Map();
     this.sendEmailFn = hooks.sendEmail || sendEmail;
+    // Live-route authorization for the report email. No supplier is injected by default, so the send refuses before any provider call.
+    this.outboundAuthorizationFn = hooks.outboundAuthorization || null;
+    this.outboundConsentVerifier = hooks.consentVerifier;
     this.clock = hooks.clock || (() => new Date());
   }
 
@@ -332,6 +336,28 @@ export class RevenueEngine {
     });
   }
 
+  // A refusal before the provider boundary is not an effect. It releases the in-flight claim so the lead is not blocked
+  // by a stale dispatching marker, and it never marks the attempt sent or uncertain.
+  async releaseReportEmailAttemptRefused({ leadId, attemptId, prospect, reasonCodes = [] }) {
+    return this.store.transaction(async tx => {
+      const current = await this.lockReportEmailLead(tx, leadId);
+      if (!current) return { persisted: false, reason: 'missing-lead' };
+      if (current.reportEmailSentAt || String(current.reportEmailAttemptStatus || '').toLowerCase() === 'sent') return { persisted: false, terminal: 'sent' };
+      // A refusal happens before any provider call, so it can only release a pre-dispatch claim. An uncertain marker means a provider call may have happened.
+      if (String(current.reportEmailAttemptStatus || '').toLowerCase() === 'uncertain') return { persisted: false, reason: 'uncertain-attempt-not-released' };
+      if (current.reportEmailAttemptId !== attemptId) return { persisted: false, reason: 'claim-replaced' };
+      const updated = await this.upsertReportEmailLead(tx, current, {
+        reportEmailAttemptId: null,
+        reportEmailAttemptStatus: null,
+        reportEmailClaimedAt: null,
+        reportEmailRefusedAt: this.clock().toISOString(),
+        reportEmailRefusedReasons: reasonCodes
+      });
+      await this.logReportEmailDecisionOn(tx, 'refused', reasonCodes.join(',') || 'outbound-authorization-refused', { lead: updated || current, prospect });
+      return { persisted: true, lead: updated || current };
+    });
+  }
+
   async markReportEmailUncertain({ leadId, attemptId, prospect, reason }) {
     try {
       return await this.store.transaction(async tx => {
@@ -412,12 +438,21 @@ export class RevenueEngine {
     const reportUrl = `${this.cfg.baseUrl}/report.html?token=${encodeURIComponent(claim.token)}`;
     const body = `Hi,\n\nYour UberBond Digital Opportunity Snapshot for ${claim.lead.company} is ready.\n\nScore: ${claim.prospect.score?.total ?? 'ready'}\nView the report: ${reportUrl}\n\nThe free snapshot includes the primary evidence-backed opportunity. The report page also contains options for a full audit, strategy review, and recurring monitoring.\n\nUberBond`;
 
+    const message = {
+      from: `${this.cfg.sender.name} <${claim.account.email}>`, to: claim.lead.email,
+      subject: `${claim.lead.company} digital opportunity report`, body
+    };
+    // Live-route gate, before the provider call. The package must bind this exact message and decideOutboundSend must allow it.
+    const authorization = await requestOutboundPackage(this.outboundAuthorizationFn, { message, account: claim.account, prospect: claim.prospect });
+    const refusal = gateOutboundRoute({ account: claim.account, message: { ...message, authorization: authorization || undefined }, consentVerifier: this.outboundConsentVerifier, routeProvider: 'gmail-api' });
+    if (refusal) {
+      await this.releaseReportEmailAttemptRefused({ leadId: claim.lead.id, attemptId: claim.attemptId, prospect: claim.prospect, reasonCodes: refusal.reasonCodes });
+      return { sent: false, reason: 'outbound-authorization-refused', reasonCodes: refusal.reasonCodes };
+    }
+
     let result;
     try {
-      result = await this.sendEmailFn(this.cfg.google, claim.account, this.cfg.encryptionKey, {
-        from: `${this.cfg.sender.name} <${claim.account.email}>`, to: claim.lead.email,
-        subject: `${claim.lead.company} digital opportunity report`, body
-      });
+      result = await this.sendEmailFn(this.cfg.google, claim.account, this.cfg.encryptionKey, message);
     } catch {
       await this.markReportEmailUncertain({
         leadId: claim.lead.id, attemptId: claim.attemptId, prospect: claim.prospect,
@@ -695,7 +730,9 @@ export class RevenueEngine {
             && String(row.leadId || '') === String(event.custom.lead_id || '')
             && String(row.prospectId || '') === String(event.custom.prospect_id || '')
             && String(row.product || '') === String(event.custom.product || '')
-            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase());
+            && String(row.currency || '').toUpperCase() === String(event.currency || '').toUpperCase()
+            // A test-mode refund must never attach to a live order, or the other way round.
+            && Boolean(row.testMode) === Boolean(event.testMode));
           if (candidates.length === 1) {
             relatedOrders = candidates;
             nonFatalStateReasonCodes.push('refund-object-linkage-fallback');

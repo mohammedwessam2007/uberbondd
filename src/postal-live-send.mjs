@@ -1,5 +1,6 @@
 import { ADAPTER_OUTCOMES } from './omnia-v9/integrations/external-effect-adapter.mjs';
 import { dispatchReservedPostalCanary } from './omnia-v9/integrations/external-effect-dispatcher.mjs';
+import { gateOutboundRoute } from './outbound-send-authorization.mjs';
 
 export const POSTAL_LIVE_SEND_VERSION = 'uberbond.postal-live-send.v1';
 
@@ -34,7 +35,8 @@ export async function dispatchPostalCanary({
   followup = 0,
   fetchImpl = globalThis.fetch,
   now = () => new Date(),
-  canonicalRuntime = null
+  canonicalRuntime = null,
+  consentVerifier = undefined
 } = {}) {
   if (String(cfg?.outbound?.provider || '').toLowerCase() !== 'postal' || cfg?.outbound?.useEffectAdapter !== true) {
     return { handled: false, providerCalls: 0 };
@@ -50,6 +52,12 @@ export async function dispatchPostalCanary({
   if (effectPayload?.threadId || effectPayload?.replyToId) reasons.push('postal-canary-threaded-send-not-enabled');
   if (reasons.length) return { handled: true, ...refusal(reasons) };
 
+  // Live-route gate: before the canonical runtime, the reservation and any Postal request, the exact payload must carry
+  // an authorization package that decideOutboundSend allows. The package is stripped before the payload is forwarded.
+  const outboundRefusal = gateOutboundRoute({ account, message: effectPayload, consentVerifier, routeProvider: 'postal' });
+  if (outboundRefusal) return { handled: true, ok: false, ...outboundRefusal };
+  const { authorization: _authorization, ...payload } = effectPayload;
+
   if (!canonicalRuntime) return {handled:true,...refusal(['canonical-durable-execution-and-final-admission-required'])};
-  return dispatchReservedPostalCanary({...canonicalRuntime,cfg,account,reservation,effectPayload,fetchImpl,now});
+  return dispatchReservedPostalCanary({...canonicalRuntime,cfg,account,reservation,effectPayload:payload,fetchImpl,now});
 }

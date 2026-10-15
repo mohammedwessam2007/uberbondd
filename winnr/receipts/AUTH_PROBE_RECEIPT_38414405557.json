@@ -1,0 +1,52 @@
+{
+  "version": "uberbond.winnr-auth-probe-only.v2",
+  "status": "AUTHENTICATED_ALL",
+  "ok": true,
+  "checkedAt": "2026-10-13T14:44:28.147Z",
+  "reasonCodes": [],
+  "approvalRef": "github-environment-approval:winnr-probe:run-38414405557",
+  "inventory": {
+    "startupDomains": 10,
+    "rolesPerDomain": 5,
+    "expectedAccounts": 50,
+    "gatePassed": true,
+    "pilotDomainsExcluded": 1
+  },
+  "probed": 50,
+  "probeExceptions": 0,
+  "smtp": {
+    "accepted": 50,
+    "classCounts": {
+      "AUTH_CONFIRMED": 50,
+      "AUTH_REJECTED": 0,
+      "NETWORK_BLOCKED": 0,
+      "TLS_FAILED": 0,
+      "FAILED_UNCLASSIFIED": 0,
+      "REFUSED_BY_TRANSPORT": 0,
+      "PROBE_EXCEPTION": 0
+    }
+  },
+  "imap": {
+    "accepted": 50,
+    "classCounts": {
+      "LOGIN_ACCEPTED": 50,
+      "AUTH_REJECTED": 0,
+      "NETWORK_BLOCKED": 0,
+      "TLS_FAILED": 0,
+      "FAILED_UNCLASSIFIED": 0,
+      "PROBE_EXCEPTION": 0
+    }
+  },
+  "networkBlocked": {
+    "smtp": 0,
+    "imap": 0
+  },
+  "messagesSent": 0,
+  "mailFromIssued": false,
+  "recipientsIssued": 0,
+  "dataIssued": false,
+  "credentialsPersisted": false,
+  "credentialsLogged": false,
+  "identityFieldsPublished": false,
+  "truthBoundary": "Authentication acceptance only: the server accepted the AUTH or LOGIN command. Not deliverability, reputation, placement, or permission to contact anyone. Accounts stay paused until a separate eligibility decision."
+}

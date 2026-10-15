@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-09-29T22:54:35.931Z",
+  "generatedAt": "2026-10-15T12:37:29.770Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "39cb8133634e0110c9232c2921ffdbd42350c5d8",
-    "branch": "HEAD",
-    "sourceModules": 948,
-    "testSuites": 1131,
-    "workingTreeClean": false
+    "head": "b7cd96a9992a18d9032589f8be741f93807ac0a9",
+    "branch": "high/phoenix-held-restore-app-20261015",
+    "sourceModules": 1121,
+    "testSuites": 1408,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 948,
-      "reachableFromProduction": 286,
-      "reachableFromUnattendedOperatorScriptsOnly": 441,
+      "srcModules": 1121,
+      "reachableFromProduction": 422,
+      "reachableFromUnattendedOperatorScriptsOnly": 451,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 441,
-      "noEntryPointAtAll": 214,
+      "reachableFromOperatorScriptsOnly": 451,
+      "noEntryPointAtAll": 241,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],

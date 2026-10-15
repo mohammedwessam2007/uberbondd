@@ -75,13 +75,15 @@ test('canary refuses an unapproved prospect before reservation or provider call'
   assert.equal(decision.detail.decision, 'DENY');
 });
 
-test('an exact route and payload approval allows one canary send', async () => {
+test('an exact route and payload approval passes governance but is refused at the Gmail boundary without an authorization package', async () => {
   const approved = approveProspectForTest({ prospect: baseProspect, campaign, cfg, date: monday });
   const store = await makeStore(approved);
   const sends = { count: 0 };
   const result = await makePipeline(store, sends).maybeSend(approved, campaign);
-  assert.equal(result.sent, true);
-  assert.equal(sends.count, 1);
+  // Deliberate change: the exact-payload governance still allows. The Gmail route refuses before the provider without a package.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.equal(sends.count, 0);
   const decision = (await store.list('auditLog')).find(row => row.type === 'outreach_governance_decision');
   assert.equal(decision.detail.decision, 'ALLOW');
   assert.match(decision.detail.effectPayloadDigest, /^[a-f0-9]{64}$/);

@@ -1,0 +1,58 @@
+# PHOENIX H independent review candidate. Only generated canon in this isolated branch.
+# No secrets, no provider connections, no sends, no deployment, no main edits.
+name: PHOENIX H reproducible canon refresh review
+on:
+  push:
+    branches:
+      - high/phoenix-h-canon-freshness-review-20261014
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  regenerate-in-isolated-branch:
+    if: github.ref == 'refs/heads/high/phoenix-h-canon-freshness-review-20261014'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout pinned source with full git history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Lockfile dependencies without install scripts
+        run: npm ci --ignore-scripts
+      - name: Refuse a dirty checkout
+        run: test -z "$(git status --porcelain)"
+      - name: Run ONLY canonical generator on exact starting source
+        run: |
+          echo "CANON_SOURCE_SHA=$GITHUB_SHA"
+          UBERBOND_CANONICAL_BRANCH=main npm run readiness
+      - name: Deny unexpected mutations and whitespace
+        run: |
+          set -euo pipefail
+          git diff --check
+          changed=$(git diff --name-only)
+          echo "Generated tracked paths:"
+          printf '%s\n' "$changed"
+          test -n "$changed"
+          while IFS= read -r path; do
+            case "$path" in
+              artifacts/system-readiness.json|docs/CURRENT_SYSTEM_STATE.md) ;;
+              *) echo "::error::UNEXPECTED_GENERATOR_CHANGE $path"; exit 1 ;;
+            esac
+          done <<< "$changed"
+          grep -F "$GITHUB_SHA" artifacts/system-readiness.json
+          grep -F "$GITHUB_SHA" docs/CURRENT_SYSTEM_STATE.md
+      - name: Commit ONLY reviewed generated artifacts to isolated branch
+        run: |
+          set -euo pipefail
+          git config user.name "PHOENIX High Artifact Bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add artifacts/system-readiness.json docs/CURRENT_SYSTEM_STATE.md
+          git diff --cached --quiet && { echo "::error::NO_REFRESH_CHANGES"; exit 1; }
+          git commit -m "chore(readiness): regenerate canon from exact Claude source"
+          git push origin HEAD:refs/heads/high/phoenix-h-canon-freshness-review-20261014
+          echo "GENERATED_COMMIT_SHA=$(git rev-parse HEAD)"

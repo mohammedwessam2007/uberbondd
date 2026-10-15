@@ -1,0 +1,51 @@
+# No protected account secrets. Build+negative checks ONLY. Never execute app with Neon credentials here.
+name: PHOENIX N26 pinned held runner package no-secret QA
+on:
+  push:
+    branches:
+      - high/phoenix-n26-protected-runner-package-20261015
+    paths:
+      - 'ops/phoenix-held-runner-20261015/**'
+      - '.github/workflows/phoenix-held-runner-package-check.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-and-container-negative:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PHOENIX_ALLOW_LIVE_ACCOUNT_EFFECTS: 'false'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and no broad provider bindings
+        run: |
+          set -euo pipefail
+          bash -n ops/phoenix-held-runner-20261015/entrypoint.sh
+          node --check ops/phoenix-held-runner-20261015/supervise.mjs
+          grep -F 'iptables -w -P OUTPUT DROP' ops/phoenix-held-runner-20261015/entrypoint.sh
+          grep -F 'ip6tables -w -P OUTPUT DROP' ops/phoenix-held-runner-20261015/entrypoint.sh
+          ! grep -Ei '^ *(- *name:.*production|envFrom:|secrets: inherit)' ops/phoenix-held-runner-20261015/*
+      - name: Build exact immutable admitted application plus outer runner
+        run: |
+          set -euo pipefail
+          docker build --pull -f ops/phoenix-held-runner-20261015/Dockerfile -t phoenix-n26-held-runner:qa .
+          actual=$(docker run --rm --network none --entrypoint git phoenix-n26-held-runner:qa -C /srv/uberbond rev-parse HEAD)
+          test "$actual" = 'c1f9b4aac2278617cb0c9e04d14e29f0544dd701'
+          echo "IMMUTABLE_APP_SOURCE_SHA=$actual"
+          docker image inspect -f 'BUILT_IMAGE_ID={{.Id}}' phoenix-n26-held-runner:qa
+      - name: No-key run must refuse before application boot
+        run: |
+          set -euo pipefail
+          if docker run --rm --cap-drop ALL --cap-add NET_ADMIN \
+            --network bridge --read-only --tmpfs /tmp:rw,noexec,nosuid,size=16m \
+            phoenix-n26-held-runner:qa > /tmp/phoenix-negative.log 2>&1; then
+            echo '::error::Empty-secret execution unexpectedly succeeded'
+            exit 1
+          fi
+          grep -q '^PHOENIX_RUNNER_REFUSED$' /tmp/phoenix-negative.log
+          ! grep -q 'PHOENIX_HELD_APP_HTTP_PROOF' /tmp/phoenix-negative.log
+          echo 'EMPTY_SECRET_FAIL_CLOSED=PASS; NO_PROTECTED_BOOT_ATTEMPTED'

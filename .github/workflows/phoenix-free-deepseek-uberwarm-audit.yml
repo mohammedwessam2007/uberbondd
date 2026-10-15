@@ -1,0 +1,48 @@
+name: PHOENIX free DeepSeek UberWarm audit (no secrets)
+on:
+  push:
+    branches: [high/deepseek-uberwarm-no-secret-audit-20261016]
+    paths: [.github/workflows/phoenix-free-deepseek-uberwarm-audit.yml]
+permissions:
+  contents: read
+jobs:
+  bounded-free-model-audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Exact checkout and no-credential contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD
+          test ! -e .env
+          test ! -e .env.local
+          node -e "const c=require('fs').readFileSync('opencode.jsonc','utf8');if(!c.includes('deepseek-v4.1-flash-free')||!c.includes('deny'))process.exit(1);"
+      - name: Install official OpenCode V2 on no-secret public runner
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm install -g @opencode/cli
+          opencode --version
+      - name: Bounded zero-write review against tested existing source
+        shell: bash
+        run: |
+          set -euo pipefail
+          timeout 180s opencode run --standalone --model opencode/deepseek-v4.1-flash-free \
+            "Read only these repository files: src/uberwarm2-seed-executor.mjs, src/uberwarm2-smtp-seed-bridge.mjs, src/uberwarm2-pg-ledger.mjs, src/uberwinnr-adapter.mjs, tests/uberwarm2-live-preflight.test.mjs, docs/receipts/PHOENIX_OPENCODE_DEEPSEEK_UBERWARM_20261016.md. No file edits, network tools, shell commands, sending, credentials, database access or paid tools. Find the TWO highest-impact real unimplemented integration edges needed for safely activating one fully permissioned owner-controlled placement probe. Cite function names and exact trust dependency. Give minimal code-level suggestions and falsifiable isolated tests, no claims of live provider access or send authority. If a source fact is absent say UNKNOWN. Maximum 800 words." \
+            > "$RUNNER_TEMP/phoenix-deepseek-audit.txt" 2>&1
+          test -s "$RUNNER_TEMP/phoenix-deepseek-audit.txt"
+          sed -n '1,160p' "$RUNNER_TEMP/phoenix-deepseek-audit.txt"
+          git diff --exit-code

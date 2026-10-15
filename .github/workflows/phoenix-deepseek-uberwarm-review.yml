@@ -1,0 +1,48 @@
+name: PHOENIX DeepSeek UberWarm isolated verification
+on:
+  push:
+    branches: [deepseek/uberwarm-live-integration-20261016]
+    paths:
+      - src/uberwarm2-smtp-seed-bridge.mjs
+      - tests/uberwarm2-live-preflight.test.mjs
+      - tests/uberwarm2-pg-ledger-real.test.mjs
+      - .github/workflows/phoenix-deepseek-uberwarm-review.yml
+permissions:
+  contents: read
+jobs:
+  isolated-no-provider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Exact source identity
+        run: git rev-parse HEAD
+      - name: Verify guards, fresh bindings and real disposable PostgreSQL
+        run: >-
+          node --test --test-concurrency=1
+          tests/uberwarm2-live-preflight.test.mjs
+          tests/uberwarm2-pg-ledger-real.test.mjs
+          tests/uberwarm2-seed-executor.test.mjs
+          tests/uberwarm2-pg-ledger.test.mjs
+          tests/uberwarm2-smtp-seed-bridge.test.mjs
+          tests/uberwarm2-seed-hostile.test.mjs
+          tests/uberwarm2-donor-gap-closure.test.mjs
+          tests/uberwarm3-consent-panel.test.mjs
+          tests/uberwarm3-reputation-oracle.test.mjs
+          tests/uberwarm4-receiver-protection.test.mjs
+          tests/uberwarm4-dispatch-guard.test.mjs
+          tests/uberwarm5-capacity-bridge.test.mjs
+          tests/uberwarm6-economic-dominance.test.mjs
+          tests/reachability-ratchet.test.mjs
+      - run: git diff --exit-code

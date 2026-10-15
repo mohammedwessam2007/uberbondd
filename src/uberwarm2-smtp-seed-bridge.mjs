@@ -12,6 +12,56 @@ const UTC_TIMESTAMP = /^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:\.\d{3})?Z$/;
 const lower = v => String(v ?? '').trim().toLowerCase();
 const emailOk = v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lower(v));
 const sha = v => createHash('sha256').update(String(v)).digest('hex');
+
+/** Build executor preflights from protected, read-only observation suppliers.
+ * Suppliers must reconcile provider truth with local holds and authenticated
+ * consent before returning records. This factory does not establish their
+ * trust, load credentials, create consent, or register a production route.
+ * Missing suppliers/records, duplicate identities and stale observations deny.
+ */
+export function createUberWarm2LivePreflight({
+  readSenderHealth, readSeedConsent, clock = () => Date.now(), maxAgeMs = 300000
+} = {}) {
+  const bound = Number.isInteger(maxAgeMs) && maxAgeMs > 0 && maxAgeMs <= 300000;
+  async function current(reader, address, at, probeId) {
+    try {
+      if (!bound || typeof reader !== 'function' || typeof address !== 'string' || !emailOk(address) ||
+          !Number.isFinite(at)) return null;
+      // Copy before consuming: accessors and later mutation cannot supply two
+      // different values to the identity/freshness and safety decisions.
+      const records = structuredClone(await reader({ email: lower(address), probeId, at }));
+      if (!Array.isArray(records) || records.length !== 1) return null;
+      const row = records[0];
+      const now = clock();
+      const observed = canonicalUtcMs(row?.observedAt);
+      if (!Number.isFinite(now) || now < at || now - at > maxAgeMs || observed === null || observed > now ||
+          now - observed > maxAgeMs || lower(row.email) !== lower(address) ||
+          typeof row.evidenceRef !== 'string' || !row.evidenceRef.trim()) return null;
+      return { row, now };
+    } catch { return null; }
+  }
+  return Object.freeze({
+    async verifyCurrentSenderHealth(email, at) {
+      const result = await current(readSenderHealth, email, at);
+      const r = result?.row;
+      return !!r && r.authenticationStatus === 'AUTHENTICATED' &&
+        r.dnsAuthenticated === true && r.transportAuthorized === true &&
+        r.providerPolicyCompatible === true && r.paused === false &&
+        r.quarantined === false && r.placementQuarantine === false;
+    },
+    async verifyCurrentSeedConsent(email, probeId, at) {
+      if (typeof probeId !== 'string' || !PROBE_ID.test(probeId)) return false;
+      const result = await current(readSeedConsent, email, at, probeId);
+      const r = result?.row;
+      const expiry = canonicalUtcMs(r?.permissionExpiresAt);
+      return !!r && r.ownerControlled === true && r.receiveReady === true &&
+        r.consentToTest === true && r.withdrawn === false && r.suppressed === false &&
+        typeof r.consentEvidenceRef === 'string' && !!r.consentEvidenceRef.trim() &&
+        Array.isArray(r.probeIds) && r.probeIds.includes(probeId) &&
+        expiry !== null && expiry > result.now;
+    }
+  });
+}
 // Provider correlation compares the bracket-free, lower-cased form only.
 const normalizeMessageId = v => String(v).trim().replace(/^<|>$/g, '').toLowerCase();
 // Before transmission: nothing left the process, so the caller may retry safely.

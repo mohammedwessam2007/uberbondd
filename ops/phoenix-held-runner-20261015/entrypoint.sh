@@ -8,8 +8,8 @@ HOST='ep-soft-cake-baiahh8q.c-8.eu-central-1.aws.neon.tech'
 SHA='c1f9b4aac2278617cb0c9e04d14e29f0544dd701'
 die() { printf '%s\n' 'PHOENIX_RUNNER_REFUSED' >&2; exit 70; }
 [ "$(id -u)" = '0' ] || die
-[ "$(git -C /srv/uberbond rev-parse HEAD 2>/dev/null)" = "$SHA" ] || die
-[ -z "$(git -C /srv/uberbond status --porcelain --untracked-files=no 2>/dev/null)" ] || die
+[ "$(runuser -u node -- git -C /srv/uberbond rev-parse HEAD 2>/dev/null)" = "$SHA" ] || die
+[ -z "$(runuser -u node -- git -C /srv/uberbond status --porcelain --untracked-files=no 2>/dev/null)" ] || die
 [ -n "${DATABASE_URL:-}" ] && [ -n "${TOKEN_ENCRYPTION_KEY:-}" ] && [ -n "${ADMIN_TOKEN:-}" ] || die
 # Resolve once before lockdown. Pin the exact trusted DB hostname locally;
 # no outbound DNS is needed after the network firewall is installed.

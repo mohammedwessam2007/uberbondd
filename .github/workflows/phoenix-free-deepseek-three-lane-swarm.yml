@@ -1,0 +1,72 @@
+name: PHOENIX bounded DeepSeek UberWarm three-lane free swarm
+on:
+  push:
+    branches: [high/phoenix-free-deepseek-swarm-20261016]
+    paths: [.github/workflows/phoenix-free-deepseek-three-lane-swarm.yml]
+permissions:
+  contents: read
+concurrency:
+  group: phoenix-deepseek-swarm-20261016
+  cancel-in-progress: false
+jobs:
+  three-independent-isolated-donors:
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        lane: [R, W, P]
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify isolated no-secret model contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e .env
+          test ! -e .env.local
+          node -e "let c=JSON.parse(require('fs').readFileSync('opencode.jsonc','utf8'));if(c.model!=='opencode/deepseek-v4.1-flash-free'||!c.permissions.some(p=>p.action==='shell'&&p.effect==='deny')&&!c.permissions.some(p=>p.action==='*'&&p.effect==='deny'))process.exit(1)"
+          npm install -g @opencode/cli
+          opencode --version
+      - name: Execute one bounded donor on official free model
+        shell: bash
+        env:
+          LANE: ${{ matrix.lane }}
+        run: |
+          set -euo pipefail
+          case "$LANE" in
+            R) TARGET="src/uberwarm2-trusted-receiver-evidence-donor.mjs" ;;
+            W) TARGET="src/uberwarm2-winnr-readonly-observation-donor.mjs" ;;
+            P) TARGET="src/uberwarm2-protected-runtime-preflight-donor.mjs" ;;
+            *) exit 2 ;;
+          esac
+          touch "$TARGET"
+          export TARGET
+          node <<'NODE'
+          const fs=require('fs');
+          const cfg=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));
+          cfg.permissions.push({action:'edit',resource:process.env.TARGET,effect:'allow'});
+          fs.writeFileSync('opencode.jsonc',JSON.stringify(cfg,null,2)+'\n');
+          NODE
+          timeout 155s opencode run --standalone --auto --model opencode/deepseek-v4.1-flash-free \
+            "Read docs/receipts/PHOENIX_FREE_DEEPSEEK_SWARM_MISSIONS_20261016.md entirely, obey ALL global safety rules. You are lane $LANE only. Inspect only necessary current source imports, implement the exact one-file lane deliverable in $TARGET, <=180 lines, safe Node ESM, no shell/no provider secrets/no remote APIs/no other edits. You must WRITE THE FILE, not merely describe it. Limit response <=500 words." \
+            2>&1 | tee "$RUNNER_TEMP/deepseek-$LANE.txt"
+          test -s "$TARGET"
+          node --check "$TARGET"
+          test "$(wc -l < "$TARGET")" -le 185
+          git diff --check
+          echo "BEGIN_PHOENIX_FREE_SWARM_${LANE}_SOURCE"
+          cat "$TARGET"
+          echo "END_PHOENIX_FREE_SWARM_${LANE}_SOURCE"
+          echo "PHOENIX_NO_PROVIDER_SEND_NO_ENV_SECRET_NO_GITHUB_WRITE"

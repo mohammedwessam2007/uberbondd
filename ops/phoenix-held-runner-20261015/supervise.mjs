@@ -49,6 +49,17 @@ function awaitExit(proc, maxMs) {
   });
 }
 try {
+  // Reject broad production/provider bindings; allow exactly three
+  // protected credentials, fixed held flags and minimal OS variables.
+  const allowed = new Set([...Object.keys(required),
+    'DATABASE_URL','TOKEN_ENCRYPTION_KEY','ADMIN_TOKEN',
+    'PATH','HOME','LANG','TERM','TZ']);
+  for (const key of Object.keys(env)) {
+    if (/^(WINNR_|UBERMIND_|INFINITE_OPUS_|OPENAI_|ANTHROPIC_|SMTP_|IMAP_)/.test(key) ||
+        ['NODE_OPTIONS','LD_PRELOAD','LD_LIBRARY_PATH'].includes(key))
+      fail('FORBIDDEN_INHERITED_ENV');
+    if (!allowed.has(key)) delete env[key];
+  }
   for (const [k,v] of Object.entries(required)) if (env[k] !== v) fail('ENVIRONMENT_SCOPE');
   if (!/^[a-fA-F0-9]{64}$/.test(env.TOKEN_ENCRYPTION_KEY || '')) fail('ORIGINAL_KEY_FORMAT');
   if ((env.ADMIN_TOKEN || '').length < 32) fail('ADMIN_TOKEN_SCOPE');
@@ -105,7 +116,7 @@ try {
     'ENVIRONMENT_SCOPE','ORIGINAL_KEY_FORMAT','ADMIN_TOKEN_SCOPE','DATABASE_IDENTITY_OR_OWNER_ROLE',
     'NONROOT_APP_REQUIRED','APPLICATION_EXITED_DURING_BOOT','LOCAL_HEALTH_TIMEOUT',
     'AUTHENTICATED_SMOKE_FAILED','HTTP_PROOF_ABSENT','HTTP_PROOF_INCOMPLETE',
-    'READONLY_KEY_ADMISSION_NOT_OBSERVED'
+    'READONLY_KEY_ADMISSION_NOT_OBSERVED','FORBIDDEN_INHERITED_ENV'
   ].includes(err?.message) ? err.message : 'BOUNDED_RUNNER_EXCEPTION';
   process.exitCode = 1;
 } finally {

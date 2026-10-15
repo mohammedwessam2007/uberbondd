@@ -21,6 +21,7 @@ export function assertHeldRestoreConfig(env, cfg) {
       enabled(env.AGENT_RELAY_ENABLED) || enabled(env.PUBLIC_AUDIT_ENABLED) || !enabled(env.OUTBOUND_EMERGENCY_STOP)) refused('SIDE_EFFECT_GATES');
   if (!KEY_PATTERN.test(String(cfg.encryptionKey || '')) || String(cfg.adminToken || '').length < 32) refused('PROTECTED_KEYS_REQUIRED');
   if (enabled(env.ALLOW_TEST_PAYMENT_UNLOCK)) refused('TEST_PAYMENT_UNLOCK');
+  if (cfg.databaseSsl !== true || env.NODE_TLS_REJECT_UNAUTHORIZED === '0') refused('TLS_VERIFY_FULL_REQUIRED');
   for (const [key, value] of Object.entries(env)) {
     if (/^(WINNR_|INFINITE_OPUS_|UBERMIND_)/.test(key) &&
         /(ONCE|EXECUTE|DISPATCH|AUTOFINISH|BOOTSTRAP|LIVE_CANARY|REPLAY)/.test(key) && enabled(value))
@@ -36,14 +37,33 @@ export function assertHeldRestoreConfig(env, cfg) {
   return { host: TARGET_HOST, database: TARGET_DATABASE, onlyLoopback: true };
 }
 
-export async function verifyHeldRestoreReadOnly({ env = process.env, cfg, clientFactory } = {}) {
-  assertHeldRestoreConfig(env, cfg);
-  const client = clientFactory ? await clientFactory() : new Client({
-    connectionString: cfg.databaseUrl,
-    ssl: cfg.databaseSsl ? { rejectUnauthorized: false } : false,
+// Prevent URL query parameters and node-postgres sslmode=require from
+// replacing the verified TLS settings (pg-connection-string can override ssl).
+// Both the isolated verifier and the actual app Pool MUST use these exact
+// host-validated native connection options with CA/hostname verification.
+export function verifiedHeldPgOptions(connectionString) {
+  let uri;
+  try { uri = new URL(connectionString); } catch { refused('INVALID_DATABASE_URL'); }
+  if (!['postgres:', 'postgresql:'].includes(uri.protocol) ||
+      uri.hostname !== TARGET_HOST || decodeURIComponent(uri.pathname) !== '/' + TARGET_DATABASE ||
+      !uri.username || !uri.password || (uri.port && uri.port !== '5432') || uri.hash ||
+      [...uri.searchParams].some(([key,value]) => !((key === 'sslmode' || key === 'channel_binding') && value === 'require')))
+    refused('ISOLATED_DATABASE_IDENTITY');
+  return {
+    host: TARGET_HOST,
+    port: Number(uri.port || 5432),
+    database: TARGET_DATABASE,
+    user: decodeURIComponent(uri.username),
+    password: decodeURIComponent(uri.password),
+    ssl: { rejectUnauthorized: true, servername: TARGET_HOST },
     connectionTimeoutMillis: 15000,
     statement_timeout: 10000
-  });
+  };
+}
+
+export async function verifyHeldRestoreReadOnly({ env = process.env, cfg, clientFactory } = {}) {
+  assertHeldRestoreConfig(env, cfg);
+  const client = clientFactory ? await clientFactory() : new Client(verifiedHeldPgOptions(cfg.databaseUrl));
   let began = false;
   try {
     await client.connect();

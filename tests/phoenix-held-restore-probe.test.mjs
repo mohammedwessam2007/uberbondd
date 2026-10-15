@@ -1,7 +1,8 @@
+import fs from 'node:fs';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { encryptJson } from '../src/crypto.mjs';
-import { assertHeldRestoreConfig, heldRestoreRequestAllowed, verifyHeldRestoreReadOnly } from '../src/phoenix-held-restore-probe.mjs';
+import { assertHeldRestoreConfig, heldRestoreRequestAllowed, verifyHeldRestoreReadOnly, verifiedHeldPgOptions } from '../src/phoenix-held-restore-probe.mjs';
 
 const goodUrl = 'postgresql://readonly:password@ep-soft-cake-baiahh8q.c-8.eu-central-1.aws.neon.tech:5432/uberbond_phoenix_rehearsal_20261014_v2';
 const env = Object.freeze({ PHOENIX_HELD_RESTORE_PROBE:'1', OUTBOUND_EMERGENCY_STOP:'true' });
@@ -87,4 +88,33 @@ test('read-only verified restored app probe passes with zero provider calls or d
   assert.equal(result.ok,true);assert.equal(result.tokenAccountCount,6);
   assert.equal(result.workerStarted,false);assert.equal(result.outboundAuthority,false);
   assert.equal(result.dataWritten,0);assert.equal(result.providerCalls,0);assert.equal(f.rolledBack,true);
+});
+
+
+test('held actual wrapper suppresses every unrelated entrypoint block and forbids public fetches', () => {
+  const source=fs.readFileSync(new URL('../server.mjs',import.meta.url),'utf8');
+  assert.match(source,/globalThis\.fetch\s*=\s*async\s*\(\)\s*=>\s*\{ throw new Error\('PHOENIX_HELD_RESTORE_EXTERNAL_FETCH_REFUSED'\)/);
+  const entrypointTail=source.slice(source.indexOf('if (wrapperIsEntryPoint) process.argv[1]'));
+  for (const line of entrypointTail.split('\n').filter(line=>/^if \(wrapperIsEntryPoint/.test(line) && !line.includes('process.argv[1]'))) {
+    assert.match(line,/!wrapperHeldRestoreProbe/,line);
+  }
+  assert.equal(source.includes('if (wrapperIsEntryPoint) {'),false,'unconditional startup block forbidden');
+});
+
+test('held verifier and actual app pool use pinned CA-verified host, never sslmode-override', () => {
+  const options=verifiedHeldPgOptions(goodUrl+'?sslmode=require');
+  assert.equal(options.host,'ep-soft-cake-baiahh8q.c-8.eu-central-1.aws.neon.tech');
+  assert.deepEqual(options.ssl,{rejectUnauthorized:true,servername:options.host});
+  assert.equal('connectionString' in options,false,'pg URL query must not be handed to pg');
+  assert.throws(()=>verifiedHeldPgOptions(goodUrl+'?sslmode=disable'),/ISOLATED_DATABASE_IDENTITY/);
+  const source=fs.readFileSync(new URL('../src/store.mjs',import.meta.url),'utf8');
+  assert.match(source,/process\.env\.PHOENIX_HELD_RESTORE_PROBE === '1'/);
+  assert.match(source,/heldRestoreOptions\s*\?\s*\{ \.\.\.heldRestoreOptions, max: 10 \}/);
+  assert.match(fs.readFileSync(new URL('../src/phoenix-held-restore-probe.mjs',import.meta.url),'utf8'),
+    /new Client\(verifiedHeldPgOptions\(cfg.databaseUrl\)\)/);
+});
+
+test('held probe rejects insecure TLS and Node-wide disabled certificate checks', () => {
+  assert.throws(()=>assertHeldRestoreConfig(env,{...cfg,databaseSsl:false}),/TLS_VERIFY_FULL_REQUIRED/);
+  assert.throws(()=>assertHeldRestoreConfig({...env,NODE_TLS_REJECT_UNAUTHORIZED:'0'},cfg),/TLS_VERIFY_FULL_REQUIRED/);
 });

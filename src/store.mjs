@@ -2,6 +2,7 @@ import crypto from 'node:crypto';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Pool } from 'pg';
+import { verifiedHeldPgOptions } from './phoenix-held-restore-probe.mjs';
 import { now } from './utils.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
 import { assertDirectMigrationConnection } from './postgres-migration-connection.mjs';
@@ -740,7 +741,14 @@ function reportIdlePoolClientError(error) {
 export class PostgresStore {
   constructor({ databaseUrl, ssl = true, pool, transactionClient = false, migrationsDir } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
-    this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
+    // The N26 restored-app probe must never inherit the legacy normal-runtime
+    // TLS configuration that intentionally disables hostname verification.
+    // The protected path uses host-pinned options and verified CA TLS.
+    const heldRestoreOptions = process.env.PHOENIX_HELD_RESTORE_PROBE === '1' && !pool
+      ? verifiedHeldPgOptions(databaseUrl) : null;
+    this.pool = pool || new Pool(heldRestoreOptions
+      ? { ...heldRestoreOptions, max: 10 }
+      : { connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
     // pg-pool re-emits a connection error from an idle client on the pool. With no listener that is an uncaught exception,
     // so a server terminating an idle connection (restart, admin shutdown, idle timeout) would stop the process. The pool

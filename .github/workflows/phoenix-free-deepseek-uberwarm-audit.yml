@@ -1,4 +1,4 @@
-name: PHOENIX free DeepSeek UberWarm safe engineering (no secrets)
+name: PHOENIX free DeepSeek one-module implementation (no secrets)
 on:
   push:
     branches: [high/deepseek-uberwarm-no-secret-audit-20261016]
@@ -6,9 +6,9 @@ on:
 permissions:
   contents: read
 jobs:
-  bounded-free-model-implementation:
+  model-one-file-bounded:
     runs-on: ubuntu-latest
-    timeout-minutes: 12
+    timeout-minutes: 6
     env:
       NODE_ENV: test
       UBERBOND_EFFECTS_DISABLED: '1'
@@ -17,53 +17,33 @@ jobs:
       CI: 'true'
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+        with: { persist-credentials: false }
       - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-      - name: Verify no secret files or external effect authority
+        with: { node-version: '22' }
+      - name: Install exact free model client
         shell: bash
         run: |
           set -euo pipefail
-          git rev-parse HEAD
           test ! -e .env
           test ! -e .env.local
-          node -e "const fs=require('fs');const c=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));if(c.model!=='opencode/deepseek-v4.1-flash-free')process.exit(1);"
-      - name: Install official OpenCode V2 and dependencies
-        shell: bash
-        run: |
-          set -euo pipefail
           npm install -g @opencode/cli
-          npm ci --ignore-scripts
           opencode --version
-      - name: Give free DeepSeek ONLY isolated two-file write access
+      - name: Author one narrowly scoped donor, no provider effects
         shell: bash
         run: |
           set -euo pipefail
           touch src/uberwarm2-trusted-health-supplier.mjs
-          touch tests/uberwarm2-trusted-health-supplier.test.mjs
           node <<'NODE'
           const fs=require('fs');
           const c=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));
           c.permissions.push({action:'edit',resource:'src/uberwarm2-trusted-health-supplier.mjs',effect:'allow'});
-          c.permissions.push({action:'edit',resource:'tests/uberwarm2-trusted-health-supplier.test.mjs',effect:'allow'});
           fs.writeFileSync('opencode.jsonc',JSON.stringify(c,null,2)+'\n');
           NODE
-          timeout 235s opencode run --standalone --model opencode/deepseek-v4.1-flash-free \
-            "On this already-reviewed UberWarm branch, IMPLEMENT only src/uberwarm2-trusted-health-supplier.mjs and tests/uberwarm2-trusted-health-supplier.test.mjs. Read AGENTS.md, src/uberwinnr-adapter.mjs, src/uberwarm2-smtp-seed-bridge.mjs, src/uberwarm2-seed-executor.mjs, tests/uberwarm2-live-preflight.test.mjs. You may EDIT only the two new files, not other source or config. Build a fail-closed read-only current sender-health adapter for createUberWarm2LivePreflight.readSenderHealth. It must accept injected protected provider client (existing Winnr getMailbox/getDnsStatus), trusted current SMTP-auth/transport health reader, trusted local sender hold/quarantine reader, trusted verified alignment evidence reader and clock. Never infer AUTHENTICATED from provider Active or DNS record presence alone; never clear a hold; never mutate Winnr. Return exactly one canonical row when ALL independent evidence is current, exact sender+domain bound and healthy; otherwise zero rows. No credentials, network calls by tests, side-effects, payment, production routing. Provide unit tests for healthy exact sender, stale provider, DNS mismatch, missing verified transport, hold flips, cross-sender poisoning, no providers, duplicate identity and failure. Model must not attempt real send or run shell. The branch is an isolated donor. Keep code concise, comprehensible, and testable on Node 22." \
-            > "$RUNNER_TEMP/free-deepseek-implementation.txt" 2>&1
+          timeout 150s opencode run --standalone --auto --model opencode/deepseek-v4.1-flash-free \
+            "Read src/uberwarm2-smtp-seed-bridge.mjs and src/uberwinnr-adapter.mjs. Write ONLY a NEW src/uberwarm2-trusted-health-supplier.mjs (max 125 lines) exporting a factory createUberWarm2TrustedHealthSupplier({ readProviderMailbox, readProviderDomainDns, readVerifiedSmtp, readLocalHold, readVerifiedDnsAlignment, clock }). It must return an async readSenderHealth({email,at}) array exactly one canonical observation row for use in createUberWarm2LivePreflight. Keep all inputs injected as trusted protected read callbacks, each called fresh; don't import WinNr keys or connect to any API; never infer SMTP AUTH from provider Active nor DKIM alignment from DNS record presence; require signed/evidence-backed fresh transport+DNS, explicit no-hold local record and exact matching sender/domain, fail closed to [] on any ambiguity, stale values or errors. No live provider effects, no shell, no other file edits, no billing, no messages. Keep code concise and syntax-valid. Do not produce narration instead of code. No need to author tests in this run." \
+            2>&1 | tee "$RUNNER_TEMP/deepseek-onefile.txt"
           test -s src/uberwarm2-trusted-health-supplier.mjs
-          test -s tests/uberwarm2-trusted-health-supplier.test.mjs
           node --check src/uberwarm2-trusted-health-supplier.mjs
-          node --test tests/uberwarm2-trusted-health-supplier.test.mjs
-          git diff --check
-          git status --short
-          # Generated files remain untracked; log source for independent review,
-          # do not give model a writable GitHub token or publish unsafe code.
-          echo "::group::Source candidate, no provider access"
-          sed -n '1,330p' src/uberwarm2-trusted-health-supplier.mjs
-          echo "::endgroup::"
-          echo "::group::Unit tests, synthetic-only"
-          sed -n '1,340p' tests/uberwarm2-trusted-health-supplier.test.mjs
+          echo "::group::Unverified one-file donor (do not merge yet)"
+          sed -n '1,160p' src/uberwarm2-trusted-health-supplier.mjs
           echo "::endgroup::"

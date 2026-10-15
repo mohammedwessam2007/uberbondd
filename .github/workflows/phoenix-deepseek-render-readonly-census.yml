@@ -1,0 +1,49 @@
+name: PHOENIX free DeepSeek Render source-current diagnostic donor
+on:
+  push:
+    branches: [high/phoenix-render-source-census-deepseek-20261016]
+    paths: [.github/workflows/phoenix-deepseek-render-readonly-census.yml]
+permissions:
+  contents: read
+jobs:
+  generate-isolated-read-only-source-donor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Install free coding model without secrets
+        run: |
+          set -euo pipefail
+          test ! -e .env
+          test ! -e .env.local
+          npm install -g @opencode/cli
+          opencode --version
+      - name: Generate safe strictly read-only source census donor
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p ops/phoenix-continuity-20261014
+          touch ops/phoenix-continuity-20261014/source_census_donor.py
+          node <<'NODE'
+          const fs=require('fs');
+          const p='ops/phoenix-continuity-20261014/source_census_donor.py';
+          const c=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));
+          c.permissions.push({action:'edit',resource:p,effect:'allow'});
+          fs.writeFileSync('opencode.jsonc',JSON.stringify(c,null,2)+'\n');
+          NODE
+          timeout 160s opencode run --standalone --auto --model opencode/deepseek-v4.1-flash-free \
+            "PHOENIX CRITICAL: inspect ops/phoenix-continuity-20261014/continuity.py, rescue.py, APPROVAL_SCOPE.md, tests, Render helper source only. WRITE EXACTLY ONE NEW FILE ops/phoenix-continuity-20261014/source_census_donor.py, max 180 lines, Python 3.11. It is an unconnected SAFE DONOR for existing free same-region private Render helper, not a deploy or automatic operation. Export census_source_readonly(source_connection, baseline_receipt=None, approval=None, reviewed_source_sha=None, clock=None). Require exact signed/verified scoped approval passed by trusted caller (approvalVerified=True + exact expiry/scope and pinned reviewed_sha), but do not implement unauthenticated string-equals-approval as valid release. Query SOURCE connection ONLY inside REPEATABLE READ READ ONLY, never writes, no SET ROLE escalation or network connection creation. Use existing rescue.py inventory, fingerprints and sequence data against source; no raw table rows, PII, tokens, URLs, env strings or source credentials in output/logs. Return only aggregate table/row counts and SHA256 catalog/fingerprint/sequence digest and snapshot time plus a truth boundary: this is point-in-time source census, cannot alone prove absence of later writes or activate Neon cutover. If baseline private archived reference receipt present, compare only trusted raw fingerprint digests from protected caller, never synthetic pass. No target restore, archive append, new DB, sender or mail. Refuse if source SQL transaction not read-only or approval unverified. No credential use, shell, email or provider changes; no other file edits. Do not produce a plan; write valid Python." \
+            2>&1 | tee "$RUNNER_TEMP/render-census-donor.log"
+          test -s ops/phoenix-continuity-20261014/source_census_donor.py
+          python -m py_compile ops/phoenix-continuity-20261014/source_census_donor.py
+          echo BEGIN_PHOENIX_SOURCE_CENSUS_DONOR
+          cat ops/phoenix-continuity-20261014/source_census_donor.py
+          echo END_PHOENIX_SOURCE_CENSUS_DONOR

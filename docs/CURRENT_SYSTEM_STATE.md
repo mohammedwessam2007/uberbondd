@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-15**
 Branch: `high/phoenix-held-restore-app-20261015`
-Reconciled from current head: `99590b166ab13b8c2f5bd837f66b08f4b96cc076`
+Reconciled from current head: `ab1e8b04a365ff2ec66c45023a4f96174cd48208`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

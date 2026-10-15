@@ -1,0 +1,3 @@
+# Byte-pinned retired-guard snapshot: tests/r3-candidate-reconciliation.test.mjs pins its sha256,
+# so its captured bytes (including a trailing-whitespace line) must not be rewritten.
+tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt -whitespace

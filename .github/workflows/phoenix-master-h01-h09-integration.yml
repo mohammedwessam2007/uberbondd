@@ -1,0 +1,25 @@
+name: PHOENIX H01 H09 integrated release no-send checks
+on:
+  push:
+    branches:
+      - high/phoenix-master-h01-h09-integrated-20261015
+permissions:
+  contents: read
+jobs:
+  inbound-plus-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Verify JS syntax and safe inbound regression
+        run: |
+          node --check src/uberimap.mjs
+          node --check src/pipeline.mjs
+          node --test tests/inbound-review-hostile.test.mjs tests/winnr-reply-radar.test.mjs

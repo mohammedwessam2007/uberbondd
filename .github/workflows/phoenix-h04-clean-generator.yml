@@ -1,0 +1,37 @@
+name: PHOENIX H04 clean candidate generate
+on:
+  push:
+    branches:
+      - high/phoenix-master-h01-h04-final-clean-20261015
+permissions:
+  contents: write
+jobs:
+  official-canon:
+    if: github.event.head_commit.message == 'PHOENIX H04 clean regenerate'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Official generated source-bound artifacts
+        run: |
+          UBERBOND_CANONICAL_BRANCH=main npm run readiness
+          npm run constitution:doctor
+          git diff --check
+          git add docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          test "$(git diff --cached --name-only | wc -l)" -eq 3
+          git config user.name 'PHOENIX High bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(readiness): compile clean double-guard source'
+      - name: Verify hostile case and official source freshness
+        run: |
+          node --test tests/phoenix-h04-machine-human-boundary.test.mjs tests/inbound-review-hostile.test.mjs tests/inbound-reply-intelligence.test.mjs
+          node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Push only independent branch
+        run: git push origin HEAD:refs/heads/high/phoenix-master-h01-h04-final-clean-20261015

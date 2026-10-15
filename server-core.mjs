@@ -8,6 +8,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { config, validateStartupConfig } from './src/config.mjs';
+import { verifyHeldRestoreReadOnly, heldRestoreRequestAllowed } from './src/phoenix-held-restore-probe.mjs';
 import { createStore, ConflictError, StoreError } from './src/store.mjs';
 import { Pipeline } from './src/pipeline.mjs';
 import { RevenueEngine } from './src/revenue.mjs';
@@ -66,6 +67,7 @@ import { buildEncryptedSmtpAccount, selectFleetMailbox } from './src/uberfleet.m
 import { buildEncryptedImapAccount } from './src/uberimap.mjs';
 import { createUberMaildosoAdapter } from './src/ubermaildoso.mjs';
 import { createWinnrApiClient } from './src/uberwinnr-adapter.mjs';
+import { createWinnrInfrastructureAdapter } from './src/uberwinnr-provider-adapter.mjs';
 import { compileWinnrProcurementFrontier } from './src/uberwinnr-procurement-frontier.mjs';
 import { compileWinnrCredentialImport } from './src/uberwinnr-credential-import.mjs';
 import { compileWinnrPostPurchaseRegistryPlan, applyWinnrPostPurchaseRegistryPlan } from './src/uberwinnr-postpurchase.mjs';
@@ -87,9 +89,18 @@ class HttpError extends Error {
 }
 
 validateStartupConfig(config);
+const phoenixHeldRestore = process.env.PHOENIX_HELD_RESTORE_PROBE === '1';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const store = createStore(config);
-await store.init();
+if (phoenixHeldRestore) {
+  // Provenance-bound restore verification never runs migrations or a worker.
+  // This independently requires a true SELECT-only role, target identity,
+  // original-key compatibility and an isolated restored schema.
+  const heldAdmission = await verifyHeldRestoreReadOnly({ env: process.env, cfg: config });
+  console.info('PHOENIX_HELD_RESTORE_ADMISSION', JSON.stringify(heldAdmission));
+} else {
+  await store.init();
+}
 const phoenixRuntimeDoctor = await runPhoenixRuntimeDoctor(store);
 console.info('PHOENIX_RUNTIME_DOCTOR',JSON.stringify(phoenixRuntimeDoctor));
 const queue = new DurableQueue(store, config, console);
@@ -124,6 +135,13 @@ const winnr = createWinnrApiClient({
   authorized: config.providers?.winnr?.accountAuthorized === true,
   termsCompatible: config.providers?.winnr?.termsCompatible === true,
   evidenceRef: config.providers?.winnr?.termsEvidenceRef || ''
+});
+// Owner-approval wrapper for consequential Winnr routes; it refuses before any client call.
+const winnrProvider = createWinnrInfrastructureAdapter({
+  apiKey: config.providers?.winnr?.apiKey || '',
+  accountAuthorized: config.providers?.winnr?.accountAuthorized === true,
+  termsCompatible: config.providers?.winnr?.termsCompatible === true,
+  termsEvidenceRef: config.providers?.winnr?.termsEvidenceRef || ''
 });
 
 const baseHeaders = {
@@ -1204,6 +1222,8 @@ export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
     const method = req.method;
+    if (phoenixHeldRestore && !heldRestoreRequestAllowed(method, url))
+      return json(res, 403, { ok: false, error: 'HELD_RESTORE_READ_ONLY_ROUTES_ONLY' });
     if (parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE]) {
       // Device logout survives web restarts. Failure to read revocations never
       // resurrects a cookie by falling back to process-local memory.
@@ -2093,12 +2113,16 @@ export const requestHandler = async (req, res) => {
       if (!winnr?.ok) return json(res, 503, winnrUnavailable());
       const input = await parseBody(req);
       if (input.confirmCredentialExport !== true) throw new HttpError(400, 'confirmCredentialExport must be true');
-      const result = await winnr.exportMailboxes({
-        format: input.format || 'default',
-        domains: Array.isArray(input.domains) ? input.domains : [],
-        emails: Array.isArray(input.emails) ? input.emails : [],
-        allDomains: input.allDomains === true,
-        writeAuthorized: true
+      // Owner approval is checked by the provider wrapper before any Winnr client call.
+      // An export is zero-spend, so the approval must state spendLimitCents: 0.
+      const result = await winnrProvider.exportMailboxes({
+        body: {
+          format: input.format || 'default',
+          domains: Array.isArray(input.domains) ? input.domains : [],
+          emails: Array.isArray(input.emails) ? input.emails : [],
+          allDomains: input.allDomains === true
+        },
+        ownerApproval: input.ownerApproval ?? null
       });
       return json(res, result.ok ? 200 : result.status === 'UBERWINNR_WRITE_OUTCOME_UNCERTAIN' ? 409 : 400, result);
     }
@@ -2200,8 +2224,17 @@ export const requestHandler = async (req, res) => {
     const maildosoMutationMatch = url.pathname.match(/^\/api\/providers\/maildoso\/mutate\/([^/]+)$/);
     if (method === 'POST' && maildosoMutationMatch) {
       const input = await parseBody(req);
+      // A supplied estimate must be a non-negative integer; an absent one is forwarded as null and refused by the adapter.
+      const estimatedCostCents = input.estimatedCostCents ?? null;
+      if (estimatedCostCents !== null && !(Number.isSafeInteger(estimatedCostCents) && estimatedCostCents >= 0)) {
+        return json(res, 400, {
+          ok: false, status: 'UBERMAILDOSO_MUTATION_REFUSED',
+          reasonCodes: ['estimated-cost-cents-must-be-non-negative-integer'],
+          providerCalls: 0, externalEffects: 0
+        });
+      }
       const result = await maildoso.mutate(decodeURIComponent(maildosoMutationMatch[1]), {
-        body: input.body, params: input.params, query: input.query, approval: input.approval
+        body: input.body, params: input.params, query: input.query, approval: input.approval, estimatedCostCents
       });
       return json(res, result.ok ? 200 : (result.status === 'UBERMAILDOSO_NOT_CONFIGURED' ? 503 : result.status === 'UBERMAILDOSO_MUTATION_OUTCOME_UNCERTAIN' ? 409 : 400), result);
     }
@@ -2474,10 +2507,12 @@ export default requestHandler;
 const server = http.createServer(requestHandler);
 const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
 if (isEntryPoint) {
-  server.listen(config.port, () => {
+  const onListening = () => {
     console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`);
-    console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env)));
-  });
+    if (!phoenixHeldRestore) console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env)));
+  };
+  if (phoenixHeldRestore) server.listen(config.port, '127.0.0.1', onListening);
+  else server.listen(config.port, onListening);
 }
 
 let shuttingDown = false;

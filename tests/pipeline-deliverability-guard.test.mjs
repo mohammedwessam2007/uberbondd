@@ -133,14 +133,18 @@ test('ALLOW_LOCAL_PREPARATION alone cannot cause a send while the structural kil
   assert.equal(decisions[0].detail.decision, 'ALLOW_LOCAL_PREPARATION', 'the guard itself must admit local preparation even though the separate structural kill switch still blocks the actual send');
 });
 
-test('a fully eligible action reaches the provider exactly once, with both an admission and a final-recheck receipt', async () => {
+test('a fully eligible Gmail-route action is refused before the provider without an authorization package, after both admission and final-recheck receipts', async () => {
   const store = await connectedStore();
   await store.upsert('campaigns', baseCampaign());
   await store.add('prospects', { ...baseProspect(), status: 'ready', createdAt: monday.toISOString() });
   const { pipeline, sends } = spyPipeline(store, baseCfg());
   const result = await pipeline.maybeSend(baseProspect(), baseCampaign());
-  assert.equal(result.sent, true);
-  assert.equal(sends(), 1);
+  // Deliberate change: this test previously asserted a provider send with no authorization package. The guard still allows
+  // local preparation and both receipts are still written. The Gmail route now refuses before the provider call.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.deepEqual(result.reasonCodes, ['OUTBOUND_AUTHORIZATION_PACKAGE_MISSING']);
+  assert.equal(sends(), 0);
   const decisions = await guardDecisions(store);
   assert.equal(decisions.length, 2);
   assert.deepEqual(decisions.map(d => d.detail.phase).sort(), ['admission', 'final-recheck']);
@@ -391,8 +395,10 @@ test('V5 offer campaign can pass its extra gate only with legal evidence, prepar
   await store.add('prospects', { ...prospect, status: 'ready', createdAt: monday.toISOString() });
   const { pipeline, sends } = spyPipeline(store, baseCfg());
   const result = await pipeline.maybeSend(prospect, campaign);
-  assert.equal(result.sent, true);
-  assert.equal(sends(), 1);
+  // Deliberate change: the uberreply gate still passes, but the Gmail route refuses before the provider without a package.
+  assert.equal(result.sent, false);
+  assert.equal(result.reason, 'outbound-authorization-refused');
+  assert.equal(sends(), 0);
   const gateLogs = (await store.list('auditLog')).filter(entry => entry.type === 'uberreply_v5_pre_send_gate');
   assert.equal(gateLogs.length, 1);
   assert.equal(gateLogs[0].detail.state, 'UBERREPLY_PRE_SEND_GATE_PASSED');

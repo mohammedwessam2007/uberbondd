@@ -6,13 +6,15 @@ import path from 'node:path';
 import { createUberMailAgentApi } from '../src/ubermail-agent-api.mjs';
 import { createUberMailAgentHttp } from '../src/ubermail-agent-http.mjs';
 import { createFileUberMailRepository } from '../src/ubermail-file-repository.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 function approval(){return{granted:true,grantedBy:'owner:test',scope:['ubermail:send'],expiresAt:'2035-01-01T00:00:00.000Z'};}
 async function setup(){
   const dir=await fs.mkdtemp(path.join(os.tmpdir(),'ubermail-test-'));
   const repo=createFileUberMailRepository({filePath:path.join(dir,'state.json')});
   const sends=[];
-  const api=createUberMailAgentApi({repository:repo,now:()=>new Date('2026-09-19T00:00:00Z'),webhookMasterSecret:'master',domainVerifier:async()=>({verified:true,records:[]}),sendTransport:async p=>{sends.push(p);return{ok:true,providerReferenceId:'postal-http-'+sends.length};}});
+  // Positive-path route: a declared smtp-relay route plus a package the test helper builds for the exact message the API gate receives.
+  const api=createUberMailAgentApi({repository:repo,now:()=>new Date('2026-09-19T00:00:00Z'),webhookMasterSecret:'master',domainVerifier:async()=>({verified:true,records:[]}),sendTransport:async p=>{sends.push(p);return{ok:true,providerReferenceId:'postal-http-'+sends.length};},outboundRoute:{provider:'smtp-relay',authorized:true,termsCompatible:true},outboundAuthorizationFn:async({account,message})=>validRoutePackage({account,message}),outboundConsentVerifier:ALLOW_CONSENT});
   const root=await api.bootstrapRootKey();
   const http=createUberMailAgentHttp({api});
   const headers={authorization:'Bearer '+root.api_key};

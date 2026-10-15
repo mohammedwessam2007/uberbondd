@@ -132,10 +132,18 @@ test('a receipt written before the writer carried money still reconciles', async
 });
 
 test('a non-USD payment records its own currency, not a default', async () => {
-  const { store } = await clearedPayment({ totalCents: 3000, currency: 'EUR' });
+  const { store, lead } = await clearedPayment({ totalCents: 3000, currency: 'EUR', expect: 'REVIEW_REQUIRED' });
   const [receipt] = await receipts(store);
   assert.equal(receipt.detail.currency, 'EUR');
   assert.equal(receipt.detail.amountCents, 3000);
+  assert.equal(receipt.detail.classification, 'REVIEW_REQUIRED');
+  assert.ok(receipt.detail.reasonCodes.includes('provider-currency-price-unverified'));
+  assert.equal((await store.get('leads', lead.id)).paymentStatus, 'unpaid');
+  assert.equal((await store.get('leads', lead.id)).plan, 'free');
+  assert.deepEqual(await store.list('revenueEvents'), []);
+  const truth = await reconcilePaymentRenewalTruthFromStore(store, { leadId: lead.id });
+  assert.equal(truth.economics.netProviderClearedRevenueCents, 0);
+  assert.notEqual(truth.status, 'PROVIDER_CLEARED_PAYMENT_PROVEN');
 });
 
 test('a lowercase provider currency fails closed rather than clearing', async () => {

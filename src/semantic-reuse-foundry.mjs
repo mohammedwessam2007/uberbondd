@@ -71,7 +71,7 @@ export function compileVerifiedSemanticCanonicalizer({
     }
     const parent=new Map([...byId.keys()].map(id=>[id,id]));
     const find=x=>{while(parent.get(x)!==x){parent.set(x,parent.get(parent.get(x)));x=parent.get(x);}return x;};
-    const union=(a,b)=>{a=find(a);b=find(b);if(a!==b)parent.set(b,a);};
+    const union=(a,b)=>{a=find(a);b=find(b);if(a!==b)parent.set(a,b);};
     for(const receipt of rewriteReceipts){
       if(!exact(receipt)||typeof receipt.id!=='string'||!receipt.id||!byId.has(receipt.from)||!byId.has(receipt.to))throw new Error('known-rewrite-endpoints-required');
       const pin=rewriteTrustPins[receipt.id];
@@ -86,8 +86,15 @@ export function compileVerifiedSemanticCanonicalizer({
     const classes=new Map();
     for(const id of byId.keys()){const root=find(id);const members=classes.get(root)??[];members.push(id);classes.set(root,members);}
     const canonicalById=new Map();
+    // The union-find root depends on the order receipts arrived in, so it is never the canonical identity. A class is
+    // represented by its single directed rewrite target (a member that receipts point to and none leave), as E2 receipts
+    // direct. A class with no single target (a cycle, or several targets) is represented by its lexicographic minimum.
+    // Both rules read only the set of receipts, so the result is the same for every arrival order.
+    const rewriteFrom=new Set(rewriteReceipts.map(receipt=>receipt.from)),rewriteTo=new Set(rewriteReceipts.map(receipt=>receipt.to));
     for(const members of classes.values()){
-      members.sort();const canonical=members[0];
+      members.sort();
+      const targets=members.filter(id=>rewriteTo.has(id)&&!rewriteFrom.has(id));
+      const canonical=(targets.length?targets:members)[0];
       for(const id of members)canonicalById.set(id,canonical);
     }
     const canonicalizerHash=hash({

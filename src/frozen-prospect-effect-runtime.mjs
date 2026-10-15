@@ -3,13 +3,15 @@
 // OUTBOUND_ENABLED / OUTBOUND_DRY_RUN stay untouched.
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { dispatchSmtpFleetAccount, openSmtpAccountCredential } from './uberfleet.mjs';
+import { gateOutboundRoute, OUTBOUND_AUTHORIZATION_PACKAGE_MISSING } from './outbound-send-authorization.mjs';
 
 const canonical = x => Array.isArray(x) ? x.map(canonical) : x && typeof x === 'object'
   ? Object.fromEntries(Object.keys(x).sort().filter(k => x[k] !== undefined).map(k => [k, canonical(x[k])])) : x;
 const sha = x => createHash('sha256').update(JSON.stringify(canonical(x))).digest('hex');
 const authKey = digest => `frozenProspectAuthorization:${digest}`;
 const executionKey = digest => `frozenProspectExecution:${digest}`;
-const executionClaimed = (settings, digest) => Boolean(settings[executionKey(digest)]);
+// A NOT_SENT release crossed no provider boundary, so it no longer counts as a consumed one-use effect.
+const executionClaimed = (settings, digest) => Boolean(settings[executionKey(digest)]) && settings[executionKey(digest)].status !== 'NOT_SENT';
 const deny = (code, extra = {}) => ({ ok: false, state: 'NOT_SENT', reason: code, providerCalls: 0, dispatchAdapterCalls: 0, sendAuthority: false, ...extra });
 const exactEmail = value => String(value || '').trim().toLowerCase();
 const safeHexEqual = (a, b) => {
@@ -21,7 +23,7 @@ const deterministicMessageId = (digest, senderAddress) => {
   return `<ubf-${String(digest || '').slice(0, 56)}@${domain}>`;
 };
 
-export function verifyFrozenProspectAuthorization({ record, digest, participants, secret, now = new Date() } = {}) {
+export function verifyFrozenProspectAuthorization({ record, digest, participants, secret, now = new Date(), senderAddress, routeDigest } = {}) {
   if (!record || record.schemaVersion !== 'uberbond.frozen-effect-authorization.v1') return { ok: false, reason: 'authorization-record-missing-or-invalid' };
   const { signature, ...base } = record;
   const expected = createHmac('sha256', String(secret || '')).update(JSON.stringify(canonical(base))).digest('hex');
@@ -31,11 +33,13 @@ export function verifyFrozenProspectAuthorization({ record, digest, participants
     effectDigest: digest,
     recipient: exactEmail(participants?.recipient),
     senderSlot: String(participants?.sender?.slot || ''),
-    senderAddress: String(record.senderAddress || ''),
     provider: String(participants?.provider || '').toLowerCase(),
-    routeClass: String(route.routeClass || ''),
-    routeDigest: String(record.routeDigest || '')
+    routeClass: String(route.routeClass || '')
   };
+  // The signature covers the record's own bytes. The sender and route binding is checked against the live values only when
+  // the caller supplies them, so a valid signature alone never proves the record names this sender or this route.
+  if (senderAddress !== undefined) checks.senderAddress = exactEmail(senderAddress);
+  if (routeDigest !== undefined) checks.routeDigest = String(routeDigest || '');
   for (const [field, expectedValue] of Object.entries(checks)) {
     if (record[field] !== expectedValue) return { ok: false, reason: `authorization-${field}-mismatch` };
   }
@@ -43,28 +47,6 @@ export function verifyFrozenProspectAuthorization({ record, digest, participants
   if (!Number.isFinite(Date.parse(record.expiresAt)) || Date.parse(record.expiresAt) <= +new Date(now)) return { ok: false, reason: 'authorization-expired' };
   if (Date.parse(record.expiresAt) > Date.parse(participants.expiresAt)) return { ok: false, reason: 'authorization-outlives-effect' };
   return { ok: true, authorizationDigest: sha(base), effectCap: 1 };
-}
-
-function makeAuthorization({ digest, participants, routeDigest, senderAddress, secret, approverId, now }) {
-  const at = new Date(now);
-  const effectExpiry = Date.parse(participants.expiresAt);
-  const expiresAt = new Date(Math.min(effectExpiry, at.getTime() + 24 * 60 * 60 * 1000)).toISOString();
-  const base = {
-    schemaVersion: 'uberbond.frozen-effect-authorization.v1',
-    effectDigest: digest,
-    recipient: exactEmail(participants.recipient),
-    senderSlot: String(participants.sender.slot),
-    senderAddress: exactEmail(senderAddress),
-    provider: String(participants.provider).toLowerCase(),
-    routeClass: String(participants.route.routeClass),
-    routeDigest: String(routeDigest || ''),
-    effectCap: 1,
-    approvedBy: String(approverId || '').trim(),
-    approvedAt: at.toISOString(),
-    expiresAt
-  };
-  if (!base.approvedBy) return null;
-  return { ...base, signature: createHmac('sha256', String(secret)).update(JSON.stringify(canonical(base))).digest('hex') };
 }
 
 function checkPreflight(result, digest, participants, { requireAuthorization = false } = {}) {
@@ -88,7 +70,8 @@ function checkPreflight(result, digest, participants, { requireAuthorization = f
 
 export async function executeFrozenProspectEffect({
   store, digest, secret, approvalSecret, approverId, encryptionKey, validate,
-  dispatch = dispatchSmtpFleetAccount, now = new Date(), thresholds = {}, canaryMinGapSeconds = 0
+  dispatch = dispatchSmtpFleetAccount, now = new Date(), thresholds = {}, canaryMinGapSeconds = 0,
+  outboundAuthorization = null, consentVerifier = undefined, authorization = null
 } = {}) {
   if (!/^[a-f0-9]{64}$/.test(digest || '')) return deny('frozen-effect-digest-invalid');
   if (typeof secret !== 'string' || secret.length < 32) return deny('frozen-effect-secret-unavailable');
@@ -127,25 +110,50 @@ export async function executeFrozenProspectEffect({
   const senderSlot = String(participants.sender.slot);
   const routeDigest = String(preflight.globalRoute.routeDigest || '');
   const timestamp = new Date(now).toISOString();
-  const proposedAuthorization = makeAuthorization({ digest, participants, routeDigest, senderAddress: slotAddress, secret: approvalSecret, approverId, now });
-  if (!proposedAuthorization) return deny('canonical-approver-identity-unavailable');
 
-  // Persist the exact owner-authorized record before the canonical one-button
-  // read. This repairs a missing record without changing the frozen payload.
-  const authorization = await store.transaction(async tx => {
+  // Live-route package request, before the one-use claim, any credential open or any adapter call. The package is requested
+  // for the exact message this route will send. Without one the route refuses with an explicit reason and consumes nothing.
+  const candidate = {
+    to: recipient, from: slotAddress, subject: participants.subject, text: participants.body, body: participants.body,
+    messageId: deterministicMessageId(digest, slotAddress), listUnsubscribe: participants.footerAndUnsubscribe?.oneClick
+  };
+  let outboundPackage = null;
+  if (typeof outboundAuthorization === 'function') {
+    try { outboundPackage = await outboundAuthorization({ message: candidate }); } catch { outboundPackage = null; }
+  }
+  if (!outboundPackage || typeof outboundPackage !== 'object') {
+    return deny(OUTBOUND_AUTHORIZATION_PACKAGE_MISSING, { reasonCodes: [OUTBOUND_AUTHORIZATION_PACKAGE_MISSING] });
+  }
+
+  // Read-only route decision on the exact bound account, so a route refusal names the gate that failed. Nothing is claimed,
+  // reserved or opened here. The claim transaction repeats the decision before any credential is opened.
+  const boundAccount = await store.findOne('accounts', { slot: senderSlot });
+  const routeRefusal = boundAccount ? gateOutboundRoute({
+    account: boundAccount, message: { ...candidate, from: exactEmail(boundAccount.email), authorization: outboundPackage }, consentVerifier
+  }) : null;
+  if (routeRefusal) return deny('outbound-authorization-refused', { reasonCodes: routeRefusal.reasonCodes });
+
+  // The approval must be a record the caller supplies for this call: signed with the approval secret and bound to this exact
+  // digest, route and sender, with the configured approver named. The runtime never mints one, and a record already in
+  // settings is not an approval by itself.
+  if (!authorization || typeof authorization !== 'object') return deny('frozen-effect-authorization-missing', { reasonCodes: ['frozen-effect-authorization-missing'] });
+  const approvalCheck = verifyFrozenProspectAuthorization({ record: authorization, digest, participants, secret: approvalSecret, now, senderAddress: slotAddress, routeDigest });
+  if (!approvalCheck.ok) return deny(approvalCheck.reason);
+  if (String(authorization.approvedBy).trim() !== String(approverId).trim()) return deny('frozen-effect-authorization-approver-mismatch');
+
+  // Persist the exact caller-supplied record before the canonical one-button read, so the gate verifies these bytes. A
+  // different record already persisted for this digest is refused rather than replaced.
+  const persisted = await store.transaction(async tx => {
     if (tx.pool) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`frozen-prospect-effect:${digest}`]);
     const currentSettings = await tx.getSettings();
     if (executionClaimed(currentSettings, digest)) return { alreadyClaimed: true, effectCapRemaining: currentSettings[executionKey(digest)]?.effectCapRemaining ?? 0 };
     const existing = currentSettings[authKey(digest)];
-    if (existing) {
-      const checked = verifyFrozenProspectAuthorization({ record: existing, digest, participants, secret: approvalSecret, now });
-      return checked.ok && existing.routeDigest === routeDigest && existing.senderAddress === slotAddress ? existing : null;
-    }
-    await tx.setSetting(authKey(digest), proposedAuthorization);
-    return proposedAuthorization;
+    if (existing) return sha(existing) === sha(authorization) ? existing : null;
+    await tx.setSetting(authKey(digest), authorization);
+    return authorization;
   });
-  if (!authorization) return deny('effect-cap-already-claimed-or-authorization-mismatch');
-  if (authorization.alreadyClaimed) return deny('effect-cap-already-claimed', { effectCapRemaining: authorization.effectCapRemaining ?? 0 });
+  if (!persisted) return deny('effect-cap-already-claimed-or-authorization-mismatch');
+  if (persisted.alreadyClaimed) return deny('effect-cap-already-claimed', { effectCapRemaining: persisted.effectCapRemaining ?? 0 });
 
   const authorizedPreflight = await validate(digest);
   const authorizedGateFailure = checkPreflight(authorizedPreflight, digest, participants, { requireAuthorization: true });
@@ -165,6 +173,9 @@ export async function executeFrozenProspectEffect({
     if (!account || account.connected !== true || String(account.provider || '').toLowerCase() !== 'smtp-relay' || !account.tokens || account.smtpRoute?.authorized !== true || account.smtpRoute?.termsCompatible !== true || !String(account.smtpRoute?.evidenceRef || '').trim()) return { blocked: 'bound-smtp-sender-unavailable-or-ineligible' };
     if (exactEmail(account.email) !== slotAddress) return { blocked: 'bound-sender-address-does-not-match-nadia-slot' };
     if (!String(account.smtpRoute?.host || '').trim() || !Number.isInteger(Number(account.smtpRoute?.port)) || Number(account.smtpRoute.port) < 1 || Number(account.smtpRoute.port) > 65535) return { blocked: 'bound-smtp-route-incomplete' };
+    // Decide on the exact bound account before any credential is opened. A refusal reserves nothing and claims nothing.
+    const gate = gateOutboundRoute({ account, message: { ...candidate, from: exactEmail(account.email), authorization: outboundPackage }, consentVerifier });
+    if (gate) return { blocked: 'outbound-authorization-refused', reasonCodes: gate.reasonCodes };
     try { openSmtpAccountCredential(account, encryptionKey); }
     catch { return { blocked: 'bound-smtp-credentials-unavailable' }; }
     const reserved = await tx.reserveOutboundSend({
@@ -186,22 +197,75 @@ export async function executeFrozenProspectEffect({
     await tx.setSetting(executionKey(digest), dispatching);
     return { authorization, account, reservation: reserved.reservation, dispatching };
   });
-  if (claim.blocked) return deny(claim.blocked, { effectCapRemaining: claim.prior?.effectCapRemaining ?? 1 });
+  if (claim.blocked) return deny(claim.blocked, { effectCapRemaining: claim.prior?.effectCapRemaining ?? 1, ...(claim.reasonCodes ? { reasonCodes: claim.reasonCodes } : {}) });
 
-  const knownMessageId = deterministicMessageId(digest, slotAddress);
-  const message = {
-    to: recipient, from: exactEmail(claim.account.email), subject: participants.subject,
-    text: participants.body, body: participants.body, messageId: knownMessageId,
-    listUnsubscribe: participants.footerAndUnsubscribe?.oneClick
-  };
+  const message = { ...candidate, from: exactEmail(claim.account.email) };
   let providerResult;
-  try { providerResult = await dispatch({ account: claim.account, encryptionKey, message }); }
+  try { providerResult = await dispatch({ account: claim.account, encryptionKey, message: { ...message, authorization: outboundPackage }, consentVerifier }); }
   catch (error) { providerResult = { classification: 'UNCERTAIN', reasonCodes: ['smtp-provider-call-threw'], dispatchError: String(error?.message || error).slice(0, 300), automaticRetryAuthorized: false }; }
   const executedAt = new Date().toISOString();
   const rawClassification = providerResult && typeof providerResult === 'object' && !Array.isArray(providerResult)
     && typeof providerResult.classification === 'string' ? providerResult.classification : '';
   const providerReferenceId = typeof providerResult?.providerReferenceId === 'string'
     ? providerResult.providerReferenceId.trim().slice(0, 500) : '';
+  // A REFUSED result that explicitly states no provider attempt and no boundary crossing is a pre-dispatch refusal: the adapter
+  // decided before any credential open or transport call. Anything less explicit stays ambiguous below. Only the refusal is released.
+  const preDispatchRefusal = rawClassification === 'REFUSED' && providerResult?.providerCallAttempted === false
+    && providerResult?.effectBoundaryCrossed === false && !providerReferenceId;
+  if (preDispatchRefusal) {
+    const refusalCodes = Array.isArray(providerResult.reasonCodes)
+      ? providerResult.reasonCodes.filter(code => typeof code === 'string').slice(0, 6).map(code => code.slice(0, 120))
+      : [];
+    const receipt = {
+      provider: 'smtp-relay', classification: 'NOT_SENT', providerAccepted: false,
+      providerReferenceId: null, providerMessageId: null,
+      executedAt, recipient, sender: exactEmail(claim.account.email),
+      authorizedDigest: digest, routeClass: participants.route.routeClass,
+      deliveryState: 'NOT_SENT',
+      dispatchAdapterCalls: 1, providerCallAttempted: false, effectBoundaryCrossed: false,
+      effectLedger: { dispatchAdapterCalls: 1, providerCalls: 0, customerMessages: 0 },
+      remainingEffectCap: 1,
+      refusalReasonCodes: refusalCodes.length ? refusalCodes : ['smtp-dispatch-refused'],
+      automaticRetryAuthorized: false
+    };
+    try {
+      await store.transaction(async tx => {
+        if (tx.pool) await tx.pool.query('SELECT pg_advisory_xact_lock(hashtext($1))', [`frozen-prospect-effect:${digest}`]);
+        const currentSettings = await tx.getSettings();
+        const current = currentSettings[executionKey(digest)];
+        if (!current || current.status !== 'DISPATCHING' || current.effectDigest !== digest) throw new Error('frozen-effect-dispatch-claim-lost-before-release');
+        await tx.markOutboundReservation(claim.reservation.id, 'cancelled', { provider: 'smtp-relay', effectDigest: digest, reconciledAt: executedAt });
+        await tx.setSetting(executionKey(digest), {
+          ...current,
+          status: 'NOT_SENT',
+          dispatchAdapterCalls: 1,
+          providerCallAttempted: false,
+          effectBoundaryCrossed: false,
+          effectCapRemaining: 1,
+          releasedAt: executedAt,
+          receipt
+        });
+      });
+    } catch (error) {
+      console.error('FROZEN_EFFECT_RELEASE_RECONCILIATION_REQUIRED ' + JSON.stringify({
+        effectDigest: digest,
+        error: String(error?.message || error).slice(0, 300),
+        automaticRetryAuthorized: false
+      }));
+      // The claim was not released, so it still blocks a replay. Fail closed and surface the reconciliation need.
+      return {
+        ok: false,
+        state: 'RECEIPT_PERSISTENCE_RECONCILIATION_REQUIRED',
+        providerCalls: 0, dispatchAdapterCalls: 1,
+        receipt,
+        sendAuthority: false,
+        automaticRetryAuthorized: false,
+        reconciliationRequired: true
+      };
+    }
+    return { ok: false, state: 'NOT_SENT', providerCalls: 0, dispatchAdapterCalls: 1, receipt, sendAuthority: false, automaticRetryAuthorized: false };
+  }
+
   const accepted = rawClassification === 'ACCEPTED' && Boolean(providerReferenceId)
     && providerResult?.providerCallAttempted !== false && providerResult?.effectBoundaryCrossed !== false;
   const definitelyRejectedBeforeEffect = rawClassification === 'REJECTED'
@@ -221,7 +285,7 @@ export async function executeFrozenProspectEffect({
     ? providerResult.reasonCodes.filter(code => typeof code === 'string').slice(0, 6).map(code => code.slice(0, 120))
     : [];
   const providerMessageId = typeof providerResult?.messageId === 'string' && providerResult.messageId.trim()
-    ? providerResult.messageId.trim().slice(0, 500) : knownMessageId;
+    ? providerResult.messageId.trim().slice(0, 500) : candidate.messageId;
   const receipt = {
     provider: 'smtp-relay', classification, providerAccepted: accepted,
     providerReferenceId: providerReferenceId || null,

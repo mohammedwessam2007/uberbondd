@@ -1,0 +1,9 @@
+# PHOENIX High H01+H09 combined source, hosted no-provider acceptance
+
+**WE HAVE DONE:** Integrated H09 recipient-bound delivery-status notice parser, attribution and hostile regression donor onto H01 exact 4-job + Night-green release candidate in independent draft PR #1429, leaving both original branches and Claude/Work untouched. Pre-transplant SHA inspection: all four H09-changed source/test files H01 == original Claude parent, zero source overlap. New integration source `18f84c42ebe26b7794fa49e1c775ccabb541f57a`.
+
+**VERIFIED:** Hosted [Actions run 38650858040](https://github.com/mohammedwessam2007/uberbondd/actions/runs/38650858040), job `116148991943` on exact integration source completed **SUCCESS**, Node 22 JS parser passed, **37 tests / 37 passed / 0 failed / 0 skipped** in `tests/inbound-review-hostile.test.mjs` and `tests/winnr-reply-radar.test.mjs`. This adds H09's fail-closed recipient and failed DSN cross-check to H01 candidate. Original H01 full Night/merge-ref success does NOT automatically cover this subsequent integration source; **full latest-head CI and Night remain separately required.**
+
+**WHAT IS LEFT:** Exact integrated-head complete suite + Night, independent code review and safe release ancestry; source-current Render PostgreSQL Free backup before `2026-10-16T23:22:29.055606Z`, live original encryption key/isolated restored app and writer delta; live 50+3 Winnr import; legal current named recipient and campaign authorization. No production merge/deploy/cutover, sending, charges, DNS/network or secrets.
+
+**NEXT:** Collect integration PR CI results; reject any inherited/new failing job before source promotion. Protected source/key connection must be completed by Work as narrow native browser exception because Render connector does not expose it. SEND_SET=[].

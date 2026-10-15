@@ -75,9 +75,11 @@ test('Postal canary refuses credentials and reservation without canonical durabl
     cfg: cfg(), account: account(), reservation: reservation(), effectPayload: payload(),
     fetchImpl, now: () => NOW
   });
+  // Deliberate change: the authorization package gate now runs before the canonical runtime check, so the refusal is the
+  // missing package. The Postal route still makes no request.
   assert.equal(result.ok,false);
-  assert.equal(result.classification,'REJECTED');
-  assert.ok(result.reasonCodes.includes('canonical-durable-execution-and-final-admission-required'));
+  assert.equal(result.classification,'REFUSED');
+  assert.ok(result.reasonCodes.includes('OUTBOUND_AUTHORIZATION_PACKAGE_MISSING'));
   assert.equal(calls,0);
 });
 
@@ -102,7 +104,9 @@ test('Postal standalone retry cannot bypass missing canonical execution authorit
     fetchImpl: async () => { calls += 1; throw new Error('connection reset after request'); },
     now: () => NOW
   });
-  assert.equal(result.classification,'REJECTED');
+  // Deliberate change: a standalone retry is refused by the authorization package gate before any Postal request.
+  assert.equal(result.classification,'REFUSED');
+  assert.ok(result.reasonCodes.includes('OUTBOUND_AUTHORIZATION_PACKAGE_MISSING'));
   assert.equal(calls,0);
 });
 

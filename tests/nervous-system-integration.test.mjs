@@ -90,7 +90,10 @@ test('header count and value size are bounded', () => {
 });
 
 test('classifier covers bounce complaint unsubscribe OOO reply and unknown', () => {
-  assert.equal(classifyInboundEvent({ headers: { from: 'mailer-daemon@example.com', subject: 'Undelivered Mail' } }).category, 'bounce');
+  // A bounce word from a system sender is unverified without the RFC 3464 structure or the configured sending domain.
+  assert.equal(classifyInboundEvent({ headers: { from: 'mailer-daemon@example.com', subject: 'Undelivered Mail' } }).category, 'unknown');
+  assert.equal(classifyInboundEvent({ headers: { from: 'mailer-daemon@example.com', subject: 'Undelivered Mail', 'content-type': 'multipart/report; report-type=delivery-status' } }).category, 'bounce');
+  assert.equal(classifyInboundEvent({ headers: { from: 'mailer-daemon@example.com', subject: 'Undelivered Mail' }, sendingDomain: 'example.com' }).category, 'bounce');
   assert.equal(classifyInboundEvent({ headers: { subject: 'Spam complaint received' }, body: 'abuse report' }).category, 'complaint');
   assert.equal(classifyInboundEvent({ headers: { subject: 'Please unsubscribe me' } }).category, 'unsubscribe');
   assert.equal(classifyInboundEvent({ headers: { subject: 'Automatic reply: Out of Office', 'auto-submitted': 'auto-replied' } }).category, 'out-of-office');

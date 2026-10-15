@@ -61,8 +61,12 @@ function objectsFromCsv(csvText = '') {
 
 function normalizedRow(row = {}) {
   const email = lower(row.from_email || row.email || row.user_name || row.imap_username, 320);
+  const addressDomain = lower(email.split('@')[1] || '', 253);
+  const columnDomain = lower(row.domain, 253);
   return {
-    domain: lower(row.domain || email.split('@')[1], 253),
+    // The address is authoritative. A domain column that disagrees is a contradiction to refuse, never a grouping hint.
+    domain: addressDomain,
+    domainColumnMismatch: Boolean(columnDomain) && columnDomain !== addressDomain,
     email,
     fromName: clean(row.from_name || row.name, 200),
     username: clean(row.user_name || email, 500),
@@ -79,7 +83,8 @@ function normalizedRow(row = {}) {
 
 export function inspectWinnrCredentialExport(csvText = '') {
   const rawRows = objectsFromCsv(csvText);
-  const rows = rawRows.map(normalizedRow).filter(row => emailOk(row.email)).map(row => Object.freeze({
+  const normalized = rawRows.map(normalizedRow).filter(row => emailOk(row.email));
+  const rows = normalized.map(row => Object.freeze({
     email: row.email,
     domain: row.domain || row.email.split('@')[1] || null,
     fromName: row.fromName || null
@@ -90,6 +95,7 @@ export function inspectWinnrCredentialExport(csvText = '') {
     rowCount: rows.length,
     rows,
     domains,
+    mismatchedDomainRowCount: normalized.filter(row => row.domainColumnMismatch).length,
     sourceDigest: `sha256:${sha256(csvText)}`,
     secretsReturned: false,
     truthBoundary: 'This inspection exposes only non-secret mailbox identity metadata from a credential export. Passwords, SMTP credentials and IMAP credentials are never returned.'
@@ -133,6 +139,7 @@ export function compileWinnrCredentialImport({
     const row = normalizedRow(rawRows[index]);
     const reasons = [];
     if (!emailOk(row.email)) reasons.push('valid-email-required');
+    if (row.domainColumnMismatch) reasons.push('domain-column-address-mismatch');
     if (!row.smtpHost) reasons.push('smtp-host-required');
     if (!row.imapHost) reasons.push('imap-host-required');
     if (!row.password || !row.imapPassword) reasons.push('credential-required');
@@ -215,4 +222,10 @@ export function compileWinnrCredentialImport({
     externalEffectAuthority: 'NONE',
     truthBoundary: 'This compiler converts an already-authorized Winnr generic credential export into encrypted UberFleet/UberIMAP account objects. It does not fetch credentials, persist accounts, mutate Winnr, authorize sending, or prove provider entitlement.'
   });
+}
+
+// Raw credential rows for cross-checks against provider-reported mailbox facts. Callers must not log these rows:
+// they include passwords.
+export function winnrCredentialRows(csvText = '') {
+  return objectsFromCsv(csvText);
 }

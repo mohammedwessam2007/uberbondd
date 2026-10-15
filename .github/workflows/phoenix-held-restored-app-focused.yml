@@ -1,0 +1,33 @@
+name: PHOENIX held restored-app focused admission
+on:
+  push:
+    branches:
+      - high/phoenix-held-restore-app-20261015
+permissions:
+  contents: read
+jobs:
+  held-source-admission-no-provider:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      OUTBOUND_EMERGENCY_STOP: 'true'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install only package dependencies
+        run: npm ci --ignore-scripts
+      - name: Source syntax
+        run: |
+          node --check server.mjs
+          node --check server-core.mjs
+          node --check src/store.mjs
+          node --check src/phoenix-held-restore-probe.mjs
+          node --check tests/phoenix-held-app-actual-entrypoint.test.mjs
+      - name: Hostile actual entrypoint and protected TLS tests, synthetic only
+        run: node --test --test-concurrency=2 tests/phoenix-held-restore-probe.test.mjs tests/phoenix-held-app-actual-entrypoint.test.mjs

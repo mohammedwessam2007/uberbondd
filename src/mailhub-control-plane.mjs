@@ -161,7 +161,8 @@ export function compileProvisioningPlan({
   if ((Array.isArray(requestedMailboxes) ? requestedMailboxes : []).length !== mailboxes.length) reasons.push('requested-mailbox-invalid');
   if (requested.some(item => existing.includes(item))) reasons.push('domain-already-present-reconcile-before-provision');
   if (forwardingEmail && !email(forwardingEmail)) reasons.push('forwarding-email-invalid');
-  const estimated = Number.isFinite(Number(estimatedCostCents)) ? Math.max(0, Math.floor(Number(estimatedCostCents))) : null;
+  // An absent or non-numeric estimate stays unknown (null), never a $0 quote.
+  const estimated = estimatedCostCents == null || estimatedCostCents === '' || !Number.isFinite(Number(estimatedCostCents)) ? null : Math.max(0, Math.floor(Number(estimatedCostCents)));
   const budget = Number.isFinite(Number(budgetCents)) ? Math.max(0, Math.floor(Number(budgetCents))) : null;
   if (estimated != null && budget != null && estimated > budget) reasons.push('estimated-cost-exceeds-budget');
   if (reasons.length) return failure(reasons, { timestamp, provider: providerName || null, workspaceId: text(workspaceId, 160) || null });
@@ -170,8 +171,9 @@ export function compileProvisioningPlan({
     { stage: 'RECONCILE_PROVIDER', effectClass: 'ZERO_EFFECT', approvalScope: null },
     { stage: 'CONFIRM_DOMAIN_OWNERSHIP', effectClass: 'ZERO_EFFECT', approvalScope: null }
   ];
-  if (requested.length) stages.push({ stage: 'PROVISION_DOMAIN', effectClass: estimated ? 'FINANCIAL_EXTERNAL_EFFECT' : 'EXTERNAL_MUTATION', approvalScope: scopeKey(providerName, 'provisionDomains') });
-  if (mailboxes.length) stages.push({ stage: 'PROVISION_MAILBOX', effectClass: estimated ? 'FINANCIAL_EXTERNAL_EFFECT' : 'EXTERNAL_MUTATION', approvalScope: scopeKey(providerName, 'provisionMailboxes') });
+  // Provisioning is billable whether or not a price is known yet.
+  if (requested.length) stages.push({ stage: 'PROVISION_DOMAIN', effectClass: 'FINANCIAL_EXTERNAL_EFFECT', approvalScope: scopeKey(providerName, 'provisionDomains') });
+  if (mailboxes.length) stages.push({ stage: 'PROVISION_MAILBOX', effectClass: 'FINANCIAL_EXTERNAL_EFFECT', approvalScope: scopeKey(providerName, 'provisionMailboxes') });
   stages.push(
     { stage: 'VERIFY_DNS', effectClass: 'ZERO_EFFECT', approvalScope: null },
     { stage: 'VERIFY_MAILBOX', effectClass: 'ZERO_EFFECT', approvalScope: null }

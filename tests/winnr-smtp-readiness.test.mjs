@@ -71,7 +71,8 @@ test('SMTP transport failure exposes only bounded stage and numeric response cod
   });
   const result=await transport.probe();
   assert.equal(result.confirmed,false);
-  assert.equal(result.errorClass,'SMTP_COMMAND_REJECTED');
+  // A 535 reply to AUTH is an authentication rejection, reported as its own closed class.
+  assert.equal(result.errorClass,'AUTH_REJECTED');
   assert.equal(result.errorStage,'AUTH');
   assert.equal(result.smtpResponseCode,535);
   assert.equal(result.providerCalls,1);
@@ -197,4 +198,44 @@ test('probe failure protective-pauses, later success clears only the probe-creat
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-1')?.pauseReason,'');
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.paused,true);
   assert.equal(store.senderHealth.find(x=>x.inbox==='winnr:slot-2')?.pauseReason,'manual-hold');
+});
+
+// Fleet-scale readiness: ordinals are hash positions once the fleet is larger than the pilot, so they must not hold mailboxes.
+function fleetStore(count,{health=[]}={}){
+  const accounts=Array.from({length:count},(_,i)=>account(i+1));
+  const senderHealth=health.map(x=>structuredClone(x));
+  return {
+    accounts,senderHealth,
+    async list(key){if(key==='accounts')return structuredClone(accounts);if(key==='senderHealth')return structuredClone(senderHealth);throw new Error(`unexpected-list:${key}`);},
+    async setSenderPaused(inbox,paused,reason=''){
+      let row=senderHealth.find(x=>x.inbox===inbox);
+      if(!row){row={id:`sender_${inbox}`,inbox};senderHealth.push(row);}
+      Object.assign(row,{paused:Boolean(paused),pauseReason:String(reason||'')});
+    },
+    async setSetting(){}
+  };
+}
+const READY_PROBE=async()=>({classification:'READY',providerCalls:1,providerSessionReceiptId:'receipt-fixture',providerResponseDigest:'digest-fixture'});
+
+test('fleet readiness refuses ordinal-only holds instead of holding hash-ordered mailboxes',async()=>{
+  let probes=0;
+  const result=await runWinnrSmtpReadinessProbe({
+    store:fleetStore(53),encryptionKey:KEY,quarantineOrdinalsText:'1,2,3',quarantineSlotsText:'',
+    probeFn:async(args)=>{probes++;return READY_PROBE(args);}
+  });
+  assert.equal(result.ok,false);
+  assert.ok(result.reasonCodes.includes('ordinal-quarantine-requires-slot-keys'));
+  assert.equal(probes,0);
+});
+
+test('fleet readiness holds exactly the named pilot slot and probes the rest',async()=>{
+  let probes=0;
+  const result=await runWinnrSmtpReadinessProbe({
+    store:fleetStore(53),encryptionKey:KEY,quarantineOrdinalsText:'',quarantineSlotsText:'winnr:slot-23',
+    probeFn:async(args)=>{probes++;return READY_PROBE(args);}
+  });
+  assert.equal(probes,52);
+  const held=result.results.filter(r=>r.classification==='SKIPPED_PROTECTIVE_HOLD');
+  assert.equal(held.length,1);
+  assert.equal(held[0].configuredQuarantine,true);
 });

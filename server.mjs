@@ -2,6 +2,7 @@ import http from 'node:http';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
+import { heldRestoreRequestAllowed } from './src/phoenix-held-restore-probe.mjs';
 import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
@@ -57,6 +58,13 @@ const wrapperPath = fileURLToPath(import.meta.url);
 const coreUrl = new URL('./server-core.mjs', import.meta.url);
 const corePath = fileURLToPath(coreUrl);
 const wrapperIsEntryPoint = originalArgv1 === wrapperPath;
+// N26 special probe is an isolated application boot, never an opportunity
+// to execute unrelated startup jobs, market fetches, migration diagnostics or canaries.
+const wrapperHeldRestoreProbe = wrapperIsEntryPoint && process.env.PHOENIX_HELD_RESTORE_PROBE === '1';
+if (wrapperHeldRestoreProbe) {
+  // Deny even accidental web fetches from a future startup import/diagnostic.
+  globalThis.fetch = async () => { throw new Error('PHOENIX_HELD_RESTORE_EXTERNAL_FETCH_REFUSED'); };
+}
 let createdHardenedHandler = null;
 let uberSocketRestorePromise = null;
 let uberSocketRestoreReceipt = null;
@@ -839,6 +847,8 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
 function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
+    if (process.env.PHOENIX_HELD_RESTORE_PROBE === '1' && !heldRestoreRequestAllowed(req.method, url))
+      return sendJson(res, 403, { ok: false, error: 'HELD_RESTORE_READ_ONLY_ROUTES_ONLY' });
     if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
     if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);
@@ -864,7 +874,7 @@ let core;
 try { core = await import(coreUrl.href); }
 finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
 
-if (wrapperIsEntryPoint && String(process.env.UBERMIND_REPLAY_MEASURED_DOMINANCE||'')==='1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.UBERMIND_REPLAY_MEASURED_DOMINANCE||'')==='1') {
   void (async()=>{
     const store=createStore(config);
     const key='infinite_opus_crown_resume_20261002_r3';
@@ -1040,7 +1050,7 @@ if (wrapperIsEntryPoint && String(process.env.UBERMIND_REPLAY_MEASURED_DOMINANCE
   })();
 }
 
-if (wrapperIsEntryPoint) {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe) {
   void (async()=>{
     const store=createStore(config);
     try{
@@ -1194,7 +1204,7 @@ if (wrapperIsEntryPoint) {
   })();
 }
 
-if (wrapperIsEntryPoint) {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe) {
   try {
     const result=runAchievedOpusEquivalenceDoctor();
     console.log('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify(result));
@@ -1206,7 +1216,8 @@ if (wrapperIsEntryPoint) {
   }
 }
 
-if (wrapperIsEntryPoint) {
+// Opt-in only. The sealed bootstrap can send real canary mail, so an unattended boot must never start it by default.
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.WINNR_SEALED_BOOTSTRAP_AUTORUN || '') === '1') {
   void (async () => {
     const result = await runWinnrSealedBootstrapController({ config });
     console.log('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify(result));
@@ -1217,7 +1228,7 @@ if (wrapperIsEntryPoint) {
   });
 }
 
-if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') === '1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') === '1') {
   void verifyWinnrReplyCanaries({ config })
     .then(result => console.log('WINNR_REPLY_CANARY_VERIFY ' + JSON.stringify(result)))
     .catch(error => console.error('WINNR_REPLY_CANARY_VERIFY_FAILED ' + JSON.stringify({
@@ -1225,7 +1236,7 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') =
     })));
 }
 
-if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_QUARANTINE_ORDINALS || '').trim()) {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.WINNR_PLACEMENT_QUARANTINE_ORDINALS || '').trim()) {
   void applyWinnrPlacementQuarantine({ config })
     .then(result => console.log('WINNR_PLACEMENT_QUARANTINE ' + JSON.stringify(result)))
     .catch(error => console.error('WINNR_PLACEMENT_QUARANTINE_FAILED ' + JSON.stringify({
@@ -1233,7 +1244,7 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_QUARANTINE_ORDINAL
     })));
 }
 
-if (wrapperIsEntryPoint && process.env.WINNR_PERSONAL_INBOX_CANARY_ONCE === '1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && process.env.WINNR_PERSONAL_INBOX_CANARY_ONCE === '1') {
   void runWinnrPersonalInboxCanary({ config })
     .then(result => console.log('WINNR_PERSONAL_INBOX_CANARY ' + JSON.stringify(result)))
     .catch(() => console.error('WINNR_PERSONAL_INBOX_CANARY ' + JSON.stringify({
@@ -1241,7 +1252,7 @@ if (wrapperIsEntryPoint && process.env.WINNR_PERSONAL_INBOX_CANARY_ONCE === '1')
     })));
 }
 
-if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_PHENOTYPE_ONCE || '') === '1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.WINNR_PLACEMENT_PHENOTYPE_ONCE || '') === '1') {
   void runWinnrPlacementPhenotypeCanary({ config })
     .then(result => console.log('WINNR_PLACEMENT_PHENOTYPE ' + JSON.stringify(result)))
     .catch(error => console.error('WINNR_PLACEMENT_PHENOTYPE_FAILED ' + JSON.stringify({
@@ -1249,7 +1260,7 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_PHENOTYPE_ONCE || 
     })));
 }
 
-if (wrapperIsEntryPoint && String(process.env.WINNR_RUNTIME_BOOTSTRAP_ONCE || '') === '1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.WINNR_RUNTIME_BOOTSTRAP_ONCE || '') === '1') {
   void (async () => {
     try {
       const encoded = String(process.env.WINNR_BOOTSTRAP_CSV_B64 || '').trim();
@@ -1283,7 +1294,7 @@ if (wrapperIsEntryPoint && String(process.env.WINNR_RUNTIME_BOOTSTRAP_ONCE || ''
   })();
 }
 
-if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
   const store=createStore(config);
   void (async()=>{
     try{
@@ -1306,7 +1317,7 @@ if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_O
   })();
 }
 
-if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE||'')==='1') {
   setTimeout(async()=>{
     const store=createStore(config);
     try{
@@ -1351,7 +1362,7 @@ if (wrapperIsEntryPoint && String(process.env.INFINITE_OPUS_AUTOFINISH_STARTUP_O
 export const requestHandler = createdHardenedHandler || harden(core.requestHandler);
 export default requestHandler;
 
-if (wrapperIsEntryPoint && process.env.INFINITE_OPUS_RECOVERY_DIAGNOSTIC_ONCE === '1') {
+if (wrapperIsEntryPoint && !wrapperHeldRestoreProbe && process.env.INFINITE_OPUS_RECOVERY_DIAGNOSTIC_ONCE === '1') {
   const recoveryStore=createStore(config);
   void (async()=>{
     try { await recoveryStore.init();

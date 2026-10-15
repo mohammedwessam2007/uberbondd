@@ -5,10 +5,15 @@ import {
   createMemoryUberMailRepository,
   UberMailError
 } from '../src/ubermail-agent-api.mjs';
+import { validRoutePackage, ALLOW_CONSENT } from './helpers/outbound-route-package.mjs';
 
 function approval(scope='ubermail:send') {
   return { granted:true, grantedBy:'owner:test', scope:[scope], expiresAt:'2035-01-01T00:00:00.000Z' };
 }
+
+// Positive-path fixture: an smtp-relay route the owner declared, and a package built by the test helper for the exact message the
+// API hands the supplier. The decision function still runs unchanged on every send.
+const SMTP_ROUTE={provider:'smtp-relay',authorized:true,termsCompatible:true};
 
 async function fixture(options={}) {
   const transportCalls=[];
@@ -21,7 +26,10 @@ async function fixture(options={}) {
     domainVerifier: options.domainVerifier || (async ({domain})=>({verified:true,records:[{type:'TXT',name:'_verify.'+domain,value:'owned'}]})),
     webhookDispatcher: options.webhookDispatcher || (async call=>{webhookCalls.push(call);}),
     webhookMasterSecret:'test-webhook-master-secret',
-    enforceSendAllowList:Boolean(options.enforceSendAllowList)
+    enforceSendAllowList:Boolean(options.enforceSendAllowList),
+    outboundRoute: options.outboundRoute === undefined ? SMTP_ROUTE : options.outboundRoute,
+    outboundAuthorizationFn: options.outboundAuthorizationFn === undefined ? ({account,message})=>validRoutePackage({account,message}) : options.outboundAuthorizationFn,
+    outboundConsentVerifier: ALLOW_CONSENT
   });
   const root=await api.bootstrapRootKey();
   const auth={apiKey:root.api_key};

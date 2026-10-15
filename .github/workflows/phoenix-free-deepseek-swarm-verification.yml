@@ -1,0 +1,54 @@
+name: PHOENIX free DeepSeek 3-lane independently reviewed donor test
+on:
+  push:
+    branches: [high/phoenix-uberwarm-swarm-reviewed-20261016]
+    paths: [.github/workflows/phoenix-free-deepseek-swarm-verification.yml]
+permissions:
+  contents: read
+jobs:
+  donor-tests-and-canon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm ci --ignore-scripts
+      - name: Read only exact source, hostile tests, no network calls
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD
+          node --check src/uberwarm2-trusted-receiver-evidence-donor.mjs
+          node --check src/uberwarm2-winnr-readonly-observation-donor.mjs
+          node --check src/uberwarm2-protected-runtime-preflight-donor.mjs
+          node --test --test-concurrency=1 \
+            tests/uberwarm2-free-deepseek-swarm.test.mjs \
+            tests/uberwarm2-trusted-health-supplier.test.mjs \
+            tests/uberwarm2-trusted-seed-consent-supplier.test.mjs \
+            tests/uberwarm2-seed-executor.test.mjs \
+            tests/uberwarm2-live-preflight.test.mjs \
+            tests/uberwarm3-consent-panel.test.mjs \
+            tests/uberwarm4-receiver-protection.test.mjs
+          git diff --check
+      - name: Official truth generator and reachability/freshness gates
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run readiness
+          node --test tests/reachability-ratchet.test.mjs tests/canon-freshness.test.mjs
+          node <<'NODE'
+          const fs=require('fs');
+          for(const [tag,p] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']]){
+            console.log('BEGIN_GENERATED_'+tag);
+            const data=fs.readFileSync(p).toString('base64');
+            for(let i=0;i<data.length;i+=120)console.log(data.slice(i,i+120));
+            console.log('END_GENERATED_'+tag);
+          }
+          NODE

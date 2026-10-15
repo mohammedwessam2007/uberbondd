@@ -1,0 +1,17 @@
+name: PHOENIX current session truth reconciliation no effects
+on:
+  push:
+    branches: [high/phoenix-master-20261015-session-truth-reconciliation]
+permissions:
+  contents: read
+jobs:
+  historical-and-current-truth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test original and updated 30 gate ledgers
+        run: node --test tests/phoenix-h10-30-gate-falsifier.test.mjs tests/phoenix-high-session-20261015-30-gate-reconciled.test.mjs

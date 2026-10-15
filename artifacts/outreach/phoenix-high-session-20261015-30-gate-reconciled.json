@@ -1,0 +1,439 @@
+{
+  "schema": "uberbond.phoenix.h10.source_vs_provider_evidence_20261015.v2",
+  "observed_at": "2026-10-15T00:32:37Z",
+  "truth_class": "UPDATED_READ_ONLY_SOURCE_AND_LIVE_PROVIDER_RECONCILIATION",
+  "main_sha": "298bd585d3ba0cf1fe5cdc2f81a525eb67819608",
+  "released_source_candidate_sha": "15a43485cf5adc5873bc5e4f6bdd97fc5563817b",
+  "deployed_render_sha": "24854739d70617d57807cde5407a84266cca477c",
+  "render_db_deadline_utc": "2026-10-16T23:22:29.055606Z",
+  "historical_neon_snapshot_utc": "2026-10-14T01:00:33.179Z",
+  "historical_neon_digest_tables_matched": 57,
+  "historical_neon_digest_rows_matched": 1259,
+  "historical_archive_byte_sha256_verified": 3,
+  "source_current_backup_verified": false,
+  "original_runtime_key_verified": false,
+  "current_winnr_50plus3_import_verified": false,
+  "lawful_contact_route_verified": false,
+  "exact_send_approval_verified": false,
+  "live_sending_proven": false,
+  "independent_receiver_proven": false,
+  "cleared_revenue_proven": false,
+  "approved_send_set": [],
+  "release_state": "HELD_NOT_DEPLOYED",
+  "campaign_state": "HELD_NO_APPROVED_RECIPIENT",
+  "economic_state": "UNKNOWN_NOT_CLEARED",
+  "gates": [
+    {
+      "id": "N01",
+      "layer": "Native discovery and 24 signals",
+      "source_test_run_ids": [
+        "38647697536"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Public research fixture only; no live stored discovery"
+    },
+    {
+      "id": "N02",
+      "layer": "Apollo-style precision",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No independently benchmarked Apollo 65-filter parity"
+    },
+    {
+      "id": "N03",
+      "layer": "Qualified lead volume",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Three organizations in research, zero authorized recipients"
+    },
+    {
+      "id": "N04",
+      "layer": "Local-first enrichment and contact hygiene",
+      "source_test_run_ids": [
+        "38647697536",
+        "38657637930"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No verified exact contact or lawful enrichment source"
+    },
+    {
+      "id": "N05",
+      "layer": "One-click search to held campaign",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No live source-to-held-sender campaign path receipt"
+    },
+    {
+      "id": "N06",
+      "layer": "Proof Factory and V5 personalization",
+      "source_test_run_ids": [
+        "38647697536"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No independently observed buyer defect and V5 evidence"
+    },
+    {
+      "id": "N07",
+      "layer": "Historical contact and suppression",
+      "source_test_run_ids": [
+        "38647325463"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Historical person-level suppression records not read from production"
+    },
+    {
+      "id": "N08",
+      "layer": "Complete audit event history",
+      "source_test_run_ids": [
+        "38647116178"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Source bug fixed/tested; not deployed into current production"
+    },
+    {
+      "id": "N09",
+      "layer": "Paid Winnr 50-account entitlement",
+      "source_test_run_ids": [
+        "38635683660"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Real current Winnr account and billing receipt not connected"
+    },
+    {
+      "id": "N10",
+      "layer": "Provider caps versus protective holds",
+      "source_test_run_ids": [
+        "38647325463"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Actual provider-level cap/hold and mailbox state not observed"
+    },
+    {
+      "id": "N11",
+      "layer": "DNS and signing",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Actual signed SPF/DKIM/DMARC alignment per domain not reverified"
+    },
+    {
+      "id": "N12",
+      "layer": "Fresh SMTP and IMAP no-send authentication",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Historical authentication expired; fresh provider no-send proof missing"
+    },
+    {
+      "id": "N13",
+      "layer": "Protected 50-account atomic import",
+      "source_test_run_ids": [
+        "38635683660"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Synthetic transaction 89/89; actual production import not executed"
+    },
+    {
+      "id": "N14",
+      "layer": "Three independent pilot safeguards",
+      "source_test_run_ids": [
+        "38635683660"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Three pilot identities not freshly verified under provider authenticated read"
+    },
+    {
+      "id": "N15",
+      "layer": "UberWarm2 seed executor",
+      "source_test_run_ids": [
+        "38648144118"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No signed real seed approval or actual executed seed receipt"
+    },
+    {
+      "id": "N16",
+      "layer": "UberWarm3 independent reputation evidence",
+      "source_test_run_ids": [
+        "38648144118"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No authentic current independent receiver/Postmaster evidence"
+    },
+    {
+      "id": "N17",
+      "layer": "UberWarm4 receiver circuit breaker",
+      "source_test_run_ids": [
+        "38648144118"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No real trusted incident signal or enforced provider hold observation"
+    },
+    {
+      "id": "N18",
+      "layer": "UberWarm5 capacity",
+      "source_test_run_ids": [
+        "38648144118"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No actual fleet capacity under timely receiver receipts"
+    },
+    {
+      "id": "N19",
+      "layer": "UberWarm6 economics",
+      "source_test_run_ids": [
+        "38648144118"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No measured matched causal placement or verified operating cost bounds"
+    },
+    {
+      "id": "N20",
+      "layer": "Independent consented seed cohort",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No independently consented two-provider seed cohort approved"
+    },
+    {
+      "id": "N21",
+      "layer": "G-SPOT exact effect approval",
+      "source_test_run_ids": [
+        "38647325463"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No exact named sender+recipient+message+legal+expiry approval digest"
+    },
+    {
+      "id": "N22",
+      "layer": "Governed outbound uncertain effects",
+      "source_test_run_ids": [
+        "38647325463"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Source replay/uncertain tests only, not provider delivery"
+    },
+    {
+      "id": "N23",
+      "layer": "IMAP Reply Radar and suppressions",
+      "source_test_run_ids": [
+        "38647325463",
+        "38658130502",
+        "38659225987"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No real 53-inbox UIDVALIDITY/replies/DSN receipt"
+    },
+    {
+      "id": "N24",
+      "layer": "Final exact-head CI and merge-ref",
+      "source_test_run_ids": [
+        "38647116178",
+        "38648747313",
+        "38659225987",
+        "38659219498"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Exact source suite green; merge-ref full Night and approval still unverified"
+    },
+    {
+      "id": "N25",
+      "layer": "Production deployment parity",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Render remains Oct 9 old deployed source, no current release parity"
+    },
+    {
+      "id": "N26",
+      "layer": "Database survival and live key compatibility",
+      "source_test_run_ids": [
+        "38634589923"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Historical Neon data parity only; current source/key/app boot/writer continuity unknown"
+    },
+    {
+      "id": "N27",
+      "layer": "Exact recipient and lawful route",
+      "source_test_run_ids": [
+        "38657637930"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Public vendor invitation not blanket outreach consent; no route clearance"
+    },
+    {
+      "id": "N28",
+      "layer": "First approved micro-campaign",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No authorized send, provider receipt, bounce or real reply"
+    },
+    {
+      "id": "N29",
+      "layer": "Reply to cleared cash and accepted delivery",
+      "source_test_run_ids": [
+        "38657003654"
+      ],
+      "source_test_verdict": "SCOPE_LIMITED_PASS",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "No independently verified buyer response, paid invoice, cleared money or accepted work"
+    },
+    {
+      "id": "N30",
+      "layer": "Historical lineage integrity",
+      "source_test_run_ids": [],
+      "source_test_verdict": "NOT_VERIFIED_IN_THIS_SESSION",
+      "current_provider_verified": false,
+      "current_production_verified": false,
+      "legal_and_owner_authority_verified": false,
+      "cleared_external_gate": false,
+      "blocker": "Archived historical lineage pointers present, full semantic audit not proven"
+    }
+  ],
+  "source_last_receipt_sha": "e2fd20b48cc2a61b551400458015287d191aee23",
+  "source_lineage_refs": {
+    "h01": "#1426",
+    "h02": "#1433",
+    "h09": "#1436",
+    "n26": "#1425",
+    "work": "#1409",
+    "claude": "#1405"
+  },
+  "new_verified_run_receipts": {
+    "n26_encryption": "38634589923",
+    "n26_historical_fingerprints": "cf0197a70e3b2a289f763a0d8f5f32b87ba098bf",
+    "h03_held_import": "38635683660",
+    "h04_h09_inbound": "38647325463",
+    "h05_h06_research": "38647697536",
+    "h07_h08_warm": "38648144118",
+    "h10_falsifier": "38648537275",
+    "h02_auto_reply": "38656047122",
+    "h09_dsn_focused": "38658130502",
+    "h09_dsn_full_ci": "38659225987",
+    "h09_dsn_night": "38659219498",
+    "h05_first_party_route": "38657637930",
+    "h10_public_buyer_proposal_drafts": "38657003654"
+  },
+  "restored_snapshot_proof": "HISTORICAL_SOURCE_SNAPSHOT_ONLY_NO_CURRENT_WRITER_OR_KEY_CLAIM",
+  "latest_live_observation": {
+    "render_db_status": "available",
+    "render_db_plan": "free",
+    "render_db_ip_allowlist": "empty",
+    "render_service_source_sha": "24854739d70617d57807cde5407a84266cca477c",
+    "render_service_autodeploy": false,
+    "source_current_query_via_connector": "BLOCKED_BY_EMPTY_EXTERNAL_ALLOWLIST",
+    "neon_rehearsal_v2_public_tables": 0
+  }
+}

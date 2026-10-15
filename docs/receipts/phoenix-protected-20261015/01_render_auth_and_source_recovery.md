@@ -1,0 +1,9 @@
+# Protected N26: authenticated provider access and reviewed source recovered
+
+Observed 2026-10-15 UTC. Requested mission recovered from branch mission/phoenix-final-outreach-closure-high-and-astra-20261015, blob 77e8af2dba65509b3b65c81d7ae736d25df2f2ea; issue #1188 and exact protected delegation comment 6180051799 read. PR #1409 head ea56c8f4c322d97858354297bb50c74b20673988, independent review #1411 head 2252c59910d5608562b7e0e757641df0029558ed, full-account guard #1425 head 694087c36dbd6fc1a443948fa023d4ba293334b0 recovered. Their base records main 298bd585d3ba0cf1fe5cdc2f81a525eb67819608; dedicated receipt branch created from live main.
+
+Render browser initially required login. Secure browserAuth selected Google then founder saved account; fresh dashboard shows authenticated My Workspace tea-d96rqhepuehc73et0i40, source uberbond-control-postgres Available / PostgreSQL16 / Frankfurt, production app Deployed, and old rescue resource Suspended. No credential values read. Authentication is verified; backup/key/restore/app continuity is NOT verified.
+
+Reviewed bounded helper source includes exact deployment SHA and expiry gate, original source read-only snapshot, isolated empty-target guard, authenticated encrypted archive, aggregate original-key check with full account coverage. Blueprint YAML still selects Work branch, which lacks #1425 guard; provider plan must use #1425 reviewed source before activation. New helper binding original source connection, production token key and only archive key requires scoped action-time approval after concrete preview. Gate stays disabled.
+
+NEXT: inspect current provider Blueprint plan, exact source and single Free helper before any access grant. No sends, charges, DB allowlist changes, secret bindings, backup execution, source writes, deployment or cutover this step. SEND_SET=[].

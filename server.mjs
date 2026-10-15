@@ -2,6 +2,7 @@ import http from 'node:http';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { config } from './src/config.mjs';
+import { heldRestoreRequestAllowed } from './src/phoenix-held-restore-probe.mjs';
 import { createStore } from './src/store.mjs';
 import { runWinnrRuntimeBootstrap } from './src/winnr-runtime-bootstrap.mjs';
 import { runWinnrSealedBootstrapController } from './src/winnr-sealed-bootstrap.mjs';
@@ -839,6 +840,8 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
 function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
+    if (process.env.PHOENIX_HELD_RESTORE_PROBE === '1' && !heldRestoreRequestAllowed(req.method, url))
+      return sendJson(res, 403, { ok: false, error: 'HELD_RESTORE_READ_ONLY_ROUTES_ONLY' });
     if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
     if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);

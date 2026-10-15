@@ -8,6 +8,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { config, validateStartupConfig } from './src/config.mjs';
+import { verifyHeldRestoreReadOnly, heldRestoreRequestAllowed } from './src/phoenix-held-restore-probe.mjs';
 import { createStore, ConflictError, StoreError } from './src/store.mjs';
 import { Pipeline } from './src/pipeline.mjs';
 import { RevenueEngine } from './src/revenue.mjs';
@@ -88,9 +89,18 @@ class HttpError extends Error {
 }
 
 validateStartupConfig(config);
+const phoenixHeldRestore = process.env.PHOENIX_HELD_RESTORE_PROBE === '1';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const store = createStore(config);
-await store.init();
+if (phoenixHeldRestore) {
+  // Provenance-bound restore verification never runs migrations or a worker.
+  // This independently requires a true SELECT-only role, target identity,
+  // original-key compatibility and an isolated restored schema.
+  const heldAdmission = await verifyHeldRestoreReadOnly({ env: process.env, cfg: config });
+  console.info('PHOENIX_HELD_RESTORE_ADMISSION', JSON.stringify(heldAdmission));
+} else {
+  await store.init();
+}
 const phoenixRuntimeDoctor = await runPhoenixRuntimeDoctor(store);
 console.info('PHOENIX_RUNTIME_DOCTOR',JSON.stringify(phoenixRuntimeDoctor));
 const queue = new DurableQueue(store, config, console);
@@ -1212,6 +1222,8 @@ export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
     const method = req.method;
+    if (phoenixHeldRestore && !heldRestoreRequestAllowed(method, url))
+      return json(res, 403, { ok: false, error: 'HELD_RESTORE_READ_ONLY_ROUTES_ONLY' });
     if (parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE]) {
       // Device logout survives web restarts. Failure to read revocations never
       // resurrects a cookie by falling back to process-local memory.
@@ -2495,10 +2507,12 @@ export default requestHandler;
 const server = http.createServer(requestHandler);
 const isEntryPoint = import.meta.url === `file://${process.argv[1]}`;
 if (isEntryPoint) {
-  server.listen(config.port, () => {
+  const onListening = () => {
     console.log(`UberBond Revenue Engine running on ${config.baseUrl} using ${config.storeBackend}`);
-    console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env)));
-  });
+    if (!phoenixHeldRestore) console.log(JSON.stringify(inspectInfiniteOpusActivationEnvironment(process.env)));
+  };
+  if (phoenixHeldRestore) server.listen(config.port, '127.0.0.1', onListening);
+  else server.listen(config.port, onListening);
 }
 
 let shuttingDown = false;

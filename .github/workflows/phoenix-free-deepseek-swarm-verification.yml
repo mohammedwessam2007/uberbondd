@@ -2,7 +2,10 @@ name: PHOENIX free DeepSeek 3-lane independently reviewed donor test
 on:
   push:
     branches: [high/phoenix-uberwarm-swarm-reviewed-20261016]
-    paths: [.github/workflows/phoenix-free-deepseek-swarm-verification.yml]
+    paths:
+      - .github/workflows/phoenix-free-deepseek-swarm-verification.yml
+      - src/uberwarm2-winnr-readonly-observation-donor.mjs
+      - tests/uberwarm2-free-deepseek-swarm.test.mjs
 permissions:
   contents: read
 jobs:

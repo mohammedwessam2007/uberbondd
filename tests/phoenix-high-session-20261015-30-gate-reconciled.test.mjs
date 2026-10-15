@@ -8,7 +8,7 @@ test('updated version preserves all 30 original gate identities and historical e
   for(const previous of v1.gates){const after=v2.gates.find(g=>g.id===previous.id);
     for(const run of previous.source_test_run_ids) assert.ok(after.source_test_run_ids.includes(run),previous.id);
     assert.equal(after.source_test_verdict,after.source_test_run_ids.length?'SCOPE_LIMITED_PASS':'NOT_VERIFIED_IN_THIS_SESSION');
-    assert.ok(after.source_test_run_ids.every(x=>/^\\d{11}$/.test(x)),after.id);
+    assert.ok(after.source_test_run_ids.every(x=>/^\d{11}$/.test(x)),after.id);
   }
 });
 test('newest security host receipts are source-only and cannot promote production, provider, permission or cash',()=>{

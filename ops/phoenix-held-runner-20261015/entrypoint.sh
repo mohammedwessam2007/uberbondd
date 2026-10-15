@@ -31,15 +31,10 @@ iptables -w -A OUTPUT -p tcp -d "$DB_IP/32" --dport 5432 -j ACCEPT || die
 [ "$(ip6tables -w -S OUTPUT | grep -c -- '-P OUTPUT DROP')" = '1' ] || die
 # No inherited credentials/provider SDK flags or production environment group.
 set +e
-timeout -s TERM -k 8s 170s runuser -u node -- env -i \
-  PATH=/usr/local/bin:/usr/bin:/bin HOME=/tmp \
-  PHOENIX_HELD_RESTORE_PROBE=1 NODE_ENV=production PROCESS_ROLE=web STORE_BACKEND=postgres \
-  DATABASE_SSL=true DATABASE_URL="$DATABASE_URL" TOKEN_ENCRYPTION_KEY="$TOKEN_ENCRYPTION_KEY" \
-  ADMIN_TOKEN="$ADMIN_TOKEN" APP_BASE_URL=https://held-restore.invalid PORT=28994 \
-  AUTOPILOT_ENABLED=false OUTBOUND_ENABLED=false OUTBOUND_DRY_RUN=true \
-  OUTBOUND_EMERGENCY_STOP=true PUBLIC_AUDIT_ENABLED=false AGENT_RELAY_ENABLED=false \
-  ALLOW_TEST_PAYMENT_UNLOCK=false NODE_TLS_REJECT_UNAUTHORIZED=1 \
-  node /opt/phoenix/supervise.mjs
+[ -z "${NODE_OPTIONS:-}" ] && [ -z "${LD_PRELOAD:-}" ] || die
+# Credentials remain native environment bindings: NEVER turn them into process arguments.
+# The unprivileged Node supervisor scrubs inherited env before spawning app/smoke.
+timeout -s TERM -k 8s 170s runuser -u node -- node /opt/phoenix/supervise.mjs
 RC=$?
 set -e
 # Policy DROP counters are observable proof of attempted prohibited connections;

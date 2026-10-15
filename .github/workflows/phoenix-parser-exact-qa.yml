@@ -28,8 +28,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git show 843479e4d95169e5171b8ce2744e5c3ca611c0a8:tests/infinite-opus-haiku55-live-canary.test.mjs > /tmp/phoenix-exact-fixture
-          cmp -s /tmp/phoenix-exact-fixture tests/infinite-opus-haiku55-live-canary.test.mjs
+          test "$(git hash-object tests/infinite-opus-haiku55-live-canary.test.mjs)" = "ba64cbb449dddadbfbe5f646101ea6c011c135a1"
       - run: npm ci --ignore-scripts
       - name: Syntax only, no provider canary
         run: |

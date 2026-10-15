@@ -140,7 +140,9 @@ export function createUberWarm2WinnrReadOnlyObservationDonor({ client, clock, ma
         providerDnsReady: dnsReady, dnsRecordPresenceTreatedAsAlignment: false,
         smtpAuthenticationClaimed: false, dkimAlignmentClaimed: false,
         flags: Object.freeze({ ...flags }), unknownFlags: Object.freeze(unknownFlags),
-        healthRowEligible: unknownFlags.length === 0 && flags.connected === true && dnsReady
+        healthRowEligible: unknownFlags.length === 0 && flags.connected === true &&
+          flags.paused === false && flags.quarantined === false &&
+          flags.placementQuarantine === false && flags.policyCompatible === true && dnsReady
       });
       return Object.freeze({
         ok: true, status: 'UBERWARM2_WINNR_OBSERVATION_OBSERVED',

@@ -1,4 +1,4 @@
-name: PHOENIX free DeepSeek UberWarm audit (no secrets)
+name: PHOENIX free DeepSeek UberWarm safe engineering (no secrets)
 on:
   push:
     branches: [high/deepseek-uberwarm-no-secret-audit-20261016]
@@ -6,9 +6,9 @@ on:
 permissions:
   contents: read
 jobs:
-  bounded-free-model-audit:
+  bounded-free-model-implementation:
     runs-on: ubuntu-latest
-    timeout-minutes: 9
+    timeout-minutes: 12
     env:
       NODE_ENV: test
       UBERBOND_EFFECTS_DISABLED: '1'
@@ -22,27 +22,48 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Exact checkout and no-credential contract
+      - name: Verify no secret files or external effect authority
         shell: bash
         run: |
           set -euo pipefail
           git rev-parse HEAD
           test ! -e .env
           test ! -e .env.local
-          node -e "const c=require('fs').readFileSync('opencode.jsonc','utf8');if(!c.includes('deepseek-v4.1-flash-free')||!c.includes('deny'))process.exit(1);"
-      - name: Install official OpenCode V2 on no-secret public runner
+          node -e "const fs=require('fs');const c=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));if(c.model!=='opencode/deepseek-v4.1-flash-free')process.exit(1);"
+      - name: Install official OpenCode V2 and dependencies
         shell: bash
         run: |
           set -euo pipefail
           npm install -g @opencode/cli
+          npm ci --ignore-scripts
           opencode --version
-      - name: Bounded zero-write review against tested existing source
+      - name: Give free DeepSeek ONLY isolated two-file write access
         shell: bash
         run: |
           set -euo pipefail
-          timeout 180s opencode run --standalone --model opencode/deepseek-v4.1-flash-free \
-            "Read only these repository files: src/uberwarm2-seed-executor.mjs, src/uberwarm2-smtp-seed-bridge.mjs, src/uberwarm2-pg-ledger.mjs, src/uberwinnr-adapter.mjs, tests/uberwarm2-live-preflight.test.mjs, docs/receipts/PHOENIX_OPENCODE_DEEPSEEK_UBERWARM_20261016.md. No file edits, network tools, shell commands, sending, credentials, database access or paid tools. Find the TWO highest-impact real unimplemented integration edges needed for safely activating one fully permissioned owner-controlled placement probe. Cite function names and exact trust dependency. Give minimal code-level suggestions and falsifiable isolated tests, no claims of live provider access or send authority. If a source fact is absent say UNKNOWN. Maximum 800 words." \
-            > "$RUNNER_TEMP/phoenix-deepseek-audit.txt" 2>&1
-          test -s "$RUNNER_TEMP/phoenix-deepseek-audit.txt"
-          sed -n '1,160p' "$RUNNER_TEMP/phoenix-deepseek-audit.txt"
-          git diff --exit-code
+          touch src/uberwarm2-trusted-health-supplier.mjs
+          touch tests/uberwarm2-trusted-health-supplier.test.mjs
+          node <<'NODE'
+          const fs=require('fs');
+          const c=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));
+          c.permissions.push({action:'edit',resource:'src/uberwarm2-trusted-health-supplier.mjs',effect:'allow'});
+          c.permissions.push({action:'edit',resource:'tests/uberwarm2-trusted-health-supplier.test.mjs',effect:'allow'});
+          fs.writeFileSync('opencode.jsonc',JSON.stringify(c,null,2)+'\n');
+          NODE
+          timeout 235s opencode run --standalone --model opencode/deepseek-v4.1-flash-free \
+            "On this already-reviewed UberWarm branch, IMPLEMENT only src/uberwarm2-trusted-health-supplier.mjs and tests/uberwarm2-trusted-health-supplier.test.mjs. Read AGENTS.md, src/uberwinnr-adapter.mjs, src/uberwarm2-smtp-seed-bridge.mjs, src/uberwarm2-seed-executor.mjs, tests/uberwarm2-live-preflight.test.mjs. You may EDIT only the two new files, not other source or config. Build a fail-closed read-only current sender-health adapter for createUberWarm2LivePreflight.readSenderHealth. It must accept injected protected provider client (existing Winnr getMailbox/getDnsStatus), trusted current SMTP-auth/transport health reader, trusted local sender hold/quarantine reader, trusted verified alignment evidence reader and clock. Never infer AUTHENTICATED from provider Active or DNS record presence alone; never clear a hold; never mutate Winnr. Return exactly one canonical row when ALL independent evidence is current, exact sender+domain bound and healthy; otherwise zero rows. No credentials, network calls by tests, side-effects, payment, production routing. Provide unit tests for healthy exact sender, stale provider, DNS mismatch, missing verified transport, hold flips, cross-sender poisoning, no providers, duplicate identity and failure. Model must not attempt real send or run shell. The branch is an isolated donor. Keep code concise, comprehensible, and testable on Node 22." \
+            > "$RUNNER_TEMP/free-deepseek-implementation.txt" 2>&1
+          test -s src/uberwarm2-trusted-health-supplier.mjs
+          test -s tests/uberwarm2-trusted-health-supplier.test.mjs
+          node --check src/uberwarm2-trusted-health-supplier.mjs
+          node --test tests/uberwarm2-trusted-health-supplier.test.mjs
+          git diff --check
+          git status --short
+          # Generated files remain untracked; log source for independent review,
+          # do not give model a writable GitHub token or publish unsafe code.
+          echo "::group::Source candidate, no provider access"
+          sed -n '1,330p' src/uberwarm2-trusted-health-supplier.mjs
+          echo "::endgroup::"
+          echo "::group::Unit tests, synthetic-only"
+          sed -n '1,340p' tests/uberwarm2-trusted-health-supplier.test.mjs
+          echo "::endgroup::"

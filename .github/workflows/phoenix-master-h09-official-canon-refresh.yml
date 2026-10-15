@@ -1,0 +1,45 @@
+name: PHOENIX H09 official generated canon refresh
+on:
+  push:
+    branches:
+      - high/phoenix-master-h09-duplicate-dsn-evidence-20261015
+    paths:
+      - .github/workflows/phoenix-master-h09-official-canon-refresh.yml
+permissions:
+  contents: write
+jobs:
+  source-bound-generator:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      CI: 'true'
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Official readiness and constitution compilers
+        run: |
+          npm run readiness
+          npm run constitution:doctor
+          node --test tests/canon-freshness.test.mjs tests/constitution-artifact-freshness.test.mjs
+      - name: Commit only generated current-source claims to isolated branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = "high/phoenix-master-h09-duplicate-dsn-evidence-20261015"
+          git add -- docs/CURRENT_SYSTEM_STATE.md artifacts/system-readiness.json artifacts/constitution/directives.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "PHOENIX H09: regenerate source-bound current canon [skip ci]"
+          git push origin "HEAD:refs/heads/high/phoenix-master-h09-duplicate-dsn-evidence-20261015"

@@ -2,9 +2,9 @@
 
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
-Last reconciled: **2026-10-14**
-Branch: `high/phoenix-h02-inbound-machine-advisory-20261015`
-Reconciled from current head: `0d79953b604fde0b1bc346566212329c2a6f5e12`
+Last reconciled: **2026-10-15**
+Branch: `high/phoenix-master-h09-duplicate-dsn-evidence-20261015`
+Reconciled from current head: `92e702a9e7e30f3c5e616b46bd2a7eef83dd9240`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

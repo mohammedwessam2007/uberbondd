@@ -229,10 +229,14 @@ export function parseRawEmail(value){
   // Bound parsing and cross-check with the exact stored outbound recipient before health effects.
   const dsnPart=reportType==='delivery-status'
     ? (bodyPart.slice(0,262144).match(/^content-type:\s*message\/delivery-status[^\r\n]*\r?\n([\s\S]*?)(?=^--[^\r\n]+|$(?![\s\S]))/im)?.[1]||'') : '';
-  const deliveryFinalRecipients=[...new Set([...dsnPart.matchAll(/^final-recipient:\s*rfc822;\s*<?([^\s<>;]+@[^\s<>;]+)>?/gim)]
-    .map(match=>match[1].toLowerCase()))].slice(0,20);
-  const deliveryActions=[...new Set([...dsnPart.matchAll(/^action:\s*([a-z-]+)/gim)].map(match=>match[1].toLowerCase()))].slice(0,20);
-  const deliveryStatuses=[...new Set([...dsnPart.matchAll(/^status:\s*([245]\.\d+\.\d+)/gim)].map(match=>match[1]))].slice(0,20);
+  // A report can contain repeated recipient records or repeated identical field values.
+  // Never collapse duplicates: ambiguity cannot be used to charge a sending mailbox.
+  const deliveryFinalRecipients=[...dsnPart.matchAll(/^final-recipient:\s*rfc822;\s*<?([^\s<>;]+@[^\s<>;]+)>?/gim)]
+    .map(match=>match[1].toLowerCase()).slice(0,20);
+  const deliveryActions=[...dsnPart.matchAll(/^action:\s*([a-z-]+)/gim)]
+    .map(match=>match[1].toLowerCase()).slice(0,20);
+  const deliveryStatuses=[...dsnPart.matchAll(/^status:\s*([245]\.\d+\.\d+)/gim)]
+    .map(match=>match[1]).slice(0,20);
 
   const plain=readPlainBody(raw);
   return {

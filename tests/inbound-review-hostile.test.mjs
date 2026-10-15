@@ -369,6 +369,34 @@ test('H09 security: missing Final-Recipient, transient 4.x and delayed notice ne
   }
 });
 
+// H09: repeated *identical* machine fields must not be silently collapsed by Set.
+// Multiple recipient-record fields cannot authorize a sender hard-bounce health charge.
+test('H09 security: duplicate identical DSN fields or recipient blocks remain review-only', async () => {
+  const scenarios = [
+    [`Final-Recipient: rfc822; ${BUYER}`],
+    ['Action: failed'],
+    ['Status: 5.1.1'],
+    [`Final-Recipient: rfc822; ${BUYER}`, 'Action: failed', 'Status: 5.1.1']
+  ];
+  for (const [index, lines] of scenarios.entries()) {
+    const store = await storeWith({
+      accounts: [imapAccount({ slot: 'imap-slot-h09-duplicated-' + index }), sendingAccount()],
+      prospects: [prospect], messages: [sentMessage]
+    });
+    const raw = dsnRaw({ references: SENT }).replace('--rpt-r--', `${lines.join('\r\n')}\r\n--rpt-r--`);
+    const parsed = parsedMessage(1, raw);
+    const fieldSizes = [parsed.deliveryFinalRecipients.length, parsed.deliveryActions.length, parsed.deliveryStatuses.length];
+    assert.equal(fieldSizes.filter(n => n === 2).length, lines.length, 'must preserve duplicate field occurrences');
+    await pipelineFor(store, { imapPoll: scripted([success([parsed], { lastUid: 1 })]) }).pollReplies();
+    assert.equal((await store.list('replies')).length, 0, 'cannot produce trusted reply ' + index);
+    assert.equal((await store.list('suppressions')).length, 0, 'cannot suppress buyer ' + index);
+    assert.equal((await store.list('outboundEvents')).length, 0, 'cannot emit bounce ' + index);
+    assert.equal(await healthOf(store, 'imap-slot-sent'), null, 'cannot charge sending health ' + index);
+    assert.equal((await store.list('prospects'))[0].status, 'sent');
+    assert.equal((await store.list('unlinkedReplies'))[0].reasonCode, 'UNVERIFIED_DELIVERY_RECIPIENT_OR_STATUS');
+  }
+});
+
 // ---------- F-09: a MIME-quarantined reply is stored for review with no automatic label ----------
 
 test('F-09: a quarantined reply in a linked thread is stored with a review flag, labelled for manual review, and never suppressed', async () => {

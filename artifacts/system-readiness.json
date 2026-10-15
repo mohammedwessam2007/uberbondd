@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-14T23:43:19.450Z",
+  "generatedAt": "2026-10-15T00:15:40.850Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "0d79953b604fde0b1bc346566212329c2a6f5e12",
-    "branch": "high/phoenix-h02-inbound-machine-advisory-20261015",
+    "head": "92e702a9e7e30f3c5e616b46bd2a7eef83dd9240",
+    "branch": "high/phoenix-master-h09-duplicate-dsn-evidence-20261015",
     "sourceModules": 1120,
     "testSuites": 1406,
     "workingTreeClean": true

@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-15T12:08:51.002Z",
+  "generatedAt": "2026-10-15T12:11:18.264Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "ab1e8b04a365ff2ec66c45023a4f96174cd48208",
+    "head": "7e9f0a39c67e41c40d23061cf974312afc4ca12d",
     "branch": "high/phoenix-held-restore-app-20261015",
     "sourceModules": 1121,
     "testSuites": 1407,

@@ -46,3 +46,5 @@ jobs:
           git push origin "HEAD:refs/heads/high/phoenix-held-restore-app-20261015"
 
 # Re-run canonical compilers after independent Astra startup/TLS defect corrections.
+
+# Final pinned TLS and read-only transaction hardening, 2026-10-15.

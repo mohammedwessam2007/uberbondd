@@ -106,6 +106,7 @@ test('held verifier and actual app pool use pinned CA-verified host, never sslmo
   assert.equal(options.host,'ep-soft-cake-baiahh8q.c-8.eu-central-1.aws.neon.tech');
   assert.deepEqual(options.ssl,{rejectUnauthorized:true,servername:options.host});
   assert.equal('connectionString' in options,false,'pg URL query must not be handed to pg');
+  assert.match(options.options,/default_transaction_read_only=on/);
   assert.throws(()=>verifiedHeldPgOptions(goodUrl+'?sslmode=disable'),/ISOLATED_DATABASE_IDENTITY/);
   const source=fs.readFileSync(new URL('../src/store.mjs',import.meta.url),'utf8');
   assert.match(source,/process\.env\.PHOENIX_HELD_RESTORE_PROBE === '1'/);

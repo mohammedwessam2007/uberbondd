@@ -56,6 +56,9 @@ export function verifiedHeldPgOptions(connectionString) {
     user: decodeURIComponent(uri.username),
     password: decodeURIComponent(uri.password),
     ssl: { rejectUnauthorized: true, servername: TARGET_HOST },
+    // Every actual app connection is read-only by default, independently of
+    // database grants and the explicit BEGIN READ ONLY verifier transaction.
+    options: '-c default_transaction_read_only=on -c statement_timeout=10000',
     connectionTimeoutMillis: 15000,
     statement_timeout: 10000
   };

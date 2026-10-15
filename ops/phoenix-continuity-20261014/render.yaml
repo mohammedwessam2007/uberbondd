@@ -6,7 +6,7 @@ services:
     runtime: docker
     plan: free
     region: frankfurt
-    branch: work/phoenix-new-outreach-activation-20261014-1535
+    branch: work/astra-n26-reviewed-helper-20261015
     autoDeployTrigger: off
     dockerContext: ops/phoenix-continuity-20261014
     dockerfilePath: ops/phoenix-continuity-20261014/Dockerfile

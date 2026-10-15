@@ -8,7 +8,7 @@ fi
 echo "[cos] Installing desktop-browser dependencies (no paid services)"
 export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -qq
-sudo apt-get install -y -qq ca-certificates curl git jq gnome-keyring libsecret-1-0 libnss3 libasound2 libgbm1 libgtk-3-0 xdg-utils
+sudo apt-get install -y -qq ca-certificates curl git gh jq gnome-keyring libsecret-1-0 libnss3 libasound2 libgbm1 libgtk-3-0 xdg-utils
 if ! command -v google-chrome >/dev/null 2>&1; then
   temp_deb="$(mktemp --suffix=.deb)"
   trap 'rm -f "$temp_deb"' EXIT

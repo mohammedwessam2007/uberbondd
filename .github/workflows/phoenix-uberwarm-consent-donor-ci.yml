@@ -1,0 +1,43 @@
+name: PHOENIX free DeepSeek consent donor verify and canon
+on:
+  push:
+    branches: [high/uberwarm-deepseek-consent-verifier-20261016]
+    paths: [.github/workflows/phoenix-uberwarm-consent-donor-ci.yml]
+permissions:
+  contents: read
+jobs:
+  consent-donor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with: { persist-credentials: false }
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm ci --ignore-scripts
+      - name: Verify source-level consent boundaries
+        run: |
+          set -euo pipefail
+          node --check src/uberwarm2-trusted-seed-consent-supplier.mjs
+          node --test --test-concurrency=1 tests/uberwarm2-trusted-seed-consent-supplier.test.mjs tests/uberwarm2-live-preflight.test.mjs tests/uberwarm2-seed-executor.test.mjs tests/uberwarm3-consent-panel.test.mjs
+          git diff --check
+      - name: Canonical readiness generator and ratchets
+        run: |
+          set -euo pipefail
+          npm run readiness
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs
+          git diff --check
+          node <<'NODE'
+          const fs=require('fs');
+          for(const [tag,path] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']]){
+            console.log('BEGIN_GENERATED_'+tag);
+            const x=fs.readFileSync(path).toString('base64');
+            for(let i=0;i<x.length;i+=120)console.log(x.slice(i,i+120));
+            console.log('END_GENERATED_'+tag);
+          }
+          NODE

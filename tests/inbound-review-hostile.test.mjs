@@ -383,7 +383,7 @@ test('H09 security: duplicate identical DSN fields or recipient blocks remain re
       accounts: [imapAccount({ slot: 'imap-slot-h09-duplicated-' + index }), sendingAccount()],
       prospects: [prospect], messages: [sentMessage]
     });
-    const raw = dsnRaw({ references: SENT }).replace('--rpt-r--', `${lines.join('\\r\\n')}\\r\\n--rpt-r--`);
+    const raw = dsnRaw({ references: SENT }).replace('--rpt-r--', `${lines.join('\r\n')}\r\n--rpt-r--`);
     const parsed = parsedMessage(1, raw);
     const fieldSizes = [parsed.deliveryFinalRecipients.length, parsed.deliveryActions.length, parsed.deliveryStatuses.length];
     assert.equal(fieldSizes.filter(n => n === 2).length, lines.length, 'must preserve duplicate field occurrences');

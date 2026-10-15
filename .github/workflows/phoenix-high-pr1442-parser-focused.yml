@@ -1,0 +1,39 @@
+name: PHOENIX High exact PR1442 parser fixture focused verification
+on:
+  push:
+    branches:
+      - high/phoenix-pr1442-parser-focused-20261015
+permissions:
+  contents: read
+jobs:
+  immutable-fixture-test-only:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    env:
+      CI: 'true'
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      OUTBOUND_EMERGENCY_STOP: 'true'
+      AUTOPILOT_ENABLED: 'false'
+      INFINITE_OPUS_AUTOFINISH_STARTUP_ONCE: 'false'
+    steps:
+      - name: Fetch EXACT immutable Astra correction
+        uses: actions/checkout@v4
+        with:
+          ref: 843479e4d95169e5171b8ce2744e5c3ca611c0a8
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Exact SHA check
+        run: test "$(git rev-parse HEAD)" = "843479e4d95169e5171b8ce2744e5c3ca611c0a8"
+      - run: npm ci --ignore-scripts
+        env:
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: '1'
+      - name: Syntax and bounded mock-provider canary fixture tests
+        run: |
+          node --check tests/infinite-opus-haiku55-live-canary.test.mjs
+          node --test --test-concurrency=1 tests/infinite-opus-haiku55-live-canary.test.mjs

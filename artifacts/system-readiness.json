@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-15T12:37:29.770Z",
+  "generatedAt": "2026-10-15T22:07:20.301Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b7cd96a9992a18d9032589f8be741f93807ac0a9",
-    "branch": "high/phoenix-held-restore-app-20261015",
+    "head": "f4c8c5009696605016bdef1e603524292d863083",
+    "branch": "deepseek/uberwarm-live-integration-20261016",
     "sourceModules": 1121,
-    "testSuites": 1408,
+    "testSuites": 1410,
     "workingTreeClean": true
   },
   "measurements": {

@@ -54,3 +54,19 @@ External effects: only authorized public research, package downloads, free model
 - Free DeepSeek authored tests in session `ses_ebe7307c9ffeHzalPinUEt1Aa0` (17 completed steps; reported cost 0); separate source review `ses_ebe705191ffeNFXYiU3N9QbSfs` found no material factory defect but identified missing direct expiry/accessor tests and post-reservation consent timing risk.
 - Work closed both coverage gaps and changed the existing executor to re-read current health and consent **after** durable reservation, before issuing any send capability. A hold/withdrawal during database lock wait consumes the reservation without transmission or retry. This strengthens existing gates; it adds no live caller. Final revised source requires its own exact-head hosted run.
 - The adapters remain injected dependencies. Neither Work nor DeepSeek represents synthetic reader data as authenticated live Winnr state.
+
+## Live Winnr reconciliation after founder sign-in
+
+Supersedes the earlier login blocker. On October16 Cairo, fresh authenticated domain, mailbox, warming and subscription pages verified the correct existing account. No secret/export/send controls were used.
+
+- Startup Active, existing $69/month renewal November13;50/50 mailboxes and10/20 domain usage shown. Plan marketing still says10 domain slots; preserve that UI discrepancy. No extra slot purchased.
+- Separate3 pre-warmed pilots, existing $9/month subscription, renewal November2. Pre-warmed domain auto-renew OFF, untouched.
+- Reconciled53 unique mailbox rows across two scrolled table windows: all53 Active, all53 WarmingOff. Each Startup domain has5; cedarpointdomains.com has3. Provider Active does not override internal holds/quarantine or qualify transport.
+- Startup domains: uberbondglobal.website, uberbondforge.space, uberbondflow.space, uberbondengine.website, uberbondcore.space, uberbondconnect.online, uberbondcloud.shop, uberbondapp.site, uberbondai.shop, uberbond.site.
+- Independent Google public DNS-over-HTTPS returned status0 and one relevant SPF, DKIM-selector TXT, DMARC and MX answer for each of all10 Startup domains. Node's raw resolver initially returned ECONNREFUSED; that host resolver failure did not establish missing DNS. Record presence does not prove sender alignment, a valid delivered DKIM signature or Inbox placement.
+- Provider warming page offers Enable warming at$0.60/mailbox/month; all rows remainOff. Billing breakdown shows only existing69+separate9. No paid add-on enabled or purchased.
+- No fresh SMTP/IMAP login test, live provider write, DNS change, send or sender promotion performed.
+
+Broader CI38813882234 completed browser+PostgreSQL SUCCESS. Deterministic suite ran11,098 tests:11,033 passed,1 failed,64 skipped. Sole failure: present-tense canon named older source b7cd96a9992a. Work ran official `npm run readiness` on exact revised source f4c8c5009696605016bdef1e603524292d863083; only generated artifacts/system-readiness.json and docs/CURRENT_SYSTEM_STATE.md changed. Canon freshness then6/6 PASS locally. No hand-edit or test weakening. The generated repair requires final exact-head CI verification.
+
+Latest current receipts are also in issue1188, including6203269415. Sign-in is no longer an owner action. Protected runtime, primary/import/release authority, trusted current transport+hold/consent bindings, exact signed probe and independent receiving evidence remain the real operational gates. SEND_SET=[].

@@ -33,7 +33,7 @@ jobs:
         run: |
           set -euo pipefail
           docker build --pull -f ops/phoenix-held-runner-20261015/Dockerfile -t phoenix-n26-held-runner:qa .
-          actual=$(docker run --rm --network none --entrypoint git phoenix-n26-held-runner:qa -C /srv/uberbond rev-parse HEAD)
+          actual=$(docker run --rm --network none --user node --entrypoint git phoenix-n26-held-runner:qa -C /srv/uberbond rev-parse HEAD)
           test "$actual" = 'c1f9b4aac2278617cb0c9e04d14e29f0544dd701'
           echo "IMMUTABLE_APP_SOURCE_SHA=$actual"
           docker image inspect -f 'BUILT_IMAGE_ID={{.Id}}' phoenix-n26-held-runner:qa

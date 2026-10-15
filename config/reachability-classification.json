@@ -1402,6 +1402,21 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
       "reason": "Protected read-only consent, receiving-mailbox readiness and suppression reconciler built from free DeepSeek donor. Source-level tests only; no external volunteers enrolled or authenticated consent registry connected. Deliberately unreachable until real protected source readers, specific owner consent, independently verifiable receiving account, original-key runtime and exact signed one-probe authorization are present. No autonomous messaging authority."
+    },
+    "src/uberwarm2-trusted-receiver-evidence-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Combines server-trusted independent receiver OAuth/IMAP evidence with an identity/folder-bound synchronous verifier. Deliberately not wired: no actually authenticated seed receiver connection, evidence ledger or signed one-probe approval deployed; caller-provided observations never count as delivery proof."
+    },
+    "src/uberwarm2-winnr-readonly-observation-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Read-only and fail-closed mapping of actual provider-reported Winnr domain/mailbox readiness, separated from SMTP-auth, quarantine and DNS alignment authority. Not wired until source schemas are authenticated inside a protected Winnr runtime with original held API token and all local sender holds."
+    },
+    "src/uberwarm2-protected-runtime-preflight-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Pure release-check compiler requiring independently validated current attestations for source-current Render-to-Neon continuity, original-key custody, durable one-shot ledger, actual sender/recipient proof and zero-paid-addon policy. Never grants send or cutover authority; no trusted runtime attestation issuer is currently wired."
     }
   }
 }

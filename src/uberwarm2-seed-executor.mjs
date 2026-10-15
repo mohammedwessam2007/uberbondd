@@ -458,6 +458,18 @@ export async function executeUberWarm2SeedProbe({
   // The claim is durable from here. A lapse now consumes it without transmission.
   const afterClaim = lapsed(['claim-consumed-no-transmission-no-retry']);
   if (afterClaim) return afterClaim;
+  // A durable claim may wait on another worker's database lock. Health or
+  // consent can change during that wait; never spend pre-claim observations.
+  for (const [verify, args, reason] of [
+    [verifyCurrentSenderHealth, [probe.senderEmail], 'sender-health-changed-after-reservation'],
+    [verifyCurrentSeedConsent, [probe.seedEmail, probe.probeId], 'seed-consent-changed-after-reservation']
+  ]) {
+    let cleared = false;
+    try { cleared = await verify(...args, readClock()) === true; } catch {}
+    const expired = lapsed(['claim-consumed-no-transmission-no-retry']);
+    if (expired) return expired;
+    if (!cleared) return denied('UBERWARM2_LIVE_PREFLIGHT_REFUSED', [reason, 'claim-consumed-no-transmission-no-retry']);
+  }
   // One-shot authority for exactly this transmission. Issuance fails only if a
   // capability for this key already exists in this process; nothing is sent then.
   // The capability is bound to this exact send, so it cannot be spent on any other.

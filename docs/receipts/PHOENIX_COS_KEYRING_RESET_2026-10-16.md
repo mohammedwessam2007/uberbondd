@@ -1,0 +1,3 @@
+# Keyring reset checkpoint
+
+Owner explicitly authorized resetting the locked keyring after incorrect-password attempts. Stopped CoS and keyring daemon; moved the encrypted keyring directory to a timestamped locked-backup sibling (not decrypted or exposed), created a fresh mode-0700 keyrings directory, and restarted CoS through dbus-run-session with gnome-libsecret. The desktop visibly shows `Choose password for new keyring`, with Password and Confirm fields. User must enter and submit the new credential. No password was collected, entered by the agent, or committed. Repository remains intact. Tunnel and end-to-end tests remain unverified.

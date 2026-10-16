@@ -1,0 +1,9 @@
+# CoS local Chrome sign-in frontier — 2026-10-16
+
+Continues PHOENIX_COS_KEYRING_HANDOFF_2026-10-16.md. On owner's continuation, OS keyring password prompt was no longer present. CoS advanced from secure-store refusal to Setup > Browser > Where ChatGPT runs, selecting `In your browser`. Installed-extension stage shows completed marker. Do not equate this with executed Core or independently verified encrypted key persistence.
+
+Opened CoS `Sign in to ChatGPT`. The actual Codespace Chrome now visibly shows chatgpt.com signed out, with Log in buttons. This is a separate browser profile from the authenticated Cloud Browser Platform/ChatGPT session. No cookies or authentication state copied between profiles. Nested browser credentials cannot be entered through lower-level automation; user must authenticate through manual noVNC handoff. No secret is to be sent in chat.
+
+Automatic approval review rejected a click on CoS Workspace navigation, stating it might grant/configure repository access and required specific repository/recipient/scope authorization. No workaround or indirect access configuration performed. Request concrete approval for Chat On Steroids Core to read /workspaces/uberbondd and run only pwd and git status --short for the initial test, with no production credentials or writes. Previous Chrome terms, extension, sandbox and seven-day restricted tunnel-key approvals remain preserved; do not repeat them.
+
+Tunnel/key metadata and earlier repair remain in prior receipts. Literal key remains unprinted and was not entered into CoS yet. Current live Codespace retained for short authentication handoff; keep $0 budget and private ports, stop when not actively used. Remaining: local ChatGPT sign-in, folder scope, secure tunnel configuration/polling, private plugin discovery, actual correlated Core calls, bounded worker and Compact & Resume. No success claim for those gates.

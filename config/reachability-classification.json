@@ -1417,6 +1417,21 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
       "reason": "Pure release-check compiler requiring independently validated current attestations for source-current Render-to-Neon continuity, original-key custody, durable one-shot ledger, actual sender/recipient proof and zero-paid-addon policy. Never grants send or cutover authority; no trusted runtime attestation issuer is currently wired."
+    },
+    "src/uberwarm2-protected-activation-wiring-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Source-only assembly of fail-closed existing sender-health and recipient-consent verifier callbacks. No real protected provider readers, original-key host, primary ledger, founder-signed exact probe or live send authority. Synthetically composed functions are not authenticated live capability."
+    },
+    "src/uberwarm2-protected-receiver-placement-wiring-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Combines separately authenticated receiver observations with existing evidence compiler. No real recipient OAuth/IMAP or signed source records currently bound, nor live sending or durable placement recorder. Source-only; cannot claim delivered placement."
+    },
+    "src/uberwarm2-protected-winnr-read-plan-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Pure read-only Winnr API inventory plan. Deliberately no API token, provider calls, paid add-on, SMTP authority, actual complete paginated read or DNS alignment proof. Expected inventory is not authenticated current mailbox readiness."
     }
   }
 }

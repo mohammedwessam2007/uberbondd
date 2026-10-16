@@ -1,0 +1,56 @@
+name: PHOENIX four free DeepSeek protected activation donors, no effects
+on:
+  push:
+    branches: [high/phoenix-deepseek-activation-swarm-20261016]
+    paths: [.github/workflows/phoenix-four-deepseek-activation-verify.yml]
+permissions:
+  contents: read
+jobs:
+  source-tests-and-official-canon:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    env:
+      CI: 'true'
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - run: npm ci --ignore-scripts
+      - name: Syntax validation and extended hostile contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rev-parse HEAD
+          node --check src/uberwarm2-protected-activation-wiring-donor.mjs
+          node --check src/uberwarm2-protected-receiver-placement-wiring-donor.mjs
+          node --check src/uberwarm2-protected-winnr-read-plan-donor.mjs
+          python -m py_compile ops/phoenix-continuity-20261014/source_census_donor.py
+          (cd ops/phoenix-continuity-20261014 && python -m unittest -v test_source_census_donor.py)
+          node --test --test-concurrency=1 \
+            tests/uberwarm2-protected-activation-swarm.test.mjs \
+            tests/uberwarm2-free-deepseek-swarm.test.mjs \
+            tests/uberwarm2-trusted-health-supplier.test.mjs \
+            tests/uberwarm2-trusted-seed-consent-supplier.test.mjs \
+            tests/uberwarm2-seed-executor.test.mjs \
+            tests/uberwarm2-live-preflight.test.mjs
+          git diff --check
+      - name: Official generated canon and freshness ratchets
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run readiness
+          node --test tests/reachability-ratchet.test.mjs tests/canon-freshness.test.mjs
+          node <<'NODE'
+          const fs=require('fs');
+          for(const [tag,path] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']]){
+            console.log('BEGIN_GENERATED_'+tag);
+            const data=fs.readFileSync(path).toString('base64');
+            for(let i=0;i<data.length;i+=120)console.log(data.slice(i,i+120));
+            console.log('END_GENERATED_'+tag);
+          }
+          NODE

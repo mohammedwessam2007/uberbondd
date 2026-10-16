@@ -1,0 +1,72 @@
+name: PHOENIX free DeepSeek protected activation four-lane swarm
+on:
+  push:
+    branches: [high/phoenix-deepseek-activation-swarm-20261016]
+    paths: [.github/workflows/phoenix-deepseek-protected-activation-swarm.yml]
+permissions:
+  contents: read
+concurrency:
+  group: phoenix-free-deepseek-protected-activation
+  cancel-in-progress: false
+jobs:
+  bounded-four-workers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        lane: [A, B, C, D]
+    env:
+      NODE_ENV: test
+      CI: 'true'
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      WINNR_WARMER_ENABLED: 'false'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with: {node-version: '22'}
+      - name: Verify no secrets or model billing substitution
+        shell: bash
+        run: |
+          set -euo pipefail
+          test ! -e .env
+          test ! -e .env.local
+          npm install -g @opencode/cli
+          opencode --version
+          node -e "let a=JSON.parse(require('fs').readFileSync('opencode.jsonc','utf8'));if(a.model!=='opencode/deepseek-v4.1-flash-free')process.exit(1);"
+      - name: One exact-source protected-activation donor
+        shell: bash
+        env:
+          LANE: ${{ matrix.lane }}
+        run: |
+          set -euo pipefail
+          case "$LANE" in
+            A) TARGET="src/uberwarm2-protected-activation-wiring-donor.mjs"; LIMIT=150 ;;
+            B) TARGET="src/uberwarm2-protected-receiver-placement-wiring-donor.mjs"; LIMIT=150 ;;
+            C) TARGET="src/uberwarm2-protected-winnr-read-plan-donor.mjs"; LIMIT=135 ;;
+            D) TARGET="ops/phoenix-continuity-20261014/source_census_donor.py"; LIMIT=125 ;;
+            *) exit 1 ;;
+          esac
+          touch "$TARGET"
+          export TARGET LANE LIMIT
+          node <<'NODE'
+          const fs=require('fs');
+          const c=JSON.parse(fs.readFileSync('opencode.jsonc','utf8'));
+          c.permissions.push({action:'edit',resource:process.env.TARGET,effect:'allow'});
+          fs.writeFileSync('opencode.jsonc',JSON.stringify(c,null,2)+'\n');
+          NODE
+          timeout 150s opencode run --standalone --auto --model opencode/deepseek-v4.1-flash-free \
+            "You are ONLY lane $LANE. Read docs/receipts/PHOENIX_FREE_DEEPSEEK_ACTIVATION_SWARM_20261016.md and then ONLY the source files explicitly specified in your lane; the exact original reviewed Render helper files for lane D are present. WRITE precisely $TARGET, <=$LIMIT lines, no other edits. Do not run shell, provider calls, model tools other than read/file-edit, database, SMTP or deployment. No raw tokens. Source contract must be fail closed. Do not brainstorm; write concise functioning code in one pass. Do not browse or search unrelated files. Return <=40 words." \
+            > "$RUNNER_TEMP/free-deepseek-lane-$LANE.log" 2>&1
+          test -s "$TARGET"
+          test "$(wc -l < "$TARGET")" -le "$LIMIT"
+          if [ "$LANE" = "D" ]; then python -m py_compile "$TARGET"; else node --check "$TARGET"; fi
+          echo "BEGIN_PHOENIX_ACTIVATION_DONOR_${LANE}"
+          cat "$TARGET"
+          echo "END_PHOENIX_ACTIVATION_DONOR_${LANE}"
+          git diff --check

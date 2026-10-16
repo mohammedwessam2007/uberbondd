@@ -46,11 +46,22 @@ export function createUberWarm2ProtectedReceiverPlacementWiring({
   const configured = usable && !!donor && isFn(donor.inspect);
 
   async function compileProtectedReceivedEvidence({ batch = {}, receipts = [], at } = {}) {
-    if (!configured) return deny(['protected-receiver-placement-wiring-not-configured']);
-    if (!batch || batch.ok !== true || !Array.isArray(batch.probes)) return deny(['valid-seed-batch-required']);
-    const atMs = Number.isFinite(at) ? Number(at) : Number(clock());
-    if (!Number.isFinite(atMs) || atMs <= 0) return deny(['invalid-clock']);
-    const probes = new Map();
+    try {
+      if (!configured) return deny(['protected-receiver-placement-wiring-not-configured']);
+      // An explicitly invalid timestamp must never be replaced by a fresh clock.
+      if (at !== undefined && (!Number.isSafeInteger(at) || at <= 0)) return deny(['invalid-clock']);
+      // Snapshot untrusted inputs before the first await. Accessors, proxies,
+      // functions and mutable caller-owned objects must not change attribution.
+      ({ batch, receipts } = structuredClone({ batch, receipts }));
+      if (!batch || batch.ok !== true || !Array.isArray(batch.probes)) return deny(['valid-seed-batch-required']);
+      if (!Array.isArray(receipts)) return deny(['receipts-array-required']);
+      const ids = batch.probes.map(probe => probe && typeof probe === 'object' ? probe.probeId : null);
+      if (ids.some(id => typeof id !== 'string' || !/^[A-Za-z0-9._:-]{1,250}$/.test(id)))
+        return deny(['invalid-probe-id']);
+      if (new Set(ids).size !== ids.length) return deny(['duplicate-probe-id']);
+      const atMs = at === undefined ? Number(clock()) : at;
+      if (!Number.isSafeInteger(atMs) || atMs <= 0) return deny(['invalid-clock']);
+      const probes = new Map();
     for (const probe of batch.probes) {
       if (probe && typeof probe === 'object' && typeof probe.probeId === 'string' && !probes.has(probe.probeId))
         probes.set(probe.probeId, probe);
@@ -115,7 +126,12 @@ export function createUberWarm2ProtectedReceiverPlacementWiring({
       inspectionExclusions,
       exclusions: [...inspectionExclusions, ...(Array.isArray(compiled.exclusions) ? compiled.exclusions : [])],
       truthBoundary: 'Placement evidence is accepted only from a separately authenticated read-only receiver connector for these exact owner-controlled probe messages; SMTP acceptance is never upgraded to an inbox verdict.'
-    });
+      });
+    } catch {
+      // A hostile accessor or failed snapshot is a denial, not an exception
+      // escaping into the protected orchestration loop.
+      return deny(['protected-placement-input-unreadable']);
+    }
   }
 
   return Object.freeze({

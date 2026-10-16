@@ -1,0 +1,28 @@
+# Independent one-shot FREE Frankfurt Render Blueprint; do not sync root render.yaml.
+services:
+  - type: web
+    name: uberbond-phoenix-p0-archive-20261017
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: ops/phoenix-zero-touch-archive-20261017
+    autoDeployTrigger: off
+    dockerContext: ops/phoenix-continuity-20261014
+    dockerfilePath: ops/phoenix-continuity-20261014/Dockerfile.archive
+    envVars:
+      - key: PHOENIX_EXECUTION_GATE
+        value: PHOENIX_CURRENT_SOURCE_ARCHIVE_20261017
+      - key: SOURCE_DATABASE_URL
+        fromDatabase:
+          name: uberbond-control-postgres
+          property: connectionString
+      - key: RESCUE_DATABASE_URL
+        fromService:
+          name: uberbond-phoenix-db-rescue-20261013
+          type: web
+          envVarKey: RESCUE_DATABASE_URL
+      - key: RESCUE_ARCHIVE_KEY
+        fromService:
+          name: uberbond-phoenix-db-rescue-20261013
+          type: web
+          envVarKey: RESCUE_ARCHIVE_KEY

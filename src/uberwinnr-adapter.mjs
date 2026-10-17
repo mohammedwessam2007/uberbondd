@@ -312,6 +312,30 @@ export function createWinnrApiClient({
     listAllDomains: () => request('GET', '/domains?limit=100'),
     listAllMailboxes: () => request('GET', '/email-users?limit=100'),
     getMailbox: ({ userId } = {}) => request('GET', `/email-users/${encodeURIComponent(clean(userId, 240))}`),
+    // Winnr's documented HTTPS inbox-send resource. This does NOT open SMTP
+    // ports; it is a single provider-managed submission, never a campaign.
+    // This low-level client does not mint authority: callers must first pass
+    // durable one-shot reservation, current verified sender/recipient evidence
+    // and exact signed owner approval. Its default denies all write effects.
+    sendOwnerSeedViaHttps: ({ userId = '', to = '', subject = '', body = '', writeAuthorized = false } = {}) => {
+      const id = clean(userId, 240);
+      const receiver = lower(to, 320);
+      const title = clean(subject, 998);
+      const contents = typeof body === 'string' ? body : '';
+      if (!/^[A-Za-z0-9._:-]{1,240}$/.test(id) || !emailOk(receiver) ||
+          receiver !== String(to).trim().toLowerCase() ||
+          !title || title.length > 160 || !contents ||
+          contents.length > 1000 || /[\\r\\n]/.test(receiver))
+        return Promise.resolve({
+          ok: false, status: 'UBERWINNR_HTTPS_SEED_REFUSED',
+          reasonCodes: ['exact-single-mailbox-recipient-and-bounded-content-required'],
+          providerCalls: 0, automaticRetryAuthorized: false
+        });
+      return request('POST', `/email-users/${encodeURIComponent(id)}/inbox/send`, {
+        body: { to: receiver, subject: title, body: contents },
+        writeAuthorized
+      });
+    },
     createMailbox: ({ domain, username, name, writeAuthorized = false } = {}) => request('POST', '/email-users', {
       body: { domain: lower(domain, 253), username: lower(username, 120), name: clean(name, 200) },
       writeAuthorized

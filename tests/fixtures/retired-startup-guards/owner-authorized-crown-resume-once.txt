@@ -1,0 +1,126 @@
+    let body;
+      try { body = await readSmallJsonBody(req, 2_000_000); }
+      catch (error) { return sendJson(res, 400, { ok:false,status:'DECISION_FRANCHISE_CERTIFICATION_BODY_REFUSED',error:String(error?.message||error) }); }
+      const admitted=await runtime.admitExhaustiveDecisionFranchise(body);
+      return sendJson(res, admitted.ok ? 200 : 409, admitted);
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/contexts') {
+      return sendJson(res, 200, await runtime.listContextSnapshots());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/contexts') {
+      let body;
+      try { body = await readSmallJsonBody(req, 1_000_000); }
+      catch (error) { return sendJson(res, 400, { ok:false,status:'CONTEXT_SNAPSHOT_BODY_REFUSED',error:String(error?.message||error) }); }
+      const admitted=await runtime.admitContextSnapshot(body);
+      return sendJson(res, admitted.ok ? 200 : 409, admitted);
+    }
+    return sendJson(res, 404, { error: 'Infinite Opus route not found' });
+  });
+}
+
+function harden(coreHandler) {
+  return async function hardenedRequestHandler(req, res) {
+    const url = new URL(req.url, 'http://uberbond.local');
+    if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
+    if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') return brokerGoogleOAuthStart(coreHandler, req, res, url);
+    if (req.method === 'GET' && url.pathname === '/api/admin/ubermail/status') return brokerUberMailStatus(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
+    if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
+    if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
+    if (url.pathname === '/api/internal/infinite-opus/autofinish') return brokerCrownAutofinishTrigger(req,res);
+    if (url.pathname.startsWith('/api/typingmind/infinite-opus/v1/')) return brokerTypingMindInfiniteOpus(req, res, url);
+    if (url.pathname.startsWith('/api/admin/infinite-opus/')) return brokerInfiniteOpus(coreHandler, req, res, url);
+    return coreHandler(req, res);
+  };
+}
+
+http.createServer = function hardenedCreateServer(handler, ...rest) {
+  createdHardenedHandler = harden(handler);
+  return originalCreateServer.call(http, createdHardenedHandler, ...rest);
+};
+
+if (wrapperIsEntryPoint) process.argv[1] = corePath;
+let core;
+try { core = await import(coreUrl.href); }
+finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
+
+if (wrapperIsEntryPoint) {
+  void (async()=>{
+    const store=createStore(config);
+    try{
+      await store.init();
+      const compiled=compileCrownOwnerResumeAuthority({
+        approved:true,
+        confirmation:CROWN_OWNER_RESUME_CONFIRMATION,
+        maximumIncrementalUsd:0.30
+      },{now:Date.now(),ttlMs:15*60*1000});
+      if(!compiled.ok)throw new Error('owner-resume-authority-compile-failed:'+compiled.status);
+      const apiKey=String(process.env.OPENROUTER_API_KEY||'');
+      const paidAuthorization=parseJsonEnvironment('INFINITE_OPUS_PAID_AUTHORIZATION_JSON');
+      if(!apiKey||!paidAuthorization)throw new Error('crown-runtime-inputs-missing');
+      const reconciliation=await reconcileInterruptedCrownGeneration(store,{apiKey});
+      if(!['RECONCILED_BILL_ONLY_NO_RETAINED_ANSWER','UNKNOWN_CHARGE_MAX_RESERVE_QUARANTINED'].includes(reconciliation.status))
+        throw new Error('crown-interrupted-generation-not-safe-to-continue:'+reconciliation.status);
+      const recovery=await readCrownRecoveryMetadata(store);
+      if(recovery.continuationCheckpoint?.status!=='VERIFIED_ENCRYPTED_CONTINUATION_CHECKPOINT'||
+         recovery.continuationCheckpoint?.missingCandidateAnswers!==1||
+         recovery.continuationCheckpoint?.missingEvaluatorCalls!==1)
+        throw new Error('exact-two-missing-crown-edges-not-proven');
+      const result=await runCrownAutoFinish({
+        store,apiKey,paidAuthorization,
+        checkpointKey:process.env.TOKEN_ENCRYPTION_KEY,
+        resumeAuthorization:compiled.authority,
+        mainSha:String(process.env.RENDER_GIT_COMMIT||process.env.RENDER_GIT_COMMIT_SHA||'unknown')
+      });
+      let durableAdmission=null;
+      if(result?.ok===true&&result?.receipt){
+        durableAdmission=await persistDurableCrownAdmission(store,result.receipt,{
+          expected:currentCrownExpected(),sourceAttemptKey:INTERRUPTED_RESUME_KEY
+        });
+      }
+      console.log('UBERMIND_OWNER_AUTHORIZED_CROWN_RESUME '+JSON.stringify({
+        ok:result?.ok===true,
+        status:result?.status??'UNKNOWN',
+        crownAdmissionReceiptHash:result?.receipt?.receiptHash??result?.receiptHash??null,
+        durableAdmissionStatus:durableAdmission?.status??null,
+        maximumIncrementalUsd:compiled.maximumIncrementalUsd,
+        maximumRemainingPaidCalls:compiled.maximumRemainingPaidCalls,
+        hiddenPayloadsExposed:false
+      }));
+    }catch(error){
+      console.error('UBERMIND_OWNER_AUTHORIZED_CROWN_RESUME '+JSON.stringify({
+        ok:false,status:'FAILED_NO_AUTOMATIC_RETRY',reason:String(error?.message||error).slice(0,300),
+        hiddenPayloadsExposed:false
+      }));
+    }finally{await store.close().catch(()=>{});}
+  })();
+}
+
+if (wrapperIsEntryPoint) {
+  try {
+    const result=runAchievedOpusEquivalenceDoctor();
+    console.log('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify(result));
+  } catch (error) {
+    console.error('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify({
+      ok:false,status:'EQUIVALENCE_ISLAND_DOCTOR_EXCEPTION',reason:String(error?.message||error).slice(0,300),
+      providerCallsPerformed:0,modelInferenceCallsPerformed:0,externalApiSpendUsd:0
+    }));
+  }
+}
+
+if (wrapperIsEntryPoint) {
+  void (async () => {
+    const result = await runWinnrSealedBootstrapController({ config });
+    console.log('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify(result));
+  })().catch(error => {
+    console.error('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify({
+      ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,300)
+    }));
+  });
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') === '1') {
+  void verifyWinnrReplyCanaries({ config })
+    .then(result => console.log('WINNR_RE

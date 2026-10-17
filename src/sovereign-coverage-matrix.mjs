@@ -585,6 +585,10 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
         })
         : evidenceState;
 
+    const enforcementReachability = boundSources.some(file => (repoIndex.productionReachable || []).includes(file)) ? 'PRODUCTION'
+      : boundSources.some(file => (repoIndex.operatorReachable || []).includes(file)) ? 'OPERATOR_ONLY'
+        : boundSources.some(file => (repoIndex.founderInteractiveReachable || []).includes(file)) ? 'FOUNDER_INTERACTIVE_ONLY'
+          : 'CLASSIFIED_OR_UNREACHABLE';
     const row = {
       canonicalId,
       literalNames: [name, ...(concept.aliases || [])].filter(Boolean),
@@ -593,7 +597,7 @@ export function compileCoverageMatrix({ concepts = [], repoIndex = {}, laneMap =
       currentEvidence: {
         sourceModules: boundSources,
         testModules: boundTests,
-        reachability: evidence.reachability,
+        reachability: evidence.reachability || (enforcement ? enforcementReachability : null),
         matchStrength: evidence.matchStrength,
         matchScope: evidence.matchScope,
         matchedPhrase: evidence.matchedPhrase,

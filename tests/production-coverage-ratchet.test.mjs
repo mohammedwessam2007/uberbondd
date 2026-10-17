@@ -126,7 +126,7 @@ test('every API route is executed by some gate', () => {
 // that matters. Executing a module by spawning it is still executing it, which
 // is why "exercised" below means imported OR spawned -- an import closure alone
 // would report this as uncovered and be wrong about it.
-const SPAWN_EXEMPT_ENTRY_POINTS = ['worker.mjs'];
+const SPAWN_EXEMPT_ENTRY_POINTS = [];
 
 function spawnedByGate(entry) {
   return gateSuites().some(suite => {
@@ -136,14 +136,9 @@ function spawnedByGate(entry) {
   });
 }
 
-test('worker.mjs is wiring, which is why it is exempt', () => {
-  const source = readFileSync(join(repoRoot, 'worker.mjs'), 'utf8');
-  const branches = (source.match(/\bif\s*\(|\bswitch\s*\(/g) || []).length;
-  assert.ok(branches <= 10,
-    `worker.mjs has ${branches} branches. It is exempt from this ratchet because it only wires ` +
-    'modules together; that exemption stops being true once it decides things.');
-  assert.deepEqual(SPAWN_EXEMPT_ENTRY_POINTS, ['worker.mjs'],
-    'the exempt list is one entry long on purpose -- adding to it needs the same argument');
+test('worker.mjs carries decisions and must be executed by a real process gate', () => {
+  assert.ok(spawnedByGate('worker.mjs'), 'worker decisions require an executed process gate');
+  assert.deepEqual(SPAWN_EXEMPT_ENTRY_POINTS, [], 'neither production process is exempt');
 });
 
 test('server.mjs is executed by a gate, not exempted from one', () => {

@@ -1,0 +1,156 @@
+req); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CAPITAL_ASSET_BODY_REFUSED',error:String(error?.message||error)}); }
+      try { const out=await runtime.registerCognitiveCapitalAsset(body); return sendJson(res,out.ok?200:409,out); }
+      catch(error){ return sendJson(res,409,{ok:false,status:'CAPITAL_ASSET_REFUSED',error:String(error?.message||error)}); }
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/capital-campaigns/close') {
+      let body; try { body=await readSmallJsonBody(req); }
+      catch(error){ return sendJson(res,400,{ok:false,status:'CAPITAL_CLOSE_BODY_REFUSED',error:String(error?.message||error)}); }
+      try { const out=await runtime.closeCognitiveCapitalCampaign(body); return sendJson(res,out.ok?200:409,out); }
+      catch(error){ return sendJson(res,409,{ok:false,status:'CAPITAL_CLOSE_REFUSED',error:String(error?.message||error)}); }
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/franchises') {
+      return sendJson(res, 200, await runtime.listDecisionFranchises());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/franchises/certify') {
+      let body;
+      try { body = await readSmallJsonBody(req, 2_000_000); }
+      catch (error) { return sendJson(res, 400, { ok:false,status:'DECISION_FRANCHISE_CERTIFICATION_BODY_REFUSED',error:String(error?.message||error) }); }
+      const admitted=await runtime.admitExhaustiveDecisionFranchise(body);
+      return sendJson(res, admitted.ok ? 200 : 409, admitted);
+    }
+    if (req.method === 'GET' && url.pathname === '/api/admin/infinite-opus/contexts') {
+      return sendJson(res, 200, await runtime.listContextSnapshots());
+    }
+    if (req.method === 'POST' && url.pathname === '/api/admin/infinite-opus/contexts') {
+      let body;
+      try { body = await readSmallJsonBody(req, 1_000_000); }
+      catch (error) { return sendJson(res, 400, { ok:false,status:'CONTEXT_SNAPSHOT_BODY_REFUSED',error:String(error?.message||error) }); }
+      const admitted=await runtime.admitContextSnapshot(body);
+      return sendJson(res, admitted.ok ? 200 : 409, admitted);
+    }
+    return sendJson(res, 404, { error: 'Infinite Opus route not found' });
+  });
+}
+
+function harden(coreHandler) {
+  return async function hardenedRequestHandler(req, res) {
+    const url = new URL(req.url, 'http://uberbond.local');
+    if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
+    if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/admin/oauth/google/start') return brokerGoogleOAuthStart(coreHandler, req, res, url);
+    if (req.method === 'GET' && url.pathname === '/api/admin/ubermail/status') return brokerUberMailStatus(coreHandler, req, res);
+    if (req.method === 'POST' && url.pathname === '/api/admin/ubermail/bootstrap') return brokerUberMailBootstrap(coreHandler, req, res);
+    if (url.pathname === '/v0' || url.pathname.startsWith('/v0/')) return brokerUberMail(req, res, url);
+    if (url.pathname.startsWith('/api/admin/uber-socket/')) return brokerUberSocket(coreHandler, req, res, url);
+    if (url.pathname === '/api/internal/infinite-opus/autofinish') return brokerCrownAutofinishTrigger(req,res);
+    if (url.pathname.startsWith('/api/typingmind/infinite-opus/v1/')) return brokerTypingMindInfiniteOpus(req, res, url);
+    if (url.pathname.startsWith('/api/admin/infinite-opus/')) return brokerInfiniteOpus(coreHandler, req, res, url);
+    return coreHandler(req, res);
+  };
+}
+
+http.createServer = function hardenedCreateServer(handler, ...rest) {
+  createdHardenedHandler = harden(handler);
+  return originalCreateServer.call(http, createdHardenedHandler, ...rest);
+};
+
+if (wrapperIsEntryPoint) process.argv[1] = corePath;
+let core;
+try { core = await import(coreUrl.href); }
+finally { process.argv[1] = originalArgv1; http.createServer = originalCreateServer; }
+
+if (wrapperIsEntryPoint) {
+  void (async()=>{
+    const store=createStore(config);
+    try{
+      await store.init();
+      const key='infinite_opus_crown_resume_20261002_r3';
+      const settings=await store.transaction(async tx=>await tx.getSettings());
+      const state=settings?.[key]??null;
+      const generationId=String(state?.reason||'').replace(/^generation-reconciliation-required:/,'');
+      const row=Array.isArray(state?.generationJournal)?state.generationJournal.find(r=>r.id===generationId):null;
+      if(state?.status!=='FAILED_NO_AUTOMATIC_RETRY'||state?.reason!=='generation-reconciliation-required:'+generationId||
+         !row||row.model!=='openai/gpt-6.1-sol-pro'||!state?.sealedEvidence){
+        console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'EXACT_R3_INTERRUPTION_NOT_PRESENT',providerInferenceCalls:0}));
+      }else if(row.status==='PROVIDER_RECONCILED_PENDING_EVIDENCE'){
+        console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:true,status:'R3_CANDIDATE_ALREADY_RECONCILED',id:generationId,costUsd:row.costUsd,provider:row.provider,providerInferenceCalls:0}));
+      }else if(row.status!=='DISPATCHED_UNRECONCILED'||!Number.isFinite(row.reservedWorstCaseUsd)||row.reservedWorstCaseUsd<=0){
+        console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'R3_DISPATCH_BINDING_REFUSED',id:generationId,providerInferenceCalls:0}));
+      }else{
+        const apiKey=String(process.env.OPENROUTER_API_KEY||'');
+        if(!apiKey)throw new Error('openrouter-runtime-key-required');
+        const response=await fetch('https://openrouter.ai/api/v1/generation?id='+encodeURIComponent(generationId),{
+          method:'GET',headers:{authorization:'Bearer '+apiKey},signal:AbortSignal.timeout(15000)
+        });
+        if(!response.ok){
+          console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'R3_CANDIDATE_METADATA_UNAVAILABLE',id:generationId,metadataHttpStatus:response.status,providerInferenceCalls:0}));
+        }else{
+          const body=await response.json(),meta=body?.data??{};
+          const costUsd=Number(meta.total_cost),observedModel=String(meta.model??''),provider=String(meta.provider_name??'');
+          if(!Number.isFinite(costUsd)||costUsd<0||costUsd>row.reservedWorstCaseUsd||
+             !verifyCrownProviderModel({requestedModel:row.model,observedModel,provider}))
+            throw new Error('r3-candidate-bill-or-identity-refused');
+          const nextJournal=state.generationJournal.map(item=>item.id===generationId?{
+            ...item,status:'PROVIDER_RECONCILED_PENDING_EVIDENCE',costUsd,observedModel,provider,
+            reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'
+          }:item);
+          const nextSpend=Number(state.newSpendUsd)+costUsd;
+          await store.transaction(async tx=>await tx.setSetting(key,{
+            ...state,generationJournal:nextJournal,newSpendUsd:nextSpend,
+            candidateFinancialReconciliation:{id:generationId,costUsd,observedModel,provider,reconciledAt:new Date().toISOString(),semanticAuthority:'NONE'},
+            updatedAt:new Date().toISOString()
+          }));
+          console.log('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:true,status:'R3_CANDIDATE_BILL_AND_IDENTITY_RECONCILED',id:generationId,costUsd,observedModel,provider,newSpendUsd:nextSpend,providerInferenceCalls:0,hiddenPayloadsExposed:false}));
+        }
+      }
+    }catch(error){
+      console.error('UBERMIND_R3_CANDIDATE_RECONCILIATION '+JSON.stringify({ok:false,status:'R3_RECONCILIATION_FAILED',reason:String(error?.message||error).slice(0,220),providerInferenceCalls:0,hiddenPayloadsExposed:false}));
+    }finally{await store.close().catch(()=>{});}
+  })();
+}
+
+if (wrapperIsEntryPoint) {
+  try {
+    const result=runAchievedOpusEquivalenceDoctor();
+    console.log('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify(result));
+  } catch (error) {
+    console.error('INFINITE_OPUS_ACHIEVED_EQUIVALENCE ' + JSON.stringify({
+      ok:false,status:'EQUIVALENCE_ISLAND_DOCTOR_EXCEPTION',reason:String(error?.message||error).slice(0,300),
+      providerCallsPerformed:0,modelInferenceCallsPerformed:0,externalApiSpendUsd:0
+    }));
+  }
+}
+
+if (wrapperIsEntryPoint) {
+  void (async () => {
+    const result = await runWinnrSealedBootstrapController({ config });
+    console.log('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify(result));
+  })().catch(error => {
+    console.error('WINNR_SEALED_BOOTSTRAP ' + JSON.stringify({
+      ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,300)
+    }));
+  });
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_REPLY_CANARY_VERIFY || '') === '1') {
+  void verifyWinnrReplyCanaries({ config })
+    .then(result => console.log('WINNR_REPLY_CANARY_VERIFY ' + JSON.stringify(result)))
+    .catch(error => console.error('WINNR_REPLY_CANARY_VERIFY_FAILED ' + JSON.stringify({
+      ok:false,status:'WINNR_REPLY_CANARY_VERIFY_EXCEPTION',reason:String(error?.message||error).slice(0,200)
+    })));
+}
+
+if (wrapperIsEntryPoint && String(process.env.WINNR_PLACEMENT_QUARANTINE_ORDINALS || '').trim()) {
+  void applyWinnrPlacementQuarantine({ config })
+    .then(result => console.log('WINNR_PLACEMENT_QUARANTINE ' + JSON.stringify(result)))
+    .catch(error => console.error('WINNR_PLACEMENT_QUARANTINE_FAILED ' + JSON.stringify({
+      ok:false,status:'UNHANDLED',reason:String(error?.message||error).slice(0,200)
+    })));
+}
+
+if (wrapperIsEntryPoint && process.env.WINNR_PERSONAL_INBOX_CANARY_ONCE === '1') {
+  void runWinnrPersonalInboxCanary({ config })
+    .then(result => console.log('WINNR_PERSONAL_INBOX_CANARY ' + JSON.stringify(result)))
+  

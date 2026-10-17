@@ -4,7 +4,7 @@ import { normalizeModelBenchmark } from '../src/agent-model-router.mjs';
 import { buildFrontierAdmissionBundle, compileAdmittedFrontierPlan } from '../src/frontier-cognitive-admission.mjs';
 import { buildFrontierCallabilityProbeReceipt } from '../src/frontier-callability-provenance.mjs';
 import { createFrontierSimulationExecutorFactory } from '../src/frontier-simulation-executor.mjs';
-import { executeFrontierMember } from '../src/frontier-reasoning-runtime.mjs';
+import { executeFrontierMember, compileFrontierExecutorWorker } from '../src/frontier-reasoning-runtime.mjs';
 
 const NOW = new Date('2026-09-04T20:00:00.000Z');
 const FRESH = '2026-09-04T19:00:00.000Z';
@@ -235,4 +235,14 @@ test('actual cost above reserved ceiling remains blocked after provenance passes
   assert.equal(out.ok, false);
   assert.equal(out.status, 'FRONTIER_EXECUTION_BUDGET_EXCEEDED');
   assert.ok(out.reasonCodes.includes('actual-cost-exceeds-frontier-reservation'));
+});
+
+test('worker compilation refuses absent or corrupted quality attestation independently of plan provenance', () => {
+  const member = admittedPlan().plan.selected;
+  assert.equal(compileFrontierExecutorWorker(member).ok, true);
+  for (const absoluteQualityInvariant of [undefined, null, { ...member.absoluteQualityInvariant, qualityDelta: 0.01 }]) {
+    const out = compileFrontierExecutorWorker({ ...member, absoluteQualityInvariant });
+    assert.equal(out.ok, false, 'a valid identity must not bypass the quality attestation boundary');
+    assert.ok(out.reasonCodes.length > 0);
+  }
 });

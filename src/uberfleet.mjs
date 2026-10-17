@@ -1,6 +1,7 @@
 import crypto from 'node:crypto';
 import { encryptJson, decryptJson } from './crypto.mjs';
 import { createUberSmtpSubmissionTransport } from './ubersmtp-submission-adapter.mjs';
+import { decideOutboundSend } from './outbound-send-authorization.mjs';
 
 export const UBERFLEET_VERSION='uberbond.uberfleet.v1';
 const clean=(v,n=1000)=>String(v??'').trim().slice(0,n);
@@ -78,8 +79,10 @@ function todayUsage(events=[],day){
   return m;
 }
 function eligibleAccount(account,health,provider){
+  // Fail closed: an empty or unknown provider never matches any account. Only the SMTP relay route is selectable here.
+  if(provider!=='smtp-relay')return false;
   if(account?.connected!==true||!emailOk(account?.email))return false;
-  if(provider&&String(account?.provider||'').toLowerCase()!==provider)return false;
+  if(String(account?.provider||'').toLowerCase()!==provider)return false;
   if(health?.paused===true)return false;
   if(account?.provider==='smtp-relay'){
     if(!account?.smtpRoute?.authorized||!account?.smtpRoute?.termsCompatible||!clean(account?.smtpRoute?.evidenceRef,1500))return false;
@@ -91,7 +94,8 @@ export function selectFleetMailbox({
   prospectId='',currentSlot='',accounts=[],senderHealth=[],outboundEvents=[],provider='',date=new Date()
 }={}){
   const h=healthMap(senderHealth);
-  const normalizedProvider=clean(provider,80).toLowerCase();
+  const normalizedProvider=clean(provider,80);
+  if(normalizedProvider!=='smtp-relay')return {ok:false,status:'UBERFLEET_NO_ELIGIBLE_MAILBOX',reasonCodes:['provider-smtp-relay-required']};
   const candidates=(Array.isArray(accounts)?accounts:[]).filter(a=>eligibleAccount(a,h.get(String(a.slot||'')),normalizedProvider));
   if(!candidates.length)return {ok:false,status:'UBERFLEET_NO_ELIGIBLE_MAILBOX',reasonCodes:['no-healthy-connected-provider-matched-mailbox']};
   const sticky=candidates.find(a=>String(a.slot||'')===String(currentSlot||''));
@@ -183,10 +187,37 @@ export async function probeSmtpFleetAccount({
   }
 }
 
+// Only these authorization fields are read from message.authorization. Anything else in it
+// (for example environment or a verifier) is ignored, so a message cannot widen its own decision.
+const OUTBOUND_AUTHORIZATION_FIELDS=['campaignId','sender','thresholds','domainReceipt','recipient','suppression','doNotContact','jurisdictionEvidence','consent','campaignApproval','messageApproval','rateWindow','retry','emergencyStop'];
+function outboundAuthorizationInput({account={},message={},consentVerifier}={}){
+  const auth=message?.authorization&&typeof message.authorization==='object'&&!Array.isArray(message.authorization)?message.authorization:{};
+  const route=account?.smtpRoute||{};
+  const input={};
+  for(const key of OUTBOUND_AUTHORIZATION_FIELDS)input[key]=auth[key];
+  // The whole outbound message minus its authorization block, so the approval digest covers every field the transport sends.
+  const { authorization: _ignoredAuthorization, ...outbound } = message && typeof message === 'object' && !Array.isArray(message) ? message : {};
+  input.message={...outbound,from:outbound.from||account?.email};
+  input.expectedSender={accountId:account?.id,slot:account?.slot,email:account?.email};
+  // Provider flags are true only when the caller's evidence and the account's own route both say so.
+  input.provider={
+    name:auth.provider?.name===account?.provider?account?.provider:'',
+    routeAuthorized:route.authorized===true&&auth.provider?.routeAuthorized===true,
+    termsCompatible:route.termsCompatible===true&&auth.provider?.termsCompatible===true
+  };
+  input.verifyConsent=consentVerifier;
+  return input;
+}
+
 export async function dispatchSmtpFleetAccount({
-  account={},encryptionKey='',message={},transportFactory=createUberSmtpSubmissionTransport
+  account={},encryptionKey='',message={},transportFactory=createUberSmtpSubmissionTransport,consentVerifier=undefined
 }={}){
   const route=account?.smtpRoute||{};
+  // Decide before any credential is opened or transport constructed. A refusal crosses no provider boundary.
+  let authorization;
+  try{authorization=decideOutboundSend(outboundAuthorizationInput({account,message,consentVerifier}));}
+  catch{authorization={decision:'NO_SEND',reasonCodes:['authorization-input-threw'],decisionDigest:null};}
+  if(authorization.decision!=='ALLOW')return {classification:'REFUSED',providerCallAttempted:false,effectBoundaryCrossed:false,reasonCodes:authorization.reasonCodes,decisionDigest:authorization.decisionDigest};
   let credential;
   try{credential=openSmtpAccountCredential(account,encryptionKey);}
   catch(error){return {classification:'REJECTED',providerCallAttempted:false,effectBoundaryCrossed:false,reasonCodes:['smtp-account-credential-unavailable'],dispatchError:clean(error.message,300)};}
@@ -198,7 +229,9 @@ export async function dispatchSmtpFleetAccount({
   });
   if(!transport?.ok||typeof transport.send!=='function')return {classification:'REJECTED',providerCallAttempted:false,effectBoundaryCrossed:false,reasonCodes:transport?.reasonCodes||['smtp-transport-not-ready']};
   try{
-    const result=await transport.send({...message,from:message.from||account.email});
+    const outbound={...message};
+    delete outbound.authorization;
+    const result=await transport.send({...outbound,from:message.from||account.email});
     if(result?.confirmed!==true||!clean(result.providerReceiptId,500))return {classification:'UNCERTAIN',providerCallAttempted:null,effectBoundaryCrossed:null,reasonCodes:['smtp-provider-confirmation-required'],messageId:result?.messageId||null};
     return {
       classification:'ACCEPTED',

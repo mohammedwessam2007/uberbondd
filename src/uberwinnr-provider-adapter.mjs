@@ -12,12 +12,29 @@ function blocked(capability,reasonCodes=['provider-client-not-ready']){
 function unsupported(capability,reason){
   return {ok:false,provider:'winnr',capability,status:'UNSUPPORTED_CAPABILITY',reason:clean(reason,500),externalEffectAuthority:'NONE'};
 }
+// Billable provisioning needs a named scope (never a wildcard), a present numeric
+// estimate and a positive spend limit at or above that estimate.
+const BILLABLE_CAPABILITIES=new Set(['provisionDomains','provisionMailboxes']);
+function spendCents(value){
+  if(typeof value==='number')return Number.isFinite(value)&&value>=0?value:null;
+  if(typeof value==='string'&&/^\d+(\.\d+)?$/.test(value.trim()))return Number(value.trim());
+  return null;
+}
 function approvalDecision(capability,ownerApproval={},estimatedCostCents=null,now=new Date()){
   if(ownerApproval?.granted!==true||!clean(ownerApproval?.grantedBy,120))return {ok:false,status:'OWNER_APPROVAL_REQUIRED'};
   const expiry=Date.parse(ownerApproval?.expiresAt||'');
   if(!Number.isFinite(expiry)||expiry<=now.getTime())return {ok:false,status:'OWNER_APPROVAL_EXPIRED'};
+  const billable=BILLABLE_CAPABILITIES.has(capability);
   const scopes=(Array.isArray(ownerApproval?.scope)?ownerApproval.scope:[ownerApproval?.scope]).map(v=>clean(v,160)).filter(Boolean);
-  if(!scopes.some(scope=>['*',capability,`winnr:${capability}`].includes(scope)))return {ok:false,status:'OWNER_APPROVAL_SCOPE_MISMATCH'};
+  const accepted=billable?[capability,`winnr:${capability}`]:['*',capability,`winnr:${capability}`];
+  if(!scopes.some(scope=>accepted.includes(scope)))return {ok:false,status:billable&&scopes.includes('*')?'WILDCARD_SCOPE_REFUSED_FOR_BILLABLE_ROUTE':'OWNER_APPROVAL_SCOPE_MISMATCH'};
+  if(billable){
+    const cost=spendCents(estimatedCostCents);
+    const limit=spendCents(ownerApproval?.spendLimitCents);
+    if(cost==null)return {ok:false,status:'SPEND_ESTIMATE_REQUIRED'};
+    if(limit==null||limit<=0)return {ok:false,status:'SPEND_LIMIT_REQUIRED'};
+    return cost>limit?{ok:false,status:'SPEND_LIMIT_EXCEEDED'}:{ok:true};
+  }
   const cost=Number(estimatedCostCents);
   if(Number.isFinite(cost)){
     const limit=Number(ownerApproval?.spendLimitCents);
@@ -146,11 +163,11 @@ export function createWinnrInfrastructureAdapter(config={},options={}){
       return result.ok?{...result,domains:items.map(normalizedDomain).filter(x=>x.id||x.domain)}:result;
     }),
     domainDns:async({domainId}={})=>read('domainDns',()=>client.getDnsRecords({domainId})),
-    provisionDomains:async({domains=[],body=null,ownerApproval=null}={})=>write('provisionDomains',ownerApproval,null,()=>{
+    provisionDomains:async({domains=[],body=null,ownerApproval=null,estimatedCostCents=null}={})=>write('provisionDomains',ownerApproval,estimatedCostCents,()=>{
       const supplied=Array.isArray(body?.domains)?body.domains:domains;
       return client.connectOwnedDomains({domains:supplied,manualDns:body?.manual_dns!==false,writeAuthorized:true});
     }),
-    provisionMailboxes:async({mailboxes=[],body=null,ownerApproval=null}={})=>write('provisionMailboxes',ownerApproval,null,()=>{
+    provisionMailboxes:async({mailboxes=[],body=null,ownerApproval=null,estimatedCostCents=null}={})=>write('provisionMailboxes',ownerApproval,estimatedCostCents,()=>{
       const domain=lower(body?.domain,253);
       const users=Array.isArray(body?.users)?body.users:(Array.isArray(mailboxes)?mailboxes:[]).map(row=>({username:lower(row?.username||String(row?.email||'').split('@')[0],120),name:clean(row?.name||row?.firstName,200)}));
       if(!domain||!users.length)return Promise.resolve(blocked('provisionMailboxes',['domain-and-users-required']));
@@ -179,7 +196,6 @@ export function createWinnrInfrastructureAdapter(config={},options={}){
     getPrewarmed:({domain}={})=>read('getPrewarmed',()=>client.getPrewarmed({domain})),
     checkPrewarmedBlocklist:({domain,blocklist=''}={})=>read('checkPrewarmedBlocklist',()=>client.checkPrewarmedBlocklist({domain,blocklist})),
     listMyPrewarmed:()=>read('listMyPrewarmed',()=>client.listMyPrewarmed()),
-    rawClient:client,
     truthBoundary:'The canonical Winnr adapter can observe and prepare provider state, but purchases remain founder-authorized. Provider objects, advertised health and API success never become recipient-network inbox placement or cold-send authority.'
   };
 }

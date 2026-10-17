@@ -3,6 +3,10 @@ import { semanticHash, canonicalSemanticJson, validateSemanticContext } from './
 const plain=v=>v!==null&&typeof v==='object'&&!Array.isArray(v);
 const digest=v=>typeof v==='string'&&/^[a-f0-9]{64}$/.test(v);
 const same=(a,b)=>canonicalSemanticJson(a)===canonicalSemanticJson(b);
+const bondDigest=bond=>{
+  const {bondHash,...payload}=bond;
+  return semanticHash(payload);
+};
 
 export const thoughtBondAuthorityId=slotHash=>{
   if(!digest(slotHash))throw new Error('thought-bond-slot-hash-required');
@@ -51,14 +55,14 @@ export function mintFrontierThoughtBond({cut,crownObservation,observationTrustPi
       cut:structuredClone(cut),crownObservation:structuredClone(crownObservation),
       observationTrustPin,record,recordHash:semanticHash(record),createdAt:new Date(now).toISOString()
     };
-    bond.bondHash=semanticHash({...bond,bondHash:undefined});
+    bond.bondHash=bondDigest(bond);
     return {ok:true,status:'FRONTIER_THOUGHT_BOND_MINTED',bond,semanticAuthority:'CURRENT_TASK_CLASS_CROWN_BOUND_TO_EXACT_CUT',externalEffectAuthority:'NONE'};
   }catch(error){return fail(String(error?.message||error));}
 }
 
 export function verifyFrontierThoughtBond({bond,now=Date.now()}={}){
   try{
-    if(bond?.schemaVersion!=='uberbond.frontier-thought-bond.v1'||bond.bondHash!==semanticHash({...bond,bondHash:undefined}))throw new Error('untampered-thought-bond-required');
+    if(bond?.schemaVersion!=='uberbond.frontier-thought-bond.v1'||bond.bondHash!==bondDigest(bond))throw new Error('untampered-thought-bond-required');
     const minted=mintFrontierThoughtBond({
       cut:bond.cut,crownObservation:bond.crownObservation,observationTrustPin:bond.observationTrustPin,
       expiresAt:bond.record.expiresAt,now

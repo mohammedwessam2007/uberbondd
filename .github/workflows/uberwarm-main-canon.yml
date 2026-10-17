@@ -1,0 +1,48 @@
+# Canonical receipt regeneration revision 9
+name: UberWarm isolated release canonical receipts
+on:
+  push:
+    branches: [codex/uberwarm-main-integration-20261017]
+    paths: [.github/workflows/uberwarm-main-canon.yml]
+permissions:
+  contents: read
+jobs:
+  canonical-receipts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Generate canonical evidence and prove freshness
+        shell: bash
+        run: |
+          set -euo pipefail
+          node --test tests/winnr-sealed-bootstrap-optin.test.mjs
+          node --test tests/claude-mcp.test.mjs tests/semantic-egraph-franchise-hotpath.test.mjs tests/ubermaildoso.test.mjs
+          node --test tests/winnr-readiness-hold-race.test.mjs tests/winnr-smtp-imap-no-send.test.mjs tests/worker-process-surface.test.mjs tests/winnr-bootstrap-refusal-surface.test.mjs
+          node --test tests/frontier-reasoning-execution-bridge.test.mjs
+          node scripts/mutation-war.mjs COG-QUALITY-03
+          node scripts/constitution-doctor.mjs
+          npm run readiness
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs
+          git diff --check
+          node <<'NODE'
+          const fs=require('fs');
+          for(const [name,path] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md'],['CONSTITUTION','artifacts/constitution/directives.json']]){
+            console.log('BEGIN_GENERATED_'+name);
+            const text=fs.readFileSync(path).toString('base64');
+            for(let i=0;i<text.length;i+=120)console.log(text.slice(i,i+120));
+            console.log('END_GENERATED_'+name);
+          }
+          NODE

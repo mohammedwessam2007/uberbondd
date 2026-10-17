@@ -63,7 +63,8 @@ test('canonical Winnr writes need scoped non-expired owner approval',async()=>{
 
   const allowed=await adapter.provisionMailboxes({
     body:{domain:'pilot.test',users:[{username:'sam',name:'Sam'}]},
-    ownerApproval:{granted:true,grantedBy:'founder',scope:['winnr:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z',spendLimitCents:0}
+    estimatedCostCents:100,
+    ownerApproval:{granted:true,grantedBy:'founder',scope:['winnr:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z',spendLimitCents:100}
   });
   assert.equal(allowed.ok,true);
   assert.equal(calls,1);
@@ -74,9 +75,9 @@ test('mailbox provisioning keeps zero-budget, scope and expiry checks explicit',
   const adapter=createWinnrInfrastructureAdapter(cfg(),{fetchImpl:async()=>{calls++;return response({job_id:'j1'});}});
   const body={domain:'pilot.test',users:[{username:'sam',name:'Sam'}]};
   const approval={granted:true,grantedBy:'founder',scope:['winnr:provisionMailboxes'],expiresAt:'2099-01-01T00:00:00Z'};
-  assert.equal((await adapter.provisionMailboxes({body,ownerApproval:approval})).status,'SPEND_LIMIT_EXCEEDED');
-  assert.equal((await adapter.provisionMailboxes({body,ownerApproval:{...approval,spendLimitCents:0,scope:['winnr:exportMailboxes']}})).status,'OWNER_APPROVAL_SCOPE_MISMATCH');
-  assert.equal((await adapter.provisionMailboxes({body,ownerApproval:{...approval,spendLimitCents:0,expiresAt:'2000-01-01T00:00:00Z'}})).status,'OWNER_APPROVAL_EXPIRED');
+  assert.equal((await adapter.provisionMailboxes({body,estimatedCostCents:100,ownerApproval:{...approval,spendLimitCents:50}})).status,'SPEND_LIMIT_EXCEEDED');
+  assert.equal((await adapter.provisionMailboxes({body,estimatedCostCents:100,ownerApproval:{...approval,spendLimitCents:100,scope:['winnr:exportMailboxes']}})).status,'OWNER_APPROVAL_SCOPE_MISMATCH');
+  assert.equal((await adapter.provisionMailboxes({body,estimatedCostCents:100,ownerApproval:{...approval,spendLimitCents:100,expiresAt:'2000-01-01T00:00:00Z'}})).status,'OWNER_APPROVAL_EXPIRED');
   assert.equal(calls,0);
 });
 

@@ -1,6 +1,11 @@
 import { semanticHash } from './semantic-closure-kernel.mjs';
 
-const rate = value => typeof value === 'string' && /^\d+(\.\d+)?$/.test(value) && Number.isFinite(Number(value)) ? Number(value) * 1e6 : null;
+const rate = value => {
+  if (typeof value !== 'string' || !/^\d+(\.\d+)?$/.test(value)) return null;
+  // Scale the provider's decimal before converting it to a binary float.
+  const scaled = Number(`${value}e6`);
+  return Number.isFinite(scaled) ? scaled : null;
+};
 export function compileInfiniteOpusMarket(payload, { verifiedAt, ttlMs = 86400000 } = {}) {
   const at = Date.parse(verifiedAt);
   if (!Number.isFinite(at) || !Number.isSafeInteger(ttlMs) || ttlMs < 1 || ttlMs > 86400000 || !Array.isArray(payload?.data) || payload.data.length > 10000) throw new Error('bounded-current-market-observation-required');

@@ -141,6 +141,10 @@
     "NO_UBERWATT_METER_OBSERVATIONS": {
       "description": "UberWatt needs real utility-meter intervals read by the founder and measured local inference from an owned compute node. Source cannot manufacture electricity readings or benchmark runs.",
       "releasedBy": "At least three comparable founder-recorded meter intervals plus one measured local-inference run from the Windows node, recorded with their evidence references."
+    },
+    "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION": {
+      "description": "The zero-add-on UberWarm warm-up layers, UberWarm2 seed probes through UberWarm6 economic dominance. Their live paths can touch real mailboxes, SMTP identities, provider state and the database, and none of them has been activated. No unattended script may reach them.",
+      "releasedBy": "Explicit owner approval, recorded as durable authorization evidence, for each live activation of a zero-add-on warm-up layer, naming the layer, the exact action and an expiry. Unattended scripts never release it, and no paid warm-up add-on is ever enabled by these layers."
     }
   },
   "modules": {
@@ -1231,6 +1235,101 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
       "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    "src/uberwarm2-seed-executor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Compiles and executes the UberWarm2 owner-controlled seed probe, which sends real SMTP test messages to owned seed addresses. It requires a server-held approval signing key and an unexpired owner approval bound to the exact batch digest, so it must never be reachable from an unattended path."
+    },
+    "src/uberwarm2-pg-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "PostgreSQL one-shot and daily quota ledger for UberWarm2 owner-controlled seed probes. It must run against the authoritative primary and needs the pending migration docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql, applied only by an owner-authorized runner. No owner has approved either."
+    },
+    "src/uberwarm2-winnr-https-seed-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Exact provider-managed Winnr HTTPS mailbox-send adapter for owner-controlled one-shot seed probes. Its transmission capability is consumable only after a signed founder approval, original PostgreSQL one-shot claim and current independent sender/seed proofs. No live Winnr write token or receiver connector is accessible in this coding session; no production caller is admitted and provider outcome has not been live-tested."
+    },
+    "src/uberwarm2-protected-winnr-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected Winnr observation, sender-health and seed-consent source composer. The only unattended operator script performs vendor GET-only diagnostics without importing this composition. Promotion still requires exact authenticated Winnr/SMTP readings, independent current signed alignment, local holds, trusted recipient consent, original-key PostgreSQL one-shot ledger and a separately approved owner-controlled probe; tests alone grant no send authority."
+    },
+    "src/uberwarm2-send-capability.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Process-local one-shot authority to transmit exactly one UberWarm2 owner-seed probe. The executor issues it only after a durable claim and the SMTP bridge consumes it before opening a socket. It is part of the seed path that has no production caller and no owner activation."
+    },
+    "src/uberwarm2-winnr-readonly-observation-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Read-only and fail-closed mapping of actual provider-reported Winnr domain/mailbox readiness, separated from SMTP-auth, quarantine and DNS alignment authority. Not wired until source schemas are authenticated inside a protected Winnr runtime with original held API token and all local sender holds."
+    },
+    "src/uberwarm2-protected-activation-wiring-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Source-only assembly of fail-closed existing sender-health and recipient-consent verifier callbacks. No real protected provider readers, original-key host, primary ledger, founder-signed exact probe or live send authority. Synthetically composed functions are not authenticated live capability."
+    },
+    "src/uberwarm2-smtp-seed-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Binds one already-authorized, encrypted SMTP sending identity to the owner-controlled seed allowlist and opens a live submission transport. Wiring it would send mail from a real account, so it waits for an owner approval of each live activation."
+    },
+    "src/uberwarm2-trusted-health-supplier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Read-only provider/SMTP transport, local quarantine and signed DNS-alignment observations are reconciled into one bounded sender-health row. The module deliberately has no production entry point or credentials: real protected Winnr/API transport readers, independently verified current SMTP and DNS evidence, original-key runtime and exact owner-seed authorization are not yet bound. Tests contain synthetic receipts only. Wiring before those external proof gates would confer false sending authority."
+    },
+    "src/uberwarm2-trusted-seed-consent-supplier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected read-only consent, receiving-mailbox readiness and suppression reconciler built from free DeepSeek donor. Source-level tests only; no external volunteers enrolled or authenticated consent registry connected. Deliberately unreachable until real protected source readers, specific owner consent, independently verifiable receiving account, original-key runtime and exact signed one-probe authorization are present. No autonomous messaging authority."
+    },
+    "src/uberwarm2-trusted-receiver-evidence-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Combines server-trusted independent receiver OAuth/IMAP evidence with an identity/folder-bound synchronous verifier. Deliberately not wired: no actually authenticated seed receiver connection, evidence ledger or signed one-probe approval deployed; caller-provided observations never count as delivery proof."
+    },
+    "src/uberwarm2-protected-runtime-preflight-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Pure release-check compiler requiring independently validated current attestations for source-current Render-to-Neon continuity, original-key custody, durable one-shot ledger, actual sender/recipient proof and zero-paid-addon policy. Never grants send or cutover authority; no trusted runtime attestation issuer is currently wired."
+    },
+    "src/uberwarm2-protected-receiver-placement-wiring-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Combines separately authenticated receiver observations with existing evidence compiler. No real recipient OAuth/IMAP or signed source records currently bound, nor live sending or durable placement recorder. Source-only; cannot claim delivered placement."
+    },
+    "src/uberwarm2-protected-winnr-read-plan-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Pure read-only Winnr API inventory plan. Deliberately no API token, provider calls, paid add-on, SMTP authority, actual complete paginated read or DNS alignment proof. Expected inventory is not authenticated current mailbox readiness."
+    },
+    "src/ubermind-cognitive-residual-economics.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Read-only hypothetical fidelity and savings calculator using assumed certified reuse and published model tariffs. No independent real-work equivalence, provider usage, or cost receipts; do not promote to production spend."
+    },
+    "src/ubermind-five-hour-quality-budget.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Read-only paired Claude Pro five-hour usage and quality-window arithmetic, dependent on owner-supplied UI and independent-grader attestations; no authenticated quota observation or runtime inference."
+    },
+    "src/ubermind-opus-quality-cost-floor.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Published tariff arithmetic for same-model Opus quality-floor scenarios; no observed cache hits, equivalent task outcomes, paid calls, or provider billing. This is not a production inference router."
+    },
+    "src/ubermind-pro-matched-cost-benchmark.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Offline comparison of submitted paired benchmark records and subscription-meter attestations; no proven same-task quality equivalence or live account usage, and no model calls."
+    },
+    "src/ubermind-pro20-economics.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Read-only model-plan versus API tariff scenario calculator; the $20 subscription is not API prepaid credit and calculator has no provider-cost or quality proof."
     }
   }
 }

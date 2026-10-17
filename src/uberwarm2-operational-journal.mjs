@@ -27,6 +27,13 @@ export function compileOperationalSnapshot(input) {
       mailboxes: count(input.provider?.mailboxes), domains: count(input.provider?.domains),
       receiptDigestsPresent: input.provider?.providerReceiptDigestsPresent === true
     },
+    receiver: {
+      configured: input.receiver?.configured === true,
+      authenticated: input.receiver?.authenticated === true,
+      inboxReadOnlyAccessible: input.receiver?.inboxReadOnlyAccessible === true,
+      spamSpecialUseAdvertised: input.receiver?.spamSpecialUseAdvertised === true,
+      probeConsentEstablished: false
+    },
     // This monitor cannot attest these independent gates, including when reads succeed.
     activation: 'INDEPENDENT_SENDER_CONSENT_AND_PLACEMENT_GATES_REQUIRED'
   };

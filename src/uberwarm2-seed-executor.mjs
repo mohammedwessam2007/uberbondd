@@ -388,10 +388,14 @@ export async function executeUberWarm2SeedProbe({
   // "bound to this sender" on the check and another address on the send.
   let sendOwnedSeed;
   let authorizedSmtp;
+  let authorizedHttpsApi;
+  let transportKind;
   let boundSender;
   try {
     sendOwnedSeed = dataField(transport, 'sendOwnedSeed');
     authorizedSmtp = primitiveField(transport, 'authorizedSmtp');
+    authorizedHttpsApi = primitiveField(transport, 'authorizedHttpsApi');
+    transportKind = primitiveField(transport, 'transportKind');
     boundSender = primitiveField(transport, 'boundSender');
   } catch (refusal) {
     return denied('UBERWARM2_TRANSPORT_REQUIRED', ['transport-not-bound-to-probe-sender', reasonOf(refusal)]);
@@ -400,7 +404,9 @@ export async function executeUberWarm2SeedProbe({
   // The adapter must declare that it is authorized and bound to this probe's
   // sender. Checking only that a send function exists would let any adapter
   // submit as any sender.
-  if (authorizedSmtp !== true || strictEmail(boundSender) === null || strictEmail(boundSender) !== strictEmail(probe.senderEmail)) {
+  const smtpMode = authorizedSmtp === true && authorizedHttpsApi !== true && (transportKind === undefined || transportKind === 'SMTP');
+  const httpsMode = authorizedHttpsApi === true && authorizedSmtp !== true && transportKind === 'WINNR_INBOX_HTTPS_API';
+  if ((!smtpMode && !httpsMode) || strictEmail(boundSender) === null || strictEmail(boundSender) !== strictEmail(probe.senderEmail)) {
     return denied('UBERWARM2_TRANSPORT_REQUIRED', ['transport-not-bound-to-probe-sender']);
   }
   // Immutable approval alone cannot override a quarantine or recipient
@@ -507,7 +513,7 @@ export async function executeUberWarm2SeedProbe({
   }
   const receipt = Object.freeze({
     version: UBERWARM2_SEED_EXECUTION_VERSION,
-    status: submitted ? 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN' : 'SUBMISSION_OUTCOME_UNCERTAIN',
+    status: submitted ? (httpsMode ? 'PROVIDER_ACCEPTED_PLACEMENT_UNKNOWN' : 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN') : 'SUBMISSION_OUTCOME_UNCERTAIN',
     reservationKey, probeId: probe.probeId, batchDigest: snap.batchDigest,
     senderEmail: probe.senderEmail, seedEmail: probe.seedEmail,
     providerMessageId: submitted ? providerMessageId : null,
@@ -536,7 +542,7 @@ export function compileUberWarm2ReceivedEvidence({
   const canonical = { version: UBERWARM2_SEED_EXECUTION_VERSION, createdAt: batch.createdAt, probes: batch.probes };
   if (batch.batchDigest !== `sha256:${sha(canonical)}`) return denied('UBERWARM2_EVIDENCE_REFUSED', ['batch-digest-invalid']);
   const receiptsByProbe = new Map((Array.isArray(receipts) ? receipts : [])
-    .filter(r => r?.status === 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN' && r?.batchDigest === batch.batchDigest &&
+    .filter(r => ['SMTP_ACCEPTED_PLACEMENT_UNKNOWN', 'PROVIDER_ACCEPTED_PLACEMENT_UNKNOWN'].includes(r?.status) && r?.batchDigest === batch.batchDigest &&
       text(r.providerMessageId, 500))
     .map(r => [r.probeId, r]));
   const accepted = [];

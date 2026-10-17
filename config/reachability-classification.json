@@ -1301,6 +1301,11 @@
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
       "reason": "Combines separately authenticated receiver observations with existing evidence compiler. No real recipient OAuth/IMAP or signed source records currently bound, nor live sending or durable placement recorder. Source-only; cannot claim delivered placement."
     },
+    "src/uberwarm2-gmail-placement-reader.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_GMAIL_READONLY_GRANT",
+      "reason": "Recipient-side GET-only Gmail placement reader. Requires an owner-authorized runtime credential provider and the existing protected signed-reference verifier; neither is currently bound to Railway. ChatGPT Gmail credentials are not exported. It checks exact profile, sender, recipient, RFC Message-ID, approved probe content and receiving labels, and never claims a signature or send authority."
+    },
     "src/uberwarm2-protected-winnr-read-plan-donor.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",

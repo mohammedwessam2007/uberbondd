@@ -8,7 +8,7 @@ import { createUberWarm2ProtectedActivationWiring } from './uberwarm2-protected-
 
 export const UBERWARM2_WINNR_PROTECTED_RUNTIME_VERSION = 'uberbond.uberwarm2-winnr-protected-runtime.v1';
 
-export function createUberWarm2ProtectedWinnrRuntime({ client, trustedReaders = {}, clock, maxAgeMs = 300000 } = {}) {
+export function createUberWarm2ProtectedWinnrRuntime({ client, trustedReaders = {}, clock, maxAgeMs = 300000, transportMode = 'SMTP' } = {}) {
   const vendor = createUberWarm2WinnrReadOnlyObservationDonor({ client, clock, maxAgeMs });
   const readers = trustedReaders && typeof trustedReaders === 'object' && !Array.isArray(trustedReaders)
     ? trustedReaders : {};
@@ -16,6 +16,8 @@ export function createUberWarm2ProtectedWinnrRuntime({ client, trustedReaders = 
     readProviderMailbox: vendor.readProviderMailbox,
     readProviderDomainDns: vendor.readProviderDomainDns,
     readVerifiedSmtp: readers.readVerifiedSmtp,
+    readVerifiedHttpsTransport: readers.readVerifiedHttpsTransport,
+    transportMode,
     readLocalHold: readers.readLocalHold,
     readVerifiedDnsAlignment: readers.readVerifiedDnsAlignment,
     readAuthenticatedConsent: readers.readAuthenticatedConsent,

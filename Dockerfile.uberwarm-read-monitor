@@ -4,12 +4,13 @@ WORKDIR /app
 RUN npm install --ignore-scripts --no-audit --no-fund --save-exact pg@8.22.0
 COPY src/uberwinnr-adapter.mjs src/provider-http-adapters.mjs src/provider-receipt-redaction.mjs ./src/
 COPY src/uberwarm2-operational-journal.mjs ./src/
+COPY src/uberwarm2-winnr-token-permissions.mjs ./src/
 COPY src/uberwarm2-receiver-binding.mjs src/uberimap.mjs src/crypto.mjs src/csv.mjs src/uberwarm2-seed-template.mjs ./src/
 COPY scripts/uberwarm2-live-read-doctor.mjs scripts/uberwarm2-railway-read-monitor.mjs ./scripts/
 COPY scripts/uberwarm2-migrate-operational-journal.mjs ./scripts/
 COPY scripts/uberwarm2-migrate-receiver-binding.mjs scripts/uberwarm2-enroll-winnr-receiver.mjs ./scripts/
 COPY docs/migrations-pending/20261017_uberwarm2_operational_receipts.sql ./docs/migrations-pending/
 COPY docs/migrations-pending/20261017_uberwarm2_receiver_binding.sql ./docs/migrations-pending/
-RUN node --check scripts/uberwarm2-railway-read-monitor.mjs && node --check scripts/uberwarm2-live-read-doctor.mjs
+RUN test -f src/uberwarm2-winnr-token-permissions.mjs && node --check src/uberwarm2-winnr-token-permissions.mjs && node --check scripts/uberwarm2-railway-read-monitor.mjs && node --check scripts/uberwarm2-live-read-doctor.mjs
 USER node
 CMD ["node", "scripts/uberwarm2-railway-read-monitor.mjs"]

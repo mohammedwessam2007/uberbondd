@@ -14,13 +14,14 @@ const request = Object.freeze({
   body: UBERWARM2_SEED_TEMPLATE.bodyPrefix + probeId,
   reservationKey, permittedPurpose: 'OWNER_CONTROLLED_PLACEMENT_PROBE'
 });
-function fixture({ paused = false, noReceipt = false, noId = false, throwSend = false } = {}) {
+function fixture({ paused = false, noReceipt = false, noId = false, throwSend = false, liveShape = false, conflictingIdentity = false } = {}) {
   const calls = [];
   const client = {
     async getMailbox({ userId }) {
       calls.push('read');
       return { ok: true, data: {
-        id: userId, email: sender, status: 'active', paused, quarantined: false
+        id: userId, ...(liveShape ? {full_address: sender, username: 'sender', domain: 'owned.example'} : {email: sender}),
+        ...(conflictingIdentity ? {full_address: 'other@owned.example'} : {}), status: 'active', paused, quarantined: false
       }, receipt: noReceipt ? null : { responseDigest: 'sha256:provider-get' } };
     },
     async sendOwnerSeedViaHttps(input) {
@@ -106,4 +107,25 @@ test('unconfirmed provider response or thrown post is uncertain and never retrie
       assert.deepEqual(calls, ['read', 'send']);
     } finally { revokeSendCapability(reservationKey); }
   }
+});
+
+test('live full_address identity preserves one-shot and hold checks', async () => {
+  for (const paused of [false, true]) {
+    const { bridge, calls } = fixture({ liveShape: true, paused });
+    issueSendCapability(reservationKey, request);
+    try {
+      const result = await bridge.sendOwnedSeed(request);
+      assert.equal(result.accepted === true, !paused);
+      assert.deepEqual(calls, paused ? ['read'] : ['read', 'send']);
+      if (!paused) { await bridge.sendOwnedSeed(request); assert.deepEqual(calls, ['read', 'send']); }
+    } finally { revokeSendCapability(reservationKey); }
+  }
+});
+test('conflicting provider identity aliases refuse without transmitting', async () => {
+  const { bridge, calls } = fixture({ conflictingIdentity: true });
+  issueSendCapability(reservationKey, request);
+  try {
+    const result = await bridge.sendOwnedSeed(request);
+    assert.equal(result.notTransmitted, true); assert.deepEqual(calls, ['read']);
+  } finally { revokeSendCapability(reservationKey); }
 });

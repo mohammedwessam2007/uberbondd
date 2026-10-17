@@ -11,6 +11,7 @@
  * placement claim is possible through this bridge.
  */
 import { hasSendCapability, consumeSendCapability } from './uberwarm2-send-capability.mjs';
+import { resolveWinnrMailboxAddress } from './uberwinnr-adapter.mjs';
 import { UBERWARM2_SEED_TEMPLATE } from './uberwarm2-seed-executor.mjs';
 
 export const UBERWARM2_WINNR_HTTPS_BRIDGE_VERSION = 'uberbond.uberwarm2-winnr-https-seed-bridge.v1';
@@ -82,7 +83,7 @@ export function createUberWarm2WinnrHttpsSeedBridge({
         ]);
         const row = mailbox?.data;
         const rowId = row?.id ?? row?.userId ?? row?.user_id;
-        const rowEmail = row?.email ?? row?.address;
+        const rowEmail = resolveWinnrMailboxAddress(row);
         const status = String(row?.status ?? '').toLowerCase();
         if (mailbox?.ok !== true || !mailbox?.receipt?.responseDigest ||
             rowId !== userId || rowEmail !== sender || status !== 'active' ||

@@ -378,8 +378,6 @@ handlers['outreach.100k.process'] = async payload => {
 const stopScheduler = startScheduler(queue, config, console);
 const workerPromise = queue.startWorker(handlers, { concurrency: config.queue.concurrency });
 
-console.log(`UberBond worker ${queue.workerId} started using ${config.storeBackend}`);
-
 let shuttingDown = false;
 async function shutdown(signal) {
   if (shuttingDown) return;
@@ -394,5 +392,9 @@ async function shutdown(signal) {
 }
 process.on('SIGTERM', () => shutdown('SIGTERM'));
 process.on('SIGINT', () => shutdown('SIGINT'));
+
+// Readiness is observable only after both shutdown handlers are installed.
+// This closes a SIGTERM race between the startup log and signal listeners.
+console.log(`UberBond worker ${queue.workerId} started using ${config.storeBackend}`);
 
 await workerPromise;

@@ -1,0 +1,104 @@
+{
+  "schema": "uberbond.phoenix.targeted-github-metadata.v1",
+  "observed_at_utc": "2026-10-17T20:54:46.122Z",
+  "scope": "GitHub repository metadata only; no source installed/executed",
+  "license_and_security_status": "NOT_VERIFIED",
+  "results": [
+    {
+      "requested": "ChesterRa/cccc",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "ChesterRa/cccc",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 53817
+    },
+    {
+      "requested": "sergioDS-coder/duplex-bridge",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "sergioDS-coder/duplex-bridge",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 58
+    },
+    {
+      "requested": "slopus/happy",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "slopus/happy",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 235455
+    },
+    {
+      "requested": "twidi/twicc",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "twidi/twicc",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 98936
+    },
+    {
+      "requested": "mco-org/mco",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "mco-org/mco",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 4044
+    },
+    {
+      "requested": "SakanaAI/ShinkaEvolve",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "SakanaAI/ShinkaEvolve",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 10787
+    },
+    {
+      "requested": "UKGovernmentBEIS/inspect_ai",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "UKGovernmentBEIS/inspect_ai",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 462242
+    },
+    {
+      "requested": "snyk/agent-scan",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "snyk/agent-scan",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 6469
+    },
+    {
+      "requested": "microsoft/playwright-mcp",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "microsoft/playwright-mcp",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 2126
+    },
+    {
+      "requested": "stacklok/toolhive",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "stacklok/toolhive",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 120816
+    },
+    {
+      "requested": "hatchet-dev/hatchet",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "hatchet-dev/hatchet",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 221551
+    },
+    {
+      "requested": "PrimeIntellect-ai/prime-agent",
+      "status": "PUBLIC_REPO_METADATA_VERIFIED",
+      "actual": "PrimeIntellect-ai/prime-agent",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 112861
+    }
+  ]
+}

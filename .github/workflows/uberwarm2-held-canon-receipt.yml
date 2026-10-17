@@ -1,3 +1,4 @@
+# Reverify strict one-recipient validation after HTTP bridge fix
 name: UberWarm2 held canon regeneration evidence
 on:
   push:

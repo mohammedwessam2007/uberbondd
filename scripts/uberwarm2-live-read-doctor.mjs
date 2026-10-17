@@ -6,6 +6,7 @@
  * Only aggregate metadata is printed, never raw rows/emails/tokens.
  */
 import { createWinnrApiClient, resolveWinnrMailboxAddress } from '../src/uberwinnr-adapter.mjs';
+import { inspectWinnrTokenPermissions } from '../src/uberwarm2-winnr-token-permissions.mjs';
 
 const argv = process.argv.slice(2);
 const has = flag => argv.includes(flag);
@@ -46,13 +47,14 @@ async function run() {
     status: account.ok && mailboxCount !== null && domainCount !== null
       ? 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED' : 'UBERWARM2_WINNR_LIVE_INVENTORY_INCOMPLETE',
     accountRead: account.ok === true,
+    tokenPermissions: inspectWinnrTokenPermissions(account),
     mailboxes: mailboxCount,
     domains: domainCount,
     providerCalls: (account.providerCalls || 0) + (mailboxes.providerCalls || 0) + (domains.providerCalls || 0),
     sends: 0,
     runtimeReady: false,
     providerReceiptDigestsPresent: [account,mailboxes,domains].every(r => !!r.receipt?.responseDigest),
-    missingIndependentGates: ['trusted-smtp-auth','local-holds','signed-dns-alignment',
+    missingIndependentGates: ['signed-current-transport-health','local-holds','signed-dns-alignment',
       'owner-controlled-seed-consent','receiver-inbox-placement','postgres-one-shot-ledger']
   };
   if (identity && inventory.status === 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') {

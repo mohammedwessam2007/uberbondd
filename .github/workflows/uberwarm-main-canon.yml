@@ -1,4 +1,4 @@
-# Canonical receipt regeneration revision 4
+# Canonical receipt regeneration revision 5
 name: UberWarm isolated release canonical receipts
 on:
   push:
@@ -28,12 +28,13 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          node scripts/constitution-doctor.mjs
           npm run readiness
           node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs
           git diff --check
           node <<'NODE'
           const fs=require('fs');
-          for(const [name,path] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']]){
+          for(const [name,path] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md'],['CONSTITUTION','artifacts/constitution/directives.json']]){
             console.log('BEGIN_GENERATED_'+name);
             const text=fs.readFileSync(path).toString('base64');
             for(let i=0;i<text.length;i+=120)console.log(text.slice(i,i+120));

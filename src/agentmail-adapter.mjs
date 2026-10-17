@@ -12,6 +12,7 @@
 
 import { createProviderHttpAdapter } from './provider-http-adapters.mjs';
 import { redactProviderReceipt } from './provider-receipt-redaction.mjs';
+import { gateOutboundRoute, requestOutboundPackage } from './outbound-send-authorization.mjs';
 
 export const AGENTMAIL_ADAPTER_POLICY_VERSION = 'agentmail-adapter-1.0.0';
 export const AGENTMAIL_DEFAULT_BASE_URL = 'https://api.agentmail.to/v0';
@@ -142,6 +143,10 @@ export function createAgentMailAdapter(config = {}, options = {}) {
   const limits = AGENTMAIL_TARGET_PLAN_LIMITS[targetPlan] || AGENTMAIL_TARGET_PLAN_LIMITS.startup;
   const transportOptions = { ...options };
   delete transportOptions.extensions;
+  const outboundAuthorizationFn = transportOptions.outboundAuthorizationFn || null;
+  const outboundConsentVerifier = transportOptions.outboundConsentVerifier;
+  delete transportOptions.outboundAuthorizationFn;
+  delete transportOptions.outboundConsentVerifier;
 
   return createProviderHttpAdapter({
     providerName: 'agentmail',
@@ -203,6 +208,14 @@ export function createAgentMailAdapter(config = {}, options = {}) {
           ...result,
           inbox: dataOf(result)
         };
+      };
+
+      // Live-route gate for every send. AgentMail is not an admitted route, and an inbox id alone cannot verify the sender identity,
+      // so the decision refuses before requestJson. A refusal builds no request and sends no API-key header.
+      const outboundRefusal = async ({ capability, inboxId, message }) => {
+        const account = { id: text(inboxId, 300), slot: text(inboxId, 300), email: '', provider: 'agentmail', smtpRoute: {} };
+        const authorization = await requestOutboundPackage(outboundAuthorizationFn, { message, account, inboxId, capability });
+        return gateOutboundRoute({ account, message: { ...message, authorization: authorization || undefined }, consentVerifier: outboundConsentVerifier, routeProvider: 'agentmail' });
       };
 
       return {
@@ -410,11 +423,14 @@ export function createAgentMailAdapter(config = {}, options = {}) {
           if (!path) return failure(context, 'sendMessage', 'INBOX_ID_REQUIRED', 'An AgentMail inbox id is required.');
           if (!recipientCount) return failure(context, 'sendMessage', 'RECIPIENT_REQUIRED', 'At least one AgentMail recipient is required.');
           if (recipientCount > 50) return failure(context, 'sendMessage', 'RECIPIENT_LIMIT_EXCEEDED', 'AgentMail allows at most 50 recipients per send.');
+          const body = messagePayload({ to, cc, bcc, replyTo, subject, text: bodyText, html, labels, attachments, headers, trackOpens });
+          const refusal = await outboundRefusal({ capability: 'sendMessage', inboxId, message: { path: path + '/messages/send', ...body } });
+          if (refusal) return { ...failure(context, 'sendMessage', 'OUTBOUND_AUTHORIZATION_REFUSED', 'Outbound authorization refused: ' + refusal.reasonCodes.join(', ')), reasonCodes: refusal.reasonCodes };
           return requestJson({
             capability: 'sendMessage',
             method: 'POST',
             path: path + '/messages/send',
-            body: messagePayload({ to, cc, bcc, replyTo, subject, text: bodyText, html, labels, attachments, headers, trackOpens }),
+            body,
             ownerApproval,
             idempotencyKey,
             estimatedCostCents
@@ -443,11 +459,15 @@ export function createAgentMailAdapter(config = {}, options = {}) {
           const messagePath = text(messageId, 300);
           if (!inboxPath) return failure(context, 'sendMessage', 'INBOX_ID_REQUIRED', 'An AgentMail inbox id is required.');
           if (!messagePath || /[\r\n]/.test(messagePath)) return failure(context, 'sendMessage', 'MESSAGE_ID_REQUIRED', 'An AgentMail message id is required.');
+          const replyPath = inboxPath + '/messages/' + encodeURIComponent(messagePath) + '/reply';
+          const body = messagePayload({ to, cc, bcc, replyTo, text: bodyText, html, labels, attachments, headers, trackOpens, replyAll });
+          const refusal = await outboundRefusal({ capability: 'sendMessage', inboxId, message: { path: replyPath, ...body } });
+          if (refusal) return { ...failure(context, 'sendMessage', 'OUTBOUND_AUTHORIZATION_REFUSED', 'Outbound authorization refused: ' + refusal.reasonCodes.join(', ')), reasonCodes: refusal.reasonCodes };
           return requestJson({
             capability: 'sendMessage',
             method: 'POST',
-            path: inboxPath + '/messages/' + encodeURIComponent(messagePath) + '/reply',
-            body: messagePayload({ to, cc, bcc, replyTo, text: bodyText, html, labels, attachments, headers, trackOpens, replyAll }),
+            path: replyPath,
+            body,
             ownerApproval,
             idempotencyKey,
             estimatedCostCents

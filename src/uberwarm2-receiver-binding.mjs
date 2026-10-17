@@ -88,7 +88,8 @@ export async function inspectOwnedImapReceiver({credential,receiverEmail,query,c
       if(message.messageId!==query.providerMessageId||message.fromEmail!==query.senderEmail||
         (message.from.match(/@/g)||[]).length!==1||message.to.replace(/^<|>$/g,'')!==receiverEmail||
         message.subject!==UBERWARM2_SEED_TEMPLATE.subject||
-        exactPlainBody(raw)!==UBERWARM2_SEED_TEMPLATE.bodyPrefix+query.probeId||Date.now()-query.at>300000)throw Error('message-correlation');
+        exactPlainBody(raw)!==UBERWARM2_SEED_TEMPLATE.bodyPrefix+query.probeId||
+        Date.now()<started||Date.now()-query.at>300000)throw Error('message-correlation');
       observation={probeId:query.probeId,bodyToken:query.bodyToken,messageId:query.providerMessageId,
         senderEmail:query.senderEmail,seedEmail:receiverEmail,provider:'winnr',authenticated:true,
         providerFolder:match.folder,observedAt:new Date().toISOString(),

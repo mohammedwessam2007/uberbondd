@@ -20,6 +20,9 @@ try{
   const expected=[['receiver_email','text'],['provider_user_id','text'],['credential_json','jsonb'],
     ['authorization_ref','text'],['enabled','boolean'],['created_at','timestamp with time zone']];
   if(cols.length!==6||cols.some((v,i)=>v.column_name!==expected[i][0]||v.data_type!==expected[i][1]||v.is_nullable!=='NO'))throw Error('schema');
+  const keys=(await c.query(`SELECT pg_get_constraintdef(oid) AS definition FROM pg_constraint
+    WHERE conrelid='public.uberwarm2_receiver_bindings'::regclass AND contype='p'`)).rows;
+  if(keys.length!==1||keys[0].definition!=='PRIMARY KEY (receiver_email)')throw Error('primary-key');
   await c.query('COMMIT');
   console.log(JSON.stringify({receipt:'UBERWARM_RECEIVER_BINDING_MIGRATION',database:'railway',primary:true,
     migrationDigest:'sha256:'+createHash('sha256').update(sql).digest('hex'),sends:0}));

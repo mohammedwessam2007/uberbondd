@@ -29,8 +29,10 @@ try{
       termsCompatible:process.env.WINNR_TERMS_COMPATIBLE==='true',
       evidenceRef:process.env.WINNR_EVIDENCE_REF||''});
     if(!client.ok)throw Error('client');
+    const account=await client.getAccount();
+    if(!account.ok||account.data?.id!=='DfIijISE95q4YK2jPoIL')throw Error('account');
     const mailbox=await client.getMailbox({userId});
-    if(!mailbox.ok||mailbox.data?.full_address!==receiverEmail||mailbox.data.status!=='active')throw Error('identity');
+    if(!mailbox.ok||mailbox.data?.id!==userId||mailbox.data?.full_address!==receiverEmail||mailbox.data.status!=='active')throw Error('identity');
     phase='SELECTED_EXPORT';
     const exported=await client.exportMailboxes({format:'default',emails:[receiverEmail],writeAuthorized:true});
     if(!exported.ok)throw Error('export');

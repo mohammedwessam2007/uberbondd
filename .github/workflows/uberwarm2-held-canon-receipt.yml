@@ -1,0 +1,45 @@
+name: UberWarm2 held canon regeneration evidence
+on:
+  push:
+    branches:
+      - codex/uberwarm-protected-runtime-20261017
+    paths:
+      - .github/workflows/uberwarm2-held-canon-receipt.yml
+permissions:
+  contents: read
+jobs:
+  regenerate-without-external-effects:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    env:
+      NODE_ENV: test
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Recreate exact canonical files from current source
+        run: |
+          set -euo pipefail
+          npm run readiness
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs tests/uberwarm2-protected-winnr-runtime.test.mjs
+          git diff --check
+      - name: Emit source-derived exact generated files (no credentials)
+        run: |
+          node <<'NODE'
+          const fs=require('node:fs');
+          for (const [name,path] of [
+            ['READINESS','artifacts/system-readiness.json'],
+            ['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']
+          ]) {
+            console.log('BEGIN_GENERATED_'+name);
+            const b64=fs.readFileSync(path).toString('base64');
+            for(let i=0;i<b64.length;i+=120) console.log(b64.slice(i,i+120));
+            console.log('END_GENERATED_'+name);
+          }
+          NODE

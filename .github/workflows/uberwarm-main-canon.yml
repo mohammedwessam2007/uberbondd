@@ -1,4 +1,4 @@
-# Canonical receipt regeneration revision 8
+# Canonical receipt regeneration revision 9
 name: UberWarm isolated release canonical receipts
 on:
   push:
@@ -31,6 +31,8 @@ jobs:
           node --test tests/winnr-sealed-bootstrap-optin.test.mjs
           node --test tests/claude-mcp.test.mjs tests/semantic-egraph-franchise-hotpath.test.mjs tests/ubermaildoso.test.mjs
           node --test tests/winnr-readiness-hold-race.test.mjs tests/winnr-smtp-imap-no-send.test.mjs tests/worker-process-surface.test.mjs tests/winnr-bootstrap-refusal-surface.test.mjs
+          node --test tests/frontier-reasoning-execution-bridge.test.mjs
+          node scripts/mutation-war.mjs COG-QUALITY-03
           node scripts/constitution-doctor.mjs
           npm run readiness
           node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs

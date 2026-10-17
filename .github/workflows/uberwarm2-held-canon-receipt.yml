@@ -27,7 +27,7 @@ jobs:
         run: |
           set -euo pipefail
           npm run readiness
-          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs tests/uberwarm2-protected-winnr-runtime.test.mjs
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs tests/uberwarm2-protected-winnr-runtime.test.mjs tests/uberwarm2-winnr-https-api.test.mjs
           git diff --check
       - name: Emit source-derived exact generated files (no credentials)
         run: |

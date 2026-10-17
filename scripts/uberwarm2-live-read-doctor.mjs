@@ -5,7 +5,7 @@
  * WINNR_API_TOKEN environment variable or an approved egress proxy.
  * Only aggregate metadata is printed, never raw rows/emails/tokens.
  */
-import { createWinnrApiClient } from '../src/uberwinnr-adapter.mjs';
+import { createWinnrApiClient, resolveWinnrMailboxAddress } from '../src/uberwinnr-adapter.mjs';
 
 const argv = process.argv.slice(2);
 const has = flag => argv.includes(flag);
@@ -59,7 +59,7 @@ async function run() {
     // Keep this unattended CLI completely outside the held UberWarm2 seed and
     // protected activation donor chain. It may do provider GETs, not send.
     const domain = identity.split('@')[1];
-    const emailOf = m => String(m?.email ?? m?.address ?? m?.username ?? '').trim().toLowerCase();
+    const emailOf = m => resolveWinnrMailboxAddress(m).toLowerCase();
     const domainOf = d => String(d?.domain ?? d?.name ?? '').trim().toLowerCase();
     const matchingMailboxes = mailboxes.data.filter(m => emailOf(m) === identity);
     const matchingDomains = domains.data.filter(d => domainOf(d) === domain);
@@ -73,7 +73,8 @@ async function run() {
     inventory.sender = {
       exactMailboxAndDomainObserved: exact,
       providerDnsRead: dns?.ok === true,
-      providerDnsReportedReady: dns?.ok === true && dns.data?.ready === true,
+      providerDnsReportedReady: dns?.ok === true && (dns.data?.ready === true ||
+        (dns.data?.ready === undefined && dns.data?.all_verified === true)),
       providerReceiptDigestPresent: !!dns?.receipt?.responseDigest,
       // Vendor rows alone never prove SMTP AUTH, local holds or DNS alignment.
       independentlyVerifiedSenderHealth: false,

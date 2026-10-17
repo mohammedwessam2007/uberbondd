@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-17T04:28:11.399Z",
+  "generatedAt": "2026-10-17T06:48:10.416Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "0b669de902eb3164227c0dc3a7b740a6f7e1c86f",
-    "branch": "codex/uberwarm-protected-runtime-20261017",
+    "head": "4daae8c17bddcc1dba7fd2c7b6555c0259fe3ab3",
+    "branch": "HEAD",
     "sourceModules": 1131,
-    "testSuites": 1417,
+    "testSuites": 1418,
     "workingTreeClean": true
   },
   "measurements": {

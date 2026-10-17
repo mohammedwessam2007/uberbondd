@@ -1,4 +1,5 @@
 import { createHash } from 'node:crypto';
+import { resolveWinnrMailboxAddress } from './uberwinnr-adapter.mjs';
 
 // LANE W donor: read-only Winnr observation bridge. The injected client is the
 // only IO surface: no socket, no credential, no export, no external effect.
@@ -58,7 +59,7 @@ function completeRows(result) {
 
 const exactlyOne = (rows, match) => { const found = rows.filter(match); return found.length === 1 ? found[0] : null; };
 const idOf = r => str(r?.id ?? r?.userId ?? r?.user_id ?? r?.domainId ?? r?.domain_id);
-const emailKeyOf = r => lower(r?.email ?? r?.address ?? r?.username);
+const emailKeyOf = r => lower(resolveWinnrMailboxAddress(r));
 const domainKeyOf = r => lower(r?.domain ?? r?.name ?? domainOf(r?.email ?? r?.address));
 const flag = (r, ...keys) => keys.map(key => r?.[key]).find(isBool) ?? null;
 const providerDnsReady = r => r?.ready === true ||

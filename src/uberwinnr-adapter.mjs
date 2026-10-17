@@ -50,6 +50,33 @@ function readHeader(headers = {}, name = '') {
   return '';
 }
 
+// Current Winnr API uses full_address plus username/domain. Only consistent
+// explicit fields identify a mailbox; this never infers health or hold state.
+export function resolveWinnrMailboxAddress(row) {
+  try {
+    if (!row || typeof row !== 'object' || Array.isArray(row)) return '';
+    const fields = {};
+    for (const key of ['email', 'address', 'full_address', 'username', 'domain']) {
+      const d = Object.getOwnPropertyDescriptor(row, key);
+      if (!d) continue;
+      if (d.get || d.set) return '';
+      if (d.value === undefined) continue;
+      if (typeof d.value !== 'string' || !d.value || d.value !== d.value.trim()) return '';
+      fields[key] = d.value;
+    }
+    const valid = v => typeof v === 'string' && /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]{1,63}(?:\.[A-Za-z0-9-]{1,63})+$/.test(v);
+    const candidates = ['email', 'address', 'full_address'].filter(k => fields[k] !== undefined).map(k => fields[k]);
+    if (fields.username !== undefined) {
+      if (valid(fields.username)) candidates.push(fields.username);
+      else if (fields.domain !== undefined && valid(fields.username + '@' + fields.domain)) candidates.push(fields.username + '@' + fields.domain);
+      else return '';
+    }
+    if (!candidates.length || candidates.some(v => !valid(v) || v !== candidates[0])) return '';
+    if (fields.domain !== undefined && candidates[0].split('@')[1] !== fields.domain) return '';
+    return candidates[0];
+  } catch { return ''; }
+}
+
 export function verifyWinnrWebhookSignature({
   rawBody = '',
   headers = {},

@@ -1,0 +1,41 @@
+# Authenticate Winnr within the repository's EXISTING protected winnr-probe
+# environment. Metadata-only GET reads; no export, no SMTP, no mail or purchase.
+name: UberWarm2 real Winnr inventory (protected read only)
+on:
+  push:
+    branches:
+      - codex/uberwarm-protected-runtime-20261017
+    paths:
+      - .github/workflows/uberwarm2-protected-winnr-inventory.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: uberwarm2-protected-provider-get
+  cancel-in-progress: false
+jobs:
+  winnr-read:
+    runs-on: ubuntu-latest
+    environment: winnr-probe
+    timeout-minutes: 8
+    env:
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      WINNR_PROVIDER_AUTHORIZED: 'true'
+      WINNR_TERMS_COMPATIBLE: 'true'
+      WINNR_EVIDENCE_REF: owner-prior-protected-winnr-auth-probe-20261013
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts
+      - name: Live account/mailbox/domain GET census only
+        env:
+          WINNR_API_TOKEN: ${{ secrets.WINNR_API_TOKEN }}
+        run: |
+          set -euo pipefail
+          test -n "$WINNR_API_TOKEN"
+          node scripts/uberwarm2-live-read-doctor.mjs --probe --auth-mode=bearer

@@ -1,3 +1,4 @@
+# Check distinct HTTPS send adapter still requires durable one-shot authority
 # Reverify strict one-recipient validation after HTTP bridge fix
 name: UberWarm2 held canon regeneration evidence
 on:
@@ -28,7 +29,7 @@ jobs:
         run: |
           set -euo pipefail
           npm run readiness
-          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs tests/uberwarm2-protected-winnr-runtime.test.mjs tests/uberwarm2-winnr-https-api.test.mjs
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs tests/uberwarm2-protected-winnr-runtime.test.mjs tests/uberwarm2-winnr-https-api.test.mjs tests/uberwarm2-winnr-https-seed-bridge.test.mjs tests/uberwarm2-seed-executor.test.mjs
           git diff --check
       - name: Emit source-derived exact generated files (no credentials)
         run: |

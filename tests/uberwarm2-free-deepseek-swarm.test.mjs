@@ -15,6 +15,7 @@ const message={probeId:probe.probeId,senderEmail:probe.senderEmail,seedEmail:pro
   messageId:receipt.providerMessageId,bodyToken:probe.bodyToken,provider:'google',providerFolder:'SPAM',
   observedAt:iso(NOW-30000),receivingProviderEvidenceRef:'gmail:auth-folder-1',authenticated:true};
 const reference={verified:true,immutable:true,signed:true,receiverAuthenticated:true,
+  providerFolder:message.providerFolder,bodyToken:message.bodyToken,observedAt:message.observedAt,
   receivingProviderEvidenceRef:message.receivingProviderEvidenceRef,
   probeId:probe.probeId,messageId:receipt.providerMessageId,senderEmail:probe.senderEmail,
   seedEmail:probe.seedEmail,provider:probe.seedProvider};
@@ -35,10 +36,15 @@ test('real async receiver evidence binds exact folder SPAM, not caller INBOX',as
 });
 test('receiver evidence requires independent signed reference with identical source identity',async()=>{
   for(const bad of [{signed:false},{receiverAuthenticated:false},{messageId:'different'},
-    {seedEmail:'someone@gmail.com'},{provider:'microsoft'}]){
+    {seedEmail:'someone@gmail.com'},{provider:'microsoft'},{providerFolder:'INBOX'},
+    {bodyToken:'other'},{observedAt:iso(NOW-1000)}]){
     const r=await receiver(message,{...reference,...bad}).inspect({probe,receipt,at:NOW});
     assert.equal(r.ok,false,JSON.stringify(bad));
   }
+});
+test('unsigned row cannot relabel SPAM before initial proof compilation',async()=>{
+  const r=await receiver({...message,providerFolder:'INBOX'},reference).inspect({probe,receipt,at:NOW});
+  assert.equal(r.ok,false);
 });
 test('recipient connector cannot relabel unknown, mismatched, future or stale placement',async()=>{
   for(const bad of [{providerFolder:'FAKE'},{provider:'yahoo'},

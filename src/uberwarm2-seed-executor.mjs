@@ -2,6 +2,8 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 import { compilePlacementReport, normalizePlacementObservation } from './uberplacement.mjs';
 import { canonicalRecipientKey } from './outbound-send-authorization.mjs';
 import { issueSendCapability, revokeSendCapability } from './uberwarm2-send-capability.mjs';
+import { UBERWARM2_SEED_TEMPLATE } from './uberwarm2-seed-template.mjs';
+export { UBERWARM2_SEED_TEMPLATE } from './uberwarm2-seed-template.mjs';
 
 export const UBERWARM2_SEED_EXECUTION_VERSION = 'uberbond.uberwarm2-seed-execution.v1';
 const email = value => String(value ?? '').trim().toLowerCase();
@@ -16,10 +18,6 @@ const STRICT_EMAIL = /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]{1,63}(?:\.[A-Za-z0-9-
 // The only content an owner-controlled seed test may send. Compile renders from
 // it and execution re-renders from it, so a body or subject edited after
 // compile cannot reach the transport.
-export const UBERWARM2_SEED_TEMPLATE = Object.freeze({
-  subject: 'UberBond permitted mailbox delivery test',
-  bodyPrefix: 'Owner-authorized delivery and inbox-placement test. No reply or other action is requested. Reference: '
-});
 export const UBERWARM2_SEED_TEMPLATE_DIGEST = `sha256:${sha(UBERWARM2_SEED_TEMPLATE)}`;
 const renderSeedContent = probeId => ({
   subject: UBERWARM2_SEED_TEMPLATE.subject,

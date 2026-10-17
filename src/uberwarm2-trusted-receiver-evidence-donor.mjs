@@ -131,7 +131,10 @@ export function createUberWarm2TrustedReceiverEvidenceDonor({
           str(refRow.messageId, 500) !== messageId ||
           lower(refRow.seedEmail) !== seed ||
           lower(refRow.senderEmail) !== sender ||
-          lower(refRow.provider) !== seedProvider) rowReasons.push('evidence-reference-not-verified');
+          lower(refRow.provider) !== seedProvider ||
+          str(refRow.providerFolder,40).toUpperCase() !== providerFolder ||
+          str(refRow.bodyToken,200) !== bodyToken ||
+          canonicalUtcMs(refRow.observedAt) !== observedMs) rowReasons.push('evidence-reference-not-verified');
       const identityKey = digest([probeId, sender, seed, seedProvider, messageId, bodyToken, evidenceRef]);
       if (usedIdentity.has(identityKey) || usedEvidence.has(evidenceRef)) rowReasons.push('duplicate-receiving-provider-evidence');
       if (rowReasons.length) return deny(rowReasons);

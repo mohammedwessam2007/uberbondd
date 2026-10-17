@@ -1,0 +1,41 @@
+name: UberWarm isolated release canonical receipts
+on:
+  push:
+    branches: [codex/uberwarm-main-integration-20261017]
+    paths: [.github/workflows/uberwarm-main-canon.yml]
+permissions:
+  contents: read
+jobs:
+  canonical-receipts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    env:
+      NODE_ENV: test
+      UBERBOND_EFFECTS_DISABLED: '1'
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Generate canonical evidence and prove freshness
+        shell: bash
+        run: |
+          set -euo pipefail
+          npm run readiness
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs
+          git diff --check
+          node <<'NODE'
+          const fs=require('fs');
+          for(const [name,path] of [['READINESS','artifacts/system-readiness.json'],['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']]){
+            console.log('BEGIN_GENERATED_'+name);
+            const text=fs.readFileSync(path).toString('base64');
+            for(let i=0;i<text.length;i+=120)console.log(text.slice(i,i+120));
+            console.log('END_GENERATED_'+name);
+          }
+          NODE

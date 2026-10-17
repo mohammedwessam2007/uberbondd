@@ -1,4 +1,5 @@
 import crypto from 'node:crypto';
+import { zeroPaidRouteDenial } from './provider-http-adapters.mjs';
 
 export const UBERWINNR_VERSION = 'uberbond.uberwinnr.v1.1';
 export const WINNR_API_BASE = 'https://api.winnr.app/v1';
@@ -47,6 +48,33 @@ function readHeader(headers = {}, name = '') {
     if (lower(key, 100) === wanted) return Array.isArray(value) ? value.join(',') : String(value ?? '');
   }
   return '';
+}
+
+// Current Winnr API uses full_address plus username/domain. Only consistent
+// explicit fields identify a mailbox; this never infers health or hold state.
+export function resolveWinnrMailboxAddress(row) {
+  try {
+    if (!row || typeof row !== 'object' || Array.isArray(row)) return '';
+    const fields = {};
+    for (const key of ['email', 'address', 'full_address', 'username', 'domain']) {
+      const d = Object.getOwnPropertyDescriptor(row, key);
+      if (!d) continue;
+      if (d.get || d.set) return '';
+      if (d.value === undefined) continue;
+      if (typeof d.value !== 'string' || !d.value || d.value !== d.value.trim()) return '';
+      fields[key] = d.value;
+    }
+    const valid = v => typeof v === 'string' && /^[A-Za-z0-9._%+-]{1,64}@[A-Za-z0-9-]{1,63}(?:\.[A-Za-z0-9-]{1,63})+$/.test(v);
+    const candidates = ['email', 'address', 'full_address'].filter(k => fields[k] !== undefined).map(k => fields[k]);
+    if (fields.username !== undefined) {
+      if (valid(fields.username)) candidates.push(fields.username);
+      else if (fields.domain !== undefined && valid(fields.username + '@' + fields.domain)) candidates.push(fields.username + '@' + fields.domain);
+      else return '';
+    }
+    if (!candidates.length || candidates.some(v => !valid(v) || v !== candidates[0])) return '';
+    if (fields.domain !== undefined && candidates[0].split('@')[1] !== fields.domain) return '';
+    return candidates[0];
+  } catch { return ''; }
 }
 
 export function verifyWinnrWebhookSignature({
@@ -159,8 +187,13 @@ export function normalizeWinnrEvent(event = {}) {
   return Object.freeze({ ...base, factType: 'WINNR_EVENT_OBSERVED', dataDigest: `sha256:${crypto.createHash('sha256').update(safeJson(data)).digest('hex')}` });
 }
 
+// authMode 'bearer' (default): the client holds an explicit wnr_ token and sends it.
+// authMode 'proxy-injected': the sandbox egress proxy attaches the Winnr credential to requests for
+// api.winnr.app only. This client then reads, stores and sends no token, and must not set Authorization
+// (a blank header could override the injected one). The base URL is fixed, so no other host receives calls.
 export function createWinnrApiClient({
   token = '',
+  authMode = 'bearer',
   authorized = false,
   termsCompatible = false,
   evidenceRef = '',
@@ -168,7 +201,10 @@ export function createWinnrApiClient({
 } = {}) {
   const reasons = [];
   const rawToken = clean(token, 500);
-  if (!rawToken.startsWith('wnr_')) reasons.push('winnr-api-token-required');
+  const proxyInjected = authMode === 'proxy-injected';
+  if (authMode !== 'bearer' && !proxyInjected) reasons.push('winnr-auth-mode-unsupported');
+  if (proxyInjected && rawToken) reasons.push('proxy-injected-mode-forbids-inline-token');
+  if (!proxyInjected && !rawToken.startsWith('wnr_')) reasons.push('winnr-api-token-required');
   if (authorized !== true) reasons.push('provider-account-authorization-required');
   if (termsCompatible !== true) reasons.push('provider-terms-compatibility-required');
   if (!clean(evidenceRef, 1500)) reasons.push('provider-evidence-ref-required');
@@ -197,11 +233,22 @@ export function createWinnrApiClient({
         path: relative
       };
     }
+    // Every Winnr request, including raw ones, passes the zero-paid route policy:
+    // ambiguous paths, warm-up/pre-warm keys in a body, and purchase, billing or
+    // subscription routes for consequential writes are refused before any fetch.
+    const denial = zeroPaidRouteDenial({ method: verb, path: relative, body, readOnly: readOnlyPost === true });
+    if (denial) {
+      return {
+        ok: false,
+        status: 'UBERWINNR_ROUTE_DENIED',
+        reasonCodes: [denial.code, denial.reason],
+        providerCalls: 0,
+        path: relative
+      };
+    }
 
-    const headers = {
-      Authorization: `Bearer ${rawToken}`,
-      Accept: 'application/json'
-    };
+    const headers = { Accept: 'application/json' };
+    if (!proxyInjected) headers.Authorization = `Bearer ${rawToken}`;
     if (body !== undefined) headers['Content-Type'] = 'application/json';
 
     let response;
@@ -255,6 +302,7 @@ export function createWinnrApiClient({
       providerCalls: 1,
       data: parsed?.data ?? parsed,
       meta: parsed?.meta ?? null,
+      pagination: parsed?.pagination ?? null,
       receipt
     };
   }
@@ -263,7 +311,8 @@ export function createWinnrApiClient({
     ok: true,
     status: 'UBERWINNR_CLIENT_READY',
     version: UBERWINNR_VERSION,
-    token: redactToken(rawToken),
+    authMode: proxyInjected ? 'proxy-injected' : 'bearer',
+    token: proxyInjected ? 'PROXY_INJECTED' : redactToken(rawToken),
     evidenceRef: clean(evidenceRef, 1500),
     getAccount: () => request('GET', '/account'),
     getUsage: () => request('GET', '/account/usage'),
@@ -286,7 +335,34 @@ export function createWinnrApiClient({
       readOnlyPost: true
     }),
     listMailboxes: ({ domain = '' } = {}) => request('GET', `/email-users?filter[domain]=${encodeURIComponent(lower(domain, 253))}`),
+    // Whole-account reads with an explicit page size. The caller checks pagination.has_more and refuses partial sets.
+    listAllDomains: () => request('GET', '/domains?limit=100'),
+    listAllMailboxes: () => request('GET', '/email-users?limit=100'),
     getMailbox: ({ userId } = {}) => request('GET', `/email-users/${encodeURIComponent(clean(userId, 240))}`),
+    // Winnr's documented HTTPS inbox-send resource. This does NOT open SMTP
+    // ports; it is a single provider-managed submission, never a campaign.
+    // This low-level client does not mint authority: callers must first pass
+    // durable one-shot reservation, current verified sender/recipient evidence
+    // and exact signed owner approval. Its default denies all write effects.
+    sendOwnerSeedViaHttps: ({ userId = '', to = '', subject = '', body = '', writeAuthorized = false } = {}) => {
+      const id = clean(userId, 240);
+      const receiver = lower(to, 320);
+      const title = clean(subject, 998);
+      const contents = typeof body === 'string' ? body : '';
+      if (!/^[A-Za-z0-9._:-]{1,240}$/.test(id) || !emailOk(receiver) ||
+          receiver !== String(to).trim().toLowerCase() ||
+          !title || title.length > 160 || !contents ||
+          contents.length > 1000)
+        return Promise.resolve({
+          ok: false, status: 'UBERWINNR_HTTPS_SEED_REFUSED',
+          reasonCodes: ['exact-single-mailbox-recipient-and-bounded-content-required'],
+          providerCalls: 0, automaticRetryAuthorized: false
+        });
+      return request('POST', `/email-users/${encodeURIComponent(id)}/inbox/send`, {
+        body: { to: receiver, subject: title, body: contents },
+        writeAuthorized
+      });
+    },
     createMailbox: ({ domain, username, name, writeAuthorized = false } = {}) => request('POST', '/email-users', {
       body: { domain: lower(domain, 253), username: lower(username, 120), name: clean(name, 200) },
       writeAuthorized

@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { buildEncryptedSmtpAccount, openSmtpAccountCredential, selectFleetMailbox, dispatchSmtpFleetAccount } from '../src/uberfleet.mjs';
+import { outboundMessageDigest } from '../src/outbound-send-authorization.mjs';
 
 const KEY='a'.repeat(64);
 function built(slot='s1',email='a@example.com'){
@@ -10,6 +11,29 @@ function built(slot='s1',email='a@example.com'){
     routeEvidenceRef:'receipt:r1',routeAuthorized:true,termsCompatible:true
   },KEY);
 }
+// Synthetic ALLOW fixture for direct dispatch calls: every requirement in
+// src/outbound-send-authorization.mjs is satisfied for this exact message and slot.
+function allowedDispatch(account,message){
+  const full={from:account.email,...message};
+  return {...full,authorization:{
+    campaignId:'campaign-1',
+    sender:{accountId:account.id,slot:account.slot,email:account.email,paused:false,holdReasons:[],quarantined:false,bounceRate:0,complaintRate:0},
+    thresholds:{maxBounceRate:0.05,maxComplaintRate:0.01},
+    domainReceipt:{domain:'example.com',configured:true},
+    provider:{name:'smtp-relay',routeAuthorized:true,termsCompatible:true},
+    recipient:{jurisdiction:'JX-TEST',eligibilityEvidenceRef:'elig:1'},
+    suppression:{snapshotId:'supp-1',entries:[]},
+    doNotContact:{listId:'dnc-1',entries:[]},
+    jurisdictionEvidence:{jurisdiction:'JX-TEST',allowed:true,evidenceRef:'jur:1'},
+    consent:{receiptRef:'consent:1'},
+    campaignApproval:{campaignId:'campaign-1',approvalRef:'approval:1'},
+    messageApproval:{approvedDigest:outboundMessageDigest(full)},
+    rateWindow:{sentCount:0,cap:10},
+    retry:{attempts:0,budget:3},
+    emergencyStop:false
+  }};
+}
+const ALLOW_CONSENT=({consentReceiptRef})=>consentReceiptRef==='consent:1';
 test('SMTP mailbox credentials persist encrypted and are recoverable only with the key',()=>{
   const r=built();
   assert.equal(r.ok,true);
@@ -37,7 +61,7 @@ test('fleet allocation avoids paused senders and balances observed usage',()=>{
 test('SMTP dispatch maps confirmed provider receipt without exposing password',async()=>{
   const account=built().account;
   const r=await dispatchSmtpFleetAccount({
-    account,encryptionKey:KEY,message:{to:'b@example.com',subject:'x',body:'y'},
+    account,encryptionKey:KEY,message:allowedDispatch(account,{to:'b@example.com',subject:'x',body:'y'}),consentVerifier:ALLOW_CONSENT,
     transportFactory:()=>({ok:true,send:async()=>({confirmed:true,providerReceiptId:'smtp250:abc',messageId:'<m@x>'})})
   });
   assert.equal(r.classification,'ACCEPTED');
@@ -48,8 +72,9 @@ test('SMTP dispatch maps confirmed provider receipt without exposing password',a
 });
 test('SMTP transport setup rejection is explicit proof the provider boundary was not crossed',async()=>{
   let sends=0;
+  const account=built().account;
   const r=await dispatchSmtpFleetAccount({
-    account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
+    account,encryptionKey:KEY,message:allowedDispatch(account,{to:'b@example.com',subject:'x',body:'y'}),consentVerifier:ALLOW_CONSENT,
     transportFactory:()=>({ok:false,reasonCodes:['smtp-route-not-ready'],send:async()=>{sends++;}})
   });
   assert.equal(r.classification,'REJECTED');
@@ -58,8 +83,9 @@ test('SMTP transport setup rejection is explicit proof the provider boundary was
   assert.equal(sends,0);
 });
 test('SMTP response without a provider receipt does not prove the effect boundary',async()=>{
+  const account=built().account;
   const r=await dispatchSmtpFleetAccount({
-    account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
+    account,encryptionKey:KEY,message:allowedDispatch(account,{to:'b@example.com',subject:'x',body:'y'}),consentVerifier:ALLOW_CONSENT,
     transportFactory:()=>({ok:true,send:async()=>({confirmed:false,messageId:'<unknown@x>'})})
   });
   assert.equal(r.classification,'UNCERTAIN');
@@ -68,7 +94,8 @@ test('SMTP response without a provider receipt does not prove the effect boundar
 });
 
 test('SMTP pre-network throw cannot manufacture a crossed provider boundary',async()=>{
-  const r=await dispatchSmtpFleetAccount({account:built().account,encryptionKey:KEY,message:{to:'b@example.com'},
+  const account=built().account;
+  const r=await dispatchSmtpFleetAccount({account,encryptionKey:KEY,message:allowedDispatch(account,{to:'b@example.com',subject:'x',body:'y'}),consentVerifier:ALLOW_CONSENT,
     transportFactory:()=>({ok:true,send:async()=>{throw new Error('invalid MIME before network');}})});
   assert.equal(r.classification,'UNCERTAIN');
   assert.equal(r.providerCallAttempted,null);

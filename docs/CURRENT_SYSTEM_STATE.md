@@ -2,9 +2,9 @@
 
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
-Last reconciled: **2026-10-16**
-Branch: `high/phoenix-deepseek-activation-swarm-20261016`
-Reconciled from current head: `4e0818b33a78d8df4433c4815dcad21804ad56b0`
+Last reconciled: **2026-10-17**
+Branch: `codex/uberwarm-protected-runtime-20261017`
+Reconciled from current head: `2e016976d673e3264af7a36f4cf815dd9d67036d`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

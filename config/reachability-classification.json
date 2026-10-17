@@ -1432,6 +1432,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
       "reason": "Pure read-only Winnr API inventory plan. Deliberately no API token, provider calls, paid add-on, SMTP authority, actual complete paginated read or DNS alignment proof. Expected inventory is not authenticated current mailbox readiness."
+    },
+    "src/uberwarm2-protected-winnr-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected Winnr observation, sender-health and seed-consent source composer. The only unattended operator script performs vendor GET-only diagnostics without importing this composition. Promotion still requires exact authenticated Winnr/SMTP readings, independent current signed alignment, local holds, trusted recipient consent, original-key PostgreSQL one-shot ledger and a separately approved owner-controlled probe; tests alone grant no send authority."
     }
   }
 }

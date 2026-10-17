@@ -710,3 +710,41 @@ test('a caller-supplied now does not move the execution clock: a plan older than
   assert.ok(result.reasonCodes.includes('batch-expired'), result.reasonCodes.join(','));
   assert.equal(tx.calls.length, 0);
 });
+
+test('approved HTTPS provider transport uses the same durable reservation and explicit non-SMTP receipt', async () => {
+  const b = batch(), s = store(), p = b.probes[0];
+  const tx = {
+    authorizedSmtp: false, authorizedHttpsApi: true,
+    transportKind: 'WINNR_INBOX_HTTPS_API', boundSender: 'tara@example.net', calls: 0,
+    async sendOwnedSeed() {
+      this.calls++;
+      return { ok: true, accepted: true, messageId: '<http-provider-id@testing.example>' };
+    }
+  };
+  const opts = { batch: b, probeId: p.probeId, approval: approval(b),
+    approvalVerificationKey: KEY, store: s, transport: tx, now: T1 };
+  const first = await executeUberWarm2SeedProbe(opts);
+  assert.equal(first.ok, true);
+  assert.equal(first.status, 'PROVIDER_ACCEPTED_PLACEMENT_UNKNOWN');
+  assert.equal(first.verifiedPlacements, 0);
+  assert.equal(tx.calls, 1);
+  const second = await executeUberWarm2SeedProbe(opts);
+  assert.equal(second.status, 'UBERWARM2_PROBE_NOT_CLAIMED');
+  assert.equal(tx.calls, 1);
+  assert.equal(s.finished.length, 1);
+});
+
+test('unlabelled HTTPS transport cannot impersonate an authorized SMTP submission', async () => {
+  const b = batch(), s = store(), p = b.probes[0];
+  const tx = { authorizedSmtp: false, authorizedHttpsApi: true,
+    boundSender: 'tara@example.net', sendOwnedSeed: async () => {
+      throw Error('should never send');
+    }
+  };
+  const r = await executeUberWarm2SeedProbe({
+    batch: b, probeId: p.probeId, approval: approval(b),
+    approvalVerificationKey: KEY, store: s, transport: tx, now: T1
+  });
+  assert.equal(r.status, 'UBERWARM2_TRANSPORT_REQUIRED');
+  assert.equal(s.seen.size, 0);
+});

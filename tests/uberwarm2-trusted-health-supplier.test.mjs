@@ -114,3 +114,43 @@ test('invalid identity cannot authorize source reads',async()=>{
   assert.deepEqual(await supplier.readSenderHealth({email:EMAIL,at:NaN}),[]);
   assert.equal(calls.length,0);
 });
+
+test('explicit Winnr HTTPS route requires separate current signed write-capability proof, never SMTP by proxy',async()=>{
+  const {readers,calls,state}=make();
+  delete readers.readVerifiedSmtp;
+  readers.transportMode='WINNR_INBOX_HTTPS_API';
+  readers.readVerifiedHttpsTransport=async args=>{
+    calls.push(['https',args]);
+    return [item({authenticated:true,signed:true,transportAuthorized:true,secure:true,
+      termsCompatible:true,senderIdentityVerified:true,providerWritePermissionVerified:true,
+      submissionEndpoint:'WINNR_INBOX_HTTPS_API',authorizedPurpose:'OWNER_CONTROLLED_PLACEMENT_PROBE'})];
+  };
+  const supplier=createUberWarm2TrustedHealthSupplier(readers);
+  assert.equal((await supplier.readSenderHealth(query)).length,1);
+  assert.equal(calls.filter(c=>c[0]==='https').length,1);
+  assert.equal(calls.filter(c=>c[0]==='smtp').length,0);
+  const preflight=createUberWarm2LivePreflight({readSenderHealth:supplier.readSenderHealth,clock:()=>NOW});
+  assert.equal(await preflight.verifyCurrentSenderHealth(EMAIL,NOW),true);
+  state.hold=item({held:true,suppressed:false});
+  assert.deepEqual(await supplier.readSenderHealth(query),[]);
+});
+
+test('HTTPS provider Active, API GET, unverifiable scope or wrong purpose never clear sender health',async()=>{
+  const {readers}=make();
+  readers.transportMode='WINNR_INBOX_HTTPS_API';
+  delete readers.readVerifiedSmtp;
+  const valid={authenticated:true,signed:true,transportAuthorized:true,secure:true,
+    termsCompatible:true,senderIdentityVerified:true,providerWritePermissionVerified:true,
+    submissionEndpoint:'WINNR_INBOX_HTTPS_API',authorizedPurpose:'OWNER_CONTROLLED_PLACEMENT_PROBE'};
+  for(const altered of [{signed:false},{providerWritePermissionVerified:false},
+    {authenticated:false},{senderIdentityVerified:false},{secure:false},
+    {submissionEndpoint:'SMTP'},{authorizedPurpose:'BULK_OUTREACH'},
+    {observedAt:new Date(NOW-300001).toISOString()}, {email:'other@example.test'}]){
+    readers.readVerifiedHttpsTransport=async()=>[item({...valid,...altered})];
+    assert.deepEqual(await createUberWarm2TrustedHealthSupplier(readers).readSenderHealth(query),[],JSON.stringify(altered));
+  }
+  delete readers.readVerifiedHttpsTransport;
+  assert.deepEqual(await createUberWarm2TrustedHealthSupplier(readers).readSenderHealth(query),[]);
+  readers.transportMode='UNSUPPORTED';
+  assert.deepEqual(await createUberWarm2TrustedHealthSupplier(readers).readSenderHealth(query),[]);
+});

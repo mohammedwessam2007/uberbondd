@@ -57,12 +57,13 @@ function observed(row, email, domain, now) {
  */
 export function createUberWarm2TrustedHealthSupplier({
   readProviderMailbox, readProviderDomainDns, readVerifiedSmtp, readLocalHold,
-  readVerifiedDnsAlignment, clock
+  readVerifiedDnsAlignment, readVerifiedHttpsTransport, transportMode = 'SMTP', clock
 } = {}) {
   const now = typeof clock === 'function' ? clock : () => Date.now();
 
   async function readSenderHealth({ email, at } = {}) {
     try {
+      if (!['SMTP', 'WINNR_INBOX_HTTPS_API'].includes(transportMode)) return [];
       const sender = lower(email);
       const domain = domainOf(sender);
       const nowMs = Number(now());
@@ -73,7 +74,7 @@ export function createUberWarm2TrustedHealthSupplier({
       const [mailbox, dns, smtp, hold, align] = await Promise.all([
         readOne(readProviderMailbox, query),
         readOne(readProviderDomainDns, query),
-        readOne(readVerifiedSmtp, query),
+        readOne(transportMode === 'SMTP' ? readVerifiedSmtp : readVerifiedHttpsTransport, query),
         readOne(readLocalHold, query),
         readOne(readVerifiedDnsAlignment, query)
       ]);
@@ -88,17 +89,25 @@ export function createUberWarm2TrustedHealthSupplier({
       const h = observed(hold, sender, domain, postReadNow);
       const a = observed(align, sender, domain, postReadNow);
       if (!m || !d || !s || !h || !a) return [];
-      // mailbox.active is deliberately never consulted: provider "Active" does
-      // not establish SMTP AUTH. The signed smtp reader is the only AUTH source.
+      // Provider Active never proves SMTP authentication or HTTPS write scope.
+      // Each mode needs its own independent signed, fresh transport observation.
+      const transportOk = transportMode === 'SMTP'
+        ? smtp.authenticated === true && smtp.signed === true &&
+          smtp.transportAuthorized === true && smtp.secure === true &&
+          smtp.termsCompatible === true
+        : smtp.signed === true && smtp.transportAuthorized === true &&
+          smtp.secure === true && smtp.termsCompatible === true &&
+          smtp.authenticated === true && smtp.senderIdentityVerified === true &&
+          smtp.providerWritePermissionVerified === true &&
+          smtp.submissionEndpoint === 'WINNR_INBOX_HTTPS_API' &&
+          smtp.authorizedPurpose === 'OWNER_CONTROLLED_PLACEMENT_PROBE';
       if (mailbox.connected !== true ||
           mailbox.paused !== false || mailbox.quarantined !== false ||
           mailbox.placementQuarantine !== false || mailbox.policyCompatible !== true ||
           // A matching DNS row is not proof of readiness. Require a trusted
           // provider-ready verdict in addition to separately verified alignment.
           dns.ready !== true ||
-          smtp.authenticated !== true || smtp.signed !== true ||
-          smtp.transportAuthorized !== true || smtp.secure !== true ||
-          smtp.termsCompatible !== true ||
+          !transportOk ||
           hold.held !== false || hold.suppressed !== false ||
           align.aligned !== true || align.signed !== true) return [];
       // DNS record presence is never DKIM alignment: only the signed alignment

@@ -96,3 +96,23 @@ test('receiver placement wiring with only injected functions still refuses fabri
  assert.equal(x.ok,false);
  assert.equal(x.verifiedPlacements,0);
 });
+
+test('HTTPS mode never borrows SMTP permission and requires separately signed scoped provider transport',async()=>{
+  const deps=goodReaders();delete deps.readVerifiedSmtp;
+  deps.transportMode='WINNR_INBOX_HTTPS_API';
+  const denied=createUberWarm2ProtectedActivationWiring(deps);
+  assert.equal(denied.configured,false);
+  assert.equal(await denied.verifyCurrentSenderHealth(email,NOW),false);
+  deps.readVerifiedHttpsTransport=async()=>[row({authenticated:true,signed:true,transportAuthorized:true,
+    secure:true,termsCompatible:true,senderIdentityVerified:true,providerWritePermissionVerified:true,
+    submissionEndpoint:'WINNR_INBOX_HTTPS_API',authorizedPurpose:'OWNER_CONTROLLED_PLACEMENT_PROBE'})];
+  const wired=createUberWarm2ProtectedActivationWiring(deps);
+  assert.equal(wired.configured,true);
+  assert.equal(wired.authorized,false);
+  assert.equal(wired.ready,false);
+  assert.equal(await wired.verifyCurrentSenderHealth(email,NOW),true);
+  deps.transportMode='BAD';
+  const invalid=createUberWarm2ProtectedActivationWiring(deps);
+  assert.equal(invalid.configured,false);
+  assert.equal(await invalid.verifyCurrentSenderHealth(email,NOW),false);
+});

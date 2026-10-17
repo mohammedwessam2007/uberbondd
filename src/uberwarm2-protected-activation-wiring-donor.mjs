@@ -64,7 +64,11 @@ export function createUberWarm2ProtectedActivationWiring(dependencies = {}) {
   try {
     const deps = dependencies && typeof dependencies === 'object' && !Array.isArray(dependencies)
       ? dependencies : {};
-    const required = [...HEALTH_READERS, ...CONSENT_READERS];
+    const transportMode = deps.transportMode ?? 'SMTP';
+    if (!['SMTP', 'WINNR_INBOX_HTTPS_API'].includes(transportMode))
+      return denied(['unsupported-transport-mode']);
+    const required = [...HEALTH_READERS.filter(x => x !== 'readVerifiedSmtp'),
+      transportMode === 'SMTP' ? 'readVerifiedSmtp' : 'readVerifiedHttpsTransport', ...CONSENT_READERS];
     const missing = required.filter(key => typeof deps[key] !== 'function');
     if (missing.length) return denied(missing.map(key => `missing-${key}`));
 
@@ -79,6 +83,8 @@ export function createUberWarm2ProtectedActivationWiring(dependencies = {}) {
       readProviderMailbox: deps.readProviderMailbox,
       readProviderDomainDns: deps.readProviderDomainDns,
       readVerifiedSmtp: deps.readVerifiedSmtp,
+      readVerifiedHttpsTransport: deps.readVerifiedHttpsTransport,
+      transportMode,
       readLocalHold: deps.readLocalHold,
       readVerifiedDnsAlignment: deps.readVerifiedDnsAlignment,
       clock

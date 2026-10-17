@@ -1,3 +1,4 @@
+# Canonical receipt regeneration revision 2
 name: UberWarm isolated release canonical receipts
 on:
   push:

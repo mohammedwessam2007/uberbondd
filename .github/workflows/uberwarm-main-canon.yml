@@ -1,4 +1,4 @@
-# Canonical receipt regeneration revision 6
+# Canonical receipt regeneration revision 7
 name: UberWarm isolated release canonical receipts
 on:
   push:
@@ -28,6 +28,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          node --test tests/claude-mcp.test.mjs tests/semantic-egraph-franchise-hotpath.test.mjs tests/ubermaildoso.test.mjs
           node --test tests/winnr-readiness-hold-race.test.mjs tests/winnr-smtp-imap-no-send.test.mjs tests/worker-process-surface.test.mjs tests/winnr-bootstrap-refusal-surface.test.mjs
           node scripts/constitution-doctor.mjs
           npm run readiness

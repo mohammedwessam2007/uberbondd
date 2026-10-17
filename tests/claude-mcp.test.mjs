@@ -258,7 +258,7 @@ test("end-to-end: real MCP process polls, claims, and submits through a real loc
         consequenceClass: "LOCAL_PREPARATION"
       })
     }).then((response) => response.json());
-    assert.equal(created.status, "QUEUED", `task creation failed: ${JSON.stringify(created)}`);
+    assert.equal(created.status, "QUEUED", `task creation failed: ${JSON.stringify(created)} logs=${webLogs}`);
 
     const pollResponse = await bridge.request("tools/call", { name: "uberbond_relay_poll", arguments: {} });
     assert.ok(!pollResponse.error, pollResponse.error?.message);

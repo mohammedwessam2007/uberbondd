@@ -6,7 +6,6 @@
  * Only aggregate metadata is printed, never raw rows/emails/tokens.
  */
 import { createWinnrApiClient } from '../src/uberwinnr-adapter.mjs';
-import { createUberWarm2ProtectedWinnrRuntime } from '../src/uberwarm2-protected-winnr-runtime.mjs';
 
 const argv = process.argv.slice(2);
 const has = flag => argv.includes(flag);
@@ -57,17 +56,29 @@ async function run() {
       'owner-controlled-seed-consent','receiver-inbox-placement','postgres-one-shot-ledger']
   };
   if (identity && inventory.status === 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') {
-    const runtime = createUberWarm2ProtectedWinnrRuntime({ client });
-    const inspected = await runtime.inspectProviderReadOnly({ email: identity, at: Date.now() });
+    // Keep this unattended CLI completely outside the held UberWarm2 seed and
+    // protected activation donor chain. It may do provider GETs, not send.
+    const domain = identity.split('@')[1];
+    const emailOf = m => String(m?.email ?? m?.address ?? m?.username ?? '').trim().toLowerCase();
+    const domainOf = d => String(d?.domain ?? d?.name ?? '').trim().toLowerCase();
+    const matchingMailboxes = mailboxes.data.filter(m => emailOf(m) === identity);
+    const matchingDomains = domains.data.filter(d => domainOf(d) === domain);
+    const exact = matchingMailboxes.length === 1 && matchingDomains.length === 1;
+    const domainId = matchingDomains[0]?.id ?? matchingDomains[0]?.domainId ?? matchingDomains[0]?.domain_id;
+    let dns = null;
+    if (exact && typeof domainId === 'string' && domainId.length && typeof client.getDnsStatus === 'function') {
+      dns = await client.getDnsStatus({ domainId });
+      inventory.providerCalls += dns.providerCalls || 0;
+    }
     inventory.sender = {
-      observed: inspected.ok === true,
-      providerReportedHealthy: inspected.observation?.healthRowEligible === true,
-      providerDnsReady: inspected.observation?.providerDnsReady === true,
-      providerCalls: inspected.providerCalls || 0,
-      reasonCodes: inspected.reasonCodes || [],
+      exactMailboxAndDomainObserved: exact,
+      providerDnsRead: dns?.ok === true,
+      providerDnsReportedReady: dns?.ok === true && dns.data?.ready === true,
+      providerReceiptDigestPresent: !!dns?.receipt?.responseDigest,
+      // Vendor rows alone never prove SMTP AUTH, local holds or DNS alignment.
+      independentlyVerifiedSenderHealth: false,
       authorizedToSend: false
     };
-    inventory.providerCalls += inspected.providerCalls || 0;
   }
   output(inventory);
   if (inventory.status !== 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') process.exitCode = 3;

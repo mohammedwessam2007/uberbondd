@@ -325,7 +325,7 @@ export function createWinnrApiClient({
       if (!/^[A-Za-z0-9._:-]{1,240}$/.test(id) || !emailOk(receiver) ||
           receiver !== String(to).trim().toLowerCase() ||
           !title || title.length > 160 || !contents ||
-          contents.length > 1000 || /[\\r\\n]/.test(receiver))
+          contents.length > 1000)
         return Promise.resolve({
           ok: false, status: 'UBERWINNR_HTTPS_SEED_REFUSED',
           reasonCodes: ['exact-single-mailbox-recipient-and-bounded-content-required'],

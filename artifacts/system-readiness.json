@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-17T19:50:44.140Z",
+  "generatedAt": "2026-10-17T20:32:46.633Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "2e91591b1e10a859f7463edd2210f52af0dd0e28",
+    "head": "3f361be4b0681f4c7d48b674d5dce1b191c0b822",
     "branch": "HEAD",
     "sourceModules": 1103,
     "testSuites": 1337,

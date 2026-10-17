@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-17**
 Branch: `codex/uberwarm-protected-runtime-20261017`
-Reconciled from current head: `2e016976d673e3264af7a36f4cf815dd9d67036d`
+Reconciled from current head: `5b7e466f7144bde55477e667557d5a9431a7a0d8`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

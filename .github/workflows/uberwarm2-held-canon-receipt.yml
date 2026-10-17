@@ -1,3 +1,4 @@
+# Verify both base and previously-applied PostgreSQL claim-schema statuses
 # Check distinct HTTPS send adapter still requires durable one-shot authority
 # Reverify strict one-recipient validation after HTTP bridge fix
 name: UberWarm2 held canon regeneration evidence

@@ -18,7 +18,7 @@ import { compileUberWarm2ReceivedEvidence } from './uberwarm2-seed-executor.mjs'
 export const UBERWARM2_PROTECTED_RECEIVER_PLACEMENT_WIRING_VERSION =
   'uberbond.uberwarm2-protected-receiver-placement-wiring-donor.v1';
 
-const RECEIPT_STATUS = 'SMTP_ACCEPTED_PLACEMENT_UNKNOWN';
+const RECEIPT_STATUSES = Object.freeze(['SMTP_ACCEPTED_PLACEMENT_UNKNOWN', 'PROVIDER_ACCEPTED_PLACEMENT_UNKNOWN']);
 const isFn = value => typeof value === 'function';
 const text = (value, limit = 500) => (typeof value === 'string' ? value.trim().slice(0, limit) : '');
 const lower = value => String(value ?? '').trim().toLowerCase();
@@ -62,14 +62,14 @@ export function createUberWarm2ProtectedReceiverPlacementWiring({
       if (!receipt || typeof receipt !== 'object') { reasons.push('receipt-not-an-object'); continue; }
       const probeId = typeof receipt.probeId === 'string' ? receipt.probeId : '';
       const probe = probes.get(probeId);
-      if (!probe || receipt.status !== RECEIPT_STATUS || receipt.batchDigest !== batch.batchDigest ||
+      if (!probe || !RECEIPT_STATUSES.includes(receipt.status) || receipt.batchDigest !== batch.batchDigest ||
           !text(receipt.providerMessageId) ||
           lower(receipt.senderEmail) !== lower(probe.senderEmail) ||
           lower(receipt.seedEmail) !== lower(probe.seedEmail)) continue;
       if (seen.has(probeId)) { reasons.push(`duplicate-accepted-receipt-for-probe:${probeId}`); continue; }
       seen.add(probeId);
       matched.push(Object.freeze({
-        probeId, batchDigest: batch.batchDigest, status: RECEIPT_STATUS,
+        probeId, batchDigest: batch.batchDigest, status: receipt.status,
         senderEmail: lower(probe.senderEmail), seedEmail: lower(probe.seedEmail),
         providerMessageId: text(receipt.providerMessageId, 500),
         submittedAt: text(receipt.submittedAt, 40)

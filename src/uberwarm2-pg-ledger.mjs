@@ -103,7 +103,7 @@ export function createUberWarm2PgLedger({ pool } = {}) {
     async finalize({ reservationKey, receipt } = {}) {
       if (!pool || typeof pool.query !== 'function' || !validKey(reservationKey) ||
           !receipt || receipt.reservationKey !== reservationKey ||
-          !['SMTP_ACCEPTED_PLACEMENT_UNKNOWN','SUBMISSION_OUTCOME_UNCERTAIN'].includes(receipt.status))
+          !['SMTP_ACCEPTED_PLACEMENT_UNKNOWN','PROVIDER_ACCEPTED_PLACEMENT_UNKNOWN','SUBMISSION_OUTCOME_UNCERTAIN'].includes(receipt.status))
         return { ok: false, status: 'UBERWARM2_FINALIZATION_REFUSED' };
       const result = await pool.query(
         `UPDATE uberwarm2_seed_probe_claims

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-18**
 Branch: `fix/phoenix-atlas-final-20261018`
-Reconciled from current head: `af94fe9da56179aa8321c54adcd32818a19f06ae`
+Reconciled from current head: `af6b6e6c52a839c0da860bf92bc41e20930dd009`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

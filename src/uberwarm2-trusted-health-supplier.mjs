@@ -101,9 +101,19 @@ export function createUberWarm2TrustedHealthSupplier({
           smtp.providerWritePermissionVerified === true &&
           smtp.submissionEndpoint === 'WINNR_INBOX_HTTPS_API' &&
           smtp.authorizedPurpose === 'OWNER_CONTROLLED_PLACEMENT_PROBE';
-      if (mailbox.connected !== true ||
-          mailbox.paused !== false || mailbox.quarantined !== false ||
-          mailbox.placementQuarantine !== false || mailbox.policyCompatible !== true ||
+      // A provider status-only mailbox may be considered only with a
+      // separate current signed and verified local hold/risk record.
+      const vendorFullyClear = mailbox.connected === true && mailbox.paused === false &&
+        mailbox.quarantined === false && mailbox.placementQuarantine === false &&
+        mailbox.policyCompatible === true;
+      const independentClear = mailbox.providerReportedActive === true &&
+        hold.signed === true && hold.verified === true &&
+        hold.paused === false && hold.quarantined === false &&
+        hold.placementQuarantine === false && hold.policyCompatible === true &&
+        mailbox.paused !== true && mailbox.quarantined !== true &&
+        mailbox.placementQuarantine !== true && mailbox.connected !== false &&
+        mailbox.policyCompatible !== false;
+      if ((!vendorFullyClear && !independentClear) ||
           // A matching DNS row is not proof of readiness. Require a trusted
           // provider-ready verdict in addition to separately verified alignment.
           dns.ready !== true ||

@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-18**
-Branch: `phoenix-canon`
-Reconciled from current head: `161746e5d62e46d50ab241cc8807cc0479ef6153`
+Branch: `fix/phoenix-reconcile-main-20261018`
+Reconciled from current head: `3e38c9cd47092a9aef6d83a2a84ed41acec0ed81`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

@@ -75,6 +75,7 @@ export function createUberWarm2WinnrReadOnlyObservationDonor({ client, clock, ma
       ...fail(REFUSED, missing),
       inspect: async () => fail(REFUSED, missing),
       readProviderMailbox: async () => EMPTY,
+      readProviderMailboxIdentity: async () => EMPTY,
       readProviderDomainDns: async () => EMPTY,
       neverProvides: NEVER, credentialsExposed: false, exportPerformed: false,
       externalEffectAuthority: 'NONE'
@@ -131,13 +132,19 @@ export function createUberWarm2WinnrReadOnlyObservationDonor({ client, clock, ma
         policyCompatible: flag(mailbox, 'policyCompatible', 'policy_compatible')
       };
       const unknownFlags = Object.keys(flags).filter(key => !isBool(flags[key]));
+      // Winnr actually reports status='active', not booleans for health holds.
+      // This observation is identity only, never clearance.
+      const statusActive = lower(mailbox.status) === 'active';
+      const explicitActive = flag(mailbox, 'active');
+      const active = (explicitActive === true && !mailbox.status) ||
+        (statusActive && explicitActive !== false);
       const dnsReady = providerDnsReady(dnsRow);
       const observation = Object.freeze({
         email: sender, domain, mailboxId, domainId,
         observedAt: new Date(readMs).toISOString(),
         providerReportedAt: reportedAt === null ? null : new Date(reportedAt).toISOString(),
         evidenceRef: `winnr-readonly:${digest([...refs, mailboxId, domainId, sender, domain])}`,
-        providerReportedActive: isBool(mailbox.active) ? mailbox.active : null,
+        providerReportedActive: active,
         providerDnsReady: dnsReady, dnsRecordPresenceTreatedAsAlignment: false,
         smtpAuthenticationClaimed: false, dkimAlignmentClaimed: false,
         flags: Object.freeze({ ...flags }), unknownFlags: Object.freeze(unknownFlags),
@@ -171,6 +178,21 @@ export function createUberWarm2WinnrReadOnlyObservationDonor({ client, clock, ma
     })]);
   }
 
+  // Strictly identity only. A separate signed and verified local-hold reader
+  // must clear missing provider booleans; never infer them from Active.
+  async function readProviderMailboxIdentity(query) {
+    const { ok: read, observation } = await observe(query);
+    if (read !== true || observation.providerReportedActive !== true ||
+        (observation.flags.paused === true || observation.flags.quarantined === true ||
+         observation.flags.placementQuarantine === true ||
+         observation.flags.connected === false || observation.flags.policyCompatible === false)) return EMPTY;
+    return Object.freeze([Object.freeze({
+      email: observation.email, domain: observation.domain,
+      observedAt: observation.observedAt, evidenceRef: observation.evidenceRef,
+      providerReportedActive: true
+    })]);
+  }
+
   async function readProviderDomainDns(query) {
     const { ok: read, observation } = await observe(query);
     if (read !== true || observation.providerDnsReady !== true) return EMPTY;
@@ -183,7 +205,7 @@ export function createUberWarm2WinnrReadOnlyObservationDonor({ client, clock, ma
   return Object.freeze({
     ok: true, status: 'UBERWARM2_WINNR_OBSERVATION_DONOR_READY',
     version: UBERWARM2_WINNR_READONLY_OBSERVATION_DONOR_VERSION,
-    inspect: observe, readProviderMailbox, readProviderDomainDns, neverProvides: NEVER,
+    inspect: observe, readProviderMailbox, readProviderMailboxIdentity, readProviderDomainDns, neverProvides: NEVER,
     credentialsExposed: false, exportPerformed: false, externalEffectAuthority: 'NONE',
     truthBoundary: TRUTH_BOUNDARY });
 }

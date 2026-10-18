@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T12:39:09.022Z",
+  "generatedAt": "2026-10-18T13:35:42.289Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "26c394d3837437154ea2b6da1bfed6a277fe05fe",
-    "branch": "codex/uberwarm-provider-identity-hold-20261018",
-    "sourceModules": 1104,
-    "testSuites": 1339,
-    "workingTreeClean": true
+    "head": "a4dfaf68374a579eeaa5408a7efaa36822d92226",
+    "branch": "codex/uberwarm-live-closure-20261018",
+    "sourceModules": 1105,
+    "testSuites": 1340,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,15 +70,17 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1104,
+      "srcModules": 1105,
       "reachableFromProduction": 416,
       "reachableFromUnattendedOperatorScriptsOnly": 449,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 449,
-      "noEntryPointAtAll": 232,
+      "noEntryPointAtAll": 233,
       "partitionExact": true,
-      "allClassified": true,
-      "unclassified": [],
+      "allClassified": false,
+      "unclassified": [
+        "src/uberwarm2-protected-one-shot-operator.mjs"
+      ],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

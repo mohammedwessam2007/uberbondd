@@ -69,7 +69,10 @@
       "dns_status_0_all": true,
       "scope": "record_presence_only_not_authentication_alignment_or_transport_authorization",
       "sender_qualified": false
-    }
+    },
+    "anonymized_matrix_path": "artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json",
+    "matrix_snapshot_utc": "2026-10-18T16:05:31.389434462Z",
+    "per_mailbox_rows_with_eligibility_unknown": 53
   },
   "recipient": {
     "current_signed_consent": false,

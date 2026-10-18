@@ -1,0 +1,868 @@
+{
+  "schema": "uberwarm-phoenix-one-snapshot-anonymized-readiness-v1",
+  "observed_at_utc": "2026-10-18T16:05:31.389434462Z",
+  "observation_source": "Railway uberwarm-runtime deployment 1f08c9f6-7d6e-45a1-a24e-f81264a67179 Winnr provider current inventory",
+  "privacy": "no mailbox usernames, addresses, user ids or credentials",
+  "dns_observed_at_utc": "2026-10-18T16:01:25.443Z",
+  "cohort_counts": {
+    "PILOT": 3,
+    "STARTUP": 50
+  },
+  "total": 53,
+  "admitted_count": 0,
+  "notes": [
+    "Provider Active and public DNS presence are not sender eligibility.",
+    "Row IDs are snapshot-local pseudonyms only; not targeting identities.",
+    "Cannot send without authentic sender-specific hold, HTTPS, recipient consent, scoped signed approval."
+  ],
+  "rows": [
+    {
+      "snapshot_row_id": "UW2-001",
+      "domain_group": "cedarpointdomains.com",
+      "account_cohort": "PILOT",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-002",
+      "domain_group": "cedarpointdomains.com",
+      "account_cohort": "PILOT",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-003",
+      "domain_group": "cedarpointdomains.com",
+      "account_cohort": "PILOT",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-004",
+      "domain_group": "uberbond.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-005",
+      "domain_group": "uberbond.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-006",
+      "domain_group": "uberbond.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-007",
+      "domain_group": "uberbond.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-008",
+      "domain_group": "uberbond.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-009",
+      "domain_group": "uberbondai.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-010",
+      "domain_group": "uberbondai.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-011",
+      "domain_group": "uberbondai.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-012",
+      "domain_group": "uberbondai.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-013",
+      "domain_group": "uberbondai.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-014",
+      "domain_group": "uberbondapp.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-015",
+      "domain_group": "uberbondapp.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-016",
+      "domain_group": "uberbondapp.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-017",
+      "domain_group": "uberbondapp.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-018",
+      "domain_group": "uberbondapp.site",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-019",
+      "domain_group": "uberbondcloud.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-020",
+      "domain_group": "uberbondcloud.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-021",
+      "domain_group": "uberbondcloud.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-022",
+      "domain_group": "uberbondcloud.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-023",
+      "domain_group": "uberbondcloud.shop",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-024",
+      "domain_group": "uberbondconnect.online",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-025",
+      "domain_group": "uberbondconnect.online",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-026",
+      "domain_group": "uberbondconnect.online",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-027",
+      "domain_group": "uberbondconnect.online",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-028",
+      "domain_group": "uberbondconnect.online",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-029",
+      "domain_group": "uberbondcore.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-030",
+      "domain_group": "uberbondcore.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-031",
+      "domain_group": "uberbondcore.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-032",
+      "domain_group": "uberbondcore.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-033",
+      "domain_group": "uberbondcore.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-034",
+      "domain_group": "uberbondengine.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-035",
+      "domain_group": "uberbondengine.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-036",
+      "domain_group": "uberbondengine.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-037",
+      "domain_group": "uberbondengine.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-038",
+      "domain_group": "uberbondengine.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-039",
+      "domain_group": "uberbondflow.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-040",
+      "domain_group": "uberbondflow.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-041",
+      "domain_group": "uberbondflow.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-042",
+      "domain_group": "uberbondflow.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-043",
+      "domain_group": "uberbondflow.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-044",
+      "domain_group": "uberbondforge.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-045",
+      "domain_group": "uberbondforge.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-046",
+      "domain_group": "uberbondforge.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-047",
+      "domain_group": "uberbondforge.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-048",
+      "domain_group": "uberbondforge.space",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-049",
+      "domain_group": "uberbondglobal.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-050",
+      "domain_group": "uberbondglobal.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-051",
+      "domain_group": "uberbondglobal.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-052",
+      "domain_group": "uberbondglobal.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    },
+    {
+      "snapshot_row_id": "UW2-053",
+      "domain_group": "uberbondglobal.website",
+      "account_cohort": "STARTUP",
+      "provider_reported_status": "active",
+      "independent_dns_record_presence": "OBSERVED",
+      "local_signed_hold_quarantine_suppression_clearance": "UNKNOWN",
+      "sender_specific_https_signed_transport_clearance": "UNKNOWN",
+      "exact_consent_and_approval": "UNKNOWN",
+      "eligible_for_send": false,
+      "blockers": [
+        "independent-signed-local-holds-required",
+        "signed-https-sender-transport-clearance-required",
+        "exact-recipient-consent-and-owner-approval-required"
+      ]
+    }
+  ]
+}

@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T12:39:09.022Z",
+  "generatedAt": "2026-10-18T13:36:37.300Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "26c394d3837437154ea2b6da1bfed6a277fe05fe",
-    "branch": "codex/uberwarm-provider-identity-hold-20261018",
+    "head": "a4dfaf68374a579eeaa5408a7efaa36822d92226",
+    "branch": "fix/uberwarm-postmerge-canon-20261018",
     "sourceModules": 1104,
     "testSuites": 1339,
     "workingTreeClean": true

@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T22:22:55.642Z",
+  "generatedAt": "2026-10-18T22:33:24.172Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "01dd4533390f3082ebb13b7181b611463ec22a00",
+    "head": "f1bacc3e2ff08470ffcd84c5e67117f7ed8461c8",
     "branch": "fix/phoenix-mutation-hosted-20261019",
     "sourceModules": 1109,
     "testSuites": 1348,

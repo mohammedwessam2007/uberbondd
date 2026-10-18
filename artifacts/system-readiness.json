@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T22:21:49.385Z",
+  "generatedAt": "2026-10-18T22:27:08.093Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "4488ea7ff60d6a400e40a405d1f5f4db47d6d874",
+    "head": "5c2c30804abe4efa9c6189a015806644f117797d",
     "branch": "feat/uberwarm-approved-one-shot-20261019",
     "sourceModules": 1108,
     "testSuites": 1344,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

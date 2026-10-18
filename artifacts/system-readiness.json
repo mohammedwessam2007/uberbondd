@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-17T21:22:56.686Z",
+  "generatedAt": "2026-10-18T10:58:46.625Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b9a70ca6f24bebab2e0632e5389cffe91225befb",
-    "branch": "HEAD",
+    "head": "03172dc987a3acff27392c042e716385d761f798",
+    "branch": "research/phoenix-waves-3-10-intake-20261017",
     "sourceModules": 1104,
     "testSuites": 1339,
     "workingTreeClean": true

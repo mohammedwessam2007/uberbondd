@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T10:58:46.625Z",
+  "generatedAt": "2026-10-18T11:07:30.660Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "03172dc987a3acff27392c042e716385d761f798",
-    "branch": "research/phoenix-waves-3-10-intake-20261017",
+    "head": "478d8943a29a0b8528c1f84035d8a7fce512a90a",
+    "branch": "phoenix-canon",
     "sourceModules": 1104,
-    "testSuites": 1339,
+    "testSuites": 1340,
     "workingTreeClean": true
   },
   "measurements": {

@@ -148,6 +148,7 @@
     }
   },
   "modules": {
+    "src/uberbond-repository-deep-atlas-persistence.mjs": {"category": "SUPERSEDED", "gate": null, "reason": "Legacy bounded JSON persistence donor preserved for provenance and regression tests. The complete Deep Atlas and Ultimate Graph are now written via the shared entrypoint src/uberbond-atlas-stream-writer.mjs, which rejects getters and toJSON hooks and atomically persists the full graph; the legacy helper has no unattended entrypoint and must not be described as active production custody."},
     "src/accounting-ledger-export-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",

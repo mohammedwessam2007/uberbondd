@@ -160,3 +160,31 @@ test('source-only, stale, wrong source continuity and paid warmup firewall fail 
  assert.ok(res.actionItems.some(x=>x.id),key);
  }
 });
+
+
+test('actual Winnr status-only mailbox yields identity but never vendor hold clearance', async () => {
+ const {client}=winnrClient({providerFlags:{status:'active',active:undefined,
+   connected:undefined,paused:undefined,quarantined:undefined,
+   placementQuarantine:undefined,policyCompatible:undefined}});
+ const donor=createUberWarm2WinnrReadOnlyObservationDonor({client,clock:()=>NOW});
+ const result=await donor.inspect({email:MB,at:NOW});
+ assert.equal(result.ok,true);
+ assert.equal(result.observation.providerReportedActive,true);
+ assert.equal(result.observation.healthRowEligible,false);
+ assert.equal((await donor.readProviderMailbox({email:MB,at:NOW})).length,0);
+ const identity=await donor.readProviderMailboxIdentity({email:MB,at:NOW});
+ assert.equal(identity.length,1);
+ assert.equal(identity[0].providerReportedActive,true);
+ for(const key of ['connected','paused','quarantined','placementQuarantine','policyCompatible'])
+   assert.equal(Object.hasOwn(identity[0],key),false);
+});
+test('status Active does not override explicitly adverse provider quarantine',async()=>{
+ for (const fields of [{paused:true},{quarantined:true},{placementQuarantine:true},
+   {connected:false},{policyCompatible:false},{active:false}]) {
+  const {client}=winnrClient({providerFlags:{status:'active',active:undefined,
+    connected:undefined,paused:undefined,quarantined:undefined,
+    placementQuarantine:undefined,policyCompatible:undefined,...fields}});
+  const donor=createUberWarm2WinnrReadOnlyObservationDonor({client,clock:()=>NOW});
+  assert.deepEqual(await donor.readProviderMailboxIdentity({email:MB,at:NOW}),[],JSON.stringify(fields));
+ }
+});

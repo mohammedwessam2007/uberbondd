@@ -154,3 +154,27 @@ test('HTTPS provider Active, API GET, unverifiable scope or wrong purpose never 
   readers.transportMode='UNSUPPORTED';
   assert.deepEqual(await createUberWarm2TrustedHealthSupplier(readers).readSenderHealth(query),[]);
 });
+
+
+test('status-only Winnr mailbox requires independent signed verified local hold register',async()=>{
+ const {readers,state}=make();
+ readers.transportMode='WINNR_INBOX_HTTPS_API';
+ delete readers.readVerifiedSmtp;
+ state.mailbox=item({providerReportedActive:true});
+ state.hold=item({held:false,suppressed:false});
+ readers.readVerifiedHttpsTransport=async()=>[item({authenticated:true,signed:true,transportAuthorized:true,
+   secure:true,termsCompatible:true,senderIdentityVerified:true,providerWritePermissionVerified:true,
+   submissionEndpoint:'WINNR_INBOX_HTTPS_API',authorizedPurpose:'OWNER_CONTROLLED_PLACEMENT_PROBE'})];
+ const check=()=>createUberWarm2TrustedHealthSupplier(readers).readSenderHealth(query);
+ assert.deepEqual(await check(),[],'Active+HTTPS permission without signed local hold cannot clear');
+ state.hold=item({held:false,suppressed:false,signed:true,verified:true,
+   paused:false,quarantined:false,placementQuarantine:false,policyCompatible:true});
+ assert.equal((await check()).length,1);
+ for(const patch of [{signed:false},{verified:false},{paused:true},
+   {quarantined:true},{placementQuarantine:true},{policyCompatible:false},
+   {held:true},{suppressed:true},{placementQuarantine:undefined}]){
+  state.hold=item({held:false,suppressed:false,signed:true,verified:true,
+    paused:false,quarantined:false,placementQuarantine:false,policyCompatible:true,...patch});
+  assert.deepEqual(await check(),[],JSON.stringify(patch));
+ }
+});

@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T19:58:33.777Z",
+  "generatedAt": "2026-10-18T20:23:46.434Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "af6b6e6c52a839c0da860bf92bc41e20930dd009",
+    "head": "ca996bfb13868d793dd7d83fcfdcde26bbc67578",
     "branch": "fix/phoenix-atlas-final-20261018",
-    "sourceModules": 1107,
-    "testSuites": 1344,
+    "sourceModules": 1108,
+    "testSuites": 1345,
     "workingTreeClean": false
   },
   "measurements": {
@@ -70,17 +70,15 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1107,
+      "srcModules": 1108,
       "reachableFromProduction": 416,
-      "reachableFromUnattendedOperatorScriptsOnly": 451,
+      "reachableFromUnattendedOperatorScriptsOnly": 452,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 451,
+      "reachableFromOperatorScriptsOnly": 452,
       "noEntryPointAtAll": 233,
       "partitionExact": true,
-      "allClassified": false,
-      "unclassified": [
-        "src/uberbond-repository-deep-atlas-persistence.mjs"
-      ],
+      "allClassified": true,
+      "unclassified": [],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

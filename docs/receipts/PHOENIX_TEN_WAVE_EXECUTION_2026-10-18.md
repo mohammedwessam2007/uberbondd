@@ -26,3 +26,9 @@ This is not a claim of autonomous agent integration, economic outcomes, security
 3. For real Claude/Codex pairing, install official supported CLIs in a protected environment with explicit authentication via native owner flow; do not use token-replay proxies, account impersonation, unauthorized paid APIs or permission bypass.
 4. Recover exact Wave 4 records and full 269-row source provenance from available files, keeping old references and negative evidence.
 5. Checkpoint independent outcomes, source SHAs, contradictions, limits and ability improvements into PHOENIX, not a new competing global registry.
+
+## 2026-10-18 current GitHub execution correction
+
+Owner connector inspection on 2026-10-18 confirmed that the branch contains a canonical readiness regeneration from GitHub Actions (`7fc3b4c8537b6806ca6424d39f0bd51f31dbee96`), but newer PR CI workflows had `conclusion: action_required` and zero jobs after the bot-authored synchronization commit. This is not a source-test pass. The preceding human-authored run had exactly one deterministic failure among 10,211 tests: `tests/canon-freshness.test.mjs`, because canon source identity had fallen behind added `scripts/phoenix-*` files. Avoid bypassing that guard. Re-run checks after the source-derived readiness regeneration and a human-owned change, and preserve all CI/Vercel outcomes separately.
+
+The CoS tunnel again reported no client check-in for 300 seconds in the current session; GitHub app access remained functional. No unattended remote terminal command can be represented as executed while that tunnel is absent.

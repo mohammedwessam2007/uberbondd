@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T15:39:40.880Z",
+  "generatedAt": "2026-10-18T19:57:40.592Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "77da9353fddf13ac3d2687dbb9591758e4763265",
-    "branch": "fix/phoenix-atlas-rebase-verified-20261018",
+    "head": "af94fe9da56179aa8321c54adcd32818a19f06ae",
+    "branch": "fix/phoenix-atlas-final-20261018",
     "sourceModules": 1107,
     "testSuites": 1344,
     "workingTreeClean": false
@@ -72,13 +72,15 @@
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
       "srcModules": 1107,
       "reachableFromProduction": 416,
-      "reachableFromUnattendedOperatorScriptsOnly": 452,
+      "reachableFromUnattendedOperatorScriptsOnly": 451,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 452,
-      "noEntryPointAtAll": 232,
+      "reachableFromOperatorScriptsOnly": 451,
+      "noEntryPointAtAll": 233,
       "partitionExact": true,
-      "allClassified": true,
-      "unclassified": [],
+      "allClassified": false,
+      "unclassified": [
+        "src/uberbond-repository-deep-atlas-persistence.mjs"
+      ],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

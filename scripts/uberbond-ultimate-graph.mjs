@@ -19,7 +19,8 @@ if (!result.ok) {
   process.exit(2);
 }
 const output = resolve(root, process.argv[2] || 'artifacts/cognitive/uberbond-ultimate-graph-latest.json');
-await writeRedactedAtlasJSON(result, output);
+// Compact JSON preserves every node/edge but avoids expansion by indentation.
+await writeRedactedAtlasJSON(result, output, { compact: true });
 process.stdout.write(`${JSON.stringify({
   ok: true,
   status: result.status,

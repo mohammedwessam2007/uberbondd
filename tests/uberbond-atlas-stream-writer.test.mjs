@@ -90,3 +90,16 @@ test('array getters fail closed and inherited numeric getters are never invoked'
   assert.deepEqual(JSON.parse(await readFile(output, 'utf8')), { rows: [null, null] });
   assert.equal(calls, 0);
 }));
+
+test('compact graph persistence keeps every edge and round-trips exactly', async () => isolated(async root => {
+  const graph = { ok: true, nodes: Array.from({length: 1000}, (_,i) => ({id:'node-'+i,active:i%2===0})),
+    edges: Array.from({length: 1500}, (_,i) => ({from:'node-'+(i%1000),to:'node-'+((i+1)%1000),weight:i})),
+    annotations: {unicode:'🌐', freeText:'source backed'} };
+  const pretty=join(root,'pretty.json'); const compact=join(root,'compact.json');
+  await writeRedactedAtlasJSON(graph,pretty);
+  await writeRedactedAtlasJSON(graph,compact,{compact:true});
+  const a=await readFile(pretty,'utf8'),b=await readFile(compact,'utf8');
+  assert.deepEqual(JSON.parse(b),JSON.parse(a));
+  assert.equal(JSON.parse(b).edges.length,1500);
+  assert.ok(b.length < a.length * 0.75);
+}));

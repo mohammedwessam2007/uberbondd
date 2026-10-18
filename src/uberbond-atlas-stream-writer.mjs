@@ -9,7 +9,7 @@ import { redactSecrets, SECRET_KEY_PATTERN } from './secret-patterns.mjs';
 // All string leaves are scrubbed before their JSON representation is written.
 const MAX_TEXT_LEAF = 16 * 1024 * 1024;
 const MAX_DEPTH = 256;
-const BUFFER_CHARS = 64 * 1024;
+const BUFFER_CHARS = 256 * 1024;
 const FIXTURE_MARKER = ['secret-scanner', 'fixtures', 'intentional'].join('-');
 const FIXTURE_REDACTED = 'secret-scanner-fixture-marker-redacted';
 const OMIT = Symbol('omit');
@@ -27,7 +27,7 @@ function safeLeaf(value, sensitive) {
   return null;
 }
 
-function* tokens(value, depth, active, sensitive = false, inArray = false) {
+function* tokens(value, depth, active, sensitive = false, inArray = false, compact = false) {
   if (depth > MAX_DEPTH) throw new RangeError('Atlas JSON nesting exceeds the bounded serialization policy');
   const leaf = safeLeaf(value, sensitive);
   if (leaf === OMIT) { if (inArray) yield 'null'; return; }
@@ -42,20 +42,20 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
     throw new TypeError('Atlas non-plain JSON objects are refused');
   }
   active.add(value);
-  const tab = '  '.repeat(depth);
-  const inner = '  '.repeat(depth + 1);
+  const tab = compact ? '' : '  '.repeat(depth);
+  const inner = compact ? '' : '  '.repeat(depth + 1);
   if (Array.isArray(value)) {
     yield '[';
     for (let i = 0; i < value.length; i++) {
       if (i) yield ',';
-      yield '\n' + inner;
+      if (!compact) yield '\n' + inner;
       const slot = Object.getOwnPropertyDescriptor(value, String(i));
       if (slot && !('value' in slot)) throw new TypeError('Atlas array getter properties are refused');
       // Sparse slots are null in JSON. Never read through the prototype chain:
       // numeric inherited accessors can have arbitrary side effects.
-      yield* tokens(slot?.value, depth + 1, active, sensitive, true);
+      yield* tokens(slot?.value, depth + 1, active, sensitive, true, compact);
     }
-    if (value.length) yield '\n' + tab;
+    if (value.length && !compact) yield '\n' + tab;
     yield ']';
   } else {
     const keys = Object.keys(value).filter(key => {
@@ -67,11 +67,11 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
     for (let i = 0; i < keys.length; i++) {
       const key = keys[i];
       if (i) yield ',';
-      yield '\n' + inner + JSON.stringify(key) + ': ';
+      yield (compact ? '' : '\n' + inner) + JSON.stringify(key) + (compact ? ':' : ': ');
       yield* tokens(Object.getOwnPropertyDescriptor(value, key).value, depth + 1, active,
-        sensitive || SECRET_KEY_PATTERN.test(key) || SENSITIVE_HEADER_KEY.test(key), false);
+        sensitive || SECRET_KEY_PATTERN.test(key) || SENSITIVE_HEADER_KEY.test(key), false, compact);
     }
-    if (keys.length) yield '\n' + tab;
+    if (keys.length && !compact) yield '\n' + tab;
     yield '}';
   }
   active.delete(value);
@@ -80,14 +80,14 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
 /** Atomically persist the complete JSON artifact. Any failure removes the temporary file.
  * This never silently truncates a successful atlas and never executes toJSON callbacks.
  */
-export async function writeRedactedAtlasJSON(value, destination) {
+export async function writeRedactedAtlasJSON(value, destination, { compact = false } = {}) {
   await mkdir(dirname(destination), { recursive: true });
   const temporary = destination + '.incomplete-' + process.pid + '-' + randomBytes(6).toString('hex');
   let fd;
   try {
     fd = await open(temporary, 'wx', 0o600);
     let buffer = '';
-    for (const part of tokens(value, 0, new WeakSet())) {
+    for (const part of tokens(value, 0, new WeakSet(), false, false, compact)) {
       if (buffer.length + part.length > BUFFER_CHARS && buffer) {
         await fd.writeFile(buffer, 'utf8');
         buffer = '';

@@ -54,3 +54,39 @@ test('getter and oversized text fail without partially publishing', async () => 
   await assert.rejects(writeRedactedAtlasJSON({x:'x'.repeat(16*1024*1024+1)},path),/bounded/);
   assert.deepEqual(await readdir(root),[]);
 }));
+
+test('graph and atlas share a redacting writer for cookies and session IDs', async () => isolated(async root => {
+  const output=join(root,'graph.json');
+  await writeRedactedAtlasJSON({ nodes:[{cookie:'opaque-cookie',sessionId:'opaque-session',safe:'ok'}] },output);
+  const parsed=JSON.parse(await readFile(output,'utf8'));
+  assert.equal(parsed.nodes[0].cookie,'[REDACTED]');
+  assert.equal(parsed.nodes[0].sessionId,'[REDACTED]');
+  assert.equal(parsed.nodes[0].safe,'ok');
+}));
+
+test('toJSON accessor is refused without executing its getter', async () => isolated(async root => {
+  let called=0;
+  const input={};
+  Object.defineProperty(input,'toJSON',{enumerable:true,get(){called++;throw new Error('getter executed');}});
+  await assert.rejects(writeRedactedAtlasJSON(input,join(root,'graph.json')),/toJSON/);
+  assert.equal(called,0);
+  assert.deepEqual(await readdir(root),[]);
+}));
+
+test('array getters fail closed and inherited numeric getters are never invoked', async () => isolated(async root => {
+  const output = join(root, 'array.json');
+  await writeFile(output, 'previous verified artifact\n');
+  let calls = 0;
+  const accessor = [1];
+  Object.defineProperty(accessor, '0', { enumerable: true, get() { calls++; return 'private'; } });
+  await assert.rejects(writeRedactedAtlasJSON({ rows: accessor }, output), /array getter/);
+  assert.equal(calls, 0);
+  assert.equal(await readFile(output, 'utf8'), 'previous verified artifact\n');
+  const sparse = new Array(2);
+  const inherited = Object.create(Array.prototype);
+  Object.defineProperty(inherited, '0', { get() { calls++; throw new Error('inherited getter executed'); } });
+  Object.setPrototypeOf(sparse, inherited);
+  await writeRedactedAtlasJSON({ rows: sparse }, output);
+  assert.deepEqual(JSON.parse(await readFile(output, 'utf8')), { rows: [null, null] });
+  assert.equal(calls, 0);
+}));

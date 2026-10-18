@@ -31,3 +31,14 @@ test('custom serialization hooks and cyclic data fail closed', () => {
   const cyclic = {}; cyclic.self = cyclic;
   assert.throws(() => json(cyclic), /Cyclic/);
 });
+
+test('accessor properties and toJSON getters cannot execute in legacy writer', () => {
+  let calls = 0;
+  const obj = {};
+  Object.defineProperty(obj, 'payload', { enumerable: true, get() { calls++; return 'unsafe'; } });
+  assert.throws(() => json(obj), /getters refused/);
+  const hook = {};
+  Object.defineProperty(hook, 'toJSON', { get() { calls++; return () => 'unsafe'; } });
+  assert.throws(() => json(hook), /toJSON hooks refused/);
+  assert.equal(calls, 0);
+});

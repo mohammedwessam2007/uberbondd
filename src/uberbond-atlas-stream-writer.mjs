@@ -1,5 +1,6 @@
 import { open, mkdir, rename, unlink } from 'node:fs/promises';
 import { dirname } from 'node:path';
+import { randomBytes } from 'node:crypto';
 import { redactSecrets, SECRET_KEY_PATTERN } from './secret-patterns.mjs';
 
 // Output is a research artifact, not executable instructions or a credential store.
@@ -12,6 +13,7 @@ const BUFFER_CHARS = 64 * 1024;
 const FIXTURE_MARKER = ['secret-scanner', 'fixtures', 'intentional'].join('-');
 const FIXTURE_REDACTED = 'secret-scanner-fixture-marker-redacted';
 const OMIT = Symbol('omit');
+const SENSITIVE_HEADER_KEY = /^(?:set-cookie|cookie|session(?:id)?|authorization)$/i;
 
 function safeLeaf(value, sensitive) {
   if (typeof value === 'string') {
@@ -32,7 +34,10 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
   if (leaf !== null) { yield leaf; return; }
   if (typeof value !== 'object') throw new TypeError('Atlas has an unsupported JSON type');
   if (active.has(value)) throw new TypeError('Atlas cyclic JSON structures are refused');
-  if (typeof value.toJSON === 'function') throw new TypeError('Atlas custom toJSON callbacks are refused');
+  const hook = Object.getOwnPropertyDescriptor(value, 'toJSON');
+  if (hook && (!('value' in hook) || typeof hook.value === 'function')) {
+    throw new TypeError('Atlas custom toJSON callbacks are refused');
+  }
   if (!Array.isArray(value) && Object.getPrototypeOf(value) !== Object.prototype && Object.getPrototypeOf(value) !== null) {
     throw new TypeError('Atlas non-plain JSON objects are refused');
   }
@@ -44,7 +49,11 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
     for (let i = 0; i < value.length; i++) {
       if (i) yield ',';
       yield '\n' + inner;
-      yield* tokens(value[i], depth + 1, active, sensitive, true);
+      const slot = Object.getOwnPropertyDescriptor(value, String(i));
+      if (slot && !('value' in slot)) throw new TypeError('Atlas array getter properties are refused');
+      // Sparse slots are null in JSON. Never read through the prototype chain:
+      // numeric inherited accessors can have arbitrary side effects.
+      yield* tokens(slot?.value, depth + 1, active, sensitive, true);
     }
     if (value.length) yield '\n' + tab;
     yield ']';
@@ -59,7 +68,8 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
       const key = keys[i];
       if (i) yield ',';
       yield '\n' + inner + JSON.stringify(key) + ': ';
-      yield* tokens(value[key], depth + 1, active, sensitive || SECRET_KEY_PATTERN.test(key), false);
+      yield* tokens(Object.getOwnPropertyDescriptor(value, key).value, depth + 1, active,
+        sensitive || SECRET_KEY_PATTERN.test(key) || SENSITIVE_HEADER_KEY.test(key), false);
     }
     if (keys.length) yield '\n' + tab;
     yield '}';
@@ -72,7 +82,7 @@ function* tokens(value, depth, active, sensitive = false, inArray = false) {
  */
 export async function writeRedactedAtlasJSON(value, destination) {
   await mkdir(dirname(destination), { recursive: true });
-  const temporary = destination + '.incomplete-' + process.pid;
+  const temporary = destination + '.incomplete-' + process.pid + '-' + randomBytes(6).toString('hex');
   let fd;
   try {
     fd = await open(temporary, 'wx', 0o600);

@@ -34,21 +34,28 @@ export function* redactedAtlasJsonTokens(value) {
       return;
     }
     if (active.has(current)) throw new TypeError('Cyclic atlas persistence value');
-    if (typeof current.toJSON === 'function') throw new TypeError('Custom toJSON hooks refused in atlas persistence');
+    const hook = Object.getOwnPropertyDescriptor(current, 'toJSON');
+    if (hook && (!('value' in hook) || typeof hook.value === 'function')) {
+      throw new TypeError('Custom toJSON hooks refused in atlas persistence');
+    }
     active.add(current);
     try {
       if (Array.isArray(current)) {
         yield '[';
         for (let i = 0; i < current.length; i++) {
           if (i) yield ',';
-          yield* visit(current[i], null, true);
+          const slot = Object.getOwnPropertyDescriptor(current, String(i));
+          if (slot && !('value' in slot)) throw new TypeError('Atlas persistence array getters refused');
+          yield* visit(slot?.value, null, true);
         }
         yield ']';
       } else {
         yield '{';
         let first = true;
         for (const property of Object.keys(current)) {
-          const child = current[property];
+          const descriptor = Object.getOwnPropertyDescriptor(current, property);
+          if (!descriptor || !('value' in descriptor)) throw new TypeError('Atlas persistence getters refused');
+          const child = descriptor.value;
           if (child === undefined || typeof child === 'function' || typeof child === 'symbol') continue;
           if (!first) yield ',';
           first = false;

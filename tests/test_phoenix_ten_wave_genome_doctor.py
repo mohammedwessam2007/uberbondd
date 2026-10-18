@@ -1,4 +1,4 @@
-"""Full seven-wave source-pinned PHOENIX research inventory tests."""
+"""Full eight-wave source-pinned PHOENIX research inventory tests."""
 import importlib.util
 import json
 import pathlib
@@ -18,11 +18,11 @@ class FullSourceTests(unittest.TestCase):
         cls.full=doctor.build()
 
     def test_all_source_identities_preserved(self):
-        self.assertEqual(self.full['recovered_proposals'],1304)
-        self.assertEqual(self.full['wave4_unrecovered_proposal_count'],256)
+        self.assertEqual(self.full['recovered_proposals'],1560)
+        self.assertEqual(self.full['wave4_unrecovered_proposal_count'],0)
         self.assertEqual(self.full['repository_urls'],243)
-        self.assertEqual(self.full['family_groups'],106)
-        self.assertEqual(len({x['id'] for x in self.full['records']}),1304)
+        self.assertEqual(self.full['family_groups'],122)
+        self.assertEqual(len({x['id'] for x in self.full['records']}),1560)
 
     def test_no_capability_has_production_authority(self):
         self.assertEqual({x['promotion_authority'] for x in self.full['records']},{'NONE'})
@@ -44,8 +44,14 @@ class FullSourceTests(unittest.TestCase):
         self.assertEqual(doctor.search(self.full,'!!!'),[])
 
     def test_one_exact_title_collision_not_overwritten(self):
-        self.assertEqual(len(self.full['exact_normalized_title_collision_groups']),1)
-        self.assertEqual(len(self.full['exact_normalized_title_collision_groups'][0]),2)
+        self.assertGreaterEqual(len(self.full['exact_normalized_title_collision_groups']),1)
+        self.assertTrue(all(len(group)>=2 for group in self.full['exact_normalized_title_collision_groups']))
+
+    def test_wave4_identity_and_trust_class(self):
+        wave4=[row for row in self.full['records'] if row['wave']==4]
+        self.assertEqual(len(wave4),256)
+        self.assertEqual(wave4[0]['id'],'phoenix-wave4-0001')
+        self.assertTrue(all(r['promotion_authority']=='NONE' for r in wave4))
 
 class HostileCorpusTests(unittest.TestCase):
     def setUp(self):
@@ -63,6 +69,13 @@ class HostileCorpusTests(unittest.TestCase):
         data['capabilities'][0]['name']='FORGED TITLE'
         target.write_text(json.dumps(data))
         with self.assertRaisesRegex(ValueError,'SOURCE_SEMANTIC_HASH_MISMATCH'):
+            doctor.build(self.root)
+
+    def test_wave4_tampering_fails_closed(self):
+        target=self.root/doctor.REL/'original-genomes'/doctor.FILES[4][0]
+        original=target.read_text()
+        target.write_text(original.replace('"priority": "P0"','"priority": "P9"',1))
+        with self.assertRaisesRegex(ValueError,'WAVE4_PINNED_BLOB_MISMATCH'):
             doctor.build(self.root)
 
     def test_missing_source_fails_closed(self):

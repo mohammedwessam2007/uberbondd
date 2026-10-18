@@ -14,8 +14,8 @@ test('PHOENIX source-pinned search returns bounded original pointers with zero a
   const result = call('model verification tools', '3');
   assert.equal(result.ok, true);
   assert.equal(result.status, 'PHOENIX_SOURCE_LINKED_RESEARCH_ONLY');
-  assert.equal(result.universe, 1304);
-  assert.equal(result.missing_wave4, 256);
+  assert.equal(result.universe, 1560);
+  assert.equal(result.missing_wave4, 0);
   assert.ok(result.count > 0 && result.count <= 3);
   assert.equal(result.promotion_authority, 'NONE');
   assert.equal(result.external_effects, 'NONE');

@@ -29,7 +29,7 @@ if (argv.length === 0 || argv.length > 2 || !argv[0]?.trim() || argv[0].length >
       try {
         const payload = JSON.parse(result.stdout);
         if (payload?.truth_class !== 'RESEARCH_ONLY_NO_INSTALL_NO_RUNTIME_NO_AUTHORITY'
-            || payload?.recovered_proposals !== 1304
+            || payload?.recovered_proposals !== 1560
             || !Array.isArray(payload?.matches)
             || payload.matches.some(x => x.promotion_authority !== 'NONE')) {
           fail('INVALID_SOURCE_LINKED_QUERY_RESULT');

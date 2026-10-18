@@ -16,6 +16,7 @@ ROOT = pathlib.Path(__file__).resolve().parents[1]
 REL = pathlib.Path('artifacts/research/phoenix-ten-wave-intake')
 FILES = {
     3: ('PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json', 320, '7eacbdf54091f8c9510476285de3057eb613f1b0f33644e3ba3c3d2a5e5a12da'),
+    4: ('PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json', 256, 'gitblob:2e229e356816a2da644b63eef9501436b640c9e4'),
     5: ('PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json', 204, '5760ebec3bc3ce97f880a66bdd6f3b48b48b0570b2bef6bcf4f978ab6ef21137'),
     6: ('PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json', 120, '45f2ec0c115a08d23f23c212ce5c213b1b9bd0c3cd40d8b7878c9695e6169745'),
     7: ('PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json', 120, '113ffa27c89761a2c7e2f1ed47398b8a78a9c54f573e5700a7cd07b3b0a03ba7'),
@@ -28,7 +29,7 @@ TERMS = re.compile(r'[a-z0-9]+')
 STOP = {'the','for','and','from','with','this','that','into','your','has','are','was','could','should','all','not'}
 BAD_STATES = {'APPROVED','ACTIVE','VERIFIED_LIVE','PRODUCTION','DEPLOYED','INSTALLED','PROMOTED','ELIGIBLE'}
 PROPOSAL_KEYS = ('name','capability_candidate')
-ACCEPTANCE_KEYS = ('acceptance_test','family_acceptance_test','acceptance')
+ACCEPTANCE_KEYS = ('acceptance_test','family_acceptance_test','acceptance','acceptance_requirement')
 SOURCE_KEYS = ('donor_urls','source_donors','source_donor','sources','donor_ids')
 ALL_SOURCE_FILES = 'original-genomes'
 
@@ -81,9 +82,18 @@ def build(root=ROOT):
     for wave,(filename,expected,hash_expected) in FILES.items():
         rel=(REL/ALL_SOURCE_FILES/filename).as_posix()
         obj=_read_json(root/rel)
-        if source_hash(obj)!=hash_expected:
+        if wave == 4:
+            # Byte-exact pinned Git blob, not a claim that the user-uploaded
+            # source and this repository copy have independently matched.
+            raw=(root/rel).read_bytes()
+            observed=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\x00'+raw).hexdigest()
+            if 'gitblob:'+observed!=hash_expected:
+                raise ValueError('WAVE4_PINNED_BLOB_MISMATCH:'+filename)
+            if obj.get('new_design_candidate_count') != 256 or obj.get('status') != 'RESEARCH_ONLY_NOT_INSTALLED':
+                raise ValueError('WAVE4_RESEARCH_SCHEMA_MISMATCH')
+        elif source_hash(obj)!=hash_expected:
             raise ValueError('ORIGINAL_SOURCE_SEMANTIC_HASH_MISMATCH:'+filename)
-        if wave!=3 and obj.get('wave')!=wave:
+        if wave not in (3,4) and obj.get('wave')!=wave:
             raise ValueError('SOURCE_WAVE_MISMATCH:'+filename)
         key='capabilities' if wave==3 else 'candidates'
         rows=obj.get(key)
@@ -112,8 +122,8 @@ def build(root=ROOT):
             by_family[(wave,family)]+=1
             title_key=' '.join(TERMS.findall(title.lower()))
             name_groups[title_key].append(rid)
-        wave_summary[str(wave)]={'count':expected,'canonical_json_sha256':hash_expected,'path':rel}
-    if len(records)!=1304 or len(id_seen)!=1304:
+        wave_summary[str(wave)]={'count':expected,'source_integrity_pin':hash_expected,'path':rel}
+    if len(records)!=1560 or len(id_seen)!=1560:
         raise ValueError('TOTAL_RECOVERY_COUNT_MISMATCH')
     corpus=root/'artifacts/research/founder-moonshot-literal-corpus/manifest.json'
     if not corpus.is_file():raise ValueError('FOUNDER_890_MANIFEST_MISSING')
@@ -123,8 +133,9 @@ def build(root=ROOT):
         'truth_class':'RESEARCH_ONLY_NO_INSTALL_NO_RUNTIME_NO_AUTHORITY',
         'source_manifest_sha256':URL_SHA,
         'repository_urls':243,
-        'recovered_proposals':1304,
-        'wave4_unrecovered_proposal_count':256,
+        'recovered_proposals':1560,
+        'wave4_unrecovered_proposal_count':0,
+        'wave4_recovery_evidence':'Git blob identity pinned; user-upload equivalence not independently established',
         'founder_890_manifest':'artifacts/research/founder-moonshot-literal-corpus/manifest.json',
         'founder_890_source_records_mutated':False,
         'wave_summary':wave_summary,
@@ -132,7 +143,7 @@ def build(root=ROOT):
         'exact_normalized_title_collision_groups':dup,
         'semantic_dedup_status':'NOT_DONE',
         'supplier_security_review_status':'NOT_DONE',
-        'claims_refused':['Research inventory is not installed or approved','Wave 4 256 entry bodies are not recovered',
+        'claims_refused':['Research inventory is not installed or approved','Research bodies are not installed supplier capabilities',
                            'Similarity or title identity is not semantic novelty','Provider and license clearance not claimed'],
         'records':records
     }

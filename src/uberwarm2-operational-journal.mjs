@@ -35,11 +35,14 @@ export function compileOperationalSnapshot(input) {
       probeConsentEstablished: false
     },
     sovereignControl: {
-      status: ['SOVEREIGN_CONTROL_MONITORING_ACTIVE', 'SOVEREIGN_CONTROL_IDENTITY_HOLD'].includes(input.provider?.sovereignControl?.status)
+      status: ['SOVEREIGN_CONTROL_MONITORING_ACTIVE', 'SOVEREIGN_CONTROL_IDENTITY_HOLD', 'SOVEREIGN_CONTROL_PROVIDER_DNS_HOLD'].includes(input.provider?.sovereignControl?.status)
         ? input.provider.sovereignControl.status : 'NOT_VERIFIED',
       fleetMailboxes: count(input.provider?.sovereignControl?.fleetMailboxes),
       observedDomains: count(input.provider?.sovereignControl?.observedDomains),
       providerReportedActive: count(input.provider?.sovereignControl?.providerReportedActive),
+      providerDnsReadyDomains: count(input.provider?.sovereignControl?.providerDnsReadyDomains),
+      providerDnsUnreadyDomains: count(input.provider?.sovereignControl?.providerDnsUnreadyDomains),
+      mailboxesWithProviderDnsHold: count(input.provider?.sovereignControl?.mailboxesWithProviderDnsHold),
       unmatchedMailboxes: count(input.provider?.sovereignControl?.unverifiedMailboxIdentity),
       duplicateMailboxes: count(input.provider?.sovereignControl?.duplicateIdentity),
       admittedToSend: 0, sendingActive: false, paidWarmupAddonRequired: false,

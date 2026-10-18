@@ -3,13 +3,14 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {compileUberWarm2SovereignLiveObservation as inspect} from '../src/uberwarm2-sovereign-live-observer.mjs';
 import {compileOperationalSnapshot} from '../src/uberwarm2-operational-journal.mjs';
-const domains = [{domain:'founder.example'}];
+const domains = [{domain:'founder.example',dns_status:'complete'}];
 const fleet = Array.from({length:53},(_,i)=>({username:`mail${i}`,domain:'founder.example',status:'active'}));
 
 test('53 observed provider active accounts engage free UberWarm math but never become eligible senders',()=>{
   const r=inspect({mailboxes:fleet,domains,now:'2026-10-18T19:40:00Z'});
   assert.equal(r.status,'SOVEREIGN_CONTROL_MONITORING_ACTIVE');
   assert.equal(r.fleetMailboxes,53); assert.equal(r.providerReportedActive,53);
+  assert.equal(r.providerDnsReadyDomains,1); assert.equal(r.providerDnsUnreadyDomains,0);
   assert.equal(r.states.BLOCKED,53); assert.equal(r.recommendedColdDailyCap,0);
   assert.equal(r.admittedToSend,0); assert.equal(r.inboxPlacements,0);
   assert.equal(r.messagesSent,0); assert.equal(r.spendCents,0);
@@ -49,4 +50,39 @@ test('operational journal only persists redacted aggregate control state',()=>{
 test('Docker production image includes new sovereign module and its pure reputation compiler',()=>{
   const s=readFileSync(new URL('../Dockerfile.uberwarm-read-monitor',import.meta.url),'utf8');
   assert.match(s,/COPY src\/uberwarm-reputation-lab\.mjs src\/uberwarm2-sovereign-live-observer\.mjs/);
+});
+
+test('missing, stale, or negative vendor DNS status quarantines rather than admitting Active mailboxes', () => {
+  for (const dns_status of [undefined, null, '', 'pending', 'failed', 'mismatch']) {
+    const r = inspect({mailboxes:fleet,domains:[{domain:'founder.example',dns_status}]});
+    assert.equal(r.status,'SOVEREIGN_CONTROL_PROVIDER_DNS_HOLD');
+    assert.equal(r.providerReportedActive,53);
+    assert.equal(r.providerDnsReadyDomains,0);
+    assert.equal(r.providerDnsUnreadyDomains,1);
+    assert.equal(r.mailboxesWithProviderDnsHold,53);
+    assert.equal(r.states.QUARANTINED,53);
+    assert.equal(r.admittedToSend,0);
+    assert.equal(r.messagesSent,0);
+  }
+});
+
+test('independently reported domain DNS risk holds only its fleet and never proves DKIM alignment', () => {
+  const observation = inspect({
+    mailboxes:[fleet[0],{username:'other',domain:'uncertain.example',status:'active'}],
+    domains:[...domains,{domain:'uncertain.example',status:'complete',dns_status:'pending'}]
+  });
+  assert.equal(observation.providerDnsReadyDomains,1);
+  assert.equal(observation.providerDnsUnreadyDomains,1);
+  assert.equal(observation.mailboxesWithProviderDnsHold,1);
+  assert.equal(observation.states.BLOCKED,1);
+  assert.equal(observation.states.QUARANTINED,1);
+  assert.equal(observation.recommendedColdDailyCap,0);
+  assert.equal(observation.admittedToSend,0);
+  const stored = compileOperationalSnapshot({source:'a'.repeat(40),observedAt:new Date().toISOString(),
+    sends:0,runtimeReady:false,sendAuthority:'NONE',status:'BLOCKED_FOR_SENDING',
+    provider:{sovereignControl:observation}});
+  assert.equal(stored.sovereignControl.status,'SOVEREIGN_CONTROL_PROVIDER_DNS_HOLD');
+  assert.equal(stored.sovereignControl.mailboxesWithProviderDnsHold,1);
+  assert.equal(stored.sovereignControl.sendingActive,false);
+  assert.equal(JSON.stringify(stored).includes('other@uncertain.example'),false);
 });

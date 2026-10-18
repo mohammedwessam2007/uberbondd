@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T20:05:32.135Z",
+  "generatedAt": "2026-10-18T21:02:49.701Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "51f646849d0039ee2eb523c5990d9c02344b40d2",
-    "branch": "work/uberwarm-sovereign-free-control-20261018",
+    "head": "545951f99d15653e2ba6369a9ccf3c470ad00c9a",
+    "branch": "feat/uberwarm-independent-dns-control-20261018",
     "sourceModules": 1106,
     "testSuites": 1342,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

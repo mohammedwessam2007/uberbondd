@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T21:39:05.057Z",
+  "generatedAt": "2026-10-18T22:27:08.093Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "c10297fdc0850812fb3ceb5cc642e9b05a901655",
-    "branch": "feat/uberwarm-zero-paid-dns-spotcheck-20261019",
-    "sourceModules": 1107,
-    "testSuites": 1343,
+    "head": "5c2c30804abe4efa9c6189a015806644f117797d",
+    "branch": "feat/uberwarm-approved-one-shot-20261019",
+    "sourceModules": 1108,
+    "testSuites": 1344,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1107,
+      "srcModules": 1108,
       "reachableFromProduction": 416,
       "reachableFromUnattendedOperatorScriptsOnly": 452,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 452,
-      "noEntryPointAtAll": 232,
+      "noEntryPointAtAll": 233,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],

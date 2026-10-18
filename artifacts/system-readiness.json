@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-17T21:22:56.686Z",
+  "generatedAt": "2026-10-18T12:39:09.022Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "b9a70ca6f24bebab2e0632e5389cffe91225befb",
-    "branch": "HEAD",
+    "head": "26c394d3837437154ea2b6da1bfed6a277fe05fe",
+    "branch": "codex/uberwarm-provider-identity-hold-20261018",
     "sourceModules": 1104,
     "testSuites": 1339,
     "workingTreeClean": true

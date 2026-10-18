@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T11:07:30.660Z",
+  "generatedAt": "2026-10-18T12:54:21.481Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "478d8943a29a0b8528c1f84035d8a7fce512a90a",
+    "head": "4614ac8b7dd9b9acad90320ab64d0efa71ffc852",
     "branch": "phoenix-canon",
     "sourceModules": 1104,
     "testSuites": 1340,

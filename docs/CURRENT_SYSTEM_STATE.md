@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-18**
 Branch: `phoenix-canon`
-Reconciled from current head: `478d8943a29a0b8528c1f84035d8a7fce512a90a`
+Reconciled from current head: `4614ac8b7dd9b9acad90320ab64d0efa71ffc852`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

@@ -1,0 +1,1717 @@
+{
+  "checked": 243,
+  "license_status": "NOT_VERIFIED",
+  "no_source_executed": true,
+  "observed_at_utc": "2026-10-17T22:28:07.026190+00:00",
+  "public_head_observed": 243,
+  "rows": [
+    {
+      "head_sha": "d7e9a68a001bb95123013384eea287e95e8567e2",
+      "index": 0,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking"
+    },
+    {
+      "head_sha": "74d5b51763dd8bc8e419b29533a4da089efad776",
+      "index": 1,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/AndrewAvery7/claude-codex-bridge"
+    },
+    {
+      "head_sha": "0adc08e93754b606d8a76055ed2f1c9574504312",
+      "index": 2,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Anikethh/ResearchGym"
+    },
+    {
+      "head_sha": "5a4c0287c5c215cbaa830b40bcf46851c8535525",
+      "index": 3,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ArcadeAI/arcade-mcp"
+    },
+    {
+      "head_sha": "c9a3087027fedff23c32b083534d0a16bcce1a25",
+      "index": 4,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Arize-ai/phoenix"
+    },
+    {
+      "head_sha": "fc5cc3ea213a5f097c72eeaf3a16016f8065acd5",
+      "index": 5,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/AutoResearch/autora"
+    },
+    {
+      "head_sha": "eeb2cb63e9c05f96bcafc39afc98baa5628628aa",
+      "index": 6,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/BarganConstantin/ccdeck"
+    },
+    {
+      "head_sha": "16645cc963328459e850ba11611d5c9bcb453a0a",
+      "index": 7,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/BerriAI/litellm"
+    },
+    {
+      "head_sha": "d5cbb5380fa0b32e98ef9b8d987f63decce4be3a",
+      "index": 8,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/BloopAI/vibe-kanban"
+    },
+    {
+      "head_sha": "6e4e5f4aa087a9121aa09a6059e5484e5102c6ff",
+      "index": 9,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ByteDance-Seed/EdgeBench"
+    },
+    {
+      "head_sha": "8de381c7af0287d6d7087c0b73593e49a49f467c",
+      "index": 10,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ChesterRa/cccc"
+    },
+    {
+      "head_sha": "5041d169d6303266763e4e79e27768781a6ff1ee",
+      "index": 11,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Chuzom/Chuzom"
+    },
+    {
+      "head_sha": "be2a406907dbc61b73e6827ded415c96139d13a2",
+      "index": 12,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/ComposioHQ/awesome-claude-skills"
+    },
+    {
+      "head_sha": "231122de19abd820eac91549382e407e2d2cbe06",
+      "index": 13,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/next",
+      "url": "https://github.com/ComposioHQ/composio"
+    },
+    {
+      "head_sha": "5f517daf1f0863d29ba00aa69c81e2e9979c24a8",
+      "index": 14,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Dunqing/claude-codex-bridge"
+    },
+    {
+      "head_sha": "a7b2d456fc3b13e6cd83cd939e9e784aac486b45",
+      "index": 15,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/FarisHijazi/claude-code-with-codex"
+    },
+    {
+      "head_sha": "ae7cc6fbea312ab50657f6b6036b04974846e151",
+      "index": 16,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Flesymeb/HarnessOfHarness"
+    },
+    {
+      "head_sha": "998a8e0a40cf116c80e1b0e7a805ebb5fb9fa838",
+      "index": 17,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Future-House/LAB-Bench"
+    },
+    {
+      "head_sha": "7167342915e656fba1d93af4a5f0549cb803cd76",
+      "index": 18,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Future-House/aviary"
+    },
+    {
+      "head_sha": "57e89f7223b0960d5ee5ea048c69e3c47e088572",
+      "index": 19,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Future-House/paper-qa"
+    },
+    {
+      "head_sha": "4a5cce310f3bc7663a67117db88af43b84733ffe",
+      "index": 20,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Future-House/robin"
+    },
+    {
+      "head_sha": "ec65324be69e81bd4fe394ef6a86d48b8fa5da56",
+      "index": 21,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/GAIR-NLP/AgencyBench"
+    },
+    {
+      "head_sha": "00a44a11ff4bfd6e67cdfe8e6cc1ef5f5144b505",
+      "index": 22,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/GAIR-NLP/SR-Scientist"
+    },
+    {
+      "head_sha": "fe2f43c88b63cce4f4b820930c088d5c48c1f01a",
+      "index": 23,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/Helge-Stein-Group/helao-pH"
+    },
+    {
+      "head_sha": "718686d1e392968eb0953c043ef249c5d9d11a59",
+      "index": 24,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/HypothesisWorks/hypothesis"
+    },
+    {
+      "head_sha": "fa8c3eedfa9751d3752ea6eb49220b303ac2397d",
+      "index": 25,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/InternScience/InternAgent"
+    },
+    {
+      "head_sha": "b0db495c489f936a8e01ebae47f7d9fa4732df5a",
+      "index": 26,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/KatherLab/ToolArena"
+    },
+    {
+      "head_sha": "b0d883d9d6d047e01f4142d402491d109edabe02",
+      "index": 27,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/KatherLab/ToolMaker"
+    },
+    {
+      "head_sha": "55e45a880755d0c8c66ca7fb5fe7962ac8974f89",
+      "index": 28,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/MineDojo/Voyager"
+    },
+    {
+      "head_sha": "7f874f6867f71eb2bdbe992abd2551d2fded59ac",
+      "index": 29,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/MobileCLI/mobilecli"
+    },
+    {
+      "head_sha": "8da524eae1a41ca3be1625b41d254a25fe34f3ca",
+      "index": 30,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/NangoHQ/nango"
+    },
+    {
+      "head_sha": "6177d5a167b3ae9f904a5bf0a5ad88d6ea227547",
+      "index": 31,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Nonanti/lore"
+    },
+    {
+      "head_sha": "e6cf2a9b1e8f98d40408b09a9a55993c8459b4b4",
+      "index": 32,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/NousResearch/hermes-agent"
+    },
+    {
+      "head_sha": "497527dceabfa3f95961e23c291e618c5570f1ac",
+      "index": 33,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/Octo-Lex/ChatGPT-Web2API"
+    },
+    {
+      "head_sha": "9d4d87cf361f5848e69b4f4333434c977731f1f1",
+      "index": 34,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/OnPoint-Dev-Tools/crewcode"
+    },
+    {
+      "head_sha": "f21281fa5d7f8ae24f3a2ea463aec36b7d02eed7",
+      "index": 35,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/OpenAdaptAI/openadapt-flow"
+    },
+    {
+      "head_sha": "852132d38dbc15e03d6825bbacbeb971c72575be",
+      "index": 36,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/OpenHands/OpenHands"
+    },
+    {
+      "head_sha": "852132d38dbc15e03d6825bbacbeb971c72575be",
+      "index": 37,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/OpenHands/openhands"
+    },
+    {
+      "head_sha": "d9f5e51f5535f167ef48fa39aba9e6362ee42165",
+      "index": 38,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/OrchestratorInc/agent-orchestrator"
+    },
+    {
+      "head_sha": "cf117dd0ebb60c54e4dbfda30a2ab296607425b4",
+      "index": 39,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/PipedreamHQ/pipedream"
+    },
+    {
+      "head_sha": "7cbffa77b38facd7c87277fa3c82bcadbe816880",
+      "index": 40,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/PrimeIntellect-ai/prime-agent"
+    },
+    {
+      "head_sha": "fedd704a4a67d210d764326b12c53a35f47b44c4",
+      "index": 41,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/RO-29/agent-monitor"
+    },
+    {
+      "head_sha": "cb0e18a1038e625e966b2b94099e3b313e4a292e",
+      "index": 42,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/RPG-478/codex-chatgpt-bridge"
+    },
+    {
+      "head_sha": "dd91e36f30bf5682eb78316f3ed3b0de29d12015",
+      "index": 43,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Reidond/codex-claude-models-plugin"
+    },
+    {
+      "head_sha": "5c995c365dfb1fd5bc56fda688be5d8538f9931f",
+      "index": 44,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/SWE-agent/SWE-ReX"
+    },
+    {
+      "head_sha": "04d809ceab9df28f9adaed044884180159172930",
+      "index": 45,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/SWE-agent/mini-swe-agent"
+    },
+    {
+      "head_sha": "9b74ac08118a85c39c356802f7961893af73e07f",
+      "index": 46,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/SWE-bench/SWE-smith"
+    },
+    {
+      "head_sha": "96bd51617cfdbb494a9fc283af00fe090edfae48",
+      "index": 47,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/SakanaAI/AI-Scientist-v2"
+    },
+    {
+      "head_sha": "8adc053a2ce4511ad2ac310e004c530a73fb974a",
+      "index": 48,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/SakanaAI/ShinkaEvolve"
+    },
+    {
+      "head_sha": "0b710b21802913fea395b7db7fa9b886518eee1b",
+      "index": 49,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/SantanderAI/ralph"
+    },
+    {
+      "head_sha": "8488c564eea0525aaff5dea189bb03a9b529546e",
+      "index": 50,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ServiceNow/AgentLab"
+    },
+    {
+      "head_sha": "e71419aef5759a11cb7896a26c36e5f7e92d82b2",
+      "index": 51,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ServiceNow/BrowserGym"
+    },
+    {
+      "head_sha": "eb92106d89f5df7f76484fc765e5a576f41b4ccd",
+      "index": 52,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/TStansel/handoff"
+    },
+    {
+      "head_sha": "265e79b4f2725ca6aa8d7a7e94a2e7737de78808",
+      "index": 53,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/TaoJinkai/ckm-hypogen"
+    },
+    {
+      "head_sha": "98b68ef82a47690c316f42fddb05baafaab56851",
+      "index": 54,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/TheAgentCompany/TheAgentCompany"
+    },
+    {
+      "head_sha": "ee7374afa63dddf237579ef626dbf837590b7840",
+      "index": 55,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Tool-Genesis/Tool-Genesis"
+    },
+    {
+      "head_sha": "a699376315c95b6410f5aec01af37c8dec452aea",
+      "index": 56,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/UKGovernmentBEIS/inspect_ai"
+    },
+    {
+      "head_sha": "8ef810f09930362302fc59b10a382d96dd767171",
+      "index": 57,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/UKGovernmentBEIS/inspect_evals"
+    },
+    {
+      "head_sha": "872f85764ad4f4d07c9b0659ee17941df0a3b9c9",
+      "index": 58,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/UiPath/coder_eval"
+    },
+    {
+      "head_sha": "408d3c9eee2d0c75c12a3abb5de29e53c2ca6b9e",
+      "index": 59,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/VoltAgent/awesome-claude-code-subagents"
+    },
+    {
+      "head_sha": "b82ee550344e6055197b5eef3db47a44082cae4d",
+      "index": 60,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/Yibo-Wen/as-bench"
+    },
+    {
+      "head_sha": "4393911b1a8200681e398424a6601e15b78aa0f8",
+      "index": 61,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/YucongDuan/RepoProof-OS"
+    },
+    {
+      "head_sha": "1205f45951ca97c209634ce6046180e38c5dfb30",
+      "index": 62,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/a2aproject/A2A"
+    },
+    {
+      "head_sha": "bfcc6ee6f1ee18d0c4c852a65c49b25f87ee40dc",
+      "index": 63,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/aaif-goose/goose"
+    },
+    {
+      "head_sha": "860ce5b87c43856549586ee7b44007ba0937efdf",
+      "index": 64,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/activepieces/activepieces"
+    },
+    {
+      "head_sha": "955d56fae09b45f3cb8e85e797dbb1eb06134f77",
+      "index": 65,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/agentgateway/agentgateway"
+    },
+    {
+      "head_sha": "155dae7a7a909c54b0e5a6e4379e4475903541df",
+      "index": 66,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/airbytehq/airbyte"
+    },
+    {
+      "head_sha": "fd591323920be0d3786ef350955de1945aa571e5",
+      "index": 67,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/allenai/discoveryworld"
+    },
+    {
+      "head_sha": "7273e1b1f46808af256f588c2e17d9e5a8644d36",
+      "index": 68,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/amair-lab/PiEvo"
+    },
+    {
+      "head_sha": "8f7b0120eb6b4aa3da1f82b1a9094a9fb4db2d06",
+      "index": 69,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/dev",
+      "url": "https://github.com/anomalyco/opencode"
+    },
+    {
+      "head_sha": "c9a3087027fedff23c32b083534d0a16bcce1a25",
+      "index": 70,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/arize-ai/phoenix"
+    },
+    {
+      "head_sha": "14934d690a547abce8576baff9a1856a10ae7da8",
+      "index": 71,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ast-grep/ast-grep"
+    },
+    {
+      "head_sha": "968598afc43470287fc82f221431f9ef50a77b2f",
+      "index": 72,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/astral-sh/uv"
+    },
+    {
+      "head_sha": "1fd411441da9e66a10b9a88f9de92f6a91d1361b",
+      "index": 73,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/astroautomata/PySR"
+    },
+    {
+      "head_sha": "72778472ea982488110b58d5c8caf5343b310698",
+      "index": 74,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ayushnoori/program-synthesis"
+    },
+    {
+      "head_sha": "7579c380b38728691acb606b791e5f202d9f26e4",
+      "index": 75,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/azel-asl/signet"
+    },
+    {
+      "head_sha": "9a490d1e0c06943c6e0d4cd12986bf14756ff2ef",
+      "index": 76,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/bassner/claudodex"
+    },
+    {
+      "head_sha": "f860ecf02ef53412a030f8661c83d644b739ff01",
+      "index": 77,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/benchflow-ai/skillsbench"
+    },
+    {
+      "head_sha": "5c4a6809fd2f8fb25ac0018a31b44091fac2e2e3",
+      "index": 78,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/biosphere-labs/claude-code-scheduler"
+    },
+    {
+      "head_sha": "b3c04cf7f0aa01ddfa1d215dd6f25a04400396df",
+      "index": 79,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/bjornjee/agent-dashboard"
+    },
+    {
+      "head_sha": "e687da39dccc3e94aa165f8f5037fe4b24a3a3be",
+      "index": 80,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/boxed/mutmut"
+    },
+    {
+      "head_sha": "16074252ff5d0a9422f1bf572768afa93c11b8f6",
+      "index": 81,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/braintrustdata/autoevals"
+    },
+    {
+      "head_sha": "1e93b6ac028f3a2e43862bb3f32e20e2d1f78e82",
+      "index": 82,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/buchmark/codex-bridge-for-claude-code"
+    },
+    {
+      "head_sha": "cf7e99c7d40867af5280164cb17f04743937f5e8",
+      "index": 83,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/cedar-policy/cedar"
+    },
+    {
+      "head_sha": "eb980a5c9eea25b1c145c06cd6241a0a365c2b6d",
+      "index": 84,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/chadwichen/happycoder"
+    },
+    {
+      "head_sha": "753a7c5b1a39fb18823a4b73935997716197cea4",
+      "index": 85,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/charlesDGY/claude-codex-usage-dashboard"
+    },
+    {
+      "head_sha": "039a1b43548bf4b094a4d53c3f2207fc22bc5ca1",
+      "index": 86,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/chrisliu298/chatgpt"
+    },
+    {
+      "head_sha": "8bf76af61f0647573065f7113c6818fb5604fdd1",
+      "index": 87,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/chriswu727/loop-agent"
+    },
+    {
+      "head_sha": "7dd51c518c517b0f9f92ec7e2c3ad1004222955e",
+      "index": 88,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/cloudflare/agents"
+    },
+    {
+      "head_sha": "36ed08293a1ab3f7c8e23b000050be956d9715db",
+      "index": 89,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/dev",
+      "url": "https://github.com/code-yeongyu/oh-my-openagent"
+    },
+    {
+      "head_sha": "ec979c1c67df600e06096d1f17052b0536a04468",
+      "index": 90,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/confident-ai/deepeval"
+    },
+    {
+      "head_sha": "bc5f9a7f945ca8998075b4e7a4f1c3f7c347eee6",
+      "index": 91,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/contract-hero/codex-bridge"
+    },
+    {
+      "head_sha": "2e43e625e95216b719ec9338f4034fd3a0be2734",
+      "index": 92,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/dagger/container-use"
+    },
+    {
+      "head_sha": "91dc239fbd0e80411b748a61fde8559ee18072ab",
+      "index": 93,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/dagster-io/dagster"
+    },
+    {
+      "head_sha": "e0abc09782127d11401f6a56908f57116f225651",
+      "index": 94,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/darthnorse/agentmon"
+    },
+    {
+      "head_sha": "59f0c8d085f6b8724ed7555910c08d34cb6cb125",
+      "index": 95,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/daviddawson/claude-code-multirouter"
+    },
+    {
+      "head_sha": "ec4c21b2d597091ac09ecc278f3bcc172575a987",
+      "index": 96,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/daytonaio/daytona"
+    },
+    {
+      "head_sha": "b05034bb999b1291fd316f8b08eefd8d73c3d041",
+      "index": 97,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/dcostenco/prism-coder"
+    },
+    {
+      "head_sha": "b09fee7c363e1663d333b14748970d111df0f4a4",
+      "index": 98,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/dkroshow/mobile-terminal"
+    },
+    {
+      "head_sha": "a4b482c52aa3a1f0c833b38c1c7035953083e280",
+      "index": 99,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/empir3hq/empir3-bridge"
+    },
+    {
+      "head_sha": "35873ddd2cb9ef6da5b8306c49d09cb1f281e7f0",
+      "index": 100,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/eternally-black/claude-cli-orchestration"
+    },
+    {
+      "head_sha": "089ed468cf3ed0322acc66b0211f26d9d90dbf60",
+      "index": 101,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ethz-spylab/agentdojo"
+    },
+    {
+      "head_sha": "34771fe41c08ca074d96a52aaf4a45cd640cbaf5",
+      "index": 102,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/evidentlyai/evidently"
+    },
+    {
+      "head_sha": "70174871a10cea545b4e790332d21590d569368a",
+      "index": 103,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/facebook/Ax"
+    },
+    {
+      "head_sha": "ee4b114732bceedc341e0d9c3b9db7336c12f7f7",
+      "index": 104,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/flox/flox"
+    },
+    {
+      "head_sha": "4a67d0d0288c1b4ee23e17fc896f47616931ba2d",
+      "index": 105,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/gastownhall/beads"
+    },
+    {
+      "head_sha": "649b832b7672bc7a2dbef26f5983aba6198b819b",
+      "index": 106,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/gastownhall/gastown"
+    },
+    {
+      "head_sha": "f1cfdee2856e9dc4b5b4dc5cc2e391d0aa20d819",
+      "index": 107,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/gepa-ai/gepa"
+    },
+    {
+      "head_sha": "224af963a2bc17c455a368bfaaa5b570dcd6822f",
+      "index": 108,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/getsentry/sentry-for-ai"
+    },
+    {
+      "head_sha": "e2519dec3b476c3a9c1e5db85f248b71cc41dd6f",
+      "index": 109,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/getzep/graphiti"
+    },
+    {
+      "head_sha": "c6a4c18f1d01a8bec241c618eb6dfea952508744",
+      "index": 110,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/github/spec-kit"
+    },
+    {
+      "head_sha": "f455353546889009663c1f8b640d5880a01c889a",
+      "index": 111,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/google/osv-scanner"
+    },
+    {
+      "head_sha": "3dcb057c10b16d3ed911e8ce509e91398712c906",
+      "index": 112,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/greenpolo/cc-multi-cli-plugin"
+    },
+    {
+      "head_sha": "5316b393a1cef175ee850b4519e6d3cfc346459e",
+      "index": 113,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/guilhermesilveira/chatgpt-mcp"
+    },
+    {
+      "head_sha": "7eb6ec65cb7a069f1202d71984b6667737eb92a5",
+      "index": 114,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/harbor-framework/harbor"
+    },
+    {
+      "head_sha": "2e29ca91d5f1cb6fb60924bf867acc755565c044",
+      "index": 115,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/harbor-framework/terminal-bench"
+    },
+    {
+      "head_sha": "4cc02dd69f31d0cfb83fb3ecd32e88f058678e88",
+      "index": 116,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/hatchet-dev/hatchet"
+    },
+    {
+      "head_sha": "fbf7bc3278c11975299b9bd0a2ecf200dfd25a05",
+      "index": 117,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/headroomlabs-ai/headroom"
+    },
+    {
+      "head_sha": "e352b43ad7cb8915d84c36d791aa61346152a0a3",
+      "index": 118,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/develop",
+      "url": "https://github.com/in-toto/in-toto"
+    },
+    {
+      "head_sha": "3bc5f285c9d0e96857e92cc4c95e1f5d531cec75",
+      "index": 119,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/inchwormz/agent-receipts"
+    },
+    {
+      "head_sha": "cd80437eda4559ea571d0b16147c1cc0b1c53a85",
+      "index": 120,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/inngest/inngest"
+    },
+    {
+      "head_sha": "11b0a3c7b080694c5eaf07f8926d0dabfbb6fc95",
+      "index": 121,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/insightflo/chatgpt-codex-proxy"
+    },
+    {
+      "head_sha": "e604ac8cb53322082887f97efdcdd647193de768",
+      "index": 122,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/int04/ChatCmd"
+    },
+    {
+      "head_sha": "d4747872cd8ac2ed33a7307b5747e6afb4f1996e",
+      "index": 123,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/invariantlabs-ai/docs"
+    },
+    {
+      "head_sha": "ff38f3f76f084abcc34f519bcaa69580f6e53cf1",
+      "index": 124,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/jayminwest/overstory"
+    },
+    {
+      "head_sha": "ce088e854c96492358b6f0a0e26695baf801968d",
+      "index": 125,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/jayminwest/warren"
+    },
+    {
+      "head_sha": "e0860681c254668f28f9ef988c6a60beada69e0a",
+      "index": 126,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/jbelnick/planbridge"
+    },
+    {
+      "head_sha": "f7e618c624d4a83956be1e875b419e12fb59c33a",
+      "index": 127,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/joernio/joern"
+    },
+    {
+      "head_sha": "aea7704d95bf7c1393b5e7e37b409fcd6dd61681",
+      "index": 128,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/jonwadsworth/codex-bridge"
+    },
+    {
+      "head_sha": "0bae7f56f6233a4cccc06f7c31c3541ad20ecedb",
+      "index": 129,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/jpm8888/claude-codex-proxy"
+    },
+    {
+      "head_sha": "38d7d0b06e1e6481555ae22bfdb5103c7a0f4f0f",
+      "index": 130,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/jules2m1998/claude-codex-orchestrator"
+    },
+    {
+      "head_sha": "1bd7ee03c407bbe6d4449981b6402205487ac754",
+      "index": 131,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/karem505/claudecodex"
+    },
+    {
+      "head_sha": "228791fb499afffb54b46200aca536f79142f117",
+      "index": 132,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/karpathy/autoresearch"
+    },
+    {
+      "head_sha": "f7a21a2c554bc3ffd2921018176099e739d7ec90",
+      "index": 133,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/kitepon/Throughline"
+    },
+    {
+      "head_sha": "0eb194fe6093812243de2249e7092029c87c8820",
+      "index": 134,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/langchain-ai/langgraph"
+    },
+    {
+      "head_sha": "e3a2bee2a2c048adf29b8d8a18b29bd4a8bf8ac3",
+      "index": 135,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/langfuse/langfuse"
+    },
+    {
+      "head_sha": "f2d13c71bf4544640d807728165d743cdf2b99b8",
+      "index": 136,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/langwatch/langwatch"
+    },
+    {
+      "head_sha": "078135523a51e34b6a095bb2e4088ab4ee0161f0",
+      "index": 137,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/lean-dojo/LeanCopilot"
+    },
+    {
+      "head_sha": "7a9f600b250a89a62e991c05ffe81ba033018e6e",
+      "index": 138,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/lean-dojo/leandojo"
+    },
+    {
+      "head_sha": "ecb204d4f4a4aef127851240af17dcf1a321afbc",
+      "index": 139,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/leeguooooo/chatgpt-use"
+    },
+    {
+      "head_sha": "f509a1d2e8b2c4cac051b2c1751399dd00361cf7",
+      "index": 140,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/lian-tian-mo-zun/ToolSelf"
+    },
+    {
+      "head_sha": "4f86ecc86ac502e3295ddb12702fe87eb5c0f789",
+      "index": 141,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/lifan-yuan/CRAFT"
+    },
+    {
+      "head_sha": "a23121e5d9ab6a5e70ba4c3ecc4f753bb4212fb7",
+      "index": 142,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/linkml/linkml"
+    },
+    {
+      "head_sha": "33fb95f12e42815db266aec856dec10a04d348f8",
+      "index": 143,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/linkml/linkml-model"
+    },
+    {
+      "head_sha": "37e8721d5512a3a8c3f2e46739f2b2888081297a",
+      "index": 144,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/lukaskucinski/clodex"
+    },
+    {
+      "head_sha": "cebb9d434ff7b73019b45a449874882f61c339e5",
+      "index": 145,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/marashiai/codex-proxy"
+    },
+    {
+      "head_sha": "698b27b2c5bc3d040e9fdb4c25c9aee6a69f9a78",
+      "index": 146,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/dev",
+      "url": "https://github.com/maximhq/bifrost"
+    },
+    {
+      "head_sha": "3cfce130362dbcc2aedda6170d1a31e39cf67d3e",
+      "index": 147,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/mco-org/mco"
+    },
+    {
+      "head_sha": "8146bcc1c38c439aedaf3ff44548c830654c8621",
+      "index": 148,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/mco-org/squad"
+    },
+    {
+      "head_sha": "eec124caf602d6717c0aad11bb2fa661945cab19",
+      "index": 149,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/mcp-use/mcp-use"
+    },
+    {
+      "head_sha": "0724291bd864cf807e88ee8981c8226644e8fb42",
+      "index": 150,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/mem0ai/mem0"
+    },
+    {
+      "head_sha": "b0dd01be61d517c387e234903a6e2cc38c057ea2",
+      "index": 151,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/meta-pytorch/botorch"
+    },
+    {
+      "head_sha": "489e297d5994f72b9cef86edbdcc79b92bfc0188",
+      "index": 152,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/michaelboeding/codex-model-proxy"
+    },
+    {
+      "head_sha": "5b594e00ad7b11b24bdede7dd5eafb0515765389",
+      "index": 153,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/microsoft/PyRIT"
+    },
+    {
+      "head_sha": "69f5a40b36d9bff646b8e7a5532e8b78bd41eaf9",
+      "index": 154,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/microsoft/agent-lightning"
+    },
+    {
+      "head_sha": "372676a0bb80e48e3bcfb838b2a11a1753cc010a",
+      "index": 155,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/microsoft/apeiron"
+    },
+    {
+      "head_sha": "b8b4183e099f136cbec0388a6088d4aa2f6b9685",
+      "index": 156,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/microsoft/playwright-mcp"
+    },
+    {
+      "head_sha": "e04b29deac8ebda1be7edf9a7162d22bc29fbe62",
+      "index": 157,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/microsoft/prose"
+    },
+    {
+      "head_sha": "6681a3c474cb4159a9691afbc50fd9006639ceb6",
+      "index": 158,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/microsoft/typespec-mcp"
+    },
+    {
+      "head_sha": "cbd68e67f1deb4296427e8b3370b10bc20f62fe2",
+      "index": 159,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/misternay/chatgpt-proxy"
+    },
+    {
+      "head_sha": "074b8108f340590268f2900741403755e923a11c",
+      "index": 160,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/modelcontextprotocol/inspector"
+    },
+    {
+      "head_sha": "bbb701e7ac1e57f3edd1c2836b94c5457eaf7b9c",
+      "index": 161,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/modelcontextprotocol/servers"
+    },
+    {
+      "head_sha": "57a121736acb1fa87e52e1ca76be9175b1bdc90f",
+      "index": 162,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/mohammedwessam2007/uberbondd"
+    },
+    {
+      "head_sha": "4a84a4229f694c8565dcd0a9cd0af37623fa2cbc",
+      "index": 163,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/n8n-io/n8n-docs"
+    },
+    {
+      "head_sha": "fbe4fc72c172155ad70757fd8826bd1501649ad9",
+      "index": 164,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/naplesblue/codexbridge"
+    },
+    {
+      "head_sha": "b55d969381aa05a7a59c563797b454d1b6b5fa37",
+      "index": 165,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/nats-io/nats-server"
+    },
+    {
+      "head_sha": "69e282ca7e1be49426f9bd39539dabe75bdfc229",
+      "index": 166,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/nihal1294/openapi-to-mcp"
+    },
+    {
+      "head_sha": "d742a7157de84e06706de43ce3c994a894445043",
+      "index": 167,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/nikolas-sapa/branch-ai"
+    },
+    {
+      "head_sha": "172e3bb37d928b58d6cd2a73ebc7a9ef5f49a21e",
+      "index": 168,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ntodd/agent_harness"
+    },
+    {
+      "head_sha": "ff10af37503b9d9726c804772b4929c49288f200",
+      "index": 169,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/nuttaruj/rolepod"
+    },
+    {
+      "head_sha": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+      "index": 170,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/obra/superpowers"
+    },
+    {
+      "head_sha": "21b959a2418a5aee92ff85a605fd134b9ce342a1",
+      "index": 171,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/october-dev/october-bus"
+    },
+    {
+      "head_sha": "1c215592622a90f38bcb5b42a19a4b094dd90979",
+      "index": 172,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/october-dev/october-harness"
+    },
+    {
+      "head_sha": "56156f8c85cbd1b8e122a514216020f88740e7b4",
+      "index": 173,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/online-ml/river"
+    },
+    {
+      "head_sha": "7bcf86187363b525802096f4668c2db1e058a831",
+      "index": 174,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/open-policy-agent/opa"
+    },
+    {
+      "head_sha": "db52e28f4d9ded852ab3942cea316258ae4ef346",
+      "index": 175,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/openai/codex-plugin-cc"
+    },
+    {
+      "head_sha": "0a0d88df543a9d36c4708f93c56d995da769050c",
+      "index": 176,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/openclaw/openclaw"
+    },
+    {
+      "head_sha": "fb8e7df866742a0c947e3066919ee59ac9e70eea",
+      "index": 177,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/openfga/openfga"
+    },
+    {
+      "head_sha": "5098592305eacdd792fa37d0309127d1f4e5a003",
+      "index": 178,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/oscar-chw/agent-harness"
+    },
+    {
+      "head_sha": "133946152cec8494cbf6024ed91fa296e9d9acb1",
+      "index": 179,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ossf/scorecard"
+    },
+    {
+      "head_sha": "49f8328ceff49cef9d0e1af668c50d689ee32c7c",
+      "index": 180,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ourresearch/openalex-help"
+    },
+    {
+      "head_sha": "bfe430e1f767f328f067faadda57e21f7e556eab",
+      "index": 181,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/permitio/opal"
+    },
+    {
+      "head_sha": "f3473a332123e810363bdcc43dd991a5c7c2cb1f",
+      "index": 182,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/physcom/claude-usage-dashboard"
+    },
+    {
+      "head_sha": "ae56751ba72afab6ef7d195eab8d130359afcf2d",
+      "index": 183,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/pocketctl/pocketctl"
+    },
+    {
+      "head_sha": "5e6cb93c77f09d80d73712796dafef0e6436e43a",
+      "index": 184,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ppppangu/ralph-codex"
+    },
+    {
+      "head_sha": "0e077848cdb2db0440fcd2de62fb8b3c6aadac96",
+      "index": 185,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/release",
+      "url": "https://github.com/process-intelligence-solutions/pm4py"
+    },
+    {
+      "head_sha": "ea8b3d073a63769f7be243ac3c3460f72881a930",
+      "index": 186,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/promptfoo/promptfoo"
+    },
+    {
+      "head_sha": "35e504cc5b09846242e9ac67d10219b67d587a65",
+      "index": 187,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/pschanely/CrossHair"
+    },
+    {
+      "head_sha": "8a8b37d9a4c1c5e4fda88e6a56ba23d7755f6236",
+      "index": 188,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/punkpeye/awesome-mcp-servers"
+    },
+    {
+      "head_sha": "0dacacf36390e3084704636bc3c36e82e35ee0cc",
+      "index": 189,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/py-why/causal-learn"
+    },
+    {
+      "head_sha": "10648f1a295cbb40fd9cdd7ce43521a6ef954078",
+      "index": 190,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/py-why/dowhy"
+    },
+    {
+      "head_sha": "1b6212a6c915712ed830a49da6fa9a6fa6fd1fe9",
+      "index": 191,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/pybamm-team/PyBaMM"
+    },
+    {
+      "head_sha": "1640d15282ce37b0a6bcc29be0b3f56c3826165d",
+      "index": 192,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/pydantic/pydantic-ai"
+    },
+    {
+      "head_sha": "016542aa5deb6c66380bb137badf73d54f742bde",
+      "index": 193,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/qdrant/qdrant"
+    },
+    {
+      "head_sha": "2e2975aee754fff176765bcc2f3e582a79191751",
+      "index": 194,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/raine/claude-code-proxy"
+    },
+    {
+      "head_sha": "7f3d37d16b71ff8c8a6b0de82c12a8b371e0a8df",
+      "index": 195,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/rdkit/rdkit"
+    },
+    {
+      "head_sha": "6b2de57494e85334ee1c6ad0d46621854a529758",
+      "index": 196,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/renovatebot/renovate"
+    },
+    {
+      "head_sha": "95a56fdece5cee57fa0df9a327ea1eb72a3a5d29",
+      "index": 197,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/restatedev/agent"
+    },
+    {
+      "head_sha": "954797e4a36cf146ab4261cf0b6622375d1f5ae6",
+      "index": 198,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/restatedev/restate"
+    },
+    {
+      "head_sha": "e542dca0bdcc262fa035dcf7fc33910cdcc8cdaf",
+      "index": 199,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/develop",
+      "url": "https://github.com/rtk-ai/rtk"
+    },
+    {
+      "head_sha": "5bc35eb1432dafe2f49faaf80a900c7a2af0c336",
+      "index": 200,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/ryderderder/orchestrator"
+    },
+    {
+      "head_sha": "66f92766bba642462d4bbe5479e83f91f9211862",
+      "index": 201,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/scaleapi/SWE-bench_Pro-os"
+    },
+    {
+      "head_sha": "7274999460a99d2aec9b5e2becc2d52b95867fee",
+      "index": 202,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/schemathesis/schemathesis"
+    },
+    {
+      "head_sha": "f87540eb96c31da7977eadb51e22e868414249b1",
+      "index": 203,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/scikit-learn-contrib/MAPIE"
+    },
+    {
+      "head_sha": "3c6585c124f9aa3529bf589dfb89a35c5208c1d9",
+      "index": 204,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/se2p/pynguin"
+    },
+    {
+      "head_sha": "6c2911b0446cb009ad78863ded54a0fb5e4f06e0",
+      "index": 205,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/seldonframe/reelier"
+    },
+    {
+      "head_sha": "51602ad27f09ef9342a5620601de5ef8f572fbc6",
+      "index": 206,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/develop",
+      "url": "https://github.com/semgrep/semgrep"
+    },
+    {
+      "head_sha": "357c80dea9af34323f709c3505d9e6d224654c7e",
+      "index": 207,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/sequrity-ai/agentdojo"
+    },
+    {
+      "head_sha": "d2e5e7f5f69bfcf3ae688337ed520211b5fc8b86",
+      "index": 208,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/serbyte-development/shellby-mcp"
+    },
+    {
+      "head_sha": "fcb85959b6c4d2204157bcdf4e103ebc5203a8c3",
+      "index": 209,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/sergioDS-coder/duplex-bridge"
+    },
+    {
+      "head_sha": "e71419aef5759a11cb7896a26c36e5f7e92d82b2",
+      "index": 210,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/servicenow/browsergym"
+    },
+    {
+      "head_sha": "96a3ef92329baf908ffe9dfe188cea34e8701d2a",
+      "index": 211,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/sierra-research/tau2-bench"
+    },
+    {
+      "head_sha": "cfeaa4a435c9d42cf724b3e1aac20c1cc09c4be7",
+      "index": 212,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/sigstore/cosign"
+    },
+    {
+      "head_sha": "a1c245f72c72dd6692815e5e7adf3af5b4c37068",
+      "index": 213,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/slopus/happy"
+    },
+    {
+      "head_sha": "01d78f1d4611d32c60560d19fe5d2ef1a366c966",
+      "index": 214,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/slopus/happy-desktop"
+    },
+    {
+      "head_sha": "400c1f366b96a35ca253e13c9b06c5076af41d65",
+      "index": 215,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/snap-stanford/Biomni"
+    },
+    {
+      "head_sha": "a24785e0e90b72d7d9c64f4ac0ceab3e2bb32527",
+      "index": 216,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/sno-ai/sno-station"
+    },
+    {
+      "head_sha": "3550263f64f5e0b3717486c11a246b601a88bc21",
+      "index": 217,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/snyk/agent-scan"
+    },
+    {
+      "head_sha": "eda10b121221b30825a4c16eec5da1fd3eb1eb99",
+      "index": 218,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/stackblitz/bolt.new"
+    },
+    {
+      "head_sha": "16ffc0b7ceceb1202dffd2b4f143f74cb49c7b77",
+      "index": 219,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/stacklok/toolhive"
+    },
+    {
+      "head_sha": "fb951af7744dab086e34962e9bc6fe878e145f83",
+      "index": 220,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/stanford-oval/storm"
+    },
+    {
+      "head_sha": "c7e9752debcce5715fee62cd5f1ae538c14d5ce4",
+      "index": 221,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/stanfordnlp/dspy"
+    },
+    {
+      "head_sha": "52140216d8bb5bfffed30d8d452f77b88339a4ae",
+      "index": 222,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/subicura/purplemux"
+    },
+    {
+      "head_sha": "b85cd123daf8e5bd59edb2d1c7b98e0bba28b3a0",
+      "index": 223,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/thedotmack/claude-mem"
+    },
+    {
+      "head_sha": "18b24b5fe718193522c2f62c10e797a3bb4aee38",
+      "index": 224,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/totec448-spec/chat-on-steroids"
+    },
+    {
+      "head_sha": "5c99c03fb8a9ea568432ecbcba5d86e9f4ac2bf0",
+      "index": 225,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/trailofbits/skills"
+    },
+    {
+      "head_sha": "9f8cc32b327d16a840327e53c607d0dbf92f6294",
+      "index": 226,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/triggerdotdev/trigger.dev"
+    },
+    {
+      "head_sha": "f8f1343da6595a232f0baba7f0ea5b5a58fe0e9c",
+      "index": 227,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/tt-a1i/hive"
+    },
+    {
+      "head_sha": "bd665ad796a20b6d9dd1ea8984bf1d927d7cd64d",
+      "index": 228,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/twidi/twicc"
+    },
+    {
+      "head_sha": "53dc21452bd9310d3f5870499173ece0ff73e2d5",
+      "index": 229,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/umputun/ralphex"
+    },
+    {
+      "head_sha": "b1429a2dc3215c950b8d6e9b838950903a64da94",
+      "index": 230,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/vladolaru/claude-code-codex-bridge"
+    },
+    {
+      "head_sha": "cce2a79358e150ce8b3a6c7557a88b87e0ba085f",
+      "index": 231,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/weifashi/happy-ai"
+    },
+    {
+      "head_sha": "35d59e9020501582a75ca7542f9960d0a5495183",
+      "index": 232,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/windmill-labs/windmill"
+    },
+    {
+      "head_sha": "74d3210b8695a8211672bd97a5b479b7b76e95c0",
+      "index": 233,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/wrentheai/claude-code-proxy"
+    },
+    {
+      "head_sha": "0874a27b17a22e2b7c2e2bcd725768e0803cad06",
+      "index": 234,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/wshobson/agents"
+    },
+    {
+      "head_sha": "053b4506c247ce10cd90cbfdfe2bf3fb300574f6",
+      "index": 235,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/wuchris-ch/claude-for-chatgpt-desktop"
+    },
+    {
+      "head_sha": "c838fc46a0f5c16c4baeab8a7f68cab6eb096543",
+      "index": 236,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/xiaolai/cc-suite"
+    },
+    {
+      "head_sha": "d9953673daf55381237e058fd9388cc2d74c5538",
+      "index": 237,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/xlang-ai/OSWorld-V2"
+    },
+    {
+      "head_sha": "002a6db982980eb569e54d32e397833b9f7f4302",
+      "index": 238,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/master",
+      "url": "https://github.com/yejianfei/subagent-cli"
+    },
+    {
+      "head_sha": "896221cc43618aea14556e4f10efd78b1fc6ac87",
+      "index": 239,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/yom4n/claude-codex-bridge"
+    },
+    {
+      "head_sha": "56baf0a1cbc7e68f81d4b933b2dc3f8e95af2acf",
+      "index": 240,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/yxhpy/chatgpt-pro-browser"
+    },
+    {
+      "head_sha": "e8177df1c5aa01e95d723a9824a152fa6298e6a8",
+      "index": 241,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/zcrossoverz/repo-bridge"
+    },
+    {
+      "head_sha": "56934ec0560bce8929025497411de7f5322fb6ca",
+      "index": 242,
+      "status": "PUBLIC_HEAD_OBSERVED",
+      "symbolic_head": "refs/heads/main",
+      "url": "https://github.com/zed-industries/zed"
+    }
+  ],
+  "schema": "uberbond.phoenix.public-head-attestation.v1",
+  "scope": "Unauthenticated public git ls-remote HEAD only; observed mutable refs are not pinned dependencies",
+  "source_manifest_sha256": "33f699492ff3d9247b45cde41f2e50d8eb795ed3e1994723f349fe0df796e064",
+  "statuses": {
+    "PUBLIC_HEAD_OBSERVED": 243
+  },
+  "supplier_promotion": "NONE"
+}

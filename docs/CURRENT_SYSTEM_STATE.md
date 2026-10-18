@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-18**
-Branch: `fix/phoenix-atlas-final-20261018`
-Reconciled from current head: `6531b5ace9b442c4c7eb212215c748ec773588c2`
+Branch: `fix/phoenix-mutation-hosted-20261019`
+Reconciled from current head: `a5a6c190f0f36421414d697b4cc28442572aab8d`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

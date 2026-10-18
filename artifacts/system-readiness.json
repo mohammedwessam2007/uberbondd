@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T20:25:11.942Z",
+  "generatedAt": "2026-10-18T21:42:27.615Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "6531b5ace9b442c4c7eb212215c748ec773588c2",
-    "branch": "fix/phoenix-atlas-final-20261018",
+    "head": "a5a6c190f0f36421414d697b4cc28442572aab8d",
+    "branch": "fix/phoenix-mutation-hosted-20261019",
     "sourceModules": 1108,
-    "testSuites": 1345,
-    "workingTreeClean": false
+    "testSuites": 1346,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

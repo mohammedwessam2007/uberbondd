@@ -8,6 +8,7 @@
 import { createWinnrApiClient, resolveWinnrMailboxAddress } from '../src/uberwinnr-adapter.mjs';
 import { inspectWinnrTokenPermissions } from '../src/uberwarm2-winnr-token-permissions.mjs';
 import { compileUberWarm2SovereignLiveObservation } from '../src/uberwarm2-sovereign-live-observer.mjs';
+import { observeUberWarm2ProviderDnsSpotcheck } from '../src/uberwarm2-provider-dns-spotcheck.mjs';
 
 const argv = process.argv.slice(2);
 const has = flag => argv.includes(flag);
@@ -62,6 +63,12 @@ async function run() {
     inventory.sovereignControl = compileUberWarm2SovereignLiveObservation({
       mailboxes: mailboxes.data, domains: domains.data
     });
+    // One authenticated provider DNS-status GET, rotated by five-minute slot.
+    // Its report only asserts what Winnr observed, not message authentication.
+    inventory.providerDnsSpotcheck = await observeUberWarm2ProviderDnsSpotcheck({
+      domains: domains.data, getDnsStatus: ({domainId}) => client.getDnsStatus({domainId})
+    });
+    inventory.providerCalls += inventory.providerDnsSpotcheck.providerCalls;
   }
   if (identity && inventory.status === 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') {
     // Keep this unattended CLI completely outside the held UberWarm2 seed and

@@ -27,6 +27,14 @@ export function compileOperationalSnapshot(input) {
       mailboxes: count(input.provider?.mailboxes), domains: count(input.provider?.domains),
       receiptDigestsPresent: input.provider?.providerReceiptDigestsPresent === true
     },
+    providerDnsSpotcheck: {
+      checked: input.provider?.providerDnsSpotcheck?.checked === true,
+      providerReportedReady: input.provider?.providerDnsSpotcheck?.providerReportedReady === true,
+      reportedRecordTypesVerified: count(input.provider?.providerDnsSpotcheck?.reportedRecordTypesVerified),
+      authenticatedProviderReceiptObserved: input.provider?.providerDnsSpotcheck?.authenticatedProviderReceiptObserved === true,
+      independentMessageAuthenticationClaimed: false,
+      sendingAuthority: 'NONE'
+    },
     receiver: {
       configured: input.receiver?.configured === true,
       authenticated: input.receiver?.authenticated === true,

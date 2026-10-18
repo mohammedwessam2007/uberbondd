@@ -26,7 +26,17 @@
     "offsite_readback_sha256": null,
     "offsite_verified": false,
     "source_repo_currently_public": true,
-    "private_vault_create_result": "HTTP_403_INTEGRATION_PERMISSION"
+    "private_vault_create_result": "HTTP_403_INTEGRATION_PERMISSION",
+    "historical_ref_audit": {
+      "indexed_ref_count": 1528,
+      "current_ref_count_at_comparison": 1530,
+      "missing_names": 31,
+      "missing_name_objects_still_local": 18,
+      "missing_name_objects_unavailable_locally": 13,
+      "historical_bundle_missing": true,
+      "status": "PARTIAL_LOCAL_REF_SURVIVABILITY_NOT_HISTORICAL_OFFSITE_RESTORE"
+    },
+    "local_archive_gitignored": true
   },
   "railway": {
     "project_id": "58e4508e-514e-4093-8f1d-d11957dc5d37",

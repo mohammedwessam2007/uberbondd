@@ -57,7 +57,19 @@
   "sender": {
     "qualified_count_proven": 0,
     "inventory_eligible_not_proven": 53,
-    "classification": "UNKNOWN_NOT_ADMITTED"
+    "classification": "UNKNOWN_NOT_ADMITTED",
+    "independent_public_dns_presence": {
+      "provider": "Google DNS-over-HTTPS",
+      "observed_at_utc": "2026-10-18T16:01:25.443Z",
+      "domains_checked": 11,
+      "SPF_record_present": 11,
+      "DKIM_selector_record_present": 11,
+      "DMARC_record_present": 11,
+      "MX_record_present": 11,
+      "dns_status_0_all": true,
+      "scope": "record_presence_only_not_authentication_alignment_or_transport_authorization",
+      "sender_qualified": false
+    }
   },
   "recipient": {
     "current_signed_consent": false,

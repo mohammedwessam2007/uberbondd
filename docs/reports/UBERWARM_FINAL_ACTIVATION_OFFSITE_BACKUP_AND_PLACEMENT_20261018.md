@@ -26,6 +26,8 @@ This report is a factual partial-completion receipt, not a claim of full operati
 - **SEND_SET=[]**. No one-shot provider effect was made, therefore there is no provider Message-ID and no independently matched Inbox/Spam receipt. Status: **ZERO_SENT / NO_PLACEMENT_PROOF**.
 - No authenticated recurring authorized schedule or individually qualified recipient set was produced. Recurrence remains intentionally disabled. Provider-owned warming or artificial replies were not started. Restart/idempotency/kill-switch **source tests** passed but full production send/restart endurance was not performed due absence of send authority.
 
+- **2026-10-18T16:01:25.443Z independent public DNS check** against Google DNS-over-HTTPS confirmed each of the 11 inventoried domains has an apex TXT containing SPF, a `dkim._domainkey` TXT key indicator, `_dmarc` TXT and MX record (11/11 in every category, DNS status 0). DNS *record presence alone* does not prove actual message DKIM signatures, SPF alignment, DMARC authentication, sender-owner current clearance, message sending ability or inbox delivery; all 53 mailbox identities remain NOT_ADMITTED until the signed holds, HTTPS transport, scope and consent are independently proven.
+
 ## Engineering tests and safety
 - Exact-current-main `npm ci --ignore-scripts --no-audit --no-fund` passed in isolated worktree (21 packages installed).
 - `node --test tests/uberwarm2-*.test.mjs`: **224 total, 222 passed, 0 failed, 2 skipped** with embedded PostgreSQL fixture. Checks include signed health/consent gating, durable claims, replay/no-resend semantics and hostile inputs. This is source-test evidence, not real provider placement.

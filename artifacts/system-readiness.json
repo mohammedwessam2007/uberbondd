@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T22:18:14.904Z",
+  "generatedAt": "2026-10-18T22:21:49.385Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "716c2e92182206fe78429cdbedd63ad1f72776d4",
+    "head": "4488ea7ff60d6a400e40a405d1f5f4db47d6d874",
     "branch": "feat/uberwarm-approved-one-shot-20261019",
     "sourceModules": 1108,
     "testSuites": 1344,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -77,10 +77,8 @@
       "reachableFromOperatorScriptsOnly": 452,
       "noEntryPointAtAll": 233,
       "partitionExact": true,
-      "allClassified": false,
-      "unclassified": [
-        "src/uberwarm2-authorized-one-shot-runtime.mjs"
-      ],
+      "allClassified": true,
+      "unclassified": [],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

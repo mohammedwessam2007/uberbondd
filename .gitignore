@@ -11,3 +11,6 @@ data/screenshots/*
 
 # Founder launch facts hold a postal address; they live outside the repo (see scripts/outreach-launch-facts.mjs).
 launch-facts*.json
+
+# Local private PHOENIX Git bundles and recovery drills must never enter the public repository.
+.phoenix-backups-private/

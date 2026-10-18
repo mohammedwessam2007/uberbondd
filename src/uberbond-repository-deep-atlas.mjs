@@ -24,12 +24,65 @@ const TEXT_EXTENSIONS = new Set([
 const TEXT_BASENAMES = new Set(['dockerfile', 'makefile', 'procfile', 'license', 'readme', '.gitignore', '.npmrc', '.nvmrc']);
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
-function stable(value) {
-  if (Array.isArray(value)) return value.map(stable);
-  if (!value || typeof value !== 'object') return value;
-  return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
+// Canonical hash encoding must not materialize the complete serialized atlas.
+// Large research corpora can exceed V8's maximum single-string length even when
+// individual source files and JSON values are valid. Stream the same stable
+// JSON byte sequence into SHA-256 using bounded chunks, without changing IDs.
+export function digestRepositoryDeepAtlas(value) {
+  const hash = crypto.createHash('sha256');
+  let buffered = '';
+  const flush = () => { if (buffered) { hash.update(buffered); buffered = ''; } };
+  const append = token => {
+    if (token.length > 32768) { flush(); hash.update(token); return; }
+    buffered += token;
+    if (buffered.length >= 32768) flush();
+  };
+  const active = new Set();
+  const visit = (current, arraySlot = false) => {
+    if (current === null || typeof current !== 'object') {
+      const encoded = JSON.stringify(current);
+      if (encoded === undefined) {
+        if (arraySlot) { append('null'); return; }
+        throw new TypeError('Non-JSON value cannot be the canonical digest root');
+      }
+      append(encoded);
+      return;
+    }
+    if (active.has(current)) throw new TypeError('Cyclic value cannot be canonically hashed');
+    active.add(current);
+    if (Array.isArray(current)) {
+      append('[');
+      for (let i = 0; i < current.length; i++) {
+        if (i) append(',');
+        visit(current[i], true);
+      }
+      append(']');
+    } else {
+      // Object.fromEntries mirrors the old stable() key ordering, including
+      // JavaScript's special ascending enumeration of integer-index keys.
+      const keys = Object.keys(Object.fromEntries(
+        Object.keys(current).sort().map(key => [key, null])
+      ));
+      append('{');
+      let first = true;
+      for (const key of keys) {
+        const child = current[key];
+        if (child === undefined || typeof child === 'function' || typeof child === 'symbol') continue;
+        if (!first) append(',');
+        first = false;
+        append(JSON.stringify(key));
+        append(':');
+        visit(child);
+      }
+      append('}');
+    }
+    active.delete(current);
+  };
+  visit(value);
+  flush();
+  return hash.digest('hex');
 }
-function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
+function digest(value) { return digestRepositoryDeepAtlas(value); }
 function rawDigest(value) { return crypto.createHash('sha256').update(String(value ?? '')).digest('hex'); }
 function clean(value, max = 2000) {
   return redactSecrets(String(value ?? ''))

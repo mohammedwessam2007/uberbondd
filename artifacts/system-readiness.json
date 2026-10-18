@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T15:37:48.309Z",
+  "generatedAt": "2026-10-18T15:39:40.880Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9205031d92463b8efd7561ef5531f5c7857a85bb",
+    "head": "77da9353fddf13ac3d2687dbb9591758e4763265",
     "branch": "fix/phoenix-atlas-rebase-verified-20261018",
-    "sourceModules": 1106,
-    "testSuites": 1343,
+    "sourceModules": 1107,
+    "testSuites": 1344,
     "workingTreeClean": false
   },
   "measurements": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1106,
+      "srcModules": 1107,
       "reachableFromProduction": 416,
-      "reachableFromUnattendedOperatorScriptsOnly": 451,
+      "reachableFromUnattendedOperatorScriptsOnly": 452,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 451,
+      "reachableFromOperatorScriptsOnly": 452,
       "noEntryPointAtAll": 232,
       "partitionExact": true,
       "allClassified": true,

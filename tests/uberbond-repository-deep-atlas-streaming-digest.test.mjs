@@ -16,8 +16,7 @@ test('streaming atlas hash preserves the exact canonical digest for ordinary obj
     { zebra: 'last', alpha: { zero: false, one: 1 }, entries: [7, 6, 5] },
     { 10: 'ten', 2: 'two', 0: 'zero', omega: 42, alpha: 'first' },
     { undef: undefined, ignored: () => {}, allowed: 8 },
-    [undefined, null, Symbol('x'), 3],
-    { stamp: { toJSON() { return 'ignored in stable construction'; } } }
+    [undefined, null, Symbol('x'), 3]
   ];
   for (const sample of samples) assert.equal(digestRepositoryDeepAtlas(sample), expected(sample));
 });
@@ -33,6 +32,13 @@ test('streaming atlas hashing scales across large record lists without digest dr
   }));
   const big = { details, coverage: [{ path: 'readme.md', textDigest: 'a'.repeat(64) }], deepFeatureCount: details.length };
   assert.equal(digestRepositoryDeepAtlas(big), expected(big));
+});
+
+test('custom JSON serialization callbacks are refused rather than executed', () => {
+  let calls = 0;
+  const value = { stamp: { toJSON() { calls++; return 'should never run'; } } };
+  assert.throws(() => digestRepositoryDeepAtlas(value), /toJSON hooks are refused/);
+  assert.equal(calls, 0);
 });
 
 test('cyclic structures are refused instead of entering an endless walk', () => {

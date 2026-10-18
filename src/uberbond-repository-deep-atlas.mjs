@@ -49,6 +49,7 @@ export function digestRepositoryDeepAtlas(value) {
       return;
     }
     if (active.has(current)) throw new TypeError('Cyclic value cannot be canonically hashed');
+    if (typeof current.toJSON === 'function') throw new TypeError('Custom toJSON hooks are refused during canonical hashing');
     active.add(current);
     if (Array.isArray(current)) {
       append('[');

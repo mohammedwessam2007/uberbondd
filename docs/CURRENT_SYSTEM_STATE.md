@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-18**
 Branch: `fix/phoenix-mutation-hosted-20261019`
-Reconciled from current head: `8dac093d5958abd24d8a37f548c06c15d2a6b612`
+Reconciled from current head: `01dd4533390f3082ebb13b7181b611463ec22a00`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

@@ -7,6 +7,7 @@
  */
 import { createWinnrApiClient, resolveWinnrMailboxAddress } from '../src/uberwinnr-adapter.mjs';
 import { inspectWinnrTokenPermissions } from '../src/uberwarm2-winnr-token-permissions.mjs';
+import { compileUberWarm2SovereignLiveObservation } from '../src/uberwarm2-sovereign-live-observer.mjs';
 
 const argv = process.argv.slice(2);
 const has = flag => argv.includes(flag);
@@ -57,6 +58,11 @@ async function run() {
     missingIndependentGates: ['signed-current-transport-health','local-holds','signed-dns-alignment',
       'owner-controlled-seed-consent','receiver-inbox-placement','postgres-one-shot-ledger']
   };
+  if (inventory.status === 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') {
+    inventory.sovereignControl = compileUberWarm2SovereignLiveObservation({
+      mailboxes: mailboxes.data, domains: domains.data
+    });
+  }
   if (identity && inventory.status === 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') {
     // Keep this unattended CLI completely outside the held UberWarm2 seed and
     // protected activation donor chain. It may do provider GETs, not send.

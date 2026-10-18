@@ -34,6 +34,17 @@ export function compileOperationalSnapshot(input) {
       spamSpecialUseAdvertised: input.receiver?.spamSpecialUseAdvertised === true,
       probeConsentEstablished: false
     },
+    sovereignControl: {
+      status: ['SOVEREIGN_CONTROL_MONITORING_ACTIVE', 'SOVEREIGN_CONTROL_IDENTITY_HOLD'].includes(input.provider?.sovereignControl?.status)
+        ? input.provider.sovereignControl.status : 'NOT_VERIFIED',
+      fleetMailboxes: count(input.provider?.sovereignControl?.fleetMailboxes),
+      observedDomains: count(input.provider?.sovereignControl?.observedDomains),
+      providerReportedActive: count(input.provider?.sovereignControl?.providerReportedActive),
+      unmatchedMailboxes: count(input.provider?.sovereignControl?.unverifiedMailboxIdentity),
+      duplicateMailboxes: count(input.provider?.sovereignControl?.duplicateIdentity),
+      admittedToSend: 0, sendingActive: false, paidWarmupAddonRequired: false,
+      authority: 'NONE'
+    },
     // This monitor cannot attest these independent gates, including when reads succeed.
     activation: 'INDEPENDENT_SENDER_CONSENT_AND_PLACEMENT_GATES_REQUIRED'
   };

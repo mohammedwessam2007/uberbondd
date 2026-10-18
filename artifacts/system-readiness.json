@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T13:52:52.816Z",
+  "generatedAt": "2026-10-18T20:05:32.135Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "41e290423ea623dabeac9fbe09f4b620ff890c0a",
-    "branch": "codex/phoenix-uberwarm-backup-final-20261018",
-    "sourceModules": 1105,
-    "testSuites": 1341,
-    "workingTreeClean": false
+    "head": "51f646849d0039ee2eb523c5990d9c02344b40d2",
+    "branch": "work/uberwarm-sovereign-free-control-20261018",
+    "sourceModules": 1106,
+    "testSuites": 1342,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1105,
+      "srcModules": 1106,
       "reachableFromProduction": 416,
-      "reachableFromUnattendedOperatorScriptsOnly": 450,
+      "reachableFromUnattendedOperatorScriptsOnly": 451,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 450,
+      "reachableFromOperatorScriptsOnly": 451,
       "noEntryPointAtAll": 232,
       "partitionExact": true,
       "allClassified": true,

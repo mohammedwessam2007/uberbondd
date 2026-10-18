@@ -16,6 +16,7 @@ const refused = reason => Object.freeze({
   version: UBERWARM2_SOVEREIGN_OBSERVER_VERSION,
   status: 'SOVEREIGN_CONTROL_OBSERVATION_REFUSED', reasonCodes: [reason],
   fleetMailboxes: 0, observedDomains: 0, providerReportedActive: 0,
+  providerDnsReadyDomains: 0, providerDnsUnreadyDomains: 0, mailboxesWithProviderDnsHold: 0,
   unverifiedMailboxIdentity: 0, duplicateIdentity: 0,
   states: {BLOCKED: 0, WARMING: 0, LIMITED_CANARY: 0, RAMP: 0, HOLD: 0, QUARANTINED: 0},
   recommendedColdDailyCap: 0, admittedToSend: 0, inboxPlacements: 0,
@@ -36,16 +37,20 @@ export function compileUberWarm2SovereignLiveObservation({mailboxes, domains, no
   const when = new Date(now);
   if (!Number.isFinite(when.getTime())) return refused('valid-observation-clock-required');
   const domainSet = new Set();
+  const readyDomains = new Set();
   for (const row of domains) {
     if (!row || typeof row !== 'object') return refused('invalid-domain-row');
     const domain = normalize(row.domain ?? row.name);
     if (!domain || !/^[a-z0-9.-]+$/.test(domain) || domainSet.has(domain))
       return refused('missing-or-duplicate-domain');
     domainSet.add(domain);
+    // Account DNS readiness is provider-reported, not sent-message SPF/DKIM proof.
+    const dnsStatus = normalize(row.dns_status ?? row.dnsStatus);
+    if (['complete', 'ready', 'verified'].includes(dnsStatus)) readyDomains.add(domain);
   }
   if (!mailboxes.length || !domains.length) return refused('nonempty-current-fleet-required');
   const mailboxSet = new Set();
-  let active = 0, invalid = 0, duplicate = 0;
+  let active = 0, invalid = 0, duplicate = 0, dnsHeld = 0;
   const fleet = [];
   for (const row of mailboxes) {
     if (!row || typeof row !== 'object') return refused('invalid-mailbox-row');
@@ -55,13 +60,15 @@ export function compileUberWarm2SovereignLiveObservation({mailboxes, domains, no
     if (mailboxSet.has(email)) { duplicate++; continue; }
     mailboxSet.add(email);
     const status = normalize(row.status);
+    const providerDnsReady = readyDomains.has(email.split('@')[1]);
+    if (!providerDnsReady) dnsHeld++;
     if (status === 'active') active++;
     fleet.push({
       mailboxId: email, address: email,
       // Provider Active is NOT transport authentication. Only signed protected
       // preflight readers can grant that, and this observer never calls them.
       authenticationStatus: 'UNVERIFIED',
-      paused: status !== 'active',
+      paused: status !== 'active' || !providerDnsReady,
       warmupMode: 'EVIDENCE_RAMP', currentDailyCap: 0
     });
   }
@@ -70,14 +77,18 @@ export function compileUberWarm2SovereignLiveObservation({mailboxes, domains, no
     .map(key => [key, count(report.decisions.filter(row => row.state === key).length)]));
   return Object.freeze({
     version: UBERWARM2_SOVEREIGN_OBSERVER_VERSION,
-    status: duplicate || invalid ? 'SOVEREIGN_CONTROL_IDENTITY_HOLD' : 'SOVEREIGN_CONTROL_MONITORING_ACTIVE',
+    status: duplicate || invalid ? 'SOVEREIGN_CONTROL_IDENTITY_HOLD'
+      : dnsHeld ? 'SOVEREIGN_CONTROL_PROVIDER_DNS_HOLD' : 'SOVEREIGN_CONTROL_MONITORING_ACTIVE',
     reasonCodes: [
       ...(duplicate ? ['duplicate-provider-mailbox-identity'] : []),
       ...(invalid ? ['unmatched-or-invalid-provider-mailbox-identity'] : []),
+      ...(dnsHeld ? ['provider-dns-status-not-ready'] : []),
       'independent-authentication-consent-and-placement-still-required'
     ],
     fleetMailboxes: mailboxes.length, observedDomains: domainSet.size,
     providerReportedActive: active, unverifiedMailboxIdentity: invalid, duplicateIdentity: duplicate,
+    providerDnsReadyDomains: readyDomains.size, providerDnsUnreadyDomains: domainSet.size - readyDomains.size,
+    mailboxesWithProviderDnsHold: dnsHeld,
     states, recommendedColdDailyCap: 0, admittedToSend: 0, inboxPlacements: 0,
     monitoringActive: true, sendingActive: false,
     providerWarmupAddonRequired: false, providerPaidWarmupEnabledByUberBond: false,

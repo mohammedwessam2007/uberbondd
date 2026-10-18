@@ -1,0 +1,63 @@
+name: PHOENIX research canon regeneration
+
+on:
+  push:
+    branches:
+      - research/phoenix-waves-3-10-intake-20261017
+    paths:
+      - scripts/phoenix-*
+      - tests/test_phoenix_*
+      - artifacts/research/phoenix-ten-wave-intake/**
+      - .github/workflows/phoenix-research-readiness-repair.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: phoenix-research-canon-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  repair-readiness:
+    if: github.repository == 'mohammedwessam2007/uberbondd' && github.ref == 'refs/heads/research/phoenix-waves-3-10-intake-20261017'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check for existing source drift
+        id: drift
+        shell: bash
+        run: |
+          if node --test tests/canon-freshness.test.mjs > /tmp/phoenix-canon-before.log 2>&1; then
+            echo 'needs_regeneration=false' >> "$GITHUB_OUTPUT"
+            echo "Current canon already matches source; no write."
+          else
+            echo 'needs_regeneration=true' >> "$GITHUB_OUTPUT"
+            grep -E 'not ok|regenerate|source file\(s\) have changed' /tmp/phoenix-canon-before.log | head -12 || true
+          fi
+      - name: Regenerate only existing canonical readiness files
+        if: steps.drift.outputs.needs_regeneration == 'true'
+        shell: bash
+        run: |
+          npm run readiness
+          node --test tests/canon-freshness.test.mjs
+          git add -- artifacts/system-readiness.json docs/CURRENT_SYSTEM_STATE.md
+          if git diff --cached --quiet; then
+            echo 'No generated output changed.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'chore(phoenix): regenerate source-bound readiness for research branch'
+          git push origin HEAD:research/phoenix-waves-3-10-intake-20261017
+      - name: Verify no additional source modification
+        shell: bash
+        run: |
+          git status --short
+          git diff --exit-code HEAD -- src scripts config migrations

@@ -216,12 +216,17 @@ test('the entry points this ratchet trusts actually exist and founder-interactiv
 test('every AWAITING_ACTIVATION module names a gate that is actually registered', () => {
   const { modules, gates } = classification();
   assert.ok(gates, 'the classification must declare a gates registry');
-  const unregistered = Object.entries(modules)
-    .filter(([, entry]) => entry.category === 'AWAITING_ACTIVATION' && !gates[entry.gate])
-    .map(([file, entry]) => `${file} -> ${entry.gate}`);
-  assert.deepEqual(unregistered, [],
-    `these modules wait on gates that do not exist:\n  ${unregistered.join('\n  ')}\n`
-    + 'Register the gate with a description and a release condition, or use an existing one.');
+  // Exercise a deliberately missing registration, not only the healthy registry.
+  for (const [rows, expected] of [
+    [modules, []],
+    [{ ...modules, 'src/__probe__.mjs': { category: 'AWAITING_ACTIVATION', gate: '__MISSING_PROBE__' } },
+      ['src/__probe__.mjs -> __MISSING_PROBE__']]
+  ]) {
+    const unregistered = Object.entries(rows)
+      .filter(([, entry]) => entry.category === 'AWAITING_ACTIVATION' && !gates[entry.gate])
+      .map(([file, entry]) => `${file} -> ${entry.gate}`);
+    assert.deepEqual(unregistered, expected);
+  }
 });
 
 test('every registered gate is still holding something back', () => {

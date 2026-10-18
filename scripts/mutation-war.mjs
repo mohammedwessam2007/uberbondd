@@ -14,7 +14,7 @@
 // the specific invariants this system's safety rests on produces a list an
 // operator can read.
 
-import { mkdtempSync, cpSync, rmSync, symlinkSync } from 'node:fs';
+import { mkdtempSync, cpSync, rmSync, symlinkSync, mkdirSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -28,6 +28,15 @@ import { withDisposablePostgres } from './disposable-postgres.mjs';
 export { classifySuiteRun, applyMutation };
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+// Only small source-pinned fixtures used by the mutation suites, never mutable symlinks.
+export const MUTATION_SANDBOX_FIXTURES = Object.freeze([
+  'docs/CURRENT_SYSTEM_STATE.md',
+  'artifacts/system-readiness.json',
+  'artifacts/capability-genome',
+  'artifacts/outreach',
+  'artifacts/event-horizon'
+]);
 
 /**
  * @typedef {{id: string, guard: string, file: string, find: string, replace: string, suites: string[]}} Mutation
@@ -1099,7 +1108,7 @@ export const MUTATIONS = [
     id: 'REACH-02', guard: 'The ratchet sees the whole src tree, not just its top level',
     file: 'tests/reachability-ratchet.test.mjs',
     find: "  const all = entryPointsIn('src');",
-    replace: "  const all = filesIn('src');",
+    replace: "  const all = readdirSync(join(repoRoot, 'src'), { withFileTypes: true }).filter(e => e.isFile() && e.name.endsWith('.mjs')).map(e => `src/${e.name}`);",
     suites: ['tests/reachability-ratchet.test.mjs']
   },
   {
@@ -4438,6 +4447,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         try { cpSync(join(repoRoot, entry), join(root, entry)); } catch { /* absent in a trimmed tree */ }
       }
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));
+      // Mutation suites are not self-contained source files. Some import pinned
+      // first-party research, readiness, and provider-policy fixtures. Without
+      // these *copies*, a mutant fails at module load with ENOENT and the war
+      // correctly refuses to call that a killed guard. Do not symlink the live
+      // artifacts: a hostile test must never write into the operator worktree.
+      // Copy only these small, audited fixtures; the large cognitive/recovery
+      // generated corpora are not needed by these guards.
+      for (const fixture of MUTATION_SANDBOX_FIXTURES) {
+        const target = join(root, fixture);
+        mkdirSync(dirname(target), { recursive: true });
+        cpSync(join(repoRoot, fixture), target, { recursive: true });
+      }
       // Linked, not copied.
       //
       // Copying 116MB of node_modules for each of 160 mutations is ~18GB of I/O

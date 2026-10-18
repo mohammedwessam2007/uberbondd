@@ -1,0 +1,96 @@
+{
+  "manifest_sha256": "33f699492ff3d9247b45cde41f2e50d8eb795ed3e1994723f349fe0df796e064",
+  "no_source_executed": true,
+  "observed_at_utc": "2026-10-17T20:34:24.517001+00:00",
+  "records": [
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "ARCAGI-Labs/arc-agi-3-benchmarking",
+      "index": 0,
+      "last_push": "2026-03-26T18:45:15Z",
+      "license_spdx": "MIT",
+      "size_kb": 247,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "AndrewAvery7/claude-codex-bridge",
+      "index": 1,
+      "last_push": "2026-10-11T17:07:53Z",
+      "license_spdx": "MIT",
+      "size_kb": 4557,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/AndrewAvery7/claude-codex-bridge"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "Anikethh/ResearchGym",
+      "index": 2,
+      "last_push": "2026-05-31T10:42:24Z",
+      "license_spdx": null,
+      "size_kb": 64207,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/Anikethh/ResearchGym"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "ArcadeAI/arcade-mcp",
+      "index": 3,
+      "last_push": "2026-10-16T03:09:09Z",
+      "license_spdx": "MIT",
+      "size_kb": 73113,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/ArcadeAI/arcade-mcp"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "Arize-ai/phoenix",
+      "index": 4,
+      "last_push": "2026-10-17T09:42:45Z",
+      "license_spdx": "NOASSERTION",
+      "size_kb": 551713,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/Arize-ai/phoenix"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "AutoResearch/autora",
+      "index": 5,
+      "last_push": "2025-11-27T04:08:27Z",
+      "license_spdx": "MIT",
+      "size_kb": 82058,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/AutoResearch/autora"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "BarganConstantin/ccdeck",
+      "index": 6,
+      "last_push": "2026-10-16T13:54:40Z",
+      "license_spdx": "AGPL-3.0",
+      "size_kb": 47505,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/BarganConstantin/ccdeck"
+    },
+    {
+      "archived": false,
+      "default_branch": "main",
+      "full_name": "BerriAI/litellm",
+      "index": 7,
+      "last_push": "2026-10-17T20:33:40Z",
+      "license_spdx": "NOASSERTION",
+      "size_kb": 2509752,
+      "status": "PUBLIC_METADATA_RETURNED",
+      "url": "https://github.com/BerriAI/litellm"
+    }
+  ],
+  "schema": "phoenix.repo-metadata-probe.v1"
+}

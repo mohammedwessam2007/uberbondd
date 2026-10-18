@@ -1,0 +1,3005 @@
+{
+  "date": "2026-10-17",
+  "wave": 6,
+  "mission": "PHOENIX proof-carrying evolution of the UberBond capability economy",
+  "status": "RESEARCH_DESIGN_ONLY",
+  "candidate_count": 120,
+  "family_count": 10,
+  "source_count": 25,
+  "nominal_previous_total": 780,
+  "nominal_total_pre_semantic_dedupe": 900,
+  "source_register": [
+    {
+      "url": "https://github.com/karpathy/autoresearch",
+      "note": "Author repository: bounded edit/train/measure/select loop"
+    },
+    {
+      "url": "https://github.com/gepa-ai/gepa",
+      "note": "Author repository: reflective multiobjective evolution of text parameters"
+    },
+    {
+      "url": "https://arxiv.org/abs/2605.13874",
+      "note": "Author paper: population based code search; results not externally replicated here"
+    },
+    {
+      "url": "https://arxiv.org/abs/2609.30541",
+      "note": "Author study: 220+ production experiments, five failure modes; study-specific outcomes"
+    },
+    {
+      "url": "https://github.com/py-why/dowhy",
+      "note": "Author repository: causal identification, estimation, falsification"
+    },
+    {
+      "url": "https://github.com/dagster-io/dagster",
+      "note": "Author repository: asset lineage and declarative orchestration"
+    },
+    {
+      "url": "https://github.com/cedar-policy/cedar",
+      "note": "Author repository: policy schema validation and symbolic reasoning"
+    },
+    {
+      "url": "https://github.com/openfga/openfga",
+      "note": "Author repository: ReBAC graph and permission-model tests"
+    },
+    {
+      "url": "https://github.com/open-policy-agent/opa",
+      "note": "Author repository: programmable policy decision service"
+    },
+    {
+      "url": "https://github.com/permitio/opal",
+      "note": "Author repository: realtime policy data propagation"
+    },
+    {
+      "url": "https://github.com/in-toto/in-toto",
+      "note": "Author repository: step-by-step signed software supply-chain provenance"
+    },
+    {
+      "url": "https://github.com/sigstore/cosign",
+      "note": "Author repository: sign and verify artifact digests/attestations"
+    },
+    {
+      "url": "https://github.com/ossf/scorecard",
+      "note": "Author repository: open-source supplier security heuristics"
+    },
+    {
+      "url": "https://github.com/google/osv-scanner",
+      "note": "Author repository: dependency/CVE scanning and remediation limits"
+    },
+    {
+      "url": "https://github.com/ethz-spylab/agentdojo",
+      "note": "Benchmark repository: dynamic prompt-injection tasks"
+    },
+    {
+      "url": "https://github.com/microsoft/PyRIT",
+      "note": "Author repository: AI red-team attack/evaluation pipelines"
+    },
+    {
+      "url": "https://github.com/schemathesis/schemathesis",
+      "note": "Author repository: schema/stateful property-based API testing"
+    },
+    {
+      "url": "https://github.com/HypothesisWorks/hypothesis",
+      "note": "Author repository: property-based tests and shrinking"
+    },
+    {
+      "url": "https://github.com/github/spec-kit",
+      "note": "Author repository: spec→plan→tasks→implement→converge"
+    },
+    {
+      "url": "https://github.com/SWE-agent/mini-swe-agent",
+      "note": "Author repository: minimal agent harness and evaluations"
+    },
+    {
+      "url": "https://github.com/SWE-agent/SWE-ReX",
+      "note": "Author repository: pluggable isolated execution backends"
+    },
+    {
+      "url": "https://github.com/getzep/graphiti",
+      "note": "Author repository: bi-temporal agent knowledge graph"
+    },
+    {
+      "url": "https://github.com/astral-sh/uv",
+      "note": "Author repository: pinned reproducible Python envs and tool execution"
+    },
+    {
+      "url": "https://github.com/restatedev/agent",
+      "note": "Author reference: crash durable agents, pausing and resuming"
+    },
+    {
+      "url": "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/",
+      "note": "Community design for delayed and irreversible outcomes"
+    }
+  ],
+  "external_reality_claim": "NONE",
+  "installed": "NONE",
+  "repository_written": "NONE",
+  "prior_coverage": {
+    "wave3": 320,
+    "wave4_prior_reported": 256,
+    "wave5": 204,
+    "wave6": 120,
+    "overlap_unknown": true
+  },
+  "candidates": [
+    {
+      "id": "phoenix-wave6-0001",
+      "name": "Immutable objective escrow",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Agent edits objective file; signed evaluation definition must remain byte-identical",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Entity-linked project memory",
+        "wave": "wave3",
+        "string_similarity": 0.444
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0002",
+      "name": "Metric-gaming detector",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Plant a shortcut increasing proxy score but failing hidden result check; reject it",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cache write-amplification detector",
+        "wave": "wave3",
+        "string_similarity": 0.607
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0003",
+      "name": "Population-of-hypotheses journal",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Three divergent candidates survive independently when none strictly dominates",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Mutation-target test selector",
+        "wave": "wave3",
+        "string_similarity": 0.426
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0004",
+      "name": "Novelty-adjusted experiment selection",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Repeated near-identical experiments rank below a grounded unexplored candidate",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Compare scripted execution to agent execution cost",
+        "wave": "wave5",
+        "string_similarity": 0.506
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0005",
+      "name": "Inference-budgeted reflective proposal",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Stop at a declared model-call cap and return saved best candidate",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Dependency edge resolution",
+        "wave": "wave3",
+        "string_similarity": 0.469
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0006",
+      "name": "Frozen-versus-mutated source segregation",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Any run modifying the frozen evaluation fixture is invalidated",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Provider failure segmentation",
+        "wave": "wave3",
+        "string_similarity": 0.551
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0007",
+      "name": "Regression-parent ancestry capture",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Retain each candidate patch SHA and its parent before scoring",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Background agent capacity cap",
+        "wave": "wave3",
+        "string_similarity": 0.54
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0008",
+      "name": "Parallel-branch contamination check",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Two variants cannot read each other’s experimental output before selection",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Evaluator contamination leak test",
+        "wave": "wave3",
+        "string_similarity": 0.588
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0009",
+      "name": "Counterexample-driven mutation",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "A known failing case creates a targeted candidate that specifically fixes that case",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Counterexample replay queue",
+        "wave": "wave3",
+        "string_similarity": 0.632
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0010",
+      "name": "Multiobjective Pareto archive",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "Retain fast/accurate and slow/safer candidates, not only one scalar winner",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Multi-agent shared goal version pinning",
+        "wave": "wave3",
+        "string_similarity": 0.441
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0011",
+      "name": "Search-stagnation redirect rule",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "After N no-improvement trials change the hypothesis family, not only parameter values",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Schema migration impact map",
+        "wave": "wave3",
+        "string_similarity": 0.517
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0012",
+      "name": "Transfer test across task scales",
+      "family": "Research evolution without metric gaming",
+      "design_hypothesis": "Crosses bounded experimentation with falsifiers, multiple hypotheses and cold-start baselines.",
+      "acceptance_test": "An improvement on tiny fixtures fails promotion if hidden larger fixtures regress",
+      "source_donors": [
+        "https://github.com/karpathy/autoresearch",
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Expire abandoned provisional task leases",
+        "wave": "wave5",
+        "string_similarity": 0.472
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0013",
+      "name": "Treatment-control intervention registry",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Compare treated and held-out synthetic groups under a known confounder",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Negative-control scenario generator",
+        "wave": "wave3",
+        "string_similarity": 0.541
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0014",
+      "name": "Placebo-effect refuter",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Placebo intervention must not be reported as a meaningful success",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Post-review defect escape counter",
+        "wave": "wave3",
+        "string_similarity": 0.473
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0015",
+      "name": "Unobserved-confounder sensitivity",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Synthetic hidden confounder flips an estimate and confidence is downgraded",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "User-visible confirmation screenshot",
+        "wave": "wave3",
+        "string_similarity": 0.522
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0016",
+      "name": "Intervention and observation time split",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Event dated earlier than ingestion retains both timestamps",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Malicious extension isolation test",
+        "wave": "wave3",
+        "string_similarity": 0.521
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0017",
+      "name": "Delayed-outcome wait state",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "No proof of business impact is emitted until the dated observation arrives",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Dead-code reachability proof",
+        "wave": "wave3",
+        "string_similarity": 0.481
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0018",
+      "name": "Irreversible-action counterfactual warning",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "A published message cannot be classified as rollback-safe in a synthetic example",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Versioned mission contract",
+        "wave": "wave3",
+        "string_similarity": 0.529
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0019",
+      "name": "Precommitted success criterion",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "A model cannot alter the outcome definition after results are visible",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Deprecated skill usage detector",
+        "wave": "wave3",
+        "string_similarity": 0.492
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0020",
+      "name": "External-system record verifier",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "A simulated receipt does not close a bank or customer proof gate",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Remote keyboard failure recovery",
+        "wave": "wave3",
+        "string_similarity": 0.476
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0021",
+      "name": "Negative-control outcome gate",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "An unrelated negative-control metric changing flags a confounding problem",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Negative-control scenario generator",
+        "wave": "wave3",
+        "string_similarity": 0.688
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0022",
+      "name": "Attrition and missingness auditor",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Missing 40% of observations changes the validity label instead of silently imputing wins",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Mobile authentication device pairing audit",
+        "wave": "wave3",
+        "string_similarity": 0.533
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0023",
+      "name": "Intervention cost attribution",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Compute, people and provider spend counted alongside estimated causal uplift",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Conversation-to-commit attribution",
+        "wave": "wave3",
+        "string_similarity": 0.698
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0024",
+      "name": "Experiment-to-asset lineage",
+      "family": "Causal effect and delayed reality science",
+      "design_hypothesis": "Separates measured improvements from confounding, delayed outcomes and collateral harm.",
+      "acceptance_test": "Every reported impact resolves to versioned experiment and original outcome record",
+      "source_donors": [
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/dagster-io/dagster",
+        "https://www.reddit.com/r/ClaudeCode/comments/1s46n5y/i_am_building_slowresearch_autoresearch_for/"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Skill retirement with recoverable lineage",
+        "wave": "wave3",
+        "string_similarity": 0.529
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0025",
+      "name": "Permission-as-code default-deny",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Unknown operation fails when no explicit permission grants it",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Read-only permission bypass falsifier",
+        "wave": "wave3",
+        "string_similarity": 0.5
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0026",
+      "name": "Delegation attenuation theorem test",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Delegated agent cannot gain a permission parent does not own",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Skill permission attenuation gate",
+        "wave": "wave3",
+        "string_similarity": 0.559
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0027",
+      "name": "Revocation propagation benchmark",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Revoking parent blocks a queued child action at dispatch time",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cancellation propagation to descendants",
+        "wave": "wave3",
+        "string_similarity": 0.62
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0028",
+      "name": "Principal-resource action tuple",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Same model is allowed to read A but denied identical action on B",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Tool resource-vs-action classifier",
+        "wave": "wave3",
+        "string_similarity": 0.554
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0029",
+      "name": "Policy proof counterexample finder",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "A permissive policy produces a concrete unauthorized input witness",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Counterexample replay queue",
+        "wave": "wave3",
+        "string_similarity": 0.525
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0030",
+      "name": "Policy-schema type checker",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Typo in resource/action type is rejected before policy deployment",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "MCP tool rug-pull hash checker",
+        "wave": "wave3",
+        "string_similarity": 0.5
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0031",
+      "name": "Time-bound capability lease",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Synthetic expired lease denies tool access without another LLM call",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Claude Code capability inventory",
+        "wave": "wave3",
+        "string_similarity": 0.542
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0032",
+      "name": "Cross-project information wall",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Agent from project A cannot query project B restricted test records",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cross-origin navigation approval",
+        "wave": "wave3",
+        "string_similarity": 0.548
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0033",
+      "name": "Spend cap as external policy",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Exceeded simulated cash limit causes deterministic denial",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Prevent duplicate external action after replay",
+        "wave": "wave5",
+        "string_similarity": 0.514
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0034",
+      "name": "Approval token single-use guard",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "A replayed approval identifier is rejected after first successful consumption",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Bearer-token use audit",
+        "wave": "wave3",
+        "string_similarity": 0.528
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0035",
+      "name": "Policy hot-change propagation check",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Revoked permission takes effect in worker before next tool invocation",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cancellation propagation to descendants",
+        "wave": "wave3",
+        "string_similarity": 0.514
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0036",
+      "name": "Authority-bound log redaction",
+      "family": "Formally constrained sovereign delegation",
+      "design_hypothesis": "Enforces authority externally to the model with machine-checkable denial proofs.",
+      "acceptance_test": "Decision audit logs show action evidence without embedding test credentials",
+      "source_donors": [
+        "https://github.com/cedar-policy/cedar",
+        "https://github.com/openfga/openfga",
+        "https://github.com/open-policy-agent/opa",
+        "https://github.com/permitio/opal"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Native account-state redaction",
+        "wave": "wave3",
+        "string_similarity": 0.542
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0037",
+      "name": "Source-digest anchored mission",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Mission output tagged with source SHA; altered source invalidates attestation",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Pin tool-image digest before admission",
+        "wave": "wave5",
+        "string_similarity": 0.588
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0038",
+      "name": "Signed step-chain admission",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Missing or unauthorized workflow step makes the final build unverifiable",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Def-use chain exploration",
+        "wave": "wave3",
+        "string_similarity": 0.5
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0039",
+      "name": "Toolchain version attestation",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "A test receipt names locked tool version and executable hash",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Skill permission attenuation gate",
+        "wave": "wave3",
+        "string_similarity": 0.581
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0040",
+      "name": "Builder/agent identity separation",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Agent claim alone cannot sign an independent builder receipt",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Lead dedupe and identity proof",
+        "wave": "wave3",
+        "string_similarity": 0.571
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0041",
+      "name": "Artifact mutation proof",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "One-byte edit after signing fails verification",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Agent skill mutation sandbox",
+        "wave": "wave3",
+        "string_similarity": 0.549
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0042",
+      "name": "Verified dependency bill of materials",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Output records resolved dependency names/versions before promotion",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Dependency lockfile tamper audit",
+        "wave": "wave3",
+        "string_similarity": 0.522
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0043",
+      "name": "Supplier security floor",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Known high-risk upstream dependency is held for review by policy",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Task-level supplier A/B lottery",
+        "wave": "wave3",
+        "string_similarity": 0.481
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0044",
+      "name": "Vulnerable lockfile admission denial",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Fixture with vulnerable package version fails supplier gate",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Require lockfile review for dependency changes",
+        "wave": "wave5",
+        "string_similarity": 0.488
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0045",
+      "name": "Provenance-only claim classifier",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "A valid signature is never treated as functional correctness proof",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Read-only permission bypass falsifier",
+        "wave": "wave3",
+        "string_similarity": 0.551
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0046",
+      "name": "Runtime/commit identity correlation",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Deployment evidence must identify exact image/source digest in receipt",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Per-agent trace correlation",
+        "wave": "wave3",
+        "string_similarity": 0.548
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0047",
+      "name": "Reproducible rebuild challenge",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Two clean builds produce identical deterministic test manifest or explain discrepancy",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Require lockfile review for dependency changes",
+        "wave": "wave5",
+        "string_similarity": 0.526
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0048",
+      "name": "Compromised update rollback trigger",
+      "family": "Cryptographic proof-of-work chain",
+      "design_hypothesis": "Proves which exact source, tests and authorized steps produced an artifact.",
+      "acceptance_test": "Altered signed artifact automatically fails canary and remains inactive",
+      "source_donors": [
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/sigstore/cosign",
+        "https://github.com/ossf/scorecard",
+        "https://github.com/google/osv-scanner"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Provider outage fallback dry run",
+        "wave": "wave3",
+        "string_similarity": 0.567
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0049",
+      "name": "Indirect prompt-injection fixture",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Retrieved malicious document cannot authorize an external write",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Synthetic prompt-injection red-team",
+        "wave": "wave3",
+        "string_similarity": 0.647
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0050",
+      "name": "Tool-output authority laundering fixture",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "A tool response claiming system rank is treated as untrusted data",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Mobile authentication device pairing audit",
+        "wave": "wave3",
+        "string_similarity": 0.439
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0051",
+      "name": "Privilege-escalation red-team suite",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Low-privilege agent fails attempted high-privilege synthetic action",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Synthetic prompt-injection red-team",
+        "wave": "wave3",
+        "string_similarity": 0.514
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0052",
+      "name": "Stateful API mutation sequence",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Generate create/read/update/delete fixture sequence and check invariants",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Structural duplication detector",
+        "wave": "wave3",
+        "string_similarity": 0.525
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0053",
+      "name": "Minimal counterexample shrinking",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "A complex failing input reduces to a reproducible minimal test",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Counterexample replay queue",
+        "wave": "wave3",
+        "string_similarity": 0.542
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0054",
+      "name": "Cross-role data leakage test",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Two synthetic tenants never read each other’s private objects",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cross-harness prompt compatibility test",
+        "wave": "wave3",
+        "string_similarity": 0.507
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0055",
+      "name": "Model-tool boundary redirection",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Untrusted text cannot redirect local file-reading tool outside allowlist",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Secret canary leak detection",
+        "wave": "wave3",
+        "string_similarity": 0.542
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0056",
+      "name": "Output-schema corruption trial",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Incorrectly typed response causes validation failure rather than silent acceptance",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Schema migration impact map",
+        "wave": "wave3",
+        "string_similarity": 0.526
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0057",
+      "name": "Rate-limit-aware test scheduler",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Synthetic 429 backs off and does not retry indefinitely",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Mutation-target test selector",
+        "wave": "wave3",
+        "string_similarity": 0.6
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0058",
+      "name": "Agent bluff-catcher",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "Model says done without artifact; completion gate refuses it",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Versioned agent policy challenger",
+        "wave": "wave3",
+        "string_similarity": 0.462
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0059",
+      "name": "Safe experiment target selector",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "A production endpoint is excluded from stateful fuzzing by default",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Mutation-target test selector",
+        "wave": "wave3",
+        "string_similarity": 0.6
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0060",
+      "name": "Failure-case permanent regression",
+      "family": "Adversarial falsification laboratory",
+      "design_hypothesis": "Automatically probes where agents, APIs and tools break their claimed contracts.",
+      "acceptance_test": "New exploit fixture is replayed after each candidate patch",
+      "source_donors": [
+        "https://github.com/ethz-spylab/agentdojo",
+        "https://github.com/microsoft/PyRIT",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Failure class clustering",
+        "wave": "wave3",
+        "string_similarity": 0.526
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0061",
+      "name": "Goal-to-invariant compiler",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Every stated acceptance criterion emits a machine-checkable test or UNKNOWN",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Dynamic deterministic-vs-agent compiler",
+        "wave": "wave3",
+        "string_similarity": 0.523
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0062",
+      "name": "Ambiguity-as-blocker parser",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Unresolved requirement is captured instead of silently guessed",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Mobile worker heartbeat summary",
+        "wave": "wave3",
+        "string_similarity": 0.448
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0063",
+      "name": "Spec-to-task dependency verifier",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Child task refuses execution until prerequisite artifact exists",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Code owner dependency tracker",
+        "wave": "wave3",
+        "string_similarity": 0.525
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0064",
+      "name": "Acceptance-test-before-implementation gate",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Candidate change has precommitted failing test before model edits source",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Checkpoint-before-tool-execution",
+        "wave": "wave3",
+        "string_similarity": 0.541
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0065",
+      "name": "Executable API schema conformance",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Mock endpoint contradicts OpenAPI response and is rejected",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Portable skill schema validator",
+        "wave": "wave3",
+        "string_similarity": 0.531
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0066",
+      "name": "Property oracle independent of author",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Implementation agent cannot silently update golden expected output",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Spec compliance independent judge",
+        "wave": "wave3",
+        "string_similarity": 0.6
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0067",
+      "name": "Invariant traceability index",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Each implemented behavior links back to requirement and verified test",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "CLI environment compatibility matrix",
+        "wave": "wave3",
+        "string_similarity": 0.531
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0068",
+      "name": "Contradictory-spec detection",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Two incompatible requirements yield explicit contradiction record",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Secret canary leak detection",
+        "wave": "wave3",
+        "string_similarity": 0.571
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0069",
+      "name": "Forbidden side-effect contract",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Read-only mission rejects synthetic file mutation despite passing output test",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Deadline-bound delegation contract",
+        "wave": "wave3",
+        "string_similarity": 0.531
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0070",
+      "name": "Reviewable spec-change proposal",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Changed user intent creates diff and awaits applicable authority",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Machine-readable code change rationale",
+        "wave": "wave3",
+        "string_similarity": 0.551
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0071",
+      "name": "Spec completeness uncertainty tag",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Spec with missing evidence cannot be labeled complete",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Spec compliance independent judge",
+        "wave": "wave3",
+        "string_similarity": 0.545
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0072",
+      "name": "Evidence-convergence terminal gate",
+      "family": "Specification-to-executable proof factory",
+      "design_hypothesis": "Transforms new objectives into contracts with tests that make gaps visible.",
+      "acceptance_test": "Only all precommitted acceptance tests and required receipts close task",
+      "source_donors": [
+        "https://github.com/github/spec-kit",
+        "https://github.com/schemathesis/schemathesis",
+        "https://github.com/HypothesisWorks/hypothesis",
+        "https://github.com/cedar-policy/cedar"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Low-confidence answer defer gate",
+        "wave": "wave3",
+        "string_similarity": 0.515
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0073",
+      "name": "No-agent baseline challenger",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Deterministic script baseline competes fairly against model worker",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Versioned agent policy challenger",
+        "wave": "wave3",
+        "string_similarity": 0.656
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0074",
+      "name": "Single-agent baseline challenger",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "One agent compared with complex swarm on same fixture",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Versioned agent policy challenger",
+        "wave": "wave3",
+        "string_similarity": 0.708
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0075",
+      "name": "Agent tool-surface ablation",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Removing a tool is accepted if task performance holds with less overhead",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Per-agent trace correlation",
+        "wave": "wave3",
+        "string_similarity": 0.667
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0076",
+      "name": "Environment-identical competitor match",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Candidates receive same image, package lock and test fixture",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "CLI environment compatibility matrix",
+        "wave": "wave3",
+        "string_similarity": 0.622
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0077",
+      "name": "Goal-level hidden task set",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Evaluation includes outcomes not revealed during candidate development",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Code owner dependency tracker",
+        "wave": "wave3",
+        "string_similarity": 0.473
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0078",
+      "name": "Interference-aware worker budget",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "When workers contend for two cores, scheduler records slowdown before scaling",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Reconcile orphaned worktree outputs",
+        "wave": "wave3",
+        "string_similarity": 0.478
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0079",
+      "name": "Cross-model reviewer independence",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Reviewer cannot see implementer explanation until after initial verdict",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Code owner dependency tracker",
+        "wave": "wave3",
+        "string_similarity": 0.613
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0080",
+      "name": "Interrupted worker state recovery",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Kill runner mid-task and verify replay resumes without duplicated effects",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Lease-expiration worker recovery",
+        "wave": "wave3",
+        "string_similarity": 0.554
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0081",
+      "name": "Retry-value measurement",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Third retry allowed only if earlier failure signature changed",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Provider failure segmentation",
+        "wave": "wave3",
+        "string_similarity": 0.462
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0082",
+      "name": "Resource-normalized tournament score",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Rank by accepted fixes per core-hour and model call, not raw count",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cost-normalized task completion tournament",
+        "wave": "wave3",
+        "string_similarity": 0.59
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0083",
+      "name": "False-success challenge",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "A passing mock test plus failing outside test yields failure verdict",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Failure class clustering",
+        "wave": "wave3",
+        "string_similarity": 0.553
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0084",
+      "name": "Promotion with rollback evidence",
+      "family": "Goal-level agent tournaments",
+      "design_hypothesis": "Select minimal, reliable agent harnesses based on completed work rather than UI polish.",
+      "acceptance_test": "Winning agent path must show clean revert on a seeded regression",
+      "source_donors": [
+        "https://github.com/SWE-agent/mini-swe-agent",
+        "https://github.com/SWE-agent/SWE-ReX",
+        "https://arxiv.org/abs/2605.13874",
+        "https://arxiv.org/abs/2609.30541"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Score skill promotion with exact source evidence",
+        "wave": "wave5",
+        "string_similarity": 0.65
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0085",
+      "name": "Valid-time versus ingest-time record",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Late-arriving fact retains event and ingestion time separately",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Subscription versus API-billing detector",
+        "wave": "wave3",
+        "string_similarity": 0.526
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0086",
+      "name": "Supersession edge without deletion",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Replaced belief keeps addressable prior text and supersession reason",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Result regression change-point detector",
+        "wave": "wave3",
+        "string_similarity": 0.575
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0087",
+      "name": "Contradiction-preserving retrieval",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Two incompatible source claims are returned side-by-side",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Semantics-preserving syntax rewrite",
+        "wave": "wave3",
+        "string_similarity": 0.609
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0088",
+      "name": "Historical as-of query",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Query for a past date excludes later evidence correctly",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Chronological fact conflict detector",
+        "wave": "wave3",
+        "string_similarity": 0.448
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0089",
+      "name": "Source-linked memory extraction",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Every extracted claim must carry original document and offsets",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Source-linked progressive context retrieval",
+        "wave": "wave3",
+        "string_similarity": 0.568
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0090",
+      "name": "Tombstone propagation invariant",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Suppressed private item disappears from retrieval while audit stays non-sensitive",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cancellation propagation to descendants",
+        "wave": "wave3",
+        "string_similarity": 0.571
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0091",
+      "name": "Memory trust-tier firewall",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Unverified internet comment cannot overwrite current live provider result",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Memory provenance and supersession graph",
+        "wave": "wave3",
+        "string_similarity": 0.424
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0092",
+      "name": "Cross-platform identity alias linker",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Same issue cited under two provider IDs maps to one verified underlying entity",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Cross-profile authentication isolation",
+        "wave": "wave3",
+        "string_similarity": 0.514
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0093",
+      "name": "Memory change-impact fanout",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Changed requirement identifies dependent agent tasks for reconsideration",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Memory graph orphan scan",
+        "wave": "wave3",
+        "string_similarity": 0.51
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0094",
+      "name": "Epistemic confidence downgrade",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "A challenged claim is demoted without inventing replacement certainty",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Statistical confidence interval estimator",
+        "wave": "wave3",
+        "string_similarity": 0.535
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0095",
+      "name": "Experiment lineage query",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Find all branches descended from superseded approach with exact source pointers",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Lost-agent replacement with lineage",
+        "wave": "wave3",
+        "string_similarity": 0.508
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0096",
+      "name": "Compact-view reversibility",
+      "family": "Bi-temporal and reversible intelligence memory",
+      "design_hypothesis": "Memory can change its current conclusions without deleting its past evidence.",
+      "acceptance_test": "Short summary includes resolvable anchors to original full records",
+      "source_donors": [
+        "https://github.com/getzep/graphiti",
+        "https://github.com/in-toto/in-toto",
+        "https://github.com/dagster-io/dagster"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Compensation action for reversible effects",
+        "wave": "wave3",
+        "string_similarity": 0.559
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0097",
+      "name": "Deterministic first router",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "A simple script answers known fixture without any model request",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Deterministic click target check",
+        "wave": "wave3",
+        "string_similarity": 0.655
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0098",
+      "name": "Cold-versus-warm dependency measure",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Repeat setup with locked cache and log time/byte difference",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Detect local-versus-CI dependency mismatch",
+        "wave": "wave5",
+        "string_similarity": 0.649
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0099",
+      "name": "Artifact invalidation graph",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Changing leaf recomputes only dependent work, not unrelated branches",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Stale handoff invalidation",
+        "wave": "wave3",
+        "string_similarity": 0.566
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0100",
+      "name": "Minimal-shell-agent counterfactual",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Compare simple CLI worker with orchestration framework on same issue",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Minimal skill bundle compiler",
+        "wave": "wave3",
+        "string_similarity": 0.508
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0101",
+      "name": "Core-hour admission controller",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Two-core simulation forbids aggregate runnable CPU over allocation",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Versioned mission contract",
+        "wave": "wave3",
+        "string_similarity": 0.571
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0102",
+      "name": "Resume-without-repeat compute",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Crash a long test and replay only unfinished durable step",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Retain agent goal without retaining complete transcript",
+        "wave": "wave5",
+        "string_similarity": 0.476
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0103",
+      "name": "Resource-cost evidence binding",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Compute claim attaches measured wall time, CPU seconds and provider cost",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Refund dispute evidence trail",
+        "wave": "wave3",
+        "string_similarity": 0.542
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0104",
+      "name": "End-to-end latency critical-path reducer",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Independent tasks may parallelize, dependencies may not",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "End-to-end agent trajectory grader",
+        "wave": "wave3",
+        "string_similarity": 0.595
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0105",
+      "name": "Cache contamination guardian",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Alter input hash and ensure cached old result is not served",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Evaluator contamination leak test",
+        "wave": "wave3",
+        "string_similarity": 0.557
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0106",
+      "name": "Model escalation on novelty threshold",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Known task solved deterministically; novel task gets model only when needed",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Remote branch isolation control",
+        "wave": "wave3",
+        "string_similarity": 0.529
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0107",
+      "name": "Step-level no-inference caching",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Identical verified immutable subtask returns stored answer with a provenance receipt",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Team-level causal trace ID",
+        "wave": "wave3",
+        "string_similarity": 0.491
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0108",
+      "name": "Paused-task queue reclamation",
+      "family": "Compute and dependency arbitrage",
+      "design_hypothesis": "Make existing compute perform more validated work by removing repeated or redundant execution.",
+      "acceptance_test": "Idle task releases worker resources and wakes on authorized event",
+      "source_donors": [
+        "https://github.com/astral-sh/uv",
+        "https://github.com/dagster-io/dagster",
+        "https://github.com/restatedev/agent",
+        "https://github.com/SWE-agent/mini-swe-agent"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Per-agent trace correlation",
+        "wave": "wave3",
+        "string_similarity": 0.536
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0109",
+      "name": "Hypothesis family switcher",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "After plateau, propose qualitatively different approach rather than another scalar tweak",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Service port privacy watcher",
+        "wave": "wave3",
+        "string_similarity": 0.481
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0110",
+      "name": "Counterfactual hypothesis generator",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Provide plausible different causal path, with clear assumptions and test",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Counterfactual decision archive",
+        "wave": "wave3",
+        "string_similarity": 0.606
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0111",
+      "name": "Information-gain experiment ranking",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Prefer experiment that distinguishes two explanations at same cost",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Deny production network from experimental worker",
+        "wave": "wave5",
+        "string_similarity": 0.506
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0112",
+      "name": "Multi-branch robust regret selection",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Keep alternative candidate that wins under a plausible adverse scenario",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Multi-instance group reconciliation",
+        "wave": "wave3",
+        "string_similarity": 0.592
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0113",
+      "name": "Objective replacement veto",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Agent cannot rewrite the founder objective to improve reported score",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Lost-agent replacement with lineage",
+        "wave": "wave3",
+        "string_similarity": 0.557
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P1",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0114",
+      "name": "Unknown-unknown anomaly trigger",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Out-of-distribution observation opens investigation instead of forcing old label",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "No-observable-quota unknown state",
+        "wave": "wave3",
+        "string_similarity": 0.438
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0115",
+      "name": "Research donor cross-domain bridge",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Candidate must identify transferable mechanism and target constraints",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Restrict outreach action to specifically approved audience",
+        "wave": "wave5",
+        "string_similarity": 0.435
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0116",
+      "name": "False-novelty semantic deduper",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Renamed clone of previous experiment does not count as novel",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Judge-model disagreement report",
+        "wave": "wave3",
+        "string_similarity": 0.492
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0117",
+      "name": "Opportunity cost-of-delay detector",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Two opportunities ranked by evidence-linked delay cost, not excitement",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Persist run identity across gateway restart",
+        "wave": "wave5",
+        "string_similarity": 0.519
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P2",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0118",
+      "name": "Disconfirmation-first study design",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Candidate includes at least one test likely to falsify it",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Conversation-to-commit attribution",
+        "wave": "wave3",
+        "string_similarity": 0.5
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0119",
+      "name": "Premature convergence sentinel",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Population diversity decline triggers exploration budget reserve",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Provider failure segmentation",
+        "wave": "wave3",
+        "string_similarity": 0.508
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    },
+    {
+      "id": "phoenix-wave6-0120",
+      "name": "Reality-grounded successor selection",
+      "family": "Anti-stagnation and strategic discovery council",
+      "design_hypothesis": "Searches for better classes of experiment when optimization saturates; preserves alternative futures.",
+      "acceptance_test": "Promote approach only after measured real task, not hypothetical IQ claims",
+      "source_donors": [
+        "https://github.com/gepa-ai/gepa",
+        "https://arxiv.org/abs/2605.13874",
+        "https://github.com/py-why/dowhy",
+        "https://arxiv.org/abs/2609.30541",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "source_coverage": "FAMILY_LEVEL: project docs support underlying mechanism; atomic design is UberBond synthesis, not a demonstrated feature of donor",
+      "closest_known_prior": {
+        "title": "Time-scoped state selection",
+        "wave": "wave3",
+        "string_similarity": 0.571
+      },
+      "current_uberbond_status": "UNKNOWN_REQUIRES_EXACT_CURRENT_SOURCE_AND_RUNTIME_TEST",
+      "maturity": "DESIGN_CANDIDATE_UNIMPLEMENTED_UNVERIFIED",
+      "authority": "NO_EXTRA_PERMISSIONS; synthetic/mock only until independently approved",
+      "priority": "P3",
+      "proof_required": "Machine-readable positive/negative fixture, baseline comparison and current source SHA"
+    }
+  ]
+}

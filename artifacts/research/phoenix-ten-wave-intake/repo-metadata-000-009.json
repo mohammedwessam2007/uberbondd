@@ -1,0 +1,103 @@
+{
+  "schema": "phoenix.github-metadata.v1",
+  "sample_count": 10,
+  "range": {
+    "start": 0,
+    "end_exclusive": 10
+  },
+  "observed_at_utc": "2026-10-17T21:00:42.035Z",
+  "license_review": "NOT_DONE",
+  "runtime_review": "NOT_DONE",
+  "rows": [
+    {
+      "index": 0,
+      "url": "https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking",
+      "status": "METADATA_RETURNED",
+      "actual": "ARCAGI-Labs/arc-agi-3-benchmarking",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 247
+    },
+    {
+      "index": 1,
+      "url": "https://github.com/AndrewAvery7/claude-codex-bridge",
+      "status": "METADATA_RETURNED",
+      "actual": "AndrewAvery7/claude-codex-bridge",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 4557
+    },
+    {
+      "index": 2,
+      "url": "https://github.com/Anikethh/ResearchGym",
+      "status": "METADATA_RETURNED",
+      "actual": "Anikethh/ResearchGym",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 64207
+    },
+    {
+      "index": 3,
+      "url": "https://github.com/ArcadeAI/arcade-mcp",
+      "status": "METADATA_RETURNED",
+      "actual": "ArcadeAI/arcade-mcp",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 73113
+    },
+    {
+      "index": 4,
+      "url": "https://github.com/Arize-ai/phoenix",
+      "status": "METADATA_RETURNED",
+      "actual": "Arize-ai/phoenix",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 551713
+    },
+    {
+      "index": 5,
+      "url": "https://github.com/AutoResearch/autora",
+      "status": "METADATA_RETURNED",
+      "actual": "AutoResearch/autora",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 82058
+    },
+    {
+      "index": 6,
+      "url": "https://github.com/BarganConstantin/ccdeck",
+      "status": "METADATA_RETURNED",
+      "actual": "BarganConstantin/ccdeck",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 47505
+    },
+    {
+      "index": 7,
+      "url": "https://github.com/BerriAI/litellm",
+      "status": "METADATA_RETURNED",
+      "actual": "BerriAI/litellm",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 2509752
+    },
+    {
+      "index": 8,
+      "url": "https://github.com/BloopAI/vibe-kanban",
+      "status": "METADATA_RETURNED",
+      "actual": "BloopAI/vibe-kanban",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 104015
+    },
+    {
+      "index": 9,
+      "url": "https://github.com/ByteDance-Seed/EdgeBench",
+      "status": "METADATA_RETURNED",
+      "actual": "ByteDance-Seed/EdgeBench",
+      "archived": false,
+      "default_branch": "main",
+      "size_kb": 5603
+    }
+  ]
+}

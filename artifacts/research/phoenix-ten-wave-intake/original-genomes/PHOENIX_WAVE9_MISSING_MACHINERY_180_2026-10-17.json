@@ -1,0 +1,3718 @@
+{
+  "date": "2026-10-17",
+  "wave": 9,
+  "title": "PHOENIX Wave 9: Missing-Machinery Compiler",
+  "status": "RESEARCH_DESIGN_WITH_LOCAL_SYNTHETIC_DEMONSTRATION",
+  "candidate_count": 180,
+  "family_count": 15,
+  "nominal_previous_total": 1180,
+  "nominal_total_before_semantic_dedup": 1360,
+  "dedup_method": "lexical match over accessible Waves 3,5,6,7,8 (Wave 4 absent as a standalone JSON); current repo overlap not fully audited",
+  "prior_rows_compared": 924,
+  "lexical_matches_ge_075": 3,
+  "donor_source_count": 20,
+  "donor_sources": [
+    "https://arxiv.org/abs/2607.08010",
+    "https://github.com/GAIR-NLP/AgencyBench",
+    "https://github.com/KatherLab/ToolArena",
+    "https://github.com/KatherLab/ToolMaker",
+    "https://github.com/MineDojo/Voyager",
+    "https://github.com/Tool-Genesis/Tool-Genesis",
+    "https://github.com/ayushnoori/program-synthesis",
+    "https://github.com/lian-tian-mo-zun/ToolSelf",
+    "https://github.com/lifan-yuan/CRAFT",
+    "https://github.com/linkml/linkml",
+    "https://github.com/linkml/linkml-model",
+    "https://github.com/mcp-use/mcp-use",
+    "https://github.com/microsoft/apeiron",
+    "https://github.com/microsoft/prose",
+    "https://github.com/microsoft/typespec-mcp",
+    "https://github.com/modelcontextprotocol/inspector",
+    "https://github.com/nihal1294/openapi-to-mcp",
+    "https://github.com/process-intelligence-solutions/pm4py",
+    "https://github.com/pschanely/CrossHair",
+    "https://github.com/se2p/pynguin"
+  ],
+  "candidates": [
+    {
+      "id": "phoenix-wave9-0001",
+      "name": "Unsupported-action boundary",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unsupported-action boundary capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Request an operation absent from catalog; emit MISSING_CAPABILITY rather than a fabricated tool call.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Score-hacking canary",
+        "prior_id": "phoenix-wave8-0129",
+        "similarity": 0.596,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0002",
+      "name": "Missing-semantic-operator detection",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded missing-semantic-operator detection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Supply compatible field names but incompatible units; request a conversion primitive instead of relabeling.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Time-scoped state selection",
+        "prior_id": "phoenix-capability-0084",
+        "similarity": 0.548,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0003",
+      "name": "Negative affordance discovery",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded negative affordance discovery capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Give an agent a read-only service; prove it does not infer imaginary write methods.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Tool affordance discovery",
+        "prior_id": "phoenix-wave8-0026",
+        "similarity": 0.815,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0004",
+      "name": "Capability-versus-authority separation",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded capability-versus-authority separation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Provide executable write code but no write grant; report capability available and authority denied.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Novelty versus priority separation",
+        "prior_id": "phoenix-wave7-0010",
+        "similarity": 0.694,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0005",
+      "name": "Uncertain-tool fitness estimate",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded uncertain-tool fitness estimate capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Give incomplete tool documentation; output unknown compatibility rather than confident fit.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Uncertainty-triggered experiment",
+        "prior_id": "phoenix-wave8-0059",
+        "similarity": 0.571,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0006",
+      "name": "Opportunity-to-primitive decomposition",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded opportunity-to-primitive decomposition capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Provide a multi-step task whose middle operation is unavailable; identify the smallest missing primitive.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Opportunity cost-of-delay detector",
+        "prior_id": "phoenix-wave6-0117",
+        "similarity": 0.556,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0007",
+      "name": "Hard dependency frontier analysis",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded hard dependency frontier analysis capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Remove one non-optional dependency; block the dependent skill's admission.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Theorem dependency provenance",
+        "prior_id": "phoenix-wave7-0048",
+        "similarity": 0.613,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0008",
+      "name": "Conflict-driven missing-capability report",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded conflict-driven missing-capability report capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Declare two incompatible versions; identify migration or isolation as the required new ability.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Error-triggered missing-capability hypothesis",
+        "prior_id": "phoenix-capability-0307",
+        "similarity": 0.651,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0009",
+      "name": "Dynamic environment affordance map",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded dynamic environment affordance map capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Expose a previously unseen task environment; enumerate only observed allowed actions.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "CLI environment compatibility matrix",
+        "prior_id": "phoenix-capability-0012",
+        "similarity": 0.514,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0010",
+      "name": "Counterfactual minimum-tool test",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded counterfactual minimum-tool test capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Remove each candidate tool one at a time; establish which absence causes measured failure.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Counterfactual outcome table",
+        "prior_id": "phoenix-wave7-0016",
+        "similarity": 0.633,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0011",
+      "name": "Gap-to-experiment packet compiler",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded gap-to-experiment packet compiler capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Given an unknown capability need, emit a bounded falsifier and sample contract instead of an installation.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Goal-to-invariant compiler",
+        "prior_id": "phoenix-wave6-0061",
+        "similarity": 0.644,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0012",
+      "name": "Novelty-versus-repackaging gate",
+      "family": "Capability-gap perception",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded novelty-versus-repackaging gate capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Feed renamed existing tools; label as overlap until behaviorally distinct outcomes are shown.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Novelty versus priority separation",
+        "prior_id": "phoenix-wave7-0010",
+        "similarity": 0.585,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0013",
+      "name": "Paper-code task extractor",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded paper-code task extractor capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "From a paper-with-code readme, extract task, inputs and outputs without assuming its paper results generalize.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Paper-to-claim extraction",
+        "prior_id": "phoenix-wave7-0005",
+        "similarity": 0.68,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0014",
+      "name": "Repository dependency manifest",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded repository dependency manifest capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Ingest lockfiles in a sealed worktree; detect undeclared downloads or package install scripts.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Spec-to-task dependency verifier",
+        "prior_id": "phoenix-wave6-0063",
+        "similarity": 0.581,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0015",
+      "name": "Computational wrapper inference",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded computational wrapper inference capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "From a target callable, generate a typed input-output adapter and reject missing mandatory arguments.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Marginal value of next inference",
+        "prior_id": "phoenix-wave8-0140",
+        "similarity": 0.603,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0016",
+      "name": "Known-example tool smoke contract",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded known-example tool smoke contract capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A new wrapper must reproduce provided sample output under pinned dependencies.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "App toolkit consent provenance",
+        "prior_id": "phoenix-capability-0283",
+        "similarity": 0.508,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0017",
+      "name": "Repairable install failure packet",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded repairable install failure packet capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Make a dependency installation fail; emit a bounded repair request rather than retry forever.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Mobile-readable test failure trace",
+        "prior_id": "phoenix-capability-0035",
+        "similarity": 0.657,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0018",
+      "name": "Side-effect signature classifier",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded side-effect signature classifier capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Give wrapper code a network/file-write path; mark side effects before it is callable.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Claim strength classifier",
+        "prior_id": "phoenix-wave7-0100",
+        "similarity": 0.596,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0019",
+      "name": "GPU-versus-CPU feasibility detector",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded gpu-versus-cpu feasibility detector capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Submit a GPU-only pipeline to a CPU-only worker; refuse unsupported execution.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Simulation-versus-reality discriminator",
+        "prior_id": "phoenix-wave8-0114",
+        "similarity": 0.568,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0020",
+      "name": "Research artifact result verifier",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded research artifact result verifier capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Distinguish reproduced result on sample fixture from paper-level scientific replication.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Hold research evidence in persistent REPL variables",
+        "prior_id": "phoenix-wave5-0037",
+        "similarity": 0.5,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0021",
+      "name": "Containerized paper-tool admission",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded containerized paper-tool admission capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Execute third-party code in no-secret isolated container; deny access to host workspace.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Connected-app permission inventory",
+        "prior_id": "phoenix-capability-0281",
+        "similarity": 0.529,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0022",
+      "name": "Tool signature stability gate",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded tool signature stability gate capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Change upstream function inputs; mark old wrapper incompatible until regenerated and retested.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Chemical structure validity gate",
+        "prior_id": "phoenix-wave7-0071",
+        "similarity": 0.59,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0023",
+      "name": "Reference-implementation oracle isolation",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded reference-implementation oracle isolation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Attempt to read reference solution from worker; benchmark worker must fail closed.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cross-profile authentication isolation",
+        "prior_id": "phoenix-capability-0158",
+        "similarity": 0.582,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0024",
+      "name": "Versioned reproducible tool packet",
+      "family": "Repository-to-tool manufacturing",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded versioned reproducible tool packet capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Record source revision, dependency digest, tests and rollback reference for each accepted wrapper.",
+      "donor_urls": [
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/KatherLab/ToolArena"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Human-run protocol packet",
+        "prior_id": "phoenix-wave7-0082",
+        "similarity": 0.576,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0025",
+      "name": "OpenAPI operation-to-tool translation",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded openapi operation-to-tool translation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Given read-only sample spec, compile operation and schema without manually inventing parameters.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Conversation-to-commit attribution",
+        "prior_id": "phoenix-capability-0223",
+        "similarity": 0.592,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0026",
+      "name": "Required-field fidelity",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded required-field fidelity capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Omit required query parameter; generated client must reject before any HTTP attempt.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Require fresh holdout before declaring progress",
+        "prior_id": "phoenix-wave5-0165",
+        "similarity": 0.486,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0027",
+      "name": "Enum and type boundary enforcement",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded enum and type boundary enforcement capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Supply invalid enum or boolean-as-number; validate and halt locally.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Localized numeric boundary search",
+        "prior_id": "phoenix-wave8-0066",
+        "similarity": 0.537,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0028",
+      "name": "Reference cycle detection",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded reference cycle detection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Supply cyclic $ref definitions; bounded generator detects cycles rather than recursing indefinitely.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Interference across-agent detection",
+        "prior_id": "phoenix-wave8-0049",
+        "similarity": 0.7,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0029",
+      "name": "Operation-id collision avoidance",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded operation-id collision avoidance capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Two endpoints share operationId; generated MCP names stay unique and traceable.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Promotion with rollback evidence",
+        "prior_id": "phoenix-wave6-0084",
+        "similarity": 0.531,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0030",
+      "name": "Read-only operation whitelist",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded read-only operation whitelist capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Spec includes GET and DELETE; generated client exposes only explicitly approved GET.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Read-only permission bypass falsifier",
+        "prior_id": "phoenix-capability-0167",
+        "similarity": 0.576,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0031",
+      "name": "OAuth-scope provenance",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded oauth-scope provenance capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Given documented scopes, record which endpoint needs which permission without collecting secrets.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Task outcome provenance link",
+        "prior_id": "phoenix-capability-0074",
+        "similarity": 0.68,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0032",
+      "name": "Pagination termination contract",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded pagination termination contract capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Fake API returns repeating cursor; adapter halts at request budget.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Deadline-bound delegation contract",
+        "prior_id": "phoenix-capability-0052",
+        "similarity": 0.646,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0033",
+      "name": "Backoff-and-circuit-breaker fixture",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded backoff-and-circuit-breaker fixture capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Repeated transient failures must not lead to unlimited retries or overages.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Minimal-counterexample shrunk fixture",
+        "prior_id": "phoenix-wave8-0070",
+        "similarity": 0.472,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0034",
+      "name": "Schema-version drift sentinel",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded schema-version drift sentinel capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Change response type after contract lock; tool marks outcome incompatible.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "MCP schema drift diff",
+        "prior_id": "phoenix-capability-0124",
+        "similarity": 0.56,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0035",
+      "name": "Generated MCP inspector gate",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded generated mcp inspector gate capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "List and call generated tool against loopback fixture with schema and transcript checks.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Fuzz-generated unseen state",
+        "prior_id": "phoenix-wave8-0069",
+        "similarity": 0.618,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0036",
+      "name": "Zero-credential generation proof",
+      "family": "Contract-to-connector compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded zero-credential generation proof capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Generate and lint adapter entirely offline; produce no external effect receipt.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/nihal1294/openapi-to-mcp",
+        "https://github.com/mcp-use/mcp-use"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Credential scope expiration monitor",
+        "prior_id": "phoenix-capability-0168",
+        "similarity": 0.627,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0037",
+      "name": "One-field adapter discovery",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded one-field adapter discovery capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Infer a field passthrough from multiple non-degenerate input-output pairs and validate unseen values.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Tool affordance discovery",
+        "prior_id": "phoenix-wave8-0026",
+        "similarity": 0.654,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0038",
+      "name": "Addition adapter synthesis",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded addition adapter synthesis capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Infer sum of two independently varying fields and reject single-field impostors.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cross-domain counterexample synthesis",
+        "prior_id": "phoenix-wave7-0103",
+        "similarity": 0.54,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0039",
+      "name": "Subtraction direction inference",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded subtraction direction inference capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Swap input fields; inferred subtraction preserves direction on hidden cases.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Simulation parameter provenance",
+        "prior_id": "phoenix-wave7-0073",
+        "similarity": 0.548,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0040",
+      "name": "Constant-factor synthesis",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded constant-factor synthesis capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Infer a bounded scale factor and reject out-of-range overflow.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Counterfactual hypothesis generator",
+        "prior_id": "phoenix-wave6-0110",
+        "similarity": 0.5,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0041",
+      "name": "Training-ambiguity refusal",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded training-ambiguity refusal capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Examples permit multiple distinct candidate programs; request more evidence rather than guess.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Hidden-test fishing refusal",
+        "prior_id": "phoenix-wave8-0103",
+        "similarity": 0.491,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0042",
+      "name": "Contradictory-example refusal",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded contradictory-example refusal capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Inject inconsistent label for identical input; compiler must emit REFUSED_INCONSISTENT.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Contradiction-preserving retrieval",
+        "prior_id": "phoenix-wave6-0087",
+        "similarity": 0.603,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0043",
+      "name": "DSL-only code admission",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded dsl-only code admission capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Offer a tool expression containing a Python import; no arbitrary code evaluation occurs.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Signed step-chain admission",
+        "prior_id": "phoenix-wave6-0038",
+        "similarity": 0.56,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0044",
+      "name": "Schema-drift rejection",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded schema-drift rejection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Rename a required key after compilation; halt rather than silently pick substitute.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Domain-shift replication",
+        "prior_id": "phoenix-wave7-0099",
+        "similarity": 0.609,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0045",
+      "name": "Unit-aware type inference",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unit-aware type inference capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Try summing incompatible Celsius and USD values; require explicit conversion contract.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Novelty-screen before inference",
+        "prior_id": "phoenix-wave7-0035",
+        "similarity": 0.607,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0046",
+      "name": "Generalization to unseen values",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded generalization to unseen values capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Freeze synthesized expression then generate fresh held-out numbers with no exemplar reuse.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Generational improvement audit",
+        "prior_id": "phoenix-wave8-0160",
+        "similarity": 0.59,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0047",
+      "name": "Program-complexity selection",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded program-complexity selection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compare semantically equal candidates; choose least-complex representation under precommitted score.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Time-scoped state selection",
+        "prior_id": "phoenix-capability-0084",
+        "similarity": 0.618,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0048",
+      "name": "Proof-carrying example digest",
+      "family": "Examples-to-program synthesis",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded proof-carrying example digest capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Alter one training example after compilation; digest mismatch invalidates admission.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/microsoft/prose",
+        "https://github.com/ayushnoori/program-synthesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Policy proof counterexample finder",
+        "prior_id": "phoenix-wave6-0029",
+        "similarity": 0.54,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0049",
+      "name": "Entity identity versus display label",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded entity identity versus display label capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Two names refer to one identifier; store alias without merging unrelated IDs.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Persist run identity across gateway restart",
+        "prior_id": "phoenix-wave5-0058",
+        "similarity": 0.506,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0050",
+      "name": "Unit-dimension alignment",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unit-dimension alignment capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Propose currency-to-length mapping; reject incompatible dimensions.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Intervention feasibility gate",
+        "prior_id": "phoenix-wave7-0053",
+        "similarity": 0.491,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0051",
+      "name": "Schema source lineage",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded schema source lineage capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Trace each normalized field to exact source slot and transformation.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Context fetch source ledger",
+        "prior_id": "phoenix-capability-0225",
+        "similarity": 0.583,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0052",
+      "name": "Unknown ontology concept escrow",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unknown ontology concept escrow capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Encounter concept absent from canon; create draft identifier, not a verified fact.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Novel ontology proposal sandbox",
+        "prior_id": "phoenix-wave8-0147",
+        "similarity": 0.484,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0053",
+      "name": "Bidirectional mapping inversion test",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded bidirectional mapping inversion test capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Roundtrip source-to-target-to-source on lossless subset; detect irreversibility.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Composition interaction test",
+        "prior_id": "phoenix-wave8-0073",
+        "similarity": 0.562,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0054",
+      "name": "Value-domain and enum fit",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded value-domain and enum fit capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Source status has values not in target enum; preserve as unknown rather than discard.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Intervention and observation time split",
+        "prior_id": "phoenix-wave6-0016",
+        "similarity": 0.469,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0055",
+      "name": "Taxonomy version migration",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded taxonomy version migration capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Rename hierarchy node; preserve ancestor mappings and historical records.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Toolchain version attestation",
+        "prior_id": "phoenix-wave6-0039",
+        "similarity": 0.618,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0056",
+      "name": "Semantic collision challenge",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded semantic collision challenge capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Same token means different concepts in medicine and billing; separate namespaces.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Equation extrapolation challenge",
+        "prior_id": "phoenix-wave7-0044",
+        "similarity": 0.667,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0057",
+      "name": "Temporal concept validity",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded temporal concept validity capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Old and new definitions overlap in time; preserve both with validity interval.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Chemical structure validity gate",
+        "prior_id": "phoenix-wave7-0071",
+        "similarity": 0.561,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0058",
+      "name": "Cross-organism concept linking",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cross-organism concept linking capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Connect new domain primitive to relevant 890 founder idea IDs without rewriting the corpus.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Minimal counterexample shrinking",
+        "prior_id": "phoenix-wave6-0053",
+        "similarity": 0.516,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0059",
+      "name": "Ontology refusal for missing evidence",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded ontology refusal for missing evidence capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Give vague text with no disambiguating samples; refuse high-confidence semantic mapping.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Pin tool-image digest before admission",
+        "prior_id": "phoenix-wave5-0074",
+        "similarity": 0.507,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0060",
+      "name": "Human-reviewable ontology diff",
+      "family": "Cross-domain ontology discovery",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded human-reviewable ontology diff capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Produce reversible schema graph diff and minimal uncertainty summary.",
+      "donor_urls": [
+        "https://github.com/linkml/linkml",
+        "https://github.com/linkml/linkml-model"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Human-run protocol packet",
+        "prior_id": "phoenix-wave7-0082",
+        "similarity": 0.473,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0061",
+      "name": "Interface compliance independent of output",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded interface compliance independent of output capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Correct numbers but wrong parameter name must fail tool admission.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Spec compliance independent judge",
+        "prior_id": "phoenix-capability-0202",
+        "similarity": 0.72,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0062",
+      "name": "Functional correctness independent of format",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded functional correctness independent of format capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Correct interface but wrong transformation must fail held-out checks.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Property oracle independent of author",
+        "prior_id": "phoenix-wave6-0066",
+        "similarity": 0.568,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0063",
+      "name": "Downstream utility isolation",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded downstream utility isolation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Tool passes unit tests but cannot solve task; score usefulness separately.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Untrusted web instructions isolation",
+        "prior_id": "phoenix-wave8-0106",
+        "similarity": 0.594,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0064",
+      "name": "Mutation-based false-pass detection",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded mutation-based false-pass detection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Break one source branch; property gate must catch regression.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Contradiction cluster detection",
+        "prior_id": "phoenix-wave7-0006",
+        "similarity": 0.545,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0065",
+      "name": "Symbolic counterexample search",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded symbolic counterexample search capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Supply typed postcondition and a buggy function; generate counterexample if supported.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Policy proof counterexample finder",
+        "prior_id": "phoenix-wave6-0029",
+        "similarity": 0.688,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0066",
+      "name": "Timeout resilience",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded timeout resilience capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Tool hangs on edge input; enforce per-case execution deadline and record timeout.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Time-bound capability lease",
+        "prior_id": "phoenix-wave6-0031",
+        "similarity": 0.533,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0067",
+      "name": "Determinism across restarts",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded determinism across restarts capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Execute same frozen tool and seed across fresh processes; compare results.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Deterministic click target check",
+        "prior_id": "phoenix-capability-0147",
+        "similarity": 0.576,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0068",
+      "name": "Memory ceiling admission",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded memory ceiling admission capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Create exponential allocation attempt; worker must terminate within memory budget.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Signed step-chain admission",
+        "prior_id": "phoenix-wave6-0038",
+        "similarity": 0.588,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0069",
+      "name": "Graceful unknown schema behavior",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded graceful unknown schema behavior capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Supply unexpected nested object; return typed refusal rather than exception loop.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Portable skill schema validator",
+        "prior_id": "phoenix-capability-0101",
+        "similarity": 0.508,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0070",
+      "name": "Benchmark-custodian isolation",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded benchmark-custodian isolation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Tool process cannot read hidden holdout oracle files.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Untrusted web instructions isolation",
+        "prior_id": "phoenix-wave8-0106",
+        "similarity": 0.523,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0071",
+      "name": "Replayable failure minimization",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded replayable failure minimization capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Reduce a failing input to an equivalent smaller fixture with same failure.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Provider failure segmentation",
+        "prior_id": "phoenix-capability-0230",
+        "similarity": 0.6,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0072",
+      "name": "Negative side-effect test",
+      "family": "Executable tool correctness",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded negative side-effect test capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Inject instrumented network/file-write calls; deny every unauthorized effect.",
+      "donor_urls": [
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/KatherLab/ToolArena",
+        "https://github.com/pschanely/CrossHair"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Forbidden side-effect contract",
+        "prior_id": "phoenix-wave6-0069",
+        "similarity": 0.582,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0073",
+      "name": "Executable skill atomization",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded executable skill atomization capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "From long script, preserve independently callable bounded functions.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Reusable skill decompilation",
+        "prior_id": "phoenix-wave8-0079",
+        "similarity": 0.75,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0074",
+      "name": "Precondition-preserving composition",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded precondition-preserving composition capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Child skill requires artifact absent from parent; composition must refuse.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Contradiction-preserving retrieval",
+        "prior_id": "phoenix-wave6-0087",
+        "similarity": 0.638,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0075",
+      "name": "Input-output shape unification",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded input-output shape unification capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Chain skills with incompatible return types; produce typed mismatch.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Telemetry opt-out verification",
+        "prior_id": "phoenix-capability-0240",
+        "similarity": 0.567,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0076",
+      "name": "Skill search by task and signature",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded skill search by task and signature capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Query for a task without relying on only a marketing-style description.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Research blindspot signal",
+        "prior_id": "phoenix-wave7-0007",
+        "similarity": 0.542,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0077",
+      "name": "Behavioral semantic deduplication",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded behavioral semantic deduplication capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Different function names yield equivalent results; keep shared capability pointer.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Domain-shift replication",
+        "prior_id": "phoenix-wave7-0099",
+        "similarity": 0.561,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0078",
+      "name": "Minimum sufficient bundle solver",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded minimum sufficient bundle solver capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Given task and permission constraints, select smallest passing skill set.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Minimal skill bundle compiler",
+        "prior_id": "phoenix-capability-0113",
+        "similarity": 0.656,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0079",
+      "name": "Substitute failover with evidence",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded substitute failover with evidence capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Primary skill unavailable; use substitute only after equivalence fixture passes.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Promotion with rollback evidence",
+        "prior_id": "phoenix-wave6-0084",
+        "similarity": 0.523,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0080",
+      "name": "Skill revocation propagation",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded skill revocation propagation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Revoke underlying parser; composed descendants become non-callable.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Revocation propagation benchmark",
+        "prior_id": "phoenix-wave6-0027",
+        "similarity": 0.733,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0081",
+      "name": "Composition-level budget accounting",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded composition-level budget accounting capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Sum model, I/O and runtime budgets across a chain before execution.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Partial-effect accounting",
+        "prior_id": "phoenix-wave8-0112",
+        "similarity": 0.6,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0082",
+      "name": "Reentrant idempotency detection",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded reentrant idempotency detection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Reinvoke a composed write action; require idempotency or explicit approval.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Workflow trigger idempotency test",
+        "prior_id": "phoenix-capability-0298",
+        "similarity": 0.594,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0083",
+      "name": "Temporary skill sandbox",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded temporary skill sandbox capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Newly synthesized function is callable only in shadow evaluation until promoted.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Agent skill mutation sandbox",
+        "prior_id": "phoenix-capability-0308",
+        "similarity": 0.588,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0084",
+      "name": "Portable skill package proof",
+      "family": "Composable skill compiler",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded portable skill package proof capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Move skill to a clean environment; all declarations/dependencies still resolve.",
+      "donor_urls": [
+        "https://github.com/lifan-yuan/CRAFT",
+        "https://github.com/MineDojo/Voyager"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Portable skill schema validator",
+        "prior_id": "phoenix-capability-0101",
+        "similarity": 0.61,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0085",
+      "name": "Exploration frontier discovery",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded exploration frontier discovery capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Unknown environment returns previously unseen legal actions; choose a safe inspection step first.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Lease-expiration worker recovery",
+        "prior_id": "phoenix-capability-0063",
+        "similarity": 0.645,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0086",
+      "name": "Active curriculum from gaps",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded active curriculum from gaps capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Select next micro-task based on missing prerequisite, not just novelty score.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Redact credential values from tool traces",
+        "prior_id": "phoenix-wave5-0080",
+        "similarity": 0.5,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0087",
+      "name": "Unknown-risk action deferral",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unknown-risk action deferral capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Irreversible tool call appears during exploration; require owner authorization.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Unknown-unknown discovery ledger",
+        "prior_id": "phoenix-wave8-0060",
+        "similarity": 0.533,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0088",
+      "name": "Learning from execution errors",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded learning from execution errors capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "One safe call fails; extract missing precondition without relabeling it success.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Misleading completion banner",
+        "prior_id": "phoenix-wave8-0039",
+        "similarity": 0.586,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0089",
+      "name": "Reusable environment skill storage",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded reusable environment skill storage capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A passing learned action sequence is stored with exact environment version.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Reusable skill decompilation",
+        "prior_id": "phoenix-wave8-0079",
+        "similarity": 0.548,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0090",
+      "name": "Observed state versus imagined state",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded observed state versus imagined state capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Reject navigation planning that assumes unobserved inventory or objects.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Compare baseline agent versus refined agent",
+        "prior_id": "phoenix-wave5-0033",
+        "similarity": 0.532,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0091",
+      "name": "Recoverable exploration checkpoint",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded recoverable exploration checkpoint capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Restart after three actions; restore verified inventory and not hallucinated history.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Replication checkpoint",
+        "prior_id": "phoenix-wave7-0068",
+        "similarity": 0.714,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0092",
+      "name": "Novelty-pressure anti-noise test",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded novelty-pressure anti-noise test capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Thousands of cosmetic action variations do not count as new capabilities.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Measurement noise estimator",
+        "prior_id": "phoenix-wave7-0026",
+        "similarity": 0.542,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0093",
+      "name": "Exploration reward hacking detector",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded exploration reward hacking detector capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Agent repeatedly triggers harmless event to inflate discovery count; cap reward.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Reward hacking audit",
+        "prior_id": "phoenix-capability-0310",
+        "similarity": 0.618,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0094",
+      "name": "Skill transfer across environment variants",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded skill transfer across environment variants capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Reuse prior action in changed world only after fresh compatibility probe.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Pin build tools in a reproducible environment manifest",
+        "prior_id": "phoenix-wave5-0121",
+        "similarity": 0.521,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0095",
+      "name": "Uncertainty-reduction action selector",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded uncertainty-reduction action selector capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compare two safe probes; choose one with higher expected information under bound.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Skill instruction conflict detector",
+        "prior_id": "phoenix-capability-0107",
+        "similarity": 0.556,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0096",
+      "name": "Exhaustion and stop-policy contract",
+      "family": "Self-directed environment exploration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded exhaustion and stop-policy contract capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "No useful affordances remain; stop exploration and preserve unknowns.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/lian-tian-mo-zun/ToolSelf"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Versioned mission contract",
+        "prior_id": "phoenix-capability-0075",
+        "similarity": 0.59,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0097",
+      "name": "Environment-drift repair classification",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded environment-drift repair classification capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Distinguish changed API field from corrupted user data before proposing patch.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "External-provider unavailable classification",
+        "prior_id": "phoenix-wave8-0115",
+        "similarity": 0.554,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0098",
+      "name": "Minimal patch locality constraint",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded minimal patch locality constraint capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Repair one adapter without broad permission to rewrite the entire harness.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Invariant traceability index",
+        "prior_id": "phoenix-wave6-0067",
+        "similarity": 0.492,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0099",
+      "name": "Patch quality before-after gate",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded patch quality before-after gate capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Candidate repair runs on original and drifted fixtures with equal budgets.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Oracle quality calibration",
+        "prior_id": "phoenix-wave8-0126",
+        "similarity": 0.526,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0100",
+      "name": "Rollback to exact previous program",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded rollback to exact previous program capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Force repair regression; restore pinned adapter in one bounded step.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Demonstrate rollback to earlier working environment",
+        "prior_id": "phoenix-wave5-0132",
+        "similarity": 0.518,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0101",
+      "name": "Deployment claim separation",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded deployment claim separation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Source tests pass but runtime isn't checked; output SOURCE_READY not DEPLOYED.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Worker completion versus claim separation",
+        "prior_id": "phoenix-capability-0056",
+        "similarity": 0.647,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0102",
+      "name": "Concurrent worker conflict isolation",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded concurrent worker conflict isolation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Two repair proposals touch same file; require worktrees and comparison.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Agent conflict arbitration record",
+        "prior_id": "phoenix-capability-0054",
+        "similarity": 0.551,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0103",
+      "name": "Change-scope escalation trigger",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded change-scope escalation trigger capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A repair requires altering credentials or production config; halt for owner.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Changed-world early warning",
+        "prior_id": "phoenix-wave8-0149",
+        "similarity": 0.552,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0104",
+      "name": "Schema evolution compatibility matrix",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded schema evolution compatibility matrix capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Run old and new payloads across old and new adapter versions.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "CLI environment compatibility matrix",
+        "prior_id": "phoenix-capability-0012",
+        "similarity": 0.767,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0105",
+      "name": "Failure cascade containment",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded failure cascade containment capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Upstream tool fails; downstream tasks remain queued, not fabricated as completed.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Failure class clustering",
+        "prior_id": "phoenix-capability-0302",
+        "similarity": 0.627,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0106",
+      "name": "Cold-start reproducibility contract",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cold-start reproducibility contract capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Restart an empty environment; rebuild patched tool from lockfile and artifact.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "LLM decision reproducibility fixture",
+        "prior_id": "phoenix-capability-0309",
+        "similarity": 0.592,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0107",
+      "name": "Repair-attempt cap",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded repair-attempt cap capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Three unsuccessful repair candidates produce blocker rather than infinite recursion.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Repeated-attempt discount ledger",
+        "prior_id": "phoenix-wave8-0008",
+        "similarity": 0.56,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0108",
+      "name": "Independent repair reviewer",
+      "family": "Self-healing execution and migration",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded independent repair reviewer capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Implementer cannot sign off own deployment or source provenance.",
+      "donor_urls": [
+        "https://github.com/lian-tian-mo-zun/ToolSelf",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Independent adversarial review dispatch",
+        "prior_id": "phoenix-capability-0053",
+        "similarity": 0.667,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0109",
+      "name": "Event-log operation graph extraction",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded event-log operation graph extraction capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Infer only observed ordering constraints from approved audit events.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Function contract extraction",
+        "prior_id": "phoenix-capability-0193",
+        "similarity": 0.594,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0110",
+      "name": "Causal-versus-temporal edge distinction",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded causal-versus-temporal edge distinction capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Consecutive timestamps alone cannot certify a causal prerequisite.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Accepted-delivery outcome distinction",
+        "prior_id": "phoenix-wave8-0117",
+        "similarity": 0.553,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0111",
+      "name": "Rare exception branch preservation",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded rare exception branch preservation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Workflow mined from normal cases must retain explicit uncommon exception path.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Rate-limit cooldown preservation",
+        "prior_id": "phoenix-capability-0254",
+        "similarity": 0.606,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0112",
+      "name": "Control-flow loop detection",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded control-flow loop detection capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Detect repeated step cycles and require finite bound in compiled workflow.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Contradictory-spec detection",
+        "prior_id": "phoenix-wave6-0068",
+        "similarity": 0.655,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0113",
+      "name": "Human-approval wait synthesis",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded human-approval wait synthesis capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Observed approval pause becomes explicit authority checkpoint, not silent automated action.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Approval token single-use guard",
+        "prior_id": "phoenix-wave6-0034",
+        "similarity": 0.5,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0114",
+      "name": "Action-to-state readback binding",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded action-to-state readback binding capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A recorded click counts successful only after independent output-state confirmation.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Native account-state redaction",
+        "prior_id": "phoenix-capability-0018",
+        "similarity": 0.548,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0115",
+      "name": "Compensating-action derivation",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded compensating-action derivation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "For reversible mutation, synthesize tested inverse action or manual escalation.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Idempotent external-action reservation",
+        "prior_id": "phoenix-capability-0062",
+        "similarity": 0.618,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0116",
+      "name": "Sensitive-field redaction compiler",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded sensitive-field redaction compiler capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Sanitize logs before creating reusable workflow without erasing necessary evidence pointers.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Scientific retraction shock",
+        "prior_id": "phoenix-wave7-0097",
+        "similarity": 0.59,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0117",
+      "name": "Cross-app correlation identity",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cross-app correlation identity capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "One case moves across two applications; correlate by authorized stable ID, not fuzzy name.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cross-worker evidence identity",
+        "prior_id": "phoenix-wave8-0085",
+        "similarity": 0.7,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0118",
+      "name": "Event-gap uncertainty preservation",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded event-gap uncertainty preservation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Missing middle audit event generates UNKNOWN rather than invented step.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "False certainty escalation",
+        "prior_id": "phoenix-wave8-0058",
+        "similarity": 0.633,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0119",
+      "name": "Drift-triggered process re-mining",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded drift-triggered process re-mining capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "New event pattern invalidates earlier compiled plan pending review.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Bounded process-tree termination",
+        "prior_id": "phoenix-capability-0269",
+        "similarity": 0.554,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0120",
+      "name": "Workflow-versus-agent tournament",
+      "family": "Observed workflow-to-code",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded workflow-versus-agent tournament capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compare deterministic compiled flow against fresh inference on same synthetic cases.",
+      "donor_urls": [
+        "https://github.com/process-intelligence-solutions/pm4py",
+        "https://github.com/microsoft/apeiron"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Agent prompt version tournament",
+        "prior_id": "phoenix-capability-0303",
+        "similarity": 0.508,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0121",
+      "name": "User-need to executable acceptance test",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded user-need to executable acceptance test capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Convert vague demand into observable success condition approved before code is written.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Output acceptance date tracking",
+        "prior_id": "phoenix-capability-0236",
+        "similarity": 0.514,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0122",
+      "name": "Persona diversity evaluation",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded persona diversity evaluation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Test UI against multiple simulated user needs and detect conflicting requirements.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Personal option preservation evaluator",
+        "prior_id": "phoenix-wave8-0156",
+        "similarity": 0.636,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0123",
+      "name": "Interaction-trace-to-code bug link",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded interaction-trace-to-code bug link capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Connect observed failed click path to responsible component and exact revision.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Conversation-to-commit attribution",
+        "prior_id": "phoenix-capability-0223",
+        "similarity": 0.559,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0124",
+      "name": "Demand shift-localized repair",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded demand shift-localized repair capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Change one workflow requirement; constrain patch to relevant component set.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Domain-shift replication",
+        "prior_id": "phoenix-wave7-0099",
+        "similarity": 0.566,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0125",
+      "name": "Visual-and-functional dual grading",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded visual-and-functional dual grading capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A beautiful but broken UI must fail; correct backend with unusable UI also fails.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Coverage-conditional calibration",
+        "prior_id": "phoenix-wave8-0055",
+        "similarity": 0.545,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0126",
+      "name": "Application boundary contract",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded application boundary contract capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Generated app cannot access provider keys not explicitly granted.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Policy boundary shift refusal",
+        "prior_id": "phoenix-wave8-0108",
+        "similarity": 0.586,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0127",
+      "name": "Owner-readable feature diff",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded owner-readable feature diff capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Explain which capability changed and evidence, not just screenshots.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Mobile-readable test failure trace",
+        "prior_id": "phoenix-capability-0035",
+        "similarity": 0.59,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0128",
+      "name": "Non-regression across personas",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded non-regression across personas capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Improve one simulated persona while preserving baseline scores of others.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Regression seed corpus versioning",
+        "prior_id": "phoenix-capability-0208",
+        "similarity": 0.635,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0129",
+      "name": "Stateful rollback rehearsal",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded stateful rollback rehearsal capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Migrate local DB then restore clean snapshot before any deployment claim.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Skill rollback replay",
+        "prior_id": "phoenix-capability-0112",
+        "similarity": 0.625,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0130",
+      "name": "Acceptance oracle independence",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded acceptance oracle independence capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "App generator cannot modify the test personas or evaluation rubric.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Spec compliance independent judge",
+        "prior_id": "phoenix-capability-0202",
+        "similarity": 0.603,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0131",
+      "name": "Build-versus-live-system distinction",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded build-versus-live-system distinction capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A working sandbox application receives PROTOTYPE only, not customer-delivered.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Accepted-delivery outcome distinction",
+        "prior_id": "phoenix-wave8-0117",
+        "similarity": 0.603,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0132",
+      "name": "Demand utility uncertainty ledger",
+      "family": "Demand-driven application creation",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded demand utility uncertainty ledger capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Do not substitute synthetic persona satisfaction for actual paying-user acceptance.",
+      "donor_urls": [
+        "https://github.com/microsoft/apeiron",
+        "https://github.com/GAIR-NLP/AgencyBench"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Intrinsic uncertainty map",
+        "prior_id": "phoenix-wave8-0025",
+        "similarity": 0.586,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0133",
+      "name": "Capability identity binding",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded capability identity binding capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "An adapter from vendor A cannot silently execute under vendor B's authorization identity.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "MCP capability-to-task semantic index",
+        "prior_id": "phoenix-capability-0136",
+        "similarity": 0.594,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0134",
+      "name": "Capability least-privilege derivation",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded capability least-privilege derivation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "From known intended GET call, omit POST/DELETE privileges entirely.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Nested container privilege prohibition",
+        "prior_id": "phoenix-capability-0277",
+        "similarity": 0.507,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0135",
+      "name": "Untrusted dependency import quarantine",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded untrusted dependency import quarantine capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Third-party tool includes startup hook; analyze in no-secret disposable sandbox.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Stale recipient quarantine",
+        "prior_id": "phoenix-capability-0055",
+        "similarity": 0.625,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0136",
+      "name": "Tool prompt-injection noninheritance",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded tool prompt-injection noninheritance capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Tool description asks to read secrets; instruction stays untrusted and unused.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Tool output prompt-injection quarantine",
+        "prior_id": "phoenix-capability-0162",
+        "similarity": 0.693,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0137",
+      "name": "Credentialless tool compilation",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded credentialless tool compilation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Generate deterministic adapter from public schema without fetching account secrets.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Credential scope expiration monitor",
+        "prior_id": "phoenix-capability-0168",
+        "similarity": 0.606,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0138",
+      "name": "Data egress envelope enforcement",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded data egress envelope enforcement capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Tool output contains synthetic secret marker; external network transmission denied.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Temporal precedence enforcement",
+        "prior_id": "phoenix-wave7-0059",
+        "similarity": 0.603,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0139",
+      "name": "Execution grant expiration",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded execution grant expiration capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Short-lived agent permission expires before delayed task retries.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Function contract extraction",
+        "prior_id": "phoenix-capability-0193",
+        "similarity": 0.667,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0140",
+      "name": "No-wallet, no-invoice default",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded no-wallet, no-invoice default capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Task not authorized for financial effect; all invoice/payment actions refuse.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "No-physical-effects invariant",
+        "prior_id": "phoenix-wave7-0117",
+        "similarity": 0.483,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0141",
+      "name": "No-outreach default",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded no-outreach default capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Discovery tool suggests prospect contact; email/send remains disallowed.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "No outbound network default",
+        "prior_id": "phoenix-capability-0263",
+        "similarity": 0.609,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0142",
+      "name": "Revocation over reuse",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded revocation over reuse capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "A once-approved skill is later revoked; cached composition must refuse next call.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Post-evaluation seed reveal",
+        "prior_id": "phoenix-wave8-0005",
+        "similarity": 0.542,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0143",
+      "name": "Proof-before-promotion gate",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded proof-before-promotion gate capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Correct code but missing scan/holdout evidence remains shadow-only.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Economic proof before promotion",
+        "prior_id": "phoenix-wave8-0158",
+        "similarity": 0.69,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0144",
+      "name": "Cross-domain authority nontransfer",
+      "family": "Policy-safe capability transfer",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cross-domain authority nontransfer capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Medical research permission cannot become commercial customer action permission.",
+      "donor_urls": [
+        "https://github.com/microsoft/typespec-mcp",
+        "https://github.com/modelcontextprotocol/inspector",
+        "https://github.com/Tool-Genesis/Tool-Genesis"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cross-domain opportunity effect map",
+        "prior_id": "phoenix-wave8-0152",
+        "similarity": 0.609,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0145",
+      "name": "Unseen schema variable renaming",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unseen schema variable renaming capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Train adapter on source keys A/B then test valid renamed schema only after new examples.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Unseen design ranking",
+        "prior_id": "phoenix-wave7-0069",
+        "similarity": 0.577,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0146",
+      "name": "Unseen value-range stress",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unseen value-range stress capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Synthesize on small numbers; test near permitted arithmetic boundary.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Unseen task-horizon transfer",
+        "prior_id": "phoenix-wave8-0020",
+        "similarity": 0.528,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0147",
+      "name": "Spurious-correlation adversary",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded spurious-correlation adversary capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Distractor matches expected on training by accident; require more examples or abstain.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Spurious metadata correlation break",
+        "prior_id": "phoenix-wave8-0035",
+        "similarity": 0.646,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0148",
+      "name": "Out-of-domain task refusal",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded out-of-domain task refusal capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Offer natural language problem outside the tool DSL; refuse rather than improvise answer.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Adjacent-domain citation bridge",
+        "prior_id": "phoenix-wave7-0008",
+        "similarity": 0.491,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0149",
+      "name": "Hidden benchmark custodian",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded hidden benchmark custodian capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Runner masks seed and expected results from candidate creation process.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Hidden grader artifact separation",
+        "prior_id": "phoenix-wave8-0004",
+        "similarity": 0.508,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0150",
+      "name": "Cross-domain executable transfer",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cross-domain executable transfer capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Program synthesized for one fixture transfers only when input-output semantics are equivalent.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cross-domain counterexample synthesis",
+        "prior_id": "phoenix-wave7-0103",
+        "similarity": 0.609,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0151",
+      "name": "Distribution-shift degradation report",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded distribution-shift degradation report capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Break one assumption and report precise lost performance instead of aggregate win.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Deadline degradation mode",
+        "prior_id": "phoenix-wave8-0094",
+        "similarity": 0.548,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0152",
+      "name": "Same-budget paired comparison",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded same-budget paired comparison capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compare current UberBond, no-tool baseline, and new tool under identical caps.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Source-digest anchored mission",
+        "prior_id": "phoenix-wave6-0037",
+        "similarity": 0.61,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0153",
+      "name": "Reliability pass-power-k test",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded reliability pass-power-k test capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Repeat same class across restarts; track success concentration and correlated failures.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "CLI API-billing separation test",
+        "prior_id": "phoenix-capability-0253",
+        "similarity": 0.533,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0154",
+      "name": "Benchmark contamination sentinel",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded benchmark contamination sentinel capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Place unique canary in hidden task; detect if solver later emits it.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Evaluator contamination leak test",
+        "prior_id": "phoenix-capability-0213",
+        "similarity": 0.615,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0155",
+      "name": "Adversarial task mutation",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded adversarial task mutation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Perturb API ordering and irrelevant fields; accepted tool must remain correct or refuse.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Artifact mutation proof",
+        "prior_id": "phoenix-wave6-0041",
+        "similarity": 0.583,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0156",
+      "name": "Independently verified world effect",
+      "family": "Transfer and falsification gauntlet",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded independently verified world effect capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Success message with unchanged mock database must fail outcome admission.",
+      "donor_urls": [
+        "https://github.com/GAIR-NLP/AgencyBench",
+        "https://github.com/Tool-Genesis/Tool-Genesis",
+        "https://github.com/se2p/pynguin"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Independent adversarial review dispatch",
+        "prior_id": "phoenix-capability-0053",
+        "similarity": 0.541,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0157",
+      "name": "Model-call avoidance ratio",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded model-call avoidance ratio capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compare compiled deterministic skill calls versus per-request code generation with equal inputs.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Model-tool boundary redirection",
+        "prior_id": "phoenix-wave6-0055",
+        "similarity": 0.561,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0158",
+      "name": "Compilation amortization break-even",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded compilation amortization break-even capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Measure build cost and per-run savings; reject tool if expected uses never repay build.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Compilation failure triage",
+        "prior_id": "phoenix-wave7-0037",
+        "similarity": 0.59,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0159",
+      "name": "Founder-minute dividend measure",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded founder-minute dividend measure capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Track manual review time saved separately from model tokens and compute.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Founder-minute savings control",
+        "prior_id": "phoenix-wave8-0155",
+        "similarity": 0.656,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0160",
+      "name": "Capability retrieval false-positive cost",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded capability retrieval false-positive cost capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Wrong retrieved skill must incur measurable penalty and trigger index repair.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cost-aware retrieval waterfall",
+        "prior_id": "phoenix-wave7-0009",
+        "similarity": 0.486,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0161",
+      "name": "Tiny-tool latency floor",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded tiny-tool latency floor capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Run minimal scalar adapter; measure fixed scheduler overhead versus actual work.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Mutation-score acceptance floor",
+        "prior_id": "phoenix-wave8-0067",
+        "similarity": 0.519,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0162",
+      "name": "Batch synthesis economy",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded batch synthesis economy capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compile related adapters together only if shared tests show no regression.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Data privacy synthetic-only fixture",
+        "prior_id": "phoenix-wave7-0079",
+        "similarity": 0.517,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0163",
+      "name": "Cold-start economics",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cold-start economics capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Account for model/runtime wake-up overhead on event-driven tasks.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cold-start continuation evaluation",
+        "prior_id": "phoenix-wave8-0093",
+        "similarity": 0.593,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0164",
+      "name": "Tool cache invalidation cost",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded tool cache invalidation cost capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Update schema version and measure recompile/rebenchmark effort.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Artifact invalidation graph",
+        "prior_id": "phoenix-wave6-0099",
+        "similarity": 0.618,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0165",
+      "name": "Latency versus reliability frontier",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded latency versus reliability frontier capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Do not choose fastest candidate if false-success rate violates hard floor.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Novelty versus priority separation",
+        "prior_id": "phoenix-wave7-0010",
+        "similarity": 0.58,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0166",
+      "name": "Compute ceiling allocation",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded compute ceiling allocation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Single compilation must stay below declared CPU, memory and wall-time budgets.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Def-use chain exploration",
+        "prior_id": "phoenix-capability-0184",
+        "similarity": 0.549,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0167",
+      "name": "Subscription usage provenance",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded subscription usage provenance capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Record whether work used native subscription CLI or paid API; never infer free quota.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Simulation parameter provenance",
+        "prior_id": "phoenix-wave7-0073",
+        "similarity": 0.667,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0168",
+      "name": "Portfolio replacement value",
+      "family": "Capability economics and efficient compute",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded portfolio replacement value capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Compare substitute adapter to incumbent on failure, costs and real observed outcomes.",
+      "donor_urls": [
+        "https://arxiv.org/abs/2607.08010",
+        "https://github.com/lifan-yuan/CRAFT"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Objective replacement veto",
+        "prior_id": "phoenix-wave6-0113",
+        "similarity": 0.679,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0169",
+      "name": "Founder-890 lineage binding",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded founder-890 lineage binding capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "New candidate links to stable founder-moonshot IDs without renumbering originals.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "890-lineage novelty bridge",
+        "prior_id": "phoenix-wave8-0151",
+        "similarity": 0.566,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0170",
+      "name": "Unrelated frontier concept creation",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded unrelated frontier concept creation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Candidate outside 890 corpus gets new GENESIS identity with explicit novel-parent relationship.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Track tool latency and retries per accepted action",
+        "prior_id": "phoenix-wave5-0175",
+        "similarity": 0.565,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0171",
+      "name": "Speculation-to-test epistemic guard",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded speculation-to-test epistemic guard capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Hypothetical mechanism becomes falsifiable proposed experiment, never live proof.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Tool execution idempotency guard",
+        "prior_id": "phoenix-capability-0133",
+        "similarity": 0.507,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0172",
+      "name": "Negative-result conservation",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded negative-result conservation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Failed synthesized adapter remains findable with why and tested assumptions.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Rate-limit cooldown preservation",
+        "prior_id": "phoenix-capability-0254",
+        "similarity": 0.633,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0173",
+      "name": "Capability resurrection trigger",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded capability resurrection trigger capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Previously rejected tool reopens only after its documented missing dependency appears.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Model capacity reservation for review",
+        "prior_id": "phoenix-capability-0246",
+        "similarity": 0.588,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0174",
+      "name": "Cross-discipline transfer provenance",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded cross-discipline transfer provenance capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Borrow mechanism from science for business without inheriting medical authority.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Cross-model reviewer independence",
+        "prior_id": "phoenix-wave6-0079",
+        "similarity": 0.522,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0175",
+      "name": "Predecessor-dependency graph",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded predecessor-dependency graph capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "New candidate records donor, compatible predecessors, conflicts and substitute links.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Missing dependency graph repair",
+        "prior_id": "phoenix-capability-0314",
+        "similarity": 0.61,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0176",
+      "name": "New-ontology challenge protocol",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded new-ontology challenge protocol capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "When facts contradict current schema, propose versioned candidate schema rather than rewrite canon.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Versioned agent policy challenger",
+        "prior_id": "phoenix-capability-0311",
+        "similarity": 0.562,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0177",
+      "name": "Self-improvement authority clamp",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded self-improvement authority clamp capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Invented tool gains execution ability but zero new founder/production permissions.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Generational improvement audit",
+        "prior_id": "phoenix-wave8-0160",
+        "similarity": 0.581,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0178",
+      "name": "Current-main precedence reconciliation",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded current-main precedence reconciliation capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "New Wave 9 research compares exact repository source before claiming feature missing.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Instrument failure reconciliation",
+        "prior_id": "phoenix-wave7-0087",
+        "similarity": 0.648,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0179",
+      "name": "Compressed checkpoint recoverability",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded compressed checkpoint recoverability capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Restore candidate, tests and evidence solely from manifest and immutable blobs.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Browser crash checkpoint restore",
+        "prior_id": "phoenix-capability-0157",
+        "similarity": 0.559,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    },
+    {
+      "id": "phoenix-wave9-0180",
+      "name": "Life-level utility accounting",
+      "family": "GENESIS frontier inheritance",
+      "status": "PROPOSED_ATOMIC_CAPABILITY_NOT_IMPLEMENTED",
+      "design_target": "Introduce or improve a bounded life-level utility accounting capability inside the existing UberBond capability genome. Reuse prior canon, retain source lineage, and keep external effects blocked until separately authorized.",
+      "acceptance_test": "Evaluate founder freedom/option value in addition to money, not instead of evidence.",
+      "donor_urls": [
+        "https://github.com/MineDojo/Voyager",
+        "https://github.com/KatherLab/ToolMaker",
+        "https://github.com/linkml/linkml"
+      ],
+      "permission_floor": "ZERO_EXTERNAL_EFFECTS; SHADOW_ONLY",
+      "external_empirical_proof": "NONE",
+      "closest_prior_lexical": {
+        "prior_name": "Partial-effect accounting",
+        "prior_id": "phoenix-wave8-0112",
+        "similarity": 0.556,
+        "method": "LEXICAL_ONLY_NOT_SEMANTIC"
+      }
+    }
+  ],
+  "realized_implementations": 0,
+  "real_world_success_evidence": "NONE",
+  "caveats": [
+    "Candidates count design intents, not independently new innovations",
+    "Local toy is a closed DSL with oracle-supplied examples",
+    "External project feature statements are not UberBond deployment evidence",
+    "Waves 3–8 contain overlapping capabilities; 1360 is before semantic deduplication"
+  ]
+}

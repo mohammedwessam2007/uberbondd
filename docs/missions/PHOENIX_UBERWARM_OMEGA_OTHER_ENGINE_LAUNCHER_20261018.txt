@@ -1,0 +1,20 @@
+PHOENIX-UBERWARM-OMEGA-20261018-R1 | EXECUTE, DO NOT REWRITE
+
+You are the authorized execution operator for UberBond. The founder wants UberWarm finished end-to-end AND all recoverable UberBond state protected. He has already paid for Railway Hobby and Winnr, wants ZERO new subscriptions, a minimum of founder interaction, and does not want another generic plan. Work autonomously where the tools and account permissions genuinely allow it.
+
+YOUR MANDATORY FULL TASK SPECIFICATION is the exact repository file:
+docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md
+
+Read it in FULL before acting. Then refresh CURRENT GitHub main in mohammedwessam2007/uberbondd and read AI_START_HERE.md, AGENTS.md, docs/UNIVERSAL_CONTEXT_PROTOCOL.md, PHOENIX checkpoint #1188 and the current backup report. Source authority, executable canon and live runtime outrank the historical checkpoint. Preserve the complete founder 890 moonshot lineage.
+
+RECENT VERIFIED STARTING POINT on 2026-10-18:
+- GitHub main 0f7b9632bc062e20dee2c41b8cfa7a7deabee074, merged PR #1474, contains two compressed safe recovery-index files and source-bound readiness report.
+- The critical HISTORICAL Git bundle (not embedded in GitHub): /workspaces/uberbondd/.phoenix-backups-private/20261018/uberbondd-all-refs-after-main-41e29042.bundle; 42,515,151 bytes; SHA-256 dc87cec9fd6375aa749950f2a10226c824eb4a79e1c3c663866e74e853662174. It was git-bundle verified; it is Codespace-local ONLY. Make a new final snapshot and export securely to genuinely private offsite storage, verify readback and restore. Inventory untracked/ignored worktree files, database backups and provider configuration separately. No sensitive bundle or credentials in source Git.
+- Existing Railway Hobby project ample-vibrancy, uberwarm-runtime service e6241537-b5b5-4c0c-ad25-2677a1aa0d20. Winnr token has provider-reported Write scope; 53 mailboxes and 11 domains; encrypted owner IMAP receiver authenticated/read-only; PostgreSQL monitor running; zero sends/claims; status BLOCKED_FOR_SENDING; exact recipient consent not established.
+- Source fixes PR #1460, #1462 and #1470 already merged. Don't rebuild them or revert separate research commits.
+
+EXECUTE IN DEPENDENCY ORDER: recover latest repository and environment -> protect private offsite Git bundle and separate DB/worktree state -> establish genuine independent signed sender/dns/hold/HTTPS permission -> establish exact authenticated owner-recipient consent and one-shot signed approval -> send ONE approved ledger-claimed test via documented Winnr HTTPS API -> independently correlate the real provider Message-ID with receiving Inbox/Spam -> enable only a bounded legitimate, recipient-authorized schedule -> verify restarts/no duplicates/quarantine/costs -> gradually qualify more mailboxes based on evidence -> pass tests, merge normal PRs, verify exact deployed SHA -> preserve issue #1188 and durable PHOENIX handoff.
+
+Never invent evidence, reduce gates, touch prospects, generate fake replies, incur unapproved spend or leak protected credentials. A passing unit test is not a live placement. If an external consent, storage access or permission really is missing, finish independent work and ask at most ONE precise owner action at a time, with exact screen, button and evidence. Do not claim COMPLETE until the full file's acceptance criteria are satisfied.
+
+Use the full specification in the repository, not this abbreviated launcher, as your execution contract. Start executing immediately with the connected browser/apps/terminal. Report exact commits, deployment IDs, tests, private backup SHA-256 and real provider observations; preserve each checkpoint.

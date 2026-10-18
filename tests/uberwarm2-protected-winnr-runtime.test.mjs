@@ -90,3 +90,28 @@ test('the Winnr client used for diagnostics exposes documented GET reads, no imp
   assert.deepEqual(requests.map(r => r.method), ['GET', 'GET', 'GET']);
   assert.ok(requests.every(r => r.url.startsWith('https://api.winnr.app/v1/')));
 });
+
+
+test('live-shaped Winnr status-only GET plus separate signed local hold clears health but cannot mint send rights',async()=>{
+  const client={
+    listAllMailboxes:async()=>({ok:true,data:[{id:'mailbox-1',email:sender,domain:'owned.example',status:'active'}],pagination:{has_more:false},receipt:{responseDigest:'sha256:mailboxes'}}),
+    listAllDomains:async()=>({ok:true,data:[{id:'domain-1',domain:'owned.example'}],pagination:{has_more:false},receipt:{responseDigest:'sha256:domains'}}),
+    getDnsStatus:async()=>({ok:true,data:{domainId:'domain-1',domain:'owned.example',ready:true,observedAt:new Date(at).toISOString()},receipt:{responseDigest:'sha256:dns'}})
+  };
+  const row=extra=>({email:sender,domain:'owned.example',observedAt:new Date(at).toISOString(),evidenceRef:'signed:local-test',...extra});
+  let state={held:false,suppressed:false,signed:true,verified:true,paused:false,quarantined:false,placementQuarantine:false,policyCompatible:true};
+  const runtime=createUberWarm2ProtectedWinnrRuntime({client,clock:()=>at,transportMode:'WINNR_INBOX_HTTPS_API',trustedReaders:{
+    readVerifiedHttpsTransport:async()=>[row({authenticated:true,signed:true,transportAuthorized:true,secure:true,termsCompatible:true,senderIdentityVerified:true,providerWritePermissionVerified:true,submissionEndpoint:'WINNR_INBOX_HTTPS_API',authorizedPurpose:'OWNER_CONTROLLED_PLACEMENT_PROBE'})],
+    readLocalHold:async()=>[row({...state})],
+    readVerifiedDnsAlignment:async()=>[row({aligned:true,signed:true})],
+    readAuthenticatedConsent:async()=>[],readCurrentReceiveReady:async()=>[],readSuppression:async()=>[]
+  }});
+  const observation=await runtime.inspectProviderReadOnly({email:sender,at});
+  assert.equal(observation.ok,true);
+  assert.equal(observation.observation.healthRowEligible,false);
+  assert.equal(await runtime.verifyCurrentSenderHealth(sender,at),true);
+  assert.equal(await runtime.verifyCurrentSeedConsent('seed@owned.example','one-shot',at),false);
+  assert.equal(runtime.sendAuthority,'NONE');assert.equal(runtime.ready,false);
+  state={...state,quarantined:true};
+  assert.equal(await runtime.verifyCurrentSenderHealth(sender,at),false);
+});

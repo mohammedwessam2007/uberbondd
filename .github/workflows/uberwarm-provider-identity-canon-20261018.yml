@@ -1,0 +1,48 @@
+# Exact source-only readiness emission for Winnr provider schema patch.
+# Deliberately no secrets, POSTs or production deployment.
+name: UberWarm verified provider schema canonical receipt
+on:
+  push:
+    branches: [codex/uberwarm-provider-identity-hold-20261018]
+    paths: [.github/workflows/uberwarm-provider-identity-canon-20261018.yml]
+permissions:
+  contents: read
+jobs:
+  exact-source-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NODE_ENV: test
+      OUTBOUND_ENABLED: 'false'
+      OUTBOUND_DRY_RUN: 'true'
+      UBERBOND_EFFECTS_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - name: Real schema and PostgreSQL suite
+        run: |
+          node --test tests/uberwarm2-*.test.mjs
+      - name: Generate exact canonical readiness and emit only generated docs
+        run: |
+          set -euo pipefail
+          npm run readiness
+          node --test tests/canon-freshness.test.mjs tests/reachability-ratchet.test.mjs
+          git diff --check
+          node <<'NODE'
+          const fs = require('node:fs');
+          for (const [name, path] of [
+            ['READINESS','artifacts/system-readiness.json'],
+            ['CURRENT_STATE','docs/CURRENT_SYSTEM_STATE.md']
+          ]) {
+            console.log('BEGIN_GENERATED_' + name);
+            const b64 = fs.readFileSync(path).toString('base64');
+            for (let i = 0; i < b64.length; i += 120) console.log(b64.slice(i,i+120));
+            console.log('END_GENERATED_' + name);
+          }
+          NODE

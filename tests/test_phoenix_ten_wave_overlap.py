@@ -9,7 +9,7 @@ class OverlapTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):cls.report=module.probe()
     def test_complete_recovered_set(self):
-        self.assertEqual(self.report['proposals'],1304)
+        self.assertEqual(self.report['proposals'],1560)
         self.assertGreater(self.report['legacy_static_name_pairs'],0)
     def test_never_claims_semantic_dedupe(self):
         self.assertIn('NOT_SEMANTIC_DEDUP',self.report['limitation'])

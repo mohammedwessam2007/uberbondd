@@ -75,7 +75,7 @@ class HostileCorpusTests(unittest.TestCase):
         target=self.root/doctor.REL/'original-genomes'/doctor.FILES[4][0]
         original=target.read_text()
         target.write_text(original.replace('"priority": "P0"','"priority": "P9"',1))
-        with self.assertRaisesRegex(ValueError,'WAVE4_PINNED_BLOB_MISMATCH'):
+        with self.assertRaisesRegex(ValueError,'ORIGINAL_SOURCE_SEMANTIC_HASH_MISMATCH'):
             doctor.build(self.root)
 
     def test_missing_source_fails_closed(self):

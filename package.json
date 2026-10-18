@@ -249,7 +249,8 @@
     "open-router:canon:doctor": "node scripts/open-router-canon-doctor.mjs",
     "test:open-router:canon": "node --test tests/open-router-canon-doctor.test.mjs",
     "infinite-opus:equivalence:doctor": "node scripts/infinite-opus-achieved-equivalence-doctor.mjs",
-    "test:infinite-opus:equivalence": "node --test tests/achieved-opus-equivalence-island.test.mjs"
+    "test:infinite-opus:equivalence": "node --test tests/achieved-opus-equivalence-island.test.mjs",
+    "capabilities:phoenix:import": "node scripts/phoenix-ten-wave-import.mjs"
   },
   "dependencies": {
     "@cedar-policy/cedar-wasm": "^4.12.0",

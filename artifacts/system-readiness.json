@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T12:54:21.481Z",
+  "generatedAt": "2026-10-18T13:10:35.164Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "4614ac8b7dd9b9acad90320ab64d0efa71ffc852",
-    "branch": "phoenix-canon",
-    "sourceModules": 1104,
-    "testSuites": 1340,
-    "workingTreeClean": true
+    "head": "680fe22c1a7137c649494afb20146837d0c9b0e1",
+    "branch": "research/phoenix-waves-3-10-intake-20261017",
+    "sourceModules": 1105,
+    "testSuites": 1341,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1104,
+      "srcModules": 1105,
       "reachableFromProduction": 416,
-      "reachableFromUnattendedOperatorScriptsOnly": 449,
+      "reachableFromUnattendedOperatorScriptsOnly": 450,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 449,
+      "reachableFromOperatorScriptsOnly": 450,
       "noEntryPointAtAll": 232,
       "partitionExact": true,
       "allClassified": true,

@@ -1,26 +1,27 @@
-# PHOENIX Waves 3-10: evidence-bound capability research intake
+# PHOENIX Waves 3–10: source-pinned capability intake
 
-**Truth class: RESEARCH_ASSET. This directory contains proposed designs and public supplier references, not live software suppliers.**
+TRUTH CLASS: RESEARCH + MEASURED READ-ONLY PUBLIC HEAD SNAPSHOT. ZERO donor execution or production authority.
 
-## Recovered primary research
-- **1,304 proposals** are preserved across seven canonical JSON genomes in `original-genomes/`: Wave 3 = 320, Wave 5 = 204, Wave 6 = 120, Wave 7 = 120, Wave 8 = 160, Wave 9 = 180, Wave 10 = 200. IDs, descriptions, acceptance tests, source hints and original source pointers are retained in the JSON bodies.
-- The primary bodies were reconstructed from attached research files in the founder's conversation. All seven **canonical semantic JSON hashes** matched the separately mounted original research files; byte-for-byte layout differs for Waves 3 and 5. The doctor pins the seven canonical hashes. Do not present them as SHA-256-identical raw uploads when they are not.
-- **Wave 4's 256 historically reported proposals have NOT been recovered individually.** The nominal 1,560 research count is *not* 1,560 available or implemented capabilities.
-- Historical repository CSV: 269 raw source rows, including 26 malformed/duplicate Markdown URL entries. Canonical `repositories.urls.txt` contains **243 unique GitHub identities**, SHA-256 `33f699492ff3d9247b45cde41f2e50d8eb795ed3e1994723f349fe0df796e064`. The full 269-row original CSV remains in the research ZIP, not this directory.
-- All 890 founder ideas remain separately intact under `artifacts/research/founder-moonshot-literal-corpus/`. None of the PHOENIX research ideas may renumber, overwrite or impersonate a founder idea.
+## Source inventory
 
-## Existing code, no new authority
-- `python3 scripts/phoenix-repository-intake.py`: check 243 URL hashes offline. Optional bounded GET of public GitHub metadata, no source execution.
-- `python3 scripts/phoenix-ten-wave-genome-doctor.py`: check all seven semantic hashes, every ID, title, falsifier and source pointer; emit a proposed-only searchable index.
-- `python3 scripts/phoenix-ten-wave-genome-doctor.py --query "agent verification" --limit 10`: find source-backed hypotheses with no model call or hidden authority.
-- `python3 -m unittest discover -s tests -p 'test_phoenix_ten_wave*.py'`: tests. On October 18: 15 passed, 1 expected skip because the optional separate flat master CSV is not installed in the Codespace.
-- `scripts/phoenix-ten-wave-reconcile.py` separately validates the original flat CSV when the complete three-file acquisition kit is available; optional skip is never called a pass.
+All 1,560 original research proposals are preserved in eight source JSON genomes under original-genomes/: Wave 3 (320), Wave 4 (256), Wave 5 (204), Wave 6 (120), Wave 7 (120), Wave 8 (160), Wave 9 (180), and Wave 10 (200). Original IDs, requirements, acceptance conditions, provenance and research status remain addressable. Wave 4 was recovered after the earlier 1,304-proposal receipt. That earlier receipt is historically accurate *at its time* but superseded regarding the number recovered.
 
-## Security/economic boundary
-- **Zero installed, approved, security-cleared or active suppliers** established by this research. Do not treat metadata GET, schema-validated JSON, toy experiments or tests as production deployment or cleared profit.
-- **Do not clone/install/execute** 243 unknown repositories just to increase installed skill count. Prioritize exact source, license, security, dependency, permission and task-level counterfactual comparison.
-- Preexisting UberBond capability-genome doctor and GENESIS remain authoritative. These scripts are research inputs to those systems, not a competing production registry.
-- No subscription proxy, secret extraction, unauthorized provider use, cloud spending, outbound campaigns or customer actions are authorized here.
+Original 269 reference rows normalized to 243 distinct URL strings. Three case-only pairs refer to the same GitHub identities. Thus 243 URL observations map to 240 canonical repository identities. The October 17 public HEAD snapshot captured SHA1 HEAD references for 243/243 URLs, without cloning or executing donor code. It is a historical public source observation, NOT source license clearance, code security proof or stable production health.
 
-## PHOENIX handoff
-The originating review was draft PR #1464. See `docs/receipts/PHOENIX_TEN_WAVE_INTAKE_2026-10-17.md` for earlier work and the newest PHOENIX checkpoint for exact main, CI and unresolved facts. Preserve all candidate identities and Wave 4 as an explicitly unresolved lineage rather than erasing its historical claim.
+All 890 original founder idea identities remain separately intact in the founder-moonshot corpus. Research ideas may not overwrite founder ideas.
+
+## Executable interfaces
+
+- npm run capabilities:phoenix:doctor: source-pinned verification of all 1,560 proposals, all eight semantic hashes and their exact record pointers.
+- npm run capabilities:phoenix:query -- "native cli authorization" 5: search original sources, including Wave 4, without model calls.
+- npm run capabilities:phoenix:import: import the measured public Git HEAD snapshot into UberBond's EXISTING Capability Genome normalization, producing 240 untrusted canonical supplier candidates from 243 URL observations. No API calls or external effects.
+- node scripts/phoenix-ten-wave-import.mjs --write-research-artifact: regenerate the fixed research-only artifact at artifacts/capability-genome/research/phoenix-public-repository-corpus.json. This command does not support arbitrary output paths.
+- node --test tests/phoenix-ten-wave-{query,intake}.test.mjs and PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s tests -p 'test_phoenix*.py': tests. An optional legacy flat 1304 CSV test may skip; primary eight-genome integrity tests do not skip.
+
+## Exact boundaries
+
+Zero external supplier installation, clearance, promotion, skill execution, subscription quota bypass, messaging, paid inference, deployment or revenue established by this intake. The 240 candidates enter only the measured RESEARCH corpus, not the canonical supplier promotion lifecycle. Historical HEAD is mutable. Archive status, licensing, maintainer identity and security are UNKNOWN from this snapshot; the existing normalized schema's archived=false default is not positive proof of current maintainer/archive status.
+
+Before admitting one source: independently establish real source identity, usable license, pinned dependencies, security, permissions, benchmark baseline, independent holdouts, cost, rollback and founder authority. Use existing Capability Genome and GENESIS promotion gates, not a parallel registry.
+
+Latest checkpoint: docs/receipts/PHOENIX_TEN_WAVE_FULL_CORPUS_2026-10-18.md.

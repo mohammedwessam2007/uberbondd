@@ -1,4 +1,4 @@
-import crypto from 'node:crypto';
+import { digestRepositoryDeepAtlas } from './uberbond-repository-deep-atlas.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const UBERBOND_ULTIMATE_GRAPH_SCHEMA = 'uberbond.ultimate-graph.v1';
@@ -6,12 +6,8 @@ export const UBERBOND_ULTIMATE_GRAPH_POLICY_VERSION = 'uberbond-ultimate-graph-1
 
 const DEEP_EDGE_TYPES = new Set(['DETAIL_DECLARED_IN', 'DETAIL_MEMBER_OF_ORGAN']);
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
-function stable(value) {
-  if (Array.isArray(value)) return value.map(stable);
-  if (!value || typeof value !== 'object') return value;
-  return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
-}
-function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
+// Reuse the exact stable canonical byte sequence without building a giant string.
+function digest(value) { return digestRepositoryDeepAtlas(value); }
 function unique(values) { return [...new Set((values || []).filter(Boolean))]; }
 function deepNodeId(id) { return `detail:${id}`; }
 function artifactNodeId(path) { return `artifact:${path}`; }

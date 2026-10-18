@@ -5,10 +5,12 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 
 export const UBERBOND_REPOSITORY_DEEP_ATLAS_SCHEMA = 'uberbond.repository-deep-atlas.v1';
-export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.2.1';
+export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.3.0';
 
 const MAX_TEXT_BYTES = 8 * 1024 * 1024;
-const MAX_DETAILS_PER_FILE = 20000;
+// Bounded per-file structural expansion; all supported text chunks remain indexed first.
+// The earlier 20k cap inflated corpus-heavy JSON keys past V8 string limits.
+const MAX_DETAILS_PER_FILE = 512;
 const CONTENT_CHUNK_CHARS = 16 * 1024;
 // This marker grants an intentional-fixture exemption to the repository secret
 // sweep. The atlas may observe files that contain it, but must never replicate
@@ -124,6 +126,7 @@ function addDetail(state, detail) {
   }
   state.byId.set(detail.id, detail);
   state.details.push(detail);
+  if (detail.class === 'CONTENT_CHUNK') state.contentChunkCount += 1;
   state.perFileCount.set(detail.sourcePath, (state.perFileCount.get(detail.sourcePath) || 0) + 1);
 }
 function pushMatch(state, artifact, text, kind, regex, mapper) {
@@ -246,7 +249,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
   if (!featureGenome?.ok || !Array.isArray(featureGenome?.artifactNodes) || !featureGenome?.genomeDigest) {
     return { ok: false, status: 'REPOSITORY_DEEP_ATLAS_BLOCKED', reasonCodes: ['valid-feature-genome-required'], businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects() };
   }
-  const state = { details: [], byId: new Map(), perFileCount: new Map(), truncatedFiles: new Set() };
+  const state = { details: [], byId: new Map(), perFileCount: new Map(), truncatedFiles: new Set(), contentChunkCount: 0 };
   const coverage = [];
   for (const artifact of featureGenome.artifactNodes) {
     const relativePath = normalizeRel(artifact.path);
@@ -262,7 +265,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
       continue;
     }
     const before = state.details.length;
-    const chunksBefore = state.details.filter(item => item.class === 'CONTENT_CHUNK').length;
+    const chunksBefore = state.contentChunkCount;
     contentChunkDetails(state, artifact, loaded.text);
     if (['.mjs', '.js', '.cjs', '.ts', '.tsx', '.jsx'].includes(extension)) codeDetails(state, artifact, loaded.text);
     if (['.md', '.mdx'].includes(extension) || relativePath.startsWith('.claude/skills/') || relativePath.startsWith('.codex/skills/')) markdownDetails(state, artifact, loaded.text);
@@ -270,7 +273,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
     if (['.yml', '.yaml'].includes(extension) || relativePath.startsWith('.github/workflows/')) yamlDetails(state, artifact, loaded.text);
     if (['.css', '.scss'].includes(extension)) cssDetails(state, artifact, loaded.text);
     if (extension === '.json' || path.basename(relativePath) === 'package.json') jsonDetails(state, artifact, loaded.text);
-    const chunksAfter = state.details.filter(item => item.class === 'CONTENT_CHUNK').length;
+    const chunksAfter = state.contentChunkCount;
     coverage.push({
       path: relativePath,
       status: 'PARSED_TEXT',

@@ -1,0 +1,71 @@
+{
+  "schema": "uberbond.phoenix.uberwarm.omega.verification.v1",
+  "as_of_utc": "2026-10-18T15:50:31Z",
+  "result": "TERMINAL_BLOCKED_EXTERNAL",
+  "git": {
+    "remote_main": "99cc2f2c0d6fcd6681cdc3bb2940f5a604b1f1a7",
+    "historical_main": "0f7b9632bc062e20dee2c41b8cfa7a7deabee074",
+    "source_tests": {
+      "total": 224,
+      "passed": 222,
+      "failed": 0,
+      "skipped": 2
+    }
+  },
+  "backup": {
+    "historical_expected_sha256": "dc87cec9fd6375aa749950f2a10226c824eb4a79e1c3c663866e74e853662174",
+    "historical_file_currently_accessible": false,
+    "new_local_path": ".phoenix-backups-private/20261018/uberbondd-all-visible-refs-main-99cc2f2c-20261018.bundle",
+    "new_local_bytes": 42392912,
+    "new_sha256": "bde965ca74e033e697badc6d30af11571fb78a2c3bc8eb2f75b7f52a341bd11d",
+    "advertised_heads": 1534,
+    "bundle_verify": true,
+    "isolated_clone": true,
+    "restore_fsck_exit_code": 0,
+    "offsite_object_id": null,
+    "offsite_readback_sha256": null,
+    "offsite_verified": false,
+    "source_repo_currently_public": true,
+    "private_vault_create_result": "HTTP_403_INTEGRATION_PERMISSION"
+  },
+  "railway": {
+    "project_id": "58e4508e-514e-4093-8f1d-d11957dc5d37",
+    "service_id": "e6241537-b5b5-4c0c-ad25-2677a1aa0d20",
+    "deployment_id": "1f08c9f6-7d6e-45a1-a24e-f81264a67179",
+    "deployed_commit": "99cc2f2c0d6fcd6681cdc3bb2940f5a604b1f1a7",
+    "status": "SUCCESS",
+    "last_monitor_utc": "2026-10-18T15:50:16Z",
+    "mailboxes": 53,
+    "domains": 11,
+    "provider_sends": 0,
+    "ledger_claims": 0,
+    "uncertain_claims": 0,
+    "receiver_probe_consent_established": false,
+    "runtime_ready": false,
+    "existing_staged_changes_untouched": 6
+  },
+  "sender": {
+    "qualified_count_proven": 0,
+    "inventory_eligible_not_proven": 53,
+    "classification": "UNKNOWN_NOT_ADMITTED"
+  },
+  "recipient": {
+    "current_signed_consent": false,
+    "exact_signed_approval": false
+  },
+  "send": {
+    "send_set": [],
+    "actual_one_shot_this_run": 0,
+    "provider_message_id_hash": null,
+    "independent_observed_folder": null
+  },
+  "cadence": {
+    "authorized": false,
+    "activated": false
+  },
+  "database": {
+    "fresh_restorable_backup_verified": false
+  },
+  "owner_actions_count": 3,
+  "issue_checkpoint": "https://github.com/mohammedwessam2007/uberbondd/issues/1188#issuecomment-6251925138"
+}

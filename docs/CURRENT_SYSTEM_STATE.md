@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-18**
-Branch: `feat/uberwarm-independent-dns-control-20261018`
-Reconciled from current head: `545951f99d15653e2ba6369a9ccf3c470ad00c9a`
+Branch: `feat/uberwarm-zero-paid-dns-spotcheck-20261019`
+Reconciled from current head: `c10297fdc0850812fb3ceb5cc642e9b05a901655`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

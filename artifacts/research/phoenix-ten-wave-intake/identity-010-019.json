@@ -1,0 +1,102 @@
+{
+  "schema": "phoenix.public-identity-metadata.v1",
+  "manifest_blob_sha": "c5351044a16a3e7a9128cd814e3338cfa1bcd4ab",
+  "range": [
+    10,
+    19
+  ],
+  "license": "UNKNOWN",
+  "source_execution": "NONE",
+  "rows": [
+    {
+      "index": 10,
+      "url": "https://github.com/ChesterRa/cccc",
+      "status": "METADATA_RETURNED",
+      "actual": "ChesterRa/cccc",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 53817
+    },
+    {
+      "index": 11,
+      "url": "https://github.com/Chuzom/Chuzom",
+      "status": "METADATA_RETURNED",
+      "actual": "Chuzom/Chuzom",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 17023
+    },
+    {
+      "index": 12,
+      "url": "https://github.com/ComposioHQ/awesome-claude-skills",
+      "status": "METADATA_RETURNED",
+      "actual": "ComposioHQ/awesome-claude-skills",
+      "archived": false,
+      "branch": "master",
+      "size_kb": 3663
+    },
+    {
+      "index": 13,
+      "url": "https://github.com/ComposioHQ/composio",
+      "status": "METADATA_RETURNED",
+      "actual": "ComposioHQ/composio",
+      "archived": false,
+      "branch": "next",
+      "size_kb": 435392
+    },
+    {
+      "index": 14,
+      "url": "https://github.com/Dunqing/claude-codex-bridge",
+      "status": "METADATA_RETURNED",
+      "actual": "Dunqing/claude-codex-bridge",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 223
+    },
+    {
+      "index": 15,
+      "url": "https://github.com/FarisHijazi/claude-code-with-codex",
+      "status": "METADATA_RETURNED",
+      "actual": "FarisHijazi/claude-code-with-codex",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 2157
+    },
+    {
+      "index": 16,
+      "url": "https://github.com/Flesymeb/HarnessOfHarness",
+      "status": "METADATA_RETURNED",
+      "actual": "Flesymeb/HarnessOfHarness",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 409954
+    },
+    {
+      "index": 17,
+      "url": "https://github.com/Future-House/LAB-Bench",
+      "status": "METADATA_RETURNED",
+      "actual": "Future-House/LAB-Bench",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 252818
+    },
+    {
+      "index": 18,
+      "url": "https://github.com/Future-House/aviary",
+      "status": "METADATA_RETURNED",
+      "actual": "Future-House/aviary",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 11328
+    },
+    {
+      "index": 19,
+      "url": "https://github.com/Future-House/paper-qa",
+      "status": "METADATA_RETURNED",
+      "actual": "Future-House/paper-qa",
+      "archived": false,
+      "branch": "main",
+      "size_kb": 50825
+    }
+  ]
+}

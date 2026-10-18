@@ -27,3 +27,7 @@
 The independent exact sender-local signed hold/quarantine/suppression clearance, current independently signed HTTPS-transport authorization and exact signed approval/consent for one owner-controlled receiver are not proven from the live monitoring receipts. The current no-send state remains correct. After those proofs exist, execute exactly one durable-claim probe, record provider Message-ID and independently observed Inbox/Spam, then evaluate genuine warm-up cadence. No prospect campaign, automatic replies, new paid spend or claimed revenue.
 
 **Safety:** No live mail, production DB writes, paid provider warming or irreversible cutover was used to make this backup. Source and deployment remain distinct from actual receiving placement evidence.
+
+## Supersession note: upstream merger on 18 October 2026
+
+After the archive index was captured, concurrent PR #1464 merged the ten-wave research integration to main `41e290423ea623dabeac9fbe09f4b620ff890c0a`. Rather than overwrite or lose that source, this backup branch was reconciled as a merge with both ancestors preserved. Readiness is regenerated from the newer main. The original 1,524-ref inventory is an intentional point-in-time snapshot, not an assertion that later refs were known at capture time; run `git fetch --all` when restoring. The backup report, local bundle, and original PR #1472 commit retain exact provenance.

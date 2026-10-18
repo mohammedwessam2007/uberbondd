@@ -1,0 +1,3102 @@
+{
+  "date": "2026-10-17",
+  "wave": 7,
+  "title": "PHOENIX WAVE 7 - SCIENTIFIC DISCOVERY AND PRINCIPLE EVOLUTION",
+  "status": "RESEARCH_DESIGN_ONLY",
+  "candidate_count": 120,
+  "family_count": 12,
+  "unique_source_count": 33,
+  "cumulative_nominal_count_before_semantic_deduplication": 1020,
+  "basis_note": "Previous 900 nominal candidates from Waves 3-6; Wave 7 adds 120 proposed designs, NOT 120 demonstrated net-new operational capabilities. Prior Wave 4 was not directly mounted.",
+  "sources": [
+    {
+      "url": "https://arxiv.org/abs/2410.17309",
+      "source_class": "PAPER_ABSTRACT",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://arxiv.org/abs/2601.16282",
+      "source_class": "PAPER_ABSTRACT",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://arxiv.org/abs/2607.05443",
+      "source_class": "PAPER_ABSTRACT",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/AutoResearch/autora",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/Future-House/LAB-Bench",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/Future-House/aviary",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/Future-House/paper-qa",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/Future-House/robin",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/GAIR-NLP/SR-Scientist",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/Helge-Stein-Group/helao-pH",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/InternScience/InternAgent",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/SakanaAI/AI-Scientist-v2",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/SakanaAI/ShinkaEvolve",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/TaoJinkai/ckm-hypogen",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/Yibo-Wen/as-bench",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/allenai/discoveryworld",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/amair-lab/PiEvo",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/astroautomata/PySR",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/facebook/Ax",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/karpathy/autoresearch",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/lean-dojo/LeanCopilot",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/lean-dojo/leandojo",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/meta-pytorch/botorch",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+      "source_class": "LIVE_REPOSITORY_SOURCE",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+      "source_class": "LIVE_REPOSITORY_SOURCE",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+      "source_class": "LIVE_REPOSITORY_SOURCE",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/py-why/causal-learn",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/py-why/dowhy",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/pybamm-team/PyBaMM",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/rdkit/rdkit",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/snap-stanford/Biomni",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    },
+    {
+      "url": "https://github.com/stanford-oval/storm",
+      "source_class": "UPSTREAM_README_OR_DOCS",
+      "retrieval_mode": "web or authenticated GitHub read",
+      "verification": "existence and documented purpose checked, not installed or benchmarked in UberBond"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "phoenix-wave7-0001",
+      "family": "Scientific frontier radar",
+      "name": "Research-intent taxonomy firewall",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Place engineering, medicine and business queries together; the index must retain separate intent and domain fields.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0011",
+        "name": "Search-stagnation redirect rule",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0002",
+      "family": "Scientific frontier radar",
+      "name": "Bibliographic identity reconciliation",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Import matching DOI, arXiv and title variants; one paper identity must keep distinct source records.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0040",
+        "name": "Builder/agent identity separation",
+        "sequence_similarity": 0.571,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0003",
+      "family": "Scientific frontier radar",
+      "name": "Retraction-sensitive evidence ingestion",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Ingest a paper later flagged retracted; all descendant claims must be downgraded without deletion.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0173",
+        "name": "GitHub Actions agent injection audit",
+        "sequence_similarity": 0.507,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0004",
+      "family": "Scientific frontier radar",
+      "name": "Temporal literature cutoff",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Ask for a discovery using only papers available before a fixed historical date; later text must not leak.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0013",
+        "name": "Treatment-control intervention registry",
+        "sequence_similarity": 0.462,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0005",
+      "family": "Scientific frontier radar",
+      "name": "Paper-to-claim extraction",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Given a paper with three qualified findings, capture claim, uncertainty, methods and page evidence separately.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0184",
+        "name": "Def-use chain exploration",
+        "sequence_similarity": 0.56,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0006",
+      "family": "Scientific frontier radar",
+      "name": "Contradiction cluster detection",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Supply disagreeing studies; return both hypotheses and the exact disagreement, not an averaged fact.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0068",
+        "name": "Contradictory-spec detection",
+        "sequence_similarity": 0.746,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0007",
+      "family": "Scientific frontier radar",
+      "name": "Research blindspot signal",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Hide key literature within a subfield; the system must flag missing coverage rather than claiming completeness.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0184",
+        "name": "Def-use chain exploration",
+        "sequence_similarity": 0.48,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0008",
+      "family": "Scientific frontier radar",
+      "name": "Adjacent-domain citation bridge",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Connect two papers using a shared method from different domains; cite both and mark the bridge as conjectural.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0138",
+        "name": "MCP endpoint revocation drill",
+        "sequence_similarity": 0.567,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0009",
+      "family": "Scientific frontier radar",
+      "name": "Cost-aware retrieval waterfall",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "Retrieve metadata before full text; show that low-value papers do not incur expensive extraction.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0268",
+        "name": "Service port privacy watcher",
+        "sequence_similarity": 0.517,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0010",
+      "family": "Scientific frontier radar",
+      "name": "Novelty versus priority separation",
+      "design_hypothesis": "Convert scholarship into an evolving, provenance-linked map of research opportunities, not mere paper summaries.",
+      "acceptance_test": "A new-looking wording for an old hypothesis cannot be scored as novel; separate search novelty from actual priority.",
+      "donor_urls": [
+        "https://github.com/ourresearch/openalex-help/blob/main/content/api/introduction.md",
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/stanford-oval/storm",
+        "https://github.com/TaoJinkai/ckm-hypogen"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0040",
+        "name": "Builder/agent identity separation",
+        "sequence_similarity": 0.567,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0011",
+      "family": "Hypothesis and principle evolution",
+      "name": "Explicit assumption ledger",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Present an hypothesis with two hidden premises; export premises separately with falsifiers.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0024",
+        "name": "Experiment-to-asset lineage",
+        "sequence_similarity": 0.528,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0012",
+      "family": "Hypothesis and principle evolution",
+      "name": "Competing mechanism generator",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Given one observation, produce two causally distinguishable explanations and one discriminating experiment.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0056",
+        "name": "Worker completion versus claim separation",
+        "sequence_similarity": 0.571,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0013",
+      "family": "Hypothesis and principle evolution",
+      "name": "Principle space revision",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Introduce evidence incompatible with current law; generate a revised principle rather than only retuning parameters.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0028",
+        "name": "Principal-resource action tuple",
+        "sequence_similarity": 0.582,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0014",
+      "family": "Hypothesis and principle evolution",
+      "name": "False novelty rejection",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Paraphrase a known result; the proposed innovation must be linked to known prior art.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0116",
+        "name": "False-novelty semantic deduper",
+        "sequence_similarity": 0.604,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0015",
+      "family": "Hypothesis and principle evolution",
+      "name": "Prediction-bearing hypothesis",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Every promoted hypothesis must predict an unseen observable outcome with direction or interval.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0087",
+        "name": "Contradiction-preserving retrieval",
+        "sequence_similarity": 0.54,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0016",
+      "family": "Hypothesis and principle evolution",
+      "name": "Counterfactual outcome table",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "For each candidate, specify expected result if true and if false before results arrive.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0089",
+        "name": "Counterfactual decision archive",
+        "sequence_similarity": 0.61,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0017",
+      "family": "Hypothesis and principle evolution",
+      "name": "Theory portability challenge",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Fit mechanism in domain A then evaluate a held-out analogous pattern in domain B.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0031",
+        "name": "Time-bound capability lease",
+        "sequence_similarity": 0.582,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0018",
+      "family": "Hypothesis and principle evolution",
+      "name": "Hypothesis survival archive",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "After falsification, preserve original hypothesis and evidence; never overwrite it as if it never existed.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0109",
+        "name": "Hypothesis family switcher",
+        "sequence_similarity": 0.604,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0019",
+      "family": "Hypothesis and principle evolution",
+      "name": "Hypothesis incompatibility graph",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Detect when two accepted assumptions cannot jointly hold under supplied constraints.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0109",
+        "name": "Hypothesis family switcher",
+        "sequence_similarity": 0.586,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0020",
+      "family": "Hypothesis and principle evolution",
+      "name": "Scientific ignorance ledger",
+      "design_hypothesis": "Challenge scientific assumptions and expand the underlying hypothesis language while retaining falsifiability.",
+      "acceptance_test": "Return UNKNOWN when available evidence cannot discriminate the top two hypotheses.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/TaoJinkai/ckm-hypogen",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0225",
+        "name": "Context fetch source ledger",
+        "sequence_similarity": 0.63,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0021",
+      "family": "Adaptive experiment design",
+      "name": "Value-of-information ordering",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "With two tests of different cost and uncertainty, select the greater expected information per bounded cost.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0111",
+        "name": "Information-gain experiment ranking",
+        "sequence_similarity": 0.531,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0022",
+      "family": "Adaptive experiment design",
+      "name": "Sequential Bayesian design",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Observe three synthetic rounds; posterior experiment preference must adapt rather than repeat a static plan.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0279",
+        "name": "Snapshot differential restore test",
+        "sequence_similarity": 0.467,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0023",
+      "family": "Adaptive experiment design",
+      "name": "Batch diversity optimizer",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Recommend four batch experiments without choosing four near-duplicates.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0313",
+        "name": "Task granularity optimizer",
+        "sequence_similarity": 0.627,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0024",
+      "family": "Adaptive experiment design",
+      "name": "Feasibility-aware experiment compiler",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "An instrument-impossible design must be rejected before attempting execution.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0004",
+        "name": "Novelty-adjusted experiment selection",
+        "sequence_similarity": 0.568,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0025",
+      "family": "Adaptive experiment design",
+      "name": "Negative control allocator",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Reserve a required control in a synthetic limited budget even if predicted immediate gain is lower.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0021",
+        "name": "Negative-control outcome gate",
+        "sequence_similarity": 0.727,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0026",
+      "family": "Adaptive experiment design",
+      "name": "Measurement noise estimator",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Repeat inconsistent synthetic observations and widen uncertainty rather than invent precision.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0168",
+        "name": "Credential scope expiration monitor",
+        "sequence_similarity": 0.516,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0027",
+      "family": "Adaptive experiment design",
+      "name": "Multiobjective Pareto selection",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Preserve candidates that trade off cost, discovery and reliability instead of one weighted-only winner.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0010",
+        "name": "Multiobjective Pareto archive",
+        "sequence_similarity": 0.767,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0028",
+      "family": "Adaptive experiment design",
+      "name": "Experiment stopping boundary",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Stop when expected new information falls below the stated effort threshold.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0095",
+        "name": "Experiment lineage query",
+        "sequence_similarity": 0.692,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0029",
+      "family": "Adaptive experiment design",
+      "name": "Adaptive replication sampler",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "When a surprising result is borderline, prefer targeted replication over claiming discovery.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0094",
+        "name": "Cache write-amplification detector",
+        "sequence_similarity": 0.548,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0030",
+      "family": "Adaptive experiment design",
+      "name": "Sealed campaign scorer",
+      "design_hypothesis": "Select experiments for information and impact under a fixed resource, feasibility and safety envelope.",
+      "acceptance_test": "Hide final test designs and test whether chosen experiments improve predictions for unseen designs.",
+      "donor_urls": [
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/facebook/Ax",
+        "https://github.com/meta-pytorch/botorch",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0082",
+        "name": "Resource-normalized tournament score",
+        "sequence_similarity": 0.552,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0031",
+      "family": "Subscription-backed program evolution",
+      "name": "CLI-backed mutation adapter",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "A synthetic local Claude/Codex stub receives a bounded task without a provider API key.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0041",
+        "name": "Artifact mutation proof",
+        "sequence_similarity": 0.6,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0032",
+      "family": "Subscription-backed program evolution",
+      "name": "Allowance-exhaustion pause",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Simulate five-hour-window exhaustion; new proposals stop, checkpoint and resume only after clearance.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0021",
+        "name": "One-tap session resume",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0033",
+      "family": "Subscription-backed program evolution",
+      "name": "Exact evaluation contract freeze",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Mutating the evaluator itself invalidates the candidate rather than increasing its score.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0052",
+        "name": "Deadline-bound delegation contract",
+        "sequence_similarity": 0.576,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0034",
+      "family": "Subscription-backed program evolution",
+      "name": "Island diversity persistence",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Three divergent program branches must survive a generation with distinct lineage.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0053",
+        "name": "Independent adversarial review dispatch",
+        "sequence_similarity": 0.478,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0035",
+      "family": "Subscription-backed program evolution",
+      "name": "Novelty-screen before inference",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Reject semantically repeated candidates before consuming another mocked model proposal.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0246",
+        "name": "Model capacity reservation for review",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0036",
+      "family": "Subscription-backed program evolution",
+      "name": "Adaptive model bandit",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "When a provider produces more independently validated fixes, selection shifts without hiding its costs.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave5-0086",
+        "name": "Keep access token invisible to model transcript",
+        "sequence_similarity": 0.471,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0037",
+      "family": "Subscription-backed program evolution",
+      "name": "Compilation failure triage",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Invalid generated code receives a bounded repair attempt then exits with a reproducible failure.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0035",
+        "name": "Mobile-readable test failure trace",
+        "sequence_similarity": 0.6,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0038",
+      "family": "Subscription-backed program evolution",
+      "name": "Cross-version regression holdout",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "A benchmark win on training inputs fails promotion when unseen old cases regress.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0075",
+        "name": "Versioned mission contract",
+        "sequence_similarity": 0.552,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0039",
+      "family": "Subscription-backed program evolution",
+      "name": "Resource-normalized tournament",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Compare output gain per time and model call, not only highest raw performance.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0082",
+        "name": "Resource-normalized tournament score",
+        "sequence_similarity": 0.909,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; resembles previous design"
+    },
+    {
+      "id": "phoenix-wave7-0040",
+      "family": "Subscription-backed program evolution",
+      "name": "Subscription terms separation",
+      "design_hypothesis": "Evolve small verified programs through native coding agents without assuming unlimited plan usage.",
+      "acceptance_test": "Any authentication method not verified as permitted is denied to production and marked legal/policy unknown.",
+      "donor_urls": [
+        "https://github.com/SakanaAI/ShinkaEvolve",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/GAIR-NLP/SR-Scientist",
+        "https://github.com/karpathy/autoresearch"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0056",
+        "name": "Worker completion versus claim separation",
+        "sequence_similarity": 0.6,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0041",
+      "family": "Symbolic and mathematical invention",
+      "name": "Unit-consistent equation search",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Feed observations with physical units; equations violating dimensional consistency must fail.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0065",
+        "name": "Crash-consistent agent checkpoint",
+        "sequence_similarity": 0.531,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0042",
+      "family": "Symbolic and mathematical invention",
+      "name": "Sparse symbolic law discovery",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Recover a known low-complexity law from noisy synthetic data without bloated polynomial overfit.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0239",
+        "name": "Trace sampling policy by risk",
+        "sequence_similarity": 0.448,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0043",
+      "family": "Symbolic and mathematical invention",
+      "name": "Symbolic complexity penalty",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Reject an equally accurate 30-term expression when a 3-term hypothesis exists.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0003",
+        "name": "Codex CLI capability inventory",
+        "sequence_similarity": 0.526,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0044",
+      "family": "Symbolic and mathematical invention",
+      "name": "Equation extrapolation challenge",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Fit within one interval; verify the symbolic rule against deliberately hidden extrapolation points.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0311",
+        "name": "Versioned agent policy challenger",
+        "sequence_similarity": 0.646,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0045",
+      "family": "Symbolic and mathematical invention",
+      "name": "Premise-to-Lean contract",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Express a small proposition with explicit assumptions and produce a parser-checkable Lean statement.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0075",
+        "name": "Versioned mission contract",
+        "sequence_similarity": 0.64,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0046",
+      "family": "Symbolic and mathematical invention",
+      "name": "Proof kernel validation",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Deliberately insert an unproved lemma; never label it theorem-proved.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0288",
+        "name": "Contact provenance validator",
+        "sequence_similarity": 0.588,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0047",
+      "family": "Symbolic and mathematical invention",
+      "name": "Counterexample search for conjectures",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "A finite counterexample must invalidate an overstated universal conjecture.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0009",
+        "name": "Counterexample-driven mutation",
+        "sequence_similarity": 0.537,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0048",
+      "family": "Symbolic and mathematical invention",
+      "name": "Theorem dependency provenance",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Record which exact definitions, library versions and lemmas a proof used.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0191",
+        "name": "Code owner dependency tracker",
+        "sequence_similarity": 0.586,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0049",
+      "family": "Symbolic and mathematical invention",
+      "name": "Symbolic numeric consistency",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "Compare evaluation of candidate expression with an independent numeric oracle on random inputs.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0126",
+        "name": "Tool name collision resolver",
+        "sequence_similarity": 0.464,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0050",
+      "family": "Symbolic and mathematical invention",
+      "name": "Theory versus fit classification",
+      "design_hypothesis": "Move from fluent prose to equations, programs and mathematical assertions that can be checked.",
+      "acceptance_test": "A fitted symbolic expression is labeled empirical until derivation or external validation exists.",
+      "donor_urls": [
+        "https://github.com/astroautomata/PySR",
+        "https://github.com/lean-dojo/LeanCopilot",
+        "https://github.com/lean-dojo/leandojo",
+        "https://github.com/GAIR-NLP/SR-Scientist"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0240",
+        "name": "Telemetry opt-out verification",
+        "sequence_similarity": 0.548,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0051",
+      "family": "Causal scientific inference",
+      "name": "Causal graph candidate generator",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Recover two observationally consistent DAGs from mock data rather than forcing one truth.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0110",
+        "name": "Counterfactual hypothesis generator",
+        "sequence_similarity": 0.567,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0052",
+      "family": "Causal scientific inference",
+      "name": "Hidden confounder warning",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Inject unobserved common cause; inference confidence must downgrade.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0018",
+        "name": "Irreversible-action counterfactual warning",
+        "sequence_similarity": 0.537,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0053",
+      "family": "Causal scientific inference",
+      "name": "Intervention feasibility gate",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Distinguish obtainable observations from actions prohibited in the actual environment.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0023",
+        "name": "Intervention cost attribution",
+        "sequence_similarity": 0.586,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0054",
+      "family": "Causal scientific inference",
+      "name": "Negative-control outcome",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "A placebo variable correlated with measured effects must trigger spurious-association warning.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0021",
+        "name": "Negative-control outcome gate",
+        "sequence_similarity": 0.906,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; resembles previous design"
+    },
+    {
+      "id": "phoenix-wave7-0055",
+      "family": "Causal scientific inference",
+      "name": "Instrument validity challenge",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Invalid synthetic instrumental variable fails exclusion test and inference is blocked.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0073",
+        "name": "No-agent baseline challenger",
+        "sequence_similarity": 0.632,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0056",
+      "family": "Causal scientific inference",
+      "name": "Mediation decomposition guard",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Direct and indirect effects must be labeled model-dependent with assumptions.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0133",
+        "name": "Tool execution idempotency guard",
+        "sequence_similarity": 0.623,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0057",
+      "family": "Causal scientific inference",
+      "name": "Causal discovery stability",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Bootstrap resampling must reveal unstable edges instead of giving a rigid graph.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0130",
+        "name": "Read-only discovery before enabling actions",
+        "sequence_similarity": 0.522,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0058",
+      "family": "Causal scientific inference",
+      "name": "Selection bias detector",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Excluding nonresponders must flag uncertainty in inferred causal effect.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0142",
+        "name": "Screenshot-action disagreement detector",
+        "sequence_similarity": 0.645,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0059",
+      "family": "Causal scientific inference",
+      "name": "Temporal precedence enforcement",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "A proposed cause occurring after effect must be refused as a direct historical cause.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0081",
+        "name": "Retry-value measurement",
+        "sequence_similarity": 0.481,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0060",
+      "family": "Causal scientific inference",
+      "name": "Synthetic-control counterfactual",
+      "design_hypothesis": "Distinguish correlation, mechanism, intervention and missing information in discovery claims.",
+      "acceptance_test": "Use matched synthetic baseline, state fit error, and never promote from one matched observation.",
+      "donor_urls": [
+        "https://github.com/py-why/causal-learn",
+        "https://github.com/py-why/dowhy",
+        "https://github.com/AutoResearch/autora",
+        "https://arxiv.org/abs/2410.17309"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0219",
+        "name": "Negative-control scenario generator",
+        "sequence_similarity": 0.597,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0061",
+      "family": "Discovery-world evaluation",
+      "name": "Hidden-ground-truth sandbox",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "A model cannot access scenario truth before committing to experiments.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0308",
+        "name": "Agent skill mutation sandbox",
+        "sequence_similarity": 0.473,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0062",
+      "family": "Discovery-world evaluation",
+      "name": "Mechanism-credit evaluator",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Reward identification of explanation, not just navigation to a completion screen.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0204",
+        "name": "JSON schema contract evaluator",
+        "sequence_similarity": 0.571,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0063",
+      "family": "Discovery-world evaluation",
+      "name": "Action-economy score",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Track irrelevant actions and wasted experimental steps separately from final correctness.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0219",
+        "name": "Negative-control scenario generator",
+        "sequence_similarity": 0.473,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0064",
+      "family": "Discovery-world evaluation",
+      "name": "Scientific task transfer",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "A successful strategy on one virtual environment must be retested on unfamiliar domain seeds.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0054",
+        "name": "Agent conflict arbitration record",
+        "sequence_similarity": 0.491,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0065",
+      "family": "Discovery-world evaluation",
+      "name": "Counterfeit experiment outcome",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Feed fabricated data to an agent; its confidence must require provenance verification.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0009",
+        "name": "Counterexample-driven mutation",
+        "sequence_similarity": 0.633,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0066",
+      "family": "Discovery-world evaluation",
+      "name": "Sparse measurement challenge",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Limited observations must not be replaced with hallucinated measurements.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0083",
+        "name": "False-success challenge",
+        "sequence_similarity": 0.627,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0067",
+      "family": "Discovery-world evaluation",
+      "name": "Multi-agent versus solo baseline",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Two-provider team must beat a single-agent baseline after counting total calls and time.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0194",
+        "name": "Mutation-target test selector",
+        "sequence_similarity": 0.557,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0068",
+      "family": "Discovery-world evaluation",
+      "name": "Replication checkpoint",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Successful virtual result must replay deterministically with pinned seed.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0157",
+        "name": "Browser crash checkpoint restore",
+        "sequence_similarity": 0.556,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0069",
+      "family": "Discovery-world evaluation",
+      "name": "Unseen design ranking",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "Hold out experiments never run and score predictive ordering separately from optimization reward.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0236",
+        "name": "Output acceptance date tracking",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0070",
+      "family": "Discovery-world evaluation",
+      "name": "Scientific humility benchmark",
+      "design_hypothesis": "Evaluate whether an agent can actually discover evidence, not just compose a convincing paper.",
+      "acceptance_test": "When simulator is underdetermined, report unresolved hypotheses rather than arbitrary certainty.",
+      "donor_urls": [
+        "https://github.com/allenai/discoveryworld",
+        "https://github.com/Future-House/aviary",
+        "https://github.com/Yibo-Wen/as-bench",
+        "https://github.com/Future-House/LAB-Bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0115",
+        "name": "Skill performance holdout benchmark",
+        "sequence_similarity": 0.531,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0071",
+      "family": "Biomedical and materials digital twins",
+      "name": "Chemical structure validity gate",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Reject invalid molecular encodings before calculating descriptors.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0129",
+        "name": "MCP server startup sandbox gate",
+        "sequence_similarity": 0.508,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0072",
+      "family": "Biomedical and materials digital twins",
+      "name": "Molecule similarity prior-art check",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Distinct labels for the same canonical molecule must normalize to one identity.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0276",
+        "name": "Build cache with integrity check",
+        "sequence_similarity": 0.478,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0073",
+      "family": "Biomedical and materials digital twins",
+      "name": "Simulation parameter provenance",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Change parameter set and prove every output records exactly which set was used.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0074",
+        "name": "Task outcome provenance link",
+        "sequence_similarity": 0.576,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0074",
+      "family": "Biomedical and materials digital twins",
+      "name": "In-silico versus in-vitro boundary",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "A simulated biological effect must never be labeled as laboratory-confirmed.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0085",
+        "name": "Valid-time versus ingest-time record",
+        "sequence_similarity": 0.486,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0075",
+      "family": "Biomedical and materials digital twins",
+      "name": "Bioinformatics workflow dependency check",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "A downstream analysis requiring missing sequence data must stop before executing.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0191",
+        "name": "Code owner dependency tracker",
+        "sequence_similarity": 0.522,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0076",
+      "family": "Biomedical and materials digital twins",
+      "name": "Battery-model uncertainty sweep",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Perturb parameter ranges and show outcome sensitivity, not a single certain estimate.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0071",
+        "name": "Spec completeness uncertainty tag",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0077",
+      "family": "Biomedical and materials digital twins",
+      "name": "Mechanistic model alternative",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Compare two plausible biophysical models and state when data cannot distinguish them.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0232",
+        "name": "Economic cost estimate provenance",
+        "sequence_similarity": 0.484,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0078",
+      "family": "Biomedical and materials digital twins",
+      "name": "Biomedical citation-to-claim audit",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Every suggested mechanism links to source and observed evidence, not only a model explanation.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0051",
+        "name": "Privilege-escalation red-team suite",
+        "sequence_similarity": 0.522,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0079",
+      "family": "Biomedical and materials digital twins",
+      "name": "Data privacy synthetic-only fixture",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Reject real patient identifiers in unapproved sandbox scientific tasks.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0049",
+        "name": "Indirect prompt-injection fixture",
+        "sequence_similarity": 0.559,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0080",
+      "family": "Biomedical and materials digital twins",
+      "name": "Wet-lab authorization blockade",
+      "design_hypothesis": "Use domain-specific simulators and analyzers as bounded scientific test instruments, not clinical truth.",
+      "acceptance_test": "Proposed protocol may be written, but cannot contact instruments, clinics or patients without approval.",
+      "donor_urls": [
+        "https://github.com/snap-stanford/Biomni",
+        "https://github.com/rdkit/rdkit",
+        "https://github.com/pybamm-team/PyBaMM",
+        "https://github.com/Future-House/robin"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0134",
+        "name": "Remote MCP authorization TTL",
+        "sequence_similarity": 0.621,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0081",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Instrument capability manifest",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "Match an experiment to a simulated device inventory and reject unsupported operations.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0012",
+        "name": "CLI environment compatibility matrix",
+        "sequence_similarity": 0.636,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0082",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Human-run protocol packet",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "Generate a protocol with variables, controls, measurement schema and explicit consent boundary.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0068",
+        "name": "Human-in-the-loop resume token",
+        "sequence_similarity": 0.473,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0083",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Physical action permission escrow",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "A simulated physical instrument command without signed approval must be denied.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0119",
+        "name": "Skill permission attenuation gate",
+        "sequence_similarity": 0.515,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0084",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Sensor calibration prerequisite",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "A fabricated stale calibration receipt prevents experiment readiness.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0159",
+        "name": "User-visible confirmation screenshot",
+        "sequence_similarity": 0.537,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0085",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Sample chain-of-custody",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "A data point without the recorded sample lineage cannot count as verified physical evidence.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0184",
+        "name": "Def-use chain exploration",
+        "sequence_similarity": 0.458,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0086",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Experiment timing constraint",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "A delayed real-world measurement cannot be marked observed before timestamped receipt.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0095",
+        "name": "Experiment lineage query",
+        "sequence_similarity": 0.615,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0087",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Instrument failure reconciliation",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "If an operation times out, require status reconciliation before considering retry.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0238",
+        "name": "Orphaned trace and receipt reconciliation",
+        "sequence_similarity": 0.622,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0088",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Independent assay concordance",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "Two independent simulated measurement methods must agree within declared tolerances.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0065",
+        "name": "Executable API schema conformance",
+        "sequence_similarity": 0.548,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0089",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Manual lab result import",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "A human-entered value keeps source and review status; it does not become automatic independent proof.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0284",
+        "name": "Manual approval for irreversible customer action",
+        "sequence_similarity": 0.472,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0090",
+      "family": "Human laboratory / digital experiment bridge",
+      "name": "Physical safety impossibility check",
+      "design_hypothesis": "Design a future interface for optional human-run experiments with no silent physical execution.",
+      "acceptance_test": "An experiment outside predefined safety/resources must be refused at planning time.",
+      "donor_urls": [
+        "https://github.com/Future-House/robin",
+        "https://github.com/AutoResearch/autora",
+        "https://github.com/Helge-Stein-Group/helao-pH",
+        "https://github.com/Yibo-Wen/as-bench"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0276",
+        "name": "Build cache with integrity check",
+        "sequence_similarity": 0.478,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0091",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Citation existence audit",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Add fake DOI and mismatched title; generated report must refuse citing it as real.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0173",
+        "name": "GitHub Actions agent injection audit",
+        "sequence_similarity": 0.567,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0092",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Evidence-to-result lineage",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Every numeric plot must identify source data version, transformation and evaluation script.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0024",
+        "name": "Experiment-to-asset lineage",
+        "sequence_similarity": 0.679,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0093",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Paper result magnitude check",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Deliberately invert two values; an independent verifier must reject the claimed improvement.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0008",
+        "name": "Parallel-branch contamination check",
+        "sequence_similarity": 0.476,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0094",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Multiple-comparisons warning",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Run 100 hypothesis tests; isolated p<0.05 result cannot be called established without correction.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0010",
+        "name": "Multiobjective Pareto archive",
+        "sequence_similarity": 0.526,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0095",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Selective-reporting detector",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Hide failed experimental runs; completeness validator catches missing trials.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0002",
+        "name": "Metric-gaming detector",
+        "sequence_similarity": 0.6,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0096",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Blind replication handoff",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "A separate agent gets data and protocol without original conclusion, then reports its own result.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0010",
+        "name": "Provider-specific context handoff",
+        "sequence_similarity": 0.552,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0097",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Scientific retraction shock",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "A retracted supporting source triggers affected conclusion review without deleting old history.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0054",
+        "name": "Agent conflict arbitration record",
+        "sequence_similarity": 0.567,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0098",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Artifact signature integrity",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Mutate a result CSV after attestation; lineage check must fail.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0118",
+        "name": "Candidate skill signature inventory",
+        "sequence_similarity": 0.603,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0099",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Domain-shift replication",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "A discovery that disappears on a distinct dataset is demoted to local observation.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0184",
+        "name": "Def-use chain exploration",
+        "sequence_similarity": 0.531,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0100",
+      "family": "Scientific provenance and adversarial replication",
+      "name": "Claim strength classifier",
+      "design_hypothesis": "Subject every claimed discovery to source, statistical and independent-reproduction attacks.",
+      "acceptance_test": "Distinguish computational hypothesis, simulated observation, independently replicated result and external fact.",
+      "donor_urls": [
+        "https://github.com/Future-House/paper-qa",
+        "https://github.com/SakanaAI/AI-Scientist-v2",
+        "https://github.com/allenai/discoveryworld",
+        "https://arxiv.org/abs/2607.05443"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0045",
+        "name": "Provenance-only claim classifier",
+        "sequence_similarity": 0.561,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0101",
+      "family": "Cross-domain generative translation",
+      "name": "Mechanism-versus-metaphor filter",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Translate an optimization primitive to biology; demand explicit variables and an executable test.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0299",
+        "name": "Customer data minimum-exposure filter",
+        "sequence_similarity": 0.522,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0102",
+      "family": "Cross-domain generative translation",
+      "name": "Method transfer compatibility graph",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Infer preconditions for reusing a method across two domains; fail when key assumption is absent.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0012",
+        "name": "CLI environment compatibility matrix",
+        "sequence_similarity": 0.535,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0103",
+      "family": "Cross-domain generative translation",
+      "name": "Cross-domain counterexample synthesis",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Find a domain B fixture that breaks a naive transferred method.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0029",
+        "name": "Policy proof counterexample finder",
+        "sequence_similarity": 0.62,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0104",
+      "family": "Cross-domain generative translation",
+      "name": "Domain evidence origin separation",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Source A cannot be represented as empirical validation of claims in domain B.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0040",
+        "name": "Builder/agent identity separation",
+        "sequence_similarity": 0.606,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0105",
+      "family": "Cross-domain generative translation",
+      "name": "Abstraction ladder",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Extract a domain-neutral operation and show two concrete instantiations with different limitations.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0154",
+        "name": "Browser action trace replay",
+        "sequence_similarity": 0.533,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0106",
+      "family": "Cross-domain generative translation",
+      "name": "Constraint translation audit",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Preserve resource and safety constraints when transplanting a solution to a new setting.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0173",
+        "name": "GitHub Actions agent injection audit",
+        "sequence_similarity": 0.594,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0107",
+      "family": "Cross-domain generative translation",
+      "name": "Distant donor retrieval",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "A query in software engineering may retrieve a relevant experiment-selection principle from science.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0087",
+        "name": "Contradiction-preserving retrieval",
+        "sequence_similarity": 0.561,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0108",
+      "family": "Cross-domain generative translation",
+      "name": "Transfer-value evaluation",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Compare an analogy-inspired candidate to a same-domain baseline on hidden data.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0081",
+        "name": "Retry-value measurement",
+        "sequence_similarity": 0.542,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0109",
+      "family": "Cross-domain generative translation",
+      "name": "Nonobvious recombination lineage",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "Record every donor and reasoning edge behind a recombined candidate.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0049",
+        "name": "Indirect prompt-injection fixture",
+        "sequence_similarity": 0.492,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0110",
+      "family": "Cross-domain generative translation",
+      "name": "Dead-end salvage",
+      "design_hypothesis": "Turn a verified primitive in one discipline into falsifiable hypotheses in another without mistaking analogy for proof.",
+      "acceptance_test": "An unsuccessful transfer retains transferable submechanisms rather than erasing the attempt.",
+      "donor_urls": [
+        "https://github.com/amair-lab/PiEvo",
+        "https://github.com/InternScience/InternAgent",
+        "https://github.com/astroautomata/PySR",
+        "https://arxiv.org/abs/2601.16282"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0072",
+        "name": "Dead-letter queue triage",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0111",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Existing GENESIS capability reconciliation",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "A capability already present in UberBond maps to source identity, not a new duplicate service.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0051",
+        "name": "Multi-instance group reconciliation",
+        "sequence_similarity": 0.571,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0112",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Immutable 890 ancestry cross-link",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "A generated science candidate maps to relevant founder IDs without modifying the original corpus.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-wave6-0001",
+        "name": "Immutable objective escrow",
+        "sequence_similarity": 0.542,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0113",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Typed scientific candidate contract",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "Candidate carries hypothesis, evidence links, falsifier, budget, authority and experiment status.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0185",
+        "name": "Taint-flow candidate finder",
+        "sequence_similarity": 0.581,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0114",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Tiered supplier selection",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "A deterministic scorer gets first attempt; paid model usage requires separate authorization.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0084",
+        "name": "Time-scoped state selection",
+        "sequence_similarity": 0.692,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0115",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Subscription-backed supplier quarantine",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "A proposed CLI donor cannot silently assume legitimate provider terms or unlimited usage.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0087",
+        "name": "Model-assertion quarantine",
+        "sequence_similarity": 0.554,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0116",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Evidence state machine",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "Rejected and superseded hypotheses preserve lineage; untested cannot silently become verified.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0018",
+        "name": "Native account-state redaction",
+        "sequence_similarity": 0.5,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0117",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "No-physical-effects invariant",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "A scientific plan with instrument commands cannot reach an actual external action without owner approval.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0085",
+        "name": "Stale handoff invalidation",
+        "sequence_similarity": 0.509,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0118",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Source hash mission receipt",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "Exact repo ancestor and donor revisions accompany every experimental result.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0075",
+        "name": "Versioned mission contract",
+        "sequence_similarity": 0.566,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0119",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Reversible promotion PR",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "A candidate improvement can generate a PR proposal but may not automatically merge or deploy.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0159",
+        "name": "User-visible confirmation screenshot",
+        "sequence_similarity": 0.542,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    },
+    {
+      "id": "phoenix-wave7-0120",
+      "family": "GENESIS sovereign scientific runtime",
+      "name": "Founder-minute outcome attribution",
+      "design_hypothesis": "Integrate these donor concepts into UberBond's existing idea nursery and evidence constitution without duplicating organs.",
+      "acceptance_test": "Measure saved work, accepted value, uncertainty and total supervision instead of candidate count.",
+      "donor_urls": [
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_LIVE_IDEA_NURSERY.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/GENESIS_COGNITION_EXCHANGE.md",
+        "https://github.com/mohammedwessam2007/uberbondd/blob/main/docs/PERPETUAL_FRONTIER_GENESIS_CANON.md",
+        "https://github.com/SakanaAI/ShinkaEvolve"
+      ],
+      "status": "RESEARCH_DESIGN_CANDIDATE",
+      "implementation": "NOT_VERIFIED",
+      "permission": "INTERNAL_DRY_RUN_ONLY",
+      "founder_890_lineage": "REQUIRES_EXACT_REPO_CORPUS_RECONCILIATION",
+      "closest_prior_name_match": {
+        "id": "phoenix-capability-0223",
+        "name": "Conversation-to-commit attribution",
+        "sequence_similarity": 0.647,
+        "method": "lexical-only, not semantic or implementation verification"
+      },
+      "net_new_assessment": "UNVERIFIED; compare with repo and earlier waves"
+    }
+  ],
+  "verified_local_artifact": "Generated and checksum-verified",
+  "verified_repo_changes": "NONE",
+  "allowance_increase": "NONE",
+  "real_world_scientific_discoveries": "NONE",
+  "next_waves": {
+    "8": "Construct measurable science and innovation benchmarks, integrate one bounded science-style test",
+    "9": "Cross-domain domain expansion and physical-handoff adapters under strict authority",
+    "10": "Full multi-domain red-team tournament and promotion only from independent outcomes"
+  }
+}

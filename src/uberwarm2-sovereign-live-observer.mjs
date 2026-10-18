@@ -1,6 +1,6 @@
 /**
  * Sovereign UberWarm control-plane integration for Winnr's already-owned fleet.
- * 
+ *
  * Only real, fully paginated provider GET inventory may enter. A provider-reported
  * Active mailbox is not signed SMTP/HTTPS sending permission and never becomes
  * AUTHENTICATED here. No seed, consent, engagement or reputation is synthesized.

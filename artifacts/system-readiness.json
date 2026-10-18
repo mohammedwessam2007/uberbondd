@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T13:34:33.630Z",
+  "generatedAt": "2026-10-18T13:52:52.816Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "98bc719b811788625834fbdeeeda46c8a2e01794",
-    "branch": "fix/phoenix-reconcile-main-20261018",
+    "head": "41e290423ea623dabeac9fbe09f4b620ff890c0a",
+    "branch": "codex/phoenix-uberwarm-backup-final-20261018",
     "sourceModules": 1105,
     "testSuites": 1341,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

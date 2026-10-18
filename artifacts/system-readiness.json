@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T13:21:11.656Z",
+  "generatedAt": "2026-10-18T13:34:33.630Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "3e38c9cd47092a9aef6d83a2a84ed41acec0ed81",
+    "head": "98bc719b811788625834fbdeeeda46c8a2e01794",
     "branch": "fix/phoenix-reconcile-main-20261018",
     "sourceModules": 1105,
     "testSuites": 1341,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

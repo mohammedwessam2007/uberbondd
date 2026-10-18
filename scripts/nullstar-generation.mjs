@@ -249,7 +249,7 @@ const wallClockMs = Date.now() - started;
  * see it rather than leaving it to be rediscovered. See F010 in the
  * failure-debt ledger.
  */
-const tiedAtTop = eligible.filter(row => winner && row.heldOutScore === winner.heldOutScore);
+const tiedAtTop = eligible.filter(row => row.heldOutScore === topScore);
 const discrimination = eligible.length === 0
   ? 'NO_ELIGIBLE_CANDIDATE'
   : tiedAtTop.length > 1
@@ -295,9 +295,9 @@ const record = {
     .map(row => ({ candidate: row.candidate, heldOutScore: row.heldOutScore, reason: row.outOfPatternGate })),
   tiedAtTop: tiedAtTop.map(row => row.candidate),
   attributionWarning: discrimination === 'UNDISCRIMINATING__CANDIDATES_TIED'
-    ? `${tiedAtTop.length} eligible candidates scored ${winner.heldOutScore} on held-out seeds, so the winner was chosen on size rather than on capability. This tournament shows that the promoted solver beats the incumbent; it does NOT show that the mechanism distinguishing it from the other tied candidates is what did the work. Isolating that needs an ablation carrying the minimal shared fix and nothing else.`
+    ? `${tiedAtTop.length} eligible candidates scored ${topScore} on held-out seeds, so ${winner ? "the winner was chosen on size rather than on capability" : "no winner was promoted because the tied candidates disagreed"}. This tournament does NOT establish that one candidate mechanism is superior without separating evidence.`
     : null,
-  tieBreak: eligible.length > 1 && eligible[0].heldOutScore === eligible[1].heldOutScore
+  tieBreak: winner && eligible.length > 1 && eligible[0].heldOutScore === eligible[1].heldOutScore
     ? (winner.complexityBytes === null || winner.complexityBytes === eligible[1].complexityBytes
         ? `Tied at ${eligible[0].heldOutScore} and the size heuristic did not separate them either (${winner.complexityBytes ?? 'unmeasurable'} against ${eligible[1].complexityBytes ?? 'unmeasurable'}); ${winner.candidate} won on registration order, which is arbitrary.`
         : `Tied at ${eligible[0].heldOutScore}; ${winner.candidate} won on being smaller (${winner.complexityBytes} bytes vs ${eligible[1].complexityBytes}).`)

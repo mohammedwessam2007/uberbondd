@@ -13,7 +13,8 @@ export function createUberWarm2ProtectedWinnrRuntime({ client, trustedReaders = 
   const readers = trustedReaders && typeof trustedReaders === 'object' && !Array.isArray(trustedReaders)
     ? trustedReaders : {};
   const wiring = createUberWarm2ProtectedActivationWiring({
-    readProviderMailbox: vendor.readProviderMailbox,
+    readProviderMailbox: transportMode === 'WINNR_INBOX_HTTPS_API'
+      ? vendor.readProviderMailboxIdentity : vendor.readProviderMailbox,
     readProviderDomainDns: vendor.readProviderDomainDns,
     readVerifiedSmtp: readers.readVerifiedSmtp,
     readVerifiedHttpsTransport: readers.readVerifiedHttpsTransport,

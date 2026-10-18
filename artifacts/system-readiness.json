@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-18T15:16:26.075Z",
+  "generatedAt": "2026-10-18T15:22:16.454Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "22c76ea29be2d9fe951338095b81015ad5cc2977",
+    "head": "1ca63b77cc04a0f0b2b4703853f5e599dcb4b047",
     "branch": "fix/phoenix-atlas-rebase-verified-20261018",
     "sourceModules": 1105,
     "testSuites": 1342,

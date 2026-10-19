@@ -1237,6 +1237,11 @@
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
       "reason": "Protected single-message Winnr HTTPS seed execution composer. Tests demonstrate genuine wiring through the pre-existing trusted reader, HMAC approval, PostgreSQL one-shot claim and provider bridge, but it is intentionally unreachable from unattended production paths. It cannot be connected until exact independently authenticated sender health and consenting recipient evidence, a server-held owner signature and a separate explicit per-effect live invocation are present. No paid warmer, autonomous schedule or simulated consent is allowed."
     },
+    "src/uberwarm2-delegated-evidence-custody.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Optional manual one-shot evidence verifier for an exact, protected owner delegation. Preserves six distinct source receipts without requiring six fictitious operators; never creates source facts, signing keys or approvals. All existing sender health, holds, DNS alignment, consent, suppression, owner HMAC and PostgreSQL idempotency gates remain required. No monitor import or live delegation configured."
+    },
     "src/uberwarm2-registry-bridge.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",

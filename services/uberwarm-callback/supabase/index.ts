@@ -19,6 +19,16 @@ async function verify(req,raw,secret){
  const candidate=new Uint8Array(signature.slice(3).match(/../g).map(x=>parseInt(x,16)));
  return crypto.subtle.verify("HMAC",key,candidate,full);
 }
+// The existing Supabase Vault is the protected provider-secret handoff. Never expose the value.
+async function signerSecret(){
+ const direct=Deno.env.get("WINNR_WEBHOOK_SECRET");
+ if(direct?.startsWith("whsec_"))return direct;
+ try{
+   const rows=await client()`SELECT decrypted_secret FROM vault.decrypted_secrets WHERE name='uberwarm_winnr_signature_20261019' LIMIT 1`;
+   const value=rows[0]?.decrypted_secret;
+   return typeof value==='string'&&value.startsWith('whsec_')?value:null;
+ }catch{return null;}
+}
 const isEmail=x=>typeof x==="string"&&x.length<=320&&/^[a-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(x)&&x===x.toLowerCase();
 export async function handle(req){
  const method=req.method.toUpperCase();
@@ -28,10 +38,10 @@ export async function handle(req){
    const row=await client()`SELECT to_regclass('uberwarm_ingress.signed_events') IS NOT NULL AS events_ready, to_regclass('uberwarm_ingress.suppressions') IS NOT NULL AS suppressions_ready`;
    databaseReadback=row.length===1&&row[0].events_ready===true&&row[0].suppressions_ready===true;
   }catch{databaseReadback=false;}
-  return json({service:"uberwarm-ingress",httpReady:true,signingConfigured:!!Deno.env.get("WINNR_WEBHOOK_SECRET"),dbConfigured:!!Deno.env.get("SUPABASE_DB_URL"),databaseReadback,outboundAuthority:"NONE",canonicalSuppressionReconciled:false});
+  return json({service:"uberwarm-ingress",httpReady:true,signingConfigured:!!(await signerSecret()),dbConfigured:!!Deno.env.get("SUPABASE_DB_URL"),databaseReadback,outboundAuthority:"NONE",canonicalSuppressionReconciled:false});
  }
  if(method!=="POST")return json({ok:false,status:"METHOD_NOT_ALLOWED"},405);
- const secret=Deno.env.get("WINNR_WEBHOOK_SECRET");
+ const secret=await signerSecret();
  if(!secret||!secret.startsWith("whsec_")||!Deno.env.get("SUPABASE_DB_URL"))return json({ok:false,status:"UNCONFIGURED"},503);
  const announced=Number(req.headers.get("content-length"));
  if(Number.isFinite(announced)&&announced>65536)return json({ok:false,status:"BODY_TOO_LARGE"},413);

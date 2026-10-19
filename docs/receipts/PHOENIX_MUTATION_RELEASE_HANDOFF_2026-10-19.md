@@ -41,4 +41,4 @@ Refresh `mohammedwessam2007/uberbondd` live main, pull requests, GitHub Actions,
 
 ## Do not forget
 
-Keep desktop ports private, secrets protected, no paid overages, no outreach, no unauthorized production changes and no provider quota bypass. Freeze historical provenance and preserve recoverable context by checkpointing rather than overwriting. New chats should start from live tool-backed truth, not rely solely on this summary. 
+Keep desktop ports private, secrets protected, no paid overages, no outreach, no unauthorized production changes and no provider quota bypass. Freeze historical provenance and preserve recoverable context by checkpointing rather than overwriting. New chats should start from live tool-backed truth, not rely solely on this summary.

@@ -27,6 +27,7 @@ export function evaluateOutreachLaunchGate({
   legal = {},
   suppression = {},
   recipientProvider = {},
+  ingressFence = null,
   now = new Date()
 } = {}) {
   const hardStop = [];
@@ -61,6 +62,12 @@ export function evaluateOutreachLaunchGate({
   if (campaignAuthorization.expiresAt && Date.parse(campaignAuthorization.expiresAt) <= new Date(now).getTime()) hardStop.push('campaign-authorization-expired');
 
   if (suppression.suppressed === true || suppression.unsubscribed === true) hardStop.push('suppression-dominates');
+  // Adverse provider events must be reconciled into the canonical stop list
+  // before any send. Missing fence evidence waits; a known gap abstains.
+  if (!ingressFence || ingressFence.state !== 'CLEAR') {
+    if (Array.isArray(ingressFence?.holdReasonCodes) && ingressFence.holdReasonCodes.includes('unreconciled-adverse-ingress-events')) hardStop.push('unreconciled-adverse-ingress-events');
+    else wait.push('ingress-suppression-fence-clear-required');
+  }
   if (recipient.safeForOutreach !== true) hardStop.push('recipient-not-safe-for-outreach');
   if (!clean(recipient.email, 320)) wait.push('recipient-email-required');
   if (!evidenceRef(recipient.verificationEvidenceRef)) wait.push('recipient-verification-evidence-required');

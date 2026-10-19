@@ -217,6 +217,7 @@ function packetLaunchDecision({ packet, bundle, mailbox, egressRoute, smtpRoute,
       unsubscribed: suppression.unsubscribeRequested === true || suppression.unsubscribed === true
     },
     recipientProvider: recipientProviderState(recipientProvider),
+    ingressFence: bundle.ingressFence || null,
     now
   });
 }

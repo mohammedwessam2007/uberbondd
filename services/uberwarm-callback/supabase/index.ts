@@ -34,12 +34,14 @@ const isEmail=x=>typeof x==="string"&&x.length<=320&&/^[a-z0-9._%+-]+@[a-z0-9-]+
 export async function handle(req){
  const method=req.method.toUpperCase();
  if(method==="GET"){
-  let databaseReadback=false;
+  let databaseReadback=false,adverseEventCount=null;
   try{
    const row=await client()`SELECT to_regclass('uberwarm_ingress.signed_events') IS NOT NULL AS events_ready, to_regclass('uberwarm_ingress.suppressions') IS NOT NULL AS suppressions_ready`;
    databaseReadback=row.length===1&&row[0].events_ready===true&&row[0].suppressions_ready===true;
-  }catch{databaseReadback=false;}
-  return json({service:"uberwarm-ingress",httpReady:true,signingConfigured:!!(await signerSecret()),dbConfigured:!!Deno.env.get("SUPABASE_DB_URL"),databaseReadback,outboundAuthority:"NONE",canonicalSuppressionReconciled:false});
+   // Aggregate only: no recipient, digest or event id leaves the private schema.
+   if(databaseReadback){const n=await client()`SELECT count(*)::int AS n FROM uberwarm_ingress.signed_events WHERE action IN ('BOUNCE_SUPPRESSED','COMPLAINT_SUPPRESSED')`;adverseEventCount=Number.isSafeInteger(n[0]?.n)?n[0].n:null;}
+  }catch{databaseReadback=false;adverseEventCount=null;}
+  return json({service:"uberwarm-ingress",httpReady:true,signingConfigured:!!(await signerSecret()),dbConfigured:!!Deno.env.get("SUPABASE_DB_URL"),databaseReadback,adverseEventCount,outboundAuthority:"NONE",canonicalSuppressionReconciled:false});
  }
  if(method!=="POST")return json({ok:false,status:"METHOD_NOT_ALLOWED"},405);
  const secret=await signerSecret();

@@ -13,6 +13,7 @@ const ready = overrides => evaluateOutreachLaunchGate({
   legal: { status: 'PASSED', evidenceId: 'legal:1', policyVersion: 'legal-v1' },
   suppression: { suppressed: false, unsubscribed: false },
   recipientProvider: { state: 'READY', observedDailyBudget: 5, evidenceRef: 'recipient-provider:1' },
+  ingressFence: { state: 'CLEAR', holdReasonCodes: [] },
   now: new Date('2026-09-15T00:00:00.000Z'),
   ...overrides
 });
@@ -42,4 +43,13 @@ test('expired campaign authorization abstains', () => {
   const result = ready({ campaignAuthorization: { authorized: true, receiptId: 'auth:1', expiresAt: '2026-09-14T00:00:00.000Z' } });
   assert.equal(result.state, OUTREACH_LAUNCH_STATES.ABSTAIN);
   assert.ok(result.hardStopReasonCodes.includes('campaign-authorization-expired'));
+});
+
+test('missing ingress fence waits and unreconciled adverse ingress abstains', () => {
+  const missing = ready({ ingressFence: null });
+  assert.equal(missing.state, OUTREACH_LAUNCH_STATES.WAIT);
+  assert.ok(missing.waitReasonCodes.includes('ingress-suppression-fence-clear-required'));
+  const gap = ready({ ingressFence: { state: 'HOLD', holdReasonCodes: ['unreconciled-adverse-ingress-events'] } });
+  assert.equal(gap.state, OUTREACH_LAUNCH_STATES.ABSTAIN);
+  assert.ok(gap.hardStopReasonCodes.includes('unreconciled-adverse-ingress-events'));
 });

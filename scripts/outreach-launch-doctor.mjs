@@ -15,6 +15,7 @@ const launch = evaluateOutreachLaunchGate({
   legal: { status: 'PASSED', evidenceId: 'doctor:legal', policyVersion: 'doctor-legal-v1' },
   suppression: { suppressed: false, unsubscribed: false },
   recipientProvider: { state: 'READY', observedDailyBudget: 1, evidenceRef: 'doctor:recipient-provider' },
+  ingressFence: { state: 'CLEAR', holdReasonCodes: [] },
   now
 });
 

@@ -62,3 +62,7 @@ node --test tests/phoenix-ten-wave-mission-compiler.test.mjs
 ```
 
 **Important:** compiling 1,560 contracts is not implementing 1,560 software capabilities. Use existing source-verified native atoms wherever they satisfy the acceptance; build only missing mechanisms in isolated worktrees and benchmark them before promotion. Claude/Codex official sign-in is an external owner gate, not something this source-intake tool can emulate.
+
+## Wave 3/4 native CLI attestation progress
+
+The read-only `cli-auth` command invokes only the official `claude auth status --json` and `codex login status` commands with a bounded timeout, discards raw stdout/stderr, and emits an unsigned content-addressed state summary. Synthetic positive/negative, missing binary, timeout and secret-redaction tests run locally. Actual account login, trusted signing and successful model-backed work remain unverified. Neither CLI status command initiates sign-in or requests a model generation. Any provider network activity inside those CLIs was not independently instrumented.

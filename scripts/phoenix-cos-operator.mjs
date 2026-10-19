@@ -19,6 +19,7 @@ import { inventBoundedLanguage, compileEconomicDsl, compileCompanyGenomeLanguage
 import { validateExternalCapabilityRegistry } from '../src/external-capability-control-plane.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { getPhoenixWaveStatus, listPhoenixWaveProposals, compilePhoenixProposalMission } from '../src/phoenix-ten-wave-mission-compiler.mjs';
+import { inspectNativeCliAuth } from '../src/phoenix-native-cli-health.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MAX_ARGUMENT_BYTES = 12000;
@@ -95,6 +96,7 @@ function research(query, limit) {
 export function runPhoenixCosCommand(argv=[]) {
   if(!Array.isArray(argv) || argv.some(a => typeof a !== 'string')) return failure('STRING_ARGUMENTS_REQUIRED');
   const [verb, ...params] = argv;
+  if(verb === 'cli-auth' && params.length===0) return inspectNativeCliAuth();
   if(verb === 'waves' && params.length === 0) return getPhoenixWaveStatus();
   if(verb === 'wave' && params.length >= 1 && params.length <= 3) {
     const [waveArg,offsetArg='0',limitArg='10']=params;

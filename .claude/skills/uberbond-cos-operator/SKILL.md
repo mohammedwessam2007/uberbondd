@@ -40,3 +40,5 @@ held-out tasks, implement in an isolated branch and obtain independent
 verification before promotion. The CoS tool may run audited local native
 functions or authorized repository operations, never bypass subscription
 terms, access hidden cookies, send unauthorized messages or create new spend.
+
+- `node scripts/phoenix-cos-operator.mjs cli-auth` checks official Claude/Codex CLI local status without exposing credentials, logging in, invoking models or signing a trusted provider attestation. This implements only a bounded read-only part of Wave 3 #0001 / Wave 4 #0001.

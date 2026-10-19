@@ -82,3 +82,15 @@ The local `gui-record` and `gui-replay` commands compile and run only **virtual 
 `wave8-objective-guard` takes `candidateCommitSha` and a signed `objectiveEscrow` object. It blocks an altered evaluator after the declared candidate commit and **never** grants promotion by itself, even when the local objective check passes.
 
 `source-verify` takes `{sourceText,expectedSha256,sourceRef}` and refuses changed release-note/source bytes. Caller must establish the expected digest independently. All three commands are deterministic zero-effect local checks, not remote proof or deployed product services. See `docs/receipts/PHOENIX_WAVE7_WAVE8_WAVE10_SOURCE_GUARDS_20261019.md`.
+
+
+## Source-pinned realization ledger for every recovered proposal
+
+- `node scripts/phoenix-cos-operator.mjs realization`: summarize all 1,560 source-linked records, local source proofs, and the unverified remainder.
+- `node scripts/phoenix-cos-operator.mjs realization verify`: execute the **fixed, first-party test allowlist only**, returning independently reproducible local software proof counts with zero external authority.
+- `node scripts/phoenix-cos-operator.mjs realization wave 6 0 20`: page through realization status by wave. This does not execute proposals.
+- `node scripts/phoenix-cos-operator.mjs realization record phoenix-wave6-0001`: inspect one original source pointer, acceptance condition and any mapped local code/test SHA-256 hashes.
+- `npm run capabilities:phoenix:realization -- status`: same source-pinned portfolio summary.
+- `node scripts/phoenix-ten-wave-realization.mjs write-artifact`: regenerate the fixed read-only research ledger `artifacts/capability-genome/research/phoenix-wave-realization-ledger.json`.
+
+The artifact is a subordinate **research** index within UberBond's existing Capability Genome, not a parallel approved supplier registry. It contains original IDs, source pointers, pinned genome digests and implementation-state evidence. No executable donor instructions, arbitrarily supplied paths, API credentials, paid provider calls, package installation, messages or automatic promotion are accepted. This portfolio ingestion completes addressability of Waves 3–10, **not** construction of 1,560 separate implemented tools or recovery of missing original Waves 1–2.

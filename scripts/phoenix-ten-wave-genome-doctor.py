@@ -163,16 +163,18 @@ def main(argv=None):
     p.add_argument('--query',default='')
     p.add_argument('--limit',type=int,default=10)
     p.add_argument('--offset',type=int,default=0)
+    p.add_argument('--include-records',action='store_true',help='emit all source-pinned research rows, never grants execution')
     p.add_argument('--output',help='optional offline index output; never promotes suppliers')
     args=p.parse_args(argv)
     if not 1<=args.limit<=50:p.error('--limit must be 1..50')
     if not 0<=args.offset<=1560:p.error('--offset must be 0..1560')
+    if args.include_records and (args.id or args.query or args.wave is not None or args.output):p.error('--include-records is exclusive')
     index=build()
     if args.output:
         output=pathlib.Path(args.output)
         output.parent.mkdir(parents=True,exist_ok=True)
         output.write_text(json.dumps(index,indent=2,ensure_ascii=False,sort_keys=True)+'\n',encoding='utf8')
-    result={k:v for k,v in index.items() if k!='records'}
+    result=index if args.include_records else {k:v for k,v in index.items() if k!='records'}
     if args.id and (args.query or args.wave is not None):p.error('--id is exclusive with --query and --wave')
     if args.wave is not None and (args.query or args.wave not in FILES):p.error('--wave must be 3..10 and is exclusive with --query')
     if args.id:

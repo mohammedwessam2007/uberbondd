@@ -20,6 +20,7 @@ import { validateExternalCapabilityRegistry } from '../src/external-capability-c
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { getPhoenixWaveStatus, listPhoenixWaveProposals, compilePhoenixProposalMission } from '../src/phoenix-ten-wave-mission-compiler.mjs';
 import { inspectNativeCliAuth } from '../src/phoenix-native-cli-health.mjs';
+import { inspectPhoenixRealizationLedger } from '../src/phoenix-ten-wave-realization-ledger.mjs';
 import { verifyObjectiveEscrow } from '../src/phoenix-objective-escrow.mjs';
 import { compileSyntheticGuiRecording, replaySyntheticGuiRecording } from '../src/phoenix-synthetic-gui-replay.mjs';
 import { reconcileBibliographicIdentities } from '../src/phoenix-bibliographic-identity.mjs';
@@ -119,6 +120,35 @@ export function runPhoenixCosCommand(argv=[]) {
   if(verb === 'objective-escrow-verify' && params.length===1) {
     const payload=input(params[0]);
     return payload ? verifyObjectiveEscrow(payload) : failure('BOUNDED_OBJECTIVE_ESCROW_JSON_REQUIRED');
+  }
+  if(verb === 'realization'){
+    const [mode='status',arg1,arg2,arg3]=params;
+    if(!['status','verify','record','wave'].includes(mode))return failure('BOUNDED_REALIZATION_MODE_REQUIRED');
+    if((mode==='status'||mode==='verify')&&params.length>1)return failure('UNEXPECTED_REALIZATION_ARGUMENTS');
+    const report=inspectPhoenixRealizationLedger({executeLocalTests:mode==='verify'});
+    if(!report.ok)return failure('REALIZATION_LEDGER_OR_TESTS_FAILED');
+    const {records,...summary}=report;
+    if(mode==='record'){
+      if(params.length!==2||!/^(?:phoenix-capability|phoenix-wave(?:[3-9]|10))-[0-9]{4}$/.test(arg1||''))return failure('ORIGINAL_SOURCE_ID_REQUIRED');
+      const record=records.find(x=>x.id===arg1);
+      return record?envelope({...authority(),ok:true,status:'SOURCE_LINKED_REALIZATION_RECORD',record}):failure('SOURCE_ID_NOT_FOUND');
+    }
+    if(mode==='wave'){
+      if(params.length<2||params.length>4||!/^(?:[3-9]|10)$/.test(arg1||'')
+        ||(arg2!==undefined&&!/^\d+$/.test(arg2))
+        ||(arg3!==undefined&&!/^\d+$/.test(arg3)))return failure('BOUNDED_WAVE_PAGE_REQUIRED');
+      const offset=Number(arg2||'0'),limit=Number(arg3||'10');
+      if(offset>1560||limit<1||limit>50)return failure('REALIZATION_PAGE_LIMIT_REFUSED');
+      const waveRecords=records.filter(x=>x.wave===Number(arg1));
+      return envelope({...authority(),ok:true,status:'PHOENIX_WAVE_REALIZATION_PAGE',wave:Number(arg1),
+        offset,limit,total:waveRecords.length,records:waveRecords.slice(offset,offset+limit).map(x=>({
+          id:x.id,implementationAssessment:x.implementationAssessment,autoAdmission:x.autoAdmission,
+          originalSourcePath:x.originalSourcePath,originalSourcePointer:x.originalSourcePointer
+        }))});
+    }
+    return envelope({...authority(),ok:true,status:mode==='verify'?'PHOENIX_LOCAL_PROOFS_VERIFIED':'PHOENIX_REALIZATION_SUMMARY',
+      schema:summary.schema,summary:summary.summary,ledgerDigest:summary.ledgerDigest,
+      truthBoundary:summary.truthBoundary});
   }
   if(verb === 'waves' && params.length === 0) return getPhoenixWaveStatus();
   if(verb === 'wave' && params.length >= 1 && params.length <= 3) {

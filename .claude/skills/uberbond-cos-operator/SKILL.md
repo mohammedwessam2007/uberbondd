@@ -50,3 +50,8 @@ terms, access hidden cookies, send unauthorized messages or create new spend.
 - `paper-reconcile '<JSON>'` performs local Wave 7 #0002 DOI/arXiv/title source reconciliation, retaining every original source record and rejecting conflicting strong identifiers.
 - `wave8-objective-guard '<JSON>'` holds promotion if Wave 8 #0001's signed objective changed; passing the precondition does not promote or verify candidate commit existence.
 - `source-verify '<JSON>'` checks Wave 10 #0001's pinned release note digest against bounded provided text; the expected digest must come from independently trusted provenance.
+
+
+## Realization, not research-count theater
+
+Use `node scripts/phoenix-cos-operator.mjs realization verify` to measure current first-party local software proof for all 1,560 original research entries. Use `realization record <original-id>` to retrieve one exact source, original acceptance and source-code/test fingerprint. Use `realization wave <3..10> <offset> <limit>` for bounded queues, never a mass remote execution. Only the fixed audited first-party tests execute in `verify`. Any remaining record needs implementation/audit plus existing Genome admission, license, security, benchmark, governance and runtime evidence. No auto-approval from a manifest or unit test.

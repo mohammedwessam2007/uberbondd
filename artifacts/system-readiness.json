@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T18:54:35.667Z",
+  "generatedAt": "2026-10-19T19:14:08.300Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "f9bfd8b38a4c5cd2b12f925760ce146c050f3443",
+    "head": "65ac16c9deded5471ce97f5339353d800f2614cd",
     "branch": "work/uberwarm-delegated-custody-20261019",
-    "sourceModules": 1116,
-    "testSuites": 1357,
+    "sourceModules": 1117,
+    "testSuites": 1358,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,8 +70,8 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1116,
-      "reachableFromProduction": 419,
+      "srcModules": 1117,
+      "reachableFromProduction": 420,
       "reachableFromUnattendedOperatorScriptsOnly": 454,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 454,

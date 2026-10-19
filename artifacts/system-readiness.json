@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T18:35:15.261Z",
+  "generatedAt": "2026-10-19T19:26:38.589Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "6de2746a17e86869b6342af0f6ff1d25b38fb07f",
-    "branch": "feat/uberwarm-signed-webhook-suppression-20261019",
+    "head": "65d8771323b3b76d3a1a6fedd51fff9f0f3e97e2",
+    "branch": "fix/uberwarm-vercel-runtime-trace-20261019",
     "sourceModules": 1115,
-    "testSuites": 1356,
+    "testSuites": 1357,
     "workingTreeClean": true
   },
   "measurements": {

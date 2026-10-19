@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T15:03:20.158Z",
+  "generatedAt": "2026-10-19T15:03:37.548Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "fe8f55d44f18083142e4074576f17b20f320ad69",
+    "head": "33ab3778f82688dc08e523d441bbed18598e8896",
     "branch": "fix/phoenix-mutation-cleanup-race-20261019",
     "sourceModules": 1111,
     "testSuites": 1351,

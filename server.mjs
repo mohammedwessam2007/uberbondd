@@ -1,3 +1,6 @@
+// Keep this safety dependency explicit in the deployment entrypoint trace.
+import './src/provider-receipt-redaction.mjs';
+import {routeUberWarmNodePublicCapability} from './src/uberwarm-node-public-router.mjs';
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -839,6 +842,7 @@ async function brokerInfiniteOpus(coreHandler, req, res, url) {
 function harden(coreHandler) {
   return async function hardenedRequestHandler(req, res) {
     const url = new URL(req.url, 'http://uberbond.local');
+    if (await routeUberWarmNodePublicCapability(req,res)) return;
     if (url.searchParams.has('token') && !publicCapabilityPath(url.pathname)) return sendJson(res, 401, { error: 'Privileged query-token authentication is not supported' });
     if (req.method === 'GET' && url.pathname === '/api/outreach/100k/status') return brokerOutreach100kStatus(coreHandler, req, res);
     if (req.method === 'POST' && url.pathname === '/api/outreach/100k/start') return brokerOutreach100kStart(coreHandler, req, res);

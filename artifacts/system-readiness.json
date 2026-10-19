@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T15:03:37.548Z",
+  "generatedAt": "2026-10-19T15:46:55.148Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "33ab3778f82688dc08e523d441bbed18598e8896",
-    "branch": "fix/phoenix-mutation-cleanup-race-20261019",
+    "head": "7a3ede98c56d15bb70395535191621fad7e79489",
+    "branch": "fix/phoenix-jsonstore-atomic-20261019",
     "sourceModules": 1111,
-    "testSuites": 1351,
+    "testSuites": 1352,
     "workingTreeClean": true
   },
   "measurements": {

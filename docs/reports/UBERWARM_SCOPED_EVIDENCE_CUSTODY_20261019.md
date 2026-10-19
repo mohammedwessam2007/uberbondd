@@ -1,0 +1,17 @@
+# Exact one-shot evidence custody
+
+The manual one-shot launcher previously required six different Ed25519 keys, even when the owner explicitly delegated a single operator to verify six separate source observations. The new optional `OWNER_DELEGATED_SOURCE_CUSTODY` mode accepts that custody relationship without claiming that the operator is the provider, DNS authority or recipient.
+
+Default six-key verification remains unchanged. The new mode must be selected in the protected environment using `UBERWARM_ONE_SHOT_EVIDENCE_MODE`; its JSON delegation is supplied using `UBERWARM_ONE_SHOT_CUSTODY_DELEGATION_JSON`. The untrusted evidence manifest cannot select this mode, create a trust anchor or authorize a delegation. Invalid configuration denies. No live delegation, signing key, manifest or owner approval is created by this change.
+
+A delegation pins version `uberbond.uberwarm2-evidence-custody.v1`, an unrevoked status, public key, signer ID, owner authority reference, delegation ID, exact sender, recipient, domain, probe ID, canonical UTC validity window of at most 45 minutes and all six source authorities. Every read freshly checks all six signed receipts after asynchronous I/O; each receipt binds the scope and original source authority, source SHA-256 digest, unique receipt ID and evidence reference, and a maximum 60-second observation lifetime. Expiry and revocation deny immediately. A hash establishes integrity, not the truth or completeness of a source claim: the genuinely delegated custodian must have actually inspected each authoritative source.
+
+All downstream transport, health, quarantine, hold, DNS alignment, consent, readiness, suppression, owner HMAC approval and atomic PostgreSQL reservation requirements remain unchanged. Positive safety facts are never filled in by this verifier. A real adverse field remains adverse; an absent fact remains absent. The production read-only monitor is not modified, and neither source mode permits recurring sending.
+
+## Live evidence and remaining limits
+
+At 2026-10-19T17:16Z authenticated Winnr reads verified the existing account token's read/write scope, exact sender Active state, and provider-verified DNS records. These facts do not prove independent quarantine clearance or actual delivered-message SPF/DKIM/DMARC alignment. No authoritative live local-hold/suppression record was located, no live evidence manifest or protected owner HMAC approval was bound, and no diagnostic was sent. The exact original consent expired 2026-10-19T18:00:00Z; at 18:14:37Z the UTC clock confirmed it was expired. This implementation does not renew it. No production delegation was configured and no production safety requirement was weakened.
+
+Separate recovery milestone: the owner-only offsite Git bundle was downloaded and freshly restored; the non-Git archive was independently reassembled from three private Drive parts and all 23 member hashes checked; the PostgreSQL dump was restored into isolated `phoenix_recovery_20261019_1702`, with three table hashes and schema parity verified. The restored encrypted receiver binding was successfully AES-GCM decrypted with the existing protected runtime key without exposing secrets. Offsite key custody and the historical 42,515,151-byte bundle remain unverified.
+
+External receipts: https://github.com/mohammedwessam2007/uberbondd/issues/1188#issuecomment-6272961892 and earlier linked recovery checkpoints. Source and local tests are engineering evidence only, not sender clearance or delivery evidence.

@@ -7,7 +7,7 @@
 
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, statSync, accessSync, constants, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, statSync, accessSync, constants, mkdtempSync, rmSync, mkdirSync, writeFileSync, chmodSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { execFileSync } from 'node:child_process';
 import { join, dirname } from 'node:path';
@@ -420,6 +420,26 @@ test('the browser gate looks for a browser, and refuses to invent one', async ()
     }
   } finally {
     rmSync(empty, { recursive: true, force: true });
+  }
+
+  // The first discovered Playwright candidate can be a directory entry that
+  // points to a non-executable stub. Search must continue to a real executable
+  // candidate, not trust the first syntactically plausible path (BROWSER-02).
+  const dual = mkdtempSync(join(tmpdir(), 'browser-candidates-'));
+  try {
+    const build = join(dual, 'chromium-1234');
+    const first = join(build, 'chrome-linux64', 'chrome');
+    const second = join(build, 'chrome-linux', 'chrome');
+    mkdirSync(dirname(first), { recursive: true });
+    mkdirSync(dirname(second), { recursive: true });
+    writeFileSync(first, 'not executable\n', { mode: 0o600 });
+    writeFileSync(second, '#!/bin/sh\nexit 0\n', { mode: 0o700 });
+    chmodSync(first, 0o600);
+    chmodSync(second, 0o700);
+    assert.equal(resolveChromium({ PLAYWRIGHT_BROWSERS_PATH: dual }), second,
+      'a missing or non-executable first candidate must never shadow an executable second candidate');
+  } finally {
+    rmSync(dual, { recursive: true, force: true });
   }
 
   // And whatever it does return is executable, because the next thing that

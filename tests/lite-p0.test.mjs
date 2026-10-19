@@ -252,7 +252,11 @@ for (const [failureName, crawlError] of [
     assert.deepEqual(report.findings.map(finding => finding.code), ['slow-dom-content-loaded']);
     assert.equal(report.summary.pageErrors, 1);
     assert.equal(report.summary.degradedCrawlPolicy, 'absence_findings_suppressed');
-    assert.doesNotMatch(JSON.stringify(report), /navigation timeout|blocked_by_robots|503/);
+    // The raw crawl diagnostics must not leak into customer-facing findings.
+    // generatedAt is volatile metadata: a perfectly valid `.503Z` millisecond
+    // timestamp must never be mistaken for an HTTP 503 response.
+    const { generatedAt, ...publicSummary } = report.summary;
+    assert.doesNotMatch(JSON.stringify({ ...report, summary: publicSummary }), /navigation timeout|blocked_by_robots|503/);
   });
 }
 

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-19**
 Branch: `fix/uberwarm-vercel-runtime-trace-20261019`
-Reconciled from current head: `65d8771323b3b76d3a1a6fedd51fff9f0f3e97e2`
+Reconciled from current head: `13acdcda91d6012ba564be22f96b7779794cbf89`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

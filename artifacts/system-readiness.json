@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T19:26:38.589Z",
+  "generatedAt": "2026-10-19T20:36:53.749Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "65d8771323b3b76d3a1a6fedd51fff9f0f3e97e2",
+    "head": "13acdcda91d6012ba564be22f96b7779794cbf89",
     "branch": "fix/uberwarm-vercel-runtime-trace-20261019",
-    "sourceModules": 1115,
-    "testSuites": 1357,
+    "sourceModules": 1117,
+    "testSuites": 1359,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1115,
-      "reachableFromProduction": 419,
+      "srcModules": 1117,
+      "reachableFromProduction": 420,
       "reachableFromUnattendedOperatorScriptsOnly": 454,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 454,
-      "noEntryPointAtAll": 235,
+      "noEntryPointAtAll": 236,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],

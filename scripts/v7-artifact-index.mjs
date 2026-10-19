@@ -19,6 +19,7 @@ import { fileURLToPath } from 'node:url';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = 'artifacts/v7/artifact-index.json';
 const has = p => existsSync(resolve(root, p));
+export const absenceReasonFor = spec => spec.absenceReason ?? 'UNCLASSIFIED';
 
 // name -> where the capability actually lives. `covers` names an existing
 // artifact that already carries this content under a different path; a name with
@@ -86,7 +87,7 @@ function main() {
       // A count of absent artifacts is not actionable; the reason one is absent
       // is. COMPUTABLE_NOW is work waiting to be done. The rest are waiting on
       // something no amount of writing produces.
-      absenceReason: spec.absenceReason ?? 'UNCLASSIFIED',
+      absenceReason: absenceReasonFor(spec),
       note: spec.note ?? null
     };
   });

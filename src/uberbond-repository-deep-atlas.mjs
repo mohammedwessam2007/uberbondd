@@ -5,10 +5,12 @@ import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 import { redactSecrets } from './secret-patterns.mjs';
 
 export const UBERBOND_REPOSITORY_DEEP_ATLAS_SCHEMA = 'uberbond.repository-deep-atlas.v1';
-export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.2.1';
+export const UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION = 'uberbond-repository-deep-atlas-1.3.0';
 
 const MAX_TEXT_BYTES = 8 * 1024 * 1024;
-const MAX_DETAILS_PER_FILE = 20000;
+// Bounded per-file structural expansion; all supported text chunks remain indexed first.
+// The earlier 20k cap inflated corpus-heavy JSON keys past V8 string limits.
+const MAX_DETAILS_PER_FILE = 512;
 const CONTENT_CHUNK_CHARS = 16 * 1024;
 // This marker grants an intentional-fixture exemption to the repository secret
 // sweep. The atlas may observe files that contain it, but must never replicate
@@ -24,12 +26,66 @@ const TEXT_EXTENSIONS = new Set([
 const TEXT_BASENAMES = new Set(['dockerfile', 'makefile', 'procfile', 'license', 'readme', '.gitignore', '.npmrc', '.nvmrc']);
 
 function zeroEffects() { return structuredClone(ZERO_EXTERNAL_EFFECTS); }
-function stable(value) {
-  if (Array.isArray(value)) return value.map(stable);
-  if (!value || typeof value !== 'object') return value;
-  return Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]));
+// Canonical hash encoding must not materialize the complete serialized atlas.
+// Large research corpora can exceed V8's maximum single-string length even when
+// individual source files and JSON values are valid. Stream the same stable
+// JSON byte sequence into SHA-256 using bounded chunks, without changing IDs.
+export function digestRepositoryDeepAtlas(value) {
+  const hash = crypto.createHash('sha256');
+  let buffered = '';
+  const flush = () => { if (buffered) { hash.update(buffered); buffered = ''; } };
+  const append = token => {
+    if (token.length > 32768) { flush(); hash.update(token); return; }
+    buffered += token;
+    if (buffered.length >= 32768) flush();
+  };
+  const active = new Set();
+  const visit = (current, arraySlot = false) => {
+    if (current === null || typeof current !== 'object') {
+      const encoded = JSON.stringify(current);
+      if (encoded === undefined) {
+        if (arraySlot) { append('null'); return; }
+        throw new TypeError('Non-JSON value cannot be the canonical digest root');
+      }
+      append(encoded);
+      return;
+    }
+    if (active.has(current)) throw new TypeError('Cyclic value cannot be canonically hashed');
+    if (typeof current.toJSON === 'function') throw new TypeError('Custom toJSON hooks are refused during canonical hashing');
+    active.add(current);
+    if (Array.isArray(current)) {
+      append('[');
+      for (let i = 0; i < current.length; i++) {
+        if (i) append(',');
+        visit(current[i], true);
+      }
+      append(']');
+    } else {
+      // Object.fromEntries mirrors the old stable() key ordering, including
+      // JavaScript's special ascending enumeration of integer-index keys.
+      const keys = Object.keys(Object.fromEntries(
+        Object.keys(current).sort().map(key => [key, null])
+      ));
+      append('{');
+      let first = true;
+      for (const key of keys) {
+        const child = current[key];
+        if (child === undefined || typeof child === 'function' || typeof child === 'symbol') continue;
+        if (!first) append(',');
+        first = false;
+        append(JSON.stringify(key));
+        append(':');
+        visit(child);
+      }
+      append('}');
+    }
+    active.delete(current);
+  };
+  visit(value);
+  flush();
+  return hash.digest('hex');
 }
-function digest(value) { return crypto.createHash('sha256').update(JSON.stringify(stable(value))).digest('hex'); }
+function digest(value) { return digestRepositoryDeepAtlas(value); }
 function rawDigest(value) { return crypto.createHash('sha256').update(String(value ?? '')).digest('hex'); }
 function clean(value, max = 2000) {
   return redactSecrets(String(value ?? ''))
@@ -70,6 +126,7 @@ function addDetail(state, detail) {
   }
   state.byId.set(detail.id, detail);
   state.details.push(detail);
+  if (detail.class === 'CONTENT_CHUNK') state.contentChunkCount += 1;
   state.perFileCount.set(detail.sourcePath, (state.perFileCount.get(detail.sourcePath) || 0) + 1);
 }
 function pushMatch(state, artifact, text, kind, regex, mapper) {
@@ -192,7 +249,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
   if (!featureGenome?.ok || !Array.isArray(featureGenome?.artifactNodes) || !featureGenome?.genomeDigest) {
     return { ok: false, status: 'REPOSITORY_DEEP_ATLAS_BLOCKED', reasonCodes: ['valid-feature-genome-required'], businessEffectAuthority: 'NONE', externalEffectLedger: zeroEffects() };
   }
-  const state = { details: [], byId: new Map(), perFileCount: new Map(), truncatedFiles: new Set() };
+  const state = { details: [], byId: new Map(), perFileCount: new Map(), truncatedFiles: new Set(), contentChunkCount: 0 };
   const coverage = [];
   for (const artifact of featureGenome.artifactNodes) {
     const relativePath = normalizeRel(artifact.path);
@@ -208,7 +265,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
       continue;
     }
     const before = state.details.length;
-    const chunksBefore = state.details.filter(item => item.class === 'CONTENT_CHUNK').length;
+    const chunksBefore = state.contentChunkCount;
     contentChunkDetails(state, artifact, loaded.text);
     if (['.mjs', '.js', '.cjs', '.ts', '.tsx', '.jsx'].includes(extension)) codeDetails(state, artifact, loaded.text);
     if (['.md', '.mdx'].includes(extension) || relativePath.startsWith('.claude/skills/') || relativePath.startsWith('.codex/skills/')) markdownDetails(state, artifact, loaded.text);
@@ -216,7 +273,7 @@ export function buildUberBondRepositoryDeepAtlas({ root = process.cwd(), feature
     if (['.yml', '.yaml'].includes(extension) || relativePath.startsWith('.github/workflows/')) yamlDetails(state, artifact, loaded.text);
     if (['.css', '.scss'].includes(extension)) cssDetails(state, artifact, loaded.text);
     if (extension === '.json' || path.basename(relativePath) === 'package.json') jsonDetails(state, artifact, loaded.text);
-    const chunksAfter = state.details.filter(item => item.class === 'CONTENT_CHUNK').length;
+    const chunksAfter = state.contentChunkCount;
     coverage.push({
       path: relativePath,
       status: 'PARSED_TEXT',

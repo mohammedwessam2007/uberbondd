@@ -58,6 +58,22 @@ test('Gamechanger frontier signals reach the GENESIS evolution engine and produc
   assert.equal(implementation.ideaCount, 275);
   assert.equal(implementation.entries.length, 275);
   assert.equal(implementation.entries.find(item => item.id === 2).status, 'SOURCE_AND_TEST_PRESENT');
+
+  // A fixture receipt exists ONLY inside the caller-selected directory. The
+  // generation script must consult that directory, never its checkout, while
+  // retaining the stricter distinction between internal and external proof.
+  const receiptPath = path.join(dir, 'artifacts/genesis-evolution-latest.json');
+  fs.mkdirSync(path.dirname(receiptPath), { recursive: true });
+  fs.writeFileSync(receiptPath, '{"syntheticFixture":true}');
+  const second = spawnSync(process.execPath, [
+    'scripts/genesis-evolution-tick.mjs', '--input', input, '--output', output,
+    '--ledger-output', ledger, '--tasks', tasks, '--assumptions', assumptions,
+    '--runtime-receipt-root', dir
+  ], { cwd: root, encoding: 'utf8' });
+  assert.equal(second.status, 0, second.stderr);
+  const observed = JSON.parse(fs.readFileSync(ledger, 'utf8'));
+  assert.equal(observed.entries.find(item => item.id === 2).status, 'OBSERVED_INTERNAL_RUNTIME_RECEIPT');
+  assert.equal(observed.entries.find(item => item.id === 2).runtimeReceipts.includes('artifacts/genesis-evolution-latest.json'), true);
   assert.equal(implementation.entries.find(item => item.id === 275).status, 'SOURCE_AND_TEST_PRESENT');
   assert.equal(implementation.implementedOrPartialCount, 275);
   assert.equal(implementation.canonOnlyCount, 0);

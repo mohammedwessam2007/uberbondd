@@ -14,7 +14,8 @@
 // the specific invariants this system's safety rests on produces a list an
 // operator can read.
 
-import { mkdtempSync, cpSync, rmSync, symlinkSync } from 'node:fs';
+import { mkdtempSync, cpSync, symlinkSync, mkdirSync } from 'node:fs';
+import { rm as rmAsync } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -28,6 +29,48 @@ import { withDisposablePostgres } from './disposable-postgres.mjs';
 export { classifySuiteRun, applyMutation };
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+/**
+ * Reclaim ONLY this disposable mutation tree.  Git test subprocesses may
+ * continue writing objects briefly after node --test exits. A synchronous
+ * recursive delete races those writes even with Node's per-rmdir retries.
+ * The async whole-tree retry re-enumerates a partially deleted directory.
+ * It never alters a mutation verdict: exhaustion or unexpected errors throw.
+ */
+export async function cleanupMutationSandbox(root, {
+  remove = rmAsync,
+  pause = ms => new Promise(resolve => setTimeout(resolve, ms)),
+  maxAttempts = 20
+} = {}) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await remove(root, { recursive: true, force: true, maxRetries: 8, retryDelay: 100 });
+      return;
+    } catch (error) {
+      if (!['ENOTEMPTY', 'EBUSY', 'EPERM'].includes(error?.code) || attempt === maxAttempts) {
+        throw error;
+      }
+      await pause(Math.min(attempt * 100, 1000));
+    }
+  }
+}
+
+
+// Only small source-pinned fixtures used by the mutation suites, never mutable symlinks.
+export const MUTATION_SANDBOX_FIXTURES = Object.freeze([
+  'docs/CURRENT_SYSTEM_STATE.md',
+  'artifacts/system-readiness.json',
+  'artifacts/capability-genome',
+  'artifacts/outreach',
+  'artifacts/event-horizon',
+  'UBERBOND_BOOTSTRAP.json',
+  'docs/PERPETUAL_FRONTIER_GENESIS_CANON.md',
+  'docs/NORTH_STAR_PRECEDENCE.md',
+  'artifacts/nullstar-terminal',
+  'artifacts/constitution',
+  'artifacts/inevitability-v9-carrier',
+  'artifacts/v7'
+]);
 
 /**
  * @typedef {{id: string, guard: string, file: string, find: string, replace: string, suites: string[]}} Mutation
@@ -401,8 +444,8 @@ export const MUTATIONS = [
   {
     id: 'EVID-02', guard: 'Evidence class is clamped to what the source can support',
     file: 'src/prospect-evidence-reconciliation.mjs',
-    find: 'export function clampEvidenceClassToSource(',
-    replace: 'export function clampEvidenceClassToSource_UNUSED(',
+    find: '  if (declaredIndex <= ceilingIndex) return { evidenceClass: declaredClass, clamped: false, declared: declaredClass };',
+    replace: '  if (true) return { evidenceClass: declaredClass, clamped: false, declared: declaredClass };',
     suites: ['tests/evidence-class-laundering.test.mjs']
   },
 
@@ -1099,7 +1142,7 @@ export const MUTATIONS = [
     id: 'REACH-02', guard: 'The ratchet sees the whole src tree, not just its top level',
     file: 'tests/reachability-ratchet.test.mjs',
     find: "  const all = entryPointsIn('src');",
-    replace: "  const all = filesIn('src');",
+    replace: "  const all = readdirSync(join(repoRoot, 'src'), { withFileTypes: true }).filter(e => e.isFile() && e.name.endsWith('.mjs')).map(e => `src/${e.name}`);",
     suites: ['tests/reachability-ratchet.test.mjs']
   },
   {
@@ -1344,8 +1387,8 @@ export const MUTATIONS = [
   {
     id: 'CONV-05', guard: 'A record this system generated cannot verify itself',
     file: 'src/domain-purpose-plan.mjs',
-    find: '  const verifiable = observedProvenance && !generated && reasonCodes.length === 0 && !blocked;',
-    replace: '  const verifiable = observedProvenance && reasonCodes.length === 0 && !blocked;',
+    find: "  if (generated) reasonCodes.push('generated-expectations-are-not-observed-proof');",
+    replace: '  void 0;',
     suites: ['tests/night-convergence-runtime.test.mjs']
   },
   {
@@ -3383,7 +3426,7 @@ export const MUTATIONS = [
     id: 'OOPGATE-05', guard: 'The incumbent is measured against the gate rather than assumed to pass it',
     file: 'scripts/nullstar-generation.mjs',
     find: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && !incumbentGate.passes;',
-    replace: '  const gateIsDecisive = false;',
+    replace: '  const gateIsDecisive = OUT_OF_PATTERN_GATE && gate.passes && true;',
     suites: ['tests/nullstar-out-of-pattern-gate.test.mjs']
   },
   {
@@ -3748,7 +3791,7 @@ export const MUTATIONS = [
     file: 'src/v7-gap-ledger.mjs',
     find: '    status: verdict.status,\n    checkState: \'MEASURED\',',
     replace: '    status: definition.status || verdict.status,\n    checkState: \'MEASURED\',',
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // Collapsing an unmeasurable gap into a real status is how a reader loses
@@ -3757,7 +3800,7 @@ export const MUTATIONS = [
     file: 'src/v7-gap-ledger.mjs',
     find: "      checkState: 'CHECK_FAILED',",
     replace: "      checkState: 'MEASURED',",
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // "EXTERNAL_BLOCKED, reason: pending" is the label this contract forbids.
@@ -3765,7 +3808,7 @@ export const MUTATIONS = [
     file: 'src/v7-gap-ledger.mjs',
     find: '  if (EXTERNAL_CLASSES.includes(verdict.status) && !verdict.unblockCondition && !base.unblockCondition) {',
     replace: '  if (false) {',
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // A broken check would otherwise become a way to finish the program.
@@ -3773,7 +3816,7 @@ export const MUTATIONS = [
     file: 'src/v7-gap-ledger.mjs',
     find: '    sourceSideComplete: softwareOpen === 0 && unmeasured === 0',
     replace: '    sourceSideComplete: softwareOpen === 0',
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   // The bridge between a probe and Ubercel's evidence. A real probe sat in a
   // handoff document as a sentence while the doctor reported it had nothing, so
@@ -3835,7 +3878,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-proof-obligations.mjs',
     find: "          : obligation.kind === 'NOT_DISCHARGEABLE_BY_CODE' ? null",
     replace: "          : obligation.kind === 'NOT_DISCHARGEABLE_BY_CODE' ? false",
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // An external-effect prohibition also matches INTERNAL_TEST. Filing it there
@@ -3844,7 +3887,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-proof-obligations.mjs',
     find: "    applies: row => row.authorityClass === 'EXTERNAL_EFFECT' && row.class === 'PROHIBITION'",
     replace: '    applies: () => false',
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // A mention is not enforcement. This is the linkage strength the whole
@@ -3853,7 +3896,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-proof-obligations.mjs',
     find: "    const discharged = obligation.kind === 'MUTATION_GUARD' ? guarded",
     replace: "    const discharged = obligation.kind === 'MUTATION_GUARD' ? (guarded || mentioned)",
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // The failure this catches has already happened twice here: an artifact
@@ -3862,7 +3905,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-claim-evidence-registry.mjs',
     find: "      : changed.length === 0 ? 'EXACT_HEAD'",
     replace: "      : true ? 'EXACT_HEAD'",
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // Time-based evidence has no head. Reading it as exact-head would make an
@@ -3871,16 +3914,16 @@ export const MUTATIONS = [
     file: 'scripts/v7-claim-evidence-registry.mjs',
     find: "    const freshness = sha == null ? 'NOT_HEAD_BOUND'",
     replace: "    const freshness = sha == null ? 'EXACT_HEAD'",
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // An unclassified absence hides how much of the remainder is waiting on
     // software rather than on reality.
     id: 'V7INDEX-01', guard: 'An absent artifact with no reason is reported as a defect',
     file: 'scripts/v7-artifact-index.mjs',
-    find: "      absenceReason: spec.absenceReason ?? 'UNCLASSIFIED',",
-    replace: "      absenceReason: spec.absenceReason ?? 'COMPUTABLE_NOW',",
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    find: "export const absenceReasonFor = spec => spec.absenceReason ?? 'UNCLASSIFIED';",
+    replace: "export const absenceReasonFor = spec => spec.absenceReason ?? 'COMPUTABLE_NOW';",
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   // Baselines, missions and allocation. A number's provenance is part of the
   // number, and this repository already carries a record saying 871 files parse
@@ -3934,7 +3977,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-gap-ledger.mjs',
     find: '      if (ahead === 0 && dirtySource.length === 0) {',
     replace: '      if (ahead === 0) {',
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // Widening the filter back to every path restores the fixed point: the
@@ -3943,7 +3986,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-gap-ledger.mjs',
     find: "      const dirtySource = dirtyAll.filter(line => /^..\\s+(src|scripts|config|migrations|tests|api)\\//.test(line));",
     replace: '      const dirtySource = dirtyAll;',
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // A counter that counts the generator's own side effects changes on every
@@ -3953,7 +3996,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-gap-ledger.mjs',
     find: '          measured: { ahead: 0, behind, uncommittedSource: 0 }',
     replace: '          measured: { ahead: 0, behind, uncommittedSource: 0, uncommittedArtifacts: dirtyAll.length }',
-    suites: ['tests/v7-gap-ledger.test.mjs']
+    suites: ['tests/v7-gap-ledger.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   {
     // An empty file must not count as a generated artifact, which is the whole
@@ -3962,7 +4005,7 @@ export const MUTATIONS = [
     file: 'scripts/v7-artifact-index.mjs',
     find: '        nonEmpty: present ? statSync(resolve(root, name)).size > 0 : false,',
     replace: '        nonEmpty: present,',
-    suites: ['tests/v7-proof-and-claims.test.mjs']
+    suites: ['tests/v7-proof-and-claims.test.mjs', 'tests/v7-generator-falsification.test.mjs']
   },
   // ---- Outreach software closure: prospect preflight, contact history, tournament, effect package, fleet plan, economics ----
   {
@@ -4341,8 +4384,30 @@ export const MUTATIONS = [
 const SUITE_TEST_TIMEOUT_MS = 120_000;
 const SUITE_WALL_TIMEOUT_MS = 600_000;
 
+// Suites reading git need a disposable Git history of the MUTATION sandbox,
+// never the operator's worktree/.git (which may contain private metadata).
+const ISOLATED_GIT_SUITES = /omega-closure-hostile|v7-|constitution-artifact-freshness|nullstar-generation-discrimination|nullstar-out-of-pattern-gate/;
+function initializeSandboxGit(root) {
+  const run = args => spawnSync('git', ['-C', root, ...args], { encoding: 'utf8', timeout: 30000 });
+  // Two local commits make the HEAD-parent source-drift test meaningful,
+  // without changing any source bytes or using the operator repository's Git.
+  for (const args of [
+    ['init', '-q', '--initial-branch=main'],
+    ['config', 'gc.auto', '0'],
+    ['config', 'maintenance.auto', 'false'],
+    ['add', '--all', '--', '.', ':(exclude)src'],
+    ['-c', 'user.name=Mutation Sandbox', '-c', 'user.email=sandbox@example.invalid', 'commit', '-q', '-m', 'isolated non-source baseline'],
+    ['add', '--all', '--', 'src'],
+    ['-c', 'user.name=Mutation Sandbox', '-c', 'user.email=sandbox@example.invalid', 'commit', '-q', '-m', 'isolated source baseline']
+  ]) {
+    const result = run(args);
+    if (result.status !== 0) throw new Error(`Sandbox Git init failed: ${result.stderr?.slice(0,250) || result.error?.message || 'unknown'}`);
+  }
+}
+
+
 function runSuites(root, suites, databaseUrl = null) {
-  const result = spawnSync(process.execPath, ['--test', `--test-timeout=${SUITE_TEST_TIMEOUT_MS}`, ...suites], {
+  const result = spawnSync(process.execPath, ['--test', '--test-reporter=tap', `--test-timeout=${SUITE_TEST_TIMEOUT_MS}`, ...suites], {
     cwd: root, encoding: 'utf8',
     timeout: SUITE_WALL_TIMEOUT_MS,
     killSignal: 'SIGKILL',
@@ -4438,6 +4503,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
         try { cpSync(join(repoRoot, entry), join(root, entry)); } catch { /* absent in a trimmed tree */ }
       }
       cpSync(join(repoRoot, 'package.json'), join(root, 'package.json'));
+      // Mutation suites are not self-contained source files. Some import pinned
+      // first-party research, readiness, and provider-policy fixtures. Without
+      // these *copies*, a mutant fails at module load with ENOENT and the war
+      // correctly refuses to call that a killed guard. Do not symlink the live
+      // artifacts: a hostile test must never write into the operator worktree.
+      // Copy only these small, audited fixtures; the large cognitive/recovery
+      // generated corpora are not needed by these guards.
+      for (const fixture of MUTATION_SANDBOX_FIXTURES) {
+        const target = join(root, fixture);
+        mkdirSync(dirname(target), { recursive: true });
+        cpSync(join(repoRoot, fixture), target, { recursive: true });
+      }
       // Linked, not copied.
       //
       // Copying 116MB of node_modules for each of 160 mutations is ~18GB of I/O
@@ -4451,6 +4528,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       // tree can be shared. Node resolves through a symlinked node_modules the
       // same way it does for npm link.
       symlinkSync(join(repoRoot, 'node_modules'), join(root, 'node_modules'), 'dir');
+      if (mutation.suites.some(suite => ISOLATED_GIT_SUITES.test(suite))) initializeSandboxGit(root);
 
       // A mutant that does not parse proves nothing: the suite would fail for
       // the wrong reason. Confirm the baseline is green first, then mutate.
@@ -4528,7 +4606,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       }
       record(mutation, verdict);
     } finally {
-      rmSync(root, { recursive: true, force: true });
+      // Git may briefly finish writing loose objects after a short-lived test
+      // sandbox exits. ENOTEMPTY on that tree is a cleanup race, not a
+      // mutation verdict. Retry only filesystem cleanup; if the bounded
+      // retries exhaust, fail closed rather than report unmeasured kills.
+      await cleanupMutationSandbox(root);
     }
   }
 

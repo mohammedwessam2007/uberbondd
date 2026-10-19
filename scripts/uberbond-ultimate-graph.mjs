@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compileUberBondUltimateGraph } from '../src/uberbond-ultimate-graph.mjs';
+import { writeRedactedAtlasJSON } from '../src/uberbond-atlas-stream-writer.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const readJson = async relative => JSON.parse(await readFile(resolve(root, relative), 'utf8'));
@@ -18,8 +19,8 @@ if (!result.ok) {
   process.exit(2);
 }
 const output = resolve(root, process.argv[2] || 'artifacts/cognitive/uberbond-ultimate-graph-latest.json');
-await mkdir(dirname(output), { recursive: true });
-await writeFile(output, `${JSON.stringify(result, null, 2)}\n`, 'utf8');
+// Compact JSON preserves every node/edge but avoids expansion by indentation.
+await writeRedactedAtlasJSON(result, output, { compact: true });
 process.stdout.write(`${JSON.stringify({
   ok: true,
   status: result.status,

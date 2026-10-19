@@ -168,3 +168,33 @@ test('a solver that crashes cannot pass the gate by looking like one that refuse
   assert.equal(verdict.passes, false, 'even at a zero minimum, crashing must not pass');
   assert.match(verdict.reason, /THREW_ON__/);
 });
+
+
+test('a prefix operator composes both named quantities and an unknown join refuses the entire expression', () => {
+  const surface = { data: [2, 4, 6, 8], primitives: ['sum', 'count', 'max', 'min'] };
+  assert.equal(UBERBOND_SOLVERS.INVENTION(surface, 'Report the average of the mean and the midrange')?.answer, '5.0000');
+  assert.equal(UBERBOND_SOLVERS.INVENTION(surface, 'Report the mean around the midrange'), null);
+});
+
+test('GA6 generator does not pretend its current passing incumbent failed the out-of-pattern gate', async () => {
+  const { mkdtempSync, rmSync, readFileSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const { execFileSync } = await import('node:child_process');
+  const repo = new URL('..', import.meta.url).pathname;
+  const dir = mkdtempSync(join(tmpdir(), 'ub-ga6-gate-'));
+  try {
+    const resultPath = join(dir, 'result.json');
+    execFileSync(process.execPath, ['scripts/nullstar-generation.mjs', 'GA6'], { cwd: repo, timeout: 30000, env: { ...process.env, NULLSTAR_GENERATION_OUT: resultPath } });
+    const result = JSON.parse(readFileSync(resultPath, 'utf8'));
+    assert.equal(result.incumbent.heldOutScore, 1);
+    assert.equal(result.incumbent.outOfPatternGate, 'PASSES');
+    for (const id of ['L2_OPERATOR_REPAIRED', 'L3_COMPOSITIONAL_STRICT', 'L4_STRUCTURAL_PARSE']) {
+      const row = result.candidates.find(candidate => candidate.candidate === id);
+      assert.equal(row.heldOutScore, result.incumbent.heldOutScore);
+      assert.equal(row.outOfPatternGate, 'PASSES');
+      assert.equal(row.beatsIncumbent, false, `${id} tied an incumbent that also passes the gate`);
+      assert.equal(row.eligible, false);
+    }
+  } finally { rmSync(dir, { recursive: true, force: true }); }
+});

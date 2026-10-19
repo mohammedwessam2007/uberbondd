@@ -9,7 +9,7 @@
 // leaving it to whoever reads the file.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, mkdtempSync, rmSync } from 'node:fs';
+import { readFileSync, mkdtempSync, rmSync, cpSync, mkdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { execFileSync } from 'node:child_process';
@@ -229,4 +229,33 @@ test('the GA3 null candidate really was in the tournament, not reconstructed aft
   assert.equal(nullRow.eligible, false, 'the null candidate must not have been promotable');
   assert.ok(winnerRow.heldOutScore > nullRow.heldOutScore,
     'the winner must beat the null candidate, or the gain is not attributable');
+});
+
+
+test('the current generation runner reports an actual tie against a deliberately weaker fixture incumbent', () => {
+  // The present RESEARCH incumbent has improved since GA2. Recreate GA2's
+  // originally weaker comparator in a disposable repository, never in source.
+  const dir = mkdtempSync(join(tmpdir(), 'ub-ga2-discrimination-'));
+  try {
+    const repo = new URL('..', import.meta.url).pathname;
+    cpSync(join(repo, 'src'), join(dir, 'src'), { recursive: true });
+    mkdirSync(join(dir, 'scripts'), { recursive: true });
+    cpSync(join(repo, 'scripts/nullstar-generation.mjs'), join(dir, 'scripts/nullstar-generation.mjs'));
+    mkdirSync(join(dir, 'artifacts/nullstar-terminal'), { recursive: true });
+    cpSync(join(repo, 'artifacts/nullstar-terminal/ga2-declaration.json'), join(dir, 'artifacts/nullstar-terminal/ga2-declaration.json'));
+    writeFileSync(join(dir, 'package.json'), '{"type":"module"}');
+    const incumbent = join(dir, 'src/nullstar-cognitive-solvers.mjs');
+    const original = readFileSync(incumbent, 'utf8');
+    assert.equal(original.split('  RESEARCH: solveResearch,').length, 2);
+    writeFileSync(incumbent, original.replace('  RESEARCH: solveResearch,', '  RESEARCH: () => null,'));
+    const git = args => execFileSync('git', args, { cwd: dir, encoding: 'utf8', timeout: 15000 });
+    git(['init', '-q']); git(['add', '.']);
+    git(['-c', 'user.name=Sandbox', '-c', 'user.email=sandbox@example.invalid', 'commit', '-q', '-m', 'fixture']);
+    const output = join(dir, 'ga2-test-output.json');
+    execFileSync(process.execPath, ['scripts/nullstar-generation.mjs', 'GA2'], { cwd: dir, timeout: 30000, env: { ...process.env, NULLSTAR_GENERATION_OUT: output } });
+    const result = JSON.parse(readFileSync(output, 'utf8'));
+    assert.ok(result.tiedAtTop.length > 1, 'the fixture must exercise a real top tie');
+    assert.equal(result.discrimination, 'UNDISCRIMINATING__CANDIDATES_TIED');
+    assert.match(result.attributionWarning || '', /size rather than on capability|no winner was promoted because the tied candidates disagreed/);
+  } finally { rmSync(dir, { recursive: true, force: true }); }
 });

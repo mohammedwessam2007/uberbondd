@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T22:30:54.808Z",
+  "generatedAt": "2026-10-19T22:45:48.432Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "72a6942cc7e4807eee2814baa12ed5f44cbdfa0c",
+    "head": "c2d567d7b55ac5ed8d9aa7bbfd2e90ca9f3661c0",
     "branch": "feat/uberwarm-ingress-fence-20261019",
     "sourceModules": 1118,
     "testSuites": 1360,
@@ -71,16 +71,14 @@
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
       "srcModules": 1118,
-      "reachableFromProduction": 420,
+      "reachableFromProduction": 421,
       "reachableFromUnattendedOperatorScriptsOnly": 454,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 454,
-      "noEntryPointAtAll": 237,
+      "noEntryPointAtAll": 236,
       "partitionExact": true,
-      "allClassified": false,
-      "unclassified": [
-        "src/uberwarm-ingress-fence.mjs"
-      ],
+      "allClassified": true,
+      "unclassified": [],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

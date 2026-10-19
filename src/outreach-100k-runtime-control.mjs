@@ -6,6 +6,7 @@ import { inspectOutreach100kPacketCorpus } from './outreach-100k-packet-corpus.m
 import { compileOutreach100kLaunchCertificate } from './outreach-100k-launch-contract.mjs';
 import { evaluateOutreachLaunchGate, OUTREACH_LAUNCH_STATES } from './outreach-launch-gate.mjs';
 import { dispatchGovernedOutreach } from './governed-outreach-dispatch.mjs';
+import { evaluateIngressFence } from './uberwarm-ingress-fence.mjs';
 import { createUberSmtpSubmissionTransport } from './ubersmtp-submission-adapter.mjs';
 import { openSmtpAccountCredential } from './uberfleet.mjs';
 
@@ -217,7 +218,8 @@ function packetLaunchDecision({ packet, bundle, mailbox, egressRoute, smtpRoute,
       unsubscribed: suppression.unsubscribeRequested === true || suppression.unsubscribed === true
     },
     recipientProvider: recipientProviderState(recipientProvider),
-    ingressFence: bundle.ingressFence || null,
+    // Raw ingress evidence is evaluated here; a precomputed fence is never trusted.
+    ingressFence: bundle.ingressEvidence ? evaluateIngressFence({ ...bundle.ingressEvidence, now }) : null,
     now
   });
 }

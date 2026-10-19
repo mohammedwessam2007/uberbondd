@@ -19,7 +19,8 @@ function readyInputs() {
       recipient: { safeForOutreach: true, email: 'buyer@example.com', verificationEvidenceRef: 'verify-proof-1' },
       legal: { status: 'PASSED', evidenceId: 'legal-proof-1', policyVersion: 'legal-v1' },
       suppression: { suppressed: false, unsubscribed: false },
-      recipientProvider: { state: 'READY', observedDailyBudget: 5, evidenceRef: 'provider-budget-proof-1' }
+      recipientProvider: { state: 'READY', observedDailyBudget: 5, evidenceRef: 'provider-budget-proof-1' },
+      ingressFence: { state: 'CLEAR', holdReasonCodes: [] }
     },
     ownerAuthorization: { authorized: true, receiptId: 'owner-press-1', expiresAt: '2026-09-15T00:15:00.000Z' },
     now

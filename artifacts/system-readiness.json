@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T13:41:49.094Z",
+  "generatedAt": "2026-10-19T14:43:59.153Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9876a92a1738daf4e975de3f1edbf1342a027991",
-    "branch": "fix/phoenix-mutation-hosted-20261019",
-    "sourceModules": 1110,
-    "testSuites": 1349,
-    "workingTreeClean": true
+    "head": "10719b00a884f6e180378fc614f22a5fb06aa944",
+    "branch": "fix/phoenix-mutation-release-20261019",
+    "sourceModules": 1111,
+    "testSuites": 1350,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,12 +70,12 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1110,
+      "srcModules": 1111,
       "reachableFromProduction": 416,
       "reachableFromUnattendedOperatorScriptsOnly": 453,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 453,
-      "noEntryPointAtAll": 234,
+      "noEntryPointAtAll": 235,
       "partitionExact": true,
       "allClassified": true,
       "unclassified": [],

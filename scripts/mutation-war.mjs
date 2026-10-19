@@ -4577,7 +4577,11 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       }
       record(mutation, verdict);
     } finally {
-      rmSync(root, { recursive: true, force: true });
+      // Git may briefly finish writing loose objects after a short-lived test
+      // sandbox exits. ENOTEMPTY on that tree is a cleanup race, not a
+      // mutation verdict. Retry only filesystem cleanup; if the bounded
+      // retries exhaust, fail closed rather than report unmeasured kills.
+      rmSync(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 150 });
     }
   }
 

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-19**
 Branch: `feat/phoenix-wave6-objective-escrow-20261019`
-Reconciled from current head: `9a139d5865df42ff0888f0d0d2740c9f2437978a`
+Reconciled from current head: `5a8b5bc4f46a5fae827ce904d282b42283cca295`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

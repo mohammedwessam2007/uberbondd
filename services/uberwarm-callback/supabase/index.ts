@@ -19,14 +19,15 @@ async function verify(req,raw,secret){
  const candidate=new Uint8Array(signature.slice(3).match(/../g).map(x=>parseInt(x,16)));
  return crypto.subtle.verify("HMAC",key,candidate,full);
 }
-// The existing Supabase Vault is the protected provider-secret handoff. Never expose the value.
+// Supabase Vault is the trusted in-project encrypted secret store.
+// Secret values never enter source, provider receipts, logs or responses.
 async function signerSecret(){
  const direct=Deno.env.get("WINNR_WEBHOOK_SECRET");
  if(direct?.startsWith("whsec_"))return direct;
  try{
-   const rows=await client()`SELECT decrypted_secret FROM vault.decrypted_secrets WHERE name='uberwarm_winnr_signature_20261019' LIMIT 1`;
-   const value=rows[0]?.decrypted_secret;
-   return typeof value==='string'&&value.startsWith('whsec_')?value:null;
+  const found=await client()`SELECT decrypted_secret FROM vault.decrypted_secrets WHERE name='uberwarm_winnr_signature_20261019' LIMIT 1`;
+  const value=found[0]?.decrypted_secret;
+  return typeof value==='string'&&value.startsWith('whsec_')?value:null;
  }catch{return null;}
 }
 const isEmail=x=>typeof x==="string"&&x.length<=320&&/^[a-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(x)&&x===x.toLowerCase();

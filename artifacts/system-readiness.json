@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T18:35:15.261Z",
+  "generatedAt": "2026-10-19T19:17:01.266Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "6de2746a17e86869b6342af0f6ff1d25b38fb07f",
-    "branch": "feat/uberwarm-signed-webhook-suppression-20261019",
+    "head": "d7b8202257cc802f3bb1a298d054f7293627034d",
+    "branch": "feat/phoenix-cos-capability-bridge-20261019",
     "sourceModules": 1115,
-    "testSuites": 1356,
+    "testSuites": 1357,
     "workingTreeClean": true
   },
   "measurements": {

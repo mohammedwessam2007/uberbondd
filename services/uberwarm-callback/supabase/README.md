@@ -13,3 +13,14 @@ This existing-account alternative **replaces Vercel as the HTTP hosting layer** 
 - No outgoing email routes, SMTP code, sender token or paid warmer exist in the function.
 
 Real-world verification: Supabase service ACTIVE; GET returned HTTP 200 `httpReady=true`, `dbConfigured=true`, `databaseReadback=true`, `signingConfigured=true`, and `canonicalSuppressionReconciled=false`. Signed provider test.ping recorded once in private Postgres (as above), with **zero** actual adverse suppressions. Actual send authority remains NONE. This is not production cold outreach or an Inbox receipt.
+
+## Ingress fence (2026-10-19)
+
+GET now also returns `adverseEventCount`: the number of signed bounce/complaint
+events in the private ledger, aggregate only (no recipient, digest or event id).
+`src/uberwarm-ingress-fence.mjs` compares it with the canonical primary-Postgres
+reconciled count and the Winnr webhook state; `evaluateOutreachLaunchGate` now
+requires a CLEAR fence. Any gap, stale/unreadable health, or a webhook that is not
+`enabled` for `email.bounced` + `email.complained` holds sending. This source
+change must be deployed to the live function before the fence can ever clear;
+until then the live GET lacks the count and the fence holds.

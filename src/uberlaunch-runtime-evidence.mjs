@@ -1,5 +1,6 @@
 import crypto from 'node:crypto';
 import { prepareUberLeadLaunchFusion } from './uberlead-launch-fusion.mjs';
+import { evaluateIngressFence } from './uberwarm-ingress-fence.mjs';
 
 export const UBERLAUNCH_RUNTIME_EVIDENCE_VERSION = 'uberbond.uberlaunch-runtime-evidence.v1';
 
@@ -115,7 +116,9 @@ export function compileUberLaunchRuntimeEvidence({
   mailboxObservation = {},
   egressReceipt = {},
   transportObservation = {},
-  recipientProviderObservation = {}
+  recipientProviderObservation = {},
+  ingressEvidence = {},
+  now = new Date()
 } = {}) {
   const substrate = compileSubstrate(runtimeReceipt);
   const domainState = compileDomain(domainObservation);
@@ -123,6 +126,7 @@ export function compileUberLaunchRuntimeEvidence({
   const egress = compileEgress(egressReceipt);
   const transport = compileTransport(transportObservation);
   const recipientProvider = compileRecipientProvider(recipientProviderObservation);
+  const ingressFence = evaluateIngressFence({ ...ingressEvidence, now });
 
   const waitReasonCodes = [];
   if (!substrate.observedHealthy) waitReasonCodes.push('sovereign-runtime-observation-required');
@@ -132,12 +136,13 @@ export function compileUberLaunchRuntimeEvidence({
   if (egress.state !== 'READY') waitReasonCodes.push('observed-egress-capacity-required');
   if (transport.state !== 'READY') waitReasonCodes.push('observed-authenticated-transport-required');
   if (recipientProvider.state !== 'READY') waitReasonCodes.push('observed-recipient-provider-budget-required');
+  if (ingressFence.state !== 'CLEAR') waitReasonCodes.push('observed-ingress-suppression-fence-clear-required');
 
   const receipt = {
     version: UBERLAUNCH_RUNTIME_EVIDENCE_VERSION,
     state: waitReasonCodes.length ? 'WAIT_EXTERNAL_OBSERVATION' : 'RUNTIME_EVIDENCE_READY',
     substrate,
-    launchInputs: { domainState, mailboxState, egress, transport, recipientProvider },
+    launchInputs: { domainState, mailboxState, egress, transport, recipientProvider, ingressFence },
     waitReasonCodes: uniq(waitReasonCodes),
     automaticSendAuthority: false,
     externalEffectAuthority: 'NONE',
@@ -165,7 +170,7 @@ export async function prepareSovereignOneButtonLaunch({
   fetcher = fetch,
   now = new Date()
 } = {}) {
-  const runtime = compileUberLaunchRuntimeEvidence(runtimeEvidence);
+  const runtime = compileUberLaunchRuntimeEvidence({ now, ...runtimeEvidence });
   const launchInputs = {
     genome,
     ...runtime.launchInputs,

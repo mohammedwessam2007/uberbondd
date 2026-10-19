@@ -44,3 +44,5 @@ terms, access hidden cookies, send unauthorized messages or create new spend.
 - `node scripts/phoenix-cos-operator.mjs cli-auth` checks official Claude/Codex CLI local status without exposing credentials, logging in, invoking models or signing a trusted provider attestation. This implements only a bounded read-only part of Wave 3 #0001 / Wave 4 #0001.
 
 - `node scripts/phoenix-cos-operator.mjs objective-escrow-verify '<JSON>'`: read-only signed evaluator objective byte identity check (Wave 6 #0001). JSON fields are `originalObjectiveText`, `currentObjectiveText`, `attestation` (version, original SHA256 digest, pinned public-key fingerprint, signatureBase64), `verifierPublicKeyPem`, and `trustedVerifierFingerprint`. Never include signer private keys or imply the caller-supplied trust anchor has been independently configured in production.
+
+- `node scripts/phoenix-cos-operator.mjs gui-record '<JSON>'` and `gui-replay '<JSON>'` operate on typed **virtual synthetic-app fixtures only** (Wave 5 #0001), not actual browser sessions. Unknown/changed targets are denied; no user-typed raw values are echoed. Never claim real web automation, messaging or payment effects.

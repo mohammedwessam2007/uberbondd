@@ -70,3 +70,7 @@ The read-only `cli-auth` command invokes only the official `claude auth status -
 ## Native Wave 6 objective escrow, dependent release
 
 The `objective-escrow-verify` CoS verb runs first-party Ed25519 objective hash verification using an independently expected signer fingerprint and a public verification key. It rejects tampered evaluator definitions even if the original signature is otherwise valid. Signing authority is **never** generated or transmitted by this gateway. The detailed, test-backed source receipt is `docs/receipts/PHOENIX_WAVE6_IMMUTABLE_OBJECTIVE_ESCROW_20261019.md`. This local proof is not a claim that actual production evaluators have a trusted pinned signing key or that all 120 Wave 6 designs were implemented.
+
+## Wave 5 synthetic GUI replay
+
+The local `gui-record` and `gui-replay` commands compile and run only **virtual in-memory GUI fixtures**, with stable field identity digests and no generative-model usage. Source user-entered values are hashed and not echoed. Repeatability and changed-target rejection are covered by `tests/phoenix-synthetic-gui-replay.test.mjs`. See `docs/receipts/PHOENIX_WAVE5_SYNTHETIC_GUI_REPLAY_20261019.md`. This is not a production browser agent or authorization for real clicks.

@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T18:54:29.776Z",
+  "generatedAt": "2026-10-19T18:54:35.667Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "4d4cfcc255cd608f9e79407bd62a80f7842d8282",
+    "head": "f9bfd8b38a4c5cd2b12f925760ce146c050f3443",
     "branch": "work/uberwarm-delegated-custody-20261019",
     "sourceModules": 1116,
     "testSuites": 1357,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

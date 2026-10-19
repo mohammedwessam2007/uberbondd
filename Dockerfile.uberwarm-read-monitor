@@ -7,6 +7,7 @@ COPY src/uberwarm2-operational-journal.mjs ./src/
 COPY src/uberwarm2-winnr-token-permissions.mjs ./src/
 COPY src/uberwarm-reputation-lab.mjs src/uberwarm2-sovereign-live-observer.mjs ./src/
 COPY src/uberwarm2-provider-dns-spotcheck.mjs ./src/
+COPY src/uberwarm2-provider-event-log-observer.mjs ./src/
 COPY src/uberwarm2-receiver-binding.mjs src/uberimap.mjs src/crypto.mjs src/csv.mjs src/uberwarm2-seed-template.mjs ./src/
 COPY scripts/uberwarm2-live-read-doctor.mjs scripts/uberwarm2-railway-read-monitor.mjs ./scripts/
 COPY scripts/uberwarm2-migrate-operational-journal.mjs ./scripts/

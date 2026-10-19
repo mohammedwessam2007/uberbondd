@@ -9,6 +9,7 @@ import { createWinnrApiClient, resolveWinnrMailboxAddress } from '../src/uberwin
 import { inspectWinnrTokenPermissions } from '../src/uberwarm2-winnr-token-permissions.mjs';
 import { compileUberWarm2SovereignLiveObservation } from '../src/uberwarm2-sovereign-live-observer.mjs';
 import { observeUberWarm2ProviderDnsSpotcheck } from '../src/uberwarm2-provider-dns-spotcheck.mjs';
+import { observeUberWarm2ProviderEventLog } from '../src/uberwarm2-provider-event-log-observer.mjs';
 
 const argv = process.argv.slice(2);
 const has = flag => argv.includes(flag);
@@ -69,6 +70,13 @@ async function run() {
       domains: domains.data, getDnsStatus: ({domainId}) => client.getDnsStatus({domainId})
     });
     inventory.providerCalls += inventory.providerDnsSpotcheck.providerCalls;
+    // Authenticated vendor delivery-attempt telemetry only. No endpoint writes,
+    // original-event signature claim, new sender authority or unsuppression.
+    inventory.providerEventLog = await observeUberWarm2ProviderEventLog({
+      listWebhooks: () => client.listWebhooks(),
+      getWebhookDeliveries: ({webhookId,limit}) => client.getWebhookDeliveries({webhookId,limit})
+    });
+    inventory.providerCalls += inventory.providerEventLog.providerCalls;
   }
   if (identity && inventory.status === 'UBERWARM2_WINNR_LIVE_INVENTORY_OBSERVED') {
     // Keep this unattended CLI completely outside the held UberWarm2 seed and

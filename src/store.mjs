@@ -276,9 +276,22 @@ export class JsonStore {
   async close() {}
 
   async save() {
-    const temp = `${this.file}.tmp`;
-    await fs.writeFile(temp, JSON.stringify(this.data, null, 2));
-    await fs.rename(temp, this.file);
+    // Multiple store instances can share a JSON data directory. A fixed
+    // "db.json.tmp" path lets concurrent writes overwrite each other's
+    // temporary files, then one rename fails ENOENT while the other wins.
+    // Give each atomic replace a private, unguessable temporary pathname.
+    // Transaction serialization within one instance remains unchanged.
+    const temp = `${this.file}.${process.pid}.${crypto.randomUUID()}.tmp`;
+    try {
+      await fs.writeFile(temp, JSON.stringify(this.data, null, 2), {
+        flag: 'wx',
+        mode: 0o600
+      });
+      await fs.rename(temp, this.file);
+    } finally {
+      // Failed writes and renames leave no secret-bearing temp files behind.
+      await fs.rm(temp, { force: true });
+    }
   }
 
   async transaction(fn) {

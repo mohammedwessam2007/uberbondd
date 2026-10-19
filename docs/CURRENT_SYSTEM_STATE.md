@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-19**
 Branch: `work/uberwarm-delegated-custody-20261019`
-Reconciled from current head: `52fe11e366fff09f5890dba3060e4e7121eafbd0`
+Reconciled from current head: `4d4cfcc255cd608f9e79407bd62a80f7842d8282`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

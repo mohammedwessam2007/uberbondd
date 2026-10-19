@@ -14,7 +14,8 @@
 // the specific invariants this system's safety rests on produces a list an
 // operator can read.
 
-import { mkdtempSync, cpSync, rmSync, symlinkSync, mkdirSync } from 'node:fs';
+import { mkdtempSync, cpSync, symlinkSync, mkdirSync } from 'node:fs';
+import { rm as rmAsync } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
@@ -28,6 +29,32 @@ import { withDisposablePostgres } from './disposable-postgres.mjs';
 export { classifySuiteRun, applyMutation };
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+
+/**
+ * Reclaim ONLY this disposable mutation tree.  Git test subprocesses may
+ * continue writing objects briefly after node --test exits. A synchronous
+ * recursive delete races those writes even with Node's per-rmdir retries.
+ * The async whole-tree retry re-enumerates a partially deleted directory.
+ * It never alters a mutation verdict: exhaustion or unexpected errors throw.
+ */
+export async function cleanupMutationSandbox(root, {
+  remove = rmAsync,
+  pause = ms => new Promise(resolve => setTimeout(resolve, ms)),
+  maxAttempts = 20
+} = {}) {
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      await remove(root, { recursive: true, force: true, maxRetries: 8, retryDelay: 100 });
+      return;
+    } catch (error) {
+      if (!['ENOTEMPTY', 'EBUSY', 'EPERM'].includes(error?.code) || attempt === maxAttempts) {
+        throw error;
+      }
+      await pause(Math.min(attempt * 100, 1000));
+    }
+  }
+}
+
 
 // Only small source-pinned fixtures used by the mutation suites, never mutable symlinks.
 export const MUTATION_SANDBOX_FIXTURES = Object.freeze([
@@ -4366,6 +4393,8 @@ function initializeSandboxGit(root) {
   // without changing any source bytes or using the operator repository's Git.
   for (const args of [
     ['init', '-q', '--initial-branch=main'],
+    ['config', 'gc.auto', '0'],
+    ['config', 'maintenance.auto', 'false'],
     ['add', '--all', '--', '.', ':(exclude)src'],
     ['-c', 'user.name=Mutation Sandbox', '-c', 'user.email=sandbox@example.invalid', 'commit', '-q', '-m', 'isolated non-source baseline'],
     ['add', '--all', '--', 'src'],
@@ -4581,7 +4610,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       // sandbox exits. ENOTEMPTY on that tree is a cleanup race, not a
       // mutation verdict. Retry only filesystem cleanup; if the bounded
       // retries exhaust, fail closed rather than report unmeasured kills.
-      rmSync(root, { recursive: true, force: true, maxRetries: 10, retryDelay: 150 });
+      await cleanupMutationSandbox(root);
     }
   }
 

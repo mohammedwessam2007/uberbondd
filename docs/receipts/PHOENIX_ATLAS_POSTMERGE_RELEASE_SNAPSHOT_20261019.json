@@ -1,0 +1,54 @@
+{
+  "schema": "phoenix.atlas-postmerge-release.v1",
+  "observedDateUtc": "2026-10-19",
+  "repo": "mohammedwessam2007/uberbondd",
+  "checkpointMainSha": "c6d6e02beb63eeea680595306f3671a4606ac517",
+  "pr1469": {
+    "merged": true,
+    "mergedAt": "2026-10-19T17:17:56Z",
+    "headSha": "9d1d3957b6231c772bb39c2170b62347dab18d3d",
+    "mergeSha": "04f4ea76347eff3d8d989f32045e0a9162f05da5",
+    "workflowConclusions": {
+      "39280722400": "success",
+      "39280722489": "success",
+      "39280722442": "success",
+      "39280722382": "success"
+    }
+  },
+  "prPreviewDeployments": {
+    "uberbondd": {
+      "id": "dpl_64kVFqJ9Lyo1gGB3N8eiaMmCNQPs",
+      "state": "READY"
+    },
+    "uberbondd-lite-private": {
+      "id": "dpl_HYazoXbLvQhEeB9idQMmPnBCuu1g",
+      "state": "READY"
+    }
+  },
+  "mainProductionDeployments": {
+    "uberbondd": {
+      "id": "dpl_EgRtJs8Z7rMyxiZ8b7WhaDExUVxE",
+      "stateAtObservation": "BUILDING",
+      "target": "production"
+    },
+    "uberbondd-lite-private": {
+      "id": "dpl_HrNu8qd8qvwzxVpb2Wh29U27Yim3",
+      "stateAtObservation": "QUEUED",
+      "target": "production"
+    }
+  },
+  "historicalLocalGraph": {
+    "sizeBytes": 367647279,
+    "sha256": "5750a312a4faa44a59ac0b9d5060dc4d39f852e940debd5bbe28f9a338bc87e7",
+    "inGitHub": false,
+    "localWorktree": ".phoenix-atlas-final-20261018"
+  },
+  "unverified": [
+    "current main production READY both projects",
+    "live runtime health and alias/source identity",
+    "permanent CoS uptime",
+    "native Claude/Codex authenticated execution",
+    "cleared customer revenue",
+    "independent remote graph binary backup"
+  ]
+}

@@ -144,7 +144,11 @@ export function runPhoenixCosCommand(argv=[]) {
   }
   if(verb === 'invoke' && params.length === 2) {
     const [atomId, json]=params;
-    if(!Object.hasOwn(allowedExecutors,atomId)) return failure('UNKNOWN_OR_UNAPPROVED_ATOM');
+    if(!Object.hasOwn(allowedExecutors,atomId)) return {
+      ...failure('UNKNOWN_OR_UNAPPROVED_ATOM'),
+      capabilityState:'MISSING_CAPABILITY',
+      sourceProposalLink:'phoenix-wave9-0001'
+    };
     const payload=input(json);
     if(!payload) return failure('BOUNDED_JSON_OBJECT_REQUIRED');
     // Prevent a single task from consuming unbounded CPU or overwhelming output.

@@ -33,3 +33,7 @@ Parent CoS operator: PR #1498, branch `feat/phoenix-cos-capability-bridge-202610
 This Wave 6 branch should be rebased/merged after parent release gates, not force pushed into current main or allowed to overwrite any concurrent worktree. A future live deployment needs separately pinned signer custody, independent byte-level contract receipt, negative tests in the actual evaluator, and runtime acceptance verification.
 
 Founder idea corpus IDs 0001–0890, all 1,560 original proposals and their provenance remain preserved; no supplier install, messages, spend, credentials, payment rail or production mutation was performed.
+
+## Wave 9 reuse/acceptance boundary
+
+The dependent branch also connects the existing CoS fail-closed unsupported-tool response to original `phoenix-wave9-0001`, **Unsupported-action boundary**: when a requested atom is not actually callable, `invoke` returns `capabilityState:MISSING_CAPABILITY` and zero external effects. Source-linked hostile tests confirm no guessed substitute or unauthorized customer operation. This is a local behavior proof, not an unrestricted general action broker.

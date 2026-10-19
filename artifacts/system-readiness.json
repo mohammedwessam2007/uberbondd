@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T18:19:44.955Z",
+  "generatedAt": "2026-10-19T18:25:20.204Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "cc04e67ce81649397f88ae20d92df11cea9be596",
+    "head": "2b2f688a66156e8beadb7d57ed5c0ae6c358cfcc",
     "branch": "feat/uberwarm-signed-webhook-suppression-20261019",
-    "sourceModules": 1113,
-    "testSuites": 1354,
+    "sourceModules": 1114,
+    "testSuites": 1355,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,8 +70,8 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1113,
-      "reachableFromProduction": 417,
+      "srcModules": 1114,
+      "reachableFromProduction": 418,
       "reachableFromUnattendedOperatorScriptsOnly": 454,
       "reachableFromFounderInteractiveOnly": 7,
       "reachableFromOperatorScriptsOnly": 454,

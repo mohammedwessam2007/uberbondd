@@ -22,7 +22,14 @@ async function verify(req,raw,secret){
 const isEmail=x=>typeof x==="string"&&x.length<=320&&/^[a-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/.test(x)&&x===x.toLowerCase();
 export async function handle(req){
  const method=req.method.toUpperCase();
- if(method==="GET")return json({service:"uberwarm-ingress",httpReady:true,signingConfigured:!!Deno.env.get("WINNR_WEBHOOK_SECRET"),dbConfigured:!!Deno.env.get("SUPABASE_DB_URL"),outboundAuthority:"NONE",canonicalSuppressionReconciled:false});
+ if(method==="GET"){
+  let databaseReadback=false;
+  try{
+   const row=await client()`SELECT to_regclass('uberwarm_ingress.signed_events') IS NOT NULL AS events_ready, to_regclass('uberwarm_ingress.suppressions') IS NOT NULL AS suppressions_ready`;
+   databaseReadback=row.length===1&&row[0].events_ready===true&&row[0].suppressions_ready===true;
+  }catch{databaseReadback=false;}
+  return json({service:"uberwarm-ingress",httpReady:true,signingConfigured:!!Deno.env.get("WINNR_WEBHOOK_SECRET"),dbConfigured:!!Deno.env.get("SUPABASE_DB_URL"),databaseReadback,outboundAuthority:"NONE",canonicalSuppressionReconciled:false});
+ }
  if(method!=="POST")return json({ok:false,status:"METHOD_NOT_ALLOWED"},405);
  const secret=Deno.env.get("WINNR_WEBHOOK_SECRET");
  if(!secret||!secret.startsWith("whsec_")||!Deno.env.get("SUPABASE_DB_URL"))return json({ok:false,status:"UNCONFIGURED"},503);

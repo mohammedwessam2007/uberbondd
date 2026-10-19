@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T19:47:19.097Z",
+  "generatedAt": "2026-10-19T19:47:50.009Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "7aa2d463a1197d1e0af3e06e44082fcc231e034c",
+    "head": "8aca5f20092c291ce43c5fae972955a5ecd30dd1",
     "branch": "feat/phoenix-cos-capability-bridge-20261019",
     "sourceModules": 1116,
     "testSuites": 1358,

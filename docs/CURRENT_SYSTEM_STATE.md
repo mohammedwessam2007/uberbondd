@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-19**
 Branch: `fix/uberwarm-canonical-reconcile-20261020`
-Reconciled from current head: `e12446c6bf8b81992004a8d1286ed6b319475756`
+Reconciled from current head: `71526341d6469b63a7ef54997b78f456ba5d4dad`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

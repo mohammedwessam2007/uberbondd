@@ -16,7 +16,7 @@ export async function reconcileCanonicalIngress({
  if(!pool?.connect||typeof expectedDatabase!=='string'||!expectedDatabase||
     typeof readAuthenticatedSnapshot!=='function'||!Number.isFinite(maxAgeMs)||maxAgeMs<=0||maxAgeMs>300000)
   throw Error('canonical-binding-and-authenticated-reader-required');
- const snapshot=await readAuthenticatedSnapshot();
+ const snapshot=structuredClone(await readAuthenticatedSnapshot());
  const at=Date.parse(snapshot?.observedAt||''), current=new Date(now()).getTime();
  if(snapshot?.sourceUrl!==DEFAULT_INGRESS_URL||!Number.isFinite(at)||!Number.isFinite(current)||
     current-at>maxAgeMs||at-current>60000||snapshot.complete!==true||
@@ -30,9 +30,11 @@ export async function reconcileCanonicalIngress({
    throw Error('invalid-or-duplicate-adverse-event');
   seen.add(e.eventId);
  }
+ const stillFresh=()=>{const t=new Date(now()).getTime();
+  if(!Number.isFinite(t)||t-at>maxAgeMs||at-t>60000)throw Error('snapshot-expired-during-reconciliation');};
  const client=await pool.connect();let transaction=false;
  try {
-  await client.query('BEGIN');transaction=true;
+  await client.query('BEGIN');transaction=true;stillFresh();
   const binding=await client.query(`SELECT current_database() AS database, pg_is_in_recovery() AS recovery,
    to_regclass('public.suppressions') IS NOT NULL AS suppressions_ready,
    to_regclass('public.winnr_webhook_events') IS NOT NULL AS events_ready`);
@@ -61,7 +63,7 @@ export async function reconcileCanonicalIngress({
    if(found.rows.length!==1||found.rows[0].value!==e.recipient)
     throw Error('canonical-suppression-readback-failed');
   }
-  await client.query('COMMIT');transaction=false;
+  stillFresh();await client.query('COMMIT');transaction=false;
   return Object.freeze({status:'SNAPSHOT_RECONCILED',reconciledAdverseEventCount:snapshot.events.length,
    observedAt:snapshot.observedAt,sendAuthority:'NONE',canonicalDatabaseVerified:true});
  } catch(error) {if(transaction)await client.query('ROLLBACK').catch(()=>{});throw error;}

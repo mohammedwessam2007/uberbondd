@@ -100,3 +100,16 @@ test('real disposable Postgres: atomic canonical replay and missing-table refusa
   }finally{await pool.end();}
  });
 });
+
+test('snapshot mutation during database acquisition cannot substitute recipient identity',async()=>{
+ const db=fake(),s=snapshot(),connect=db.pool.connect;
+ db.pool.connect=async()=>{const c=await connect();s.events[0].recipient='injected@example.invalid';return c;};
+ await run(db,s);assert.ok(db.stops().has('fixture@example.invalid'));assert.ok(!db.stops().has('injected@example.invalid'));
+});
+test('expiry during acquisition rolls back before any event or suppression mutation',async()=>{
+ const db=fake(),connect=db.pool.connect;let tick=now();
+ db.pool.connect=async()=>{tick=new Date(tick.getTime()+300001);return connect();};
+ await assert.rejects(reconcileCanonicalIngress({pool:db.pool,expectedDatabase:'canonical',
+  readAuthenticatedSnapshot:async()=>snapshot(),now:()=>tick}),/snapshot-expired/);
+ assert.equal(db.events().size,0);assert.equal(db.stops().size,0);assert.ok(db.calls.includes('ROLLBACK'));
+});

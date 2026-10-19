@@ -1226,6 +1226,11 @@
       "gate": null,
       "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
     },
+    "src/uberwarm2-attested-one-shot-readers.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Verifies six independently pinned, short-lived Ed25519 source attestations for a manually invoked one-shot email diagnostic. Never generates proof, retrieves provider credentials or sends mail. The separate one-shot CLI requires real trusted operator signers and an owner-signed exact batch before any primary-ledger claim or HTTPS send. No unattended monitor import, implicit send approval or paid warmer."
+    },
     "src/uberwarm2-authorized-one-shot-runtime.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",

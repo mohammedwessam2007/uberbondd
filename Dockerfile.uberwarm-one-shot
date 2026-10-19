@@ -1,0 +1,10 @@
+# Manual, one-use image, deliberately NOT the five-minute read-only monitor.
+FROM node:22-bookworm-slim
+ENV NODE_ENV=production
+WORKDIR /app
+RUN npm install --ignore-scripts --no-audit --no-fund --save-exact pg@8.22.0
+COPY src/ ./src/
+COPY operator-tools/uberwarm2-execute-approved-once.mjs ./operator-tools/
+RUN node --check operator-tools/uberwarm2-execute-approved-once.mjs && node --check src/uberwarm2-attested-one-shot-readers.mjs
+USER node
+ENTRYPOINT ["node", "operator-tools/uberwarm2-execute-approved-once.mjs"]

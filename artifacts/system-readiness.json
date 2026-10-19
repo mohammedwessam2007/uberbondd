@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T22:45:48.432Z",
+  "generatedAt": "2026-10-19T22:54:29.910Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "c2d567d7b55ac5ed8d9aa7bbfd2e90ca9f3661c0",
+    "head": "9f999870b99cf2b210fe2cd90839cd17c66e4224",
     "branch": "feat/uberwarm-ingress-fence-20261019",
     "sourceModules": 1118,
     "testSuites": 1360,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

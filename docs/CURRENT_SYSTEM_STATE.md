@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-19**
 Branch: `feat/uberwarm-ingress-fence-20261019`
-Reconciled from current head: `c2d567d7b55ac5ed8d9aa7bbfd2e90ca9f3661c0`
+Reconciled from current head: `9f999870b99cf2b210fe2cd90839cd17c66e4224`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

@@ -20,6 +20,7 @@ import { validateExternalCapabilityRegistry } from '../src/external-capability-c
 import { ZERO_EXTERNAL_EFFECTS } from '../src/effect-ledgers.mjs';
 import { getPhoenixWaveStatus, listPhoenixWaveProposals, compilePhoenixProposalMission } from '../src/phoenix-ten-wave-mission-compiler.mjs';
 import { inspectNativeCliAuth } from '../src/phoenix-native-cli-health.mjs';
+import { verifyObjectiveEscrow } from '../src/phoenix-objective-escrow.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MAX_ARGUMENT_BYTES = 12000;
@@ -97,6 +98,10 @@ export function runPhoenixCosCommand(argv=[]) {
   if(!Array.isArray(argv) || argv.some(a => typeof a !== 'string')) return failure('STRING_ARGUMENTS_REQUIRED');
   const [verb, ...params] = argv;
   if(verb === 'cli-auth' && params.length===0) return inspectNativeCliAuth();
+  if(verb === 'objective-escrow-verify' && params.length===1) {
+    const payload=input(params[0]);
+    return payload ? verifyObjectiveEscrow(payload) : failure('BOUNDED_OBJECTIVE_ESCROW_JSON_REQUIRED');
+  }
   if(verb === 'waves' && params.length === 0) return getPhoenixWaveStatus();
   if(verb === 'wave' && params.length >= 1 && params.length <= 3) {
     const [waveArg,offsetArg='0',limitArg='10']=params;

@@ -1227,6 +1227,11 @@
       "gate": null,
       "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
     },
+    "src/uberwarm2-authorized-one-shot-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected single-message Winnr HTTPS seed execution composer. Tests demonstrate genuine wiring through the pre-existing trusted reader, HMAC approval, PostgreSQL one-shot claim and provider bridge, but it is intentionally unreachable from unattended production paths. It cannot be connected until exact independently authenticated sender health and consenting recipient evidence, a server-held owner signature and a separate explicit per-effect live invocation are present. No paid warmer, autonomous schedule or simulated consent is allowed."
+    },
     "src/uberwarm2-registry-bridge.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",

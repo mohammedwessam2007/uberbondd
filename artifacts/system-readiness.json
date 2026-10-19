@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T13:40:19.853Z",
+  "generatedAt": "2026-10-19T13:41:49.094Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "7ee4b7589b7c55f6d2d0cb6160779581f2a14429",
+    "head": "9876a92a1738daf4e975de3f1edbf1342a027991",
     "branch": "fix/phoenix-mutation-hosted-20261019",
     "sourceModules": 1110,
     "testSuites": 1349,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

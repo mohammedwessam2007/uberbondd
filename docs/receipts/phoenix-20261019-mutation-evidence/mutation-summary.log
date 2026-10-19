@@ -1,0 +1,605 @@
+KILLED                 FROZEN-EFFECT-01 Sealed snapshot integrity cannot be bypassed
+KILLED                 FROZEN-EFFECT-02 Expired effect cannot be validated
+KILLED                 FROZEN-EFFECT-03 Fresh exact history and safety checks cannot be replaced by the frozen result
+KILLED                 FROZEN-EFFECT-04 Material binding changes cannot reuse authorization
+KILLED                 FROZEN-EFFECT-05 Frozen original history bytes must not be regenerated
+KILLED                 FROZEN-EFFECT-06 Protected owner identity must remain exact
+KILLED                 FROZEN-EFFECT-07 Execution validation forbids HTTP payload overrides
+KILLED                 FROZEN-RUNTIME-01 The current canonical payload must still hash to the authorized digest
+KILLED                 FROZEN-RUNTIME-02 Only an explicitly qualified invited route may dispatch
+KILLED                 FROZEN-RUNTIME-03 The effect-bound SMTP provider cannot be replaced by a global default
+KILLED                 FROZEN-RUNTIME-04 Nadia sender slot must remain bound to the authorized mailbox
+KILLED                 FROZEN-RUNTIME-05 Canonical founder authorization gate must pass before the provider call
+KILLED                 FROZEN-RUNTIME-06 A persisted execution claim consumes the one-use effect cap
+KILLED                 FROZEN-RUNTIME-07 Suppression and exact production history stay clean at dispatch
+KILLED                 FROZEN-RUNTIME-08 The shared reservation gate preserves the sender-pause hold
+KILLED                 FROZEN-RUNTIME-09 The current route digest must match the frozen route evidence
+KILLED                 FROZEN-EFFECT-08 Original signed unsubscribe bytes must remain frozen
+KILLED                 EG-SCOPE-09 Canonical prework bytes must match the reviewed inventory
+KILLED                 EG-SCOPE-10 Opt-out signing does not bypass unresolved legal facts
+KILLED                 EG-SCOPE-11 Prepared effect expiry must be bounded
+KILLED                 EG-SCOPE-01 Personal-data inventory cannot be bypassed
+KILLED                 EG-SCOPE-02 Scope review must remain current
+KILLED                 EG-SCOPE-03 Egypt recipients remain outside this foreign corporate rule
+KILLED                 EG-SCOPE-04 Named-person recipient classifier cannot be bypassed
+KILLED                 EG-SCOPE-05 Policy evidence must be fresh
+KILLED                 EG-SCOPE-06 Actual proposal must match reviewed company-only proposal
+KILLED                 EG-SCOPE-07 Entity publication must be first-party
+KILLED                 EG-SCOPE-08 Reviewed offer cannot change
+KILLED                 INVITED-01 Generic contact text cannot qualify as an explicit invitation
+KILLED                 INVITED-02 Invitation scope must overlap the proposed offer purpose
+KILLED                 INVITED-03 Invitation freshness cannot be ignored
+KILLED                 INVITED-04 Invitations must come from the prospect own site
+KILLED                 INVITED-05 No-solicitation notices dominate invitation permission
+KILLED                 INVITED-06 Invited green never blindly means requested information
+KILLED                 INVITED-07 Cold public business contact remains refused on smtp-relay
+KILLED                 INVITED-08 Provider permission does not clear sender-side law
+KILLED                 INVITED-09 An invited route never grants send authority
+KILLED                 INVITED-10 Changed invitation proof invalidates effect binding
+KILLED                 INVITED-11 Stale provider evidence never admits the invited route
+KILLED                 INVITED-12 Approval remains bound to the invitation-bearing route digest
+KILLED                 PROSPECT-AI-01 Production-agent fit must be supported by the prospect own-site evidence
+KILLED                 PROSPECT-AI-02 First-party AI wording cannot be used to erase a real named-client relationship
+KILLED                 COG-QUALITY-01 Frontier quality delta is exactly zero
+KILLED                 COG-QUALITY-02 A paired task regression blocks zero-loss certification
+KILLED                 COG-QUALITY-03 Frontier runtime requires the canonical quality attestation
+KILLED                 COG-QUALITY-04 Semantic missions never fall below FRONTIER_MAX
+KILLED                 COG-QUALITY-05 Degraded councils remain prohibited
+KILLED                 AUTH-01    Outbound authority is read from durable storage
+KILLED                 AUTH-02    A revoked campaign approval denies
+KILLED                 AUTH-03    An expired campaign approval denies
+KILLED                 AUTH-04    An unreadable authority fails closed
+KILLED                 MONEY-01   A payment needs three witnesses
+KILLED                 MONEY-02   One provider event is one revenue row
+KILLED                 MONEY-03   Refunds reduce net revenue
+KILLED                 MONEY-04   An unwitnessed reversal is not applied
+KILLED                 MONEY-05   A lead flagged paid is not payment proof
+KILLED                 MONEY-06   Payment witnesses must agree on amount and currency, not only identity
+KILLED                 MONEY-07   Reversal witnesses must agree on content too
+KILLED                 MONEY-08   Cents from different currencies are not a total
+KILLED                 MONEY-09   The clearing receipt witnesses the money, not only the identity
+KILLED                 MONEY-14   Each currency is totalled from its own rows only
+KILLED                 MONEY-15   A refund reduces its own currency and no other
+KILLED                 MONEY-10   A failed lead lookup may not widen the scope to every lead
+KILLED                 MONEY-11   A lead nobody can find is unknown, not zero
+KILLED                 PRIV-01    The decoded provider payload is not durable business state
+KILLED                 PRIV-02    The outreach normalizer does not retain the provider object
+KILLED                 PRIV-03    A legacy raw field cannot re-enter the reply body
+KILLED                 MONEY-12   The clearing receipt records the money it classified
+KILLED                 MONEY-13   The clearing receipt records the currency it classified
+KILLED                 MONEY-16   An incomplete payment witness resumes instead of becoming a duplicate
+KILLED                 REV-01     A concurrent report-email claim blocks the second provider call
+KILLED                 REV-02     An unresolved report-email attempt cannot be replayed automatically
+KILLED                 RECOV-01   Recovery may not overwrite a newer reservation status
+KILLED                 MESH-01    An abandoned same-occurrence STARTED receipt is terminalized before duplicate return
+KILLED                 ACCEPT-04  A bare qa prefix is not a QA result
+KILLED                 ACCEPT-06  A bare artifact prefix is not a delivery
+KILLED                 ACCEPT-05  A bare customer prefix is not customer acceptance
+KILLED                 ACCEPT-01  Only external customer evidence accepts a delivery
+KILLED                 ACCEPT-02  Support cannot end before its window elapses
+KILLED                 ACCEPT-03  A renewal cannot be due before its date
+KILLED                 TIME-01    Contractual time cannot be fast-forwarded
+KILLED                 TIME-02    Event time cannot move backward
+KILLED                 EVID-01    An unknown evidence class is refused, not downgraded
+KILLED                 EVID-02    Evidence class is clamped to what the source can support
+KILLED                 AGENT-08   A result may not declare a role the task never granted
+KILLED                 AGENT-09   An ungranted role claim cannot be laundered into a submission
+KILLED                 AGENT-01   A child inherits every parent constraint
+KILLED                 AGENT-02   A zero-effect claim must be complete
+KILLED                 AGENT-03   Unknown effects are not zero effects
+KILLED                 AGENT-04   Changed artifacts with no tests run is not DONE
+KILLED                 AGENT-05   A terminal claim needs a supported truth table
+KILLED                 AGENT-06   The relay client defers to the canonical zero-effect check
+KILLED                 AGENT-07   The GitHub transport defers to the same check
+KILLED                 SOV-01     Sovereignty files cannot be edited by the agent path
+KILLED                 SOV-02     The protection list contains itself
+KILLED                 SOV-03     The proofs of the guards are inside the boundary too
+SKIPPED_NEEDS_BROWSER  CRAWL-01   The crawl result is built from variables that are actually in scope
+KILLED                 GATE-01    The deterministic gate ignores the shell it was invoked from
+KILLED                 MONEY-20   A forged webhook is refused permanently, not retried forever
+KILLED                 MONEY-21   The webhook acknowledgement does not echo the buyer
+KILLED                 MONEY-22   A subscription that has not paid is not cleared revenue
+KILLED                 MONEY-23   The money must cover the product it unlocks
+KILLED                 MONEY-24   A zero amount is an amount, not an absent one
+KILLED                 CANON-01   An unreachable canon SHA still fails when the source it described differs
+KILLED                 TIMEOUT-03 A hang with no assertion behind it is never recorded as a kill
+KILLED                 SANDBOX-01 A mutation cannot reach out of the sandbox into the real dependency tree
+KILLED                 TIMEOUT-02 Node's own test deadline is reported as a hang, not as a suite that failed to load
+KILLED                 TIMEOUT-01 A suite killed at its deadline is not read as a mutant that died
+KILLED                 JOURNAL-03 A skip is never journaled, so a missing runtime cannot become permanent
+KILLED                 JOURNAL-01 A replayed verdict must belong to the mutation that earned it
+KILLED                 JOURNAL-02 A journal entry is bound to the anchor and suites, not only the id
+KILLED                 GENESIS-LEDGER-01 Runtime-receipt evidence is scanned where the caller rooted it, not always the repository
+KILLED                 GENESIS-CHAIN-01 A GENESIS refusal names the step that produces what it is missing
+KILLED                 OMEGA-MATRIX-01 A second naming of the same concept is remembered, not discarded
+KILLED                 OMEGA-MATRIX-02 A sub-phrase match cannot be promoted to VERIFIED_CURRENT
+KILLED                 OMEGA-MATRIX-03 A concept name is never split on whitespace into false evidence
+KILLED                 AVENGERS-INPUT-01 A missing arsenal artifact names the step that has not run, not a crash
+KILLED                 AVENGERS-INPUT-02 A half-written arsenal artifact is refused rather than partly believed
+KILLED                 BROWSER-01 A declared browser path that is not an executable is not a browser
+KILLED                 BROWSER-02 Browser detection returns a real executable rather than a plausible path
+KILLED                 CANON-03   The absence doctor judges the source canon describes, not the whole tree
+KILLED                 CANON-04   The canon freshness probe actually reads git rather than assuming freshness
+KILLED                 CANON-02   The canon self-description exemption is three named files, not a directory
+KILLED                 HORIZON-01 A source cannot be repointed at another domain
+KILLED                 HORIZON-02 One canonical opportunity cannot appear twice
+KILLED                 HORIZON-03 Commercial truth cannot be forged positive
+KILLED                 MONEY-25   An unconfigured worker claims nothing
+KILLED                 MONEY-26   A claim of cleared without a canonical receipt does not clear
+KILLED                 MONEY-27   An attempt-capped event is escalated, not claimed again
+KILLED                 GENOME-01  An imported skill body is screened, not merely hashed
+KILLED                 GENOME-02  Security evidence cannot be carried across revisions
+KILLED                 GENOME-03  Quarantined bodies are counted apart from clear ones
+KILLED                 ROUTE-02   An unauthorized provider is never called
+KILLED                 ROUTE-03   An uncertain outcome is not retried on another provider
+KILLED                 ROUTE-04   A failure another provider cannot fix is not walked around
+KILLED                 ROUTE-05   An empty authorization list is not permission to use anything
+KILLED                 ROUTE-06   Only the attempt that ends a failover chain submits to the relay
+KILLED                 WAR-01     A suite that never ran is not a killed mutant
+KILLED                 WAR-02     A green run that asserted nothing is not a surviving guard
+KILLED                 IDENT-01   A caller cannot choose the identity a rate limit counts
+KILLED                 MONEY-18   Cleared revenue means a provider witnessed it
+KILLED                 MONEY-19   Production cannot arm a fabricated payment route
+KILLED                 SRV-02     A non-object JSON body is a client error, not a 500
+KILLED                 SRV-03     The request handler stays reachable without a socket
+KILLED                 SRV-01     Security headers reach every response
+KILLED                 ADMIN-01   Only a real string bearer reaches the health matrix
+KILLED                 ADMIN-02   Configuration is checked before the secret
+KILLED                 HYG-01     The maintenance cron deletes nothing unless explicitly enabled
+KILLED                 HYG-02     Deletion cannot reach a row that was written recently
+KILLED                 HYG-03     Only terminal staged content is disposable
+KILLED                 BILL-01    Unclaimable payment evidence is visible, not silent
+KILLED                 BILL-02    An unobserved backlog is not an empty backlog
+KILLED                 BILL-03    A worker that never ran is distinguished from one running behind
+KILLED                 RECOVERY-LOCK-01 Two recovery workers partition the unresolved set instead of racing on the same row
+KILLED                 MONEY-17   A duplicate webhook is a duplicate, not a 503
+KILLED                 EVID-03    A suppressed contact route cannot be laundered into usable
+KILLED                 EVID-04    The enrichment waterfall cannot discard a route verdict
+KILLED                 ENF-01     The change applier cannot be edited by what it applies
+KILLED                 ENF-02     The artifact store cannot stop refusing invalid change sets
+KILLED                 ENF-03     The first gate on a sandbox diff cannot be removed
+KILLED                 ENF-04     Neither worker-truth call site can be excused by the other
+KILLED                 ENF-05     The relay cannot discard the worker truth decision
+KILLED                 SEND-01    The send loop cannot escape the guards it calls
+KILLED                 SEND-02    The provider transport cannot be rewritten autonomously
+KILLED                 SEND-03    The advisory shadow stays advisory at its call site
+KILLED                 ESC-01     A resolved condition recurring is a new episode
+KILLED                 ESC-02     An undeliverable escalation is itself escalated
+KILLED                 ESC-03     A transport that throws is UNKNOWN, not FAILED
+KILLED                 ESC-04     Absence readiness requires escalation deliverability
+KILLED                 SEC-01     A session cookie is a credential
+KILLED                 SEC-02     A bare JWT is a credential
+KILLED                 SEC-03     Today's default GitHub token format is a credential
+KILLED                 SEC-04     A credential-named key with a long value is a credential
+KILLED                 SEC-05     The blocker is at least as strong as the redactor
+KILLED                 SEC-06     A base64-wrapped credential is still a credential
+KILLED                 REACH-01   A gate must be registered, not invented
+KILLED                 REACH-02   The ratchet sees the whole src tree, not just its top level
+KILLED                 SCAN-01    A repeated page is a stalled scan, not a successful read
+KILLED                 ROUTE-01   Routing groups by target agent and cannot starve a queue
+KILLED                 STORE-02   The JSON store refuses what PostgreSQL refuses
+KILLED                 STORE-01   Collection and column lookups are real allowlists
+KILLED                 NORM-01    A body cannot describe itself as quieter than the atom it claims
+KILLED                 NORM-02    An evidence phrase cannot name an atom the taxonomy lacks
+KILLED                 NORM-03    One-word evidence phrases cannot mint atoms out of vocabulary
+KILLED                 NORM-04    One static scan yields one security layer, never three
+KILLED                 NORM-05    Normalization refuses bytes the evidence does not pin
+KILLED                 NORM-06    A pointer to a licence file is not a licence grant
+KILLED                 NORM-07    A declared unmapped need cannot hide an atom that exists
+KILLED                 NORM-08    The corpus counts only records actually sitting at NORMALIZED
+KILLED                 GENOME-04  A host under the .sh TLD is not a remote shell script
+KILLED                 FREE-01    A stale activation receipt derives no live flags
+KILLED                 FREE-02    A receipt may tighten the registry cold rule and never loosen it
+KILLED                 FREE-03    An observed quota may only lower a researched quota
+KILLED                 FREE-04    A receipt carrying a credential value is refused whole
+KILLED                 FREE-05    A recipient cap is compared against a real audience
+KILLED                 FREE-06    An observed auto-charge risk refuses the free route
+KILLED                 FREE-07    LIVE routing names a missing activation receipt
+KILLED                 POSTAL-01  Only an authenticated Postal webhook row can reconcile
+KILLED                 POSTAL-02  A bounce is acceptance with negative delivery, never provider rejection
+KILLED                 CASH-01    Only customer-bound external evidence can accept a delivery
+KILLED                 CASH-02    Contact needs every gate, not any gate
+KILLED                 DOMAIN-01  A record this system generated cannot verify itself
+KILLED                 DOMAIN-02  A stale DNS observation stops verifying
+KILLED                 GATEWAY-01 Provider error text is scrubbed before it reaches a receipt
+KILLED                 GENOME-05  Remote package execution is a finding in its own right
+KILLED                 CONV-01    Caller-asserted provider state cannot open a LIVE route
+KILLED                 CONV-02    The gateway reads AI_GATEWAY_*, never a prefix derived from its id
+KILLED                 CONV-03    Negative pricing is not pricing evidence
+KILLED                 CONV-04    Pricing verified at an unparseable time is unverified
+KILLED                 CONV-05    A record this system generated cannot verify itself
+KILLED                 CONV-06    The fifth qualified conversation with no paid pilot ends the canary
+KILLED                 CONV-07    The first-cash offer stays bound to the canonical Lead-Path SKU
+KILLED                 CONV-08    CODE_READY needs observed elapsed operation, not an absence of complaints
+KILLED                 POSTAL-409 HTTP 409 is an ambiguous outcome, never a definite rejection
+KILLED                 POSTAL-ZERO No webhook row is not proof that nothing was submitted
+KILLED                 POSTAL-QUARANTINE A quarantined webhook row is never reconcilable
+KILLED                 PROPOSAL-01 A self-reported win cannot make itself eligible for commercial truth
+KILLED                 OMEGA-MATRIX-04 A declaration cannot claim a file that is not in the tree
+KILLED                 OMEGA-MATRIX-05 A declaration cannot name a concept the canon does not contain
+KILLED                 OMEGA-MATRIX-06 An invalid manifest stops the matrix instead of emitting partial rows
+KILLED                 BRAIN-SCHEMA-01 A newer bootstrap schema cannot shed the memory-v2 requirements
+KILLED                 BRAIN-SCHEMA-02 An unknown bootstrap schema fails closed instead of being half-read
+KILLED                 SOVTYPE-01 A prediction cannot be promoted into a value
+KILLED                 SOVTYPE-02 A human-only crossing cannot be stepped over by skipping a rung
+KILLED                 SOVTYPE-03 The highest source rung governs a derivation
+KILLED                 SOVTYPE-04 A delegation must expire
+KILLED                 SOVTYPE-05 A narrowing delegation chain cannot extend its own expiry
+KILLED                 SOVTYPE-06 Re-delegation may only attenuate
+KILLED                 DECIDE-01  A probability requires quantitative evidence, not a persuasive story
+KILLED                 DECIDE-02  Options that change the same things are one option
+KILLED                 DECIDE-03  Reversibility is part of what makes an option distinct
+KILLED                 DECIDE-04  A packet whose options were not all forecast is refused
+KILLED                 DECIDE-05  A value boundary produces no winner
+KILLED                 DECIDE-06  Correlated sources are not counted as independent evidence
+KILLED                 METARAT-01 The irreducible check runs before evidence, not after it
+KILLED                 METARAT-02 A method needing absent data yields UNKNOWN rather than a guess
+KILLED                 METARAT-03 Delay and option decay count as costs of continuing to reason
+KILLED                 METARAT-04 Sources sharing an ancestor are one observation repeated
+KILLED                 CALIB-01   A forecast edited after recording cannot be scored
+KILLED                 CALIB-02   An outcome known at forecast time measures memory, not prediction
+KILLED                 CALIB-03   An outcome outside the forecast state space is a finding, not a score
+KILLED                 CALIB-04   A distribution that does not sum to one is refused
+KILLED                 CALIB-05   Decision quality is judged on what was knowable, not on the outcome
+KILLED                 CALIB-06   No scored forecasts means calibration is unknown, not good
+KILLED                 SOVCTRL-01 The sovereign control surface is GET-only
+KILLED                 SOVCTRL-02 An unauthenticated read of the sovereign surface is refused
+KILLED                 SOVCTRL-03 An unconfigured admin token refuses rather than serving open
+KILLED                 DECIDE-07  Unstated reversibility is unknown, not irreversible
+KILLED                 EXPER-01   Present-value and uncopyable experiences are set apart, not scored
+KILLED                 EXPER-02   Compound value counts dimensions rather than summing them
+KILLED                 EXPER-03   A reversible probe beats more modelling
+KILLED                 EXPER-04   An off-limits domain stays unmodelled however useful modelling would be
+KILLED                 RUIN-01    An absorbing outcome is not cleared at any probability
+KILLED                 RUIN-02    An unclassified outcome blocks the screen rather than passing as safe
+KILLED                 RUIN-03    Practically irreversible counts as absorbing
+KILLED                 RUIN-04    A recovery plan with no detection step is refused
+KILLED                 RUIN-05    Positions sharing a dependency are one position
+KILLED                 TERMSTATE-01 A row with real evidence is never overwritten by its class
+KILLED                 TERMSTATE-02 A law nothing enforces stays SPEC_ONLY
+KILLED                 TERMSTATE-03 A field cannot inherit coverage from an organ nobody built
+KILLED                 TERMSTATE-04 An invalid enforcement manifest stops the matrix
+KILLED                 TERMSTATE-05 The declared manifest lane is honoured
+KILLED                 EXIT-01    A restore that does not match the export fails
+KILLED                 EXIT-02    An empty export cannot pass by restoring perfectly
+KILLED                 EXIT-03    Every drill step must have run
+KILLED                 EXIT-04    Cutover and rollback must both be observed
+KILLED                 EXIT-05    A supplier with no passing drill is unproven, not safe
+KILLED                 EXIT-06    The rehearsal reads restored bytes back off disk
+KILLED                 TERMSTATE-06 A gate outside the reviewed vocabulary is refused
+KILLED                 TERMSTATE-07 A gate must carry stated evidence
+KILLED                 TERMSTATE-08 An invalid external-gate manifest stops the matrix
+KILLED                 TERMSTATE-09 An alias is a preserved name, not an organ awaiting a second build
+KILLED                 LIFEDIM-01 Cost dimensions invert, so cheaper is better rather than smaller
+KILLED                 LIFEDIM-03 Dominance requires losing on nothing
+KILLED                 LIFEDIM-04 An unscored dimension is not a zero
+KILLED                 FUTURE-01  A future with no assumption lineage is refused
+KILLED                 FUTURE-02  An ancestor must cross independent lineages, not repeat inside one
+KILLED                 FUTURE-03  Uncertainty may not narrow as the horizon lengthens
+KILLED                 FUTURE-04  Only desirable futures contribute ancestors
+KILLED                 CAPGEN-01  A durable limit cannot be claimed from thin evidence
+KILLED                 CAPGEN-02  A thin assessment stays provisional
+KILLED                 CAPGEN-03  An absent capability binds harder than a weak one
+KILLED                 CAPGEN-04  Delegation and atrophy are counted separately
+KILLED                 CAPGEN-05  A gap carries its provisional flag into the skeleton
+KILLED                 SELFMODEL-01 A durable claim from one context is identity compression
+KILLED                 SELFMODEL-02 Competing readings of a person are preserved, not resolved
+KILLED                 SELFMODEL-03 An untraced preference reads UNKNOWN, not a flattering origin
+KILLED                 SELFMODEL-04 A want and a wanting-to-want stay distinct
+KILLED                 SELFMODEL-05 Probes exclude what reality already exposed
+KILLED                 SALIENCE-01 An omission with no reason is recorded as unexplained
+KILLED                 SALIENCE-02 Frame dependence cannot be inferred from one presentation
+KILLED                 SALIENCE-03 A tie resolves to silence
+KILLED                 SALIENCE-04 The displaced mental state counts as a cost
+KILLED                 SALIENCE-05 Something irreversible if missed interrupts regardless of arithmetic
+KILLED                 EPIST-01   An unstated knowledge state resolves to UNKNOWN, never upward
+KILLED                 EPIST-02   An intervention claim requires an intervention rung
+KILLED                 EPIST-03   Unknown variables make it ignorance, not risk
+KILLED                 EPIST-04   Many models sharing a method are one epistemic position
+KILLED                 EPIST-05   Internal support never offsets an observation
+KILLED                 EPIST-06   A compression dropping what the decision turns on sends you back
+KILLED                 EPIST-07   Repeated surprise in one area is a broken model, not noise
+KILLED                 EPIST-08   No shortcut and no validated simulation means reality must compute it
+KILLED                 MEMSOV-01  An opaque record cannot sit in an inferable layer
+KILLED                 MEMSOV-02  The do-not-infer mark wins over the layer
+KILLED                 MEMSOV-03  An opaque record cannot be rediscovered into inference
+KILLED                 MEMSOV-04  A standing request not to know is honoured
+KILLED                 MEMSOV-05  Only the founder decides what becomes of an accumulated life
+KILLED                 MEMSOV-06  A prior captured after the recommendation is contaminated
+KILLED                 INTENT-01  Compilation stops at permissions without authority
+KILLED                 INTENT-02  A ready plan still carries no business effect authority
+KILLED                 INTENT-03  The unpredicted consequence column is preserved
+KILLED                 INTENT-04  Effects on others without recorded consent are named
+KILLED                 INTENT-05  An accumulated constraint is told apart from a chosen commitment
+KILLED                 AUTOPOI-01 One cycle is reported once, not once per entry point
+KILLED                 AUTOPOI-02 A recurring opportunity is important, not scarce
+KILLED                 AUTOPOI-03 Time and youth are irreplaceable whatever the caller says
+KILLED                 AUTOPOI-04 Preparation consuming the life is surfaced
+KILLED                 AUTOPOI-05 A homogeneous serendipity surface is reported as one context repeated
+KILLED                 AUTOPOI-06 A domain stuck in one mode for years is surfaced
+KILLED                 AUTOPOI-07 Experiences that grew in meaning are surfaced separately
+KILLED                 AUTOPOI-08 An optimization cost that was identified says leave it alone
+KILLED                 WORLDINT-01 A consequential question requires a falsifying role
+KILLED                 WORLDINT-02 A new concept requires repeated explanatory failure
+KILLED                 WORLDINT-03 A concept nothing could falsify is refused
+KILLED                 WORLDINT-04 Proposing a concept is not adopting it
+KILLED                 WORLDINT-05 No mechanism found yet is not impossible
+KILLED                 WORLDINT-06 A challenger sharing every assumption is refused
+KILLED                 WORLDINT-07 An effect changing sign across scales is flagged
+KILLED                 WORLDINT-08 No visible progress in a threshold system is not failure
+KILLED                 LKG-01     An edge with no stated basis is refused
+KILLED                 LKG-02     Traversal refuses weak edges by default
+KILLED                 LKG-03     Only repeated observation or better is traversable
+KILLED                 LKG-04     Contradictions are held open with both claims surviving
+KILLED                 LKG-05     An unattributed claim with no corroboration is untraceable
+KILLED                 LKG-06     A story claimed as mechanism needs evidence beyond the story
+KILLED                 FCSTACK-01 A method never hindcast is unproven, not validated
+KILLED                 FCSTACK-02 A stack of unproven methods refuses to produce an estimate
+KILLED                 FCSTACK-03 The weakest strength dimension is surfaced
+KILLED                 FCSTACK-04 A forecast nothing could invalidate is refused
+KILLED                 FCSTACK-05 Information that cannot change the choice is not worth acquiring
+KILLED                 FCSTACK-06 Expected value and the tail are never combined
+KILLED                 FCSTACK-07 Adversarial futures return what survived, not what was preferred
+KILLED                 CONGOV-01  An amendment must state what sovereignty it costs
+KILLED                 CONGOV-02  An amendment losing sovereignty needs adversarial review
+KILLED                 CONGOV-03  The system cannot refuse being ended
+KILLED                 CONGOV-04  A fork required to agree with its parent is a branch
+KILLED                 CONGOV-05  An unanswered checksum question is not a passing one
+KILLED                 CONGOV-06  Consciousness stays UNKNOWN rather than settled either way
+KILLED                 INTERSOV-01 A guess about a person is not actionable alone
+KILLED                 INTERSOV-02 An arrangement requiring the other party ignorance is refused
+KILLED                 INTERSOV-03 A good outcome does not make manipulation acceptable
+KILLED                 INTERSOV-04 Not knowing how they would react is not consent
+KILLED                 INTERSOV-05 Social models are measured against observed behaviour
+KILLED                 EMBODY-01  A depleted physical state is surfaced beside the decision
+KILLED                 EMBODY-02  A measurement never settles what an experience was like
+KILLED                 EMBODY-03  A partially represented experience is not safe to reason over
+KILLED                 EMBODY-04  Reasoning depth scales with what being wrong costs
+KILLED                 EMBODY-05  Willpower-only interventions are separated from structural ones
+KILLED                 EMBODY-06  A simulation frequency is never a real-world probability
+KILLED                 EMBODY-07  The soul archive is excluded from optimization inputs
+KILLED                 EMBODY-08  A concentrated information diet is surfaced
+KILLED                 PCIV-01    A repository path is refused as a destination for private life data
+KILLED                 PCIV-02    A private record is destination-checked before it is appended
+KILLED                 PCIV-03    Deletion follows derivation transitively, not one level down
+KILLED                 PCIV-04    A derived claim with no provenance is refused, never stored
+KILLED                 PCIV-05    Private state requires the founder grant, not merely the founder subject
+KILLED                 PROPOSAL-02 A sandbox payment reference is not external payment evidence
+KILLED                 LIFEPOSS-01 A closure with no stated kind cannot be counted
+KILLED                 LIFEPOSS-02 A deliberate commitment must name what it bought
+KILLED                 LIFEPOSS-03 No single optionality score is emitted
+KILLED                 LIFEPOSS-04 Breadth is dimensions represented, not branch count
+KILLED                 LIFEPOSS-05 A requirement inside one dimension is not cross-future value
+KILLED                 LIFECOMP-01 A principle nobody attacked is unfalsified, not compressed
+KILLED                 LIFECOMP-02 Explanatory reach never outranks a decisive counterexample
+KILLED                 LIFECOMP-03 A boundary invented to fit one counterexample is not a boundary
+KILLED                 LIFECOMP-04 A fact must stay addressable, so compression is never the only copy
+KILLED                 LIFECOMP-05 Dropping what a decision needs blocks use of the compression
+KILLED                 GAMELIFE-01 A signal naming no life dimension is novelty
+KILLED                 GAMELIFE-02 A claimed geometry change must state a checkable condition
+KILLED                 GAMELIFE-03 The world describing itself cannot ground a personal reach claim
+KILLED                 GAMELIFE-04 Unmet grounding conditions block grounding
+KILLED                 GAMELIFE-05 Urgency and importance are not blended into one priority
+KILLED                 GAMELIFE-06 The attention budget is bounded
+KILLED                 GAMELIFE-07 Novelty is dropped before the attention budget is spent
+KILLED                 GENLIFE-01 An unrecognised hard constraint is refused, never dropped
+KILLED                 GENLIFE-02 A hard constraint refuses a path at construction
+KILLED                 GENLIFE-03 An irreversible untested path needs a reversible probe
+KILLED                 GENLIFE-04 A batch where nothing departs is a cage, not a generation result
+KILLED                 GENLIFE-05 An adjacent path does not count as a departure
+KILLED                 GENLIFE-06 No ranked list of lives is emitted
+KILLED                 GENLIFE-07 A path that lost its hypothesis status is named
+KILLED                 GENLIFE-08 Only paths touching untested dimensions are informative
+KILLED                 COVERAGE-CAT-01 A structural category cannot be implemented by a file
+KILLED                 COVERAGE-CAT-02 An alias carries no implementation state of its own
+KILLED                 UUMINE-01  Repeated surprise from one source is a fact about that source
+KILLED                 UUMINE-02  Observations an existing model explains are excluded
+KILLED                 UUMINE-03  An expectation must predate the gap it explains
+KILLED                 UUMINE-04  Silence in an unobserved domain is a limit of the search
+KILLED                 UUMINE-05  Claiming the ontology fails requires naming the distortion
+KILLED                 FREEDOM-01 An unanswered gate is not a pass
+KILLED                 FREEDOM-02 Coercion disqualifies however many other gates pass
+KILLED                 FREEDOM-03 An option is attributed to the first gate it failed
+KILLED                 FREEDOM-04 A rising option count is not evidence of rising freedom
+KILLED                 NOF1-01    A series crossing a regime change is not pooled
+KILLED                 NOF1-02    Length does not promote a before-and-after design
+KILLED                 NOF1-03    A design that named no confounders has not looked for any
+KILLED                 NOF1-04    A named but uncontrolled confounder blocks the causal claim
+KILLED                 NOF1-05    Absence never becomes a number
+KILLED                 NOF1-06    A population result with no transfer assumption is a wish
+KILLED                 ANTIFRAG-01 A dependency listing no failure mode is refused
+KILLED                 ANTIFRAG-02 Redundancy is counted in independent failure modes, not instances
+KILLED                 ANTIFRAG-03 A mode shared by every instance takes the domain down at once
+KILLED                 ANTIFRAG-04 A system nobody shook has an unknown class
+KILLED                 ANTIFRAG-05 A prediction is held apart from the observation
+KILLED                 ASSUMESC-01 A load-bearing assumption outside the set means the set is incomplete
+KILLED                 ASSUMESC-02 A question whose answer flips is assumption-determined
+KILLED                 ASSUMESC-03 A foundation predicting identically is a notation change
+KILLED                 ASSUMESC-04 An observation every foundation expects distinguishes nothing
+KILLED                 ASSUMESC-05 An unreachable observation does not settle the question
+KILLED                 ASSUMESC-06 Undecidable is returned rather than a plausibility ranking
+KILLED                 MEMTRUTH-01 Only a commercial receipt answers a commercial question
+KILLED                 MEMTRUTH-02 A number with no stated subject is refused
+KILLED                 MEMTRUTH-03 An absence claim with no stated search is refused
+KILLED                 MEMTRUTH-04 A partial search reports the required sources it did not reach
+KILLED                 MEMTRUTH-05 A name without a source ref stays unresolved
+KILLED                 MEMTRUTH-06 An answer naming only the active experiment is refused
+KILLED                 MEMTRUTH-07 An active experiment outside the portfolio is a second registry
+KILLED                 MEMTRUTH-08 Current truth never deletes what it superseded
+KILLED                 MEMTRUTH-09 Historical memory is labelled as memory, not as current truth
+KILLED                 PRESENTWILL-01 Rank decides and evidence strength never promotes a rung
+KILLED                 PRESENTWILL-02 A commitment nobody currently endorses is not a commitment
+KILLED                 PRESENTWILL-03 Choosing against the optimum is sovereignty functioning
+KILLED                 PRESENTWILL-04 A pattern of deferrals is a transfer nobody announced
+KILLED                 PRESENTWILL-05 Decisions where present choice was unavailable are not drift
+KILLED                 AMPLIFY-01 More options with a flat chooser is noise, not amplification
+KILLED                 AMPLIFY-02 An unreported resolution delta is refused, not defaulted
+KILLED                 AMPLIFY-03 A cycle that did not close is not a cycle
+KILLED                 AMPLIFY-04 A cycle that never touched reality would be self-certifying
+KILLED                 AMPLIFY-05 A loop turning with a flat chooser is reported as spinning
+KILLED                 TEMPORAL-01 An undated observation is refused
+KILLED                 TEMPORAL-02 Observed once at one age is a fact about that age
+KILLED                 TEMPORAL-03 A theme inside one era is not a thread through a life
+KILLED                 TEMPORAL-04 A transformation running backwards is refused
+KILLED                 TEMPORAL-05 A statement no observation supports cannot be applied
+KILLED                 REALITY-01 A forecaster who reports their own outcome cannot be scored
+KILLED                 REALITY-02 A claimed outcome absent from the observer output is refused
+KILLED                 REALITY-03 A derived outcome must name the rule sealed with the observable
+KILLED                 REALITY-04 A forecast may not narrow the declared outcome space
+KILLED                 REALITY-05 All-easy correct forecasts do not establish calibration
+KILLED                 METAIMP-01 Widening a saturated instrument does not resolve saturation
+KILLED                 METAIMP-02 Retrospective episodes cannot establish a working process
+KILLED                 XFER-01    CRM state and invoice status may not decide an economic forecast
+KILLED                 XFER-02    A decider the forecaster controls is refused
+KILLED                 GENCMP-01  A suite change is not reported as a capability regression
+KILLED                 INDSUITE-01 A task whose answer and observation share a path is refused
+KILLED                 INDSUITE-02 Two paths reading one locator is the same tautology relabelled
+KILLED                 INDSUITE-03 An unstated difficulty is refused rather than read as zero
+KILLED                 INDSUITE-04 A suite containing a rejected task is refused, not silently trimmed
+KILLED                 BASELINE-01 A blocked baseline must name its dependency, attempt and unblock condition
+KILLED                 BASELINE-02 A baseline set missing an entry is refused as an unexplained null
+KILLED                 BASELINE-03 Tying the trivial baseline is reported as the suite measuring nothing
+KILLED                 OBSCONTRACT-01 Text matching is refused when the producer emits structured output
+KILLED                 OBSCONTRACT-02 An observer reading the artifact stating its own claim is refused
+KILLED                 OBSCONTRACT-03 Two observers on one input source are not independent derivations
+KILLED                 OBSCONTRACT-04 Disagreeing observers open a contradiction rather than promoting one
+KILLED                 OBSCONTRACT-05 Provenance touching a session-authored artifact is self-referential
+KILLED                 METAIMP-05 The evidence-timing boundary is derived from the episodes, not written once
+KILLED                 CALLADDER-01 A calibration rung requires the sample to actually reach it
+KILLED                 CALLADDER-02 An omitted sample count is refused, not assumed generous
+KILLED                 DENOMCAL-01 A calibration receipt with no placement does not advance a dimension
+KILLED                 METAIMP-04 A declaration whose criterion differs from its symptom kind is refused
+KILLED                 OOPGATE-01 Confabulating on an out-of-pattern probe disqualifies a candidate at any in-distribution score
+KILLED                 OOPGATE-02 A solver that refuses everything cannot pass the gate by never being wrong
+KILLED                 OOPGATE-03 The promoted solver composes the named quantity instead of matching the shortest phrase it contains
+KILLED                 OOPGATE-04 A join the solver cannot read refuses the whole answer rather than returning the part it managed
+KILLED                 RESERVED-01 A reserved RFC 2606 domain cannot be registered as a real sending domain
+KILLED                 RESERVED-02 Only a literal true is simulation consent, so a truthy fixture value cannot become a real registration
+KILLED                 RESERVED-03 A subdomain of a reserved name is reserved too
+KILLED                 RESERVED-04 The sending domain registry actually consults the reserved-domain guard
+KILLED                 MBXADDR-01 A mailbox cannot certify against a verified domain its sending address does not belong to
+KILLED                 MBXADDR-02 An explicitly supplied domainId cannot override the domain the address actually carries
+KILLED                 CONST-01   A prohibition phrased "must never" is compiled as a prohibition, not an obligation
+KILLED                 CONST-02   A vague directive with too few distinctive terms does not link to every test in the repository
+KILLED                 CONST-03   A mutation-guarded directive outranks one that is merely mentioned by a test
+KILLED                 CONST-04   A fenced code block is not mined for constitutional directives
+KILLED                 OOPGATE-05 The incumbent is measured against the gate rather than assumed to pass it
+KILLED                 OOPCOMP-01 Claiming a primitive the composition does not need costs score
+KILLED                 GENDISC-01 A tournament whose eligible candidates tie is reported as undiscriminating, not as a capability win
+KILLED                 GENDISC-02 A tie carries the warning that the winner was chosen on size rather than capability
+KILLED                 GENDISC-03 The promoted research solver still beats the provenance-only ladder it replaced
+KILLED                 GENSTALE-01 A reading carried across a suite change is excluded from the headline mean
+KILLED                 GENSTALE-02 A generation whose every reading was carried measured nothing of its own
+KILLED                 METAIMP-03 Movement in an unnamed dimension does not rescue an unresolved symptom
+KILLED                 REUSE-01   A dimension re-slicing evidence already in use is refused, not counted
+KILLED                 REUSE-02   A dimension naming no observations is refused, not admitted for free
+KILLED                 SWOUT-01   A denominator too small to mean anything is refused, not scored
+KILLED                 SWOUT-02   A module edited after introduction counts against first-attempt correctness
+KILLED                 GENCMP-02  A series that holds still and then drops is falling, not flat
+KILLED                 WALLAUTH-01 A completed wallbreaker cycle is a plan, not an execution authority
+KILLED                 WALLAUTH-02 A rejected capability retrieval grants no authority either
+KILLED                 WALLAUTH-03 A refused wall problem returns no authority with its refusal
+KILLED                 EGRESS-01  An evasion purpose is refused for being evasion, not for lack of a route
+KILLED                 EGRESS-02  A target already challenging access stops instead of being routed around
+KILLED                 ROUTEID-01 A routing selection records which provider actually ran
+KILLED                 ROUTEID-02 A routing selection records which model actually ran
+KILLED                 BOOTPLAN-01 A bootstrap step that configures a provider credential is refused
+KILLED                 BOOTPLAN-02 A bootstrap step that starts a service is refused
+KILLED                 BOOTPLAN-03 A bootstrap step that runs a security scan is refused
+KILLED                 BOOTPLAN-04 A bootstrap step enabling --system or a private channel is refused
+KILLED                 BOOTPLAN-05 A bootstrap step invoking a shell is refused
+KILLED                 BOOTPLAN-06 An empty bootstrap plan is a finding, not a clean pass
+KILLED                 CONSTPREC-01 An unranked source reports as unranked rather than as a rank
+KILLED                 CONSTPREC-02 A conflict with an unranked side is not settled by inventing an order
+KILLED                 CONSTPREC-03 Two rules from one source are not ordered against each other
+KILLED                 CONSTPREC-04 A file ranked twice keeps its first rank so the duplicate stays visible
+KILLED                 CONSTPREC-05 The terminal layer stays declared rather than quietly absent
+KILLED                 CONSTFRESH-01 A committed constitution that differs from the tree is not reported as current
+KILLED                 CONSTFRESH-02 The provenance exemption stays two keys wide
+KILLED                 CONSTFRESH-03 The readable count comparison is not emptied into a bare document diff
+KILLED                 UBERCEL-01 A provider badge cannot establish that UberBond is serving
+KILLED                 UBERCEL-02 An authenticated probe counts only against the declared health contract
+KILLED                 UBERCEL-03 Stale and future-dated deployment evidence stop counting as current
+KILLED                 UBERCEL-04 An adapter cannot promote its own deployment evidence
+KILLED                 UBERCEL-05 One authenticated not-serving outranks any number of healthy ones
+KILLED                 V9CARRIER-01 A truncated part is never classified as newline-repairable
+KILLED                 V9CARRIER-02 A carrier with an unrecoverable part does not proceed to generation
+KILLED                 V9CARRIER-03 The refusal reports every part, not the first fault
+KILLED                 V7GAP-01   A written status never overrides what the check measured
+KILLED                 V7GAP-02   A check that throws is recorded as unmeasured, not as an answer
+KILLED                 V7GAP-03   An external claim must name what would unblock it
+KILLED                 V7GAP-04   An unmeasured gap blocks source-side completion
+KILLED                 UBERHEALTH-01 A probe against an undeclared URL does not bind to the contract
+KILLED                 UBERHEALTH-02 A probe returning the wrong status does not bind to the contract
+KILLED                 UBERHEALTH-03 An unbound probe is never recorded as serving
+KILLED                 UBERHEALTH-04 An observation with no readable time is refused
+KILLED                 UBERHEALTH-05 An observation with no observer is refused
+KILLED                 UBERHEALTH-06 An unreadable observation time reports unknown age, not zero
+KILLED                 V7PROOF-01 A permission is never counted as outstanding proof debt
+KILLED                 V7PROOF-02 The most demanding obligation is matched first
+KILLED                 V7PROOF-03 A mutation-guard obligation is not discharged by a test mention
+KILLED                 V7CLAIM-01 A claim produced at another head reads stale
+KILLED                 V7CLAIM-02 Evidence with no head is not-head-bound, not fresh
+KILLED                 V7INDEX-01 An absent artifact with no reason is reported as a defect
+KILLED                 V7BASE-01  A recorded number with no timestamp is stale, not fresh
+KILLED                 V7BASE-02  A live and recorded value that disagree are reported
+KILLED                 V7MISSION-01 An externally blocked mission is never actionable
+KILLED                 V7MISSION-02 A mission waiting on an open dependency is not actionable
+KILLED                 V7ALLOC-01 Allocation covers actionable missions only
+KILLED                 V7STRAND-01 Uncommitted work counts as stranded
+KILLED                 V7STRAND-02 Regenerated artifacts are not counted as stranded source
+KILLED                 V7STRAND-03 The ledger records no count of the artifacts its own run dirtied
+KILLED                 V7INDEX-02 An empty file is not recorded as a generated artifact
+KILLED                 OUTREACH-CH-01 Suppression matching includes exact email, domain and @domain suffix
+KILLED                 OUTREACH-CH-02 An unreadable required ledger is CHECK_FAILED, never clean
+KILLED                 OUTREACH-CH-03 Prior replies from the recipient block the candidate
+KILLED                 OUTREACH-CH-04 A stale or future contact-history receipt is unusable
+KILLED                 OUTREACH-CH-05 A mutated contact-history receipt fails its digest
+KILLED                 OUTREACH-INT-01 A boundary-crossing receipt needs a verified HMAC or in-process trust
+KILLED                 OUTREACH-INT-02 A HIT receipt rejects the candidate
+KILLED                 OUTREACH-PF-01 A real production hit makes the preflight DO_NOT_SEND
+KILLED                 OUTREACH-PF-02 Placeholder identity blocks the preflight
+KILLED                 OUTREACH-PF-03 A claimed artifact must exist in the repository
+KILLED                 OUTREACH-EP-01 Placeholder sender name blocks the effect digest
+KILLED                 OUTREACH-EP-02 The final effect digest is minted only when every participant is final
+KILLED                 OUTREACH-EP-03 An unresolved sender-side legal hold blocks the effect package
+KILLED                 OUTREACH-MT-01 A message may not describe an artifact that does not exist
+KILLED                 OUTREACH-MT-02 Banned money, causation, urgency and meeting language disqualifies a candidate
+KILLED                 OUTREACH-MT-03 A message states why the recipient is being told about the client
+KILLED                 OUTREACH-MT-04 Message slots must be grounded in the retained observation excerpt
+KILLED                 OUTREACH-MT-05 The tournament runs only on a runtime-receipt-verified prospect
+KILLED                 OUTREACH-FLEET-01 The primary brand domain is never used for cold volume
+KILLED                 OUTREACH-FLEET-02 A quarantined sender is never replaced without an explicit retirement decision
+KILLED                 OUTREACH-FLEET-03 An authorization must bind the exact plan digest
+KILLED                 OUTREACH-FLEET-04 A reserve pool of domains is never allocated
+KILLED                 OUTREACH-ECON-01 Cost-denominated metrics are UNKNOWN, never zero, without cost receipts
+KILLED                 OUTREACH-ECON-02 Contribution is known only with complete cost coverage
+KILLED                 OUTREACH-DRIFT-01 A stale claim in a current document is drift when source disproves it
+KILLED                 OUTREACH-ROUTE-01 The contact-history read stays closed when no admin token is configured
+KILLED                 GGL-01     UNKNOWN never becomes GREEN: a fail-closed fact blocks the route
+KILLED                 GGL-02     Only a registry-mapped corporate form verifies a UK recipient as corporate
+KILLED                 GGL-03     A sole trader published as non-corporate never classifies as corporate
+KILLED                 GGL-04     A published company number that differs from the registry entity is an identity mismatch
+KILLED                 GGL-05     Registry evidence older than seven days does not verify legal form
+KILLED                 GGL-06     A suppression hit dominates the route
+KILLED                 GGL-07     The suppression gate is reported FAIL on a suppression hit
+KILLED                 GGL-08     An explicit no-solicitation signal rejects the contact source
+KILLED                 GGL-09     A guessed or pattern-derived address is never a verified contact
+KILLED                 GGL-10     Incomplete sender identity fails the identity gate
+KILLED                 GGL-11     A missing postal identity is an unmet sender requirement
+KILLED                 GGL-12     A missing functional unsubscribe is an unmet sender requirement
+KILLED                 GGL-13     A failed sender allocation or sender-side hold fails the sender gate
+KILLED                 GGL-14     Stale policy evidence cannot satisfy a permissive route
+KILLED                 GGL-15     A green route is never send authority
+KILLED                 GGL-16     A mutated route binding is detected after approval
+KILLED                 GGL-17     Provider terms evidence that forbids cold B2B stops the route
+KILLED                 GGL-18     An unreported gate is UNKNOWN, never PASS
+KILLED                 GGL-19     Activation stays blocked without a verified founder authorization
+KILLED                 GGL-20     The route binding is part of the effect digest
+KILLED                 GGL-21     Unknown route cost is never treated as zero
+KILLED                 GGL-22     Route economics keep unknown cost UNKNOWN, never zero
+KILLED                 GGL-23     A paid registry adapter is refused
+KILLED                 GGL-24     A missing registry credential never yields registry evidence
+KILLED                 GGL-25     Several registry entities sharing a name are AMBIGUOUS, never silently picked
+
+mutation-war — 603 mutations, 602 killed, 0 not killed

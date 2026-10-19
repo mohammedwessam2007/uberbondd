@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T20:05:12.338Z",
+  "generatedAt": "2026-10-19T20:08:35.133Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "5dc6a18f4cd868c7876ee1ca19889d1757395d43",
+    "head": "aede7b03f974828503a44458995755031d6ed11b",
     "branch": "feat/phoenix-wave6-objective-escrow-20261019",
     "sourceModules": 1118,
-    "testSuites": 1360,
+    "testSuites": 1361,
     "workingTreeClean": true
   },
   "measurements": {

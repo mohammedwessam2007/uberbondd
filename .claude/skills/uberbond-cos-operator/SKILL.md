@@ -46,3 +46,7 @@ terms, access hidden cookies, send unauthorized messages or create new spend.
 - `node scripts/phoenix-cos-operator.mjs objective-escrow-verify '<JSON>'`: read-only signed evaluator objective byte identity check (Wave 6 #0001). JSON fields are `originalObjectiveText`, `currentObjectiveText`, `attestation` (version, original SHA256 digest, pinned public-key fingerprint, signatureBase64), `verifierPublicKeyPem`, and `trustedVerifierFingerprint`. Never include signer private keys or imply the caller-supplied trust anchor has been independently configured in production.
 
 - `node scripts/phoenix-cos-operator.mjs gui-record '<JSON>'` and `gui-replay '<JSON>'` operate on typed **virtual synthetic-app fixtures only** (Wave 5 #0001), not actual browser sessions. Unknown/changed targets are denied; no user-typed raw values are echoed. Never claim real web automation, messaging or payment effects.
+
+- `paper-reconcile '<JSON>'` performs local Wave 7 #0002 DOI/arXiv/title source reconciliation, retaining every original source record and rejecting conflicting strong identifiers.
+- `wave8-objective-guard '<JSON>'` holds promotion if Wave 8 #0001's signed objective changed; passing the precondition does not promote or verify candidate commit existence.
+- `source-verify '<JSON>'` checks Wave 10 #0001's pinned release note digest against bounded provided text; the expected digest must come from independently trusted provenance.

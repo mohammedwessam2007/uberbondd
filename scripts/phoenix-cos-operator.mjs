@@ -22,6 +22,9 @@ import { getPhoenixWaveStatus, listPhoenixWaveProposals, compilePhoenixProposalM
 import { inspectNativeCliAuth } from '../src/phoenix-native-cli-health.mjs';
 import { verifyObjectiveEscrow } from '../src/phoenix-objective-escrow.mjs';
 import { compileSyntheticGuiRecording, replaySyntheticGuiRecording } from '../src/phoenix-synthetic-gui-replay.mjs';
+import { reconcileBibliographicIdentities } from '../src/phoenix-bibliographic-identity.mjs';
+import { verifyPinnedSourceText } from '../src/phoenix-source-authenticity.mjs';
+import { gateWave8CandidatePromotion } from '../src/phoenix-wave8-objective-guard.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const MAX_ARGUMENT_BYTES = 12000;
@@ -99,6 +102,15 @@ export function runPhoenixCosCommand(argv=[]) {
   if(!Array.isArray(argv) || argv.some(a => typeof a !== 'string')) return failure('STRING_ARGUMENTS_REQUIRED');
   const [verb, ...params] = argv;
   if(verb === 'cli-auth' && params.length===0) return inspectNativeCliAuth();
+  if(verb === 'wave8-objective-guard' && params.length===1) {
+    const payload=input(params[0]);
+    return payload ? gateWave8CandidatePromotion(payload) : failure('BOUNDED_WAVE8_OBJECTIVE_JSON_REQUIRED');
+  }
+  if((verb === 'paper-reconcile' || verb === 'source-verify') && params.length===1) {
+    const payload=input(params[0]);
+    if(!payload)return failure('BOUNDED_RESEARCH_PROOF_JSON_REQUIRED');
+    return verb==='paper-reconcile' ? reconcileBibliographicIdentities(payload) : verifyPinnedSourceText(payload);
+  }
   if((verb === 'gui-record' || verb === 'gui-replay') && params.length===1) {
     const payload=input(params[0]);
     if(!payload)return failure('BOUNDED_SYNTHETIC_GUI_JSON_REQUIRED');

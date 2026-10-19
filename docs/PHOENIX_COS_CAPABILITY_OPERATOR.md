@@ -74,3 +74,11 @@ The `objective-escrow-verify` CoS verb runs first-party Ed25519 objective hash v
 ## Wave 5 synthetic GUI replay
 
 The local `gui-record` and `gui-replay` commands compile and run only **virtual in-memory GUI fixtures**, with stable field identity digests and no generative-model usage. Source user-entered values are hashed and not echoed. Repeatability and changed-target rejection are covered by `tests/phoenix-synthetic-gui-replay.test.mjs`. See `docs/receipts/PHOENIX_WAVE5_SYNTHETIC_GUI_REPLAY_20261019.md`. This is not a production browser agent or authorization for real clicks.
+
+## Wave 7, Wave 8, Wave 10 proof atoms
+
+`paper-reconcile` takes bounded JSON with `sources:[{sourceId,doi,arxiv,title,sourceRef}]`, merges compatible bibliographic source references without deleting original source records, and refuses title-only collapse across conflicting DOI identities. Its output has no external metadata verification.
+
+`wave8-objective-guard` takes `candidateCommitSha` and a signed `objectiveEscrow` object. It blocks an altered evaluator after the declared candidate commit and **never** grants promotion by itself, even when the local objective check passes.
+
+`source-verify` takes `{sourceText,expectedSha256,sourceRef}` and refuses changed release-note/source bytes. Caller must establish the expected digest independently. All three commands are deterministic zero-effect local checks, not remote proof or deployed product services. See `docs/receipts/PHOENIX_WAVE7_WAVE8_WAVE10_SOURCE_GUARDS_20261019.md`.

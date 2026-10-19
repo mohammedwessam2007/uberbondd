@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T15:46:55.148Z",
+  "generatedAt": "2026-10-19T15:47:16.191Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "7a3ede98c56d15bb70395535191621fad7e79489",
+    "head": "574d242798de0a78ecb1a48dbe3d449802dd2785",
     "branch": "fix/phoenix-jsonstore-atomic-20261019",
     "sourceModules": 1111,
     "testSuites": 1352,

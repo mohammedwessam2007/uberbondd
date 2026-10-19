@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T20:36:53.749Z",
+  "generatedAt": "2026-10-19T21:30:52.747Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "13acdcda91d6012ba564be22f96b7779794cbf89",
-    "branch": "fix/uberwarm-vercel-runtime-trace-20261019",
+    "head": "eea092eb8cb8c0ba170030e47a67f97ab2b4f32f",
+    "branch": "feat/uberwarm-isolated-callback-20261019",
     "sourceModules": 1117,
     "testSuites": 1359,
     "workingTreeClean": true

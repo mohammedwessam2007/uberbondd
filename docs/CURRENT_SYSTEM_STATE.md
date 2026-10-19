@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-19**
-Branch: `fix/uberwarm-vercel-runtime-trace-20261019`
-Reconciled from current head: `13acdcda91d6012ba564be22f96b7779794cbf89`
+Branch: `feat/uberwarm-isolated-callback-20261019`
+Reconciled from current head: `eea092eb8cb8c0ba170030e47a67f97ab2b4f32f`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

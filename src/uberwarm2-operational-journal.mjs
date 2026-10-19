@@ -35,6 +35,22 @@ export function compileOperationalSnapshot(input) {
       independentMessageAuthenticationClaimed: false,
       sendingAuthority: 'NONE'
     },
+    providerEventLog: {
+      status: ['EVENT_LOG_PROVIDER_ATTEMPTS_OBSERVED','EVENT_LOG_ENDPOINTS_ABSENT',
+        'EVENT_LOG_DELIVERY_READ_FAILED','EVENT_LOG_ENDPOINT_READ_FAILED',
+        'EVENT_LOG_ENDPOINT_INVENTORY_UNVERIFIED','EVENT_LOG_ENDPOINT_IDENTITY_AMBIGUOUS',
+        'EVENT_LOG_DELIVERY_PAGE_UNVERIFIED','EVENT_LOG_DELIVERY_ROW_UNVERIFIED',
+        'EVENT_LOG_EVENT_TYPE_UNVERIFIED','EVENT_LOG_READERS_OR_CLOCK_UNAVAILABLE'].includes(input.provider?.providerEventLog?.status)
+        ? input.provider.providerEventLog.status : 'NOT_OBSERVED',
+      webhookCount: count(input.provider?.providerEventLog?.webhookCount),
+      disabledWebhookCount: count(input.provider?.providerEventLog?.disabledWebhookCount),
+      bounceDeliveryAttempts: count(input.provider?.providerEventLog?.bounceDeliveryAttempts),
+      complaintDeliveryAttempts: count(input.provider?.providerEventLog?.complaintDeliveryAttempts),
+      failedDeliveryAttempts: count(input.provider?.providerEventLog?.failedDeliveryAttempts),
+      authenticatedProviderRead: input.provider?.providerEventLog?.verifiedProviderDeliveryRead === true,
+      adverseEventOperatorReviewRequired: input.provider?.providerEventLog?.adverseEventOperatorReviewRequired === true,
+      senderClearance: false, recipientSuppressionCleared: false, sendAuthority: 'NONE'
+    },
     receiver: {
       configured: input.receiver?.configured === true,
       authenticated: input.receiver?.authenticated === true,

@@ -1,4 +1,5 @@
 import {Pool} from 'pg';
+import {createUberWarmNodeBridge} from '../src/uberwarm-vercel-node-bridge.mjs';
 import {verifyUberWarmUnsubscribeToken,persistUberWarmUnsubscribe} from '../src/uberwarm-unsubscribe.mjs';
 let pool;
 const htmlHeaders={'cache-control':'no-store','referrer-policy':'no-referrer',
@@ -34,3 +35,5 @@ export function createHandlers({env=process.env,poolFactory=db,persist=persistUb
  return {GET,POST};
 }
 export const {GET,POST}=createHandlers();
+
+export default createUberWarmNodeBridge(request=>request.method==='POST'?POST(request):GET(request));

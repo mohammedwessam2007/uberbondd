@@ -1,5 +1,6 @@
 /** Signed Winnr webhook receiver: immutable idempotency + one-way suppression. */
 import {Pool} from 'pg';
+import {createUberWarmNodeBridge} from '../../src/uberwarm-vercel-node-bridge.mjs';
 import {verifyWinnrWebhookSignature} from '../../src/uberwinnr-adapter.mjs';
 import {parseAuthenticatedWinnrEvent,persistAuthenticatedWinnrEvent} from '../../src/uberwarm-winnr-webhook-suppression.mjs';
 let pool;
@@ -36,3 +37,7 @@ export function createFetchHandler({env=process.env,poolFactory=getPool,persist=
  };
 }
 export const POST=createFetchHandler();
+
+// Raw provider HMAC bytes must not be reconstructed from a parsed JSON body.
+export const config={api:{bodyParser:false}};
+export default createUberWarmNodeBridge(POST);

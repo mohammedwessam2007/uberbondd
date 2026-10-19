@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T19:17:17.385Z",
+  "generatedAt": "2026-10-19T19:47:19.097Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "38b64ec4c3f86efe786af0df538cd59dec16f77b",
+    "head": "7aa2d463a1197d1e0af3e06e44082fcc231e034c",
     "branch": "feat/phoenix-cos-capability-bridge-20261019",
-    "sourceModules": 1115,
-    "testSuites": 1357,
+    "sourceModules": 1116,
+    "testSuites": 1358,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1115,
+      "srcModules": 1116,
       "reachableFromProduction": 419,
-      "reachableFromUnattendedOperatorScriptsOnly": 454,
+      "reachableFromUnattendedOperatorScriptsOnly": 455,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 454,
+      "reachableFromOperatorScriptsOnly": 455,
       "noEntryPointAtAll": 235,
       "partitionExact": true,
       "allClassified": true,

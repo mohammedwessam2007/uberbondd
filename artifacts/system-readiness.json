@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T19:14:08.300Z",
+  "generatedAt": "2026-10-19T20:36:53.749Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "65ac16c9deded5471ce97f5339353d800f2614cd",
-    "branch": "work/uberwarm-delegated-custody-20261019",
+    "head": "13acdcda91d6012ba564be22f96b7779794cbf89",
+    "branch": "fix/uberwarm-vercel-runtime-trace-20261019",
     "sourceModules": 1117,
-    "testSuites": 1358,
+    "testSuites": 1359,
     "workingTreeClean": true
   },
   "measurements": {

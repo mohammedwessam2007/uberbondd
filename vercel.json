@@ -34,6 +34,14 @@
     "api/ultimate-graph.mjs": {
       "maxDuration": 30,
       "includeFiles": "artifacts/cognitive/uberbond-ultimate-graph-latest.json"
+    },
+    "api/webhooks/winnr.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "{src/provider-receipt-redaction.mjs,src/agentmail-adapter.mjs,src/provider-http-adapters.mjs,src/uberwarm-winnr-webhook-suppression.mjs,src/uberwarm-vercel-node-bridge.mjs,src/uberwinnr-adapter.mjs}"
+    },
+    "api/unsubscribe.mjs": {
+      "maxDuration": 30,
+      "includeFiles": "{src/provider-receipt-redaction.mjs,src/uberwarm-unsubscribe.mjs,src/uberwarm-vercel-node-bridge.mjs}"
     }
   },
   "rewrites": [

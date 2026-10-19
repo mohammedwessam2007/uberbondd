@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T20:14:19.145Z",
+  "generatedAt": "2026-10-19T20:19:15.748Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "bc30ec00b247c736ffee39e0509db28b2e7b5dac",
+    "head": "9a139d5865df42ff0888f0d0d2740c9f2437978a",
     "branch": "feat/phoenix-wave6-objective-escrow-20261019",
-    "sourceModules": 1119,
-    "testSuites": 1362,
+    "sourceModules": 1122,
+    "testSuites": 1365,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1119,
+      "srcModules": 1122,
       "reachableFromProduction": 419,
-      "reachableFromUnattendedOperatorScriptsOnly": 458,
+      "reachableFromUnattendedOperatorScriptsOnly": 461,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 458,
+      "reachableFromOperatorScriptsOnly": 461,
       "noEntryPointAtAll": 235,
       "partitionExact": true,
       "allClassified": true,

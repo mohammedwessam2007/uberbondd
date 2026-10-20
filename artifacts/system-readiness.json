@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T10:53:00.572Z",
+  "generatedAt": "2026-10-20T10:54:11.698Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "ad843e363a54aff932c79c7975f87282b7b3425f",
+    "head": "f1286eed38df7b57446109944e1545df59d9bb06",
     "branch": "fix/uberwarm-canonical-reconcile-20261020",
     "sourceModules": 1119,
     "testSuites": 1361,

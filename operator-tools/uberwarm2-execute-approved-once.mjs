@@ -12,6 +12,7 @@ import {readFileSync} from 'node:fs';
 import pg from 'pg';
 import {createWinnrApiClient} from '../src/uberwinnr-adapter.mjs';
 import {createUberWarm2AttestedFileReaders} from '../src/uberwarm2-attested-one-shot-readers.mjs';
+import {createUberWarm2DelegatedEvidenceCustodyFileReaders} from '../src/uberwarm2-delegated-evidence-custody.mjs';
 import {createUberWarm2AuthorizedOneShotRuntime} from '../src/uberwarm2-authorized-one-shot-runtime.mjs';
 
 const reason = (status, codes) => Object.freeze({
@@ -52,7 +53,12 @@ try {
       } else {
         let keys;
         try {keys=JSON.parse(env.UBERWARM_ONE_SHOT_TRUSTED_PUBLIC_KEYS_JSON||'null')}catch{}
-        const proof=createUberWarm2AttestedFileReaders({path:evidencePath,publicKeys:keys});
+        // Explicit protected mode only. An invalid delegation NEVER falls back to
+        // weaker evidence, and the untrusted manifest cannot select this mode.
+        const custody=env.UBERWARM_ONE_SHOT_EVIDENCE_MODE==='OWNER_DELEGATED_SOURCE_CUSTODY';
+        const proof=custody?createUberWarm2DelegatedEvidenceCustodyFileReaders({
+          path:evidencePath,readTrustedDelegation:()=>JSON.parse(env.UBERWARM_ONE_SHOT_CUSTODY_DELEGATION_JSON||'null')
+        }):createUberWarm2AttestedFileReaders({path:evidencePath,publicKeys:keys});
         if(!proof.configured){
           process.stdout.write(safe(reason('UBERWARM2_EXECUTION_NO_TRUSTED_ATTESTORS',proof.reasonCodes)));
           process.exitCode=2;

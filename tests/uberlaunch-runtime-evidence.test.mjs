@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { DEFAULT_INGRESS_URL } from '../src/uberwarm-ingress-fence.mjs';
 import {
   compileUberLaunchRuntimeEvidence,
   prepareSovereignOneButtonLaunch
@@ -62,7 +63,13 @@ function greenRuntimeEvidence() {
       state: 'READY',
       observedDailyBudget: 5,
       evidenceRef: 'recipient-provider-budget-1'
-    }
+    },
+    ingressEvidence: {
+      ingressHealth: { service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, databaseReadback: true, adverseEventCount: 0, canonicalReconciledAdverseEventCount: 0, canonicalSuppressionReconciled: true, outboundAuthority: 'NONE', observedAt: '2026-09-15T01:59:00.000Z' },
+      webhook: { url: DEFAULT_INGRESS_URL, status: 'enabled', events: ['email.bounced', 'email.complained'], consecutive_failures: 0 },
+      canonicalReconciliation: { reconciledAdverseEventCount: 0 }
+    },
+    now
   };
 }
 
@@ -211,4 +218,13 @@ test('even a green runtime cannot bypass suppression', async () => {
   assert.equal(result.manifest.state, 'ABSTAIN');
   assert.ok(result.manifest.hardStopReasonCodes.includes('suppression-dominates'));
   assert.equal(result.oneButtonPressAvailable, false);
+});
+
+test('a disabled provider webhook keeps runtime evidence waiting on the ingress fence', () => {
+  const evidence = greenRuntimeEvidence();
+  evidence.ingressEvidence.webhook.status = 'disabled';
+  const out = compileUberLaunchRuntimeEvidence(evidence);
+  assert.equal(out.state, 'WAIT_EXTERNAL_OBSERVATION');
+  assert.ok(out.waitReasonCodes.includes('observed-ingress-suppression-fence-clear-required'));
+  assert.equal(out.launchInputs.ingressFence.state, 'HOLD');
 });

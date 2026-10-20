@@ -32,7 +32,8 @@ async function canonicalState(){
   WHERE e.action='SUPPRESSED_RECIPIENT' AND EXISTS (
    SELECT 1 FROM suppressions s
    WHERE e.recipient_digest='sha256:'||encode(digest(lower(s.value),'sha256'),'hex'))`);
- return {adverse:a.rows[0].n,reconciled:b.rows[0].n,canonicalDatabaseReadback:true};
+ const pending=await c.query("SELECT count(*)::int AS n FROM winnr_webhook_events WHERE action='REPLY_REQUIRES_REVIEW'");
+ return {adverse:a.rows[0].n,reconciled:b.rows[0].n,pendingReplies:pending.rows[0].n,canonicalDatabaseReadback:true};
 }
 async function handler(request){
  const method=request.method.toUpperCase();
@@ -44,6 +45,7 @@ async function handler(request){
    databaseReadback:!!state,
    adverseEventCount:state?.adverse??null,
    canonicalReconciledAdverseEventCount:state?.reconciled??null,
+   pendingReplyReviewCount:state?.pendingReplies??null,
    canonicalSuppressionReconciled:!!state&&state.adverse===state.reconciled,
    outboundAuthority:'NONE'});
  }

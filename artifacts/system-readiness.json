@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T00:59:12.183Z",
+  "generatedAt": "2026-10-20T10:38:31.064Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "fa55c1c016da6e76c31e81fffa093c884560b84e",
+    "head": "9a575e43901eb06963d7d1300de5f5b09793f647",
     "branch": "feat/uberwarm-reply-stop-hold-20261020",
     "sourceModules": 1118,
     "testSuites": 1360,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

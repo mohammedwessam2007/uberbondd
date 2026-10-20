@@ -40,6 +40,8 @@ export function evaluateIngressFence({
     if (ingressHealth.databaseReadback !== true) hold.push('ingress-database-readback-failed');
     if (ingressHealth.outboundAuthority !== 'NONE') hold.push('ingress-claims-outbound-authority');
     if (count(ingressHealth.adverseEventCount) === null) hold.push('ingress-adverse-count-unknown');
+    if (count(ingressHealth.pendingReplyReviewCount) === null) hold.push('unreviewed-reply-count-unavailable');
+    else if (ingressHealth.pendingReplyReviewCount > 0) hold.push('unreviewed-inbound-replies-potential-stop');
     // The direct-to-canonical Neon receiver verifies every adverse receipt has
     // a matching canonical suppression row. Never accept a bare 0/0 count from
     // the former staging-only Supabase ingress as proof of canonical coverage.

@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T00:02:13.968Z",
+  "generatedAt": "2026-10-20T10:41:39.163Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "c33ad8e9e8019bcbdd99f18b7672afab74cdab17",
+    "head": "8bfd55dbb326cc29921a09d6a0397f4e38afa25b",
     "branch": "fix/uberwarm-canonical-reconcile-20261020",
     "sourceModules": 1119,
     "testSuites": 1361,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

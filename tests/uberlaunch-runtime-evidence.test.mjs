@@ -65,7 +65,7 @@ function greenRuntimeEvidence() {
       evidenceRef: 'recipient-provider-budget-1'
     },
     ingressEvidence: {
-      ingressHealth: { service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, databaseReadback: true, adverseEventCount: 0, outboundAuthority: 'NONE', observedAt: '2026-09-15T01:59:00.000Z' },
+      ingressHealth: { service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, databaseReadback: true, adverseEventCount: 0, canonicalReconciledAdverseEventCount: 0, canonicalSuppressionReconciled: true, outboundAuthority: 'NONE', observedAt: '2026-09-15T01:59:00.000Z' },
       webhook: { url: DEFAULT_INGRESS_URL, status: 'enabled', events: ['email.bounced', 'email.complained'], consecutive_failures: 0 },
       canonicalReconciliation: { reconciledAdverseEventCount: 0 }
     },

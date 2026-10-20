@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { evaluateIngressFence, readIngressHealth, DEFAULT_INGRESS_URL, INGRESS_FENCE_STATES } from '../src/uberwarm-ingress-fence.mjs';
 
 const now = new Date('2026-10-19T22:30:00.000Z');
-const health = overrides => ({ service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, dbConfigured: true, databaseReadback: true, adverseEventCount: 0, outboundAuthority: 'NONE', observedAt: '2026-10-19T22:29:00.000Z', ...overrides });
+const health = overrides => ({ service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, dbConfigured: true, databaseReadback: true, adverseEventCount: 0, canonicalReconciledAdverseEventCount: 0, canonicalSuppressionReconciled: true, outboundAuthority: 'NONE', observedAt: '2026-10-19T22:29:00.000Z', ...overrides });
 const webhook = overrides => ({ id: 'c9a55j1XPPu86ioRR0zv', url: DEFAULT_INGRESS_URL, status: 'enabled', events: ['email.bounced', 'email.complained', 'email.received'], consecutive_failures: 0, ...overrides });
 const fence = overrides => evaluateIngressFence({ ingressHealth: health(), webhook: webhook(), canonicalReconciliation: { reconciledAdverseEventCount: 0 }, now, ...overrides });
 
@@ -29,6 +29,14 @@ test('the live disabled webhook observed 2026-10-19 holds', () => {
 test('missing adverse subscriptions, wrong URL and delivery failures hold', () => {
   const result = fence({ webhook: webhook({ events: ['email.received'], url: 'https://example.com/x', consecutive_failures: 2 }) });
   for (const code of ['provider-webhook-missing-event:email.bounced', 'provider-webhook-missing-event:email.complained', 'provider-webhook-url-mismatch', 'provider-webhook-delivery-failures']) assert.ok(result.holdReasonCodes.includes(code), code);
+});
+
+test('same-database claims and mismatched counts are never sufficient without readback', () => {
+  for (const modified of [
+    { canonicalSuppressionReconciled: false },
+    { canonicalReconciledAdverseEventCount: null },
+    { adverseEventCount: 1, canonicalReconciledAdverseEventCount: 0 },
+  ]) assert.equal(fence({ ingressHealth: health(modified) }).state, INGRESS_FENCE_STATES.HOLD);
 });
 
 test('unknown or stale or unhealthy ingress never reads as an empty suppression list', () => {

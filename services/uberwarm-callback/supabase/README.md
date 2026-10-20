@@ -24,3 +24,7 @@ requires a CLEAR fence. Any gap, stale/unreadable health, or a webhook that is n
 `enabled` for `email.bounced` + `email.complained` holds sending. This source
 change must be deployed to the live function before the fence can ever clear;
 until then the live GET lacks the count and the fence holds.
+
+## 2026-10-20 supersession notice
+
+The production Winnr webhook moved to the zero-extra-database-credential **Neon direct-to-canonical** function. See `services/uberwarm-canonical-neon-function/README.md`. This Supabase implementation remains preserved as a historical signed-ingress donor and rollback possibility; do not mistake its old SQL event counts for current production events or independently clear suppression on the old route. No Supabase historical receipts or provenance were removed.

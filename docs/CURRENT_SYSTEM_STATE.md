@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-20**
 Branch: `feat/phoenix-cos-capability-bridge-20261019`
-Reconciled from current head: `5a91751f80a332ab005abc6ded6c3948d614aaec`
+Reconciled from current head: `d97768b35dea86e45cb14fb4f6e68d9abc54b7a3`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

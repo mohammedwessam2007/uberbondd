@@ -5,6 +5,9 @@ WORKDIR /app
 RUN npm install --ignore-scripts --no-audit --no-fund --save-exact pg@8.22.0
 COPY src/ ./src/
 COPY operator-tools/uberwarm2-execute-approved-once.mjs ./operator-tools/
-RUN node --check operator-tools/uberwarm2-execute-approved-once.mjs && node --check src/uberwarm2-attested-one-shot-readers.mjs && node --check src/uberwarm2-delegated-evidence-custody.mjs
+# The explicit operator can run the same zero-cost monitored cadence from a
+# separate image; no executable is added to the read-only production monitor.
+COPY scripts/uberwarm2-live-read-doctor.mjs scripts/uberwarm2-railway-read-monitor.mjs scripts/uberwarm2-zero-paid-cycle.mjs ./scripts/
+RUN node --check operator-tools/uberwarm2-execute-approved-once.mjs && node --check src/uberwarm2-attested-one-shot-readers.mjs && node --check src/uberwarm2-delegated-evidence-custody.mjs && node --check scripts/uberwarm2-zero-paid-cycle.mjs
 USER node
 ENTRYPOINT ["node", "operator-tools/uberwarm2-execute-approved-once.mjs"]

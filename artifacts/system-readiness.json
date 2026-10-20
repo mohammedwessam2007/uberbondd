@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T00:18:00.418Z",
+  "generatedAt": "2026-10-20T10:18:27.668Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "8d8e67f5a60b75bd56023e26e8b4f59a91146a00",
-    "branch": "fix/uberwarm-live-ingress-activation-20261020",
-    "sourceModules": 1118,
-    "testSuites": 1360,
-    "workingTreeClean": true
+    "head": "6b319a521ae1b02292d8909a55d24c59c4208134",
+    "branch": "integrate/phoenix-ten-wave-20261020",
+    "sourceModules": 1126,
+    "testSuites": 1370,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1118,
+      "srcModules": 1126,
       "reachableFromProduction": 421,
-      "reachableFromUnattendedOperatorScriptsOnly": 454,
+      "reachableFromUnattendedOperatorScriptsOnly": 462,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 454,
+      "reachableFromOperatorScriptsOnly": 462,
       "noEntryPointAtAll": 236,
       "partitionExact": true,
       "allClassified": true,

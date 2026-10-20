@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T10:32:47.685Z",
+  "generatedAt": "2026-10-20T10:33:15.914Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "ac4c034b34e91a1d4244b3667f1076ff3f5d45f9",
+    "head": "aba88d7b281ca242d6d3bea2152fe6d228ee5a30",
     "branch": "integrate/phoenix-ten-wave-20261020",
     "sourceModules": 1126,
     "testSuites": 1370,

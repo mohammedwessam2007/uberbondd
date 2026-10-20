@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-20**
 Branch: `feat/uberwarm-reply-stop-hold-20261020`
-Reconciled from current head: `9a575e43901eb06963d7d1300de5f5b09793f647`
+Reconciled from current head: `ac92ce0b572c9382e17660e1f7e5583baff8a8f7`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

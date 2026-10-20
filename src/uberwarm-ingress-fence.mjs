@@ -14,7 +14,7 @@
 export const UBERWARM_INGRESS_FENCE_VERSION = 'uberwarm.ingress-fence.v1';
 export const INGRESS_FENCE_STATES = Object.freeze({ CLEAR: 'CLEAR', HOLD: 'HOLD' });
 export const REQUIRED_ADVERSE_EVENTS = Object.freeze(['email.bounced', 'email.complained']);
-export const DEFAULT_INGRESS_URL = 'https://lslifasfebpjbtqmkitm.supabase.co/functions/v1/uberwarm-winnr-receiver';
+export const DEFAULT_INGRESS_URL = 'https://br-long-glade-at2hwz37-uberwarminbound.compute.c-9.us-east-1.aws.neon.tech/';
 const DEFAULT_MAX_AGE_MS = 10 * 60 * 1000;
 
 const count = value => Number.isSafeInteger(value) && value >= 0 ? value : null;
@@ -40,6 +40,12 @@ export function evaluateIngressFence({
     if (ingressHealth.databaseReadback !== true) hold.push('ingress-database-readback-failed');
     if (ingressHealth.outboundAuthority !== 'NONE') hold.push('ingress-claims-outbound-authority');
     if (count(ingressHealth.adverseEventCount) === null) hold.push('ingress-adverse-count-unknown');
+    // The direct-to-canonical Neon receiver verifies every adverse receipt has
+    // a matching canonical suppression row. Never accept a bare 0/0 count from
+    // the former staging-only Supabase ingress as proof of canonical coverage.
+    if (ingressHealth.canonicalSuppressionReconciled !== true) hold.push('canonical-suppression-readback-not-confirmed');
+    if (count(ingressHealth.canonicalReconciledAdverseEventCount) === null) hold.push('canonical-reconciled-count-unknown');
+    else if (count(ingressHealth.adverseEventCount) !== null && ingressHealth.canonicalReconciledAdverseEventCount !== ingressHealth.adverseEventCount) hold.push('canonical-neon-adverse-count-mismatch');
   }
 
   if (!webhook || typeof webhook !== 'object') hold.push('provider-webhook-unknown');
@@ -56,6 +62,8 @@ export function evaluateIngressFence({
   if (reconciledCount === null) hold.push('canonical-reconciliation-unknown');
   else if (ingressCount !== null && reconciledCount < ingressCount) hold.push('unreconciled-adverse-ingress-events');
   else if (ingressCount !== null && reconciledCount > ingressCount) hold.push('canonical-ahead-of-ingress-inconsistent');
+  if (reconciledCount !== null && count(ingressHealth?.canonicalReconciledAdverseEventCount) !== null
+    && reconciledCount !== ingressHealth.canonicalReconciledAdverseEventCount) hold.push('canonical-reconciliation-evidence-mismatch');
 
   const reasons = [...new Set(hold)];
   return {

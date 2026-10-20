@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T22:54:29.910Z",
+  "generatedAt": "2026-10-20T00:18:00.418Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9f999870b99cf2b210fe2cd90839cd17c66e4224",
-    "branch": "feat/uberwarm-ingress-fence-20261019",
+    "head": "8d8e67f5a60b75bd56023e26e8b4f59a91146a00",
+    "branch": "fix/uberwarm-live-ingress-activation-20261020",
     "sourceModules": 1118,
     "testSuites": 1360,
     "workingTreeClean": true

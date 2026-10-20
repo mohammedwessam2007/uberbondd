@@ -5,7 +5,7 @@
 Last reconciled: **2026-10-20**
 <<<<<<< HEAD
 Branch: `ops/uberwarm-held-callback-20261020`
-Reconciled from current head: `84372610546784db6862bfbf559ea1d73e73e25c`
+Reconciled from current head: `0d3c12c58da9ffc42dd46cc302cf13c6147fb8e1`
 =======
 Branch: `fix/uberwarm-live-ingress-activation-20261020`
 Reconciled from current head: `8d8e67f5a60b75bd56023e26e8b4f59a91146a00`

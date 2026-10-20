@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-20**
-Branch: `integrate/uberwarm-verified-optout-20261020`
-Reconciled from current head: `1c055d6d4052c416fbd7319f37b1fe7858ca9ba2`
+Branch: `feat/phoenix-cos-capability-bridge-20261019`
+Reconciled from current head: `d97768b35dea86e45cb14fb4f6e68d9abc54b7a3`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

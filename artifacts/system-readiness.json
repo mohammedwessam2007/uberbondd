@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T00:41:21.691Z",
+  "generatedAt": "2026-10-20T10:14:09.685Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "0d3c12c58da9ffc42dd46cc302cf13c6147fb8e1",
+    "head": "afcbb58572945b91cc786f880abca9dec7eaad41",
     "branch": "ops/uberwarm-held-callback-20261020",
     "sourceModules": 1118,
     "testSuites": 1360,

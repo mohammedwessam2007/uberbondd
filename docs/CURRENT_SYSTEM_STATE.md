@@ -3,13 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-20**
-<<<<<<< HEAD
 Branch: `ops/uberwarm-held-callback-20261020`
-Reconciled from current head: `0d3c12c58da9ffc42dd46cc302cf13c6147fb8e1`
-=======
-Branch: `fix/uberwarm-live-ingress-activation-20261020`
-Reconciled from current head: `8d8e67f5a60b75bd56023e26e8b4f59a91146a00`
->>>>>>> origin/main
+Reconciled from current head: `afcbb58572945b91cc786f880abca9dec7eaad41`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

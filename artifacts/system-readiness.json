@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T11:18:28.115Z",
+  "generatedAt": "2026-10-20T11:19:02.839Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "20bfc071928119eb9b5297368803f5243d7059bf",
+    "head": "a3b54f1d8efebedc405ed23eb9345f9dd9007ff8",
     "branch": "safety/phoenix-neon-zip-preflight-20261020",
     "sourceModules": 1120,
     "testSuites": 1362,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

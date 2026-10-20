@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-20**
 Branch: `safety/phoenix-neon-zip-preflight-20261020`
-Reconciled from current head: `20bfc071928119eb9b5297368803f5243d7059bf`
+Reconciled from current head: `a3b54f1d8efebedc405ed23eb9345f9dd9007ff8`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

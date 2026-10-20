@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T12:49:23.922Z",
+  "generatedAt": "2026-10-20T13:01:10.323Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "e9cfa499c6be06ecf0235551c1d958749e1fc20a",
+    "head": "2b6c320657e84a1a08266c074d75be9972959aec",
     "branch": "feat/uberwarm-wire-free-fleet-20261020",
     "sourceModules": 1122,
     "testSuites": 1364,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

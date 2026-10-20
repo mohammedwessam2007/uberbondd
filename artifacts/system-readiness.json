@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T23:59:26.239Z",
+  "generatedAt": "2026-10-20T00:02:13.968Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "71526341d6469b63a7ef54997b78f456ba5d4dad",
+    "head": "c33ad8e9e8019bcbdd99f18b7672afab74cdab17",
     "branch": "fix/uberwarm-canonical-reconcile-20261020",
     "sourceModules": 1119,
     "testSuites": 1361,
@@ -77,10 +77,8 @@
       "reachableFromOperatorScriptsOnly": 454,
       "noEntryPointAtAll": 237,
       "partitionExact": true,
-      "allClassified": false,
-      "unclassified": [
-        "src/uberwarm-canonical-ingress-reconciler.mjs"
-      ],
+      "allClassified": true,
+      "unclassified": [],
       "staleClassifications": [],
       "founderInteractiveClassificationViolations": [],
       "founderInteractiveEntryPoints": [

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { evaluateIngressFence, readIngressHealth, DEFAULT_INGRESS_URL, INGRESS_FENCE_STATES } from '../src/uberwarm-ingress-fence.mjs';
 
 const now = new Date('2026-10-19T22:30:00.000Z');
-const health = overrides => ({ service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, dbConfigured: true, databaseReadback: true, adverseEventCount: 0, canonicalReconciledAdverseEventCount: 0, canonicalSuppressionReconciled: true, outboundAuthority: 'NONE', observedAt: '2026-10-19T22:29:00.000Z', ...overrides });
+const health = overrides => ({ service: 'uberwarm-ingress', httpReady: true, signingConfigured: true, dbConfigured: true, databaseReadback: true, adverseEventCount: 0, canonicalReconciledAdverseEventCount: 0, pendingReplyReviewCount: 0, canonicalSuppressionReconciled: true, outboundAuthority: 'NONE', observedAt: '2026-10-19T22:29:00.000Z', ...overrides });
 const webhook = overrides => ({ id: 'c9a55j1XPPu86ioRR0zv', url: DEFAULT_INGRESS_URL, status: 'enabled', events: ['email.bounced', 'email.complained', 'email.received'], consecutive_failures: 0, ...overrides });
 const fence = overrides => evaluateIngressFence({ ingressHealth: health(), webhook: webhook(), canonicalReconciliation: { reconciledAdverseEventCount: 0 }, now, ...overrides });
 
@@ -12,6 +12,15 @@ test('fully reconciled, fresh and enabled evidence is CLEAR but never grants aut
   assert.equal(result.state, INGRESS_FENCE_STATES.CLEAR);
   assert.deepEqual(result.holdReasonCodes, []);
   assert.equal(result.sendAuthority, 'NONE');
+});
+
+test('pending potentially opted-out inbound replies must hold; missing backlog is unknown',()=>{
+  const pending=fence({ingressHealth:health({pendingReplyReviewCount:1})});
+  assert.equal(pending.state,INGRESS_FENCE_STATES.HOLD);
+  assert.ok(pending.holdReasonCodes.includes('unreviewed-inbound-replies-potential-stop'));
+  const missing=fence({ingressHealth:health({pendingReplyReviewCount:null})});
+  assert.equal(missing.state,INGRESS_FENCE_STATES.HOLD);
+  assert.ok(missing.holdReasonCodes.includes('unreviewed-reply-count-unavailable'));
 });
 
 test('an adverse ingress event not yet in the canonical stop list holds', () => {

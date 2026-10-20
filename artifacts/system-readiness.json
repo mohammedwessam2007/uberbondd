@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-19T20:37:09.490Z",
+  "generatedAt": "2026-10-20T10:14:49.327Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "aab1a1720454ab57a654026f8eb7253cd91a7f78",
-    "branch": "feat/phoenix-ten-wave-realization-ledger-20261019",
+    "head": "dfe8507dc0cae273b8fdd13066e09146eef12e61",
+    "branch": "fix/phoenix-wave-realization-constitution-20261020",
     "sourceModules": 1123,
     "testSuites": 1366,
     "workingTreeClean": true

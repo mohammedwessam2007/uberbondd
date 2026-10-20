@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T10:59:32.794Z",
+  "generatedAt": "2026-10-20T11:57:18.946Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9be9e24c31868fa2b65926ace723bcf0853f8a97",
+    "head": "ba168eb5e3f97f28a175ca8bbc129f2e97b2abd9",
     "branch": "fix/uberwarm-canonical-reconcile-20261020",
-    "sourceModules": 1119,
-    "testSuites": 1361,
-    "workingTreeClean": true
+    "sourceModules": 1121,
+    "testSuites": 1363,
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1119,
+      "srcModules": 1121,
       "reachableFromProduction": 421,
-      "reachableFromUnattendedOperatorScriptsOnly": 454,
+      "reachableFromUnattendedOperatorScriptsOnly": 456,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 454,
+      "reachableFromOperatorScriptsOnly": 456,
       "noEntryPointAtAll": 237,
       "partitionExact": true,
       "allClassified": true,

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-20**
 Branch: `audit/phoenix-swarm-pr-overlap-20261020`
-Reconciled from current head: `dbb3c6d53d78eb616a312cf5d7627776e24d4fb5`
+Reconciled from current head: `ba37abba4d158d86342ba7d9321f89b35d46806c`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

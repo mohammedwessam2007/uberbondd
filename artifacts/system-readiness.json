@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T10:59:01.911Z",
+  "generatedAt": "2026-10-20T10:59:17.306Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "dbb3c6d53d78eb616a312cf5d7627776e24d4fb5",
+    "head": "ba37abba4d158d86342ba7d9321f89b35d46806c",
     "branch": "audit/phoenix-swarm-pr-overlap-20261020",
     "sourceModules": 1119,
     "testSuites": 1361,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

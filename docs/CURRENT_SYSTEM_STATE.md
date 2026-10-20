@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-20**
 Branch: `fix/phoenix-wave-realization-constitution-20261020`
-Reconciled from current head: `dfe8507dc0cae273b8fdd13066e09146eef12e61`
+Reconciled from current head: `2dd9bf8975945a3993aaf67cb0b318ae6f1ab7a1`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

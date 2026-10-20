@@ -1,9 +1,9 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T10:14:49.327Z",
+  "generatedAt": "2026-10-20T10:15:17.967Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "dfe8507dc0cae273b8fdd13066e09146eef12e61",
+    "head": "2dd9bf8975945a3993aaf67cb0b318ae6f1ab7a1",
     "branch": "fix/phoenix-wave-realization-constitution-20261020",
     "sourceModules": 1123,
     "testSuites": 1366,

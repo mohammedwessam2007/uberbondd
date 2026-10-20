@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T13:01:10.323Z",
+  "generatedAt": "2026-10-20T22:41:13.177Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "2b6c320657e84a1a08266c074d75be9972959aec",
-    "branch": "feat/uberwarm-wire-free-fleet-20261020",
-    "sourceModules": 1122,
-    "testSuites": 1364,
+    "head": "0067a869e7bceca307d9ad8eb40dea19bb944b8f",
+    "branch": "feat/uberwarm-free-organic-monitor-20261021",
+    "sourceModules": 1123,
+    "testSuites": 1365,
     "workingTreeClean": true
   },
   "measurements": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1122,
+      "srcModules": 1123,
       "reachableFromProduction": 421,
-      "reachableFromUnattendedOperatorScriptsOnly": 457,
+      "reachableFromUnattendedOperatorScriptsOnly": 458,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 457,
+      "reachableFromOperatorScriptsOnly": 458,
       "noEntryPointAtAll": 237,
       "partitionExact": true,
       "allClassified": true,

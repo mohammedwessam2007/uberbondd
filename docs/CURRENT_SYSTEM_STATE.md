@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-20**
 Branch: `integrate/phoenix-ten-wave-20261020`
-Reconciled from current head: `6b319a521ae1b02292d8909a55d24c59c4208134`
+Reconciled from current head: `e3d4bc2384c85ebbe7b108e7cc02232439f26ba6`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

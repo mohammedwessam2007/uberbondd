@@ -145,10 +145,18 @@
     "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION": {
       "description": "The zero-add-on UberWarm warm-up layers, UberWarm2 seed probes through UberWarm6 economic dominance. Their live paths can touch real mailboxes, SMTP identities, provider state and the database, and none of them has been activated. No unattended script may reach them.",
       "releasedBy": "Explicit owner approval, recorded as durable authorization evidence, for each live activation of a zero-add-on warm-up layer, naming the layer, the exact action and an expiry. Unattended scripts never release it, and no paid warm-up add-on is ever enabled by these layers."
+    },
+    "NO_VERIFIED_CANONICAL_INGRESS_BINDING": {
+      "description": "The Winnr signed ingress receiver is live, but the independently queried operational Railway database has only three journal tables and no canonical suppressions or event table. A sanctioned authenticated private ingress snapshot reader is also absent; a public aggregate count cannot replace it. Moving raw cross-provider database credentials was previously blocked and is not an activation path.",
+      "releasedBy": "Independent verification of the intended current canonical suppression database and existing table continuity, plus a sanctioned least-privilege authenticated private ingress snapshot adapter and a bounded reconciliation readback. Source tests, an empty database or health-only counts release nothing."
     }
   },
   "modules": {
-    "src/uberbond-repository-deep-atlas-persistence.mjs": {"category": "SUPERSEDED", "gate": null, "reason": "Legacy bounded JSON persistence donor preserved for provenance and regression tests. The complete Deep Atlas and Ultimate Graph are now written via the shared entrypoint src/uberbond-atlas-stream-writer.mjs, which rejects getters and toJSON hooks and atomically persists the full graph; the legacy helper has no unattended entrypoint and must not be described as active production custody."},
+    "src/uberbond-repository-deep-atlas-persistence.mjs": {
+      "category": "SUPERSEDED",
+      "gate": null,
+      "reason": "Legacy bounded JSON persistence donor preserved for provenance and regression tests. The complete Deep Atlas and Ultimate Graph are now written via the shared entrypoint src/uberbond-atlas-stream-writer.mjs, which rejects getters and toJSON hooks and atomically persists the full graph; the legacy helper has no unattended entrypoint and must not be described as active production custody."
+    },
     "src/accounting-ledger-export-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",
@@ -1351,6 +1359,11 @@
       "category": "RESEARCH_ONLY",
       "gate": null,
       "reason": "Read-only model-plan versus API tariff scenario calculator; the $20 subscription is not API prepaid credit and calculator has no provider-cost or quality proof."
+    },
+    "src/uberwarm-canonical-ingress-reconciler.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_VERIFIED_CANONICAL_INGRESS_BINDING",
+      "reason": "Source-tested bounded transactional reconciler; deliberately has no unattended entry point until the real canonical stop-list database and a sanctioned authenticated private ingress snapshot reader are verified. Requires database identity and table readback; cannot create an empty replacement store, export credentials, send messages or grant outbound authority."
     }
   }
 }

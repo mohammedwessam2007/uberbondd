@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T00:18:00.418Z",
+  "generatedAt": "2026-10-20T00:59:12.183Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "8d8e67f5a60b75bd56023e26e8b4f59a91146a00",
-    "branch": "fix/uberwarm-live-ingress-activation-20261020",
+    "head": "fa55c1c016da6e76c31e81fffa093c884560b84e",
+    "branch": "feat/uberwarm-reply-stop-hold-20261020",
     "sourceModules": 1118,
     "testSuites": 1360,
     "workingTreeClean": true

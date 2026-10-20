@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-20T00:18:00.418Z",
+  "generatedAt": "2026-10-20T00:56:03.694Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "8d8e67f5a60b75bd56023e26e8b4f59a91146a00",
-    "branch": "fix/uberwarm-live-ingress-activation-20261020",
+    "head": "1c055d6d4052c416fbd7319f37b1fe7858ca9ba2",
+    "branch": "integrate/uberwarm-verified-optout-20261020",
     "sourceModules": 1118,
     "testSuites": 1360,
     "workingTreeClean": true

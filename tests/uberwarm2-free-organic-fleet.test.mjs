@@ -1,0 +1,15 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {compileFreeOrganicFleet as compile} from '../src/uberwarm2-free-organic-fleet.mjs';
+const now=new Date('2026-10-21T00:00:00.000Z');const at=now.toISOString();
+const domains=[{name:'uberbond.site',status:'complete'},{name:'uberbondai.shop',status:'complete'}];
+const mailboxes=[{full_address:'connect@uberbond.site',status:'active'},...Array.from({length:5},(_,i)=>({full_address:`user${i}@uberbondai.shop`,status:'active'}))];
+const paidWarming=[{full_address:'connect@uberbond.site'}];
+const senderEvidence=mailboxes.map(m=>({email:m.full_address,senderCleared:true,signed:true,quarantined:false,paused:false,observedAt:at}));
+const consentingRecipients=Array.from({length:6},(_,i)=>({email:`person${i}@gmail.com`,consentToCorrespond:true,ownerControlled:true,evidenceRef:`signed:person${i}`,expiresAt:'2026-10-22T00:00:00.000Z',senderScope:'*'}));
+const base={mailboxes,domains,paidWarming,senderEvidence,consentingRecipients,now};
+test('53 fleet analog keeps paid warmer untouched and never sends or charges',()=>{const r=compile(base);assert.equal(r.ok,true);assert.equal(r.observed,6);assert.equal(r.unpaid,5);assert.equal(r.eligible,5);assert.equal(r.paidWarmingMailboxes,1);assert.equal(r.proposed.length,5);assert.ok(r.proposed.every(p=>p.sender!=='connect@uberbond.site'&&p.authority==='PLAN_ONLY'));assert.equal(r.providerSubmissions,0);assert.equal(r.spendUsd,0);});
+test('no independent clearance or consent means zero proposals',()=>{const r=compile({...base,senderEvidence:[],consentingRecipients:[]});assert.equal(r.proposed.length,0);assert.equal(r.eligible,0);assert.equal(r.pendingSenderEvidence,5);});
+test('actual suppression blocks recipient and expired consent cannot resurrect it',()=>{const r=compile({...base,suppressedRecipients:['person0@gmail.com'],consentingRecipients:consentingRecipients.map((x,i)=>i===1?{...x,expiresAt:'2026-10-20T23:00:00.000Z'}:x)});assert.ok(r.proposed.every(p=>!['person0@gmail.com','person1@gmail.com'].includes(p.recipient)));});
+test('paused, unsigned, and stale health never admits a sender',()=>{const r=compile({...base,senderEvidence:senderEvidence.map((x,i)=>i===1?{...x,paused:true}:i===2?{...x,signed:false}:i===3?{...x,observedAt:'2026-10-20T23:40:00.000Z'}:x)});assert.equal(r.eligible,2);});
+test('provider DNS not-ready disables that entire domain',()=>{const r=compile({...base,domains:[domains[0],{...domains[1],status:'pending'}]});assert.equal(r.eligible,0);assert.equal(r.proposed.length,0);});
+test('untrusted data and duplicate identities fail closed',()=>{for(const b of [{...base,mailboxes:[...mailboxes,mailboxes[0]]},{...base,domains:[...domains,domains[0]]},{...base,paidWarming:[{full_address:'unknown@example.com'}]},{...base,now:new Date('bad')},{...base,suppressedRecipients:['NOT-an-email']}]){const r=compile(b);assert.equal(r.ok,false);assert.equal(r.proposed.length,0);}});

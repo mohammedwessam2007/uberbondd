@@ -8,6 +8,7 @@
 import { createWinnrApiClient, resolveWinnrMailboxAddress } from '../src/uberwinnr-adapter.mjs';
 import { inspectWinnrTokenPermissions } from '../src/uberwarm2-winnr-token-permissions.mjs';
 import { compileUberWarm2SovereignLiveObservation } from '../src/uberwarm2-sovereign-live-observer.mjs';
+import { compileFreeOrganicFleet } from '../src/uberwarm2-free-organic-fleet.mjs';
 import { observeUberWarm2ProviderDnsSpotcheck } from '../src/uberwarm2-provider-dns-spotcheck.mjs';
 import { observeUberWarm2ProviderEventLog } from '../src/uberwarm2-provider-event-log-observer.mjs';
 
@@ -41,8 +42,9 @@ async function run() {
     output(refusal(client.reasonCodes || ['protected-credential-unavailable']));
     process.exitCode = 2; return;
   }
-  const [account, mailboxes, domains] = await Promise.all([
-    client.getAccount(), client.listAllMailboxes(), client.listAllDomains()
+  const [account, mailboxes, domains, paidWarming] = await Promise.all([
+    client.getAccount(), client.listAllMailboxes(), client.listAllDomains(),
+    client.rawRequest('GET', '/warming?limit=100')
   ]);
   const mailboxCount = strictCount(mailboxes);
   const domainCount = strictCount(domains);
@@ -53,7 +55,7 @@ async function run() {
     tokenPermissions: inspectWinnrTokenPermissions(account),
     mailboxes: mailboxCount,
     domains: domainCount,
-    providerCalls: (account.providerCalls || 0) + (mailboxes.providerCalls || 0) + (domains.providerCalls || 0),
+    providerCalls: (account.providerCalls || 0) + (mailboxes.providerCalls || 0) + (domains.providerCalls || 0) + (paidWarming.providerCalls || 0),
     sends: 0,
     runtimeReady: false,
     providerReceiptDigestsPresent: [account,mailboxes,domains].every(r => !!r.receipt?.responseDigest),
@@ -64,6 +66,17 @@ async function run() {
     inventory.sovereignControl = compileUberWarm2SovereignLiveObservation({
       mailboxes: mailboxes.data, domains: domains.data
     });
+    // One read-only paid-warming census, no attempts to enrol any other mailbox.
+    // The organic alternative is merely admission planning; without independently
+    // authenticated sender/recipient records, it reports zero eligible sends.
+    const completeWarming = paidWarming.ok === true && Array.isArray(paidWarming.data) &&
+      paidWarming.data.length < 100 && paidWarming.pagination?.has_more !== true;
+    inventory.freeOrganic = completeWarming ? compileFreeOrganicFleet({
+      mailboxes: mailboxes.data, domains: domains.data, paidWarming: paidWarming.data,
+      consentingRecipients: [], senderEvidence: [], suppressedRecipients: [], now: new Date()
+    }) : { status: 'FREE_FLEET_PAID_WARMING_CENSUS_UNAVAILABLE',
+      observed: mailboxCount, eligible: 0, proposed: [], providerSubmissions: 0,
+      spendUsd: 0, externalEffectAuthority: 'NONE' };
     // One authenticated provider DNS-status GET, rotated by five-minute slot.
     // Its report only asserts what Winnr observed, not message authentication.
     inventory.providerDnsSpotcheck = await observeUberWarm2ProviderDnsSpotcheck({

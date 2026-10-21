@@ -1,0 +1,97 @@
+{
+  "schema": "uberbond.project-cash-now.phoenix-reconstruction.v1",
+  "title": "Project Cash Now",
+  "branch": "project-cash-now",
+  "createdAtUtc": "2026-10-21T22:55:04Z",
+  "createdAtPrecision": "exact UTC from execution environment",
+  "parentMainSha": "0ab2314bce6dd34e506f3870107d1e34c61765f7",
+  "machiavelliDonor": {
+    "branch": "feat/machiavelli-wealth-engine-20261021",
+    "sha": "c7598ceb5a0bb4c43e6c072d44fe7871838f0d42",
+    "mergedToMainAtCapture": false,
+    "profitTournamentPresentAtCapture": false
+  },
+  "captureKind": "reconstructed accessible chat context, NOT native byte-for-byte ChatGPT transcript export",
+  "nativeFullTranscriptAccessible": false,
+  "gaps": [
+    "Earlier turns represented by skipped summaries",
+    "redacted tool output",
+    "unavailable private native ChatGPT transcript",
+    "ChatGPT-generated audit download bytes not imported",
+    "unsupplied Project/Library attachment bytes"
+  ],
+  "focus": "Lawful non-freelance, automated near-immediate income inventions using all 890 founder ideas while email domains warm",
+  "sourceLinks": {
+    "issue1188": "https://github.com/mohammedwessam2007/uberbondd/issues/1188",
+    "bobworkShare": "https://chatgpt.com/share/6ad8ef2e-4e7c-83ea-81e4-2a743b211499",
+    "alienmailShare": "https://chatgpt.com/s/t_6ad90bcc89d08191889c04e7d55ef353",
+    "machiavelliBranch": "https://github.com/mohammedwessam2007/uberbondd/tree/feat/machiavelli-wealth-engine-20261021",
+    "bobworkObserverPR": "https://github.com/mohammedwessam2007/uberbondd/pull/1529"
+  },
+  "canonPointers": [
+    "AI_START_HERE.md",
+    "AGENTS.md",
+    "docs/UNIVERSAL_CONTEXT_PROTOCOL.md",
+    "docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md",
+    "docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md",
+    "docs/FOUNDER_MOONSHOT_LITERAL_CORPUS_890.md",
+    "artifacts/research/founder-moonshot-literal-corpus/manifest.json",
+    "00_OUTREACH_NOW.md",
+    "00_OUTREACH_NOW.json"
+  ],
+  "files": [
+    {
+      "path": "docs/project-cash-now/CHAT_RECONSTRUCTION.md",
+      "sha256": "0abf8f50f729aaf907f9c21d9212d109553c004c12f22d962a736233a95ee907",
+      "bytes": 9251,
+      "lines": 71
+    },
+    {
+      "path": "docs/project-cash-now/CLAUDE_CONTINUATION.md",
+      "sha256": "605d3c35e8543e8a4b7db6c05b285ce5c0c6775e000e316a4efe0f410c4e0266",
+      "bytes": 5426,
+      "lines": 35
+    },
+    {
+      "path": "docs/project-cash-now/DECISIONS_AND_REALITY.md",
+      "sha256": "6861208414dd26d5698f28539085e57ef3824d2074d4ff2f8852e47caf1f774b",
+      "bytes": 10030,
+      "lines": 83
+    },
+    {
+      "path": "docs/project-cash-now/HISTORICAL_ARTIFACTS_AND_POINTERS.md",
+      "sha256": "275685273a103381bfb8e892b847b98bce7ce7f9602c83206006e2518666ddf0",
+      "bytes": 5101,
+      "lines": 31
+    },
+    {
+      "path": "docs/project-cash-now/START_HERE.md",
+      "sha256": "d64c655ec1011d93c7d2cad8ea4e69faf74472f4ada0316eef5e487b12e6b2a7",
+      "bytes": 7211,
+      "lines": 45
+    }
+  ],
+  "truth": {
+    "winnrMailboxes": 53,
+    "reportedFreeWarmers": 52,
+    "bobwork": 20,
+    "alienmail": 32,
+    "paidWarmingCanary": 1,
+    "quantExperiments": 17,
+    "quantRejected": 13,
+    "quantInconclusive": 4,
+    "quantPromoted": 0,
+    "verifiedClearedProfitUsd": 0,
+    "sourceTestsPassed": 14,
+    "criticalAdversarialFailuresConfirmed": 5
+  },
+  "authority": {
+    "backupBranchCreationAndPush": true,
+    "realMoneyTrading": false,
+    "newSpend": false,
+    "coldProspectOutreach": false,
+    "productionDeploy": false,
+    "secretDisclosure": false
+  },
+  "next": "Verify live state; complete ranked mechanism tournament with robust actual money gates; independently prototype/falsify top near-zero-cost mechanisms; fix known ledger and backtest issues."
+}

@@ -152,6 +152,16 @@
     }
   },
   "modules": {
+    "src/cash-now-api-contract-diff.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Project Cash Now deterministic research prototype for a user-supplied OpenAPI document pair; no production or unattended entry point, authenticated publisher evidence, real buyer, listing or cleared payment. Intentionally not connected to a background fetcher, store, or charge path until a separately reviewed commercialization gate."
+    },
+    "src/cash-now-procurement-amendments.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Project Cash Now bilingual procurement amendment research prototype comparing only supplied permitted notice records. No live source license or publisher attestation, translation pipeline, bidder authority, customer, price acceptance or payout; kept unreachable from unattended/production entry points pending separately reviewed market validation."
+    },
     "src/uberbond-repository-deep-atlas-persistence.mjs": {
       "category": "SUPERSEDED",
       "gate": null,

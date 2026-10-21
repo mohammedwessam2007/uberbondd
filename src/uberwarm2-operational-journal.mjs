@@ -1,5 +1,6 @@
 // Receipt persistence only. No provider calls, probe reservations, or send capability.
 import { createHash } from 'node:crypto';
+import { compileBobworkObservation } from './uberwarm2-bobwork-observer.mjs';
 
 const count = value => Number.isSafeInteger(value) && value >= 0 ? value : null;
 export function compileOperationalSnapshot(input) {
@@ -72,6 +73,7 @@ export function compileOperationalSnapshot(input) {
       admittedToSend: 0, sendingActive: false, paidWarmupAddonRequired: false,
       authority: 'NONE'
     },
+    bobwork: compileBobworkObservation(input.bobwork),
     // This monitor cannot attest these independent gates, including when reads succeed.
     activation: 'INDEPENDENT_SENDER_CONSENT_AND_PLACEMENT_GATES_REQUIRED'
   };

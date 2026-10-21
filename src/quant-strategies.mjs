@@ -32,8 +32,12 @@ export const HYPOTHESES = Object.freeze({
 export function alignSeries({ spot, perp = null, funding = [] }) {
   const perpByTime = perp ? new Map(perp.map(bar => [bar.openTime, bar])) : null;
   const rows = spot.filter(bar => !perpByTime || perpByTime.has(bar.openTime));
+  // A funding payment settling at T is attached to the bar that ENDS at T, so it
+  // is credited only to a position already held through the hour before
+  // settlement (opening at the settlement instant does not qualify), and the
+  // rate becomes visible to a strategy at that bar's close, i.e. at T.
   const fundingByHour = new Map();
-  for (const event of funding) fundingByHour.set(Math.floor(event.time / 3_600_000) * 3_600_000, event);
+  for (const event of funding) fundingByHour.set(Math.floor(event.time / 3_600_000) * 3_600_000 - 3_600_000, event);
   const timestamps = rows.map(bar => bar.openTime);
   const spotClose = rows.map(bar => bar.close);
   const perpClose = perpByTime ? rows.map(bar => perpByTime.get(bar.openTime).close) : null;

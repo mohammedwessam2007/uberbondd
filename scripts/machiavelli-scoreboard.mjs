@@ -9,6 +9,7 @@ import { dirname } from 'node:path';
 import { allocateCapital, CAPITAL_LEVELS } from '../src/capital-allocation-intelligence.mjs';
 import { appendRealityEntry, summarizeReality } from '../src/revenue-reality-ledger.mjs';
 import { paperSummary } from '../src/quant-paper-ledger.mjs';
+import { classifyRail } from '../src/money-entry-rails.mjs';
 
 const args = process.argv.slice(2);
 const flag = (name, fallback = null) => { const index = args.indexOf(`--${name}`); return index >= 0 ? args[index + 1] : fallback; };
@@ -27,9 +28,13 @@ for (const experiment of experiments?.experiments ?? []) {
   if (result.ok) ledger = result.ledger; else refusals.push({ mechanismId: experiment.family, problems: result.problems });
 }
 
-const allocation = tournament?.capitalCandidates?.length
-  ? allocateCapital({ candidates: tournament.capitalCandidates, levels: CAPITAL_LEVELS, founderHoursPerMonth: Number(flag('founder-hours', 20)), riskFreeAnnual: Number(flag('risk-free', 0.04)) })
-  : { ok: false, status: 'NO_TOURNAMENT_CANDIDATES' };
+// A mechanism whose money has no lawful way in cannot receive capital.
+const railChecked = (tournament?.capitalCandidates ?? []).map(candidate => ({ ...candidate, rail: classifyRail(candidate.paymentRail) }));
+const railBlocked = railChecked.filter(candidate => candidate.rail.verdict === 'RAIL_BLOCKED' || candidate.rail.verdict === 'RAIL_UNSPECIFIED').map(candidate => ({ id: candidate.id, rail: candidate.rail }));
+const allocatable = railChecked.filter(candidate => !railBlocked.some(blocked => blocked.id === candidate.id));
+const allocation = allocatable.length
+  ? allocateCapital({ candidates: allocatable, levels: CAPITAL_LEVELS, founderHoursPerMonth: Number(flag('founder-hours', 20)), riskFreeAnnual: Number(flag('risk-free', 0.04)) })
+  : { ok: false, status: 'NO_ALLOCATABLE_TOURNAMENT_CANDIDATES' };
 
 const scoreboard = {
   schema: 'uberbond.machiavelli-scoreboard.v1',
@@ -39,6 +44,7 @@ const scoreboard = {
   paper: paper ? paperSummary(paper) : { strategies: {}, note: 'No strategy has earned paper trading: none passed the pre-registered research protocol.' },
   researchVerdicts: (experiments?.experiments ?? []).map(experiment => ({ family: experiment.family, label: experiment.label, failures: experiment.failures })),
   capitalAllocation: allocation,
+  railBlocked,
   honestHeadline: 'Cleared contribution profit to date: $0.00. Everything above SIMULATED is empty until real evidence exists.'
 };
 const out = flag('out');

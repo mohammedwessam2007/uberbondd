@@ -101,16 +101,21 @@ test('protocol: a statistically real edge that loses to T-bills is not promoted'
 });
 
 test('strategies: funding carry enters and exits with hysteresis on annualised trailing funding', () => {
+  const hour = 3_600_000;
+  const bars = Array.from({ length: 20 }, (_, i) => ({ openTime: i * hour, close: 100 }));
   const series = alignSeries({
-    spot: [0, 1, 2, 3, 4, 5].map(i => ({ openTime: i * 8 * 3_600_000, close: 100 })),
-    perp: [0, 1, 2, 3, 4, 5].map(i => ({ openTime: i * 8 * 3_600_000, close: 100 })),
-    funding: [{ time: 0, intervalHours: 8, rate: 0.0003 }, { time: 8 * 3_600_000, intervalHours: 8, rate: 0.0003 }, { time: 16 * 3_600_000, intervalHours: 4, rate: 0.00002 }]
+    spot: bars, perp: bars,
+    funding: [{ time: 1 * hour, intervalHours: 8, rate: 0.0003 }, { time: 9 * hour + 4, intervalHours: 8, rate: 0.0003 }, { time: 17 * hour, intervalHours: 4, rate: 0.00002 }]
   });
-  assert.ok(Math.abs(series.fundingAnnualAt[2] - 0.00002 * 6 * 365) < 1e-12, '4-hour funding annualises with its own interval');
+  // Settlement at 1h lands on the bar that ends at 1h (bar 0); at 9h on bar 8; at 17h on bar 16.
+  assert.equal(series.fundingAt[0], 0.0003);
+  assert.equal(series.fundingAt[8], 0.0003);
+  assert.equal(series.fundingAt[1], null);
+  assert.ok(Math.abs(series.fundingAnnualAt[16] - 0.00002 * 6 * 365) < 1e-12, '4-hour funding annualises with its own interval');
   const decide = fundingCarry(series, { events: 1, enterAnnual: 0.2, exitAnnual: 0.1 });
-  assert.deepEqual(decide(0), { spot: 1, perp: -1 });   // 0.0003 * 3 * 365 = 32.85% > 20%
-  assert.deepEqual(decide(1), { spot: 1, perp: -1 });
-  assert.deepEqual(decide(2), { spot: 0, perp: 0 });    // 4.38% < 10% exit
+  assert.deepEqual(decide(0), { spot: 1, perp: -1 });   // 0.0003 * 3 * 365 = 32.85% > 20%, known at close of bar 0 (= settlement time)
+  assert.deepEqual(decide(8), { spot: 1, perp: -1 });
+  assert.deepEqual(decide(16), { spot: 0, perp: 0 });   // 4.38% < 10% exit
   assert.ok(COST_PROFILES.optimistic_maker_bound.spot < COST_PROFILES.retail_taker.spot);
 });
 
@@ -180,4 +185,16 @@ test('capital allocation: ruin firewall, correlation groups, founder hours and i
   assert.ok(at5k.idleCapitalMonthlyAtRiskFreeUsd > 0);
   assert.match(result.spendingAuthority, /not authorizations/);
   assert.equal(allocateCapital({ candidates: [{ id: 'bad' }] }).ok, false);
+});
+
+test('money entry rails: Egypt-blocked rails cannot carry a mechanism', async () => {
+  const { classifyRail, RAILS, RAIL_STATUSES } = await import('../src/money-entry-rails.mjs');
+  assert.ok(RAILS.every(rail => RAIL_STATUSES.includes(rail.status)));
+  assert.equal(classifyRail('Stripe checkout').verdict, 'RAIL_BLOCKED');
+  assert.equal(classifyRail('USDC via x402 micropayments').verdict, 'RAIL_BLOCKED');
+  assert.equal(classifyRail('Apify Store pay-per-event, payout by wire').verdict, 'RAIL_PLAUSIBLE');
+  assert.equal(classifyRail('Stripe or PayPal').best, 'PAYPAL_EGYPT', 'the best usable rail named decides');
+  assert.equal(classifyRail('Payoneer').verdict, 'RAIL_UNVERIFIED');
+  assert.equal(classifyRail('customers pay somehow').verdict, 'RAIL_UNSPECIFIED');
+  assert.ok(!RAILS.some(rail => rail.status === 'VERIFIED_WORKING'), 'nothing is verified until a real payout lands');
 });

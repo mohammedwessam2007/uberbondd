@@ -1,6 +1,6 @@
 {
   "schema": "uberbond.quant-lab-experiments.v1",
-  "runAt": "2026-10-21T21:14:08.876Z",
+  "runAt": "2026-10-21T21:30:09.658Z",
   "data": {
     "source": "data.binance.vision public archive",
     "verification": "publisher SHA-256 recomputed per monthly file",
@@ -521,42 +521,42 @@
       "family": "FUNDING_CARRY:BTC",
       "label": "INCONCLUSIVE",
       "failures": [
-        "holdout under doubled costs -0.44% <= 0",
-        "out-of-sample CAGR 2.35% does not beat the 4.02% risk-free T-bill rate over the same months",
-        "holdout CAGR 0.84% does not beat the 3.8% risk-free rate"
+        "holdout under doubled costs -0.45% <= 0",
+        "out-of-sample CAGR 2.44% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.82% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0906,
-        "cagr": 0.0235,
-        "annualVol": 0.0077,
-        "sharpe": 3.0266,
+        "totalReturn": 0.0941,
+        "cagr": 0.0244,
+        "annualVol": 0.008,
+        "sharpe": 3.019,
         "sharpePerPeriod": 0.0323,
-        "sortino": 3.9462,
-        "maxDrawdown": 0.0098,
-        "calmar": 2.408,
-        "skew": -4.2646,
-        "kurt": 85.7196
+        "sortino": 3.9895,
+        "maxDrawdown": 0.0095,
+        "calmar": 2.5551,
+        "skew": -3.9057,
+        "kurt": 78.5214
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0588,
-        "cagr": 0.0154,
-        "annualVol": 0.0146,
-        "sharpe": 1.0562,
-        "sharpePerPeriod": 0.0113,
-        "sortino": 1.3179,
-        "maxDrawdown": 0.0386,
-        "calmar": 0.3988,
-        "skew": 0.4473,
-        "kurt": 1719.3427
+        "totalReturn": 0.0592,
+        "cagr": 0.0155,
+        "annualVol": 0.0148,
+        "sharpe": 1.0476,
+        "sharpePerPeriod": 0.0112,
+        "sortino": 1.3102,
+        "maxDrawdown": 0.0394,
+        "calmar": 0.3937,
+        "skew": 0.1361,
+        "kurt": 1627.3942
       },
       "deflatedSharpe": {
-        "probability": 0.9873,
-        "sharpePerPeriod": 0.032337,
-        "expectedMaxSharpeUnderNull": 0.019027,
+        "probability": 0.992,
+        "sharpePerPeriod": 0.032256,
+        "expectedMaxSharpeUnderNull": 0.018012,
         "trials": 9
       },
       "holdout": {
@@ -566,16 +566,16 @@
           "exitAnnual": 0.025
         },
         "periods": 8760,
-        "totalReturn": 0.0084,
-        "cagr": 0.0084,
+        "totalReturn": 0.0082,
+        "cagr": 0.0082,
         "annualVol": 0.0062,
-        "sharpe": 1.356,
-        "sharpePerPeriod": 0.0145,
-        "sortino": 1.6551,
-        "maxDrawdown": 0.004,
-        "calmar": 2.1063,
-        "skew": -7.5175,
-        "kurt": 152.0694,
+        "sharpe": 1.3138,
+        "sharpePerPeriod": 0.014,
+        "sortino": 1.6081,
+        "maxDrawdown": 0.0039,
+        "calmar": 2.086,
+        "skew": -7.4977,
+        "kurt": 152.5664,
         "trades": 10,
         "turnover": 20,
         "exposureFraction": 0.526,
@@ -588,16 +588,16 @@
       },
       "holdoutUnderStressCosts": {
         "periods": 8760,
-        "totalReturn": -0.0044,
-        "cagr": -0.0044,
-        "annualVol": 0.0092,
-        "sharpe": -0.4679,
-        "sharpePerPeriod": -0.005,
-        "sortino": -0.5063,
-        "maxDrawdown": 0.0125,
-        "calmar": -0.3487,
-        "skew": -18.6405,
-        "kurt": 476.6673
+        "totalReturn": -0.0045,
+        "cagr": -0.0045,
+        "annualVol": 0.0093,
+        "sharpe": -0.4834,
+        "sharpePerPeriod": -0.0052,
+        "sortino": -0.5239,
+        "maxDrawdown": 0.0126,
+        "calmar": -0.36,
+        "skew": -18.5683,
+        "kurt": 474.6148
       },
       "baselineOutOfSample": null,
       "walkForward": {
@@ -611,8 +611,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 6.514,
-            "testSharpe": -0.882
+            "trainSharpe": 6.243,
+            "testSharpe": -0.885
           },
           {
             "test": "2022-04..2022-06",
@@ -621,8 +621,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 5.794,
-            "testSharpe": -1.898
+            "trainSharpe": 5.564,
+            "testSharpe": -1.77
           },
           {
             "test": "2022-07..2022-09",
@@ -631,7 +631,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.329,
+            "trainSharpe": 4.201,
             "testSharpe": 0
           },
           {
@@ -641,7 +641,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 4.029,
+            "trainSharpe": 3.763,
             "testSharpe": 0
           },
           {
@@ -652,7 +652,7 @@
               "exitAnnual": 0.1
             },
             "trainSharpe": 0,
-            "testSharpe": 1.494
+            "testSharpe": 1.383
           },
           {
             "test": "2023-04..2023-06",
@@ -661,7 +661,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 0.744,
+            "trainSharpe": 0.688,
             "testSharpe": 0
           },
           {
@@ -671,8 +671,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 1.111,
-            "testSharpe": 2.528
+            "trainSharpe": 1.058,
+            "testSharpe": 2.541
           },
           {
             "test": "2023-10..2023-12",
@@ -681,8 +681,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 1.392,
-            "testSharpe": 6.935
+            "trainSharpe": 1.332,
+            "testSharpe": 6.821
           },
           {
             "test": "2024-01..2024-03",
@@ -691,8 +691,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 3.564,
-            "testSharpe": 9.766
+            "trainSharpe": 3.418,
+            "testSharpe": 9.028
           },
           {
             "test": "2024-04..2024-06",
@@ -701,8 +701,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 7.016,
-            "testSharpe": 6.775
+            "trainSharpe": 6.734,
+            "testSharpe": 6.698
           },
           {
             "test": "2024-07..2024-09",
@@ -711,18 +711,18 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.125,
-            "testSharpe": -0.418
+            "trainSharpe": 7.748,
+            "testSharpe": -0.388
           },
           {
             "test": "2024-10..2024-12",
             "params": {
               "events": 21,
-              "enterAnnual": 0.1,
-              "exitAnnual": 0.05
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 7.668,
-            "testSharpe": 6.929
+            "trainSharpe": 7.29,
+            "testSharpe": 7.178
           },
           {
             "test": "2025-01..2025-03",
@@ -731,8 +731,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 7.743,
-            "testSharpe": 2.81
+            "trainSharpe": 7.364,
+            "testSharpe": 2.676
           },
           {
             "test": "2025-04..2025-06",
@@ -741,8 +741,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 5.144,
-            "testSharpe": -0.93
+            "trainSharpe": 4.991,
+            "testSharpe": -0.892
           },
           {
             "test": "2025-07..2025-09",
@@ -751,8 +751,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.522,
-            "testSharpe": 4.396
+            "trainSharpe": 3.41,
+            "testSharpe": 4.199
           }
         ]
       },
@@ -764,35 +764,35 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "532ca36216d8e52947a683e5a5d93450aa84328f9c8e52f1987b33742b2866ae"
+      "receiptSha256": "2daa53b65092495d077aec8804428fecc7106d5d22662c2db3b7ff971b312f01"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC",
       "label": "INCONCLUSIVE",
       "failures": [
-        "out-of-sample CAGR 3% does not beat the 4.02% risk-free T-bill rate over the same months",
-        "holdout CAGR 1.41% does not beat the 3.8% risk-free rate"
+        "out-of-sample CAGR 3.22% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 1.39% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage. Upper-bound test with unattainable maker-only costs: failure here rejects the family for retail.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.1168,
-        "cagr": 0.03,
-        "annualVol": 0.0106,
-        "sharpe": 2.7914,
-        "sharpePerPeriod": 0.0298,
-        "sortino": 4.1787,
-        "maxDrawdown": 0.0129,
-        "calmar": 2.3225,
-        "skew": 16.6646,
-        "kurt": 5754.4861
+        "totalReturn": 0.1258,
+        "cagr": 0.0322,
+        "annualVol": 0.0111,
+        "sharpe": 2.8663,
+        "sharpePerPeriod": 0.0306,
+        "sortino": 4.3014,
+        "maxDrawdown": 0.0128,
+        "calmar": 2.5128,
+        "skew": 14.6195,
+        "kurt": 4830.364
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9958,
-        "sharpePerPeriod": 0.029824,
-        "expectedMaxSharpeUnderNull": 0.010361,
+        "probability": 0.9982,
+        "sharpePerPeriod": 0.030624,
+        "expectedMaxSharpeUnderNull": 0.009688,
         "trials": 9
       },
       "holdout": {
@@ -802,16 +802,16 @@
           "exitAnnual": 0.025
         },
         "periods": 8760,
-        "totalReturn": 0.0141,
-        "cagr": 0.0141,
-        "annualVol": 0.0052,
-        "sharpe": 2.6958,
-        "sharpePerPeriod": 0.0288,
-        "sortino": 3.67,
+        "totalReturn": 0.0139,
+        "cagr": 0.0139,
+        "annualVol": 0.0053,
+        "sharpe": 2.6315,
+        "sharpePerPeriod": 0.0281,
+        "sortino": 3.5964,
         "maxDrawdown": 0.0023,
-        "calmar": 6.0324,
-        "skew": -1.7952,
-        "kurt": 37.5758,
+        "calmar": 5.9533,
+        "skew": -1.7794,
+        "kurt": 38.3749,
         "trades": 10,
         "turnover": 20,
         "exposureFraction": 0.526,
@@ -832,11 +832,11 @@
             "test": "2022-01..2022-03",
             "params": {
               "events": 9,
-              "enterAnnual": 0.1,
-              "exitAnnual": 0.05
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 6.741,
-            "testSharpe": -1.053
+            "trainSharpe": 6.361,
+            "testSharpe": -0.765
           },
           {
             "test": "2022-04..2022-06",
@@ -845,8 +845,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 6.107,
-            "testSharpe": -0.68
+            "trainSharpe": 5.856,
+            "testSharpe": -0.534
           },
           {
             "test": "2022-07..2022-09",
@@ -855,7 +855,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.812,
+            "trainSharpe": 4.649,
             "testSharpe": 0
           },
           {
@@ -865,7 +865,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 4.335,
+            "trainSharpe": 4.016,
             "testSharpe": 0
           },
           {
@@ -875,8 +875,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 0.882,
-            "testSharpe": 1.519
+            "trainSharpe": 0.769,
+            "testSharpe": 1.524
           },
           {
             "test": "2023-04..2023-06",
@@ -885,7 +885,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.643,
+            "trainSharpe": 1.537,
             "testSharpe": 0
           },
           {
@@ -895,7 +895,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.639,
+            "trainSharpe": 1.532,
             "testSharpe": 0
           },
           {
@@ -905,18 +905,18 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 1.809,
-            "testSharpe": 7.379
+            "trainSharpe": 1.76,
+            "testSharpe": 7.216
           },
           {
             "test": "2024-01..2024-03",
             "params": {
               "events": 9,
-              "enterAnnual": 0.2,
-              "exitAnnual": 0.1
+              "enterAnnual": 0.1,
+              "exitAnnual": 0.05
             },
-            "trainSharpe": 3.864,
-            "testSharpe": 11.021
+            "trainSharpe": 3.798,
+            "testSharpe": 11.804
           },
           {
             "test": "2024-04..2024-06",
@@ -925,8 +925,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 7.574,
-            "testSharpe": 7.256
+            "trainSharpe": 7.246,
+            "testSharpe": 7.165
           },
           {
             "test": "2024-07..2024-09",
@@ -935,8 +935,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.485,
-            "testSharpe": 1.34
+            "trainSharpe": 8.076,
+            "testSharpe": 1.374
           },
           {
             "test": "2024-10..2024-12",
@@ -945,8 +945,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.224,
-            "testSharpe": 7.843
+            "trainSharpe": 7.82,
+            "testSharpe": 7.523
           },
           {
             "test": "2025-01..2025-03",
@@ -955,8 +955,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.312,
-            "testSharpe": 3.864
+            "trainSharpe": 7.878,
+            "testSharpe": 3.714
           },
           {
             "test": "2025-04..2025-06",
@@ -965,8 +965,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 5.851,
-            "testSharpe": 0.536
+            "trainSharpe": 5.673,
+            "testSharpe": 0.597
           },
           {
             "test": "2025-07..2025-09",
@@ -975,8 +975,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 4.274,
-            "testSharpe": 6.603
+            "trainSharpe": 4.154,
+            "testSharpe": 6.555
           }
         ]
       },
@@ -988,7 +988,7 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "70c5eea8d753e05238a95940dc4113b29673929bdd1528f5f1a882e01f70eb1c"
+      "receiptSha256": "94ad836eadc03c429b1ed1de557d44e35b6cd0957e53becb73c5f6c52b24ac62"
     },
     {
       "family": "BUY_AND_HOLD:ETH",
@@ -1388,49 +1388,49 @@
       "family": "FUNDING_CARRY:ETH",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.355 < 0.95 after 9 variants",
+        "deflated Sharpe probability 0.445 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
-        "out-of-sample CAGR 1.9% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "out-of-sample CAGR 1.91% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0728,
-        "cagr": 0.019,
-        "annualVol": 0.0131,
-        "sharpe": 1.4413,
-        "sharpePerPeriod": 0.0154,
-        "sortino": 2.1948,
-        "maxDrawdown": 0.0193,
-        "calmar": 0.9855,
-        "skew": 35.3049,
-        "kurt": 7005.8526
+        "totalReturn": 0.0733,
+        "cagr": 0.0191,
+        "annualVol": 0.0132,
+        "sharpe": 1.4349,
+        "sharpePerPeriod": 0.0153,
+        "sortino": 2.1833,
+        "maxDrawdown": 0.019,
+        "calmar": 1.0033,
+        "skew": 34.1061,
+        "kurt": 6701.8696
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0493,
-        "cagr": 0.013,
-        "annualVol": 0.0067,
-        "sharpe": 1.9229,
-        "sharpePerPeriod": 0.0205,
-        "sortino": 2.2587,
-        "maxDrawdown": 0.0096,
-        "calmar": 1.3525,
-        "skew": -19.1553,
-        "kurt": 705.1251
+        "totalReturn": 0.051,
+        "cagr": 0.0134,
+        "annualVol": 0.0061,
+        "sharpe": 2.1969,
+        "sharpePerPeriod": 0.0235,
+        "sortino": 2.6951,
+        "maxDrawdown": 0.0056,
+        "calmar": 2.396,
+        "skew": -17.3624,
+        "kurt": 713.3618
       },
       "deflatedSharpe": {
-        "probability": 0.355,
-        "sharpePerPeriod": 0.0154,
-        "expectedMaxSharpeUnderNull": 0.017318,
+        "probability": 0.4451,
+        "sharpePerPeriod": 0.01533,
+        "expectedMaxSharpeUnderNull": 0.016042,
         "trials": 9
       },
       "holdout": {
         "params": {
-          "events": 3,
+          "events": 9,
           "enterAnnual": 0.2,
           "exitAnnual": 0.1
         },
@@ -1480,8 +1480,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 6.781,
-            "testSharpe": -1.034
+            "trainSharpe": 6.25,
+            "testSharpe": -1.01
           },
           {
             "test": "2022-04..2022-06",
@@ -1490,8 +1490,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.424,
-            "testSharpe": -1.502
+            "trainSharpe": 4.224,
+            "testSharpe": -1.649
           },
           {
             "test": "2022-07..2022-09",
@@ -1500,7 +1500,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.755,
+            "trainSharpe": 3.645,
             "testSharpe": 0
           },
           {
@@ -1510,7 +1510,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.198,
+            "trainSharpe": 3.1,
             "testSharpe": 0
           },
           {
@@ -1520,8 +1520,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.108,
-            "testSharpe": 0.581
+            "trainSharpe": 0.086,
+            "testSharpe": 0.65
           },
           {
             "test": "2023-04..2023-06",
@@ -1530,7 +1530,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.079,
+            "trainSharpe": 1.07,
             "testSharpe": 0
           },
           {
@@ -1540,7 +1540,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.076,
+            "trainSharpe": 1.067,
             "testSharpe": 0
           },
           {
@@ -1550,8 +1550,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.076,
-            "testSharpe": 8.155
+            "trainSharpe": 1.067,
+            "testSharpe": 7.919
           },
           {
             "test": "2024-01..2024-03",
@@ -1560,8 +1560,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 3.888,
-            "testSharpe": 10.142
+            "trainSharpe": 3.79,
+            "testSharpe": 9.305
           },
           {
             "test": "2024-04..2024-06",
@@ -1570,8 +1570,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 6.748,
-            "testSharpe": 1.761
+            "trainSharpe": 6.317,
+            "testSharpe": 1.677
           },
           {
             "test": "2024-07..2024-09",
@@ -1580,8 +1580,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.208,
-            "testSharpe": -0.08
+            "trainSharpe": 7.914,
+            "testSharpe": -0.184
           },
           {
             "test": "2024-10..2024-12",
@@ -1590,8 +1590,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 7.923,
-            "testSharpe": 7.065
+            "trainSharpe": 7.562,
+            "testSharpe": 6.915
           },
           {
             "test": "2025-01..2025-03",
@@ -1600,8 +1600,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 7.677,
-            "testSharpe": 0.895
+            "trainSharpe": 7.297,
+            "testSharpe": 0.714
           },
           {
             "test": "2025-04..2025-06",
@@ -1610,8 +1610,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 4.713,
-            "testSharpe": -0.142
+            "trainSharpe": 4.515,
+            "testSharpe": -0.027
           },
           {
             "test": "2025-07..2025-09",
@@ -1620,8 +1620,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.466,
-            "testSharpe": -0.538
+            "trainSharpe": 3.374,
+            "testSharpe": -0.435
           }
         ]
       },
@@ -1633,35 +1633,35 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "a2eacdc47ea518425eb3306d1486fe2eb3232f85145acf3c0908d9a38e84bd85"
+      "receiptSha256": "56c98edb74f80c9bcf73bc1f46e7fd122e3573ca9445e75a567d0a44e5a1cdab"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH",
       "label": "INCONCLUSIVE",
       "failures": [
-        "out-of-sample CAGR 2.43% does not beat the 4.02% risk-free T-bill rate over the same months",
-        "holdout CAGR 0.24% does not beat the 3.8% risk-free rate"
+        "out-of-sample CAGR 2.99% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.28% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage. Upper-bound test with unattainable maker-only costs: failure here rejects the family for retail.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0939,
-        "cagr": 0.0243,
-        "annualVol": 0.0126,
-        "sharpe": 1.9106,
-        "sharpePerPeriod": 0.0204,
-        "sortino": 3.0585,
-        "maxDrawdown": 0.0181,
-        "calmar": 1.34,
-        "skew": 40.352,
-        "kurt": 8145.2756
+        "totalReturn": 0.1164,
+        "cagr": 0.0299,
+        "annualVol": 0.013,
+        "sharpe": 2.2674,
+        "sharpePerPeriod": 0.0242,
+        "sortino": 3.6127,
+        "maxDrawdown": 0.0179,
+        "calmar": 1.6687,
+        "skew": 36.5376,
+        "kurt": 7139.2047
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9777,
-        "sharpePerPeriod": 0.020413,
-        "expectedMaxSharpeUnderNull": 0.009173,
+        "probability": 0.9963,
+        "sharpePerPeriod": 0.024226,
+        "expectedMaxSharpeUnderNull": 0.008293,
         "trials": 9
       },
       "holdout": {
@@ -1671,19 +1671,19 @@
           "exitAnnual": 0.025
         },
         "periods": 8760,
-        "totalReturn": 0.0024,
-        "cagr": 0.0024,
+        "totalReturn": 0.0028,
+        "cagr": 0.0028,
         "annualVol": 0.0055,
-        "sharpe": 0.447,
-        "sharpePerPeriod": 0.0048,
-        "sortino": 0.5719,
+        "sharpe": 0.5069,
+        "sharpePerPeriod": 0.0054,
+        "sortino": 0.6507,
         "maxDrawdown": 0.003,
-        "calmar": 0.8184,
-        "skew": -3.0383,
-        "kurt": 98.1685,
+        "calmar": 0.9319,
+        "skew": -2.8768,
+        "kurt": 103.1126,
         "trades": 15,
         "turnover": 30,
-        "exposureFraction": 0.4256,
+        "exposureFraction": 0.4257,
         "carryEarned": 0.0194,
         "costsPaid": 0.0158
       },
@@ -1704,8 +1704,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 6.927,
-            "testSharpe": 0.347
+            "trainSharpe": 6.385,
+            "testSharpe": 0.316
           },
           {
             "test": "2022-04..2022-06",
@@ -1714,8 +1714,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.715,
-            "testSharpe": -0.658
+            "trainSharpe": 4.497,
+            "testSharpe": -0.849
           },
           {
             "test": "2022-07..2022-09",
@@ -1724,7 +1724,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.122,
+            "trainSharpe": 3.992,
             "testSharpe": 0
           },
           {
@@ -1734,7 +1734,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.553,
+            "trainSharpe": 3.432,
             "testSharpe": 0
           },
           {
@@ -1744,8 +1744,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.541,
-            "testSharpe": 0.801
+            "trainSharpe": 0.512,
+            "testSharpe": 0.869
           },
           {
             "test": "2023-04..2023-06",
@@ -1754,7 +1754,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.507,
+            "trainSharpe": 1.492,
             "testSharpe": 0
           },
           {
@@ -1764,7 +1764,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.502,
+            "trainSharpe": 1.488,
             "testSharpe": 0
           },
           {
@@ -1774,8 +1774,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 1.502,
-            "testSharpe": 8.769
+            "trainSharpe": 1.488,
+            "testSharpe": 8.497
           },
           {
             "test": "2024-01..2024-03",
@@ -1784,18 +1784,18 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 4.254,
-            "testSharpe": 11.242
+            "trainSharpe": 4.179,
+            "testSharpe": 10.343
           },
           {
             "test": "2024-04..2024-06",
             "params": {
-              "events": 9,
-              "enterAnnual": 0.2,
-              "exitAnnual": 0.1
+              "events": 21,
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 7.27,
-            "testSharpe": 3.225
+            "trainSharpe": 6.795,
+            "testSharpe": 7.799
           },
           {
             "test": "2024-07..2024-09",
@@ -1804,8 +1804,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.544,
-            "testSharpe": 1.636
+            "trainSharpe": 8.219,
+            "testSharpe": 1.462
           },
           {
             "test": "2024-10..2024-12",
@@ -1814,8 +1814,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.463,
-            "testSharpe": 7.354
+            "trainSharpe": 8.071,
+            "testSharpe": 7.192
           },
           {
             "test": "2025-01..2025-03",
@@ -1824,8 +1824,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 8.171,
-            "testSharpe": 2.259
+            "trainSharpe": 7.761,
+            "testSharpe": 2.02
           },
           {
             "test": "2025-04..2025-06",
@@ -1834,18 +1834,18 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 5.475,
-            "testSharpe": 1.452
+            "trainSharpe": 5.261,
+            "testSharpe": 1.606
           },
           {
             "test": "2025-07..2025-09",
             "params": {
-              "events": 3,
-              "enterAnnual": 0.2,
-              "exitAnnual": 0.1
+              "events": 21,
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 3.987,
-            "testSharpe": 0
+            "trainSharpe": 3.832,
+            "testSharpe": 3.289
           }
         ]
       },
@@ -1857,7 +1857,7 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "61c75a4584d3879a5c2a16967b9525981304d9af315c5ad6f0f7aa8b332202ff"
+      "receiptSha256": "347435e359110415224fbe345e108565a750cae1685ba21757596429da5ad354"
     },
     {
       "family": "BUY_AND_HOLD:SOL",
@@ -2258,41 +2258,41 @@
       "failures": [
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
-        "out-of-sample CAGR 1.67% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "out-of-sample CAGR 1.69% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0639,
-        "cagr": 0.0167,
-        "annualVol": 0.0103,
-        "sharpe": 1.6149,
-        "sharpePerPeriod": 0.0173,
-        "sortino": 2.2175,
+        "totalReturn": 0.0647,
+        "cagr": 0.0169,
+        "annualVol": 0.0109,
+        "sharpe": 1.5394,
+        "sharpePerPeriod": 0.0164,
+        "sortino": 2.1319,
         "maxDrawdown": 0.0108,
-        "calmar": 1.5514,
-        "skew": -1.5418,
-        "kurt": 37.7464
+        "calmar": 1.5717,
+        "skew": -1.3163,
+        "kurt": 42.1157
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0518,
-        "cagr": 0.0136,
-        "annualVol": 0.0095,
-        "sharpe": 1.4292,
-        "sharpePerPeriod": 0.0153,
-        "sortino": 1.7969,
-        "maxDrawdown": 0.0163,
-        "calmar": 0.8367,
-        "skew": -9.0261,
-        "kurt": 259.4886
+        "totalReturn": 0.0542,
+        "cagr": 0.0142,
+        "annualVol": 0.0097,
+        "sharpe": 1.4635,
+        "sharpePerPeriod": 0.0156,
+        "sortino": 1.888,
+        "maxDrawdown": 0.0158,
+        "calmar": 0.9016,
+        "skew": -7.2629,
+        "kurt": 220.844
       },
       "deflatedSharpe": {
-        "probability": 0.9843,
-        "sharpePerPeriod": 0.017254,
-        "expectedMaxSharpeUnderNull": 0.005187,
+        "probability": 0.978,
+        "sharpePerPeriod": 0.016447,
+        "expectedMaxSharpeUnderNull": 0.005183,
         "trials": 9
       },
       "holdout": {
@@ -2344,11 +2344,11 @@
             "test": "2022-01..2022-03",
             "params": {
               "events": 21,
-              "enterAnnual": 0.1,
-              "exitAnnual": 0.05
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 1.518,
-            "testSharpe": 0.952
+            "trainSharpe": 1.472,
+            "testSharpe": 1.244
           },
           {
             "test": "2022-04..2022-06",
@@ -2357,8 +2357,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 0.704,
-            "testSharpe": -1.377
+            "trainSharpe": 0.669,
+            "testSharpe": -1.306
           },
           {
             "test": "2022-07..2022-09",
@@ -2367,17 +2367,17 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 2.939,
-            "testSharpe": -0.997
+            "trainSharpe": 2.864,
+            "testSharpe": -0.779
           },
           {
             "test": "2022-10..2022-12",
             "params": {
-              "events": 9,
+              "events": 3,
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 2.436,
+            "trainSharpe": 2.298,
             "testSharpe": 0
           },
           {
@@ -2387,18 +2387,18 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.067,
-            "testSharpe": -0.441
+            "trainSharpe": 0.137,
+            "testSharpe": -0.47
           },
           {
             "test": "2023-04..2023-06",
             "params": {
-              "events": 21,
+              "events": 3,
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 0,
-            "testSharpe": 0
+            "trainSharpe": 0.132,
+            "testSharpe": -0.951
           },
           {
             "test": "2023-07..2023-09",
@@ -2418,7 +2418,7 @@
               "exitAnnual": 0.1
             },
             "trainSharpe": 0,
-            "testSharpe": 4.35
+            "testSharpe": 4.2
           },
           {
             "test": "2024-01..2024-03",
@@ -2427,8 +2427,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 2.182,
-            "testSharpe": 9.275
+            "trainSharpe": 2.107,
+            "testSharpe": 8.593
           },
           {
             "test": "2024-04..2024-06",
@@ -2437,17 +2437,17 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.037,
-            "testSharpe": 1.8
+            "trainSharpe": 4.759,
+            "testSharpe": 1.921
           },
           {
             "test": "2024-07..2024-09",
             "params": {
-              "events": 21,
+              "events": 9,
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.23,
+            "trainSharpe": 4.927,
             "testSharpe": 0
           },
           {
@@ -2457,8 +2457,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 5.582,
-            "testSharpe": 4.219
+            "trainSharpe": 5.433,
+            "testSharpe": 4.079
           },
           {
             "test": "2025-01..2025-03",
@@ -2467,8 +2467,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 6.116,
-            "testSharpe": -2.87
+            "trainSharpe": 5.895,
+            "testSharpe": -2.668
           },
           {
             "test": "2025-04..2025-06",
@@ -2477,8 +2477,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 3.066,
-            "testSharpe": -2.787
+            "trainSharpe": 2.964,
+            "testSharpe": -2.782
           },
           {
             "test": "2025-07..2025-09",
@@ -2487,7 +2487,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 2.707,
+            "trainSharpe": 2.769,
             "testSharpe": 0
           }
         ]
@@ -2500,36 +2500,36 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "6900a009b7279a788e95f0cc031fc61af0757540a05e27341be9238fc217528d"
+      "receiptSha256": "b41ee7732d809ade629e9371a62264b0f675ff8712e506f34c2059ca9b9378b0"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL",
       "label": "REJECTED",
       "failures": [
         "sealed holdout net return 0% <= 0",
-        "out-of-sample CAGR 2.4% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "out-of-sample CAGR 2.12% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage. Upper-bound test with unattainable maker-only costs: failure here rejects the family for retail.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0925,
-        "cagr": 0.024,
+        "totalReturn": 0.0815,
+        "cagr": 0.0212,
         "annualVol": 0.0115,
-        "sharpe": 2.063,
-        "sharpePerPeriod": 0.022,
-        "sortino": 2.9691,
-        "maxDrawdown": 0.0053,
-        "calmar": 4.5102,
-        "skew": -0.1672,
-        "kurt": 20.5943
+        "sharpe": 1.8314,
+        "sharpePerPeriod": 0.0196,
+        "sortino": 2.634,
+        "maxDrawdown": 0.0119,
+        "calmar": 1.7797,
+        "skew": -0.0759,
+        "kurt": 21.5925
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9998,
-        "sharpePerPeriod": 0.022041,
-        "expectedMaxSharpeUnderNull": 0.0024,
+        "probability": 0.999,
+        "sharpePerPeriod": 0.019567,
+        "expectedMaxSharpeUnderNull": 0.00238,
         "trials": 9
       },
       "holdout": {
@@ -2568,12 +2568,12 @@
           {
             "test": "2022-01..2022-03",
             "params": {
-              "events": 21,
-              "enterAnnual": 0.1,
-              "exitAnnual": 0.05
+              "events": 3,
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 1.541,
-            "testSharpe": 1.568
+            "trainSharpe": 1.495,
+            "testSharpe": -1.009
           },
           {
             "test": "2022-04..2022-06",
@@ -2582,8 +2582,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 0.738,
-            "testSharpe": -0.434
+            "trainSharpe": 0.702,
+            "testSharpe": -0.318
           },
           {
             "test": "2022-07..2022-09",
@@ -2592,8 +2592,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.046,
-            "testSharpe": -0.226
+            "trainSharpe": 2.97,
+            "testSharpe": 0.001
           },
           {
             "test": "2022-10..2022-12",
@@ -2602,7 +2602,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 2.605,
+            "trainSharpe": 2.582,
             "testSharpe": 0
           },
           {
@@ -2612,8 +2612,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.607,
-            "testSharpe": 0.306
+            "trainSharpe": 0.67,
+            "testSharpe": 0.262
           },
           {
             "test": "2023-04..2023-06",
@@ -2622,8 +2622,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 0.287,
-            "testSharpe": 0.189
+            "trainSharpe": 0.512,
+            "testSharpe": -0.237
           },
           {
             "test": "2023-07..2023-09",
@@ -2632,18 +2632,18 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 0.363,
-            "testSharpe": 0.609
+            "trainSharpe": 0.444,
+            "testSharpe": 0.376
           },
           {
             "test": "2023-10..2023-12",
             "params": {
-              "events": 21,
-              "enterAnnual": 0.05,
-              "exitAnnual": 0.025
+              "events": 3,
+              "enterAnnual": 0.2,
+              "exitAnnual": 0.1
             },
-            "trainSharpe": 0.384,
-            "testSharpe": 4.031
+            "trainSharpe": 0.455,
+            "testSharpe": 4.497
           },
           {
             "test": "2024-01..2024-03",
@@ -2652,8 +2652,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 2.269,
-            "testSharpe": 9.891
+            "trainSharpe": 2.189,
+            "testSharpe": 9.152
           },
           {
             "test": "2024-04..2024-06",
@@ -2662,8 +2662,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.239,
-            "testSharpe": 3.348
+            "trainSharpe": 4.942,
+            "testSharpe": 3.477
           },
           {
             "test": "2024-07..2024-09",
@@ -2672,7 +2672,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.592,
+            "trainSharpe": 5.274,
             "testSharpe": 0
           },
           {
@@ -2682,8 +2682,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 5.725,
-            "testSharpe": 5.183
+            "trainSharpe": 5.568,
+            "testSharpe": 5.049
           },
           {
             "test": "2025-01..2025-03",
@@ -2692,18 +2692,18 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 6.487,
-            "testSharpe": -2.587
+            "trainSharpe": 6.252,
+            "testSharpe": -2.46
           },
           {
             "test": "2025-04..2025-06",
             "params": {
-              "events": 21,
-              "enterAnnual": 0.05,
-              "exitAnnual": 0.025
+              "events": 3,
+              "enterAnnual": 0.2,
+              "exitAnnual": 0.1
             },
-            "trainSharpe": 3.652,
-            "testSharpe": -1.854
+            "trainSharpe": 3.572,
+            "testSharpe": 0
           },
           {
             "test": "2025-07..2025-09",
@@ -2712,7 +2712,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 3.164,
+            "trainSharpe": 3.209,
             "testSharpe": 0
           }
         ]
@@ -2725,7 +2725,7 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "966c60af7d0c78107322a5a4098cdfea2b2dce8daf3549f2d1b8b65028e0c533"
+      "receiptSha256": "2a9f471db0cc14ae7953166a3acd9856a454151470110f7eea8e2f391b8778f9"
     },
     {
       "family": "BUY_AND_HOLD:XRP",
@@ -3126,43 +3126,43 @@
       "family": "FUNDING_CARRY:XRP",
       "label": "REJECTED",
       "failures": [
-        "sealed holdout net return -0.82% <= 0",
-        "holdout under doubled costs -2.2% <= 0",
-        "out-of-sample CAGR 2.22% does not beat the 4.02% risk-free T-bill rate over the same months",
-        "holdout CAGR -0.82% does not beat the 3.8% risk-free rate"
+        "sealed holdout net return -0.78% <= 0",
+        "holdout under doubled costs -2.16% <= 0",
+        "out-of-sample CAGR 2.23% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.78% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0856,
-        "cagr": 0.0222,
-        "annualVol": 0.0112,
-        "sharpe": 1.975,
-        "sharpePerPeriod": 0.0211,
-        "sortino": 2.7722,
+        "totalReturn": 0.086,
+        "cagr": 0.0223,
+        "annualVol": 0.0115,
+        "sharpe": 1.9217,
+        "sharpePerPeriod": 0.0205,
+        "sortino": 2.7143,
         "maxDrawdown": 0.0055,
-        "calmar": 4.0039,
-        "skew": -0.9044,
-        "kurt": 26.6971
+        "calmar": 4.0469,
+        "skew": -0.7947,
+        "kurt": 28.9262
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0573,
-        "cagr": 0.015,
-        "annualVol": 0.019,
-        "sharpe": 0.7926,
+        "totalReturn": 0.0586,
+        "cagr": 0.0154,
+        "annualVol": 0.0193,
+        "sharpe": 0.7984,
         "sharpePerPeriod": 0.0085,
-        "sortino": 1.0341,
-        "maxDrawdown": 0.0388,
-        "calmar": 0.3874,
-        "skew": -1.3228,
-        "kurt": 426.009
+        "sortino": 1.0448,
+        "maxDrawdown": 0.0385,
+        "calmar": 0.3986,
+        "skew": -1.3383,
+        "kurt": 403.0718
       },
       "deflatedSharpe": {
-        "probability": 0.9589,
-        "sharpePerPeriod": 0.021102,
-        "expectedMaxSharpeUnderNull": 0.011389,
+        "probability": 0.9586,
+        "sharpePerPeriod": 0.020533,
+        "expectedMaxSharpeUnderNull": 0.010852,
         "trials": 9
       },
       "holdout": {
@@ -3172,16 +3172,16 @@
           "exitAnnual": 0.025
         },
         "periods": 8760,
-        "totalReturn": -0.0082,
-        "cagr": -0.0082,
-        "annualVol": 0.0058,
-        "sharpe": -1.4219,
-        "sharpePerPeriod": -0.0152,
-        "sortino": -1.6402,
-        "maxDrawdown": 0.0105,
-        "calmar": -0.784,
-        "skew": -11.0689,
-        "kurt": 256.9375,
+        "totalReturn": -0.0078,
+        "cagr": -0.0078,
+        "annualVol": 0.0059,
+        "sharpe": -1.3332,
+        "sharpePerPeriod": -0.0142,
+        "sortino": -1.5553,
+        "maxDrawdown": 0.0104,
+        "calmar": -0.7523,
+        "skew": -10.0898,
+        "kurt": 233.5594,
         "trades": 11,
         "turnover": 22,
         "exposureFraction": 0.179,
@@ -3194,16 +3194,16 @@
       },
       "holdoutUnderStressCosts": {
         "periods": 8760,
-        "totalReturn": -0.022,
-        "cagr": -0.022,
-        "annualVol": 0.0093,
-        "sharpe": -2.3764,
-        "sharpePerPeriod": -0.0254,
-        "sortino": -2.4989,
-        "maxDrawdown": 0.0233,
-        "calmar": -0.945,
-        "skew": -21.0042,
-        "kurt": 544.1541
+        "totalReturn": -0.0216,
+        "cagr": -0.0216,
+        "annualVol": 0.0094,
+        "sharpe": -2.3237,
+        "sharpePerPeriod": -0.0248,
+        "sortino": -2.4551,
+        "maxDrawdown": 0.0229,
+        "calmar": -0.943,
+        "skew": -20.4201,
+        "kurt": 524.5985
       },
       "baselineOutOfSample": null,
       "walkForward": {
@@ -3217,8 +3217,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.651,
-            "testSharpe": 0.488
+            "trainSharpe": 4.414,
+            "testSharpe": 0.532
           },
           {
             "test": "2022-04..2022-06",
@@ -3227,8 +3227,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 2.753,
-            "testSharpe": 0.755
+            "trainSharpe": 2.625,
+            "testSharpe": 0.693
           },
           {
             "test": "2022-07..2022-09",
@@ -3237,7 +3237,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 2.961,
+            "trainSharpe": 2.821,
             "testSharpe": 0
           },
           {
@@ -3247,7 +3247,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 3.614,
+            "trainSharpe": 3.116,
             "testSharpe": 0
           },
           {
@@ -3257,8 +3257,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.66,
-            "testSharpe": 0.679
+            "trainSharpe": 0.592,
+            "testSharpe": 0.677
           },
           {
             "test": "2023-04..2023-06",
@@ -3267,8 +3267,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.454,
-            "testSharpe": -1.214
+            "trainSharpe": 0.429,
+            "testSharpe": -1.159
           },
           {
             "test": "2023-07..2023-09",
@@ -3277,8 +3277,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.125,
-            "testSharpe": 0.712
+            "trainSharpe": 0.11,
+            "testSharpe": 0.66
           },
           {
             "test": "2023-10..2023-12",
@@ -3287,8 +3287,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.278,
-            "testSharpe": 5.46
+            "trainSharpe": 0.254,
+            "testSharpe": 5.376
           },
           {
             "test": "2024-01..2024-03",
@@ -3297,8 +3297,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 2.647,
-            "testSharpe": 8.849
+            "trainSharpe": 2.637,
+            "testSharpe": 7.87
           },
           {
             "test": "2024-04..2024-06",
@@ -3307,8 +3307,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.469,
-            "testSharpe": 1.478
+            "trainSharpe": 5.074,
+            "testSharpe": 1.63
           },
           {
             "test": "2024-07..2024-09",
@@ -3317,7 +3317,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.539,
+            "trainSharpe": 5.16,
             "testSharpe": 0
           },
           {
@@ -3327,8 +3327,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.539,
-            "testSharpe": 2.777
+            "trainSharpe": 5.16,
+            "testSharpe": 2.784
           },
           {
             "test": "2025-01..2025-03",
@@ -3337,8 +3337,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 4.926,
-            "testSharpe": 1.228
+            "trainSharpe": 4.663,
+            "testSharpe": 1.222
           },
           {
             "test": "2025-04..2025-06",
@@ -3347,8 +3347,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 2.719,
-            "testSharpe": -1.733
+            "trainSharpe": 2.688,
+            "testSharpe": -1.968
           },
           {
             "test": "2025-07..2025-09",
@@ -3357,8 +3357,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 1.987,
-            "testSharpe": -0.117
+            "trainSharpe": 2.005,
+            "testSharpe": -0.133
           }
         ]
       },
@@ -3370,36 +3370,36 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "7e644d990f3298bca44bf9373cf71006d5170a9584acb32a3e1b5e7931425315"
+      "receiptSha256": "46a3e3c88dca5ce676e747083ea7a0ec7466b74cf52cf6e428d32f0a91a36d93"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP",
       "label": "REJECTED",
       "failures": [
-        "sealed holdout net return -0.2% <= 0",
-        "out-of-sample CAGR 2.73% does not beat the 4.02% risk-free T-bill rate over the same months",
-        "holdout CAGR -0.2% does not beat the 3.8% risk-free rate"
+        "sealed holdout net return -0.16% <= 0",
+        "out-of-sample CAGR 2.68% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.16% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Perpetual futures pay funding from the crowded side to the other side. When leveraged longs dominate, a delta-neutral position (long spot, short perpetual) collects that payment without price exposure. Money enters from leveraged speculators who pay to hold leverage. Upper-bound test with unattainable maker-only costs: failure here rejects the family for retail.",
       "variantsTried": 9,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.1059,
-        "cagr": 0.0273,
-        "annualVol": 0.0107,
-        "sharpe": 2.5162,
-        "sharpePerPeriod": 0.0269,
-        "sortino": 3.6777,
-        "maxDrawdown": 0.0032,
-        "calmar": 8.4926,
-        "skew": 0.0675,
-        "kurt": 17.2005
+        "totalReturn": 0.1039,
+        "cagr": 0.0268,
+        "annualVol": 0.0114,
+        "sharpe": 2.3235,
+        "sharpePerPeriod": 0.0248,
+        "sortino": 3.4019,
+        "maxDrawdown": 0.0046,
+        "calmar": 5.8034,
+        "skew": 0.1487,
+        "kurt": 17.5128
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9999,
-        "sharpePerPeriod": 0.026884,
-        "expectedMaxSharpeUnderNull": 0.005382,
+        "probability": 0.9998,
+        "sharpePerPeriod": 0.024825,
+        "expectedMaxSharpeUnderNull": 0.005125,
         "trials": 9
       },
       "holdout": {
@@ -3409,16 +3409,16 @@
           "exitAnnual": 0.025
         },
         "periods": 8760,
-        "totalReturn": -0.002,
-        "cagr": -0.002,
-        "annualVol": 0.0046,
-        "sharpe": -0.4396,
-        "sharpePerPeriod": -0.0047,
-        "sortino": -0.5653,
-        "maxDrawdown": 0.0051,
-        "calmar": -0.3993,
-        "skew": -3.5747,
-        "kurt": 107.0549,
+        "totalReturn": -0.0016,
+        "cagr": -0.0016,
+        "annualVol": 0.0047,
+        "sharpe": -0.3426,
+        "sharpePerPeriod": -0.0037,
+        "sortino": -0.4472,
+        "maxDrawdown": 0.0053,
+        "calmar": -0.3048,
+        "skew": -2.7386,
+        "kurt": 97.2485,
         "trades": 11,
         "turnover": 22,
         "exposureFraction": 0.179,
@@ -3439,11 +3439,11 @@
             "test": "2022-01..2022-03",
             "params": {
               "events": 9,
-              "enterAnnual": 0.1,
-              "exitAnnual": 0.05
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025
             },
-            "trainSharpe": 4.779,
-            "testSharpe": 1.412
+            "trainSharpe": 4.546,
+            "testSharpe": 0.836
           },
           {
             "test": "2022-04..2022-06",
@@ -3452,8 +3452,8 @@
               "enterAnnual": 0.05,
               "exitAnnual": 0.025
             },
-            "trainSharpe": 2.926,
-            "testSharpe": 1.154
+            "trainSharpe": 2.794,
+            "testSharpe": 1.091
           },
           {
             "test": "2022-07..2022-09",
@@ -3462,7 +3462,7 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.321,
+            "trainSharpe": 3.172,
             "testSharpe": 0
           },
           {
@@ -3472,7 +3472,7 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 3.817,
+            "trainSharpe": 3.319,
             "testSharpe": 0
           },
           {
@@ -3482,8 +3482,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.988,
-            "testSharpe": 1.205
+            "trainSharpe": 0.919,
+            "testSharpe": 1.2
           },
           {
             "test": "2023-04..2023-06",
@@ -3492,8 +3492,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.801,
-            "testSharpe": -0.553
+            "trainSharpe": 0.774,
+            "testSharpe": -0.595
           },
           {
             "test": "2023-07..2023-09",
@@ -3502,8 +3502,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.489,
-            "testSharpe": 1.186
+            "trainSharpe": 0.469,
+            "testSharpe": 1.127
           },
           {
             "test": "2023-10..2023-12",
@@ -3512,8 +3512,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 0.711,
-            "testSharpe": 5.637
+            "trainSharpe": 0.681,
+            "testSharpe": 5.549
           },
           {
             "test": "2024-01..2024-03",
@@ -3522,8 +3522,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 2.751,
-            "testSharpe": 9.45
+            "trainSharpe": 2.738,
+            "testSharpe": 8.356
           },
           {
             "test": "2024-04..2024-06",
@@ -3532,8 +3532,8 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.54,
-            "testSharpe": 2.215
+            "trainSharpe": 5.135,
+            "testSharpe": 2.353
           },
           {
             "test": "2024-07..2024-09",
@@ -3542,18 +3542,18 @@
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.678,
+            "trainSharpe": 5.275,
             "testSharpe": 0
           },
           {
             "test": "2024-10..2024-12",
             "params": {
-              "events": 3,
+              "events": 21,
               "enterAnnual": 0.2,
               "exitAnnual": 0.1
             },
-            "trainSharpe": 5.697,
-            "testSharpe": 3.427
+            "trainSharpe": 5.275,
+            "testSharpe": 3.168
           },
           {
             "test": "2025-01..2025-03",
@@ -3562,8 +3562,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 5.169,
-            "testSharpe": 1.971
+            "trainSharpe": 4.891,
+            "testSharpe": 1.96
           },
           {
             "test": "2025-04..2025-06",
@@ -3572,8 +3572,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 3.039,
-            "testSharpe": -0.944
+            "trainSharpe": 3.005,
+            "testSharpe": -1.232
           },
           {
             "test": "2025-07..2025-09",
@@ -3582,8 +3582,8 @@
               "enterAnnual": 0.1,
               "exitAnnual": 0.05
             },
-            "trainSharpe": 2.354,
-            "testSharpe": 1.199
+            "trainSharpe": 2.365,
+            "testSharpe": 1.239
           }
         ]
       },
@@ -3595,50 +3595,50 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "cc4dc3b92e8f325d39b2f306a4720136a253381213bdcd2ffce43a4e3d5c7fa4"
+      "receiptSha256": "5482ceec743886862923ee05152e8df7bd0b606ec2944e132f4f15cddde2027b"
     },
     {
       "family": "FUNDING_ROTATION:BTC+ETH+SOL+XRP",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.006 < 0.95 after 18 variants",
+        "deflated Sharpe probability 0.004 < 0.95 after 18 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
-        "out-of-sample CAGR 1.95% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "out-of-sample CAGR 1.88% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Funding is not equally rich across assets. Holding the delta-neutral carry only in the asset whose trailing funding is highest, switching with hysteresis so costs do not eat the spread, should collect more carry per unit of capital than any single asset. Same payer as FUNDING_CARRY; the edge claimed is allocation, not prediction.",
       "variantsTried": 18,
       "outOfSample": {
         "periods": 32735,
-        "totalReturn": 0.0748,
-        "cagr": 0.0195,
-        "annualVol": 0.011,
-        "sharpe": 1.7565,
-        "sharpePerPeriod": 0.0188,
-        "sortino": 2.3632,
-        "maxDrawdown": 0.0125,
-        "calmar": 1.5631,
-        "skew": -2.9204,
-        "kurt": 80.6088
+        "totalReturn": 0.0719,
+        "cagr": 0.0188,
+        "annualVol": 0.0118,
+        "sharpe": 1.5776,
+        "sharpePerPeriod": 0.0169,
+        "sortino": 2.1159,
+        "maxDrawdown": 0.0114,
+        "calmar": 1.6431,
+        "skew": -2.8834,
+        "kurt": 75.4523
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0526,
-        "cagr": 0.0138,
-        "annualVol": 0.0082,
-        "sharpe": 1.6753,
-        "sharpePerPeriod": 0.0179,
-        "sortino": 1.9948,
+        "totalReturn": 0.053,
+        "cagr": 0.0139,
+        "annualVol": 0.0084,
+        "sharpe": 1.6428,
+        "sharpePerPeriod": 0.0176,
+        "sortino": 1.9962,
         "maxDrawdown": 0.0111,
-        "calmar": 1.243,
-        "skew": -20.0257,
-        "kurt": 924.6741
+        "calmar": 1.2563,
+        "skew": -18.0464,
+        "kurt": 847.6681
       },
       "deflatedSharpe": {
-        "probability": 0.0061,
-        "sharpePerPeriod": 0.018768,
-        "expectedMaxSharpeUnderNull": 0.033031,
+        "probability": 0.0039,
+        "sharpePerPeriod": 0.016856,
+        "expectedMaxSharpeUnderNull": 0.031972,
         "trials": 18
       },
       "holdout": {
@@ -3695,8 +3695,8 @@
               "exitAnnual": 0.025,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 4.326,
-            "testSharpe": 0.256
+            "trainSharpe": 4.12,
+            "testSharpe": 0.308
           },
           {
             "test": "2022-04..2022-06",
@@ -3706,8 +3706,8 @@
               "exitAnnual": 0.025,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 2.805,
-            "testSharpe": 0.087
+            "trainSharpe": 2.678,
+            "testSharpe": 0.064
           },
           {
             "test": "2022-07..2022-09",
@@ -3717,8 +3717,8 @@
               "exitAnnual": 0.025,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 2.682,
-            "testSharpe": -0.794
+            "trainSharpe": 2.487,
+            "testSharpe": -0.881
           },
           {
             "test": "2022-10..2022-12",
@@ -3728,7 +3728,7 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 3.09,
+            "trainSharpe": 2.583,
             "testSharpe": 0
           },
           {
@@ -3740,7 +3740,7 @@
               "switchMarginAnnual": 0.05
             },
             "trainSharpe": 0,
-            "testSharpe": -1.177
+            "testSharpe": -0.794
           },
           {
             "test": "2023-04..2023-06",
@@ -3750,7 +3750,7 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 1.079,
+            "trainSharpe": 1.07,
             "testSharpe": 0
           },
           {
@@ -3761,7 +3761,7 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 1.076,
+            "trainSharpe": 1.067,
             "testSharpe": 0
           },
           {
@@ -3772,8 +3772,8 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 1.076,
-            "testSharpe": 5.137
+            "trainSharpe": 1.067,
+            "testSharpe": 5.054
           },
           {
             "test": "2024-01..2024-03",
@@ -3783,8 +3783,8 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 2.758,
-            "testSharpe": 10.229
+            "trainSharpe": 2.724,
+            "testSharpe": 9.365
           },
           {
             "test": "2024-04..2024-06",
@@ -3794,19 +3794,19 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 5.469,
-            "testSharpe": 1.478
+            "trainSharpe": 5.074,
+            "testSharpe": 1.63
           },
           {
             "test": "2024-07..2024-09",
             "params": {
               "events": 21,
-              "enterAnnual": 0.2,
-              "exitAnnual": 0.1,
+              "enterAnnual": 0.05,
+              "exitAnnual": 0.025,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 5.539,
-            "testSharpe": 0
+            "trainSharpe": 5.239,
+            "testSharpe": -1.294
           },
           {
             "test": "2024-10..2024-12",
@@ -3816,8 +3816,8 @@
               "exitAnnual": 0.05,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 6.074,
-            "testSharpe": 4.433
+            "trainSharpe": 5.503,
+            "testSharpe": 4.405
           },
           {
             "test": "2025-01..2025-03",
@@ -3827,7 +3827,7 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 5.789,
+            "trainSharpe": 5.429,
             "testSharpe": 0
           },
           {
@@ -3838,8 +3838,8 @@
               "exitAnnual": 0.05,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 3.345,
-            "testSharpe": -1.733
+            "trainSharpe": 3.27,
+            "testSharpe": -1.968
           },
           {
             "test": "2025-07..2025-09",
@@ -3849,7 +3849,7 @@
               "exitAnnual": 0.1,
               "switchMarginAnnual": 0.15
             },
-            "trainSharpe": 2.699,
+            "trainSharpe": 2.621,
             "testSharpe": 0
           }
         ]
@@ -3862,7 +3862,7 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "58f61cac7075249c84f22aa53e462fa51c26dd7a727de18fe16de78a6292b32e"
+      "receiptSha256": "661349d8de985e61276f8cb86ef8558ecd0d8db964e4d1ae5024fa5ae6e11191"
     }
   ],
   "evidenceClass": "SIMULATED_BACKTEST",

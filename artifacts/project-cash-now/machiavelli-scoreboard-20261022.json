@@ -1,0 +1,650 @@
+{
+  "schema": "uberbond.machiavelli-scoreboard.v1",
+  "generatedAt": "2026-10-21T23:09:31.114Z",
+  "reality": {
+    "version": "uberbond.revenue-reality-ledger-1.1.0",
+    "chain": {
+      "ok": true,
+      "length": 17,
+      "head": "fc9b23017454567fc0675fbd238bd6e8cf3a4ed70952baba5a2888f50bf70a8a"
+    },
+    "byTier": {
+      "SIMULATED": {
+        "entries": 17,
+        "amountCents": -241660,
+        "byCurrency": {
+          "USD": -241660
+        }
+      },
+      "PAPER": {
+        "entries": 0,
+        "amountCents": 0,
+        "byCurrency": {}
+      },
+      "REALIZED_TRADING": {
+        "entries": 0,
+        "amountCents": 0,
+        "byCurrency": {}
+      },
+      "COLLECTED_RECEIPTS": {
+        "entries": 0,
+        "amountCents": 0,
+        "byCurrency": {}
+      },
+      "CLEARED_CONTRIBUTION_PROFIT": {
+        "entries": 0,
+        "amountCents": 0,
+        "byCurrency": {}
+      }
+    },
+    "byMechanism": {
+      "BUY_AND_HOLD:BTC": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -26890
+          },
+          "amountCents": -26890
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "TIME_SERIES_MOMENTUM:BTC": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -4910
+          },
+          "amountCents": -4910
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY:BTC": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 820
+          },
+          "amountCents": 820
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 1390
+          },
+          "amountCents": 1390
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "BUY_AND_HOLD:ETH": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -35330
+          },
+          "amountCents": -35330
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "TIME_SERIES_MOMENTUM:ETH": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 2310
+          },
+          "amountCents": 2310
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY:ETH": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 0
+          },
+          "amountCents": 0
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 280
+          },
+          "amountCents": 280
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "BUY_AND_HOLD:SOL": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -43150
+          },
+          "amountCents": -43150
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "TIME_SERIES_MOMENTUM:SOL": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -36150
+          },
+          "amountCents": -36150
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY:SOL": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 0
+          },
+          "amountCents": 0
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 0
+          },
+          "amountCents": 0
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "BUY_AND_HOLD:XRP": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -47570
+          },
+          "amountCents": -47570
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "TIME_SERIES_MOMENTUM:XRP": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -51520
+          },
+          "amountCents": -51520
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY:XRP": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -780
+          },
+          "amountCents": -780
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": -160
+          },
+          "amountCents": -160
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      },
+      "FUNDING_ROTATION:BTC+ETH+SOL+XRP": {
+        "SIMULATED": {
+          "byCurrency": {
+            "USD": 0
+          },
+          "amountCents": 0
+        },
+        "PAPER": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "REALIZED_TRADING": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "COLLECTED_RECEIPTS": {
+          "byCurrency": {},
+          "amountCents": 0
+        },
+        "CLEARED_CONTRIBUTION_PROFIT": {
+          "byCurrency": {},
+          "amountCents": 0
+        }
+      }
+    },
+    "strongestTierWithEvidence": "SIMULATED",
+    "clearedContributionProfitCents": 0,
+    "clearedContributionProfitByCurrency": {},
+    "crossTierTotal": "NOT_DEFINED: currencies and tiers may never be implicitly combined",
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "realityRefusals": [],
+  "paper": {
+    "strategies": {},
+    "note": "No strategy has earned paper trading: none passed the pre-registered research protocol."
+  },
+  "researchVerdicts": [
+    {
+      "family": "BUY_AND_HOLD:BTC",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.908 < 0.95 after 1 variants",
+        "sealed holdout net return -26.89% <= 0",
+        "holdout CAGR -26.89% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:BTC",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.663 < 0.95 after 3 variants",
+        "sealed holdout net return -4.91% <= 0",
+        "holdout under doubled costs -7.28% <= 0",
+        "holdout CAGR -4.91% does not beat the 3.8% risk-free rate",
+        "does not beat the baseline or zero on Sharpe or return"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:BTC",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "holdout under doubled costs -0.45% <= 0",
+        "out-of-sample CAGR 2.44% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.82% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "out-of-sample CAGR 3.22% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 1.39% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:ETH",
+      "label": "REJECTED",
+      "failures": [
+        "out-of-sample Sharpe 0.34 < 0.5",
+        "deflated Sharpe probability 0.743 < 0.95 after 1 variants",
+        "sealed holdout net return -35.33% <= 0",
+        "out-of-sample CAGR -0.34% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -35.33% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:ETH",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "out-of-sample Sharpe 0.31 < 0.5",
+        "deflated Sharpe probability 0.53 < 0.95 after 3 variants",
+        "holdout under doubled costs -13.05% <= 0",
+        "out-of-sample CAGR 3.48% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 2.31% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:ETH",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.445 < 0.95 after 9 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.91% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "out-of-sample CAGR 2.99% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.28% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.844 < 0.95 after 1 variants",
+        "sealed holdout net return -43.15% <= 0",
+        "out-of-sample CAGR 1.3% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -43.15% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.782 < 0.95 after 3 variants",
+        "sealed holdout net return -36.15% <= 0",
+        "holdout under doubled costs -56.84% <= 0",
+        "walk-forward under doubled costs -32.22% <= 0",
+        "holdout CAGR -36.15% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.69% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return 0% <= 0",
+        "out-of-sample CAGR 2.12% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.94 < 0.95 after 1 variants",
+        "sealed holdout net return -47.57% <= 0",
+        "holdout CAGR -47.57% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "out-of-sample Sharpe -0.16 < 0.5",
+        "deflated Sharpe probability 0.292 < 0.95 after 3 variants",
+        "sealed holdout net return -51.52% <= 0",
+        "holdout under doubled costs -66.95% <= 0",
+        "walk-forward under doubled costs -68.47% <= 0",
+        "out-of-sample CAGR -26.37% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -51.52% does not beat the 3.8% risk-free rate",
+        "does not beat the baseline or zero on Sharpe or return"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return -0.78% <= 0",
+        "holdout under doubled costs -2.16% <= 0",
+        "out-of-sample CAGR 2.23% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.78% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return -0.16% <= 0",
+        "out-of-sample CAGR 2.68% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.16% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_ROTATION:BTC+ETH+SOL+XRP",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.004 < 0.95 after 18 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.88% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    }
+  ],
+  "capitalAllocation": {
+    "ok": false,
+    "status": "NO_ALLOCATABLE_TOURNAMENT_CANDIDATES"
+  },
+  "railBlocked": [],
+  "honestHeadline": "Cleared contribution profit to date: $0.00. Everything above SIMULATED is empty until real evidence exists."
+}

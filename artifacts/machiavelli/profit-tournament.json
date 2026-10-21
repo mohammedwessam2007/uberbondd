@@ -1,0 +1,304 @@
+{
+  "schema": "uberbond.cash-now.profit-tournament.v1",
+  "asOf": "2026-10-22",
+  "basis": "Fresh source-backed platform rules + exact Machiavelli donor, zero first-party customer evidence",
+  "rankingTarget": "fast falsifiable contribution-profit per founder minute, NOT guaranteed return",
+  "rankedCandidates": [
+    {
+      "rank": 1,
+      "id": "API_CHANGE_EVIDENCE_PACK",
+      "type": "machine-verifiable change artifact",
+      "whoPays": "API integrators and software teams, hypothetical buyer",
+      "revenueMethod": "digital product download or recurring issue pack",
+      "offerSurface": "Gumroad Egypt bank payouts",
+      "payout": "Egypt EGP local bank is documented; 7-day standard holding period and $100 minimum; KYC and account not verified",
+      "payoutSource": "https://gumroad.com/help/article/13-getting-paid",
+      "feesSource": "https://gumroad.com/help/article/66-gumroads-fees",
+      "dataRights": "Only user-authorized OpenAPI documents; proof is a deterministic diff, not verified API uptime",
+      "prototype": "src/cash-now-api-contract-diff.mjs",
+      "stage": "BUILT_LOCAL_NOT_LISTED",
+      "status": "READY_FOR_PRIVATE_CUSTOMER_FALSIFICATION",
+      "ownerGate": "seller account KYC + publishing requires explicit authorization",
+      "firstFalsification": "Show a verifiable sample to a qualified engineer who must actively choose whether to buy without any false defect claims",
+      "founderIdeaAncestors": [
+        {
+          "id": "founder-moonshot-0067",
+          "title": "THE TRUST COMPILER"
+        },
+        {
+          "id": "founder-moonshot-0306",
+          "title": "THE PROOF-OF-VALUE PRIMITIVE"
+        },
+        {
+          "id": "founder-moonshot-0395",
+          "title": "THE CAPABILITY ATOM"
+        },
+        {
+          "id": "founder-moonshot-0465",
+          "title": "THE REALITY PROOF SYSTEM"
+        },
+        {
+          "id": "founder-moonshot-0480",
+          "title": "THE SELF-HEALING KNOWLEDGE GRAPH"
+        }
+      ],
+      "settlementTime": "MORE_THAN_7_DAYS_POSSIBLE; NEVER TOMORROW_CLEARED_GUARANTEE",
+      "risk": "No proven willingness to pay; frequent free API diff competitors",
+      "verifiedPayers": 0,
+      "verifiedClearedProfitUsd": 0,
+      "verifiedDemand": "NONE",
+      "sellerAccountActivated": "NOT_VERIFIED",
+      "postedOrSent": false,
+      "verifiedProfitPerFounderHourUsd": null,
+      "forecastedProfitUsd": null,
+      "capitalAuthorizedUsd": 0
+    },
+    {
+      "rank": 2,
+      "id": "BILINGUAL_TENDER_CHANGE_PROOF",
+      "type": "licensed public-document timing/coordination intelligence",
+      "whoPays": "Eligible bid teams and procurement analysts, hypothetical buyer",
+      "revenueMethod": "event-alert subscription or dated evidence packet",
+      "offerSurface": "direct legal business invoice, bank verified before acceptance",
+      "payout": "Egypt commercial bank SWIFT/local invoice eligibility remains unknown; no customer or contract",
+      "payoutSource": null,
+      "feesSource": null,
+      "dataRights": "Only source-licensed, properly attributed tender exports; no restricted scraping or silent translations",
+      "prototype": "src/cash-now-procurement-amendments.mjs",
+      "stage": "BUILT_LOCAL_NO_LIVE_PUBLISHER_VALIDATION",
+      "status": "READY_FOR_SOURCE_RIGHTS_AND_BUYER_FALSIFICATION",
+      "ownerGate": "licensed notice access; legal invoice path and prospective payer",
+      "firstFalsification": "Find one current licensed bid notice with meaningful amendment and ask a bid team whether this would change their decision",
+      "founderIdeaAncestors": [
+        {
+          "id": "founder-moonshot-0067",
+          "title": "THE TRUST COMPILER"
+        },
+        {
+          "id": "founder-moonshot-0178",
+          "title": "THE MISSING-MARKET DETECTOR"
+        },
+        {
+          "id": "founder-moonshot-0585",
+          "title": "THE POSSIBILITY ARBITRAGE ENGINE"
+        },
+        {
+          "id": "founder-moonshot-0586",
+          "title": "THE POSSIBILITY MARKET MAKER"
+        }
+      ],
+      "settlementTime": "UNKNOWN_DEPENDS_ON_REAL_BUYER_AND_BANK",
+      "risk": "Data rights, stale inputs, free official alerts, slow procurement pay cycles",
+      "verifiedPayers": 0,
+      "verifiedClearedProfitUsd": 0,
+      "verifiedDemand": "NONE",
+      "sellerAccountActivated": "NOT_VERIFIED",
+      "postedOrSent": false,
+      "verifiedProfitPerFounderHourUsd": null,
+      "forecastedProfitUsd": null,
+      "capitalAuthorizedUsd": 0
+    },
+    {
+      "rank": 3,
+      "id": "APIFY_VALUE_EVENT_ACTOR",
+      "type": "machine-pay-per-verified-event",
+      "whoPays": "Paying Apify users, not yet observed",
+      "revenueMethod": "pay-per-event licensed transformations",
+      "offerSurface": "Apify Store",
+      "payout": "Developer generally receives 80% minus usage; monthly invoice on 11th, payout 21–25; $20 PayPal, $100 bank/wire threshold; KYC required",
+      "payoutSource": "https://help.apify.com/en/articles/10057167-how-developer-payouts-work",
+      "feesSource": "https://docs.apify.com/actors/publishing/monetize/pricing-and-costs",
+      "dataRights": "Input licensed/permitted only; no bypasses",
+      "prototype": null,
+      "stage": "RESEARCHED_NO_ACTOR_PUBLISHED",
+      "status": "EXPERIMENTAL_LONGER_SETTLEMENT",
+      "ownerGate": "Apify account + identity/payout eligibility, publishing approval",
+      "firstFalsification": "Prove merchant account eligibility and one paid-user repeat use at positive after-fee margin",
+      "founderIdeaAncestors": [
+        {
+          "id": "founder-moonshot-0394",
+          "title": "THE UNIVERSAL CAPABILITY MARKET"
+        },
+        {
+          "id": "founder-moonshot-0400",
+          "title": "THE UNIVERSAL CAPABILITY COMPILER"
+        },
+        {
+          "id": "founder-moonshot-0465",
+          "title": "THE REALITY PROOF SYSTEM"
+        },
+        {
+          "id": "founder-moonshot-0586",
+          "title": "THE POSSIBILITY MARKET MAKER"
+        }
+      ],
+      "settlementTime": "NEXT_MONTH_OR_LATER_DEPENDING_ON_SALE_AND_THRESHOLD",
+      "risk": "No buyer, heavy competition, low per-event margin and delayed settlement",
+      "verifiedPayers": 0,
+      "verifiedClearedProfitUsd": 0,
+      "verifiedDemand": "NONE",
+      "sellerAccountActivated": "NOT_VERIFIED",
+      "postedOrSent": false,
+      "verifiedProfitPerFounderHourUsd": null,
+      "forecastedProfitUsd": null,
+      "capitalAuthorizedUsd": 0
+    },
+    {
+      "rank": 4,
+      "id": "AUTHORIZED_ERROR_BOUNTY",
+      "type": "verified error discovery reward",
+      "whoPays": "Explicitly scoped bounty sponsors, not yet selected",
+      "revenueMethod": "platform-authorized vulnerability/bug reward, only within published scope",
+      "offerSurface": "authorized bounty platform",
+      "payout": "unknown, no verified local eligibility or award",
+      "payoutSource": null,
+      "feesSource": null,
+      "dataRights": "Only explicit public program scope and rules",
+      "prototype": null,
+      "stage": "RESEARCHED_NO_ELIGIBLE_SCOPE",
+      "status": "BLOCKED_ON_SCOPE_AND_PAYOUT",
+      "ownerGate": "confirm authorized scope, acceptance criteria, local payout and program rules",
+      "firstFalsification": "Find one eligible public program and qualify a nonintrusive rules-compliant issue with proof",
+      "founderIdeaAncestors": [
+        {
+          "id": "founder-moonshot-0017",
+          "title": "THE FAILURE MINE"
+        },
+        {
+          "id": "founder-moonshot-0054",
+          "title": "THE IDEA IMMUNE SYSTEM"
+        },
+        {
+          "id": "founder-moonshot-0058",
+          "title": "THE ERROR ECONOMY"
+        },
+        {
+          "id": "founder-moonshot-0067",
+          "title": "THE TRUST COMPILER"
+        }
+      ],
+      "settlementTime": "UNKNOWN",
+      "risk": "No guaranteed findings, high variance and legal scope constraints",
+      "verifiedPayers": 0,
+      "verifiedClearedProfitUsd": 0,
+      "verifiedDemand": "NONE",
+      "sellerAccountActivated": "NOT_VERIFIED",
+      "postedOrSent": false,
+      "verifiedProfitPerFounderHourUsd": null,
+      "forecastedProfitUsd": null,
+      "capitalAuthorizedUsd": 0
+    },
+    {
+      "rank": 5,
+      "id": "PERMISSIONED_ROYALTY_RECONCILER",
+      "type": "recoveries from user-owned licensing records",
+      "whoPays": "Rights holders after a verified underpayment, hypothetical buyer",
+      "revenueMethod": "licensed software report and optional contractually agreed recovery share",
+      "offerSurface": "direct B2B agreement with cleared payout verification",
+      "payout": "unknown buyer, authority, contract, payout",
+      "payoutSource": null,
+      "feesSource": null,
+      "dataRights": "Must be lawful files provided by actual rights holder",
+      "prototype": null,
+      "stage": "RESEARCHED_ONLY",
+      "status": "BLOCKED_ON_RIGHTS_HOLDER_AND_DEMAND",
+      "ownerGate": "licensed contract, rights-holder access and permitted matching records",
+      "firstFalsification": "Obtain opt-in anonymized sample and demonstrate one genuine reconciliable discrepancy",
+      "founderIdeaAncestors": [
+        {
+          "id": "founder-moonshot-0067",
+          "title": "THE TRUST COMPILER"
+        },
+        {
+          "id": "founder-moonshot-0217",
+          "title": "THE FUTURE PATENT OFFICE"
+        },
+        {
+          "id": "founder-moonshot-0307",
+          "title": "THE CONTRIBUTION LEDGER"
+        },
+        {
+          "id": "founder-moonshot-0308",
+          "title": "THE VALUE CAUSAL GRAPH"
+        }
+      ],
+      "settlementTime": "UNKNOWN",
+      "risk": "Legal complexity, privileged contracts, sales and recovery delay",
+      "verifiedPayers": 0,
+      "verifiedClearedProfitUsd": 0,
+      "verifiedDemand": "NONE",
+      "sellerAccountActivated": "NOT_VERIFIED",
+      "postedOrSent": false,
+      "verifiedProfitPerFounderHourUsd": null,
+      "forecastedProfitUsd": null,
+      "capitalAuthorizedUsd": 0
+    },
+    {
+      "rank": null,
+      "id": "HISTORICAL_CRYPTO_CARRY",
+      "type": "algorithmic trading research",
+      "whoPays": "No counterparty identified; would require deployed founder capital",
+      "revenueMethod": "trading P&L (not proven)",
+      "offerSurface": "crypto venues",
+      "payout": "Egypt legal clearance not established",
+      "payoutSource": null,
+      "feesSource": null,
+      "dataRights": "Historical source data only",
+      "prototype": "src/quant-backtest.mjs",
+      "stage": "RESEARCH_ONLY_NO_PROMOTED_STRATEGY",
+      "status": "EXCLUDED_FROM_ALLOCATION_LEGAL_AND_ECONOMIC_HOLDS",
+      "ownerGate": "legal counsel, genuine proven forward paper edge, separately approved capital",
+      "firstFalsification": "Produce unobserved forward evidence net of costs and Egyptian legal eligibility",
+      "founderIdeaAncestors": [
+        {
+          "id": "founder-moonshot-0059",
+          "title": "THE PREDICTION ACCOUNTING SYSTEM"
+        },
+        {
+          "id": "founder-moonshot-0200",
+          "title": "THE DISCOVERY CAPITAL MARKET"
+        },
+        {
+          "id": "founder-moonshot-0308",
+          "title": "THE VALUE CAUSAL GRAPH"
+        }
+      ],
+      "settlementTime": "NOT_APPLICABLE",
+      "risk": "13 historical rejected, 4 inconclusive, zero promoted, financial loss/regulatory risk",
+      "verifiedPayers": 0,
+      "verifiedClearedProfitUsd": 0,
+      "verifiedDemand": "NONE",
+      "sellerAccountActivated": "NOT_VERIFIED",
+      "postedOrSent": false,
+      "verifiedProfitPerFounderHourUsd": null,
+      "forecastedProfitUsd": null,
+      "capitalAuthorizedUsd": 0
+    }
+  ],
+  "capitalCandidates": [],
+  "shortlist": [
+    "API_CHANGE_EVIDENCE_PACK",
+    "BILINGUAL_TENDER_CHANGE_PROOF"
+  ],
+  "actualClearedProfitUsd": 0,
+  "observedPaidCustomers": 0,
+  "externalEffects": {
+    "messages": 0,
+    "purchases": 0,
+    "trades": 0,
+    "deployments": 0
+  },
+  "truth": "NO_ALLOCATABLE_ECONOMIC_WINNERS: no verified paying buyers or cleared payouts",
+  "marketEvidenceUrls": [
+    "https://gumroad.com/help/article/13-getting-paid",
+    "https://gumroad.com/help/article/66-gumroads-fees",
+    "https://docs.apify.com/actors/publishing/monetize",
+    "https://help.apify.com/en/articles/10057167-how-developer-payouts-work",
+    "https://docs.apify.com/actors/publishing/monetize/pricing-and-costs"
+  ],
+  "limitations": [
+    "Buyer demand, actual seller KYC, country payout eligibility of a specific account, unit compute costs, taxes, bank fees and real deployment have NOT been proven",
+    "Ranking is qualitative with no fabricated expected profit or pretend buyer conversion",
+    "Neither prototype has live licensed customer data nor a deployed paid listing"
+  ]
+}

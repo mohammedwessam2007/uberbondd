@@ -152,15 +152,15 @@
     }
   },
   "modules": {
-    "src/uberbond-repository-deep-atlas-persistence.mjs": {
-      "category": "SUPERSEDED",
-      "gate": null,
-      "reason": "Legacy bounded JSON persistence donor preserved for provenance and regression tests. The complete Deep Atlas and Ultimate Graph are now written via the shared entrypoint src/uberbond-atlas-stream-writer.mjs, which rejects getters and toJSON hooks and atomically persists the full graph; the legacy helper has no unattended entrypoint and must not be described as active production custody."
-    },
     "src/accounting-ledger-export-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",
       "reason": "An accounting export exports cleared economics. Net cleared revenue is zero and no provider evidence exists, so an export would be a document about nothing."
+    },
+    "src/adaptive-mastery-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Compiles a desired human capability into baseline, prerequisites, practice and measurement. Tested by life-altering-frontier-gap; trace found no importer. It needs the founder's actual current ability, which nothing here has."
     },
     "src/agent-code-artifact-store.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -182,10 +182,30 @@
       "gate": "NO_AI_ACCESS_EXTERNAL_AUTHORIZATION",
       "reason": "AI access catalogue. Its meaningful execution path creates provider accounts and submits applications, which the external-effect ledger excludes; docs/AGENT_MESH_REACHABILITY_TRIAGE.md lists it under modules left unwired for that reason, not for want of a decision."
     },
+    "src/apotheosis-agent-mesh-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Native agent-mesh activation over the orchestration runtime. Trace found no importer. Wiring it before the named activation prerequisites would start a mesh whose acceptance gates are unmet."
+    },
+    "src/apotheosis-final-orchestrator.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Final orchestrator over the APOTHEOSIS graph. Tested, but trace found no importer, and its own continuation doc names native P00/P08 reconciliation as the activation gate."
+    },
+    "src/apotheosis-orchestration-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
+      "reason": "Orchestration runtime for the APOTHEOSIS planning graph. Imported only by apotheosis-agent-mesh-runtime, which itself has no importer; the pair is an island with no entry point."
+    },
     "src/artifact-storage-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OBJECT_STORAGE_ADAPTER",
       "reason": "Compiles a storage write plan and normalizes a provider receipt. Its postgres path is the behaviour the tree already has; its object path terminates in writing to an external store that does not exist yet, so nothing calls it. Attacked before classification: the object backend is fail-closed on every truthiness variant, a namespace cannot escape its prefix, and a receipt is PRIVATE regardless of what the input claims."
+    },
+    "src/autonomy-compression-ratio.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "GENESIS Autonomy Compression Ratio (#987): measures founder interventions per accepted task on replayed task sets. A lab measurement with no production caller; it becomes useful only once real task receipts exist to replay."
     },
     "src/booking-calendar-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -207,10 +227,35 @@
       "gate": "NO_APPROVED_GENOME_CAPABILITY",
       "reason": "Admits execution for an approved Genome capability. Zero capabilities are approved or active, so it has nothing to admit."
     },
+    "src/cash-now-api-contract-diff.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Project Cash Now deterministic research prototype for a user-supplied OpenAPI document pair; no production or unattended entry point, authenticated publisher evidence, real buyer, listing or cleared payment. Intentionally not connected to a background fetcher, store, or charge path until a separately reviewed commercialization gate."
+    },
+    "src/cash-now-procurement-amendments.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Project Cash Now bilingual procurement amendment research prototype comparing only supplied permitted notice records. No live source license or publisher attestation, translation pipeline, bidder authority, customer, price acceptance or payout; kept unreachable from unattended/production entry points pending separately reviewed market validation."
+    },
     "src/causal-attribution-spine.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_COMMERCIAL_EVENTS",
       "reason": "There are no real signals, sends, payments or deliveries to attribute yet."
+    },
+    "src/causal-compiler-canary-v1.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Preregistered causal-compiler canary. Its recorded result (artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json) triggered the falsifier at 5x against a 10x threshold. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/causal-compiler-canary-v2.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Second preregistered causal-compiler canary with independent replication artifacts. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/causal-semantic-crystallizer-v1.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Causal semantic crystallizer lab module built on the v1/v2 canaries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
     },
     "src/claude-code-sandbox-provisioner.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -221,6 +266,16 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "SANDBOX_PROVISIONER_EXTERNAL_BLOCK",
       "reason": "The autonomous engineering path cannot run until something outside this process attests network isolation."
+    },
+    "src/cognitive-superoptimizer.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/commercial-execution-path-materializer.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CUSTOMER",
+      "reason": "Materializes candidate commercial routes from an offer set and an execution-rail registry, and labels the result MATERIALIZED_UNPROVEN until route-outcome evidence exists. With no customer there is no outcome evidence, so every route it could produce would carry the unproven label and nothing downstream could act on it."
     },
     "src/commercial-signature-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -236,6 +291,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CUSTOMER",
       "reason": "Owner-supplied CREATOR_CLAIM catalogue; a reference, not a runtime path."
+    },
+    "src/cubefree-external-v7.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "External arithmetic-family canary (cube-free, v7) in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
     },
     "src/database-hygiene-maintenance.mjs": {
       "category": "SUPERSEDED",
@@ -277,25 +337,50 @@
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Journeys drive person-targeted touches through the omnichannel contract. The orchestration is written; the authority to contact anyone is not granted."
     },
+    "src/epoch-branching-evaluator.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Evaluates moonshot epoch-branching candidates and ancestor ablations for the research ladder. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
     "src/evidence-to-content-compiler.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Compiles evidence into publishable derivatives. Compilation is local; every output it produces is destined for a channel that requires authorization to reach."
+    },
+    "src/external-arithmetic-family-canary-v5.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "External arithmetic-family canary v5, ancestor of the v6-v11 multiplicity line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
     },
     "src/external-crm-sync-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
       "reason": "CRM sync needs a CRM credential. No CRM is connected, and a CRM observation would not be canonical truth even if one were."
     },
+    "src/fifth-power-free-v11.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Fifth-power-free canary v11 in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
     "src/form-feedback-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CUSTOMER",
       "reason": "Acceptance requests and delivery feedback are customer surfaces. There are zero verified customers to ask."
     },
+    "src/fourth-power-free-v9.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Fourth-power-free canary v9 in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
     "src/free-mission-clock-policy.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FREE_MISSION_LOOP",
       "reason": "Bounds tick interval and active window for a free-mission loop. Trace found no importer. There is no loop asking it for a budget."
+    },
+    "src/free-runtime-mesh.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVISIONED_FREE_RUNTIME_MESH",
+      "reason": "Reached only by scripts/free-runtime-burst.mjs and its test. It states outright that a dispatch is internal compute intent and not a real-world business effect, which is the right boundary, and there is still no provisioned worker for it to dispatch to."
     },
     "src/frontier-absorption-engine.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -317,10 +402,20 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Records capability claims read from public sources, with provenance. A reading list, not a runtime."
     },
+    "src/frontier-deferred-compute-planner.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
     "src/frontier-intelligence-neural-bridge.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_APPROVED_GENOME_CAPABILITY",
       "reason": "Converts frontier records into neural cortex references. Trace found no importer; it imports neural-exocortex-admission, and the pair forms an island with no entry point."
+    },
+    "src/frontier-intelligence-vm.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
     },
     "src/frontier-loop-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -336,6 +431,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
       "reason": "Checks a model's licence class and admission evidence before the operator may route to it. Waits on the same runtime the open-model catalogue waits on."
+    },
+    "src/frontier-quality-market-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
     },
     "src/frontier-replacement-tournament-proof.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -357,10 +457,25 @@
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Scores candidate task decompositions against each other. Only meaningful once a host is compiling missions to decompose."
     },
+    "src/frontier-vm-burnin.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/frontier-vm-longitudinal-evaluator.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
     "src/frontier-worker-compiler.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_FRONTIER_OPERATOR_HOST",
       "reason": "Turns a mission into a worker brief with an explicit permission set. Only useful once a host exists to run the brief."
+    },
+    "src/geographic-sovereignty-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models geographic freedom and location options. Trace found no importer. Its inputs are the founder's constraints and intent, not repository state."
     },
     "src/gmail-inbound.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -377,15 +492,200 @@
       "gate": "NO_GMAIL_READONLY_GRANT",
       "reason": "Turns inbound observations into privacy-safe events; no inbound source is connected."
     },
+    "src/infinite-opus-provider.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-runtime.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-store.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/infinite-opus-task-compilers.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
     "src/lead-generation-benchmark.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Benchmarks the lead scorer; analysis only."
     },
+    "src/legacy-institution-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models long-horizon institutions and posthumous continuity. Trace found no importer. Compiling an institution nobody authorized would manufacture one with no principal."
+    },
+    "src/model-foundry-control-plane.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
+      "reason": "Control plane for the model foundry. Trace found no importer. No lawful model artifact is reachable here: every weight host is refused by the network policy while a local inference runtime installs fine."
+    },
+    "src/moonshot-ancestor-verification.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Verifies shared-ancestor claims across founder moonshots. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-corpus-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Compiles the founder moonshot corpus into portfolio entries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-evidence-propagation.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Propagates evidence between moonshot hypotheses. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-experiment-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Compiles moonshot hypotheses into preregistered experiments. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-mechanism-market.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Mechanism market over moonshot candidates. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-portfolio-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Moonshot portfolio compiler with canonical executable states and recovered aliases. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-reality-doctor.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Moonshot doctor, executed directly as `node src/moonshot-reality-doctor.mjs` by `npm run moonshots:doctor`, which the ratchet cannot see because the entry is the module itself. Read-only report."
+    },
+    "src/moonshot-realization-closure.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Closure accounting for moonshot realization. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-replication-network.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Independent replication network for moonshot results. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/moonshot-simulation-ecology.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Simulation ecology for moonshot hypotheses; simulations are questions, not evidence. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/multiplicity-depth-memory-v8.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Multiplicity depth-memory canary v8. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/multiplicity-sensitive-memory-canary-v6.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Multiplicity-sensitive memory canary v6. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
     "src/neural-exocortex-admission.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_APPROVED_GENOME_CAPABILITY",
       "reason": "Admits Genome capabilities as neural cortex. Imported only by frontier-intelligence-neural-bridge, which itself has no importer. The corpus holds 0 approved capabilities to admit."
+    },
+    "src/omega-contract-lattice-core.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The lattice the controlled-intent evidence module builds on. Reached only through that module, which is itself test-only."
+    },
+    "src/omega-controlled-intent-evidence.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Builds evidence that an intent was controlled rather than merely stated. Consumed by nothing in production."
+    },
+    "src/omega-controlled-semantic-compiler.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Compiles a controlled semantic form for the lab. No production caller."
+    },
+    "src/omega-goal-adjoint.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Derives the adjoint of a goal for lab search. No production caller."
+    },
+    "src/omega-independent-csp-verifier.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "An independent constraint verifier used to check lab results without reusing the solver that produced them. Reached from the v3 lab test only."
+    },
+    "src/omega-intent-superposition.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Represents competing intents before collapse. Lab-only."
+    },
+    "src/omega-irreducible-work-ledger.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Accounts for work that cannot be compressed away. Lab-only."
+    },
+    "src/omega-lawspace-canary.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "A canary over the lawspace, exercised by the cross-domain test. No production caller."
+    },
+    "src/omega-operator-crystallizer.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Crystallizes a repeated operator out of lab traces. This is the mechanism that would turn repeated expensive reasoning into a cheaper reusable form, and nothing yet routes to it."
+    },
+    "src/omega-policy-meta-learner-v3.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The current policy meta-learner. Reached from the v3 lab test only."
+    },
+    "src/omega-policy-meta-learner.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The prior meta-learner, still imported by v3 and by the evidence test. Kept because v3 depends on it, not as a separate live path."
+    },
+    "src/omega-private-benchmark-generators.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Generates private benchmark items so the lab does not score against anything a candidate author could have seen. Test-only, which is the point: a production entry point reading these would widen who can see them."
+    },
+    "src/omega-private-evidence-gate.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Decides whether lab evidence is admissible. No production consumer to gate."
+    },
+    "src/omega-private-evidence-lab.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The lab surface itself. Exercised by its smoke test and by the semantic-compiler test."
+    },
+    "src/omega-private-lab-core.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Core lab machinery, imported by the protocol, the meta-learner and the intent-evidence module. Unreachable from production because all three are."
+    },
+    "src/omega-private-lab-protocol.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The protocol a lab run follows. Reached from the evidence test only."
+    },
+    "src/omega-sovereign-execution-fabric.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "An execution fabric for lab missions. No production caller, and reaching it would give lab missions an execution path nobody authorized."
+    },
+    "src/omega-structural-transfer-canary-v2.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The current structural-transfer canary, reached through the v1 test file."
+    },
+    "src/omega-structural-transfer-canary.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "The original transfer canary. Kept alongside v2 so a regression between them stays visible."
     },
     "src/omnia-v9/authority-transition-ledger.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -552,6 +852,31 @@
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Every channel here is person-targeted. The contract is written and the authority to send is not granted."
     },
+    "src/ontological-novelty-gated-canary-v4.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Novelty-gated ontological canary v4. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-primitive-synthesis-canary-v3.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Ontological primitive-synthesis canary v3 (npm run moonshots:ontological-canary-v3). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-representation-canary-v2.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Ontological representation canary v2 (npm run moonshots:ontological-canary-v2). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-structural-synthesis-canary-v4b.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Ontological structural-synthesis canary v4b (npm run moonshots:ontological-canary-v4b). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/ontological-v4b-independent-replication.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Independent replication of the v4b canary (npm run moonshots:ontological-canary-v4b:replicate). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
     "src/open-model-foundry.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
@@ -662,6 +987,16 @@
       "gate": "NO_COMMERCIAL_EVENTS",
       "reason": "Compiles an offer from journey findings. There are zero commercial events, so there is no journey to observe."
     },
+    "src/owned-target-security-verifier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_AUTHORIZED_SECURITY_TARGET",
+      "reason": "Verifies CSP, HSTS, cookie flags and CORS on a target classified OWNED_LOCAL or OWNED_PREVIEW. No such target is registered, and reaching a scanner from production before a target is authorized is how an authorized tool becomes an unauthorized scan."
+    },
+    "src/parameterized-multiplicity-depth-v10.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Parameterized multiplicity-depth canary v10. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
     "src/pending-relay-reconciliation.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "VERCEL_DEPLOYMENT_GATED",
@@ -694,6 +1029,11 @@
     "src/personal-civilization-scientific-experiment.mjs": {
       "category": "DELIBERATELY_UNREACHABLE",
       "reason": "Reached only from the explicit founder-interactive private reality command. It composes founder-selected private-life possibility data into a non-executing experiment dossier and explicitly grants no unattended, network, provider, spend, or business-effect authority. Making it production or unattended-operator reachable would break the private-life isolation boundary; the correct caller remains the founder-present private operator."
+    },
+    "src/possibility-civilization-kernel.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Possibility-civilization kernel with explicit truth states for moonshot possibilities. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
     },
     "src/profile-discovery-provenance.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -730,10 +1070,30 @@
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Identity canonicalization and the per-target, per-day outbound guard built on it. Both exist to make outbound contact deduplicable and rate-bounded; with no outbound authorization there is no send for them to guard."
     },
+    "src/public-research-adapter-mesh.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
+      "reason": "A read-only public research adapter mesh. Its own class is READ_ONLY_NETWORK, so it needs egress to do anything at all, and no egress route is configured. It degrades to MESH_INSUFFICIENT rather than failing, which would be a quiet nothing if something in production depended on it."
+    },
+    "src/reasoning-architecture-lab.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
     "src/receivables-contract.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_PAYMENT_PROVIDER",
       "reason": "An invoice is a claim about money that canonical payment truth must later confirm. With no payment provider there is nothing for a receivable to reconcile against."
+    },
+    "src/recursion-civilization-stack.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Recursion-civilization stack research model. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
+    },
+    "src/relationship-opportunity-graph.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_FOUNDER_LIFE_DATA",
+      "reason": "Models relationships as an opportunity surface. Trace found no importer. Other people are sovereign and their data is not the repository's to assume."
     },
     "src/relay-deployment-attempt.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -769,6 +1129,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "VERCEL_DEPLOYMENT_GATED",
       "reason": "Compiles an exact-target deployment request that is never dispatched."
+    },
+    "src/semantic-novelty-preflight.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Semantic novelty preflight used by the ontological canaries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
     },
     "src/sender-infrastructure-mesh.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -810,30 +1175,15 @@
       "gate": "NO_OUTBOUND_AUTHORIZATION",
       "reason": "Holds staged content with claim and consumption state. Staging deliberately never grants send authority, so nothing consumes from it until outbound is authorized."
     },
-    "src/voice-telephony-contract.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Placing a call reaches a real person. No outbound authorization exists, so the meaningful path is refused before an adapter is even needed."
+    "src/uberbond-repository-deep-atlas-persistence.mjs": {
+      "category": "SUPERSEDED",
+      "gate": null,
+      "reason": "Legacy bounded JSON persistence donor preserved for provenance and regression tests. The complete Deep Atlas and Ultimate Graph are now written via the shared entrypoint src/uberbond-atlas-stream-writer.mjs, which rejects getters and toJSON hooks and atomically persists the full graph; the legacy helper has no unattended entrypoint and must not be described as active production custody."
     },
-    "src/web-context-extraction-contract.mjs": {
+    "src/uberegress-topology.mjs": {
       "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
-      "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
-    },
-    "src/apotheosis-orchestration-runtime.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
-      "reason": "Orchestration runtime for the APOTHEOSIS planning graph. Imported only by apotheosis-agent-mesh-runtime, which itself has no importer; the pair is an island with no entry point."
-    },
-    "src/apotheosis-agent-mesh-runtime.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
-      "reason": "Native agent-mesh activation over the orchestration runtime. Trace found no importer. Wiring it before the named activation prerequisites would start a mesh whose acceptance gates are unmet."
-    },
-    "src/ubermail-foundry.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
-      "reason": "Compiles mailbox fleets from the uberdoso roots. Trace found no importer. Provisioning is a spend and a sending identity, not a code decision."
+      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
+      "reason": "Shapes egress topology for sending infrastructure. Trace found no importer, and no egress route is configured."
     },
     "src/uberinbox-factory.mjs": {
       "category": "AWAITING_ACTIVATION",
@@ -845,495 +1195,10 @@
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
       "reason": "Evidence-bound provider scale profiles for inbox fleets. Trace found no importer. Its caps are planning figures until a provider relationship exists."
     },
-    "src/uberegress-topology.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
-      "reason": "Shapes egress topology for sending infrastructure. Trace found no importer, and no egress route is configured."
-    },
-    "src/uberreach-scale-frontier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_OUTBOUND_AUTHORIZATION",
-      "reason": "Projects reach at scale across the outbound frontier. Trace found no importer. Scale projection is not permission to send."
-    },
-    "src/adaptive-mastery-engine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FOUNDER_LIFE_DATA",
-      "reason": "Compiles a desired human capability into baseline, prerequisites, practice and measurement. Tested by life-altering-frontier-gap; trace found no importer. It needs the founder's actual current ability, which nothing here has."
-    },
-    "src/geographic-sovereignty-engine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FOUNDER_LIFE_DATA",
-      "reason": "Models geographic freedom and location options. Trace found no importer. Its inputs are the founder's constraints and intent, not repository state."
-    },
-    "src/legacy-institution-engine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FOUNDER_LIFE_DATA",
-      "reason": "Models long-horizon institutions and posthumous continuity. Trace found no importer. Compiling an institution nobody authorized would manufacture one with no principal."
-    },
-    "src/relationship-opportunity-graph.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_FOUNDER_LIFE_DATA",
-      "reason": "Models relationships as an opportunity surface. Trace found no importer. Other people are sovereign and their data is not the repository's to assume."
-    },
-    "src/model-foundry-control-plane.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_OPEN_MODEL_RUNTIME",
-      "reason": "Control plane for the model foundry. Trace found no importer. No lawful model artifact is reachable here: every weight host is refused by the network policy while a local inference runtime installs fine."
-    },
-    "src/apotheosis-final-orchestrator.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_APOTHEOSIS_ACTIVATION_PREREQUISITES",
-      "reason": "Final orchestrator over the APOTHEOSIS graph. Tested, but trace found no importer, and its own continuation doc names native P00/P08 reconciliation as the activation gate."
-    },
-    "src/omega-contract-lattice-core.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The lattice the controlled-intent evidence module builds on. Reached only through that module, which is itself test-only."
-    },
-    "src/omega-controlled-intent-evidence.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Builds evidence that an intent was controlled rather than merely stated. Consumed by nothing in production."
-    },
-    "src/omega-controlled-semantic-compiler.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Compiles a controlled semantic form for the lab. No production caller."
-    },
-    "src/omega-goal-adjoint.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Derives the adjoint of a goal for lab search. No production caller."
-    },
-    "src/omega-independent-csp-verifier.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "An independent constraint verifier used to check lab results without reusing the solver that produced them. Reached from the v3 lab test only."
-    },
-    "src/omega-intent-superposition.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Represents competing intents before collapse. Lab-only."
-    },
-    "src/omega-irreducible-work-ledger.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Accounts for work that cannot be compressed away. Lab-only."
-    },
-    "src/omega-lawspace-canary.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "A canary over the lawspace, exercised by the cross-domain test. No production caller."
-    },
-    "src/omega-operator-crystallizer.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Crystallizes a repeated operator out of lab traces. This is the mechanism that would turn repeated expensive reasoning into a cheaper reusable form, and nothing yet routes to it."
-    },
-    "src/omega-policy-meta-learner-v3.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The current policy meta-learner. Reached from the v3 lab test only."
-    },
-    "src/omega-policy-meta-learner.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The prior meta-learner, still imported by v3 and by the evidence test. Kept because v3 depends on it, not as a separate live path."
-    },
-    "src/omega-private-benchmark-generators.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Generates private benchmark items so the lab does not score against anything a candidate author could have seen. Test-only, which is the point: a production entry point reading these would widen who can see them."
-    },
-    "src/omega-private-evidence-gate.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Decides whether lab evidence is admissible. No production consumer to gate."
-    },
-    "src/omega-private-evidence-lab.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The lab surface itself. Exercised by its smoke test and by the semantic-compiler test."
-    },
-    "src/omega-private-lab-core.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Core lab machinery, imported by the protocol, the meta-learner and the intent-evidence module. Unreachable from production because all three are."
-    },
-    "src/omega-private-lab-protocol.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The protocol a lab run follows. Reached from the evidence test only."
-    },
-    "src/omega-sovereign-execution-fabric.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "An execution fabric for lab missions. No production caller, and reaching it would give lab missions an execution path nobody authorized."
-    },
-    "src/omega-structural-transfer-canary-v2.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The current structural-transfer canary, reached through the v1 test file."
-    },
-    "src/omega-structural-transfer-canary.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "The original transfer canary. Kept alongside v2 so a regression between them stays visible."
-    },
-    "src/uberocean-ubercel-bridge.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
-      "reason": "Compiles admitted hosts into an UberCel deployment plan and refuses without two independent failure domains. With no admitted hosts there is nothing to compile, and the refusal is the tested behaviour."
-    },
-    "src/uberos/state-engine.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_BUILT_UBEROS_IMAGE",
-      "reason": "Compiles a candidate state transition with its checks and rollback receipt, and refuses a transition that cannot be rolled back. Reached only from the UBER/OS test; the doctor reaches the system compiler, which does not use it. It is the piece that would make an OS update atomic, and there is no OS to update yet."
-    },
-    "src/commercial-execution-path-materializer.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CUSTOMER",
-      "reason": "Materializes candidate commercial routes from an offer set and an execution-rail registry, and labels the result MATERIALIZED_UNPROVEN until route-outcome evidence exists. With no customer there is no outcome evidence, so every route it could produce would carry the unproven label and nothing downstream could act on it."
-    },
-    "src/owned-target-security-verifier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_AUTHORIZED_SECURITY_TARGET",
-      "reason": "Verifies CSP, HSTS, cookie flags and CORS on a target classified OWNED_LOCAL or OWNED_PREVIEW. No such target is registered, and reaching a scanner from production before a target is authorized is how an authorized tool becomes an unauthorized scan."
-    },
-    "src/public-research-adapter-mesh.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_CONFIGURED_EGRESS_ROUTES",
-      "reason": "A read-only public research adapter mesh. Its own class is READ_ONLY_NETWORK, so it needs egress to do anything at all, and no egress route is configured. It degrades to MESH_INSUFFICIENT rather than failing, which would be a quiet nothing if something in production depended on it."
-    },
-    "src/free-runtime-mesh.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_PROVISIONED_FREE_RUNTIME_MESH",
-      "reason": "Reached only by scripts/free-runtime-burst.mjs and its test. It states outright that a dispatch is internal compute intent and not a real-world business effect, which is the right boundary, and there is still no provisioned worker for it to dispatch to."
-    },
-    "src/autonomy-compression-ratio.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "GENESIS Autonomy Compression Ratio (#987): measures founder interventions per accepted task on replayed task sets. A lab measurement with no production caller; it becomes useful only once real task receipts exist to replay."
-    },
-    "src/causal-compiler-canary-v1.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Preregistered causal-compiler canary. Its recorded result (artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json) triggered the falsifier at 5x against a 10x threshold. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/causal-compiler-canary-v2.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Second preregistered causal-compiler canary with independent replication artifacts. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/causal-semantic-crystallizer-v1.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Causal semantic crystallizer lab module built on the v1/v2 canaries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/cubefree-external-v7.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "External arithmetic-family canary (cube-free, v7) in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/epoch-branching-evaluator.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Evaluates moonshot epoch-branching candidates and ancestor ablations for the research ladder. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/external-arithmetic-family-canary-v5.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "External arithmetic-family canary v5, ancestor of the v6-v11 multiplicity line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/fifth-power-free-v11.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Fifth-power-free canary v11 in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/fourth-power-free-v9.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Fourth-power-free canary v9 in the multiplicity research line. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-ancestor-verification.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Verifies shared-ancestor claims across founder moonshots. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-corpus-compiler.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Compiles the founder moonshot corpus into portfolio entries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-evidence-propagation.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Propagates evidence between moonshot hypotheses. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-experiment-compiler.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Compiles moonshot hypotheses into preregistered experiments. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-mechanism-market.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Mechanism market over moonshot candidates. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-portfolio-compiler.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Moonshot portfolio compiler with canonical executable states and recovered aliases. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-reality-doctor.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Moonshot doctor, executed directly as `node src/moonshot-reality-doctor.mjs` by `npm run moonshots:doctor`, which the ratchet cannot see because the entry is the module itself. Read-only report."
-    },
-    "src/moonshot-realization-closure.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Closure accounting for moonshot realization. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-replication-network.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Independent replication network for moonshot results. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/moonshot-simulation-ecology.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Simulation ecology for moonshot hypotheses; simulations are questions, not evidence. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/multiplicity-depth-memory-v8.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Multiplicity depth-memory canary v8. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/multiplicity-sensitive-memory-canary-v6.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Multiplicity-sensitive memory canary v6. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/ontological-novelty-gated-canary-v4.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Novelty-gated ontological canary v4. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/ontological-primitive-synthesis-canary-v3.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Ontological primitive-synthesis canary v3 (npm run moonshots:ontological-canary-v3). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/ontological-representation-canary-v2.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Ontological representation canary v2 (npm run moonshots:ontological-canary-v2). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/ontological-structural-synthesis-canary-v4b.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Ontological structural-synthesis canary v4b (npm run moonshots:ontological-canary-v4b). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/ontological-v4b-independent-replication.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Independent replication of the v4b canary (npm run moonshots:ontological-canary-v4b:replicate). Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/parameterized-multiplicity-depth-v10.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Parameterized multiplicity-depth canary v10. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/possibility-civilization-kernel.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Possibility-civilization kernel with explicit truth states for moonshot possibilities. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/recursion-civilization-stack.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Recursion-civilization stack research model. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/semantic-novelty-preflight.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Semantic novelty preflight used by the ontological canaries. Run by hand through an npm moonshots:* script or its own test; no production, worker or unattended caller, and none should exist until a preregistered result earns promotion."
-    },
-    "src/uberwatt.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWATT_METER_OBSERVATIONS",
-      "reason": "UberWatt compiles energy intervals, verified savings and energy-backed local compute offers. Its inputs are founder-read utility-meter intervals and measured local inference on the Windows node (docs/UBERWATT_FIRST_WINDOWS_NODE.md); the PowerShell doctor and benchmark scripts produce raw observations but nothing feeds them into this module yet."
-    },
-    "src/cognitive-superoptimizer.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/frontier-deferred-compute-planner.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/frontier-intelligence-vm.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/frontier-quality-market-compiler.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/frontier-vm-burnin.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/frontier-vm-longitudinal-evaluator.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/infinite-opus-provider.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/infinite-opus-runtime.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/infinite-opus-store.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/infinite-opus-task-compilers.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/reasoning-architecture-lab.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/uberplacement.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/uberrelay.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/ubersubstrate.mjs": {
-      "category": "RESEARCH_ONLY",
-      "gate": null,
-      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
-    },
-    "src/uberwarm2-attested-one-shot-readers.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Verifies six independently pinned, short-lived Ed25519 source attestations for a manually invoked one-shot email diagnostic. Never generates proof, retrieves provider credentials or sends mail. The separate one-shot CLI requires real trusted operator signers and an owner-signed exact batch before any primary-ledger claim or HTTPS send. No unattended monitor import, implicit send approval or paid warmer."
-    },
-    "src/uberwarm2-authorized-one-shot-runtime.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Protected single-message Winnr HTTPS seed execution composer. Tests demonstrate genuine wiring through the pre-existing trusted reader, HMAC approval, PostgreSQL one-shot claim and provider bridge, but it is intentionally unreachable from unattended production paths. It cannot be connected until exact independently authenticated sender health and consenting recipient evidence, a server-held owner signature and a separate explicit per-effect live invocation are present. No paid warmer, autonomous schedule or simulated consent is allowed."
-    },
-    "src/uberwarm2-delegated-evidence-custody.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Optional manual one-shot evidence verifier for an exact, protected owner delegation. Preserves six distinct source receipts without requiring six fictitious operators; never creates source facts, signing keys or approvals. All existing sender health, holds, DNS alignment, consent, suppression, owner HMAC and PostgreSQL idempotency gates remain required. No monitor import or live delegation configured."
-    },
-    "src/uberwarm2-registry-bridge.mjs": {
+    "src/ubermail-foundry.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
-      "reason": "Applies UberWarm2 ramp decisions to the sending-domain and sending-mailbox registries (warm-up status, pauses). It mutates mailbox state, so it is deliberately not wired until a provisioned mailbox fleet and owner authority for registry mutation exist; compileUberWarm2RegistryTransitions is a pure planner and carries no authority."
-    },
-    "src/uberwarm2-sovereign-ramp.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
-      "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
-    },
-    "src/uberwarm2-seed-executor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Compiles and executes the UberWarm2 owner-controlled seed probe, which sends real SMTP test messages to owned seed addresses. It requires a server-held approval signing key and an unexpired owner approval bound to the exact batch digest, so it must never be reachable from an unattended path."
-    },
-    "src/uberwarm2-pg-ledger.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "PostgreSQL one-shot and daily quota ledger for UberWarm2 owner-controlled seed probes. It must run against the authoritative primary and needs the pending migration docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql, applied only by an owner-authorized runner. No owner has approved either."
-    },
-    "src/uberwarm2-winnr-https-seed-bridge.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Exact provider-managed Winnr HTTPS mailbox-send adapter for owner-controlled one-shot seed probes. Its transmission capability is consumable only after a signed founder approval, original PostgreSQL one-shot claim and current independent sender/seed proofs. No live Winnr write token or receiver connector is accessible in this coding session; no production caller is admitted and provider outcome has not been live-tested."
-    },
-    "src/uberwarm2-protected-winnr-runtime.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Protected Winnr observation, sender-health and seed-consent source composer. The only unattended operator script performs vendor GET-only diagnostics without importing this composition. Promotion still requires exact authenticated Winnr/SMTP readings, independent current signed alignment, local holds, trusted recipient consent, original-key PostgreSQL one-shot ledger and a separately approved owner-controlled probe; tests alone grant no send authority."
-    },
-    "src/uberwarm2-send-capability.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Process-local one-shot authority to transmit exactly one UberWarm2 owner-seed probe. The executor issues it only after a durable claim and the SMTP bridge consumes it before opening a socket. It is part of the seed path that has no production caller and no owner activation."
-    },
-    "src/uberwarm2-winnr-readonly-observation-donor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Read-only and fail-closed mapping of actual provider-reported Winnr domain/mailbox readiness, separated from SMTP-auth, quarantine and DNS alignment authority. Not wired until source schemas are authenticated inside a protected Winnr runtime with original held API token and all local sender holds."
-    },
-    "src/uberwarm2-protected-activation-wiring-donor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Source-only assembly of fail-closed existing sender-health and recipient-consent verifier callbacks. No real protected provider readers, original-key host, primary ledger, founder-signed exact probe or live send authority. Synthetically composed functions are not authenticated live capability."
-    },
-    "src/uberwarm2-smtp-seed-bridge.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Binds one already-authorized, encrypted SMTP sending identity to the owner-controlled seed allowlist and opens a live submission transport. Wiring it would send mail from a real account, so it waits for an owner approval of each live activation."
-    },
-    "src/uberwarm2-trusted-health-supplier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Read-only provider/SMTP transport, local quarantine and signed DNS-alignment observations are reconciled into one bounded sender-health row. The module deliberately has no production entry point or credentials: real protected Winnr/API transport readers, independently verified current SMTP and DNS evidence, original-key runtime and exact owner-seed authorization are not yet bound. Tests contain synthetic receipts only. Wiring before those external proof gates would confer false sending authority."
-    },
-    "src/uberwarm2-trusted-seed-consent-supplier.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Protected read-only consent, receiving-mailbox readiness and suppression reconciler built from free DeepSeek donor. Source-level tests only; no external volunteers enrolled or authenticated consent registry connected. Deliberately unreachable until real protected source readers, specific owner consent, independently verifiable receiving account, original-key runtime and exact signed one-probe authorization are present. No autonomous messaging authority."
-    },
-    "src/uberwarm2-trusted-receiver-evidence-donor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Combines server-trusted independent receiver OAuth/IMAP evidence with an identity/folder-bound synchronous verifier. Deliberately not wired: no actually authenticated seed receiver connection, evidence ledger or signed one-probe approval deployed; caller-provided observations never count as delivery proof."
-    },
-    "src/uberwarm2-protected-runtime-preflight-donor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Pure release-check compiler requiring independently validated current attestations for source-current Render-to-Neon continuity, original-key custody, durable one-shot ledger, actual sender/recipient proof and zero-paid-addon policy. Never grants send or cutover authority; no trusted runtime attestation issuer is currently wired."
-    },
-    "src/uberwarm2-protected-receiver-placement-wiring-donor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Combines separately authenticated receiver observations with existing evidence compiler. No real recipient OAuth/IMAP or signed source records currently bound, nor live sending or durable placement recorder. Source-only; cannot claim delivered placement."
-    },
-    "src/uberwarm2-gmail-placement-reader.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_GMAIL_READONLY_GRANT",
-      "reason": "Recipient-side GET-only Gmail placement reader. Requires an owner-authorized runtime credential provider and the existing protected signed-reference verifier; neither is currently bound to Railway. ChatGPT Gmail credentials are not exported. It checks exact profile, sender, recipient, RFC Message-ID, approved probe content and receiving labels, and never claims a signature or send authority."
-    },
-    "src/uberwarm2-protected-winnr-read-plan-donor.mjs": {
-      "category": "AWAITING_ACTIVATION",
-      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
-      "reason": "Pure read-only Winnr API inventory plan. Deliberately no API token, provider calls, paid add-on, SMTP authority, actual complete paginated read or DNS alignment proof. Expected inventory is not authenticated current mailbox readiness."
+      "reason": "Compiles mailbox fleets from the uberdoso roots. Trace found no importer. Provisioning is a spend and a sending identity, not a code decision."
     },
     "src/ubermind-cognitive-residual-economics.mjs": {
       "category": "RESEARCH_ONLY",
@@ -1360,10 +1225,155 @@
       "gate": null,
       "reason": "Read-only model-plan versus API tariff scenario calculator; the $20 subscription is not API prepaid credit and calculator has no provider-cost or quality proof."
     },
+    "src/uberocean-ubercel-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_ADMITTED_UBEROCEAN_HOSTS",
+      "reason": "Compiles admitted hosts into an UberCel deployment plan and refuses without two independent failure domains. With no admitted hosts there is nothing to compile, and the refusal is the tested behaviour."
+    },
+    "src/uberos/state-engine.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_BUILT_UBEROS_IMAGE",
+      "reason": "Compiles a candidate state transition with its checks and rollback receipt, and refuses a transition that cannot be rolled back. Reached only from the UBER/OS test; the doctor reaches the system compiler, which does not use it. It is the piece that would make an OS update atomic, and there is no OS to update yet."
+    },
+    "src/uberplacement.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/uberreach-scale-frontier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Projects reach at scale across the outbound frontier. Trace found no importer. Scale projection is not permission to send."
+    },
+    "src/uberrelay.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
+    "src/ubersubstrate.mjs": {
+      "category": "RESEARCH_ONLY",
+      "gate": null,
+      "reason": "Bounded research/library substrate; tests and operator doctors do not confer live model, spend, deployment, or customer authority. Native Infinite Opus production handlers are separately wired to the existing durable job store; this optional library requires explicit later admission."
+    },
     "src/uberwarm-canonical-ingress-reconciler.mjs": {
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_VERIFIED_CANONICAL_INGRESS_BINDING",
       "reason": "Source-tested bounded transactional reconciler; deliberately has no unattended entry point until the real canonical stop-list database and a sanctioned authenticated private ingress snapshot reader are verified. Requires database identity and table readback; cannot create an empty replacement store, export credentials, send messages or grant outbound authority."
+    },
+    "src/uberwarm2-attested-one-shot-readers.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Verifies six independently pinned, short-lived Ed25519 source attestations for a manually invoked one-shot email diagnostic. Never generates proof, retrieves provider credentials or sends mail. The separate one-shot CLI requires real trusted operator signers and an owner-signed exact batch before any primary-ledger claim or HTTPS send. No unattended monitor import, implicit send approval or paid warmer."
+    },
+    "src/uberwarm2-authorized-one-shot-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected single-message Winnr HTTPS seed execution composer. Tests demonstrate genuine wiring through the pre-existing trusted reader, HMAC approval, PostgreSQL one-shot claim and provider bridge, but it is intentionally unreachable from unattended production paths. It cannot be connected until exact independently authenticated sender health and consenting recipient evidence, a server-held owner signature and a separate explicit per-effect live invocation are present. No paid warmer, autonomous schedule or simulated consent is allowed."
+    },
+    "src/uberwarm2-delegated-evidence-custody.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Optional manual one-shot evidence verifier for an exact, protected owner delegation. Preserves six distinct source receipts without requiring six fictitious operators; never creates source facts, signing keys or approvals. All existing sender health, holds, DNS alignment, consent, suppression, owner HMAC and PostgreSQL idempotency gates remain required. No monitor import or live delegation configured."
+    },
+    "src/uberwarm2-gmail-placement-reader.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_GMAIL_READONLY_GRANT",
+      "reason": "Recipient-side GET-only Gmail placement reader. Requires an owner-authorized runtime credential provider and the existing protected signed-reference verifier; neither is currently bound to Railway. ChatGPT Gmail credentials are not exported. It checks exact profile, sender, recipient, RFC Message-ID, approved probe content and receiving labels, and never claims a signature or send authority."
+    },
+    "src/uberwarm2-pg-ledger.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "PostgreSQL one-shot and daily quota ledger for UberWarm2 owner-controlled seed probes. It must run against the authoritative primary and needs the pending migration docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql, applied only by an owner-authorized runner. No owner has approved either."
+    },
+    "src/uberwarm2-protected-activation-wiring-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Source-only assembly of fail-closed existing sender-health and recipient-consent verifier callbacks. No real protected provider readers, original-key host, primary ledger, founder-signed exact probe or live send authority. Synthetically composed functions are not authenticated live capability."
+    },
+    "src/uberwarm2-protected-receiver-placement-wiring-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Combines separately authenticated receiver observations with existing evidence compiler. No real recipient OAuth/IMAP or signed source records currently bound, nor live sending or durable placement recorder. Source-only; cannot claim delivered placement."
+    },
+    "src/uberwarm2-protected-runtime-preflight-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Pure release-check compiler requiring independently validated current attestations for source-current Render-to-Neon continuity, original-key custody, durable one-shot ledger, actual sender/recipient proof and zero-paid-addon policy. Never grants send or cutover authority; no trusted runtime attestation issuer is currently wired."
+    },
+    "src/uberwarm2-protected-winnr-read-plan-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Pure read-only Winnr API inventory plan. Deliberately no API token, provider calls, paid add-on, SMTP authority, actual complete paginated read or DNS alignment proof. Expected inventory is not authenticated current mailbox readiness."
+    },
+    "src/uberwarm2-protected-winnr-runtime.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected Winnr observation, sender-health and seed-consent source composer. The only unattended operator script performs vendor GET-only diagnostics without importing this composition. Promotion still requires exact authenticated Winnr/SMTP readings, independent current signed alignment, local holds, trusted recipient consent, original-key PostgreSQL one-shot ledger and a separately approved owner-controlled probe; tests alone grant no send authority."
+    },
+    "src/uberwarm2-registry-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Applies UberWarm2 ramp decisions to the sending-domain and sending-mailbox registries (warm-up status, pauses). It mutates mailbox state, so it is deliberately not wired until a provisioned mailbox fleet and owner authority for registry mutation exist; compileUberWarm2RegistryTransitions is a pure planner and carries no authority."
+    },
+    "src/uberwarm2-seed-executor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Compiles and executes the UberWarm2 owner-controlled seed probe, which sends real SMTP test messages to owned seed addresses. It requires a server-held approval signing key and an unexpired owner approval bound to the exact batch digest, so it must never be reachable from an unattended path."
+    },
+    "src/uberwarm2-send-capability.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Process-local one-shot authority to transmit exactly one UberWarm2 owner-seed probe. The executor issues it only after a durable claim and the SMTP bridge consumes it before opening a socket. It is part of the seed path that has no production caller and no owner activation."
+    },
+    "src/uberwarm2-smtp-seed-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Binds one already-authorized, encrypted SMTP sending identity to the owner-controlled seed allowlist and opens a live submission transport. Wiring it would send mail from a real account, so it waits for an owner approval of each live activation."
+    },
+    "src/uberwarm2-sovereign-ramp.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_MAILBOX_PROVISIONING_AUTHORITY",
+      "reason": "Evidence-first ramp/quarantine planner (compileUberWarm2Plan) and purchase-boundary compiler. Planning only; wiring it before a mailbox fleet exists would plan for capacity that is not provisioned, and the purchase-boundary output must not be reachable without owner spend authority."
+    },
+    "src/uberwarm2-trusted-health-supplier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Read-only provider/SMTP transport, local quarantine and signed DNS-alignment observations are reconciled into one bounded sender-health row. The module deliberately has no production entry point or credentials: real protected Winnr/API transport readers, independently verified current SMTP and DNS evidence, original-key runtime and exact owner-seed authorization are not yet bound. Tests contain synthetic receipts only. Wiring before those external proof gates would confer false sending authority."
+    },
+    "src/uberwarm2-trusted-receiver-evidence-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Combines server-trusted independent receiver OAuth/IMAP evidence with an identity/folder-bound synchronous verifier. Deliberately not wired: no actually authenticated seed receiver connection, evidence ledger or signed one-probe approval deployed; caller-provided observations never count as delivery proof."
+    },
+    "src/uberwarm2-trusted-seed-consent-supplier.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Protected read-only consent, receiving-mailbox readiness and suppression reconciler built from free DeepSeek donor. Source-level tests only; no external volunteers enrolled or authenticated consent registry connected. Deliberately unreachable until real protected source readers, specific owner consent, independently verifiable receiving account, original-key runtime and exact signed one-probe authorization are present. No autonomous messaging authority."
+    },
+    "src/uberwarm2-winnr-https-seed-bridge.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Exact provider-managed Winnr HTTPS mailbox-send adapter for owner-controlled one-shot seed probes. Its transmission capability is consumable only after a signed founder approval, original PostgreSQL one-shot claim and current independent sender/seed proofs. No live Winnr write token or receiver connector is accessible in this coding session; no production caller is admitted and provider outcome has not been live-tested."
+    },
+    "src/uberwarm2-winnr-readonly-observation-donor.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWARM_ZERO_ADDON_LIVE_AUTHORIZATION",
+      "reason": "Read-only and fail-closed mapping of actual provider-reported Winnr domain/mailbox readiness, separated from SMTP-auth, quarantine and DNS alignment authority. Not wired until source schemas are authenticated inside a protected Winnr runtime with original held API token and all local sender holds."
+    },
+    "src/uberwatt.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_UBERWATT_METER_OBSERVATIONS",
+      "reason": "UberWatt compiles energy intervals, verified savings and energy-backed local compute offers. Its inputs are founder-read utility-meter intervals and measured local inference on the Windows node (docs/UBERWATT_FIRST_WINDOWS_NODE.md); the PowerShell doctor and benchmark scripts produce raw observations but nothing feeds them into this module yet."
+    },
+    "src/voice-telephony-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_OUTBOUND_AUTHORIZATION",
+      "reason": "Placing a call reaches a real person. No outbound authorization exists, so the meaningful path is refused before an adapter is even needed."
+    },
+    "src/web-context-extraction-contract.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PROVIDER_ADAPTER_CONFIGURED",
+      "reason": "Extraction needs a fetch/render adapter. The contract explicitly refuses CAPTCHA_BYPASS and AUTH_BYPASS, so releasing it does not widen what it may reach."
     }
   }
 }

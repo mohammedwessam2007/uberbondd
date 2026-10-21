@@ -5,6 +5,7 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { persistOperationalSnapshot } from '../src/uberwarm2-operational-journal.mjs';
 import { observeReceiverBinding } from '../src/uberwarm2-receiver-binding.mjs';
+import { observeBobwork } from '../src/uberwarm2-bobwork-observer.mjs';
 
 const pool = new pg.Pool({
   connectionString: process.env.DATABASE_URL,
@@ -47,6 +48,10 @@ try {
   if (doctor.status !== 0) receipt.blockers.push('authenticated-provider-read-not-ready');
   receipt.blockers.push('independent-sender-consent-and-placement-gates-required');
   receipt.status = 'BLOCKED_FOR_SENDING';
+  receipt.bobwork = await observeBobwork({apiKey: process.env.BOBWORK_API_KEY});
+  if (process.env.BOBWORK_API_KEY && receipt.bobwork.status !== 'INVENTORY_OBSERVED') {
+    receipt.blockers.push('bobwork-observation-not-verified');
+  }
   if (process.env.UBERWARM_RECEIVER_EMAIL && process.env.UBERWARM_RECEIVER_ENCRYPTION_KEY) {
     receipt.receiver = await observeReceiverBinding({pool,
       receiverEmail:process.env.UBERWARM_RECEIVER_EMAIL,

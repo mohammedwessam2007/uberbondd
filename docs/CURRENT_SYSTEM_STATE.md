@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-22**
 Branch: `claude/machiavelli-money-hunt-20261022`
-Reconciled from current head: `020b45707b7351bd558a0fad3b755cb670bd79a9`
+Reconciled from current head: `0d440761fc70fa82bf8897b1787e9ae468ef91f6`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

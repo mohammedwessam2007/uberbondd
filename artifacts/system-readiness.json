@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-22T23:01:08.739Z",
+  "generatedAt": "2026-10-22T23:16:56.574Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "020b45707b7351bd558a0fad3b755cb670bd79a9",
+    "head": "0d440761fc70fa82bf8897b1787e9ae468ef91f6",
     "branch": "claude/machiavelli-money-hunt-20261022",
     "sourceModules": 1142,
     "testSuites": 1375,
-    "workingTreeClean": false
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {

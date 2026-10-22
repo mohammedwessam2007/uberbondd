@@ -1,6 +1,6 @@
 {
   "schema": "uberbond.verified-inquiry-unit-economics.2026-10.v1",
-  "atUtc": "2026-10-22T16:12:57.611Z",
+  "atUtc": "2026-10-22T21:39:46.062Z",
   "product": "Verified Website Inquiry Audit",
   "basis": {
     "frozenCohort": "artifacts/commercialization/frozen-40-home-service-sites-2026-10.json",
@@ -75,6 +75,7 @@
     "independentQuality": {
       "assertableCandidates": 7,
       "automatedParserCorroborated": 4,
+      "matchedOriginalSource": 3,
       "humanVerified": 0
     },
     "runtimeBrowserWitness": "NOT_MEASURED_NO_INSTALLED_CHROMIUM_AT_INITIAL_RUN",
@@ -96,6 +97,12 @@
     },
     "cuDefinition": "1 GB-hour; memory tier is assumed to match provisioned GB, not observed RSS",
     "defaultActorStartEventUsd": 0.00005,
+    "syntheticEventsPolicy": "Actor start and default dataset item synthetic events require explicit verification/disablement before Store publication",
+    "freeTierPolicy": "Excluded from both eligible paid-event earnings and creator platform costs; support costs remain modeled on the full 40-site workload",
+    "providerDocs": [
+      "https://docs.apify.com/actors/publishing/monetize/pay-per-event",
+      "https://docs.apify.com/actors/publishing/monetize/pricing-and-costs"
+    ],
     "providerCashEvidence": "NONE",
     "paymentProvider": {
       "paypalEgyptInternationalRate": 0.044,
@@ -154,8 +161,9 @@
       "retryCostMultiplier": 2,
       "computeBaseUsd": 0.01261,
       "eligiblePaidEventRevenueUsd": 0,
-      "contributionUsd": -1.0252,
-      "zeroFindingSitePenalty": "Every scanned site consumes resources even without a billable finding",
+      "eligiblePaidPlatformComputeUsd": 0,
+      "contributionUsd": -1,
+      "zeroFindingSitePenalty": "Paid-plan zero-finding runs incur platform usage; free-tier usage is covered by Apify",
       "scenarioClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH"
     },
     "median": {
@@ -167,8 +175,9 @@
       "retryCostMultiplier": 2,
       "computeBaseUsd": 0.01261,
       "eligiblePaidEventRevenueUsd": 1,
-      "contributionUsd": -1.2252,
-      "zeroFindingSitePenalty": "Every scanned site consumes resources even without a billable finding",
+      "eligiblePaidPlatformComputeUsd": 0.01261,
+      "contributionUsd": -1.2126,
+      "zeroFindingSitePenalty": "Paid-plan zero-finding runs incur platform usage; free-tier usage is covered by Apify",
       "scenarioClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH"
     },
     "optimistic": {
@@ -180,8 +189,9 @@
       "retryCostMultiplier": 1.5,
       "computeBaseUsd": 0.007465,
       "eligiblePaidEventRevenueUsd": 8,
+      "eligiblePaidPlatformComputeUsd": 0.0111975,
       "contributionUsd": 5.3888,
-      "zeroFindingSitePenalty": "Every scanned site consumes resources even without a billable finding",
+      "zeroFindingSitePenalty": "Paid-plan zero-finding runs incur platform usage; free-tier usage is covered by Apify",
       "scenarioClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH"
     }
   },

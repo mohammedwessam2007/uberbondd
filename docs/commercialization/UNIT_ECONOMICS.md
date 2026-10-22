@@ -23,7 +23,7 @@ Source: `artifacts/commercialization/frozen-40-home-service-sites-2026-10.json`,
 
 **Important:** a Node heap ceiling is NOT a 2 GB or 4 GB Apify memory allocation. These CU figures are hypothetical, not provider-billed usage. Browser-witness and cloud cold-start costs are not established.
 
-A two-site, delivery-only re-probe executed 4 sequential site probes, including two full re-verifications requiring 3381 ms collectively. The resulting 4 deliveries were **NOT_CHARGED**. Four of seven assertions were separately parser-corroborated, but **zero** were human-validated.
+A two-site, delivery-only re-probe executed 4 sequential site probes, including two full re-verifications requiring 3381 ms collectively. The resulting 4 deliveries were **NOT_CHARGED**. Four of seven assertions were separately parser-corroborated on newly fetched pages, but only **3** matched the original captured source hash, and **zero** were human-validated.
 
 ## Channel A: proposed direct $99 pilot
 PR #1535's public PayPal Egypt fee assumption: 4.4% + $0.30, or **$4.656** on $99 before FX/withdrawal/holds. This is not a live account quote. Scenario costs and founder-time shadow prices below are estimates, not empirical customer costs.
@@ -37,12 +37,12 @@ PR #1535's public PayPal Egypt fee assumption: 4.4% + $0.30, or **$4.656** on $9
 No paid buyer, accepted delivery, invoice or cleared money is evidenced. Probability of customer purchase is UNKNOWN, so none of these are forecasts.
 
 ## Channel B: Apify pay-per-event
-The modeled formula is **0.80 × eligible paid-event revenue − creator platform cost − other variable costs**. Free-plan/non-eligible events have no eligible earnings in these scenarios.
+The modeled formula is **0.80 × eligible paid-event revenue − paid-plan platform usage cost − other variable costs**. Apify explicitly excludes free-tier usage from **both** creator revenue and creator platform cost. The eligible-paid-plan fraction is provisionally assumed equal across chargeable event rate and compute workload. Support is charged on all 40 inspected sites. Apify may automatically charge startup or default-dataset-item synthetic events, which must be configured and verified before publication. Actual tier mix, data-transfer charges, browser startup and billed CU remain unknown. Official rules: https://docs.apify.com/actors/publishing/monetize/pay-per-event and https://docs.apify.com/actors/publishing/monetize/pricing-and-costs.
 
 | Scenario | Price hypothesis / verified event | Eligible-paid-plan fraction hypothesis | Supported findings/site hypothesis | Contribution per 40-site cohort |
 |---|---:|---:|---:|---:|
-| Pessimistic | $0.5 | 0 | 0 | $-1.0252 |
-| Median | $1 | 0.5 | 0.05 | $-1.2252 |
+| Pessimistic | $0.5 | 0 | 0 | $-1 |
+| Median | $1 | 0.5 | 0.05 | $-1.2126 |
 | Optimistic | $2 | 1 | 0.1 | $5.3888 |
 
 These prices are NOT activated. Zero-finding sites consume compute. Refund, re-verification and browser costs are not fully measured, so the Store proposition **cannot** be declared profitable. No price is chosen.

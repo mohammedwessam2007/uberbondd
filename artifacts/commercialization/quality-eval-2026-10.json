@@ -115,5 +115,7 @@
       "routingIntent": "UNKNOWN",
       "buyerReproduction": "NOT_PERFORMED"
     }
-  ]
+  ],
+  "independentlyParserCorroboratedOriginalSource": 3,
+  "temporalCaveat": "Only parser corroborations with matching original source hash reverify identical captured HTML; changed-source findings are fresh observations, not historical byte-for-byte corroboration."
 }

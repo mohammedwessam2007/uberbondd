@@ -7,6 +7,7 @@
 // mistake surfaces immediately instead of a secret quietly landing in
 // auditLog.
 import crypto from 'node:crypto';
+import { loadCompleteSendingRegistryEvents } from './sending-registry-complete-history.mjs';
 
 export const SENDING_MAILBOX_REGISTRY_POLICY_VERSION = 'sending-mailbox-registry-1.0.0';
 
@@ -142,12 +143,10 @@ export async function logSendingMailboxEvent(store, event) {
   return store.log(MAILBOX_EVENT_TYPE, event);
 }
 
-async function loadMailboxEvents(store, mailboxId, { limit = 1000 } = {}) {
-  if (!store || typeof store.list !== 'function') return [];
-  const rows = await store.list('auditLog', { filters: { type: MAILBOX_EVENT_TYPE }, orderBy: 'createdAt', direction: 'asc', limit });
-  return (Array.isArray(rows) ? rows : [])
-    .map(row => row?.detail)
-    .filter(detail => detail && detail.mailboxId === mailboxId);
+async function loadMailboxEvents(store, mailboxId) {
+  if (!store) return [];
+  const events = await loadCompleteSendingRegistryEvents(store, MAILBOX_EVENT_TYPE);
+  return events.filter(detail => detail.mailboxId === mailboxId);
 }
 
 function warmupAgeDays(warmupStartTime, at) {
@@ -229,11 +228,10 @@ export async function loadSendingMailbox(store, mailboxId, opts = {}) {
 }
 
 export async function listSendingMailboxesForDomain(store, sendingDomainId, opts = {}) {
-  if (!store || typeof store.list !== 'function') return [];
-  const rows = await store.list('auditLog', { filters: { type: MAILBOX_EVENT_TYPE }, orderBy: 'createdAt', direction: 'asc', limit: 5000 });
+  if (!store) return [];
+  const events = await loadCompleteSendingRegistryEvents(store, MAILBOX_EVENT_TYPE);
   const byMailbox = new Map();
-  for (const row of (Array.isArray(rows) ? rows : [])) {
-    const detail = row?.detail;
+  for (const detail of events) {
     if (!detail?.mailboxId) continue;
     if (!byMailbox.has(detail.mailboxId)) byMailbox.set(detail.mailboxId, []);
     byMailbox.get(detail.mailboxId).push(detail);

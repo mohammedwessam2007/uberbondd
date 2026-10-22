@@ -14,3 +14,6 @@ launch-facts*.json
 
 # Local private PHOENIX Git bundles and recovery drills must never enter the public repository.
 .phoenix-backups-private/
+
+# Quant lab raw archives are re-derivable from public URLs + publisher SHA-256; only manifests are committed.
+data/quant-vault/

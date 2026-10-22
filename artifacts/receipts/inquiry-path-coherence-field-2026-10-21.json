@@ -1,0 +1,875 @@
+{
+  "schema": "uberbond.inquiry-path-coherence-field-receipt.v1",
+  "observedOn": "2026-10-21",
+  "sourceMain": "0ab2314bce6dd34e506f3870107d1e34c61765f7",
+  "engine": "uberbond.inquiry-path-coherence-1.0.0",
+  "truthClass": "PUBLIC_WEB_READ_ONLY_OBSERVATION",
+  "purpose": "First field use of the Inquiry Path Coherence Engine: (a) the five held agency research candidates, (b) a calibration set of public home-service business sites found by web search, used to falsify and repair the engine before any commercial use.",
+  "identityNote": "Calibration businesses are NOT prospects and NOT confirmed clients of any candidate agency. Similar business names exist in several states; identities were not verified beyond the inspected domain.",
+  "agencyCandidates": [
+    {
+      "role": "HELD_AGENCY_RESEARCH_CANDIDATE",
+      "business": "Outwork'em Digital",
+      "website": "https://www.outworkemdigital.com/",
+      "observedAt": "2026-10-21T20:25:29.694Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://www.outworkemdigital.com/",
+          "status": 200,
+          "sourceSha256": "73baf7f18a38e623fd93c615d35f8d38a3eec768bda7cc5e19069c20c3339311"
+        },
+        {
+          "url": "https://www.outworkemdigital.com/home-service-marketing-academy/",
+          "status": 200,
+          "sourceSha256": "09583174a7754717c526a7ae6eac1fe1fa3144aa9d52a79909b44ece87b7c293"
+        },
+        {
+          "url": "https://www.outworkemdigital.com/schedule/",
+          "status": 200,
+          "sourceSha256": "0a6892049913980b54abc7b50764780ecaff87ee09ad5171fe7f26524bf70b2d"
+        },
+        {
+          "url": "https://www.outworkemdigital.com/case-studies/pool-boys-case-study/",
+          "status": 200,
+          "sourceSha256": "3280186de3d2280cfaec98912083cadc773bcd73fab3a7ca7a32404f6086bc4e"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 4,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      },
+      "runtimeWitness": null
+    },
+    {
+      "role": "HELD_AGENCY_RESEARCH_CANDIDATE",
+      "business": "Launch Point Agency",
+      "website": "https://launchpointagency.com/",
+      "observedAt": "2026-10-21T20:25:34.532Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://launchpointagency.com/",
+          "status": 200,
+          "sourceSha256": "3ec6da176d44f60199b6c0994a7ab1cd6980387c0dc5284b9c250ab055daabce"
+        },
+        {
+          "url": "https://launchpointagency.com/contact",
+          "status": 200,
+          "sourceSha256": "5500342de65e3fa315a74b2b0348b6fd2af45102c1ba20341a4c98d793f9b5b3"
+        },
+        {
+          "url": "https://launchpointagency.com/resources/ai-playbook",
+          "status": 200,
+          "sourceSha256": "a70c0a31e84a78e3fa7b3a04805c594184a5c073fd42baa8f555686a4759e63f"
+        },
+        {
+          "url": "https://launchpointagency.com/resources/marketing-strategy",
+          "status": 200,
+          "sourceSha256": "1b71967a8cc0c294f9ce379f7d399e3956dee19c9324a6acbaae06d98611571f"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 4,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      },
+      "runtimeWitness": null
+    },
+    {
+      "role": "HELD_AGENCY_RESEARCH_CANDIDATE",
+      "business": "Barlo Digital",
+      "website": "https://barlodigital.com/home-services",
+      "observedAt": "2026-10-21T20:25:40.305Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://barlodigital.com/home-services",
+          "status": 200,
+          "sourceSha256": "b09a4085105ebce60f48bbf806ef42d2722f904c415c7c410a1acc5ec24a48b7"
+        },
+        {
+          "url": "https://barlodigital.com/for/appointment-setting",
+          "status": 200,
+          "sourceSha256": "12ae9788ba11d60490614674b9fb2dac34be2269614319b5c10d529b2eb0650b"
+        },
+        {
+          "url": "https://barlodigital.com/for/in-home-appointments",
+          "status": 200,
+          "sourceSha256": "8d2b81fa4e9c3296db7ac5f311d283d1252c494fc12cecccecd5a11830b47802"
+        },
+        {
+          "url": "https://barlodigital.com/for/lead-response",
+          "status": 200,
+          "sourceSha256": "a3faf9d825b1a452caa00dfa4b581824214ed0041d2cdd7769f27f1483efb8ab"
+        },
+        {
+          "url": "https://barlodigital.com/for/local-ads",
+          "status": 200,
+          "sourceSha256": "615294fd1ee86c7105050af1396a32ad017e01d0807d10789ac7f1f1df738753"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 5,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      },
+      "runtimeWitness": null
+    },
+    {
+      "role": "HELD_AGENCY_RESEARCH_CANDIDATE",
+      "business": "Digital Squad",
+      "website": "https://digitalsquadco.com/industries/hvac-plumbing-distribution",
+      "observedAt": "2026-10-21T20:25:45.997Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://digitalsquadco.com/industries/hvac-plumbing-distribution",
+          "status": 200,
+          "sourceSha256": "a9f150635e2797aaf2f022f0f5b3ed86162ef5b435b70ef2a375df6025cc6bb8"
+        },
+        {
+          "url": "https://digitalsquadco.com/contact",
+          "status": 200,
+          "sourceSha256": "52350331e0b338c6068b131c4833575ec3ff03e7d8acc23aa1d278da1d552bd8"
+        },
+        {
+          "url": "https://digitalsquadco.com/solutions/seo/hvac-plumbing-distribution",
+          "status": 200,
+          "sourceSha256": "de5ed325203c9af0f5c266dbd2853798eb94e72b3bd17c9d731f257946ef00cf"
+        },
+        {
+          "url": "https://digitalsquadco.com/solutions/content-marketing/hvac-plumbing-distribution",
+          "status": 200,
+          "sourceSha256": "097df53c2cb26efd09f95fad3329d33bf380174004693a9115d0e74713e1345c"
+        },
+        {
+          "url": "https://digitalsquadco.com/industries/multi-location-brands",
+          "status": 200,
+          "sourceSha256": "beef6bd443756ffe306cec526f484deea5040205cb634fbd0dda1321a9ab8e4a"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 5,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      },
+      "runtimeWitness": null
+    },
+    {
+      "role": "HELD_AGENCY_RESEARCH_CANDIDATE",
+      "business": "Jives Media",
+      "website": "https://www.jivesmedia.com/",
+      "observedAt": "2026-10-21T20:25:51.439Z",
+      "verdict": "OBSERVATIONS_ONLY",
+      "pages": [
+        {
+          "url": "https://www.jivesmedia.com/",
+          "status": 200,
+          "sourceSha256": "e525198467b36c30a2a892a328ab4ba451ff85541ab4c6a607d94c22328b7505"
+        },
+        {
+          "url": "https://www.jivesmedia.com/contact-us/",
+          "status": 200,
+          "sourceSha256": "2994ad7436247257753ed4a1c90a0d361256a3d88192d0dc70a22fb2d24d0a3f"
+        },
+        {
+          "url": "https://www.jivesmedia.com/services/facebook-meta-ads-agency/",
+          "status": 200,
+          "sourceSha256": "4889daa1ffddb0dc44b6adafb060236254cfe6c83ec8921dee923d225c308e81"
+        },
+        {
+          "url": "https://www.jivesmedia.com/service-areas/",
+          "status": 200,
+          "sourceSha256": "c43a5e822e392f1ae06c06e2359fb089070faea338a3ce771c53335585270e46"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [
+        {
+          "code": "HIGH_FRICTION_INQUIRY_FORM",
+          "class": "OBSERVATION",
+          "severity": 2,
+          "confidence": 0.8,
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "title": "An inquiry form requires 12 fields before submission",
+          "witnesses": [
+            "STATIC_HTML"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://www.jivesmedia.com/contact-us/",
+              "excerpt": "26 visible fields, 12 required",
+              "sourceSha256": "2994ad7436247257753ed4a1c90a0d361256a3d88192d0dc70a22fb2d24d0a3f"
+            }
+          ]
+        }
+      ],
+      "readOnlyLedger": {
+        "httpGetRequests": 4,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      },
+      "runtimeWitness": null
+    }
+  ],
+  "calibrationSites": [
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Phend Plumbing",
+      "website": "https://phendplumbing.com/",
+      "observedAt": "2026-10-21T20:19:27.195Z",
+      "verdict": "OBSERVATIONS_ONLY",
+      "pages": [
+        {
+          "url": "https://phendplumbing.com/",
+          "status": 200,
+          "sourceSha256": "c8ef61e120526a4c6ccbbfef8dcfef4916505d26d26dcac9eb1b06e254096870"
+        },
+        {
+          "url": "https://phendplumbing.com/contact",
+          "status": 200,
+          "sourceSha256": "f0deb9587a2a81459abf999ec47e1bc8cbe39717c16bd7fc43b3430ded3e8b69"
+        },
+        {
+          "url": "https://phendplumbing.com/services/emergency-plumbing",
+          "status": 200,
+          "sourceSha256": "f48f3df55f96f98a5564a16b8f893acf89a2e9f742900b787099581defef631d"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "class": "OBSERVATION",
+          "severity": 2,
+          "confidence": 0.72,
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "witnesses": [
+            "STATIC_HTML"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://phendplumbing.com/",
+              "excerpt": "ing | Mesa & Gilbert AZ Plumber Mon-Fri 7a-5p | Sat 8a-4p | 24-hour emergency service Mesa | Gilbert | Chandler | Tempe | Scottsdale | Qu",
+              "sourceSha256": "c8ef61e120526a4c6ccbbfef8dcfef4916505d26d26dcac9eb1b06e254096870"
+            },
+            {
+              "url": "https://phendplumbing.com/",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "c8ef61e120526a4c6ccbbfef8dcfef4916505d26d26dcac9eb1b06e254096870"
+            }
+          ]
+        }
+      ],
+      "readOnlyLedger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Comfort One AC (unverified identity)",
+      "website": "https://comfort1ac.com/",
+      "observedAt": "2026-10-21T20:19:30.958Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "pages": [],
+      "refusals": [
+        {
+          "url": "https://comfort1ac.com/",
+          "reason": "ROBOTS_DISALLOW"
+        }
+      ],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 0,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Xtreme Air Services",
+      "website": "https://xtremeairservices.com/",
+      "observedAt": "2026-10-21T20:19:38.530Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://xtremeairservices.com/",
+          "status": 200,
+          "sourceSha256": "54be327815a2e38cfb8043579020ba555beee97ff0da815de99fadee45e60d55"
+        },
+        {
+          "url": "https://xtremeairservices.com/schedule/",
+          "status": 200,
+          "sourceSha256": "e57e426899bb1d922e521a488fbf6844e9bd03a6a84777a5416e4da5e76cfffd"
+        },
+        {
+          "url": "https://xtremeairservices.com/contact/",
+          "status": 200,
+          "sourceSha256": "7e978ae18bcb9693b16b027c7625f4b5754328b2bc17cbb13c2ff3fb9b488be3"
+        },
+        {
+          "url": "https://xtremeairservices.com/service-area/",
+          "status": 200,
+          "sourceSha256": "f7e0dc38c79fca7a8917a33d469fc030041a9303bed0fe594bd63a50af310e95"
+        },
+        {
+          "url": "https://xtremeairservices.com/instant-quote/",
+          "status": 200,
+          "sourceSha256": "6e0f6e9553eb4769d8db95703f7e15faa16ce5f437b2bc532361c3585cd2dc42"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 5,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Andrew Adonis Plumbing",
+      "website": "https://www.andrewadonis.com/",
+      "observedAt": "2026-10-21T20:19:38.567Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "pages": [],
+      "refusals": [
+        {
+          "url": "https://www.andrewadonis.com/",
+          "reason": "FETCH_FAILED",
+          "detail": "ENOTFOUND"
+        }
+      ],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "24 Hour HVAC-R",
+      "website": "https://24hourhvacr.com/",
+      "observedAt": "2026-10-21T20:19:42.893Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://www.24hourhvacr.com/",
+          "status": 200,
+          "sourceSha256": "859bfb9d4048318bec6fd3415b6d45ecc1f55c425e725e75c9c77d429bc0c364"
+        },
+        {
+          "url": "https://www.24hourhvacr.com/contact-for-repair",
+          "status": 200,
+          "sourceSha256": "efbcf38843743c6369d429f9869ec30b70e7dd62da46fce879e90a4e1079638d"
+        },
+        {
+          "url": "https://www.24hourhvacr.com/",
+          "status": 200,
+          "sourceSha256": "859bfb9d4048318bec6fd3415b6d45ecc1f55c425e725e75c9c77d429bc0c364"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Halo Plumbing",
+      "website": "https://www.haloplumbing.com/",
+      "observedAt": "2026-10-21T20:19:43.396Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "pages": [
+        {
+          "url": "https://www.haloplumbing.com/",
+          "status": 200,
+          "sourceSha256": "6dc9c7fc93bb488bb0520a6c780a8d3c0fb5486a4711aca49b4c53fac7393023"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [
+        {
+          "url": "https://www.haloplumbing.com/",
+          "observability": "REDIRECT_STUB",
+          "sourceSha256": "6dc9c7fc93bb488bb0520a6c780a8d3c0fb5486a4711aca49b4c53fac7393023"
+        }
+      ],
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Parker & Sons",
+      "website": "https://www.parkerandsons.com/",
+      "observedAt": "2026-10-21T20:19:59.673Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "pages": [
+        {
+          "url": "https://www.parkerandsons.com/",
+          "status": 200,
+          "sourceSha256": "28bd29500d95f7eecb513db944b635c6b6cff9e1e61a748a21bdeebcd8d89891"
+        },
+        {
+          "url": "https://www.parkerandsons.com/announcing-schedule-pro",
+          "status": 200,
+          "sourceSha256": "2ec87e592287ebe645408484e4308cbf608feef499a35cb1278700f25d12885a"
+        },
+        {
+          "url": "https://www.parkerandsons.com/contact",
+          "status": 200,
+          "sourceSha256": "b73ec7cd34e7835b38ecb2cefcf9d829e3f7c320bf4279f61b74bc27b9d96af2"
+        },
+        {
+          "url": "https://www.parkerandsons.com/service-area",
+          "status": 200,
+          "sourceSha256": "a8a0ab23846eb668f35f509ae1c4257cd2b093315c1f12138f44a95f4306e378"
+        },
+        {
+          "url": "https://www.parkerandsons.com/drain-sewer/line-location",
+          "status": 200,
+          "sourceSha256": "dfc04f3b44ea648929a9154b51e5b68b7e3f79516abaa9bae4285d2ef51bf277"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [
+        {
+          "code": "STRUCTURED_DATA_UNPARSEABLE",
+          "class": "MALFORMATION",
+          "severity": 4,
+          "confidence": 0.95,
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "title": "The structured data declaring this business as HomeAndConstructionBusiness / HVACBusiness / Plumber / Electrician with phone (602) 273-7247 is invalid JSON, so machines discard all of it",
+          "witnesses": [
+            "STATIC_HTML"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://www.parkerandsons.com/",
+              "excerpt": "Unexpected non-whitespace character after JSON at position 4817 (line 188 column 1): { \"@context\": \"http://www.schema.org\", \"@type\": [\"HomeAndConstructionBusiness\",\"HVACBusiness\", \"Plumber\", \"Electrician\"], \"@id\": \"https",
+              "sourceSha256": "28bd29500d95f7eecb513db944b635c6b6cff9e1e61a748a21bdeebcd8d89891"
+            }
+          ]
+        },
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "class": "CONTRADICTION",
+          "severity": 3,
+          "confidence": 0.72,
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "witnesses": [
+            "STATIC_HTML"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://www.parkerandsons.com/",
+              "excerpt": "Nights, Weekends, or Holidays Service in Minutes, Not Days…24/7! Voted #1 by Consumers 14 Years in a Row! SCHEDULE APPOINTM",
+              "sourceSha256": "28bd29500d95f7eecb513db944b635c6b6cff9e1e61a748a21bdeebcd8d89891"
+            },
+            {
+              "url": "https://www.parkerandsons.com/drain-sewer/line-location",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "dfc04f3b44ea648929a9154b51e5b68b7e3f79516abaa9bae4285d2ef51bf277"
+            }
+          ]
+        }
+      ],
+      "readOnlyLedger": {
+        "httpGetRequests": 5,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "ENGINE_CALIBRATION_ONLY_NOT_A_PROSPECT",
+      "business": "Reliant Plumbing (Austin TX)",
+      "website": "https://www.reliantplumbing.com/",
+      "observedAt": "2026-10-21T20:21:53.099Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "pages": [
+        {
+          "url": "https://reliantplumbing.com/",
+          "status": 200,
+          "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+        },
+        {
+          "url": "https://reliantplumbing.com/",
+          "status": 200,
+          "sourceSha256": "5b947c912fda18de26d6552110f19434e44443e2429185db8a29ba5186a69522"
+        },
+        {
+          "url": "https://reliantplumbing.com/contact-us/",
+          "status": 200,
+          "sourceSha256": "bd69615e670b7320a44faa46e9b182f58478dc8b2aa934faa0a439d138f9fabb"
+        },
+        {
+          "url": "https://reliantplumbing.com/discounts/",
+          "status": 200,
+          "sourceSha256": "9dd3f30a78897a2d26e09b4417b8ec253c67bdc3d7791a966dfc1dcea27a440e"
+        },
+        {
+          "url": "https://reliantplumbing.com/plumbing/emergency-plumbing/",
+          "status": 200,
+          "sourceSha256": "3c16771cd01552814fef8284c464c6c48dffc3fc4dba1cff0f0b0a961bc4bf63"
+        }
+      ],
+      "refusals": [],
+      "unobservablePages": [],
+      "findings": [
+        {
+          "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+          "class": "CONTRADICTION",
+          "severity": 5,
+          "confidence": 0.98,
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "title": "A call button labelled (512) 975-3085 dials (512) 222-6029",
+          "witnesses": [
+            "STATIC_HTML",
+            "RUNTIME_MOBILE_BROWSER"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5122226029\"> 512-975-3085",
+              "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+            },
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5122226029\"> 512-975-3085",
+              "sourceSha256": "5b947c912fda18de26d6552110f19434e44443e2429185db8a29ba5186a69522"
+            }
+          ]
+        },
+        {
+          "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+          "class": "CONTRADICTION",
+          "severity": 5,
+          "confidence": 0.98,
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "title": "A call button labelled (512) 975-3085 dials (512) 262-4837",
+          "witnesses": [
+            "STATIC_HTML",
+            "RUNTIME_MOBILE_BROWSER"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+              "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+            },
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+              "sourceSha256": "5b947c912fda18de26d6552110f19434e44443e2429185db8a29ba5186a69522"
+            }
+          ]
+        },
+        {
+          "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+          "class": "CONTRADICTION",
+          "severity": 5,
+          "confidence": 0.98,
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "title": "A call button labelled (512) 817-1224 dials (512) 222-6029",
+          "witnesses": [
+            "STATIC_HTML",
+            "RUNTIME_MOBILE_BROWSER"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5122226029\"> (512) 817-1224",
+              "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+            },
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5122226029\"> (512) 817-1224",
+              "sourceSha256": "5b947c912fda18de26d6552110f19434e44443e2429185db8a29ba5186a69522"
+            }
+          ]
+        },
+        {
+          "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+          "class": "CONTRADICTION",
+          "severity": 5,
+          "confidence": 0.98,
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "title": "A call button labelled (512) 305-1070 dials (512) 305-0070 (one digit different)",
+          "witnesses": [
+            "STATIC_HTML",
+            "RUNTIME_MOBILE_BROWSER"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+              "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+            },
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+              "sourceSha256": "5b947c912fda18de26d6552110f19434e44443e2429185db8a29ba5186a69522"
+            }
+          ]
+        },
+        {
+          "code": "MANY_PUBLISHED_NUMBERS",
+          "class": "OBSERVATION",
+          "severity": 2,
+          "confidence": 0.85,
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "title": "11 different phone numbers are printed across the inspected pages",
+          "witnesses": [
+            "STATIC_HTML"
+          ],
+          "runtimeCaveat": null,
+          "evidence": [
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "(512) 222-6029: umbing Repairs | Free Estimates Skip to content Call today: (512) 222-6029 Book Online Call Today Our Services Our Recent Plumbing Pro",
+              "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+            },
+            {
+              "url": "https://reliantplumbing.com/",
+              "excerpt": "(512) 975-3085: liant Find a Plumber Nearby Homeowner Plumbing Guide Videos 512-975-3085 [email protected] License # RMP - 42389 About Us Contact Us",
+              "sourceSha256": "39605cc39782b58860b8e119ddff1f8f2fc540dfa0324af5562ef5ad3ef40ef0"
+            }
+          ]
+        }
+      ],
+      "readOnlyLedger": {
+        "httpGetRequests": 5,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      },
+      "runtimeWitness": {
+        "version": "uberbond.inquiry-path-runtime-witness-1.0.0",
+        "pages": [
+          "https://reliantplumbing.com/",
+          "https://reliantplumbing.com/contact-us/",
+          "https://reliantplumbing.com/discounts/",
+          "https://reliantplumbing.com/plumbing/emergency-plumbing/"
+        ],
+        "ledger": {
+          "pageLoads": 4,
+          "blockedRequests": 0,
+          "clicks": 0,
+          "formSubmissions": 0,
+          "messages": 0
+        }
+      }
+    }
+  ],
+  "engineCorrectionsFromCalibration": [
+    "Texas contractor sites must publish licensing-board numbers; these were miscounted as business lines (fixed: REGULATORY_OR_FAX role).",
+    "Redirect stubs and bot-challenge interstitials were reported as clean (fixed: NOT_OBSERVABLE_FROM_STATIC_HTML verdict).",
+    "Office hours plus a 24-hour emergency line was flagged as a contradiction (fixed: emergency-qualified claims are observations).",
+    "Tool names in marketing copy were reported as installed tools (fixed: fingerprint wired resources only).",
+    "Call-tracking caveats left every mismatch unassertable (added: near-miss typo detection and a headless-browser runtime witness)."
+  ],
+  "aggregateLedger": {
+    "httpGetRequests": 52,
+    "robotsRequests": 15,
+    "dnsLookups": 5,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0,
+    "providerCalls": 0
+  },
+  "commercialTruth": {
+    "prospectsContacted": 0,
+    "messagesSent": 0,
+    "repliesObserved": 0,
+    "paidOrders": 0,
+    "clearedRevenueCents": 0
+  },
+  "truthBoundary": "Server-delivered and runtime-rendered public HTML at the listed times. Not a test call, not a form submission, not evidence of lost revenue, not consent to contact anyone, and not outbound authority.",
+  "agencyClientChecks": [
+    {
+      "role": "AGENCY_PUBLISHED_CLIENT_SITE",
+      "agencyCandidate": "ubw-agency-001",
+      "clientNamedAt": "https://www.outworkemdigital.com/case-studies/ (\"Roofing Services Case Study, Desert State Roofing, Cave Creek, AZ\")",
+      "website": "https://desertstateroofing.com/",
+      "observedAt": "2026-10-21T20:28:16.935Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://desertstateroofing.com/",
+          "status": 200,
+          "sourceSha256": "d1b05af5284db1a299006e728b876691ce62a059fd8fd3ed025d4c15441a7623"
+        },
+        {
+          "url": "https://desertstateroofing.com/contact-us/",
+          "status": 200,
+          "sourceSha256": "b1b4655c597cad151319d2f41e51704950d54a664863ce461148d1c03291a6a0"
+        },
+        {
+          "url": "https://desertstateroofing.com/roofing-carefree-az/",
+          "status": 200,
+          "sourceSha256": "4f7c38ec82fc5c6e8eb2eaaa2df179b394c1f0631bd6be9d20703ec7ff4aca07"
+        },
+        {
+          "url": "https://desertstateroofing.com/service-areas/",
+          "status": 200,
+          "sourceSha256": "964724c38c869cef950bec4572dcf847f69e2ed5cdcf00f7674b3c710e24750f"
+        }
+      ],
+      "surface": {
+        "distinctVisiblePhones": [
+          "(602) 377-0683"
+        ],
+        "distinctTelTargets": [
+          "(602) 377-0683"
+        ],
+        "telLinkCount": 14,
+        "formCount": 4,
+        "callTracking": [
+          "WhatConverts"
+        ],
+        "leadStack": [
+          "Contact Form 7"
+        ],
+        "nonNanpTelLinks": 0
+      },
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 4,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "role": "AGENCY_PUBLISHED_CLIENT_SITE",
+      "agencyCandidate": "ubw-agency-001",
+      "clientNamedAt": "https://www.outworkemdigital.com/case-studies/ (\"Roofing Services Case Study, Desert State Roofing, Cave Creek, AZ\")",
+      "website": "https://desertstateroofing.rynosites.com/",
+      "observedAt": "2026-10-21T20:28:21.078Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "pages": [
+        {
+          "url": "https://desertstateroofing.rynosites.com/",
+          "status": 200,
+          "sourceSha256": "b15d0015f7f5dc9b5efa53ffeb9d28f2a8ea42783d9545f5a3e5b9dc4bf0a0dd"
+        },
+        {
+          "url": "https://desertstateroofing.rynosites.com/contact-us/",
+          "status": 200,
+          "sourceSha256": "208027652fd9a20380130cc1289b7afa167bfaf4cad76b51408cd001b7511fa4"
+        },
+        {
+          "url": "https://desertstateroofing.rynosites.com/service-areas/",
+          "status": 200,
+          "sourceSha256": "d08851b0f91265f2d63af3af5eff602f3797d4b8469c26f0f83154999ee2c3a8"
+        }
+      ],
+      "surface": {
+        "distinctVisiblePhones": [
+          "(602) 377-0683"
+        ],
+        "distinctTelTargets": [
+          "(602) 377-0683"
+        ],
+        "telLinkCount": 10,
+        "formCount": 3,
+        "callTracking": [],
+        "leadStack": [
+          "Contact Form 7"
+        ],
+        "nonNanpTelLinks": 0
+      },
+      "findings": [],
+      "readOnlyLedger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "agencyClientChecksNote": "Outwork'em publicly names four clients. Comfort One Air Conditioning: robots.txt disallows all agents, so it was respected and not inspected. Janecek Construction: no Ohio domain found by public search, so not inspected. The Pool Boys: only a staging-like host was found, so not inspected. Desert State Roofing: coherent on both hosts. Consequence: current evidence supports no defect-based first touch to ubw-agency-001 (V5 DO_NOT_SEND on evidence)."
+}

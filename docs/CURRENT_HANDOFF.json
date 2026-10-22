@@ -1586,5 +1586,26 @@
       "After Crown admission becomes valid, privately Test & Save the prepared UberMind Auto custom model in TypingMind."
     ],
     "truthBoundary": "Internal activation plumbing is live. GENERAL_CROWN remains unproven until the bounded missing-edge evaluation actually runs and wins; TypingMind saved-state remains externally unverified until the private UI action succeeds."
+  },
+  "machiavelliWealthEngine20261022": {
+    "founderDirective": "UBERBOND: MACHIAVELLI — Autonomous Wealth Invention & Economic Dominance Engine (2026-10-21), superseding the agency-outreach framing for this mission",
+    "canon": "docs/MACHIAVELLI_WEALTH_ENGINE.md",
+    "branch": "feat/machiavelli-wealth-engine-20261021",
+    "artifacts": [
+      "artifacts/machiavelli/wealth-mechanism-atlas.json",
+      "artifacts/machiavelli/profit-tournament.json",
+      "artifacts/machiavelli/scoreboard.json",
+      "artifacts/quant-lab/experiments-2021-01_2026-09.json",
+      "artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json"
+    ],
+    "verifiedState": "Atlas 890/890; quant lab 17 pre-registered experiments, none promoted (protocol 1.1.0: funding carry has a negative Sharpe in excess of T-bills; only ETH momentum stays inconclusive); tournament 16 mechanisms, 6 finalists all WOUNDED; capital allocation funds nothing at $0-$25k; three prototypes built and exercised on live public data.",
+    "clearedContributionProfitUsd": 0,
+    "strongestRealityTier": "SIMULATED",
+    "genuineBlockers": [
+      "No verified payment rail into Egypt until one real payout lands (Apify/Payoneer KYC is founder-only)",
+      "Willingness to pay untested for every survivor",
+      "Crypto rails legally blocked pending Egyptian counsel (Law 194/2020 Art. 206)"
+    ],
+    "nextHighestValueMission": "Founder completes payout KYC and proves one small payment reaches Egypt; then publish the verified-defects Actor (path-breaking classes only) and run the Single Audit radar willingness-to-pay probe."
   }
 }

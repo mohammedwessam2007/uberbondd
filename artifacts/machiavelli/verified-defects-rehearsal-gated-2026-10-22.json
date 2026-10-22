@@ -1,0 +1,179 @@
+{
+  "schema": "uberbond.verified-defects-sale-rehearsal.v1",
+  "mode": "REHEARSAL_RECORDING_LEDGER_NO_PAYMENT_PROVIDER",
+  "receipt": {
+    "version": "uberbond.self-verifying-findings-1.0.0",
+    "buyerId": "0e04484d043ce8e5",
+    "requested": 3,
+    "delivered": 3,
+    "charged": 3,
+    "refused": 0,
+    "chargedCents": 150,
+    "charges": [
+      {
+        "idempotencyKey": "e0d5bd1c7dd3aa364837a94832bf95d96131ad79",
+        "findingId": "58c04acc42915f6a28318c1e7820a486",
+        "amountCents": 50,
+        "freshEvidenceSha256": "e7531d0ee4d87a9e11dfeb498ed4aae84113fa5957ec06f4a8ea634f7ab52721"
+      },
+      {
+        "idempotencyKey": "8e1c86e2172ce2c845ac950e73433e1db1dc9b74",
+        "findingId": "4d37dd16f9a4d714e1adade76311f2b2",
+        "amountCents": 50,
+        "freshEvidenceSha256": "17d5971867c652c5cb0a8cbddae8364cf9fe681697d15d9bfed8a8afcf31a16e"
+      },
+      {
+        "idempotencyKey": "55adbc9bfb9e3d52a8c601797192f8c8f79846b1",
+        "findingId": "b47cf133dd1606fa245ba763f16df1b8",
+        "amountCents": 50,
+        "freshEvidenceSha256": "05cb3c2afc6cc0d3e12f56cea5eb8b2561adf838ebb367e8e950ffde85193cec"
+      }
+    ],
+    "refusals": [],
+    "rule": "Only findings re-verified at sale time with fresh evidence are charged; never twice per buyer, finding and day.",
+    "evidenceClass": "SALE_SETTLEMENT_DECISION",
+    "revenueTier": "NONE_UNTIL_PROVIDER_PAYOUT: a charge event is not collected or cleared money",
+    "receiptSha256": "c0832273e89fa8219b3985a178a8ea49da8d884ea6a871da69c5f1923e97e5b3",
+    "websites": 2,
+    "discovered": 3,
+    "notObservable": []
+  },
+  "deliveredItems": [
+    {
+      "website": "https://www.reliantplumbing.com/",
+      "defect": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+      "claim": "A call button labelled (512) 975-3085 dials (512) 262-4837",
+      "disproveIn30Seconds": "On a phone, open https://reliantplumbing.com/ and tap the \"512-975-3085\" control. If the dialer shows (512) 975-3085, this finding is wrong.",
+      "evidence": [
+        {
+          "url": "https://reliantplumbing.com/",
+          "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+          "sourceSha256": "9faf3c152dce20b4e2e7530305e42d15a3f02100e95c70822737439cfadf23cc"
+        },
+        {
+          "url": "https://reliantplumbing.com/",
+          "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+          "sourceSha256": "dd2f682560da10cc9577ecf83e80d4ff6648541c934f12bd38352efa6860bf96"
+        },
+        {
+          "url": "https://reliantplumbing.com/contact-us/",
+          "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+          "sourceSha256": "dfcf1a768e0348e135aa69bc81f75386f62e5185e07ae3bbaeb078cc916f6fc4"
+        },
+        {
+          "url": "https://reliantplumbing.com/discounts/",
+          "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+          "sourceSha256": "09a0328f155d010a4028ac961c645292f06fbc59be84dc7e410120c5e354640d"
+        },
+        {
+          "url": "https://reliantplumbing.com/plumbing/emergency-plumbing/",
+          "excerpt": "<a href=\"tel:5122624837\"> 512-975-3085",
+          "sourceSha256": "d0667cff1a94ed5a7cf9318b4c83af0dccd83a9ab93374f302ee3464bbfb87a4"
+        }
+      ],
+      "verifiedAt": "2026-10-22T04:34:29.573Z",
+      "freshEvidenceSha256": "e7531d0ee4d87a9e11dfeb498ed4aae84113fa5957ec06f4a8ea634f7ab52721",
+      "charged": true
+    },
+    {
+      "website": "https://www.reliantplumbing.com/",
+      "defect": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+      "claim": "A call button labelled (512) 305-1070 dials (512) 305-0070 (one digit different)",
+      "disproveIn30Seconds": "On a phone, open https://reliantplumbing.com/ and tap the \"(512) 305-1070\" control. If the dialer shows (512) 305-1070, this finding is wrong.",
+      "evidence": [
+        {
+          "url": "https://reliantplumbing.com/",
+          "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+          "sourceSha256": "9faf3c152dce20b4e2e7530305e42d15a3f02100e95c70822737439cfadf23cc"
+        },
+        {
+          "url": "https://reliantplumbing.com/",
+          "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+          "sourceSha256": "dd2f682560da10cc9577ecf83e80d4ff6648541c934f12bd38352efa6860bf96"
+        },
+        {
+          "url": "https://reliantplumbing.com/contact-us/",
+          "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+          "sourceSha256": "dfcf1a768e0348e135aa69bc81f75386f62e5185e07ae3bbaeb078cc916f6fc4"
+        },
+        {
+          "url": "https://reliantplumbing.com/discounts/",
+          "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+          "sourceSha256": "09a0328f155d010a4028ac961c645292f06fbc59be84dc7e410120c5e354640d"
+        },
+        {
+          "url": "https://reliantplumbing.com/plumbing/emergency-plumbing/",
+          "excerpt": "<a href=\"tel:5123050070\"> (512) 305-1070",
+          "sourceSha256": "d0667cff1a94ed5a7cf9318b4c83af0dccd83a9ab93374f302ee3464bbfb87a4"
+        }
+      ],
+      "verifiedAt": "2026-10-22T04:34:29.573Z",
+      "freshEvidenceSha256": "17d5971867c652c5cb0a8cbddae8364cf9fe681697d15d9bfed8a8afcf31a16e",
+      "charged": true
+    },
+    {
+      "website": "https://www.parkerandsons.com/",
+      "defect": "STRUCTURED_DATA_UNPARSEABLE",
+      "claim": "The structured data declaring this business as HomeAndConstructionBusiness / HVACBusiness / Plumber / Electrician with phone (602) 273-7247 is invalid JSON, so machines discard all of it",
+      "disproveIn30Seconds": "Run https://www.parkerandsons.com/ through Google's Rich Results Test or the Schema Markup Validator; if no parse error is reported, this finding is wrong.",
+      "evidence": [
+        {
+          "url": "https://www.parkerandsons.com/",
+          "excerpt": "Unexpected non-whitespace character after JSON at position 4817 (line 188 column 1): { \"@context\": \"http://www.schema.org\", \"@type\": [\"HomeAndConstructionBusiness\",\"HVACBusiness\", \"Plumber\", \"Electrician\"], \"@id\": \"https",
+          "sourceSha256": "28bd29500d95f7eecb513db944b635c6b6cff9e1e61a748a21bdeebcd8d89891"
+        }
+      ],
+      "verifiedAt": "2026-10-22T04:34:34.878Z",
+      "freshEvidenceSha256": "05cb3c2afc6cc0d3e12f56cea5eb8b2561adf838ebb367e8e950ffde85193cec",
+      "charged": true
+    }
+  ],
+  "recordedChargeEvents": 3,
+  "survival": {
+    "TEL_LABEL_DIALS_DIFFERENT_NUMBER": {
+      "0": {
+        "checked": 2,
+        "reproduced": 2,
+        "survival": 1
+      },
+      "7": {
+        "checked": 0,
+        "reproduced": 0,
+        "survival": null
+      },
+      "30": {
+        "checked": 0,
+        "reproduced": 0,
+        "survival": null
+      },
+      "90": {
+        "checked": 0,
+        "reproduced": 0,
+        "survival": null
+      }
+    },
+    "STRUCTURED_DATA_UNPARSEABLE": {
+      "0": {
+        "checked": 1,
+        "reproduced": 1,
+        "survival": 1
+      },
+      "7": {
+        "checked": 0,
+        "reproduced": 0,
+        "survival": null
+      },
+      "30": {
+        "checked": 0,
+        "reproduced": 0,
+        "survival": null
+      },
+      "90": {
+        "checked": 0,
+        "reproduced": 0,
+        "survival": null
+      }
+    }
+  },
+  "revenueTier": "NONE: recorded events are rehearsal decisions, not charges"
+}

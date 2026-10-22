@@ -1,0 +1,11 @@
+{
+  "title": "Verified Inquiry-Path Defects input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "websites": { "title": "Business websites", "type": "array", "editor": "stringList", "description": "Home pages to check, e.g. from a Google Maps scraper run. Pages are fetched read-only and robots.txt is respected.", "prefill": ["https://example.com/"] },
+    "runtimeWitness": { "title": "Confirm call buttons in a real browser", "type": "boolean", "description": "Re-reads contested call buttons in headless Chromium after the site's scripts (e.g. call tracking) run. Recommended.", "default": true },
+    "maxPagesPerSite": { "title": "Max pages per site", "type": "integer", "minimum": 1, "maximum": 8, "default": 5 }
+  },
+  "required": ["websites"]
+}

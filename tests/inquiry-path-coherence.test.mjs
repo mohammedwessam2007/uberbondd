@@ -239,3 +239,17 @@ test('near-miss typo survives a call-tracking caveat; a runtime witness confirms
   assert.equal(confirmed[0].confidence, 0.98);
   assert.deepEqual(both.resolvedAtRuntime.map(item => item.label), ['(512) 975-3085']);
 });
+
+test('tournament falsification: a button that dials the business\'s own listed number is routing, not a defect', () => {
+  const html = `<p>Call today: (512) 222-6029</p>
+    <a href="tel:5122226029">(512) 817-1224</a>
+    <a href="tel:5123050070">(512) 305-1070</a><p>${'Bastrop office. '.repeat(20)}</p>`;
+  const analysis = analyzeInquiryCoherence({ pages: [page(html)] });
+  const routing = analysis.findings.find(item => item.title.includes('817-1224'));
+  assert.equal(routing.class, 'OBSERVATION');
+  assert.equal(routing.firstTouchUse, 'ASK_DONT_ASSERT');
+  assert.match(routing.title, /also lists as its own number/);
+  const typo = analysis.findings.find(item => item.title.includes('305-1070'));
+  assert.equal(typo.class, 'CONTRADICTION', 'a dialled number the business never publishes is still a defect');
+  assert.equal(typo.firstTouchUse, 'MAY_STATE_AS_OBSERVED_FACT');
+});

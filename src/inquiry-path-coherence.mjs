@@ -337,6 +337,15 @@ export function analyzeInquiryCoherence({ pages = [], hostResolution = {}, runti
     mismatchKeys.get(key).push(item);
   }
   const resolvedAtRuntime = [];
+  // Numbers the business itself publishes as its own: printed business lines,
+  // schema telephones, and buttons whose label matches what they dial. A
+  // button that dials one of these still reaches the business; that is a
+  // routing choice, not a lost call (falsified by the 2026-10-22 tournament).
+  const ownListed = new Set([
+    ...usable.flatMap(page => page.visiblePhones.filter(phone => !phone.fictional && phone.role !== 'REGULATORY_OR_FAX').map(phone => phone.key)),
+    ...usable.flatMap(page => page.schema.phones.filter(phone => phone.normalized.ok).map(phone => phone.normalized.key)),
+    ...usable.flatMap(page => page.telLinks.filter(link => link.normalized.ok && link.textPhones.includes(link.normalized.key)).map(link => link.normalized.key))
+  ]);
   for (const items of mismatchKeys.values()) {
     const { link } = items[0];
     const label = link.textPhones[0];
@@ -346,8 +355,20 @@ export function analyzeInquiryCoherence({ pages = [], hostResolution = {}, runti
     const persists = witnessed.some(entry => entry.telLinks.some(item => item.normalized?.ok && item.normalized.key === target && item.textPhones?.includes(label)));
     if (witnessed.length && !persists) { resolvedAtRuntime.push({ label: formatNanp(label), target: formatNanp(target), pages: items.map(({ page }) => page.url) }); continue; }
     const typo = nearMissTypo(label, target);
+    const dialsOwnListedNumber = ownListed.has(target);
     // Tracking pools issue unrelated numbers; one keystroke away is a typo.
-    const caveat = persists || typo ? null : swapCaveat;
+    const caveat = dialsOwnListedNumber ? null : persists || typo ? null : swapCaveat;
+    if (dialsOwnListedNumber) {
+      findings.push(finding({
+        code: 'TEL_LABEL_DIALS_DIFFERENT_NUMBER', findingClass: 'OBSERVATION', severity: 2, confidence: 0.9,
+        title: `A call button labelled ${formatNanp(label)} dials ${formatNanp(target)}, which the site also lists as its own number`,
+        why: 'The caller still reaches a line the business publishes, so this is probably deliberate routing (for example a location label sent to central dispatch). Worth confirming the printed number is answered too; not a defect to assert.',
+        disproof: `Confirm ${formatNanp(target)} is the line the business wants these calls on; if so, nothing is wrong.`,
+        evidence: items.map(({ page, link: item }) => ev(page, `<a href="${item.href}"> ${item.anchorText}`))
+      }));
+      findings.at(-1).witnesses = persists ? ['STATIC_HTML', 'RUNTIME_MOBILE_BROWSER'] : ['STATIC_HTML'];
+      continue;
+    }
     findings.push(finding({
       code: 'TEL_LABEL_DIALS_DIFFERENT_NUMBER', findingClass: 'CONTRADICTION', severity: 5,
       confidence: caveat ? 0.6 : persists ? 0.98 : typo ? 0.92 : 0.97,

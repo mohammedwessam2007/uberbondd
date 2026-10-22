@@ -197,4 +197,8 @@ test('money entry rails: Egypt-blocked rails cannot carry a mechanism', async ()
   assert.equal(classifyRail('Payoneer').verdict, 'RAIL_UNVERIFIED');
   assert.equal(classifyRail('customers pay somehow').verdict, 'RAIL_UNSPECIFIED');
   assert.ok(!RAILS.some(rail => rail.status === 'VERIFIED_WORKING'), 'nothing is verified until a real payout lands');
+  // Found by the tournament: a rail named only to exclude it must not block or carry the mechanism.
+  assert.equal(classifyRail('An EGP bank account for T-bills and an FRA-licensed EGX broker. No FX, crypto or offshore leg.').best, 'DOMESTIC_EGYPT_BANK_OR_BROKER');
+  assert.equal(classifyRail('We avoid Stripe entirely; customers pay by PayPal').best, 'PAYPAL_EGYPT');
+  assert.equal(classifyRail('settled in USDC on-chain').verdict, 'RAIL_BLOCKED');
 });

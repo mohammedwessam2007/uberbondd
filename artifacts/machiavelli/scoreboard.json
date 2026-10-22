@@ -1,0 +1,444 @@
+{
+  "schema": "uberbond.machiavelli-scoreboard.v1",
+  "generatedAt": "2026-10-22T04:32:39.773Z",
+  "reality": {
+    "version": "uberbond.revenue-reality-ledger-1.0.0",
+    "chain": {
+      "ok": true,
+      "length": 17,
+      "head": "ba429eda1c563d36e9899f75ac93ef8fd93c90412b76d325f5c14a5991a94cab"
+    },
+    "byTier": {
+      "SIMULATED": {
+        "entries": 17,
+        "amountCents": -241660
+      },
+      "PAPER": {
+        "entries": 0,
+        "amountCents": 0
+      },
+      "REALIZED_TRADING": {
+        "entries": 0,
+        "amountCents": 0
+      },
+      "COLLECTED_RECEIPTS": {
+        "entries": 0,
+        "amountCents": 0
+      },
+      "CLEARED_CONTRIBUTION_PROFIT": {
+        "entries": 0,
+        "amountCents": 0
+      }
+    },
+    "byMechanism": {
+      "BUY_AND_HOLD:BTC": {
+        "SIMULATED": -26890,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "TIME_SERIES_MOMENTUM:BTC": {
+        "SIMULATED": -4910,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY:BTC": {
+        "SIMULATED": 820,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC": {
+        "SIMULATED": 1390,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "BUY_AND_HOLD:ETH": {
+        "SIMULATED": -35330,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "TIME_SERIES_MOMENTUM:ETH": {
+        "SIMULATED": 2310,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY:ETH": {
+        "SIMULATED": 0,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH": {
+        "SIMULATED": 280,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "BUY_AND_HOLD:SOL": {
+        "SIMULATED": -43150,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "TIME_SERIES_MOMENTUM:SOL": {
+        "SIMULATED": -36150,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY:SOL": {
+        "SIMULATED": 0,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL": {
+        "SIMULATED": 0,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "BUY_AND_HOLD:XRP": {
+        "SIMULATED": -47570,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "TIME_SERIES_MOMENTUM:XRP": {
+        "SIMULATED": -51520,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY:XRP": {
+        "SIMULATED": -780,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP": {
+        "SIMULATED": -160,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      },
+      "FUNDING_ROTATION:BTC+ETH+SOL+XRP": {
+        "SIMULATED": 0,
+        "PAPER": 0,
+        "REALIZED_TRADING": 0,
+        "COLLECTED_RECEIPTS": 0,
+        "CLEARED_CONTRIBUTION_PROFIT": 0
+      }
+    },
+    "strongestTierWithEvidence": "SIMULATED",
+    "clearedContributionProfitCents": 0,
+    "crossTierTotal": "NOT_DEFINED: tiers measure different things and are never added",
+    "businessEffectAuthority": "NONE",
+    "externalEffectLedger": {
+      "providerCalls": 0,
+      "messages": 0,
+      "purchases": 0,
+      "deployments": 0,
+      "credentialChanges": 0,
+      "dnsChanges": 0,
+      "productionMutations": 0,
+      "spendCents": 0
+    }
+  },
+  "realityRefusals": [],
+  "paper": {
+    "strategies": {},
+    "note": "No strategy has earned paper trading: none passed the pre-registered research protocol."
+  },
+  "researchVerdicts": [
+    {
+      "family": "BUY_AND_HOLD:BTC",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.908 < 0.95 after 1 variants",
+        "sealed holdout net return -26.89% <= 0",
+        "holdout CAGR -26.89% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:BTC",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.663 < 0.95 after 3 variants",
+        "sealed holdout net return -4.91% <= 0",
+        "holdout under doubled costs -7.28% <= 0",
+        "holdout CAGR -4.91% does not beat the 3.8% risk-free rate",
+        "does not beat the baseline or zero on Sharpe or return"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:BTC",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "holdout under doubled costs -0.45% <= 0",
+        "out-of-sample CAGR 2.44% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.82% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "out-of-sample CAGR 3.22% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 1.39% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:ETH",
+      "label": "REJECTED",
+      "failures": [
+        "out-of-sample Sharpe 0.34 < 0.5",
+        "deflated Sharpe probability 0.743 < 0.95 after 1 variants",
+        "sealed holdout net return -35.33% <= 0",
+        "out-of-sample CAGR -0.34% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -35.33% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:ETH",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "out-of-sample Sharpe 0.31 < 0.5",
+        "deflated Sharpe probability 0.53 < 0.95 after 3 variants",
+        "holdout under doubled costs -13.05% <= 0",
+        "out-of-sample CAGR 3.48% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 2.31% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:ETH",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.445 < 0.95 after 9 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.91% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH",
+      "label": "INCONCLUSIVE",
+      "failures": [
+        "out-of-sample CAGR 2.99% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.28% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.844 < 0.95 after 1 variants",
+        "sealed holdout net return -43.15% <= 0",
+        "out-of-sample CAGR 1.3% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -43.15% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.782 < 0.95 after 3 variants",
+        "sealed holdout net return -36.15% <= 0",
+        "holdout under doubled costs -56.84% <= 0",
+        "walk-forward under doubled costs -32.22% <= 0",
+        "holdout CAGR -36.15% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.69% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return 0% <= 0",
+        "out-of-sample CAGR 2.12% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.94 < 0.95 after 1 variants",
+        "sealed holdout net return -47.57% <= 0",
+        "holdout CAGR -47.57% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "out-of-sample Sharpe -0.16 < 0.5",
+        "deflated Sharpe probability 0.292 < 0.95 after 3 variants",
+        "sealed holdout net return -51.52% <= 0",
+        "holdout under doubled costs -66.95% <= 0",
+        "walk-forward under doubled costs -68.47% <= 0",
+        "out-of-sample CAGR -26.37% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -51.52% does not beat the 3.8% risk-free rate",
+        "does not beat the baseline or zero on Sharpe or return"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return -0.78% <= 0",
+        "holdout under doubled costs -2.16% <= 0",
+        "out-of-sample CAGR 2.23% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.78% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP",
+      "label": "REJECTED",
+      "failures": [
+        "sealed holdout net return -0.16% <= 0",
+        "out-of-sample CAGR 2.68% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.16% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_ROTATION:BTC+ETH+SOL+XRP",
+      "label": "REJECTED",
+      "failures": [
+        "deflated Sharpe probability 0.004 < 0.95 after 18 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.88% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    }
+  ],
+  "capitalAllocation": {
+    "ok": true,
+    "version": "uberbond.capital-allocation-intelligence-1.0.0",
+    "assumptions": {
+      "founderHoursPerMonth": 20,
+      "maxLossFraction": 0.25,
+      "riskFreeAnnual": 0.04,
+      "weighting": "0.5*p10 + 0.35*p50 + 0.15*p90, times probability the mechanism works"
+    },
+    "rejectedNonPositive": [],
+    "frontierReserve": [
+      "Capital-Control Holonomy Switch: EGP T-bill carry with a topological devaluation",
+      "Single Audit Obligation Radar (USAspending x FAC cross-join, sold to CPA firms)",
+      "Exclusive Verified-Defect Claim Exchange",
+      "Breakage-Arbitrage Actor Foundry",
+      "Novation Radar: small-business eligibility-transfer and early-recompete intellig",
+      "Revenue-Defect Disclosure Market: Error Economy for non-security defects, paid b"
+    ],
+    "scenarios": [
+      {
+        "capitalLevelUsd": 0,
+        "portfolio": [],
+        "riskAdjustedMonthlyUsd": 0,
+        "idleCapitalUsd": 0,
+        "idleCapitalMonthlyAtRiskFreeUsd": 0,
+        "founderHoursUsed": 0,
+        "riskAdjustedUsdPerFounderHour": null,
+        "worstCaseLossUsd": 0,
+        "lossBudgetUsd": 0,
+        "bottlenecks": []
+      },
+      {
+        "capitalLevelUsd": 100,
+        "portfolio": [],
+        "riskAdjustedMonthlyUsd": 0,
+        "idleCapitalUsd": 100,
+        "idleCapitalMonthlyAtRiskFreeUsd": 0.33,
+        "founderHoursUsed": 0,
+        "riskAdjustedUsdPerFounderHour": null,
+        "worstCaseLossUsd": 0,
+        "lossBudgetUsd": 25,
+        "bottlenecks": []
+      },
+      {
+        "capitalLevelUsd": 500,
+        "portfolio": [],
+        "riskAdjustedMonthlyUsd": 0,
+        "idleCapitalUsd": 500,
+        "idleCapitalMonthlyAtRiskFreeUsd": 1.67,
+        "founderHoursUsed": 0,
+        "riskAdjustedUsdPerFounderHour": null,
+        "worstCaseLossUsd": 0,
+        "lossBudgetUsd": 125,
+        "bottlenecks": []
+      },
+      {
+        "capitalLevelUsd": 1000,
+        "portfolio": [],
+        "riskAdjustedMonthlyUsd": 0,
+        "idleCapitalUsd": 1000,
+        "idleCapitalMonthlyAtRiskFreeUsd": 3.33,
+        "founderHoursUsed": 0,
+        "riskAdjustedUsdPerFounderHour": null,
+        "worstCaseLossUsd": 0,
+        "lossBudgetUsd": 250,
+        "bottlenecks": []
+      },
+      {
+        "capitalLevelUsd": 5000,
+        "portfolio": [],
+        "riskAdjustedMonthlyUsd": 0,
+        "idleCapitalUsd": 5000,
+        "idleCapitalMonthlyAtRiskFreeUsd": 16.67,
+        "founderHoursUsed": 0,
+        "riskAdjustedUsdPerFounderHour": null,
+        "worstCaseLossUsd": 0,
+        "lossBudgetUsd": 1250,
+        "bottlenecks": []
+      },
+      {
+        "capitalLevelUsd": 25000,
+        "portfolio": [],
+        "riskAdjustedMonthlyUsd": 0,
+        "idleCapitalUsd": 25000,
+        "idleCapitalMonthlyAtRiskFreeUsd": 83.33,
+        "founderHoursUsed": 0,
+        "riskAdjustedUsdPerFounderHour": null,
+        "worstCaseLossUsd": 0,
+        "lossBudgetUsd": 6250,
+        "bottlenecks": []
+      }
+    ],
+    "evidenceClass": "ESTIMATED_PRIOR_NOT_REVENUE",
+    "spendingAuthority": "NONE: capital levels are analysis scenarios, not authorizations"
+  },
+  "railBlocked": [],
+  "honestHeadline": "Cleared contribution profit to date: $0.00. Everything above SIMULATED is empty until real evidence exists."
+}

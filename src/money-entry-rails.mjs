@@ -61,6 +61,12 @@ export const RAILS = Object.freeze([
     founderActions: ['Ask the provider in writing whether an Egypt-resident individual seller is eligible before building around it.']
   },
   {
+    id: 'DOMESTIC_EGYPT_BANK_OR_BROKER', status: 'PLAUSIBLE', match: /egyptian bank|egp bank|in egp|t-?bills?|\begx\b|fra-licensed|instapay|domestic/i,
+    howMoneyArrives: 'Own-account domestic instruments (EGP T-bills via a bank, EGX securities via an FRA-licensed broker) or domestic EGP client payments (bank transfer, InstaPay).',
+    evidence: [],
+    founderActions: ['Confirm bank T-bill subscription minimums and tax treatment; any broker account is a founder decision with its own KYC.']
+  },
+  {
     id: 'INTERNATIONAL_BANK_WIRE', status: 'PLAUSIBLE', match: /wire|swift|bank transfer|invoice/i,
     howMoneyArrives: 'Customer pays an invoice by international SWIFT transfer to the founder\'s Egyptian bank account.',
     evidence: [],
@@ -75,8 +81,16 @@ const STRENGTH = { VERIFIED_WORKING: 4, PLAUSIBLE: 3, UNVERIFIED: 2, UNSUPPORTED
  * a mechanism that names only blocked or unsupported rails is RAIL_BLOCKED,
  * and one that names nothing recognisable is RAIL_UNSPECIFIED.
  */
+// A rail named only to exclude it ("no crypto leg") is not a rail the mechanism uses.
+const NEGATED = /\b(?:no|not|without|never|nor|excluding|avoid(?:s|ing)?)\b[^.;:]{0,30}$/i;
+function mentions(rail, text) {
+  const pattern = new RegExp(rail.match.source, rail.match.flags.includes('g') ? rail.match.flags : `${rail.match.flags}g`);
+  for (const match of text.matchAll(pattern)) if (!NEGATED.test(text.slice(Math.max(0, match.index - 40), match.index))) return true;
+  return false;
+}
+
 export function classifyRail(text) {
-  const named = RAILS.filter(rail => rail.match.test(String(text ?? '')));
+  const named = RAILS.filter(rail => mentions(rail, String(text ?? '')));
   if (!named.length) return { verdict: 'RAIL_UNSPECIFIED', rails: [], strength: 0 };
   const best = named.reduce((a, b) => (STRENGTH[b.status] > STRENGTH[a.status] ? b : a));
   return {

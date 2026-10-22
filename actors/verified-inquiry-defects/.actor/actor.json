@@ -1,0 +1,11 @@
+{
+  "actorSpecification": 1,
+  "name": "verified-inquiry-defects",
+  "title": "Verified Inquiry-Path Defects (pay only for findings that re-verify)",
+  "description": "Finds verifiable contact-path defects on business websites: call buttons that dial a different number than they print, unparseable LocalBusiness structured data, forms posting to dead hosts. Each finding is re-checked by an independent second probe at delivery time and you are charged only for findings that reproduce, each with a 30-second disproof step.",
+  "version": "1.0",
+  "input": "./input_schema.json",
+  "dockerfile": "./Dockerfile",
+  "dockerContextDir": "../..",
+  "storages": { "dataset": { "actorSpecification": 1, "views": {} } }
+}

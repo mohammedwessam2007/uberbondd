@@ -1,6 +1,6 @@
 {
   "schema": "uberbond.machiavelli.preregistration.v1",
-  "registeredAt": "2026-10-22T22:35:00Z",
+  "registeredAt": "2026-10-22T22:21:19Z",
   "mission": "UBERBOND MACHIAVELLI Omega-Infinity: THE ABSOLUTE MONEY HUNT (founder directive 2026-10-22). Directive text was not attached to this session or found in the repository: NOT_HYDRATED. The 120 income-mechanism seeds it references are likewise NOT_HYDRATED; nothing here claims to have read them.",
   "selectionRationale": "Open drafts #1532/#1535/#1536/#1537/#1538 all work the website-inquiry-audit lane; #1538 already ran E1 there and assigned E2. To avoid duplication, this session runs the two tournament-recommended experiments that were never executed: rank 1 (Single Audit Obligation Radar) and rank 3 (Apify Store breakage). Both are read-only on public data, zero cost, zero contact.",
   "authority": {
@@ -78,7 +78,7 @@
     },
     {
       "id": "S1-auditor-change-early-warning-hindcast",
-      "registeredAt": "2026-10-22T23:55:00Z",
+      "registeredAt": "2026-10-22T22:30:03Z",
       "origin": "Successor surfaced by X1 market facts (continuing entities change auditor EIN 11-14% a year). Registered before any S1 outcome is computed.",
       "question": "Can public FAC fields known at an entity's 2024 report predict whether its auditor EIN changes for 2025 well enough to sell as an early-warning list to audit firms?",
       "population": "Entities with a real UEI and reports for audit years 2022, 2023, 2024 and 2025, each with a valid 9-digit auditor EIN. Latest resubmission per UEI-year is used if duplicates exist (last row read).",
@@ -108,7 +108,7 @@
   "amendments": [
     {
       "id": "X2-A1",
-      "recordedAt": "2026-10-22T23:20:00Z",
+      "recordedAt": "2026-10-22T22:27:01Z",
       "experiment": "X2-apify-store-breakage-observatory",
       "reason": "The public Store API returns no items at offset >= 15000 for every sortBy tried (newest, popularity, default), so the pre-registered full pagination is impossible. A first run with sortBy=newest read 11,368 of 93,895 Actors; it is void and is not scored. Disclosure: its output (1 broken leader) was seen before this amendment.",
       "change": "Reconstruct the listing as the union of (a) the global popularity-sorted crawl and (b) a popularity-sorted crawl per category, deduplicated by username/name. Definitions and decision rules are unchanged.",
@@ -116,11 +116,15 @@
     },
     {
       "id": "X2-A2",
-      "recordedAt": "2026-10-23T00:40:00Z",
+      "recordedAt": "2026-10-22T22:42:43Z",
       "experiment": "X2-apify-store-breakage-observatory",
-      "reason": "Under A1 the run of 2026-10-22T23:5xZ read 66,299 distinct Actors and failed the A1 tail rule in 5 partitions (popularity order is not users30 order), so it was published as INCOMPLETE_NOT_SCORED. Disclosure: its partial figures (13 broken leaders, 13 absorbed) were seen before this amendment.",
+      "reason": "Under A1 the A1-governed run read 66,299 distinct Actors and failed the A1 tail rule in 5 partitions (popularity order is not users30 order), so it was published as INCOMPLETE_NOT_SCORED. Disclosure: its partial figures (13 broken leaders, 13 absorbed) were seen before this amendment.",
       "change": "For each partition that reached the offset cap, also crawl sortBy=newest, lastUpdate and relevance (each capped at offset 15,000) and union by Actor id. Definitions and decision rules are unchanged.",
       "completenessRule": "Replace the A1 order assumption with direct enumeration. Calibrate the visible fraction as the median of distinct/reportedTotal over uncapped categories with reportedTotal >= 1,000 (the Store reports items it never returns). Complete only if every capped category, and the global union, reaches coverage >= calibrated fraction - 0.02. Otherwise INCOMPLETE_NOT_SCORED again, with no further amendment in this session."
     }
-  ]
+  ],
+  "timestampCorrection": {
+    "correctedAt": "2026-10-22T23:01:00Z",
+    "what": "registeredAt / recordedAt values were originally typed as estimates (22:35Z, 23:20Z, 23:55Z, 00:40Z) and were wrong. They now carry the authoritative push-commit times: c0b1ded (X1/X2), 1aeea71 (A1), 03c1ad9 (S1), 8e63e23 (A2). No other field changed; the original text is in git history."
+  }
 }

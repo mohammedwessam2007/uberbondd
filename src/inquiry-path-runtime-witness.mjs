@@ -14,6 +14,8 @@
 import { chromium } from 'playwright';
 import { resolveChromium } from './resolve-chromium.mjs';
 import { assertPublicUrl } from './security.mjs';
+import { fetchPublicPinned } from './inquiry-public-http.mjs';
+import { boundedSignal, abortable } from './inquiry-probe-budget.mjs';
 import { normalizeTelHref, phonesInText } from './inquiry-path-coherence.mjs';
 import { PROBE_USER_AGENT } from './inquiry-path-probe.mjs';
 
@@ -26,35 +28,56 @@ export function normalizeRuntimeTelLinks(anchors = []) {
     .map(anchor => ({ href: String(anchor.href).slice(0, 120), anchorText: String(anchor.text ?? '').replace(/\s+/g, ' ').trim().slice(0, 160), normalized: normalizeTelHref(anchor.href), textPhones: phonesInText(anchor.text).map(phone => phone.key) }));
 }
 
-export async function witnessRuntimeTelLinks({ urls = [], settleMs = 4000, launch = options => chromium.launch(options), now = () => new Date() } = {}) {
+export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signal = null, maxWitnessMs = 25000, launch = options => chromium.launch(options), now = () => new Date() } = {}) {
+  const deadline = boundedSignal(signal, maxWitnessMs);
+  if (urls.length > 8) throw Error('BROWSER_PAGE_LIMIT_EXCEEDED');
+  if (urls.some(url => !/^https?:\/\//i.test(url))) throw Error('UNSAFE_BROWSER_NAVIGATION_SCHEME');
   const executablePath = process.env.CHROMIUM_PATH || resolveChromium() || undefined;
   // The Chromium sandbox stays on unless the process runs as root, where Chromium cannot start without it.
-  const browser = await launch({ headless: true, executablePath, args: [...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-dev-shm-usage'] });
+  const browser = await abortable(launch({ headless: true, executablePath, args: [...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-dev-shm-usage', '--disable-features=WebRTC'] }), deadline);
   const witness = {};
   const ledger = { pageLoads: 0, blockedRequests: 0, clicks: 0, formSubmissions: 0, messages: 0 };
   try {
     // Service workers and WebSockets bypass context.route, so neither is allowed.
-    const context = await browser.newContext({ userAgent: PROBE_USER_AGENT, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block' });
+    const context = await abortable(browser.newContext({ userAgent: PROBE_USER_AGENT, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block', acceptDownloads: false }), deadline);
     if (context.routeWebSocket) await context.routeWebSocket(/.*/, ws => { ledger.blockedRequests += 1; ws.close(); });
     await context.route('**/*', async route => {
-      const url = route.request().url();
-      if (!/^https?:/i.test(url)) return route.continue();
-      try { await assertPublicUrl(url); return route.continue(); }
-      catch { ledger.blockedRequests += 1; return route.abort('blockedbyclient'); }
+      const request = route.request();
+      const url = request.url();
+      // The browser never establishes its own outbound network connection:
+      // every network response is fetched by pinned-IP, GET-only Node code.
+      if (deadline.aborted || request.method() !== 'GET' || !/^https?:/i.test(url)) {
+        ledger.blockedRequests += 1; return route.abort('blockedbyclient');
+      }
+      if (['image', 'media', 'font', 'other'].includes(request.resourceType())) {
+        ledger.blockedRequests += 1; return route.abort('blockedbyclient');
+      }
+      try {
+        await abortable(assertPublicUrl(url), deadline);
+        const response = await fetchPublicPinned(url, { signal: deadline });
+        const body = await abortable(response.text(), deadline);
+        const contentType = response.headers.get('content-type') ?? 'text/plain';
+        return route.fulfill({ status: response.status, contentType, body });
+      } catch {
+        ledger.blockedRequests += 1;
+        return route.abort('blockedbyclient').catch(() => {});
+      }
     });
     for (const url of urls) {
-      const page = await context.newPage();
+      if (deadline.aborted || process.memoryUsage().rss > 750_000_000) throw Error('BROWSER_RESOURCE_BUDGET_EXCEEDED');
+      await abortable(assertPublicUrl(url), deadline);
+      const page = await abortable(context.newPage(), deadline);
       try {
         ledger.pageLoads += 1;
-        const response = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30_000 });
-        await page.waitForTimeout(settleMs);
-        const anchors = await page.$$eval('a[href^="tel:" i]', nodes => nodes.map(node => ({ href: node.getAttribute('href'), text: node.innerText || node.getAttribute('aria-label') || '' })));
+        const response = await abortable(page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 }), deadline);
+        await abortable(page.waitForTimeout(Math.min(settleMs, 2000)), deadline);
+        const anchors = await abortable(page.$$eval('a[href^="tel:" i]', nodes => nodes.map(node => ({ href: node.getAttribute('href'), text: node.innerText || node.getAttribute('aria-label') || '' }))), deadline);
         witness[url] = { status: response?.status() ?? null, observedAt: now().toISOString(), viewport: 'mobile-390x844', telLinks: normalizeRuntimeTelLinks(anchors) };
       } catch (error) {
         witness[url] = { status: null, observedAt: now().toISOString(), error: String(error?.name ?? 'error'), telLinks: null };
-      } finally { await page.close(); }
+      } finally { await page.close().catch(() => {}); }
     }
-    await context.close();
-  } finally { await browser.close(); }
+    await context.close().catch(() => {});
+  } finally { await browser.close().catch(() => {}); }
   return { version: INQUIRY_PATH_RUNTIME_WITNESS_VERSION, witness, ledger };
 }

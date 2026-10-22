@@ -29,7 +29,7 @@ export function verifyPaperChain(chain = []) {
     if (index && !(timeOf(record) >= timeOf(chain[index - 1]))) return { ok: false, brokenAt: index, reason: 'TIME_ORDER' };
     previous = hash;
   }
-  return { ok: true, head: previous, length: chain.length };
+  return { ok: true, head: previous, length: chain.length, forwardChronologyProven: false, chronologyEvidence: 'LOCAL_HASH_CHAIN_ONLY' };
 }
 
 /** quotes: { [instrument]: { price, source, observedAt } } observed at decision time. */

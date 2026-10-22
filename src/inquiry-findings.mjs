@@ -47,7 +47,8 @@ export function sellableFindingsFromProbe(receipt) {
       claim: finding.title,
       evidence: finding.evidence,
       disproof: finding.thirtySecondDisproof,
-      verifierId: VERIFIER_ID
+      verifierId: VERIFIER_ID,
+      discoveredAt: receipt.observedAt
     }));
 }
 
@@ -97,6 +98,7 @@ export async function runVerifiedDefectsSale({ buyerId, websites, probe, verifyP
     disproveIn30Seconds: item.finding.disproof,
     evidence: item.verification.freshEvidence,
     verifiedAt: item.verification.verifiedAt,
+    discoveredAt: item.finding.discoveredAt ?? null,
     freshEvidenceSha256: item.verification.freshEvidenceSha256,
     // Known at delivery time only: pending or not charged. The confirmed,
     // refused or unknown outcome is in the run's sale receipt, never here.

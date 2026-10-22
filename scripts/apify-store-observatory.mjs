@@ -4,10 +4,12 @@
 //   node scripts/apify-store-observatory.mjs --out <result.json> --snapshot <compact-snapshot.jsonl outside git>
 // Amendment X2-A1: the Store returns nothing at offset >= 15,000, so the
 // listing is the union of a global and per-category popularity-sorted crawl.
+// Amendment X2-A2: capped partitions are also crawled by newest, lastUpdate and
+// relevance, and completeness is measured by enumeration.
 import crypto from 'node:crypto';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname } from 'node:path';
-import { compactActor, dedupeActors, analyzeStore, completeness, DEFINITIONS, STORE_OFFSET_CAP } from '../src/apify-store-observatory.mjs';
+import { compactActor, dedupeActors, analyzeStore, enumerationCompleteness, DEFINITIONS, STORE_OFFSET_CAP } from '../src/apify-store-observatory.mjs';
 
 const args = process.argv.slice(2);
 const flag = (name, fallback = null) => { const i = args.indexOf(`--${name}`); return i >= 0 ? args[i + 1] : fallback; };
@@ -21,7 +23,10 @@ const raw = [];
 const limit = 1000;
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-async function crawl(name, query) {
+const seenBy = new Map();
+const seen = name => { if (!seenBy.has(name)) seenBy.set(name, new Set()); return seenBy.get(name); };
+
+async function crawl(name, query, sortBy = 'popularity') {
   let reportedTotal = null;
   let lastPage = [];
   let reachedCap = false;
@@ -32,9 +37,9 @@ async function crawl(name, query) {
     let text;
     for (let attempt = 1; attempt <= 3; attempt += 1) {
       ledger.storeCalls += 1;
-      response = await fetch(`https://api.apify.com/v2/store?limit=${limit}&offset=${offset}&sortBy=popularity${query}`, { signal: AbortSignal.timeout(120_000) });
+      response = await fetch(`https://api.apify.com/v2/store?limit=${limit}&offset=${offset}&sortBy=${sortBy}${query}`, { signal: AbortSignal.timeout(120_000) });
       text = await response.text();
-      pages.push({ partition: name, offset, attempt, status: response.status, sha256: crypto.createHash('sha256').update(text).digest('hex') });
+      pages.push({ partition: name, sortBy, offset, attempt, status: response.status, sha256: crypto.createHash('sha256').update(text).digest('hex') });
       if (response.status < 500) break;
       await sleep(5000 * attempt);
     }
@@ -45,6 +50,7 @@ async function crawl(name, query) {
     if (data.items.length === 0) { reachedCap = offset < data.total; break; }
     lastPage = data.items.map(compactActor);
     raw.push(...lastPage);
+    for (const actor of lastPage) seen(name).add(actor.id);
     if (offset + limit >= data.total) break;
   }
   return { name, reportedTotal, reachedCap, lastPageMaxUsers30: lastPage.length ? Math.max(...lastPage.map(a => a.users30)) : undefined };
@@ -53,19 +59,27 @@ async function crawl(name, query) {
 const partitions = [await crawl('global', '')];
 const categories = [...new Set(raw.flatMap(a => a.categories))].sort();
 for (const category of categories) partitions.push(await crawl(`category:${category}`, `&category=${encodeURIComponent(category)}`));
+for (const partition of partitions.filter(p => p.reachedCap)) {
+  const query = partition.name === 'global' ? '' : `&category=${encodeURIComponent(partition.name.slice('category:'.length))}`;
+  for (const sortBy of ['newest', 'lastUpdate', 'relevance']) await crawl(partition.name, query, sortBy);
+}
+// A category's distinct count also includes Actors first met in the global
+// crawl or another category, as long as they list that category.
+for (const actor of dedupeActors(raw)) { seen('global').add(actor.id); for (const c of actor.categories) seen(`category:${c}`).add(actor.id); }
+for (const partition of partitions) partition.distinct = seen(partition.name).size;
 
 const actors = dedupeActors(raw);
 const snapshotText = actors.map(a => JSON.stringify(a)).join('\n') + '\n';
 mkdirSync(dirname(snapshotPath), { recursive: true });
 writeFileSync(snapshotPath, snapshotText);
 
-const coverageCheck = completeness(partitions);
+const coverageCheck = enumerationCompleteness(partitions);
 const analysis = analyzeStore(actors, DEFINITIONS, { complete: coverageCheck.complete });
 const receipt = {
-  schema: 'uberbond.machiavelli.x2-apify-store-observatory.v2',
-  preregistration: 'artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json (amendment X2-A1)',
+  schema: 'uberbond.machiavelli.x2-apify-store-observatory.v3',
+  preregistration: 'artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json (amendments X2-A1, X2-A2)',
   snapshotAt: new Date().toISOString(),
-  source: 'GET https://api.apify.com/v2/store (public, unauthenticated), sortBy=popularity, global + per category',
+  source: 'GET https://api.apify.com/v2/store (public, unauthenticated), global + per category by popularity; capped partitions also by newest, lastUpdate, relevance',
   coverage: { globalReportedTotal: partitions[0].reportedTotal, itemsRead: raw.length, distinctActors: actors.length, completeness: coverageCheck, partitions },
   snapshot: { storedOutsideGit: true, lines: actors.length, sha256: crypto.createHash('sha256').update(snapshotText).digest('hex') },
   pages,
@@ -78,4 +92,4 @@ const receipt = {
 mkdirSync(dirname(out), { recursive: true });
 writeFileSync(out, `${JSON.stringify(receipt, null, 2)}\n`);
 const { leaders, ...headline } = analysis;
-console.log(JSON.stringify({ coverage: { ...receipt.coverage, partitions: partitions.map(p => `${p.name} total=${p.reportedTotal} cap=${p.reachedCap} tailMaxU30=${p.lastPageMaxUsers30}`) }, ...headline, top: leaders.slice(0, 30).map(l => `${l.users30} u30 | fail ${l.failShare} | subs ${l.healthySubstitutes}${l.absorbed ? ' ABSORBED' : ''} | ${l.id} | ${l.title}`), ledger }, null, 2));
+console.log(JSON.stringify({ coverage: { ...receipt.coverage, partitions: partitions.map(p => `${p.name} total=${p.reportedTotal} distinct=${p.distinct} cap=${p.reachedCap}`) }, ...headline, top: leaders.slice(0, 30).map(l => `${l.users30} u30 | fail ${l.failShare} | subs ${l.healthySubstitutes}${l.absorbed ? ' ABSORBED' : ''} | ${l.id} | ${l.title}`), ledger }, null, 2));

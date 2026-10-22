@@ -63,6 +63,22 @@ export function completeness(partitions, defs = DEFINITIONS) {
   return { complete: failing.length === 0 && partitions.length > 0, floor, failingPartitions: failing };
 }
 
+// Amendment X2-A2: completeness by direct enumeration. The Store reports
+// items it never returns, so the attainable coverage is calibrated on
+// categories that were fully enumerated (never reached the cap).
+// partitions: [{ name, reachedCap, reportedTotal, distinct }]
+export function enumerationCompleteness(partitions, { minCalibrationTotal = 1000, tolerance = 0.02 } = {}) {
+  const calibration = partitions.filter(p => !p.reachedCap && p.name !== 'global' && p.reportedTotal >= minCalibrationTotal).map(p => p.distinct / p.reportedTotal).sort((a, b) => a - b);
+  if (!calibration.length) return { complete: false, visibleFraction: null, failingPartitions: ['no calibration partitions'] };
+  const mid = Math.floor(calibration.length / 2);
+  const visibleFraction = calibration.length % 2 ? calibration[mid] : (calibration[mid - 1] + calibration[mid]) / 2;
+  const needed = visibleFraction - tolerance;
+  const checked = partitions.filter(p => p.reachedCap || p.name === 'global').map(p => ({ name: p.name, coverage: p.reportedTotal ? p.distinct / p.reportedTotal : 0 }));
+  const failing = checked.filter(c => !(c.coverage >= needed)).map(c => c.name);
+  const round = x => Number(x.toFixed(4));
+  return { complete: failing.length === 0, visibleFraction: round(visibleFraction), needed: round(needed), coverage: checked.map(c => ({ ...c, coverage: round(c.coverage) })), failingPartitions: failing };
+}
+
 export function analyzeStore(actors, defs = DEFINITIONS, { complete = true } = {}) {
   const isLeader = a => a.users30 >= defs.leader.minUsers30 && a.runs30 >= defs.leader.minRuns30 && failShare(a) >= defs.leader.minFailShare;
   const isHealthy = a => a.runs30 >= defs.substitute.minRuns30 && a.users30 >= defs.substitute.minUsers30 && failShare(a) <= defs.substitute.maxFailShare;

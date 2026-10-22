@@ -70,11 +70,115 @@ Pre-registered kill line: core precision below 0.35. **Decision: KILL.**
 
 The EIN change rate is an upper bound, because CPA-firm mergers also change EINs. The name-based rate in the receipt (22.6%) is a looser upper bound that is kept only for traceability.
 
-**Successor hypothesis S1 (not executed, preserved).** *Auditor-change early warning.* A firm that knows which engagements will change hands could bid on them before the RFP. The test:
-- predict 2025 changes from 2022–2024 features (tenure, findings, going-concern flags, auditor size, entity type);
-- score with Brier against the observed 2024→2025 changes;
-- beat the base rate of about 13%, or die.
+## S1 — Auditor-change early warning: **KILL**
 
-It needs no outreach and no key, but it still needs willingness-to-pay evidence before it is a product.
+**The idea.** About 13% of engagements change auditor every year. A firm that knew which ones would change could bid before the RFP.
 
-<!-- X2 section appended below -->
+**Method.** Pre-registered and pushed before running (`03c1ad9`):
+- population: 31,756 entities with real UEIs and valid auditor EINs for 2022–2025, split train/test by UEI hash;
+- features: tenure, entity type, auditor portfolio size, expenditure band, going concern, material weakness, low-risk status, same-state auditor.
+
+**Result** (`s1-auditor-change-hindcast-result.json`):
+
+| Measure | Value | Bar |
+|---|---:|---:|
+| Test change rate | 13.9% | |
+| Brier skill vs base rate | **0.025** | ≥ 0.05 |
+| Top-decile change rate | 27.1% | |
+| Top-decile lift | **1.95×** | ≥ 2× |
+
+**Decision: KILL.** Change is somewhat more likely right after a recent change (17.8% at tenure 1 vs 13.3% at tenure 3). But public FAC fields do not rank engagements sharply enough to sell as a list.
+
+## X2 — Apify Store breakage foundry: **INCOMPLETE_NOT_SCORED** (twice), foundry not advanced
+
+**Question.** Do high-demand public Actors fail often enough, without healthy substitutes, to leave stranded users a new Actor could serve?
+
+**Definitions.**
+- Broken leader: at least 200 users in 30 days, at least 1,000 runs, and at least 20% of runs failed or timed out.
+- Kill if fewer than 25 leaders exist, or if more than 70% of them are absorbed by healthy substitutes.
+
+**Protocol history**, every change pushed before the run it governs:
+1. **Pre-registered full pagination** (`c0b1ded`). It proved impossible: the public Store API returns nothing at offset 15,000 or beyond, for every sort order. The first newest-first run read 11,368 of 93,895 Actors. It is void. Its output file was overwritten by the A1 run, so only its summary survives here: 11,368 read, 1 broken leader. That summary was seen before amendment A1.
+2. **Amendment A1** (`1aeea71`): a global plus per-category popularity crawl, with a tail rule assuming popularity order tracks 30-day users. The run read 66,299 Actors (receipt: `x2-apify-store-observatory-a1-incomplete.json`). It failed the rule, because the global tail still had an Actor with 1,851 users30 at rank 15,000. Result: INCOMPLETE.
+3. **Amendment A2** (`8e63e23`, disclosing that A1's partial figures had been seen): newest, lastUpdate and relevance passes on the capped partitions, and completeness by enumeration against the visible fraction calibrated on fully enumerated categories (83.7%).
+   - The run made 404 public GETs and read **73,964 distinct Actors**: 77.2% of the reported total, against 81.7% needed.
+   - The global and AUTOMATION partitions fall short. Result: **INCOMPLETE_NOT_SCORED**.
+   - Per A2, there is no further amendment this session.
+
+**What is observable** (descriptive; it decides nothing):
+- **13 broken leaders. All 13 are absorbed** by a same-category healthy substitute with at least half their users; leaders have between 1 and 112 such substitutes. Stranded users30: **0**.
+- The extra roughly 7,700 Actors found by the A2 passes added **no** broken leader.
+- 72,085 of 73,964 Actors (97.5%) are pay-per-event; 60,619 had at least one user in 30 days.
+
+**Consequence.** The foundry is **not advanced**. In the observable 77% of the Store, breakage is rare and already absorbed. The remainder is untested, not cleared.
+
+**Re-test, together, on or after 2026-11-05.**
+- The canon's 14-day migration snapshot: users30 of each listed leader and its top substitutes.
+- A completion attempt for the AUTOMATION partition, for example by search-term partitioning, registered before the run.
+
+
+## The buyer-ready packet
+
+**[`BUYER_PACKET_INQUIRY_PATH_CHECK.md`](BUYER_PACKET_INQUIRY_PATH_CHECK.md): an inbound, fixed-price Inquiry-Path Check, verified against the buyer's declared numbers.**
+
+**Why this one.**
+- It is the only route that sidesteps the outreach gate: buyers purchase on a marketplace, and the marketplace collects.
+- Its delivery code works today.
+- It answers the E1 failure: the buyer's declaration turns "maybe tracking, maybe an error" into a checkable fact on any site.
+
+**Built this session:**
+- `src/declared-number-reconciliation.mjs`, with 9 tests. Two mutations were killed. It caught two of its own defects while the sample was generated:
+  - a printed declared number was reported as "not found";
+  - an unreadable site rendered as "clean".
+- The operator CLI `scripts/inquiry-path-check.mjs`, smoke-tested live.
+- An illustrative sample generated by the same code path.
+- Unpublished Upwork and Contra listing copy, with a $99 / $249 price.
+
+**What it still needs (owner-only).** Platform account and identity check, payout method, tax and invoicing posture, and pressing publish. No send authority is needed.
+
+## Trading-bot and market-microstructure hypotheses
+
+**Investigated, not executed this session.**
+- The lab on main (`docs/MACHIAVELLI_WEALTH_ENGINE.md`) already ran 17 pre-registered experiments across BTC, ETH, SOL and XRP: spot, perpetuals and funding.
+- Measured over T-bills, none survives costs. Funding carry has a negative excess Sharpe, and only ETH time-series momentum is INCONCLUSIVE.
+- Every remaining microstructure idea for a retail account needs either a crypto venue, whose rail is legally blocked for the founder pending Egyptian counsel (Law 194/2020 Art. 206), or founder trading capital.
+- Neither is authorized, so new trading research would spend effort on a path whose money cannot lawfully enter.
+- **Resurrection conditions** (unchanged from main):
+  - a fee tier below the maker bound;
+  - a sustained leverage-mania funding regime;
+  - written legal clearance plus a capital authorization.
+
+## Experiment ledger (this session)
+
+| ID | Mechanism | Decision | External effects |
+|---|---|---|---|
+| X1 | Single Audit radar (tournament rank 1) | **KILL**: precision 0.348 vs 0.35; new-client precision ~0.20 | 5 USAspending POSTs (read-only); 2 FAC bulk downloads (keyless) |
+| X2 | Apify breakage foundry (rank 3) | **INCOMPLETE_NOT_SCORED**: 13/13 observable leaders absorbed; not advanced | 16 + 180 + 404 public Store GETs across the void, A1 and A2 runs (plus 6 probing calls); no account |
+| S1 | Auditor-change early warning (new) | **KILL**: Brier skill 0.025, lift 1.95× | none (local data) |
+| Packet | Inquiry-Path Check, inbound | **BUYER-READY, UNPUBLISHED** | 1 GET + 1 robots request (example.com smoke) |
+
+Across all of them: zero messages, form submissions, accounts, purchases, trades or deployments. Spend $0.
+
+## Founder actions (maximum three)
+
+1. **Pick one platform** (Upwork Project Catalog or Contra) and complete its account, identity check and payout method. This is the same Contra action #1538 already asks for, so one action serves both the direct pilot and the inbound listing.
+2. **Decide the tax and invoicing posture** (W-8BEN, ETA) using the #1535 checklist.
+3. **Publish the listing** from the packet, or tell Claude to change it first.
+
+## Founder-idea crossover
+
+- **X1 and S1:** #0059 THE PREDICTION ACCOUNTING SYSTEM. Both were scored as dated, falsifiable forecasts against later reality. Both killed; the method held.
+- **Packet:** #0058 THE ERROR ECONOMY and #0146 THE KNOWLEDGE PACKET, plus a new descendant: *buyer-declared truth as a reference frame*.
+- **X2 and trading:** NO_MATERIAL_890_CROSSOVER_OBSERVED beyond the existing atlas classification.
+- All 890 ideas remain in the immutable corpus, unchanged.
+
+## PHOENIX checkpoint `PHX-MONEY-HUNT-20261022`
+
+| Item | State |
+|---|---|
+| **Durable** | pre-registration with amendments; X1, X2 and S1 receipts; packet; sample; the three new modules and their tests |
+| **Outside git** | FAC bulk CSVs and the Apify snapshot, by SHA-256 recorded in the receipts |
+| **CHAT_ONLY, unrecovered** | the founder's Ω∞ directive text and its 120 seeds |
+| **Next decisive external fact** | the first inbound purchase, or 60 days of a live listing without one |
+| **Scheduled re-test** | X2 migration snapshot on or after 2026-11-05 |
+

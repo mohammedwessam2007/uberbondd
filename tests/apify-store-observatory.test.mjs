@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { compactActor, failShare, dedupeActors, analyzeStore, titleTokens, completeness, DEFINITIONS } from '../src/apify-store-observatory.mjs';
+import { compactActor, failShare, dedupeActors, analyzeStore, titleTokens, completeness, enumerationCompleteness, DEFINITIONS } from '../src/apify-store-observatory.mjs';
 
 const item = (username, name, title, categories, users30, runs) => ({
   username, name, title, categories,
@@ -56,4 +56,14 @@ test('amendment X2-A1: an incomplete crawl is never scored', () => {
   assert.equal(completeness([]).complete, false, 'no partitions read is not completeness');
   assert.equal(completeness([{ name: 'global', reachedCap: true, lastPageMaxUsers30: undefined }]).complete, false, 'an unknown tail fails closed');
   assert.equal(analyzeStore([], DEFINITIONS, { complete: false }).decision, 'INCOMPLETE_NOT_SCORED');
+});
+
+test('amendment X2-A2: completeness by enumeration against a calibrated visible fraction', () => {
+  const uncapped = [{ name: 'category:A', reachedCap: false, reportedTotal: 2000, distinct: 1800 }, { name: 'category:B', reachedCap: false, reportedTotal: 4000, distinct: 3700 }, { name: 'category:TINY', reachedCap: false, reportedTotal: 10, distinct: 1 }];
+  const ok = enumerationCompleteness([...uncapped, { name: 'global', reachedCap: true, reportedTotal: 100000, distinct: 90000 }, { name: 'category:BIG', reachedCap: true, reportedTotal: 30000, distinct: 27500 }]);
+  assert.equal(ok.visibleFraction, 0.9125, 'median of 0.90 and 0.925; tiny categories do not calibrate');
+  assert.equal(ok.complete, true);
+  const short = enumerationCompleteness([...uncapped, { name: 'global', reachedCap: true, reportedTotal: 100000, distinct: 90000 }, { name: 'category:BIG', reachedCap: true, reportedTotal: 30000, distinct: 15000 }]);
+  assert.deepEqual(short.failingPartitions, ['category:BIG']);
+  assert.equal(enumerationCompleteness([{ name: 'global', reachedCap: true, reportedTotal: 10, distinct: 10 }]).complete, false, 'no calibration means no claim of completeness');
 });

@@ -246,7 +246,11 @@ test('money entry rails: Egypt-blocked rails cannot carry a mechanism', async ()
   assert.equal(classifyRail('Stripe checkout').verdict, 'RAIL_BLOCKED');
   assert.equal(classifyRail('USDC via x402 micropayments').verdict, 'RAIL_BLOCKED');
   assert.equal(classifyRail('Apify Store pay-per-event, payout by wire').verdict, 'RAIL_PLAUSIBLE');
-  assert.equal(classifyRail('Stripe or PayPal').best, 'PAYPAL_EGYPT', 'the best usable rail named decides');
+  assert.equal(classifyRail('Stripe or Contra').best, 'CONTRA_INDEPENDENT', 'the best usable rail named decides');
+  // Generic Egypt support is not the founder's account: his PayPal is permanently deactivated.
+  assert.equal(classifyRail('Stripe or PayPal').verdict, 'RAIL_BLOCKED');
+  assert.equal(RAILS.find(rail => rail.id === 'PAYPAL_EGYPT').founderAccountState, 'PERMANENTLY_DEACTIVATED');
+  assert.equal(classifyRail('fixed-price contract paid by invoice').best, 'INTERNATIONAL_BANK_WIRE', '"contract" is not Contra');
   assert.equal(classifyRail('Payoneer').verdict, 'RAIL_UNVERIFIED');
   assert.equal(classifyRail('customers pay somehow').verdict, 'RAIL_UNSPECIFIED');
   assert.ok(!RAILS.some(rail => rail.status === 'VERIFIED_WORKING'), 'nothing is verified until a real payout lands');

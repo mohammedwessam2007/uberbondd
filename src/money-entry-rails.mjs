@@ -34,13 +34,25 @@ export const RAILS = Object.freeze([
       { url: 'https://docs.apify.com/platform/actors/publishing/monetize', claim: 'Apify keeps 20% of Actor revenue; platform usage costs are deducted from payout; never charges if the Actor earns nothing.', observedOn: '2026-10-21' },
       { url: 'https://docs.apify.com/platform/actors/publishing/monetize/monthly-payouts', claim: 'Payout threshold $20 for PayPal and Wise, $100 for other methods; billing details, payment method and identity verification required.', observedOn: '2026-10-21' }
     ],
-    founderActions: ['Create an Apify account, complete identity verification and payout details.']
+    founderActions: ['Create an Apify account, complete identity verification and payout details. The PayPal payout method is not available to this founder (see PAYPAL_EGYPT); plan on a non-PayPal method and its $100 threshold.']
   },
   {
-    id: 'PAYPAL_EGYPT', status: 'PLAUSIBLE', match: /paypal/i,
+    // Generic Egypt support is not this founder's account: the account is
+    // permanently deactivated (repository evidence, 2026-10-05..08).
+    id: 'PAYPAL_EGYPT', status: 'UNSUPPORTED', founderAccountState: 'PERMANENTLY_DEACTIVATED', match: /paypal/i,
     howMoneyArrives: 'Payments received into an Egypt PayPal account linked to an Egypt-issued Visa card or a US bank account, then withdrawn.',
-    evidence: [{ url: 'https://www.paypal.com/eg/webapps/mpp/setup-to-receive-withdraw', claim: 'Receiving requires linking an Egypt-issued Visa card or a US bank account; balance auto-transfers monthly, manual withdrawals any time.', observedOn: '2026-10-21' }],
-    founderActions: ['Confirm the PayPal account can receive commercial payments and link an Egypt-issued Visa card.']
+    evidence: [
+      { url: 'https://www.paypal.com/eg/webapps/mpp/setup-to-receive-withdraw', claim: 'Receiving requires linking an Egypt-issued Visa card or a US bank account; balance auto-transfers monthly, manual withdrawals any time.', observedOn: '2026-10-21' },
+      { url: 'docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md', claim: 'PayPal is permanently deactivated for this user and removed from the critical path; do not create replacement accounts to evade that restriction.', observedOn: '2026-10-06' },
+      { url: 'tests/revenue-singularity-evidence-bridge.test.mjs', claim: 'The collection route policy asserts PayPal DEACTIVATED and never resurrects it.', observedOn: '2026-10-07' }
+    ],
+    founderActions: ['None. Do not open a replacement account to evade the restriction; use the CONTRA_INDEPENDENT route.']
+  },
+  {
+    id: 'CONTRA_INDEPENDENT', status: 'PLAUSIBLE', match: /\bcontra\b/i,
+    howMoneyArrives: 'Client pays a Contra invoice, project or payment link; Contra pays out to the founder\'s Egyptian bank account by SWIFT.',
+    evidence: [{ url: 'docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md', claim: 'Contra support confirmed to the founder that invoices, projects and payment links work for an Egyptian user and that Egyptian bank payout via SWIFT is supported. The existing account\'s authenticated, KYC, wallet, payout and fee state is NOT yet observed.', observedOn: '2026-10-06' }],
+    founderActions: ['Sign in to the existing Contra account (do not create a duplicate), complete only the KYC/tax/payout steps it asks for, and confirm a payment link or invoice can be created.']
   },
   {
     id: 'UPWORK_LOCAL_BANK', status: 'PLAUSIBLE', match: /upwork|fiverr|freelanc/i,

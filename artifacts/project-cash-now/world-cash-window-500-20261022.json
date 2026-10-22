@@ -1,0 +1,43 @@
+{
+  "schema": "uberbond.cash-now.24h-decision.v1",
+  "asOf": "2026-10-22",
+  "deadlineLocal": "2026-10-23T23:59:00+03:00",
+  "targetClearedContributionProfitUsd": 500,
+  "sourceMainSha": "0ab2314bce6dd34e506f3870107d1e34c61765f7",
+  "parentCashNowSha": "a6a87e2e40aec112232ebd406019b7246944dac7",
+  "machiavelliDonorSha": "c7598ceb5a0bb4c43e6c072d44fe7871838f0d42",
+  "draftEngineeringPr1532HeadAtObservation": "8994243bbbeebc10b6837a8edac385feac891cdc",
+  "bestProposedMechanism": "Reproducible AI/release/API defect evidence licensing to one already-intentful buyer",
+  "prototype": "src/cash-now-api-contract-diff.mjs on unmerged PR #1532",
+  "hypothesizedNonexclusivePriceUsd": 750,
+  "observedPayerCount": 0,
+  "observedBuyerAcceptanceCount": 0,
+  "verifiedPayoutReadyAccountCount": 0,
+  "clearedContributionProfitUsdVerified": 0,
+  "claims": {
+    "saleByTomorrow": "NOT_ESTABLISHED",
+    "realCustomerDemand": "NOT_ESTABLISHED",
+    "buyerPaymentAuthorization": "NOT_ESTABLISHED",
+    "productOwnershipAndThirdPartyRights": "REQUIRES_REVIEW",
+    "quantAlpha": "NOT_PROMOTED",
+    "publicBountyPayoutWithin24h": "NOT_ESTABLISHED"
+  },
+  "externalEffects": {
+    "customerMessages": 0,
+    "listingsPublished": 0,
+    "paymentsAccepted": 0,
+    "trades": 0,
+    "spendUsd": 0
+  },
+  "founderMoonshotDonors": [
+    "founder-moonshot-0058",
+    "founder-moonshot-0067",
+    "founder-moonshot-0306",
+    "founder-moonshot-0347",
+    "founder-moonshot-0350",
+    "founder-moonshot-0465",
+    "founder-moonshot-0480"
+  ],
+  "next": "Qualify one actual opt-in buyer and verified same-day receiving method, independently accepted report; do not send, sell or claim payment without authorization and provider evidence.",
+  "doc": "docs/project-cash-now/WORLD_CASH_WINDOW_500_20261022.md"
+}

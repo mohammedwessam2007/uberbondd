@@ -1,0 +1,1208 @@
+{
+ "schema": "uberbond.commercialization.omega-orchestration.v1",
+ "createdAt": "2026-10-22T21:25Z",
+ "mission": "UBERBOND MACHIAVELLI OMEGA: first-cash -> repeatable-profit -> recurring-revenue orchestration (founder PDF, 2026-10-22)",
+ "sourceSha": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+ "branch": "claude/machiavelli-omega-orchestration-20261022",
+ "truthBoundary": "Orchestration, research and review receipt. Not buyer validation, not payment, not deployment. Every money figure here is a scenario or a public comparable, never revenue.",
+ "prFrontier": {
+  "1533": "MERGED (Machiavelli Wealth Engine)",
+  "1531": "MERGED (Inquiry Path Coherence)",
+  "1536": "DRAFT (CP-01 billing repair + work packet, base main)",
+  "1537": "DRAFT (Chat on Steroids W1-W8, base #1536; Claude review posted; fix commit 9bcdf54)",
+  "1535": "DRAFT (GPT Work first-money packet; payment-route correction comment posted)",
+  "1532": "DRAFT, DIRTY (Project Cash Now donor; integrity tests ported by #1537)"
+ },
+ "workerStatus": {
+  "chatOnSteroids": "W1-W8 delivered on #1537; local tunnel stopped polling (PR comment 2026-10-22T17:00Z); UberBond cloud relay disabled -> delegation by durable packet only",
+  "gptWork": "PR #1535 delivered; PayPal sign-in declined; no live connection in this session",
+  "claudeCode": "this session"
+ },
+ "reviewFindings": [
+  {
+   "id": "R1",
+   "severity": "HIGH",
+   "where": "src/revenue-reality-ledger.mjs (#1537)",
+   "what": "amounts reported on an unverifiable chain",
+   "status": "FIXED 9bcdf54 on #1537"
+  },
+  {
+   "id": "R2",
+   "severity": "MEDIUM",
+   "where": "src/revenue-reality-ledger.mjs (#1537)",
+   "what": "throwing/async provider verifiers crash or admit",
+   "status": "FIXED 9bcdf54 on #1537"
+  },
+  {
+   "id": "R3",
+   "severity": "HIGH",
+   "where": "src/inquiry-path-coherence.mjs (main)",
+   "what": "unrelated-number phone mismatch sold as a defect",
+   "status": "FIXED a85f627 on this branch"
+  },
+  {
+   "id": "R4",
+   "severity": "HIGH",
+   "where": "src/money-entry-rails.mjs (main)",
+   "what": "PayPal rated plausible despite deactivated founder account; Contra missing",
+   "status": "FIXED 826ecb9 on this branch"
+  },
+  {
+   "id": "W2-a",
+   "severity": "MEDIUM",
+   "where": "src/inquiry-path-runtime-witness.mjs",
+   "what": "3xx fulfilled without Location -> blank page dissolves real findings",
+   "status": "PACKET CP-02 P2"
+  },
+  {
+   "id": "W2-b",
+   "severity": "MEDIUM",
+   "where": "src/inquiry-path-runtime-witness.mjs + coherence wording",
+   "what": "\"as a direct visitor would see it\" overclaims while requests are blocked",
+   "status": "PACKET CP-02 P2"
+  },
+  {
+   "id": "W2-c",
+   "severity": "LOW",
+   "where": "src/security.mjs",
+   "what": "isPrivateIp misses ::a.b.c.d-compatible hex, 64:ff9b::/96, fec0::/10, ff00::/8",
+   "status": "PACKET CP-02 P3"
+  },
+  {
+   "id": "W4-a",
+   "severity": "DESIGN",
+   "where": "src/revenue-reality-ledger.mjs",
+   "what": "sync callback trust seam cannot carry a real provider check; any caller can pass () => true",
+   "status": "PACKET CP-02 P4"
+  },
+  {
+   "id": "W5",
+   "severity": "MEDIUM",
+   "where": "docs/commercialization/UNIT_ECONOMICS.md (#1537)",
+   "what": "PayPal fee model on an unusable account",
+   "status": "PACKET CP-02 P5"
+  },
+  {
+   "id": "S1",
+   "severity": "MEDIUM",
+   "where": "docs/commercialization/samples/HISTORICAL_INQUIRY_AUDIT_SAMPLE.md (#1537)",
+   "what": "unrelated-number Reliant item shown under Verified findings; pages examined 0 with 5 URLs cited",
+   "status": "PACKET CP-02 P1"
+  }
+ ],
+ "economicRealityAudit": [
+  {
+   "n": 1,
+   "id": "verified-website-inquiry-audit-99",
+   "name": "Verified Website Inquiry Audit, $99 one-site direct pilot (PR #1535 / #1536 / #1537)",
+   "buyerPurchases": "dated, reproducible read-only report on public phone/booking/form/structured-data controls of one site (<=10 URLs) + one recheck",
+   "economicBuyer": "site operator or its web agency",
+   "verifiedProblem": "typo-class phone mismatch verified live at Reliant (DE-10); 0/40 typo-class in an enterprise-skewed cohort",
+   "alreadySpends": "yes, adjacent: maintenance retainers and QA gigs (DE-04, DE-07)",
+   "currentWTP": "NONE_OBSERVED for this deliverable",
+   "exists": true,
+   "usableDeliverable": true,
+   "needsEngineering": "no for direct pilot (delivery-only actor + renderer); yes for Store (witness fidelity, shared DB)",
+   "sellableWithoutNewInfra": true,
+   "deliverableWithoutFounderLabor": "partly: founder review 20-180 min per report",
+   "paymentLegitimate": "PENDING: Contra unobserved, PayPal deactivated",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": {
+    "pessimistic": 54,
+    "base": 69,
+    "optimistic": 89,
+    "basis": "$99 less Contra flat fee $0-15 (unconfirmed) less SWIFT/intermediary $10-30 (assumption); before founder time and tax"
+   },
+   "timeToFirstPayment": ">= 7-14 days after founder actions 1 and 2",
+   "founderMinutes": {
+    "oneTime": "60-270 (Contra sign-in/KYC, send authorization, ETA readiness)",
+    "perSale": "40-160"
+   },
+   "externalDependencies": [
+    "Contra account",
+    "send authority + Egypt sender-side legal position",
+    "publishable sender identity/footer",
+    "sender health refresh",
+    "ETA invoicing status"
+   ],
+   "reversibility": "high; downside = one refund + reputation if a finding is wrong",
+   "evidenceQuality": "LOW_MEDIUM",
+   "previousFailures": [
+    "Machiavelli rank-2 WOUNDED (-$40/-$20/+$250 monthly)",
+    "40-site field run: 0 typo-class, 4 parser-only JSON-LD candidates"
+   ],
+   "nextFalsification": "E1 SMB agency-portfolio prevalence cohort (zero effect); then founder-authorized 1-2 message probe",
+   "classification": "PLAUSIBLE_BUYER_DEMAND",
+   "collection": "PAYMENT_BLOCKED_PENDING_FOUNDER_ACTION"
+  },
+  {
+   "n": 2,
+   "id": "agency-revenue-leak-proof-pack",
+   "name": "Agency Revenue Leak Proof Pack ($1,500 / 3 sites; $3,900 / 10; $2,500/mo monitoring)",
+   "buyerPurchases": "multi-site evidence pack for an agency",
+   "economicBuyer": "agency owner / delivery lead",
+   "verifiedProblem": "same engine as #1",
+   "alreadySpends": "agencies buy white-label delivery ($549-$3,199/mo plans exist, DE-07)",
+   "currentWTP": "NONE_OBSERVED",
+   "exists": true,
+   "usableDeliverable": true,
+   "needsEngineering": "multi-site packaging only",
+   "sellableWithoutNewInfra": true,
+   "deliverableWithoutFounderLabor": "partly",
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "UNKNOWN (price unvalidated; 15x the pilot)",
+   "timeToFirstPayment": "after a $99 acceptance or agency reply",
+   "founderMinutes": {
+    "oneTime": "shared with #1",
+    "perSale": "90-300"
+   },
+   "externalDependencies": [
+    "as #1"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "LOW",
+   "previousFailures": [
+    "no buyer contact ever reconciled (Intelo effect UNKNOWN_0_OR_1)"
+   ],
+   "nextFalsification": "only after #1 produces a reply or acceptance",
+   "classification": "UNVALIDATED_HYPOTHESIS",
+   "collection": "PAYMENT_BLOCKED_PENDING_FOUNDER_ACTION"
+  },
+  {
+   "n": 3,
+   "id": "lead-path-tracking-integrity",
+   "name": "Lead-path assurance / public-page conversion-tracking integrity check",
+   "buyerPurchases": "evidence that tracking survives the inquiry path (tags per page, duplicates, thank-you/form path)",
+   "economicBuyer": "SMB marketer or performance agency",
+   "verifiedProblem": "category actively shopped (DE-02); UberBond public-page detection prevalence unmeasured",
+   "alreadySpends": "yes: $149-$349 fixed audits, $20-50/hr posts (DE-02, DE-03)",
+   "currentWTP": "CATEGORY_LEVEL_OBSERVED",
+   "exists": "partial (lead-stack fingerprints only)",
+   "usableDeliverable": false,
+   "needsEngineering": "yes: small public-page tracking check on the existing probe",
+   "sellableWithoutNewInfra": false,
+   "deliverableWithoutFounderLabor": "unknown",
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "UNKNOWN",
+   "timeToFirstPayment": "weeks",
+   "founderMinutes": {
+    "oneTime": "low",
+    "perSale": "unknown"
+   },
+   "externalDependencies": [
+    "collection",
+    "inbound channel or outreach authority"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "MEDIUM (category) / NONE (UberBond fit)",
+   "previousFailures": [],
+   "nextFalsification": "E2 public-page tracking-defect prevalence on the same frozen cohorts",
+   "classification": "EXISTING_BUYER_DEMAND__CATEGORY_LEVEL",
+   "collection": "PAYMENT_BLOCKED_PENDING_FOUNDER_ACTION"
+  },
+  {
+   "n": 4,
+   "id": "single-audit-obligation-radar",
+   "name": "Single Audit Obligation Radar (Machiavelli rank 1)",
+   "buyerPurchases": "qualified signals that an entity will need a Single Audit",
+   "economicBuyer": "CPA firm BD lead",
+   "verifiedProblem": "checked sample produced no qualifying forecasts; earlier false positives from parent-audit coverage (PR #1535)",
+   "alreadySpends": "UNKNOWN",
+   "currentWTP": "NONE_OBSERVED",
+   "exists": true,
+   "usableDeliverable": false,
+   "needsEngineering": "yes: outlays-based inference + calibration",
+   "sellableWithoutNewInfra": false,
+   "deliverableWithoutFounderLabor": "UNKNOWN",
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": "partially",
+   "contributionPerSaleUsd": "UNKNOWN",
+   "timeToFirstPayment": "months",
+   "founderMinutes": {
+    "oneTime": "UNKNOWN",
+    "perSale": "UNKNOWN"
+   },
+   "externalDependencies": [
+    "forecast quality",
+    "CPA WTP probe"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "LOW",
+   "previousFailures": [
+    "zero qualifying forecasts in checked sample"
+   ],
+   "nextFalsification": "hindcast the outlays-based rule on FY2023 FAC filings; require >= 20 correct signals before any WTP probe",
+   "classification": "UNVALIDATED_HYPOTHESIS",
+   "decision": "PRESERVE_BUT_DEFER"
+  },
+  {
+   "n": 5,
+   "id": "api-contract-change-evidence",
+   "name": "API contract-change evidence compiler (PR #1532)",
+   "buyerPurchases": "breaking-change evidence between OpenAPI versions",
+   "economicBuyer": "integration / platform team",
+   "verifiedProblem": "real problem, already solved free (oasdiff)",
+   "alreadySpends": "low (OSS)",
+   "currentWTP": "NONE_OBSERVED",
+   "exists": "offline prototype on unmerged PR #1532",
+   "usableDeliverable": false,
+   "needsEngineering": "yes",
+   "sellableWithoutNewInfra": false,
+   "deliverableWithoutFounderLabor": true,
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "UNKNOWN",
+   "timeToFirstPayment": "unknown",
+   "founderMinutes": {
+    "oneTime": "UNKNOWN",
+    "perSale": "low"
+   },
+   "externalDependencies": [
+    "differentiation vs oasdiff"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "MEDIUM (negative)",
+   "previousFailures": [],
+   "nextFalsification": "find public paid demand for spec-less third-party API change monitoring",
+   "classification": "ECONOMICALLY_INFERIOR",
+   "decision": "REJECT_WITH_PROVENANCE"
+  },
+  {
+   "n": 6,
+   "id": "bilingual-procurement-amendment",
+   "name": "Bilingual procurement-amendment comparison (PR #1532)",
+   "buyerPurchases": "side-by-side Arabic/English amendment change evidence",
+   "economicBuyer": "GCC procurement / compliance",
+   "verifiedProblem": "UNKNOWN",
+   "alreadySpends": "UNKNOWN",
+   "currentWTP": "NONE_OBSERVED",
+   "exists": "offline prototype",
+   "usableDeliverable": false,
+   "needsEngineering": "yes",
+   "sellableWithoutNewInfra": false,
+   "deliverableWithoutFounderLabor": "UNKNOWN",
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "UNKNOWN",
+   "timeToFirstPayment": "unknown",
+   "founderMinutes": {
+    "oneTime": "UNKNOWN",
+    "perSale": "UNKNOWN"
+   },
+   "externalDependencies": [
+    "buyer discovery in GCC"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "NONE",
+   "previousFailures": [],
+   "nextFalsification": "1 research hour: public GCC tenders/RFPs requesting bilingual document comparison or amendment tracking",
+   "classification": "UNVALIDATED_HYPOTHESIS",
+   "decision": "RESEARCH_MISSING_EVIDENCE"
+  },
+  {
+   "n": 7,
+   "id": "white-label-fulfilment",
+   "name": "White-label fulfilment capacity for agencies",
+   "buyerPurchases": "agency-branded QA / recheck reports",
+   "economicBuyer": "agency",
+   "verifiedProblem": "agencies buy white-label capacity (DE-07)",
+   "alreadySpends": "yes",
+   "currentWTP": "CATEGORY_LEVEL_OBSERVED",
+   "exists": true,
+   "usableDeliverable": true,
+   "needsEngineering": "branding toggle only",
+   "sellableWithoutNewInfra": true,
+   "deliverableWithoutFounderLabor": "partly",
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "UNKNOWN",
+   "timeToFirstPayment": "weeks",
+   "founderMinutes": {
+    "oneTime": "UNKNOWN",
+    "perSale": "UNKNOWN"
+   },
+   "externalDependencies": [
+    "partner acquisition through the same outreach gate"
+   ],
+   "reversibility": "medium",
+   "evidenceQuality": "LOW_MEDIUM",
+   "previousFailures": [],
+   "nextFalsification": "one authorized agency conversation",
+   "classification": "PLAUSIBLE_BUYER_DEMAND"
+  },
+  {
+   "n": 8,
+   "id": "revenue-reconciliation-evidence",
+   "name": "Revenue reconciliation and evidence services (Revenue Proof & Renewal Pack, CRM/payment diagnostic)",
+   "buyerPurchases": "reconciled revenue evidence",
+   "economicBuyer": "RevOps / agency",
+   "verifiedProblem": "UNKNOWN",
+   "alreadySpends": "UNKNOWN",
+   "currentWTP": "NONE_OBSERVED",
+   "exists": "partial",
+   "usableDeliverable": false,
+   "needsEngineering": "client data access path",
+   "sellableWithoutNewInfra": false,
+   "deliverableWithoutFounderLabor": false,
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": "partially",
+   "contributionPerSaleUsd": "UNKNOWN",
+   "timeToFirstPayment": "unknown",
+   "founderMinutes": {
+    "oneTime": "UNKNOWN",
+    "perSale": "high"
+   },
+   "externalDependencies": [
+    "client data rights"
+   ],
+   "reversibility": "medium",
+   "evidenceQuality": "NONE",
+   "previousFailures": [],
+   "nextFalsification": "defer",
+   "classification": "UNVALIDATED_HYPOTHESIS"
+  },
+  {
+   "n": 9,
+   "id": "outreach-lead-research",
+   "name": "Outreach, lead research and campaign operations (Winnr, UberWarm, Lead OS, G-SPOT)",
+   "buyerPurchases": "internal enabler, not a product",
+   "economicBuyer": "n/a",
+   "verifiedProblem": "n/a",
+   "alreadySpends": "n/a",
+   "currentWTP": "n/a",
+   "exists": true,
+   "usableDeliverable": "n/a",
+   "needsEngineering": "no",
+   "sellableWithoutNewInfra": "n/a",
+   "deliverableWithoutFounderLabor": "n/a",
+   "paymentLegitimate": "n/a",
+   "customerCanVerify": "n/a",
+   "contributionPerSaleUsd": "n/a",
+   "timeToFirstPayment": "n/a",
+   "founderMinutes": {
+    "oneTime": "send authorization",
+    "perSale": "n/a"
+   },
+   "externalDependencies": [
+    "outboundAuthority NONE",
+    "Egypt sender-side law unresolved",
+    "sender health stale since 2026-10-08",
+    "legal footer unapproved"
+   ],
+   "reversibility": "n/a",
+   "evidenceQuality": "HIGH (built, tested)",
+   "previousFailures": [
+    "frozen Intelo send outcome UNKNOWN_0_OR_1 (never replay)"
+   ],
+   "nextFalsification": "refresh live sender health before any authorized send",
+   "classification": "NOT_CURRENTLY_COMMERCIAL__INTERNAL_ENABLER_AUTHORITY_BLOCKED"
+  },
+  {
+   "n": 10,
+   "id": "commercial-automation-reporting",
+   "name": "Commercial automation and reporting (Money Queue, Revenue Constellation, control planes)",
+   "buyerPurchases": "internal",
+   "economicBuyer": "n/a",
+   "verifiedProblem": "n/a",
+   "alreadySpends": "n/a",
+   "currentWTP": "n/a",
+   "exists": true,
+   "usableDeliverable": "n/a",
+   "needsEngineering": "no",
+   "sellableWithoutNewInfra": "n/a",
+   "deliverableWithoutFounderLabor": "n/a",
+   "paymentLegitimate": "n/a",
+   "customerCanVerify": "n/a",
+   "contributionPerSaleUsd": "n/a",
+   "timeToFirstPayment": "n/a",
+   "founderMinutes": {
+    "oneTime": "n/a",
+    "perSale": "n/a"
+   },
+   "externalDependencies": [],
+   "reversibility": "n/a",
+   "evidenceQuality": "HIGH (internal)",
+   "previousFailures": [],
+   "nextFalsification": "none: not a product",
+   "classification": "NOT_CURRENTLY_COMMERCIAL"
+  },
+  {
+   "n": 11,
+   "id": "agency-partnership-repeat-delivery",
+   "name": "Agency partnerships and repeat-delivery arrangements",
+   "buyerPurchases": "recurring white-label rechecks across an agency portfolio",
+   "economicBuyer": "agency",
+   "verifiedProblem": "form/link monitoring sold as care-plan add-on (DE-06, DE-07)",
+   "alreadySpends": "yes (EUR 10/site/mo add-on level)",
+   "currentWTP": "CATEGORY_LEVEL_OBSERVED_AT_LOW_PRICE",
+   "exists": "engine yes, recurring billing no",
+   "usableDeliverable": true,
+   "needsEngineering": "scheduler + per-site recheck packaging only after commitment",
+   "sellableWithoutNewInfra": true,
+   "deliverableWithoutFounderLabor": "likely",
+   "paymentLegitimate": "PENDING",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "~$5-30 per site per month ceiling from public comparables",
+   "timeToFirstPayment": "after a one-off acceptance",
+   "founderMinutes": {
+    "oneTime": "UNKNOWN",
+    "perSale": "low once automated"
+   },
+   "externalDependencies": [
+    "an accepted one-off delivery"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "LOW_MEDIUM",
+   "previousFailures": [],
+   "nextFalsification": "ask an accepted buyer whether they want monthly rechecks; do not build first",
+   "classification": "PLAUSIBLE_BUYER_DEMAND"
+  },
+  {
+   "n": 12,
+   "id": "bounty-contractor-marketplace",
+   "name": "Bounty / contractor / marketplace opportunities with documented demand",
+   "buyerPurchases": "fixed-scope jobs posted by buyers",
+   "economicBuyer": "marketplace clients",
+   "verifiedProblem": "posted jobs (DE-01, DE-02)",
+   "alreadySpends": "yes",
+   "currentWTP": "OBSERVED_BUT_LOW_FOR_FIXES ($5-$10); MEDIUM_FOR_TRACKING_AUDITS",
+   "exists": "n/a",
+   "usableDeliverable": "partial",
+   "needsEngineering": "no",
+   "sellableWithoutNewInfra": true,
+   "deliverableWithoutFounderLabor": false,
+   "paymentLegitimate": "platform-dependent",
+   "customerCanVerify": true,
+   "contributionPerSaleUsd": "low for fixes",
+   "timeToFirstPayment": "days-weeks",
+   "founderMinutes": {
+    "oneTime": "account + KYC",
+    "perSale": "high (labour)"
+   },
+   "externalDependencies": [
+    "Upwork Connects cost (spend authority)",
+    "account eligibility"
+   ],
+   "reversibility": "high",
+   "evidenceQuality": "MEDIUM",
+   "previousFailures": [
+    "bounty framing rejected by Machiavelli rank 6 (\"beg bounty\" pattern)"
+   ],
+   "nextFalsification": "none funded until collection is ready",
+   "classification": "ECONOMICALLY_INFERIOR_FOR_AUTOMATED_DELIVERY"
+  },
+  {
+   "n": 13,
+   "id": "machiavelli-six-finalists",
+   "name": "Machiavelli's six tournament finalists",
+   "buyerPurchases": "see artifacts/machiavelli/profit-tournament.json",
+   "economicBuyer": "various",
+   "verifiedProblem": "all WOUNDED; capital allocation funds nothing at $0-$25k",
+   "alreadySpends": "n/a",
+   "currentWTP": "NONE_OBSERVED",
+   "exists": "prototypes",
+   "usableDeliverable": "rank 2 only (as #1)",
+   "needsEngineering": "n/a",
+   "sellableWithoutNewInfra": "n/a",
+   "deliverableWithoutFounderLabor": "n/a",
+   "paymentLegitimate": "crypto rails legally blocked; others PENDING",
+   "customerCanVerify": "n/a",
+   "contributionPerSaleUsd": "n/a",
+   "timeToFirstPayment": "n/a",
+   "founderMinutes": {
+    "oneTime": "n/a",
+    "perSale": "n/a"
+   },
+   "externalDependencies": [],
+   "reversibility": "n/a",
+   "evidenceQuality": "SIMULATED tier at best",
+   "previousFailures": [
+    "17 quant experiments, none promoted"
+   ],
+   "nextFalsification": "per finalist in the tournament artifact",
+   "classification": "PRESERVED__RANK1_UNVALIDATED__RANK2_IS_MECHANISM_1__RANK3_RANK6_REJECTED_FRAMING__RANK4_NOT_INCOME__RANK5_MERGED"
+  },
+  {
+   "n": 14,
+   "id": "remaining-48-mechanism-classes",
+   "name": "Remaining preserved economic mechanism classes (wealth-mechanism atlas)",
+   "buyerPurchases": "n/a",
+   "economicBuyer": "n/a",
+   "verifiedProblem": "n/a",
+   "alreadySpends": "n/a",
+   "currentWTP": "not re-scored this session",
+   "exists": "atlas only",
+   "usableDeliverable": "n/a",
+   "needsEngineering": "n/a",
+   "sellableWithoutNewInfra": "n/a",
+   "deliverableWithoutFounderLabor": "n/a",
+   "paymentLegitimate": "n/a",
+   "customerCanVerify": "n/a",
+   "contributionPerSaleUsd": "n/a",
+   "timeToFirstPayment": "n/a",
+   "founderMinutes": {
+    "oneTime": "n/a",
+    "perSale": "n/a"
+   },
+   "externalDependencies": [],
+   "reversibility": "n/a",
+   "evidenceQuality": "NONE_NEW",
+   "previousFailures": [],
+   "nextFalsification": "revisit only when a blocker changes (resurrection engine)",
+   "classification": "PRESERVED_NOT_RESCORED"
+  }
+ ],
+ "demandEvidence": [
+  {
+   "id": "DE-01",
+   "buyerCategory": "US SMB / site owner needing a broken contact form fixed",
+   "publicSource": "https://www.upwork.com/jobs/~022063585450133635626 (search-index snippet; page returns HTTP 403 to direct fetch, not bypassed)",
+   "expressedNeed": "WordPress contact form not sending emails; fixed price $10",
+   "economicState": "ACTIVELY_SHOPPING",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "inquiry-path probe can observe form destination host, cannot submit forms or repair sites",
+   "deliveryScope": "requires site access and repair labour (not UberBond read-only delivery)",
+   "buyerAccessPath": "Upwork proposal (paid Connects; spend authority required)",
+   "uncertainty": "budget is tiny; posting date and status unverified",
+   "approvalStatus": "NOT_PURSUED__ECONOMICALLY_INFERIOR"
+  },
+  {
+   "id": "DE-02",
+   "buyerCategory": "US SMB marketers / agencies needing conversion-tracking audits",
+   "publicSource": "Upwork client posts \"GA4 & GTM Specialist Needed: Full Tracking Audit, Consent Mode v2 and Custom Funnels\" ($20-50/hr) and \"Tracking & Analytics Expert\" (search-index snippets; 403 to direct fetch)",
+   "expressedNeed": "full tracking audit, fix discrepancies, conversion funnels",
+   "economicState": "ACTIVELY_SHOPPING",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "lead-path attribution lineage (world-brain champion lead-path-attribution-integrity-sprint; Event Horizon champion lead-path-evidence-sprint); public-page lead-stack fingerprints in src/inquiry-path-coherence.mjs",
+   "deliveryScope": "full audit needs GA4/GTM access; a public-page variant (tags present per page, duplicate IDs, tracking lost on form/thank-you path) is read-only but unproven",
+   "buyerAccessPath": "Upwork (paid Connects) or inbound listing",
+   "uncertainty": "hourly labour market, founder-minute heavy unless the public-page part is automated",
+   "approvalStatus": "SECOND_ROUTE_CANDIDATE__RESEARCH_MISSING_EVIDENCE"
+  },
+  {
+   "id": "DE-03",
+   "buyerCategory": "seller price signal: fixed-price tracking/conversion audits",
+   "publicSource": "Upwork service listings: Google Ads + GA4 audit $149 / $349 tiers; lead-flow fix $190-$1,200 (seller listings, search-index level)",
+   "expressedNeed": "supply-side price anchor, not a purchase",
+   "economicState": "SUPPLY_PRICE_SIGNAL_NOT_DEMAND",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "same as DE-02",
+   "deliveryScope": "n/a",
+   "buyerAccessPath": "n/a",
+   "uncertainty": "listings are marketing; purchase counts not observed",
+   "approvalStatus": "PRICE_ANCHOR_ONLY"
+  },
+  {
+   "id": "DE-04",
+   "buyerCategory": "buyers of website QA test gigs",
+   "publicSource": "Fiverr website QA gigs (e.g. fiverr.com/m_vardhaman/test-your-website-and-app \"Up to $50\", 1 review)",
+   "expressedNeed": "bug / broken link / form testing with screenshots",
+   "economicState": "COMPLETED_PURCHASES_SPARSE",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "Verified Website Inquiry Audit report",
+   "deliveryScope": "one-site read-only report",
+   "buyerAccessPath": "Fiverr gig listing (new account + KYC + public publishing authority)",
+   "uncertainty": "commodity price level ~$50; review counts low in the results seen",
+   "approvalStatus": "LANE_C_CANDIDATE__DEFER"
+  },
+  {
+   "id": "DE-05",
+   "buyerCategory": "Apify Store users of website-audit / broken-link actors",
+   "publicSource": "apify.com/logiover/broken-link-checker (3 MAU, $3.50/1k), apify.com/zinin/broken-link-checker (1 MAU), apify.com/iskoren/sitemap-broken-link-checker (1 MAU), apify.com/weio/broken-link-checker-bulk (1 MAU), apify.com/dainty_screw/find-broken-links-of-your-website ($19.99/mo, 0 MAU)",
+   "expressedNeed": "near-zero observable usage of comparable actors",
+   "economicState": "NEGATIVE_EVIDENCE",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "verified-inquiry-defects Actor",
+   "deliveryScope": "pay-per-event per finding",
+   "buyerAccessPath": "Apify Store organic discovery",
+   "uncertainty": "MAU snapshots of unknown date; inquiry-path is not identical to broken links",
+   "approvalStatus": "LANE_C_APIFY_PRESERVE_BUT_DEFER"
+  },
+  {
+   "id": "DE-06",
+   "buyerCategory": "SMBs buying form monitoring as a recurring add-on",
+   "publicSource": "flyingfish.ie/daily-form-testing (EUR 10/month + EUR 50 setup, add-on to care plans); MoniForm ($10/$30 per month per alternativeto.net); Velnix Form Monitor (free WordPress plugin)",
+   "expressedNeed": "recurring proof that contact/booking forms still deliver",
+   "economicState": "RECURRING_SUPPLY_PRICE_SIGNAL",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "periodic read-only inquiry-path recheck (cannot submit forms)",
+   "deliveryScope": "weekly/monthly recheck per site",
+   "buyerAccessPath": "agency care-plan add-on (white-label)",
+   "uncertainty": "price ceiling for standalone single-site monitoring appears ~$10-30/month, far below the $2,500/month historical hypothesis",
+   "approvalStatus": "LANE_B_EVIDENCE"
+  },
+  {
+   "id": "DE-07",
+   "buyerCategory": "SMBs on agency maintenance retainers",
+   "publicSource": "seahawkmedia.com, fatlabwebsupport.com, apexure.com maintenance guides: $50-$500/month; broken-link monitoring in $160-$220 standard tiers; wpwebinfotech white-label plans $549-$3,199/month",
+   "expressedNeed": "ongoing site care incl. link/uptime checks; agencies buy white-label delivery capacity",
+   "economicState": "EXISTING_SPEND_CATEGORY",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "white-label recheck reports for agency care plans",
+   "deliveryScope": "portfolio-wide periodic report",
+   "buyerAccessPath": "agency partnership (outreach gate)",
+   "uncertainty": "vendor-blog benchmarks; QA is bundled, rarely itemised",
+   "approvalStatus": "LANE_B_EVIDENCE"
+  },
+  {
+   "id": "DE-08",
+   "buyerCategory": "software vendors / integration teams (API change evidence)",
+   "publicSource": "oasdiff (free OSS, 100+ breaking-change checks, CI integration); apify.com/junipr/openapi-spec-diff-auditor ($6.50/1k)",
+   "expressedNeed": "breaking-change detection is already served free",
+   "economicState": "NEGATIVE_DIFFERENTIATION_EVIDENCE",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "PR #1532 OpenAPI change-evidence compiler",
+   "deliveryScope": "spec diff report",
+   "buyerAccessPath": "developer marketplaces",
+   "uncertainty": "a spec-less observed-behaviour niche is unexplored",
+   "approvalStatus": "REJECT_WITH_PROVENANCE__RESURRECT_IF_SPECLESS_DEMAND_FOUND"
+  },
+  {
+   "id": "DE-09",
+   "buyerCategory": "Contra marketplace clients",
+   "publicSource": "jobbers.io / fastlancer.org Contra reviews (2026): 0% freelancer commission; possible flat $15 per payment (>$500: $29) on free plan, unconfirmed; job board described as thin",
+   "expressedNeed": "collection rail more than demand source",
+   "economicState": "CHANNEL_EVIDENCE",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "invoice / project / payment link for the direct pilot",
+   "deliveryScope": "n/a",
+   "buyerAccessPath": "existing Contra account (unobserved)",
+   "uncertainty": "fee schedule for this account UNKNOWN until observed",
+   "approvalStatus": "COLLECTION_ROUTE__FOUNDER_ACTION_1"
+  },
+  {
+   "id": "DE-10",
+   "buyerCategory": "home-service operator (Reliant Plumbing, Bastrop location)",
+   "publicSource": "https://reliantplumbing.com/ and /contact-us/ re-fetched read-only 2026-10-22T21:19Z (static HTML SHA-256 2be3f55a...ff696 and ea2353ec...6ed6a)",
+   "expressedNeed": "NONE EXPRESSED: prospect-specific evidence-of-work only (label (512) 305-1070 dials tel:5123050070, one digit different, still live on both pages)",
+   "economicState": "NO_DEMAND_EXPRESSED__EVIDENCE_OF_WORK_CURRENT",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "typo-class TEL_LABEL_DIALS_DIFFERENT_NUMBER (assertable after R3)",
+   "deliveryScope": "$99 one-site pilot per PR #1535",
+   "buyerAccessPath": "published office@ address; cold email (send authority NONE; Egypt sender-side law unresolved)",
+   "uncertainty": "which number is correct is unknown; label 512-975-3085 appears with two different targets, one being the main line (routing question, not sellable)",
+   "approvalStatus": "DRAFT_ONLY__AWAITING_FOUNDER_AUTHORIZATION"
+  },
+  {
+   "id": "DE-11",
+   "buyerCategory": "UK company with a published supplier invitation (Halfteck)",
+   "publicSource": "repository lineage: sales@halfteck.com, EXPLICIT_RELEVANT_SUPPLIER_INVITATION, CLEAN_EXACT_PRODUCTION_HISTORY (docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md)",
+   "expressedNeed": "publicly invites supplier contact (subject \"Suppliers\"); fit to an UberBond offer not re-verified this session",
+   "economicState": "SOLICITED_CONTACT_ROUTE",
+   "observedDate": "2026-10-07 (lineage), not refreshed",
+   "matchingCapability": "to be re-routed from evidence",
+   "deliveryScope": "UNKNOWN",
+   "buyerAccessPath": "solicited supplier inbox; sender-side law still unresolved",
+   "uncertainty": "invitation is to suppliers generally, not demand for a specific deliverable",
+   "approvalStatus": "PRESERVED__REFRESH_BEFORE_USE"
+  }
+ ],
+ "buyerPullTournament": {
+  "tests": [
+   "buyer",
+   "deliverability",
+   "collection",
+   "margin",
+   "acquisition",
+   "differentiation",
+   "repeatability",
+   "reliability",
+   "reality"
+  ],
+  "candidates": [
+   {
+    "id": "verified-website-inquiry-audit-99",
+    "buyer": "WEAK: adjacent spend only",
+    "deliverability": "PASS for typo-class/structured-data; weak prevalence",
+    "collection": "FAIL_NOW: Contra unobserved",
+    "margin": "PASS if sold (+$54..+$89 before founder time)",
+    "acquisition": "BLOCKED: send authority NONE, sender-side law unresolved",
+    "differentiation": "WEAK: structured-data errors are free-tool findings; typo-class phone defects are the differentiator but rare in enterprise sites",
+    "repeatability": "PASS: engine reusable",
+    "reliability": "PASS after R3 (no sold routing mismatches)",
+    "reality": "KILL if E1 shows <5% typo-class/path-breaking prevalence in agency-built SMB sites, or 0 qualified replies from the authorized probe",
+    "decision": "RUN_BOUNDED_EXPERIMENT"
+   },
+   {
+    "id": "lead-path-tracking-integrity",
+    "buyer": "PASS (category actively shopped)",
+    "deliverability": "UNKNOWN (public-page subset unproven)",
+    "collection": "FAIL_NOW (same gate)",
+    "margin": "UNKNOWN",
+    "acquisition": "PLAUSIBLE via inbound marketplaces",
+    "differentiation": "UNKNOWN",
+    "repeatability": "LIKELY",
+    "reliability": "UNKNOWN",
+    "reality": "KILL if E2 finds publicly observable tracking defects on <10% of SMB sites with independent corroboration",
+    "decision": "RESEARCH_MISSING_EVIDENCE"
+   },
+   {
+    "id": "white-label-fulfilment",
+    "buyer": "PLAUSIBLE",
+    "deliverability": "PASS",
+    "collection": "FAIL_NOW",
+    "margin": "UNKNOWN",
+    "acquisition": "BLOCKED (same outreach gate)",
+    "differentiation": "UNKNOWN",
+    "repeatability": "PASS",
+    "reliability": "PASS",
+    "reality": "KILL if 3 authorized agency conversations yield no interest",
+    "decision": "PRESERVE_BUT_DEFER"
+   },
+   {
+    "id": "single-audit-obligation-radar",
+    "buyer": "UNKNOWN",
+    "deliverability": "FAIL (no qualifying forecasts)",
+    "collection": "FAIL_NOW",
+    "margin": "UNKNOWN",
+    "acquisition": "UNKNOWN",
+    "differentiation": "UNKNOWN",
+    "repeatability": "PASS",
+    "reliability": "FAIL so far",
+    "reality": "KILL if hindcast < 20 correct signals",
+    "decision": "PRESERVE_BUT_DEFER"
+   },
+   {
+    "id": "api-contract-change-evidence",
+    "buyer": "WEAK",
+    "deliverability": "PASS",
+    "collection": "FAIL_NOW",
+    "margin": "UNKNOWN",
+    "acquisition": "UNKNOWN",
+    "differentiation": "FAIL vs oasdiff",
+    "repeatability": "PASS",
+    "reliability": "PASS",
+    "reality": "already failed differentiation",
+    "decision": "REJECT_WITH_PROVENANCE"
+   },
+   {
+    "id": "bilingual-procurement-amendment",
+    "buyer": "UNKNOWN",
+    "deliverability": "PROTOTYPE",
+    "collection": "FAIL_NOW",
+    "margin": "UNKNOWN",
+    "acquisition": "UNKNOWN",
+    "differentiation": "UNKNOWN",
+    "repeatability": "UNKNOWN",
+    "reliability": "UNKNOWN",
+    "reality": "KILL if no public bilingual-comparison demand found in 1 research hour",
+    "decision": "RESEARCH_MISSING_EVIDENCE"
+   },
+   {
+    "id": "apify-store-channel",
+    "buyer": "NEGATIVE (comparable actors 1-3 MAU)",
+    "deliverability": "PASS locally",
+    "collection": "WEAK (PayPal payout unusable; $100 non-PayPal threshold)",
+    "margin": "NEGATIVE-TO-SMALL in #1537 scenarios",
+    "acquisition": "organic store discovery weak",
+    "differentiation": "WEAK",
+    "repeatability": "PASS",
+    "reliability": "needs witness fixes + shared DB",
+    "reality": "already weak",
+    "decision": "PRESERVE_BUT_DEFER"
+   }
+  ]
+ },
+ "portfolio": {
+  "laneA_cashNow": {
+   "flagship": "verified-website-inquiry-audit-99",
+   "state": "ENGINEERING_READY_FOR_MANUAL_DELIVERY__COLLECTION_AND_SEND_AUTHORITY_BLOCKED",
+   "smallestProblemWorthPaying": "a call or booking control that a visitor can tap but that reaches a number one keystroke away from the printed one, or a form posting to a host that does not resolve: path-breaking, verifiable in 30 seconds",
+   "notSold": [
+    "unrelated-number mismatches (routing/tracking questions)",
+    "lost-revenue claims",
+    "unobservable pages"
+   ]
+  },
+  "laneB_recurring": {
+   "state": "NO_BUILD",
+   "evidence": [
+    "DE-06",
+    "DE-07"
+   ],
+   "minimumRecurringScope": "monthly read-only recheck of a buyer-nominated site list with change notifications, offered only to an accepted one-off buyer",
+   "priceCeilingObserved": "~EUR 10-$30 per site per month standalone; agency care plans bundle QA in $160-$220 tiers",
+   "historicalHypothesisCheck": "$2,500/month monitoring has no public comparable at single-site scale"
+  },
+  "laneC_marketplaces": {
+   "ranking": [
+    {
+     "channel": "Contra",
+     "role": "collection + profile; thin demand",
+     "decision": "FOUNDER_ACTION_1"
+    },
+    {
+     "channel": "Fiverr",
+     "role": "existing buyer traffic, no listing fee, 20% commission",
+     "decision": "DEFER until collection is ready; needs account/KYC and publishing authority"
+    },
+    {
+     "channel": "Upwork",
+     "role": "active buyers for tracking audits",
+     "decision": "DEFER: Connects cost money ($0 authority)"
+    },
+    {
+     "channel": "Apify Store",
+     "role": "comparable actors 1-3 MAU",
+     "decision": "PRESERVE_BUT_DEFER"
+    }
+   ]
+  }
+ },
+ "secondRoute": {
+  "selected": "lead-path-tracking-integrity",
+  "why": "only adjacent category with directly observed active buyer posts and fixed-price comparables; independent of cold outreach because demand is inbound",
+  "correlation": "shares the probe engine and SMB segment with Lane A: not fully independent; independence is in buyer-pull evidence and acquisition channel",
+  "funded": false,
+  "minimumCredibleSample": "E2",
+  "rejectedPreserved": [
+   "single-audit-obligation-radar (DEFER)",
+   "api-contract-change-evidence (REJECT, oasdiff)",
+   "bilingual-procurement-amendment (RESEARCH)",
+   "white-label-fulfilment (DEFER, same gate)"
+  ]
+ },
+ "experiments": [
+  {
+   "id": "E1-smb-portfolio-prevalence",
+   "question": "Do agency-built SMB home-service sites carry sellable (typo-class or path-breaking) inquiry defects often enough to support evidence-first acquisition?",
+   "hypothesis": ">= 5% of sites show at least one independently corroborated typo-class or path-breaking defect",
+   "frozenScope": ">= 40 single-location home-service sites taken from public agency portfolio/case-study pages, frozen with SHA-256 before scanning; agency attribution only from the agency's own public statement",
+   "evidenceSource": "existing delivery-only probe + independent parser + one human reproduction per assertable item",
+   "estimatedCostUsd": 0,
+   "founderInvolvementMinutes": 0,
+   "measurement": "count of sites with >=1 assertable finding after R3 rules; corroboration rate",
+   "successCriterion": ">= 2/40 sites (5%) with corroborated sellable defects",
+   "failureCriterion": "0-1/40 sellable defects",
+   "termination": "stop at 40 sites or 600 s budget per run; no sends",
+   "nextDecision": "success: authorize a 1-2 message probe to the attributed agencies; failure: drop \"find defects\" framing, promote E2",
+   "executor": "Chat on Steroids (packet CP-02 P6)",
+   "status": "PREPARED_NOT_RUN",
+   "predictionLedger": {
+    "prior": "UNKNOWN",
+    "note": "no defensible prior; enterprise cohort gave 0/40 typo-class, which is a biased floor"
+   }
+  },
+  {
+   "id": "E2-public-tracking-integrity",
+   "question": "Can UberBond detect conversion-tracking breaks from public pages often enough to sell a $149-$349 tracking-integrity check?",
+   "hypothesis": ">= 10% of SMB sites show an independently corroborated, publicly observable tracking defect",
+   "frozenScope": "same frozen cohorts as E1",
+   "evidenceSource": "existing lead-stack fingerprints extended per page (read-only)",
+   "estimatedCostUsd": 0,
+   "founderInvolvementMinutes": 0,
+   "measurement": "per-site defect classes with evidence excerpts",
+   "successCriterion": ">= 4/40 corroborated",
+   "failureCriterion": "< 4/40",
+   "termination": "one cohort pass",
+   "nextDecision": "success: prepare second-route offer and inbound listing draft; failure: reject with provenance",
+   "executor": "Chat on Steroids (packet CP-02 P7)",
+   "status": "PREPARED_NOT_RUN",
+   "predictionLedger": {
+    "prior": "UNKNOWN"
+   }
+  },
+  {
+   "id": "E3-authorized-first-touch",
+   "question": "Will a home-service operator or agency reply with interest to a free, verified finding plus a $99 offer?",
+   "hypothesis": ">= 1 qualified reply from <= 2 authorized messages is directional evidence only",
+   "frozenScope": "Reliant (DE-10) and optionally Hook Agency from PR #1535; RYNO stays HOLD",
+   "evidenceSource": "provider send receipt + IMAP reply ingestion",
+   "estimatedCostUsd": 0,
+   "founderInvolvementMinutes": "10-30 (authorization) + reply handling",
+   "measurement": "authorized -> delivered -> reply -> qualified -> scope accepted",
+   "successCriterion": "any qualified reply within 7 days",
+   "failureCriterion": "0 replies in 7 days (insufficient evidence, not proof of no demand)",
+   "termination": "7 days, zero follow-ups",
+   "nextDecision": "reply: async scope -> Contra payment link after acceptance; none: revise offer framing using E1/E2",
+   "executor": "existing outreach control plane after founder authorization",
+   "status": "BLOCKED_ON_FOUNDER_ACTION_2",
+   "predictionLedger": {
+    "prior": "reference class: published B2B cold-email reply rates are low single-digit percent; with 1-2 messages the most likely outcome is zero replies; not a forecast"
+   }
+  }
+ ],
+ "unitEconomics": {
+  "directPilot99": {
+   "grossUsd": 99,
+   "collectionFeesUsd": {
+    "pessimistic": 45,
+    "base": 30,
+    "optimistic": 10,
+    "basis": "Contra flat $0-15 (third-party review, unconfirmed) + SWIFT intermediary/receiving $10-30 (assumption; tournament artifact cites $10-50)"
+   },
+   "computeUsd": "~0.01",
+   "founderMinutesPerSale": {
+    "pessimistic": 160,
+    "base": 80,
+    "optimistic": 40
+   },
+   "contributionBeforeFounderTimeUsd": {
+    "pessimistic": 54,
+    "base": 69,
+    "optimistic": 89
+   },
+   "contributionPerFounderMinuteUsd": {
+    "pessimistic": 0.34,
+    "base": 0.86,
+    "optimistic": 2.23
+   },
+   "probabilityOfSale": "UNKNOWN",
+   "expectedValueOf3Contacts": "dominated by information value, not cash",
+   "workingCapitalUsd": 0,
+   "refundExposureUsd": 99,
+   "taxAndLegal": "ETA status UNKNOWN; income tax separate from contribution",
+   "assumptionsTimestamp": "2026-10-22"
+  },
+  "apifyStore": "see #1537 UNIT_ECONOMICS.md (-$1.03 / -$1.23 / +$5.39 per 40-site cohort) plus payout threshold correction",
+  "recurring": "per-site ceiling ~$10-30/month from comparables; no customer"
+ },
+ "evidenceClassMapping": {
+  "note": "reuse, no new ontology",
+  "IDEA": "founder 890 / atlas",
+  "RESEARCHED_HYPOTHESIS": "economicRealityAudit + demandEvidence",
+  "PROTOTYPE": "offline modules (#1532)",
+  "TESTED_PRODUCT": "focused tests (76/76 on #1537)",
+  "PRODUCTION_DEPLOYED": "none for the inquiry audit",
+  "QUALIFIED_BUYER_INTEREST": "reply-intelligence states (none)",
+  "ACCEPTED_COMMERCIAL_OFFER": "Contra CONTRACT_SIGNED / written scope (none)",
+  "PAID_ORDER": "Contra PAYMENT_REQUESTED -> PROVIDER_PAID (none)",
+  "ACCEPTED_DELIVERY": "explicit buyer acceptance (none)",
+  "SETTLED_PROVIDER_FUNDS": "Contra PAYOUT_CLEARED + bank credit (none)",
+  "CLEARED_CONTRIBUTION_PROFIT": "revenue-reality-ledger CLEARED_CONTRIBUTION_PROFIT tier (none)"
+ },
+ "redTeam": [
+  {
+   "question": "Can a false website defect create a refund or damage trust?",
+   "status": "MITIGATED_PARTIALLY",
+   "evidence": "R3: unrelated-number mismatches are never sold; typo-class only; acceptance before invoice; one correction pass. Residual: no human reproduction yet (W6)."
+  },
+  {
+   "question": "Can an agency reproduce the result?",
+   "status": "OPEN",
+   "evidence": "Reproduction steps exist per finding; zero independent reproductions performed."
+  },
+  {
+   "question": "Can a technically correct finding still be commercially worthless?",
+   "status": "CONFIRMED_RISK",
+   "evidence": "Structured-data parse errors are flagged by free tools; 4/4 corroborated cohort candidates are this class."
+  },
+  {
+   "question": "Can the service consume compute on thousands of clean sites without revenue?",
+   "status": "BOUNDED",
+   "evidence": "35/40 enterprise sites produced nothing; compute ~$0.01 per 40 sites (hypothetical CU); direct pilot is buyer-nominated so no speculative scanning cost."
+  },
+  {
+   "question": "Can a customer be double-charged?",
+   "status": "MITIGATED",
+   "evidence": "Atomic PostgreSQL reservation (12 concurrent runs -> 1 charge, re-run 2026-10-22 on PG16); direct pilot is a single manual invoice after acceptance."
+  },
+  {
+   "question": "Can a failed charge appear as successful?",
+   "status": "MITIGATED",
+   "evidence": "Unpriced Apify events refused; UNKNOWN outcomes never retried; CONFIRMED != cleared."
+  },
+  {
+   "question": "Can a refund remain counted as retained profit?",
+   "status": "MITIGATED",
+   "evidence": "CLEARED tier requires PAYMENT_RETAINED PROVEN; R1 withholds all amounts on an unverifiable chain."
+  },
+  {
+   "question": "Can a payout be misclassified as cleared before reaching the founder?",
+   "status": "MITIGATED_IN_LEDGER",
+   "evidence": "Ledger requires trusted verification; real path must reconcile Contra payout + bank credit (Contra lifecycle vocabulary)."
+  },
+  {
+   "question": "Can an inactive payout account make an otherwise profitable product unusable?",
+   "status": "FOUND_AND_FIXED",
+   "evidence": "PayPal deactivated: #1535 route and #1537 economics corrected; rail registry R4."
+  },
+  {
+   "question": "Can a false assumption about Egyptian eligibility invalidate the whole channel?",
+   "status": "OPEN",
+   "evidence": "Contra Egypt payout is support-confirmed but account-unobserved; sender-side marketing law unresolved."
+  },
+  {
+   "question": "Can the outreach system send from an unready mailbox?",
+   "status": "MITIGATED_BY_EXISTING_GATES",
+   "evidence": "sender health evidence expired 2026-10-08; ordinal 3 quarantined; outboundAuthority NONE; refresh required before any send."
+  },
+  {
+   "question": "Can two agents modify the same branch and overwrite work?",
+   "status": "MANAGED",
+   "evidence": "Claude pushed one fast-forward commit to #1537 after verifying the remote head; comment tells Chat on Steroids to fetch first; orchestration work is on a separate branch."
+  },
+  {
+   "question": "Can a new PR weaken payment integrity inherited from another PR?",
+   "status": "CHECKED",
+   "evidence": "#1537 ports #1532 integrity tests (5/5) and keeps #1536 reservation tests; R1/R2 tightened, nothing relaxed."
+  },
+  {
+   "question": "Can a buyer receive an unclear deliverable and reject acceptance?",
+   "status": "OPEN",
+   "evidence": "Report renders clearly; buyer comprehension untested; acceptance must be explicit."
+  },
+  {
+   "question": "Can competitor pricing make the proposed product unattractive?",
+   "status": "LIKELY_FOR_GENERIC_QA",
+   "evidence": "Marketplace QA ~$50; form monitoring EUR 10-$30/mo. $99 needs the verified, reproducible evidence differentiator."
+  },
+  {
+   "question": "Can founder support time destroy the apparent margin?",
+   "status": "YES_AT_LOW_VOLUME",
+   "evidence": "At the allocator's $10/hour shadow cost the pessimistic case stays positive (+$27 at 160 min); at the ~$30/hour implied by #1537 UNIT_ECONOMICS it turns negative (-$47 at 180 min). Early sales are information purchases, not margin."
+  },
+  {
+   "question": "Can a positive backtest distract engineering effort from existing paying demand?",
+   "status": "GUARDED",
+   "evidence": "Quant lab produced no promoted experiment; capital allocation funds nothing; no engineering is assigned to it here."
+  }
+ ],
+ "controlBoard": {
+  "asOf": "2026-10-22T21:20Z",
+  "sourceSha": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "clearedContributionProfitUsd": 0,
+  "confirmedCustomerPayments": 0,
+  "acceptedDeliveries": 0,
+  "activePayingCustomers": 0,
+  "repeatCustomers": 0,
+  "commercialOffersAccepted": 0,
+  "qualifiedConversations": 0,
+  "authorizedOutreachSent": {
+   "thisMission": 0,
+   "historicalNote": "frozen Intelo send outcome UNKNOWN_0_OR_1: never replay"
+  },
+  "verifiedPayoutReadiness": {
+   "state": "NOT_READY",
+   "contra": "PROVIDER_CONFIRMED_EGYPT_SWIFT__ACCOUNT_UNOBSERVED",
+   "paypal": "PERMANENTLY_DEACTIVATED (do not replace)",
+   "payoneer": "RECOVERY_ONLY_BACKUP",
+   "xpay": "REVIEW_TEST_ONLY_BACKUP",
+   "apify": "payout method PayPal unusable; non-PayPal threshold $100"
+  },
+  "deployableProducts": [
+   {
+    "product": "Verified Website Inquiry Audit (direct pilot)",
+    "engineering": "READY_FOR_MANUAL_DELIVERY (delivery-only actor + renderer, local Docker smoke PASS per #1537)",
+    "market": "NOT_VALIDATED"
+   },
+   {
+    "product": "Verified Website Inquiry Audit (Apify Store)",
+    "engineering": "HOLD (witness fidelity, shared reservation DB, price unset)",
+    "market": "NEGATIVE_COMPARABLE_EVIDENCE"
+   }
+  ],
+  "measuredContributionMarginUsd": "UNKNOWN (no sale)",
+  "founderMinutesSpent": "NOT_MEASURED (this mission requested none)",
+  "actualBlockers": [
+   "Contra account sign-in/KYC/payout observation (founder-only)",
+   "send authority + Egypt sender-side marketing-law position (founder/counsel)",
+   "publishable sender identity/footer (founder)",
+   "ETA invoicing status for exported services (founder)",
+   "sender health evidence expired 2026-10-08 (refreshable internally once authorized)"
+  ],
+  "nextLowestCostDecisiveExperiment": "E1 (zero cost, zero founder minutes, internal) in parallel with founder action 1 (Contra)",
+  "engineeringReadinessVsMarketValidation": "SEPARATE: engineering for a manual $99 delivery is ready; market validation is zero",
+  "simulatedEarningsDisplayed": false
+ },
+ "founderActionQueue": [
+  {
+   "rank": 1,
+   "platform": "contra.com (existing account; do not create a new one)",
+   "action": "Sign in through Contra's own secure flow; complete only the KYC/tax/payout steps Contra itself asks for; confirm the Egyptian bank SWIFT payout destination; confirm a payment link or invoice can be created (do not send one). Do NOT buy Contra Pro.",
+   "reason": "Every mechanism's first cash needs a working collection account; PayPal is permanently deactivated, so the #1535 PayPal sign-in action is superseded. The Oct-9 \"collection last\" order is superseded by the Oct-22 mission, which makes the first cleared payment the first milestone.",
+   "costUsd": 0,
+   "timeMinutes": "20-60",
+   "consequence": "COLLECTION_READY can move from false to observed; identity/KYC data goes only to Contra",
+   "evidenceOfCompletion": "record account state through the existing owner route POST /api/owner/contra-collection-observation (no secrets), or paste a text summary of plan, KYC status, payout method and fee schedule",
+   "defaultIfUnanswered": "COLLECTION_READY stays false; no payment request can be made; E1/E2 continue"
+  },
+  {
+   "rank": 2,
+   "platform": "this repository: PR #1535 drafts + the existing outreach control plane",
+   "action": "Decide the sender-side position and authorize (or decline) the exact Reliant-only first touch (optionally Hook): final body from #1535, factual sender identity and publishable footer, one message each, zero follow-ups, $0 spend. If you prefer to avoid the unresolved Egypt marketing-law question, choose \"solicited routes only\" and E3 stays parked.",
+   "reason": "Outbound authority is NONE and the Egypt sender-side marketing-law interpretation is unresolved; only the founder (or counsel) can take that position. Reliant's finding was re-verified live today.",
+   "costUsd": 0,
+   "timeMinutes": "10-30",
+   "consequence": "At most 1-2 real business emails; reputation risk is small if the finding is accurate (it was re-fetched today)",
+   "evidenceOfCompletion": "exact approval record bound to recipient, sender, subject/body digest and expiry; provider send receipt",
+   "defaultIfUnanswered": "DO_NOT_SEND; nothing leaves; E1 results decide whether the offer framing changes first"
+  },
+  {
+   "rank": 3,
+   "platform": "Egyptian Tax Authority portal / your accountant",
+   "action": "Confirm your tax-file and e-invoicing status for an exported service before the first invoice (see ETA sources in #1535).",
+   "reason": "Invoice comes after buyer acceptance; issuing a non-compliant invoice is irreversible.",
+   "costUsd": "0 (unless an accountant is engaged: requires separate approval)",
+   "timeMinutes": "30-120",
+   "consequence": "lawful invoice path for the first sale",
+   "evidenceOfCompletion": "private note of status; repository gets only \"ETA_STATUS_CONFIRMED\" with date",
+   "defaultIfUnanswered": "no invoice is issued; a buyer acceptance would wait"
+  }
+ ],
+ "crossover890": [
+  {
+   "id": "founder-moonshot-0058",
+   "title": "THE ERROR ECONOMY",
+   "use": "the defect product; bounty framing already rejected (rank 6)"
+  },
+  {
+   "id": "founder-moonshot-0059",
+   "title": "THE PREDICTION ACCOUNTING SYSTEM",
+   "use": "experiments E1-E3 carry preregistered success/failure thresholds and priors (UNKNOWN where indefensible)"
+  },
+  {
+   "id": "founder-moonshot-0146",
+   "title": "THE KNOWLEDGE PACKET",
+   "use": "demand-evidence record shape: claim + source + uncertainty + falsifier"
+  },
+  {
+   "id": "founder-moonshot-0178",
+   "title": "THE MISSING-MARKET DETECTOR",
+   "use": "QA demand already meets supply at low prices; the unresolved variable is trust/verification, which is the only differentiator worth selling"
+  },
+  {
+   "id": "founder-moonshot-0306",
+   "title": "THE PROOF-OF-VALUE PRIMITIVE",
+   "use": "acceptance + provider-cleared payment binding; customer-run disproof steps"
+  },
+  {
+   "id": "founder-moonshot-0013",
+   "title": "THE OBSERVABILITY ENGINE",
+   "use": "second route: make invisible tracking breaks publicly observable"
+  },
+  {
+   "id": "founder-moonshot-0449",
+   "title": "THE REALITY TYPE SYSTEM",
+   "use": "evidence-class mapping above"
+  }
+ ],
+ "externalEffects": {
+  "messagesToProspects": 0,
+  "providerCalls": 0,
+  "spendUsd": 0,
+  "deployments": 0,
+  "merges": 0,
+  "publicGetsToProspectSite": 2,
+  "gitPushes": [
+   "feat/commercialization-omega-w1-w8-20261022 (9bcdf54, fast-forward)",
+   "claude/machiavelli-omega-orchestration-20261022"
+  ],
+  "prComments": [
+   "#1537",
+   "#1535"
+  ],
+  "webSearches": "public, read-only; Upwork job pages returned 403 and were not bypassed"
+ },
+ "notAuthorizedNotDone": [
+  "any prospect message",
+  "any payment request or invoice",
+  "Contra/PayPal/Apify/Fiverr/Upwork account actions",
+  "Apify publication",
+  "deployment",
+  "merge of any PR",
+  "spend"
+ ]
+}

@@ -1607,5 +1607,52 @@
       "Crypto rails legally blocked pending Egyptian counsel (Law 194/2020 Art. 206)"
     ],
     "nextHighestValueMission": "Founder completes payout KYC and proves one small payment reaches Egypt; then publish the verified-defects Actor (path-breaking classes only) and run the Single Audit radar willingness-to-pay probe."
+  },
+  "machiavelliOmegaOrchestration20261022": {
+    "founderDirective": "UBERBOND MACHIAVELLI Ω — Autonomous Economic Orchestration Constitution (PDF, 2026-10-22): first cash -> repeatable profit -> recurring revenue; Claude = chief economic orchestrator/reviewer, Chat on Steroids = build/verify, GPT Work = real-world operations prep, founder = consequential authority",
+    "receipt": "docs/commercialization/MACHIAVELLI_OMEGA_ORCHESTRATION_2026-10-22.md",
+    "machineRecord": "artifacts/commercialization/omega-orchestration-2026-10-22.json",
+    "workPacket": "docs/commercialization/WORK_PACKET_CP02_OMEGA_REPAIRS_AND_EXPERIMENTS_2026-10-22.md",
+    "branch": "claude/machiavelli-omega-orchestration-20261022",
+    "phoenixCheckpoint": "PHX-COMM-OMEGA-ORCH-20261022",
+    "sourceMain": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+    "prs": {
+      "1535": "DRAFT GPT Work first-money packet; PayPal route contradicted by repository record (comment posted)",
+      "1536": "DRAFT CP-01 billing repair",
+      "1537": "DRAFT Chat on Steroids W1-W8; independent Claude review posted; R1/R2 fix 9bcdf54 pushed",
+      "1532": "DRAFT dirty donor"
+    },
+    "fixes": {
+      "R1_R2_ledger_withhold_amounts_and_fail_closed_verifiers": "9bcdf54 on #1537",
+      "R3_unrelated_number_mismatch_never_sold": "a85f627 on this branch",
+      "R4_paypal_deactivated_contra_added_to_rail_registry": "826ecb9 on this branch"
+    },
+    "verifiedState": "Engineering for a manual $99 one-site Verified Website Inquiry Audit is ready; Reliant typo-class finding re-verified live 2026-10-22T21:19Z. Market validation zero. Public comparables show commodity pricing (QA gigs ~$50; form monitoring EUR 10-$30/mo; comparable Apify actors 1-3 MAU). Conversion-tracking audits show the clearest active buyer pull and are the unfunded second route.",
+    "clearedContributionProfitUsd": 0,
+    "collectionRoute": {
+      "contra": "PROVIDER_CONFIRMED_EGYPT_SWIFT__ACCOUNT_UNOBSERVED",
+      "paypal": "PERMANENTLY_DEACTIVATED__NOT_A_RECOVERY_TARGET"
+    },
+    "genuineBlockers": [
+      "Contra existing-account sign-in/KYC/payout observation (founder)",
+      "send authority and Egypt sender-side marketing-law position (founder/counsel)",
+      "publishable sender identity/footer (founder)",
+      "ETA invoicing status for exported services (founder)"
+    ],
+    "founderActionQueue": [
+      "Contra sign-in + required KYC/payout only; confirm a payment link can be created; $0",
+      "Decide sender-side position; approve or decline the exact Reliant-only first touch from #1535; zero follow-ups; $0",
+      "Confirm ETA tax/e-invoicing status before any invoice"
+    ],
+    "nextHighestValueMission": "Run CP-02 P6 (E1: sellable-defect prevalence on agency-built SMB sites, zero effect) and P1-P5 repairs; in parallel the founder completes action 1. Do not publish the Apify Actor or send outreach without explicit authorization.",
+    "externalEffects": {
+      "prospectMessages": 0,
+      "paymentRequests": 0,
+      "spendUsd": 0,
+      "deployments": 0,
+      "merges": 0,
+      "readOnlyPublicGets": 2
+    },
+    "supersedes": "Only the PayPal-first payment route in PR #1535 and the PayPal fee model in PR #1537 economics. The 2026-10-09 'Contra collection last' ordering is superseded by the 2026-10-22 founder mission that makes the first cleared payment the first milestone. All prior lineage retained."
   }
 }

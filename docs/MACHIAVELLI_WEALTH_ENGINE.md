@@ -252,4 +252,3 @@ A three-lens review (statistics, money truth, safety) with independent refutatio
   - `$` and `*` robots rules are honoured;
   - 429/503 pages stop the crawl.
 - **Runtime witness** (finding unverified, hardened anyway): service workers and WebSockets are blocked, and the Chromium sandbox stays on unless the process runs as root. DNS-rebinding between the guard's lookup and the browser's connection remains a residual risk.
-

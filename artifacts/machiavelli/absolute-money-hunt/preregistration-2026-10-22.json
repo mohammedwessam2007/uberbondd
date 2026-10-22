@@ -3,7 +3,13 @@
   "registeredAt": "2026-10-22T22:35:00Z",
   "mission": "UBERBOND MACHIAVELLI Omega-Infinity: THE ABSOLUTE MONEY HUNT (founder directive 2026-10-22). Directive text was not attached to this session or found in the repository: NOT_HYDRATED. The 120 income-mechanism seeds it references are likewise NOT_HYDRATED; nothing here claims to have read them.",
   "selectionRationale": "Open drafts #1532/#1535/#1536/#1537/#1538 all work the website-inquiry-audit lane; #1538 already ran E1 there and assigned E2. To avoid duplication, this session runs the two tournament-recommended experiments that were never executed: rank 1 (Single Audit Obligation Radar) and rank 3 (Apify Store breakage). Both are read-only on public data, zero cost, zero contact.",
-  "authority": { "businessEffectAuthority": "NONE", "messages": 0, "spendUsd": 0, "accountsCreated": 0, "trades": 0 },
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "messages": 0,
+    "spendUsd": 0,
+    "accountsCreated": 0,
+    "trades": 0
+  },
   "experiments": [
     {
       "id": "X1-single-audit-radar-hindcast",
@@ -13,26 +19,45 @@
         "fac": "keyless FAC bulk CSVs general.csv and additional_ueis.csv from app.fac.gov/dissemination/public-data/gsa/full/ (download date and SHA-256 recorded in the result)",
         "usaspending": "POST /api/v2/search/spending_by_category/recipient/ ; federal FY2023 (2022-10-01..2023-09-30); award types 02,03,04,05; recipient_type nonprofit; place of performance state"
       },
-      "states": ["GA", "OH", "AZ"],
-      "threshold": { "usd": 750000, "basis": "2 CFR 200.501 as in force before the 2024 revision; the $1,000,000 threshold applies only to fiscal years beginning on or after 2024-10-01" },
+      "states": [
+        "GA",
+        "OH",
+        "AZ"
+      ],
+      "threshold": {
+        "usd": 750000,
+        "basis": "2 CFR 200.501 as in force before the 2024 revision; the $1,000,000 threshold applies only to fiscal years beginning on or after 2024-10-01"
+      },
       "estimator": "FY2023 direct federal obligations per recipient UEI. Known bias: obligations are not expenditures, and pass-through (subaward) funding is invisible, which harms recall but not the precision measured here.",
       "flagRule": [
         "FY2023 direct obligations >= $750,000",
         "no FAC report (as auditee UEI or as additional UEI) for audit years 2019-2022 accepted before 2023-10-01",
         "no FAC report for audit years 2019-2022 accepted before 2023-10-01 whose normalized auditee name + state equals the recipient's (guards against UEI changes)"
       ],
-      "strata": { "core": "$750K <= obligations < $5M", "large": "obligations >= $5M" },
+      "strata": {
+        "core": "$750K <= obligations < $5M",
+        "large": "obligations >= $5M"
+      },
       "outcome": {
-        "primary": "entity files audit year 2023 or 2024 (auditee UEI, additional UEI, or normalized name + state) — absorbs entity fiscal-year misalignment",
+        "primary": "entity files audit year 2023 or 2024 (auditee UEI, additional UEI, or normalized name + state) \u2014 absorbs entity fiscal-year misalignment",
         "strict": "audit year 2023 only"
       },
-      "metrics": ["precision_primary (core stratum is the headline)", "precision_strict", "true new obligors per state", "outcome categories: FILED_PRIMARY, FILED_LATER_ONLY, NEVER_FILED"],
+      "metrics": [
+        "precision_primary (core stratum is the headline)",
+        "precision_strict",
+        "true new obligors per state",
+        "outcome categories: FILED_PRIMARY, FILED_LATER_ONLY, NEVER_FILED"
+      ],
       "decisionRules": {
         "kill": "core-stratum precision_primary < 0.35 (the kill threshold set in docs/MACHIAVELLI_WEALTH_ENGINE.md)",
         "thinYield": "median true new obligors per state < 5 means commercially thin even if precise",
         "continue": "precision >= 0.35 and median yield >= 5"
       },
-      "descriptiveOnly": ["national first-time filers per audit year (UEI absent from the prior three audit years and from additional_ueis)", "distinct auditor firms and concentration", "year-over-year auditor-change rate"]
+      "descriptiveOnly": [
+        "national first-time filers per audit year (UEI absent from the prior three audit years and from additional_ueis)",
+        "distinct auditor firms and concentration",
+        "year-over-year auditor-change rate"
+      ]
     },
     {
       "id": "X2-apify-store-breakage-observatory",
@@ -50,6 +75,16 @@
         "continue": "otherwise, rank unabsorbed broken leaders by stranded users30 as build candidates"
       },
       "notClaimed": "The canon's 14-day migration test needs a second snapshot on or after 2026-11-05 with these exact definitions. One snapshot measures a cross-section, not migration."
+    }
+  ],
+  "amendments": [
+    {
+      "id": "X2-A1",
+      "recordedAt": "2026-10-22T23:20:00Z",
+      "experiment": "X2-apify-store-breakage-observatory",
+      "reason": "The public Store API returns no items at offset >= 15000 for every sortBy tried (newest, popularity, default), so the pre-registered full pagination is impossible. A first run with sortBy=newest read 11,368 of 93,895 Actors; it is void and is not scored. Disclosure: its output (1 broken leader) was seen before this amendment.",
+      "change": "Reconstruct the listing as the union of (a) the global popularity-sorted crawl and (b) a popularity-sorted crawl per category, deduplicated by username/name. Definitions and decision rules are unchanged.",
+      "completenessRule": "Score H2a/H2b only if, for every partition that reached the offset cap, the maximum users30 on its last page is below the substitute floor (50). Otherwise publish INCOMPLETE and make no decision. Assumption stated: within a partition, popularity order is close enough to users30 order that no Actor beyond the cap reaches 50 users30 when the last page does not."
     }
   ]
 }

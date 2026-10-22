@@ -11,6 +11,7 @@ import { runVerifiedDefectsSale, inquiryReprobeVerifier } from '../src/inquiry-f
 import { defectSurvival, reverifyFinding } from '../src/self-verifying-findings.mjs';
 import { probeInquiryPath } from '../src/inquiry-path-probe.mjs';
 import { witnessRuntimeTelLinks } from '../src/inquiry-path-runtime-witness.mjs';
+import { createProcessChargeReservations } from '../src/charge-reservations.mjs';
 
 const args = process.argv.slice(2);
 const flag = name => { const index = args.indexOf(`--${name}`); return index >= 0 ? args[index + 1] : null; };
@@ -26,7 +27,11 @@ const receipt = await runVerifiedDefectsSale({
   probe,
   verifyProbe: probe,
   pricePerVerifiedCents: 50,
-  charge: async event => { recorded.push(event); return { ok: true }; },
+  // One local process with a recording ledger: a single-process reservation is
+  // the true guarantee here, and nothing reaches a payment provider.
+  reservations: createProcessChargeReservations(),
+  requiredGuarantee: 'ATOMIC_SINGLE_PROCESS',
+  charge: async event => { recorded.push(event); return { status: 'CONFIRMED' }; },
   pushItem: async item => items.push(item)
 });
 
@@ -36,7 +41,7 @@ const receipt = await runVerifiedDefectsSale({
 const registryPath = flag('first-seen');
 const registry = registryPath && existsSync(registryPath) ? JSON.parse(readFileSync(registryPath, 'utf8')) : {};
 const at = new Date().toISOString();
-const deliveredIds = new Set(receipt.charges.map(charge => charge.findingId));
+const deliveredIds = new Set(receipt.billingOutcomes.map(entry => entry.findingId));
 const refusedOutcome = new Map(receipt.refusals.map(refusal => [refusal.findingId, refusal.outcome]));
 for (const finding of receipt.discoveredFindings) registry[finding.id] ??= { finding, firstSeen: at };
 const verifier = inquiryReprobeVerifier({ probe });

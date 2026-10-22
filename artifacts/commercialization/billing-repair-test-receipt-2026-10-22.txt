@@ -1,0 +1,30 @@
+# Billing repair receipt — branch feat/commercialization-verified-inquiry-audit-20261022, base main 3a7a0b7, node v22.22.0, PostgreSQL 16.15 local disposable server, 2026-10-22T14:49:56Z
+# Command: UBERBOND_TEST_POSTGRES_URL=postgres://postgres@127.0.0.1:55432/postgres node --test tests/verified-defects-billing.test.mjs tests/self-verifying-findings.test.mjs
+ok 1 - findings are identified by what they claim, not when they were seen
+ok 2 - a reproduction needs fresh evidence; a crashing verifier is never evidence
+ok 3 - only reproduced findings are charged, once per buyer per finding per day, within the buyer limit
+ok 4 - defect survival curve is the descendant data product
+ok 5 - bridge: only assertable findings are sellable, with stable claim keys
+ok 6 - sale run: a defect fixed between discovery and delivery is not charged
+ok 7 - review regressions: deliver before charge, persisted keys survive a restart, URL variants are one site, a limit stops charging
+ok 8 - defect A: concurrent runs from one persisted snapshot never charge the same buyer, finding and day twice
+ok 9 - defect B: a refused charge never leaves a buyer-facing item that implies payment
+ok 10 - a process-local store cannot satisfy the cross-run requirement, so separate processes charge nothing
+ok 11 - a charge callback that throws is UNKNOWN: kept reserved, never retried, and charging stops
+ok 12 - responses that do not say billed or not billed are UNKNOWN, not refused
+ok 13 - a definite refusal releases the reservation, so a later run the same day may charge once
+ok 14 - an unavailable reservation store stops charging and still delivers, free
+ok 15 - a failed delivery releases the reservation and is never charged
+ok 16 - the spending limit is checked before delivery: an exhausted buyer gets no free item and no overcharge
+ok 17 - an interrupted run that reserved but never settled blocks every later charge of that key
+ok 18 - the same finding twice in one request is charged once; the delivered item is frozen at pending
+ok 19 - a delivery-only run (fixed-price engagement) never charges and needs no reservation store
+ok 20 - Apify adapter: unpriced events and non pay-per-event runs never produce a believed charge
+ok 21 - Apify adapter: budget exhaustion and platform failures map to refused and unknown
+ok 22 - defect A repaired against real PostgreSQL: many concurrent runs, exactly one charge per buyer, finding and day
+# tests 22
+# pass 22
+# fail 0
+# skipped 0
+# Mutation check: replacing INSERT ... ON CONFLICT DO NOTHING with SELECT-then-INSERT made the PostgreSQL test fail: 'twelve concurrent runs, one charge — 6 !== 1'. Restored source is byte-identical (diff -q).
+# Without UBERBOND_TEST_POSTGRES_URL the PostgreSQL test reports SKIPPED, never passed.

@@ -1364,6 +1364,11 @@
       "category": "AWAITING_ACTIVATION",
       "gate": "NO_VERIFIED_CANONICAL_INGRESS_BINDING",
       "reason": "Source-tested bounded transactional reconciler; deliberately has no unattended entry point until the real canonical stop-list database and a sanctioned authenticated private ingress snapshot reader are verified. Requires database identity and table readback; cannot create an empty replacement store, export credentials, send messages or grant outbound authority."
+    },
+    "src/apify-ppe-billing.mjs": {
+      "category": "AWAITING_ACTIVATION",
+      "gate": "NO_PAYMENT_PROVIDER",
+      "reason": "Imported only by the Apify Actor shell actors/verified-inquiry-defects/main.mjs, which is outside the scanned entry points. It maps Apify pay-per-event charging onto the sale's charge contract and refuses unpriced, fractional-cent or dataset-item-billed configurations. No priced Actor is published and no platform charge event exists, so it has nothing real to bill."
     }
   }
 }

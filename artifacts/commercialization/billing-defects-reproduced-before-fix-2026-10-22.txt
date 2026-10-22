@@ -28,10 +28,10 @@ not ok 2 - defect B: a refused charge never leaves a buyer-facing item that impl
   error: |-
     dataset item carries charge id b2c09b0a30af0c0443e30d894360ecd9f7150c69 although nothing was billed
     + actual - expected
-    
+
     + 'b2c09b0a30af0c0443e30d894360ecd9f7150c69'
     - null
-    
+
   code: 'ERR_ASSERTION'
   name: 'AssertionError'
   expected: ~

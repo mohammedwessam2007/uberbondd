@@ -71,7 +71,7 @@ Do the items in this order. Each item lists its own acceptance criteria.
   - a redirect loop;
   - a page whose script rewrites the `tel:` link after load;
   - a site whose robots.txt returns 503.
-  
+
   All four must end within budget and with no charge.
 
 ### W3. Customer deliverable: the Verified Website Inquiry Audit report

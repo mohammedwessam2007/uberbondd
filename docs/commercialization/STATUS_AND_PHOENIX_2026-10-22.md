@@ -20,7 +20,7 @@ Work packet: `docs/commercialization/VERIFIED_INQUIRY_AUDIT_WORK_PACKET_2026-10-
 1. Two regression tests reproduce the reported defects on unchanged `main` (commit `ebf7f4f`):
    - A: concurrent runs billed 2×;
    - B: a refused charge still published a charge id.
-   
+
    Receipt: `artifacts/commercialization/billing-defects-reproduced-before-fix-2026-10-22.txt`.
 2. Repair (commit `c9f4708`):
    - atomic cross-run reservations (`src/charge-reservations.mjs`);

@@ -11,12 +11,12 @@ Subordinate to the Sovereign Cognitive Continuum. `businessEffectAuthority: NONE
 | Deliverable | Where | State |
 |---|---|---|
 | 1. Wealth Mechanism Atlas | `artifacts/machiavelli/wealth-mechanism-atlas.json`, test `tests/machiavelli-wealth-atlas.test.mjs` | all 890 founder ideas classified by economic mechanism + 48-mechanism external reality catalogue |
-| 2. Autonomous Profit Tournament | `artifacts/machiavelli/profit-tournament.json` | see section below |
+| 2. Autonomous Profit Tournament | `artifacts/machiavelli/profit-tournament.json` | 16 mechanisms, 6 adversarially refuted, all WOUNDED |
 | 3. Quant Trading Research Laboratory | `src/quant-data-vault.mjs`, `src/quant-backtest.mjs`, `src/quant-strategies.mjs`, `src/quant-research-protocol.mjs`, `src/quant-paper-ledger.mjs`, `scripts/quant-lab.mjs`, receipt `artifacts/quant-lab/experiments-2021-01_2026-09.json` | working; 17 pre-registered experiments; none promoted |
-| 4. Prototype portfolio | see section below | |
+| 4. Prototype portfolio | see below | 3 built, tested and exercised on live public data |
 | 5. Capital Allocation Intelligence | `src/capital-allocation-intelligence.mjs` | $0/$100/$500/$1k/$5k/$25k scenarios with ruin firewall, correlation groups, founder-hour limits |
 | 6. Revenue Reality Ledger | `src/revenue-reality-ledger.mjs` | five tiers, hash-chained, never summed across tiers |
-| 7. Commercialization paths | tournament `smallestLawfulExperiment` per survivor | |
+| 7. Commercialization paths | see below | smallest lawful experiment per survivor |
 | 8. PHOENIX preservation | this document + receipts + rejected-strategy records | |
 | Money Entry Rail Registry | `src/money-entry-rails.mjs` | blocks mechanisms whose money has no lawful way in |
 | Operator command | `scripts/machiavelli-scoreboard.mjs` | reality tiers + capital scenarios + rail checks |
@@ -104,9 +104,123 @@ Each tier requires its own evidence:
 
 **Current state:** SIMULATED entries only. Cleared contribution profit: **$0.00**.
 
-## Tournament, prototypes and commercialization
+## Wealth Mechanism Atlas: what the 890 ideas are, economically
 
-_Filled from `artifacts/machiavelli/profit-tournament.json` when the adversarial tournament completes._
+`artifacts/machiavelli/wealth-mechanism-atlas.json` covers all 890 founder ideas (no merges, no drops, literal titles) and a 48-mechanism external reality catalogue.
+
+- **Economic relevance:** 246 ideas are DIRECT, 488 INDIRECT, and 156 have no economic mechanism. Those 156 are kept, not deleted.
+- **Buildable today:** 349 could become paid software miniatures now; 66 need future technology.
+- **Dominant economic primitive across the corpus: verification that makes something priceable.** About 20 of the 50 most potent primitives are variations of it, and insurance underwriting and escrow release are the recurring cross-domain hooks. Examples:
+  - pay-per-verified-error (#0058);
+  - evidence-carrying claims (#0146);
+  - calibration ledgers (#0059);
+  - verified-outcome settlement (#0305/#0306);
+  - "verification creates markets" (#0513).
+- **Market structures are rare:** pure price arbitrage (11) and market making (16) barely appear.
+
+## Autonomous Profit Tournament
+
+`artifacts/machiavelli/profit-tournament.json`:
+- **Invention:** six inventor lenses each read two literal founder shards, the reality catalogue and the lab receipt, and proposed 16 materially different mechanisms with web-checked competitors. One contender built in this program was seeded in on equal terms.
+- **Selection:** a selection judge merged duplicates and chose 6 finalists. Survivors that were not selected are preserved with reasons.
+- **Refutation:** one adversarial refuter per finalist researched competitors, Egypt payment rails, payer evidence, legal blockers and costs on the web.
+- **Ranking:** a final judge ranked the finalists under pessimistic assumptions.
+
+**Result: all six finalists are WOUNDED. None has a positive pessimistic median monthly contribution, and mechanism probabilities are 0.07–0.15.** The six are really three independent bets: US public-data obligation inference, inquiry-path defects, and the Apify marketplace rail.
+
+| Rank | Mechanism | Role | Pessimistic p10 / p50 / p90 (USD per month) | Decisive objection |
+|---|---|---|---|---|
+| 1 | Single Audit Obligation Radar | Market intelligence | -15 / 0 / 300 | An award is not expenditure; parent/child UEI coverage; willingness to pay is untested |
+| 2 | Verified-defect claims (narrowed) | Fast experiment | -40 / -20 / 250 | Audited-prospect data already sells for about $7 per 1,000 leads on Apify; some call-tracking mismatches dial the business's own line |
+| 3 | Breakage-Arbitrage Actor Foundry | Digital infrastructure | -25 / -15 / 40 | Apify already detects broken Actors and demotes them itself |
+| 4 | EGP T-bill carry with a topological devaluation alarm | Quant research | -20 / 0 / 5 | A personal treasury rule, not income; only about 6 episodes to learn from |
+| 5 | Novation Radar (merged into rank 1) | Market intelligence | -15 / -10 / 250 | The "early recompete" forecast is legally overstated (13 CFR 125.12) |
+| 6 | Revenue-Defect Disclosure Market | Frontier reserve | -40 / -30 / 200 | Its flagship example dials the business's own listed number; matches the "beg bounty" pattern |
+
+**Capital Allocation Intelligence on these numbers** (`artifacts/machiavelli/scoreboard.json`):
+- At every level ($0, $100, $500, $1k, $5k, $25k) the recommended portfolio is **empty**.
+- All six are preserved as the frontier reserve.
+- The idle-capital alternative is the risk-free rate.
+- This is the correct answer today, not a failure of the allocator.
+
+## Prototype portfolio (built, tested, real-world exercised)
+
+### 1. Re-Verified-at-Sale Findings (unconventional; new category)
+
+**Code:** `src/self-verifying-findings.mjs`, `src/inquiry-findings.mjs`, the Apify Store Actor `actors/verified-inquiry-defects/`, and `scripts/verified-defects-rehearsal.mjs`.
+
+**Mechanism:**
+- Every finding is a falsifiable claim with evidence, a 30-second disproof and a verifier.
+- At sale time an independent probe re-verifies it.
+- Only reproduced findings are charged, never twice per buyer, finding and day.
+- The seller absorbs data decay, and re-verifications build a defect-survival dataset.
+
+**Live rehearsal** with a recording ledger and no payment provider (`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`):
+- 4 public sites were checked; 5 defects were discovered and all 5 were re-verified by a second probe with the browser witness.
+- Clean sites produced no charge.
+- Day-1 survival was 100%.
+
+### 2. Self-owned-number precision gate (the judge's build-now #1)
+
+A call button that dials a number the business itself publishes is routing, not a defect.
+- Re-run live, the gate removed 2 of Reliant's 4 findings.
+- It kept the unlisted-number mismatch, the one-digit Bastrop typo and Parker & Sons' discarded LocalBusiness block (`verified-defects-rehearsal-gated-2026-10-22.json`).
+
+### 3. Single Audit Obligation Forecast Ledger (unconventional; tournament rank 1)
+
+**Code:** `src/single-audit-forecast-ledger.mjs` and `scripts/single-audit-radar.mjs`.
+
+**Mechanism:**
+- It reads USAspending awards and the Federal Audit Clearinghouse.
+- It estimates fiscal-year federal expenditure against the 2 CFR 200.501 $1M threshold.
+- It records dated, append-only forecasts that resolve against later FAC filings and are Brier-scored (#0059 Prediction Accounting).
+
+**First live run** (Georgia):
+- It produced false positives, university research foundations audited under parent reports.
+- The fix: FAC `additional_ueis`, parent-coverage exclusion and a near-threshold band.
+- It fails closed on FAC rate limits.
+- Current honest output: no qualifying forecasts in the checked sample.
+
+## Commercialization paths: smallest lawful experiment per survivor
+
+1. **Single Audit Radar.**
+   - Hand-resolve 15 candidates for one state, restricted to charter schools, special districts and single-site nonprofits, using outlays not obligations, in at most 6 hours.
+   - Then run one bounded willingness-to-pay probe to CPA firms with Single Audit practices.
+   - Kill if precision is below 35%.
+2. **Verified defects.**
+   - Publish the Actor with pay-per-event pricing for path-breaking classes only.
+   - Measure precision on 20 hand-checked findings.
+   - Observe whether any third party is charged within 60 days.
+3. **Breakage observatory.**
+   - Poll the public Apify Store API for 14 days (no account) to test whether users migrate when Actors break.
+   - Kill the foundry if substitutes absorb more than 70% of users.
+4. **EGP holonomy alarm.** Run a sealed hindcast (thresholds frozen on 2016–2021, scored on 2022–2026) as a calibration stream only. It is not an income organ.
+
+## Founder-only actions (maximum three)
+
+1. Complete identity verification on Payoneer and an Apify developer account, then prove that one small real payment reaches an Egyptian account. Five of six finalists share this rail gate.
+2. Once owned mailboxes pass independent readiness, authorize exactly one bounded willingness-to-pay probe: volume cap, suppression gates, no bounty language, human replies by the founder.
+3. Decide the invoicing identity and W-8BEN posture that US payers will request.
+
+(Getting written Egyptian legal advice before any crypto rail is used remains standing guidance, not a current blocker: no surviving mechanism needs crypto.)
+
+## Next work (not done)
+
+- The Apify Store breakage-migration observatory (build-now #3).
+- Re-running the Single Audit radar with an api.data.gov key.
+- Paper-trading the first strategy that ever passes the lab protocol (none has).
+- The defect-survival curve beyond day 1.
+
+## Founder-idea crossover record
+
+- **Lab:** NO_MATERIAL_890_CROSSOVER_OBSERVED for funding carry; the rejection is market evidence.
+- **Atlas:** the verification primitive above.
+- **Prototypes:**
+  - Re-Verified-at-Sale Findings: #0058, #0146, #0306, #0513, #0013.
+  - Single Audit Forecast Ledger: #0059, #0178, #0013.
+  - EGP holonomy: #0049, #0488, #0491, #0492, #0483, #0585.
+
+All other ideas remain in the immutable corpus and the atlas, unchanged.
 
 ## Truth boundary
 

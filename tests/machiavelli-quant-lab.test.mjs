@@ -125,7 +125,7 @@ test('paper ledger: decisions must precede marks and the chain detects rewrites'
   let chain = recordPaperDecision([], { strategy: 'S', params: {}, positions: { BTC: 1 }, quotes: { BTC: { price: 100, source: 'okx', observedAt: '2026-10-21T00:00:00Z' } }, decidedAt: '2026-10-21T00:00:00Z', dataThrough: '2026-10-20T23:00:00Z' });
   assert.throws(() => markPaperDecision(chain, { strategy: 'S', quotes: { BTC: { price: 110 } }, markedAt: '2026-10-20T00:00:00Z' }), /after its decision/);
   assert.throws(() => recordPaperDecision([], { strategy: 'S', positions: { BTC: 1 }, quotes: { BTC: { price: 1 } }, decidedAt: '2026-10-21T00:00:00Z', dataThrough: '2026-10-22T00:00:00Z' }), /newer/);
-  chain = markPaperDecision(chain, { strategy: 'S', quotes: { BTC: { price: 110 } }, markedAt: '2026-10-22T00:00:00Z', costBps: { BTC: 10 } });
+  chain = markPaperDecision(chain, { strategy: 'S', quotes: { BTC: { price: 110, observedAt: '2026-10-22T00:00:00Z' } }, markedAt: '2026-10-22T00:00:00Z', costBps: { BTC: 10 } });
   assert.ok(Math.abs(paperSummary(chain).strategies.S.netReturn - (0.10 - 0.002)) < 1e-12);
   assert.equal(verifyPaperChain(chain).ok, true);
   const forged = structuredClone(chain); forged[1].netReturnOnCapital = 0.5;
@@ -137,7 +137,7 @@ test('review regressions: paper ledger refuses backdating and replacing an unmar
   let chain = recordPaperDecision([], { strategy: 'S', positions: { BTC: 1 }, quotes: quote(100, '2026-10-21T00:00:00Z'), decidedAt: '2026-10-21T00:00:00Z' });
   assert.throws(() => recordPaperDecision(chain, { strategy: 'S', positions: { BTC: 1 }, quotes: quote(80, '2026-10-22T00:00:00Z'), decidedAt: '2026-10-22T00:00:00Z' }), /unmarked/);
   assert.throws(() => recordPaperDecision([], { strategy: 'T', positions: { BTC: 1 }, quotes: quote(80, '2026-10-23T00:00:00Z'), decidedAt: '2026-10-22T00:00:00Z' }), /observed at or before/);
-  chain = markPaperDecision(chain, { strategy: 'S', quotes: { BTC: { price: 120 } }, markedAt: '2026-10-23T00:00:00Z' });
+  chain = markPaperDecision(chain, { strategy: 'S', quotes: { BTC: { price: 120, observedAt: '2026-10-23T00:00:00Z' } }, markedAt: '2026-10-23T00:00:00Z' });
   assert.throws(() => recordPaperDecision(chain, { strategy: 'S', positions: { BTC: 1 }, quotes: quote(50, '2026-01-01T00:00:00Z'), decidedAt: '2026-01-01T00:00:00Z' }), /before the last record/);
   const forged = structuredClone(chain);
   forged[1].markedAt = '2026-10-20T00:00:00Z';

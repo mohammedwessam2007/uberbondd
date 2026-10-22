@@ -48,32 +48,32 @@ Nothing is `VERIFIED_WORKING` until a real payout lands.
 - no lookahead (a decision at bar *t* earns only bar *t+1*);
 - explicit taker fee + spread + slippage on every unit of turnover;
 - walk-forward selection (12-month train, 3-month test);
-- Deflated Sharpe Ratio over the parameter variants tried;
+- Sharpe and the Deflated Sharpe Ratio measured in excess of the T-bill rate, deflated over the parameter variants tried (unbiased trial variance);
 - a sealed holdout (2025-10 to 2026-09) opened once;
-- doubled-cost stress;
+- doubled-cost stress on the holdout and on a replay of the walk-forward's own per-fold choices (protocol 1.1.0);
 - a **risk-free hurdle** from US Treasury average T-bill rates: 4.02% over the out-of-sample window, 3.80% over the holdout.
 
-| Family | Label | OOS Sharpe | OOS CAGR | DSR | Holdout | OOS max DD |
+| Family | Label | OOS Sharpe over T-bills | OOS CAGR | DSR over T-bills | Holdout | OOS max DD |
 |---|---|---|---|---|---|---|
-| BUY_AND_HOLD:BTC | REJECTED | 0.69 | 24.8% | 0.908 | -26.9% | 68.4% |
-| TIME_SERIES_MOMENTUM:BTC | REJECTED | 0.63 | 17.9% | 0.663 | -4.9% | 41.3% |
-| FUNDING_CARRY:BTC | INCONCLUSIVE | 3.02 | 2.4% | 0.992 | 0.8% | 0.9% |
-| FUNDING_CARRY_OPTIMISTIC_BOUND:BTC | INCONCLUSIVE | 2.87 | 3.2% | 0.998 | 1.4% | 1.3% |
-| BUY_AND_HOLD:ETH | REJECTED | 0.34 | -0.3% | 0.743 | -35.3% | 77.9% |
-| TIME_SERIES_MOMENTUM:ETH | INCONCLUSIVE | 0.31 | 3.5% | 0.530 | 2.3% | 58.3% |
-| FUNDING_CARRY:ETH | REJECTED | 1.43 | 1.9% | 0.445 | 0.0% | 1.9% |
-| FUNDING_CARRY_OPTIMISTIC_BOUND:ETH | INCONCLUSIVE | 2.27 | 3.0% | 0.996 | 0.3% | 1.8% |
-| BUY_AND_HOLD:SOL | REJECTED | 0.52 | 1.3% | 0.844 | -43.1% | 95.8% |
-| TIME_SERIES_MOMENTUM:SOL | REJECTED | 0.66 | 24.8% | 0.782 | -36.1% | 68.9% |
-| FUNDING_CARRY:SOL | REJECTED | 1.54 | 1.7% | 0.978 | 0.0% | 1.1% |
-| FUNDING_CARRY_OPTIMISTIC_BOUND:SOL | REJECTED | 1.83 | 2.1% | 0.999 | 0.0% | 1.2% |
-| BUY_AND_HOLD:XRP | REJECTED | 0.80 | 37.9% | 0.940 | -47.6% | 68.1% |
-| TIME_SERIES_MOMENTUM:XRP | REJECTED | -0.16 | -26.4% | 0.292 | -51.5% | 85.3% |
-| FUNDING_CARRY:XRP | REJECTED | 1.92 | 2.2% | 0.959 | -0.8% | 0.5% |
-| FUNDING_CARRY_OPTIMISTIC_BOUND:XRP | REJECTED | 2.32 | 2.7% | 1.000 | -0.2% | 0.5% |
-| FUNDING_ROTATION:BTC+ETH+SOL+XRP | REJECTED | 1.58 | 1.9% | 0.004 | 0.0% | 1.1% |
+| BUY_AND_HOLD:BTC | REJECTED | 0.61 | 24.8% | 0.881 | -26.9% | 68.4% |
+| TIME_SERIES_MOMENTUM:BTC | REJECTED | 0.52 | 17.9% | 0.515 | -4.9% | 41.3% |
+| FUNDING_CARRY:BTC | REJECTED | -1.91 | 2.4% | 0.000 | 0.8% | 0.9% |
+| FUNDING_CARRY_OPTIMISTIC_BOUND:BTC | REJECTED | -0.69 | 3.2% | 0.002 | 1.4% | 1.3% |
+| BUY_AND_HOLD:ETH | REJECTED | 0.28 | -0.3% | 0.706 | -35.3% | 77.9% |
+| TIME_SERIES_MOMENTUM:ETH | INCONCLUSIVE | 0.22 | 3.5% | 0.418 | 2.3% | 58.3% |
+| FUNDING_CARRY:ETH | REJECTED | -1.54 | 1.9% | 0.000 | 0.0% | 1.9% |
+| FUNDING_CARRY_OPTIMISTIC_BOUND:ETH | REJECTED | -0.75 | 3.0% | 0.005 | 0.3% | 1.8% |
+| BUY_AND_HOLD:SOL | REJECTED | 0.48 | 1.3% | 0.826 | -43.1% | 95.8% |
+| TIME_SERIES_MOMENTUM:SOL | REJECTED | 0.60 | 24.8% | 0.708 | -36.1% | 68.9% |
+| FUNDING_CARRY:SOL | REJECTED | -2.06 | 1.7% | 0.000 | 0.0% | 1.1% |
+| FUNDING_CARRY_OPTIMISTIC_BOUND:SOL | REJECTED | -1.60 | 2.1% | 0.000 | 0.0% | 1.2% |
+| BUY_AND_HOLD:XRP | REJECTED | 0.75 | 37.9% | 0.928 | -47.6% | 68.1% |
+| TIME_SERIES_MOMENTUM:XRP | REJECTED | -0.22 | -26.4% | 0.236 | -51.5% | 85.3% |
+| FUNDING_CARRY:XRP | REJECTED | -1.50 | 2.2% | 0.000 | -0.8% | 0.5% |
+| FUNDING_CARRY_OPTIMISTIC_BOUND:XRP | REJECTED | -1.13 | 2.7% | 0.001 | -0.2% | 0.5% |
+| FUNDING_ROTATION:BTC+ETH+SOL+XRP | REJECTED | -1.75 | 1.9% | 0.000 | 0.0% | 1.1% |
 
-**Decisive finding:** delta-neutral funding carry is *statistically real* (DSR up to 1.00) and *economically worthless* for retail.
+**Decisive finding:** delta-neutral funding carry is *economically worthless* for retail. Protocol 1.0.0 measured Sharpe on raw returns and showed it as statistically real (raw Sharpe up to 3.0, DSR up to 1.00); the 2026-10-22 review showed that compares a low-volatility return with zero instead of cash. Measured in excess of T-bills, every carry variant has a negative Sharpe and a DSR of at most 0.005. Only TIME_SERIES_MOMENTUM:ETH stays INCONCLUSIVE; nothing survives.
 - It compounds at 1.7–3.2% a year on deployed capital against a 4% T-bill. Funding is credited only to positions held through the full hour before settlement.
 - That holds even with unattainable maker-only fees.
 - In the BTC holdout, taker costs ate 61% of the funding collected.
@@ -225,3 +225,31 @@ All other ideas remain in the immutable corpus and the atlas, unchanged.
 ## Truth boundary
 
 Architecture, backtests, atlas classifications and tournament scores are not revenue. The highest tier any mechanism has reached is SIMULATED.
+
+## Adversarial review, 2026-10-22
+
+A three-lens review (statistics, money truth, safety) with independent refutation confirmed 13 of 16 findings. All 13 are fixed with regression tests:
+
+- **Paper ledger:** decisions can no longer be backdated, quotes must be observed at or before the decision, a strategy cannot open a second decision while one is unmarked, and the chain fails verification on any time reversal.
+- **Research protocol 1.1.0:**
+  - the doubled-cost walk-forward gate replays the walk-forward's own per-fold choices, not the holdout's parameters;
+  - Sharpe and the Deflated Sharpe are measured in excess of T-bills;
+  - trial variance is unbiased, so two variants already deflate.
+- **Revenue Reality Ledger:** CLEARED requires an ok truth with proven cleared and retained stages, no contradictions or reversals, non-synthetic provider refs, and an amount equal to the net provider-cleared revenue. One payment counts once. Sandbox refs with `.` or `/` separators are rejected.
+- **Single Audit score:** scored only over matured forecasts. It is reported INCOMPLETE while any matured forecast is unresolved, and early YES resolutions are not scored.
+- **Verified-defects sale:**
+  - each item is delivered before it is charged;
+  - charged keys persist in a named key-value store across restarts and same-day re-runs;
+  - http/https/www variants of a site are one subject;
+  - a charge counts only when Apify reports `chargedCount >= 1`.
+- **Survival curve:** every finding ever seen is re-verified on each run, so fixed defects show as fixed.
+- **Money rails:** a legally blocked leg named anywhere blocks the mechanism; a plausible exit rail does not cure it.
+- **Capital allocator:** NaN or out-of-range limits and probabilities are refused instead of silently disabling the ruin firewall.
+- **Probe:**
+  - every URL and redirect hop must resolve to a public address;
+  - redirects are followed by hand and counted;
+  - a 5xx/429/unreachable robots.txt means complete disallow;
+  - `$` and `*` robots rules are honoured;
+  - 429/503 pages stop the crawl.
+- **Runtime witness** (finding unverified, hardened anyway): service workers and WebSockets are blocked, and the Chromium sandbox stays on unless the process runs as root. DNS-rebinding between the guard's lookup and the browser's connection remains a residual risk.
+

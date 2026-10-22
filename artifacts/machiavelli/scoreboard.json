@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.machiavelli-scoreboard.v1",
-  "generatedAt": "2026-10-22T04:32:39.773Z",
+  "generatedAt": "2026-10-22T12:35:38.420Z",
   "reality": {
-    "version": "uberbond.revenue-reality-ledger-1.0.0",
+    "version": "uberbond.revenue-reality-ledger-1.1.0",
     "chain": {
       "ok": true,
       "length": 17,
-      "head": "ba429eda1c563d36e9899f75ac93ef8fd93c90412b76d325f5c14a5991a94cab"
+      "head": "f699737fc951b6525fd4a6c66916bbc0373e2faa1c77610166136d8571039ae3"
     },
     "byTier": {
       "SIMULATED": {
@@ -176,7 +176,7 @@
       "family": "BUY_AND_HOLD:BTC",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.908 < 0.95 after 1 variants",
+        "deflated Sharpe probability 0.881 < 0.95 after 1 variants",
         "sealed holdout net return -26.89% <= 0",
         "holdout CAGR -26.89% does not beat the 3.8% risk-free rate"
       ]
@@ -185,7 +185,7 @@
       "family": "TIME_SERIES_MOMENTUM:BTC",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.663 < 0.95 after 3 variants",
+        "deflated Sharpe probability 0.515 < 0.95 after 3 variants",
         "sealed holdout net return -4.91% <= 0",
         "holdout under doubled costs -7.28% <= 0",
         "holdout CAGR -4.91% does not beat the 3.8% risk-free rate",
@@ -194,8 +194,10 @@
     },
     {
       "family": "FUNDING_CARRY:BTC",
-      "label": "INCONCLUSIVE",
+      "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.91 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "holdout under doubled costs -0.45% <= 0",
         "out-of-sample CAGR 2.44% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0.82% does not beat the 3.8% risk-free rate"
@@ -203,8 +205,10 @@
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC",
-      "label": "INCONCLUSIVE",
+      "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.69 < 0.5",
+        "deflated Sharpe probability 0.002 < 0.95 after 9 variants",
         "out-of-sample CAGR 3.22% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 1.39% does not beat the 3.8% risk-free rate"
       ]
@@ -213,8 +217,8 @@
       "family": "BUY_AND_HOLD:ETH",
       "label": "REJECTED",
       "failures": [
-        "out-of-sample Sharpe 0.34 < 0.5",
-        "deflated Sharpe probability 0.743 < 0.95 after 1 variants",
+        "out-of-sample Sharpe in excess of T-bills 0.28 < 0.5",
+        "deflated Sharpe probability 0.706 < 0.95 after 1 variants",
         "sealed holdout net return -35.33% <= 0",
         "out-of-sample CAGR -0.34% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -35.33% does not beat the 3.8% risk-free rate"
@@ -224,9 +228,10 @@
       "family": "TIME_SERIES_MOMENTUM:ETH",
       "label": "INCONCLUSIVE",
       "failures": [
-        "out-of-sample Sharpe 0.31 < 0.5",
-        "deflated Sharpe probability 0.53 < 0.95 after 3 variants",
+        "out-of-sample Sharpe in excess of T-bills 0.22 < 0.5",
+        "deflated Sharpe probability 0.419 < 0.95 after 3 variants",
         "holdout under doubled costs -13.05% <= 0",
+        "walk-forward under doubled costs -36.58% <= 0",
         "out-of-sample CAGR 3.48% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 2.31% does not beat the 3.8% risk-free rate"
       ]
@@ -235,7 +240,8 @@
       "family": "FUNDING_CARRY:ETH",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.445 < 0.95 after 9 variants",
+        "out-of-sample Sharpe in excess of T-bills -1.54 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
         "out-of-sample CAGR 1.91% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -244,8 +250,10 @@
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH",
-      "label": "INCONCLUSIVE",
+      "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.75 < 0.5",
+        "deflated Sharpe probability 0.005 < 0.95 after 9 variants",
         "out-of-sample CAGR 2.99% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0.28% does not beat the 3.8% risk-free rate"
       ]
@@ -254,7 +262,8 @@
       "family": "BUY_AND_HOLD:SOL",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.844 < 0.95 after 1 variants",
+        "out-of-sample Sharpe in excess of T-bills 0.48 < 0.5",
+        "deflated Sharpe probability 0.826 < 0.95 after 1 variants",
         "sealed holdout net return -43.15% <= 0",
         "out-of-sample CAGR 1.3% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -43.15% does not beat the 3.8% risk-free rate"
@@ -264,10 +273,9 @@
       "family": "TIME_SERIES_MOMENTUM:SOL",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.782 < 0.95 after 3 variants",
+        "deflated Sharpe probability 0.708 < 0.95 after 3 variants",
         "sealed holdout net return -36.15% <= 0",
         "holdout under doubled costs -56.84% <= 0",
-        "walk-forward under doubled costs -32.22% <= 0",
         "holdout CAGR -36.15% does not beat the 3.8% risk-free rate"
       ]
     },
@@ -275,6 +283,8 @@
       "family": "FUNDING_CARRY:SOL",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -2.06 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
         "out-of-sample CAGR 1.69% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -285,6 +295,8 @@
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.6 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "out-of-sample CAGR 2.12% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0% does not beat the 3.8% risk-free rate"
@@ -294,7 +306,7 @@
       "family": "BUY_AND_HOLD:XRP",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.94 < 0.95 after 1 variants",
+        "deflated Sharpe probability 0.928 < 0.95 after 1 variants",
         "sealed holdout net return -47.57% <= 0",
         "holdout CAGR -47.57% does not beat the 3.8% risk-free rate"
       ]
@@ -303,11 +315,11 @@
       "family": "TIME_SERIES_MOMENTUM:XRP",
       "label": "REJECTED",
       "failures": [
-        "out-of-sample Sharpe -0.16 < 0.5",
-        "deflated Sharpe probability 0.292 < 0.95 after 3 variants",
+        "out-of-sample Sharpe in excess of T-bills -0.22 < 0.5",
+        "deflated Sharpe probability 0.236 < 0.95 after 3 variants",
         "sealed holdout net return -51.52% <= 0",
         "holdout under doubled costs -66.95% <= 0",
-        "walk-forward under doubled costs -68.47% <= 0",
+        "walk-forward under doubled costs -87.93% <= 0",
         "out-of-sample CAGR -26.37% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -51.52% does not beat the 3.8% risk-free rate",
         "does not beat the baseline or zero on Sharpe or return"
@@ -317,6 +329,8 @@
       "family": "FUNDING_CARRY:XRP",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.5 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return -0.78% <= 0",
         "holdout under doubled costs -2.16% <= 0",
         "out-of-sample CAGR 2.23% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -327,6 +341,8 @@
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.13 < 0.5",
+        "deflated Sharpe probability 0.001 < 0.95 after 9 variants",
         "sealed holdout net return -0.16% <= 0",
         "out-of-sample CAGR 2.68% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -0.16% does not beat the 3.8% risk-free rate"
@@ -336,7 +352,8 @@
       "family": "FUNDING_ROTATION:BTC+ETH+SOL+XRP",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.004 < 0.95 after 18 variants",
+        "out-of-sample Sharpe in excess of T-bills -1.75 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 18 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
         "out-of-sample CAGR 1.88% does not beat the 4.02% risk-free T-bill rate over the same months",

@@ -54,3 +54,21 @@ test('prediction accounting: append-only, NO waits for the filing window, Brier 
   assert.equal(ledgerScore(forged).chainValid, false);
   assert.equal(ledgerScore(chain).meanBrier, null, 'no track record before resolution');
 });
+
+test('review regression: the track record cannot be inflated by early hits or unresolved misses', () => {
+  const make = id => ({ forecastId: id, uei: `${id}AAAAAAAAAAA`.slice(0, 12), probability: 0.3, resolvesAfter: '2027-07-01' });
+  let chain = appendForecasts([], ['a', 'b', 'c'].map(make));
+  chain = resolveForecast(chain, { forecastId: 'a', outcome: 'YES', evidence: 'FAC', resolvedAt: '2027-01-01' });
+  const early = ledgerScore(chain, { asOf: '2027-02-01' });
+  assert.equal(early.hitRate, null, 'an early YES is not a track record');
+  assert.equal(early.earlyResolutionsNotScored, 1);
+  const overdue = ledgerScore(chain, { asOf: '2027-08-01' });
+  assert.equal(overdue.status, 'INCOMPLETE_OVERDUE_FORECASTS_UNRESOLVED');
+  assert.equal(overdue.overdueUnresolved, 2);
+  assert.equal(overdue.hitRate, null, 'misses left unresolved must not produce a perfect hit rate');
+  chain = resolveForecast(chain, { forecastId: 'b', outcome: 'NO', evidence: 'no FAC report', resolvedAt: '2027-08-01' });
+  chain = resolveForecast(chain, { forecastId: 'c', outcome: 'NO', evidence: 'no FAC report', resolvedAt: '2027-08-01' });
+  const complete = ledgerScore(chain, { asOf: '2027-08-02' });
+  assert.equal(complete.status, 'COMPLETE');
+  assert.ok(Math.abs(complete.hitRate - 1 / 3) < 1e-12);
+});

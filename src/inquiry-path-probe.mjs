@@ -2,7 +2,9 @@
 //
 // Policy, enforced in code rather than in documentation:
 //   - GET only, no cookies, no credentials, no form submission, no JS execution;
-//   - robots.txt is read first and its Disallow rules for `*` are honoured;
+//   - every URL, including each redirect hop, must resolve to a public address;
+//   - robots.txt is read first and its Disallow rules for `*` are honoured; a
+//     5xx, 429 or unreachable robots.txt means complete disallow (RFC 9309);
 //   - same-origin pages only, at most `maxPages`, chosen because their link
 //     text or path names an inquiry step (contact, book, schedule, quote...);
 //   - a fixed delay between requests and a hard byte ceiling per response;
@@ -10,6 +12,7 @@
 // The receipt counts every request so "read-only" is a number, not a promise.
 
 import dns from 'node:dns/promises';
+import { assertPublicUrl } from './security.mjs';
 import { extractInquirySurface, analyzeInquiryCoherence, compileCoherenceSnapshot } from './inquiry-path-coherence.mjs';
 
 export const INQUIRY_PATH_PROBE_VERSION = 'uberbond.inquiry-path-probe-1.0.0';
@@ -34,9 +37,12 @@ export function robotsDisallows(robotsText, path) {
       if (applies && match[2].trim()) rules.push({ allow: field === 'allow', prefix: match[2].trim() });
     }
   }
-  const matching = rules.filter(rule => path.startsWith(rule.prefix.replace(/\*.*$/, '')));
+  // RFC 9309: `*` matches any sequence, a trailing `$` anchors the end; the
+  // longest matching rule wins and Allow wins a tie.
+  const matches = prefix => new RegExp(`^${prefix.replace(/[.+?^{}()|[\]\\]/g, '\\$&').replace(/\*/g, '.*').replace(/\\?\$$/, '$')}`).test(path);
+  const matching = rules.filter(rule => matches(rule.prefix));
   if (!matching.length) return false;
-  const longest = matching.sort((a, b) => b.prefix.length - a.prefix.length)[0];
+  const longest = matching.sort((a, b) => b.prefix.length - a.prefix.length || Number(b.allow) - Number(a.allow))[0];
   return !longest.allow;
 }
 
@@ -75,21 +81,43 @@ export function inquiryLinks(html, baseUrl, limit) {
   return ranked.sort((a, b) => b.score - a.score).slice(0, limit).map(item => item.href);
 }
 
-export async function probeInquiryPath({ website, business = null, maxPages = 5, witnessImpl = null, delayMs = 1200, fetchImpl = globalThis.fetch, lookupImpl = dns.lookup, now = () => new Date(), sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) } = {}) {
+const MAX_REDIRECTS = 5;
+const sameSite = (a, b) => a.hostname.replace(/^www\./, '') === b.hostname.replace(/^www\./, '');
+class ProbeRefusal extends Error { constructor(reason, detail) { super(reason); this.reason = reason; this.detail = detail; } }
+
+export async function probeInquiryPath({ website, business = null, maxPages = 5, witnessImpl = null, delayMs = 1200, fetchImpl = globalThis.fetch, lookupImpl = dns.lookup, urlGuard = assertPublicUrl, now = () => new Date(), sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) } = {}) {
   const start = new URL(website);
   const ledger = { httpGetRequests: 0, robotsRequests: 0, dnsLookups: 0, formSubmissions: 0, messages: 0, spendCents: 0 };
   const refusals = [];
+  let robots = '';
+  // Redirects are followed by hand so every hop is checked for a public
+  // address, the same site and robots before it is requested, and counted.
   const get = async (url, counter = 'httpGetRequests') => {
-    ledger[counter] += 1;
-    const response = await fetchImpl(url, { method: 'GET', redirect: 'follow', headers: { 'User-Agent': PROBE_USER_AGENT, Accept: 'text/html,application/xhtml+xml' }, signal: AbortSignal.timeout(20_000) });
-    return { status: response.status, finalUrl: response.url || url, body: await readCapped(response) };
+    let current = url;
+    for (let hop = 0; ; hop += 1) {
+      try { await urlGuard(current); } catch (error) { throw new ProbeRefusal('NON_PUBLIC_ADDRESS', String(error?.message ?? error)); }
+      if (counter === 'httpGetRequests' && robotsDisallows(robots, new URL(current).pathname)) throw new ProbeRefusal('ROBOTS_DISALLOW', current);
+      ledger[counter] += 1;
+      const response = await fetchImpl(current, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': PROBE_USER_AGENT, Accept: 'text/html,application/xhtml+xml' }, signal: AbortSignal.timeout(20_000) });
+      const location = response.status >= 300 && response.status < 400 ? response.headers?.get?.('location') : null;
+      if (!location) return { status: response.status, finalUrl: current, body: await readCapped(response) };
+      await response.body?.cancel?.();
+      if (hop >= MAX_REDIRECTS) throw new ProbeRefusal('TOO_MANY_REDIRECTS', current);
+      const next = new URL(location, current);
+      if (!sameSite(next, start)) throw new ProbeRefusal('REDIRECTED_OFF_SITE', next.href);
+      current = next.href;
+    }
   };
 
-  let robots = '';
   try {
     const response = await get(`${start.origin}/robots.txt`, 'robotsRequests');
     if (response.status >= 200 && response.status < 300) robots = response.body;
-  } catch { /* unreachable robots.txt is treated as no rules */ }
+    else if (response.status === 429 || response.status >= 500) throw new ProbeRefusal('ROBOTS_UNAVAILABLE', String(response.status));
+  } catch (error) {
+    // Unreachable or failing robots.txt means complete disallow, not allow-all.
+    refusals.push({ url: `${start.origin}/robots.txt`, reason: error instanceof ProbeRefusal ? error.reason : 'ROBOTS_UNAVAILABLE', detail: error?.detail ?? String(error?.cause?.code ?? error?.name ?? 'error') });
+    robots = 'User-agent: *\nDisallow: /';
+  }
 
   const pages = [];
   const queue = [start.href];
@@ -102,12 +130,14 @@ export async function probeInquiryPath({ website, business = null, maxPages = 5,
     if (pages.length) await sleep(delayMs);
     try {
       const fetched = await get(url);
-      if (new URL(fetched.finalUrl).hostname.replace(/^www\./, '') !== start.hostname.replace(/^www\./, '')) { refusals.push({ url, reason: 'REDIRECTED_OFF_SITE', finalUrl: fetched.finalUrl }); continue; }
+      // The site is asking us to slow down or is failing: stop, do not retry.
+      if (fetched.status === 429 || fetched.status === 503) { refusals.push({ url, reason: 'SITE_RATE_LIMITED_OR_UNAVAILABLE', detail: String(fetched.status) }); break; }
       const surface = extractInquirySurface({ url: fetched.finalUrl, html: fetched.body, fetchedAt: now().toISOString(), status: fetched.status });
       pages.push(surface);
       if (pages.length === 1) for (const link of inquiryLinks(fetched.body, fetched.finalUrl, maxPages)) if (!visited.has(link)) queue.push(link);
     } catch (error) {
-      refusals.push({ url, reason: 'FETCH_FAILED', detail: String(error?.cause?.code ?? error?.name ?? 'error') });
+      if (error instanceof ProbeRefusal) refusals.push({ url, reason: error.reason, detail: error.detail });
+      else refusals.push({ url, reason: 'FETCH_FAILED', detail: String(error?.cause?.code ?? error?.name ?? 'error') });
     }
   }
 

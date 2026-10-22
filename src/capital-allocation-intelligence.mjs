@@ -28,9 +28,11 @@ function validate(candidate) {
   const m = candidate.monthlyContributionUsd ?? {};
   if (!candidate.id) problems.push('id');
   if (![m.p10, m.p50, m.p90].every(Number.isFinite) || !(m.p10 <= m.p50 && m.p50 <= m.p90)) problems.push('monthlyContributionUsd p10<=p50<=p90');
-  if (!(candidate.capitalRequiredUsd >= 0)) problems.push('capitalRequiredUsd');
-  if (!(candidate.worstCredibleLossUsd >= 0)) problems.push('worstCredibleLossUsd');
-  if (!(candidate.founderHoursPerMonth >= 0)) problems.push('founderHoursPerMonth');
+  const finiteNonNegative = value => Number.isFinite(value) && value >= 0;
+  if (!finiteNonNegative(candidate.capitalRequiredUsd)) problems.push('capitalRequiredUsd');
+  if (!finiteNonNegative(candidate.worstCredibleLossUsd)) problems.push('worstCredibleLossUsd');
+  if (!finiteNonNegative(candidate.founderHoursPerMonth)) problems.push('founderHoursPerMonth');
+  if (candidate.probabilityMechanismWorks !== undefined && !(Number.isFinite(candidate.probabilityMechanismWorks) && candidate.probabilityMechanismWorks >= 0 && candidate.probabilityMechanismWorks <= 1)) problems.push('probabilityMechanismWorks must be within [0, 1]');
   if (!candidate.correlationGroup) problems.push('correlationGroup');
   if (candidate.authorizationRequired && !Array.isArray(candidate.authorizationRequired)) problems.push('authorizationRequired must be a list');
   return problems;
@@ -41,6 +43,11 @@ function validate(candidate) {
  *   worstCredibleLossUsd, founderHoursPerMonth, correlationGroup, monthsToFirstCash, authorizationRequired:[] }]
  */
 export function allocateCapital({ candidates, levels = CAPITAL_LEVELS, founderHoursPerMonth = 20, maxLossFraction = 0.25, riskFreeAnnual = 0, minimumLossBudgetUsd = 0 }) {
+  // Every constraint must be a real number: a NaN limit compares false and would switch the constraint off.
+  const optionProblems = Object.entries({ founderHoursPerMonth, riskFreeAnnual, minimumLossBudgetUsd }).filter(([, value]) => !(Number.isFinite(value) && value >= 0)).map(([name]) => name);
+  if (!(Number.isFinite(maxLossFraction) && maxLossFraction > 0 && maxLossFraction <= 1)) optionProblems.push('maxLossFraction within (0, 1]');
+  if (!Array.isArray(levels) || !levels.every(level => Number.isFinite(level) && level >= 0)) optionProblems.push('levels');
+  if (optionProblems.length) return { ok: false, status: 'INVALID_OPTIONS', problems: optionProblems };
   const invalid = candidates.map(candidate => ({ id: candidate.id, problems: validate(candidate) })).filter(item => item.problems.length);
   if (invalid.length) return { ok: false, status: 'INVALID_CANDIDATES', invalid };
   // A mechanism whose median outcome loses money never receives capital, however

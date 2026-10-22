@@ -151,7 +151,7 @@ test('probe is GET-only, honours robots, never requests form hosts, and counts e
   };
   const lookups = [];
   const receipt = await probeInquiryPath({
-    website: 'https://plumber.example/', fetchImpl, sleep: async () => {},
+    website: 'https://plumber.example/', fetchImpl, sleep: async () => {}, urlGuard: async url => new URL(url),
     lookupImpl: async host => { lookups.push(host); throw Object.assign(new Error('nx'), { code: 'ENOTFOUND' }); },
     now: () => new Date('2026-10-21T00:00:00Z')
   });
@@ -163,6 +163,28 @@ test('probe is GET-only, honours robots, never requests form hosts, and counts e
   assert.deepEqual(receipt.readOnlyLedger, { httpGetRequests: 2, robotsRequests: 1, dnsLookups: 1, formSubmissions: 0, messages: 0, spendCents: 0 });
   assert.deepEqual(codes(receipt.analysis).slice(0, 2).sort(), ['FORM_SUBMITS_TO_NONEXISTENT_HOST', 'TEL_LABEL_DIALS_DIFFERENT_NUMBER']);
   assert.match(receipt.snapshotMarkdown, /Prove it wrong in 30 seconds/);
+});
+
+test('probe refuses private addresses on every redirect hop and treats a failing robots.txt as complete disallow', async () => {
+  const guard = async url => { if (/127\.0\.0\.1|169\.254|internal/.test(url)) throw new Error('Private and reserved IP addresses are blocked'); return new URL(url); };
+  const redirecting = async url => url.endsWith('/robots.txt') ? new Response('', { status: 404 })
+    : url === 'https://shop.example/' ? new Response('', { status: 302, headers: { location: 'http://169.254.169.254/latest/meta-data/' } })
+      : new Response('<p>secret</p>', { status: 200 });
+  const seen = [];
+  const hop = await probeInquiryPath({ website: 'https://shop.example/', fetchImpl: async (url, init) => { seen.push(url); assert.equal(init.redirect, 'manual'); return redirecting(url); }, urlGuard: guard, sleep: async () => {}, lookupImpl: async () => {} });
+  assert.ok(!seen.some(url => url.includes('169.254')), 'redirect into a private host was requested');
+  assert.equal(hop.pages.length, 0);
+  assert.equal(hop.refusals.at(-1).reason, 'REDIRECTED_OFF_SITE');
+  const direct = await probeInquiryPath({ website: 'http://127.0.0.1:9/', fetchImpl: async () => { throw new Error('must not fetch'); }, urlGuard: guard, sleep: async () => {}, lookupImpl: async () => {} });
+  assert.equal(direct.readOnlyLedger.httpGetRequests + direct.readOnlyLedger.robotsRequests, 0);
+  assert.ok(direct.refusals.every(item => item.reason === 'NON_PUBLIC_ADDRESS' || item.reason === 'ROBOTS_DISALLOW'), JSON.stringify(direct.refusals));
+
+  const fetched = [];
+  const busy = await probeInquiryPath({ website: 'https://busy.example/', fetchImpl: async url => { fetched.push(url); return url.endsWith('/robots.txt') ? new Response('User-agent: *\nDisallow: /', { status: 503 }) : new Response('<p>x</p>', { status: 200 }); }, urlGuard: async url => new URL(url), sleep: async () => {}, lookupImpl: async () => {} });
+  assert.deepEqual(fetched, ['https://busy.example/robots.txt'], '5xx robots.txt must mean complete disallow');
+  assert.equal(busy.refusals[0].reason, 'ROBOTS_UNAVAILABLE');
+  assert.equal(robotsDisallows('User-agent: *\nDisallow: /contact$', '/contact'), true);
+  assert.equal(robotsDisallows('User-agent: *\nDisallow: /contact$', '/contact-us'), false);
 });
 
 test('a tool named in marketing copy is not reported as installed', () => {

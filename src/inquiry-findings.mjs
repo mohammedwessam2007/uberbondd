@@ -27,13 +27,21 @@ export function claimKeyOf(finding) {
   }
 }
 
+/** One site however it was typed: protocol, www and a trailing slash do not matter. */
+export function canonicalSiteKey(website) {
+  const url = new URL(website);
+  return `${url.hostname.toLowerCase().replace(/^www\./, '')}${url.pathname.replace(/\/+$/, '')}`;
+}
+
 /** Convert one probe receipt into sellable findings (assertable ones only). */
 export function sellableFindingsFromProbe(receipt) {
   const subject = receipt.website;
+  const subjectKey = canonicalSiteKey(subject);
   return (receipt.analysis?.findings ?? [])
     .filter(finding => finding.firstTouchUse === 'MAY_STATE_AS_OBSERVED_FACT')
     .map(finding => makeFinding({
       subject,
+      subjectKey,
       code: finding.code,
       claimKey: claimKeyOf(finding),
       claim: finding.title,
@@ -61,28 +69,35 @@ export function inquiryReprobeVerifier({ probe }) {
 /**
  * One buyer run: discover findings on each website, re-verify each with an
  * independent sale-time probe, deliver and charge only what reproduces.
- * charge and pushItem are injected (Apify Actor.charge / Actor.pushData, or test fakes).
+ * Each item is delivered before it is charged (see settleFindingsSale).
+ * charge, pushItem and onCharged are injected (Apify Actor.charge /
+ * Actor.pushData / a persistent key store, or test fakes).
  */
-export async function runVerifiedDefectsSale({ buyerId, websites, probe, verifyProbe = probe, charge, pushItem, pricePerVerifiedCents, maxCharges = Infinity, now = () => new Date() }) {
+export async function runVerifiedDefectsSale({ buyerId, websites, probe, verifyProbe = probe, charge, pushItem, onCharged = null, alreadyCharged = new Set(), pricePerVerifiedCents, maxCharges = Infinity, now = () => new Date() }) {
+  const sites = [];
+  const seen = new Set();
+  for (const website of websites) {
+    let key;
+    try { key = canonicalSiteKey(website); } catch { continue; }
+    if (!seen.has(key)) { seen.add(key); sites.push(website); }
+  }
   const discovered = [];
   const notObservable = [];
-  for (const website of websites) {
+  for (const website of sites) {
     const receipt = await probe(website);
     if (receipt.analysis?.verdict === 'NOT_OBSERVABLE_FROM_STATIC_HTML') notObservable.push(website);
     discovered.push(...sellableFindingsFromProbe(receipt));
   }
-  const { delivered, receipt } = await settleFindingsSale({ buyerId, findings: discovered, verifier: inquiryReprobeVerifier({ probe: verifyProbe }), pricePerVerifiedCents, charge, maxCharges, now });
-  for (const item of delivered) {
-    await pushItem({
-      website: item.finding.subject,
-      defect: item.finding.code,
-      claim: item.finding.claim,
-      disproveIn30Seconds: item.finding.disproof,
-      evidence: item.verification.freshEvidence,
-      verifiedAt: item.verification.verifiedAt,
-      freshEvidenceSha256: item.verification.freshEvidenceSha256,
-      charged: item.charged
-    });
-  }
-  return { ...receipt, websites: websites.length, discovered: discovered.length, notObservable };
+  const deliver = item => pushItem({
+    website: item.finding.subject,
+    defect: item.finding.code,
+    claim: item.finding.claim,
+    disproveIn30Seconds: item.finding.disproof,
+    evidence: item.verification.freshEvidence,
+    verifiedAt: item.verification.verifiedAt,
+    freshEvidenceSha256: item.verification.freshEvidenceSha256,
+    chargeEvent: item.charged ? item.chargeIdempotencyKey : null
+  });
+  const { receipt } = await settleFindingsSale({ buyerId, findings: discovered, verifier: inquiryReprobeVerifier({ probe: verifyProbe }), pricePerVerifiedCents, charge, deliver, onCharged, alreadyCharged, maxCharges, now });
+  return { ...receipt, websites: sites.length, duplicateSitesIgnored: websites.length - sites.length, discovered: discovered.length, notObservable, discoveredFindings: discovered };
 }

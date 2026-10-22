@@ -129,7 +129,14 @@ export function resolveForecast(chain, { forecastId, outcome, evidence, resolved
   return [...chain, { ...body, hash: sha256(body) }];
 }
 
-export function ledgerScore(chain = []) {
+/**
+ * Track record over matured forecasts only (resolvesAfter <= asOf). Early YES
+ * resolutions are recorded but not scored, because NO cannot resolve early:
+ * scoring them would select for hits. If any matured forecast is unresolved,
+ * the record is INCOMPLETE and no hit rate or Brier score is reported, so
+ * leaving the misses unresolved cannot make the record look better.
+ */
+export function ledgerScore(chain = [], { asOf = new Date().toISOString() } = {}) {
   const resolutions = chain.filter(entry => entry.type === 'RESOLUTION');
   const forecasts = chain.filter(entry => entry.type === 'FORECAST');
   let valid = true, previous = '0'.repeat(64);
@@ -138,13 +145,24 @@ export function ledgerScore(chain = []) {
     if (body.index !== index || body.previousHash !== previous || sha256(body) !== hash) { valid = false; break; }
     previous = hash;
   }
+  const now = Date.parse(asOf);
+  const resolutionOf = new Map(resolutions.map(entry => [entry.forecastId, entry]));
+  const matured = forecasts.filter(forecast => Date.parse(forecast.resolvesAfter) <= now);
+  const scored = matured.map(forecast => resolutionOf.get(forecast.forecastId)).filter(Boolean);
+  const overdueUnresolved = matured.length - scored.length;
+  const complete = matured.length > 0 && overdueUnresolved === 0;
   return {
     version: SINGLE_AUDIT_FORECAST_VERSION,
     chainValid: valid,
+    asOf,
     forecasts: forecasts.length,
     resolved: resolutions.length,
-    meanBrier: resolutions.length ? resolutions.reduce((sum, entry) => sum + entry.brier, 0) / resolutions.length : null,
-    hitRate: resolutions.length ? resolutions.filter(entry => entry.outcome === 'YES').length / resolutions.length : null,
-    note: 'A track record exists only after resolution; unresolved forecasts are hypotheses.'
+    matured: matured.length,
+    overdueUnresolved,
+    earlyResolutionsNotScored: resolutions.length - scored.length,
+    status: !matured.length ? 'NO_MATURED_FORECASTS' : complete ? 'COMPLETE' : 'INCOMPLETE_OVERDUE_FORECASTS_UNRESOLVED',
+    meanBrier: complete ? scored.reduce((sum, entry) => sum + entry.brier, 0) / scored.length : null,
+    hitRate: complete ? scored.filter(entry => entry.outcome === 'YES').length / scored.length : null,
+    note: 'Scored only over matured forecasts, all of which must be resolved; unresolved forecasts are hypotheses.'
   };
 }

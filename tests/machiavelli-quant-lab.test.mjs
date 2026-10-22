@@ -95,7 +95,9 @@ test('protocol: a statistically real edge that loses to T-bills is not promoted'
   const receipt = runExperiment({ family, timestamps, holdoutFrom: '2025-01', riskFreeByMonth });
   assert.notEqual(receipt.label, 'SURVIVES_RESEARCH__PAPER_TRADE_NEXT');
   assert.ok(receipt.failures.some(text => /risk-free/.test(text)), receipt.failures.join('; '));
-  assert.ok(receipt.deflatedSharpe.probability > 0.95, 'the edge itself is statistically real');
+  // Measured in excess of T-bills the steady edge is not significant at all.
+  assert.ok(receipt.deflatedSharpe.probability < 0.95, String(receipt.deflatedSharpe.probability));
+  assert.ok(receipt.failures.some(text => /in excess of T-bills/.test(text)), receipt.failures.join('; '));
   assert.equal(receipt.moneyClaim, 'NONE');
   assert.match(receipt.receiptSha256, /^[a-f0-9]{64}$/);
 });
@@ -130,6 +132,48 @@ test('paper ledger: decisions must precede marks and the chain detects rewrites'
   assert.equal(verifyPaperChain(forged).ok, false);
 });
 
+test('review regressions: paper ledger refuses backdating and replacing an unmarked loser', () => {
+  const quote = (price, at) => ({ BTC: { price, source: 'okx', observedAt: at } });
+  let chain = recordPaperDecision([], { strategy: 'S', positions: { BTC: 1 }, quotes: quote(100, '2026-10-21T00:00:00Z'), decidedAt: '2026-10-21T00:00:00Z' });
+  assert.throws(() => recordPaperDecision(chain, { strategy: 'S', positions: { BTC: 1 }, quotes: quote(80, '2026-10-22T00:00:00Z'), decidedAt: '2026-10-22T00:00:00Z' }), /unmarked/);
+  assert.throws(() => recordPaperDecision([], { strategy: 'T', positions: { BTC: 1 }, quotes: quote(80, '2026-10-23T00:00:00Z'), decidedAt: '2026-10-22T00:00:00Z' }), /observed at or before/);
+  chain = markPaperDecision(chain, { strategy: 'S', quotes: { BTC: { price: 120 } }, markedAt: '2026-10-23T00:00:00Z' });
+  assert.throws(() => recordPaperDecision(chain, { strategy: 'S', positions: { BTC: 1 }, quotes: quote(50, '2026-01-01T00:00:00Z'), decidedAt: '2026-01-01T00:00:00Z' }), /before the last record/);
+  const forged = structuredClone(chain);
+  forged[1].markedAt = '2026-10-20T00:00:00Z';
+  assert.equal(verifyPaperChain(forged).ok, false);
+  assert.deepEqual(paperSummary(recordPaperDecision(chain, { strategy: 'S', positions: { BTC: 1 }, quotes: quote(120, '2026-10-24T00:00:00Z'), decidedAt: '2026-10-24T00:00:00Z' })).openDecisions, [{ strategy: 'S', decidedAt: '2026-10-24T00:00:00Z' }]);
+});
+
+test('review regressions: stress gate replays walk-forward choices; DSR deflates with two variants', () => {
+  const two = deflatedSharpe({ returns: Array.from({ length: 1000 }, (_, i) => 0.001 + 0.01 * Math.sin(i)), trialSharpes: [0.01, 0.03] });
+  assert.ok(two.expectedMaxSharpeUnderNull > 0, 'two distinct variants must raise the hurdle');
+  // Regime: up, down, up. A long-only holdout choice looks great on every fold;
+  // the real walk-forward (which picks flat after a down year) does not.
+  const hours = 24 * 30 * 48;
+  const timestamps = Array.from({ length: hours }, (_, i) => Date.UTC(2021, 0, 1) + i * 3_600_000);
+  const asset = timestamps.map(ms => { const y = new Date(ms).getUTCFullYear(); return y === 2022 ? -0.00004 : 0.00004; });
+  const family = { name: 'REGIME', hypothesis: 'test', grid: [{ on: 0 }, { on: 1 }], build: ({ on }) => ({ legs: [{ name: 'a', returns: asset, costBps: 1 }], decide: () => ({ a: on }) }) };
+  const stressBuild = ({ on }) => ({ legs: [{ name: 'a', returns: asset, costBps: 2 }], decide: () => ({ a: on }) });
+  const receipt = runExperiment({ family, timestamps, holdoutFrom: '2024-07', stressBuild });
+  const replayed = receipt.walkForward.folds.map(fold => fold.params.on);
+  assert.ok(replayed.includes(0) && replayed.includes(1), JSON.stringify(replayed));
+  assert.notEqual(receipt.outOfSampleUnderStressCosts.totalReturn, receipt.holdoutUnderStressCosts?.totalReturn);
+  assert.ok(Math.abs(receipt.outOfSampleUnderStressCosts.totalReturn - receipt.outOfSample.totalReturn) < 0.05, 'stress walk-forward tracks the real walk-forward, not the holdout choice');
+});
+
+test('review regressions: blocked crypto leg blocks the mechanism; NaN limits and bad probabilities are refused', async () => {
+  const { classifyRail } = await import('../src/money-entry-rails.mjs');
+  const { allocateCapital } = await import('../src/capital-allocation-intelligence.mjs');
+  assert.equal(classifyRail('Polymarket USDC winnings withdrawn to PayPal').verdict, 'RAIL_BLOCKED');
+  assert.equal(classifyRail('Sell USDT signals; buyers pay by bank transfer').verdict, 'RAIL_BLOCKED');
+  assert.equal(classifyRail('Apify payouts to PayPal. No FX, crypto or offshore leg.').verdict, 'RAIL_PLAUSIBLE');
+  const candidate = { id: 'A', monthlyContributionUsd: { p10: 10, p50: 20, p90: 30 }, probabilityMechanismWorks: 0.5, capitalRequiredUsd: 0, worstCredibleLossUsd: 100, founderHoursPerMonth: 500, correlationGroup: 'g' };
+  assert.equal(allocateCapital({ candidates: [candidate], levels: [100], founderHoursPerMonth: NaN }).status, 'INVALID_OPTIONS');
+  assert.equal(allocateCapital({ candidates: [candidate], levels: [100], maxLossFraction: NaN }).status, 'INVALID_OPTIONS');
+  assert.equal(allocateCapital({ candidates: [{ ...candidate, monthlyContributionUsd: { p10: -10_000, p50: 1, p90: 2 }, probabilityMechanismWorks: -0.5 }], levels: [0] }).status, 'INVALID_CANDIDATES');
+});
+
 test('reality ledger: five tiers, each with its own evidence, never summed together', () => {
   const at = '2026-10-21T00:00:00Z';
   let r = appendRealityEntry([], { tier: 'SIMULATED', mechanismId: 'CARRY', amountCents: 50_000, evidence: { experimentReceiptSha256: 'a'.repeat(64) }, at });
@@ -141,13 +185,22 @@ test('reality ledger: five tiers, each with its own evidence, never summed toget
   assert.ok(refused.problems.some(text => /founderCapitalAuthorizationRef/.test(text)));
   assert.ok(evidenceProblems('COLLECTED_RECEIPTS', { providerEventRef: 'order_created:sandbox-1', counterparty: 'x' }).length > 0, 'sandbox events are not receipts');
   // Cleared contribution profit needs intact canonical payment truth.
-  const truth = { status: 'PROVIDER_CLEARED_PAYMENT_PROVEN', stages: { PAYMENT_RETAINED: { status: 'PROVEN' } } };
+  const truth = { ok: true, status: 'PROVIDER_CLEARED_PAYMENT_PROVEN', stages: { CLEARED_PAYMENT: { status: 'PROVEN' }, PAYMENT_RETAINED: { status: 'PROVEN' } }, economics: { netProviderClearedRevenueCents: 10_000, reversedRevenueCents: 0 }, verifiedProviderEventRefs: ['order_created:12345'], contradictions: [] };
   truth.truthDigest = canonicalPaymentTruthDigest(truth);
   r = appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API', amountCents: 10_000, evidence: { paymentTruth: truth, attributableCostsCents: 2_500 }, at });
   assert.equal(r.ok, true);
   ledger = r.ledger;
   const tampered = structuredClone(truth); tampered.stages.PAYMENT_RETAINED.status = 'REVERSED';
   assert.equal(appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API', amountCents: 1, evidence: { paymentTruth: tampered, attributableCostsCents: 0 }, at }).ok, false);
+  // Review regressions: inflated, duplicated, failed and sandbox payment evidence is refused.
+  assert.equal(appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API2', amountCents: 10_000, evidence: { paymentTruth: truth, attributableCostsCents: 0 }, at }).ok, false, 'one payment counts once');
+  const failed = { ...structuredClone(truth), ok: false, contradictions: ['refund observed'], verifiedProviderEventRefs: ['order_created:999'], economics: { netProviderClearedRevenueCents: 10_000, reversedRevenueCents: 45_000 } };
+  failed.truthDigest = canonicalPaymentTruthDigest(failed);
+  assert.deepEqual(appendRealityEntry([], { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'X', amountCents: 10_000_000, evidence: { paymentTruth: failed, attributableCostsCents: 0 }, at }).problems.length >= 4, true);
+  const inflated = { ...structuredClone(truth), verifiedProviderEventRefs: ['order_created:777'] };
+  inflated.truthDigest = canonicalPaymentTruthDigest(inflated);
+  assert.ok(appendRealityEntry([], { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'X', amountCents: 10_000_000, evidence: { paymentTruth: inflated, attributableCostsCents: 0 }, at }).problems.some(text => /net provider-cleared/.test(text)));
+  for (const ref of ['sandbox.paypal.com/txn/1', 'paypal-sandbox/WH-1']) assert.ok(evidenceProblems('COLLECTED_RECEIPTS', { providerEventRef: ref, counterparty: 'x' }).length > 0, ref);
   const summary = summarizeReality(ledger);
   assert.equal(summary.byTier.SIMULATED.amountCents, 50_000);
   assert.equal(summary.clearedContributionProfitCents, 7_500);

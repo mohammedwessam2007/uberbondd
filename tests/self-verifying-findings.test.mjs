@@ -85,3 +85,24 @@ test('sale run: a defect fixed between discovery and delivery is not charged', a
   const verifier = inquiryReprobeVerifier({ probe: async () => ({ website: 'x', analysis: { verdict: 'NOT_OBSERVABLE_FROM_STATIC_HTML', findings: [] } }) });
   assert.equal((await verifier(sellableFindingsFromProbe(site(BROKEN))[0])).outcome, 'UNOBSERVABLE');
 });
+
+test('review regressions: deliver before charge, persisted keys survive a restart, URL variants are one site, a limit stops charging', async () => {
+  const order = [];
+  const persisted = [];
+  const charge = async ({ idempotencyKey }) => { order.push(`charge:${idempotencyKey.slice(0, 6)}`); return { ok: true }; };
+  const pushItem = async item => order.push(`push:${(item.chargeEvent ?? 'free').slice(0, 6)}`);
+  const run = alreadyCharged => runVerifiedDefectsSale({ buyerId: 'b', websites: ['https://plumber.example/', 'http://www.plumber.example', 'https://www.plumber.example/'], probe: async () => site(BROKEN), charge, pushItem, onCharged: key => persisted.push(key), alreadyCharged, pricePerVerifiedCents: 50, now: () => new Date('2026-10-22T05:00:00Z') });
+  const first = await run(new Set());
+  assert.equal(first.websites, 1, 'http/https/www variants are one site');
+  assert.equal(first.charged, 1);
+  assert.ok(order[0].startsWith('push:') && order[1].startsWith('charge:'), `delivered before charged: ${order}`);
+  const restarted = await run(new Set(persisted));
+  assert.equal(restarted.charged, 0, 'a restart with persisted keys never charges again');
+  let calls = 0;
+  const limited = await settleFindingsSale({ buyerId: 'L', findings: [finding('https://l1.example/'), finding('https://l2.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge: async () => { calls += 1; return { ok: true, limitReached: true }; }, now: () => new Date('2026-10-22T05:00:00Z') });
+  assert.equal(calls, 1, 'the charge that exhausts the limit is kept; no further charge is attempted');
+  assert.equal(limited.receipt.charged, 1);
+  const unbilled = await settleFindingsSale({ buyerId: 'U', findings: [finding('https://u.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge: async () => ({ ok: false, reason: 'NOT_BILLED' }), deliver: async () => {}, now: () => new Date('2026-10-22T05:00:00Z') });
+  assert.equal(unbilled.receipt.chargedCents, 0);
+  assert.equal(unbilled.receipt.deliveredUncharged[0].detail, 'CHARGE_NOT_CONFIRMED:NOT_BILLED');
+});

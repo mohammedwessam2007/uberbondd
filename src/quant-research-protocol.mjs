@@ -9,9 +9,9 @@
 // not "makes money".
 
 import crypto from 'node:crypto';
-import { performance, deflatedSharpe, runBacktest, walkForward, monthlyFolds } from './quant-backtest.mjs';
+import { performance, deflatedSharpe, runBacktest, walkForward, monthlyFolds, riskFreePerPeriod } from './quant-backtest.mjs';
 
-export const QUANT_RESEARCH_PROTOCOL_VERSION = 'uberbond.quant-research-protocol-1.0.0';
+export const QUANT_RESEARCH_PROTOCOL_VERSION = 'uberbond.quant-research-protocol-1.1.0';
 
 export const VERDICT_RULES = Object.freeze({
   minOosSharpe: 0.5,
@@ -54,13 +54,15 @@ export function runExperiment({ family, timestamps, holdoutFrom, trainMonths = 1
   const folds = monthlyFolds({ timestamps, trainMonths, testMonths, stopBefore: holdoutFrom });
   if (!folds.length) throw new Error('not enough history for one walk-forward fold');
   const wf = walkForward({ folds, grid: family.grid, runWith, periodsPerYear });
-  const oos = performance(wf.oosReturns, { periodsPerYear });
+  const riskFreeOos = riskFreeOver(riskFreeByMonth, timestamps, folds[0].testStart, holdoutStart);
+  const riskFreeHoldout = riskFreeOver(riskFreeByMonth, timestamps, holdoutStart, timestamps.length);
+  // Sharpe and the deflated Sharpe are measured in excess of the T-bill rate:
+  // a low-volatility edge that only matches cash must not look significant.
+  const oos = performance(wf.oosReturns, { periodsPerYear, riskFreeAnnual: riskFreeOos ?? 0 });
   // Deflation counts the parameter variants tried, each scored on the same
   // pre-holdout research window. Folds are not independent trials.
   const trialSharpes = family.grid.map(params => performance(runWith(params, folds[0].trainStart, holdoutStart).returns, { periodsPerYear }).sharpePerPeriod);
-  const dsr = deflatedSharpe({ returns: wf.oosReturns, trialSharpes });
-  const riskFreeOos = riskFreeOver(riskFreeByMonth, timestamps, folds[0].testStart, holdoutStart);
-  const riskFreeHoldout = riskFreeOver(riskFreeByMonth, timestamps, holdoutStart, timestamps.length);
+  const dsr = deflatedSharpe({ returns: wf.oosReturns, trialSharpes, riskFreePerPeriod: riskFreePerPeriod(riskFreeOos ?? 0, periodsPerYear) });
 
   // Holdout: parameters chosen on the last training window before it, then opened once.
   const finalTrainStart = timestamps.findIndex(ms => ms >= timestamps[holdoutStart] - trainMonths * 30.44 * 86_400_000);
@@ -73,11 +75,14 @@ export function runExperiment({ family, timestamps, holdoutFrom, trainMonths = 1
   const holdout = performance(holdoutRun.returns, { periodsPerYear });
   const stressRun = stressBuild ? runWith(chosen.params, holdoutStart, timestamps.length, stressBuild) : null;
   const stress = stressRun ? performance(stressRun.returns, { periodsPerYear }) : null;
-  const oosStress = stressBuild ? performance(walkForward({ folds, grid: [chosen.params], runWith: (p, s, e) => runWith(p, s, e, stressBuild), periodsPerYear }).oosReturns, { periodsPerYear }) : null;
+  // Replays the walk-forward's own per-fold choices under stress costs. Reusing
+  // the holdout parameters here would score early folds with a choice made on
+  // later data.
+  const oosStress = stressBuild ? performance(wf.choices.flatMap(choice => runWith(choice.params, choice.fold.testStart, choice.fold.testEnd, stressBuild).returns), { periodsPerYear }) : null;
 
-  const baselineOos = baselineReturns ? performance(baselineReturns.slice(folds[0].testStart, holdoutStart), { periodsPerYear }) : null;
+  const baselineOos = baselineReturns ? performance(baselineReturns.slice(folds[0].testStart, holdoutStart), { periodsPerYear, riskFreeAnnual: riskFreeOos ?? 0 }) : null;
   const failures = [];
-  if (oos.sharpe < VERDICT_RULES.minOosSharpe) failures.push(`out-of-sample Sharpe ${round(oos.sharpe, 2)} < ${VERDICT_RULES.minOosSharpe}`);
+  if (oos.sharpe < VERDICT_RULES.minOosSharpe) failures.push(`out-of-sample Sharpe in excess of T-bills ${round(oos.sharpe, 2)} < ${VERDICT_RULES.minOosSharpe}`);
   if (dsr.dsr < VERDICT_RULES.minDeflatedSharpe) failures.push(`deflated Sharpe probability ${round(dsr.dsr, 3)} < ${VERDICT_RULES.minDeflatedSharpe} after ${dsr.trials} variants`);
   if (holdout.totalReturn <= 0) failures.push(`sealed holdout net return ${round(holdout.totalReturn * 100, 2)}% <= 0`);
   if (stress && stress.totalReturn <= 0) failures.push(`holdout under doubled costs ${round(stress.totalReturn * 100, 2)}% <= 0`);

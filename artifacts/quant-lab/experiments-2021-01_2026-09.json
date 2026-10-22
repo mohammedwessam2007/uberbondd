@@ -1,6 +1,6 @@
 {
   "schema": "uberbond.quant-lab-experiments.v1",
-  "runAt": "2026-10-21T21:30:09.658Z",
+  "runAt": "2026-10-22T12:34:02.152Z",
   "data": {
     "source": "data.binance.vision public archive",
     "verification": "publisher SHA-256 recomputed per monthly file",
@@ -129,7 +129,7 @@
       "family": "BUY_AND_HOLD:BTC",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.908 < 0.95 after 1 variants",
+        "deflated Sharpe probability 0.881 < 0.95 after 1 variants",
         "sealed holdout net return -26.89% <= 0",
         "holdout CAGR -26.89% does not beat the 3.8% risk-free rate"
       ],
@@ -140,9 +140,9 @@
         "totalReturn": 1.287,
         "cagr": 0.2478,
         "annualVol": 0.52,
-        "sharpe": 0.6856,
-        "sharpePerPeriod": 0.0073,
-        "sortino": 0.9735,
+        "sharpe": 0.6099,
+        "sharpePerPeriod": 0.0065,
+        "sortino": 0.866,
         "maxDrawdown": 0.6841,
         "calmar": 0.3622,
         "skew": 0.1904,
@@ -150,8 +150,8 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9076,
-        "sharpePerPeriod": 0.007325,
+        "probability": 0.8809,
+        "sharpePerPeriod": 0.006516,
         "expectedMaxSharpeUnderNull": 0,
         "trials": 1
       },
@@ -284,13 +284,13 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "abfa2d3bfa5149882e96ae923b392c82f3fd93a469404e5011925ec7d983e19e"
+      "receiptSha256": "0e9c2d9a2d18743bd9b1fc1d7114c648173948d3c9d48f0dc4f858cf8f5aef19"
     },
     {
       "family": "TIME_SERIES_MOMENTUM:BTC",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.663 < 0.95 after 3 variants",
+        "deflated Sharpe probability 0.515 < 0.95 after 3 variants",
         "sealed holdout net return -4.91% <= 0",
         "holdout under doubled costs -7.28% <= 0",
         "holdout CAGR -4.91% does not beat the 3.8% risk-free rate",
@@ -303,9 +303,9 @@
         "totalReturn": 0.8525,
         "cagr": 0.1794,
         "annualVol": 0.3711,
-        "sharpe": 0.6299,
-        "sharpePerPeriod": 0.0067,
-        "sortino": 0.9062,
+        "sharpe": 0.5237,
+        "sharpePerPeriod": 0.0056,
+        "sortino": 0.7536,
         "maxDrawdown": 0.4132,
         "calmar": 0.4342,
         "skew": 0.6774,
@@ -313,21 +313,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.4197,
-        "cagr": 0.0983,
-        "annualVol": 0.3499,
-        "sharpe": 0.4432,
-        "sharpePerPeriod": 0.0047,
-        "sortino": 0.622,
-        "maxDrawdown": 0.4937,
-        "calmar": 0.1992,
-        "skew": -0.3647,
-        "kurt": 29.406
+        "totalReturn": 0.189,
+        "cagr": 0.0474,
+        "annualVol": 0.3725,
+        "sharpe": 0.3103,
+        "sharpePerPeriod": 0.0033,
+        "sortino": 0.4447,
+        "maxDrawdown": 0.4987,
+        "calmar": 0.0951,
+        "skew": 0.6424,
+        "kurt": 42.7302
       },
       "deflatedSharpe": {
-        "probability": 0.6635,
-        "sharpePerPeriod": 0.00673,
-        "expectedMaxSharpeUnderNull": 0.004403,
+        "probability": 0.5147,
+        "sharpePerPeriod": 0.005596,
+        "expectedMaxSharpeUnderNull": 0.005392,
         "trials": 3
       },
       "holdout": {
@@ -373,9 +373,9 @@
         "totalReturn": 1.4677,
         "cagr": 0.2734,
         "annualVol": 0.5202,
-        "sharpe": 0.7247,
-        "sharpePerPeriod": 0.0077,
-        "sortino": 1.0293,
+        "sharpe": 0.649,
+        "sharpePerPeriod": 0.0069,
+        "sortino": 0.9218,
         "maxDrawdown": 0.6738,
         "calmar": 0.4058,
         "skew": 0.1905,
@@ -515,12 +515,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "3bb3d9dba1bfd64a9d16933299ec54fb33f6cc5ba1c468c41e3ac46158fd3221"
+      "receiptSha256": "c60bb9f716f9d49b3dff1b5f6c8f685ed28512fa9f25199b9b019865c3714250"
     },
     {
       "family": "FUNDING_CARRY:BTC",
-      "label": "INCONCLUSIVE",
+      "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.91 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "holdout under doubled costs -0.45% <= 0",
         "out-of-sample CAGR 2.44% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0.82% does not beat the 3.8% risk-free rate"
@@ -532,9 +534,9 @@
         "totalReturn": 0.0941,
         "cagr": 0.0244,
         "annualVol": 0.008,
-        "sharpe": 3.019,
-        "sharpePerPeriod": 0.0323,
-        "sortino": 3.9895,
+        "sharpe": -1.9148,
+        "sharpePerPeriod": -0.0205,
+        "sortino": -2.5303,
         "maxDrawdown": 0.0095,
         "calmar": 2.5551,
         "skew": -3.9057,
@@ -542,21 +544,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0592,
-        "cagr": 0.0155,
-        "annualVol": 0.0148,
-        "sharpe": 1.0476,
-        "sharpePerPeriod": 0.0112,
-        "sortino": 1.3102,
-        "maxDrawdown": 0.0394,
-        "calmar": 0.3937,
-        "skew": 0.1361,
-        "kurt": 1627.3942
+        "totalReturn": 0.0452,
+        "cagr": 0.0119,
+        "annualVol": 0.0105,
+        "sharpe": 1.13,
+        "sharpePerPeriod": 0.0121,
+        "sortino": 1.3015,
+        "maxDrawdown": 0.0256,
+        "calmar": 0.4647,
+        "skew": -13.0202,
+        "kurt": 303.77
       },
       "deflatedSharpe": {
-        "probability": 0.992,
-        "sharpePerPeriod": 0.032256,
-        "expectedMaxSharpeUnderNull": 0.018012,
+        "probability": 0,
+        "sharpePerPeriod": -0.020458,
+        "expectedMaxSharpeUnderNull": 0.019105,
         "trials": 9
       },
       "holdout": {
@@ -764,12 +766,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "2daa53b65092495d077aec8804428fecc7106d5d22662c2db3b7ff971b312f01"
+      "receiptSha256": "fc7d5b4b30c7818ccee185a14577b6746986766275e36d86978603b2b37a726d"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC",
-      "label": "INCONCLUSIVE",
+      "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.69 < 0.5",
+        "deflated Sharpe probability 0.002 < 0.95 after 9 variants",
         "out-of-sample CAGR 3.22% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 1.39% does not beat the 3.8% risk-free rate"
       ],
@@ -780,9 +784,9 @@
         "totalReturn": 0.1258,
         "cagr": 0.0322,
         "annualVol": 0.0111,
-        "sharpe": 2.8663,
-        "sharpePerPeriod": 0.0306,
-        "sortino": 4.3014,
+        "sharpe": -0.6857,
+        "sharpePerPeriod": -0.0073,
+        "sortino": -1.0291,
         "maxDrawdown": 0.0128,
         "calmar": 2.5128,
         "skew": 14.6195,
@@ -790,9 +794,9 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9982,
-        "sharpePerPeriod": 0.030624,
-        "expectedMaxSharpeUnderNull": 0.009688,
+        "probability": 0.0016,
+        "sharpePerPeriod": -0.007327,
+        "expectedMaxSharpeUnderNull": 0.010276,
         "trials": 9
       },
       "holdout": {
@@ -988,14 +992,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "94ad836eadc03c429b1ed1de557d44e35b6cd0957e53becb73c5f6c52b24ac62"
+      "receiptSha256": "a2297e1b311e00d82ef7f2c37352259fc933bbf08d16d24433f2a6860e76dc25"
     },
     {
       "family": "BUY_AND_HOLD:ETH",
       "label": "REJECTED",
       "failures": [
-        "out-of-sample Sharpe 0.34 < 0.5",
-        "deflated Sharpe probability 0.743 < 0.95 after 1 variants",
+        "out-of-sample Sharpe in excess of T-bills 0.28 < 0.5",
+        "deflated Sharpe probability 0.706 < 0.95 after 1 variants",
         "sealed holdout net return -35.33% <= 0",
         "out-of-sample CAGR -0.34% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -35.33% does not beat the 3.8% risk-free rate"
@@ -1007,9 +1011,9 @@
         "totalReturn": -0.0127,
         "cagr": -0.0034,
         "annualVol": 0.6842,
-        "sharpe": 0.3375,
-        "sharpePerPeriod": 0.0036,
-        "sortino": 0.4725,
+        "sharpe": 0.28,
+        "sharpePerPeriod": 0.003,
+        "sortino": 0.3919,
         "maxDrawdown": 0.7794,
         "calmar": -0.0044,
         "skew": -0.1725,
@@ -1017,8 +1021,8 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.7429,
-        "sharpePerPeriod": 0.003606,
+        "probability": 0.7058,
+        "sharpePerPeriod": 0.002991,
         "expectedMaxSharpeUnderNull": 0,
         "trials": 1
       },
@@ -1151,15 +1155,16 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "fd5fb159f04f4793aa2d451178f4983c880891f175e075734e77a4fcbedcfbe9"
+      "receiptSha256": "2cc04428c7f39aee3681726ce2c95c287ebe5c97059ed4730a419da4023c879f"
     },
     {
       "family": "TIME_SERIES_MOMENTUM:ETH",
       "label": "INCONCLUSIVE",
       "failures": [
-        "out-of-sample Sharpe 0.31 < 0.5",
-        "deflated Sharpe probability 0.53 < 0.95 after 3 variants",
+        "out-of-sample Sharpe in excess of T-bills 0.22 < 0.5",
+        "deflated Sharpe probability 0.419 < 0.95 after 3 variants",
         "holdout under doubled costs -13.05% <= 0",
+        "walk-forward under doubled costs -36.58% <= 0",
         "out-of-sample CAGR 3.48% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 2.31% does not beat the 3.8% risk-free rate"
       ],
@@ -1170,9 +1175,9 @@
         "totalReturn": 0.1365,
         "cagr": 0.0348,
         "annualVol": 0.4641,
-        "sharpe": 0.3061,
-        "sharpePerPeriod": 0.0033,
-        "sortino": 0.4323,
+        "sharpe": 0.2212,
+        "sharpePerPeriod": 0.0024,
+        "sortino": 0.3124,
         "maxDrawdown": 0.5826,
         "calmar": 0.0598,
         "skew": -0.1657,
@@ -1180,21 +1185,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.3003,
-        "cagr": 0.0728,
-        "annualVol": 0.4415,
-        "sharpe": 0.3797,
-        "sharpePerPeriod": 0.0041,
-        "sortino": 0.5453,
-        "maxDrawdown": 0.5936,
-        "calmar": 0.1226,
-        "skew": 0.4249,
-        "kurt": 33.8782
+        "totalReturn": -0.3658,
+        "cagr": -0.1147,
+        "annualVol": 0.4656,
+        "sharpe": -0.0287,
+        "sharpePerPeriod": -0.0003,
+        "sortino": -0.0405,
+        "maxDrawdown": 0.7399,
+        "calmar": -0.1551,
+        "skew": -0.1806,
+        "kurt": 39.0511
       },
       "deflatedSharpe": {
-        "probability": 0.5297,
-        "sharpePerPeriod": 0.00327,
-        "expectedMaxSharpeUnderNull": 0.002858,
+        "probability": 0.4185,
+        "sharpePerPeriod": 0.002363,
+        "expectedMaxSharpeUnderNull": 0.0035,
         "trials": 3
       },
       "holdout": {
@@ -1240,9 +1245,9 @@
         "totalReturn": 0.1276,
         "cagr": 0.0326,
         "annualVol": 0.6849,
-        "sharpe": 0.3898,
-        "sharpePerPeriod": 0.0042,
-        "sortino": 0.5463,
+        "sharpe": 0.3323,
+        "sharpePerPeriod": 0.0036,
+        "sortino": 0.4658,
         "maxDrawdown": 0.7667,
         "calmar": 0.0426,
         "skew": -0.1584,
@@ -1382,13 +1387,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "980ea83df41b5a5d20b033c748528e6e0d22d6746a93679db1b54057d4d466bb"
+      "receiptSha256": "734fa9f41e86bbed67a1589ced63c21272cb0158d1049a51e852f9aced663ba3"
     },
     {
       "family": "FUNDING_CARRY:ETH",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.445 < 0.95 after 9 variants",
+        "out-of-sample Sharpe in excess of T-bills -1.54 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
         "out-of-sample CAGR 1.91% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -1401,9 +1407,9 @@
         "totalReturn": 0.0733,
         "cagr": 0.0191,
         "annualVol": 0.0132,
-        "sharpe": 1.4349,
-        "sharpePerPeriod": 0.0153,
-        "sortino": 2.1833,
+        "sharpe": -1.5377,
+        "sharpePerPeriod": -0.0164,
+        "sortino": -2.3397,
         "maxDrawdown": 0.019,
         "calmar": 1.0033,
         "skew": 34.1061,
@@ -1411,21 +1417,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.051,
-        "cagr": 0.0134,
-        "annualVol": 0.0061,
-        "sharpe": 2.1969,
-        "sharpePerPeriod": 0.0235,
-        "sortino": 2.6951,
-        "maxDrawdown": 0.0056,
-        "calmar": 2.396,
-        "skew": -17.3624,
-        "kurt": 713.3618
+        "totalReturn": 0.024,
+        "cagr": 0.0064,
+        "annualVol": 0.015,
+        "sharpe": 0.4322,
+        "sharpePerPeriod": 0.0046,
+        "sortino": 0.5802,
+        "maxDrawdown": 0.0215,
+        "calmar": 0.2962,
+        "skew": 19.5941,
+        "kurt": 4184.6423
       },
       "deflatedSharpe": {
-        "probability": 0.4451,
-        "sharpePerPeriod": 0.01533,
-        "expectedMaxSharpeUnderNull": 0.016042,
+        "probability": 0,
+        "sharpePerPeriod": -0.016429,
+        "expectedMaxSharpeUnderNull": 0.017015,
         "trials": 9
       },
       "holdout": {
@@ -1633,12 +1639,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "56c98edb74f80c9bcf73bc1f46e7fd122e3573ca9445e75a567d0a44e5a1cdab"
+      "receiptSha256": "b58e1d643e1cb37c1a0155434a30a1425039ddd8718c2c9d3ead646758f6afdf"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH",
-      "label": "INCONCLUSIVE",
+      "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.75 < 0.5",
+        "deflated Sharpe probability 0.005 < 0.95 after 9 variants",
         "out-of-sample CAGR 2.99% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0.28% does not beat the 3.8% risk-free rate"
       ],
@@ -1649,9 +1657,9 @@
         "totalReturn": 0.1164,
         "cagr": 0.0299,
         "annualVol": 0.013,
-        "sharpe": 2.2674,
-        "sharpePerPeriod": 0.0242,
-        "sortino": 3.6127,
+        "sharpe": -0.7534,
+        "sharpePerPeriod": -0.008,
+        "sortino": -1.2004,
         "maxDrawdown": 0.0179,
         "calmar": 1.6687,
         "skew": 36.5376,
@@ -1659,9 +1667,9 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9963,
-        "sharpePerPeriod": 0.024226,
-        "expectedMaxSharpeUnderNull": 0.008293,
+        "probability": 0.0051,
+        "sharpePerPeriod": -0.008049,
+        "expectedMaxSharpeUnderNull": 0.008796,
         "trials": 9
       },
       "holdout": {
@@ -1857,13 +1865,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "347435e359110415224fbe345e108565a750cae1685ba21757596429da5ad354"
+      "receiptSha256": "84b2bd9ee41dc40371792ddc0a7d6bb004b979b015ba8721323c9a04a6c6f089"
     },
     {
       "family": "BUY_AND_HOLD:SOL",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.844 < 0.95 after 1 variants",
+        "out-of-sample Sharpe in excess of T-bills 0.48 < 0.5",
+        "deflated Sharpe probability 0.826 < 0.95 after 1 variants",
         "sealed holdout net return -43.15% <= 0",
         "out-of-sample CAGR 1.3% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -43.15% does not beat the 3.8% risk-free rate"
@@ -1875,9 +1884,9 @@
         "totalReturn": 0.0495,
         "cagr": 0.013,
         "annualVol": 1.0225,
-        "sharpe": 0.5232,
-        "sharpePerPeriod": 0.0056,
-        "sortino": 0.7563,
+        "sharpe": 0.4847,
+        "sharpePerPeriod": 0.0052,
+        "sortino": 0.7007,
         "maxDrawdown": 0.9582,
         "calmar": 0.0136,
         "skew": 0.3526,
@@ -1885,8 +1894,8 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.8443,
-        "sharpePerPeriod": 0.00559,
+        "probability": 0.8258,
+        "sharpePerPeriod": 0.005178,
         "expectedMaxSharpeUnderNull": 0,
         "trials": 1
       },
@@ -2019,16 +2028,15 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "bfeb36b810efb74361a6ed9aca475a9d814bc3827533ca178e3fc10781587203"
+      "receiptSha256": "9392b128444e44c4eaa0855d8ff5622309b831c20746467f3623cca55b2aa17d"
     },
     {
       "family": "TIME_SERIES_MOMENTUM:SOL",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.782 < 0.95 after 3 variants",
+        "deflated Sharpe probability 0.708 < 0.95 after 3 variants",
         "sealed holdout net return -36.15% <= 0",
         "holdout under doubled costs -56.84% <= 0",
-        "walk-forward under doubled costs -32.22% <= 0",
         "holdout CAGR -36.15% does not beat the 3.8% risk-free rate"
       ],
       "hypothesis": "Trend persistence: assets that rose over the lookback keep rising more often than not; flat otherwise. Crowded, well known; included as a strong conventional baseline.",
@@ -2038,9 +2046,9 @@
         "totalReturn": 1.2865,
         "cagr": 0.2477,
         "annualVol": 0.6535,
-        "sharpe": 0.6646,
-        "sharpePerPeriod": 0.0071,
-        "sortino": 0.9735,
+        "sharpe": 0.6044,
+        "sharpePerPeriod": 0.0065,
+        "sortino": 0.8852,
         "maxDrawdown": 0.6894,
         "calmar": 0.3594,
         "skew": 0.6283,
@@ -2048,21 +2056,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": -0.3222,
-        "cagr": -0.0988,
-        "annualVol": 0.6809,
-        "sharpe": 0.1868,
-        "sharpePerPeriod": 0.002,
-        "sortino": 0.273,
-        "maxDrawdown": 0.8093,
-        "calmar": -0.1221,
-        "skew": 0.57,
-        "kurt": 22.3144
+        "totalReturn": 0.3125,
+        "cagr": 0.0755,
+        "annualVol": 0.6547,
+        "sharpe": 0.4378,
+        "sharpePerPeriod": 0.0047,
+        "sortino": 0.6397,
+        "maxDrawdown": 0.7414,
+        "calmar": 0.1018,
+        "skew": 0.6167,
+        "kurt": 24.6913
       },
       "deflatedSharpe": {
-        "probability": 0.782,
-        "sharpePerPeriod": 0.007101,
-        "expectedMaxSharpeUnderNull": 0.002805,
+        "probability": 0.7081,
+        "sharpePerPeriod": 0.006457,
+        "expectedMaxSharpeUnderNull": 0.003435,
         "trials": 3
       },
       "holdout": {
@@ -2108,9 +2116,9 @@
         "totalReturn": 0.2276,
         "cagr": 0.0564,
         "annualVol": 1.0238,
-        "sharpe": 0.5647,
-        "sharpePerPeriod": 0.006,
-        "sortino": 0.8174,
+        "sharpe": 0.5262,
+        "sharpePerPeriod": 0.0056,
+        "sortino": 0.7617,
         "maxDrawdown": 0.9538,
         "calmar": 0.0591,
         "skew": 0.3686,
@@ -2250,12 +2258,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "bae369765ffdb40a900e4d08ec39bd1796ee4436dce2525054791e5f5414cabb"
+      "receiptSha256": "66313c0662dec4045d9dcac641c14002b26dc82b79f7c38244f5b8fb32121b27"
     },
     {
       "family": "FUNDING_CARRY:SOL",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -2.06 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
         "out-of-sample CAGR 1.69% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -2268,9 +2278,9 @@
         "totalReturn": 0.0647,
         "cagr": 0.0169,
         "annualVol": 0.0109,
-        "sharpe": 1.5394,
-        "sharpePerPeriod": 0.0164,
-        "sortino": 2.1319,
+        "sharpe": -2.0598,
+        "sharpePerPeriod": -0.022,
+        "sortino": -2.8525,
         "maxDrawdown": 0.0108,
         "calmar": 1.5717,
         "skew": -1.3163,
@@ -2278,21 +2288,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0542,
-        "cagr": 0.0142,
-        "annualVol": 0.0097,
-        "sharpe": 1.4635,
-        "sharpePerPeriod": 0.0156,
-        "sortino": 1.888,
-        "maxDrawdown": 0.0158,
-        "calmar": 0.9016,
-        "skew": -7.2629,
-        "kurt": 220.844
+        "totalReturn": 0.0159,
+        "cagr": 0.0042,
+        "annualVol": 0.013,
+        "sharpe": 0.331,
+        "sharpePerPeriod": 0.0035,
+        "sortino": 0.4073,
+        "maxDrawdown": 0.0337,
+        "calmar": 0.1256,
+        "skew": -7.2612,
+        "kurt": 156.272
       },
       "deflatedSharpe": {
-        "probability": 0.978,
-        "sharpePerPeriod": 0.016447,
-        "expectedMaxSharpeUnderNull": 0.005183,
+        "probability": 0,
+        "sharpePerPeriod": -0.022007,
+        "expectedMaxSharpeUnderNull": 0.005498,
         "trials": 9
       },
       "holdout": {
@@ -2500,12 +2510,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "b41ee7732d809ade629e9371a62264b0f675ff8712e506f34c2059ca9b9378b0"
+      "receiptSha256": "90f5112fe75ddc692fcec2a57dcf2455cf1677446359ee3e637dbe0cf88f53f6"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.6 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return 0% <= 0",
         "out-of-sample CAGR 2.12% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR 0% does not beat the 3.8% risk-free rate"
@@ -2517,9 +2529,9 @@
         "totalReturn": 0.0815,
         "cagr": 0.0212,
         "annualVol": 0.0115,
-        "sharpe": 1.8314,
-        "sharpePerPeriod": 0.0196,
-        "sortino": 2.634,
+        "sharpe": -1.5986,
+        "sharpePerPeriod": -0.0171,
+        "sortino": -2.2992,
         "maxDrawdown": 0.0119,
         "calmar": 1.7797,
         "skew": -0.0759,
@@ -2527,9 +2539,9 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.999,
-        "sharpePerPeriod": 0.019567,
-        "expectedMaxSharpeUnderNull": 0.00238,
+        "probability": 0.0002,
+        "sharpePerPeriod": -0.017079,
+        "expectedMaxSharpeUnderNull": 0.002524,
         "trials": 9
       },
       "holdout": {
@@ -2725,13 +2737,13 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "2a9f471db0cc14ae7953166a3acd9856a454151470110f7eea8e2f391b8778f9"
+      "receiptSha256": "b8e00446d117369b49dd536745eb8561a7359cb0d45100a72314b35f69e9b354"
     },
     {
       "family": "BUY_AND_HOLD:XRP",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.94 < 0.95 after 1 variants",
+        "deflated Sharpe probability 0.928 < 0.95 after 1 variants",
         "sealed holdout net return -47.57% <= 0",
         "holdout CAGR -47.57% does not beat the 3.8% risk-free rate"
       ],
@@ -2742,9 +2754,9 @@
         "totalReturn": 2.3186,
         "cagr": 0.3785,
         "annualVol": 0.8503,
-        "sharpe": 0.8002,
-        "sharpePerPeriod": 0.0085,
-        "sortino": 1.169,
+        "sharpe": 0.7539,
+        "sharpePerPeriod": 0.0081,
+        "sortino": 1.1014,
         "maxDrawdown": 0.6812,
         "calmar": 0.5556,
         "skew": 1.2902,
@@ -2752,8 +2764,8 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.94,
-        "sharpePerPeriod": 0.00855,
+        "probability": 0.9284,
+        "sharpePerPeriod": 0.008055,
         "expectedMaxSharpeUnderNull": 0,
         "trials": 1
       },
@@ -2886,17 +2898,17 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "0486e4c5a7f249b3e40f2bcefa78ea1647bd10a6eaecf1ddad72cd8863fea092"
+      "receiptSha256": "95f2040c486cf6e09d74ffa555d5dbc72b968ecbc65e53ba812ea4ce9aaf569c"
     },
     {
       "family": "TIME_SERIES_MOMENTUM:XRP",
       "label": "REJECTED",
       "failures": [
-        "out-of-sample Sharpe -0.16 < 0.5",
-        "deflated Sharpe probability 0.292 < 0.95 after 3 variants",
+        "out-of-sample Sharpe in excess of T-bills -0.22 < 0.5",
+        "deflated Sharpe probability 0.236 < 0.95 after 3 variants",
         "sealed holdout net return -51.52% <= 0",
         "holdout under doubled costs -66.95% <= 0",
-        "walk-forward under doubled costs -68.47% <= 0",
+        "walk-forward under doubled costs -87.93% <= 0",
         "out-of-sample CAGR -26.37% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -51.52% does not beat the 3.8% risk-free rate",
         "does not beat the baseline or zero on Sharpe or return"
@@ -2908,9 +2920,9 @@
         "totalReturn": -0.6814,
         "cagr": -0.2637,
         "annualVol": 0.6418,
-        "sharpe": -0.1569,
-        "sharpePerPeriod": -0.0017,
-        "sortino": -0.2252,
+        "sharpe": -0.2182,
+        "sharpePerPeriod": -0.0023,
+        "sortino": -0.3132,
         "maxDrawdown": 0.8529,
         "calmar": -0.3091,
         "skew": 0.9477,
@@ -2918,21 +2930,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": -0.6847,
-        "cagr": -0.2657,
-        "annualVol": 0.6124,
-        "sharpe": -0.2019,
-        "sharpePerPeriod": -0.0022,
-        "sortino": -0.3043,
-        "maxDrawdown": 0.9165,
-        "calmar": -0.2899,
-        "skew": 3.3893,
-        "kurt": 129.8166
+        "totalReturn": -0.8793,
+        "cagr": -0.4322,
+        "annualVol": 0.6439,
+        "sharpe": -0.5579,
+        "sharpePerPeriod": -0.006,
+        "sortino": -0.7979,
+        "maxDrawdown": 0.9267,
+        "calmar": -0.4664,
+        "skew": 0.9253,
+        "kurt": 65.7836
       },
       "deflatedSharpe": {
-        "probability": 0.2921,
-        "sharpePerPeriod": -0.001676,
-        "expectedMaxSharpeUnderNull": 0.001351,
+        "probability": 0.2356,
+        "sharpePerPeriod": -0.002332,
+        "expectedMaxSharpeUnderNull": 0.001655,
         "trials": 3
       },
       "holdout": {
@@ -2978,9 +2990,9 @@
         "totalReturn": 2.4311,
         "cagr": 0.3909,
         "annualVol": 0.8505,
-        "sharpe": 0.8107,
-        "sharpePerPeriod": 0.0087,
-        "sortino": 1.1844,
+        "sharpe": 0.7644,
+        "sharpePerPeriod": 0.0082,
+        "sortino": 1.1168,
         "maxDrawdown": 0.6767,
         "calmar": 0.5776,
         "skew": 1.2893,
@@ -3120,12 +3132,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "56866a29454e3e80bd4b633ab7bf146125c5c9ebd6ef19d237626cee98a8c4c9"
+      "receiptSha256": "62cc43ed60318eff0efa63daedacf247aa4bc4dcfaf08d4b4eb82beedf737bf0"
     },
     {
       "family": "FUNDING_CARRY:XRP",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.5 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
         "sealed holdout net return -0.78% <= 0",
         "holdout under doubled costs -2.16% <= 0",
         "out-of-sample CAGR 2.23% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -3138,9 +3152,9 @@
         "totalReturn": 0.086,
         "cagr": 0.0223,
         "annualVol": 0.0115,
-        "sharpe": 1.9217,
-        "sharpePerPeriod": 0.0205,
-        "sortino": 2.7143,
+        "sharpe": -1.495,
+        "sharpePerPeriod": -0.016,
+        "sortino": -2.1116,
         "maxDrawdown": 0.0055,
         "calmar": 4.0469,
         "skew": -0.7947,
@@ -3148,21 +3162,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.0586,
-        "cagr": 0.0154,
-        "annualVol": 0.0193,
-        "sharpe": 0.7984,
-        "sharpePerPeriod": 0.0085,
-        "sortino": 1.0448,
-        "maxDrawdown": 0.0385,
-        "calmar": 0.3986,
-        "skew": -1.3383,
-        "kurt": 403.0718
+        "totalReturn": 0.0441,
+        "cagr": 0.0116,
+        "annualVol": 0.0132,
+        "sharpe": 0.8825,
+        "sharpePerPeriod": 0.0094,
+        "sortino": 1.1217,
+        "maxDrawdown": 0.0172,
+        "calmar": 0.6774,
+        "skew": -5.6743,
+        "kurt": 121.3482
       },
       "deflatedSharpe": {
-        "probability": 0.9586,
-        "sharpePerPeriod": 0.020533,
-        "expectedMaxSharpeUnderNull": 0.010852,
+        "probability": 0,
+        "sharpePerPeriod": -0.015973,
+        "expectedMaxSharpeUnderNull": 0.01151,
         "trials": 9
       },
       "holdout": {
@@ -3370,12 +3384,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "46a3e3c88dca5ce676e747083ea7a0ec7466b74cf52cf6e428d32f0a91a36d93"
+      "receiptSha256": "0622803116692719091d791093260fac8edb2b1c80c3e6025373285ea0651a35"
     },
     {
       "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP",
       "label": "REJECTED",
       "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.13 < 0.5",
+        "deflated Sharpe probability 0.001 < 0.95 after 9 variants",
         "sealed holdout net return -0.16% <= 0",
         "out-of-sample CAGR 2.68% does not beat the 4.02% risk-free T-bill rate over the same months",
         "holdout CAGR -0.16% does not beat the 3.8% risk-free rate"
@@ -3387,9 +3403,9 @@
         "totalReturn": 0.1039,
         "cagr": 0.0268,
         "annualVol": 0.0114,
-        "sharpe": 2.3235,
-        "sharpePerPeriod": 0.0248,
-        "sortino": 3.4019,
+        "sharpe": -1.1265,
+        "sharpePerPeriod": -0.012,
+        "sortino": -1.6493,
         "maxDrawdown": 0.0046,
         "calmar": 5.8034,
         "skew": 0.1487,
@@ -3397,9 +3413,9 @@
       },
       "outOfSampleUnderStressCosts": null,
       "deflatedSharpe": {
-        "probability": 0.9998,
-        "sharpePerPeriod": 0.024825,
-        "expectedMaxSharpeUnderNull": 0.005125,
+        "probability": 0.0008,
+        "sharpePerPeriod": -0.012036,
+        "expectedMaxSharpeUnderNull": 0.005436,
         "trials": 9
       },
       "holdout": {
@@ -3595,13 +3611,14 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "5482ceec743886862923ee05152e8df7bd0b606ec2944e132f4f15cddde2027b"
+      "receiptSha256": "d0fa2ca3aa0ba0268ee0de3d485930eba49bfa2dee0d06c438a28499f217335c"
     },
     {
       "family": "FUNDING_ROTATION:BTC+ETH+SOL+XRP",
       "label": "REJECTED",
       "failures": [
-        "deflated Sharpe probability 0.004 < 0.95 after 18 variants",
+        "out-of-sample Sharpe in excess of T-bills -1.75 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 18 variants",
         "sealed holdout net return 0% <= 0",
         "holdout under doubled costs 0% <= 0",
         "out-of-sample CAGR 1.88% does not beat the 4.02% risk-free T-bill rate over the same months",
@@ -3614,9 +3631,9 @@
         "totalReturn": 0.0719,
         "cagr": 0.0188,
         "annualVol": 0.0118,
-        "sharpe": 1.5776,
-        "sharpePerPeriod": 0.0169,
-        "sortino": 2.1159,
+        "sharpe": -1.7539,
+        "sharpePerPeriod": -0.0187,
+        "sortino": -2.3522,
         "maxDrawdown": 0.0114,
         "calmar": 1.6431,
         "skew": -2.8834,
@@ -3624,21 +3641,21 @@
       },
       "outOfSampleUnderStressCosts": {
         "periods": 32735,
-        "totalReturn": 0.053,
-        "cagr": 0.0139,
-        "annualVol": 0.0084,
-        "sharpe": 1.6428,
-        "sharpePerPeriod": 0.0176,
-        "sortino": 1.9962,
-        "maxDrawdown": 0.0111,
-        "calmar": 1.2563,
-        "skew": -18.0464,
-        "kurt": 847.6681
+        "totalReturn": 0.0085,
+        "cagr": 0.0023,
+        "annualVol": 0.0148,
+        "sharpe": 0.1605,
+        "sharpePerPeriod": 0.0017,
+        "sortino": 0.1895,
+        "maxDrawdown": 0.0445,
+        "calmar": 0.0511,
+        "skew": -11.4113,
+        "kurt": 314.1717
       },
       "deflatedSharpe": {
-        "probability": 0.0039,
-        "sharpePerPeriod": 0.016856,
-        "expectedMaxSharpeUnderNull": 0.031972,
+        "probability": 0,
+        "sharpePerPeriod": -0.018739,
+        "expectedMaxSharpeUnderNull": 0.032898,
         "trials": 18
       },
       "holdout": {
@@ -3862,7 +3879,7 @@
         "mustBeatBaselineOrZero": true,
         "mustBeatRiskFreeRate": true
       },
-      "receiptSha256": "661349d8de985e61276f8cb86ef8558ecd0d8db964e4d1ae5024fa5ae6e11191"
+      "receiptSha256": "dff8d020820560380f16573b30002bed28626f69b3531207b3233ef81cb798e8"
     }
   ],
   "evidenceClass": "SIMULATED_BACKTEST",

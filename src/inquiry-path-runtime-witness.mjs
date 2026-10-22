@@ -28,11 +28,14 @@ export function normalizeRuntimeTelLinks(anchors = []) {
 
 export async function witnessRuntimeTelLinks({ urls = [], settleMs = 4000, launch = options => chromium.launch(options), now = () => new Date() } = {}) {
   const executablePath = process.env.CHROMIUM_PATH || resolveChromium() || undefined;
-  const browser = await launch({ headless: true, executablePath, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
+  // The Chromium sandbox stays on unless the process runs as root, where Chromium cannot start without it.
+  const browser = await launch({ headless: true, executablePath, args: [...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-dev-shm-usage'] });
   const witness = {};
   const ledger = { pageLoads: 0, blockedRequests: 0, clicks: 0, formSubmissions: 0, messages: 0 };
   try {
-    const context = await browser.newContext({ userAgent: PROBE_USER_AGENT, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+    // Service workers and WebSockets bypass context.route, so neither is allowed.
+    const context = await browser.newContext({ userAgent: PROBE_USER_AGENT, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block' });
+    if (context.routeWebSocket) await context.routeWebSocket(/.*/, ws => { ledger.blockedRequests += 1; ws.close(); });
     await context.route('**/*', async route => {
       const url = route.request().url();
       if (!/^https?:/i.test(url)) return route.continue();

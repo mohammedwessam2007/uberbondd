@@ -28,12 +28,14 @@ const nonEmpty = value => typeof value === 'string' && value.trim().length > 0;
  * A finding is identified by what it claims, not when it was seen: the same
  * defect observed twice is one finding with two verifications.
  */
-export function makeFinding({ subject, code, claimKey, claim, evidence, disproof, verifierId }) {
-  for (const [name, value] of Object.entries({ subject, code, claimKey, claim, disproof, verifierId })) {
+export function makeFinding({ subject, subjectKey = subject, code, claimKey, claim, evidence, disproof, verifierId }) {
+  for (const [name, value] of Object.entries({ subject, subjectKey, code, claimKey, claim, disproof, verifierId })) {
     if (!nonEmpty(value)) throw new Error(`finding.${name} is required`);
   }
   if (!Array.isArray(evidence) || !evidence.length) throw new Error('finding.evidence must be a non-empty list');
-  const id = sha256({ subject, code, claimKey, verifierId }).slice(0, 32);
+  // subjectKey names the subject canonically (http/https and www variants of
+  // one site are one subject), so a finding has one id however it was entered.
+  const id = sha256({ subject: subjectKey, code, claimKey, verifierId }).slice(0, 32);
   return { id, subject, code, claimKey, claim, evidence, disproof, verifierId };
 }
 
@@ -60,27 +62,49 @@ export async function reverifyFinding(finding, verifier, { now = () => new Date(
 
 /**
  * Sell a batch. Each requested finding is re-verified; only REPRODUCED ones
- * are delivered and charged, at most once per buyer per finding per day.
- * charge({ eventName, idempotencyKey, amountCents }) must be idempotent on its key.
+ * are charged, at most once per buyer per finding per day.
+ * Order per finding: deliver, then charge. A buyer is never billed for an item
+ * that was not delivered; if the charge then fails, the item was delivered free
+ * (the vendor eats it) and the receipt says so.
+ * charge({ eventName, idempotencyKey, amountCents }) -> { ok, limitReached? }.
+ * deliver(item) is awaited per finding; without it, items are only returned.
+ * onCharged(idempotencyKey) persists the key so a restart or re-run the same day
+ * never charges again: pass the persisted keys back in as alreadyCharged.
  */
-export async function settleFindingsSale({ buyerId, findings, verifier, pricePerVerifiedCents, charge, alreadyCharged = new Set(), now = () => new Date(), maxCharges = Infinity }) {
+export async function settleFindingsSale({ buyerId, findings, verifier, pricePerVerifiedCents, charge, deliver = null, onCharged = null, alreadyCharged = new Set(), now = () => new Date(), maxCharges = Infinity }) {
   if (!nonEmpty(buyerId)) throw new Error('buyerId is required');
   if (!Number.isSafeInteger(pricePerVerifiedCents) || pricePerVerifiedCents <= 0) throw new Error('pricePerVerifiedCents must be a positive integer');
   const delivered = [];
   const refused = [];
   const charges = [];
+  const deliveredUncharged = [];
+  let limitReached = false;
   for (const finding of findings) {
     const verification = await reverifyFinding(finding, verifier, { now });
     if (verification.outcome !== 'REPRODUCED') { refused.push({ findingId: finding.id, outcome: verification.outcome, detail: verification.detail }); continue; }
     const day = verification.verifiedAt.slice(0, 10);
     const idempotencyKey = sha256({ buyerId, findingId: finding.id, day }).slice(0, 40);
-    if (alreadyCharged.has(idempotencyKey)) { delivered.push({ finding, verification, charged: false, reason: 'ALREADY_CHARGED_TODAY' }); continue; }
-    if (charges.length >= maxCharges) { refused.push({ findingId: finding.id, outcome: 'REPRODUCED', detail: 'BUYER_SPEND_LIMIT_REACHED' }); continue; }
+    if (alreadyCharged.has(idempotencyKey)) {
+      const item = { finding, verification, charged: false, reason: 'ALREADY_CHARGED_TODAY' };
+      if (deliver) await deliver(item);
+      delivered.push(item);
+      continue;
+    }
+    if (limitReached || charges.length >= maxCharges) { refused.push({ findingId: finding.id, outcome: 'REPRODUCED', detail: 'BUYER_SPEND_LIMIT_REACHED' }); continue; }
+    const item = { finding, verification, charged: true, chargeIdempotencyKey: idempotencyKey };
+    if (deliver) await deliver(item);
     const receipt = await charge({ eventName: 'verified-finding', idempotencyKey, amountCents: pricePerVerifiedCents, findingId: finding.id, freshEvidenceSha256: verification.freshEvidenceSha256 });
-    if (!receipt?.ok) { refused.push({ findingId: finding.id, outcome: 'REPRODUCED', detail: `CHARGE_NOT_CONFIRMED${receipt?.reason ? `:${receipt.reason}` : ''}` }); continue; }
+    if (receipt?.limitReached) limitReached = true;
+    if (!receipt?.ok) {
+      item.charged = false;
+      deliveredUncharged.push({ findingId: finding.id, detail: `CHARGE_NOT_CONFIRMED${receipt?.reason ? `:${receipt.reason}` : ''}` });
+      delivered.push(item);
+      continue;
+    }
     alreadyCharged.add(idempotencyKey);
+    if (onCharged) await onCharged(idempotencyKey);
     charges.push({ idempotencyKey, findingId: finding.id, amountCents: pricePerVerifiedCents, freshEvidenceSha256: verification.freshEvidenceSha256 });
-    delivered.push({ finding, verification, charged: true });
+    delivered.push(item);
   }
   const receipt = {
     version: SELF_VERIFYING_FINDINGS_VERSION,
@@ -89,10 +113,11 @@ export async function settleFindingsSale({ buyerId, findings, verifier, pricePer
     delivered: delivered.length,
     charged: charges.length,
     refused: refused.length,
+    deliveredUncharged,
     chargedCents: charges.reduce((sum, item) => sum + item.amountCents, 0),
     charges,
     refusals: refused,
-    rule: 'Only findings re-verified at sale time with fresh evidence are charged; never twice per buyer, finding and day.',
+    rule: 'Only findings re-verified at sale time with fresh evidence are charged, each after it is delivered; never twice per buyer, finding and day while the charged keys are persisted.',
     evidenceClass: 'SALE_SETTLEMENT_DECISION',
     revenueTier: 'NONE_UNTIL_PROVIDER_PAYOUT: a charge event is not collected or cleared money'
   };

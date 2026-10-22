@@ -49,9 +49,17 @@ function moments(xs) {
   return { n, mean, sd, skew: sd ? m3 / sd ** 3 : 0, kurt: sd ? m4 / sd ** 4 : 3 };
 }
 
-/** Per-period performance of a return series (returns on deployed capital). */
-export function performance(returns, { periodsPerYear = 8760 } = {}) {
-  const { n, mean, sd, skew, kurt } = moments(returns);
+/** Per-period risk-free return equivalent to an annual rate. */
+export const riskFreePerPeriod = (annual, periodsPerYear) => (Number.isFinite(annual) && annual > -1 ? (1 + annual) ** (1 / periodsPerYear) - 1 : 0);
+
+/**
+ * Per-period performance of a return series (returns on deployed capital).
+ * Sharpe and Sortino are in excess of riskFreeAnnual (default 0), the return
+ * idle capital could have earned in T-bills instead.
+ */
+export function performance(returns, { periodsPerYear = 8760, riskFreeAnnual = 0 } = {}) {
+  const { n, mean: rawMean, sd, skew, kurt } = moments(returns);
+  const mean = rawMean - (n ? riskFreePerPeriod(riskFreeAnnual, periodsPerYear) : 0);
   let equity = 1, peak = 1, maxDrawdown = 0, downside = 0;
   for (const r of returns) {
     equity *= 1 + r;
@@ -81,13 +89,14 @@ export function performance(returns, { periodsPerYear = 8760 } = {}) {
  * above zero after accounting for the best-of-N selection among `trials`
  * per-period Sharpe ratios, sample length and non-normal returns.
  */
-export function deflatedSharpe({ returns, trialSharpes }) {
+export function deflatedSharpe({ returns, trialSharpes, riskFreePerPeriod: rfPeriod = 0 }) {
   const { n, mean, sd, skew, kurt } = moments(returns);
-  const sr = sd ? mean / sd : 0;
+  const sr = sd ? (mean - rfPeriod) / sd : 0;
   const trials = trialSharpes.filter(Number.isFinite);
   const N = Math.max(1, trials.length);
-  const trialMoments = moments(trials);
-  const varSr = trials.length >= 2 ? trialMoments.sd ** 2 : 0;
+  // Unbiased (n-1) variance of the trial Sharpes; any two distinct trials deflate.
+  const trialMean = trials.reduce((sum, x) => sum + x, 0) / N;
+  const varSr = trials.length >= 2 ? trials.reduce((sum, x) => sum + (x - trialMean) ** 2, 0) / (trials.length - 1) : 0;
   const sr0 = N > 1 && varSr > 0
     ? Math.sqrt(varSr) * ((1 - EULER_GAMMA) * normalInv(1 - 1 / N) + EULER_GAMMA * normalInv(1 - 1 / (N * Math.E)))
     : 0;

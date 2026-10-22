@@ -77,9 +77,11 @@ export const RAILS = Object.freeze([
 const STRENGTH = { VERIFIED_WORKING: 4, PLAUSIBLE: 3, UNVERIFIED: 2, UNSUPPORTED: 0, LEGALLY_BLOCKED_PENDING_COUNSEL: 0 };
 
 /**
- * Classify free-text rail descriptions. The best usable rail named decides;
- * a mechanism that names only blocked or unsupported rails is RAIL_BLOCKED,
- * and one that names nothing recognisable is RAIL_UNSPECIFIED.
+ * Classify free-text rail descriptions. A legally blocked rail named anywhere
+ * (not negated) blocks the mechanism: its money would have to pass through
+ * that leg, and a plausible exit rail does not cure it. Otherwise the best
+ * usable rail decides; naming only unsupported rails is RAIL_BLOCKED, and
+ * naming nothing recognisable is RAIL_UNSPECIFIED.
  */
 // A rail named only to exclude it ("no crypto leg") is not a rail the mechanism uses.
 const NEGATED = /\b(?:no|not|without|never|nor|excluding|avoid(?:s|ing)?)\b[^.;:]{0,30}$/i;
@@ -92,7 +94,8 @@ function mentions(rail, text) {
 export function classifyRail(text) {
   const named = RAILS.filter(rail => mentions(rail, String(text ?? '')));
   if (!named.length) return { verdict: 'RAIL_UNSPECIFIED', rails: [], strength: 0 };
-  const best = named.reduce((a, b) => (STRENGTH[b.status] > STRENGTH[a.status] ? b : a));
+  const legallyBlocked = named.find(rail => rail.status === 'LEGALLY_BLOCKED_PENDING_COUNSEL');
+  const best = legallyBlocked ?? named.reduce((a, b) => (STRENGTH[b.status] > STRENGTH[a.status] ? b : a));
   return {
     verdict: STRENGTH[best.status] === 0 ? 'RAIL_BLOCKED' : STRENGTH[best.status] >= 3 ? 'RAIL_PLAUSIBLE' : 'RAIL_UNVERIFIED',
     rails: named.map(rail => ({ id: rail.id, status: rail.status })),

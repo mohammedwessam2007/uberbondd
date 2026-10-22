@@ -1598,7 +1598,7 @@
       "artifacts/quant-lab/experiments-2021-01_2026-09.json",
       "artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json"
     ],
-    "verifiedState": "Atlas 890/890; quant lab 17 pre-registered experiments, none promoted (funding carry statistically real but below the T-bill hurdle); tournament 16 mechanisms, 6 finalists all WOUNDED; capital allocation funds nothing at $0-$25k; three prototypes built and exercised on live public data.",
+    "verifiedState": "Atlas 890/890; quant lab 17 pre-registered experiments, none promoted (protocol 1.1.0: funding carry has a negative Sharpe in excess of T-bills; only ETH momentum stays inconclusive); tournament 16 mechanisms, 6 finalists all WOUNDED; capital allocation funds nothing at $0-$25k; three prototypes built and exercised on live public data.",
     "clearedContributionProfitUsd": 0,
     "strongestRealityTier": "SIMULATED",
     "genuineBlockers": [

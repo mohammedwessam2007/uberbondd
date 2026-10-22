@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-22T07:27:11.785Z",
+  "generatedAt": "2026-10-22T12:35:41.806Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "e409413dad5c0482cc0a6bd3288073fc29007ee5",
+    "head": "3ebce579336919d39655e153277925703c809626",
     "branch": "feat/machiavelli-wealth-engine-20261021",
     "sourceModules": 1138,
     "testSuites": 1371,
-    "workingTreeClean": true
+    "workingTreeClean": false
   },
   "measurements": {
     "check:syntax": {

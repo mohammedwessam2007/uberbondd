@@ -113,6 +113,14 @@
       "reason": "The public Store API returns no items at offset >= 15000 for every sortBy tried (newest, popularity, default), so the pre-registered full pagination is impossible. A first run with sortBy=newest read 11,368 of 93,895 Actors; it is void and is not scored. Disclosure: its output (1 broken leader) was seen before this amendment.",
       "change": "Reconstruct the listing as the union of (a) the global popularity-sorted crawl and (b) a popularity-sorted crawl per category, deduplicated by username/name. Definitions and decision rules are unchanged.",
       "completenessRule": "Score H2a/H2b only if, for every partition that reached the offset cap, the maximum users30 on its last page is below the substitute floor (50). Otherwise publish INCOMPLETE and make no decision. Assumption stated: within a partition, popularity order is close enough to users30 order that no Actor beyond the cap reaches 50 users30 when the last page does not."
+    },
+    {
+      "id": "X2-A2",
+      "recordedAt": "2026-10-23T00:40:00Z",
+      "experiment": "X2-apify-store-breakage-observatory",
+      "reason": "Under A1 the run of 2026-10-22T23:5xZ read 66,299 distinct Actors and failed the A1 tail rule in 5 partitions (popularity order is not users30 order), so it was published as INCOMPLETE_NOT_SCORED. Disclosure: its partial figures (13 broken leaders, 13 absorbed) were seen before this amendment.",
+      "change": "For each partition that reached the offset cap, also crawl sortBy=newest, lastUpdate and relevance (each capped at offset 15,000) and union by Actor id. Definitions and decision rules are unchanged.",
+      "completenessRule": "Replace the A1 order assumption with direct enumeration. Calibrate the visible fraction as the median of distinct/reportedTotal over uncapped categories with reportedTotal >= 1,000 (the Store reports items it never returns). Complete only if every capped category, and the global union, reaches coverage >= calibrated fraction - 0.02. Otherwise INCOMPLETE_NOT_SCORED again, with no further amendment in this session."
     }
   ]
 }

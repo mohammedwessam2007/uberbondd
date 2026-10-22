@@ -1,0 +1,1222 @@
+{
+  "schema": "uberbond.machiavelli.x1-single-audit-hindcast.v1",
+  "preregistration": "artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json",
+  "ranAt": "2026-10-22T22:24:43.130Z",
+  "data": {
+    "facGeneral": {
+      "path": "app.fac.gov/dissemination/public-data/gsa/full/general.csv",
+      "rows": 418758,
+      "sha256": "c7dd80a8ad5e67f1bbc3c399ac3debb80fc46f4ee264492c6e5cf8aaa367551a"
+    },
+    "facAdditionalUeis": {
+      "path": "app.fac.gov/dissemination/public-data/gsa/full/additional_ueis.csv",
+      "rows": 27560,
+      "sha256": "f383c50e264bacebcec5733acf113b65cf5bd4ad61366737058194a88082c931"
+    },
+    "usaspending": [
+      {
+        "source": "usaspending.spending_by_category.recipient",
+        "state": "GA",
+        "page": 1,
+        "status": 200,
+        "sha256": "2fb1f7ea849b719b143d8b1f8bbf7b3e565ca99b969277a25c97130686be2860"
+      },
+      {
+        "source": "usaspending.spending_by_category.recipient",
+        "state": "GA",
+        "page": 2,
+        "status": 200,
+        "sha256": "fb20631d8a603e47bab4aba75f43aecd79b4e5bcff9ac09e95cebe1be602bda8"
+      },
+      {
+        "source": "usaspending.spending_by_category.recipient",
+        "state": "OH",
+        "page": 1,
+        "status": 200,
+        "sha256": "84995d7b7688dd08bf6bb2676d9eb155b8150cee06a041e4993c163807db3831"
+      },
+      {
+        "source": "usaspending.spending_by_category.recipient",
+        "state": "OH",
+        "page": 2,
+        "status": 200,
+        "sha256": "66999ec16f90509676b2c1ccd45d52d47e340cca5c2c5b6c8fe539c697a28cb1"
+      },
+      {
+        "source": "usaspending.spending_by_category.recipient",
+        "state": "AZ",
+        "page": 1,
+        "status": 200,
+        "sha256": "8620804a59cf539545f42cf8100fc6799c5a93d1e314ac4d710d187c2a7cefe0"
+      }
+    ]
+  },
+  "cohort": {
+    "states": [
+      "GA",
+      "OH",
+      "AZ"
+    ],
+    "recipientsRead": 500,
+    "excluded": {
+      "belowThreshold": 135,
+      "knownFilerAtForecast": 287,
+      "missingUei": 0
+    }
+  },
+  "summary": {
+    "core": {
+      "flagged": 69,
+      "filedPrimary": 24,
+      "filedLaterOnly": 1,
+      "neverFiled": 44,
+      "precisionPrimary": 0.3478,
+      "precisionStrict": 0.3043
+    },
+    "large": {
+      "flagged": 9,
+      "filedPrimary": 5,
+      "filedLaterOnly": 0,
+      "neverFiled": 4,
+      "precisionPrimary": 0.5556,
+      "precisionStrict": 0.4444
+    },
+    "all": {
+      "flagged": 78,
+      "filedPrimary": 29,
+      "filedLaterOnly": 1,
+      "neverFiled": 48,
+      "precisionPrimary": 0.3718,
+      "precisionStrict": 0.3205
+    },
+    "perState": {
+      "GA": {
+        "coreFlagged": 32,
+        "trueNewObligors": 8
+      },
+      "OH": {
+        "coreFlagged": 24,
+        "trueNewObligors": 14
+      },
+      "AZ": {
+        "coreFlagged": 13,
+        "trueNewObligors": 2
+      }
+    },
+    "medianCoreYieldPerState": 8,
+    "decision": "KILL"
+  },
+  "postHocDiagnostic": {
+    "lateFilersAmongCoreTruePositives": 10,
+    "note": "Not pre-registered. These filed for 2023/2024 but also have a 2019-2022 report accepted after 2023-10-01: existing auditees filing late, not new clients for an audit firm."
+  },
+  "marketFacts": {
+    "2022": {
+      "reports": 47350,
+      "firstTimeFilers": 46281,
+      "firstTimeFilerAuditorFirms": 5171,
+      "distinctAuditorFirms": 5239,
+      "top10FirmShare": 0.141,
+      "top100FirmShare": 0.3917,
+      "firmsWith1to5Audits": 3855,
+      "auditorChangeRate": 0.2346,
+      "continuingEntities": 682
+    },
+    "2023": {
+      "reports": 46917,
+      "firstTimeFilers": 6605,
+      "firstTimeFilerAuditorFirms": 2143,
+      "distinctAuditorFirms": 4546,
+      "top10FirmShare": 0.1366,
+      "top100FirmShare": 0.3965,
+      "firmsWith1to5Audits": 3139,
+      "auditorChangeRate": 0.2263,
+      "continuingEntities": 40173
+    },
+    "2024": {
+      "reports": 45730,
+      "firstTimeFilers": 3608,
+      "firstTimeFilerAuditorFirms": 1564,
+      "distinctAuditorFirms": 4298,
+      "top10FirmShare": 0.1448,
+      "top100FirmShare": 0.4033,
+      "firmsWith1to5Audits": 2912,
+      "auditorChangeRate": 0.2263,
+      "continuingEntities": 40933
+    }
+  },
+  "dataQuality": {
+    "placeholderUeiRowsByYear": {
+      "2016": 36989,
+      "2017": 36907,
+      "2018": 37018,
+      "2019": 37342,
+      "2020": 40003,
+      "2021": 45083,
+      "2022": 68
+    },
+    "consequence": "FAC 2016-2021 rows have no real UEI, so the hindcast history window 2019-2021 is matched by normalized name + state only, and first-time-filer counts are invalid for 2022 and partial for 2023 (one real prior year) and 2024 (two).",
+    "firstTimeFilerValidity": {
+      "2022": "INVALID",
+      "2023": "PARTIAL_ONE_PRIOR_YEAR",
+      "2024": "PARTIAL_TWO_PRIOR_YEARS"
+    },
+    "auditorChangeRate": "UPPER_BOUND: auditor firm names are free text and only normalized for punctuation and suffixes, so spelling variants count as changes."
+  },
+  "flagged": [
+    {
+      "uei": "VEKUTUKGQ8K6",
+      "name": "GEORGIA MINORITY OUTREACH NETWORK, CORP.",
+      "state": "GA",
+      "amount": 30000000,
+      "stratum": "large",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "Q3Y4JLZMVT69",
+      "name": "EARLY CHILDHOOD DEVELOPMENT CO LLC",
+      "state": "GA",
+      "amount": 25932590,
+      "stratum": "large",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "CHERRY BEKAERT LLP"
+      ]
+    },
+    {
+      "uei": "ETQ8AASL4ZM3",
+      "name": "THE SHELTERING ARMS",
+      "state": "GA",
+      "amount": 12526342,
+      "stratum": "large",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Smith & Howard",
+        "Smith & Howard, P.C."
+      ]
+    },
+    {
+      "uei": "GNW8K3JAT7J6",
+      "name": "MZC FOUNDATION, INC.",
+      "state": "GA",
+      "amount": 5100000,
+      "stratum": "large",
+      "outcome": "FILED_PRIMARY",
+      "strict": false,
+      "filedYears": [
+        2024
+      ],
+      "auditors": [
+        "Carr, Riggs & Ingram, L.L.C"
+      ]
+    },
+    {
+      "uei": "K3BECLD2H315",
+      "name": "INSTITUTE OF CHURCH ADMINISTRATION & MANAGEMENT",
+      "state": "GA",
+      "amount": 5077444,
+      "stratum": "large",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024
+      ],
+      "auditors": [
+        "Grace Neggie CPA"
+      ]
+    },
+    {
+      "uei": "JK24LCCPK4Y7",
+      "name": "SOUTHEAST ENERGY EFFICIENCY ALLIANCE INC",
+      "state": "GA",
+      "amount": 3983575,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [
+        2016,
+        2017
+      ],
+      "auditors": []
+    },
+    {
+      "uei": "KB5RHNPHRXZ6",
+      "name": "FEDERATION OF SOUTHERN COOPERATIVES/LAND ASSISTANCE FUND (INC.)",
+      "state": "GA",
+      "amount": 3496375,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": false,
+      "filedYears": [
+        2021,
+        2024
+      ],
+      "auditors": [
+        "HCT Certified Public Accountants and Consultants, LLC"
+      ]
+    },
+    {
+      "uei": "GB9EKNM394M5",
+      "name": "COMMUNITIES IN SCHOOLS OF GEORGIA, INC.",
+      "state": "GA",
+      "amount": 3000000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Smith and Howard",
+        "Smith and Howard, PC"
+      ]
+    },
+    {
+      "uei": "P3QNLJK68FN3",
+      "name": "EMPOWERMENT RESOURCE CENTER INC",
+      "state": "GA",
+      "amount": 1884975,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024
+      ],
+      "auditors": [
+        "Carr, Riggs & Ingram, LLC",
+        "Carr, Riggs & Ingram, L.L.C."
+      ]
+    },
+    {
+      "uei": "EPGEWV8UZ925",
+      "name": "NEW LIFE SOCIAL SERVICES OF ATLANTA CORP",
+      "state": "GA",
+      "amount": 1878083,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "EWJYLVN8FFW1",
+      "name": "BURKE CO BOARD OF EDUCATION",
+      "state": "GA",
+      "amount": 1758058,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024
+      ],
+      "auditors": [
+        "Georgia Department of Audits and Accounts"
+      ]
+    },
+    {
+      "uei": "NK56Q5VR13K5",
+      "name": "BEGINNING NEW OUTREACH, INCORPORATED",
+      "state": "GA",
+      "amount": 1737590,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "DUKLPLE4RHK4",
+      "name": "NEW BETHLEHEM COMMUNITY CENTER, INC.",
+      "state": "GA",
+      "amount": 1541342,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "MWY9EL3HZDS3",
+      "name": "COMMUNITY TEEN COALITION, INC",
+      "state": "GA",
+      "amount": 1516023,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "SK32M9ZYA2M6",
+      "name": "GRADY MEMORIAL HOSPITAL CORPORATION",
+      "state": "GA",
+      "amount": 1499092.65,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "KPMG",
+        "Grady"
+      ]
+    },
+    {
+      "uei": "P9KUFJY9MHK3",
+      "name": "THE CHRISTIAN CITY, INC.",
+      "state": "GA",
+      "amount": 1461109,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "P4QSK1BQMFN3",
+      "name": "SOUTHERN ALLIANCE FOR CLEAN ENERGY",
+      "state": "GA",
+      "amount": 1400000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "XNWJHKLYSLX4",
+      "name": "ABOUTFACE-USA INC",
+      "state": "GA",
+      "amount": 1279839,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "LSCHG1L3KMH8",
+      "name": "IN HER SHOES, INCORPORATED",
+      "state": "GA",
+      "amount": 1279336,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "L9UNSKC1E3Q3",
+      "name": "THE CENTER FOR BLACK WOMEN'S WELLNESS CBWW, INC",
+      "state": "GA",
+      "amount": 1199121,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2020,
+        2021,
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Carr, Riggs & Ingram, LLC"
+      ]
+    },
+    {
+      "uei": "U2YSHLAJKBY6",
+      "name": "CLAYTON COUNTY SYSTEM OF CARE, INC.",
+      "state": "GA",
+      "amount": 1131842,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "MD7EYE5MNTX5",
+      "name": "JCVISION AND ASSOCIATES, INC.",
+      "state": "GA",
+      "amount": 1108176,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "XVLHZ14P3NK1",
+      "name": "GEORGIA KOREAN-AMERICAN FARMERS ASSOCIATION, INC.",
+      "state": "GA",
+      "amount": 1050000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "CKLPDGGFYCG3",
+      "name": "FLINT RIVER FRESH INC",
+      "state": "GA",
+      "amount": 1036979.75,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "Q9Q6ENM7N918",
+      "name": "ROSALYNN CARTER INSTITUTE FOR CAREGIVERS INC",
+      "state": "GA",
+      "amount": 1020047,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": false,
+      "filedYears": [
+        2024
+      ],
+      "auditors": [
+        "Marshall Jones"
+      ]
+    },
+    {
+      "uei": "QJ9LK5SYKHF3",
+      "name": "MOVEMENTFORWARD INC",
+      "state": "GA",
+      "amount": 1000000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "K54TMB2BTGL7",
+      "name": "THIS W.O.R.K.S INC.",
+      "state": "GA",
+      "amount": 999524,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "EANRQAEDJR58",
+      "name": "WHOLESOME WAVE GEORGIA INCORPORATED",
+      "state": "GA",
+      "amount": 994613,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "PM64HJH9LB43",
+      "name": "SALVATION ARMY",
+      "state": "GA",
+      "amount": 986747.39,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "GYXYLJAZ9HP5",
+      "name": "ODYSSEY FAMILY COUNSELING CENTER, CORPORATION",
+      "state": "GA",
+      "amount": 982143,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "XPS3RE42N899",
+      "name": "FATHERS INCORPORATED",
+      "state": "GA",
+      "amount": 945772.68,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024
+      ],
+      "auditors": [
+        "De Angel & Compañia, CPA, LLC",
+        "660434187"
+      ]
+    },
+    {
+      "uei": "H2KPYKTHXAQ1",
+      "name": "HIRE HEROES USA (INC.)",
+      "state": "GA",
+      "amount": 920213,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "DLF6EVLS96G7",
+      "name": "METRO FAIR HOUSING SERVICES, INC.",
+      "state": "GA",
+      "amount": 850000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "FXGGETCCMJR8",
+      "name": "AUGUSTA LOCALLY GROWN INC",
+      "state": "GA",
+      "amount": 793027,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "NZCJGTK1WVS7",
+      "name": "LEARN TO GROW, INC.",
+      "state": "GA",
+      "amount": 750000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "MW8CWKYPRNS6",
+      "name": "THE NATIONAL INCARCERATION ASSOCIATION, INC.",
+      "state": "GA",
+      "amount": 750000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "CB4RYBML2UF7",
+      "name": "WGS3.0 INC",
+      "state": "GA",
+      "amount": 750000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "VMEJQ96ATNH6",
+      "name": "UNIVERSITY HOSPITALS CLEVELAND MEDICAL CENTER",
+      "state": "OH",
+      "amount": 24787721,
+      "stratum": "large",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "HWK7TMY1EY68",
+      "name": "INTERNATIONAL CHEMICAL WORKERS UNION",
+      "state": "OH",
+      "amount": 3956306,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Wagner & Company CPA",
+        "Wagner & Company CPA LLC"
+      ]
+    },
+    {
+      "uei": "KC6KWT9SPVZ9",
+      "name": "JORDAN COMMUNITY RESIDENTIAL CENTER",
+      "state": "OH",
+      "amount": 3250000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023
+      ],
+      "auditors": [
+        "Kevin L. Penn, Inc."
+      ]
+    },
+    {
+      "uei": "NY39LMYGDE81",
+      "name": "OHIO FEDERATION OF SOIL AND WATER CONSERVATION DISTRICTS",
+      "state": "OH",
+      "amount": 2685000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "V4MGQNLSWGS4",
+      "name": "CLEVELAND PEACEMAKERS INC",
+      "state": "OH",
+      "amount": 2500000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": false,
+      "filedYears": [
+        2024
+      ],
+      "auditors": [
+        "Sikich CPA LLC"
+      ]
+    },
+    {
+      "uei": "EZQNATL4Y5N4",
+      "name": "SURVIVOR ADVOCACY OUTREACH PROGRAM",
+      "state": "OH",
+      "amount": 2450000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "GBQ Partners LLC"
+      ]
+    },
+    {
+      "uei": "RW4TK45WJ985",
+      "name": "AO: ADVOCATING OPPORTUNITY, INC.",
+      "state": "OH",
+      "amount": 2397858,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024
+      ],
+      "auditors": [
+        "CliftonLarsonAllen llp",
+        "CliftonLarsonAllen, LLP"
+      ]
+    },
+    {
+      "uei": "PLJ8Y3BSHRM4",
+      "name": "WESTERN RESERVE LAND CONSERVANCY",
+      "state": "OH",
+      "amount": 2077685,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2017,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Wagner & Company CPA"
+      ]
+    },
+    {
+      "uei": "YSMJFL841JD4",
+      "name": "FAITH MISSION INC",
+      "state": "OH",
+      "amount": 1524881,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "YSB7LFL5XLD3",
+      "name": "LAWRENCE ECONOMIC DEVELOPMENT CORPORATION",
+      "state": "OH",
+      "amount": 1500000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "CAUDILL & ASSOCIATES, CPA, PLLC",
+        "Caudill & Associates, CPA. PLLC"
+      ]
+    },
+    {
+      "uei": "XQA4RY888NU6",
+      "name": "YOUTH OVER US INC",
+      "state": "OH",
+      "amount": 1371354,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023
+      ],
+      "auditors": [
+        "Wells CPA"
+      ]
+    },
+    {
+      "uei": "CKDWJ7MHU7J1",
+      "name": "COLUMBUS COMMUNITY CLINICAL ONCOLOGY PROGRAM",
+      "state": "OH",
+      "amount": 1291768,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "HOLBROOK & MANTER, CPAS"
+      ]
+    },
+    {
+      "uei": "JWCNW7ALW8G9",
+      "name": "TUSCARAWAS COUNTY ECONOMIC DEVELOPMENT CORPORATION",
+      "state": "OH",
+      "amount": 1129000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "LYLTAY7K4ZH9",
+      "name": "GREEN UMBRELLA",
+      "state": "OH",
+      "amount": 1124959,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "ENQKBANPFE19",
+      "name": "ALZHEIMERS & DEMENTIA CARE SERVICES OF NORTHWESTERN OHIO",
+      "state": "OH",
+      "amount": 1000000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "CHXXW22WYB73",
+      "name": "ZORAS HOUSE INC",
+      "state": "OH",
+      "amount": 1000000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "WDRHBWPBXMF3",
+      "name": "THE RISE CENTER",
+      "state": "OH",
+      "amount": 999995.5,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "KUTCLEKE42K3",
+      "name": "COMMUNITY COUNSELING CENTER OF ASHTABULA COUNTY",
+      "state": "OH",
+      "amount": 999975,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "SNODGRASS OF N.E. OHIO, INC."
+      ]
+    },
+    {
+      "uei": "GQLFCDXMWH58",
+      "name": "HOUSING RESEARCH & ADVOCACY CENTER",
+      "state": "OH",
+      "amount": 975000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024
+      ],
+      "auditors": [
+        "Barnes Wendling CPAs, Inc."
+      ]
+    },
+    {
+      "uei": "GKBKKQ8K4HN9",
+      "name": "MIAMI VALLEY FAIR HOUSING CENTER INC",
+      "state": "OH",
+      "amount": 975000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "EBKRM2N9LWC9",
+      "name": "HOUSING OPPORTUNITIES MADE EQUAL INC",
+      "state": "OH",
+      "amount": 975000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "WYUTKQNEAL67",
+      "name": "FAIR HOUSING CENTER",
+      "state": "OH",
+      "amount": 975000,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2025
+      ],
+      "auditors": [
+        "Clark Schaefer Hackett"
+      ]
+    },
+    {
+      "uei": "TH43ZMDNHKK1",
+      "name": "PORTAGE PATH BEHAVORIAL HEALTH",
+      "state": "OH",
+      "amount": 970528,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Sikich LLP",
+        "Sikich CPA LLC"
+      ]
+    },
+    {
+      "uei": "PBJTCBE4KKG5",
+      "name": "OHIO HISPANIC COALITION",
+      "state": "OH",
+      "amount": 898114.24,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Wells CPA",
+        "Rea & Associates, Inc."
+      ]
+    },
+    {
+      "uei": "GD5HGS465KV7",
+      "name": "CONNECTING KIDS INSIDE OUT",
+      "state": "OH",
+      "amount": 810323,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "NT1NCDH5N5D7",
+      "name": "NORTH AMERICAN DEVELOPMENT BANK",
+      "state": "AZ",
+      "amount": 13251204,
+      "stratum": "large",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "YHZTMFA7CDN4",
+      "name": "OAK CREEK DOMESTIC WATER IMPROVEMENT DISTRICT",
+      "state": "AZ",
+      "amount": 5562000,
+      "stratum": "large",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "HDK3BHJ4AKK1",
+      "name": "ARIZONA ASSOCIATION OF CONSERVATION DISTRICTS INC",
+      "state": "AZ",
+      "amount": 5149791,
+      "stratum": "large",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Arizona Tax & Business",
+        "Arizona Tax and Business"
+      ]
+    },
+    {
+      "uei": "H1G7SR89K9E8",
+      "name": "INTERNATIONAL RESCUE COMMITTEE, INC.",
+      "state": "AZ",
+      "amount": 4516736,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "UKF9QR56MMK5",
+      "name": "ARIZONA TECHNOLOGY COUNCIL FOUNDATION",
+      "state": "AZ",
+      "amount": 1999819,
+      "stratum": "core",
+      "outcome": "FILED_LATER_ONLY",
+      "strict": false,
+      "filedYears": [
+        2025
+      ],
+      "auditors": []
+    },
+    {
+      "uei": "J3DEKVB24CZ7",
+      "name": "SOUTHWEST INDIAN AGRICULTURAL ASSOCIATION INC",
+      "state": "AZ",
+      "amount": 1616663,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "F5AKAPKBZJ83",
+      "name": "CONSERVATION LEGACY",
+      "state": "AZ",
+      "amount": 1561595.74,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "Marcum LLP",
+        "CBIZ CPAs"
+      ]
+    },
+    {
+      "uei": "QMWXH1W95D96",
+      "name": "THE JERRY AMBROSE VETERANS COUNCIL OF MOHAVE COUNTY INC",
+      "state": "AZ",
+      "amount": 1432296.3,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "QH3AXFGDZEV2",
+      "name": "ARIZONA OPPORTUNITIES INDUSTRIALIZATION CENTER",
+      "state": "AZ",
+      "amount": 1200000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "P5HGGKZN8TQ3",
+      "name": "CPLC TEXAS INC",
+      "state": "AZ",
+      "amount": 1158508,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "FUBTKVE83424",
+      "name": "HIGHER GROUND A RESOURCE CENTER",
+      "state": "AZ",
+      "amount": 1088768,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "HT1MCM4PN6Q3",
+      "name": "SOUTHWEST FAIRHOUSING COUNCIL",
+      "state": "AZ",
+      "amount": 975000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "ZSLPNKML2EM9",
+      "name": "PRISMA COMMUNITY CARE",
+      "state": "AZ",
+      "amount": 854389.94,
+      "stratum": "core",
+      "outcome": "FILED_PRIMARY",
+      "strict": true,
+      "filedYears": [
+        2022,
+        2023,
+        2024,
+        2025
+      ],
+      "auditors": [
+        "CBIZ CPAs P.C."
+      ]
+    },
+    {
+      "uei": "ZD87MJTYDM59",
+      "name": "THE ARIZONA FAIR HOUSING CENTER",
+      "state": "AZ",
+      "amount": 850000,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "WHN4DD9NPY34",
+      "name": "CGA, INC",
+      "state": "AZ",
+      "amount": 807510,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    },
+    {
+      "uei": "NTLHJXM55KZ6",
+      "name": "ARIZONA STATE UNIVERSITY",
+      "state": "AZ",
+      "amount": 802517.35,
+      "stratum": "core",
+      "outcome": "NEVER_FILED",
+      "strict": false,
+      "filedYears": [],
+      "auditors": []
+    }
+  ],
+  "readOnlyLedger": {
+    "usaspendingCalls": 5,
+    "messages": 0,
+    "spendCents": 0
+  },
+  "truthBoundary": "Hindcast precision of a lead-generation rule. Not buyer demand, not willingness to pay, not revenue. No entity, auditor or firm was contacted."
+}

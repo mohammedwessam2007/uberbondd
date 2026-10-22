@@ -3,9 +3,12 @@ import assert from 'node:assert/strict';
 import { makeFinding, reverifyFinding, settleFindingsSale, defectSurvival } from '../src/self-verifying-findings.mjs';
 import { claimKeyOf, sellableFindingsFromProbe, inquiryReprobeVerifier, runVerifiedDefectsSale } from '../src/inquiry-findings.mjs';
 import { extractInquirySurface, analyzeInquiryCoherence } from '../src/inquiry-path-coherence.mjs';
+import { createProcessChargeReservations } from '../src/charge-reservations.mjs';
 
 const finding = (subject, claimKey = 'k') => makeFinding({ subject, code: 'X', claimKey, claim: 'c', evidence: [{ url: subject }], disproof: 'd', verifierId: 'v' });
 const ledger = () => { const events = []; return { events, charge: async event => { events.push(event); return { ok: true }; } }; };
+// These tests run in one process, so a single-process reservation store is the honest guarantee; it must be asked for explicitly.
+const oneProcess = (reservations = createProcessChargeReservations()) => ({ reservations, requiredGuarantee: 'ATOMIC_SINGLE_PROCESS' });
 
 test('findings are identified by what they claim, not when they were seen', () => {
   assert.equal(finding('https://a.example/').id, finding('https://a.example/').id);
@@ -28,20 +31,20 @@ test('only reproduced findings are charged, once per buyer per finding per day, 
   const outcomes = { [live.subject]: 'REPRODUCED', [fixed.subject]: 'NOT_REPRODUCED', [dark.subject]: 'UNOBSERVABLE' };
   const verifier = async f => ({ outcome: outcomes[f.subject], evidence: [{ seen: f.subject }] });
   const { events, charge } = ledger();
-  const alreadyCharged = new Set();
+  const shared = oneProcess();
   const now = () => new Date('2026-10-22T04:00:00Z');
-  const first = await settleFindingsSale({ buyerId: 'buyer', findings: [live, fixed, dark], verifier, pricePerVerifiedCents: 50, charge, alreadyCharged, now });
+  const first = await settleFindingsSale({ buyerId: 'buyer', findings: [live, fixed, dark], verifier, pricePerVerifiedCents: 50, charge, ...shared, now });
   assert.equal(first.receipt.charged, 1);
   assert.equal(first.receipt.chargedCents, 50);
   assert.deepEqual(first.receipt.refusals.map(r => r.outcome).sort(), ['NOT_REPRODUCED', 'UNOBSERVABLE']);
-  const again = await settleFindingsSale({ buyerId: 'buyer', findings: [live], verifier, pricePerVerifiedCents: 50, charge, alreadyCharged, now });
+  const again = await settleFindingsSale({ buyerId: 'buyer', findings: [live], verifier, pricePerVerifiedCents: 50, charge, ...shared, now });
   assert.equal(again.receipt.charged, 0, 'same buyer, same finding, same day: delivered free');
-  assert.equal(again.delivered[0].reason, 'ALREADY_CHARGED_TODAY');
+  assert.equal(again.delivered[0].finalBilling.reason, 'ALREADY_CHARGED_TODAY');
   assert.equal(events.length, 1);
-  const capped = await settleFindingsSale({ buyerId: 'other', findings: [live, finding('https://live2.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge, now, maxCharges: 1 });
+  const capped = await settleFindingsSale({ buyerId: 'other', findings: [live, finding('https://live2.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge, ...oneProcess(), now, maxCharges: 1 });
   assert.equal(capped.receipt.charged, 1);
   assert.ok(capped.receipt.refusals.some(r => r.detail === 'BUYER_SPEND_LIMIT_REACHED'));
-  const declined = await settleFindingsSale({ buyerId: 'x', findings: [live], verifier, pricePerVerifiedCents: 50, charge: async () => ({ ok: false, reason: 'LIMIT' }), now });
+  const declined = await settleFindingsSale({ buyerId: 'x', findings: [live], verifier, pricePerVerifiedCents: 50, charge: async () => ({ ok: false, reason: 'LIMIT' }), ...oneProcess(), now });
   assert.equal(declined.receipt.charged, 0, 'an unconfirmed charge is not a sale');
   assert.match(first.receipt.revenueTier, /NONE_UNTIL_PROVIDER_PAYOUT/);
 });
@@ -74,11 +77,11 @@ test('bridge: only assertable findings are sellable, with stable claim keys', ()
 test('sale run: a defect fixed between discovery and delivery is not charged', async () => {
   const { events, charge } = ledger();
   const items = [];
-  const stillBroken = await runVerifiedDefectsSale({ buyerId: 'b1', websites: ['https://plumber.example/'], probe: async () => site(BROKEN), charge, pushItem: async item => items.push(item), pricePerVerifiedCents: 50 });
+  const stillBroken = await runVerifiedDefectsSale({ buyerId: 'b1', websites: ['https://plumber.example/'], probe: async () => site(BROKEN), charge, ...oneProcess(), pushItem: async item => items.push(item), pricePerVerifiedCents: 50 });
   assert.equal(stillBroken.charged, 1);
   assert.equal(items[0].defect, 'TEL_LABEL_DIALS_DIFFERENT_NUMBER');
   assert.match(items[0].disproveIn30Seconds, /tap/);
-  const fixedInBetween = await runVerifiedDefectsSale({ buyerId: 'b2', websites: ['https://plumber.example/'], probe: async () => site(BROKEN), verifyProbe: async () => site(FIXED), charge, pushItem: async () => {}, pricePerVerifiedCents: 50 });
+  const fixedInBetween = await runVerifiedDefectsSale({ buyerId: 'b2', websites: ['https://plumber.example/'], probe: async () => site(BROKEN), verifyProbe: async () => site(FIXED), charge, ...oneProcess(), pushItem: async () => {}, pricePerVerifiedCents: 50 });
   assert.equal(fixedInBetween.charged, 0);
   assert.equal(fixedInBetween.refusals[0].outcome, 'NOT_REPRODUCED');
   assert.equal(events.length, 1);
@@ -88,21 +91,22 @@ test('sale run: a defect fixed between discovery and delivery is not charged', a
 
 test('review regressions: deliver before charge, persisted keys survive a restart, URL variants are one site, a limit stops charging', async () => {
   const order = [];
-  const persisted = [];
+  const store = createProcessChargeReservations();
   const charge = async ({ idempotencyKey }) => { order.push(`charge:${idempotencyKey.slice(0, 6)}`); return { ok: true }; };
-  const pushItem = async item => order.push(`push:${(item.chargeEvent ?? 'free').slice(0, 6)}`);
-  const run = alreadyCharged => runVerifiedDefectsSale({ buyerId: 'b', websites: ['https://plumber.example/', 'http://www.plumber.example', 'https://www.plumber.example/'], probe: async () => site(BROKEN), charge, pushItem, onCharged: key => persisted.push(key), alreadyCharged, pricePerVerifiedCents: 50, now: () => new Date('2026-10-22T05:00:00Z') });
-  const first = await run(new Set());
+  const pushItem = async item => order.push(`push:${item.billing.status}`);
+  const run = () => runVerifiedDefectsSale({ buyerId: 'b', websites: ['https://plumber.example/', 'http://www.plumber.example', 'https://www.plumber.example/'], probe: async () => site(BROKEN), charge, pushItem, ...oneProcess(store), pricePerVerifiedCents: 50, now: () => new Date('2026-10-22T05:00:00Z') });
+  const first = await run();
   assert.equal(first.websites, 1, 'http/https/www variants are one site');
   assert.equal(first.charged, 1);
-  assert.ok(order[0].startsWith('push:') && order[1].startsWith('charge:'), `delivered before charged: ${order}`);
-  const restarted = await run(new Set(persisted));
-  assert.equal(restarted.charged, 0, 'a restart with persisted keys never charges again');
+  assert.deepEqual(order.slice(0, 2), ['push:PENDING_PROVIDER_CONFIRMATION', order[1]], `delivered before charged: ${order}`);
+  assert.ok(order[1].startsWith('charge:'), `delivered before charged: ${order}`);
+  const restarted = await run();
+  assert.equal(restarted.charged, 0, 'a restart against the same reservation store never charges again');
   let calls = 0;
-  const limited = await settleFindingsSale({ buyerId: 'L', findings: [finding('https://l1.example/'), finding('https://l2.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge: async () => { calls += 1; return { ok: true, limitReached: true }; }, now: () => new Date('2026-10-22T05:00:00Z') });
+  const limited = await settleFindingsSale({ buyerId: 'L', findings: [finding('https://l1.example/'), finding('https://l2.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge: async () => { calls += 1; return { ok: true, limitReached: true }; }, ...oneProcess(), now: () => new Date('2026-10-22T05:00:00Z') });
   assert.equal(calls, 1, 'the charge that exhausts the limit is kept; no further charge is attempted');
   assert.equal(limited.receipt.charged, 1);
-  const unbilled = await settleFindingsSale({ buyerId: 'U', findings: [finding('https://u.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge: async () => ({ ok: false, reason: 'NOT_BILLED' }), deliver: async () => {}, now: () => new Date('2026-10-22T05:00:00Z') });
+  const unbilled = await settleFindingsSale({ buyerId: 'U', findings: [finding('https://u.example/')], verifier: async () => ({ outcome: 'REPRODUCED', evidence: [1] }), pricePerVerifiedCents: 50, charge: async () => ({ ok: false, reason: 'NOT_BILLED' }), deliver: async () => {}, ...oneProcess(), now: () => new Date('2026-10-22T05:00:00Z') });
   assert.equal(unbilled.receipt.chargedCents, 0);
   assert.equal(unbilled.receipt.deliveredUncharged[0].detail, 'CHARGE_NOT_CONFIRMED:NOT_BILLED');
 });

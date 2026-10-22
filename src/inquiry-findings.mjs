@@ -69,11 +69,13 @@ export function inquiryReprobeVerifier({ probe }) {
 /**
  * One buyer run: discover findings on each website, re-verify each with an
  * independent sale-time probe, deliver and charge only what reproduces.
- * Each item is delivered before it is charged (see settleFindingsSale).
- * charge, pushItem and onCharged are injected (Apify Actor.charge /
- * Actor.pushData / a persistent key store, or test fakes).
+ * Each item is reserved, delivered, then charged (see settleFindingsSale).
+ * charge, canCharge, reservations and pushItem are injected (an Apify billing
+ * adapter, a SQL reservation store and Actor.pushData, or test fakes).
+ * Without charge the run is delivery-only. Without a cross-run reservation
+ * store nothing is charged.
  */
-export async function runVerifiedDefectsSale({ buyerId, websites, probe, verifyProbe = probe, charge, pushItem, onCharged = null, alreadyCharged = new Set(), pricePerVerifiedCents, maxCharges = Infinity, now = () => new Date() }) {
+export async function runVerifiedDefectsSale({ buyerId, websites, probe, verifyProbe = probe, charge = null, canCharge = null, reservations = null, requiredGuarantee = 'ATOMIC_CROSS_RUN', runId, pushItem, pricePerVerifiedCents = null, maxCharges = Infinity, now = () => new Date() }) {
   const sites = [];
   const seen = new Set();
   for (const website of websites) {
@@ -96,8 +98,10 @@ export async function runVerifiedDefectsSale({ buyerId, websites, probe, verifyP
     evidence: item.verification.freshEvidence,
     verifiedAt: item.verification.verifiedAt,
     freshEvidenceSha256: item.verification.freshEvidenceSha256,
-    chargeEvent: item.charged ? item.chargeIdempotencyKey : null
+    // Known at delivery time only: pending or not charged. The confirmed,
+    // refused or unknown outcome is in the run's sale receipt, never here.
+    billing: item.deliveredBilling
   });
-  const { receipt } = await settleFindingsSale({ buyerId, findings: discovered, verifier: inquiryReprobeVerifier({ probe: verifyProbe }), pricePerVerifiedCents, charge, deliver, onCharged, alreadyCharged, maxCharges, now });
+  const { receipt } = await settleFindingsSale({ buyerId, findings: discovered, verifier: inquiryReprobeVerifier({ probe: verifyProbe }), pricePerVerifiedCents, charge, canCharge, reservations, requiredGuarantee, ...(runId ? { runId } : {}), deliver, maxCharges, now });
   return { ...receipt, websites: sites.length, duplicateSitesIgnored: websites.length - sites.length, discovered: discovered.length, notObservable, discoveredFindings: discovered };
 }

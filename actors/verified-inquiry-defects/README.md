@@ -15,6 +15,21 @@ Give this Actor a list of business websites, for example from a Google Maps scra
 - Every finding is checked twice: once when discovered, and again by an independent probe when delivered.
 - You pay one `verified-finding` event only for findings that reproduce the second time.
 - Questions the engine cannot assert, unreproducible findings, and sites behind bot challenges are never charged.
+- The same finding is never charged twice to you on the same day, even across runs that overlap. Each charge first reserves that finding in a shared billing ledger. If the ledger is unavailable, the run stops before checking any site and charges nothing.
+- Your run's spending limit is checked before each chargeable finding is delivered. When it is reached, the run stops delivering chargeable findings.
+
+## What the billing fields mean
+
+Each result row has a `billing.status` showing what was known when the row was written:
+
+- `PENDING_PROVIDER_CONFIRMATION`: a charge was attempted after the row was delivered.
+- `NOT_CHARGED`: the row is free. `billing.reason` says why, for example `ALREADY_CHARGED_TODAY`.
+
+A row never says it was paid. The final outcome of every charge is in the run's `SALE_RECEIPT` record:
+
+- `CONFIRMED`: Apify accepted the charge.
+- `REFUSED`: nothing was billed.
+- `UNKNOWN`: Apify gave no reliable answer. The finding is never charged again, and the run stops charging.
 
 ## Limits of the evidence
 

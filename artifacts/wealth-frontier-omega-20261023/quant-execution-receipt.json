@@ -1,0 +1,77 @@
+{
+  "schema": "uberbond.quant-frontier-execution-receipt.v1",
+  "recordedAtUtc": "2026-10-22T22:51:34.505411+00:00",
+  "baseMain": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "pr1538ObservedHead": "a9b2c5fa240de949135282769284044a0097986d",
+  "existingExperiments": 17,
+  "rejected": 16,
+  "inconclusive": 1,
+  "promoted": 0,
+  "focusedTests": {
+    "command": "node --test tests/machiavelli-quant-lab.test.mjs",
+    "pass": 14,
+    "fail": 0,
+    "skip": 0
+  },
+  "hostileTest": {
+    "command": "node artifacts/wealth-frontier-omega-20261023/quant-paper-ledger-red.mjs",
+    "expectedExitOnBase": 1,
+    "observedExit": 1,
+    "assertion": "Missing expected exception for exit quote observed in2030 while mark in2026",
+    "economicEvidence": false,
+    "repairOwner": "Parent routes to Chat on Steroids; no repair claimed by this receipt"
+  },
+  "newMarketFeasibility": {
+    "apiGets": 10,
+    "frozenSnapshotGets": 9,
+    "snapshotHttp200": 9,
+    "markets": 2,
+    "completePairedBooks": 2,
+    "profitableExecutableEvidence": 0,
+    "minimumBasketCostBeforeFees": 5.005,
+    "budgetOneUsdFeasibleInSample": false,
+    "feeConflict": "Gamma feeSchedule0 versus legacy CLOB base_fee1000; UNKNOWN semantics"
+  },
+  "sourceAndTestCodeModified": false,
+  "trades": 0,
+  "accountsCreated": 0,
+  "financialDeclarations": 0,
+  "spendUsd": 0,
+  "collectedUsd": 0,
+  "clearedContributionUsd": 0,
+  "newStrategyEvidence": "CONCEPT_AND_PUBLIC_DATA_FEASIBILITY_ONLY",
+  "preregisteredOutcomeClaims": false,
+  "alwaysOnRuntime": false,
+  "files": [
+    {
+      "path": "artifacts/wealth-frontier-omega-20261023/quant-paper-ledger-red.mjs",
+      "sha256": "87cf1688b275795b5b98aa9940bded6e060af3aa130bb1dfd952eaf789654fe4",
+      "bytes": 869
+    },
+    {
+      "path": "artifacts/wealth-frontier-omega-20261023/quant-prospective-protocol.json",
+      "sha256": "af3e24a04970b88efe2fde5361473103a1808b1595ca26397328700dba2f0e63",
+      "bytes": 3832
+    },
+    {
+      "path": "artifacts/wealth-frontier-omega-20261023/quant-public-snapshot.json",
+      "sha256": "64ff3bd4f93656eac5371d79a5233e974853f8d9e0b23e61bc97777036e79f79",
+      "bytes": 77979
+    },
+    {
+      "path": "artifacts/wealth-frontier-omega-20261023/quant-recovery-check.json",
+      "sha256": "84423e687480699abfd06c2266d1070b62f3f90dfafe76e2c25e87fc0b4ecb05",
+      "bytes": 10345
+    },
+    {
+      "path": "artifacts/wealth-frontier-omega-20261023/quant-snapshot-evaluation.json",
+      "sha256": "a69fb8e5130d32686d5463bfd1d4bcd36de39c7686b968811c3e2b49acbb2e00",
+      "bytes": 2234
+    },
+    {
+      "path": "docs/wealth-frontier-omega-20261023/QUANT_REVIEW.md",
+      "sha256": "50a892681787d41e1c05e1922eae43491f90c5dd84f44e1bf3cd6faf6edae816",
+      "bytes": 18246
+    }
+  ]
+}

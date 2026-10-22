@@ -75,6 +75,34 @@
         "continue": "otherwise, rank unabsorbed broken leaders by stranded users30 as build candidates"
       },
       "notClaimed": "The canon's 14-day migration test needs a second snapshot on or after 2026-11-05 with these exact definitions. One snapshot measures a cross-section, not migration."
+    },
+    {
+      "id": "S1-auditor-change-early-warning-hindcast",
+      "registeredAt": "2026-10-22T23:55:00Z",
+      "origin": "Successor surfaced by X1 market facts (continuing entities change auditor EIN 11-14% a year). Registered before any S1 outcome is computed.",
+      "question": "Can public FAC fields known at an entity's 2024 report predict whether its auditor EIN changes for 2025 well enough to sell as an early-warning list to audit firms?",
+      "population": "Entities with a real UEI and reports for audit years 2022, 2023, 2024 and 2025, each with a valid 9-digit auditor EIN. Latest resubmission per UEI-year is used if duplicates exist (last row read).",
+      "outcome": "auditor EIN on the 2025 report differs from the 2024 report",
+      "features": [
+        "tenure: 1 if EIN2024 != EIN2023, 2 if EIN2024 == EIN2023 != EIN2022, 3 if all equal",
+        "entity_type",
+        "auditor portfolio size bucket (2024 audits by that EIN: 1-5, 6-20, 21-100, >100)",
+        "total_amount_expended bucket (<1M, 1-3M, 3-10M, >10M)",
+        "going concern included",
+        "material weakness disclosed",
+        "low-risk auditee",
+        "auditee state == auditor state"
+      ],
+      "model": "Smoothed frequency table over the feature cross product, backed off to tenure x portfolio bucket, then tenure, then base rate, when a cell has fewer than 30 training rows. Train/test split by SHA-256 of UEI (even first hex digit = train).",
+      "metrics": [
+        "Brier skill score vs the training base rate on the test half",
+        "change rate in the top predicted decile vs base rate"
+      ],
+      "decisionRules": {
+        "continue": "Brier skill score >= 0.05 AND top-decile change rate >= 2x base rate",
+        "kill": "otherwise: auditor change is not predictable enough from public fields to sell"
+      },
+      "caveat": "EIN change includes CPA-firm mergers, which are not RFP opportunities; a pass would still need merger filtering before any product claim."
     }
   ],
   "amendments": [

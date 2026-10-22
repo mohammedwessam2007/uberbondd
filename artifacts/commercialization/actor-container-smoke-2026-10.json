@@ -1,0 +1,112 @@
+{
+  "schema": "uberbond.actor-container-verification.2026-10.v1",
+  "atUtc": "2026-10-22T16:50:38Z",
+  "evidenceClass": "LIVE_LOCAL_DOCKER_OVERLAY2_ACTOR_NO_CLOUD_NO_PAYMENT",
+  "pr": 1537,
+  "baseHeadAtStart": "250685ca414c392913f263d3bb6182ce74556fe0",
+  "sourceAtTest": "883a33ecd5d930a49ae8706582aeb1df3f5bcd19",
+  "builds": [
+    {
+      "mode": "fresh-isolated-daemon",
+      "exitCode": 0,
+      "imageSha256": "cd7d021dade4b6267b4c6661061344d0737b48945994f4ee389b63ebb5cd0f2b"
+    },
+    {
+      "mode": "no-cache",
+      "exitCode": 0,
+      "imageSha256": "f464aacca321ddedfe01df8e93073f299a80bb41239e12151e317fb082b80086"
+    }
+  ],
+  "dependencies": {
+    "apify": "3.7.2",
+    "pg": "8.22.0",
+    "playwright": "1.61.1",
+    "npmCiInstalledRuntimePackages": 203,
+    "twoCleanDependencyTreesEqual": true
+  },
+  "coldStart": {
+    "exitCode": 0,
+    "dockerStorageMount": "/home/myuser/storage",
+    "uid": 996,
+    "site": "https://example.com/",
+    "mode": "DELIVERY_ONLY",
+    "requested": 0,
+    "delivered": 0,
+    "charged": 0,
+    "markdownReport": true,
+    "htmlReport": true,
+    "saleReceipt": true
+  },
+  "browserStartup": {
+    "exitCode": 0,
+    "elapsedMs": 2039,
+    "pageLoads": 1,
+    "blockedRequests": 4,
+    "clicks": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "success": true
+  },
+  "singlePageChromeMeasurements": [
+    {
+      "dockerLimitGb": 2,
+      "wallClockMs": 2375,
+      "peakContainerCgroupBytes": 303165440,
+      "pageLoads": 1,
+      "blockedRequests": 15,
+      "clicks": 0,
+      "formSubmissions": 0,
+      "messages": 0,
+      "witnessItems": 0
+    },
+    {
+      "dockerLimitGb": 4,
+      "wallClockMs": 2071,
+      "peakContainerCgroupBytes": 345800704,
+      "pageLoads": 1,
+      "blockedRequests": 12,
+      "clicks": 0,
+      "formSubmissions": 0,
+      "messages": 0,
+      "witnessItems": 0
+    }
+  ],
+  "singleSiteStaticProbes": [
+    {
+      "limitGb": 2,
+      "browserRequested": false,
+      "browserExecuted": false,
+      "wallMs": 1051
+    },
+    {
+      "limitGb": 2,
+      "browserRequested": true,
+      "browserExecuted": false,
+      "wallMs": 711
+    },
+    {
+      "limitGb": 4,
+      "browserRequested": false,
+      "browserExecuted": false,
+      "wallMs": 358
+    },
+    {
+      "limitGb": 4,
+      "browserRequested": true,
+      "browserExecuted": false,
+      "wallMs": 674
+    }
+  ],
+  "scope": "SINGLE_PUBLIC_SITE_RUNTIME_SMOKE_AND_DOCKER_MEMORY_CEILING_NOT_APIFY_CU_OR_HUMAN_DEFECT_PROOF",
+  "remainingUnknowns": [
+    "Real Apify CU and cold start",
+    "10-fixture hostile live browser suite",
+    "Human precision and false positive rate",
+    "Production payment provider authority",
+    "Qualified paying buyer demand"
+  ],
+  "noExternalEffects": true,
+  "chargedUsd": 0,
+  "clearedUsd": 0,
+  "merged": false
+}

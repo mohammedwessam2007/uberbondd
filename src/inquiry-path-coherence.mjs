@@ -317,6 +317,8 @@ export function nearMissTypo(a, b) {
   return null;
 }
 
+const UNRELATED_NUMBER_CAVEAT = 'UNRELATED_NUMBER_MAY_BE_INTENTIONAL_ROUTING_OR_STATIC_CALL_TRACKING: confirm the intended destination with the business before calling this a defect.';
+
 export function analyzeInquiryCoherence({ pages = [], hostResolution = {}, runtimeWitness = {}, business = null } = {}) {
   const fetched = pages.filter(page => page && page.sourceSha256 && (page.status === null || (page.status >= 200 && page.status < 300)));
   const usable = fetched.filter(page => (page.observability ?? 'STATIC_HTML_READABLE') === 'STATIC_HTML_READABLE');
@@ -357,7 +359,11 @@ export function analyzeInquiryCoherence({ pages = [], hostResolution = {}, runti
     const typo = nearMissTypo(label, target);
     const dialsOwnListedNumber = ownListed.has(target);
     // Tracking pools issue unrelated numbers; one keystroke away is a typo.
-    const caveat = dialsOwnListedNumber ? null : persists || typo ? null : swapCaveat;
+    // Static call tracking and deliberate routing also look like an unrelated
+    // number, with or without a script, and a browser witness cannot see the
+    // owner's intent. So only a near-miss typo is sold as a defect; anything
+    // else is a question (founder law 2026-10-22: a mismatch is not always a defect).
+    const caveat = dialsOwnListedNumber || typo ? null : swapCaveat ?? UNRELATED_NUMBER_CAVEAT;
     if (dialsOwnListedNumber) {
       findings.push(finding({
         code: 'TEL_LABEL_DIALS_DIFFERENT_NUMBER', findingClass: 'OBSERVATION', severity: 2, confidence: 0.9,

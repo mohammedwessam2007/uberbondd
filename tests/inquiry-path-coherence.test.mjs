@@ -5,6 +5,7 @@ import {
   normalizeTelHref, phonesInText, schemaDeclaresAlwaysOpen, decodeEntities
 } from '../src/inquiry-path-coherence.mjs';
 import { probeInquiryPath, robotsDisallows, inquiryLinks } from '../src/inquiry-path-probe.mjs';
+import { normalizeRuntimeTelLinks } from '../src/inquiry-path-runtime-witness.mjs';
 
 const page = (html, url = 'https://plumber.example/') => extractInquirySurface({ url, html, status: 200 });
 const codes = analysis => analysis.findings.map(item => item.code);
@@ -25,18 +26,39 @@ test('phone extraction ignores prices, dates, zip codes and order numbers', () =
   assert.equal(phonesInText('(512) 555-0123')[0].fictional, true);
 });
 
-test('a call button that prints one number and dials another is an assertable contradiction', () => {
+test('a call button that prints one number and dials a one-keystroke typo of it is an assertable contradiction', () => {
   const analysis = analyzeInquiryCoherence({ pages: [page(`
-    <header><a class="btn" href="tel:5124441111">Call (512) 867-5309</a></header>
+    <header><a class="btn" href="tel:5128675308">Call (512) 867-5309</a></header>
     <footer><p>Call us: (512) 867-5309</p></footer>`)] });
   const hit = analysis.findings.find(item => item.code === 'TEL_LABEL_DIALS_DIFFERENT_NUMBER');
   assert.ok(hit);
   assert.equal(hit.class, 'CONTRADICTION');
   assert.equal(hit.firstTouchUse, 'MAY_STATE_AS_OBSERVED_FACT');
-  assert.match(hit.title, /\(512\) 867-5309.*dials \(512\) 444-1111/);
+  assert.match(hit.title, /\(512\) 867-5309 dials \(512\) 867-5308 \(one digit different\)/);
   assert.match(hit.thirtySecondDisproof, /tap the "Call \(512\) 867-5309" control/);
   assert.equal(hit.evidence[0].sourceSha256.length, 64);
   assert.equal(analysis.verdict, 'ASSERTABLE_DEFECT_OBSERVED');
+});
+
+test('an unrelated dialled number is a question, never a sold claim, even without a script and even when a browser confirms it', () => {
+  // Static call tracking and deliberate routing look exactly like this; the
+  // founder's 2026-10-22 law forbids selling a mismatch as a defect by itself.
+  const url = 'https://plumber.example/';
+  const html = `<header><a class="btn" href="tel:5124441111">Call (512) 867-5309</a></header>
+    <footer><p>Call us: (512) 867-5309</p></footer>`;
+  const analysis = analyzeInquiryCoherence({ pages: [page(html, url)] });
+  const hit = analysis.findings.find(item => item.code === 'TEL_LABEL_DIALS_DIFFERENT_NUMBER');
+  assert.match(hit.title, /\(512\) 867-5309 dials \(512\) 444-1111$/);
+  assert.equal(hit.firstTouchUse, 'ASK_DONT_ASSERT');
+  assert.match(hit.runtimeCaveat, /^UNRELATED_NUMBER_MAY_BE_INTENTIONAL_ROUTING_OR_STATIC_CALL_TRACKING/);
+  assert.ok(hit.confidence < 0.85);
+  assert.equal(analysis.verdict, 'QUESTION_WORTH_ASKING');
+
+  const runtimeWitness = { [url]: { telLinks: normalizeRuntimeTelLinks([{ href: 'tel:5124441111', text: 'Call (512) 867-5309' }]) } };
+  const witnessed = analyzeInquiryCoherence({ pages: [page(html, url)], runtimeWitness });
+  const persisted = witnessed.findings.find(item => item.code === 'TEL_LABEL_DIALS_DIFFERENT_NUMBER');
+  assert.deepEqual(persisted.witnesses, ['STATIC_HTML', 'RUNTIME_MOBILE_BROWSER']);
+  assert.equal(persisted.firstTouchUse, 'ASK_DONT_ASSERT', 'a browser sees the mismatch, not the owner\'s intent');
 });
 
 test('call-tracking scripts downgrade a mismatch to a question instead of a claim', () => {

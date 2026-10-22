@@ -30,7 +30,7 @@ const nonEmpty = value => typeof value === 'string' && value.trim().length > 0;
  * A finding is identified by what it claims, not when it was seen: the same
  * defect observed twice is one finding with two verifications.
  */
-export function makeFinding({ subject, subjectKey = subject, code, claimKey, claim, evidence, disproof, verifierId }) {
+export function makeFinding({ subject, subjectKey = subject, code, claimKey, claim, evidence, disproof, verifierId, discoveredAt = null }) {
   for (const [name, value] of Object.entries({ subject, subjectKey, code, claimKey, claim, disproof, verifierId })) {
     if (!nonEmpty(value)) throw new Error(`finding.${name} is required`);
   }
@@ -38,7 +38,7 @@ export function makeFinding({ subject, subjectKey = subject, code, claimKey, cla
   // subjectKey names the subject canonically (http/https and www variants of
   // one site are one subject), so a finding has one id however it was entered.
   const id = sha256({ subject: subjectKey, code, claimKey, verifierId }).slice(0, 32);
-  return { id, subject, code, claimKey, claim, evidence, disproof, verifierId };
+  return { id, subject, code, claimKey, claim, evidence, disproof, verifierId, ...(discoveredAt ? { discoveredAt } : {}) };
 }
 
 /**

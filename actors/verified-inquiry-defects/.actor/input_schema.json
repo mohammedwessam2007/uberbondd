@@ -3,9 +3,39 @@
   "type": "object",
   "schemaVersion": 1,
   "properties": {
-    "websites": { "title": "Business websites", "type": "array", "editor": "stringList", "description": "Home pages to check, e.g. from a Google Maps scraper run. Pages are fetched read-only and robots.txt is respected.", "prefill": ["https://example.com/"] },
-    "runtimeWitness": { "title": "Confirm call buttons in a real browser", "type": "boolean", "description": "Re-reads contested call buttons in headless Chromium after the site's scripts (e.g. call tracking) run. Recommended.", "default": true },
-    "maxPagesPerSite": { "title": "Max pages per site", "type": "integer", "minimum": 1, "maximum": 8, "default": 5 }
+    "websites": {
+      "title": "Business websites",
+      "type": "array",
+      "editor": "stringList",
+      "description": "Public sites to inspect read-only. Supply only domains you are authorized to audit. A maximum of 10 sites applies by default.",
+      "prefill": [
+        "https://example.com/"
+      ],
+      "maxItems": 40
+    },
+    "runtimeWitness": {
+      "title": "Confirm call buttons in a real browser",
+      "type": "boolean",
+      "description": "Re-reads contested call buttons in headless Chromium after the site's scripts (e.g. call tracking) run. Recommended.",
+      "default": true
+    },
+    "maxPagesPerSite": {
+      "title": "Max pages per site",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 8,
+      "default": 5
+    },
+    "maxSites": {
+      "title": "Maximum approved sites",
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 40,
+      "default": 10,
+      "description": "Hard ceiling on sites and runtime exposure. A longer input is rejected, not silently billed."
+    }
   },
-  "required": ["websites"]
+  "required": [
+    "websites"
+  ]
 }

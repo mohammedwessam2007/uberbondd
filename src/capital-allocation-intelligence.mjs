@@ -56,14 +56,17 @@ export function allocateCapital({ candidates, levels = CAPITAL_LEVELS, founderHo
   const scored = candidates.map(candidate => ({ ...candidate, riskAdjustedMonthlyUsd: riskAdjustedMonthly(candidate) })).filter(candidate => candidate.riskAdjustedMonthlyUsd > 0 && candidate.monthlyContributionUsd.p50 > 0);
   const frontierReserve = candidates.filter(candidate => !scored.some(item => item.id === candidate.id) && candidate.monthlyContributionUsd.p90 > 0).map(candidate => candidate.id);
   const rejectedNonPositive = candidates.filter(candidate => !scored.some(item => item.id === candidate.id) && !frontierReserve.includes(candidate.id)).map(candidate => candidate.id);
-  const pool = scored.sort((a, b) => b.riskAdjustedMonthlyUsd - a.riskAdjustedMonthlyUsd).slice(0, 18);
+  const perFounderHour = c => c.riskAdjustedMonthlyUsd / Math.max(c.founderHoursPerMonth, 0.25);
+  const pool = scored.sort((a, b) => perFounderHour(b) - perFounderHour(a)).slice(0, 18);
 
   const scenarios = levels.map(level => {
     const lossBudget = Math.max(level * maxLossFraction, minimumLossBudgetUsd);
-    let best = { value: 0, picks: [] };
+    let best = { value: 0, metric: 0, picks: [] };
+    const founderHourShadowUsd = 10; // conservative opportunity-cost prior, not a billed expense
     // Exhaustive over the pool (<= 2^18 subsets) with early pruning on hard constraints.
     const search = (index, picks, capital, loss, hours, groups, value) => {
-      if (value > best.value) best = { value, picks: [...picks] };
+      const metric = value - founderHourShadowUsd * hours; // optimize contribution after founder-time cost, not gross revenue
+      if (metric > best.metric || (metric === best.metric && value > best.value)) best = { value, metric, picks: [...picks] };
       for (let i = index; i < pool.length; i += 1) {
         const c = pool[i];
         if (groups.has(c.correlationGroup)) continue;
@@ -89,6 +92,7 @@ export function allocateCapital({ candidates, levels = CAPITAL_LEVELS, founderHo
       idleCapitalUsd: level - capitalUsed,
       idleCapitalMonthlyAtRiskFreeUsd: Math.round(idleMonthlyUsd * 100) / 100,
       founderHoursUsed: hoursUsed,
+      founderHourShadowUsd,
       riskAdjustedUsdPerFounderHour: hoursUsed ? Math.round((best.value / hoursUsed) * 100) / 100 : null,
       worstCaseLossUsd: best.picks.reduce((sum, c) => sum + c.worstCredibleLossUsd, 0),
       lossBudgetUsd: lossBudget,
@@ -98,7 +102,7 @@ export function allocateCapital({ candidates, levels = CAPITAL_LEVELS, founderHo
   return {
     ok: true,
     version: CAPITAL_ALLOCATION_VERSION,
-    assumptions: { founderHoursPerMonth, maxLossFraction, riskFreeAnnual, weighting: '0.5*p10 + 0.35*p50 + 0.15*p90, times probability the mechanism works' },
+    assumptions: { founderHoursPerMonth, maxLossFraction, riskFreeAnnual, weighting: '0.5*p10 + 0.35*p50 + 0.15*p90, times probability the mechanism works; subtract $10 per founder hour as an explicit opportunity-cost prior' },
     rejectedNonPositive,
     frontierReserve,
     scenarios,

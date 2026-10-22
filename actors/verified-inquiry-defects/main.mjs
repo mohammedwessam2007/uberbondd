@@ -15,12 +15,35 @@ import { probeInquiryPath } from './src/inquiry-path-probe.mjs';
 import { witnessRuntimeTelLinks } from './src/inquiry-path-runtime-witness.mjs';
 import { createSqlChargeReservations } from './src/charge-reservations.mjs';
 import { apifyPayPerEventBilling } from './src/apify-ppe-billing.mjs';
+import { unobservableProbe } from './src/inquiry-probe-budget.mjs';
+import { renderInquiryAudit } from './src/verified-inquiry-report.mjs';
 
 await Actor.init();
 const input = (await Actor.getInput()) ?? {};
-const websites = [...new Set((input.websites ?? []).map(String).filter(url => /^https?:\/\//i.test(url)))].slice(0, 500);
+const maxSites = Math.min(40, Math.max(1, Number.isSafeInteger(input.maxSites) ? input.maxSites : 10));
+if (!Array.isArray(input.websites) || input.websites.length > maxSites) {
+  await Actor.fail(`Input exceeds maxSites=${maxSites}. No sites were checked or charged.`);
+}
+const websites = [...new Set((input.websites ?? []).map(String).filter(url => /^https?:\/\//i.test(url)))];
+const runSignal = AbortSignal.timeout(600_000);
+const maxPages = Math.min(8, Math.max(1, Number.isSafeInteger(input.maxPagesPerSite) ? input.maxPagesPerSite : 5));
 const witnessImpl = input.runtimeWitness === false ? null : witnessRuntimeTelLinks;
-const probe = website => probeInquiryPath({ website, maxPages: Math.min(8, Math.max(1, Number(input.maxPagesPerSite ?? 5))), witnessImpl });
+const probe = async website => {
+  const started = Date.now();
+  if (runSignal.aborted) return unobservableProbe(website, 'RUN_TIME_BUDGET_EXHAUSTED');
+  try {
+    const receipt = await probeInquiryPath({ website, maxPages, maxSiteMs: 90_000, signal: runSignal, witnessImpl });
+    scannedPages.push(...(receipt.pages ?? []));
+    questionsForHuman.push(...(receipt.analysis?.findings ?? []).filter(item => item.firstTouchUse === 'ASK_DONT_ASSERT').map(item => ({ url: website, code: item.code, question: item.title })));
+    if (receipt.pages?.length && !(receipt.analysis?.findings ?? []).some(item => item.firstTouchUse === 'MAY_STATE_AS_OBSERVED_FACT')) cleanChecks.push({ website, result: 'NO_ASSERTABLE_FINDINGS_IN_OBSERVED_PAGES_NOT_PROOF_SITE_IS_DEFECT_FREE' });
+    return receipt;
+  }
+  catch (error) { return unobservableProbe(website, runSignal.aborted ? 'RUN_TIME_BUDGET_EXHAUSTED' : `PROBE_FAILED:${error?.name ?? 'ERROR'}`, Date.now() - started); }
+};
+const deliveredItems = [];
+const scannedPages = [];
+const questionsForHuman = [];
+const cleanChecks = [];
 
 const chargingManager = Actor.getChargingManager();
 const billing = apifyPayPerEventBilling({
@@ -50,9 +73,12 @@ const receipt = await runVerifiedDefectsSale({
   probe,
   verifyProbe: probe,
   ...(billing.mode === 'PAY_PER_EVENT' ? { charge: billing.charge, canCharge: billing.canCharge, pricePerVerifiedCents: billing.priceCents, reservations } : {}),
-  pushItem: item => Actor.pushData(item)
+  pushItem: async item => { await Actor.pushData(item); deliveredItems.push(item); }
 });
 if (pool) await pool.end().catch(() => {});
 await Actor.setValue('SALE_RECEIPT', { ...receipt, billingMode: billing.mode, billingModeReason: billing.reason ?? null, eventPriceUsd: billing.priceUsd ?? null });
+const report = renderInquiryAudit({ pagesExamined: [...new Map(scannedPages.map(page => [page.url, page])).values()], questions: questionsForHuman, cleanChecks, sourceClass: 'ACTOR_RUN_DELIVERY_NOT_PAYMENT_EVIDENCE', approvedWebsite: websites.join(', '), scanAt: new Date().toISOString(), receipt, deliveredItems, unobservableChecks: receipt.notObservable, price: 'Apify: priced per verified finding only if paid event is configured; direct pilot proposed $99 per one-site audit. No price implies buyer authorization.' });
+await Actor.setValue('AUDIT_REPORT_MARKDOWN', report.markdown);
+await Actor.setValue('AUDIT_REPORT_HTML', report.html);
 const unknown = receipt.billing.unknown ? ` ${receipt.billing.unknown} charge outcome(s) are unknown and will never be retried; see SALE_RECEIPT.` : '';
 await Actor.exit(`Checked ${receipt.websites} sites; delivered ${receipt.delivered} verified findings; charged ${receipt.charged}; ${receipt.refused} not reproduced, not observable or over your limit (not charged).${unknown}`);

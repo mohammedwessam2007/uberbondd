@@ -94,7 +94,8 @@ function mentions(rail, text) {
 export function classifyRail(text) {
   const named = RAILS.filter(rail => mentions(rail, String(text ?? '')));
   if (!named.length) return { verdict: 'RAIL_UNSPECIFIED', rails: [], strength: 0 };
-  const legallyBlocked = named.find(rail => rail.status === 'LEGALLY_BLOCKED_PENDING_COUNSEL');
+  const legallyBlocked = named.find(rail => rail.status === 'LEGALLY_BLOCKED_PENDING_COUNSEL')
+    ?? (/\b(via|through|then|followed by)\b/i.test(String(text ?? '')) ? named.find(rail => rail.status === 'UNSUPPORTED') : null);
   const best = legallyBlocked ?? named.reduce((a, b) => (STRENGTH[b.status] > STRENGTH[a.status] ? b : a));
   return {
     verdict: STRENGTH[best.status] === 0 ? 'RAIL_BLOCKED' : STRENGTH[best.status] >= 3 ? 'RAIL_PLAUSIBLE' : 'RAIL_UNVERIFIED',

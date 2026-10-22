@@ -187,8 +187,13 @@ test('reality ledger: five tiers, each with its own evidence, never summed toget
   // Cleared contribution profit needs intact canonical payment truth.
   const truth = { ok: true, status: 'PROVIDER_CLEARED_PAYMENT_PROVEN', stages: { CLEARED_PAYMENT: { status: 'PROVEN' }, PAYMENT_RETAINED: { status: 'PROVEN' } }, economics: { netProviderClearedRevenueCents: 10_000, reversedRevenueCents: 0 }, verifiedProviderEventRefs: ['order_created:12345'], contradictions: [] };
   truth.truthDigest = canonicalPaymentTruthDigest(truth);
-  r = appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API', amountCents: 10_000, evidence: { paymentTruth: truth, attributableCostsCents: 2_500 }, at });
-  assert.equal(r.ok, true);
+  // This is a TEST-ONLY mocked provider; production has no connected trusted
+  // verifier. Bare truthDigest must not assert collected/cleared money.
+  const mockedProvider = { verifyClearedPayment: () => true };
+  const forged = appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API', amountCents: 10_000, evidence: { paymentTruth: truth, attributableCostsCents: 2_500 }, at });
+  assert.equal(forged.ok, false, 'locally forged provider truth must not assert money');
+  r = appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API', amountCents: 10_000, evidence: { paymentTruth: truth, attributableCostsCents: 2_500 }, at }, mockedProvider);
+  assert.equal(r.ok, true, 'only an explicit test-only provider mock may bypass the default refusal for exercising ledger bookkeeping');
   ledger = r.ledger;
   const tampered = structuredClone(truth); tampered.stages.PAYMENT_RETAINED.status = 'REVERSED';
   assert.equal(appendRealityEntry(ledger, { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'API', amountCents: 1, evidence: { paymentTruth: tampered, attributableCostsCents: 0 }, at }).ok, false);
@@ -201,15 +206,17 @@ test('reality ledger: five tiers, each with its own evidence, never summed toget
   inflated.truthDigest = canonicalPaymentTruthDigest(inflated);
   assert.ok(appendRealityEntry([], { tier: 'CLEARED_CONTRIBUTION_PROFIT', mechanismId: 'X', amountCents: 10_000_000, evidence: { paymentTruth: inflated, attributableCostsCents: 0 }, at }).problems.some(text => /net provider-cleared/.test(text)));
   for (const ref of ['sandbox.paypal.com/txn/1', 'paypal-sandbox/WH-1']) assert.ok(evidenceProblems('COLLECTED_RECEIPTS', { providerEventRef: ref, counterparty: 'x' }).length > 0, ref);
-  const summary = summarizeReality(ledger);
+  const summary = summarizeReality(ledger, mockedProvider);
   assert.equal(summary.byTier.SIMULATED.amountCents, 50_000);
   assert.equal(summary.clearedContributionProfitCents, 7_500);
   assert.match(summary.crossTierTotal, /NOT_DEFINED/);
   assert.equal(checkMoneyClaim(ledger, { mechanismId: 'CARRY' }).claimHolds, false, 'a backtest is not cleared profit');
-  assert.equal(checkMoneyClaim(ledger, { mechanismId: 'CARRY', claimedTier: 'SIMULATED' }).claimHolds, true);
-  assert.equal(checkMoneyClaim(ledger, { mechanismId: 'API' }).claimHolds, true);
-  const forged = structuredClone(ledger); forged[0].amountCents = 9_999_999;
-  assert.equal(verifyRealityChain(forged).ok, false);
+  assert.equal(checkMoneyClaim(ledger, { mechanismId: 'CARRY', claimedTier: 'SIMULATED' }).claimHolds, false, 'an overall chain containing unauthenticated financial claims cannot be trusted by default');
+  assert.equal(checkMoneyClaim(ledger, { mechanismId: 'CARRY', claimedTier: 'SIMULATED' }, mockedProvider).claimHolds, true, 'test-only provider verification permits full test chain accounting');
+  assert.equal(checkMoneyClaim(ledger, { mechanismId: 'API' }).claimHolds, false, 'no independent provider evidence by default');
+  assert.equal(checkMoneyClaim(ledger, { mechanismId: 'API' }, mockedProvider).claimHolds, true, 'test-only simulated verifier exercises chain bookkeeping');
+  const corrupted = structuredClone(ledger); corrupted[0].amountCents = 9_999_999;
+  assert.equal(verifyRealityChain(corrupted, mockedProvider).ok, false);
 });
 
 test('capital allocation: ruin firewall, correlation groups, founder hours and idle capital', async () => {

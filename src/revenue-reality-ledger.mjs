@@ -30,30 +30,44 @@ const nonEmpty = value => typeof value === 'string' && value.trim().length > 0;
 // Any non-alphanumeric character separates words: sandbox.paypal.com and paypal-sandbox/WH-1 are synthetic.
 const SYNTHETIC_RX = /(?:^|[^a-z0-9])(sandbox|synthetic|fixture|fake|test|simulated|paper)(?:[^a-z0-9]|$)/i;
 
+// A verifier passes only by synchronously returning true. A throw is an
+// unavailable provider and a returned promise is a pending check: both refuse.
+const trustedVerifierPasses = (verify, input) => {
+  if (typeof verify !== 'function') return false;
+  try { return verify(input) === true; } catch { return false; }
+};
+
 /** Evidence each tier requires. Returns the list of missing/invalid items (empty = admissible). */
-export function evidenceProblems(tier, evidence = {}, { amountCents = null } = {}) {
+export function evidenceProblems(tier, evidence = {}, { amountCents = null, verifyClearedPayment = null, verifyProviderCharge = null, verifyVenueFills = null } = {}) {
   const problems = [];
   switch (tier) {
     case 'SIMULATED':
       if (!isHex64(evidence.experimentReceiptSha256)) problems.push('experimentReceiptSha256 (backtest/model receipt) required');
       break;
     case 'PAPER':
+      if (evidence.forwardChronologyProven !== true || !nonEmpty(evidence.independentChronologyProofRef)) problems.push('independent forward chronology proof required; a backdated local hash chain is not time evidence');
       if (!isHex64(evidence.paperLedgerHeadSha256)) problems.push('paperLedgerHeadSha256 (hash-chained forward paper ledger) required');
       if (!Number.isSafeInteger(evidence.signalsRecordedBeforeOutcome) || evidence.signalsRecordedBeforeOutcome < 1) problems.push('signalsRecordedBeforeOutcome >= 1 required: paper results must be committed before prices are observed');
       break;
     case 'REALIZED_TRADING':
+      if (!trustedVerifierPasses(verifyVenueFills, evidence)) problems.push(`independent trusted venue fill verifier ${typeof verifyVenueFills === 'function' ? 'unavailable or refused' : 'required'}`);
       if (!nonEmpty(evidence.venue)) problems.push('venue required');
       if (!Array.isArray(evidence.fillIds) || !evidence.fillIds.length || evidence.fillIds.some(id => !nonEmpty(id) || SYNTHETIC_RX.test(id))) problems.push('non-synthetic venue fill identifiers required');
       if (!nonEmpty(evidence.founderCapitalAuthorizationRef)) problems.push('founderCapitalAuthorizationRef required: no real-money trade exists without explicit founder authorization of market, broker, capital limit and risk');
       if (!Number.isFinite(evidence.feesCents)) problems.push('feesCents required: realized P&L is net of venue fees');
       break;
     case 'COLLECTED_RECEIPTS':
+      if (!trustedVerifierPasses(verifyProviderCharge, evidence)) problems.push(`independent trusted provider charge verifier ${typeof verifyProviderCharge === 'function' ? 'unavailable or refused' : 'required'}`);
       if (!nonEmpty(evidence.providerEventRef) || SYNTHETIC_RX.test(evidence.providerEventRef)) problems.push('non-synthetic payment provider event reference required');
       if (!nonEmpty(evidence.counterparty)) problems.push('counterparty required');
       break;
     case 'CLEARED_CONTRIBUTION_PROFIT': {
       const truth = evidence.paymentTruth;
       if (!truth) { problems.push('canonical paymentTruth required'); break; }
+      // A hash is integrity only, never provider authentication. Fail closed without an
+      // independently connected trusted verifier. No provider is wired by default.
+      try { if (typeof verifyClearedPayment !== 'function' || verifyClearedPayment(truth) !== true) problems.push('independent trusted cleared-payment verification required'); }
+      catch { problems.push('independent trusted cleared-payment verifier unavailable'); }
       if (truth.status !== 'PROVIDER_CLEARED_PAYMENT_PROVEN') problems.push('payment truth status must be PROVIDER_CLEARED_PAYMENT_PROVEN');
       if (truth?.stages?.PAYMENT_RETAINED?.status !== 'PROVEN') problems.push('payment must be retained (not refunded, disputed or reversed)');
       if (!isHex64(truth.truthDigest) || truth.truthDigest !== canonicalPaymentTruthDigest(truth)) problems.push('payment truth digest missing or does not match its contents');
@@ -74,8 +88,9 @@ export function evidenceProblems(tier, evidence = {}, { amountCents = null } = {
 }
 
 /** Append one entry to a hash-chained ledger. Inadmissible entries are refused, not downgraded silently. */
-export function appendRealityEntry(ledger = [], { tier, mechanismId, amountCents, currency = 'USD', evidence = {}, at }) {
-  const problems = evidenceProblems(tier, evidence, { amountCents });
+export function appendRealityEntry(ledger = [], { tier, mechanismId, amountCents, currency = 'USD', evidence = {}, at }, providerAuthority = {}) {
+  const problems = evidenceProblems(tier, evidence, { amountCents, ...providerAuthority });
+  if (typeof currency !== 'string' || !/^[A-Z]{3}$/.test(currency)) problems.push('currency must be an uppercase ISO 4217 code');
   if (!nonEmpty(mechanismId)) problems.push('mechanismId required');
   const seen = moneyRefs(ledger);
   if (moneyRefsOf(tier, evidence).some(ref => seen.has(ref))) problems.push('this provider payment is already in the ledger: one payment counts once');
@@ -97,13 +112,13 @@ function moneyRefsOf(tier, evidence = {}) {
 }
 const moneyRefs = ledger => new Set(ledger.flatMap(entry => moneyRefsOf(entry.tier, entry.evidence)));
 
-export function verifyRealityChain(ledger = []) {
+export function verifyRealityChain(ledger = [], providerAuthority = {}) {
   let previous = '0'.repeat(64);
   const seen = new Set();
   for (const [index, entry] of ledger.entries()) {
     const { entryHash, ...body } = entry;
     if (body.index !== index || body.previousHash !== previous || sha256(body) !== entryHash) return { ok: false, brokenAt: index };
-    if (evidenceProblems(body.tier, body.evidence, { amountCents: body.amountCents }).length) return { ok: false, brokenAt: index, reason: 'entry evidence no longer admissible' };
+    if (!/^[A-Z]{3}$/.test(body.currency) || evidenceProblems(body.tier, body.evidence, { amountCents: body.amountCents, ...providerAuthority }).length) return { ok: false, brokenAt: index, reason: 'entry evidence no longer admissible' };
     const refs = moneyRefsOf(body.tier, body.evidence);
     if (refs.some(ref => seen.has(ref))) return { ok: false, brokenAt: index, reason: 'payment counted twice' };
     refs.forEach(ref => seen.add(ref));
@@ -113,27 +128,45 @@ export function verifyRealityChain(ledger = []) {
 }
 
 /** Per-tier, per-mechanism totals. Tiers are reported side by side and never added together. */
-export function summarizeReality(ledger = []) {
-  const chain = verifyRealityChain(ledger);
-  const byTier = Object.fromEntries(REALITY_TIERS.map(tier => [tier, { entries: 0, amountCents: 0 }]));
+export function summarizeReality(ledger = [], providerAuthority = {}) {
+  const chain = verifyRealityChain(ledger, providerAuthority);
+  const byTier = Object.fromEntries(REALITY_TIERS.map(tier => [tier, { entries: 0, amountCents: 0, byCurrency: {} }]));
   const byMechanism = {};
+  const byMechanismCurrency = {};
   for (const entry of ledger) {
-    byTier[entry.tier].entries += 1;
-    byTier[entry.tier].amountCents += entry.tier === 'CLEARED_CONTRIBUTION_PROFIT' ? entry.amountCents - entry.evidence.attributableCostsCents : entry.amountCents;
-    byMechanism[entry.mechanismId] ??= Object.fromEntries(REALITY_TIERS.map(tier => [tier, 0]));
-    byMechanism[entry.mechanismId][entry.tier] += entry.tier === 'CLEARED_CONTRIBUTION_PROFIT' ? entry.amountCents - entry.evidence.attributableCostsCents : entry.amountCents;
+    if (!REALITY_TIERS.includes(entry.tier)) continue;
+    const tier = byTier[entry.tier];
+    const cents = entry.tier === 'CLEARED_CONTRIBUTION_PROFIT' ? entry.amountCents - (entry.evidence.attributableCostsCents ?? 0) : entry.amountCents;
+    tier.entries++;
+    tier.byCurrency[entry.currency] = (tier.byCurrency[entry.currency] ?? 0) + cents;
+    byMechanismCurrency[entry.mechanismId] ??= Object.fromEntries(REALITY_TIERS.map(t => [t, {}]));
+    const bucket = byMechanismCurrency[entry.mechanismId][entry.tier];
+    bucket[entry.currency] = (bucket[entry.currency] ?? 0) + cents;
+  }
+  for (const tier of REALITY_TIERS) {
+    const values = Object.values(byTier[tier].byCurrency);
+    byTier[tier].amountCents = values.length > 1 ? null : (values[0] ?? 0);
+  }
+  for (const [mechanism, tiers] of Object.entries(byMechanismCurrency)) {
+    byMechanism[mechanism] = Object.fromEntries(Object.entries(tiers).map(([tier, currencies]) => {
+      const values = Object.values(currencies);
+      return [tier, values.length > 1 ? null : (values[0] ?? 0)];
+    }));
   }
   const strongest = [...REALITY_TIERS].reverse().find(tier => byTier[tier].entries > 0) ?? null;
+  // An entry that no longer verifies is not money: withhold every amount, keep the counts.
+  if (!chain.ok) {
+    for (const tier of REALITY_TIERS) Object.assign(byTier[tier], { amountCents: null, byCurrency: {} });
+    for (const key of Object.keys(byMechanism)) delete byMechanism[key];
+    for (const key of Object.keys(byMechanismCurrency)) delete byMechanismCurrency[key];
+  }
   return {
-    version: REVENUE_REALITY_LEDGER_VERSION,
-    chain,
-    byTier,
-    byMechanism,
-    strongestTierWithEvidence: strongest,
-    clearedContributionProfitCents: byTier.CLEARED_CONTRIBUTION_PROFIT.amountCents,
+    version: REVENUE_REALITY_LEDGER_VERSION, chain, byTier, byMechanism, byMechanismCurrency,
+    amountsWithheld: chain.ok ? null : 'CHAIN_NOT_VERIFIED',
+    strongestTierWithEvidence: chain.ok ? strongest : null,
+    clearedContributionProfitCents: chain.ok ? byTier.CLEARED_CONTRIBUTION_PROFIT.amountCents : null,
     crossTierTotal: 'NOT_DEFINED: tiers measure different things and are never added',
-    businessEffectAuthority: 'NONE',
-    externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
+    businessEffectAuthority: 'NONE', externalEffectLedger: structuredClone(ZERO_EXTERNAL_EFFECTS)
   };
 }
 
@@ -141,11 +174,11 @@ export function summarizeReality(ledger = []) {
  * Check a money claim ("FUNDING_CARRY made $120") against the ledger.
  * Returns the strongest tier that actually supports it and the honest wording.
  */
-export function checkMoneyClaim(ledger, { mechanismId, claimedTier = 'CLEARED_CONTRIBUTION_PROFIT' }) {
-  const summary = summarizeReality(ledger);
+export function checkMoneyClaim(ledger, { mechanismId, claimedTier = 'CLEARED_CONTRIBUTION_PROFIT' }, providerAuthority = {}) {
+  const summary = summarizeReality(ledger, providerAuthority);
   const row = summary.byMechanism[mechanismId] ?? null;
   // "Made money" needs a positive amount; a loss at a strong tier is evidence, not support.
-  const supported = row ? [...REALITY_TIERS].reverse().find(tier => row[tier] > 0) ?? null : null;
+  const supported = summary.chain.ok && row ? [...REALITY_TIERS].reverse().find(tier => row[tier] > 0) ?? null : null;
   const claimedRank = REALITY_TIERS.indexOf(claimedTier);
   const supportedRank = supported ? REALITY_TIERS.indexOf(supported) : -1;
   return {

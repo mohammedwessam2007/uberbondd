@@ -13,6 +13,8 @@
 
 import dns from 'node:dns/promises';
 import { assertPublicUrl } from './security.mjs';
+import { boundedSignal, abortable, unobservableProbe } from './inquiry-probe-budget.mjs';
+import { fetchPublicPinned } from './inquiry-public-http.mjs';
 import { extractInquirySurface, analyzeInquiryCoherence, compileCoherenceSnapshot } from './inquiry-path-coherence.mjs';
 
 export const INQUIRY_PATH_PROBE_VERSION = 'uberbond.inquiry-path-probe-1.0.0';
@@ -46,20 +48,20 @@ export function robotsDisallows(robotsText, path) {
   return !longest.allow;
 }
 
-async function readCapped(response) {
-  if (!response.body?.getReader) return await response.text();
+async function readCapped(response, signal) {
+  if (!response.body?.getReader) { const text = await abortable(response.text(), signal); if (Buffer.byteLength(text) > MAX_BYTES) throw new ProbeRefusal('RESPONSE_BODY_TOO_LARGE'); return text; }
   const reader = response.body.getReader();
   const chunks = [];
   let bytes = 0;
   try {
     for (;;) {
-      const { done, value } = await reader.read();
+      const { done, value } = await abortable(reader.read(), signal);
       if (done) break;
       bytes += value.byteLength;
-      if (bytes > MAX_BYTES) { await reader.cancel(); break; }
+      if (bytes > MAX_BYTES) { void reader.cancel().catch(() => {}); throw new ProbeRefusal('RESPONSE_BODY_TOO_LARGE'); }
       chunks.push(Buffer.from(value));
     }
-  } finally { reader.releaseLock(); }
+  } finally { try { reader.releaseLock(); } catch {} }
   return Buffer.concat(chunks).toString('utf8');
 }
 
@@ -85,8 +87,17 @@ const MAX_REDIRECTS = 5;
 const sameSite = (a, b) => a.hostname.replace(/^www\./, '') === b.hostname.replace(/^www\./, '');
 class ProbeRefusal extends Error { constructor(reason, detail) { super(reason); this.reason = reason; this.detail = detail; } }
 
-export async function probeInquiryPath({ website, business = null, maxPages = 5, witnessImpl = null, delayMs = 1200, fetchImpl = globalThis.fetch, lookupImpl = dns.lookup, urlGuard = assertPublicUrl, now = () => new Date(), sleep = ms => new Promise(resolve => setTimeout(resolve, ms)) } = {}) {
+export async function probeInquiryPath({ website, business = null, maxPages = 5, witnessImpl = null, delayMs = 1200, fetchImpl = fetchPublicPinned, lookupImpl = dns.lookup, urlGuard = assertPublicUrl, now = () => new Date(), sleep = ms => new Promise(resolve => setTimeout(resolve, ms)), signal = null, maxSiteMs = 90_000, maxRssBytes = 750_000_000 } = {}) {
+  const startTime = Date.now();
+  const siteSignal = boundedSignal(signal, maxSiteMs);
   const start = new URL(website);
+  let peakRssBytes = process.memoryUsage().rss;
+  const checkBudget = () => {
+    peakRssBytes = Math.max(peakRssBytes, process.memoryUsage().rss);
+    if (siteSignal.aborted) throw new ProbeRefusal('SITE_TIME_BUDGET_EXHAUSTED');
+    if (peakRssBytes > maxRssBytes) throw new ProbeRefusal('MEMORY_CEILING_EXCEEDED');
+  };
+  const failClosed = reason => ({ ...unobservableProbe(start.href, reason, Date.now() - startTime), runtimeMetrics: { wallClockMs: Date.now() - startTime, pagesFetched: pages.length, witnessUsed: false, peakRssBytes, outcome: reason }, readOnlyLedger: ledger });
   const ledger = { httpGetRequests: 0, robotsRequests: 0, dnsLookups: 0, formSubmissions: 0, messages: 0, spendCents: 0 };
   const refusals = [];
   let robots = '';
@@ -95,12 +106,14 @@ export async function probeInquiryPath({ website, business = null, maxPages = 5,
   const get = async (url, counter = 'httpGetRequests') => {
     let current = url;
     for (let hop = 0; ; hop += 1) {
-      try { await urlGuard(current); } catch (error) { throw new ProbeRefusal('NON_PUBLIC_ADDRESS', String(error?.message ?? error)); }
+      checkBudget();
+      try { await abortable(urlGuard(current), siteSignal); } catch (error) { throw new ProbeRefusal('NON_PUBLIC_ADDRESS', String(error?.message ?? error)); }
       if (counter === 'httpGetRequests' && robotsDisallows(robots, new URL(current).pathname)) throw new ProbeRefusal('ROBOTS_DISALLOW', current);
       ledger[counter] += 1;
-      const response = await fetchImpl(current, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': PROBE_USER_AGENT, Accept: 'text/html,application/xhtml+xml' }, signal: AbortSignal.timeout(20_000) });
+      const requestSignal = boundedSignal(siteSignal, 20_000);
+      const response = await abortable(fetchImpl(current, { method: 'GET', redirect: 'manual', headers: { 'User-Agent': PROBE_USER_AGENT, Accept: 'text/html,application/xhtml+xml' }, signal: requestSignal }), requestSignal);
       const location = response.status >= 300 && response.status < 400 ? response.headers?.get?.('location') : null;
-      if (!location) return { status: response.status, finalUrl: current, body: await readCapped(response) };
+      if (!location) return { status: response.status, finalUrl: current, body: await readCapped(response, requestSignal) };
       await response.body?.cancel?.();
       if (hop >= MAX_REDIRECTS) throw new ProbeRefusal('TOO_MANY_REDIRECTS', current);
       const next = new URL(location, current);
@@ -127,8 +140,9 @@ export async function probeInquiryPath({ website, business = null, maxPages = 5,
     if (visited.has(url)) continue;
     visited.add(url);
     if (robotsDisallows(robots, new URL(url).pathname)) { refusals.push({ url, reason: 'ROBOTS_DISALLOW' }); continue; }
-    if (pages.length) await sleep(delayMs);
+    if (pages.length) { try { await abortable(sleep(delayMs), siteSignal); } catch { return failClosed('SITE_TIME_BUDGET_EXHAUSTED'); } }
     try {
+      checkBudget();
       const fetched = await get(url);
       // The site is asking us to slow down or is failing: stop, do not retry.
       if (fetched.status === 429 || fetched.status === 503) { refusals.push({ url, reason: 'SITE_RATE_LIMITED_OR_UNAVAILABLE', detail: String(fetched.status) }); break; }
@@ -141,10 +155,12 @@ export async function probeInquiryPath({ website, business = null, maxPages = 5,
     }
   }
 
+  if (siteSignal.aborted) return failClosed('SITE_TIME_BUDGET_EXHAUSTED');
+  if (peakRssBytes > maxRssBytes) return failClosed('MEMORY_CEILING_EXCEEDED');
   const hostResolution = {};
   for (const host of new Set(pages.flatMap(page => page.forms.map(form => form.actionHost)).filter(Boolean))) {
     ledger.dnsLookups += 1;
-    try { await lookupImpl(host); hostResolution[host] = 'RESOLVED'; }
+    try { await abortable(lookupImpl(host), boundedSignal(siteSignal, 5000)); hostResolution[host] = 'RESOLVED'; }
     catch (error) { hostResolution[host] = error?.code === 'ENOTFOUND' ? 'NXDOMAIN' : 'ERROR'; }
   }
 
@@ -154,9 +170,10 @@ export async function probeInquiryPath({ website, business = null, maxPages = 5,
   let runtime = null;
   const contested = [...new Set(analysis.findings.filter(item => item.code === 'TEL_LABEL_DIALS_DIFFERENT_NUMBER').flatMap(item => item.evidence.map(entry => entry.url)))];
   if (witnessImpl && contested.length) {
-    runtime = await witnessImpl({ urls: contested });
+    try { runtime = await abortable(witnessImpl({ urls: contested, signal: siteSignal }), siteSignal); } catch { return failClosed('BROWSER_WITNESS_UNOBSERVABLE'); }
     analysis = analyzeInquiryCoherence({ pages, hostResolution, runtimeWitness: runtime.witness, business: business ?? { website: start.href } });
   }
+  if (siteSignal.aborted) return failClosed('SITE_TIME_BUDGET_EXHAUSTED');
   return {
     ok: true,
     probeVersion: INQUIRY_PATH_PROBE_VERSION,
@@ -169,6 +186,7 @@ export async function probeInquiryPath({ website, business = null, maxPages = 5,
     snapshotMarkdown: compileCoherenceSnapshot({ analysis, observedAt }),
     readOnlyLedger: ledger,
     runtimeWitness: runtime ? { version: runtime.version, pages: Object.keys(runtime.witness), ledger: runtime.ledger } : null,
-    businessEffectAuthority: 'NONE'
+    businessEffectAuthority: 'NONE',
+    runtimeMetrics: { wallClockMs: Date.now() - startTime, pagesFetched: pages.length, witnessUsed: Boolean(runtime), peakRssBytes: Math.max(peakRssBytes, process.memoryUsage().rss), outcome: 'COMPLETED' }
   };
 }

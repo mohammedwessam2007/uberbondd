@@ -1,0 +1,1962 @@
+{
+  "schema": "uberbond.field-cohort-40.readonly.v1",
+  "startedAt": "2026-10-22T16:04:41.414Z",
+  "finishedAt": "2026-10-22T16:05:01.058Z",
+  "frozenSha256": "22940edec709f5af2af5a630425d7807dd165784378149d57b8a811ccac05952",
+  "memoryProfile": "NODE_HEAP_CEILING_4GB_NOT_APIFY_MEMORY",
+  "browserWitness": false,
+  "records": [
+    {
+      "index": 0,
+      "website": "https://www.rotorooter.com/",
+      "observedAt": "2026-10-22T16:04:44.426Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.rotorooter.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:42.432Z",
+          "sourceSha256": "f4e042dd5955b61201e0ded6556a7d0f3c1cf1b8905151e7e74e5fb142c51d52",
+          "byteLength": 285094,
+          "title": "Roto-Rooter® | Plumbing, Drains & Water Cleanup"
+        },
+        {
+          "url": "https://www.rotorooter.com/schedule-service/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:44.420Z",
+          "sourceSha256": "9b09e1e231325f545b6293f24d8c726aff546800ac7a273be4c82018612fcfbe",
+          "byteLength": 151318,
+          "title": "Roto-Rooter Plumbing & Water Cleanup | Schedule Your Appointment"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 3011,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 90062848,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 1,
+      "website": "https://www.mrrooter.com/",
+      "observedAt": "2026-10-22T16:04:42.983Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.mrrooter.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:41.638Z",
+          "sourceSha256": "14f993b272ad34685ed26c4fc29d307b6a887719ac6d04e2aaaf09369d999952",
+          "byteLength": 1095656,
+          "title": "Plumbing & Drain Cleaning Services You Can Trust | Mr. Rooter Plumbing"
+        },
+        {
+          "url": "https://www.mrrooter.com/request-job-estimate/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:42.972Z",
+          "sourceSha256": "69e767f5a9ce5f1fe76f03c7aa79d99b194c568411e3d8e4c81bcf5d2d7c1944",
+          "byteLength": 852449,
+          "title": "Request Appointment | Mr. Rooter Plumbing"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1564,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 89579520,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 2,
+      "website": "https://www.benjaminfranklinplumbing.com/",
+      "observedAt": "2026-10-22T16:04:44.675Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.benjaminfranklinplumbing.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:42.655Z",
+          "sourceSha256": "aadb6b76c2acfba0bf8154a93c485dc55a9cda1b671647b1c44f2cdc1c9f5997",
+          "byteLength": 320525,
+          "title": "Benjamin Franklin Plumbing: Expert Plumbing Services"
+        },
+        {
+          "url": "https://www.benjaminfranklinplumbing.com/request-an-appointment/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:44.670Z",
+          "sourceSha256": "04fcefb943c49b379b1d2bda52db549e544e5c12e7c1895d088dbc61aff3d99d",
+          "byteLength": 282841,
+          "title": "Request an Appointment | Benjamin Franklin"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 3254,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 91504640,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 3,
+      "website": "https://www.horizonservices.com/",
+      "observedAt": "2026-10-22T16:04:46.228Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.horizonservices.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:44.292Z",
+          "sourceSha256": "8c11805d9415a3215e0809d311cae0a902f9835e90bf318439d6465b115981fe",
+          "byteLength": 347157,
+          "title": "AC, Heating, Plumbing & Electrical Services | Horizon"
+        },
+        {
+          "url": "https://www.horizonservices.com/about-us/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:46.220Z",
+          "sourceSha256": "63e8bb49dbe91a3bef4e2a7839988df65191c09ce45704517f6b81f584d7efee",
+          "byteLength": 311513,
+          "title": "Contact Horizon for HVAC, Plumbing & Electrical | Horizon"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 3243,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 95485952,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 4,
+      "website": "https://www.bakerbrothersplumbing.com/",
+      "observedAt": "2026-10-22T16:04:46.454Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "findings": [
+        {
+          "code": "STRUCTURED_DATA_UNPARSEABLE",
+          "title": "The structured data declaring this business as Organization / HomeAndConstructionBusiness / HVACBusiness / Plumber / Electrician with phone +1-214-324-8811 is invalid JSON, so machines discard all of it",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://bakerbrothersplumbing.com/",
+              "excerpt": "Unexpected non-whitespace character after JSON at position 2657 (line 103 column 3): { \"@context\": \"https://schema.org\", \"@type\": [ \"Organization\", \"HomeAndConstructionBusiness\", \"HVACBusiness\", \"Plumber\", \"Electrician\" ",
+              "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1"
+            }
+          ],
+          "disproof": "Run https://bakerbrothersplumbing.com/ through Google's Rich Results Test or the Schema Markup Validator; if no parse error is reported, this finding is wrong."
+        },
+        {
+          "code": "STRUCTURED_DATA_UNPARSEABLE",
+          "title": "The structured data declaring this business as Organization / HomeAndConstructionBusiness / HVACBusiness / Plumber / Electrician with phone +1-214-324-8811 is invalid JSON, so machines discard all of it",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://bakerbrothersplumbing.com/about-us/contact-us/",
+              "excerpt": "Unexpected non-whitespace character after JSON at position 2657 (line 103 column 3): { \"@context\": \"https://schema.org\", \"@type\": [ \"Organization\", \"HomeAndConstructionBusiness\", \"HVACBusiness\", \"Plumber\", \"Electrician\" ",
+              "sourceSha256": "21401c9ae776cd1c04aabe1e28be8e97c5558436f9a25555feadabcef891a359"
+            }
+          ],
+          "disproof": "Run https://bakerbrothersplumbing.com/about-us/contact-us/ through Google's Rich Results Test or the Schema Markup Validator; if no parse error is reported, this finding is wrong."
+        },
+        {
+          "code": "MANY_PUBLISHED_NUMBERS",
+          "title": "5 different phone numbers are printed across the inspected pages",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://bakerbrothersplumbing.com/",
+              "excerpt": "(214) 296-2136: Baker Brothers Plumbing, Air & Electric: 214-296-2136 Reviews Careers About Us Contact Us Service Areas Search In",
+              "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1"
+            },
+            {
+              "url": "https://bakerbrothersplumbing.com/",
+              "excerpt": "(214) 892-2225: eas Search Input We Offer Financing Family Plan Maintenance 214-892-2225 Schedule Now Plumbing Water Heaters Slab Leak Repair Drain",
+              "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1"
+            },
+            {
+              "url": "https://bakerbrothersplumbing.com/",
+              "excerpt": "(817) 595-0116: Arlington 7315 E Commercial Blvd Arlington, TX 76001 Phone: 817-595-0116 Baker Brothers McKinney 7300 State Highway 121, Suite 300,",
+              "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1"
+            },
+            {
+              "url": "https://bakerbrothersplumbing.com/",
+              "excerpt": "(972) 486-9882: 300 State Highway 121, Suite 300, McKinney, TX 75070 Phone: 972-486-9882 Baker Brothers Keller 9500 Ray White Rd, Suite 200, Keller,",
+              "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1"
+            },
+            {
+              "url": "https://bakerbrothersplumbing.com/",
+              "excerpt": "(817) 900-3836: eller 9500 Ray White Rd, Suite 200, Keller, TX 76244 Phone: 817-900-3836 About Us :: Contact Us :: Blog :: Careers :: Family Plan ::",
+              "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1"
+            }
+          ],
+          "disproof": "Confirm each listed number currently forwards to a monitored line; if all do, there is nothing to fix."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://bakerbrothersplumbing.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:45.183Z",
+          "sourceSha256": "eb74726c2a67e7fca913281399fbabbf2228c4ab6ad1920f20ea20bb0809aec1",
+          "byteLength": 195260,
+          "title": "Baker Brothers Plumbing, Air & Electric: 214-296-2136"
+        },
+        {
+          "url": "https://bakerbrothersplumbing.com/about-us/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:46.449Z",
+          "sourceSha256": "21401c9ae776cd1c04aabe1e28be8e97c5558436f9a25555feadabcef891a359",
+          "byteLength": 135382,
+          "title": "Contact Baker Brothers: 214-296-2136"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 2029,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 98500608,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 2,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 5,
+      "website": "https://www.johnmooreservices.com/",
+      "observedAt": "2026-10-22T16:04:45.426Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.johnmooreservices.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:45.424Z",
+          "sourceSha256": "44b872d26178a7007afaa6073b9be324ca78e5529176c3eb623cb584426ea697",
+          "byteLength": 5618,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 751,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 95698944,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 6,
+      "website": "https://www.michaelandson.com/",
+      "observedAt": "2026-10-22T16:04:46.093Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.michaelandson.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:46.092Z",
+          "sourceSha256": "ac9bcdc7c3f57c3c79a1598a68d5a7bf35ea7d20a9f9be46c7541a24ee0f60d4",
+          "byteLength": 75554,
+          "title": "403 - Forbidden"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 667,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 93388800,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 7,
+      "website": "https://www.blantonandsons.com/",
+      "observedAt": "2026-10-22T16:04:46.320Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.blantonandsons.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:46.319Z",
+          "sourceSha256": "001c74af847989b96ef4a3af24ffdcf409857e17c44832bb2bfa298a68a86e5b",
+          "byteLength": 11992,
+          "title": "One moment, please..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 227,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 95748096,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 8,
+      "website": "https://www.petermanhvac.com/",
+      "observedAt": "2026-10-22T16:04:46.352Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.petermanhvac.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:46.351Z",
+          "sourceSha256": "8ab1b11f5b93e2457f21f32720aed1d5ce94d6eab52a8f8745f31a61af67dcb3",
+          "byteLength": 5570,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 124,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 95879168,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 9,
+      "website": "https://www.hoffmannbros.com/",
+      "observedAt": "2026-10-22T16:04:48.031Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "findings": [
+        {
+          "code": "MACHINE_READABLE_PHONE_DIVERGES",
+          "title": "Structured data tells search engines and AI assistants (615) 515-3031, (314) 256-2970, (314) 880-7437, (618) 271-6200, (314) 347-1403, (636) 203-8028, (615) 410-9193, which visitors never see on the page",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://www.hoffmannbros.com/",
+              "excerpt": "JSON-LD ContactPoint telephone: +1-615-515-3031",
+              "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00"
+            },
+            {
+              "url": "https://www.hoffmannbros.com/",
+              "excerpt": "JSON-LD HVACBusiness \"Hoffmann Brothers Tower Grove\" telephone: +1-314-256-2970",
+              "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00"
+            },
+            {
+              "url": "https://www.hoffmannbros.com/",
+              "excerpt": "JSON-LD HVACBusiness \"Hoffmann Brothers Woodland Parkway\" telephone: +1-314-880-7437",
+              "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00"
+            },
+            {
+              "url": "https://www.hoffmannbros.com/",
+              "excerpt": "JSON-LD HVACBusiness \"Hoffmann Brothers Edwardsville\" telephone: +1-618-271-6200",
+              "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00"
+            },
+            {
+              "url": "https://www.hoffmannbros.com/",
+              "excerpt": "JSON-LD HVACBusiness \"Hoffmann Brothers Brentwood\" telephone: +1-314-347-1403",
+              "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00"
+            },
+            {
+              "url": "https://www.hoffmannbros.com/",
+              "excerpt": "JSON-LD HVACBusiness \"Hoffmann Brothers Earth City\" telephone: +1-636-203-8028",
+              "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00"
+            }
+          ],
+          "disproof": "Paste https://www.hoffmannbros.com/ into Google's Rich Results Test or Schema Markup Validator; if the telephone shown matches (314) 664-3011, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.hoffmannbros.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:46.700Z",
+          "sourceSha256": "891f07bcad849c9a2e6bbe35d171fc00d01931ba8f258fe30abafaf0fce1aa00",
+          "byteLength": 376214,
+          "title": "Hoffmann Brothers - Heating & Cooling, Plumbing and Electrical"
+        },
+        {
+          "url": "https://www.hoffmannbros.com/contact",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:48.023Z",
+          "sourceSha256": "e32405659b2e18632a79e82d6d57453874d2dcaa7d640dde6c0cbfcea5f7ad83",
+          "byteLength": 329211,
+          "title": "Contact Hoffmann Brothers Heating, Air Conditioning and Plumbing Today"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1712,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 104853504,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 10,
+      "website": "https://www.ars.com/",
+      "observedAt": "2026-10-22T16:04:46.456Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.ars.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:46.456Z",
+          "sourceSha256": "6617a284544a5797fc4340d1fa9d5628f442a0cfd958d4387f3458000293c00e",
+          "byteLength": 5753,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 104,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 98500608,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 11,
+      "website": "https://www.serviceexperts.com/",
+      "observedAt": "2026-10-22T16:04:46.549Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.serviceexperts.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:46.548Z",
+          "sourceSha256": "196d78b2d4c356b14d569e8d1f80a85e692e55b9af75fff13957401857ae7169",
+          "byteLength": 5722,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 94,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 104136704,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 12,
+      "website": "https://www.onehourheatandair.com/",
+      "observedAt": "2026-10-22T16:04:47.558Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.onehourheatandair.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:47.554Z",
+          "sourceSha256": "f3e01f4ba5d6c551df53581a1fc3eb1accbe176a0a5d8d0c64d4b181871ab2a7",
+          "byteLength": 191499,
+          "title": ""
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1102,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 107118592,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 13,
+      "website": "https://www.servicechampions.com/",
+      "observedAt": "2026-10-22T16:04:48.607Z",
+      "verdict": "QUESTION_WORTH_ASKING",
+      "findings": [
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://servicechampions.com/contact-us/",
+              "excerpt": "tact Us Dispatching From Southern, CA Phone: (714) 584-6399 24/7 Live Answering Email: maintenance@servicechampions.com Hour",
+              "sourceSha256": "e90d4439357165e0fc6875e833220b7ff1d196558df5cc18ffdb3b4cff94f635"
+            },
+            {
+              "url": "https://servicechampions.com/",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "3a551cf9cfbcc7823f58cf1af217ebaed54c25a8122392d7e60e7dc386648e58"
+            }
+          ],
+          "disproof": "Check whether a separate always-open emergency service or line is declared to machines on https://servicechampions.com/; if it is, this finding is wrong."
+        },
+        {
+          "code": "MACHINE_READABLE_PHONE_DIVERGES",
+          "title": "Structured data tells search engines and AI assistants (714) 584-6595, which visitors never see on the page",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://servicechampions.com/",
+              "excerpt": "JSON-LD HomeAndConstructionBusiness/Organization \"Service Champions\" telephone: 714-584-6595",
+              "sourceSha256": "3a551cf9cfbcc7823f58cf1af217ebaed54c25a8122392d7e60e7dc386648e58"
+            },
+            {
+              "url": "https://servicechampions.com/contact-us/",
+              "excerpt": "JSON-LD HomeAndConstructionBusiness/Organization \"Service Champions\" telephone: 714-584-6595",
+              "sourceSha256": "e90d4439357165e0fc6875e833220b7ff1d196558df5cc18ffdb3b4cff94f635"
+            }
+          ],
+          "disproof": "Paste https://servicechampions.com/ into Google's Rich Results Test or Schema Markup Validator; if the telephone shown matches (714) 584-6399, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://servicechampions.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:47.266Z",
+          "sourceSha256": "3a551cf9cfbcc7823f58cf1af217ebaed54c25a8122392d7e60e7dc386648e58",
+          "byteLength": 1102260,
+          "title": "HVAC, Plumbing & Drain Experts Serving Southern CA"
+        },
+        {
+          "url": "https://servicechampions.com/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:48.590Z",
+          "sourceSha256": "e90d4439357165e0fc6875e833220b7ff1d196558df5cc18ffdb3b4cff94f635",
+          "byteLength": 359937,
+          "title": "Contact Us | Service Champions Plumbing, Heating & AC | Southern, CA"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 2058,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 107118592,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 2,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 14,
+      "website": "https://www.bellbrothers.com/",
+      "observedAt": "2026-10-22T16:04:49.170Z",
+      "verdict": "OBSERVATIONS_ONLY",
+      "findings": [
+        {
+          "code": "HIGH_FRICTION_INQUIRY_FORM",
+          "title": "An inquiry form requires 9 fields before submission",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://bellbrothers.com/schedule-online",
+              "excerpt": "12 visible fields, 9 required",
+              "sourceSha256": "9adf67692c49ef75991d83a8d973b037491609ca1a4adfe41a02b8777423a82e"
+            }
+          ],
+          "disproof": "Count the required fields on the live form; if fewer than seven are required, this observation is wrong."
+        },
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://bellbrothers.com/",
+              "excerpt": "hursday - Friday: 7:00am - 7:00pm Saturday: 7:00am - 5:00pm 24/7 Emergency Service Contact 2822 6th Ave., Des Moines, IA 503",
+              "sourceSha256": "3bd4402d33b71f8ff5191cd515dce8209391691b807af1f266042cf8bd660b45"
+            },
+            {
+              "url": "https://bellbrothers.com/",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "3bd4402d33b71f8ff5191cd515dce8209391691b807af1f266042cf8bd660b45"
+            }
+          ],
+          "disproof": "Check whether a separate always-open emergency service or line is declared to machines on https://bellbrothers.com/; if it is, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://bellbrothers.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:47.835Z",
+          "sourceSha256": "3bd4402d33b71f8ff5191cd515dce8209391691b807af1f266042cf8bd660b45",
+          "byteLength": 530483,
+          "title": "HVAC Services Company in Des Moines, IA"
+        },
+        {
+          "url": "https://bellbrothers.com/schedule-online",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:49.152Z",
+          "sourceSha256": "9adf67692c49ef75991d83a8d973b037491609ca1a4adfe41a02b8777423a82e",
+          "byteLength": 875447,
+          "title": "Schedule Online - Bell Brothers"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1612,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 111534080,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 15,
+      "website": "https://www.coolray.com/",
+      "observedAt": "2026-10-22T16:04:49.813Z",
+      "verdict": "OBSERVATIONS_ONLY",
+      "findings": [
+        {
+          "code": "MANY_PUBLISHED_NUMBERS",
+          "title": "3 different phone numbers are printed across the inspected pages",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.coolray.com/",
+              "excerpt": "(770) 421-8400: eorgia. Visit Tennessee Offers Careers Why Us? Service Area (770) 421-8400 Search Input (770) 421-8400 Schedule Our Visit Heating Repa",
+              "sourceSha256": "1fa84c4ed74cecf5f28cd46fa2c73f58c3ae5f48ccd9de6c84fccba7f88d1b5b"
+            },
+            {
+              "url": "https://www.coolray.com/",
+              "excerpt": "(629) 888-8400: essee . Visit Georgia . Offers Careers Why Us? Service Area (629) 888-8400 Search Input (629) 888-8400 Schedule Our Visit Heating Repa",
+              "sourceSha256": "1fa84c4ed74cecf5f28cd46fa2c73f58c3ae5f48ccd9de6c84fccba7f88d1b5b"
+            },
+            {
+              "url": "https://www.coolray.com/contact-us",
+              "excerpt": "(470) 524-1008: e's heating and cooling in tip top shape. Give us a call at 470-524-1008 to confirm we don't service your area. Update Your Location",
+              "sourceSha256": "bfae8f23e0755e6e9de77916f8231bd46ca1fa0b7f923ab5dc1fa476a2f26e87"
+            }
+          ],
+          "disproof": "Confirm each listed number currently forwards to a monitored line; if all do, there is nothing to fix."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.coolray.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:48.547Z",
+          "sourceSha256": "1fa84c4ed74cecf5f28cd46fa2c73f58c3ae5f48ccd9de6c84fccba7f88d1b5b",
+          "byteLength": 167621,
+          "title": "HVAC, Plumbing & Electrical Services in Atlanta, GA | Coolray"
+        },
+        {
+          "url": "https://www.coolray.com/contact-us",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:49.805Z",
+          "sourceSha256": "bfae8f23e0755e6e9de77916f8231bd46ca1fa0b7f923ab5dc1fa476a2f26e87",
+          "byteLength": 178605,
+          "title": "Contact Coolray Heating & Air Conditioning in Metro Atlanta"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1781,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 114548736,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 16,
+      "website": "https://www.goettl.com/",
+      "observedAt": "2026-10-22T16:04:50.089Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.goettl.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:48.782Z",
+          "sourceSha256": "5dcfadc04d859247c8d6a989e1af68d8872abc456e98be8f39fef5b64f01c290",
+          "byteLength": 1253837,
+          "title": "Goettl | Trusted Home Services in Arizona, Nevada, and Texas Since 1939"
+        },
+        {
+          "url": "https://www.goettl.com/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:50.075Z",
+          "sourceSha256": "061b859aeae1cee1554afa7dde01969210ff60f22101b779fc9fb843bbe8a409",
+          "byteLength": 712197,
+          "title": "Contact Us for Professional Plumbing Services Today"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1482,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 120315904,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 17,
+      "website": "https://www.delair.com/",
+      "observedAt": "2026-10-22T16:04:49.340Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.delair.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:49.340Z",
+          "sourceSha256": "d491d7420595e64928c782212c33baf298c8b1787482eec4c20109699a7d4d91",
+          "byteLength": 5692,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 169,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 111534080,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 18,
+      "website": "https://www.serviceprofessor.com/",
+      "observedAt": "2026-10-22T16:04:50.757Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.serviceprofessor.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:49.474Z",
+          "sourceSha256": "80da7e1e0f8f6f457f5353e461ceb52fdc8afe470e4ce9aec6ed59c4993c1d0d",
+          "byteLength": 96044,
+          "title": "HVAC, Plumbing & Electrical Services | Service Professor"
+        },
+        {
+          "url": "https://www.serviceprofessor.com/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:50.752Z",
+          "sourceSha256": "1f7a1ab525572095d12b341e8710e62f14c159da83084fa770166db1ac2f30c8",
+          "byteLength": 74792,
+          "title": "Contact Service Professor - Plumber, HVAC, & Electrician Services"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1417,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 113422336,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 19,
+      "website": "https://www.hillerplumbing.com/",
+      "observedAt": "2026-10-22T16:04:49.863Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [
+        {
+          "url": "https://www.hillerplumbing.com/",
+          "reason": "REDIRECTED_OFF_SITE",
+          "detail": "http://happyhiller.com/"
+        }
+      ],
+      "pages": [],
+      "metrics": {
+        "wallClockMs": 51,
+        "pagesFetched": 0,
+        "witnessUsed": false,
+        "peakRssBytes": 114548736,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 20,
+      "website": "https://www.applewoodfixit.com/",
+      "observedAt": "2026-10-22T16:04:51.605Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.applewoodfixit.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:50.131Z",
+          "sourceSha256": "c313d116d3a71865416c3d3f769b384cb8d2cddeeeee44c5a9d8e01b1c72f86b",
+          "byteLength": 207842,
+          "title": "Denver Plumbing, Heating Repair, & Electrical Repair - Applewood"
+        },
+        {
+          "url": "https://www.applewoodfixit.com/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:51.593Z",
+          "sourceSha256": "3a0306593ebcf2922b35231e6b37ea11b9c059543b74423314b401612b750947",
+          "byteLength": 308110,
+          "title": "Contact Us - Applewood Plumbing"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1741,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 116699136,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 21,
+      "website": "https://www.sila.com/",
+      "observedAt": "2026-10-22T16:04:50.518Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://sila.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:50.513Z",
+          "sourceSha256": "90d48a24718625466c6933d571d7c0362511dd50b44d524e5fa5d695ad8c3f62",
+          "byteLength": 95560,
+          "title": "Sila Heating, Cooling, Plumbing & Electrical | Northeast & Mid-Atlantic"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 429,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 123854848,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 2,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 22,
+      "website": "https://www.nicholsonhvac.com/",
+      "observedAt": "2026-10-22T16:04:52.476Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.nicholsonhvac.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:51.123Z",
+          "sourceSha256": "870c4f6f08b9a711e3c49d14c6b5841e07ecae4ec300a348940af9685cf46770",
+          "byteLength": 10123,
+          "title": "Nicholson Company | Heating and Air in Hendersonville, NC"
+        },
+        {
+          "url": "https://www.nicholsonhvac.com/contact/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:52.475Z",
+          "sourceSha256": "1e67573f564f6565252a25307b140b8da26622cd44a3945e454dccf584812511",
+          "byteLength": 7830,
+          "title": "Contact | Nicholson Company"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1958,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 118112256,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 23,
+      "website": "https://www.genzryan.com/",
+      "observedAt": "2026-10-22T16:04:54.957Z",
+      "verdict": "QUESTION_WORTH_ASKING",
+      "findings": [
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://genzryan.com/",
+              "excerpt": "A/C, Get Free Furnace Buy A/C and get a free furnace We're Open 24/7! (612) 491-5496 About Our Story Company History GenzGives",
+              "sourceSha256": "685e88d3f7a4b1b815a26f44398233433c5cfc69ad3c31fb253c655a2acbd0ac"
+            },
+            {
+              "url": "https://genzryan.com/",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "685e88d3f7a4b1b815a26f44398233433c5cfc69ad3c31fb253c655a2acbd0ac"
+            }
+          ],
+          "disproof": "Check whether a separate always-open emergency service or line is declared to machines on https://genzryan.com/; if it is, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://genzryan.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:52.936Z",
+          "sourceSha256": "685e88d3f7a4b1b815a26f44398233433c5cfc69ad3c31fb253c655a2acbd0ac",
+          "byteLength": 334441,
+          "title": "HVAC Contractors In The Twin Cities | Genz-Ryan"
+        },
+        {
+          "url": "https://genzryan.com/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:54.950Z",
+          "sourceSha256": "60d28d20e8862b74c286633cfdd924c9b5c77f9a1c3c7f1b813e0688c11483ea",
+          "byteLength": 210285,
+          "title": "Contact Genz-Ryan Plumbing & Heating & Electrical Today!"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 4200,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 122388480,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 2,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 24,
+      "website": "https://www.mistersparky.com/",
+      "observedAt": "2026-10-22T16:04:52.772Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.mistersparky.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:52.769Z",
+          "sourceSha256": "784ff3142bf4cff672f82a59dae4c2561c3e2f941c73977244af4d4478ed403f",
+          "byteLength": 218192,
+          "title": ""
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1167,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 121548800,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 25,
+      "website": "https://www.mrelectric.com/",
+      "observedAt": "2026-10-22T16:04:54.044Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "findings": [
+        {
+          "code": "STRUCTURED_DATA_UNPARSEABLE",
+          "title": "The structured data declaring this business as WebSite is invalid JSON, so machines discard all of it",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://mrelectric.com/",
+              "excerpt": "Unexpected non-whitespace character after JSON at position 891 (line 23 column 1): { \"@context\": \"https://schema.org\", \"@type\": \"WebSite\", \"url\": \"https://mrelectric.com/\", \"name\": \"Mr. Electric\", \"description\": \"When in",
+              "sourceSha256": "398237a8d8d85cc01acc720c6835c9d7ea131917cc70cd38b5c5a8392b5d7fc4"
+            }
+          ],
+          "disproof": "Run https://mrelectric.com/ through Google's Rich Results Test or the Schema Markup Validator; if no parse error is reported, this finding is wrong."
+        },
+        {
+          "code": "MACHINE_READABLE_PHONE_DIVERGES",
+          "title": "Structured data tells search engines and AI assistants (833) 775-2384, which visitors never see on the page",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://mrelectric.com/",
+              "excerpt": "JSON-LD Organization \"Mr. Electric\" telephone: (833) 775-2384",
+              "sourceSha256": "398237a8d8d85cc01acc720c6835c9d7ea131917cc70cd38b5c5a8392b5d7fc4"
+            }
+          ],
+          "disproof": "Paste https://mrelectric.com/ into Google's Rich Results Test or Schema Markup Validator; if the telephone shown matches (844) 866-1367, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://mrelectric.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:52.690Z",
+          "sourceSha256": "398237a8d8d85cc01acc720c6835c9d7ea131917cc70cd38b5c5a8392b5d7fc4",
+          "byteLength": 1017898,
+          "title": "Commercial & Residential Electrical Services"
+        },
+        {
+          "url": "https://mrelectric.com/schedule-appointment",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:54.035Z",
+          "sourceSha256": "dd3ecd516e463ddf1805be2b215f790b9788a2e350101568cddd4fd674ad55f0",
+          "byteLength": 831578,
+          "title": "Schedule an Appointment with Mr. Electric"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1567,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 123777024,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 2,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 26,
+      "website": "https://www.bates-electric.com/",
+      "observedAt": "2026-10-22T16:04:52.908Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.bates-electric.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:52.908Z",
+          "sourceSha256": "be5f5d6a30de3810431ce4081943b8990a77f114db95d3b58ce4ebf3b084fef8",
+          "byteLength": 5572,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 135,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 121942016,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 27,
+      "website": "https://www.queencityelectric.com/",
+      "observedAt": "2026-10-22T16:04:53.258Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [
+        {
+          "url": "https://www.queencityelectric.com/robots.txt",
+          "reason": "ROBOTS_UNAVAILABLE",
+          "detail": "Error"
+        },
+        {
+          "url": "https://www.queencityelectric.com/",
+          "reason": "ROBOTS_DISALLOW"
+        }
+      ],
+      "pages": [],
+      "metrics": {
+        "wallClockMs": 350,
+        "pagesFetched": 0,
+        "witnessUsed": false,
+        "peakRssBytes": 123777024,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 0,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 28,
+      "website": "https://www.colburnelectric.com/",
+      "observedAt": "2026-10-22T16:04:59.932Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://colburnelectric.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:57.929Z",
+          "sourceSha256": "b73b91271fb5825b2017be5ddca87518203ed6afb620e03a2c2bad1c1a26e43d",
+          "byteLength": 230476,
+          "title": "Colburn Electric – Let the men in blue serve you!"
+        },
+        {
+          "url": "https://colburnelectric.com/contact/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:59.926Z",
+          "sourceSha256": "a52fd241d6222fb2337f27c1afcc7ad56f117dd5134d9070c495cc954120d66a",
+          "byteLength": 225572,
+          "title": "Contact – Colburn Electric"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 6674,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 127332352,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 3,
+        "robotsRequests": 2,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 29,
+      "website": "https://www.bergelectric.com/",
+      "observedAt": "2026-10-22T16:04:57.153Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "findings": [
+        {
+          "code": "PHONE_SHOWN_BUT_NOT_TAPPABLE",
+          "title": "(760) 746-1003 is printed but no inspected page offers a tap-to-call link",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "Corporate Headquarters (760) 638-BERG (2374) More San Diego (760) 746-1003 More Orange County (949) 250-7005 More Portland (503) 255-1",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            }
+          ],
+          "disproof": "On a phone, open https://www.bergelectric.com/ and tap the printed number. If the dialer opens, this finding is wrong (some phones auto-detect numbers; a coded tel: link does not depend on that)."
+        },
+        {
+          "code": "MANY_PUBLISHED_NUMBERS",
+          "title": "12 different phone numbers are printed across the inspected pages",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "(760) 746-1003: Corporate Headquarters (760) 638-BERG (2374) More San Diego (760) 746-1003 More Orange County (949) 250-7005 More Portland (503) 255-1",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            },
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "(949) 250-7005: ERG (2374) More San Diego (760) 746-1003 More Orange County (949) 250-7005 More Portland (503) 255-1818 More NorCal (916) 636-1880 Mor",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            },
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "(503) 255-1818: 0) 746-1003 More Orange County (949) 250-7005 More Portland (503) 255-1818 More NorCal (916) 636-1880 More Seattle (425) 251-3276 More",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            },
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "(916) 636-1880: nty (949) 250-7005 More Portland (503) 255-1818 More NorCal (916) 636-1880 More Seattle (425) 251-3276 More Denver (303) 450-2500 More",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            },
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "(425) 251-3276: land (503) 255-1818 More NorCal (916) 636-1880 More Seattle (425) 251-3276 More Denver (303) 450-2500 More Las Vegas (702) 221-2120 Mo",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            },
+            {
+              "url": "https://www.bergelectric.com/",
+              "excerpt": "(303) 450-2500: rCal (916) 636-1880 More Seattle (425) 251-3276 More Denver (303) 450-2500 More Las Vegas (702) 221-2120 More Phoenix (480) 968-4200 M",
+              "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0"
+            }
+          ],
+          "disproof": "Confirm each listed number currently forwards to a monitored line; if all do, there is nothing to fix."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.bergelectric.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:55.203Z",
+          "sourceSha256": "c916243d7d1aa1996efcb14fa4411291d54e0d888fce584294e5f159aa4b49c0",
+          "byteLength": 160236,
+          "title": "Home - Bergelectric"
+        },
+        {
+          "url": "https://www.bergelectric.com/locations/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:57.147Z",
+          "sourceSha256": "491d0a60a461ce8efcac4cf15c58fd234e9953fd4da57a136c93fd3c97fed4e2",
+          "byteLength": 157703,
+          "title": "Locations - Bergelectric"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 3109,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 125665280,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 1,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 30,
+      "website": "https://www.rosendine.com/",
+      "observedAt": "2026-10-22T16:04:55.099Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [
+        {
+          "url": "https://www.rosendine.com/robots.txt",
+          "reason": "NON_PUBLIC_ADDRESS",
+          "detail": "getaddrinfo ENOTFOUND www.rosendine.com"
+        },
+        {
+          "url": "https://www.rosendine.com/",
+          "reason": "ROBOTS_DISALLOW"
+        }
+      ],
+      "pages": [],
+      "metrics": {
+        "wallClockMs": 143,
+        "pagesFetched": 0,
+        "witnessUsed": false,
+        "peakRssBytes": 122388480,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 0,
+        "robotsRequests": 0,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 31,
+      "website": "https://www.westcoastelectric.com/",
+      "observedAt": "2026-10-22T16:04:55.137Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [
+        {
+          "url": "https://www.westcoastelectric.com/robots.txt",
+          "reason": "ROBOTS_UNAVAILABLE",
+          "detail": "Error"
+        },
+        {
+          "url": "https://www.westcoastelectric.com/",
+          "reason": "ROBOTS_DISALLOW"
+        }
+      ],
+      "pages": [],
+      "metrics": {
+        "wallClockMs": 38,
+        "pagesFetched": 0,
+        "witnessUsed": false,
+        "peakRssBytes": 122388480,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 0,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 32,
+      "website": "https://www.len-the-plumber.com/",
+      "observedAt": "2026-10-22T16:04:55.215Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [
+        {
+          "url": "https://www.len-the-plumber.com/robots.txt",
+          "reason": "NON_PUBLIC_ADDRESS",
+          "detail": "getaddrinfo ENOTFOUND www.len-the-plumber.com"
+        },
+        {
+          "url": "https://www.len-the-plumber.com/",
+          "reason": "ROBOTS_DISALLOW"
+        }
+      ],
+      "pages": [],
+      "metrics": {
+        "wallClockMs": 77,
+        "pagesFetched": 0,
+        "witnessUsed": false,
+        "peakRssBytes": 123305984,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 0,
+        "robotsRequests": 0,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 33,
+      "website": "https://www.abacusplumbing.net/",
+      "observedAt": "2026-10-22T16:04:58.171Z",
+      "verdict": "OBSERVATIONS_ONLY",
+      "findings": [
+        {
+          "code": "MANY_PUBLISHED_NUMBERS",
+          "title": "4 different phone numbers are printed across the inspected pages",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.abacusplumbing.net/",
+              "excerpt": "(713) 766-3605: Plumber Houston 713-766-3605 Abacus Plumbing, Air Conditioning & Electrical Careers Abou",
+              "sourceSha256": "7aad0ee010af2d00a5c069aa3d8d86852d138a22bd9071aae5edf277a77e2a25"
+            },
+            {
+              "url": "https://www.abacusplumbing.net/",
+              "excerpt": "(713) 812-7070: n Houston, TX • 4001 Kendrick Plaza Dr, Houston TX, 77032 • 713-812-7070 Servicing The Greater HOUSTON Area Since 2003! Abacus Plumb",
+              "sourceSha256": "7aad0ee010af2d00a5c069aa3d8d86852d138a22bd9071aae5edf277a77e2a25"
+            },
+            {
+              "url": "https://www.abacusplumbing.net/",
+              "excerpt": "(281) 215-3046: 12-7070 Sugar Land 104 Industrial Blvd Sugar Land, TX 77478 281-215-3046 Austin 2106 Denton Dr Austin, TX, 78758 512-943-7070 Open I",
+              "sourceSha256": "7aad0ee010af2d00a5c069aa3d8d86852d138a22bd9071aae5edf277a77e2a25"
+            },
+            {
+              "url": "https://www.abacusplumbing.net/",
+              "excerpt": "(512) 943-7070: 77478 281-215-3046 Austin 2106 Denton Dr Austin, TX, 78758 512-943-7070 Open Including Holidays ALAN O’NEILL M-20628 | TACLA135747C",
+              "sourceSha256": "7aad0ee010af2d00a5c069aa3d8d86852d138a22bd9071aae5edf277a77e2a25"
+            }
+          ],
+          "disproof": "Confirm each listed number currently forwards to a monitored line; if all do, there is nothing to fix."
+        },
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.abacusplumbing.net/",
+              "excerpt": "Heating Service Company? Call Award Winning Abacus. We are Open 24 Hours a Day for Standard and Emergency Plumbing, Electrical",
+              "sourceSha256": "7aad0ee010af2d00a5c069aa3d8d86852d138a22bd9071aae5edf277a77e2a25"
+            },
+            {
+              "url": "https://www.abacusplumbing.net/about-us/contact-us/",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "fcbbd0c2cb888599cc827a332e704a61b3b6b8667429f1a62507ae0e94ba7e5e"
+            }
+          ],
+          "disproof": "Check whether a separate always-open emergency service or line is declared to machines on https://www.abacusplumbing.net/about-us/contact-us/; if it is, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.abacusplumbing.net/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:56.359Z",
+          "sourceSha256": "7aad0ee010af2d00a5c069aa3d8d86852d138a22bd9071aae5edf277a77e2a25",
+          "byteLength": 275344,
+          "title": "Plumber Houston 713-766-3605 Abacus Plumbing, Air Conditioning & Electrical"
+        },
+        {
+          "url": "https://www.abacusplumbing.net/about-us/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:58.167Z",
+          "sourceSha256": "fcbbd0c2cb888599cc827a332e704a61b3b6b8667429f1a62507ae0e94ba7e5e",
+          "byteLength": 135061,
+          "title": "Call Abacus for 24 Hour Emergency Plumber | HVAC | Electrical"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 2956,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 129073152,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 34,
+      "website": "https://www.wmhendersoninc.com/",
+      "observedAt": "2026-10-22T16:04:59.540Z",
+      "verdict": "NO_INCOHERENCE_OBSERVED",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.wmhendersoninc.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:57.865Z",
+          "sourceSha256": "a88ab592b2afe232c3d7e400dd5204171813f07fefb70cef79b883453c82a279",
+          "byteLength": 344047,
+          "title": "HVAC, Plumbing, & Electrical Services | Wm Henderson"
+        },
+        {
+          "url": "https://www.wmhendersoninc.com/about-us/contact-us/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:59.533Z",
+          "sourceSha256": "6a2e2f3ff6e495f60fea30500a255914103c7ce921de25e4a4066f1db8bddf98",
+          "byteLength": 252816,
+          "title": "Contact Us | Wm Henderson"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 2387,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 125665280,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 35,
+      "website": "https://www.prideplumbingofrochester.com/",
+      "observedAt": "2026-10-22T16:04:59.619Z",
+      "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+      "findings": [
+        {
+          "code": "STRUCTURED_DATA_UNPARSEABLE",
+          "title": "A structured-data block is invalid JSON, so search engines and AI agents ignore all of it",
+          "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+          "evidence": [
+            {
+              "url": "https://www.prideplumbingofrochester.com/",
+              "excerpt": "Bad control character in string literal in JSON at position 349 (line 10 column 51): { \"@context\": \"https://schema.org\", \"@type\": \"VideoObject\", \"name\": \"Our Guarantee to YOU!\", \"interactionStatistic\": { \"@type\": \"Intera",
+              "sourceSha256": "84cc986606860d8d624f15b95e42cdd40121ded51501fa9aac324458bd91bc89"
+            }
+          ],
+          "disproof": "Run https://www.prideplumbingofrochester.com/ through Google's Rich Results Test or the Schema Markup Validator; if no parse error is reported, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.prideplumbingofrochester.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:58.320Z",
+          "sourceSha256": "84cc986606860d8d624f15b95e42cdd40121ded51501fa9aac324458bd91bc89",
+          "byteLength": 491554,
+          "title": "Rochester Plumbers | Pride Plumbing of Rochester"
+        },
+        {
+          "url": "https://www.prideplumbingofrochester.com/contact-us",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:59.613Z",
+          "sourceSha256": "a2e36935d8a13e65efa21feb4254954e6c2b7f9ceb3dfb06002394b11972b250",
+          "byteLength": 222719,
+          "title": "Contact Us for Service | Pride Plumbing of Rochester"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1448,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 129073152,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 36,
+      "website": "https://www.heritagephce.com/",
+      "observedAt": "2026-10-22T16:04:59.708Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [
+        {
+          "url": "https://www.heritagephce.com/robots.txt",
+          "reason": "ROBOTS_UNAVAILABLE",
+          "detail": "Error"
+        },
+        {
+          "url": "https://www.heritagephce.com/",
+          "reason": "ROBOTS_DISALLOW"
+        }
+      ],
+      "pages": [],
+      "metrics": {
+        "wallClockMs": 168,
+        "pagesFetched": 0,
+        "witnessUsed": false,
+        "peakRssBytes": 120229888,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 0,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 37,
+      "website": "https://www.4abc.com/",
+      "observedAt": "2026-10-22T16:04:59.756Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.4abc.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:04:59.756Z",
+          "sourceSha256": "abc390b907deb08035f2af0421eccdd5254c200a43a3d82ecb399ca5d03597bf",
+          "byteLength": 5541,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 137,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 120229888,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 38,
+      "website": "https://www.precisiontoday.com/",
+      "observedAt": "2026-10-22T16:05:01.057Z",
+      "verdict": "OBSERVATIONS_ONLY",
+      "findings": [
+        {
+          "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+          "title": "A call button labelled (630) 425-8995 dials (630) 326-7850, which the site also lists as its own number",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.precisiontoday.com/contact/",
+              "excerpt": "<a href=\"tel:6303267850\"> (630) 425-8995",
+              "sourceSha256": "07ec2c4c5e8712099c046aa588c61a029e475e4073e7686321a9df55d086bb54"
+            }
+          ],
+          "disproof": "Confirm (630) 326-7850 is the line the business wants these calls on; if so, nothing is wrong."
+        },
+        {
+          "code": "MANY_PUBLISHED_NUMBERS",
+          "title": "6 different phone numbers are printed across the inspected pages",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "(630) 425-8995: available 24/7 for plumbing, HVAC & electrical emergencies. (630) 425-8995 Service Area Addison, IL Arlington Heights, IL Barrington,",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            },
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "(630) 326-7850: 40 East St. Charles Road, Suite 209B Carol Stream, IL 60188 (630) 326-7850 Franklin Park Precision Today Plumbing Heating Cooling Elec",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            },
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "(630) 474-8805: ng Cooling Electrical 9211 Gage Ave Franklin Park, IL 60131 (630) 474-8805 Grayslake Precision Today Plumbing Heating Cooling Electric",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            },
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "(847) 986-5166: ng Cooling Electrical 112 Center Street Grayslake, IL 60030 (847) 986-5166 Oak Brook Precision Today Plumbing Heating Cooling Electric",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            },
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "(630) 283-1650: ng Electrical 1211 W 22nd St, Suite 200 Oak Brook, IL 60523 (630) 283-1650 Palos Heights Precision Today Plumbing Heating Cooling Elec",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            },
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "(708) 312-1484: Cooling Electrical 6420 W 127th St Palos Heights, IL 60463 (708) 312-1484 © 2026 Precision Today. All rights reserved. Privacy Policy",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            }
+          ],
+          "disproof": "Confirm each listed number currently forwards to a monitored line; if all do, there is nothing to fix."
+        },
+        {
+          "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+          "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+          "firstTouchUse": "ASK_DONT_ASSERT",
+          "evidence": [
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "n Whole-Home Surge Protection Need Emergency Service? We’re available 24/7 for plumbing, HVAC & electrical emergencies. (630) 425-89",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            },
+            {
+              "url": "https://www.precisiontoday.com/",
+              "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+              "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e"
+            }
+          ],
+          "disproof": "Check whether a separate always-open emergency service or line is declared to machines on https://www.precisiontoday.com/; if it is, this finding is wrong."
+        }
+      ],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.precisiontoday.com/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:04:59.775Z",
+          "sourceSha256": "61c34041804a2a3fff7673374d97b7c5848fe43c1b9702543a55ec055d754c1e",
+          "byteLength": 1410338,
+          "title": "Chicago HVAC, Plumbing, & Electrical Services | Precision Today"
+        },
+        {
+          "url": "https://www.precisiontoday.com/contact/",
+          "status": 200,
+          "fetchedAt": "2026-10-22T16:05:01.042Z",
+          "sourceSha256": "07ec2c4c5e8712099c046aa588c61a029e475e4073e7686321a9df55d086bb54",
+          "byteLength": 761341,
+          "title": "Contact Us: Phone, Hours & Chicago Offices | Precision Today"
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 1350,
+        "pagesFetched": 2,
+        "witnessUsed": false,
+        "peakRssBytes": 133361664,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 2,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    },
+    {
+      "index": 39,
+      "website": "https://www.ajperri.com/",
+      "observedAt": "2026-10-22T16:05:00.017Z",
+      "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+      "findings": [],
+      "questions": 0,
+      "refusals": [],
+      "pages": [
+        {
+          "url": "https://www.ajperri.com/",
+          "status": 403,
+          "fetchedAt": "2026-10-22T16:05:00.016Z",
+          "sourceSha256": "158752eb3ce0d1a5c4e3ac0a86c63c7c0c5f703084eba7ddea5a658338c41780",
+          "byteLength": 5757,
+          "title": "Just a moment..."
+        }
+      ],
+      "metrics": {
+        "wallClockMs": 261,
+        "pagesFetched": 1,
+        "witnessUsed": false,
+        "peakRssBytes": 127332352,
+        "outcome": "COMPLETED"
+      },
+      "ledger": {
+        "httpGetRequests": 1,
+        "robotsRequests": 1,
+        "dnsLookups": 0,
+        "formSubmissions": 0,
+        "messages": 0,
+        "spendCents": 0
+      }
+    }
+  ],
+  "caveat": "Automated static probe only; no human independent validation, unknown representativeness. Not chargeable."
+}

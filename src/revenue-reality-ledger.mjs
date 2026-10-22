@@ -30,6 +30,13 @@ const nonEmpty = value => typeof value === 'string' && value.trim().length > 0;
 // Any non-alphanumeric character separates words: sandbox.paypal.com and paypal-sandbox/WH-1 are synthetic.
 const SYNTHETIC_RX = /(?:^|[^a-z0-9])(sandbox|synthetic|fixture|fake|test|simulated|paper)(?:[^a-z0-9]|$)/i;
 
+// A verifier passes only by synchronously returning true. A throw is an
+// unavailable provider and a returned promise is a pending check: both refuse.
+const trustedVerifierPasses = (verify, input) => {
+  if (typeof verify !== 'function') return false;
+  try { return verify(input) === true; } catch { return false; }
+};
+
 /** Evidence each tier requires. Returns the list of missing/invalid items (empty = admissible). */
 export function evidenceProblems(tier, evidence = {}, { amountCents = null, verifyClearedPayment = null, verifyProviderCharge = null, verifyVenueFills = null } = {}) {
   const problems = [];
@@ -43,14 +50,14 @@ export function evidenceProblems(tier, evidence = {}, { amountCents = null, veri
       if (!Number.isSafeInteger(evidence.signalsRecordedBeforeOutcome) || evidence.signalsRecordedBeforeOutcome < 1) problems.push('signalsRecordedBeforeOutcome >= 1 required: paper results must be committed before prices are observed');
       break;
     case 'REALIZED_TRADING':
-      if (typeof verifyVenueFills !== 'function' || verifyVenueFills(evidence) !== true) problems.push('independent trusted venue fill verifier required');
+      if (!trustedVerifierPasses(verifyVenueFills, evidence)) problems.push(`independent trusted venue fill verifier ${typeof verifyVenueFills === 'function' ? 'unavailable or refused' : 'required'}`);
       if (!nonEmpty(evidence.venue)) problems.push('venue required');
       if (!Array.isArray(evidence.fillIds) || !evidence.fillIds.length || evidence.fillIds.some(id => !nonEmpty(id) || SYNTHETIC_RX.test(id))) problems.push('non-synthetic venue fill identifiers required');
       if (!nonEmpty(evidence.founderCapitalAuthorizationRef)) problems.push('founderCapitalAuthorizationRef required: no real-money trade exists without explicit founder authorization of market, broker, capital limit and risk');
       if (!Number.isFinite(evidence.feesCents)) problems.push('feesCents required: realized P&L is net of venue fees');
       break;
     case 'COLLECTED_RECEIPTS':
-      if (typeof verifyProviderCharge !== 'function' || verifyProviderCharge(evidence) !== true) problems.push('independent trusted provider charge verifier required');
+      if (!trustedVerifierPasses(verifyProviderCharge, evidence)) problems.push(`independent trusted provider charge verifier ${typeof verifyProviderCharge === 'function' ? 'unavailable or refused' : 'required'}`);
       if (!nonEmpty(evidence.providerEventRef) || SYNTHETIC_RX.test(evidence.providerEventRef)) problems.push('non-synthetic payment provider event reference required');
       if (!nonEmpty(evidence.counterparty)) problems.push('counterparty required');
       break;
@@ -147,8 +154,15 @@ export function summarizeReality(ledger = [], providerAuthority = {}) {
     }));
   }
   const strongest = [...REALITY_TIERS].reverse().find(tier => byTier[tier].entries > 0) ?? null;
+  // An entry that no longer verifies is not money: withhold every amount, keep the counts.
+  if (!chain.ok) {
+    for (const tier of REALITY_TIERS) Object.assign(byTier[tier], { amountCents: null, byCurrency: {} });
+    for (const key of Object.keys(byMechanism)) delete byMechanism[key];
+    for (const key of Object.keys(byMechanismCurrency)) delete byMechanismCurrency[key];
+  }
   return {
     version: REVENUE_REALITY_LEDGER_VERSION, chain, byTier, byMechanism, byMechanismCurrency,
+    amountsWithheld: chain.ok ? null : 'CHAIN_NOT_VERIFIED',
     strongestTierWithEvidence: chain.ok ? strongest : null,
     clearedContributionProfitCents: chain.ok ? byTier.CLEARED_CONTRIBUTION_PROFIT.amountCents : null,
     crossTierTotal: 'NOT_DEFINED: tiers measure different things and are never added',

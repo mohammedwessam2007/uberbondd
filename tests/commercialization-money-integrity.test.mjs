@@ -39,3 +39,25 @@ test('locally regenerated backdated hash chain cannot prove forward paper eviden
  assert.equal(verifyPaperChain(chain).ok,true);assert.equal(verifyPaperChain(chain).forwardChronologyProven,false);
  assert.ok(evidenceProblems('PAPER',{paperLedgerHeadSha256:verifyPaperChain(chain).head,signalsRecordedBeforeOutcome:1}).length>0);
 });
+test('an unverifiable chain never reports dollar amounts, per tier or per mechanism',()=>{
+ // Admitted under a permissive verifier, then read by a caller with no trusted verifier.
+ const forged=appendRealityEntry([],{tier:'COLLECTED_RECEIPTS',mechanismId:'audit',amountCents:9900,currency:'USD',evidence:{providerEventRef:'evt_live_2',counterparty:'B'},at},{verifyProviderCharge:()=>true});
+ assert.equal(forged.ok,true);
+ const summary=summarizeReality(forged.ledger);
+ assert.equal(summary.chain.ok,false);
+ assert.equal(summary.byTier.COLLECTED_RECEIPTS.amountCents,null);
+ assert.deepEqual(summary.byTier.COLLECTED_RECEIPTS.byCurrency,{});
+ assert.equal(summary.byTier.COLLECTED_RECEIPTS.entries,1,'counts are not money and stay visible');
+ assert.deepEqual(summary.byMechanism,{});
+ assert.deepEqual(summary.byMechanismCurrency,{});
+ assert.equal(summary.amountsWithheld,'CHAIN_NOT_VERIFIED');
+});
+test('a throwing or asynchronous provider verifier fails closed instead of crashing or admitting',()=>{
+ const collected={providerEventRef:'evt_live_1',counterparty:'A'};
+ const fills={venue:'exchange',fillIds:['fill123'],founderCapitalAuthorizationRef:'approved',feesCents:1};
+ const boom=()=>{throw Error('provider down')};
+ assert.ok(evidenceProblems('COLLECTED_RECEIPTS',collected,{verifyProviderCharge:boom}).some(x=>x.includes('unavailable')));
+ assert.ok(evidenceProblems('REALIZED_TRADING',fills,{verifyVenueFills:boom}).some(x=>x.includes('unavailable')));
+ assert.equal(appendRealityEntry([],{tier:'COLLECTED_RECEIPTS',mechanismId:'m',amountCents:9900,currency:'USD',evidence:collected,at},{verifyProviderCharge:boom}).ok,false);
+ assert.ok(evidenceProblems('COLLECTED_RECEIPTS',collected,{verifyProviderCharge:async()=>true}).length>0,'a pending promise is not a verified charge');
+});

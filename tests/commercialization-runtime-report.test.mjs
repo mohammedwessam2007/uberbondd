@@ -9,11 +9,21 @@ const response = (status, body = '') => ({ status, headers: { get: () => null },
 const run = options => probeInquiryPath({ website: site, maxPages: 1, delayMs: 0, urlGuard: async url => { if (url.includes('127.0.0.1')) throw Error('private address'); }, ...options });
 test('body whose reader never completes cannot escape site deadline or become a paid finding', async () => {
   const started = Date.now();
-  const result = await run({ maxSiteMs: 35, fetchImpl: (url) => url.endsWith('/robots.txt') ? Promise.resolve(response(200)) : Promise.resolve({ status: 200, headers: {get:()=>null}, body: {getReader: () => ({read: () => new Promise(()=>{}), releaseLock() {}})} }) });
-  assert.ok(Date.now() - started < 1500);
-  assert.equal(result.analysis.findings.length, 0);
-  assert.equal(result.analysis.verdict, 'NOT_OBSERVABLE_FROM_STATIC_HTML');
-  assert.ok(result.runtimeMetrics.wallClockMs >= 1);
+  // Model a real stuck HTTP socket, which keeps the event loop alive while
+  // its response stream never completes. Node's AbortSignal.timeout timer is
+  // intentionally unref'ed, so a bare never-settling Promise is not a valid
+  // network-hang fixture: the test worker can exit before the deadline fires.
+  // Keep the simulated socket referenced, but NEVER relax the site deadline.
+  const simulatedOpenSocket = setInterval(() => {}, 20);
+  try {
+    const result = await run({ maxSiteMs: 35, fetchImpl: (url) => url.endsWith('/robots.txt') ? Promise.resolve(response(200)) : Promise.resolve({ status: 200, headers: {get:()=>null}, body: {getReader: () => ({read: () => new Promise(()=>{}), releaseLock() {}})} }) });
+    assert.ok(Date.now() - started < 1500);
+    assert.equal(result.analysis.findings.length, 0);
+    assert.equal(result.analysis.verdict, 'NOT_OBSERVABLE_FROM_STATIC_HTML');
+    assert.ok(result.runtimeMetrics.wallClockMs >= 1);
+  } finally {
+    clearInterval(simulatedOpenSocket);
+  }
 });
 test('robots 503 abstains and makes zero finding claims', async () => {
   const result = await run({ fetchImpl: async url => url.endsWith('/robots.txt') ? response(503) : response(200,'<a href="tel:100">200</a>') });

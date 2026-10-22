@@ -1,0 +1,53 @@
+# Reproduced on main 3a7a0b7a5ece796e617c0c363118d4b1618bf9c1 before any fix (node v22.22.0, 2026-10-22).
+TAP version 13
+# Subtest: defect A: concurrent runs from one persisted snapshot never charge the same buyer, finding and day twice
+not ok 1 - defect A: concurrent runs from one persisted snapshot never charge the same buyer, finding and day twice
+  ---
+  duration_ms: 20.573053
+  type: 'test'
+  location: 'tests/verified-defects-billing.test.mjs:34:1'
+  failureType: 'testCodeFailure'
+  error: 'same buyer/finding/day billed [2] times across concurrent runs'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: true
+  actual: false
+  operator: '=='
+  stack: |-
+    TestContext.<anonymous> (file://tests/verified-defects-billing.test.mjs:54:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async startSubtestAfterBootstrap (node:internal/test_runner/harness:296:3)
+  ...
+# Subtest: defect B: a refused charge never leaves a buyer-facing item that implies payment
+not ok 2 - defect B: a refused charge never leaves a buyer-facing item that implies payment
+  ---
+  duration_ms: 3.692497
+  type: 'test'
+  location: 'tests/verified-defects-billing.test.mjs:57:1'
+  failureType: 'testCodeFailure'
+  error: |-
+    dataset item carries charge id b2c09b0a30af0c0443e30d894360ecd9f7150c69 although nothing was billed
+    + actual - expected
+    
+    + 'b2c09b0a30af0c0443e30d894360ecd9f7150c69'
+    - null
+    
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  expected: ~
+  actual: 'b2c09b0a30af0c0443e30d894360ecd9f7150c69'
+  operator: 'strictEqual'
+  stack: |-
+    TestContext.<anonymous> (file://tests/verified-defects-billing.test.mjs:70:10)
+    async Test.run (node:internal/test_runner/test:1054:7)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..2
+# tests 2
+# suites 0
+# pass 0
+# fail 2
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 133.340314

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-22**
 Branch: `feat/machiavelli-wealth-engine-20261021`
-Reconciled from current head: `3ebce579336919d39655e153277925703c809626`
+Reconciled from current head: `68be35a4cfba59fd7afa3783ebebdccde602c0c1`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

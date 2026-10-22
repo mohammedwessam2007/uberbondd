@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-22T21:27:55.098Z",
+  "generatedAt": "2026-10-22T21:46:27.143Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "9bcdf54f02d22064eef9843a7d32e670550c7b57",
-    "branch": "feat/commercialization-omega-w1-w8-20261022",
+    "head": "41d95d7153932e0799775932540d4e806b4a4154",
+    "branch": "HEAD",
     "sourceModules": 1143,
-    "testSuites": 1374,
+    "testSuites": 1377,
     "workingTreeClean": true
   },
   "measurements": {

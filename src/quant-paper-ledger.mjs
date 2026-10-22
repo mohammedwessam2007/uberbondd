@@ -60,6 +60,12 @@ export function markPaperDecision(chain, { strategy, quotes, markedAt, costBps =
     const entry = decision.quotes[instrument].price;
     const exit = quotes[instrument]?.price;
     if (!(exit > 0)) throw new Error(`no exit quote for ${instrument}`);
+    const exitObservedAt = Date.parse(quotes[instrument]?.observedAt);
+    if (!(Number.isFinite(exitObservedAt) &&
+      exitObservedAt >= Date.parse(decision.decidedAt) &&
+      exitObservedAt <= Date.parse(markedAt))) {
+      throw new Error(`exit quote for ${instrument} must be observed between the decision and mark`);
+    }
     pnl += position * (exit / entry - 1) - 2 * Math.abs(position) * (costBps[instrument] ?? 0) / 10_000;
   }
   return append(chain, { type: 'MARK', strategy, decisionIndex: decision.index, quotes, markedAt, netReturnOnCapital: pnl / capitalPerUnit, evidenceClass: 'PAPER' });

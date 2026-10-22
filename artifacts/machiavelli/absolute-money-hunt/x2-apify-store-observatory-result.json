@@ -1,0 +1,3930 @@
+{
+  "schema": "uberbond.machiavelli.x2-apify-store-observatory.v3",
+  "preregistration": "artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json (amendments X2-A1, X2-A2)",
+  "snapshotAt": "2026-10-22T22:54:48.923Z",
+  "source": "GET https://api.apify.com/v2/store (public, unauthenticated), global + per category by popularity; capped partitions also by newest, lastUpdate, relevance",
+  "coverage": {
+    "globalReportedTotal": 95791,
+    "itemsRead": 342482,
+    "distinctActors": 73964,
+    "completeness": {
+      "complete": false,
+      "visibleFraction": 0.837,
+      "needed": 0.817,
+      "coverage": [
+        {
+          "name": "global",
+          "coverage": 0.7721
+        },
+        {
+          "name": "category:AUTOMATION",
+          "coverage": 0.786
+        },
+        {
+          "name": "category:DEVELOPER_TOOLS",
+          "coverage": 0.8227
+        },
+        {
+          "name": "category:ECOMMERCE",
+          "coverage": 0.82
+        },
+        {
+          "name": "category:LEAD_GENERATION",
+          "coverage": 0.8181
+        }
+      ],
+      "failingPartitions": [
+        "global",
+        "category:AUTOMATION"
+      ]
+    },
+    "partitions": [
+      {
+        "name": "global",
+        "reportedTotal": 95791,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 334,
+        "distinct": 73964
+      },
+      {
+        "name": "category:AGENTS",
+        "reportedTotal": 4156,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 85,
+        "distinct": 3273
+      },
+      {
+        "name": "category:AI",
+        "reportedTotal": 12321,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 58,
+        "distinct": 9767
+      },
+      {
+        "name": "category:AUTOMATION",
+        "reportedTotal": 36819,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 326,
+        "distinct": 28941
+      },
+      {
+        "name": "category:BUSINESS",
+        "reportedTotal": 10545,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 139,
+        "distinct": 9378
+      },
+      {
+        "name": "category:DEVELOPER_TOOLS",
+        "reportedTotal": 26531,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 116,
+        "distinct": 21828
+      },
+      {
+        "name": "category:ECOMMERCE",
+        "reportedTotal": 16383,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 1336,
+        "distinct": 13434
+      },
+      {
+        "name": "category:EDUCATION",
+        "reportedTotal": 686,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 26,
+        "distinct": 659
+      },
+      {
+        "name": "category:FOR_CREATORS",
+        "reportedTotal": 331,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 711,
+        "distinct": 313
+      },
+      {
+        "name": "category:GAMES",
+        "reportedTotal": 173,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 11,
+        "distinct": 163
+      },
+      {
+        "name": "category:INTEGRATIONS",
+        "reportedTotal": 2739,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 139,
+        "distinct": 2255
+      },
+      {
+        "name": "category:JOBS",
+        "reportedTotal": 8287,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 49,
+        "distinct": 7194
+      },
+      {
+        "name": "category:LEAD_GENERATION",
+        "reportedTotal": 30988,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 123,
+        "distinct": 25351
+      },
+      {
+        "name": "category:MARKETING",
+        "reportedTotal": 3979,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 375,
+        "distinct": 3507
+      },
+      {
+        "name": "category:MCP_SERVERS",
+        "reportedTotal": 2973,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 275,
+        "distinct": 2656
+      },
+      {
+        "name": "category:NEWS",
+        "reportedTotal": 5103,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 8,
+        "distinct": 4247
+      },
+      {
+        "name": "category:OPEN_SOURCE",
+        "reportedTotal": 1099,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 12,
+        "distinct": 276
+      },
+      {
+        "name": "category:OTHER",
+        "reportedTotal": 7353,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 84,
+        "distinct": 6133
+      },
+      {
+        "name": "category:REAL_ESTATE",
+        "reportedTotal": 5841,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 76,
+        "distinct": 5186
+      },
+      {
+        "name": "category:SEO_TOOLS",
+        "reportedTotal": 6479,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 184,
+        "distinct": 5131
+      },
+      {
+        "name": "category:SOCIAL_MEDIA",
+        "reportedTotal": 13677,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 318,
+        "distinct": 11594
+      },
+      {
+        "name": "category:SPORTS",
+        "reportedTotal": 447,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 454,
+        "distinct": 441
+      },
+      {
+        "name": "category:TRAVEL",
+        "reportedTotal": 3357,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 53,
+        "distinct": 2997
+      },
+      {
+        "name": "category:VIDEOS",
+        "reportedTotal": 4627,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 1907,
+        "distinct": 3873
+      }
+    ]
+  },
+  "snapshot": {
+    "storedOutsideGit": true,
+    "lines": 73964,
+    "sha256": "b3e0ab7bd04cd50c3fe416612d023465107dfdbb176b4273f35c18b3659d86b1"
+  },
+  "pages": [
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "32fbe31fa07de0161e1088ec6177026e83fbaabd3f24b5ebbe4fd41082ac6646"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6407bbe1a88a8c3f53c4b19cc2abdd5a03e1c18c9e9e3a3cb1b5c4dfce42e3bd"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7730bba148a2f8e37419563b9cb788b2b4009e90b07820e074e3190826841cdd"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b337e61bb09a2efd2459059d62c111a5f0961cbfa6916e0c9c2dd1ff1178bf0a"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4c54ccf5160f2765be2dc767ca49be8586fec1137f4ae27e5e03861c5d1cbcae"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "37fad075203b6d51753f5304d81f175696bf1a05399eddf548548dcea2ed0f10"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bc3bc29ee6ef950825a607c04bb1c061f82ac386e13c2668e4a67d041fe760bb"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1dd384206f50fe5f25e4050dbfacc8d34544edfe02a6f067749ab23d8883e831"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7bca23ef6eac781c8fee0af0cb50de7cd2d4f3dcc2d9a47304d94e842f57e445"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "60e5379f0c813906243a18883bd2a5f9daa081553f5d524a32d97dd2b52fc0e5"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "41c995c71410f16717017cb80dfc9d209027ef464004591fef0ff43793f9d63b"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "69e16aed72c026032e632ae9742cf1db265033660aeba22e0b56d8337dea9796"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "734eee3224aaed5fb6e7f905e42f4e9dcf7ae4f81563c6d9f6383af32a69d657"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "19620729912c44902e8c20b5249cc1bccbd7712d16c52e608c200b309d963f94"
+    },
+    {
+      "partition": "global",
+      "sortBy": "popularity",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2a90b1c9895f6e6971594e45adbcd218c2d47453bfb1b5394b4f417fe94fd203"
+    },
+    {
+      "partition": "category:AGENTS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f1c22915e4ef33a2b33e0567349ac908b0198aa547239f52bff3634e675486bd"
+    },
+    {
+      "partition": "category:AGENTS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0a68ed88e1aa8aab81c8d9eeb34d87913cbbc1b583bf4d8ec78bacc6b203acfa"
+    },
+    {
+      "partition": "category:AGENTS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a548c63b6e4e762f8c35e6212c9ae44dcf03c2715358f18f86ffd81d694270ab"
+    },
+    {
+      "partition": "category:AGENTS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c525bee1b03ad4aabccb8e4c3fdf4f0bd40f40e1c177b48d04f61fbcefc9b6a9"
+    },
+    {
+      "partition": "category:AGENTS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e9df24457f7e3e1b553acf95c48aea2f54024af5eeef9f0f64680e5e80fd0d85"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "69f9b5ce5addc4fba66cd99be55c18b48ea1a4f4555191a88f74184703a00856"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "94c76a7668bb898dfb910053e1d82782cc7f615e6c06dc234dd848d2d64ee92c"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1eb6058ee410dfe0eab70430f4f4855fad507b37c957557cfc45d8dadf239a8c"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6feb20905812513e0c0c1fd63d40ab9212efaca9342566a44a523e2ccc24c762"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "54b26474b86f5bab159786d442e8e04b7e92356a9b17ce0e70658f23b1c6aa0f"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "49f7d60ef1e729940b8cf9b14f0598c9050e44bacfe3d7b26cac7c564113ea65"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "38cdf8a43769a501e8dc96728b024f8c3f652a27247e5bfb6044fad84d6c424b"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a80c8b8966a8b63975d827d0b7cb14a24358ca159f4daaee91ede3f673379506"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0b45d2ff5e223c8eeb2133aee28a10f606df6cdefa1a4cf273a69090ff9ba492"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "dc996e34bf51672415d4fcfdd9c91e37eda8571db5114006a84af7fc177d95c0"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7e97f0e3c04b6a230f796a5eb0e50aaa709f75fd7e23a91fe10f51a0a4b617ed"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cc92dabb39eb5662cf0d7ffdb6ea7b3658dba177f3501e1acfd986e32ab9beea"
+    },
+    {
+      "partition": "category:AI",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "33fdb549677ef13d16606a6d17e72aa9d4bd11c0c88cdce0bd00e42024b70d52"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0cc0da4f66bbafb68510b1796978cf528f9e1a700b3e9af649697f1839afa207"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b00244f1cea57d6ab6cc64477fa47333c6c6093df33f8f7858c7a68d017ba1a4"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5f6ab7bde233ddb42789ecfd4923d900e12da7b298655a0a6ea14428ae2ddff9"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f75d791aeabc313171d0952450c9e10b065c899800db4ce8d1feca9f671e3e99"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9399729849f48f39441692c6f60565d8ea7b14435c64a5f6aa0e9e654c08ba3c"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9038742830aba49572291a3143f2373e407d18d32f01edc5f3960ecfbd6734a3"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "757fa4485c212935ffdb149c9478b55d1f613945b22ebc0a4a26669794799b4c"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3d3ade84e61c19331a6a933585a01e2e8ebfc264b422746c23e99d48f8ea8b42"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0b096715562b16041fa4f500a9ff6e117d13b68260a9e1d309819d25af17fb23"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6d2953e65f2d0da383cb01432f3badd265887afc94e741acc531f50d2d0b0e80"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1309182cdab28490a7b42b9c43cb2a1a671c54f48db98ba0d7cdc87069f9cab1"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ba6e6f36d7d55c67870758224b4f400215e3adb7f6c39505e39f51e82149d0ee"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5fc6d1dd530b3182393c10744f7524b8e228a2b79a80c422690a9787b7b716d8"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "97e194d50d66f4e5ea415cdbf7a939b54798532b8a1fce19270001609dde212a"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "popularity",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7ead950a8265a33c6bb07a40f1219f8fc13a93aa55948dfcd8b1b42c791e40e3"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6e62b4d99b290c0288ca4f957c6124d1ca5e512eb0e9426a891d0d6a0cc4af55"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ba81dc3352208f26819284095a4b8751dd33311eb54979e6b0ccbe66468d5187"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6b15c284a32c14d86179bff4bf24b9740760c7f5cb349003f6287b91d4237073"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1138736c3bd2e69fafdbc126b8f66c698404726d0e511633bf98a7434abfd9e2"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "50275e09eb06dfe18bf146423b252cf036e54c1f4a2f59e7061739d57d7b0b36"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7db9c95605a1be7e06579fe2793845a64bc2bba0711c756a4508c44f4f7a16fd"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6629c2332d504f0523a9e57bf960d7456bd6fb0fea6aea7e6658757fbab6b02a"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "50358c1684c6f90adb453d47da65782c8d0061f1e008c5d6d65ad43ad7200fd5"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "314a09b6c236046036483207b1c861542f038e2865bcdd4b5b1948cf8ac939bc"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "72a377caed743db36306b9e0996b3d7fa2acffa7213af6fe204267663c6b62db"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c0b2cacc62c019813f1632bc251e1bd024fbbbf811f30181749cf2867012f2af"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8512806bfe49453e11757d91676e7aef6b6143b8c6939c451cb4e71b84f04b6d"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "78e309671af9195c464bb40b6e62f19f0b966c2b8a8fac669d00df21b5912757"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2d8571ba43392427bbdf5e2e19c1d582794b7c06295111972fe4ce7dd424735d"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0716cbbd2d083c848d494ecbeaa1d3d90733a9caf84c0c29423f47a16828e0a9"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e823ee4cf6bcbfc3d0f61540e80e5514cbc5fd4d89b369883d7ba4e7f0662751"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6b04da6fe848e2b7cf202b9bdb699f7cc2f95a04cbd864cfb3a8ec63aac5e2c6"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a81ed9f60182e1ba88ec11659826e9370e3ffbea3ffc17387d7b570edcf50d89"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c6edb79e56bbd03bd69b944c4e1fbc680b47ad3392d0ff692f9609c86e3ec0a5"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "571a006624a14af098dd3f5a9f9d302fdac2c38ffb93b03db4179df2918ab72b"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "12a49e6f99e97efe5834ab94bc0d59adcc007833e733e8a86444cc6fdf7202f2"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8a29559b45a11c31081550273e12670c21b7f07b9e335738806214443fd9dca2"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "95abae39efdcf94d881eafdd1d9b23f57e21b30a7676402e5983e500d124189d"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c3d3b7524da96c4f5c19a05e5a1cf3c98b2d625d79ca6829cf4bdf4a7fba7611"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6868cb83d78294a61f9d313779309fa07f268e0934009518bd27afd18efd6923"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "popularity",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "06280fbcc190239d4c0059aa99e5e64c96e15ff1f385e5749285745a1d528376"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cc28b35805fed57e048f8d5e1a1746ebe78b31d7230a76a8d91e78659d4b8163"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "333f02cb75ccce9c09a235d7b6cb628b27cd7eccd92d919a93363e0eda3b9942"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "382714d28b574a0e9571f38598988a6df3bf2629e6db099ed3064a9f96c7b8fc"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "22b26df0cfa3de07017a1a1e35be9762a447fd6686672c51ea6485e8e5c87cbd"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e6d5434cc269835a57d835597426950701fed629a5a85b5ad8d5c772222c668d"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4bc8da7b35baa4eea1dedc1b00f42f025576cbce33d0d45299560968a4ceb0ab"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ff9c442cabe804d0f66042acbb7fda5e949fe829c4aad4e4c7372e770f3f17c3"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "500ba88aaba53bd1a9ced8b4001314006099ad775a3d81f6cc1ebd24f3415ed0"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e8365d59f7e0316abefe1ce7172cd796790e76867631695f220388a95d22cfc6"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e1ec5d709909e5d6b75eb3c16ae65ee369aa01ee09f843b7ab50188053ec74d1"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c4e7493506de1d29fe9f9b48c8873167090085ca6b88523f326e49e91591875c"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8b68cc1fbac37330e40acbc4aefafe80e32d4be6c038c99205beb77bed879693"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bde5c4e87366acbe8233cc7e638bfa6aa36ba8de0914dbaaeb36793997e0d2de"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c7c4d75c0dbb693fe17d524187514b64af1ada75af311b06c2c48b0195120e6a"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "popularity",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d9255a0e855f5da65825cba147c1f37a88885c40c2d32130ce9e760502b260f8"
+    },
+    {
+      "partition": "category:EDUCATION",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8418e0df10d9062d5bad2b67f2f45439f7ddac5e7bd0e179953007a78b452dd6"
+    },
+    {
+      "partition": "category:FOR_CREATORS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "945dbf03d98f43a08674d63a13003e6b5ea902b92cef14574bf7f9a21223b519"
+    },
+    {
+      "partition": "category:GAMES",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "31eae01dbe4ed580e32fff51cafc66b77551513fbdca8106517d03e6f64dd401"
+    },
+    {
+      "partition": "category:INTEGRATIONS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d8fd0f452f7109111ed10dd29d8147bf2e34dbdfb0790d54586922c1bce1452e"
+    },
+    {
+      "partition": "category:INTEGRATIONS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cb3a1c4e9c8f217d26f9e6ef5dca309f2c8cfa51272fcc94d5006c7197ada7b0"
+    },
+    {
+      "partition": "category:INTEGRATIONS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "270a7ed0a72ffae8f7e975a8569beed406a29bd86d276f373be37631912eef7f"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "06075a343c41e12a7b67cb498fc73b68031920d89937b2fd521cedf79348c22a"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "892974929c6edbf25f43b6ca9ec86b02dfa64e52c1560740185d4844f52ba05b"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e7b82a3bf25800017814f6f4a0da4809d76b61de99046a58c1aa8d0203a2590c"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "11a00b6e64c6c6d08d5419203ac860089a83bece500bc6e1b892f330b4ce3c10"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e2b01efda7455d4b1a8194ef51c659359065524853c69c50a7b99378245a5665"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d5967a98243b7e3364acb60c942d5cd100caf019454ed63411cb33c0624508db"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5da6d61ec356765cdae1352bab8be222a953f568173790fd4a6fb6c4ade39c8b"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "02496a8d2e35c31adfbcae04d81c932d6ce85a613bdec6596fffb27d441bcf2c"
+    },
+    {
+      "partition": "category:JOBS",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2ba4db93fd5e5b121128beb6344c74ae8063e61b72318cbc490673e5b0ae6239"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "89d1944656b50982ce2fa9b885b7b6b87593e4e72790668453fc3be68420c036"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b499d300b61be57960ef1d08a83d6dcf5d255e02a57840ef313fd8d8405513ed"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "50c9beb27b8ccf133e310a7475f65db4189730c17d1a31ba83ab20f467fca21d"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4b2d6e87856cdb6a793827cbdd64508aaf942eb61ccad2e5bcb2a8f308e7ebd3"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "928e3fe69abec23385df099b70be9cc8475019323f4bc6d161cd7a82aa40c5ca"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "888268509fe6f24e8350265a90f8edf88a55e8846d3d1cfbdd7ce6f92c9d1391"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ef799c3878b74fce32da6aceda7985f701539a4c259afa0e09ea242d51b08ea4"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4ddeb029377353c6e2f65800abe2616c8fc8204498f408da8d08296a2de43c06"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f265778127fcb82eed9f958533a8f6c035171f2f514364056f6311b75da8f5da"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b124fbaf8b7026833fbf0fd849d1919fb62d60233cd1b30676c84084834704d6"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2ab2ff3413c845e857f659d57f13671790843892a34ab25fb5bce3b0caeb13e8"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "79458fd52700d6c5e192410398515c0e817110035bdfb60e46bff3fda85ea0d1"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "863cbe0d20bd8269b23ea8f1f1e864fcb50780e0188744510ffbb5627046f82f"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8b798b25dfc2d1743d79c2d65b9aeceaedf20dfe86ee4f7177ced51abb005972"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "popularity",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "70696932c1be80867751428f3cb051ff7dfcbbdaac7e6b494ee98c2b71c680d4"
+    },
+    {
+      "partition": "category:MARKETING",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5f242da59e47dbf098352c0792554f02d8c86cae45e645bafb1093cdc436836e"
+    },
+    {
+      "partition": "category:MARKETING",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b8eefd6e8af8d24f03b7a65b6c7699b7f9a16b57546883a48a8bb3b8c271ce47"
+    },
+    {
+      "partition": "category:MARKETING",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9cd06f68180fb41a0c81a6cfbcd0b74f79a6bdbb7ed32b88d4ac3a6eaee4e6ad"
+    },
+    {
+      "partition": "category:MARKETING",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "05302bfbf0b8ffd1e7205f7c13154269ab65b8f3c80568ae29a4be4b2297c07f"
+    },
+    {
+      "partition": "category:MCP_SERVERS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1c28c28b1697633a922f64fd30919d4ee388e7ed510065bfd015551982fc6cdf"
+    },
+    {
+      "partition": "category:MCP_SERVERS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2b2b55e1c795b3be8a75e464189894ba501c3e6b8ae7c4f2cf5c6d090c9ee1d1"
+    },
+    {
+      "partition": "category:MCP_SERVERS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "24fb26a3dc276ecd935970c7eb53f31ba87635ecc1e501d5295592d2d0c8748b"
+    },
+    {
+      "partition": "category:NEWS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "232694b3ea5062e73876b0e4b404b15701b467e12ba75335f1f0e1aeb834a575"
+    },
+    {
+      "partition": "category:NEWS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bfa4a6a710a9bcde272d5b031c8920c904e5d6c986efacdc4921404a8fe5695e"
+    },
+    {
+      "partition": "category:NEWS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3027b30463448a19946a6f9d8060678c12157054e46c716a9b0ab051cfbf71cf"
+    },
+    {
+      "partition": "category:NEWS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "405af202c6fe86119c6ac715d7870fd1c9269cd97a49918ca70adb955a650ca1"
+    },
+    {
+      "partition": "category:NEWS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1aeb55c23ace1e661cb284065e4fc995a900e0ca930c71da3cba5d2d99ed92b9"
+    },
+    {
+      "partition": "category:NEWS",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "58a210755a9fa75f55c269b2527fac2084621ce0944a4c2cd5afb27a63ef818f"
+    },
+    {
+      "partition": "category:OPEN_SOURCE",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "000232d9489f0be100cf113d181881e99b7000ba283f8898f348b170add2b80f"
+    },
+    {
+      "partition": "category:OPEN_SOURCE",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "008173359477f578efc5a94ce276d7924566ae101df7352011eb06eb3523848a"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b7beab18434b46e337d7ebee1b463ae8d7b6b54086250655884942910e95a9a9"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "73d472ccef08cde7bfd8efbfcc2df78498421b06204c8288d1220bb50100f1cb"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "83564cdc3833575eca7b704082aed2b6aaa0a8b9497934dcb2124a7b63b0903f"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b884d7cf59c94ad095fe441cf921b90537c8bc037c5363fde04fffb2754d474b"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d8ca253ac66a278aa286644fc40a023d7e109cd88c006a45a3413341d66e452d"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0c255c8c77307773614670565363b5ce64e8e985b8cc4c3c8834e601ac3f7825"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fea1d81b12171485b3480c5e3970c054c4e03ca496d1216b32868b5fc3130e83"
+    },
+    {
+      "partition": "category:OTHER",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f6d48a2399ca0f9c93adcbf68f401a63daf380fdd02c3e394133c0cdb41b4287"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "255c0e9b76df2bf283b0c498a5cd21aaca719dbf858de3b3c72d36ce3c55de96"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9f86c92b555f1a3cc3cdc42b7a76fae7ee1cbd2e76d6a2e11e7de37de20307ff"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4e18628a88c6cdcece66a6a519331b0a0207e14210343f157f63de0e751c84f8"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3ceec74e1cceb6798eb26bc9f38d386c880dc22a0e4427c282ff9c8b2539fb3b"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "82003b86f9eb80dc4b70f351fc77e97dc9781fe3ff5b6832e1b57fe321bb4547"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1a72d5f7bfa75c6cdd8fb2fb079b35e0265eec186fda3bb8b5441b631641a762"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "47e06ffac825c66c1a28d9ad518750901eb9594de70e04638990fa6511eeb28d"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4414fbb4b3cc2bb47e34bbf161138bb8555d7761e302dfc7d0190bda5176075b"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e2a73ed180e4da334f585174931627982a88d43d5e6116b91a41db3695cb5a3d"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f07c8ce8ae1ba5197df09295c8a44cb4ec76ff3f0b435c081124c2e38cacc177"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6a5379a943dacca5a42e0a7321e0f7a11d0bb1f4ce45e871f466bdbcb25325ec"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8fc7e63473d141bdde589c4d7e8d1caab1caef7d9eade28a77877b4d8bef7aac"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4d5d5c95e6852c84f3144e1f34fac2e786226ca0e926e795f2d3807b0fd36bbd"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7c00d8378958b45a1b97207e03720b4a27ea3f3de7d8295f2c601953a7acca23"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f7d740bcbe9c64726d054ac9d2ba611159f74ea45da23b8e2e603f46b853e07c"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "eaf30dccd3c16a7af7c44dc0b3ce730b3ea17fd7513e5942ca3c60db133a5325"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a9e35be48b381cbc6f00d38f578589847232c44f50a023fa8012ddfb82919a74"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "65db5a9ba90fb5ec55245cbe13573fc197b555dac76d8c81b1ea8aa6a5b8e21c"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6bad9533386fc1ff221e012d7809dd52d878e9b966f32c6ac48d3646c9b54222"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ce8a350e52ed1df916217794a707bfa059627f680c4430e08f9c1eb6f7d207eb"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "568491001a3b0fdf184b3aa458c9d80d727076fdf2a284c0a491b167448dd757"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f59ffdda2a7458ceee8edf2be350f99b331114c58725aec0a5ac60ed83f35861"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "410b6b8f2b453d817e20a95c169b41ff169ab3dc26d5566590b97147d45c7531"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ded4f7f771643c024eb749fbd305868f5089ff024f90bcd92daf6de3884203f6"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4cf139fb5d3b5d6c39d17aea232887fb1b68c64d226366c5f501c0c4e8c49fc5"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "659520fd8b1739728c4df60272d587956ffa3190d36f67b3b4080d424b3a4f86"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "sortBy": "popularity",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "42b1f6757c1b03a3a78af9a24d940dad9c2d941676995c51deb674903893bf2d"
+    },
+    {
+      "partition": "category:SPORTS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7786d0edde3e31a960ca9757875e321badb1c9014e16677db488f284988b0016"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ecf314f4b44b1403821c8554fdf2bd4e323212df8f9082a9ccd657dc89a6508d"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3db1230546cd3e7661f6d45dfea9327b6266e516b6c4538e0da351f263b6599c"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ff6bc870d15a0c0809a5232f82aeb2f96f42e0c6faa1467c512ee13edde9d0d4"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a959ff235b1219b9b5e07a837ba7ef2031d68e76b58622e9ba1abefda4cfc605"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "sortBy": "popularity",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "374e1242d236abd439d189aa1cddfa8ba6b11e098350619895b537ff292b2b41"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "sortBy": "popularity",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d5f26d937193a4131dd28db5fa2acb3ab5082ffb66e54098cc761492291add9e"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "sortBy": "popularity",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5554e2fb6afaf16ea981c44b0ce2b0df0b61dcc44ca736c3c4482dbae44dca69"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "sortBy": "popularity",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ed8e117c65bde83cb5c3f104dff7f63adfaaa0b0f9935e89abdd53e951888d93"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "sortBy": "popularity",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f00e37a76a2af2c531c3dd698502536e9b5bf88f257dfeae993e28404dbf04e5"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "04ae694f4f3e5e4c9bae8b2a8c7fcc9f2caaf59c91848642a6d92a18b466d331"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ed6fe4d8a5f5390b4edf643025d6735cdefa2ed7c4e0e386e413dfea1eaccf27"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "03d368d611d2f6c0722d3b703b445552e2675df5b6b61745bde8c1ba2e916f53"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ef92bb3915abf09e826e4f3d197ac45b0f2f9b509ae052b79ce779179eb9228e"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f255e0c1f883efd4fadfe4a25e49ae2d4e35eb6732ef06ee00ee39845d49cc7c"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d597bfe72be035003f7fd660cc0a395bbec56cfa1c9d59fbba45f0f95f5e83e8"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3531383fa9a151221bdefbbb82f54d6ffffda8efa1554e317ff61fa199f67043"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "70288e4d672d4fe41e6df27bfd68685e7bf17563b591b2e13aca35e9c1d5a6b7"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "59759bf36490cf4e3895533788582aaf189e0e5c541e29d95fccdd3494de638f"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e8dc23a47c7036823b6185932184ef9e7bae974aacd0996192ad146cdfce5dda"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6ca61ef85949b7c9662d5ff28a1f9511408d46991eae91811549493bbcd22e5b"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a88aa2acdd1960ab9c08f4306f97934cb7b3639b0e4925d4281562b82f4f85cd"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5f3997e997c9bbb7a85c590ce880cad5f9c38f6d9368287744965d1cb5f550f4"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "dbad51f65fa91a8a7568ef727faadb023838b32aa2c2504d89c57137abdf1e08"
+    },
+    {
+      "partition": "global",
+      "sortBy": "newest",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b3d10e7aaf32ebaf8c7400f8a1ab05937c4bd00efbca38699e314abebc2fb428"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "16873ec02788a1ef0510e888a8ecaea96f3b047447ab1c96494d7a0a1d616b77"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0a0b099e7c8cccd4f5e264f76dee947fe162abbfa22d592cc7fb534ecf247557"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "60f6a2ae2d8f4209fb9f0ecb8613bfe6c4cdc715993f5f06456004e2bfa544a0"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9acd47fca3567a025e19ca1c635ba56fe11ac09744b79d8d9f021549c82b5cfe"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "058e7407995cc6a4a4c237cf2fba6955c0068b40c109e80fadb5fb20a91f135b"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2f1696380ac4f8953811cb65487d5afb47f66585d7588dade63534e294ed4c3e"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ef2e79664dddff14935e3e21d673ba4ab1176c653c8ed04d83b459fc91488348"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "74bf5a0e55c8d6f0887cd1597b5e99af79c0ab4d5b6713b7b5abf84a53b5a319"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d86aca2709f958212c855c3e7e19baeabba05956db7c8fcc535203d87dbf3789"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a1822efa31ca365b537489f83f6eeff5ade119f1d119fda5955277c3a2a93779"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1e32e2dea97a45b28cd44259262ad7159f1a8e17e4d2ac101514708ba828691d"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "dde1b78dbf2ac36632942ee7abd5714718d3423f5a72550709cd04b914d6760e"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5333563a4788d057c4fb001e326a32ba4d523afec7fe4c75938c4881ec546e04"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0fe9041adab4a7c339682086c16681a4630380ca025c582c7ee3a096daa22af4"
+    },
+    {
+      "partition": "global",
+      "sortBy": "lastUpdate",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "178bd48843e808c4ed7344713b42e1f2d8dc8f1bade3e227637bae0f9b464ef1"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d9752ba3d475c719b55095ad75646793c3a948d87eaebd4ebac770796ccdd221"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7c06ed6b31fdb066ce9575574898c4ef86b6f9f17f872bd757899988f32592ce"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "92ce048551b2ceedf795eb86c105975e4d792b9ee36c7d76d9d5792051217b2b"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cd60ee012f866e74c0d695139577c66d3c10d9cd45c2f150f11a40e636d691b2"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1ca7741d8e58561029d41abf1b8cf5e183218e417eb1653106f6f5e45b517a51"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "64e57a84a080636f512e0b389e31fcdfe117f99dc85af067a927853a57658617"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8a5bed25708cf091d45b24ab621a041d8797569a59d481dcfed2712b26aec0be"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7209188949161e87458ca6d0d752adf696b0002dcac09694b7ad3fec0ec5d3c0"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e5b451a496e8197f63ba10cb1fe1b5120f0761770eb196e5c5d1028dee8605de"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "25617c2964213a6c1d001a3be53ef3bb709197855e51e6c7f7806c64ba0c2ed1"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "05f41b16486f0c7441fd182143a805905ea1297541f1e0e0d4a93f0a751ac86c"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a2528d5d66df1bf221ff81b8207f3b8ed22c801f6dad1022143535f498e7778c"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7049b2a9e782328ceed274bd794f09d94aa5ad0a301765f13168aa211be13518"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5810bc250238cca53ebf6a260d19d867e4390d6d094591bd05dfd44de1647830"
+    },
+    {
+      "partition": "global",
+      "sortBy": "relevance",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "15c04fefaedf8efc57f2b00f507af88d4e8852bd4669bfdecd42707aac975259"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "be7c3d8f5a6277b68cc8334a4854768b1364962587dd226c4ef139e8cc3b771a"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5209492a7d2c92cb24f9b8f8e198b5a2907c7ed89de874f1e4a9527cfc9c9d21"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1d4602c04a16900f63d19fabdc032f5d393584ed22f436e1c34816acbc7131e7"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ba0f86e9c7a4ff8b2d23c874dee8620c8269d624c5f69e56f32421a3f916d18b"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fd479d12a856e8da3ffc3a3f56f9520d48b8618ed16793d9dd258733b40b5e65"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6c49ab8ac45554aa36d74ad5c86c7ac72c4b23f296c09a69b9b3613d317ebcc3"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a31ce9380852d4ca7ec7727c87f00560e647569e574cda8b8ab7697cb10f14a7"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5d3aa235e16a1132211e50a1bfc9f746b8bd545df866850e2568f688483f58de"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c1a8b9b67399abb58d63e1bbcb69eebf63e3f852ab274567cf2b77b3fc584e0e"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cb898fd4403c50e08fea1c6951ebaff7a8e726e0fa3b889eaad3789f1580a957"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "db13adff4de2525b73c9463a012e2e6dcbdfd5e4278b9c72d2cd8a8f131ad054"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fbb6f3e0776511e5a3508ef0ba127f06ee68ddc01d2aeac7c2ebfe5d46165a98"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7dfe278d2f239239a416804e7041c7cd3045e0a1741014880cfdcc2ebf1050c6"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3690c2950f5a0fc49ab261bfdd804cf69d4e276efe4648e029c98e532a855070"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "newest",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "40ef2639bf3a5e27faf6c78b7b73e703c56b016bd4d69b4feac8b5b61c9567e9"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3ea1e928783e87ba73b2f3cc2cf957f65c1c8f1ed9df33d8ae2af1a041ecf04d"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fa0093fb9f996eb311201a1d3052bfb13eb32925781795832c9ee59caa1a6e19"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "01c6f03aaab959dfa6b356ece5fb8d3d0ab393d456569cab9cad90f26c6bee46"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "80b92922d3ec8c8fa4cedf5ce555e101bcad11c19c5dd15d5bb216f908dccad5"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "eb7d4f9b42a78914155a9fd7f579890d213d9c8c424b7018f7324a52a6884151"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f39449bb48c236203b1a47785db3e4c9e389c9268fa3bfd068ccc0290d98cf0a"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ba43b21b48e5b11d74227a9cd96a4deb89e9c08bfba4ef16c6a1207bdeea9fcd"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2411ecc937b512bd65aebd17cd838f266b251430d73db3a78e92965a7382f316"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2b60be9a00164d4b7b89b0bd48a3895e6c00f53377dabeb051d14c4f9aa7b173"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "97b060fc4889000bbbc67741ef2140a6b81ce7cace066fb29f7ce3ae1e612abd"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "14cb2cfc7c34ec125a94278b61f0efe48ca15abf401143c96c67fd5ddb72ade3"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b3ac31c7ebae369901574e63b2620d8a0229a8fc14657010cfe91b126e18bee2"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ae4ed43b87706baadd0c5fbc9c2b9bd120094930ad1efb1d8a0649d480df7234"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "05c51396e7c055f180f92f62826055859951d0394f989e54f256825a268d5437"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "lastUpdate",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7b7f6857a46224de5dae2854c76b9762ef62fba5b50f83e019e9121fbc13d6ab"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e6e41d0f38e682ede581ac2a86213a5e835e9264d8f8eec499f56c6633c75d4d"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "08412f760fafdc90f966f557c4dce820f83c6a7976be408b758d47d06944e2d5"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "269e4f5d1d09ca2a92287c2aa0d0f68628371a51a2052da95ffcc432ee308ddb"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9b1da9dd26031eb399d1dc943bbad2b4d062598e4ab3c209fcb99865ac1e8cb5"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "361a0850951d12c6921a2a531631219278c56cc1575df0c9244c6f04c4dd7e03"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6c7f2549b69f4553b8c25cea1f7c76afd2d1b7ef41edc76b1825f8063f316487"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "321a6bf7d5cd5cda89a0210708397ccd38c34bbe2acfe5318c0b5235db62d601"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b6a4753f5e3e39b1564a4020c8aeb41734ee77aefad4ef10f74ae51fb7ba8afe"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "33681286b99ae67a9bf285f352de010a04f946f2b33f225f6d9391ecbe11cb87"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "544adf1627fb9807bc76f517da3425f7864b5908c688d59ef4579c1fedc5812b"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bc686c990b8fead2be9320588e045f211f6497e43860b831f130220660ae34a9"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b2dea922f82d1d0eef5d06e2a84e0662e0328e72808ae8215f4922859efd96d9"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8284f1ff7e4403ad76c61da0cba1ce0a2bc16dc5379fb0b1597fc4f7dc6444e4"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "aafc4e21c0767408cca3daa0d4a447a734520e84c0e8707a2766bb1c9f7e34db"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "sortBy": "relevance",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "af1e4a028bc51b807651c18359d84529f29964bcc77f4c5a19c57f37b8ff7020"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "33731fdbe007a62d5cb716089e9789c86e2b2fa44b02c8cd5cbea999159da822"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b704e8a5ff0093639ca23ae0d73875e5fcab57245f6b5eadf30e2a5ef115aead"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "da3102a8e3e4df97bddd53652940fc5f52383fa5a3ad5985faa2cbb0510ad8e8"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4a49bc8a5959a14689616b81feeabfb543cd107f004fb5b3aa9e265126879625"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2c25ab951b6c20efbb97969b12e3e876134161a4048db18e885d273f6aadc93a"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c61c7faa7f6fd855d901b556544cb5077a6c96b5177b4d97bcdfe9130af3d994"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c6c46c6115e9ee6c2c9b510d42c4099190def5debef2a74491c72c5014457a23"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "333263aa17231ef9b340a52ed6f27cddb82c5c16fba4b37356022460afa95451"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "42348ba3252c4759d9c463fad27a521ac45257b23ccda8590ca0cb86bf08cba0"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4d655a48af5bb0fabeae626091751864b3911dbb519d24a854a04e5fde53f36d"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3b60e48aaa5f1888d70c81a183b2005efb4ab414166d6e4331c318be721f9843"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "da2cff48fbaf2c9173418390903cbd0e8555b1226b14a0d652edd6ad3fc50f66"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "38afba7d06d516e28b60a42e7365621214a40891a50fc96a8648b1862534201a"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "605e591d30f8a1988ead63bd78342a18ad1ded8fa3f16e8860a0c1b666845487"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "newest",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "05fcd69f5cde9ae51dd67cd3adaf3f76a1be798918b50882bdb44e166ca31313"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "01ad9220da334f9687ed0d8353cf60c86b96b6d5c0d8eb29b8a83d45246ae730"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "616b1a0d9797a29307934f78583dac3a1f2f823acc3c1764da48d924724e78e4"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b31bbfca26fc5338309baec2266521db320f55510402f2c79c3d65b35e4622b7"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9dc6d94a22b38709c827f99021fe466e68d783886ead7c6ae9c7d3748db96540"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d59143a3cd15d35aa948e482e06cf64c353ec614c5a6752ecc0525009360d645"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "10da690a4aca1fda4833be82fdf6ebcb1c8230fb2404c4ba8d9f3a8c9e83e160"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "32be67a6950c9360b08a158086aac341671e1ef42f609205afe188db0eeaa0ad"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "32e40243a3d3f83a7e59aa4b193fe8ceeb8da3c68777d6132e1593afc892724d"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "583f9c3d6c48b3ca68d0b97d0567caf03b2fa7f9b7bb6397ee70de2b729d80c9"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "dc58f045d247b779ce5d963de42ca88e1e07a1fcafa599d57821655f77d8e64a"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f652af564c0a2e0ee263005733bce27aa27fa09fc0f91d8df38ad74feb8bf1e2"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d8ed16ca163d1592c3be4d4aa179be90f8e7b1f907378108c0b3e9621de7aaa3"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c77aa02d6153745ea8481ac84b2fd94cb9cadf86d22540e2b5415d59c92abd22"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8d7f0dee45604bad16bfb1c44600e3641498cb758e424b5d2809a7ce5df4cf02"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "lastUpdate",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "be55aca0e582bd0170a0d03966db007c993ccfcce78182d2273f8bf45eb60a66"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c0035d62e2befba967bb48c1ce23163c3f7b1901d9cc08a87dd33bb2c31cbe64"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "06ef8092882e7631ee313afd3d231723b24971ca8aa589ee07d28fb649030b3e"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e7f594749b3fe9b8ab862b5c1d0e2066f0b635e9c48cba13a616976e1eb1eeba"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c7e0fbddf5809248bb9d4ec155876c25c12bf21182dc756a5b038c0c087083d6"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ad1ba56356bfa99b7d1773a3003ae438546eb53efecc2844bbfa11f6e81fae29"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "379032261fea75c140d0fe29898190740571eac7c5f4301beedd216f3b092aac"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d8fe39c988bfbd71cf3823ede575bee35540dcaf28425b8e97c8051412b7040e"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4e91a47025219edc3982a4aab95c373642876790382ce75231a199e80650b2aa"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "524ed847a21a2e88d633061f49af0d1542d202a4b185a5835696614a700fb322"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "96a1b0f41a4b29af2d678aa949f6c78de3db9898f7ea63535cbf3f5e9af5d6d1"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a04c63d8415c2886b7a994799354da16de4e4d11aee90dae7c94a12a7b1edd37"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5082961071224d85a13e675779ecc084f1d11a0c1ac1dc3028ac104cb14850ee"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "10fe07458d0173bc79c62b39dd66323e30dfcb11ed5a621c26f577afef07e73f"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6e1bfff06a53bdc1f9b419380734de2350fb556c58acdccac26243dc1a98f2cd"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "sortBy": "relevance",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "957f62c8021a2102cd8978faf83c9b5c32255290f3bbbc7206010e7180fbe89d"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ac1509a330ecfdcf2fc71733ea7f574e4eb54711066bc074d69747fb626310a6"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4f5cedc3a4b7172cfe6b958f0f4c80f3fc5f0e383f305e50ed120965071ec2e6"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6833b374077932da957bda5cdb893a41532d9bc33eae079aa583788d7b6221fc"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2681c18b4804e2ca513baa4b56cce78cae989defaff06879609a18e6d21ad63c"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f775373f19f61c29b117441b42ae14a4bf77abf86d41d0741225a538375f01d1"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1b2ad11ef925c6b4f48df6b016466e656134b439da5464e02bc41e1918ba5ba2"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9180b1c6619490812f2861f33b630f0305497500a5b8668279a7f2fc8e13cf41"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5cbd35c377db07c3e00f1bc1bbadb0d31b6ad78088e00479262dfd32bd8b350e"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "13c003a4a095b2d52c8ec917d4e43845eb42f3d2b7f58504183e82dcb402b82c"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "028e4884f6c182c472bb4f2da13d774142fbf999da02d87a46bd89d9be4c328e"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "16bfe4a15ab429706648d991ece7605391d7fa4dde5673cf9c5a0dca0fe9909b"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4585f28b4f6be82e07564a70e315aa9f8f1da18c4b40eedc5c60b443ce0dc38b"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "411073218c2d6fc5c978c21f8dbe2823428c9310f74448bcb82a9c5f1f3be401"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6d1df680fdee91cd39bd77ea159a408fd94cb514a0b678f2b5dc4f09f22d89aa"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "newest",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "172de9d498e182c18b2cd29e4bd6ff59b270362578e65e9746a7f7daccf7f121"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c45cb49b14ea719943675d642d5bf6373e28d3b8335fe4f2f95099c550d0b04d"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "54a6f579fe0b0c9f9cea2b287f541a03f1f80574c4ad8a3921aa6e05f742bd72"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6db2c4d757ff8db6b2770981294a8ce2d69667ed08cc6a9d322972ea12641bf7"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e7343b732d8178eb35ec486950ba898376877959164d6a9af6d02fbb20aa8818"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e42f095ed66360ee87ff4e43a7af5be6a7d24f4e9146420133b088fd8b7d5fdc"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5d569791f9cbed7510fca2d49fe15002814129df52f12636346795957b37f5c5"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2a88811555afd2b01ee4cd0206855d03b4dfc73e25f6353ef929e90c86a99e09"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "37dcd549c607b5af3968db12a0472c86cd45d2d3f563fa02f36467660e3738f0"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "04d7b51ac8c50740488ead0253255fa8e8ae933e668c4fb5ac514a576f56a431"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2defd16a3fd878cd280a21c1264cb2349d5bd54799e1c71dd8c179add3c3f038"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a264422cd2998f5a2c29324e68b10aaebd69acef027777f1b8cd66e76b480f33"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "99c87e82d7d5f7efad87588cdb25d87544aac8fa71af95b4822f8e30d38c2267"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a6cbd6bca7bac533b92daa7825715962fa77a1dedf0b50c28cfb1d756be86a61"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7ead896a79b3e0cdeef323647532ee43305ae0c5fc0746e020630f334219ccab"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "lastUpdate",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f7f9b4965c9d70f30cf52ebde15c18359579b7762936e54fe1127ab970a4f1ff"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "061125db757cc68bce1a3e775bb744215affa04b5e333e85a6e69d071e8cda9c"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "759445488ca3abac2faba9cfe15ee91104861d24520001df71ee324b4953369b"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6431c0ed0b3363d28c9954b6cc8bae723856fa158605e828643ca2ecb2e2dbdb"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "34cbe5a3b7cd49347e402a0c788876f145322a84125d4dd09d06cf15839f6b0a"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4b8e10578884667c3f182bd059d10b9095112c45b1ed535265e7d9a4a8944b59"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f40954db22d4f8e8e5ba38b94e1278866947d3938eda67b3dbe692827433fd50"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "df5f0ab65b046297fafd30be6adb833e6f59c7536fb62e73f90c60f7114b1221"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3d0a34d3b40d9c4b62874e7be283378d619ffa772ecc81ef5041e7f0f56d36bb"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e016e9c671934805e4e989ea5f739d0a3475b97621e56ccd9291bf6e33ab1d3e"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8ab67f392d6cdb7e6a3d4677f127d4ec06b74a0b21942b77d09a15e2bd1ba223"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4c5cf3bad0984632b8b46713c23145bc56e0c9cd247950724229e92349082c52"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "90854c08dffe04d14e84e51e2b953690e559325a52f9ad18ebe862c01ee93163"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1190e0b6d5392cce37fc78f2d301b266d2529b3d24aae0133f1e4d1a294bcb92"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b268289b2fa925bb8fd051e8f23d0470f7b87ba3c6df8779ad0269eeb89e4972"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "sortBy": "relevance",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9497500cab66bca6a2da009961ae95f7868c68447b0693ad118b6eda69af82d1"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fe84d4c4801d5322f7ffe351af8d85e9b44f02aaa3e37131057c66e2b2015f5b"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "622325c6664f2f06f33bc052a3a6c2c5e8af97aca1ff1850a6fa2aebf0b0de91"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "720a82c85c4f322bd25708c4df5ac5c3b5cc1b99bfb346e76ceb95677749a768"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "426ac9539dd0a0856697144abce22276b1d2669bc41694086c332c0bd62b6dd8"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b45d1a70fc5ac87cc981a1369443c3b567cf474de2ac01ee286fefa5bb801d21"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "27f9e92676f05bfdf09e1da38a610e72d2858adf4726d4061ca819df982d885e"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "636eb3e3fec53ca92d54aefe47e278657902866b55d048c13258eebdebe127b7"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "16d4c5936346ab81680c2d2f90922af7da00faba69ced2c7e3287704714ef0bf"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "36418a84fab20905ab5065ef2805f0af3f4272346d9c88b0c2225ab527c94067"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b4f231f38e3dd79fc5b1142189d3415acbca3ba21bc6d2ccfd55d4472326d08b"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c06f68d4a0bf2de4c6946fc3e6410322d49722d2358b4d651b1802fdab6c5fe9"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5cafeb9d571c52ea6e1958bfdcacc635ddb4a638a3a032be61f8be774b1559c7"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "74805d721d6ac4c7dd3c34b0809021c3f15f55aec2549c38b933f9563d26d8f5"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "45f4685662bf907c5c7a5209f1c14eecc8f80c016a8ad868a0baf0c9d75c3283"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "newest",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4131c0a7b6965fa46c3d7340d5f213084e151fcbcf70077e820c68abe9929bf1"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1a21df1bae264d1eebefe3a796cce8caa4f3eec2b0b83997cb8f0f6f04cd2b2e"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "55a46257a0ccd25535097bb9779848c81f1364ecdbd8e87b19d236c04f0863e3"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d0cc55d1ff645262377ceacf870342f6d0ad4cfe5fd8508e57c90c00c11cf05d"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ba1831e54df108574177184d4af325dea367916675a1d81343240589b4d24f6c"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "08272225f384027b99021de93c38bbc222d9479d687cad0bc527aa3673123858"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "025b3a4d265e65c775356ebe0cf6b1df663e82e829191a78db70e8c9491095ef"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d93ba974806018defe6e1bd41094fcfc8624d65b8c5fc5ae66f9a88e9182e3e9"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2fc5953917b64a7121db0350960172e693720b5f2783b742e5067cc98f963b75"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "409580aec05cd8b8c8b53bc33fbee4e7d42125b2faa101eacb7e9ab605332192"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b7f4578daf3c922921c132864423b90859a60a03cd14f0e1fba8f737f809d6a9"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "698736eec525e9930a09fb9c146129f8aa572dfd019cb605cb6d60b32c984de3"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b1cda95b509ab473b2b255911e49e7a39164dea33898f733171d15812c09ca99"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e8f8947fdb856e61314200b568baf4e50ba864a264593e814907485c2125725e"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "398f76ce9fa43341eb1986531435642476dc515e65681b03a526ea60e764fdc5"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "lastUpdate",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "14cacac1acada581720e788fddd3bfa5183861db82fc55db6f5027c59f23e868"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c22dc3567cca5ce9ef5a05294c95b7c499525f5a53089c39d0283994ab5a7e68"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "73b0fa0478be6ba3c34cab513d0e5d015609c8454b9a7a55cd3d405024d090b2"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "dd3ff41f8ac98c4de87d1f72f200db6799839600cb3a16e30ba9d709a39270c6"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "398ebcd26375250f6c99418d1d746e9f30d1733edc00969354aff8a00377ba72"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "47bf8e9f7ab42444e90e8df0d9a25cd9ada8d8ec2260b1285d4b0d9340d1b2bd"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "50023152b39f665d8add79dbd521960572a043a5c9afe526c7163d85be91f1c9"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "98d6216c731fc449de1ffa8719ba6d6a5f9fd971b7bc6a9b18826ae32129ae45"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "faab640a0df2e98b8992f0f75927583c577b19324852ba61c4b3fe1399a09928"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f6c7f9a7646210e0ce9089feac875657a40ef917d16571c688201e28d7cfa373"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c0112f9388603ee860cd971eb9cd0bca2116ddd28f5f026e269187edb9daf74b"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6216ab3d17278c895ea1d7831b33cd64060192f79cb7ccfa7b40bad0be25f50d"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ac92fd30b0f40f9003584cac3a3fd8bf033adc470285caf9dd7ef24fa75c9ae7"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "069c158f4463ffec1f7bdf3f7914a3a155a7f25079227025f4ef26ba8d21812a"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "453e1ebddb8429525dd6a97853884993b4d6a69122b32d2b652a32a30efea1c1"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "sortBy": "relevance",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a1f30ef308dd644963e7829ce66795571cf3ce25b1d845cafa2b5f746a5263bd"
+    }
+  ],
+  "definitions": {
+    "leader": {
+      "minUsers30": 200,
+      "minRuns30": 1000,
+      "minFailShare": 0.2
+    },
+    "substitute": {
+      "maxFailShare": 0.05,
+      "minRuns30": 500,
+      "minUsers30": 50
+    },
+    "h2aMinBrokenLeaders": 25,
+    "h2bMaxAbsorbedShare": 0.7,
+    "absorbingSubstituteUserRatio": 0.5
+  },
+  "actors": 73964,
+  "activeActors30d": 60619,
+  "pricingModels": {
+    "PAY_PER_EVENT": 72085,
+    "FREE": 1879
+  },
+  "brokenLeaders": 13,
+  "absorbedShare": 1,
+  "unabsorbedLeaders": 0,
+  "strandedUsers30": 0,
+  "decision": "INCOMPLETE_NOT_SCORED",
+  "leaders": [
+    {
+      "id": "apify/google-trends-scraper",
+      "title": "Google Trends Scraper",
+      "category": "SEO_TOOLS",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 2652,
+      "users90": 4443,
+      "runs30": 24325,
+      "failShare": 0.2273,
+      "rating": 3.677352332297747,
+      "reviews": 32,
+      "healthySubstitutes": 22,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/google-search-scraper",
+          "title": "Google Search Results Scraper",
+          "users30": 24313,
+          "failShare": 0.0182
+        },
+        {
+          "id": "scraperlink/google-search-results-serp-scraper",
+          "title": "Google Search Results (~$0.05/1K Results)",
+          "users30": 2121,
+          "failShare": 0.0006
+        },
+        {
+          "id": "aitorsm/keyword-volume",
+          "title": "Keyword Search Volume — Bulk Google Metrics (CPC & Trend)",
+          "users30": 904,
+          "failShare": 0
+        }
+      ]
+    },
+    {
+      "id": "pizani/taobao-product-scraper",
+      "title": "Taobao Product Scraper",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 2217,
+      "users90": 2244,
+      "runs30": 93334,
+      "failShare": 0.2388,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 36,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "junglee/Amazon-crawler",
+          "title": "Amazon Product Scraper",
+          "users30": 3577,
+          "failShare": 0.0295
+        },
+        {
+          "id": "scrapesage/taobao-scraper",
+          "title": "Taobao & Tmall Scraper - Products, Prices, Sellers & Reviews",
+          "users30": 2238,
+          "failShare": 0
+        },
+        {
+          "id": "delicious_zebu/naver-product-detail-scraper",
+          "title": "Naver Product Detail Scraper",
+          "users30": 2056,
+          "failShare": 0.0026
+        }
+      ]
+    },
+    {
+      "id": "lukaskrivka/google-sheets",
+      "title": "Google Sheets Import & Export",
+      "category": "AUTOMATION",
+      "pricingModel": "FREE",
+      "notice": "NONE",
+      "users30": 839,
+      "users90": 1089,
+      "runs30": 86262,
+      "failShare": 0.5433,
+      "rating": 4.810587299890248,
+      "reviews": 7,
+      "healthySubstitutes": 10,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "scraperlink/google-maps-scraper",
+          "title": "Google Maps Scraper | $0.40/1K Results 💰",
+          "users30": 805,
+          "failShare": 0.0003
+        },
+        {
+          "id": "data_xplorer/google-trends-fast-scraper",
+          "title": "Google Trends Scraper",
+          "users30": 748,
+          "failShare": 0.0045
+        },
+        {
+          "id": "johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search",
+          "title": "Google Flights API",
+          "users30": 406,
+          "failShare": 0.0029
+        }
+      ]
+    },
+    {
+      "id": "toolzerhub/douyin-video-search-scraper",
+      "title": "Douyin Video Search Scraper",
+      "category": "SOCIAL_MEDIA",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 711,
+      "users90": 813,
+      "runs30": 1597,
+      "failShare": 0.4058,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 98,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/instagram-search-scraper",
+          "title": "Instagram Search Scraper",
+          "users30": 6868,
+          "failShare": 0.043
+        },
+        {
+          "id": "harshmaur/reddit-scraper",
+          "title": "Reddit Scraper - Posts, Comments, Search & Subreddits",
+          "users30": 4315,
+          "failShare": 0.0145
+        },
+        {
+          "id": "zen-studio/douyin-search-scraper",
+          "title": "Douyin 抖音 Search Scraper + Video Downloader - 60+ Fields",
+          "users30": 2010,
+          "failShare": 0.0025
+        }
+      ]
+    },
+    {
+      "id": "vulnv/1688-wholesale-scraper",
+      "title": "1688 Wholesale Scraper - Products, Pricing & Suppliers",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 699,
+      "users90": 710,
+      "runs30": 2478,
+      "failShare": 0.2312,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 27,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "scrapesage/taobao-scraper",
+          "title": "Taobao & Tmall Scraper - Products, Prices, Sellers & Reviews",
+          "users30": 2238,
+          "failShare": 0
+        },
+        {
+          "id": "crw/temu-products-scraper",
+          "title": "Temu Products Scraper",
+          "users30": 664,
+          "failShare": 0.0158
+        },
+        {
+          "id": "zen-studio/alibaba-scraper",
+          "title": "Alibaba Scraper - Products, Verified Suppliers, 100+ Fields",
+          "users30": 334,
+          "failShare": 0.0007
+        }
+      ]
+    },
+    {
+      "id": "apify/ai-web-scraper",
+      "title": "AI Web Scraper",
+      "category": "AI",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 693,
+      "users90": 1053,
+      "runs30": 11996,
+      "failShare": 0.2067,
+      "rating": 4.8612878482457,
+      "reviews": 15,
+      "healthySubstitutes": 1,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/rag-web-browser",
+          "title": "RAG Web Browser",
+          "users30": 33650,
+          "failShare": 0.0138
+        }
+      ]
+    },
+    {
+      "id": "disarming_screw-owner/1-2-000-leads-apollo-scraper-replacement-b2b-b2c-leads",
+      "title": "Leads Scraper $1/2,000 Apollo/ZoomInfo Scraper B2B B2C",
+      "category": "LEAD_GENERATION",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 599,
+      "users90": 760,
+      "runs30": 33213,
+      "failShare": 0.2759,
+      "rating": 5,
+      "reviews": 4,
+      "healthySubstitutes": 29,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "code_crafter/leads-finder",
+          "title": "✨Leads Finder - $1.5/1k leads with Emails [Apollo Alternative]",
+          "users30": 2014,
+          "failShare": 0.0069
+        },
+        {
+          "id": "microworlds/leads-finder",
+          "title": "🍏 Leads Finder - Email 📧 + Mobile Number 📞​",
+          "users30": 1554,
+          "failShare": 0.0009
+        },
+        {
+          "id": "pipelinelabs/lead-scraper-apollo-zoominfo-lusha-ppe",
+          "title": "🎉Leads Scraper ✅ $1/1k Leads ✅ 50K/Run With EMAILS✅Like Apollo",
+          "users30": 1274,
+          "failShare": 0.0012
+        }
+      ]
+    },
+    {
+      "id": "zerobreak/google-hotels-scraper",
+      "title": "Google Hotels Scraper",
+      "category": "TRAVEL",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 524,
+      "users90": 562,
+      "runs30": 43948,
+      "failShare": 0.2367,
+      "rating": 4.999999999999999,
+      "reviews": 7,
+      "healthySubstitutes": 7,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "compass/Google-Maps-Reviews-Scraper",
+          "title": "Google Maps Reviews Scraper",
+          "users30": 8386,
+          "failShare": 0.0026
+        },
+        {
+          "id": "lergassy/google-flights-scraper",
+          "title": "Google Flights Scraper 💰$0.20/1K — Fares, Calendar & Booking",
+          "users30": 282,
+          "failShare": 0.0006
+        },
+        {
+          "id": "memo23/google-maps-reviews-scraper",
+          "title": "Google Maps Reviews Scraper $0.25+💰 Replies · Ratings · Search",
+          "users30": 187,
+          "failShare": 0.025
+        }
+      ]
+    },
+    {
+      "id": "curious_coder/linkedin-people-search-scraper",
+      "title": "Linkedin people search scraper",
+      "category": "SOCIAL_MEDIA",
+      "pricingModel": "FREE",
+      "notice": "NONE",
+      "users30": 511,
+      "users90": 542,
+      "runs30": 4172,
+      "failShare": 0.7529,
+      "rating": 4.662713401760105,
+      "reviews": 11,
+      "healthySubstitutes": 108,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/instagram-search-scraper",
+          "title": "Instagram Search Scraper",
+          "users30": 6868,
+          "failShare": 0.043
+        },
+        {
+          "id": "harshmaur/reddit-scraper",
+          "title": "Reddit Scraper - Posts, Comments, Search & Subreddits",
+          "users30": 4315,
+          "failShare": 0.0145
+        },
+        {
+          "id": "apimaestro/linkedin-profile-detail",
+          "title": "Profile Details Scraper for LinkedIn + EMAIL (No Cookies)",
+          "users30": 3332,
+          "failShare": 0
+        }
+      ]
+    },
+    {
+      "id": "epctex/traffic-generator",
+      "title": "Traffic Generator (Youtube, Web, Etsy, Behance and many more!)",
+      "category": "AUTOMATION",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 392,
+      "users90": 449,
+      "runs30": 35962,
+      "failShare": 0.457,
+      "rating": 4.251264602894786,
+      "reviews": 25,
+      "healthySubstitutes": 7,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "moving_beacon-owner1/my-actor-73",
+          "title": "YouTube Thumbnail Downloader",
+          "users30": 240,
+          "failShare": 0
+        },
+        {
+          "id": "lurkapi/youtube-channel-email-scraper",
+          "title": "YouTube Channel Email Scraper",
+          "users30": 186,
+          "failShare": 0.0002
+        },
+        {
+          "id": "lurkapi/youtube-to-mp3-audio-downloader",
+          "title": "YouTube to MP3 Audio Downloader",
+          "users30": 163,
+          "failShare": 0.0009
+        }
+      ]
+    },
+    {
+      "id": "zen-studio/shopee-product-scraper",
+      "title": "Shopee Product Scraper - Live Stock & Prices",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 341,
+      "users90": 577,
+      "runs30": 13418,
+      "failShare": 0.2532,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 53,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "junglee/Amazon-crawler",
+          "title": "Amazon Product Scraper",
+          "users30": 3577,
+          "failShare": 0.0295
+        },
+        {
+          "id": "scrapesage/taobao-scraper",
+          "title": "Taobao & Tmall Scraper - Products, Prices, Sellers & Reviews",
+          "users30": 2238,
+          "failShare": 0
+        },
+        {
+          "id": "zen-studio/naver-shopping-scraper",
+          "title": "Naver Shopping Scraper (네이버쇼핑) - Prices, Specs & Reviews",
+          "users30": 2108,
+          "failShare": 0
+        }
+      ]
+    },
+    {
+      "id": "b2bdata/linkedin-company-search",
+      "title": "LinkedIn Company Search | X-Ray | No Login | Bulk",
+      "category": "LEAD_GENERATION",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 339,
+      "users90": 339,
+      "runs30": 9613,
+      "failShare": 0.2768,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 112,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "curious_coder/linkedin-jobs-scraper",
+          "title": "Linkedin Jobs Scraper",
+          "users30": 16150,
+          "failShare": 0.0072
+        },
+        {
+          "id": "harvestapi/linkedin-profile-scraper",
+          "title": "LinkedIn Profile Scraper + Email (No Cookies)",
+          "users30": 13990,
+          "failShare": 0.0003
+        },
+        {
+          "id": "harvestapi/linkedin-profile-posts",
+          "title": "LinkedIn Profile Posts Scraper (No Cookies)",
+          "users30": 12038,
+          "failShare": 0.0001
+        }
+      ]
+    },
+    {
+      "id": "dromb/coles-au-product-search-specials-stores-unofficial",
+      "title": "Coles AU Product Search Scraper",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 278,
+      "users90": 295,
+      "runs30": 13723,
+      "failShare": 0.5338,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 57,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "junglee/Amazon-crawler",
+          "title": "Amazon Product Scraper",
+          "users30": 3577,
+          "failShare": 0.0295
+        },
+        {
+          "id": "delicious_zebu/naver-product-detail-scraper",
+          "title": "Naver Product Detail Scraper",
+          "users30": 2056,
+          "failShare": 0.0026
+        },
+        {
+          "id": "zen-studio/naver-product-detail-scraper",
+          "title": "Naver Shopping Product Detail Scraper (네이버쇼핑) - Specs",
+          "users30": 2047,
+          "failShare": 0.0002
+        }
+      ]
+    }
+  ],
+  "migrationRetest": "Re-run this script on or after 2026-11-05 and compare users30 of each leader and its topSubstitutes below; one snapshot cannot measure migration.",
+  "readOnlyLedger": {
+    "storeCalls": 404,
+    "messages": 0,
+    "spendCents": 0,
+    "accounts": 0
+  },
+  "truthBoundary": "Public listing statistics. Run failure share includes failures caused by user input. Not demand for a new Actor, not revenue, not a payout."
+}

@@ -1,0 +1,130 @@
+{
+  "schema": "uberbond.machiavelli.preregistration.v1",
+  "registeredAt": "2026-10-22T22:21:19Z",
+  "mission": "UBERBOND MACHIAVELLI Omega-Infinity: THE ABSOLUTE MONEY HUNT (founder directive 2026-10-22). Directive text was not attached to this session or found in the repository: NOT_HYDRATED. The 120 income-mechanism seeds it references are likewise NOT_HYDRATED; nothing here claims to have read them.",
+  "selectionRationale": "Open drafts #1532/#1535/#1536/#1537/#1538 all work the website-inquiry-audit lane; #1538 already ran E1 there and assigned E2. To avoid duplication, this session runs the two tournament-recommended experiments that were never executed: rank 1 (Single Audit Obligation Radar) and rank 3 (Apify Store breakage). Both are read-only on public data, zero cost, zero contact.",
+  "authority": {
+    "businessEffectAuthority": "NONE",
+    "messages": 0,
+    "spendUsd": 0,
+    "accountsCreated": 0,
+    "trades": 0
+  },
+  "experiments": [
+    {
+      "id": "X1-single-audit-radar-hindcast",
+      "question": "When the radar flags a nonprofit with >= threshold direct federal obligations in a federal fiscal year and no prior FAC filing history, how often does that entity in fact file a Single Audit for that period?",
+      "whyHindcast": "Prospective forecasts cannot resolve for ~9-21 months. Federal FY2023 can be resolved now against FAC.",
+      "data": {
+        "fac": "keyless FAC bulk CSVs general.csv and additional_ueis.csv from app.fac.gov/dissemination/public-data/gsa/full/ (download date and SHA-256 recorded in the result)",
+        "usaspending": "POST /api/v2/search/spending_by_category/recipient/ ; federal FY2023 (2022-10-01..2023-09-30); award types 02,03,04,05; recipient_type nonprofit; place of performance state"
+      },
+      "states": [
+        "GA",
+        "OH",
+        "AZ"
+      ],
+      "threshold": {
+        "usd": 750000,
+        "basis": "2 CFR 200.501 as in force before the 2024 revision; the $1,000,000 threshold applies only to fiscal years beginning on or after 2024-10-01"
+      },
+      "estimator": "FY2023 direct federal obligations per recipient UEI. Known bias: obligations are not expenditures, and pass-through (subaward) funding is invisible, which harms recall but not the precision measured here.",
+      "flagRule": [
+        "FY2023 direct obligations >= $750,000",
+        "no FAC report (as auditee UEI or as additional UEI) for audit years 2019-2022 accepted before 2023-10-01",
+        "no FAC report for audit years 2019-2022 accepted before 2023-10-01 whose normalized auditee name + state equals the recipient's (guards against UEI changes)"
+      ],
+      "strata": {
+        "core": "$750K <= obligations < $5M",
+        "large": "obligations >= $5M"
+      },
+      "outcome": {
+        "primary": "entity files audit year 2023 or 2024 (auditee UEI, additional UEI, or normalized name + state) \u2014 absorbs entity fiscal-year misalignment",
+        "strict": "audit year 2023 only"
+      },
+      "metrics": [
+        "precision_primary (core stratum is the headline)",
+        "precision_strict",
+        "true new obligors per state",
+        "outcome categories: FILED_PRIMARY, FILED_LATER_ONLY, NEVER_FILED"
+      ],
+      "decisionRules": {
+        "kill": "core-stratum precision_primary < 0.35 (the kill threshold set in docs/MACHIAVELLI_WEALTH_ENGINE.md)",
+        "thinYield": "median true new obligors per state < 5 means commercially thin even if precise",
+        "continue": "precision >= 0.35 and median yield >= 5"
+      },
+      "descriptiveOnly": [
+        "national first-time filers per audit year (UEI absent from the prior three audit years and from additional_ueis)",
+        "distinct auditor firms and concentration",
+        "year-over-year auditor-change rate"
+      ]
+    },
+    {
+      "id": "X2-apify-store-breakage-observatory",
+      "question": "Do high-demand public Apify Actors fail often enough, without healthy substitutes, to leave a stranded-user niche a new Actor could serve?",
+      "data": "public GET https://api.apify.com/v2/store (no account), full pagination, >= 1 s between calls; only listing fields are retained",
+      "definitions": {
+        "runs30": "stats.publicActorRunStats30Days.TOTAL",
+        "failShare": "(FAILED + TIMED-OUT) / TOTAL; ABORTED excluded as user-initiated",
+        "brokenLeader": "users30 >= 200 and runs30 >= 1000 and failShare >= 0.20",
+        "healthySubstitute": "different Actor, shares the leader's first category, shares >= 1 title token after stopwords, failShare <= 0.05, runs30 >= 500, users30 >= 50"
+      },
+      "decisionRules": {
+        "H2a_kill": "fewer than 25 broken leaders: breakage is not a material cross-sectional phenomenon; kill the foundry",
+        "H2b_kill": "more than 70% of broken leaders already have a healthy substitute with users30 >= 0.5 x the leader's: substitutes already absorb demand; kill the foundry",
+        "continue": "otherwise, rank unabsorbed broken leaders by stranded users30 as build candidates"
+      },
+      "notClaimed": "The canon's 14-day migration test needs a second snapshot on or after 2026-11-05 with these exact definitions. One snapshot measures a cross-section, not migration."
+    },
+    {
+      "id": "S1-auditor-change-early-warning-hindcast",
+      "registeredAt": "2026-10-22T22:30:03Z",
+      "origin": "Successor surfaced by X1 market facts (continuing entities change auditor EIN 11-14% a year). Registered before any S1 outcome is computed.",
+      "question": "Can public FAC fields known at an entity's 2024 report predict whether its auditor EIN changes for 2025 well enough to sell as an early-warning list to audit firms?",
+      "population": "Entities with a real UEI and reports for audit years 2022, 2023, 2024 and 2025, each with a valid 9-digit auditor EIN. Latest resubmission per UEI-year is used if duplicates exist (last row read).",
+      "outcome": "auditor EIN on the 2025 report differs from the 2024 report",
+      "features": [
+        "tenure: 1 if EIN2024 != EIN2023, 2 if EIN2024 == EIN2023 != EIN2022, 3 if all equal",
+        "entity_type",
+        "auditor portfolio size bucket (2024 audits by that EIN: 1-5, 6-20, 21-100, >100)",
+        "total_amount_expended bucket (<1M, 1-3M, 3-10M, >10M)",
+        "going concern included",
+        "material weakness disclosed",
+        "low-risk auditee",
+        "auditee state == auditor state"
+      ],
+      "model": "Smoothed frequency table over the feature cross product, backed off to tenure x portfolio bucket, then tenure, then base rate, when a cell has fewer than 30 training rows. Train/test split by SHA-256 of UEI (even first hex digit = train).",
+      "metrics": [
+        "Brier skill score vs the training base rate on the test half",
+        "change rate in the top predicted decile vs base rate"
+      ],
+      "decisionRules": {
+        "continue": "Brier skill score >= 0.05 AND top-decile change rate >= 2x base rate",
+        "kill": "otherwise: auditor change is not predictable enough from public fields to sell"
+      },
+      "caveat": "EIN change includes CPA-firm mergers, which are not RFP opportunities; a pass would still need merger filtering before any product claim."
+    }
+  ],
+  "amendments": [
+    {
+      "id": "X2-A1",
+      "recordedAt": "2026-10-22T22:27:01Z",
+      "experiment": "X2-apify-store-breakage-observatory",
+      "reason": "The public Store API returns no items at offset >= 15000 for every sortBy tried (newest, popularity, default), so the pre-registered full pagination is impossible. A first run with sortBy=newest read 11,368 of 93,895 Actors; it is void and is not scored. Disclosure: its output (1 broken leader) was seen before this amendment.",
+      "change": "Reconstruct the listing as the union of (a) the global popularity-sorted crawl and (b) a popularity-sorted crawl per category, deduplicated by username/name. Definitions and decision rules are unchanged.",
+      "completenessRule": "Score H2a/H2b only if, for every partition that reached the offset cap, the maximum users30 on its last page is below the substitute floor (50). Otherwise publish INCOMPLETE and make no decision. Assumption stated: within a partition, popularity order is close enough to users30 order that no Actor beyond the cap reaches 50 users30 when the last page does not."
+    },
+    {
+      "id": "X2-A2",
+      "recordedAt": "2026-10-22T22:42:43Z",
+      "experiment": "X2-apify-store-breakage-observatory",
+      "reason": "Under A1 the A1-governed run read 66,299 distinct Actors and failed the A1 tail rule in 5 partitions (popularity order is not users30 order), so it was published as INCOMPLETE_NOT_SCORED. Disclosure: its partial figures (13 broken leaders, 13 absorbed) were seen before this amendment.",
+      "change": "For each partition that reached the offset cap, also crawl sortBy=newest, lastUpdate and relevance (each capped at offset 15,000) and union by Actor id. Definitions and decision rules are unchanged.",
+      "completenessRule": "Replace the A1 order assumption with direct enumeration. Calibrate the visible fraction as the median of distinct/reportedTotal over uncapped categories with reportedTotal >= 1,000 (the Store reports items it never returns). Complete only if every capped category, and the global union, reaches coverage >= calibrated fraction - 0.02. Otherwise INCOMPLETE_NOT_SCORED again, with no further amendment in this session."
+    }
+  ],
+  "timestampCorrection": {
+    "correctedAt": "2026-10-22T23:01:00Z",
+    "what": "registeredAt / recordedAt values were originally typed as estimates (22:35Z, 23:20Z, 23:55Z, 00:40Z) and were wrong. They now carry the authoritative push-commit times: c0b1ded (X1/X2), 1aeea71 (A1), 03c1ad9 (S1), 8e63e23 (A2). No other field changed; the original text is in git history."
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "uberbond.machiavelli.s1-auditor-change-hindcast.v1",
+  "preregistration": "artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json (S1)",
+  "ranAt": "2026-10-22T22:31:05.352Z",
+  "data": {
+    "facGeneral": {
+      "rowsUsed": 183236,
+      "sha256": "c7dd80a8ad5e67f1bbc3c399ac3debb80fc46f4ee264492c6e5cf8aaa367551a"
+    }
+  },
+  "population": {
+    "entities": 31756,
+    "train": 15866,
+    "test": 15890
+  },
+  "result": {
+    "n": 15890,
+    "testChangeRate": 0.1391,
+    "trainBaseRate": 0.1394,
+    "brierModel": 0.1167,
+    "brierBase": 0.1197,
+    "brierSkill": 0.0254,
+    "topDecileChangeRate": 0.2706,
+    "topDecileLift": 1.9457,
+    "decision": "KILL"
+  },
+  "descriptive": {
+    "changeRateByTenure": [
+      {
+        "tenure": 1,
+        "n": 4187,
+        "changeRate": 0.1784
+      },
+      {
+        "tenure": 2,
+        "n": 2880,
+        "changeRate": 0.1375
+      },
+      {
+        "tenure": 3,
+        "n": 24689,
+        "changeRate": 0.1328
+      }
+    ]
+  },
+  "truthBoundary": "Predictability of a public signal, not demand. EIN changes include CPA-firm mergers. No firm or entity was contacted."
+}

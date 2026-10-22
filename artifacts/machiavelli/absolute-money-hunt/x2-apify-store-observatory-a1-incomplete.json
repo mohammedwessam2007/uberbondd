@@ -1,0 +1,1920 @@
+{
+  "schema": "uberbond.machiavelli.x2-apify-store-observatory.v2",
+  "preregistration": "artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json (amendment X2-A1)",
+  "snapshotAt": "2026-10-22T22:36:01.741Z",
+  "source": "GET https://api.apify.com/v2/store (public, unauthenticated), sortBy=popularity, global + per category",
+  "coverage": {
+    "globalReportedTotal": 95767,
+    "itemsRead": 142475,
+    "distinctActors": 66299,
+    "completeness": {
+      "complete": false,
+      "floor": 50,
+      "failingPartitions": [
+        "global",
+        "category:AUTOMATION",
+        "category:DEVELOPER_TOOLS",
+        "category:ECOMMERCE",
+        "category:LEAD_GENERATION"
+      ]
+    },
+    "partitions": [
+      {
+        "name": "global",
+        "reportedTotal": 95767,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 1851
+      },
+      {
+        "name": "category:AGENTS",
+        "reportedTotal": 4156,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 85
+      },
+      {
+        "name": "category:AI",
+        "reportedTotal": 12320,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 58
+      },
+      {
+        "name": "category:AUTOMATION",
+        "reportedTotal": 36804,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 326
+      },
+      {
+        "name": "category:BUSINESS",
+        "reportedTotal": 10540,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 139
+      },
+      {
+        "name": "category:COVID_19",
+        "reportedTotal": 5,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 1
+      },
+      {
+        "name": "category:DEVELOPER_TOOLS",
+        "reportedTotal": 26582,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 210
+      },
+      {
+        "name": "category:ECOMMERCE",
+        "reportedTotal": 16380,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 1336
+      },
+      {
+        "name": "category:EDUCATION",
+        "reportedTotal": 686,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 26
+      },
+      {
+        "name": "category:FOR_CREATORS",
+        "reportedTotal": 331,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 711
+      },
+      {
+        "name": "category:GAMES",
+        "reportedTotal": 173,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 11
+      },
+      {
+        "name": "category:INTEGRATIONS",
+        "reportedTotal": 2739,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 139
+      },
+      {
+        "name": "category:JOBS",
+        "reportedTotal": 8282,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 49
+      },
+      {
+        "name": "category:LEAD_GENERATION",
+        "reportedTotal": 30976,
+        "reachedCap": true,
+        "lastPageMaxUsers30": 123
+      },
+      {
+        "name": "category:MARKETING",
+        "reportedTotal": 3979,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 375
+      },
+      {
+        "name": "category:MCP_SERVERS",
+        "reportedTotal": 2973,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 275
+      },
+      {
+        "name": "category:NEWS",
+        "reportedTotal": 5102,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 8
+      },
+      {
+        "name": "category:OPEN_SOURCE",
+        "reportedTotal": 1099,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 12
+      },
+      {
+        "name": "category:OTHER",
+        "reportedTotal": 7352,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 84
+      },
+      {
+        "name": "category:REAL_ESTATE",
+        "reportedTotal": 5841,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 76
+      },
+      {
+        "name": "category:SEO_TOOLS",
+        "reportedTotal": 6479,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 184
+      },
+      {
+        "name": "category:SOCIAL_MEDIA",
+        "reportedTotal": 13676,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 318
+      },
+      {
+        "name": "category:SPORTS",
+        "reportedTotal": 447,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 454
+      },
+      {
+        "name": "category:TRAVEL",
+        "reportedTotal": 3356,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 53
+      },
+      {
+        "name": "category:VIDEOS",
+        "reportedTotal": 4627,
+        "reachedCap": false,
+        "lastPageMaxUsers30": 1907
+      }
+    ]
+  },
+  "snapshot": {
+    "storedOutsideGit": true,
+    "lines": 66299,
+    "sha256": "f123d35c1d4d18152f9baad4fb01ad2d522dfa19855cc6d4a90411759a76d647"
+  },
+  "pages": [
+    {
+      "partition": "global",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "321a58756ab96e3f3a7bb601b5ddef3835b746877b68611113be8ece4b03ef38"
+    },
+    {
+      "partition": "global",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "dc9cbcb64a388dea5b849c0da1d4340d3e4faf394722c4393f17267e607c5368"
+    },
+    {
+      "partition": "global",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b8ad95de5271fd699cfba6263509858dc798aefddd4c5fff2331361602642225"
+    },
+    {
+      "partition": "global",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "81d6714080584c211511f4a7a965f3ab91eab679c75c6d63a239e82fe86e0cc6"
+    },
+    {
+      "partition": "global",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "133a4396c45a8a0f6f468ce7c6987ae1a943b47be5b42bd62e55a06be8b060d7"
+    },
+    {
+      "partition": "global",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ea605a1792828c669d77430008f8e59806832348155cb0acf959c35033525cd1"
+    },
+    {
+      "partition": "global",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "76c79ec00cd586a025dff062e535bf3150424dc2361312e4a2ae537a040e712b"
+    },
+    {
+      "partition": "global",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "16d3171d8bcfa6635cc675f1a4a55badf088e96d154bf70bccbdfabd2bba298a"
+    },
+    {
+      "partition": "global",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "178a6b8b0b0cd83f41a4a46e7366117c665c899cfc19df5a45603ac0455449ff"
+    },
+    {
+      "partition": "global",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bcdcf5906a76b20f1f64e7a75a64817a574b2f8e9115884d8cd506f63b339732"
+    },
+    {
+      "partition": "global",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e6547e9de04d25833148675ac7913f2c21792c1624a8db4db73a9c1eb93dc955"
+    },
+    {
+      "partition": "global",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bb6704d5264fdd846ef11b58bb460639a310a529b62b723254f3607de8b6cbca"
+    },
+    {
+      "partition": "global",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "68c2779ac45cd844dcfe2693ae0ff3c0a24068b5a328626fd3fd3e7b2e7a1b14"
+    },
+    {
+      "partition": "global",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "96f04e23109c94fa98467a85de420bd70dec26ed00c93791219e07ade85464e3"
+    },
+    {
+      "partition": "global",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9a363d1420147e78d48c6cc0863b6804ca5c5dd1aada0f67b03c2f3d3ce3d798"
+    },
+    {
+      "partition": "category:AGENTS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "72bbdea351f39b73b21ade118af86a6a8fbe2a3e61ea49ed575dc7b88cf6ce1e"
+    },
+    {
+      "partition": "category:AGENTS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0a68ed88e1aa8aab81c8d9eeb34d87913cbbc1b583bf4d8ec78bacc6b203acfa"
+    },
+    {
+      "partition": "category:AGENTS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "201f4b0083badaafeee7c045bb5bba3bd1a652816cb1aff9c0cbba9a6ffeefa4"
+    },
+    {
+      "partition": "category:AGENTS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c525bee1b03ad4aabccb8e4c3fdf4f0bd40f40e1c177b48d04f61fbcefc9b6a9"
+    },
+    {
+      "partition": "category:AGENTS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e9df24457f7e3e1b553acf95c48aea2f54024af5eeef9f0f64680e5e80fd0d85"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e88d7791e05c14f4971c9651240537988fff520239a650e2c25ba04e51b0d3d2"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "607b9bf3b20ff3d935d560d821270e7c81f1f16643a67892af98ba07149e456d"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2130d0bbe8463371f51dea39e4bafc00e84adffc077a8d6510ef4e3fbf569c93"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9bd6221aeea5460edff800755f24b959c747b7306d080ef087b8e325df2222bd"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "71c01d39670e8d6754bb574a31903f77c35b6d19172c7816f77fb2cfb5e1f07a"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f7ff57b1dd00c04639d8cb2cbbf53c62991dd988efb534f58b2362f5b4a7b61d"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "da798940a281958dbaad7662979ee92e69714bc863bdd19d6909a85a87f991e8"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ca95d9820295745d9fcca1296c758353cb67afea4557e3daeb997aca38c593cc"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c70ba9436a2433b8d3bc1be21d68321857fae33fd47b95f8726d02a81a30c7ef"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "85431134fe6462ed2d465917374f1e3de64b143734d5a0e7fe62837da4fc34b1"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e70310b7e9229e7927c7fc0cc3cf306f7221e21dc9577ed568ad6ba269698043"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "71adb235dda8c9ce99a17d3a1ba9319cb5da25544152cc79ccc9cd8c02757a23"
+    },
+    {
+      "partition": "category:AI",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4207d9ce9a2b2037132a475b70d88a043cf2bb7a2b6c3e6eb39c6c254a70bb41"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0183397b6643e80844972307ae28a4bad370febaec1f3243fa7d0fcc550820ef"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c65c9851bf4d58340d258675109505901027eda7d3870cae83f464a76793780c"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2b6be80b8854212a6618eba6650533592cac44dc9f7dcc5e7cb69be2e35f99f7"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4498b943670d1adc2d7ebcfb82bc646b767a9068dec84cbb1bcfedb7e4bdf57d"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3fbd64de222f079bb6ed2a15c5f71ca790e99a93b7875e8152ffb92bfee87ec3"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "78a725d787fa02f15ef3c61109716002b3b553f4f3e4a3216794cdd1c50b961b"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e43d5be542129afe30d3c9218b5bcba67bca8e0c40ece28d073717ee4fa73b09"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d811932c2ff60e69d186ecce8942ecb46104e2acbffb29918674f92dca83b6b3"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2b1d822e2f571dbfb11137b791a6feb09784dfe1e5beabcddb8d70c9afbd4b45"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d61a17764fe0ceeecb3d872d8e7cf5c4070ce3c3892e9c2c938867d3a0fad0ed"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "00b812fe129f80a353ce7ce46b2a9e0eeb1ced1169dafc0ad5a4b4103f72a605"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e0161ba3f7f010d96af72eaf2d85fc50b321120017797fba8c6501c48b01215b"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a01b8cde3485581d80207f852c33c71272736df416b23826d4f235326b4bea9d"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "490be4a2fcce3eb9eb98b7b6ea293b1770101053674fa23e2149d89c3670963f"
+    },
+    {
+      "partition": "category:AUTOMATION",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1295b267c56f82cf1cdd72b24f2c633c4ecfdd0c43960361bd7c4e316cdf25dc"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "92ae0474d54379db2794d2a8756fc44a67b805c7db0d5c355493e5d18d11cff0"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8f3b2b69a698fa76aa16d169fa4bef84039493f78951ac0450132be04d0921e3"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f22d666ca3ea398ea64999ae46140210e003afd798d89926ea8fb5da007a691b"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "22593d1808e376215c23947ea36ea8f4b8ee8691272adc9caa8cb4f85529da89"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0560e13265470d97652d795efc269c39d66cc21d6d73749a88f132ad37b3a51f"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "53b3caf80795aa87079bdf7c19f99f4915fc3338a48641ce12dac8c9a179d4fa"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "10f596e0a6f892536ea4038d2811a61adeb9edcc2e5e38ba297abdbf7fd9b9f1"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d4ddf8e30596bd09a688d8fef1cb569d8e3ccd9c5399c567d1dbe679041b7950"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "33855c9f50e14dc779e1fda2796287413d9d2885a24da93a85426e4fa3b0d68e"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b5e2d4c61b834cec1a9a545eeee524fae8c7a621997ba3d7bf542830dc219e80"
+    },
+    {
+      "partition": "category:BUSINESS",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0d9bc8dcb06a1c203069e3e9277e3eccb0a9f447961dbf723d268650c765bbb4"
+    },
+    {
+      "partition": "category:COVID_19",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fd2f3c581a3133e3cf9873a7e3fdc21181a15d25759d55af0623873df64bb3ff"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "261bcf1482191de0ec543d75e691eaaf77b014db9696118bac66e5f25d4d0b59"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fa27890d6832ccdc4bad44dc177ae7d786e39ab00cb7c6f6657c202310890acf"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2a0d8eee20fd225ce26f2126966d153f02b9d9f521d598ed5d44bdd286db9803"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4fc97afe803ce341ae315d38f3dc9183964fcc920c6a9cefa5b8cb4e1de109c1"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c782382c6b40dc05845d3c7b8ac8ba4d959bbaeb88440b9f731ae49437ee9384"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6e7a538d20506d373220d5aaa3e2cc656a57951f36ce312a37e875356bc23274"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c72722f79a77c164f800e1b4ffac2c88e358343d92160027286aaa71862b7c91"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "fe7ab7e8cf914707e08764a71309b3f3f4c18fbe24c9e9a7faa998a7464037c5"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "238bd4cd8e5120681fb992433c7f24a6b72f56d4d757180324a190a74898f59f"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "983413c135d21868bb59e36b5b668f71e7d004e679d169719036c59b6090a8d3"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8d4dbcea2789c153c0075f6e408e2569be644b9c687955bf42813e593dadc0af"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "71e480f4182dae84f3c5e5661c14c8054bb41ec9dbcf199103b2372da28d3214"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b22d33830218a5273d2abe471eaeddd661c6975f7bbc2c5aa4dd5cbc1d02eafd"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "31f0846d577da357ce554ec2e93b1a9ed205c23a4598e63637639e8bb80419ef"
+    },
+    {
+      "partition": "category:DEVELOPER_TOOLS",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "aee3e7868d817d8ff699d988eac89485b21c6ae4aec4fc12be479e8d104e6f7f"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f47dbf6ff88e454ffbf82ca16fa07c3f36bc38854dcda82ae8562ce85bc1a2b8"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "01a9d188a92a7403c81a4a36274f3fc10efde24f200834a8daa3322a88c35ac2"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a8fdbe96cbe49a33eb1b0c99da92d7838ed3abe56e250a5ee4632c8751b4ed6e"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ebf9bbbba58bc56eb42e8748e8ed0aa3bb9ddfb690c5e440a28fb8cf9f1d86df"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "00a4826d5954e8ebed8536b32eea89d5b53b15fa177683367773ab46c69ca7f3"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7878192a331860d3d520af3896b46fd9af8c794c6c54b2f3155fe3e59d53acef"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "52e77638b9e03a1afea3b4afbfb9b3194cdd6f5f65a4f5f5922361bf976d7955"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a8e472440e4ecf221b53cd604c84e14fffbebe4ba83ce8c59c49a9366a4aac4f"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a6f9e8f903fd4a14daf3e1b9ef59b37e0e7c2631355baa4c9565f78438d50f21"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2ae652f52f2abd8bfdef5bec61f9c0728215cab600a8a710d96af82d70878849"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4dd767f585a9accff2a13523192a846b073bb4ecfc32c4a9ce0330c7d6ede1d3"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9bd897f704b50ea321667b424d421f5bbf4b6e756c3b773595ac101fc2dee067"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "458bafe244704fea36c9d06ac08616f4424c2d3cc53a71a9c89078114b072ac7"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0dfea12a6254c0828c1efe80293e4752d7861ee1295805116cb13dd63f18141b"
+    },
+    {
+      "partition": "category:ECOMMERCE",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "58f87774cafbba67059f28f746bcdbb48ea243c8568454a43dc0358ab37e28a0"
+    },
+    {
+      "partition": "category:EDUCATION",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8418e0df10d9062d5bad2b67f2f45439f7ddac5e7bd0e179953007a78b452dd6"
+    },
+    {
+      "partition": "category:FOR_CREATORS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "945dbf03d98f43a08674d63a13003e6b5ea902b92cef14574bf7f9a21223b519"
+    },
+    {
+      "partition": "category:GAMES",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "31eae01dbe4ed580e32fff51cafc66b77551513fbdca8106517d03e6f64dd401"
+    },
+    {
+      "partition": "category:INTEGRATIONS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d8fd0f452f7109111ed10dd29d8147bf2e34dbdfb0790d54586922c1bce1452e"
+    },
+    {
+      "partition": "category:INTEGRATIONS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4cadea3b4e015672fb4f33fb9d620761266498307b1e9fdb5a672220de4f3c0b"
+    },
+    {
+      "partition": "category:INTEGRATIONS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "eacc6bf371838d5b9b56fc53dcc0c335fa1d332cad225e5fd5d304f314b8606e"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "8f08b22c7fa8c5709ba7f0e11e9e6208cb311c7846a79b2bf09482820cd71763"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c0fa9c53b387bbd82819785d5bcd61b7506a0ab9200d74383483a58c23912c50"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f27b6c1444824dcd9400fcf903c5f05b302a78a470864dcc0f648b78b517f5eb"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0da6d8d84ea11d54233c2db30106dad48afb432402c45556c7185be6283a259d"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c0917adc417bea7253cbebb2cc7bc2665506f69c3b87e7b4703b3a836dc70742"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3cf073c1825677dce9e7f5adeec0c10dbea3ff5c2282744e8039ecb98a9565cc"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "56203e730c78d6f6fdb45ff3b662db527c175e9b17bb1aec06ce6b5d172df87a"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c6245d5efe4a549cb0829ffca8565e0d6e4a26c8cc699d745679ce06f5000678"
+    },
+    {
+      "partition": "category:JOBS",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d11c4956d7fe26ab5f77a18b763175e43eec728e862069d0160d1d6c99c76f3d"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9ff68ad76881ad9a67336c76f45c5d249d22d30bade2a49fc882eb2cd98ef1fd"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "23ea86ab0dd67a2ed5cc1ad2fc26d9ef7466ca08d20f3640a920559a2f15f0c9"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e43f375bcff56a7d608013f63ab4785a2b490856f01f17542e9023a6e9a395b4"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b2712fd90fea0675a6b058db48f612f269a2402838a82d00a54eb14cc250ff8a"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "67d16ebd457f3aec5d24c789299ba314d058a40cc9b07c1d450aa002363c2a61"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0b1efff63c79fcbfa12c7d8445e7a14fee6919b304847cdb9fc202f22427d230"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f05001c60812383d2d8c68c1c80515c10c3867ee169223c0377b3d371915c7d1"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7f3a090144f6acf6370acfbba8e72b91a94105a4ba641058be6022bca046097c"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "712fa29e4b6971c83d013d69ac8422d35c2e6ec9494d86b5e301946e294ddb2e"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2519b127a24f65086df887e523eecaca8d27089dd4f628879db4d721de35b4e7"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "03ef5297cc26de343a5f3452fba015f7af82d4cdd40864a192e3f999bc975333"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "57c5b1126386942003c6e50a003bcec4b257f3918bd6abbdeda6ae95c1419825"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ddd8acf5db06ae1b83e994448f27a80cefbf61935b9ea7e1dc9094a84d0c6c82"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e6021b8164c41a4a3a375500afd5e1169ae588cd6a408603fd7e2a7b4c171205"
+    },
+    {
+      "partition": "category:LEAD_GENERATION",
+      "offset": 14000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0d24b334538e438eb1cc7c610a207ec46ff180da5717933052fa5c80242a6307"
+    },
+    {
+      "partition": "category:MARKETING",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5f242da59e47dbf098352c0792554f02d8c86cae45e645bafb1093cdc436836e"
+    },
+    {
+      "partition": "category:MARKETING",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "aa2955bda9567594e2e5989f819cffb9695bcdd532285615f3ad94ddf9d0bed1"
+    },
+    {
+      "partition": "category:MARKETING",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4b2172352ad69e74cf7fbadbe1e1a1f6be10ad4238bb18560e65c1d7858397ee"
+    },
+    {
+      "partition": "category:MARKETING",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "05302bfbf0b8ffd1e7205f7c13154269ab65b8f3c80568ae29a4be4b2297c07f"
+    },
+    {
+      "partition": "category:MCP_SERVERS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1c28c28b1697633a922f64fd30919d4ee388e7ed510065bfd015551982fc6cdf"
+    },
+    {
+      "partition": "category:MCP_SERVERS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d55d4cf53e9cf0b413a351b6b1e2f4ed9e92cc78014dcab4242d91fcb9131bcd"
+    },
+    {
+      "partition": "category:MCP_SERVERS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5d3535f0c187e0cfb4cd15393b6fd0e2b4a43a61e43ecf4854cd1e18a02b5de9"
+    },
+    {
+      "partition": "category:NEWS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "29ffddbe3313a4de61069eacfc4ef7cb2f5841f178293fe22a5d15aed7e793cb"
+    },
+    {
+      "partition": "category:NEWS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c80fbd2a6f22efde09ecc285fa49bdd311c338c1718a2e728c55ae7f21be48c7"
+    },
+    {
+      "partition": "category:NEWS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "b31ab927d587ef3a9191b9d5b579c4c2f0e4f9ef34ad75856e45222beeb7b029"
+    },
+    {
+      "partition": "category:NEWS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e741b9cd073145215003412daccd82b9d4006a3bdd5ba20432305bc7220d6e03"
+    },
+    {
+      "partition": "category:NEWS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0f1b136e537a0d4a3db7e84d9af1bf4145c899efa334c5a37d027bbc83352456"
+    },
+    {
+      "partition": "category:NEWS",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "95739ed7d9a11db9f227888e8dfbf2b7a6f0ce0cbf76a7bcdd3218113f3d1614"
+    },
+    {
+      "partition": "category:OPEN_SOURCE",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "000232d9489f0be100cf113d181881e99b7000ba283f8898f348b170add2b80f"
+    },
+    {
+      "partition": "category:OPEN_SOURCE",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "008173359477f578efc5a94ce276d7924566ae101df7352011eb06eb3523848a"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5061a2961a37db5a41b54d3376b49b9744496fe12b4c04c8e79b7fc902a5ac2a"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3de0686535e1062eb236c75f1c8dacfc588447dc1baefbc871909c70317e21fc"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "eddc6e8928890ff1f241c7b8eb4c456766251e3c29ac13a9d8ee944e0fc04bdb"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d203d0693e5ff40eddc9ddcf00265c3d62911cb6ccc81d97dd81880a353251e6"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "a171befe232a41c9c7c198d2443fb4318e1c13acadbd1429b32899b196f67528"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "08f5aab21d58722c56a981ea0c011998bfdeca8d71a7ed8df7ac03a3f4efa051"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "4f57bc7892af41171e5aecf3531f8007a2b2ce984e38736cd4d71c2d5fac0841"
+    },
+    {
+      "partition": "category:OTHER",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "bbca622049015ef59de38038c198ac8e9d137dd2e3de0a57df9fa800d5694b72"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "255c0e9b76df2bf283b0c498a5cd21aaca719dbf858de3b3c72d36ce3c55de96"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9ec5632e91473709cbde99ebfa62bbc5d667a637682b59c0ce9faf99b3e55d60"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "122e324d705ed98dd35eaa31ef18ec51387eaf731eab6f3667130afdc04d1bbd"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6008872e46873c088019a433d2e4b06a15ef5aa49800370578dd940c0f131ace"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ea8a787772efbbd8b80587ac0a28fc88cc38c7c103f3ed95255e03968d628e2e"
+    },
+    {
+      "partition": "category:REAL_ESTATE",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "c703b02ec987676ac64d7dbbcfcae61aac6229a65812131382528b9fbeb33afc"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "47e06ffac825c66c1a28d9ad518750901eb9594de70e04638990fa6511eeb28d"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "93686450ea4670995a7d3ecd66aa8d7aab5a774774101eba6a0b28c82d8a91b1"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3160d8aa1f43c7f5d068fc39c146e1966ae0e38c0470da2fac6e519a1b3b3be0"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3232011adac98ddb3d4d11e097bb19965ed02ddee018a4e58404e114425476d6"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "129e04e49df78f51e8781a67edc65a544f12d77f38faa72f75b8e7994e21565b"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cc43b0a702aadc5921dd0a19cec0744c887c9b091806ee24c88bd5789edabf1c"
+    },
+    {
+      "partition": "category:SEO_TOOLS",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "d15f37861840632144923386c40cf3fd6b0d80dff5703f03edba1689f21108ec"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "75802ab54a7453759b701c0a95c9c1f914054e461a42c2c5194479c14af86a2b"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "1fb5929e6457d31f44b55dc35a7670e782f6c9504b63add74b68da52148f5b4e"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "39e29397a95ca6c13ccb7b4f9d589fa498ad11eade517f0b969a54dae1bb77fa"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "3b289de130999c044f6e670f1dc0cf53e5443839829ad2f1e261a1dbbbcffc71"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e958752d2e8844572994500c3934a4ae2f501996105d4289c8e6355cf65b7eb5"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 5000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cac2af62ca4e953f0fa2f3c9c7baa6e9b329b72310158b9339f8e249b23a6c77"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 6000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "62aa0173f23415072e1adb8f424fb7c40ace7f355eaa55a3b743dfa8bd82ac35"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 7000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5f8c6d68c6dfea69cb99ece364dbf3a3cc46df75c6b251a64aa3ec1e8ae53351"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 8000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "aa9000d6d6c8db7e5d873dcf33af03ce2fd995713cdc39386505e6540f6fa2f9"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 9000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "cb53e65662140d83bb0ad27e40e4b6ebc40793e0ab07c2bc7a9a8c766af48278"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 10000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "9bad6a7e69225905a1e116883ca5dae2bf399d515186e1807f8d7ef265402261"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 11000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "e7d0e5f793f67a95303a2cb16af9a394b73ad503cf15249511ce09cc6c26fe44"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 12000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "069a666e52a9510a93e5cfb7ee080cb2cb143dccb62f430ae0e035aa43a581c7"
+    },
+    {
+      "partition": "category:SOCIAL_MEDIA",
+      "offset": 13000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "58748d995ea7d30be43b49bc55bf0ddf31be42f00d6dc36530f127ff8efd764c"
+    },
+    {
+      "partition": "category:SPORTS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7786d0edde3e31a960ca9757875e321badb1c9014e16677db488f284988b0016"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "6fb9828cc47975b55c32dcf2dc24108dee8321d4fb0e9155df7886fb46deedef"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "335ac5b951576cbf4f54d8e0430d12501cf005823efd243f3138c94270ee5474"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "7bff153b7fbbf19884cfbae66ca86127253fc646e35753c216d116b72bd83068"
+    },
+    {
+      "partition": "category:TRAVEL",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "ea157f05fee198e31d105e132c9d6c7cdf024aa62352cd7afd441f0f39ac4de8"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "offset": 0,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "374e1242d236abd439d189aa1cddfa8ba6b11e098350619895b537ff292b2b41"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "offset": 1000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "5ca65d3bde23e9fc28ad76e75d391ad85a7f802cb20f7e90f057e9adcabc93e3"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "offset": 2000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "0726215666e2481a609c1798220ed1917104419966ef04def21ca8c88de7f94a"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "offset": 3000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "2b2c355b16e2ea15d4a0fcb4c1bb0d8709a6a18da2e22a6dcae80610ade90e44"
+    },
+    {
+      "partition": "category:VIDEOS",
+      "offset": 4000,
+      "attempt": 1,
+      "status": 200,
+      "sha256": "f00e37a76a2af2c531c3dd698502536e9b5bf88f257dfeae993e28404dbf04e5"
+    }
+  ],
+  "definitions": {
+    "leader": {
+      "minUsers30": 200,
+      "minRuns30": 1000,
+      "minFailShare": 0.2
+    },
+    "substitute": {
+      "maxFailShare": 0.05,
+      "minRuns30": 500,
+      "minUsers30": 50
+    },
+    "h2aMinBrokenLeaders": 25,
+    "h2bMaxAbsorbedShare": 0.7,
+    "absorbingSubstituteUserRatio": 0.5
+  },
+  "actors": 66299,
+  "activeActors30d": 53833,
+  "pricingModels": {
+    "PAY_PER_EVENT": 64569,
+    "FREE": 1730
+  },
+  "brokenLeaders": 13,
+  "absorbedShare": 1,
+  "unabsorbedLeaders": 0,
+  "strandedUsers30": 0,
+  "decision": "INCOMPLETE_NOT_SCORED",
+  "leaders": [
+    {
+      "id": "apify/google-trends-scraper",
+      "title": "Google Trends Scraper",
+      "category": "SEO_TOOLS",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 2652,
+      "users90": 4443,
+      "runs30": 24325,
+      "failShare": 0.2273,
+      "rating": 3.677352332297747,
+      "reviews": 32,
+      "healthySubstitutes": 22,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/google-search-scraper",
+          "title": "Google Search Results Scraper",
+          "users30": 24313,
+          "failShare": 0.0182
+        },
+        {
+          "id": "scraperlink/google-search-results-serp-scraper",
+          "title": "Google Search Results (~$0.05/1K Results)",
+          "users30": 2121,
+          "failShare": 0.0006
+        },
+        {
+          "id": "aitorsm/keyword-volume",
+          "title": "Keyword Search Volume — Bulk Google Metrics (CPC & Trend)",
+          "users30": 904,
+          "failShare": 0
+        }
+      ]
+    },
+    {
+      "id": "pizani/taobao-product-scraper",
+      "title": "Taobao Product Scraper",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 2217,
+      "users90": 2244,
+      "runs30": 93334,
+      "failShare": 0.2388,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 36,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "junglee/Amazon-crawler",
+          "title": "Amazon Product Scraper",
+          "users30": 3577,
+          "failShare": 0.0295
+        },
+        {
+          "id": "scrapesage/taobao-scraper",
+          "title": "Taobao & Tmall Scraper - Products, Prices, Sellers & Reviews",
+          "users30": 2238,
+          "failShare": 0
+        },
+        {
+          "id": "delicious_zebu/naver-product-detail-scraper",
+          "title": "Naver Product Detail Scraper",
+          "users30": 2056,
+          "failShare": 0.0026
+        }
+      ]
+    },
+    {
+      "id": "lukaskrivka/google-sheets",
+      "title": "Google Sheets Import & Export",
+      "category": "AUTOMATION",
+      "pricingModel": "FREE",
+      "notice": "NONE",
+      "users30": 839,
+      "users90": 1089,
+      "runs30": 86262,
+      "failShare": 0.5433,
+      "rating": 4.810587299890248,
+      "reviews": 7,
+      "healthySubstitutes": 10,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "scraperlink/google-maps-scraper",
+          "title": "Google Maps Scraper | $0.40/1K Results 💰",
+          "users30": 805,
+          "failShare": 0.0003
+        },
+        {
+          "id": "data_xplorer/google-trends-fast-scraper",
+          "title": "Google Trends Scraper",
+          "users30": 748,
+          "failShare": 0.0045
+        },
+        {
+          "id": "johnvc/Google-Flights-Data-Scraper-Flight-and-Price-Search",
+          "title": "Google Flights API",
+          "users30": 406,
+          "failShare": 0.0029
+        }
+      ]
+    },
+    {
+      "id": "toolzerhub/douyin-video-search-scraper",
+      "title": "Douyin Video Search Scraper",
+      "category": "SOCIAL_MEDIA",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 711,
+      "users90": 813,
+      "runs30": 1597,
+      "failShare": 0.4058,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 98,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/instagram-search-scraper",
+          "title": "Instagram Search Scraper",
+          "users30": 6868,
+          "failShare": 0.043
+        },
+        {
+          "id": "harshmaur/reddit-scraper",
+          "title": "Reddit Scraper - Posts, Comments, Search & Subreddits",
+          "users30": 4315,
+          "failShare": 0.0145
+        },
+        {
+          "id": "zen-studio/douyin-search-scraper",
+          "title": "Douyin 抖音 Search Scraper + Video Downloader - 60+ Fields",
+          "users30": 2010,
+          "failShare": 0.0025
+        }
+      ]
+    },
+    {
+      "id": "vulnv/1688-wholesale-scraper",
+      "title": "1688 Wholesale Scraper - Products, Pricing & Suppliers",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 699,
+      "users90": 710,
+      "runs30": 2478,
+      "failShare": 0.2312,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 27,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "scrapesage/taobao-scraper",
+          "title": "Taobao & Tmall Scraper - Products, Prices, Sellers & Reviews",
+          "users30": 2238,
+          "failShare": 0
+        },
+        {
+          "id": "crw/temu-products-scraper",
+          "title": "Temu Products Scraper",
+          "users30": 664,
+          "failShare": 0.0158
+        },
+        {
+          "id": "zen-studio/alibaba-scraper",
+          "title": "Alibaba Scraper - Products, Verified Suppliers, 100+ Fields",
+          "users30": 334,
+          "failShare": 0.0007
+        }
+      ]
+    },
+    {
+      "id": "apify/ai-web-scraper",
+      "title": "AI Web Scraper",
+      "category": "AI",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 693,
+      "users90": 1053,
+      "runs30": 11996,
+      "failShare": 0.2067,
+      "rating": 4.8612878482457,
+      "reviews": 15,
+      "healthySubstitutes": 1,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/rag-web-browser",
+          "title": "RAG Web Browser",
+          "users30": 33650,
+          "failShare": 0.0138
+        }
+      ]
+    },
+    {
+      "id": "disarming_screw-owner/1-2-000-leads-apollo-scraper-replacement-b2b-b2c-leads",
+      "title": "Leads Scraper $1/2,000 Apollo/ZoomInfo Scraper B2B B2C",
+      "category": "LEAD_GENERATION",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 599,
+      "users90": 760,
+      "runs30": 33213,
+      "failShare": 0.2759,
+      "rating": 5,
+      "reviews": 4,
+      "healthySubstitutes": 29,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "code_crafter/leads-finder",
+          "title": "✨Leads Finder - $1.5/1k leads with Emails [Apollo Alternative]",
+          "users30": 2014,
+          "failShare": 0.0069
+        },
+        {
+          "id": "microworlds/leads-finder",
+          "title": "🍏 Leads Finder - Email 📧 + Mobile Number 📞​",
+          "users30": 1554,
+          "failShare": 0.0009
+        },
+        {
+          "id": "pipelinelabs/lead-scraper-apollo-zoominfo-lusha-ppe",
+          "title": "🎉Leads Scraper ✅ $1/1k Leads ✅ 50K/Run With EMAILS✅Like Apollo",
+          "users30": 1274,
+          "failShare": 0.0012
+        }
+      ]
+    },
+    {
+      "id": "zerobreak/google-hotels-scraper",
+      "title": "Google Hotels Scraper",
+      "category": "TRAVEL",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 524,
+      "users90": 562,
+      "runs30": 43948,
+      "failShare": 0.2367,
+      "rating": 4.999999999999999,
+      "reviews": 7,
+      "healthySubstitutes": 7,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "compass/Google-Maps-Reviews-Scraper",
+          "title": "Google Maps Reviews Scraper",
+          "users30": 8386,
+          "failShare": 0.0026
+        },
+        {
+          "id": "lergassy/google-flights-scraper",
+          "title": "Google Flights Scraper 💰$0.20/1K — Fares, Calendar & Booking",
+          "users30": 282,
+          "failShare": 0.0006
+        },
+        {
+          "id": "memo23/google-maps-reviews-scraper",
+          "title": "Google Maps Reviews Scraper $0.25+💰 Replies · Ratings · Search",
+          "users30": 187,
+          "failShare": 0.025
+        }
+      ]
+    },
+    {
+      "id": "curious_coder/linkedin-people-search-scraper",
+      "title": "Linkedin people search scraper",
+      "category": "SOCIAL_MEDIA",
+      "pricingModel": "FREE",
+      "notice": "NONE",
+      "users30": 511,
+      "users90": 542,
+      "runs30": 4172,
+      "failShare": 0.7529,
+      "rating": 4.662713401760105,
+      "reviews": 11,
+      "healthySubstitutes": 108,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "apify/instagram-search-scraper",
+          "title": "Instagram Search Scraper",
+          "users30": 6868,
+          "failShare": 0.043
+        },
+        {
+          "id": "harshmaur/reddit-scraper",
+          "title": "Reddit Scraper - Posts, Comments, Search & Subreddits",
+          "users30": 4315,
+          "failShare": 0.0145
+        },
+        {
+          "id": "apimaestro/linkedin-profile-detail",
+          "title": "Profile Details Scraper for LinkedIn + EMAIL (No Cookies)",
+          "users30": 3332,
+          "failShare": 0
+        }
+      ]
+    },
+    {
+      "id": "epctex/traffic-generator",
+      "title": "Traffic Generator (Youtube, Web, Etsy, Behance and many more!)",
+      "category": "AUTOMATION",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 392,
+      "users90": 449,
+      "runs30": 35962,
+      "failShare": 0.457,
+      "rating": 4.251264602894786,
+      "reviews": 25,
+      "healthySubstitutes": 7,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "moving_beacon-owner1/my-actor-73",
+          "title": "YouTube Thumbnail Downloader",
+          "users30": 240,
+          "failShare": 0
+        },
+        {
+          "id": "lurkapi/youtube-channel-email-scraper",
+          "title": "YouTube Channel Email Scraper",
+          "users30": 186,
+          "failShare": 0.0002
+        },
+        {
+          "id": "lurkapi/youtube-to-mp3-audio-downloader",
+          "title": "YouTube to MP3 Audio Downloader",
+          "users30": 163,
+          "failShare": 0.0009
+        }
+      ]
+    },
+    {
+      "id": "zen-studio/shopee-product-scraper",
+      "title": "Shopee Product Scraper - Live Stock & Prices",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 341,
+      "users90": 577,
+      "runs30": 13418,
+      "failShare": 0.2532,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 53,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "junglee/Amazon-crawler",
+          "title": "Amazon Product Scraper",
+          "users30": 3577,
+          "failShare": 0.0295
+        },
+        {
+          "id": "scrapesage/taobao-scraper",
+          "title": "Taobao & Tmall Scraper - Products, Prices, Sellers & Reviews",
+          "users30": 2238,
+          "failShare": 0
+        },
+        {
+          "id": "zen-studio/naver-shopping-scraper",
+          "title": "Naver Shopping Scraper (네이버쇼핑) - Prices, Specs & Reviews",
+          "users30": 2108,
+          "failShare": 0
+        }
+      ]
+    },
+    {
+      "id": "b2bdata/linkedin-company-search",
+      "title": "LinkedIn Company Search | X-Ray | No Login | Bulk",
+      "category": "LEAD_GENERATION",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 339,
+      "users90": 339,
+      "runs30": 9613,
+      "failShare": 0.2768,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 112,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "curious_coder/linkedin-jobs-scraper",
+          "title": "Linkedin Jobs Scraper",
+          "users30": 16150,
+          "failShare": 0.0072
+        },
+        {
+          "id": "harvestapi/linkedin-profile-scraper",
+          "title": "LinkedIn Profile Scraper + Email (No Cookies)",
+          "users30": 13990,
+          "failShare": 0.0003
+        },
+        {
+          "id": "harvestapi/linkedin-profile-posts",
+          "title": "LinkedIn Profile Posts Scraper (No Cookies)",
+          "users30": 12038,
+          "failShare": 0.0001
+        }
+      ]
+    },
+    {
+      "id": "dromb/coles-au-product-search-specials-stores-unofficial",
+      "title": "Coles AU Product Search Scraper",
+      "category": "ECOMMERCE",
+      "pricingModel": "PAY_PER_EVENT",
+      "notice": "NONE",
+      "users30": 278,
+      "users90": 295,
+      "runs30": 13723,
+      "failShare": 0.5338,
+      "rating": 0,
+      "reviews": 0,
+      "healthySubstitutes": 57,
+      "absorbed": true,
+      "topSubstitutes": [
+        {
+          "id": "junglee/Amazon-crawler",
+          "title": "Amazon Product Scraper",
+          "users30": 3577,
+          "failShare": 0.0295
+        },
+        {
+          "id": "delicious_zebu/naver-product-detail-scraper",
+          "title": "Naver Product Detail Scraper",
+          "users30": 2056,
+          "failShare": 0.0026
+        },
+        {
+          "id": "zen-studio/naver-product-detail-scraper",
+          "title": "Naver Shopping Product Detail Scraper (네이버쇼핑) - Specs",
+          "users30": 2047,
+          "failShare": 0.0002
+        }
+      ]
+    }
+  ],
+  "migrationRetest": "Re-run this script on or after 2026-11-05 and compare users30 of each leader and its topSubstitutes below; one snapshot cannot measure migration.",
+  "readOnlyLedger": {
+    "storeCalls": 180,
+    "messages": 0,
+    "spendCents": 0,
+    "accounts": 0
+  },
+  "truthBoundary": "Public listing statistics. Run failure share includes failures caused by user input. Not demand for a new Actor, not revenue, not a payout."
+}

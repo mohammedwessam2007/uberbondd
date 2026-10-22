@@ -1607,5 +1607,52 @@
       "Crypto rails legally blocked pending Egyptian counsel (Law 194/2020 Art. 206)"
     ],
     "nextHighestValueMission": "Founder completes payout KYC and proves one small payment reaches Egypt; then publish the verified-defects Actor (path-breaking classes only) and run the Single Audit radar willingness-to-pay probe."
+  },
+  "machiavelliAbsoluteMoneyHunt20261022": {
+    "founderDirective": "UBERBOND MACHIAVELLI Omega-Infinity: THE ABSOLUTE MONEY HUNT (2026-10-22). Directive text and its 120 income-mechanism seeds were not attached to the session: NOT_HYDRATED.",
+    "receipt": "docs/machiavelli/ABSOLUTE_MONEY_HUNT_2026-10-22.md",
+    "branch": "claude/machiavelli-money-hunt-20261022",
+    "preregistration": "artifacts/machiavelli/absolute-money-hunt/preregistration-2026-10-22.json",
+    "experiments": {
+      "X1_singleAuditRadarHindcast": "KILL: FY2023 GA/OH/AZ core precision 0.348 < 0.35; new-client precision ~0.20 (10 of 24 hits were late filers with existing auditors). Keyless FAC bulk CSVs replace the rate-limited DEMO_KEY path.",
+      "X2_apifyStoreBreakage": "INCOMPLETE_NOT_SCORED under amendments A1 and A2 (73,964 of 95,791 Actors enumerated; 81.7% coverage needed). Observable: 13 broken leaders, 13 absorbed, 0 stranded users. Foundry not advanced.",
+      "S1_auditorChangeEarlyWarning": "KILL: Brier skill 0.025 < 0.05; top-decile lift 1.95x < 2x on 31,756 entities."
+    },
+    "marketFacts": "~46,000 Single Audit reports a year; 3,612 audit firms by EIN in 2024 (2,340 with 1-5 audits); 11.4-13.8% of continuing entities change auditor EIN each year (upper bound: firm mergers).",
+    "buyerPacket": {
+      "path": "docs/machiavelli/BUYER_PACKET_INQUIRY_PATH_CHECK.md",
+      "offer": "Inbound fixed-price Inquiry-Path Check verified against buyer-declared numbers; $99 single site, $249 agency 3-pack; unpublished",
+      "code": [
+        "src/declared-number-reconciliation.mjs",
+        "scripts/inquiry-path-check.mjs",
+        "scripts/inquiry-path-check-sample.mjs"
+      ],
+      "state": "BUYER_READY_UNPUBLISHED; willingness to pay untested"
+    },
+    "clearedContributionProfitUsd": 0,
+    "strongestRealityTier": "SIMULATED",
+    "externalEffects": {
+      "messages": 0,
+      "formSubmissions": 0,
+      "accountsCreated": 0,
+      "purchases": 0,
+      "trades": 0,
+      "deployments": 0,
+      "spendUsd": 0,
+      "readOnlyPublicRequests": "USAspending 10 POSTs over two X1 runs; FAC 2 bulk downloads plus probes; Apify Store ~606 GETs; example.com 2 GETs"
+    },
+    "genuineBlockers": [
+      "Platform account, identity check and payout method for Upwork or Contra are owner-only",
+      "Tax/invoicing posture (W-8BEN, ETA) is an owner decision (#1535 checklist)",
+      "Publishing the listing is a public act needing the founder's account"
+    ],
+    "nextHighestValueMission": "Founder completes one platform account plus payout method and publishes the packet listing; then fulfil the first inbound order with scripts/inquiry-path-check.mjs. On or after 2026-11-05: X2 migration snapshot plus a pre-registered AUTOMATION completion attempt.",
+    "reconciledWith": [
+      1532,
+      1535,
+      1536,
+      1537,
+      1538
+    ]
   }
 }

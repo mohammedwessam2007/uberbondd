@@ -1,0 +1,225 @@
+{
+ "schema": "uberbond.commercialization.preregistered-public-cohort.v1",
+ "experiment": "E1-smb-portfolio-prevalence",
+ "freezeAtUtc": "2026-10-22T21:30:49.758778+00:00",
+ "siteCount": 52,
+ "selectionMethod": "All home-service contractor client sites attributed by iMarket Solutions' public portfolio API, plus all contractor sites linked from WebFX's public HVAC-examples article; non-contractor links (seo.com, teamai.com, a VWO dev host) and one UK site (non-NANP) removed BEFORE freezing. NONRANDOM. WebFX picks are \"best design\" examples, which likely biases defect prevalence DOWN. Agency attribution is historical and not proof of the current agency.",
+ "preregistered": {
+  "success": ">= 2/40 sites (5%) with an independently corroborated sellable defect under R3 rules (typo-class phone mismatch, malformed tel link, form posting to a non-resolving host)",
+  "failure": "0-1 such sites",
+  "prior": "UNKNOWN"
+ },
+ "permissions": "Read-only GET, robots respected, maxPages 3, no submissions, calls or contact",
+ "websiteListSha256": "e0af3838c2dc3357cc83d3da4029beea8395d5fe87505c0efdfcb968a05b42af",
+ "sites": [
+  {
+   "website": "https://www.fannonandsonshvac.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.margoplumbing.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.althoffind.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.aprofessionalheatingandair.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.callcharter.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.speedyacservice.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.paramountair.net/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.shiftair.ca/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.meyersheatingac.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.greenleaf-hc.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.roadrunnerairconditioning.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.completeairandheat.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.douglascoolingandheating.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.tuckersac.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.thayerac.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.schererelectric.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.cheeksac.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.awheatingandcooling.com/",
+   "source": "iMarket Solutions public portfolio (portfolio.imarketsolutions.com/wp-json/wp/v2/posts), agency attribution dated 2019-2021, current agency UNKNOWN"
+  },
+  {
+   "website": "https://www.airamericaac.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.carinihome.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.staffordmechanical.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.absheatingandcooling.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.lozierheatingcooling.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.acrepairslasvegas.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.guestplumbing.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.tauntontrades.ca/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.davisair.net/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.hargraveheating.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.estesair.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.dalcohvac.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.acauthorityfl.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.evergreenhomeheatingandenergy.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.modernhvac.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.airtecnow.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.reddihvac.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.figliasons.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.peakheatingandcooling.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.thecoolingco.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.greenwoodair.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.paragonmechanical.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.clearairaz.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.expoheatingcooling.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.theyesmancan.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.brocksheating.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.greenwoodheating.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.igniteheating.ca/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.avivairconditioningmiami.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.bostonstandardplumbing.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.suburban-hvac.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.achvac.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.heathmechanicalservices.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  },
+  {
+   "website": "https://www.guinservice.com/",
+   "source": "WebFX blog \"HVAC website examples\" (webfx.com/blog/home-services/hvac-website-examples/); listed as design examples, NOT stated as WebFX clients"
+  }
+ ],
+ "cashEvidence": "NONE"
+}

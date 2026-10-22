@@ -1,0 +1,1494 @@
+{
+ "schema": "uberbond.commercialization.e1-result.v1",
+ "experiment": "E1-smb-portfolio-prevalence",
+ "frozenCohort": "artifacts/commercialization/e1-frozen-smb-cohort-2026-10-22.json",
+ "frozenListSha256": "e0af3838c2dc3357cc83d3da4029beea8395d5fe87505c0efdfcb968a05b42af",
+ "runner": "main + R3 claim gate (a85f627); src/inquiry-path-probe.mjs, maxPages 3, no browser witness, 4 sites in parallel",
+ "finishedAt": "2026-10-22T21:31:43.064Z",
+ "counts": {
+  "submitted": 52,
+  "observable": 42,
+  "notObservableFromStaticHtml": 10,
+  "verdicts": {
+   "NO_INCOHERENCE_OBSERVED": 21,
+   "NOT_OBSERVABLE_FROM_STATIC_HTML": 10,
+   "OBSERVATIONS_ONLY": 11,
+   "ASSERTABLE_DEFECT_OBSERVED": 4,
+   "QUESTION_WORTH_ASKING": 6
+  },
+  "findingCodes": {
+   "HIGH_FRICTION_INQUIRY_FORM|ASK_DONT_ASSERT": 8,
+   "MANY_PUBLISHED_NUMBERS|ASK_DONT_ASSERT": 4,
+   "MACHINE_READABLE_PHONE_DIVERGES|MAY_STATE_AS_OBSERVED_FACT": 2,
+   "TEL_LINK_MALFORMED|MAY_STATE_AS_OBSERVED_FACT": 1,
+   "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS|ASK_DONT_ASSERT": 7,
+   "MACHINE_READABLE_PHONE_DIVERGES|ASK_DONT_ASSERT": 2,
+   "TEL_LABEL_DIALS_DIFFERENT_NUMBER|ASK_DONT_ASSERT": 2,
+   "STRUCTURED_DATA_UNPARSEABLE|MAY_STATE_AS_OBSERVED_FACT": 2
+  }
+ },
+ "preregisteredSellableClasses": [
+  "TEL_LABEL_DIALS_DIFFERENT_NUMBER (typo-class only, after R3)",
+  "TEL_LINK_MALFORMED",
+  "FORM_SUBMITS_TO_NONEXISTENT_HOST"
+ ],
+ "sellableSites": [
+  "https://www.schererelectric.com/"
+ ],
+ "independentCorroboration": [
+  {
+   "website": "https://www.schererelectric.com/",
+   "method": "independent raw HTTP GET + regex over href attributes (not the probe parser)",
+   "at": "2026-10-22T21:33:28Z",
+   "htmlSha256": "f75a88e4c5eb1d548ae206f732dac1ad49e005d125f45515f66f371703be6b1b",
+   "observed": "4 x href=\"tel:tel:716-646-4357\" alongside 5 x href=\"tel:716-646-4357\"",
+   "status": "CORROBORATED_NOT_HUMAN_VERIFIED",
+   "phoneBehaviourOfDoubledScheme": "UNKNOWN until tapped on a real phone; impact not claimed"
+  }
+ ],
+ "excludedAssertableNotInPreregisteredClass": [
+  "thayerac.com MACHINE_READABLE_PHONE_DIVERGES (schema-only phone)",
+  "airamericaac.com MACHINE_READABLE_PHONE_DIVERGES",
+  "reddihvac.com STRUCTURED_DATA_UNPARSEABLE x2 (machine-facing; free tools flag it)"
+ ],
+ "phoneMismatchQuestions": [
+  "estesair.com: unrelated number with CallRail script (swap question)",
+  "theyesmancan.com: dials the number the site lists as its own (routing)"
+ ],
+ "result": {
+  "sellableSitesCorroborated": 1,
+  "denominatorSubmitted": 52,
+  "denominatorObservable": 42,
+  "preregisteredSuccess": ">= 2",
+  "verdict": "FAILURE_PER_PREREGISTRATION",
+  "interpretation": "About 1 in 50 agency-built or example SMB contractor sites carried a path-breaking inquiry defect (combined with the enterprise cohort: about 1 in 90). A buyer-nominated audit will usually return clean. The defect-first framing survives only as a prospect-sourcing filter (scan many, pitch the rare site with a verified defect), not as a \"we find your leak\" audit sold blind."
+ },
+ "nextDecision": "Promote E2 (public-page tracking integrity) as the main value hypothesis; keep Lane A only as prospect-specific evidence-of-work (Reliant, Scherer). Do not publish the Store Actor on this evidence.",
+ "newEvidenceOfWorkCandidates": [
+  {
+   "site": "https://www.schererelectric.com/",
+   "defect": "doubled tel: scheme on 4 call links",
+   "agencyAttribution": "iMarket Solutions public portfolio (2019 entry; current agency UNKNOWN)",
+   "contactStatus": "NONE; DRAFT not prepared; needs founder authorization like Reliant"
+  }
+ ],
+ "externalEffects": {
+  "readOnlyGets": "~150 page/robots GETs across 52 public sites + 1 corroboration GET + 4 discovery GETs (portfolio API, WebFX article, robots)",
+  "formSubmissions": 0,
+  "messages": 0,
+  "calls": 0,
+  "spendUsd": 0
+ },
+ "rawHtmlStored": false,
+ "records": [
+  {
+   "index": 0,
+   "website": "https://www.fannonandsonshvac.com/",
+   "observedAt": "2026-10-22T21:31:03.758Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 888
+  },
+  {
+   "index": 1,
+   "website": "https://www.margoplumbing.com/",
+   "observedAt": "2026-10-22T21:31:05.981Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3082
+  },
+  {
+   "index": 2,
+   "website": "https://www.althoffind.com/",
+   "observedAt": "2026-10-22T21:31:03.255Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 0,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 0,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 357
+  },
+  {
+   "index": 3,
+   "website": "https://www.aprofessionalheatingandair.com/",
+   "observedAt": "2026-10-22T21:31:05.940Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3041
+  },
+  {
+   "index": 4,
+   "website": "https://www.callcharter.com/",
+   "observedAt": "2026-10-22T21:31:05.759Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2503
+  },
+  {
+   "index": 5,
+   "website": "https://www.speedyacservice.com/",
+   "observedAt": "2026-10-22T21:31:07.127Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3369
+  },
+  {
+   "index": 6,
+   "website": "https://www.paramountair.net/",
+   "observedAt": "2026-10-22T21:31:09.930Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 9 fields before submission",
+     "evidence": [
+      {
+       "url": "https://www.paramountair.net/schedule",
+       "excerpt": "21 visible fields, 9 required, CAPTCHA",
+       "sourceSha256": "878b63388f0c6c3ba7d46cf5c921728bb21bb7665a43ba29dd8445e83f3141f9"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 4170
+  },
+  {
+   "index": 7,
+   "website": "https://www.shiftair.ca/",
+   "observedAt": "2026-10-22T21:31:06.049Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 0,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 0,
+    "robotsRequests": 0,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 108
+  },
+  {
+   "index": 8,
+   "website": "https://www.meyersheatingac.com/",
+   "observedAt": "2026-10-22T21:31:08.639Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "MANY_PUBLISHED_NUMBERS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.85,
+     "title": "3 different phone numbers are printed across the inspected pages",
+     "evidence": [
+      {
+       "url": "https://www.meyersheatingac.com/",
+       "excerpt": "(303) 442-6640: Services Skip to content Boulder Colorado Springs Boulder: (303) 442-6640 Springs: (719) 597-7373 Schedule Now Free Quote Search Serv",
+       "sourceSha256": "53b80445c0cc315c18dd472da200a6d6d609bcfe87e88d1d4cd43fd54846c4e9"
+      },
+      {
+       "url": "https://www.meyersheatingac.com/",
+       "excerpt": "(719) 597-7373: t Boulder Colorado Springs Boulder: (303) 442-6640 Springs: (719) 597-7373 Schedule Now Free Quote Search Services Installation + Repl",
+       "sourceSha256": "53b80445c0cc315c18dd472da200a6d6d609bcfe87e88d1d4cd43fd54846c4e9"
+      },
+      {
+       "url": "https://www.meyersheatingac.com/",
+       "excerpt": "(720) 599-4437: ted above? Give us a call, and we\u2019ll let you know! Call Us: (720) 599-4437 Financing A Comfortable Investment Get 18 months of no-inte",
+       "sourceSha256": "53b80445c0cc315c18dd472da200a6d6d609bcfe87e88d1d4cd43fd54846c4e9"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2658
+  },
+  {
+   "index": 9,
+   "website": "https://www.greenleaf-hc.com/",
+   "observedAt": "2026-10-22T21:31:08.740Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2691
+  },
+  {
+   "index": 10,
+   "website": "https://www.roadrunnerairconditioning.com/",
+   "observedAt": "2026-10-22T21:31:07.654Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 527
+  },
+  {
+   "index": 11,
+   "website": "https://www.completeairandheat.com/",
+   "observedAt": "2026-10-22T21:31:10.652Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2998
+  },
+  {
+   "index": 12,
+   "website": "https://www.douglascoolingandheating.com/",
+   "observedAt": "2026-10-22T21:31:09.081Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 441
+  },
+  {
+   "index": 13,
+   "website": "https://www.tuckersac.com/",
+   "observedAt": "2026-10-22T21:31:09.225Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 485
+  },
+  {
+   "index": 14,
+   "website": "https://www.thayerac.com/",
+   "observedAt": "2026-10-22T21:31:23.208Z",
+   "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "MACHINE_READABLE_PHONE_DIVERGES",
+     "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+     "confidence": 0.88,
+     "title": "Structured data tells search engines and AI assistants (830) 463-6861, (830) 402-4485, which visitors never see on the page",
+     "evidence": [
+      {
+       "url": "https://www.thayerac.com/",
+       "excerpt": "JSON-LD LocalBusiness \"Thayer Air Conditioning\" telephone: (830) 463-6861",
+       "sourceSha256": "368774d92bcc530252dbaa8dcea4b716b4be3278d6a1207b94a346c15d7d2e0f"
+      },
+      {
+       "url": "https://www.thayerac.com/",
+       "excerpt": "JSON-LD LocalBusiness \"Thayer Air Conditioning\" telephone: (830) 402-4485",
+       "sourceSha256": "368774d92bcc530252dbaa8dcea4b716b4be3278d6a1207b94a346c15d7d2e0f"
+      },
+      {
+       "url": "https://www.thayerac.com/contact/",
+       "excerpt": "JSON-LD LocalBusiness \"Thayer Air Conditioning\" telephone: (830) 463-6861",
+       "sourceSha256": "1f15944f199757e9a514d8fc39e4e3fd490e3128f392ecc81a8bcc8f00a9142b"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 14127
+  },
+  {
+   "index": 15,
+   "website": "https://www.schererelectric.com/",
+   "observedAt": "2026-10-22T21:31:12.332Z",
+   "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "TEL_LINK_MALFORMED",
+     "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+     "confidence": 0.95,
+     "title": "8 call links cannot dial a complete North American number",
+     "evidence": [
+      {
+       "url": "https://www.schererelectric.com/",
+       "excerpt": "tel:tel:716-646-4357 [LETTERS_IN_TEL_HREF] service Available 24/7 716-646-4357",
+       "sourceSha256": "1717559c57c7aad633b00692bcf149bc971c6066616c5142a21caea116b7aa61"
+      },
+      {
+       "url": "https://www.schererelectric.com/",
+       "excerpt": "tel:tel:716-646-4357 [LETTERS_IN_TEL_HREF] service Available 24/7 716-646-4357",
+       "sourceSha256": "1717559c57c7aad633b00692bcf149bc971c6066616c5142a21caea116b7aa61"
+      },
+      {
+       "url": "https://www.schererelectric.com/",
+       "excerpt": "tel:tel:716-646-4357 [LETTERS_IN_TEL_HREF] service Available 24/7 716-646-4357",
+       "sourceSha256": "1717559c57c7aad633b00692bcf149bc971c6066616c5142a21caea116b7aa61"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3107
+  },
+  {
+   "index": 16,
+   "website": "https://www.cheeksac.com/",
+   "observedAt": "2026-10-22T21:31:13.004Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3075
+  },
+  {
+   "index": 17,
+   "website": "https://www.awheatingandcooling.com/",
+   "observedAt": "2026-10-22T21:31:13.542Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2889
+  },
+  {
+   "index": 18,
+   "website": "https://www.airamericaac.com/",
+   "observedAt": "2026-10-22T21:31:15.545Z",
+   "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "MACHINE_READABLE_PHONE_DIVERGES",
+     "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+     "confidence": 0.88,
+     "title": "Structured data tells search engines and AI assistants (954) 400-3320, which visitors never see on the page",
+     "evidence": [
+      {
+       "url": "https://airamericaac.com/",
+       "excerpt": "JSON-LD LocalBusiness \"Air America Air Conditioning & Plumbing LLC\" telephone: (954) 400-3320",
+       "sourceSha256": "1d1cad0feb6959ef9178efd95cc32b78d16a7f4c3cbbd5a23a90d2843a928c97"
+      },
+      {
+       "url": "https://airamericaac.com/contact-us/",
+       "excerpt": "JSON-LD LocalBusiness \"Air America Air Conditioning & Plumbing LLC\" telephone: (954) 400-3320",
+       "sourceSha256": "22a90ecaef773e64eb76b3bb575072363472072b77a0141a6c7efb7c7f75d649"
+      },
+      {
+       "url": "https://airamericaac.com/service-area/",
+       "excerpt": "JSON-LD LocalBusiness \"Air America Air Conditioning & Plumbing LLC\" telephone: (954) 400-3320",
+       "sourceSha256": "3afd846ad0bbdc37c16af70579f3782de4b91d3297a2005c3b41d702371212da"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 4,
+    "robotsRequests": 2,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3213
+  },
+  {
+   "index": 19,
+   "website": "https://www.carinihome.com/",
+   "observedAt": "2026-10-22T21:31:15.567Z",
+   "verdict": "QUESTION_WORTH_ASKING",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.carinihome.com/",
+       "excerpt": "h 619-843-0997 Business Hours: Mon-Sat: 7am-9pm Live Agents Available 24/7 619-843-0997 Facebook X Instagram Copyright 2006-2023 Car",
+       "sourceSha256": "ffa9aa014c6243fac310ed866826c500b18fc368aed0dda779ad12b4f7e23933"
+      },
+      {
+       "url": "https://www.carinihome.com/",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "ffa9aa014c6243fac310ed866826c500b18fc368aed0dda779ad12b4f7e23933"
+      }
+     ]
+    },
+    {
+     "code": "MANY_PUBLISHED_NUMBERS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.85,
+     "title": "3 different phone numbers are printed across the inspected pages",
+     "evidence": [
+      {
+       "url": "https://www.carinihome.com/",
+       "excerpt": "(619) 843-0997: HVAC Services in San Diego, CA | Carini Home Services 619.843.0997 Specials Rebates Heating Heating Installation Heating Maint",
+       "sourceSha256": "ffa9aa014c6243fac310ed866826c500b18fc368aed0dda779ad12b4f7e23933"
+      },
+      {
+       "url": "https://www.carinihome.com/",
+       "excerpt": "(619) 332-5176: umbing, and electrical experts. Ready to Book Service? Call (619) 332-5176 or Schedule Online BOOK NOW Our Portfolio Sewer Repair San",
+       "sourceSha256": "ffa9aa014c6243fac310ed866826c500b18fc368aed0dda779ad12b4f7e23933"
+      },
+      {
+       "url": "https://www.carinihome.com/",
+       "excerpt": "(619) 639-9173: jon 1308 Magnolia Ave #H El Cajon, CA 92020 Mailing Address 619-639-9173 Home AC Repair Plumbing Mini Split AC Heating Service Areas",
+       "sourceSha256": "ffa9aa014c6243fac310ed866826c500b18fc368aed0dda779ad12b4f7e23933"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2563
+  },
+  {
+   "index": 20,
+   "website": "https://www.staffordmechanical.com/",
+   "observedAt": "2026-10-22T21:31:17.526Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 2,
+   "findings": [
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 9 fields before submission",
+     "evidence": [
+      {
+       "url": "https://staffordmechanical.com/",
+       "excerpt": "13 visible fields, 9 required",
+       "sourceSha256": "500e696f1fc1675abdb38eb7775d3f561181addcf2aa109f1d0892af45f89751"
+      },
+      {
+       "url": "https://staffordmechanical.com/",
+       "excerpt": "13 visible fields, 9 required",
+       "sourceSha256": "500e696f1fc1675abdb38eb7775d3f561181addcf2aa109f1d0892af45f89751"
+      },
+      {
+       "url": "https://staffordmechanical.com/",
+       "excerpt": "13 visible fields, 9 required",
+       "sourceSha256": "500e696f1fc1675abdb38eb7775d3f561181addcf2aa109f1d0892af45f89751"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3984
+  },
+  {
+   "index": 21,
+   "website": "https://www.absheatingandcooling.com/",
+   "observedAt": "2026-10-22T21:31:19.511Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 2,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 2,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3967
+  },
+  {
+   "index": 22,
+   "website": "https://www.lozierheatingcooling.com/",
+   "observedAt": "2026-10-22T21:31:17.843Z",
+   "verdict": "QUESTION_WORTH_ASKING",
+   "pagesObserved": 2,
+   "findings": [
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.lozierheatingcooling.com/",
+       "excerpt": "ack to comfort, which is why our licensed techs are on call 24/7. We're a local HVAC company that serves central Iowa busine",
+       "sourceSha256": "5c31bf79b8521dd2b65eadb034be6e461d2dd2e9a050d74a882fe41d05512146"
+      },
+      {
+       "url": "https://www.lozierheatingcooling.com/",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "5c31bf79b8521dd2b65eadb034be6e461d2dd2e9a050d74a882fe41d05512146"
+      }
+     ]
+    },
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 7 fields before submission",
+     "evidence": [
+      {
+       "url": "https://www.lozierheatingcooling.com/contact-us",
+       "excerpt": "27 visible fields, 7 required, CAPTCHA",
+       "sourceSha256": "12f0c52da5365c86cfecd0a7ff3ff98195586fd6bf92b5e83b003e45ef76f93e"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 2,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2275
+  },
+  {
+   "index": 23,
+   "website": "https://www.acrepairslasvegas.com/",
+   "observedAt": "2026-10-22T21:31:19.189Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 2,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 2,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 1663
+  },
+  {
+   "index": 24,
+   "website": "https://www.guestplumbing.com/",
+   "observedAt": "2026-10-22T21:31:21.228Z",
+   "verdict": "QUESTION_WORTH_ASKING",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "MACHINE_READABLE_PHONE_DIVERGES",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.6,
+     "title": "Structured data tells search engines and AI assistants (289) 778-3083, which visitors never see on the page",
+     "evidence": [
+      {
+       "url": "https://guestplumbing.com/",
+       "excerpt": "JSON-LD HVACBusiness \"Guest Plumbing & HVAC\" telephone: 289-778-3083",
+       "sourceSha256": "8b6e71224bb6b22c1bbe5aa0c48bef74f71fc13af6cc761429547b64f9c0b4dc"
+      },
+      {
+       "url": "https://guestplumbing.com/contact-us/",
+       "excerpt": "JSON-LD HVACBusiness \"Guest Plumbing & HVAC\" telephone: 289-778-3083",
+       "sourceSha256": "1a475c944dc2490eb2ed92aa1fa8f9e04f70be35a6f34a5340dfba8970df8c50"
+      },
+      {
+       "url": "https://guestplumbing.com/get-an-expert-quote/",
+       "excerpt": "JSON-LD HVACBusiness \"Guest Plumbing & HVAC\" telephone: 289-778-3083",
+       "sourceSha256": "91f0ea8ba8aa4df6aaa3759337c10eed65aa319baaa02edadc3a9ad4626ec4be"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 4,
+    "robotsRequests": 2,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3386
+  },
+  {
+   "index": 25,
+   "website": "https://www.tauntontrades.ca/",
+   "observedAt": "2026-10-22T21:31:19.976Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 2,
+    "robotsRequests": 2,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 789
+  },
+  {
+   "index": 26,
+   "website": "https://www.davisair.net/",
+   "observedAt": "2026-10-22T21:31:23.722Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 4,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 4210
+  },
+  {
+   "index": 27,
+   "website": "https://www.hargraveheating.com/",
+   "observedAt": "2026-10-22T21:31:20.016Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 0,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 0,
+    "robotsRequests": 0,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 38
+  },
+  {
+   "index": 28,
+   "website": "https://www.estesair.com/",
+   "observedAt": "2026-10-22T21:31:22.958Z",
+   "verdict": "QUESTION_WORTH_ASKING",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.6,
+     "title": "A call button labelled (404) 366-9620 dials (404) 948-6459",
+     "evidence": [
+      {
+       "url": "https://www.estesair.com/contact",
+       "excerpt": "<a href=\"tel:1-404-948-6459\"> (404) 366-9620",
+       "sourceSha256": "2dd9158ca8207f757a77b3dd04a4183b357c52d7d6fe4131379ee2c3104d84d6"
+      }
+     ]
+    },
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.estesair.com/",
+       "excerpt": "ing Tune Up Heating Services Plumbing Same-day plumbing and 24-hour emergency response. Free estimates on water heaters. Water Heaters Dr",
+       "sourceSha256": "6943890165d43b6a53e015acef2125c961305d26f84a6b872d3ca0be2c8777d9"
+      },
+      {
+       "url": "https://www.estesair.com/contact",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "2dd9158ca8207f757a77b3dd04a4183b357c52d7d6fe4131379ee2c3104d84d6"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2942
+  },
+  {
+   "index": 29,
+   "website": "https://www.dalcohvac.com/",
+   "observedAt": "2026-10-22T21:31:23.518Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2289
+  },
+  {
+   "index": 30,
+   "website": "https://www.acauthorityfl.com/",
+   "observedAt": "2026-10-22T21:31:26.328Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3370
+  },
+  {
+   "index": 31,
+   "website": "https://www.evergreenhomeheatingandenergy.com/",
+   "observedAt": "2026-10-22T21:31:26.774Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 4,
+    "robotsRequests": 2,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3565
+  },
+  {
+   "index": 32,
+   "website": "https://www.modernhvac.com/",
+   "observedAt": "2026-10-22T21:31:27.781Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.modernhvac.com/",
+       "excerpt": "m Office Hours: Mon - Thurs: 7am - 4:30pm, Fri: 7am - 12 pm 24-Hour Emergency Service is Available Blog How Often Should My A/C Unit Be P",
+       "sourceSha256": "c63707b872b38d5e3b8036126ea71a26674dd0806ed77155d051afd58ef0b624"
+      },
+      {
+       "url": "https://www.modernhvac.com/",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "c63707b872b38d5e3b8036126ea71a26674dd0806ed77155d051afd58ef0b624"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 4263
+  },
+  {
+   "index": 33,
+   "website": "https://www.airtecnow.com/",
+   "observedAt": "2026-10-22T21:31:25.430Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 1,
+   "findings": [
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.airtecnow.com/",
+       "excerpt": ": airtecinc @gmail .com Our Hours 24 Hour Emergency Service 24/7 Hour Emergency Services Available Monday 9:00 AM - 5:00 PM",
+       "sourceSha256": "b7cfd12f541213a2719d35cc6e70f76540334f8e60b7984685af339f20be98ac"
+      },
+      {
+       "url": "https://www.airtecnow.com/",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "b7cfd12f541213a2719d35cc6e70f76540334f8e60b7984685af339f20be98ac"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 1707
+  },
+  {
+   "index": 34,
+   "website": "https://www.reddihvac.com/",
+   "observedAt": "2026-10-22T21:31:28.765Z",
+   "verdict": "ASSERTABLE_DEFECT_OBSERVED",
+   "pagesObserved": 2,
+   "findings": [
+    {
+     "code": "STRUCTURED_DATA_UNPARSEABLE",
+     "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+     "confidence": 0.95,
+     "title": "A structured-data block is invalid JSON, so search engines and AI agents ignore all of it",
+     "evidence": [
+      {
+       "url": "https://reddihvac.com/",
+       "excerpt": "Expected double-quoted property name in JSON at position 288 (line 8 column 1): { \"@context\": \"http://schema.org\", \"@type\": \"LocalBusiness\", \"url\": \"https://red",
+       "sourceSha256": "52e81a9ec5aa9a6ea9d71bc0ca7c78bfc23c6d1e89f2e8e5785d25d75668df1a"
+      }
+     ]
+    },
+    {
+     "code": "STRUCTURED_DATA_UNPARSEABLE",
+     "firstTouchUse": "MAY_STATE_AS_OBSERVED_FACT",
+     "confidence": 0.95,
+     "title": "A structured-data block is invalid JSON, so search engines and AI agents ignore all of it",
+     "evidence": [
+      {
+       "url": "https://reddihvac.com/contact",
+       "excerpt": "Expected double-quoted property name in JSON at position 288 (line 8 column 1): { \"@context\": \"http://schema.org\", \"@type\": \"LocalBusiness\", \"url\": \"https://red",
+       "sourceSha256": "380968a93e6cd604c41ef0793e2a8fa9b2e305899979a610a9993482852b8dba"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3336
+  },
+  {
+   "index": 35,
+   "website": "https://www.figliasons.com/",
+   "observedAt": "2026-10-22T21:31:27.339Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 1,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 2,
+    "robotsRequests": 2,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 1010
+  },
+  {
+   "index": 36,
+   "website": "https://www.peakheatingandcooling.com/",
+   "observedAt": "2026-10-22T21:31:30.751Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3977
+  },
+  {
+   "index": 37,
+   "website": "https://www.thecoolingco.com/",
+   "observedAt": "2026-10-22T21:31:30.144Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "MANY_PUBLISHED_NUMBERS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.85,
+     "title": "4 different phone numbers are printed across the inspected pages",
+     "evidence": [
+      {
+       "url": "https://www.thecoolingco.com/",
+       "excerpt": "(702) 567-0707: Promotions Family Owned & Operated Since Day 1 Book Online (702) 567-0707 Air Conditioning Heating Indoor Air Quality Plumbing About",
+       "sourceSha256": "1cd5ae66e23c5346080e6d0008e9f775972813a030c0b5dd56547d31c283c4bd"
+      },
+      {
+       "url": "https://www.thecoolingco.com/contact-us/",
+       "excerpt": "(702) 718-7331: 4055 E Post Road, Suite A Las Vegas , NV 89120 Direct line (702) 718-7331 The Cooling Company - Henderson HVAC & Plumbing \u2605 5.0 ( 173",
+       "sourceSha256": "8545bd83bb22d4f6142f01053824d4f0c82c80ff5061a329fa0b6d5784d6c356"
+      },
+      {
+       "url": "https://www.thecoolingco.com/contact-us/",
+       "excerpt": "(702) 819-7153: on Ridge Pkwy, Ste B 5-179 Henderson , NV 89052 Direct line (702) 819-7153 The Cooling Company - Summerlin HVAC & Plumbing \u2605 4.9 ( 138",
+       "sourceSha256": "8545bd83bb22d4f6142f01053824d4f0c82c80ff5061a329fa0b6d5784d6c356"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2806
+  },
+  {
+   "index": 38,
+   "website": "https://www.greenwoodair.com/",
+   "observedAt": "2026-10-22T21:31:27.874Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 0,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 0,
+    "robotsRequests": 0,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 93
+  },
+  {
+   "index": 39,
+   "website": "https://www.paragonmechanical.com/",
+   "observedAt": "2026-10-22T21:31:29.743Z",
+   "verdict": "QUESTION_WORTH_ASKING",
+   "pagesObserved": 2,
+   "findings": [
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.paragonmechanical.com/",
+       "excerpt": "et Metal HVAC & Plumbing Service Portfolio Our Team Contact 24/7 Service: (408) 727-7303 Open Menu Close Menu About Us Divis",
+       "sourceSha256": "7b81ef78e6b4995c1d768efadac6505d15b29de8e1db663f6b1c547378d21ba5"
+      },
+      {
+       "url": "https://www.paragonmechanical.com/",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "7b81ef78e6b4995c1d768efadac6505d15b29de8e1db663f6b1c547378d21ba5"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 2,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 1870
+  },
+  {
+   "index": 40,
+   "website": "https://www.clearairaz.com/",
+   "observedAt": "2026-10-22T21:31:30.909Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 2,
+   "findings": [
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 7 fields before submission",
+     "evidence": [
+      {
+       "url": "https://clearairaz.com/contact-us/",
+       "excerpt": "10 visible fields, 7 required, CAPTCHA",
+       "sourceSha256": "93e6e44f892ba986fd60df3b823b4f6cca0a0a3d8305fa881d41d7da7523ef66"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 2,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2143
+  },
+  {
+   "index": 41,
+   "website": "https://www.expoheatingcooling.com/",
+   "observedAt": "2026-10-22T21:31:30.178Z",
+   "verdict": "NOT_OBSERVABLE_FROM_STATIC_HTML",
+   "pagesObserved": 0,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 1,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 434
+  },
+  {
+   "index": 42,
+   "website": "https://www.theyesmancan.com/",
+   "observedAt": "2026-10-22T21:31:33.043Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "TEL_LABEL_DIALS_DIFFERENT_NUMBER",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.9,
+     "title": "A call button labelled (844) 216-9300 dials (732) 733-2541, which the site also lists as its own number",
+     "evidence": [
+      {
+       "url": "https://www.theyesmancan.com/",
+       "excerpt": "<a href=\"tel:732-733-2541\"> 844-216-9300",
+       "sourceSha256": "eaef458d20cf303fcaec2994036aa7cb4a89a32cec215ac7b16e9ef25bc73572"
+      }
+     ]
+    },
+    {
+     "code": "MANY_PUBLISHED_NUMBERS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.85,
+     "title": "4 different phone numbers are printed across the inspected pages",
+     "evidence": [
+      {
+       "url": "https://www.theyesmancan.com/",
+       "excerpt": "(844) 216-9300: Local Experts SCHEDULE SERVICE NEVADA UTAH CALL US Nevada: 844-216-9300 Utah: 866-688-0976 About About Blog Contact Careers Financi",
+       "sourceSha256": "eaef458d20cf303fcaec2994036aa7cb4a89a32cec215ac7b16e9ef25bc73572"
+      },
+      {
+       "url": "https://www.theyesmancan.com/",
+       "excerpt": "(866) 688-0976: DULE SERVICE NEVADA UTAH CALL US Nevada: 844-216-9300 Utah: 866-688-0976 About About Blog Contact Careers Financing Products Testimo",
+       "sourceSha256": "eaef458d20cf303fcaec2994036aa7cb4a89a32cec215ac7b16e9ef25bc73572"
+      },
+      {
+       "url": "https://www.theyesmancan.com/",
+       "excerpt": "(732) 733-2541: s, with up-front estimates, based on your needs. Call us at 732-733-2541 to get your personal estimate. What are the most common HVA",
+       "sourceSha256": "eaef458d20cf303fcaec2994036aa7cb4a89a32cec215ac7b16e9ef25bc73572"
+      }
+     ]
+    },
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 7 fields before submission",
+     "evidence": [
+      {
+       "url": "https://www.theyesmancan.com/schedule-service-nv/",
+       "excerpt": "8 visible fields, 7 required, CAPTCHA",
+       "sourceSha256": "ebbdc177ac6ed82e80a6713ef06ad4a5af735c62a25a27d65e9018e6b6259cf1"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2899
+  },
+  {
+   "index": 43,
+   "website": "https://www.brocksheating.com/",
+   "observedAt": "2026-10-22T21:31:32.694Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 2516
+  },
+  {
+   "index": 44,
+   "website": "https://www.greenwoodheating.com/",
+   "observedAt": "2026-10-22T21:31:32.273Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 2,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 2,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 1523
+  },
+  {
+   "index": 45,
+   "website": "https://www.igniteheating.ca/",
+   "observedAt": "2026-10-22T21:31:37.634Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 4,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 6725
+  },
+  {
+   "index": 46,
+   "website": "https://www.avivairconditioningmiami.com/",
+   "observedAt": "2026-10-22T21:31:37.897Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 5,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 5623
+  },
+  {
+   "index": 47,
+   "website": "https://www.bostonstandardplumbing.com/",
+   "observedAt": "2026-10-22T21:31:36.788Z",
+   "verdict": "QUESTION_WORTH_ASKING",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "MACHINE_READABLE_PHONE_DIVERGES",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.6,
+     "title": "Structured data tells search engines and AI assistants (617) 458-8609, which visitors never see on the page",
+     "evidence": [
+      {
+       "url": "https://www.bostonstandardplumbing.com/contact-us/",
+       "excerpt": "JSON-LD HomeAndConstructionBusiness/Organization \"Boston Standard\" telephone: (617) 458-8609",
+       "sourceSha256": "419940ba53a57cec62db2b7f6d0d81cf927d950fff7287b702b0c376ec921eea"
+      },
+      {
+       "url": "https://www.bostonstandardplumbing.com/contact-us/referral-reward-program/",
+       "excerpt": "JSON-LD HomeAndConstructionBusiness/Organization \"Boston Standard\" telephone: (617) 458-8609",
+       "sourceSha256": "283f04120285f7d2ee4a89fbcade5f2835f27765b07fd8c199dd4c8b6f8fbeec"
+      }
+     ]
+    },
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 8 fields before submission",
+     "evidence": [
+      {
+       "url": "https://www.bostonstandardplumbing.com/contact-us/referral-reward-program/",
+       "excerpt": "11 visible fields, 8 required",
+       "sourceSha256": "283f04120285f7d2ee4a89fbcade5f2835f27765b07fd8c199dd4c8b6f8fbeec"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 4094
+  },
+  {
+   "index": 48,
+   "website": "https://www.suburban-hvac.com/",
+   "observedAt": "2026-10-22T21:31:36.319Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 7 fields before submission",
+     "evidence": [
+      {
+       "url": "https://suburban-hvac.com/",
+       "excerpt": "14 visible fields, 7 required",
+       "sourceSha256": "bb895fb1f0808b1a703b81988a2bfe9ed31153896c46be8a3cc6719a8047bb6e"
+      },
+      {
+       "url": "https://suburban-hvac.com/",
+       "excerpt": "14 visible fields, 7 required",
+       "sourceSha256": "bb895fb1f0808b1a703b81988a2bfe9ed31153896c46be8a3cc6719a8047bb6e"
+      },
+      {
+       "url": "https://suburban-hvac.com/contact-us/",
+       "excerpt": "14 visible fields, 7 required",
+       "sourceSha256": "1704710b0abce099413f46a78e0ba2a8c7fd4c4a16d67b85d1345de85d1cb408"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 4,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3275
+  },
+  {
+   "index": 49,
+   "website": "https://www.achvac.com/",
+   "observedAt": "2026-10-22T21:31:39.567Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "HIGH_FRICTION_INQUIRY_FORM",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.8,
+     "title": "An inquiry form requires 9 fields before submission",
+     "evidence": [
+      {
+       "url": "https://www.achvac.com/schedule-appointment",
+       "excerpt": "17 visible fields, 9 required",
+       "sourceSha256": "a04033489485212194c294437bb79699538b598358979e6c2896a84e11a7db25"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3248
+  },
+  {
+   "index": 50,
+   "website": "https://www.heathmechanicalservices.com/",
+   "observedAt": "2026-10-22T21:31:40.743Z",
+   "verdict": "NO_INCOHERENCE_OBSERVED",
+   "pagesObserved": 3,
+   "findings": [],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 1,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 3955
+  },
+  {
+   "index": 51,
+   "website": "https://www.guinservice.com/",
+   "observedAt": "2026-10-22T21:31:43.064Z",
+   "verdict": "OBSERVATIONS_ONLY",
+   "pagesObserved": 3,
+   "findings": [
+    {
+     "code": "ALWAYS_OPEN_CLAIM_VS_DECLARED_HOURS",
+     "firstTouchUse": "ASK_DONT_ASSERT",
+     "confidence": 0.72,
+     "title": "The page advertises round-the-clock service while its structured data declares limited opening hours",
+     "evidence": [
+      {
+       "url": "https://www.guinservice.com/",
+       "excerpt": "xpert | Guin Service Skip to Main Content Emergency Service 24/7 Schedule Service About Blog Guin Cares Service Areas Birmin",
+       "sourceSha256": "6ab1b7fda67a6163b4d6b8eef4e135b9ef7f6e62c3aa8336a057e9bf2d8c5205"
+      },
+      {
+       "url": "https://www.guinservice.com/",
+       "excerpt": "JSON-LD openingHours / openingHoursSpecification does not cover 7 days x 24 hours",
+       "sourceSha256": "6ab1b7fda67a6163b4d6b8eef4e135b9ef7f6e62c3aa8336a057e9bf2d8c5205"
+      }
+     ]
+    }
+   ],
+   "ledger": {
+    "httpGetRequests": 3,
+    "robotsRequests": 1,
+    "dnsLookups": 0,
+    "formSubmissions": 0,
+    "messages": 0,
+    "spendCents": 0
+   },
+   "wallMs": 5430
+  }
+ ]
+}

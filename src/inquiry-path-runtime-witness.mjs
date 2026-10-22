@@ -20,6 +20,9 @@ import { normalizeTelHref, phonesInText } from './inquiry-path-coherence.mjs';
 import { PROBE_USER_AGENT } from './inquiry-path-probe.mjs';
 
 export const INQUIRY_PATH_RUNTIME_WITNESS_VERSION = 'uberbond.inquiry-path-runtime-witness-1.0.0';
+// A hostile page may schedule a request storm with ordinary GETs. Bound all
+// intercepted requests, including blocked resources and tracking beacons.
+export const MAX_WITNESS_REQUESTS = 96;
 
 /** Pure: turn raw DOM anchor readings into the same shape the static engine uses. */
 export function normalizeRuntimeTelLinks(anchors = []) {
@@ -36,12 +39,18 @@ export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signa
   // The Chromium sandbox stays on unless the process runs as root, where Chromium cannot start without it.
   const browser = await abortable(launch({ headless: true, executablePath, args: [...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-dev-shm-usage', '--disable-features=WebRTC'] }), deadline);
   const witness = {};
-  const ledger = { pageLoads: 0, blockedRequests: 0, clicks: 0, formSubmissions: 0, messages: 0 };
+  const ledger = { pageLoads: 0, routeRequests: 0, blockedRequests: 0, requestBudgetExceeded: false, popupsClosed: 0, clicks: 0, formSubmissions: 0, messages: 0 };
   try {
     // Service workers and WebSockets bypass context.route, so neither is allowed.
     const context = await abortable(browser.newContext({ userAgent: PROBE_USER_AGENT, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block', acceptDownloads: false }), deadline);
     if (context.routeWebSocket) await context.routeWebSocket(/.*/, ws => { ledger.blockedRequests += 1; ws.close(); });
     await context.route('**/*', async route => {
+      ledger.routeRequests += 1;
+      if (ledger.routeRequests > MAX_WITNESS_REQUESTS) {
+        ledger.requestBudgetExceeded = true;
+        ledger.blockedRequests += 1;
+        return route.abort('blockedbyclient');
+      }
       const request = route.request();
       const url = request.url();
       // The browser never establishes its own outbound network connection:
@@ -68,13 +77,18 @@ export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signa
       await abortable(assertPublicUrl(url), deadline);
       const page = await abortable(context.newPage(), deadline);
       try {
+        // Unexpected script-created tabs are not part of the approved audit.
+        // Closing is best-effort; context-wide routing still gates their GETs.
+        page.on?.('popup', popup => { ledger.popupsClosed += 1; void popup.close().catch(() => {}); });
         ledger.pageLoads += 1;
         const response = await abortable(page.goto(url, { waitUntil: 'domcontentloaded', timeout: 12000 }), deadline);
         await abortable(page.waitForTimeout(Math.min(settleMs, 2000)), deadline);
+        if (ledger.requestBudgetExceeded) throw Error('NETWORK_REQUEST_LIMIT_EXCEEDED');
         const anchors = await abortable(page.$$eval('a[href^="tel:" i]', nodes => nodes.map(node => ({ href: node.getAttribute('href'), text: node.innerText || node.getAttribute('aria-label') || '' }))), deadline);
+        if (ledger.requestBudgetExceeded) throw Error('NETWORK_REQUEST_LIMIT_EXCEEDED');
         witness[url] = { status: response?.status() ?? null, observedAt: now().toISOString(), viewport: 'mobile-390x844', telLinks: normalizeRuntimeTelLinks(anchors) };
       } catch (error) {
-        witness[url] = { status: null, observedAt: now().toISOString(), error: String(error?.name ?? 'error'), telLinks: null };
+        witness[url] = { status: null, observedAt: now().toISOString(), error: ledger.requestBudgetExceeded ? 'NETWORK_REQUEST_LIMIT_EXCEEDED' : String(error?.name ?? 'error'), telLinks: null };
       } finally { await page.close().catch(() => {}); }
     }
     await context.close().catch(() => {});

@@ -3,7 +3,7 @@
 // never starts Chromium or touches a website. Production guard is NOT mocked.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { witnessRuntimeTelLinks } from '../src/inquiry-path-runtime-witness.mjs';
+import { witnessRuntimeTelLinks, MAX_WITNESS_REQUESTS } from '../src/inquiry-path-runtime-witness.mjs';
 
 function fakeWitnessHarness() {
   const record = { launchCount: 0, closeCount: 0, contextOptions: null, webSocketHandler: null, routeHandler: null, pageCount: 0 };
@@ -99,4 +99,21 @@ test('all unapproved navigation schemes and page-limit overflow refuse before br
   let launches=0;
   await assert.rejects(()=>witnessRuntimeTelLinks({urls:Array(9).fill('https://example.com/'),launch:async()=>{launches++;}}),/BROWSER_PAGE_LIMIT_EXCEEDED/);
   assert.equal(launches,0);
+});
+
+
+test('hostile request storm is capped before route guard or network fetch', async () => {
+  const h=fakeWitnessHarness();
+  const result=await witnessRuntimeTelLinks({urls:[],launch:h.launch,maxWitnessMs:3000});
+  assert.ok(MAX_WITNESS_REQUESTS>0 && MAX_WITNESS_REQUESTS<=128);
+  for(let n=0;n<MAX_WITNESS_REQUESTS+5;n++) {
+    const route=h.makeRoute({url:'https://example.com/resource',method:'POST'});
+    await h.record.routeHandler(route);
+    assert.equal(route.state.fulfilled,0);
+    assert.equal(route.state.aborted,1);
+  }
+  assert.equal(result.ledger.routeRequests,MAX_WITNESS_REQUESTS+5);
+  assert.equal(result.ledger.blockedRequests,MAX_WITNESS_REQUESTS+5);
+  assert.equal(result.ledger.requestBudgetExceeded,true);
+  assert.equal(result.ledger.formSubmissions,0);
 });

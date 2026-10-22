@@ -30,7 +30,7 @@
 
 ## Operational limits and security boundaries
 
-GET-only probing, robots and rate-limit abstention, request and body caps, maximum five redirect hops, pinned-public-IP transport to prevent DNS rebinding, 90-second site limit, 600-second Actor run limit, default ten sites/max 40, page max 8, 750 MB process-RSS guard. A public site may intentionally use tracking numbers; a mismatch is not a confirmed loss. Playwright witness is restricted to HTTP(S), GET and routed, pinned-IP responses; do not click or submit. Any browser crash must produce an UNOBSERVABLE result, not a charge. Logs exclude secrets and personally identifying data.
+GET-only probing, robots and rate-limit abstention, request and body caps, maximum five redirect hops, pinned-public-IP transport to prevent DNS rebinding, 90-second site limit, 600-second Actor run limit, default ten sites/max 40, page max 8, 750 MB process-RSS guard. A public site may intentionally use tracking numbers; a mismatch is not a confirmed loss. Playwright witness is restricted to HTTP(S), GET and routed, pinned-IP responses with a 96-intercepted-request total budget; unexpected script-opened popup pages are closed best-effort; request-budget exhaustion makes browser evidence unobservable; do not click or submit. Any browser crash must produce an UNOBSERVABLE result, not a charge. Logs exclude secrets and personally identifying data.
 
 ## Troubleshooting, support and correction
 

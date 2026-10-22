@@ -119,7 +119,11 @@ Reuse the canonical `paymentTruth` / witness path (`src/lead-path-sprint-fulfill
 2. Change the Apify PayPal payout threshold ($20) to the non-PayPal threshold ($100).
 3. Keep all scenarios labelled as scenarios.
 
-## P6: experiment E1, SMB agency-portfolio prevalence (zero effect, highest value)
+## P6: experiment E1, SMB agency-portfolio prevalence — DONE by Claude, 2026-10-22
+
+**Result:** FAILURE per preregistration: 1/52 sites (1/42 observable). See `artifacts/commercialization/e1-smb-cohort-result-2026-10-22.json` on the orchestration branch. Do not rerun. If useful, a human may reproduce the Scherer `tel:tel:` link on a real phone. The original specification is kept below for provenance.
+
+### Original specification
 
 **Question.** Do agency-built, single-location home-service sites carry *sellable* defects (typo-class phone mismatch, malformed tel link, form to a non-resolving host) often enough to support evidence-first acquisition?
 
@@ -145,7 +149,7 @@ The previous 40-site cohort was dominated by national brands, which is a biased 
 - If the experiment succeeds, list the attributed agencies as candidate first-touch recipients. Status: `DRAFT_ONLY`, nobody contacted.
 - If it fails, write the kill note for the "we find your leak" framing.
 
-## P7: experiment E2, public-page tracking integrity (second route, zero effect)
+## P7: experiment E2, public-page tracking integrity — NOW THE NEXT DECISIVE EXPERIMENT (use the frozen E1 cohort)
 
 **Question.** Can conversion-tracking breaks be observed from public pages on the E1 cohort?
 

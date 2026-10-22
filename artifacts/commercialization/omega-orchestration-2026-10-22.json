@@ -129,9 +129,10 @@
    "evidenceQuality": "LOW_MEDIUM",
    "previousFailures": [
     "Machiavelli rank-2 WOUNDED (-$40/-$20/+$250 monthly)",
-    "40-site field run: 0 typo-class, 4 parser-only JSON-LD candidates"
+    "40-site field run: 0 typo-class, 4 parser-only JSON-LD candidates",
+    "E1 2026-10-22: 1/52 agency-built/example SMB sites with a corroborated sellable defect (preregistered failure)"
    ],
-   "nextFalsification": "E1 SMB agency-portfolio prevalence cohort (zero effect); then founder-authorized 1-2 message probe",
+   "nextFalsification": "E3 only, prospect-specific (Reliant; Scherer as candidate); E2 decides the main value hypothesis",
    "classification": "PLAUSIBLE_BUYER_DEMAND",
    "collection": "PAYMENT_BLOCKED_PENDING_FOUNDER_ACTION"
   },
@@ -697,6 +698,19 @@
    "buyerAccessPath": "solicited supplier inbox; sender-side law still unresolved",
    "uncertainty": "invitation is to suppliers generally, not demand for a specific deliverable",
    "approvalStatus": "PRESERVED__REFRESH_BEFORE_USE"
+  },
+  {
+   "id": "DE-12",
+   "buyerCategory": "home-service operator (Scherer Electric, Buffalo NY area)",
+   "publicSource": "https://www.schererelectric.com/ raw GET 2026-10-22T21:33Z (HTML SHA-256 f75a88e4...6b1b); iMarket Solutions portfolio attribution (2019)",
+   "expressedNeed": "NONE EXPRESSED: evidence-of-work only (4 call links use href=\"tel:tel:716-646-4357\")",
+   "economicState": "NO_DEMAND_EXPRESSED__EVIDENCE_OF_WORK_CURRENT",
+   "observedDate": "2026-10-22",
+   "matchingCapability": "TEL_LINK_MALFORMED (assertable)",
+   "deliveryScope": "$99 one-site pilot",
+   "buyerAccessPath": "not researched; no draft prepared",
+   "uncertainty": "how a real phone handles the doubled scheme is UNKNOWN; impact not claimed",
+   "approvalStatus": "CANDIDATE_ONLY__NOT_IN_THE_AUTHORIZED_THREE"
   }
  ],
  "buyerPullTournament": {
@@ -722,8 +736,8 @@
     "differentiation": "WEAK: structured-data errors are free-tool findings; typo-class phone defects are the differentiator but rare in enterprise sites",
     "repeatability": "PASS: engine reusable",
     "reliability": "PASS after R3 (no sold routing mismatches)",
-    "reality": "KILL if E1 shows <5% typo-class/path-breaking prevalence in agency-built SMB sites, or 0 qualified replies from the authorized probe",
-    "decision": "RUN_BOUNDED_EXPERIMENT"
+    "reality": "KILL if E1 shows <5% typo-class/path-breaking prevalence in agency-built SMB sites, or 0 qualified replies from the authorized probe | E1 RAN: 1/52 (1/42 observable) -> preregistered FAILURE for the blind \"find your leak\" framing",
+    "decision": "RUN_BOUNDED_EXPERIMENT__PROSPECT_SPECIFIC_ONLY (sell only where a defect is already verified; no blind audits, no Store publication)"
    },
    {
     "id": "lead-path-tracking-integrity",
@@ -736,7 +750,7 @@
     "repeatability": "LIKELY",
     "reliability": "UNKNOWN",
     "reality": "KILL if E2 finds publicly observable tracking defects on <10% of SMB sites with independent corroboration",
-    "decision": "RESEARCH_MISSING_EVIDENCE"
+    "decision": "RESEARCH_MISSING_EVIDENCE__PROMOTED_TO_NEXT_DECISIVE_EXPERIMENT (E2)"
    },
    {
     "id": "white-label-fulfilment",
@@ -808,7 +822,7 @@
  "portfolio": {
   "laneA_cashNow": {
    "flagship": "verified-website-inquiry-audit-99",
-   "state": "ENGINEERING_READY_FOR_MANUAL_DELIVERY__COLLECTION_AND_SEND_AUTHORITY_BLOCKED",
+   "state": "ENGINEERING_READY_FOR_MANUAL_DELIVERY__PROSPECT_SPECIFIC_ONLY_AFTER_E1__COLLECTION_AND_SEND_AUTHORITY_BLOCKED",
    "smallestProblemWorthPaying": "a call or booking control that a visitor can tap but that reaches a number one keystroke away from the printed one, or a form posting to a host that does not resolve: path-breaking, verifiable in 30 seconds",
    "notSold": [
     "unrelated-number mismatches (routing/tracking questions)",
@@ -878,11 +892,20 @@
    "failureCriterion": "0-1/40 sellable defects",
    "termination": "stop at 40 sites or 600 s budget per run; no sends",
    "nextDecision": "success: authorize a 1-2 message probe to the attributed agencies; failure: drop \"find defects\" framing, promote E2",
-   "executor": "Chat on Steroids (packet CP-02 P6)",
-   "status": "PREPARED_NOT_RUN",
+   "executor": "Claude Code (read-only, this session) because the delegated worker was unavailable",
+   "status": "RUN_2026-10-22__FAILURE_PER_PREREGISTRATION",
    "predictionLedger": {
     "prior": "UNKNOWN",
     "note": "no defensible prior; enterprise cohort gave 0/40 typo-class, which is a biased floor"
+   },
+   "result": {
+    "artifact": "artifacts/commercialization/e1-smb-cohort-result-2026-10-22.json",
+    "frozenCohort": "artifacts/commercialization/e1-frozen-smb-cohort-2026-10-22.json",
+    "sellableSitesCorroborated": 1,
+    "submitted": 52,
+    "observable": 42,
+    "site": "schererelectric.com (doubled tel: scheme on 4 links; independently corroborated; phone behaviour UNKNOWN)",
+    "verdict": "FAILURE: <=1 sellable site"
    }
   },
   {
@@ -899,7 +922,7 @@
    "termination": "one cohort pass",
    "nextDecision": "success: prepare second-route offer and inbound listing draft; failure: reject with provenance",
    "executor": "Chat on Steroids (packet CP-02 P7)",
-   "status": "PREPARED_NOT_RUN",
+   "status": "PROMOTED_BY_E1_FAILURE__PREPARED_NOT_RUN",
    "predictionLedger": {
     "prior": "UNKNOWN"
    }
@@ -1103,9 +1126,10 @@
    "ETA invoicing status for exported services (founder)",
    "sender health evidence expired 2026-10-08 (refreshable internally once authorized)"
   ],
-  "nextLowestCostDecisiveExperiment": "E1 (zero cost, zero founder minutes, internal) in parallel with founder action 1 (Contra)",
+  "nextLowestCostDecisiveExperiment": "E2 (public-page tracking integrity; CP-02 P7; $0) in parallel with founder action 1",
   "engineeringReadinessVsMarketValidation": "SEPARATE: engineering for a manual $99 delivery is ready; market validation is zero",
-  "simulatedEarningsDisplayed": false
+  "simulatedEarningsDisplayed": false,
+  "e1": "1/52 sellable (preregistered failure); blind audits deprioritized"
  },
  "founderActionQueue": [
   {
@@ -1194,7 +1218,8 @@
    "#1537",
    "#1535"
   ],
-  "webSearches": "public, read-only; Upwork job pages returned 403 and were not bypassed"
+  "webSearches": "public, read-only; Upwork job pages returned 403 and were not bypassed",
+  "e1ReadOnlyGets": "about 150 page/robots GETs over 52 public sites + 5 discovery/corroboration GETs; 0 submissions, 0 messages"
  },
  "notAuthorizedNotDone": [
   "any prospect message",

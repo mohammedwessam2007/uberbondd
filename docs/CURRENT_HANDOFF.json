@@ -1644,7 +1644,7 @@
       "Decide sender-side position; approve or decline the exact Reliant-only first touch from #1535; zero follow-ups; $0",
       "Confirm ETA tax/e-invoicing status before any invoice"
     ],
-    "nextHighestValueMission": "Run CP-02 P6 (E1: sellable-defect prevalence on agency-built SMB sites, zero effect) and P1-P5 repairs; in parallel the founder completes action 1. Do not publish the Apify Actor or send outreach without explicit authorization.",
+    "nextHighestValueMission": "Run CP-02 P7 (E2: public-page conversion-tracking integrity, zero effect) and P1-P5 repairs; in parallel the founder completes action 1 (Contra). Lane A continues only prospect-specific (Reliant verified live; Scherer candidate). Do not publish the Apify Actor or send outreach without explicit authorization.",
     "externalEffects": {
       "prospectMessages": 0,
       "paymentRequests": 0,
@@ -1653,6 +1653,7 @@
       "merges": 0,
       "readOnlyPublicGets": 2
     },
-    "supersedes": "Only the PayPal-first payment route in PR #1535 and the PayPal fee model in PR #1537 economics. The 2026-10-09 'Contra collection last' ordering is superseded by the 2026-10-22 founder mission that makes the first cleared payment the first milestone. All prior lineage retained."
+    "supersedes": "Only the PayPal-first payment route in PR #1535 and the PayPal fee model in PR #1537 economics. The 2026-10-09 'Contra collection last' ordering is superseded by the 2026-10-22 founder mission that makes the first cleared payment the first milestone. All prior lineage retained.",
+    "e1Result": "RUN 2026-10-22: 1/52 SMB sites (1/42 observable) with a corroborated sellable inquiry defect (Scherer Electric, doubled tel: scheme) -> preregistered FAILURE of blind \"find your leak\" audits; artifacts/commercialization/e1-smb-cohort-result-2026-10-22.json"
   }
 }

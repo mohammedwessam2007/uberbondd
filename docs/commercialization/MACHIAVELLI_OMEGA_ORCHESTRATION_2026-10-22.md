@@ -126,9 +126,21 @@ These are scenarios with assumptions, not forecasts.
 
 | ID | Question | Success / failure | Cost | Status |
 |---|---|---|---|---|
-| E1 | Sellable defect prevalence on agency-built SMB sites | ≥2/40 corroborated sellable / ≤1 | $0, 0 founder min | PREPARED (CP-02 P6) |
-| E2 | Public-page tracking-defect prevalence | ≥4/40 / <4 | $0, 0 founder min | PREPARED (CP-02 P7) |
+| E1 | Sellable defect prevalence on agency-built SMB sites | ≥2/40 corroborated sellable / ≤1 | $0, 0 founder min | **RUN: FAILURE** (1/52; 1/42 observable) |
+| E2 | Public-page tracking-defect prevalence | ≥4/40 / <4 | $0, 0 founder min | **PROMOTED**, PREPARED (CP-02 P7) |
 | E3 | Reply to a free verified finding + $99 offer | any qualified reply in 7 days / 0 | $0, 10–30 founder min | BLOCKED on founder action 2 |
+
+**E1 result (2026-10-22, read-only).**
+
+- Cohort: the frozen 52-site SMB contractor cohort (`e1-frozen-smb-cohort-2026-10-22.json`, list SHA `e0af3838…42af`, frozen before scanning). Sources:
+  - 18 sites attributed by iMarket Solutions' public portfolio;
+  - 34 sites linked by WebFX's public HVAC-examples article, which likely biases defect prevalence downward.
+- Exactly **1 site** carried a corroborated sellable-class defect: Scherer Electric, with `href="tel:tel:716-646-4357"` on 4 links. It was confirmed by an independent raw fetch; how a real phone handles it is UNKNOWN.
+- Excluded:
+  - 3 machine-facing assertables (schema-only phones; invalid JSON-LD);
+  - 2 phone mismatches correctly held as questions under R3 (a CallRail swap; a dial-own-number routing case).
+
+**Interpretation.** Path-breaking inquiry defects appear on roughly 1 in 50 SMB contractor sites (about 1 in 90 combined with the enterprise cohort). A blind, buyer-nominated $99 audit will usually come back clean. Lane A therefore continues **only prospect-specific**: sell where a defect is already verified (Reliant live; Scherer as candidate). E2 becomes the main value hypothesis. Full records are in `e1-smb-cohort-result-2026-10-22.json`.
 
 E3's prior comes from a reference class (published B2B cold-email reply rates are low single-digit percent), so one or two messages most likely produce no reply. Zero replies is *insufficient* evidence, not negative evidence.
 
@@ -172,7 +184,7 @@ Still open:
 | Deployable products | Inquiry Audit: engineering ready for **manual** delivery; Store on HOLD |
 | Measured contribution margin | UNKNOWN (no sale) |
 | Founder minutes spent | not measured; none requested by this session |
-| Next lowest-cost decisive experiment | E1 (internal, $0), in parallel with founder action 1 |
+| Next lowest-cost decisive experiment | E2 (internal, $0), in parallel with founder action 1. E1 already ran: preregistered failure. |
 
 No simulated earnings are displayed. Engineering readiness and market validation are reported separately.
 
@@ -242,7 +254,7 @@ All other 890 ideas are preserved unread, not retired.
 | External customer validation | **Not started.** |
 | Financial validation | **Not started.** |
 
-Where only founder authorization or buyer response remains, this session stops fabricating engineering. That frontier is precise: **founder actions 1–3 plus E1.**
+Where only founder authorization or buyer response remains, this session stops fabricating engineering. That frontier is precise: **founder actions 1–3 plus E2.** E1 ran and failed its preregistered threshold.
 
 ---
 
@@ -270,7 +282,7 @@ Where only founder authorization or buyer response remains, this session stops f
     - #1535 PayPal versus the repository's deactivation record (flagged);
     - Oct-9 "collection last" versus the Oct-22 first-cash priority (resolved in favour of the newer instruction, noted for the founder);
     - enterprise-cohort prevalence versus SMB target (E1).
-15. **Next decisive experiment:** E1.
+15. **Next decisive experiment:** E2 (E1 ran: 1/52, failure).
 16. **Founder queue:** section 13.
 17. **This checkpoint:** `PHX-COMM-OMEGA-ORCH-20261022`.
 18. **Recovery pointer:**

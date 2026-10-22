@@ -116,6 +116,16 @@ export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signa
       } finally { await page.close().catch(() => {}); }
     }
     await context.close().catch(() => {});
+    // The page's own scripts can schedule further fetches while DOM evaluation
+    // is returning. Never leave an earlier positive tel-link witness in the
+    // output if a late routed request exhausted the shared network budget.
+    if (ledger.requestBudgetExceeded) {
+      for (const row of Object.values(witness)) {
+        row.status = null;
+        row.error = 'NETWORK_REQUEST_LIMIT_EXCEEDED';
+        row.telLinks = null;
+      }
+    }
   } finally { await browser.close().catch(() => {}); }
   return { version: INQUIRY_PATH_RUNTIME_WITNESS_VERSION, witness, ledger };
 }

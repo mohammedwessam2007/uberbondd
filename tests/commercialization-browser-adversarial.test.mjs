@@ -160,3 +160,38 @@ test('repeated individually capped public responses cannot evade cumulative 24MB
   assert.equal(result.ledger.inflightRequests,0);
   assert.equal(result.ledger.messages,0);
 });
+
+
+test('late request storm after DOM evaluation revokes an earlier witness before return', async () => {
+  const url='https://1.1.1.1/late';
+  let handler;
+  const browser={
+    newContext: async()=>({
+      routeWebSocket: async()=>{},
+      route: async(_pattern,callback)=>{handler=callback;},
+      newPage: async()=>({
+        on:()=>{},
+        goto:async()=>({status:()=>200}),
+        waitForTimeout:async()=>{},
+        $$eval:async()=>[{href:'tel:+15128675309',text:'(512) 867-5309'}],
+        close:async()=>{}
+      }),
+      close:async()=>{
+        for(let i=0;i<=MAX_WITNESS_REQUESTS;i++) {
+          await handler({
+            request:()=>({url:()=>url,method:()=> 'POST',resourceType:()=> 'fetch'}),
+            abort:async()=>{},fulfill:async()=>{throw Error('UNSAFE_FULFILL');}
+          });
+        }
+      }
+    }),
+    close:async()=>{}
+  };
+  const result=await witnessRuntimeTelLinks({urls:[url],launch:async()=>browser,maxWitnessMs:5000});
+  assert.equal(result.ledger.requestBudgetExceeded,true);
+  assert.equal(result.witness[url]?.telLinks,null,'a late request storm invalidates earlier DOM evidence');
+  assert.equal(result.witness[url]?.status,null);
+  assert.equal(result.witness[url]?.error,'NETWORK_REQUEST_LIMIT_EXCEEDED');
+  assert.equal(result.ledger.clicks,0);
+  assert.equal(result.ledger.formSubmissions,0);
+});

@@ -4,7 +4,7 @@
 
 Last reconciled: **2026-10-22**
 Branch: `feat/commercialization-omega-w1-w8-20261022`
-Reconciled from current head: `2c63caa2fcbe69a8c4641ed536e02fade3870f23`
+Reconciled from current head: `9bcdf54f02d22064eef9843a7d32e670550c7b57`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

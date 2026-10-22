@@ -1,0 +1,201 @@
+{
+  "schema": "uberbond.verified-inquiry-unit-economics.2026-10.v1",
+  "atUtc": "2026-10-22T16:12:57.611Z",
+  "product": "Verified Website Inquiry Audit",
+  "basis": {
+    "frozenCohort": "artifacts/commercialization/frozen-40-home-service-sites-2026-10.json",
+    "cohortSha256": "22940edec709f5af2af5a630425d7807dd165784378149d57b8a811ccac05952",
+    "firstRun": "artifacts/commercialization/field-cohort-40-node2gb-2026-10.json",
+    "secondRun": "artifacts/commercialization/field-cohort-40-node4gb-2026-10.json",
+    "directTerms": "PR #1535 docs/handoffs/FIRST_MONEY_ACTIVATION_2026-10-22.md",
+    "quality": "artifacts/commercialization/quality-eval-2026-10.json",
+    "benchmark": "artifacts/commercialization/delivery-only-benchmark-2026-10.json"
+  },
+  "historicalTournament": {
+    "candidate": "Exclusive Verified-Defect Claim Exchange",
+    "rank": 2,
+    "pessimisticUsdMonthly": -40,
+    "medianUsdMonthly": -20,
+    "optimisticUsdMonthly": 250,
+    "verdict": "WOUNDED_SURVIVOR",
+    "source": "artifacts/machiavelli/profit-tournament.json"
+  },
+  "measured": {
+    "nodeHeap2Gb": {
+      "sites": 40,
+      "observedSites": 34,
+      "unobservableSites": 6,
+      "zeroAssertableCandidateSites": 35,
+      "assertableCandidates": 7,
+      "rawCandidatePerSite": 0.175,
+      "p50Ms": 1642,
+      "p95Ms": 4064,
+      "meanMs": 1679.525,
+      "totalSiteWallMs": 67181,
+      "peakObservedRssBytes": 129724416,
+      "browserWitnessEnabled": false,
+      "actualApifyMemoryGb": "NOT_MEASURED",
+      "localNodeHeapCeilingGb": 2,
+      "modeledCUIfAllocatedGBEqualsCeiling": 0.03732278,
+      "modeledPlatformCostUsdAt020PerCU": 0.007465,
+      "measurementClass": "ACTUAL_PUBLIC_READONLY_LATENCY_NODE_HEAP_CEILING_NOT_APIFY_ALLOCATED_MEMORY"
+    },
+    "nodeHeap4Gb": {
+      "sites": 40,
+      "observedSites": 34,
+      "unobservableSites": 6,
+      "zeroAssertableCandidateSites": 35,
+      "assertableCandidates": 7,
+      "rawCandidatePerSite": 0.175,
+      "p50Ms": 1350,
+      "p95Ms": 3254,
+      "meanMs": 1418.675,
+      "totalSiteWallMs": 56747,
+      "peakObservedRssBytes": 133361664,
+      "browserWitnessEnabled": false,
+      "actualApifyMemoryGb": "NOT_MEASURED",
+      "localNodeHeapCeilingGb": 4,
+      "modeledCUIfAllocatedGBEqualsCeiling": 0.06305222,
+      "modeledPlatformCostUsdAt020PerCU": 0.01261,
+      "measurementClass": "ACTUAL_PUBLIC_READONLY_LATENCY_NODE_HEAP_CEILING_NOT_APIFY_ALLOCATED_MEMORY"
+    },
+    "deliveryOnlyReverification": {
+      "runs": 4,
+      "reprobeRuns": 2,
+      "reprobeWallClockMs": 3381,
+      "charged": 0,
+      "receipt": {
+        "requested": 4,
+        "delivered": 4,
+        "charged": 0,
+        "refused": 0,
+        "chargingMode": "DELIVERY_ONLY"
+      }
+    },
+    "independentQuality": {
+      "assertableCandidates": 7,
+      "automatedParserCorroborated": 4,
+      "humanVerified": 0
+    },
+    "runtimeBrowserWitness": "NOT_MEASURED_NO_INSTALLED_CHROMIUM_AT_INITIAL_RUN",
+    "ApifyStartupCost": "UNKNOWN_NO_PLATFORM_EXECUTION",
+    "true2GbVs4GbApifyCompute": "UNKNOWN_LOCAL_NODE_HEAP_IS_NOT_CLOUD_MEMORY",
+    "actualApifyCU": "UNKNOWN_NOT_BILLED_BY_APIFY",
+    "actualCreatorPayout": "NONE_VERIFIED",
+    "customerSupportMinutes": "UNKNOWN_NO_CUSTOMERS",
+    "buyerDemand": "UNKNOWN_NO_BUYERS",
+    "actualCashRevenueUsd": 0,
+    "clearedContributionProfitUsd": 0
+  },
+  "documentedPricingAssumptions": {
+    "platformRevenueShareOnEligiblePaidEvents": 0.8,
+    "cuUsd": {
+      "freeStarter": 0.2,
+      "scale": 0.16,
+      "business": 0.13
+    },
+    "cuDefinition": "1 GB-hour; memory tier is assumed to match provisioned GB, not observed RSS",
+    "defaultActorStartEventUsd": 0.00005,
+    "providerCashEvidence": "NONE",
+    "paymentProvider": {
+      "paypalEgyptInternationalRate": 0.044,
+      "fixedUsd": 0.3,
+      "actualFeesAndWithdrawalEligibility": "UNVERIFIED_PR1535"
+    }
+  },
+  "directPilotUsd99": {
+    "pessimistic": {
+      "priceUsd": 99,
+      "processingFeeUsd": 4.656,
+      "reviewDeliveryMinutes": 180,
+      "founderShadowHourlyUsd": 30,
+      "supportUsd": 15,
+      "refundAllowanceUsd": 24.75,
+      "otherVariableUsd": 12,
+      "computeProxyUsd": 0.05,
+      "cashContributionBeforeFounderShadowUsd": 42.54,
+      "riskAdjustedNetAfterFounderShadowUsd": -47.46,
+      "hypothesis": "NOT_A_SALES_FORECAST_OR_CLEARED_REVENUE"
+    },
+    "median": {
+      "priceUsd": 99,
+      "processingFeeUsd": 4.656,
+      "reviewDeliveryMinutes": 50,
+      "founderShadowHourlyUsd": 12,
+      "supportUsd": 5,
+      "refundAllowanceUsd": 4.95,
+      "otherVariableUsd": 3,
+      "computeProxyUsd": 0.025,
+      "cashContributionBeforeFounderShadowUsd": 81.37,
+      "riskAdjustedNetAfterFounderShadowUsd": 71.37,
+      "hypothesis": "NOT_A_SALES_FORECAST_OR_CLEARED_REVENUE"
+    },
+    "optimistic": {
+      "priceUsd": 99,
+      "processingFeeUsd": 4.656,
+      "reviewDeliveryMinutes": 20,
+      "founderShadowHourlyUsd": 10,
+      "supportUsd": 2,
+      "refundAllowanceUsd": 0,
+      "otherVariableUsd": 0.5,
+      "computeProxyUsd": 0.008,
+      "cashContributionBeforeFounderShadowUsd": 91.84,
+      "riskAdjustedNetAfterFounderShadowUsd": 88.51,
+      "hypothesis": "NOT_A_SALES_FORECAST_OR_CLEARED_REVENUE"
+    }
+  },
+  "storePayPerEvent": {
+    "pessimistic": {
+      "eventPriceUsd": 0.5,
+      "eligiblePaidPlanFraction": 0,
+      "validBillableFindingsPerSite": 0,
+      "meanChargeableEvents": 0,
+      "variableSupportUsdPer40Sites": 1,
+      "retryCostMultiplier": 2,
+      "computeBaseUsd": 0.01261,
+      "eligiblePaidEventRevenueUsd": 0,
+      "contributionUsd": -1.0252,
+      "zeroFindingSitePenalty": "Every scanned site consumes resources even without a billable finding",
+      "scenarioClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH"
+    },
+    "median": {
+      "eventPriceUsd": 1,
+      "eligiblePaidPlanFraction": 0.5,
+      "validBillableFindingsPerSite": 0.05,
+      "meanChargeableEvents": 2,
+      "variableSupportUsdPer40Sites": 2,
+      "retryCostMultiplier": 2,
+      "computeBaseUsd": 0.01261,
+      "eligiblePaidEventRevenueUsd": 1,
+      "contributionUsd": -1.2252,
+      "zeroFindingSitePenalty": "Every scanned site consumes resources even without a billable finding",
+      "scenarioClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH"
+    },
+    "optimistic": {
+      "eventPriceUsd": 2,
+      "eligiblePaidPlanFraction": 1,
+      "validBillableFindingsPerSite": 0.1,
+      "meanChargeableEvents": 4,
+      "variableSupportUsdPer40Sites": 1,
+      "retryCostMultiplier": 1.5,
+      "computeBaseUsd": 0.007465,
+      "eligiblePaidEventRevenueUsd": 8,
+      "contributionUsd": 5.3888,
+      "zeroFindingSitePenalty": "Every scanned site consumes resources even without a billable finding",
+      "scenarioClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH"
+    }
+  },
+  "choice": "DIRECT_PILOT_FIRST_SUBJECT_TO_PROVIDER_AND_TAX_AUTHORITY_AND_FOUNDER_APPROVAL__STORE_HOLD",
+  "pricingDecision": "NO_PRICE_SELECTED_FOR_STORE_PENDING_INDEPENDENT_QUALITY_BROWSER_COST_AND_BUYER_DEMAND",
+  "rationale": "Measured static site costs are small, but quality and payment demand dominate. Store per-event economics are unverified, zero-finding sites cost resources, and founder/review/support/refund costs can reverse the direct pilot advantage.",
+  "unknown": [
+    "Actual Apify CU and browser memory tier",
+    "Browser witness full reliability",
+    "Independent human precision/reproduction",
+    "Qualified buyers willing to pay",
+    "Support/refunds and sender CAC",
+    "Actual payment and payout eligibility",
+    "FX,tax,withdrawal amounts",
+    "Generalized finding prevalence beyond nonrandom cohort"
+  ]
+}

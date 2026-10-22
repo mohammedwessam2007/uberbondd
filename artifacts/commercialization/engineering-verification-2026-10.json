@@ -1,0 +1,20 @@
+{
+  "schema": "uberbond.commercial.omega-verification.v1",
+  "date": "2026-10-22",
+  "basePr": 1536,
+  "basePrHeadAtStart": "250685ca414c392913f263d3bb6182ce74556fe0",
+  "branch": "feat/commercialization-omega-w1-w8-20261022",
+  "finalCombinedTests": { "cases": 108, "passed": 108, "failed": 0, "skipped": 0, "postgresReal": true, "isolatedLocalPostgresVersion": 18 },
+  "originalFinancialRegressions": { "fromPr": 1532, "beforeFixPassed": 0, "beforeFixFailed": 5, "afterFixPassed": 5, "afterFixFailed": 0 },
+  "actorPackage": { "apifyPinned": "3.7.2", "pgPinned": "8.22.0", "playwrightPinned": "1.61.1", "cleanNpmInstalls": 2, "dependencyTreesByteEqual": true, "actorDeliveryOnlySmokeExit": 0, "saleReceiptCharged": 0, "dockerBuild": "BLOCKED_DAEMON_ENOSPC", "browserSmoke": "BLOCKED_CHROMIUM_SIGTRAP" },
+  "reachability": { "allClassified": true, "srcModules": 1143 },
+  "genesisDoctor": "PASS",
+  "readinessGenerator": "PASS",
+  "fullDeterministicSuite": "INTERRUPTED_NOT_A_PASS; SIGTERM caused cascading cancellation diagnostics; independent full CI still required",
+  "independentHumanVerifiedFindings": 0,
+  "currentProductionDeployment": "NOT_VERIFIED",
+  "actualCustomerPayments": 0,
+  "clearedContributionProfitUsd": 0,
+  "authorizedNewSpendUsd": 0,
+  "outreachSent": 0
+}

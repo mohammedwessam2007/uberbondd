@@ -1,0 +1,17 @@
+# First-buyer readiness, not outreach authorization
+
+**Existing experiment:** `UB-FIRST-CASH-20261022-01` from GPT Work draft [PR #1535](https://github.com/mohammedwessam2007/uberbondd/pull/1535). No second experiment or extra offer created. Proposed direct pilot: **$99 for one buyer-nominated public website, up to 10 public URLs**, plus one correction pass and one recheck after repair. No accepted price or customer yet.
+
+**Pipeline with evidence gates:**
+
+`Verified public observation → reproducible evidence packet → proposed $99 offer → founder-approved exact sender/destination/message → suppression and sender-health checks → actual sent-message receipt → actual buyer reply → explicit written scope agreement → fresh read-only audit and verified delivery → explicit buyer acceptance → lawful invoice/payment request only with founder authority → authenticated provider capture/settlement → confirmed Egyptian account receipt and exchange evidence → reconciled refund/fee-adjusted CLEARED contribution profit`.
+
+At every link, the right-hand state must be independently evidenced. A prospect is not a buyer. A message draft is not sent outreach. A reply is not an accepted scope. An invoice or PayPal payment link is not payment. A captured charge is not cleared funds. A sale receipt is not a payment-provider confirmation.
+
+**Existing prepared prospects and exact message copy:** do not recreate or silently change PR #1535. Reliant Plumbing: its public site has a historical one-digit Bastrop label-vs-href inconsistency. Give the finding free and ask if a paid broader audit is useful, without alleging lost leads. Hook Agency: business fit through public plumbing-web pages; no proof Reliant is its client. RYNO: route suitability is unresolved, so HOLD. The three unsent draft bodies and their original provenance remain in PR #1535. Explicit approval for each final recipient, verified email route, factual sender identity and opt-out are required. Public contact form submission and phone outreach are prohibited here.
+
+**Existing UberBond distribution controls:** follow `00_OUTREACH_NOW.md`, `00_OUTREACH_NOW.json`, `docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`, central suppression records, sender placement/health gates and exact-message authorization. Cap three prospects, one email each, zero automated follow-ups, one paid pilot in flight, seven-day window, $0 new spend. No message can be sent from this readiness ledger alone.
+
+**Tracking:** `artifacts/commercialization/first-buyer-pipeline-2026-10.json` stores only zero-state aggregates, pointers and permitted prospect labels. Sensitive replies, KYC, transaction identifiers and bank records belong in approved private systems. Increment only on actual external evidence with a source pointer and timestamp. Stop on any complaint, recipient objection, bounce, provider warning, false-positive reproduction failure, unrecognized refund, expired consent or negative updated unit economics. A free sample is not a paid delivery.
+
+**Acceptance and money gate:** buyer acceptance must explicitly acknowledge the agreed scope, not silence. Invoice must satisfy actual founder/ETA obligations before issuance. PR #1535's PayPal sign-in was declined; account receiving/payout capabilities remain unverified and no retry is authorized. Neither this branch nor the actor may assert cleared profit from local JSON, hashes or synthetic events. Store channel remains on HOLD pending separately approved database and quality checks.

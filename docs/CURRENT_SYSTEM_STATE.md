@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-22**
-Branch: `feat/commercialization-verified-inquiry-audit-20261022`
-Reconciled from current head: `dffc9f92533478e8e3bdd066a2bbc7cb09fe5cda`
+Branch: `feat/commercialization-omega-w1-w8-20261022`
+Reconciled from current head: `250685ca414c392913f263d3bb6182ce74556fe0`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

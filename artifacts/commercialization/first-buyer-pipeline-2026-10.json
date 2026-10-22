@@ -1,0 +1,28 @@
+{
+  "schema": "uberbond.first-buyer-readiness.v1",
+  "experimentId": "UB-FIRST-CASH-20261022-01",
+  "source": "PR #1535 docs/handoffs/FIRST_MONEY_ACTIVATION_2026-10-22.md",
+  "authorities": { "outreach": "NONE", "invoice": "NONE", "paymentCollection": "NONE", "deployment": "NONE", "additionalSpendingUsd": 0 },
+  "approvedProspects": 0,
+  "prospectRecords": [
+    { "name": "Reliant Plumbing", "source": "PR #1535", "draftPresent": true, "route": "PUBLISHED_GENERAL_OFFICE_ADDRESS", "sendEligible": false, "status": "AWAIT_FOUNDER_REVIEW" },
+    { "name": "Hook Agency", "source": "PR #1535", "draftPresent": true, "route": "PUBLIC_BUSINESS_CONTACT", "sendEligible": false, "status": "AWAIT_FOUNDER_REVIEW" },
+    { "name": "RYNO Strategic Solutions", "source": "PR #1535", "draftPresent": true, "route": "CONTACT_FORM_UNVERIFIED_FOR_SUPPLIER_PITCH", "sendEligible": false, "status": "HOLD" }
+  ],
+  "messagesDrafted": 3,
+  "messagesAuthorized": 0,
+  "messagesSent": 0,
+  "replies": 0,
+  "positiveResponses": 0,
+  "rejections": 0,
+  "paidPilots": 0,
+  "buyerScopesAccepted": 0,
+  "deliveriesAccepted": 0,
+  "refunds": 0,
+  "netClearedProfit": { "USD": 0 },
+  "founderMinutesMeasured": null,
+  "hypothesizedPilotPriceUsd": 99,
+  "hypothesisNotApproval": true,
+  "financialKillCriteria": "Do not activate if trustworthy payout or legal invoice is unavailable, if founder-approved economics predict negative adjusted contribution after review/refunds, or if defects cannot be reproduced independently. Stop immediately on objection, bounce, complaint or unhandled opt-out. After 7 days with zero qualified interest, stop/revise before expansion.",
+  "noUnapprovedExternalEffects": true
+}

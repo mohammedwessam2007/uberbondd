@@ -1,0 +1,48 @@
+{
+  "schema": "uberbond.delivery-only-reverification-benchmark.v1",
+  "dateUtc": "2026-10-22T16:10:16.268Z",
+  "websites": [
+    "https://www.bakerbrothersplumbing.com/",
+    "https://www.mrelectric.com/"
+  ],
+  "mode": "DELIVERY_ONLY_NO_PROVIDER_NO_CUSTOMER_NO_CHARGE",
+  "metrics": [
+    {
+      "website": "https://www.bakerbrothersplumbing.com/",
+      "wallClockMs": 3201,
+      "pages": 2,
+      "rawFindings": 3,
+      "outcome": "COMPLETED"
+    },
+    {
+      "website": "https://www.mrelectric.com/",
+      "wallClockMs": 1720,
+      "pages": 2,
+      "rawFindings": 2,
+      "outcome": "COMPLETED"
+    },
+    {
+      "website": "https://www.bakerbrothersplumbing.com/",
+      "wallClockMs": 1752,
+      "pages": 2,
+      "rawFindings": 3,
+      "outcome": "COMPLETED"
+    },
+    {
+      "website": "https://www.mrelectric.com/",
+      "wallClockMs": 1629,
+      "pages": 2,
+      "rawFindings": 2,
+      "outcome": "COMPLETED"
+    }
+  ],
+  "receipt": {
+    "requested": 4,
+    "delivered": 4,
+    "charged": 0,
+    "refused": 0,
+    "chargingMode": "DELIVERY_ONLY"
+  },
+  "deliveredCount": 4,
+  "externalPaymentEvidence": "NONE"
+}

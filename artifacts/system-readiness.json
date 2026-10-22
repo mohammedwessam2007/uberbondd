@@ -1,13 +1,13 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-21T21:33:20.698Z",
+  "generatedAt": "2026-10-22T07:27:11.785Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "3686ed8ac57027687adbfff07c1fa91a2b586c5f",
-    "branch": "feat/inquiry-path-coherence-20261021",
-    "sourceModules": 1127,
-    "testSuites": 1367,
-    "workingTreeClean": false
+    "head": "e409413dad5c0482cc0a6bd3288073fc29007ee5",
+    "branch": "feat/machiavelli-wealth-engine-20261021",
+    "sourceModules": 1138,
+    "testSuites": 1371,
+    "workingTreeClean": true
   },
   "measurements": {
     "check:syntax": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1127,
+      "srcModules": 1138,
       "reachableFromProduction": 421,
-      "reachableFromUnattendedOperatorScriptsOnly": 462,
+      "reachableFromUnattendedOperatorScriptsOnly": 473,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 462,
+      "reachableFromOperatorScriptsOnly": 473,
       "noEntryPointAtAll": 237,
       "partitionExact": true,
       "allClassified": true,

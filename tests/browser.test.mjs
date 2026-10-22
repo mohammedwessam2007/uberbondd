@@ -80,3 +80,25 @@ test('the public form sends a linked or typed invitation code as attribution and
     await new Promise(resolve => site.close(resolve));
   }
 });
+
+// Real Chromium, hostile HTML, and the *production* witness routing policy.
+// The only injected seam is a synthetic response provider. No external HTTP
+// request or form submission is made; public-IP guard remains authoritative.
+test('real Chromium witness refuses a scripted image/request storm without creating a finding', async () => {
+  const { witnessRuntimeTelLinks, MAX_WITNESS_REQUESTS } = await import('../src/inquiry-path-runtime-witness.mjs');
+  const url = 'https://1.1.1.1/omega-browser-fixture';
+  const images = Array.from({length: 140}, (_,i)=>`<img src="/pixel-${i}.png" width="1" height="1">`).join('');
+  const hostile = `<!doctype html><html><body><a href="tel:5128675309">(512) 867-5309</a>${images}<script>fetch('/no-consent',{method:'POST',body:'private'}).catch(()=>{});</script></body></html>`;
+  const served = [];
+  const result = await witnessRuntimeTelLinks({ urls:[url], settleMs:1200, maxWitnessMs:12000,
+    fetchPinned:async location=>{served.push(location);return{ status:200,headers:{get:()=> 'text/html'},text:async()=>hostile };} });
+  assert.ok(result.ledger.routeRequests > MAX_WITNESS_REQUESTS, 'real Chrome generated enough intercepted resource requests to trip the budget');
+  assert.equal(result.ledger.requestBudgetExceeded,true);
+  assert.equal(result.witness[url]?.telLinks,null,'no claim after resource-budget exhaustion');
+  assert.equal(result.witness[url]?.error,'NETWORK_REQUEST_LIMIT_EXCEEDED');
+  assert.ok(result.ledger.blockedRequests>0);
+  assert.equal(result.ledger.formSubmissions,0);
+  assert.equal(result.ledger.clicks,0);
+  assert.ok(served.length<=MAX_WITNESS_REQUESTS);
+  assert.ok(served.every(location=>location.startsWith('https://1.1.1.1/')));
+});

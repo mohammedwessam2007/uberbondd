@@ -3,7 +3,7 @@
 // never starts Chromium or touches a website. Production guard is NOT mocked.
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { witnessRuntimeTelLinks, MAX_WITNESS_REQUESTS } from '../src/inquiry-path-runtime-witness.mjs';
+import { witnessRuntimeTelLinks, MAX_WITNESS_REQUESTS, MAX_WITNESS_INFLIGHT_REQUESTS, MAX_WITNESS_RESPONSE_BYTES } from '../src/inquiry-path-runtime-witness.mjs';
 
 function fakeWitnessHarness() {
   const record = { launchCount: 0, closeCount: 0, contextOptions: null, webSocketHandler: null, routeHandler: null, pageCount: 0 };
@@ -116,4 +116,47 @@ test('hostile request storm is capped before route guard or network fetch', asyn
   assert.equal(result.ledger.blockedRequests,MAX_WITNESS_REQUESTS+5);
   assert.equal(result.ledger.requestBudgetExceeded,true);
   assert.equal(result.ledger.formSubmissions,0);
+});
+
+
+test('public GET stampede saturates bounded concurrency without reaching a ninth socket', async () => {
+  const h = fakeWitnessHarness();
+  const pending = [];
+  let fetchStarts = 0;
+  const fetchPinned = () => {fetchStarts++;return new Promise(resolve => pending.push(resolve));};
+  const result = await witnessRuntimeTelLinks({ urls: [], launch:h.launch, fetchPinned, maxWitnessMs: 5000 });
+  const routes = Array.from({length:MAX_WITNESS_INFLIGHT_REQUESTS}, () => h.makeRoute({url:'https://1.1.1.1/resource'}));
+  const workers = routes.map(route => h.record.routeHandler(route));
+  for(let i=0;i<100&&pending.length<MAX_WITNESS_INFLIGHT_REQUESTS;i++) await new Promise(resolve=>setImmediate(resolve));
+  assert.equal(fetchStarts,MAX_WITNESS_INFLIGHT_REQUESTS);
+  const ninth = h.makeRoute({url:'https://1.1.1.1/overflow'});
+  await h.record.routeHandler(ninth);
+  assert.equal(ninth.state.fulfilled,0);
+  assert.equal(ninth.state.aborted,1);
+  assert.equal(result.ledger.requestBudgetExceeded,true);
+  assert.equal(result.ledger.peakInflightRequests,MAX_WITNESS_INFLIGHT_REQUESTS);
+  for(const resolve of pending) resolve({ status:200, headers:{get:()=>null}, text:async()=>'' });
+  await Promise.all(workers);
+  assert.equal(result.ledger.inflightRequests,0);
+  assert.equal(result.ledger.formSubmissions,0);
+});
+
+test('repeated individually capped public responses cannot evade cumulative 24MB body ceiling', async () => {
+  const h = fakeWitnessHarness();
+  const body = 'a'.repeat(2_000_000);
+  let fetches = 0;
+  const result = await witnessRuntimeTelLinks({ urls:[], launch:h.launch, maxWitnessMs:5000,
+    fetchPinned:async()=>{fetches++;return{status:200,headers:{get:()=>null},text:async()=>body};} });
+  assert.equal(MAX_WITNESS_RESPONSE_BYTES,24_000_000);
+  for(let i=0;i<15;i++) {
+    const route=h.makeRoute({url:'https://1.1.1.1/resource'});
+    await h.record.routeHandler(route);
+    if(i<12)assert.equal(route.state.fulfilled,1);
+    else {assert.equal(route.state.fulfilled,0);assert.equal(route.state.aborted,1);}
+  }
+  assert.equal(fetches,13,'no additional GET after cumulative budget was exceeded');
+  assert.equal(result.ledger.responseBytes,26_000_000);
+  assert.equal(result.ledger.requestBudgetExceeded,true);
+  assert.equal(result.ledger.inflightRequests,0);
+  assert.equal(result.ledger.messages,0);
 });

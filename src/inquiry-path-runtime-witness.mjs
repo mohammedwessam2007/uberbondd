@@ -23,6 +23,11 @@ export const INQUIRY_PATH_RUNTIME_WITNESS_VERSION = 'uberbond.inquiry-path-runti
 // A hostile page may schedule a request storm with ordinary GETs. Bound all
 // intercepted requests, including blocked resources and tracking beacons.
 export const MAX_WITNESS_REQUESTS = 96;
+// Intercepting network requests through Node does not remove the need for a
+// bounded socket fanout and cumulative traffic ceiling. A script can launch
+// many *public* GETs before the 96-request counter trips.
+export const MAX_WITNESS_INFLIGHT_REQUESTS = 8;
+export const MAX_WITNESS_RESPONSE_BYTES = 24_000_000;
 
 /** Pure: turn raw DOM anchor readings into the same shape the static engine uses. */
 export function normalizeRuntimeTelLinks(anchors = []) {
@@ -31,7 +36,7 @@ export function normalizeRuntimeTelLinks(anchors = []) {
     .map(anchor => ({ href: String(anchor.href).slice(0, 120), anchorText: String(anchor.text ?? '').replace(/\s+/g, ' ').trim().slice(0, 160), normalized: normalizeTelHref(anchor.href), textPhones: phonesInText(anchor.text).map(phone => phone.key) }));
 }
 
-export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signal = null, maxWitnessMs = 25000, launch = options => chromium.launch(options), now = () => new Date() } = {}) {
+export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signal = null, maxWitnessMs = 25000, launch = options => chromium.launch(options), fetchPinned = fetchPublicPinned, now = () => new Date() } = {}) {
   const deadline = boundedSignal(signal, maxWitnessMs);
   if (urls.length > 8) throw Error('BROWSER_PAGE_LIMIT_EXCEEDED');
   if (urls.some(url => !/^https?:\/\//i.test(url))) throw Error('UNSAFE_BROWSER_NAVIGATION_SCHEME');
@@ -39,14 +44,14 @@ export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signa
   // The Chromium sandbox stays on unless the process runs as root, where Chromium cannot start without it.
   const browser = await abortable(launch({ headless: true, executablePath, args: [...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-dev-shm-usage', '--disable-features=WebRTC'] }), deadline);
   const witness = {};
-  const ledger = { pageLoads: 0, routeRequests: 0, blockedRequests: 0, requestBudgetExceeded: false, popupsClosed: 0, clicks: 0, formSubmissions: 0, messages: 0 };
+  const ledger = { pageLoads: 0, routeRequests: 0, blockedRequests: 0, requestBudgetExceeded: false, inflightRequests: 0, peakInflightRequests: 0, responseBytes: 0, popupsClosed: 0, clicks: 0, formSubmissions: 0, messages: 0 };
   try {
     // Service workers and WebSockets bypass context.route, so neither is allowed.
     const context = await abortable(browser.newContext({ userAgent: PROBE_USER_AGENT, viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, serviceWorkers: 'block', acceptDownloads: false }), deadline);
     if (context.routeWebSocket) await context.routeWebSocket(/.*/, ws => { ledger.blockedRequests += 1; ws.close(); });
     await context.route('**/*', async route => {
       ledger.routeRequests += 1;
-      if (ledger.routeRequests > MAX_WITNESS_REQUESTS) {
+      if (ledger.requestBudgetExceeded || ledger.routeRequests > MAX_WITNESS_REQUESTS) {
         ledger.requestBudgetExceeded = true;
         ledger.blockedRequests += 1;
         return route.abort('blockedbyclient');
@@ -61,15 +66,34 @@ export async function witnessRuntimeTelLinks({ urls = [], settleMs = 1250, signa
       if (['image', 'media', 'font', 'other'].includes(request.resourceType())) {
         ledger.blockedRequests += 1; return route.abort('blockedbyclient');
       }
+      // Admission is synchronous, before any await, so parallel JS requests
+      // cannot all pass a stale concurrency check and then flood the socket pool.
+      if (ledger.inflightRequests >= MAX_WITNESS_INFLIGHT_REQUESTS) {
+        ledger.requestBudgetExceeded = true;
+        ledger.blockedRequests += 1;
+        return route.abort('blockedbyclient');
+      }
+      ledger.inflightRequests += 1;
+      ledger.peakInflightRequests = Math.max(ledger.peakInflightRequests, ledger.inflightRequests);
       try {
         await abortable(assertPublicUrl(url), deadline);
-        const response = await fetchPublicPinned(url, { signal: deadline });
+        // The injected fetch is a test seam; production always uses pinned-IP
+        // read-only transport, and the public-address guard is never injected.
+        const response = await fetchPinned(url, { signal: deadline });
         const body = await abortable(response.text(), deadline);
+        ledger.responseBytes += Buffer.byteLength(body, 'utf8');
+        if (ledger.responseBytes > MAX_WITNESS_RESPONSE_BYTES || ledger.requestBudgetExceeded) {
+          ledger.requestBudgetExceeded = true;
+          ledger.blockedRequests += 1;
+          return route.abort('blockedbyclient');
+        }
         const contentType = response.headers.get('content-type') ?? 'text/plain';
-        return route.fulfill({ status: response.status, contentType, body });
+        return await route.fulfill({ status: response.status, contentType, body });
       } catch {
         ledger.blockedRequests += 1;
         return route.abort('blockedbyclient').catch(() => {});
+      } finally {
+        ledger.inflightRequests -= 1;
       }
     });
     for (const url of urls) {

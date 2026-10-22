@@ -1,0 +1,55 @@
+{
+  "schema": "uberbond.machiavelli.preregistration.v1",
+  "registeredAt": "2026-10-22T22:35:00Z",
+  "mission": "UBERBOND MACHIAVELLI Omega-Infinity: THE ABSOLUTE MONEY HUNT (founder directive 2026-10-22). Directive text was not attached to this session or found in the repository: NOT_HYDRATED. The 120 income-mechanism seeds it references are likewise NOT_HYDRATED; nothing here claims to have read them.",
+  "selectionRationale": "Open drafts #1532/#1535/#1536/#1537/#1538 all work the website-inquiry-audit lane; #1538 already ran E1 there and assigned E2. To avoid duplication, this session runs the two tournament-recommended experiments that were never executed: rank 1 (Single Audit Obligation Radar) and rank 3 (Apify Store breakage). Both are read-only on public data, zero cost, zero contact.",
+  "authority": { "businessEffectAuthority": "NONE", "messages": 0, "spendUsd": 0, "accountsCreated": 0, "trades": 0 },
+  "experiments": [
+    {
+      "id": "X1-single-audit-radar-hindcast",
+      "question": "When the radar flags a nonprofit with >= threshold direct federal obligations in a federal fiscal year and no prior FAC filing history, how often does that entity in fact file a Single Audit for that period?",
+      "whyHindcast": "Prospective forecasts cannot resolve for ~9-21 months. Federal FY2023 can be resolved now against FAC.",
+      "data": {
+        "fac": "keyless FAC bulk CSVs general.csv and additional_ueis.csv from app.fac.gov/dissemination/public-data/gsa/full/ (download date and SHA-256 recorded in the result)",
+        "usaspending": "POST /api/v2/search/spending_by_category/recipient/ ; federal FY2023 (2022-10-01..2023-09-30); award types 02,03,04,05; recipient_type nonprofit; place of performance state"
+      },
+      "states": ["GA", "OH", "AZ"],
+      "threshold": { "usd": 750000, "basis": "2 CFR 200.501 as in force before the 2024 revision; the $1,000,000 threshold applies only to fiscal years beginning on or after 2024-10-01" },
+      "estimator": "FY2023 direct federal obligations per recipient UEI. Known bias: obligations are not expenditures, and pass-through (subaward) funding is invisible, which harms recall but not the precision measured here.",
+      "flagRule": [
+        "FY2023 direct obligations >= $750,000",
+        "no FAC report (as auditee UEI or as additional UEI) for audit years 2019-2022 accepted before 2023-10-01",
+        "no FAC report for audit years 2019-2022 accepted before 2023-10-01 whose normalized auditee name + state equals the recipient's (guards against UEI changes)"
+      ],
+      "strata": { "core": "$750K <= obligations < $5M", "large": "obligations >= $5M" },
+      "outcome": {
+        "primary": "entity files audit year 2023 or 2024 (auditee UEI, additional UEI, or normalized name + state) — absorbs entity fiscal-year misalignment",
+        "strict": "audit year 2023 only"
+      },
+      "metrics": ["precision_primary (core stratum is the headline)", "precision_strict", "true new obligors per state", "outcome categories: FILED_PRIMARY, FILED_LATER_ONLY, NEVER_FILED"],
+      "decisionRules": {
+        "kill": "core-stratum precision_primary < 0.35 (the kill threshold set in docs/MACHIAVELLI_WEALTH_ENGINE.md)",
+        "thinYield": "median true new obligors per state < 5 means commercially thin even if precise",
+        "continue": "precision >= 0.35 and median yield >= 5"
+      },
+      "descriptiveOnly": ["national first-time filers per audit year (UEI absent from the prior three audit years and from additional_ueis)", "distinct auditor firms and concentration", "year-over-year auditor-change rate"]
+    },
+    {
+      "id": "X2-apify-store-breakage-observatory",
+      "question": "Do high-demand public Apify Actors fail often enough, without healthy substitutes, to leave a stranded-user niche a new Actor could serve?",
+      "data": "public GET https://api.apify.com/v2/store (no account), full pagination, >= 1 s between calls; only listing fields are retained",
+      "definitions": {
+        "runs30": "stats.publicActorRunStats30Days.TOTAL",
+        "failShare": "(FAILED + TIMED-OUT) / TOTAL; ABORTED excluded as user-initiated",
+        "brokenLeader": "users30 >= 200 and runs30 >= 1000 and failShare >= 0.20",
+        "healthySubstitute": "different Actor, shares the leader's first category, shares >= 1 title token after stopwords, failShare <= 0.05, runs30 >= 500, users30 >= 50"
+      },
+      "decisionRules": {
+        "H2a_kill": "fewer than 25 broken leaders: breakage is not a material cross-sectional phenomenon; kill the foundry",
+        "H2b_kill": "more than 70% of broken leaders already have a healthy substitute with users30 >= 0.5 x the leader's: substitutes already absorb demand; kill the foundry",
+        "continue": "otherwise, rank unabsorbed broken leaders by stranded users30 as build candidates"
+      },
+      "notClaimed": "The canon's 14-day migration test needs a second snapshot on or after 2026-11-05 with these exact definitions. One snapshot measures a cross-section, not migration."
+    }
+  ]
+}

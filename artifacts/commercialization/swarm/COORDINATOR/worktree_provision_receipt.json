@@ -1,0 +1,171 @@
+{
+  "source_sha": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+  "count": 20,
+  "created": 20,
+  "results": [
+    {
+      "id": "A01",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A01",
+      "branch": "swarm/A01-strategy-tournament-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A02",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A02",
+      "branch": "swarm/A02-buyer-signal-lab-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A03",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A03",
+      "branch": "swarm/A03-prospect-evidence-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A04",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A04",
+      "branch": "swarm/A04-quality-proof-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A05",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A05",
+      "branch": "swarm/A05-delivery-experience-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A06",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A06",
+      "branch": "swarm/A06-outreach-creative-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A07",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A07",
+      "branch": "swarm/A07-distribution-safety-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A08",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A08",
+      "branch": "swarm/A08-partner-commercial-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A09",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A09",
+      "branch": "swarm/A09-payments-eligibility-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A10",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A10",
+      "branch": "swarm/A10-money-integrity-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A11",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A11",
+      "branch": "swarm/A11-delivery-operations-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A12",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A12",
+      "branch": "swarm/A12-apify-readiness-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A13",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A13",
+      "branch": "swarm/A13-inbound-channels-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A14",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A14",
+      "branch": "swarm/A14-profit-calibration-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A15",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A15",
+      "branch": "swarm/A15-retention-mechanisms-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A16",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A16",
+      "branch": "swarm/A16-economic-invention-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A17",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A17",
+      "branch": "swarm/A17-vertical-tournament-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A18",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A18",
+      "branch": "swarm/A18-owner-minutes-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A19",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A19",
+      "branch": "swarm/A19-independent-redteam-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    },
+    {
+      "id": "A20",
+      "path": "/tmp/uberbond-wealth-swarm-20261023/A20",
+      "branch": "swarm/A20-swarm-integrator-20261023",
+      "head": "d11655e3c299845c1a8c103931ddbcff8ffaa0d7",
+      "specExists": true,
+      "result": "READY_NOT_RUNNING"
+    }
+  ],
+  "actual_model_sessions": 0,
+  "model_auth_verified": false,
+  "outbound_sends": 0,
+  "spend_usd": 0
+}

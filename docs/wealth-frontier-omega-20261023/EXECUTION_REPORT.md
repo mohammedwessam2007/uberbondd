@@ -179,3 +179,6 @@ Founder-only queue, maximum3:
 3. Confirm lawful invoicing identity/status in official systems before accepting a paid scope. Do not put identity documents in chat.
 
 The n8n draft is a ready fallback; it will require its own exact approval if selected. Previously sent marketplace/referral inquiries are not resent. No recurring monitor was created.
+
+## Follow-up closure check
+The first complete CI found one generated-readiness freshness failure among10,436 tests; real PostgreSQL and browser jobs passed. The canonical readiness generator corrected the two stale marker files, and the affected freshness/quant set then passed25/25 with0 skips. Final exact-head CI remains separately tracked on PR1539. The existing Contra sign-in was interrupted and its account state remains unknown. The Intutiv draft now includes the actual disclosed AI-assisted internal bug case, rather than a hypothetical portfolio example. No send, offer acceptance, charge or cleared payment was added.

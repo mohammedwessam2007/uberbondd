@@ -95,3 +95,10 @@ Read this checkpoint and current source before acting. Draft branch is not main.
 Highest-value next event:founder-authorized,zero-cost Intutiv qualification followed by an actual buyer answer; existing Contra account inspection in parallel. If current free LinkedIn access is unavailable,do not buy access or substitute a public comment. Keep the prepared n8n alternative unsent until specifically authorized.
 
 All financial outcome counts remain0. No new spend,trade,account,customer submission,invoice,paid listing,production deployment or merge occurred.
+
+## Follow-up: final CI failure repaired, 23 October2026
+The first exact-head CI at59fb24ac completed with10,436 tests:10,375 pass,1 fail,60 skip. The only failure was canon-freshness: generated readiness markers still described the source before the quant fix. Both CI's real PostgreSQL and browser jobs passed. Two focused outbound/postal workflows also passed.
+
+Ran the required canonical generator, npm run readiness, without weakening a test or hand-editing its marker. The resulting change is limited to artifacts/system-readiness.json and docs/CURRENT_SYSTEM_STATE.md. Then canon freshness plus both quant files passed25/25,0 skips; whitespace check passed. A new exact-head CI must verify the update; the earlier full run is not labeled green.
+
+After the owner interrupted secure authentication, the local/browser session was reset. The existing Contra tab was unavailable; no authenticated account or payout activation was inferred. The connected Chat on Steroids tunnel also reported disconnected during this follow-up; its earlier successful code/test receipt remains historical. GitHub source and the saved owner handoff were recovered without a founder retelling. No authentication retry or commercial send occurred.

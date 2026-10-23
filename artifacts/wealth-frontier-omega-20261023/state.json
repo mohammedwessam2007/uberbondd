@@ -113,11 +113,11 @@
     "source": "GitHub combined status API",
     "statuses": [
       {
-        "context": "Vercel – uberbondd-lite-private",
+        "context": "Vercel \u2013 uberbondd-lite-private",
         "description": "Account is blocked."
       },
       {
-        "context": "Vercel – uberbondd",
+        "context": "Vercel \u2013 uberbondd",
         "description": "Account is blocked."
       }
     ],
@@ -158,5 +158,28 @@
     "cosCommandExecution": "COMPLETED_AND_PUSHED",
     "claudeCode": "NOT_CONTACTED__REVIEW_PACKET_ONLY",
     "postTurnBackgroundWork": "NONE"
+  },
+  "followUp": {
+    "baselinePublishedSha": "59fb24ac7725cf22d3514c1d3e3a7aa70b776861",
+    "initialCI": {
+      "tests": 10436,
+      "pass": 10375,
+      "fail": 1,
+      "skip": 60,
+      "onlyFailure": "CANON_FRESHNESS_GENERATED_MARKERS",
+      "realPostgres": "PASS",
+      "browser": "PASS"
+    },
+    "correction": "npm run readiness; generated files only",
+    "affectedChecks": {
+      "tests": 25,
+      "pass": 25,
+      "fail": 0,
+      "skip": 0
+    },
+    "finalHeadCI": "PENDING_NEW_RUN",
+    "contraAuthentication": "INTERRUPTED__NO_AUTHENTICATED_STATE_OBSERVED",
+    "cosCurrentTunnel": "DISCONNECTED_AFTER_PRIOR_SUCCESS",
+    "commercialEffects": 0
   }
 }

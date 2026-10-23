@@ -17,7 +17,7 @@ print('Verified 20 distinct agent specifications and worktrees; NOT 20 active se
 PY
 if [[ "$MODE" == status ]]; then
  if command -v claude >/dev/null 2>&1; then
-  claude auth status 2>/dev/null | python3 -c 'import json,sys;d=json.load(sys.stdin);print("Claude loggedIn:",d.get("loggedIn",False),"authMethod:",d.get("authMethod","UNKNOWN"))' || echo 'Claude auth unknown'
+  (claude auth status 2>/dev/null || true) | python3 -c 'import json,sys;d=json.load(sys.stdin);print("Claude loggedIn:",d.get("loggedIn",False),"authMethod:",d.get("authMethod","UNKNOWN"))' || echo 'Claude auth unknown'
  else echo 'Claude CLI unavailable'; fi
  exit 0
 fi

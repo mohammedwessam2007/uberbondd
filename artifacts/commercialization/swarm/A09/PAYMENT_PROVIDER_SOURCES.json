@@ -1,0 +1,334 @@
+{
+  "schemaVersion": "ub-a09-payment-provider-sources-1.0.0",
+  "worker": "A09_PAYMENTS_ELIGIBILITY",
+  "observedAt": "2026-10-23",
+  "baseSha": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "workerStartSha": "6297e4a216cdcf3e264eb5218608ef9a9aacb115",
+  "sourcePolicy": "Read-only public HTTP GET and repository evidence; no account login, provider API call, payment, or legal filing.",
+  "sources": [
+    {
+      "sourceId": "paypal-egypt-receiving",
+      "sourceIdentity": "PayPal Egypt Help Center",
+      "sourceUrl": "https://pep.paypal.com/eg/cshelp/article/how-do-i-receive-money-through-paypal-help667?locale.x=en_EG",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "fa56bb806949bb2a25eb249f523fd7c709b1c388f6a98a6a2d381bb560ffe7d0",
+      "truthClass": "OFFICIAL_PUBLIC_PROVIDER_POLICY",
+      "claims": [
+        "The Egypt receiving guidance describes confirming the PayPal email address and linking a confirmed Visa credit card or U.S. bank account.",
+        "The page describes automatic monthly transfer on the first day to the selected supported route and an optional manual withdrawal."
+      ],
+      "limitations": [
+        "Public country guidance does not prove that a particular account is active, in good standing, or eligible to receive commercial payments.",
+        "The account-specific availability of a local Egyptian bank transfer, withdrawal fees, FX rate, and current limits was not established by this page."
+      ],
+      "falsifier": "A current official PayPal Egypt account-specific statement or authenticated account view that contradicts these listed public-method details."
+    },
+    {
+      "sourceId": "paypal-egypt-withdrawal",
+      "sourceIdentity": "PayPal Egypt Help Center",
+      "sourceUrl": "https://www.paypal.com/eg/cshelp/article/how-do-i-withdraw-money-to-my-bank-account-help394?locale.x=en_EG",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "68bace52b9923d73622ad5d1119e93b319b47c858aa57af4e73bafa4af98a4c5",
+      "truthClass": "OFFICIAL_PUBLIC_PROVIDER_POLICY",
+      "claims": [
+        "The generic withdrawal guidance says local-bank transfer availability varies by market and gives a possible processing period of up to seven business days for Egypt."
+      ],
+      "limitations": [
+        "The generic page also conditions bank availability on market and local-partner support; it does not establish an enabled route on this founder's account.",
+        "This page and the Egypt receiving guidance describe different route details; neither is promoted into account-level eligibility."
+      ],
+      "falsifier": "A current official account-specific PayPal Egypt route confirmation showing the actual supported withdrawal destination and timing."
+    },
+    {
+      "sourceId": "paypal-egypt-merchant-fees",
+      "sourceIdentity": "PayPal Egypt Business Fees",
+      "sourceUrl": "https://www.paypal.com/eg/business/paypal-business-fees?locale.x=en_EG",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "ce82382ea7635bfa708655e4179af10c45d311240ed2167bb218c15fc33b3740",
+      "truthClass": "OFFICIAL_PUBLIC_PROVIDER_POLICY",
+      "claims": [
+        "A localized PayPal Egypt business-fees page exists and renders current fee-table content."
+      ],
+      "limitations": [
+        "Because the existing account is recorded as permanently deactivated, no current transaction-fee estimate for a usable route is adopted.",
+        "No account-specific fee, FX conversion, withdrawal charge, or net-receipt estimate is adopted."
+      ],
+      "falsifier": "A current fee schedule plus authenticated account and transaction terms for a usable, lawfully eligible account."
+    },
+    {
+      "sourceId": "apify-developer-payouts",
+      "sourceIdentity": "Apify Help Center",
+      "sourceUrl": "https://help.apify.com/en/articles/10057167-how-developer-payouts-work",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "deceb49d487856c67cf38b131cf8139b8c63e6e09eb6a8f0d81cde393ccd8a1d",
+      "sourcePageModified": "2026-10-16",
+      "truthClass": "OFFICIAL_PUBLIC_PROVIDER_POLICY",
+      "claims": [
+        "Monthly payout calculations occur during days 1-10; invoices are issued on day 11; review runs days 11-14, with automatic approval if no action is taken; scheduled releases occur days 21-25, followed by bank processing.",
+        "The published minimums are USD 20 for PayPal or Wise and USD 100 for wire; below-minimum balances carry forward.",
+        "Approved identity verification is required before payout."
+      ],
+      "limitations": [
+        "The article does not prove this creator's marketplace eligibility, identity/KYC state, chosen payout method, account availability, accrued balance, or eventual bank credit.",
+        "PayPal is not a usable payout route for this founder; Wise account eligibility is unknown."
+      ],
+      "falsifier": "A newer official Apify payout policy or current account-specific payout settings/receipt showing different methods, thresholds, schedule, or requirements."
+    },
+    {
+      "sourceId": "apify-pay-per-event",
+      "sourceIdentity": "Apify Documentation",
+      "sourceUrl": "https://docs.apify.com/actors/monetize/pay-per-event",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "62d59d8b5af65ca40679fe35cb698446db5e49537c3478c01c35f958773c5e69",
+      "truthClass": "OFFICIAL_PUBLIC_PROVIDER_POLICY",
+      "claims": [
+        "The documented creator share is 80% of eligible paid-plan event revenue less platform costs attributable to paid-plan users.",
+        "Free-tier event revenue and platform costs are excluded from creator payout calculations; Apify covers free-tier usage."
+      ],
+      "limitations": [
+        "A documented formula does not prove Store publication, eligible paid-plan usage, billable events, actual compute units, charges, payout, or profit.",
+        "The local unit-economics values are explicitly scenario assumptions, not observed demand or income."
+      ],
+      "falsifier": "A newer official pay-per-event policy or exact Apify usage, charge, payout, and bank-settlement receipts."
+    },
+    {
+      "sourceId": "apify-developer-transfer-fees",
+      "sourceIdentity": "Apify Help Center",
+      "sourceUrl": "https://help.apify.com/en/articles/11401557-why-actual-and-invoiced-amount-for-developer-payouts-can-differ",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "337fe55244d3f6e4ce321bb76c7c5f9764d01d727e235cec9c2310cd585a5949",
+      "truthClass": "OFFICIAL_PUBLIC_PROVIDER_POLICY",
+      "claims": [
+        "Apify says wire intermediary/recipient-bank fees typically range from USD 10 to USD 50, varying by country and banks.",
+        "Apify says developer payouts are sent from the Czech Republic by SWIFT and describes SHA, OUR, and BEN fee-allocation options.",
+        "Apify notes that the received amount may be lower than the invoice when shared or beneficiary-paid bank fees apply."
+      ],
+      "limitations": [
+        "The USD 10-50 range is a provider-stated generic range, not a quote or Egypt-specific fee.",
+        "This does not establish an Egypt receiving bank's charges, FX spread, OUR availability, or the net amount for this founder."
+      ],
+      "falsifier": "A current payout invoice and matching bank credit showing the selected charge code and actual Egypt-side deductions."
+    },
+    {
+      "sourceId": "egypt-tax-authority-english-portal",
+      "sourceIdentity": "Egyptian Tax Authority",
+      "sourceUrl": "https://www.eta.gov.eg/en",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "6cb78c394d1d1c511897d0ffacfd0d84ca682a6e2efce600088e30baa9fca5dc",
+      "truthClass": "OFFICIAL_PORTAL_ACCESS_RECEIPT__NO_SUBSTANTIVE_TAX_RULE",
+      "claims": [
+        "The public English endpoint returned a 246-byte access/support response rather than substantive tax guidance."
+      ],
+      "limitations": [
+        "No tax, VAT, export-of-services, registration, invoicing, filing, or withholding rule was recovered.",
+        "An inaccessible or content-free page is not evidence that an obligation does not exist."
+      ],
+      "falsifier": "A current official ETA law, regulation, binding guidance, or written determination applicable to this founder's facts."
+    },
+    {
+      "sourceId": "egypt-tax-authority-arabic-portal",
+      "sourceIdentity": "Egyptian Tax Authority",
+      "sourceUrl": "https://www.eta.gov.eg/ar",
+      "effectiveUrl": "https://eta.gov.eg/ar/home",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "1573cbbf817c83049671e3901f459e9d86daefc93c9d638a2ddf7ebb75ef7ef3",
+      "truthClass": "OFFICIAL_PORTAL_ACCESS_RECEIPT__NO_SUBSTANTIVE_TAX_RULE",
+      "claims": [
+        "The Arabic authority portal loaded, but this retrieval did not verify a tax rule applicable to the founder's facts."
+      ],
+      "limitations": [
+        "Portal availability is not substantive legal evidence and no classification, threshold, or tax rate is inferred."
+      ],
+      "falsifier": "A directly retrieved current official Arabic/English instrument or written ETA determination answering the scoped questions."
+    },
+    {
+      "sourceId": "egypt-electronic-invoicing-portal",
+      "sourceIdentity": "Egyptian Tax Authority Electronic Invoicing Portal",
+      "sourceUrl": "https://invoicing.eta.gov.eg/",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "2448b118853031b0d8bf183b87ef503d7ec546934e9318362ce26149387530be",
+      "truthClass": "OFFICIAL_PORTAL_ACCESS_RECEIPT__NO_SUBSTANTIVE_TAX_RULE",
+      "claims": [
+        "The official e-invoicing portal was reachable and displayed an e-invoicing portal shell."
+      ],
+      "limitations": [
+        "The retrieved page did not establish whether this individual, activity, or export service must register, issue e-invoices, or file a particular return."
+      ],
+      "falsifier": "A current official ETA applicability rule or written determination tied to the founder's legal form, activity, and transaction."
+    },
+    {
+      "sourceId": "irs-w8ben",
+      "sourceIdentity": "United States Internal Revenue Service",
+      "sourceUrl": "https://www.irs.gov/forms-pubs/about-form-w-8-ben",
+      "observedAt": "2026-10-23",
+      "responseStatus": 200,
+      "contentSha256": "ee87a91c557b56c26221147e929ef0bd55cb3f7746d817481831b630a62f8aef",
+      "truthClass": "OFFICIAL_FOREIGN_TAX_FORM_GUIDANCE__LIMITED_SCOPE",
+      "claims": [
+        "IRS guidance says a foreign individual may provide Form W-8BEN to a withholding agent or payer when requested and when applicable."
+      ],
+      "limitations": [
+        "This is U.S. payer withholding documentation, not Egyptian tax advice, ETA registration, an invoice, or legal clearance.",
+        "No Apify requirement to submit this form was verified."
+      ],
+      "falsifier": "Current written payer instructions and qualified advice showing whether a form is actually required for a specific payment."
+    },
+    {
+      "sourceId": "contra-egypt-route-support-record",
+      "sourceIdentity": "Repository handoff summarizing October 6 Contra support correspondence",
+      "sourceUrl": "docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md",
+      "observedAt": "2026-10-06",
+      "responseStatus": "INTERNAL_REPOSITORY_RECORD",
+      "contentSha256": "0134f0fbc18f4e94752235af65dc6f06d485ed53fc5bc633d896d31a96b8f04a",
+      "truthClass": "INTERNAL_REPORTED_PROVIDER_SUPPORT__COUNTRY_ROUTE_ONLY",
+      "claims": [
+        "The repository records Contra support confirming that an Egyptian user may receive through invoices, projects, and payment links and may use Egyptian bank payout through SWIFT.",
+        "The same record says proof of address or additional documents may be requested by the payment processor during KYC.",
+        "The handoff says Contra identified no separate merchant-review gate but that standard payout review may occur."
+      ],
+      "limitations": [
+        "This is an internal summary of prior support correspondence, not an independently retrieved current provider policy or authenticated account observation.",
+        "The founder's existing account, KYC, wallet, tax profile, payout method, fee/FX/timing, and settlement remain unobserved."
+      ],
+      "falsifier": "A fresh authenticated account view or written Contra support response contradicting the recorded Egypt route, or showing the existing account cannot use it."
+    },
+    {
+      "sourceId": "paypal-founder-account-state",
+      "sourceIdentity": "Repository launch handoff recording owner-provided account state",
+      "sourceUrl": "docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md",
+      "observedAt": "2026-10-06",
+      "responseStatus": "INTERNAL_REPOSITORY_RECORD",
+      "contentSha256": "f75aeb39ea6f041a7cd7f8c738bb2ad9f7ece62588d70ad411e2c456ca17de09",
+      "truthClass": "OWNER_REPORTED_ACCOUNT_RESTRICTION__DO_NOT_RECOVER_OR_REPLACE",
+      "claims": [
+        "The repository records the founder's PayPal account as permanently deactivated and explicitly says not to create a replacement account."
+      ],
+      "limitations": [
+        "No provider account was accessed in this mission; the internal owner-reported status is not an independently refreshed provider receipt.",
+        "This is sufficient to exclude PayPal from this plan, not to infer that all Egyptian users are ineligible."
+      ],
+      "falsifier": "Only a current official provider-origin status and explicit owner correction could change this account-specific exclusion; no recovery or replacement-account attempt is authorized."
+    },
+    {
+      "sourceId": "fallback-account-status",
+      "sourceIdentity": "Repository launch handoff recording provider review status",
+      "sourceUrl": "docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md",
+      "observedAt": "2026-10-06",
+      "responseStatus": "INTERNAL_REPOSITORY_RECORD",
+      "contentSha256": "f75aeb39ea6f041a7cd7f8c738bb2ad9f7ece62588d70ad411e2c456ca17de09",
+      "truthClass": "INTERNAL_BACKUP_STATUS__NOT_LIVE_PAYOUT_PROOF",
+      "claims": [
+        "The record says Payoneer is existing-account recovery only and XPay remains under provider review/test-only."
+      ],
+      "limitations": [
+        "No current Payoneer/XPay account, KYC, payout setting, fee, live activation, or bank credit was observed in this mission."
+      ],
+      "falsifier": "Current owner-attested existing-account evidence and provider-origin activation/payout receipts; no new account or activation is authorized here."
+    },
+    {
+      "sourceId": "apify-store-readiness",
+      "sourceIdentity": "UberBond current Apify Store readiness artifact",
+      "sourceUrl": "docs/commercialization/APIFY_STORE_READINESS.md",
+      "observedAt": "2026-10-23",
+      "responseStatus": "INTERNAL_REPOSITORY_RECORD",
+      "contentSha256": "e2e250c8cadc4115aa725fc65110f93946847fbe721f74bbf9463cbdee0d116f",
+      "truthClass": "INTERNAL_ENGINEERING_AND_AUTHORITY_STATUS",
+      "claims": [
+        "The Store listing remains unpublished; the local Actor smoke is DELIVERY_ONLY with zero charged amount.",
+        "Apify account eligibility, platform usage, payout, buyer acceptance, refunds, and cleared cash are not verified."
+      ],
+      "limitations": [
+        "Repository documentation is not an Apify account receipt or customer acceptance.",
+        "No Apify account was accessed and no provider API was called in this mission."
+      ],
+      "falsifier": "Exact current Apify account, customer, payout, and bank-clearance receipts, each verified at its own evidence stage."
+    },
+    {
+      "sourceId": "apify-unit-economics-scenario",
+      "sourceIdentity": "UberBond October 2026 unit-economics artifact",
+      "sourceUrl": "artifacts/commercialization/unit-economics-2026-10.json",
+      "observedAt": "2026-10-23",
+      "responseStatus": "INTERNAL_REPOSITORY_RECORD",
+      "contentSha256": "8a9d51fb41ae29da86693b9f755854ad684c2a29e9df375ae1289b6a9ca8e489",
+      "truthClass": "MODELED_HYPOTHESIS_NOT_DEMAND_OR_CASH",
+      "claims": [
+        "The optimistic Apify pay-per-event scenario reports USD 5.3888 modeled contribution and explicitly labels it an unvalidated hypothesis."
+      ],
+      "limitations": [
+        "It is not an observed payout, buyer event, cleared contribution, or account eligibility fact."
+      ],
+      "falsifier": "Replace the scenario only with exact paid-plan event, usage, provider deduction, payout, and bank-credit receipts; preserve the scenario as historical context."
+    }
+  ],
+  "sourceConflicts": [
+    {
+      "id": "paypal-classifier-conflict",
+      "source": "A09 worker HEAD 6297e4a216cdcf3e264eb5218608ef9a9aacb115 runtime observation",
+      "currentA09HeadObserved": {
+        "module": "src/money-entry-rails.mjs",
+        "moduleSha256": "9cfd923e75a6ba124592cb07ccd3ffb0153334b4630c6e3aad92a42495e3d099",
+        "verdict": "RAIL_PLAUSIBLE",
+        "bestRail": "PAYPAL_EGYPT",
+        "founderAction": "Confirm the PayPal account can receive commercial payments and link an Egypt-issued Visa card."
+      },
+      "ownerAccountEvidence": "PERMANENTLY_DEACTIVATED",
+      "resolution": "A20_RECONCILE_WITH_OPEN_PR_1538",
+      "overlappingDraft": {
+        "pullRequest": 1538,
+        "headSha": "a9b2c5fa240de949135282769284044a0097986d",
+        "status": "OPEN_DRAFT_NOT_MERGED"
+      },
+      "handling": "A09 does not edit shared rail code. PayPal remains excluded from the decision even though the current A09 runtime still emits a stale plausible classification."
+    },
+    {
+      "id": "paypal-public-policy-route-detail",
+      "source": "PayPal Egypt receiving and generic withdrawal pages",
+      "resolution": "PUBLIC_ROUTE_DESCRIPTIONS_ARE_NOT_ACCOUNT_ELIGIBILITY",
+      "handling": "Preserve the differing Visa/US-bank versus generic local-bank descriptions; do not infer that the exact account can withdraw to an Egyptian bank."
+    }
+  ],
+  "taxAndLegal": {
+    "status": "UNKNOWN_NO_LEGAL_CLEARANCE",
+    "etaSubstantiveRuleRetrieved": false,
+    "noConclusionAsserted": [
+      "Egyptian tax registration or filing requirement",
+      "VAT registration or rate",
+      "export-of-services classification or rate",
+      "e-invoicing or e-receipt applicability",
+      "legal entity or individual treatment",
+      "withholding, treaty, or foreign payer treatment"
+    ],
+    "safePosition": "Do not collect, invoice, file, or describe the route as legally cleared on this evidence alone. Obtain owner-specific Egyptian tax advice and/or written official ETA guidance before asserting tax treatment."
+  },
+  "coverage": {
+    "requiredPhases": [
+      "official providers",
+      "Egypt receiving eligibility",
+      "payout timing and threshold",
+      "fees, FX, and refunds",
+      "tax and invoicing",
+      "owner-safe verification",
+      "sandbox only",
+      "fallback rails"
+    ],
+    "evidenceRule": "Every provider claim is bounded to public policy or an explicitly labeled internal report; account eligibility and bank-cleared cash require their own current receipts."
+  },
+  "authority": {
+    "newSpendUsd": 0,
+    "providerCalls": 0,
+    "customerMessages": 0,
+    "accountChanges": 0,
+    "moneyMovement": 0,
+    "deployments": 0,
+    "legalFilings": 0
+  }
+}

@@ -1,0 +1,195 @@
+{
+  "schemaVersion": "ub-a09-cleared-cash-path-1.0.0",
+  "worker": "A09_PAYMENTS_ELIGIBILITY",
+  "observedAt": "2026-10-23",
+  "decision": "HOLD_NO_COLLECTION_READY_RAIL",
+  "decisionScope": "Payment collection and payout feasibility only; not a judgment that the offer has demand or should be permanently abandoned.",
+  "falsifiableHypothesis": "The existing Contra account can serve as a direct-customer collection rail only if a fresh owner-attested authenticated account observation proves wallet, identity, tax profile, Egypt SWIFT payout and intended payment-path readiness; until then, no route is COLLECTION_READY.",
+  "founder890Crossover": [
+    {
+      "id": "founder-moonshot-0054",
+      "title": "THE IDEA IMMUNE SYSTEM",
+      "source": "artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-001-089.json#ordinal-54",
+      "sourceLines": "214-217",
+      "literalBody": "Revolutionary systems need protection against seductive nonsense. Every major idea faces adversarial falsification, alternative explanations, independent replication, economic reality, and physical constraints before receiving resources.",
+      "application": "Keep provider policy, internal account reports, and legal conclusions separate; require counterexamples and retain HOLD until account and tax claims are falsifiable with direct evidence."
+    },
+    {
+      "id": "founder-moonshot-0305",
+      "title": "THE OUTCOME ECONOMY",
+      "source": "artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json#ordinal-305",
+      "sourceLines": "1226-1229",
+      "literalBody": "Shift economic organization away from paying mainly for activity or access toward verified beneficial outcomes where measurement permits.",
+      "application": "Do not treat an invoice, usage event, model, or payout release as cleared profit; require bank credit and reconcile net contribution and customer acceptance."
+    }
+  ],
+  "rails": [
+    {
+      "id": "CONTRA",
+      "state": "COUNTRY_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_UNOBSERVED",
+      "canCollect": false,
+      "routeEvidence": "Provider-support confirmation is recorded in the 2026-10-06 Contra handoff; current account evidence is absent.",
+      "accountKyc": "UNKNOWN",
+      "wallet": "UNKNOWN",
+      "taxProfile": "UNKNOWN",
+      "egyptPayoutMethod": "SWIFT_REPORTED_SUPPORTED__NOT_CONFIGURED_OR_OBSERVED",
+      "payoutFeesFxTiming": "UNKNOWN",
+      "paymentRequestAuthority": "NONE"
+    },
+    {
+      "id": "PAYPAL_EGYPT",
+      "state": "EXCLUDED_ACCOUNT_DEACTIVATED",
+      "canCollect": false,
+      "accountEvidence": "Owner-reported permanent deactivation in the repository handoff; no sign-in or replacement-account attempt.",
+      "publicPolicyEligibility": "PUBLIC_GUIDANCE_IS_NOT_THIS_ACCOUNT_STATE"
+    },
+    {
+      "id": "APIFY_STORE",
+      "state": "HOLD_UNPUBLISHED_AND_PAYOUT_UNPROVEN",
+      "canCollect": false,
+      "accountEligibility": "UNKNOWN",
+      "listing": "UNPUBLISHED",
+      "payoutThresholdUsd": {
+        "paypal": 20,
+        "wise": 20,
+        "wire": 100
+      },
+      "modeledContributionUsd": 5.3888,
+      "modeledContributionClass": "UNVALIDATED_HYPOTHESIS_NOT_DEMAND_OR_CASH",
+      "modeledContributionIsBelowEveryPublishedMinimum": true,
+      "belowMinimumTreatment": "CARRIED_FORWARD_UNTIL_MINIMUM",
+      "wireFeeRangeUsd": {
+        "min": 10,
+        "max": 50,
+        "scope": "GENERIC_APIFY_GUIDANCE_NOT_EGYPT_SPECIFIC"
+      },
+      "clearedCashUsd": 0
+    },
+    {
+      "id": "WISE",
+      "state": "ACCOUNT_AND_EGYPT_PAYOUT_ELIGIBILITY_UNKNOWN",
+      "canCollect": false,
+      "note": "The Apify $20 Wise threshold is public policy only; no Wise account, eligibility, or payout setting was observed."
+    },
+    {
+      "id": "PAYONEER",
+      "state": "RECOVERY_ONLY_EXISTING_ACCOUNT_UNVERIFIED",
+      "canCollect": false,
+      "note": "Existing-account recovery only; no duplicate account, provider login, KYC, or payout operation was attempted."
+    },
+    {
+      "id": "XPAY",
+      "state": "REVIEW_OR_TEST_ONLY",
+      "canCollect": false,
+      "note": "Historical repository readiness is not live activation or account-level payout proof."
+    },
+    {
+      "id": "DIRECT_EGYPTIAN_BANK_SWIFT",
+      "state": "BANK_AND_TAX_TERMS_UNKNOWN",
+      "canCollect": false,
+      "note": "No bank, business-proceeds acceptance, purpose code, documents, intermediary fees, FX, or tax classification was verified."
+    }
+  ],
+  "apifyLocalSmoke": {
+    "source": "docs/commercialization/APIFY_STORE_READINESS.md",
+    "chargingMode": "DELIVERY_ONLY",
+    "requestedUsd": 0,
+    "chargedUsd": 0,
+    "providerPayout": "NONE",
+    "truthClass": "LOCAL_ENGINEERING_DELIVERY_ONLY_NOT_CUSTOMER_OR_PAYMENT_EVIDENCE"
+  },
+  "taxStatus": "UNKNOWN",
+  "legalClearance": false,
+  "actualClearedRevenueUsd": 0,
+  "actualClearedContributionProfitUsd": 0,
+  "profitBaseline": "INDEPENDENT_BANK_CLEARED_CONTRIBUTION_PROFIT_USD_0",
+  "requiredClearedCashEvidence": [
+    {
+      "state": "CUSTOMER_ACCEPTED_SCOPE",
+      "evidence": "Counterparty acceptance of exact scope and terms; a prospect or draft is insufficient."
+    },
+    {
+      "state": "PAYMENT_REQUESTED",
+      "evidence": "Exact provider-origin request linked to accepted scope; invoice creation alone is insufficient."
+    },
+    {
+      "state": "PROVIDER_FUNDED_OR_SETTLED",
+      "evidence": "Provider-origin transaction evidence; escrow, wallet balance, or pending status remains distinct."
+    },
+    {
+      "state": "PROVIDER_PAYOUT_RELEASED",
+      "evidence": "Provider-origin payout release with gross amount, currency, date, and fee basis."
+    },
+    {
+      "state": "BANK_CREDIT_OBSERVED",
+      "evidence": "Owner-observed redacted bank credit matched to the provider payout; credentials and full account details stay private."
+    },
+    {
+      "state": "NET_AFTER_FEES_AND_FX_RECONCILED",
+      "evidence": "Reconcile gross amount, FX conversion, provider charge, intermediary/receiving fees, reversals, and net bank credit."
+    },
+    {
+      "state": "CUSTOMER_ACCEPTED_DELIVERY",
+      "evidence": "Separate evidence of accepted delivery; payment does not prove customer acceptance."
+    },
+    {
+      "state": "CLEARED_NET_CONTRIBUTION_PROFIT",
+      "evidence": "Count only net cleared receipts less attributable platform, bank, refund, support, compute, and delivery costs."
+    }
+  ],
+  "truthRule": "PENDING_PAYOUT_OR_WALLET_BALANCE_IS_NOT_BANK_CLEARED_CASH",
+  "ownerActions": [
+    {
+      "id": "contra-existing-account-observation",
+      "action": "If desired, use the secure sign-in flow for the existing Contra account and inspect wallet, identity, tax, payout and draft-payment capabilities without submitting a payment request.",
+      "minutes": "10-20",
+      "expectedCostUsd": 0,
+      "evidence": "Redacted, owner-attested current account observations; do not place credentials or screenshots containing sensitive details in chat or Git.",
+      "safeNoActionDefault": true
+    },
+    {
+      "id": "egypt-bank-receipt-terms",
+      "action": "Through the bank's official channel, ask whether the existing account can receive this kind of USD SWIFT business/service proceeds and request current purpose-code, document, intermediary-fee, receiving-fee, FX and reversal details.",
+      "minutes": "15-30",
+      "expectedCostUsd": 0,
+      "evidence": "Redacted written bank answer or owner-attested terms; no bank credentials, full account number, or payment sent.",
+      "safeNoActionDefault": true
+    },
+    {
+      "id": "eta-tax-classification",
+      "action": "Ask an Egyptian tax professional and/or ETA through official channels to classify the actual individual/entity, service, foreign payer, VAT, registration, invoice/e-invoice, reporting and withholding facts before making a legal/tax claim.",
+      "minutes": "30-60",
+      "expectedCostUsd": null,
+      "costNote": "Fee unknown; no paid engagement or filing is authorized. Stop before any nonzero spend.",
+      "evidence": "Written, fact-specific advice or official guidance, with scope and date; not a general web snippet.",
+      "safeNoActionDefault": true
+    }
+  ],
+  "externalEffects": {
+    "customerMessages": 0,
+    "providerCalls": 0,
+    "spendUsd": 0,
+    "paymentMutations": 0,
+    "moneyMovement": 0,
+    "accountChanges": 0,
+    "credentialChanges": 0,
+    "deployments": 0,
+    "publications": 0,
+    "mainMerges": 0
+  },
+  "falsification": {
+    "holdMayBeReopenedWhen": [
+      "A fresh, secret-free owner-attested Contra observation satisfies the existing readiness contract.",
+      "The receiving bank confirms the account-specific inbound route and costs.",
+      "Tax classification and required invoices/filings are resolved by appropriately authoritative evidence."
+    ],
+    "holdMustRemainWhen": [
+      "Any relevant account, KYC, bank, tax, payout, fee, or recipient fact remains unknown.",
+      "A provider restriction, unresolved review, nonzero unapproved spend, or mismatch appears."
+    ]
+  },
+  "a20Handoff": {
+    "status": "CONDITIONAL",
+    "reason": "A09 source-backed HOLD and tests are reviewable, but shared money-entry rail source contains a stale PayPal PLAUSIBLE classification and PR #1538 is an overlapping open draft that A20 must reconcile."
+  }
+}

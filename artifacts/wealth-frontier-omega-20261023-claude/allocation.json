@@ -5,15 +5,38 @@
   "asOf": "2026-10-23T14:30:00+03:00",
   "timezone": "Africa/Cairo",
   "sourceMain": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
-  "reviewed": { "pr": 1539, "head": "59fb24ac7725cf22d3514c1d3e3a7aa70b776861", "checkpoint": "PHX-WEALTH-FRONTIER-20261023" },
+  "reviewed": {
+    "pr": 1539,
+    "head": "59fb24ac7725cf22d3514c1d3e3a7aa70b776861",
+    "checkpoint": "PHX-WEALTH-FRONTIER-20261023"
+  },
   "humanReadable": "docs/wealth-frontier-omega-20261023-claude/ALLOCATION_AND_REVIEW.md",
   "businessEffectAuthority": "NONE",
-  "effectLedger": { "newSpendUsd": 0, "messagesSent": 0, "applicationsSubmitted": 0, "proposalsPosted": 0, "accountsCreated": 0, "tradesPlaced": 0, "merges": 0, "realProvidersContactedByE2E": 0, "readOnlyWebFetches": true, "readOnlyWinnrCalls": 2 },
-  "moneyLedger": { "clearedContributionProfitUsd": 0, "collectedNotClearedUsd": 0, "acceptedOffers": 0, "acceptedDeliveries": 0, "payingCustomers": 0, "activeBuyerConversations": 0, "verifiedFounderPayoutRoutes": 0 },
+  "effectLedger": {
+    "newSpendUsd": 0,
+    "messagesSent": 0,
+    "applicationsSubmitted": 0,
+    "proposalsPosted": 0,
+    "accountsCreated": 0,
+    "tradesPlaced": 0,
+    "merges": 0,
+    "realProvidersContactedByE2E": 0,
+    "readOnlyWebFetches": true,
+    "readOnlyWinnrCalls": 2
+  },
+  "moneyLedger": {
+    "clearedContributionProfitUsd": 0,
+    "collectedNotClearedUsd": 0,
+    "acceptedOffers": 0,
+    "acceptedDeliveries": 0,
+    "payingCustomers": 0,
+    "activeBuyerConversations": 0,
+    "verifiedFounderPayoutRoutes": 0
+  },
   "founderCensus": {
     "answeredOn": "2026-10-23",
     "devices": "iPhone, HP laptop, iPad Air; buying OnePlus 13 (no Mac)",
-    "upwork": "BANNED — all Upwork-paid routes excluded; new account would be ban evasion",
+    "upwork": "BANNED \u2014 all Upwork-paid routes excluded; new account would be ban evasion",
     "taxNumber": "NONE",
     "contraLogin": "UNKNOWN",
     "referralNetwork": "NONE",
@@ -54,53 +77,177 @@
     "postedAt": "2026-10-23T04:25:46Z",
     "purchaseEvidence": "Buyer requests pricing for phase 1 and full build, timeline, maintenance and running costs; budget unstated",
     "deliverable": "artifacts/wealth-frontier-omega-20261023-claude/whatsapp-support-agent/",
-    "verification": { "unitTests": "11/11", "e2eOnN8n_2_15_1": "14/14", "defectsFoundByE2EAndFixed": 2, "productionImport": "OK" },
-    "offerUsd": { "phase1": 400, "phase2": 250, "maintenancePerMonth": 60, "terms": "30% start, 70% on live acceptance, bank transfer or Wise" },
+    "verification": {
+      "unitTests": "12/12",
+      "e2eOnN8n_2_15_1": "14/14",
+      "defectsFoundByE2EAndFixed": 2,
+      "productionImport": "OK"
+    },
+    "offerUsd": {
+      "phase1": 400,
+      "phase2": 250,
+      "maintenancePerMonth": 60,
+      "terms": "30% start, 70% on live acceptance, bank transfer or Wise"
+    },
     "proofLadder": "DELIVERY_CAPABILITY_VERIFIED",
     "nextGate": "Founder approves and sends the exact direct message",
-    "killConditions": ["buyer silent 5 days", "buyer insists on Upwork", "budget below US$150", "payment method founder cannot receive"]
+    "killConditions": [
+      "buyer silent 5 days",
+      "buyer insists on Upwork",
+      "budget below US$150",
+      "payment method founder cannot receive"
+    ]
   },
   "secondary": {
     "surface": "OpenTrain AI",
-    "evidence": ["Egypt listed in payout-country-availability", "Stripe-hosted payout to local bank", "employer-funded milestones", "30 Egypt-visible roles posted 2026-10-22/23"],
-    "gates": ["founder identity and free account", "role must match founder's real skills", "follow each role's AI-use rules"],
+    "evidence": [
+      "Egypt listed in payout-country-availability",
+      "Stripe-hosted payout to local bank",
+      "employer-funded milestones",
+      "30 Egypt-visible roles posted 2026-10-22/23"
+    ],
+    "gates": [
+      "founder identity and free account",
+      "role must match founder's real skills",
+      "follow each role's AI-use rules"
+    ],
     "rejectedRole": "Personal Account Generalist Rater requires Google Pixel 8+ on Android 17; OnePlus 13 does not qualify"
   },
   "inventions": [
-    { "id": "INV-1", "name": "Rail-first allocation", "evidenceClass": "CONFIRMED_BY_CENSUS" },
-    { "id": "INV-2", "name": "Standing-bounty proposal arbitrage", "evidenceClass": "BUYER_DEMAND_OBSERVED", "status": "BLOCKED_FOR_THIS_FOUNDER", "resurrection": "a standing-bounty payer with non-Upwork payout and no Apple-device requirement", "ancestor890": ["founder-moonshot-0304"] },
-    { "id": "INV-3", "name": "Arabic-surface demand arbitrage", "evidenceClass": "CONCEPT", "blocker": "Mostaql/Khamsat 403" },
-    { "id": "INV-4", "name": "Proof-first reply arbitrage", "evidenceClass": "DELIVERY_CAPABILITY_VERIFIED", "falsifier": "5 proof-first replies with 0 paid deposits", "ancestor890": ["founder-moonshot-0304"] }
+    {
+      "id": "INV-1",
+      "name": "Rail-first allocation",
+      "evidenceClass": "CONFIRMED_BY_CENSUS"
+    },
+    {
+      "id": "INV-2",
+      "name": "Standing-bounty proposal arbitrage",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "status": "BLOCKED_FOR_THIS_FOUNDER",
+      "resurrection": "a standing-bounty payer with non-Upwork payout and no Apple-device requirement",
+      "ancestor890": [
+        "founder-moonshot-0304"
+      ]
+    },
+    {
+      "id": "INV-3",
+      "name": "Arabic-surface demand arbitrage",
+      "evidenceClass": "CONCEPT",
+      "blocker": "Mostaql/Khamsat 403"
+    },
+    {
+      "id": "INV-4",
+      "name": "Proof-first reply arbitrage",
+      "evidenceClass": "DELIVERY_CAPABILITY_VERIFIED",
+      "falsifier": "5 proof-first replies with 0 paid deposits",
+      "ancestor890": [
+        "founder-moonshot-0304"
+      ]
+    }
   ],
   "rails": [
-    { "id": "bank-or-wise-direct", "status": "FOUNDER_ATTESTED_ACCOUNT_RECEIPT_UNOBSERVED" },
-    { "id": "opentrain-stripe-hosted", "status": "EGYPT_LISTED_ACCOUNT_NOT_CREATED" },
-    { "id": "stripe-global-payouts", "status": "EGYPT_INDIVIDUALS_EGP_WIRE_PLATFORM_DEPENDENT", "source": "https://docs.stripe.com/global-payouts/recipient-requirements" },
-    { "id": "stripe-connect-cross-border", "status": "EGYPT_NOT_SUPPORTED", "source": "https://docs.stripe.com/connect/cross-border-payouts" },
-    { "id": "upwork", "status": "EXCLUDED_BANNED" },
-    { "id": "paypal", "status": "EXCLUDED" },
-    { "id": "contra", "status": "LOGIN_UNKNOWN" },
-    { "id": "payoneer", "status": "RECOVERY_REQUIRED" },
-    { "id": "apify", "status": "WISE_20_OR_WIRE_100_AFTER_ID_CHECK_NO_PAYING_USER" },
-    { "id": "instapay", "status": "DOMESTIC_ONLY_NO_BUYER" },
-    { "id": "crypto-bounties", "status": "EXCLUDED_LEGAL_GATE_EGYPT_LAW_194_2020" }
+    {
+      "id": "bank-or-wise-direct",
+      "status": "FOUNDER_ATTESTED_ACCOUNT_RECEIPT_UNOBSERVED"
+    },
+    {
+      "id": "opentrain-stripe-hosted",
+      "status": "EGYPT_LISTED_ACCOUNT_NOT_CREATED"
+    },
+    {
+      "id": "stripe-global-payouts",
+      "status": "EGYPT_INDIVIDUALS_EGP_WIRE_PLATFORM_DEPENDENT",
+      "source": "https://docs.stripe.com/global-payouts/recipient-requirements"
+    },
+    {
+      "id": "stripe-connect-cross-border",
+      "status": "EGYPT_NOT_SUPPORTED",
+      "source": "https://docs.stripe.com/connect/cross-border-payouts"
+    },
+    {
+      "id": "upwork",
+      "status": "EXCLUDED_BANNED"
+    },
+    {
+      "id": "paypal",
+      "status": "EXCLUDED"
+    },
+    {
+      "id": "contra",
+      "status": "LOGIN_UNKNOWN"
+    },
+    {
+      "id": "payoneer",
+      "status": "RECOVERY_REQUIRED"
+    },
+    {
+      "id": "apify",
+      "status": "WISE_20_OR_WIRE_100_AFTER_ID_CHECK_NO_PAYING_USER"
+    },
+    {
+      "id": "instapay",
+      "status": "DOMESTIC_ONLY_NO_BUYER"
+    },
+    {
+      "id": "crypto-bounties",
+      "status": "EXCLUDED_LEGAL_GATE_EGYPT_LAW_194_2020"
+    }
   ],
   "experiments": [
-    { "id": "E-C1", "result": "Q-EXIT-01 reproduced: 4/5 red on main source, 19/19 green" },
-    { "id": "E-C2", "result": "Forged re-hashed MARK accepted before repair; refused after Q-EXIT-02 with MARK_EXIT_QUOTE_INVALID" },
-    { "id": "E-C3", "result": "PR 1539 finalists 1-2 downgraded or archived" },
-    { "id": "E-C4", "result": "Expensify 19 Help Wanted / 14 at $250; then killed by census" },
-    { "id": "E-C5", "result": "Winnr 1 mailbox active; 0 real buyer replies" },
-    { "id": "E-C6", "result": "890 crossover founder-moonshot-0304" },
-    { "id": "E-C7", "result": "JHipster: $500 paid 2026-10-07 to the core maintainer; #1408 closed to contributions; no open unit" },
-    { "id": "E-C8", "result": "Stripe Connect cross-border excludes Egypt; Global Payouts supports Egypt individuals by EGP wire" },
-    { "id": "E-C9", "result": "WhatsApp agent 14/14 e2e on n8n 2.15.1; 2 defects found and fixed" },
-    { "id": "E-C10", "result": "Paper ledger semantic replay 25/25; disabling it fails 5 of 6 new tests" }
+    {
+      "id": "E-C1",
+      "result": "Q-EXIT-01 reproduced: 4/5 red on main source, 19/19 green"
+    },
+    {
+      "id": "E-C2",
+      "result": "Forged re-hashed MARK accepted before repair; refused after Q-EXIT-02 with MARK_EXIT_QUOTE_INVALID"
+    },
+    {
+      "id": "E-C3",
+      "result": "PR 1539 finalists 1-2 downgraded or archived"
+    },
+    {
+      "id": "E-C4",
+      "result": "Expensify 19 Help Wanted / 14 at $250; then killed by census"
+    },
+    {
+      "id": "E-C5",
+      "result": "Winnr 1 mailbox active; 0 real buyer replies"
+    },
+    {
+      "id": "E-C6",
+      "result": "890 crossover founder-moonshot-0304"
+    },
+    {
+      "id": "E-C7",
+      "result": "JHipster: $500 paid 2026-10-07 to the core maintainer; #1408 closed to contributions; no open unit"
+    },
+    {
+      "id": "E-C8",
+      "result": "Stripe Connect cross-border excludes Egypt; Global Payouts supports Egypt individuals by EGP wire"
+    },
+    {
+      "id": "E-C9",
+      "result": "WhatsApp agent 14/14 e2e on n8n 2.15.1; 2 defects found and fixed"
+    },
+    {
+      "id": "E-C10",
+      "result": "Paper ledger semantic replay 25/25; disabling it fails 5 of 6 new tests"
+    }
   ],
   "founderQueue": [
-    { "rank": 1, "action": "Approve and send the exact direct message to Danish_Koul_14 from your own n8n Community account" },
-    { "rank": 2, "action": "DONE 2026-10-23: founder attests an Egyptian bank account exists" },
-    { "rank": 3, "action": "Apply on OpenTrain in your own name: AI Q&A Evaluation Specialist ($20-60/hr equivalent, Egypt eligible, no degree), then AI Content Evaluation QA, Chatbot Response Quality Analyst, Safety Data Annotation; complete hiring-platform tests without AI unless allowed; add payout only after a contract" }
+    {
+      "rank": 1,
+      "action": "Approve and send the exact direct message to Danish_Koul_14 from your own n8n Community account"
+    },
+    {
+      "rank": 2,
+      "action": "DONE 2026-10-23: founder attests an Egyptian bank account exists"
+    },
+    {
+      "rank": 3,
+      "action": "Apply on OpenTrain in your own name: AI Q&A Evaluation Specialist ($20-60/hr equivalent, Egypt eligible, no degree), then AI Content Evaluation QA, Chatbot Response Quality Analyst, Safety Data Annotation; complete hiring-platform tests without AI unless allowed; add payout only after a contract"
+    }
   ],
   "contradictions": [
     "Algora Egypt support in search index vs Stripe Connect cross-border country list.",

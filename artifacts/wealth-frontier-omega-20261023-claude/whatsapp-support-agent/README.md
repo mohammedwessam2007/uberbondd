@@ -33,11 +33,11 @@ Hindi (Devanagari), Hinglish and English are detected per message, and the reply
 | `build-workflow.mjs` | Generates the workflow (`node build-workflow.mjs`). |
 | `e2e/run-e2e.mjs` | Starts a real n8n plus mocked WhatsApp, OpenAI, Razorpay, Slack and Sheets, then runs 14 scenarios. |
 | `e2e/evidence.json` | Result of the last end-to-end run. |
-| `../../../tests/whatsapp-support-agent-logic.test.mjs` | 11 unit tests over `logic.mjs`. |
+| `../../../tests/whatsapp-support-agent-logic.test.mjs` | 12 unit tests over `logic.mjs`. |
 
 ## Verification
 
-- **Unit:** `node --test tests/whatsapp-support-agent-logic.test.mjs` passes 11/11.
+- **Unit:** `node --test tests/whatsapp-support-agent-logic.test.mjs` passes 12/12.
 - **End to end:** `node e2e/run-e2e.mjs <n8n-bin> <scratch>` passed **14/14 on n8n 2.15.1**, with zero real providers contacted.
 - **Bugs caught by the end-to-end run and fixed before delivery:**
   - "When do I get access?" was misrouted to a payment lookup.
@@ -72,6 +72,9 @@ Estimates, not quotes.
 | n8n hosting | Self-hosted ≈ US$5–10 a month | Each status callback (sent, delivered, read) is also an execution, so ~100 chats a day is ~12,000 executions a month. That is above n8n Cloud Pro's 10,000 (≈ €60 a month), so self-hosting is the honest recommendation at this volume. |
 
 ## Known limits (Phase 1)
+
+- The Hindi reply strings were written without a native Hindi reviewer. Have a Hindi speaker read them before go-live.
+- Razorpay's `authorized` state means the bank approved but the merchant has not captured the payment; Razorpay refunds it automatically if it is not captured within 3 days of creation (Razorpay payments docs). The agent says exactly that rather than promising completion.
 
 - Conversation history and dedupe live in n8n workflow static data. That is fine for one instance at this volume; move to Postgres or Redis for multi-instance or high volume.
 - No outbound template messages. The agent only replies inside the 24-hour window.

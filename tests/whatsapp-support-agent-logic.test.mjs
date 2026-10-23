@@ -87,6 +87,13 @@ test('payment replies cover missing id, not found and each status in both langua
   }
 });
 
+test('an authorized but uncaptured payment is not described as nearly done (Razorpay auto-refunds after 3 days)', () => {
+  const text = paymentReply({ found: true, id: 'pay_X', status: 'authorized', amountInr: 499 }, 'en');
+  assert.match(text, /not yet confirmed/);
+  assert.match(text, /3 days/);
+  assert.doesNotMatch(text, /usually completes shortly/);
+});
+
 test('refund rows are PENDING_APPROVAL and Slack escalations mask the phone number', () => {
   const message = { waId: '919811112222', name: 'Asha', text: 'refund please', messageId: 'wamid.9', language: 'en' };
   const row = refundRow(message, { paymentIds: ['pay_ABCDEFGH123456'], orderIds: [] }, '2026-10-23T10:00:00Z');

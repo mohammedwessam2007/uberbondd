@@ -28,7 +28,7 @@ Checkpoint **PHX-WEALTH-FRONTIER-CLAUDE-20261023** (revision 2, after the founde
 | C Global buyer hunt | DONE | Expensify, JHipster, Algora, n8n Jobs, OpenTrain, Welocalize checked live (§3). |
 | D Invention lab | DONE | INV-1 rail-first, INV-2 standing-bounty arbitrage (now blocked), INV-4 proof-first reply (§4). |
 | E Adversarial tournament | DONE | Every route attacked against the census; survivors in §5. |
-| F First-cash experiment | **BUILT, AWAITING SEND APPROVAL** | WhatsApp AI support agent for n8n buyer 323862. 14/14 end-to-end scenarios on real n8n; 11/11 unit tests. |
+| F First-cash experiment | **BUILT, AWAITING SEND APPROVAL** | WhatsApp AI support agent for n8n buyer 323862. 14/14 end-to-end scenarios on real n8n; 12/12 unit tests. |
 | G Secondary income | PREPARED | OpenTrain: employer-funded milestones; Egypt is a supported payout country (Stripe-hosted, local bank). |
 | H Trading research | DONE (repair) | Q-EXIT-01 cherry-picked; Q-EXIT-02 implemented: forged +9,900% paper result now refused, 25/25 tests, mutation kills 5. No strategy promoted; no live trading. |
 | I Delegation | EXECUTED DIRECTLY | No verified channel to Chat on Steroids or GPT Work from this session, so Claude built the CP packets itself rather than leave them undelivered. |
@@ -87,7 +87,7 @@ The 890 crossover remains founder-moonshot-0304 (THE REALITY MARKETPLACE) for IN
 - Duplicate webhook retries ignored.
 
 **Verification:**
-- 11/11 unit tests.
+- 12/12 unit tests.
 - **14/14 end-to-end scenarios on a real n8n 2.15.1**, with mocked WhatsApp, OpenAI, Razorpay, Slack and Sheets; zero real providers contacted.
 - The end-to-end run caught two defects, both fixed and turned into regression tests: "access" questions misrouted to payment lookup, and malformed `pay_` ids falling through to the FAQ model.
 - The production workflow imports into n8n 2.15.1.

@@ -8,7 +8,7 @@
 
 import crypto from 'node:crypto';
 
-export const QUANT_PAPER_LEDGER_VERSION = 'uberbond.quant-paper-ledger-1.1.0';
+export const QUANT_PAPER_LEDGER_VERSION = 'uberbond.quant-paper-ledger-1.2.0';
 const sha256 = value => crypto.createHash('sha256').update(JSON.stringify(value)).digest('hex');
 const GENESIS = '0'.repeat(64);
 
@@ -20,6 +20,50 @@ function append(chain, body) {
   return [...chain, { ...record, hash: sha256(record) }];
 }
 
+// Net paper return of one decision against exit quotes. Shared by marking and
+// by verification so a stored return can always be recomputed.
+function markReturn(decision, quotes, markedAt, costBps, carryFraction, capitalPerUnit) {
+  let pnl = carryFraction;
+  for (const [instrument, position] of Object.entries(decision.positions)) {
+    const entry = decision.quotes[instrument].price;
+    const exit = quotes[instrument]?.price;
+    if (!(exit > 0)) throw new Error(`no exit quote for ${instrument}`);
+    const exitObservedAt = Date.parse(quotes[instrument]?.observedAt);
+    if (!(Number.isFinite(exitObservedAt) &&
+      exitObservedAt >= Date.parse(decision.decidedAt) &&
+      exitObservedAt <= Date.parse(markedAt))) {
+      throw new Error(`exit quote for ${instrument} must be observed between the decision and mark`);
+    }
+    pnl += position * (exit / entry - 1) - 2 * Math.abs(position) * (costBps[instrument] ?? 0) / 10_000;
+  }
+  return pnl / capitalPerUnit;
+}
+
+// The hashes are unkeyed, so anyone can re-hash an edited record. A chain is
+// only trusted if every record also obeys the rules that created it.
+function semanticFault(chain, index) {
+  const record = chain[index];
+  if (record.type === 'DECISION') {
+    for (const instrument of Object.keys(record.positions ?? {})) {
+      const quote = record.quotes?.[instrument];
+      if (!(quote?.price > 0) || !(Date.parse(quote.observedAt) <= Date.parse(record.decidedAt))) return 'DECISION_SEMANTICS';
+    }
+    return null;
+  }
+  if (record.type !== 'MARK') return 'UNKNOWN_RECORD_TYPE';
+  const decision = chain[record.decisionIndex];
+  if (!(record.decisionIndex < index) || decision?.type !== 'DECISION' || decision.strategy !== record.strategy) return 'MARK_WITHOUT_DECISION';
+  if (chain.slice(0, index).some(prior => prior.type === 'MARK' && prior.decisionIndex === record.decisionIndex)) return 'DECISION_MARKED_TWICE';
+  if (!(Date.parse(record.markedAt) > Date.parse(decision.decidedAt))) return 'MARK_BEFORE_DECISION';
+  // Marks written before ledger 1.2.0 did not store their cost inputs; their returns cannot be recomputed.
+  if (record.costBps === undefined || record.carryFraction === undefined || record.capitalPerUnit === undefined) return 'MARK_SEMANTICS_UNVERIFIABLE';
+  let recomputed;
+  try { recomputed = markReturn(decision, record.quotes ?? {}, record.markedAt, record.costBps, record.carryFraction, record.capitalPerUnit); }
+  catch { return 'MARK_EXIT_QUOTE_INVALID'; }
+  if (!(Math.abs(recomputed - record.netReturnOnCapital) <= 1e-12)) return 'MARK_RETURN_MISMATCH';
+  return null;
+}
+
 export function verifyPaperChain(chain = []) {
   let previous = GENESIS;
   for (const [index, record] of chain.entries()) {
@@ -27,6 +71,8 @@ export function verifyPaperChain(chain = []) {
     if (body.index !== index || body.previousHash !== previous || sha256(body) !== hash) return { ok: false, brokenAt: index };
     // Time only moves forward: a backdated record breaks the chain even if its hash is valid.
     if (index && !(timeOf(record) >= timeOf(chain[index - 1]))) return { ok: false, brokenAt: index, reason: 'TIME_ORDER' };
+    const fault = semanticFault(chain, index);
+    if (fault) return { ok: false, brokenAt: index, reason: fault };
     previous = hash;
   }
   return { ok: true, head: previous, length: chain.length };
@@ -55,20 +101,9 @@ export function markPaperDecision(chain, { strategy, quotes, markedAt, costBps =
   if (!decision) throw new Error(`no open decision for ${strategy}`);
   if (!(Date.parse(markedAt) > Date.parse(decision.decidedAt))) throw new Error('a mark must come after its decision');
   if (Date.parse(markedAt) < timeOf(chain.at(-1))) throw new Error('a mark cannot be dated before the last record');
-  let pnl = carryFraction;
-  for (const [instrument, position] of Object.entries(decision.positions)) {
-    const entry = decision.quotes[instrument].price;
-    const exit = quotes[instrument]?.price;
-    if (!(exit > 0)) throw new Error(`no exit quote for ${instrument}`);
-    const exitObservedAt = Date.parse(quotes[instrument]?.observedAt);
-    if (!(Number.isFinite(exitObservedAt) &&
-      exitObservedAt >= Date.parse(decision.decidedAt) &&
-      exitObservedAt <= Date.parse(markedAt))) {
-      throw new Error(`exit quote for ${instrument} must be observed between the decision and mark`);
-    }
-    pnl += position * (exit / entry - 1) - 2 * Math.abs(position) * (costBps[instrument] ?? 0) / 10_000;
-  }
-  return append(chain, { type: 'MARK', strategy, decisionIndex: decision.index, quotes, markedAt, netReturnOnCapital: pnl / capitalPerUnit, evidenceClass: 'PAPER' });
+  const netReturnOnCapital = markReturn(decision, quotes, markedAt, costBps, carryFraction, capitalPerUnit);
+  // Cost inputs are stored so verifyPaperChain can recompute the return.
+  return append(chain, { type: 'MARK', strategy, decisionIndex: decision.index, quotes, markedAt, costBps, carryFraction, capitalPerUnit, netReturnOnCapital, evidenceClass: 'PAPER' });
 }
 
 export function paperSummary(chain = []) {

@@ -1,227 +1,188 @@
-# Wealth Frontier Ω — Claude independent review and allocation
+# Wealth Frontier Ω — Claude review, allocation and wave closure
 
-Checkpoint **PHX-WEALTH-FRONTIER-CLAUDE-20261023**. 23 October 2026, Africa/Cairo (session ran 22 Oct ~23:00 UTC onward).
-Base main `3a7a0b7a5ece796e617c0c363118d4b1618bf9c1`. Reviews draft PR #1539 at head `59fb24ac7725cf22d3514c1d3e3a7aa70b776861`.
-Machine record: [`allocation.json`](../../artifacts/wealth-frontier-omega-20261023-claude/allocation.json).
+Checkpoint **PHX-WEALTH-FRONTIER-CLAUDE-20261023** (revision 2, after the founder's census answers).
 
-**Verified cleared contribution profit: $0.00. New spend: $0. Outbound messages, applications, proposals, trades, accounts, merges: 0.**
+- **Base main:** `3a7a0b7a5ece796e617c0c363118d4b1618bf9c1`.
+- **Reviewed:** draft PR #1539 at head `59fb24ac7725cf22d3514c1d3e3a7aa70b776861`.
+- **Machine record:** [`allocation.json`](../../artifacts/wealth-frontier-omega-20261023-claude/allocation.json).
 
-This is the Claude Code lane of the Wealth Frontier Ω mission. GPT Work and Chat on Steroids had already run the mission's research and code waves and published them as #1539 with a review packet addressed to Claude Code. This document does what that packet asked and what the mission reserves for Claude: independent review, original invention, promotion and final allocation. It does not redo #1539's 890-idea recovery, 48-mechanism atlas, 64-hypothesis generation or quant screen; those stand as published.
+**Verified cleared contribution profit: $0.00.** New spend: $0. Messages sent, applications, proposals posted, accounts created, trades and merges: all 0.
 
-## Decision summary
+## What the founder's census changed (answers given 23 Oct 2026)
 
-| Item | Decision | Why |
+| Question | Answer | Consequence |
 |---|---|---|
-| #1539 code repair (Q-EXIT-01) | **PROCEED** | Reproduced independently: 4/5 red on main's source, 19/19 green on the branch. Research bookkeeping only. |
-| #1539 champion (Intutiv $100 trial) | **DOWNGRADE** to optional cheap shot | Live page: 4 weeks old, 27 applicants, follow-on ~$10/hour. $100 gross cannot clear $100. |
-| #1539 fallback (n8n buyer cobasuyi) | **ARCHIVE** | 19 priced replies within 9 hours on 6–7 Oct ($60–$650 quotes); 16 days old; buyer never named a budget. Already competed away. |
-| New champion | **Expensify standing $250 bounties, conditional on the rail-and-device census** | Published, priced, replenishing demand with a documented payout process that does not exclude Egypt. See §5. |
-| Binding constraint | **Founder-verified payout rail plus test hardware**, not buyer demand | Every surviving route needs the same three facts only the founder can supply. |
-| Paper trading ledger | **REPAIR** before any further paper evidence is trusted | `verifyPaperChain` accepts a re-hashed forged MARK reporting +9,900%. See §7. |
+| Devices | iPhone, HP laptop, iPad Air; buying a OnePlus 13 | No Mac. iOS-native and macOS testing are impossible at $0. |
+| Upwork | **Banned** | Every Upwork-paid route is dead: Expensify, the Upwork Intutiv listing, #1539 leads 009/010. A new account would be ban evasion and is **not an option**. |
+| Contra / tax | "I don't have a tax number" | Formal invoicing identity is missing. Routes that demand a tax ID at onboarding are blocked; Contra login is still unknown. |
+| Network for referrals | "That's your job, no I don't know" | HG Studio referral is dropped. Buyer acquisition must be cold, inbound or public-request based. |
+
+**Falsified this revision:** the conditional Expensify champion of revision 1 (killed by the Upwork ban and no Mac), and the HG Studio referral position (no network).
+
+## Wave status
+
+| Wave | Status | Evidence |
+|---|---|---|
+| A Reality recovery | DONE | Main `3a7a0b7`; PRs 1532/1535–1539 reconciled; #1539 reviewed. |
+| B Mechanism atlas | DONE (reused) | #1539's 890 IDs, 48 mechanisms, 64→13 clusters. New surfaces deduped (§2). |
+| C Global buyer hunt | DONE | Expensify, JHipster, Algora, n8n Jobs, OpenTrain, Welocalize checked live (§3). |
+| D Invention lab | DONE | INV-1 rail-first, INV-2 standing-bounty arbitrage (now blocked), INV-4 proof-first reply (§4). |
+| E Adversarial tournament | DONE | Every route attacked against the census; survivors in §5. |
+| F First-cash experiment | **BUILT, AWAITING SEND APPROVAL** | WhatsApp AI support agent for n8n buyer 323862. 14/14 end-to-end scenarios on real n8n; 11/11 unit tests. |
+| G Secondary income | PREPARED | OpenTrain: employer-funded milestones; Egypt is a supported payout country (Stripe-hosted, local bank). |
+| H Trading research | DONE (repair) | Q-EXIT-01 cherry-picked; Q-EXIT-02 implemented: forged +9,900% paper result now refused, 25/25 tests, mutation kills 5. No strategy promoted; no live trading. |
+| I Delegation | EXECUTED DIRECTLY | No verified channel to Chat on Steroids or GPT Work from this session, so Claude built the CP packets itself rather than leave them undelivered. |
+| J Product and payment closure | DONE where internal | Transaction compiler and money-in-bank table complete; remaining gaps are founder facts (bank account, n8n account). |
+| K External buyer validation | **BLOCKED ON FOUNDER APPROVAL** | Exact message ready; nothing sent. |
+| L Cleared profit | $0.00 | Reconciliation path defined; no money exists yet. |
+| M Reinvestment | RULES SET | §9. |
 
 ## 1. Source frontier
 
-| PR | Head | State | Role |
-|---|---|---|---|
-| 1532 | `8994243b` | open draft | Cash Now donor; stale relative to 1533 |
-| 1533 | `25606cad` | merged into main | Machiavelli atlas, quant lab, prototypes |
-| 1535 | `fd10a918` | open draft | First-money doc; PayPal selection superseded |
-| 1536 | `250685ca` | open draft | Billing repairs, CP-01 |
-| 1537 | `f9b423a0` | open draft | Chat on Steroids W1–W8 |
-| 1538 | `a9b2c5fa` | open draft | Machiavelli Ω orchestration, CP-02 |
-| 1539 | `59fb24ac` | open draft, `unstable` | GPT Work + Chat on Steroids Wealth Frontier Ω pass |
-
-Main's Vercel statuses report "Account is blocked" (recorded by #1539; not re-checked here). No production release or always-on wealth runtime is certified.
-
-Agents: GPT Work and Chat on Steroids produced #1539. This Claude Code session produced this branch only. **No packet in this document has been delivered to another agent.** The relay contract (`uberbond_read_relay_contract`) exposes no verified send channel from this session, so packets live in GitHub per the mission's fallback rule.
-
-## 2. Mechanism recovery
-
-Reused from #1539 without change: all 890 founder IDs and ten shard hashes, 48 historical mechanisms, 16 prior proposals, 64 new concepts deduped to 13 clusters, 17 quant experiments (16 rejected, ETH momentum inconclusive), and the 52-site SMB negative result (1 sellable-class observation against a threshold of 2).
-
-Dedupe check for the surfaces added below, against #1539's hypotheses and all of main's `docs/`, `artifacts/` and `src/`:
-
-| Surface | In #1539 hypotheses | Files on main |
+| PR | Head | State |
 |---|---|---|
-| Expensify | 0 | 0 |
-| Mostaql / Khamsat | 0 | 0 |
-| Algora | 0 | 0 |
-| Superteam | 0 | 0 |
-| Mercor (expert AI training) | 0 | 1 (atlas row) |
-| InstaPay | 0 | 2 (`money-entry-rails.mjs`, tournament) |
+| 1532 | `8994243b` | open draft (stale donor) |
+| 1533 | `25606cad` | merged |
+| 1535 | `fd10a918` | open draft (PayPal choice superseded) |
+| 1536 | `250685ca` | open draft |
+| 1537 | `f9b423a0` | open draft |
+| 1538 | `a9b2c5fa` | open draft |
+| 1539 | `59fb24ac` | open draft |
+| 1540 | this branch | open draft |
 
-## 3. Original invention
+Vercel "Account is blocked" statuses on main are recorded by #1539 and were not re-checked here.
 
-Three mechanisms. Novelty is relative to the recovered UberBond pool, not a claim of global novelty.
+## 2. Mechanism recovery and dedupe
 
-**INV-1 Rail-first allocation.** The scarce input is not demand. On every surface checked this session demand was plentiful: 14 open $250 Expensify issues, 580 open issues carrying a bounty label on GitHub, 19 bidders on one n8n post. What is missing is a payout rail the founder has verified end to end into an Egyptian bank. Each marketplace bundles demand, escrow and payout, so the rail decides which buyers are reachable at all. Invert the search: enumerate the rails the founder can verify in minutes, then hunt only on surfaces bound to those rails. This replaces #1539's Contra-only founder check with one census covering every candidate rail (§9). *Evidence class:* MECHANISM IDENTIFIED. *Falsifier:* the census shows no verifiable rail, which would leave every buyer route equally blocked.
+Reused from #1539 unchanged. Surfaces added this session had no prior record on main or in #1539's hypotheses: Expensify, Mostaql/Khamsat, Algora, Superteam, OpenTrain, Welocalize, n8n Jobs as a buyer surface, and the WhatsApp support agent.
 
-**INV-2 Standing-bounty proposal arbitrage.** Some payers publish a continuous queue of fixed-price issues and hire whoever posts the first proposal their engineer accepts. Expensify is the clearest live case. The product actually bought is fast, correct root-cause diagnosis, which is UberBond's core capability. No cold outreach is needed: the offer is a public technical proposal judged on merit. 890 ancestor: **founder-moonshot-0304, THE REALITY MARKETPLACE** ("People request outcomes, while competing systems propose validated causal pathways to produce them."). This is the material crossover found for this mission; others scanned (0063, 0311, 0349, 0585, 0823) are `NO_MATERIAL_890_CROSSOVER_OBSERVED`.
+## 3. Buyer hunt results (all read 22–23 Oct 2026)
 
-Edge erosion is real. Expensify runs its own AI agent (MelvinBot), which may post the first proposal, so the payer is automating the cheap part. The residue that still pays is correct proposals plus real-device verification: Android native, Android Chrome, iOS native, iOS Safari and macOS. AI cannot supply that hardware. *Evidence class:* BUYER DEMAND OBSERVED (public, priced). *Falsifier:* zero accepted proposals across a small, pre-declared number of attempts. Stop after **3 rejected proposals**.
-
-**INV-3 Arabic-surface demand arbitrage.** Arabic freelance marketplaces (Mostaql, Khamsat) post budgeted requests in a language most global AI-assisted freelancers do not work in. An Egypt-based Arabic speaker with AI tooling may face less competition there. *Evidence class:* CONCEPT only. Both sites returned HTTP 403 to read-only fetch (not circumvented). Community posts describe withdrawals through PayPal (closed for this founder) or bank wire with a reported $250 minimum and about a month's delay. **Not allocated** until GPT Work verifies fees and Egyptian withdrawal (packet GW-ARABIC-01).
-
-## 4. Global buyer opportunities verified this session
-
-| Buyer | Source | Purchase signal (observed 22–23 Oct) | Price basis | Egypt | Disposition |
-|---|---|---|---|---|---|
-| Expensify | [Help Wanted issues](https://github.com/Expensify/App/issues?q=is%3Aissue+is%3Aopen+label%3A%22Help+Wanted%22), [CONTRIBUTING](https://github.com/Expensify/App/blob/main/contributingGuides/CONTRIBUTING.md) | 19 open Help Wanted; 14 titled $250; updated 21–22 Oct | Issue-title price, paid via Upwork ≥7 days after production deploy | Not on excluded list (Crimea, North Korea, Russia, Iran, Cuba, Syria) | **Conditional champion** |
-| Expensify #104400 (sample) | [issue](https://github.com/Expensify/App/issues/104400) | Opened 19 Oct; 4 proposals by 22 Oct; owner already assigned | $250 | — | Competition calibration only |
-| Intutiv | [LinkedIn](https://in.linkedin.com/jobs/view/qa-tester-manual-%2B-automation-4468995895) | 4 weeks old, 27 applicants, "A paid trial task: $100"; follow-on ~$10/hour | $100 gross | Unstated | Downgraded |
-| cobasuyi (n8n) | [thread](https://community.n8n.io/t/looking-for-n8n-ai-automation-specialist-paid-qa-stress-testing/319256) | 19 supplier replies in 9 hours; no budget stated by buyer | Unstated | Unstated | Archived |
-| Algora-paid bounties | GitHub search (580 open issues labelled "💎 Bounty") | First result page dominated by one repo's unpriced "wildcard" self-bounties | Varies | Search index says Egypt is supported via Stripe; live docs URL returned 404 | Screening only; noisy |
-| Mostaql / Khamsat | — | Not readable (403) | — | Unverified | GW-ARABIC-01 |
-
-Advertised amounts are never summed. None of these is an accepted offer.
-
-## 5. First-cash champion — Expensify standing bounty (conditional)
-
-**Why the first dollar would arrive.** An Expensify engineer accepts the founder's proposal, Expensify hires through Upwork, the PR merges, deploys and survives the 7-day regression window, and Expensify releases payment on Upwork. Upwork then withdraws to an Egyptian bank via Direct to Local Bank (EGP).
-
-**Money-in-bank decomposition**
-
-| Question | Answer | Evidence |
+| Surface | Finding | Verdict |
 |---|---|---|
-| Who approves payment | Expensify team member assigned to pay | CONTRIBUTING |
-| What causes approval | Merged, deployed PR with no regression after 7 days and the post-deploy checklist done | CONTRIBUTING |
-| What must be delivered | Accepted proposal, PR with tests and media on 5 platforms, reviewer responses within 5 days | CONTRIBUTING, PR template |
-| Receiving account | Founder's verified Upwork account | **UNVERIFIED** |
-| Fee | Upwork freelancer service fee 0–15% (variable); Direct to Local Bank $0.99 per withdrawal | Upwork help; third-party 2026 posts; Egypt FX spread UNKNOWN |
-| Hold | ≥7 days after deploy, plus Upwork's own release timing | CONTRIBUTING; Upwork timing UNKNOWN for this account |
-| Withdrawable in Egypt | Reported yes, EGP local bank, about 4 business days | Third-party, not re-verified on the account |
-| Reversal risk | 50% penalty per regression; regression fixes unpaid | CONTRIBUTING |
-| Net positive | $250 × (1 − ≤15%) − $0.99 ≈ **$211–249 gross-to-bank before FX**, against founder minutes and hardware access | Arithmetic, not a quote |
-| Collection evidence | Upwork transaction record plus Egyptian bank credit, reconciled through canonical payment truth | Not yet existing |
+| Expensify bounties | 14 × $250 open; Upwork-only payment; iOS and macOS media required | **Dead** (Upwork ban, no Mac) |
+| JHipster bounties | 5 open org-wide. Newest $500 (#1408) closed to outside contributors by its maintainer. The $500 paid on 7 Oct went to the core maintainer himself. Others stale or crowded. | **No available unit** |
+| Algora | Stripe Connect cross-border payouts cover only US/UK/EEA/CA/CH. Stripe Global Payouts covers Egypt individuals by EGP wire, but Algora's use of it is unverified. 580 bounty-labelled issues, dominated by self-bounty noise. | Screening only |
+| n8n Jobs board | Mostly suppliers advertising. **One fresh buyer:** topic 323862, posted 23 Oct 04:25 UTC, Indian D2C brand wanting a Hindi/English WhatsApp AI agent. Contact by direct message; budget unstated. | **Champion** |
+| OpenTrain AI | Egypt listed as a supported payout country (Stripe-hosted, local bank); employer-funded milestones; 30 Egypt-visible roles posted 22–23 Oct | **Secondary** |
+| Welocalize "Apus" Arabic (Egypt) audio annotation | $9/hour, 10–20 h/week, 6 weeks, posted 11 May 2026; current status unclear | Option pool |
+| Intutiv | 4 weeks old, 27 applicants; channels LinkedIn and Upwork | Low expected value |
+| Mostaql/Khamsat | 403 to read-only fetch | Unverified |
 
-**Why it outranks Intutiv:**
-- Demand is standing and replenishing (14 priced units) instead of one decayed slot.
-- No buyer persuasion or cold contact: the proposal is judged on technical merit.
-- The process is documented and Egypt is not excluded.
-- $250 gross clears the $100 target after fees; $100 gross cannot.
-- Two accepted issues equal the $500 challenge.
-- The thing purchased is exactly UberBond's verification capability.
+## 4. Invention results
+
+- **INV-1 Rail-first allocation (confirmed by the census).** The scarce input is a payout rail the founder can actually use, not demand. Every rail check this session eliminated or kept entire buyer sets: Upwork (all), Stripe Connect (Algora), Open Collective (PayPal or Wise).
+- **INV-2 Standing-bounty proposal arbitrage** (ancestor founder-moonshot-0304). Still a sound mechanism, but its only strong live instance (Expensify) is unreachable for this founder. Preserved in the option pool with the resurrection condition "a non-Upwork payout and no Apple-device requirement".
+- **INV-4 Proof-first reply arbitrage (new).** On request boards where 19 suppliers pitch within 9 hours, the only differentiated reply is one where the deliverable already exists and is tested. AI makes building the deliverable cheaper than writing a convincing pitch, which inverts the usual sequence of pitch, win, then build. *Evidence class:* DELIVERY CAPABILITY VERIFIED for one buyer. *Falsifier:* proof-first replies convert no better than plain replies over the first 5 attempts.
+
+The 890 crossover remains founder-moonshot-0304 (THE REALITY MARKETPLACE) for INV-2 and INV-4: an outcome is requested and competing systems propose validated pathways.
+
+## 5. First-cash champion — WhatsApp AI support agent for buyer 323862
+
+**Deliverable:** [`whatsapp-support-agent/`](../../artifacts/wealth-frontier-omega-20261023-claude/whatsapp-support-agent/README.md). It covers the buyer's Phase 1 (steps 1–4):
+- FAQ-grounded OpenAI answers in Hindi, Hinglish or English.
+- Razorpay payment lookup that never echoes private fields.
+- Refund rows written to Sheets as `PENDING_APPROVAL`, then posted to Slack.
+- Disputes escalated to a human with a masked phone number.
+- Duplicate webhook retries ignored.
+
+**Verification:**
+- 11/11 unit tests.
+- **14/14 end-to-end scenarios on a real n8n 2.15.1**, with mocked WhatsApp, OpenAI, Razorpay, Slack and Sheets; zero real providers contacted.
+- The end-to-end run caught two defects, both fixed and turned into regression tests: "access" questions misrouted to payment lookup, and malformed `pay_` ids falling through to the FAQ model.
+- The production workflow imports into n8n 2.15.1.
+
+**Offer:**
+- Phase 1: US$400 fixed.
+- Phase 2: US$250.
+- Maintenance: US$60/month, optional.
+- Payment: 30% to start, 70% on live acceptance, by bank transfer or Wise.
+
+The exact message, money-in-bank decomposition and kill conditions are in [`PROPOSAL_AND_TRANSACTION.md`](../../artifacts/wealth-frontier-omega-20261023-claude/whatsapp-support-agent/PROPOSAL_AND_TRANSACTION.md).
+
+**Why it outranks everything else:** it is the only route found that has all of these at once:
+- a dated buyer request from today;
+- a deliverable that already passes tests;
+- a payment path needing no Upwork, PayPal, Mac, network or capital.
 
 **Why it may still fail:**
-- **Device matrix:** iOS native and macOS testing need a Mac. If the founder has none, the route is blocked unless money is spent, which is not authorized.
-- **Crowding:** 4 proposals within 3 days on a fresh issue.
-- **Payer automation:** MelvinBot competes for the cheap first proposal.
-- **Identity:** a verified Upwork profile is required.
-- **Pace:** one job at a time for new contributors, and inactivity over 5 days ends the contract.
-- **Speed to cash:** realistic first-cash horizon is **14–30 days**. This is not a TODAY or 24–72-hour route.
+- Heavy competition in the buyer's direct messages.
+- The budget may sit below $400.
+- The buyer may insist on an escrow platform the founder cannot use.
+- The founder's n8n account may be too new to send direct messages.
+- India→Egypt transfer fees and timing are unverified.
 
-**TODAY horizon, honestly:** no route with a credible same-day agreement and payout was found by #1539 or this session.
+**Realistic horizon:** an agreement in 24–72 hours if the buyer replies; first deposit cash within about 7 days; the full $400 within about 2 weeks.
 
-## 6. Secondary challenger and asymmetric position
+## 6. Secondary (distinct) and asymmetric positions
 
-- **B′ Secondary, economically distinct:** HG Studio referral (from #1539). Commission of £250 or £500 per qualifying project, capped at half of cleared client payment, paid by GBP IBAN/SWIFT. Requires a real consenting introduction from the founder's own network. No cold list counts. Unchanged.
-- **C Asymmetric research:** #1539's executable-price contradiction study stays paper-only. It is gated behind Q-EXIT-02, because the paper ledger cannot currently tell a forged result from a real one (§7).
+**B — OpenTrain AI-evaluation contracts.**
+- *Economics:* hourly or milestone labor paid from employer-funded milestones. This is independent of whether any client buys a build.
+- *Payout:* Stripe-hosted to a local bank. Egypt is listed as supported; a tax ID is required only "if asked".
+- *Gates:* founder identity and a free account (founder-only); matching a role to the founder's real skills; each role's AI-use rules must be followed as written.
+- *Caveats:* the Android rater role found requires a Google Pixel 8 on Android 17, so the OnePlus 13 does not qualify. Welocalize Arabic audio annotation ($9/hour) stays in the option pool.
 
-Portfolio, maximum three: **A** Expensify (conditional) · **B** HG Studio referral (conditional) · **C** paper-only price-contradiction research. Intutiv may be sent as a zero-cost side shot only if free LinkedIn messaging works; it is not a position.
+**C — Paper-only trading research.** The ledger now refuses forged results (Q-EXIT-02). #1539's price-contradiction study can resume as paper evidence. No strategy qualifies for capital and no live trading is authorized.
 
-## 7. Experiment results this session
+The portfolio is at its maximum of three: **A** WhatsApp agent (this buyer, then reuse) · **B** OpenTrain · **C** paper research.
 
-| ID | Experiment | Result |
-|---|---|---|
-| E-C1 | Reproduce Q-EXIT-01 | Main source + new test: 5 tests, 1 pass, 4 fail. Branch: 19/19 pass, 0 skipped. Confirms #1539's claim. |
-| E-C2 | Forge a MARK with a 2030 exit quote and `netReturnOnCapital: 99`, re-hash it, run `verifyPaperChain` | `{"ok":true,...}` and `paperSummary` reports `netReturn: 99`. **New finding:** the hash chain gives no semantic integrity, because hashes are unkeyed and the MARK omits the cost parameters needed to recompute returns. Research-integrity severity MEDIUM, money impact zero. Packet Q-EXIT-02. |
-| E-C3 | Live recheck of #1539 finalists 1–2 | Both downgraded (§4). |
-| E-C4 | Expensify live demand census | 19 Help Wanted / 14 at $250; process, eligibility, AI and device rules read from primary docs. |
-| E-C5 | Winnr read-only status | Winnr account: 1 mailbox, active, health 100, inbox rate 100%. 25 most recent inbox items since 15 Oct are all warm-up traffic; **0 real buyer replies**. |
-| E-C6 | 890 crossover scan | founder-moonshot-0304 material; others none. |
+## 7. Experiments completed this session
 
-**Limits:**
-- Gmail connector needs re-authorization, so the private HG Studio and £400 threads were not re-read. #1539 records GPT Work's earlier read.
-- Mostaql: 403. Algora docs: 404.
-- Upwork payout facts come from Upwork's general page and third-party 2026 posts, not the founder's account.
+| ID | Result |
+|---|---|
+| E-C1 | Q-EXIT-01 reproduced: 4/5 red on main's source, 19/19 green on the branch |
+| E-C2 | Forged re-hashed MARK (+9,900%) accepted before the repair; **refused after Q-EXIT-02** (`MARK_EXIT_QUOTE_INVALID`) |
+| E-C3 | #1539 finalists 1–2 downgraded or archived on live data |
+| E-C4 | Expensify demand census: 19/14; then route killed by the census |
+| E-C5 | Winnr: 1 mailbox active; 0 real buyer replies |
+| E-C6 | 890 crossover: founder-moonshot-0304 |
+| E-C7 | JHipster payout evidence: paid to the core maintainer; no open unit |
+| E-C8 | Stripe Connect cross-border excludes Egypt; Global Payouts includes Egypt individuals by EGP wire |
+| E-C9 | WhatsApp agent: 14/14 end-to-end on n8n 2.15.1 (2 real defects found and fixed) |
+| E-C10 | Paper ledger semantic replay: 25/25 tests; mutation kills 5 of 6 |
+| E-C11 | Full deterministic suite on this branch: 10,453 tests, 10,393 pass, 0 fail, 60 skipped (none in the new test files) |
 
-## 8. Delegated work packets — prepared, NOT delivered
+## 8. Financial readiness
 
-**CP-EXP-01 → Chat on Steroids** (run only after census answer 1 = yes, Mac available)
-- **Steps:**
-  1. Shallow-clone `Expensify/App` in an isolated worktree.
-  2. Pick one Help Wanted, $250 issue opened in the last 72 hours with ≤1 proposal and no assignee contributor.
-  3. Reproduce it on web.
-  4. Locate the root cause in source.
-  5. Write a proposal in Expensify's template: problem, root cause, change, alternatives.
-  6. Write a local unit test if feasible.
-- **Output:** the draft proposal plus a timed log of minutes spent.
-- **Never post, comment, open a PR, or apply on Upwork.**
-- **Acceptance:** the root cause is cited to file/line; the proposal differs from every existing proposal on the issue; time is recorded.
-- **Kill:** the issue gains an accepted proposal before review, or work exceeds 3 hours.
+| Rail | Status |
+|---|---|
+| Direct bank transfer (SWIFT USD) or Wise to the founder's Egyptian account | **Usable if the founder confirms an account** (champion route) |
+| OpenTrain (Stripe-hosted local bank) | Egypt listed; account not created |
+| Stripe Global Payouts generally | Egypt individuals supported by EGP wire, platform-dependent |
+| Upwork | **Banned. Excluded permanently; no new account.** |
+| PayPal | Excluded |
+| Contra | Login unknown |
+| Payoneer | Recovery required |
+| Apify | Wise ($20 min) or wire ($100 min) after identity verification; no paying user |
+| InstaPay | Domestic only; no Egyptian buyer |
 
-**Q-EXIT-02 → Chat on Steroids** (Position C prerequisite)
-- **Changes:**
-  - Stack on #1539's branch.
-  - Store `costBps`, `carryFraction` and `capitalPerUnit` in each MARK.
-  - Make `verifyPaperChain` replay semantics for every MARK. It must check that the referenced DECISION exists for the same strategy and is marked once, that each exit `observedAt` lies in [decidedAt, markedAt], and that `netReturnOnCapital` recomputes within 1e-12.
-  - Legacy MARKs without the parameters return `MARK_SEMANTICS_UNVERIFIABLE`, never `ok:true`.
-- **Red test:** the E-C2 forged chain must be rejected.
-- **Must not change:** existing PAPER semantics, the `moneyClaim: 'NONE'` value, or any payment code.
+**Verified founder payout routes: 0.**
 
-**GW-ARABIC-01 → GPT Work** (browser)
-- **Mostaql and Khamsat:** official commission, withdrawal methods to Egyptian banks or wallets with minimums, fees and timing, and AI-use rules. Record 10 current programming, automation, data or Arabic-content projects with budget, posting time and bid count.
-- **Algora:** a live payments page confirming Egypt for individuals.
-- **Format:** record each item in the 12-field buyer schema. No account creation or bidding.
+## 9. Reinvestment and compounding rules (Wave M)
 
-## 9. Financial readiness
+1. The first cleared dollar is reconciled through the canonical payment truth before anything else is built.
+2. If buyer 323862 pays, the WhatsApp agent becomes Position A's product. The next 5 requests for the same need get proof-first replies; maintenance becomes the recurring line.
+3. If 5 proof-first replies produce zero paid deposits, INV-4 is falsified for this board. Stop and move to OpenTrain.
+4. No revenue funds trading until a strategy passes all nine research criteria, including positive forward paper results in the repaired ledger.
+5. Simulated, advertised or proposed amounts are never added to the money ledger.
 
-| Rail | Status this session | Gate |
-|---|---|---|
-| Upwork → Direct to Local Bank (EGP) | **Researched, account UNVERIFIED** | Founder census Q1 |
-| Contra (existing) | Per #1539: researched, login unverified | Founder census Q2 |
-| Algora / Stripe Connect | **Indexed claim only**; docs 404 live | GW-ARABIC-01 |
-| Payer-sent Wise to Egyptian IBAN | Per #1539: documented, unverified with any payer | Needs a buyer |
-| InstaPay (domestic EGP) | On main as `DOMESTIC_EGYPT_BANK_OR_BROKER` PLAUSIBLE; no domestic buyer | Needs an Egyptian buyer |
-| PayPal | Excluded (deactivation evidence, per #1538/#1539) | — |
-| Payoneer (existing) | Per #1539: recovery required, unverified | — |
+## 10. Founder-only actions (maximum three)
 
-**Activated, founder-verified payout routes: 0.**
+1. **Approve and send** the exact message in `PROPOSAL_AND_TRANSACTION.md` from your own n8n Community account to `Danish_Koul_14`. Create a free account first if you don't have one; new accounts may not be able to send direct messages immediately.
+2. **Confirm a receiving account:** an Egyptian bank account that can receive a USD SWIFT transfer, or Wise in EGP. Keep IBAN and identity details out of chat and out of the repository.
+3. **Decide on OpenTrain:** whether to open a free account and apply to roles that match your real skills.
 
-## 10–12. Commercial readiness and cleared profit
+## 11. PHOENIX checkpoint
 
-Accepted offers 0 · active buyer conversations 0 · accepted deliveries 0 · paying customers 0 · collected-not-cleared $0 · **cleared contribution profit $0.00 (independently verified: none exists)**.
-
-## 13. Founder-only actions (maximum three)
-
-1. **Rail and device census (≤15 minutes, read-only on your own accounts, $0).** Answer yes or no, no screenshots of identity documents:
-   - (a) Do you have regular access to a Mac that can run Xcode, plus an Android phone?
-   - (b) Is your Upwork account identity-verified, and does Settings → Get Paid offer "Direct to Local Bank" in EGP?
-   - (c) Can you log in to Contra, and does it show an Egypt payout method?
-   - (d) Do you have a tax/invoicing status you are comfortable using for foreign contract income?
-
-   This single answer decides which buyer set is reachable.
-2. **Expensify participation in principle.** Will you put your own GitHub and Upwork identity behind AI-assisted proposals, answer reviewers within 5 days, and accept the 50% regression penalty rule? Each proposal will still come to you for exact approval before posting.
-3. **Intutiv: send or let lapse.** The #1539 message is ready. Send it only if LinkedIn messaging is free. Expected value is low; it costs about 2 minutes.
-
-Time-sensitive note: #1539's ILO Arabic proofreading notice closes **12:00 Cairo, 23 Oct**. The full TOR sits behind UNGM eSourcing and supplier eligibility is unknown. **Recommendation: let it lapse.**
-
-## 14. PHOENIX checkpoint — PHX-WEALTH-FRONTIER-CLAUDE-20261023
-
-- **Commits:** main `3a7a0b7a5ece796e617c0c363118d4b1618bf9c1`; reviewed #1539 head `59fb24ac7725cf22d3514c1d3e3a7aa70b776861`; this branch `claude/wealth-frontier-omega-allocation-20261023` (head in the PR).
-- **Supersedes in #1539:**
-  - Champion ranking (Intutiv → conditional Expensify).
-  - Fallback (cobasuyi → archived).
-  - Founder queue (Contra-only → full rail census).
-- **Does not supersede in #1539:** the code repair, mechanism recovery, quant screen, HG Studio challenger or any negative result.
+- **Commits:** see the PR head. This branch carries #1539's `65b0bed` as `be62f2e` (identical change) so the Q-EXIT-02 repair builds on it.
 - **Contradictions preserved:**
-  - #1539 ranks Intutiv first; live evidence (27 applicants, 4 weeks) says low expected value.
-  - Algora's indexed Egypt support versus a 404 on the live docs.
-  - Upwork's $0.99 DTLB fee is documented generally, but the Egypt FX spread is unknown.
-  - Winnr has 1 mailbox here, while #1539 recorded 12 BobWork enrollments of 52. These are different systems; neither proves outbound readiness.
-- **Rejected or archived:** cobasuyi n8n QA (crowded); new speculative website scanning (prior negative result stands); live trading (no qualifying strategy; ledger integrity gap).
+  - Algora's indexed Egypt claim versus Stripe Connect's country list.
+  - JHipster's "proven payer" record versus the maintainer being the payee.
+  - Intutiv ranked first by #1539 versus the live evidence.
+  - Winnr (1 mailbox) versus BobWork (12/52); neither proves outbound readiness.
+- **Rejected:** Expensify (census); HG Studio (census); a new Upwork account (ban evasion); crypto bounty payouts (Egyptian crypto law, Law 194/2020, is a hard gate and not something to work around); live trading.
 - **Resume rule:**
-  1. Read this file and #1539's checkpoint.
-  2. Check for a founder census answer or any buyer reply. A real answer outranks all research.
-  3. If census (a) and (b) are yes, run CP-EXP-01 and bring the founder exactly one proposal.
-  4. If (a) is no, drop Expensify, promote the HG Studio referral, and run GW-ARABIC-01.
-  5. Never sum advertised amounts or count a proposal as revenue.
-
-## Relay return contract
-
-**Outcome:** allocation repaired, code fix confirmed, one new integrity defect found.
-**Changed artifacts:** this file and `allocation.json`.
-**Tests run:** 19 focused (pass), 5 red-baseline (4 fail as expected), 1 forged-chain probe (gap confirmed).
-**External effects:** read-only web fetches, read-only Winnr overview and inbox, read-only GitHub; 0 sends, 0 spend.
-**Unresolved risks:** device gate, rail gate, crowding, payer automation.
-**Decision:** code **PROCEED** · allocation **REPAIR** · live trading **STOP**.
+  1. Check for a buyer reply or the founder's approval first.
+  2. If approved, the founder sends; when the buyer answers, compile scope, price and payment from `PROPOSAL_AND_TRANSACTION.md`.
+  3. Deploy only after an accepted scope and a deposit.
+  4. Reconcile any receipt through payment truth.

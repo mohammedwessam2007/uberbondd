@@ -1,114 +1,115 @@
 {
-  "schemaVersion": "uberbond.wealth-frontier-claude-allocation-1.0.0",
+  "schemaVersion": "uberbond.wealth-frontier-claude-allocation-1.1.0",
   "checkpoint": "PHX-WEALTH-FRONTIER-CLAUDE-20261023",
-  "asOf": "2026-10-23T02:00:00+03:00",
+  "revision": 2,
+  "asOf": "2026-10-23T14:30:00+03:00",
   "timezone": "Africa/Cairo",
   "sourceMain": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
   "reviewed": { "pr": 1539, "head": "59fb24ac7725cf22d3514c1d3e3a7aa70b776861", "checkpoint": "PHX-WEALTH-FRONTIER-20261023" },
   "humanReadable": "docs/wealth-frontier-omega-20261023-claude/ALLOCATION_AND_REVIEW.md",
   "businessEffectAuthority": "NONE",
-  "effectLedger": { "newSpendUsd": 0, "messagesSent": 0, "applicationsSubmitted": 0, "proposalsPosted": 0, "accountsCreated": 0, "tradesPlaced": 0, "merges": 0, "readOnlyWebFetches": true, "readOnlyWinnrCalls": 2 },
+  "effectLedger": { "newSpendUsd": 0, "messagesSent": 0, "applicationsSubmitted": 0, "proposalsPosted": 0, "accountsCreated": 0, "tradesPlaced": 0, "merges": 0, "realProvidersContactedByE2E": 0, "readOnlyWebFetches": true, "readOnlyWinnrCalls": 2 },
   "moneyLedger": { "clearedContributionProfitUsd": 0, "collectedNotClearedUsd": 0, "acceptedOffers": 0, "acceptedDeliveries": 0, "payingCustomers": 0, "activeBuyerConversations": 0, "verifiedFounderPayoutRoutes": 0 },
+  "founderCensus": {
+    "answeredOn": "2026-10-23",
+    "devices": "iPhone, HP laptop, iPad Air; buying OnePlus 13 (no Mac)",
+    "upwork": "BANNED — all Upwork-paid routes excluded; new account would be ban evasion",
+    "taxNumber": "NONE",
+    "contraLogin": "UNKNOWN",
+    "referralNetwork": "NONE"
+  },
+  "waves": {
+    "A_realityRecovery": "DONE",
+    "B_mechanismAtlas": "DONE_REUSED_FROM_1539",
+    "C_globalBuyerHunt": "DONE",
+    "D_inventionLab": "DONE",
+    "E_adversarialTournament": "DONE",
+    "F_firstCashExperiment": "BUILT_AWAITING_SEND_APPROVAL",
+    "G_secondaryIncome": "PREPARED",
+    "H_tradingResearch": "REPAIR_DONE_NO_STRATEGY_PROMOTED",
+    "I_delegation": "EXECUTED_DIRECTLY_NO_VERIFIED_CHANNEL",
+    "J_productPaymentClosure": "DONE_INTERNAL_FOUNDER_FACTS_REMAIN",
+    "K_externalBuyerValidation": "BLOCKED_ON_FOUNDER_APPROVAL",
+    "L_clearedProfit": "ZERO",
+    "M_reinvestment": "RULES_SET"
+  },
   "decisions": {
-    "qExit01CodeRepair": "PROCEED",
-    "pr1539Champion_intutiv": "DOWNGRADE_OPTIONAL_SIDE_SHOT",
-    "pr1539Fallback_cobasuyi": "ARCHIVE_COMPETED_AWAY",
-    "newChampion": "EXPENSIFY_STANDING_BOUNTY_CONDITIONAL_ON_RAIL_AND_DEVICE_CENSUS",
-    "bindingConstraint": "FOUNDER_VERIFIED_PAYOUT_RAIL_AND_TEST_HARDWARE",
-    "paperLedger": "REPAIR_BEFORE_TRUSTING_PAPER_EVIDENCE",
+    "qExit01CodeRepair": "PROCEED_CHERRY_PICKED",
+    "qExit02SemanticReplay": "IMPLEMENTED",
+    "expensify": "DEAD_UPWORK_BAN_AND_NO_MAC",
+    "hgStudioReferral": "DROPPED_NO_NETWORK",
+    "intutiv": "LOW_EXPECTED_VALUE",
+    "cobasuyi": "ARCHIVED_COMPETED_AWAY",
+    "jhipster": "NO_AVAILABLE_UNIT",
+    "champion": "WHATSAPP_SUPPORT_AGENT_FOR_N8N_BUYER_323862",
+    "secondary": "OPENTRAIN_AI_EVALUATION_CONTRACTS",
+    "asymmetric": "PAPER_ONLY_PRICE_CONTRADICTION_RESEARCH",
     "liveTrading": "STOP"
   },
-  "portfolio": {
-    "A_immediateCash": { "id": "expensify-standing-bounty", "status": "CONDITIONAL", "gates": ["census.a_mac_and_android", "census.b_upwork_verified_dtlb_egp", "founder_participation_in_principle", "per_proposal_exact_approval"] },
-    "B_secondaryDistinct": { "id": "hg-studio-referral", "status": "CONDITIONAL", "source": "PR #1539", "gates": ["affiliate_enrollment", "real_consenting_introduction"] },
-    "C_asymmetricResearch": { "id": "executable-price-contradiction-study", "status": "PAPER_ONLY", "source": "PR #1539", "prerequisite": "Q-EXIT-02" }
+  "champion": {
+    "buyer": "n8n Community topic 323862, Danish_Koul_14 (Indian D2C wellness brand)",
+    "sourceUrl": "https://community.n8n.io/t/n8n-expert-needed-ai-whatsapp-support-agent-hindi-english/323862",
+    "postedAt": "2026-10-23T04:25:46Z",
+    "purchaseEvidence": "Buyer requests pricing for phase 1 and full build, timeline, maintenance and running costs; budget unstated",
+    "deliverable": "artifacts/wealth-frontier-omega-20261023-claude/whatsapp-support-agent/",
+    "verification": { "unitTests": "11/11", "e2eOnN8n_2_15_1": "14/14", "defectsFoundByE2EAndFixed": 2, "productionImport": "OK" },
+    "offerUsd": { "phase1": 400, "phase2": 250, "maintenancePerMonth": 60, "terms": "30% start, 70% on live acceptance, bank transfer or Wise" },
+    "proofLadder": "DELIVERY_CAPABILITY_VERIFIED",
+    "nextGate": "Founder approves and sends the exact direct message",
+    "killConditions": ["buyer silent 5 days", "buyer insists on Upwork", "budget below US$150", "payment method founder cannot receive"]
+  },
+  "secondary": {
+    "surface": "OpenTrain AI",
+    "evidence": ["Egypt listed in payout-country-availability", "Stripe-hosted payout to local bank", "employer-funded milestones", "30 Egypt-visible roles posted 2026-10-22/23"],
+    "gates": ["founder identity and free account", "role must match founder's real skills", "follow each role's AI-use rules"],
+    "rejectedRole": "Personal Account Generalist Rater requires Google Pixel 8+ on Android 17; OnePlus 13 does not qualify"
   },
   "inventions": [
-    { "id": "INV-1", "name": "Rail-first allocation", "evidenceClass": "MECHANISM_IDENTIFIED", "claim": "Demand is abundant on observed surfaces; the scarce input is a founder-verified Egypt payout rail, which determines reachable buyers.", "falsifier": "Census finds no verifiable rail." },
-    { "id": "INV-2", "name": "Standing-bounty proposal arbitrage", "evidenceClass": "BUYER_DEMAND_OBSERVED", "ancestor890": ["founder-moonshot-0304"], "claim": "Payers with a continuous fixed-price issue queue buy fast correct root-cause diagnosis plus real-device verification.", "falsifier": "3 rejected proposals stops the route." },
-    { "id": "INV-3", "name": "Arabic-surface demand arbitrage", "evidenceClass": "CONCEPT", "claim": "Arabic freelance marketplaces may have lower AI-assisted competition for an Arabic-speaking supplier.", "blocker": "Mostaql/Khamsat returned HTTP 403; payout terms unverified.", "allocated": false }
-  ],
-  "crossover890": { "material": ["founder-moonshot-0304"], "scannedNoMaterial": ["founder-moonshot-0063", "founder-moonshot-0311", "founder-moonshot-0349", "founder-moonshot-0585", "founder-moonshot-0823"] },
-  "opportunities": [
-    {
-      "id": "claude-buyer-001-expensify",
-      "buyer": "Expensify, Inc. (Expensify/App open-source program)",
-      "sourceUrls": ["https://github.com/Expensify/App/issues?q=is%3Aissue+is%3Aopen+label%3A%22Help+Wanted%22", "https://github.com/Expensify/App/blob/main/contributingGuides/CONTRIBUTING.md", "https://github.com/Expensify/App/blob/main/.github/PULL_REQUEST_TEMPLATE.md"],
-      "purchaseEvidence": "19 open Help Wanted issues, 14 titled $250, updated 21-22 Oct 2026 (observed 2026-10-23 Cairo).",
-      "priceBasis": "Price in issue title; standard amount if none. Paid via Upwork.",
-      "deliveryScope": "Accepted proposal, then PR with tests and screenshots/videos on Android native, Android mWeb Chrome, iOS native, iOS mWeb Safari, macOS Chrome/Safari; respond to all reviewer and AI-reviewer comments.",
-      "qualification": "Verified Upwork profile; access to affected repos; able to test all five platforms; one job at a time for new contributors; contributor accountable for AI output.",
-      "deadline": "Per issue; first acceptable proposal typically wins; 5 days without update may terminate contract.",
-      "paymentConditions": "No less than 7 days after production deploy; 7 days after regressions fixed if any; 50% penalty per regression.",
-      "egyptEligibility": "Not on excluded list (Crimea, North Korea, Russia, Iran, Cuba, Syria). Upwork Direct to Local Bank EGP reported available ($0.99/withdrawal); not verified on founder account.",
-      "founderActions": ["census", "participation_in_principle", "exact_approval_per_proposal", "device_testing", "reviewer_responses"],
-      "expectedDeliveryCost": "Founder minutes plus Claude/Chat on Steroids compute; $0 cash if founder already has Mac + Android; otherwise blocked under $0 authority.",
-      "nextPermittedAction": "CP-EXP-01 internal draft proposal only after census (a) and (b) are yes.",
-      "competition": "Sample #104400: 4 proposals within 3 days, owner assigned; Expensify MelvinBot may post first proposals.",
-      "horizon": "14-30 days to cleared cash",
-      "netArithmeticUsd": { "gross": 250, "upworkFeeRange": [0, 0.15], "withdrawalFee": 0.99, "approxToBankBeforeFx": [211.51, 249.01], "isQuote": false }
-    },
-    {
-      "id": "buyer-001-intutiv-recheck",
-      "sourceUrls": ["https://in.linkedin.com/jobs/view/qa-tester-manual-%2B-automation-4468995895"],
-      "observed": "Cached guest view: posted 4 weeks ago, 27 applicants, 'A paid trial task: $100', ongoing ~$10/hour, entry level, contract.",
-      "disposition": "DOWNGRADED_OPTIONAL_SIDE_SHOT",
-      "reason": "Decayed single slot; $100 gross cannot clear $100; follow-on rate below founder opportunity cost."
-    },
-    {
-      "id": "buyer-002-cobasuyi-recheck",
-      "sourceUrls": ["https://community.n8n.io/t/looking-for-n8n-ai-automation-specialist-paid-qa-stress-testing/319256"],
-      "observed": "Posted 2026-10-06; 19 supplier replies by 2026-10-07 06:20 with quotes from $60 to $650 and EUR 350/day; buyer stated no budget and no close notice on first page.",
-      "disposition": "ARCHIVED_COMPETED_AWAY"
-    },
-    {
-      "id": "claude-screen-algora",
-      "observed": "GitHub search: 580 open issues labeled '💎 Bounty'; first page dominated by unpriced self-bounties from one repo. Search index states Algora supports Egypt payouts via Stripe and contributors receive 100%; live docs URLs returned 404/redirect.",
-      "disposition": "SCREENING_ONLY"
-    },
-    {
-      "id": "claude-screen-mostaql-khamsat",
-      "observed": "HTTP 403 on read-only fetch; not circumvented. Community posts report PayPal or bank-wire withdrawal with reported $250 minimum and ~1 month delay (unverified).",
-      "disposition": "PENDING_GW_ARABIC_01"
-    }
+    { "id": "INV-1", "name": "Rail-first allocation", "evidenceClass": "CONFIRMED_BY_CENSUS" },
+    { "id": "INV-2", "name": "Standing-bounty proposal arbitrage", "evidenceClass": "BUYER_DEMAND_OBSERVED", "status": "BLOCKED_FOR_THIS_FOUNDER", "resurrection": "a standing-bounty payer with non-Upwork payout and no Apple-device requirement", "ancestor890": ["founder-moonshot-0304"] },
+    { "id": "INV-3", "name": "Arabic-surface demand arbitrage", "evidenceClass": "CONCEPT", "blocker": "Mostaql/Khamsat 403" },
+    { "id": "INV-4", "name": "Proof-first reply arbitrage", "evidenceClass": "DELIVERY_CAPABILITY_VERIFIED", "falsifier": "5 proof-first replies with 0 paid deposits", "ancestor890": ["founder-moonshot-0304"] }
   ],
   "rails": [
-    { "id": "upwork-dtlb-egp", "status": "RESEARCHED_ACCOUNT_UNVERIFIED", "fee": "$0.99 per withdrawal (Upwork general page); FX spread UNKNOWN", "gate": "census.b" },
-    { "id": "contra-existing", "status": "RESEARCHED_LOGIN_UNVERIFIED", "source": "PR #1539", "gate": "census.c" },
-    { "id": "algora-stripe", "status": "INDEXED_CLAIM_ONLY", "gate": "GW-ARABIC-01" },
-    { "id": "payer-wise-to-egp-iban", "status": "DOCUMENTED_NO_PAYER", "source": "PR #1539" },
-    { "id": "instapay-domestic", "status": "PLAUSIBLE_NO_DOMESTIC_BUYER", "source": "src/money-entry-rails.mjs DOMESTIC_EGYPT_BANK_OR_BROKER" },
+    { "id": "bank-or-wise-direct", "status": "USABLE_IF_FOUNDER_CONFIRMS_ACCOUNT" },
+    { "id": "opentrain-stripe-hosted", "status": "EGYPT_LISTED_ACCOUNT_NOT_CREATED" },
+    { "id": "stripe-global-payouts", "status": "EGYPT_INDIVIDUALS_EGP_WIRE_PLATFORM_DEPENDENT", "source": "https://docs.stripe.com/global-payouts/recipient-requirements" },
+    { "id": "stripe-connect-cross-border", "status": "EGYPT_NOT_SUPPORTED", "source": "https://docs.stripe.com/connect/cross-border-payouts" },
+    { "id": "upwork", "status": "EXCLUDED_BANNED" },
     { "id": "paypal", "status": "EXCLUDED" },
-    { "id": "payoneer-existing", "status": "RECOVERY_REQUIRED_UNVERIFIED", "source": "PR #1539" }
+    { "id": "contra", "status": "LOGIN_UNKNOWN" },
+    { "id": "payoneer", "status": "RECOVERY_REQUIRED" },
+    { "id": "apify", "status": "WISE_20_OR_WIRE_100_AFTER_ID_CHECK_NO_PAYING_USER" },
+    { "id": "instapay", "status": "DOMESTIC_ONLY_NO_BUYER" },
+    { "id": "crypto-bounties", "status": "EXCLUDED_LEGAL_GATE_EGYPT_LAW_194_2020" }
   ],
   "experiments": [
-    { "id": "E-C1", "name": "Reproduce Q-EXIT-01", "result": "main source + new test: 5 tests, 1 pass, 4 fail; branch: 19 pass, 0 fail, 0 skipped" },
-    { "id": "E-C2", "name": "Forged re-hashed MARK probe", "result": "verifyPaperChain ok:true; paperSummary netReturn 99", "severity": "MEDIUM_RESEARCH_INTEGRITY", "moneyImpact": "NONE", "packet": "Q-EXIT-02" },
-    { "id": "E-C3", "name": "Live recheck of PR #1539 finalists 1-2", "result": "both downgraded" },
-    { "id": "E-C4", "name": "Expensify live demand census", "result": "19 Help Wanted, 14 at $250" },
-    { "id": "E-C5", "name": "Winnr read-only status", "result": "1 mailbox active, health 100, inbox rate 100; 25 newest inbox items since 2026-10-15 all warm-up; 0 real buyer replies" },
-    { "id": "E-C6", "name": "890 crossover scan", "result": "founder-moonshot-0304 material" }
-  ],
-  "workPackets": [
-    { "id": "CP-EXP-01", "owner": "Chat on Steroids", "delivered": false, "gate": "census.a && census.b", "neverDo": ["post comment", "open PR", "apply on Upwork"], "kill": ["issue gains accepted proposal before review", "work exceeds 3 hours"] },
-    { "id": "Q-EXIT-02", "owner": "Chat on Steroids", "delivered": false, "base": "work/wealth-frontier-omega-20261023", "redTest": "E-C2 forged chain must be rejected", "mustNotChange": ["PAPER semantics", "moneyClaim NONE", "payment code"] },
-    { "id": "GW-ARABIC-01", "owner": "GPT Work", "delivered": false, "scope": "Mostaql/Khamsat official fees, Egyptian withdrawal, AI rules, 10 current budgeted projects; Algora live Egypt payout confirmation", "neverDo": ["create account", "bid"] }
+    { "id": "E-C1", "result": "Q-EXIT-01 reproduced: 4/5 red on main source, 19/19 green" },
+    { "id": "E-C2", "result": "Forged re-hashed MARK accepted before repair; refused after Q-EXIT-02 with MARK_EXIT_QUOTE_INVALID" },
+    { "id": "E-C3", "result": "PR 1539 finalists 1-2 downgraded or archived" },
+    { "id": "E-C4", "result": "Expensify 19 Help Wanted / 14 at $250; then killed by census" },
+    { "id": "E-C5", "result": "Winnr 1 mailbox active; 0 real buyer replies" },
+    { "id": "E-C6", "result": "890 crossover founder-moonshot-0304" },
+    { "id": "E-C7", "result": "JHipster: $500 paid 2026-10-07 to the core maintainer; #1408 closed to contributions; no open unit" },
+    { "id": "E-C8", "result": "Stripe Connect cross-border excludes Egypt; Global Payouts supports Egypt individuals by EGP wire" },
+    { "id": "E-C9", "result": "WhatsApp agent 14/14 e2e on n8n 2.15.1; 2 defects found and fixed" },
+    { "id": "E-C10", "result": "Paper ledger semantic replay 25/25; disabling it fails 5 of 6 new tests" }
   ],
   "founderQueue": [
-    { "rank": 1, "action": "Rail and device census", "questions": ["a: Mac with Xcode + Android phone?", "b: Upwork identity-verified and Direct to Local Bank EGP offered?", "c: Contra login works and shows Egypt payout?", "d: tax/invoicing status usable for foreign contract income?"], "costUsd": 0, "minutes": 15 },
-    { "rank": 2, "action": "Expensify participation in principle", "note": "Each proposal still requires exact approval before posting." },
-    { "rank": 3, "action": "Intutiv send-or-lapse", "note": "Only if LinkedIn messaging is free; low expected value." }
+    { "rank": 1, "action": "Approve and send the exact direct message to Danish_Koul_14 from your own n8n Community account" },
+    { "rank": 2, "action": "Confirm an Egyptian bank account that can receive USD SWIFT or Wise EGP (details stay out of chat and repo)" },
+    { "rank": 3, "action": "Decide whether to open a free OpenTrain account and apply to roles matching your real skills" }
   ],
-  "timeSensitive": [ { "id": "buyer-008-ilo-proofread", "closes": "2026-10-23T12:00:00+03:00", "recommendation": "LET_LAPSE", "reason": "TOR behind eSourcing; supplier eligibility unknown." } ],
   "contradictions": [
-    "PR #1539 ranks Intutiv first; live evidence (27 applicants, 4 weeks) indicates low expected value.",
-    "Algora Egypt support appears in search index; live docs returned 404.",
-    "Upwork $0.99 DTLB fee documented generally; Egypt FX spread unknown.",
-    "Winnr shows 1 mailbox while PR #1539 records 12/52 BobWork enrollments; different systems, neither proves outbound readiness."
+    "Algora Egypt support in search index vs Stripe Connect cross-border country list.",
+    "JHipster payout record is real but the payee was the core maintainer.",
+    "PR 1539 ranks Intutiv first; live evidence indicates low expected value.",
+    "Winnr shows 1 mailbox; PR 1539 records 12/52 BobWork enrollments; neither proves outbound readiness."
   ],
   "limits": [
-    "Gmail connector required re-authorization; private HG Studio and GBP 400 threads not re-read this session.",
-    "Mostaql/Khamsat HTTP 403; Algora docs 404.",
-    "No packet delivered to another agent; no verified send channel from this session."
+    "Gmail connector required re-authorization; private HG Studio and GBP 400 threads not re-read.",
+    "Mostaql/Khamsat HTTP 403.",
+    "End-to-end run mocks every provider; the native Google Sheets node is verified by import only.",
+    "India-to-Egypt transfer fees and timing are unverified."
   ]
 }

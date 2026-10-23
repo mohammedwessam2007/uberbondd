@@ -16,7 +16,9 @@
     "upwork": "BANNED — all Upwork-paid routes excluded; new account would be ban evasion",
     "taxNumber": "NONE",
     "contraLogin": "UNKNOWN",
-    "referralNetwork": "NONE"
+    "referralNetwork": "NONE",
+    "bankAccount": "FOUNDER_ATTESTED_EXISTS (2026-10-23); USD SWIFT or Wise EGP receipt not yet observed",
+    "openTrain": "FOUNDER_APPROVED_APPLYING (2026-10-23); account, application and payout setup are founder-only identity actions; private application kit kept out of this public repo"
   },
   "waves": {
     "A_realityRecovery": "DONE",
@@ -71,7 +73,7 @@
     { "id": "INV-4", "name": "Proof-first reply arbitrage", "evidenceClass": "DELIVERY_CAPABILITY_VERIFIED", "falsifier": "5 proof-first replies with 0 paid deposits", "ancestor890": ["founder-moonshot-0304"] }
   ],
   "rails": [
-    { "id": "bank-or-wise-direct", "status": "USABLE_IF_FOUNDER_CONFIRMS_ACCOUNT" },
+    { "id": "bank-or-wise-direct", "status": "FOUNDER_ATTESTED_ACCOUNT_RECEIPT_UNOBSERVED" },
     { "id": "opentrain-stripe-hosted", "status": "EGYPT_LISTED_ACCOUNT_NOT_CREATED" },
     { "id": "stripe-global-payouts", "status": "EGYPT_INDIVIDUALS_EGP_WIRE_PLATFORM_DEPENDENT", "source": "https://docs.stripe.com/global-payouts/recipient-requirements" },
     { "id": "stripe-connect-cross-border", "status": "EGYPT_NOT_SUPPORTED", "source": "https://docs.stripe.com/connect/cross-border-payouts" },
@@ -97,8 +99,8 @@
   ],
   "founderQueue": [
     { "rank": 1, "action": "Approve and send the exact direct message to Danish_Koul_14 from your own n8n Community account" },
-    { "rank": 2, "action": "Confirm an Egyptian bank account that can receive USD SWIFT or Wise EGP (details stay out of chat and repo)" },
-    { "rank": 3, "action": "Decide whether to open a free OpenTrain account and apply to roles matching your real skills" }
+    { "rank": 2, "action": "DONE 2026-10-23: founder attests an Egyptian bank account exists" },
+    { "rank": 3, "action": "Apply on OpenTrain in your own name: AI Q&A Evaluation Specialist ($20-60/hr equivalent, Egypt eligible, no degree), then AI Content Evaluation QA, Chatbot Response Quality Analyst, Safety Data Annotation; complete hiring-platform tests without AI unless allowed; add payout only after a contract" }
   ],
   "contradictions": [
     "Algora Egypt support in search index vs Stripe Connect cross-border country list.",

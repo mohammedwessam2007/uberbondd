@@ -120,7 +120,7 @@ export function paymentReply(summary, language, missingReference) {
   const amount = summary.amountInr == null ? '' : ` of ₹${summary.amountInr}`;
   const en = {
     captured: `Your payment${amount} (${summary.id}) is confirmed. If you still can't access the product, reply "access" and we'll fix it.`,
-    authorized: `Your payment${amount} (${summary.id}) was authorised by your bank but not yet confirmed by us. Our team will confirm it; if it isn't confirmed within 3 days of the payment being created, it is refunded automatically. Reply "human" and we'll check now.`,
+    authorized: `Your payment${amount} (${summary.id}) was authorised by your bank but not yet confirmed by us. Our team will confirm it; if it isn't confirmed within the payment window (usually 3 days), it is refunded automatically. Reply "human" and we'll check now.`,
     failed: `Your payment${amount} (${summary.id}) did not go through. If money was deducted, your bank normally reverses it automatically within 5–7 working days.`,
     refunded: `Your payment${amount} (${summary.id}) has been refunded. Banks usually show the credit within 5–7 working days.`,
     partially_refunded: `Your payment${amount} (${summary.id}) has been partly refunded. Reply "human" if you need details.`,
@@ -128,7 +128,7 @@ export function paymentReply(summary, language, missingReference) {
   };
   const hiText = {
     captured: `आपका पेमेंट${amount ? ` ₹${summary.amountInr}` : ''} (${summary.id}) कन्फ़र्म है। अगर अभी भी एक्सेस नहीं मिला, "access" लिखें।`,
-    authorized: `आपका पेमेंट (${summary.id}) बैंक से अधिकृत हो गया है, लेकिन अभी हमारी ओर से कन्फ़र्म नहीं हुआ है। 3 दिन में कन्फ़र्म न होने पर पैसे अपने आप वापस हो जाएंगे। अभी जाँच के लिए "human" लिखें।`,
+    authorized: `आपका पेमेंट (${summary.id}) बैंक से अधिकृत हो गया है, लेकिन अभी हमारी ओर से कन्फ़र्म नहीं हुआ है। भुगतान की समय-सीमा (आमतौर पर 3 दिन) में कन्फ़र्म न होने पर पैसे अपने आप वापस हो जाएंगे। अभी जाँच के लिए "human" लिखें।`,
     failed: `आपका पेमेंट (${summary.id}) पूरा नहीं हुआ। अगर पैसे कटे हैं तो बैंक आमतौर पर 5–7 कार्यदिवस में वापस कर देता है।`,
     refunded: `आपका पेमेंट (${summary.id}) रिफंड हो चुका है। बैंक में 5–7 कार्यदिवस में दिखेगा।`,
     partially_refunded: `आपके पेमेंट (${summary.id}) का आंशिक रिफंड हुआ है। जानकारी के लिए "human" लिखें।`,

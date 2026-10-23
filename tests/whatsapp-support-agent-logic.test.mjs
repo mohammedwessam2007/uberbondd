@@ -87,10 +87,11 @@ test('payment replies cover missing id, not found and each status in both langua
   }
 });
 
-test('an authorized but uncaptured payment is not described as nearly done (Razorpay auto-refunds after 3 days)', () => {
+test('an authorized but uncaptured payment is not described as nearly done (Razorpay auto-refunds after the capture window, 3 days by default)', () => {
   const text = paymentReply({ found: true, id: 'pay_X', status: 'authorized', amountInr: 499 }, 'en');
   assert.match(text, /not yet confirmed/);
-  assert.match(text, /3 days/);
+  assert.match(text, /usually 3 days/);
+  assert.doesNotMatch(text, /within 3 days of the payment being created/);
   assert.doesNotMatch(text, /usually completes shortly/);
 });
 

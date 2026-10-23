@@ -74,7 +74,7 @@ Estimates, not quotes.
 ## Known limits (Phase 1)
 
 - The Hindi reply strings were written without a native Hindi reviewer. Have a Hindi speaker read them before go-live.
-- Razorpay's `authorized` state means the bank approved but the merchant has not captured the payment; Razorpay refunds it automatically if it is not captured within 3 days of creation (Razorpay payments docs). The agent says exactly that rather than promising completion.
+- Razorpay's `authorized` state means the bank approved but the merchant has not captured the payment; Razorpay refunds it automatically if it is not captured within the capture window. Razorpay's own pages disagree on the number (the payments and capture-settings pages give 3 days as the default maximum, configurable down to 12 minutes; the late-authorisation pages say 5 days), so the agent says "usually 3 days" rather than promising completion or a hard deadline.
 
 - Conversation history and dedupe live in n8n workflow static data. That is fine for one instance at this volume; move to Postgres or Redis for multi-instance or high volume.
 - No outbound template messages. The agent only replies inside the 24-hour window.

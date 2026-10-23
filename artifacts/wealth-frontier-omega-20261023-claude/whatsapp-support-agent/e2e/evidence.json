@@ -1,6 +1,6 @@
 {
   "schemaVersion": "uberbond.whatsapp-agent-e2e-1.0.0",
-  "ranAt": "2026-10-23T16:36:54.546Z",
+  "ranAt": "2026-10-23T16:42:41.650Z",
   "n8nVersion": "2.15.1",
   "externalProvidersContacted": "NONE (all APIs mocked on 127.0.0.1)",
   "deviationFromProduction": "Refund logging uses an HTTP call to a mock sheet instead of the native Google Sheets node, because Google OAuth cannot be mocked locally. Every other node is identical to workflow-phase1.n8n.json apart from base URLs and settings.",

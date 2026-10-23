@@ -1,0 +1,283 @@
+{
+  "sourceHead": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "sourceFile": "artifacts/quant-lab/experiments-2021-01_2026-09.json",
+  "sourceSha256": "da32dc3b016eb4684d4ae98071d37dcd9b20e1133b12bd307790fdba2be0ba97",
+  "experimentCount": 17,
+  "distinctFamilies": 17,
+  "labels": {
+    "REJECTED": 16,
+    "INCONCLUSIVE": 1
+  },
+  "evidenceClass": "SIMULATED_BACKTEST",
+  "moneyClaim": "NONE",
+  "rawDataCachePresent": false,
+  "independentHistoricalBacktestRerun": false,
+  "focusedTestCommand": "node --test tests/machiavelli-quant-lab.test.mjs",
+  "focusedTests": {
+    "pass": 14,
+    "fail": 0,
+    "skipped": 0
+  },
+  "limitations": [
+    "Existing receipt was parsed and source/test logic reviewed; all monthly source bytes and run hashes were not independently re-downloaded/replayed.",
+    "Treasury hurdle is not evidence of founder-specific accessible risk-free yield."
+  ],
+  "experiments": [
+    {
+      "family": "BUY_AND_HOLD:BTC",
+      "label": "REJECTED",
+      "oosSharpe": 0.6099,
+      "oosCagr": 0.2478,
+      "holdoutReturn": -0.2689,
+      "dsr": 0.8809,
+      "failures": [
+        "deflated Sharpe probability 0.881 < 0.95 after 1 variants",
+        "sealed holdout net return -26.89% <= 0",
+        "holdout CAGR -26.89% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:BTC",
+      "label": "REJECTED",
+      "oosSharpe": 0.5237,
+      "oosCagr": 0.1794,
+      "holdoutReturn": -0.0491,
+      "dsr": 0.5147,
+      "failures": [
+        "deflated Sharpe probability 0.515 < 0.95 after 3 variants",
+        "sealed holdout net return -4.91% <= 0",
+        "holdout under doubled costs -7.28% <= 0",
+        "holdout CAGR -4.91% does not beat the 3.8% risk-free rate",
+        "does not beat the baseline or zero on Sharpe or return"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:BTC",
+      "label": "REJECTED",
+      "oosSharpe": -1.9148,
+      "oosCagr": 0.0244,
+      "holdoutReturn": 0.0082,
+      "dsr": 0,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.91 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
+        "holdout under doubled costs -0.45% <= 0",
+        "out-of-sample CAGR 2.44% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.82% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:BTC",
+      "label": "REJECTED",
+      "oosSharpe": -0.6857,
+      "oosCagr": 0.0322,
+      "holdoutReturn": 0.0139,
+      "dsr": 0.0016,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.69 < 0.5",
+        "deflated Sharpe probability 0.002 < 0.95 after 9 variants",
+        "out-of-sample CAGR 3.22% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 1.39% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:ETH",
+      "label": "REJECTED",
+      "oosSharpe": 0.28,
+      "oosCagr": -0.0034,
+      "holdoutReturn": -0.3533,
+      "dsr": 0.7058,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills 0.28 < 0.5",
+        "deflated Sharpe probability 0.706 < 0.95 after 1 variants",
+        "sealed holdout net return -35.33% <= 0",
+        "out-of-sample CAGR -0.34% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -35.33% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:ETH",
+      "label": "INCONCLUSIVE",
+      "oosSharpe": 0.2212,
+      "oosCagr": 0.0348,
+      "holdoutReturn": 0.0231,
+      "dsr": 0.4185,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills 0.22 < 0.5",
+        "deflated Sharpe probability 0.419 < 0.95 after 3 variants",
+        "holdout under doubled costs -13.05% <= 0",
+        "walk-forward under doubled costs -36.58% <= 0",
+        "out-of-sample CAGR 3.48% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 2.31% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:ETH",
+      "label": "REJECTED",
+      "oosSharpe": -1.5377,
+      "oosCagr": 0.0191,
+      "holdoutReturn": 0,
+      "dsr": 0,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.54 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.91% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:ETH",
+      "label": "REJECTED",
+      "oosSharpe": -0.7534,
+      "oosCagr": 0.0299,
+      "holdoutReturn": 0.0028,
+      "dsr": 0.0051,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.75 < 0.5",
+        "deflated Sharpe probability 0.005 < 0.95 after 9 variants",
+        "out-of-sample CAGR 2.99% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0.28% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:SOL",
+      "label": "REJECTED",
+      "oosSharpe": 0.4847,
+      "oosCagr": 0.013,
+      "holdoutReturn": -0.4315,
+      "dsr": 0.8258,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills 0.48 < 0.5",
+        "deflated Sharpe probability 0.826 < 0.95 after 1 variants",
+        "sealed holdout net return -43.15% <= 0",
+        "out-of-sample CAGR 1.3% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -43.15% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:SOL",
+      "label": "REJECTED",
+      "oosSharpe": 0.6044,
+      "oosCagr": 0.2477,
+      "holdoutReturn": -0.3615,
+      "dsr": 0.7081,
+      "failures": [
+        "deflated Sharpe probability 0.708 < 0.95 after 3 variants",
+        "sealed holdout net return -36.15% <= 0",
+        "holdout under doubled costs -56.84% <= 0",
+        "holdout CAGR -36.15% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:SOL",
+      "label": "REJECTED",
+      "oosSharpe": -2.0598,
+      "oosCagr": 0.0169,
+      "holdoutReturn": 0,
+      "dsr": 0,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -2.06 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.69% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:SOL",
+      "label": "REJECTED",
+      "oosSharpe": -1.5986,
+      "oosCagr": 0.0212,
+      "holdoutReturn": 0,
+      "dsr": 0.0002,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.6 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
+        "sealed holdout net return 0% <= 0",
+        "out-of-sample CAGR 2.12% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "BUY_AND_HOLD:XRP",
+      "label": "REJECTED",
+      "oosSharpe": 0.7539,
+      "oosCagr": 0.3785,
+      "holdoutReturn": -0.4757,
+      "dsr": 0.9284,
+      "failures": [
+        "deflated Sharpe probability 0.928 < 0.95 after 1 variants",
+        "sealed holdout net return -47.57% <= 0",
+        "holdout CAGR -47.57% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "TIME_SERIES_MOMENTUM:XRP",
+      "label": "REJECTED",
+      "oosSharpe": -0.2182,
+      "oosCagr": -0.2637,
+      "holdoutReturn": -0.5152,
+      "dsr": 0.2356,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -0.22 < 0.5",
+        "deflated Sharpe probability 0.236 < 0.95 after 3 variants",
+        "sealed holdout net return -51.52% <= 0",
+        "holdout under doubled costs -66.95% <= 0",
+        "walk-forward under doubled costs -87.93% <= 0",
+        "out-of-sample CAGR -26.37% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -51.52% does not beat the 3.8% risk-free rate",
+        "does not beat the baseline or zero on Sharpe or return"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY:XRP",
+      "label": "REJECTED",
+      "oosSharpe": -1.495,
+      "oosCagr": 0.0223,
+      "holdoutReturn": -0.0078,
+      "dsr": 0,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.5 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 9 variants",
+        "sealed holdout net return -0.78% <= 0",
+        "holdout under doubled costs -2.16% <= 0",
+        "out-of-sample CAGR 2.23% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.78% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_CARRY_OPTIMISTIC_BOUND:XRP",
+      "label": "REJECTED",
+      "oosSharpe": -1.1265,
+      "oosCagr": 0.0268,
+      "holdoutReturn": -0.0016,
+      "dsr": 0.0008,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.13 < 0.5",
+        "deflated Sharpe probability 0.001 < 0.95 after 9 variants",
+        "sealed holdout net return -0.16% <= 0",
+        "out-of-sample CAGR 2.68% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR -0.16% does not beat the 3.8% risk-free rate"
+      ]
+    },
+    {
+      "family": "FUNDING_ROTATION:BTC+ETH+SOL+XRP",
+      "label": "REJECTED",
+      "oosSharpe": -1.7539,
+      "oosCagr": 0.0188,
+      "holdoutReturn": 0,
+      "dsr": 0,
+      "failures": [
+        "out-of-sample Sharpe in excess of T-bills -1.75 < 0.5",
+        "deflated Sharpe probability 0 < 0.95 after 18 variants",
+        "sealed holdout net return 0% <= 0",
+        "holdout under doubled costs 0% <= 0",
+        "out-of-sample CAGR 1.88% does not beat the 4.02% risk-free T-bill rate over the same months",
+        "holdout CAGR 0% does not beat the 3.8% risk-free rate"
+      ]
+    }
+  ]
+}

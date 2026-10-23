@@ -1,0 +1,49 @@
+{
+  "schema": "uberbond.quant-snapshot-evaluation.v1",
+  "sourceSnapshot": "artifacts/wealth-frontier-omega-20261023/quant-public-snapshot.json",
+  "protocolSha256": "af3e24a04970b88efe2fde5361473103a1808b1595ca26397328700dba2f0e63",
+  "startedAtUtc": "2026-10-22T22:47:55.336551+00:00",
+  "finishedAtUtc": "2026-10-22T22:48:48.732990+00:00",
+  "markets": [
+    {
+      "id": "559651",
+      "question": "Xi Jinping out before 2027?",
+      "minimumUnitsPerLeg": "5",
+      "bestAsks": [
+        "0.027",
+        "0.974"
+      ],
+      "askSum": "1.001",
+      "minimumBasketCostBeforeFees": "5.005",
+      "deterministicTerminalPayoffIfValidBinaryMarket": "5",
+      "belowParityBeforeFees": false,
+      "oneDollarBudgetFeasible": false,
+      "feeStatus": "UNKNOWN_CONFLICTING_ENDPOINT_FIELDS",
+      "feeReason": "Gamma feeSchedule.rate=0 while legacy CLOB fee-rate returns base_fee=1000. Do not infer equivalent semantics or choose a cheaper value without version-specific validation.",
+      "bookTimeSkewMilliseconds": 11028,
+      "interpretation": "Sequential, not synchronized, observations; cannot prove attainable multi-leg execution. No below-parity ask sum observed even before fees."
+    },
+    {
+      "id": "559652",
+      "question": "Will Gavin Newsom win the 2028 Democratic presidential nomination?",
+      "minimumUnitsPerLeg": "5",
+      "bestAsks": [
+        "0.146",
+        "0.855"
+      ],
+      "askSum": "1.001",
+      "minimumBasketCostBeforeFees": "5.005",
+      "deterministicTerminalPayoffIfValidBinaryMarket": "5",
+      "belowParityBeforeFees": false,
+      "oneDollarBudgetFeasible": false,
+      "feeStatus": "UNKNOWN_CONFLICTING_ENDPOINT_FIELDS",
+      "feeReason": "Gamma feeSchedule.rate=0 while legacy CLOB fee-rate returns base_fee=1000. Do not infer equivalent semantics or choose a cheaper value without version-specific validation.",
+      "bookTimeSkewMilliseconds": 7981,
+      "interpretation": "Sequential, not synchronized, observations; cannot prove attainable multi-leg execution. No below-parity ask sum observed even before fees."
+    }
+  ],
+  "sampleSize": 2,
+  "qualifyingContradictions": 0,
+  "evidenceClass": "DESCRIPTIVE_FEASIBILITY__NOT_PAPER_PNL",
+  "moneyClaim": "NONE"
+}

@@ -1,0 +1,419 @@
+{
+  "schemaVersion": "1.0.0",
+  "asOfDate": "2026-10-23",
+  "timezone": "Africa/Cairo",
+  "sourceMain": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "collector": "GPT Work funded_buyer_hunt independent research pass",
+  "businessEffectAuthority": "NONE",
+  "newSpendUsd": 0,
+  "messagesSent": 0,
+  "applicationsSubmitted": 0,
+  "clearedContributionProfitUsd": 0,
+  "limits": [
+    "Public posted compensation is not escrow, accepted offer or payment.",
+    "Public readability does not prove a job is still allocated.",
+    "Egypt eligibility is UNKNOWN unless explicitly established.",
+    "Agent work and AI-assisted human work have different platform eligibility.",
+    "No applicant or competitor claim was adopted as UberBond capability."
+  ],
+  "opportunities": [
+    {
+      "id": "buyer-001-intutiv",
+      "buyer": "Intutiv; poster Vinay Bawri",
+      "sourceUrl": "https://in.linkedin.com/jobs/view/qa-tester-manual-%2B-automation-4468995895",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "grossUsd": 100,
+        "basis": "advertised paid trial; approximately $10/hour thereafter, conditional"
+      },
+      "scope": "Manually test web-search and Gmail Chrome extension; plan, reproducible findings and method.",
+      "qualification": "Half-page plan for both products and worst bug personally found; entry level contract. Do not invent professional client history.",
+      "aiRules": "Automation is requested; LLM assistance, AI-agent fulfillment and subcontracting are not expressly permitted. Ask.",
+      "paymentConditions": "No payment provider or invoice timing on LinkedIn. Matching Upwork indexed body says paid whatever found including no bugs, one-page buyer brief, two independent testers. Authenticated contract/payment terms remain unverified.",
+      "egyptEligibility": "LinkedIn location India; matching Upwork listing says Worldwide. This improves geographic evidence but is not explicit Egypt contracting confirmation.",
+      "deadline": "No deadline stated; LinkedIn displays four weeks old/27 applicants. Job allocation unknown.",
+      "competition": "27 LinkedIn applicants displayed; no verified count of actual competitors/hires.",
+      "decision": "CONDITIONAL_FIRST_CASH_QUALIFICATION",
+      "nextPermittedAction": "With owner approval submit the existing honest plan and ask Egypt, AI, available trial, contracting entity and fiat settlement questions; no work before written scope/payment agreement.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "additionalSources": [
+        {
+          "url": "https://www.upwork.com/freelance-jobs/apply/Paid-trial-break-our-search-engine-and-our-Gmail-add_~022102727591832009592/",
+          "access": "Indexed primary listing body read through search; direct page403. Cross-engine search dates Sept22 vs relative crawl labels disagree; use absolute content date only if authenticated."
+        }
+      ],
+      "horizon": "24_TO_72_HOURS_AGREEMENT_POSSIBLE__PAYOUT_UNKNOWN",
+      "founderBurden": "Medium: actual human manual review; no guarantee fully autonomous work qualifies.",
+      "killConditions": [
+        "Buyer does not accept Egypt or disclosed AI workflow.",
+        "Payment route cannot legally settle to founder.",
+        "Must connect founder real inbox instead of synthetic buyer-authorized mailbox.",
+        "Paid trial already filled or requires unapproved spending."
+      ],
+      "verifiedContactRoute": {
+        "type": "LinkedIn listing-linked job poster direct message",
+        "recipientUrl": "https://www.linkedin.com/in/bawrivinay/",
+        "access": "Existing account authentication and free messaging availability UNKNOWN",
+        "noGuessedEmail": true
+      }
+    },
+    {
+      "id": "buyer-002-cobasuyi",
+      "buyer": "n8n Community buyer cobasuyi",
+      "sourceUrl": "https://community.n8n.io/t/looking-for-n8n-ai-automation-specialist-paid-qa-stress-testing/319256",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "amount": "UNKNOWN",
+        "basis": "Buyer explicitly requests paid one-agent trial; thread quotes are supplier offers."
+      },
+      "scope": "Review existing n8n AI agents before client demos; workflow failures, edge cases, errors, APIs, behavior; small fixes only by agreement.",
+      "qualification": "Experienced n8n specialist; asks location/timezone, rate, n8n/AI experience, Vapi/Twilio/ElevenLabs experience, examples.",
+      "aiRules": "Buyer uses OpenAI/Claude; this does not by itself authorize AI-assisted fulfillment. Ask.",
+      "paymentConditions": "No price, acceptance rule, payment rail, deposit, legal entity or deadline in buyer post.",
+      "egyptEligibility": "Remote invitation with no country restriction stated; Egypt is UNKNOWN.",
+      "deadline": "Posted Oct6 2026; no close/deadline in retrieved first page; current allocation unknown.",
+      "competition": "Many public suppliers and at least15 pages indexed. $195 search snippet is a competitor quote, not a buyer budget.",
+      "decision": "DISTINCT_PAID_QA_CHALLENGER",
+      "nextPermittedAction": "Prepare exact disclosed-AI qualification DM capped at one bounded workflow; owner approval before sending; request available unit and budget before building.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "24_TO_72_HOURS_AGREEMENT_POSSIBLE__PAYOUT_UNKNOWN",
+      "killConditions": [
+        "Buyer only wants production voice specialist and will not narrow scope.",
+        "No funded/accepted paid unit.",
+        "Sandbox or tool calls require founder spending."
+      ],
+      "verifiedContactRoute": {
+        "type": "n8n buyer-requested direct message",
+        "recipientUrl": "https://community.n8n.io/u/cobasuyi",
+        "access": "Profile publicly resolves; existing signed-in account and DM eligibility UNKNOWN",
+        "noGuessedEmail": true
+      }
+    },
+    {
+      "id": "buyer-003-jhipster-174",
+      "buyer": "JHipster; core team approval and Open Source Collective fiscal host",
+      "sourceUrl": "https://github.com/jhipster/jhipster-control-center/issues/174",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "grossUsd": 500,
+        "basis": "Current issue has $$ bug-bounty $$ and $500 labels; no escrow assignment."
+      },
+      "scope": "Fix OIDC discovery mtls_endpoint_aliases metadata parsing and validate compatibility.",
+      "qualification": "PR must solve issue, merge, and receive core-member eligibility confirmation; individual can explain and answer for change.",
+      "aiRules": "AI assistant allowed. Automated account, independently acting agent PR or claim on its behalf is ineligible under policy updatedSep24.",
+      "paymentConditions": "After merge/core confirmation, person submits own OpenCollective expense and links it in PR. Official policy says PayPal; collective expense policy also Wise bank. Twice-weekly processing after admin and host approval, no guaranteed payout date.",
+      "egyptEligibility": "UNKNOWN for founder bank; other-country bank payment is not Egypt route proof.",
+      "deadline": "No expiry stated. Issue opened2021; live open state verified through GitHub connector.",
+      "competition": "At least13 related candidate fix PRs returned, including194,208,209,226,227,231,232,233,234,235,236,237. Comments ask continued availability.",
+      "decision": "HOLD_NO_DUPLICATE_BUILD",
+      "nextPermittedAction": "Only consider if maintainer identifies an unmet paid requirement and founder can satisfy personal-responsibility rules; no new duplicate PR.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "additionalSources": [
+        {
+          "url": "https://www.jhipster.tech/bug-bounties/",
+          "access": "Official current policy read"
+        },
+        {
+          "url": "https://opencollective.com/generator-jhipster/expenses/349030",
+          "access": "Public PAID $500 bank-account expense Oct7, submittedOct5, different contributor; public payer ledger evidence not bank statement."
+        },
+        {
+          "url": "https://github.com/jhipster/jhipster-control-center/issues/174#issuecomment-5596160747",
+          "access": "Latest retrieved inquiry asks whether bounty remains open and unmet acceptance requirement exists."
+        }
+      ],
+      "horizon": "7_DAYS_OR_MORE__REVIEW_UNKNOWN",
+      "strongEvidence": "Recent published payout record and maintained funded collective; strongest payer-history evidence of these bounty leads.",
+      "killConditions": [
+        "Existing candidates cover work.",
+        "Founder cannot personally explain/review under program rules.",
+        "No Egypt fiat payout."
+      ]
+    },
+    {
+      "id": "buyer-004-spaceapp-65",
+      "buyer": "SpaceApp maintainers; oll4com",
+      "sourceUrl": "https://github.com/oll4com/spaceapp/issues/65",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "grossUsd": 450,
+        "basis": "First merged complete qualifying PR, not reserved work."
+      },
+      "scope": "One-command full source dev stack, isolated DockerPostgres/Temporal/API/web/worker/CLI, hot reload, setup, cleanup, CI and actual Linux plus macOS/WSL2 evidence.",
+      "qualification": "All acceptance criteria, tests and personal reviewed/tested AI code.",
+      "aiRules": "AI-assisted reviewed and tested work welcomed; generated-only/untested rejected. Independent agent-only eligibility requires clarification.",
+      "paymentConditions": "Published within7days of merge by PayPal/Wise/bank. Owner Oct19 says no reservation, payout method agreed only after merge, fees/minimum split not fixed.",
+      "egyptEligibility": "UNKNOWN; sanctions restriction alone is not confirmation that Egypt bank transfer works.",
+      "deadline": "No closing date stated; open live page.",
+      "competition": "Many complete PRs sinceOct16; issue page has49+ activity items and184 repo PRs at fetch; no reservation.",
+      "decision": "REJECT_ACTIVE_SPECULATIVE_IMPLEMENTATION",
+      "nextPermittedAction": "Keep source watch only; do not spend implementation time unless genuinely different available paid scope and route confirmed.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "MORE_THAN_7_DAYS_PAYMENT_AFTER_MERGE_PLUS_REVIEW",
+      "killConditions": [
+        "Existing complete candidates reviewed in earlier order.",
+        "Payout method remains post-work unknown.",
+        "Required OS test capacity unavailable."
+      ]
+    },
+    {
+      "id": "buyer-005-young-automation",
+      "buyer": "Young Automation Studio; Boston Young / boston_young",
+      "sourceUrl": "https://community.n8n.io/t/hiring-shopify-tracking-n8n-specialist-part-time-ongoing-35-hr-guaranteed-revenue-share/322445",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "trialGrossUsd": 105,
+        "trialCapHours": 3,
+        "ongoing": "60% of agency receipts after Upwork fees/refunds; NO guaranteed hours per ownerOct19 update."
+      },
+      "scope": "Shopify tracking fix sprints (CAPI dedupe/GA4/Customer Events), Klaviyo, n8n; named specialist/client calls.",
+      "qualification": "Hands-on production Shopify tracking and n8n,3h/day US Eastern overlap, seven application items incl profile/JSS or admit none, actual relevant fix, samples, face-on1minLoom.",
+      "aiRules": "Agency uses AI heavily and needs expert review/build/test. Agent-only substitution and narrow n8n-only pilot not approved.",
+      "paymentConditions": "OwnerOct19 comment11: paid per job,60% of net within3days after agency client pays via Wise; $105 test remains. Original $35/h guaranteed title superseded. Test payment deadline unknown.",
+      "egyptEligibility": "UNKNOWN; another Egypt-based applicant does not establish buyer acceptance.",
+      "deadline": "No application deadline. BlackFriday reserved hours26Nov–1Dec required by agreement. PostedOct18.",
+      "competition": "Numerous applicants, at least2pages; several ask n8n-only carveout, no retrieved buyer acceptance of carveout.",
+      "decision": "HOLD_SKILL_AND_HUMAN_BURDEN",
+      "nextPermittedAction": "Only qualify whether a separate n8n reliability paid test is available; do not claim Shopify client delivery or submit incomplete invented credentials.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "7_DAYS_OR_MORE__AGENCY_PAYMENT_DEPENDENCY",
+      "killConditions": [
+        "Full Shopify specialist remains hard requirement.",
+        "Founder cannot commit calls/schedule/identity video.",
+        "No separate paid unit or Egypt settlement."
+      ]
+    },
+    {
+      "id": "buyer-006-household",
+      "buyer": "Public n8n poster la_household_systems, private family identity unverified",
+      "sourceUrl": "https://community.n8n.io/t/hiring-part-time-household-cto-n8n-notion-local-llm-home-setup-la-remote/315978?tl=en",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "grossUsdRange": [
+          1000,
+          2000
+        ],
+        "basis": "Buyer first-phase budget; no escrow proof."
+      },
+      "scope": "Private home Macmini/local LLM + Notion/Workspace automation, notes/calendar/drafts, dataflow/runbook and later maintenance.",
+      "qualification": "Real Notion/Workspace/n8n integrations and local model operations, privacy, plain explanation, NDA. Remote fine with occasional visit.",
+      "aiRules": "Buyer explicitly seeks AI system/ClaudeCode, but delivery assistance and offsite data handling require explicit scope.",
+      "paymentConditions": "No payment rail, advance, acceptance or settlement date published.",
+      "egyptEligibility": "Remote permitted; occasional LosAngeles visit may be disqualifying. Egypt nationality/payment eligibility UNKNOWN.",
+      "deadline": "PostedSep23; no deadline; current allocation unknown.",
+      "competition": "80 replies per category snapshot, substantially competitive.",
+      "decision": "HOLD_NOT_FIRST_CASH",
+      "nextPermittedAction": "Qualify remote-only first phase, available work, synthetic-data access and milestones before any design build.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "30_DAYS",
+      "killConditions": [
+        "Travel required.",
+        "Private household data cannot be safely scoped.",
+        "No buyer-funded infrastructure/milestone."
+      ]
+    },
+    {
+      "id": "buyer-007-wellbayt",
+      "buyer": "Wellbayt founder Alvaro Zapata",
+      "sourceUrl": "https://community.n8n.io/t/hiring-ai-growth-automation-specialist-remote-potential-growth-partnership/323364",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "amount": "UNKNOWN",
+        "basis": "Monthly salary plus commission; potential equity not committed compensation."
+      },
+      "scope": "Build AI B2B growth workflows, prospecting and marketing with founder.",
+      "qualification": "Full-time individual, hands-on automation and growth, practical examples; bounded pilot not stated.",
+      "aiRules": "AI-native task but no express permission for autonomous substitute or agency subcontract.",
+      "paymentConditions": "Salary/commission amount, trigger, schedule and bank rail absent.",
+      "egyptEligibility": "Fully remote stated; Egypt employment/contract eligibility UNKNOWN.",
+      "deadline": "PostedOct21; no deadline.",
+      "competition": "~20public thread entries/18replies snapshot; no buyer selection evidence.",
+      "decision": "HOLD_FULL_TIME_MISMATCH",
+      "nextPermittedAction": "Keep as repeatable-income research; ask bounded paid workflow only if owner authorizes and full-time role is negotiable.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "30_DAYS",
+      "killConditions": [
+        "Full-time personal commitment mandatory.",
+        "No paid bounded pilot."
+      ]
+    },
+    {
+      "id": "buyer-008-ilo-proofread",
+      "buyer": "International Labour Organization; rfx_12611_ROAS",
+      "sourceUrl": "https://www.ungm.org/Public/Notice/318564",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "amount": "UNKNOWN",
+        "basis": "Residence-based daily fee table;21days stated but12,000words/day output basis; do not multiply21by invented fee."
+      },
+      "scope": "Proofread ~25,000Arabic words of recycling decent-work policy guidance; Nov1–Dec15.",
+      "qualification": "Individual collaborator; Basic registration, full terms in ILO eSourcing not retrieved.",
+      "aiRules": "UNKNOWN; translation/proofreading quality and AI permission require actualTOR.",
+      "paymentConditions": "Payment per days/output; Egypt fee, milestones, approval, hold, bank route, tax documentation not retrieved.",
+      "egyptEligibility": "Beneficiary-country list does not determine nationality eligibility. Residence-based fees exist but Egypt inclusion UNKNOWN.",
+      "deadline": "2026-10-23T11:00:00+02:00 =12:00Africa/Cairo; not assumed extended.",
+      "competition": "Unknown applicant count; formal procurement.",
+      "decision": "HOLD_UNVERIFIED_TOR_AND_IMMINENT_DEADLINE",
+      "nextPermittedAction": "Read existing authorized account/TOR if available; no account creation, legal declarations or submission without approval.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "30_DAYS_OR_MORE__SERVICE_START_NOV1",
+      "killConditions": [
+        "Deadline passed without extension.",
+        "Required professional proofreading history absent.",
+        "AI-assisted execution prohibited."
+      ]
+    },
+    {
+      "id": "buyer-009-upwork-api",
+      "buyer": "Upwork listing; client legal identity not publicly established in retrieved text",
+      "sourceUrl": "https://www.upwork.com/freelance-jobs/apply/Integration-Developer-for-API-Tasks_~022110050226130139778/",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "grossUsd": 100,
+        "basis": "Indexed fixed budget; not funded milestone proof."
+      },
+      "scope": "Fix data syncs/REST APIs/webhooks/PostgreSQL for ongoing client projects.",
+      "qualification": "Integration troubleshooting; current detailed screening/hire facts blocked403.",
+      "aiRules": "UNKNOWN.",
+      "paymentConditions": "Platform fixed-price contract conditions and account eligibility need authenticated read; no accepted milestone.",
+      "egyptEligibility": "Worldwide appears in indexed primary result; Egypt payout/account readiness UNKNOWN.",
+      "deadline": "IndexedOct13; relative posted-tomorrow display inconsistent; no verified application deadline.",
+      "competition": "UNKNOWN due403.",
+      "decision": "SCREENING_ONLY",
+      "nextPermittedAction": "Authenticated read if existing account; no paidConnects or application absent approval.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "7_DAYS_OR_MORE",
+      "accessLimitation": "Search-primary snippet only, direct detail403; not finalist."
+    },
+    {
+      "id": "buyer-010-upwork-ghl",
+      "buyer": "Upwork solo bath/shower remodeling contractor; legal identity unknown",
+      "sourceUrl": "https://www.upwork.com/freelance-jobs/apply/One-Time-GHL-Setup-Webhooks-Email-Parser-Core-Workflow-Logic-Check_~022109936857176149300/",
+      "observedOn": "2026-10-23",
+      "compensation": {
+        "grossUsd": 500,
+        "basis": "Indexed fixed budget; no escrow proof."
+      },
+      "scope": "One-time GHL webhooks,AI email parser,workflow logic check.",
+      "qualification": "Senior GHLexpert requested; current details/hire status blocked403.",
+      "aiRules": "AI parser in scope does not alone establish permission for AI fulfillment.",
+      "paymentConditions": "UNKNOWN exact contract/milestone/account status.",
+      "egyptEligibility": "UNKNOWN.",
+      "deadline": "IndexedOct13; no verified deadline.",
+      "competition": "UNKNOWN due403.",
+      "decision": "SCREENING_ONLY",
+      "nextPermittedAction": "Read authenticated existing listing before any proposal; no paidConnects.",
+      "evidenceClass": "BUYER_DEMAND_OBSERVED",
+      "offerAccepted": false,
+      "paymentRouteVerified": false,
+      "deliveryCost": {
+        "cashUsd": "UNKNOWN",
+        "constraint": "No additional spend permitted; buyer-provided sandbox/API usage and existing compute only."
+      },
+      "founderOnlyActions": [
+        "Authorize any exact proposal/application before transmission.",
+        "Control identity, account and legal declarations; accept only separately reviewed terms."
+      ],
+      "horizon": "7_DAYS_OR_MORE",
+      "accessLimitation": "Primary indexed snippet only, detail403; not finalist."
+    }
+  ],
+  "prioritizedDecision": {
+    "conditionalCashNow": "buyer-001-intutiv",
+    "distinctServiceChallenger": "buyer-002-cobasuyi",
+    "bountyReserve": "buyer-003-jhipster-174",
+    "allFinanciallyValidated": false,
+    "reason": "No lead has both current accepted allocation and founder-specific verified Egypt payout. Existing relational buyer thread may outrank public leads after parent inbox check.",
+    "nextExperiment": "One approved qualification message, not speculative delivery."
+  }
+}

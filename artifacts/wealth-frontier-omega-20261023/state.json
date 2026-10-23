@@ -1,0 +1,185 @@
+{
+  "schema": "uberbond.wealth-frontier.execution.v1",
+  "asOfDate": "2026-10-23",
+  "timezone": "Africa/Cairo",
+  "checkpoint": "PHX-WEALTH-FRONTIER-20261023",
+  "sourceMain": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "implementationExecutorSha": "65b0beda5fcd6e32063b5dcb08843c3a57708136",
+  "integratedFixSha": "8b41dc582133ad626f7a6b9aed2d622369157286",
+  "report": "docs/wealth-frontier-omega-20261023/EXECUTION_REPORT.md",
+  "continuation": "docs/wealth-frontier-omega-20261023/IMPLEMENTATION_AND_CONTINUATION.md",
+  "recovery": {
+    "founderIds": 890,
+    "shards": 10,
+    "historicalMechanisms": 48,
+    "priorInventions": 16,
+    "newHypotheses": 64,
+    "dedupedEconomicClusters": 13,
+    "allNewHypothesesStage": "CONCEPT",
+    "originalsChanged": 0
+  },
+  "commercial": {
+    "screenedLeads": 10,
+    "primaryDemandReads": 8,
+    "screeningOnly403": 2,
+    "currentAllocatedPaidUnits": 0,
+    "fullyEligibleBounties": 0,
+    "champion": "buyer-001-intutiv",
+    "serviceFallback": "buyer-002-cobasuyi",
+    "economicallyDistinctConditionalChallenger": "HG_STUDIO_CONSENTED_REFERRAL",
+    "noAllGatesWinner": true
+  },
+  "portfolio": [
+    {
+      "slot": "A",
+      "id": "buyer-001-intutiv",
+      "state": "QUALIFICATION_ONLY"
+    },
+    {
+      "slot": "B",
+      "id": "buyer-002-cobasuyi",
+      "state": "QUALIFICATION_ONLY__CORRELATED_SERVICE"
+    },
+    {
+      "slot": "C",
+      "id": "PUBLIC_BOOK_EXECUTABLE_CONTRADICTION",
+      "state": "RESEARCH_ONLY__NO_EDGE"
+    }
+  ],
+  "financial": {
+    "verifiedClearedContributionProfitUsd": 0,
+    "collectedNotClearedUsd": 0,
+    "acceptedInvoices": 0,
+    "acceptedDeliveries": 0,
+    "payingCustomers": 0,
+    "repeatCustomers": 0,
+    "acceptedOffers": 0,
+    "newVerifiedPayoutRoutes": 0,
+    "newSpendUsd": 0,
+    "founderMinutes": null,
+    "attributableNewCashCostUsd": 0,
+    "profitability": "UNPROVEN",
+    "truth": "Research registry is not a payment source"
+  },
+  "effects": {
+    "messagesSent": 0,
+    "applicationsSubmitted": 0,
+    "financialAccountsCreated": 0,
+    "financialSettingsChanged": 0,
+    "contractsSigned": 0,
+    "liveTrades": 0,
+    "moneyTransfers": 0,
+    "paidListingsPublished": 0,
+    "productionDeployments": 0,
+    "merges": 0,
+    "sourceBranchesPushed": true,
+    "draftPrPrepared": true
+  },
+  "checks": {
+    "newRegressionBaseline": {
+      "tests": 5,
+      "pass": 1,
+      "fail": 4
+    },
+    "focusedAfter": {
+      "tests": 19,
+      "pass": 19,
+      "fail": 0,
+      "skip": 0
+    },
+    "mutation": "KILLED__4_FAIL_1_PASS",
+    "executorSyntaxFiles": 2966,
+    "atlasTestsPassed": 3,
+    "genesis": "HEALTHY",
+    "fullDeterministic": "NOT_RUN_THIS_MISSION",
+    "exactFinalHeadCI": "NOT_YET_OBSERVED"
+  },
+  "quant": {
+    "historicalExperiments": 17,
+    "rejected": 16,
+    "inconclusive": 1,
+    "promoted": 0,
+    "apiGets": 10,
+    "newMarketsObserved": 2,
+    "belowParityBaskets": 0,
+    "smallestObservedBasketBeforeFees": 5.005,
+    "unit": "collateral",
+    "fees": "CONFLICT_UNKNOWN",
+    "protocol": "LOCAL_PRE_SNAPSHOT_HASH__NOT_EXTERNAL_IMMUTABLE_PREREGISTRATION",
+    "liveCapitalAuthorityUsd": 0
+  },
+  "deployment": {
+    "mainCombinedStatus": "FAILURE",
+    "source": "GitHub combined status API",
+    "statuses": [
+      {
+        "context": "Vercel \u2013 uberbondd-lite-private",
+        "description": "Account is blocked."
+      },
+      {
+        "context": "Vercel \u2013 uberbondd",
+        "description": "Account is blocked."
+      }
+    ],
+    "currentRuntimeProof": "NOT_RECERTIFIED",
+    "alwaysOnRadar": false
+  },
+  "rails": {
+    "PAYPAL": "EXCLUDED_FOUNDER_DEACTIVATED",
+    "CONTRA": "EXISTING_ACCOUNT_UNAUTHENTICATED__EGYPT_ROUTE_DOCUMENTED",
+    "WISE_PAYER_TO_BANK": "DOCUMENTED_COUNTRY_ROUTE__NO_FOUNDER_ROUTE_PROVEN",
+    "PAYONEER": "EXISTING_ACCOUNT_RECOVERY__NOT_VERIFIED",
+    "APIFY": "UNPUBLISHED__MONTHLY_PAYOUT__NO_BUYER",
+    "localBank": "UNVERIFIED"
+  },
+  "founderActions": [
+    {
+      "id": 1,
+      "action": "Approve exact Intutiv message; use existing free LinkedIn route, secure login if required",
+      "maxMessages": 1,
+      "costUsd": 0,
+      "default": "DO_NOT_SEND"
+    },
+    {
+      "id": 2,
+      "action": "Authenticate existing Contra account for read-only country/KYC/wallet/fee inspection",
+      "costUsd": 0,
+      "default": "NO_FINANCIAL_CHANGE"
+    },
+    {
+      "id": 3,
+      "action": "Confirm lawful invoicing identity/status in official systems before accepting work",
+      "sensitiveDataDestination": "OFFICIAL_PROVIDER_OR_ETA_ONLY",
+      "default": "NO_DECLARATION"
+    }
+  ],
+  "delegation": {
+    "researchPassesCompleted": 3,
+    "cosCommandExecution": "COMPLETED_AND_PUSHED",
+    "claudeCode": "NOT_CONTACTED__REVIEW_PACKET_ONLY",
+    "postTurnBackgroundWork": "NONE"
+  },
+  "followUp": {
+    "baselinePublishedSha": "59fb24ac7725cf22d3514c1d3e3a7aa70b776861",
+    "initialCI": {
+      "tests": 10436,
+      "pass": 10375,
+      "fail": 1,
+      "skip": 60,
+      "onlyFailure": "CANON_FRESHNESS_GENERATED_MARKERS",
+      "realPostgres": "PASS",
+      "browser": "PASS"
+    },
+    "correction": "npm run readiness; generated files only",
+    "affectedChecks": {
+      "tests": 25,
+      "pass": 25,
+      "fail": 0,
+      "skip": 0
+    },
+    "finalHeadCI": "PENDING_NEW_RUN",
+    "contraAuthentication": "INTERRUPTED__NO_AUTHENTICATED_STATE_OBSERVED",
+    "cosCurrentTunnel": "DISCONNECTED_AFTER_PRIOR_SUCCESS",
+    "commercialEffects": 0
+  }
+}

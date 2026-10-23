@@ -1,0 +1,37 @@
+{
+  "schema": "uberbond.wealth-frontier.quant-prospective-protocol.v1",
+  "experimentId": "OMEGA-Q18-BINARY-EXECUTABLE-CONTRADICTION",
+  "createdForDateCairo": "2026-10-23",
+  "status": "PROTOCOL_ONLY__NO_TRADING_AUTHORITY",
+  "novelty": "New UberBond mechanism relative to the 17 momentum/carry/baseline experiments; established in public research, not a claim of world novelty.",
+  "question": "Can an outsider observe a same-market YES+NO purchase below one unit of deterministic terminal payoff after depth, minimum size, fees and delay, without using midpoint prices as fills?",
+  "hypothesis": "Most apparent probability contradictions vanish when executable ask depth, fees and available position transformations are used.",
+  "scope": "Single binary markets only. No cross-market semantic relations, no negative-risk conversion assumption, no market orders, no account, no keys.",
+  "initialFeasibilitySample": {
+    "endpoint": "https://gamma-api.polymarket.com/markets?closed=false&limit=2",
+    "selection": "First two returned markets, no substitution after seeing results; explicitly nonrandom convenience sample.",
+    "maxReadOnlyApiGets": 9,
+    "record": ["request URL", "UTC requested/received times", "SHA256 of response", "HTTP status", "market constraints", "both order books", "fee status"]
+  },
+  "futureStudyNotStarted": {
+    "sample": "First 100 binary markets accepting orders from a frozen public discovery snapshot, including those with no books or disallowed metadata; never exclude losing or failed cases.",
+    "frequency": "At most three manually initiated snapshots 30 seconds apart; no scheduler or always-on claim.",
+    "costModel": "Sum ask-side volume-weighted fill for each leg at the greater venue minimum. Read exact per-market fee; missing fee means UNKNOWN and cannot qualify. Include 1% adverse price move per leg stress and 50% displayed-depth haircut. No maker-fill or rebate assumption.",
+    "microcapitalTest": "Test capital budgets 1, 10 and 100 USD equivalent separately; reject infeasible minimum size. No financing, shorting or leverage.",
+    "latencyTest": "Candidate must still qualify at next snapshot using new asks and reduced depth. This cannot prove a fill or atomic execution.",
+    "promotion": "At least 30 distinct qualifying events on three separate dates after fees and stress, complete frozen sample, independently reviewed payout equivalence, local-law/platform access and authorized capital. Still only a paper-study promotion.",
+    "failure": "Zero qualifying complete events, missing critical fields, or all apparent spreads consumed by cost/size/delay. Preserve all rows.",
+    "statistics": "Descriptive feasibility proportions with denominator; no p-value, Sharpe, profit or calibrated probability claim from the initial two-market feasibility sample.",
+    "stop": "Any authentication demand, rate limit, cost, geoblock or need to place order stops collection. Never evade controls. Maximum two founder-free analysis hours before further allocation."
+  },
+  "preregistrationBoundary": "Locally written and hashed before the new feasibility snapshot, but not externally timestamped or immutable. Parent must preserve the exact file hash in a durable commit before any future outcome evaluation. No claim of historical preregistration.",
+  "executionAuthority": "READ_ONLY_PUBLIC_MARKET_DATA_ONLY",
+  "spendUsd": 0,
+  "liveOrders": 0,
+  "moneyClaim": "NONE",
+  "founderIdeaDonors": [
+    {"id":"founder-moonshot-0059","role":"Timestamp predictions and reconcile outcomes; exact body read from original shard."},
+    {"id":"founder-moonshot-0146","role":"Carry provenance, assumptions, falsifiers and update history; exact body read."},
+    {"id":"founder-moonshot-0488","role":"Look for simultaneously trusted incompatible claims; exact body read."}
+  ]
+}

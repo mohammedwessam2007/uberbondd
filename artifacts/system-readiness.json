@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-22T12:46:41.243Z",
+  "generatedAt": "2026-10-23T10:35:36.899Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "68be35a4cfba59fd7afa3783ebebdccde602c0c1",
-    "branch": "feat/machiavelli-wealth-engine-20261021",
+    "head": "59fb24ac7725cf22d3514c1d3e3a7aa70b776861",
+    "branch": "work/wealth-frontier-omega-finish-20261023",
     "sourceModules": 1138,
-    "testSuites": 1371,
+    "testSuites": 1372,
     "workingTreeClean": true
   },
   "measurements": {

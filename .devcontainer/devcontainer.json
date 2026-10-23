@@ -1,0 +1,39 @@
+{
+  "name": "UberBond (Claude Code)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:1-22-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "hostRequirements": { "cpus": 2, "memory": "8gb", "storage": "32gb" },
+  "containerEnv": {
+    "UBERBOND_CODESPACE": "1",
+    "CLAUDE_CODE_DISABLE_AUTOUPDATER": "1",
+    "DISABLE_TELEMETRY": "1"
+  },
+  "secrets": {
+    "CLAUDE_CODE_OAUTH_TOKEN": {
+      "description": "Optional. Long-lived Claude Pro/Max subscription token from `claude setup-token`. Not an API key; no per-token billing."
+    }
+  },
+  "onCreateCommand": "bash scripts/codespace/setup.sh",
+  "postStartCommand": "bash scripts/codespace/start.sh",
+  "postAttachCommand": "bash scripts/codespace/claude-auth-doctor.sh --brief || true",
+  "customizations": {
+    "vscode": {
+      "extensions": ["anthropic.claude-code"],
+      "settings": {
+        "terminal.integrated.scrollback": 20000,
+        "files.watcherExclude": {
+          "**/node_modules/**": true,
+          "**/artifacts/**": true,
+          "**/docs/forensics/**": true,
+          "**/.git/objects/**": true
+        },
+        "search.exclude": {
+          "**/docs/forensics/**": true,
+          "**/artifacts/research/**": true
+        }
+      }
+    }
+  }
+}

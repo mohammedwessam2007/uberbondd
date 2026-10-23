@@ -5,6 +5,7 @@ RUN npm install --ignore-scripts --no-audit --no-fund --save-exact pg@8.22.0
 COPY src/uberwinnr-adapter.mjs src/provider-http-adapters.mjs src/provider-receipt-redaction.mjs ./src/
 COPY src/uberwarm2-operational-journal.mjs ./src/
 COPY src/uberwarm2-bobwork-observer.mjs ./src/
+COPY src/uberwarm2-health-metrics.mjs src/uberwarm2-alienmail-observer.mjs ./src/
 COPY src/uberwarm2-winnr-token-permissions.mjs ./src/
 COPY src/uberwarm-reputation-lab.mjs src/uberwarm2-sovereign-live-observer.mjs ./src/
 COPY src/uberwarm2-provider-dns-spotcheck.mjs ./src/

@@ -5,6 +5,8 @@ import { spawnSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import { persistOperationalSnapshot } from '../src/uberwarm2-operational-journal.mjs';
 import { observeReceiverBinding } from '../src/uberwarm2-receiver-binding.mjs';
+import { compareMailboxHealth } from '../src/uberwarm2-health-metrics.mjs';
+import { observeAlienmail } from '../src/uberwarm2-alienmail-observer.mjs';
 import { observeBobwork } from '../src/uberwarm2-bobwork-observer.mjs';
 
 const pool = new pg.Pool({
@@ -48,10 +50,20 @@ try {
   if (doctor.status !== 0) receipt.blockers.push('authenticated-provider-read-not-ready');
   receipt.blockers.push('independent-sender-consent-and-placement-gates-required');
   receipt.status = 'BLOCKED_FOR_SENDING';
+  receipt.alienmail = await observeAlienmail({apiKey:process.env.ALIENMAIL_API_KEY,
+    expectedEmails:(process.env.ALIENMAIL_EXPECTED_EMAILS || '').split(',').map(e=>e.trim()).filter(Boolean)});
+  if(receipt.alienmail.status !== 'INVENTORY_OBSERVED') receipt.blockers.push('alienmail-observation-not-verified');
   receipt.bobwork = await observeBobwork({apiKey: process.env.BOBWORK_API_KEY});
   if (process.env.BOBWORK_API_KEY && receipt.bobwork.status !== 'INVENTORY_OBSERVED') {
     receipt.blockers.push('bobwork-observation-not-verified');
   }
+  try {
+    const previous = await pool.query(`SELECT receipt_json FROM public.uberwarm2_operational_receipts ORDER BY observed_at DESC LIMIT 1`);
+    const prior = previous.rows[0]?.receipt_json;
+    receipt.healthComparison = {previousObservedAt:prior?.observedAt || null,
+      bobwork:compareMailboxHealth(receipt.bobwork.mailboxHealth,prior?.bobwork?.mailboxHealth),
+      alienmail:compareMailboxHealth(receipt.alienmail.mailboxHealth,prior?.alienmail?.mailboxHealth)};
+  } catch { receipt.blockers.push('health-comparison-baseline-unavailable'); }
   if (process.env.UBERWARM_RECEIVER_EMAIL && process.env.UBERWARM_RECEIVER_ENCRYPTION_KEY) {
     receipt.receiver = await observeReceiverBinding({pool,
       receiverEmail:process.env.UBERWARM_RECEIVER_EMAIL,

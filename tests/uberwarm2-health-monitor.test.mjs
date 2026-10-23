@@ -27,7 +27,7 @@ test('unconfigured and unbound AlienMail do not call network',async()=>{
 });
 test('MCP JSON and SSE only initialize, discover and call read inventory; redact identities',async()=>{
   for(const sse of [false,true]){
-    const f=fixture({sse});const r=await observeAlienmail({...f,apiKey:'SECRET',expectedEmails:emails});
+    const f=fixture({sse});const r=await observeAlienmail({...f,apiKey:'SECRET',expectedMailboxDigests:emails.map(mailboxDigest)});
     assert.equal(r.status,'INVENTORY_OBSERVED');assert.equal(r.enrolled,32);assert.equal(r.mailboxHealth.length,32);
     assert.equal(r.mailboxHealth[0].metrics.health_score,0);
     assert.ok(!/SECRET|team0@|test-session/.test(JSON.stringify(r)));
@@ -38,10 +38,10 @@ test('MCP JSON and SSE only initialize, discover and call read inventory; redact
 });
 test('foreign identities, tool errors, malformed payloads and oversize responses fail closed',async()=>{
   for(const [options,status] of [[{badIdentity:true},'IDENTITY_HOLD'],[{toolError:true},'READ_FAILED']]){
-    assert.equal((await observeAlienmail({...fixture(options),apiKey:'SECRET',expectedEmails:emails})).status,status);
+    assert.equal((await observeAlienmail({...fixture(options),apiKey:'SECRET',expectedMailboxDigests:emails.map(mailboxDigest)})).status,status);
   }
   for(const fetchImpl of [async()=>new Response('SECRET',{status:429}),async()=>new Response('x'.repeat(262145)),async()=>{throw Error('SECRET');}]){
-    const r=await observeAlienmail({apiKey:'SECRET',expectedEmails:emails,fetchImpl});assert.notEqual(r.status,'INVENTORY_OBSERVED');assert.ok(!JSON.stringify(r).includes('SECRET'));
+    const r=await observeAlienmail({apiKey:'SECRET',expectedMailboxDigests:emails.map(mailboxDigest),fetchImpl});assert.notEqual(r.status,'INVENTORY_OBSERVED');assert.ok(!JSON.stringify(r).includes('SECRET'));
   }
   const r=compileAlienmailObservation({status:'HEALTHY',sendAuthority:'SEND',independentPlacementVerified:true});
   assert.equal(r.status,'SCHEMA_UNVERIFIED');assert.equal(r.sendAuthority,'NONE');assert.equal(r.independentPlacementVerified,false);

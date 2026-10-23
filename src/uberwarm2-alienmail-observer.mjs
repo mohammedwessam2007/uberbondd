@@ -11,10 +11,10 @@ export function compileAlienmailObservation(input) {
   out.healthStatus=out.mailboxHealth.some(m=>Object.keys(m.metrics).length)?'PROVIDER_METRICS_OBSERVED':'HEALTH_SCHEMA_UNVERIFIED';
   return out;
 }
-export async function observeAlienmail({apiKey,expectedEmails=[],fetchImpl=globalThis.fetch}={}) {
+export async function observeAlienmail({apiKey,expectedMailboxDigests=[],fetchImpl=globalThis.fetch}={}) {
   if(!apiKey) return compileAlienmailObservation(empty('NOT_CONFIGURED'));
   // Explicit owner inventory binding required. Never accept arbitrary workspace accounts.
-  if(expectedEmails.length!==32 || new Set(expectedEmails).size!==32 || expectedEmails.some(e=>typeof e!=='string'||! /^[a-z0-9._+-]+@uberbond[a-z0-9.-]+$/.test(e))) return compileAlienmailObservation(empty('IDENTITY_HOLD'));
+  if(expectedMailboxDigests.length!==32 || new Set(expectedMailboxDigests).size!==32 || expectedMailboxDigests.some(e=>!/^sha256:[a-f0-9]{64}$/.test(e))) return compileAlienmailObservation(empty('IDENTITY_HOLD'));
   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),20000);
   let session; let protocol='2024-11-05';
   async function rpc(method,params,id) {
@@ -48,8 +48,8 @@ export async function observeAlienmail({apiKey,expectedEmails=[],fetchImpl=globa
     if(!payload){const texts=result?.content?.filter(c=>c.type==='text');if(texts?.length!==1)throw Error('SCHEMA_UNVERIFIED');payload=JSON.parse(texts[0].text);}
     const rows=Array.isArray(payload)?payload:payload?.accounts;
     if(!Array.isArray(rows)) throw Error('SCHEMA_UNVERIFIED');
-    const owned=new Set(expectedEmails);const emails=rows.map(r=>r?.email);
-    if(emails.some(e=>!owned.has(e))||new Set(emails).size!==emails.length)throw Error('IDENTITY_HOLD');
+    const owned=new Set(expectedMailboxDigests);const emails=rows.map(r=>r?.email);
+    if(emails.some(e=>typeof e!=='string'||!owned.has(mailboxDigest(e)))||new Set(emails).size!==emails.length)throw Error('IDENTITY_HOLD');
     return compileAlienmailObservation({status:rows.length===32?'INVENTORY_OBSERVED':'ENROLLMENT_GAP',enrolled:rows.length,
       mailboxHealth:rows.map(r=>({mailboxDigest:mailboxDigest(r.email),metrics:extractHealthMetrics(r)}))});
   }catch(error){return compileAlienmailObservation(empty(statuses.has(error.message)?error.message:'READ_FAILED'));}

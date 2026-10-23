@@ -51,7 +51,7 @@ try {
   receipt.blockers.push('independent-sender-consent-and-placement-gates-required');
   receipt.status = 'BLOCKED_FOR_SENDING';
   receipt.alienmail = await observeAlienmail({apiKey:process.env.ALIENMAIL_API_KEY,
-    expectedEmails:(process.env.ALIENMAIL_EXPECTED_EMAILS || '').split(',').map(e=>e.trim()).filter(Boolean)});
+    expectedMailboxDigests:(process.env.ALIENMAIL_EXPECTED_MAILBOX_DIGESTS || '').split(',').map(e=>e.trim()).filter(Boolean)});
   if(receipt.alienmail.status !== 'INVENTORY_OBSERVED') receipt.blockers.push('alienmail-observation-not-verified');
   receipt.bobwork = await observeBobwork({apiKey: process.env.BOBWORK_API_KEY});
   if (process.env.BOBWORK_API_KEY && receipt.bobwork.status !== 'INVENTORY_OBSERVED') {

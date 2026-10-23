@@ -1,0 +1,350 @@
+{
+  "schema": "uberbond-phoenix-astra-high-first-dispatch-v1",
+  "asOf": "2026-10-15",
+  "selfDescription": "Truth-conservative launch dependency and owner map; NOT executed agents, not live status and not a scheduler with host privileges",
+  "missionDoc": "docs/missions/PHOENIX_20261015_ASTRA_MAX_ORCHESTRATION_HIGH_FIRST.md",
+  "verifiedRepoBaseline": "298bd585d3ba0cf1fe5cdc2f81a525eb67819608",
+  "lastHostedGreenSource": "15a43485cf5adc5873bc5e4f6bdd97fc5563817b",
+  "lastHostedGreenCI": "38659225987",
+  "lastHostedGreenNight": "38659219498",
+  "liveRenderDeployedSource": "24854739d70617d57807cde5407a84266cca477c",
+  "renderPgExpiryUTC": "2026-10-16T23:22:29.055606Z",
+  "launchAuthority": {
+    "sendSet": [],
+    "coldSendAuthorized": false,
+    "prodCutoverAuthorized": false,
+    "extraSpendAuthorized": false,
+    "revenueVerifiedUsd": 0
+  },
+  "modelRoles": {
+    "primary": "GPT-6 High",
+    "orchestrator": "Astra Pro if the founder separately starts/has model access",
+    "browserException": "GPT Work only after connected tools demonstrably cannot perform the specific protected UI task",
+    "engineeringIntegrator": "Claude Code owns its current #1405 branch; no overwrite"
+  },
+  "concurrency": {
+    "fullCiCoordinator": "H01-RELEASE",
+    "maxFullCiConcurrent": 1,
+    "mergeOwner": "H01-RELEASE in coordination with Claude and owner-authorized release",
+    "perLaneUniqueBranch": true,
+    "afterStep": "unique-receipt -> commit -> fetch-readback -> #1188 comment -> fetch-readback"
+  },
+  "evidenceOrder": [
+    "historical-design",
+    "current-source",
+    "focused-test",
+    "exact-hosted-full-test",
+    "deployed-source-and-health",
+    "real-provider-and-permission",
+    "real-customer-acceptance",
+    "cleared-funds"
+  ],
+  "truthRule": "A source-only/test-only success cannot upgrade any external gate to CLEARED. UNKNOWN is not a fail and not a pass.",
+  "coveredGates": [
+    "N01",
+    "N02",
+    "N03",
+    "N04",
+    "N05",
+    "N06",
+    "N07",
+    "N08",
+    "N09",
+    "N10",
+    "N11",
+    "N12",
+    "N13",
+    "N14",
+    "N15",
+    "N16",
+    "N17",
+    "N18",
+    "N19",
+    "N20",
+    "N21",
+    "N22",
+    "N23",
+    "N24",
+    "N25",
+    "N26",
+    "N27",
+    "N28",
+    "N29",
+    "N30"
+  ],
+  "tracks": [
+    {
+      "id": "N26-RESCUE",
+      "rank": 0,
+      "owner": "GPT-6 High",
+      "escalation": "GPT Work only if protected browser/secret binding genuinely necessary",
+      "gates": [
+        "N26"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "source-current-consistent-encrypted-backup",
+        "isolated-empty-restore-row-schema-sequence-parity",
+        "original-key-compatibility-boolean",
+        "outbound-held-app-boot",
+        "current-writer-delta-and-rollback"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1188#issuecomment-6180051799",
+      "status": "CRITICAL_REAL_PROOF_MISSING",
+      "stopConditions": [
+        "Do not expose original PostgreSQL publicly",
+        "Do not reveal originals keys or cut over production"
+      ]
+    },
+    {
+      "id": "H01-RELEASE",
+      "rank": 1,
+      "owner": "H01 GPT-6 High",
+      "gates": [
+        "N24",
+        "N25"
+      ],
+      "dependencies": [
+        "H02-REGISTRY",
+        "H03-IMPORT",
+        "H04-AUTHORIZATION",
+        "H09-INBOUND"
+      ],
+      "requiredRealProof": [
+        "one-exact-source-merge-ref-full-CI-Night-Postal-green",
+        "independent-security-signoff",
+        "rollback-tested",
+        "deployed-source-parity-after-approved-change"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1414",
+      "status": "SOURCE_CANDIDATE_GREEN_PRODUCTION_HELD",
+      "stopConditions": [
+        "No second full-CI coordinator",
+        "No merge of red branch",
+        "No production deployment before protected DB continuity and authorization"
+      ]
+    },
+    {
+      "id": "H02-REGISTRY",
+      "rank": 1,
+      "owner": "H02 GPT-6 High",
+      "gates": [
+        "N07",
+        "N08"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "all-history-provider-consumer-coverage",
+        "newest-donor-diff-compared-to-actual-merge"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1415",
+      "status": "SOURCE_TESTED_NOT_DEPLOYED",
+      "stopConditions": [
+        "Never allow stale events to unhold sender"
+      ]
+    },
+    {
+      "id": "H03-IMPORT",
+      "rank": 1,
+      "owner": "H03 GPT-6 High",
+      "gates": [
+        "N09",
+        "N13",
+        "N14"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "50-Startup-plus-3-pilots-synthetic-atomicity-tested",
+        "provider-real-50-plus-3-verified-while-held",
+        "original-key-envelope",
+        "rollback"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1416",
+      "status": "SOURCE_TESTED_LIVE_IMPORT_NOT_DONE",
+      "stopConditions": [
+        "Pilot3 quarantine persists",
+        "No plaintext in receipts",
+        "No effective sender cap greater than zero"
+      ]
+    },
+    {
+      "id": "H04-AUTHORIZATION",
+      "rank": 1,
+      "owner": "H04 GPT-6 High",
+      "gates": [
+        "N10",
+        "N21",
+        "N22"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "exact-message-approval-negative-tests",
+        "suppression-freshness",
+        "never-replay-uncertain-outbound",
+        "provider-hold-readback"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1418",
+      "status": "SOURCE_TESTED_NO_SEND_AUTHORITY",
+      "stopConditions": [
+        "No cold sends from approval tests",
+        "Provider cap is not active send permission"
+      ]
+    },
+    {
+      "id": "H09-INBOUND",
+      "rank": 1,
+      "owner": "H09 GPT-6 High",
+      "gates": [
+        "N23"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "duplicate-DSN-and-machine-suppression-tests",
+        "actual-53-mailbox-inbound-cursor-receipts",
+        "live-optout-routing"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1420",
+      "status": "FULL_SOURCE_CI_NIGHT_GREEN_LIVE_UNVERIFIED",
+      "stopConditions": [
+        "No fake replies or Inbox placement"
+      ]
+    },
+    {
+      "id": "H05-LEADS",
+      "rank": 2,
+      "owner": "H05 GPT-6 High",
+      "gates": [
+        "N01",
+        "N02",
+        "N03",
+        "N04"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "source-backed-native-public-leads",
+        "deduplicated-contact-hygiene",
+        "lawful-person-route-or-UNKNOWN",
+        "stored-native-search-receipt"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1417",
+      "status": "SMALL_SOURCE_COHORT_UNSENT",
+      "stopConditions": [
+        "No fabricated email",
+        "No unsupported 65-filter parity",
+        "No CAPTCHA bypass"
+      ]
+    },
+    {
+      "id": "H06-V5",
+      "rank": 2,
+      "owner": "H06 GPT-6 High",
+      "gates": [
+        "N05",
+        "N06"
+      ],
+      "dependencies": [
+        "H05-LEADS"
+      ],
+      "requiredRealProof": [
+        "real-native-saved-search-to-held-campaign",
+        "same-day-verifiable-problem-proof-or-abstain",
+        "V5-truthful-body-and-review-digest"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1419",
+      "status": "HELD_DOSSIERS_SOURCE_TESTED",
+      "stopConditions": [
+        "Never claim unobserved revenue leaks"
+      ]
+    },
+    {
+      "id": "H07-SEED",
+      "rank": 2,
+      "owner": "H07 GPT-6 High",
+      "gates": [
+        "N15",
+        "N20"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "durable-consented-seed-tests",
+        "two-independent-consented-receiver-networks",
+        "exact-approval-and-real-seed-receipt"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1422",
+      "status": "OFFLINE_TESTED_RECEIVER_MISSING",
+      "stopConditions": [
+        "No fake engagement",
+        "No unapproved seed email"
+      ]
+    },
+    {
+      "id": "H08-REPUTATION",
+      "rank": 2,
+      "owner": "H08 GPT-6 High",
+      "gates": [
+        "N11",
+        "N12",
+        "N16",
+        "N17",
+        "N18",
+        "N19"
+      ],
+      "dependencies": [],
+      "requiredRealProof": [
+        "actual-domain-signed-DKIM-receiver-proof",
+        "fresh-approval-SMTP-IMAP-auth",
+        "independently-measured-reputation-capacity",
+        "reproducible-no-paid-economics"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1423",
+      "status": "OFFLINE_TESTED_REAL_SIGNING_UNKNOWN",
+      "stopConditions": [
+        "DNS configuration is not real Inbox placement",
+        "Unknown quality keeps capacity zero"
+      ]
+    },
+    {
+      "id": "H10-PILOT",
+      "rank": 3,
+      "owner": "H10 GPT-6 High",
+      "gates": [
+        "N27",
+        "N28",
+        "N29",
+        "N30"
+      ],
+      "dependencies": [
+        "N26-RESCUE",
+        "H01-RELEASE",
+        "H03-IMPORT",
+        "H04-AUTHORIZATION",
+        "H05-LEADS",
+        "H06-V5",
+        "H09-INBOUND"
+      ],
+      "requiredRealProof": [
+        "lawful-real-recipient-sender-body-permission",
+        "current-provider-DNS-and-inbox-proof",
+        "exact-expiring-approval",
+        "small-real-approved-send-receipt",
+        "genuine-reply-and-customer-acceptance",
+        "cleared-payment"
+      ],
+      "artifact": "https://github.com/mohammedwessam2007/uberbondd/issues/1421",
+      "status": "NO_ELIGIBLE_APPROVED_RECIPIENT",
+      "stopConditions": [
+        "No automatic campaign",
+        "No cash declaration from quoted proposal"
+      ]
+    }
+  ],
+  "externalActiveGatesCleared": [],
+  "allTracksStarted": false,
+  "completedCampaignsVerified": 0,
+  "sourceRefs": [
+    "https://github.com/mohammedwessam2007/uberbondd/pull/1437",
+    "https://github.com/mohammedwessam2007/uberbondd/pull/1436",
+    "https://github.com/mohammedwessam2007/uberbondd/pull/1413",
+    "https://github.com/mohammedwessam2007/uberbondd/issues/1188"
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "uberbond.whatsapp-agent-e2e-1.0.0",
+  "ranAt": "2026-10-23T16:42:41.650Z",
+  "n8nVersion": "2.15.1",
+  "externalProvidersContacted": "NONE (all APIs mocked on 127.0.0.1)",
+  "deviationFromProduction": "Refund logging uses an HTTP call to a mock sheet instead of the native Google Sheets node, because Google OAuth cannot be mocked locally. Every other node is identical to workflow-phase1.n8n.json apart from base URLs and settings.",
+  "scenarios": [
+    {
+      "name": "Meta verification succeeds with the right token",
+      "ok": true
+    },
+    {
+      "name": "Meta verification is refused with a wrong token",
+      "ok": true
+    },
+    {
+      "name": "FAQ question is answered from the FAQ via OpenAI and sent on WhatsApp",
+      "ok": true
+    },
+    {
+      "name": "A retried webhook with the same message id is not answered twice",
+      "ok": true
+    },
+    {
+      "name": "Hindi question gets a Hindi answer",
+      "ok": true
+    },
+    {
+      "name": "Low-confidence answer escalates to Slack and tells the customer a human will reply",
+      "ok": true
+    },
+    {
+      "name": "Payment status is looked up in Razorpay without leaking private fields",
+      "ok": true
+    },
+    {
+      "name": "Payment question without an id asks for the pay_ id instead of guessing",
+      "ok": true
+    },
+    {
+      "name": "Unknown payment id gets a not-found reply",
+      "ok": true
+    },
+    {
+      "name": "A malformed pay_ id gets a check-your-id reply, not an FAQ answer",
+      "ok": true
+    },
+    {
+      "name": "Razorpay outage escalates instead of guessing",
+      "ok": true
+    },
+    {
+      "name": "Refund request is logged as PENDING_APPROVAL, sent to Slack and acknowledged",
+      "ok": true
+    },
+    {
+      "name": "Dispute language escalates immediately without calling OpenAI",
+      "ok": true
+    },
+    {
+      "name": "Delivery-status callbacks are ignored",
+      "ok": true
+    }
+  ],
+  "passed": 14,
+  "failed": 0,
+  "callsObserved": {
+    "graph": 10,
+    "openai": 3,
+    "razorpay": 3,
+    "slack": 4,
+    "sheets": 1
+  }
+}

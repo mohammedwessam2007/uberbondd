@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "receiptType": "SWARM_LAUNCH_CHECKPOINT",
+  "recordedAt": "2026-10-23T11:46:44.291804+00:00",
+  "sourceBaseline": "f9b423a0d56e18436a23a53ce75d3a14ae920567",
+  "remoteMainAtLaunch": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "bootstrapCommit": "a61a7acd5cbcdd0126ac839d20595028617e7e59",
+  "requestedWorkers": 20,
+  "configuredWorktrees": 20,
+  "configuredCopilotProfiles": 20,
+  "configuredClaudeProfiles": 20,
+  "runtimeStatusAtCheckpoint": {
+    "RUNNING": 2,
+    "QUEUED": 18
+  },
+  "observedRunningPids": {
+    "A01": 24117,
+    "A02": 25012
+  },
+  "dispatcherPid": 25007,
+  "parallelLimit": 2,
+  "model": "GitHub Copilot model=auto, COPILOT_AUTO_TIER=intelligence. Specific resolved models not yet independently visible.",
+  "whyNot20Simultaneous": "2 vCPU, 7.8 GiB RAM, no swap; 20 concurrent tool-using agent processes would jeopardize stability.",
+  "authState": "Copilot CLI live authenticated and successful. Claude Code and OpenAI Codex CLI report unauthenticated.",
+  "authority": {
+    "newSpendingUsd": 0,
+    "externalMessaging": false,
+    "paymentCharging": false,
+    "deployment": false,
+    "mainMerge": false
+  },
+  "commercialTruth": {
+    "bankClearedContributionProfitUSD": 0,
+    "independentlyAcceptedBuyers": "not verified"
+  },
+  "proofLimits": "Queued does not mean model session created. Running PIDs/log output only establish agent invocation, not completed implementation, merged code, customer traction or future completion.",
+  "runtimeReceiptPath": "/tmp/uberbond-wealth-swarm-20261023/runtime_status.json",
+  "resurrection": "Fetch swarm/wealth-swarm-bootstrap-20261023, read 20 agent definitions and coordinator manifest; worktrees are ephemeral until worker branch refs are pushed. Confirm current exact heads and launch receipts before relaunch. Do not replay customer effects."
+}

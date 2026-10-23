@@ -1,0 +1,560 @@
+{
+  "project": "UberBond Wealth Swarm Omega",
+  "generated": "2026-10-23",
+  "source_instructions": "Founder-supplied 20 standalone mission prompts in current ChatGPT request; agent profiles below are executable compressed delegations, not byte-identical archival copies",
+  "reference_base": "f9b423a0d56e18436a23a53ce75d3a14ae920567",
+  "model_preference": "Claude Code model=opus, reasoning effort=max if supported; verify entitlement, no paid API key fallback",
+  "agents": [
+    {
+      "id": "A01",
+      "title": "FIRST-CASH WAR ROOM",
+      "codename": "STRATEGY_TOURNAMENT",
+      "specialty": "commercial champion selection, eight-offer comparison, kill criteria, first $100",
+      "name": "wealth-swarm-a01-strategy-tournament",
+      "agent_file": ".claude/agents/wealth-swarm-a01-strategy-tournament.md",
+      "branch": "swarm/A01-strategy-tournament-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A01",
+      "docs_prefix": "docs/commercialization/swarm/A01/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A01/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "offer_tournament.json",
+        "FIRST_CASH_CRITICAL_PATH.md",
+        "kill_switches.json",
+        "OWNER_DECISION_PACKET.md"
+      ],
+      "dependencies": [
+        "A02",
+        "A14",
+        "A16",
+        "A17",
+        "A20"
+      ]
+    },
+    {
+      "id": "A02",
+      "title": "BUYER PROBLEM FORENSICS",
+      "codename": "BUYER_SIGNAL_LAB",
+      "specialty": "real customer language, buyer pains, budget triggers, objections and three ICP hypotheses",
+      "name": "wealth-swarm-a02-buyer-signal-lab",
+      "agent_file": ".claude/agents/wealth-swarm-a02-buyer-signal-lab.md",
+      "branch": "swarm/A02-buyer-signal-lab-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A02",
+      "docs_prefix": "docs/commercialization/swarm/A02/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A02/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "buyer_language_evidence.jsonl",
+        "ICP_PURCHASE_TRIGGERS.md",
+        "OBJECTION_ATLAS.md",
+        "INTERVIEW_AND_ACCEPTANCE_PROTOCOL.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A06",
+        "A08",
+        "A17",
+        "A20"
+      ]
+    },
+    {
+      "id": "A03",
+      "title": "LAWFUL PROSPECT INTELLIGENCE",
+      "codename": "PROSPECT_EVIDENCE",
+      "specialty": "small permission-respecting public-business prospect queue, safety, consent and deduplication",
+      "name": "wealth-swarm-a03-prospect-evidence",
+      "agent_file": ".claude/agents/wealth-swarm-a03-prospect-evidence.md",
+      "branch": "swarm/A03-prospect-evidence-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A03",
+      "docs_prefix": "docs/commercialization/swarm/A03/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A03/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "prospect_schema.json",
+        "PROSPECT_SHORTLIST_UNSENT.md",
+        "safe_queue_sample.jsonl",
+        "source_and_suppression_tests.md"
+      ],
+      "dependencies": [
+        "A06",
+        "A07",
+        "A08",
+        "A20"
+      ]
+    },
+    {
+      "id": "A04",
+      "title": "DEFECT PROOF LAB",
+      "codename": "QUALITY_PROOF",
+      "specialty": "independent false-positive assessment and human-accepted customer-path defect evidence",
+      "name": "wealth-swarm-a04-quality-proof",
+      "agent_file": ".claude/agents/wealth-swarm-a04-quality-proof.md",
+      "branch": "swarm/A04-quality-proof-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A04",
+      "docs_prefix": "docs/commercialization/swarm/A04/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A04/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "EVIDENCE_STANDARD.md",
+        "verification_schema.json",
+        "negative_control_matrix.json",
+        "HUMAN_ACCEPTANCE_QUEUE.md"
+      ],
+      "dependencies": [
+        "A05",
+        "A11",
+        "A12",
+        "A19",
+        "A20"
+      ]
+    },
+    {
+      "id": "A05",
+      "title": "DELIVERABLE EXPERIENCE ENGINE",
+      "codename": "DELIVERY_EXPERIENCE",
+      "specialty": "buyer-ready HTML/Markdown evidence report, zero-result clarity, safe rendering and signoff",
+      "name": "wealth-swarm-a05-delivery-experience",
+      "agent_file": ".claude/agents/wealth-swarm-a05-delivery-experience.md",
+      "branch": "swarm/A05-delivery-experience-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A05",
+      "docs_prefix": "docs/commercialization/swarm/A05/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A05/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "REPORT_ACCEPTANCE_SPEC.md",
+        "SAMPLE_REVIEW_PACKET.md",
+        "report_adversarial_matrix.json",
+        "buyer_signoff_schema.json"
+      ],
+      "dependencies": [
+        "A04",
+        "A11",
+        "A20"
+      ]
+    },
+    {
+      "id": "A06",
+      "title": "FOUNDER-APPROVED OUTREACH CREATIVE",
+      "codename": "OUTREACH_CREATIVE",
+      "specialty": "three truthful 1:1 buyer angles, objection replies and UNSENT owner-approved batch",
+      "name": "wealth-swarm-a06-outreach-creative",
+      "agent_file": ".claude/agents/wealth-swarm-a06-outreach-creative.md",
+      "branch": "swarm/A06-outreach-creative-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A06",
+      "docs_prefix": "docs/commercialization/swarm/A06/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A06/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "FIRST_BUYER_DRAFTS_UNSENT.md",
+        "approval_batch_schema.json",
+        "REPLY_TREE.md",
+        "copy_factcheck.json"
+      ],
+      "dependencies": [
+        "A03",
+        "A07",
+        "A08",
+        "A20"
+      ]
+    },
+    {
+      "id": "A07",
+      "title": "DISTRIBUTION TRUST & SENDER HEALTH",
+      "codename": "DISTRIBUTION_SAFETY",
+      "specialty": "read-only DNS checks, SPF/DKIM/DMARC, suppression and no-send gates",
+      "name": "wealth-swarm-a07-distribution-safety",
+      "agent_file": ".claude/agents/wealth-swarm-a07-distribution-safety.md",
+      "branch": "swarm/A07-distribution-safety-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A07",
+      "docs_prefix": "docs/commercialization/swarm/A07/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A07/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "SENDER_READINESS.md",
+        "dns_readonly_receipt.json",
+        "suppression_gate_tests.json",
+        "OUTBOUND_ZERO_EFFECT_PROOF.md"
+      ],
+      "dependencies": [
+        "A03",
+        "A06",
+        "A13",
+        "A20"
+      ]
+    },
+    {
+      "id": "A08",
+      "title": "WHITE-LABEL PARTNER ENGINE",
+      "codename": "PARTNER_COMMERCIAL",
+      "specialty": "agency distribution, white-label retention/QA, fair profit splits and unsent pilot",
+      "name": "wealth-swarm-a08-partner-commercial",
+      "agent_file": ".claude/agents/wealth-swarm-a08-partner-commercial.md",
+      "branch": "swarm/A08-partner-commercial-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A08",
+      "docs_prefix": "docs/commercialization/swarm/A08/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A08/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "PARTNER_OFFER_MATRIX.md",
+        "white_label_terms_outline.md",
+        "partner_economics.json",
+        "PARTNER_INTRO_UNSENT.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A06",
+        "A14",
+        "A20"
+      ]
+    },
+    {
+      "id": "A09",
+      "title": "EGYPT PAYMENT RAIL & LEGAL TRUTH",
+      "codename": "PAYMENTS_ELIGIBILITY",
+      "specialty": "official Egypt receiving policies, PayPal/Apify payout facts, KYC and tax caveats",
+      "name": "wealth-swarm-a09-payments-eligibility",
+      "agent_file": ".claude/agents/wealth-swarm-a09-payments-eligibility.md",
+      "branch": "swarm/A09-payments-eligibility-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A09",
+      "docs_prefix": "docs/commercialization/swarm/A09/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A09/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "EGYPT_RAIL_DECISION.md",
+        "PAYMENT_PROVIDER_SOURCES.json",
+        "cleared_cash_path.json",
+        "OWNER_PAYMENT_CHECKLIST.md"
+      ],
+      "dependencies": [
+        "A10",
+        "A14",
+        "A20"
+      ]
+    },
+    {
+      "id": "A10",
+      "title": "REALITY-PROOF MONEY LEDGER",
+      "codename": "MONEY_INTEGRITY",
+      "specialty": "anti-forgery revenue ledger, idempotency, payout/clearing and FX reconciliation",
+      "name": "wealth-swarm-a10-money-integrity",
+      "agent_file": ".claude/agents/wealth-swarm-a10-money-integrity.md",
+      "branch": "swarm/A10-money-integrity-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A10",
+      "docs_prefix": "docs/commercialization/swarm/A10/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A10/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "MONEY_STATE_MACHINE.md",
+        "receipt_provenance_schema.json",
+        "negative_fraud_vectors.json",
+        "RECONCILIATION_OPERATOR_PACKET.md"
+      ],
+      "dependencies": [
+        "A09",
+        "A11",
+        "A14",
+        "A19",
+        "A20"
+      ]
+    },
+    {
+      "id": "A11",
+      "title": "ONE-DAY DELIVERY FACTORY",
+      "codename": "DELIVERY_OPERATIONS",
+      "specialty": "24h conditional single-site delivery, read-only scan, QA, acceptance and refunds",
+      "name": "wealth-swarm-a11-delivery-operations",
+      "agent_file": ".claude/agents/wealth-swarm-a11-delivery-operations.md",
+      "branch": "swarm/A11-delivery-operations-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A11",
+      "docs_prefix": "docs/commercialization/swarm/A11/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A11/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "DELIVERY_24H_RUNBOOK.md",
+        "delivery_case_matrix.json",
+        "acceptance_event_schema.json",
+        "REFUND_CORRECTION_POLICY_DRAFT.md"
+      ],
+      "dependencies": [
+        "A04",
+        "A05",
+        "A10",
+        "A18",
+        "A20"
+      ]
+    },
+    {
+      "id": "A12",
+      "title": "APIFY STORE COMMERCIAL GATE",
+      "codename": "APIFY_READINESS",
+      "specialty": "Apify Store billing hazards, manifest, compute liability and no-publish verdict",
+      "name": "wealth-swarm-a12-apify-readiness",
+      "agent_file": ".claude/agents/wealth-swarm-a12-apify-readiness.md",
+      "branch": "swarm/A12-apify-readiness-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A12",
+      "docs_prefix": "docs/commercialization/swarm/A12/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A12/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "APIFY_GATE_VERDICT.md",
+        "actor_pricing_hazards.json",
+        "zero_charge_smoke_plan.md",
+        "STORE_RELEASE_PACKET_UNPUBLISHED.md"
+      ],
+      "dependencies": [
+        "A04",
+        "A09",
+        "A10",
+        "A14",
+        "A20"
+      ]
+    },
+    {
+      "id": "A13",
+      "title": "NON-EMAIL BUYER ROUTES",
+      "codename": "INBOUND_CHANNELS",
+      "specialty": "zero-spend opt-in channels, partner referrals, community rules and draft-only assets",
+      "name": "wealth-swarm-a13-inbound-channels",
+      "agent_file": ".claude/agents/wealth-swarm-a13-inbound-channels.md",
+      "branch": "swarm/A13-inbound-channels-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A13",
+      "docs_prefix": "docs/commercialization/swarm/A13/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A13/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "NON_EMAIL_CHANNELS.md",
+        "channel_policy_receipts.json",
+        "INBOUND_ASSETS_DRAFT.md",
+        "FIRST_OPTIN_EXPERIMENT.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A05",
+        "A06",
+        "A20"
+      ]
+    },
+    {
+      "id": "A14",
+      "title": "CASH CONTRIBUTION ECONOMIST",
+      "codename": "PROFIT_CALIBRATION",
+      "specialty": "real/estimated costs, break-even, owner minutes and buyer acquisition uncertainty",
+      "name": "wealth-swarm-a14-profit-calibration",
+      "agent_file": ".claude/agents/wealth-swarm-a14-profit-calibration.md",
+      "branch": "swarm/A14-profit-calibration-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A14",
+      "docs_prefix": "docs/commercialization/swarm/A14/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A14/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "ECONOMIC_TRUTH_LEDGER.md",
+        "scenario_sensitivity.json",
+        "offer_unit_economics.csv",
+        "KILL_PIVOT_THRESHOLDS.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A08",
+        "A09",
+        "A12",
+        "A20"
+      ]
+    },
+    {
+      "id": "A15",
+      "title": "RENEWAL & COMPOUNDING ENGINE",
+      "codename": "RETENTION_MECHANISMS",
+      "specialty": "buyer-controlled recurring measurable value and cancel/refund protections",
+      "name": "wealth-swarm-a15-retention-mechanisms",
+      "agent_file": ".claude/agents/wealth-swarm-a15-retention-mechanisms.md",
+      "branch": "swarm/A15-retention-mechanisms-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A15",
+      "docs_prefix": "docs/commercialization/swarm/A15/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A15/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "RECURRING_OFFER_MATRIX.md",
+        "subscription_state_contract.json",
+        "RENEWAL_ACCEPTANCE.md",
+        "retention_kill_conditions.json"
+      ],
+      "dependencies": [
+        "A01",
+        "A08",
+        "A11",
+        "A14",
+        "A20"
+      ]
+    },
+    {
+      "id": "A16",
+      "title": "BLACK-SWAN COMMERCIAL INVENTION",
+      "codename": "ECONOMIC_INVENTION",
+      "specialty": "30+ zero-spend ideas with provable buyer pain; 5 challengers; preserve 890 donors",
+      "name": "wealth-swarm-a16-economic-invention",
+      "agent_file": ".claude/agents/wealth-swarm-a16-economic-invention.md",
+      "branch": "swarm/A16-economic-invention-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A16",
+      "docs_prefix": "docs/commercialization/swarm/A16/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A16/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "OPPORTUNITY_SURPRISES.md",
+        "idea_evidence_registry.json",
+        "FIVE_CHALLENGERS.md",
+        "RESURRECTION_GRAPH.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A17",
+        "A20"
+      ]
+    },
+    {
+      "id": "A17",
+      "title": "VERTICAL PIVOT TOURNAMENT",
+      "codename": "VERTICAL_TOURNAMENT",
+      "specialty": "neutral inquiry-audit vs rivals comparison and top-two falsifiable prototype trials",
+      "name": "wealth-swarm-a17-vertical-tournament",
+      "agent_file": ".claude/agents/wealth-swarm-a17-vertical-tournament.md",
+      "branch": "swarm/A17-vertical-tournament-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A17",
+      "docs_prefix": "docs/commercialization/swarm/A17/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A17/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "VERTICAL_CHALLENGE_BOARD.md",
+        "neutral_rubric.json",
+        "top_two_trial_specs.json",
+        "PIVOT_DECISION.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A04",
+        "A14",
+        "A16",
+        "A20"
+      ]
+    },
+    {
+      "id": "A18",
+      "title": "FOUNDER MINUTE DESTRUCTION",
+      "codename": "OWNER_MINUTES",
+      "specialty": "three-action maximum mobile exception board, JSON control tower and no-auto-approval",
+      "name": "wealth-swarm-a18-owner-minutes",
+      "agent_file": ".claude/agents/wealth-swarm-a18-owner-minutes.md",
+      "branch": "swarm/A18-owner-minutes-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A18",
+      "docs_prefix": "docs/commercialization/swarm/A18/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A18/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "OWNER_CONTROL_TOWER.md",
+        "owner_action_queue.json",
+        "SWARM_STATUS_SCHEMA.json",
+        "FOUNDER_MINUTE_LEDGER.md"
+      ],
+      "dependencies": [
+        "A01",
+        "A09",
+        "A20"
+      ]
+    },
+    {
+      "id": "A19",
+      "title": "INDEPENDENT ADVERSARIAL TRIBUNAL",
+      "codename": "INDEPENDENT_REDTEAM",
+      "specialty": "independent internal security and evidence falsification; veto-ready verdict",
+      "name": "wealth-swarm-a19-independent-redteam",
+      "agent_file": ".claude/agents/wealth-swarm-a19-independent-redteam.md",
+      "branch": "swarm/A19-independent-redteam-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A19",
+      "docs_prefix": "docs/commercialization/swarm/A19/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A19/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "ADVERSARIAL_FINDINGS.md",
+        "threat_matrix.json",
+        "REPRO_STEPS.md",
+        "RELEASE_TRIBUNAL_VERDICT.md"
+      ],
+      "dependencies": [
+        "A04",
+        "A09",
+        "A10",
+        "A20"
+      ]
+    },
+    {
+      "id": "A20",
+      "title": "SOVEREIGN SWARM INTEGRATOR",
+      "codename": "SWARM_INTEGRATOR",
+      "specialty": "verify 19 receipts, stage candidate changes, test source, preserve PHOENIX, never merge main unapproved",
+      "name": "wealth-swarm-a20-swarm-integrator",
+      "agent_file": ".claude/agents/wealth-swarm-a20-swarm-integrator.md",
+      "branch": "swarm/A20-swarm-integrator-20261023",
+      "worktree": "/tmp/uberbond-wealth-swarm-20261023/A20",
+      "docs_prefix": "docs/commercialization/swarm/A20/",
+      "artifacts_prefix": "artifacts/commercialization/swarm/A20/",
+      "status": "CONFIGURED_NOT_RUNNING",
+      "models_actual": null,
+      "session_id": null,
+      "outputs": [
+        "SWARM_ADMISSION_LEDGER.json",
+        "SWARM_INTEGRATION_PLAN.md",
+        "EXACT_HEAD_VERIFICATION.md",
+        "PHOENIX_20_SWARM_FINAL.md"
+      ],
+      "dependencies": [
+        "A01\u2013A19",
+        "PR1537",
+        "Project canon"
+      ]
+    }
+  ],
+  "status": "ASSIGNED_NOT_RUNNING",
+  "requested_workers": 20,
+  "verified_active_sessions": 0,
+  "verified_cleared_profit_usd": 0,
+  "zero_spend": true,
+  "outbound_authorized": false,
+  "main_merge_authorized": false
+}

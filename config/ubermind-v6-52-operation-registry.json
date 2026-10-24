@@ -1,0 +1,478 @@
+{
+  "schema": "ubermind.v5.full-spectrum.52-card-activation-manifest",
+  "date": "2026-10-24",
+  "source": "Founder full original 52 directive, V3 52 operational cards, V4 R01-R12",
+  "founderIdeaCount": 890,
+  "cardCount": 52,
+  "cards": [
+    {
+      "number": 1,
+      "id": "machiavelli",
+      "omega": "Ω47",
+      "title": "Niccolò Machiavelli (The Prince, The Discourses on Livy)",
+      "sourceHeading": "Niccolò Machiavelli (The Prince, The Discourses on Livy)",
+      "operation": "Map incentives, dependency, coalitions and institutional durability; ask what actual power and delivery mechanisms exist, not what branding promises.",
+      "falsifier": "Falsify with rival incentives, coalition changes, reputation loss and unenforceable assumptions."
+    },
+    {
+      "number": 2,
+      "id": "greene",
+      "omega": "Ω47",
+      "title": "Robert Greene (The 48 Laws of Power, The 33 Strategies of War)",
+      "sourceHeading": "Robert Greene (The 48 Laws of Power, The 33 Strategies of War)",
+      "operation": "Recognize status games, informal influence, positioning and reputational risks; design legitimate credibility and negotiation leverage.",
+      "falsifier": "Test whether a tactic damages trust, requires deceit, or assumes others are less strategic."
+    },
+    {
+      "number": 3,
+      "id": "bismarck",
+      "omega": "Ω47",
+      "title": "Otto von Bismarck (Collected Speeches and Memoirs)",
+      "sourceHeading": "Otto von Bismarck (Collected Speeches and Memoirs)",
+      "operation": "Analyze material constraints, timing, alliance stability, alternative coalitions and negotiated settlement.",
+      "falsifier": "Check historical analogy limits and how power shifts change every bargain."
+    },
+    {
+      "number": 4,
+      "id": "rand",
+      "omega": "Ω47",
+      "title": "Ayn Rand (Atlas Shrugged, The Virtue of Selfishness)",
+      "sourceHeading": "Ayn Rand (Atlas Shrugged, The Virtue of Selfishness)",
+      "operation": "Prioritize productive independence, ownership, merit-based value creation and willing exchange.",
+      "falsifier": "Test externalities, counterparty interests and sustainability; self-interest is not a complete empirical decision rule."
+    },
+    {
+      "number": 5,
+      "id": "stirner",
+      "omega": "Ω47",
+      "title": "Max Stirner (The Ego and Its Own)",
+      "sourceHeading": "Max Stirner (The Ego and Its Own)",
+      "operation": "Reconsider inherited commitments and nonbinding social conventions; select independent priorities consciously.",
+      "falsifier": "Test coordination costs, obligations and damage from refusing mutually beneficial institutions."
+    },
+    {
+      "number": 6,
+      "id": "sun-tzu",
+      "omega": "Ω47",
+      "title": "Sun Tzu (The Art of War)",
+      "sourceHeading": "Sun Tzu (The Art of War)",
+      "operation": "Find indirect lawful routes, terrain/incentive advantage, information quality and avoidance of unnecessary conflict.",
+      "falsifier": "Check whether indirect positioning is slower, opaque, reputationally costly or less reliable than direct collaboration."
+    },
+    {
+      "number": 7,
+      "id": "von-neumann",
+      "omega": "Ω47",
+      "title": "John von Neumann (Theory of Games and Economic Behavior)",
+      "sourceHeading": "John von Neumann (Theory of Games and Economic Behavior)",
+      "operation": "Specify actors, action sets, payoffs, information, equilibrium and cooperative or repeated-game dynamics.",
+      "falsifier": "Challenge unproven zero-sum assumptions, omitted players and payoff estimation error."
+    },
+    {
+      "number": 8,
+      "id": "hart",
+      "omega": "Ω47",
+      "title": "H.L.A. Hart (The Concept of Law)",
+      "sourceHeading": "H.L.A. Hart (The Concept of Law)",
+      "operation": "Separate what the law says from personal preference; examine rules, interpretation, validity and jurisdictional source.",
+      "falsifier": "Do not treat positivism as a blanket claim that every apparent loophole is lawful or nonbinding court doctrine irrelevant."
+    },
+    {
+      "number": 9,
+      "id": "holmes",
+      "omega": "Ω47",
+      "title": "Oliver Wendell Holmes Jr. (The Common Law, The Path of the Law)",
+      "sourceHeading": "Oliver Wendell Holmes Jr. (The Common Law, The Path of the Law)",
+      "operation": "Model realistic judicial/enforcement consequences and legal-risk incentives using actual relevant cases and rules.",
+      "falsifier": "Check differences between predictive jurisprudence and binding statutes, ethical duties and contractual obligations."
+    },
+    {
+      "number": 10,
+      "id": "jurisdictional-arbitrage",
+      "omega": "Ω47",
+      "title": "Jurisdictional Arbitrage:",
+      "sourceHeading": "• Jurisdictional Arbitrage:",
+      "operation": "Compare real location/entity options across tax, compliance, substance, residency, reporting, labor and data laws.",
+      "falsifier": "Require authoritative jurisdiction-by-jurisdiction professional checks; no fictional safe harbor or beneficial-owner concealment."
+    },
+    {
+      "number": 11,
+      "id": "contract-mechanics",
+      "omega": "Ω47",
+      "title": "Contract Mechanics & Asymmetric Clauses:",
+      "sourceHeading": "• Contract Mechanics & Asymmetric Clauses:",
+      "operation": "Analyze obligations, indemnity, caps, warranties, liquidated damages, termination, choice of law and dispute paths.",
+      "falsifier": "Look for ambiguous drafting, unenforceability, unfairness, unconscionability and counterpart nonperformance."
+    },
+    {
+      "number": 12,
+      "id": "asset-insulation-trust-law",
+      "omega": "Ω47",
+      "title": "Asset Insulation & Trust Law:",
+      "sourceHeading": "• Asset Insulation & Trust Law:",
+      "operation": "Examine lawful structures and genuine separation of risks, creditors, control and tax obligations.",
+      "falsifier": "Stress fraudulent conveyance, piercing, transfer timing, reporting and actual recovery/legal expenses."
+    },
+    {
+      "number": 13,
+      "id": "statutory-tax-planning",
+      "omega": "Ω47",
+      "title": "Statutory Tax Optimization:",
+      "sourceHeading": "• Statutory Tax Optimization:",
+      "operation": "Compare legitimate deductions, credits, expense timing, depreciation, filing duties and anti-avoidance rules.",
+      "falsifier": "Verify dates, residency, tax treaties and economic substance; do not assume a general untaxed gap."
+    },
+    {
+      "number": 14,
+      "id": "venture-and-corporate-finance",
+      "omega": "Ω47",
+      "title": "Venture Capital & Corporate Finance:",
+      "sourceHeading": "• Venture Capital & Corporate Finance:",
+      "operation": "Model cap table, dilution, debt covenant, customer economics, cash conversion, rollover, exit timing and capital cost.",
+      "falsifier": "Test runway under no sales, refinancing risk, bad terms, down rounds and collateral exposure."
+    },
+    {
+      "number": 15,
+      "id": "hyper-efficient-execution",
+      "omega": "Ω47",
+      "title": "Unconventional Business Operations:",
+      "sourceHeading": "• Unconventional Business Operations:",
+      "operation": "Compare automation, modular operations, reversible outsourcing, service quality, latency and founder minutes.",
+      "falsifier": "Check quality degradation, supplier dependence, hidden costs, privacy and compliance."
+    },
+    {
+      "number": 16,
+      "id": "competitive-intelligence",
+      "omega": "Ω47",
+      "title": "Information Supremacy & Competitive Intelligence:",
+      "sourceHeading": "• Information Supremacy & Competitive Intelligence:",
+      "operation": "Use lawful, public, licensed signals to find underserved niches, product weaknesses and new demand.",
+      "falsifier": "Validate consent/provenance, sampling bias, and that nonpublic data is actually permitted."
+    },
+    {
+      "number": 17,
+      "id": "luttwak",
+      "omega": "Ω49",
+      "title": "Edward Luttwak (Coup d'État:",
+      "sourceHeading": "1. Edward Luttwak (Coup d'État:",
+      "operation": "Study organizational centrality and control structure as a defensive and historical systems-analysis lens.",
+      "falsifier": "Do not transform knowledge of institutional chokepoints into coups, sabotage or coercive intrusion; test lawful alternatives."
+    },
+    {
+      "number": 18,
+      "id": "boyd",
+      "omega": "Ω49",
+      "title": "John Boyd (The OODA Loop & Aerial Attack Study)",
+      "sourceHeading": "2. John Boyd (The OODA Loop & Aerial Attack Study)",
+      "operation": "Run OODA as rapid observe-orient-decide-act cycles grounded in fresh evidence and reversible tests.",
+      "falsifier": "Challenge distorted orientation, feedback latency, competitor adaptation and high-cost overreaction."
+    },
+    {
+      "number": 19,
+      "id": "liddell-hart",
+      "omega": "Ω49",
+      "title": "B.H. Liddell Hart (The Strategy of Indirect Approach)",
+      "sourceHeading": "3. B.H. Liddell Hart (The Strategy of Indirect Approach)",
+      "operation": "Find lower-cost indirect market entry, alternative distribution and defensible differentiated approaches.",
+      "falsifier": "Measure dependence on surprise, legal viability and whether direct cooperation would work better."
+    },
+    {
+      "number": 20,
+      "id": "schopenhauer",
+      "omega": "Ω49",
+      "title": "Arthur Schopenhauer (The Art of Being Right: 38 Ways to Win an Argument)",
+      "sourceHeading": "4. Arthur Schopenhauer (The Art of Being Right: 38 Ways to Win an Argument)",
+      "operation": "Recognize loaded frames, sophisms and rhetorical traps; prepare truthful, precise argument and negotiation.",
+      "falsifier": "Flag false claims, manipulation, hidden concessions and reputational blowback."
+    },
+    {
+      "number": 21,
+      "id": "corporate-control-defense",
+      "omega": "Ω49",
+      "title": "Hostile Takeovers & Poison Pills:",
+      "sourceHeading": "• Hostile Takeovers & Poison Pills:",
+      "operation": "Analyze shareholder rights plans, governance, fiduciary duties and acquisition-defense economics.",
+      "falsifier": "Check jurisdiction, antitrust, shareholder remedies, financing and source-specific procedures."
+    },
+    {
+      "number": 22,
+      "id": "greenmail-risk",
+      "omega": "Ω49",
+      "title": "Greenmail & Structural Extortion:",
+      "sourceHeading": "• Greenmail & Structural Extortion:",
+      "operation": "Recognize historical tactics, premium buybacks and defensive exposure; compare lawful governance response.",
+      "falsifier": "Check coercion, unlawful threats, securities disclosure and special taxes/penalties."
+    },
+    {
+      "number": 23,
+      "id": "layered-entity-compliance",
+      "omega": "Ω49",
+      "title": "Vasco-Architecture & Multi-Tiered Shell Complexes:",
+      "sourceHeading": "• Vasco-Architecture & Multi-Tiered Shell Complexes:",
+      "operation": "Evaluate layered holding structures with actual beneficial-ownership disclosures, substance and audited compliance.",
+      "falsifier": "The label Vasco-Architecture is founder terminology, not a verified established doctrine or immunity."
+    },
+    {
+      "number": 24,
+      "id": "intercompany-pricing",
+      "omega": "Ω49",
+      "title": "Transfer Pricing & Tax Arbitrage:",
+      "sourceHeading": "• Transfer Pricing & Tax Arbitrage:",
+      "operation": "Apply arm’s-length transfer-pricing comparables, economic substance, documentation and current treaty rules.",
+      "falsifier": "Countercheck anti-hybrid, CFC, permanent establishment and double-tax rules; no fictitious fees."
+    },
+    {
+      "number": 25,
+      "id": "regulatory-capture-defense",
+      "omega": "Ω49",
+      "title": "Regulatory Capture & Manufactured Friction:",
+      "sourceHeading": "• Regulatory Capture & Manufactured Friction:",
+      "operation": "Map undue influence risks, due-process rights and lawful compliance pathways; optimize our own readiness.",
+      "falsifier": "Reject retaliatory false complaints, abuse of process or orchestrated competitor delay."
+    },
+    {
+      "number": 26,
+      "id": "information-advantage-compliance",
+      "omega": "Ω49",
+      "title": "Information Asymmetry Exploitation:",
+      "sourceHeading": "• Information Asymmetry Exploitation:",
+      "operation": "Research legal informational edges from licensed, public, aggregate data and differentiated interpretation.",
+      "falsifier": "Avoid insider information, front-running, private-data extraction or targeted exploitation of vulnerability."
+    },
+    {
+      "number": 27,
+      "id": "beer",
+      "omega": "Ω50",
+      "title": "Stafford Beer (Viable System Model & Cybernetics)",
+      "sourceHeading": "1. Stafford Beer (Viable System Model & Cybernetics)",
+      "operation": "Use POSIWID and Viable System Model to compare system outputs against claims, with S1–S5 viability loops.",
+      "falsifier": "Test source quality and avoid equating observed administrative behavior with legal authority."
+    },
+    {
+      "number": 28,
+      "id": "taleb",
+      "omega": "Ω50",
+      "title": "Nassim Nicholas Taleb (Antifragility & Asymmetric Risk)",
+      "sourceHeading": "2. Nassim Nicholas Taleb (Antifragility & Asymmetric Risk)",
+      "operation": "Design positive convexity, optionality, diversification and ruin-aware experiments with explicit cost of optionality.",
+      "falsifier": "Stress correlated shocks, premiums, legal liability, liquidity and inability to ensure zero downside."
+    },
+    {
+      "number": 29,
+      "id": "land",
+      "omega": "Ω50",
+      "title": "Nick Land (Accelerationism & Hyperstition)",
+      "sourceHeading": "3. Nick Land (Accelerationism & Hyperstition)",
+      "operation": "Model accelerated adoption, recursive belief/market feedback and narrative-induced coordination.",
+      "falsifier": "Treat hyperstition as a contested explanatory lens; test reality and preserve EQ and human dignity."
+    },
+    {
+      "number": 30,
+      "id": "statutory-time-arbitrage",
+      "omega": "Ω50",
+      "title": "Statutory Time-Arbitrage:",
+      "sourceHeading": "• Statutory Time-Arbitrage:",
+      "operation": "Compare filing, delivery, receipt, effective dates, response periods and lawful appeal channels.",
+      "falsifier": "Never assume a processing backlog makes a transaction legally untouchable."
+    },
+    {
+      "number": 31,
+      "id": "semantic-voiding",
+      "omega": "Ω50",
+      "title": "Semantic Voiding:",
+      "sourceHeading": "• Semantic Voiding:",
+      "operation": "Analyze ambiguous contract definitions, translations, governing law, choice of court and enforceability.",
+      "falsifier": "Ambiguity may be read against drafter; do not create deceptive traps or claim automatic forum control."
+    },
+    {
+      "number": 32,
+      "id": "regulatory-desynchronization",
+      "omega": "Ω50",
+      "title": "Regulatory Desynchronization:",
+      "sourceHeading": "• Regulatory Desynchronization:",
+      "operation": "Map mismatches across tax classification, residence, source, treaty, substance and reporting.",
+      "falsifier": "Test OECD anti-hybrid, CFC, GAAR and reporting; mismatch is not proof of tax-free income."
+    },
+    {
+      "number": 33,
+      "id": "adversarial-network-topologies",
+      "omega": "Ω51",
+      "title": "Adversarial Network Topologies (Generative Adversarial Dynamics)",
+      "sourceHeading": "1. Adversarial Network Topologies (Generative Adversarial Dynamics)",
+      "operation": "Generate a strong strategy and fair counterexample, patch it or hold; where possible write a native falsifying test.",
+      "falsifier": "Repeated personas of the same model are correlated and not independent verification."
+    },
+    {
+      "number": 34,
+      "id": "recursive-risk-information-graphs",
+      "omega": "Ω51",
+      "title": "Recursive Risk Modeling & Information Asymmetry",
+      "sourceHeading": "2. Recursive Risk Modeling & Information Asymmetry",
+      "operation": "Build validated, authorized node-edge dependency/latency/capacity graph and trace correlated failures.",
+      "falsifier": "Missing nodes are uncertainty; no claims of scanning private external infrastructure."
+    },
+    {
+      "number": 35,
+      "id": "cryptographic-sovereignty",
+      "omega": "Ω51",
+      "title": "Asymmetric System Dissuasion & Cryptographic Sovereignty",
+      "sourceHeading": "3. Asymmetric System Dissuasion & Cryptographic Sovereignty",
+      "operation": "Define keys, endpoints, authenticated channels, access roles, supply chain and tested recovery.",
+      "falsifier": "Cryptographic assumptions do not make the entire real-world system mathematically intrusion-proof."
+    },
+    {
+      "number": 36,
+      "id": "zero-trust-opsec",
+      "omega": "Ω51",
+      "title": "Zero-Trust Digital Infrastructure & OPSEC",
+      "sourceHeading": "1. Zero-Trust Digital Infrastructure & OPSEC",
+      "operation": "Require explicit identity and resource authorization, least privilege, secrets discipline and audit receipts.",
+      "falsifier": "Test backup/key compromise, implementation errors and insider mistakes rather than trust network location."
+    },
+    {
+      "number": 37,
+      "id": "privacy-preserving-routing",
+      "omega": "Ω51",
+      "title": "Operational Anonymization:",
+      "sourceHeading": "• Operational Anonymization:",
+      "operation": "Apply purpose limitation, data minimization, role segregation and pseudonymous workspaces where lawful.",
+      "falsifier": "Metadata reidentification remains possible; legal owner/identity disclosures still apply."
+    },
+    {
+      "number": 38,
+      "id": "jurisdictional-resilience",
+      "omega": "Ω51",
+      "title": "Decentralized Global Footprints:",
+      "sourceHeading": "• Decentralized Global Footprints:",
+      "operation": "Compare lawful multiregion resilience with latency, data residency, costs and regulated transfers.",
+      "falsifier": "Correlated identity or cloud failures can defeat nominal regional diversity."
+    },
+    {
+      "number": 39,
+      "id": "infrastructure-self-sufficiency",
+      "omega": "Ω51",
+      "title": "Infrastructure Self-Sufficiency:",
+      "sourceHeading": "• Infrastructure Self-Sufficiency:",
+      "operation": "Define RTO/RPO, real backup restores, power/network fallbacks, alternate providers and rehearsal cadence.",
+      "falsifier": "Unexercised backups and nominal replication are not verified recovery."
+    },
+    {
+      "number": 40,
+      "id": "predictive-behavioral-modeling",
+      "omega": "Ω51",
+      "title": "Predictive Behavioral Engineering",
+      "sourceHeading": "3. Predictive Behavioral Engineering",
+      "operation": "Construct base-rate organizational scenarios from licensed aggregate evidence and actual observed incentives.",
+      "falsifier": "No precise mind-reading; retain emotional intelligence, uncertainty, privacy and counterfactual drivers."
+    },
+    {
+      "number": 41,
+      "id": "pataphysics-non-euclidean",
+      "omega": "Ω52",
+      "title": "Pataphysics & Non-Euclidean Logic (Breaking the Rules of Reality)",
+      "sourceHeading": "1. Pataphysics & Non-Euclidean Logic (Breaking the Rules of Reality)",
+      "operation": "Invent fictional exception axioms and higher-dimensional geometries; offer rigorous projection/visual/art prototyping.",
+      "falsifier": "Explicitly distinguish a 4D mathematical construction from a physically buildable 3D object."
+    },
+    {
+      "number": 42,
+      "id": "biomimicry-quantum-morphogenesis",
+      "omega": "Ω52",
+      "title": "Biomimicry, Quantum Biology & Morphogenesis",
+      "sourceHeading": "2. Biomimicry, Quantum Biology & Morphogenesis",
+      "operation": "Translate empirical growth, reaction-diffusion, cell structure or quantum-biological mechanism into testable designs.",
+      "falsifier": "Distinguish suggested analogy from demonstrated engineering performance; check scale and environmental conditions."
+    },
+    {
+      "number": 43,
+      "id": "synesthesia-semiotics",
+      "omega": "Ω52",
+      "title": "High-Context Cognitive Synesthesia & Semiotics",
+      "sourceHeading": "3. High-Context Cognitive Synesthesia & Semiotics",
+      "operation": "Create explicit data-to-audio/color/shape mapping and cultural interpretation model with reversible transforms.",
+      "falsifier": "Synesthetic artistic mappings are choices, not naturally determined formula colors or installed neural perception."
+    },
+    {
+      "number": 44,
+      "id": "tda-phase-space",
+      "omega": "Ω52",
+      "title": "Topological Data Analysis (TDA) & Phase Space Mapping",
+      "sourceHeading": "Topological Data Analysis (TDA) & Phase Space Mapping",
+      "operation": "Specify data normalization, metric, filtration, persistent homology dimensions, stability and held-out baselines.",
+      "falsifier": "Topological feature persistence alone does not prove causality, crash timing or precise legal loopholes."
+    },
+    {
+      "number": 45,
+      "id": "nonergodic-game-survival",
+      "omega": "Ω52",
+      "title": "Non-Ergodic Game Theory & Survival Dynamics",
+      "sourceHeading": "2. Non-Ergodic Game Theory & Survival Dynamics",
+      "operation": "Compare expected ensemble multiplier, repeated time-average log growth, ruin and finite-horizon path dependence.",
+      "falsifier": "Stress distribution shift, non-IID returns, model uncertainty and impossible guaranteed enemy ruin."
+    },
+    {
+      "number": 46,
+      "id": "formal-verification-synthesis",
+      "omega": "Ω52",
+      "title": "Formal Verification & Kinetic Code Synthesis",
+      "sourceHeading": "3. Formal Verification & Kinetic Code Synthesis",
+      "operation": "Formalize explicit, audited assumptions with suitable proof assistant or model checker; preserve theorem proof receipts.",
+      "falsifier": "Formal consistency is not proof that natural-language law has a single meaning or reality meets assumptions."
+    },
+    {
+      "number": 47,
+      "id": "soros-reflexivity",
+      "omega": "Ω52",
+      "title": "Sorosian Reflexivity & Narrative Front-Running",
+      "sourceHeading": "Sorosian Reflexivity & Narrative Front-Running",
+      "operation": "Model interaction between public beliefs, funding, behavior, prices and measured fundamentals.",
+      "falsifier": "Test alternative narratives, selection bias, lagged information and market manipulation boundaries."
+    },
+    {
+      "number": 48,
+      "id": "cantillon-capital-proximity",
+      "omega": "Ω52",
+      "title": "Cantillon Effect Capture & Capital Proximity",
+      "sourceHeading": "2. Cantillon Effect Capture & Capital Proximity",
+      "operation": "Trace lawful new-liquidity transmission, funding access, credit terms and working capital economics.",
+      "falsifier": "Liquidity proximity is not riskless; consider inflation, obligations, financing and inequality effects."
+    },
+    {
+      "number": 49,
+      "id": "thiel-value-asymmetry",
+      "omega": "Ω52",
+      "title": "Radical Value Asymmetry & The Monopoly Vector",
+      "sourceHeading": "3. Radical Value Asymmetry & The Monopoly Vector",
+      "operation": "Build genuinely unique value, distribution, IP/know-how and defensible customer switching gains.",
+      "falsifier": "Competition responds and antitrust/quality/reputation constraints limit moat durability."
+    },
+    {
+      "number": 50,
+      "id": "microstructure-vpin-ofi",
+      "omega": "Ω52",
+      "title": "Market Microstructure & Order Flow Toxicity (The Information Layer)",
+      "sourceHeading": "Market Microstructure & Order Flow Toxicity (The Information Layer)",
+      "operation": "Study venue-specific historical order flow, OFI, VPIN critiques, queue models and latency-adjusted execution assumptions.",
+      "falsifier": "Confirm results with causal data, out-of-sample tests and costs; no inevitable moves or risk-free front-running."
+    },
+    {
+      "number": 51,
+      "id": "cross-asset-cointegration",
+      "omega": "Ω52",
+      "title": "Cross-Asset Statistical Arbitrage & Cointegration Networks",
+      "sourceHeading": "2. Cross-Asset Statistical Arbitrage & Cointegration Networks",
+      "operation": "Test stationarity, error correction, stability, trade execution and total net spreads under realistic costs.",
+      "falsifier": "Cointegration can break, funding fails and slippage eliminates apparent free profit."
+    },
+    {
+      "number": 52,
+      "id": "fractional-kelly-ruin",
+      "omega": "Ω52",
+      "title": "Ergodic Survival & Non-Linear Kelly Optimization (The Defense Layer)",
+      "sourceHeading": "3. Ergodic Survival & Non-Linear Kelly Optimization (The Defense Layer)",
+      "operation": "Analyze fractional log-optimal exposure only with specified valid probability models, uncertainty penalties and ruin constraints.",
+      "falsifier": "Stops, hedges and Kelly fractions do not guarantee bounded losses during gaps or systemic crises."
+    }
+  ],
+  "scope": "Check relevance of all 52 on material tasks; apply every genuinely relevant and permitted lens with verifiable operation; other statuses counterweight, not applicable, source missing or unsafe. Do not fake application."
+}

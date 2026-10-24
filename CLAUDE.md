@@ -5,6 +5,7 @@
 **UberMind minimum-Pro-usage setup:** The project skill `/ubermind-lean` is available on demand for Claude Code usage optimization and work; use it only when relevant, not as another unconditional full-text import. Preserve mandatory sovereign/890/security instructions and never make paid provider calls or quietly lower acceptance quality.
 
 @docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md
+@library/ubermind/LIBRARY_BOOTSTRAP.md
 @docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md
 @docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md
 @docs/architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md

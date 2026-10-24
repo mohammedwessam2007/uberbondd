@@ -144,12 +144,23 @@
       ]
     },
     {
-      "id": "contract-mechanics-asset-protection",
-      "title": "Contract Mechanics and Asset Insulation",
+      "id": "contract-mechanics",
+      "title": "Advanced Contract Mechanics and Asymmetric Clauses",
       "tasks": [
-        "liability-and-indemnity",
-        "termination-confidentiality",
-        "trusts-LLC-creditor-rights"
+        "indemnity-and-liability-caps",
+        "liquidated-damages",
+        "termination-and-nondisclosure",
+        "forum-and-disputes"
+      ]
+    },
+    {
+      "id": "asset-insulation-trust-law",
+      "title": "Asset Insulation, Entity Separateness and Trust Law",
+      "tasks": [
+        "LLC-and-trust-structuring",
+        "beneficial-ownership-compliance",
+        "fraudulent-transfer-limits",
+        "insurance-and-creditor-risk"
       ]
     },
     {
@@ -207,5 +218,6 @@
     ".claude/skills/ubermind-strategic-realism/SKILL.md"
   ],
   "readonly": true,
-  "paidApiCallsAuthorized": false
+  "paidApiCallsAuthorized": false,
+  "coverageNote": "9 named thinkers and 7 independently addressable technical topics; original founder categories 4 philosophical + 3 applied."
 }

@@ -5,6 +5,12 @@ description: Opus-first lawful competitive strategy for negotiation, contracts, 
 
 # Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR
 
+## Ω48 Opus-first context economy
+
+The priority is the **frontier quality floor with less wasted allowance**, not replacement of Opus. For fresh, bounded strategic questions, use `node scripts/ubermind-strategy-brief.mjs --mission "actual mission"` or the compact .claude/skills/ubermind-strategy-flash/SKILL.md **before hydrating the full sourcebooks**. The native command selects limited source pointers from the nine-thinker/seven-domain index without any model calls, secrets or network effects. Its regex classification is a hint, never a legal, strategic or psychological judgment. Opus may override the route and read additional documents for ambiguity, unusually high stakes or inconsistent evidence. Reuse source/quality-matched decisions and tests instead of repetitively debating them. Default ONE Opus lead, ZERO roleplay agents. Track real accepted result and actual plan usage; do not claim measured quota savings from characters alone.
+
+
+
 **Concurrent source reconciliation:** For Machiavelli-specific source claims, first use docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md and its already merged compressed source index. It contains 183 source addresses, 106 curated modern interpretations, and is not the full original works. The separate Machiavelli executable reader remains controlled by its own PR/acceptance gates. This nine-thinker operator is an extension, not an alternative Machiavelli dataset.
 
 Read **docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md** for all nine philosophical donors and seven technical topics. Also read the existing Ω46 skill at **.claude/skills/ubermind-social-strategy/SKILL.md** and the economic truth at **docs/MACHIAVELLI_WEALTH_ENGINE.md**. Start with AI_START_HERE.md, AGENTS.md, the Sovereign Cognitive Continuum and all 890 founder idea pointers. This is a researched operating SKILL, not fine-tuning or a signed-off legal opinion.

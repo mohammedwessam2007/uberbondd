@@ -1,5 +1,9 @@
 # UberBond Claude Code Project Memory
 
+**Ω∞ V7 mandatory source availability gate:** Read `docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md` alongside existing V5 / original 52 source imports. For every substantive mission retrieve the relevant original 890 and 52 passages; apply all genuinely useful permitted principles with method and falsifier; report true evidence and reply receipt. Claims about global ChatGPT Project settings require a successful source-read proof, not this repo import. Quality outranks token reduction; new financial spend remains unauthorized.
+
+
+
 **Ω∞ V6 full-spectrum cross-chat verification:** Read `docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md` before selecting a mission. The 52-card executable register is `config/ubermind-v6-52-operation-registry.json`. Quality-first source checks and honest R12 receipts supersede older simplistic cost or name-only principles. ChatGPT Project source attachment is separate from this Claude repo import; do not claim automatically installed account settings.
 
 

@@ -78,8 +78,27 @@ if any('copilot' in line and '--agent wealth-swarm-' in line
 if any(str(BASE / 'dispatch.py') in line and 'python' in line
        for line in ps.splitlines()):
     raise RuntimeError('Existing dispatcher detected: do not duplicate')
-if not shutil.which('copilot'):
-    raise RuntimeError('Copilot CLI unavailable; no paid-provider fallback')
+copilot = os.environ.get('UBERBOND_COPILOT_BIN') or shutil.which('copilot')
+if not copilot or not pathlib.Path(copilot).exists():
+    for item in status.values():
+        if item['state']=='UNVERIFIED':item['state']='BLOCKED_COPILOT_CLI_ABSENT'
+    save()
+    print('BLOCKED_COPILOT_CLI_ABSENT: no worker started', flush=True)
+    sys.exit(2)
+# Verify the actual account is allowed to run a model BEFORE creating worker processes.
+# An installed CLI or valid GitHub API token does NOT prove Copilot subscription access.
+probe = subprocess.run([copilot,'-C',str(REPO),'--model','auto',
+    '--disable-builtin-mcps','-p','Reply exactly READY, without tools.'],
+    text=True,capture_output=True,timeout=75,
+    env=dict(os.environ,COPILOT_AUTO_TIER='intelligence',COPILOT_AUTO_UPDATE='false'))
+if probe.returncode != 0 or 'READY' not in probe.stdout:
+    denied='Access denied by policy settings' in (probe.stdout + probe.stderr)
+    reason='BLOCKED_COPILOT_POLICY_DENIED' if denied else 'BLOCKED_COPILOT_INFERENCE_UNAVAILABLE'
+    for item in status.values():
+        if item['state']=='UNVERIFIED':item['state']=reason
+    save()
+    print(reason+': model execution not authorized or unavailable; no workers launched',flush=True)
+    sys.exit(2)
 
 allow = ','.join(('read','write','shell(node)','shell(npm)',
     'shell(git status)','shell(git diff)','shell(git add)','shell(git commit)',
@@ -130,7 +149,7 @@ while idx < len(queue) or active:
             prompt = (f"Execute independent UberBond {a['id']} custom-agent mission; $0 new spend, no contacts, charges, payments, DNS, KYC, provider mutations, "
                       "production deploy, git push, or main merge. Worktree files/tests only; "
                       "preserve truthful FINAL RECEIPT, exact HEAD and PHOENIX; no fake completion.")
-            argv = ['copilot','-C',str(p),'--model','auto','--agent',a['name'],
+            argv = [copilot,'-C',str(p),'--model','auto','--agent',a['name'],
                     '--allow-tool',allow,'--deny-tool',deny,'--disable-builtin-mcps','-p',prompt]
             proc = subprocess.Popen(argv, cwd=p, env=env, stdout=logs, stderr=errs,
                                     stdin=subprocess.DEVNULL)

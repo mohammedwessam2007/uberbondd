@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-24T09:46:19.228Z",
+  "generatedAt": "2026-10-24T10:43:15.216Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "29bce56aecf3f6ef3e957964321489546a437a3f",
-    "branch": "fix/phoenix-activation-verified-20261024",
-    "sourceModules": 1140,
-    "testSuites": 1376,
+    "head": "8c796ed9c29350ebbd08cd3034abd6b088e83e3a",
+    "branch": "feat/phoenix-chatbrain-practical-closure-20261024",
+    "sourceModules": 1142,
+    "testSuites": 1378,
     "workingTreeClean": false
   },
   "measurements": {
@@ -70,11 +70,11 @@
     "reachability": {
       "command": "node --test tests/reachability-ratchet.test.mjs",
       "measurementMode": "LIVE_COMPUTED_FROM_IMPORT_GRAPH",
-      "srcModules": 1140,
+      "srcModules": 1142,
       "reachableFromProduction": 421,
-      "reachableFromUnattendedOperatorScriptsOnly": 475,
+      "reachableFromUnattendedOperatorScriptsOnly": 477,
       "reachableFromFounderInteractiveOnly": 7,
-      "reachableFromOperatorScriptsOnly": 475,
+      "reachableFromOperatorScriptsOnly": 477,
       "noEntryPointAtAll": 237,
       "partitionExact": true,
       "allClassified": true,

@@ -3,8 +3,8 @@
 **Canonical present-tense human checkpoint. Repository source, executable current-truth regeneration, and newer exact-source receipts outrank this prose. Historical detail remains recoverable from Git history, `docs/archive/`, master memory and prior handoffs.**
 
 Last reconciled: **2026-10-24**
-Branch: `fix/phoenix-activation-verified-20261024`
-Reconciled from current head: `29bce56aecf3f6ef3e957964321489546a437a3f`
+Branch: `feat/phoenix-chatbrain-practical-closure-20261024`
+Reconciled from current head: `8c796ed9c29350ebbd08cd3034abd6b088e83e3a`
 
 This document is a compact checkpoint over that verified source ancestor. The commit that stores this checkpoint is necessarily a descendant, so every new session must refresh live `main` before making exact-source claims. Do not hand-edit this file merely to chase HEAD; `scripts/system-readiness.mjs` owns the source-identity markers during executable truth regeneration.
 

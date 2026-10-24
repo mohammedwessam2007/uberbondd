@@ -25,7 +25,17 @@ export function compileStrategicBrief(input,index,{maxChars=2200}={}){
     "hart":["law","statut","legal","regulat","compliance","tax","jurisdiction"],
     "holmes":["liability","contract","court","litigation","legal","enforce","dispute"]
   };
-  const matching=(p)=>{let hits=0;for(const word of p)if(text.includes(word.replace(/[^a-z0-9\u0600-\u06ff]+/g," ")))hits++;return hits;};
+  const stems=new Set(["incorporat","indemn","arbitrat","insolvenc","litigat","depreciat","automat","fulfil","fulfill","scalab","regulat","outsourc","negotia","asymmet"]);
+  const matching=(p)=>{
+    let hits=0;
+    for(const raw of p){
+      const word=raw.toLowerCase().replace(/[^a-z0-9\u0600-\u06ff]+/g," ").trim();
+      if(!word)continue;
+      const escaped=word.replace(/[.*+?^${}()|[\]\\]/g,"\\const matching=(p)=>{let hits=0;for(const word of p)if(text.includes(word.replace(/[^a-z0-9\u0600-\u06ff]+/g," ")))hits++;return hits;};");
+      if(new RegExp("\\b"+escaped+(stems.has(word)?"\\w*":"")+"\\b").test(text))hits++;
+    }
+    return hits;
+  };
   const domains=index.domains.map(x=>({id:x.id,score:matching(keys[x.id]||[])})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id)).slice(0,3);
   const thinkers=index.thinkers.map(x=>({id:x.id,score:matching(lens[x.id]||[])})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id)).slice(0,4);
   const highImpact=/\b(tax|contract|law|legal|fraud|asset|bank|incorporat|regulat|liability|litigat|personal data|privacy|debt|investor)\w*\b/.test(text);

@@ -31,7 +31,7 @@ export function compileStrategicBrief(input,index,{maxChars=2200}={}){
     for(const raw of p){
       const word=raw.toLowerCase().replace(/[^a-z0-9\u0600-\u06ff]+/g," ").trim();
       if(!word)continue;
-      const escaped=word.replace(/[.*+?^${}()|[\]\\]/g,"\\const matching=(p)=>{let hits=0;for(const word of p)if(text.includes(word.replace(/[^a-z0-9\u0600-\u06ff]+/g," ")))hits++;return hits;};");
+      const escaped=word;
       if(new RegExp("\\b"+escaped+(stems.has(word)?"\\w*":"")+"\\b").test(text))hits++;
     }
     return hits;

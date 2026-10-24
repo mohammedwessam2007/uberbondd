@@ -1,0 +1,13 @@
+{
+  "taskDigest": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "sourceDigest": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+  "rubricDigest": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+  "novelty": "routine",
+  "risk": "low",
+  "operation": "code",
+  "nativeAcceptanceStatus": "not-run",
+  "independentSubtasks": 0,
+  "disjointWorktrees": false,
+  "matchedTeamEvidence": false,
+  "authorization": "NONE"
+}

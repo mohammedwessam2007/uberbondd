@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+const p=new URL('../artifacts/commercialization/swarm/A01/offer_tournament.json',import.meta.url);
+const k=new URL('../artifacts/commercialization/swarm/A01/kill_switches.json',import.meta.url);
+const o=JSON.parse(readFileSync(p,'utf8'));
+const g=JSON.parse(readFileSync(k,'utf8'));
+test('eight unique non-proven offers, source-backed',()=>{assert.equal(o.offers.length,8);assert.equal(new Set(o.offers.map(x=>x.id)).size,8);assert.ok(o.offers.every(x=>x.sources.length>=1&&x.evidenceClass.includes('NOT_BUYER')))});
+test('no evidence promotes proposed price into accepted money',()=>{assert.equal(o.bankClearedProfitUsd,0);assert.equal(o.acceptedPaidBuyers,0);assert.ok(o.offers.every(x=>x.clearedProfitUsd===0&&x.observedBuyerAcceptances===0))});
+test('winner is conditional and preserves original $99 pilot',()=>{assert.equal(o.championConditional,'DIRECT_99_SITE_PILOT');assert.equal(o.offers[0].priceUsd,99);assert.equal(o.offers[0].priceTruth,'PROPOSED_TEST_PRICE');assert.match(o.offers[0].evidenceLimits,/no independent buyer-accepted defects/i)});
+test('Apify remains held with no published or collection claim',()=>{assert.match(o.offers.find(x=>x.id==='APIFY_ACTOR').releaseGate,/HOLD_UNPUBLISHED/);assert.equal(o.collectionReady,false)});
+test('no external-effects authority',()=>{assert.equal(o.customerContactAuthority,false);assert.equal(o.sendAuthority,false);assert.equal(g.bankClearedProfitUsd,0)});
+test('all kill switches have distinct fail-closed actions',()=>{assert.equal(g.guards.length,8);assert.equal(new Set(g.guards.map(x=>x.id)).size,8);assert.ok(g.guards.every(x=>x.when&&x.action))});
+test('source paths actually exist in this exact repo tree',()=>{for(const x of o.offers)for(const s of x.sources)assert.ok(readFileSync(new URL('../'+s,import.meta.url),'utf8').length>0,s)});
+test('founder decision has no more than three owner actions',()=>{const z=readFileSync(new URL('../docs/commercialization/swarm/A01/OWNER_DECISION_PACKET.md',import.meta.url),'utf8');assert.equal((z.match(/^\d\. /gm)||[]).length,3);assert.match(z,/UNSENT/);assert.match(z,/verified profit: \*\*\$0\*\*/)});

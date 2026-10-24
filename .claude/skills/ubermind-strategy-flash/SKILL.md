@@ -15,6 +15,6 @@ Opus remains the **lead**: this does NOT route strategic reasoning to Haiku/Sonn
 6. Emit only the decision, key sources/uncertainties, strongest rival option, reversibility/first experiment and optional PHOENIX pointer. Do not paste complete dictionaries, books or transcripts.
 7. If confidence is low because the source is missing, request source evidence or label uncertainty. This flash only selects evidence; it cannot know private motives or offer a legal opinion.
 
-**Quality gate:** no false motive claims, no fabricated current law, no fabricated social proof, no misclassified trust-law/relationship-trust, no assumptions of profits cleared. Follow existing rights, founder authorization, 890 and GENESIS. Reuse result if same source and decision criteria remain valid.
+**Quality gate:** informed consent and voluntary counterparty agency; no false motive claims, no fabricated current law, no fabricated social proof, no misclassified trust-law/relationship-trust, no assumptions of profits cleared. Follow existing rights, founder authorization, 890 and GENESIS. Reuse result if same source and decision criteria remain valid.
 
 **Savings metric:** compare **actual plan allowance usage and accepted results** before/after across matched tasks. Packet characters are only a rough context proxy, never a measured Claude quota or guarantee.

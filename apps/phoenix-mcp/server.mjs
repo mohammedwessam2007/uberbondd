@@ -55,8 +55,9 @@ function authorized(got, expected) {
   return a.length === b.length && timingSafeEqual(a, b);
 }
 
-export async function startHttp({ port = Number(process.env.PHOENIX_MCP_PORT || '3887'),
-  host = '127.0.0.1', token = process.env.PHOENIX_MCP_BEARER_TOKEN } = {}) {
+export async function startHttp({ port = Number(process.env.PORT || process.env.PHOENIX_MCP_PORT || '3887'),
+  host = process.env.PHOENIX_MCP_HOST === '0.0.0.0' ? '0.0.0.0' : '127.0.0.1',
+  token = process.env.PHOENIX_MCP_BEARER_TOKEN } = {}) {
   if (!token || token.length < 32) throw new Error('PHOENIX_MCP_BEARER_TOKEN_REQUIRED_MIN_32_CHAR');
   if (!Number.isInteger(port) || port < 0 || port > 65535) throw new Error('INVALID_LISTEN_PORT');
   const httpServer = http.createServer(async (req, res) => {

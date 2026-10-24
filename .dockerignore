@@ -14,6 +14,30 @@
 **/.envrc
 **/.npmrc
 **/.pypirc
+
+# Developer/cloud credential stores and database/infra auth files.
+# These must never be copied by the root Dockerfile's COPY . . step.
+**/.aws
+**/.aws/**
+**/.ssh
+**/.ssh/**
+**/.azure
+**/.azure/**
+**/.kube
+**/.kube/**
+**/.config/gcloud
+**/.config/gcloud/**
+**/.secrets
+**/.secrets/**
+**/.netrc
+**/.pgpass
+**/credentials.json
+**/application_default_credentials.json
+**/*service-account*.json
+**/*private-key*.json
+**/*.tfstate
+**/*.tfstate.*
+secrets/
 **/id_rsa
 **/id_ed25519
 **/*.pem

@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "observedAt": "2026-10-24",
+  "truthClass": "REMOTE_GITHUB_API_PREFLIGHT_ONLY",
+  "mainHead": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "bootstrapHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+  "commercialSourceHead": "f9b423a0d56e18436a23a53ce75d3a14ae920567",
+  "pr1538Head": "a9b2c5fa240de949135282769284044a0097986d",
+  "totalAssigned": 20,
+  "verifiedRemoteReceiptWorkers": [
+    "A09"
+  ],
+  "workerExecutionUnknown": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A10",
+    "A11",
+    "A12",
+    "A13",
+    "A14",
+    "A15",
+    "A16",
+    "A17",
+    "A18",
+    "A19",
+    "A20"
+  ],
+  "verifiedRemoteReceiptCount": 1,
+  "runtimeLiveStatus": "UNKNOWN_TUNNEL_CLIENT_NOT_SEEN_300_SECONDS",
+  "bootstrapLaunchSnapshot": {
+    "observedAt": "2026-10-23T11:46:44.291804+00:00",
+    "running": [
+      "A01",
+      "A02"
+    ],
+    "queuedCount": 18,
+    "liveNowConfirmed": false
+  },
+  "releaseGate": "HOLD_ADMISSION",
+  "independentA19Tribunal": "NOT_RUN_OR_VERIFIED",
+  "a20Integration": "NOT_RUN_OR_VERIFIED",
+  "clearedContributionProfitUsd": 0,
+  "unverifiedAssertions": [],
+  "sideEffects": {
+    "newSpendUsd": 0,
+    "customerMessages": 0,
+    "paymentMutations": 0,
+    "deployment": 0,
+    "dnsChanges": 0,
+    "mainMerges": 0
+  },
+  "notes": "One remotely committed lane is not evidence only one lane executed. Local disconnected worktrees and logs may contain other progress. Resolve without branch reset or overwrites."
+}

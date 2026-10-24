@@ -79,6 +79,16 @@ if any(str(BASE / 'dispatch.py') in line and 'python' in line
        for line in ps.splitlines()):
     raise RuntimeError('Existing dispatcher detected: do not duplicate')
 copilot = os.environ.get('UBERBOND_COPILOT_BIN') or shutil.which('copilot')
+# GitHub Codespace GITHUB_TOKEN can be different from the owner's paid Copilot
+# account. In OAuth mode, strip auto-injected token only from model subprocesses,
+# not Git operations, to use a separately user-approved cached CLI login.
+def copilot_env():
+    result = dict(os.environ, COPILOT_AUTO_TIER='intelligence', COPILOT_AUTO_UPDATE='false')
+    if os.environ.get('UBERBOND_COPILOT_AUTH') == 'oauth':
+        for name in ('GITHUB_TOKEN','GH_TOKEN','COPILOT_GITHUB_TOKEN'):
+            result.pop(name, None)
+    result.pop('COPILOT_ALLOW_ALL', None)
+    return result
 if not copilot or not pathlib.Path(copilot).exists():
     for item in status.values():
         if item['state']=='UNVERIFIED':item['state']='BLOCKED_COPILOT_CLI_ABSENT'
@@ -90,7 +100,7 @@ if not copilot or not pathlib.Path(copilot).exists():
 probe = subprocess.run([copilot,'-C',str(REPO),'--model','auto',
     '--disable-builtin-mcps','-p','Reply exactly READY, without tools.'],
     text=True,capture_output=True,timeout=75,
-    env=dict(os.environ,COPILOT_AUTO_TIER='intelligence',COPILOT_AUTO_UPDATE='false'))
+    env=copilot_env())
 if probe.returncode != 0 or 'READY' not in probe.stdout:
     denied='Access denied by policy settings' in (probe.stdout + probe.stderr)
     reason='BLOCKED_COPILOT_POLICY_DENIED' if denied else 'BLOCKED_COPILOT_INFERENCE_UNAVAILABLE'
@@ -144,8 +154,7 @@ while idx < len(queue) or active:
             p = prepare(a)
             logs = (BASE/'logs'/f"{a['id']}.recovery.log").open('a')
             errs = (BASE/'logs'/f"{a['id']}.recovery.err").open('a')
-            env = dict(os.environ, COPILOT_AUTO_TIER='intelligence', COPILOT_AUTO_UPDATE='false')
-            env.pop('COPILOT_ALLOW_ALL', None)
+            env = copilot_env()
             prompt = (f"Execute independent UberBond {a['id']} custom-agent mission; $0 new spend, no contacts, charges, payments, DNS, KYC, provider mutations, "
                       "production deploy, git push, or main merge. Worktree files/tests only; "
                       "preserve truthful FINAL RECEIPT, exact HEAD and PHOENIX; no fake completion.")

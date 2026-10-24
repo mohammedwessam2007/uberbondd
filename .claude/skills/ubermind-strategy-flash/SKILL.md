@@ -5,6 +5,9 @@ description: Start here for Opus-first business, EQ, negotiation, power, legal, 
 
 # Ω48 OPUS CROWN · STRATEGY FLASH
 
+**Ω50 resident triad (all strategy missions):** Always account for observed results (Beer), true downside and convexity (Taleb), and belief/adoption feedback (Land). The concise doctrine is docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md; the detailed research file is docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md. For bureaucracy timing, contract semantics, and cross-border tax classification, check dated binding law rather than assuming automatic relief. Retrieve the full Ω50 notes on demand, not in every context.
+
+
 **Ω49 asymmetry supplement, only when relevant:** The same native microbrief CLI now reads config/ubermind-omega49-asymmetric-strategy-index.json locally and may attach an `omega49` source-pointer packet. Only then retrieve docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md. Four extra thinkers and six institutional risk topics remain addressable without injecting a large new policy or book into ordinary Opus context. `omega49.mode=RESEARCH_ONLY` and `authority=NO_EXTERNAL_EFFECTS` are mandatory. For takeovers, greenmail, layered entities, related-party pricing, regulatory capture or non-public information, use current jurisdictional law, disclosure/ethics gates and independent professional review, never inferred legal clearance. No model calls are introduced by this retrieval selector.
 
 

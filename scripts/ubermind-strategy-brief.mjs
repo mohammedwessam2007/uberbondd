@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 import { compileStrategicBrief } from "../src/ubermind-strategy-brief.mjs";
 import { selectStrategy49 } from "../src/ubermind-omega49-source-selector.mjs";
 import { selectOmega51 } from "../src/ubermind-omega51-evidence.mjs";
+import { selectOmega52 } from "../src/ubermind-omega52-research.mjs";
 const argv=process.argv.slice(2);
 if(argv.length===0||argv.includes("--help")){
   console.log("Usage: node scripts/ubermind-strategy-brief.mjs --mission \"text\" [--json]\nZero model calls; output is a source map, NOT a completed recommendation.");
@@ -22,6 +23,9 @@ try{
   const latest=JSON.parse(readFileSync(resolve("config/ubermind-omega51-technical-dna.json"),"utf8"));
   const technical=selectOmega51(argv[pos+1],latest);
   if(technical)packet.omega51=technical;
+  const research=JSON.parse(readFileSync(resolve("config/ubermind-omega52-frontier-atoms.json"),"utf8"));
+  const inventive=selectOmega52(argv[pos+1],research);
+  if(inventive)packet.omega52=inventive;
   if(JSON.stringify(packet).length>2200)throw Error("BRIEF_BUDGET_EXCEEDED");
   console.log(JSON.stringify(packet,null,argv.includes("--json")?2:0));
 }catch(e){console.error("BRIEF_ERROR: "+e.message);process.exit(1)}

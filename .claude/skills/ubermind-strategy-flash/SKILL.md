@@ -5,6 +5,9 @@ description: Start here for Opus-first business, EQ, negotiation, power, legal, 
 
 # Ω48 OPUS CROWN · STRATEGY FLASH
 
+**Ω52 additive mathematical imagination and survival layer:** Opus always honors the small `docs/architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md` with twelve preserved founder atoms; new Ω52 pointers only load detailed research for relevant tasks. Read `.claude/skills/ubermind-math-invention/SKILL.md` on demand. No live market orders, invented guaranteed return, risk-free arbitrage or false legal proofs.
+
+
 **Ω51 mandatory Opus challenge:** the short `docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md` governs every strategy: present the strongest legitimate plan AND fair counterexample, acceptance/failure criteria and residual uncertainty in one Opus pass. The Ω48 CLI can attach Ω51 source pointers on demand; see `.claude/skills/ubermind-adversarial-resilience/SKILL.md` for authorized infrastructure analysis and calibrated forecasting.
 
 

@@ -1,0 +1,52 @@
+{
+  "bankClearedProfitUsd": 0,
+  "acceptedPaidBuyers": 0,
+  "customerContactAuthority": false,
+  "sendAuthority": false,
+  "collectionReady": false,
+  "executionTruth": "GROUNDED_INTERNAL_SOURCE_SYNTHESIS_NOT_20_INDEPENDENT_MODELS_OR_MARKET_VALIDATION",
+  "observedDate": "2026-10-24",
+  "sourceMainAtAnalysis": "8c796ed9c29350ebbd08cd3034abd6b088e83e3a",
+  "guards": [
+    {
+      "id": "K01",
+      "when": "no prospect-specific reproducible defect with original-source hash, truthful non-loss framing",
+      "action": "NO_ASSERTED_DEFECT_OR_FALSE_LOSS_CLAIM"
+    },
+    {
+      "id": "K02",
+      "when": "no identified recipient route, suppression/consent/legal status or sender-health receipt",
+      "action": "DO_NOT_SEND"
+    },
+    {
+      "id": "K03",
+      "when": "Contra account KYC/wallet/tax/bank route and current legal invoicing state are unobserved",
+      "action": "NO_COLLECTION_OR_PAYMENT_REQUEST"
+    },
+    {
+      "id": "K04",
+      "when": "no explicit written buyer scope and customer acceptance",
+      "action": "NO_ACCEPTED_REVENUE_CLAIM"
+    },
+    {
+      "id": "K05",
+      "when": "no matching net bank credit and fees FX reversal reconciliation",
+      "action": "CLEARED_PROFIT_USD_0"
+    },
+    {
+      "id": "K06",
+      "when": "Apify Actor not published/identity, payout threshold and reservation DB unverified",
+      "action": "NO_STORE_CHARGE_OR_SALE"
+    },
+    {
+      "id": "K07",
+      "when": "any paid SKU/model/workflow is needed to continue",
+      "action": "ZERO_ADDITIONAL_SPEND_STOP"
+    },
+    {
+      "id": "K08",
+      "when": "proposed offer undercuts expected verified delivery/refund/fee/founder-minute downside",
+      "action": "KILL_OR_REPRICE_ONLY_AFTER_OWNER_REVIEW"
+    }
+  ]
+}

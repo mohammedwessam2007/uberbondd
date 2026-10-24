@@ -3,7 +3,7 @@ name: ubermind-social-strategy
 description: Activate the Opus-first human intelligence and economic strategy lens for negotiations, offers, partnerships, founder decisions, buyer conversations, interpersonal friction, positioning, sales, leadership and reputation. Reuse UberBond inter-sovereign and economic-physics donors. No paid models or unauthorized outreach.
 ---
 
-# UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN
+# UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\n**Ω47 Machiavelli corpus:** Read `OMEGA47_ADDENDUM.md` and `docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md` before Machiavellian or strategic business recommendations. Use `node scripts/machiavelli-canon.mjs search '<topic>'` for bounded source-addressed retrieval; it carries 183 source address slots and 106 historical paraphrases. Never claim original full works were downloaded or that the model was retrained. Preserve human autonomy, consent, inter-sovereign evidence checks and the existing 890 hierarchy.\n
 **Truth class:** RESEARCH-BASED_OPERATING_SKILL / proposed cognitive procedure, NOT proven human EQ, not live buyer mindreading, not a new provider API.
 
 ## Prime instruction

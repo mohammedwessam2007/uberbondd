@@ -1,0 +1,1513 @@
+{
+  "observedAt": "2026-10-24T09:42:31.453Z",
+  "sourceSha": "a260746f196059b110a7043ad7c5e2e65844347f",
+  "transport": "REAL_SUBPROCESS_STDIO_MCP",
+  "chatgptIndependentConnector": false,
+  "tools": [
+    "phoenix_status",
+    "phoenix_waves",
+    "phoenix_catalog",
+    "phoenix_search",
+    "phoenix_wave_page",
+    "phoenix_mission_contract",
+    "phoenix_route",
+    "phoenix_invoke_native"
+  ],
+  "status": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_CAPABILITY_GATEWAY_STATUS\",\"native\":{\"active\":15,\"failed\":0,\"sourceDigest\":\"64e4736458d66e8aafbad09b2680eb09ada23af336e089b2f205d88669d4020b\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\"},\"registeredExternal\":{\"count\":11,\"classification\":\"REGISTRY_ONLY__HOST_CALLABILITY_UNPROVEN\",\"validated\":true},\"research\":{\"count\":1560,\"classification\":\"SOURCE_INDEXED_RESEARCH_ONLY__NOT_EXECUTABLE\",\"verification\":\"USE_RESEARCH_QUERY_TO_RECHECK_SOURCE\"},\"callableLocalAtoms\":[\"proof.compile\",\"proof.route-missing\",\"founder.exception-prioritize\",\"institution.compile-cell\",\"strategy.minimax-regret\",\"authority.revoke-subtree\",\"world.simulate-counterfactual\",\"theory.form-evidence-bound\",\"causal.assess-witness\",\"evaluator.coevolve\",\"architecture.generate-rivals\",\"policy.evolve-generations\",\"ontology.invent-language\",\"economy.compile-dsl\",\"company.compile-genome\"],\"providerCalls\":0,\"truthBoundary\":\"STATUS_AND_LOCAL_EXECUTION_ARE_NOT_VENDOR_INSTALLATION_OR_CLOUD_DEPLOYMENT\"}"
+      }
+    ],
+    "structuredContent": {
+      "externalEffectAuthority": "NONE",
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "COS_CAPABILITY_GATEWAY_STATUS",
+      "native": {
+        "active": 15,
+        "failed": 0,
+        "sourceDigest": "64e4736458d66e8aafbad09b2680eb09ada23af336e089b2f205d88669d4020b",
+        "classification": "ACTIVE_NATIVE_ZERO_EFFECT"
+      },
+      "registeredExternal": {
+        "count": 11,
+        "classification": "REGISTRY_ONLY__HOST_CALLABILITY_UNPROVEN",
+        "validated": true
+      },
+      "research": {
+        "count": 1560,
+        "classification": "SOURCE_INDEXED_RESEARCH_ONLY__NOT_EXECUTABLE",
+        "verification": "USE_RESEARCH_QUERY_TO_RECHECK_SOURCE"
+      },
+      "callableLocalAtoms": [
+        "proof.compile",
+        "proof.route-missing",
+        "founder.exception-prioritize",
+        "institution.compile-cell",
+        "strategy.minimax-regret",
+        "authority.revoke-subtree",
+        "world.simulate-counterfactual",
+        "theory.form-evidence-bound",
+        "causal.assess-witness",
+        "evaluator.coevolve",
+        "architecture.generate-rivals",
+        "policy.evolve-generations",
+        "ontology.invent-language",
+        "economy.compile-dsl",
+        "company.compile-genome"
+      ],
+      "providerCalls": 0,
+      "truthBoundary": "STATUS_AND_LOCAL_EXECUTION_ARE_NOT_VENDOR_INSTALLATION_OR_CLOUD_DEPLOYMENT"
+    },
+    "isError": false
+  },
+  "catalog": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_CATALOG\",\"count\":15,\"capabilities\":[{\"id\":\"native:proof-dag\",\"atomId\":\"proof.compile\",\"taskClass\":\"PROOF_LINEAGE\",\"sourceHash\":\"0308cec37c72188c96a69a18db5d1144f0f6a4b814ce0a57d9083a3eaafacea6\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:external-proof-router\",\"atomId\":\"proof.route-missing\",\"taskClass\":\"PROOF_ROUTING\",\"sourceHash\":\"07ae508c905916c713bb6bd4f551dc992d6fcd36116e90919d8efbde7e9e1684\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:founder-exception-market\",\"atomId\":\"founder.exception-prioritize\",\"taskClass\":\"FOUNDER_EXCEPTION_ROUTING\",\"sourceHash\":\"c8f8ecf62428ca53484dfc5153b0ff219a62a02116c927a50609d3b4f6a83e36\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:institution-cell-compiler\",\"atomId\":\"institution.compile-cell\",\"taskClass\":\"INSTITUTION_COMPILATION\",\"sourceHash\":\"47f28e36c64c200888e6fbed050ac51c8b6d638c8eb617fc926553dd171cefe1\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:minimax-strategy\",\"atomId\":\"strategy.minimax-regret\",\"taskClass\":\"ROBUST_STRATEGY\",\"sourceHash\":\"6332f6cff0827a1d5716e090d360bbd06623998aeeb46c6e1c071811bb53a0b6\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:recursive-revocation\",\"atomId\":\"authority.revoke-subtree\",\"taskClass\":\"AUTHORITY_REVOCATION\",\"sourceHash\":\"689eb1d8d320e4e1fd43bc333573cf4793c6273961d5e78338da2d5ea04d132a\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:counterfactual-civilization\",\"atomId\":\"world.simulate-counterfactual\",\"taskClass\":\"COUNTERFACTUAL_WORLD_MODEL\",\"sourceHash\":\"413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:reality-theory\",\"atomId\":\"theory.form-evidence-bound\",\"taskClass\":\"REALITY_THEORY_FORMATION\",\"sourceHash\":\"413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:causal-witness\",\"atomId\":\"causal.assess-witness\",\"taskClass\":\"CAUSAL_IDENTIFICATION\",\"sourceHash\":\"413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:evaluator-coevolution\",\"atomId\":\"evaluator.coevolve\",\"taskClass\":\"EVALUATOR_EVOLUTION\",\"sourceHash\":\"e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:future-rival-generator\",\"atomId\":\"architecture.generate-rivals\",\"taskClass\":\"RIVAL_ARCHITECTURE\",\"sourceHash\":\"e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:genesis-policy-evolution\",\"atomId\":\"policy.evolve-generations\",\"taskClass\":\"POLICY_EVOLUTION\",\"sourceHash\":\"e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:language-invention\",\"atomId\":\"ontology.invent-language\",\"taskClass\":\"LANGUAGE_INVENTION\",\"sourceHash\":\"8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:economic-dsl\",\"atomId\":\"economy.compile-dsl\",\"taskClass\":\"ECONOMIC_MODEL_COMPILATION\",\"sourceHash\":\"8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true},{\"id\":\"native:company-genome-language\",\"atomId\":\"company.compile-genome\",\"taskClass\":\"COMPANY_GENOME_COMPILATION\",\"sourceHash\":\"8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3\",\"classification\":\"ACTIVE_NATIVE_ZERO_EFFECT\",\"callableThroughCos\":true}]}"
+      }
+    ],
+    "structuredContent": {
+      "externalEffectAuthority": "NONE",
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "COS_NATIVE_CATALOG",
+      "count": 15,
+      "capabilities": [
+        {
+          "id": "native:proof-dag",
+          "atomId": "proof.compile",
+          "taskClass": "PROOF_LINEAGE",
+          "sourceHash": "0308cec37c72188c96a69a18db5d1144f0f6a4b814ce0a57d9083a3eaafacea6",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:external-proof-router",
+          "atomId": "proof.route-missing",
+          "taskClass": "PROOF_ROUTING",
+          "sourceHash": "07ae508c905916c713bb6bd4f551dc992d6fcd36116e90919d8efbde7e9e1684",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:founder-exception-market",
+          "atomId": "founder.exception-prioritize",
+          "taskClass": "FOUNDER_EXCEPTION_ROUTING",
+          "sourceHash": "c8f8ecf62428ca53484dfc5153b0ff219a62a02116c927a50609d3b4f6a83e36",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:institution-cell-compiler",
+          "atomId": "institution.compile-cell",
+          "taskClass": "INSTITUTION_COMPILATION",
+          "sourceHash": "47f28e36c64c200888e6fbed050ac51c8b6d638c8eb617fc926553dd171cefe1",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:minimax-strategy",
+          "atomId": "strategy.minimax-regret",
+          "taskClass": "ROBUST_STRATEGY",
+          "sourceHash": "6332f6cff0827a1d5716e090d360bbd06623998aeeb46c6e1c071811bb53a0b6",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:recursive-revocation",
+          "atomId": "authority.revoke-subtree",
+          "taskClass": "AUTHORITY_REVOCATION",
+          "sourceHash": "689eb1d8d320e4e1fd43bc333573cf4793c6273961d5e78338da2d5ea04d132a",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:counterfactual-civilization",
+          "atomId": "world.simulate-counterfactual",
+          "taskClass": "COUNTERFACTUAL_WORLD_MODEL",
+          "sourceHash": "413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:reality-theory",
+          "atomId": "theory.form-evidence-bound",
+          "taskClass": "REALITY_THEORY_FORMATION",
+          "sourceHash": "413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:causal-witness",
+          "atomId": "causal.assess-witness",
+          "taskClass": "CAUSAL_IDENTIFICATION",
+          "sourceHash": "413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:evaluator-coevolution",
+          "atomId": "evaluator.coevolve",
+          "taskClass": "EVALUATOR_EVOLUTION",
+          "sourceHash": "e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:future-rival-generator",
+          "atomId": "architecture.generate-rivals",
+          "taskClass": "RIVAL_ARCHITECTURE",
+          "sourceHash": "e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:genesis-policy-evolution",
+          "atomId": "policy.evolve-generations",
+          "taskClass": "POLICY_EVOLUTION",
+          "sourceHash": "e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:language-invention",
+          "atomId": "ontology.invent-language",
+          "taskClass": "LANGUAGE_INVENTION",
+          "sourceHash": "8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:economic-dsl",
+          "atomId": "economy.compile-dsl",
+          "taskClass": "ECONOMIC_MODEL_COMPILATION",
+          "sourceHash": "8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        },
+        {
+          "id": "native:company-genome-language",
+          "atomId": "company.compile-genome",
+          "taskClass": "COMPANY_GENOME_COMPILATION",
+          "sourceHash": "8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3",
+          "classification": "ACTIVE_NATIVE_ZERO_EFFECT",
+          "callableThroughCos": true
+        }
+      ]
+    },
+    "isError": false
+  },
+  "receipts": [
+    {
+      "atomId": "proof.compile",
+      "input": {
+        "proofs": [
+          {
+            "id": "p1",
+            "kind": "synthetic-evidence",
+            "evidenceRef": "fixture:p1",
+            "sourceClass": "SYNTHETIC",
+            "synthetic": true
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"proof.compile\",\"sourceHash\":\"0308cec37c72188c96a69a18db5d1144f0f6a4b814ce0a57d9083a3eaafacea6\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"status\":\"PROOF_DAG_COMPILED\",\"version\":\"uberbond.content-addressed-proof-dag.v1\",\"nodes\":[{\"id\":\"p1\",\"kind\":\"synthetic-evidence\",\"evidenceRef\":\"fixture:p1\",\"parents\":[],\"synthetic\":true,\"sourceClass\":\"SYNTHETIC\",\"payloadDigest\":null,\"observed\":false,\"verifierRef\":null,\"address\":\"sha256:358dc0ae03041ab8b47c24b97c196a3ea170ab6930059fd5b78e68d4c6d23c22\",\"parentAddresses\":[]}],\"dagDigest\":\"sha256:5be8888728f6d9aa910a70c20b7a94e71d32e3911adbec9b54dc7620c48a863b\",\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "proof.compile",
+          "sourceHash": "0308cec37c72188c96a69a18db5d1144f0f6a4b814ce0a57d9083a3eaafacea6",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "ok": true,
+            "status": "PROOF_DAG_COMPILED",
+            "version": "uberbond.content-addressed-proof-dag.v1",
+            "nodes": [
+              {
+                "id": "p1",
+                "kind": "synthetic-evidence",
+                "evidenceRef": "fixture:p1",
+                "parents": [],
+                "synthetic": true,
+                "sourceClass": "SYNTHETIC",
+                "payloadDigest": null,
+                "observed": false,
+                "verifierRef": null,
+                "address": "sha256:358dc0ae03041ab8b47c24b97c196a3ea170ab6930059fd5b78e68d4c6d23c22",
+                "parentAddresses": []
+              }
+            ],
+            "dagDigest": "sha256:5be8888728f6d9aa910a70c20b7a94e71d32e3911adbec9b54dc7620c48a863b",
+            "externalEffectAuthority": "NONE",
+            "businessEffectAuthority": "NONE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "1346b530a34159759dc5893f1bf54ed0f94a24f41aeef3284defc7d9eec43b8c"
+    },
+    {
+      "atomId": "proof.route-missing",
+      "input": {
+        "requirements": [
+          {
+            "id": "r1",
+            "proofClass": "SOURCE_INTERNAL",
+            "description": "synthetic requirement"
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"proof.route-missing\",\"sourceHash\":\"07ae508c905916c713bb6bd4f551dc992d6fcd36116e90919d8efbde7e9e1684\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"schemaVersion\":\"uberbond.external-proof-router.v1\",\"requirements\":[{\"id\":\"r1\",\"description\":\"synthetic requirement\",\"proofClass\":\"SOURCE_INTERNAL\",\"evidenceRefs\":[],\"satisfied\":false,\"route\":\"INTERNAL_CLOSABLE\",\"ownerActionAllowed\":false,\"machineMayPrepare\":true,\"proofMayBeSynthesized\":false}],\"counts\":{\"total\":1,\"closed\":0,\"internalClosable\":1,\"externalOrOwnerOnly\":0},\"internalQueue\":[\"r1\"],\"externalQueue\":[],\"status\":\"INTERNAL_PROOF_WORK_REMAINS\",\"packetDigest\":\"sha256:2de7e78bbbd4abb2d16e55e4f53a86d6a19fcebfcf53fe3642a348d8a715ef8a\",\"truthBoundary\":\"ROUTING_CLASSIFIES_WHERE_MISSING_PROOF_MUST_COME_FROM__IT_NEVER_CREATES_THE_PROOF\",\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "proof.route-missing",
+          "sourceHash": "07ae508c905916c713bb6bd4f551dc992d6fcd36116e90919d8efbde7e9e1684",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "ok": true,
+            "schemaVersion": "uberbond.external-proof-router.v1",
+            "requirements": [
+              {
+                "id": "r1",
+                "description": "synthetic requirement",
+                "proofClass": "SOURCE_INTERNAL",
+                "evidenceRefs": [],
+                "satisfied": false,
+                "route": "INTERNAL_CLOSABLE",
+                "ownerActionAllowed": false,
+                "machineMayPrepare": true,
+                "proofMayBeSynthesized": false
+              }
+            ],
+            "counts": {
+              "total": 1,
+              "closed": 0,
+              "internalClosable": 1,
+              "externalOrOwnerOnly": 0
+            },
+            "internalQueue": [
+              "r1"
+            ],
+            "externalQueue": [],
+            "status": "INTERNAL_PROOF_WORK_REMAINS",
+            "packetDigest": "sha256:2de7e78bbbd4abb2d16e55e4f53a86d6a19fcebfcf53fe3642a348d8a715ef8a",
+            "truthBoundary": "ROUTING_CLASSIFIES_WHERE_MISSING_PROOF_MUST_COME_FROM__IT_NEVER_CREATES_THE_PROOF",
+            "externalEffectAuthority": "NONE",
+            "businessEffectAuthority": "NONE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "d9d109496699c4f101934c28838f3a15f9fb859cd159c9f615132c6287eb6742"
+    },
+    {
+      "atomId": "founder.exception-prioritize",
+      "input": {
+        "exceptions": []
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"founder.exception-prioritize\",\"sourceHash\":\"c8f8ecf62428ca53484dfc5153b0ff219a62a02116c927a50609d3b4f6a83e36\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"status\":\"NO_FOUNDER_EXCEPTION_REQUIRED\",\"schemaVersion\":\"uberbond.founder-exception-market.v1\",\"ceiling\":3,\"selectedCount\":0,\"queue\":[],\"rejected\":[],\"deferredAdmissibleCount\":0,\"law\":\"FOUNDER_EXCEPTION_QUEUE_IS_ONLY_FOR_GENUINE_HUMAN_ONLY_CROSSINGS_AFTER_MACHINE_REMEDIATION_IS_EXHAUSTED\",\"receiptDigest\":\"sha256:966f9f41688e2843e0644aa2236e2884fd892e680e7bd40ec26b96e597f7f795\",\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "founder.exception-prioritize",
+          "sourceHash": "c8f8ecf62428ca53484dfc5153b0ff219a62a02116c927a50609d3b4f6a83e36",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "ok": true,
+            "status": "NO_FOUNDER_EXCEPTION_REQUIRED",
+            "schemaVersion": "uberbond.founder-exception-market.v1",
+            "ceiling": 3,
+            "selectedCount": 0,
+            "queue": [],
+            "rejected": [],
+            "deferredAdmissibleCount": 0,
+            "law": "FOUNDER_EXCEPTION_QUEUE_IS_ONLY_FOR_GENUINE_HUMAN_ONLY_CROSSINGS_AFTER_MACHINE_REMEDIATION_IS_EXHAUSTED",
+            "receiptDigest": "sha256:966f9f41688e2843e0644aa2236e2884fd892e680e7bd40ec26b96e597f7f795",
+            "externalEffectAuthority": "NONE",
+            "businessEffectAuthority": "NONE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "3d99f20f508ba61fdd80d25ab8027cc82646ce873e942d5bfa23822214cc7b24"
+    },
+    {
+      "atomId": "institution.compile-cell",
+      "input": {
+        "task": {
+          "taskClass": "SYNTHETIC",
+          "requiredCapabilities": [
+            "test"
+          ],
+          "maxLatencyMs": 100,
+          "maxCostUsd": 0,
+          "maxFounderMinutes": 0
+        },
+        "candidates": [
+          {
+            "id": "local",
+            "executorClass": "DETERMINISTIC_CODE",
+            "capabilities": [
+              "test"
+            ],
+            "evidenceRefs": [
+              "fixture:tested"
+            ],
+            "verified": true,
+            "latencyMs": 1,
+            "costUsd": 0,
+            "founderMinutes": 0,
+            "authority": "NONE"
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"institution.compile-cell\",\"sourceHash\":\"47f28e36c64c200888e6fbed050ac51c8b6d638c8eb617fc926553dd171cefe1\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"status\":\"INSTITUTION_CELL_COMPILED\",\"cell\":{\"schemaVersion\":\"uberbond.institution-cell-compiler.v1\",\"taskClass\":\"SYNTHETIC\",\"requiredCapabilities\":[\"test\"],\"humanOnly\":false,\"executor\":{\"id\":\"local\",\"executorClass\":\"DETERMINISTIC_CODE\",\"evidenceRefs\":[\"fixture:tested\"],\"authority\":\"NONE\"},\"selectionLaw\":\"MINIMUM_SUFFICIENT_VERIFIED_EXECUTOR__DETERMINISTIC_CODE_BEFORE_SKILL_BEFORE_AGENT__HUMAN_ONLY_WHEN_TASK_REQUIRES_HUMAN_GATE\",\"evaluatedCandidateCount\":1,\"sufficientCandidateCount\":1,\"cellDigest\":\"sha256:1b15492f27c588ea239262fc2bcc1511a08f1df484d336da12ce469594ab023f\"},\"evaluated\":[{\"id\":\"local\",\"executorClass\":\"DETERMINISTIC_CODE\",\"capabilities\":[\"test\"],\"evidenceRefs\":[\"fixture:tested\"],\"authority\":\"NONE\",\"missingCapabilities\":[],\"latencyMs\":1,\"costUsd\":0,\"founderMinutes\":0,\"sufficient\":true,\"withinBudget\":true,\"evidenceReady\":true,\"classAllowed\":true,\"authorityAllowed\":true}],\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "institution.compile-cell",
+          "sourceHash": "47f28e36c64c200888e6fbed050ac51c8b6d638c8eb617fc926553dd171cefe1",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "ok": true,
+            "status": "INSTITUTION_CELL_COMPILED",
+            "cell": {
+              "schemaVersion": "uberbond.institution-cell-compiler.v1",
+              "taskClass": "SYNTHETIC",
+              "requiredCapabilities": [
+                "test"
+              ],
+              "humanOnly": false,
+              "executor": {
+                "id": "local",
+                "executorClass": "DETERMINISTIC_CODE",
+                "evidenceRefs": [
+                  "fixture:tested"
+                ],
+                "authority": "NONE"
+              },
+              "selectionLaw": "MINIMUM_SUFFICIENT_VERIFIED_EXECUTOR__DETERMINISTIC_CODE_BEFORE_SKILL_BEFORE_AGENT__HUMAN_ONLY_WHEN_TASK_REQUIRES_HUMAN_GATE",
+              "evaluatedCandidateCount": 1,
+              "sufficientCandidateCount": 1,
+              "cellDigest": "sha256:1b15492f27c588ea239262fc2bcc1511a08f1df484d336da12ce469594ab023f"
+            },
+            "evaluated": [
+              {
+                "id": "local",
+                "executorClass": "DETERMINISTIC_CODE",
+                "capabilities": [
+                  "test"
+                ],
+                "evidenceRefs": [
+                  "fixture:tested"
+                ],
+                "authority": "NONE",
+                "missingCapabilities": [],
+                "latencyMs": 1,
+                "costUsd": 0,
+                "founderMinutes": 0,
+                "sufficient": true,
+                "withinBudget": true,
+                "evidenceReady": true,
+                "classAllowed": true,
+                "authorityAllowed": true
+              }
+            ],
+            "externalEffectAuthority": "NONE",
+            "businessEffectAuthority": "NONE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "8f5b1413f3b1c0efc994235483ff4a2ee3d7b76a9bddaa4eeea5e24b9e230dcf"
+    },
+    {
+      "atomId": "strategy.minimax-regret",
+      "input": {
+        "scenarios": [
+          {
+            "id": "s1"
+          }
+        ],
+        "strategies": [
+          {
+            "id": "a",
+            "outcomes": {
+              "s1": {
+                "low": 1,
+                "high": 2
+              }
+            }
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"strategy.minimax-regret\",\"sourceHash\":\"6332f6cff0827a1d5716e090d360bbd06623998aeeb46c6e1c071811bb53a0b6\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"status\":\"MINIMAX_REGRET_STRATEGY_SELECTED\",\"version\":\"uberbond.robust-minimax-strategy.v1\",\"winner\":{\"id\":\"a\",\"maxRegret\":1,\"meanRegret\":1,\"worstUtility\":1,\"reversible\":true,\"cost\":0,\"evidenceRefs\":[],\"regrets\":[{\"scenarioId\":\"s1\",\"regret\":1,\"bestPossibleUtility\":2,\"strategyWorstCaseUtility\":1}]},\"evaluated\":[{\"id\":\"a\",\"maxRegret\":1,\"meanRegret\":1,\"worstUtility\":1,\"reversible\":true,\"cost\":0,\"evidenceRefs\":[],\"regrets\":[{\"scenarioId\":\"s1\",\"regret\":1,\"bestPossibleUtility\":2,\"strategyWorstCaseUtility\":1}]}],\"basisDigest\":\"sha256:a9c632fe848522ad3c18d4b7a45ada8c2a2195dff00ec3fe02080f15c95e3516\",\"truthBoundary\":\"ROBUST_SELECTION_OVER_SUPPLIED_OUTCOME_INTERVALS__NOT_A_PROBABILITY_OR_OUTCOME_GUARANTEE\",\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "strategy.minimax-regret",
+          "sourceHash": "6332f6cff0827a1d5716e090d360bbd06623998aeeb46c6e1c071811bb53a0b6",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "ok": true,
+            "status": "MINIMAX_REGRET_STRATEGY_SELECTED",
+            "version": "uberbond.robust-minimax-strategy.v1",
+            "winner": {
+              "id": "a",
+              "maxRegret": 1,
+              "meanRegret": 1,
+              "worstUtility": 1,
+              "reversible": true,
+              "cost": 0,
+              "evidenceRefs": [],
+              "regrets": [
+                {
+                  "scenarioId": "s1",
+                  "regret": 1,
+                  "bestPossibleUtility": 2,
+                  "strategyWorstCaseUtility": 1
+                }
+              ]
+            },
+            "evaluated": [
+              {
+                "id": "a",
+                "maxRegret": 1,
+                "meanRegret": 1,
+                "worstUtility": 1,
+                "reversible": true,
+                "cost": 0,
+                "evidenceRefs": [],
+                "regrets": [
+                  {
+                    "scenarioId": "s1",
+                    "regret": 1,
+                    "bestPossibleUtility": 2,
+                    "strategyWorstCaseUtility": 1
+                  }
+                ]
+              }
+            ],
+            "basisDigest": "sha256:a9c632fe848522ad3c18d4b7a45ada8c2a2195dff00ec3fe02080f15c95e3516",
+            "truthBoundary": "ROBUST_SELECTION_OVER_SUPPLIED_OUTCOME_INTERVALS__NOT_A_PROBABILITY_OR_OUTCOME_GUARANTEE",
+            "externalEffectAuthority": "NONE",
+            "businessEffectAuthority": "NONE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "8d0ec4c2c47facadf7286fbc2866751a675d91567e6835b8cf3ea19b9b058e51"
+    },
+    {
+      "atomId": "authority.revoke-subtree",
+      "input": {
+        "grants": [
+          {
+            "id": "root",
+            "actions": [
+              "LOCAL_TEST"
+            ],
+            "expiresAt": "2099-12-31T00:00:00.000Z"
+          }
+        ],
+        "revokeId": "root",
+        "revokedAt": "2026-10-24T00:00:00.000Z",
+        "reason": "test-only"
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"authority.revoke-subtree\",\"sourceHash\":\"689eb1d8d320e4e1fd43bc333573cf4793c6273961d5e78338da2d5ea04d132a\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"status\":\"DELEGATION_SUBTREE_REVOKED\",\"grants\":[{\"id\":\"root\",\"parentId\":null,\"actions\":[\"LOCAL_TEST\"],\"expiresAt\":\"2099-12-31T00:00:00.000Z\",\"revokedAt\":\"2026-10-24T00:00:00.000Z\",\"revocationReason\":\"test-only\"}],\"receipt\":{\"version\":\"uberbond.recursive-revocation-graph.v1\",\"revokeId\":\"root\",\"revokedAt\":\"2026-10-24T00:00:00.000Z\",\"reason\":\"test-only\",\"revokedDelegationIds\":[\"root\"],\"priorGraphDigest\":\"635296b17bd351601a1367eb3f7d4b7e2f21c9524cfbe6d70e5902509d4f6e8e\",\"resultGraphDigest\":\"ed6adf1a811eba451724a498ff65a3293c8ba2fae6f5b8f478ba88a2c3f9d655\"},\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "authority.revoke-subtree",
+          "sourceHash": "689eb1d8d320e4e1fd43bc333573cf4793c6273961d5e78338da2d5ea04d132a",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "ok": true,
+            "status": "DELEGATION_SUBTREE_REVOKED",
+            "grants": [
+              {
+                "id": "root",
+                "parentId": null,
+                "actions": [
+                  "LOCAL_TEST"
+                ],
+                "expiresAt": "2099-12-31T00:00:00.000Z",
+                "revokedAt": "2026-10-24T00:00:00.000Z",
+                "revocationReason": "test-only"
+              }
+            ],
+            "receipt": {
+              "version": "uberbond.recursive-revocation-graph.v1",
+              "revokeId": "root",
+              "revokedAt": "2026-10-24T00:00:00.000Z",
+              "reason": "test-only",
+              "revokedDelegationIds": [
+                "root"
+              ],
+              "priorGraphDigest": "635296b17bd351601a1367eb3f7d4b7e2f21c9524cfbe6d70e5902509d4f6e8e",
+              "resultGraphDigest": "ed6adf1a811eba451724a498ff65a3293c8ba2fae6f5b8f478ba88a2c3f9d655"
+            },
+            "externalEffectAuthority": "NONE",
+            "businessEffectAuthority": "NONE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "dcb70cb5be875f87d524da79dc14ea8b44380a3285701a6277915aee99541ee6"
+    },
+    {
+      "atomId": "world.simulate-counterfactual",
+      "input": {
+        "initialState": {
+          "stock": 1
+        },
+        "rules": [
+          {
+            "target": "stock",
+            "coefficient": 2
+          }
+        ],
+        "steps": 2
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"world.simulate-counterfactual\",\"sourceHash\":\"413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COUNTERFACTUAL_CIVILIZATION_SIMULATED\",\"simulationId\":\"civilization_bef13d32cd006eb9a05b\",\"timeline\":[{\"step\":0,\"state\":{\"stock\":1}},{\"step\":1,\"state\":{\"stock\":3}},{\"step\":2,\"state\":{\"stock\":5}}],\"evidenceClass\":\"SYNTHETIC_COUNTERFACTUAL\",\"claimBoundary\":\"SIMULATED_DYNAMICS_ARE_NOT_FORECASTS_OR_OBSERVED_REALITY\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "world.simulate-counterfactual",
+          "sourceHash": "413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "COUNTERFACTUAL_CIVILIZATION_SIMULATED",
+            "simulationId": "civilization_bef13d32cd006eb9a05b",
+            "timeline": [
+              {
+                "step": 0,
+                "state": {
+                  "stock": 1
+                }
+              },
+              {
+                "step": 1,
+                "state": {
+                  "stock": 3
+                }
+              },
+              {
+                "step": 2,
+                "state": {
+                  "stock": 5
+                }
+              }
+            ],
+            "evidenceClass": "SYNTHETIC_COUNTERFACTUAL",
+            "claimBoundary": "SIMULATED_DYNAMICS_ARE_NOT_FORECASTS_OR_OBSERVED_REALITY"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "b970c5aa81b423a43b41f64aacca78d05220ed3da6912e49a5fbe1cb4e55df07"
+    },
+    {
+      "atomId": "theory.form-evidence-bound",
+      "input": {
+        "observations": [
+          {
+            "id": "obs",
+            "summary": "synthetic observation",
+            "evidenceRefs": [
+              "fixture:obs"
+            ]
+          }
+        ],
+        "candidateMechanisms": [
+          {
+            "id": "m",
+            "statement": "testable relationship",
+            "predicts": [
+              "obs"
+            ]
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"theory.form-evidence-bound\",\"sourceHash\":\"413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"REALITY_THEORIES_FORMED\",\"theories\":[{\"theoryId\":\"reality_f123adb1e50a1d349529\",\"mechanismId\":\"m\",\"statement\":\"testable relationship\",\"predictionTargets\":[\"obs\"],\"coveredObservationIds\":[\"obs\"],\"evidenceRefs\":[\"fixture:obs\"],\"status\":\"CANDIDATE_EVIDENCE_BOUND_THEORY\"}],\"claimBoundary\":\"THEORY_FORMATION_DOES_NOT_ESTABLISH_CAUSAL_TRUTH\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "theory.form-evidence-bound",
+          "sourceHash": "413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "REALITY_THEORIES_FORMED",
+            "theories": [
+              {
+                "theoryId": "reality_f123adb1e50a1d349529",
+                "mechanismId": "m",
+                "statement": "testable relationship",
+                "predictionTargets": [
+                  "obs"
+                ],
+                "coveredObservationIds": [
+                  "obs"
+                ],
+                "evidenceRefs": [
+                  "fixture:obs"
+                ],
+                "status": "CANDIDATE_EVIDENCE_BOUND_THEORY"
+              }
+            ],
+            "claimBoundary": "THEORY_FORMATION_DOES_NOT_ESTABLISH_CAUSAL_TRUTH"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "00e92f9ffe5ce9872698168d7a1df4eec8e446bcffbe78cd19f3f7870c4c5a6e"
+    },
+    {
+      "atomId": "causal.assess-witness",
+      "input": {
+        "cause": "fixture A",
+        "effect": "fixture B",
+        "temporalOrder": true,
+        "evidenceRefs": [
+          "fixture:causal"
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"causal.assess-witness\",\"sourceHash\":\"413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"CAUSAL_WITNESS_ASSESSED\",\"cause\":\"fixture A\",\"effect\":\"fixture B\",\"witnessClass\":\"WEAK_ASSOCIATIONAL_WITNESS\",\"score\":2,\"temporalOrder\":true,\"design\":null,\"alternativeExplanations\":[],\"evidenceRefs\":[\"fixture:causal\"],\"claimBoundary\":\"WITNESS_STRENGTH_IS_METHOD_EVIDENCE_NOT_AUTOMATIC_CAUSAL_PROOF\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "causal.assess-witness",
+          "sourceHash": "413db7d4e30488376bfcc53905cfef46c7efe6344e006050b70e6d6db04e4e17",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "CAUSAL_WITNESS_ASSESSED",
+            "cause": "fixture A",
+            "effect": "fixture B",
+            "witnessClass": "WEAK_ASSOCIATIONAL_WITNESS",
+            "score": 2,
+            "temporalOrder": true,
+            "design": null,
+            "alternativeExplanations": [],
+            "evidenceRefs": [
+              "fixture:causal"
+            ],
+            "claimBoundary": "WITNESS_STRENGTH_IS_METHOD_EVIDENCE_NOT_AUTOMATIC_CAUSAL_PROOF"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "28a7dd624a4b207e62350c2203ca83d73ec64dfa807b08fb9167490ddd129d06"
+    },
+    {
+      "atomId": "evaluator.coevolve",
+      "input": {
+        "hypotheses": [
+          {
+            "id": "h",
+            "features": {
+              "score": 1
+            },
+            "targetRank": 0
+          }
+        ],
+        "evaluators": [
+          {
+            "id": "e",
+            "weights": {
+              "score": 1
+            }
+          }
+        ],
+        "rounds": 1
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"evaluator.coevolve\",\"sourceHash\":\"e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"EVALUATOR_ECOLOGY_COEVOLVED\",\"history\":[{\"round\":1,\"evaluators\":[{\"id\":\"e\",\"loss\":0,\"ordering\":[\"h\"]}]}],\"finalPopulation\":[{\"id\":\"e\",\"parentId\":null,\"weights\":{\"score\":1}},{\"id\":\"eval_461d11c74b5245d6\",\"parentId\":\"e\",\"weights\":{\"score\":1}}],\"promotionAuthority\":\"NONE\",\"claimBoundary\":\"OFFLINE_COEVOLUTION_DOES_NOT_PROMOTE_EVALUATORS_OR_PROVE_EXTERNAL_VALUE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "evaluator.coevolve",
+          "sourceHash": "e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "EVALUATOR_ECOLOGY_COEVOLVED",
+            "history": [
+              {
+                "round": 1,
+                "evaluators": [
+                  {
+                    "id": "e",
+                    "loss": 0,
+                    "ordering": [
+                      "h"
+                    ]
+                  }
+                ]
+              }
+            ],
+            "finalPopulation": [
+              {
+                "id": "e",
+                "parentId": null,
+                "weights": {
+                  "score": 1
+                }
+              },
+              {
+                "id": "eval_461d11c74b5245d6",
+                "parentId": "e",
+                "weights": {
+                  "score": 1
+                }
+              }
+            ],
+            "promotionAuthority": "NONE",
+            "claimBoundary": "OFFLINE_COEVOLUTION_DOES_NOT_PROMOTE_EVALUATORS_OR_PROVE_EXTERNAL_VALUE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "49bab1eabe0d5a89072ca328a18919fb85cb93897e1071a5a6180014144a9295"
+    },
+    {
+      "atomId": "architecture.generate-rivals",
+      "input": {
+        "baseline": {
+          "id": "synthetic"
+        },
+        "changedPrimitives": [
+          {
+            "id": "new"
+          }
+        ],
+        "maxRivals": 1
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"architecture.generate-rivals\",\"sourceHash\":\"e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"FUTURE_RIVALS_GENERATED\",\"rivals\":[{\"rivalId\":\"rival_0fcff56fe95440b17a30\",\"primitiveId\":\"new\",\"challengedAssumptionId\":\"baseline\",\"architecture\":{\"id\":\"synthetic\",\"replacedAssumption\":\"baseline\",\"exploitingPrimitive\":\"new\",\"status\":\"SYNTHETIC_RIVAL_BLUEPRINT\"},\"falsificationQuestion\":\"Would new make assumption baseline materially inferior under the same benchmark?\"}],\"implementationAuthority\":\"NONE\",\"claimBoundary\":\"RIVALS_ARE_SYNTHETIC_ARCHITECTURE_CHALLENGERS_NOT_EXECUTED_REPLACEMENTS\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "architecture.generate-rivals",
+          "sourceHash": "e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "FUTURE_RIVALS_GENERATED",
+            "rivals": [
+              {
+                "rivalId": "rival_0fcff56fe95440b17a30",
+                "primitiveId": "new",
+                "challengedAssumptionId": "baseline",
+                "architecture": {
+                  "id": "synthetic",
+                  "replacedAssumption": "baseline",
+                  "exploitingPrimitive": "new",
+                  "status": "SYNTHETIC_RIVAL_BLUEPRINT"
+                },
+                "falsificationQuestion": "Would new make assumption baseline materially inferior under the same benchmark?"
+              }
+            ],
+            "implementationAuthority": "NONE",
+            "claimBoundary": "RIVALS_ARE_SYNTHETIC_ARCHITECTURE_CHALLENGERS_NOT_EXECUTED_REPLACEMENTS"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "d0cc234ceab8f192f1ac2aec748eef293783d4047c3a30b4954a1507f96c92c8"
+    },
+    {
+      "atomId": "policy.evolve-generations",
+      "input": {
+        "seedPolicies": [
+          {
+            "id": "p",
+            "weights": {
+              "score": 1
+            }
+          }
+        ],
+        "benchmarkCases": [
+          {
+            "candidates": [
+              {
+                "id": "a",
+                "features": {
+                  "score": 2
+                }
+              },
+              {
+                "id": "b",
+                "features": {
+                  "score": 1
+                }
+              }
+            ],
+            "winnerId": "a"
+          }
+        ],
+        "generations": 1
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"policy.evolve-generations\",\"sourceHash\":\"e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"GENESIS_POLICY_POPULATION_EVOLVED\",\"generations\":[{\"generation\":1,\"bestId\":\"p\",\"bestFitness\":1}],\"challenger\":{\"id\":\"genesis2_2b13f9ed20bf2748\",\"parentId\":\"p\",\"weights\":{\"score\":0.95},\"fitness\":1},\"promotionAuthority\":\"NONE\",\"claimBoundary\":\"MULTI_GENERATION_OFFLINE_EVOLUTION_NEVER_SELF_PROMOTES_TO_PRODUCTION\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "policy.evolve-generations",
+          "sourceHash": "e07e570f6855490460da896927362a8d5305095288125929a74801028263aaf5",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "GENESIS_POLICY_POPULATION_EVOLVED",
+            "generations": [
+              {
+                "generation": 1,
+                "bestId": "p",
+                "bestFitness": 1
+              }
+            ],
+            "challenger": {
+              "id": "genesis2_2b13f9ed20bf2748",
+              "parentId": "p",
+              "weights": {
+                "score": 0.95
+              },
+              "fitness": 1
+            },
+            "promotionAuthority": "NONE",
+            "claimBoundary": "MULTI_GENERATION_OFFLINE_EVOLUTION_NEVER_SELF_PROMOTES_TO_PRODUCTION"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "b46234e3165ec13629c39e18ac7a99a1b79e5eec6aefc5e5352038769f6cec44"
+    },
+    {
+      "atomId": "ontology.invent-language",
+      "input": {
+        "namespace": "ub",
+        "concepts": [
+          {
+            "id": "buyer"
+          },
+          {
+            "id": "offer"
+          }
+        ],
+        "relations": [
+          {
+            "from": "buyer",
+            "relation": "PAYS",
+            "to": "offer"
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"ontology.invent-language\",\"sourceHash\":\"8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"BOUNDED_LANGUAGE_INVENTED\",\"namespace\":\"ub\",\"symbols\":[{\"id\":\"buyer\",\"token\":\"ub.buyer\"},{\"id\":\"offer\",\"token\":\"ub.offer\"}],\"grammar\":[{\"from\":\"buyer\",\"relation\":\"PAYS\",\"to\":\"offer\"}],\"languageDigest\":\"ce8b838e9be4a7013a5fb4fb912b99ce685b8c37e6c059364c3efa318f5e174e\",\"executionAuthority\":\"NONE\",\"claimBoundary\":\"LANGUAGE_IS_A_BOUNDED_SYMBOLIC_GRAMMAR_NOT_ARBITRARY_EXECUTABLE_CODE\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "ontology.invent-language",
+          "sourceHash": "8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "BOUNDED_LANGUAGE_INVENTED",
+            "namespace": "ub",
+            "symbols": [
+              {
+                "id": "buyer",
+                "token": "ub.buyer"
+              },
+              {
+                "id": "offer",
+                "token": "ub.offer"
+              }
+            ],
+            "grammar": [
+              {
+                "from": "buyer",
+                "relation": "PAYS",
+                "to": "offer"
+              }
+            ],
+            "languageDigest": "ce8b838e9be4a7013a5fb4fb912b99ce685b8c37e6c059364c3efa318f5e174e",
+            "executionAuthority": "NONE",
+            "claimBoundary": "LANGUAGE_IS_A_BOUNDED_SYMBOLIC_GRAMMAR_NOT_ARBITRARY_EXECUTABLE_CODE"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "0246b69fbef784ad364ff3258316d88dae413075c6e3e62b0c7dddd03e8807a4"
+    },
+    {
+      "atomId": "economy.compile-dsl",
+      "input": {
+        "entities": [
+          {
+            "id": "buyer",
+            "kind": "ACTOR"
+          },
+          {
+            "id": "seller",
+            "kind": "ACTOR"
+          },
+          {
+            "id": "cash",
+            "kind": "RESOURCE"
+          }
+        ],
+        "flows": [
+          {
+            "from": "buyer",
+            "to": "seller",
+            "resource": "cash",
+            "rate": 1
+          }
+        ]
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"economy.compile-dsl\",\"sourceHash\":\"8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"ECONOMIC_DSL_COMPILED\",\"ast\":{\"entities\":[{\"id\":\"buyer\",\"kind\":\"ACTOR\",\"unit\":null},{\"id\":\"seller\",\"kind\":\"ACTOR\",\"unit\":null},{\"id\":\"cash\",\"kind\":\"RESOURCE\",\"unit\":null}],\"flows\":[{\"from\":\"buyer\",\"to\":\"seller\",\"resource\":\"cash\",\"rate\":1}],\"constraints\":[],\"objectives\":[]},\"astDigest\":\"c58bdac93fd070e025553f4fb8a8fe68aa6115fae436212d1d47f25314596b1f\",\"evaluationAuthority\":\"NONE\",\"claimBoundary\":\"DSL_ENCODES_SUPPLIED_ECONOMIC_STRUCTURE_AND_DOES_NOT_ASSERT_MARKET_TRUTH\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "economy.compile-dsl",
+          "sourceHash": "8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "ECONOMIC_DSL_COMPILED",
+            "ast": {
+              "entities": [
+                {
+                  "id": "buyer",
+                  "kind": "ACTOR",
+                  "unit": null
+                },
+                {
+                  "id": "seller",
+                  "kind": "ACTOR",
+                  "unit": null
+                },
+                {
+                  "id": "cash",
+                  "kind": "RESOURCE",
+                  "unit": null
+                }
+              ],
+              "flows": [
+                {
+                  "from": "buyer",
+                  "to": "seller",
+                  "resource": "cash",
+                  "rate": 1
+                }
+              ],
+              "constraints": [],
+              "objectives": []
+            },
+            "astDigest": "c58bdac93fd070e025553f4fb8a8fe68aa6115fae436212d1d47f25314596b1f",
+            "evaluationAuthority": "NONE",
+            "claimBoundary": "DSL_ENCODES_SUPPLIED_ECONOMIC_STRUCTURE_AND_DOES_NOT_ASSERT_MARKET_TRUTH"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "8f3bb71972b202ac896c0440e9b974292d2792762f3d54079e07cb459ebc1639"
+    },
+    {
+      "atomId": "company.compile-genome",
+      "input": {
+        "company": {
+          "buyer": "synthetic client",
+          "problem": "fixture",
+          "mechanism": "test",
+          "value": "receipt",
+          "distribution": "none",
+          "revenue": "zero",
+          "delivery": "local",
+          "capabilities": []
+        }
+      },
+      "receipt": {
+        "content": [
+          {
+            "type": "text",
+            "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"company.compile-genome\",\"sourceHash\":\"8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"businessEffectAuthority\":\"NONE\",\"externalEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COMPANY_GENOME_COMPILED\",\"ast\":{\"identity\":\"company_cca767bf3f73ede8\",\"core\":{\"buyer\":\"synthetic client\",\"problem\":\"fixture\",\"mechanism\":\"test\",\"value\":\"receipt\",\"distribution\":\"none\",\"revenue\":\"zero\",\"delivery\":\"local\"},\"capabilities\":[],\"dependencies\":[],\"unresolvedDependencies\":[]},\"astDigest\":\"d413b45d0114c741d2b542957792941150ec87e0966e646a442ed8341952945a\",\"executableSemantics\":[\"VALIDATE_CORE\",\"CHECK_CAPABILITY_DEPENDENCIES\",\"COMPARE_GENOMES\"],\"claimBoundary\":\"COMPANY_GENOME_AST_IS_A_DESIGN_AND_VALIDATION_OBJECT_NOT_A_LEGAL_ENTITY_OR_LIVE_COMPANY\"}}"
+          }
+        ],
+        "structuredContent": {
+          "externalEffectAuthority": "NONE",
+          "businessEffectAuthority": "NONE",
+          "externalEffectLedger": {
+            "providerCalls": 0,
+            "messages": 0,
+            "purchases": 0,
+            "deployments": 0,
+            "credentialChanges": 0,
+            "dnsChanges": 0,
+            "productionMutations": 0,
+            "spendCents": 0
+          },
+          "ok": true,
+          "status": "COS_NATIVE_ATOM_EXECUTED",
+          "atomId": "company.compile-genome",
+          "sourceHash": "8f052c31e1a68d0f6bf0ea1e20713515e15c3e3e6f633afb36716b6d646b5bf3",
+          "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+          "result": {
+            "businessEffectAuthority": "NONE",
+            "externalEffectAuthority": "NONE",
+            "externalEffectLedger": {
+              "providerCalls": 0,
+              "messages": 0,
+              "purchases": 0,
+              "deployments": 0,
+              "credentialChanges": 0,
+              "dnsChanges": 0,
+              "productionMutations": 0,
+              "spendCents": 0
+            },
+            "ok": true,
+            "status": "COMPANY_GENOME_COMPILED",
+            "ast": {
+              "identity": "company_cca767bf3f73ede8",
+              "core": {
+                "buyer": "synthetic client",
+                "problem": "fixture",
+                "mechanism": "test",
+                "value": "receipt",
+                "distribution": "none",
+                "revenue": "zero",
+                "delivery": "local"
+              },
+              "capabilities": [],
+              "dependencies": [],
+              "unresolvedDependencies": []
+            },
+            "astDigest": "d413b45d0114c741d2b542957792941150ec87e0966e646a442ed8341952945a",
+            "executableSemantics": [
+              "VALIDATE_CORE",
+              "CHECK_CAPABILITY_DEPENDENCIES",
+              "COMPARE_GENOMES"
+            ],
+            "claimBoundary": "COMPANY_GENOME_AST_IS_A_DESIGN_AND_VALIDATION_OBJECT_NOT_A_LEGAL_ENTITY_OR_LIVE_COMPANY"
+          }
+        },
+        "isError": false
+      },
+      "receiptDigest": "b5c0adba4c53931eadbad88c85146f3a0e91afed322d028c7a7a52ec12d14401"
+    }
+  ],
+  "restart": {
+    "content": [
+      {
+        "type": "text",
+        "text": "{\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\",\"externalEffectLedger\":{\"providerCalls\":0,\"messages\":0,\"purchases\":0,\"deployments\":0,\"credentialChanges\":0,\"dnsChanges\":0,\"productionMutations\":0,\"spendCents\":0},\"ok\":true,\"status\":\"COS_NATIVE_ATOM_EXECUTED\",\"atomId\":\"founder.exception-prioritize\",\"sourceHash\":\"c8f8ecf62428ca53484dfc5153b0ff219a62a02116c927a50609d3b4f6a83e36\",\"classification\":\"LOCAL_DETERMINISTIC_ZERO_EFFECT\",\"result\":{\"ok\":true,\"status\":\"NO_FOUNDER_EXCEPTION_REQUIRED\",\"schemaVersion\":\"uberbond.founder-exception-market.v1\",\"ceiling\":3,\"selectedCount\":0,\"queue\":[],\"rejected\":[],\"deferredAdmissibleCount\":0,\"law\":\"FOUNDER_EXCEPTION_QUEUE_IS_ONLY_FOR_GENUINE_HUMAN_ONLY_CROSSINGS_AFTER_MACHINE_REMEDIATION_IS_EXHAUSTED\",\"receiptDigest\":\"sha256:966f9f41688e2843e0644aa2236e2884fd892e680e7bd40ec26b96e597f7f795\",\"externalEffectAuthority\":\"NONE\",\"businessEffectAuthority\":\"NONE\"}}"
+      }
+    ],
+    "structuredContent": {
+      "externalEffectAuthority": "NONE",
+      "businessEffectAuthority": "NONE",
+      "externalEffectLedger": {
+        "providerCalls": 0,
+        "messages": 0,
+        "purchases": 0,
+        "deployments": 0,
+        "credentialChanges": 0,
+        "dnsChanges": 0,
+        "productionMutations": 0,
+        "spendCents": 0
+      },
+      "ok": true,
+      "status": "COS_NATIVE_ATOM_EXECUTED",
+      "atomId": "founder.exception-prioritize",
+      "sourceHash": "c8f8ecf62428ca53484dfc5153b0ff219a62a02116c927a50609d3b4f6a83e36",
+      "classification": "LOCAL_DETERMINISTIC_ZERO_EFFECT",
+      "result": {
+        "ok": true,
+        "status": "NO_FOUNDER_EXCEPTION_REQUIRED",
+        "schemaVersion": "uberbond.founder-exception-market.v1",
+        "ceiling": 3,
+        "selectedCount": 0,
+        "queue": [],
+        "rejected": [],
+        "deferredAdmissibleCount": 0,
+        "law": "FOUNDER_EXCEPTION_QUEUE_IS_ONLY_FOR_GENUINE_HUMAN_ONLY_CROSSINGS_AFTER_MACHINE_REMEDIATION_IS_EXHAUSTED",
+        "receiptDigest": "sha256:966f9f41688e2843e0644aa2236e2884fd892e680e7bd40ec26b96e597f7f795",
+        "externalEffectAuthority": "NONE",
+        "businessEffectAuthority": "NONE"
+      }
+    },
+    "isError": false
+  }
+}

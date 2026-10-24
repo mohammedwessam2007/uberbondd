@@ -11,6 +11,10 @@ Every repo-aware Claude/Opus mission and Project-connected ChatGPT continuation 
 5. The `PHILOSOPHY_OMEGA46_52` ZIP carries the modern founder donated reading plans, on-demand cognitive cards, curated analysis and working research code/tests (source truth, not real-world proof).
 6. `DEEP_RESEARCH_SNAPSHOT` gives reproducible broader canon, research, architecture and retained historical artifacts with a versioned ledger. These sources may be large and contain private company context; only unpack inside private environments.
 
+## Verbatim founder 52 source lineage (additional requirement)
+
+The 52 distinct founder concepts in Ω47, Ω49, Ω50, Ω51 and Ω52 are not adequately represented by summarized model research alone. Read `FOUNDER_52_SOURCE_STARTUP_CARD.md` as resident startup, and retrieve `FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md` (source transcription) and `FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json` as needed. The separate `UBERMIND_GRAND_LIBRARY_20261024_FOUNDER_DIRECTIVES_52_ORIGINALS.zip` carries source and 52 individual addressable cards. Preserve Ω46 EQ and all 890 verbatim original bodies. Never promote unverified founder hypotheses into legal authority, empirical proof or permitted side effects.
+
 ## Every mission
 Task → identify relevant founder ideas (may be multiple across 890) → select source claims and counterclaims → inspect actual authority and data → create plan plus strongest falsifier → run native tests where available → report observed result/limitations → preserve receipt and return source pointers. Do not extrapolate from legal/philosophical descriptions to an actual exemption or abuse. Never lose the distinct source identity of same-titled #0625 and #0683.
 

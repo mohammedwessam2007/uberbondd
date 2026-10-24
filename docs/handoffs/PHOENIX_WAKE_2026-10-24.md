@@ -57,3 +57,33 @@ GitHub supports 5–240 minute idle timeout and enforces a 12-hour running lifet
 All 890 founder IDs and literal corpus remain untouched. Continuity law was read; literal corpus bytes and complete brain/startup hydration were not recovered in this bounded infrastructure task. This checkpoint makes no completeness or implementation claim for those ideas. No unique source was deleted or superseded.
 
 Official reference: https://docs.github.com/en/rest/codespaces/codespaces ; https://docs.github.com/en/codespaces/about-codespaces/understanding-the-codespace-lifecycle ; https://docs.github.com/en/codespaces/setting-your-user-preferences/setting-your-timeout-period-for-github-codespaces .
+
+## Live recovery addendum — after founder workspace-trust approval
+
+The founder explicitly approved Trust Folder & Continue. Browser terminal confirmed:
+- Existing CoS recovery watcher PID 768 inherited ELECTRON_RUN_AS_NODE=1. The log repeatedly reported bad option --no-sandbox / --disable-gpu / --password-store=gnome-libsecret. Current interactive shell did not have the flag; inspecting the watcher's environment established the inherited-variable cause.
+- Reused the installed recover-existing donor by copying it to /home/node/.local/bin/phoenix-recover-existing, clearing ELECTRON_RUN_AS_NODE at its application exec boundary. Original repository donor untouched. Backed up .bashrc and .fluxbox/startup and changed their recovery hook to the copy.
+- Stopped the exact failing watcher, restored the original CoS app/profile/keyring and original CoS tunnel ID. A real Chat On Steroids exec_command succeeded: CONNECTOR_RECOVERED /workspaces/uberbondd. Current runtime app PID 8715 and tunnel-client PID 8829 were observed; PID values are historical receipts, not future restart targets.
+- The existing desktop starts from Codespace lifecycle. Its Fluxbox startup hook now requests the sanitized watcher independently of a terminal attach. An actual complete host restart has NOT been tested.
+- A harmless native PHOENIX invocation through restored CoS succeeded: founder.exception-prioritize with exceptions=[], NO_FOUNDER_EXCEPTION_REQUIRED, receiptDigest sha256:966f9f41688e2843e0644aa2236e2884fd892e680e7bd40ec26b96e597f7f795. This digest is deterministic, not a unique timestamp or proof that the direct PHOENIX connector recovered.
+- Direct PHOENIX connector still returned Session terminated. The saved phoenix.yaml references env:CONTROL_PLANE_API_KEY, which is absent after startup. Started its donor supervisor to diagnose, then stopped the request-owned retry loop after confirming the missing credential. Do NOT claim direct tool recovery or create replacement tunnel ID.
+- Codespace's GITHUB_TOKEN is an ephemeral OAuth user token, not a durable personal access token. It can inspect its own Codespace, but must not be repurposed as a persistent external controller credential.
+- GET Codespace verified Available, correct owner/repo, idle_timeout_minutes=30. PATCH with idle_timeout_minutes=240 returned 30; current REST update schema does not document this field. The attempted change had no observed effect. No maximum-timeout claim is made.
+- Actual source was fetched to a clean detached worktree now at /workspaces/uberbondd/.phoenix-wake-20261024. The same 12 tests passed in the live Codespace (0 failures).
+- Railway browser session is authenticated Hobby. ample-vibrancy has existing UberWarm runtime/Postgres/callback services and three pre-existing staged edits. Those edits and services were left untouched. The connector still requires reauthentication; an authenticated UI is not proof of a safe zero-cost deployment envelope.
+- Source installer scripts/codespace/install-existing-recovery.sh makes the confirmed repair reproducible without modifying dirty repository donors. It does not kill arbitrary runtime processes or solve missing credentials.
+
+Remaining external blockers: durable Codespaces-start credential and verified independent host/cost envelope for the wake page; secure persistent runtime key for the direct PHOENIX tunnel. No published wake URL, stopped-to-ready test or production migration is claimed. CoS is currently callable; full mission remains incomplete.
+
+## Independent ChatGPT post-Work audit — October 24, 2026
+
+Work stopped at its usage limit with **three changes not yet committed to PR #1556**: this updated handoff, `scripts/codespace/install-existing-recovery.sh`, and `tests/phoenix-wake-installer.test.mjs`. The independent operator audited the changes directly from the live isolated worktree. The six original PR files were already published at `e291bb08a9bc6b44ff8ec3bec9dcff129c0c6f9a`.
+
+- `node --test tests/phoenix-wake-controller.test.mjs tests/phoenix-wake-supervisor.test.mjs tests/phoenix-wake-installer.test.mjs`: **15/15 passed, 0 failed, 0 skipped**. Shell scripts and wake-controller JavaScript syntax passed. All tests are local/mocked except the inherited CoS recovery observations.
+- Read-only GitHub Codespaces API returned `Available` for owner `uberbond2007`, repository `mohammedwessam2007/uberbondd`, exact name `automatic-fortnight-gx6xxpjjp5pjcwxq9`, idle timeout **30 minutes**.
+- Existing running process identities (`chat-on-steroid` and `tunnel-client`) remained present at the previously recorded PIDs 8715/8829. A **real Chat On Steroids Core terminal tool call succeeded** in this audit.
+- The **separate direct PHOENIX connector** returned `Session terminated`. No direct native call was successful in this independent audit; the older deterministic native receipt does not demonstrate current direct connector availability.
+- The wake-controller is **not deployed** (`127.0.0.1:8080` did not serve its UI in this Codespace, and no protected external HTTPS host/URL has been confirmed). Runtime `GITHUB_CODESPACES_TOKEN`, `WAKE_OWNER_KEY`, `WAKE_ORIGIN`, `COS_TUNNEL_CMD`, and `COS_TUNNEL_AUTOSTART` were unset in the auditor's shell, which is not a statement about unknown remote secret stores.
+- No live stopped-to-started-to-verified-MCP-READY exercise, credential provisioning, independent hosting verification, lifetime extension, provider billed spend or Codespace stop/start was performed in this audit.
+
+**Outcome:** source built, safe local tests passed, CoS runtime active, PHOENIX direct tunnel and one-tap external host still unverified. Keep PR **DRAFT**, avoid merge or deployment until genuine external authentication, hosting/cost and endpoint tests are cleared. The immediate next action is to preserve these three remaining Work changes on PR #1556, then recover the existing direct PHOENIX tunnel's protected control-plane key without exposing it, and inspect an existing zero-incremental-cost HTTPS host.

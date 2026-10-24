@@ -652,7 +652,7 @@ export class JsonStore {
 
 export class PostgresStore {
   constructor({ databaseUrl, ssl = true, pool, transactionClient = false,
-    nodeEnv = process.env.NODE_ENV, initMode = nodeEnv === 'production' ? 'probe' : 'migrate' } = {}) {
+    nodeEnv = process.env.NODE_ENV, initMode = (nodeEnv === 'production' || process.env.NODE_ENV === 'production') ? 'probe' : 'migrate' } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ ...postgresTlsOptions({ databaseUrl, ssl, nodeEnv }), max: 10 });
     this.ownsPool = !pool;

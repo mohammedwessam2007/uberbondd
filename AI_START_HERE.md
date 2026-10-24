@@ -1,3 +1,8 @@
+
+## UBERMIND V10 ONE MASTER PROJECT CONSTITUTION (2026-10-24)
+
+Single current ChatGPT Project instruction: `library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`. The V10 validation rubric is `library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json`; it passed 10/10 **source/instruction architecture checks**, NOT a claim of 10/10 model performance or universal cross-chat attachment. Reconcile live main and handoffs before trusting historical pointers. New Project chats must verify actual access to 890+52 original sources, 52 doctrine atlas, book manifest and primary book volumes before citing; missing means UNKNOWN. PHOENIX preserves 20 legacy constitutional sections, GENESIS, source provenance and every actual receipt. Owner still needs to set Project Instructions and mount searchable Project source files in the account UI.
+
 # UberBond Universal AI Entry Point
 
 ## 2026-10-24 V7: source-proof and continuity override for fresh sessions

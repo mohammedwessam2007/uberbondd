@@ -1,0 +1,182 @@
+{
+  "schema": "uberbond.ubermind.omega49.asymmetric-strategy-index.v1",
+  "date": "2026-10-24",
+  "status": "FOUNDER_DONOR_RESEARCH_ONLY__NO_EXTERNAL_EFFECTS",
+  "source": "Founder chat 2026-10-24: 'Part 1: The Dark Strategic Additions' + 'Part 2: The Gatekept Domains'",
+  "continuity": {
+    "parentIndex": "config/ubermind-omega47-strategic-philosophy-index.json",
+    "existing": "9 thinkers / 7 topics",
+    "new": "4 thinkers / 6 topics",
+    "preserveOriginal": true
+  },
+  "thinkers": [
+    {
+      "id": "luttwak",
+      "name": "Edward Luttwak",
+      "works": [
+        "Coup d'État: A Practical Handbook",
+        "Strategy: The Logic of War and Peace"
+      ],
+      "analysis": "systemic chokepoints and own-institution resilience; never hostile subversion",
+      "terms": [
+        "luttwak",
+        "strategic chokepoint",
+        "single point of failure",
+        "infrastructure fragility",
+        "institutional bottleneck"
+      ],
+      "mode": "DEFENSIVE_ANALYSIS_ONLY"
+    },
+    {
+      "id": "boyd",
+      "name": "John Boyd",
+      "works": [
+        "The OODA Loop",
+        "Aerial Attack Study"
+      ],
+      "analysis": "observe-orient-decide-act feedback, competing decision speeds and experimental learning",
+      "terms": [
+        "boyd",
+        "ooda",
+        "decision cycle",
+        "observe orient decide act",
+        "feedback loop",
+        "decision tempo"
+      ],
+      "mode": "LAWFUL_STRATEGY"
+    },
+    {
+      "id": "liddell-hart",
+      "name": "B. H. Liddell Hart",
+      "works": [
+        "The Strategy of Indirect Approach"
+      ],
+      "analysis": "indirect product/channel positioning and avoidance of costly direct conflict",
+      "terms": [
+        "liddell hart",
+        "indirect approach",
+        "flanking strategy",
+        "niche positioning",
+        "asymmetric distribution"
+      ],
+      "mode": "LAWFUL_STRATEGY"
+    },
+    {
+      "id": "schopenhauer",
+      "name": "Arthur Schopenhauer",
+      "works": [
+        "The Art of Being Right: 38 Ways to Win an Argument"
+      ],
+      "analysis": "argument-bias recognition and fair rebuttals, not trap-based coercion",
+      "terms": [
+        "schopenhauer",
+        "art of being right",
+        "argumentation",
+        "bad faith debate",
+        "rhetorical trick",
+        "logical fallac"
+      ],
+      "mode": "DEFENSIVE_ANALYSIS_ONLY"
+    }
+  ],
+  "domains": [
+    {
+      "id": "corporate-control-defense",
+      "title": "Takeovers, Proxy Contests and Poison Pills",
+      "terms": [
+        "hostile takeover",
+        "proxy contest",
+        "shareholder rights plan",
+        "poison pill",
+        "flip in",
+        "flip over",
+        "tender offer",
+        "corporate control"
+      ],
+      "mode": "LEGAL_CORPORATE_ANALYSIS_ONLY"
+    },
+    {
+      "id": "greenmail-risk",
+      "title": "Greenmail and Shareholder Coercion Risk",
+      "terms": [
+        "greenmail",
+        "share repurchase premium",
+        "takeover pressure"
+      ],
+      "mode": "RISK_DEFENSE_ONLY"
+    },
+    {
+      "id": "layered-entity-compliance",
+      "title": "Vasco-Architecture / Layered Entity Compliance",
+      "terms": [
+        "vasco architecture",
+        "multi tiered shell",
+        "layered holding company",
+        "cayman foundation",
+        "panama foundation",
+        "beneficial ownership opacity",
+        "untraceable assets"
+      ],
+      "mode": "COMPLIANCE_RESEARCH_ONLY",
+      "termVerified": false
+    },
+    {
+      "id": "intercompany-pricing",
+      "title": "Intercompany Transfer Pricing and Arm's-Length Substance",
+      "terms": [
+        "transfer pricing",
+        "intercompany service",
+        "intragroup fee",
+        "arm s length",
+        "profit shifting",
+        "multinational service fee"
+      ],
+      "mode": "COMPLIANCE_RESEARCH_ONLY"
+    },
+    {
+      "id": "regulatory-capture-defense",
+      "title": "Regulatory Capture and Manufactured-Friction Defense",
+      "terms": [
+        "regulatory capture",
+        "manufactured friction",
+        "weaponized compliance",
+        "zoning complaints",
+        "regulatory harassment",
+        "corrupt permitting"
+      ],
+      "mode": "DEFENSIVE_ANALYSIS_ONLY"
+    },
+    {
+      "id": "information-advantage-compliance",
+      "title": "Public/Authorized Intelligence Versus Market Abuse",
+      "terms": [
+        "non public information",
+        "material nonpublic",
+        "insider trading",
+        "front run",
+        "front running",
+        "nonpublic data",
+        "market intelligence asymmetry",
+        "consumer vulnerability"
+      ],
+      "mode": "COMPLIANCE_RESEARCH_ONLY"
+    }
+  ],
+  "doc": "docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md",
+  "unknowns": [
+    "Founder's term 'Vasco-Architecture' is not independently established standard terminology",
+    "historical texts do not establish modern legal permission",
+    "no full copyrighted texts ingested"
+  ],
+  "hardBoundaries": [
+    "no hostile organizational subversion",
+    "no coercion or extortion",
+    "no deceptive material claims or contract traps",
+    "no fraudulent legal opacity or tax avoidance",
+    "no vexatious complaints or regulatory sabotage",
+    "no insider trading, misappropriation or nonconsensual private-data exploitation",
+    "no unauthorized model, payments or external acts"
+  ],
+  "modelCalls": 0,
+  "externalEffectAuthority": "NONE"
+}

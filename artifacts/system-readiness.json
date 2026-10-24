@@ -1,10 +1,10 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-24T12:18:25.189Z",
+  "generatedAt": "2026-10-24T12:23:35.211Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "a658c40b0ef6f9bb25413d6b261f112305c66233",
-    "branch": "feat/ubermind-omega42-agent-tree-receipt-20261024",
+    "head": "b3a962587b088a241b95d7a84e6d9c423cb49923",
+    "branch": "fix/omega42-postmerge-canon-20261024",
     "sourceModules": 1141,
     "testSuites": 1377,
     "workingTreeClean": true

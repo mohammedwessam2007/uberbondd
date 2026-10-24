@@ -1,5 +1,11 @@
 # UberBond Universal AI Entry Point
 
+## 2026-10-24 V7: source-proof and continuity override for fresh sessions
+
+First inspect `docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md` and verify today's `main` and actual accessible Project sources. Do not interpret a historic revenue/canon hot pointer below as automatically the latest mission. Every consequential ChatGPT/Opus mission must retrieve source-specific founder records from original 890/52 canon, classify relevant lenses, perform real work, falsify the result and finish with an honest Applied/Screened/Rules/Evidence receipt. `UBERMIND_V7_SINGLE_PROJECT_SOURCE_890_PLUS_52.md` must actually be attached and accessed within the ChatGPT Project; Library storage and GitHub pointers alone cannot prove cross-chat access. When missing report `PROJECT_SOURCE_NOT_MOUNTED`, not a fake 52/52. Preserve all prior founders, Ω46–Ω52, GENESIS, PHOENIX and authority. This section updates retrieval conduct but does not delete or supersede unique historical instructions.
+
+
+
 ## V5 ChatGPT-first freshness + all-52 quality contract (2026-10-24)
 
 **This file contains date-stamped historical mission hot pointers, including the Oct 4 revenue handoff. DO NOT assume any such pointer is current.** For every material UberBond mission: first verify up-to-date repo `main`, constitution `AGENTS.md`, Universal Context Protocol, actual runtime, Total Brain, Master Memory, most recent VERIFIED handoff, relevant PRs/issues and Project source accessibility. Latest verified state and the present founder task outrank stale operational snippets; archive old pointers and preserve lineage. A missing GitHub file or unmerged PR is an UNKNOWN, not proof it was activated. ChatGPT is the default present-chat brain; model labels are not evidence of connected Opus.

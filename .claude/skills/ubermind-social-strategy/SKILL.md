@@ -4,6 +4,8 @@ description: Activate the Opus-first human intelligence and economic strategy le
 ---
 
 # UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\n**Ω47 primary corpus installed:** For Machiavelli-informed strategic/business/EQ tasks, consult `OMEGA47_ADDENDUM.md`, the sourcebook `docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`, and the compressed corpus at `artifacts/strategy/machiavelli-principles.v1.json.br.b64`. The sourcebook gives a no-inference Node decompression/search fallback; the separate `scripts/machiavelli-canon.mjs` executable is on draft PR #1564 until source/canon tests clear. Preserve 183 indexed source units and 106 interpretive principles, distinguish text/source from modern analogy, never assert the full original oeuvre is ingested or that model weights were retrained. Counterparty agency and human uncertainty remain sovereign.\n
+**Expanded founder strategy library:** For additional realpolitik, game theory, negotiation, jurisdiction analysis, contract design, asset protection, corporate finance, tax planning, operations and competitive research, also read .claude/skills/ubermind-strategic-realism/SKILL.md and docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md. The index config/ubermind-omega47-strategic-philosophy-index.json covers nine thinkers and seven subjects. These supplement, not replace, the already merged Machiavelli archive and the EQ skill. Preserve evidence, permissions and legal review boundaries.
+
 **Truth class:** RESEARCH-BASED_OPERATING_SKILL / proposed cognitive procedure, NOT proven human EQ, not live buyer mindreading, not a new provider API.
 
 ## Prime instruction

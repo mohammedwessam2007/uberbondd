@@ -1,0 +1,225 @@
+{
+  "schema": "uberbond.ubermind.omega47.strategic-philosophy-index.v1",
+  "date": "2026-10-24",
+  "status": "FOUNDER_DONOR_INDEX__NOT_LEGAL_CLEARANCE_OR_MODEL_FINETUNING",
+  "parentDoctrines": [
+    ".claude/skills/ubermind-social-strategy/SKILL.md",
+    "docs/MACHIAVELLI_WEALTH_ENGINE.md"
+  ],
+  "source": "Founder message, UberBond chat, 2026-10-24",
+  "completeInventory": true,
+  "thinkers": [
+    {
+      "id": "machiavelli",
+      "name": "Niccolò Machiavelli",
+      "works": [
+        "The Prince",
+        "Discourses on Livy"
+      ],
+      "atoms": [
+        "power-mapping",
+        "institutional-incentives",
+        "strategic-reputation"
+      ],
+      "truth": "historical interpretive donor"
+    },
+    {
+      "id": "greene",
+      "name": "Robert Greene",
+      "works": [
+        "The 48 Laws of Power",
+        "The 33 Strategies of War"
+      ],
+      "atoms": [
+        "positioning",
+        "information-discipline",
+        "asymmetric-competition"
+      ],
+      "truth": "copyrighted interpretive donor"
+    },
+    {
+      "id": "bismarck",
+      "name": "Otto von Bismarck",
+      "works": [
+        "Collected Speeches and Memoirs"
+      ],
+      "atoms": [
+        "realpolitik",
+        "coalitions",
+        "pragmatic-negotiation"
+      ],
+      "truth": "historic donor; edition unknown"
+    },
+    {
+      "id": "rand",
+      "name": "Ayn Rand",
+      "works": [
+        "Atlas Shrugged",
+        "The Virtue of Selfishness"
+      ],
+      "atoms": [
+        "productive-self-interest",
+        "economic-agency",
+        "contractual-freedom"
+      ],
+      "truth": "copyrighted philosophic donor"
+    },
+    {
+      "id": "stirner",
+      "name": "Max Stirner",
+      "works": [
+        "The Ego and Its Own"
+      ],
+      "atoms": [
+        "individual-agency",
+        "nonbinding-convention-analysis"
+      ],
+      "truth": "philosophical donor"
+    },
+    {
+      "id": "sun-tzu",
+      "name": "Sun Tzu",
+      "works": [
+        "The Art of War"
+      ],
+      "atoms": [
+        "asymmetric-strategy",
+        "costly-conflict-avoidance",
+        "positioning"
+      ],
+      "truth": "historical strategy donor"
+    },
+    {
+      "id": "von-neumann",
+      "name": "John von Neumann",
+      "works": [
+        "Theory of Games and Economic Behavior"
+      ],
+      "coauthors": [
+        "Oskar Morgenstern"
+      ],
+      "atoms": [
+        "payoff-matrices",
+        "zero-sum-when-applicable",
+        "strategic-choice"
+      ],
+      "truth": "formal economics donor"
+    },
+    {
+      "id": "hart",
+      "name": "H. L. A. Hart",
+      "works": [
+        "The Concept of Law"
+      ],
+      "atoms": [
+        "legal-validity",
+        "sources-and-interpretation",
+        "rule-of-recognition"
+      ],
+      "truth": "jurisprudence donor; not legal opinion"
+    },
+    {
+      "id": "holmes",
+      "name": "Oliver Wendell Holmes Jr.",
+      "works": [
+        "The Common Law",
+        "The Path of the Law"
+      ],
+      "atoms": [
+        "enforcement-forecasting",
+        "litigation-risk",
+        "legal-realism"
+      ],
+      "truth": "jurisprudence donor; not advice"
+    }
+  ],
+  "domains": [
+    {
+      "id": "jurisdictional-arbitrage",
+      "title": "Jurisdictional Arbitrage",
+      "tasks": [
+        "tax-residency",
+        "nexus-substance-treaties",
+        "entity-comparison"
+      ]
+    },
+    {
+      "id": "contract-mechanics",
+      "title": "Advanced Contract Mechanics and Asymmetric Clauses",
+      "tasks": [
+        "indemnity-and-liability-caps",
+        "liquidated-damages",
+        "termination-and-nondisclosure",
+        "forum-and-disputes"
+      ]
+    },
+    {
+      "id": "asset-insulation-trust-law",
+      "title": "Asset Insulation, Entity Separateness and Trust Law",
+      "tasks": [
+        "LLC-and-trust-structuring",
+        "beneficial-ownership-compliance",
+        "fraudulent-transfer-limits",
+        "insurance-and-creditor-risk"
+      ]
+    },
+    {
+      "id": "statutory-tax-planning",
+      "title": "Statutory Tax Optimization",
+      "tasks": [
+        "deductions",
+        "depreciation",
+        "treaty-withholding",
+        "compliance"
+      ]
+    },
+    {
+      "id": "venture-and-corporate-finance",
+      "title": "Venture Capital and Corporate Finance",
+      "tasks": [
+        "capital-stack",
+        "equity-dilution",
+        "debt-buyouts",
+        "risk-adjusted-ROI"
+      ]
+    },
+    {
+      "id": "hyper-efficient-execution",
+      "title": "Unconventional Business Operations",
+      "tasks": [
+        "lean-automation",
+        "outsourcing",
+        "delivery-proof",
+        "cost-arbitrage"
+      ]
+    },
+    {
+      "id": "competitive-intelligence",
+      "title": "Lawful Information Supremacy and Competitive Intelligence",
+      "tasks": [
+        "public-market-data",
+        "competitor-analysis",
+        "consumer-behavior-trends",
+        "provenance"
+      ]
+    }
+  ],
+  "hardGates": [
+    "current-binding-jurisdiction-specific-law",
+    "no-unauthorized-external-effects",
+    "no-evasion-sham-or-fraudulent-transfer",
+    "no-privacy-or-access-bypass",
+    "owner-and-counterparty-agency",
+    "cleared-profit-proof",
+    "890-founder-lineage"
+  ],
+  "files": [
+    "docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md",
+    ".claude/skills/ubermind-strategic-realism/SKILL.md"
+  ],
+  "readonly": true,
+  "paidApiCallsAuthorized": false,
+  "coverageNote": "9 named thinkers and 7 independently addressable technical topics; original founder categories 4 philosophical + 3 applied.",
+  "relatedMainSource": "docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md",
+  "reconciliation": "COMPANION_KEEP_BOTH__MACHIAVELLI_SOURCE_ADDRESSES_NOT_EXHAUSTIVE"
+}

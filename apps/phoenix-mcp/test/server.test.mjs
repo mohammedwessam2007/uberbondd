@@ -85,3 +85,17 @@ test('real subprocess MCP stdio transport exposes PHOENIX tools', async () => {
     assertZero(result);
   } finally { await client.close(); }
 });
+
+
+test('HTTP rejects wrong bearer, malformed JSON, methods and oversized bodies', async () => {
+ const token = randomBytes(32).toString('hex'); const server = await startHttp({port:0,token});
+ try {
+  const url = `http://127.0.0.1:${server.address().port}/mcp`;
+  assert.equal((await fetch(url,{method:'POST',headers:{Authorization:'Bearer wrong'},body:'{}'})).status,401);
+  const headers={Authorization:`Bearer ${token}`,'content-type':'application/json'};
+  assert.equal((await fetch(url,{method:'GET',headers})).status,405);
+  assert.equal((await fetch(url,{method:'POST',headers,body:'{broken'})).status,400);
+  assert.equal((await fetch(url,{method:'POST',headers,body:'a'.repeat(65537)})).status,413);
+  assert.equal((await fetch(url+'-unknown',{method:'POST',headers,body:'{}'})).status,404);
+ } finally { await new Promise(resolve=>server.close(resolve)); }
+});

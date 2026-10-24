@@ -1,0 +1,21 @@
+name: PHOENIX MCP verification
+on:
+  pull_request:
+    paths:
+      - 'apps/phoenix-mcp/**'
+      - 'scripts/phoenix-cos-operator.mjs'
+      - 'src/**'
+      - '.github/workflows/phoenix-mcp.yml'
+permissions:
+  contents: read
+jobs:
+  phoenix-mcp:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci --prefix apps/phoenix-mcp --ignore-scripts --no-audit --no-fund
+      - run: npm --prefix apps/phoenix-mcp test

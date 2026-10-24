@@ -70,12 +70,12 @@ export async function startHttp({ port = Number(process.env.PHOENIX_MCP_PORT || 
     if (req.method !== 'POST') { res.writeHead(405, { allow: 'POST' }); res.end(); return; }
     const length = Number(req.headers['content-length'] || 0);
     if (!Number.isFinite(length) || length < 0 || length > 65536) { res.writeHead(413); res.end(); return; }
-    let data = ''; let oversized = false;
-    req.on('data', chunk => { data += chunk; if (data.length > 65536) { oversized = true; req.destroy(); } });
+    const chunks = []; let bytes = 0; let oversized = false;
+    req.on('data', chunk => { bytes += chunk.length; if (bytes > 65536) { oversized = true; req.destroy(); } else chunks.push(chunk); });
     req.on('end', async () => {
       if (oversized) return;
       let body;
-      try { body = JSON.parse(data); } catch { res.writeHead(400); res.end(); return; }
+      try { body = JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { res.writeHead(400); res.end(); return; }
       const mcp = createPhoenixMcpServer();
       const transport = new StreamableHTTPServerTransport({ sessionIdGenerator: undefined, enableJsonResponse: true });
       try {

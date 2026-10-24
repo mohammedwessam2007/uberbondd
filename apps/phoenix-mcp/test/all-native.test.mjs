@@ -33,7 +33,7 @@ test('all fifteen native atoms through real subprocess MCP, denial and restart',
    const repeated=await client.callTool(call); assert.deepEqual(repeated,receipt);
    receipts.push({atomId,input,receipt,receiptDigest:createHash('sha256').update(JSON.stringify(receipt)).digest('hex')});
   }
-  for(const args of [{atomId:'shell.exec',input:{}},{atomId:'founder.exception-prioritize',input:[]},{atomId:'founder.exception-prioritize',input:{x:'a'.repeat(13000)}},{atomId:'world.simulate-counterfactual',input:{steps:13}}]) {
+  for(const args of [{atomId:'shell.exec',input:{}},{atomId:'founder.exception-prioritize',input:[]},{atomId:'founder.exception-prioritize',input:{x:'a'.repeat(13000)}},{atomId:'founder.exception-prioritize',input:{x:'界'.repeat(5000)}},{atomId:'world.simulate-counterfactual',input:{steps:13}}]) {
    assert.equal((await client.callTool({name:'phoenix_invoke_native',arguments:args})).isError,true);
   }
   assert.equal((await client.callTool({name:'shell_exec',arguments:{}})).isError,true);

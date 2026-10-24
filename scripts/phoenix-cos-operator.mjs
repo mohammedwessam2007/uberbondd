@@ -58,7 +58,7 @@ function market() {
   return inspectNativeCapabilityUniverse({rootDir:root,sourceRevision:process.env.UBERBOND_SOURCE_SHA || 'WORKTREE'});
 }
 function input(value) {
-  if(!bounded(value, MAX_ARGUMENT_BYTES)) return null;
+  if(!bounded(value, MAX_ARGUMENT_BYTES) || Buffer.byteLength(value, 'utf8') > MAX_ARGUMENT_BYTES) return null;
   try {
     const parsed = JSON.parse(value);
     if(!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) return null;

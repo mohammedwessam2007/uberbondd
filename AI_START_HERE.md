@@ -1,5 +1,13 @@
 # UberBond Universal AI Entry Point
 
+## V5 ChatGPT-first freshness + all-52 quality contract (2026-10-24)
+
+**This file contains date-stamped historical mission hot pointers, including the Oct 4 revenue handoff. DO NOT assume any such pointer is current.** For every material UberBond mission: first verify up-to-date repo `main`, constitution `AGENTS.md`, Universal Context Protocol, actual runtime, Total Brain, Master Memory, most recent VERIFIED handoff, relevant PRs/issues and Project source accessibility. Latest verified state and the present founder task outrank stale operational snippets; archive old pointers and preserve lineage. A missing GitHub file or unmerged PR is an UNKNOWN, not proof it was activated. ChatGPT is the default present-chat brain; model labels are not evidence of connected Opus.
+
+**Mandatory full-spectrum intelligence:** load the *small* `docs/architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md` plus `library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md`. Confirm original long-form text and 52-source line manifest are accessible when making source-specific claims. On every substantive mission **evaluate ALL 52** for relevance; every genuinely applicable principle should contribute an actual concrete operation, without an arbitrary 1–5 ceiling. Unrelated, contrary, restricted or unavailable concepts must be labeled honestly, not manufactured into fake application. Preserve separately Ω46 EQ and all original founder 890 identities/lineage. **Founder prioritizes quality over usage limits**, but no new monetary expense or unauthorized external action follows.
+
+**R12 mandatory final reply receipt:** Applied Ω/card IDs and real operations; Screened 52/52 only if actually checked, with A/C/R/N/X counts for substantial work; Rules R01–R12 materially enforced; Evidence actual sources/tests/actions versus unverified. This is a concise observable-output ledger, not private chain-of-thought.
+
 ## Founder-level meta North Star
 
 Before mission selection, read `docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`.

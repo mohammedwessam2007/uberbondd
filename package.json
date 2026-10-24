@@ -115,6 +115,8 @@
     "capabilities:phoenix:doctor": "python3 scripts/phoenix-ten-wave-genome-doctor.py",
     "capabilities:phoenix:query": "node scripts/phoenix-ten-wave-query.mjs",
     "capabilities:cos": "node scripts/phoenix-cos-operator.mjs",
+    "phoenix:mcp:test": "npm --prefix apps/phoenix-mcp test",
+    "phoenix:mcp:stdio": "node apps/phoenix-mcp/server.mjs --stdio",
     "capabilities:genome:harvest": "node scripts/capability-genome-harvest.mjs",
     "capabilities:genome:body-import": "node scripts/capability-genome-body-import.mjs",
     "capabilities:genome:normalize": "node scripts/capability-genome-normalize-bodies.mjs",

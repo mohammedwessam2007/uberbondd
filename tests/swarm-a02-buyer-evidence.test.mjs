@@ -1,0 +1,12 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';
+const p=new URL('../artifacts/commercialization/swarm/A02/buyer_language_evidence.jsonl',import.meta.url);
+const a=readFileSync(p,'utf8').trim().split('\n').map(JSON.parse);
+const docs=()=>['ICP_PURCHASE_TRIGGERS.md','OBJECTION_ATLAS.md','INTERVIEW_AND_ACCEPTANCE_PROTOCOL.md','PHOENIX_20261024.md'].map(x=>readFileSync(new URL('../docs/commercialization/swarm/A02/'+x,import.meta.url),'utf8'));
+test('exactly 3 source-seen candidate records',()=>assert.equal(a.length,3));
+test('public source provenance is immutable and explicit',()=>assert.ok(a.every(x=>x.sourceHead==='01738544a69d3d85528cce386fc52effc655b59d'&&x.observedAt==='2026-10-15')));
+test('source quotes were not mislabeled as verbatim interviews',()=>assert.ok(a.every(x=>x.buyerQuotedVerbatim===false&&x.originalDetailAccessible===false)));
+test('no claim of known live current open job',()=>assert.ok(a.every(x=>x.currentPostingOpen==='UNKNOWN'&&x.status.startsWith('HOLD_'))));
+test('advertised 150, 300, and 1500 are budgets not sales',()=>assert.deepEqual(a.map(x=>x.postedBudgetUSD).sort((a,b)=>a-b),[150,300,1500]));
+test('no identities, emails or off-platform contact',()=>assert.ok(a.every(x=>x.namedBuyer===null&&x.buyerEmail===null&&x.externalContactAuthority===false)));
+test('zero submitted applications and zero cleared money',()=>assert.ok(a.every(x=>x.applicationSubmitted===false&&x.clearedRevenueUSD===0)));
+test('protocol keeps hold and falsification visible',()=>{const d=docs();assert.equal(d.length,4);assert.ok(d.every(x=>x.length>150));assert.match(d[2],/NO CONTACT AUTHORISATION/);assert.match(d[3],/NOT/);});

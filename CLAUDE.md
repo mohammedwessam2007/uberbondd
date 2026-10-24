@@ -1,5 +1,8 @@
 # UberBond Claude Code Project Memory
 
+**Ω∞ V6 full-spectrum cross-chat verification:** Read `docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md` before selecting a mission. The 52-card executable register is `config/ubermind-v6-52-operation-registry.json`. Quality-first source checks and honest R12 receipts supersede older simplistic cost or name-only principles. ChatGPT Project source attachment is separate from this Claude repo import; do not claim automatically installed account settings.
+
+
 **Ω∞ V5 quality directive (2026-10-24):** In repo-aware Opus/Claude sessions, read the small V5 full-52 applicability card. Founder prioritizes operational quality and thoroughness above quota minimization; screen all 52 original concept IDs for each substantive mission, apply all genuinely useful lawful methods with actual evidence, and append accurate R12 receipt every reply. Historical minimum-Pro-usage tactics are subordinate to demonstrated quality. New spending still requires owner approval.
 
 

@@ -5,6 +5,9 @@ description: Start here for Opus-first business, EQ, negotiation, power, legal, 
 
 # Ω48 OPUS CROWN · STRATEGY FLASH
 
+**Ω49 asymmetry supplement, only when relevant:** The same native microbrief CLI now reads config/ubermind-omega49-asymmetric-strategy-index.json locally and may attach an `omega49` source-pointer packet. Only then retrieve docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md. Four extra thinkers and six institutional risk topics remain addressable without injecting a large new policy or book into ordinary Opus context. `omega49.mode=RESEARCH_ONLY` and `authority=NO_EXTERNAL_EFFECTS` are mandatory. For takeovers, greenmail, layered entities, related-party pricing, regulatory capture or non-public information, use current jurisdictional law, disclosure/ethics gates and independent professional review, never inferred legal clearance. No model calls are introduced by this retrieval selector.
+
+
 Opus remains the **lead**: this does NOT route strategic reasoning to Haiku/Sonnet or call any inference API.
 
 1. After the repo constitutional bootstrap, execute `node scripts/ubermind-strategy-brief.mjs --mission "the actual current question"` from repository root. It runs locally, without secrets, network, or paid inference.

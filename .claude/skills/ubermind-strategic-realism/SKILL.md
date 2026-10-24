@@ -5,6 +5,9 @@ description: Opus-first lawful competitive strategy for negotiation, contracts, 
 
 # Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR
 
+**Ω49 companion (founder directive, 2026-10-24):** Advanced strategic and corporate-risk research now includes Edward Luttwak, John Boyd, B. H. Liddell Hart, Arthur Schopenhauer, and six institutional topics. Use config/ubermind-omega49-asymmetric-strategy-index.json and docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md on demand, preferably via the native Ω48 microbrief. Interpret historical adversarial methods as ways to find lawful asymmetries or recognize threats, not permission for coercion, concealed beneficial ownership, fictitious services, regulatory harassment, insider trading or psychological traps. Keep Opus as accountable primary reasoning model and retain all Ω46/Ω47/890 donors.
+
+
 ## Ω48 Opus-first context economy
 
 The priority is the **frontier quality floor with less wasted allowance**, not replacement of Opus. For fresh, bounded strategic questions, use `node scripts/ubermind-strategy-brief.mjs --mission "actual mission"` or the compact .claude/skills/ubermind-strategy-flash/SKILL.md **before hydrating the full sourcebooks**. The native command selects limited source pointers from the nine-thinker/seven-domain index without any model calls, secrets or network effects. Its regex classification is a hint, never a legal, strategic or psychological judgment. Opus may override the route and read additional documents for ambiguity, unusually high stakes or inconsistent evidence. Reuse source/quality-matched decisions and tests instead of repetitively debating them. Default ONE Opus lead, ZERO roleplay agents. Track real accepted result and actual plan usage; do not claim measured quota savings from characters alone.

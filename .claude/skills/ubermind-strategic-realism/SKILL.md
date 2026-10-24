@@ -5,7 +5,7 @@ description: Opus-first lawful competitive strategy for negotiation, contracts, 
 
 # Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR
 
-Read **docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md** for all nine philosophical donors and six technical domains. Also read the existing Ω46 skill at **.claude/skills/ubermind-social-strategy/SKILL.md** and the economic truth at **docs/MACHIAVELLI_WEALTH_ENGINE.md**. Start with AI_START_HERE.md, AGENTS.md, the Sovereign Cognitive Continuum and all 890 founder idea pointers. This is a researched operating SKILL, not fine-tuning or a signed-off legal opinion.
+Read **docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md** for all nine philosophical donors and seven technical topics. Also read the existing Ω46 skill at **.claude/skills/ubermind-social-strategy/SKILL.md** and the economic truth at **docs/MACHIAVELLI_WEALTH_ENGINE.md**. Start with AI_START_HERE.md, AGENTS.md, the Sovereign Cognitive Continuum and all 890 founder idea pointers. This is a researched operating SKILL, not fine-tuning or a signed-off legal opinion.
 
 ## Seven parallel reasoning lenses, one Opus brain
 Apply these perspectives internally, not by spawning needless expensive role-play agents.
@@ -28,11 +28,13 @@ Apply these perspectives internally, not by spawning needless expensive role-pla
 8. **VALIDATE:** Prefer cheapest permitted research or opt-in pilot. No unauthorized outreach, payments, external effects, deployment or private-account access.
 9. **LEARN:** Record forecast/error, counterpart reaction, confirmed facts, actual cost, legal-source version and payment proof in PHOENIX. Preserve failure lineage.
 
-## Six domain output templates
+## Seven distinct domain output templates
 
 **Jurisdiction and incorporation:** founder tax residency; target clients, substance and management/control, permanent establishment/nexus, AML/beneficial-owner reporting, CFC, treaty eligibility, corporate and personal tax, formation+filing cost, liability, bank/payment provider acceptance, ongoing compliance and exit. Default is NOT to assume a US company reduces Egypt-resident owner's taxes.
 
-**Contracts and asset insulation:** indemnification, caps/exclusions, liquidated damages vs penalties, warranties, termination, arbitration/forum, choice of law, IP, confidentiality, escrow, insurance, trust/LLC substance, fraudulent conveyance, beneficial owner disclosure. Seek enforceable informed terms, not secret traps.
+**Contracts:** indemnification, caps/exclusions, liquidated damages vs penalties, warranties, termination, arbitration/forum, choice of law, IP, confidentiality and escrow. Seek enforceable informed terms, not secret traps.
+
+**Asset insulation and trusts:** legitimate entity separateness, insurance, trusts and LLC substance, creditor rights, fraudulent conveyance, beneficial-owner disclosure, insolvency restrictions, anti-abuse and actual enforceability. Do not disguise beneficial ownership or shelter assets from valid claims through sham transfers.
 
 **Tax planning:** deductions, statutory reliefs, depreciation and allowances, withholding, transfer pricing, double-tax relief, capital gains, records, reporting, substance and anti-avoidance. Distinguish lawful avoidance from evasion, concealment, sham entities or fabricated records. If unclear: UNKNOWN_PENDING_COUNSEL.
 

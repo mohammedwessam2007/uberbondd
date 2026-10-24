@@ -1,0 +1,97 @@
+{
+  "schema": "ubermind.omega50.research-index.v1",
+  "date": "2026-10-24",
+  "status": "RESEARCH_ONLY",
+  "source": "Founder October 24, 2026 two-part doctrine",
+  "sourcebook": "docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md",
+  "kernel": "Beer: observed effects over advertised claims. Taleb: seek convex outcomes, measure true downside. Land: test reflexive beliefs against outcomes. Law: procedural timing, contract interpretation and international tax each require binding sources; never infer exemptions.",
+  "thinkers": [
+    {
+      "id": "beer",
+      "name": "Stafford Beer",
+      "works": [
+        "Viable System Model",
+        "POSIWID"
+      ],
+      "terms": [
+        "stafford beer",
+        "posiwid",
+        "viable system model",
+        "cybernetics",
+        "requisite variety"
+      ]
+    },
+    {
+      "id": "taleb",
+      "name": "Nassim Nicholas Taleb",
+      "works": [
+        "Antifragile",
+        "Convexity"
+      ],
+      "terms": [
+        "taleb",
+        "antifragility",
+        "antifragile",
+        "convexity",
+        "tail risk",
+        "optionality"
+      ]
+    },
+    {
+      "id": "land",
+      "name": "Nick Land",
+      "works": [
+        "Accelerationism",
+        "Hyperstition"
+      ],
+      "terms": [
+        "nick land",
+        "accelerationism",
+        "hyperstition",
+        "reflexive narrative",
+        "narrative feedback"
+      ]
+    }
+  ],
+  "domains": [
+    {
+      "id": "statutory-time-arbitrage",
+      "name": "Statutory Time-Arbitrage",
+      "terms": [
+        "statutory time arbitrage",
+        "bureaucratic processing",
+        "agency filing delay",
+        "notice period",
+        "administrative delay",
+        "filing effective date"
+      ],
+      "scope": "Research applicable filing and deadline rules"
+    },
+    {
+      "id": "semantic-voiding",
+      "name": "Semantic Voiding",
+      "terms": [
+        "semantic voiding",
+        "contractual ambiguity",
+        "contra proferentem",
+        "choice of court agreement",
+        "governing law ambiguity"
+      ],
+      "scope": "Contract interpretation and dispute prevention"
+    },
+    {
+      "id": "regulatory-desynchronization",
+      "name": "Regulatory Desynchronization",
+      "terms": [
+        "regulatory desynchronization",
+        "hybrid mismatch",
+        "tax mismatch",
+        "cross border tax classification",
+        "branch mismatch",
+        "beps action 2"
+      ],
+      "scope": "Jurisdictional tax compliance and mismatch recognition"
+    }
+  ],
+  "authority": "NONE"
+}

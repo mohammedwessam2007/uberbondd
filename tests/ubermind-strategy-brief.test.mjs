@@ -30,6 +30,7 @@ for(const [query,expected] of cases){
 test("buyer trust does not masquerade as asset-protection trust", () => {
   const out = compileStrategicBrief("Customer objects to pricing and distrusts our offer; procurement delayed",index);
   assert.equal(out.topics.includes("asset-insulation-trust-law"),false);
+  assert.equal(out.route,"EQ_FIRST");
   assert.equal(out.eq!==undefined,true);
 });
 test("real trust law still routes to trust law", () => {

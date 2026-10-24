@@ -10,6 +10,7 @@ on:
       - 'scripts/verify-ubermind-archives.py'
       - 'scripts/build-ubermind-library-index.py'
       - 'library/ubermind/**'
+      - 'scripts/build-ubermind-founder-52-pack.py'
 
 permissions:
   contents: read
@@ -30,6 +31,7 @@ jobs:
           python scripts/build-ubermind-library-index.py
           python scripts/build-ubermind-knowledge-archives.py
           python scripts/verify-ubermind-archives.py
+          python scripts/build-ubermind-founder-52-pack.py
           sha256sum .local/ubermind-archives/*.zip
       - name: Founder originals and canonical continuity pack
         uses: actions/upload-artifact@v4
@@ -71,5 +73,14 @@ jobs:
             .local/ubermind-archives/LIBRARY_MANIFEST.json
             library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md
             library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md
+          retention-days: 90
+          if-no-files-found: error
+
+      - name: Complete original 52 founder concepts, independent source cards and provenance
+        uses: actions/upload-artifact@v4
+        with:
+          name: UBERMIND-06-FOUNDER-52-VERBATIM
+          path: .local/ubermind-archives/UBERMIND_GRAND_LIBRARY_20261024_FOUNDER_DIRECTIVES_52_ORIGINALS.zip
+          compression-level: 0
           retention-days: 90
           if-no-files-found: error

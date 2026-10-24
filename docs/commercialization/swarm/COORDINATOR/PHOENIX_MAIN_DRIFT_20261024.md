@@ -1,0 +1,7 @@
+# PHOENIX main-drift reconciliation, 2026-10-24 10:04 UTC
+
+The live UberBond `main` advanced **during** the 20-worker restoration. The live repository fetch returned `03e5698590f31d2d8c27b18ddf8bbdb084f01fa8`, a merge of the PHOENIX guarded MCP connector and verified native capability gateway. The earlier restoration started against exact main `3a7a0b7a5ece796e617c0c363118d4b1618bf9c1`. These two statements are both true at their respective observation times. `main` did not change due to Wealth Swarm actions and no swarm material was merged.
+
+The source diff is 38 paths; grep for swarm/commercial/money-entry and broad docs yielded no direct change under `docs/commercialization/swarm/` or `src/commercialization/swarm-admission-gate.mjs` (the latter remains on a draft source branch), while shared readiness and gateway capability files did change. **This is only a path-level screen, not full semantic integration proof.** Before A19/A20 integration refresh exact main again, reconcile current readiness and capabilities, and rerun relevant suites. Never use old main SHA as new release authority.
+
+Still true: 20 restored local worktrees/remote worker branch refs; A09 21/21 and admission gate 13/13; 19 provider-policy blocked AI sessions; zero bank-cleared contribution profit; no external outreach or main merge. Current review artifact is draft PR #1548 against the isolated recovery preflight branch, not main.

@@ -1,0 +1,238 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUTC": "2026-10-24T10:00:29.635808+00:00",
+  "program": "UberBond Wealth Swarm Omega",
+  "truthClass": "ACTUAL_CODESPACE_COMMAND_RECEIPT_AND_GITHUB_REF_VERIFICATION_NOT_MISSION_COMPLETION",
+  "codespaceConnection": "LIVE",
+  "priorTmpLost": true,
+  "originalMainHead": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "recoverySourceBranch": "swarm/recovery-execution-20261024",
+  "recoverySourceHead": "81a69b80bb22712fd18a8200192410c948918a93",
+  "configuredAgents": 20,
+  "localWorktreesRestored": 20,
+  "remoteDedicatedBranches": 20,
+  "profiles": "40 configured in bootstrap source; distinct 20 role assignments",
+  "verifiedCompletedRemoteWorkerEvidence": [
+    "A09"
+  ],
+  "independentMissionSessionsRunning": 0,
+  "blockedModelSessions": 19,
+  "modelBlock": "COPILOT_ACCOUNT_POLICY_DENIED",
+  "runner": "GitHub Copilot CLI 1.0.103, --model auto, inferred no availability under current github.com uberbond2007 account",
+  "claudeCli": "loggedIn:false",
+  "codexCli": "not logged in",
+  "hostGitPush": "403 denied to uberbond2007 on owner repo",
+  "fallbackBranchCreation": "GitHub owner account connector",
+  "validatedFocusedTests": {
+    "A09AndContra": {
+      "passed": 21,
+      "failed": 0,
+      "skipped": 0,
+      "command": "node --test tests/swarm-a09-payment-evidence.test.mjs tests/contra-collection-readiness.test.mjs"
+    },
+    "swarmAdmission": {
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "command": "node --test tests/swarm-admission-gate.test.mjs"
+    }
+  },
+  "fullDeterministicSuite": "NOT_RUN_THIS_CHECKPOINT",
+  "a19FullTribunal": "BLOCKED_MISSING_19_REVIEWED_MISSIONS",
+  "a20Integration": "BLOCKED_NO_A19_PASS",
+  "clearedContributionProfitUsd": 0,
+  "externalEffects": {
+    "newSpendUsd": 0,
+    "customerMessages": 0,
+    "paymentRequests": 0,
+    "payments": 0,
+    "dnsMutations": 0,
+    "productionDeployments": 0,
+    "mainMerges": 0
+  },
+  "branchHeads": {
+    "A01": {
+      "branch": "swarm/A01-strategy-tournament-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A02": {
+      "branch": "swarm/A02-buyer-signal-lab-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A03": {
+      "branch": "swarm/A03-prospect-evidence-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A04": {
+      "branch": "swarm/A04-quality-proof-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A05": {
+      "branch": "swarm/A05-delivery-experience-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A06": {
+      "branch": "swarm/A06-outreach-creative-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A07": {
+      "branch": "swarm/A07-distribution-safety-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A08": {
+      "branch": "swarm/A08-partner-commercial-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A09": {
+      "branch": "swarm/A09-payments-eligibility-20261023",
+      "remoteHead": "a239cf5d0752344d0dd53ab6a10f6cfc90e78554",
+      "sourceTruth": "SOURCE_RESEARCH_AND_TEST_RECEIPT"
+    },
+    "A10": {
+      "branch": "swarm/A10-money-integrity-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A11": {
+      "branch": "swarm/A11-delivery-operations-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A12": {
+      "branch": "swarm/A12-apify-readiness-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A13": {
+      "branch": "swarm/A13-inbound-channels-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A14": {
+      "branch": "swarm/A14-profit-calibration-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A15": {
+      "branch": "swarm/A15-retention-mechanisms-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A16": {
+      "branch": "swarm/A16-economic-invention-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A17": {
+      "branch": "swarm/A17-vertical-tournament-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A18": {
+      "branch": "swarm/A18-owner-minutes-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A19": {
+      "branch": "swarm/A19-independent-redteam-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    },
+    "A20": {
+      "branch": "swarm/A20-swarm-integrator-20261023",
+      "remoteHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "sourceTruth": "CONFIGURATION_ONLY"
+    }
+  },
+  "localWorktreeHeads": {
+    "A01": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A02": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A03": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A04": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A05": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A06": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A07": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A08": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A09": {
+      "localHead": "a239cf5d0752344d0dd53ab6a10f6cfc90e78554",
+      "worktreePresent": true
+    },
+    "A10": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A11": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A12": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A13": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A14": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A15": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A16": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A17": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A18": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A19": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    },
+    "A20": {
+      "localHead": "a898de492e55c8c4d3b78e9cbf5e7a5737317954",
+      "worktreePresent": true
+    }
+  },
+  "nextStep": "Authenticate an existing GitHub account with verified Copilot CLI inference entitlement in the already-restored Codespace; no new paid API or provider commitment. Then rerun guarded dispatcher and capture per-worker terminal receipts and tests."
+}

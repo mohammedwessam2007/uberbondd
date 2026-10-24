@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "truthClass": "EXACT_REMOTE_MAIN_FETCH_WITH_PATH_DIFF_SCREEN",
+  "observedAtUTC": "2026-10-24T10:04:00Z",
+  "mainAtFirstSwarmRecovery": "3a7a0b7a5ece796e617c0c363118d4b1618bf9c1",
+  "mainAtLastVerification": "03e5698590f31d2d8c27b18ddf8bbdb084f01fa8",
+  "latestMainSubject": "Merge PHOENIX guarded MCP connector and verified native capability gateway",
+  "numberOfChangedFiles": 38,
+  "changedSharedReadiness": true,
+  "swarmMergedIntoMain": false,
+  "semanticCompatibility": "NOT_TESTED_AGAINST_NEW_MAIN",
+  "swarmReleaseStatus": "HOLD_ADMISSION",
+  "nextAction": "Refresh main again, inspect shared readiness/capability APIs and rerun cross-branch tests before A19/A20."
+}

@@ -1,0 +1,7 @@
+# Founder Original 52-Concept Source Retrieval Card (Ω47–Ω52)
+
+The full, source-preserving founder input is `FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md` in this directory, with exact 52 entries, location and original-heading references in `FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`. Distribution: Ω47 16, Ω49 10, Ω50 6, Ω51 8, Ω52 12. Ω46 EQ and the 890 founder original idea corpus are separate inherited parts of the full UberBond project.
+
+**At every substantive task:** take the 52 concept list into account, assign A (apply), C (challenge), R (retrieve source), N (not relevant) or X (restricted/historical), and carry out every permitted relevant method that improves the result. Never conflate founder hypotheses with verified laws or science; preserve unusual concepts and original wording. **Do not load 23 KB of raw text into all ordinary chats** merely for ceremonial compliance; cite exact source passages where a concept matters. The operating conduct contract is `docs/architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md`. Verification gaps are not proof of missing knowledge; check Project sources, Library and GitHub.
+
+The startup card does not create a new hierarchy, authorize spend, compromise opponents, or supersede original founder ideas, legal requirements and higher project instructions.

@@ -1,0 +1,17 @@
+{
+  "schema":"uberbond.ubermind.permanent-library-catalog.v1",
+  "date":"2026-10-24",
+  "sourceOfTruth":"mohammedwessam2007/uberbondd main, refresh actual SHA before retrieval",
+  "downloadWorkflow":".github/workflows/ubermind-grand-library-build.yml",
+  "archiveSourceBuild":"scripts/build-ubermind-knowledge-archives.py",
+  "archiveOutputManifest":".local/ubermind-archives/LIBRARY_MANIFEST.json INSIDE WORKFLOW ARTIFACT, exact hashes unique to source commit",
+  "archiveNames":[
+    "UBERMIND_GRAND_LIBRARY_20261024_CANON_890.zip",
+    "UBERMIND_GRAND_LIBRARY_20261024_CLASSICS_PUBLIC_DOMAIN_US.zip",
+    "UBERMIND_GRAND_LIBRARY_20261024_PHILOSOPHY_OMEGA46_52.zip",
+    "UBERMIND_GRAND_LIBRARY_20261024_DEEP_RESEARCH_SNAPSHOT.zip"
+  ],
+  "projectFileStrategy":"4 ZIP archives + 1 searchable master index + 1 project bootstrap = 6 Project files if attached; avoid 25-file limit",
+  "caveats":["Compressed ZIP attachments may not be indexed for Project semantic search; use the companion Markdown index and decompress as needed","GitHub Actions artifact retention is time-limited; rebuildable source stays in main","No automatic model training, no guarantee that ChatGPT Project reads bytes not mounted into its context","Full modern copyrighted works are not included; lawful source guides are"],
+  "criticalCanon":"890 literal original ideas recovered and SHA-verified; ten raw JSON shards, transcript, canonical docs; source checks in build script"
+}

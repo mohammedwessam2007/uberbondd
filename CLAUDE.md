@@ -1,5 +1,8 @@
 # UberBond Claude Code Project Memory
 
+**Ω∞ V5 quality directive (2026-10-24):** In repo-aware Opus/Claude sessions, read the small V5 full-52 applicability card. Founder prioritizes operational quality and thoroughness above quota minimization; screen all 52 original concept IDs for each substantive mission, apply all genuinely useful lawful methods with actual evidence, and append accurate R12 receipt every reply. Historical minimum-Pro-usage tactics are subordinate to demonstrated quality. New spending still requires owner approval.
+
+
 **Ω50 cognitive resident:** Stafford Beer / system behavior, Taleb / real downside and convexity, Land / narrative feedback. Load docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md before evaluating strategic decisions; full corpus is on demand only. Preserve source, owner authority and original 890 lineage.
 
 **UberMind minimum-Pro-usage setup:** The project skill `/ubermind-lean` is available on demand for Claude Code usage optimization and work; use it only when relevant, not as another unconditional full-text import. Preserve mandatory sovereign/890/security instructions and never make paid provider calls or quietly lower acceptance quality.
@@ -10,6 +13,8 @@
 @docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md
 @docs/architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md
 @docs/architecture/UBERMIND_V4_RESIDENT_PRINCIPLE_RECEIPT.md
+@docs/architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md
+@library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md
 @AGENTS.md
 @NORTH_STAR.md
 @docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md

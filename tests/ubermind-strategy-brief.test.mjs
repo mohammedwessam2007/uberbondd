@@ -37,6 +37,11 @@ test("real trust law still routes to trust law", () => {
   const out=compileStrategicBrief("Create an asset protection trust entity for creditor protection",index);
   assert.ok(out.topics.includes("asset-insulation-trust-law"));
 });
+test("abbreviations cannot match inside unrelated words",()=>{
+  const out=compileStrategicBrief("Hippocampal mossy fiber activation",index);
+  assert.deepEqual(out.topics,[]);
+  assert.equal(out.route,"UNCLASSIFIED_REQUIRES_OPUS_SELECTION");
+});
 test("unknown missions do not fabricate expertise",()=>{
   const out=compileStrategicBrief("Hippocampal mossy fiber activation",index);
   assert.equal(out.route,"UNCLASSIFIED_REQUIRES_OPUS_SELECTION");

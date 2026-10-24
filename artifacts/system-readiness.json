@@ -1,12 +1,12 @@
 {
   "schema": "uberbond.system-readiness.v1",
-  "generatedAt": "2026-10-24T00:49:38.263Z",
+  "generatedAt": "2026-10-24T09:46:19.228Z",
   "generatedBy": "scripts/system-readiness.mjs",
   "repository": {
-    "head": "f412cdbc13104f0a5ac22221596e0503b46a0270",
-    "branch": "feat/phoenix-cos-activation-20261024",
+    "head": "29bce56aecf3f6ef3e957964321489546a437a3f",
+    "branch": "fix/phoenix-activation-verified-20261024",
     "sourceModules": 1140,
-    "testSuites": 1374,
+    "testSuites": 1376,
     "workingTreeClean": false
   },
   "measurements": {

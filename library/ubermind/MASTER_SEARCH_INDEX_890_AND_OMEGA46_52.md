@@ -1,6 +1,3 @@
-Warning: truncated output (original token count: 28597)
-Total output lines: 912
-
 # UberMind Grand Library: searchable master index
 
 **Read first:** `library/ubermind/LIBRARY_BOOTSTRAP.md` and `library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md`. Full source packs are four ZIPs described by manifest; ZIP files alone may not be indexed by ChatGPT Project search. This index is a searchable companion, and source names are pointers, not full book content.
@@ -163,7 +160,598 @@ Total output lines: 912
 - **0150** THE ZERO-LATENCY SCIENCE NETWORK · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
 - **0151** THE REPLICATION INTERNET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
 - **0152** THE GLOBAL LABORATORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
-- **0153** THE EXPERIMENT CLOUD · `artifacts…18597 tokens truncated…moonshots-713-801.json`
+- **0153** THE EXPERIMENT CLOUD · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0154** THE SCIENCE API · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0155** THE INVENTION API · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0156** THE CIVILIZATION API · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0157** THE VALUE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0158** THE ETHICAL COUNTERFACTUAL ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0159** THE RIGHTS COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0160** THE AUTHORITY PHYSICS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0161** THE CONSENT PROTOCOL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0162** THE DELEGATION COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0163** THE CIVILIZATION IMMUNE SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0164** THE RESILIENCE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0165** THE CATASTROPHE SANDBOX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0166** THE BLACK-SWAN FACTORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0167** THE UNKNOWN-UNKNOWN OBSERVATORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0168** THE IGNORANCE MAP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0169** THE DARK KNOWLEDGE TELESCOPE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0170** THE SHADOW THEORY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0171** THE MISSING-VARIABLE DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0172** THE MISSING-DISCIPLINE DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0173** THE MISSING-INSTRUMENT DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0174** THE MISSING-MATHEMATICS DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0175** THE MISSING-SENSE DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0176** THE MISSING-COGNITION DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0177** THE MISSING-INSTITUTION DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0178** THE MISSING-MARKET DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`
+- **0179** THE MISSING-PROPERTY DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0180** THE MISSING-LAW DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0181** THE MISSING-PHYSICS DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0182** THE LAWS-OF-LAWS ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0183** THE THEORY GENERATOR OF THEORY GENERATORS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0184** THE SCIENTIST GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0185** THE INVENTOR GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0186** THE GENERATOR EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0187** THE META-EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0188** THE META-SCIENCE EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0189** THE META-MATHEMATICS EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0190** THE META-COGNITION EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0191** THE META-INSTITUTION EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0192** THE META-CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0193** THE CIVILIZATION SELF-MODEL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0194** THE CIVILIZATION SELF-AWARENESS LOOP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0195** THE CIVILIZATION COUNTERFACTUAL ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0196** THE CIVILIZATION OPTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0197** THE CIVILIZATION POSSIBILITY RESERVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0198** THE EXTINCTION OF DEAD ENDS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0199** THE FUTURE CAPITAL SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0200** THE DISCOVERY CAPITAL MARKET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0201** THE POSSIBILITY MARKET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0202** THE TECHNOLOGY TREE EXCHANGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0203** THE CIVILIZATION LEVERAGE INDEX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0204** THE BRANCHING FACTOR ECONOMY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0205** THE CIVILIZATION DERIVATIVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0206** THE SECOND DERIVATIVE OF CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0207** THE CIVILIZATION FLYWHEEL COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0208** THE DISCOVERY FUSION REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0209** THE BREAKTHROUGH CASCADE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0210** THE AFTERSHOCK ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0211** THE INVENTION GENEALOGY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0212** THE FUTURE GENEALOGY GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0213** THE GRANDCHILD TECHNOLOGY SEARCH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0214** THE GREAT-GRANDCHILD TECHNOLOGY SEARCH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0215** THE TECHNOLOGICAL ANCESTOR HUNTER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0216** THE FUTURE FOSSIL ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0217** THE FUTURE PATENT OFFICE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0218** THE DEFERRED INVENTION VAULT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0219** THE TECHNOLOGY NECROMANCER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0220** THE LOST-FUTURES ARCHIVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0221** THE ALTERNATIVE INDUSTRIAL REVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0222** THE PARALLEL TECHNOLOGY HISTORY GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0223** THE TECHNOLOGY ORDERING THEOREM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0224** THE DISCOVERY SCHEDULER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0225** THE KNOWLEDGE COMPOUND-INTEREST ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0226** THE INTELLIGENCE COMPOUND-INTEREST ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0227** THE CAPABILITY COMPOUND-INTEREST ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0228** THE OPTIONALITY COMPOUND-INTEREST ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0229** THE DISCOVERY OF UNIVERSAL LEVERAGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0230** THE MASTER BOTTLENECK HUNTER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0231** THE BOTTLENECK CASCADE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0232** THE CIVILIZATION GRADIENT DESCENT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0233** THE CIVILIZATION GRADIENT ASCENT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0234** THE POSSIBILITY GRADIENT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0235** THE POSSIBILITY COMPASS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0236** THE CIVILIZATION MAP OF THE UNKNOWN · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0237** THE POSSIBILITY GEOGRAPHY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0238** THE INVENTION WORMHOLE FINDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0239** THE POSSIBILITY BRIDGE BUILDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0240** THE POSSIBILITY ISLAND DISCOVERER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0241** THE DISCONTINUITY HUNTER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0242** THE PHASE-TRANSITION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0243** THE CIVILIZATION PHASE DIAGRAM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0244** THE TECHNOLOGICAL CRITICALITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0245** THE CASCADE TRIGGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0246** THE GREAT UNLOCK · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0247** THE NEXT FIRE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0248** THE NEXT WRITING · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0249** THE NEXT PRINTING PRESS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0250** THE NEXT STEAM ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0251** THE NEXT ELECTRICITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0252** THE NEXT TRANSISTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0253** THE NEXT INTERNET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0254** THE NEXT AI · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0255** THE TECHNOLOGY AFTER AI · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0256** THE TECHNOLOGY AFTER THE TECHNOLOGY AFTER AI · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0257** THE POST-INTELLIGENCE ECONOMY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0258** THE SCARCITY SUCCESSOR ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0259** THE SCARCITY EXTINCTION CASCADE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0260** THE ABUNDANCE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0261** THE ABUNDANCE CASCADE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0262** THE ABUNDANCE FLYWHEEL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0263** THE POST-SCARCITY TRANSITION MAP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0264** THE VALUE-AFTER-ABUNDANCE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0265** THE MEANING TECHNOLOGY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0266** THE HUMAN FLOURISHING SCIENCE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0267** THE FLOURISHING COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`
+- **0268** THE EXPERIENCE ECONOMY 2.0 · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0269** THE REALITY DESIGN PROFESSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0270** THE PERSONAL CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0271** THE ONE-PERSON RENAISSANCE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0272** THE ONE-PERSON UNIVERSITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0273** THE ONE-PERSON LABORATORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0274** THE ONE-PERSON INDUSTRIAL BASE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0275** THE ONE-PERSON RESEARCH CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0276** THE HUMAN-AI ORGANISM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0277** THE EXOCORTEX PROTOCOL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0278** THE COGNITIVE CONTINUUM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0279** THE THOUGHT OPERATING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0280** THE EXTERNALIZED METACOGNITION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0281** THE PERSONAL SCIENTIFIC METHOD · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0282** THE LONGITUDINAL SELF-MODEL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0283** THE SELF-UNKNOWN-UNKNOWN ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0284** THE LIFE PHASE-TRANSITION DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0285** THE PERSONAL BREAKTHROUGH ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0286** THE COMPOUNDING-LIFE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0287** THE LIFE TECHNOLOGY TREE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0288** THE LIFE GRANDCHILD OPTIMIZER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0289** THE POSSIBILITY-PRESERVING LIFE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0290** THE MULTI-LIFE SYNTHESIS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0291** THE IMPOSSIBLE-LIFE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0292** THE PERSONAL CIVILIZATION BOOTSTRAPPER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0293** THE LIFE RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0294** THE HUMAN EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0295** THE CAPABILITY SPECIES · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0296** THE HUMAN-CAPABILITY PERIODIC TABLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0297** THE HUMAN-CAPABILITY EMPTY CELLS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0298** THE NEW PROFESSION GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0299** THE NEW HUMAN ARCHETYPE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0300** THE NEW CIVILIZATIONAL ROLE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0301** THE POST-LABOR HUMAN CAPABILITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0302** THE HUMAN FRONTIER ECONOMY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0303** THE POSSIBILITY ECONOMY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0304** THE REALITY MARKETPLACE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0305** THE OUTCOME ECONOMY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0306** THE PROOF-OF-VALUE PRIMITIVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0307** THE CONTRIBUTION LEDGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0308** THE VALUE CAUSAL GRAPH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0309** THE AUTOCATALYTIC ECONOMY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0310** THE SELF-IMPROVING MARKET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0311** THE MARKET EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0312** THE ECONOMIC OPERATING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0313** THE INSTITUTION APP STORE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0314** THE GOVERNANCE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0315** THE GOVERNANCE SANDBOX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0316** THE POLICY DIGITAL TWIN · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0317** THE MECHANISM PERIODIC TABLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0318** THE SYNTHETIC INSTITUTION SPECIES · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0319** THE TEMPORARY NATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0320** THE MISSION CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0321** THE PROBLEM-SPECIFIC CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0322** THE MICRO-CIVILIZATION COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0323** THE FRONTIER COLONY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0324** THE CIVILIZATION SWARM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0325** THE CIVILIZATION CROSSOVER ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0326** THE CIVILIZATION NATURAL SELECTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0327** THE CIVILIZATION SPECIATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0328** THE CIVILIZATION ECOSYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0329** THE META-CIVILIZATION MARKET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0330** THE CIVILIZATION GENOME · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0331** THE CIVILIZATION GENETIC ENGINEERING · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0332** THE CIVILIZATION PHENOTYPE MAP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0333** THE CIVILIZATION DEVELOPMENTAL BIOLOGY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0334** THE CIVILIZATION EMBRYO · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0335** THE CIVILIZATION STEM CELL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0336** THE CIVILIZATION REGENERATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0337** THE TECHNOLOGICAL DNA · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0338** THE KNOWLEDGE DNA · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0339** THE SCIENCE DNA · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0340** THE CIVILIZATION DNA · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0341** THE CIVILIZATION BACKUP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0342** THE CIVILIZATION RESTORE BUTTON · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0343** THE CIVILIZATION CHECKPOINT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0344** THE CIVILIZATION BRANCH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0345** THE CIVILIZATION MERGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0346** THE CIVILIZATION ROLLBACK · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0347** THE CIVILIZATION CI/CD · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0348** THE CIVILIZATION TEST SUITE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0349** THE CIVILIZATION FORMAL VERIFICATION LAYER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0350** THE RIGHTS-PRESERVING SELF-IMPROVEMENT ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0351** THE SELF-IMPROVING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0352** THE SELF-UNDERSTANDING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0353** THE SELF-QUESTIONING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0354** THE SELF-REDESIGNING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0355** THE SELF-INVENTING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0356** THE SELF-EXPANDING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`
+- **0357** THE POSSIBILITY-PRESERVING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0358** THE CIVILIZATION ANTI-LOCK-IN ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0359** THE CIVILIZATION OPTION PORTFOLIO · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0360** THE HUMAN FUTURE PORTFOLIO · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0361** THE FUTURE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0362** THE FUTURE FALSIFIER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0363** THE FUTURE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0364** THE FUTURE DECOMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0365** THE FUTURE DEBUGGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0366** THE FUTURE LINKER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0367** THE FUTURE RUNTIME · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0368** THE FUTURE TEST SUITE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0369** THE FUTURE SANDBOX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0370** THE FUTURE EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0371** THE FUTURE NATURAL SELECTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0372** THE FUTURE SPECIATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0373** THE WORLDLINE GENOME · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0374** THE WORLDLINE CROSSOVER ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0375** THE WORLDLINE MUTATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0376** THE WORLDLINE SELECTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0377** THE WORLDLINE BRIDGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0378** THE WORLDLINE WORMHOLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0379** THE WORLDLINE COMPRESSOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0380** THE FUTURE LATENCY DESTROYER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0381** THE CIVILIZATION FAST-FORWARD · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0382** THE SAFE ACCELERATION COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0383** THE PROGRESS BRAKE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0384** THE REVERSIBILITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0385** THE OPTIONALITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0386** THE IRREVERSIBILITY DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0387** THE ONE-WAY-DOOR RADAR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0388** THE LAST-EXIT ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0389** THE CIVILIZATION FAILSAFE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0390** THE CAPABILITY-AUTHORITY SEPARATION LAW · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0391** THE SOVEREIGN INTELLIGENCE PRIMITIVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0392** THE INTELLIGENCE RIGHT-TO-EXIT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0393** THE COMPUTATIONAL SOVEREIGNTY LAYER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0394** THE UNIVERSAL CAPABILITY MARKET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0395** THE CAPABILITY ATOM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0396** THE CAPABILITY PERIODIC TABLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0397** THE CAPABILITY CHEMISTRY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0398** THE CAPABILITY METAMATERIAL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0399** THE CAPABILITY EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0400** THE UNIVERSAL CAPABILITY COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0401** THE CAPABILITY SELF-INVENTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0402** THE CAPABILITY BOOTSTRAPPER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0403** THE CAPABILITY RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0404** THE POSSIBILITY RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0405** THE ONTOLOGICAL RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0406** THE SCIENCE RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0407** THE MATHEMATICS RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0408** THE COMPUTATION RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0409** THE ENERGY RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0410** THE MANUFACTURING RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0411** THE INSTRUMENT RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0412** THE INTELLIGENCE RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0413** THE CIVILIZATION RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0414** THE RECURSION ORCHESTRATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0415** THE RECURSION STABILITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0416** THE RECURSION GOVERNOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0417** THE GENERATOR OF RECURSIONS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0418** THE RECURSION DISCOVERY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0419** THE SELF-CATALYZING KNOWLEDGE SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0420** THE SELF-CATALYZING INVENTION SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0421** THE SELF-CATALYZING EXPERIMENT SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0422** THE SELF-CATALYZING CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0423** THE NOVELTY REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0424** THE POSSIBILITY REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0425** THE DISCOVERY REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0426** THE CIVILIZATION REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0427** THE POSSIBILITY POWER PLANT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0428** THE DISCOVERY GRID · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0429** THE INTELLIGENCE GRID · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0430** THE EXPERIMENT GRID · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0431** THE FABRICATION GRID · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0432** THE CAPABILITY GRID · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0433** THE POSSIBILITY GRID · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0434** THE WORLD ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0435** THE WORLD COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0436** THE WORLD DECOMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0437** THE WORLD DEBUGGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0438** THE WORLD REFACTORER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0439** THE WORLD FORK · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0440** THE WORLD MERGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0441** THE WORLD VERSION CONTROL SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0442** THE WORLD REPL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0443** THE REALITY IDE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0444** THE REALITY DEBUGGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0445** THE REALITY PROFILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`
+- **0446** THE REALITY OPTIMIZER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0447** THE REALITY COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0448** THE REALITY RUNTIME · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0449** THE REALITY TYPE SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0450** THE REALITY EXCEPTION HANDLER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0451** THE REALITY TEST SUITE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0452** THE REALITY CI/CD · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0453** THE REALITY PACKAGE MANAGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0454** THE REALITY LIBRARY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0455** THE REALITY STANDARD LIBRARY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0456** THE REALITY KERNEL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0457** THE REALITY INSTRUCTION SET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0458** THE REALITY ASSEMBLY LANGUAGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0459** THE REALITY HIGH-LEVEL LANGUAGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0460** THE REALITY OPERATING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0461** THE REALITY VIRTUAL MACHINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0462** THE REALITY CONTAINER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0463** THE REALITY SANDBOX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0464** THE REALITY PERMISSION SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0465** THE REALITY PROOF SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0466** THE REALITY LEDGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0467** THE REALITY MEMORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0468** THE REALITY LEARNING LOOP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0469** THE REALITY SELF-MODEL · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0470** THE REALITY FRONTIER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0471** THE CAUSAL FRONTIER EXPANDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0472** THE CONTROLLABILITY MAP · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0473** THE CONTROLLABILITY COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0474** THE ACTUATOR INVENTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0475** THE SENSOR-ACTUATOR LOOP GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0476** THE CONTROL THEORY OF CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0477** THE ROBUSTNESS FIRST PRINCIPLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0478** THE ANTI-FRAGILE DISCOVERY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0479** THE ANTI-FRAGILE TECHNOLOGY TREE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0480** THE SELF-HEALING KNOWLEDGE GRAPH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0481** THE EPISTEMIC IMMUNE SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0482** THE KNOWLEDGE QUARANTINE SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0483** THE TRUST GRADIENT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0484** THE TRUTH COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0485** THE REALITY COURT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0486** THE THEORY COURT OF APPEALS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0487** THE SCIENTIFIC MEMORY OF DISSENT · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0488** THE CONTRADICTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0489** THE CONTRADICTION REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0490** THE PARADOX MINER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0491** THE PARADOX COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0492** THE CONCEPTUAL EARTHQUAKE DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0493** THE PARADIGM TRANSITION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0494** THE THEORY SUPERSET GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0495** THE UNIFICATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0496** THE UNIFICATION OF UNIFICATIONS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0497** THE META-LAW ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0498** THE GENERATIVE LAW ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0499** THE REALITY COMPRESSION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0500** THE GREAT COMPRESSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0501** THE UNIVERSAL GENERATOR SEARCH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0502** THE GENERATOR PERIODIC TABLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0503** THE GENERATOR CHEMISTRY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0504** THE GENERATOR COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0505** THE GENERATOR OF GENERATORS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0506** THE GENERATOR EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0507** THE GENERATIVE SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0508** THE POSSIBILITY-SUBSTRATE HUNTER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0509** THE NEW MEDIUM ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0510** THE NEW REALITY LAYER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0511** THE NEW OBJECT CLASS GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0512** THE NEW AGENT CLASS GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0513** THE NEW MARKET CLASS GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0514** THE NEW SCIENCE CLASS GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0515** THE NEW MATHEMATICAL OBJECT GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0516** THE NEW COMPUTATIONAL OBJECT GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0517** THE NEW ECONOMIC OBJECT GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0518** THE NEW ORGANIZATIONAL OBJECT GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0519** THE NEW COGNITIVE OBJECT GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0520** THE NEW KNOWLEDGE OBJECT GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0521** THE NEW LIFEFORM CLASS GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0522** THE NEW MATERIAL CLASS GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0523** THE NEW ENERGY-CARRIER GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0524** THE NEW COMPUTATION-CARRIER GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0525** THE NEW MEMORY SUBSTRATE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0526** THE NEW SENSORIUM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0527** THE NEW ACTUATION SUBSTRATE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0528** THE NEW MANUFACTURING PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0529** THE NEW TRANSPORT PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0530** THE NEW COMMUNICATION PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0531** THE NEW EDUCATION PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0532** THE NEW HEALTH PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0533** THE NEW RESEARCH PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0534** THE NEW INNOVATION PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`
+- **0535** THE NEW PROGRESS PARADIGM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0536** THE POSSIBILITY SUBSTRATE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0537** THE POSSIBILITY SUBSTRATE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0538** THE POSSIBILITY SUBSTRATE EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0539** THE POSSIBILITY-SUBSTRATE STACK · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0540** THE POSSIBILITY SUBSTRATE RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0541** THE POSSIBILITY SPACE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0542** THE POSSIBILITY SPACE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0543** THE POSSIBILITY SPACE CROSSOVER ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0544** THE POSSIBILITY SPACE PHASE TRANSITION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0545** THE POSSIBILITY SPACE METRIC · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0546** THE POSSIBILITY SPACE DERIVATIVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0547** THE POSSIBILITY SPACE ACCELERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0548** THE POSSIBILITY SPACE REACTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0549** THE POSSIBILITY SPACE ECOLOGY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0550** THE POSSIBILITY SPACE EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0551** THE POSSIBILITY SPACE NATURAL SELECTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0552** THE POSSIBILITY SPACE SPECIATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0553** THE POSSIBILITY COSMOS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0554** THE POSSIBILITY COSMOLOGY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0555** THE POSSIBILITY BIG BANG ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0556** THE POSSIBILITY INFLATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0557** THE POSSIBILITY DARK MATTER ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0558** THE POSSIBILITY GRAVITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0559** THE POSSIBILITY EVENT HORIZON · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0560** THE POSSIBILITY HORIZON TELESCOPE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0561** THE POSSIBILITY WORMHOLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0562** THE POSSIBILITY DIMENSION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0563** THE POSSIBILITY DIMENSION GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0564** THE POSSIBILITY TOPOLOGY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0565** THE POSSIBILITY GEODESIC · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0566** THE POSSIBILITY GEOMETRY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0567** THE POSSIBILITY PHYSICS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0568** THE POSSIBILITY THERMODYNAMICS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0569** THE POSSIBILITY INFORMATION THEORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0570** THE POSSIBILITY COMPUTATION THEORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0571** THE POSSIBILITY COMPLEXITY THEORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0572** THE POSSIBILITY ALGORITHM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0573** THE POSSIBILITY COMPUTER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0574** THE POSSIBILITY PROCESSOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0575** THE POSSIBILITY MEMORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0576** THE POSSIBILITY CACHE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0577** THE POSSIBILITY DATABASE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0578** THE POSSIBILITY GRAPH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0579** THE POSSIBILITY KNOWLEDGE GRAPH OF CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0580** THE POSSIBILITY SEARCH ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0581** THE POSSIBILITY RECOMMENDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0582** THE POSSIBILITY INDEX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0583** THE POSSIBILITY PORTFOLIO · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0584** THE POSSIBILITY HEDGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0585** THE POSSIBILITY ARBITRAGE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0586** THE POSSIBILITY MARKET MAKER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0587** THE POSSIBILITY LIQUIDITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0588** THE POSSIBILITY CAPITAL SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0589** THE POSSIBILITY BANK · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0590** THE POSSIBILITY INSURANCE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0591** THE POSSIBILITY RESERVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0592** THE POSSIBILITY TREASURY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0593** THE POSSIBILITY CONSTITUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0594** THE POSSIBILITY RIGHTS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0595** THE POSSIBILITY GOVERNOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0596** THE POSSIBILITY SOVEREIGNTY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0597** THE POSSIBILITY DEMOCRACY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0598** THE POSSIBILITY PLURALISM ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0599** THE POSSIBILITY ETHICS ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0600** THE POSSIBILITY CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0601** THE UNKNOWN-CREATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0602** THE MYSTERY FACTORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0603** THE FRONTIER FACTORY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0604** THE FRONTIER COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0605** THE FRONTIER RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0606** THE PERPETUAL FRONTIER MACHINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0607** THE NOVELTY CONSERVATION BREAKER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0608** THE CONCEPTUAL MUTATION RADIATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0609** THE IDEA SPECIATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0610** THE MEMETIC GALÁPAGOS · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0611** THE CONCEPTUAL CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0612** THE TECHNOLOGICAL CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0613** THE SCIENTIFIC CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0614** THE COGNITIVE CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0615** THE CIVILIZATIONAL CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0616** THE POSSIBILITY CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0617** THE NOVELTY BIG BANG · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0618** THE CATEGORY CREATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0619** THE CATEGORY GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0620** THE CATEGORY-OF-CATEGORIES GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0621** THE ONTOLOGY GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0622** THE ONTOLOGY COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0623** THE ONTOLOGY EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`
+- **0624** THE ONTOLOGY RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0625** THE ONTOLOGICAL SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0626** THE CONCEPT HORIZON BREAKER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0627** THE UNTHINKABLE DETECTOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0628** THE UNTHINKABLE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0629** THE CONCEPTUAL LADDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0630** THE CONCEPTUAL SPACE ELEVATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0631** THE ABSTRACTION COMPRESSOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0632** THE ABSTRACTION EXPANDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0633** THE ABSTRACTION BRIDGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0634** THE UNIVERSAL ANALOGY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0635** THE ANALOGY FALSIFIER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0636** THE STRUCTURAL HOMOLOGY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0637** THE UNIVERSAL PATTERN LIBRARY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0638** THE PATTERN SYNTHESIZER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0639** THE EMERGENCE COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0640** THE EMERGENCE DEBUGGER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0641** THE EMERGENCE PROGRAMMING LANGUAGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0642** THE SELF-ORGANIZATION COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0643** THE ORDER-FROM-NOISE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0644** THE NOISE COMPUTATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0645** THE CHAOS COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0646** THE COMPLEXITY FOUNDRY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0647** THE COMPLEXITY PERIODIC TABLE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0648** THE COMPLEXITY CHEMISTRY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0649** THE COMPLEXITY COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0650** THE SELF-CREATING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0651** THE SELF-DESCRIBING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0652** THE SELF-MODELING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0653** THE SELF-FALSIFYING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0654** THE SELF-REPAIRING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0655** THE SELF-REDESIGNING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0656** THE SELF-EVOLVING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0657** THE SELF-TRANSCENDING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0658** THE SUCCESSOR GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0659** THE SUCCESSOR CIVILIZATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0660** THE SUCCESSOR SCIENCE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0661** THE SUCCESSOR MATHEMATICS ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0662** THE SUCCESSOR COMPUTATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0663** THE SUCCESSOR INTELLIGENCE ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0664** THE SUCCESSOR POSSIBILITY ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0665** THE TRANSCENDENCE LADDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0666** THE GENERATIVE LADDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0667** THE META-PRIMITIVE HUNTER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0668** THE UR-PRIMITIVE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0669** THE UR-GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0670** THE ORIGIN MACHINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0671** THE ORIGIN SCIENCE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0672** THE ORIGIN COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0673** THE GENESIS ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0674** THE GENESIS² ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0675** THE GENESIS³ ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0676** THE ONTOGENESIS ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0677** THE ONTOGENESIS² ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0678** THE ONTOGENESIS RECURSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0679** THE CATEGORY EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0680** THE ONTOLOGICAL CAMBRIAN EXPLOSION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0681** THE ONTOLOGICAL ECOLOGY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0682** THE ONTOLOGICAL EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0683** THE ONTOLOGICAL SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0684** THE POSSIBILITY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0685** THE DISCOVERY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0686** THE SCIENCE SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0687** THE INVENTION SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0688** THE CAPABILITY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0689** THE CIVILIZATION SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0690** THE OPTION SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0691** THE HUMAN POSSIBILITY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0692** THE HUMAN CAPABILITY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0693** THE RENAISSANCE SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0694** THE EXPERIENCE SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0695** THE FRONTIER SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0696** THE MYSTERY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0697** THE NOVELTY SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0698** THE GENERATOR SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0699** THE META-SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0700** THE SINGULARITY ORCHESTRATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0701** THE SINGULARITY BRAKE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0702** THE SINGULARITY STEERING SYSTEM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0703** THE SINGULARITY CONSTITUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0704** THE HUMAN-IN-THE-LOOP CIVILIZATION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0705** THE SOVEREIGN SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0706** THE POSSIBILITY-FIRST SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0707** THE HUMAN-CHOICE PRESERVATION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0708** THE FREEDOM COMPOUNDER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0709** THE AGENCY COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0710** THE CIVILIZATION OF AGENCY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0711** THE CIVILIZATION OF CAPABILITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0712** THE CIVILIZATION OF POSSIBILITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`
+- **0713** THE POSSIBILITY FOUNTAIN · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0714** THE POSSIBILITY TREE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0715** THE POSSIBILITY FOREST · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0716** THE POSSIBILITY BIOSPHERE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0717** THE POSSIBILITY PLANET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0718** THE POSSIBILITY UNIVERSE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0719** THE POSSIBILITY MULTIVERSE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0720** THE POSSIBILITY META-VERSE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0721** THE POSSIBILITY RULE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0722** THE POSSIBILITY GRAMMAR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0723** THE POSSIBILITY LANGUAGE GENERATOR · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0724** THE POSSIBILITY LANGUAGE EVOLUTION · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0725** THE POSSIBILITY LANGUAGE SINGULARITY · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0726** THE WORLD-GENERATING LANGUAGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0727** THE UNIVERSE-GENERATING LANGUAGE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0728** THE SYNTHETIC COSMOLOGY LAB · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0729** THE LAW-SPACE EXPLORER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0730** THE LAW-SPACE EVOLUTION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0731** THE PHYSICS-INVENTION SANDBOX · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0732** THE MATHEMATICAL UNIVERSE FARM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0733** THE COMPUTATIONAL UNIVERSE FARM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0734** THE ARTIFICIAL PHYSICS FARM · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0735** THE CROSS-UNIVERSE MECHANISM MINER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0736** THE CROSS-UNIVERSE TECHNOLOGY TRANSFER ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0737** THE ARTIFICIAL NATURAL LAW MARKET · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0738** THE SYNTHETIC REALITY MINER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0739** THE IMPOSSIBLE WORLD MINER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0740** THE FICTION-TO-PHYSICS ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0741** THE DREAM DECOMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0742** THE MAGIC COMPILER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0743** THE SCIENCE-FICTION MINER · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
+- **0744** THE MYTH-TO-MECHANISM ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
 - **0745** THE ANCIENT-DREAM COMPLETION ENGINE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
 - **0746** THE HUMAN-WISH KNOWLEDGE GRAPH · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`
 - **0747** THE DREAM TECHNOLOGY TREE · `artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`

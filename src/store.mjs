@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Pool } from 'pg';
 import { now } from './utils.mjs';
+import { postgresTlsOptions } from './postgres-tls-policy.mjs';
 import { initializePostgresPool } from './postgres-startup-gate.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
 
@@ -651,9 +652,9 @@ export class JsonStore {
 
 export class PostgresStore {
   constructor({ databaseUrl, ssl = true, pool, transactionClient = false,
-    initMode = process.env.NODE_ENV === 'production' ? 'probe' : 'migrate' } = {}) {
+    nodeEnv = process.env.NODE_ENV, initMode = nodeEnv === 'production' ? 'probe' : 'migrate' } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
-    this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
+    this.pool = pool || new Pool({ ...postgresTlsOptions({ databaseUrl, ssl, nodeEnv }), max: 10 });
     this.ownsPool = !pool;
     this.initMode = initMode;
     // A scoped store inside transaction() is backed by one already-connected
@@ -1155,7 +1156,7 @@ export class Store extends JsonStore {}
 
 export function createStore(config) {
   if (config.storeBackend === 'postgres') {
-    return new PostgresStore({ databaseUrl: config.databaseUrl, ssl: config.databaseSsl, initMode: config.nodeEnv === 'production' ? 'probe' : undefined });
+    return new PostgresStore({ databaseUrl: config.databaseUrl, ssl: config.databaseSsl, nodeEnv: config.nodeEnv, initMode: config.nodeEnv === 'production' ? 'probe' : undefined });
   }
   return new JsonStore(config.dataDir);
 }

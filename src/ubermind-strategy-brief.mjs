@@ -8,7 +8,7 @@ export function compileStrategicBrief(input,index,{maxChars=2200}={}){
   const keys={
     "jurisdictional-arbitrage":["jurisdiction","wyoming","delaware","offshore","residency","resident","company formation","incorporat","uae","egypt","permanent establishment","nexus","entity structure","international","cross border"],
     "contract-mechanics":["contract","nda","indemn","liability cap","liquidated damages","termination","arbitrat","agreement","warranty","penalty","terms of service"],
-    "asset-insulation-trust-law":["asset protection","trust","creditor","insolvenc","shield assets","beneficial owner","llc","litigat","insurance","separateness"],
+    "asset-insulation-trust-law":["asset protection","trust law","trust fund","trust entity","trust structure","trustee","creditor","insolvenc","shield assets","beneficial owner","llc","litigat","insurance","separateness"],
     "statutory-tax-planning":["tax","deduction","write off","depreciat","withholding","transfer pricing","corporate income","vat","treaty","irc","irs"],
     "venture-and-corporate-finance":["equity","vc","venture","investor","seed round","valuation","dilution","buyout","mezzanine","cap table","convertible","safe note","debt","irr"],
     "hyper-efficient-execution":["automat","operations","outsource","delivery","fulfil","fulfill","process","cost arbitrage","lean","workflow","profit margin","scalab"],
@@ -28,7 +28,7 @@ export function compileStrategicBrief(input,index,{maxChars=2200}={}){
   const matching=(p)=>{let hits=0;for(const word of p)if(text.includes(word.replace(/[^a-z0-9\u0600-\u06ff]+/g," ")))hits++;return hits;};
   const domains=index.domains.map(x=>({id:x.id,score:matching(keys[x.id]||[])})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id)).slice(0,3);
   const thinkers=index.thinkers.map(x=>({id:x.id,score:matching(lens[x.id]||[])})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.id.localeCompare(b.id)).slice(0,4);
-  const highImpact=/\b(tax|trust|contract|law|legal|fraud|asset|bank|incorporat|regulat|liability|litigat|personal data|privacy|debt|investor)\b/.test(text);
+  const highImpact=/\b(tax|contract|law|legal|fraud|asset|bank|incorporat|regulat|liability|litigat|personal data|privacy|debt|investor)\b/.test(text);
   const social=/\b(buyer|customer|sales|trust|conflict|relationship|negotia|procurement|partner|human|reply|objection|empathy|status)\w*/.test(text);
   const packet={
     schema:"ubermind.strategy.microbrief.v1",
@@ -41,7 +41,7 @@ export function compileStrategicBrief(input,index,{maxChars=2200}={}){
     task:"Opus: compare realistic options, counterpart countermoves and second-order costs; choose reversible first test and explicit falsifier",
     sourcePointers:[
       "config/ubermind-omega47-strategic-philosophy-index.json",
-      domains.length?"docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md#Part-2":"docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md",
+      "docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md",
       ...(social?[".claude/skills/ubermind-social-strategy/SKILL.md"]:[]),
       ...(text.includes("machiavelli")?["docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md"]:[])
     ],

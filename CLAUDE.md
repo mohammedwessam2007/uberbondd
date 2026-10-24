@@ -1,5 +1,7 @@
 # UberBond Claude Code Project Memory
 
+**Ω50 cognitive resident:** Stafford Beer / system behavior, Taleb / real downside and convexity, Land / narrative feedback. Load docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md before evaluating strategic decisions; full corpus is on demand only. Preserve source, owner authority and original 890 lineage.
+
 **UberMind minimum-Pro-usage setup:** The project skill `/ubermind-lean` is available on demand for Claude Code usage optimization and work; use it only when relevant, not as another unconditional full-text import. Preserve mandatory sovereign/890/security instructions and never make paid provider calls or quietly lower acceptance quality.
 
 @docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md

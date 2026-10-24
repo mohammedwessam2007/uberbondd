@@ -11,6 +11,10 @@ The founder asks for frontier intelligence that understands human beings, not a 
 
 Before interpreting people, recover project constitutional startup and task-relevant founder-890 pointers. Preserve Wessam Singularity → Sovereign Cognitive Continuum → Personal Civilization → UberBond → UberMind; business EQ is a contained organ, not a new terminal North Star.
 
+## Ω47 strategic philosophy and legal-finance expansion (2026-10-24)
+
+When a mission concerns power dynamics, strategic self-interest, corporate advantage, negotiations, international structures, contracts, tax optimization, asset shielding, financial engineering or competitive intelligence, **also load** .claude/skills/ubermind-strategic-realism/SKILL.md. Its permanent founder donor is docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md; its machine-readable nine-thinker/six-domain index is config/ubermind-omega47-strategic-philosophy-index.json. Treat this as an additive lens to Ω46 EQ, not an ideological replacement. The same Opus lead integrates emotional perception, strategic power, game theory, positive-sum opportunities and lawful economic option analysis. Historical books are hypotheses or interpretive donors, not current law or permissions; require official dated statutes and counsel for consequential structures. Preserve founder intent, 890 lineage and the original skill's truth/agency gates. No paid inference or external action is authorized by merely loading this skill.
+
 ## Source-grounded council, run in one lead context by default
 Do not spawn five models merely to impersonate the following perspectives. These are **reasoning lenses** applied by the same Opus lead when relevant, consulting primary/source-linked materials from docs/architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md:
 

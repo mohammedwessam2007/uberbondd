@@ -5,6 +5,9 @@ description: Start here for Opus-first business, EQ, negotiation, power, legal, 
 
 # Ω48 OPUS CROWN · STRATEGY FLASH
 
+**Ω51 mandatory Opus challenge:** the short `docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md` governs every strategy: present the strongest legitimate plan AND fair counterexample, acceptance/failure criteria and residual uncertainty in one Opus pass. The Ω48 CLI can attach Ω51 source pointers on demand; see `.claude/skills/ubermind-adversarial-resilience/SKILL.md` for authorized infrastructure analysis and calibrated forecasting.
+
+
 **Ω50 resident triad (all strategy missions):** Always account for observed results (Beer), true downside and convexity (Taleb), and belief/adoption feedback (Land). The concise doctrine is docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md; the detailed research file is docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md. For bureaucracy timing, contract semantics, and cross-border tax classification, check dated binding law rather than assuming automatic relief. Retrieve the full Ω50 notes on demand, not in every context.
 
 

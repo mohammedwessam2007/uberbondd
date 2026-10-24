@@ -1,0 +1,7 @@
+# UberMind: mandatory 52 original founder strategy and invention references
+
+**Never reduce the founder's Machiavelli-to-Ω52 submissions to a few sanitized labels.** A permanent long-form source copy is at `library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md`. Its 52-address audit is `library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`, with 52 IDs in Ω47 16, Ω49 10, Ω50 6, Ω51 8, Ω52 12. Ω46 emotional intelligence is a separate, equally live parent; founder 890 originals remain in the canonical raw source.
+
+**Session habit:** For any substantive strategic, economic, legal, inventive, human or quant mission, recover constitution/890/PHOENIX as normal, identify relevant **original** 52 concept(s), retrieve those exact passages and original research evidence, then have Opus consider their opportunities, contradictions, independent tests and actual downside. **Do not indiscriminately inject 23 KB of source on every question.** The resident entry is this compact map; full text is on-demand. Preserve the founder's exact framing and mark extravagant/contested claims as founder hypotheses, never as established physics, automatically lawful loopholes, guaranteed trading profits or authorization for side effects.
+
+**Archive:** `scripts/build-ubermind-founder-52-pack.py` produces a separately verified ZIP with 52 source cards, the original transcript transcription and source SHA. ChatGPT Project access to archives must be checked; ZIP files in GitHub do not automatically become ChatGPT Project memory.

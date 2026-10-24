@@ -1,0 +1,150 @@
+{
+  "bankClearedProfitUsd": 0,
+  "acceptedPaidBuyers": 0,
+  "customerContactAuthority": false,
+  "sendAuthority": false,
+  "collectionReady": false,
+  "executionTruth": "GROUNDED_INTERNAL_SOURCE_SYNTHESIS_NOT_20_INDEPENDENT_MODELS_OR_MARKET_VALIDATION",
+  "observedDate": "2026-10-24",
+  "sourceMainAtAnalysis": "8c796ed9c29350ebbd08cd3034abd6b088e83e3a",
+  "method": "REUSE_EXISTING_OFFERS_AVOID_NEW_OFFER_PROLIFERATION",
+  "rankingMeaning": "PREPARATION_COST_ORDER_NOT_PROVEN_ECONOMIC_WINNER",
+  "championConditional": "DIRECT_99_SITE_PILOT",
+  "runnerUpConditional": "AGENCY_PROOF_PACK",
+  "offers": [
+    {
+      "rankAsPreparationQueue": 1,
+      "id": "DIRECT_99_SITE_PILOT",
+      "title": "Direct 1-site website inquiry audit",
+      "priceUsd": 99,
+      "priceTruth": "PROPOSED_TEST_PRICE",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "existing pilot packet and 3 original-source hash-matched field observations; no independent buyer-accepted defects",
+      "sources": [
+        "docs/commercialization/FIRST_BUYER_PIPELINE.md",
+        "docs/commercialization/OMEGA_REVIEW_DELTA_2026-10-23.md",
+        "docs/commercialization/UNIT_ECONOMICS.md"
+      ],
+      "releaseGate": "HOLD_BUYER_AND_COLLECTION",
+      "scope": "one buyer-nominated public site, up to ten pages; do not allege lost revenue",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 2,
+      "id": "AGENCY_PROOF_PACK",
+      "title": "Agency Revenue Leak Proof Pack",
+      "priceUsd": 1500,
+      "priceTruth": "HYPOTHETICAL_OFFER_LIST_PRICE",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "existing flagship offer; no independent buyer agreement",
+      "sources": [
+        "00_OUTREACH_NOW.md"
+      ],
+      "releaseGate": "HOLD_DEMAND_AND_COLLECTION",
+      "scope": "3 agency client sites with claim evidence",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 3,
+      "id": "AI_RELEASE_GATE",
+      "title": "AI Agent Production Release Gate",
+      "priceUsd": 3000,
+      "priceTruth": "HYPOTHETICAL_OFFER_LIST_PRICE",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "existing flagship; no accepted client or source-target authorization",
+      "sources": [
+        "00_OUTREACH_NOW.md"
+      ],
+      "releaseGate": "HOLD_BUYER_ACCEPTANCE",
+      "scope": "sandbox-only acceptance/security evidence",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 4,
+      "id": "REVENUE_RENEWAL",
+      "title": "Revenue Proof & Renewal Pack",
+      "priceUsd": 2500,
+      "priceTruth": "HYPOTHETICAL_OFFER_LIST_PRICE",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "existing flagship proposal; no real partner acceptance",
+      "sources": [
+        "00_OUTREACH_NOW.md"
+      ],
+      "releaseGate": "HOLD_CUSTOMER_DATA_AUTHORITY",
+      "scope": "one client evidence/reconciliation pack",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 5,
+      "id": "GCC_BOOKING_PARITY",
+      "title": "GCC bilingual booking parity sprint",
+      "priceUsd": 1750,
+      "priceTruth": "HYPOTHETICAL_OFFER_LIST_PRICE",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "existing GCC flagship proposal; no customer consent or relevant privacy/legal clearance",
+      "sources": [
+        "00_OUTREACH_NOW.md"
+      ],
+      "releaseGate": "HOLD_CUSTOMER_DATA_AUTHORITY",
+      "scope": "single clinic/medspa location",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 6,
+      "id": "APIFY_ACTOR",
+      "title": "Apify verified inquiry Actor",
+      "priceUsd": null,
+      "priceTruth": "PAY_PER_EVENT_UNFINALIZED",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "local delivery-only smoke; median modeled 40-site scenario -1.2126 USD, not bank-cleared cash",
+      "sources": [
+        "docs/commercialization/OMEGA_REVIEW_DELTA_2026-10-23.md",
+        "docs/commercialization/UNIT_ECONOMICS.md",
+        "docs/commercialization/APIFY_STORE_READINESS.md"
+      ],
+      "releaseGate": "HOLD_UNPUBLISHED_AND_ELIGIBILITY",
+      "scope": "metering, exact payout, listing and charge-reservations prerequisites",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 7,
+      "id": "WHITE_LABEL_PARTNER",
+      "title": "White-label partner QA delivery",
+      "priceUsd": null,
+      "priceTruth": "UNPRICED_HYPOTHESIS",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "agency partnership route without observed signed partner or buyer",
+      "sources": [
+        "00_OUTREACH_NOW.md"
+      ],
+      "releaseGate": "HOLD_DEMAND_AND_SPLIT",
+      "scope": "partner signs QA/terms before any customer path",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    },
+    {
+      "rankAsPreparationQueue": 8,
+      "id": "DIRECT_BANK_EVIDENCE",
+      "title": "Cross-border evidence/reconciliation service",
+      "priceUsd": null,
+      "priceTruth": "UNPRICED_HYPOTHESIS",
+      "evidenceClass": "SOURCE_PROPOSAL_OR_LOCAL_TEST_NOT_BUYER",
+      "evidenceLimits": "research/donor mechanism; no customer demand or authorized payout eligibility",
+      "sources": [
+        "00_OUTREACH_NOW.md",
+        "docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md"
+      ],
+      "releaseGate": "HOLD_DEMAND_LEGAL_AND_COLLECTION",
+      "scope": "governed service evidence product, not a verified offer",
+      "clearedProfitUsd": 0,
+      "observedBuyerAcceptances": 0
+    }
+  ],
+  "conclusion": "HOLD_NO_AUTHORIZED_SALE_OR_COLLECTION"
+}

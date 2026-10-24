@@ -8,6 +8,10 @@
 
 **R12 mandatory final reply receipt:** Applied Ω/card IDs and real operations; Screened 52/52 only if actually checked, with A/C/R/N/X counts for substantial work; Rules R01–R12 materially enforced; Evidence actual sources/tests/actions versus unverified. This is a concise observable-output ledger, not private chain-of-thought.
 
+## Ω∞ V6 latest verified recovery and all-52 operation index
+
+**Before following ANY dated hot pointer below**, consult `docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md`. New chats must distinguish Project file access from personal Library and actual connected GitHub main. Original 890, original 52, Ω46 EQ and full 52 operation/falsifier registry stay separately identifiable. Quality/evidence > token minimization, while additional monetary spend still requires authorization. Perform full applicable 52-card screening on consequential tasks, actual work with each genuinely relevant lawful concept, and an honest R12 receipt after every reply. Do not claim access to Project files or completion of 52/52 if unverified.
+
 ## Founder-level meta North Star
 
 Before mission selection, read `docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`.

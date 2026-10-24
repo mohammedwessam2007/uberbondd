@@ -6,13 +6,13 @@ export function compileStrategicBrief(input,index,{maxChars=2200}={}){
   if(!index||!Array.isArray(index.thinkers)||!Array.isArray(index.domains))throw new TypeError("Invalid strategy index");
   const text=input.toLowerCase().replace(/[^a-z0-9\u0600-\u06ff]+/g," ");
   const keys={
-    "jurisdictional-arbitrage":["jurisdiction","wyoming","delaware","offshore","residency","resident","company formation","incorporat","uae","egypt","permanent establishment","nexus","entity structure","international","cross border"],
+    "jurisdictional-arbitrage":["jurisdiction","wyoming","delaware","offshore","residency","resident","company formation","incorporat","permanent establishment","nexus","entity structure","cross border"],
     "contract-mechanics":["contract","nda","indemn","liability cap","liquidated damages","termination","arbitrat","agreement","warranty","penalty","terms of service"],
     "asset-insulation-trust-law":["asset protection","trust law","trust fund","trust entity","trust structure","trustee","creditor","insolvenc","shield assets","beneficial owner","llc","litigat","insurance","separateness"],
     "statutory-tax-planning":["tax","deduction","write off","depreciat","withholding","transfer pricing","corporate income","vat","treaty","irc","irs"],
     "venture-and-corporate-finance":["equity","vc","venture","investor","seed round","valuation","dilution","buyout","mezzanine","cap table","convertible","safe note","debt","irr"],
     "hyper-efficient-execution":["automat","operations","outsource","delivery","fulfil","fulfill","process","cost arbitrage","lean","workflow","profit margin","scalab"],
-    "competitive-intelligence":["competitor","competition","market research","positioning","market data","intelligence","pricing","benchmark","trend","customer research","industry"]
+    "competitive-intelligence":["competitor","competition","market research","positioning","market data","intelligence","benchmark","trend","customer research","industry"]
   };
   const lens={
     "machiavelli":["power","stakeholder","leverage","coalition","status","reputation","authority","decision maker"],

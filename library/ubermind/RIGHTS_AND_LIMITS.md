@@ -1,0 +1,9 @@
+# Book and corpus rights
+
+**Do not pretend to possess every mentioned modern book.** The public-domain ZIP contains complete *specific historic editions*, fetched from Project Gutenberg, with release metadata and complete licence/notice retained. Gutenberg marks these editions **public domain in the United States**, not automatically in every country. The founder/user is outside the US; local law may differ. Distribution or reuse outside the US requires separate checking. The permanent repo contains the sources and download script, but does not vendor the full books in Git history.
+
+**Modern copyrighted books** (e.g., Robert Greene, Ayn Rand, Peter Thiel, Nassim Taleb, George Soros, Maureen O'Hara, John von Neumann/Oskar Morgenstern, Hart, Bismarck editions, Luttwak, Boyd, Liddell Hart, Cialdini, Fisher/Ury, Turing papers and later translations) are represented by the original UberBond research summaries, dated source pointers, doctrinal links and bibliographies. The ZIP deliberately does not reproduce or scrape their full protected texts. The founder can provide lawfully owned excerpts/licenses for later private analysis.
+
+**Founder intellectual property:** all 890 ideas are preserved verbatim from their canonical ten-shard corpus, including duplicates with distinct IDs and deliberately fictional IQ labels. These are sensitive private founder data: keep ZIP archives in a private project/Library, don't deploy them publicly or share with external clients without approval.
+
+**No automatic training:** ZIP ingestion into a Project doesn't alter model weights or guarantee every future chat reads all file bytes. A compact mandatory project instruction and retrieval/verification workflow are the correct implementation. The original terms and controversial claims are preserved as founder hypotheses, not proof or unconditional legal authorization.

@@ -8,4 +8,43 @@ test('PostgresStore passes explicit deployment environment to TLS policy', () =>
 });
 test('createStore passes config.nodeEnv to PostgresStore', () => assert.match(source, /nodeEnv: config\.nodeEnv/));
 test('store does not bypass TLS certificate verification', () => assert.doesNotMatch(source, /rejectUnauthorized:\s*false/));
-test('production defaults to probe rather than migrations', () => assert.match(source, /initMode = nodeEnv === 'production' \? 'probe' : 'migrate'/));
+test('production defaults to probe whenever either environment is production', () => {
+  assert.match(source, /initMode = \\(nodeEnv === 'production' \\|\\| process\\.env\\.NODE_ENV === 'production'\\) \\? 'probe' : 'migrate'/);
+});
+
+test('ambient production cannot be downgraded by an explicit test environment', async () => {
+  const { PostgresStore } = await import('../src/store.mjs');
+  const previous = process.env.NODE_ENV;
+  const queries = [];
+  try {
+    process.env.NODE_ENV = 'production';
+    const store = new PostgresStore({
+      nodeEnv: 'test',
+      pool: {
+        query: async sql => { queries.push(sql); return { rows: [{ uberbond_startup_probe: 1 }] }; },
+        connect: () => { throw new Error('MIGRATION_CONNECTION_FORBIDDEN'); }
+      }
+    });
+    assert.equal(store.initMode, 'probe');
+    await store.init();
+    assert.deepEqual(queries, ['SELECT 1 AS uberbond_startup_probe']);
+  } finally {
+    if (previous === undefined) delete process.env.NODE_ENV;
+    else process.env.NODE_ENV = previous;
+  }
+});
+
+test('explicit production environment uses read-only probe', async () => {
+  const { PostgresStore } = await import('../src/store.mjs');
+  const queries = [];
+  const store = new PostgresStore({
+    nodeEnv: 'production',
+    pool: {
+      query: async sql => { queries.push(sql); return { rows: [{ uberbond_startup_probe: 1 }] }; },
+      connect: () => { throw new Error('MIGRATION_CONNECTION_FORBIDDEN'); }
+    }
+  });
+  assert.equal(store.initMode, 'probe');
+  await store.init();
+  assert.deepEqual(queries, ['SELECT 1 AS uberbond_startup_probe']);
+});

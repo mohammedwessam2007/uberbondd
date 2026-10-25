@@ -49,3 +49,31 @@ launch-facts*.json
 **/*.sqlite3
 **/*.db
 **/*.log
+
+# Known credential filenames that have no sensitive file extension.
+# These are not application configuration: runtime credentials use provider
+# secret references, never plaintext files copied into the image.
+.envrc
+**/.envrc
+.netrc
+**/.netrc
+.pgpass
+**/.pgpass
+.git-credentials
+**/.git-credentials
+id_rsa
+**/id_rsa
+id_ed25519
+**/id_ed25519
+credentials.json
+**/credentials.json
+secrets.json
+**/secrets.json
+service-account.json
+**/service-account.json
+
+# Terraform state can contain credentials and live infrastructure metadata.
+*.tfstate
+**/*.tfstate
+*.tfstate.*
+**/*.tfstate.*

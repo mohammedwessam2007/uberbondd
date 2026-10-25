@@ -236,15 +236,11 @@ test('symbol-valued timestamps are rejected without throwing or granting authori
   assert.equal(result.deploymentPermitted, false);
 });
 
-test('hostile Proxy traps fail closed rather than crashing the evidence gate', () => {
+test('hostile Proxy structural traps fail closed rather than crashing the evidence gate', () => {
   const traps = [
     { getPrototypeOf() { throw Error('prototype trap'); } },
     { ownKeys() { throw Error('keys trap'); } },
-    { getOwnPropertyDescriptor() { throw Error('descriptor trap'); } },
-    { get(target, key, receiver) {
-      if (key === 'plan') throw Error('property trap');
-      return Reflect.get(target, key, receiver);
-    } }
+    { getOwnPropertyDescriptor() { throw Error('descriptor trap'); } }
   ];
   for (const trap of traps) {
     const result = run(new Proxy(good(), trap));
@@ -254,6 +250,20 @@ test('hostile Proxy traps fail closed rather than crashing the evidence gate', (
     assert.equal(result.deploymentPermitted, false);
     assert.equal(result.spendingPermitted, false);
   }
+});
+
+test('Proxy get trap is not executed during descriptor-only evidence assessment', () => {
+  let calls = 0;
+  const evidence = new Proxy(good(), {
+    get() { calls++; throw Error('untrusted property access'); }
+  });
+  const result = run(evidence);
+  assert.equal(calls, 0);
+  assert.equal(result.status, 'EVIDENCE_COMPLETE_REQUIRES_INDEPENDENT_REVIEW');
+  assert.equal(result.evidenceComplete, true);
+  assert.equal(result.deploymentPermitted, false);
+  assert.equal(result.spendingPermitted, false);
+  assert.equal(result.resourceCreationPermitted, false);
 });
 
 test('descriptor snapshot defeats Proxy get-trap billing and plan forgery', () => {

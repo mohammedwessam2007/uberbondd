@@ -1,3 +1,5 @@
+import { types as nodeTypes } from 'node:util';
+
 /**
  * Read-only evidence quality gate for a Railway nonproduction rehearsal.
  * It NEVER grants deploy/spend authority. No provider calls or secret reads.
@@ -57,9 +59,13 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
   const reasons = [];
   const refuse = code => reasons.push(code);
   try {
-    if (!plain(evidence)) {
-    refuse('EVIDENCE_OBJECT_REQUIRED');
-  } else {
+    // A Proxy can forge ownKeys and property descriptors, not just get traps.
+    // Node's native isProxy check does not invoke attacker-controlled traps.
+    if (nodeTypes.isProxy(evidence)) {
+      refuse('PROXY_EVIDENCE_OBJECT_REFUSED');
+    } else if (!plain(evidence)) {
+      refuse('EVIDENCE_OBJECT_REQUIRED');
+    } else {
     const snapshot = evidenceSnapshot(evidence);
     const shapeProblem = snapshot.problem;
     if (shapeProblem) {

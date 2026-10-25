@@ -226,3 +226,32 @@ test('symbol keys cannot hide evidence metadata', () => {
   evidence[Symbol('hidden')] = 'unexpected';
   has(evidence, 'UNEXPECTED_EVIDENCE_FIELD');
 });
+
+test('symbol-valued timestamps are rejected without throwing or granting authority', () => {
+  const evidence = good();
+  evidence.observedAt = Symbol('not-a-date');
+  const result = run(evidence);
+  assert.equal(result.status, 'HOLD');
+  assert.ok(result.reasons.includes('STALE_OR_INVALID_ACCOUNT_EVIDENCE'));
+  assert.equal(result.deploymentPermitted, false);
+});
+
+test('hostile Proxy traps fail closed rather than crashing the evidence gate', () => {
+  const traps = [
+    { getPrototypeOf() { throw Error('prototype trap'); } },
+    { ownKeys() { throw Error('keys trap'); } },
+    { getOwnPropertyDescriptor() { throw Error('descriptor trap'); } },
+    { get(target, key, receiver) {
+      if (key === 'plan') throw Error('property trap');
+      return Reflect.get(target, key, receiver);
+    } }
+  ];
+  for (const trap of traps) {
+    const result = run(new Proxy(good(), trap));
+    assert.equal(result.status, 'HOLD');
+    assert.ok(result.reasons.includes('UNTRUSTED_EVIDENCE_OBJECT_REFUSED'));
+    assert.equal(result.evidenceComplete, false);
+    assert.equal(result.deploymentPermitted, false);
+    assert.equal(result.spendingPermitted, false);
+  }
+});

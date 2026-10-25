@@ -54,7 +54,8 @@ function evidenceShapeProblem(o) {
 export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), expectedSha } = {}) {
   const reasons = [];
   const refuse = code => reasons.push(code);
-  if (!plain(evidence)) {
+  try {
+    if (!plain(evidence)) {
     refuse('EVIDENCE_OBJECT_REQUIRED');
   } else {
     const shapeProblem = evidenceShapeProblem(evidence);
@@ -71,7 +72,7 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
       if (OLD_PROJECTS.has(evidence.projectId)) refuse('FAILED_HISTORICAL_PROJECT_NOT_SOURCE');
       if (evidence.projectId !== null && evidence.projectId !== undefined &&
           (typeof evidence.projectId !== 'string' || !/^[0-9a-f-]{36}$/.test(evidence.projectId))) refuse('INVALID_PROJECT_ID');
-      const observed = Date.parse(evidence.observedAt);
+      const observed = typeof evidence.observedAt === 'string' ? Date.parse(evidence.observedAt) : NaN;
       if (typeof evidence.observedAt !== 'string' || !Number.isFinite(observed) ||
           !Number.isFinite(now) || observed > now + 5 * 60_000 || now - observed > 60 * 60_000) {
         refuse('STALE_OR_INVALID_ACCOUNT_EVIDENCE');
@@ -132,6 +133,10 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
         refuse('NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
       }
     }
+  }
+  } catch {
+    // A hostile Proxy or unexpected primitive must never crash the preflight.
+    refuse('UNTRUSTED_EVIDENCE_OBJECT_REFUSED');
   }
   return Object.freeze({
     status: reasons.length ? 'HOLD' : 'EVIDENCE_COMPLETE_REQUIRES_INDEPENDENT_REVIEW',

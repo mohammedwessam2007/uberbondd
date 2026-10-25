@@ -64,6 +64,13 @@ secrets/
 # Git but never copy them into the production image's COPY . . layer.
 artifacts/recovery/
 artifacts/recovery/**
+# Historical forensics and recovery indexes are kept in Git, not shipped to
+# a runtime. Preserve the rest of docs/ and artifacts/ for live cognition.
+docs/forensics/
+docs/forensics/**
+docs/UBERBOND_SOL_CLAUDE_CODE_5MB_EXTERNAL_EXECUTION_PACK.md
+artifacts/backup/
+artifacts/backup/**
 # Import diagnostics may contain runtime records; preserve checked-in donor data.
 data/json-import-report.json
 

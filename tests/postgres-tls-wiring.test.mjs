@@ -9,7 +9,7 @@ test('PostgresStore passes explicit deployment environment to TLS policy', () =>
 test('createStore passes config.nodeEnv to PostgresStore', () => assert.match(source, /nodeEnv: config\.nodeEnv/));
 test('store does not bypass TLS certificate verification', () => assert.doesNotMatch(source, /rejectUnauthorized:\s*false/));
 test('production defaults to probe whenever either environment is production', () => {
-  assert.match(source, /initMode = \\(nodeEnv === 'production' \\|\\| process\\.env\\.NODE_ENV === 'production'\\) \\? 'probe' : 'migrate'/);
+  assert.match(source, /initMode = \(nodeEnv === 'production' \|\| process\.env\.NODE_ENV === 'production'\) \? 'probe' : 'migrate'/);
 });
 
 test('ambient production cannot be downgraded by an explicit test environment', async () => {

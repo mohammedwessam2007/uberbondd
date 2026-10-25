@@ -46,3 +46,16 @@ test('hostile Proxy and array getter never execute',()=>{
   const p=new Proxy(input(),{ownKeys(){calls++;throw Error('proxy');}});
   assert.equal(estimate(p).status,'HOLD');assert.equal(calls,0);
 });
+
+test('T238: any volume request holds even when estimated total fits free credit',()=>{
+  for(const patch of [
+    {volumeGb:0.01,volumeSeconds:month},
+    {volumeGb:0.01,volumeSeconds:0},
+    {volumeGb:0,volumeSeconds:1}
+  ]){
+    const r=estimate({...input(),...patch});
+    assert.equal(r.status,'HOLD');
+    assert.ok(r.reasons.includes('BILLABLE_VOLUME_NOT_AUTHORIZED'));
+    assert.equal(r.resourceCreationPermitted,false);
+  }
+});

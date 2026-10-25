@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 const source = readFileSync(new URL('../server-core.mjs', import.meta.url), 'utf8');
 const railway = JSON.parse(readFileSync(new URL('../railway.json', import.meta.url), 'utf8'));
 const handler = source.slice(source.indexOf('export const requestHandler ='));
-const route = /if \(method === 'GET' && url\.pathname === '\/api\/live'\) \{\s*return json\(res, 200, \{ ok: true, kind: 'liveness' \} \);\s*\}/;
+const route = /if \(method === 'GET' && url\.pathname === '\/api\/live'\) \{\s*return json\(res, 200, \{ ok: true, kind: 'liveness' \}\);\s*\}/;
 
 test('liveness is an explicit DB-free route before cookie/session restoration', () => {
   assert.equal((handler.match(/url\.pathname === '\/api\/live'/g) || []).length, 1);

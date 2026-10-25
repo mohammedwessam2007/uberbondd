@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {spawnSync} from 'node:child_process';
 import {compileOmegaMission,screen52,subscriptionPreflight,inventoryOmega,SCHEMA} from '../src/ubermind-all-omega-router.mjs';
 const a='sha256:'+'a'.repeat(64),b='sha256:'+'b'.repeat(64),c='sha256:'+'c'.repeat(64);
 const task=(id,kind='lookup',dependsOn=[],extra={})=>({id,kind,risk:'low',impact:'read',taskDigest:c,dependsOn,...extra});
@@ -116,4 +117,16 @@ test('52 registry refuses corrupt or truncated source',()=>{
  const data=JSON.parse(readFileSync(new URL('../config/ubermind-v6-52-operation-registry.json',import.meta.url),'utf8'));
  const x={...data,cards:data.cards.slice(0,51)};
  assert.equal(screen52(x).ok,false);
+});
+
+test('launcher refuses to start Claude without real owner preflight attestation',()=>{
+ const path=new URL('../scripts/ubermind-claude-subscription-launch.sh',import.meta.url).pathname;
+ const r=spawnSync('sh',[path],{env:{PATH:process.env.PATH},encoding:'utf8'});
+ assert.equal(r.status,4);
+ assert.match(r.stderr,/BLOCKED/);
+});
+test('launcher prioritizes rejecting API credentials before attestation',()=>{
+ const path=new URL('../scripts/ubermind-claude-subscription-launch.sh',import.meta.url).pathname;
+ const r=spawnSync('sh',[path],{env:{PATH:process.env.PATH,ANTHROPIC_API_KEY:'DO_NOT_PRINT',UBERMIND_SUBSCRIPTION_VERIFIED:'1'},encoding:'utf8'});
+ assert.equal(r.status,2);assert.ok(!r.stderr.includes('DO_NOT_PRINT'));
 });

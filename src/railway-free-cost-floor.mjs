@@ -80,6 +80,10 @@ export function estimateRailwayFreeFloor(input) {
     const reasons=[];
     if (root.freePlanAuthenticated !== true) reasons.push('FREE_PLAN_NOT_AUTHENTICATED');
     if (root.providerZeroOverageVerified !== true) reasons.push('ZERO_OVERAGE_NOT_VERIFIED');
+    // A priced volume is a billable resource, even when its projected usage
+    // fits inside promotional credit or its measured duration is zero.
+    // Zero-new-charge missions cannot infer permission to provision it.
+    if (volumeGb !== 0 || volumeSeconds !== 0) reasons.push('BILLABLE_VOLUME_NOT_AUTHORIZED');
     if (root.requiresRailwayCron !== false) reasons.push('FREE_PLAN_CRON_NOT_AVAILABLE');
     if (root.requiresCustomDomain !== false) reasons.push('FREE_PLAN_CUSTOM_DOMAIN_NOT_AVAILABLE');
     if (total > credit) reasons.push('ESTIMATED_COST_EXCEEDS_REMAINING_CREDIT');

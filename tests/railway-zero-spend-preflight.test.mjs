@@ -94,3 +94,35 @@ test('CLI refuses unpinned source and wrong pinned SHA',()=>{
     }
   } finally {rmSync(dir,{recursive:true,force:true});}
 });
+
+
+test('library caller must supply a valid exact expected SHA, not merely a plausible source SHA', () => {
+  for (const opts of [{}, {expectedSha:null}, {expectedSha:'bad'}]) {
+    const r=check(good(),{now:NOW,...opts});
+    assert.ok(r.reasons.includes('UNPINNED_OR_STALE_SOURCE'));
+    assert.equal(r.evidenceComplete,false);
+  }
+});
+
+test('camelCase and mixed-case credential field names fail closed', () => {
+  for (const key of ['apiKey','accessToken','dbPassword','clientSecret','connectionString','privateKey','authorization','Cookie','DATABASE_URL','credentials']) {
+    const r=run({...good(),[key]:'dummy-not-a-real-secret'});
+    assert.ok(r.reasons.includes('SECRET_BEARING_INPUT_REFUSED'),key);
+    assert.equal(r.evidenceComplete,false);
+    assert.equal(JSON.stringify(r).includes('dummy-not-a-real-secret'),false);
+  }
+});
+
+test('unrecognized metadata and nested evidence are refused rather than silently trusted', () => {
+  has({...good(),notes:'arbitrary metadata'},'UNEXPECTED_EVIDENCE_FIELD');
+  has({...good(),extra:{privateData:'not-allowed'}},'UNEXPECTED_EVIDENCE_FIELD');
+  has({...good(),billingEvidenceRef:{ref:'provider-read://receipt-20261025'}},'NESTED_EVIDENCE_FIELD_REFUSED');
+  has({...good(),remainingCreditUsd:[1]},'NESTED_EVIDENCE_FIELD_REFUSED');
+});
+
+test('inherited evidence cannot satisfy the flat evidence contract', () => {
+  const inherited=Object.create(good());
+  const r=run(inherited);
+  assert.ok(r.reasons.includes('EVIDENCE_OBJECT_REQUIRED'));
+  assert.equal(r.evidenceComplete,false);
+});

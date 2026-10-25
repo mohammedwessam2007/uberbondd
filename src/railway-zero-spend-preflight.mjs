@@ -5,6 +5,8 @@
  */
 export const EXPECTED_WORKSPACE = '2b588eed-7a03-4e44-8f90-fdec83447c98';
 export const EXPECTED_REPOSITORY = 'mohammedwessam2007/uberbondd';
+export const EXPECTED_NEON_PROJECT = 'misty-moon-35132124';
+export const EXPECTED_NEON_BRANCH = 'br-orange-wave-baqrfil7';
 const OLD_PROJECTS = new Set([
   '1048d0ce-ef29-4654-8425-c2d4a9122ff7',
   '41689b51-8922-4246-a095-a2fdd8fe77f3'
@@ -18,7 +20,9 @@ const EVIDENCE_FIELDS = new Set([
   'existingUsageUsd', 'projectedWorstCaseUsd', 'zeroOverageEnforcedByProvider',
   'noNewPaidSubscription', 'noBillableVolume', 'railwayAgentDisabled',
   'nonproductionPrivate', 'publicIngress', 'webWorkerSeparated',
-  'outboundDisabled', 'neonPgVersion', 'neonReadOnlyRoleVerified',
+  'outboundDisabled', 'neonPgVersion', 'neonProjectId', 'neonBranchId',
+  'neonDatabaseName', 'neonSourceParityVerified', 'neonRoleName', 'neonRoleScopeVerified',
+  'neonReadOnlyRoleVerified',
   'originalKeyReferenceOnly', 'secretValueObserved',
   'neonFreePlanVerified', 'neonUsageReadFromAuthenticatedProvider',
   'neonMonthlyCuHourAllowance', 'neonUsedCuHours', 'neonProjectedCuHours',
@@ -83,6 +87,26 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
           evidence.webWorkerSeparated === true && evidence.outboundDisabled === true) {
         // All four are required. A provider-attested network check is still required before a real deployment.
       } else refuse('RUNTIME_ISOLATION_UNVERIFIED');
+      // Pin the observed PG16 source. Version-only checks could silently accept a
+      // different Neon project/branch or a privileged owner role.
+      // Database names were observed read-only on 2026-10-25; source parity
+      // and scoped role authority still require independent live proof.
+      const knownDatabases = new Set([
+        'uberbond_phoenix_rehearsal_20261014_v2',
+        'uberbond_render_rescue',
+        'uberbond_titan_rehearsal_20261014',
+        'uberbond_trident_rehearsal_20261013'
+      ]);
+      if (evidence.neonProjectId !== EXPECTED_NEON_PROJECT ||
+          evidence.neonBranchId !== EXPECTED_NEON_BRANCH ||
+          !knownDatabases.has(evidence.neonDatabaseName) ||
+          evidence.neonSourceParityVerified !== true ||
+          typeof evidence.neonRoleName !== 'string' ||
+          !/^[a-z][a-z0-9_]{0,62}$/.test(evidence.neonRoleName) ||
+          evidence.neonRoleName === 'uberbond_render_rescue_owner' ||
+          evidence.neonRoleScopeVerified !== true) {
+        refuse('NEON_SOURCE_IDENTITY_OR_ROLE_SCOPE_UNVERIFIED');
+      }
       if (evidence.neonPgVersion !== 16 || evidence.neonReadOnlyRoleVerified !== true ||
           evidence.originalKeyReferenceOnly !== true || evidence.secretValueObserved !== false) {
         refuse('NEON_OR_KEY_BOUNDARY_UNVERIFIED');

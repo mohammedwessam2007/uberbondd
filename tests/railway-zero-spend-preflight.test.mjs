@@ -186,3 +186,43 @@ test('source identity remains only evidence, never deployment permission', () =>
   assert.equal(r.deploymentPermitted,false);
   assert.equal(r.resourceCreationPermitted,false);
 });
+
+test('mandatory attestations must be supplied as own properties', () => {
+  const missing = good();
+  delete missing.plan;
+  has(missing, 'MISSING_OWN_EVIDENCE_FIELD');
+});
+
+test('prototype pollution cannot impersonate a missing billing attestation', () => {
+  const missing = good();
+  delete missing.plan;
+  const previous = Object.getOwnPropertyDescriptor(Object.prototype, 'plan');
+  Object.defineProperty(Object.prototype, 'plan', { value: 'Free', configurable: true });
+  try {
+    const result = run(missing);
+    assert.equal(result.evidenceComplete, false);
+    assert.ok(result.reasons.includes('MISSING_OWN_EVIDENCE_FIELD'));
+    assert.equal(result.deploymentPermitted, false);
+  } finally {
+    if (previous) Object.defineProperty(Object.prototype, 'plan', previous);
+    else delete Object.prototype.plan;
+  }
+});
+
+test('accessor evidence is refused without invoking getters', () => {
+  const evidence = good();
+  let invoked = false;
+  Object.defineProperty(evidence, 'plan', {
+    enumerable: true,
+    get() { invoked = true; throw Error('untrusted getter executed'); }
+  });
+  const result = run(evidence);
+  assert.ok(result.reasons.includes('ACCESSOR_EVIDENCE_FIELD_REFUSED'));
+  assert.equal(invoked, false);
+});
+
+test('symbol keys cannot hide evidence metadata', () => {
+  const evidence = good();
+  evidence[Symbol('hidden')] = 'unexpected';
+  has(evidence, 'UNEXPECTED_EVIDENCE_FIELD');
+});

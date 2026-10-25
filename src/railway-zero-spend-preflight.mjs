@@ -35,13 +35,18 @@ const plain = o => o !== null && typeof o === 'object' && !Array.isArray(o) &&
   (Object.getPrototypeOf(o) === Object.prototype || Object.getPrototypeOf(o) === null);
 
 function evidenceShapeProblem(o) {
-  for (const [key, value] of Object.entries(o)) {
+  // Read descriptors before values so untrusted library inputs cannot
+  // execute getters while the evidence schema is being inspected.
+  for (const key of Reflect.ownKeys(o)) {
+    if (typeof key !== 'string') return 'UNEXPECTED_EVIDENCE_FIELD';
     if (!EVIDENCE_FIELDS.has(key)) {
       const normalized = key.replace(/([a-z0-9])([A-Z])/g, '$1_$2')
         .replace(/[^a-z0-9]+/gi, '_').toLowerCase();
       return SECRET_KEY.test(normalized) ? 'SECRET_BEARING_INPUT_REFUSED' : 'UNEXPECTED_EVIDENCE_FIELD';
     }
-    if (value !== null && typeof value === 'object') return 'NESTED_EVIDENCE_FIELD_REFUSED';
+    const descriptor = Object.getOwnPropertyDescriptor(o, key);
+    if (!descriptor || !Object.hasOwn(descriptor, 'value')) return 'ACCESSOR_EVIDENCE_FIELD_REFUSED';
+    if (descriptor.value !== null && typeof descriptor.value === 'object') return 'NESTED_EVIDENCE_FIELD_REFUSED';
   }
   return null;
 }
@@ -56,6 +61,10 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
     if (shapeProblem) {
       refuse(shapeProblem);
     } else {
+      // Inherited fields must never count as authenticated account evidence.
+      if ([...EVIDENCE_FIELDS].some(key => key !== 'projectId' && !Object.hasOwn(evidence, key))) {
+        refuse('MISSING_OWN_EVIDENCE_FIELD');
+      }
       if (evidence.workspaceId !== EXPECTED_WORKSPACE) refuse('WRONG_WORKSPACE');
       if (evidence.repository !== EXPECTED_REPOSITORY) refuse('WRONG_REPOSITORY');
       if (!sha(expectedSha) || !sha(evidence.sourceSha) || evidence.sourceSha !== expectedSha) refuse('UNPINNED_OR_STALE_SOURCE');

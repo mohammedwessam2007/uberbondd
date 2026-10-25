@@ -10,6 +10,11 @@ for key in ANTHROPIC_API_KEY ANTHROPIC_AUTH_TOKEN ANTHROPIC_BASE_URL \
     exit 2
   fi
 done
+# A manually confirmed subscription login is required. An env flag is NOT external proof.
+if [ "${UBERMIND_SUBSCRIPTION_VERIFIED:-}" != '1' ]; then
+  echo 'BLOCKED: first verify Claude Code /status, /model, /usage and disabled paid credits, then explicitly attest UBERMIND_SUBSCRIPTION_VERIFIED=1.' >&2
+  exit 4
+fi
 if ! command -v claude >/dev/null 2>&1; then
   echo 'BLOCKED: Claude Code CLI unavailable. No provider call attempted.' >&2
   exit 3

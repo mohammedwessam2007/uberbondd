@@ -34,21 +34,23 @@ const sha = s => typeof s === 'string' && /^[a-f0-9]{40}$/.test(s);
 const plain = o => o !== null && typeof o === 'object' && !Array.isArray(o) &&
   (Object.getPrototypeOf(o) === Object.prototype || Object.getPrototypeOf(o) === null);
 
-function evidenceShapeProblem(o) {
-  // Read descriptors before values so untrusted library inputs cannot
-  // execute getters while the evidence schema is being inspected.
+// Snapshot descriptor values once. Never read the original untrusted object
+// after shape validation: a Proxy's get trap can lie about billing/plan facts.
+function evidenceSnapshot(o) {
+  const values = Object.create(null);
   for (const key of Reflect.ownKeys(o)) {
-    if (typeof key !== 'string') return 'UNEXPECTED_EVIDENCE_FIELD';
+    if (typeof key !== 'string') return { problem: 'UNEXPECTED_EVIDENCE_FIELD' };
     if (!EVIDENCE_FIELDS.has(key)) {
       const normalized = key.replace(/([a-z0-9])([A-Z])/g, '$1_$2')
         .replace(/[^a-z0-9]+/gi, '_').toLowerCase();
-      return SECRET_KEY.test(normalized) ? 'SECRET_BEARING_INPUT_REFUSED' : 'UNEXPECTED_EVIDENCE_FIELD';
+      return { problem: SECRET_KEY.test(normalized) ? 'SECRET_BEARING_INPUT_REFUSED' : 'UNEXPECTED_EVIDENCE_FIELD' };
     }
     const descriptor = Object.getOwnPropertyDescriptor(o, key);
-    if (!descriptor || !Object.hasOwn(descriptor, 'value')) return 'ACCESSOR_EVIDENCE_FIELD_REFUSED';
-    if (descriptor.value !== null && typeof descriptor.value === 'object') return 'NESTED_EVIDENCE_FIELD_REFUSED';
+    if (!descriptor || !Object.hasOwn(descriptor, 'value')) return { problem: 'ACCESSOR_EVIDENCE_FIELD_REFUSED' };
+    if (descriptor.value !== null && typeof descriptor.value === 'object') return { problem: 'NESTED_EVIDENCE_FIELD_REFUSED' };
+    values[key] = descriptor.value;
   }
-  return null;
+  return { problem: null, values: Object.freeze(values) };
 }
 
 export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), expectedSha } = {}) {
@@ -58,43 +60,44 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
     if (!plain(evidence)) {
     refuse('EVIDENCE_OBJECT_REQUIRED');
   } else {
-    const shapeProblem = evidenceShapeProblem(evidence);
+    const snapshot = evidenceSnapshot(evidence);
+    const shapeProblem = snapshot.problem;
     if (shapeProblem) {
       refuse(shapeProblem);
     } else {
-      // Inherited fields must never count as authenticated account evidence.
-      if ([...EVIDENCE_FIELDS].some(key => key !== 'projectId' && !Object.hasOwn(evidence, key))) {
+      // Inherited fields must never count as authenticated account snapshot.values.
+      if ([...EVIDENCE_FIELDS].some(key => key !== 'projectId' && !Object.hasOwn(snapshot.values, key))) {
         refuse('MISSING_OWN_EVIDENCE_FIELD');
       }
-      if (evidence.workspaceId !== EXPECTED_WORKSPACE) refuse('WRONG_WORKSPACE');
-      if (evidence.repository !== EXPECTED_REPOSITORY) refuse('WRONG_REPOSITORY');
-      if (!sha(expectedSha) || !sha(evidence.sourceSha) || evidence.sourceSha !== expectedSha) refuse('UNPINNED_OR_STALE_SOURCE');
-      if (OLD_PROJECTS.has(evidence.projectId)) refuse('FAILED_HISTORICAL_PROJECT_NOT_SOURCE');
-      if (evidence.projectId !== null && evidence.projectId !== undefined &&
-          (typeof evidence.projectId !== 'string' || !/^[0-9a-f-]{36}$/.test(evidence.projectId))) refuse('INVALID_PROJECT_ID');
-      const observed = typeof evidence.observedAt === 'string' ? Date.parse(evidence.observedAt) : NaN;
-      if (typeof evidence.observedAt !== 'string' || !Number.isFinite(observed) ||
+      if (snapshot.values.workspaceId !== EXPECTED_WORKSPACE) refuse('WRONG_WORKSPACE');
+      if (snapshot.values.repository !== EXPECTED_REPOSITORY) refuse('WRONG_REPOSITORY');
+      if (!sha(expectedSha) || !sha(snapshot.values.sourceSha) || snapshot.values.sourceSha !== expectedSha) refuse('UNPINNED_OR_STALE_SOURCE');
+      if (OLD_PROJECTS.has(snapshot.values.projectId)) refuse('FAILED_HISTORICAL_PROJECT_NOT_SOURCE');
+      if (snapshot.values.projectId !== null && snapshot.values.projectId !== undefined &&
+          (typeof snapshot.values.projectId !== 'string' || !/^[0-9a-f-]{36}$/.test(snapshot.values.projectId))) refuse('INVALID_PROJECT_ID');
+      const observed = typeof snapshot.values.observedAt === 'string' ? Date.parse(snapshot.values.observedAt) : NaN;
+      if (typeof snapshot.values.observedAt !== 'string' || !Number.isFinite(observed) ||
           !Number.isFinite(now) || observed > now + 5 * 60_000 || now - observed > 60 * 60_000) {
         refuse('STALE_OR_INVALID_ACCOUNT_EVIDENCE');
       }
-      if (evidence.billingReadFromAuthenticatedProvider !== true ||
-          typeof evidence.billingEvidenceRef !== 'string' ||
-          !/^provider-read:\/\/[a-z0-9-]{8,100}$/.test(evidence.billingEvidenceRef)) {
+      if (snapshot.values.billingReadFromAuthenticatedProvider !== true ||
+          typeof snapshot.values.billingEvidenceRef !== 'string' ||
+          !/^provider-read:\/\/[a-z0-9-]{8,100}$/.test(snapshot.values.billingEvidenceRef)) {
         refuse('AUTHENTICATED_BILLING_RECEIPT_REQUIRED');
       }
-      if (evidence.plan !== 'Free' || evidence.planActive !== true || evidence.projectCreationPermitted !== true) {
+      if (snapshot.values.plan !== 'Free' || snapshot.values.planActive !== true || snapshot.values.projectCreationPermitted !== true) {
         refuse('FREE_PLAN_NOT_ACTIVATED');
       }
-      if (!money(evidence.remainingCreditUsd) || !money(evidence.projectedWorstCaseUsd) ||
-          !money(evidence.existingUsageUsd) ||
-          evidence.projectedWorstCaseUsd + evidence.existingUsageUsd + 0.25 > evidence.remainingCreditUsd) {
+      if (!money(snapshot.values.remainingCreditUsd) || !money(snapshot.values.projectedWorstCaseUsd) ||
+          !money(snapshot.values.existingUsageUsd) ||
+          snapshot.values.projectedWorstCaseUsd + snapshot.values.existingUsageUsd + 0.25 > snapshot.values.remainingCreditUsd) {
         refuse('CREDIT_MARGIN_NOT_PROVEN');
       }
-      if (evidence.zeroOverageEnforcedByProvider !== true) refuse('ZERO_OVERAGE_ENFORCEMENT_UNVERIFIED');
-      if (evidence.noNewPaidSubscription !== true || evidence.noBillableVolume !== true ||
-          evidence.railwayAgentDisabled !== true) refuse('PAID_RESOURCE_EXPOSURE');
-      if (evidence.nonproductionPrivate === true && evidence.publicIngress === false &&
-          evidence.webWorkerSeparated === true && evidence.outboundDisabled === true) {
+      if (snapshot.values.zeroOverageEnforcedByProvider !== true) refuse('ZERO_OVERAGE_ENFORCEMENT_UNVERIFIED');
+      if (snapshot.values.noNewPaidSubscription !== true || snapshot.values.noBillableVolume !== true ||
+          snapshot.values.railwayAgentDisabled !== true) refuse('PAID_RESOURCE_EXPOSURE');
+      if (snapshot.values.nonproductionPrivate === true && snapshot.values.publicIngress === false &&
+          snapshot.values.webWorkerSeparated === true && snapshot.values.outboundDisabled === true) {
         // All four are required. A provider-attested network check is still required before a real deployment.
       } else refuse('RUNTIME_ISOLATION_UNVERIFIED');
       // Pin the observed PG16 source. Version-only checks could silently accept a
@@ -107,29 +110,29 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
         'uberbond_titan_rehearsal_20261014',
         'uberbond_trident_rehearsal_20261013'
       ]);
-      if (evidence.neonProjectId !== EXPECTED_NEON_PROJECT ||
-          evidence.neonBranchId !== EXPECTED_NEON_BRANCH ||
-          !knownDatabases.has(evidence.neonDatabaseName) ||
-          evidence.neonSourceParityVerified !== true ||
-          typeof evidence.neonRoleName !== 'string' ||
-          !/^[a-z][a-z0-9_]{0,62}$/.test(evidence.neonRoleName) ||
-          evidence.neonRoleName === 'uberbond_render_rescue_owner' ||
-          evidence.neonRoleScopeVerified !== true) {
+      if (snapshot.values.neonProjectId !== EXPECTED_NEON_PROJECT ||
+          snapshot.values.neonBranchId !== EXPECTED_NEON_BRANCH ||
+          !knownDatabases.has(snapshot.values.neonDatabaseName) ||
+          snapshot.values.neonSourceParityVerified !== true ||
+          typeof snapshot.values.neonRoleName !== 'string' ||
+          !/^[a-z][a-z0-9_]{0,62}$/.test(snapshot.values.neonRoleName) ||
+          snapshot.values.neonRoleName === 'uberbond_render_rescue_owner' ||
+          snapshot.values.neonRoleScopeVerified !== true) {
         refuse('NEON_SOURCE_IDENTITY_OR_ROLE_SCOPE_UNVERIFIED');
       }
-      if (evidence.neonPgVersion !== 16 || evidence.neonReadOnlyRoleVerified !== true ||
-          evidence.originalKeyReferenceOnly !== true || evidence.secretValueObserved !== false) {
+      if (snapshot.values.neonPgVersion !== 16 || snapshot.values.neonReadOnlyRoleVerified !== true ||
+          snapshot.values.originalKeyReferenceOnly !== true || snapshot.values.secretValueObserved !== false) {
         refuse('NEON_OR_KEY_BOUNDARY_UNVERIFIED');
       }
       // Neon's Free plan has a per-project monthly CU-hour cap. An always-awake
       // 0.25-CU database needs ~180 CU-hours in a 30-day month, exceeding 100.
       // This is a conservative evidence check, NOT a provider quota attestation.
-      if (evidence.neonFreePlanVerified !== true ||
-          evidence.neonUsageReadFromAuthenticatedProvider !== true ||
-          evidence.neonHealthProbeDatabaseFree !== true ||
-          evidence.neonMonthlyCuHourAllowance !== 100 ||
-          !money(evidence.neonUsedCuHours) || !money(evidence.neonProjectedCuHours) ||
-          evidence.neonUsedCuHours + evidence.neonProjectedCuHours + 5 > 100) {
+      if (snapshot.values.neonFreePlanVerified !== true ||
+          snapshot.values.neonUsageReadFromAuthenticatedProvider !== true ||
+          snapshot.values.neonHealthProbeDatabaseFree !== true ||
+          snapshot.values.neonMonthlyCuHourAllowance !== 100 ||
+          !money(snapshot.values.neonUsedCuHours) || !money(snapshot.values.neonProjectedCuHours) ||
+          snapshot.values.neonUsedCuHours + snapshot.values.neonProjectedCuHours + 5 > 100) {
         refuse('NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
       }
     }

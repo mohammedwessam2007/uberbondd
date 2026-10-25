@@ -94,7 +94,10 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
       if (snapshot.values.plan !== 'Free' || snapshot.values.planActive !== true || snapshot.values.projectCreationPermitted !== true) {
         refuse('FREE_PLAN_NOT_ACTIVATED');
       }
-      if (!money(snapshot.values.remainingCreditUsd) || !money(snapshot.values.projectedWorstCaseUsd) ||
+      if (// Railway Free after trial includes $1/month of resource credit, not an
+          // arbitrary provider-asserted balance. Reject impossible Free claims.
+          !money(snapshot.values.remainingCreditUsd) || snapshot.values.remainingCreditUsd > 1 ||
+          !money(snapshot.values.projectedWorstCaseUsd) ||
           !money(snapshot.values.existingUsageUsd) ||
           snapshot.values.projectedWorstCaseUsd + snapshot.values.existingUsageUsd + 0.25 > snapshot.values.remainingCreditUsd) {
         refuse('CREDIT_MARGIN_NOT_PROVEN');

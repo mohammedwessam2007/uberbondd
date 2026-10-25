@@ -25,7 +25,7 @@ const good = () => ({
   neonReadOnlyRoleVerified: true,
   originalKeyReferenceOnly: true, secretValueObserved: false,
   neonFreePlanVerified: true, neonUsageReadFromAuthenticatedProvider: true,
-  neonMonthlyCuHourAllowance: 100, neonUsedCuHours: 3.52,
+  neonMonthlyCuHourAllowance: 100, neonUsedCuHours: 51865/3600, neonComputeTimeSeconds: 51865,
   neonProjectedCuHours: 80, neonHealthProbeDatabaseFree: true
 });
 const run = (e,opts={}) => check(e,{now:NOW,expectedSha:SHA,...opts});
@@ -319,4 +319,19 @@ test('revoked Proxy evidence fails closed without executing traps', () => {
   assert.equal(result.status, 'HOLD');
   assert.ok(result.reasons.includes('PROXY_EVIDENCE_OBJECT_REFUSED'));
   assert.equal(result.evidenceComplete, false);
+});
+
+// T233: never double-weight Neon's already CU-weighted compute_time_seconds.
+test('Neon raw weighted compute seconds must reconcile with reported CU-hours', () => {
+  assert.equal(run(good()).evidenceComplete,true);
+  for (const patch of [
+    {neonComputeTimeSeconds:undefined},
+    {neonComputeTimeSeconds:-1},
+    {neonComputeTimeSeconds:'51865'},
+    {neonComputeTimeSeconds:NaN},
+    {neonUsedCuHours:3.52}, // erroneous second multiplication by 0.25
+    {neonUsedCuHours:51865/3600*0.25},
+    {neonUsedCuHours:14.39}, // mismatch beyond 0.01 CU-hours
+    {neonComputeTimeSeconds:360000,neonUsedCuHours:100}
+  ]) has({...good(),...patch},'NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
 });

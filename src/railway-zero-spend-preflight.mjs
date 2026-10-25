@@ -27,7 +27,7 @@ const EVIDENCE_FIELDS = new Set([
   'neonReadOnlyRoleVerified',
   'originalKeyReferenceOnly', 'secretValueObserved',
   'neonFreePlanVerified', 'neonUsageReadFromAuthenticatedProvider',
-  'neonMonthlyCuHourAllowance', 'neonUsedCuHours', 'neonProjectedCuHours',
+  'neonMonthlyCuHourAllowance', 'neonUsedCuHours', 'neonComputeTimeSeconds', 'neonProjectedCuHours',
   'neonHealthProbeDatabaseFree'
 ]);
 const SECRET_KEY = /(?:^|_)(?:password|passphrase|passwd|secret|token|api_key|private_key|database_url|connection_string|credential|credentials|authorization|cookie|dsn)(?:$|_)/;
@@ -137,7 +137,12 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
           snapshot.values.neonUsageReadFromAuthenticatedProvider !== true ||
           snapshot.values.neonHealthProbeDatabaseFree !== true ||
           snapshot.values.neonMonthlyCuHourAllowance !== 100 ||
-          !money(snapshot.values.neonUsedCuHours) || !money(snapshot.values.neonProjectedCuHours) ||
+          !money(snapshot.values.neonUsedCuHours) || !money(snapshot.values.neonComputeTimeSeconds) ||
+          !money(snapshot.values.neonProjectedCuHours) ||
+          // Neon project compute_time_seconds is ALREADY CU-weighted seconds.
+          // Cross-check the raw provider metric; multiplying by CU size again
+          // silently understates Free-plan consumption (Neon usage-calculations).
+          Math.abs(snapshot.values.neonUsedCuHours - snapshot.values.neonComputeTimeSeconds / 3600) > 0.01 ||
           snapshot.values.neonUsedCuHours + snapshot.values.neonProjectedCuHours + 5 > 100) {
         refuse('NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
       }

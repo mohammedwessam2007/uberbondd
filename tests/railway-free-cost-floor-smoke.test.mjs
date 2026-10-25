@@ -17,7 +17,8 @@ test('one always-on 128MiB service exceeds $1 on RAM alone',()=>{
   assert.equal(estimate(x).status,'HOLD');
 });
 test('quarter-duty estimate never grants authority',()=>{
-  const r=estimate(input());assert.equal(r.status,'BUDGET_PLAUSIBLE_UNVERIFIED');
+  const r=estimate(input());assert.equal(r.status,'HOLD');
+  assert.ok(r.reasons.includes('FULL_DUTY_SCENARIO_EXCEEDS_CREDIT'));
   assert.equal(r.deploymentPermitted,false);assert.equal(r.resourceCreationPermitted,false);
 });
 test('billing eligibility and zero-overage unknown hold',()=>{

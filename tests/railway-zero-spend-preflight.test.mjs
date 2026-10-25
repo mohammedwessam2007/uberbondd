@@ -18,7 +18,11 @@ const good = () => ({
   zeroOverageEnforcedByProvider: true, noNewPaidSubscription: true,
   noBillableVolume: true, railwayAgentDisabled: true,
   nonproductionPrivate: true, publicIngress: false, webWorkerSeparated: true, outboundDisabled: true,
-  neonPgVersion: 16, neonReadOnlyRoleVerified: true,
+  neonPgVersion: 16,
+  neonProjectId: 'misty-moon-35132124', neonBranchId: 'br-orange-wave-baqrfil7',
+  neonDatabaseName: 'uberbond_render_rescue', neonSourceParityVerified: true,
+  neonRoleName: 'uberbond_readonly', neonRoleScopeVerified: true,
+  neonReadOnlyRoleVerified: true,
   originalKeyReferenceOnly: true, secretValueObserved: false,
   neonFreePlanVerified: true, neonUsageReadFromAuthenticatedProvider: true,
   neonMonthlyCuHourAllowance: 100, neonUsedCuHours: 3.52,
@@ -159,4 +163,26 @@ test('bounded Neon usage remains evidence-only, never deploy authority', () => {
   assert.equal(r.deploymentPermitted,false);
   assert.equal(r.resourceCreationPermitted,false);
   assert.equal(r.spendingPermitted,false);
+});
+
+// Source identity and role scope are distinct from PG version and role-read-only claims.
+test('wrong Neon project, branch or unobserved database is refused', () => {
+  for (const patch of [
+    {neonProjectId:'other-project'}, {neonProjectId:undefined},
+    {neonBranchId:'br-other'}, {neonBranchId:undefined},
+    {neonDatabaseName:'unverified_db'}, {neonDatabaseName:undefined}
+  ]) has({...good(),...patch},'NEON_SOURCE_IDENTITY_OR_ROLE_SCOPE_UNVERIFIED');
+});
+test('owner role, missing scope proof and absent parity refuse', () => {
+  for (const patch of [
+    {neonRoleName:'uberbond_render_rescue_owner'}, {neonRoleName:'bad-name'},
+    {neonRoleName:undefined}, {neonRoleScopeVerified:false},
+    {neonSourceParityVerified:false}
+  ]) has({...good(),...patch},'NEON_SOURCE_IDENTITY_OR_ROLE_SCOPE_UNVERIFIED');
+});
+test('source identity remains only evidence, never deployment permission', () => {
+  const r=run(good());
+  assert.equal(r.evidenceComplete,true);
+  assert.equal(r.deploymentPermitted,false);
+  assert.equal(r.resourceCreationPermitted,false);
 });

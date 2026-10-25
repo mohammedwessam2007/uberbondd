@@ -335,3 +335,19 @@ test('Neon raw weighted compute seconds must reconcile with reported CU-hours', 
     {neonComputeTimeSeconds:360000,neonUsedCuHours:100}
   ]) has({...good(),...patch},'NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
 });
+
+// T236: authenticated-looking evidence must not assert more than Railway Free's
+// documented $1 monthly resource credit. This is not an account attestation.
+test('Free-plan credit claims above the published monthly allowance fail closed', () => {
+  for (const remainingCreditUsd of [1.000001, 2, 100, 1000000]) {
+    const evidence = {...good(), remainingCreditUsd};
+    const result = run(evidence);
+    assert.equal(result.status, 'HOLD');
+    assert.ok(result.reasons.includes('CREDIT_MARGIN_NOT_PROVEN'));
+    assert.equal(result.evidenceComplete, false);
+    assert.equal(result.deploymentPermitted, false);
+    assert.equal(result.resourceCreationPermitted, false);
+    assert.equal(result.spendingPermitted, false);
+  }
+  assert.equal(run(good()).evidenceComplete, true);
+});

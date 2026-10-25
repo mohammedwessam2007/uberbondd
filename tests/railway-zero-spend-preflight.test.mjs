@@ -19,7 +19,10 @@ const good = () => ({
   noBillableVolume: true, railwayAgentDisabled: true,
   nonproductionPrivate: true, publicIngress: false, webWorkerSeparated: true, outboundDisabled: true,
   neonPgVersion: 16, neonReadOnlyRoleVerified: true,
-  originalKeyReferenceOnly: true, secretValueObserved: false
+  originalKeyReferenceOnly: true, secretValueObserved: false,
+  neonFreePlanVerified: true, neonUsageReadFromAuthenticatedProvider: true,
+  neonMonthlyCuHourAllowance: 100, neonUsedCuHours: 3.52,
+  neonProjectedCuHours: 80, neonHealthProbeDatabaseFree: true
 });
 const run = (e,opts={}) => check(e,{now:NOW,expectedSha:SHA,...opts});
 const has = (e,code) => assert.ok(run(e).reasons.includes(code), JSON.stringify(run(e)));
@@ -125,4 +128,35 @@ test('inherited evidence cannot satisfy the flat evidence contract', () => {
   const r=run(inherited);
   assert.ok(r.reasons.includes('EVIDENCE_OBJECT_REQUIRED'));
   assert.equal(r.evidenceComplete,false);
+});
+
+
+test('Neon free compute requires authenticated quota evidence and DB-free liveness', () => {
+  for (const patch of [
+    {neonFreePlanVerified:false},
+    {neonUsageReadFromAuthenticatedProvider:false},
+    {neonHealthProbeDatabaseFree:false},
+    {neonMonthlyCuHourAllowance:undefined},
+    {neonMonthlyCuHourAllowance:200},
+    {neonUsedCuHours:undefined},
+    {neonProjectedCuHours:undefined},
+    {neonUsedCuHours:-1},
+    {neonProjectedCuHours:-1}
+  ]) has({...good(),...patch},'NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
+});
+
+test('Neon always-awake 0.25 CU exceeds monthly free compute', () => {
+  const continuousHours=24*30;
+  const alwaysAwakeCuHours=continuousHours*0.25;
+  assert.equal(alwaysAwakeCuHours,180);
+  has({...good(),neonProjectedCuHours:alwaysAwakeCuHours},'NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
+  has({...good(),neonProjectedCuHours:92},'NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
+});
+
+test('bounded Neon usage remains evidence-only, never deploy authority', () => {
+  const r=run(good());
+  assert.equal(r.evidenceComplete,true);
+  assert.equal(r.deploymentPermitted,false);
+  assert.equal(r.resourceCreationPermitted,false);
+  assert.equal(r.spendingPermitted,false);
 });

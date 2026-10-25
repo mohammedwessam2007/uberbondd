@@ -19,7 +19,10 @@ const EVIDENCE_FIELDS = new Set([
   'noNewPaidSubscription', 'noBillableVolume', 'railwayAgentDisabled',
   'nonproductionPrivate', 'publicIngress', 'webWorkerSeparated',
   'outboundDisabled', 'neonPgVersion', 'neonReadOnlyRoleVerified',
-  'originalKeyReferenceOnly', 'secretValueObserved'
+  'originalKeyReferenceOnly', 'secretValueObserved',
+  'neonFreePlanVerified', 'neonUsageReadFromAuthenticatedProvider',
+  'neonMonthlyCuHourAllowance', 'neonUsedCuHours', 'neonProjectedCuHours',
+  'neonHealthProbeDatabaseFree'
 ]);
 const SECRET_KEY = /(?:^|_)(?:password|passphrase|passwd|secret|token|api_key|private_key|database_url|connection_string|credential|credentials|authorization|cookie|dsn)(?:$|_)/;
 const money = n => typeof n === 'number' && Number.isFinite(n) && n >= 0;
@@ -83,6 +86,17 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
       if (evidence.neonPgVersion !== 16 || evidence.neonReadOnlyRoleVerified !== true ||
           evidence.originalKeyReferenceOnly !== true || evidence.secretValueObserved !== false) {
         refuse('NEON_OR_KEY_BOUNDARY_UNVERIFIED');
+      }
+      // Neon's Free plan has a per-project monthly CU-hour cap. An always-awake
+      // 0.25-CU database needs ~180 CU-hours in a 30-day month, exceeding 100.
+      // This is a conservative evidence check, NOT a provider quota attestation.
+      if (evidence.neonFreePlanVerified !== true ||
+          evidence.neonUsageReadFromAuthenticatedProvider !== true ||
+          evidence.neonHealthProbeDatabaseFree !== true ||
+          evidence.neonMonthlyCuHourAllowance !== 100 ||
+          !money(evidence.neonUsedCuHours) || !money(evidence.neonProjectedCuHours) ||
+          evidence.neonUsedCuHours + evidence.neonProjectedCuHours + 5 > 100) {
+        refuse('NEON_FREE_COMPUTE_BUDGET_UNVERIFIED');
       }
     }
   }

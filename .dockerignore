@@ -31,7 +31,9 @@ node_modules
 **/.local
 .phoenix-backups-private
 **/.phoenix-backups-private
-data
+# Keep tracked data/genesis and public capability manifests available at runtime.
+# Only known local/private data paths are excluded.
+data/db.json
 **/data/db.json
 **/data/screenshots
 **/data/quant-vault

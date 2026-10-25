@@ -60,6 +60,13 @@ secrets/
 **/*.gpg
 **/*.enc
 
+# Historical recovery ledgers are provenance, not runtime inputs. Keep them in
+# Git but never copy them into the production image's COPY . . layer.
+artifacts/recovery/
+artifacts/recovery/**
+# Import diagnostics may contain runtime records; preserve checked-in donor data.
+data/json-import-report.json
+
 # Local state and generated development artifacts.
 data/db.json
 data/screenshots

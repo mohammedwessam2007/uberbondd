@@ -1,0 +1,49 @@
+# PHOENIX: never transmit local secrets, state, or caches to a remote builder.
+# The root Dockerfile uses COPY . .; .gitignore alone does not protect its context.
+# No negation rules: later exceptions could silently re-include private files.
+
+# Source-control internals and local dependencies (including symlinked modules).
+.git
+**/.git
+node_modules
+**/node_modules
+
+# Local credentials and provider configuration, at any depth.
+.env
+.env.*
+**/.env
+**/.env.*
+.npmrc
+**/.npmrc
+.pypirc
+**/.pypirc
+.ssh
+**/.ssh
+.aws
+**/.aws
+.kube
+**/.kube
+
+# Local state, founder-private archives, and customer/business payloads.
+.cache
+**/.cache
+.local
+**/.local
+.phoenix-backups-private
+**/.phoenix-backups-private
+data
+**/data/db.json
+**/data/screenshots
+**/data/quant-vault
+launch-facts*.json
+**/launch-facts*.json
+
+# Private key material, databases, and logs must not enter an image layer.
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/*.log

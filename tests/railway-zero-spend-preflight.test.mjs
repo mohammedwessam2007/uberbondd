@@ -245,7 +245,7 @@ test('hostile Proxy structural traps fail closed rather than crashing the eviden
   for (const trap of traps) {
     const result = run(new Proxy(good(), trap));
     assert.equal(result.status, 'HOLD');
-    assert.ok(result.reasons.includes('UNTRUSTED_EVIDENCE_OBJECT_REFUSED'));
+    assert.ok(result.reasons.includes('PROXY_EVIDENCE_OBJECT_REFUSED'));
     assert.equal(result.evidenceComplete, false);
     assert.equal(result.deploymentPermitted, false);
     assert.equal(result.spendingPermitted, false);
@@ -259,8 +259,9 @@ test('Proxy get trap is not executed during descriptor-only evidence assessment'
   });
   const result = run(evidence);
   assert.equal(calls, 0);
-  assert.equal(result.status, 'EVIDENCE_COMPLETE_REQUIRES_INDEPENDENT_REVIEW');
-  assert.equal(result.evidenceComplete, true);
+  assert.equal(result.status, 'HOLD');
+  assert.ok(result.reasons.includes('PROXY_EVIDENCE_OBJECT_REFUSED'));
+  assert.equal(result.evidenceComplete, false);
   assert.equal(result.deploymentPermitted, false);
   assert.equal(result.spendingPermitted, false);
   assert.equal(result.resourceCreationPermitted, false);
@@ -278,8 +279,7 @@ test('descriptor snapshot defeats Proxy get-trap billing and plan forgery', () =
   });
   const result = run(evidence);
   assert.equal(result.evidenceComplete, false);
-  assert.ok(result.reasons.includes('FREE_PLAN_NOT_ACTIVATED'));
-  assert.ok(result.reasons.includes('CREDIT_MARGIN_NOT_PROVEN'));
+  assert.ok(result.reasons.includes('PROXY_EVIDENCE_OBJECT_REFUSED'));
   assert.equal(getTrapCalls, 0);
   assert.equal(result.deploymentPermitted, false);
 });
@@ -290,4 +290,33 @@ test('descriptor snapshot preserves normal frozen evidence and never grants auth
   assert.equal(result.evidenceComplete, true);
   assert.equal(result.deploymentPermitted, false);
   assert.equal(result.spendingPermitted, false);
+});
+
+
+test('Proxy descriptor traps cannot forge Free-plan and credit evidence', () => {
+  const target = { ...good(), plan: 'Trial', remainingCreditUsd: 0 };
+  let descriptorCalls = 0;
+  const forged = new Proxy(target, {
+    getOwnPropertyDescriptor(obj, key) {
+      descriptorCalls++;
+      if (key === 'plan') return { ...Reflect.getOwnPropertyDescriptor(obj, key), value: 'Free' };
+      if (key === 'remainingCreditUsd') return { ...Reflect.getOwnPropertyDescriptor(obj, key), value: 100 };
+      return Reflect.getOwnPropertyDescriptor(obj, key);
+    }
+  });
+  const result = run(forged);
+  assert.equal(descriptorCalls, 0);
+  assert.equal(result.status, 'HOLD');
+  assert.equal(result.evidenceComplete, false);
+  assert.ok(result.reasons.includes('PROXY_EVIDENCE_OBJECT_REFUSED'));
+  assert.equal(result.deploymentPermitted, false);
+});
+
+test('revoked Proxy evidence fails closed without executing traps', () => {
+  const { proxy, revoke } = Proxy.revocable(good(), {});
+  revoke();
+  const result = run(proxy);
+  assert.equal(result.status, 'HOLD');
+  assert.ok(result.reasons.includes('PROXY_EVIDENCE_OBJECT_REFUSED'));
+  assert.equal(result.evidenceComplete, false);
 });

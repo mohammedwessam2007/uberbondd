@@ -60,22 +60,29 @@ export function estimateRailwayFreeFloor(input) {
         !finite(egressGb) || egressGb > 1e6 || !finite(credit) || credit > PRICING.freeMonthlyCreditUsd)
       return blocked('INVALID_USAGE_INPUT');
     const roles = new Set();
-    let memoryUsd=0,cpuUsd=0;
+    let memoryUsd=0,cpuUsd=0,fullDutyComputeUsd=0,activeServiceCount=0;
     for (const service of services) {
       const s = ownDataSnapshot(service, SERVICE, SERVICE);
       if (!s || !['web','worker'].includes(s.role) || roles.has(s.role) ||
           !finite(s.memoryGb) || !finite(s.averageCpuVcpu) || !finite(s.runningSeconds) ||
-          s.runningSeconds > t || s.memoryGb > 0.5 || s.averageCpuVcpu > 1)
+          s.runningSeconds > t || s.memoryGb > 0.5 || s.averageCpuVcpu > 1 ||
+          (s.runningSeconds > 0 && s.memoryGb === 0))
         return blocked('INVALID_SERVICE_SCOPE_OR_USAGE');
       roles.add(s.role);
       memoryUsd += s.memoryGb * s.runningSeconds * PRICING.memoryGbSecondUsd;
       cpuUsd += s.averageCpuVcpu * s.runningSeconds * PRICING.cpuVcpuSecondUsd;
+      fullDutyComputeUsd += t * (s.memoryGb * PRICING.memoryGbSecondUsd +
+        s.averageCpuVcpu * PRICING.cpuVcpuSecondUsd);
+      if (s.runningSeconds > 0) activeServiceCount++;
     }
     if (!roles.has('web') || !roles.has('worker')) return blocked('WEB_WORKER_SEPARATION_REQUIRED');
     const volumeUsd=volumeGb*volumeSeconds*PRICING.volumeGbSecondUsd;
     const egressUsd=egressGb*PRICING.egressGbUsd;
     const total=memoryUsd+cpuUsd+volumeUsd+egressUsd;
-    if (![memoryUsd,cpuUsd,volumeUsd,egressUsd,total].every(Number.isFinite)) return blocked('INVALID_COST_ARITHMETIC');
+    // This is a full-duration scenario at the caller's entered rates, NOT a
+    // provider-enforced ceiling or worst-case CPU/memory bound.
+    const fullDutyCostUsd=fullDutyComputeUsd+volumeUsd+egressUsd;
+    if (![memoryUsd,cpuUsd,volumeUsd,egressUsd,total,fullDutyCostUsd].every(Number.isFinite)) return blocked('INVALID_COST_ARITHMETIC');
     const costs=Object.freeze({memoryUsd:safeRound(memoryUsd),cpuUsd:safeRound(cpuUsd),volumeUsd:safeRound(volumeUsd),egressUsd:safeRound(egressUsd),totalUsd:safeRound(total)});
     const reasons=[];
     if (root.freePlanAuthenticated !== true) reasons.push('FREE_PLAN_NOT_AUTHENTICATED');
@@ -87,8 +94,15 @@ export function estimateRailwayFreeFloor(input) {
     if (root.requiresRailwayCron !== false) reasons.push('FREE_PLAN_CRON_NOT_AVAILABLE');
     if (root.requiresCustomDomain !== false) reasons.push('FREE_PLAN_CUSTOM_DOMAIN_NOT_AVAILABLE');
     if (total > credit) reasons.push('ESTIMATED_COST_EXCEEDS_REMAINING_CREDIT');
+    // A partial-period budget can look affordable while the monthly service
+    // would exhaust Free credit. Do not promote short rehearsals to a
+    // sustainable runtime classification.
+    if (t < 28*86400) reasons.push('INSUFFICIENT_BILLING_HORIZON');
+    if (activeServiceCount === 0) reasons.push('NO_RUNNING_RUNTIME');
+    if (fullDutyCostUsd > credit) reasons.push('FULL_DUTY_SCENARIO_EXCEEDS_CREDIT');
     return Object.freeze({status:reasons.length?'HOLD':'BUDGET_PLAUSIBLE_UNVERIFIED',reasons,costs,
-      creditUsd:credit,pricingDate:PRICING.observedDate,providerUsageMeasured:false,
+      creditUsd:credit,fullDutyCostUsd:safeRound(fullDutyCostUsd),
+      fullDutyAssumptionsVerified:false,pricingDate:PRICING.observedDate,providerUsageMeasured:false,
       deploymentPermitted:false,resourceCreationPermitted:false,spendingPermitted:false});
   } catch { return blocked('UNTRUSTED_INPUT_REFUSED'); }
 }

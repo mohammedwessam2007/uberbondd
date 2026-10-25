@@ -255,3 +255,29 @@ test('hostile Proxy traps fail closed rather than crashing the evidence gate', (
     assert.equal(result.spendingPermitted, false);
   }
 });
+
+test('descriptor snapshot defeats Proxy get-trap billing and plan forgery', () => {
+  const target = { ...good(), plan: 'Trial', remainingCreditUsd: 0 };
+  let getTrapCalls = 0;
+  const evidence = new Proxy(target, {
+    get(obj, key, receiver) {
+      if (key === 'plan') { getTrapCalls++; return 'Free'; }
+      if (key === 'remainingCreditUsd') { getTrapCalls++; return 100; }
+      return Reflect.get(obj, key, receiver);
+    }
+  });
+  const result = run(evidence);
+  assert.equal(result.evidenceComplete, false);
+  assert.ok(result.reasons.includes('FREE_PLAN_NOT_ACTIVATED'));
+  assert.ok(result.reasons.includes('CREDIT_MARGIN_NOT_PROVEN'));
+  assert.equal(getTrapCalls, 0);
+  assert.equal(result.deploymentPermitted, false);
+});
+
+test('descriptor snapshot preserves normal frozen evidence and never grants authority', () => {
+  const evidence = Object.freeze(good());
+  const result = run(evidence);
+  assert.equal(result.evidenceComplete, true);
+  assert.equal(result.deploymentPermitted, false);
+  assert.equal(result.spendingPermitted, false);
+});

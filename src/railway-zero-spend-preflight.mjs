@@ -9,6 +9,9 @@ export const EXPECTED_WORKSPACE = '2b588eed-7a03-4e44-8f90-fdec83447c98';
 export const EXPECTED_REPOSITORY = 'mohammedwessam2007/uberbondd';
 export const EXPECTED_NEON_PROJECT = 'misty-moon-35132124';
 export const EXPECTED_NEON_BRANCH = 'br-orange-wave-baqrfil7';
+// Only the explicitly reviewed, least-privilege application role name may be
+// represented as verified. A role name alone never proves SQL grants.
+const ALLOWED_NEON_READONLY_ROLES = new Set(['uberbond_readonly']);
 const OLD_PROJECTS = new Set([
   '1048d0ce-ef29-4654-8425-c2d4a9122ff7',
   '41689b51-8922-4246-a095-a2fdd8fe77f3'
@@ -125,7 +128,7 @@ export function assessRailwayZeroSpendEvidence(evidence, { now = Date.now(), exp
           snapshot.values.neonSourceParityVerified !== true ||
           typeof snapshot.values.neonRoleName !== 'string' ||
           !/^[a-z][a-z0-9_]{0,62}$/.test(snapshot.values.neonRoleName) ||
-          snapshot.values.neonRoleName === 'uberbond_render_rescue_owner' ||
+          !ALLOWED_NEON_READONLY_ROLES.has(snapshot.values.neonRoleName) ||
           snapshot.values.neonRoleScopeVerified !== true) {
         refuse('NEON_SOURCE_IDENTITY_OR_ROLE_SCOPE_UNVERIFIED');
       }

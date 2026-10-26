@@ -351,3 +351,11 @@ test('Free-plan credit claims above the published monthly allowance fail closed'
   }
   assert.equal(run(good()).evidenceComplete, true);
 });
+
+test('unapproved and potentially privileged Neon role identities fail closed', () => {
+  for (const neonRoleName of ['postgres', 'neondb_owner', 'uberbond_render_rescue_owner',
+    'uberbond_render_rescue_owner2', 'service_admin', 'another_readonly']) {
+    has({...good(), neonRoleName}, 'NEON_SOURCE_IDENTITY_OR_ROLE_SCOPE_UNVERIFIED');
+  }
+  assert.equal(run(good()).evidenceComplete, true);
+});

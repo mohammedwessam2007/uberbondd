@@ -99,6 +99,9 @@ export function estimateRailwayFreeFloor(input) {
     // sustainable runtime classification.
     if (t < 28*86400) reasons.push('INSUFFICIENT_BILLING_HORIZON');
     if (activeServiceCount === 0) reasons.push('NO_RUNNING_RUNTIME');
+    // A configuration with only one active role is not a running web+worker
+    // topology, regardless of how affordable its hypothetical full-duty cost is.
+    if (activeServiceCount !== 2) reasons.push('WEB_AND_WORKER_MUST_BOTH_RUN');
     if (fullDutyCostUsd > credit) reasons.push('FULL_DUTY_SCENARIO_EXCEEDS_CREDIT');
     return Object.freeze({status:reasons.length?'HOLD':'BUDGET_PLAUSIBLE_UNVERIFIED',reasons,costs,
       creditUsd:credit,fullDutyCostUsd:safeRound(fullDutyCostUsd),

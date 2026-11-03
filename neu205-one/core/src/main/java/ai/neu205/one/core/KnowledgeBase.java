@@ -47,7 +47,12 @@ public final class KnowledgeBase {
         public final Unit unit;
         public final String text;
         public final java.util.Set<String> toks;
-        Sentence(Unit unit, String text) { this.unit = unit; this.text = text; this.toks = new java.util.HashSet<>(Text.contentTokens(text)); }
+        public final List<String> seq;      // all tokens in order (incl. stop words) for proximity/negation
+        Sentence(Unit unit, String text) {
+            this.unit = unit; this.text = text;
+            this.toks = new java.util.HashSet<>(Text.contentTokens(text));
+            this.seq = Text.tokens(text);
+        }
     }
 
     public final List<Topic> topics = new ArrayList<>();

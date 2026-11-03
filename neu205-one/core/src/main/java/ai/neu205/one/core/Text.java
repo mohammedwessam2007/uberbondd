@@ -80,10 +80,14 @@ public final class Text {
         for (String[] x : c) CANON.put(x[0], x[1]);
     }
 
+    private static final Pattern ION = Pattern.compile("\\b(K|Na|Ca|Cl|Mg|H|Fe|Zn)(?:\\d?\\+{1,2}|-)(?=\\W|$)");
+
     public static List<String> tokens(String s) { return tokens(s, false); }
 
     private static List<String> tokens(String s, boolean dropStop) {
-        String t = s.toLowerCase(Locale.ROOT).replace('\u2019', '\'').replace("-", " ").replace("/", " ");
+        // Ions survive tokenisation: K+ -> kion, Na+ -> naion, Ca2+/Ca++ -> caion, Cl- -> clion.
+        String t = ION.matcher(s).replaceAll(" $1ion ");
+        t = t.toLowerCase(Locale.ROOT).replace('\u2019', '\'').replace("-", " ").replace("/", " ");
         t = t.replaceAll("'s\\b", "").replaceAll("[^a-z0-9+ ]", " ").replace("+", " ");
         List<String> out = new ArrayList<>();
         for (String w : t.trim().split("\\s+")) {
@@ -116,6 +120,7 @@ public final class Text {
         if (irr != null) return irr;
         if (w.length() <= 3) return w;
         if (w.endsWith("ies") && w.length() > 4) return w.substring(0, w.length() - 3) + "y";
+        if (w.endsWith("ied") && w.length() > 5) return w.substring(0, w.length() - 3) + "y";
         if (w.endsWith("sses")) return w.substring(0, w.length() - 2);
         if (w.endsWith("ches") || w.endsWith("shes") || w.endsWith("xes")) return w.substring(0, w.length() - 2);
         if (w.endsWith("s") && !w.endsWith("ss") && !w.endsWith("us") && !w.endsWith("is") && !w.endsWith("as"))

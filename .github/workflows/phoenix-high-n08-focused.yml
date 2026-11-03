@@ -1,0 +1,57 @@
+# PHOENIX GPT-6 High independent N08 test: no secrets, SMTP or provider calls.
+# This intentionally isolates the history safety test from inherited main CI failures.
+name: PHOENIX High N08 Focused
+on:
+  push:
+    branches:
+      - high/phoenix-monster-h-n08-history-20261014
+    paths:
+      - 'src/sending-registry-complete-history.mjs'
+      - 'src/sending-domain-registry.mjs'
+      - 'src/sending-mailbox-registry.mjs'
+      - 'tests/sending-registry-complete-history-n08.test.mjs'
+      - '.github/workflows/phoenix-high-n08-focused.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  n08-json-history:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres" --health-interval 5s
+          --health-timeout 5s --health-retries 12
+    env:
+      N08_TEST_DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci --ignore-scripts
+      - name: Test N08 on exact workflow checkout SHA (zero network send)
+        run: |
+          echo "N08_SOURCE_SHA=$GITHUB_SHA"
+          node --check src/sending-registry-complete-history.mjs
+          node --check src/sending-domain-registry.mjs
+          node --check src/sending-mailbox-registry.mjs
+          node --check tests/sending-registry-complete-history-n08.test.mjs
+          node --test tests/sending-registry-complete-history-n08.test.mjs
+      - name: Verify native Lead OS and Green Lane deterministic offline controls (no provider access)
+        run: |
+          node --test \
+            tests/lead-generation.test.mjs \
+            tests/uberlead-launch-fusion.test.mjs \
+            tests/uberlaunch-one-button.test.mjs \
+            tests/green-lane-discovery.test.mjs

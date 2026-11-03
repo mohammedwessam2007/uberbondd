@@ -24,7 +24,7 @@ public final class EvidenceIndex {
     public static final String SCHEMA = "neu205.evidence.v1";
     public static final String STRATEGY = "bm25-v1", STRATEGY_HYBRID = "bm25+bge-small-q8-rrf-v1";
     /** Coverage thresholds calibrated on DEV probes (see tournament report). */
-    public static final double OK_COVERAGE = 0.60, WEAK_COVERAGE = 0.35;
+    public static final double OK_COVERAGE = 0.50, WEAK_COVERAGE = 0.20;
 
     public static final class CancellationToken {
         private final AtomicBoolean c = new AtomicBoolean();

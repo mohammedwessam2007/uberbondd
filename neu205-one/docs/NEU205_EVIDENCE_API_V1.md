@@ -41,6 +41,13 @@ follow-ups — never to add answer text); `corpus_sha256` must equal the loaded 
 | `CANCELLED` | caller cancelled | discard |
 | `BUDGET_EXCEEDED` | search exceeded `latency_budget_ms` | passages so far may be empty; caller decides |
 
+## Status gate calibration (DEV only)
+`NONE` < 0.20 ≤ `WEAK` < 0.50 ≤ `OK` (IDF-weighted query-term coverage of the best passage).
+On DEV, lexical coverage separates supported from unsupported questions poorly (a 0.35 gate would
+drop 10/150 answerable questions while catching only 12/30 unsupported ones). Therefore the gate
+only removes near-empty matches (0.20 drops 1/150 supported); **refusing unsupported questions is
+Qwen's job** via the `NOT_IN_BOOK` instruction, measured separately on the 107 unsupported probes.
+
 ## Integrity (fail closed)
 At load the index verifies: `corpus.manifest.json.corpus_sha256 == sha256(corpus.jsonl bytes)`,
 every chunk's `source_hash == sha256(verbatim_text)`, ids unique, pages within 1–299. Any failure

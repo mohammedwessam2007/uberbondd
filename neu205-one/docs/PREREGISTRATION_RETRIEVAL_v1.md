@@ -35,3 +35,14 @@ Failing these is reported as failing; thresholds will not be lowered after seein
 - Supported TEST: correct ≥ 0.80; confidently wrong ≤ 0.05.
 - Unsupported TEST: refusal ≥ 0.95.
 - Oracle-evidence run (gold chunk given) reported separately to split retrieval vs reasoning errors.
+
+## Addendum A (2026-11-03, before any Qwen answer evaluation)
+New candidate after weights became reachable: genuine mxbai-edge-colbert-v0-17m (official ONNX,
+projection matrices verified equal to official safetensors, tokenizer parity 350/350 with the
+reference library). DEV: R@1 .767, R@5 .940, R@10 .960, p95 82 ms. Under rule 2 it ties the
+hybrid (R@5 within 2.0 points) and loses on latency, so the **retrieval default stays BM25+bge**.
+Answer-level decision rule (fixed now): run the same Qwen model/prompt on the same DEV items with
+(a) hybrid evidence and (b) ColBERT evidence; adopt ColBERT only if it improves Qwen DEV correct
+answers by ≥ 3 points without more confident-wrong answers. The winner (and only the winner) is
+then run once on TEST. Qwen model choice: the model with the most DEV correct answers among
+those with ≤ 5 % confident-wrong on supported and ≥ 90 % refusal on DEV unsupported; ties → faster.

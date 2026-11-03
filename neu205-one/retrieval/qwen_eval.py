@@ -14,7 +14,7 @@ Records TTFT, prefill tokens, decode tokens/s per item. Never sends anything ove
 import argparse, json, os, re, sys, time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from bm25 import BM25, tokens
-from tournament import gold_chunks, norm
+from tournament import gold_chunks, norm, rrf
 
 SYSTEM = ("You are NEU205, a spoken study assistant. Answer ONLY from the numbered textbook passages. "
           "If the passages do not contain the answer, reply exactly: NOT_IN_BOOK. "
@@ -34,6 +34,7 @@ def main():
     ap.add_argument("--gguf", required=True); ap.add_argument("--work", required=True); ap.add_argument("--probes", nargs="+", required=True)
     ap.add_argument("--split", default="dev"); ap.add_argument("--evidence", choices=["retrieved", "oracle"], default="retrieved")
     ap.add_argument("--k", type=int, default=5); ap.add_argument("--limit", type=int, default=0); ap.add_argument("--threads", type=int, default=4)
+    ap.add_argument("--retriever", choices=["hybrid", "bm25"], default="hybrid")
     ap.add_argument("--ctx", type=int, default=4096); ap.add_argument("--max-tokens", type=int, default=96); ap.add_argument("--out", required=True)
     a = ap.parse_args()
     from llama_cpp import Llama  # local runtime only
@@ -45,6 +46,19 @@ def main():
     for c, t in zip(chunks, texts):
         c["_tok"] = tokens(t)
     bm = BM25(texts)
+    if a.retriever == "hybrid":  # tournament default: BM25 + bge-small int8, RRF k=60
+        import numpy as np
+        from encoders import BiEncoder
+        M = os.path.join(a.work, "models")
+        enc = BiEncoder(os.path.join(M, "bge-small-q8.onnx"), os.path.join(M, "bge-tokenizer.json"), "cls",
+                        "Represent this sentence for searching relevant passages: ")
+        vec = np.fromfile(os.path.join(a.work, "dense_bge_q8.bin"), dtype="<f4").reshape(len(chunks), -1)
+
+    def retrieve(q, k):
+        b = [i for i, _ in bm.search(q, 50)]
+        if a.retriever == "bm25":
+            return b[:k]
+        return rrf(b, list(np.argsort(-(vec @ enc.encode_query(q)), kind="stable")[:50]))[:k]
     items = [p for f in a.probes for p in json.load(open(f)) if a.split == "all" or p["split"] == a.split]
     if a.limit:
         items = items[: a.limit]
@@ -53,7 +67,7 @@ def main():
     load_ms = (time.perf_counter() - t0) * 1e3
     rows = []
     for p in items:
-        ret = [i for i, _ in bm.search(p["question"], a.k)]
+        ret = retrieve(p["question"], a.k)
         if a.evidence == "oracle" and p["kind"] == "supported":
             g = sorted(gold_chunks(p, chunks, ntexts))[:2]
             ret = (g + [i for i in ret if i not in g])[: a.k]
@@ -81,7 +95,7 @@ def main():
     from collections import Counter
     c = Counter(r["verdict"] for r in rows)
     ttft = sorted(r["ttft_ms"] for r in rows)
-    summary = {"model": ident, "evidence": a.evidence, "k": a.k, "split": a.split, "n": len(rows), "verdicts": dict(c),
+    summary = {"model": ident, "retriever": a.retriever, "evidence": a.evidence, "k": a.k, "split": a.split, "n": len(rows), "verdicts": dict(c),
                "load_ms": round(load_ms), "ttft_p50_ms": ttft[len(ttft) // 2] if ttft else None,
                "ttft_p95_ms": ttft[int(len(ttft) * 0.95)] if ttft else None,
                "scope": "HOST x86 CPU llama.cpp; not phone; automatic phrase scoring"}

@@ -29,6 +29,10 @@ def gold_chunks(probe, chunks, ntexts):
     return set(gold)
 
 
+def EdgeColbertMax(q, d):
+    return float((q @ d.T.astype(np.float32)).max(axis=1).sum())
+
+
 def rrf(*rankings, k=60):
     s = {}
     for r in rankings:
@@ -66,6 +70,18 @@ def main(work, split, files):
         dense[name], vecs[name] = e, v
         meta[name + "_load_ms"] = round(e.load_ms); meta[name + "_index_bytes"] = int(v.nbytes); meta[name + "_model_bytes"] = os.path.getsize(onnx)
     ce = CrossEncoder(os.path.join(M, "msmarco-ce.onnx"), os.path.join(M, "msmarco-tokenizer.json"))
+    colb, cdocs = None, None
+    CB = os.environ.get("NEU205_COLBERT_DIR")
+    if CB:  # genuine pretrained mxbai-edge-colbert-v0-17m (projection verified against official weights)
+        from colbert import EdgeColbert
+        colb = EdgeColbert(os.path.join(CB, "model.onnx"), os.path.join(CB, "tokenizer.json"), os.path.join(CB, "onnx_config.json"))
+        cache = os.path.join(work, "colbert_docs.npz")
+        if os.path.exists(cache):
+            z = np.load(cache); cdocs = [z[f"d{i}"] for i in range(len(texts))]
+        else:
+            t1 = time.perf_counter(); cdocs = colb.encode_docs(texts); meta["colbert_index_build_s"] = round(time.perf_counter() - t1, 1)
+            np.savez(cache, **{f"d{i}": d for i, d in enumerate(cdocs)})
+        meta["colbert_load_ms"] = round(colb.load_ms); meta["colbert_index_bytes"] = int(sum(d.nbytes for d in cdocs))
 
     def run(name, q):
         if name == "bm25":
@@ -73,6 +89,12 @@ def main(work, split, files):
         if name in dense:
             s = vecs[name] @ dense[name].encode_query(q)
             return list(np.argsort(-s)[:50])
+        if name == "colbert":
+            qv = colb.encode_query(q)
+            sc = np.array([EdgeColbertMax(qv, d) for d in cdocs])
+            return list(np.argsort(-sc, kind="stable")[:50])
+        if name == "rrf_colbert":
+            return rrf(run("bm25", q), run("colbert", q))[:50]
         if name.startswith("rrf_"):
             d = name[4:].replace("+ce", "")
             r = rrf(run("bm25", q), run(d, q))[:50]

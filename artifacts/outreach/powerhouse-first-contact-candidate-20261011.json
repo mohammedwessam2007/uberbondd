@@ -1,0 +1,88 @@
+{
+  "schemaVersion": "uberbond.first-prospect-research-candidate.v1",
+  "createdOn": "2026-10-11",
+  "sourceTruth": "PUBLIC_WEB_INDEXED_PLUS_READ_ONLY_CONNECTOR_EVIDENCE",
+  "authority": "NONE",
+  "sendAuthority": false,
+  "sendPerformed": false,
+  "providerCallsPerformedForSending": 0,
+  "purchasePerformed": false,
+  "contact": {
+    "business": "Powerhouse Consulting Group",
+    "sourcePublishedRoleInbox": "hello@mypowerhouse.group",
+    "addressEvidence": [
+      "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/",
+      "https://mypowerhouse.group/privacy-policy/"
+    ],
+    "liveSuppressionChecked": false,
+    "providerVerifiedRouteCurrent": false
+  },
+  "client": {
+    "business": "Sylvester Electric",
+    "relationshipEvidence": "https://mypowerhouse.group/",
+    "currentDirectRelationshipVerified": false
+  },
+  "claim": {
+    "page": "https://sylvesterelectric.com/home",
+    "sourceKind": "INDEXED_FIRST_PARTY_PAGE",
+    "indexedRecency": "last week as returned 2026-10-11",
+    "directOriginGetSucceeded": false,
+    "qualifyingAfterHoursTextObserved": true,
+    "serviceList24x7TextObserved": true,
+    "claimedProblem": "possible customer-expectation wording clarification, NOT established defect",
+    "lostRevenueProven": false,
+    "agencyCausedProblemProven": false
+  },
+  "offer": {
+    "historicalPreflightOfferId": "CLIENT_ROI_PROOF_SPRINT",
+    "lastRankedRuntimeOfferId": "LEAD_TO_BOOKING_LEAK_AUDIT",
+    "offerIdSelectedToday": null,
+    "tournamentRunToday": false
+  },
+  "candidate": {
+    "recipient": "hello@mypowerhouse.group",
+    "subject": "Sylvester availability",
+    "body": "Hi there,\n\nPowerhouse publicly names Sylvester Electric as a client, and a recently indexed Sylvester /home page describes emergency service as available during business hours and qualifying after-hours situations while its service list says 24/7 Emergency Service. Those statements may be compatible operationally, but the wording could benefit from one precise customer-expectation check. I prepared a short note with the two source excerpts and a suggested clarification test. Want me to send it?",
+    "wordCount": 73,
+    "sentenceCount": 4,
+    "questionCount": 1,
+    "hardV5StaticConstraintsPassed": true,
+    "fullV5PolicyValidated": false,
+    "finalEffectDigest": null,
+    "phase": "PREPARED_NOT_APPROVED"
+  },
+  "runtime": {
+    "mainSha": "b3a268037dea4259b1bc6f837fa06bad69f3ccf3",
+    "deployedSha": "24854739d70617d57807cde5407a84266cca477c",
+    "deploymentObserved": "2026-10-09T16:10:23Z",
+    "currentMainDeployed": false,
+    "queuedProspectsHistorical": 4,
+    "rankedProspectsHistorical": 1,
+    "verifiedRoutesHistorical": 1,
+    "transportReceiptExpiry": "2026-10-09T17:25:19.386Z",
+    "currentSmtpReady": false,
+    "outboundIntegrationModeLastObserved": "off",
+    "outboundAuthority": "NONE",
+    "historicalThirdMailboxPlacementHold": true
+  },
+  "founderStatement": "Owner says outreach lawful; legal resolution reference not supplied; don't mark policy green merely from statement",
+  "remainingHardGates": [
+    "origin-proof-current",
+    "fresh-production-contact-history-and-suppression",
+    "offer-identity-and-message-tournament",
+    "route-specific-eligibility-evidence",
+    "sender-transport-DNS-placement-fresh",
+    "signed-footer-and-unsubscribe",
+    "final-preflight-effect-digest",
+    "exact-authority-to-send"
+  ],
+  "references": [
+    "docs/receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md",
+    "docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md",
+    "docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md",
+    "artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json",
+    "https://sylvesterelectric.com/home",
+    "https://mypowerhouse.group/",
+    "https://mypowerhouse.group/event/webinar-servicetitan-field-mobile-app-advanced-features/"
+  ]
+}

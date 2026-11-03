@@ -22,7 +22,8 @@ import java.util.regex.Pattern;
  */
 public final class EvidenceIndex {
     public static final String SCHEMA = "neu205.evidence.v1";
-    public static final String STRATEGY = "bm25-v1", STRATEGY_HYBRID = "bm25+bge-small-q8-rrf-v1";
+    public static final String STRATEGY = "bm25-v1", STRATEGY_HYBRID = "bm25+bge-small-q8-rrf-v1",
+            STRATEGY_COLBERT = "colbert-mxbai-edge-17m-v1";
     /** Coverage thresholds calibrated on DEV probes (see tournament report). */
     public static final double OK_COVERAGE = 0.50, WEAK_COVERAGE = 0.20;
 
@@ -96,10 +97,32 @@ public final class EvidenceIndex {
         }
     }
 
-    public String strategy() { return dense != null ? STRATEGY_HYBRID : STRATEGY; }
+    private ColbertIndex colbert;
+    private ColbertIndex.QueryEncoder colbertEncoder;
+
+    /** Enable genuine ColBERT ranking (adopted by the answer-level DEV rule). Fails closed on any mismatch. */
+    public void attachColbert(byte[] f16le, String expectedSha256, List<Integer> tokenCounts, ColbertIndex.QueryEncoder enc) {
+        if (loadError != null) return;
+        try {
+            if (!sha256(f16le).equals(expectedSha256)) throw new IllegalStateException("colbert vector digest mismatch");
+            if (tokenCounts.size() != chunks.size()) throw new IllegalStateException("colbert row count != corpus");
+            colbert = new ColbertIndex(f16le, ColbertIndex.offsetsFromCounts(tokenCounts));
+            colbertEncoder = enc;
+        } catch (RuntimeException e) {
+            loadError = "colbert index invalid: " + e.getMessage();
+            chunks.clear();
+        }
+    }
+
+    public String strategy() { return colbert != null ? STRATEGY_COLBERT : dense != null ? STRATEGY_HYBRID : STRATEGY; }
 
     /** Ranked corpus rows for a query: BM25 alone, or RRF(BM25 top-50, dense top-50). */
     List<Integer> rank(String query, int keep, CancellationToken token) throws Exception {
+        if (colbert != null) {
+            List<Integer> out = new ArrayList<>();
+            for (int r : colbert.top(colbertEncoder.encode(query), keep)) out.add(r);
+            return out;
+        }
         double[][] b = bm25.search(query, 50);
         int[] br = new int[b.length];
         for (int i = 0; i < b.length; i++) br[i] = (int) b[i][0];
@@ -127,6 +150,45 @@ public final class EvidenceIndex {
     }
 
     String chunkId(int row) { return chunks.get(row).id; }
+
+    private static final Pattern SENT = Pattern.compile("(?<=[.;:])\\s+(?=[A-Z0-9(])");
+
+    /**
+     * Compact verbatim evidence for the Qwen prompt (port of retrieval/qwen_eval.py sentence_evidence):
+     * rank sentences of the returned passages by question-term coverage + rank prior, keep within
+     * budgetWords, return them in book order with their page spans. Never edits sentence text.
+     */
+    public static List<String[]> compactSentences(String question, List<Passage> passages, int budgetWords) {
+        java.util.Set<String> q = new java.util.HashSet<>(Bm25.tokens(question));
+        List<Object[]> cand = new ArrayList<>();
+        for (int rank = 0; rank < passages.size(); rank++) {
+            Passage p = passages.get(rank);
+            String[] parts = SENT.split(p.verbatimText);
+            for (int j = 0; j < parts.length; j++) {
+                java.util.Set<String> t = new java.util.HashSet<>(Bm25.tokens(parts[j]));
+                if (t.isEmpty()) continue;
+                int hit = 0;
+                for (String x : q) if (t.contains(x)) hit++;
+                double sc = (double) hit / Math.max(1, q.size()) + 0.05 / (1 + rank) - 0.001 * j;
+                cand.add(new Object[]{sc, rank, j, parts[j], p});
+            }
+        }
+        cand.sort((x, y) -> Double.compare((double) y[0], (double) x[0]));
+        List<Object[]> keep = new ArrayList<>();
+        int words = 0;
+        for (Object[] c : cand) {
+            int w = ((String) c[3]).trim().split("\\s+").length;
+            if (words + w > budgetWords && !keep.isEmpty()) continue;
+            keep.add(c); words += w;
+        }
+        keep.sort((x, y) -> { int c = Integer.compare((int) x[1], (int) y[1]); return c != 0 ? c : Integer.compare((int) x[2], (int) y[2]); });
+        List<String[]> out = new ArrayList<>();
+        for (Object[] c : keep) {
+            Passage p = (Passage) c[4];
+            out.add(new String[]{String.valueOf(p.startPage), String.valueOf(p.endPage), (String) c[3]});
+        }
+        return out;
+    }
 
     private EvidenceIndex() {}
 

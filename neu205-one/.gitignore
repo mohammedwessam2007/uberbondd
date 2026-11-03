@@ -1,0 +1,11 @@
+# Owner-private course data, models and build outputs never enter git.
+private/
+models/
+build/
+out/
+*.apk
+*.onnx
+*.wav
+*.keystore
+*.jks
+__pycache__/

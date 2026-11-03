@@ -89,6 +89,8 @@ def main(work, split, files):
 
     strategies = ["bm25", "bge_fp32", "bge_q8", "minilm_q8", "rrf_bge_fp32", "rrf_bge_q8", "rrf_minilm_q8",
                   "bm25+ce", "rrf_bge_q8+ce", "rrf_bge_fp32+ce"]
+    if os.environ.get("NEU205_STRATEGIES"):  # TEST runs evaluate only the pre-registered selections
+        strategies = os.environ["NEU205_STRATEGIES"].split(",")
     out = {"split": split, "n_probes": len(probes), "probes_without_gold_chunk": no_gold, "chunks": len(chunks),
            "bm25_build_ms": round(bm_build), "meta": meta, "results": {}}
     for s in strategies:

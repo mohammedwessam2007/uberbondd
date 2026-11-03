@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  */
 public final class EvidenceIndex {
     public static final String SCHEMA = "neu205.evidence.v1";
-    public static final String STRATEGY = "bm25-v1";
+    public static final String STRATEGY = "bm25-v1", STRATEGY_HYBRID = "bm25+bge-small-q8-rrf-v1";
     /** Coverage thresholds calibrated on DEV probes (see tournament report). */
     public static final double OK_COVERAGE = 0.60, WEAK_COVERAGE = 0.35;
 
@@ -44,6 +44,7 @@ public final class EvidenceIndex {
 
     public static final class Response {
         public final String requestId, corpusSha256, status, error;
+        public String strategy = STRATEGY;
         public final double elapsedMs;
         public final List<Passage> passages;
         Response(String rid, String sha, String status, String error, double ms, List<Passage> p) {
@@ -51,7 +52,7 @@ public final class EvidenceIndex {
         }
         public String toJson() {
             StringBuilder b = new StringBuilder("{\"schema\":\"").append(SCHEMA).append("\",\"request_id\":").append(q(requestId))
-                    .append(",\"corpus_sha256\":").append(q(corpusSha256)).append(",\"strategy\":\"").append(STRATEGY)
+                    .append(",\"corpus_sha256\":").append(q(corpusSha256)).append(",\"strategy\":\"").append(strategy)
                     .append("\",\"elapsed_ms\":").append(String.format(Locale.US, "%.2f", elapsedMs))
                     .append(",\"evidence_status\":").append(q(status));
             if (error != null) b.append(",\"error\":").append(q(error));
@@ -62,7 +63,7 @@ public final class EvidenceIndex {
                 b.append("{\"chunk_id\":").append(q(p.chunkId)).append(",\"book_pdf_start_page\":").append(p.startPage)
                         .append(",\"book_pdf_end_page\":").append(p.endPage).append(",\"section_path\":").append(q(p.sectionPath))
                         .append(",\"verbatim_text\":").append(q(p.verbatimText)).append(",\"source_hash\":").append(q(p.sourceHash))
-                        .append(",\"retrieval_scores\":{\"bm25\":").append(String.format(Locale.US, "%.4f", p.bm25))
+                        .append(",\"retrieval_scores\":{\"fused_rank\":").append((int) p.bm25)
                         .append(",\"coverage\":").append(String.format(Locale.US, "%.4f", p.coverage)).append("}}");
             }
             return b.append("]}").toString();
@@ -75,6 +76,57 @@ public final class EvidenceIndex {
     private Bm25 bm25;
     private String corpusSha = "";
     private String loadError;
+    private DenseIndex dense;
+    private DenseIndex.QueryEncoder encoder;
+
+    /**
+     * Enable the pre-registered hybrid route (BM25 + bge-small-q8, RRF). The vector file digest must
+     * match the dense manifest, and the row count must match the corpus; otherwise the index fails
+     * closed (INDEX_CORRUPT) instead of silently degrading.
+     */
+    public void attachDense(byte[] vectorsF32le, String expectedSha256, int dim, DenseIndex.QueryEncoder enc) {
+        if (loadError != null) return;
+        try {
+            if (!sha256(vectorsF32le).equals(expectedSha256)) throw new IllegalStateException("dense vector digest mismatch");
+            dense = new DenseIndex(vectorsF32le, chunks.size(), dim);
+            encoder = enc;
+        } catch (RuntimeException e) {
+            loadError = "dense index invalid: " + e.getMessage();
+            chunks.clear();
+        }
+    }
+
+    public String strategy() { return dense != null ? STRATEGY_HYBRID : STRATEGY; }
+
+    /** Ranked corpus rows for a query: BM25 alone, or RRF(BM25 top-50, dense top-50). */
+    List<Integer> rank(String query, int keep, CancellationToken token) throws Exception {
+        double[][] b = bm25.search(query, 50);
+        int[] br = new int[b.length];
+        for (int i = 0; i < b.length; i++) br[i] = (int) b[i][0];
+        if (dense == null) {
+            List<Integer> out = new ArrayList<>();
+            for (int i = 0; i < Math.min(keep, br.length); i++) out.add(br[i]);
+            return out;
+        }
+        if (token != null && token.isCancelled()) return new ArrayList<>();
+        float[] q = encoder.encode(query);
+        int[] dr = dense.search(q, 50);
+        List<int[]> lists = new ArrayList<>();
+        lists.add(br); lists.add(dr);
+        return DenseIndex.rrf(lists, keep);
+    }
+
+    /** Hybrid ranking with an externally supplied query vector (parity tests). */
+    List<Integer> rankWithVector(String query, float[] qv, int keep) {
+        double[][] b = bm25.search(query, 50);
+        int[] br = new int[b.length];
+        for (int i = 0; i < b.length; i++) br[i] = (int) b[i][0];
+        List<int[]> lists = new ArrayList<>();
+        lists.add(br); lists.add(dense.search(qv, 50));
+        return DenseIndex.rrf(lists, keep);
+    }
+
+    String chunkId(int row) { return chunks.get(row).id; }
 
     private EvidenceIndex() {}
 
@@ -146,21 +198,28 @@ public final class EvidenceIndex {
             query = q.toString();
         }
         if (token != null && token.isCancelled()) return new Response(rid, corpusSha, "CANCELLED", null, ms(t0), new ArrayList<>());
-        double[][] hits = bm25.search(query, max);
+        List<Integer> hits;
+        try {
+            hits = rank(query, max, token);
+        } catch (Exception e) {
+            return new Response(rid, corpusSha, "INDEX_CORRUPT", "query encoder failed: " + e.getClass().getSimpleName(), ms(t0), new ArrayList<>());
+        }
         if (token != null && token.isCancelled()) return new Response(rid, corpusSha, "CANCELLED", null, ms(t0), new ArrayList<>());
         List<Passage> out = new ArrayList<>();
         double best = 0;
-        for (double[] h : hits) {
-            int i = (int) h[0];
+        int rank = 0;
+        for (int i : hits) {
             double cov = bm25.coverage(query, i);
             best = Math.max(best, cov);
-            out.add(new Passage(chunks.get(i), h[1], cov));
+            out.add(new Passage(chunks.get(i), ++rank, cov)); // 'bm25' field carries the 1-based fused rank
         }
         double elapsed = ms(t0);
         if (elapsed > budget) return new Response(rid, corpusSha, "BUDGET_EXCEEDED", null, elapsed, out);
         String status = out.isEmpty() || best < WEAK_COVERAGE ? "NONE" : best < OK_COVERAGE ? "WEAK" : "OK";
         if (status.equals("NONE")) out.clear();
-        return new Response(rid, corpusSha, status, null, elapsed, out);
+        Response resp = new Response(rid, corpusSha, status, null, elapsed, out);
+        resp.strategy = strategy();
+        return resp;
     }
 
     static String validate(Map<String, Object> r) {

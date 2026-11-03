@@ -46,3 +46,14 @@ Answer-level decision rule (fixed now): run the same Qwen model/prompt on the sa
 answers by ≥ 3 points without more confident-wrong answers. The winner (and only the winner) is
 then run once on TEST. Qwen model choice: the model with the most DEV correct answers among
 those with ≤ 5 % confident-wrong on supported and ≥ 90 % refusal on DEV unsupported; ties → faster.
+
+## Decision record (after independent DEV grading, before any TEST answer run)
+Independent, config-blind grading of 450 DEV answers (6 configurations × 75 items) replaced the
+automatic phrase scorer, which misjudged answers in both directions. Results (45 supported / 30 unsupported):
+1.7B hybrid-110w 31 correct / 4 wrong / 1 false; 1.7B ColBERT-110w 31 / 4 / 3; 1.7B hybrid-5 chunks
+35 / 2 / 3 (TTFT ×1.9); 4B 31 / 6 / 2; **Qwen3.5-4B hybrid-110w 33 / 4 / 0**; 1.7B oracle 32 / 0 / 3 (9 refusals).
+- ColBERT: NOT adopted (no improvement in Qwen correctness, more false answers). The earlier
+  adoption note (commit 24ad759) was based on the automatic scorer and is withdrawn.
+- No model meets the ≤5 % confidently-wrong bar on DEV (best 4/45 = 8.9 %). The best available,
+  Qwen3.5-4B Q4_K_M + BM25/bge hybrid + 110-word sentence evidence, goes to TEST and will be
+  reported against the bar as-is.

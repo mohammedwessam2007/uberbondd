@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 
 // Bump when the classification policy changes so past receipts stay
 // attributable to the policy version that produced them.
-export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.2.0';
+export const PAYMENT_TRUTH_POLICY_VERSION = 'payment-truth-1.3.0';
 
 export const FIRST_CASH_SPRINT_PRODUCT = 'lead-path-revenue-leak-evidence-sprint-usd-450';
 export const KNOWN_PRODUCTS = ['full', 'strategy', 'monitoring', FIRST_CASH_SPRINT_PRODUCT];
@@ -41,7 +41,8 @@ const REFUND_EVENTS = new Set(['order_refunded']);
 const FAILED_PAYMENT_EVENTS = new Set(['subscription_payment_failed']);
 
 function malformedAmount(amountCents) {
-  return !Number.isFinite(amountCents) || amountCents < 0;
+  // Fractional and unsafe amounts must not mint cleared-payment classifications.
+  return !Number.isSafeInteger(amountCents) || amountCents <= 0;
 }
 
 // What the buyer is meant to be paying for the product they claim.
@@ -62,11 +63,9 @@ const FIXED_PRODUCT_PRICE_CENTS = Object.freeze({
 // rate this system does not have and must not invent -- EUR 30.00 is not "less
 // than" USD 49.00 in any sense worth acting on.
 //
-// A payment in another currency is therefore treated exactly like a product
-// whose price is not configured: not evidence of underpayment, and not blocked.
-// That leaves a non-USD payment unchecked on amount, which is narrower than the
-// hole this closes but is still a hole; closing it needs prices denominated per
-// currency, which is a configuration decision rather than a code one.
+// A payment in another currency cannot be priced by this USD-only catalog.
+// Without a verified per-currency price source it requires manual review and
+// must not mint an automatic paid unlock. Never invent an FX conversion.
 const PRICE_CURRENCY = 'USD';
 
 function listPriceCents(product, currency, cfg) {
@@ -119,6 +118,10 @@ export function classifyPaymentEvent({ event, lead, cfg = {} } = {}) {
   }
   if (isPaymentBearing && (malformedAmount(event.amountCents) || malformedCurrency(event.currency))) {
     reasonCodes.push('malformed-amount-or-currency');
+    return { ...base, classification: 'REVIEW_REQUIRED' };
+  }
+  if (isPaymentBearing && String(event.currency).toUpperCase() !== PRICE_CURRENCY) {
+    reasonCodes.push('provider-currency-price-unverified');
     return { ...base, classification: 'REVIEW_REQUIRED' };
   }
   // The money must cover the thing being unlocked.

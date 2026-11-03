@@ -1,7 +1,7 @@
 // Delivery -> accepted result -> case evidence -> referral -> renewal ->
 // expansion. A forward-only state machine whose every step has an evidence gate.
 // It records and recommends; it never contacts anyone.
-import { assessPaymentEvidence } from './payment-compression.mjs';
+import { assessPaymentEvidence, parseNonnegativeCents } from './payment-compression.mjs';
 import { ZERO_EXTERNAL_EFFECTS } from './effect-ledgers.mjs';
 
 export const DELIVERY_LOOP_VERSION = 'uberbond.delivery-loop.v1';
@@ -27,10 +27,12 @@ export function advanceDelivery(customer = {}, { upTo = 'EXPANSION_CANDIDATE' } 
     if (STATES[i] === upTo) break;
   }
   const state = STATES[idx];
+  const paymentTruth = customer.payment ? assessPaymentEvidence(customer.payment) : null;
+  const cost = customer.deliveryCostCents == null ? 0 : parseNonnegativeCents(customer.deliveryCostCents);
   return {
     version: DELIVERY_LOOP_VERSION, state, trail, blocks,
     nextAllowedAction: blocks.length ? `Satisfy: ${blocks[0]}` : 'None: terminal state reached for supplied evidence.',
-    contributionCents: customer.payment ? assessPaymentEvidence(customer.payment).netCents - Math.round((Number(customer.deliveryCostCents) || 0)) : null,
+    contributionCents: paymentTruth?.cleared === true && cost !== null ? paymentTruth.netCents - cost : null,
     authority: 'MANUAL_MOHAMED_FOR_CUSTOMER_COMMUNICATION', outboundAuthority: 'NONE', externalEffectLedger: { ...ZERO_EXTERNAL_EFFECTS }
   };
 }

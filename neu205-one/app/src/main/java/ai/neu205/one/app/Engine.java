@@ -55,8 +55,10 @@ final class Engine {
             Properties cfg = new Properties();
             try (InputStream in = am.open("models/whisper/config.properties")) { cfg.load(in); }
             File dir = new File(app.getFilesDir(), "models/whisper-" + cfg.getProperty("id"));
-            File enc = install(am, "models/whisper/encoder.onnx", new File(dir, "encoder.onnx"), Long.parseLong(cfg.getProperty("encoder_bytes")));
-            File dec = install(am, "models/whisper/decoder.onnx", new File(dir, "decoder.onnx"), Long.parseLong(cfg.getProperty("decoder_bytes")));
+            File enc = install(am, "models/whisper/encoder.onnx", new File(dir, "encoder.onnx"),
+                    Long.parseLong(cfg.getProperty("encoder_bytes")), cfg.getProperty("encoder_sha256"));
+            File dec = install(am, "models/whisper/decoder.onnx", new File(dir, "decoder.onnx"),
+                    Long.parseLong(cfg.getProperty("decoder_bytes")), cfg.getProperty("decoder_sha256"));
             List<String> toks;
             try (InputStream in = am.open("models/whisper/tokens.txt")) {
                 toks = Arrays.asList(new String(readAll(in), StandardCharsets.UTF_8).split("\n", -1));
@@ -76,19 +78,41 @@ final class Engine {
         }
     }
 
-    private static File install(AssetManager am, String asset, File dst, long expectedBytes) throws IOException {
-        if (dst.isFile() && dst.length() == expectedBytes) return dst;
+    /**
+     * Copy a model out of the APK once and verify its SHA-256 against the build manifest.
+     * A ".verified" marker (holding the digest) avoids re-hashing 250 MB on every launch; any size
+     * mismatch, missing marker or digest mismatch forces a fresh copy + verification.
+     */
+    private static File install(AssetManager am, String asset, File dst, long expectedBytes, String expectedSha) throws IOException {
+        if (expectedSha == null || expectedSha.length() != 64) throw new IOException("Build is missing a model checksum");
+        File marker = new File(dst.getPath() + ".verified");
+        if (dst.isFile() && dst.length() == expectedBytes && marker.isFile()
+                && expectedSha.equals(new String(readAll(new java.io.FileInputStream(marker)), StandardCharsets.UTF_8).trim())) {
+            return dst;
+        }
+        marker.delete();
         File parent = dst.getParentFile();
         if (parent != null && !parent.isDirectory() && !parent.mkdirs()) throw new IOException("Cannot create model folder");
         File tmp = new File(dst.getPath() + ".tmp");
+        java.security.MessageDigest md;
+        try { md = java.security.MessageDigest.getInstance("SHA-256"); } catch (java.security.NoSuchAlgorithmException e) { throw new IOException(e); }
         try (InputStream in = am.open(asset); OutputStream out = new FileOutputStream(tmp)) {
             byte[] buf = new byte[1 << 20];
             int r;
-            while ((r = in.read(buf)) > 0) out.write(buf, 0, r);
+            while ((r = in.read(buf)) > 0) { out.write(buf, 0, r); md.update(buf, 0, r); }
         }
+        String got = hex(md.digest());
         if (tmp.length() != expectedBytes) { tmp.delete(); throw new IOException("Model copy incomplete (storage full?)"); }
+        if (!got.equals(expectedSha)) { tmp.delete(); throw new IOException("Model file is corrupted (checksum mismatch)"); }
         if (!tmp.renameTo(dst)) throw new IOException("Model install failed");
+        try (OutputStream m = new FileOutputStream(marker)) { m.write(got.getBytes(StandardCharsets.UTF_8)); }
         return dst;
+    }
+
+    static String hex(byte[] b) {
+        StringBuilder s = new StringBuilder();
+        for (byte x : b) s.append(String.format("%02x", x & 0xff));
+        return s.toString();
     }
 
     static byte[] readAll(InputStream in) throws IOException {

@@ -12,7 +12,8 @@ public final class BatchAnswer {
         KnowledgeBase kb = KnowledgeBase.fromJson(new String(Files.readAllBytes(Paths.get(a[0])), StandardCharsets.UTF_8));
         for (String q : Files.readAllLines(Paths.get(a[1]), StandardCharsets.UTF_8)) {
             Dialogue.Reply r = new Dialogue(kb).answer(q);
-            System.out.println(r.kind + "\t" + r.citation + "\t" + r.speech.replace('\t', ' '));
+            System.out.println(r.kind + "\t" + r.citation + "\t" + r.speech.replace('\t', ' ').replace('\n', ' ')
+                    + "\t" + r.display.replace('\t', ' ').replace('\n', ' '));
         }
     }
 }

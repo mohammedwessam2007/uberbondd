@@ -42,6 +42,8 @@ public final class VoiceService extends Service implements AudioMic.Sink, PhoneS
     private AudioManager.AudioRecordingCallback recCb;
     private volatile boolean wantRunning;
     private long tapAtMs, ttsStartAtMs;
+    private int asrFailuresInRow, ttsFailuresInRow;
+    static final int MAX_FAILURES_IN_ROW = 3;
 
     @Override public IBinder onBind(Intent i) { return null; }
 
@@ -130,9 +132,20 @@ public final class VoiceService extends Service implements AudioMic.Sink, PhoneS
                 WhisperOnnx.Result r = e.whisper.transcribe(pcm);
                 if (r == null) return; // cancelled by Stop
                 Hub.diag("last_asr", "mel " + r.melMs + " ms, encoder " + r.encMs + " ms, decoder " + r.decMs + " ms, " + r.nTokens + " tokens, audio " + (pcm.length / 16) + " ms");
-                main.post(() -> { Conversation c = conv; if (c != null) c.onTranscript(gen, r.text); });
+                main.post(() -> {
+                    asrFailuresInRow = 0;
+                    Conversation c = conv;
+                    if (c != null) c.onTranscript(gen, r.text);
+                });
             } catch (Throwable t) {
-                main.post(() -> { Conversation c = conv; if (c != null) c.onRecognizerError(gen, String.valueOf(t.getMessage())); });
+                String why = t.getClass().getSimpleName() + (t.getMessage() == null ? "" : ": " + t.getMessage());
+                Hub.diag("last_asr_error", why);
+                main.post(() -> {
+                    Conversation c = conv;
+                    if (c == null || gen != c.generation()) return;
+                    if (++asrFailuresInRow >= MAX_FAILURES_IN_ROW) c.onFatal(gen, "Speech recognition keeps failing (" + why + ")");
+                    else { Hub.notice("Didn't catch that — please ask again"); c.onRecognizerError(gen, why); }
+                });
             }
         });
     }
@@ -156,7 +169,17 @@ public final class VoiceService extends Service implements AudioMic.Sink, PhoneS
             Hub.turn(c.tTranscript - c.tUtteranceEnd, c.tReply - c.tTranscript, ttsStartAtMs - c.tSpeakRequested, ttsStartAtMs - speechEnd);
         }
     }
-    @Override public void onDone(int gen) { main.post(() -> { Conversation c = conv; if (c != null) c.onSpoken(gen); }); }
+    @Override public void onDone(int gen) { main.post(() -> { ttsFailuresInRow = 0; Conversation c = conv; if (c != null) c.onSpoken(gen); }); }
+    @Override public void onFailed(int gen, String why) {
+        Hub.diag("last_tts_error", why);
+        main.post(() -> {
+            Conversation c = conv;
+            if (c == null || gen != c.generation()) return;
+            if (++ttsFailuresInRow >= MAX_FAILURES_IN_ROW) { c.onFatal(gen, "Voice output keeps failing (" + why + ")"); return; }
+            Hub.notice("Voice output failed — answer shown on screen");
+            c.onSpoken(gen); // continue listening; the answer is visible on screen
+        });
+    }
 
     // ----- Conversation.Listener -----
     @Override public void onState(Conversation.State s, String detail) {

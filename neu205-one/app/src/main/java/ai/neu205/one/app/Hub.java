@@ -18,6 +18,7 @@ final class Hub {
         void onState(String state, String detail);
         void onReply(String question, String answer, String citation, String kind);
         void onLevel(double rms, double noise, boolean inSpeech);
+        void onNotice(String text);
     }
 
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
@@ -45,6 +46,9 @@ final class Hub {
     }
 
     static synchronized void diag(String k, String v) { diag.put(k, v); }
+
+    /** Short user-visible notice (e.g. "Didn't catch that"); does not change state. */
+    static void notice(String text) { MAIN.post(() -> { for (View v : views) v.onNotice(text); }); }
 
     /** asr, resolve, ttsQueue, estimated speech-end -> TTS-start (all ms). */
     static synchronized void turn(long asrMs, long resolveMs, long ttsQueueMs, long estEndToVoiceMs) {

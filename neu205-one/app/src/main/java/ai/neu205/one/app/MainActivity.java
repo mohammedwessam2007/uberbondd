@@ -147,6 +147,8 @@ public final class MainActivity extends Activity implements Hub.View {
 
     @Override public void onLevel(double rms, double noise, boolean speech) { orb.setLevel(rms, noise, speech); }
 
+    @Override public void onNotice(String text) { status.setText(text); }
+
     private void showDiagnostics() {
         String r = Hub.report();
         TextView t = text(r, 13, fg, false);

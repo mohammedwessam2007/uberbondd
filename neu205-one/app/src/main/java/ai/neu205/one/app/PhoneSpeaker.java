@@ -23,6 +23,8 @@ final class PhoneSpeaker implements Conversation.Speaker {
         void onUnavailable(String why);
         void onStarted(int gen);
         void onDone(int gen);
+        /** Synthesis/playback failed: the user heard nothing for this turn. */
+        void onFailed(int gen, String why);
     }
 
     private final TextToSpeech tts;
@@ -63,8 +65,8 @@ final class PhoneSpeaker implements Conversation.Speaker {
         tts.setOnUtteranceProgressListener(new UtteranceProgressListener() {
             @Override public void onStart(String id) { cb.onStarted(gen(id)); }
             @Override public void onDone(String id) { cb.onDone(gen(id)); }
-            @SuppressWarnings("deprecation") @Override public void onError(String id) { cb.onDone(gen(id)); }
-            @Override public void onError(String id, int code) { cb.onDone(gen(id)); }
+            @SuppressWarnings("deprecation") @Override public void onError(String id) { cb.onFailed(gen(id), "voice output error"); }
+            @Override public void onError(String id, int code) { cb.onFailed(gen(id), "voice output error " + code); }
             @Override public void onStop(String id, boolean interrupted) { /* Stop path handled by generation */ }
         });
         voiceDescription = best.getName() + " (" + best.getLocale() + ", offline, q" + best.getQuality() + ")";
@@ -81,10 +83,12 @@ final class PhoneSpeaker implements Conversation.Speaker {
     private int seq;
 
     @Override public void speak(int generation, String text) {
-        if (!ready) { cb.onDone(generation); return; }
+        if (!ready) { cb.onFailed(generation, "offline voice not ready"); return; }
         Bundle params = new Bundle();
         params.putFloat(TextToSpeech.Engine.KEY_PARAM_VOLUME, 1.0f);
-        tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, generation + "-" + (seq++));
+        if (tts.speak(text, TextToSpeech.QUEUE_FLUSH, params, generation + "-" + (seq++)) != TextToSpeech.SUCCESS) {
+            cb.onFailed(generation, "voice engine rejected the request");
+        }
     }
 
     @Override public void stop() { if (ready) tts.stop(); }

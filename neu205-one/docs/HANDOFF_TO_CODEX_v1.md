@@ -33,3 +33,19 @@ v0.3 donor code; Codex may reuse or replace it but should not expect further edi
   "Represent this sentence for searching relevant passages: "), tokenising with `WordPiece`.
   Without it, BM25-only still works (TEST R@5 .835).
 - Nothing in this handoff has run on Android.
+
+## Update v1.1 — answer layer selected on DEV (independently graded), frozen at f89d3e2
+- **Generator:** Qwen3.5-4B Q4_K_M, `unsloth/Qwen3.5-4B-GGUF` file `Qwen3.5-4B-Q4_K_M.gguf`,
+  sha256 `00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4`, GGUF arch `qwen35`
+  (requires a llama.cpp build that supports qwen35; verified with llama-cpp-python 0.3.36).
+  Fallback if phone memory/speed forbids 4B: Qwen3-1.7B Q8_0 (`Qwen/Qwen3-1.7B-GGUF`, sha256
+  `061b54da…cb1a`): 31 vs 33 correct on DEV, ~25 % faster on host. Qwen3-0.6B is NOT usable (6/45).
+- **Evidence:** `EvidenceIndex` hybrid (BM25 + bge-small int8 RRF), request `max_passages=8`, then
+  `EvidenceIndex.compactSentences(question, passages, 110)` → numbered `[n] (p.X-Y) sentence` lines.
+- **Prompt:** system text = `SYSTEM` in `retrieval/qwen_eval.py` (keep byte-identical so its KV
+  prefix can be cached once per session); user = `Passages:\n...\n\nQuestion: <q>\n/no_think`.
+  Greedy decoding, max 96 tokens; if the output contains `NOT_IN_BOOK`, say the book does not cover it.
+- **Latency budget reality:** host TTFT p50 ~11–12 s is prefill-bound (~33 tok/s on a 4-vCPU host).
+  Phone TTFT must be measured; GPU/NPU offload and a cached system-prompt prefix are the main levers.
+- ColBERT Java code (`ColbertIndex`, `ByteBpe`, `attachColbert`) is parity-tested but NOT the default
+  (no Qwen-answer gain on DEV under independent grading).

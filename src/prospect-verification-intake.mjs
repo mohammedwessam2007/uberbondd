@@ -22,6 +22,17 @@ export const ACCEPTED_EVIDENCE_CLASSES = Object.freeze(['PAGE_FETCH_VERIFIED', '
 // recipient signal. It is a reputational and fit rejection even where the law
 // would allow the message (REJECT_NEGATIVE_RECIPIENT_SIGNAL).
 export const NEGATIVE_RECIPIENT_SIGNAL_KINDS = Object.freeze(['PUBLISHED_ANTI_UNSOLICITED_STANCE', 'CONSENT_REQUIRED_STANCE', 'NO_VENDOR_SOLICITATION']);
+// Same-day evidence law (docs/receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md,
+// docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md step 2): the public
+// page whose wording a first touch quotes (the lead-path observation) must have
+// been observed within one day of evaluation. A parseable timestamp
+// alone is not freshness. Callers may only tighten this window, never widen it.
+export const EVIDENCE_OBSERVATION_MAX_AGE_MS = 24 * 60 * 60_000;
+const FUTURE_SKEW_MS = 5 * 60_000;
+function effectiveEvidenceMaxAgeMs(value) {
+  const n = Number(value);
+  return Number.isFinite(n) && n > 0 ? Math.min(n, EVIDENCE_OBSERVATION_MAX_AGE_MS) : EVIDENCE_OBSERVATION_MAX_AGE_MS;
+}
 // The existing flagship offer quartet, resolved from the canonical production
 // genome (UBERREPLY_OFFER_PORTFOLIO) so there is exactly one offer-id
 // namespace. October-2026 public names, former public names and the labels used
@@ -53,7 +64,7 @@ const sameSiteFamily = sameDomainFamily;
  * @param record externally observed facts (see artifacts/outreach/prospect-verification-request-20261002.json)
  * @param opts   { now, excludedRecipients: string[],
  *                 contactHistoryTrust: { inProcess: true } | { secret },
- *                 receiptMaxAgeMs }
+ *                 receiptMaxAgeMs, evidenceMaxAgeMs (may only tighten EVIDENCE_OBSERVATION_MAX_AGE_MS) }
  *
  * Contact history comes from `record.contactHistoryReceipt`, a typed receipt
  * compiled by src/prospect-contact-history.mjs from the production ledgers
@@ -63,7 +74,7 @@ const sameSiteFamily = sameDomainFamily;
  * flags are still read, but only as a MANUAL_ATTESTATION that can never make a
  * candidate runtime-ready (see `contactHistoryProvenance` in the result).
  */
-export function compileProspectVerification(record = {}, { now = new Date(), excludedRecipients = [], contactHistoryTrust = null, receiptMaxAgeMs, jurisdictionPolicy = null } = {}) {
+export function compileProspectVerification(record = {}, { now = new Date(), excludedRecipients = [], contactHistoryTrust = null, receiptMaxAgeMs, jurisdictionPolicy = null, evidenceMaxAgeMs } = {}) {
   // `jurisdictionPolicy` is supplied only by the global preflight. By default the
   // intake keeps its US-only recipient-side check. With { anyHeadquarters,
   // deferRecipientSide } the global green-lane router becomes the single owner
@@ -122,9 +133,17 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   else if (siteHost && !sameSiteFamily(hostOf(sourceUrl), siteHost)) rej('address-not-published-on-the-agencys-own-site');
   if (!excerpt) inc('recipient-verbatim-excerpt-missing');
   else if (email && !excerpt.toLowerCase().includes(email)) rej('excerpt-does-not-contain-the-address');
+  const nowMs = new Date(now).getTime();
+  // An unparseable evaluation clock makes every age comparison below false
+  // (NaN), which would read a stale observation as fresh. Fail closed instead.
+  const clockValid = Number.isFinite(nowMs);
+  if (!clockValid) rej('evaluation-clock-invalid');
+  const maxEvidenceAgeMs = effectiveEvidenceMaxAgeMs(evidenceMaxAgeMs);
   const observedMs = Date.parse(record.recipient?.observedAt);
   if (!Number.isFinite(observedMs)) inc('recipient-observation-time-missing');
-  else if (observedMs > now.getTime() + 5 * 60_000) rej('recipient-observation-in-future');
+  else if (observedMs > nowMs + FUTURE_SKEW_MS) rej('recipient-observation-in-future');
+  // Recipient-address age is owned by src/contact-source-verifier.mjs
+  // (CONTACT_SOURCE_MAX_AGE_DAYS) through the green-lane router; it is not re-decided here.
 
   // Negative recipient signals reject outright; they are evidence, not noise.
   const signals = Array.isArray(record.negativeRecipientSignals) ? record.negativeRecipientSignals : [];
@@ -189,7 +208,23 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
   if (!aiFit && (record.offerFit?.servesHomeServiceClients !== true || !hostOf(text(record.offerFit?.evidenceUrl, 1000)))) inc('home-service-client-evidence-missing');
   const obs = record.clientEvidence?.observation;
   if (!hostOf(text(record.clientEvidence?.clientSiteUrl, 1000))) inc('real-client-site-missing');
-  if (!obs || obs.verifiable !== true || !text(obs.text) || !hostOf(text(obs.sourceUrl, 1000)) || !text(obs.excerpt) || !Number.isFinite(Date.parse(obs.observedAt))) inc('externally-verifiable-lead-path-observation-missing');
+  const obsObservedMs = Date.parse(obs?.observedAt);
+  const observationExceedsFutureSkew = clockValid && Number.isFinite(obsObservedMs) && obsObservedMs > nowMs + FUTURE_SKEW_MS;
+  if (!obs || obs.verifiable !== true || !text(obs.text) || !hostOf(text(obs.sourceUrl, 1000)) || !text(obs.excerpt) || !Number.isFinite(obsObservedMs)) inc('externally-verifiable-lead-path-observation-missing');
+  else if (observationExceedsFutureSkew) rej('lead-path-observation-in-future');
+  // The quoted claim is the message hook. A page that changed since it was
+  // observed can turn a true first touch into a false one, so an old
+  // observation is a re-fetch obligation, never a reusable fact.
+  else if (nowMs - obsObservedMs > maxEvidenceAgeMs) inc('lead-path-observation-stale-recheck-required');
+  // Rejected future claims must never be advertised as perfectly fresh.
+  const observationAgeMs = clockValid && Number.isFinite(obsObservedMs) && !observationExceedsFutureSkew ? Math.max(0, nowMs - obsObservedMs) : null;
+  const evidenceFreshness = {
+    scope: 'LEAD_PATH_CLAIM_OBSERVATION',
+    maxAgeMs: maxEvidenceAgeMs,
+    leadPathObservationAgeMs: observationAgeMs,
+    freshness: observationAgeMs === null ? 0 : Math.max(0, Math.min(1, 1 - observationAgeMs / maxEvidenceAgeMs)),
+    recheckRequired: observationAgeMs === null || observationAgeMs > maxEvidenceAgeMs
+  };
   const ownAgentEvidence = aiFit
     && text(record.clientEvidence?.clientName, 160) === company
     && sameSiteFamily(hostOf(text(record.clientEvidence?.clientSiteUrl, 1000)), siteHost)
@@ -221,6 +256,7 @@ export function compileProspectVerification(record = {}, { now = new Date(), exc
     offerPublicName: offerId ? UBERREPLY_OFFER_PORTFOLIO.find(offer => offer.offerId === offerId).publicName : null,
     evidenceClass: ACCEPTED_EVIDENCE_CLASSES.includes(evidenceClass) ? evidenceClass : (evidenceClass || null),
     contactHistoryProvenance, contactHistoryReceiptDigest,
+    evidenceFreshness,
     rejectionReasons: [...new Set(rejected)],
     missingEvidence: status === PROSPECT_STATUSES.REJECTED ? [] : incomplete,
     recipientSideEligibility: eligibility ? { decision: eligibility.decision, basis: eligibility.basis, evidenceId: eligibility.evidenceId } : null,

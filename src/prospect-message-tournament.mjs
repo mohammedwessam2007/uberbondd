@@ -247,7 +247,11 @@ export function runProspectMessageTournament({ intake, record, slots, artifactPr
   const evidenceCount = evidenceRefs.length + 1; // client observation page + the recipient publication page
   const policy = compileUberReplyMessagePolicy({
     offerId: spec.offerId,
-    prospect: { company: record.company, website: record.website, sourceCount: evidenceCount, sourceFreshness: 1, proposedSubjectWordCount: 2 },
+    // A bucket, not the continuous age: the policy output is bound into the
+    // frozen effect digest, which must not drift minute to minute inside the
+    // window. The intake already refuses a stale claim, so a measured in-window
+    // observation is 1 and an intake that did not measure freshness is 0.
+    prospect: { company: record.company, website: record.website, sourceCount: evidenceCount, sourceFreshness: intake?.evidenceFreshness?.recheckRequired === false ? 1 : 0, proposedSubjectWordCount: 2 },
     research: { accountValueScore: 0.5, signalStrength: 0.8, artifactFeasibility: spec.artifact.prepared ? 1 : 0, evidenceDensity: Math.min(1, evidenceCount / 4), estimatedResearchMinutes: 0 }
   });
   if (!policy.ok) return refuse(['message-policy-refused']);

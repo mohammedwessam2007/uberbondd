@@ -57,10 +57,12 @@ def main():
     if not isinstance(revision, str) or len(revision) != 40 or any(x not in '0123456789abcdef' for x in revision):
         raise ValueError('Invalid immutable model revision')
     temp = a.out.with_suffix(a.out.suffix + '.partial')
-    # Preserve any earlier partial download for diagnosis rather than overwriting it.
-    with temp.open('xb') as out:
-        os.chmod(temp, 0o600)
-        with opener.open(checked_url(f'https://huggingface.co/{REPO}/resolve/{revision}/{FILENAME}'), timeout=90) as response:
+    if temp.exists():
+        raise ValueError('Previous partial model download preserved; inspect before retrying')
+    # A denied HTTPS connection must not create an empty .partial file that blocks retries.
+    with opener.open(checked_url(f'https://huggingface.co/{REPO}/resolve/{revision}/{FILENAME}'), timeout=90) as response:
+        with temp.open('xb') as out:
+            os.chmod(temp, 0o600)
             while block := response.read(4 * 1024 * 1024):
                 out.write(block)
                 if out.tell() > lfs['size']:

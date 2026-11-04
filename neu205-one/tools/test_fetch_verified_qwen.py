@@ -1,7 +1,8 @@
 import tempfile
 import unittest
 from pathlib import Path
-from fetch_verified_qwen import checked_url, digest
+import urllib.request
+from fetch_verified_qwen import checked_url, digest, Redirects
 
 
 class ModelFetch(unittest.TestCase):
@@ -18,6 +19,15 @@ class ModelFetch(unittest.TestCase):
                   'https://cdn-lfs.huggingface.co:8080/a']:
             with self.assertRaises(ValueError):
                 checked_url(u)
+
+    def test_redirect_guard(self):
+        req = urllib.request.Request('https://huggingface.co/something')
+        self.assertEqual('https://cdn-lfs.huggingface.co/x',
+                         Redirects().redirect_request(req, None, 302, 'found', {},
+                                                      'https://cdn-lfs.huggingface.co/x').full_url)
+        with self.assertRaises(ValueError):
+            Redirects().redirect_request(req, None, 302, 'found', {},
+                                         'https://evil.test/x')
 
     def test_corruption_changes_digest(self):
         with tempfile.TemporaryDirectory() as d:

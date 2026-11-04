@@ -228,4 +228,18 @@ class LauncherTests(unittest.TestCase):
                 with patch('launch_local.subprocess.run',return_value=Mock(returncode=0,stdout=b'--host --port --model --alias --ctx-size --threads')):
                     with self.assertRaises(Failure) as f:start_qwen_if_authorized(p,brain)
                 self.assertEqual('QWEN_FLAGS_UNSUPPORTED',f.exception.code);spawn.assert_not_called()
+class ActualLlamaStreamRegression(unittest.TestCase):
+    def test_none_delta_does_not_crash_or_emit(self):
+        f=SpeechFilter()
+        self.assertEqual('',f.feed(None))
+        self.assertEqual('The answer',f.feed('The answer'))
+        self.assertEqual('',f.feed(None))
+        self.assertEqual(' is sourced.',f.feed(' is sourced.'))
+        self.assertEqual('',f.finish())
+
+    def test_non_string_delta_fails_closed(self):
+        f=SpeechFilter()
+        with self.assertRaises(Failure) as e:f.feed({'unexpected':'object'})
+        self.assertEqual('INVALID_QWEN_STREAM',e.exception.code)
+
 if __name__=='__main__':unittest.main()

@@ -1,8 +1,12 @@
+import io
+import json
 import tempfile
 import unittest
 from pathlib import Path
 import urllib.request
-from fetch_verified_qwen import checked_url, digest, Redirects
+import urllib.error
+from unittest.mock import patch
+from fetch_verified_qwen import checked_url, digest, Redirects, main, EXPECTED, FILENAME
 
 
 class ModelFetch(unittest.TestCase):
@@ -35,6 +39,41 @@ class ModelFetch(unittest.TestCase):
             p.write_bytes(b'original'); old = digest(p)
             p.write_bytes(b'corrupt')
             self.assertNotEqual(old, digest(p))
+
+
+    def test_proxy_rejection_does_not_poison_future_retry(self):
+        metadata = {'sha': 'a' * 40, 'siblings': [{'rfilename': FILENAME, 'lfs': {'sha256': EXPECTED, 'size': 42}}]}
+        class BlockedOpener:
+            def open(self, url, timeout):
+                if '/api/models/' in url:
+                    return io.BytesIO(json.dumps(metadata).encode())
+                raise urllib.error.HTTPError(url, 403, 'blocked', {}, None)
+        with tempfile.TemporaryDirectory() as d:
+            output = Path(d) / FILENAME
+            with patch('fetch_verified_qwen.urllib.request.build_opener', return_value=BlockedOpener()), \
+                 patch('sys.argv', ['fetch_verified_qwen.py', '--out', str(output)]):
+                with self.assertRaises(urllib.error.HTTPError):
+                    main()
+            self.assertFalse(output.exists())
+            self.assertFalse(output.with_suffix(output.suffix + '.partial').exists())
+
+    def test_existing_partial_is_never_overwritten(self):
+        metadata = {'sha': 'a' * 40, 'siblings': [{'rfilename': FILENAME, 'lfs': {'sha256': EXPECTED, 'size': 42}}]}
+        class MetadataOpener:
+            def open(self, url, timeout):
+                if '/api/models/' in url:
+                    return io.BytesIO(json.dumps(metadata).encode())
+                raise AssertionError('No model request should occur when partial exists')
+        with tempfile.TemporaryDirectory() as d:
+            output = Path(d) / FILENAME
+            partial = output.with_suffix(output.suffix + '.partial')
+            partial.write_bytes(b'preserve')
+            with patch('fetch_verified_qwen.urllib.request.build_opener', return_value=MetadataOpener()), \
+                 patch('sys.argv', ['fetch_verified_qwen.py', '--out', str(output)]):
+                with self.assertRaisesRegex(ValueError, 'Previous partial'):
+                    main()
+            self.assertEqual(partial.read_bytes(), b'preserve')
+
 
 
 if __name__ == '__main__':

@@ -1,4 +1,6 @@
 import io
+import hashlib
+import stat
 import json
 import tempfile
 import unittest
@@ -81,6 +83,29 @@ class ModelFetch(unittest.TestCase):
                     main()
             self.assertEqual(partial.read_bytes(), b'preserve')
 
+
+
+    def test_model_partial_is_private_from_creation(self):
+        # A chmod *after* opening a multi-GB file leaves a brief world-readable
+        # window under ordinary umask. The file must be born mode 0600.
+        payload = b'synthetic-model-bytes'
+        expected = hashlib.sha256(payload).hexdigest()
+        metadata = {'sha': 'a' * 40, 'siblings': [
+            {'rfilename': FILENAME, 'lfs': {'sha256': expected, 'size': len(payload)}}]}
+        class SyntheticOpener:
+            def open(self, url, timeout):
+                if '/api/models/' in url:
+                    return io.BytesIO(json.dumps(metadata).encode())
+                return io.BytesIO(payload)
+        with tempfile.TemporaryDirectory() as d:
+            output = Path(d) / FILENAME
+            with patch('fetch_verified_qwen.urllib.request.build_opener', return_value=SyntheticOpener()), \
+                 patch('fetch_verified_qwen.EXPECTED', expected), \
+                 patch('fetch_verified_qwen.os.chmod', side_effect=AssertionError('late chmod forbidden')), \
+                 patch('sys.argv', ['fetch_verified_qwen.py', '--out', str(output)]):
+                main()
+            self.assertEqual(output.read_bytes(), payload)
+            self.assertEqual(stat.S_IMODE(output.stat().st_mode), 0o600)
 
 
 if __name__ == '__main__':

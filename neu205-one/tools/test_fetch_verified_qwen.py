@@ -12,6 +12,12 @@ class ModelFetch(unittest.TestCase):
             with self.assertRaises(ValueError):
                 checked_url(u)
         self.assertEqual('https://huggingface.co/a', checked_url('https://huggingface.co/a'))
+        self.assertEqual('https://cdn-lfs.huggingface.co/a', checked_url('https://cdn-lfs.huggingface.co/a'))
+        self.assertEqual('https://cas-bridge.xethub.hf.co/a', checked_url('https://cas-bridge.xethub.hf.co/a'))
+        for u in ['https://cdn-lfs.huggingface.co.evil.test/a', 'http://cdn-lfs.huggingface.co/a',
+                  'https://cdn-lfs.huggingface.co:8080/a']:
+            with self.assertRaises(ValueError):
+                checked_url(u)
 
     def test_corruption_changes_digest(self):
         with tempfile.TemporaryDirectory() as d:

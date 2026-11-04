@@ -291,7 +291,7 @@ class Brain:
                 if not line.startswith(b'data:'):continue
                 data=line[5:].strip()
                 if data==b'[DONE]':completed=True;break
-                chunk=json.loads(data);delta=(chunk.get('choices') or [{}])[0].get('delta',{})
+                chunk=json.loads(data);delta=(chunk.get('choices') or [{}])[0].get('delta') or {}
                 token=filter.feed(delta.get('content',''));total_chars+=len(token)
                 if total_chars>12000:raise Failure('QWEN_RESPONSE_TOO_LARGE','Local Qwen exceeded the response budget.')
                 if token:emitted=True;flight.check();yield {'type':'token','text':token,'request_id':req['request_id']}
@@ -306,6 +306,10 @@ class SpeechFilter:
     """Never emit thinking markup, including tags split between network frames."""
     def __init__(self):self.buffer='';self.thinking=False
     def feed(self,s):
+        # llama.cpp legitimately streams null content for non-text and final deltas.
+        # Never coerce an unexpected object to speech or drop validated text.
+        if s is None:return ''
+        if not isinstance(s,str):raise Failure('INVALID_QWEN_STREAM','Non-text token in model content stream.')
         self.buffer+=s;out=''
         while self.buffer:
             if self.thinking:

@@ -18,7 +18,10 @@ ALLOWED = {'huggingface.co', 'cdn-lfs.huggingface.co', 'cas-bridge.xethub.hf.co'
 
 def checked_url(url):
     p = urlsplit(url)
-    if p.scheme != 'https' or p.hostname not in ALLOWED or p.username or p.password or p.port not in (None, 443):
+    # HF's immutable LFS downloads may redirect to region-specific *.cdn.hf.co hosts.
+    # Require a DNS-label boundary, not a permissive `hf.co` substring.
+    host = p.hostname or ''
+    if p.scheme != 'https' or not (host in ALLOWED or host.endswith('.cdn.hf.co')) or p.username or p.password or p.port not in (None, 443):
         raise ValueError('Unapproved model destination; review required domain through environment settings')
     return url
 

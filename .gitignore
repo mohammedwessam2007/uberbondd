@@ -17,3 +17,8 @@ launch-facts*.json
 
 # Quant lab raw archives are re-derivable from public URLs + publisher SHA-256; only manifests are committed.
 data/quant-vault/
+
+# Locally regenerated private founder intellectual archives and public-book cache
+.cache/ubermind-books/
+.local/ubermind-archives/
+scripts/__pycache__/

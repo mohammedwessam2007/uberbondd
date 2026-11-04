@@ -1,0 +1,75 @@
+name: UberMind Private Grand Library Packs
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/ubermind-grand-library-build.yml'
+      - 'scripts/build-ubermind-knowledge-archives.py'
+      - 'scripts/verify-ubermind-archives.py'
+      - 'scripts/build-ubermind-library-index.py'
+      - 'library/ubermind/**'
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the single public-book HTTP dependency
+        run: python -m pip install --disable-pip-version-check requests
+      - name: Verify exact founder idea originals and build private archives
+        run: |
+          python scripts/build-ubermind-library-index.py
+          python scripts/build-ubermind-knowledge-archives.py
+          python scripts/verify-ubermind-archives.py
+          sha256sum .local/ubermind-archives/*.zip
+      - name: Founder originals and canonical continuity pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: UBERMIND-01-CANON-890
+          path: .local/ubermind-archives/UBERMIND_GRAND_LIBRARY_20261024_CANON_890.zip
+          compression-level: 0
+          retention-days: 90
+          if-no-files-found: error
+      - name: Full US public-domain classical books
+        uses: actions/upload-artifact@v4
+        with:
+          name: UBERMIND-02-CLASSICS-FULL-TEXT
+          path: .local/ubermind-archives/UBERMIND_GRAND_LIBRARY_20261024_CLASSICS_PUBLIC_DOMAIN_US.zip
+          compression-level: 0
+          retention-days: 90
+          if-no-files-found: error
+      - name: Founder philosophy Machiavelli through Omega52
+        uses: actions/upload-artifact@v4
+        with:
+          name: UBERMIND-03-STRATEGY-OMEGA46-52
+          path: .local/ubermind-archives/UBERMIND_GRAND_LIBRARY_20261024_PHILOSOPHY_OMEGA46_52.zip
+          compression-level: 0
+          retention-days: 90
+          if-no-files-found: error
+      - name: Deep-research canonical snapshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: UBERMIND-04-DEEP-RESEARCH-SNAPSHOT
+          path: .local/ubermind-archives/UBERMIND_GRAND_LIBRARY_20261024_DEEP_RESEARCH_SNAPSHOT.zip
+          compression-level: 0
+          retention-days: 90
+          if-no-files-found: error
+      - name: Exact archive hashes and searchable index
+        uses: actions/upload-artifact@v4
+        with:
+          name: UBERMIND-05-MANIFEST-AND-PROJECT-INDEX
+          path: |
+            .local/ubermind-archives/LIBRARY_MANIFEST.json
+            library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md
+            library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md
+          retention-days: 90
+          if-no-files-found: error

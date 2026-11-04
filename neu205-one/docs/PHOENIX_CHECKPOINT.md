@@ -1,3 +1,32 @@
+# V11 checkpoint — 2026-11-04
+
+Continuation preserved all available prior work before edits. Original commit b7904ef remains in
+private custody; live Claude source de150af recovered without overwriting it. Current branch is
+neu205/v11-20261104. Exact final commits, remote readback, APK/pack/index and evaluation hashes
+are recorded in the external V11 delivery manifest. No signing key is exported by this delivery.
+
+Actual new Qwen accuracy: NOT MEASURED. Proxy policy blocks answering model retrieval; real
+Qwen readiness correctly refused evaluation rather than producing fake predictions. The prepared
+independent set is64supported/20unsupported, not300/100 and not clinical validation. No phone
+actions occurred. Half-duplex, partial-ASR and medical semantic-graph limitations remain explicit.
+
+Implemented source-preserving memory, bounded tools and stem-first MCQ; signed atomic asset
+imports, rollback, read-only GGUF receipts and thermal handling; identical same-signer v11 APK
+builds.43Android framework tests+lint,58backend,18Java evidence,16eval protocol and11helpers
+passed.1,000Java/Python ranking queries match exactly; independent source-byte audit confirms
+zero omitted non-whitespace characters. Source-retention gains are DEVmechanical results only.
+
+See docs/V11_EXECUTION_RECEIPT.md, docs/ACTIVE_MEMORY_V11.md,
+tools/ANDROID_PRIVATE_IMPORTS.md and evaluation/README.md. Before further model testing, enable
+the saved approved network destinations in actual environment settings; draft saving alone does
+not apply policy. Re-run the pinned downloader and real readiness gate, then frozen predictions
+without opening sealed keys. No repeated emulator loop is authorized as a substitute for phone proof.
+
+The requested R01–R12 definitions were not supplied; unseen-rule compliance is not asserted.
+Historical checkpoint below remains lineage, not current v11 completion evidence.
+
+---
+
 # NEU205 Android execution checkpoint — 2026-11-03
 
 Owner request: execute the attached shared contract and Android ship mission. No phone effects

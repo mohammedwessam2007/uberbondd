@@ -1,0 +1,38 @@
+{
+  "schema": "ubermind.v10.design-audit.v1",
+  "date": "2026-10-24",
+  "designRequirementsPassed": 10,
+  "designRequirementsTotal": 10,
+  "checks": {
+    "01_terminal_life_north_star": true,
+    "02_890_full_universe_preservation": true,
+    "03_full_52_doctrine_atlas": true,
+    "04_original_books_source_truth": true,
+    "05_legacy_20_section_recovery": true,
+    "06_live_repo_and_source_precedence": true,
+    "07_actual_falsifying_operations": true,
+    "08_sovereign_capabilities_and_explicit_authority": true,
+    "09_phoenix_proof_handoff": true,
+    "10_response_receipt_and_instruction_size": true
+  },
+  "instructionChars": 4912,
+  "sourceFounderIDs": 890,
+  "source52Cards": 52,
+  "publicDomainBookEditions": 11,
+  "legacyConstitutionSections": 20,
+  "sha256": {
+    "UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt": "73182698368e2a2eaced57708112a31f168e0b4c85a1704ea6651f4a73ca01ec",
+    "UBERMIND_V7_SINGLE_PROJECT_SOURCE_890_PLUS_52.txt": "729e9170491763ac670fe4cb0e27af4d12fdf9eabc698f52a6573d5e932cedfe",
+    "UBERMIND_V8_52_DOCTRINE_EXECUTION_ATLAS.txt": "2b9c9b890723a6f2ba6b8c02af08d3bca03dc0b22a96a4344ca767a58270f508",
+    "UBERMIND_V9_COMPARISON_AND_FULL_LEGACY.md": "631dd12646822187c9f8a674b8f5895f7c6394882202212c04a3394e6a90ce7c"
+  },
+  "NOT_verified": [
+    "Project file attachments accessible in all future new chats",
+    "global or Project instructions changed in ChatGPT account",
+    "automatic reading of all books on every turn",
+    "modern copyrighted full books available",
+    "actual model performance 10/10",
+    "cleared business profit",
+    "model weights retrained"
+  ]
+}

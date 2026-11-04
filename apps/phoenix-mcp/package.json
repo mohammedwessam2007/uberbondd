@@ -1,0 +1,9 @@
+{
+  "name": "uberbond-phoenix-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Guarded first-party PHOENIX capability MCP server",
+  "scripts": {"test": "node --test test/*.test.mjs", "start": "node server.mjs --http"},
+  "dependencies": {"@modelcontextprotocol/sdk": "1.32.2", "zod": "^3.25.76"}
+}

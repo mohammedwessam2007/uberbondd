@@ -1,0 +1,17 @@
+{
+  "distributionScope":"Project Gutenberg editions marked public domain in USA; consult laws of local jurisdiction before redistribution; trademark/license notice retained in complete downloaded files.",
+  "date":"2026-10-24",
+  "editions":[
+    {"id":1232,"author":"Niccolò Machiavelli","title":"The Prince","translator":"W. K. Marriott"},
+    {"id":10827,"author":"Niccolò Machiavelli","title":"Discourses on the First Decade of Titus Livius","translator":"Ninian Hill Thomson"},
+    {"id":2464,"author":"Niccolò Machiavelli","title":"History of Florence and of the Affairs of Italy"},
+    {"id":17405,"author":"Sun Tzu","title":"The Art of War","translator":"Lionel Giles"},
+    {"id":132,"author":"Sun Tzu","title":"The Art of War, with additional commentary","translator":"Lionel Giles"},
+    {"id":34580,"author":"Max Stirner","title":"The Ego and His Own","translator":"Steven T. Byington"},
+    {"id":10731,"author":"Arthur Schopenhauer","title":"The Art of Controversy","translator":"T. Bailey Saunders"},
+    {"id":59024,"author":"Arthur Schopenhauer","title":"Collected Essays (compilation)","translator":"T. Bailey Saunders"},
+    {"id":2449,"author":"Oliver Wendell Holmes","title":"The Common Law"},
+    {"id":2373,"author":"Oliver Wendell Holmes","title":"The Path of the Law"},
+    {"id":3300,"author":"Adam Smith","title":"The Wealth of Nations"}
+  ]
+}

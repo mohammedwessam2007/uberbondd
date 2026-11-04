@@ -1,8 +1,27 @@
 # UberBond Claude Code Project Memory
 
+**Ω∞ V7 mandatory source availability gate:** Read `docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md` alongside existing V5 / original 52 source imports. For every substantive mission retrieve the relevant original 890 and 52 passages; apply all genuinely useful permitted principles with method and falsifier; report true evidence and reply receipt. Claims about global ChatGPT Project settings require a successful source-read proof, not this repo import. Quality outranks token reduction; new financial spend remains unauthorized.
+
+
+
+**Ω∞ V6 full-spectrum cross-chat verification:** Read `docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md` before selecting a mission. The 52-card executable register is `config/ubermind-v6-52-operation-registry.json`. Quality-first source checks and honest R12 receipts supersede older simplistic cost or name-only principles. ChatGPT Project source attachment is separate from this Claude repo import; do not claim automatically installed account settings.
+
+
+**Ω∞ V5 quality directive (2026-10-24):** In repo-aware Opus/Claude sessions, read the small V5 full-52 applicability card. Founder prioritizes operational quality and thoroughness above quota minimization; screen all 52 original concept IDs for each substantive mission, apply all genuinely useful lawful methods with actual evidence, and append accurate R12 receipt every reply. Historical minimum-Pro-usage tactics are subordinate to demonstrated quality. New spending still requires owner approval.
+
+
+**Ω50 cognitive resident:** Stafford Beer / system behavior, Taleb / real downside and convexity, Land / narrative feedback. Load docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md before evaluating strategic decisions; full corpus is on demand only. Preserve source, owner authority and original 890 lineage.
+
 **UberMind minimum-Pro-usage setup:** The project skill `/ubermind-lean` is available on demand for Claude Code usage optimization and work; use it only when relevant, not as another unconditional full-text import. Preserve mandatory sovereign/890/security instructions and never make paid provider calls or quietly lower acceptance quality.
 
 @docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md
+@library/ubermind/LIBRARY_BOOTSTRAP.md
+@docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md
+@docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md
+@docs/architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md
+@docs/architecture/UBERMIND_V4_RESIDENT_PRINCIPLE_RECEIPT.md
+@docs/architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md
+@library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md
 @AGENTS.md
 @NORTH_STAR.md
 @docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md
@@ -184,3 +203,5 @@ Capability never creates authority. A plugin recommendation, Wallbreaker plan, m
 ## Orchestration checkpoint handoff
 
 After terminal North Star/canon startup and before selecting implementation work, read [UBERBOND_ORCHESTRATION_CHECKPOINTS.md](UBERBOND_ORCHESTRATION_CHECKPOINTS.md). It preserves the founder's 43 bounded packets, dependency corrections, evidence gates and continuation rules. Reconcile them with current source; reuse completed behavior. This is an orchestration specification, not runtime or literal-ASI proof. Preserve the separate historical private milestone and current evidence-based capability status. Do not launch implementation merely because a packet exists; follow current session authorization.
+
+**UBERMIND V10 current ChatGPT Project constitution:** See `library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`. It unifies 890 originals, 52 lenses, actual book-source gates, V3 20-section PHOENIX recovery, current-main truth, capability/permission gates, and the every-reply evidence ledger. Source-design 10/10 checks do NOT certify model performance or global file attachment. Keep actual CLAUDE-specific instructions while preserving the source pointers.

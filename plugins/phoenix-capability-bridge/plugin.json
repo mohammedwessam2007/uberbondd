@@ -1,0 +1,20 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "phoenix-capability-bridge",
+  "version": "0.1.0",
+  "description": "Operate UberBond PHOENIX's 1,560 source-backed research designs and guarded native capability gateway in an approved Codespace through Chat On Steroids Core.",
+  "keywords": ["phoenix", "uberbond", "capabilities", "research", "codespaces"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "PHOENIX Capability Bridge",
+        "shortDescription": "Source-verified PHOENIX catalog and guarded Codespace execution",
+        "longDescription": "Search all recovered PHOENIX designs, compile test-first implementation contracts, route local capability atoms and execute only approved zero-effect functions through an already connected Chat On Steroids Core workspace.",
+        "developerName": "UberBond",
+        "category": "Productivity",
+        "capabilities": ["Read", "Write"],
+        "defaultPrompt": ["Audit PHOENIX status and available native capabilities.", "Find the PHOENIX designs relevant to a mission and test the verified local execution path."]
+      }
+    }
+  }
+}

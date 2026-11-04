@@ -1,0 +1,33 @@
+name: UberMind V6 Founder Continuity Gate
+on:
+  pull_request:
+    paths:
+      - 'artifacts/research/founder-moonshot-literal-corpus/**'
+      - 'library/ubermind/FOUNDER_DIRECTIVE_*'
+      - 'config/ubermind-v6-52-operation-registry.json'
+      - 'scripts/ubermind-v6-source-doctor.mjs'
+      - 'AI_START_HERE.md'
+      - 'CLAUDE.md'
+  push:
+    branches: [main]
+    paths:
+      - 'artifacts/research/founder-moonshot-literal-corpus/**'
+      - 'library/ubermind/FOUNDER_DIRECTIVE_*'
+      - 'config/ubermind-v6-52-operation-registry.json'
+      - 'scripts/ubermind-v6-source-doctor.mjs'
+      - 'AI_START_HERE.md'
+      - 'CLAUDE.md'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  source-integrity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify 890 and 52 independent original concepts
+        run: node scripts/ubermind-v6-source-doctor.mjs

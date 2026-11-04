@@ -158,18 +158,36 @@ def search(index,phrase,limit=10):
 
 def main(argv=None):
     p=argparse.ArgumentParser()
+    p.add_argument('--id',default='',help='exact source ID retrieval, not execution/admission')
+    p.add_argument('--wave',type=int,help='list bounded candidates from one pinned wave')
     p.add_argument('--query',default='')
     p.add_argument('--limit',type=int,default=10)
+    p.add_argument('--offset',type=int,default=0)
     p.add_argument('--output',help='optional offline index output; never promotes suppliers')
     args=p.parse_args(argv)
     if not 1<=args.limit<=50:p.error('--limit must be 1..50')
+    if not 0<=args.offset<=1560:p.error('--offset must be 0..1560')
     index=build()
     if args.output:
         output=pathlib.Path(args.output)
         output.parent.mkdir(parents=True,exist_ok=True)
         output.write_text(json.dumps(index,indent=2,ensure_ascii=False,sort_keys=True)+'\n',encoding='utf8')
     result={k:v for k,v in index.items() if k!='records'}
-    if args.query:result['matches']=search(index,args.query,args.limit)
+    if args.id and (args.query or args.wave is not None):p.error('--id is exclusive with --query and --wave')
+    if args.wave is not None and (args.query or args.wave not in FILES):p.error('--wave must be 3..10 and is exclusive with --query')
+    if args.id:
+        if args.query: p.error('--id and --query are mutually exclusive')
+        if not re.fullmatch(r'phoenix-(?:capability|wave[0-9]+)-[0-9]{4}',args.id):
+            p.error('--id must be a canonical proposal ID')
+        result['matches']=[row for row in index['records'] if row['id']==args.id]
+        if len(result['matches']) != 1:
+            raise ValueError('PROPOSAL_ID_NOT_IN_PINNED_CORPUS:'+args.id)
+    elif args.wave is not None:
+        wave_rows=[row for row in index['records'] if row['wave']==args.wave]
+        result['match_count']=len(wave_rows)
+        result['offset']=args.offset
+        result['matches']=wave_rows[args.offset:args.offset+args.limit]
+    elif args.query:result['matches']=search(index,args.query,args.limit)
     print(json.dumps(result,indent=2,ensure_ascii=False))
     return 0
 

@@ -1,0 +1,21 @@
+# PHOENIX | UberMind All-Ω Claude subscription-Crown integration | 2026-10-25
+
+**Mission:** User demands full Ω-generation and 52-doctrine integration, with genuine intelligent Haiku/Sonnet/Opus switching inside the existing Claude subscription (no separate AI bills). Personal Civilization Engine remains above economic profit. No original 890 IDs/bodies or 52 founder card texts were mutated.
+
+**Canonical repo:** `mohammedwessam2007/uberbondd`; baseline `main` SHA `6822212e9366494330c09d87ad3459ad4cf1984a` (checked October 25). PR **#1604**, branch `feat/ubermind-all-omega-claude-subscription-router-20261025`. Head evolves as validation changes; re-fetch current head before relying on SHA.
+
+**Implemented on draft PR (no merge/deployment):** Five new native Claude Code role files with `model: haiku/sonnet`, existing three agents reused; all-Ω director skill; root CLAUDE.md addition without deletion; pure mission/task-DAG router with strict SHA fields, reuse/reverification, risk gates, Opus Crown sovereignty and bounded concurrency; 52-source registry inventory and task-specific applicability screening; read-only source/W40/W41 integration doctor; fail-closed subscription-only Claude CLI launch script; 26 local Node unit tests on October 25. GitHub CI workflow started automatically, not conflated with finished live tests.
+
+**Source gates:** Original 890 full bodies in ten JSON shards and the founder-reference document; #0625 ≠ #0683. Exact 52 original operational methods/falsifiers from `config/ubermind-v6-52-operation-registry.json`, separately from Ω46 EQ and Ω43/44/45 chronological architecture versions. 52 task-specific status ledger at `artifacts/ubermind/OMEGA_52_ROUTER_MISSION_LEDGER_20261025.json`. Historical Ω generations are dynamically indexed if present; absent generations `R/RETRIEVE`, not deleted.
+
+**Established distinctions:** Original W40 and W41 source modules are already in the repo. W40's generic Sonnet primary cannot supersede Ω45's Opus-Crown user decision; W41 API-price proxies do NOT prove subscription usage reductions. Local unit success does not mean any Claude inference took place. No new purchased credit, model API calls, or production deployment was requested or executed in this mission.
+
+**Actual effect evidence:** branch and PR exist, local unit tests 26 passed / 0 failed; no Claude Code live model switching or account verification measured. No developer Codespace tunnel, so Claude `/status`, `/usage`, `claude --model opus` and subagent receipts remain BLOCKED/NOT VERIFIED. Vercel account deployment statuses showed independent account-level deployment blocking; do not confuse with source test results.
+
+**Auth & permissions:** zero new spend; prohibit API credentials, alternate paid cloud provider routes, usage credits, external contact, trading, filings, unapproved production effects; founder must confirm CLI Pro/Max subscription and disabled paid credits. A manual env attestation alone is not proof of provider authentication; explicit `/status` check is still required.
+
+**Known blockers / exact next tests:** (1) GitHub PR #1604: wait for and inspect deterministic, browser, PostgreSQL, source and PHOENIX workflow conclusions, remedy actual source failures and review. (2) Reconnect owner Claude Code/Codespace and run `/status`, `/model`, `/usage`; check credits OFF and actual Opus model. (3) Run ONE bounded real source→Haiku scout→Sonnet build→native test→Sonnet falsifier→Opus acceptance cycle, record actual usage, compare against an equivalent Opus-only baseline without confusing API price proxies for subscription savings. These are future TESTS, not verified successes.
+
+**Current status:** draft PR only. `MAIN_MERGED=FALSE`; `LIVE_CLAUDE_ROUTING=NOT_PROVEN`; `PRO_QUOTA_SAVING=UNKNOWN`; `CLEARED_PROFIT=NONE_CLAIMED`.
+
+**Recovery:** read root `CLAUDE.md`, project `AGENTS.md`, Universal Context Protocol, Total Brain/Master Memory and latest verified handoff, then PR #1604 and this checkpoint; never restart the entire architecture. Verify every claim against live state before updating.

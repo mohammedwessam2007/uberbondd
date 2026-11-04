@@ -1,0 +1,487 @@
+{
+  "schema": "ubermind.all-omega.52-source-ledger.v1",
+  "date": "2026-10-25",
+  "basis": "Original 52-card registry and all-Omega repo patch; assessed applicability to THIS mission, not universal dismissal",
+  "source": "config/ubermind-v6-52-operation-registry.json",
+  "original890Distinct": true,
+  "original62And68NotMerged": true,
+  "totalScreened": 52,
+  "counts": {
+    "N": 36,
+    "C": 5,
+    "A": 7,
+    "X": 4
+  },
+  "all52Applied": false,
+  "claimScope": "Source identity plus task-specific applicability screening; A means documented local operation, not independent empirical model improvement.",
+  "cards": [
+    {
+      "number": 1,
+      "id": "machiavelli",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Map incentives, dependency, coalitions and institutional durability; ask what actual power and delivery mechanisms exist, not what branding promises.",
+      "falsifier": "Falsify with rival incentives, coalition changes, reputation loss and unenforceable assumptions.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 2,
+      "id": "greene",
+      "omega": "Ω47",
+      "status": "C",
+      "originalMethod": "Recognize status games, informal influence, positioning and reputational risks; design legitimate credibility and negotiation leverage.",
+      "falsifier": "Test whether a tactic damages trust, requires deceit, or assumes others are less strategic.",
+      "result": "Status/reputation heuristics must not substitute for trustworthy cooperative operation."
+    },
+    {
+      "number": 3,
+      "id": "bismarck",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Analyze material constraints, timing, alliance stability, alternative coalitions and negotiated settlement.",
+      "falsifier": "Check historical analogy limits and how power shifts change every bargain.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 4,
+      "id": "rand",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Prioritize productive independence, ownership, merit-based value creation and willing exchange.",
+      "falsifier": "Test externalities, counterparty interests and sustainability; self-interest is not a complete empirical decision rule.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 5,
+      "id": "stirner",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Reconsider inherited commitments and nonbinding social conventions; select independent priorities consciously.",
+      "falsifier": "Test coordination costs, obligations and damage from refusing mutually beneficial institutions.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 6,
+      "id": "sun-tzu",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Find indirect lawful routes, terrain/incentive advantage, information quality and avoidance of unnecessary conflict.",
+      "falsifier": "Check whether indirect positioning is slower, opaque, reputationally costly or less reliable than direct collaboration.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 7,
+      "id": "von-neumann",
+      "omega": "Ω47",
+      "status": "C",
+      "originalMethod": "Specify actors, action sets, payoffs, information, equilibrium and cooperative or repeated-game dynamics.",
+      "falsifier": "Challenge unproven zero-sum assumptions, omitted players and payoff estimation error.",
+      "result": "W40/W41 payoff estimates do not establish actual Pro quota dynamics; no measured equilibrium or optimal auction."
+    },
+    {
+      "number": 8,
+      "id": "hart",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Separate what the law says from personal preference; examine rules, interpretation, validity and jurisdictional source.",
+      "falsifier": "Do not treat positivism as a blanket claim that every apparent loophole is lawful or nonbinding court doctrine irrelevant.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 9,
+      "id": "holmes",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Model realistic judicial/enforcement consequences and legal-risk incentives using actual relevant cases and rules.",
+      "falsifier": "Check differences between predictive jurisprudence and binding statutes, ethical duties and contractual obligations.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 10,
+      "id": "jurisdictional-arbitrage",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Compare real location/entity options across tax, compliance, substance, residency, reporting, labor and data laws.",
+      "falsifier": "Require authoritative jurisdiction-by-jurisdiction professional checks; no fictional safe harbor or beneficial-owner concealment.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 11,
+      "id": "contract-mechanics",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Analyze obligations, indemnity, caps, warranties, liquidated damages, termination, choice of law and dispute paths.",
+      "falsifier": "Look for ambiguous drafting, unenforceability, unfairness, unconscionability and counterpart nonperformance.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 12,
+      "id": "asset-insulation-trust-law",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Examine lawful structures and genuine separation of risks, creditors, control and tax obligations.",
+      "falsifier": "Stress fraudulent conveyance, piercing, transfer timing, reporting and actual recovery/legal expenses.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 13,
+      "id": "statutory-tax-planning",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Compare legitimate deductions, credits, expense timing, depreciation, filing duties and anti-avoidance rules.",
+      "falsifier": "Verify dates, residency, tax treaties and economic substance; do not assume a general untaxed gap.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 14,
+      "id": "venture-and-corporate-finance",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Model cap table, dilution, debt covenant, customer economics, cash conversion, rollover, exit timing and capital cost.",
+      "falsifier": "Test runway under no sales, refinancing risk, bad terms, down rounds and collateral exposure.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 15,
+      "id": "hyper-efficient-execution",
+      "omega": "Ω47",
+      "status": "A",
+      "originalMethod": "Compare automation, modular operations, reversible outsourcing, service quality, latency and founder minutes.",
+      "falsifier": "Check quality degradation, supplier dependence, hidden costs, privacy and compliance.",
+      "result": "Compared pre-existing W40/W41/JEV and native agents before additions; reused original modules through doctor and native agent file identities."
+    },
+    {
+      "number": 16,
+      "id": "competitive-intelligence",
+      "omega": "Ω47",
+      "status": "N",
+      "originalMethod": "Use lawful, public, licensed signals to find underserved niches, product weaknesses and new demand.",
+      "falsifier": "Validate consent/provenance, sampling bias, and that nonpublic data is actually permitted.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 17,
+      "id": "luttwak",
+      "omega": "Ω49",
+      "status": "X",
+      "originalMethod": "Study organizational centrality and control structure as a defensive and historical systems-analysis lens.",
+      "falsifier": "Do not transform knowledge of institutional chokepoints into coups, sabotage or coercive intrusion; test lawful alternatives.",
+      "result": "Historical institutional chokepoints, no coercive or prohibited targeting."
+    },
+    {
+      "number": 18,
+      "id": "boyd",
+      "omega": "Ω49",
+      "status": "A",
+      "originalMethod": "Run OODA as rapid observe-orient-decide-act cycles grounded in fresh evidence and reversible tests.",
+      "falsifier": "Challenge distorted orientation, feedback latency, competitor adaptation and high-cost overreaction.",
+      "result": "Iterated observe→test→repair: launcher revised to fail closed on unconfirmed subscription auth, then re-ran 26 Node unit tests."
+    },
+    {
+      "number": 19,
+      "id": "liddell-hart",
+      "omega": "Ω49",
+      "status": "N",
+      "originalMethod": "Find lower-cost indirect market entry, alternative distribution and defensible differentiated approaches.",
+      "falsifier": "Measure dependence on surprise, legal viability and whether direct cooperation would work better.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 20,
+      "id": "schopenhauer",
+      "omega": "Ω49",
+      "status": "N",
+      "originalMethod": "Recognize loaded frames, sophisms and rhetorical traps; prepare truthful, precise argument and negotiation.",
+      "falsifier": "Flag false claims, manipulation, hidden concessions and reputational blowback.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 21,
+      "id": "corporate-control-defense",
+      "omega": "Ω49",
+      "status": "N",
+      "originalMethod": "Analyze shareholder rights plans, governance, fiduciary duties and acquisition-defense economics.",
+      "falsifier": "Check jurisdiction, antitrust, shareholder remedies, financing and source-specific procedures.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 22,
+      "id": "greenmail-risk",
+      "omega": "Ω49",
+      "status": "X",
+      "originalMethod": "Recognize historical tactics, premium buybacks and defensive exposure; compare lawful governance response.",
+      "falsifier": "Check coercion, unlawful threats, securities disclosure and special taxes/penalties.",
+      "result": "Historical greenmail concept is not an execution capability or authority."
+    },
+    {
+      "number": 23,
+      "id": "layered-entity-compliance",
+      "omega": "Ω49",
+      "status": "N",
+      "originalMethod": "Evaluate layered holding structures with actual beneficial-ownership disclosures, substance and audited compliance.",
+      "falsifier": "The label Vasco-Architecture is founder terminology, not a verified established doctrine or immunity.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 24,
+      "id": "intercompany-pricing",
+      "omega": "Ω49",
+      "status": "N",
+      "originalMethod": "Apply arm’s-length transfer-pricing comparables, economic substance, documentation and current treaty rules.",
+      "falsifier": "Countercheck anti-hybrid, CFC, permanent establishment and double-tax rules; no fictitious fees.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 25,
+      "id": "regulatory-capture-defense",
+      "omega": "Ω49",
+      "status": "X",
+      "originalMethod": "Map undue influence risks, due-process rights and lawful compliance pathways; optimize our own readiness.",
+      "falsifier": "Reject retaliatory false complaints, abuse of process or orchestrated competitor delay.",
+      "result": "No manufactured regulatory friction against others."
+    },
+    {
+      "number": 26,
+      "id": "information-advantage-compliance",
+      "omega": "Ω49",
+      "status": "X",
+      "originalMethod": "Research legal informational edges from licensed, public, aggregate data and differentiated interpretation.",
+      "falsifier": "Avoid insider information, front-running, private-data extraction or targeted exploitation of vulnerability.",
+      "result": "No insider data, front-running, or privacy exploitation."
+    },
+    {
+      "number": 27,
+      "id": "beer",
+      "omega": "Ω50",
+      "status": "A",
+      "originalMethod": "Use POSIWID and Viable System Model to compare system outputs against claims, with S1–S5 viability loops.",
+      "falsifier": "Test source quality and avoid equating observed administrative behavior with legal authority.",
+      "result": "Separated reported planner/code receipts from live Claude inference, billing and deployment; PR kept draft despite green local unit tests."
+    },
+    {
+      "number": 28,
+      "id": "taleb",
+      "omega": "Ω50",
+      "status": "A",
+      "originalMethod": "Design positive convexity, optionality, diversification and ruin-aware experiments with explicit cost of optionality.",
+      "falsifier": "Stress correlated shocks, premiums, legal liability, liquidity and inability to ensure zero downside.",
+      "result": "Tail ruin gate: external-effect authority rejection and billing override/usage-credit confirmation checks prevent cheap but costly mistakes."
+    },
+    {
+      "number": 29,
+      "id": "land",
+      "omega": "Ω50",
+      "status": "N",
+      "originalMethod": "Model accelerated adoption, recursive belief/market feedback and narrative-induced coordination.",
+      "falsifier": "Treat hyperstition as a contested explanatory lens; test reality and preserve EQ and human dignity.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 30,
+      "id": "statutory-time-arbitrage",
+      "omega": "Ω50",
+      "status": "N",
+      "originalMethod": "Compare filing, delivery, receipt, effective dates, response periods and lawful appeal channels.",
+      "falsifier": "Never assume a processing backlog makes a transaction legally untouchable.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 31,
+      "id": "semantic-voiding",
+      "omega": "Ω50",
+      "status": "N",
+      "originalMethod": "Analyze ambiguous contract definitions, translations, governing law, choice of court and enforceability.",
+      "falsifier": "Ambiguity may be read against drafter; do not create deceptive traps or claim automatic forum control.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 32,
+      "id": "regulatory-desynchronization",
+      "omega": "Ω50",
+      "status": "N",
+      "originalMethod": "Map mismatches across tax classification, residence, source, treaty, substance and reporting.",
+      "falsifier": "Test OECD anti-hybrid, CFC, GAAR and reporting; mismatch is not proof of tax-free income.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 33,
+      "id": "adversarial-network-topologies",
+      "omega": "Ω51",
+      "status": "A",
+      "originalMethod": "Generate a strong strategy and fair counterexample, patch it or hold; where possible write a native falsifying test.",
+      "falsifier": "Repeated personas of the same model are correlated and not independent verification.",
+      "result": "Adversarial fixtures exercised stale hash, DAG cycles, unknown deps, provider secrets, external permissions and false saving claims."
+    },
+    {
+      "number": 34,
+      "id": "recursive-risk-information-graphs",
+      "omega": "Ω51",
+      "status": "A",
+      "originalMethod": "Build validated, authorized node-edge dependency/latency/capacity graph and trace correlated failures.",
+      "falsifier": "Missing nodes are uncertainty; no claims of scanning private external infrastructure.",
+      "result": "Built a validated dependency graph with topological ordering, cycle detection and bounded independent execution waves."
+    },
+    {
+      "number": 35,
+      "id": "cryptographic-sovereignty",
+      "omega": "Ω51",
+      "status": "C",
+      "originalMethod": "Define keys, endpoints, authenticated channels, access roles, supply chain and tested recovery.",
+      "falsifier": "Cryptographic assumptions do not make the entire real-world system mathematically intrusion-proof.",
+      "result": "Key presence checks are not proof of cryptographic security, only runtime routing safeguards."
+    },
+    {
+      "number": 36,
+      "id": "zero-trust-opsec",
+      "omega": "Ω51",
+      "status": "A",
+      "originalMethod": "Require explicit identity and resource authorization, least privilege, secrets discipline and audit receipts.",
+      "falsifier": "Test backup/key compromise, implementation errors and insider mistakes rather than trust network location.",
+      "result": "Added a fail-closed subscription override check and verified secret values are never echoed in test output."
+    },
+    {
+      "number": 37,
+      "id": "privacy-preserving-routing",
+      "omega": "Ω51",
+      "status": "N",
+      "originalMethod": "Apply purpose limitation, data minimization, role segregation and pseudonymous workspaces where lawful.",
+      "falsifier": "Metadata reidentification remains possible; legal owner/identity disclosures still apply.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 38,
+      "id": "jurisdictional-resilience",
+      "omega": "Ω51",
+      "status": "N",
+      "originalMethod": "Compare lawful multiregion resilience with latency, data residency, costs and regulated transfers.",
+      "falsifier": "Correlated identity or cloud failures can defeat nominal regional diversity.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 39,
+      "id": "infrastructure-self-sufficiency",
+      "omega": "Ω51",
+      "status": "C",
+      "originalMethod": "Define RTO/RPO, real backup restores, power/network fallbacks, alternate providers and rehearsal cadence.",
+      "falsifier": "Unexercised backups and nominal replication are not verified recovery.",
+      "result": "PHOENIX pointers do not establish tested RTO/RPO or disaster recovery."
+    },
+    {
+      "number": 40,
+      "id": "predictive-behavioral-modeling",
+      "omega": "Ω51",
+      "status": "N",
+      "originalMethod": "Construct base-rate organizational scenarios from licensed aggregate evidence and actual observed incentives.",
+      "falsifier": "No precise mind-reading; retain emotional intelligence, uncertainty, privacy and counterfactual drivers.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 41,
+      "id": "pataphysics-non-euclidean",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Invent fictional exception axioms and higher-dimensional geometries; offer rigorous projection/visual/art prototyping.",
+      "falsifier": "Explicitly distinguish a 4D mathematical construction from a physically buildable 3D object.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 42,
+      "id": "biomimicry-quantum-morphogenesis",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Translate empirical growth, reaction-diffusion, cell structure or quantum-biological mechanism into testable designs.",
+      "falsifier": "Distinguish suggested analogy from demonstrated engineering performance; check scale and environmental conditions.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 43,
+      "id": "synesthesia-semiotics",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Create explicit data-to-audio/color/shape mapping and cultural interpretation model with reversible transforms.",
+      "falsifier": "Synesthetic artistic mappings are choices, not naturally determined formula colors or installed neural perception.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 44,
+      "id": "tda-phase-space",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Specify data normalization, metric, filtration, persistent homology dimensions, stability and held-out baselines.",
+      "falsifier": "Topological feature persistence alone does not prove causality, crash timing or precise legal loopholes.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 45,
+      "id": "nonergodic-game-survival",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Compare expected ensemble multiplier, repeated time-average log growth, ruin and finite-horizon path dependence.",
+      "falsifier": "Stress distribution shift, non-IID returns, model uncertainty and impossible guaranteed enemy ruin.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 46,
+      "id": "formal-verification-synthesis",
+      "omega": "Ω52",
+      "status": "C",
+      "originalMethod": "Formalize explicit, audited assumptions with suitable proof assistant or model checker; preserve theorem proof receipts.",
+      "falsifier": "Formal consistency is not proof that natural-language law has a single meaning or reality meets assumptions.",
+      "result": "Unit tests are not mathematical formal verification; stronger model checking would require a separate scoped proof."
+    },
+    {
+      "number": 47,
+      "id": "soros-reflexivity",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Model interaction between public beliefs, funding, behavior, prices and measured fundamentals.",
+      "falsifier": "Test alternative narratives, selection bias, lagged information and market manipulation boundaries.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 48,
+      "id": "cantillon-capital-proximity",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Trace lawful new-liquidity transmission, funding access, credit terms and working capital economics.",
+      "falsifier": "Liquidity proximity is not riskless; consider inflation, obligations, financing and inequality effects.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 49,
+      "id": "thiel-value-asymmetry",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Build genuinely unique value, distribution, IP/know-how and defensible customer switching gains.",
+      "falsifier": "Competition responds and antitrust/quality/reputation constraints limit moat durability.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 50,
+      "id": "microstructure-vpin-ofi",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Study venue-specific historical order flow, OFI, VPIN critiques, queue models and latency-adjusted execution assumptions.",
+      "falsifier": "Confirm results with causal data, out-of-sample tests and costs; no inevitable moves or risk-free front-running.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 51,
+      "id": "cross-asset-cointegration",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Test stationarity, error correction, stability, trade execution and total net spreads under realistic costs.",
+      "falsifier": "Cointegration can break, funding fails and slippage eliminates apparent free profit.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    },
+    {
+      "number": 52,
+      "id": "fractional-kelly-ruin",
+      "omega": "Ω52",
+      "status": "N",
+      "originalMethod": "Analyze fractional log-optimal exposure only with specified valid probability models, uncertainty penalties and ruin constraints.",
+      "falsifier": "Stops, hedges and Kelly fractions do not guarantee bounded losses during gaps or systemic crises.",
+      "result": "Not materially applicable to this bounded Claude Code routing/permissions/source-recovery mission; original method preserved for future tasks."
+    }
+  ]
+}

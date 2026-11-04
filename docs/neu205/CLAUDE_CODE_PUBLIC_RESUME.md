@@ -50,6 +50,18 @@ The exact owner-private ZIP is named `NEU205_ZERO_CONTEXT_COMPLETE_BACKUP_2026-1
 6. Build a practical one-screen phone handoff; verify offline device mic, whisper ASR, model residency/speed, TTS audibility and stop/follow-up correctness when an actually authorized connection is available.
 7. Commit **code only** in isolated PR/review branch, preserve rollback and source history, and checkpoint exact SHA, tests, artifacts, failures and next blockers. Avoid more than 3 specific owner-only tasks, with $0 additional spend.
 
+
+## Claude real-Qwen recovery, 2026-11-04 (verified code-only)
+
+- Claude ran the **real** Qwen3.5-4B Q4_K_M GGUF and its owner-private download; its model SHA matched the known official LFS hash. This was a **synthetic three-question plumbing test**, NOT proof of medical exam accuracy or phone latency.
+- The current feature branch PR #1605 now includes Claude's two previously unpushed fixes, recovered by the connected GitHub account and regression-tested in GitHub CI:
+  1. Hugging Face `us.aws.cdn.hf.co` and other DNS-label-delimited `*.cdn.hf.co` regional redirects are now allowed over HTTPS only; lookalike domains and wrong ports are rejected.
+  2. Real llama.cpp chat streaming may send `null` content in intermediate deltas. The NEU205 speech filter accepts these as empty output, while refusing unexpected non-string payloads. Regression tests added.
+- **Exact feature commit:** `a028e8340424fc5a0c2d13e9c72736f0228fc179` at this checkpoint; refresh live PR before any further writes. The dedicated NEU205 CI passed on this commit.
+- To avoid the oversized archive, a much smaller **owner-private** `NEU205_CLAUDE_PRIVATE_BOOK_EVAL_4MB_2026-11-04.zip` was created (**4,293,704 bytes**; SHA-256 `1ad6cc7731b2bd41fd2a98f724566f067dd8084dd0558041cf015a36d4d706ce`). It includes the complete original 299-page PDF, 1,695 SHA-verified source passages, optional BGE vectors and historical grading receipts, **not** model weights or the historical APK. Stored only in the user's private ChatGPT Library, NOT on public GitHub.
+- Claude's next *actual* block is only this protected small book upload if the prior private workspace still has no source. The repo source and model downloads are already accessible; no need to re-upload the 109MB complete backup. Downloading the model again may be necessary if the Claude runtime was reclaimed.
+- If the user's private book is still unavailable, keep advancing source-level Android work and preserve evidence gates, but never fabricate medical-accuracy results. Do not try to get private files through a public GitHub commit.
+
 ## Claude Code next instruction, copy into the cloud session
 
 > Resume NEU205 ONE directly from the PUBLIC zero-context guide at `docs/neu205/CLAUDE_CODE_PUBLIC_RESUME.md` and current draft PR #1605. Recover and preserve the current source branch, test actual Hugging Face model access inside YOUR environment, run verified Qwen inference first, then finish honest full-book accuracy+Android execution. Use existing private assets if actually present; never claim to have the private ZIP from this public guide. Do not upload private textbook/exam/keys anywhere public, spend money, or affect the phone without authorized access. Execute code/tests now, not just another plan. Record exact receipts and block only on true missing inputs.

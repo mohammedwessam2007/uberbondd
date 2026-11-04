@@ -1,5 +1,6 @@
 // Read-only provider observation. No enroll, resume, campaign, or billing methods.
 import { createHash } from 'node:crypto';
+import { extractHealthMetrics, compileMailboxHealth, mailboxDigest } from './uberwarm2-health-metrics.mjs';
 const base = 'https://app-emailwarmup.bobwork.ai/api/v1';
 const hash = value => 'sha256:' + createHash('sha256').update(value).digest('hex');
 const domains = ['uberbond.site','uberbondai.shop','uberbondapp.site','uberbondcloud.shop',
@@ -46,6 +47,8 @@ export async function observeBobwork({apiKey, fetchImpl = globalThis.fetch} = {}
     if (identities.some(e => typeof e !== 'string' || !owned.has(e)) ||
         new Set(identities).size !== identities.length) return {...receipt, status:'MAILBOX_IDENTITY_HOLD'};
     receipt.enrolled = identities.length;
+    receipt.mailboxHealth = compileMailboxHealth(mailboxes.map(m => ({mailboxDigest:mailboxDigest(m.email), metrics:extractHealthMetrics(m)})));
+    receipt.healthStatus = receipt.mailboxHealth.some(m=>Object.keys(m.metrics).length) ? 'PROVIDER_METRICS_OBSERVED' : 'HEALTH_SCHEMA_UNVERIFIED';
     // Only verified inventory is normalized. Undocumented stats/usage fields remain digest-only.
     // Enrollment and authenticated API access never attest traffic or inbox placement.
     receipt.status = identities.length === 20 ? 'INVENTORY_OBSERVED' : 'ENROLLMENT_GAP';
@@ -63,5 +66,7 @@ export function compileBobworkObservation(input) {
   for (const name of ['me','mailboxes','usage','stats']) {
     if (/^sha256:[a-f0-9]{64}$/.test(input?.endpointDigests?.[name] || '')) output.endpointDigests[name] = input.endpointDigests[name];
   }
+  output.mailboxHealth = compileMailboxHealth(input?.mailboxHealth);
+  output.healthStatus = output.mailboxHealth.some(m=>Object.keys(m.metrics).length) ? 'PROVIDER_METRICS_OBSERVED' : 'HEALTH_SCHEMA_UNVERIFIED';
   return output;
 }

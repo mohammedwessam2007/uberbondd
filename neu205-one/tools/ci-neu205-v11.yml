@@ -27,7 +27,16 @@ jobs:
           python -m unittest discover -s tools -p 'test_*.py' -v
       - name: Android framework simulation and lint (no private assets)
         working-directory: neu205-one/android
-        run: bash gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug
+        run: |
+          log="$RUNNER_TEMP/neu205-android-validation.log"
+          set +e
+          bash gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug > "$log" 2>&1
+          result=$?
+          set -e
+          if [ "$result" -ne 0 ]; then
+            python3 ../tools/ci_failure_class.py "$log"
+          fi
+          exit "$result"
       - name: Publish scoped framework reports only
         if: always()
         uses: actions/upload-artifact@v4

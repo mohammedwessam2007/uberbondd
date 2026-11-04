@@ -13,7 +13,7 @@ from urllib.parse import urlsplit
 REPO = 'unsloth/Qwen3.5-4B-GGUF'
 FILENAME = 'Qwen3.5-4B-Q4_K_M.gguf'
 EXPECTED = '00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4'
-ALLOWED = {'huggingface.co', 'cas-bridge.xethub.hf.co'}
+ALLOWED = {'huggingface.co', 'cdn-lfs.huggingface.co', 'cas-bridge.xethub.hf.co'}
 
 
 def checked_url(url):

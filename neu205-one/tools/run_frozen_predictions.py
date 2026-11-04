@@ -20,13 +20,14 @@ def questions(path):
     rows = [json.loads(line) for line in Path(path).read_text().splitlines() if line.strip()]
     ids = set()
     for row in rows:
-        if not isinstance(row.get('id'), str) or row['id'] in ids:
-            raise ValueError('Unique question IDs required')
-        if not isinstance(row.get('question'), str) or not 1 <= len(row['question']) <= 1000:
+        # Match the independent evaluator's exact question-only schema. A denylist
+        # misses alternative key names such as answer_key or explanation.
+        if not isinstance(row, dict) or set(row) != {'id', 'question'}:
+            raise ValueError('Question-only file must contain exactly id and question')
+        if not isinstance(row['id'], str) or not row['id'].strip() or row['id'] in ids:
+            raise ValueError('Unique nonempty question IDs required')
+        if not isinstance(row['question'], str) or not 1 <= len(row['question']) <= 1000:
             raise ValueError('Question outside frozen request limits')
-        # No answers, explanations, source quotes, evidence IDs or keys may enter solver input.
-        if any(k in row for k in ['answer', 'correct_answer', 'gold', 'key', 'source_quote', 'expected']):
-            raise ValueError('Questions file contains answer-key material')
         ids.add(row['id'])
     if not rows:
         raise ValueError('An empty run proves no accuracy')

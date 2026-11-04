@@ -23,11 +23,11 @@ follow-ups — never to add answer text); `corpus_sha256` must equal the loaded 
 ## Response
 ```json
 {"schema":"neu205.evidence.v1","request_id":"r-0001","corpus_sha256":"<64 hex>",
- "strategy":"bm25+bge-small-q8-rrf-v1","elapsed_ms":2.4,"evidence_status":"OK",
+ "strategy":"bm25-v1","elapsed_ms":2.4,"evidence_status":"OK",
  "passages":[{"chunk_id":"c00412","book_pdf_start_page":82,"book_pdf_end_page":83,
    "section_path":"PART I - ANATOMY > Neck Chapter 1: Cervical Fascia > ...",
    "verbatim_text":"...","source_hash":"<sha256 of verbatim_text>",
-   "retrieval_scores":{"fused_rank":1,"coverage":0.92}}]}
+   "retrieval_scores":{"bm25":12.31,"coverage":0.92}}]}
 ```
 `evidence_status`:
 | value | meaning | consumer behaviour |
@@ -40,13 +40,6 @@ follow-ups — never to add answer text); `corpus_sha256` must equal the loaded 
 | `INVALID_REQUEST` | schema violation (message in `error`) | programmer error |
 | `CANCELLED` | caller cancelled | discard |
 | `BUDGET_EXCEEDED` | search exceeded `latency_budget_ms` | passages so far may be empty; caller decides |
-
-## Status gate calibration (DEV only)
-`NONE` < 0.20 ≤ `WEAK` < 0.50 ≤ `OK` (IDF-weighted query-term coverage of the best passage).
-On DEV, lexical coverage separates supported from unsupported questions poorly (a 0.35 gate would
-drop 10/150 answerable questions while catching only 12/30 unsupported ones). Therefore the gate
-only removes near-empty matches (0.20 drops 1/150 supported); **refusing unsupported questions is
-Qwen's job** via the `NOT_IN_BOOK` instruction, measured separately on the 107 unsupported probes.
 
 ## Integrity (fail closed)
 At load the index verifies: `corpus.manifest.json.corpus_sha256 == sha256(corpus.jsonl bytes)`,

@@ -1,0 +1,87 @@
+{
+  "scope": "DEV_SOURCE_DERIVED_LOCATION_AND_QUOTE_PROXY_NOT_MEDICAL_ACCURACY",
+  "dev_digital_pages": [
+    1,
+    60
+  ],
+  "questions_contain_source_terms": true,
+  "candidate_model_calls": 0,
+  "phone_tested": false,
+  "real_tokenizer_used": false,
+  "v07_v10_donors_recovered": false,
+  "cases": 120,
+  "eligible_source_capsules": 301,
+  "index_sha256": "9bbdad7f7eeadcaf23518319d7e9eb2ee7704bdd43c5be89f0005ac98ed0a310",
+  "baseline_corpus_sha256": "2f7874d9aec84e85567c21bb6b2bd291a3a1ea6237d8bdabfa216628a166f5be",
+  "donor_sentence_function_sha256": "3ec1293618d455cba5b1212efe00d5c178f04f0ecb276d5b08c4670ece130093",
+  "retention": {
+    "110": {
+      "n": 120,
+      "v05_sentence_retained": 70,
+      "v05_raw_contains": 111,
+      "v11_raw_contains": 118,
+      "v11_retained": 105,
+      "paired_wins": 42,
+      "paired_losses": 7,
+      "paired_same": 71,
+      "oracle_retained": 111,
+      "fallback_final_prompt_retained": 97,
+      "fallback_prompt_refusal": 5,
+      "oracle_explicit_budget_refusal": 9,
+      "v11_explicit_budget_refusal": 3
+    },
+    "160": {
+      "n": 120,
+      "v05_sentence_retained": 70,
+      "v05_raw_contains": 111,
+      "v11_raw_contains": 118,
+      "v11_retained": 111,
+      "paired_wins": 44,
+      "paired_losses": 3,
+      "paired_same": 73,
+      "oracle_retained": 118,
+      "fallback_final_prompt_retained": 97,
+      "fallback_prompt_refusal": 8,
+      "oracle_explicit_budget_refusal": 2
+    },
+    "220": {
+      "n": 120,
+      "v05_sentence_retained": 70,
+      "v05_raw_contains": 111,
+      "v11_raw_contains": 118,
+      "v11_retained": 114,
+      "paired_wins": 46,
+      "paired_losses": 2,
+      "paired_same": 72,
+      "oracle_retained": 120,
+      "fallback_final_prompt_retained": 97,
+      "fallback_prompt_refusal": 8
+    }
+  },
+  "stress": {
+    "queries": 1000,
+    "source_read_success": 1000,
+    "p50_ms": 3.7655740015907213,
+    "p95_ms": 5.955417000222951,
+    "max_ms": 15.796512998349499,
+    "process_peak_rss_kb": 42356
+  },
+  "interpretation": "Exact whitespace-normalized quote retention only. Whole primary units never cropped; oversize primary units are explicit failures in the unchanged denominator. Oracle tests source availability/packing only, not medical comprehension. No held-out questions or examination key were read.",
+  "comparison_scope": "Old sentence-compression algorithm applied to recovered 1329-chunk corpus; original v05 private1695-chunk corpus unavailable.",
+  "backend_synthetic_tests": {
+    "passed": 58,
+    "elapsed_seconds": 16.257,
+    "real_model": false,
+    "phone": false
+  },
+  "source_sha256": {
+    "backend/bridge.py": "e66cf1ae62ddb53070de8433d7ccd1c7e8dc1cf71942c744c8f1f0aa2ad93afd",
+    "backend/launch_local.py": "ac78c8992a5a79b49e13d80ded8c4f0c91e4c9c730b71fd5ab9f69cdfc1a3de6",
+    "backend/active_memory_v11.py": "daa47b5bd780225694a31666c39b50b72048ea109acf1a4f0f3fb86de45c68b9",
+    "backend/memory_tools_v11.py": "cd12a79a44ec5c9c664b22c11361a6d3ab1d98d788ce0ab4417497235188aaf1",
+    "backend/tests/test_active_memory_v11.py": "8f22f86c3669a5d95ef03795c4cde602ed6879d04771740eef4604fc9ecd6708",
+    "backend/tests/test_bridge.py": "def74c958a99b3842a0f73a8ad8d26ecf1f2f4cb96a0f80e986236ce4b7029d0",
+    "tools/compile_memory_v11.py": "23fcbc754024bf8ec30d7675f052d8a030737a40246c2862f92762a86f2bff00",
+    "tools/benchmark_memory_v11.py": "6925de0fa68af2545546e9726da5216bcc94ed18e8710cba1a7de648a1bde034"
+  }
+}

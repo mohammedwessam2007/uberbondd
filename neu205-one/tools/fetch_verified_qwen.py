@@ -64,8 +64,9 @@ def main():
         raise ValueError('Previous partial model download preserved; inspect before retrying')
     # A denied HTTPS connection must not create an empty .partial file that blocks retries.
     with opener.open(checked_url(f'https://huggingface.co/{REPO}/resolve/{revision}/{FILENAME}'), timeout=90) as response:
-        with temp.open('xb') as out:
-            os.chmod(temp, 0o600)
+        with os.fdopen(os.open(temp, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600), 'wb') as out:
+            # Apply private permissions atomically at creation; never expose model bytes
+            # before a later chmod, even with a permissive process umask.
             while block := response.read(4 * 1024 * 1024):
                 out.write(block)
                 if out.tell() > lfs['size']:

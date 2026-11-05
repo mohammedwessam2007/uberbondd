@@ -7,6 +7,9 @@ final class SpeechClauses {
  List<String> accept(String token,boolean end){
   input.append(token);List<String> out=new ArrayList<>();
   while(input.length()>0){
+   if(!thinking && pending.length()>0 && ".!?".indexOf(pending.charAt(pending.length()-1))>=0 && (Character.isWhitespace(input.charAt(0)) || input.charAt(0)=='<')){
+    String clause=pending.toString().trim();if(clause.length()>=8){out.add(clause);pending.setLength(0);}
+   }
    String text=input.toString();
    if(text.startsWith("<think>")){thinking=true;input.delete(0,7);continue;}
    if(text.startsWith("</think>")){thinking=false;hidden=0;input.delete(0,8);continue;}
@@ -15,7 +18,7 @@ final class SpeechClauses {
    if(thinking){if(++hidden>32768)throw new IllegalStateException("reasoning-overflow");continue;}
    pending.append(c);
    if(pending.length()>8192)throw new IllegalStateException("sentence-too-long");
-   if(".!?".indexOf(c)>=0 && (input.length()==0 || Character.isWhitespace(input.charAt(0)) || input.charAt(0)=='<')){
+   if(".!?".indexOf(c)>=0 && input.length()>0 && (Character.isWhitespace(input.charAt(0)) || input.charAt(0)=='<')){
     String clause=pending.toString().trim();if(clause.length()>=8){out.add(clause);pending.setLength(0);}
    }
   }

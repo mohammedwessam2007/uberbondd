@@ -1,3 +1,11 @@
+# Subsequent speech-stream repair
+
+A focused regression fixes decimal punctuation split across model tokens. The 81.8% result
+below applies to the prior frozen candidate; the modified stream path has no new blind medical
+score. Original signer, clinical review and physical phone remain unavailable.
+
+---
+
 # V12 new 437 evaluation result — 2026-11-06
 
 Checkpoint ID: NEU205-CODEX-V12-20261106-NEW437-GRADED. Read

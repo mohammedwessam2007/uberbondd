@@ -36,3 +36,11 @@ not physical microphone-to-audible-word measurements or OnePlus timings. The mod
 question/key manifests and all individual predictions and reviews remain privately preserved.
 The original release signing identity is still absent and ADB reports no connected device.
 No signed offline release, physical-phone pass, clinical validation, merge or paid API is claimed.
+
+## Subsequent speech-stream repair
+
+The frozen result above measures the prior candidate. A later source change prevents a decimal
+split across model tokens (for example, `3.` followed by `5`) from being emitted as two spoken
+sentences. Sentence punctuation at a token boundary is held until the next character or end of
+stream establishes the boundary. This is a focused streaming repair, not a demonstrated
+improvement in medical accuracy. The exposed 437-question set must not be reused as a new blind test.

@@ -1,3 +1,19 @@
+# V12 verified book recovery + native evaluation — 2026-11-05
+
+Checkpoint ID: NEU205-CODEX-V12-20261105-BOOK-RECOVERED-NEW437.
+Read `V12_VERIFIED_BOOK_AND_NATIVE_EVALUATION_2026-11-05.md` first. The owner-supplied small
+private archive matches its known SHA; all20manifest entries and original299-page PDF verify.
+Actual Whisper assets were recovered and validated, all53private-asset framework tests now pass,
+and the full private-asset unsigned APK rebuilds identically. Historical missing-book statements
+below are superseded for this recovered archive only; original v12 frozen run/signing key were
+not supplied. A NEW independently authored437question set is sealed and the actual native solver
+is running. Do not open gold or give predictions to graders until all437rows are sealed.
+Private durable progress, exact runtime copies and hashes are preserved outside Git. Resume only
+missing IDs with identical frozen runtime/config. No score, original-run completion, signed release
+or phone pass may be inferred. Keep PR #1605 draft, no merge/private upload/new spend.
+
+---
+
 # V12 autonomous follow-up checkpoint — 2026-11-05
 
 Checkpoint ID: NEU205-CODEX-V12-20261105-STARTUP-CANCEL.

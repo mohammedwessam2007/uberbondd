@@ -12,7 +12,7 @@ import org.json.*;
 /** Signed, size-bounded, versioned private assets. An interrupted import never replaces active assets. */
 public final class VerifiedPackStore {
     public static final String PDF_SHA="c3298e8c5f7f807604be10f7376d67f05eb315dd982276263e8f6ad2e8e70940";
-    public static final String CORPUS_SHA="2f7874d9aec84e85567c21bb6b2bd291a3a1ea6237d8bdabfa216628a166f5be";
+    public static final String CORPUS_SHA="d886e87513dc930df05f827682acafb69da8957a919d3d27ea770b35dba427d5";
     private static final long MAX_ZIP=512L*1024*1024, MAX_TOTAL=768L*1024*1024, MAX_MEMBER=320L*1024*1024;
     private static final int MAX_FILES=48;
     public interface Progress { void update(long bytes); }

@@ -3,7 +3,8 @@ import android.content.Context;import java.io.*;import java.security.*;import ja
 import ai.neu205.one.imports.VerifiedPackStore;
 /** Source-derived corpus pinned by the signed candidate, distinct from the original PDF hash. */
 final class CorpusAssets {
- static final String EXPECTED="2f7874d9aec84e85567c21bb6b2bd291a3a1ea6237d8bdabfa216628a166f5be";
+ // Recovered original-PDF-derived v05 corpus, verified against the private archive manifest.
+ static final String EXPECTED="d886e87513dc930df05f827682acafb69da8957a919d3d27ea770b35dba427d5";
  private static String verified;
  static synchronized void invalidate(){verified=null;}
  static synchronized String verify(Context ctx)throws Exception {

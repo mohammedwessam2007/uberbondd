@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Pool } from 'pg';
 import { now } from './utils.mjs';
+import { initializePostgresPool } from './postgres-startup-gate.mjs';
 import { outboundVolumeWindow, countActiveOutboundReservations } from './send-safety.mjs';
 
 export const COLLECTIONS = [
@@ -649,17 +650,21 @@ export class JsonStore {
 }
 
 export class PostgresStore {
-  constructor({ databaseUrl, ssl = true, pool, transactionClient = false } = {}) {
+  constructor({ databaseUrl, ssl = true, pool, transactionClient = false,
+    initMode = process.env.NODE_ENV === 'production' ? 'probe' : 'migrate' } = {}) {
     if (!databaseUrl && !pool) throw new StoreError('DATABASE_URL is required for the PostgreSQL store', 'CONFIG');
     this.pool = pool || new Pool({ connectionString: databaseUrl, ssl: ssl ? { rejectUnauthorized: false } : false, max: 10 });
     this.ownsPool = !pool;
+    this.initMode = initMode;
     // A scoped store inside transaction() is backed by one already-connected
     // pg Client. Nested store helpers (patch/failJob/etc.) must reuse that
     // client instead of calling client.connect() a second time.
     this.transactionClient = Boolean(transactionClient);
   }
 
-  async init() { await this.migrate(); }
+  async init() {
+    await initializePostgresPool(this.pool, this.initMode, () => this.migrate());
+  }
   async close() { if (this.ownsPool) await this.pool.end(); }
 
   async migrate() {
@@ -1150,7 +1155,7 @@ export class Store extends JsonStore {}
 
 export function createStore(config) {
   if (config.storeBackend === 'postgres') {
-    return new PostgresStore({ databaseUrl: config.databaseUrl, ssl: config.databaseSsl });
+    return new PostgresStore({ databaseUrl: config.databaseUrl, ssl: config.databaseSsl, initMode: config.nodeEnv === 'production' ? 'probe' : undefined });
   }
   return new JsonStore(config.dataDir);
 }

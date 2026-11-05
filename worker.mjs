@@ -1,4 +1,5 @@
 import { config, validateStartupConfig } from './src/config.mjs';
+import { workerObservationEnabled } from './src/worker-observation-policy.mjs';
 import { createStore } from './src/store.mjs';
 import { Pipeline } from './src/pipeline.mjs';
 import { RevenueEngine } from './src/revenue.mjs';
@@ -192,9 +193,11 @@ async function tickUberMindPublicIssueBacklog(){
     publicIssueIntakeRunning=false;
   }
 }
-void tickUberMindPublicIssueBacklog();
-const publicIssueIntakeInterval=setInterval(tickUberMindPublicIssueBacklog,6*60*60_000);
-publicIssueIntakeInterval.unref?.();
+if (workerObservationEnabled(process.env, 'UBERMIND_PUBLIC_ISSUE_INTAKE_ENABLED')) {
+  void tickUberMindPublicIssueBacklog();
+  const publicIssueIntakeInterval=setInterval(tickUberMindPublicIssueBacklog,6*60*60_000);
+  publicIssueIntakeInterval.unref?.();
+}
 
 // Zero-spend UberMind evidence monitor. Re-evaluates source truth every hour,
 // never requests model inference, mints Crown authority, or writes provider state.
@@ -307,9 +310,11 @@ async function refreshWinnrSmtpReadiness() {
     smtpReadinessInFlight = false;
   }
 }
-await refreshWinnrSmtpReadiness();
-smtpReadinessTimer = setInterval(() => { void refreshWinnrSmtpReadiness(); }, 60 * 60_000);
-smtpReadinessTimer.unref?.();
+if (workerObservationEnabled(process.env, 'WINNR_SMTP_READINESS_PROBE_ENABLED')) {
+  await refreshWinnrSmtpReadiness();
+  smtpReadinessTimer = setInterval(() => { void refreshWinnrSmtpReadiness(); }, 60 * 60_000);
+  smtpReadinessTimer.unref?.();
+}
 
 // Explicit one-shot reality canary. Off by default. When enabled it performs one
 // first-party public GET and internal evidence/prospect writes only. It cannot

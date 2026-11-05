@@ -26,7 +26,8 @@ final class NativeBrain implements AutoCloseable {
     private final AtomicBoolean cancelled=new AtomicBoolean();
     NativeBrain(NativeQwen qwen,EvidenceIndex index,ParcelFileDescriptor model){this.qwen=qwen;this.index=index;this.model=model;}
     static boolean configured(Context ctx){return new File(ctx.getFilesDir(),"qwen-document-reference.json").isFile();}
-    static NativeBrain load(Context ctx)throws Exception {
+    static NativeBrain load(Context ctx,AtomicBoolean loadingCancelled)throws Exception {
+        if(loadingCancelled.get())throw new InterruptedIOException("Native startup cancelled");
         VerifiedPackStore.Pack pack=AssetRepository.current(ctx);
         if(pack==null || !pack.manifest.has("model"))throw new IOException("Import the signed study pack and validate its Qwen model first.");
         File referenceFile=new File(ctx.getFilesDir(),"qwen-document-reference.json");
@@ -43,14 +44,14 @@ final class NativeBrain implements AutoCloseable {
         try {
             Os.lseek(fd.getFileDescriptor(),0,OsConstants.SEEK_SET);
             try(InputStream in=new ParcelFileDescriptor.AutoCloseInputStream(ParcelFileDescriptor.dup(fd.getFileDescriptor()))){
-                GgufReferenceValidator.verify(in,expected,new AtomicBoolean(),null);
+                GgufReferenceValidator.verify(in,expected,loadingCancelled,null);
             }
             Os.lseek(fd.getFileDescriptor(),0,OsConstants.SEEK_SET);
             EvidenceIndex ix;
             try(InputStream corpus=AssetRepository.open(ctx,"corpus.jsonl");InputStream manifest=AssetRepository.open(ctx,"corpus.manifest.json")){ix=EvidenceIndex.load(corpus,manifest);}
             if(ix.loadError()!=null || !CorpusAssets.verify(ctx).equals(ix.corpusSha256()))throw new IOException("Verified book index could not load");
             // Keep the verified descriptor open throughout mmap/inference. Never copy weights.
-            nativeModel=new NativeQwen("/proc/self/fd/"+fd.getFd(),Math.min(4,Runtime.getRuntime().availableProcessors()));
+            nativeModel=new NativeQwen("/proc/self/fd/"+fd.getFd(),Math.min(4,Runtime.getRuntime().availableProcessors()),loadingCancelled);
             return new NativeBrain(nativeModel,ix,fd);
         }catch(Throwable error){if(nativeModel!=null)nativeModel.close();fd.close();throw error;}
     }

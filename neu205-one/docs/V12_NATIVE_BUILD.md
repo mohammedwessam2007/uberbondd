@@ -81,6 +81,9 @@ are never copied or modified. The signer attests a derived corpus serialization;
 member digests and the 299-page manifest must match. Pack preparation now also requires the
 actual checksum-pinned original PDF before signing.
 
+Stop also cancels startup GGUF verification and the native model load-progress callback.
+Each startup captures its own cancellation flag; a new Start cannot revive an old load.
+
 Stop and Interrupt invalidate session generations before cancellation; native prefill is
 chunked at 64 tokens, with an abort callback inside compute and checks during decoding.
 Late ASR/model/TTS outputs remain generation-gated. UTF-8 is assembled across token boundaries,

@@ -26,6 +26,12 @@ public final class NativeQwenSmoke {
   Path model=Path.of(args[0]);MessageDigest hash=MessageDigest.getInstance("SHA-256");
   try(InputStream in=Files.newInputStream(model)){byte[] b=new byte[4*1024*1024];int n;while((n=in.read(b))!=-1)hash.update(b,0,n);}
   if(Files.size(model)!=2740937888L || !java.util.HexFormat.of().formatHex(hash.digest()).equals("00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4"))throw new AssertionError("Unverified model");
+  try{new NativeQwen(model.toString(),4,new AtomicBoolean(true));throw new AssertionError("Cancelled startup accepted");}catch(InterruptedIOException expected){System.out.println("STARTUP_PRE_CANCEL refused");}
+  AtomicBoolean startup=new AtomicBoolean();AtomicReference<Throwable> loadResult=new AtomicReference<>();
+  Thread loader=new Thread(()->{try(NativeQwen ignored=new NativeQwen(model.toString(),4,startup)){loadResult.set(new AssertionError("Startup completed before cancellation probe"));}catch(Throwable t){loadResult.set(t);}});
+  loader.start();Thread.sleep(100);long stop=System.nanoTime();startup.set(true);loader.join(5000);
+  if(loader.isAlive() || !(loadResult.get() instanceof InterruptedIOException))throw new AssertionError("Startup cancellation failed",loadResult.get());
+  System.out.printf("STARTUP_CANCEL join_ms=%.3f%n",(System.nanoTime()-stop)/1e6);
   try(NativeQwen q=new NativeQwen(model.toString(),4)){
    for(String question:new String[]{"What change does the carotid body detect?","What aspirin dose should I take?"}){
     ByteArrayOutputStream out=new ByteArrayOutputStream();q.prepare();long start=System.nanoTime();

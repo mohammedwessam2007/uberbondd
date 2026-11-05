@@ -4,7 +4,13 @@ cd "$(dirname "$0")/../android"
 : "${ANDROID_SDK_ROOT:=/workspace/neu205-tools/sdk}" "${NEU205_SIGNING_DIR:=/workspace/neu205-private/signing}"
 TOOLS="$ANDROID_SDK_ROOT/build-tools/37.0.0"; JAR="$ANDROID_SDK_ROOT/platforms/android-37.2/android.jar"; OUT=build/instrumentation
 mkdir -p "$OUT"/{classes,dex}
-"$TOOLS/aapt2" link -I "$JAR" --manifest instrumentation/AndroidManifest.xml -o "$OUT/base.apk"
+NEU205_INSTRUMENTATION_MANIFEST="$OUT/AndroidManifest.xml" python3 - <<'PY'
+from pathlib import Path
+import os
+source=Path('instrumentation/AndroidManifest.xml').read_text()
+Path(os.environ['NEU205_INSTRUMENTATION_MANIFEST']).write_text(source.replace('<manifest xmlns:', '<manifest package="ai.neu205.one.tests" xmlns:',1))
+PY
+"$TOOLS/aapt2" link -I "$JAR" --manifest "$OUT/AndroidManifest.xml" -o "$OUT/base.apk"
 find instrumentation/src -name '*.java' > "$OUT/sources.txt"
 java com.sun.tools.javac.Main --release 17 -cp "$JAR" -d "$OUT/classes" @"$OUT/sources.txt"
 (cd "$OUT/classes" && jar cf ../tests.jar .)

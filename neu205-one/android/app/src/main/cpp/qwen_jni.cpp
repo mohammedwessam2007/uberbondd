@@ -18,10 +18,40 @@ struct Engine {
 bool stopped(void *p) { return static_cast<Engine *>(p)->cancelled.load(); }
 Engine *engine(jlong h) { return reinterpret_cast<Engine *>(h); }
 std::once_flag init;
+struct LoadProgress {
+    JNIEnv *owner;
+    JavaVM *vm=nullptr;
+    jobject cancelled;
+    jmethodID get;
+    LoadProgress(JNIEnv *env,jobject flag):owner(env),cancelled(env->NewGlobalRef(flag)) {
+        env->GetJavaVM(&vm);
+        jclass cls=env->GetObjectClass(flag);
+        get=env->GetMethodID(cls,"get","()Z");
+        env->DeleteLocalRef(cls);
+    }
+    ~LoadProgress(){if(cancelled)owner->DeleteGlobalRef(cancelled);}
+};
+bool loading(float,void *data){
+    auto *p=static_cast<LoadProgress *>(data);
+    JNIEnv *env=nullptr;bool attached=false;
+    jint status=p->vm->GetEnv(reinterpret_cast<void **>(&env),JNI_VERSION_1_6);
+    if(status==JNI_EDETACHED){
+#ifdef __ANDROID__
+        if(p->vm->AttachCurrentThread(&env,nullptr)!=JNI_OK)return false;
+#else
+        if(p->vm->AttachCurrentThread(reinterpret_cast<void **>(&env),nullptr)!=JNI_OK)return false;
+#endif
+        attached=true;
+    }else if(status!=JNI_OK)return false;
+    bool proceed=!env->CallBooleanMethod(p->cancelled,p->get);
+    if(env->ExceptionCheck()){env->ExceptionClear();proceed=false;}
+    if(attached)p->vm->DetachCurrentThread();
+    return proceed;
+}
 }
 
 extern "C" JNIEXPORT jlong JNICALL
-Java_ai_neu205_one_NativeQwen_create(JNIEnv *env, jclass, jstring path, jint threads) {
+Java_ai_neu205_one_NativeQwen_create(JNIEnv *env, jclass, jstring path, jint threads,jobject cancelled) {
     try {
         std::call_once(init, [] { llama_backend_init(); });
         auto e = std::make_unique<Engine>();
@@ -29,6 +59,9 @@ Java_ai_neu205_one_NativeQwen_create(JNIEnv *env, jclass, jstring path, jint thr
         if(!chars) return 0;
         std::string file(chars); env->ReleaseStringUTFChars(path, chars);
         auto mp = llama_model_default_params(); mp.n_gpu_layers = 0;
+        LoadProgress progress(env,cancelled);
+        if(!progress.cancelled || !progress.get || env->ExceptionCheck())return 0;
+        mp.progress_callback=loading;mp.progress_callback_user_data=&progress;
         e->model = llama_model_load_from_file(file.c_str(), mp);
         if(!e->model) return 0;
         char arch[64] = {};

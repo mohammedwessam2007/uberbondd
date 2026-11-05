@@ -2,6 +2,8 @@ package ai.neu205.one;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.io.InterruptedIOException;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /** One model/context. Callers must verify the exact open GGUF before construction. */
 public final class NativeQwen implements AutoCloseable {
@@ -12,7 +14,15 @@ public final class NativeQwen implements AutoCloseable {
     private volatile boolean cancelled;
 
     public NativeQwen(String verifiedPath, int threads) throws IOException {
-        handle = create(verifiedPath, Math.max(1, Math.min(threads, 4)));
+        this(verifiedPath,threads,new AtomicBoolean());
+    }
+    public NativeQwen(String verifiedPath,int threads,AtomicBoolean loadingCancelled)throws IOException {
+        if(loadingCancelled.get())throw new InterruptedIOException("Native Qwen loading cancelled");
+        handle = create(verifiedPath, Math.max(1, Math.min(threads, 4)),loadingCancelled);
+        if(loadingCancelled.get()){
+            if(handle!=0){destroy(handle);handle=0;}
+            throw new InterruptedIOException("Native Qwen loading cancelled");
+        }
         if (handle == 0) throw new IOException("Native Qwen could not load the verified model");
     }
     /** Arm before handing work to a worker; cancellation after this point is never cleared by run. */
@@ -34,7 +44,7 @@ public final class NativeQwen implements AutoCloseable {
     @Override public synchronized void close() {
         synchronized (lifetime) { cancelled = true; if (handle != 0) { destroy(handle); handle = 0; } }
     }
-    private static native long create(String path, int threads);
+    private static native long create(String path, int threads, AtomicBoolean loadingCancelled);
     private static native int generate(long handle, byte[] prompt, int maxTokens, Tokens callback);
     private static native void abort(long handle);
     private static native void resetCancel(long handle);

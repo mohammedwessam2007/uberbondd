@@ -1,3 +1,15 @@
+# V12 autonomous follow-up checkpoint — 2026-11-05
+
+Checkpoint ID: NEU205-CODEX-V12-20261105-STARTUP-CANCEL.
+Read `V12_STARTUP_AND_ANDROID_FOLLOWUP_2026-11-05.md` first, then the inherited reconstruction
+receipt and build instructions. Startup GGUF/model loading is now cancelled by Stop, with real
+host probes recorded. Android app/instrumentation APKs compile; the bounded software emulator
+boot did not complete and is NOT an instrumentation pass. Authenticated Codespaces recovery
+returned zero environments. Original evaluation/book/ASR/release signer remain unavailable;
+no owner action was requested. Keep draft PR #1605 unmerged and preserve the private receipts.
+
+---
+
 # V12 Codex reconstruction checkpoint — 2026-11-05
 
 Checkpoint ID: NEU205-CODEX-V12-20261105-RECONSTRUCTED.

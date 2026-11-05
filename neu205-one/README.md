@@ -1,6 +1,7 @@
 # NEU205 ONE — v12 reconstructed engineering candidate
 
-Current scope and recovery gates: [V12 Codex execution receipt](docs/V12_CODEX_EXECUTION_RECEIPT_2026-11-05.md).
+Latest continuation: [startup cancellation and Android qualification](docs/V12_STARTUP_AND_ANDROID_FOLLOWUP_2026-11-05.md).
+Initial scope and recovery gates: [V12 Codex execution receipt](docs/V12_CODEX_EXECUTION_RECEIPT_2026-11-05.md).
 The native Qwen candidate uses the original Java evidence index and a verified model document,
 with bounded prefill and generation cancellation. Real host JNI inference and synthetic answer-path
 checks have run; private-book accuracy and physical Android execution remain unmeasured.

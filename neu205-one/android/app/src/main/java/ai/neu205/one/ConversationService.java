@@ -14,6 +14,7 @@ public final class ConversationService extends Service {
  private volatile long generation;private volatile boolean running,busy=true;private volatile HttpURLConnection connection;
  private volatile AudioRecord recorder;private TextToSpeech tts;private AudioManager audio;private AudioFocusRequest focus;
  private volatile NativeBrain brain;
+ private volatile java.util.concurrent.atomic.AtomicBoolean loadingCancelled=new java.util.concurrent.atomic.AtomicBoolean(true);
  private String key,requestId="",corpusHash="";private WhisperOnnx asr;private final TurnMemory history=new TurnMemory();private boolean voiceReady,backendReady,streamDone;private int utterances;
  private volatile long lastSampleAt,capturePending=-1;private long resumeAfter,stageSince,lastPowerPoll;private static final ArrayDeque<String> timings=new ArrayDeque<>();
  static synchronized String metadata(){return "NEU205 ONE candidate\nState: "+state.get()+"\nStage timestamps (elapsed realtime milliseconds):\n"+String.join("\n",timings)+"\nPHONE NOT TESTED. No audio/transcript/key/book content exported.";}
@@ -45,7 +46,7 @@ public final class ConversationService extends Service {
    AudioDeviceInfo speaker=null;for(AudioDeviceInfo d:audio.getAvailableCommunicationDevices())if(d.getType()==AudioDeviceInfo.TYPE_BUILTIN_SPEAKER)speaker=d;
    if(speaker==null || !audio.setCommunicationDevice(speaker))throw new IOException("Phone speaker route unavailable");routeChanged=true;
    long voiceToken=generation;tts=new TextToSpeech(this,status->main.post(()->{if(live(voiceToken))initializeVoice(status,attrs);}));
-   long token=generation;io.execute(()->preflight(token));main.post(watchdog);
+   long token=generation;java.util.concurrent.atomic.AtomicBoolean startup=new java.util.concurrent.atomic.AtomicBoolean();loadingCancelled=startup;io.execute(()->preflight(token,startup));main.post(watchdog);
   }catch(Exception e){fail("Startup failed: "+e.getClass().getSimpleName());}
   return START_NOT_STICKY;
  }
@@ -63,12 +64,12 @@ public final class ConversationService extends Service {
   }catch(RuntimeException e){fail("Offline voice unavailable.");}
  }
  private boolean validSpeech(String id){return running && id.startsWith(generation+":") && spokenIds.contains(id);}
- private void preflight(long token){
+ private void preflight(long token,java.util.concurrent.atomic.AtomicBoolean startup){
   HttpURLConnection c=null;
   try{String bundledCorpus=CorpusAssets.verify(this);asr=NativeAsr.load(this);if(!live(token))return;
    if(NativeBrain.configured(this)){
     if(getSharedPreferences("setup",MODE_PRIVATE).getBoolean("v11_memory",false) || getSharedPreferences("setup",MODE_PRIVATE).getBoolean("v11_exam",false))throw new IOException("Turn off experimental companion memory and exam modes to use native Qwen study mode.");
-    NativeBrain loaded=NativeBrain.load(this);
+    NativeBrain loaded=NativeBrain.load(this,startup);
     synchronized(state){if(!live(token)){loaded.close();return;}brain=loaded;corpusHash=bundledCorpus;}
     main.post(()->{if(live(token)){backendReady=true;maybeCapture();}});return;
    }
@@ -176,7 +177,7 @@ public final class ConversationService extends Service {
   detail="Starting";stageSince=SystemClock.elapsedRealtime();maybeCapture();
  }
  private void end(boolean error){
-  synchronized(state){if(!running)return;running=false;if(asr!=null)asr.cancelInference();state.stop(error);}busy=true;main.removeCallbacks(watchdog);HttpURLConnection c=connection;if(c!=null)c.disconnect();connection=null;
+  synchronized(state){if(!running)return;running=false;loadingCancelled.set(true);if(asr!=null)asr.cancelInference();state.stop(error);}busy=true;main.removeCallbacks(watchdog);HttpURLConnection c=connection;if(c!=null)c.disconnect();connection=null;
   cancelRequest();
   AudioRecord r=recorder;if(r!=null)try{r.stop();}catch(Exception ignored){}
   if(tts!=null){tts.stop();tts.shutdown();tts=null;}spokenIds.clear();if(focus!=null)audio.abandonAudioFocusRequest(focus);

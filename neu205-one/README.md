@@ -1,6 +1,7 @@
 # NEU205 ONE — v12 reconstructed engineering candidate
 
-Latest recovery/evaluation: [verified textbook, Whisper assets and sealed native run](docs/V12_VERIFIED_BOOK_AND_NATIVE_EVALUATION_2026-11-05.md).
+Latest result: [new 437-question provisional native evaluation](docs/V12_NEW_437_EVALUATION_RESULT_2026-11-06.md).
+Recovery/evaluation setup: [verified textbook, Whisper assets and sealed native run](docs/V12_VERIFIED_BOOK_AND_NATIVE_EVALUATION_2026-11-05.md).
 Prior continuation: [startup cancellation and Android qualification](docs/V12_STARTUP_AND_ANDROID_FOLLOWUP_2026-11-05.md).
 Initial scope and recovery gates: [V12 Codex execution receipt](docs/V12_CODEX_EXECUTION_RECEIPT_2026-11-05.md).
 The native Qwen candidate uses the original Java evidence index and a verified model document,

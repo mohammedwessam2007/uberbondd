@@ -1,3 +1,16 @@
+# V12 new 437 evaluation result — 2026-11-06
+
+Checkpoint ID: NEU205-CODEX-V12-20261106-NEW437-GRADED. Read
+`V12_NEW_437_EVALUATION_RESULT_2026-11-06.md` first. All437 genuine native-pipeline outputs
+were sealed and independently source-reviewed twice; 46 disputes/audit cases were adjudicated.
+Supported275/336 (81.8%); unsupported refusal101/101; 22 reviewer-marked assertive wrong
+supported answers; numeric confidence unavailable. This misses the requested supported target.
+Host-only latency, model-authored key and AI grading cannot prove clinical/phone quality.
+Original signing key and phone remain unavailable; no release/merge. Full private grading data
+and verified source custody remain outside Git. Inherited recovery/evaluation notes follow.
+
+---
+
 # V12 verified book recovery + native evaluation — 2026-11-05
 
 Checkpoint ID: NEU205-CODEX-V12-20261105-BOOK-RECOVERED-NEW437.

@@ -2,7 +2,10 @@ import copy
 import hashlib
 import json
 import unittest
-from atlas import Atlas, checked_rows, terms, windows, evaluate_dev
+try:
+    from .atlas import Atlas, checked_rows, terms, windows, evaluate_dev
+except ImportError:
+    from atlas import Atlas, checked_rows, terms, windows, evaluate_dev
 
 def row(cid,text,sec='Synthetic section',page=1):
     return {'chunk_id':cid,'verbatim_text':text,'section_path':sec,'source_hash':hashlib.sha256(text.encode()).hexdigest(),'book_pdf_start_page':page,'book_pdf_end_page':page}

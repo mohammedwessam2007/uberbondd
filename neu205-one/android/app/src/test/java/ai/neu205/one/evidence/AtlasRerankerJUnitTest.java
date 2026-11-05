@@ -15,10 +15,13 @@ public final class AtlasRerankerJUnitTest {
 
     @Test public void baselineEvidenceRankingIsNotActivatedByConstructor() {
         Bm25 bm=new Bm25(docs());
-        assertEquals(3,bm.search("synthetic region",3).length);
+        double[][] before=bm.search("synthetic region",3);
+        assertEquals(2,before.length);
         assertNotNull(atlas(bm));
-        // Creating a separate experimental class cannot change BM25 scoring.
-        assertEquals(bm.search("synthetic region",3)[0][0],bm.search("synthetic region",3)[0][0],0);
+        // Creating a separate experimental class cannot change BM25 scores or IDs.
+        double[][] after=bm.search("synthetic region",3);
+        assertEquals(before.length,after.length);
+        for(int i=0;i<before.length;i++)assertArrayEquals(before[i],after[i],1e-12);
     }
     @Test public void deterministicAndBoundedCandidates() {
         Bm25 bm=new Bm25(docs());AtlasReranker ranker=atlas(bm);

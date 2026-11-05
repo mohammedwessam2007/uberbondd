@@ -1,0 +1,13 @@
+{
+  "schema": "neu205.atlas.experimental-v0.1",
+  "scope": "source-only",
+  "contains_private_assets": false,
+  "files": {
+    "atlas.py": "e41d4a65697ac4e05fb096edefc11b81a2b47c7bb6fea2aa4e6dc6145426b5f4",
+    "test_atlas.py": "fb30828f96785093d323a837f3960a1f4272554808bf82983cf89b9d591b9b3e",
+    "AtlasReranker.java": "082c1c446eb596abf7036e99ae6c06f29bae79507f2403c59bfb7d64b06def92",
+    "AtlasRerankerTests.java": "176b4b7ba3327b4f35438c551b247d6aaac65c4447dd1b89427b8933d29ba7fc",
+    "AtlasDevDiagnostics.java": "90de0ebc83b009c18f7779fa3162640e982e7454b4112db8a8774407bf71616f",
+    "README_ATLAS.md": "6d6f98b9a85892a809e0254068ac9180e987c78bc1e3dbcd94eacc62a3b49390"
+  }
+}

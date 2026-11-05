@@ -1,13 +1,18 @@
 {
-  "schema": "neu205.atlas.experimental-v0.1",
-  "scope": "source-only",
+  "schema": "neu205.atlas.experimental-v0.1.1",
+  "scope": "code-only; default-off Android index",
   "contains_private_assets": false,
+  "source_commit_base": "4e8e3444d695f8281a5662e68f1b70e4b1403921",
+  "source_branch": "neu205/omega-finishline-lab-20261106",
+  "pull_request": 1608,
   "files": {
     "atlas.py": "e41d4a65697ac4e05fb096edefc11b81a2b47c7bb6fea2aa4e6dc6145426b5f4",
-    "test_atlas.py": "fb30828f96785093d323a837f3960a1f4272554808bf82983cf89b9d591b9b3e",
+    "test_atlas.py": "211da01bd1659ae30d0f2f742d4b2f6151eeb0413c82359bba3fe48198b1d5bd",
     "AtlasReranker.java": "082c1c446eb596abf7036e99ae6c06f29bae79507f2403c59bfb7d64b06def92",
     "AtlasRerankerTests.java": "176b4b7ba3327b4f35438c551b247d6aaac65c4447dd1b89427b8933d29ba7fc",
     "AtlasDevDiagnostics.java": "90de0ebc83b009c18f7779fa3162640e982e7454b4112db8a8774407bf71616f",
+    "AtlasRerankerJUnitTest.java": "1ef13518b34a2f630845432aed1bd0ce1acdab8b61915dfd45d17bc28fda6eee",
+    "test_omega_atlas.py": "c6cc7133d6c5f46dbfe022d2fb3efd14fbb096d00899bfaa8514f603cd6089e7",
     "README_ATLAS.md": "6d6f98b9a85892a809e0254068ac9180e987c78bc1e3dbcd94eacc62a3b49390"
   }
 }

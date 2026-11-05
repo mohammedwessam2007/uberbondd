@@ -1,0 +1,78 @@
+name: NEU205 code-only validation
+on:
+  pull_request:
+    paths: ['neu205-one/**', '.github/workflows/neu205-codex-v11.yml']
+  push:
+    branches: ['neu205/codex-v11-*']
+    paths: ['neu205-one/**', '.github/workflows/neu205-codex-v11.yml']
+permissions:
+  contents: read
+jobs:
+  source-and-framework:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+      - name: Standard-library protocol and source integrity tests
+        working-directory: neu205-one
+        run: |
+          python -m unittest discover -s backend/tests -v
+          python -m unittest discover -s tools -p 'test_*.py' -v
+      - name: Android framework simulation and lint (no private assets)
+        working-directory: neu205-one/android
+        run: |
+          log="$RUNNER_TEMP/neu205-android-validation.log"
+          set +e
+          bash gradlew --no-daemon :app:testDebugUnitTest :app:lintDebug > "$log" 2>&1
+          result=$?
+          set -e
+          if [ "$result" -ne 0 ]; then
+            python3 ../tools/ci_failure_class.py "$log"
+          fi
+          exit "$result"
+      - name: Publish scoped framework reports only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: neu205-framework-reports-not-phone-evidence
+          path: |
+            neu205-one/android/app/build/reports/tests/
+            neu205-one/android/app/build/reports/lint-results-debug.*
+          if-no-files-found: ignore
+  requested-draft-review:
+    needs: source-and-framework
+    if: github.event_name == 'push' && github.ref == 'refs/heads/neu205/codex-v11-20261104' && github.repository == 'mohammedwessam2007/uberbondd'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Create only the explicitly requested draft PR after validation
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const {owner, repo} = context.repo;
+            const head = 'neu205/codex-v11-20261104';
+            const existing = await github.rest.pulls.list({owner, repo, state: 'open', head: `${owner}:${head}`, base: 'main'});
+            if (existing.data.length) {
+              core.notice(`Existing review: ${existing.data[0].html_url}`);
+              return;
+            }
+            const body = [
+              'Adds opt-in source-preserving memory, bounded Qwen tools and signed atomic Android asset imports.',
+              'The review diff is restricted to NEU205 and its CI workflow; private course material, models, evaluation keys, signing material and diagnostics are excluded.',
+              'Private Android validation: 43 passed, no skips, lint clean. Public CI explicitly skips six private-asset checks while retaining synthetic security tests.',
+              'Actual Qwen inference/answer accuracy, physical-phone audio, caching and acceleration remain unverified. No 90% clinical claim is made.',
+              'This is a draft review only. No merge or deployment is authorized.'
+            ].join('\n\n');
+            const created = await github.rest.pulls.create({owner, repo, head, base: 'main', draft: true,
+              title: 'NEU205 v11: preserve source evidence and add verified Android imports', body});
+            core.notice(`Requested draft review: ${created.data.html_url}`);

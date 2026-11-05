@@ -1,0 +1,3 @@
+# Windows Gradle wrapper retains CRLF; interpret CR as a line ending, not trailing whitespace.
+# Scope this exception to this single Windows batch script; all other checks remain enabled.
+gradlew.bat whitespace=cr-at-eol

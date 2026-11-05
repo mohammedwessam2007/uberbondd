@@ -1,0 +1,24 @@
+{
+  "scope": "source/framework/integrity tests, not clinical answeraccuracy",
+  "android_tests": 43,
+  "android_lint_issues": 0,
+  "backend_tests": 58,
+  "helper_tests": 11,
+  "evaluation_protocol_tests": 16,
+  "frozen_java_evidence_tests": 18,
+  "ranking_parity_exact_top10": {
+    "matches": 1000,
+    "queries": 1000
+  },
+  "supported_evaluation_questions_prepared": 64,
+  "unsupported_questions_prepared": 20,
+  "new_qwen_predictions": 0,
+  "phone_tested": false,
+  "source_index_pages": 299,
+  "capsules": 1711,
+  "nonwhitespace_source_characters_omitted": 0,
+  "answer_accuracy_claim": null,
+  "release_qualified": false,
+  "model_download": "BLOCKED_PROXY_POLICY",
+  "draft_pr_creation": "BLOCKED_API_DESTINATION"
+}

@@ -98,9 +98,10 @@ public final class VerifiedPackStore {
         }
         if(!required.isEmpty())throw new IOException("Complete corpus is required");
         if(hasAsr && !paths.containsAll(Arrays.asList("models/whisper/encoder.onnx","models/whisper/decoder.onnx","models/whisper/tokens.txt","models/whisper/config.properties")))throw new IOException("Partial ASR asset set rejected");
-        if(!CORPUS_SHA.equals(hash(new File(dir,"corpus.jsonl"),cancelled)))throw new IOException("Imported corpus differs from the approved source-derived index");
+        String expectedCorpus=manifest.getString("corpus_sha256");
+        if(!expectedCorpus.equals(hash(new File(dir,"corpus.jsonl"),cancelled)))throw new IOException("Imported corpus differs from its signed source-derived index");
         JSONObject corpus=new JSONObject(new String(read(new File(dir,"corpus.manifest.json"),65536),StandardCharsets.UTF_8));
-        if(!CORPUS_SHA.equals(corpus.optString("corpus_sha256")) || corpus.optInt("pages")!=299)throw new IOException("Imported corpus manifest is incompatible");
+        if(!expectedCorpus.equals(corpus.optString("corpus_sha256")) || corpus.optInt("pages")!=299)throw new IOException("Imported corpus manifest is incompatible");
         if(hasAsr){
             Properties config=new Properties();try(InputStream in=new FileInputStream(new File(dir,"models/whisper/config.properties"))){config.load(in);}
             for(String name:Arrays.asList("encoder.onnx","decoder.onnx","tokens.txt"))if(!hash(new File(dir,"models/whisper/"+name),cancelled).equals(config.getProperty(name.substring(0,name.indexOf('.'))+"_sha256")))throw new IOException("ASR config digest differs from signed assets");
@@ -109,7 +110,9 @@ public final class VerifiedPackStore {
     }
     private JSONObject parseManifest(byte[] raw)throws Exception {
         JSONObject m=new JSONObject(new String(raw,StandardCharsets.UTF_8));
-        if(!"neu205.android-pack.v1".equals(m.optString("schema")) || !PDF_SHA.equals(m.optString("book_pdf_sha256")) || !CORPUS_SHA.equals(m.optString("corpus_sha256")))throw new IOException("Study pack source identity is not approved");
+        // The APK signer attests the derived corpus digest. The PDF identity remains pinned;
+        // a different serialization of that source must not bypass signature/member checks.
+        if(!"neu205.android-pack.v1".equals(m.optString("schema")) || !PDF_SHA.equals(m.optString("book_pdf_sha256")) || !m.optString("corpus_sha256").matches("[a-f0-9]{64}"))throw new IOException("Study pack source identity is not approved");
         JSONArray files=m.getJSONArray("files");if(files.length()<2 || files.length()>MAX_FILES)throw new IOException("Study pack file count is invalid");return m;
     }
     private void verifySignature(byte[] raw,byte[] signed)throws Exception {

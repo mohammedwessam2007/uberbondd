@@ -1,3 +1,18 @@
+# V12 Codex reconstruction checkpoint — 2026-11-05
+
+Checkpoint ID: NEU205-CODEX-V12-20261105-RECONSTRUCTED.
+Read `V12_CODEX_EXECUTION_RECEIPT_2026-11-05.md` and `V12_NATIVE_BUILD.md` first.
+Source class: independently executed public-code reconstruction plus private host receipts.
+Claude's reported v12 work and 437-question evaluation were NOT recovered; historical 354-row
+claim remains unverified here. No medical score exists. Original book, ASR assets and signer
+are unavailable; signed release and physical testing remain blocked. Original checkout was
+preserved, private model/receipts remain outside Git, and no phone, merge or paid API was used.
+Resume by refreshing draft PR #1605, preserving this work and recovering authentic private
+custody. Do not mistake host JNI/synthetic probes or an unsigned packaging test for a phone
+release or completion of Claude's frozen evaluation. The v11 checkpoint below is inherited lineage.
+
+---
+
 # V11 checkpoint — 2026-11-04
 
 Continuation preserved all available prior work before edits. Original commit b7904ef remains in

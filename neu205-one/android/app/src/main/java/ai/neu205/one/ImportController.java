@@ -46,7 +46,7 @@ final class ImportController {
             JSONObject reference=checked.metadata().put("document_uri",uri.toString()).put("pack_id",pack.id);
             File target=new File(activity.getFilesDir(),"qwen-document-reference.json"),temp=new File(activity.getFilesDir(),"qwen-document-reference.new");
             try{try(FileOutputStream out=new FileOutputStream(temp)){out.write(reference.toString().getBytes(StandardCharsets.UTF_8));out.getFD().sync();}Files.move(temp.toPath(),target.toPath(),StandardCopyOption.ATOMIC_MOVE,StandardCopyOption.REPLACE_EXISTING);}finally{temp.delete();}
-            return "Qwen hash and GGUF header verified. Read-only reference retained; no weight copy created. Companion access is NOT verified: Termux requires a separately authorized shared file setup.";
+            return "Qwen hash and GGUF header verified. Tap Start to load it privately on this phone. Keep the selected document available; no weight copy was created.";
         });
     }
     private void run(Work work){

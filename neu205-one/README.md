@@ -1,3 +1,15 @@
+# NEU205 ONE — v12 reconstructed engineering candidate
+
+Current scope and recovery gates: [V12 Codex execution receipt](docs/V12_CODEX_EXECUTION_RECEIPT_2026-11-05.md).
+The native Qwen candidate uses the original Java evidence index and a verified model document,
+with bounded prefill and generation cancellation. Real host JNI inference and synthetic answer-path
+checks have run; private-book accuracy and physical Android execution remain unmeasured.
+Claude's private v12 source, frozen 437-question run, original textbook and original signing key
+were not recovered in this environment. Do not resume that run from reconstructed source or
+represent the unsigned packaging probe as an offline release. See [native build instructions](docs/V12_NATIVE_BUILD.md).
+
+The following v11 receipt is historical lineage, not a claim about a signed v12 artifact.
+
 # NEU205 ONE v11 — private engineering candidate
 
 Signed Android candidate with native offline Whisper, offline Android speech, full-book evidence

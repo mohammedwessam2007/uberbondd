@@ -1,0 +1,35 @@
+{
+  "gold_normalized_present_in_original_pdf": 150,
+  "independent_clinical_review": false,
+  "index_build_ms_host": 1108.72,
+  "not_a_medical_answer_result": true,
+  "not_fresh_blind_test": true,
+  "on_phone_benchmarked": false,
+  "page_candidate_count_max": 39,
+  "page_candidate_count_mean": 28.69,
+  "page_recall_at_rank": {
+    "1": 101,
+    "10": 144,
+    "20": 148,
+    "3": 128,
+    "40": 150,
+    "5": 139
+  },
+  "page_source_text_exported": false,
+  "per_route_limit": 20,
+  "private_questions_exported": false,
+  "query_ms_host": {
+    "max": 11.811,
+    "p50": 3.739,
+    "p95": 6.921
+  },
+  "questions": 150,
+  "scope": "HISTORICAL_EXPOSED_DEV_SOURCE_PAGE_RECALL_NOT_CLINICAL_QA",
+  "source_pages": 299,
+  "source_pdf_sha256": "c3298e8c5f7f807604be10f7376d67f05eb315dd982276263e8f6ad2e8e70940",
+  "sparse_candidate_routes": [
+    "character_word_boundary_3_5",
+    "word_1_2"
+  ],
+  "unrecovered_pages_at_rank40": 0
+}

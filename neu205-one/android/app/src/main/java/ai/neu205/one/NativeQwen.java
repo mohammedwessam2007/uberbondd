@@ -39,6 +39,16 @@ public final class NativeQwen implements AutoCloseable {
                 bytes -> { synchronized(lifetime){if (!cancelled) tokens.token(bytes);} });
         if (result != 0 && !cancelled) throw new IOException("Native Qwen inference failed (" + result + ")");
     }
+    /** Last native generation only; microseconds use a monotonic clock. First byte is
+     * not a verified speech clause or audible audio. Includes interrupted turns.
+     * Fields: tokenize, prefill (including clear), decode, first byte (-1 absent),
+     * total, prompt tokens, emitted token pieces, Java callback time.
+     * Before the first generation the snapshot is all zeros.
+     * This synchronized call waits for generation completion. */
+    public synchronized long[] timings() {
+        if(handle==0)throw new IllegalStateException("Native Qwen is closed");
+        return lastTimings(handle);
+    }
     public void cancel() { synchronized (lifetime) { cancelled = true; if (handle != 0) abort(handle); } }
     public int stage() { synchronized(lifetime){return handle==0?0:phase(handle);} }
     @Override public synchronized void close() {
@@ -51,4 +61,5 @@ public final class NativeQwen implements AutoCloseable {
     private static native void destroy(long handle);
     private static native int countTokens(long handle, byte[] prompt);
     private static native int phase(long handle);
+    private static native long[] lastTimings(long handle);
 }

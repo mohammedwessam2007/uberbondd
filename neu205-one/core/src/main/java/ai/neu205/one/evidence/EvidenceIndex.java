@@ -22,6 +22,8 @@ import java.util.regex.Pattern;
  */
 public final class EvidenceIndex {
     public static final String SCHEMA = "neu205.evidence.v1";
+    /** Opt-in source-proximity ranking; never enabled by NativeBrain by default. */
+    public static final String STRATEGY_ATLAS = "bm25+atlas-lexical-proximity-experimental-v1";
     public static final String STRATEGY = "bm25-v1", STRATEGY_HYBRID = "bm25+bge-small-q8-rrf-v1",
             STRATEGY_COLBERT = "colbert-mxbai-edge-17m-v1";
     /** Coverage thresholds calibrated on DEV probes (see tournament report). */
@@ -75,6 +77,22 @@ public final class EvidenceIndex {
 
     private final List<Chunk> chunks = new ArrayList<>();
     private Bm25 bm25;
+    private volatile AtlasReranker experimentalAtlas;
+
+    /**
+     * Enable experimental lexical proximity ranking only for authenticated source
+     * development comparisons. The mobile/native answer path deliberately does
+     * NOT enable this by default. No medical claim or relationship is inferred.
+     */
+    public synchronized void enableExperimentalAtlas() {
+        if (loadError != null) throw new IllegalStateException("verified source index required");
+        if (dense != null || colbert != null)
+            throw new IllegalStateException("experimental Atlas cannot override the frozen dense/ColBERT strategies");
+        if (experimentalAtlas != null) return;
+        List<String> originals = new ArrayList<>();
+        for (Chunk c : chunks) originals.add(c.text);
+        experimentalAtlas = new AtlasReranker(bm25, originals);
+    }
     private String corpusSha = "";
     private String loadError;
     private DenseIndex dense;
@@ -114,7 +132,7 @@ public final class EvidenceIndex {
         }
     }
 
-    public String strategy() { return colbert != null ? STRATEGY_COLBERT : dense != null ? STRATEGY_HYBRID : STRATEGY; }
+    public String strategy() { return colbert != null ? STRATEGY_COLBERT : dense != null ? STRATEGY_HYBRID : experimentalAtlas != null ? STRATEGY_ATLAS : STRATEGY; }
 
     /** Ranked corpus rows for a query: BM25 alone, or RRF(BM25 top-50, dense top-50). */
     List<Integer> rank(String query, int keep, CancellationToken token) throws Exception {
@@ -127,6 +145,8 @@ public final class EvidenceIndex {
         int[] br = new int[b.length];
         for (int i = 0; i < b.length; i++) br[i] = (int) b[i][0];
         if (dense == null) {
+            AtlasReranker atlas = experimentalAtlas;
+            if (atlas != null) return atlas.rerank(query, b, keep, token);
             List<Integer> out = new ArrayList<>();
             for (int i = 0; i < Math.min(keep, br.length); i++) out.add(br[i]);
             return out;

@@ -1,0 +1,11 @@
+{
+  "files": {
+    "WARP_V02_150_OF_150_RESEARCH_RECEIPT_2026-11-06.md": "6b4c7e8d99ffd4f1c6696230d0101b5dbe3044528a3a2eff5304c14043b026f3",
+    "benchmark_warp2_private.py": "b8291745e79b6b0d2aa5b122bfa1484d313155eb34acd8ed6328a77aef7d65ea",
+    "test_warp2_offline_page_index.py": "f6b215c785d9405eb7144df7b2d7bf1b603d47f28e75ef99065c2c19ef75bfe2",
+    "warp2_benchmark_aggregate.json": "264fe14a8840f95e92f760bc6952d0da754e243c5a31c759a599cdf9f2e937ec",
+    "warp2_offline_page_index.py": "4f55fce578d6c3dd95779d968b5c9f544d552575d641c639d2e1d25a9c7461be"
+  },
+  "name": "NEU205_WARP_V02_SOURCE_ONLY",
+  "scope": "code_synthetic_tests_aggregate_benchmark_only"
+}

@@ -20,3 +20,29 @@ python -m unittest discover -s neu205-one/tools/omega_atlas -p 'test_*.py'
 ```
 
 The output path must not already exist; choose a new private path for every run. The benchmark writes aggregate-only output with exclusive creation and mode 0600. It reads private source questions and quotations locally and must not publish them. Existing `WARP_V02_CODE_ONLY_MANIFEST.json` and `WARP_V03_CODE_ONLY_MANIFEST.json` are historical snapshots: their original source hashes do not describe these modified research files. They have not been rewritten.
+
+## Packing alternatives on exposed DEV
+
+A second exploratory experiment evaluated single-parameter ranking and packing alternatives on the same 150 exposed DEV questions, with the same 120-word windows and 600-word budget. The research implementation verifies its baseline window IDs against `WARP3.pack` for every question. Candidate order rotates and alternates, and timings include page lookup, window scoring, selection and source-hash checks; they omit some production packet metadata and cancellation handling. Timings are host-only and not directly comparable to the earlier production-method measurement.
+
+| Setting | Quote hits | Gains / losses against baseline | Different selections | p50 / p95 ms |
+| --- | ---: | ---: | ---: | ---: |
+| Baseline | 127/150 | 0 / 0 | 0 | 4.471 / 10.082 |
+| Weaker page prior | 129/150 | 2 / 0 | 68 | 4.698 / 10.226 |
+| No page prior | 129/150 | 2 / 0 | 101 | 4.386 / 10.520 |
+| Stronger page prior | 128/150 | 2 / 1 | 96 | 4.478 / 9.635 |
+| Three windows per page | 128/150 | 2 / 1 | 40 | 4.409 / 10.641 |
+| Stricter overlap limit | 128/150 | 4 / 3 | 117 | 4.475 / 10.841 |
+| Looser overlap limit | 124/150 | 0 / 3 | 127 | 4.439 / 10.540 |
+| More weight on word index | 125/150 | 1 / 3 | 112 | 4.303 / 9.578 |
+| More weight on character index | 128/150 | 4 / 3 | 115 | 4.171 / 9.578 |
+
+The two additional quote hits from a weaker page prior do not establish a meaningful or generalizable improvement: many packets change, medical correctness and qualifier coverage were not scored, and 129/150 remains below the evidence target. No ranking or packing change was promoted. Normalized quote matching is an index diagnostic, not proof of entailment or token-budget compliance.
+
+To reproduce, choose an unused private output path; the example below is an existing receipt and must be renamed for a new run:
+
+```sh
+python neu205-one/tools/omega_atlas/benchmark_warp3_packing.py \
+  --private-zip /workspace/neu205-private/delivery/original-private-book-archive.zip \
+  --output /workspace/neu205-private/receipts/warp3-packing-sweep-20261106.json
+```

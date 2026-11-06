@@ -34,6 +34,10 @@ reviews remain outside Git. The original release signer was not changed.
    limit is not a verified 2,048-token native prompt budget. Existing WARP code
    manifests are historical snapshots of the parent commit, not hashes of the
    modified files in this branch.
+   A further nine-variant DEV packing sweep reached at most 129/150 with a
+   weaker page prior, changing 68/150 selections. Other variants scored 124–128;
+   none was promoted because accuracy, qualifiers and generalization remain
+   unmeasured. See the detailed sweep receipt for all results and timings.
 2. NativeBrain uses strict incremental UTF-8 decoding for streamed byte pieces,
    preserving split multibyte characters and cancelling on malformed bytes.
    A synthetic 1,960-byte, 196-piece host microbenchmark averaged 0.273 ms for
@@ -106,10 +110,15 @@ variants, and one question exactly overlaps a previously exposed question under
 case-folded punctuation-normalized matching. Paraphrase and conceptual overlap
 have not been ruled out. Separate supplementary drafts and an aggregate novelty
 audit are in `/workspace/neu205-private/overnight-eval-20261106/`; they are
-unreviewed, potentially ambiguous, and must not be published. A reviewer
+unreviewed, potentially ambiguous, and must not be published. Separate draft
+supplements bring the provisional inventory to 714 rows citing 255 distinct
+digital pages; citation counts are not verified evidence coverage. A reviewer
 reported that an initial quotation screening had used the wrong page range;
-that screening is invalid and no completed semantic review has been established.
-The draft preregistration is not a freeze, no new candidate
+that screening was invalid and subsequently corrected. Provisional AI-only
+reviews on three original batches flagged context problems and repetitive
+unsupported cases; supplements and replacements remain unreviewed. Neither
+review nor exact quotation checks establish clinical correctness. The draft
+preregistration is not a freeze, no new candidate
 inference has run, and no scores may be derived from these drafts. Future work
 must account for question overlap, page/figure coverage, unsupported diversity,
 independent semantic review, blinded grading and every fixed denominator.

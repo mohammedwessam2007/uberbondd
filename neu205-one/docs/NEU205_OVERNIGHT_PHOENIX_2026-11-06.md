@@ -15,6 +15,12 @@ the 1,695-passage corpus SHA-256 was
 and the 2,740,937,888-byte Qwen GGUF SHA-256 was
 `00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4`.
 All 1,695 corpus rows passed the existing per-row source-hash and page checks.
+The 299-page private evaluation text matched a fresh `pdftotext -layout`
+extraction exactly on 299/299 pages. The historical 1,711-capsule v11 SQLite
+and its original manifest were not located under the private workspace or in
+the recovered book archive; the old receipt is not proof that those files are
+present. The historical v11 corpus pin differs from the recovered v05 corpus,
+so a newly derived index must have distinct, truthful provenance.
 The private PDF, corpus, model, historical questions, keys, predictions and
 reviews remain outside Git. The original release signer was not changed.
 
@@ -92,6 +98,16 @@ reviews remain outside Git. The original release signer was not changed.
    response. The two citation reviewers used different criteria; their results
    are not interchangeable. Four exposed cases and uncontrolled order cannot
    establish noninferiority or justify changing the production passage count.
+   A subsequent counterbalanced 12-case exposed-DEV follow-up has been started
+   under `/workspace/neu205-private/prompt-length-dev-12-20261106/`, with a
+   hash-pinned preregistration and per-answer journals. It is not the fresh
+   757-row draft and was incomplete when this checkpoint was written. Inspect
+   its state and logs before reporting results. Before resuming, verify both
+   the prior supervisor and its recorded Java child are absent and inspect for
+   any matching live experiment process; never start a second writer or kill
+   unrelated processes. The private `resume-safely.py` checks these conditions
+   and refused correctly while the original run was active. Seal every completed or failed prediction before any
+   blinded source review. This research run cannot qualify the phone or release.
 3. The host MCQ adapter had selected a source-omitted answer as an exception.
    Recognized negative stems now abstain, including the forced-letter output,
    because absence or a nearby negator does not establish an exclusion. This
@@ -203,6 +219,11 @@ several cases overlap by topic. These are reviewer categories, not a final
 eligible denominator. The text-only PDF states that illustrations and captions
 were removed, so the original figures' appearance is not verified. No item was
 silently discarded or promoted to a sealed test.
+The author also proposed 10 revisions and 18 additional cases. A separate
+provisional review found one of those 28 answerable from the book and flagged
+ambiguous wording, unverified premises, caveats and topical overlap among the
+rest. All remain private draft material requiring documented selection and
+independent adjudication before any freeze.
 
 Next: improve selection of the 23 exposed DEV misses without promoting DEV to
 blind evidence; freeze a disjoint independently authored and reviewed test before

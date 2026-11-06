@@ -12,6 +12,7 @@ Returns candidate source locations; DOES NOT assert the page answers the questio
 from __future__ import annotations
 from collections import Counter, defaultdict
 from dataclasses import dataclass
+from bisect import bisect_left
 import hashlib
 import math
 import re
@@ -84,6 +85,33 @@ class SparseTfidf:
             weighted = v / length
             for page_id, page_weight in self.postings[k]:
                 result[page_id] += weighted * page_weight
+        return result
+
+    def scores_in_ranges(self, query: str, ranges: list[tuple[int, int]]) -> dict[int, float]:
+        """Score only indexed document IDs in sorted, nonoverlapping half-open ranges.
+
+        Postings are ordered by document ID at compilation. Binary searches avoid
+        traversing window postings outside the previously selected page ranges.
+        Query normalization remains global, so retained scores match ``scores``.
+        """
+        previous_end = 0
+        for start, end in ranges:
+            if type(start) is not int or type(end) is not int or not previous_end <= start < end <= self.page_count:
+                raise ValueError('Invalid candidate document ranges')
+            previous_end = end
+        freq = Counter(self.analyzer(query))
+        vec = {k: (1.0 + math.log(v)) * self.idf[k] for k, v in freq.items() if k in self.idf}
+        length = math.sqrt(sum(v * v for v in vec.values())) or 1
+        result = defaultdict(float)
+        for k, v in vec.items():
+            postings = self.postings[k]
+            weighted = v / length
+            for start, end in ranges:
+                lo = bisect_left(postings, (start, -1.0))
+                hi = bisect_left(postings, (end, -1.0))
+                for i in range(lo, hi):
+                    document_id, weight = postings[i]
+                    result[document_id] += weighted * weight
         return result
 
     def rank(self, question: str, top: int) -> list[tuple[int, float]]:

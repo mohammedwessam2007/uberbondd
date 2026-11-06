@@ -88,7 +88,11 @@ class WARP3:
         loc=self.locator.candidate_pages(question,per_route,cancel)
         if loc['status']=='CANCELLED':return {'status':'CANCELLED','evidence':[]}
         page_rank={d['page']:i for i,d in enumerate(loc['pages'])}
-        c_score=self.char_index.scores(question); w_score=self.word_index.scores(question)
+        # Window IDs are compiled page-by-page, so each candidate page has a
+        # contiguous range. Restrict both sparse scoring passes to those ranges.
+        ranges=sorted((self.by_page[pg][0],self.by_page[pg][-1]+1) for pg in page_rank)
+        c_score=self.char_index.scores_in_ranges(question,ranges)
+        w_score=self.word_index.scores_in_ranges(question,ranges)
         # Candidate-ID-only scan of sparse postings plus per-page window lookup.
         candidates=[i for pg in page_rank for i in self.by_page[pg]]
         def key(idx):

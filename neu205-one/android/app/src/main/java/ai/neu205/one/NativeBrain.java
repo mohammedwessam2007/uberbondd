@@ -79,20 +79,18 @@ final class NativeBrain implements AutoCloseable {
         }
         Set<Integer> pages=new LinkedHashSet<>();for(var p:passages)for(int n=p.startPage;n<=p.endPage;n++)pages.add(n);
         if(cancelled.get())return;output.pages(new JSONArray(pages).toString());
-        // Decode accumulated UTF-8 strictly: token boundaries may split a Unicode character.
-        ByteArrayOutputStream bytes=new ByteArrayOutputStream();SpeechClauses speech=new SpeechClauses();int[] released={0};
+        // Decode incrementally: native token boundaries can split a UTF-8 code point.
+        StreamingUtf8 decoder=new StreamingUtf8();SpeechClauses speech=new SpeechClauses();
+        CharacterCodingException[] decodeError={null};
         qwen.answer(prompt,part->{
-            if(cancelled.get())return;
-            bytes.write(part,0,part.length);
+            if(cancelled.get() || decodeError[0]!=null)return;
             try {
-                String all=StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes.toByteArray())).toString();
-                String delta=all.substring(released[0]);released[0]=all.length();
-                for(String clause:speech.accept(delta,false))if(!cancelled.get())output.text(clause);
-            }catch(CharacterCodingException incomplete){/* wait for the next byte piece */}
+                for(String clause:speech.accept(decoder.accept(part,false),false))if(!cancelled.get())output.text(clause);
+            }catch(CharacterCodingException invalid){decodeError[0]=invalid;qwen.cancel();}
         });
+        if(decodeError[0]!=null)throw decodeError[0];
         if(!cancelled.get()){
-            StandardCharsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes.toByteArray()));
-            for(String clause:speech.accept("",true))output.text(clause);
+            for(String clause:speech.accept(decoder.accept(new byte[0],true),true))if(!cancelled.get())output.text(clause);
         }
     }
     private static String safe(String text){return text.replace("<|","< | ");}

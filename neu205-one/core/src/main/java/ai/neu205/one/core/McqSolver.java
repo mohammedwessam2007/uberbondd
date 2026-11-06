@@ -13,8 +13,8 @@ import java.util.regex.Pattern;
  * Book-grounded multiple-choice adapter. General purpose: it knows nothing about any particular
  * exam. Each option is scored by the best single book passage (a sentence plus its section
  * heading) that supports BOTH the stem's distinctive words and the option's distinctive words.
- * Negative stems (EXCEPT / NOT / FALSE / LEAST) select the least-supported option, but only when
- * the other options are clearly supported. Abstains when the book gives no usable evidence.
+ * Negative stems (EXCEPT / NOT / FALSE / LEAST) abstain: lexical absence and proximity
+ * to a negator cannot establish that an option is false or excluded.
  */
 public final class McqSolver {
 
@@ -60,7 +60,6 @@ public final class McqSolver {
         Map<String, Double> scores = new LinkedHashMap<>();
         Map<String, String> ev = new LinkedHashMap<>(), cite = new LinkedHashMap<>();
         String allKey = null, noneKey = null;
-        Set<String> excl = new HashSet<>();
         for (Map.Entry<String, String> e : options.entrySet()) {
             String letter = e.getKey();
             if (ALL_ABOVE.matcher(e.getValue()).find() && e.getValue().length() < 40) { allKey = letter; continue; }
@@ -73,7 +72,6 @@ public final class McqSolver {
             if (unique.isEmpty()) unique = distinct;
             Evidence best = bestEvidence(stemToks, distinct, unique, Text.relation(stem));
             scores.put(letter, best.score);
-            if (best.excluded) excl.add(letter);
             ev.put(letter, best.text);
             cite.put(letter, best.cite);
         }
@@ -87,19 +85,9 @@ public final class McqSolver {
         double s1 = scores.get(top), s2 = second == null ? 0 : scores.get(second);
 
         if (negative) {
-            for (String k : scores.keySet()) if (excl.contains(k)) {
-                return new Choice(k, k, 0.7, scores, ev.get(k), cite.get(k), "negative stem: book explicitly excludes this option");
-            }
-            String low = null;
-            int supported = 0;
-            for (String k : scores.keySet()) {
-                if (scores.get(k) >= MIN_SUPPORT) supported++;
-                if (low == null || scores.get(k) < scores.get(low)) low = k;
-            }
-            if (supported >= scores.size() - 1 && scores.size() >= 3 && scores.get(low) < MIN_SUPPORT) {
-                return new Choice(low, low, 0.5, scores, ev.get(top), cite.get(top), "negative stem: only option the book does not support");
-            }
-            return abstain(scores, low, "negative stem without clear exception");
+            // Neither omission from the source nor a nearby negator proves exclusion.
+            // Do not export a forced letter as if this lexical ranking were an answer.
+            return abstain(scores, null, "negative stem requires independent exclusion verification");
         }
         if (allKey != null) {
             int supported = 0;

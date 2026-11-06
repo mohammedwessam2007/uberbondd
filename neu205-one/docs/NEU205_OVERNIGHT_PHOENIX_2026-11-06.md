@@ -82,6 +82,16 @@ reviews remain outside Git. The original release signer was not changed.
    clinician review nor a fresh blind holdout. The
    shorter path is not enabled by default. Receipts and predictions remain in the private
    `prompt-length-dev-20261106` directory.
+   A third run on the same cases used four passages, after the five- and
+   three-passage runs, in a separate process. It completed 4/4 with median
+   host text time 22.832 s and 734–845 prompt tokens. A different independent
+   AI reviewer, blinded to the five/four assignment, rated 4/4 answers fully
+   correct for both settings. That reviewer identified at least one supporting
+   page for each response but also flagged irrelevant additional cited pages
+   in 5/8 responses and a potentially unsupported claim in one baseline
+   response. The two citation reviewers used different criteria; their results
+   are not interchangeable. Four exposed cases and uncontrolled order cannot
+   establish noninferiority or justify changing the production passage count.
 3. The host MCQ adapter had selected a source-omitted answer as an exception.
    Recognized negative stems now abstain, including the forced-letter output,
    because absence or a nearby negator does not establish an exclusion. This
@@ -183,6 +193,16 @@ preregistration is not a freeze, no new candidate
 inference has run, and no scores may be derived from these drafts. Future work
 must account for question overlap, page/figure coverage, unsupported diversity,
 independent semantic review, blinded grading and every fixed denominator.
+
+An additional private authoring pass drafted 24 varied unsupported cases,
+separately from the 757-row inventory. An independent provisional AI reviewer
+judged 23 to lack the precise requested answer and one to have a textbook-
+grounded answer. The reviewer also flagged nine unverified or false premises,
+five ambiguous cases, four clear with material caveats, and six clear cases;
+several cases overlap by topic. These are reviewer categories, not a final
+eligible denominator. The text-only PDF states that illustrations and captions
+were removed, so the original figures' appearance is not verified. No item was
+silently discarded or promoted to a sealed test.
 
 Next: improve selection of the 23 exposed DEV misses without promoting DEV to
 blind evidence; freeze a disjoint independently authored and reviewed test before

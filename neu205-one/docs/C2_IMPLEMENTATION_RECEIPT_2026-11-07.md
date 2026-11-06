@@ -92,7 +92,7 @@ latency improvement is asserted.
 - Backend: 60 passed.
 - Tools: 85 passed, including four new cross-language routing tests.
 - Core: 25 existing + four negative-MCQ checks passed, one private KB group skipped.
-- Evidence API: 18 passed.
+- Evidence API: 18 passed; evaluation integrity: 23 passed (synthetic only).
 - Android offline `testDebugUnitTest lintDebug`: success, 62 tests, one skipped,
   zero errors/failures, lint passed. JAVA_HOME is the local full JDK and
   ANDROID_HOME is `/workspace/neu205-tools/sdk`.
@@ -140,3 +140,35 @@ separate test key. **Never publish that APK or the key.** GGUF is not bundled;
 owner-selected hash-validated model remains required. VersionName is inherited
 `1.2.0-v12-reconstructed`, not a release claim. No installation or ARM execution
 occurred; same-environment repeatability is not independent reproducibility.
+
+## Completed 30-turn host reuse check and final handoff
+
+The `--soak30` process exited successfully after 30/30 identical synthetic
+short-prompt turns. Every status was completed, every prompt had 71 tokens,
+every output had six pieces and the expected fixed sentence hash. Median
+native generation total was **3.847 s**, observed range 3.227–4.161 s. Host RSS
+was 4,264,624 KiB initially and 4,267,612 KiB finally (increase 2,988 KiB).
+This is a bounded repeated-prompt check, not proof of no memory leak,
+cross-topic isolation, diverse conversation accuracy, phone thermal/battery
+behavior or acoustic timing. All inference memory was still cleared per turn.
+Raw `soak30.jsonl`, `soak30-summary.json` and native logs remain private with
+SHA-256 `6101a4ea1db5ce4ec6474756cd95564c4fc7d89d9864b975541018f2f51100a2`
+for the raw JSONL.
+
+Draft PR: https://github.com/mohammedwessam2007/uberbondd/pull/1612
+Parent remains #1611; no merges or parent changes. Public artifacts contain
+only code, synthetic fixtures and aggregate receipts. The copied ARM64 build
+receipt binds its source files; probe-only soak extensions do not change the
+application binary. A fresh phone install is not authorized or performed.
+
+**Next one action:** Claude independently quantify supported false refusals
+and unsupported/negated/laterality response behavior for the exact .25/.50
+policy before promotion. The existing sealed medical set remains exclusively
+Claude's responsibility. This code cycle does not meet or claim the independent
+90% medical, source-entailment, 2.5 s physical audio or release gates.
+
+To resume engineering, fetch the live #1612 head, inspect its diff and run the
+four gate tests above before changing the policy. Preserve the model, corpus,
+Whisper, signing files, private receipts and all ancestor branches. For a new
+host benchmark, use a fresh private output path, the instrumented current JNI,
+and the pinned model; do not silently use the older JNI lacking `lastTimings`.

@@ -1,0 +1,107 @@
+{
+  "evaluation_class": "HISTORICAL_EXPOSED_DEV_ONLY_NOT_MEDICAL_ANSWERS",
+  "independent_clinician_scoring": false,
+  "method": "WARP3 lexical two-tier sparse page-to-window fusion, source hashes, capped word budget",
+  "new_437_run_not_accessed": true,
+  "number_of_questions": 150,
+  "phone_test": false,
+  "results": [
+    {
+      "build_seconds": 4.07,
+      "candidates_mean": 220.29,
+      "exact_quote_recall_at_k": {
+        "1": 81,
+        "3": 107,
+        "5": 118,
+        "8": 118
+      },
+      "host_query_ms_p50": 21.015,
+      "host_query_ms_p95": 37.953,
+      "mean_packed_words": 487.91,
+      "page_recall_at_5": 136,
+      "source_windows": 2256,
+      "stride_words": 30,
+      "top_k": 8,
+      "window_words": 100,
+      "word_budget": 500
+    },
+    {
+      "build_seconds": 4.44,
+      "candidates_mean": 161.77,
+      "exact_quote_recall_at_k": {
+        "1": 92,
+        "3": 115,
+        "5": 127,
+        "8": 127
+      },
+      "host_query_ms_p50": 16.099,
+      "host_query_ms_p95": 29.662,
+      "mean_packed_words": 578.16,
+      "page_recall_at_5": 136,
+      "source_windows": 1656,
+      "stride_words": 40,
+      "top_k": 8,
+      "window_words": 120,
+      "word_budget": 600
+    },
+    {
+      "build_seconds": 3.27,
+      "candidates_mean": 118.01,
+      "exact_quote_recall_at_k": {
+        "1": 94,
+        "3": 121,
+        "5": 128,
+        "8": 128
+      },
+      "host_query_ms_p50": 15.239,
+      "host_query_ms_p95": 27.411,
+      "mean_packed_words": 612.17,
+      "page_recall_at_5": 134,
+      "source_windows": 1205,
+      "stride_words": 48,
+      "top_k": 8,
+      "window_words": 160,
+      "word_budget": 650
+    },
+    {
+      "build_seconds": 3.42,
+      "candidates_mean": 118.01,
+      "exact_quote_recall_at_k": {
+        "1": 94,
+        "3": 121,
+        "5": 132,
+        "8": 132
+      },
+      "host_query_ms_p50": 15.647,
+      "host_query_ms_p95": 27.874,
+      "mean_packed_words": 858.45,
+      "page_recall_at_5": 138,
+      "source_windows": 1205,
+      "stride_words": 48,
+      "top_k": 8,
+      "window_words": 160,
+      "word_budget": 900
+    },
+    {
+      "build_seconds": 2.64,
+      "candidates_mean": 70.42,
+      "exact_quote_recall_at_k": {
+        "1": 97,
+        "3": 120,
+        "5": 132,
+        "8": 133
+      },
+      "host_query_ms_p50": 11.582,
+      "host_query_ms_p95": 22.637,
+      "mean_packed_words": 1027.43,
+      "page_recall_at_5": 139,
+      "source_windows": 719,
+      "stride_words": 70,
+      "top_k": 8,
+      "window_words": 220,
+      "word_budget": 1100
+    }
+  ],
+  "source_or_question_content_exported": false,
+  "source_pdf_sha256": "c3298e8c5f7f807604be10f7376d67f05eb315dd982276263e8f6ad2e8e70940"
+}

@@ -1,0 +1,14 @@
+{
+  "release_qualified": false,
+  "scope": "code_only_non_private",
+  "source_items": {
+    "WARP_V03_RESEARCH_RECEIPT_2026-11-06.md": "246e2fbad87d838c024b416f0690763a614cdeeee80d6092a72ad62fed0e594e",
+    "benchmark_aggregate.json": "38569d2e62f9a37999b9be12633ee7624cb09db11680eaafd743bf936a7efce6",
+    "benchmark_private_warp3.py": "60cc4b28159d3805c97cd2e0b0035028391c95b23e6d11c6ec8b0344fce65ff0",
+    "test_warp2_offline_page_index.py": "f6b215c785d9405eb7144df7b2d7bf1b603d47f28e75ef99065c2c19ef75bfe2",
+    "test_warp3_ci_wrapper.py": "f4cc725664821b4ac8c321d737d11810d3a0a90d900d7ad235722e58cacdd971",
+    "test_warp3_evidence_packets.py": "56c1778309a8cde4bb2c247c3ff1a55240176c058b57891e25a5e96c795ae58b",
+    "warp2_offline_page_index.py": "4f55fce578d6c3dd95779d968b5c9f544d552575d641c639d2e1d25a9c7461be",
+    "warp3_evidence_packets.py": "0c32cef05e02d0ad447454e76a4b5ae4d42a1801c668158ec2c6c37739970916"
+  }
+}

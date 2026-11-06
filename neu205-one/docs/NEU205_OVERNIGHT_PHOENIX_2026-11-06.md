@@ -14,6 +14,7 @@ the 1,695-passage corpus SHA-256 was
 `d886e87513dc930df05f827682acafb69da8957a919d3d27ea770b35dba427d5`;
 and the 2,740,937,888-byte Qwen GGUF SHA-256 was
 `00fe7986ff5f6b463e62455821146049db6f9313603938a70800d1fb69ef11a4`.
+All 1,695 corpus rows passed the existing per-row source-hash and page checks.
 The private PDF, corpus, model, historical questions, keys, predictions and
 reviews remain outside Git. The original release signer was not changed.
 
@@ -47,6 +48,21 @@ reviews remain outside Git. The original release signer was not changed.
    iterations. This small decoder-only finding does not demonstrate any change
    in model or speech latency. JNI recurrent-state clearing and cancellation
    remain in place; no unverified cache reuse was enabled.
+   A separate real-model host `llama-bench` profile used synthetic tokens,
+   pinned Qwen, CPU only, batch/ubatch 64, two repetitions, and a four-CPU
+   cgroup on an AMD EPYC 9V74. At one thread, 256-token prefill averaged
+   19.42 s (13.18 tokens/s) and a separate 32-token decode averaged 5.06 s
+   (6.32 tokens/s). At four threads the corresponding values were 5.56 s
+   (46.05 tokens/s) and 2.55 s (12.56 tokens/s). A second four-thread run
+   measured 1,024-token prefill at 24.46 s (41.87 tokens/s) and a separate
+   64-token decode at 5.32 s (12.04 tokens/s). These are isolated synthetic
+   phases, not a summed user turn, first-clause timing, or device measurement;
+   two repetitions do not establish tail latency. The Android JNI already
+   selects up to four threads. The benchmark was llama.cpp `c6a0ff11a` build
+   12117, binary SHA-256
+   `1dc43a69da3f4cc1862766f2aeecc05512003f0734756b67c2b5f6dbd334cfa9`;
+   private raw receipts are under `/workspace/neu205-private/receipts/` in
+   `synthetic-qwen-20261106` and `synthetic-qwen-long-20261106`.
 3. The host MCQ adapter had selected a source-omitted answer as an exception.
    Recognized negative stems now abstain, including the forced-letter output,
    because absence or a nearby negator does not establish an exclusion. This
@@ -115,6 +131,15 @@ audit are in `/workspace/neu205-private/overnight-eval-20261106/`; they are
 unreviewed, potentially ambiguous, and must not be published. Separate draft
 supplements bring the provisional inventory to 714 rows citing 255 distinct
 digital pages; citation counts are not verified evidence coverage. A reviewer
+then drafted questions for 39 additional previously unreferenced pages, bringing
+the draft citation union to 294/299 at that snapshot. Four further page-specific
+drafts cite pages 2, 53, 57 and 95; the latest private inventory contains 757
+draft rows citing 298/299 pages, with page 1 classified as front matter. One
+exact normalized question overlaps a prior exposed set; paraphrase overlap has
+not been checked. These heterogeneous drafts still need schema harmonization,
+independent item-level review, and question and evidence validation. Figures and
+tables need independent visual/source review. The draft count is not a fixed
+evaluation denominator. A reviewer
 reported that an initial quotation screening had used the wrong page range;
 that screening was invalid and subsequently corrected. Provisional AI-only
 reviews of the four original batches flagged context problems and repetitive

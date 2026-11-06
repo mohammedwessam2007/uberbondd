@@ -46,3 +46,17 @@ python neu205-one/tools/omega_atlas/benchmark_warp3_packing.py \
   --private-zip /workspace/neu205-private/delivery/original-private-book-archive.zip \
   --output /workspace/neu205-private/receipts/warp3-packing-sweep-20261106.json
 ```
+
+## Compiled query-term coverage reranking
+
+A separate design compiled a set of source words for each window once. For a question, it retrieves the normal WARP3 ranking, takes at most its top 50 windows, computes IDF-weighted coverage of non-stopword question terms for those windows, and fuses the resulting coverage rank with the original rank. The method uses no development-answer keys or question-to-answer mappings. It checks source hashes and retains the same per-page, overlap, and word limits. A matching word is not proof of a medical relation, qualifier, or answer.
+
+On the same exposed 150 DEV questions, the unchanged baseline had **127/150** normalized quote hits and the coverage reranker had **125/150**, with three gains, five losses, and 117 changed selections. Mean packet sizes were 577.75 and 578.19 words respectively under the 600-word limit. In alternating-order host runs, baseline p50/p95 were 6.457/12.399 ms and coverage reranking 6.278/11.806 ms; this timing difference is not evidence of a speedup. The additional source-word compilation took 51.208 ms for 1,655 windows, excluding the existing WARP3 index build. Memory was not measured. The experimental harness checks that baseline window IDs match `WARP3.pack` for every case; its timings omit some production packet metadata and cancellation checks. Neither timing covers model inference, phone execution, or actual prompt tokens.
+
+This candidate worsened DEV quote containment and was not integrated. Reproduce with a new, private output file:
+
+```sh
+python neu205-one/tools/omega_atlas/benchmark_warp3_coverage.py \
+  --private-zip /workspace/neu205-private/delivery/original-private-book-archive.zip \
+  --output /workspace/neu205-private/receipts/warp3-coverage-NEW.json
+```

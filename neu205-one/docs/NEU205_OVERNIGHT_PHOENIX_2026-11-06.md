@@ -37,7 +37,9 @@ reviews remain outside Git. The original release signer was not changed.
    A further nine-variant DEV packing sweep reached at most 129/150 with a
    weaker page prior, changing 68/150 selections. Other variants scored 124–128;
    none was promoted because accuracy, qualifiers and generalization remain
-   unmeasured. See the detailed sweep receipt for all results and timings.
+   unmeasured. A separately compiled query-term coverage reranker reduced hits
+   to 125/150 (three gains, five losses) and was rejected. See the detailed
+   sweep receipt for all results and timings.
 2. NativeBrain uses strict incremental UTF-8 decoding for streamed byte pieces,
    preserving split multibyte characters and cancelling on malformed bytes.
    A synthetic 1,960-byte, 196-piece host microbenchmark averaged 0.273 ms for
@@ -115,8 +117,12 @@ supplements bring the provisional inventory to 714 rows citing 255 distinct
 digital pages; citation counts are not verified evidence coverage. A reviewer
 reported that an initial quotation screening had used the wrong page range;
 that screening was invalid and subsequently corrected. Provisional AI-only
-reviews on three original batches flagged context problems and repetitive
-unsupported cases; supplements and replacements remain unreviewed. Neither
+reviews of the four original batches flagged context problems and repetitive
+unsupported cases. In one batch the reviewer accepted 24/127 and rejected
+103/127 under strict source-context and distinctness criteria; many rejections
+identify incomplete citations rather than false answers. Other review rubrics
+have different decision categories and cannot be pooled as a pass rate.
+Supplements and replacements remain unreviewed. Neither
 review nor exact quotation checks establish clinical correctness. The draft
 preregistration is not a freeze, no new candidate
 inference has run, and no scores may be derived from these drafts. Future work

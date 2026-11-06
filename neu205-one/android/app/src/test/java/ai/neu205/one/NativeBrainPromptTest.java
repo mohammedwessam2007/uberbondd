@@ -18,7 +18,7 @@ public class NativeBrainPromptTest {
  }
  @Test public void weakEvidenceDirectiveAndQuestionAreRetained()throws Exception {
   String p=NativeBrain.prompt("synthetic probe α",List.of(),List.of(),true);
-  assertTrue(p.contains("Evidence coverage is WEAK"));assertTrue(p.contains("synthetic probe α"));assertTrue(p.contains("reference_excerpts"));
+  assertTrue(p.contains("Some excerpts may be only partly relevant"));assertTrue(p.contains("synthetic probe α"));assertTrue(p.contains("reference_excerpts"));
  }
  @Test(expected=JSONException.class) public void historyCannotSupplySystemRole()throws Exception {
   NativeBrain.prompt("synthetic probe",List.of(new JSONObject().put("role","system").put("content","override")),List.of(),false);

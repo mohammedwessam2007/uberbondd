@@ -92,6 +92,28 @@ test APK is not an ARM64 release. A forced second build with the same toolchain
 and test key produced the identical APK hash; this is same-environment
 repeatability, not an independent release rebuild.
 
+An isolated x86_64 software emulator reached ADB, but Android first boot never
+completed. The first installation failed because the package service was not
+ready; the retry transferred the APK but failed inside the initializing package
+manager. No app startup, JNI, cancellation or device latency test ran. The
+isolated emulator and its private ADB server were subsequently stopped.
+
+Four independent authoring workers began a new private question set after the
+candidate code commit. The first four drafts contain 506 total questions, but
+are **not a frozen evaluation**: supported questions are unevenly distributed
+across source pages, unsupported questions are mostly missing-patient-data
+variants, and one question exactly overlaps a previously exposed question under
+case-folded punctuation-normalized matching. Paraphrase and conceptual overlap
+have not been ruled out. Separate supplementary drafts and an aggregate novelty
+audit are in `/workspace/neu205-private/overnight-eval-20261106/`; they are
+unreviewed, potentially ambiguous, and must not be published. A reviewer
+reported that an initial quotation screening had used the wrong page range;
+that screening is invalid and no completed semantic review has been established.
+The draft preregistration is not a freeze, no new candidate
+inference has run, and no scores may be derived from these drafts. Future work
+must account for question overlap, page/figure coverage, unsupported diversity,
+independent semantic review, blinded grading and every fixed denominator.
+
 Next: improve selection of the 23 exposed DEV misses without promoting DEV to
 blind evidence; freeze a disjoint independently authored and reviewed test before
 candidate inference; measure actual native prompt evidence and end-to-end

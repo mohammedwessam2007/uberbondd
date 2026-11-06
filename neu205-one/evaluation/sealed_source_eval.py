@@ -254,7 +254,7 @@ def grade(args):
                 thresholds=threshold_status,
                 sample_size_targets=dict(supported=supported_target, unsupported=unsupported_target),
                 full_release_gate_passed=False,
-                caveat='Purposive clustered source questions; small sample; no clinical validation or device evidence. Arithmetic is not automatic medical grading.')
+                caveat='See the hashed preregistration for sampling and its limitations; sampling claims are not independently verified here. No clinical validation or device evidence is established. Arithmetic is not automatic medical grading.')
 
 
 def main():

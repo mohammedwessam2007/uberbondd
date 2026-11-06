@@ -101,14 +101,24 @@ reviews remain outside Git. The original release signer was not changed.
    A subsequent counterbalanced 12-case exposed-DEV follow-up has been started
    under `/workspace/neu205-private/prompt-length-dev-12-20261106/`, with a
    hash-pinned preregistration and per-answer journals. It is not the fresh
-   757-row draft and was incomplete when this checkpoint was written. Inspect
-   its state and logs before reporting results. Before resuming, verify both
+   757-row draft. Both five- and four-passage settings completed 12/12 and were
+   sealed before grading. Median host total was 26.699 versus 25.403 s;
+   median first complete clause was 24.348 versus 22.940 s; median prompt
+   length was 918.5 versus 786.5 tokens. Four passages were faster on 9/12
+   paired cases, with 1.099 s median paired total reduction. Independent
+   blinded single-AI review classified both settings as 10/12 fully correct
+   and 2/12 partial. Across all 24 responses it flagged three unsupported
+   assertive claims, four omitted qualifiers, and extra irrelevant cited pages
+   in 19 responses; categories overlap. This exposed DEV result does not
+   establish noninferiority, fresh accuracy, or phone qualification.
+   The first detached supervisor and Java worker exited
+   unexpectedly with zero completed rows and no identified cause; they became
+   zombies, and the original journal was preserved. Before resuming any future
+   interrupted run, verify both
    the prior supervisor and its recorded Java child are absent and inspect for
    any matching live experiment process; never start a second writer or kill
-   unrelated processes. The first detached supervisor and Java worker exited
-   unexpectedly with zero completed rows and no identified cause; they became
-   zombies, and the original journal was preserved. The private
-   `resume-safely.py` checks process state, matching workers and lock ownership;
+   unrelated processes. The private `resume-safely.py` checks process state,
+   matching workers and lock ownership;
    it was updated to distinguish zombies and started a managed foreground
    resume. Use it only in a managed long-running session, not `nohup`. Seal
    every completed or failed prediction before any
@@ -122,6 +132,13 @@ reviews remain outside Git. The original release signer was not changed.
 4. Synthetic adversarial tests demonstrate that an exact substring can omit
    its original negation and still be a source substring. The gate labels this
    `SOURCE_SUBSTRING_ONLY`, never semantic entailment or medical validation.
+   WARP3 now also returns and validates half-open UTF-8 byte offsets against
+   the extracted page text, alongside its existing character offsets. These
+   are explicitly not offsets into the PDF binary. Unicode and altered-offset
+   tests cover the binding. A paired exposed-DEV run after this validation
+   measured full scoring p50/p95 17.122/31.138 ms versus bounded scoring
+   7.687/12.459 ms, with identical selections and 127/150 normalized quotation
+   hits in both modes. These are host lookup measurements only.
 5. New evaluation freeze manifests bind a minimum target of 400 supported and
    100 unsupported items, and grading checks the targets in the frozen manifest.
    Historical schema-1 manifests retain their 300/100 floor. The tool no longer
@@ -144,8 +161,8 @@ coverage or new model-answer comparison has been completed.
 - `python -m unittest discover -s tools -p 'test_*.py'`: 81 passed.
 - `python -m unittest discover -s evaluation -p 'test_*.py'`: 23 passed;
   retrieval identity tests: 2 passed.
-- `cd tools/omega_atlas && python -m unittest -v test_warp3_adversarial_quotes`:
-  5 passed.
+- `python -m unittest discover -s tools/omega_atlas -p 'test_*.py'`: 58 passed,
+  including the adversarial quotation and UTF-8 offset cases.
 - `PATH=/workspace/neu205-tools/jdk/jdk-21.0.13+9/bin:$PATH bash tools/test_core.sh`:
   25 passed, one private test group skipped, and four new synthetic checks passed.
 - Android Gradle `testDebugUnitTest lintDebug --offline` with the full JDK and
@@ -236,6 +253,14 @@ ambiguous wording, unverified premises, caveats and topical overlap among the
 rest. All remain private draft material requiring documented selection and
 independent adjudication before any freeze.
 
+A separate private readiness inventory covers 959 heterogeneous source and
+repair-proposal rows; these are not 959 unique questions. It matched 833 rows
+to independent review records and mapped explicit issues to 325 rows, a
+conservative lower bound. The remaining rows are on hold, not approved. The
+private `selection-readiness-report-20261106-private.md` and accompanying
+disposition JSONL preserve source references, outstanding review and known
+overlap. They do not establish an eligible 400/100 set or authorize a freeze.
+
 Next: improve selection of the 23 exposed DEV misses without promoting DEV to
 blind evidence; freeze a disjoint independently authored and reviewed test before
 candidate inference; measure actual native prompt evidence and end-to-end
@@ -244,3 +269,66 @@ licensing permit; no such reranker has yet been benchmarked. Verify compiled
 index persistence, corruption and rollback before any Android integration.
 Do not enable the research retrieval or claim the requested release gates until
 independent accuracy, safety, provenance and actual device measurements pass.
+
+
+## Final continuation handoff for Claude
+
+Repository draft PR: https://github.com/mohammedwessam2007/uberbondd/pull/1610
+Base: `neu205/omega-finishline-lab-20261106` (PR #1608).
+Working branch: `codex/neu205-overnight-proof-engine-20261106`.
+Worktree: `/workspace/neu205-overnight`. Do not reset the other checkouts or
+rewrite either ancestor PR. Inspect live Git/PR head before resuming.
+
+The current decision is **IMPROVED BUT BLOCKED**, not release-ready. Five
+passages remain the NativeBrain default. Four passages had a modest host speed
+benefit and equal coarse grades on only 12 exposed DEV cases; three passages
+lost a full-correct grade in the separate four-case experiment. No shortened
+prompt setting was shipped. The independent new evaluation is not frozen;
+there is no new 400/100 correctness result. Phone acoustic latency, original
+release signer, ARM64 release and physical device qualification remain absent.
+
+A new private source-memory derivation was compiled after confirming exact
+299/299 extracted PDF page matches. It has **1,716 capsules**, zero omitted
+non-whitespace characters, passes SQLite integrity/source binding, and has SHA
+`04cc5d074289d9cd9213c4eb69f1ad0ed4483cf56866997e684ac82786bd49e9`.
+It is at `/workspace/neu205-private/active-memory-derived-20261106/` with
+`custody.json`. It is a new derivation bound to recovered v05 corpus, not the
+unrecovered historical 1,711-capsule file. It has not been enabled or medically
+benchmarked. Never substitute its identity for the historical receipt.
+
+The x86_64 sandbox APK was built twice to identical bytes and stayed private.
+The later ARM64 sandbox build worker hit a provider usage limit before returning
+an artifact; no ARM64 sandbox success is claimed. Continue locally if toolchain
+and assets remain available. Never replace the original app signer or install
+on the owner's phone without the separate device authorization in issue #1609.
+
+Private artifacts to inspect without publishing their contents:
+
+- `/workspace/neu205-private/prompt-length-dev-12-20261106/`: completed 24
+  predictions, preregistration, interrupted-attempt history, hash-bound seal,
+  blinded grade file and `unblinded-grade-aggregate.json`. All four segments
+  completed; do not rerun or resume this completed experiment.
+- `/workspace/neu205-private/prompt-length-dev-20261106/`: separate four-case
+  five/three/four comparison, seals, assignments and source/citation reviews.
+- `/workspace/neu205-private/overnight-eval-20261106/`: source questions,
+  original and revised drafts, per-item independent reviews, semantic novelty
+  audit, and selection-readiness report. These include overlapping variants;
+  **do not add them together as unique test questions**. The 959-row readiness
+  inventory is not a fixed evaluation denominator. Known prior-question overlap,
+  unsupported repetition and citation defects must be resolved before freeze.
+- `/workspace/neu205-private/receipts/warp3-bounded-byte-offset-20261106.json`:
+  latest paired retrieval receipt including UTF-8 provenance validation.
+- `/workspace/neu205-private/receipts/synthetic-qwen-20261106/` and
+  `synthetic-qwen-long-20261106/`: real pinned-model synthetic throughput.
+
+Next engineering work: independently select and harmonize a defensible disjoint
+400/100 set, record every pre-freeze exclusion/repair and stratification gap,
+verify all evidence and unsupported scope, then freeze before candidate inference
+and seal predictions before blinded grading. Do not tune on new test answers.
+Investigate source-window selection and qualifier entailment without converting
+literal quote checks into semantic proofs. Build an isolated ARM64 test candidate
+and complete permitted emulator/host checks; physical acoustic tests remain a
+separate device gate. Preserve all negative results and private artifacts.
+
+No paid API, purchase, main merge, deployment, physical-phone installation or
+publication of private source/evaluation/model/signing material was performed.

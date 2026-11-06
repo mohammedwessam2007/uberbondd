@@ -4,6 +4,8 @@
 Precompute nested, source-offset source windows once. Query uses WARP2's sparse
 page postings and two window inverted indexes; no PDF file scan at query time.
 Every excerpt has a byte-verifiable SHA citation, NEVER a semantic fact claim.
+Byte offsets are half-open positions in the UTF-8 encoding of the extracted
+page text; they are not offsets into the original PDF binary.
 
 This is an experimental retrieval index, NOT an answerer or clinical verifier.
 """
@@ -26,6 +28,8 @@ class Window:
     page: int
     char_start: int
     char_end: int
+    page_utf8_byte_start: int
+    page_utf8_byte_end: int
     words: int
     page_hash: str
     snippet_hash: str
@@ -48,7 +52,10 @@ class WARP3:
                 if end-i<20 and i>0:break
                 first=words[i].start();last=words[end-1].end()
                 excerpt=source[first:last]
-                w=Window(page,first,last,end-i,hash_bytes(source.encode()),hash_bytes(excerpt.encode()))
+                byte_start=len(source[:first].encode('utf-8'))
+                excerpt_bytes=excerpt.encode('utf-8')
+                w=Window(page,first,last,byte_start,byte_start+len(excerpt_bytes),end-i,
+                         hash_bytes(source.encode('utf-8')),hash_bytes(excerpt_bytes))
                 idx=len(self.windows);self.windows.append(w);self.by_page[page].append(idx);snippets.append(excerpt)
                 if end==len(words):break
         if len(self.windows)<len(self.pages):
@@ -61,10 +68,18 @@ class WARP3:
         if type(idx) is not int or not 0<=idx<len(self.windows):raise ValueError('Unknown indexed window')
         w=self.windows[idx]
         src=self.pages[w.page-1]
-        if not self.locator.check(w.page) or hash_bytes(src.encode())!=w.page_hash:
+        page_bytes=src.encode('utf-8')
+        if not self.locator.check(w.page) or hash_bytes(page_bytes)!=w.page_hash:
             raise ValueError('Original source page hash mismatch')
+        if not 0<=w.char_start<w.char_end<=len(src):
+            raise ValueError('Indexed source character offsets mismatch')
         text=src[w.char_start:w.char_end]
-        if hash_bytes(text.encode())!=w.snippet_hash:raise ValueError('Indexed source window mismatch')
+        text_bytes=text.encode('utf-8')
+        if hash_bytes(text_bytes)!=w.snippet_hash:raise ValueError('Indexed source window mismatch')
+        if (not 0<=w.page_utf8_byte_start<=w.page_utf8_byte_end<=len(page_bytes)
+                or w.page_utf8_byte_start!=len(src[:w.char_start].encode('utf-8'))
+                or page_bytes[w.page_utf8_byte_start:w.page_utf8_byte_end]!=text_bytes):
+            raise ValueError('Indexed source UTF-8 byte offsets mismatch')
         return w,text
 
     def warrant(self,idx:int,metadata_only:bool=True):
@@ -72,6 +87,8 @@ class WARP3:
         res={'source_document_sha256':self.locator.index_source_pdf_sha256,
              'source_page':w.page,'page_sha256':w.page_hash,
              'char_start':w.char_start,'char_end':w.char_end,
+             'page_utf8_byte_start':w.page_utf8_byte_start,'page_utf8_byte_end':w.page_utf8_byte_end,
+             'byte_offset_basis':'EXTRACTED_PAGE_TEXT_UTF8_NOT_PDF_BINARY',
              'source_excerpt_sha256':w.snippet_hash,'source_word_count':w.words,
              'literal_text_verified':True,'relation_verified':False,'medical_accuracy_verified':False}
         if not metadata_only:res['exact_text']=text
@@ -138,7 +155,16 @@ class WARP3:
         w,text=self._validate_window(idx)
         a=text.find(claim)
         if a<0:return {'decision':'REJECT','reason':'NOT_EXACTLY_QUOTED'}
+        relative_byte_start=len(text[:a].encode('utf-8'))
+        quote_bytes=claim.encode('utf-8')
+        byte_start=w.page_utf8_byte_start+relative_byte_start
+        byte_end=byte_start+len(quote_bytes)
+        page_bytes=self.pages[w.page-1].encode('utf-8')
+        if page_bytes[byte_start:byte_end]!=quote_bytes:
+            raise ValueError('Quote UTF-8 byte offsets mismatch')
         return {'decision':'SOURCE_SUBSTRING_ONLY','source_page':w.page,
                 'absolute_char_start':w.char_start+a,'absolute_char_end':w.char_start+a+len(claim),
-                'quote_sha256':hash_bytes(claim.encode()),
+                'page_utf8_byte_start':byte_start,'page_utf8_byte_end':byte_end,
+                'byte_offset_basis':'EXTRACTED_PAGE_TEXT_UTF8_NOT_PDF_BINARY',
+                'quote_sha256':hash_bytes(quote_bytes),
                 'semantic_entailment_verified':False,'medical_accuracy_verified':False}

@@ -26,8 +26,14 @@ public final class EvidenceIndex {
     public static final String STRATEGY_ATLAS = "bm25+atlas-lexical-proximity-experimental-v1";
     public static final String STRATEGY = "bm25-v1", STRATEGY_HYBRID = "bm25+bge-small-q8-rrf-v1",
             STRATEGY_COLBERT = "colbert-mxbai-edge-17m-v1";
-    /** Coverage thresholds calibrated on DEV probes (see tournament report). */
-    public static final double OK_COVERAGE = 0.50, WEAK_COVERAGE = 0.20;
+    /** Conservative common lexical gate; not calibrated semantic answerability. */
+    public static final double OK_COVERAGE = 0.50, WEAK_COVERAGE = 0.25;
+
+    /** Lexical routing only; not semantic support or medical confidence. */
+    public static String evidenceStatus(int count, double coverage) {
+        if (count <= 0 || !Double.isFinite(coverage) || coverage < 0 || coverage > 1) return "NONE";
+        return coverage < WEAK_COVERAGE ? "NONE" : coverage < OK_COVERAGE ? "WEAK" : "OK";
+    }
 
     public static final class CancellationToken {
         private final AtomicBoolean c = new AtomicBoolean();
@@ -297,7 +303,7 @@ public final class EvidenceIndex {
         }
         double elapsed = ms(t0);
         if (elapsed > budget) return new Response(rid, corpusSha, "BUDGET_EXCEEDED", null, elapsed, out);
-        String status = out.isEmpty() || best < WEAK_COVERAGE ? "NONE" : best < OK_COVERAGE ? "WEAK" : "OK";
+        String status = evidenceStatus(out.size(), best);
         if (status.equals("NONE")) out.clear();
         Response resp = new Response(rid, corpusSha, status, null, elapsed, out);
         resp.strategy = strategy();

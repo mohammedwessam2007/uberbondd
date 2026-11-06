@@ -6,11 +6,17 @@
 #include <mutex>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <array>
 
 namespace {
+using Clock = std::chrono::steady_clock;
+long long micros(Clock::time_point start) { return std::chrono::duration_cast<std::chrono::microseconds>(Clock::now()-start).count(); }
 struct Engine {
     llama_model *model = nullptr;
     llama_context *ctx = nullptr;
+    // Accessed only under NativeQwen's synchronized answer/timings lifetime.
+    std::array<jlong,8> timing{}; // tokenize, prefill, decode, first-byte, total us; input/output tokens; callbacks us
     std::atomic<bool> cancelled{false};
     std::atomic<int> stage{0};
     ~Engine() { if(ctx) llama_free(ctx); if(model) llama_model_free(model); }
@@ -94,6 +100,9 @@ extern "C" JNIEXPORT jint JNICALL
 Java_ai_neu205_one_NativeQwen_generate(JNIEnv *env, jclass, jlong h, jbyteArray input, jint max_tokens, jobject callback) {
     try {
         auto *e = engine(h);
+        e->timing.fill(0);e->timing[3]=-1;
+        auto started=Clock::now();
+        struct TimingReset { Engine *e; Clock::time_point start; ~TimingReset(){ e->timing[4]=micros(start); } } timingReset{e,started};
         struct StageReset { Engine *e; ~StageReset(){e->stage.store(0);} } reset{e};
         if(e->cancelled.load()) return 1;
         const auto length = env->GetArrayLength(input);
@@ -103,9 +112,15 @@ Java_ai_neu205_one_NativeQwen_generate(JNIEnv *env, jclass, jlong h, jbyteArray 
         if(env->ExceptionCheck()) return -2;
         const auto *vocab = llama_model_get_vocab(e->model);
         std::vector<llama_token> tokens(2048);
+        auto tokenizeStart=Clock::now();
         int n = llama_tokenize(vocab, prompt.data(), length, tokens.data(), tokens.size(), true, true);
+        e->timing[0]=micros(tokenizeStart);
+        e->timing[5]=n>0?n:0;
         if(n <= 0 || n + max_tokens + 32 > 2048) return -3;
         tokens.resize(n);
+        auto prefillStart=Clock::now();
+        struct PhaseTime { jlong &target; Clock::time_point start; ~PhaseTime(){target+=micros(start);} };
+        { PhaseTime prefillTime{e->timing[1],prefillStart};
         llama_memory_clear(llama_get_memory(e->ctx), true);
         e->stage.store(1);
         for(size_t at = 0; at < tokens.size(); at += 64) {
@@ -114,6 +129,7 @@ Java_ai_neu205_one_NativeQwen_generate(JNIEnv *env, jclass, jlong h, jbyteArray 
             int rc = llama_decode(e->ctx, llama_batch_get_one(tokens.data() + at, count));
             if(rc != 0) return e->cancelled.load() ? 1 : -4;
         }
+        } // prefill timer also records cancellation/error exits.
         // Greedy sampling is deterministic; it is a separately reconstructed candidate,
         // never represented as Claude's unavailable frozen configuration.
         std::unique_ptr<llama_sampler, decltype(&llama_sampler_free)> sampler(llama_sampler_init_greedy(), llama_sampler_free);
@@ -135,11 +151,24 @@ Java_ai_neu205_one_NativeQwen_generate(JNIEnv *env, jclass, jlong h, jbyteArray 
             auto bytes = env->NewByteArray(size);
             if(!bytes) return -7;
             env->SetByteArrayRegion(bytes, 0, size, reinterpret_cast<const jbyte *>(piece.data()));
+            if(e->timing[3]<0)e->timing[3]=micros(started);
+            auto callbackStart=Clock::now();
             env->CallVoidMethod(callback, emit, bytes); env->DeleteLocalRef(bytes);
+            e->timing[7]+=micros(callbackStart);
+            ++e->timing[6];
             if(env->ExceptionCheck()) return -8;
             if(e->cancelled.load()) return 1;
-            if(llama_decode(e->ctx, llama_batch_get_one(&token, 1)) != 0) return e->cancelled.load() ? 1 : -9;
+            int decoded;
+            { PhaseTime decodeTime{e->timing[2],Clock::now()}; decoded=llama_decode(e->ctx, llama_batch_get_one(&token, 1)); }
+            if(decoded != 0) return e->cancelled.load() ? 1 : -9;
         }
         return -10; // A truncated answer is an error, not a completed medical response.
     } catch (...) { return -11; }
+}
+
+// NativeQwen.timings() shares the generation monitor; never read concurrently.
+extern "C" JNIEXPORT jlongArray JNICALL Java_ai_neu205_one_NativeQwen_lastTimings(JNIEnv *env,jclass,jlong h) {
+    auto result=env->NewLongArray(8);
+    if(result)env->SetLongArrayRegion(result,0,8,engine(h)->timing.data());
+    return result;
 }

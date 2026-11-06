@@ -2,10 +2,21 @@
 BM25 implementation frozen unchanged from upstream 448d55f0497f7f41932869edf30084419574752a.
 This is an adapter, not a replacement retrieval experiment.
 """
-import hashlib,json,re,time
+import hashlib,json,re,time,math
 from pathlib import Path
 from frozen_bm25 import BM25,tokens
 SCHEMA='neu205.evidence.v1'
+NONE_COVERAGE = .25
+# Conservative intersection of the previously deployed native/companion gates.
+# This is lexical routing, not a calibrated answerability probability.
+OK_COVERAGE = .50
+
+def evidence_status(count, coverage):
+    """Lexical routing only; never an entailment or medical-confidence score."""
+    if count <= 0 or not math.isfinite(coverage) or not 0 <= coverage <= 1:
+        return 'NONE'
+    return 'NONE' if coverage < NONE_COVERAGE else 'WEAK' if coverage < OK_COVERAGE else 'OK'
+
 class Evidence:
     def __init__(self,corpus,manifest):
         self.path=Path(corpus);self.manifest_path=Path(manifest)
@@ -56,7 +67,8 @@ class Evidence:
             passages.append(dict(self.chunks[i],retrieval_scores={'bm25':score,'coverage':coverage}))
         elapsed=(time.monotonic()-t)*1000
         if elapsed>budget:return done('BUDGET_EXCEEDED',passages=passages)
-        # v12 DEV-calibrated (150 DEV supported vs 107 exposed unsupported): .35 discarded 10 answerable DEV
-        # questions whose gold page was retrieved; Qwen's grounded refusal now handles the band .25-.35.
-        status='NONE' if not passages or best<.25 else 'WEAK' if best<.45 else 'OK'
+        # Both routes reject below .25 and flag .25-.50 as weak. Raising the
+        # native rejection boundary can increase supported refusals; no clinical
+        # improvement is inferred from deterministic routing parity.
+        status=evidence_status(len(passages), best)
         return done(status,passages=[] if status=='NONE' else passages)

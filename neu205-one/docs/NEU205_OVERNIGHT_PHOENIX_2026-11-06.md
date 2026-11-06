@@ -63,6 +63,25 @@ reviews remain outside Git. The original release signer was not changed.
    `1dc43a69da3f4cc1862766f2aeecc05512003f0734756b67c2b5f6dbd334cfa9`;
    private raw receipts are under `/workspace/neu205-private/receipts/` in
    `synthetic-qwen-20261106` and `synthetic-qwen-long-20261106`.
+   Separately, a paired actual native-pipeline DEV experiment completed four
+   exposed supported cases with five passages and then the same four with three.
+   Median host text time was 28.832 s versus 21.491 s, and prompt lengths were
+   903–1,039 versus 572–692 tokens. The predictions were sealed before grading.
+   This small, fixed-order run used separate processes with no controlled warmup;
+   it cannot prove accuracy or latency generalization. An independent AI-only
+   reviewer graded blinded answers 4/4 fully correct for five passages and
+   3/4 fully correct plus 1/4 partial for three. The same review flagged
+   potentially unsupported wording in one five-passage answer and two
+   three-passage answers, even though one of those responses was graded fully
+   correct; those flags and grade categories must both be retained. Citation
+   fabrication was initially unknown because all cited pages were not provided
+   to the reviewer. A subsequent blinded audit against the PDF classified
+   citations as supported in 3/4 five-passage and 2/4 three-passage responses,
+   and irrelevant or insufficient in the remaining 1/4 and 2/4 respectively;
+   zero were classified as fabricated in this small sample. This is neither
+   clinician review nor a fresh blind holdout. The
+   shorter path is not enabled by default. Receipts and predictions remain in the private
+   `prompt-length-dev-20261106` directory.
 3. The host MCQ adapter had selected a source-omitted answer as an exception.
    Recognized negative stems now abstain, including the forced-letter output,
    because absence or a nearby negator does not establish an exclusion. This
@@ -135,8 +154,17 @@ then drafted questions for 39 additional previously unreferenced pages, bringing
 the draft citation union to 294/299 at that snapshot. Four further page-specific
 drafts cite pages 2, 53, 57 and 95; the latest private inventory contains 757
 draft rows citing 298/299 pages, with page 1 classified as front matter. One
-exact normalized question overlaps a prior exposed set; paraphrase overlap has
-not been checked. These heterogeneous drafts still need schema harmonization,
+normalized question exactly overlaps a prior exposed set. A private exhaustive
+lexical triage against 1,137 historical questions flagged 41 additional
+potentially similar prior/draft pairs and 143 within-draft pairs; seven lexical
+groups contained 71 of 140 explicitly unsupported draft items. These flags
+received provisional independent semantic triage: of the 42 prior/draft pairs,
+30 were judged the same question, four substantially overlapping, one partly
+overlapping and seven related but distinct. Of the 143 within-draft pairs,
+one was judged the same question, 24 related but distinct, and 118 repetitive
+unspecified-case templates. Counts are pairs, not unique questions. Decisions
+do not authorize automatic exclusion; unmatched paraphrases may still exist.
+These heterogeneous drafts still need schema harmonization,
 independent item-level review, and question and evidence validation. Figures and
 tables need independent visual/source review. The draft count is not a fixed
 evaluation denominator. A reviewer
@@ -147,7 +175,9 @@ unsupported cases. In one batch the reviewer accepted 24/127 and rejected
 103/127 under strict source-context and distinctness criteria; many rejections
 identify incomplete citations rather than false answers. Other review rubrics
 have different decision categories and cannot be pooled as a pass rate.
-Supplements and replacements remain unreviewed. Neither
+The 251 supplemental drafts received provisional AI-only reviews, with
+qualifier, scope, repetition, and figure/table issues flagged; separate repair
+proposals remain unreviewed. Neither
 review nor exact quotation checks establish clinical correctness. The draft
 preregistration is not a freeze, no new candidate
 inference has run, and no scores may be derived from these drafts. Future work

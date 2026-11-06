@@ -105,8 +105,13 @@ reviews remain outside Git. The original release signer was not changed.
    its state and logs before reporting results. Before resuming, verify both
    the prior supervisor and its recorded Java child are absent and inspect for
    any matching live experiment process; never start a second writer or kill
-   unrelated processes. The private `resume-safely.py` checks these conditions
-   and refused correctly while the original run was active. Seal every completed or failed prediction before any
+   unrelated processes. The first detached supervisor and Java worker exited
+   unexpectedly with zero completed rows and no identified cause; they became
+   zombies, and the original journal was preserved. The private
+   `resume-safely.py` checks process state, matching workers and lock ownership;
+   it was updated to distinguish zombies and started a managed foreground
+   resume. Use it only in a managed long-running session, not `nohup`. Seal
+   every completed or failed prediction before any
    blinded source review. This research run cannot qualify the phone or release.
 3. The host MCQ adapter had selected a source-omitted answer as an exception.
    Recognized negative stems now abstain, including the forced-letter output,
@@ -117,6 +122,12 @@ reviews remain outside Git. The original release signer was not changed.
 4. Synthetic adversarial tests demonstrate that an exact substring can omit
    its original negation and still be a source substring. The gate labels this
    `SOURCE_SUBSTRING_ONLY`, never semantic entailment or medical validation.
+5. New evaluation freeze manifests bind a minimum target of 400 supported and
+   100 unsupported items, and grading checks the targets in the frozen manifest.
+   Historical schema-1 manifests retain their 300/100 floor. The tool no longer
+   claims it verified sampling, clinician review, or prediction blinding; the
+   relationship between CLI targets and the hashed preregistration still needs
+   independent review. No new questions have been frozen or graded.
 
 The previous native Qwen evaluation remains the latest actual answer result:
 275/336 fully correct (81.85%, Wilson 95% 77.37–85.60), 28 partial, 22
@@ -131,7 +142,7 @@ coverage or new model-answer comparison has been completed.
 
 - `python -m unittest discover -s backend/tests -v`: 60 passed.
 - `python -m unittest discover -s tools -p 'test_*.py'`: 81 passed.
-- `python -m unittest discover -s evaluation -p 'test_*.py'`: 16 passed;
+- `python -m unittest discover -s evaluation -p 'test_*.py'`: 23 passed;
   retrieval identity tests: 2 passed.
 - `cd tools/omega_atlas && python -m unittest -v test_warp3_adversarial_quotes`:
   5 passed.

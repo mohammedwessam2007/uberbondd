@@ -46,6 +46,23 @@ def check(condition, message):
         raise ValueError(message)
 
 
+def sample_size_targets(manifest):
+    """Read frozen targets, allowing old manifests which contain neither field."""
+    schema = manifest.get('schema_version', 1)
+    check(type(schema) is int and schema in (1, 2), 'Unknown freeze manifest schema')
+    names = ('target_supported', 'target_unsupported')
+    present = [name in manifest for name in names]
+    check(present[0] == present[1], 'Both sample-size targets must be specified together')
+    check(schema != 2 or present[0], 'Current freeze manifest must contain sample-size targets')
+    values = (manifest[names[0]], manifest[names[1]]) if present[0] else (300, 100)
+    check(all(type(value) is int and value > 0 for value in values),
+          'Sample-size targets must be positive integers')
+    minimum_supported = 400 if schema == 2 else 300
+    check(values[0] >= minimum_supported and values[1] >= 100,
+          f'Schema {schema} targets must be at least {minimum_supported} supported and 100 unsupported')
+    return values
+
+
 def normalize(text):
     return ' '.join(text.split())
 
@@ -111,15 +128,22 @@ def validate(args):
 
 
 def freeze(args):
+    supported_target, unsupported_target = sample_size_targets({
+        'schema_version': 2,
+        'target_supported': getattr(args, 'target_supported', 400),
+        'target_unsupported': getattr(args, 'target_unsupported', 100),
+    })
     report = validate(args)
-    report.update(schema_version=1, frozen_utc=datetime.now(timezone.utc).isoformat(),
+    report.update(schema_version=2, frozen_utc=datetime.now(timezone.utc).isoformat(),
                   preregistration_sha256=digest(args.preregistration),
-                  sampling_method='Purposive independently read page strata; two distinct concepts per page; unsupported missing-input/scope boundary cases. Not random or clinically validated.',
-                  target_supported=300, target_unsupported=100,
-                  supported_shortfall=max(0, 300-report['supported']),
-                  unsupported_shortfall=max(0, 100-report['unsupported']),
-                  reviewer_status='Independent source-reviewing model; no clinician available; key provisional',
-                  predictions_read_before_freeze=False)
+                  sampling_method='See hashed preregistration; sampling method is not independently verified by this tool.',
+                  target_supported=supported_target, target_unsupported=unsupported_target,
+                  supported_shortfall=max(0, supported_target-report['supported']),
+                  unsupported_shortfall=max(0, unsupported_target-report['unsupported']),
+                  target_provenance='Freeze arguments; consistency with the hashed preregistration requires independent review.',
+                  reviewer_status='Key review status is declared by its author and is not independently verified; no clinical validation is established.',
+                  predictions_read_before_freeze=None,
+                  predictions_read_before_freeze_note='Unknown to this tool; sequence must be independently audited.')
     # Exclusive create is mandatory. Never replace an existing freeze manifest.
     with open(args.manifest, 'x', encoding='utf-8') as stream:
         json.dump(report, stream, indent=2, sort_keys=True)
@@ -133,6 +157,7 @@ def seal_predictions(args):
     questions=read_jsonl(args.questions)
     check({r['id'] for r in rows}=={r['id'] for r in questions}, 'Prediction/question ID coverage mismatch')
     key_manifest=json.loads(Path(args.key_manifest).read_text())
+    sample_size_targets(key_manifest)
     check(digest(args.questions)==key_manifest['questions_sha256'], 'Question file differs from key freeze')
     check(len(rows)==key_manifest['total'], 'Prediction count differs from frozen set')
     for r in rows:
@@ -169,6 +194,7 @@ def rate(n, d):
 
 def grade(args):
     manifest = json.loads(Path(args.manifest).read_text())
+    supported_target, unsupported_target = sample_size_targets(manifest)
     for attr, key in [('gold','gold_sha256'), ('questions','questions_sha256'),
                       ('preregistration','preregistration_sha256')]:
         check(digest(getattr(args,attr)) == manifest[key], f'Frozen {attr} changed')
@@ -213,7 +239,7 @@ def grade(args):
     threshold_status=dict(correctness_at_least_90=accuracy['value'] is not None and accuracy['value']>=.9,
                           unsupported_refusal_at_least_95=refusal['value'] is not None and refusal['value']>=.95,
                           confident_wrong_at_most_2='unavailable' if missing_confidence else confident_wrong['value']<=.02,
-                          target_sample_size_met=len(supported)>=300 and len(unsupported)>=100,
+                          target_sample_size_met=len(supported)>=supported_target and len(unsupported)>=unsupported_target,
                           independent_clinical_review_available=False)
     return dict(status='provisional_source_review_only_not_clinical_validation',
                 predictions_sha256=prediction_sha, grades_sha256=digest(args.grades),
@@ -225,7 +251,9 @@ def grade(args):
                 missing_pregrading_confidence=missing_confidence,
                 missing_predictions=len(set(gold)-set(preds)),
                 labels=dict(Counter(g['label'] for g in grades.values())),
-                thresholds=threshold_status, full_release_gate_passed=False,
+                thresholds=threshold_status,
+                sample_size_targets=dict(supported=supported_target, unsupported=unsupported_target),
+                full_release_gate_passed=False,
                 caveat='Purposive clustered source questions; small sample; no clinical validation or device evidence. Arithmetic is not automatic medical grading.')
 
 
@@ -240,6 +268,10 @@ def main():
         if command=='freeze':
             p.add_argument('--preregistration',type=Path,required=True)
             p.add_argument('--manifest',type=Path,required=True)
+            p.add_argument('--target-supported',type=int,default=400,
+                           help='Preregistered supported-item target, minimum 400 (default 400)')
+            p.add_argument('--target-unsupported',type=int,default=100,
+                           help='Preregistered unsupported-item target, minimum 100 (default 100)')
     p=commands.add_parser('grade')
     for name in ('gold','questions','preregistration','manifest','predictions','predictions-manifest','grades'):
         p.add_argument('--'+name,required=True,type=Path)

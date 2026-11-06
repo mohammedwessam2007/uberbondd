@@ -6,3 +6,4 @@ rm -rf build/core build/test && mkdir -p build/core build/test
 javac --release 11 -d build/core $(find core/src/main -name '*.java')
 javac --release 11 -cp build/core -d build/test $(find core/src/test -name '*.java')
 java -cp build/core:build/test ai.neu205.one.core.CoreTests "${1:-}" "${2:-}"
+java -cp build/core:build/test ai.neu205.one.core.McqNegativeSafetyTests

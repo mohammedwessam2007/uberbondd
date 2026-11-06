@@ -15,6 +15,15 @@ class WARP2Checks(unittest.TestCase):
     def test_both_sparse_indices(self):
         self.assertEqual(4,self.x.character_index.page_count)
         self.assertEqual(4,self.x.phrase_index.page_count)
+    def test_candidate_ranges_preserve_exact_sparse_scores(self):
+        for index in (self.x.character_index,self.x.phrase_index):
+            for query in ('left artery nerve', 'vestibular apparatus', 'unknown'):
+                full=index.scores(query)
+                subset=index.scores_in_ranges(query,[(0,1),(2,4)])
+                self.assertEqual({i:v for i,v in full.items() if i in (0,2,3)},dict(subset))
+                self.assertEqual({},dict(index.scores_in_ranges(query,[])))
+            for ranges in ([(0,2),(1,3)], [(-1,1)], [(0,5)], [(1,1)]):
+                with self.assertRaises(ValueError):index.scores_in_ranges('nerve',ranges)
     def test_search_top(self):
         self.assertEqual(4,self.x.candidate_pages('vestibular apparatus',2)['pages'][0]['page'])
     def test_no_entailment_claim(self):

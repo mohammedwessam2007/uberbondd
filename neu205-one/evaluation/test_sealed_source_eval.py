@@ -6,6 +6,7 @@ from pathlib import Path
 import tempfile
 from types import SimpleNamespace
 import unittest
+from unittest.mock import patch
 
 spec=importlib.util.spec_from_file_location('sealed_source_eval',Path(__file__).with_name('sealed_source_eval.py'))
 evaluation=importlib.util.module_from_spec(spec)
@@ -82,6 +83,103 @@ class IntegrityTests(unittest.TestCase):
         self.assertEqual(report['supported_correctness']['denominator'],1)
         self.assertFalse(report['full_release_gate_passed'])
         self.assertFalse(report['thresholds']['target_sample_size_met'])
+
+    def sample_fixture(self, supported_count, unsupported_count, manifest_targets=None):
+        """Complete synthetic run; no source text or medical grading is involved."""
+        supported = [{'id':f's{i}', 'supported':True} for i in range(supported_count)]
+        unsupported = [{'id':f'u{i}', 'supported':False} for i in range(unsupported_count)]
+        gold_rows = supported + unsupported
+        gold = self.write('sample-gold.jsonl', gold_rows)
+        questions = self.write('sample-questions.jsonl', [
+            {'id':r['id'], 'question':'Synthetic question'} for r in gold_rows])
+        prereg = self.root/'sample-prereg.md'
+        prereg.write_text('Synthetic target fixture, not medical evidence.\n')
+        manifest = self.root/'sample-manifest.json'
+        manifest.write_text(json.dumps({
+            'total':len(gold_rows), 'gold_sha256':evaluation.digest(gold),
+            'questions_sha256':evaluation.digest(questions),
+            'preregistration_sha256':evaluation.digest(prereg),
+            **(manifest_targets or {})}))
+        predictions = self.write('sample-predictions.jsonl', [
+            {'id':r['id'], 'answer':'Synthetic response', 'status':'completed', 'confidence':.9}
+            for r in gold_rows])
+        prediction_sha = evaluation.digest(predictions)
+        grades = self.write('sample-grades.jsonl', [
+            {'id':r['id'], 'label':'correct' if r['supported'] else 'refusal',
+             'reviewer_id':'synthetic', 'reviewer_qualifications':'fixture, not a clinician',
+             'review_method':'independent_source_review', 'rationale':'synthetic fixture',
+             'prediction_file_sha256':prediction_sha} for r in gold_rows])
+        args=SimpleNamespace(gold=gold,questions=questions,preregistration=prereg,
+            manifest=manifest,predictions=predictions,grades=grades,
+            predictions_manifest=self.root/'sample-predictions-manifest.json')
+        self.seal(args)
+        return args
+
+    def test_frozen_400_target_rejects_a_300_supported_run(self):
+        args=self.sample_fixture(300,100,{'schema_version':2, 'target_supported':400,
+                                          'target_unsupported':100})
+        report=evaluation.grade(args)
+        self.assertEqual(report['sample_size_targets'], {'supported':400,'unsupported':100})
+        self.assertFalse(report['thresholds']['target_sample_size_met'])
+        self.assertFalse(report['full_release_gate_passed'])
+
+    def test_historical_manifest_without_targets_keeps_300_100_threshold(self):
+        args=self.sample_fixture(300,100)
+        report=evaluation.grade(args)
+        self.assertEqual(report['sample_size_targets'], {'supported':300,'unsupported':100})
+        self.assertTrue(report['thresholds']['target_sample_size_met'])
+        self.assertFalse(report['full_release_gate_passed'])
+
+    def test_new_manifest_meets_sample_size_at_400_100(self):
+        args=self.sample_fixture(400,100,{'schema_version':2, 'target_supported':400,
+                                          'target_unsupported':100})
+        self.assertTrue(evaluation.grade(args)['thresholds']['target_sample_size_met'])
+
+    def test_freeze_binds_targets_without_inventing_review_or_blinding(self):
+        prereg=self.root/'target-prereg.md'
+        prereg.write_text('Synthetic preregistration target 450 supported, 110 unsupported.\n')
+        args=SimpleNamespace(preregistration=prereg,manifest=self.root/'new-freeze.json',
+                             target_supported=450,target_unsupported=110)
+        with patch.object(evaluation,'validate',return_value={'supported':400,'unsupported':100}):
+            report=evaluation.freeze(args)
+        self.assertEqual(report['schema_version'],2)
+        self.assertEqual((report['target_supported'], report['target_unsupported']),(450,110))
+        self.assertEqual((report['supported_shortfall'],report['unsupported_shortfall']),(50,10))
+        self.assertEqual(report['preregistration_sha256'],evaluation.digest(prereg))
+        self.assertIsNone(report['predictions_read_before_freeze'])
+        self.assertIn('not independently verified',report['reviewer_status'])
+        self.assertEqual(json.loads(args.manifest.read_text()),report)
+
+    def test_invalid_or_weakened_new_targets_fail_closed(self):
+        for targets in ({'schema_version':2,'target_supported':300,'target_unsupported':100},
+                        {'schema_version':2,'target_supported':400,'target_unsupported':99},
+                        {'schema_version':2,'target_supported':True,'target_unsupported':100},
+                        {'schema_version':2,'target_supported':400},
+                        {'schema_version':2},
+                        {'schema_version':1,'target_supported':299,'target_unsupported':100},
+                        {'schema_version':1,'target_supported':300,'target_unsupported':99},
+                        {'target_supported':0,'target_unsupported':100}):
+            with self.subTest(targets=targets), self.assertRaises(ValueError):
+                evaluation.sample_size_targets(targets)
+        self.assertEqual(evaluation.sample_size_targets({'schema_version':1,
+                         'target_supported':300,'target_unsupported':100}),(300,100))
+
+    def test_freeze_rejects_a_weakened_target_before_writing(self):
+        manifest=self.root/'weak-freeze.json'
+        args=SimpleNamespace(preregistration=self.root/'unused-prereg.md',manifest=manifest,
+                             target_supported=300,target_unsupported=100)
+        with self.assertRaisesRegex(ValueError,'at least 400'):
+            evaluation.freeze(args)
+        self.assertFalse(manifest.exists())
+
+    def test_changing_target_after_prediction_seal_fails(self):
+        args=self.sample_fixture(300,100,{'schema_version':2, 'target_supported':400,
+                                          'target_unsupported':100})
+        manifest=json.loads(args.manifest.read_text())
+        manifest['target_supported']=450
+        args.manifest.write_text(json.dumps(manifest))
+        with self.assertRaisesRegex(ValueError,'different key manifest'):
+            evaluation.grade(args)
 
     def test_missing_confidence_cannot_pass_gate(self):
         report=evaluation.grade(self.fixture(None))

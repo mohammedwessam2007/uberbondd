@@ -11,6 +11,12 @@ class WARP3Tests(unittest.TestCase):
   ]
   self.x=WARP3(self.pages,PDF_SHA,expected_pages=3,window_words=75,stride_words=22)
  def test_index_all_pages(self):self.assertEqual(len(self.x.by_page),3)
+ def test_page_ranges_exist_for_short_pages_and_blank_pages_rejected(self):
+  index=WARP3(['a', 'word', ' spaced \n text '],PDF_SHA,expected_pages=3,window_words=75,stride_words=22)
+  self.assertTrue(all(index.by_page[p] for p in (1,2,3)))
+  self.assertEqual('EXACT_SOURCE_CANDIDATES_NOT_VERIFIED_ANSWERS',index.pack('word')['status'])
+  with self.assertRaises(ValueError):
+   WARP3(['word', ' \n '],PDF_SHA,expected_pages=2,window_words=75,stride_words=22)
  def test_stable_query(self):self.assertEqual(self.x.pack('beacon anterior left'),self.x.pack('beacon anterior left'))
  def test_bounded_packed_words(self):
   t=self.x.pack('left beacon right',word_budget=140,max_windows=5)

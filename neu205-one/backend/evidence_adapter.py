@@ -56,5 +56,7 @@ class Evidence:
             passages.append(dict(self.chunks[i],retrieval_scores={'bm25':score,'coverage':coverage}))
         elapsed=(time.monotonic()-t)*1000
         if elapsed>budget:return done('BUDGET_EXCEEDED',passages=passages)
-        status='NONE' if not passages or best<.35 else 'WEAK' if best<.60 else 'OK'
+        # v12 DEV-calibrated (150 DEV supported vs 107 exposed unsupported): .35 discarded 10 answerable DEV
+        # questions whose gold page was retrieved; Qwen's grounded refusal now handles the band .25-.35.
+        status='NONE' if not passages or best<.25 else 'WEAK' if best<.45 else 'OK'
         return done(status,passages=[] if status=='NONE' else passages)

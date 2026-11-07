@@ -162,16 +162,10 @@ test('a deployment that has not configured a price does not refuse everything', 
     'an unconfigured price is not evidence of underpayment, and must not block real money');
 });
 
-// The configured prices carry no currency and the environment names them
-// FULL_AUDIT_PRICE_USD, so they are USD. Comparing EUR 30.00 to USD 49.00 would
-// require an exchange rate this system does not have, and inventing one to
-// refuse a payment would be worse than not checking.
-//
-// So a payment in another currency is treated exactly like a product whose price
-// is not configured. That is a real remaining gap -- a non-USD payment is not
-// amount-checked -- and it is pinned here rather than left for someone to
-// discover, because the fix is per-currency prices in configuration, not code.
-test('a payment in another currency is not judged against a USD price', () => {
+// USD-only configured list prices cannot justify auto-unlocking a payment in
+// another currency. Preserve genuine foreign-currency evidence for manual
+// review rather than invent a conversion or awarding product access.
+test('a foreign-currency payment is review-required without a verified currency price', () => {
   const euro = classifyPaymentEvent({
     event: {
       eventName: 'order_created', eventId: 'e-eur', status: 'paid', amountCents: 3000, currency: 'EUR',
@@ -180,8 +174,9 @@ test('a payment in another currency is not judged against a USD price', () => {
     lead: { id: 'l1', prospectId: 'p1' },
     cfg: { revenue: { fullAuditPrice: PRICES.full } }
   });
-  assert.equal(euro.classification, 'CLEARED_ONE_TIME_PAYMENT',
-    'EUR 30.00 is not "less than" USD 49.00 in any sense worth acting on');
+  assert.equal(euro.classification, 'REVIEW_REQUIRED');
+  assert.equal(euro.shouldUnlock, false);
+  assert.ok(euro.reasonCodes.includes('provider-currency-price-unverified'));
 
   // And the check still applies in the currency the prices are actually in,
   // including when the provider spells it in lower case.

@@ -1,0 +1,193 @@
+{
+  "schemaVersion": "uberbond.phoenix.first-campaign-authority-matrix.v1",
+  "observedDate": "2026-10-12",
+  "truthClass": "SOURCE_BACKED_READ_ONLY_RESEARCH_NOT_A_CONTACT_OR_SEND_RECEIPT",
+  "checkedAgainst": {
+    "main": "298bd585d3ba0cf1fe5cdc2f81a525eb67819608",
+    "upstreamReleaseCandidate": "a04b43242169c6591537e19dab451ec4563553fb",
+    "forkCIProvenSha": "a8900f9d3d01a0b2ea87253bd354c44559fd6cff",
+    "forkRun": "https://github.com/uberbond2007/uberbondd/actions/runs/38183099300",
+    "productionSha": "24854739d70617d57807cde5407a84266cca477c",
+    "productionDeployId": "dep-db4h3a9srm7s73b3o040"
+  },
+  "campaign": {
+    "offer": "Agency Revenue Leak Proof Pack",
+    "hypothesisPriceUsd": 1500,
+    "scope": "three client-authorized websites, one lead path each, independently reproduced public/staging observations, dated evidence, one agreed retest",
+    "status": "RESEARCH_ONLY_DO_NOT_SEND",
+    "selectedAgency": "Forward First Media",
+    "selectedRoute": "https://forwardfirstmedia.com/affiliate-program/",
+    "routeType": "BUSINESS_VENDOR_INQUIRY_FORM_NOT_EMAIL_PERMISSION",
+    "namedBuyer": null,
+    "authorizedBuyerDemandObserved": false,
+    "preflightEndpoint": "POST /api/prospect-preflight",
+    "preflightExecuted": false,
+    "readOnlyPreflightStatus": "NOT_RUN",
+    "gSpotEffectDigest": null,
+    "suppressionSevenLedgerProof": null,
+    "recipientEligibility": "UNRESOLVED",
+    "egyptOriginMarketingLegality": "UNRESOLVED",
+    "selectedHealthySenderNow": null,
+    "dnsAlignedProofNow": null,
+    "placementProofNow": null,
+    "exactFounderMessageApproval": false,
+    "authorizedExternalEffect": false,
+    "readyToSend": false,
+    "prospectContacted": false
+  },
+  "candidateEvidence": [
+    {
+      "agency": "Forward First Media",
+      "rank": 1,
+      "url": "https://forwardfirstmedia.com/affiliate-program/",
+      "firstParty": true,
+      "observation": "Vendor or software inquiry category is published inside an affiliate/referral program",
+      "caseUrl": "https://forwardfirstmedia.com/case-studies/moore-mechanical/",
+      "clientPaths": [
+        "https://mooremech.net/",
+        "https://mooremech.net/contact-us/",
+        "https://mooremech.net/plumbing/"
+      ],
+      "observedDefect": false,
+      "contractualClientAuthorization": false,
+      "buyerDemand": false,
+      "decision": "RESEARCH_ONLY_DO_NOT_SUBMIT"
+    },
+    {
+      "agency": "Elxel Creative Agency",
+      "rank": 2,
+      "url": "https://elxel.com/contact/",
+      "firstParty": true,
+      "observation": "Vendor/collaborator form and general published email; booking-design case exists",
+      "caseUrl": "https://elxel.com/work/book-me/",
+      "observedDefect": false,
+      "homeServiceAgencyFitUnverified": true,
+      "buyerDemand": false,
+      "decision": "RESEARCH_ONLY_DO_NOT_SEND"
+    },
+    {
+      "agency": "ROI Growth Media",
+      "rank": 3,
+      "url": "https://roigrowthmedia.com/en/contact/",
+      "firstParty": true,
+      "observation": "Vendor/partnership channel published; contractor proposals invited, but home-service proof unverified",
+      "observedDefect": false,
+      "buyerDemand": false,
+      "decision": "RESEARCH_ONLY_DO_NOT_SEND"
+    }
+  ],
+  "sourceTruth": {
+    "agencyAlreadyClaimsTracking": true,
+    "revenueLossMeasured": false,
+    "actualFunctionalBrowserTest": false,
+    "indexedSourcesRechecked": "2026-10-12",
+    "freshOriginDomOrPrivateCrmEvidence": false
+  },
+  "winnr": {
+    "pilotPurchased": true,
+    "pilotMonthlyUsd": 9,
+    "pilotMailboxes": 3,
+    "lastTransportDate": "2026-10-11",
+    "smtpEvidenceCurrent": false,
+    "mailbox2IntermittentConnect": true,
+    "mailbox3Quarantined": true,
+    "imapThreeOfThreeHistorical": true,
+    "startupPlanPurchased": false,
+    "startupPlanPublishedMonthlyUsd": 69,
+    "startupMailboxesPlanned": 50,
+    "founderExpansionIntent": true,
+    "checkoutAmountVerified": false,
+    "domainOwnershipCurrentVerified": false,
+    "plannedTopologyDomains": 17,
+    "domainSlotsObservedHistorically": 10,
+    "providerEntitlementCurrentVerified": false
+  },
+  "authorityGates": [
+    {
+      "name": "LEGAL_SENDER_RECIPIENT",
+      "pass": false,
+      "evidence": "https://www.pdpc.gov.eg/",
+      "reason": "Egypt sender-side cross-border EDM classification unresolved"
+    },
+    {
+      "name": "BUYER_REQUEST_OR_ELIGIBLE_CHANNEL",
+      "pass": false,
+      "evidence": "https://forwardfirstmedia.com/affiliate-program/",
+      "reason": "Vendor category does not equal request to buy audit"
+    },
+    {
+      "name": "CURRENT_CONTACT_HISTORY_SUPPRESSION",
+      "pass": false,
+      "evidence": null,
+      "reason": "Production seven-ledger read not executed"
+    },
+    {
+      "name": "EXACT_SENDER_TRANSPORT_DNS_PLACEMENT",
+      "pass": false,
+      "evidence": null,
+      "reason": "October 11 transport expired; #3 remains held"
+    },
+    {
+      "name": "EXACT_V5_GSPOT_PREFLIGHT_DIGEST",
+      "pass": false,
+      "evidence": null,
+      "reason": "Authenticated read-only preflight and tournament not executed"
+    },
+    {
+      "name": "FOUNDER_EXACT_EFFECT_APPROVAL",
+      "pass": false,
+      "evidence": null,
+      "reason": "No specific external effect approved"
+    }
+  ],
+  "release": {
+    "forkThreeJobsGreen": true,
+    "upstreamExactReleaseCIComplete": false,
+    "upstreamMainMerged": false,
+    "productionDeployedOnCandidate": false,
+    "outboundDefaultDenyPreserved": true,
+    "githubSupportTicket": "4845900"
+  },
+  "firstCash": {
+    "realBuyerAcceptanceObserved": false,
+    "proposalAccepted": false,
+    "invoiceIssued": false,
+    "providerClearedUsd": 0,
+    "acceptedDelivery": false,
+    "paymentProviderActivation": "DEFER_UNTIL_BUYER_COLLECTION_NEEDED"
+  },
+  "crossovers": [
+    {
+      "id": "founder-moonshot-0865",
+      "mapping": "Classify impossible/blocked outcome into missing dependencies, not invented clearance"
+    },
+    {
+      "id": "founder-moonshot-0885",
+      "mapping": "Human authority does not scale with system capabilities"
+    },
+    {
+      "id": "founder-moonshot-0798",
+      "mapping": "Every no-send receipt informs subsequent recovery"
+    },
+    {
+      "id": "founder-moonshot-0801",
+      "mapping": "Failure taxonomy drives safer regression cases"
+    }
+  ],
+  "provenance": [
+    "https://github.com/mohammedwessam2007/uberbondd/pull/1398",
+    "https://github.com/mohammedwessam2007/uberbondd/pull/1399",
+    "https://github.com/mohammedwessam2007/uberbondd/pull/1400",
+    "https://github.com/mohammedwessam2007/uberbondd/issues/1188"
+  ],
+  "effectLedgerThisReceipt": {
+    "outreachMessages": 0,
+    "formSubmissions": 0,
+    "purchases": 0,
+    "dnsMutations": 0,
+    "productionDeployments": 0,
+    "quarantineReleases": 0,
+    "paymentMutations": 0,
+    "sourceCommits": 1
+  }
+}

@@ -11,6 +11,7 @@
 // a registrar, and never accepts or stores a credential. It only records
 // and folds the caller's own already-verified facts.
 import crypto from 'node:crypto';
+import { loadCompleteSendingRegistryEvents } from './sending-registry-complete-history.mjs';
 import { assertNotReservedOutsideSimulation } from './reserved-domains.mjs';
 
 export const SENDING_DOMAIN_REGISTRY_POLICY_VERSION = 'sending-domain-registry-1.0.0';
@@ -145,12 +146,10 @@ export async function logSendingDomainEvent(store, event) {
   return store.log(DOMAIN_EVENT_TYPE, event);
 }
 
-async function loadDomainEvents(store, domainId, { limit = 1000 } = {}) {
-  if (!store || typeof store.list !== 'function') return [];
-  const rows = await store.list('auditLog', { filters: { type: DOMAIN_EVENT_TYPE }, orderBy: 'createdAt', direction: 'asc', limit });
-  return (Array.isArray(rows) ? rows : [])
-    .map(row => row?.detail)
-    .filter(detail => detail && detail.domainId === domainId);
+async function loadDomainEvents(store, domainId) {
+  if (!store) return [];
+  const events = await loadCompleteSendingRegistryEvents(store, DOMAIN_EVENT_TYPE);
+  return events.filter(detail => detail.domainId === domainId);
 }
 
 function nextSafeAction(state, ctx) {
@@ -300,11 +299,10 @@ export async function loadSendingDomain(store, domainId, opts = {}) {
 }
 
 export async function listSendingDomains(store, opts = {}) {
-  if (!store || typeof store.list !== 'function') return [];
-  const rows = await store.list('auditLog', { filters: { type: DOMAIN_EVENT_TYPE }, orderBy: 'createdAt', direction: 'asc', limit: 5000 });
+  if (!store) return [];
+  const events = await loadCompleteSendingRegistryEvents(store, DOMAIN_EVENT_TYPE);
   const byDomain = new Map();
-  for (const row of (Array.isArray(rows) ? rows : [])) {
-    const detail = row?.detail;
+  for (const detail of events) {
     if (!detail?.domainId) continue;
     if (!byDomain.has(detail.domainId)) byDomain.set(detail.domainId, []);
     byDomain.get(detail.domainId).push(detail);

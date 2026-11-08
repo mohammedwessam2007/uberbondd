@@ -3,7 +3,8 @@ import { Readable } from 'node:stream';
 const ROUTES = Object.freeze({
   'POST /api/payments/paypal-order': 'order',
   'GET /api/payments/paypal-capture': 'capture',
-  'POST /api/webhooks/paypal': 'webhook'
+  'POST /api/webhooks/paypal': 'webhook',
+  'POST /api/webhooks/xpay': 'xpayWebhook'
 });
 
 async function readBody(req, maxBytes = 1024 * 1024) {

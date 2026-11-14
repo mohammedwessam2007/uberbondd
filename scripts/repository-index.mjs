@@ -104,6 +104,43 @@ export function classifyDomain(file) {
   return 'core-misc';
 }
 
+// ---------------------------------------------------------------- projects
+// Named programs. Unlike domains, membership is by keyword anywhere in the path and a file may
+// belong to several projects. Each project gets one self-contained context page.
+const PROJECT_DIR = 'docs/projects';
+export const PROJECTS = [
+  ['outreach', 'Outreach and Distribution OS', 'Cold email and distribution: prospect discovery and qualification, message genome and tournaments, governed sending, reply handling, suppression, the offer quartet and first-cash path.', /outreach|outbound|prospect|cold-email|uberreach|uberreply|reply-|leadgen|lead-|distribution|postal|unsubscribe|recipient|suppression|message-tournament|offer-quartet/],
+  ['ubermind', 'UberMind', 'The cognition program: UberMind constitutions V4-V10, Omega46-52 doctrine cards, the founder 52 concepts, the grand library, and UberMind economics/routing modules.', /ubermind|^library\/|^mind activation\/|omega(4[6-9]|5[0-2])|founder-52|founder-directive/],
+  ['phoenix', 'PHOENIX', 'Context-survival and continuity: PHOENIX checkpoints, capsules, the chat-first cloud brain, capability waves, the phoenix-mcp app and runtime doctors.', /phoenix/],
+  ['uberwarm', 'UberWarm / UberWarm2', 'Mailbox warmup: seed and receiver evidence, one-shot runtimes, provider observation, placement reading, ledgers and the callback services.', /uberwarm|warmup/],
+  ['winnr', 'Winnr', 'Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries and the first-cash Winnr missions.', /winnr/],
+  ['mail-infrastructure', 'UberMail, UberDoso and sending infrastructure', 'Owned mail stack: UberMail, UberDoso, MailHub, DNS control, domain and mailbox registries, inbox factories and fleet.', /ubermail|uberdoso|mailhub|uberinbox|uberimap|ubersmtp|uberdns|uberfleet|domain-mailbox|sending-(domain|mailbox)|sender-infra|dns-/],
+  ['genesis', 'GENESIS and Perpetual Frontier', 'Open-ended invention: GENESIS, GENESIS2, Ontogenesis, Gamechanger sensing, idea bursts, the escalation tribunal and the 275-idea frontier registry.', /genesis|ontogenesis|perpetual-frontier|gamechanger/],
+  ['moonshot-890', 'Founder 890 moonshots', 'The immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers.', /moonshot|founder-890|[-/]890[-.]/],
+  ['nullstar', 'NULLSTAR', 'Project NULLSTAR Omega: generations GA1-GA8, baselines, holdouts, calibration ladder, denominator and terminal summary.', /nullstar/],
+  ['omega-asi', 'Omega lab and ASI evidence', 'Omega private-evidence lab, C21 evidence factory, literal/system-level ASI tribunals and the mathematical canary families.', /(^|[/-])omega-|c21-|literal-asi|private-asi|system-level-asi|-canary-v\d|ontological-/],
+  ['infinite-opus', 'Infinite Opus, Crown and Frontier-Max', 'The intelligence-per-dollar program: Infinite Opus runtime, Crown admission and succession, TypingMind gateway and the `open router/` canon folder.', /infinite-opus|^open router\/|crown-|typingmind|opus-/],
+  ['jev', 'Jev and UberLit', 'Jev semantic control plane and its UberLit runtime: calibration vault, promotion foundry, governed runtime service, Oracle free-host activation.', /jev|uberlit/],
+  ['model-routing', 'OpenRouter and model routing', 'Model market and routing: OpenRouter adapters, Open Model Universe, model foundry, provider executors and failover.', /openrouter|open-model|model-(rout|foundry|provider|failure|adaptation)|agent-model|-executor/],
+  ['frontier', 'Frontier intelligence runtime', 'Frontier VM, cognitive fabric, council and reasoning runtimes, absorption and tournaments, APEX campaigns.', /frontier|apex-/],
+  ['capability-genome', 'Capability Genome and skills', 'World capability discovery, admission, retrieval and routing; neural exocortex; Avengers arsenal; Wallbreaker; project skills.', /capability|exocortex|avengers|wallbreaker|neural-|skills?\/|uberskills/],
+  ['agent-mesh', 'Agent mesh, relay and orchestration', 'Autonomous agent loop, mesh control plane, relays between ChatGPT/Claude/cloud, Uber Socket, Apotheosis orchestration.', /agent-|apotheosis|relay|uber-socket|autonomy|orchestrat/],
+  ['night', 'Nightfall and overnight lanes', 'Night Shift / Nightfall / overnight control, journey, verification, postal, payment-closure and integration lanes.', /night|overnight/],
+  ['founder-ops', 'Command center, Kilimanjaro and founder absence', 'Founder-facing operation: command center UI, founder ops view, Kilimanjaro evidence, absence readiness, operator escalation.', /kilimanjaro|founder-absence|command-center|founder-(ops|command|center|console)|operator-/],
+  ['omnia', 'OMNIA governance kernel', 'OMNIA V9 policy-evidence-execution admission kernel, V7 state, consent and proof machinery.', /omnia|(^|\/)v7[-/]|consent-|proof-/],
+  ['sovereign', 'Sovereign programs', 'Everything named Sovereign: the Cognitive Continuum North Star and forecast engine, plus the sovereign self-host stack, coverage matrix and institutional harness.', /sovereign|continuum|north-star/],
+  ['personal-civilization', 'Personal Civilization Engine', 'Life-system organs: personal civilization kernel, life knowledge graph, possibility engine, forecasting, capability and experience models.', /personal-civilization|(^|[/-])life-|living-|human-capability|experience-compiler|forecast|future-sel/],
+  ['opportunity', 'Prometheus, Event Horizon and opportunities', 'Market sensing and opportunity selection: Prometheus, Event Horizon, World Brain, opportunity factory and tournament, market signals.', /prometheus|opportunit|event-horizon|world-brain|market-signal|machiavelli|quant-/],
+  ['revenue-payments', 'Revenue, payments and delivery', 'Money path: offers, Revenue Constellation and G-SPOT, PayPal and payment truth, billing, fulfilment, delivery and economic reliability.', /revenue|payment|paypal|billing|first-cash|commercial|gspot|constellation|fulfil|economic-|wealth|^lite\//],
+  ['self-maintainer', 'Self-maintainer and constitution', 'Self-upgrade under governance: self-maintainer runtime and promotion, constitution compiler, recursive governance, mutation testing.', /self-maintain|self-upgrade|self-improvement|mutation|constitution|recursive-/],
+  ['infrastructure', 'Hosting and runtime infrastructure', 'Where it runs: UberCel, UberCloud, UberOcean, UberOS, Postgres, Vercel/Render/Railway/Docker config, ops scripts and migrations.', /ubercel|ubercloud|uberocean|uberos|postgres|deploy|vercel|render|railway|docker|^ops\/|^migrations\/|^runtime\//],
+  ['continuity', 'Memory, handoffs and brain', 'Cross-chat continuity outside PHOENIX: Total Brain, Master Memory, current handoff, checkpoints, context journal, brain packet.', /handoff|memory|brain|checkpoint|(^|[/-])context-|current-(handoff|system|truth|reality)/]
+];
+export function projectsFor(file) {
+  const key = file.toLowerCase().replace(/[_\s]+/g, m => (m.includes(' ') ? ' ' : '-'));
+  return PROJECTS.filter(p => p[3].test(key)).map(p => p[0]);
+}
+
 // ---------------------------------------------------------------- areas
 export const AREAS = [
   ['root', 'Repository root', 'Entry points, constitutions, server/worker processes and platform manifests.'],
@@ -212,7 +249,7 @@ export function describe(file, text) {
 
 // ---------------------------------------------------------------- build
 function git(root, args) { return execFileSync('git', args, { cwd: root, maxBuffer: 256 * 1024 * 1024, encoding: 'utf8' }); }
-const isGenerated = f => f.startsWith(`${OUT_DIR}/`) || f === OUT_JSON || f === 'REPOSITORY_INDEX.md';
+const isGenerated = f => f.startsWith(`${OUT_DIR}/`) || f === OUT_JSON || f === 'REPOSITORY_INDEX.md' || f.startsWith(`${PROJECT_DIR}/`);
 const TEXT_RE = /\.(mjs|js|cjs|ts|tsx|json|md|mdc|txt|yml|yaml|sql|sh|service|html)$|(^|\/)Dockerfile/i;
 
 export function buildIndex(root) {
@@ -242,6 +279,7 @@ export function buildIndex(root) {
       }
     }
     const e = { path: file, area: classifyArea(file), domain: classifyDomain(file), bytes };
+    const projects = projectsFor(file); if (projects.length) e.projects = projects;
     const desc = e.area === 'root' && ROOT_ROLES[file] ? ROOT_ROLES[file] : describe(file, text);
     if (desc) e.title = desc;
     const date = dateFromName(file); if (date) e.date = date;
@@ -372,8 +410,61 @@ function renderMaster(index) {
   return [out, `${L.join('\n')}\n`];
 }
 
+const FROZEN_RE = /^(docs\/forensics|artifacts\/recovery|historical-archive|docs\/history|docs\/archive)\//;
+function renderProjects(index) {
+  const outs = [];
+  const readme = `${PROJECT_DIR}/README.md`;
+  const R = [HEADER, '# Projects — one context page per program', '', BOUNDARY,
+    'Each page below gathers everything that belongs to one named program: what it is, what to read first, the latest dated documents, then every source module, script, test and data file. A file can appear on several pages.', '',
+    '## For ChatGPT and other assistants', '',
+    'When asked about a specific UberBond project, open its page here first and follow its "Read first" list before answering. Paste this line into Project instructions:', '',
+    '> For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/README.md` in `mohammedwessam2007/uberbondd`, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.', '',
+    '| Project | Files | What it is |', '|---|---:|---|'];
+  for (const [id, title, description] of PROJECTS) {
+    const out = `${PROJECT_DIR}/${id}.md`;
+    const all = index.files.filter(e => e.projects?.includes(id));
+    if (!all.length) continue;
+    R.push(`| [${title}](${rel(readme, out)}) | ${all.length} | ${description} |`);
+    const live = all.filter(e => !FROZEN_RE.test(e.path));
+    const isDoc = e => /\.(md|txt)$/.test(e.path);
+    const docs = live.filter(isDoc);
+    const rank = e => (/CANON|NORTH_STAR|PROTOCOL|ARCHITECTURE/.test(e.path) ? 0 : /^(docs\/[^/]+|[^/]+)$/.test(e.path) ? 1 : /README/.test(e.path) ? 2 : 3);
+    const canon = docs.filter(e => /\.md$/.test(e.path) && !e.date && !/\/(receipts|prompts|handoffs|memory)\//.test(e.path))
+      .sort((a, b) => rank(a) - rank(b) || a.path.localeCompare(b.path));
+    const dated = docs.filter(e => e.date).sort((a, b) => b.date.localeCompare(a.date) || a.path.localeCompare(b.path));
+    const first = [...canon.slice(0, 8), ...dated.slice(0, 6)];
+    const firstSet = new Set(first);
+    const src = live.filter(e => e.area === 'src' || (e.area === 'root' && /\.mjs$/.test(e.path)));
+    const scripts = live.filter(e => e.area === 'scripts');
+    const tests = live.filter(e => e.area === 'tests');
+    const taken = new Set([...docs, ...src, ...scripts, ...tests]);
+    const rest = live.filter(e => !taken.has(e));
+    const cmds = [...new Set(live.flatMap(e => e.npm ?? []))].sort();
+    const L = [HEADER, `# ${title}`, '', description, '', BOUNDARY,
+      `**${all.length} files** match this project by name. [All projects](${rel(out, readme)}) · [Master index](${rel(out, 'REPOSITORY_INDEX.md')})`, '',
+      'Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.', ''];
+    const section = (h, items, opts = {}) => { if (items.length) { L.push(`## ${h} (${items.length})`, ''); for (const e of items) L.push(line(e, out, { showDir: true, ...opts })); L.push(''); } };
+    section('Read first', first);
+    if (cmds.length) L.push(`## Commands (${cmds.length})`, '', cmds.map(c => `\`npm run ${c}\``).join(' · '), '');
+    section('Standing documents', canon.filter(e => !firstSet.has(e)));
+    section('Dated documents, newest first', dated.filter(e => !firstSet.has(e)));
+    section('Other documents', docs.filter(e => !firstSet.has(e) && !canon.includes(e) && !dated.includes(e)));
+    section('Source modules', src);
+    section('Scripts', scripts);
+    section('Config, data, artifacts and services', rest);
+    if (tests.length) L.push(`## Tests (${tests.length})`, '', tests.map(e => `[\`${path.posix.basename(e.path, '.test.mjs')}\`](${rel(out, e.path)})`).join(' · '), '');
+    const frozen = all.length - live.length;
+    if (frozen) L.push(`## Frozen history`, '', `${frozen} further matching files sit in frozen records (forensics, recovery, archives). See [history index](${rel(out, areaFile('docs'))}).`, '');
+    outs.push([out, `${L.join('\n')}\n`]);
+  }
+  const none = index.files.filter(e => !e.projects && !FROZEN_RE.test(e.path)).length;
+  R.push('', `${none} live files match no project keyword; find them through the [folder and domain index](${rel(readme, 'REPOSITORY_INDEX.md')}).`, '');
+  outs.push([readme, `${R.join('\n')}\n`]);
+  return outs;
+}
+
 export function renderAll(index) {
-  const outputs = new Map([renderMaster(index), renderDomains(index), ...AREAS.filter(a => index.totals.byArea[a[0]]).map(a => renderArea(index, a))]);
+  const outputs = new Map([renderMaster(index), renderDomains(index), ...AREAS.filter(a => index.totals.byArea[a[0]]).map(a => renderArea(index, a)), ...renderProjects(index)]);
   outputs.set(OUT_JSON, `${JSON.stringify(index)}\n`);
   return outputs;
 }

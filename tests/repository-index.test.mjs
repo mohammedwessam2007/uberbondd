@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { AREAS, DOMAINS, buildIndex, classifyArea, classifyDomain, dateFromName, describe, normaliseName, renderAll } from '../scripts/repository-index.mjs';
+import { AREAS, DOMAINS, PROJECTS, projectsFor, buildIndex, classifyArea, classifyDomain, dateFromName, describe, normaliseName, renderAll } from '../scripts/repository-index.mjs';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const domainIds = new Set(DOMAINS.map(d => d[0]));
@@ -53,4 +53,15 @@ test('every tracked file is indexed exactly once with a known area and domain', 
   const outputs = renderAll(index);
   assert.ok(outputs.has('REPOSITORY_INDEX.md') && outputs.has('docs/index/DOMAINS.md'));
   assert.deepEqual([...renderAll(buildIndex(root))], [...outputs], 'rendering is deterministic');
+});
+
+test('project pages: a file joins every project its path names', () => {
+  assert.deepEqual(projectsFor('docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md'), ['phoenix']);
+  assert.ok(projectsFor('src/uberwarm2-protected-winnr-runtime.mjs').includes('uberwarm'));
+  assert.ok(projectsFor('src/uberwarm2-protected-winnr-runtime.mjs').includes('winnr'));
+  assert.deepEqual(projectsFor('docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md'), ['ubermind']);
+  assert.ok(projectsFor('docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md').includes('outreach'));
+  const outputs = renderAll(buildIndex(root));
+  for (const [id] of PROJECTS) assert.ok(outputs.has(`docs/projects/${id}.md`), id);
+  assert.match(outputs.get('docs/projects/phoenix.md'), /## Read first[\s\S]*PHOENIX_CONTEXT_SURVIVAL_PROTOCOL\.md/);
 });

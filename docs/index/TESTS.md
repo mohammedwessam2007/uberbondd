@@ -153,7 +153,7 @@ node:test files, almost all named after the src module or seam they cover. Run w
 - [`phoenix-ten-wave-intake.test.mjs`](../../tests/phoenix-ten-wave-intake.test.mjs) — 6 tests — e.g. "real 243 GitHub observations feed current measured Capability Genome with zero authority"
 - [`phoenix-ten-wave-mission-compiler.test.mjs`](../../tests/phoenix-ten-wave-mission-compiler.test.mjs) — 4 tests — e.g. "source-backed wave summary preserves 1560 proposals and acknowledges missing 1–2 originals"
 - [`phoenix-ten-wave-query.test.mjs`](../../tests/phoenix-ten-wave-query.test.mjs) — 3 tests — e.g. "PHOENIX source-pinned search returns bounded original pointers with zero authority"
-- [`repository-index.test.mjs`](../../tests/repository-index.test.mjs) — 5 tests — e.g. "names normalise across code and document conventions"
+- [`repository-index.test.mjs`](../../tests/repository-index.test.mjs) — 6 tests — e.g. "names normalise across code and document conventions"
 - [`repository-memory-ingestion-law.test.mjs`](../../tests/repository-memory-ingestion-law.test.mjs) — 3 tests — e.g. "material memory ingestion binds provenance date authority digest decisions contradictions and supersession links"
 - [`uberbond-atlas-stream-writer.test.mjs`](../../tests/uberbond-atlas-stream-writer.test.mjs) — 9 tests — e.g. "clean JSON preserves content, order and pretty-print structure"
 - [`uberbond-brain-bootstrap.test.mjs`](../../tests/uberbond-brain-bootstrap.test.mjs) — 14 tests — e.g. "one-command loader validates actual bootstrap, reconciled memory, and external capability pack into a zero-effect startup packet"

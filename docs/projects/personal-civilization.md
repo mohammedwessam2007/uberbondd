@@ -2,39 +2,63 @@
 
 # Personal Civilization Engine
 
-Life-system organs: personal civilization kernel, life knowledge graph, possibility engine, forecasting, capability and experience models.
+Life-system organs: personal civilization kernel, life knowledge graph, possibility and counterfactual engines, human capability genome, experience compiler, N-of-1 science.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**62 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**97 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
 ## Read first (3)
 
 - [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM
-- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — UberBond Sovereign Option & Outcome Forecast Engine — Status: TERMINAL NORTH STAR ORGAN / CHAT_SPEC_GOAL / NOT A CLAIM OF PERFECT PREDICTION
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED
 - [`docs/LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md`](../LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Life-Altering Frontier Gap Audit — 2026-09-15
 
-## Commands (1)
+## Commands (2)
 
-`npm run life:doctor`
+`npm run infinite-opus:recurrence` · `npm run life:doctor`
 
-## Source modules (23)
+## Documents that discuss this project without naming it in the filename (11)
 
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(13 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(6 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(6 mentions)_
+- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF _(6 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(4 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(3 mentions)_
+- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(3 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(3 mentions)_
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(3 mentions)_
+- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(3 mentions)_
+
+## Source modules (41)
+
+- [`src/adaptive-mastery-engine.mjs`](../../src/adaptive-mastery-engine.mjs) — Sovereign adaptive mastery engine. _(no static importers)_
+- [`src/anti-fragility-map.mjs`](../../src/anti-fragility-map.mjs) — Where a life or a business depends on one thing not failing. _(tested; imported by 1)_
+- [`src/assumption-escape.mjs`](../../src/assumption-escape.mjs) — Questions the current assumptions already answered, and how to get out. _(tested; imported by 1)_
+- [`src/century-grade-continuity.mjs`](../../src/century-grade-continuity.mjs) — exports CENTURY_GRADE_CONTINUITY_VERSION, compileCenturyContinuityPlan, verifyCenturyContinuityRehearsal _(tested; imported by 1)_
+- [`src/embodied-reality.mjs`](../../src/embodied-reality.mjs) — The body, the room, and the parts of experience that do not survive language. _(tested; imported by 1)_
 - [`src/experience-compiler.mjs`](../../src/experience-compiler.mjs) — Experiences as first-class architecture, and the limits on optimizing them. _(tested; imported by 1)_
-- [`src/forecast-adversarial-ensemble.mjs`](../../src/forecast-adversarial-ensemble.mjs) — What a room full of agreeing forecasters is actually worth. _(tested; imported by 2)_
-- [`src/forecast-decision-boundary.mjs`](../../src/forecast-decision-boundary.mjs) — Where reasoning stops, and the several different reasons it stops there. _(tested; imported by 1)_
-- [`src/forecast-parent-organ.mjs`](../../src/forecast-parent-organ.mjs) — Where a forecast earns the right to carry a number. _(tested; imported by 1)_
-- [`src/forecast-stack.mjs`](../../src/forecast-stack.mjs) — The methods a forecast is built from, and the ones that earned their place. _(tested; imported by 5)_
+- [`src/geographic-sovereignty-engine.mjs`](../../src/geographic-sovereignty-engine.mjs) — Geographic sovereignty engine. _(no static importers)_
+- [`src/health-recommendation-boundary.mjs`](../../src/health-recommendation-boundary.mjs) — exports HEALTH_RECOMMENDATION_BOUNDARY_VERSION, compileHealthRecommendationBoundary _(tested; imported by 1)_
 - [`src/human-capability-genome.mjs`](../../src/human-capability-genome.mjs) — Human capability as a dependency graph, and what growing it costs elsewhere. _(tested; imported by 2)_
+- [`src/institutional-financial-sovereignty.mjs`](../../src/institutional-financial-sovereignty.mjs) — exports INSTITUTIONAL_FINANCIAL_SOVEREIGNTY_VERSION, INSTITUTIONAL_EVIDENCE_CLASSES, compileInstitutionalFinancialLedger, admitInstitutionalEffect, r… _(tested; imported by 1)_
+- [`src/knowledge-labyrinth-ubergraph.mjs`](../../src/knowledge-labyrinth-ubergraph.mjs) — exports KNOWLEDGE_LABYRINTH_UBERGRAPH_VERSION, compileKnowledgeLabyrinth, KNOWLEDGE_LABYRINTH_DOMAINS _(tested; imported by 1)_
+- [`src/legacy-institution-engine.mjs`](../../src/legacy-institution-engine.mjs) — Durable legacy and institution capital compiler. _(no static importers)_
 - [`src/life-autopoiesis.mjs`](../../src/life-autopoiesis.mjs) — Where the parts of a life feed each other, and what a finite one costs. _(tested; imported by 1)_
 - [`src/life-compression-engine.mjs`](../../src/life-compression-engine.mjs) — Turning many facts into a few principles, without the principle eating the _(tested; imported by 1)_
 - [`src/life-decision-dimensions.mjs`](../../src/life-decision-dimensions.mjs) — A life decision described on every dimension it touches, and never collapsed. _(tested; imported by 3)_
 - [`src/life-knowledge-graph.mjs`](../../src/life-knowledge-graph.mjs) — A graph of a life, where every edge knows how it got there. _(tested; imported by 3)_
 - [`src/life-possibility-engine.mjs`](../../src/life-possibility-engine.mjs) — The inventory of branches a life still has, and what a decision does to it. _(tested; imported by 3)_
+- [`src/lifetime-context-memory.mjs`](../../src/lifetime-context-memory.mjs) — exports LIFETIME_CONTEXT_VERSION, compileLifetimeMemoryIndex, compileTaskContextPacket, compileMemoryHealthReceipt _(tested; imported by 2)_
 - [`src/living-evidence-graph.mjs`](../../src/living-evidence-graph.mjs) — exports createLivingEvidenceGraph, planLivingEvidenceDelta, applyLivingEvidenceDelta, modelLivingEvidenceDeltaCompression _(tested; imported by 1)_
 - [`src/living-self-model.mjs`](../../src/living-self-model.mjs) — A model of a person that is not allowed to become a cage. _(tested; imported by 2)_
+- [`src/multi-generation-architecture.mjs`](../../src/multi-generation-architecture.mjs) — exports compileMultiGenerationArchitecture _(tested; imported by 1)_
+- [`src/n-1-rule.mjs`](../../src/n-1-rule.mjs) — exports compileNPlusOneRule _(tested; imported by 1)_
+- [`src/n-of-1-personal-science.mjs`](../../src/n-of-1-personal-science.mjs) — Learning from one person, who does not hold still. _(tested; imported by 1)_
 - [`src/personal-civilization-capture.mjs`](../../src/personal-civilization-capture.mjs) — The front door of the private loop: a thought entering the system without _(tested; imported by 1)_
 - [`src/personal-civilization-core.mjs`](../../src/personal-civilization-core.mjs) — The private core of the Personal Civilization: capture, derive, export, delete. _(tested; imported by 5)_
 - [`src/personal-civilization-decision-loop.mjs`](../../src/personal-civilization-decision-loop.mjs) — The Sovereign Decision Packet, and the loop back to reality. _(tested; imported by 2)_
@@ -44,20 +68,33 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/personal-civilization-possibility.mjs`](../../src/personal-civilization-possibility.mjs) — A portfolio of genuinely different lives, the skeleton each would need, and _(tested; imported by 1)_
 - [`src/personal-civilization-private-operator.mjs`](../../src/personal-civilization-private-operator.mjs) — exports PERSONAL_CIVILIZATION_PRIVATE_OPERATOR_VERSION, PRIVATE_STATE_SCHEMA, PRIVATE_ENVELOPE_SCHEMA, PRIVATE_EXPORT_SCHEMA, PRIVATE_LIFE_KEY_ENV (+… _(tested; imported by 1)_
 - [`src/personal-civilization-scientific-experiment.mjs`](../../src/personal-civilization-scientific-experiment.mjs) — exports PERSONAL_CIVILIZATION_SCIENTIFIC_EXPERIMENT_VERSION, compilePersonalScientificExperiment _(tested; imported by 1)_
-- [`src/single-audit-forecast-ledger.mjs`](../../src/single-audit-forecast-ledger.mjs) — Single Audit Obligation Forecast Ledger (Prediction Accounting over public data). _(tested; imported by 1)_
+- [`src/possibility-civilization-kernel.mjs`](../../src/possibility-civilization-kernel.mjs) — exports POSSIBILITY_CIVILIZATION_KERNEL_VERSION, POSSIBILITY_TRUTH_STATES, enforceHumanAuthorityKernel, measurePossibilitySet, evaluateSovereignFutur… _(tested; imported by 1)_
+- [`src/reachable-futures.mjs`](../../src/reachable-futures.mjs) — Futures as structured counterfactuals, and what they are allowed to decide. _(tested; imported by 1)_
+- [`src/recurrence-map.mjs`](../../src/recurrence-map.mjs) — exports buildRecurrenceMap _(imported by 1)_
+- [`src/recursion-civilization-stack.mjs`](../../src/recursion-civilization-stack.mjs) — exports RECURSION_CIVILIZATION_STACK_VERSION, extractRecursionGenome, evolveRecursionMechanisms, evaluateMetaRecursionDesign, governRecursionLoops (+… _(tested; no static importers)_
+- [`src/relationship-opportunity-graph.mjs`](../../src/relationship-opportunity-graph.mjs) — Sovereign relationship opportunity graph. _(no static importers)_
+- [`src/temporal-civilization.mjs`](../../src/temporal-civilization.mjs) — One life across decades, held as Mohamed(t) rather than as Mohamed. _(tested; imported by 1)_
+- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — exports UBEROS_UNKNOWN_UNKNOWN_LAB_VERSION, PERTURBATION_FAMILIES, compileAssumptionExperiment, analyzeExperimentOutcomes, defaultOsAssumptionPortfol… _(imported by 1)_
+- [`src/unknown-unknown-mining.mjs`](../../src/unknown-unknown-mining.mjs) — Searching for the questions nobody knew to ask, which is harder than it sounds _(tested; imported by 3)_
+- [`src/value-of-information-governor.mjs`](../../src/value-of-information-governor.mjs) — exports VALUE_OF_INFORMATION_GOVERNOR_VERSION, evaluateValueOfInformation _(imported by 3)_
 
-## Scripts (2)
+## Scripts (6)
 
+- [`scripts/century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs)
+- [`scripts/infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) _(npm: `infinite-opus:recurrence`)_
+- [`scripts/institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs)
 - [`scripts/personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs the life loop end to end on a supplied situation and reports what the _(npm: `life:doctor`)_
 - [`scripts/personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — exports PRIVATE_OPERATOR_CONFIRMATION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_CYCLE_VERSION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_RUNTIME_VERSION, fo…
+- [`scripts/value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — exports runValueOfInformationDoctor
 
-## Config, data, artifacts and services (3)
+## Config, data, artifacts and services (4)
 
 - [`artifacts/personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0
-- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0
+- [`artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json`](../../artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json) — 2026-09-20 · deterministic · SOURCE_IMPLEMENTATION_PRESENT__EXECUTION_VERIFICATION_BLOCKED_BY_CI_INFRASTRUCTURE · uberbond.possibility-civilization-bootstrap-rece…
 - [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1
+- [`config/possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — RESEARCH_PROGRAM_NOT_MOONSHOT_IMPLEMENTATION_PROOF · uberbond.possibility-civilization-program.v1
 
-## Tests (31)
+## Tests (43)
 
-[`experience-compiler`](../../tests/experience-compiler.test.mjs) · [`forecast-adversarial-ensemble`](../../tests/forecast-adversarial-ensemble.test.mjs) · [`forecast-decision-boundary`](../../tests/forecast-decision-boundary.test.mjs) · [`forecast-parent-organ`](../../tests/forecast-parent-organ.test.mjs) · [`forecast-stack`](../../tests/forecast-stack.test.mjs) · [`human-capability-bottleneck-hostile`](../../tests/human-capability-bottleneck-hostile.test.mjs) · [`human-capability-genome`](../../tests/human-capability-genome.test.mjs) · [`life-altering-frontier-gap`](../../tests/life-altering-frontier-gap.test.mjs) · [`life-autopoiesis`](../../tests/life-autopoiesis.test.mjs) · [`life-compression-engine`](../../tests/life-compression-engine.test.mjs) · [`life-decision-dimensions`](../../tests/life-decision-dimensions.test.mjs) · [`life-knowledge-graph`](../../tests/life-knowledge-graph.test.mjs) · [`life-possibility-engine`](../../tests/life-possibility-engine.test.mjs) · [`living-evidence-graph`](../../tests/living-evidence-graph.test.mjs) · [`living-self-model`](../../tests/living-self-model.test.mjs) · [`personal-civilization-capture`](../../tests/personal-civilization-capture.test.mjs) · [`personal-civilization-core`](../../tests/personal-civilization-core.test.mjs) · [`personal-civilization-decision-loop`](../../tests/personal-civilization-decision-loop.test.mjs) · [`personal-civilization-doctor`](../../tests/personal-civilization-doctor.test.mjs) · [`personal-civilization-model-graph`](../../tests/personal-civilization-model-graph.test.mjs) · [`personal-civilization-possibility`](../../tests/personal-civilization-possibility.test.mjs) · [`personal-civilization-private-crypto-hostile`](../../tests/personal-civilization-private-crypto-hostile.test.mjs) · [`personal-civilization-private-operator`](../../tests/personal-civilization-private-operator.test.mjs) · [`personal-civilization-private-path-hostile`](../../tests/personal-civilization-private-path-hostile.test.mjs) · [`personal-civilization-private-reality-cycle`](../../tests/personal-civilization-private-reality-cycle.test.mjs) · [`personal-civilization-private-reality-forecast-v2`](../../tests/personal-civilization-private-reality-forecast-v2.test.mjs) · [`personal-civilization-private-reality-runtime`](../../tests/personal-civilization-private-reality-runtime.test.mjs) · [`personal-civilization-private-sovereignty`](../../tests/personal-civilization-private-sovereignty.test.mjs) · [`personal-civilization-scientific-experiment`](../../tests/personal-civilization-scientific-experiment.test.mjs) · [`personal-civilization`](../../tests/personal-civilization.test.mjs) · [`single-audit-forecast-ledger`](../../tests/single-audit-forecast-ledger.test.mjs)
+[`anti-fragility-map`](../../tests/anti-fragility-map.test.mjs) · [`assumption-escape`](../../tests/assumption-escape.test.mjs) · [`century-grade-continuity`](../../tests/century-grade-continuity.test.mjs) · [`embodied-reality`](../../tests/embodied-reality.test.mjs) · [`experience-compiler`](../../tests/experience-compiler.test.mjs) · [`health-recommendation-boundary`](../../tests/health-recommendation-boundary.test.mjs) · [`human-capability-bottleneck-hostile`](../../tests/human-capability-bottleneck-hostile.test.mjs) · [`human-capability-genome`](../../tests/human-capability-genome.test.mjs) · [`institutional-financial-sovereignty`](../../tests/institutional-financial-sovereignty.test.mjs) · [`knowledge-labyrinth-ubergraph`](../../tests/knowledge-labyrinth-ubergraph.test.mjs) · [`life-altering-frontier-gap`](../../tests/life-altering-frontier-gap.test.mjs) · [`life-autopoiesis`](../../tests/life-autopoiesis.test.mjs) · [`life-compression-engine`](../../tests/life-compression-engine.test.mjs) · [`life-decision-dimensions`](../../tests/life-decision-dimensions.test.mjs) · [`life-knowledge-graph`](../../tests/life-knowledge-graph.test.mjs) · [`life-possibility-engine`](../../tests/life-possibility-engine.test.mjs) · [`lifetime-context-memory`](../../tests/lifetime-context-memory.test.mjs) · [`living-evidence-graph`](../../tests/living-evidence-graph.test.mjs) · [`living-self-model`](../../tests/living-self-model.test.mjs) · [`multi-generation-architecture`](../../tests/multi-generation-architecture.test.mjs) · [`n-1-rule`](../../tests/n-1-rule.test.mjs) · [`n-of-1-personal-science`](../../tests/n-of-1-personal-science.test.mjs) · [`personal-civilization-capture`](../../tests/personal-civilization-capture.test.mjs) · [`personal-civilization-core`](../../tests/personal-civilization-core.test.mjs) · [`personal-civilization-decision-loop`](../../tests/personal-civilization-decision-loop.test.mjs) · [`personal-civilization-doctor`](../../tests/personal-civilization-doctor.test.mjs) · [`personal-civilization-model-graph`](../../tests/personal-civilization-model-graph.test.mjs) · [`personal-civilization-possibility`](../../tests/personal-civilization-possibility.test.mjs) · [`personal-civilization-private-crypto-hostile`](../../tests/personal-civilization-private-crypto-hostile.test.mjs) · [`personal-civilization-private-operator`](../../tests/personal-civilization-private-operator.test.mjs) · [`personal-civilization-private-path-hostile`](../../tests/personal-civilization-private-path-hostile.test.mjs) · [`personal-civilization-private-reality-cycle`](../../tests/personal-civilization-private-reality-cycle.test.mjs) · [`personal-civilization-private-reality-forecast-v2`](../../tests/personal-civilization-private-reality-forecast-v2.test.mjs) · [`personal-civilization-private-reality-runtime`](../../tests/personal-civilization-private-reality-runtime.test.mjs) · [`personal-civilization-private-sovereignty`](../../tests/personal-civilization-private-sovereignty.test.mjs) · [`personal-civilization-scientific-experiment`](../../tests/personal-civilization-scientific-experiment.test.mjs) · [`personal-civilization`](../../tests/personal-civilization.test.mjs) · [`possibility-civilization-kernel`](../../tests/possibility-civilization-kernel.test.mjs) · [`reachable-futures`](../../tests/reachable-futures.test.mjs) · [`recursion-civilization-stack`](../../tests/recursion-civilization-stack.test.mjs) · [`temporal-civilization`](../../tests/temporal-civilization.test.mjs) · [`unknown-unknown-mining`](../../tests/unknown-unknown-mining.test.mjs) · [`value-of-information-operator-reachability`](../../tests/value-of-information-operator-reachability.test.mjs)
 

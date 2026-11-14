@@ -56,13 +56,17 @@ test('every tracked file is indexed exactly once with a known area and domain', 
 });
 
 test('project pages: a file joins every project its path names', () => {
-  assert.deepEqual(projectsFor('docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md'), ['phoenix', 'continuity']);
+  assert.ok(projectsFor('docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md').includes('phoenix'));
   assert.deepEqual(projectsFor('src/phoenix-owner-vault.mjs'), ['phoenix']);
+  assert.ok(projectsFor('src/crown-succession.mjs').includes('crown'));
+  assert.ok(projectsFor('src/wallbreaker.mjs').includes('wallbreaker'));
   assert.ok(projectsFor('src/uberwarm2-protected-winnr-runtime.mjs').includes('uberwarm'));
   assert.ok(projectsFor('src/uberwarm2-protected-winnr-runtime.mjs').includes('winnr'));
   assert.ok(projectsFor('docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md').includes('ubermind'));
   assert.ok(projectsFor('docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md').includes('outreach'));
   const outputs = renderAll(buildIndex(root));
+  assert.ok(PROJECTS.length >= 70);
+  assert.equal(new Set(PROJECTS.map(p => p[0])).size, PROJECTS.length, 'project ids are unique');
   for (const [id] of PROJECTS) assert.ok(outputs.has(`docs/projects/${id}.md`), id);
   assert.match(outputs.get('docs/projects/phoenix.md'), /## Read first[\s\S]*PHOENIX_CONTEXT_SURVIVAL_PROTOCOL\.md/);
 });

@@ -6,13 +6,13 @@ Checked-in configuration and registries read by src and scripts.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**56 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**57 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
 - [North Star and life systems](#north-star-and-life-systems) — 2
 - [UberMind doctrine and library](#ubermind-doctrine-and-library) — 6
-- [Continuity, memory and handoffs](#continuity-memory-and-handoffs) — 1
+- [Continuity, memory and handoffs](#continuity-memory-and-handoffs) — 2
 - [GENESIS, moonshots and Perpetual Frontier](#genesis-moonshots-and-perpetual-frontier) — 10
 - [ASI research and evidence programs](#asi-research-and-evidence-programs) — 3
 - [Frontier cognition and model routing](#frontier-cognition-and-model-routing) — 21
@@ -41,6 +41,7 @@ Checked-in configuration and registries read by src and scripts.
 
 ## Continuity, memory and handoffs
 
+- [`repository-projects.json`](../../config/repository-projects.json) — Wessam Singularity · uberbond.repository-projects.v1
 - [`uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — uberbond.cognitive-lineage.v1
 
 ## GENESIS, moonshots and Perpetual Frontier

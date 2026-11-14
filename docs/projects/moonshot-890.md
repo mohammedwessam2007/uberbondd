@@ -2,7 +2,7 @@
 
 # Founder 890 moonshots
 
-The immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers.
+Immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
@@ -37,6 +37,15 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 ## Other documents (1)
 
 - [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,…
+
+## Documents that discuss this project without naming it in the filename (6)
+
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(6 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(3 mentions)_
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(3 mentions)_
+- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Inquiry Path Coherence Engine — Status: IMPLEMENTED + FIELD-CALIBRATED ON PUBLIC SITES (2026-10-21) / ZERO OUTBOUND / ZERO REVENUE _(3 mentions)_
+- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — UberBond: MACHIAVELLI Wealth Engine — Status: FIRST EXECUTION PROGRAM — research, invention, lab and ledgers built; cleared contribution profit $0.00 _(3 mentions)_
+- [`mind activation/CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(3 mentions)_
 
 ## Source modules (17)
 

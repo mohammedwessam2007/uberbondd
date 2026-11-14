@@ -1,0 +1,603 @@
+{
+ "schema": "uberbond.repository-projects.v1",
+ "note": "Roster of named programs for docs/projects. `path` is a case-insensitive regex tested against the lower-cased file path with `_` replaced by `-`; `mentions` is a case-sensitive regex counted inside documents. A file may belong to several projects. Add a program here, then run `npm run repo:index`.",
+ "projects": [
+  {
+   "family": "1. North Star and life",
+   "id": "wessam-singularity",
+   "title": "Wessam Singularity",
+   "description": "Founder-level meta North Star above UberBond: a falsifiable search for a personal regime change. Research target, not an achievement claim.",
+   "path": "wessam",
+   "mentions": "Wessam Singularity"
+  },
+  {
+   "family": "1. North Star and life",
+   "id": "sovereign-continuum",
+   "title": "Sovereign Cognitive Continuum",
+   "description": "Terminal North Star and its sovereignty organs: will, volition, salience, epistemic and memory sovereignty, anti-capture, intent compiler.",
+   "path": "sovereign-cognitive|continuum|north-star|sovereign-option|sovereign-decision|sovereign-initiative|volitional|salience|sovereignty-type|free-will|freedom-gradient|ruin-firewall|memory-sovereignty|epistemic|meta-rational|inter-sovereign|intent-compiler|privacy-firewall",
+   "mentions": "Sovereign Cognitive Continuum"
+  },
+  {
+   "family": "1. North Star and life",
+   "id": "personal-civilization",
+   "title": "Personal Civilization Engine",
+   "description": "Life-system organs: personal civilization kernel, life knowledge graph, possibility and counterfactual engines, human capability genome, experience compiler, N-of-1 science.",
+   "path": "personal-civilization|(^|[/-])life-|living-|human-capability|experience-compiler|future-sel|possibility-civilization|temporal-civilization|recursion-civilization|n-of-1|n-1-rule|embodied|reachable-futures|century|lifetime|adaptive-mastery|knowledge-labyrinth|geographic-sovereignty|legacy-institution|multi-generation|relationship-opportunity|unknown-unknown|value-of-information|anti-fragility|assumption-escape|recurrence-map|health-recommendation|institutional-financial",
+   "mentions": "Personal Civilization"
+  },
+  {
+   "family": "1. North Star and life",
+   "id": "forecast-engine",
+   "title": "Sovereign Option and Outcome Forecast Engine",
+   "description": "Option universe, outcome distributions, adversarial ensembles, calibration ledger and decision packets.",
+   "path": "forecast|decision-twin|reality-calibration|decision-packet|decision-boundary",
+   "mentions": "Forecast Engine|Calibration Ledger|Decision Packet"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "ubermind",
+   "title": "UberMind",
+   "description": "Cognition program: constitutions V4-V10, Omega46-52 doctrine cards, founder 52 concepts, grand library, Mind Activation folder, and UberMind economics modules.",
+   "path": "ubermind|^library/|^mind activation/|omega(4[6-9]|5[0-2])|founder-52|founder-directive",
+   "mentions": "UberMind|UBERMIND"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "phoenix",
+   "title": "PHOENIX",
+   "description": "Context survival: PHOENIX protocol and checkpoints, continuity capsule, chat-first cloud brain, capability waves 3-10, phoenix-mcp connector.",
+   "path": "phoenix",
+   "mentions": "PHOENIX"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "brain-memory",
+   "title": "Brain, Total Brain and Master Memory",
+   "description": "Repository-native company memory: brain packet, Total Brain, Master Memory, cognitive graph and bus, synaptic map, feature genome, deep atlas.",
+   "path": "brain|memory|uberbond-(cognitive|synaptic|ultimate|metacog|feature|repository|atlas)|cognitive-bus|whole-brain|context-(journal|history|projection|replication|schema|source|task|privacy|compress)|uberbond-canon|uberbond-bootstrap|ultimate-graph|canon-freshness|growth-graph|context-(active|local|universe)|nervous-system|cognitive-loop|uber-closure-index|repository-index",
+   "mentions": "Total Brain|Master Memory|Cognitive Bus"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "handoffs-checkpoints",
+   "title": "Handoffs and checkpoints",
+   "description": "Current handoff and system state, dated handoffs, session checkpoints and cross-chat recovery protocols.",
+   "path": "handoff|checkpoint|current-(system|truth|reality)|cross-chat|universal-context|chat-import|ai-start-here|start-here"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "apotheosis-orchestration",
+   "title": "APOTHEOSIS and orchestration checkpoints",
+   "description": "Founder orchestration packets P00-P49, Apotheosis runtime and final orchestrator, orchestration control plane.",
+   "path": "apotheosis|orchestrat",
+   "mentions": "APOTHEOSIS|Apotheosis"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "historical-lineage",
+   "title": "Everest, SUMMIT 100, BLACK SKY, Ragnarok lineage",
+   "description": "Named historical milestone programs and their closure audits: Everest, SUMMIT 100, BLACK SKY, Reality Activation, Ragnarok, Night War.",
+   "path": "summit|everest|black-sky|ragnarok|night-war|reality-activation|historical-project-lineage|memory-reconciliation",
+   "mentions": "Everest|SUMMIT 100|BLACK SKY|Ragnarok"
+  },
+  {
+   "family": "2. Doctrine, memory and continuity",
+   "id": "work-astra-sol",
+   "title": "Work, Astra and Sol sessions",
+   "description": "Prompts, bootstraps and receipts for GPT Work / Astra / Sol company-brain sessions and Claude mega-missions.",
+   "path": "(^|[/-])work-|astra|gpt-|(^|[/-])sol-|docs/prompts/|mega-mission|docs/work/|artifacts/work/",
+   "mentions": "Astra|GPT-5\\.6 Sol|Work session"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "genesis",
+   "title": "GENESIS, GENESIS2 and Ontogenesis",
+   "description": "Open-ended invention engine: idea bursts, mechanism compiler, ontology, scientist, escalation tribunal, venture organism, world resilience.",
+   "path": "genesis|ontogenesis|perpetual-frontier",
+   "mentions": "GENESIS|Ontogenesis|ONTOGENESIS"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "moonshot-890",
+   "title": "Founder 890 moonshots",
+   "description": "Immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers.",
+   "path": "moonshot|founder-890|[-/]890[-.]",
+   "mentions": "founder-moonshot-\\d{4}|890 (original|founder|ideas)"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "gamechanger",
+   "title": "Gamechanger mesh and frontier sensing",
+   "description": "Always-on world sensing for discontinuities: Gamechanger mesh, zero-day frontier radar, sensorium, future primitive extractor.",
+   "path": "gamechanger|zero-day|sensorium|future-primitive|competitor-catch-up",
+   "mentions": "Gamechanger"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "million-wormhole",
+   "title": "Million-branch ideation and Wormhole",
+   "description": "Million-branch ideation genome, wormhole universe/tournament/operators, interstellar wormhole mechanisms, billion-capability and task universes.",
+   "path": "million-(branch|wormhole)|wormhole|interstellar|billion|task-universe|thread-opportunity",
+   "mentions": "Wormhole"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "temporal-foundry",
+   "title": "Temporal Foundry and timeline topology",
+   "description": "Temporal foundry, timeline topology engine and challenge, epoch branching.",
+   "path": "temporal-foundry|timeline|epoch-branching",
+   "mentions": "Temporal Foundry"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "neural-exocortex",
+   "title": "Neural Exocortex and Connectome",
+   "description": "Neural exocortex genome and store, repository atlas (50K/million-repo), GitHub harvest, connectome autopoiesis.",
+   "path": "exocortex|neural-|connectome|million-repo",
+   "mentions": "Exocortex|Connectome"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "sandwich-method",
+   "title": "Sandwich Method",
+   "description": "Sandwich method canon: agent task shaping, blueprint evolution, autocatalytic governor, descendant admission.",
+   "path": "sandwich",
+   "mentions": "Sandwich"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "frontier",
+   "title": "Frontier intelligence runtime",
+   "description": "Frontier VM, cognitive fabric, council and reasoning runtimes, absorption, tournaments, operator and learning autopilot.",
+   "path": "frontier",
+   "mentions": "Frontier (VM|Operator|Engine|Company OS|Intelligence)"
+  },
+  {
+   "family": "3. Invention and frontier",
+   "id": "apex",
+   "title": "APEX campaigns",
+   "description": "APEX frontier-quality-compression campaign, Jev reasoning hypercompiler, sealed tournament, public scorecard.",
+   "path": "apex-",
+   "mentions": "APEX"
+  },
+  {
+   "family": "4. ASI research and evidence",
+   "id": "nullstar",
+   "title": "NULLSTAR Omega",
+   "description": "Project NULLSTAR Omega: generations GA1-GA8, baselines, holdouts, calibration ladder, denominator, terminal summary.",
+   "path": "nullstar",
+   "mentions": "NULLSTAR"
+  },
+  {
+   "family": "4. ASI research and evidence",
+   "id": "omega-lab",
+   "title": "Omega private-evidence lab and canaries",
+   "description": "Omega private lab, policy meta-learner, intent superposition, lawspace, and the mathematical canary families (ontological, cubefree, power-free, multiplicity, causal).",
+   "path": "(^|[/-])omega-(?!4|5)|ontological-|cubefree|fourth-power|fifth-power|parameterized|multiplicity|external-arithmetic|causal-compiler|causal-semantic|lawspace|structural-transfer|-canary-v\\d|cognitive-matter|multidimensional-velocity",
+   "mentions": "Lawspace|private evidence"
+  },
+  {
+   "family": "4. ASI research and evidence",
+   "id": "c21-asi-evidence",
+   "title": "C21 and ASI evidence tribunals",
+   "description": "C21 evidence factory and current-head tribunal, literal and system-level ASI claim tribunals, private ASI status.",
+   "path": "c21-|c13-|literal-asi|private-asi|system-level-asi|asi-",
+   "mentions": "C21|SYSTEM_LEVEL_ASI"
+  },
+  {
+   "family": "4. ASI research and evidence",
+   "id": "inevitability-v9",
+   "title": "Inevitability Engine V9 carrier",
+   "description": "Hash-locked lossless carrier of the 146 MB NULLSTAR Omega Infinity Inevitability Engine V9 source and its materializer.",
+   "path": "inevitability-v9|materialize-inevitability|artifacts/v9/",
+   "mentions": "Inevitability Engine"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "infinite-opus",
+   "title": "Infinite Opus and Frontier-Max",
+   "description": "Intelligence-per-dollar program: Infinite Opus runtime, market, scoreboard, task compilers, TypingMind gateway, and the `open router/` canon folder.",
+   "path": "infinite-opus|^open router/|typingmind|opus-",
+   "mentions": "Infinite Opus|Frontier-Max|TypingMind"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "crown",
+   "title": "Crown",
+   "description": "Strongest-model seat: Crown admission, tournament, succession, sealed checkpoints, output surgery, capitalization audit.",
+   "path": "crown",
+   "mentions": "Crown"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "jev-uberlit",
+   "title": "Jev and UberLit",
+   "description": "Jev semantic control plane and its UberLit runtime: calibration vault, promotion foundry, governed service, noetic autocompiler, Oracle free-host activation.",
+   "path": "jev|uberlit|noetic|oracle-free",
+   "mentions": "Jev|UberLit"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "model-routing",
+   "title": "OpenRouter and Open Model Universe",
+   "description": "Model market and routing: OpenRouter adapters and auctions, open model registry/foundry, provider executors, model failover.",
+   "path": "openrouter|open-model|model-(rout|foundry|provider|failure|adaptation)|agent-model|-executor|vercel-ai-gateway|in-kind-cognition",
+   "mentions": "OpenRouter|Open Model Universe"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "semantic-closure",
+   "title": "Semantic closure and execution-leaf kernel",
+   "description": "Semantic closure kernel, requirement tribunal, terminal convergence, canonical execution-leaf graph, residual and remaining-cut evidence.",
+   "path": "semantic-|terminal-(convergence|semantic)|interpretation-closure|finite-closure|canonical-(execution|zero)|execution-leaf|residual|remaining-cut|cut-evidence|certified-frontier|achieved-opus|absolute-frontier"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "cognition-ledger",
+   "title": "Cognition ledger and economics",
+   "description": "Cognition ledger and transport guard, cognitive capital ledger and journal, unified cognition ledger, compute budgets, decision franchise, System One routing.",
+   "path": "cognition-|cognitive-(capital|event|journal|superopt)|unified-cognition|decision-franchise|system-one|ai-compute-budget|compute-budget|provable-",
+   "mentions": "Decision Franchise|System One"
+  },
+  {
+   "family": "5. Cognition economics and model routing",
+   "id": "reasoning-lab",
+   "title": "Reasoning architecture and evaluation",
+   "description": "Reasoning architecture lab, compound intelligence evaluation, cross-domain transfer, invariant cognition compiler, self-alienating challengers.",
+   "path": "reasoning-|compound-intelligence|cross-domain|transfer-evaluation|invariant-cognition|elite-capability|mission-brain|artificial-imagination"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "agent-mesh",
+   "title": "Agent mesh and autonomy loop",
+   "description": "Autonomous agent loop, scheduler, pump, mesh control plane and activation gate, worker runtime, code-change contract and sandbox verifier.",
+   "path": "agent-(autonomy|mesh|worker|code|compute|git|sandbox|native|provider|evolution)|autonomy|autonomous|durable-|worker|scheduler|job-handlers|queue|agent-execution|audit-agent|sandbox-|code-(search|evaluate)|document-(generate|summarize)|data-extract|genome-extraction|tp03|chat-peer",
+   "mentions": "Agent Mesh|agent mesh"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "relay",
+   "title": "Relays (ChatGPT, Claude, cloud, GitHub)",
+   "description": "Cross-agent relay: agent relay adapters, ChatGPT/Claude/cloud relay clients, GitHub issues relay, Vercel preview relay deployment.",
+   "path": "relay",
+   "mentions": "relay"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "uber-socket",
+   "title": "Uber Socket",
+   "description": "Uber Socket runtime, connectome runtime, cognitive backplane, project mesh, shared content fabric, and the browser extension.",
+   "path": "uber-socket|ubersocket",
+   "mentions": "Uber ?Socket"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "ai-employees",
+   "title": "AI employees and Avengers",
+   "description": "AI employee charter, relay and role contracts; Avengers arsenal, squad planner and execution guard; ghost agent.",
+   "path": "ai-employee|avengers|ghost-agent|uberagent|uberswarm",
+   "mentions": "Avengers|AI employee"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "night",
+   "title": "Night Shift, Nightfall and overnight lanes",
+   "description": "Overnight control, intent, journey and distribution; Nightfall handoffs; night frontier, verification, postal, payment-closure and integration lanes.",
+   "path": "night|overnight",
+   "mentions": "Nightfall|Night Shift|NIGHTFALL"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "self-maintainer",
+   "title": "Self-maintainer, constitution and recursive governance",
+   "description": "Self-upgrade under governance: self-maintainer runtime and trusted promotion, constitution compiler, recursive governance, mutation inventory, UberDNA software genome.",
+   "path": "self-maintain|self-upgrade|self-improvement|self-verifying|mutation|constitution|recursive-|uberdna|failure-to-patch",
+   "mentions": "self-maintainer|Self-Maintainer|UberDNA"
+  },
+  {
+   "family": "6. Agents and automation",
+   "id": "assistant-integrations",
+   "title": "Claude, ChatGPT and assistant integrations",
+   "description": "Claude Code project config and executors, ChatGPT project importer, MCP registration, claude.ai integration, Cursor/Codex/Gemini pointers.",
+   "path": "claude|chatgpt|openai|anthropic|gemini|copilot|^\\.cursor/|^\\.codex/|mcp|^integrations/"
+  },
+  {
+   "family": "7. Capabilities and skills",
+   "id": "capability-genome",
+   "title": "Capability Genome",
+   "description": "World capability discovery, harvest, normalization, dedupe, admission, retrieval and routing; external capability control plane.",
+   "path": "capability",
+   "mentions": "Capability Genome"
+  },
+  {
+   "family": "7. Capabilities and skills",
+   "id": "wallbreaker",
+   "title": "Wallbreaker",
+   "description": "Governed adaptive problem-solving kernel, cognitive reflex and Million-Wall solver lineage.",
+   "path": "wallbreaker|million-wall",
+   "mentions": "Wallbreaker"
+  },
+  {
+   "family": "7. Capabilities and skills",
+   "id": "skills-plugins",
+   "title": "Skills, plugins and Task Observer",
+   "description": "Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observer observation log, skill assimilation canon.",
+   "path": "skills?/|uberskills|skill-observ|task-observer|find-skills|^plugins/|ai-skill-plugin|external-skill",
+   "mentions": "Task Observer|Find Skills"
+  },
+  {
+   "family": "8. Governance, authority and proof",
+   "id": "omnia",
+   "title": "OMNIA",
+   "description": "OMNIA V9 policy-evidence-execution admission kernel, Cedar policy, V7 state and gap ledger, OMNIA lineage X10-X512M.",
+   "path": "omnia|(^|/)v7[-/]",
+   "mentions": "OMNIA"
+  },
+  {
+   "family": "8. Governance, authority and proof",
+   "id": "authority-evidence",
+   "title": "Consent, authority, proof and effect ledgers",
+   "description": "Consent bridge and receipts, proof factory and proof DAG, evidence integrity, effect ledgers, consequence boundary, external proof router, supplier exit drills.",
+   "path": "consent|proof|evidence-|effect-|consequence|authority|revocation|supplier-exit|institution-cell|founder-exception|governance|policy|verifier-trust|shadow-canary|robust-minimax|data-minimization|reservation|external-reality-action|live-activation-gate|github-actions-oidc|client-identity|owner-footer|r3-candidate|causal-attribution"
+  },
+  {
+   "family": "8. Governance, authority and proof",
+   "id": "readiness-audits",
+   "title": "Readiness, reachability and coverage audits",
+   "description": "Coverage matrices, reachability classification, organ callability, readiness conservation, health matrices and the doctor scripts.",
+   "path": "coverage|reachab|readiness|callability|inventory|health-matrix|system-health|doctor|audit-scan|secret|security"
+  },
+  {
+   "family": "9. Email infrastructure",
+   "id": "uberwarm",
+   "title": "UberWarm and UberWarm2",
+   "description": "Mailbox warmup: seed and receiver evidence, one-shot runtimes, provider observation, placement reading, ledgers, callback services.",
+   "path": "uberwarm|warmup",
+   "mentions": "UberWarm"
+  },
+  {
+   "family": "9. Email infrastructure",
+   "id": "winnr",
+   "title": "Winnr",
+   "description": "Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries, first-cash Winnr missions.",
+   "path": "winnr",
+   "mentions": "Winnr"
+  },
+  {
+   "family": "9. Email infrastructure",
+   "id": "ubermail-uberdoso",
+   "title": "UberMail and UberDoso",
+   "description": "Owned mail stack: UberMail agent API, foundry and JIT provisioning; UberDoso kernel, DNS contract and delivery policy; Maildoso bridge.",
+   "path": "ubermail|uberdoso|maildoso|mailhub|ubersmtp|uberimap",
+   "mentions": "UberMail|UberDoso"
+  },
+  {
+   "family": "9. Email infrastructure",
+   "id": "inboxes-placement",
+   "title": "Inboxes, placement and reputation",
+   "description": "Inbox supply and quality: UberInboxes, UberClayInbox, UberPlacement, UberReputation, UberQuality, UberAttention, UberWorm, AgentMail, Gmail inbound.",
+   "path": "uberinbox|uberclayinbox|uberplacement|uberreputation|uberquality|uberattention|uberworm|agentmail|gmail|coldmailserver|emailpal|deliverability",
+   "mentions": "UberInboxes|UberPlacement"
+  },
+  {
+   "family": "9. Email infrastructure",
+   "id": "dns-domains",
+   "title": "DNS, domains and fleet",
+   "description": "UberDNS control plane and GoDaddy adapter, domain purpose plan, domain/mailbox readiness and circuit breakers, sending registries, UberFleet, egress topology.",
+   "path": "uberdns|dns|domain|uberfleet|uberegress|egress|fixed-host|sending-(domain|mailbox)|sender-infra|reserved-domains",
+   "mentions": "UberDNS|UberFleet"
+  },
+  {
+   "family": "10. Outreach and distribution",
+   "id": "outreach",
+   "title": "Outreach (umbrella)",
+   "description": "Everything outreach: cold email system, 100K corpus, governance, launch gates, workbench, provider reality, one-button activation.",
+   "path": "outreach|outbound|cold-email|cold-route|zero-barrier|instantly|00-outreach",
+   "mentions": "Outreach|cold email"
+  },
+  {
+   "family": "10. Outreach and distribution",
+   "id": "prospecting-leadgen",
+   "title": "Prospecting and lead generation",
+   "description": "Prospect identity, qualification, enrichment and preflight; lead generation and intelligence; contact verification; company registry and public-web discovery.",
+   "path": "prospect|lead|contact|discovery|enrichment|invited|profile-discovery|uberlookalike|uberverify|ubersupply|compan(y|ies)|egypt|corporate|crawl|overpass|robots|browser|web-(crawl|render|context)|public-(research|signal)",
+   "mentions": "Lead OS|lead generation"
+  },
+  {
+   "family": "10. Outreach and distribution",
+   "id": "uberreach-uberoutbound",
+   "title": "UberReach, UberOutbound and UberLaunch",
+   "description": "UberOutbound genome and policy registry, UberReach control plane and universal transport, UberLaunch one-button closure, UberPostal identity, postal live send.",
+   "path": "uberreach|uberoutbound|uberlaunch|uberpostal|postal|uberbuy|ubertruth|ubereconomics|send-safety|send-authorization|governed-outreach|lawful-channel",
+   "mentions": "UberReach|UberOutbound|UberLaunch"
+  },
+  {
+   "family": "10. Outreach and distribution",
+   "id": "reply-closing",
+   "title": "UberReply, replies and async closing",
+   "description": "Reply taxonomy and tournament, four-offer genome, prework artifacts, reply radar, inbound classification, proposal acceptance, UberClose, async no-meeting sales.",
+   "path": "reply|uberclose|inbound|buyer|proposal|async|unsubscribe|suppression|recipient",
+   "mentions": "UberReply|UberClose|async"
+  },
+  {
+   "family": "10. Outreach and distribution",
+   "id": "distribution-os",
+   "title": "Distribution OS and channels",
+   "description": "Distribution control plane, channel and concentration models, vendor map, omnichannel, voice, social and form contracts, partner multiplier.",
+   "path": "distribution|omnichannel|voice-telephony|social-publication|form-feedback|external-crm|partner|messaging",
+   "mentions": "Distribution OS"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "revenue-payments",
+   "title": "Revenue and payments (umbrella)",
+   "description": "Money path: revenue runtime and ledgers, PayPal and payment truth, billing webhooks, reconciliation, renewal truth, accounting export.",
+   "path": "revenue|payment|paypal|billing|lemonsqueezy|accounting|receivables|invoice|money-|subscription-clearing|paid-amount|volume-quota|webhook-route",
+   "mentions": "cleared payment|PayPal"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "revenue-constellation",
+   "title": "Revenue Singularity, Constellation and G-SPOT",
+   "description": "Revenue Singularity service, Revenue Constellation spatial model, G-SPOT one-button orchestration, Money Queue, owner session.",
+   "path": "constellation|gspot|revenue-singularity|money-queue|owner-session",
+   "mentions": "Revenue Constellation|G-SPOT|Revenue Singularity"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "first-cash",
+   "title": "First cash and first customer",
+   "description": "First-cash canary guard and packets, first payment packet, fulfilment runtime, first-customer playbook, pre-customer readiness.",
+   "path": "first-cash|first-money|first-payment|first-customer|pre-customer|real-prospect-canary",
+   "mentions": "First-Cash|first cash"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "offers-fulfilment",
+   "title": "Offers, services and fulfilment",
+   "description": "Offer compiler, market maker and quartet; service SKUs; fulfilment router; delivery loop and transport; booking; staging content.",
+   "path": "offer|service-|fulfil|delivery|booking|sku|staging-content|creator|ai-automation-service",
+   "mentions": "Offer Quartet|offer"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "economic-engines",
+   "title": "Economic reliability and wealth engines",
+   "description": "Economic reliability engine and control loop, metabolism, universal wealth engine, eight-hour simulators, capital allocator, Machiavelli wealth engine, commercial genome.",
+   "path": "economic-|universal-wealth|eight-hour|wealth|capital|machiavelli|technology-to-money|business-model|commercial|organism-metabolism",
+   "mentions": "Machiavelli|Wealth Engine|Commercial Genome"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "inquiry-audit-product",
+   "title": "Inquiry-path audits and verified defects",
+   "description": "The website lead-path audit product: inquiry path probe, coherence and runtime witness, verified-defects actor, findings, audit rules, visual QA.",
+   "path": "inquiry|verified-defects|lead-path|audit-rules|visual-qa|review-probes|dossier|findings|proof-carrying-renderer",
+   "mentions": "Lead-Path|inquiry path"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "client-engagements",
+   "title": "Client engagements (Powerhouse, Contra, Halfteck)",
+   "description": "Named counterparties and their receipts: Powerhouse EG scope and proof, Contra collection readiness and project draft, Halfteck supplier packet.",
+   "path": "powerhouse|contra|halfteck|forward-first",
+   "mentions": "Powerhouse|Halfteck"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "lite-cash-engine",
+   "title": "Cash Engine Lite",
+   "description": "Standalone `lite/` app and its deployment guides. Do not modify without a separately justified mission.",
+   "path": "^lite/|cash-engine-lite|lite-env|lite-audit|tests/lite"
+  },
+  {
+   "family": "11. Revenue and commerce",
+   "id": "quant-lab",
+   "title": "Quant research lab",
+   "description": "Research-only quant: backtest, data vault, paper ledger, research protocol, strategies. No live trading authority.",
+   "path": "quant",
+   "mentions": "quant"
+  },
+  {
+   "family": "12. Opportunity and world intelligence",
+   "id": "prometheus",
+   "title": "Prometheus",
+   "description": "Market-sensing and commercial-memory spine: control tower, economic spine, opportunity system, source adapters, self-upgrade waves.",
+   "path": "prometheus",
+   "mentions": "Prometheus"
+  },
+  {
+   "family": "12. Opportunity and world intelligence",
+   "id": "opportunity-factory",
+   "title": "Opportunity factory, Event Horizon and World Brain",
+   "description": "Opportunity registry, factory and tournament; Event Horizon economic genome; World Brain field mission; market signals; mechanism lab; AI access registry.",
+   "path": "opportunit|event-horizon|world-(brain|intelligence|resource)|market-signal|mechanism-lab|ai-access|bounded-experiment|approved-source|adaptive-source|research-source|world-signal|research-singularity|emerging-ai|pre-future-research|single-audit",
+   "mentions": "Event Horizon|World Brain|Business Genome"
+  },
+  {
+   "family": "13. Founder operations",
+   "id": "command-center",
+   "title": "Command center and founder console",
+   "description": "Command center UI and service worker, founder center/ops view, admin pages, operator escalation and health snapshot, Renaissance page.",
+   "path": "command-center|founder-(ops|command|center|console|private)|operator-|^public/|center\\.html|renaissance|admin",
+   "mentions": "Command Center|command center"
+  },
+  {
+   "family": "13. Founder operations",
+   "id": "kilimanjaro",
+   "title": "Kilimanjaro and founder absence",
+   "description": "Founder-absence autonomous organism: Kilimanjaro scorecards and evidence, absence readiness and blocker doctor, founder outcome missions.",
+   "path": "kilimanjaro|founder-absence|founder-outcome|founder-minute|founder-directive-reconciler|blackout",
+   "mentions": "Kilimanjaro"
+  },
+  {
+   "family": "13. Founder operations",
+   "id": "green-lane",
+   "title": "Global green lane and free routing",
+   "description": "Global green-lane router and discovery, route economics and tournament, free runtime mesh, free mission clock, UberZero substitution, UberGrant.",
+   "path": "green-lane|global-(green|route|policy)|free-(runtime|mission|first)|uberzero|ubergrant|uberdepin"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "sovereign-selfhost",
+   "title": "Sovereign self-host stack",
+   "description": "Self-hosted deployment: sovereign Docker images and compose, `ops/sovereign`, bootstrap readiness, coverage matrix, institutional harness, compute cell fabric, root recovery.",
+   "path": "sovereign-(bootstrap|compute|context|coverage|cut|expansion|institutional|local|money|native|release|revenue|root|self-host|infrastructure|founder-first)|ops/sovereign|dockerfile\\.sovereign|docker-compose\\.sovereign|uber-sovereign|compute-sovereignty|artifacts/sovereign/|sovereign-(24x7|forever|founder-dialogue|air|authoring|communication|control|offline|oracle|ubermesh)|sovereignty-self|recovery-sovereignty|enforcement-surface|api/sovereign|sovereign-stack|sovereign-substrate|sovereign-fabric",
+   "mentions": "self-host"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "ubercel-cloud",
+   "title": "UberCel, UberCloud and UberOcean",
+   "description": "Owned deployment plane: UberCel actuator and doctor, UberCloud Contabo cells, UberOcean compute fabric, UberStatic runtime, UberSubstrate.",
+   "path": "ubercel|ubercloud|uberocean|uberstatic|ubersubstrate|contabo",
+   "mentions": "UberCel|UberCloud|UberOcean"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "uberos",
+   "title": "UBER/OS",
+   "description": "Sovereign compute substrate program: Buildroot generation 0, kernel adapter, state engine, machine manifest.",
+   "path": "uberos|uber-os",
+   "mentions": "UBER/OS|UberOS"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "uberwatt",
+   "title": "UberWatt and energy-compute mesh",
+   "description": "UberWatt energy program and the moonshot energy/compute substrate mesh.",
+   "path": "uberwatt|energy-compute",
+   "mentions": "UberWatt"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "data-stores",
+   "title": "Postgres, stores and migrations",
+   "description": "Postgres platform and backup/restore, embedded Postgres fixtures, store and queue, database hygiene, SQL migrations.",
+   "path": "postgres|database|(^|/)store|^migrations/|migrations-pending|db\\.sample|json-import"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "platform-deploy",
+   "title": "Platform deployment and providers",
+   "description": "Vercel, Render, Railway, Docker and Cloudflare/Supabase runtimes; provider adapter contracts; systemd units and host install scripts; CI workflows.",
+   "path": "vercel|render\\.yaml|railway|docker|cloudflare|supabase|deploy|^ops/|^runtime/|^\\.github/|provider-|portable|server|runtime-"
+  },
+  {
+   "family": "14. Infrastructure",
+   "id": "core-platform",
+   "title": "Server core, shared utilities and test harness",
+   "description": "Web and worker entry points, shared utility modules (config, crypto, csv, http retry, input, pipeline, store), package manifest, syntax check and test runner.",
+   "path": "^(server|server-core|worker|portable-server|soak-probe)\\.mjs|^package|^\\.(env|git)|(^|/)(utils|config|crypto|csv|http-retry|input|input-config|pipeline[a-z0-9-]*|artifacts|copy|ai|core|build-wiring|check-syntax|run-tests|seed|migrate|import-json|integration-smoke|separate-services-smoke|json-store[a-z-]*|resolve-chromium|host-family|source-root-identity|source-repository[a-z-]*|resource-efficiency|smtp-canary[a-z-]*)(\\.test)?\\.(mjs|cjs)$|docs/(architecture|limitations|recovery-matrix|external-asset-reality|harness-assurance[a-z0-9-]*)\\.md$|^agents\\.md$|^readme\\.md$|next-steps"
+  },
+  {
+   "family": "15. Side programs",
+   "id": "neu205",
+   "title": "NEU205 ONE",
+   "description": "Separate study-tool engineering continuation (public, source-only navigation; private course material is not in the repo).",
+   "path": "neu205",
+   "mentions": "NEU205"
+  }
+ ]
+}

@@ -108,34 +108,11 @@ export function classifyDomain(file) {
 // Named programs. Unlike domains, membership is by keyword anywhere in the path and a file may
 // belong to several projects. Each project gets one self-contained context page.
 const PROJECT_DIR = 'docs/projects';
-export const PROJECTS = [
-  ['outreach', 'Outreach and Distribution OS', 'Cold email and distribution: prospect discovery and qualification, message genome and tournaments, governed sending, reply handling, suppression, the offer quartet and first-cash path.', /outreach|outbound|prospect|cold-email|uberreach|uberreply|reply-|leadgen|lead-|distribution|postal|unsubscribe|recipient|suppression|message-tournament|offer-quartet/],
-  ['ubermind', 'UberMind', 'The cognition program: UberMind constitutions V4-V10, Omega46-52 doctrine cards, the founder 52 concepts, the grand library, and UberMind economics/routing modules.', /ubermind|^library\/|^mind activation\/|omega(4[6-9]|5[0-2])|founder-52|founder-directive/],
-  ['phoenix', 'PHOENIX', 'Context-survival and continuity: PHOENIX checkpoints, capsules, the chat-first cloud brain, capability waves, the phoenix-mcp app and runtime doctors.', /phoenix/],
-  ['uberwarm', 'UberWarm / UberWarm2', 'Mailbox warmup: seed and receiver evidence, one-shot runtimes, provider observation, placement reading, ledgers and the callback services.', /uberwarm|warmup/],
-  ['winnr', 'Winnr', 'Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries and the first-cash Winnr missions.', /winnr/],
-  ['mail-infrastructure', 'UberMail, UberDoso and sending infrastructure', 'Owned mail stack: UberMail, UberDoso, MailHub, DNS control, domain and mailbox registries, inbox factories and fleet.', /ubermail|uberdoso|mailhub|uberinbox|uberimap|ubersmtp|uberdns|uberfleet|domain-mailbox|sending-(domain|mailbox)|sender-infra|dns-/],
-  ['genesis', 'GENESIS and Perpetual Frontier', 'Open-ended invention: GENESIS, GENESIS2, Ontogenesis, Gamechanger sensing, idea bursts, the escalation tribunal and the 275-idea frontier registry.', /genesis|ontogenesis|perpetual-frontier|gamechanger/],
-  ['moonshot-890', 'Founder 890 moonshots', 'The immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers.', /moonshot|founder-890|[-/]890[-.]/],
-  ['nullstar', 'NULLSTAR', 'Project NULLSTAR Omega: generations GA1-GA8, baselines, holdouts, calibration ladder, denominator and terminal summary.', /nullstar/],
-  ['omega-asi', 'Omega lab and ASI evidence', 'Omega private-evidence lab, C21 evidence factory, literal/system-level ASI tribunals and the mathematical canary families.', /(^|[/-])omega-|c21-|literal-asi|private-asi|system-level-asi|-canary-v\d|ontological-/],
-  ['infinite-opus', 'Infinite Opus, Crown and Frontier-Max', 'The intelligence-per-dollar program: Infinite Opus runtime, Crown admission and succession, TypingMind gateway and the `open router/` canon folder.', /infinite-opus|^open router\/|crown-|typingmind|opus-/],
-  ['jev', 'Jev and UberLit', 'Jev semantic control plane and its UberLit runtime: calibration vault, promotion foundry, governed runtime service, Oracle free-host activation.', /jev|uberlit/],
-  ['model-routing', 'OpenRouter and model routing', 'Model market and routing: OpenRouter adapters, Open Model Universe, model foundry, provider executors and failover.', /openrouter|open-model|model-(rout|foundry|provider|failure|adaptation)|agent-model|-executor/],
-  ['frontier', 'Frontier intelligence runtime', 'Frontier VM, cognitive fabric, council and reasoning runtimes, absorption and tournaments, APEX campaigns.', /frontier|apex-/],
-  ['capability-genome', 'Capability Genome and skills', 'World capability discovery, admission, retrieval and routing; neural exocortex; Avengers arsenal; Wallbreaker; project skills.', /capability|exocortex|avengers|wallbreaker|neural-|skills?\/|uberskills/],
-  ['agent-mesh', 'Agent mesh, relay and orchestration', 'Autonomous agent loop, mesh control plane, relays between ChatGPT/Claude/cloud, Uber Socket, Apotheosis orchestration.', /agent-|apotheosis|relay|uber-socket|autonomy|orchestrat/],
-  ['night', 'Nightfall and overnight lanes', 'Night Shift / Nightfall / overnight control, journey, verification, postal, payment-closure and integration lanes.', /night|overnight/],
-  ['founder-ops', 'Command center, Kilimanjaro and founder absence', 'Founder-facing operation: command center UI, founder ops view, Kilimanjaro evidence, absence readiness, operator escalation.', /kilimanjaro|founder-absence|command-center|founder-(ops|command|center|console)|operator-/],
-  ['omnia', 'OMNIA governance kernel', 'OMNIA V9 policy-evidence-execution admission kernel, V7 state, consent and proof machinery.', /omnia|(^|\/)v7[-/]|consent-|proof-/],
-  ['sovereign', 'Sovereign programs', 'Everything named Sovereign: the Cognitive Continuum North Star and forecast engine, plus the sovereign self-host stack, coverage matrix and institutional harness.', /sovereign|continuum|north-star/],
-  ['personal-civilization', 'Personal Civilization Engine', 'Life-system organs: personal civilization kernel, life knowledge graph, possibility engine, forecasting, capability and experience models.', /personal-civilization|(^|[/-])life-|living-|human-capability|experience-compiler|forecast|future-sel/],
-  ['opportunity', 'Prometheus, Event Horizon and opportunities', 'Market sensing and opportunity selection: Prometheus, Event Horizon, World Brain, opportunity factory and tournament, market signals.', /prometheus|opportunit|event-horizon|world-brain|market-signal|machiavelli|quant-/],
-  ['revenue-payments', 'Revenue, payments and delivery', 'Money path: offers, Revenue Constellation and G-SPOT, PayPal and payment truth, billing, fulfilment, delivery and economic reliability.', /revenue|payment|paypal|billing|first-cash|commercial|gspot|constellation|fulfil|economic-|wealth|^lite\//],
-  ['self-maintainer', 'Self-maintainer and constitution', 'Self-upgrade under governance: self-maintainer runtime and promotion, constitution compiler, recursive governance, mutation testing.', /self-maintain|self-upgrade|self-improvement|mutation|constitution|recursive-/],
-  ['infrastructure', 'Hosting and runtime infrastructure', 'Where it runs: UberCel, UberCloud, UberOcean, UberOS, Postgres, Vercel/Render/Railway/Docker config, ops scripts and migrations.', /ubercel|ubercloud|uberocean|uberos|postgres|deploy|vercel|render|railway|docker|^ops\/|^migrations\/|^runtime\//],
-  ['continuity', 'Memory, handoffs and brain', 'Cross-chat continuity outside PHOENIX: Total Brain, Master Memory, current handoff, checkpoints, context journal, brain packet.', /handoff|memory|brain|checkpoint|(^|[/-])context-|current-(handoff|system|truth|reality)/]
-];
+const FROZEN_RE = /^(docs\/forensics|artifacts\/recovery|historical-archive|docs\/history|docs\/archive)\//;
+const PROJECT_CONFIG = JSON.parse(fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'config', 'repository-projects.json'), 'utf8'));
+// Tuple shape: [id, title, description, pathRegex, family, mentionsRegex|null]
+export const PROJECTS = PROJECT_CONFIG.projects.map(p => [p.id, p.title, p.description, new RegExp(p.path), p.family, p.mentions ? new RegExp(p.mentions, 'g') : null]);
+const MENTION_MIN = 3;
 export function projectsFor(file) {
   const key = file.toLowerCase().replace(/[_\s]+/g, m => (m.includes(' ') ? ' ' : '-'));
   return PROJECTS.filter(p => p[3].test(key)).map(p => p[0]);
@@ -280,6 +257,11 @@ export function buildIndex(root) {
     }
     const e = { path: file, area: classifyArea(file), domain: classifyDomain(file), bytes };
     const projects = projectsFor(file); if (projects.length) e.projects = projects;
+    if (text && /\.(md|txt)$/.test(file) && !FROZEN_RE.test(file)) {
+      const mentions = {};
+      for (const p of PROJECTS) if (p[5] && !projects.includes(p[0])) { const n = (text.match(p[5]) ?? []).length; if (n >= MENTION_MIN) mentions[p[0]] = n; }
+      if (Object.keys(mentions).length) e.mentions = mentions;
+    }
     const desc = e.area === 'root' && ROOT_ROLES[file] ? ROOT_ROLES[file] : describe(file, text);
     if (desc) e.title = desc;
     const date = dateFromName(file); if (date) e.date = date;
@@ -410,7 +392,6 @@ function renderMaster(index) {
   return [out, `${L.join('\n')}\n`];
 }
 
-const FROZEN_RE = /^(docs\/forensics|artifacts\/recovery|historical-archive|docs\/history|docs\/archive)\//;
 function renderProjects(index) {
   const outs = [];
   const readme = `${PROJECT_DIR}/README.md`;
@@ -419,11 +400,13 @@ function renderProjects(index) {
     '## For ChatGPT and other assistants', '',
     'When asked about a specific UberBond project, open its page here first and follow its "Read first" list before answering. Paste this line into Project instructions:', '',
     '> For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/README.md` in `mohammedwessam2007/uberbondd`, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.', '',
-    '| Project | Files | What it is |', '|---|---:|---|'];
-  for (const [id, title, description] of PROJECTS) {
+    `**${PROJECTS.length} projects** in ${new Set(PROJECTS.map(p => p[4])).size} families. The roster lives in \`config/repository-projects.json\`; add a program there and run \`npm run repo:index\`.`, ''];
+  let family = null;
+  for (const [id, title, description, , fam] of PROJECTS) {
     const out = `${PROJECT_DIR}/${id}.md`;
     const all = index.files.filter(e => e.projects?.includes(id));
     if (!all.length) continue;
+    if (fam !== family) { family = fam; R.push('', `### ${fam}`, '', '| Project | Files | What it is |', '|---|---:|---|'); }
     R.push(`| [${title}](${rel(readme, out)}) | ${all.length} | ${description} |`);
     const live = all.filter(e => !FROZEN_RE.test(e.path));
     const isDoc = e => /\.(md|txt)$/.test(e.path);
@@ -449,6 +432,8 @@ function renderProjects(index) {
     section('Standing documents', canon.filter(e => !firstSet.has(e)));
     section('Dated documents, newest first', dated.filter(e => !firstSet.has(e)));
     section('Other documents', docs.filter(e => !firstSet.has(e) && !canon.includes(e) && !dated.includes(e)));
+    const discuss = index.files.filter(e => e.mentions?.[id]).sort((a, b) => b.mentions[id] - a.mentions[id] || a.path.localeCompare(b.path)).slice(0, 40);
+    if (discuss.length) { L.push(`## Documents that discuss this project without naming it in the filename (${discuss.length})`, ''); for (const e of discuss) L.push(`${line(e, out, { showDir: true })} _(${e.mentions[id]} mentions)_`); L.push(''); }
     section('Source modules', src);
     section('Scripts', scripts);
     section('Config, data, artifacts and services', rest);

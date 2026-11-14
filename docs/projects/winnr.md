@@ -2,7 +2,7 @@
 
 # Winnr
 
-Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries and the first-cash Winnr missions.
+Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries, first-cash Winnr missions.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
@@ -49,6 +49,41 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`winnr/LIVE_RECONCILIATION_2026-10-02.md`](../../winnr/LIVE_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Live Reconciliation — 2026-10-02 — Status: TECHNICAL CONNECTOR COMPLETE / PLACEMENT SPLIT / CAMPAIGN NOT ACTIVATED
 - [`winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`](../../winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Personal Inbox Reconciliation — 2026-10-02 — Truth class: OWNER_REPORTED_PLACEMENT. The reported messages, senders and receiving address were not specified. Preserve this as useful ev…
 - [`docs/WINNR_PREPURCHASE_GATE_2026-10-01.md`](../WINNR_PREPURCHASE_GATE_2026-10-01.md) — 2026-10-01 · Winnr Pre-Purchase Gate
+
+## Documents that discuss this project without naming it in the filename (32)
+
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(15 mentions)_
+- [`docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md`](../missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md) — 2026-10-18 · PHOENIX / UBERWARM TOTAL CLOSURE + SOVEREIGN BACKUP _(14 mentions)_
+- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(12 mentions)_
+- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY _(12 mentions)_
+- [`services/uberwarm-canonical-neon-function/README.md`](../../services/uberwarm-canonical-neon-function/README.md) — UberWarm: Winnr → Neon canonical signed ingress _(9 mentions)_
+- [`services/uberwarm-callback/supabase/README.md`](../../services/uberwarm-callback/supabase/README.md) — UberWarm Supabase Edge receiving node _(8 mentions)_
+- [`docs/reports/UBERWARM_SIX_SIGNER_MANUAL_ONE_SHOT_LAUNCHER_20261019.md`](../reports/UBERWARM_SIX_SIGNER_MANUAL_ONE_SHOT_LAUNCHER_20261019.md) — 2026-10-19 · PHOENIX UberWarm: separate protected one-shot launcher _(7 mentions)_
+- [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Current commercial/outreach hot pointer. _(6 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(6 mentions)_
+- [`docs/reports/UBERWARM_LIVE_PROVIDER_SCHEMA_AND_OWNER_PROBE_GATE_20261018.md`](../reports/UBERWARM_LIVE_PROVIDER_SCHEMA_AND_OWNER_PROBE_GATE_20261018.md) — 2026-10-18 · UberWarm verified Winnr mailbox schema and remaining owner-probe gate _(6 mentions)_
+- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier _(5 mentions)_
+- [`docs/receipts/UBERWARM_ZERO_PAID_CRON_BRIDGE_20261020.md`](../receipts/UBERWARM_ZERO_PAID_CRON_BRIDGE_20261020.md) — 2026-10-20 · PHOENIX / UberWarm zero-paid scheduled one-shot bridge / 2026-10-20 _(5 mentions)_
+- [`docs/reports/UBERWARM_PROTECTED_ONE_SHOT_COMPOSITION_20261019.md`](../reports/UBERWARM_PROTECTED_ONE_SHOT_COMPOSITION_20261019.md) — 2026-10-19 · UberWarm 1–6: Protected one-shot runtime composition _(5 mentions)_
+- [`docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`](../UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md) — 2026-10-01 · UberWarm² Capability Donor Synthesis — Truth class: CLEAN-ROOM CAPABILITY SYNTHESIS + SOURCE IMPLEMENTATION. No provider purchase, DNS mutation, credential entry, external seed-network crea… _(5 mentions)_
+- [`docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`](../handoffs/WORK_CONTRA_CURRENT_2026-10-06.md) — 2026-10-06 · Contra first-cash continuation — Status: CONTRA_EGYPT_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_SETUP_PENDING _(4 mentions)_
+- [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) — 2026-10-11 · PHOENIX First-Cash Main Progress / 2026-10-11 — Truth class: SOURCE-BOUNDED MAIN CHECKPOINT + AUTHENTICATED PROVIDER/CI RECEIPT POINTERS + PUBLIC RESEARCH, NOT RELEASE OR FIRST SEND. _(4 mentions)_
+- [`docs/receipts/PR1388_MAIN_RECONCILIATION_2026-10-11.md`](../receipts/PR1388_MAIN_RECONCILIATION_2026-10-11.md) — 2026-10-11 · PHOENIX: Integration #1388 safely reconciled with current main _(4 mentions)_
+- [`docs/receipts/UBERWARM_CANONICAL_NEON_20261020.md`](../receipts/UBERWARM_CANONICAL_NEON_20261020.md) — 2026-10-20 · PHOENIX: UberWarm signed adverse event ingress is direct-to-canonical Neon _(4 mentions)_
+- [`docs/receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md`](../receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md) — 2026-10-02 · UberBond Work live reality closure — 2026-10-02 — Truth class: LIVE RUNTIME + SOURCE REVIEW + EXPLICIT AUTHENTICATION BOUNDARIES. This receipt grants no send authority. Companion: [machine… _(4 mentions)_
+- [`docs/reports/UBERWARM_SOVEREIGN_NO_PAID_WARMER_LIVE_OBSERVER_20261018.md`](../reports/UBERWARM_SOVEREIGN_NO_PAID_WARMER_LIVE_OBSERVER_20261018.md) — 2026-10-18 · UberWarm 1–6 sovereign zero-paid-warmer live observer _(4 mentions)_
+- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); } _(4 mentions)_
+- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(4 mentions)_
+- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(3 mentions)_
+- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(3 mentions)_
+- [`docs/missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt`](../missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt) — 2026-10-18 · PHOENIX-UBERWARM-OMEGA-20261018-R1 / EXECUTE, DO NOT REWRITE _(3 mentions)_
+- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen… _(3 mentions)_
+- [`docs/receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md`](../receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md) — 2026-10-03 · Global Green-Lane live reality bridge — 3 October 2026 _(3 mentions)_
+- [`docs/receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md`](../receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md) — 2026-10-03 · Outreach completion reality refresh — 2026-10-03 — Truth class: current source, fresh protected production reads, independent public evidence and bounded remaining owner/legal facts. _(3 mentions)_
+- [`docs/receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md`](../receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md) — 2026-10-03 · Work outreach final boss reality — 2026-10-03 — Truth class: live account observations, exact source/deployment receipts, and explicit failed-read boundaries. Supersedes [October 2 Work rec… _(3 mentions)_
+- [`docs/reports/UBERWARM_HTTPS_TRANSPORT_HEALTH_FINAL_GATE_20261017.md`](../reports/UBERWARM_HTTPS_TRANSPORT_HEALTH_FINAL_GATE_20261017.md) — 2026-10-17 · UberWarm: signed HTTPS transport health gate, 17 October 2026 — Truth class: implemented and locally tested source on current main descendant. Not a production send approval, probe, Inbox p… _(3 mentions)_
+- [`docs/reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md`](../reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md) — 2026-10-18 · UberWarm 1–6: provider DNS hold without Winnr paid warming _(3 mentions)_
+- [`docs/reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md`](../reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md) — 2026-10-18 · UberWarm 1–6: no-paid provider-DNS hold control _(3 mentions)_
 
 ## Source modules (19)
 

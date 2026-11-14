@@ -12,34 +12,159 @@ When asked about a specific UberBond project, open its page here first and follo
 
 > For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/README.md` in `mohammedwessam2007/uberbondd`, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.
 
+**76 projects** in 15 families. The roster lives in `config/repository-projects.json`; add a program there and run `npm run repo:index`.
+
+
+### 1. North Star and life
+
 | Project | Files | What it is |
 |---|---:|---|
-| [Outreach and Distribution OS](outreach.md) | 393 | Cold email and distribution: prospect discovery and qualification, message genome and tournaments, governed sending, reply handling, suppression, the offer quartet and first-cash path. |
-| [UberMind](ubermind.md) | 240 | The cognition program: UberMind constitutions V4-V10, Omega46-52 doctrine cards, the founder 52 concepts, the grand library, and UberMind economics/routing modules. |
-| [PHOENIX](phoenix.md) | 107 | Context-survival and continuity: PHOENIX checkpoints, capsules, the chat-first cloud brain, capability waves, the phoenix-mcp app and runtime doctors. |
-| [UberWarm / UberWarm2](uberwarm.md) | 148 | Mailbox warmup: seed and receiver evidence, one-shot runtimes, provider observation, placement reading, ledgers and the callback services. |
-| [Winnr](winnr.md) | 80 | Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries and the first-cash Winnr missions. |
-| [UberMail, UberDoso and sending infrastructure](mail-infrastructure.md) | 85 | Owned mail stack: UberMail, UberDoso, MailHub, DNS control, domain and mailbox registries, inbox factories and fleet. |
-| [GENESIS and Perpetual Frontier](genesis.md) | 168 | Open-ended invention: GENESIS, GENESIS2, Ontogenesis, Gamechanger sensing, idea bursts, the escalation tribunal and the 275-idea frontier registry. |
-| [Founder 890 moonshots](moonshot-890.md) | 92 | The immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers. |
-| [NULLSTAR](nullstar.md) | 157 | Project NULLSTAR Omega: generations GA1-GA8, baselines, holdouts, calibration ladder, denominator and terminal summary. |
-| [Omega lab and ASI evidence](omega-asi.md) | 250 | Omega private-evidence lab, C21 evidence factory, literal/system-level ASI tribunals and the mathematical canary families. |
-| [Infinite Opus, Crown and Frontier-Max](infinite-opus.md) | 235 | The intelligence-per-dollar program: Infinite Opus runtime, Crown admission and succession, TypingMind gateway and the `open router/` canon folder. |
-| [Jev and UberLit](jev.md) | 91 | Jev semantic control plane and its UberLit runtime: calibration vault, promotion foundry, governed runtime service, Oracle free-host activation. |
-| [OpenRouter and model routing](model-routing.md) | 85 | Model market and routing: OpenRouter adapters, Open Model Universe, model foundry, provider executors and failover. |
-| [Frontier intelligence runtime](frontier.md) | 208 | Frontier VM, cognitive fabric, council and reasoning runtimes, absorption and tournaments, APEX campaigns. |
-| [Capability Genome and skills](capability-genome.md) | 228 | World capability discovery, admission, retrieval and routing; neural exocortex; Avengers arsenal; Wallbreaker; project skills. |
-| [Agent mesh, relay and orchestration](agent-mesh.md) | 290 | Autonomous agent loop, mesh control plane, relays between ChatGPT/Claude/cloud, Uber Socket, Apotheosis orchestration. |
-| [Nightfall and overnight lanes](night.md) | 134 | Night Shift / Nightfall / overnight control, journey, verification, postal, payment-closure and integration lanes. |
-| [Command center, Kilimanjaro and founder absence](founder-ops.md) | 98 | Founder-facing operation: command center UI, founder ops view, Kilimanjaro evidence, absence readiness, operator escalation. |
-| [OMNIA governance kernel](omnia.md) | 167 | OMNIA V9 policy-evidence-execution admission kernel, V7 state, consent and proof machinery. |
-| [Sovereign programs](sovereign.md) | 279 | Everything named Sovereign: the Cognitive Continuum North Star and forecast engine, plus the sovereign self-host stack, coverage matrix and institutional harness. |
-| [Personal Civilization Engine](personal-civilization.md) | 62 | Life-system organs: personal civilization kernel, life knowledge graph, possibility engine, forecasting, capability and experience models. |
-| [Prometheus, Event Horizon and opportunities](opportunity.md) | 96 | Market sensing and opportunity selection: Prometheus, Event Horizon, World Brain, opportunity factory and tournament, market signals. |
-| [Revenue, payments and delivery](revenue-payments.md) | 293 | Money path: offers, Revenue Constellation and G-SPOT, PayPal and payment truth, billing, fulfilment, delivery and economic reliability. |
-| [Self-maintainer and constitution](self-maintainer.md) | 107 | Self-upgrade under governance: self-maintainer runtime and promotion, constitution compiler, recursive governance, mutation testing. |
-| [Hosting and runtime infrastructure](infrastructure.md) | 266 | Where it runs: UberCel, UberCloud, UberOcean, UberOS, Postgres, Vercel/Render/Railway/Docker config, ops scripts and migrations. |
-| [Memory, handoffs and brain](continuity.md) | 285 | Cross-chat continuity outside PHOENIX: Total Brain, Master Memory, current handoff, checkpoints, context journal, brain packet. |
+| [Wessam Singularity](wessam-singularity.md) | 5 | Founder-level meta North Star above UberBond: a falsifiable search for a personal regime change. Research target, not an achievement claim. |
+| [Sovereign Cognitive Continuum](sovereign-continuum.md) | 60 | Terminal North Star and its sovereignty organs: will, volition, salience, epistemic and memory sovereignty, anti-capture, intent compiler. |
+| [Personal Civilization Engine](personal-civilization.md) | 97 | Life-system organs: personal civilization kernel, life knowledge graph, possibility and counterfactual engines, human capability genome, experience compiler, N-of-1 science. |
+| [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) | 19 | Option universe, outcome distributions, adversarial ensembles, calibration ledger and decision packets. |
 
-957 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
+### 2. Doctrine, memory and continuity
+
+| Project | Files | What it is |
+|---|---:|---|
+| [UberMind](ubermind.md) | 240 | Cognition program: constitutions V4-V10, Omega46-52 doctrine cards, founder 52 concepts, grand library, Mind Activation folder, and UberMind economics modules. |
+| [PHOENIX](phoenix.md) | 107 | Context survival: PHOENIX protocol and checkpoints, continuity capsule, chat-first cloud brain, capability waves 3-10, phoenix-mcp connector. |
+| [Brain, Total Brain and Master Memory](brain-memory.md) | 202 | Repository-native company memory: brain packet, Total Brain, Master Memory, cognitive graph and bus, synaptic map, feature genome, deep atlas. |
+| [Handoffs and checkpoints](handoffs-checkpoints.md) | 133 | Current handoff and system state, dated handoffs, session checkpoints and cross-chat recovery protocols. |
+| [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) | 40 | Founder orchestration packets P00-P49, Apotheosis runtime and final orchestrator, orchestration control plane. |
+| [Everest, SUMMIT 100, BLACK SKY, Ragnarok lineage](historical-lineage.md) | 16 | Named historical milestone programs and their closure audits: Everest, SUMMIT 100, BLACK SKY, Reality Activation, Ragnarok, Night War. |
+| [Work, Astra and Sol sessions](work-astra-sol.md) | 83 | Prompts, bootstraps and receipts for GPT Work / Astra / Sol company-brain sessions and Claude mega-missions. |
+
+### 3. Invention and frontier
+
+| Project | Files | What it is |
+|---|---:|---|
+| [GENESIS, GENESIS2 and Ontogenesis](genesis.md) | 151 | Open-ended invention engine: idea bursts, mechanism compiler, ontology, scientist, escalation tribunal, venture organism, world resilience. |
+| [Founder 890 moonshots](moonshot-890.md) | 92 | Immutable 890 founder idea corpus and everything compiled from it: realization state, technology tree, substrate mesh, experiment and portfolio compilers. |
+| [Gamechanger mesh and frontier sensing](gamechanger.md) | 28 | Always-on world sensing for discontinuities: Gamechanger mesh, zero-day frontier radar, sensorium, future primitive extractor. |
+| [Million-branch ideation and Wormhole](million-wormhole.md) | 29 | Million-branch ideation genome, wormhole universe/tournament/operators, interstellar wormhole mechanisms, billion-capability and task universes. |
+| [Temporal Foundry and timeline topology](temporal-foundry.md) | 13 | Temporal foundry, timeline topology engine and challenge, epoch branching. |
+| [Neural Exocortex and Connectome](neural-exocortex.md) | 30 | Neural exocortex genome and store, repository atlas (50K/million-repo), GitHub harvest, connectome autopoiesis. |
+| [Sandwich Method](sandwich-method.md) | 23 | Sandwich method canon: agent task shaping, blueprint evolution, autocatalytic governor, descendant admission. |
+| [Frontier intelligence runtime](frontier.md) | 195 | Frontier VM, cognitive fabric, council and reasoning runtimes, absorption, tournaments, operator and learning autopilot. |
+| [APEX campaigns](apex.md) | 18 | APEX frontier-quality-compression campaign, Jev reasoning hypercompiler, sealed tournament, public scorecard. |
+
+### 4. ASI research and evidence
+
+| Project | Files | What it is |
+|---|---:|---|
+| [NULLSTAR Omega](nullstar.md) | 157 | Project NULLSTAR Omega: generations GA1-GA8, baselines, holdouts, calibration ladder, denominator, terminal summary. |
+| [Omega private-evidence lab and canaries](omega-lab.md) | 239 | Omega private lab, policy meta-learner, intent superposition, lawspace, and the mathematical canary families (ontological, cubefree, power-free, multiplicity, causal). |
+| [C21 and ASI evidence tribunals](c21-asi-evidence.md) | 61 | C21 evidence factory and current-head tribunal, literal and system-level ASI claim tribunals, private ASI status. |
+| [Inevitability Engine V9 carrier](inevitability-v9.md) | 23 | Hash-locked lossless carrier of the 146 MB NULLSTAR Omega Infinity Inevitability Engine V9 source and its materializer. |
+
+### 5. Cognition economics and model routing
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Infinite Opus and Frontier-Max](infinite-opus.md) | 208 | Intelligence-per-dollar program: Infinite Opus runtime, market, scoreboard, task compilers, TypingMind gateway, and the `open router/` canon folder. |
+| [Crown](crown.md) | 39 | Strongest-model seat: Crown admission, tournament, succession, sealed checkpoints, output surgery, capitalization audit. |
+| [Jev and UberLit](jev-uberlit.md) | 96 | Jev semantic control plane and its UberLit runtime: calibration vault, promotion foundry, governed service, noetic autocompiler, Oracle free-host activation. |
+| [OpenRouter and Open Model Universe](model-routing.md) | 88 | Model market and routing: OpenRouter adapters and auctions, open model registry/foundry, provider executors, model failover. |
+| [Semantic closure and execution-leaf kernel](semantic-closure.md) | 77 | Semantic closure kernel, requirement tribunal, terminal convergence, canonical execution-leaf graph, residual and remaining-cut evidence. |
+| [Cognition ledger and economics](cognition-ledger.md) | 64 | Cognition ledger and transport guard, cognitive capital ledger and journal, unified cognition ledger, compute budgets, decision franchise, System One routing. |
+| [Reasoning architecture and evaluation](reasoning-lab.md) | 24 | Reasoning architecture lab, compound intelligence evaluation, cross-domain transfer, invariant cognition compiler, self-alienating challengers. |
+
+### 6. Agents and automation
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Agent mesh and autonomy loop](agent-mesh.md) | 219 | Autonomous agent loop, scheduler, pump, mesh control plane and activation gate, worker runtime, code-change contract and sandbox verifier. |
+| [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) | 63 | Cross-agent relay: agent relay adapters, ChatGPT/Claude/cloud relay clients, GitHub issues relay, Vercel preview relay deployment. |
+| [Uber Socket](uber-socket.md) | 22 | Uber Socket runtime, connectome runtime, cognitive backplane, project mesh, shared content fabric, and the browser extension. |
+| [AI employees and Avengers](ai-employees.md) | 38 | AI employee charter, relay and role contracts; Avengers arsenal, squad planner and execution guard; ghost agent. |
+| [Night Shift, Nightfall and overnight lanes](night.md) | 134 | Overnight control, intent, journey and distribution; Nightfall handoffs; night frontier, verification, postal, payment-closure and integration lanes. |
+| [Self-maintainer, constitution and recursive governance](self-maintainer.md) | 115 | Self-upgrade under governance: self-maintainer runtime and trusted promotion, constitution compiler, recursive governance, mutation inventory, UberDNA software genome. |
+| [Claude, ChatGPT and assistant integrations](assistant-integrations.md) | 120 | Claude Code project config and executors, ChatGPT project importer, MCP registration, claude.ai integration, Cursor/Codex/Gemini pointers. |
+
+### 7. Capabilities and skills
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Capability Genome](capability-genome.md) | 135 | World capability discovery, harvest, normalization, dedupe, admission, retrieval and routing; external capability control plane. |
+| [Wallbreaker](wallbreaker.md) | 10 | Governed adaptive problem-solving kernel, cognitive reflex and Million-Wall solver lineage. |
+| [Skills, plugins and Task Observer](skills-plugins.md) | 55 | Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observer observation log, skill assimilation canon. |
+
+### 8. Governance, authority and proof
+
+| Project | Files | What it is |
+|---|---:|---|
+| [OMNIA](omnia.md) | 129 | OMNIA V9 policy-evidence-execution admission kernel, Cedar policy, V7 state and gap ledger, OMNIA lineage X10-X512M. |
+| [Consent, authority, proof and effect ledgers](authority-evidence.md) | 303 | Consent bridge and receipts, proof factory and proof DAG, evidence integrity, effect ledgers, consequence boundary, external proof router, supplier exit drills. |
+| [Readiness, reachability and coverage audits](readiness-audits.md) | 251 | Coverage matrices, reachability classification, organ callability, readiness conservation, health matrices and the doctor scripts. |
+
+### 9. Email infrastructure
+
+| Project | Files | What it is |
+|---|---:|---|
+| [UberWarm and UberWarm2](uberwarm.md) | 148 | Mailbox warmup: seed and receiver evidence, one-shot runtimes, provider observation, placement reading, ledgers, callback services. |
+| [Winnr](winnr.md) | 80 | Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries, first-cash Winnr missions. |
+| [UberMail and UberDoso](ubermail-uberdoso.md) | 48 | Owned mail stack: UberMail agent API, foundry and JIT provisioning; UberDoso kernel, DNS contract and delivery policy; Maildoso bridge. |
+| [Inboxes, placement and reputation](inboxes-placement.md) | 42 | Inbox supply and quality: UberInboxes, UberClayInbox, UberPlacement, UberReputation, UberQuality, UberAttention, UberWorm, AgentMail, Gmail inbound. |
+| [DNS, domains and fleet](dns-domains.md) | 54 | UberDNS control plane and GoDaddy adapter, domain purpose plan, domain/mailbox readiness and circuit breakers, sending registries, UberFleet, egress topology. |
+
+### 10. Outreach and distribution
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Outreach (umbrella)](outreach.md) | 221 | Everything outreach: cold email system, 100K corpus, governance, launch gates, workbench, provider reality, one-button activation. |
+| [Prospecting and lead generation](prospecting-leadgen.md) | 158 | Prospect identity, qualification, enrichment and preflight; lead generation and intelligence; contact verification; company registry and public-web discovery. |
+| [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) | 78 | UberOutbound genome and policy registry, UberReach control plane and universal transport, UberLaunch one-button closure, UberPostal identity, postal live send. |
+| [UberReply, replies and async closing](reply-closing.md) | 63 | Reply taxonomy and tournament, four-offer genome, prework artifacts, reply radar, inbound classification, proposal acceptance, UberClose, async no-meeting sales. |
+| [Distribution OS and channels](distribution-os.md) | 42 | Distribution control plane, channel and concentration models, vendor map, omnichannel, voice, social and form contracts, partner multiplier. |
+
+### 11. Revenue and commerce
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Revenue and payments (umbrella)](revenue-payments.md) | 168 | Money path: revenue runtime and ledgers, PayPal and payment truth, billing webhooks, reconciliation, renewal truth, accounting export. |
+| [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) | 41 | Revenue Singularity service, Revenue Constellation spatial model, G-SPOT one-button orchestration, Money Queue, owner session. |
+| [First cash and first customer](first-cash.md) | 26 | First-cash canary guard and packets, first payment packet, fulfilment runtime, first-customer playbook, pre-customer readiness. |
+| [Offers, services and fulfilment](offers-fulfilment.md) | 51 | Offer compiler, market maker and quartet; service SKUs; fulfilment router; delivery loop and transport; booking; staging content. |
+| [Economic reliability and wealth engines](economic-engines.md) | 109 | Economic reliability engine and control loop, metabolism, universal wealth engine, eight-hour simulators, capital allocator, Machiavelli wealth engine, commercial genome. |
+| [Inquiry-path audits and verified defects](inquiry-audit-product.md) | 25 | The website lead-path audit product: inquiry path probe, coherence and runtime witness, verified-defects actor, findings, audit rules, visual QA. |
+| [Client engagements (Powerhouse, Contra, Halfteck)](client-engagements.md) | 95 | Named counterparties and their receipts: Powerhouse EG scope and proof, Contra collection readiness and project draft, Halfteck supplier packet. |
+| [Cash Engine Lite](lite-cash-engine.md) | 45 | Standalone `lite/` app and its deployment guides. Do not modify without a separately justified mission. |
+| [Quant research lab](quant-lab.md) | 9 | Research-only quant: backtest, data vault, paper ledger, research protocol, strategies. No live trading authority. |
+
+### 12. Opportunity and world intelligence
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Prometheus](prometheus.md) | 24 | Market-sensing and commercial-memory spine: control tower, economic spine, opportunity system, source adapters, self-upgrade waves. |
+| [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) | 79 | Opportunity registry, factory and tournament; Event Horizon economic genome; World Brain field mission; market signals; mechanism lab; AI access registry. |
+
+### 13. Founder operations
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Command center and founder console](command-center.md) | 120 | Command center UI and service worker, founder center/ops view, admin pages, operator escalation and health snapshot, Renaissance page. |
+| [Kilimanjaro and founder absence](kilimanjaro.md) | 45 | Founder-absence autonomous organism: Kilimanjaro scorecards and evidence, absence readiness and blocker doctor, founder outcome missions. |
+| [Global green lane and free routing](green-lane.md) | 46 | Global green-lane router and discovery, route economics and tournament, free runtime mesh, free mission clock, UberZero substitution, UberGrant. |
+
+### 14. Infrastructure
+
+| Project | Files | What it is |
+|---|---:|---|
+| [Sovereign self-host stack](sovereign-selfhost.md) | 196 | Self-hosted deployment: sovereign Docker images and compose, `ops/sovereign`, bootstrap readiness, coverage matrix, institutional harness, compute cell fabric, root recovery. |
+| [UberCel, UberCloud and UberOcean](ubercel-cloud.md) | 36 | Owned deployment plane: UberCel actuator and doctor, UberCloud Contabo cells, UberOcean compute fabric, UberStatic runtime, UberSubstrate. |
+| [UBER/OS](uberos.md) | 21 | Sovereign compute substrate program: Buildroot generation 0, kernel adapter, state engine, machine manifest. |
+| [UberWatt and energy-compute mesh](uberwatt.md) | 7 | UberWatt energy program and the moonshot energy/compute substrate mesh. |
+| [Postgres, stores and migrations](data-stores.md) | 72 | Postgres platform and backup/restore, embedded Postgres fixtures, store and queue, database hygiene, SQL migrations. |
+| [Platform deployment and providers](platform-deploy.md) | 381 | Vercel, Render, Railway, Docker and Cloudflare/Supabase runtimes; provider adapter contracts; systemd units and host install scripts; CI workflows. |
+| [Server core, shared utilities and test harness](core-platform.md) | 89 | Web and worker entry points, shared utility modules (config, crypto, csv, http retry, input, pipeline, store), package manifest, syntax check and test runner. |
+
+### 15. Side programs
+
+| Project | Files | What it is |
+|---|---:|---|
+| [NEU205 ONE](neu205.md) | 1 | Separate study-tool engineering continuation (public, source-only navigation; private course material is not in the repo). |
+
+20 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

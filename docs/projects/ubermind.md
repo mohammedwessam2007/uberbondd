@@ -2,7 +2,7 @@
 
 # UberMind
 
-The cognition program: UberMind constitutions V4-V10, Omega46-52 doctrine cards, the founder 52 concepts, the grand library, and UberMind economics/routing modules.
+Cognition program: constitutions V4-V10, Omega46-52 doctrine cards, founder 52 concepts, grand library, Mind Activation folder, and UberMind economics modules.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
@@ -138,6 +138,37 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION
 - [`library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / SOVEREIGN EVIDENCE-FIRST CONTINUUM
 - [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS
+
+## Documents that discuss this project without naming it in the filename (28)
+
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(28 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(12 mentions)_
+- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(12 mentions)_
+- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(11 mentions)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(11 mentions)_
+- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(11 mentions)_
+- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(9 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(8 mentions)_
+- [`open router/12_REFERENCE_VALUE_LEDGER.md`](../../open%20router/12_REFERENCE_VALUE_LEDGER.md) — 12 — Reference-Value Ledger _(8 mentions)_
+- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(8 mentions)_
+- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN _(7 mentions)_
+- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(7 mentions)_
+- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(7 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat. _(6 mentions)_
+- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics _(6 mentions)_
+- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(6 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(5 mentions)_
+- [`docs/INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(4 mentions)_
+- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM _(4 mentions)_
+- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(4 mentions)_
+- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(4 mentions)_
+- [`open router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../../open%20router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(4 mentions)_
+- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(4 mentions)_
+- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(4 mentions)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ — Wave 2 native production test integration _(3 mentions)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(3 mentions)_
+- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF _(3 mentions)_
+- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands. _(3 mentions)_
 
 ## Source modules (28)
 

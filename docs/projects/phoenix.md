@@ -2,7 +2,7 @@
 
 # PHOENIX
 
-Context-survival and continuity: PHOENIX checkpoints, capsules, the chat-first cloud brain, capability waves, the phoenix-mcp app and runtime doctors.
+Context survival: PHOENIX protocol and checkpoints, continuity capsule, chat-first cloud brain, capability waves 3-10, phoenix-mcp connector.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
@@ -65,6 +65,43 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 ## Other documents (1)
 
 - [`artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt`](../../artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt) — https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking
+
+## Documents that discuss this project without naming it in the filename (34)
+
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(12 mentions)_
+- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(6 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(6 mentions)_
+- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics _(6 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md) — 2026-10-09 · UberMind Ω9: Claude 5.5 Lineup Budget-Aware Sovereign Routing _(5 mentions)_
+- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA11 / Five-Hour Minimum Usage at the Same Quality _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(4 mentions)_
+- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine _(4 mentions)_
+- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION _(4 mentions)_
+- [`mind activation/CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(4 mentions)_
+- [`mind activation/README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint _(4 mentions)_
+- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(3 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md) — 2026-10-09 · UberMind Ω10 / Screenshot agents compared with the real UberMind brain _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt) — ╔══════════════════════════════════════════════════════════════════════╗ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38) _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA _(3 mentions)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ / WAVE 1: PUBLIC WORKLOAD EVIDENCE INTEGRITY — Truth class: SOURCE PATCH + LOCAL TARGETED TESTS; GitHub CI, merge, deployment, provider/customer outcomes must be verified… _(3 mentions)_
+- [`docs/handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md`](../handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md) — 2026-10-09 · UberMind Ω / Wave 23: The Same-Frontier-Model Cost Floor _(3 mentions)_
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(3 mentions)_
+- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP _(3 mentions)_
+- [`docs/reports/UBERWARM_FINAL_ACTIVATION_OFFSITE_BACKUP_AND_PLACEMENT_20261018.md`](../reports/UBERWARM_FINAL_ACTIVATION_OFFSITE_BACKUP_AND_PLACEMENT_20261018.md) — 2026-10-18 · PHOENIX OMEGA / UberWarm execution and offsite recovery evidence _(3 mentions)_
+- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — You are UberMind Ω20, my director for UberBond work. Deliver the highest-quality completed work using the fewest Claude Pro turns possible. Never trade quality for savings. _(3 mentions)_
+- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill _(3 mentions)_
+- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS _(3 mentions)_
 
 ## Source modules (8)
 

@@ -75,6 +75,8 @@
     "test:mutation-war": "node scripts/mutation-war.mjs",
     "test:mutation-war:full": "node scripts/with-real-postgres.mjs npm run test:mutation-war",
     "brain": "node scripts/uberbond-brain-safe.mjs",
+    "repo:index": "node scripts/repository-index.mjs",
+    "repo:index:check": "node scripts/repository-index.mjs --check",
     "brain:features": "node scripts/uberbond-feature-genome.mjs",
     "brain:feature-atlas": "node scripts/uberbond-feature-atom-atlas.mjs",
     "brain:metacognitive": "node scripts/uberbond-metacognitive-synthesis.mjs",

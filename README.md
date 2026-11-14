@@ -5,6 +5,8 @@
 
 > **CURRENT PRIVATE PROJECT STATE:** UberBond's **private internal ASI milestone is achieved at 100%**. Read [`PRIVATE_ASI_STATUS.md`](PRIVATE_ASI_STATUS.md) before interpreting historical ASI percentages. This is an internal project milestone, not an external scientific certification of literal ASI.
 
+> **FIND ANYTHING:** [`REPOSITORY_INDEX.md`](REPOSITORY_INDEX.md) catalogues every tracked file by folder and by subject (regenerate with `npm run repo:index`). It is a navigation aid, not evidence of implementation.
+
 > **START HERE:** UberBond's terminal North Star is the **Sovereign Cognitive Continuum**, not the historical website-audit / Revenue Engine wedge.
 
 > **Mohamed provides will. UberBond provides intelligence. Reality provides feedback.**

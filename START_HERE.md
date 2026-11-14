@@ -42,4 +42,4 @@ OUTBOUND_ENABLED=false
 OUTBOUND_DRY_RUN=true
 ```
 
-Then follow `ACTIVATE_OUTBOUND_IPAD.md`. Real Gmail, DNS authentication, unsubscribe delivery, bounces, payments, and jurisdiction choices still require owner-controlled accounts and staged validation.
+Then follow `docs/history/root-legacy/ACTIVATE_OUTBOUND_IPAD.md`. Real Gmail, DNS authentication, unsubscribe delivery, bounces, payments, and jurisdiction choices still require owner-controlled accounts and staged validation.

@@ -48,5 +48,5 @@ fastest feedback loop.
 
 ## Deploying
 
-See `/DEPLOY_CASH_ENGINE_LITE_IPAD.md` (beginner, iPad-friendly) and
-`/LITE_ENV_CHECKLIST.md` (exact env var table).
+See `/docs/history/root-legacy/DEPLOY_CASH_ENGINE_LITE_IPAD.md` (beginner, iPad-friendly) and
+`/docs/history/root-legacy/LITE_ENV_CHECKLIST.md` (exact env var table).

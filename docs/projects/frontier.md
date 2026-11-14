@@ -12,19 +12,19 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (13)
 
-- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency…
-- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — UberBond Perpetual Frontier / GENESIS Canon — Status: CHAT_SPEC_GOAL promoted into durable repository canon
-- [`docs/FRONTIER_INTELLIGENCE_FOUNDRY.md`](../FRONTIER_INTELLIGENCE_FOUNDRY.md) — UberBond Frontier Intelligence Foundry — Status: source-canonical design and executable normalization/tournament/reproduction contracts. This document does not claim the final one-million c…
-- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY
-- [`.claude/agents/ubermind-opus-frontier-judge.md`](../../.claude/agents/ubermind-opus-frontier-judge.md) — name: ubermind-opus-frontier-judge
-- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN
-- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS
-- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief
-- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁴ — Fidelity-First Residual Intelligence & Cost Frontier
-- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL
-- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine
-- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage
-- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS
+- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(matched by name only)_
+- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — UberBond Perpetual Frontier / GENESIS Canon — Status: CHAT_SPEC_GOAL promoted into durable repository canon _(matched by name only)_
+- [`docs/FRONTIER_INTELLIGENCE_FOUNDRY.md`](../FRONTIER_INTELLIGENCE_FOUNDRY.md) — UberBond Frontier Intelligence Foundry — Status: source-canonical design and executable normalization/tournament/reproduction contracts. This document does not claim the final one-million c… _(matched by name only)_
+- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(matched by name only)_
+- [`.claude/agents/ubermind-opus-frontier-judge.md`](../../.claude/agents/ubermind-opus-frontier-judge.md) — name: ubermind-opus-frontier-judge _(matched by name only)_
+- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN _(matched by name only)_
+- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁴ — Fidelity-First Residual Intelligence & Cost Frontier _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(matched by name only)_
+- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage _(matched by name only)_
+- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(matched by name only)_
 
 ## Commands (7)
 
@@ -32,141 +32,141 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Dated documents, newest first (14)
 
-- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · UberBond Revenue frontier backup — 2026-10-04 17:53 +03:00 — Status: DURABLE RESTORE POINT / NO NEW COMMERCIAL EFFECT
-- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30
-- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30
-- [`open router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md`](../../open%20router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md) — 2026-09-30 · Live Frontier + Receipt Court — 2026-09-30
-- [`docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`](../APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md) — 2026-09-29 · APEX Frontier Quality Compression Campaign — 2026-09-29 — Status: ENGINEERING READY / FRESH EXTERNAL CUSTODIAN + LIVE RUNTIME/PRICING EVIDENCE REQUIRED / ZERO EXECUTION AUTHORITY
-- [`docs/APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md`](../APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md) — 2026-09-29 · APEX Public Frontier Scorecard — 2026-09-29 — Status: DATED DOCUMENTED-MECHANISM COMPARISON / NOT A GLOBAL PERFORMANCE RANKING
-- [`docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md`](../experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md) — 2026-09-29 · Frontier VM Fresh Task Custodian — 2026-09-29 — Status: PRE-REGISTERED / NO SPEND / NO MODEL CALLS
-- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED
-- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact.
-- [`docs/handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md`](../handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md) — 2026-09-20 · Live Outreach Activation Frontier — 2026-09-20
-- [`docs/LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md`](../LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Life-Altering Frontier Gap Audit — 2026-09-15
-- [`docs/memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md`](../memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md) — 2026-09-03 · UberBond Frontier Convergence Recovery Checkpoint
-- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory
-- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier
+- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · UberBond Revenue frontier backup — 2026-10-04 17:53 +03:00 — Status: DURABLE RESTORE POINT / NO NEW COMMERCIAL EFFECT _(matched by name only)_
+- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_
+- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_
+- [`open router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md`](../../open%20router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md) — 2026-09-30 · Live Frontier + Receipt Court — 2026-09-30 _(matched by name only)_
+- [`docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`](../APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md) — 2026-09-29 · APEX Frontier Quality Compression Campaign — 2026-09-29 — Status: ENGINEERING READY / FRESH EXTERNAL CUSTODIAN + LIVE RUNTIME/PRICING EVIDENCE REQUIRED / ZERO EXECUTION AUTHORITY _(matched by name only)_
+- [`docs/APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md`](../APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md) — 2026-09-29 · APEX Public Frontier Scorecard — 2026-09-29 — Status: DATED DOCUMENTED-MECHANISM COMPARISON / NOT A GLOBAL PERFORMANCE RANKING _(matched by name only)_
+- [`docs/experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md`](../experiments/FRONTIER_VM_FRESH_TASK_CUSTODIAN_2026-09-29.md) — 2026-09-29 · Frontier VM Fresh Task Custodian — 2026-09-29 — Status: PRE-REGISTERED / NO SPEND / NO MODEL CALLS _(matched by name only)_
+- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(matched by name only)_
+- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact. _(matched by name only)_
+- [`docs/handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md`](../handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md) — 2026-09-20 · Live Outreach Activation Frontier — 2026-09-20 _(matched by name only)_
+- [`docs/LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md`](../LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Life-Altering Frontier Gap Audit — 2026-09-15 _(matched by name only)_
+- [`docs/memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md`](../memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md) — 2026-09-03 · UberBond Frontier Convergence Recovery Checkpoint _(matched by name only)_
+- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory _(matched by name only)_
+- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (5)
 
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(7 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(5 mentions)_
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(4 mentions)_
-- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding _(3 mentions)_
-- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(7 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(5 mentions)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_ _(4 mentions)_
+- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding _(matched by name only)_ _(3 mentions)_
+- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (53)
 
-- [`src/absolute-frontier-quality-invariant.mjs`](../../src/absolute-frontier-quality-invariant.mjs) — exports ABSOLUTE_FRONTIER_QUALITY_POLICY_VERSION, ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE, ABSOLUTE_FRONTIER_DEGRA… _(tested; imported by 17)_
-- [`src/autonomous-frontier-intelligence.mjs`](../../src/autonomous-frontier-intelligence.mjs) — exports AUTONOMOUS_FRONTIER_INTELLIGENCE_VERSION, FRONTIER_THINKER_ROLES, normalizeFrontierSignal, scoreFrontierSignal, buildIdeaAtomizationPacket (+… _(tested; imported by 1)_
-- [`src/certified-frontier-residual.mjs`](../../src/certified-frontier-residual.mjs) — exports sourceDigest, buildExactAnchors, residualPacketHash, verifyCertifiedFrontierResidual, crownResidualMessages _(tested; imported by 1)_
-- [`src/frontier-absorption-engine.mjs`](../../src/frontier-absorption-engine.mjs) — exports FRONTIER_ABSORPTION_VERSION, ABSORPTION_STATES, normalizeAbsorptionCandidate, evaluateAbsorptionParity, buildAbsorptionWorkPacket _(no static importers)_
-- [`src/frontier-absorption-proof.mjs`](../../src/frontier-absorption-proof.mjs) — exports verifyAbsorptionClaim _(no static importers)_
-- [`src/frontier-artifact-verifier.mjs`](../../src/frontier-artifact-verifier.mjs) — exports FRONTIER_ARTIFACT_VERIFIER_VERSION, normalizeArtifactReceipt, verifyArtifactCompletion, buildVisualVerificationContract, verifyVisualEvidence _(no static importers)_
-- [`src/frontier-assimilation-tournament.mjs`](../../src/frontier-assimilation-tournament.mjs) — exports compileFrontierAssimilationTournament _(tested; imported by 1)_
-- [`src/frontier-callability-provenance.mjs`](../../src/frontier-callability-provenance.mjs) — exports FRONTIER_CALLABILITY_PROVENANCE_VERSION, FRONTIER_CALLABILITY_PROBE_SCHEMA, buildFrontierCallabilityProbeReceipt, validateFrontierCallability… _(imported by 3)_
-- [`src/frontier-capability-closure-router.mjs`](../../src/frontier-capability-closure-router.mjs) — exports FRONTIER_CAPABILITY_CLOSURE_ROUTER_VERSION, CLOSURE_CLASSES, routeFrontierCapabilityClosures _(tested; imported by 2)_
-- [`src/frontier-capability-fusion.mjs`](../../src/frontier-capability-fusion.mjs) — exports FRONTIER_CAPABILITY_FUSION_VERSION, FRONTIER_MECHANISMS, PUBLIC_DONOR_MECHANISMS, chooseReasoningEffort, supplierEligibility (+2) _(tested; imported by 1)_
-- [`src/frontier-capability-harvest.mjs`](../../src/frontier-capability-harvest.mjs) — exports FRONTIER_CAPABILITY_HARVEST_VERSION, FRONTIER_CAPABILITY_SEEDS, planFrontierCapabilityHarvest _(no static importers)_
-- [`src/frontier-cognitive-admission.mjs`](../../src/frontier-cognitive-admission.mjs) — exports FRONTIER_COGNITIVE_ADMISSION_VERSION, FRONTIER_ADMISSION_SCHEMA, buildLiveFrontierBenchmarkFromSealedTrial, validateLiveFrontierBenchmark, bu… _(tested; imported by 3)_
-- [`src/frontier-cognitive-fabric.mjs`](../../src/frontier-cognitive-fabric.mjs) — exports FRONTIER_COGNITIVE_FABRIC_VERSION, FRONTIER_COGNITIVE_PLAN_SCHEMA, FRONTIER_COGNITIVE_RECEIPT_SCHEMA, FRONTIER_REASONING_TIERS, validateFront… _(tested; imported by 4)_
-- [`src/frontier-context-spine.mjs`](../../src/frontier-context-spine.mjs) — exports FRONTIER_CONTEXT_SPINE_VERSION, normalizeContextArtifact, buildContextPlan, assessContextPressure _(tested; imported by 1)_
-- [`src/frontier-council-runtime.mjs`](../../src/frontier-council-runtime.mjs) — exports FRONTIER_COUNCIL_RUNTIME_VERSION, executeFrontierCouncil _(imported by 1)_
-- [`src/frontier-counterfactual-compiler.mjs`](../../src/frontier-counterfactual-compiler.mjs) — exports compileDirectFrontierCounterfactual _(imported by 1)_
-- [`src/frontier-deferred-compute-planner.mjs`](../../src/frontier-deferred-compute-planner.mjs) — exports FRONTIER_DEFERRED_COMPUTE_PLANNER_VERSION, DEFERRED_COMPUTE_MODES, planFrontierDeferredCompute _(tested; no static importers)_
-- [`src/frontier-intelligence-foundry.mjs`](../../src/frontier-intelligence-foundry.mjs) — exports FRONTIER_INTELLIGENCE_FOUNDRY_VERSION, FRONTIER_FINAL_RETAINED_TARGET, FRONTIER_ACTIVE_CORTEX_MAX, FRONTIER_SOURCE_CLASSES, FRONTIER_PROVENAN… _(tested; imported by 3)_
-- [`src/frontier-intelligence-neural-bridge.mjs`](../../src/frontier-intelligence-neural-bridge.mjs) — exports FRONTIER_NEURAL_BRIDGE_VERSION, frontierRecordsToNeuralReferences, selectFrontierCapabilityGenomeBackedCortex _(tested; no static importers)_
-- [`src/frontier-intelligence-vm.mjs`](../../src/frontier-intelligence-vm.mjs) — exports FRONTIER_INTELLIGENCE_VM_VERSION, QUALITY_TYPES, compileCognitiveIR, authoritySatisfies, planQualityTypedExecution (+4) _(tested; no static importers)_
-- [`src/frontier-learning-autopilot.mjs`](../../src/frontier-learning-autopilot.mjs) — exports FRONTIER_LEARNING_AUTOPILOT_VERSION, normalizeApprovedObservation, buildMechanismLearningQueue, planFrontierLearningTick _(imported by 1)_
-- [`src/frontier-learning-job-handler.mjs`](../../src/frontier-learning-job-handler.mjs) — exports FRONTIER_LEARNING_JOB_HANDLER_VERSION, runFrontierLearningJob _(imported by 1)_
-- [`src/frontier-learning-runtime.mjs`](../../src/frontier-learning-runtime.mjs) — exports FRONTIER_LEARNING_RUNTIME_VERSION, HIGH_SIGNAL_SURFACES, buildFrontierLearningRuntimePlan, runFrontierLearningCycle _(imported by 2)_
-- [`src/frontier-loop-proof.mjs`](../../src/frontier-loop-proof.mjs) — exports FRONTIER_LOOP_STAGES, verifyFrontierLoop _(no static importers)_
-- [`src/frontier-mechanism-catalog.mjs`](../../src/frontier-mechanism-catalog.mjs) — exports FRONTIER_MECHANISM_CATALOG_VERSION, frontierMechanismSeeds, frontierMechanismExperimentBacklog, frontierMechanismCoverage _(tested; no static importers)_
-- [`src/frontier-model-admission-proof.mjs`](../../src/frontier-model-admission-proof.mjs) — exports verifyFrontierModelAdmission _(no static importers)_
-- [`src/frontier-model-team.mjs`](../../src/frontier-model-team.mjs) — exports FRONTIER_MODEL_TEAM_POLICY_VERSION, FRONTIER_MODEL_CANDIDATE_SCHEMA, validateFrontierModelCandidateRegistry, frontierRoleCoverage, matchObser… _(tested; imported by 1)_
-- [`src/frontier-operator.mjs`](../../src/frontier-operator.mjs) — exports FRONTIER_OPERATOR_VERSION, OPERATOR_ROLES, EFFORT_TIERS, normalizeGoalContract, planWorkerLanes (+4) _(tested; imported by 1)_
-- [`src/frontier-quality-market-compiler.mjs`](../../src/frontier-quality-market-compiler.mjs) — exports FRONTIER_QUALITY_MARKET_COMPILER_VERSION, DEFAULT_MONTHLY_BUDGET_USD, compilePreInferenceRoleAuction, decideAdaptiveExpansion, compileAdversa… _(tested; no static importers)_
-- [`src/frontier-reasoning-runtime.mjs`](../../src/frontier-reasoning-runtime.mjs) — exports FRONTIER_REASONING_RUNTIME_VERSION, compileFrontierExecutorWorker, attestFrontierExecution, executeFrontierMember _(tested; imported by 2)_
-- [`src/frontier-replacement-tournament-proof.mjs`](../../src/frontier-replacement-tournament-proof.mjs) — exports proveFreshFrontierReplacement _(tested; no static importers)_
-- [`src/frontier-residual-cut.mjs`](../../src/frontier-residual-cut.mjs) — exports factorFrontierResidualCut, settleFrontierResidualCut _(imported by 1)_
-- [`src/frontier-routing-revalidation-proof.mjs`](../../src/frontier-routing-revalidation-proof.mjs) — exports verifyFrontierRoutingAtExecution _(tested; no static importers)_
-- [`src/frontier-simulation-executor.mjs`](../../src/frontier-simulation-executor.mjs) — exports FRONTIER_SIMULATION_EXECUTOR_VERSION, createFrontierSimulationExecutorFactory, isFrontierSimulationExecutorFactory _(imported by 2)_
-- [`src/frontier-source-coverage.mjs`](../../src/frontier-source-coverage.mjs) — exports FRONTIER_SOURCE_COVERAGE_VERSION, FRONTIER_SOURCE_REGISTRY, FRONTIER_FEATURE_COVERAGE, buildFrontierSourceCoverageReceipt _(tested; no static importers)_
-- [`src/frontier-task-tournament.mjs`](../../src/frontier-task-tournament.mjs) — exports runFrontierTaskTournament _(tested; no static importers)_
-- [`src/frontier-thought-bond.mjs`](../../src/frontier-thought-bond.mjs) — exports thoughtBondAuthorityId, thoughtBondSlotHash, mintFrontierThoughtBond, verifyFrontierThoughtBond, verifyDistinctThoughtBondConsumers (+1) _(tested; imported by 1)_
-- [`src/frontier-vm-activation-readiness.mjs`](../../src/frontier-vm-activation-readiness.mjs) — exports FRONTIER_VM_ACTIVATION_READINESS_VERSION, ACTIVATION_MODES, assessFrontierVmActivationReadiness _(tested; imported by 1)_
-- [`src/frontier-vm-burnin.mjs`](../../src/frontier-vm-burnin.mjs) — exports FRONTIER_VM_BURNIN_VERSION, compileFrontierVmBurnInCampaign, certifyBurnInPair, assessAblationContribution, compileFalsificationChecklist _(tested; no static importers)_
-- [`src/frontier-vm-longitudinal-evaluator.mjs`](../../src/frontier-vm-longitudinal-evaluator.mjs) — exports FRONTIER_VM_LONGITUDINAL_EVALUATOR_VERSION, evaluateFrontierVmLongitudinalRun _(tested; no static importers)_
-- [`src/frontier-worker-compiler.mjs`](../../src/frontier-worker-compiler.mjs) — exports FRONTIER_WORKER_COMPILER_VERSION, normalizeWorkerSpec, compileWorkerManifest, detectWorkerOwnershipConflicts _(no static importers)_
-- [`src/gamechanger-frontier-learning-adapter.mjs`](../../src/gamechanger-frontier-learning-adapter.mjs) — exports GAMECHANGER_FRONTIER_LEARNING_ADAPTER_VERSION, discoveryFingerprint, adaptGamechangerReceipt _(imported by 2)_
-- [`src/genesis-final-frontier-evidence.mjs`](../../src/genesis-final-frontier-evidence.mjs) — exports GENESIS_FINAL_FRONTIER_EVIDENCE, normalizeFinalFrontierEvidence _(imported by 1)_
-- [`src/genesis-final-frontier.mjs`](../../src/genesis-final-frontier.mjs) — exports GENESIS_FINAL_FRONTIER_VERSION, evolveEvaluators, optimizeFounderLife, spawnEntrepreneurPopulation, speciateCognition (+72) _(tested; imported by 2)_
-- [`src/genesis-frontier-deepening-evidence.mjs`](../../src/genesis-frontier-deepening-evidence.mjs) — exports GENESIS_FRONTIER_DEEPENING_EVIDENCE _(imported by 1)_
-- [`src/native-frontier-capability-market.mjs`](../../src/native-frontier-capability-market.mjs) — exports NATIVE_FRONTIER_CAPABILITY_MARKET_VERSION, inspectNativeFrontierCapabilityMarket _(imported by 1)_
-- [`src/orchestration-frontier.mjs`](../../src/orchestration-frontier.mjs) — exports ORCHESTRATION_FRONTIER_VERSION, ORCHESTRATION_REFERENCE_PACK, validateOrchestrationGraph, readyOrchestrationNodes, scoreOrchestrationCandidat… _(tested; imported by 5)_
-- [`src/overnight/control/automation-acquisition-frontier.mjs`](../../src/overnight/control/automation-acquisition-frontier.mjs) — exports AUTOMATION_ACQUISITION_FRONTIER_POLICY_VERSION, EXTENDED_AUTOMATION_CANDIDATES, INTERNAL_AUTOMATION_CAPABILITY_REGISTRY, mergeAutomationCandi… _(no static importers)_
-- [`src/perpetual-frontier-genesis.mjs`](../../src/perpetual-frontier-genesis.mjs) — exports PERPETUAL_FRONTIER_GENESIS_VERSION, GENESIS_EXPECTED_IDEA_COUNT, GENESIS_CORE_LANES, extractGenesisIdeaRegistry, validateGenesisIdeaRegistry… _(tested; imported by 5)_
-- [`src/uberreach-scale-frontier.mjs`](../../src/uberreach-scale-frontier.mjs) — exports UBERREACH_SCALE_FRONTIER_VERSION, compileUberReachScaleFrontier _(tested; no static importers)_
-- [`src/uberwinnr-procurement-frontier.mjs`](../../src/uberwinnr-procurement-frontier.mjs) — exports UBERWINNR_PROCUREMENT_VERSION, WINNR_PUBLIC_FACTS_2026_10_02, compileWinnrProcurementFrontier _(tested; imported by 1)_
-- [`src/v7-frontier-state.mjs`](../../src/v7-frontier-state.mjs) — The computation behind the frontier artifacts: baselines, epochs, the mission _(tested; imported by 1)_
-- [`src/zero-day-frontier-radar.mjs`](../../src/zero-day-frontier-radar.mjs) — exports compileZeroDayFrontierRadar _(tested; imported by 1)_
+- [`src/absolute-frontier-quality-invariant.mjs`](../../src/absolute-frontier-quality-invariant.mjs) — exports ABSOLUTE_FRONTIER_QUALITY_POLICY_VERSION, ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE, ABSOLUTE_FRONTIER_DEGRA… _(matched by name only; tested; imported by 17)_
+- [`src/autonomous-frontier-intelligence.mjs`](../../src/autonomous-frontier-intelligence.mjs) — exports AUTONOMOUS_FRONTIER_INTELLIGENCE_VERSION, FRONTIER_THINKER_ROLES, normalizeFrontierSignal, scoreFrontierSignal, buildIdeaAtomizationPacket (+… _(matched by name only; tested; imported by 1)_
+- [`src/certified-frontier-residual.mjs`](../../src/certified-frontier-residual.mjs) — exports sourceDigest, buildExactAnchors, residualPacketHash, verifyCertifiedFrontierResidual, crownResidualMessages _(matched by name only; tested; imported by 1)_
+- [`src/frontier-absorption-engine.mjs`](../../src/frontier-absorption-engine.mjs) — exports FRONTIER_ABSORPTION_VERSION, ABSORPTION_STATES, normalizeAbsorptionCandidate, evaluateAbsorptionParity, buildAbsorptionWorkPacket _(matched by name only; no static importers)_
+- [`src/frontier-absorption-proof.mjs`](../../src/frontier-absorption-proof.mjs) — exports verifyAbsorptionClaim _(matched by name only; no static importers)_
+- [`src/frontier-artifact-verifier.mjs`](../../src/frontier-artifact-verifier.mjs) — exports FRONTIER_ARTIFACT_VERIFIER_VERSION, normalizeArtifactReceipt, verifyArtifactCompletion, buildVisualVerificationContract, verifyVisualEvidence _(matched by name only; no static importers)_
+- [`src/frontier-assimilation-tournament.mjs`](../../src/frontier-assimilation-tournament.mjs) — exports compileFrontierAssimilationTournament _(matched by name only; tested; imported by 1)_
+- [`src/frontier-callability-provenance.mjs`](../../src/frontier-callability-provenance.mjs) — exports FRONTIER_CALLABILITY_PROVENANCE_VERSION, FRONTIER_CALLABILITY_PROBE_SCHEMA, buildFrontierCallabilityProbeReceipt, validateFrontierCallability… _(matched by name only; imported by 3)_
+- [`src/frontier-capability-closure-router.mjs`](../../src/frontier-capability-closure-router.mjs) — exports FRONTIER_CAPABILITY_CLOSURE_ROUTER_VERSION, CLOSURE_CLASSES, routeFrontierCapabilityClosures _(matched by name only; tested; imported by 2)_
+- [`src/frontier-capability-fusion.mjs`](../../src/frontier-capability-fusion.mjs) — exports FRONTIER_CAPABILITY_FUSION_VERSION, FRONTIER_MECHANISMS, PUBLIC_DONOR_MECHANISMS, chooseReasoningEffort, supplierEligibility (+2) _(matched by name only; tested; imported by 1)_
+- [`src/frontier-capability-harvest.mjs`](../../src/frontier-capability-harvest.mjs) — exports FRONTIER_CAPABILITY_HARVEST_VERSION, FRONTIER_CAPABILITY_SEEDS, planFrontierCapabilityHarvest _(matched by name only; no static importers)_
+- [`src/frontier-cognitive-admission.mjs`](../../src/frontier-cognitive-admission.mjs) — exports FRONTIER_COGNITIVE_ADMISSION_VERSION, FRONTIER_ADMISSION_SCHEMA, buildLiveFrontierBenchmarkFromSealedTrial, validateLiveFrontierBenchmark, bu… _(matched by name only; tested; imported by 3)_
+- [`src/frontier-cognitive-fabric.mjs`](../../src/frontier-cognitive-fabric.mjs) — exports FRONTIER_COGNITIVE_FABRIC_VERSION, FRONTIER_COGNITIVE_PLAN_SCHEMA, FRONTIER_COGNITIVE_RECEIPT_SCHEMA, FRONTIER_REASONING_TIERS, validateFront… _(matched by name only; tested; imported by 4)_
+- [`src/frontier-context-spine.mjs`](../../src/frontier-context-spine.mjs) — exports FRONTIER_CONTEXT_SPINE_VERSION, normalizeContextArtifact, buildContextPlan, assessContextPressure _(matched by name only; tested; imported by 1)_
+- [`src/frontier-council-runtime.mjs`](../../src/frontier-council-runtime.mjs) — exports FRONTIER_COUNCIL_RUNTIME_VERSION, executeFrontierCouncil _(matched by name only; imported by 1)_
+- [`src/frontier-counterfactual-compiler.mjs`](../../src/frontier-counterfactual-compiler.mjs) — exports compileDirectFrontierCounterfactual _(matched by name only; imported by 1)_
+- [`src/frontier-deferred-compute-planner.mjs`](../../src/frontier-deferred-compute-planner.mjs) — exports FRONTIER_DEFERRED_COMPUTE_PLANNER_VERSION, DEFERRED_COMPUTE_MODES, planFrontierDeferredCompute _(matched by name only; tested; no static importers)_
+- [`src/frontier-intelligence-foundry.mjs`](../../src/frontier-intelligence-foundry.mjs) — exports FRONTIER_INTELLIGENCE_FOUNDRY_VERSION, FRONTIER_FINAL_RETAINED_TARGET, FRONTIER_ACTIVE_CORTEX_MAX, FRONTIER_SOURCE_CLASSES, FRONTIER_PROVENAN… _(matched by name only; tested; imported by 3)_
+- [`src/frontier-intelligence-neural-bridge.mjs`](../../src/frontier-intelligence-neural-bridge.mjs) — exports FRONTIER_NEURAL_BRIDGE_VERSION, frontierRecordsToNeuralReferences, selectFrontierCapabilityGenomeBackedCortex _(matched by name only; tested; no static importers)_
+- [`src/frontier-intelligence-vm.mjs`](../../src/frontier-intelligence-vm.mjs) — exports FRONTIER_INTELLIGENCE_VM_VERSION, QUALITY_TYPES, compileCognitiveIR, authoritySatisfies, planQualityTypedExecution (+4) _(matched by name only; tested; no static importers)_
+- [`src/frontier-learning-autopilot.mjs`](../../src/frontier-learning-autopilot.mjs) — exports FRONTIER_LEARNING_AUTOPILOT_VERSION, normalizeApprovedObservation, buildMechanismLearningQueue, planFrontierLearningTick _(matched by name only; imported by 1)_
+- [`src/frontier-learning-job-handler.mjs`](../../src/frontier-learning-job-handler.mjs) — exports FRONTIER_LEARNING_JOB_HANDLER_VERSION, runFrontierLearningJob _(matched by name only; imported by 1)_
+- [`src/frontier-learning-runtime.mjs`](../../src/frontier-learning-runtime.mjs) — exports FRONTIER_LEARNING_RUNTIME_VERSION, HIGH_SIGNAL_SURFACES, buildFrontierLearningRuntimePlan, runFrontierLearningCycle _(matched by name only; imported by 2)_
+- [`src/frontier-loop-proof.mjs`](../../src/frontier-loop-proof.mjs) — exports FRONTIER_LOOP_STAGES, verifyFrontierLoop _(matched by name only; no static importers)_
+- [`src/frontier-mechanism-catalog.mjs`](../../src/frontier-mechanism-catalog.mjs) — exports FRONTIER_MECHANISM_CATALOG_VERSION, frontierMechanismSeeds, frontierMechanismExperimentBacklog, frontierMechanismCoverage _(matched by name only; tested; no static importers)_
+- [`src/frontier-model-admission-proof.mjs`](../../src/frontier-model-admission-proof.mjs) — exports verifyFrontierModelAdmission _(matched by name only; no static importers)_
+- [`src/frontier-model-team.mjs`](../../src/frontier-model-team.mjs) — exports FRONTIER_MODEL_TEAM_POLICY_VERSION, FRONTIER_MODEL_CANDIDATE_SCHEMA, validateFrontierModelCandidateRegistry, frontierRoleCoverage, matchObser… _(matched by name only; tested; imported by 1)_
+- [`src/frontier-operator.mjs`](../../src/frontier-operator.mjs) — exports FRONTIER_OPERATOR_VERSION, OPERATOR_ROLES, EFFORT_TIERS, normalizeGoalContract, planWorkerLanes (+4) _(matched by name only; tested; imported by 1)_
+- [`src/frontier-quality-market-compiler.mjs`](../../src/frontier-quality-market-compiler.mjs) — exports FRONTIER_QUALITY_MARKET_COMPILER_VERSION, DEFAULT_MONTHLY_BUDGET_USD, compilePreInferenceRoleAuction, decideAdaptiveExpansion, compileAdversa… _(matched by name only; tested; no static importers)_
+- [`src/frontier-reasoning-runtime.mjs`](../../src/frontier-reasoning-runtime.mjs) — exports FRONTIER_REASONING_RUNTIME_VERSION, compileFrontierExecutorWorker, attestFrontierExecution, executeFrontierMember _(matched by name only; tested; imported by 2)_
+- [`src/frontier-replacement-tournament-proof.mjs`](../../src/frontier-replacement-tournament-proof.mjs) — exports proveFreshFrontierReplacement _(matched by name only; tested; no static importers)_
+- [`src/frontier-residual-cut.mjs`](../../src/frontier-residual-cut.mjs) — exports factorFrontierResidualCut, settleFrontierResidualCut _(matched by name only; imported by 1)_
+- [`src/frontier-routing-revalidation-proof.mjs`](../../src/frontier-routing-revalidation-proof.mjs) — exports verifyFrontierRoutingAtExecution _(matched by name only; tested; no static importers)_
+- [`src/frontier-simulation-executor.mjs`](../../src/frontier-simulation-executor.mjs) — exports FRONTIER_SIMULATION_EXECUTOR_VERSION, createFrontierSimulationExecutorFactory, isFrontierSimulationExecutorFactory _(matched by name only; imported by 2)_
+- [`src/frontier-source-coverage.mjs`](../../src/frontier-source-coverage.mjs) — exports FRONTIER_SOURCE_COVERAGE_VERSION, FRONTIER_SOURCE_REGISTRY, FRONTIER_FEATURE_COVERAGE, buildFrontierSourceCoverageReceipt _(matched by name only; tested; no static importers)_
+- [`src/frontier-task-tournament.mjs`](../../src/frontier-task-tournament.mjs) — exports runFrontierTaskTournament _(matched by name only; tested; no static importers)_
+- [`src/frontier-thought-bond.mjs`](../../src/frontier-thought-bond.mjs) — exports thoughtBondAuthorityId, thoughtBondSlotHash, mintFrontierThoughtBond, verifyFrontierThoughtBond, verifyDistinctThoughtBondConsumers (+1) _(matched by name only; tested; imported by 1)_
+- [`src/frontier-vm-activation-readiness.mjs`](../../src/frontier-vm-activation-readiness.mjs) — exports FRONTIER_VM_ACTIVATION_READINESS_VERSION, ACTIVATION_MODES, assessFrontierVmActivationReadiness _(matched by name only; tested; imported by 1)_
+- [`src/frontier-vm-burnin.mjs`](../../src/frontier-vm-burnin.mjs) — exports FRONTIER_VM_BURNIN_VERSION, compileFrontierVmBurnInCampaign, certifyBurnInPair, assessAblationContribution, compileFalsificationChecklist _(matched by name only; tested; no static importers)_
+- [`src/frontier-vm-longitudinal-evaluator.mjs`](../../src/frontier-vm-longitudinal-evaluator.mjs) — exports FRONTIER_VM_LONGITUDINAL_EVALUATOR_VERSION, evaluateFrontierVmLongitudinalRun _(matched by name only; tested; no static importers)_
+- [`src/frontier-worker-compiler.mjs`](../../src/frontier-worker-compiler.mjs) — exports FRONTIER_WORKER_COMPILER_VERSION, normalizeWorkerSpec, compileWorkerManifest, detectWorkerOwnershipConflicts _(matched by name only; no static importers)_
+- [`src/gamechanger-frontier-learning-adapter.mjs`](../../src/gamechanger-frontier-learning-adapter.mjs) — exports GAMECHANGER_FRONTIER_LEARNING_ADAPTER_VERSION, discoveryFingerprint, adaptGamechangerReceipt _(matched by name only; imported by 2)_
+- [`src/genesis-final-frontier-evidence.mjs`](../../src/genesis-final-frontier-evidence.mjs) — exports GENESIS_FINAL_FRONTIER_EVIDENCE, normalizeFinalFrontierEvidence _(matched by name only; imported by 1)_
+- [`src/genesis-final-frontier.mjs`](../../src/genesis-final-frontier.mjs) — exports GENESIS_FINAL_FRONTIER_VERSION, evolveEvaluators, optimizeFounderLife, spawnEntrepreneurPopulation, speciateCognition (+72) _(matched by name only; tested; imported by 2)_
+- [`src/genesis-frontier-deepening-evidence.mjs`](../../src/genesis-frontier-deepening-evidence.mjs) — exports GENESIS_FRONTIER_DEEPENING_EVIDENCE _(matched by name only; imported by 1)_
+- [`src/native-frontier-capability-market.mjs`](../../src/native-frontier-capability-market.mjs) — exports NATIVE_FRONTIER_CAPABILITY_MARKET_VERSION, inspectNativeFrontierCapabilityMarket _(matched by name only; imported by 1)_
+- [`src/orchestration-frontier.mjs`](../../src/orchestration-frontier.mjs) — exports ORCHESTRATION_FRONTIER_VERSION, ORCHESTRATION_REFERENCE_PACK, validateOrchestrationGraph, readyOrchestrationNodes, scoreOrchestrationCandidat… _(matched by name only; tested; imported by 5)_
+- [`src/overnight/control/automation-acquisition-frontier.mjs`](../../src/overnight/control/automation-acquisition-frontier.mjs) — exports AUTOMATION_ACQUISITION_FRONTIER_POLICY_VERSION, EXTENDED_AUTOMATION_CANDIDATES, INTERNAL_AUTOMATION_CAPABILITY_REGISTRY, mergeAutomationCandi… _(matched by name only; no static importers)_
+- [`src/perpetual-frontier-genesis.mjs`](../../src/perpetual-frontier-genesis.mjs) — exports PERPETUAL_FRONTIER_GENESIS_VERSION, GENESIS_EXPECTED_IDEA_COUNT, GENESIS_CORE_LANES, extractGenesisIdeaRegistry, validateGenesisIdeaRegistry… _(matched by name only; tested; imported by 5)_
+- [`src/uberreach-scale-frontier.mjs`](../../src/uberreach-scale-frontier.mjs) — exports UBERREACH_SCALE_FRONTIER_VERSION, compileUberReachScaleFrontier _(matched by name only; tested; no static importers)_
+- [`src/uberwinnr-procurement-frontier.mjs`](../../src/uberwinnr-procurement-frontier.mjs) — exports UBERWINNR_PROCUREMENT_VERSION, WINNR_PUBLIC_FACTS_2026_10_02, compileWinnrProcurementFrontier _(matched by name only; tested; imported by 1)_
+- [`src/v7-frontier-state.mjs`](../../src/v7-frontier-state.mjs) — The computation behind the frontier artifacts: baselines, epochs, the mission _(matched by name only; tested; imported by 1)_
+- [`src/zero-day-frontier-radar.mjs`](../../src/zero-day-frontier-radar.mjs) — exports compileZeroDayFrontierRadar _(matched by name only; tested; imported by 1)_
 
 ## Scripts (14)
 
-- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(npm: `absolute:quality:doctor`)_
-- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(npm: `apex:fqc:doctor`)_
-- [`scripts/frontier-brain-compile.mjs`](../../scripts/frontier-brain-compile.mjs)
-- [`scripts/frontier-capability-closure-status.mjs`](../../scripts/frontier-capability-closure-status.mjs)
-- [`scripts/frontier-intelligence-1000-canary.mjs`](../../scripts/frontier-intelligence-1000-canary.mjs) — exports FRONTIER_CANARY_RECORDS, buildFrontier1000CanaryInputs, runFrontier1000Canary
-- [`scripts/frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs)
-- [`scripts/frontier-model-team-doctor.mjs`](../../scripts/frontier-model-team-doctor.mjs) _(npm: `models:frontier:doctor`)_
-- [`scripts/frontier-surface-doctor.mjs`](../../scripts/frontier-surface-doctor.mjs) — Operator-only reachability surface for internally safe, already operator-eligible
-- [`scripts/frontier-vm-v5-doctor.mjs`](../../scripts/frontier-vm-v5-doctor.mjs) _(npm: `frontier-vm:doctor`)_
-- [`scripts/night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations
-- [`scripts/orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs)
-- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(npm: `genesis:doctor`)_
-- [`scripts/perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) _(npm: `genesis:tick`, `frontier:plan`)_
-- [`scripts/v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates the six frontier artifacts the V7 contract names and this repository
+- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(matched by name only; npm: `absolute:quality:doctor`)_
+- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(matched by name only; npm: `apex:fqc:doctor`)_
+- [`scripts/frontier-brain-compile.mjs`](../../scripts/frontier-brain-compile.mjs) _(matched by name only)_
+- [`scripts/frontier-capability-closure-status.mjs`](../../scripts/frontier-capability-closure-status.mjs) _(matched by name only)_
+- [`scripts/frontier-intelligence-1000-canary.mjs`](../../scripts/frontier-intelligence-1000-canary.mjs) — exports FRONTIER_CANARY_RECORDS, buildFrontier1000CanaryInputs, runFrontier1000Canary _(matched by name only)_
+- [`scripts/frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs) _(matched by name only)_
+- [`scripts/frontier-model-team-doctor.mjs`](../../scripts/frontier-model-team-doctor.mjs) _(matched by name only; npm: `models:frontier:doctor`)_
+- [`scripts/frontier-surface-doctor.mjs`](../../scripts/frontier-surface-doctor.mjs) — Operator-only reachability surface for internally safe, already operator-eligible _(matched by name only)_
+- [`scripts/frontier-vm-v5-doctor.mjs`](../../scripts/frontier-vm-v5-doctor.mjs) _(matched by name only; npm: `frontier-vm:doctor`)_
+- [`scripts/night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations _(matched by name only)_
+- [`scripts/orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs) _(matched by name only)_
+- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(matched by name only; npm: `genesis:doctor`)_
+- [`scripts/perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) _(matched by name only; npm: `genesis:tick`, `frontier:plan`)_
+- [`scripts/v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates the six frontier artifacts the V7 contract names and this repository _(matched by name only)_
 
 ## Config, data, artifacts and services (37)
 
-- [`artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json`](../../artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json) — 2026-09-13 · FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED · uberbond.frontier-internal-satisfaction-review.v1
-- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1
-- [`artifacts/cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE · uberbond-cost-stage-fulfill-learn-frontier-1.0.0
-- [`artifacts/growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0
-- [`artifacts/night-frontier/2026-09-03-run-08.json`](../../artifacts/night-frontier/2026-09-03-run-08.json) — 2026-09-03
-- [`artifacts/night-frontier/2026-09-03-run-09.json`](../../artifacts/night-frontier/2026-09-03-run-09.json) — 2026-09-03
-- [`artifacts/night-frontier/2026-09-03-run-10.json`](../../artifacts/night-frontier/2026-09-03-run-10.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-03-run-11.json`](../../artifacts/night-frontier/2026-09-03-run-11.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-03-run-12.json`](../../artifacts/night-frontier/2026-09-03-run-12.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-03-run-13.json`](../../artifacts/night-frontier/2026-09-03-run-13.json) — 2026-09-03 · IMPLEMENTATION_WRITE_BLOCKED
-- [`artifacts/night-frontier/2026-09-03-run-14.json`](../../artifacts/night-frontier/2026-09-03-run-14.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-04-run-15.json`](../../artifacts/night-frontier/2026-09-04-run-15.json) — 2026-09-04 · CLEAN_TREE_COMPOSITION_ON_CURRENT_MAIN · uberbond-night-frontier-receipt-1.0.0
-- [`artifacts/perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — uberbond.perpetual-frontier-genesis.tick.v1
-- [`artifacts/perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY · uberbond-perpetual-frontier-genesis-1.1.0
-- [`artifacts/perpetual-frontier-implementation-ledger.json`](../../artifacts/perpetual-frontier-implementation-ledger.json) — Unknown-Unknown Engine · GENESIS_EVIDENCE_LEDGER_READY · uberbond.perpetual-frontier-implementation-ledger.v2
-- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — uberbond.v7-final-frontier-state.v1
-- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1
-- [`config/absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1
-- [`config/apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1
-- [`config/frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — READY_FOR_POLICY_CLEARED_OBSERVATIONS · uberbond.frontier-learning-autopilot.v1
-- [`config/frontier-model-candidates.json`](../../config/frontier-model-candidates.json) — PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF · uberbond.frontier-model-candidates.v1
-- [`config/frontier-vm-v5-longitudinal-campaign.json`](../../config/frontier-vm-v5-longitudinal-campaign.json) — PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY · uberbond.frontier-vm-v5-longitudinal-campaign.v2
-- [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1
-- [`config/omega-frontier-closure-matrix.json`](../../config/omega-frontier-closure-matrix.json) — FAR_FROM_10_OF_10 · uberbond.omega-frontier-closure-matrix.v1
-- [`config/openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4
-- [`config/ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1
-- [`data/frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1
-- [`docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json`](../UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json) — 2026-09-29 · FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF · uberbond.ubermind.frontier-max-canon.v1
-- [`docs/architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd)
-- [`open router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json`](../../open%20router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json) — 2026-09-30 · EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4
-- [`open router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs`](../../open%20router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs) — 2026-09-30 · exports compileDirectFrontierCounterfactual
-- [`open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json`](../../open%20router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json) — 2026-10-07 · INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS · uberbond.open-router.current-runtime.v1
-- [`open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json`](../../open%20router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED · uberbond.open-router.v5-frontier-vm-receipt.v4
+- [`artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json`](../../artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json) — 2026-09-13 · FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED · uberbond.frontier-internal-satisfaction-review.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE · uberbond-cost-stage-fulfill-learn-frontier-1.0.0 _(matched by name only)_
+- [`artifacts/growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-08.json`](../../artifacts/night-frontier/2026-09-03-run-08.json) — 2026-09-03 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-09.json`](../../artifacts/night-frontier/2026-09-03-run-09.json) — 2026-09-03 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-10.json`](../../artifacts/night-frontier/2026-09-03-run-10.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-11.json`](../../artifacts/night-frontier/2026-09-03-run-11.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-12.json`](../../artifacts/night-frontier/2026-09-03-run-12.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-13.json`](../../artifacts/night-frontier/2026-09-03-run-13.json) — 2026-09-03 · IMPLEMENTATION_WRITE_BLOCKED _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-14.json`](../../artifacts/night-frontier/2026-09-03-run-14.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-04-run-15.json`](../../artifacts/night-frontier/2026-09-04-run-15.json) — 2026-09-04 · CLEAN_TREE_COMPOSITION_ON_CURRENT_MAIN · uberbond-night-frontier-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — uberbond.perpetual-frontier-genesis.tick.v1 _(matched by name only)_
+- [`artifacts/perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY · uberbond-perpetual-frontier-genesis-1.1.0 _(matched by name only)_
+- [`artifacts/perpetual-frontier-implementation-ledger.json`](../../artifacts/perpetual-frontier-implementation-ledger.json) — Unknown-Unknown Engine · GENESIS_EVIDENCE_LEDGER_READY · uberbond.perpetual-frontier-implementation-ledger.v2 _(matched by name only)_
+- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — uberbond.v7-final-frontier-state.v1 _(matched by name only)_
+- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1 _(matched by name only)_
+- [`config/absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1 _(matched by name only)_
+- [`config/apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1 _(matched by name only)_
+- [`config/frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — READY_FOR_POLICY_CLEARED_OBSERVATIONS · uberbond.frontier-learning-autopilot.v1 _(matched by name only)_
+- [`config/frontier-model-candidates.json`](../../config/frontier-model-candidates.json) — PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF · uberbond.frontier-model-candidates.v1 _(matched by name only)_
+- [`config/frontier-vm-v5-longitudinal-campaign.json`](../../config/frontier-vm-v5-longitudinal-campaign.json) — PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY · uberbond.frontier-vm-v5-longitudinal-campaign.v2 _(matched by name only)_
+- [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1 _(matched by name only)_
+- [`config/omega-frontier-closure-matrix.json`](../../config/omega-frontier-closure-matrix.json) — FAR_FROM_10_OF_10 · uberbond.omega-frontier-closure-matrix.v1 _(matched by name only)_
+- [`config/openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4 _(matched by name only)_
+- [`config/ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1 _(matched by name only)_
+- [`data/frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1 _(matched by name only)_
+- [`docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json`](../UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json) — 2026-09-29 · FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF · uberbond.ubermind.frontier-max-canon.v1 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd) _(matched by name only)_
+- [`open router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json`](../../open%20router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json) — 2026-09-30 · EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4 _(matched by name only)_
+- [`open router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs`](../../open%20router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs) — 2026-09-30 · exports compileDirectFrontierCounterfactual _(matched by name only)_
+- [`open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json`](../../open%20router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json) — 2026-10-07 · INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS · uberbond.open-router.current-runtime.v1 _(matched by name only)_
+- [`open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json`](../../open%20router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED · uberbond.open-router.v5-frontier-vm-receipt.v4 _(matched by name only)_
 
 ## Tests (64)
 

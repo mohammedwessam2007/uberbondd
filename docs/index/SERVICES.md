@@ -14,26 +14,26 @@ Separately deployed small services (UberWarm callbacks, Neon functions).
 
 ## Email infrastructure and warmup
 
-- [`services/uberwarm-callback/README.md`](../../services/uberwarm-callback/README.md) — UberWarm tiny callback sidecar
-- [`services/uberwarm-callback/api/health.mjs`](../../services/uberwarm-callback/api/health.mjs) — exports handler
-- [`services/uberwarm-callback/api/unsubscribe.mjs`](../../services/uberwarm-callback/api/unsubscribe.mjs) — exports createHandlers
-- [`services/uberwarm-callback/api/webhooks/winnr.mjs`](../../services/uberwarm-callback/api/webhooks/winnr.mjs) — Signed Winnr webhook receiver: immutable idempotency + one-way suppression.
-- [`services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql`](../../services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts.
-- [`services/uberwarm-callback/neon-private-entry.mjs`](../../services/uberwarm-callback/neon-private-entry.mjs) — exports close, fetch
-- [`services/uberwarm-callback/neon-private-optout.zip.base64`](../../services/uberwarm-callback/neon-private-optout.zip.base64)
-- [`services/uberwarm-callback/package-lock.json`](../../services/uberwarm-callback/package-lock.json) — uberwarm-callback-private
-- [`services/uberwarm-callback/package.json`](../../services/uberwarm-callback/package.json) — uberwarm-callback-private
-- [`services/uberwarm-callback/railway-entry.mjs`](../../services/uberwarm-callback/railway-entry.mjs) — exports close, fetch
-- [`services/uberwarm-callback/railway/index.tsx`](../../services/uberwarm-callback/railway/index.tsx) — railway-entry.mjs
-- [`services/uberwarm-callback/src/uberwarm-unsubscribe.mjs`](../../services/uberwarm-callback/src/uberwarm-unsubscribe.mjs) — Permanent, self-service global opt-out capability. HMAC tokens are created ONLY by a protected campaign sender after a specific recipient was approve…
-- [`services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs`](../../services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs) — Vercel's vanilla Node functions expect a DEFAULT (req,res) handler. Request/Response method exports alone are not a Node-function endpoint. Preserve…
-- [`services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs`](../../services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs) — Winnr verified webhook effects. A provider-signed bounce/complaint may only add a canonical global suppression. Positive events never unsuppress, res…
-- [`services/uberwarm-callback/src/winnr-events.mjs`](../../services/uberwarm-callback/src/winnr-events.mjs) — Zero-upstream-import subset of the source-controlled Winnr HMAC contract.
-- [`services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql`](../../services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql) — 2026-10-19 · Dedicated, inaccessible-by-Data-API inbound safety quarantine.
-- [`services/uberwarm-callback/supabase/README.md`](../../services/uberwarm-callback/supabase/README.md) — UberWarm Supabase Edge receiving node
-- [`services/uberwarm-callback/supabase/index.ts`](../../services/uberwarm-callback/supabase/index.ts) — Supabase Edge fallback for Winnr signed delivery events. No sending ability.
-- [`services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs) — 6 tests — e.g. "all-commercial unsubscribe token is exact, tamper-resistant and not expiring"
-- [`services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs) — 4 tests — e.g. "Vercel default handlers are functions, explicit raw-body bypass configured"
-- [`services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs) — 9 tests — e.g. "real HMAC SHA256 webhook, single suppression, canonical stop survives duplicate"
-- [`services/uberwarm-canonical-neon-function/README.md`](../../services/uberwarm-canonical-neon-function/README.md) — UberWarm: Winnr → Neon canonical signed ingress
-- [`services/uberwarm-canonical-neon-function/index.cjs`](../../services/uberwarm-canonical-neon-function/index.cjs) — Winnr signed, direct-to-canonical Neon webhook. Zero outbound sending. Uses only Neon-injected DATABASE_URL and encrypted provider whsec_ env. Event…
+- [`services/uberwarm-callback/README.md`](../../services/uberwarm-callback/README.md) — UberWarm tiny callback sidecar _(matched by name only)_
+- [`services/uberwarm-callback/api/health.mjs`](../../services/uberwarm-callback/api/health.mjs) — exports handler _(matched by name only)_
+- [`services/uberwarm-callback/api/unsubscribe.mjs`](../../services/uberwarm-callback/api/unsubscribe.mjs) — exports createHandlers _(matched by name only)_
+- [`services/uberwarm-callback/api/webhooks/winnr.mjs`](../../services/uberwarm-callback/api/webhooks/winnr.mjs) — Signed Winnr webhook receiver: immutable idempotency + one-way suppression. _(matched by name only)_
+- [`services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql`](../../services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts. _(matched by name only)_
+- [`services/uberwarm-callback/neon-private-entry.mjs`](../../services/uberwarm-callback/neon-private-entry.mjs) — exports close, fetch _(matched by name only)_
+- [`services/uberwarm-callback/neon-private-optout.zip.base64`](../../services/uberwarm-callback/neon-private-optout.zip.base64) _(matched by name only)_
+- [`services/uberwarm-callback/package-lock.json`](../../services/uberwarm-callback/package-lock.json) — uberwarm-callback-private _(matched by name only)_
+- [`services/uberwarm-callback/package.json`](../../services/uberwarm-callback/package.json) — uberwarm-callback-private _(matched by name only)_
+- [`services/uberwarm-callback/railway-entry.mjs`](../../services/uberwarm-callback/railway-entry.mjs) — exports close, fetch _(matched by name only)_
+- [`services/uberwarm-callback/railway/index.tsx`](../../services/uberwarm-callback/railway/index.tsx) — railway-entry.mjs _(matched by name only)_
+- [`services/uberwarm-callback/src/uberwarm-unsubscribe.mjs`](../../services/uberwarm-callback/src/uberwarm-unsubscribe.mjs) — Permanent, self-service global opt-out capability. HMAC tokens are created ONLY by a protected campaign sender after a specific recipient was approve… _(matched by name only)_
+- [`services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs`](../../services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs) — Vercel's vanilla Node functions expect a DEFAULT (req,res) handler. Request/Response method exports alone are not a Node-function endpoint. Preserve… _(matched by name only)_
+- [`services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs`](../../services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs) — Winnr verified webhook effects. A provider-signed bounce/complaint may only add a canonical global suppression. Positive events never unsuppress, res… _(matched by name only)_
+- [`services/uberwarm-callback/src/winnr-events.mjs`](../../services/uberwarm-callback/src/winnr-events.mjs) — Zero-upstream-import subset of the source-controlled Winnr HMAC contract. _(matched by name only)_
+- [`services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql`](../../services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql) — 2026-10-19 · Dedicated, inaccessible-by-Data-API inbound safety quarantine. _(matched by name only)_
+- [`services/uberwarm-callback/supabase/README.md`](../../services/uberwarm-callback/supabase/README.md) — UberWarm Supabase Edge receiving node _(matched by name only)_
+- [`services/uberwarm-callback/supabase/index.ts`](../../services/uberwarm-callback/supabase/index.ts) — Supabase Edge fallback for Winnr signed delivery events. No sending ability. _(matched by name only)_
+- [`services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs) — 6 tests — e.g. "all-commercial unsubscribe token is exact, tamper-resistant and not expiring" _(matched by name only)_
+- [`services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs) — 4 tests — e.g. "Vercel default handlers are functions, explicit raw-body bypass configured" _(matched by name only)_
+- [`services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs) — 9 tests — e.g. "real HMAC SHA256 webhook, single suppression, canonical stop survives duplicate" _(matched by name only)_
+- [`services/uberwarm-canonical-neon-function/README.md`](../../services/uberwarm-canonical-neon-function/README.md) — UberWarm: Winnr → Neon canonical signed ingress _(matched by name only)_
+- [`services/uberwarm-canonical-neon-function/index.cjs`](../../services/uberwarm-canonical-neon-function/index.cjs) — Winnr signed, direct-to-canonical Neon webhook. Zero outbound sending. Uses only Neon-injected DATABASE_URL and encrypted provider whsec_ env. Event… _(matched by name only)_

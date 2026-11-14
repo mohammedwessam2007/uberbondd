@@ -18,14 +18,14 @@ Most-imported modules: [`forecast-stack`](../../src/forecast-stack.mjs) (5), [`p
 
 Key documents (canon first, then newest):
 
-- [`docs/NORTH_STAR_PRECEDENCE.md`](../NORTH_STAR_PRECEDENCE.md) — UberBond Terminal North Star Precedence
-- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM
-- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI…
-- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM
-- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum.
+- [`docs/NORTH_STAR_PRECEDENCE.md`](../NORTH_STAR_PRECEDENCE.md) — UberBond Terminal North Star Precedence _(matched by name only)_
+- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(matched by name only)_
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(matched by name only)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(matched by name only)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(matched by name only)_
+- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding _(matched by name only)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(matched by name only)_
 
 Commands: `npm run life:doctor`
 
@@ -39,14 +39,14 @@ Most-imported modules: [`founder-directive-reconciler`](../../src/founder-direct
 
 Key documents (canon first, then newest):
 
-- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center
-- [`docs/architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md`](../architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md) — 2026-10-24 · UberMind Ω46: Human Intelligence and Commercial Strategy Sourcebook
-- [`docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47 · Machiavelli strategic canon
-- [`docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47: Sovereign Strategic Philosophy + Economic Doctrine Corpus
-- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief
-- [`docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md`](../architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md) — 2026-10-24 · UBERMIND Ω49 · Asymmetric Strategy, Institutional Power and Corporate Defense
-- [`docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md`](../architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md) — 2026-10-24 · UBERMIND Ω50 · Systems Reality, Antifragility and Reflexive Strategy
-- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA
+- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md`](../architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md) — 2026-10-24 · UberMind Ω46: Human Intelligence and Commercial Strategy Sourcebook _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47 · Machiavelli strategic canon _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47: Sovereign Strategic Philosophy + Economic Doctrine Corpus _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md`](../architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md) — 2026-10-24 · UBERMIND Ω49 · Asymmetric Strategy, Institutional Power and Corporate Defense _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md`](../architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md) — 2026-10-24 · UBERMIND Ω50 · Systems Reality, Antifragility and Reflexive Strategy _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA _(matched by name only)_
 
 Commands: `npm run test:nullstar`
 
@@ -60,14 +60,14 @@ Most-imported modules: [`uberbond-cognitive-bus`](../../src/uberbond-cognitive-b
 
 Key documents (canon first, then newest):
 
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt.
-- [`docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md`](../missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md) — 2026-10-18 · PHOENIX / UBERWARM TOTAL CLOSURE + SOVEREIGN BACKUP
-- [`docs/reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md`](../reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md) — 2026-10-18 · PHOENIX Git backup and UberWarm post-merge recovery, 18 October 2026
-- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE
-- [`docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`](../handoffs/WORK_CONTRA_CURRENT_2026-10-06.md) — 2026-10-06 · Contra first-cash continuation — Status: CONTRA_EGYPT_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_SETUP_PENDING
-- [`docs/handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md`](../handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond late-night launch-readiness repair — Status: COVERAGE_REACHABILITY_CONTRADICTION_REPAIRED__VERCEL_RECHECK_PENDING
-- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY
-- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_
+- [`docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md`](../missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md) — 2026-10-18 · PHOENIX / UBERWARM TOTAL CLOSURE + SOVEREIGN BACKUP _(matched by name only)_
+- [`docs/reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md`](../reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md) — 2026-10-18 · PHOENIX Git backup and UberWarm post-merge recovery, 18 October 2026 _(matched by name only)_
+- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE _(matched by name only)_
+- [`docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`](../handoffs/WORK_CONTRA_CURRENT_2026-10-06.md) — 2026-10-06 · Contra first-cash continuation — Status: CONTRA_EGYPT_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_SETUP_PENDING _(matched by name only)_
+- [`docs/handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md`](../handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond late-night launch-readiness repair — Status: COVERAGE_REACHABILITY_CONTRADICTION_REPAIRED__VERCEL_RECHECK_PENDING _(matched by name only)_
+- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY _(matched by name only)_
+- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(matched by name only)_
 
 Commands: `npm run brain` · `npm run brain:feature-atlas` · `npm run brain:features` · `npm run brain:metacognitive` · `npm run capabilities:cos` · `npm run capabilities:phoenix:import` · `npm run capabilities:phoenix:query` · `npm run memory:doctor` · `npm run repo:index` · `npm run repo:index:check`
 
@@ -79,14 +79,14 @@ Frozen historical record: day-by-day forensics, recovered PR/issue/commit lineag
 
 Key documents (canon first, then newest):
 
-- [`docs/history/CURRENT_HANDOFF_2026-09-17_LEADGEN_OFFERS_DEPLOYED.md`](../history/CURRENT_HANDOFF_2026-09-17_LEADGEN_OFFERS_DEPLOYED.md) — 2026-09-17 · UberBond Current Checkpoint — Lead Generation and Four-Offer Revenue Cell
-- [`docs/history/CURRENT_HANDOFF_2026-09-17_OUTREACH_READINESS.md`](../history/CURRENT_HANDOFF_2026-09-17_OUTREACH_READINESS.md) — 2026-09-17 · UberBond Outreach Readiness Checkpoint — 2026-09-17
-- [`docs/archive/2026-08-30-pre-checkpoint/CURRENT_SYSTEM_STATE.md`](../archive/2026-08-30-pre-checkpoint/CURRENT_SYSTEM_STATE.md) — UberBond — Current System State
-- [`docs/history/README_REVENUE_ENGINE_1_4_2026-07.md`](../history/README_REVENUE_ENGINE_1_4_2026-07.md) — UberBond Revenue Engine 1.4
-- [`docs/history/root-legacy/ACTIVATE_OUTBOUND_IPAD.md`](../history/root-legacy/ACTIVATE_OUTBOUND_IPAD.md) — Activate Outbound on iPad
+- [`docs/history/CURRENT_HANDOFF_2026-09-17_LEADGEN_OFFERS_DEPLOYED.md`](../history/CURRENT_HANDOFF_2026-09-17_LEADGEN_OFFERS_DEPLOYED.md) — 2026-09-17 · UberBond Current Checkpoint — Lead Generation and Four-Offer Revenue Cell _(matched by name only)_
+- [`docs/history/CURRENT_HANDOFF_2026-09-17_OUTREACH_READINESS.md`](../history/CURRENT_HANDOFF_2026-09-17_OUTREACH_READINESS.md) — 2026-09-17 · UberBond Outreach Readiness Checkpoint — 2026-09-17 _(matched by name only)_
+- [`docs/archive/2026-08-30-pre-checkpoint/CURRENT_SYSTEM_STATE.md`](../archive/2026-08-30-pre-checkpoint/CURRENT_SYSTEM_STATE.md) — UberBond — Current System State _(matched by name only)_
+- [`docs/history/README_REVENUE_ENGINE_1_4_2026-07.md`](../history/README_REVENUE_ENGINE_1_4_2026-07.md) — UberBond Revenue Engine 1.4 _(matched by name only)_
+- [`docs/history/root-legacy/ACTIVATE_OUTBOUND_IPAD.md`](../history/root-legacy/ACTIVATE_OUTBOUND_IPAD.md) — Activate Outbound on iPad _(matched by name only)_
 - [`docs/history/root-legacy/BEGINNER_SETUP.md`](../history/root-legacy/BEGINNER_SETUP.md) — Beginner Setup
-- [`docs/history/root-legacy/CHATGPT_FINAL_REVIEW_MISSION_1.md`](../history/root-legacy/CHATGPT_FINAL_REVIEW_MISSION_1.md) — UBERBOND Mission 1 — Final Independent Review
-- [`docs/history/root-legacy/CLAUDE_REVIEW_MISSION_1.md`](../history/root-legacy/CLAUDE_REVIEW_MISSION_1.md) — Claude Independent Review Mission
+- [`docs/history/root-legacy/CHATGPT_FINAL_REVIEW_MISSION_1.md`](../history/root-legacy/CHATGPT_FINAL_REVIEW_MISSION_1.md) — UBERBOND Mission 1 — Final Independent Review _(matched by name only)_
+- [`docs/history/root-legacy/CLAUDE_REVIEW_MISSION_1.md`](../history/root-legacy/CLAUDE_REVIEW_MISSION_1.md) — Claude Independent Review Mission _(matched by name only)_
 
 ## GENESIS, moonshots and Perpetual Frontier
 
@@ -98,14 +98,14 @@ Most-imported modules: [`uber-genesis-foundry`](../../src/uber-genesis-foundry.m
 
 Key documents (canon first, then newest):
 
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE
-- [`docs/MOONSHOT_REALITY_COMPILER_CANON.md`](../MOONSHOT_REALITY_COMPILER_CANON.md) — UberBond Moonshot Reality Compiler — Status: COMPATIBILITY / EXECUTION BRIDGE TO THE POSSIBILITY CIVILIZATION REALIZATION CANON
-- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — UberBond Perpetual Frontier / GENESIS Canon — Status: CHAT_SPEC_GOAL promoted into durable repository canon
-- [`docs/TEMPORAL_FOUNDRY_CANON.md`](../TEMPORAL_FOUNDRY_CANON.md) — UberBond Temporal Foundry Canon
-- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon
-- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22
-- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22
-- [`docs/MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md`](../MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md) — 2026-09-22 · 890 Moonshot Energy / Compute / Model Mesh — Status: source integration; routing coverage, not 890 implementations
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_
+- [`docs/MOONSHOT_REALITY_COMPILER_CANON.md`](../MOONSHOT_REALITY_COMPILER_CANON.md) — UberBond Moonshot Reality Compiler — Status: COMPATIBILITY / EXECUTION BRIDGE TO THE POSSIBILITY CIVILIZATION REALIZATION CANON _(matched by name only)_
+- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — UberBond Perpetual Frontier / GENESIS Canon — Status: CHAT_SPEC_GOAL promoted into durable repository canon _(matched by name only)_
+- [`docs/TEMPORAL_FOUNDRY_CANON.md`](../TEMPORAL_FOUNDRY_CANON.md) — UberBond Temporal Foundry Canon _(matched by name only)_
+- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon _(matched by name only)_
+- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md`](../MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md) — 2026-09-22 · 890 Moonshot Energy / Compute / Model Mesh — Status: source integration; routing coverage, not 890 implementations _(matched by name only)_
 
 Commands: `npm run frontier:plan` · `npm run gamechanger:plan` · `npm run gamechanger:tick` · `npm run genesis:blackout:doctor` · `npm run genesis:bursts:doctor` · `npm run genesis:candidate-mesh:doctor` · `npm run genesis:chimera:doctor` · `npm run genesis:cognition:doctor` · `npm run genesis:doctor` · `npm run genesis:escalation:doctor` · `npm run genesis:evolution:doctor` · `npm run genesis:evolve` · `npm run genesis:failure-reflex:doctor` · `npm run genesis:idea-burst:doctor`
 
@@ -119,14 +119,14 @@ Most-imported modules: [`nullstar-cognitive-solvers`](../../src/nullstar-cogniti
 
 Key documents (canon first, then newest):
 
-- [`docs/LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md`](../LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md) — 2026-09-15 · Lawspace Computing: A Breakthrough Research Program — Status: SPECULATIVE_RESEARCH_HYPOTHESIS / NOT_IMPLEMENTATION_PROOF / NOT_ASI_CLAIM
-- [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Ω Cognitive Transcompiler — Status: RESEARCH_ARCHITECTURE + SOFTWARE_CANARY / NOT_ASI / NOT_FRONTIER_EQUIVALENCE / NOT_ZERO_HARDWARE
-- [`docs/OMEGA_FUNGIBLE_COMPUTE_MEMBRANE_2026-09-15.md`](../OMEGA_FUNGIBLE_COMPUTE_MEMBRANE_2026-09-15.md) — 2026-09-15 · Ω Fungible Compute Membrane — Status: RESEARCH_ARCHITECTURE + ZERO-EFFECT ROUTING CANARY / NOT_PRIVATE_COMPUTE_PROOF / NOT_FREE_COMPUTE
-- [`docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md`](../NULLSTAR_DIRECTIVE_RECONCILIATION.md) — PROJECT NULLSTAR — Directive Reconciliation Reading
-- [`docs/NULLSTAR_OMEGA_DENOMINATOR.md`](../NULLSTAR_OMEGA_DENOMINATOR.md) — NULLSTAR OMEGA Denominator — N01 to N24
-- [`docs/NULLSTAR_TERMINAL_SUMMARY.md`](../NULLSTAR_TERMINAL_SUMMARY.md) — NULLSTAR terminal completion war — what actually happened
-- [`docs/OMEGA_OVERNIGHT_EXECUTION_REPORT.md`](../OMEGA_OVERNIGHT_EXECUTION_REPORT.md) — Omega overnight execution report
-- [`docs/OMEGA_PRIVATE_EVIDENCE_STANDARD.md`](../OMEGA_PRIVATE_EVIDENCE_STANDARD.md) — Ω Private Evidence Standard — Status: PRIVATE RESEARCH GOVERNANCE
+- [`docs/LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md`](../LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md) — 2026-09-15 · Lawspace Computing: A Breakthrough Research Program — Status: SPECULATIVE_RESEARCH_HYPOTHESIS / NOT_IMPLEMENTATION_PROOF / NOT_ASI_CLAIM _(matched by name only)_
+- [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Ω Cognitive Transcompiler — Status: RESEARCH_ARCHITECTURE + SOFTWARE_CANARY / NOT_ASI / NOT_FRONTIER_EQUIVALENCE / NOT_ZERO_HARDWARE _(matched by name only)_
+- [`docs/OMEGA_FUNGIBLE_COMPUTE_MEMBRANE_2026-09-15.md`](../OMEGA_FUNGIBLE_COMPUTE_MEMBRANE_2026-09-15.md) — 2026-09-15 · Ω Fungible Compute Membrane — Status: RESEARCH_ARCHITECTURE + ZERO-EFFECT ROUTING CANARY / NOT_PRIVATE_COMPUTE_PROOF / NOT_FREE_COMPUTE _(matched by name only)_
+- [`docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md`](../NULLSTAR_DIRECTIVE_RECONCILIATION.md) — PROJECT NULLSTAR — Directive Reconciliation Reading _(matched by name only)_
+- [`docs/NULLSTAR_OMEGA_DENOMINATOR.md`](../NULLSTAR_OMEGA_DENOMINATOR.md) — NULLSTAR OMEGA Denominator — N01 to N24 _(matched by name only)_
+- [`docs/NULLSTAR_TERMINAL_SUMMARY.md`](../NULLSTAR_TERMINAL_SUMMARY.md) — NULLSTAR terminal completion war — what actually happened _(matched by name only)_
+- [`docs/OMEGA_OVERNIGHT_EXECUTION_REPORT.md`](../OMEGA_OVERNIGHT_EXECUTION_REPORT.md) — Omega overnight execution report _(matched by name only)_
+- [`docs/OMEGA_PRIVATE_EVIDENCE_STANDARD.md`](../OMEGA_PRIVATE_EVIDENCE_STANDARD.md) — Ω Private Evidence Standard — Status: PRIVATE RESEARCH GOVERNANCE _(matched by name only)_
 
 Commands: `npm run moonshots:ontological-canary` · `npm run nullstar:attribution` · `npm run nullstar:baselines-v2` · `npm run nullstar:branch-debt` · `npm run nullstar:completion-debt` · `npm run nullstar:failure-debt` · `npm run nullstar:final-report` · `npm run nullstar:ga1` · `npm run nullstar:generalization` · `npm run nullstar:generation` · `npm run nullstar:meta-improvement` · `npm run nullstar:probe-saturation` · `npm run nullstar:reconcile` · `npm run nullstar:transfer`
 
@@ -140,14 +140,14 @@ Most-imported modules: [`absolute-frontier-quality-invariant`](../../src/absolut
 
 Key documents (canon first, then newest):
 
-- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency…
-- [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — UberBond Sandwich Method — Status: VERIFIED CURRENT SOURCE PROTOCOL / ZERO-EFFECT / RUNTIME EVIDENCE SEPARATE
-- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER
-- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence
-- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38)
-- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage
-- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER
-- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10
+- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(matched by name only)_
+- [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — UberBond Sandwich Method — Status: VERIFIED CURRENT SOURCE PROTOCOL / ZERO-EFFECT / RUNTIME EVIDENCE SEPARATE _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(matched by name only)_
 
 Commands: `npm run absolute:quality:doctor` · `npm run apex:fqc:custodian-request` · `npm run apex:fqc:doctor` · `npm run apex:fqc:evidence` · `npm run frontier-vm:doctor` · `npm run infinite-opus:activate:owner-gate` · `npm run infinite-opus:astra:preflight` · `npm run infinite-opus:budget:reconcile` · `npm run infinite-opus:canary` · `npm run infinite-opus:crown:admit` · `npm run infinite-opus:crown:tournament` · `npm run infinite-opus:equivalence:doctor` · `npm run infinite-opus:hostile:doctor` · `npm run infinite-opus:preowner:doctor`
 
@@ -161,14 +161,14 @@ Most-imported modules: [`uberskills-core`](../../src/uberskills-core.mjs) (26), 
 
 Key documents (canon first, then newest):
 
-- [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — UberBond AI Skill & Plugin Assimilation Canon
-- [`docs/CAPABILITY_GENOME_CANON.md`](../CAPABILITY_GENOME_CANON.md) — UberBond Capability Genome Canon — Status: foundation integrated; measured public repository-candidate harvest proven; measured skill-body import proven; first measured body-to-capability n…
-- [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — UberBond Neural Exocortex Genome Canon
-- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon
-- [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — UberBond Wallbreaker Canon — Status: CANONICAL PLANNING PRIMITIVE
-- [`docs/research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md`](../research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md) — 2026-08-31 · World Capability Ecosystem Evidence Package — 2026-08-31
-- [`docs/CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md`](../CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md) — Claude Code External Capability Pack — UberBond
-- [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — UberBond Million-Repo Neural Continuum
+- [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — UberBond AI Skill & Plugin Assimilation Canon _(matched by name only)_
+- [`docs/CAPABILITY_GENOME_CANON.md`](../CAPABILITY_GENOME_CANON.md) — UberBond Capability Genome Canon — Status: foundation integrated; measured public repository-candidate harvest proven; measured skill-body import proven; first measured body-to-capability n… _(matched by name only)_
+- [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — UberBond Neural Exocortex Genome Canon _(matched by name only)_
+- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(matched by name only)_
+- [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — UberBond Wallbreaker Canon — Status: CANONICAL PLANNING PRIMITIVE _(matched by name only)_
+- [`docs/research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md`](../research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md) — 2026-08-31 · World Capability Ecosystem Evidence Package — 2026-08-31 _(matched by name only)_
+- [`docs/CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md`](../CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md) — Claude Code External Capability Pack — UberBond _(matched by name only)_
+- [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — UberBond Million-Repo Neural Continuum _(matched by name only)_
 
 Commands: `npm run avengers:doctor` · `npm run avengers:doctor:probe` · `npm run avengers:plan` · `npm run avengers:tick` · `npm run avengers:tick:dry` · `npm run capabilities:doctor` · `npm run capabilities:genome:body-import` · `npm run capabilities:genome:doctor` · `npm run capabilities:genome:harvest` · `npm run capabilities:genome:normalize` · `npm run test:external-capabilities` · `npm run wallbreaker`
 
@@ -182,14 +182,14 @@ Most-imported modules: [`cloud-agent-relay`](../../src/cloud-agent-relay.mjs) (2
 
 Key documents (canon first, then newest):
 
-- [`docs/AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md`](../AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md) — 2026-09-12 · UberBond Agent-Native Revenue Architecture
-- [`docs/UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md`](../UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md) — 2026-09-26 · UberRelay — authorized third-party egress bridge — Status: source implemented on feature branch; no live provider account, credential, DNS mutation, purchase, or email send is claimed.
-- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31
-- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30
-- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Corroboration Receipt
-- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Public Evidence Receipt
-- [`docs/AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md`](../AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md) — 2026-08-20 · Autonomous Agent Mesh implementation receipt — 2026-08-20
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth).
+- [`docs/AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md`](../AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md) — 2026-09-12 · UberBond Agent-Native Revenue Architecture _(matched by name only)_
+- [`docs/UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md`](../UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md) — 2026-09-26 · UberRelay — authorized third-party egress bridge — Status: source implemented on feature branch; no live provider account, credential, DNS mutation, purchase, or email send is claimed. _(matched by name only)_
+- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31 _(matched by name only)_
+- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30 _(matched by name only)_
+- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Corroboration Receipt _(matched by name only)_
+- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Public Evidence Receipt _(matched by name only)_
+- [`docs/AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md`](../AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md) — 2026-08-20 · Autonomous Agent Mesh implementation receipt — 2026-08-20 _(matched by name only)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_
 
 Commands: `npm run agent-evolution:doctor` · `npm run agent-evolution:run` · `npm run check:relay-api-executor` · `npm run check:relay-api-request` · `npm run check:vercel-relay` · `npm run mesh:plan` · `npm run mesh:tick` · `npm run overnight:plan` · `npm run smoke:queue` · `npm run test:genesis:autonomy-compression`
 
@@ -203,10 +203,10 @@ Most-imported modules: [`effect-ledgers`](../../src/effect-ledgers.mjs) (378), [
 
 Key documents (canon first, then newest):
 
-- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph
-- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine
-- [`docs/HARNESS_ASSURANCE_V3.md`](../HARNESS_ASSURANCE_V3.md) — Harness Assurance V3
-- [`docs/MUTATION_INVENTORY.md`](../MUTATION_INVENTORY.md) — Mutation inventory
+- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(matched by name only)_
+- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine _(matched by name only)_
+- [`docs/HARNESS_ASSURANCE_V3.md`](../HARNESS_ASSURANCE_V3.md) — Harness Assurance V3 _(matched by name only)_
+- [`docs/MUTATION_INVENTORY.md`](../MUTATION_INVENTORY.md) — Mutation inventory _(matched by name only)_
 
 Commands: `npm run check:syntax` · `npm run constitution:doctor` · `npm run organism:doctor` · `npm run smoke` · `npm run smoke:services` · `npm run test:deterministic` · `npm run test:mutation-war`
 
@@ -220,8 +220,8 @@ Most-imported modules: [`canonical`](../../src/omnia-v9/canonical.mjs) (38), [`k
 
 Key documents (canon first, then newest):
 
-- [`docs/OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md`](../OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md) — 2026-08-20 · UberBond Omnia Mega Execution Truth
-- [`docs/DATA_MINIMIZATION_MATRIX.md`](../DATA_MINIMIZATION_MATRIX.md) — Data minimization matrix
+- [`docs/OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md`](../OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md) — 2026-08-20 · UberBond Omnia Mega Execution Truth _(matched by name only)_
+- [`docs/DATA_MINIMIZATION_MATRIX.md`](../DATA_MINIMIZATION_MATRIX.md) — Data minimization matrix _(matched by name only)_
 
 Commands: `npm run outreach:bridge-attribute` · `npm run outreach:bridge-letters` · `npm run outreach:bridge-plan` · `npm run test:infinite-opus:proof-economics`
 
@@ -235,14 +235,14 @@ Most-imported modules: [`uberfleet`](../../src/uberfleet.mjs) (11), [`uberwinnr-
 
 Key documents (canon first, then newest):
 
-- [`docs/reports/UBERWARM_CANONICAL_RECONCILIATION_20261020.md`](../reports/UBERWARM_CANONICAL_RECONCILIATION_20261020.md) — 2026-10-20 · Canonical ingress reconciliation — 2026-10-20
-- [`docs/reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md`](../reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md) — 2026-10-20 · Owner-approved held Railway baseline and callback — 2026-10-20
-- [`docs/reports/UBERWARM_TWO_STORE_OPTOUT_20261020.md`](../reports/UBERWARM_TWO_STORE_OPTOUT_20261020.md) — 2026-10-20 · Held two-store opt-out verification — 2026-10-20
-- [`docs/reports/UBERWARM_NODE_PRESET_ROUTING_20261019.md`](../reports/UBERWARM_NODE_PRESET_ROUTING_20261019.md) — 2026-10-19 · Node preset callback recovery
-- [`docs/reports/UBERWARM_PROTECTED_ONE_SHOT_COMPOSITION_20261019.md`](../reports/UBERWARM_PROTECTED_ONE_SHOT_COMPOSITION_20261019.md) — 2026-10-19 · UberWarm 1–6: Protected one-shot runtime composition
-- [`docs/reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md`](../reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md) — 2026-10-19 · UberWarm read-only provider event-delivery observation
-- [`docs/reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md`](../reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md) — 2026-10-19 · UberWarm 1–6: rotating authenticated DNS spotcheck on existing included API
-- [`docs/reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md`](../reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md) — 2026-10-19 · Exact one-shot evidence custody
+- [`docs/reports/UBERWARM_CANONICAL_RECONCILIATION_20261020.md`](../reports/UBERWARM_CANONICAL_RECONCILIATION_20261020.md) — 2026-10-20 · Canonical ingress reconciliation — 2026-10-20 _(matched by name only)_
+- [`docs/reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md`](../reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md) — 2026-10-20 · Owner-approved held Railway baseline and callback — 2026-10-20 _(matched by name only)_
+- [`docs/reports/UBERWARM_TWO_STORE_OPTOUT_20261020.md`](../reports/UBERWARM_TWO_STORE_OPTOUT_20261020.md) — 2026-10-20 · Held two-store opt-out verification — 2026-10-20 _(matched by name only)_
+- [`docs/reports/UBERWARM_NODE_PRESET_ROUTING_20261019.md`](../reports/UBERWARM_NODE_PRESET_ROUTING_20261019.md) — 2026-10-19 · Node preset callback recovery _(matched by name only)_
+- [`docs/reports/UBERWARM_PROTECTED_ONE_SHOT_COMPOSITION_20261019.md`](../reports/UBERWARM_PROTECTED_ONE_SHOT_COMPOSITION_20261019.md) — 2026-10-19 · UberWarm 1–6: Protected one-shot runtime composition _(matched by name only)_
+- [`docs/reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md`](../reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md) — 2026-10-19 · UberWarm read-only provider event-delivery observation _(matched by name only)_
+- [`docs/reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md`](../reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md) — 2026-10-19 · UberWarm 1–6: rotating authenticated DNS spotcheck on existing included API _(matched by name only)_
+- [`docs/reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md`](../reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md) — 2026-10-19 · Exact one-shot evidence custody _(matched by name only)_
 
 Commands: `npm run domain:plan` · `npm run outreach:winnr:doctor` · `npm run uberdoso:dns-publish`
 
@@ -256,14 +256,14 @@ Most-imported modules: [`uberreply-four-offer-genome`](../../src/uberreply-four-
 
 Key documents (canon first, then newest):
 
-- [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — UberBond Distribution OS Canon
-- [`docs/OUTREACH_OS_ARCHITECTURE.md`](../OUTREACH_OS_ARCHITECTURE.md) — Outreach OS Architecture
-- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon
-- [`docs/UBERREPLY_4X25K_CANON.md`](../UBERREPLY_4X25K_CANON.md) — UBERREPLY 4x25K Portfolio Canon — Status: source-level commercial/outbound strategy extension. This document does not claim live demand, live 100K/day capacity, any specific reply rate, or…
-- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a…
-- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript…
-- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING.
-- [`docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`](../ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md) — 2026-09-28 · UberBond Async-First No-Meeting Sales Mode V1 — 2026-09-28 — Status: extension of the Expected-Success Cold Email Compiler. Goal is to minimize founder synchronous meetings while preserving…
+- [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — UberBond Distribution OS Canon _(matched by name only)_
+- [`docs/OUTREACH_OS_ARCHITECTURE.md`](../OUTREACH_OS_ARCHITECTURE.md) — Outreach OS Architecture _(matched by name only)_
+- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon _(matched by name only)_
+- [`docs/UBERREPLY_4X25K_CANON.md`](../UBERREPLY_4X25K_CANON.md) — UBERREPLY 4x25K Portfolio Canon — Status: source-level commercial/outbound strategy extension. This document does not claim live demand, live 100K/day capacity, any specific reply rate, or… _(matched by name only)_
+- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(matched by name only)_
+- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(matched by name only)_
+- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING. _(matched by name only)_
+- [`docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`](../ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md) — 2026-09-28 · UberBond Async-First No-Meeting Sales Mode V1 — 2026-09-28 — Status: extension of the Expected-Success Cold Email Compiler. Goal is to minimize founder synchronous meetings while preserving… _(matched by name only)_
 
 Commands: `npm run outreach:drift-doctor` · `npm run outreach:eligibility` · `npm run outreach:fleet-dns` · `npm run outreach:free-first:doctor` · `npm run outreach:launch-facts` · `npm run outreach:reachability-audit` · `npm run probes:outbound` · `npm run smoke:discovery` · `npm run smoke:outbound`
 
@@ -277,14 +277,14 @@ Most-imported modules: [`payment-renewal-truth`](../../src/payment-renewal-truth
 
 Key documents (canon first, then newest):
 
-- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier
-- [`docs/research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md`](../research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md) — 2026-09-02 · UberBond Proposal Acceptance Engine — Research Basis (2026-09-02)
-- [`docs/AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md`](../AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md) — 2026-08-22 · UberBond AI Automation Service Bundle — 2026-08-22
-- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — offer contract — Status: FROZEN_OWNER_REVIEW_ONLY
-- [`docs/COMMERCIAL_OPPORTUNITY_CATALOG.md`](../COMMERCIAL_OPPORTUNITY_CATALOG.md) — Commercial Opportunity Catalog
-- [`docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md`](../contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md) — Powerhouse — Revenue Proof & Renewal Pack — Status: INTERNAL_CLIENT_SPECIFIC_DRAFT. Not created in Contra, sent, accepted, signed or funded. Powerhouse is a ranked prospect, not a won clien…
-- [`docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`](../ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md) — UberBond Economic Intelligence Explosion Law
-- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Inquiry Path Coherence Engine — Status: IMPLEMENTED + FIELD-CALIBRATED ON PUBLIC SITES (2026-10-21) / ZERO OUTBOUND / ZERO REVENUE
+- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier _(matched by name only)_
+- [`docs/research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md`](../research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md) — 2026-09-02 · UberBond Proposal Acceptance Engine — Research Basis (2026-09-02) _(matched by name only)_
+- [`docs/AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md`](../AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md) — 2026-08-22 · UberBond AI Automation Service Bundle — 2026-08-22 _(matched by name only)_
+- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — offer contract — Status: FROZEN_OWNER_REVIEW_ONLY _(matched by name only)_
+- [`docs/COMMERCIAL_OPPORTUNITY_CATALOG.md`](../COMMERCIAL_OPPORTUNITY_CATALOG.md) — Commercial Opportunity Catalog _(matched by name only)_
+- [`docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md`](../contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md) — Powerhouse — Revenue Proof & Renewal Pack — Status: INTERNAL_CLIENT_SPECIFIC_DRAFT. Not created in Contra, sent, accepted, signed or funded. Powerhouse is a ranked prospect, not a won clien… _(matched by name only)_
+- [`docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`](../ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md) — UberBond Economic Intelligence Explosion Law _(matched by name only)_
+- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Inquiry Path Coherence Engine — Status: IMPLEMENTED + FIELD-CALIBRATED ON PUBLIC SITES (2026-10-21) / ZERO OUTBOUND / ZERO REVENUE _(matched by name only)_
 
 Commands: `npm run firstcash:packet` · `npm run inquiry:probe` · `npm run payment:doctor` · `npm run probes` · `npm run test:inquiry-path` · `npm run visual`
 
@@ -298,14 +298,14 @@ Most-imported modules: [`opportunity-registry`](../../src/opportunity-registry.m
 
 Key documents (canon first, then newest):
 
-- [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Prometheus Architecture (as actually built, this branch)
-- [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Prometheus Canonical Integration Plan
-- [`docs/evidence/EGYPT_PDPC_NATURAL_PERSON_SCOPE_20261003.md`](../evidence/EGYPT_PDPC_NATURAL_PERSON_SCOPE_20261003.md) — 2026-10-03 · Current PDPC scope guidance
-- [`docs/evidence/EGYPT_PDPL_COMPANY_ROLE_SCOPE_LAW_20261003.md`](../evidence/EGYPT_PDPL_COMPANY_ROLE_SCOPE_LAW_20261003.md) — 2026-10-03 · Law 151/2020 material-scope evidence
-- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31
-- [`docs/OPPORTUNITY_TOURNAMENT_2026-08-20.md`](../OPPORTUNITY_TOURNAMENT_2026-08-20.md) — 2026-08-20 · UberBond Opportunity Tournament — 2026-08-20
-- [`docs/opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md`](../opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md) — 2026-08-13 · UberBond buyer-proof pack — Website QA & Release Readiness — Status: FICTIONAL_FORMAT_ONLY / OWNER_REVIEW_REQUIRED
-- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — delivery and acceptance SOP — Status: INTERNAL / OWNER-REVIEWED PROCEDURE
+- [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Prometheus Architecture (as actually built, this branch) _(matched by name only)_
+- [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Prometheus Canonical Integration Plan _(matched by name only)_
+- [`docs/evidence/EGYPT_PDPC_NATURAL_PERSON_SCOPE_20261003.md`](../evidence/EGYPT_PDPC_NATURAL_PERSON_SCOPE_20261003.md) — 2026-10-03 · Current PDPC scope guidance _(matched by name only)_
+- [`docs/evidence/EGYPT_PDPL_COMPANY_ROLE_SCOPE_LAW_20261003.md`](../evidence/EGYPT_PDPL_COMPANY_ROLE_SCOPE_LAW_20261003.md) — 2026-10-03 · Law 151/2020 material-scope evidence _(matched by name only)_
+- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31 _(matched by name only)_
+- [`docs/OPPORTUNITY_TOURNAMENT_2026-08-20.md`](../OPPORTUNITY_TOURNAMENT_2026-08-20.md) — 2026-08-20 · UberBond Opportunity Tournament — 2026-08-20 _(matched by name only)_
+- [`docs/opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md`](../opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md) — 2026-08-13 · UberBond buyer-proof pack — Website QA & Release Readiness — Status: FICTIONAL_FORMAT_ONLY / OWNER_REVIEW_REQUIRED _(matched by name only)_
+- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — delivery and acceptance SOP — Status: INTERNAL / OWNER-REVIEWED PROCEDURE _(matched by name only)_
 
 Commands: `npm run check:approved-source-rehearsal` · `npm run event-horizon:doctor` · `npm run test:approved-source-rehearsal` · `npm run test:browser` · `npm run test:event-horizon` · `npm run test:world-brain` · `npm run world-brain:doctor`
 
@@ -319,14 +319,14 @@ Most-imported modules: [`store`](../../src/store.mjs) (37), [`utils`](../../src/
 
 Key documents (canon first, then newest):
 
-- [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS Canon — Status: SOURCE PROGRAM ESTABLISHED; GENERATION-0 BUILD PATH + CONTROL-PLANE CONTRACTS IMPLEMENTED; PHYSICAL BOOT NOT YET OBSERVED.
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ / WAVE 1: PUBLIC WORKLOAD EVIDENCE INTEGRITY — Truth class: SOURCE PATCH + LOCAL TARGETED TESTS; GitHub CI, merge, deployment, provider/customer outcomes must be verified…
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ — Wave 2 native production test integration
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE3_PAIRED_POISONING_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE3_PAIRED_POISONING_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ Wave 3 — Paired Evidence Poisoning Hardening
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE4_EXACT_PUBLIC_SOURCE_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE4_EXACT_PUBLIC_SOURCE_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ Wave 4: exact historical public issue-source retrieval
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE5_UNBIASED_PAIRS_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE5_UNBIASED_PAIRS_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ Wave 5 — Unbiased Paired Evidence and Canonical Typed Timestamps
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE6_CONTRA_COUNTRY_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE6_CONTRA_COUNTRY_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ Wave 6 — Contra Payout Country Evidence Must Be Observed
-- [`docs/VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md`](../VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md) — 2026-09-29 · Vercel Immutable Install Repair — 2026-09-29 — Status: SOURCE REPAIR CANDIDATE / CLOUD RE-EXECUTION QUOTA-BLOCKED
+- [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS Canon — Status: SOURCE PROGRAM ESTABLISHED; GENERATION-0 BUILD PATH + CONTROL-PLANE CONTRACTS IMPLEMENTED; PHYSICAL BOOT NOT YET OBSERVED. _(matched by name only)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ / WAVE 1: PUBLIC WORKLOAD EVIDENCE INTEGRITY — Truth class: SOURCE PATCH + LOCAL TARGETED TESTS; GitHub CI, merge, deployment, provider/customer outcomes must be verified… _(matched by name only)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ — Wave 2 native production test integration _(matched by name only)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE3_PAIRED_POISONING_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE3_PAIRED_POISONING_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ Wave 3 — Paired Evidence Poisoning Hardening _(matched by name only)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE4_EXACT_PUBLIC_SOURCE_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE4_EXACT_PUBLIC_SOURCE_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ Wave 4: exact historical public issue-source retrieval _(matched by name only)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE5_UNBIASED_PAIRS_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE5_UNBIASED_PAIRS_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ Wave 5 — Unbiased Paired Evidence and Canonical Typed Timestamps _(matched by name only)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE6_CONTRA_COUNTRY_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE6_CONTRA_COUNTRY_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ Wave 6 — Contra Payout Country Evidence Must Be Observed _(matched by name only)_
+- [`docs/VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md`](../VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md) — 2026-09-29 · Vercel Immutable Install Repair — 2026-09-29 — Status: SOURCE REPAIR CANDIDATE / CLOUD RE-EXECUTION QUOTA-BLOCKED _(matched by name only)_
 
 Commands: `npm run capabilities:bootstrap` · `npm run capabilities:bootstrap:apply` · `npm run compute:doctor` · `npm run db:import-json` · `npm run db:migrate` · `npm run jev:uberlit:canary` · `npm run jev:uberlit:secret` · `npm run outreach:green-lane:doctor` · `npm run outreach:green-lane:record` · `npm run seed` · `npm run smoke:postgres` · `npm run smoke:postgres-app` · `npm run sovereign:coverage` · `npm run sovereignty:doctor`
 
@@ -340,14 +340,14 @@ Most-imported modules: [`command-center-client-policy`](../../src/command-center
 
 Key documents (canon first, then newest):
 
-- [`docs/KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md`](../KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md) — 2026-08-21 · UberBond Kilimanjaro Architecture Scorecard
-- [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md) — Architecture: Version 1.4
-- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28
-- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team
-- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier
-- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth
-- [`docs/KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md`](../KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md) — 2026-08-28 · Kilimanjaro — AI Revenue Ops vertical-density tournament
+- [`docs/KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md`](../KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md) — 2026-08-21 · UberBond Kilimanjaro Architecture Scorecard _(matched by name only)_
+- [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md) — Architecture: Version 1.4 _(matched by name only)_
+- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(matched by name only)_
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_
+- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(matched by name only)_
+- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(matched by name only)_
+- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth _(matched by name only)_
+- [`docs/KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md`](../KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md) — 2026-08-28 · Kilimanjaro — AI Revenue Ops vertical-density tournament _(matched by name only)_
 
 Commands: `npm run absence:doctor` · `npm run manifest:kilimanjaro` · `npm run readiness`
 
@@ -361,11 +361,11 @@ Most-imported modules: [`adaptive-source-ceiling-governor`](../../src/adaptive-s
 
 Key documents (canon first, then newest):
 
-- [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Multidimensional Velocity Singularity Audit — Status: RESEARCH_AUDIT / EXECUTION_TARGET / NOT_RUNTIME_PROOF
+- [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Multidimensional Velocity Singularity Audit — Status: RESEARCH_AUDIT / EXECUTION_TARGET / NOT_RUNTIME_PROOF _(matched by name only)_
 - [`docs/AUTOMATION_ACQUISITION_LOOP_2026-08-28.md`](../AUTOMATION_ACQUISITION_LOOP_2026-08-28.md) — 2026-08-28 · UberBond automation capability acquisition loop — 2026-08-28
-- [`docs/EXTERNAL_ASSET_REALITY.md`](../EXTERNAL_ASSET_REALITY.md) — External Asset Reality
+- [`docs/EXTERNAL_ASSET_REALITY.md`](../EXTERNAL_ASSET_REALITY.md) — External Asset Reality _(matched by name only)_
 - [`docs/research/report-source.md`](../research/report-source.md) — UberBond Nightfall Research, Distribution, and Economic Command Report
-- [`README.md`](../../README.md) — Repository entry point; points to the North Star reading order.
+- [`README.md`](../../README.md) — Repository entry point; points to the North Star reading order. _(matched by name only)_
 
 Commands: `npm run oracle:record-free-evidence`
 

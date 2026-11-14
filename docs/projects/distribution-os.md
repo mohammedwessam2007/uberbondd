@@ -12,43 +12,43 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (8)
 
-- [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — UberBond Distribution OS Canon
-- [`docs/DISTRIBUTION_VENDOR_MAP.md`](../DISTRIBUTION_VENDOR_MAP.md) — UberBond Distribution Capability Reference Map
-- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain
-- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_ACTIVATION_PACKET.md`](../distribution/NIGHTFALL_PARTNER_CANARY_ACTIVATION_PACKET.md) — NIGHTFALL Partner Canary Activation Packet
-- [`docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md`](../distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md) — UberBond Distribution Singularity — 2026-08-28
-- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Corroboration Receipt
-- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Public Evidence Receipt
-- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team
+- [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — UberBond Distribution OS Canon _(matched by name only)_
+- [`docs/DISTRIBUTION_VENDOR_MAP.md`](../DISTRIBUTION_VENDOR_MAP.md) — UberBond Distribution Capability Reference Map _(matched by name only)_
+- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain _(matched by name only)_
+- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_ACTIVATION_PACKET.md`](../distribution/NIGHTFALL_PARTNER_CANARY_ACTIVATION_PACKET.md) — NIGHTFALL Partner Canary Activation Packet _(matched by name only)_
+- [`docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md`](../distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md) — UberBond Distribution Singularity — 2026-08-28 _(matched by name only)_
+- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_CORROBORATION_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Corroboration Receipt _(matched by name only)_
+- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Public Evidence Receipt _(matched by name only)_
+- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(matched by name only)_
 
 ## Source modules (14)
 
-- [`src/distribution-channel.mjs`](../../src/distribution-channel.mjs) — Local-only distribution channel registry and fail-closed allocator. _(tested; imported by 1)_
-- [`src/distribution-concentration.mjs`](../../src/distribution-concentration.mjs) — The one concentration cap shared by the distribution control plane and the _(imported by 2)_
-- [`src/distribution-control-plane.mjs`](../../src/distribution-control-plane.mjs) — exports DISTRIBUTION_CONTROL_PLANE_POLICY_VERSION, DISTRIBUTION_MOTIONS, normalizeDistributionMotion, compileDistributionPortfolio, motionEvidenceFro… _(tested; imported by 1)_
-- [`src/external-crm-sync-contract.mjs`](../../src/external-crm-sync-contract.mjs) — exports EXTERNAL_CRM_SYNC_POLICY_VERSION, CRM_OBJECT_TYPES, CRM_WRITE_OPERATIONS, CRM_PROVIDER_CAPABILITIES, normalizeCrmObservation (+5) _(tested; no static importers)_
-- [`src/form-feedback-contract.mjs`](../../src/form-feedback-contract.mjs) — exports FORM_FEEDBACK_POLICY_VERSION, FORM_KINDS, FORM_PROVIDER_CAPABILITIES, normalizeFormSubmission, dedupeFormSubmissions (+4) _(tested; no static importers)_
-- [`src/messaging-send-authorized-email.mjs`](../../src/messaging-send-authorized-email.mjs) — exports MESSAGING_SEND_AUTHORIZED_EMAIL_ATOM_ID, compileMessagingSendAuthorizedEmail, executeMessagingSendAuthorizedEmail _(tested; imported by 1)_
-- [`src/omnichannel-communication-contract.mjs`](../../src/omnichannel-communication-contract.mjs) — exports OMNICHANNEL_COMMUNICATION_POLICY_VERSION, COMMUNICATION_CHANNELS, COMMUNICATION_PURPOSES, COMMUNICATION_EVENT_TYPES, COMMUNICATION_PROVIDER_C… _(tested; imported by 1)_
-- [`src/overnight/distribution/account-overlap.mjs`](../../src/overnight/distribution/account-overlap.mjs) — exports ACCOUNT_OVERLAP_POLICY_VERSION, ACCOUNT_SOURCE_TYPES, normalizeAccountRecord, buildAccountOverlapHypotheses _(no static importers)_
-- [`src/overnight/distribution/partner-fit.mjs`](../../src/overnight/distribution/partner-fit.mjs) — exports PARTNER_FIT_POLICY_VERSION, PARTNER_TYPES, PARTNER_FIT_FIELDS, normalizePartnerCandidate, scorePartnerFit _(no static importers)_
-- [`src/overnight/distribution/policy.mjs`](../../src/overnight/distribution/policy.mjs) — exports OVERNIGHT_DISTRIBUTION_POLICY_VERSION, DISTRIBUTION_EVIDENCE_CLASSES, ZERO_EFFECTS, DISABLED_EXTERNAL_AUTHORITY, text (+13) _(imported by 3)_
-- [`src/overnight/distribution/referral-ledger.mjs`](../../src/overnight/distribution/referral-ledger.mjs) — exports REFERRAL_LEDGER_POLICY_VERSION, REFERRAL_EVIDENCE_CLASSES, COMMISSION_TRUTH_LEVELS, ATTRIBUTION_CLASSES, normalizeReferralCandidate (+4) _(no static importers)_
-- [`src/partner-multiplier.mjs`](../../src/partner-multiplier.mjs) — Partner / distribution-node multiplier and diagnostic/inbound attribution. _(imported by 1)_
-- [`src/social-publication-schedule-contract.mjs`](../../src/social-publication-schedule-contract.mjs) — exports SOCIAL_PUBLICATION_SCHEDULE_POLICY_VERSION, compileSocialPublicationSchedule, compileDueSocialPublicationCommand _(tested; no static importers)_
-- [`src/voice-telephony-contract.mjs`](../../src/voice-telephony-contract.mjs) — exports VOICE_TELEPHONY_POLICY_VERSION, VOICE_EVENT_TYPES, VOICE_DIRECTIONS, VOICE_EVENT_ORIGINS, VOICE_PROVIDER_CAPABILITIES (+6) _(tested; no static importers)_
+- [`src/distribution-channel.mjs`](../../src/distribution-channel.mjs) — Local-only distribution channel registry and fail-closed allocator. _(matched by name only; tested; imported by 1)_
+- [`src/distribution-concentration.mjs`](../../src/distribution-concentration.mjs) — The one concentration cap shared by the distribution control plane and the _(matched by name only; imported by 2)_
+- [`src/distribution-control-plane.mjs`](../../src/distribution-control-plane.mjs) — exports DISTRIBUTION_CONTROL_PLANE_POLICY_VERSION, DISTRIBUTION_MOTIONS, normalizeDistributionMotion, compileDistributionPortfolio, motionEvidenceFro… _(matched by name only; tested; imported by 1)_
+- [`src/external-crm-sync-contract.mjs`](../../src/external-crm-sync-contract.mjs) — exports EXTERNAL_CRM_SYNC_POLICY_VERSION, CRM_OBJECT_TYPES, CRM_WRITE_OPERATIONS, CRM_PROVIDER_CAPABILITIES, normalizeCrmObservation (+5) _(matched by name only; tested; no static importers)_
+- [`src/form-feedback-contract.mjs`](../../src/form-feedback-contract.mjs) — exports FORM_FEEDBACK_POLICY_VERSION, FORM_KINDS, FORM_PROVIDER_CAPABILITIES, normalizeFormSubmission, dedupeFormSubmissions (+4) _(matched by name only; tested; no static importers)_
+- [`src/messaging-send-authorized-email.mjs`](../../src/messaging-send-authorized-email.mjs) — exports MESSAGING_SEND_AUTHORIZED_EMAIL_ATOM_ID, compileMessagingSendAuthorizedEmail, executeMessagingSendAuthorizedEmail _(matched by name only; tested; imported by 1)_
+- [`src/omnichannel-communication-contract.mjs`](../../src/omnichannel-communication-contract.mjs) — exports OMNICHANNEL_COMMUNICATION_POLICY_VERSION, COMMUNICATION_CHANNELS, COMMUNICATION_PURPOSES, COMMUNICATION_EVENT_TYPES, COMMUNICATION_PROVIDER_C… _(matched by name only; tested; imported by 1)_
+- [`src/overnight/distribution/account-overlap.mjs`](../../src/overnight/distribution/account-overlap.mjs) — exports ACCOUNT_OVERLAP_POLICY_VERSION, ACCOUNT_SOURCE_TYPES, normalizeAccountRecord, buildAccountOverlapHypotheses _(matched by name only; no static importers)_
+- [`src/overnight/distribution/partner-fit.mjs`](../../src/overnight/distribution/partner-fit.mjs) — exports PARTNER_FIT_POLICY_VERSION, PARTNER_TYPES, PARTNER_FIT_FIELDS, normalizePartnerCandidate, scorePartnerFit _(matched by name only; no static importers)_
+- [`src/overnight/distribution/policy.mjs`](../../src/overnight/distribution/policy.mjs) — exports OVERNIGHT_DISTRIBUTION_POLICY_VERSION, DISTRIBUTION_EVIDENCE_CLASSES, ZERO_EFFECTS, DISABLED_EXTERNAL_AUTHORITY, text (+13) _(matched by name only; imported by 3)_
+- [`src/overnight/distribution/referral-ledger.mjs`](../../src/overnight/distribution/referral-ledger.mjs) — exports REFERRAL_LEDGER_POLICY_VERSION, REFERRAL_EVIDENCE_CLASSES, COMMISSION_TRUTH_LEVELS, ATTRIBUTION_CLASSES, normalizeReferralCandidate (+4) _(matched by name only; no static importers)_
+- [`src/partner-multiplier.mjs`](../../src/partner-multiplier.mjs) — Partner / distribution-node multiplier and diagnostic/inbound attribution. _(matched by name only; imported by 1)_
+- [`src/social-publication-schedule-contract.mjs`](../../src/social-publication-schedule-contract.mjs) — exports SOCIAL_PUBLICATION_SCHEDULE_POLICY_VERSION, compileSocialPublicationSchedule, compileDueSocialPublicationCommand _(matched by name only; tested; no static importers)_
+- [`src/voice-telephony-contract.mjs`](../../src/voice-telephony-contract.mjs) — exports VOICE_TELEPHONY_POLICY_VERSION, VOICE_EVENT_TYPES, VOICE_DIRECTIONS, VOICE_EVENT_ORIGINS, VOICE_PROVIDER_CAPABILITIES (+6) _(matched by name only; tested; no static importers)_
 
 ## Config, data, artifacts and services (9)
 
-- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1
-- [`artifacts/distribution-channel-portfolio.json`](../../artifacts/distribution-channel-portfolio.json) — PRIMARY_PREPARATION · uberbond-distribution-channel-portfolio-1.0.0
-- [`artifacts/partner-canary-public-corroboration-20260829.json`](../../artifacts/partner-canary-public-corroboration-20260829.json) — 2026-08-29 · CORROBORATION_COMPLETE__TOP_THREE_SURVIVE_WITH_UNCERTAINTY__OUTREACH_BLOCKED · uberbond-partner-canary-public-corroboration-1.0.0
-- [`artifacts/partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · uberbond-partner-canary-public-evidence-1.0.0
-- [`artifacts/partner-canary-seed-universe-20260829.json`](../../artifacts/partner-canary-seed-universe-20260829.json) — 2026-08-29 · BXB Media · uberbond-partner-canary-seed-universe-1.0.0
-- [`artifacts/partner-distribution-source-registry-20260829.json`](../../artifacts/partner-distribution-source-registry-20260829.json) — 2026-08-29 · uberbond-partner-distribution-source-registry-1.0.0
-- [`artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json`](../../artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json) — uberbond.canary-distribution.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json) — uberbond.rejected-partners.v1
+- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1 _(matched by name only)_
+- [`artifacts/distribution-channel-portfolio.json`](../../artifacts/distribution-channel-portfolio.json) — PRIMARY_PREPARATION · uberbond-distribution-channel-portfolio-1.0.0 _(matched by name only)_
+- [`artifacts/partner-canary-public-corroboration-20260829.json`](../../artifacts/partner-canary-public-corroboration-20260829.json) — 2026-08-29 · CORROBORATION_COMPLETE__TOP_THREE_SURVIVE_WITH_UNCERTAINTY__OUTREACH_BLOCKED · uberbond-partner-canary-public-corroboration-1.0.0 _(matched by name only)_
+- [`artifacts/partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · uberbond-partner-canary-public-evidence-1.0.0 _(matched by name only)_
+- [`artifacts/partner-canary-seed-universe-20260829.json`](../../artifacts/partner-canary-seed-universe-20260829.json) — 2026-08-29 · BXB Media · uberbond-partner-canary-seed-universe-1.0.0 _(matched by name only)_
+- [`artifacts/partner-distribution-source-registry-20260829.json`](../../artifacts/partner-distribution-source-registry-20260829.json) — 2026-08-29 · uberbond-partner-distribution-source-registry-1.0.0 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json`](../../artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json) — uberbond.canary-distribution.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json) — uberbond.rejected-partners.v1 _(matched by name only)_
 
 ## Tests (11)
 

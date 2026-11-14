@@ -12,35 +12,35 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS Canon — Status: SOURCE PROGRAM ESTABLISHED; GENERATION-0 BUILD PATH + CONTROL-PLANE CONTRACTS IMPLEMENTED; PHYSICAL BOOT NOT YET OBSERVED.
-- [`uberos/README.md`](../../uberos/README.md) — UBER/OS
+- [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS Canon — Status: SOURCE PROGRAM ESTABLISHED; GENERATION-0 BUILD PATH + CONTROL-PLANE CONTRACTS IMPLEMENTED; PHYSICAL BOOT NOT YET OBSERVED. _(matched by name only)_
+- [`uberos/README.md`](../../uberos/README.md) — UBER/OS _(matched by name only)_
 
 ## Source modules (6)
 
-- [`src/uberos/authority.mjs`](../../src/uberos/authority.mjs) — exports UBEROS_AUTHORITY_VERSION, createAuthorityRoot, delegateAuthority, revokeAuthority, authorityIsUsable _(imported by 1)_
-- [`src/uberos/kernel-adapter.mjs`](../../src/uberos/kernel-adapter.mjs) — exports UBEROS_KERNEL_ADAPTER_VERSION, KERNEL_CLASSES, normalizeKernelAdapter, selectKernelAdapter _(imported by 1)_
-- [`src/uberos/package-provenance.mjs`](../../src/uberos/package-provenance.mjs) — exports UBEROS_PACKAGE_PROVENANCE_VERSION, normalizePackageProvenance, comparePackageProvenance _(imported by 1)_
-- [`src/uberos/state-engine.mjs`](../../src/uberos/state-engine.mjs) — exports UBEROS_STATE_ENGINE_VERSION, compileStateTransition, compileRollbackReceipt _(no static importers)_
-- [`src/uberos/system-compiler.mjs`](../../src/uberos/system-compiler.mjs) — exports UBEROS_SYSTEM_COMPILER_VERSION, compileUberOsManifest _(imported by 1)_
-- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — exports UBEROS_UNKNOWN_UNKNOWN_LAB_VERSION, PERTURBATION_FAMILIES, compileAssumptionExperiment, analyzeExperimentOutcomes, defaultOsAssumptionPortfol… _(imported by 1)_
+- [`src/uberos/authority.mjs`](../../src/uberos/authority.mjs) — exports UBEROS_AUTHORITY_VERSION, createAuthorityRoot, delegateAuthority, revokeAuthority, authorityIsUsable _(matched by name only; imported by 1)_
+- [`src/uberos/kernel-adapter.mjs`](../../src/uberos/kernel-adapter.mjs) — exports UBEROS_KERNEL_ADAPTER_VERSION, KERNEL_CLASSES, normalizeKernelAdapter, selectKernelAdapter _(matched by name only; imported by 1)_
+- [`src/uberos/package-provenance.mjs`](../../src/uberos/package-provenance.mjs) — exports UBEROS_PACKAGE_PROVENANCE_VERSION, normalizePackageProvenance, comparePackageProvenance _(matched by name only; imported by 1)_
+- [`src/uberos/state-engine.mjs`](../../src/uberos/state-engine.mjs) — exports UBEROS_STATE_ENGINE_VERSION, compileStateTransition, compileRollbackReceipt _(matched by name only; no static importers)_
+- [`src/uberos/system-compiler.mjs`](../../src/uberos/system-compiler.mjs) — exports UBEROS_SYSTEM_COMPILER_VERSION, compileUberOsManifest _(matched by name only; imported by 1)_
+- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — exports UBEROS_UNKNOWN_UNKNOWN_LAB_VERSION, PERTURBATION_FAMILIES, compileAssumptionExperiment, analyzeExperimentOutcomes, defaultOsAssumptionPortfol… _(matched by name only; imported by 1)_
 
 ## Scripts (1)
 
-- [`scripts/uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs)
+- [`scripts/uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (11)
 
-- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification
-- [`artifacts/uberos/generation-0-manifest.json`](../../artifacts/uberos/generation-0-manifest.json) — UBER/OS · uberos.machine-manifest.v1
-- [`schemas/uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — UBER/OS machine manifest
-- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in)
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh)
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release)
-- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health)
-- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc)
-- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk)
-- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh)
-- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh)
+- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification _(matched by name only)_
+- [`artifacts/uberos/generation-0-manifest.json`](../../artifacts/uberos/generation-0-manifest.json) — UBER/OS · uberos.machine-manifest.v1 _(matched by name only)_
+- [`schemas/uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — UBER/OS machine manifest _(matched by name only)_
+- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in) _(matched by name only)_
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh) _(matched by name only)_
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release) _(matched by name only)_
+- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health) _(matched by name only)_
+- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc) _(matched by name only)_
+- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk) _(matched by name only)_
+- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh) _(matched by name only)_
+- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh) _(matched by name only)_
 
 ## Tests (1)
 

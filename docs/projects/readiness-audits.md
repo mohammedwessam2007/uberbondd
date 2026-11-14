@@ -12,18 +12,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (12)
 
-- [`docs/AGENT_MESH_REACHABILITY_TRIAGE.md`](../AGENT_MESH_REACHABILITY_TRIAGE.md) — Reachability triage: every src/ module with no non-test importer
-- [`docs/DOMAIN_MAILBOX_READINESS.md`](../DOMAIN_MAILBOX_READINESS.md) — Domain and Mailbox Readiness
-- [`docs/MUTATION_INVENTORY.md`](../MUTATION_INVENTORY.md) — Mutation inventory
-- [`docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md`](../UBERBOND_DOMAIN_MAILBOX_READINESS.md) — UberBond Domain and Mailbox Readiness OS
-- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md) — UberMind 52-atom founder directive audit
-- [`winnr/SECURITY_BOUNDARIES.md`](../../winnr/SECURITY_BOUNDARIES.md) — Winnr Security Boundaries
-- [`docs/handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md`](../handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md) — 2026-10-09 · UberMind W18: blocked paid Jev claim observability
-- [`docs/receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md`](../receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md) — 2026-10-07 · Contra collection-readiness closure packet — 2026-10-07 — Status: INTERNAL_READINESS_COMPILER_IMPLEMENTED__AUTHENTICATED_ACCOUNT_OBSERVATION_STILL_OWNER_ONLY
-- [`docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`](../receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Infinite Opus reachability reconciliation — 2026-10-04
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4
-- [`docs/receipts/WINNR_SMTP_READINESS_TRUTH_LIVE_2026-10-04.md`](../receipts/WINNR_SMTP_READINESS_TRUTH_LIVE_2026-10-04.md) — 2026-10-04 · Winnr SMTP readiness truth — LIVE 2026-10-04 — Status: LIVE VERIFIED TRANSPORT TRUTH / ZERO MESSAGE EFFECTS
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md) — 2026-10-03 · Revenue Singularity / G-SPOT / Revenue Constellation — coverage ledger (checkpoint 2) — Truth class: INTERNAL_PROGRESS. External effects this session: none (no send, spend, deploy, DNS, cre…
+- [`docs/AGENT_MESH_REACHABILITY_TRIAGE.md`](../AGENT_MESH_REACHABILITY_TRIAGE.md) — Reachability triage: every src/ module with no non-test importer _(matched by name only)_
+- [`docs/DOMAIN_MAILBOX_READINESS.md`](../DOMAIN_MAILBOX_READINESS.md) — Domain and Mailbox Readiness _(matched by name only)_
+- [`docs/MUTATION_INVENTORY.md`](../MUTATION_INVENTORY.md) — Mutation inventory _(matched by name only)_
+- [`docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md`](../UBERBOND_DOMAIN_MAILBOX_READINESS.md) — UberBond Domain and Mailbox Readiness OS _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md) — UberMind 52-atom founder directive audit _(matched by name only)_
+- [`winnr/SECURITY_BOUNDARIES.md`](../../winnr/SECURITY_BOUNDARIES.md) — Winnr Security Boundaries _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md`](../handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md) — 2026-10-09 · UberMind W18: blocked paid Jev claim observability _(matched by name only)_
+- [`docs/receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md`](../receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md) — 2026-10-07 · Contra collection-readiness closure packet — 2026-10-07 — Status: INTERNAL_READINESS_COMPILER_IMPLEMENTED__AUTHENTICATED_ACCOUNT_OBSERVATION_STILL_OWNER_ONLY _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`](../receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Infinite Opus reachability reconciliation — 2026-10-04 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4 _(matched by name only)_
+- [`docs/receipts/WINNR_SMTP_READINESS_TRUTH_LIVE_2026-10-04.md`](../receipts/WINNR_SMTP_READINESS_TRUTH_LIVE_2026-10-04.md) — 2026-10-04 · Winnr SMTP readiness truth — LIVE 2026-10-04 — Status: LIVE VERIFIED TRANSPORT TRUTH / ZERO MESSAGE EFFECTS _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md) — 2026-10-03 · Revenue Singularity / G-SPOT / Revenue Constellation — coverage ledger (checkpoint 2) — Truth class: INTERNAL_PROGRESS. External effects this session: none (no send, spend, deploy, DNS, cre… _(matched by name only)_
 
 ## Commands (56)
 
@@ -31,181 +31,181 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Other documents (1)
 
-- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); }
+- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); } _(matched by name only)_
 
 ## Source modules (40)
 
-- [`src/capability-genome-doctor.mjs`](../../src/capability-genome-doctor.mjs) — exports CAPABILITY_GENOME_DOCTOR_VERSION, inspectCapabilityGenome _(imported by 2)_
-- [`src/capability-scaled-security.mjs`](../../src/capability-scaled-security.mjs) — exports CAPABILITY_SCALED_SECURITY_VERSION, SECURITY_TIERS, C26_EVIDENCE_CLASSES, C26_THREAT_FAMILIES, classifyCapabilitySecurityTier (+4) _(tested; imported by 2)_
-- [`src/capability-security-admit.mjs`](../../src/capability-security-admit.mjs) — exports CAPABILITY_SECURITY_ADMIT_ATOM_ID, compileCapabilitySecurityAdmit, executeCapabilitySecurityAdmit _(tested; imported by 1)_
-- [`src/cognition-route-inventory.mjs`](../../src/cognition-route-inventory.mjs) — exports COGNITION_ROUTE_INVENTORY_SCHEMA, COGNITION_ROUTES, cognitionRouteInventory _(imported by 5)_
-- [`src/contra-collection-readiness.mjs`](../../src/contra-collection-readiness.mjs) — exports CONTRA_COLLECTION_READINESS_VERSION, CONTRA_COLLECTION_STATES, compileContraCollectionReadiness, summarizeContraCollectionReadiness, defaultC… _(tested; imported by 2)_
-- [`src/coverage-state-evidence-integrity.mjs`](../../src/coverage-state-evidence-integrity.mjs) — exports COVERAGE_STATE_EVIDENCE_INTEGRITY_VERSION, verifyCoverageStateEvidenceIntegrity _(tested; imported by 3)_
-- [`src/durable-audit-scan.mjs`](../../src/durable-audit-scan.mjs) — One way to read the whole of a filtered audit history. _(imported by 3)_
-- [`src/founder-absence-blocker-doctor.mjs`](../../src/founder-absence-blocker-doctor.mjs) — What is actually standing between UberBond and running without its founder. _(tested; imported by 2)_
-- [`src/founder-absence-readiness.mjs`](../../src/founder-absence-readiness.mjs) — exports FOUNDER_ABSENCE_POLICY_VERSION, deriveFounderAbsenceObservationProof, evaluateFounderAbsenceReadinessFromDurableHistory, evaluateFounderAbsen… _(imported by 2)_
-- [`src/frontier-callability-provenance.mjs`](../../src/frontier-callability-provenance.mjs) — exports FRONTIER_CALLABILITY_PROVENANCE_VERSION, FRONTIER_CALLABILITY_PROBE_SCHEMA, buildFrontierCallabilityProbeReceipt, validateFrontierCallability… _(imported by 3)_
-- [`src/frontier-source-coverage.mjs`](../../src/frontier-source-coverage.mjs) — exports FRONTIER_SOURCE_COVERAGE_VERSION, FRONTIER_SOURCE_REGISTRY, FRONTIER_FEATURE_COVERAGE, buildFrontierSourceCoverageReceipt _(tested; no static importers)_
-- [`src/frontier-vm-activation-readiness.mjs`](../../src/frontier-vm-activation-readiness.mjs) — exports FRONTIER_VM_ACTIVATION_READINESS_VERSION, ACTIVATION_MODES, assessFrontierVmActivationReadiness _(tested; imported by 1)_
-- [`src/model-provider-doctor.mjs`](../../src/model-provider-doctor.mjs) — What can this environment actually route to, and what is the smallest human _(imported by 2)_
-- [`src/moonshot-reality-doctor.mjs`](../../src/moonshot-reality-doctor.mjs) — exports MOONSHOT_REALITY_DOCTOR_VERSION, inspectMoonshotRealityProgram, runMoonshotRealityDoctor _(tested; no static importers; npm: `moonshots:doctor`)_
-- [`src/native-research-security-adapters.mjs`](../../src/native-research-security-adapters.mjs) — exports NATIVE_RESEARCH_SECURITY_ADAPTERS_VERSION, compileOwnedTargetSecurityEvidence, compilePublicResearchPacket, inspectNativeResearchSecurityCove… _(imported by 1)_
-- [`src/open-model-source-coverage.mjs`](../../src/open-model-source-coverage.mjs) — exports OPEN_MODEL_SOURCE_COVERAGE_VERSION, OPEN_MODEL_CAPABILITY_COVERAGE, buildOpenModelSourceCoverageReceipt _(tested; no static importers)_
-- [`src/organ-callability-inventory.mjs`](../../src/organ-callability-inventory.mjs) — exports ORGAN_CALLABILITY_INVENTORY_VERSION, compileOrganCallabilityInventory _(tested; imported by 1)_
-- [`src/outreach-drift-doctor.mjs`](../../src/outreach-drift-doctor.mjs) — Outreach drift doctor: catches material divergence between _(tested; imported by 1)_
-- [`src/owned-target-security-verifier.mjs`](../../src/owned-target-security-verifier.mjs) — exports OWNED_TARGET_SECURITY_VERIFIER_VERSION, verifyOwnedTarget _(no static importers)_
-- [`src/payment-rail-doctor-core.mjs`](../../src/payment-rail-doctor-core.mjs) — Truthful readiness doctor for every payment rail that actually exists in source. _(imported by 2)_
-- [`src/payment-rail-doctor.mjs`](../../src/payment-rail-doctor.mjs) — Provider-neutral payment readiness facade. _(tested; imported by 3)_
-- [`src/phoenix-runtime-doctor.mjs`](../../src/phoenix-runtime-doctor.mjs) — exports PHOENIX_RUNTIME_DOCTOR_VERSION, runPhoenixRuntimeDoctor _(tested; imported by 1)_
-- [`src/pre-customer-revenue-readiness.mjs`](../../src/pre-customer-revenue-readiness.mjs) — exports PRE_CUSTOMER_REVENUE_READINESS_VERSION, compilePreCustomerRevenueReadiness _(tested; imported by 2)_
-- [`src/reachable-futures.mjs`](../../src/reachable-futures.mjs) — Futures as structured counterfactuals, and what they are allowed to decide. _(tested; imported by 1)_
-- [`src/readiness-reachability-conservation.mjs`](../../src/readiness-reachability-conservation.mjs) — exports READINESS_REACHABILITY_CONSERVATION_VERSION, verifyReachabilityConservation _(tested; imported by 1)_
-- [`src/recursive-governance-security.mjs`](../../src/recursive-governance-security.mjs) — exports RECURSIVE_GOVERNANCE_SECURITY_VERSION, admitRecursiveSecurityEvolution _(tested; imported by 1)_
-- [`src/secret-patterns.mjs`](../../src/secret-patterns.mjs) — One vocabulary for "this looks like a credential". _(imported by 24)_
-- [`src/security.mjs`](../../src/security.mjs) — exports isPrivateIp, assertPublicUrl, safeRedirectTarget _(imported by 3)_
-- [`src/sovereign-bootstrap-readiness.mjs`](../../src/sovereign-bootstrap-readiness.mjs) — exports SOVEREIGN_BOOTSTRAP_READINESS_VERSION, OFFLINE_MODEL_STATUS, REQUIRED_SOURCE_CONTRACTS, REQUIRED_AUTHORING_UNITS, compileSovereignBootstrapRe… _(tested; imported by 1)_
-- [`src/sovereign-coverage-content-digest.mjs`](../../src/sovereign-coverage-content-digest.mjs) — exports SOVEREIGN_COVERAGE_CONTENT_DIGEST_VERSION, sovereignCoverageContentDigest _(imported by 2)_
-- [`src/sovereign-coverage-denominator.mjs`](../../src/sovereign-coverage-denominator.mjs) — exports SOVEREIGN_COVERAGE_DENOMINATOR_VERSION, verifyCoverageDenominatorConservation _(imported by 2)_
-- [`src/sovereign-coverage-matrix.mjs`](../../src/sovereign-coverage-matrix.mjs) — The no-drop compiler: every canonical concept gets a row, or the build fails. _(tested; imported by 5)_
-- [`src/system-health-matrix.mjs`](../../src/system-health-matrix.mjs) — exports SYSTEM_HEALTH_MATRIX_POLICY_VERSION, compileSystemHealthMatrix _(imported by 1)_
-- [`src/system-health-repository.mjs`](../../src/system-health-repository.mjs) — exports SYSTEM_HEALTH_REPOSITORY_VERSION, readSystemHealthInputs _(imported by 1)_
-- [`src/uber-socket-openai-secret.mjs`](../../src/uber-socket-openai-secret.mjs) — exports UBER_SOCKET_OPENAI_SECRET_VERSION, readUberSocketOpenAIKey, storeUberSocketOpenAIKey, clearUberSocketOpenAIKey _(imported by 1)_
-- [`src/ubercel-deployment-doctor.mjs`](../../src/ubercel-deployment-doctor.mjs) — Ubercel deployment state, read through UberBond rather than off a vendor. _(tested; imported by 1)_
-- [`src/uberlit-runtime-doctor.mjs`](../../src/uberlit-runtime-doctor.mjs) — exports UBERLIT_RUNTIME_DOCTOR_SCHEMA, diagnoseUberLitRuntime _(tested; imported by 2)_
-- [`src/uberlit-typesafe-secret.mjs`](../../src/uberlit-typesafe-secret.mjs) — exports UBERLIT_TYPESAFE_SECRET_VERSION, readUberLitTypeSafeKey, inspectUberLitTypeSafeKey, storeUberLitTypeSafeKey, clearUberLitTypeSafeKey _(tested; imported by 4)_
-- [`src/ubermind-jev-pending-doctor.mjs`](../../src/ubermind-jev-pending-doctor.mjs) — exports UBERMIND_JEV_PENDING_DOCTOR_SCHEMA, inspectJevPendingClaims _(tested; imported by 1)_
-- [`src/winnr-smtp-readiness.mjs`](../../src/winnr-smtp-readiness.mjs) — exports WINNR_SMTP_READINESS_VERSION, SMTP_PROBE_FAILURE_PAUSE_REASON, runWinnrSmtpReadinessProbe, WINNR_IMAP_READINESS_VERSION, WINNR_IMAP_READINESS… _(tested; imported by 1)_
+- [`src/capability-genome-doctor.mjs`](../../src/capability-genome-doctor.mjs) — exports CAPABILITY_GENOME_DOCTOR_VERSION, inspectCapabilityGenome _(matched by name only; imported by 2)_
+- [`src/capability-scaled-security.mjs`](../../src/capability-scaled-security.mjs) — exports CAPABILITY_SCALED_SECURITY_VERSION, SECURITY_TIERS, C26_EVIDENCE_CLASSES, C26_THREAT_FAMILIES, classifyCapabilitySecurityTier (+4) _(matched by name only; tested; imported by 2)_
+- [`src/capability-security-admit.mjs`](../../src/capability-security-admit.mjs) — exports CAPABILITY_SECURITY_ADMIT_ATOM_ID, compileCapabilitySecurityAdmit, executeCapabilitySecurityAdmit _(matched by name only; tested; imported by 1)_
+- [`src/cognition-route-inventory.mjs`](../../src/cognition-route-inventory.mjs) — exports COGNITION_ROUTE_INVENTORY_SCHEMA, COGNITION_ROUTES, cognitionRouteInventory _(matched by name only; imported by 5)_
+- [`src/contra-collection-readiness.mjs`](../../src/contra-collection-readiness.mjs) — exports CONTRA_COLLECTION_READINESS_VERSION, CONTRA_COLLECTION_STATES, compileContraCollectionReadiness, summarizeContraCollectionReadiness, defaultC… _(matched by name only; tested; imported by 2)_
+- [`src/coverage-state-evidence-integrity.mjs`](../../src/coverage-state-evidence-integrity.mjs) — exports COVERAGE_STATE_EVIDENCE_INTEGRITY_VERSION, verifyCoverageStateEvidenceIntegrity _(matched by name only; tested; imported by 3)_
+- [`src/durable-audit-scan.mjs`](../../src/durable-audit-scan.mjs) — One way to read the whole of a filtered audit history. _(matched by name only; imported by 3)_
+- [`src/founder-absence-blocker-doctor.mjs`](../../src/founder-absence-blocker-doctor.mjs) — What is actually standing between UberBond and running without its founder. _(matched by name only; tested; imported by 2)_
+- [`src/founder-absence-readiness.mjs`](../../src/founder-absence-readiness.mjs) — exports FOUNDER_ABSENCE_POLICY_VERSION, deriveFounderAbsenceObservationProof, evaluateFounderAbsenceReadinessFromDurableHistory, evaluateFounderAbsen… _(matched by name only; imported by 2)_
+- [`src/frontier-callability-provenance.mjs`](../../src/frontier-callability-provenance.mjs) — exports FRONTIER_CALLABILITY_PROVENANCE_VERSION, FRONTIER_CALLABILITY_PROBE_SCHEMA, buildFrontierCallabilityProbeReceipt, validateFrontierCallability… _(matched by name only; imported by 3)_
+- [`src/frontier-source-coverage.mjs`](../../src/frontier-source-coverage.mjs) — exports FRONTIER_SOURCE_COVERAGE_VERSION, FRONTIER_SOURCE_REGISTRY, FRONTIER_FEATURE_COVERAGE, buildFrontierSourceCoverageReceipt _(matched by name only; tested; no static importers)_
+- [`src/frontier-vm-activation-readiness.mjs`](../../src/frontier-vm-activation-readiness.mjs) — exports FRONTIER_VM_ACTIVATION_READINESS_VERSION, ACTIVATION_MODES, assessFrontierVmActivationReadiness _(matched by name only; tested; imported by 1)_
+- [`src/model-provider-doctor.mjs`](../../src/model-provider-doctor.mjs) — What can this environment actually route to, and what is the smallest human _(matched by name only; imported by 2)_
+- [`src/moonshot-reality-doctor.mjs`](../../src/moonshot-reality-doctor.mjs) — exports MOONSHOT_REALITY_DOCTOR_VERSION, inspectMoonshotRealityProgram, runMoonshotRealityDoctor _(matched by name only; tested; no static importers; npm: `moonshots:doctor`)_
+- [`src/native-research-security-adapters.mjs`](../../src/native-research-security-adapters.mjs) — exports NATIVE_RESEARCH_SECURITY_ADAPTERS_VERSION, compileOwnedTargetSecurityEvidence, compilePublicResearchPacket, inspectNativeResearchSecurityCove… _(matched by name only; imported by 1)_
+- [`src/open-model-source-coverage.mjs`](../../src/open-model-source-coverage.mjs) — exports OPEN_MODEL_SOURCE_COVERAGE_VERSION, OPEN_MODEL_CAPABILITY_COVERAGE, buildOpenModelSourceCoverageReceipt _(matched by name only; tested; no static importers)_
+- [`src/organ-callability-inventory.mjs`](../../src/organ-callability-inventory.mjs) — exports ORGAN_CALLABILITY_INVENTORY_VERSION, compileOrganCallabilityInventory _(matched by name only; tested; imported by 1)_
+- [`src/outreach-drift-doctor.mjs`](../../src/outreach-drift-doctor.mjs) — Outreach drift doctor: catches material divergence between _(matched by name only; tested; imported by 1)_
+- [`src/owned-target-security-verifier.mjs`](../../src/owned-target-security-verifier.mjs) — exports OWNED_TARGET_SECURITY_VERIFIER_VERSION, verifyOwnedTarget _(matched by name only; no static importers)_
+- [`src/payment-rail-doctor-core.mjs`](../../src/payment-rail-doctor-core.mjs) — Truthful readiness doctor for every payment rail that actually exists in source. _(matched by name only; imported by 2)_
+- [`src/payment-rail-doctor.mjs`](../../src/payment-rail-doctor.mjs) — Provider-neutral payment readiness facade. _(matched by name only; tested; imported by 3)_
+- [`src/phoenix-runtime-doctor.mjs`](../../src/phoenix-runtime-doctor.mjs) — exports PHOENIX_RUNTIME_DOCTOR_VERSION, runPhoenixRuntimeDoctor _(matched by name only; tested; imported by 1)_
+- [`src/pre-customer-revenue-readiness.mjs`](../../src/pre-customer-revenue-readiness.mjs) — exports PRE_CUSTOMER_REVENUE_READINESS_VERSION, compilePreCustomerRevenueReadiness _(matched by name only; tested; imported by 2)_
+- [`src/reachable-futures.mjs`](../../src/reachable-futures.mjs) — Futures as structured counterfactuals, and what they are allowed to decide. _(matched by name only; tested; imported by 1)_
+- [`src/readiness-reachability-conservation.mjs`](../../src/readiness-reachability-conservation.mjs) — exports READINESS_REACHABILITY_CONSERVATION_VERSION, verifyReachabilityConservation _(matched by name only; tested; imported by 1)_
+- [`src/recursive-governance-security.mjs`](../../src/recursive-governance-security.mjs) — exports RECURSIVE_GOVERNANCE_SECURITY_VERSION, admitRecursiveSecurityEvolution _(matched by name only; tested; imported by 1)_
+- [`src/secret-patterns.mjs`](../../src/secret-patterns.mjs) — One vocabulary for "this looks like a credential". _(matched by name only; imported by 24)_
+- [`src/security.mjs`](../../src/security.mjs) — exports isPrivateIp, assertPublicUrl, safeRedirectTarget _(matched by name only; imported by 3)_
+- [`src/sovereign-bootstrap-readiness.mjs`](../../src/sovereign-bootstrap-readiness.mjs) — exports SOVEREIGN_BOOTSTRAP_READINESS_VERSION, OFFLINE_MODEL_STATUS, REQUIRED_SOURCE_CONTRACTS, REQUIRED_AUTHORING_UNITS, compileSovereignBootstrapRe… _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-coverage-content-digest.mjs`](../../src/sovereign-coverage-content-digest.mjs) — exports SOVEREIGN_COVERAGE_CONTENT_DIGEST_VERSION, sovereignCoverageContentDigest _(matched by name only; imported by 2)_
+- [`src/sovereign-coverage-denominator.mjs`](../../src/sovereign-coverage-denominator.mjs) — exports SOVEREIGN_COVERAGE_DENOMINATOR_VERSION, verifyCoverageDenominatorConservation _(matched by name only; imported by 2)_
+- [`src/sovereign-coverage-matrix.mjs`](../../src/sovereign-coverage-matrix.mjs) — The no-drop compiler: every canonical concept gets a row, or the build fails. _(matched by name only; tested; imported by 5)_
+- [`src/system-health-matrix.mjs`](../../src/system-health-matrix.mjs) — exports SYSTEM_HEALTH_MATRIX_POLICY_VERSION, compileSystemHealthMatrix _(matched by name only; imported by 1)_
+- [`src/system-health-repository.mjs`](../../src/system-health-repository.mjs) — exports SYSTEM_HEALTH_REPOSITORY_VERSION, readSystemHealthInputs _(matched by name only; imported by 1)_
+- [`src/uber-socket-openai-secret.mjs`](../../src/uber-socket-openai-secret.mjs) — exports UBER_SOCKET_OPENAI_SECRET_VERSION, readUberSocketOpenAIKey, storeUberSocketOpenAIKey, clearUberSocketOpenAIKey _(matched by name only; imported by 1)_
+- [`src/ubercel-deployment-doctor.mjs`](../../src/ubercel-deployment-doctor.mjs) — Ubercel deployment state, read through UberBond rather than off a vendor. _(matched by name only; tested; imported by 1)_
+- [`src/uberlit-runtime-doctor.mjs`](../../src/uberlit-runtime-doctor.mjs) — exports UBERLIT_RUNTIME_DOCTOR_SCHEMA, diagnoseUberLitRuntime _(matched by name only; tested; imported by 2)_
+- [`src/uberlit-typesafe-secret.mjs`](../../src/uberlit-typesafe-secret.mjs) — exports UBERLIT_TYPESAFE_SECRET_VERSION, readUberLitTypeSafeKey, inspectUberLitTypeSafeKey, storeUberLitTypeSafeKey, clearUberLitTypeSafeKey _(matched by name only; tested; imported by 4)_
+- [`src/ubermind-jev-pending-doctor.mjs`](../../src/ubermind-jev-pending-doctor.mjs) — exports UBERMIND_JEV_PENDING_DOCTOR_SCHEMA, inspectJevPendingClaims _(matched by name only; tested; imported by 1)_
+- [`src/winnr-smtp-readiness.mjs`](../../src/winnr-smtp-readiness.mjs) — exports WINNR_SMTP_READINESS_VERSION, SMTP_PROBE_FAILURE_PAUSE_REASON, runWinnrSmtpReadinessProbe, WINNR_IMAP_READINESS_VERSION, WINNR_IMAP_READINESS… _(matched by name only; tested; imported by 1)_
 
 ## Scripts (111)
 
-- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(npm: `absolute:quality:doctor`)_
-- [`scripts/agent-native-commerce-doctor.mjs`](../../scripts/agent-native-commerce-doctor.mjs)
-- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
-- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(npm: `apex:fqc:doctor`)_
-- [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — exports runDoctor _(npm: `avengers:doctor`, `avengers:doctor:probe`)_
-- [`scripts/c21-evidence-doctor.mjs`](../../scripts/c21-evidence-doctor.mjs) — exports C21_EVIDENCE_DOCTOR_VERSION, runC21EvidenceDoctor
-- [`scripts/capability-genome-doctor.mjs`](../../scripts/capability-genome-doctor.mjs) _(npm: `capabilities:genome:doctor`)_
-- [`scripts/capability-total-doctor.mjs`](../../scripts/capability-total-doctor.mjs)
-- [`scripts/century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs)
-- [`scripts/cognition-route-inventory-doctor.mjs`](../../scripts/cognition-route-inventory-doctor.mjs) _(npm: `infinite-opus:routes:doctor`)_
-- [`scripts/compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs)
-- [`scripts/compute-sovereignty-doctor.mjs`](../../scripts/compute-sovereignty-doctor.mjs) _(npm: `compute:doctor`)_
-- [`scripts/constitution-doctor.mjs`](../../scripts/constitution-doctor.mjs) — V3 A021. The Constitution Doctor. _(npm: `constitution:doctor`)_
-- [`scripts/constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs)
-- [`scripts/contra-collection-doctor.mjs`](../../scripts/contra-collection-doctor.mjs)
-- [`scripts/delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs)
-- [`scripts/durable-scheduler-wake-pulse-doctor.mjs`](../../scripts/durable-scheduler-wake-pulse-doctor.mjs)
-- [`scripts/event-horizon-doctor.mjs`](../../scripts/event-horizon-doctor.mjs) — exports EVENT_HORIZON_ARTIFACT_PATH _(npm: `event-horizon:doctor`)_
-- [`scripts/execution-leaf-graph-doctor.mjs`](../../scripts/execution-leaf-graph-doctor.mjs)
-- [`scripts/external-capability-doctor.mjs`](../../scripts/external-capability-doctor.mjs) _(npm: `capabilities:doctor`)_
-- [`scripts/founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — If the founder turns the device off, what actually keeps running -- and what _(npm: `absence:doctor`)_
-- [`scripts/free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(npm: `outreach:free-first:doctor`)_
-- [`scripts/frontier-model-team-doctor.mjs`](../../scripts/frontier-model-team-doctor.mjs) _(npm: `models:frontier:doctor`)_
-- [`scripts/frontier-surface-doctor.mjs`](../../scripts/frontier-surface-doctor.mjs) — Operator-only reachability surface for internally safe, already operator-eligible
-- [`scripts/frontier-vm-v5-doctor.mjs`](../../scripts/frontier-vm-v5-doctor.mjs) _(npm: `frontier-vm:doctor`)_
-- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(npm: `genesis:blackout:doctor`)_
-- [`scripts/genesis-burst-index-doctor.mjs`](../../scripts/genesis-burst-index-doctor.mjs) _(npm: `genesis:bursts:doctor`)_
-- [`scripts/genesis-candidate-substrate-doctor.mjs`](../../scripts/genesis-candidate-substrate-doctor.mjs) _(npm: `genesis:candidate-mesh:doctor`)_
-- [`scripts/genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(npm: `genesis:chimera:doctor`)_
-- [`scripts/genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(npm: `genesis:cognition:doctor`)_
-- [`scripts/genesis-escalation-tribunal-doctor.mjs`](../../scripts/genesis-escalation-tribunal-doctor.mjs) _(npm: `genesis:escalation:doctor`)_
-- [`scripts/genesis-evolution-doctor.mjs`](../../scripts/genesis-evolution-doctor.mjs) _(npm: `genesis:evolution:doctor`)_
-- [`scripts/genesis-experiment-feasibility-doctor.mjs`](../../scripts/genesis-experiment-feasibility-doctor.mjs) — exports runGenesisExperimentFeasibilityDoctor
-- [`scripts/genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(npm: `genesis:failure-reflex:doctor`)_
-- [`scripts/genesis-idea-burst-doctor.mjs`](../../scripts/genesis-idea-burst-doctor.mjs) _(npm: `genesis:idea-burst:doctor`)_
-- [`scripts/genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(npm: `genesis:system-one:doctor`)_
-- [`scripts/governance-organ-doctor.mjs`](../../scripts/governance-organ-doctor.mjs) — Zero-effect reachability surface for pure admission / evidence / governance organs.
-- [`scripts/infinite-opus-achieved-equivalence-doctor.mjs`](../../scripts/infinite-opus-achieved-equivalence-doctor.mjs) — exports runAchievedOpusEquivalenceDoctor _(npm: `infinite-opus:equivalence:doctor`)_
-- [`scripts/infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs)
-- [`scripts/infinite-opus-hostile-test-doctor.mjs`](../../scripts/infinite-opus-hostile-test-doctor.mjs) _(npm: `infinite-opus:hostile:doctor`)_
-- [`scripts/infinite-opus-preowner-doctor.mjs`](../../scripts/infinite-opus-preowner-doctor.mjs) _(npm: `infinite-opus:preowner:doctor`)_
-- [`scripts/infinite-opus-route-inventory.mjs`](../../scripts/infinite-opus-route-inventory.mjs) _(npm: `infinite-opus:routes`)_
-- [`scripts/institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs)
-- [`scripts/jev-calibration-doctor.mjs`](../../scripts/jev-calibration-doctor.mjs) _(npm: `jev:calibration`)_
-- [`scripts/jev-doctor.mjs`](../../scripts/jev-doctor.mjs) _(npm: `jev:doctor`)_
-- [`scripts/jev-scaled-preflight-doctor.mjs`](../../scripts/jev-scaled-preflight-doctor.mjs) — exports runJevScaledPreflightDoctor
-- [`scripts/jev-shared-state-tensor-doctor.mjs`](../../scripts/jev-shared-state-tensor-doctor.mjs) — exports JEV_TENSOR_DOCTOR_SCHEMA, runJevTensorStartupDoctor
-- [`scripts/memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs the memory truth boundary against this repository's own artifacts. _(npm: `memory:doctor`)_
-- [`scripts/million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs)
-- [`scripts/missing-capability-build-path-doctor.mjs`](../../scripts/missing-capability-build-path-doctor.mjs)
-- [`scripts/model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(npm: `providers:doctor`)_
-- [`scripts/moonshot-substrate-mesh-doctor.mjs`](../../scripts/moonshot-substrate-mesh-doctor.mjs) _(npm: `moonshots:substrate-mesh`)_
-- [`scripts/native-capability-market-doctor.mjs`](../../scripts/native-capability-market-doctor.mjs)
-- [`scripts/open-router-canon-doctor.mjs`](../../scripts/open-router-canon-doctor.mjs) — exports auditOpenRouterCanon _(npm: `open-router:canon:doctor`)_
-- [`scripts/open-router-vault-doctor.mjs`](../../scripts/open-router-vault-doctor.mjs) _(npm: `open-router:vault:doctor`)_
-- [`scripts/organ-callability-inventory.mjs`](../../scripts/organ-callability-inventory.mjs)
-- [`scripts/organism-foundations-doctor.mjs`](../../scripts/organism-foundations-doctor.mjs) — Zero-effect operator doctor for the overnight organism foundations. _(npm: `organism:doctor`)_
-- [`scripts/outreach-drift-doctor.mjs`](../../scripts/outreach-drift-doctor.mjs) _(npm: `outreach:drift-doctor`)_
-- [`scripts/outreach-launch-doctor.mjs`](../../scripts/outreach-launch-doctor.mjs)
-- [`scripts/outreach-reachability-audit.mjs`](../../scripts/outreach-reachability-audit.mjs) — Phase A forensic gap compiler for the outreach/lead-generation organ. _(npm: `outreach:reachability-audit`)_
-- [`scripts/outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — exports OUTREACH_REALITY_DOCTOR_VERSION, runOutreachRealityDoctor
-- [`scripts/overnight-foundations-doctor.mjs`](../../scripts/overnight-foundations-doctor.mjs) — Zero-effect operator reachability for the overnight organism foundations.
-- [`scripts/payment-rail-doctor.mjs`](../../scripts/payment-rail-doctor.mjs) — Which payment rail this runtime could actually take money through, and what _(npm: `payment:doctor`)_
-- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(npm: `genesis:doctor`)_
-- [`scripts/personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs the life loop end to end on a supplied situation and reports what the _(npm: `life:doctor`)_
-- [`scripts/phoenix-capsule-doctor.mjs`](../../scripts/phoenix-capsule-doctor.mjs)
-- [`scripts/phoenix-ten-wave-genome-doctor.py`](../../scripts/phoenix-ten-wave-genome-doctor.py)
-- [`scripts/provider-neutral-backend-doctor.mjs`](../../scripts/provider-neutral-backend-doctor.mjs) — exports inspectPortableBackend
-- [`scripts/reachability-report.mjs`](../../scripts/reachability-report.mjs)
-- [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs the epistemic organs over a supplied situation: what the search could not _(npm: `reasoning:doctor`)_
-- [`scripts/revenue-decision-desk-doctor.mjs`](../../scripts/revenue-decision-desk-doctor.mjs)
-- [`scripts/sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs)
-- [`scripts/sovereign-bootstrap-doctor.mjs`](../../scripts/sovereign-bootstrap-doctor.mjs) — exports collectSovereignBootstrapReadiness
-- [`scripts/sovereign-context-doctor.mjs`](../../scripts/sovereign-context-doctor.mjs) — exports SOVEREIGN_CONTEXT_DOCTOR_VERSION, TERMINAL_NORTH_STAR_PATH, CURRENT_HANDOFF_PATH, overlayExactCurrentContext, runSovereignContextDoctor
-- [`scripts/sovereign-coverage-matrix.mjs`](../../scripts/sovereign-coverage-matrix.mjs) — Extracts every concept from every canonical source and compiles the matrix. _(npm: `sovereign:coverage`)_
-- [`scripts/sovereign-coverage-terminal-closure.mjs`](../../scripts/sovereign-coverage-terminal-closure.mjs) — exports normalizeShortReferenceSurfaces, compileTerminalCoverage, writeTerminalCoverage
-- [`scripts/sovereign-organs-doctor.mjs`](../../scripts/sovereign-organs-doctor.mjs) — Does each sovereign organ still refuse what it exists to refuse?
-- [`scripts/sovereign-relation-doctor.mjs`](../../scripts/sovereign-relation-doctor.mjs) — The sovereign relation, checked over time rather than at a moment. _(npm: `sovereignty:doctor`)_
-- [`scripts/sovereign-root-recovery-doctor.mjs`](../../scripts/sovereign-root-recovery-doctor.mjs)
-- [`scripts/sovereign-self-host-doctor.mjs`](../../scripts/sovereign-self-host-doctor.mjs) — exports SOVEREIGN_SELF_HOST_DOCTOR_VERSION, inspectSovereignSelfHost
-- [`scripts/supporting-civilization-organs-doctor.mjs`](../../scripts/supporting-civilization-organs-doctor.mjs)
-- [`scripts/system-readiness.mjs`](../../scripts/system-readiness.mjs) — Produce artifacts/system-readiness.json from measured facts, not from claims. _(npm: `readiness`)_
-- [`scripts/uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs)
-- [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs)
-- [`scripts/uber-sovereign-expansion-doctor.mjs`](../../scripts/uber-sovereign-expansion-doctor.mjs) — exports UBER_SOVEREIGN_EXPANSION_DOCTOR_VERSION, runUberSovereignExpansionDoctor
-- [`scripts/ubercel-doctor.mjs`](../../scripts/ubercel-doctor.mjs) — Reports UberBond's deployment state through Ubercel. _(npm: `ubercel:doctor`)_
-- [`scripts/uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs)
-- [`scripts/uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs)
-- [`scripts/uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) _(npm: `jev:uberlit:secret`)_
-- [`scripts/ubermind-33k-reality-doctor.mjs`](../../scripts/ubermind-33k-reality-doctor.mjs) — exports runUberMind33kRealityDoctor
-- [`scripts/ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations
-- [`scripts/ubermind-55-family-price-doctor.mjs`](../../scripts/ubermind-55-family-price-doctor.mjs) — exports UBERMIND_55_DOCTOR_SCHEMA, inspectUberMind55TariffScenarios
-- [`scripts/ubermind-cheapest-reference-doctor.mjs`](../../scripts/ubermind-cheapest-reference-doctor.mjs) — exports runUberMindCheapestReferenceDoctor
-- [`scripts/ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) _(npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
-- [`scripts/ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — exports UBERMIND_OMEGA16_DOCTOR, uberMindOmega16ConditionalDoctor
-- [`scripts/ubermind-v6-source-doctor.mjs`](../../scripts/ubermind-v6-source-doctor.mjs) — Verify source custody, not cognitive quality or downstream ChatGPT activation.
-- [`scripts/ubermind-w40-route-doctor.mjs`](../../scripts/ubermind-w40-route-doctor.mjs) — exports W40_ROUTE_DOCTOR, sampleUberMindW40Routes, evaluateUberMindW40ContractFile
-- [`scripts/ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction
-- [`scripts/uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs)
-- [`scripts/uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs)
-- [`scripts/uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs)
-- [`scripts/uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs)
-- [`scripts/uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs)
-- [`scripts/uberskills-doctor.mjs`](../../scripts/uberskills-doctor.mjs)
-- [`scripts/uberwarm-ingress-live-doctor.mjs`](../../scripts/uberwarm-ingress-live-doctor.mjs) — Real, read-only provider+canonical Neon fence. Never prints credentials.
-- [`scripts/uberwarm2-live-read-doctor.mjs`](../../scripts/uberwarm2-live-read-doctor.mjs) — Read-only live Winnr inventory/sender diagnostics. No SMTP or writes. Usage: node scripts/uberwarm2-live-read-doctor.mjs --probe [--email=owner@domai…
-- [`scripts/uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1)
-- [`scripts/value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — exports runValueOfInformationDoctor
-- [`scripts/winnr-post-purchase-doctor.mjs`](../../scripts/winnr-post-purchase-doctor.mjs) _(npm: `outreach:winnr:doctor`)_
-- [`scripts/world-brain-field-mission-doctor.mjs`](../../scripts/world-brain-field-mission-doctor.mjs) — exports WORLD_BRAIN_FIELD_MISSION_ROOT _(npm: `world-brain:doctor`)_
-- [`scripts/zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — exports runZeroBarrierOutreachDoctor
+- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(matched by name only; npm: `absolute:quality:doctor`)_
+- [`scripts/agent-native-commerce-doctor.mjs`](../../scripts/agent-native-commerce-doctor.mjs) _(matched by name only)_
+- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(matched by name only; npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
+- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(matched by name only; npm: `apex:fqc:doctor`)_
+- [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — exports runDoctor _(matched by name only; npm: `avengers:doctor`, `avengers:doctor:probe`)_
+- [`scripts/c21-evidence-doctor.mjs`](../../scripts/c21-evidence-doctor.mjs) — exports C21_EVIDENCE_DOCTOR_VERSION, runC21EvidenceDoctor _(matched by name only)_
+- [`scripts/capability-genome-doctor.mjs`](../../scripts/capability-genome-doctor.mjs) _(matched by name only; npm: `capabilities:genome:doctor`)_
+- [`scripts/capability-total-doctor.mjs`](../../scripts/capability-total-doctor.mjs) _(matched by name only)_
+- [`scripts/century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs) _(matched by name only)_
+- [`scripts/cognition-route-inventory-doctor.mjs`](../../scripts/cognition-route-inventory-doctor.mjs) _(matched by name only; npm: `infinite-opus:routes:doctor`)_
+- [`scripts/compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs) _(matched by name only)_
+- [`scripts/compute-sovereignty-doctor.mjs`](../../scripts/compute-sovereignty-doctor.mjs) _(matched by name only; npm: `compute:doctor`)_
+- [`scripts/constitution-doctor.mjs`](../../scripts/constitution-doctor.mjs) — V3 A021. The Constitution Doctor. _(matched by name only; npm: `constitution:doctor`)_
+- [`scripts/constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs) _(matched by name only)_
+- [`scripts/contra-collection-doctor.mjs`](../../scripts/contra-collection-doctor.mjs) _(matched by name only)_
+- [`scripts/delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs) _(matched by name only)_
+- [`scripts/durable-scheduler-wake-pulse-doctor.mjs`](../../scripts/durable-scheduler-wake-pulse-doctor.mjs) _(matched by name only)_
+- [`scripts/event-horizon-doctor.mjs`](../../scripts/event-horizon-doctor.mjs) — exports EVENT_HORIZON_ARTIFACT_PATH _(matched by name only; npm: `event-horizon:doctor`)_
+- [`scripts/execution-leaf-graph-doctor.mjs`](../../scripts/execution-leaf-graph-doctor.mjs) _(matched by name only)_
+- [`scripts/external-capability-doctor.mjs`](../../scripts/external-capability-doctor.mjs) _(matched by name only; npm: `capabilities:doctor`)_
+- [`scripts/founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — If the founder turns the device off, what actually keeps running -- and what _(matched by name only; npm: `absence:doctor`)_
+- [`scripts/free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(matched by name only; npm: `outreach:free-first:doctor`)_
+- [`scripts/frontier-model-team-doctor.mjs`](../../scripts/frontier-model-team-doctor.mjs) _(matched by name only; npm: `models:frontier:doctor`)_
+- [`scripts/frontier-surface-doctor.mjs`](../../scripts/frontier-surface-doctor.mjs) — Operator-only reachability surface for internally safe, already operator-eligible _(matched by name only)_
+- [`scripts/frontier-vm-v5-doctor.mjs`](../../scripts/frontier-vm-v5-doctor.mjs) _(matched by name only; npm: `frontier-vm:doctor`)_
+- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(matched by name only; npm: `genesis:blackout:doctor`)_
+- [`scripts/genesis-burst-index-doctor.mjs`](../../scripts/genesis-burst-index-doctor.mjs) _(matched by name only; npm: `genesis:bursts:doctor`)_
+- [`scripts/genesis-candidate-substrate-doctor.mjs`](../../scripts/genesis-candidate-substrate-doctor.mjs) _(matched by name only; npm: `genesis:candidate-mesh:doctor`)_
+- [`scripts/genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(matched by name only; npm: `genesis:chimera:doctor`)_
+- [`scripts/genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(matched by name only; npm: `genesis:cognition:doctor`)_
+- [`scripts/genesis-escalation-tribunal-doctor.mjs`](../../scripts/genesis-escalation-tribunal-doctor.mjs) _(matched by name only; npm: `genesis:escalation:doctor`)_
+- [`scripts/genesis-evolution-doctor.mjs`](../../scripts/genesis-evolution-doctor.mjs) _(matched by name only; npm: `genesis:evolution:doctor`)_
+- [`scripts/genesis-experiment-feasibility-doctor.mjs`](../../scripts/genesis-experiment-feasibility-doctor.mjs) — exports runGenesisExperimentFeasibilityDoctor _(matched by name only)_
+- [`scripts/genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(matched by name only; npm: `genesis:failure-reflex:doctor`)_
+- [`scripts/genesis-idea-burst-doctor.mjs`](../../scripts/genesis-idea-burst-doctor.mjs) _(matched by name only; npm: `genesis:idea-burst:doctor`)_
+- [`scripts/genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(matched by name only; npm: `genesis:system-one:doctor`)_
+- [`scripts/governance-organ-doctor.mjs`](../../scripts/governance-organ-doctor.mjs) — Zero-effect reachability surface for pure admission / evidence / governance organs. _(matched by name only)_
+- [`scripts/infinite-opus-achieved-equivalence-doctor.mjs`](../../scripts/infinite-opus-achieved-equivalence-doctor.mjs) — exports runAchievedOpusEquivalenceDoctor _(matched by name only; npm: `infinite-opus:equivalence:doctor`)_
+- [`scripts/infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs) _(matched by name only)_
+- [`scripts/infinite-opus-hostile-test-doctor.mjs`](../../scripts/infinite-opus-hostile-test-doctor.mjs) _(matched by name only; npm: `infinite-opus:hostile:doctor`)_
+- [`scripts/infinite-opus-preowner-doctor.mjs`](../../scripts/infinite-opus-preowner-doctor.mjs) _(matched by name only; npm: `infinite-opus:preowner:doctor`)_
+- [`scripts/infinite-opus-route-inventory.mjs`](../../scripts/infinite-opus-route-inventory.mjs) _(matched by name only; npm: `infinite-opus:routes`)_
+- [`scripts/institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs) _(matched by name only)_
+- [`scripts/jev-calibration-doctor.mjs`](../../scripts/jev-calibration-doctor.mjs) _(matched by name only; npm: `jev:calibration`)_
+- [`scripts/jev-doctor.mjs`](../../scripts/jev-doctor.mjs) _(matched by name only; npm: `jev:doctor`)_
+- [`scripts/jev-scaled-preflight-doctor.mjs`](../../scripts/jev-scaled-preflight-doctor.mjs) — exports runJevScaledPreflightDoctor _(matched by name only)_
+- [`scripts/jev-shared-state-tensor-doctor.mjs`](../../scripts/jev-shared-state-tensor-doctor.mjs) — exports JEV_TENSOR_DOCTOR_SCHEMA, runJevTensorStartupDoctor _(matched by name only)_
+- [`scripts/memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs the memory truth boundary against this repository's own artifacts. _(matched by name only; npm: `memory:doctor`)_
+- [`scripts/million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs) _(matched by name only)_
+- [`scripts/missing-capability-build-path-doctor.mjs`](../../scripts/missing-capability-build-path-doctor.mjs) _(matched by name only)_
+- [`scripts/model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(matched by name only; npm: `providers:doctor`)_
+- [`scripts/moonshot-substrate-mesh-doctor.mjs`](../../scripts/moonshot-substrate-mesh-doctor.mjs) _(matched by name only; npm: `moonshots:substrate-mesh`)_
+- [`scripts/native-capability-market-doctor.mjs`](../../scripts/native-capability-market-doctor.mjs) _(matched by name only)_
+- [`scripts/open-router-canon-doctor.mjs`](../../scripts/open-router-canon-doctor.mjs) — exports auditOpenRouterCanon _(matched by name only; npm: `open-router:canon:doctor`)_
+- [`scripts/open-router-vault-doctor.mjs`](../../scripts/open-router-vault-doctor.mjs) _(matched by name only; npm: `open-router:vault:doctor`)_
+- [`scripts/organ-callability-inventory.mjs`](../../scripts/organ-callability-inventory.mjs) _(matched by name only)_
+- [`scripts/organism-foundations-doctor.mjs`](../../scripts/organism-foundations-doctor.mjs) — Zero-effect operator doctor for the overnight organism foundations. _(matched by name only; npm: `organism:doctor`)_
+- [`scripts/outreach-drift-doctor.mjs`](../../scripts/outreach-drift-doctor.mjs) _(matched by name only; npm: `outreach:drift-doctor`)_
+- [`scripts/outreach-launch-doctor.mjs`](../../scripts/outreach-launch-doctor.mjs) _(matched by name only)_
+- [`scripts/outreach-reachability-audit.mjs`](../../scripts/outreach-reachability-audit.mjs) — Phase A forensic gap compiler for the outreach/lead-generation organ. _(matched by name only; npm: `outreach:reachability-audit`)_
+- [`scripts/outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — exports OUTREACH_REALITY_DOCTOR_VERSION, runOutreachRealityDoctor _(matched by name only)_
+- [`scripts/overnight-foundations-doctor.mjs`](../../scripts/overnight-foundations-doctor.mjs) — Zero-effect operator reachability for the overnight organism foundations. _(matched by name only)_
+- [`scripts/payment-rail-doctor.mjs`](../../scripts/payment-rail-doctor.mjs) — Which payment rail this runtime could actually take money through, and what _(matched by name only; npm: `payment:doctor`)_
+- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(matched by name only; npm: `genesis:doctor`)_
+- [`scripts/personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs the life loop end to end on a supplied situation and reports what the _(matched by name only; npm: `life:doctor`)_
+- [`scripts/phoenix-capsule-doctor.mjs`](../../scripts/phoenix-capsule-doctor.mjs) _(matched by name only)_
+- [`scripts/phoenix-ten-wave-genome-doctor.py`](../../scripts/phoenix-ten-wave-genome-doctor.py) _(matched by name only)_
+- [`scripts/provider-neutral-backend-doctor.mjs`](../../scripts/provider-neutral-backend-doctor.mjs) — exports inspectPortableBackend _(matched by name only)_
+- [`scripts/reachability-report.mjs`](../../scripts/reachability-report.mjs) _(matched by name only)_
+- [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs the epistemic organs over a supplied situation: what the search could not _(matched by name only; npm: `reasoning:doctor`)_
+- [`scripts/revenue-decision-desk-doctor.mjs`](../../scripts/revenue-decision-desk-doctor.mjs) _(matched by name only)_
+- [`scripts/sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) _(matched by name only)_
+- [`scripts/sovereign-bootstrap-doctor.mjs`](../../scripts/sovereign-bootstrap-doctor.mjs) — exports collectSovereignBootstrapReadiness _(matched by name only)_
+- [`scripts/sovereign-context-doctor.mjs`](../../scripts/sovereign-context-doctor.mjs) — exports SOVEREIGN_CONTEXT_DOCTOR_VERSION, TERMINAL_NORTH_STAR_PATH, CURRENT_HANDOFF_PATH, overlayExactCurrentContext, runSovereignContextDoctor _(matched by name only)_
+- [`scripts/sovereign-coverage-matrix.mjs`](../../scripts/sovereign-coverage-matrix.mjs) — Extracts every concept from every canonical source and compiles the matrix. _(matched by name only; npm: `sovereign:coverage`)_
+- [`scripts/sovereign-coverage-terminal-closure.mjs`](../../scripts/sovereign-coverage-terminal-closure.mjs) — exports normalizeShortReferenceSurfaces, compileTerminalCoverage, writeTerminalCoverage _(matched by name only)_
+- [`scripts/sovereign-organs-doctor.mjs`](../../scripts/sovereign-organs-doctor.mjs) — Does each sovereign organ still refuse what it exists to refuse? _(matched by name only)_
+- [`scripts/sovereign-relation-doctor.mjs`](../../scripts/sovereign-relation-doctor.mjs) — The sovereign relation, checked over time rather than at a moment. _(matched by name only; npm: `sovereignty:doctor`)_
+- [`scripts/sovereign-root-recovery-doctor.mjs`](../../scripts/sovereign-root-recovery-doctor.mjs) _(matched by name only)_
+- [`scripts/sovereign-self-host-doctor.mjs`](../../scripts/sovereign-self-host-doctor.mjs) — exports SOVEREIGN_SELF_HOST_DOCTOR_VERSION, inspectSovereignSelfHost _(matched by name only)_
+- [`scripts/supporting-civilization-organs-doctor.mjs`](../../scripts/supporting-civilization-organs-doctor.mjs) _(matched by name only)_
+- [`scripts/system-readiness.mjs`](../../scripts/system-readiness.mjs) — Produce artifacts/system-readiness.json from measured facts, not from claims. _(matched by name only; npm: `readiness`)_
+- [`scripts/uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) _(matched by name only)_
+- [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) _(matched by name only)_
+- [`scripts/uber-sovereign-expansion-doctor.mjs`](../../scripts/uber-sovereign-expansion-doctor.mjs) — exports UBER_SOVEREIGN_EXPANSION_DOCTOR_VERSION, runUberSovereignExpansionDoctor _(matched by name only)_
+- [`scripts/ubercel-doctor.mjs`](../../scripts/ubercel-doctor.mjs) — Reports UberBond's deployment state through Ubercel. _(matched by name only; npm: `ubercel:doctor`)_
+- [`scripts/uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs) _(matched by name only)_
+- [`scripts/uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs) _(matched by name only)_
+- [`scripts/uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) _(matched by name only; npm: `jev:uberlit:secret`)_
+- [`scripts/ubermind-33k-reality-doctor.mjs`](../../scripts/ubermind-33k-reality-doctor.mjs) — exports runUberMind33kRealityDoctor _(matched by name only)_
+- [`scripts/ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations _(matched by name only)_
+- [`scripts/ubermind-55-family-price-doctor.mjs`](../../scripts/ubermind-55-family-price-doctor.mjs) — exports UBERMIND_55_DOCTOR_SCHEMA, inspectUberMind55TariffScenarios _(matched by name only)_
+- [`scripts/ubermind-cheapest-reference-doctor.mjs`](../../scripts/ubermind-cheapest-reference-doctor.mjs) — exports runUberMindCheapestReferenceDoctor _(matched by name only)_
+- [`scripts/ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) _(matched by name only; npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
+- [`scripts/ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — exports UBERMIND_OMEGA16_DOCTOR, uberMindOmega16ConditionalDoctor _(matched by name only)_
+- [`scripts/ubermind-v6-source-doctor.mjs`](../../scripts/ubermind-v6-source-doctor.mjs) — Verify source custody, not cognitive quality or downstream ChatGPT activation. _(matched by name only)_
+- [`scripts/ubermind-w40-route-doctor.mjs`](../../scripts/ubermind-w40-route-doctor.mjs) — exports W40_ROUTE_DOCTOR, sampleUberMindW40Routes, evaluateUberMindW40ContractFile _(matched by name only)_
+- [`scripts/ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction _(matched by name only)_
+- [`scripts/uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs) _(matched by name only)_
+- [`scripts/uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs) _(matched by name only)_
+- [`scripts/uberskills-doctor.mjs`](../../scripts/uberskills-doctor.mjs) _(matched by name only)_
+- [`scripts/uberwarm-ingress-live-doctor.mjs`](../../scripts/uberwarm-ingress-live-doctor.mjs) — Real, read-only provider+canonical Neon fence. Never prints credentials. _(matched by name only)_
+- [`scripts/uberwarm2-live-read-doctor.mjs`](../../scripts/uberwarm2-live-read-doctor.mjs) — Read-only live Winnr inventory/sender diagnostics. No SMTP or writes. Usage: node scripts/uberwarm2-live-read-doctor.mjs --probe [--email=owner@domai… _(matched by name only)_
+- [`scripts/uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1) _(matched by name only)_
+- [`scripts/value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — exports runValueOfInformationDoctor _(matched by name only)_
+- [`scripts/winnr-post-purchase-doctor.mjs`](../../scripts/winnr-post-purchase-doctor.mjs) _(matched by name only; npm: `outreach:winnr:doctor`)_
+- [`scripts/world-brain-field-mission-doctor.mjs`](../../scripts/world-brain-field-mission-doctor.mjs) — exports WORLD_BRAIN_FIELD_MISSION_ROOT _(matched by name only; npm: `world-brain:doctor`)_
+- [`scripts/zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — exports runZeroBarrierOutreachDoctor _(matched by name only)_
 
 ## Config, data, artifacts and services (14)
 
-- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration
-- [`artifacts/avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1
-- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json)
-- [`artifacts/outreach/outreach-reachability-20261002.json`](../../artifacts/outreach/outreach-reachability-20261002.json) — 2026-10-02 · uberbond.outreach-reachability.v1
-- [`artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json`](../../artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json) — 2026-10-18 · uberwarm-phoenix-one-snapshot-anonymized-readiness-v1
-- [`artifacts/sovereign/implementation-coverage-matrix.json`](../../artifacts/sovereign/implementation-coverage-matrix.json) — COVERAGE_MATRIX_COMPILED · uberbond.sovereign-coverage-matrix.v1
-- [`artifacts/system-readiness.json`](../../artifacts/system-readiness.json) — PASSING · uberbond.system-readiness.v1
-- [`config/reachability-classification.json`](../../config/reachability-classification.json) — uberbond.reachability-classification.v1
-- [`config/system-readiness-input.json`](../../config/system-readiness-input.json) — PASSING
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json) — 2026-10-04 · LIVE_VERIFIED · uberbond.revenue-terminal-coverage.v1
-- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json) — uberbond.ubermind.direct-founder-52-coverage.v1
-- [`lite/lib/security.mjs`](../../lite/lib/security.mjs) — Vendored from src/security.mjs so the Vercel deployment (root directory: lite/)
-- [`open router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs`](../../open%20router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs) — 2026-09-30
+- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration _(matched by name only)_
+- [`artifacts/avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1 _(matched by name only)_
+- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json) _(matched by name only)_
+- [`artifacts/outreach/outreach-reachability-20261002.json`](../../artifacts/outreach/outreach-reachability-20261002.json) — 2026-10-02 · uberbond.outreach-reachability.v1 _(matched by name only)_
+- [`artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json`](../../artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json) — 2026-10-18 · uberwarm-phoenix-one-snapshot-anonymized-readiness-v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-coverage-matrix.json`](../../artifacts/sovereign/implementation-coverage-matrix.json) — COVERAGE_MATRIX_COMPILED · uberbond.sovereign-coverage-matrix.v1 _(matched by name only)_
+- [`artifacts/system-readiness.json`](../../artifacts/system-readiness.json) — PASSING · uberbond.system-readiness.v1 _(matched by name only)_
+- [`config/reachability-classification.json`](../../config/reachability-classification.json) — uberbond.reachability-classification.v1 _(matched by name only)_
+- [`config/system-readiness-input.json`](../../config/system-readiness-input.json) — PASSING _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json) — 2026-10-04 · LIVE_VERIFIED · uberbond.revenue-terminal-coverage.v1 _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json) — uberbond.ubermind.direct-founder-52-coverage.v1 _(matched by name only)_
+- [`lite/lib/security.mjs`](../../lite/lib/security.mjs) — Vendored from src/security.mjs so the Vercel deployment (root directory: lite/) _(matched by name only)_
+- [`open router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs`](../../open%20router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
 
 ## Tests (73)
 

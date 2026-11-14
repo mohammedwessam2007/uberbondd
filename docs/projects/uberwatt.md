@@ -12,18 +12,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (3)
 
-- [`docs/UBERWATT_FIRST_WINDOWS_NODE.md`](../UBERWATT_FIRST_WINDOWS_NODE.md) — UberWatt first Windows compute node — Status: SAFE FIRST-NODE BOOTSTRAP / NO MAINS CONTROL / NO POWER-LIMIT TUNING
-- [`docs/UBERWATT_V0.md`](../UBERWATT_V0.md) — UberWatt v0 — Status: OBSERVATION-ONLY HOME ENERGY / COMPUTE-BUDGET CANARY
-- [`docs/MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md`](../MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md) — 2026-09-22 · 890 Moonshot Energy / Compute / Model Mesh — Status: source integration; routing coverage, not 890 implementations
+- [`docs/UBERWATT_FIRST_WINDOWS_NODE.md`](../UBERWATT_FIRST_WINDOWS_NODE.md) — UberWatt first Windows compute node — Status: SAFE FIRST-NODE BOOTSTRAP / NO MAINS CONTROL / NO POWER-LIMIT TUNING _(matched by name only)_
+- [`docs/UBERWATT_V0.md`](../UBERWATT_V0.md) — UberWatt v0 — Status: OBSERVATION-ONLY HOME ENERGY / COMPUTE-BUDGET CANARY _(matched by name only)_
+- [`docs/MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md`](../MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md) — 2026-09-22 · 890 Moonshot Energy / Compute / Model Mesh — Status: source integration; routing coverage, not 890 implementations _(matched by name only)_
 
 ## Source modules (1)
 
-- [`src/uberwatt.mjs`](../../src/uberwatt.mjs) — exports UBERWATT_SCHEMA, DEFAULT_JOULES_PER_OUTPUT_TOKEN, compileEnergyInterval, compileVerifiedSavings, compileEnergyEquivalentCompute (+6) _(tested; no static importers)_
+- [`src/uberwatt.mjs`](../../src/uberwatt.mjs) — exports UBERWATT_SCHEMA, DEFAULT_JOULES_PER_OUTPUT_TOKEN, compileEnergyInterval, compileVerifiedSavings, compileEnergyEquivalentCompute (+6) _(matched by name only; tested; no static importers)_
 
 ## Scripts (2)
 
-- [`scripts/uberwatt-ollama-benchmark.ps1`](../../scripts/uberwatt-ollama-benchmark.ps1)
-- [`scripts/uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1)
+- [`scripts/uberwatt-ollama-benchmark.ps1`](../../scripts/uberwatt-ollama-benchmark.ps1) _(matched by name only)_
+- [`scripts/uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1) _(matched by name only)_
 
 ## Tests (1)
 

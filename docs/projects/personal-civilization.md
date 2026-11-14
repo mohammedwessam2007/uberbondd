@@ -12,9 +12,9 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (3)
 
-- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM
-- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED
-- [`docs/LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md`](../LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Life-Altering Frontier Gap Audit — 2026-09-15
+- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(matched by name only)_
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(matched by name only)_
+- [`docs/LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md`](../LIFE_ALTERING_FRONTIER_GAP_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Life-Altering Frontier Gap Audit — 2026-09-15 _(matched by name only)_
 
 ## Commands (2)
 
@@ -22,77 +22,77 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (11)
 
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(13 mentions)_
-- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(6 mentions)_
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(6 mentions)_
-- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF _(6 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(4 mentions)_
-- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(3 mentions)_
-- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(3 mentions)_
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(3 mentions)_
-- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(3 mentions)_
-- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(3 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(13 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(matched by name only)_ _(6 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(6 mentions)_
+- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF _(matched by name only)_ _(6 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(4 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_ _(3 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(matched by name only)_ _(3 mentions)_
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(matched by name only)_ _(3 mentions)_
+- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (41)
 
-- [`src/adaptive-mastery-engine.mjs`](../../src/adaptive-mastery-engine.mjs) — Sovereign adaptive mastery engine. _(no static importers)_
-- [`src/anti-fragility-map.mjs`](../../src/anti-fragility-map.mjs) — Where a life or a business depends on one thing not failing. _(tested; imported by 1)_
-- [`src/assumption-escape.mjs`](../../src/assumption-escape.mjs) — Questions the current assumptions already answered, and how to get out. _(tested; imported by 1)_
-- [`src/century-grade-continuity.mjs`](../../src/century-grade-continuity.mjs) — exports CENTURY_GRADE_CONTINUITY_VERSION, compileCenturyContinuityPlan, verifyCenturyContinuityRehearsal _(tested; imported by 1)_
-- [`src/embodied-reality.mjs`](../../src/embodied-reality.mjs) — The body, the room, and the parts of experience that do not survive language. _(tested; imported by 1)_
-- [`src/experience-compiler.mjs`](../../src/experience-compiler.mjs) — Experiences as first-class architecture, and the limits on optimizing them. _(tested; imported by 1)_
-- [`src/geographic-sovereignty-engine.mjs`](../../src/geographic-sovereignty-engine.mjs) — Geographic sovereignty engine. _(no static importers)_
-- [`src/health-recommendation-boundary.mjs`](../../src/health-recommendation-boundary.mjs) — exports HEALTH_RECOMMENDATION_BOUNDARY_VERSION, compileHealthRecommendationBoundary _(tested; imported by 1)_
-- [`src/human-capability-genome.mjs`](../../src/human-capability-genome.mjs) — Human capability as a dependency graph, and what growing it costs elsewhere. _(tested; imported by 2)_
-- [`src/institutional-financial-sovereignty.mjs`](../../src/institutional-financial-sovereignty.mjs) — exports INSTITUTIONAL_FINANCIAL_SOVEREIGNTY_VERSION, INSTITUTIONAL_EVIDENCE_CLASSES, compileInstitutionalFinancialLedger, admitInstitutionalEffect, r… _(tested; imported by 1)_
-- [`src/knowledge-labyrinth-ubergraph.mjs`](../../src/knowledge-labyrinth-ubergraph.mjs) — exports KNOWLEDGE_LABYRINTH_UBERGRAPH_VERSION, compileKnowledgeLabyrinth, KNOWLEDGE_LABYRINTH_DOMAINS _(tested; imported by 1)_
-- [`src/legacy-institution-engine.mjs`](../../src/legacy-institution-engine.mjs) — Durable legacy and institution capital compiler. _(no static importers)_
-- [`src/life-autopoiesis.mjs`](../../src/life-autopoiesis.mjs) — Where the parts of a life feed each other, and what a finite one costs. _(tested; imported by 1)_
-- [`src/life-compression-engine.mjs`](../../src/life-compression-engine.mjs) — Turning many facts into a few principles, without the principle eating the _(tested; imported by 1)_
-- [`src/life-decision-dimensions.mjs`](../../src/life-decision-dimensions.mjs) — A life decision described on every dimension it touches, and never collapsed. _(tested; imported by 3)_
-- [`src/life-knowledge-graph.mjs`](../../src/life-knowledge-graph.mjs) — A graph of a life, where every edge knows how it got there. _(tested; imported by 3)_
-- [`src/life-possibility-engine.mjs`](../../src/life-possibility-engine.mjs) — The inventory of branches a life still has, and what a decision does to it. _(tested; imported by 3)_
-- [`src/lifetime-context-memory.mjs`](../../src/lifetime-context-memory.mjs) — exports LIFETIME_CONTEXT_VERSION, compileLifetimeMemoryIndex, compileTaskContextPacket, compileMemoryHealthReceipt _(tested; imported by 2)_
-- [`src/living-evidence-graph.mjs`](../../src/living-evidence-graph.mjs) — exports createLivingEvidenceGraph, planLivingEvidenceDelta, applyLivingEvidenceDelta, modelLivingEvidenceDeltaCompression _(tested; imported by 1)_
-- [`src/living-self-model.mjs`](../../src/living-self-model.mjs) — A model of a person that is not allowed to become a cage. _(tested; imported by 2)_
-- [`src/multi-generation-architecture.mjs`](../../src/multi-generation-architecture.mjs) — exports compileMultiGenerationArchitecture _(tested; imported by 1)_
-- [`src/n-1-rule.mjs`](../../src/n-1-rule.mjs) — exports compileNPlusOneRule _(tested; imported by 1)_
-- [`src/n-of-1-personal-science.mjs`](../../src/n-of-1-personal-science.mjs) — Learning from one person, who does not hold still. _(tested; imported by 1)_
-- [`src/personal-civilization-capture.mjs`](../../src/personal-civilization-capture.mjs) — The front door of the private loop: a thought entering the system without _(tested; imported by 1)_
-- [`src/personal-civilization-core.mjs`](../../src/personal-civilization-core.mjs) — The private core of the Personal Civilization: capture, derive, export, delete. _(tested; imported by 5)_
-- [`src/personal-civilization-decision-loop.mjs`](../../src/personal-civilization-decision-loop.mjs) — The Sovereign Decision Packet, and the loop back to reality. _(tested; imported by 2)_
-- [`src/personal-civilization-job-handler.mjs`](../../src/personal-civilization-job-handler.mjs) — exports PERSONAL_CIVILIZATION_JOB_VERSION, runPersonalCivilizationJob _(imported by 1)_
-- [`src/personal-civilization-kernel.mjs`](../../src/personal-civilization-kernel.mjs) — exports PERSONAL_CIVILIZATION_KERNEL_VERSION, PERSONAL_CIVILIZATION_ORGANS, buildSovereignSelf, buildPersonalWorldModel, compileDreams (+25) _(imported by 1)_
-- [`src/personal-civilization-model-graph.mjs`](../../src/personal-civilization-model-graph.mjs) — The Living Model is a person over time, not a label; the Life Graph is a _(tested; imported by 1)_
-- [`src/personal-civilization-possibility.mjs`](../../src/personal-civilization-possibility.mjs) — A portfolio of genuinely different lives, the skeleton each would need, and _(tested; imported by 1)_
-- [`src/personal-civilization-private-operator.mjs`](../../src/personal-civilization-private-operator.mjs) — exports PERSONAL_CIVILIZATION_PRIVATE_OPERATOR_VERSION, PRIVATE_STATE_SCHEMA, PRIVATE_ENVELOPE_SCHEMA, PRIVATE_EXPORT_SCHEMA, PRIVATE_LIFE_KEY_ENV (+… _(tested; imported by 1)_
-- [`src/personal-civilization-scientific-experiment.mjs`](../../src/personal-civilization-scientific-experiment.mjs) — exports PERSONAL_CIVILIZATION_SCIENTIFIC_EXPERIMENT_VERSION, compilePersonalScientificExperiment _(tested; imported by 1)_
-- [`src/possibility-civilization-kernel.mjs`](../../src/possibility-civilization-kernel.mjs) — exports POSSIBILITY_CIVILIZATION_KERNEL_VERSION, POSSIBILITY_TRUTH_STATES, enforceHumanAuthorityKernel, measurePossibilitySet, evaluateSovereignFutur… _(tested; imported by 1)_
-- [`src/reachable-futures.mjs`](../../src/reachable-futures.mjs) — Futures as structured counterfactuals, and what they are allowed to decide. _(tested; imported by 1)_
-- [`src/recurrence-map.mjs`](../../src/recurrence-map.mjs) — exports buildRecurrenceMap _(imported by 1)_
-- [`src/recursion-civilization-stack.mjs`](../../src/recursion-civilization-stack.mjs) — exports RECURSION_CIVILIZATION_STACK_VERSION, extractRecursionGenome, evolveRecursionMechanisms, evaluateMetaRecursionDesign, governRecursionLoops (+… _(tested; no static importers)_
-- [`src/relationship-opportunity-graph.mjs`](../../src/relationship-opportunity-graph.mjs) — Sovereign relationship opportunity graph. _(no static importers)_
-- [`src/temporal-civilization.mjs`](../../src/temporal-civilization.mjs) — One life across decades, held as Mohamed(t) rather than as Mohamed. _(tested; imported by 1)_
-- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — exports UBEROS_UNKNOWN_UNKNOWN_LAB_VERSION, PERTURBATION_FAMILIES, compileAssumptionExperiment, analyzeExperimentOutcomes, defaultOsAssumptionPortfol… _(imported by 1)_
-- [`src/unknown-unknown-mining.mjs`](../../src/unknown-unknown-mining.mjs) — Searching for the questions nobody knew to ask, which is harder than it sounds _(tested; imported by 3)_
-- [`src/value-of-information-governor.mjs`](../../src/value-of-information-governor.mjs) — exports VALUE_OF_INFORMATION_GOVERNOR_VERSION, evaluateValueOfInformation _(imported by 3)_
+- [`src/adaptive-mastery-engine.mjs`](../../src/adaptive-mastery-engine.mjs) — Sovereign adaptive mastery engine. _(matched by name only; no static importers)_
+- [`src/anti-fragility-map.mjs`](../../src/anti-fragility-map.mjs) — Where a life or a business depends on one thing not failing. _(matched by name only; tested; imported by 1)_
+- [`src/assumption-escape.mjs`](../../src/assumption-escape.mjs) — Questions the current assumptions already answered, and how to get out. _(matched by name only; tested; imported by 1)_
+- [`src/century-grade-continuity.mjs`](../../src/century-grade-continuity.mjs) — exports CENTURY_GRADE_CONTINUITY_VERSION, compileCenturyContinuityPlan, verifyCenturyContinuityRehearsal _(matched by name only; tested; imported by 1)_
+- [`src/embodied-reality.mjs`](../../src/embodied-reality.mjs) — The body, the room, and the parts of experience that do not survive language. _(matched by name only; tested; imported by 1)_
+- [`src/experience-compiler.mjs`](../../src/experience-compiler.mjs) — Experiences as first-class architecture, and the limits on optimizing them. _(matched by name only; tested; imported by 1)_
+- [`src/geographic-sovereignty-engine.mjs`](../../src/geographic-sovereignty-engine.mjs) — Geographic sovereignty engine. _(matched by name only; no static importers)_
+- [`src/health-recommendation-boundary.mjs`](../../src/health-recommendation-boundary.mjs) — exports HEALTH_RECOMMENDATION_BOUNDARY_VERSION, compileHealthRecommendationBoundary _(matched by name only; tested; imported by 1)_
+- [`src/human-capability-genome.mjs`](../../src/human-capability-genome.mjs) — Human capability as a dependency graph, and what growing it costs elsewhere. _(matched by name only; tested; imported by 2)_
+- [`src/institutional-financial-sovereignty.mjs`](../../src/institutional-financial-sovereignty.mjs) — exports INSTITUTIONAL_FINANCIAL_SOVEREIGNTY_VERSION, INSTITUTIONAL_EVIDENCE_CLASSES, compileInstitutionalFinancialLedger, admitInstitutionalEffect, r… _(matched by name only; tested; imported by 1)_
+- [`src/knowledge-labyrinth-ubergraph.mjs`](../../src/knowledge-labyrinth-ubergraph.mjs) — exports KNOWLEDGE_LABYRINTH_UBERGRAPH_VERSION, compileKnowledgeLabyrinth, KNOWLEDGE_LABYRINTH_DOMAINS _(matched by name only; tested; imported by 1)_
+- [`src/legacy-institution-engine.mjs`](../../src/legacy-institution-engine.mjs) — Durable legacy and institution capital compiler. _(matched by name only; no static importers)_
+- [`src/life-autopoiesis.mjs`](../../src/life-autopoiesis.mjs) — Where the parts of a life feed each other, and what a finite one costs. _(matched by name only; tested; imported by 1)_
+- [`src/life-compression-engine.mjs`](../../src/life-compression-engine.mjs) — Turning many facts into a few principles, without the principle eating the _(matched by name only; tested; imported by 1)_
+- [`src/life-decision-dimensions.mjs`](../../src/life-decision-dimensions.mjs) — A life decision described on every dimension it touches, and never collapsed. _(matched by name only; tested; imported by 3)_
+- [`src/life-knowledge-graph.mjs`](../../src/life-knowledge-graph.mjs) — A graph of a life, where every edge knows how it got there. _(matched by name only; tested; imported by 3)_
+- [`src/life-possibility-engine.mjs`](../../src/life-possibility-engine.mjs) — The inventory of branches a life still has, and what a decision does to it. _(matched by name only; tested; imported by 3)_
+- [`src/lifetime-context-memory.mjs`](../../src/lifetime-context-memory.mjs) — exports LIFETIME_CONTEXT_VERSION, compileLifetimeMemoryIndex, compileTaskContextPacket, compileMemoryHealthReceipt _(matched by name only; tested; imported by 2)_
+- [`src/living-evidence-graph.mjs`](../../src/living-evidence-graph.mjs) — exports createLivingEvidenceGraph, planLivingEvidenceDelta, applyLivingEvidenceDelta, modelLivingEvidenceDeltaCompression _(matched by name only; tested; imported by 1)_
+- [`src/living-self-model.mjs`](../../src/living-self-model.mjs) — A model of a person that is not allowed to become a cage. _(matched by name only; tested; imported by 2)_
+- [`src/multi-generation-architecture.mjs`](../../src/multi-generation-architecture.mjs) — exports compileMultiGenerationArchitecture _(matched by name only; tested; imported by 1)_
+- [`src/n-1-rule.mjs`](../../src/n-1-rule.mjs) — exports compileNPlusOneRule _(matched by name only; tested; imported by 1)_
+- [`src/n-of-1-personal-science.mjs`](../../src/n-of-1-personal-science.mjs) — Learning from one person, who does not hold still. _(matched by name only; tested; imported by 1)_
+- [`src/personal-civilization-capture.mjs`](../../src/personal-civilization-capture.mjs) — The front door of the private loop: a thought entering the system without _(matched by name only; tested; imported by 1)_
+- [`src/personal-civilization-core.mjs`](../../src/personal-civilization-core.mjs) — The private core of the Personal Civilization: capture, derive, export, delete. _(matched by name only; tested; imported by 5)_
+- [`src/personal-civilization-decision-loop.mjs`](../../src/personal-civilization-decision-loop.mjs) — The Sovereign Decision Packet, and the loop back to reality. _(matched by name only; tested; imported by 2)_
+- [`src/personal-civilization-job-handler.mjs`](../../src/personal-civilization-job-handler.mjs) — exports PERSONAL_CIVILIZATION_JOB_VERSION, runPersonalCivilizationJob _(matched by name only; imported by 1)_
+- [`src/personal-civilization-kernel.mjs`](../../src/personal-civilization-kernel.mjs) — exports PERSONAL_CIVILIZATION_KERNEL_VERSION, PERSONAL_CIVILIZATION_ORGANS, buildSovereignSelf, buildPersonalWorldModel, compileDreams (+25) _(matched by name only; imported by 1)_
+- [`src/personal-civilization-model-graph.mjs`](../../src/personal-civilization-model-graph.mjs) — The Living Model is a person over time, not a label; the Life Graph is a _(matched by name only; tested; imported by 1)_
+- [`src/personal-civilization-possibility.mjs`](../../src/personal-civilization-possibility.mjs) — A portfolio of genuinely different lives, the skeleton each would need, and _(matched by name only; tested; imported by 1)_
+- [`src/personal-civilization-private-operator.mjs`](../../src/personal-civilization-private-operator.mjs) — exports PERSONAL_CIVILIZATION_PRIVATE_OPERATOR_VERSION, PRIVATE_STATE_SCHEMA, PRIVATE_ENVELOPE_SCHEMA, PRIVATE_EXPORT_SCHEMA, PRIVATE_LIFE_KEY_ENV (+… _(matched by name only; tested; imported by 1)_
+- [`src/personal-civilization-scientific-experiment.mjs`](../../src/personal-civilization-scientific-experiment.mjs) — exports PERSONAL_CIVILIZATION_SCIENTIFIC_EXPERIMENT_VERSION, compilePersonalScientificExperiment _(matched by name only; tested; imported by 1)_
+- [`src/possibility-civilization-kernel.mjs`](../../src/possibility-civilization-kernel.mjs) — exports POSSIBILITY_CIVILIZATION_KERNEL_VERSION, POSSIBILITY_TRUTH_STATES, enforceHumanAuthorityKernel, measurePossibilitySet, evaluateSovereignFutur… _(matched by name only; tested; imported by 1)_
+- [`src/reachable-futures.mjs`](../../src/reachable-futures.mjs) — Futures as structured counterfactuals, and what they are allowed to decide. _(matched by name only; tested; imported by 1)_
+- [`src/recurrence-map.mjs`](../../src/recurrence-map.mjs) — exports buildRecurrenceMap _(matched by name only; imported by 1)_
+- [`src/recursion-civilization-stack.mjs`](../../src/recursion-civilization-stack.mjs) — exports RECURSION_CIVILIZATION_STACK_VERSION, extractRecursionGenome, evolveRecursionMechanisms, evaluateMetaRecursionDesign, governRecursionLoops (+… _(matched by name only; tested; no static importers)_
+- [`src/relationship-opportunity-graph.mjs`](../../src/relationship-opportunity-graph.mjs) — Sovereign relationship opportunity graph. _(matched by name only; no static importers)_
+- [`src/temporal-civilization.mjs`](../../src/temporal-civilization.mjs) — One life across decades, held as Mohamed(t) rather than as Mohamed. _(matched by name only; tested; imported by 1)_
+- [`src/uberos/unknown-unknown-lab.mjs`](../../src/uberos/unknown-unknown-lab.mjs) — exports UBEROS_UNKNOWN_UNKNOWN_LAB_VERSION, PERTURBATION_FAMILIES, compileAssumptionExperiment, analyzeExperimentOutcomes, defaultOsAssumptionPortfol… _(matched by name only; imported by 1)_
+- [`src/unknown-unknown-mining.mjs`](../../src/unknown-unknown-mining.mjs) — Searching for the questions nobody knew to ask, which is harder than it sounds _(matched by name only; tested; imported by 3)_
+- [`src/value-of-information-governor.mjs`](../../src/value-of-information-governor.mjs) — exports VALUE_OF_INFORMATION_GOVERNOR_VERSION, evaluateValueOfInformation _(matched by name only; imported by 3)_
 
 ## Scripts (6)
 
-- [`scripts/century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs)
-- [`scripts/infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) _(npm: `infinite-opus:recurrence`)_
-- [`scripts/institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs)
-- [`scripts/personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs the life loop end to end on a supplied situation and reports what the _(npm: `life:doctor`)_
-- [`scripts/personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — exports PRIVATE_OPERATOR_CONFIRMATION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_CYCLE_VERSION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_RUNTIME_VERSION, fo…
-- [`scripts/value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — exports runValueOfInformationDoctor
+- [`scripts/century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs) _(matched by name only)_
+- [`scripts/infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) _(matched by name only; npm: `infinite-opus:recurrence`)_
+- [`scripts/institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs) _(matched by name only)_
+- [`scripts/personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs the life loop end to end on a supplied situation and reports what the _(matched by name only; npm: `life:doctor`)_
+- [`scripts/personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — exports PRIVATE_OPERATOR_CONFIRMATION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_CYCLE_VERSION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_RUNTIME_VERSION, fo… _(matched by name only)_
+- [`scripts/value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — exports runValueOfInformationDoctor _(matched by name only)_
 
 ## Config, data, artifacts and services (4)
 
-- [`artifacts/personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0
-- [`artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json`](../../artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json) — 2026-09-20 · deterministic · SOURCE_IMPLEMENTATION_PRESENT__EXECUTION_VERIFICATION_BLOCKED_BY_CI_INFRASTRUCTURE · uberbond.possibility-civilization-bootstrap-rece…
-- [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1
-- [`config/possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — RESEARCH_PROGRAM_NOT_MOONSHOT_IMPLEMENTATION_PROOF · uberbond.possibility-civilization-program.v1
+- [`artifacts/personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0 _(matched by name only)_
+- [`artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json`](../../artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json) — 2026-09-20 · deterministic · SOURCE_IMPLEMENTATION_PRESENT__EXECUTION_VERIFICATION_BLOCKED_BY_CI_INFRASTRUCTURE · uberbond.possibility-civilization-bootstrap-rece… _(matched by name only)_
+- [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1 _(matched by name only)_
+- [`config/possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — RESEARCH_PROGRAM_NOT_MOONSHOT_IMPLEMENTATION_PROOF · uberbond.possibility-civilization-program.v1 _(matched by name only)_
 
 ## Tests (43)
 

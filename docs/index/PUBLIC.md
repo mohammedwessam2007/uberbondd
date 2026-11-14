@@ -16,45 +16,45 @@ Browser assets: command center, admin and constellation UI.
 
 ## Continuity, memory and handoffs
 
-- [`phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat
-- [`phoenix.js`](../../public/phoenix.js)
-- [`uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — UberBond · Connected Command Center
-- [`uberbond-connected.html`](../../public/uberbond-connected.html) — UberBond · Connected Command Center
-- [`uberbond-graph.css`](../../public/uberbond-graph.css)
-- [`uberbond-graph.js`](../../public/uberbond-graph.js)
-- [`uberbond-standalone.html`](../../public/uberbond-standalone.html) — UberBond · Wessam Command Center
-- [`uberbond.css`](../../public/uberbond.css)
-- [`uberbond.html`](../../public/uberbond.html) — UberBond · Wessam Command Center
-- [`uberbond.js`](../../public/uberbond.js)
+- [`phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat _(matched by name only)_
+- [`phoenix.js`](../../public/phoenix.js) _(matched by name only)_
+- [`uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — UberBond · Connected Command Center _(matched by name only)_
+- [`uberbond-connected.html`](../../public/uberbond-connected.html) — UberBond · Connected Command Center _(matched by name only)_
+- [`uberbond-graph.css`](../../public/uberbond-graph.css) _(matched by name only)_
+- [`uberbond-graph.js`](../../public/uberbond-graph.js) _(matched by name only)_
+- [`uberbond-standalone.html`](../../public/uberbond-standalone.html) — UberBond · Wessam Command Center _(matched by name only)_
+- [`uberbond.css`](../../public/uberbond.css) _(matched by name only)_
+- [`uberbond.html`](../../public/uberbond.html) — UberBond · Wessam Command Center _(matched by name only)_
+- [`uberbond.js`](../../public/uberbond.js) _(matched by name only)_
 
 ## Outreach and distribution
 
-- [`outreach-one-button.js`](../../public/outreach-one-button.js)
-- [`prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls over the existing canonical read-only operations. The
+- [`outreach-one-button.js`](../../public/outreach-one-button.js) _(matched by name only)_
+- [`prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls over the existing canonical read-only operations. The _(matched by name only)_
 
 ## Founder operations and command center
 
-- [`admin.html`](../../public/admin.html) — UberBond Revenue Engine · Command Center
-- [`admin.js`](../../public/admin.js)
-- [`command-center-autonomy.js`](../../public/command-center-autonomy.js)
-- [`command-center-sw.js`](../../public/command-center-sw.js)
-- [`command-center.css`](../../public/command-center.css)
-- [`command-center.html`](../../public/command-center.html) — UberBond Command Center
-- [`command-center.js`](../../public/command-center.js)
-- [`command-center.webmanifest`](../../public/command-center.webmanifest)
-- [`constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation.
-- [`constellation.css`](../../public/constellation.css)
-- [`constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation
-- [`constellation.js`](../../public/constellation.js)
-- [`icon.svg`](../../public/icon.svg)
-- [`index.html`](../../public/index.html) — UberBond Command Center
-- [`manifest.webmanifest`](../../public/manifest.webmanifest)
-- [`ops.css`](../../public/ops.css)
-- [`ops.html`](../../public/ops.html) — UberBond · Founder Ops
-- [`ops.js`](../../public/ops.js)
-- [`owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser:
-- [`report.html`](../../public/report.html) — Private Opportunity Report · UberBond
-- [`report.js`](../../public/report.js)
-- [`site.js`](../../public/site.js)
-- [`storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit
-- [`styles.css`](../../public/styles.css)
+- [`admin.html`](../../public/admin.html) — UberBond Revenue Engine · Command Center _(matched by name only)_
+- [`admin.js`](../../public/admin.js) _(matched by name only)_
+- [`command-center-autonomy.js`](../../public/command-center-autonomy.js) _(matched by name only)_
+- [`command-center-sw.js`](../../public/command-center-sw.js) _(matched by name only)_
+- [`command-center.css`](../../public/command-center.css) _(matched by name only)_
+- [`command-center.html`](../../public/command-center.html) — UberBond Command Center _(matched by name only)_
+- [`command-center.js`](../../public/command-center.js) _(matched by name only)_
+- [`command-center.webmanifest`](../../public/command-center.webmanifest) _(matched by name only)_
+- [`constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation. _(matched by name only)_
+- [`constellation.css`](../../public/constellation.css) _(matched by name only)_
+- [`constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation _(matched by name only)_
+- [`constellation.js`](../../public/constellation.js) _(matched by name only)_
+- [`icon.svg`](../../public/icon.svg) _(matched by name only)_
+- [`index.html`](../../public/index.html) — UberBond Command Center _(matched by name only)_
+- [`manifest.webmanifest`](../../public/manifest.webmanifest) _(matched by name only)_
+- [`ops.css`](../../public/ops.css) _(matched by name only)_
+- [`ops.html`](../../public/ops.html) — UberBond · Founder Ops _(matched by name only)_
+- [`ops.js`](../../public/ops.js) _(matched by name only)_
+- [`owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser: _(matched by name only)_
+- [`report.html`](../../public/report.html) — Private Opportunity Report · UberBond _(matched by name only)_
+- [`report.js`](../../public/report.js) _(matched by name only)_
+- [`site.js`](../../public/site.js) _(matched by name only)_
+- [`storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit _(matched by name only)_
+- [`styles.css`](../../public/styles.css) _(matched by name only)_

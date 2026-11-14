@@ -12,8 +12,8 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — UberBond AI Employee Company Charter
-- [`docs/UBERAGENT_V2.md`](../UBERAGENT_V2.md) — UberAgent v2 — Status: PRIVATE, OWNER-CONTROLLED LOCAL WINDOWS AGENT
+- [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — UberBond AI Employee Company Charter _(matched by name only)_
+- [`docs/UBERAGENT_V2.md`](../UBERAGENT_V2.md) — UberAgent v2 — Status: PRIVATE, OWNER-CONTROLLED LOCAL WINDOWS AGENT _(matched by name only)_
 
 ## Commands (5)
 
@@ -21,47 +21,47 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (10)
 
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(11 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(10 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(7 mentions)_
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(6 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(6 mentions)_
-- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04 _(5 mentions)_
-- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(3 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(3 mentions)_
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(3 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(3 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(matched by name only)_ _(11 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(matched by name only)_ _(10 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_ _(7 mentions)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(6 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(matched by name only)_ _(6 mentions)_
+- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04 _(matched by name only)_ _(5 mentions)_
+- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (12)
 
-- [`src/ai-employee-relay-result-admission.mjs`](../../src/ai-employee-relay-result-admission.mjs) — exports AI_EMPLOYEE_RELAY_RESULT_ADMISSION_POLICY_VERSION, validateEmployeeRoleRelayResultAdmission _(tested; imported by 1)_
-- [`src/ai-employee-relay.mjs`](../../src/ai-employee-relay.mjs) — exports AI_EMPLOYEE_RELAY_POLICY_VERSION, compileEmployeeAgentTask, evaluateEmployeeWorkerResultTruth, compileEmployeeTerminalReceipt _(tested; imported by 1)_
-- [`src/ai-employee-role-contract.mjs`](../../src/ai-employee-role-contract.mjs) — exports AI_EMPLOYEE_ROLE_POLICY_VERSION, compileEmployeeRoleContract, bindRoleToTask, validateRoleBoundExecution _(tested; imported by 3)_
-- [`src/ai-employee-terminal-identity.mjs`](../../src/ai-employee-terminal-identity.mjs) — exports AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION, employeeRoleIdentityFromTask, employeeRoleIdentityErrors, bindEmployeeRoleIdentityToResult, bin… _(tested; imported by 3)_
-- [`src/avengers-arsenal-config.mjs`](../../src/avengers-arsenal-config.mjs) — exports capabilityEntryToAvengersTool, mergeAvengersProfileOverrides, composeAvengersRegistry _(imported by 1)_
-- [`src/avengers-arsenal.mjs`](../../src/avengers-arsenal.mjs) — exports AVENGERS_ARSENAL_VERSION, AVENGERS_REGISTRY_SCHEMA, AVENGERS_READINESS_SCHEMA, AVENGERS_PLAN_SCHEMA, AVENGERS_EXECUTION_SCHEMA (+7) _(tested; imported by 4)_
-- [`src/avengers-artifact-input.mjs`](../../src/avengers-artifact-input.mjs) — Reading an Avengers artifact, and saying what it means when there is none. _(tested; imported by 2)_
-- [`src/avengers-execution-guard.mjs`](../../src/avengers-execution-guard.mjs) — exports AVENGERS_EXECUTION_GUARD_VERSION, executeCanonicallyVerifiedAvengersPlan, executeAdmittedFrontierAvenger _(tested; imported by 1)_
-- [`src/avengers-local-discovery.mjs`](../../src/avengers-local-discovery.mjs) — exports AVENGERS_LOCAL_DISCOVERY_VERSION, discoverLocalRuntimeModels _(tested; imported by 1)_
-- [`src/avengers-squad-planner.mjs`](../../src/avengers-squad-planner.mjs) — exports AVENGERS_SQUAD_PLANNER_VERSION, compileEvidenceRoutedAvengersSquad _(imported by 2)_
-- [`src/ghost-agent.mjs`](../../src/ghost-agent.mjs) — exports compileGhostAgentFromFranchise, executeGhostAgent, verifyGhostAgentBatch _(tested; imported by 1)_
-- [`src/uberswarm-edge-fabric.mjs`](../../src/uberswarm-edge-fabric.mjs) — exports UBERSWARM_WORKER_STATES, admitUberSwarmWorker, compileUberSwarmPlan _(imported by 1)_
+- [`src/ai-employee-relay-result-admission.mjs`](../../src/ai-employee-relay-result-admission.mjs) — exports AI_EMPLOYEE_RELAY_RESULT_ADMISSION_POLICY_VERSION, validateEmployeeRoleRelayResultAdmission _(matched by name only; tested; imported by 1)_
+- [`src/ai-employee-relay.mjs`](../../src/ai-employee-relay.mjs) — exports AI_EMPLOYEE_RELAY_POLICY_VERSION, compileEmployeeAgentTask, evaluateEmployeeWorkerResultTruth, compileEmployeeTerminalReceipt _(matched by name only; tested; imported by 1)_
+- [`src/ai-employee-role-contract.mjs`](../../src/ai-employee-role-contract.mjs) — exports AI_EMPLOYEE_ROLE_POLICY_VERSION, compileEmployeeRoleContract, bindRoleToTask, validateRoleBoundExecution _(matched by name only; tested; imported by 3)_
+- [`src/ai-employee-terminal-identity.mjs`](../../src/ai-employee-terminal-identity.mjs) — exports AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION, employeeRoleIdentityFromTask, employeeRoleIdentityErrors, bindEmployeeRoleIdentityToResult, bin… _(matched by name only; tested; imported by 3)_
+- [`src/avengers-arsenal-config.mjs`](../../src/avengers-arsenal-config.mjs) — exports capabilityEntryToAvengersTool, mergeAvengersProfileOverrides, composeAvengersRegistry _(matched by name only; imported by 1)_
+- [`src/avengers-arsenal.mjs`](../../src/avengers-arsenal.mjs) — exports AVENGERS_ARSENAL_VERSION, AVENGERS_REGISTRY_SCHEMA, AVENGERS_READINESS_SCHEMA, AVENGERS_PLAN_SCHEMA, AVENGERS_EXECUTION_SCHEMA (+7) _(matched by name only; tested; imported by 4)_
+- [`src/avengers-artifact-input.mjs`](../../src/avengers-artifact-input.mjs) — Reading an Avengers artifact, and saying what it means when there is none. _(matched by name only; tested; imported by 2)_
+- [`src/avengers-execution-guard.mjs`](../../src/avengers-execution-guard.mjs) — exports AVENGERS_EXECUTION_GUARD_VERSION, executeCanonicallyVerifiedAvengersPlan, executeAdmittedFrontierAvenger _(matched by name only; tested; imported by 1)_
+- [`src/avengers-local-discovery.mjs`](../../src/avengers-local-discovery.mjs) — exports AVENGERS_LOCAL_DISCOVERY_VERSION, discoverLocalRuntimeModels _(matched by name only; tested; imported by 1)_
+- [`src/avengers-squad-planner.mjs`](../../src/avengers-squad-planner.mjs) — exports AVENGERS_SQUAD_PLANNER_VERSION, compileEvidenceRoutedAvengersSquad _(matched by name only; imported by 2)_
+- [`src/ghost-agent.mjs`](../../src/ghost-agent.mjs) — exports compileGhostAgentFromFranchise, executeGhostAgent, verifyGhostAgentBatch _(matched by name only; tested; imported by 1)_
+- [`src/uberswarm-edge-fabric.mjs`](../../src/uberswarm-edge-fabric.mjs) — exports UBERSWARM_WORKER_STATES, admitUberSwarmWorker, compileUberSwarmPlan _(matched by name only; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — exports runDoctor _(npm: `avengers:doctor`, `avengers:doctor:probe`)_
-- [`scripts/avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — exports runPlanner _(npm: `avengers:plan`)_
-- [`scripts/avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — exports runTick _(npm: `avengers:tick`, `avengers:tick:dry`)_
-- [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1)
-- [`scripts/uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1)
-- [`scripts/uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1)
+- [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — exports runDoctor _(matched by name only; npm: `avengers:doctor`, `avengers:doctor:probe`)_
+- [`scripts/avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — exports runPlanner _(matched by name only; npm: `avengers:plan`)_
+- [`scripts/avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — exports runTick _(matched by name only; npm: `avengers:tick`, `avengers:tick:dry`)_
+- [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) _(matched by name only)_
+- [`scripts/uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1) _(matched by name only)_
+- [`scripts/uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1) _(matched by name only)_
 
 ## Config, data, artifacts and services (4)
 
-- [`artifacts/ai-employee-organization.json`](../../artifacts/ai-employee-organization.json) — ACTIVATE_FOR_DECISION_BOUND_MONITORS_ONLY · uberbond-ai-employee-organization-1.0.0
-- [`artifacts/avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1
-- [`config/avengers-arsenal.json`](../../config/avengers-arsenal.json) — uberbond.avengers-arsenal-registry.v1
-- [`config/avengers-mission.json`](../../config/avengers-mission.json)
+- [`artifacts/ai-employee-organization.json`](../../artifacts/ai-employee-organization.json) — ACTIVATE_FOR_DECISION_BOUND_MONITORS_ONLY · uberbond-ai-employee-organization-1.0.0 _(matched by name only)_
+- [`artifacts/avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1 _(matched by name only)_
+- [`config/avengers-arsenal.json`](../../config/avengers-arsenal.json) — uberbond.avengers-arsenal-registry.v1 _(matched by name only)_
+- [`config/avengers-mission.json`](../../config/avengers-mission.json) _(matched by name only)_
 
 ## Tests (14)
 

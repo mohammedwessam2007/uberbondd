@@ -12,95 +12,95 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (11)
 
-- [`docs/COMMERCIAL_OPPORTUNITY_CATALOG.md`](../COMMERCIAL_OPPORTUNITY_CATALOG.md) — Commercial Opportunity Catalog
-- [`docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`](../ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md) — UberBond Economic Intelligence Explosion Law
-- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — UberBond: MACHIAVELLI Wealth Engine — Status: FIRST EXECUTION PROGRAM — research, invention, lab and ledgers built; cleared contribution profit $0.00
-- [`docs/PROMETHEUS_ADAPTER_CAPITAL_WAVE.md`](../PROMETHEUS_ADAPTER_CAPITAL_WAVE.md) — Prometheus Adapter and Capital Planning Wave
-- [`docs/PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md`](../PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md) — Prometheus commercial economics wave
-- [`docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md`](../PROMETHEUS_ECONOMIC_SPINE_WAVE.md) — Prometheus economic spine wave
-- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF
-- [`docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47 · Machiavelli strategic canon
-- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31
-- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28
+- [`docs/COMMERCIAL_OPPORTUNITY_CATALOG.md`](../COMMERCIAL_OPPORTUNITY_CATALOG.md) — Commercial Opportunity Catalog _(matched by name only)_
+- [`docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`](../ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md) — UberBond Economic Intelligence Explosion Law _(matched by name only)_
+- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — UberBond: MACHIAVELLI Wealth Engine — Status: FIRST EXECUTION PROGRAM — research, invention, lab and ledgers built; cleared contribution profit $0.00 _(matched by name only)_
+- [`docs/PROMETHEUS_ADAPTER_CAPITAL_WAVE.md`](../PROMETHEUS_ADAPTER_CAPITAL_WAVE.md) — Prometheus Adapter and Capital Planning Wave _(matched by name only)_
+- [`docs/PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md`](../PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md) — Prometheus commercial economics wave _(matched by name only)_
+- [`docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md`](../PROMETHEUS_ECONOMIC_SPINE_WAVE.md) — Prometheus economic spine wave _(matched by name only)_
+- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47 · Machiavelli strategic canon _(matched by name only)_
+- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31 _(matched by name only)_
+- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(matched by name only)_
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_
 
 ## Other documents (1)
 
-- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C…
+- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (8)
 
-- [`.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md`](../../.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md) — Ω47 Machiavelli canonical retrieval addendum, 2026-10-24 _(5 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief _(5 mentions)_
-- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(4 mentions)_
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(4 mentions)_
-- [`.claude/skills/ubermind-social-strategy/SKILL.md`](../../.claude/skills/ubermind-social-strategy/SKILL.md) — UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\nΩ47 primary corpus installed: For Machiavelli-informed strategic/business/EQ tasks, consult OMEGA47_ADDENDUM.md, the sourcebook docs/architecture/… _(3 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47: Sovereign Strategic Philosophy + Economic Doctrine Corpus _(3 mentions)_
-- [`docs/architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md`](../architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω∞ V4 / Principle Activation, Operational Accountability & Response Receipts _(3 mentions)_
-- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage _(3 mentions)_
+- [`.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md`](../../.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md) — Ω47 Machiavelli canonical retrieval addendum, 2026-10-24 _(matched by name only)_ _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief _(matched by name only)_ _(5 mentions)_
+- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(matched by name only)_ _(4 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(4 mentions)_
+- [`.claude/skills/ubermind-social-strategy/SKILL.md`](../../.claude/skills/ubermind-social-strategy/SKILL.md) — UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\nΩ47 primary corpus installed: For Machiavelli-informed strategic/business/EQ tasks, consult OMEGA47_ADDENDUM.md, the sourcebook docs/architecture/… _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47: Sovereign Strategic Philosophy + Economic Doctrine Corpus _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md`](../architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω∞ V4 / Principle Activation, Operational Accountability & Response Receipts _(matched by name only)_ _(3 mentions)_
+- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (41)
 
-- [`src/business-model-fitness.mjs`](../../src/business-model-fitness.mjs) — Evidence-gated business-model fitness and death-detector review. _(tested; imported by 1)_
-- [`src/capital-allocation-intelligence.mjs`](../../src/capital-allocation-intelligence.mjs) — Capital Allocation Intelligence. _(imported by 1)_
-- [`src/capital-allocator.mjs`](../../src/capital-allocator.mjs) — Proof-gated capital allocation planning. _(imported by 1)_
-- [`src/cognition-economic-perimeter.mjs`](../../src/cognition-economic-perimeter.mjs) — exports ECONOMIC_PERIMETER_SCHEMA, HARD_ALL_IN_USD, MAX_INFERENCE_USD, RUNTIME_KEY_LIMIT_USD, TYPINGMIND_KEY_LIMIT_USD (+5) _(imported by 5)_
-- [`src/cognitive-capital-ledger.mjs`](../../src/cognitive-capital-ledger.mjs) — exports COGNITIVE_CAPITAL_LEDGER_SCHEMA, createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognitiveCapitalAsset, closeCognitiveCapita… _(tested; imported by 1)_
-- [`src/commercial-execution-path-materializer.mjs`](../../src/commercial-execution-path-materializer.mjs) — exports COMMERCIAL_EXECUTION_PATH_MATERIALIZER_VERSION, materializeCommercialExecutionPaths _(tested; no static importers)_
-- [`src/commercial-experiment.mjs`](../../src/commercial-experiment.mjs) — Bounded commercial-experiment compiler. _(tested; imported by 1)_
-- [`src/commercial-first-payment-packet.mjs`](../../src/commercial-first-payment-packet.mjs) — Owner-reviewable first-payment packet. This composes the canonical _(tested; imported by 1)_
-- [`src/commercial-learning.mjs`](../../src/commercial-learning.mjs) — Evidence-gated commercial learning over normalized outcome receipts. _(tested; imported by 2)_
-- [`src/commercial-memory.mjs`](../../src/commercial-memory.mjs) — Durable experiment/learning memory. Reuses the existing auditLog writer _(tested; imported by 1)_
-- [`src/commercial-opportunity-catalog.mjs`](../../src/commercial-opportunity-catalog.mjs) — Canonical, evidence-labeled catalog for the three immediate commercial _(tested; imported by 6)_
-- [`src/commercial-outcome.mjs`](../../src/commercial-outcome.mjs) — Evidence-gated commercial outcome lineage. _(tested; imported by 4)_
-- [`src/commercial-reconciliation.mjs`](../../src/commercial-reconciliation.mjs) — Bounded durable reconciliation across the canonical commercial evidence _(tested; imported by 2)_
-- [`src/commercial-signature-contract.mjs`](../../src/commercial-signature-contract.mjs) — exports COMMERCIAL_SIGNATURE_POLICY_VERSION, SIGNATURE_OPERATIONS, SIGNATURE_EVENT_TYPES, SIGNATURE_DOCUMENT_KINDS, SIGNATURE_PROVIDER_CAPABILITIES (… _(tested; no static importers)_
-- [`src/crown-capitalization-audit.mjs`](../../src/crown-capitalization-audit.mjs) — exports auditCrownCapitalization _(imported by 1)_
-- [`src/economic-feedback-allocator.mjs`](../../src/economic-feedback-allocator.mjs) — exports ECONOMIC_FEEDBACK_ALLOCATOR_POLICY_VERSION, proposeProfileWeightUpdates, economicProfileWeightsSchemaSql, applyWeightProposal _(imported by 1)_
-- [`src/economic-inevitability-engine.mjs`](../../src/economic-inevitability-engine.mjs) — exports ECONOMIC_INEVITABILITY_VERSION, ECONOMIC_STAGES, STAGE_STATUSES, PUBLIC_SUCCESS_DONOR_ATOMS, compileEconomicExecutionPath (+1) _(tested; imported by 1)_
-- [`src/economic-metabolism.mjs`](../../src/economic-metabolism.mjs) — exports ECONOMIC_METABOLISM_VERSION, allocateEconomicMetabolism, ECONOMIC_METABOLISM_KINDS _(tested; imported by 1)_
-- [`src/economic-reliability-autoprep.mjs`](../../src/economic-reliability-autoprep.mjs) — exports ECONOMIC_RELIABILITY_AUTOPREP_VERSION, compileEconomicReliabilityPreparationJobs _(tested; imported by 1)_
-- [`src/economic-reliability-control-loop.mjs`](../../src/economic-reliability-control-loop.mjs) — exports ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION, runEconomicReliabilityControlLoop _(tested; imported by 1)_
-- [`src/economic-reliability-engine.mjs`](../../src/economic-reliability-engine.mjs) — exports ECONOMIC_RELIABILITY_VERSION, TARGET_SUCCESS_PROBABILITY, TARGET_ZERO_MONEY_PROBABILITY, evaluateEconomicReliability, rankReliabilityActions _(tested; imported by 3)_
-- [`src/economic-reliability-expansion-planner.mjs`](../../src/economic-reliability-expansion-planner.mjs) — exports ECONOMIC_RELIABILITY_EXPANSION_PLANNER_VERSION, planEconomicReliabilityExpansion _(tested; imported by 1)_
-- [`src/economic-reliability-input-builder.mjs`](../../src/economic-reliability-input-builder.mjs) — exports ECONOMIC_RELIABILITY_INPUT_BUILDER_VERSION, compileEconomicReliabilityInput _(tested; imported by 1)_
-- [`src/economic-reliability-preparation-memory.mjs`](../../src/economic-reliability-preparation-memory.mjs) — exports ECONOMIC_RELIABILITY_PREPARATION_MEMORY_VERSION, PREPARATION_AUDIT_TYPE, DEFAULT_PREPARATION_MEMORY_MAX_AGE_MS, compilePreparationEvidenceRec… _(no static importers)_
-- [`src/economic-reliability-wealth-bridge.mjs`](../../src/economic-reliability-wealth-bridge.mjs) — exports ECONOMIC_RELIABILITY_WEALTH_BRIDGE_VERSION, compileReliabilityFirstWealthPortfolio _(tested; no static importers)_
-- [`src/economic-repair-job-handler.mjs`](../../src/economic-repair-job-handler.mjs) — exports ECONOMIC_REPAIR_JOB_VERSION, compileEconomicRepairProblem, runEconomicRepairJob _(tested; imported by 1)_
-- [`src/economic-route-calibration.mjs`](../../src/economic-route-calibration.mjs) — exports ECONOMIC_ROUTE_CALIBRATION_VERSION, DEFAULT_ONE_SIDED_Z, DEFAULT_MIN_TRIALS, DEFAULT_MAX_TRIAL_AGE_MS, MAX_FUTURE_SKEW_MS (+3) _(tested; imported by 1)_
-- [`src/economic-route-dependency.mjs`](../../src/economic-route-dependency.mjs) — exports ECONOMIC_ROUTE_DEPENDENCY_VERSION, REQUIRED_DEPENDENCY_FACTORS, compileEconomicRouteDependencyReceipt, validateEconomicRouteDependencyReceipt… _(tested; imported by 2)_
-- [`src/eight-hour-overdetermination-engine.mjs`](../../src/eight-hour-overdetermination-engine.mjs) — exports EIGHT_HOUR_OVERDETERMINATION_VERSION, MONEY_ROUTE_AXES, compileMoneyAttempt, compileEightHourOverdetermination _(tested; imported by 1)_
-- [`src/eight-hour-wealth-universe-simulator.mjs`](../../src/eight-hour-wealth-universe-simulator.mjs) — exports EIGHT_HOUR_WEALTH_SIM_VERSION, OPEN_WORLD_ECONOMIC_AXES, compileOpenWorldMoneyUniverse, normalizeEightHourMechanism, simulateEightHourWealthU… _(tested; imported by 2)_
-- [`src/future-capital-reserve.mjs`](../../src/future-capital-reserve.mjs) — exports compileFutureCapitalReserve _(tested; imported by 1)_
-- [`src/genesis-economic-physics-evidence.mjs`](../../src/genesis-economic-physics-evidence.mjs) — exports GENESIS_ECONOMIC_PHYSICS_EVIDENCE, normalizeGenesisEvidencePack _(imported by 1)_
-- [`src/genesis-economic-physics.mjs`](../../src/genesis-economic-physics.mjs) — exports GENESIS_ECONOMIC_PHYSICS_VERSION, telescopeDeadweightLoss, buildTransactionCostAtlas, scanTrustFriction, mapCoordinationEntropy (+29) _(tested; imported by 1)_
-- [`src/organism-metabolism.mjs`](../../src/organism-metabolism.mjs) — exports ORGANISM_METABOLISM_VERSION, compileObjectiveMetabolism, planMetabolismCycle, compileMetabolismLearningReceipt _(tested; imported by 2)_
-- [`src/prometheus-economic-spine.mjs`](../../src/prometheus-economic-spine.mjs) — Canonical Prometheus economic spine composition. _(tested; imported by 1)_
-- [`src/synthetic-eight-hour-wealth-priors.mjs`](../../src/synthetic-eight-hour-wealth-priors.mjs) — exports SYNTHETIC_WEALTH_PRIOR_VERSION, SYNTHETIC_EIGHT_HOUR_SCENARIOS, compileSyntheticUniverseMechanisms, simulateSyntheticEightHourUniverse _(tested; imported by 1)_
-- [`src/technology-to-money-translation.mjs`](../../src/technology-to-money-translation.mjs) — exports compileTechnologyToMoneyTranslation _(tested; imported by 1)_
-- [`src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs`](../../src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs) — exports TOTAL_COMMERCIAL_GENOME_OFFER_UNIVERSE_WEALTH_VERSION, compileTotalCommercialGenomeOfferUniverseWealth _(tested; imported by 1)_
-- [`src/universal-wealth-engine.mjs`](../../src/universal-wealth-engine.mjs) — exports UNIVERSAL_WEALTH_ENGINE_VERSION, WEALTH_GRAMMAR, PROHIBITED_WEALTH_PATTERNS, validateWealthMechanism, scoreWealthMechanism (+5) _(imported by 3)_
-- [`src/universal-wealth-job-handler.mjs`](../../src/universal-wealth-job-handler.mjs) — exports UNIVERSAL_WEALTH_JOB_VERSION, runUniversalWealthJob _(imported by 2)_
-- [`src/universal-wealth-overdetermination-job-handler.mjs`](../../src/universal-wealth-overdetermination-job-handler.mjs) — exports UNIVERSAL_WEALTH_OVERDETERMINATION_JOB_VERSION, runUniversalWealthOverdeterminationJob _(imported by 1)_
+- [`src/business-model-fitness.mjs`](../../src/business-model-fitness.mjs) — Evidence-gated business-model fitness and death-detector review. _(matched by name only; tested; imported by 1)_
+- [`src/capital-allocation-intelligence.mjs`](../../src/capital-allocation-intelligence.mjs) — Capital Allocation Intelligence. _(matched by name only; imported by 1)_
+- [`src/capital-allocator.mjs`](../../src/capital-allocator.mjs) — Proof-gated capital allocation planning. _(matched by name only; imported by 1)_
+- [`src/cognition-economic-perimeter.mjs`](../../src/cognition-economic-perimeter.mjs) — exports ECONOMIC_PERIMETER_SCHEMA, HARD_ALL_IN_USD, MAX_INFERENCE_USD, RUNTIME_KEY_LIMIT_USD, TYPINGMIND_KEY_LIMIT_USD (+5) _(matched by name only; imported by 5)_
+- [`src/cognitive-capital-ledger.mjs`](../../src/cognitive-capital-ledger.mjs) — exports COGNITIVE_CAPITAL_LEDGER_SCHEMA, createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognitiveCapitalAsset, closeCognitiveCapita… _(matched by name only; tested; imported by 1)_
+- [`src/commercial-execution-path-materializer.mjs`](../../src/commercial-execution-path-materializer.mjs) — exports COMMERCIAL_EXECUTION_PATH_MATERIALIZER_VERSION, materializeCommercialExecutionPaths _(matched by name only; tested; no static importers)_
+- [`src/commercial-experiment.mjs`](../../src/commercial-experiment.mjs) — Bounded commercial-experiment compiler. _(matched by name only; tested; imported by 1)_
+- [`src/commercial-first-payment-packet.mjs`](../../src/commercial-first-payment-packet.mjs) — Owner-reviewable first-payment packet. This composes the canonical _(matched by name only; tested; imported by 1)_
+- [`src/commercial-learning.mjs`](../../src/commercial-learning.mjs) — Evidence-gated commercial learning over normalized outcome receipts. _(matched by name only; tested; imported by 2)_
+- [`src/commercial-memory.mjs`](../../src/commercial-memory.mjs) — Durable experiment/learning memory. Reuses the existing auditLog writer _(matched by name only; tested; imported by 1)_
+- [`src/commercial-opportunity-catalog.mjs`](../../src/commercial-opportunity-catalog.mjs) — Canonical, evidence-labeled catalog for the three immediate commercial _(matched by name only; tested; imported by 6)_
+- [`src/commercial-outcome.mjs`](../../src/commercial-outcome.mjs) — Evidence-gated commercial outcome lineage. _(matched by name only; tested; imported by 4)_
+- [`src/commercial-reconciliation.mjs`](../../src/commercial-reconciliation.mjs) — Bounded durable reconciliation across the canonical commercial evidence _(matched by name only; tested; imported by 2)_
+- [`src/commercial-signature-contract.mjs`](../../src/commercial-signature-contract.mjs) — exports COMMERCIAL_SIGNATURE_POLICY_VERSION, SIGNATURE_OPERATIONS, SIGNATURE_EVENT_TYPES, SIGNATURE_DOCUMENT_KINDS, SIGNATURE_PROVIDER_CAPABILITIES (… _(matched by name only; tested; no static importers)_
+- [`src/crown-capitalization-audit.mjs`](../../src/crown-capitalization-audit.mjs) — exports auditCrownCapitalization _(matched by name only; imported by 1)_
+- [`src/economic-feedback-allocator.mjs`](../../src/economic-feedback-allocator.mjs) — exports ECONOMIC_FEEDBACK_ALLOCATOR_POLICY_VERSION, proposeProfileWeightUpdates, economicProfileWeightsSchemaSql, applyWeightProposal _(matched by name only; imported by 1)_
+- [`src/economic-inevitability-engine.mjs`](../../src/economic-inevitability-engine.mjs) — exports ECONOMIC_INEVITABILITY_VERSION, ECONOMIC_STAGES, STAGE_STATUSES, PUBLIC_SUCCESS_DONOR_ATOMS, compileEconomicExecutionPath (+1) _(matched by name only; tested; imported by 1)_
+- [`src/economic-metabolism.mjs`](../../src/economic-metabolism.mjs) — exports ECONOMIC_METABOLISM_VERSION, allocateEconomicMetabolism, ECONOMIC_METABOLISM_KINDS _(matched by name only; tested; imported by 1)_
+- [`src/economic-reliability-autoprep.mjs`](../../src/economic-reliability-autoprep.mjs) — exports ECONOMIC_RELIABILITY_AUTOPREP_VERSION, compileEconomicReliabilityPreparationJobs _(matched by name only; tested; imported by 1)_
+- [`src/economic-reliability-control-loop.mjs`](../../src/economic-reliability-control-loop.mjs) — exports ECONOMIC_RELIABILITY_CONTROL_LOOP_VERSION, runEconomicReliabilityControlLoop _(matched by name only; tested; imported by 1)_
+- [`src/economic-reliability-engine.mjs`](../../src/economic-reliability-engine.mjs) — exports ECONOMIC_RELIABILITY_VERSION, TARGET_SUCCESS_PROBABILITY, TARGET_ZERO_MONEY_PROBABILITY, evaluateEconomicReliability, rankReliabilityActions _(matched by name only; tested; imported by 3)_
+- [`src/economic-reliability-expansion-planner.mjs`](../../src/economic-reliability-expansion-planner.mjs) — exports ECONOMIC_RELIABILITY_EXPANSION_PLANNER_VERSION, planEconomicReliabilityExpansion _(matched by name only; tested; imported by 1)_
+- [`src/economic-reliability-input-builder.mjs`](../../src/economic-reliability-input-builder.mjs) — exports ECONOMIC_RELIABILITY_INPUT_BUILDER_VERSION, compileEconomicReliabilityInput _(matched by name only; tested; imported by 1)_
+- [`src/economic-reliability-preparation-memory.mjs`](../../src/economic-reliability-preparation-memory.mjs) — exports ECONOMIC_RELIABILITY_PREPARATION_MEMORY_VERSION, PREPARATION_AUDIT_TYPE, DEFAULT_PREPARATION_MEMORY_MAX_AGE_MS, compilePreparationEvidenceRec… _(matched by name only; no static importers)_
+- [`src/economic-reliability-wealth-bridge.mjs`](../../src/economic-reliability-wealth-bridge.mjs) — exports ECONOMIC_RELIABILITY_WEALTH_BRIDGE_VERSION, compileReliabilityFirstWealthPortfolio _(matched by name only; tested; no static importers)_
+- [`src/economic-repair-job-handler.mjs`](../../src/economic-repair-job-handler.mjs) — exports ECONOMIC_REPAIR_JOB_VERSION, compileEconomicRepairProblem, runEconomicRepairJob _(matched by name only; tested; imported by 1)_
+- [`src/economic-route-calibration.mjs`](../../src/economic-route-calibration.mjs) — exports ECONOMIC_ROUTE_CALIBRATION_VERSION, DEFAULT_ONE_SIDED_Z, DEFAULT_MIN_TRIALS, DEFAULT_MAX_TRIAL_AGE_MS, MAX_FUTURE_SKEW_MS (+3) _(matched by name only; tested; imported by 1)_
+- [`src/economic-route-dependency.mjs`](../../src/economic-route-dependency.mjs) — exports ECONOMIC_ROUTE_DEPENDENCY_VERSION, REQUIRED_DEPENDENCY_FACTORS, compileEconomicRouteDependencyReceipt, validateEconomicRouteDependencyReceipt… _(matched by name only; tested; imported by 2)_
+- [`src/eight-hour-overdetermination-engine.mjs`](../../src/eight-hour-overdetermination-engine.mjs) — exports EIGHT_HOUR_OVERDETERMINATION_VERSION, MONEY_ROUTE_AXES, compileMoneyAttempt, compileEightHourOverdetermination _(matched by name only; tested; imported by 1)_
+- [`src/eight-hour-wealth-universe-simulator.mjs`](../../src/eight-hour-wealth-universe-simulator.mjs) — exports EIGHT_HOUR_WEALTH_SIM_VERSION, OPEN_WORLD_ECONOMIC_AXES, compileOpenWorldMoneyUniverse, normalizeEightHourMechanism, simulateEightHourWealthU… _(matched by name only; tested; imported by 2)_
+- [`src/future-capital-reserve.mjs`](../../src/future-capital-reserve.mjs) — exports compileFutureCapitalReserve _(matched by name only; tested; imported by 1)_
+- [`src/genesis-economic-physics-evidence.mjs`](../../src/genesis-economic-physics-evidence.mjs) — exports GENESIS_ECONOMIC_PHYSICS_EVIDENCE, normalizeGenesisEvidencePack _(matched by name only; imported by 1)_
+- [`src/genesis-economic-physics.mjs`](../../src/genesis-economic-physics.mjs) — exports GENESIS_ECONOMIC_PHYSICS_VERSION, telescopeDeadweightLoss, buildTransactionCostAtlas, scanTrustFriction, mapCoordinationEntropy (+29) _(matched by name only; tested; imported by 1)_
+- [`src/organism-metabolism.mjs`](../../src/organism-metabolism.mjs) — exports ORGANISM_METABOLISM_VERSION, compileObjectiveMetabolism, planMetabolismCycle, compileMetabolismLearningReceipt _(matched by name only; tested; imported by 2)_
+- [`src/prometheus-economic-spine.mjs`](../../src/prometheus-economic-spine.mjs) — Canonical Prometheus economic spine composition. _(matched by name only; tested; imported by 1)_
+- [`src/synthetic-eight-hour-wealth-priors.mjs`](../../src/synthetic-eight-hour-wealth-priors.mjs) — exports SYNTHETIC_WEALTH_PRIOR_VERSION, SYNTHETIC_EIGHT_HOUR_SCENARIOS, compileSyntheticUniverseMechanisms, simulateSyntheticEightHourUniverse _(matched by name only; tested; imported by 1)_
+- [`src/technology-to-money-translation.mjs`](../../src/technology-to-money-translation.mjs) — exports compileTechnologyToMoneyTranslation _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs`](../../src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs) — exports TOTAL_COMMERCIAL_GENOME_OFFER_UNIVERSE_WEALTH_VERSION, compileTotalCommercialGenomeOfferUniverseWealth _(matched by name only; tested; imported by 1)_
+- [`src/universal-wealth-engine.mjs`](../../src/universal-wealth-engine.mjs) — exports UNIVERSAL_WEALTH_ENGINE_VERSION, WEALTH_GRAMMAR, PROHIBITED_WEALTH_PATTERNS, validateWealthMechanism, scoreWealthMechanism (+5) _(matched by name only; imported by 3)_
+- [`src/universal-wealth-job-handler.mjs`](../../src/universal-wealth-job-handler.mjs) — exports UNIVERSAL_WEALTH_JOB_VERSION, runUniversalWealthJob _(matched by name only; imported by 2)_
+- [`src/universal-wealth-overdetermination-job-handler.mjs`](../../src/universal-wealth-overdetermination-job-handler.mjs) — exports UNIVERSAL_WEALTH_OVERDETERMINATION_JOB_VERSION, runUniversalWealthOverdeterminationJob _(matched by name only; imported by 1)_
 
 ## Scripts (3)
 
-- [`scripts/founder-economic-mission-pulse.mjs`](../../scripts/founder-economic-mission-pulse.mjs) — exports compileReliabilityPulse, runFounderEconomicMissionPulse
-- [`scripts/machiavelli-scoreboard.mjs`](../../scripts/machiavelli-scoreboard.mjs) — Machiavelli Reality Scoreboard.
-- [`scripts/ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment
+- [`scripts/founder-economic-mission-pulse.mjs`](../../scripts/founder-economic-mission-pulse.mjs) — exports compileReliabilityPulse, runFounderEconomicMissionPulse _(matched by name only)_
+- [`scripts/machiavelli-scoreboard.mjs`](../../scripts/machiavelli-scoreboard.mjs) — Machiavelli Reality Scoreboard. _(matched by name only)_
+- [`scripts/ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment _(matched by name only)_
 
 ## Config, data, artifacts and services (10)
 
-- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1
-- [`artifacts/event-horizon/economic-genome-2026-08-31.json`](../../artifacts/event-horizon/economic-genome-2026-08-31.json) — 2026-08-31 · Partner Evidence Rail · CURRENT_CHAMPION · uberbond-event-horizon-1.0.0
-- [`artifacts/machiavelli/profit-tournament.json`](../../artifacts/machiavelli/profit-tournament.json) — Capital-Control Holonomy Switch: EGP T-bill carry with a topological devaluation alarm · uberbond.machiavelli-profit-tournament.v1
-- [`artifacts/machiavelli/scoreboard.json`](../../artifacts/machiavelli/scoreboard.json) — uberbond.machiavelli-scoreboard.v1
-- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1
-- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1
-- [`artifacts/machiavelli/wealth-mechanism-atlas.json`](../../artifacts/machiavelli/wealth-mechanism-atlas.json) — uberbond.machiavelli-wealth-mechanism-atlas.v1
-- [`artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json`](../../artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json) — 2026-09-02 · uberbond-night-genome-run-receipt-1.0.0
-- [`artifacts/strategy/machiavelli-principles.v1.json.br.b64`](../../artifacts/strategy/machiavelli-principles.v1.json.br.b64)
-- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh)
+- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1 _(matched by name only)_
+- [`artifacts/event-horizon/economic-genome-2026-08-31.json`](../../artifacts/event-horizon/economic-genome-2026-08-31.json) — 2026-08-31 · Partner Evidence Rail · CURRENT_CHAMPION · uberbond-event-horizon-1.0.0 _(matched by name only)_
+- [`artifacts/machiavelli/profit-tournament.json`](../../artifacts/machiavelli/profit-tournament.json) — Capital-Control Holonomy Switch: EGP T-bill carry with a topological devaluation alarm · uberbond.machiavelli-profit-tournament.v1 _(matched by name only)_
+- [`artifacts/machiavelli/scoreboard.json`](../../artifacts/machiavelli/scoreboard.json) — uberbond.machiavelli-scoreboard.v1 _(matched by name only)_
+- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
+- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
+- [`artifacts/machiavelli/wealth-mechanism-atlas.json`](../../artifacts/machiavelli/wealth-mechanism-atlas.json) — uberbond.machiavelli-wealth-mechanism-atlas.v1 _(matched by name only)_
+- [`artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json`](../../artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json) — 2026-09-02 · uberbond-night-genome-run-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/strategy/machiavelli-principles.v1.json.br.b64`](../../artifacts/strategy/machiavelli-principles.v1.json.br.b64) _(matched by name only)_
+- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh) _(matched by name only)_
 
 ## Tests (43)
 

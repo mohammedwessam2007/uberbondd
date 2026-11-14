@@ -12,10 +12,10 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (4)
 
-- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency…
-- [`docs/OPEN_MODEL_UNIVERSE.md`](../OPEN_MODEL_UNIVERSE.md) — UberBond Open Model Universe — Status: Frontier expansion branch, not canonical until verified and merged.
-- [`docs/INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md`](../INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus OpenRouter Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No provider call has been made by this package.
-- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30
+- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(matched by name only)_
+- [`docs/OPEN_MODEL_UNIVERSE.md`](../OPEN_MODEL_UNIVERSE.md) — UberBond Open Model Universe — Status: Frontier expansion branch, not canonical until verified and merged. _(matched by name only)_
+- [`docs/INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md`](../INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus OpenRouter Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No provider call has been made by this package. _(matched by name only)_
+- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_
 
 ## Commands (4)
 
@@ -23,98 +23,98 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (34)
 
-- [`open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md`](../../open%20router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL GAP-CLOSURE / LIVE ACTIVATION MONSTER PROMPT _(18 mentions)_
-- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(14 mentions)_
-- [`docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md`](../UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(12 mentions)_
-- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(12 mentions)_
-- [`docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus terminal activation handoff — 2026-09-30 _(11 mentions)_
-- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat. _(11 mentions)_
-- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(10 mentions)_
-- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(7 mentions)_
-- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(7 mentions)_
-- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(7 mentions)_
-- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(7 mentions)_
-- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(7 mentions)_
-- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(6 mentions)_
-- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(6 mentions)_
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(5 mentions)_
-- [`docs/handoffs/UBERMIND_CURRENT_2026-10-08.md`](../handoffs/UBERMIND_CURRENT_2026-10-08.md) — 2026-10-08 · UberMind exact current terminal frontier — 2026-10-08 _(5 mentions)_
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(5 mentions)_
-- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(5 mentions)_
-- [`docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(4 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(4 mentions)_
-- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(4 mentions)_
-- [`open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../../open%20router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(4 mentions)_
-- [`open router/75_RECOVERY_POINTER_2026-09-30.md`](../../open%20router/75_RECOVERY_POINTER_2026-09-30.md) — 2026-09-30 · OpenRouter Recovery Pointer — 2026-09-30 _(4 mentions)_
-- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(3 mentions)_
-- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics _(3 mentions)_
-- [`docs/handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md`](../handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md) — 2026-10-08 · UberMind Fair-Cost Frontier Reference — 2026-10-08 _(3 mentions)_
-- [`docs/INFINITE_OPUS_MEGA_MAP_2026-09-30.md`](../INFINITE_OPUS_MEGA_MAP_2026-09-30.md) — 2026-09-30 · Infinite Opus Current Mega Map — 2026-09-30 — Status: merged pre-owner software closure on main. Live provider activation remains owner-gated. _(3 mentions)_
-- [`docs/INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md`](../INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md) — 2026-09-30 · Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo — Status: PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY, ok true. _(3 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(3 mentions)_
-- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(3 mentions)_
-- [`open router/10_ACTIVATION_CHECKLIST.md`](../../open%20router/10_ACTIVATION_CHECKLIST.md) — 10 — Activation Checklist _(3 mentions)_
-- [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Infinite Opus implementation and activation _(3 mentions)_
-- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(3 mentions)_
-- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(3 mentions)_
+- [`open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md`](../../open%20router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL GAP-CLOSURE / LIVE ACTIVATION MONSTER PROMPT _(matched by name only)_ _(18 mentions)_
+- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(14 mentions)_
+- [`docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md`](../UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(matched by name only)_ _(12 mentions)_
+- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(matched by name only)_ _(12 mentions)_
+- [`docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus terminal activation handoff — 2026-09-30 _(matched by name only)_ _(11 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat. _(matched by name only)_ _(11 mentions)_
+- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(matched by name only)_ _(10 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(7 mentions)_
+- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(matched by name only)_ _(7 mentions)_
+- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(matched by name only)_ _(7 mentions)_
+- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(7 mentions)_
+- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(matched by name only)_ _(7 mentions)_
+- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(matched by name only)_ _(6 mentions)_
+- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(matched by name only)_ _(6 mentions)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_ _(5 mentions)_
+- [`docs/handoffs/UBERMIND_CURRENT_2026-10-08.md`](../handoffs/UBERMIND_CURRENT_2026-10-08.md) — 2026-10-08 · UberMind exact current terminal frontier — 2026-10-08 _(matched by name only)_ _(5 mentions)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_ _(5 mentions)_
+- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(matched by name only)_ _(5 mentions)_
+- [`docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(4 mentions)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(matched by name only)_ _(4 mentions)_
+- [`open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../../open%20router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(matched by name only)_ _(4 mentions)_
+- [`open router/75_RECOVERY_POINTER_2026-09-30.md`](../../open%20router/75_RECOVERY_POINTER_2026-09-30.md) — 2026-09-30 · OpenRouter Recovery Pointer — 2026-09-30 _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md`](../handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md) — 2026-10-08 · UberMind Fair-Cost Frontier Reference — 2026-10-08 _(matched by name only)_ _(3 mentions)_
+- [`docs/INFINITE_OPUS_MEGA_MAP_2026-09-30.md`](../INFINITE_OPUS_MEGA_MAP_2026-09-30.md) — 2026-09-30 · Infinite Opus Current Mega Map — 2026-09-30 — Status: merged pre-owner software closure on main. Live provider activation remains owner-gated. _(matched by name only)_ _(3 mentions)_
+- [`docs/INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md`](../INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md) — 2026-09-30 · Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo — Status: PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY, ok true. _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
+- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(matched by name only)_ _(3 mentions)_
+- [`open router/10_ACTIVATION_CHECKLIST.md`](../../open%20router/10_ACTIVATION_CHECKLIST.md) — 10 — Activation Checklist _(matched by name only)_ _(3 mentions)_
+- [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Infinite Opus implementation and activation _(matched by name only)_ _(3 mentions)_
+- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_ _(3 mentions)_
+- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (32)
 
-- [`src/agent-model-executor-factory.mjs`](../../src/agent-model-executor-factory.mjs) — The one place that turns a worker's declared provider into a model executor. _(imported by 10)_
-- [`src/agent-model-failover.mjs`](../../src/agent-model-failover.mjs) — Executing down the routing order that already existed. _(tested; imported by 1)_
-- [`src/agent-model-router.mjs`](../../src/agent-model-router.mjs) — exports AGENT_MODEL_ROUTER_POLICY_VERSION, normalizeModelCandidate, normalizeModelBenchmark, routeModel _(imported by 4)_
-- [`src/agent-model-routing-config.mjs`](../../src/agent-model-routing-config.mjs) — exports AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION, routeActivationPermittedWorkers _(tested; imported by 1)_
-- [`src/agent-model-routing-integration.mjs`](../../src/agent-model-routing-integration.mjs) — exports AGENT_MODEL_ROUTING_INTEGRATION_POLICY_VERSION, routePermittedWorkers, routeWorkersByTargetAgent _(tested; imported by 3)_
-- [`src/anthropic-agent-executor.mjs`](../../src/anthropic-agent-executor.mjs) — Provider adapter for the bounded UberBond agent-worker runtime. _(tested; imported by 1)_
-- [`src/claude-code-sandbox-executor.mjs`](../../src/claude-code-sandbox-executor.mjs) — exports CLAUDE_CODE_SANDBOX_EXECUTOR_POLICY_VERSION, createClaudeCodeSandboxExecutor _(tested; imported by 1)_
-- [`src/durable-claude-engineering-executor.mjs`](../../src/durable-claude-engineering-executor.mjs) — exports DURABLE_CLAUDE_ENGINEERING_POLICY_VERSION, createDurableClaudeEngineeringExecutor _(tested; no static importers)_
-- [`src/frontier-simulation-executor.mjs`](../../src/frontier-simulation-executor.mjs) — exports FRONTIER_SIMULATION_EXECUTOR_VERSION, createFrontierSimulationExecutorFactory, isFrontierSimulationExecutorFactory _(imported by 2)_
-- [`src/model-adaptation-admission.mjs`](../../src/model-adaptation-admission.mjs) — exports MODEL_ADAPTATION_ADMISSION_VERSION, admitModelAdaptation _(tested; imported by 1)_
-- [`src/model-failure-map.mjs`](../../src/model-failure-map.mjs) — What a given provider and model systematically gets wrong. _(tested; imported by 1)_
-- [`src/model-foundry-control-plane.mjs`](../../src/model-foundry-control-plane.mjs) — UberLM model foundry control plane. _(no static importers)_
-- [`src/model-provider-doctor.mjs`](../../src/model-provider-doctor.mjs) — What can this environment actually route to, and what is the smallest human _(imported by 2)_
-- [`src/model-provider-runtime-evidence.mjs`](../../src/model-provider-runtime-evidence.mjs) — exports MODEL_PROVIDER_RUNTIME_EVIDENCE_VERSION, modelProviderRuntimeReceiptPreimage, verifyModelProviderRuntimeEvidenceIntegrity, compileModelProvid… _(tested; imported by 3)_
-- [`src/model-route-request.mjs`](../../src/model-route-request.mjs) — exports MODEL_ROUTE_REQUEST_ATOM_ID, compileModelRouteRequest, executeModelRouteRequest _(tested; imported by 1)_
-- [`src/open-model-foundry.mjs`](../../src/open-model-foundry.mjs) — exports OPEN_MODEL_FOUNDRY_VERSION, MODEL_SUPPLY_TYPES, MODEL_SUPPLY_STATES, normalizeModelSupply, rankModelCandidates (+1) _(tested; imported by 1)_
-- [`src/open-model-registry-crawler.mjs`](../../src/open-model-registry-crawler.mjs) — exports OPEN_MODEL_REGISTRY_CRAWLER_VERSION, crawlOpenModelRegistry _(no static importers)_
-- [`src/open-model-runtime-executor.mjs`](../../src/open-model-runtime-executor.mjs) — exports OPEN_MODEL_RUNTIME_EXECUTOR_VERSION, OPEN_MODEL_RUNTIMES, OPENAI_API_STYLES, planOpenModelRuntime, createOpenModelRuntimeExecutor _(imported by 2)_
-- [`src/open-model-source-coverage.mjs`](../../src/open-model-source-coverage.mjs) — exports OPEN_MODEL_SOURCE_COVERAGE_VERSION, OPEN_MODEL_CAPABILITY_COVERAGE, buildOpenModelSourceCoverageReceipt _(tested; no static importers)_
-- [`src/open-model-universe.mjs`](../../src/open-model-universe.mjs) — exports OPEN_MODEL_UNIVERSE_VERSION, OPEN_MODEL_REGISTRIES, OPEN_MODEL_RUNTIME_HINTS, classifyOpenModelLicense, normalizeHubModel (+4) _(imported by 1)_
-- [`src/openai-agent-executor.mjs`](../../src/openai-agent-executor.mjs) — Provider adapter for the bounded UberBond agent-worker runtime. _(tested; imported by 1)_
-- [`src/openrouter-agent-executor.mjs`](../../src/openrouter-agent-executor.mjs) — exports OPENROUTER_AGENT_EXECUTOR_VERSION, createOpenRouterAgentExecutor _(tested; imported by 2)_
-- [`src/openrouter-decision-market.mjs`](../../src/openrouter-decision-market.mjs) — exports OPENROUTER_JEV_MODEL, OPENROUTER_JEV_MODEL_PAGE, OPENROUTER_JEV_ENDPOINTS_API, compileOpenRouterJevEndpointPriceRecord, compileOpenRouterJevP… _(tested; imported by 2)_
-- [`src/openrouter-governed-adapter.mjs`](../../src/openrouter-governed-adapter.mjs) — exports createOpenRouterGovernedAdapter _(imported by 5)_
-- [`src/openrouter-jev-governed-adapter.mjs`](../../src/openrouter-jev-governed-adapter.mjs) — exports createOpenRouterJevGovernedAdapter _(tested; imported by 3)_
-- [`src/openrouter-local-request-gate.mjs`](../../src/openrouter-local-request-gate.mjs) — exports validateOpenRouterLocalRequest _(imported by 1)_
-- [`src/openrouter-management-reconciler.mjs`](../../src/openrouter-management-reconciler.mjs) — exports createOpenRouterManagementReconciler _(imported by 1)_
-- [`src/openrouter-market-catalog.mjs`](../../src/openrouter-market-catalog.mjs) — exports OPENROUTER_MARKET_CATALOG_VERSION, OPENROUTER_MODELS_ENDPOINT, compileOpenRouterCatalogSnapshot, observeOpenRouterCatalog _(tested; imported by 1)_
-- [`src/openrouter-processor-auction-v5.mjs`](../../src/openrouter-processor-auction-v5.mjs) — exports chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig, estimateJevControlUsd (+16) _(tested; imported by 3)_
-- [`src/relay-vercel-api-executor.mjs`](../../src/relay-vercel-api-executor.mjs) — Bounded one-shot transport for an already compiled exact relay preview request. _(tested; no static importers; npm: `check:relay-api-executor`)_
-- [`src/uberwarm2-seed-executor.mjs`](../../src/uberwarm2-seed-executor.mjs) — exports UBERWARM2_SEED_EXECUTION_VERSION, UBERWARM2_SEED_TEMPLATE_DIGEST, createUberWarm2SeedApprovalProof, compileUberWarm2SeedBatch, executeUberWar… _(tested; imported by 5)_
-- [`src/vercel-ai-gateway-executor.mjs`](../../src/vercel-ai-gateway-executor.mjs) — Vercel AI Gateway adapter for the bounded UberBond agent-worker runtime. _(tested; imported by 1)_
+- [`src/agent-model-executor-factory.mjs`](../../src/agent-model-executor-factory.mjs) — The one place that turns a worker's declared provider into a model executor. _(matched by name only; imported by 10)_
+- [`src/agent-model-failover.mjs`](../../src/agent-model-failover.mjs) — Executing down the routing order that already existed. _(matched by name only; tested; imported by 1)_
+- [`src/agent-model-router.mjs`](../../src/agent-model-router.mjs) — exports AGENT_MODEL_ROUTER_POLICY_VERSION, normalizeModelCandidate, normalizeModelBenchmark, routeModel _(matched by name only; imported by 4)_
+- [`src/agent-model-routing-config.mjs`](../../src/agent-model-routing-config.mjs) — exports AGENT_MODEL_ROUTING_CONFIG_POLICY_VERSION, routeActivationPermittedWorkers _(matched by name only; tested; imported by 1)_
+- [`src/agent-model-routing-integration.mjs`](../../src/agent-model-routing-integration.mjs) — exports AGENT_MODEL_ROUTING_INTEGRATION_POLICY_VERSION, routePermittedWorkers, routeWorkersByTargetAgent _(matched by name only; tested; imported by 3)_
+- [`src/anthropic-agent-executor.mjs`](../../src/anthropic-agent-executor.mjs) — Provider adapter for the bounded UberBond agent-worker runtime. _(matched by name only; tested; imported by 1)_
+- [`src/claude-code-sandbox-executor.mjs`](../../src/claude-code-sandbox-executor.mjs) — exports CLAUDE_CODE_SANDBOX_EXECUTOR_POLICY_VERSION, createClaudeCodeSandboxExecutor _(matched by name only; tested; imported by 1)_
+- [`src/durable-claude-engineering-executor.mjs`](../../src/durable-claude-engineering-executor.mjs) — exports DURABLE_CLAUDE_ENGINEERING_POLICY_VERSION, createDurableClaudeEngineeringExecutor _(matched by name only; tested; no static importers)_
+- [`src/frontier-simulation-executor.mjs`](../../src/frontier-simulation-executor.mjs) — exports FRONTIER_SIMULATION_EXECUTOR_VERSION, createFrontierSimulationExecutorFactory, isFrontierSimulationExecutorFactory _(matched by name only; imported by 2)_
+- [`src/model-adaptation-admission.mjs`](../../src/model-adaptation-admission.mjs) — exports MODEL_ADAPTATION_ADMISSION_VERSION, admitModelAdaptation _(matched by name only; tested; imported by 1)_
+- [`src/model-failure-map.mjs`](../../src/model-failure-map.mjs) — What a given provider and model systematically gets wrong. _(matched by name only; tested; imported by 1)_
+- [`src/model-foundry-control-plane.mjs`](../../src/model-foundry-control-plane.mjs) — UberLM model foundry control plane. _(matched by name only; no static importers)_
+- [`src/model-provider-doctor.mjs`](../../src/model-provider-doctor.mjs) — What can this environment actually route to, and what is the smallest human _(matched by name only; imported by 2)_
+- [`src/model-provider-runtime-evidence.mjs`](../../src/model-provider-runtime-evidence.mjs) — exports MODEL_PROVIDER_RUNTIME_EVIDENCE_VERSION, modelProviderRuntimeReceiptPreimage, verifyModelProviderRuntimeEvidenceIntegrity, compileModelProvid… _(matched by name only; tested; imported by 3)_
+- [`src/model-route-request.mjs`](../../src/model-route-request.mjs) — exports MODEL_ROUTE_REQUEST_ATOM_ID, compileModelRouteRequest, executeModelRouteRequest _(matched by name only; tested; imported by 1)_
+- [`src/open-model-foundry.mjs`](../../src/open-model-foundry.mjs) — exports OPEN_MODEL_FOUNDRY_VERSION, MODEL_SUPPLY_TYPES, MODEL_SUPPLY_STATES, normalizeModelSupply, rankModelCandidates (+1) _(matched by name only; tested; imported by 1)_
+- [`src/open-model-registry-crawler.mjs`](../../src/open-model-registry-crawler.mjs) — exports OPEN_MODEL_REGISTRY_CRAWLER_VERSION, crawlOpenModelRegistry _(matched by name only; no static importers)_
+- [`src/open-model-runtime-executor.mjs`](../../src/open-model-runtime-executor.mjs) — exports OPEN_MODEL_RUNTIME_EXECUTOR_VERSION, OPEN_MODEL_RUNTIMES, OPENAI_API_STYLES, planOpenModelRuntime, createOpenModelRuntimeExecutor _(matched by name only; imported by 2)_
+- [`src/open-model-source-coverage.mjs`](../../src/open-model-source-coverage.mjs) — exports OPEN_MODEL_SOURCE_COVERAGE_VERSION, OPEN_MODEL_CAPABILITY_COVERAGE, buildOpenModelSourceCoverageReceipt _(matched by name only; tested; no static importers)_
+- [`src/open-model-universe.mjs`](../../src/open-model-universe.mjs) — exports OPEN_MODEL_UNIVERSE_VERSION, OPEN_MODEL_REGISTRIES, OPEN_MODEL_RUNTIME_HINTS, classifyOpenModelLicense, normalizeHubModel (+4) _(matched by name only; imported by 1)_
+- [`src/openai-agent-executor.mjs`](../../src/openai-agent-executor.mjs) — Provider adapter for the bounded UberBond agent-worker runtime. _(matched by name only; tested; imported by 1)_
+- [`src/openrouter-agent-executor.mjs`](../../src/openrouter-agent-executor.mjs) — exports OPENROUTER_AGENT_EXECUTOR_VERSION, createOpenRouterAgentExecutor _(matched by name only; tested; imported by 2)_
+- [`src/openrouter-decision-market.mjs`](../../src/openrouter-decision-market.mjs) — exports OPENROUTER_JEV_MODEL, OPENROUTER_JEV_MODEL_PAGE, OPENROUTER_JEV_ENDPOINTS_API, compileOpenRouterJevEndpointPriceRecord, compileOpenRouterJevP… _(matched by name only; tested; imported by 2)_
+- [`src/openrouter-governed-adapter.mjs`](../../src/openrouter-governed-adapter.mjs) — exports createOpenRouterGovernedAdapter _(matched by name only; imported by 5)_
+- [`src/openrouter-jev-governed-adapter.mjs`](../../src/openrouter-jev-governed-adapter.mjs) — exports createOpenRouterJevGovernedAdapter _(matched by name only; tested; imported by 3)_
+- [`src/openrouter-local-request-gate.mjs`](../../src/openrouter-local-request-gate.mjs) — exports validateOpenRouterLocalRequest _(matched by name only; imported by 1)_
+- [`src/openrouter-management-reconciler.mjs`](../../src/openrouter-management-reconciler.mjs) — exports createOpenRouterManagementReconciler _(matched by name only; imported by 1)_
+- [`src/openrouter-market-catalog.mjs`](../../src/openrouter-market-catalog.mjs) — exports OPENROUTER_MARKET_CATALOG_VERSION, OPENROUTER_MODELS_ENDPOINT, compileOpenRouterCatalogSnapshot, observeOpenRouterCatalog _(matched by name only; tested; imported by 1)_
+- [`src/openrouter-processor-auction-v5.mjs`](../../src/openrouter-processor-auction-v5.mjs) — exports chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig, estimateJevControlUsd (+16) _(matched by name only; tested; imported by 3)_
+- [`src/relay-vercel-api-executor.mjs`](../../src/relay-vercel-api-executor.mjs) — Bounded one-shot transport for an already compiled exact relay preview request. _(matched by name only; tested; no static importers; npm: `check:relay-api-executor`)_
+- [`src/uberwarm2-seed-executor.mjs`](../../src/uberwarm2-seed-executor.mjs) — exports UBERWARM2_SEED_EXECUTION_VERSION, UBERWARM2_SEED_TEMPLATE_DIGEST, createUberWarm2SeedApprovalProof, compileUberWarm2SeedBatch, executeUberWar… _(matched by name only; tested; imported by 5)_
+- [`src/vercel-ai-gateway-executor.mjs`](../../src/vercel-ai-gateway-executor.mjs) — Vercel AI Gateway adapter for the bounded UberBond agent-worker runtime. _(matched by name only; tested; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/agent-model-route.mjs`](../../scripts/agent-model-route.mjs) — Zero-effect operator entry point for the model router.
-- [`scripts/infinite-opus-openrouter-budget-reconcile.mjs`](../../scripts/infinite-opus-openrouter-budget-reconcile.mjs) _(npm: `infinite-opus:budget:reconcile`)_
-- [`scripts/infinite-opus-openrouter-canary.mjs`](../../scripts/infinite-opus-openrouter-canary.mjs) _(npm: `infinite-opus:canary`)_
-- [`scripts/model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(npm: `providers:doctor`)_
-- [`scripts/model-provider-runtime-probe.mjs`](../../scripts/model-provider-runtime-probe.mjs)
-- [`scripts/night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations
+- [`scripts/agent-model-route.mjs`](../../scripts/agent-model-route.mjs) — Zero-effect operator entry point for the model router. _(matched by name only)_
+- [`scripts/infinite-opus-openrouter-budget-reconcile.mjs`](../../scripts/infinite-opus-openrouter-budget-reconcile.mjs) _(matched by name only; npm: `infinite-opus:budget:reconcile`)_
+- [`scripts/infinite-opus-openrouter-canary.mjs`](../../scripts/infinite-opus-openrouter-canary.mjs) _(matched by name only; npm: `infinite-opus:canary`)_
+- [`scripts/model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(matched by name only; npm: `providers:doctor`)_
+- [`scripts/model-provider-runtime-probe.mjs`](../../scripts/model-provider-runtime-probe.mjs) _(matched by name only)_
+- [`scripts/night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations _(matched by name only)_
 
 ## Config, data, artifacts and services (11)
 
-- [`config/in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1
-- [`config/openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4
-- [`config/openrouter-processor-fabric-v5.json`](../../config/openrouter-processor-fabric-v5.json) — uberbond.openrouter.processor-fabric.v5
-- [`docs/architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd`](../architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd)
-- [`open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterJevGovernedAdapter
-- [`open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs`](../../open%20router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterGovernedAdapter
-- [`open router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs`](../../open%20router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs) — 2026-09-30 · exports validateOpenRouterLocalRequest
-- [`open router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs`](../../open%20router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterManagementReconciler
-- [`open router/69_OPENROUTER_CANARY_2026-09-30.mjs`](../../open%20router/69_OPENROUTER_CANARY_2026-09-30.mjs) — 2026-09-30
-- [`open router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json`](../../open%20router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json) — 2026-09-30 · uberbond.openrouter.recovery-manifest.v2
+- [`config/in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1 _(matched by name only)_
+- [`config/openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4 _(matched by name only)_
+- [`config/openrouter-processor-fabric-v5.json`](../../config/openrouter-processor-fabric-v5.json) — uberbond.openrouter.processor-fabric.v5 _(matched by name only)_
+- [`docs/architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd`](../architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd) _(matched by name only)_
+- [`open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterJevGovernedAdapter _(matched by name only)_
+- [`open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs`](../../open%20router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterGovernedAdapter _(matched by name only)_
+- [`open router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs`](../../open%20router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs) — 2026-09-30 · exports validateOpenRouterLocalRequest _(matched by name only)_
+- [`open router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs`](../../open%20router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterManagementReconciler _(matched by name only)_
+- [`open router/69_OPENROUTER_CANARY_2026-09-30.mjs`](../../open%20router/69_OPENROUTER_CANARY_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json`](../../open%20router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json) — 2026-09-30 · uberbond.openrouter.recovery-manifest.v2 _(matched by name only)_
 
 ## Tests (35)
 

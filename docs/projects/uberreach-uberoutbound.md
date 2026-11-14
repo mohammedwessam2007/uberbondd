@@ -12,66 +12,66 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon
-- [`docs/UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md`](../UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md) — 2026-09-14 · UberOutbound Genome Completion Boundary
+- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon _(matched by name only)_
+- [`docs/UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md`](../UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md) — 2026-09-14 · UberOutbound Genome Completion Boundary _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(6 mentions)_
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(3 mentions)_
+- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(matched by name only)_ _(6 mentions)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (25)
 
-- [`src/governed-outreach-dispatch.mjs`](../../src/governed-outreach-dispatch.mjs) — exports GOVERNED_OUTREACH_DISPATCH_VERSION, dispatchGovernedOutreach _(tested; imported by 3)_
-- [`src/lawful-channel-router.mjs`](../../src/lawful-channel-router.mjs) — Lawful Channel Router: route every prospect through the cheapest channel _(tested; imported by 3)_
-- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — exports POSTAL_EFFECT_ADAPTER_VERSION, PostalEffectAdapterError, PostalEffectAdapter, postalProviderEffectIdentity, postalEffectTag _(tested; imported by 1)_
-- [`src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs`](../../src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs) — exports POSTAL_SENDER_EVIDENCE_CONSUMER_VERSION, classifyPostalSenderEvidence, consumePostalSenderEvidence _(tested; imported by 1)_
-- [`src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs) — exports POSTAL_WEBHOOK_EVIDENCE_VERSION, POSTAL_QUARANTINE_REASONS, verifyPostalWebhookSignature, normalizePostalWebhookEvent, deriveCurrentPostalSta… _(tested; imported by 2)_
-- [`src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs) — exports POSTAL_WEBHOOK_LEDGER_VERSION, createMemoryPostalWebhookLedger, createPostgresPostalWebhookLedger, createPostalReconciliationLookup _(imported by 1)_
-- [`src/outbound-send-authorization.mjs`](../../src/outbound-send-authorization.mjs) — exports OUTBOUND_SEND_AUTHORIZATION_VERSION, OUTBOUND_EMERGENCY_STOP_ENV, canonicalRecipientKey, outboundMessageDigest, decideOutboundSend (+6) _(tested; imported by 3)_
-- [`src/postal-live-send.mjs`](../../src/postal-live-send.mjs) — exports POSTAL_LIVE_SEND_VERSION, dispatchPostalCanary _(tested; imported by 1)_
-- [`src/send-safety.mjs`](../../src/send-safety.mjs) — exports normalizeCountry, normalizeCountryList, emailDomain, resolveRecipientTimeZone, localBusinessTime (+9) _(tested; imported by 6)_
-- [`src/uberbuy-outreach-bom.mjs`](../../src/uberbuy-outreach-bom.mjs) — exports UBERBUY_VERSION, compileOutreachBuyList _(tested; imported by 1)_
-- [`src/ubereconomics-outreach.mjs`](../../src/ubereconomics-outreach.mjs) — exports UBERECONOMICS_OUTREACH_VERSION, compileOutreachEconomics _(tested; imported by 1)_
-- [`src/uberlaunch-closure.mjs`](../../src/uberlaunch-closure.mjs) — exports UBERLAUNCH_CLOSURE_VERSION, compileUberLaunchClosure _(tested; imported by 1)_
-- [`src/uberlaunch-one-button.mjs`](../../src/uberlaunch-one-button.mjs) — exports UBERLAUNCH_ONE_BUTTON_VERSION, UBERLAUNCH_SELF_HOST_POLICY, prepareUberLaunchDiscovery, compileUberLaunchManifest, prepareAndCompileUberLaunc… _(tested; imported by 1)_
-- [`src/uberlaunch-runtime-evidence.mjs`](../../src/uberlaunch-runtime-evidence.mjs) — exports UBERLAUNCH_RUNTIME_EVIDENCE_VERSION, compileUberLaunchRuntimeEvidence, prepareSovereignOneButtonLaunch _(tested; imported by 1)_
-- [`src/uberoutbound-genome.mjs`](../../src/uberoutbound-genome.mjs) — exports UBEROUTBOUND_GENOME_VERSION, UBEROUTBOUND_EVIDENCE_STATES, UBEROUTBOUND_ACTIONS, UBEROUTBOUND_PROBLEM_ALTITUDES, UBEROUTBOUND_V1_PRIORS (+13) _(tested; imported by 9)_
-- [`src/uberoutbound-policy-registry.mjs`](../../src/uberoutbound-policy-registry.mjs) — exports UBEROUTBOUND_POLICY_REGISTRY_VERSION, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER, UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL, UBEROUTBOUND_TRIGGER_TAXONOMY… _(tested; imported by 3)_
-- [`src/uberoutbound-promotion-gate.mjs`](../../src/uberoutbound-promotion-gate.mjs) — exports UBEROUTBOUND_PROMOTION_GATE_VERSION, UBEROUTBOUND_PROMOTION_STATES, compileUberOutboundPromotionDecision, compileUberOutboundDegradationDecis… _(tested; imported by 2)_
-- [`src/uberoutbound-recipient-eligibility.mjs`](../../src/uberoutbound-recipient-eligibility.mjs) — UberOutbound recipient eligibility compiler. _(tested; imported by 9)_
-- [`src/uberoutbound-research-import.mjs`](../../src/uberoutbound-research-import.mjs) — exports UBEROUTBOUND_RESEARCH_IMPORT_VERSION, compileUberOutboundResearchImport, reconcileUberOutboundResearchAssets _(tested; imported by 1)_
-- [`src/uberpostal-identity.mjs`](../../src/uberpostal-identity.mjs) — exports UBERPOSTAL_VERSION, compileUberPostalIdentity _(imported by 3)_
-- [`src/uberreach-control-plane.mjs`](../../src/uberreach-control-plane.mjs) — UberReach: zero-authority composition layer for sender health, contact _(tested; imported by 2)_
-- [`src/uberreach-objective-substitution.mjs`](../../src/uberreach-objective-substitution.mjs) — exports ECONOMIC_REACH_TARGET, compileObjectiveSubstitution _(tested; imported by 1)_
-- [`src/uberreach-scale-frontier.mjs`](../../src/uberreach-scale-frontier.mjs) — exports UBERREACH_SCALE_FRONTIER_VERSION, compileUberReachScaleFrontier _(tested; no static importers)_
-- [`src/uberreach-universal-transport.mjs`](../../src/uberreach-universal-transport.mjs) — exports UBERREACH_CHANNELS, evaluateReachEndpoint, compileUniversalReachPlan _(imported by 4)_
-- [`src/ubertruth-outreach.mjs`](../../src/ubertruth-outreach.mjs) — exports UBERTRUTH_OUTREACH_VERSION, evaluateOutreachPersonalization _(tested; imported by 1)_
+- [`src/governed-outreach-dispatch.mjs`](../../src/governed-outreach-dispatch.mjs) — exports GOVERNED_OUTREACH_DISPATCH_VERSION, dispatchGovernedOutreach _(matched by name only; tested; imported by 3)_
+- [`src/lawful-channel-router.mjs`](../../src/lawful-channel-router.mjs) — Lawful Channel Router: route every prospect through the cheapest channel _(matched by name only; tested; imported by 3)_
+- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — exports POSTAL_EFFECT_ADAPTER_VERSION, PostalEffectAdapterError, PostalEffectAdapter, postalProviderEffectIdentity, postalEffectTag _(matched by name only; tested; imported by 1)_
+- [`src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs`](../../src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs) — exports POSTAL_SENDER_EVIDENCE_CONSUMER_VERSION, classifyPostalSenderEvidence, consumePostalSenderEvidence _(matched by name only; tested; imported by 1)_
+- [`src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs) — exports POSTAL_WEBHOOK_EVIDENCE_VERSION, POSTAL_QUARANTINE_REASONS, verifyPostalWebhookSignature, normalizePostalWebhookEvent, deriveCurrentPostalSta… _(matched by name only; tested; imported by 2)_
+- [`src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs) — exports POSTAL_WEBHOOK_LEDGER_VERSION, createMemoryPostalWebhookLedger, createPostgresPostalWebhookLedger, createPostalReconciliationLookup _(matched by name only; imported by 1)_
+- [`src/outbound-send-authorization.mjs`](../../src/outbound-send-authorization.mjs) — exports OUTBOUND_SEND_AUTHORIZATION_VERSION, OUTBOUND_EMERGENCY_STOP_ENV, canonicalRecipientKey, outboundMessageDigest, decideOutboundSend (+6) _(matched by name only; tested; imported by 3)_
+- [`src/postal-live-send.mjs`](../../src/postal-live-send.mjs) — exports POSTAL_LIVE_SEND_VERSION, dispatchPostalCanary _(matched by name only; tested; imported by 1)_
+- [`src/send-safety.mjs`](../../src/send-safety.mjs) — exports normalizeCountry, normalizeCountryList, emailDomain, resolveRecipientTimeZone, localBusinessTime (+9) _(matched by name only; tested; imported by 6)_
+- [`src/uberbuy-outreach-bom.mjs`](../../src/uberbuy-outreach-bom.mjs) — exports UBERBUY_VERSION, compileOutreachBuyList _(matched by name only; tested; imported by 1)_
+- [`src/ubereconomics-outreach.mjs`](../../src/ubereconomics-outreach.mjs) — exports UBERECONOMICS_OUTREACH_VERSION, compileOutreachEconomics _(matched by name only; tested; imported by 1)_
+- [`src/uberlaunch-closure.mjs`](../../src/uberlaunch-closure.mjs) — exports UBERLAUNCH_CLOSURE_VERSION, compileUberLaunchClosure _(matched by name only; tested; imported by 1)_
+- [`src/uberlaunch-one-button.mjs`](../../src/uberlaunch-one-button.mjs) — exports UBERLAUNCH_ONE_BUTTON_VERSION, UBERLAUNCH_SELF_HOST_POLICY, prepareUberLaunchDiscovery, compileUberLaunchManifest, prepareAndCompileUberLaunc… _(matched by name only; tested; imported by 1)_
+- [`src/uberlaunch-runtime-evidence.mjs`](../../src/uberlaunch-runtime-evidence.mjs) — exports UBERLAUNCH_RUNTIME_EVIDENCE_VERSION, compileUberLaunchRuntimeEvidence, prepareSovereignOneButtonLaunch _(matched by name only; tested; imported by 1)_
+- [`src/uberoutbound-genome.mjs`](../../src/uberoutbound-genome.mjs) — exports UBEROUTBOUND_GENOME_VERSION, UBEROUTBOUND_EVIDENCE_STATES, UBEROUTBOUND_ACTIONS, UBEROUTBOUND_PROBLEM_ALTITUDES, UBEROUTBOUND_V1_PRIORS (+13) _(matched by name only; tested; imported by 9)_
+- [`src/uberoutbound-policy-registry.mjs`](../../src/uberoutbound-policy-registry.mjs) — exports UBEROUTBOUND_POLICY_REGISTRY_VERSION, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER, UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL, UBEROUTBOUND_TRIGGER_TAXONOMY… _(matched by name only; tested; imported by 3)_
+- [`src/uberoutbound-promotion-gate.mjs`](../../src/uberoutbound-promotion-gate.mjs) — exports UBEROUTBOUND_PROMOTION_GATE_VERSION, UBEROUTBOUND_PROMOTION_STATES, compileUberOutboundPromotionDecision, compileUberOutboundDegradationDecis… _(matched by name only; tested; imported by 2)_
+- [`src/uberoutbound-recipient-eligibility.mjs`](../../src/uberoutbound-recipient-eligibility.mjs) — UberOutbound recipient eligibility compiler. _(matched by name only; tested; imported by 9)_
+- [`src/uberoutbound-research-import.mjs`](../../src/uberoutbound-research-import.mjs) — exports UBEROUTBOUND_RESEARCH_IMPORT_VERSION, compileUberOutboundResearchImport, reconcileUberOutboundResearchAssets _(matched by name only; tested; imported by 1)_
+- [`src/uberpostal-identity.mjs`](../../src/uberpostal-identity.mjs) — exports UBERPOSTAL_VERSION, compileUberPostalIdentity _(matched by name only; imported by 3)_
+- [`src/uberreach-control-plane.mjs`](../../src/uberreach-control-plane.mjs) — UberReach: zero-authority composition layer for sender health, contact _(matched by name only; tested; imported by 2)_
+- [`src/uberreach-objective-substitution.mjs`](../../src/uberreach-objective-substitution.mjs) — exports ECONOMIC_REACH_TARGET, compileObjectiveSubstitution _(matched by name only; tested; imported by 1)_
+- [`src/uberreach-scale-frontier.mjs`](../../src/uberreach-scale-frontier.mjs) — exports UBERREACH_SCALE_FRONTIER_VERSION, compileUberReachScaleFrontier _(matched by name only; tested; no static importers)_
+- [`src/uberreach-universal-transport.mjs`](../../src/uberreach-universal-transport.mjs) — exports UBERREACH_CHANNELS, evaluateReachEndpoint, compileUniversalReachPlan _(matched by name only; imported by 4)_
+- [`src/ubertruth-outreach.mjs`](../../src/ubertruth-outreach.mjs) — exports UBERTRUTH_OUTREACH_VERSION, evaluateOutreachPersonalization _(matched by name only; tested; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/uberdoso-postal-provision.rb`](../../scripts/uberdoso-postal-provision.rb)
-- [`scripts/uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs)
-- [`scripts/uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs)
-- [`scripts/uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs)
-- [`scripts/uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs)
-- [`scripts/uberoutbound-genome-verify.mjs`](../../scripts/uberoutbound-genome-verify.mjs)
+- [`scripts/uberdoso-postal-provision.rb`](../../scripts/uberdoso-postal-provision.rb) _(matched by name only)_
+- [`scripts/uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-verify.mjs`](../../scripts/uberoutbound-genome-verify.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (13)
 
-- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification
-- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head
-- [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — exports createFetchHandler, POST
-- [`artifacts/night-postal/2026-09-02-run-01.json`](../../artifacts/night-postal/2026-09-02-run-01.json) — 2026-09-02 · DURABLE_PROGRESS_UNVERIFIED_BY_EXECUTION_ENVIRONMENT · uberbond.night-postal-handoff.v1
-- [`artifacts/night-postal/2026-09-02-run-02.json`](../../artifacts/night-postal/2026-09-02-run-02.json) — 2026-09-02 · P0_DRIFT_FIXED__EXACT_HEAD_EXECUTION_PROOF_PENDING · uberbond.night-postal-handoff.v1
-- [`artifacts/night-postal/2026-09-02-run-03.json`](../../artifacts/night-postal/2026-09-02-run-03.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-04.json`](../../artifacts/night-postal/2026-09-02-run-04.json) — 2026-09-02 · SOFTWARE_HARDENING_ADVANCED_VERIFICATION_EXTERNALLY_BLOCKED · uberbond-night-postal-run-receipt-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-05.json`](../../artifacts/night-postal/2026-09-02-run-05.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-06.json`](../../artifacts/night-postal/2026-09-02-run-06.json) — 2026-09-02 · SENDER_DNS_EVIDENCE_BOUNDARY_FIXED__EXACT_HEAD_EXECUTION_AND_FINAL_SAFETY_FEEDBACK_INTEGRATION_PENDING · uberbond-night-postal-run-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-07.json`](../../artifacts/night-postal/2026-09-02-run-07.json) — 2026-09-02 · browser · DIVERGED_NO_OBSERVED_CODE_CONFLICT · uberbond-night-postal-run-1.0.0
-- [`migrations/004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql)
-- [`migrations/104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql)
-- [`schemas/uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet
+- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification _(matched by name only)_
+- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head _(matched by name only)_
+- [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-01.json`](../../artifacts/night-postal/2026-09-02-run-01.json) — 2026-09-02 · DURABLE_PROGRESS_UNVERIFIED_BY_EXECUTION_ENVIRONMENT · uberbond.night-postal-handoff.v1 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-02.json`](../../artifacts/night-postal/2026-09-02-run-02.json) — 2026-09-02 · P0_DRIFT_FIXED__EXACT_HEAD_EXECUTION_PROOF_PENDING · uberbond.night-postal-handoff.v1 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-03.json`](../../artifacts/night-postal/2026-09-02-run-03.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-04.json`](../../artifacts/night-postal/2026-09-02-run-04.json) — 2026-09-02 · SOFTWARE_HARDENING_ADVANCED_VERIFICATION_EXTERNALLY_BLOCKED · uberbond-night-postal-run-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-05.json`](../../artifacts/night-postal/2026-09-02-run-05.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-06.json`](../../artifacts/night-postal/2026-09-02-run-06.json) — 2026-09-02 · SENDER_DNS_EVIDENCE_BOUNDARY_FIXED__EXACT_HEAD_EXECUTION_AND_FINAL_SAFETY_FEEDBACK_INTEGRATION_PENDING · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-07.json`](../../artifacts/night-postal/2026-09-02-run-07.json) — 2026-09-02 · browser · DIVERGED_NO_OBSERVED_CODE_CONFLICT · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`migrations/004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql) _(matched by name only)_
+- [`migrations/104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql) _(matched by name only)_
+- [`schemas/uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet _(matched by name only)_
 
 ## Tests (32)
 

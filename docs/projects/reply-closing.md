@@ -12,13 +12,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (7)
 
-- [`docs/UBERREPLY_4X25K_CANON.md`](../UBERREPLY_4X25K_CANON.md) — UBERREPLY 4x25K Portfolio Canon — Status: source-level commercial/outbound strategy extension. This document does not claim live demand, live 100K/day capacity, any specific reply rate, or…
-- [`docs/receipts/UBERWARM_STOP_REPLY_HOLD_20261020.md`](../receipts/UBERWARM_STOP_REPLY_HOLD_20261020.md) — 2026-10-20 · UberWarm inbound reply/STOP hold extension, 2026-10-20
-- [`docs/reports/UBERWARM_SIGNED_WINNR_WEBHOOK_SUPPRESSION_20261019.md`](../reports/UBERWARM_SIGNED_WINNR_WEBHOOK_SUPPRESSION_20261019.md) — 2026-10-19 · Winnr signed adverse-event suppression listener
-- [`docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`](../ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md) — 2026-09-28 · UberBond Async-First No-Meeting Sales Mode V1 — 2026-09-28 — Status: extension of the Expected-Success Cold Email Compiler. Goal is to minimize founder synchronous meetings while preserving…
-- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact.
-- [`docs/research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md`](../research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md) — 2026-09-02 · UberBond Proposal Acceptance Engine — Research Basis (2026-09-02)
-- [`docs/opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md`](../opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md) — 2026-08-13 · UberBond buyer-proof pack — Website QA & Release Readiness — Status: FICTIONAL_FORMAT_ONLY / OWNER_REVIEW_REQUIRED
+- [`docs/UBERREPLY_4X25K_CANON.md`](../UBERREPLY_4X25K_CANON.md) — UBERREPLY 4x25K Portfolio Canon — Status: source-level commercial/outbound strategy extension. This document does not claim live demand, live 100K/day capacity, any specific reply rate, or… _(matched by name only)_
+- [`docs/receipts/UBERWARM_STOP_REPLY_HOLD_20261020.md`](../receipts/UBERWARM_STOP_REPLY_HOLD_20261020.md) — 2026-10-20 · UberWarm inbound reply/STOP hold extension, 2026-10-20 _(matched by name only)_
+- [`docs/reports/UBERWARM_SIGNED_WINNR_WEBHOOK_SUPPRESSION_20261019.md`](../reports/UBERWARM_SIGNED_WINNR_WEBHOOK_SUPPRESSION_20261019.md) — 2026-10-19 · Winnr signed adverse-event suppression listener _(matched by name only)_
+- [`docs/ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md`](../ASYNC_FIRST_NO_MEETING_SALES_MODE_V1_2026-09-28.md) — 2026-09-28 · UberBond Async-First No-Meeting Sales Mode V1 — 2026-09-28 — Status: extension of the Expected-Success Cold Email Compiler. Goal is to minimize founder synchronous meetings while preserving… _(matched by name only)_
+- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact. _(matched by name only)_
+- [`docs/research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md`](../research/PROPOSAL_ACCEPTANCE_ENGINE_2026-09-02.md) — 2026-09-02 · UberBond Proposal Acceptance Engine — Research Basis (2026-09-02) _(matched by name only)_
+- [`docs/opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md`](../opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md) — 2026-08-13 · UberBond buyer-proof pack — Website QA & Release Readiness — Status: FICTIONAL_FORMAT_ONLY / OWNER_REVIEW_REQUIRED _(matched by name only)_
 
 ## Commands (1)
 
@@ -26,58 +26,58 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (10)
 
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(13 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(9 mentions)_
-- [`docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`](../COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md) — 2026-09-28 · UberBond Cold Email System V5 — 10/10 Design Standard — Status: design-complete against UberBond's current evidence/rubric. "10/10" here means no material design gap remains in the current… _(6 mentions)_
-- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(5 mentions)_
-- [`docs/COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md`](../COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Iteration Scorecard — 2026-09-28 _(4 mentions)_
-- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(4 mentions)_
-- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); } _(4 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(3 mentions)_
-- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(3 mentions)_
-- [`tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt`](../../tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt) — let body; _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(13 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(9 mentions)_
+- [`docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`](../COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md) — 2026-09-28 · UberBond Cold Email System V5 — 10/10 Design Standard — Status: design-complete against UberBond's current evidence/rubric. "10/10" here means no material design gap remains in the current… _(matched by name only)_ _(6 mentions)_
+- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(matched by name only)_ _(5 mentions)_
+- [`docs/COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md`](../COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Iteration Scorecard — 2026-09-28 _(matched by name only)_ _(4 mentions)_
+- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(matched by name only)_ _(4 mentions)_
+- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); } _(matched by name only)_ _(4 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(3 mentions)_
+- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(matched by name only)_ _(3 mentions)_
+- [`tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt`](../../tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt) — let body; _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (16)
 
-- [`src/buyer-classify-intent.mjs`](../../src/buyer-classify-intent.mjs) — exports BUYER_CLASSIFY_INTENT_ATOM_ID, compileBuyerClassifyIntent, executeBuyerClassifyIntent _(tested; imported by 1)_
-- [`src/gmail-inbound.mjs`](../../src/gmail-inbound.mjs) — exports INBOUND_SCOPES, GmailInboundError, inboundAuthUrl, sealInboundTokens, openInboundTokens (+3) _(no static importers)_
-- [`src/inbound-classify.mjs`](../../src/inbound-classify.mjs) — Pure, network-free helpers for inbound email classification. _(imported by 1)_
-- [`src/inbound-feedback-kernel.mjs`](../../src/inbound-feedback-kernel.mjs) — exports INBOUND_FEEDBACK_POLICY_VERSION, INBOUND_EVIDENCE_CLASSES, compileInboundFeedbackEvent, compileInboundLocalIntents _(no static importers)_
-- [`src/proposal-acceptance-engine.mjs`](../../src/proposal-acceptance-engine.mjs) — exports PROPOSAL_ACCEPTANCE_ENGINE_VERSION, inspectProposalEvidence, auditHumanWriting, scoreProposalReadiness, buildProposalGenerationBrief (+1) _(tested; no static importers)_
-- [`src/recipient-address-classifier.mjs`](../../src/recipient-address-classifier.mjs) — GENERIC CORPORATE INBOX CLASSIFIER. _(tested; imported by 3)_
-- [`src/reply-radar.mjs`](../../src/reply-radar.mjs) — Reply Radar + Mohamed Reply Cockpit. _(imported by 2)_
-- [`src/uberoutbound-recipient-eligibility.mjs`](../../src/uberoutbound-recipient-eligibility.mjs) — UberOutbound recipient eligibility compiler. _(tested; imported by 9)_
-- [`src/uberreply-four-offer-genome.mjs`](../../src/uberreply-four-offer-genome.mjs) — exports UBERREPLY_FOUR_OFFER_GENOME_VERSION, UBERREPLY_DAILY_PORTFOLIO_TARGET, UBERREPLY_DAILY_LANE_TARGET, UBERREPLY_OFFER_PORTFOLIO, UBERREPLY_HYBR… _(tested; imported by 12)_
-- [`src/uberreply-prework-artifact.mjs`](../../src/uberreply-prework-artifact.mjs) — exports UBERREPLY_PREWORK_ARTIFACT_VERSION, compileUberReplyPreworkArtifact _(tested; imported by 3)_
-- [`src/uberreply-taxonomy.mjs`](../../src/uberreply-taxonomy.mjs) — exports UBERREPLY_TAXONOMY_VERSION, UBERREPLY_LABELS, classifyUberReply, normalizeAiReplyClassification _(tested; imported by 2)_
-- [`src/uberreply-tournament.mjs`](../../src/uberreply-tournament.mjs) — exports UBERREPLY_TOURNAMENT_VERSION, UBERREPLY_EXPERIMENT_LIBRARY, UBERREPLY_RESEARCH_DONOR_LEDGER, selectUberReplyExperiment, assignUberReplyExperi… _(tested; imported by 1)_
-- [`src/uberwarm-unsubscribe.mjs`](../../src/uberwarm-unsubscribe.mjs) — Permanent, self-service global opt-out capability. HMAC tokens are created ONLY by a protected campaign sender after a specific recipient was approve… _(imported by 1)_
-- [`src/uberwarm-winnr-webhook-suppression.mjs`](../../src/uberwarm-winnr-webhook-suppression.mjs) — Winnr verified webhook effects. A provider-signed bounce/complaint may only add a canonical global suppression. Positive events never unsuppress, res… _(imported by 1)_
-- [`src/unsubscribe.mjs`](../../src/unsubscribe.mjs) — exports createUnsubscribeToken, verifyUnsubscribeToken, unsubscribeUrl, oneClickUnsubscribeUrl, preparedRecipientUnsubscribeUrls _(imported by 3)_
-- [`src/winnr-reply-canary-verifier.mjs`](../../src/winnr-reply-canary-verifier.mjs) — exports classifyImapProbeException, verifyWinnrReplyCanaries _(tested; imported by 1)_
+- [`src/buyer-classify-intent.mjs`](../../src/buyer-classify-intent.mjs) — exports BUYER_CLASSIFY_INTENT_ATOM_ID, compileBuyerClassifyIntent, executeBuyerClassifyIntent _(matched by name only; tested; imported by 1)_
+- [`src/gmail-inbound.mjs`](../../src/gmail-inbound.mjs) — exports INBOUND_SCOPES, GmailInboundError, inboundAuthUrl, sealInboundTokens, openInboundTokens (+3) _(matched by name only; no static importers)_
+- [`src/inbound-classify.mjs`](../../src/inbound-classify.mjs) — Pure, network-free helpers for inbound email classification. _(matched by name only; imported by 1)_
+- [`src/inbound-feedback-kernel.mjs`](../../src/inbound-feedback-kernel.mjs) — exports INBOUND_FEEDBACK_POLICY_VERSION, INBOUND_EVIDENCE_CLASSES, compileInboundFeedbackEvent, compileInboundLocalIntents _(matched by name only; no static importers)_
+- [`src/proposal-acceptance-engine.mjs`](../../src/proposal-acceptance-engine.mjs) — exports PROPOSAL_ACCEPTANCE_ENGINE_VERSION, inspectProposalEvidence, auditHumanWriting, scoreProposalReadiness, buildProposalGenerationBrief (+1) _(matched by name only; tested; no static importers)_
+- [`src/recipient-address-classifier.mjs`](../../src/recipient-address-classifier.mjs) — GENERIC CORPORATE INBOX CLASSIFIER. _(matched by name only; tested; imported by 3)_
+- [`src/reply-radar.mjs`](../../src/reply-radar.mjs) — Reply Radar + Mohamed Reply Cockpit. _(matched by name only; imported by 2)_
+- [`src/uberoutbound-recipient-eligibility.mjs`](../../src/uberoutbound-recipient-eligibility.mjs) — UberOutbound recipient eligibility compiler. _(matched by name only; tested; imported by 9)_
+- [`src/uberreply-four-offer-genome.mjs`](../../src/uberreply-four-offer-genome.mjs) — exports UBERREPLY_FOUR_OFFER_GENOME_VERSION, UBERREPLY_DAILY_PORTFOLIO_TARGET, UBERREPLY_DAILY_LANE_TARGET, UBERREPLY_OFFER_PORTFOLIO, UBERREPLY_HYBR… _(matched by name only; tested; imported by 12)_
+- [`src/uberreply-prework-artifact.mjs`](../../src/uberreply-prework-artifact.mjs) — exports UBERREPLY_PREWORK_ARTIFACT_VERSION, compileUberReplyPreworkArtifact _(matched by name only; tested; imported by 3)_
+- [`src/uberreply-taxonomy.mjs`](../../src/uberreply-taxonomy.mjs) — exports UBERREPLY_TAXONOMY_VERSION, UBERREPLY_LABELS, classifyUberReply, normalizeAiReplyClassification _(matched by name only; tested; imported by 2)_
+- [`src/uberreply-tournament.mjs`](../../src/uberreply-tournament.mjs) — exports UBERREPLY_TOURNAMENT_VERSION, UBERREPLY_EXPERIMENT_LIBRARY, UBERREPLY_RESEARCH_DONOR_LEDGER, selectUberReplyExperiment, assignUberReplyExperi… _(matched by name only; tested; imported by 1)_
+- [`src/uberwarm-unsubscribe.mjs`](../../src/uberwarm-unsubscribe.mjs) — Permanent, self-service global opt-out capability. HMAC tokens are created ONLY by a protected campaign sender after a specific recipient was approve… _(matched by name only; imported by 1)_
+- [`src/uberwarm-winnr-webhook-suppression.mjs`](../../src/uberwarm-winnr-webhook-suppression.mjs) — Winnr verified webhook effects. A provider-signed bounce/complaint may only add a canonical global suppression. Positive events never unsuppress, res… _(matched by name only; imported by 1)_
+- [`src/unsubscribe.mjs`](../../src/unsubscribe.mjs) — exports createUnsubscribeToken, verifyUnsubscribeToken, unsubscribeUrl, oneClickUnsubscribeUrl, preparedRecipientUnsubscribeUrls _(matched by name only; imported by 3)_
+- [`src/winnr-reply-canary-verifier.mjs`](../../src/winnr-reply-canary-verifier.mjs) — exports classifyImapProbeException, verifyWinnrReplyCanaries _(matched by name only; tested; imported by 1)_
 
 ## Scripts (3)
 
-- [`scripts/recipient-eligibility.mjs`](../../scripts/recipient-eligibility.mjs) — Decide lawful eligibility for a batch of candidate recipients. _(npm: `outreach:eligibility`)_
-- [`scripts/sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — exports SOVEREIGN_CONTEXT_AUTH_VERSION, authorizeContextSuppression
-- [`scripts/uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs)
+- [`scripts/recipient-eligibility.mjs`](../../scripts/recipient-eligibility.mjs) — Decide lawful eligibility for a batch of candidate recipients. _(matched by name only; npm: `outreach:eligibility`)_
+- [`scripts/sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — exports SOVEREIGN_CONTEXT_AUTH_VERSION, authorizeContextSuppression _(matched by name only)_
+- [`scripts/uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (14)
 
-- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler
-- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S…
-- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch
-- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper
-- [`api/self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config
-- [`api/unsubscribe.mjs`](../../api/unsubscribe.mjs) — exports createHandlers
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1
-- [`migrations/20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts.
-- [`services/uberwarm-callback/api/unsubscribe.mjs`](../../services/uberwarm-callback/api/unsubscribe.mjs) — exports createHandlers
-- [`services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql`](../../services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts.
-- [`services/uberwarm-callback/src/uberwarm-unsubscribe.mjs`](../../services/uberwarm-callback/src/uberwarm-unsubscribe.mjs) — Permanent, self-service global opt-out capability. HMAC tokens are created ONLY by a protected campaign sender after a specific recipient was approve…
-- [`services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs`](../../services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs) — Winnr verified webhook effects. A provider-signed bounce/complaint may only add a canonical global suppression. Positive events never unsuppress, res…
-- [`services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs) — 6 tests — e.g. "all-commercial unsubscribe token is exact, tamper-resistant and not expiring"
-- [`services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs) — 9 tests — e.g. "real HMAC SHA256 webhook, single suppression, canonical stop survives duplicate"
+- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S… _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper _(matched by name only)_
+- [`api/self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config _(matched by name only)_
+- [`api/unsubscribe.mjs`](../../api/unsubscribe.mjs) — exports createHandlers _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1 _(matched by name only)_
+- [`migrations/20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts. _(matched by name only)_
+- [`services/uberwarm-callback/api/unsubscribe.mjs`](../../services/uberwarm-callback/api/unsubscribe.mjs) — exports createHandlers _(matched by name only)_
+- [`services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql`](../../services/uberwarm-callback/migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts. _(matched by name only)_
+- [`services/uberwarm-callback/src/uberwarm-unsubscribe.mjs`](../../services/uberwarm-callback/src/uberwarm-unsubscribe.mjs) — Permanent, self-service global opt-out capability. HMAC tokens are created ONLY by a protected campaign sender after a specific recipient was approve… _(matched by name only)_
+- [`services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs`](../../services/uberwarm-callback/src/uberwarm-winnr-webhook-suppression.mjs) — Winnr verified webhook effects. A provider-signed bounce/complaint may only add a canonical global suppression. Positive events never unsuppress, res… _(matched by name only)_
+- [`services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-unsubscribe-route.test.mjs) — 6 tests — e.g. "all-commercial unsubscribe token is exact, tamper-resistant and not expiring" _(matched by name only)_
+- [`services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-winnr-signed-webhook-suppression.test.mjs) — 9 tests — e.g. "real HMAC SHA256 webhook, single suppression, canonical stop survives duplicate" _(matched by name only)_
 
 ## Tests (23)
 

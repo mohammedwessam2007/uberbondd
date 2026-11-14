@@ -12,15 +12,15 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (9)
 
-- [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Oracle Free → UberCel → UberLit → Jev live activation
-- [`open router/02_JEV_HYPERREFLEX.md`](../../open%20router/02_JEV_HYPERREFLEX.md) — 02 — Jev Hyperreflex
-- [`open router/JEV_HYPERREFLEX.md`](../../open%20router/JEV_HYPERREFLEX.md) — Jev Hyperreflex — Status: architecture doctrine. Jev is a replaceable System-One supplier, not sovereign reasoner.
-- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow
-- [`docs/handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md`](../handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md) — 2026-10-09 · UberMind W16: public Jev cross-batch reuse
-- [`docs/handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md`](../handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md) — 2026-10-09 · UberMind W17: Durable Jev predispatch single-flight
-- [`docs/handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md`](../handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md) — 2026-10-09 · UberMind W18: blocked paid Jev claim observability
-- [`docs/handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md`](../handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md) — 2026-10-09 · UberMind W20: real public task → Jev shadow work bridge
-- [`docs/handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md`](../handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md) — 2026-10-08 · UberMind Scale Cycle: Exact JEV Workload Coalescer (2026-10-08)
+- [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Oracle Free → UberCel → UberLit → Jev live activation _(matched by name only)_
+- [`open router/02_JEV_HYPERREFLEX.md`](../../open%20router/02_JEV_HYPERREFLEX.md) — 02 — Jev Hyperreflex _(matched by name only)_
+- [`open router/JEV_HYPERREFLEX.md`](../../open%20router/JEV_HYPERREFLEX.md) — Jev Hyperreflex — Status: architecture doctrine. Jev is a replaceable System-One supplier, not sovereign reasoner. _(matched by name only)_
+- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md`](../handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md) — 2026-10-09 · UberMind W16: public Jev cross-batch reuse _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md`](../handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md) — 2026-10-09 · UberMind W17: Durable Jev predispatch single-flight _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md`](../handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md) — 2026-10-09 · UberMind W18: blocked paid Jev claim observability _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md`](../handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md) — 2026-10-09 · UberMind W20: real public task → Jev shadow work bridge _(matched by name only)_
+- [`docs/handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md`](../handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md) — 2026-10-08 · UberMind Scale Cycle: Exact JEV Workload Coalescer (2026-10-08) _(matched by name only)_
 
 ## Commands (6)
 
@@ -28,117 +28,117 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Dated documents, newest first (6)
 
-- [`docs/handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md`](../handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md) — 2026-10-08 · UberMind JEV Shared-State Tensor — 2026-10-08
-- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM
-- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM
-- [`docs/JEV_NOETIC_AUTOCOMPILER_2026-09-19.md`](../JEV_NOETIC_AUTOCOMPILER_2026-09-19.md) — 2026-09-19 · UberBond Jev / Noetic Autocompiler Integration — Status: source integration candidate; default-off; no live Jev call proven by this branch
-- [`docs/JEV_UBERLIT_SOVEREIGN_ACTIVATION_2026-09-19.md`](../JEV_UBERLIT_SOVEREIGN_ACTIVATION_2026-09-19.md) — 2026-09-19 · Jev Sovereign Activation on UberCel / UberLit — Status: source activation complete; live provider proof requires owner-custodied TypeSafe key on an UberLit host
-- [`docs/prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md`](../prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md) — 2026-09-19 · Claude Cowork Mission — Finish UberBond Jev Live Activation
+- [`docs/handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md`](../handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md) — 2026-10-08 · UberMind JEV Shared-State Tensor — 2026-10-08 _(matched by name only)_
+- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`docs/JEV_NOETIC_AUTOCOMPILER_2026-09-19.md`](../JEV_NOETIC_AUTOCOMPILER_2026-09-19.md) — 2026-09-19 · UberBond Jev / Noetic Autocompiler Integration — Status: source integration candidate; default-off; no live Jev call proven by this branch _(matched by name only)_
+- [`docs/JEV_UBERLIT_SOVEREIGN_ACTIVATION_2026-09-19.md`](../JEV_UBERLIT_SOVEREIGN_ACTIVATION_2026-09-19.md) — 2026-09-19 · Jev Sovereign Activation on UberCel / UberLit — Status: source activation complete; live provider proof requires owner-custodied TypeSafe key on an UberLit host _(matched by name only)_
+- [`docs/prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md`](../prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md) — 2026-09-19 · Claude Cowork Mission — Finish UberBond Jev Live Activation _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (40)
 
-- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(35 mentions)_
-- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(23 mentions)_
-- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(18 mentions)_
-- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(16 mentions)_
-- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(13 mentions)_
-- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(13 mentions)_
-- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(12 mentions)_
-- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(11 mentions)_
-- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(11 mentions)_
-- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(11 mentions)_
-- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(11 mentions)_
-- [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture — Status: design canon for the Open Router intelligence-per-dollar subsystem. _(11 mentions)_
-- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(11 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(10 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(10 mentions)_
-- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(10 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry _(9 mentions)_
-- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN _(9 mentions)_
-- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(9 mentions)_
-- [`docs/handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md`](../handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md) — 2026-10-08 · UberMind Wave 9 — No-Work Read-Only JEV Debt Triage Without Paid Route _(8 mentions)_
-- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS _(8 mentions)_
-- [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — 22 — By-Construction Opus Equivalence Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / FORMAL-EQUIVALENCE PROGRAM _(8 mentions)_
-- [`open router/00_FINAL_SYSTEM.md`](../../open%20router/00_FINAL_SYSTEM.md) — 00 — Final Frontier-Max System _(7 mentions)_
-- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(7 mentions)_
-- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(6 mentions)_
-- [`open router/01_PRACTICAL_MODEL_SEQUENCE.md`](../../open%20router/01_PRACTICAL_MODEL_SEQUENCE.md) — 01 — Practical Real-Life Model Sequence _(6 mentions)_
-- [`open router/FINAL_CHAT_DELTA_V4_2026-09-29.md`](../../open%20router/FINAL_CHAT_DELTA_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Final Chat Delta — Exact Founder Intent Recovery — Status: ADDITIVE RECOVERY ADDENDUM / DOES NOT REPLACE V2 OR V3 _(6 mentions)_
-- [`docs/handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md`](../handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md) — 2026-10-08 · UberMind Wave 10 — Trace Fresh Jev Price Source Without Minter of Authority _(5 mentions)_
-- [`docs/handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md`](../handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md) — 2026-10-08 · UberMind Wave 11 — Capped Execution of 16,384-Request Exact Jev Preflight _(5 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(5 mentions)_
-- [`open router/03_30_DOLLAR_ECONOMICS.md`](../../open%20router/03_30_DOLLAR_ECONOMICS.md) — 03 — The $30 Economics _(5 mentions)_
-- [`open router/07_1000X_COMPRESSION_LAB.md`](../../open%20router/07_1000X_COMPRESSION_LAB.md) — 07 — 1000x Compression Lab _(5 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(4 mentions)_
-- [`docs/CLAUDE_AGENT_RELAY.md`](../CLAUDE_AGENT_RELAY.md) — UberBond Claude Agent Relay _(4 mentions)_
-- [`docs/INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation. _(4 mentions)_
-- [`docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md`](../UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(4 mentions)_
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(4 mentions)_
-- [`open router/06_24_7_NIGHT_SHIFT.md`](../../open%20router/06_24_7_NIGHT_SHIFT.md) — 06 — 24/7 Operation _(4 mentions)_
-- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN _(4 mentions)_
-- [`open router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../../open%20router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation. _(4 mentions)_
+- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(matched by name only)_ _(35 mentions)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(matched by name only)_ _(23 mentions)_
+- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(matched by name only)_ _(18 mentions)_
+- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_ _(16 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(13 mentions)_
+- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(13 mentions)_
+- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(matched by name only)_ _(12 mentions)_
+- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_ _(11 mentions)_
+- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(11 mentions)_
+- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(11 mentions)_
+- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_ _(11 mentions)_
+- [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture — Status: design canon for the Open Router intelligence-per-dollar subsystem. _(matched by name only)_ _(11 mentions)_
+- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(matched by name only)_ _(11 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(matched by name only)_ _(10 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(matched by name only)_ _(10 mentions)_
+- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(matched by name only)_ _(10 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry _(matched by name only)_ _(9 mentions)_
+- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN _(matched by name only)_ _(9 mentions)_
+- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(matched by name only)_ _(9 mentions)_
+- [`docs/handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md`](../handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md) — 2026-10-08 · UberMind Wave 9 — No-Work Read-Only JEV Debt Triage Without Paid Route _(matched by name only)_ _(8 mentions)_
+- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS _(matched by name only)_ _(8 mentions)_
+- [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — 22 — By-Construction Opus Equivalence Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / FORMAL-EQUIVALENCE PROGRAM _(matched by name only)_ _(8 mentions)_
+- [`open router/00_FINAL_SYSTEM.md`](../../open%20router/00_FINAL_SYSTEM.md) — 00 — Final Frontier-Max System _(matched by name only)_ _(7 mentions)_
+- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(matched by name only)_ _(7 mentions)_
+- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(matched by name only)_ _(6 mentions)_
+- [`open router/01_PRACTICAL_MODEL_SEQUENCE.md`](../../open%20router/01_PRACTICAL_MODEL_SEQUENCE.md) — 01 — Practical Real-Life Model Sequence _(matched by name only)_ _(6 mentions)_
+- [`open router/FINAL_CHAT_DELTA_V4_2026-09-29.md`](../../open%20router/FINAL_CHAT_DELTA_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Final Chat Delta — Exact Founder Intent Recovery — Status: ADDITIVE RECOVERY ADDENDUM / DOES NOT REPLACE V2 OR V3 _(matched by name only)_ _(6 mentions)_
+- [`docs/handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md`](../handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md) — 2026-10-08 · UberMind Wave 10 — Trace Fresh Jev Price Source Without Minter of Authority _(matched by name only)_ _(5 mentions)_
+- [`docs/handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md`](../handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md) — 2026-10-08 · UberMind Wave 11 — Capped Execution of 16,384-Request Exact Jev Preflight _(matched by name only)_ _(5 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(5 mentions)_
+- [`open router/03_30_DOLLAR_ECONOMICS.md`](../../open%20router/03_30_DOLLAR_ECONOMICS.md) — 03 — The $30 Economics _(matched by name only)_ _(5 mentions)_
+- [`open router/07_1000X_COMPRESSION_LAB.md`](../../open%20router/07_1000X_COMPRESSION_LAB.md) — 07 — 1000x Compression Lab _(matched by name only)_ _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(matched by name only)_ _(4 mentions)_
+- [`docs/CLAUDE_AGENT_RELAY.md`](../CLAUDE_AGENT_RELAY.md) — UberBond Claude Agent Relay _(matched by name only)_ _(4 mentions)_
+- [`docs/INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation. _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md`](../UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(matched by name only)_ _(4 mentions)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_ _(4 mentions)_
+- [`open router/06_24_7_NIGHT_SHIFT.md`](../../open%20router/06_24_7_NIGHT_SHIFT.md) — 06 — 24/7 Operation _(matched by name only)_ _(4 mentions)_
+- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN _(matched by name only)_ _(4 mentions)_
+- [`open router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../../open%20router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation. _(matched by name only)_ _(4 mentions)_
 
 ## Source modules (17)
 
-- [`src/jev-calibration-vault.mjs`](../../src/jev-calibration-vault.mjs) — exports JEV_CALIBRATION_SETTING, JEV_CALIBRATION_SCHEMA, recordJevCalibrationObservation, summarizeJevCalibration, readJevCalibrationSummary _(tested; imported by 3)_
-- [`src/jev-governed-runtime-service.mjs`](../../src/jev-governed-runtime-service.mjs) — exports GOVERNED_JEV_SERVICE_SCHEMA, createGovernedJevRuntimeService _(tested; imported by 3)_
-- [`src/jev-promotion-foundry.mjs`](../../src/jev-promotion-foundry.mjs) — exports JEV_PROMOTION_FOUNDRY_SCHEMA, compileJevPromotionCandidates, readJevPromotionFoundry _(tested; imported by 1)_
-- [`src/jev-public-answer-reuse.mjs`](../../src/jev-public-answer-reuse.mjs) — exports createJevPublicAnswerReuse _(tested; imported by 1)_
-- [`src/jev-scaled-preflight.mjs`](../../src/jev-scaled-preflight.mjs) — exports JEV_SCALED_PREFLIGHT_SCHEMA, compileScaledJevPreflight, expandScaledJevAnswers, executeScaledJevUnderBudget _(tested; imported by 2)_
-- [`src/jev-shared-state-tensor.mjs`](../../src/jev-shared-state-tensor.mjs) — exports JEV_TENSOR_SCHEMA, compileJevSharedStateTensor, executeGovernedJevTensor _(tested; imported by 4)_
-- [`src/native-jev-page-fault.mjs`](../../src/native-jev-page-fault.mjs) — exports NATIVE_JEV_PAGE_FAULT_SCHEMA, compileNativeJevPageFaultPlan _(imported by 1)_
-- [`src/noetic-autocompiler.mjs`](../../src/noetic-autocompiler.mjs) — UberBond Noetic Autocompiler v1. _(tested; imported by 4)_
-- [`src/openrouter-jev-governed-adapter.mjs`](../../src/openrouter-jev-governed-adapter.mjs) — exports createOpenRouterJevGovernedAdapter _(tested; imported by 3)_
-- [`src/oracle-free-host-admission.mjs`](../../src/oracle-free-host-admission.mjs) — exports ORACLE_FREE_HOST_ADMISSION_VERSION, compileOracleFreeHostAdmission _(tested; imported by 1)_
-- [`src/ubercel-uberlit-linux-adapter.mjs`](../../src/ubercel-uberlit-linux-adapter.mjs) — exports UBERCEL_UBERLIT_LINUX_ADAPTER_VERSION, createUberLitLinuxAdapterExecutor _(tested; imported by 1)_
-- [`src/uberlit-runtime-doctor.mjs`](../../src/uberlit-runtime-doctor.mjs) — exports UBERLIT_RUNTIME_DOCTOR_SCHEMA, diagnoseUberLitRuntime _(tested; imported by 2)_
-- [`src/uberlit-runtime.mjs`](../../src/uberlit-runtime.mjs) — exports UBERLIT_RELEASE_SCHEMA, UBERLIT_POINTER_SCHEMA, UBERLIT_PROCESS_SCHEMA, UBERLIT_BUILD_SCHEMA, UBERLIT_POLICY (+14) _(tested; imported by 6)_
-- [`src/uberlit-typesafe-secret.mjs`](../../src/uberlit-typesafe-secret.mjs) — exports UBERLIT_TYPESAFE_SECRET_VERSION, readUberLitTypeSafeKey, inspectUberLitTypeSafeKey, storeUberLitTypeSafeKey, clearUberLitTypeSafeKey _(tested; imported by 4)_
-- [`src/uberlit-worker-liveness.mjs`](../../src/uberlit-worker-liveness.mjs) — exports UBERLIT_WORKER_LIVENESS_SCHEMA, assessUberLitWorkerLiveness, buildUberLitWorkerLivenessReceipt _(tested; imported by 1)_
-- [`src/ubermind-jev-pending-doctor.mjs`](../../src/ubermind-jev-pending-doctor.mjs) — exports UBERMIND_JEV_PENDING_DOCTOR_SCHEMA, inspectJevPendingClaims _(tested; imported by 1)_
-- [`src/ubermind-real-issue-jev-shadow.mjs`](../../src/ubermind-real-issue-jev-shadow.mjs) — exports REAL_ISSUE_JEV_SHADOW_SCHEMA, compileRealIssueJevShadowPrecommit _(tested; imported by 1)_
+- [`src/jev-calibration-vault.mjs`](../../src/jev-calibration-vault.mjs) — exports JEV_CALIBRATION_SETTING, JEV_CALIBRATION_SCHEMA, recordJevCalibrationObservation, summarizeJevCalibration, readJevCalibrationSummary _(matched by name only; tested; imported by 3)_
+- [`src/jev-governed-runtime-service.mjs`](../../src/jev-governed-runtime-service.mjs) — exports GOVERNED_JEV_SERVICE_SCHEMA, createGovernedJevRuntimeService _(matched by name only; tested; imported by 3)_
+- [`src/jev-promotion-foundry.mjs`](../../src/jev-promotion-foundry.mjs) — exports JEV_PROMOTION_FOUNDRY_SCHEMA, compileJevPromotionCandidates, readJevPromotionFoundry _(matched by name only; tested; imported by 1)_
+- [`src/jev-public-answer-reuse.mjs`](../../src/jev-public-answer-reuse.mjs) — exports createJevPublicAnswerReuse _(matched by name only; tested; imported by 1)_
+- [`src/jev-scaled-preflight.mjs`](../../src/jev-scaled-preflight.mjs) — exports JEV_SCALED_PREFLIGHT_SCHEMA, compileScaledJevPreflight, expandScaledJevAnswers, executeScaledJevUnderBudget _(matched by name only; tested; imported by 2)_
+- [`src/jev-shared-state-tensor.mjs`](../../src/jev-shared-state-tensor.mjs) — exports JEV_TENSOR_SCHEMA, compileJevSharedStateTensor, executeGovernedJevTensor _(matched by name only; tested; imported by 4)_
+- [`src/native-jev-page-fault.mjs`](../../src/native-jev-page-fault.mjs) — exports NATIVE_JEV_PAGE_FAULT_SCHEMA, compileNativeJevPageFaultPlan _(matched by name only; imported by 1)_
+- [`src/noetic-autocompiler.mjs`](../../src/noetic-autocompiler.mjs) — UberBond Noetic Autocompiler v1. _(matched by name only; tested; imported by 4)_
+- [`src/openrouter-jev-governed-adapter.mjs`](../../src/openrouter-jev-governed-adapter.mjs) — exports createOpenRouterJevGovernedAdapter _(matched by name only; tested; imported by 3)_
+- [`src/oracle-free-host-admission.mjs`](../../src/oracle-free-host-admission.mjs) — exports ORACLE_FREE_HOST_ADMISSION_VERSION, compileOracleFreeHostAdmission _(matched by name only; tested; imported by 1)_
+- [`src/ubercel-uberlit-linux-adapter.mjs`](../../src/ubercel-uberlit-linux-adapter.mjs) — exports UBERCEL_UBERLIT_LINUX_ADAPTER_VERSION, createUberLitLinuxAdapterExecutor _(matched by name only; tested; imported by 1)_
+- [`src/uberlit-runtime-doctor.mjs`](../../src/uberlit-runtime-doctor.mjs) — exports UBERLIT_RUNTIME_DOCTOR_SCHEMA, diagnoseUberLitRuntime _(matched by name only; tested; imported by 2)_
+- [`src/uberlit-runtime.mjs`](../../src/uberlit-runtime.mjs) — exports UBERLIT_RELEASE_SCHEMA, UBERLIT_POINTER_SCHEMA, UBERLIT_PROCESS_SCHEMA, UBERLIT_BUILD_SCHEMA, UBERLIT_POLICY (+14) _(matched by name only; tested; imported by 6)_
+- [`src/uberlit-typesafe-secret.mjs`](../../src/uberlit-typesafe-secret.mjs) — exports UBERLIT_TYPESAFE_SECRET_VERSION, readUberLitTypeSafeKey, inspectUberLitTypeSafeKey, storeUberLitTypeSafeKey, clearUberLitTypeSafeKey _(matched by name only; tested; imported by 4)_
+- [`src/uberlit-worker-liveness.mjs`](../../src/uberlit-worker-liveness.mjs) — exports UBERLIT_WORKER_LIVENESS_SCHEMA, assessUberLitWorkerLiveness, buildUberLitWorkerLivenessReceipt _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-jev-pending-doctor.mjs`](../../src/ubermind-jev-pending-doctor.mjs) — exports UBERMIND_JEV_PENDING_DOCTOR_SCHEMA, inspectJevPendingClaims _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-real-issue-jev-shadow.mjs`](../../src/ubermind-real-issue-jev-shadow.mjs) — exports REAL_ISSUE_JEV_SHADOW_SCHEMA, compileRealIssueJevShadowPrecommit _(matched by name only; tested; imported by 1)_
 
 ## Scripts (22)
 
-- [`scripts/infinite-opus-jev-live-canary.mjs`](../../scripts/infinite-opus-jev-live-canary.mjs) — exports JEV_LIVE_CANARY_SETTING, JEV_LIVE_CANARY_MAX_USD, runGovernedJevLiveCanary
-- [`scripts/infinite-opus-jev-pagefault-triage.mjs`](../../scripts/infinite-opus-jev-pagefault-triage.mjs) — exports NATIVE_JEV_TRIAGE_MAX_CALLS, NATIVE_JEV_TRIAGE_MAX_TOTAL_USD, runPendingNativeJevTriage
-- [`scripts/jev-calibration-doctor.mjs`](../../scripts/jev-calibration-doctor.mjs) _(npm: `jev:calibration`)_
-- [`scripts/jev-doctor.mjs`](../../scripts/jev-doctor.mjs) _(npm: `jev:doctor`)_
-- [`scripts/jev-native-runtime-tests.mjs`](../../scripts/jev-native-runtime-tests.mjs) — exports JEV_NATIVE_TEST_RECEIPT_SCHEMA, runJevNativeTests
-- [`scripts/jev-scaled-preflight-doctor.mjs`](../../scripts/jev-scaled-preflight-doctor.mjs) — exports runJevScaledPreflightDoctor
-- [`scripts/jev-shadow-route.mjs`](../../scripts/jev-shadow-route.mjs) _(npm: `jev:shadow:route`)_
-- [`scripts/jev-shared-state-tensor-doctor.mjs`](../../scripts/jev-shared-state-tensor-doctor.mjs) — exports JEV_TENSOR_DOCTOR_SCHEMA, runJevTensorStartupDoctor
-- [`scripts/jev-tensor-one-shot-live-canary.mjs`](../../scripts/jev-tensor-one-shot-live-canary.mjs) — exports JEV_TENSOR_CANARY_KEY, JEV_TENSOR_CANARY_MAX_USD, JEV_TENSOR_CANARY_SCHEMA, JEV_TENSOR_SYNTHETIC_CANARY_REQUESTS, runJevTensorOneShotCanary
-- [`scripts/jev-tensor-provider-metadata-readback.mjs`](../../scripts/jev-tensor-provider-metadata-readback.mjs) — exports JEV_TENSOR_METADATA_KEY, JEV_TENSOR_METADATA_SCHEMA, readJevTensorProviderBilling
-- [`scripts/record-oracle-free-owner-evidence.mjs`](../../scripts/record-oracle-free-owner-evidence.mjs) _(npm: `oracle:record-free-evidence`)_
-- [`scripts/uberlit-24x7-smoke.mjs`](../../scripts/uberlit-24x7-smoke.mjs)
-- [`scripts/uberlit-build-uberbond.mjs`](../../scripts/uberlit-build-uberbond.mjs)
-- [`scripts/uberlit-jev-shadow-canary.mjs`](../../scripts/uberlit-jev-shadow-canary.mjs) _(npm: `jev:uberlit:canary`)_
-- [`scripts/uberlit-run-uberbond.mjs`](../../scripts/uberlit-run-uberbond.mjs)
-- [`scripts/uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs)
-- [`scripts/uberlit-runtime-evidence.mjs`](../../scripts/uberlit-runtime-evidence.mjs)
-- [`scripts/uberlit-supervisor.mjs`](../../scripts/uberlit-supervisor.mjs)
-- [`scripts/uberlit-tls-edge.mjs`](../../scripts/uberlit-tls-edge.mjs)
-- [`scripts/uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) _(npm: `jev:uberlit:secret`)_
-- [`scripts/uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs)
-- [`scripts/uberlit.mjs`](../../scripts/uberlit.mjs)
+- [`scripts/infinite-opus-jev-live-canary.mjs`](../../scripts/infinite-opus-jev-live-canary.mjs) — exports JEV_LIVE_CANARY_SETTING, JEV_LIVE_CANARY_MAX_USD, runGovernedJevLiveCanary _(matched by name only)_
+- [`scripts/infinite-opus-jev-pagefault-triage.mjs`](../../scripts/infinite-opus-jev-pagefault-triage.mjs) — exports NATIVE_JEV_TRIAGE_MAX_CALLS, NATIVE_JEV_TRIAGE_MAX_TOTAL_USD, runPendingNativeJevTriage _(matched by name only)_
+- [`scripts/jev-calibration-doctor.mjs`](../../scripts/jev-calibration-doctor.mjs) _(matched by name only; npm: `jev:calibration`)_
+- [`scripts/jev-doctor.mjs`](../../scripts/jev-doctor.mjs) _(matched by name only; npm: `jev:doctor`)_
+- [`scripts/jev-native-runtime-tests.mjs`](../../scripts/jev-native-runtime-tests.mjs) — exports JEV_NATIVE_TEST_RECEIPT_SCHEMA, runJevNativeTests _(matched by name only)_
+- [`scripts/jev-scaled-preflight-doctor.mjs`](../../scripts/jev-scaled-preflight-doctor.mjs) — exports runJevScaledPreflightDoctor _(matched by name only)_
+- [`scripts/jev-shadow-route.mjs`](../../scripts/jev-shadow-route.mjs) _(matched by name only; npm: `jev:shadow:route`)_
+- [`scripts/jev-shared-state-tensor-doctor.mjs`](../../scripts/jev-shared-state-tensor-doctor.mjs) — exports JEV_TENSOR_DOCTOR_SCHEMA, runJevTensorStartupDoctor _(matched by name only)_
+- [`scripts/jev-tensor-one-shot-live-canary.mjs`](../../scripts/jev-tensor-one-shot-live-canary.mjs) — exports JEV_TENSOR_CANARY_KEY, JEV_TENSOR_CANARY_MAX_USD, JEV_TENSOR_CANARY_SCHEMA, JEV_TENSOR_SYNTHETIC_CANARY_REQUESTS, runJevTensorOneShotCanary _(matched by name only)_
+- [`scripts/jev-tensor-provider-metadata-readback.mjs`](../../scripts/jev-tensor-provider-metadata-readback.mjs) — exports JEV_TENSOR_METADATA_KEY, JEV_TENSOR_METADATA_SCHEMA, readJevTensorProviderBilling _(matched by name only)_
+- [`scripts/record-oracle-free-owner-evidence.mjs`](../../scripts/record-oracle-free-owner-evidence.mjs) _(matched by name only; npm: `oracle:record-free-evidence`)_
+- [`scripts/uberlit-24x7-smoke.mjs`](../../scripts/uberlit-24x7-smoke.mjs) _(matched by name only)_
+- [`scripts/uberlit-build-uberbond.mjs`](../../scripts/uberlit-build-uberbond.mjs) _(matched by name only)_
+- [`scripts/uberlit-jev-shadow-canary.mjs`](../../scripts/uberlit-jev-shadow-canary.mjs) _(matched by name only; npm: `jev:uberlit:canary`)_
+- [`scripts/uberlit-run-uberbond.mjs`](../../scripts/uberlit-run-uberbond.mjs) _(matched by name only)_
+- [`scripts/uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs) _(matched by name only)_
+- [`scripts/uberlit-runtime-evidence.mjs`](../../scripts/uberlit-runtime-evidence.mjs) _(matched by name only)_
+- [`scripts/uberlit-supervisor.mjs`](../../scripts/uberlit-supervisor.mjs) _(matched by name only)_
+- [`scripts/uberlit-tls-edge.mjs`](../../scripts/uberlit-tls-edge.mjs) _(matched by name only)_
+- [`scripts/uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) _(matched by name only; npm: `jev:uberlit:secret`)_
+- [`scripts/uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs) _(matched by name only)_
+- [`scripts/uberlit.mjs`](../../scripts/uberlit.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (14)
 
-- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh
-- [`artifacts/cowork-jev-live/verification-20260919.json`](../../artifacts/cowork-jev-live/verification-20260919.json) — 2026-09-19 · uberbond.cowork-jev-live-activation.verification.v1
-- [`artifacts/jev-noetic-autocompiler/verification-20260919.json`](../../artifacts/jev-noetic-autocompiler/verification-20260919.json) — 2026-09-19 · DEPLOYMENT_RATE_LIMITED · uberbond.jev-noetic-autocompiler.verification.v1
-- [`artifacts/jev-uberlit/verification-20260919.json`](../../artifacts/jev-uberlit/verification-20260919.json) — 2026-09-19 · RUNNER_INFRASTRUCTURE_NON_EVIDENCE · uberbond.jev-uberlit-sovereign-activation.verification.v1
-- [`artifacts/oracle-free-uberlit/verification-20260919.json`](../../artifacts/oracle-free-uberlit/verification-20260919.json) — 2026-09-19 · uberbond.oracle-free-uberlit-arm64-jev.verification.v1
-- [`docs/architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd`](../architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd)
-- [`open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterJevGovernedAdapter
-- [`open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs`](../../open%20router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh)
-- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh)
-- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh)
-- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service)
-- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service)
-- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service)
+- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh _(matched by name only)_
+- [`artifacts/cowork-jev-live/verification-20260919.json`](../../artifacts/cowork-jev-live/verification-20260919.json) — 2026-09-19 · uberbond.cowork-jev-live-activation.verification.v1 _(matched by name only)_
+- [`artifacts/jev-noetic-autocompiler/verification-20260919.json`](../../artifacts/jev-noetic-autocompiler/verification-20260919.json) — 2026-09-19 · DEPLOYMENT_RATE_LIMITED · uberbond.jev-noetic-autocompiler.verification.v1 _(matched by name only)_
+- [`artifacts/jev-uberlit/verification-20260919.json`](../../artifacts/jev-uberlit/verification-20260919.json) — 2026-09-19 · RUNNER_INFRASTRUCTURE_NON_EVIDENCE · uberbond.jev-uberlit-sovereign-activation.verification.v1 _(matched by name only)_
+- [`artifacts/oracle-free-uberlit/verification-20260919.json`](../../artifacts/oracle-free-uberlit/verification-20260919.json) — 2026-09-19 · uberbond.oracle-free-uberlit-arm64-jev.verification.v1 _(matched by name only)_
+- [`docs/architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd`](../architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd) _(matched by name only)_
+- [`open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterJevGovernedAdapter _(matched by name only)_
+- [`open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs`](../../open%20router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh) _(matched by name only)_
+- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service) _(matched by name only)_
+- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service) _(matched by name only)_
 
 ## Tests (28)
 

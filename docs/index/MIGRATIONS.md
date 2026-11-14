@@ -16,32 +16,32 @@ SQL schema migrations.
 
 ## Email infrastructure and warmup
 
-- [`20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts.
+- [`20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts. _(matched by name only)_
 
 ## Commerce, payments and economics
 
-- [`102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave
+- [`102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave _(matched by name only)_
 
 ## Sovereign infrastructure and runtime
 
-- [`001_initial.sql`](../../migrations/001_initial.sql)
-- [`002_durable_queue.sql`](../../migrations/002_durable_queue.sql)
-- [`003_shared_artifacts.sql`](../../migrations/003_shared_artifacts.sql)
-- [`004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql)
-- [`005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql)
-- [`006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql)
-- [`007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql)
-- [`008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql)
-- [`009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no
-- [`010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately
-- [`011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with,
-- [`100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables.
-- [`101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql)
-- [`103_external_artifact_storage.sql`](../../migrations/103_external_artifact_storage.sql) — Preserve legacy PostgreSQL artifact bytes by default while allowing future
-- [`104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql)
-- [`105_campaign_idempotency.sql`](../../migrations/105_campaign_idempotency.sql)
-- [`106_lead_intelligence_collections.sql`](../../migrations/106_lead_intelligence_collections.sql) — The store map has always reserved these collections for the recovered
-- [`20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column
-- [`20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal
-- [`20261006_powerhouse_sender_scope_resolution.sql`](../../migrations/20261006_powerhouse_sender_scope_resolution.sql) — 2026-10-06 · Exact-prospect, narrow sender-side scope resolution. This does not grant send
-- [`20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only.
+- [`001_initial.sql`](../../migrations/001_initial.sql) _(matched by name only)_
+- [`002_durable_queue.sql`](../../migrations/002_durable_queue.sql) _(matched by name only)_
+- [`003_shared_artifacts.sql`](../../migrations/003_shared_artifacts.sql) _(matched by name only)_
+- [`004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql) _(matched by name only)_
+- [`005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql) _(matched by name only)_
+- [`006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql) _(matched by name only)_
+- [`007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql) _(matched by name only)_
+- [`008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql) _(matched by name only)_
+- [`009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no _(matched by name only)_
+- [`010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately _(matched by name only)_
+- [`011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with, _(matched by name only)_
+- [`100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables. _(matched by name only)_
+- [`101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql) _(matched by name only)_
+- [`103_external_artifact_storage.sql`](../../migrations/103_external_artifact_storage.sql) — Preserve legacy PostgreSQL artifact bytes by default while allowing future _(matched by name only)_
+- [`104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql) _(matched by name only)_
+- [`105_campaign_idempotency.sql`](../../migrations/105_campaign_idempotency.sql) _(matched by name only)_
+- [`106_lead_intelligence_collections.sql`](../../migrations/106_lead_intelligence_collections.sql) — The store map has always reserved these collections for the recovered _(matched by name only)_
+- [`20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column _(matched by name only)_
+- [`20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal _(matched by name only)_
+- [`20261006_powerhouse_sender_scope_resolution.sql`](../../migrations/20261006_powerhouse_sender_scope_resolution.sql) — 2026-10-06 · Exact-prospect, narrow sender-side scope resolution. This does not grant send _(matched by name only)_
+- [`20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only. _(matched by name only)_

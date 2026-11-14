@@ -12,65 +12,65 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (6)
 
-- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md) — 2026-10-05 · Revenue Singularity terminal commercial receipt — 2026-10-05
-- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier
-- [`docs/receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md) — 2026-10-04 · Revenue Singularity closure receipt — 2026-10-04
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4
-- [`docs/receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md) — 2026-10-04 · Revenue Singularity exact-head Vercel diagnosis — 2026-10-04
-- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md) — 2026-10-04 · Revenue Singularity terminal receipt — Oct 4
+- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md) — 2026-10-05 · Revenue Singularity terminal commercial receipt — 2026-10-05 _(matched by name only)_
+- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md) — 2026-10-04 · Revenue Singularity closure receipt — 2026-10-04 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md) — 2026-10-04 · Revenue Singularity exact-head Vercel diagnosis — 2026-10-04 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md) — 2026-10-04 · Revenue Singularity terminal receipt — Oct 4 _(matched by name only)_
 
 ## Dated documents, newest first (10)
 
-- [`docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md) — 2026-10-04 · Oct 4 uncertain-effect repair — live terminal addendum
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md) — 2026-10-03 · Revenue Singularity / G-SPOT / Revenue Constellation — coverage ledger (checkpoint 2) — Truth class: INTERNAL_PROGRESS. External effects this session: none (no send, spend, deploy, DNS, cre…
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md) — 2026-09-12 · UberBond 8H Revenue Singularity — Recovery Entry Point
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt) — 2026-09-11 · Use the exact founder command in UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt on a live authorized UberBond Founder Console/runtime. Source presence alone is not execut…
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt) — 2026-09-11 · From now until 12:00 PM Africa/Cairo on September 11, 2026, execute the canonical UberBond Sleep-to-Noon Revenue Singularity mission. Make me as much money as legally and truthfully possibl…
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md) — 2026-09-11 · The source bundle is complete. A live Founder Console/runtime must still ingest the command for the smoke test to execute. Do not report source readiness as an active overnight revenue run.
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md) — 2026-09-11 · Sleep-to-Noon Revenue Smoke Test
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md) — 2026-09-11 · Activation boundary
+- [`docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md) — 2026-10-04 · Oct 4 uncertain-effect repair — live terminal addendum _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md) — 2026-10-03 · Revenue Singularity / G-SPOT / Revenue Constellation — coverage ledger (checkpoint 2) — Truth class: INTERNAL_PROGRESS. External effects this session: none (no send, spend, deploy, DNS, cre… _(matched by name only)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md) — 2026-09-12 · UberBond 8H Revenue Singularity — Recovery Entry Point _(matched by name only)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt) — 2026-09-11 · Use the exact founder command in UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt on a live authorized UberBond Founder Console/runtime. Source presence alone is not execut… _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt) — 2026-09-11 · From now until 12:00 PM Africa/Cairo on September 11, 2026, execute the canonical UberBond Sleep-to-Noon Revenue Singularity mission. Make me as much money as legally and truthfully possibl… _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md) — 2026-09-11 · The source bundle is complete. A live Founder Console/runtime must still ingest the command for the smoke test to execute. Do not report source readiness as an active overnight revenue run. _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md) — 2026-09-11 · Sleep-to-Noon Revenue Smoke Test _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md) — 2026-09-11 · Activation boundary _(matched by name only)_
 
 ## Other documents (2)
 
-- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md) — Active Mission Pointer — Revenue Singularity / G-SPOT / Revenue Constellation
-- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md) — UberBond Revenue Singularity / G-SPOT / Revenue Constellation Mission — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONTINUATION — 2026-10-03
+- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md) — Active Mission Pointer — Revenue Singularity / G-SPOT / Revenue Constellation _(matched by name only)_
+- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md) — UberBond Revenue Singularity / G-SPOT / Revenue Constellation Mission — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONTINUATION — 2026-10-03 _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (8)
 
-- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(14 mentions)_
-- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING. _(7 mentions)_
-- [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE _(7 mentions)_
-- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY _(6 mentions)_
-- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(5 mentions)_
-- [`.claude/CLAUDE.md`](../../.claude/CLAUDE.md) — UberBond newest founder continuation — 2026-10-03 _(4 mentions)_
-- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(4 mentions)_
-- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · UberBond Revenue frontier backup — 2026-10-04 17:53 +03:00 — Status: DURABLE RESTORE POINT / NO NEW COMMERCIAL EFFECT _(3 mentions)_
+- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(matched by name only)_ _(14 mentions)_
+- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING. _(matched by name only)_ _(7 mentions)_
+- [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE _(matched by name only)_ _(7 mentions)_
+- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY _(matched by name only)_ _(6 mentions)_
+- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(matched by name only)_ _(5 mentions)_
+- [`.claude/CLAUDE.md`](../../.claude/CLAUDE.md) — UberBond newest founder continuation — 2026-10-03 _(matched by name only)_ _(4 mentions)_
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(matched by name only)_ _(4 mentions)_
+- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · UberBond Revenue frontier backup — 2026-10-04 17:53 +03:00 — Status: DURABLE RESTORE POINT / NO NEW COMMERCIAL EFFECT _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (5)
 
-- [`src/gspot.mjs`](../../src/gspot.mjs) — G-SPOT: one-button, durable, idempotent orchestration of the commercial _(imported by 1)_
-- [`src/money-queue.mjs`](../../src/money-queue.mjs) — Canonical Money Queue: the single ranked answer to "who is worth a governed _(imported by 1)_
-- [`src/owner-session.mjs`](../../src/owner-session.mjs) — Persistent owner session: an HttpOnly, SameSite=Strict, HMAC-signed cookie that _(tested; imported by 1)_
-- [`src/revenue-constellation.mjs`](../../src/revenue-constellation.mjs) — Revenue Constellation: a truthful, runtime-backed model of the commercial _(tested; imported by 1)_
-- [`src/revenue-singularity-service.mjs`](../../src/revenue-singularity-service.mjs) — Read/plan service that binds the Revenue Singularity modules to the store. _(imported by 4)_
+- [`src/gspot.mjs`](../../src/gspot.mjs) — G-SPOT: one-button, durable, idempotent orchestration of the commercial _(matched by name only; imported by 1)_
+- [`src/money-queue.mjs`](../../src/money-queue.mjs) — Canonical Money Queue: the single ranked answer to "who is worth a governed _(matched by name only; imported by 1)_
+- [`src/owner-session.mjs`](../../src/owner-session.mjs) — Persistent owner session: an HttpOnly, SameSite=Strict, HMAC-signed cookie that _(matched by name only; tested; imported by 1)_
+- [`src/revenue-constellation.mjs`](../../src/revenue-constellation.mjs) — Revenue Constellation: a truthful, runtime-backed model of the commercial _(matched by name only; tested; imported by 1)_
+- [`src/revenue-singularity-service.mjs`](../../src/revenue-singularity-service.mjs) — Read/plan service that binds the Revenue Singularity modules to the store. _(matched by name only; imported by 4)_
 
 ## Config, data, artifacts and services (13)
 
-- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg)
-- [`artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png)
-- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED
-- [`artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png)
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json) — 2026-09-11
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready) — 2026-09-11
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json) — 2026-10-04 · LIVE_VERIFIED · uberbond.revenue-terminal-coverage.v1
-- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json) — 2026-10-04 · uberbond.revenue-terminal-runtime-receipt.v1
-- [`public/constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation.
-- [`public/constellation.css`](../../public/constellation.css)
-- [`public/constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation
-- [`public/constellation.js`](../../public/constellation.js)
-- [`public/owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser:
+- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg) _(matched by name only)_
+- [`artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png) _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png) _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json) — 2026-09-11 _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready) — 2026-09-11 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json) — 2026-10-04 · LIVE_VERIFIED · uberbond.revenue-terminal-coverage.v1 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json) — 2026-10-04 · uberbond.revenue-terminal-runtime-receipt.v1 _(matched by name only)_
+- [`public/constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation. _(matched by name only)_
+- [`public/constellation.css`](../../public/constellation.css) _(matched by name only)_
+- [`public/constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation _(matched by name only)_
+- [`public/constellation.js`](../../public/constellation.js) _(matched by name only)_
+- [`public/owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser: _(matched by name only)_
 
 ## Tests (5)
 

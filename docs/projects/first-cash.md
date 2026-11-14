@@ -12,10 +12,10 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (4)
 
-- [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) — 2026-10-11 · PHOENIX First-Cash Main Progress / 2026-10-11 — Truth class: SOURCE-BOUNDED MAIN CHECKPOINT + AUTHENTICATED PROVIDER/CI RECEIPT POINTERS + PUBLIC RESEARCH, NOT RELEASE OR FIRST SEND.
-- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION
+- [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) — 2026-10-11 · PHOENIX First-Cash Main Progress / 2026-10-11 — Truth class: SOURCE-BOUNDED MAIN CHECKPOINT + AUTHENTICATED PROVIDER/CI RECEIPT POINTERS + PUBLIC RESEARCH, NOT RELEASE OR FIRST SEND. _(matched by name only)_
+- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_
 
 ## Commands (1)
 
@@ -23,31 +23,31 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (1)
 
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(4 mentions)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_ _(4 mentions)_
 
 ## Source modules (8)
 
-- [`src/commercial-first-payment-packet.mjs`](../../src/commercial-first-payment-packet.mjs) — Owner-reviewable first-payment packet. This composes the canonical _(tested; imported by 1)_
-- [`src/first-cash-canary-guard.mjs`](../../src/first-cash-canary-guard.mjs) — exports FIRST_CASH_CANARY_GUARD_VERSION, FIRST_CASH_MAX_QUALIFIED_CONVERSATIONS, evaluateFirstCashCanary _(imported by 2)_
-- [`src/first-cash-canary-packet-core.mjs`](../../src/first-cash-canary-packet-core.mjs) — The nineteen questions that stand between this repository and its first _(imported by 2)_
-- [`src/first-cash-canary-packet.mjs`](../../src/first-cash-canary-packet.mjs) — Canonical first-cash packet facade. _(tested; imported by 4)_
-- [`src/first-cash-fulfillment-runtime.mjs`](../../src/first-cash-fulfillment-runtime.mjs) — exports FIRST_CASH_FULFILLMENT_RUNTIME_VERSION, FIRST_CASH_FULFILLMENT_JOB_TYPE, enqueueFirstCashFulfillment _(imported by 1)_
-- [`src/first-cash-prospect-completion.mjs`](../../src/first-cash-prospect-completion.mjs) — exports FIRST_CASH_PROSPECT_COMPLETION_VERSION, routeProspectCompletion _(tested; imported by 1)_
-- [`src/pre-customer-revenue-readiness.mjs`](../../src/pre-customer-revenue-readiness.mjs) — exports PRE_CUSTOMER_REVENUE_READINESS_VERSION, compilePreCustomerRevenueReadiness _(tested; imported by 2)_
-- [`src/revenue-real-prospect-canary.mjs`](../../src/revenue-real-prospect-canary.mjs) — exports REVENUE_REAL_PROSPECT_CANARY_VERSION, REVENUE_REAL_PROSPECT_CANARY_SOURCE, REVENUE_REAL_PROSPECT_CANARY_RECORD, compileRelaiCanaryProspect, r… _(tested; imported by 1)_
+- [`src/commercial-first-payment-packet.mjs`](../../src/commercial-first-payment-packet.mjs) — Owner-reviewable first-payment packet. This composes the canonical _(matched by name only; tested; imported by 1)_
+- [`src/first-cash-canary-guard.mjs`](../../src/first-cash-canary-guard.mjs) — exports FIRST_CASH_CANARY_GUARD_VERSION, FIRST_CASH_MAX_QUALIFIED_CONVERSATIONS, evaluateFirstCashCanary _(matched by name only; imported by 2)_
+- [`src/first-cash-canary-packet-core.mjs`](../../src/first-cash-canary-packet-core.mjs) — The nineteen questions that stand between this repository and its first _(matched by name only; imported by 2)_
+- [`src/first-cash-canary-packet.mjs`](../../src/first-cash-canary-packet.mjs) — Canonical first-cash packet facade. _(matched by name only; tested; imported by 4)_
+- [`src/first-cash-fulfillment-runtime.mjs`](../../src/first-cash-fulfillment-runtime.mjs) — exports FIRST_CASH_FULFILLMENT_RUNTIME_VERSION, FIRST_CASH_FULFILLMENT_JOB_TYPE, enqueueFirstCashFulfillment _(matched by name only; imported by 1)_
+- [`src/first-cash-prospect-completion.mjs`](../../src/first-cash-prospect-completion.mjs) — exports FIRST_CASH_PROSPECT_COMPLETION_VERSION, routeProspectCompletion _(matched by name only; tested; imported by 1)_
+- [`src/pre-customer-revenue-readiness.mjs`](../../src/pre-customer-revenue-readiness.mjs) — exports PRE_CUSTOMER_REVENUE_READINESS_VERSION, compilePreCustomerRevenueReadiness _(matched by name only; tested; imported by 2)_
+- [`src/revenue-real-prospect-canary.mjs`](../../src/revenue-real-prospect-canary.mjs) — exports REVENUE_REAL_PROSPECT_CANARY_VERSION, REVENUE_REAL_PROSPECT_CANARY_SOURCE, REVENUE_REAL_PROSPECT_CANARY_RECORD, compileRelaiCanaryProspect, r… _(matched by name only; tested; imported by 1)_
 
 ## Scripts (1)
 
-- [`scripts/first-cash-canary-packet.mjs`](../../scripts/first-cash-canary-packet.mjs) — The one machine-consumable answer to "can UberBond take its first $450 yet", _(npm: `firstcash:packet`)_
+- [`scripts/first-cash-canary-packet.mjs`](../../scripts/first-cash-canary-packet.mjs) — The one machine-consumable answer to "can UberBond take its first $450 yet", _(matched by name only; npm: `firstcash:packet`)_
 
 ## Config, data, artifacts and services (6)
 
-- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1
-- [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · uberbond.first-money-edge-matrix.v1
-- [`artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED
-- [`artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json`](../../artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json) — 2026-10-08 · THE CAUSAL COMPILER · uberbond.moonshot-890-outreach-revenue-opportunity-index.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1
+- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1 _(matched by name only)_
+- [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · uberbond.first-money-edge-matrix.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json`](../../artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json) — 2026-10-08 · THE CAUSAL COMPILER · uberbond.moonshot-890-outreach-revenue-opportunity-index.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1 _(matched by name only)_
 
 ## Tests (6)
 

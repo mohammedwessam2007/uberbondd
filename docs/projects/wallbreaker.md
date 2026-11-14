@@ -12,8 +12,8 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — UberBond Wallbreaker Canon — Status: CANONICAL PLANNING PRIMITIVE
-- [`.claude/skills/wallbreaker/SKILL.md`](../../.claude/skills/wallbreaker/SKILL.md) — Wallbreaker
+- [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — UberBond Wallbreaker Canon — Status: CANONICAL PLANNING PRIMITIVE _(matched by name only)_
+- [`.claude/skills/wallbreaker/SKILL.md`](../../.claude/skills/wallbreaker/SKILL.md) — Wallbreaker _(matched by name only)_
 
 ## Commands (1)
 
@@ -21,26 +21,26 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (6)
 
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(8 mentions)_
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(7 mentions)_
-- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(6 mentions)_
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(5 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(4 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_ _(8 mentions)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_ _(7 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(matched by name only)_ _(6 mentions)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_ _(5 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (2)
 
-- [`src/wallbreaker-cognitive-reflex.mjs`](../../src/wallbreaker-cognitive-reflex.mjs) — exports WALLBREAKER_COGNITIVE_REFLEX_VERSION, compileWallbreakerReflex, compileWallbreakerReflexes _(tested; imported by 1)_
-- [`src/wallbreaker.mjs`](../../src/wallbreaker.mjs) — exports WALLBREAKER_POLICY_VERSION, FAILURE_CLASSES, COMPUTE_TIERS, compileWallProblem, scoreWallCandidate (+4) _(tested; imported by 7)_
+- [`src/wallbreaker-cognitive-reflex.mjs`](../../src/wallbreaker-cognitive-reflex.mjs) — exports WALLBREAKER_COGNITIVE_REFLEX_VERSION, compileWallbreakerReflex, compileWallbreakerReflexes _(matched by name only; tested; imported by 1)_
+- [`src/wallbreaker.mjs`](../../src/wallbreaker.mjs) — exports WALLBREAKER_POLICY_VERSION, FAILURE_CLASSES, COMPUTE_TIERS, compileWallProblem, scoreWallCandidate (+4) _(matched by name only; tested; imported by 7)_
 
 ## Scripts (1)
 
-- [`scripts/wallbreaker-plan.mjs`](../../scripts/wallbreaker-plan.mjs) _(npm: `wallbreaker`)_
+- [`scripts/wallbreaker-plan.mjs`](../../scripts/wallbreaker-plan.mjs) _(matched by name only; npm: `wallbreaker`)_
 
 ## Config, data, artifacts and services (2)
 
-- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED
-- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED
+- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED _(matched by name only)_
 
 ## Tests (3)
 

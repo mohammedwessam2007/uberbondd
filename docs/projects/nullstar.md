@@ -12,10 +12,10 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (4)
 
-- [`docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md`](../NULLSTAR_DIRECTIVE_RECONCILIATION.md) — PROJECT NULLSTAR — Directive Reconciliation Reading
-- [`docs/NULLSTAR_OMEGA_DENOMINATOR.md`](../NULLSTAR_OMEGA_DENOMINATOR.md) — NULLSTAR OMEGA Denominator — N01 to N24
-- [`docs/NULLSTAR_TERMINAL_SUMMARY.md`](../NULLSTAR_TERMINAL_SUMMARY.md) — NULLSTAR terminal completion war — what actually happened
-- [`docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md`](../memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md) — 2026-09-14 · PROJECT NULLSTAR — Founder Directive Import — 2026-09-14 — Truth class: FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL.
+- [`docs/NULLSTAR_DIRECTIVE_RECONCILIATION.md`](../NULLSTAR_DIRECTIVE_RECONCILIATION.md) — PROJECT NULLSTAR — Directive Reconciliation Reading _(matched by name only)_
+- [`docs/NULLSTAR_OMEGA_DENOMINATOR.md`](../NULLSTAR_OMEGA_DENOMINATOR.md) — NULLSTAR OMEGA Denominator — N01 to N24 _(matched by name only)_
+- [`docs/NULLSTAR_TERMINAL_SUMMARY.md`](../NULLSTAR_TERMINAL_SUMMARY.md) — NULLSTAR terminal completion war — what actually happened _(matched by name only)_
+- [`docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md`](../memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md) — 2026-09-14 · PROJECT NULLSTAR — Founder Directive Import — 2026-09-14 — Truth class: FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL. _(matched by name only)_
 
 ## Commands (29)
 
@@ -23,143 +23,143 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Source modules (26)
 
-- [`src/nullstar-cognitive-solvers.mjs`](../../src/nullstar-cognitive-solvers.mjs) — Deterministic solvers, and the harness that keeps them honest. _(tested; imported by 14)_
-- [`src/nullstar-cognitive-tasks.mjs`](../../src/nullstar-cognitive-tasks.mjs) — Tasks where the truth is planted by a generator and has to be found. _(tested; imported by 10)_
-- [`src/nullstar-failure-debt.mjs`](../../src/nullstar-failure-debt.mjs) — The failures this project is carrying, written down where they cannot be _(tested; imported by 1)_
-- [`src/nullstar-ga1-candidates.mjs`](../../src/nullstar-ga1-candidates.mjs) — GA1 candidates for the forecasting bottleneck. _(imported by 1)_
-- [`src/nullstar-ga2-candidates.mjs`](../../src/nullstar-ga2-candidates.mjs) — GA2 candidates for the research bottleneck. _(imported by 1)_
-- [`src/nullstar-ga3-candidates.mjs`](../../src/nullstar-ga3-candidates.mjs) — GA3 candidates for the invention bottleneck. _(imported by 4)_
-- [`src/nullstar-ga4-candidates.mjs`](../../src/nullstar-ga4-candidates.mjs) — GA4 candidates for the invention family, under the out-of-pattern gate. _(imported by 4)_
-- [`src/nullstar-ga5-candidates.mjs`](../../src/nullstar-ga5-candidates.mjs) — GA5 candidates. GA4's composing candidates with the operator search repaired. _(imported by 3)_
-- [`src/nullstar-ga6-candidates.mjs`](../../src/nullstar-ga6-candidates.mjs) — GA6 candidates: GA5's, unchanged, under a comparison rule that can see the gate. _(imported by 1)_
-- [`src/nullstar-ga7-candidates.mjs`](../../src/nullstar-ga7-candidates.mjs) — GA7 candidates: composing an arbitrary number of quantities. _(imported by 1)_
-- [`src/nullstar-ga8-candidates.mjs`](../../src/nullstar-ga8-candidates.mjs) — GA8 candidates: compositions with structure rather than a flat sequence. _(imported by 1)_
-- [`src/nullstar-omega-baselines.mjs`](../../src/nullstar-omega-baselines.mjs) — The baselines a capability score has to beat before it means anything. _(tested; imported by 2)_
-- [`src/nullstar-omega-bottleneck.mjs`](../../src/nullstar-omega-bottleneck.mjs) — What is actually limiting the system, ranked by what removing it would unlock. _(tested; imported by 1)_
-- [`src/nullstar-omega-calibration-ladder.mjs`](../../src/nullstar-omega-calibration-ladder.mjs) — How far a calibration claim actually reaches. _(tested; imported by 1)_
-- [`src/nullstar-omega-denominator.mjs`](../../src/nullstar-omega-denominator.mjs) — The NULLSTAR OMEGA denominator: twenty-four dimensions, each scored from evidence. _(tested; imported by 1)_
-- [`src/nullstar-omega-evidence-reuse.mjs`](../../src/nullstar-omega-evidence-reuse.mjs) — Stop a generation from measuring the same thing twice under two names. _(tested; imported by 1)_
-- [`src/nullstar-omega-generation.mjs`](../../src/nullstar-omega-generation.mjs) — A generation record: what the system scored, against what, at which commit. _(tested; imported by 8)_
-- [`src/nullstar-omega-holdout.mjs`](../../src/nullstar-omega-holdout.mjs) — A sealed evaluation corpus: tasks whose answers the candidate never sees. _(tested; imported by 5)_
-- [`src/nullstar-omega-independent-suite.mjs`](../../src/nullstar-omega-independent-suite.mjs) — A task that cannot be answered by reading the answer. _(tested; imported by 1)_
-- [`src/nullstar-omega-meta-improvement.mjs`](../../src/nullstar-omega-meta-improvement.mjs) — Section 310. Measure the improvement process, not the thing it improves. _(tested; imported by 1)_
-- [`src/nullstar-omega-observer-contract.mjs`](../../src/nullstar-omega-observer-contract.mjs) — What an observer must declare before anything it says counts as evidence. _(tested; imported by 1)_
-- [`src/nullstar-omega-reality-connection.mjs`](../../src/nullstar-omega-reality-connection.mjs) — A forecast only touches reality when something other than the forecaster _(tested; imported by 2)_
-- [`src/nullstar-omega-software-outcome.mjs`](../../src/nullstar-omega-software-outcome.mjs) — Score the `software` capability dimension from what happened to the code, _(tested; imported by 1)_
-- [`src/nullstar-omega-transfer-bindings.mjs`](../../src/nullstar-omega-transfer-bindings.mjs) — Sections 313 and 314. Move the reality-connection discipline out of the _(tested; imported by 1)_
-- [`src/nullstar-out-of-pattern-probes.mjs`](../../src/nullstar-out-of-pattern-probes.mjs) — Items a generation's candidates were not selected on, and cannot have been. _(imported by 5)_
-- [`src/nullstar-tie-resolution.mjs`](../../src/nullstar-tie-resolution.mjs) — What to do when candidates tie. _(tested; imported by 1)_
+- [`src/nullstar-cognitive-solvers.mjs`](../../src/nullstar-cognitive-solvers.mjs) — Deterministic solvers, and the harness that keeps them honest. _(matched by name only; tested; imported by 14)_
+- [`src/nullstar-cognitive-tasks.mjs`](../../src/nullstar-cognitive-tasks.mjs) — Tasks where the truth is planted by a generator and has to be found. _(matched by name only; tested; imported by 10)_
+- [`src/nullstar-failure-debt.mjs`](../../src/nullstar-failure-debt.mjs) — The failures this project is carrying, written down where they cannot be _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-ga1-candidates.mjs`](../../src/nullstar-ga1-candidates.mjs) — GA1 candidates for the forecasting bottleneck. _(matched by name only; imported by 1)_
+- [`src/nullstar-ga2-candidates.mjs`](../../src/nullstar-ga2-candidates.mjs) — GA2 candidates for the research bottleneck. _(matched by name only; imported by 1)_
+- [`src/nullstar-ga3-candidates.mjs`](../../src/nullstar-ga3-candidates.mjs) — GA3 candidates for the invention bottleneck. _(matched by name only; imported by 4)_
+- [`src/nullstar-ga4-candidates.mjs`](../../src/nullstar-ga4-candidates.mjs) — GA4 candidates for the invention family, under the out-of-pattern gate. _(matched by name only; imported by 4)_
+- [`src/nullstar-ga5-candidates.mjs`](../../src/nullstar-ga5-candidates.mjs) — GA5 candidates. GA4's composing candidates with the operator search repaired. _(matched by name only; imported by 3)_
+- [`src/nullstar-ga6-candidates.mjs`](../../src/nullstar-ga6-candidates.mjs) — GA6 candidates: GA5's, unchanged, under a comparison rule that can see the gate. _(matched by name only; imported by 1)_
+- [`src/nullstar-ga7-candidates.mjs`](../../src/nullstar-ga7-candidates.mjs) — GA7 candidates: composing an arbitrary number of quantities. _(matched by name only; imported by 1)_
+- [`src/nullstar-ga8-candidates.mjs`](../../src/nullstar-ga8-candidates.mjs) — GA8 candidates: compositions with structure rather than a flat sequence. _(matched by name only; imported by 1)_
+- [`src/nullstar-omega-baselines.mjs`](../../src/nullstar-omega-baselines.mjs) — The baselines a capability score has to beat before it means anything. _(matched by name only; tested; imported by 2)_
+- [`src/nullstar-omega-bottleneck.mjs`](../../src/nullstar-omega-bottleneck.mjs) — What is actually limiting the system, ranked by what removing it would unlock. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-calibration-ladder.mjs`](../../src/nullstar-omega-calibration-ladder.mjs) — How far a calibration claim actually reaches. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-denominator.mjs`](../../src/nullstar-omega-denominator.mjs) — The NULLSTAR OMEGA denominator: twenty-four dimensions, each scored from evidence. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-evidence-reuse.mjs`](../../src/nullstar-omega-evidence-reuse.mjs) — Stop a generation from measuring the same thing twice under two names. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-generation.mjs`](../../src/nullstar-omega-generation.mjs) — A generation record: what the system scored, against what, at which commit. _(matched by name only; tested; imported by 8)_
+- [`src/nullstar-omega-holdout.mjs`](../../src/nullstar-omega-holdout.mjs) — A sealed evaluation corpus: tasks whose answers the candidate never sees. _(matched by name only; tested; imported by 5)_
+- [`src/nullstar-omega-independent-suite.mjs`](../../src/nullstar-omega-independent-suite.mjs) — A task that cannot be answered by reading the answer. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-meta-improvement.mjs`](../../src/nullstar-omega-meta-improvement.mjs) — Section 310. Measure the improvement process, not the thing it improves. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-observer-contract.mjs`](../../src/nullstar-omega-observer-contract.mjs) — What an observer must declare before anything it says counts as evidence. _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-reality-connection.mjs`](../../src/nullstar-omega-reality-connection.mjs) — A forecast only touches reality when something other than the forecaster _(matched by name only; tested; imported by 2)_
+- [`src/nullstar-omega-software-outcome.mjs`](../../src/nullstar-omega-software-outcome.mjs) — Score the `software` capability dimension from what happened to the code, _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-omega-transfer-bindings.mjs`](../../src/nullstar-omega-transfer-bindings.mjs) — Sections 313 and 314. Move the reality-connection discipline out of the _(matched by name only; tested; imported by 1)_
+- [`src/nullstar-out-of-pattern-probes.mjs`](../../src/nullstar-out-of-pattern-probes.mjs) — Items a generation's candidates were not selected on, and cannot have been. _(matched by name only; imported by 5)_
+- [`src/nullstar-tie-resolution.mjs`](../../src/nullstar-tie-resolution.mjs) — What to do when candidates tie. _(matched by name only; tested; imported by 1)_
 
 ## Scripts (33)
 
-- [`scripts/nullstar-attribution-audit.mjs`](../../scripts/nullstar-attribution-audit.mjs) — CD002. Whether GA1's and GA2's promoted solvers are better than the minimal _(npm: `nullstar:attribution`)_
-- [`scripts/nullstar-baselines-v2.mjs`](../../scripts/nullstar-baselines-v2.mjs) — Sections 040, 041 and 176. Baselines on an instrument that can separate. _(npm: `nullstar:baselines-v2`)_
-- [`scripts/nullstar-branch-debt.mjs`](../../scripts/nullstar-branch-debt.mjs) — Sections 009, 010, 110, 151, 183. Branch debt, measured rather than asserted. _(npm: `nullstar:branch-debt`)_
-- [`scripts/nullstar-completion-debt.mjs`](../../scripts/nullstar-completion-debt.mjs) — Section 169. What is still open, and which of it is mine to close. _(npm: `nullstar:completion-debt`)_
-- [`scripts/nullstar-cross-organ-transfer.mjs`](../../scripts/nullstar-cross-organ-transfer.mjs) — CD005 and sections 087 to 090. Whether a promoted mechanism transfers. _(npm: `nullstar:transfer`)_
-- [`scripts/nullstar-directive-reconcile.mjs`](../../scripts/nullstar-directive-reconcile.mjs) — Reconciles the imported founder directive against this exact tree. _(npm: `nullstar:reconcile`)_
-- [`scripts/nullstar-failure-debt.mjs`](../../scripts/nullstar-failure-debt.mjs) — Section 008. Compile the failure-debt ledger from the recorded failures. _(npm: `nullstar:failure-debt`)_
-- [`scripts/nullstar-final-report.mjs`](../../scripts/nullstar-final-report.mjs) — Sections 221 and 222. The final report, computed rather than written. _(npm: `nullstar:final-report`)_
-- [`scripts/nullstar-ga1-ablation.mjs`](../../scripts/nullstar-ga1-ablation.mjs) — The same audit applied to GA1, because GA1 promoted from a tie too.
-- [`scripts/nullstar-ga1.mjs`](../../scripts/nullstar-ga1.mjs) — GA1. The tournament, run against the criteria fixed before the candidates _(npm: `nullstar:ga1`)_
-- [`scripts/nullstar-ga2-ablation.mjs`](../../scripts/nullstar-ga2-ablation.mjs) — The candidate GA2 should have contained.
-- [`scripts/nullstar-ga3-ablation.mjs`](../../scripts/nullstar-ga3-ablation.mjs) — GA3's declared ablation, plus a scoring weakness the run exposed.
-- [`scripts/nullstar-generalization-v2.mjs`](../../scripts/nullstar-generalization-v2.mjs) — Sections 068 to 071. Whether the three promoted improvements generalize. _(npm: `nullstar:generalization`)_
-- [`scripts/nullstar-generation.mjs`](../../scripts/nullstar-generation.mjs) — A capability generation, run against criteria fixed before its candidates _(npm: `nullstar:generation`)_
-- [`scripts/nullstar-meta-improvement-v2.mjs`](../../scripts/nullstar-meta-improvement-v2.mjs) — Sections 063 to 067. An improvement to how generations are judged, and a _(npm: `nullstar:meta-improvement`)_
-- [`scripts/nullstar-omega-absolute-final-report.mjs`](../../scripts/nullstar-omega-absolute-final-report.mjs) — Sections 357 and 358. The final report, generated rather than written. _(npm: `omega:final-report`)_
-- [`scripts/nullstar-omega-baselines.mjs`](../../scripts/nullstar-omega-baselines.mjs) — Sections 025 through 032. Execute the baselines, or say precisely why not. _(npm: `omega:baselines`)_
-- [`scripts/nullstar-omega-bottleneck.mjs`](../../scripts/nullstar-omega-bottleneck.mjs) — Ranks bottlenecks from the latest generation's measured evidence. _(npm: `omega:bottleneck`)_
-- [`scripts/nullstar-omega-denominator.mjs`](../../scripts/nullstar-omega-denominator.mjs) — Compiles the denominator against this exact tree. _(npm: `omega:denominator`)_
-- [`scripts/nullstar-omega-g0.mjs`](../../scripts/nullstar-omega-g0.mjs) — G0: the anchor measurement. _(npm: `omega:g0`)_
-- [`scripts/nullstar-omega-g1.mjs`](../../scripts/nullstar-omega-g1.mjs) — G1: the candidate the G0 diagnosis named, and its discriminating test. _(npm: `omega:g1`)_
-- [`scripts/nullstar-omega-g2.mjs`](../../scripts/nullstar-omega-g2.mjs) — G2: recompute the bottleneck from scratch and run the successor's test. _(npm: `omega:g2`)_
-- [`scripts/nullstar-omega-g3.mjs`](../../scripts/nullstar-omega-g3.mjs) — G3. The first generation whose instrument is not reading its own answers. _(npm: `omega:g3`)_
-- [`scripts/nullstar-omega-g4.mjs`](../../scripts/nullstar-omega-g4.mjs) — G4. Execute the test the G3 bottleneck named. _(npm: `omega:g4`)_
-- [`scripts/nullstar-omega-g5.mjs`](../../scripts/nullstar-omega-g5.mjs) — G5. Try the remaining dimensions, with the reuse guard allowed to refuse them. _(npm: `omega:g5`)_
-- [`scripts/nullstar-omega-g6.mjs`](../../scripts/nullstar-omega-g6.mjs) — G6. Report the mean over what this suite actually measured. _(npm: `omega:g6`)_
-- [`scripts/nullstar-omega-generalization.mjs`](../../scripts/nullstar-omega-generalization.mjs) — Section 311. Did this session's improvement generalize beyond the family it _(npm: `omega:generalization`)_
-- [`scripts/nullstar-omega-meta.mjs`](../../scripts/nullstar-omega-meta.mjs) — Section 310. Run the meta-improvement evaluation over the real generation _(npm: `omega:meta`)_
-- [`scripts/nullstar-omega-reality-connect.mjs`](../../scripts/nullstar-omega-reality-connect.mjs) — Section 312. Record forecasts, then let the repository's own tools decide. _(npm: `omega:reality`)_
-- [`scripts/nullstar-omega-retire-suite.mjs`](../../scripts/nullstar-omega-retire-suite.mjs) — Sections 322 and 323. Retire the contaminated suite; keep its history. _(npm: `omega:retire-suite`)_
-- [`scripts/nullstar-omega-velocity.mjs`](../../scripts/nullstar-omega-velocity.mjs) — Improvement velocity across recorded generations. _(npm: `omega:velocity`)_
-- [`scripts/nullstar-probe-saturation.mjs`](../../scripts/nullstar-probe-saturation.mjs) — CD003. The probes were hand-written, so they test the failure modes their _(npm: `nullstar:probe-saturation`)_
-- [`scripts/nullstar-stranded-supersession.mjs`](../../scripts/nullstar-stranded-supersession.mjs) — CD012. Per-module archaeology on the stranded pre-rewrite src lineage.
+- [`scripts/nullstar-attribution-audit.mjs`](../../scripts/nullstar-attribution-audit.mjs) — CD002. Whether GA1's and GA2's promoted solvers are better than the minimal _(matched by name only; npm: `nullstar:attribution`)_
+- [`scripts/nullstar-baselines-v2.mjs`](../../scripts/nullstar-baselines-v2.mjs) — Sections 040, 041 and 176. Baselines on an instrument that can separate. _(matched by name only; npm: `nullstar:baselines-v2`)_
+- [`scripts/nullstar-branch-debt.mjs`](../../scripts/nullstar-branch-debt.mjs) — Sections 009, 010, 110, 151, 183. Branch debt, measured rather than asserted. _(matched by name only; npm: `nullstar:branch-debt`)_
+- [`scripts/nullstar-completion-debt.mjs`](../../scripts/nullstar-completion-debt.mjs) — Section 169. What is still open, and which of it is mine to close. _(matched by name only; npm: `nullstar:completion-debt`)_
+- [`scripts/nullstar-cross-organ-transfer.mjs`](../../scripts/nullstar-cross-organ-transfer.mjs) — CD005 and sections 087 to 090. Whether a promoted mechanism transfers. _(matched by name only; npm: `nullstar:transfer`)_
+- [`scripts/nullstar-directive-reconcile.mjs`](../../scripts/nullstar-directive-reconcile.mjs) — Reconciles the imported founder directive against this exact tree. _(matched by name only; npm: `nullstar:reconcile`)_
+- [`scripts/nullstar-failure-debt.mjs`](../../scripts/nullstar-failure-debt.mjs) — Section 008. Compile the failure-debt ledger from the recorded failures. _(matched by name only; npm: `nullstar:failure-debt`)_
+- [`scripts/nullstar-final-report.mjs`](../../scripts/nullstar-final-report.mjs) — Sections 221 and 222. The final report, computed rather than written. _(matched by name only; npm: `nullstar:final-report`)_
+- [`scripts/nullstar-ga1-ablation.mjs`](../../scripts/nullstar-ga1-ablation.mjs) — The same audit applied to GA1, because GA1 promoted from a tie too. _(matched by name only)_
+- [`scripts/nullstar-ga1.mjs`](../../scripts/nullstar-ga1.mjs) — GA1. The tournament, run against the criteria fixed before the candidates _(matched by name only; npm: `nullstar:ga1`)_
+- [`scripts/nullstar-ga2-ablation.mjs`](../../scripts/nullstar-ga2-ablation.mjs) — The candidate GA2 should have contained. _(matched by name only)_
+- [`scripts/nullstar-ga3-ablation.mjs`](../../scripts/nullstar-ga3-ablation.mjs) — GA3's declared ablation, plus a scoring weakness the run exposed. _(matched by name only)_
+- [`scripts/nullstar-generalization-v2.mjs`](../../scripts/nullstar-generalization-v2.mjs) — Sections 068 to 071. Whether the three promoted improvements generalize. _(matched by name only; npm: `nullstar:generalization`)_
+- [`scripts/nullstar-generation.mjs`](../../scripts/nullstar-generation.mjs) — A capability generation, run against criteria fixed before its candidates _(matched by name only; npm: `nullstar:generation`)_
+- [`scripts/nullstar-meta-improvement-v2.mjs`](../../scripts/nullstar-meta-improvement-v2.mjs) — Sections 063 to 067. An improvement to how generations are judged, and a _(matched by name only; npm: `nullstar:meta-improvement`)_
+- [`scripts/nullstar-omega-absolute-final-report.mjs`](../../scripts/nullstar-omega-absolute-final-report.mjs) — Sections 357 and 358. The final report, generated rather than written. _(matched by name only; npm: `omega:final-report`)_
+- [`scripts/nullstar-omega-baselines.mjs`](../../scripts/nullstar-omega-baselines.mjs) — Sections 025 through 032. Execute the baselines, or say precisely why not. _(matched by name only; npm: `omega:baselines`)_
+- [`scripts/nullstar-omega-bottleneck.mjs`](../../scripts/nullstar-omega-bottleneck.mjs) — Ranks bottlenecks from the latest generation's measured evidence. _(matched by name only; npm: `omega:bottleneck`)_
+- [`scripts/nullstar-omega-denominator.mjs`](../../scripts/nullstar-omega-denominator.mjs) — Compiles the denominator against this exact tree. _(matched by name only; npm: `omega:denominator`)_
+- [`scripts/nullstar-omega-g0.mjs`](../../scripts/nullstar-omega-g0.mjs) — G0: the anchor measurement. _(matched by name only; npm: `omega:g0`)_
+- [`scripts/nullstar-omega-g1.mjs`](../../scripts/nullstar-omega-g1.mjs) — G1: the candidate the G0 diagnosis named, and its discriminating test. _(matched by name only; npm: `omega:g1`)_
+- [`scripts/nullstar-omega-g2.mjs`](../../scripts/nullstar-omega-g2.mjs) — G2: recompute the bottleneck from scratch and run the successor's test. _(matched by name only; npm: `omega:g2`)_
+- [`scripts/nullstar-omega-g3.mjs`](../../scripts/nullstar-omega-g3.mjs) — G3. The first generation whose instrument is not reading its own answers. _(matched by name only; npm: `omega:g3`)_
+- [`scripts/nullstar-omega-g4.mjs`](../../scripts/nullstar-omega-g4.mjs) — G4. Execute the test the G3 bottleneck named. _(matched by name only; npm: `omega:g4`)_
+- [`scripts/nullstar-omega-g5.mjs`](../../scripts/nullstar-omega-g5.mjs) — G5. Try the remaining dimensions, with the reuse guard allowed to refuse them. _(matched by name only; npm: `omega:g5`)_
+- [`scripts/nullstar-omega-g6.mjs`](../../scripts/nullstar-omega-g6.mjs) — G6. Report the mean over what this suite actually measured. _(matched by name only; npm: `omega:g6`)_
+- [`scripts/nullstar-omega-generalization.mjs`](../../scripts/nullstar-omega-generalization.mjs) — Section 311. Did this session's improvement generalize beyond the family it _(matched by name only; npm: `omega:generalization`)_
+- [`scripts/nullstar-omega-meta.mjs`](../../scripts/nullstar-omega-meta.mjs) — Section 310. Run the meta-improvement evaluation over the real generation _(matched by name only; npm: `omega:meta`)_
+- [`scripts/nullstar-omega-reality-connect.mjs`](../../scripts/nullstar-omega-reality-connect.mjs) — Section 312. Record forecasts, then let the repository's own tools decide. _(matched by name only; npm: `omega:reality`)_
+- [`scripts/nullstar-omega-retire-suite.mjs`](../../scripts/nullstar-omega-retire-suite.mjs) — Sections 322 and 323. Retire the contaminated suite; keep its history. _(matched by name only; npm: `omega:retire-suite`)_
+- [`scripts/nullstar-omega-velocity.mjs`](../../scripts/nullstar-omega-velocity.mjs) — Improvement velocity across recorded generations. _(matched by name only; npm: `omega:velocity`)_
+- [`scripts/nullstar-probe-saturation.mjs`](../../scripts/nullstar-probe-saturation.mjs) — CD003. The probes were hand-written, so they test the failure modes their _(matched by name only; npm: `nullstar:probe-saturation`)_
+- [`scripts/nullstar-stranded-supersession.mjs`](../../scripts/nullstar-stranded-supersession.mjs) — CD012. Per-module archaeology on the stranded pre-rewrite src lineage. _(matched by name only)_
 
 ## Config, data, artifacts and services (72)
 
-- [`artifacts/nullstar-omega-absolute/final-report.json`](../../artifacts/nullstar-omega-absolute/final-report.json) — NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main · EXECUTED · uberbond-nullstar-omega-absolute-final-report-1.0…
-- [`artifacts/nullstar-omega-absolute/gate-receipts.json`](../../artifacts/nullstar-omega-absolute/gate-receipts.json) — uberbond-nullstar-omega-absolute-gate-receipts-1.0.0
-- [`artifacts/nullstar-omega/G0-to-G1.json`](../../artifacts/nullstar-omega/G0-to-G1.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`artifacts/nullstar-omega/G1-to-G2.json`](../../artifacts/nullstar-omega/G1-to-G2.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`artifacts/nullstar-omega/G2-discriminating-test.json`](../../artifacts/nullstar-omega/G2-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`artifacts/nullstar-omega/G2-to-G3.json`](../../artifacts/nullstar-omega/G2-to-G3.json) — INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE
-- [`artifacts/nullstar-omega/G3-prospective-declaration.json`](../../artifacts/nullstar-omega/G3-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0
-- [`artifacts/nullstar-omega/G3-to-G4.json`](../../artifacts/nullstar-omega/G3-to-G4.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`artifacts/nullstar-omega/G4-discriminating-test.json`](../../artifacts/nullstar-omega/G4-discriminating-test.json) — SOFTWARE_OUTCOME_SCORED · uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`artifacts/nullstar-omega/G4-prospective-declaration.json`](../../artifacts/nullstar-omega/G4-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0
-- [`artifacts/nullstar-omega/G4-to-G5.json`](../../artifacts/nullstar-omega/G4-to-G5.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`artifacts/nullstar-omega/G5-discriminating-test.json`](../../artifacts/nullstar-omega/G5-discriminating-test.json) — SOME_DIMENSIONS_REFUSED_AS_EVIDENCE_REUSE · uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`artifacts/nullstar-omega/G5-prospective-declaration.json`](../../artifacts/nullstar-omega/G5-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0
-- [`artifacts/nullstar-omega/G5-to-G6.json`](../../artifacts/nullstar-omega/G5-to-G6.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`artifacts/nullstar-omega/G6-discriminating-test.json`](../../artifacts/nullstar-omega/G6-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`artifacts/nullstar-omega/baselines.json`](../../artifacts/nullstar-omega/baselines.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-omega-baselines-1.0.0
-- [`artifacts/nullstar-omega/bottlenecks-G0.json`](../../artifacts/nullstar-omega/bottlenecks-G0.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`artifacts/nullstar-omega/bottlenecks-G1.json`](../../artifacts/nullstar-omega/bottlenecks-G1.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`artifacts/nullstar-omega/bottlenecks-G3.json`](../../artifacts/nullstar-omega/bottlenecks-G3.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`artifacts/nullstar-omega/bottlenecks-G4.json`](../../artifacts/nullstar-omega/bottlenecks-G4.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`artifacts/nullstar-omega/bottlenecks-G5.json`](../../artifacts/nullstar-omega/bottlenecks-G5.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`artifacts/nullstar-omega/bottlenecks-G6.json`](../../artifacts/nullstar-omega/bottlenecks-G6.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`artifacts/nullstar-omega/denominator.json`](../../artifacts/nullstar-omega/denominator.json) — REPOSITORY_SELF_MODEL · NULLSTAR_OMEGA_DENOMINATOR_COMPILED
-- [`artifacts/nullstar-omega/generalization.json`](../../artifacts/nullstar-omega/generalization.json) — TRANSFER_PROTOCOL_INVALID · uberbond-nullstar-omega-generalization-1.0.0
-- [`artifacts/nullstar-omega/generations/G0.json`](../../artifacts/nullstar-omega/generations/G0.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G1.json`](../../artifacts/nullstar-omega/generations/G1.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G2.json`](../../artifacts/nullstar-omega/generations/G2.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G3.json`](../../artifacts/nullstar-omega/generations/G3.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G4.json`](../../artifacts/nullstar-omega/generations/G4.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G5.json`](../../artifacts/nullstar-omega/generations/G5.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G6.json`](../../artifacts/nullstar-omega/generations/G6.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/holdout-manifest.json`](../../artifacts/nullstar-omega/holdout-manifest.json)
-- [`artifacts/nullstar-omega/meta-improvement.json`](../../artifacts/nullstar-omega/meta-improvement.json) — MOVED_ELSEWHERE · uberbond-nullstar-omega-meta-improvement-1.0.0
-- [`artifacts/nullstar-omega/reality-connection.json`](../../artifacts/nullstar-omega/reality-connection.json) — REALITY_CALIBRATED · uberbond-nullstar-omega-reality-connection-1.0.0
-- [`artifacts/nullstar-omega/refutations.json`](../../artifacts/nullstar-omega/refutations.json) — uberbond-nullstar-omega-refutations-1.0.0
-- [`artifacts/nullstar-omega/suite-retirement.json`](../../artifacts/nullstar-omega/suite-retirement.json) — SUITE_RETIRED · uberbond-nullstar-omega-suite-retirement-1.0.0
-- [`artifacts/nullstar-omega/velocity.json`](../../artifacts/nullstar-omega/velocity.json) — uberbond-nullstar-omega-velocity-1.0.0
-- [`artifacts/nullstar-terminal/attribution-audit.json`](../../artifacts/nullstar-terminal/attribution-audit.json) — uberbond-nullstar-attribution-audit-1.0.0
-- [`artifacts/nullstar-terminal/baselines-v2.json`](../../artifacts/nullstar-terminal/baselines-v2.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-baselines-v2-1.0.0
-- [`artifacts/nullstar-terminal/branch-debt.json`](../../artifacts/nullstar-terminal/branch-debt.json) — uberbond-nullstar-branch-debt-1.0.0
-- [`artifacts/nullstar-terminal/branch-dispositions.json`](../../artifacts/nullstar-terminal/branch-dispositions.json) — UBER/OS Generation-0 sovereign operating-system substrate · NO_LONGER_GATES_A_BRANCH · uberbond-nullstar-branch-dispositions-1.0.0
-- [`artifacts/nullstar-terminal/completion-debt.json`](../../artifacts/nullstar-terminal/completion-debt.json) — uberbond-nullstar-completion-debt-1.0.0
-- [`artifacts/nullstar-terminal/cross-organ-transfer.json`](../../artifacts/nullstar-terminal/cross-organ-transfer.json) — uberbond-nullstar-cross-organ-transfer-1.0.0
-- [`artifacts/nullstar-terminal/failure-debt.json`](../../artifacts/nullstar-terminal/failure-debt.json) — FAILURE_DEBT_COMPILED
-- [`artifacts/nullstar-terminal/final-report.json`](../../artifacts/nullstar-terminal/final-report.json) — uberbond-nullstar-terminal-final-report-1.0.0
-- [`artifacts/nullstar-terminal/ga1-ablation.json`](../../artifacts/nullstar-terminal/ga1-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0
-- [`artifacts/nullstar-terminal/ga1-declaration.json`](../../artifacts/nullstar-terminal/ga1-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga1-result.json`](../../artifacts/nullstar-terminal/ga1-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga2-ablation.json`](../../artifacts/nullstar-terminal/ga2-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0
-- [`artifacts/nullstar-terminal/ga2-declaration.json`](../../artifacts/nullstar-terminal/ga2-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga2-result.json`](../../artifacts/nullstar-terminal/ga2-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga3-ablation.json`](../../artifacts/nullstar-terminal/ga3-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0
-- [`artifacts/nullstar-terminal/ga3-declaration.json`](../../artifacts/nullstar-terminal/ga3-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga3-result.json`](../../artifacts/nullstar-terminal/ga3-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga4-declaration.json`](../../artifacts/nullstar-terminal/ga4-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga4-result.json`](../../artifacts/nullstar-terminal/ga4-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga5-declaration.json`](../../artifacts/nullstar-terminal/ga5-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga5-result.json`](../../artifacts/nullstar-terminal/ga5-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga6-declaration.json`](../../artifacts/nullstar-terminal/ga6-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga6-result.json`](../../artifacts/nullstar-terminal/ga6-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga7-declaration.json`](../../artifacts/nullstar-terminal/ga7-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga7-result.json`](../../artifacts/nullstar-terminal/ga7-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/ga8-declaration.json`](../../artifacts/nullstar-terminal/ga8-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`artifacts/nullstar-terminal/ga8-result.json`](../../artifacts/nullstar-terminal/ga8-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`artifacts/nullstar-terminal/generalization-v2.json`](../../artifacts/nullstar-terminal/generalization-v2.json) — uberbond-nullstar-generalization-2.0.0
-- [`artifacts/nullstar-terminal/meta-improvement-v2.json`](../../artifacts/nullstar-terminal/meta-improvement-v2.json) — uberbond-nullstar-meta-improvement-2.0.0
-- [`artifacts/nullstar-terminal/probe-saturation.json`](../../artifacts/nullstar-terminal/probe-saturation.json) — uberbond-nullstar-probe-saturation-1.0.0
-- [`artifacts/nullstar-terminal/stranded-absent-determinations.json`](../../artifacts/nullstar-terminal/stranded-absent-determinations.json) — uberbond-nullstar-stranded-absent-determinations-1.0.0
-- [`artifacts/nullstar-terminal/stranded-supersession.json`](../../artifacts/nullstar-terminal/stranded-supersession.json) — uberbond-nullstar-stranded-supersession-1.0.0
-- [`artifacts/nullstar/directive-reconciliation.json`](../../artifacts/nullstar/directive-reconciliation.json) — THE ACTUAL MISSION · FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE
-- [`artifacts/nullstar/terminal-declarations.json`](../../artifacts/nullstar/terminal-declarations.json) — uberbond-nullstar-declarations-1.0.0
-- [`artifacts/project-nullstar-directive.json`](../../artifacts/project-nullstar-directive.json) — PROJECT NULLSTAR — Private UberBond Recursive Intelligence Acceleration Program · FOUNDER_DIRECTIVE_IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROO…
+- [`artifacts/nullstar-omega-absolute/final-report.json`](../../artifacts/nullstar-omega-absolute/final-report.json) — NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main · EXECUTED · uberbond-nullstar-omega-absolute-final-report-1.0… _(matched by name only)_
+- [`artifacts/nullstar-omega-absolute/gate-receipts.json`](../../artifacts/nullstar-omega-absolute/gate-receipts.json) — uberbond-nullstar-omega-absolute-gate-receipts-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G0-to-G1.json`](../../artifacts/nullstar-omega/G0-to-G1.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`artifacts/nullstar-omega/G1-to-G2.json`](../../artifacts/nullstar-omega/G1-to-G2.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`artifacts/nullstar-omega/G2-discriminating-test.json`](../../artifacts/nullstar-omega/G2-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G2-to-G3.json`](../../artifacts/nullstar-omega/G2-to-G3.json) — INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE _(matched by name only)_
+- [`artifacts/nullstar-omega/G3-prospective-declaration.json`](../../artifacts/nullstar-omega/G3-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G3-to-G4.json`](../../artifacts/nullstar-omega/G3-to-G4.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`artifacts/nullstar-omega/G4-discriminating-test.json`](../../artifacts/nullstar-omega/G4-discriminating-test.json) — SOFTWARE_OUTCOME_SCORED · uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G4-prospective-declaration.json`](../../artifacts/nullstar-omega/G4-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G4-to-G5.json`](../../artifacts/nullstar-omega/G4-to-G5.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`artifacts/nullstar-omega/G5-discriminating-test.json`](../../artifacts/nullstar-omega/G5-discriminating-test.json) — SOME_DIMENSIONS_REFUSED_AS_EVIDENCE_REUSE · uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G5-prospective-declaration.json`](../../artifacts/nullstar-omega/G5-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/G5-to-G6.json`](../../artifacts/nullstar-omega/G5-to-G6.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`artifacts/nullstar-omega/G6-discriminating-test.json`](../../artifacts/nullstar-omega/G6-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/baselines.json`](../../artifacts/nullstar-omega/baselines.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-omega-baselines-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/bottlenecks-G0.json`](../../artifacts/nullstar-omega/bottlenecks-G0.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`artifacts/nullstar-omega/bottlenecks-G1.json`](../../artifacts/nullstar-omega/bottlenecks-G1.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`artifacts/nullstar-omega/bottlenecks-G3.json`](../../artifacts/nullstar-omega/bottlenecks-G3.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`artifacts/nullstar-omega/bottlenecks-G4.json`](../../artifacts/nullstar-omega/bottlenecks-G4.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`artifacts/nullstar-omega/bottlenecks-G5.json`](../../artifacts/nullstar-omega/bottlenecks-G5.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`artifacts/nullstar-omega/bottlenecks-G6.json`](../../artifacts/nullstar-omega/bottlenecks-G6.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`artifacts/nullstar-omega/denominator.json`](../../artifacts/nullstar-omega/denominator.json) — REPOSITORY_SELF_MODEL · NULLSTAR_OMEGA_DENOMINATOR_COMPILED _(matched by name only)_
+- [`artifacts/nullstar-omega/generalization.json`](../../artifacts/nullstar-omega/generalization.json) — TRANSFER_PROTOCOL_INVALID · uberbond-nullstar-omega-generalization-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G0.json`](../../artifacts/nullstar-omega/generations/G0.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G1.json`](../../artifacts/nullstar-omega/generations/G1.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G2.json`](../../artifacts/nullstar-omega/generations/G2.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G3.json`](../../artifacts/nullstar-omega/generations/G3.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G4.json`](../../artifacts/nullstar-omega/generations/G4.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G5.json`](../../artifacts/nullstar-omega/generations/G5.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G6.json`](../../artifacts/nullstar-omega/generations/G6.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/holdout-manifest.json`](../../artifacts/nullstar-omega/holdout-manifest.json) _(matched by name only)_
+- [`artifacts/nullstar-omega/meta-improvement.json`](../../artifacts/nullstar-omega/meta-improvement.json) — MOVED_ELSEWHERE · uberbond-nullstar-omega-meta-improvement-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/reality-connection.json`](../../artifacts/nullstar-omega/reality-connection.json) — REALITY_CALIBRATED · uberbond-nullstar-omega-reality-connection-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/refutations.json`](../../artifacts/nullstar-omega/refutations.json) — uberbond-nullstar-omega-refutations-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/suite-retirement.json`](../../artifacts/nullstar-omega/suite-retirement.json) — SUITE_RETIRED · uberbond-nullstar-omega-suite-retirement-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/velocity.json`](../../artifacts/nullstar-omega/velocity.json) — uberbond-nullstar-omega-velocity-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/attribution-audit.json`](../../artifacts/nullstar-terminal/attribution-audit.json) — uberbond-nullstar-attribution-audit-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/baselines-v2.json`](../../artifacts/nullstar-terminal/baselines-v2.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-baselines-v2-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/branch-debt.json`](../../artifacts/nullstar-terminal/branch-debt.json) — uberbond-nullstar-branch-debt-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/branch-dispositions.json`](../../artifacts/nullstar-terminal/branch-dispositions.json) — UBER/OS Generation-0 sovereign operating-system substrate · NO_LONGER_GATES_A_BRANCH · uberbond-nullstar-branch-dispositions-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/completion-debt.json`](../../artifacts/nullstar-terminal/completion-debt.json) — uberbond-nullstar-completion-debt-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/cross-organ-transfer.json`](../../artifacts/nullstar-terminal/cross-organ-transfer.json) — uberbond-nullstar-cross-organ-transfer-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/failure-debt.json`](../../artifacts/nullstar-terminal/failure-debt.json) — FAILURE_DEBT_COMPILED _(matched by name only)_
+- [`artifacts/nullstar-terminal/final-report.json`](../../artifacts/nullstar-terminal/final-report.json) — uberbond-nullstar-terminal-final-report-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga1-ablation.json`](../../artifacts/nullstar-terminal/ga1-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga1-declaration.json`](../../artifacts/nullstar-terminal/ga1-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga1-result.json`](../../artifacts/nullstar-terminal/ga1-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga2-ablation.json`](../../artifacts/nullstar-terminal/ga2-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga2-declaration.json`](../../artifacts/nullstar-terminal/ga2-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga2-result.json`](../../artifacts/nullstar-terminal/ga2-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga3-ablation.json`](../../artifacts/nullstar-terminal/ga3-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga3-declaration.json`](../../artifacts/nullstar-terminal/ga3-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga3-result.json`](../../artifacts/nullstar-terminal/ga3-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga4-declaration.json`](../../artifacts/nullstar-terminal/ga4-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga4-result.json`](../../artifacts/nullstar-terminal/ga4-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga5-declaration.json`](../../artifacts/nullstar-terminal/ga5-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga5-result.json`](../../artifacts/nullstar-terminal/ga5-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga6-declaration.json`](../../artifacts/nullstar-terminal/ga6-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga6-result.json`](../../artifacts/nullstar-terminal/ga6-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga7-declaration.json`](../../artifacts/nullstar-terminal/ga7-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga7-result.json`](../../artifacts/nullstar-terminal/ga7-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga8-declaration.json`](../../artifacts/nullstar-terminal/ga8-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/ga8-result.json`](../../artifacts/nullstar-terminal/ga8-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/generalization-v2.json`](../../artifacts/nullstar-terminal/generalization-v2.json) — uberbond-nullstar-generalization-2.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/meta-improvement-v2.json`](../../artifacts/nullstar-terminal/meta-improvement-v2.json) — uberbond-nullstar-meta-improvement-2.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/probe-saturation.json`](../../artifacts/nullstar-terminal/probe-saturation.json) — uberbond-nullstar-probe-saturation-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/stranded-absent-determinations.json`](../../artifacts/nullstar-terminal/stranded-absent-determinations.json) — uberbond-nullstar-stranded-absent-determinations-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-terminal/stranded-supersession.json`](../../artifacts/nullstar-terminal/stranded-supersession.json) — uberbond-nullstar-stranded-supersession-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar/directive-reconciliation.json`](../../artifacts/nullstar/directive-reconciliation.json) — THE ACTUAL MISSION · FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE _(matched by name only)_
+- [`artifacts/nullstar/terminal-declarations.json`](../../artifacts/nullstar/terminal-declarations.json) — uberbond-nullstar-declarations-1.0.0 _(matched by name only)_
+- [`artifacts/project-nullstar-directive.json`](../../artifacts/project-nullstar-directive.json) — PROJECT NULLSTAR — Private UberBond Recursive Intelligence Acceleration Program · FOUNDER_DIRECTIVE_IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROO… _(matched by name only)_
 
 ## Tests (22)
 

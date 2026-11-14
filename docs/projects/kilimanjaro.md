@@ -12,13 +12,13 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (7)
 
-- [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — GENESIS realization: Blackout-First Compute Planner — Status: SOURCE IMPLEMENTED / REAL HARDWARE HYPOTHESIS UNVALIDATED
-- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28
-- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team
-- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier
-- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth
-- [`docs/KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md`](../KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md) — 2026-08-28 · Kilimanjaro — AI Revenue Ops vertical-density tournament
+- [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — GENESIS realization: Blackout-First Compute Planner — Status: SOURCE IMPLEMENTED / REAL HARDWARE HYPOTHESIS UNVALIDATED _(matched by name only)_
+- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(matched by name only)_
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_
+- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(matched by name only)_
+- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(matched by name only)_
+- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth _(matched by name only)_
+- [`docs/KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md`](../KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md) — 2026-08-28 · Kilimanjaro — AI Revenue Ops vertical-density tournament _(matched by name only)_
 
 ## Commands (4)
 
@@ -26,43 +26,43 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Dated documents, newest first (4)
 
-- [`docs/KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md`](../KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md) — 2026-08-22 · UBERBOND KILIMANJARO OVERNIGHT TASKFORCE — 2026-08-22
-- [`docs/KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md`](../KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md) — 2026-08-22 · KILIMANJARO zero-gap overnight report — 2026-08-22
-- [`docs/UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md`](../UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md) — 2026-08-22 · UberBond — Kilimanjaro Architecture Closure Report
-- [`docs/KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md`](../KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md) — 2026-08-21 · UberBond Kilimanjaro Architecture Scorecard
+- [`docs/KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md`](../KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md) — 2026-08-22 · UBERBOND KILIMANJARO OVERNIGHT TASKFORCE — 2026-08-22 _(matched by name only)_
+- [`docs/KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md`](../KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md) — 2026-08-22 · KILIMANJARO zero-gap overnight report — 2026-08-22 _(matched by name only)_
+- [`docs/UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md`](../UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md) — 2026-08-22 · UberBond — Kilimanjaro Architecture Closure Report _(matched by name only)_
+- [`docs/KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md`](../KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md) — 2026-08-21 · UberBond Kilimanjaro Architecture Scorecard _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(14 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(4 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(14 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(4 mentions)_
 
 ## Source modules (9)
 
-- [`src/blackout-first-compute-planner.mjs`](../../src/blackout-first-compute-planner.mjs) — exports BLACKOUT_FIRST_COMPUTE_PLANNER_VERSION, compileBlackoutFirstComputePlan, applyBlackoutFirstEvent, evaluateBlackoutRecoveryReplay _(tested; imported by 1)_
-- [`src/founder-absence-blocker-doctor.mjs`](../../src/founder-absence-blocker-doctor.mjs) — What is actually standing between UberBond and running without its founder. _(tested; imported by 2)_
-- [`src/founder-absence-readiness.mjs`](../../src/founder-absence-readiness.mjs) — exports FOUNDER_ABSENCE_POLICY_VERSION, deriveFounderAbsenceObservationProof, evaluateFounderAbsenceReadinessFromDurableHistory, evaluateFounderAbsen… _(imported by 2)_
-- [`src/founder-directive-reconciler.mjs`](../../src/founder-directive-reconciler.mjs) — Reconciles a founder directive against the organism that already exists. _(tested; imported by 1)_
-- [`src/founder-minute-priority.mjs`](../../src/founder-minute-priority.mjs) — exports FOUNDER_MINUTE_PRIORITY_VERSION, deriveFounderMinuteActions _(tested; imported by 1)_
-- [`src/founder-outcome-job-handlers.mjs`](../../src/founder-outcome-job-handlers.mjs) — exports createMissionAwareJobHandlers _(tested; imported by 1)_
-- [`src/founder-outcome-mission-supervisor.mjs`](../../src/founder-outcome-mission-supervisor.mjs) — exports FOUNDER_OUTCOME_MISSION_SUPERVISOR_VERSION, loadFounderOutcomeMission, observeFounderOutcomeClearedCash, runFounderOutcomeMissionSupervisor _(imported by 1)_
-- [`src/founder-outcome-mission.mjs`](../../src/founder-outcome-mission.mjs) — exports FOUNDER_OUTCOME_MISSION_VERSION, classifyFounderOutcomeIntent, compileFounderOutcomeMission, evaluateFounderOutcomeMission, compileFounderEco… _(tested; imported by 4)_
-- [`src/kilimanjaro-evidence.mjs`](../../src/kilimanjaro-evidence.mjs) — exports KILIMANJARO_EVIDENCE_VERSION, compileKilimanjaroEvidence _(tested; imported by 1)_
+- [`src/blackout-first-compute-planner.mjs`](../../src/blackout-first-compute-planner.mjs) — exports BLACKOUT_FIRST_COMPUTE_PLANNER_VERSION, compileBlackoutFirstComputePlan, applyBlackoutFirstEvent, evaluateBlackoutRecoveryReplay _(matched by name only; tested; imported by 1)_
+- [`src/founder-absence-blocker-doctor.mjs`](../../src/founder-absence-blocker-doctor.mjs) — What is actually standing between UberBond and running without its founder. _(matched by name only; tested; imported by 2)_
+- [`src/founder-absence-readiness.mjs`](../../src/founder-absence-readiness.mjs) — exports FOUNDER_ABSENCE_POLICY_VERSION, deriveFounderAbsenceObservationProof, evaluateFounderAbsenceReadinessFromDurableHistory, evaluateFounderAbsen… _(matched by name only; imported by 2)_
+- [`src/founder-directive-reconciler.mjs`](../../src/founder-directive-reconciler.mjs) — Reconciles a founder directive against the organism that already exists. _(matched by name only; tested; imported by 1)_
+- [`src/founder-minute-priority.mjs`](../../src/founder-minute-priority.mjs) — exports FOUNDER_MINUTE_PRIORITY_VERSION, deriveFounderMinuteActions _(matched by name only; tested; imported by 1)_
+- [`src/founder-outcome-job-handlers.mjs`](../../src/founder-outcome-job-handlers.mjs) — exports createMissionAwareJobHandlers _(matched by name only; tested; imported by 1)_
+- [`src/founder-outcome-mission-supervisor.mjs`](../../src/founder-outcome-mission-supervisor.mjs) — exports FOUNDER_OUTCOME_MISSION_SUPERVISOR_VERSION, loadFounderOutcomeMission, observeFounderOutcomeClearedCash, runFounderOutcomeMissionSupervisor _(matched by name only; imported by 1)_
+- [`src/founder-outcome-mission.mjs`](../../src/founder-outcome-mission.mjs) — exports FOUNDER_OUTCOME_MISSION_VERSION, classifyFounderOutcomeIntent, compileFounderOutcomeMission, evaluateFounderOutcomeMission, compileFounderEco… _(matched by name only; tested; imported by 4)_
+- [`src/kilimanjaro-evidence.mjs`](../../src/kilimanjaro-evidence.mjs) — exports KILIMANJARO_EVIDENCE_VERSION, compileKilimanjaroEvidence _(matched by name only; tested; imported by 1)_
 
 ## Scripts (4)
 
-- [`scripts/compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — exports compileLatestFounderOutcomeMission
-- [`scripts/founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — If the founder turns the device off, what actually keeps running -- and what _(npm: `absence:doctor`)_
-- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(npm: `genesis:blackout:doctor`)_
-- [`scripts/kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits the KILIMANJARO completion manifest from measured facts. _(npm: `manifest:kilimanjaro`)_
+- [`scripts/compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — exports compileLatestFounderOutcomeMission _(matched by name only)_
+- [`scripts/founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — If the founder turns the device off, what actually keeps running -- and what _(matched by name only; npm: `absence:doctor`)_
+- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(matched by name only; npm: `genesis:blackout:doctor`)_
+- [`scripts/kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits the KILIMANJARO completion manifest from measured facts. _(matched by name only; npm: `manifest:kilimanjaro`)_
 
 ## Config, data, artifacts and services (6)
 
-- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm)
-- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker
-- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh)
-- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service)
-- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer)
+- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) _(matched by name only)_
+- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker _(matched by name only)_
+- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) _(matched by name only)_
 
 ## Tests (15)
 

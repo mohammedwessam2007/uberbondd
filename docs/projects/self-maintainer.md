@@ -12,17 +12,17 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (11)
 
-- [`docs/GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md`](../GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md) — GENESIS realization: Autonomous Failure-to-Patch Reflex — Status: SOURCE IMPLEMENTED / REAL PATCH-QUALITY HYPOTHESIS UNVALIDATED
-- [`docs/MUTATION_INVENTORY.md`](../MUTATION_INVENTORY.md) — Mutation inventory
-- [`docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`](../PROMETHEUS_SELF_UPGRADE_ENGINE.md) — Prometheus Self-Upgrade Engine
-- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — Prometheus self-upgrade and control-tower wave
-- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model
-- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — UBERBOND Decision Engine
-- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph
-- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine
-- [`docs/receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md`](../receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md) — 2026-10-19 · PHOENIX Atlas repair: complete local mutation gate and hosted blocker — Status: Local source-and-mutation acceptance satisfied. Hosted main preview and main merge remain blocked by external…
-- [`docs/receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md`](../receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md) — 2026-10-19 · PHOENIX mutation sandbox ENOTEMPTY race, October 19, 2026
-- [`docs/receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md`](../receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md) — 2026-10-19 · PHOENIX mutation-war hosted-build repair, 2026-10-19
+- [`docs/GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md`](../GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md) — GENESIS realization: Autonomous Failure-to-Patch Reflex — Status: SOURCE IMPLEMENTED / REAL PATCH-QUALITY HYPOTHESIS UNVALIDATED _(matched by name only)_
+- [`docs/MUTATION_INVENTORY.md`](../MUTATION_INVENTORY.md) — Mutation inventory _(matched by name only)_
+- [`docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`](../PROMETHEUS_SELF_UPGRADE_ENGINE.md) — Prometheus Self-Upgrade Engine _(matched by name only)_
+- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — Prometheus self-upgrade and control-tower wave _(matched by name only)_
+- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(matched by name only)_
+- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — UBERBOND Decision Engine _(matched by name only)_
+- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(matched by name only)_
+- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine _(matched by name only)_
+- [`docs/receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md`](../receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md) — 2026-10-19 · PHOENIX Atlas repair: complete local mutation gate and hosted blocker — Status: Local source-and-mutation acceptance satisfied. Hosted main preview and main merge remain blocked by external… _(matched by name only)_
+- [`docs/receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md`](../receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md) — 2026-10-19 · PHOENIX mutation sandbox ENOTEMPTY race, October 19, 2026 _(matched by name only)_
+- [`docs/receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md`](../receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md) — 2026-10-19 · PHOENIX mutation-war hosted-build repair, 2026-10-19 _(matched by name only)_
 
 ## Commands (3)
 
@@ -30,71 +30,71 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(5 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(5 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (22)
 
-- [`src/constitution-artifact-freshness.mjs`](../../src/constitution-artifact-freshness.mjs) — Whether the committed constitution still describes the tree it claims to. _(tested; imported by 1)_
-- [`src/constitution-compiler.mjs`](../../src/constitution-compiler.mjs) — V3 A001-A030. The repository constitution as machine-readable Directive _(tested; imported by 1)_
-- [`src/constitutional-governance.mjs`](../../src/constitutional-governance.mjs) — The rules about the rules, including the one that lets them be abolished. _(tested; imported by 1)_
-- [`src/constraint-mutation-engine.mjs`](../../src/constraint-mutation-engine.mjs) — exports CONSTRAINT_MUTATION_ENGINE_VERSION, compileConstraintMutationPlan _(tested; imported by 4)_
-- [`src/failure-to-patch-reflex.mjs`](../../src/failure-to-patch-reflex.mjs) — exports FAILURE_TO_PATCH_REFLEX_VERSION, compileFailureToPatchReflex, evaluateFailureReflexReplay _(tested; imported by 2)_
-- [`src/genesis-self-improvement-bridge.mjs`](../../src/genesis-self-improvement-bridge.mjs) — exports GENESIS_SELF_IMPROVEMENT_BRIDGE_VERSION, compileGenesisSelfImprovementAdmission _(tested; imported by 1)_
-- [`src/github-actions-self-maintainer-authority.mjs`](../../src/github-actions-self-maintainer-authority.mjs) — exports GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION, issueGithubActionsSelfMaintainerAuthority, issueVerifiedGithubActionsSelfMaintainerA… _(imported by 2)_
-- [`src/github-self-maintainer-promotion.mjs`](../../src/github-self-maintainer-promotion.mjs) — exports GITHUB_SELF_MAINTAINER_PROMOTION_POLICY_VERSION, createGithubSelfMaintainerPromotionAdapter _(tested; imported by 1)_
-- [`src/github-self-maintainer-trusted-promotion.mjs`](../../src/github-self-maintainer-trusted-promotion.mjs) — exports TRUSTED_SELF_MAINTAINER_PROMOTION_POLICY_VERSION, createTrustedGithubSelfMaintainerPromotionAdapter _(tested; imported by 1)_
-- [`src/linux-self-maintainer-sandbox.mjs`](../../src/linux-self-maintainer-sandbox.mjs) — exports LINUX_SELF_MAINTAINER_SANDBOX_POLICY_VERSION, hasKernelNetworkRoutes, createLinuxSelfMaintainerSandboxHost _(tested; imported by 2)_
-- [`src/omnia-v9/constitution.mjs`](../../src/omnia-v9/constitution.mjs) — exports ConstitutionBindingError, bindConstitution _(imported by 1)_
-- [`src/recursive-governance-principals.mjs`](../../src/recursive-governance-principals.mjs) — exports RECURSIVE_GOVERNANCE_PRINCIPALS_VERSION, verifyRecursiveGovernancePrincipals _(imported by 3)_
-- [`src/recursive-governance-security.mjs`](../../src/recursive-governance-security.mjs) — exports RECURSIVE_GOVERNANCE_SECURITY_VERSION, admitRecursiveSecurityEvolution _(tested; imported by 1)_
-- [`src/recursive-improvement-retention.mjs`](../../src/recursive-improvement-retention.mjs) — exports RECURSIVE_IMPROVEMENT_RETENTION_VERSION, evaluateRecursiveImprovementRetention _(tested; imported by 1)_
-- [`src/recursive-revocation-graph.mjs`](../../src/recursive-revocation-graph.mjs) — exports RECURSIVE_REVOCATION_GRAPH_VERSION, compileDelegationGraph, revokeDelegationSubtree, delegationEffective _(tested; imported by 4)_
-- [`src/self-improvement-causal-admission.mjs`](../../src/self-improvement-causal-admission.mjs) — exports SELF_IMPROVEMENT_CAUSAL_ADMISSION_VERSION, compileSelfImprovementCausalAdmission _(tested; imported by 2)_
-- [`src/self-maintainer-continuation-policy.mjs`](../../src/self-maintainer-continuation-policy.mjs) — exports SELF_MAINTAINER_CONTINUATION_POLICY_VERSION, decideSelfMaintainerContinuation, gateSelfMaintainerPulse _(tested; imported by 5)_
-- [`src/self-upgrade.mjs`](../../src/self-upgrade.mjs) — Evidence-gated self-improvement preparation. _(tested; imported by 3)_
-- [`src/self-verifying-findings.mjs`](../../src/self-verifying-findings.mjs) — Self-Verifying Findings: a data product that is re-verified at the moment of sale. _(tested; imported by 2)_
-- [`src/uberbond-self-maintainer-trusted-runtime.mjs`](../../src/uberbond-self-maintainer-trusted-runtime.mjs) — exports TRUSTED_UBERBOND_SELF_MAINTAINER_RUNTIME_POLICY_VERSION, runTrustedUberBondSelfMaintenance _(tested; imported by 1)_
-- [`src/uberbond-self-maintainer.mjs`](../../src/uberbond-self-maintainer.mjs) — exports UBERBOND_SELF_MAINTAINER_POLICY_VERSION, validateSelfMaintainerIsolation, runUberBondSelfMaintenance _(tested; imported by 2)_
-- [`src/uberdna-software-genome.mjs`](../../src/uberdna-software-genome.mjs) — exports UBERDNA_SOFTWARE_GENOME_VERSION, compileUberDnaSoftwareGenome, evaluateSoftwareMutation _(tested; imported by 1)_
+- [`src/constitution-artifact-freshness.mjs`](../../src/constitution-artifact-freshness.mjs) — Whether the committed constitution still describes the tree it claims to. _(matched by name only; tested; imported by 1)_
+- [`src/constitution-compiler.mjs`](../../src/constitution-compiler.mjs) — V3 A001-A030. The repository constitution as machine-readable Directive _(matched by name only; tested; imported by 1)_
+- [`src/constitutional-governance.mjs`](../../src/constitutional-governance.mjs) — The rules about the rules, including the one that lets them be abolished. _(matched by name only; tested; imported by 1)_
+- [`src/constraint-mutation-engine.mjs`](../../src/constraint-mutation-engine.mjs) — exports CONSTRAINT_MUTATION_ENGINE_VERSION, compileConstraintMutationPlan _(matched by name only; tested; imported by 4)_
+- [`src/failure-to-patch-reflex.mjs`](../../src/failure-to-patch-reflex.mjs) — exports FAILURE_TO_PATCH_REFLEX_VERSION, compileFailureToPatchReflex, evaluateFailureReflexReplay _(matched by name only; tested; imported by 2)_
+- [`src/genesis-self-improvement-bridge.mjs`](../../src/genesis-self-improvement-bridge.mjs) — exports GENESIS_SELF_IMPROVEMENT_BRIDGE_VERSION, compileGenesisSelfImprovementAdmission _(matched by name only; tested; imported by 1)_
+- [`src/github-actions-self-maintainer-authority.mjs`](../../src/github-actions-self-maintainer-authority.mjs) — exports GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION, issueGithubActionsSelfMaintainerAuthority, issueVerifiedGithubActionsSelfMaintainerA… _(matched by name only; imported by 2)_
+- [`src/github-self-maintainer-promotion.mjs`](../../src/github-self-maintainer-promotion.mjs) — exports GITHUB_SELF_MAINTAINER_PROMOTION_POLICY_VERSION, createGithubSelfMaintainerPromotionAdapter _(matched by name only; tested; imported by 1)_
+- [`src/github-self-maintainer-trusted-promotion.mjs`](../../src/github-self-maintainer-trusted-promotion.mjs) — exports TRUSTED_SELF_MAINTAINER_PROMOTION_POLICY_VERSION, createTrustedGithubSelfMaintainerPromotionAdapter _(matched by name only; tested; imported by 1)_
+- [`src/linux-self-maintainer-sandbox.mjs`](../../src/linux-self-maintainer-sandbox.mjs) — exports LINUX_SELF_MAINTAINER_SANDBOX_POLICY_VERSION, hasKernelNetworkRoutes, createLinuxSelfMaintainerSandboxHost _(matched by name only; tested; imported by 2)_
+- [`src/omnia-v9/constitution.mjs`](../../src/omnia-v9/constitution.mjs) — exports ConstitutionBindingError, bindConstitution _(matched by name only; imported by 1)_
+- [`src/recursive-governance-principals.mjs`](../../src/recursive-governance-principals.mjs) — exports RECURSIVE_GOVERNANCE_PRINCIPALS_VERSION, verifyRecursiveGovernancePrincipals _(matched by name only; imported by 3)_
+- [`src/recursive-governance-security.mjs`](../../src/recursive-governance-security.mjs) — exports RECURSIVE_GOVERNANCE_SECURITY_VERSION, admitRecursiveSecurityEvolution _(matched by name only; tested; imported by 1)_
+- [`src/recursive-improvement-retention.mjs`](../../src/recursive-improvement-retention.mjs) — exports RECURSIVE_IMPROVEMENT_RETENTION_VERSION, evaluateRecursiveImprovementRetention _(matched by name only; tested; imported by 1)_
+- [`src/recursive-revocation-graph.mjs`](../../src/recursive-revocation-graph.mjs) — exports RECURSIVE_REVOCATION_GRAPH_VERSION, compileDelegationGraph, revokeDelegationSubtree, delegationEffective _(matched by name only; tested; imported by 4)_
+- [`src/self-improvement-causal-admission.mjs`](../../src/self-improvement-causal-admission.mjs) — exports SELF_IMPROVEMENT_CAUSAL_ADMISSION_VERSION, compileSelfImprovementCausalAdmission _(matched by name only; tested; imported by 2)_
+- [`src/self-maintainer-continuation-policy.mjs`](../../src/self-maintainer-continuation-policy.mjs) — exports SELF_MAINTAINER_CONTINUATION_POLICY_VERSION, decideSelfMaintainerContinuation, gateSelfMaintainerPulse _(matched by name only; tested; imported by 5)_
+- [`src/self-upgrade.mjs`](../../src/self-upgrade.mjs) — Evidence-gated self-improvement preparation. _(matched by name only; tested; imported by 3)_
+- [`src/self-verifying-findings.mjs`](../../src/self-verifying-findings.mjs) — Self-Verifying Findings: a data product that is re-verified at the moment of sale. _(matched by name only; tested; imported by 2)_
+- [`src/uberbond-self-maintainer-trusted-runtime.mjs`](../../src/uberbond-self-maintainer-trusted-runtime.mjs) — exports TRUSTED_UBERBOND_SELF_MAINTAINER_RUNTIME_POLICY_VERSION, runTrustedUberBondSelfMaintenance _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-self-maintainer.mjs`](../../src/uberbond-self-maintainer.mjs) — exports UBERBOND_SELF_MAINTAINER_POLICY_VERSION, validateSelfMaintainerIsolation, runUberBondSelfMaintenance _(matched by name only; tested; imported by 2)_
+- [`src/uberdna-software-genome.mjs`](../../src/uberdna-software-genome.mjs) — exports UBERDNA_SOFTWARE_GENOME_VERSION, compileUberDnaSoftwareGenome, evaluateSoftwareMutation _(matched by name only; tested; imported by 1)_
 
 ## Scripts (13)
 
-- [`scripts/c21-self-improvement-evaluator.mjs`](../../scripts/c21-self-improvement-evaluator.mjs) — exports C21_SELF_IMPROVEMENT_EVALUATOR_VERSION, evaluateWholeSystemSelfImprovement
-- [`scripts/constitution-doctor.mjs`](../../scripts/constitution-doctor.mjs) — V3 A021. The Constitution Doctor. _(npm: `constitution:doctor`)_
-- [`scripts/constitutional-market-status.mjs`](../../scripts/constitutional-market-status.mjs)
-- [`scripts/constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs)
-- [`scripts/genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(npm: `genesis:failure-reflex:doctor`)_
-- [`scripts/mutation-journal.mjs`](../../scripts/mutation-journal.mjs) — A verdict that does not survive an interruption is a verdict nobody gets.
-- [`scripts/mutation-verdict.mjs`](../../scripts/mutation-verdict.mjs) — How a mutation is applied, and how the resulting run is judged.
-- [`scripts/mutation-war.mjs`](../../scripts/mutation-war.mjs) — Wave 19's exit gate, executable. _(npm: `test:mutation-war`)_
-- [`scripts/night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations
-- [`scripts/night-verification-mutation-extension.mjs`](../../scripts/night-verification-mutation-extension.mjs)
-- [`scripts/self-maintainer-continuation-receipt.mjs`](../../scripts/self-maintainer-continuation-receipt.mjs)
-- [`scripts/self-maintainer-pulse-preflight.mjs`](../../scripts/self-maintainer-pulse-preflight.mjs)
-- [`scripts/uberbond-self-maintainer-tick.mjs`](../../scripts/uberbond-self-maintainer-tick.mjs) — exports UBERBOND_SELF_MAINTAINER_TICK_POLICY_VERSION, loadCognitiveMaintenanceContext, selfMaintenanceTaskId, compileSelfMaintenanceRelayTask, valida…
+- [`scripts/c21-self-improvement-evaluator.mjs`](../../scripts/c21-self-improvement-evaluator.mjs) — exports C21_SELF_IMPROVEMENT_EVALUATOR_VERSION, evaluateWholeSystemSelfImprovement _(matched by name only)_
+- [`scripts/constitution-doctor.mjs`](../../scripts/constitution-doctor.mjs) — V3 A021. The Constitution Doctor. _(matched by name only; npm: `constitution:doctor`)_
+- [`scripts/constitutional-market-status.mjs`](../../scripts/constitutional-market-status.mjs) _(matched by name only)_
+- [`scripts/constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs) _(matched by name only)_
+- [`scripts/genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(matched by name only; npm: `genesis:failure-reflex:doctor`)_
+- [`scripts/mutation-journal.mjs`](../../scripts/mutation-journal.mjs) — A verdict that does not survive an interruption is a verdict nobody gets. _(matched by name only)_
+- [`scripts/mutation-verdict.mjs`](../../scripts/mutation-verdict.mjs) — How a mutation is applied, and how the resulting run is judged. _(matched by name only)_
+- [`scripts/mutation-war.mjs`](../../scripts/mutation-war.mjs) — Wave 19's exit gate, executable. _(matched by name only; npm: `test:mutation-war`)_
+- [`scripts/night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations _(matched by name only)_
+- [`scripts/night-verification-mutation-extension.mjs`](../../scripts/night-verification-mutation-extension.mjs) _(matched by name only)_
+- [`scripts/self-maintainer-continuation-receipt.mjs`](../../scripts/self-maintainer-continuation-receipt.mjs) _(matched by name only)_
+- [`scripts/self-maintainer-pulse-preflight.mjs`](../../scripts/self-maintainer-pulse-preflight.mjs) _(matched by name only)_
+- [`scripts/uberbond-self-maintainer-tick.mjs`](../../scripts/uberbond-self-maintainer-tick.mjs) — exports UBERBOND_SELF_MAINTAINER_TICK_POLICY_VERSION, loadCognitiveMaintenanceContext, selfMaintenanceTaskId, compileSelfMaintenanceRelayTask, valida… _(matched by name only)_
 
 ## Config, data, artifacts and services (19)
 
-- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector
-- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv
-- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor
-- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler
-- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S…
-- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch
-- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper
-- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal
-- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec…
-- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor
-- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer
-- [`api/self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config
-- [`artifacts/c21-self-improvement-frozen-contract.json`](../../artifacts/c21-self-improvement-frozen-contract.json) — uberbond.c21-self-improvement-contract.v1
-- [`artifacts/constitution/directives.json`](../../artifacts/constitution/directives.json) — COMPILED_WITH_CANDIDATE_TESTS · uberbond-constitution-directives-1.0.0
-- [`artifacts/constitution/open-founder-decisions.json`](../../artifacts/constitution/open-founder-decisions.json) — uberbond-constitution-open-founder-decisions-1.0.0
-- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0
-- [`artifacts/verification/self-maintainer-verification-monotonicity-20260910.json`](../../artifacts/verification/self-maintainer-verification-monotonicity-20260910.json) — 2026-09-10 · uberbond.verification-receipt.v1
-- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2
-- [`config/recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1
+- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S… _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec… _(matched by name only)_
+- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor _(matched by name only)_
+- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer _(matched by name only)_
+- [`api/self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config _(matched by name only)_
+- [`artifacts/c21-self-improvement-frozen-contract.json`](../../artifacts/c21-self-improvement-frozen-contract.json) — uberbond.c21-self-improvement-contract.v1 _(matched by name only)_
+- [`artifacts/constitution/directives.json`](../../artifacts/constitution/directives.json) — COMPILED_WITH_CANDIDATE_TESTS · uberbond-constitution-directives-1.0.0 _(matched by name only)_
+- [`artifacts/constitution/open-founder-decisions.json`](../../artifacts/constitution/open-founder-decisions.json) — uberbond-constitution-open-founder-decisions-1.0.0 _(matched by name only)_
+- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0 _(matched by name only)_
+- [`artifacts/verification/self-maintainer-verification-monotonicity-20260910.json`](../../artifacts/verification/self-maintainer-verification-monotonicity-20260910.json) — 2026-09-10 · uberbond.verification-receipt.v1 _(matched by name only)_
+- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2 _(matched by name only)_
+- [`config/recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1 _(matched by name only)_
 
 ## Tests (50)
 

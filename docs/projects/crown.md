@@ -12,10 +12,10 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (4)
 
-- [`open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md`](../../open%20router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md) — 05 — Zero-Loss Quality and Crown Succession
-- [`docs/receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md`](../receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md) — 2026-10-02 · UberMind interrupted continuation — 2026-10-02 — Truth class: PROVIDER_PARTIALLY_RECONCILED; CROWN_NOT_ADMITTED; TYPINGMIND_NOT_SAVED.
-- [`docs/receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md`](../receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md) — 2026-10-01 · Crown financial reconstruction — 2026-10-01
-- [`docs/receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md`](../receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md) — 2026-10-01 · Crown missing edges — 2026-10-01T23:40Z
+- [`open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md`](../../open%20router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md) — 05 — Zero-Loss Quality and Crown Succession _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md`](../receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md) — 2026-10-02 · UberMind interrupted continuation — 2026-10-02 — Truth class: PROVIDER_PARTIALLY_RECONCILED; CROWN_NOT_ADMITTED; TYPINGMIND_NOT_SAVED. _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md`](../receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md) — 2026-10-01 · Crown financial reconstruction — 2026-10-01 _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md`](../receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md) — 2026-10-01 · Crown missing edges — 2026-10-01T23:40Z _(matched by name only)_
 
 ## Commands (2)
 
@@ -23,81 +23,81 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Other documents (2)
 
-- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); }
-- [`tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt`](../../tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt) — let body;
+- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); } _(matched by name only)_
+- [`tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt`](../../tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt) — let body; _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (40)
 
-- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(99 mentions)_
-- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(59 mentions)_
-- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(46 mentions)_
-- [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — 22 — By-Construction Opus Equivalence Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / FORMAL-EQUIVALENCE PROGRAM _(38 mentions)_
-- [`open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md`](../../open%20router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL GAP-CLOSURE / LIVE ACTIVATION MONSTER PROMPT _(38 mentions)_
-- [`docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(31 mentions)_
-- [`open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../../open%20router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(31 mentions)_
-- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(27 mentions)_
-- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF _(27 mentions)_
-- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(27 mentions)_
-- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(27 mentions)_
-- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(25 mentions)_
-- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(25 mentions)_
-- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN _(24 mentions)_
-- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(21 mentions)_
-- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(21 mentions)_
-- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(20 mentions)_
-- [`open router/JEV_HYPERREFLEX.md`](../../open%20router/JEV_HYPERREFLEX.md) — Jev Hyperreflex — Status: architecture doctrine. Jev is a replaceable System-One supplier, not sovereign reasoner. _(20 mentions)_
-- [`open router/00_FINAL_SYSTEM.md`](../../open%20router/00_FINAL_SYSTEM.md) — 00 — Final Frontier-Max System _(18 mentions)_
-- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(18 mentions)_
-- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS _(18 mentions)_
-- [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture — Status: design canon for the Open Router intelligence-per-dollar subsystem. _(18 mentions)_
-- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(16 mentions)_
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(15 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(15 mentions)_
-- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(14 mentions)_
-- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(13 mentions)_
-- [`open router/01_PRACTICAL_MODEL_SEQUENCE.md`](../../open%20router/01_PRACTICAL_MODEL_SEQUENCE.md) — 01 — Practical Real-Life Model Sequence _(13 mentions)_
-- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM _(13 mentions)_
-- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(13 mentions)_
-- [`open router/07_1000X_COMPRESSION_LAB.md`](../../open%20router/07_1000X_COMPRESSION_LAB.md) — 07 — 1000x Compression Lab _(12 mentions)_
-- [`open router/FINAL_CHAT_DELTA_V4_2026-09-29.md`](../../open%20router/FINAL_CHAT_DELTA_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Final Chat Delta — Exact Founder Intent Recovery — Status: ADDITIVE RECOVERY ADDENDUM / DOES NOT REPLACE V2 OR V3 _(12 mentions)_
-- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(11 mentions)_
-- [`open router/03_30_DOLLAR_ECONOMICS.md`](../../open%20router/03_30_DOLLAR_ECONOMICS.md) — 03 — The $30 Economics _(11 mentions)_
-- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands. _(11 mentions)_
-- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(10 mentions)_
-- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(10 mentions)_
-- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(9 mentions)_
-- [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Infinite Opus implementation and activation _(9 mentions)_
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(8 mentions)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(matched by name only)_ _(99 mentions)_
+- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(matched by name only)_ _(59 mentions)_
+- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(matched by name only)_ _(46 mentions)_
+- [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — 22 — By-Construction Opus Equivalence Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / FORMAL-EQUIVALENCE PROGRAM _(matched by name only)_ _(38 mentions)_
+- [`open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md`](../../open%20router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL GAP-CLOSURE / LIVE ACTIVATION MONSTER PROMPT _(matched by name only)_ _(38 mentions)_
+- [`docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(matched by name only)_ _(31 mentions)_
+- [`open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../../open%20router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(matched by name only)_ _(31 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(27 mentions)_
+- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(27 mentions)_
+- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(27 mentions)_
+- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(matched by name only)_ _(27 mentions)_
+- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(matched by name only)_ _(25 mentions)_
+- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(matched by name only)_ _(25 mentions)_
+- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN _(matched by name only)_ _(24 mentions)_
+- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_ _(21 mentions)_
+- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_ _(21 mentions)_
+- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(20 mentions)_
+- [`open router/JEV_HYPERREFLEX.md`](../../open%20router/JEV_HYPERREFLEX.md) — Jev Hyperreflex — Status: architecture doctrine. Jev is a replaceable System-One supplier, not sovereign reasoner. _(matched by name only)_ _(20 mentions)_
+- [`open router/00_FINAL_SYSTEM.md`](../../open%20router/00_FINAL_SYSTEM.md) — 00 — Final Frontier-Max System _(matched by name only)_ _(18 mentions)_
+- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(18 mentions)_
+- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS _(matched by name only)_ _(18 mentions)_
+- [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture — Status: design canon for the Open Router intelligence-per-dollar subsystem. _(matched by name only)_ _(18 mentions)_
+- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_ _(16 mentions)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_ _(15 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(15 mentions)_
+- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(matched by name only)_ _(14 mentions)_
+- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(matched by name only)_ _(13 mentions)_
+- [`open router/01_PRACTICAL_MODEL_SEQUENCE.md`](../../open%20router/01_PRACTICAL_MODEL_SEQUENCE.md) — 01 — Practical Real-Life Model Sequence _(matched by name only)_ _(13 mentions)_
+- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_ _(13 mentions)_
+- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(matched by name only)_ _(13 mentions)_
+- [`open router/07_1000X_COMPRESSION_LAB.md`](../../open%20router/07_1000X_COMPRESSION_LAB.md) — 07 — 1000x Compression Lab _(matched by name only)_ _(12 mentions)_
+- [`open router/FINAL_CHAT_DELTA_V4_2026-09-29.md`](../../open%20router/FINAL_CHAT_DELTA_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Final Chat Delta — Exact Founder Intent Recovery — Status: ADDITIVE RECOVERY ADDENDUM / DOES NOT REPLACE V2 OR V3 _(matched by name only)_ _(12 mentions)_
+- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(matched by name only)_ _(11 mentions)_
+- [`open router/03_30_DOLLAR_ECONOMICS.md`](../../open%20router/03_30_DOLLAR_ECONOMICS.md) — 03 — The $30 Economics _(matched by name only)_ _(11 mentions)_
+- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands. _(matched by name only)_ _(11 mentions)_
+- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(matched by name only)_ _(10 mentions)_
+- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(matched by name only)_ _(10 mentions)_
+- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(matched by name only)_ _(9 mentions)_
+- [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Infinite Opus implementation and activation _(matched by name only)_ _(9 mentions)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_ _(8 mentions)_
 
 ## Source modules (12)
 
-- [`src/crown-admission.mjs`](../../src/crown-admission.mjs) — exports CROWN_ADMISSION_SCHEMA, issueCrownAdmissionReceipt, verifyCrownAdmissionReceipt _(imported by 6)_
-- [`src/crown-capitalization-audit.mjs`](../../src/crown-capitalization-audit.mjs) — exports auditCrownCapitalization _(imported by 1)_
-- [`src/crown-closure.mjs`](../../src/crown-closure.mjs) — exports semanticHash, executeBoundedCircuit, verifyBoundedCertificate, checkCrownClosure, renderAuthorizedJson (+2) _(imported by 4)_
-- [`src/crown-durable-admission.mjs`](../../src/crown-durable-admission.mjs) — exports DURABLE_CROWN_ADMISSION_SETTING, DURABLE_CROWN_ATTEMPT_KEYS, resolveDurableCrownAdmission, persistDurableCrownAdmission _(tested; imported by 1)_
-- [`src/crown-model-identity.mjs`](../../src/crown-model-identity.mjs) — exports OPUS_CANONICAL_REVISION, SOL_CANONICAL_REVISION, verifyCrownProviderModel _(imported by 7)_
-- [`src/crown-output-surgery.mjs`](../../src/crown-output-surgery.mjs) — exports CROWN_PATCH_OPS, validateCrownSemanticPatch, applyCrownSemanticPatch _(imported by 1)_
-- [`src/crown-owner-resume-authority.mjs`](../../src/crown-owner-resume-authority.mjs) — exports CROWN_OWNER_RESUME_CONFIRMATION, CROWN_OWNER_RESUME_MAX_INCREMENTAL_USD, CROWN_OWNER_RESUME_MAX_INCREMENTAL_MICROUSD, CROWN_OWNER_RESUME_MAX_… _(tested; imported by 1)_
-- [`src/crown-replacement-authority.mjs`](../../src/crown-replacement-authority.mjs) — exports REPLACEMENT_KEY, validReplacementAuthority _(imported by 1)_
-- [`src/crown-resume-checkpoint.mjs`](../../src/crown-resume-checkpoint.mjs) — exports RESUME_KEY, SOURCE_KEY, INTERRUPTED_RESUME_KEY, INTERRUPTED_GENERATION, crownResumeKeys (+3) _(tested; imported by 5)_
-- [`src/crown-sealed-checkpoint.mjs`](../../src/crown-sealed-checkpoint.mjs) — exports sealCrownCheckpoint, openCrownCheckpoint _(imported by 4)_
-- [`src/crown-succession.mjs`](../../src/crown-succession.mjs) — exports planCrownSuccession, applySuccession _(imported by 1)_
-- [`src/crown-tournament.mjs`](../../src/crown-tournament.mjs) — exports compileCrownTournament, adjudicateCrownTournament _(imported by 3)_
+- [`src/crown-admission.mjs`](../../src/crown-admission.mjs) — exports CROWN_ADMISSION_SCHEMA, issueCrownAdmissionReceipt, verifyCrownAdmissionReceipt _(matched by name only; imported by 6)_
+- [`src/crown-capitalization-audit.mjs`](../../src/crown-capitalization-audit.mjs) — exports auditCrownCapitalization _(matched by name only; imported by 1)_
+- [`src/crown-closure.mjs`](../../src/crown-closure.mjs) — exports semanticHash, executeBoundedCircuit, verifyBoundedCertificate, checkCrownClosure, renderAuthorizedJson (+2) _(matched by name only; imported by 4)_
+- [`src/crown-durable-admission.mjs`](../../src/crown-durable-admission.mjs) — exports DURABLE_CROWN_ADMISSION_SETTING, DURABLE_CROWN_ATTEMPT_KEYS, resolveDurableCrownAdmission, persistDurableCrownAdmission _(matched by name only; tested; imported by 1)_
+- [`src/crown-model-identity.mjs`](../../src/crown-model-identity.mjs) — exports OPUS_CANONICAL_REVISION, SOL_CANONICAL_REVISION, verifyCrownProviderModel _(matched by name only; imported by 7)_
+- [`src/crown-output-surgery.mjs`](../../src/crown-output-surgery.mjs) — exports CROWN_PATCH_OPS, validateCrownSemanticPatch, applyCrownSemanticPatch _(matched by name only; imported by 1)_
+- [`src/crown-owner-resume-authority.mjs`](../../src/crown-owner-resume-authority.mjs) — exports CROWN_OWNER_RESUME_CONFIRMATION, CROWN_OWNER_RESUME_MAX_INCREMENTAL_USD, CROWN_OWNER_RESUME_MAX_INCREMENTAL_MICROUSD, CROWN_OWNER_RESUME_MAX_… _(matched by name only; tested; imported by 1)_
+- [`src/crown-replacement-authority.mjs`](../../src/crown-replacement-authority.mjs) — exports REPLACEMENT_KEY, validReplacementAuthority _(matched by name only; imported by 1)_
+- [`src/crown-resume-checkpoint.mjs`](../../src/crown-resume-checkpoint.mjs) — exports RESUME_KEY, SOURCE_KEY, INTERRUPTED_RESUME_KEY, INTERRUPTED_GENERATION, crownResumeKeys (+3) _(matched by name only; tested; imported by 5)_
+- [`src/crown-sealed-checkpoint.mjs`](../../src/crown-sealed-checkpoint.mjs) — exports sealCrownCheckpoint, openCrownCheckpoint _(matched by name only; imported by 4)_
+- [`src/crown-succession.mjs`](../../src/crown-succession.mjs) — exports planCrownSuccession, applySuccession _(matched by name only; imported by 1)_
+- [`src/crown-tournament.mjs`](../../src/crown-tournament.mjs) — exports compileCrownTournament, adjudicateCrownTournament _(matched by name only; imported by 3)_
 
 ## Scripts (6)
 
-- [`scripts/infinite-opus-crown-admission-mint.mjs`](../../scripts/infinite-opus-crown-admission-mint.mjs) _(npm: `infinite-opus:crown:admit`)_
-- [`scripts/infinite-opus-crown-autofinish.mjs`](../../scripts/infinite-opus-crown-autofinish.mjs) — exports runCrownAutoFinish
-- [`scripts/infinite-opus-crown-financial-recovery.mjs`](../../scripts/infinite-opus-crown-financial-recovery.mjs) — exports RECOVERY_KEY, ORIGINAL_CLAIM, ORIGINAL_CALL, ORIGINAL_GENERATION, UNDISPATCHED (+2)
-- [`scripts/infinite-opus-crown-interrupted-recovery.mjs`](../../scripts/infinite-opus-crown-interrupted-recovery.mjs) — exports reconcileInterruptedCrownGeneration
-- [`scripts/infinite-opus-crown-recovery-diagnostic.mjs`](../../scripts/infinite-opus-crown-recovery-diagnostic.mjs) — exports readCrownRecoveryMetadata
-- [`scripts/infinite-opus-crown-tournament-adjudicate.mjs`](../../scripts/infinite-opus-crown-tournament-adjudicate.mjs) _(npm: `infinite-opus:crown:tournament`)_
+- [`scripts/infinite-opus-crown-admission-mint.mjs`](../../scripts/infinite-opus-crown-admission-mint.mjs) _(matched by name only; npm: `infinite-opus:crown:admit`)_
+- [`scripts/infinite-opus-crown-autofinish.mjs`](../../scripts/infinite-opus-crown-autofinish.mjs) — exports runCrownAutoFinish _(matched by name only)_
+- [`scripts/infinite-opus-crown-financial-recovery.mjs`](../../scripts/infinite-opus-crown-financial-recovery.mjs) — exports RECOVERY_KEY, ORIGINAL_CLAIM, ORIGINAL_CALL, ORIGINAL_GENERATION, UNDISPATCHED (+2) _(matched by name only)_
+- [`scripts/infinite-opus-crown-interrupted-recovery.mjs`](../../scripts/infinite-opus-crown-interrupted-recovery.mjs) — exports reconcileInterruptedCrownGeneration _(matched by name only)_
+- [`scripts/infinite-opus-crown-recovery-diagnostic.mjs`](../../scripts/infinite-opus-crown-recovery-diagnostic.mjs) — exports readCrownRecoveryMetadata _(matched by name only)_
+- [`scripts/infinite-opus-crown-tournament-adjudicate.mjs`](../../scripts/infinite-opus-crown-tournament-adjudicate.mjs) _(matched by name only; npm: `infinite-opus:crown:tournament`)_
 
 ## Config, data, artifacts and services (3)
 
-- [`config/infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1
-- [`docs/receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json`](../receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json) — 2026-10-01 · uberbond.crown.billing-recovery.v1
-- [`open router/61_CROWN_ADMISSION_2026-09-30.mjs`](../../open%20router/61_CROWN_ADMISSION_2026-09-30.mjs) — 2026-09-30 · exports CROWN_ADMISSION_SCHEMA, issueCrownAdmissionReceipt, verifyCrownAdmissionReceipt
+- [`config/infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1 _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json`](../receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json) — 2026-10-01 · uberbond.crown.billing-recovery.v1 _(matched by name only)_
+- [`open router/61_CROWN_ADMISSION_2026-09-30.mjs`](../../open%20router/61_CROWN_ADMISSION_2026-09-30.mjs) — 2026-09-30 · exports CROWN_ADMISSION_SCHEMA, issueCrownAdmissionReceipt, verifyCrownAdmissionReceipt _(matched by name only)_
 
 ## Tests (14)
 

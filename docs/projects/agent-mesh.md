@@ -12,19 +12,19 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (13)
 
-- [`docs/AGENT_EVOLUTION_WAVE.md`](../AGENT_EVOLUTION_WAVE.md) — Bounded agent evolution wave
-- [`docs/AGENT_MESH_ENTRY_POINT.md`](../AGENT_MESH_ENTRY_POINT.md) — Running the agent mesh — Status: REACHABLE as of this commit. Before it, it was not.
-- [`docs/AGENT_MESH_FAILURE_MATRIX.md`](../AGENT_MESH_FAILURE_MATRIX.md) — Agent mesh failure matrix
-- [`docs/AGENT_MESH_REACHABILITY_TRIAGE.md`](../AGENT_MESH_REACHABILITY_TRIAGE.md) — Reachability triage: every src/ module with no non-test importer
-- [`docs/AGENT_WORKER_RUNTIME_V1.md`](../AGENT_WORKER_RUNTIME_V1.md) — UberBond Agent Worker Runtime V1
-- [`docs/AUTONOMOUS_AGENT_MESH_V1.md`](../AUTONOMOUS_AGENT_MESH_V1.md) — UberBond Autonomous Agent Mesh V1
-- [`docs/GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md`](../GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md) — GENESIS realization: Autonomy Compression Ratio — Status: SOURCE IMPLEMENTED / HYPOTHESIS NOT GENERALLY PROVEN
-- [`docs/receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md`](../receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md) — 2026-10-19 · PHOENIX mutation-war hosted-build repair, 2026-10-19
-- [`docs/handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md`](../handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md) — 2026-10-09 · UberMind W17: Durable Jev predispatch single-flight
-- [`docs/AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md`](../AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md) — 2026-09-12 · UberBond Agent-Native Revenue Architecture
-- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory
-- [`docs/UBERBOND_AUTONOMY_OPERATIONS_HARDENING_20260829.md`](../UBERBOND_AUTONOMY_OPERATIONS_HARDENING_20260829.md) — 2026-08-29 · UberBond Autonomy Operations Hardening — 2026-08-29
-- [`docs/AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md`](../AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md) — 2026-08-20 · Autonomous Agent Mesh implementation receipt — 2026-08-20
+- [`docs/AGENT_EVOLUTION_WAVE.md`](../AGENT_EVOLUTION_WAVE.md) — Bounded agent evolution wave _(matched by name only)_
+- [`docs/AGENT_MESH_ENTRY_POINT.md`](../AGENT_MESH_ENTRY_POINT.md) — Running the agent mesh — Status: REACHABLE as of this commit. Before it, it was not. _(matched by name only)_
+- [`docs/AGENT_MESH_FAILURE_MATRIX.md`](../AGENT_MESH_FAILURE_MATRIX.md) — Agent mesh failure matrix _(matched by name only)_
+- [`docs/AGENT_MESH_REACHABILITY_TRIAGE.md`](../AGENT_MESH_REACHABILITY_TRIAGE.md) — Reachability triage: every src/ module with no non-test importer _(matched by name only)_
+- [`docs/AGENT_WORKER_RUNTIME_V1.md`](../AGENT_WORKER_RUNTIME_V1.md) — UberBond Agent Worker Runtime V1 _(matched by name only)_
+- [`docs/AUTONOMOUS_AGENT_MESH_V1.md`](../AUTONOMOUS_AGENT_MESH_V1.md) — UberBond Autonomous Agent Mesh V1 _(matched by name only)_
+- [`docs/GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md`](../GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md) — GENESIS realization: Autonomy Compression Ratio — Status: SOURCE IMPLEMENTED / HYPOTHESIS NOT GENERALLY PROVEN _(matched by name only)_
+- [`docs/receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md`](../receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md) — 2026-10-19 · PHOENIX mutation-war hosted-build repair, 2026-10-19 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md`](../handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md) — 2026-10-09 · UberMind W17: Durable Jev predispatch single-flight _(matched by name only)_
+- [`docs/AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md`](../AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md) — 2026-09-12 · UberBond Agent-Native Revenue Architecture _(matched by name only)_
+- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory _(matched by name only)_
+- [`docs/UBERBOND_AUTONOMY_OPERATIONS_HARDENING_20260829.md`](../UBERBOND_AUTONOMY_OPERATIONS_HARDENING_20260829.md) — 2026-08-29 · UberBond Autonomy Operations Hardening — 2026-08-29 _(matched by name only)_
+- [`docs/AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md`](../AUTONOMOUS_AGENT_MESH_RECEIPT_2026-08-20.md) — 2026-08-20 · Autonomous Agent Mesh implementation receipt — 2026-08-20 _(matched by name only)_
 
 ## Commands (6)
 
@@ -32,124 +32,124 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Dated documents, newest first (1)
 
-- [`docs/PR_QUEUE_RECONCILIATION_2026-08-20.md`](../PR_QUEUE_RECONCILIATION_2026-08-20.md) — 2026-08-20 · Pull-request queue reconciliation — 2026-08-20
+- [`docs/PR_QUEUE_RECONCILIATION_2026-08-20.md`](../PR_QUEUE_RECONCILIATION_2026-08-20.md) — 2026-08-20 · Pull-request queue reconciliation — 2026-08-20 _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (1)
 
-- [`docs/UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md) — UberBond Total Brain Recovery Addendum — Status: SOURCE-BACKED ANTI-AMPUTATION OVERLAY _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md) — UberBond Total Brain Recovery Addendum — Status: SOURCE-BACKED ANTI-AMPUTATION OVERLAY _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (62)
 
-- [`src/agent-autonomy-job.mjs`](../../src/agent-autonomy-job.mjs) — exports AGENT_AUTONOMY_JOB_POLICY_VERSION, tickAutonomyRun, tickActiveAutonomyRuns _(imported by 1)_
-- [`src/agent-autonomy-loop.mjs`](../../src/agent-autonomy-loop.mjs) — exports AGENT_AUTONOMY_POLICY_VERSION, AUTONOMY_FORBIDDEN_ACTIONS, AUTONOMY_ACTIONS, inheritTaskConstraints, compileAutonomySession (+6) _(imported by 4)_
-- [`src/agent-autonomy-occurrence.mjs`](../../src/agent-autonomy-occurrence.mjs) — exports AGENT_AUTONOMY_OCCURRENCE_POLICY_VERSION, compileAutonomyOccurrenceSession, compileAutonomyOccurrenceTaskIntent _(imported by 1)_
-- [`src/agent-autonomy-pump.mjs`](../../src/agent-autonomy-pump.mjs) — exports AGENT_AUTONOMY_PUMP_POLICY_VERSION, createAutonomyRun, advanceAutonomyRun _(imported by 2)_
-- [`src/agent-autonomy-receipt-ledger.mjs`](../../src/agent-autonomy-receipt-ledger.mjs) — exports AGENT_AUTONOMY_RECEIPT_LEDGER_POLICY_VERSION, logIdempotentAutonomyExecutionReceipt _(imported by 1)_
-- [`src/agent-autonomy-relay-adapter.mjs`](../../src/agent-autonomy-relay-adapter.mjs) — Adapter from the autonomous-mesh TaskIntent to UberBond's canonical role-bound AgentTask. _(imported by 1)_
-- [`src/agent-autonomy-scheduled-run.mjs`](../../src/agent-autonomy-scheduled-run.mjs) — Canonical scheduler boundary for recurring autonomy work. _(imported by 1)_
-- [`src/agent-autonomy-scheduler.mjs`](../../src/agent-autonomy-scheduler.mjs) — exports AGENT_AUTONOMY_SCHEDULER_POLICY_VERSION, logAutonomySchedulerSelection, selectFairAutonomyRuns, AUTONOMY_SCHEDULER_AUDIT_TYPES _(imported by 1)_
-- [`src/agent-autonomy-store.mjs`](../../src/agent-autonomy-store.mjs) — exports AGENT_AUTONOMY_STORE_POLICY_VERSION, saveAutonomyRunSnapshot, logAutonomyExecutionReceipt, loadLatestAutonomyRun, listLatestAutonomyRuns (+1) _(imported by 5)_
-- [`src/agent-code-artifact-store.mjs`](../../src/agent-code-artifact-store.mjs) — exports AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION, saveAgentCodeChangeArtifact, loadAgentCodeChangeArtifact, listAgentCodeChangeArtifacts, AGENT_CODE_… _(tested; imported by 1)_
-- [`src/agent-code-change-applier.mjs`](../../src/agent-code-change-applier.mjs) — exports AGENT_CODE_APPLIER_POLICY_VERSION, preflightAgentCodeChangeSet, applyAgentCodeChangeSet _(imported by 3)_
-- [`src/agent-code-change-contract.mjs`](../../src/agent-code-change-contract.mjs) — exports AGENT_CODE_CHANGE_POLICY_VERSION, compileAgentCodeChangeSet, validateAgentCodeChangeSet, SOVEREIGNTY_PROTECTED_PATHS, BUILD_PROTECTED_PATHS (… _(imported by 10)_
-- [`src/agent-compute-store.mjs`](../../src/agent-compute-store.mjs) — exports AGENT_COMPUTE_STORE_POLICY_VERSION, saveComputeBudgetSnapshot, loadLatestComputeBudget, saveAgentExecutionRecord, loadLatestAgentExecution (+… _(tested; imported by 1)_
-- [`src/agent-evolution-wave.mjs`](../../src/agent-evolution-wave.mjs) — One bounded self-upgrade -> worker -> independent-review composition. _(tested; imported by 1)_
-- [`src/agent-git-sandbox-collector.mjs`](../../src/agent-git-sandbox-collector.mjs) — exports AGENT_GIT_SANDBOX_COLLECTOR_POLICY_VERSION, collectAgentGitSandboxChanges _(tested; imported by 3)_
-- [`src/agent-mesh-activation-evidence.mjs`](../../src/agent-mesh-activation-evidence.mjs) — Assembles the input agent-mesh-activation-gate needs, from two sources that _(tested; imported by 1)_
-- [`src/agent-mesh-activation-gate.mjs`](../../src/agent-mesh-activation-gate.mjs) — exports AGENT_MESH_ACTIVATION_POLICY_VERSION, evaluateAgentMeshActivation _(tested; imported by 1)_
-- [`src/agent-mesh-control-plane.mjs`](../../src/agent-mesh-control-plane.mjs) — exports AGENT_MESH_CONTROL_PLANE_POLICY_VERSION, runAgentMeshCycle _(tested; imported by 2)_
-- [`src/agent-mesh-cron-boundary.mjs`](../../src/agent-mesh-cron-boundary.mjs) — exports AGENT_MESH_CRON_BOUNDARY_POLICY_VERSION, VERCEL_AGENT_MESH_CRON_SCHEDULE, authorizeVercelCronRequest, deriveVercelDailyOccurrence, publicCron… _(tested; imported by 2)_
-- [`src/agent-mesh-cycle-receipts.mjs`](../../src/agent-mesh-cycle-receipts.mjs) — exports AGENT_MESH_CYCLE_RECEIPT_VERSION, supportsAgentMeshCycleReceipts, deriveAgentMeshCycleId, beginAgentMeshCycleReceipt, finishAgentMeshCycleRec… _(imported by 4)_
-- [`src/agent-mesh-mission-seed.mjs`](../../src/agent-mesh-mission-seed.mjs) — The missing half of the scheduler boundary. _(tested; imported by 2)_
-- [`src/agent-mesh-zero-io-canary.mjs`](../../src/agent-mesh-zero-io-canary.mjs) — exports AGENT_MESH_ZERO_IO_CANARY_POLICY_VERSION, createZeroExternalIoCanaryRunner _(tested; imported by 1)_
-- [`src/agent-native-commerce.mjs`](../../src/agent-native-commerce.mjs) — exports AGENT_NATIVE_COMMERCE_VERSION, buildAgentCommerceManifest, createDelegatedAgentIdentity, executeAgentCommand, buildAgentAcquisitionSurface _(imported by 1)_
-- [`src/agent-provider-execution.mjs`](../../src/agent-provider-execution.mjs) — SUPERSEDED. The canonical bounded model-invocation transaction is _(no static importers)_
-- [`src/agent-provider-worker.mjs`](../../src/agent-provider-worker.mjs) — exports AGENT_PROVIDER_WORKER_POLICY_VERSION, compileProviderWorkRequest, validateProviderWorkResult, runProviderWorker _(imported by 1)_
-- [`src/agent-sandbox-verifier.mjs`](../../src/agent-sandbox-verifier.mjs) — exports AGENT_SANDBOX_VERIFIER_POLICY_VERSION, compileSandboxVerificationPlan, runSandboxVerification _(tested; imported by 4)_
-- [`src/agent-worker-job.mjs`](../../src/agent-worker-job.mjs) — exports AGENT_WORKER_JOB_POLICY_VERSION, evaluatePendingSubmissionScope, runAgentWorkerTick _(imported by 1)_
-- [`src/agent-worker-result-truth.mjs`](../../src/agent-worker-result-truth.mjs) — One place that decides whether a worker result is allowed to end a run. _(imported by 2)_
-- [`src/agent-worker-runtime.mjs`](../../src/agent-worker-runtime.mjs) — exports AGENT_WORKER_RUNTIME_POLICY_VERSION, compileAgentWorkerPlan, runAgentWorkerOnce, resumeAgentWorkerSubmission _(tested; imported by 1)_
-- [`src/apotheosis-agent-mesh-runtime.mjs`](../../src/apotheosis-agent-mesh-runtime.mjs) — exports APOTHEOSIS_AGENT_MESH_RUNTIME_VERSION, compileApotheosisNativeDispatch, runApotheosisWorkerMission, compileApotheosisNativeContinuation, reco… _(tested; imported by 2)_
-- [`src/autonomous-frontier-intelligence.mjs`](../../src/autonomous-frontier-intelligence.mjs) — exports AUTONOMOUS_FRONTIER_INTELLIGENCE_VERSION, FRONTIER_THINKER_ROLES, normalizeFrontierSignal, scoreFrontierSignal, buildIdeaAtomizationPacket (+… _(tested; imported by 1)_
-- [`src/autonomy-command-center-control.mjs`](../../src/autonomy-command-center-control.mjs) — exports AUTONOMY_COMMAND_CENTER_CONTROL_VERSION, AUTONOMY_COMMAND_CENTER_ISSUE, AUTONOMY_PAUSE_LABEL, compileAutonomyCommand, helpMarkdown (+1) _(tested; imported by 1)_
-- [`src/autonomy-command-center-status.mjs`](../../src/autonomy-command-center-status.mjs) — exports AUTONOMY_COMMAND_CENTER_STATUS_VERSION, buildAutonomyCommandCenterStatus _(tested; imported by 2)_
-- [`src/autonomy-compression-ratio.mjs`](../../src/autonomy-compression-ratio.mjs) — exports AUTONOMY_COMPRESSION_RATIO_VERSION, AUTONOMY_LAYERS, compileAutonomyCompressionMeasurement, compareAutonomyCompressionReplay _(tested; no static importers)_
-- [`src/chat-peer-envelope.mjs`](../../src/chat-peer-envelope.mjs) — exports PEER_SCHEMA, makePeerMessage _(tested; imported by 1)_
-- [`src/claude-code-sandbox-executor.mjs`](../../src/claude-code-sandbox-executor.mjs) — exports CLAUDE_CODE_SANDBOX_EXECUTOR_POLICY_VERSION, createClaudeCodeSandboxExecutor _(tested; imported by 1)_
-- [`src/claude-code-sandbox-provisioner.mjs`](../../src/claude-code-sandbox-provisioner.mjs) — The missing half of the autonomous engineering path. _(tested; no static importers)_
-- [`src/code-evaluate-generated.mjs`](../../src/code-evaluate-generated.mjs) — exports CODE_EVALUATE_GENERATED_ATOM_ID, compileCodeEvaluateGenerated, executeCodeEvaluateGenerated _(tested; imported by 1)_
-- [`src/code-search.mjs`](../../src/code-search.mjs) — exports CODE_SEARCH_ATOM_ID, compileCodeSearch, executeCodeSearch _(tested; imported by 1)_
-- [`src/crown-durable-admission.mjs`](../../src/crown-durable-admission.mjs) — exports DURABLE_CROWN_ADMISSION_SETTING, DURABLE_CROWN_ATTEMPT_KEYS, resolveDurableCrownAdmission, persistDurableCrownAdmission _(tested; imported by 1)_
-- [`src/data-extract-structured.mjs`](../../src/data-extract-structured.mjs) — exports DATA_EXTRACT_STRUCTURED_ATOM_ID, compileDataExtractStructured, executeDataExtractStructured _(tested; imported by 1)_
-- [`src/document-generate-spreadsheet.mjs`](../../src/document-generate-spreadsheet.mjs) — exports DOCUMENT_GENERATE_SPREADSHEET_ATOM_ID, compileDocumentGenerateSpreadsheet, executeDocumentGenerateSpreadsheet _(tested; imported by 1)_
-- [`src/document-summarize.mjs`](../../src/document-summarize.mjs) — exports DOCUMENT_SUMMARIZE_ATOM_ID, compileDocumentSummarize, executeDocumentSummarize _(tested; imported by 1)_
-- [`src/durable-audit-scan.mjs`](../../src/durable-audit-scan.mjs) — One way to read the whole of a filtered audit history. _(imported by 3)_
-- [`src/durable-claude-engineering-executor.mjs`](../../src/durable-claude-engineering-executor.mjs) — exports DURABLE_CLAUDE_ENGINEERING_POLICY_VERSION, createDurableClaudeEngineeringExecutor _(tested; no static importers)_
-- [`src/durable-scheduler-occurrence.mjs`](../../src/durable-scheduler-occurrence.mjs) — exports DURABLE_SCHEDULER_OCCURRENCE_VERSION, reconcileScheduledOccurrence _(tested; imported by 2)_
-- [`src/durable-scheduler-wake-pulse.mjs`](../../src/durable-scheduler-wake-pulse.mjs) — exports DURABLE_SCHEDULER_WAKE_PULSE_VERSION, applyDurableSchedulerWakePulse _(tested; imported by 1)_
-- [`src/founder-outcome-job-handlers.mjs`](../../src/founder-outcome-job-handlers.mjs) — exports createMissionAwareJobHandlers _(tested; imported by 1)_
-- [`src/frontier-worker-compiler.mjs`](../../src/frontier-worker-compiler.mjs) — exports FRONTIER_WORKER_COMPILER_VERSION, normalizeWorkerSpec, compileWorkerManifest, detectWorkerOwnershipConflicts _(no static importers)_
-- [`src/genome-extraction.mjs`](../../src/genome-extraction.mjs) — Converts ingested MarketSignals into a Business Genome candidate _(tested; imported by 2)_
-- [`src/job-handlers.mjs`](../../src/job-handlers.mjs) — exports createJobHandlers _(imported by 2)_
-- [`src/money-queue.mjs`](../../src/money-queue.mjs) — Canonical Money Queue: the single ranked answer to "who is worth a governed _(imported by 1)_
-- [`src/payment-reconciliation-worker.mjs`](../../src/payment-reconciliation-worker.mjs) — The thing that drives payment reconciliation. _(imported by 1)_
-- [`src/paypal-sandbox-adapter.mjs`](../../src/paypal-sandbox-adapter.mjs) — Read-only PayPal Sandbox provider adapter. It is intentionally a verifier _(tested; imported by 2)_
-- [`src/queue.mjs`](../../src/queue.mjs) — exports QUEUE_RECONCILIATION_RECEIPT_VERSION, validateQueueReconciliationReceipt, DurableQueue _(tested; imported by 8)_
-- [`src/sandbox-run-test.mjs`](../../src/sandbox-run-test.mjs) — exports SANDBOX_RUN_TEST_ATOM_ID, compileSandboxRunTest, executeSandboxRunTest _(tested; imported by 1)_
-- [`src/scheduler.mjs`](../../src/scheduler.mjs) — exports startScheduler _(imported by 2)_
-- [`src/sovereign-native-local-worker.mjs`](../../src/sovereign-native-local-worker.mjs) — exports SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION, compileNativeWorkerModelPrompt, compileNativeWorkerProposal _(tested; imported by 1)_
-- [`src/uber-socket-durable-state.mjs`](../../src/uber-socket-durable-state.mjs) — exports UBER_SOCKET_DURABLE_STATE_VERSION, UBER_SOCKET_STATE_KEY, snapshotUberSocketState, persistUberSocketState, restoreUberSocketState _(tested; imported by 1)_
-- [`src/uberlit-worker-liveness.mjs`](../../src/uberlit-worker-liveness.mjs) — exports UBERLIT_WORKER_LIVENESS_SCHEMA, assessUberLitWorkerLiveness, buildUberLitWorkerLivenessReceipt _(tested; imported by 1)_
-- [`src/ubermind-55-agent-mesh-total-cost.mjs`](../../src/ubermind-55-agent-mesh-total-cost.mjs) — exports UBERMIND_W37_MESH_SCHEMA, calculateUberMind55AllInMesh, requiredReuseForMeshCut _(tested; imported by 2)_
-- [`worker.mjs`](../../worker.mjs) — Queue worker process entry point.
+- [`src/agent-autonomy-job.mjs`](../../src/agent-autonomy-job.mjs) — exports AGENT_AUTONOMY_JOB_POLICY_VERSION, tickAutonomyRun, tickActiveAutonomyRuns _(matched by name only; imported by 1)_
+- [`src/agent-autonomy-loop.mjs`](../../src/agent-autonomy-loop.mjs) — exports AGENT_AUTONOMY_POLICY_VERSION, AUTONOMY_FORBIDDEN_ACTIONS, AUTONOMY_ACTIONS, inheritTaskConstraints, compileAutonomySession (+6) _(matched by name only; imported by 4)_
+- [`src/agent-autonomy-occurrence.mjs`](../../src/agent-autonomy-occurrence.mjs) — exports AGENT_AUTONOMY_OCCURRENCE_POLICY_VERSION, compileAutonomyOccurrenceSession, compileAutonomyOccurrenceTaskIntent _(matched by name only; imported by 1)_
+- [`src/agent-autonomy-pump.mjs`](../../src/agent-autonomy-pump.mjs) — exports AGENT_AUTONOMY_PUMP_POLICY_VERSION, createAutonomyRun, advanceAutonomyRun _(matched by name only; imported by 2)_
+- [`src/agent-autonomy-receipt-ledger.mjs`](../../src/agent-autonomy-receipt-ledger.mjs) — exports AGENT_AUTONOMY_RECEIPT_LEDGER_POLICY_VERSION, logIdempotentAutonomyExecutionReceipt _(matched by name only; imported by 1)_
+- [`src/agent-autonomy-relay-adapter.mjs`](../../src/agent-autonomy-relay-adapter.mjs) — Adapter from the autonomous-mesh TaskIntent to UberBond's canonical role-bound AgentTask. _(matched by name only; imported by 1)_
+- [`src/agent-autonomy-scheduled-run.mjs`](../../src/agent-autonomy-scheduled-run.mjs) — Canonical scheduler boundary for recurring autonomy work. _(matched by name only; imported by 1)_
+- [`src/agent-autonomy-scheduler.mjs`](../../src/agent-autonomy-scheduler.mjs) — exports AGENT_AUTONOMY_SCHEDULER_POLICY_VERSION, logAutonomySchedulerSelection, selectFairAutonomyRuns, AUTONOMY_SCHEDULER_AUDIT_TYPES _(matched by name only; imported by 1)_
+- [`src/agent-autonomy-store.mjs`](../../src/agent-autonomy-store.mjs) — exports AGENT_AUTONOMY_STORE_POLICY_VERSION, saveAutonomyRunSnapshot, logAutonomyExecutionReceipt, loadLatestAutonomyRun, listLatestAutonomyRuns (+1) _(matched by name only; imported by 5)_
+- [`src/agent-code-artifact-store.mjs`](../../src/agent-code-artifact-store.mjs) — exports AGENT_CODE_ARTIFACT_STORE_POLICY_VERSION, saveAgentCodeChangeArtifact, loadAgentCodeChangeArtifact, listAgentCodeChangeArtifacts, AGENT_CODE_… _(matched by name only; tested; imported by 1)_
+- [`src/agent-code-change-applier.mjs`](../../src/agent-code-change-applier.mjs) — exports AGENT_CODE_APPLIER_POLICY_VERSION, preflightAgentCodeChangeSet, applyAgentCodeChangeSet _(matched by name only; imported by 3)_
+- [`src/agent-code-change-contract.mjs`](../../src/agent-code-change-contract.mjs) — exports AGENT_CODE_CHANGE_POLICY_VERSION, compileAgentCodeChangeSet, validateAgentCodeChangeSet, SOVEREIGNTY_PROTECTED_PATHS, BUILD_PROTECTED_PATHS (… _(matched by name only; imported by 10)_
+- [`src/agent-compute-store.mjs`](../../src/agent-compute-store.mjs) — exports AGENT_COMPUTE_STORE_POLICY_VERSION, saveComputeBudgetSnapshot, loadLatestComputeBudget, saveAgentExecutionRecord, loadLatestAgentExecution (+… _(matched by name only; tested; imported by 1)_
+- [`src/agent-evolution-wave.mjs`](../../src/agent-evolution-wave.mjs) — One bounded self-upgrade -> worker -> independent-review composition. _(matched by name only; tested; imported by 1)_
+- [`src/agent-git-sandbox-collector.mjs`](../../src/agent-git-sandbox-collector.mjs) — exports AGENT_GIT_SANDBOX_COLLECTOR_POLICY_VERSION, collectAgentGitSandboxChanges _(matched by name only; tested; imported by 3)_
+- [`src/agent-mesh-activation-evidence.mjs`](../../src/agent-mesh-activation-evidence.mjs) — Assembles the input agent-mesh-activation-gate needs, from two sources that _(matched by name only; tested; imported by 1)_
+- [`src/agent-mesh-activation-gate.mjs`](../../src/agent-mesh-activation-gate.mjs) — exports AGENT_MESH_ACTIVATION_POLICY_VERSION, evaluateAgentMeshActivation _(matched by name only; tested; imported by 1)_
+- [`src/agent-mesh-control-plane.mjs`](../../src/agent-mesh-control-plane.mjs) — exports AGENT_MESH_CONTROL_PLANE_POLICY_VERSION, runAgentMeshCycle _(matched by name only; tested; imported by 2)_
+- [`src/agent-mesh-cron-boundary.mjs`](../../src/agent-mesh-cron-boundary.mjs) — exports AGENT_MESH_CRON_BOUNDARY_POLICY_VERSION, VERCEL_AGENT_MESH_CRON_SCHEDULE, authorizeVercelCronRequest, deriveVercelDailyOccurrence, publicCron… _(matched by name only; tested; imported by 2)_
+- [`src/agent-mesh-cycle-receipts.mjs`](../../src/agent-mesh-cycle-receipts.mjs) — exports AGENT_MESH_CYCLE_RECEIPT_VERSION, supportsAgentMeshCycleReceipts, deriveAgentMeshCycleId, beginAgentMeshCycleReceipt, finishAgentMeshCycleRec… _(matched by name only; imported by 4)_
+- [`src/agent-mesh-mission-seed.mjs`](../../src/agent-mesh-mission-seed.mjs) — The missing half of the scheduler boundary. _(matched by name only; tested; imported by 2)_
+- [`src/agent-mesh-zero-io-canary.mjs`](../../src/agent-mesh-zero-io-canary.mjs) — exports AGENT_MESH_ZERO_IO_CANARY_POLICY_VERSION, createZeroExternalIoCanaryRunner _(matched by name only; tested; imported by 1)_
+- [`src/agent-native-commerce.mjs`](../../src/agent-native-commerce.mjs) — exports AGENT_NATIVE_COMMERCE_VERSION, buildAgentCommerceManifest, createDelegatedAgentIdentity, executeAgentCommand, buildAgentAcquisitionSurface _(matched by name only; imported by 1)_
+- [`src/agent-provider-execution.mjs`](../../src/agent-provider-execution.mjs) — SUPERSEDED. The canonical bounded model-invocation transaction is _(matched by name only; no static importers)_
+- [`src/agent-provider-worker.mjs`](../../src/agent-provider-worker.mjs) — exports AGENT_PROVIDER_WORKER_POLICY_VERSION, compileProviderWorkRequest, validateProviderWorkResult, runProviderWorker _(matched by name only; imported by 1)_
+- [`src/agent-sandbox-verifier.mjs`](../../src/agent-sandbox-verifier.mjs) — exports AGENT_SANDBOX_VERIFIER_POLICY_VERSION, compileSandboxVerificationPlan, runSandboxVerification _(matched by name only; tested; imported by 4)_
+- [`src/agent-worker-job.mjs`](../../src/agent-worker-job.mjs) — exports AGENT_WORKER_JOB_POLICY_VERSION, evaluatePendingSubmissionScope, runAgentWorkerTick _(matched by name only; imported by 1)_
+- [`src/agent-worker-result-truth.mjs`](../../src/agent-worker-result-truth.mjs) — One place that decides whether a worker result is allowed to end a run. _(matched by name only; imported by 2)_
+- [`src/agent-worker-runtime.mjs`](../../src/agent-worker-runtime.mjs) — exports AGENT_WORKER_RUNTIME_POLICY_VERSION, compileAgentWorkerPlan, runAgentWorkerOnce, resumeAgentWorkerSubmission _(matched by name only; tested; imported by 1)_
+- [`src/apotheosis-agent-mesh-runtime.mjs`](../../src/apotheosis-agent-mesh-runtime.mjs) — exports APOTHEOSIS_AGENT_MESH_RUNTIME_VERSION, compileApotheosisNativeDispatch, runApotheosisWorkerMission, compileApotheosisNativeContinuation, reco… _(matched by name only; tested; imported by 2)_
+- [`src/autonomous-frontier-intelligence.mjs`](../../src/autonomous-frontier-intelligence.mjs) — exports AUTONOMOUS_FRONTIER_INTELLIGENCE_VERSION, FRONTIER_THINKER_ROLES, normalizeFrontierSignal, scoreFrontierSignal, buildIdeaAtomizationPacket (+… _(matched by name only; tested; imported by 1)_
+- [`src/autonomy-command-center-control.mjs`](../../src/autonomy-command-center-control.mjs) — exports AUTONOMY_COMMAND_CENTER_CONTROL_VERSION, AUTONOMY_COMMAND_CENTER_ISSUE, AUTONOMY_PAUSE_LABEL, compileAutonomyCommand, helpMarkdown (+1) _(matched by name only; tested; imported by 1)_
+- [`src/autonomy-command-center-status.mjs`](../../src/autonomy-command-center-status.mjs) — exports AUTONOMY_COMMAND_CENTER_STATUS_VERSION, buildAutonomyCommandCenterStatus _(matched by name only; tested; imported by 2)_
+- [`src/autonomy-compression-ratio.mjs`](../../src/autonomy-compression-ratio.mjs) — exports AUTONOMY_COMPRESSION_RATIO_VERSION, AUTONOMY_LAYERS, compileAutonomyCompressionMeasurement, compareAutonomyCompressionReplay _(matched by name only; tested; no static importers)_
+- [`src/chat-peer-envelope.mjs`](../../src/chat-peer-envelope.mjs) — exports PEER_SCHEMA, makePeerMessage _(matched by name only; tested; imported by 1)_
+- [`src/claude-code-sandbox-executor.mjs`](../../src/claude-code-sandbox-executor.mjs) — exports CLAUDE_CODE_SANDBOX_EXECUTOR_POLICY_VERSION, createClaudeCodeSandboxExecutor _(matched by name only; tested; imported by 1)_
+- [`src/claude-code-sandbox-provisioner.mjs`](../../src/claude-code-sandbox-provisioner.mjs) — The missing half of the autonomous engineering path. _(matched by name only; tested; no static importers)_
+- [`src/code-evaluate-generated.mjs`](../../src/code-evaluate-generated.mjs) — exports CODE_EVALUATE_GENERATED_ATOM_ID, compileCodeEvaluateGenerated, executeCodeEvaluateGenerated _(matched by name only; tested; imported by 1)_
+- [`src/code-search.mjs`](../../src/code-search.mjs) — exports CODE_SEARCH_ATOM_ID, compileCodeSearch, executeCodeSearch _(matched by name only; tested; imported by 1)_
+- [`src/crown-durable-admission.mjs`](../../src/crown-durable-admission.mjs) — exports DURABLE_CROWN_ADMISSION_SETTING, DURABLE_CROWN_ATTEMPT_KEYS, resolveDurableCrownAdmission, persistDurableCrownAdmission _(matched by name only; tested; imported by 1)_
+- [`src/data-extract-structured.mjs`](../../src/data-extract-structured.mjs) — exports DATA_EXTRACT_STRUCTURED_ATOM_ID, compileDataExtractStructured, executeDataExtractStructured _(matched by name only; tested; imported by 1)_
+- [`src/document-generate-spreadsheet.mjs`](../../src/document-generate-spreadsheet.mjs) — exports DOCUMENT_GENERATE_SPREADSHEET_ATOM_ID, compileDocumentGenerateSpreadsheet, executeDocumentGenerateSpreadsheet _(matched by name only; tested; imported by 1)_
+- [`src/document-summarize.mjs`](../../src/document-summarize.mjs) — exports DOCUMENT_SUMMARIZE_ATOM_ID, compileDocumentSummarize, executeDocumentSummarize _(matched by name only; tested; imported by 1)_
+- [`src/durable-audit-scan.mjs`](../../src/durable-audit-scan.mjs) — One way to read the whole of a filtered audit history. _(matched by name only; imported by 3)_
+- [`src/durable-claude-engineering-executor.mjs`](../../src/durable-claude-engineering-executor.mjs) — exports DURABLE_CLAUDE_ENGINEERING_POLICY_VERSION, createDurableClaudeEngineeringExecutor _(matched by name only; tested; no static importers)_
+- [`src/durable-scheduler-occurrence.mjs`](../../src/durable-scheduler-occurrence.mjs) — exports DURABLE_SCHEDULER_OCCURRENCE_VERSION, reconcileScheduledOccurrence _(matched by name only; tested; imported by 2)_
+- [`src/durable-scheduler-wake-pulse.mjs`](../../src/durable-scheduler-wake-pulse.mjs) — exports DURABLE_SCHEDULER_WAKE_PULSE_VERSION, applyDurableSchedulerWakePulse _(matched by name only; tested; imported by 1)_
+- [`src/founder-outcome-job-handlers.mjs`](../../src/founder-outcome-job-handlers.mjs) — exports createMissionAwareJobHandlers _(matched by name only; tested; imported by 1)_
+- [`src/frontier-worker-compiler.mjs`](../../src/frontier-worker-compiler.mjs) — exports FRONTIER_WORKER_COMPILER_VERSION, normalizeWorkerSpec, compileWorkerManifest, detectWorkerOwnershipConflicts _(matched by name only; no static importers)_
+- [`src/genome-extraction.mjs`](../../src/genome-extraction.mjs) — Converts ingested MarketSignals into a Business Genome candidate _(matched by name only; tested; imported by 2)_
+- [`src/job-handlers.mjs`](../../src/job-handlers.mjs) — exports createJobHandlers _(matched by name only; imported by 2)_
+- [`src/money-queue.mjs`](../../src/money-queue.mjs) — Canonical Money Queue: the single ranked answer to "who is worth a governed _(matched by name only; imported by 1)_
+- [`src/payment-reconciliation-worker.mjs`](../../src/payment-reconciliation-worker.mjs) — The thing that drives payment reconciliation. _(matched by name only; imported by 1)_
+- [`src/paypal-sandbox-adapter.mjs`](../../src/paypal-sandbox-adapter.mjs) — Read-only PayPal Sandbox provider adapter. It is intentionally a verifier _(matched by name only; tested; imported by 2)_
+- [`src/queue.mjs`](../../src/queue.mjs) — exports QUEUE_RECONCILIATION_RECEIPT_VERSION, validateQueueReconciliationReceipt, DurableQueue _(matched by name only; tested; imported by 8)_
+- [`src/sandbox-run-test.mjs`](../../src/sandbox-run-test.mjs) — exports SANDBOX_RUN_TEST_ATOM_ID, compileSandboxRunTest, executeSandboxRunTest _(matched by name only; tested; imported by 1)_
+- [`src/scheduler.mjs`](../../src/scheduler.mjs) — exports startScheduler _(matched by name only; imported by 2)_
+- [`src/sovereign-native-local-worker.mjs`](../../src/sovereign-native-local-worker.mjs) — exports SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION, compileNativeWorkerModelPrompt, compileNativeWorkerProposal _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-durable-state.mjs`](../../src/uber-socket-durable-state.mjs) — exports UBER_SOCKET_DURABLE_STATE_VERSION, UBER_SOCKET_STATE_KEY, snapshotUberSocketState, persistUberSocketState, restoreUberSocketState _(matched by name only; tested; imported by 1)_
+- [`src/uberlit-worker-liveness.mjs`](../../src/uberlit-worker-liveness.mjs) — exports UBERLIT_WORKER_LIVENESS_SCHEMA, assessUberLitWorkerLiveness, buildUberLitWorkerLivenessReceipt _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-55-agent-mesh-total-cost.mjs`](../../src/ubermind-55-agent-mesh-total-cost.mjs) — exports UBERMIND_W37_MESH_SCHEMA, calculateUberMind55AllInMesh, requiredReuseForMeshCut _(matched by name only; tested; imported by 2)_
+- [`worker.mjs`](../../worker.mjs) — Queue worker process entry point. _(matched by name only)_
 
 ## Scripts (15)
 
-- [`scripts/agent-evolution-operator.mjs`](../../scripts/agent-evolution-operator.mjs) — Operator surface for UberBond's already-existing bounded self-improvement wave. _(npm: `agent-evolution:doctor`, `agent-evolution:run`)_
-- [`scripts/agent-mesh-tick.mjs`](../../scripts/agent-mesh-tick.mjs) — One finite invocation of the UberBond cognitive bus. _(npm: `mesh:tick`, `mesh:plan`)_
-- [`scripts/agent-native-commerce-doctor.mjs`](../../scripts/agent-native-commerce-doctor.mjs)
-- [`scripts/durable-scheduler-wake-pulse-doctor.mjs`](../../scripts/durable-scheduler-wake-pulse-doctor.mjs)
-- [`scripts/frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs)
-- [`scripts/github-relay-worker.mjs`](../../scripts/github-relay-worker.mjs) — Device-off worker for the GitHub-mediated relay (src/github-relay.mjs).
-- [`scripts/queue-smoke.mjs`](../../scripts/queue-smoke.mjs) _(npm: `smoke:queue`)_
-- [`scripts/sovereign-autonomy-pulse.mjs`](../../scripts/sovereign-autonomy-pulse.mjs) — exports SOVEREIGN_AUTONOMY_PULSE_VERSION, compileLocalAutonomyState, runSovereignAutonomyPulse
-- [`scripts/sovereign-autonomy-verify.mjs`](../../scripts/sovereign-autonomy-verify.mjs) — exports SOVEREIGN_AUTONOMY_VERIFY_VERSION, runSovereignAutonomyVerification
-- [`scripts/sovereign-context-project-worker.mjs`](../../scripts/sovereign-context-project-worker.mjs) — exports SOVEREIGN_CONTEXT_PROJECT_WORKER_VERSION, projectWorkerContext
-- [`scripts/sovereign-local-worker-runner.mjs`](../../scripts/sovereign-local-worker-runner.mjs) — exports SOVEREIGN_LOCAL_WORKER_VERSION, runSovereignLocalWorker
-- [`scripts/sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs)
-- [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1)
-- [`scripts/uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs)
-- [`scripts/ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations
+- [`scripts/agent-evolution-operator.mjs`](../../scripts/agent-evolution-operator.mjs) — Operator surface for UberBond's already-existing bounded self-improvement wave. _(matched by name only; npm: `agent-evolution:doctor`, `agent-evolution:run`)_
+- [`scripts/agent-mesh-tick.mjs`](../../scripts/agent-mesh-tick.mjs) — One finite invocation of the UberBond cognitive bus. _(matched by name only; npm: `mesh:tick`, `mesh:plan`)_
+- [`scripts/agent-native-commerce-doctor.mjs`](../../scripts/agent-native-commerce-doctor.mjs) _(matched by name only)_
+- [`scripts/durable-scheduler-wake-pulse-doctor.mjs`](../../scripts/durable-scheduler-wake-pulse-doctor.mjs) _(matched by name only)_
+- [`scripts/frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs) _(matched by name only)_
+- [`scripts/github-relay-worker.mjs`](../../scripts/github-relay-worker.mjs) — Device-off worker for the GitHub-mediated relay (src/github-relay.mjs). _(matched by name only)_
+- [`scripts/queue-smoke.mjs`](../../scripts/queue-smoke.mjs) _(matched by name only; npm: `smoke:queue`)_
+- [`scripts/sovereign-autonomy-pulse.mjs`](../../scripts/sovereign-autonomy-pulse.mjs) — exports SOVEREIGN_AUTONOMY_PULSE_VERSION, compileLocalAutonomyState, runSovereignAutonomyPulse _(matched by name only)_
+- [`scripts/sovereign-autonomy-verify.mjs`](../../scripts/sovereign-autonomy-verify.mjs) — exports SOVEREIGN_AUTONOMY_VERIFY_VERSION, runSovereignAutonomyVerification _(matched by name only)_
+- [`scripts/sovereign-context-project-worker.mjs`](../../scripts/sovereign-context-project-worker.mjs) — exports SOVEREIGN_CONTEXT_PROJECT_WORKER_VERSION, projectWorkerContext _(matched by name only)_
+- [`scripts/sovereign-local-worker-runner.mjs`](../../scripts/sovereign-local-worker-runner.mjs) — exports SOVEREIGN_LOCAL_WORKER_VERSION, runSovereignLocalWorker _(matched by name only)_
+- [`scripts/sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs) _(matched by name only)_
+- [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) _(matched by name only)_
+- [`scripts/uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs) _(matched by name only)_
+- [`scripts/ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations _(matched by name only)_
 
 ## Config, data, artifacts and services (27)
 
-- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker
-- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker
-- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient
-- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation
-- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake
-- [`api/agent-mesh-cron.mjs`](../../api/agent-mesh-cron.mjs) — exports createHandler
-- [`artifacts/claude-implementation-queue.json`](../../artifacts/claude-implementation-queue.json) — Bind AI employee role contracts into relay task identity · IN_PROGRESS_CLAIMED_BY_PR_188 · uberbond-claude-implementation-queue-1.0.0
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json) — 2026-10-17 · Wave 10: Autonomous Possibility Engine · RESEARCH_ASSET_AND_SYNTHETIC_TEST_ONLY
-- [`config/founder-moonshot-atomization-queue.json`](../../config/founder-moonshot-atomization-queue.json) — SOURCE_READY_FOR_CLAIM_ATOMIZATION · uberbond.founder-moonshot-atomization-queue.v1
-- [`docs/AGENT_EVOLUTION_WAVE_RECEIPT_2026-08-20T0114Z.json`](../AGENT_EVOLUTION_WAVE_RECEIPT_2026-08-20T0114Z.json) — 2026-08-20 · mohammedwessam2007/uberbondd · PASS_LOCAL
-- [`docs/AUTONOMOUS_RELAY_CLIENT_RECEIPT_2026-08-20T0103Z.json`](../AUTONOMOUS_RELAY_CLIENT_RECEIPT_2026-08-20T0103Z.json) — 2026-08-20 · mohammedwessam2007/uberbondd
-- [`docs/architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd`](../architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd) — 2026-10-10
-- [`lite/lib/queue-diagnostics.mjs`](../../lite/lib/queue-diagnostics.mjs) — exports databaseFingerprint, readAuditRequestCounts, formatQueueDiagnostic, emitQueueDiagnostic
-- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — Cash Engine Lite worker — executed by .github/workflows/lite-audits.yml.
-- [`migrations/002_durable_queue.sql`](../../migrations/002_durable_queue.sql)
-- [`migrations/101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql)
-- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline
-- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path)
-- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service)
-- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path)
-- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service)
-- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker)
-- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service)
-- [`public/command-center-autonomy.js`](../../public/command-center-autonomy.js)
-- [`railway-worker.json`](../../railway-worker.json) — Railway worker service config.
-- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator
-- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts)
+- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker _(matched by name only)_
+- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker _(matched by name only)_
+- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient _(matched by name only)_
+- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation _(matched by name only)_
+- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake _(matched by name only)_
+- [`api/agent-mesh-cron.mjs`](../../api/agent-mesh-cron.mjs) — exports createHandler _(matched by name only)_
+- [`artifacts/claude-implementation-queue.json`](../../artifacts/claude-implementation-queue.json) — Bind AI employee role contracts into relay task identity · IN_PROGRESS_CLAIMED_BY_PR_188 · uberbond-claude-implementation-queue-1.0.0 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json) — 2026-10-17 · Wave 10: Autonomous Possibility Engine · RESEARCH_ASSET_AND_SYNTHETIC_TEST_ONLY _(matched by name only)_
+- [`config/founder-moonshot-atomization-queue.json`](../../config/founder-moonshot-atomization-queue.json) — SOURCE_READY_FOR_CLAIM_ATOMIZATION · uberbond.founder-moonshot-atomization-queue.v1 _(matched by name only)_
+- [`docs/AGENT_EVOLUTION_WAVE_RECEIPT_2026-08-20T0114Z.json`](../AGENT_EVOLUTION_WAVE_RECEIPT_2026-08-20T0114Z.json) — 2026-08-20 · mohammedwessam2007/uberbondd · PASS_LOCAL _(matched by name only)_
+- [`docs/AUTONOMOUS_RELAY_CLIENT_RECEIPT_2026-08-20T0103Z.json`](../AUTONOMOUS_RELAY_CLIENT_RECEIPT_2026-08-20T0103Z.json) — 2026-08-20 · mohammedwessam2007/uberbondd _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd`](../architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd) — 2026-10-10 _(matched by name only)_
+- [`lite/lib/queue-diagnostics.mjs`](../../lite/lib/queue-diagnostics.mjs) — exports databaseFingerprint, readAuditRequestCounts, formatQueueDiagnostic, emitQueueDiagnostic _(matched by name only)_
+- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — Cash Engine Lite worker — executed by .github/workflows/lite-audits.yml. _(matched by name only)_
+- [`migrations/002_durable_queue.sql`](../../migrations/002_durable_queue.sql) _(matched by name only)_
+- [`migrations/101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql) _(matched by name only)_
+- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker) _(matched by name only)_
+- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) _(matched by name only)_
+- [`public/command-center-autonomy.js`](../../public/command-center-autonomy.js) _(matched by name only)_
+- [`railway-worker.json`](../../railway-worker.json) — Railway worker service config. _(matched by name only)_
+- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator _(matched by name only)_
+- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) _(matched by name only)_
 
 ## Tests (99)
 

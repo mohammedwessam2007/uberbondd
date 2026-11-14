@@ -12,46 +12,46 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (4)
 
-- [`docs/MILLION_BRANCH_IDEATION_GENOME.md`](../MILLION_BRANCH_IDEATION_GENOME.md) — UberBond Million-Branch Ideation Genome — Status: FOUNDER_SPEC promoted into durable GENESIS extension
-- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Prometheus Task Universe wave
-- [`docs/THREAD_OPPORTUNITY_UNIVERSE.md`](../THREAD_OPPORTUNITY_UNIVERSE.md) — UberBond Thread Opportunity Universe
-- [`docs/INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md`](../INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md) — 2026-09-15 · UberBond Interstellar Wormhole Mechanisms — Status: SPECULATIVE_RESEARCH_PROGRAM / NOT_IMPLEMENTATION_PROOF / NOT_ASI_CLAIM
+- [`docs/MILLION_BRANCH_IDEATION_GENOME.md`](../MILLION_BRANCH_IDEATION_GENOME.md) — UberBond Million-Branch Ideation Genome — Status: FOUNDER_SPEC promoted into durable GENESIS extension _(matched by name only)_
+- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Prometheus Task Universe wave _(matched by name only)_
+- [`docs/THREAD_OPPORTUNITY_UNIVERSE.md`](../THREAD_OPPORTUNITY_UNIVERSE.md) — UberBond Thread Opportunity Universe _(matched by name only)_
+- [`docs/INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md`](../INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md) — 2026-09-15 · UberBond Interstellar Wormhole Mechanisms — Status: SPECULATIVE_RESEARCH_PROGRAM / NOT_IMPLEMENTATION_PROOF / NOT_ASI_CLAIM _(matched by name only)_
 
 ## Other documents (1)
 
-- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current
+- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (4)
 
-- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon _(4 mentions)_
-- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(3 mentions)_
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(3 mentions)_
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(3 mentions)_
+- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon _(matched by name only)_ _(4 mentions)_
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (10)
 
-- [`src/billion-capability-universe.mjs`](../../src/billion-capability-universe.mjs) — exports BILLION_CAPABILITY_UNIVERSE_VERSION, BILLION_CAPABILITY_OBJECT_TARGET, GITHUB_REPOSITORY_DISCOVERY_HORIZON, CAPABILITY_OBJECT_CLASSES, buildB… _(tested; imported by 1)_
-- [`src/million-branch-ideation-compat-data.mjs`](../../src/million-branch-ideation-compat-data.mjs) — exports MILLION_BRANCH_DOMAIN_NAMES, MILLION_BRANCH_OPERATOR_NAMES _(imported by 1)_
-- [`src/million-branch-ideation-compat.mjs`](../../src/million-branch-ideation-compat.mjs) — exports MILLION_BRANCH_IDEATION_GENOME_VERSION, MILLION_BRANCH_SOURCE_SHA256, MILLION_BRANCH_DOMAIN_COUNT, MILLION_BRANCH_DOMAINS, MILLION_BRANCH_OPE… _(imported by 1)_
-- [`src/million-branch-ideation-genome.mjs`](../../src/million-branch-ideation-genome.mjs) — Public compatibility entrypoint stays founder-generic. Personalization remains behind a separately authorized private context. _(tested; imported by 4)_
-- [`src/million-wormhole-compiled-prior.mjs`](../../src/million-wormhole-compiled-prior.mjs) — exports MILLION_WORMHOLE_COMPILED_PRIOR_VERSION, MILLION_WORMHOLE_EARLY_EXIT_PRIOR_VERSION, COMPILED_MAX_EXACT_TOP_K, compileTopMillionWormholePriors… _(tested; imported by 1)_
-- [`src/million-wormhole-operators.mjs`](../../src/million-wormhole-operators.mjs) — exports MILLION_WORMHOLE_OPERATORS _(imported by 3)_
-- [`src/million-wormhole-tournament.mjs`](../../src/million-wormhole-tournament.mjs) — exports MILLION_WORMHOLE_TOURNAMENT_VERSION, compileMillionWormholeShard, intelligenceDensity, compileRecursiveWormholeRound _(imported by 4)_
-- [`src/million-wormhole-universe.mjs`](../../src/million-wormhole-universe.mjs) — exports MILLION_WORMHOLE_UNIVERSE_VERSION, MILLION_WORMHOLE_CANDIDATE_COUNT, MILLION_WORMHOLE_SHARD_COUNT, MILLION_WORMHOLE_SHARD_SIZE, decodeMillion… _(imported by 4)_
-- [`src/task-universe.mjs`](../../src/task-universe.mjs) — Bounded Task Universe Engine primitives. _(tested; imported by 2)_
-- [`src/thread-opportunity-universe.mjs`](../../src/thread-opportunity-universe.mjs) — Broad opportunity universe extracted from the explicit commercial lanes in _(imported by 2)_
+- [`src/billion-capability-universe.mjs`](../../src/billion-capability-universe.mjs) — exports BILLION_CAPABILITY_UNIVERSE_VERSION, BILLION_CAPABILITY_OBJECT_TARGET, GITHUB_REPOSITORY_DISCOVERY_HORIZON, CAPABILITY_OBJECT_CLASSES, buildB… _(matched by name only; tested; imported by 1)_
+- [`src/million-branch-ideation-compat-data.mjs`](../../src/million-branch-ideation-compat-data.mjs) — exports MILLION_BRANCH_DOMAIN_NAMES, MILLION_BRANCH_OPERATOR_NAMES _(matched by name only; imported by 1)_
+- [`src/million-branch-ideation-compat.mjs`](../../src/million-branch-ideation-compat.mjs) — exports MILLION_BRANCH_IDEATION_GENOME_VERSION, MILLION_BRANCH_SOURCE_SHA256, MILLION_BRANCH_DOMAIN_COUNT, MILLION_BRANCH_DOMAINS, MILLION_BRANCH_OPE… _(matched by name only; imported by 1)_
+- [`src/million-branch-ideation-genome.mjs`](../../src/million-branch-ideation-genome.mjs) — Public compatibility entrypoint stays founder-generic. Personalization remains behind a separately authorized private context. _(matched by name only; tested; imported by 4)_
+- [`src/million-wormhole-compiled-prior.mjs`](../../src/million-wormhole-compiled-prior.mjs) — exports MILLION_WORMHOLE_COMPILED_PRIOR_VERSION, MILLION_WORMHOLE_EARLY_EXIT_PRIOR_VERSION, COMPILED_MAX_EXACT_TOP_K, compileTopMillionWormholePriors… _(matched by name only; tested; imported by 1)_
+- [`src/million-wormhole-operators.mjs`](../../src/million-wormhole-operators.mjs) — exports MILLION_WORMHOLE_OPERATORS _(matched by name only; imported by 3)_
+- [`src/million-wormhole-tournament.mjs`](../../src/million-wormhole-tournament.mjs) — exports MILLION_WORMHOLE_TOURNAMENT_VERSION, compileMillionWormholeShard, intelligenceDensity, compileRecursiveWormholeRound _(matched by name only; imported by 4)_
+- [`src/million-wormhole-universe.mjs`](../../src/million-wormhole-universe.mjs) — exports MILLION_WORMHOLE_UNIVERSE_VERSION, MILLION_WORMHOLE_CANDIDATE_COUNT, MILLION_WORMHOLE_SHARD_COUNT, MILLION_WORMHOLE_SHARD_SIZE, decodeMillion… _(matched by name only; imported by 4)_
+- [`src/task-universe.mjs`](../../src/task-universe.mjs) — Bounded Task Universe Engine primitives. _(matched by name only; tested; imported by 2)_
+- [`src/thread-opportunity-universe.mjs`](../../src/thread-opportunity-universe.mjs) — Broad opportunity universe extracted from the explicit commercial lanes in _(matched by name only; imported by 2)_
 
 ## Scripts (3)
 
-- [`scripts/million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs)
-- [`scripts/million-wormhole-search-tick.mjs`](../../scripts/million-wormhole-search-tick.mjs)
-- [`scripts/million-wormhole-tier2-benchmark.mjs`](../../scripts/million-wormhole-tier2-benchmark.mjs)
+- [`scripts/million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs) _(matched by name only)_
+- [`scripts/million-wormhole-search-tick.mjs`](../../scripts/million-wormhole-search-tick.mjs) _(matched by name only)_
+- [`scripts/million-wormhole-tier2-benchmark.mjs`](../../scripts/million-wormhole-tier2-benchmark.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (3)
 
-- [`artifacts/million-branch-ideation-genome.json`](../../artifacts/million-branch-ideation-genome.json) — UBERBOND_MILLION_BRANCH_IDEATION_GENOME_v1.md · FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION · uberbond-million-branch-ideation-genom…
-- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2
-- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1
+- [`artifacts/million-branch-ideation-genome.json`](../../artifacts/million-branch-ideation-genome.json) — UBERBOND_MILLION_BRANCH_IDEATION_GENOME_v1.md · FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION · uberbond-million-branch-ideation-genom… _(matched by name only)_
+- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2 _(matched by name only)_
+- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1 _(matched by name only)_
 
 ## Tests (8)
 

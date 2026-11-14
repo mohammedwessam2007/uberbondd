@@ -12,26 +12,26 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — UberBond Sovereign Option & Outcome Forecast Engine — Status: TERMINAL NORTH STAR ORGAN / CHAT_SPEC_GOAL / NOT A CLAIM OF PERFECT PREDICTION
+- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — UberBond Sovereign Option & Outcome Forecast Engine — Status: TERMINAL NORTH STAR ORGAN / CHAT_SPEC_GOAL / NOT A CLAIM OF PERFECT PREDICTION _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (1)
 
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(5 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(5 mentions)_
 
 ## Source modules (8)
 
-- [`src/decision-twin.mjs`](../../src/decision-twin.mjs) — DecisionTwin + UberClose: a model of the BUYING GROUP for one opportunity and _(imported by 1)_
-- [`src/forecast-adversarial-ensemble.mjs`](../../src/forecast-adversarial-ensemble.mjs) — What a room full of agreeing forecasters is actually worth. _(tested; imported by 2)_
-- [`src/forecast-decision-boundary.mjs`](../../src/forecast-decision-boundary.mjs) — Where reasoning stops, and the several different reasons it stops there. _(tested; imported by 1)_
-- [`src/forecast-parent-organ.mjs`](../../src/forecast-parent-organ.mjs) — Where a forecast earns the right to carry a number. _(tested; imported by 1)_
-- [`src/forecast-stack.mjs`](../../src/forecast-stack.mjs) — The methods a forecast is built from, and the ones that earned their place. _(tested; imported by 5)_
-- [`src/reality-calibration-ledger.mjs`](../../src/reality-calibration-ledger.mjs) — Forecasts scored against what actually happened. _(tested; imported by 4)_
-- [`src/single-audit-forecast-ledger.mjs`](../../src/single-audit-forecast-ledger.mjs) — Single Audit Obligation Forecast Ledger (Prediction Accounting over public data). _(tested; imported by 1)_
-- [`src/sovereign-decision-packet.mjs`](../../src/sovereign-decision-packet.mjs) — The option universe, the forecasts over it, and the packet handed back. _(tested; imported by 1)_
+- [`src/decision-twin.mjs`](../../src/decision-twin.mjs) — DecisionTwin + UberClose: a model of the BUYING GROUP for one opportunity and _(matched by name only; imported by 1)_
+- [`src/forecast-adversarial-ensemble.mjs`](../../src/forecast-adversarial-ensemble.mjs) — What a room full of agreeing forecasters is actually worth. _(matched by name only; tested; imported by 2)_
+- [`src/forecast-decision-boundary.mjs`](../../src/forecast-decision-boundary.mjs) — Where reasoning stops, and the several different reasons it stops there. _(matched by name only; tested; imported by 1)_
+- [`src/forecast-parent-organ.mjs`](../../src/forecast-parent-organ.mjs) — Where a forecast earns the right to carry a number. _(matched by name only; tested; imported by 1)_
+- [`src/forecast-stack.mjs`](../../src/forecast-stack.mjs) — The methods a forecast is built from, and the ones that earned their place. _(matched by name only; tested; imported by 5)_
+- [`src/reality-calibration-ledger.mjs`](../../src/reality-calibration-ledger.mjs) — Forecasts scored against what actually happened. _(matched by name only; tested; imported by 4)_
+- [`src/single-audit-forecast-ledger.mjs`](../../src/single-audit-forecast-ledger.mjs) — Single Audit Obligation Forecast Ledger (Prediction Accounting over public data). _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-decision-packet.mjs`](../../src/sovereign-decision-packet.mjs) — The option universe, the forecasts over it, and the packet handed back. _(matched by name only; tested; imported by 1)_
 
 ## Config, data, artifacts and services (1)
 
-- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0
+- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0 _(matched by name only)_
 
 ## Tests (9)
 

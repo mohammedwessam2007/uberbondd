@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt.
-- [`docs/PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md`](../PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md) — PHOENIX Chat-First Cloud Brain
-- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain
-- [`docs/UBER_CLOSURE_INDEX.md`](../UBER_CLOSURE_INDEX.md) — Uber Outreach Closure Index
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map
-- [`docs/UBERBOND_GROWTH_GRAPH_EXPANSION.md`](../UBERBOND_GROWTH_GRAPH_EXPANSION.md) — UberBond Growth Graph Expansion
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory
-- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY
-- [`docs/memory/ASTRA_HARNESS_DONOR_2026-09-14.md`](../memory/ASTRA_HARNESS_DONOR_2026-09-14.md) — 2026-09-14 · Astra Structured-Harness Donor — 2026-09-14
-- [`docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md`](../memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md) — 2026-09-14 · PROJECT NULLSTAR — Founder Directive Import — 2026-09-14 — Truth class: FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL.
-- [`docs/memory/UBERBOND_PRODUCTION_ACTIVATION_2026-09-07.md`](../memory/UBERBOND_PRODUCTION_ACTIVATION_2026-09-07.md) — 2026-09-07 · UberBond Production Activation Receipt — 2026-09-07
-- [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06
-- [`docs/memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md`](../memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md) — 2026-09-06 · UberBond NIGHT-10 Final Tribunal — 2026-09-06
-- [`docs/memory/UBERBOND_OVERNIGHT_DEEP_BUILD_2026-09-06.md`](../memory/UBERBOND_OVERNIGHT_DEEP_BUILD_2026-09-06.md) — 2026-09-06 · UberBond Overnight Deep-Build Checkpoint — 2026-09-06
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_
+- [`docs/PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md`](../PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md) — PHOENIX Chat-First Cloud Brain _(matched by name only)_
+- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain _(matched by name only)_
+- [`docs/UBER_CLOSURE_INDEX.md`](../UBER_CLOSURE_INDEX.md) — Uber Outreach Closure Index _(matched by name only)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_
+- [`docs/UBERBOND_GROWTH_GRAPH_EXPANSION.md`](../UBERBOND_GROWTH_GRAPH_EXPANSION.md) — UberBond Growth Graph Expansion _(matched by name only)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_
+- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(matched by name only)_
+- [`docs/memory/ASTRA_HARNESS_DONOR_2026-09-14.md`](../memory/ASTRA_HARNESS_DONOR_2026-09-14.md) — 2026-09-14 · Astra Structured-Harness Donor — 2026-09-14 _(matched by name only)_
+- [`docs/memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md`](../memory/PROJECT_NULLSTAR_DIRECTIVE_2026-09-14.md) — 2026-09-14 · PROJECT NULLSTAR — Founder Directive Import — 2026-09-14 — Truth class: FOUNDER_DIRECTIVE_IMPORTED / CHAT_SPEC_GOAL. _(matched by name only)_
+- [`docs/memory/UBERBOND_PRODUCTION_ACTIVATION_2026-09-07.md`](../memory/UBERBOND_PRODUCTION_ACTIVATION_2026-09-07.md) — 2026-09-07 · UberBond Production Activation Receipt — 2026-09-07 _(matched by name only)_
+- [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06 _(matched by name only)_
+- [`docs/memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md`](../memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md) — 2026-09-06 · UberBond NIGHT-10 Final Tribunal — 2026-09-06 _(matched by name only)_
+- [`docs/memory/UBERBOND_OVERNIGHT_DEEP_BUILD_2026-09-06.md`](../memory/UBERBOND_OVERNIGHT_DEEP_BUILD_2026-09-06.md) — 2026-09-06 · UberBond Overnight Deep-Build Checkpoint — 2026-09-06 _(matched by name only)_
 
 ## Commands (9)
 
@@ -33,161 +33,161 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (5)
 
-- [`docs/UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md) — UberBond Total Brain Orchestration Addendum — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-EVAPORATION OVERLAY
-- [`docs/UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md) — UberBond Total Brain Recovery Addendum — Status: SOURCE-BACKED ANTI-AMPUTATION OVERLAY
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON
-- [`docs/UBERBOND_ULTIMATE_GRAPH.md`](../UBERBOND_ULTIMATE_GRAPH.md) — UberBond Ultimate Graph
-- [`artifacts/world-brain-field-mission-2026-09-01/report-source.md`](../../artifacts/world-brain-field-mission-2026-09-01/report-source.md) — UberBond World Brain Field Mission — 2026-09-01
+- [`docs/UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md) — UberBond Total Brain Orchestration Addendum — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-EVAPORATION OVERLAY _(matched by name only)_
+- [`docs/UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md) — UberBond Total Brain Recovery Addendum — Status: SOURCE-BACKED ANTI-AMPUTATION OVERLAY _(matched by name only)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_
+- [`docs/UBERBOND_ULTIMATE_GRAPH.md`](../UBERBOND_ULTIMATE_GRAPH.md) — UberBond Ultimate Graph _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/report-source.md`](../../artifacts/world-brain-field-mission-2026-09-01/report-source.md) — UberBond World Brain Field Mission — 2026-09-01 _(matched by name only)_
 
 ## Dated documents, newest first (24)
 
-- [`docs/memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06_LATE.md`](../memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06_LATE.md) — 2026-09-06 · UberBond Terminal Closure Late Checkpoint — 2026-09-06 — Status: EXACT-SOURCE TERMINAL CERTIFICATION BLOCKED ONLY BY CURRENT RUNNER INFRASTRUCTURE
-- [`docs/memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06.md`](../memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06.md) — 2026-09-06 · UberBond Terminal Closure Checkpoint — 2026-09-06 — Status: TERMINAL CLOSURE IN PROGRESS
-- [`docs/memory/UBERBOND_ULTIMATE_GRAPH_2026-09-06.md`](../memory/UBERBOND_ULTIMATE_GRAPH_2026-09-06.md) — 2026-09-06 · UberBond Ultimate Graph checkpoint — 2026-09-06
-- [`docs/memory/UBERBOND_VISUAL_CORTEX_2026-09-06.md`](../memory/UBERBOND_VISUAL_CORTEX_2026-09-06.md) — 2026-09-06 · UberBond Visual Cortex Checkpoint — 2026-09-06
-- [`docs/memory/CORE_CLOSURE_NO_AMPUTATION_DISPATCH_2026-09-05.md`](../memory/CORE_CLOSURE_NO_AMPUTATION_DISPATCH_2026-09-05.md) — 2026-09-05 · Core Closure Dispatch — No Amputation
-- [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED
-- [`docs/memory/UBERBOND_NO_AMPUTATION_LAW_2026-09-05.md`](../memory/UBERBOND_NO_AMPUTATION_LAW_2026-09-05.md) — 2026-09-05 · UberBond No-Amputation Law — 2026-09-05 — Status: PERMANENT PROJECT LAW
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS
-- [`docs/memory/FINAL_POINTER_2026-09-04.txt`](../memory/FINAL_POINTER_2026-09-04.txt) — 2026-09-04 · Current checkpoint pointer: docs/memory/UBERBOND_CHECKPOINT_CURRENT.md
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04
-- [`docs/memory/UBERBOND_MEMORY_REFRESH_2026-09-04_1753.md`](../memory/UBERBOND_MEMORY_REFRESH_2026-09-04_1753.md) — 2026-09-04 · UberBond Memory Refresh Receipt — 2026-09-04 17:53 Africa/Cairo
-- [`docs/memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md`](../memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md) — 2026-09-03 · UberBond Frontier Convergence Recovery Checkpoint
-- [`docs/memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md`](../memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md) — 2026-09-03 · GENESIS 275 implementation receipt — 2026-09-03 — Status: SOURCE/TEST SURFACE IMPLEMENTED — EXACT-HEAD EXECUTION STILL REQUIRED
-- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory
-- [`docs/memory/UBERBOND_NEW_CHAT_MERGE_HANDOFF_2026-09-03_1418_EET.md`](../memory/UBERBOND_NEW_CHAT_MERGE_HANDOFF_2026-09-03_1418_EET.md) — 2026-09-03 · UberBond New-Chat Merge Handoff
-- [`docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md`](../memory/UBERBOND_OWNER_GOALS_2026-09-02.md) — 2026-09-02 · UberBond Owner Goals and Operating Doctrine — 2026-09-02
-- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31
-- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30
-- [`docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md`](../memory/CLAUDE_CODE_RESUME_2026-08-30.md) — 2026-08-30 · Claude Code Resume Mission — UberBond — 2026-08-30
-- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30
-- [`docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md`](../UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md) — 2026-08-29 · UberBond Master Memory Reconciliation — 2026-08-29
+- [`docs/memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06_LATE.md`](../memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06_LATE.md) — 2026-09-06 · UberBond Terminal Closure Late Checkpoint — 2026-09-06 — Status: EXACT-SOURCE TERMINAL CERTIFICATION BLOCKED ONLY BY CURRENT RUNNER INFRASTRUCTURE _(matched by name only)_
+- [`docs/memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06.md`](../memory/UBERBOND_TERMINAL_CLOSURE_2026-09-06.md) — 2026-09-06 · UberBond Terminal Closure Checkpoint — 2026-09-06 — Status: TERMINAL CLOSURE IN PROGRESS _(matched by name only)_
+- [`docs/memory/UBERBOND_ULTIMATE_GRAPH_2026-09-06.md`](../memory/UBERBOND_ULTIMATE_GRAPH_2026-09-06.md) — 2026-09-06 · UberBond Ultimate Graph checkpoint — 2026-09-06 _(matched by name only)_
+- [`docs/memory/UBERBOND_VISUAL_CORTEX_2026-09-06.md`](../memory/UBERBOND_VISUAL_CORTEX_2026-09-06.md) — 2026-09-06 · UberBond Visual Cortex Checkpoint — 2026-09-06 _(matched by name only)_
+- [`docs/memory/CORE_CLOSURE_NO_AMPUTATION_DISPATCH_2026-09-05.md`](../memory/CORE_CLOSURE_NO_AMPUTATION_DISPATCH_2026-09-05.md) — 2026-09-05 · Core Closure Dispatch — No Amputation _(matched by name only)_
+- [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED _(matched by name only)_
+- [`docs/memory/UBERBOND_NO_AMPUTATION_LAW_2026-09-05.md`](../memory/UBERBOND_NO_AMPUTATION_LAW_2026-09-05.md) — 2026-09-05 · UberBond No-Amputation Law — 2026-09-05 — Status: PERMANENT PROJECT LAW _(matched by name only)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_
+- [`docs/memory/FINAL_POINTER_2026-09-04.txt`](../memory/FINAL_POINTER_2026-09-04.txt) — 2026-09-04 · Current checkpoint pointer: docs/memory/UBERBOND_CHECKPOINT_CURRENT.md _(matched by name only)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(matched by name only)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(matched by name only)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(matched by name only)_
+- [`docs/memory/UBERBOND_MEMORY_REFRESH_2026-09-04_1753.md`](../memory/UBERBOND_MEMORY_REFRESH_2026-09-04_1753.md) — 2026-09-04 · UberBond Memory Refresh Receipt — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_
+- [`docs/memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md`](../memory/FRONTIER_CONVERGENCE_RECOVERY_CHECKPOINT_2026-09-03_0256.md) — 2026-09-03 · UberBond Frontier Convergence Recovery Checkpoint _(matched by name only)_
+- [`docs/memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md`](../memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md) — 2026-09-03 · GENESIS 275 implementation receipt — 2026-09-03 — Status: SOURCE/TEST SURFACE IMPLEMENTED — EXACT-HEAD EXECUTION STILL REQUIRED _(matched by name only)_
+- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory _(matched by name only)_
+- [`docs/memory/UBERBOND_NEW_CHAT_MERGE_HANDOFF_2026-09-03_1418_EET.md`](../memory/UBERBOND_NEW_CHAT_MERGE_HANDOFF_2026-09-03_1418_EET.md) — 2026-09-03 · UberBond New-Chat Merge Handoff _(matched by name only)_
+- [`docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md`](../memory/UBERBOND_OWNER_GOALS_2026-09-02.md) — 2026-09-02 · UberBond Owner Goals and Operating Doctrine — 2026-09-02 _(matched by name only)_
+- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31 _(matched by name only)_
+- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30 _(matched by name only)_
+- [`docs/memory/CLAUDE_CODE_RESUME_2026-08-30.md`](../memory/CLAUDE_CODE_RESUME_2026-08-30.md) — 2026-08-30 · Claude Code Resume Mission — UberBond — 2026-08-30 _(matched by name only)_
+- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_
+- [`docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md`](../UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md) — 2026-08-29 · UberBond Master Memory Reconciliation — 2026-08-29 _(matched by name only)_
 
 ## Other documents (9)
 
-- [`docs/memory/CHAT_IMPORT_PROTOCOL.md`](../memory/CHAT_IMPORT_PROTOCOL.md) — UberBond Chat Import Protocol
-- [`docs/memory/NO_EVAPORATION_LAW.txt`](../memory/NO_EVAPORATION_LAW.txt) — Important completed work must be on main or explicit donor history. Important active work must have a durable PR/issue/checkpoint/receipt. Chat-only progress is not durable project truth.
-- [`docs/memory/README_CLOSURE_POINTER.txt`](../memory/README_CLOSURE_POINTER.txt) — Read docs/memory/UBERBOND_CHECKPOINT_CURRENT.md first for today's live closure state.
-- [`docs/memory/STOP_RESTARTING_ARCHITECTURE.txt`](../memory/STOP_RESTARTING_ARCHITECTURE.txt) — Do not restart architecture while #364 Avengers and #342 GENESIS are named unfinished dependencies. Finish them, regenerate exact-main truth, then move to reality activation.
-- [`docs/memory/UBERBOND_CHECKPOINT_CURRENT.md`](../memory/UBERBOND_CHECKPOINT_CURRENT.md) — UberBond Current Checkpoint Pointer
-- [`docs/memory/UBERBOND_RESUME_FIRST.txt`](../memory/UBERBOND_RESUME_FIRST.txt) — Refresh main/open PRs, then read docs/memory/UBERBOND_CHECKPOINT_CURRENT.md before doing anything else.
-- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04
-- [`docs/memory/UBERBOND_TODAY_CLOSURE_STATUS.txt`](../memory/UBERBOND_TODAY_CLOSURE_STATUS.txt) — MAIN 7b3c5cdaa419907ffd965f23f49550d9c1ce80f8
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain
+- [`docs/memory/CHAT_IMPORT_PROTOCOL.md`](../memory/CHAT_IMPORT_PROTOCOL.md) — UberBond Chat Import Protocol _(matched by name only)_
+- [`docs/memory/NO_EVAPORATION_LAW.txt`](../memory/NO_EVAPORATION_LAW.txt) — Important completed work must be on main or explicit donor history. Important active work must have a durable PR/issue/checkpoint/receipt. Chat-only progress is not durable project truth. _(matched by name only)_
+- [`docs/memory/README_CLOSURE_POINTER.txt`](../memory/README_CLOSURE_POINTER.txt) — Read docs/memory/UBERBOND_CHECKPOINT_CURRENT.md first for today's live closure state. _(matched by name only)_
+- [`docs/memory/STOP_RESTARTING_ARCHITECTURE.txt`](../memory/STOP_RESTARTING_ARCHITECTURE.txt) — Do not restart architecture while #364 Avengers and #342 GENESIS are named unfinished dependencies. Finish them, regenerate exact-main truth, then move to reality activation. _(matched by name only)_
+- [`docs/memory/UBERBOND_CHECKPOINT_CURRENT.md`](../memory/UBERBOND_CHECKPOINT_CURRENT.md) — UberBond Current Checkpoint Pointer _(matched by name only)_
+- [`docs/memory/UBERBOND_RESUME_FIRST.txt`](../memory/UBERBOND_RESUME_FIRST.txt) — Refresh main/open PRs, then read docs/memory/UBERBOND_CHECKPOINT_CURRENT.md before doing anything else. _(matched by name only)_
+- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04 _(matched by name only)_
+- [`docs/memory/UBERBOND_TODAY_CLOSURE_STATUS.txt`](../memory/UBERBOND_TODAY_CLOSURE_STATUS.txt) — MAIN 7b3c5cdaa419907ffd965f23f49550d9c1ce80f8 _(matched by name only)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (4)
 
-- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(5 mentions)_
-- [`docs/CROSS_CHAT_CONTINUITY.md`](../CROSS_CHAT_CONTINUITY.md) — UberBond Cross-Chat Continuity _(5 mentions)_
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(4 mentions)_
-- [`docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`](../FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md) — Founder 890: Universal Cross-Chat Integration Law — Truth class: FOUNDER_DIRECTIVE / CONTINUITY PROTOCOL. This changes mandatory recovery and integration behavior; it is not proof that all… _(3 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(matched by name only)_ _(5 mentions)_
+- [`docs/CROSS_CHAT_CONTINUITY.md`](../CROSS_CHAT_CONTINUITY.md) — UberBond Cross-Chat Continuity _(matched by name only)_ _(5 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(4 mentions)_
+- [`docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`](../FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md) — Founder 890: Universal Cross-Chat Integration Law — Truth class: FOUNDER_DIRECTIVE / CONTINUITY PROTOCOL. This changes mandatory recovery and integration behavior; it is not proof that all… _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (39)
 
-- [`src/commercial-memory.mjs`](../../src/commercial-memory.mjs) — Durable experiment/learning memory. Reuses the existing auditLog writer _(tested; imported by 1)_
-- [`src/context-compress-reversible.mjs`](../../src/context-compress-reversible.mjs) — exports CONTEXT_COMPRESS_REVERSIBLE_ATOM_ID, compileContextCompressReversible, executeContextCompressReversible _(tested; imported by 1)_
-- [`src/context-history-retrieval.mjs`](../../src/context-history-retrieval.mjs) — exports CONTEXT_HISTORY_RETRIEVAL_POLICY_VERSION, CONTEXT_MOUNT_SCHEMA_VERSION, retrieveRelevantCognitiveHistory, compileContextMount _(tested; imported by 1)_
-- [`src/context-journal-runtime.mjs`](../../src/context-journal-runtime.mjs) — exports CONTEXT_JOURNAL_RUNTIME_VERSION, CONTEXT_LAYERED_STORE_SCHEMA, CONTEXT_LAYERED_GENERATION_SCHEMA, CONTEXT_LAYERED_REQUIRED_SENTINEL, contextL… _(imported by 7)_
-- [`src/context-privacy.mjs`](../../src/context-privacy.mjs) — exports CONTEXT_PRIVACY_POLICY_VERSION, FOUNDER_CONTEXT_AUTH_SCHEMA, compileFounderContextAuthorization, verifyFounderContextAuthorization, compileFo… _(tested; imported by 3)_
-- [`src/context-projection.mjs`](../../src/context-projection.mjs) — exports CONTEXT_PROJECTION_POLICY_VERSION, CONTEXT_PROJECTION_SCHEMA_VERSION, compileContextProjection, verifyContextProjection _(tested; imported by 8)_
-- [`src/context-replication-bundle.mjs`](../../src/context-replication-bundle.mjs) — exports CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION, CONTEXT_REPLICATION_BUNDLE_SCHEMA, compileContextReplicationBundle, verifyContextReplicationBundle _(tested; imported by 1)_
-- [`src/context-schema-compatibility-verify.mjs`](../../src/context-schema-compatibility-verify.mjs) — exports verifyContextSchemaCompatibility _(imported by 1)_
-- [`src/context-schema-compatibility.mjs`](../../src/context-schema-compatibility.mjs) — exports CONTEXT_SCHEMA_COMPATIBILITY_POLICY_VERSION, CONTEXT_SCHEMA_COMPATIBILITY_RECEIPT_SCHEMA, CONTEXT_SCHEMA_REGISTRY, compileContextSchemaCompat… _(tested; imported by 2)_
-- [`src/context-source-ancestry.mjs`](../../src/context-source-ancestry.mjs) — exports CONTEXT_SOURCE_ANCESTRY_POLICY_VERSION, CONTEXT_SOURCE_ANCESTRY_SCHEMA, compileContextSourceAncestryReceipt, verifyContextSourceAncestryRecei… _(tested; imported by 2)_
-- [`src/context-task-binding.mjs`](../../src/context-task-binding.mjs) — exports CONTEXT_TASK_BINDING_POLICY_VERSION, CONTEXT_TASK_BINDING_SCHEMA_VERSION, compileTaskBoundContextProjection, verifyTaskBoundContextProjection _(tested; imported by 3)_
-- [`src/economic-reliability-preparation-memory.mjs`](../../src/economic-reliability-preparation-memory.mjs) — exports ECONOMIC_RELIABILITY_PREPARATION_MEMORY_VERSION, PREPARATION_AUDIT_TYPE, DEFAULT_PREPARATION_MEMORY_MAX_AGE_MS, compilePreparationEvidenceRec… _(no static importers)_
-- [`src/lifetime-context-memory.mjs`](../../src/lifetime-context-memory.mjs) — exports LIFETIME_CONTEXT_VERSION, compileLifetimeMemoryIndex, compileTaskContextPacket, compileMemoryHealthReceipt _(tested; imported by 2)_
-- [`src/memory-recover-session.mjs`](../../src/memory-recover-session.mjs) — exports MEMORY_RECOVER_SESSION_ATOM_ID, compileMemoryRecoverSession, executeMemoryRecoverSession _(tested; imported by 1)_
-- [`src/memory-sovereignty.mjs`](../../src/memory-sovereignty.mjs) — What is remembered, what is modelled, and what is nobody's business. _(tested; imported by 2)_
-- [`src/memory-truth-boundary.mjs`](../../src/memory-truth-boundary.mjs) — The anti-amputation and anti-inflation laws, moved out of prose and into code. _(tested; imported by 1)_
-- [`src/mission-brain-compiler.mjs`](../../src/mission-brain-compiler.mjs) — exports MISSION_BRAIN_COMPILER_VERSION, compileMissionBrain _(imported by 2)_
-- [`src/multiplicity-depth-memory-v8.mjs`](../../src/multiplicity-depth-memory-v8.mjs) — exports MULTIPLICITY_DEPTH_MEMORY_V8_VERSION, multiplicityDepthProgramsV8, runMultiplicityDepthMemoryV8 _(tested; imported by 1)_
-- [`src/multiplicity-sensitive-memory-canary-v6.mjs`](../../src/multiplicity-sensitive-memory-canary-v6.mjs) — exports MULTIPLICITY_SENSITIVE_MEMORY_CANARY_V6_VERSION, multiplicitySensitiveMemoryProgramsV6, runMultiplicitySensitiveMemoryCanaryV6 _(tested; imported by 1)_
-- [`src/repository-memory-ingestion-law.mjs`](../../src/repository-memory-ingestion-law.mjs) — exports REPOSITORY_MEMORY_INGESTION_LAW_VERSION, compileRepositoryMemoryIngestion _(tested; imported by 1)_
-- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — exports UBER_SOCKET_WHOLE_BRAIN_ORCHESTRATOR_VERSION, createUberSocketWholeBrainOrchestrator _(imported by 1)_
-- [`src/uberbond-atlas-stream-writer.mjs`](../../src/uberbond-atlas-stream-writer.mjs) — exports writeRedactedAtlasJSON _(tested; imported by 2)_
-- [`src/uberbond-brain-context.mjs`](../../src/uberbond-brain-context.mjs) — exports UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, REQUIRED_CANON_PATHS, MEMORY_V2_REQUIRED_PATHS, SUPPORTED_BOOTSTRAP_SCHEMAS, requiresMemoryV2 (+4) _(tested; imported by 1)_
-- [`src/uberbond-cognitive-adapters.mjs`](../../src/uberbond-cognitive-adapters.mjs) — exports UBERBOND_COGNITIVE_ADAPTER_POLICY_VERSION, eventFromGamechangerArtifact, eventFromGenesisArtifact, eventFromCapabilityGenomeResult, eventFrom… _(tested; imported by 1)_
-- [`src/uberbond-cognitive-bus.mjs`](../../src/uberbond-cognitive-bus.mjs) — exports UBERBOND_COGNITIVE_EVENT_SCHEMA, UBERBOND_COGNITIVE_BUS_POLICY_VERSION, compileCognitiveEvent, routeCognitiveEvent, compileClosedLoopActivati… _(tested; imported by 10)_
-- [`src/uberbond-cognitive-graph.mjs`](../../src/uberbond-cognitive-graph.mjs) — exports UBERBOND_COGNITIVE_GRAPH_SCHEMA, UBERBOND_COGNITIVE_GRAPH_POLICY_VERSION, compileUberBondCognitiveGraph, reachableNodes, cognitiveGraphIntegr… _(tested; imported by 9)_
-- [`src/uberbond-feature-atom-atlas.mjs`](../../src/uberbond-feature-atom-atlas.mjs) — exports UBERBOND_FEATURE_ATOM_ATLAS_SCHEMA, UBERBOND_FEATURE_ATOM_ATLAS_POLICY_VERSION, deriveExportedFeatureSymbols, buildUberBondFeatureAtomAtlas,… _(tested; imported by 1)_
-- [`src/uberbond-feature-genome.mjs`](../../src/uberbond-feature-genome.mjs) — exports UBERBOND_FEATURE_GENOME_SCHEMA, UBERBOND_FEATURE_GENOME_POLICY_VERSION, FEATURE_FAMILIES, classifyFeaturePath, deriveModuleEdgesFromText (+2) _(tested; imported by 2)_
-- [`src/uberbond-memory-reconciliation.mjs`](../../src/uberbond-memory-reconciliation.mjs) — exports UBERBOND_MEMORY_RECONCILIATION_POLICY_VERSION, applyUberBondMemoryReconciliation _(tested; imported by 1)_
-- [`src/uberbond-metacognitive-synthesis.mjs`](../../src/uberbond-metacognitive-synthesis.mjs) — exports UBERBOND_METACOGNITIVE_SYNTHESIS_POLICY_VERSION, synthesizeUberBondMetacognition _(tested; imported by 1)_
-- [`src/uberbond-repository-deep-atlas-growth-safe.mjs`](../../src/uberbond-repository-deep-atlas-growth-safe.mjs) — exports UBERBOND_DEEP_ATLAS_GROWTH_SAFETY_VERSION, BOUNDED_STRUCTURAL_DETAIL_STATUS, normalizeBoundedStructuralDetail, buildGrowthSafeUberBondReposit… _(tested; imported by 1)_
-- [`src/uberbond-repository-deep-atlas-persistence.mjs`](../../src/uberbond-repository-deep-atlas-persistence.mjs) — exports redactedAtlasJsonTokens, boundedRedactedAtlasJsonChunks, persistRedactedAtlasJson _(tested; no static importers)_
-- [`src/uberbond-repository-deep-atlas.mjs`](../../src/uberbond-repository-deep-atlas.mjs) — exports UBERBOND_REPOSITORY_DEEP_ATLAS_SCHEMA, UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION, digestRepositoryDeepAtlas, buildUberBondRepositoryDeepA… _(tested; imported by 2)_
-- [`src/uberbond-synaptic-cycle-binding.mjs`](../../src/uberbond-synaptic-cycle-binding.mjs) — exports UBERBOND_SYNAPTIC_CYCLE_BINDING_POLICY_VERSION, validateSynapticCycleBinding, augmentCognitiveCycleWithSynapticMap _(tested; imported by 1)_
-- [`src/uberbond-synaptic-map.mjs`](../../src/uberbond-synaptic-map.mjs) — exports UBERBOND_SYNAPTIC_MAP_SCHEMA, UBERBOND_SYNAPTIC_MAP_POLICY_VERSION, compileUberBondSynapticMap, querySynapticNeighbors _(tested; imported by 1)_
-- [`src/uberbond-ultimate-graph-cycle-binding.mjs`](../../src/uberbond-ultimate-graph-cycle-binding.mjs) — exports UBERBOND_ULTIMATE_GRAPH_CYCLE_BINDING_POLICY_VERSION, validateUltimateGraphCycleBinding, augmentCognitiveCycleWithUltimateGraph _(tested; imported by 1)_
-- [`src/uberbond-ultimate-graph.mjs`](../../src/uberbond-ultimate-graph.mjs) — exports UBERBOND_ULTIMATE_GRAPH_SCHEMA, UBERBOND_ULTIMATE_GRAPH_POLICY_VERSION, compileUberBondUltimateGraph, queryUberBondUltimateGraph _(tested; imported by 1)_
-- [`src/whole-brain-cognitive-adapters.mjs`](../../src/whole-brain-cognitive-adapters.mjs) — exports WHOLE_BRAIN_COGNITIVE_ADAPTER_VERSION, eventFromFeatureGenome, eventFromFrontierModelTeamDoctor, eventFromComputeSovereignty _(tested; imported by 1)_
-- [`src/world-brain-field-mission.mjs`](../../src/world-brain-field-mission.mjs) — exports WORLD_BRAIN_FIELD_MISSION_VERSION, digestWorldBrainFieldMission, validateWorldBrainFieldMission, summarizeWorldBrainFieldMission _(tested; imported by 2)_
+- [`src/commercial-memory.mjs`](../../src/commercial-memory.mjs) — Durable experiment/learning memory. Reuses the existing auditLog writer _(matched by name only; tested; imported by 1)_
+- [`src/context-compress-reversible.mjs`](../../src/context-compress-reversible.mjs) — exports CONTEXT_COMPRESS_REVERSIBLE_ATOM_ID, compileContextCompressReversible, executeContextCompressReversible _(matched by name only; tested; imported by 1)_
+- [`src/context-history-retrieval.mjs`](../../src/context-history-retrieval.mjs) — exports CONTEXT_HISTORY_RETRIEVAL_POLICY_VERSION, CONTEXT_MOUNT_SCHEMA_VERSION, retrieveRelevantCognitiveHistory, compileContextMount _(matched by name only; tested; imported by 1)_
+- [`src/context-journal-runtime.mjs`](../../src/context-journal-runtime.mjs) — exports CONTEXT_JOURNAL_RUNTIME_VERSION, CONTEXT_LAYERED_STORE_SCHEMA, CONTEXT_LAYERED_GENERATION_SCHEMA, CONTEXT_LAYERED_REQUIRED_SENTINEL, contextL… _(matched by name only; imported by 7)_
+- [`src/context-privacy.mjs`](../../src/context-privacy.mjs) — exports CONTEXT_PRIVACY_POLICY_VERSION, FOUNDER_CONTEXT_AUTH_SCHEMA, compileFounderContextAuthorization, verifyFounderContextAuthorization, compileFo… _(matched by name only; tested; imported by 3)_
+- [`src/context-projection.mjs`](../../src/context-projection.mjs) — exports CONTEXT_PROJECTION_POLICY_VERSION, CONTEXT_PROJECTION_SCHEMA_VERSION, compileContextProjection, verifyContextProjection _(matched by name only; tested; imported by 8)_
+- [`src/context-replication-bundle.mjs`](../../src/context-replication-bundle.mjs) — exports CONTEXT_REPLICATION_BUNDLE_POLICY_VERSION, CONTEXT_REPLICATION_BUNDLE_SCHEMA, compileContextReplicationBundle, verifyContextReplicationBundle _(matched by name only; tested; imported by 1)_
+- [`src/context-schema-compatibility-verify.mjs`](../../src/context-schema-compatibility-verify.mjs) — exports verifyContextSchemaCompatibility _(matched by name only; imported by 1)_
+- [`src/context-schema-compatibility.mjs`](../../src/context-schema-compatibility.mjs) — exports CONTEXT_SCHEMA_COMPATIBILITY_POLICY_VERSION, CONTEXT_SCHEMA_COMPATIBILITY_RECEIPT_SCHEMA, CONTEXT_SCHEMA_REGISTRY, compileContextSchemaCompat… _(matched by name only; tested; imported by 2)_
+- [`src/context-source-ancestry.mjs`](../../src/context-source-ancestry.mjs) — exports CONTEXT_SOURCE_ANCESTRY_POLICY_VERSION, CONTEXT_SOURCE_ANCESTRY_SCHEMA, compileContextSourceAncestryReceipt, verifyContextSourceAncestryRecei… _(matched by name only; tested; imported by 2)_
+- [`src/context-task-binding.mjs`](../../src/context-task-binding.mjs) — exports CONTEXT_TASK_BINDING_POLICY_VERSION, CONTEXT_TASK_BINDING_SCHEMA_VERSION, compileTaskBoundContextProjection, verifyTaskBoundContextProjection _(matched by name only; tested; imported by 3)_
+- [`src/economic-reliability-preparation-memory.mjs`](../../src/economic-reliability-preparation-memory.mjs) — exports ECONOMIC_RELIABILITY_PREPARATION_MEMORY_VERSION, PREPARATION_AUDIT_TYPE, DEFAULT_PREPARATION_MEMORY_MAX_AGE_MS, compilePreparationEvidenceRec… _(matched by name only; no static importers)_
+- [`src/lifetime-context-memory.mjs`](../../src/lifetime-context-memory.mjs) — exports LIFETIME_CONTEXT_VERSION, compileLifetimeMemoryIndex, compileTaskContextPacket, compileMemoryHealthReceipt _(matched by name only; tested; imported by 2)_
+- [`src/memory-recover-session.mjs`](../../src/memory-recover-session.mjs) — exports MEMORY_RECOVER_SESSION_ATOM_ID, compileMemoryRecoverSession, executeMemoryRecoverSession _(matched by name only; tested; imported by 1)_
+- [`src/memory-sovereignty.mjs`](../../src/memory-sovereignty.mjs) — What is remembered, what is modelled, and what is nobody's business. _(matched by name only; tested; imported by 2)_
+- [`src/memory-truth-boundary.mjs`](../../src/memory-truth-boundary.mjs) — The anti-amputation and anti-inflation laws, moved out of prose and into code. _(matched by name only; tested; imported by 1)_
+- [`src/mission-brain-compiler.mjs`](../../src/mission-brain-compiler.mjs) — exports MISSION_BRAIN_COMPILER_VERSION, compileMissionBrain _(matched by name only; imported by 2)_
+- [`src/multiplicity-depth-memory-v8.mjs`](../../src/multiplicity-depth-memory-v8.mjs) — exports MULTIPLICITY_DEPTH_MEMORY_V8_VERSION, multiplicityDepthProgramsV8, runMultiplicityDepthMemoryV8 _(matched by name only; tested; imported by 1)_
+- [`src/multiplicity-sensitive-memory-canary-v6.mjs`](../../src/multiplicity-sensitive-memory-canary-v6.mjs) — exports MULTIPLICITY_SENSITIVE_MEMORY_CANARY_V6_VERSION, multiplicitySensitiveMemoryProgramsV6, runMultiplicitySensitiveMemoryCanaryV6 _(matched by name only; tested; imported by 1)_
+- [`src/repository-memory-ingestion-law.mjs`](../../src/repository-memory-ingestion-law.mjs) — exports REPOSITORY_MEMORY_INGESTION_LAW_VERSION, compileRepositoryMemoryIngestion _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — exports UBER_SOCKET_WHOLE_BRAIN_ORCHESTRATOR_VERSION, createUberSocketWholeBrainOrchestrator _(matched by name only; imported by 1)_
+- [`src/uberbond-atlas-stream-writer.mjs`](../../src/uberbond-atlas-stream-writer.mjs) — exports writeRedactedAtlasJSON _(matched by name only; tested; imported by 2)_
+- [`src/uberbond-brain-context.mjs`](../../src/uberbond-brain-context.mjs) — exports UBERBOND_BRAIN_CONTEXT_POLICY_VERSION, REQUIRED_CANON_PATHS, MEMORY_V2_REQUIRED_PATHS, SUPPORTED_BOOTSTRAP_SCHEMAS, requiresMemoryV2 (+4) _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-cognitive-adapters.mjs`](../../src/uberbond-cognitive-adapters.mjs) — exports UBERBOND_COGNITIVE_ADAPTER_POLICY_VERSION, eventFromGamechangerArtifact, eventFromGenesisArtifact, eventFromCapabilityGenomeResult, eventFrom… _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-cognitive-bus.mjs`](../../src/uberbond-cognitive-bus.mjs) — exports UBERBOND_COGNITIVE_EVENT_SCHEMA, UBERBOND_COGNITIVE_BUS_POLICY_VERSION, compileCognitiveEvent, routeCognitiveEvent, compileClosedLoopActivati… _(matched by name only; tested; imported by 10)_
+- [`src/uberbond-cognitive-graph.mjs`](../../src/uberbond-cognitive-graph.mjs) — exports UBERBOND_COGNITIVE_GRAPH_SCHEMA, UBERBOND_COGNITIVE_GRAPH_POLICY_VERSION, compileUberBondCognitiveGraph, reachableNodes, cognitiveGraphIntegr… _(matched by name only; tested; imported by 9)_
+- [`src/uberbond-feature-atom-atlas.mjs`](../../src/uberbond-feature-atom-atlas.mjs) — exports UBERBOND_FEATURE_ATOM_ATLAS_SCHEMA, UBERBOND_FEATURE_ATOM_ATLAS_POLICY_VERSION, deriveExportedFeatureSymbols, buildUberBondFeatureAtomAtlas,… _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-feature-genome.mjs`](../../src/uberbond-feature-genome.mjs) — exports UBERBOND_FEATURE_GENOME_SCHEMA, UBERBOND_FEATURE_GENOME_POLICY_VERSION, FEATURE_FAMILIES, classifyFeaturePath, deriveModuleEdgesFromText (+2) _(matched by name only; tested; imported by 2)_
+- [`src/uberbond-memory-reconciliation.mjs`](../../src/uberbond-memory-reconciliation.mjs) — exports UBERBOND_MEMORY_RECONCILIATION_POLICY_VERSION, applyUberBondMemoryReconciliation _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-metacognitive-synthesis.mjs`](../../src/uberbond-metacognitive-synthesis.mjs) — exports UBERBOND_METACOGNITIVE_SYNTHESIS_POLICY_VERSION, synthesizeUberBondMetacognition _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-repository-deep-atlas-growth-safe.mjs`](../../src/uberbond-repository-deep-atlas-growth-safe.mjs) — exports UBERBOND_DEEP_ATLAS_GROWTH_SAFETY_VERSION, BOUNDED_STRUCTURAL_DETAIL_STATUS, normalizeBoundedStructuralDetail, buildGrowthSafeUberBondReposit… _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-repository-deep-atlas-persistence.mjs`](../../src/uberbond-repository-deep-atlas-persistence.mjs) — exports redactedAtlasJsonTokens, boundedRedactedAtlasJsonChunks, persistRedactedAtlasJson _(matched by name only; tested; no static importers)_
+- [`src/uberbond-repository-deep-atlas.mjs`](../../src/uberbond-repository-deep-atlas.mjs) — exports UBERBOND_REPOSITORY_DEEP_ATLAS_SCHEMA, UBERBOND_REPOSITORY_DEEP_ATLAS_POLICY_VERSION, digestRepositoryDeepAtlas, buildUberBondRepositoryDeepA… _(matched by name only; tested; imported by 2)_
+- [`src/uberbond-synaptic-cycle-binding.mjs`](../../src/uberbond-synaptic-cycle-binding.mjs) — exports UBERBOND_SYNAPTIC_CYCLE_BINDING_POLICY_VERSION, validateSynapticCycleBinding, augmentCognitiveCycleWithSynapticMap _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-synaptic-map.mjs`](../../src/uberbond-synaptic-map.mjs) — exports UBERBOND_SYNAPTIC_MAP_SCHEMA, UBERBOND_SYNAPTIC_MAP_POLICY_VERSION, compileUberBondSynapticMap, querySynapticNeighbors _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-ultimate-graph-cycle-binding.mjs`](../../src/uberbond-ultimate-graph-cycle-binding.mjs) — exports UBERBOND_ULTIMATE_GRAPH_CYCLE_BINDING_POLICY_VERSION, validateUltimateGraphCycleBinding, augmentCognitiveCycleWithUltimateGraph _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-ultimate-graph.mjs`](../../src/uberbond-ultimate-graph.mjs) — exports UBERBOND_ULTIMATE_GRAPH_SCHEMA, UBERBOND_ULTIMATE_GRAPH_POLICY_VERSION, compileUberBondUltimateGraph, queryUberBondUltimateGraph _(matched by name only; tested; imported by 1)_
+- [`src/whole-brain-cognitive-adapters.mjs`](../../src/whole-brain-cognitive-adapters.mjs) — exports WHOLE_BRAIN_COGNITIVE_ADAPTER_VERSION, eventFromFeatureGenome, eventFromFrontierModelTeamDoctor, eventFromComputeSovereignty _(matched by name only; tested; imported by 1)_
+- [`src/world-brain-field-mission.mjs`](../../src/world-brain-field-mission.mjs) — exports WORLD_BRAIN_FIELD_MISSION_VERSION, digestWorldBrainFieldMission, validateWorldBrainFieldMission, summarizeWorldBrainFieldMission _(matched by name only; tested; imported by 2)_
 
 ## Scripts (22)
 
-- [`scripts/context-universe.mjs`](../../scripts/context-universe.mjs)
-- [`scripts/frontier-brain-compile.mjs`](../../scripts/frontier-brain-compile.mjs)
-- [`scripts/memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs the memory truth boundary against this repository's own artifacts. _(npm: `memory:doctor`)_
-- [`scripts/neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs)
-- [`scripts/repository-index.mjs`](../../scripts/repository-index.mjs) — Repository Index: a deterministic, regenerable card catalog of every tracked file. _(npm: `repo:index`, `repo:index:check`)_
-- [`scripts/sovereign-context-journal-compact.mjs`](../../scripts/sovereign-context-journal-compact.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_COMPACTION_VERSION, compactContextJournalLayeredStore
-- [`scripts/sovereign-context-journal-migrate.mjs`](../../scripts/sovereign-context-journal-migrate.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_MIGRATION_VERSION, migrateContextJournalToLayeredStore
-- [`scripts/sovereign-context-local-recovery-drill.mjs`](../../scripts/sovereign-context-local-recovery-drill.mjs) — exports SOVEREIGN_CONTEXT_LOCAL_RECOVERY_VERSION, runLocalContextRecoveryDrill
-- [`scripts/sovereign-context-replication-admission.mjs`](../../scripts/sovereign-context-replication-admission.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_ADMISSION_VERSION, admitContextReplicationDirectory
-- [`scripts/sovereign-context-replication-bundle.mjs`](../../scripts/sovereign-context-replication-bundle.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_BUNDLE_VERSION, verifyContextReplicationDirectory, exportContextReplicationDirectory
-- [`scripts/sovereign-context-source-ancestry.mjs`](../../scripts/sovereign-context-source-ancestry.mjs) — exports SOVEREIGN_CONTEXT_SOURCE_ANCESTRY_VERSION, probeContextSourceAncestry
-- [`scripts/uberbond-brain-bootstrap.mjs`](../../scripts/uberbond-brain-bootstrap.mjs) — exports UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION, MEMORY_RECONCILIATION_PATH, MASTER_MEMORY_RECONCILIATION_PATH, EXTERNAL_CAPABILITY_REGISTRY_PATH, CAPAB…
-- [`scripts/uberbond-brain-safe.mjs`](../../scripts/uberbond-brain-safe.mjs) _(npm: `brain`)_
-- [`scripts/uberbond-cognitive-cycle-synaptic.mjs`](../../scripts/uberbond-cognitive-cycle-synaptic.mjs)
-- [`scripts/uberbond-cognitive-cycle.mjs`](../../scripts/uberbond-cognitive-cycle.mjs)
-- [`scripts/uberbond-feature-atom-atlas.mjs`](../../scripts/uberbond-feature-atom-atlas.mjs) _(npm: `brain:feature-atlas`)_
-- [`scripts/uberbond-feature-genome.mjs`](../../scripts/uberbond-feature-genome.mjs) _(npm: `brain:features`)_
-- [`scripts/uberbond-metacognitive-synthesis.mjs`](../../scripts/uberbond-metacognitive-synthesis.mjs) _(npm: `brain:metacognitive`)_
-- [`scripts/uberbond-repository-deep-atlas.mjs`](../../scripts/uberbond-repository-deep-atlas.mjs)
-- [`scripts/uberbond-synaptic-map.mjs`](../../scripts/uberbond-synaptic-map.mjs)
-- [`scripts/uberbond-ultimate-graph.mjs`](../../scripts/uberbond-ultimate-graph.mjs)
-- [`scripts/world-brain-field-mission-doctor.mjs`](../../scripts/world-brain-field-mission-doctor.mjs) — exports WORLD_BRAIN_FIELD_MISSION_ROOT _(npm: `world-brain:doctor`)_
+- [`scripts/context-universe.mjs`](../../scripts/context-universe.mjs) _(matched by name only)_
+- [`scripts/frontier-brain-compile.mjs`](../../scripts/frontier-brain-compile.mjs) _(matched by name only)_
+- [`scripts/memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs the memory truth boundary against this repository's own artifacts. _(matched by name only; npm: `memory:doctor`)_
+- [`scripts/neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) _(matched by name only)_
+- [`scripts/repository-index.mjs`](../../scripts/repository-index.mjs) — Repository Index: a deterministic, regenerable card catalog of every tracked file. _(matched by name only; npm: `repo:index`, `repo:index:check`)_
+- [`scripts/sovereign-context-journal-compact.mjs`](../../scripts/sovereign-context-journal-compact.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_COMPACTION_VERSION, compactContextJournalLayeredStore _(matched by name only)_
+- [`scripts/sovereign-context-journal-migrate.mjs`](../../scripts/sovereign-context-journal-migrate.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_MIGRATION_VERSION, migrateContextJournalToLayeredStore _(matched by name only)_
+- [`scripts/sovereign-context-local-recovery-drill.mjs`](../../scripts/sovereign-context-local-recovery-drill.mjs) — exports SOVEREIGN_CONTEXT_LOCAL_RECOVERY_VERSION, runLocalContextRecoveryDrill _(matched by name only)_
+- [`scripts/sovereign-context-replication-admission.mjs`](../../scripts/sovereign-context-replication-admission.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_ADMISSION_VERSION, admitContextReplicationDirectory _(matched by name only)_
+- [`scripts/sovereign-context-replication-bundle.mjs`](../../scripts/sovereign-context-replication-bundle.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_BUNDLE_VERSION, verifyContextReplicationDirectory, exportContextReplicationDirectory _(matched by name only)_
+- [`scripts/sovereign-context-source-ancestry.mjs`](../../scripts/sovereign-context-source-ancestry.mjs) — exports SOVEREIGN_CONTEXT_SOURCE_ANCESTRY_VERSION, probeContextSourceAncestry _(matched by name only)_
+- [`scripts/uberbond-brain-bootstrap.mjs`](../../scripts/uberbond-brain-bootstrap.mjs) — exports UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION, MEMORY_RECONCILIATION_PATH, MASTER_MEMORY_RECONCILIATION_PATH, EXTERNAL_CAPABILITY_REGISTRY_PATH, CAPAB… _(matched by name only)_
+- [`scripts/uberbond-brain-safe.mjs`](../../scripts/uberbond-brain-safe.mjs) _(matched by name only; npm: `brain`)_
+- [`scripts/uberbond-cognitive-cycle-synaptic.mjs`](../../scripts/uberbond-cognitive-cycle-synaptic.mjs) _(matched by name only)_
+- [`scripts/uberbond-cognitive-cycle.mjs`](../../scripts/uberbond-cognitive-cycle.mjs) _(matched by name only)_
+- [`scripts/uberbond-feature-atom-atlas.mjs`](../../scripts/uberbond-feature-atom-atlas.mjs) _(matched by name only; npm: `brain:feature-atlas`)_
+- [`scripts/uberbond-feature-genome.mjs`](../../scripts/uberbond-feature-genome.mjs) _(matched by name only; npm: `brain:features`)_
+- [`scripts/uberbond-metacognitive-synthesis.mjs`](../../scripts/uberbond-metacognitive-synthesis.mjs) _(matched by name only; npm: `brain:metacognitive`)_
+- [`scripts/uberbond-repository-deep-atlas.mjs`](../../scripts/uberbond-repository-deep-atlas.mjs) _(matched by name only)_
+- [`scripts/uberbond-synaptic-map.mjs`](../../scripts/uberbond-synaptic-map.mjs) _(matched by name only)_
+- [`scripts/uberbond-ultimate-graph.mjs`](../../scripts/uberbond-ultimate-graph.mjs) _(matched by name only)_
+- [`scripts/world-brain-field-mission-doctor.mjs`](../../scripts/world-brain-field-mission-doctor.mjs) — exports WORLD_BRAIN_FIELD_MISSION_ROOT _(matched by name only; npm: `world-brain:doctor`)_
 
 ## Config, data, artifacts and services (34)
 
-- [`UBERBOND_BOOTSTRAP.json`](../../UBERBOND_BOOTSTRAP.json) — Machine bootstrap: canonPointers every session must read.
-- [`api/ultimate-graph.mjs`](../../api/ultimate-graph.mjs) — exports createHandler
-- [`artifacts/growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0
-- [`artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.multiplicity-depth-memory-v8-adversarial-review.v1
-- [`artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_MULTIPLICITY_DEPTH_HYPOTHESIS_NOT_RESULT · uberbond.multiplicity-depth-memory-v8-preregistration.v1
-- [`artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json) — 2026-09-20 · V8_MULTIPLICITY_DEPTH_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-depth-memory-v8-result.v1
-- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__CONFIRMATORY_EVIDENCE · uberbond.multiplicity-sensitive-memory-v6-adversarial-review.v1
-- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_GRAMMAR_EXTENSION_NOT_RESULT · uberbond.multiplicity-sensitive-memory-v6-preregistration.v1
-- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json) — 2026-09-20 · PRE_EXECUTION_ARITHMETIC_CORRECTION__NO_V6_RESULT_EXISTED · uberbond.multiplicity-sensitive-memory-v6-preregistration-correction.v1
-- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json) — 2026-09-20 · INDEPENDENT_CROSS_LANGUAGE_REPRODUCTION__NOT_PREREGISTERED_REPLICATION · uberbond.multiplicity-sensitive-memory-v6-python-crosscheck.v1
-- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json) — 2026-09-20 · V6_MULTIPLICITY_SENSITIVE_MEMORY_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-sensitive-memory-v6-result.v1
-- [`artifacts/uberbond-memory-index.json`](../../artifacts/uberbond-memory-index.json) — Current UberBond repository canon, bootstrap, historical lineage and current system artifacts · CURRENT_OWNER_DOCTRINE · uberbond-memory-index-1.0.0
-- [`artifacts/uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md · CANONICAL_LINEAGE · uberbond-memory-reconciliation-1.0.0
-- [`artifacts/uberbond-total-brain-recovery-addendum.json`](../../artifacts/uberbond-total-brain-recovery-addendum.json) — UberBond Growth Graph Expansion · VERIFIED_CURRENT · uberbond-total-brain-recovery-addendum-1.0.0
-- [`artifacts/uberbond-total-brain.json`](../../artifacts/uberbond-total-brain.json) — uberbond-total-brain-1.0.0
-- [`artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json) — RESEARCHED_NOT_CONFIGURED · uberbond.ai-gateway-provider-research.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json`](../../artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json) — uberbond.canary-distribution.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json) — uberbond.capability-family-map.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json) — uberbond.capability-genome.public-corpus.v0.1
-- [`artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json`](../../artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json) — uberbond.claude-handoff.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/contradictions-unknowns.json`](../../artifacts/world-brain-field-mission-2026-09-01/contradictions-unknowns.json) — uberbond.world-brain-contradictions.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/corpus-storage-comparison.json`](../../artifacts/world-brain-field-mission-2026-09-01/corpus-storage-comparison.json) — RESEARCH_ONLY_NO_PURCHASE_OR_ACCOUNT_CHANGE · uberbond.corpus-storage-research.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/mission-summary.json`](../../artifacts/world-brain-field-mission-2026-09-01/mission-summary.json) — White-label Attribution Integrity + Lost-Booking Evidence Sprint · PREPARED_NOT_EXTERNALLY_ACTIVATED · uberbond.world-brain-field-mission.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json) — uberbond.paypal-egypt-activation-research.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json) — uberbond.rejected-partners.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/source-ledger.json`](../../artifacts/world-brain-field-mission-2026-09-01/source-ledger.json) — uberbond.public-evidence-ledger.v1
-- [`config/uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — uberbond.cognitive-lineage.v1
-- [`docs/memory/.closure-heads-2026-09-05.json`](../memory/.closure-heads-2026-09-05.json) — 2026-09-05
-- [`docs/memory/.closure-memory-refresh-marker`](../memory/.closure-memory-refresh-marker)
-- [`docs/memory/.do-not-delete-placeholder`](../memory/.do-not-delete-placeholder)
-- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — exports handler
-- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate)
+- [`UBERBOND_BOOTSTRAP.json`](../../UBERBOND_BOOTSTRAP.json) — Machine bootstrap: canonPointers every session must read. _(matched by name only)_
+- [`api/ultimate-graph.mjs`](../../api/ultimate-graph.mjs) — exports createHandler _(matched by name only)_
+- [`artifacts/growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.multiplicity-depth-memory-v8-adversarial-review.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_MULTIPLICITY_DEPTH_HYPOTHESIS_NOT_RESULT · uberbond.multiplicity-depth-memory-v8-preregistration.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json) — 2026-09-20 · V8_MULTIPLICITY_DEPTH_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-depth-memory-v8-result.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__CONFIRMATORY_EVIDENCE · uberbond.multiplicity-sensitive-memory-v6-adversarial-review.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_GRAMMAR_EXTENSION_NOT_RESULT · uberbond.multiplicity-sensitive-memory-v6-preregistration.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json) — 2026-09-20 · PRE_EXECUTION_ARITHMETIC_CORRECTION__NO_V6_RESULT_EXISTED · uberbond.multiplicity-sensitive-memory-v6-preregistration-correction.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json) — 2026-09-20 · INDEPENDENT_CROSS_LANGUAGE_REPRODUCTION__NOT_PREREGISTERED_REPLICATION · uberbond.multiplicity-sensitive-memory-v6-python-crosscheck.v1 _(matched by name only)_
+- [`artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json) — 2026-09-20 · V6_MULTIPLICITY_SENSITIVE_MEMORY_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-sensitive-memory-v6-result.v1 _(matched by name only)_
+- [`artifacts/uberbond-memory-index.json`](../../artifacts/uberbond-memory-index.json) — Current UberBond repository canon, bootstrap, historical lineage and current system artifacts · CURRENT_OWNER_DOCTRINE · uberbond-memory-index-1.0.0 _(matched by name only)_
+- [`artifacts/uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md · CANONICAL_LINEAGE · uberbond-memory-reconciliation-1.0.0 _(matched by name only)_
+- [`artifacts/uberbond-total-brain-recovery-addendum.json`](../../artifacts/uberbond-total-brain-recovery-addendum.json) — UberBond Growth Graph Expansion · VERIFIED_CURRENT · uberbond-total-brain-recovery-addendum-1.0.0 _(matched by name only)_
+- [`artifacts/uberbond-total-brain.json`](../../artifacts/uberbond-total-brain.json) — uberbond-total-brain-1.0.0 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json) — RESEARCHED_NOT_CONFIGURED · uberbond.ai-gateway-provider-research.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json`](../../artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json) — uberbond.canary-distribution.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json) — uberbond.capability-family-map.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json) — uberbond.capability-genome.public-corpus.v0.1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json`](../../artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json) — uberbond.claude-handoff.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/contradictions-unknowns.json`](../../artifacts/world-brain-field-mission-2026-09-01/contradictions-unknowns.json) — uberbond.world-brain-contradictions.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/corpus-storage-comparison.json`](../../artifacts/world-brain-field-mission-2026-09-01/corpus-storage-comparison.json) — RESEARCH_ONLY_NO_PURCHASE_OR_ACCOUNT_CHANGE · uberbond.corpus-storage-research.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/mission-summary.json`](../../artifacts/world-brain-field-mission-2026-09-01/mission-summary.json) — White-label Attribution Integrity + Lost-Booking Evidence Sprint · PREPARED_NOT_EXTERNALLY_ACTIVATED · uberbond.world-brain-field-mission.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json) — uberbond.paypal-egypt-activation-research.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json) — uberbond.rejected-partners.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/source-ledger.json`](../../artifacts/world-brain-field-mission-2026-09-01/source-ledger.json) — uberbond.public-evidence-ledger.v1 _(matched by name only)_
+- [`config/uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — uberbond.cognitive-lineage.v1 _(matched by name only)_
+- [`docs/memory/.closure-heads-2026-09-05.json`](../memory/.closure-heads-2026-09-05.json) — 2026-09-05 _(matched by name only)_
+- [`docs/memory/.closure-memory-refresh-marker`](../memory/.closure-memory-refresh-marker) _(matched by name only)_
+- [`docs/memory/.do-not-delete-placeholder`](../memory/.do-not-delete-placeholder) _(matched by name only)_
+- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — exports handler _(matched by name only)_
+- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate) _(matched by name only)_
 
 ## Tests (53)
 

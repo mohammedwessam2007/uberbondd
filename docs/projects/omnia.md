@@ -12,117 +12,117 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`docs/OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md`](../OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md) — 2026-08-20 · UberBond Omnia Mega Execution Truth
+- [`docs/OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md`](../OMNIA_MEGA_EXECUTION_TRUTH_2026-08-20.md) — 2026-08-20 · UberBond Omnia Mega Execution Truth _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (11)
 
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(15 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(10 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(5 mentions)_
-- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation _(4 mentions)_
-- [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Prometheus Branch Reconciliation _(4 mentions)_
-- [`docs/ARGUS_RELAY_TRUTH.md`](../ARGUS_RELAY_TRUTH.md) — Project Argus: ChatGPT <-> UberBond <-> Claude Code relay -- truth reconstruction _(3 mentions)_
-- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(3 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(3 mentions)_
-- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(3 mentions)_
-- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED _(3 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(15 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(10 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(5 mentions)_
+- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation _(matched by name only)_ _(4 mentions)_
+- [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Prometheus Branch Reconciliation _(matched by name only)_ _(4 mentions)_
+- [`docs/ARGUS_RELAY_TRUTH.md`](../ARGUS_RELAY_TRUTH.md) — Project Argus: ChatGPT <-> UberBond <-> Claude Code relay -- truth reconstruction _(matched by name only)_ _(3 mentions)_
+- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(3 mentions)_
+- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED _(matched by name only)_ _(3 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (48)
 
-- [`src/omnia-v9/authority-transition-ledger.mjs`](../../src/omnia-v9/authority-transition-ledger.mjs) — exports verifyAuthorityTransitionChain, proveReservedBefore _(imported by 1)_
-- [`src/omnia-v9/authorization-bound-receipt-store.mjs`](../../src/omnia-v9/authorization-bound-receipt-store.mjs) — exports OmniaV9AuthorizationBoundReceiptStoreError, OmniaV9AuthorizationBoundReceiptStore _(no static importers)_
-- [`src/omnia-v9/authorization-bound-receipt.mjs`](../../src/omnia-v9/authorization-bound-receipt.mjs) — exports OmniaV9AuthorizationBindingError, buildAuthorizationBoundExecutionReceipt, verifyAuthorizationBoundExecutionReceipt _(imported by 2)_
-- [`src/omnia-v9/canonical.mjs`](../../src/omnia-v9/canonical.mjs) — exports canonicalize, sha256, digestObject, signDigestHex, verifyDigestSignature _(imported by 38)_
-- [`src/omnia-v9/cedar-adapter.mjs`](../../src/omnia-v9/cedar-adapter.mjs) — exports CedarAdapterError, assertCedarModule, cedarRuntimeIdentity, validateCedarPolicy, authorizeWithCedar (+1) _(imported by 1)_
-- [`src/omnia-v9/constitution.mjs`](../../src/omnia-v9/constitution.mjs) — exports ConstitutionBindingError, bindConstitution _(imported by 1)_
-- [`src/omnia-v9/execution-receipt-shadow.mjs`](../../src/omnia-v9/execution-receipt-shadow.mjs) — exports buildProviderAcceptedReceipt, buildProviderUncertainReceipt, buildReceiptFromDurableReservation, verifyExecutionReceiptShadow, recordExecutio… _(imported by 3)_
-- [`src/omnia-v9/execution-receipt-store.mjs`](../../src/omnia-v9/execution-receipt-store.mjs) — exports OmniaV9ExecutionReceiptStoreError, OmniaV9ExecutionReceiptStore _(no static importers)_
-- [`src/omnia-v9/final-admission-shadow.mjs`](../../src/omnia-v9/final-admission-shadow.mjs) — exports buildOutboundShadowContext, observeOutboundFinalAdmission _(imported by 1)_
-- [`src/omnia-v9/integrations/canary-approval.mjs`](../../src/omnia-v9/integrations/canary-approval.mjs) — exports CANARY_NULL_OPERATION, CANARY_NULL_EFFECT_CLASS, CANARY_NULL_PURPOSE, issueCanaryApproval, revokeCanaryApproval _(imported by 1)_
-- [`src/omnia-v9/integrations/canary-null-authority.mjs`](../../src/omnia-v9/integrations/canary-null-authority.mjs) — exports CANARY_EXECUTABLE_DECISIONS, CANARY_KNOWN_NO_EXECUTION_DECISIONS, classifyCanaryGateOutcome, evaluateAndGateCanaryNull _(no static importers)_
-- [`src/omnia-v9/integrations/canary-receipt-store.mjs`](../../src/omnia-v9/integrations/canary-receipt-store.mjs) — exports CanaryReceiptStoreError, CanaryReceiptStore _(imported by 1)_
-- [`src/omnia-v9/integrations/compare.mjs`](../../src/omnia-v9/integrations/compare.mjs) — exports classifyComparison, isCriticalDisagreement _(imported by 3)_
-- [`src/omnia-v9/integrations/config.mjs`](../../src/omnia-v9/integrations/config.mjs) — exports resolveOmniaV9Mode, isOmniaV9Active, isOmniaV9CompareMode, isOmniaV9CanaryNullMode, OMNIA_V9_ALLOWED_MODES (+1) _(imported by 2)_
-- [`src/omnia-v9/integrations/external-effect-adapter.mjs`](../../src/omnia-v9/integrations/external-effect-adapter.mjs) — Provider-neutral external-effect adapter contract. V9's execution layer (external-effect-dispatcher.mjs, external-effect-recovery.mjs) depends only o… _(imported by 6)_
-- [`src/omnia-v9/integrations/external-effect-dispatcher.mjs`](../../src/omnia-v9/integrations/external-effect-dispatcher.mjs) — exports CRASH_POINTS, CrashInjected, isExternalEffectKillSwitchEngaged, ExternalEffectKillSwitchEngagedError, ExternalEffectFinalAdmissionError (+2) _(imported by 1)_
-- [`src/omnia-v9/integrations/external-effect-evidence-store.mjs`](../../src/omnia-v9/integrations/external-effect-evidence-store.mjs) — exports ExternalEffectEvidenceStoreError, ExternalEffectEvidenceStore _(imported by 1)_
-- [`src/omnia-v9/integrations/external-effect-execution-store.mjs`](../../src/omnia-v9/integrations/external-effect-execution-store.mjs) — exports ExternalEffectExecutionStoreError, ExternalEffectExecutionStore _(no static importers)_
-- [`src/omnia-v9/integrations/external-effect-recovery.mjs`](../../src/omnia-v9/integrations/external-effect-recovery.mjs) — exports RECOVERY_ACTIONS, recoverOneExecution, recoverUnresolvedExecutions _(no static importers)_
-- [`src/omnia-v9/integrations/external-effect-state-machine.mjs`](../../src/omnia-v9/integrations/external-effect-state-machine.mjs) — The durable state model for an external-effect execution -- one row per logical external consequence (e.g. one email). This module is the single sour… _(imported by 1)_
-- [`src/omnia-v9/integrations/metrics.mjs`](../../src/omnia-v9/integrations/metrics.mjs) — exports buildConfusionMatrix, buildShadowReliabilityMetrics, buildFounderBurdenEstimate, summarizeLatencyMs _(no static importers)_
-- [`src/omnia-v9/integrations/null-consequence-adapter.mjs`](../../src/omnia-v9/integrations/null-consequence-adapter.mjs) — exports NULL_SINK_RESULT, NullConsequenceAdapterError, NullConsequenceAdapter _(imported by 1)_
-- [`src/omnia-v9/integrations/null-sink-v2.mjs`](../../src/omnia-v9/integrations/null-sink-v2.mjs) — exports SIMULATION_MODES, NullSinkV2Error, NullSinkV2Adapter _(no static importers)_
-- [`src/omnia-v9/integrations/outbound-admission.mjs`](../../src/omnia-v9/integrations/outbound-admission.mjs) — exports deriveOutboundActionIntent, evaluateOutboundAdmission, createOutboundAdmissionHook, resolveOutboundFinalAdmissionHook _(imported by 4)_
-- [`src/omnia-v9/integrations/outbound-consequence-gate.mjs`](../../src/omnia-v9/integrations/outbound-consequence-gate.mjs) — exports buildOutboundConsequenceContext, normalizeOutboundEffectPayload, digestOutboundEffectPayload, enforceOutboundConsequence _(imported by 2)_
-- [`src/omnia-v9/integrations/outreach-consequence-admission.mjs`](../../src/omnia-v9/integrations/outreach-consequence-admission.mjs) — exports OUTREACH_CONSEQUENCE_POLICY_DIGEST, OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST, createAuthoritativeOutreachConsequenceGate _(imported by 2)_
-- [`src/omnia-v9/integrations/owner-review.mjs`](../../src/omnia-v9/integrations/owner-review.mjs) — Owner exception packets: the compact artifact a human (Mohamed) actually looks at for the cases V9 could not resolve on its own -- a LEGACY_ALLOW_V9_… _(no static importers)_
-- [`src/omnia-v9/integrations/providers/email-effect-primitives.mjs`](../../src/omnia-v9/integrations/providers/email-effect-primitives.mjs) — exports EMAIL_RE, MAX_SUBJECT_LENGTH, MAX_BODY_LENGTH, DEFINITE_REJECTION_HTTP_STATUSES, validateRecipientAddress (+5) _(imported by 1)_
-- [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs) — exports GmailEffectAdapterError, generateMessageId, gmailArgumentsDigest, GmailEffectAdapter _(no static importers)_
-- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — exports POSTAL_EFFECT_ADAPTER_VERSION, PostalEffectAdapterError, PostalEffectAdapter, postalProviderEffectIdentity, postalEffectTag _(tested; imported by 1)_
-- [`src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs`](../../src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs) — exports POSTAL_SENDER_EVIDENCE_CONSUMER_VERSION, classifyPostalSenderEvidence, consumePostalSenderEvidence _(tested; imported by 1)_
-- [`src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs) — exports POSTAL_WEBHOOK_EVIDENCE_VERSION, POSTAL_QUARANTINE_REASONS, verifyPostalWebhookSignature, normalizePostalWebhookEvent, deriveCurrentPostalSta… _(tested; imported by 2)_
-- [`src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs) — exports POSTAL_WEBHOOK_LEDGER_VERSION, createMemoryPostalWebhookLedger, createPostgresPostalWebhookLedger, createPostalReconciliationLookup _(imported by 1)_
-- [`src/omnia-v9/integrations/reality-shadow-cedar.mjs`](../../src/omnia-v9/integrations/reality-shadow-cedar.mjs) — exports RealCedarBindingError, classifyRealCedarFailure, deriveProposalFacts, bindRealCedarAuthority, resetRealCedarAuthorityCache _(imported by 2)_
-- [`src/omnia-v9/integrations/reality-shadow-dataset.mjs`](../../src/omnia-v9/integrations/reality-shadow-dataset.mjs) — exports DATASET_LABELS, classifyDatasetLabel, isCedarSubstitutionEligible, buildLabeledCandidates, REAL_OPERATIONAL_SAMPLE_COUNT (+2) _(no static importers)_
-- [`src/omnia-v9/integrations/reality-shadow-evaluator.mjs`](../../src/omnia-v9/integrations/reality-shadow-evaluator.mjs) — exports buildRealityShadowHook, classifyRealityShadowFailure _(no static importers)_
-- [`src/omnia-v9/integrations/replay-scenarios.mjs`](../../src/omnia-v9/integrations/replay-scenarios.mjs) — exports buildReplayScenarios _(imported by 1)_
-- [`src/omnia-v9/integrations/replay.mjs`](../../src/omnia-v9/integrations/replay.mjs) — exports runScenario, runReplay _(no static importers)_
-- [`src/omnia-v9/integrations/shadow-approval.mjs`](../../src/omnia-v9/integrations/shadow-approval.mjs) — exports SHADOW_APPROVAL_PURPOSE, ShadowApprovalError, issueShadowApproval, revokeShadowApproval, resolveShadowAuthorityContext _(imported by 3)_
-- [`src/omnia-v9/kernel.mjs`](../../src/omnia-v9/kernel.mjs) — exports createActionIntent, createEvidenceRecord, createApproval, verifyIntent, verifyEvidence (+5) _(imported by 11)_
-- [`src/omnia-v9/outbound-shadow.mjs`](../../src/omnia-v9/outbound-shadow.mjs) — exports buildOutboundShadowArtifacts, evaluateOutboundShadow _(no static importers)_
-- [`src/omnia-v9/persistent-admission.mjs`](../../src/omnia-v9/persistent-admission.mjs) — exports persistAndReserveAdmission _(no static importers)_
-- [`src/omnia-v9/policy-bundle.mjs`](../../src/omnia-v9/policy-bundle.mjs) — exports PolicyBundleError, buildPolicyBundle _(imported by 1)_
-- [`src/omnia-v9/pre-effect-authority-reconciler.mjs`](../../src/omnia-v9/pre-effect-authority-reconciler.mjs) — exports reconcilePreEffectAuthority _(no static importers)_
-- [`src/omnia-v9/proof-store.mjs`](../../src/omnia-v9/proof-store.mjs) — exports OmniaV9ProofStoreError, OmniaV9ProofStore _(no static importers)_
-- [`src/omnia-v9/schema.mjs`](../../src/omnia-v9/schema.mjs) — exports validateClosedRecord, EFFECT_CLASSES, EVIDENCE_ORIGINS, EPISTEMIC_RELATIONS, VERIFICATION_CLAIMS (+5) _(imported by 1)_
-- [`src/v7-frontier-state.mjs`](../../src/v7-frontier-state.mjs) — The computation behind the frontier artifacts: baselines, epochs, the mission _(tested; imported by 1)_
-- [`src/v7-gap-ledger.mjs`](../../src/v7-gap-ledger.mjs) — The V7 gap ledger: what is still open, decided by running a check rather than _(tested; imported by 1)_
+- [`src/omnia-v9/authority-transition-ledger.mjs`](../../src/omnia-v9/authority-transition-ledger.mjs) — exports verifyAuthorityTransitionChain, proveReservedBefore _(matched by name only; imported by 1)_
+- [`src/omnia-v9/authorization-bound-receipt-store.mjs`](../../src/omnia-v9/authorization-bound-receipt-store.mjs) — exports OmniaV9AuthorizationBoundReceiptStoreError, OmniaV9AuthorizationBoundReceiptStore _(matched by name only; no static importers)_
+- [`src/omnia-v9/authorization-bound-receipt.mjs`](../../src/omnia-v9/authorization-bound-receipt.mjs) — exports OmniaV9AuthorizationBindingError, buildAuthorizationBoundExecutionReceipt, verifyAuthorizationBoundExecutionReceipt _(matched by name only; imported by 2)_
+- [`src/omnia-v9/canonical.mjs`](../../src/omnia-v9/canonical.mjs) — exports canonicalize, sha256, digestObject, signDigestHex, verifyDigestSignature _(matched by name only; imported by 38)_
+- [`src/omnia-v9/cedar-adapter.mjs`](../../src/omnia-v9/cedar-adapter.mjs) — exports CedarAdapterError, assertCedarModule, cedarRuntimeIdentity, validateCedarPolicy, authorizeWithCedar (+1) _(matched by name only; imported by 1)_
+- [`src/omnia-v9/constitution.mjs`](../../src/omnia-v9/constitution.mjs) — exports ConstitutionBindingError, bindConstitution _(matched by name only; imported by 1)_
+- [`src/omnia-v9/execution-receipt-shadow.mjs`](../../src/omnia-v9/execution-receipt-shadow.mjs) — exports buildProviderAcceptedReceipt, buildProviderUncertainReceipt, buildReceiptFromDurableReservation, verifyExecutionReceiptShadow, recordExecutio… _(matched by name only; imported by 3)_
+- [`src/omnia-v9/execution-receipt-store.mjs`](../../src/omnia-v9/execution-receipt-store.mjs) — exports OmniaV9ExecutionReceiptStoreError, OmniaV9ExecutionReceiptStore _(matched by name only; no static importers)_
+- [`src/omnia-v9/final-admission-shadow.mjs`](../../src/omnia-v9/final-admission-shadow.mjs) — exports buildOutboundShadowContext, observeOutboundFinalAdmission _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/canary-approval.mjs`](../../src/omnia-v9/integrations/canary-approval.mjs) — exports CANARY_NULL_OPERATION, CANARY_NULL_EFFECT_CLASS, CANARY_NULL_PURPOSE, issueCanaryApproval, revokeCanaryApproval _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/canary-null-authority.mjs`](../../src/omnia-v9/integrations/canary-null-authority.mjs) — exports CANARY_EXECUTABLE_DECISIONS, CANARY_KNOWN_NO_EXECUTION_DECISIONS, classifyCanaryGateOutcome, evaluateAndGateCanaryNull _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/canary-receipt-store.mjs`](../../src/omnia-v9/integrations/canary-receipt-store.mjs) — exports CanaryReceiptStoreError, CanaryReceiptStore _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/compare.mjs`](../../src/omnia-v9/integrations/compare.mjs) — exports classifyComparison, isCriticalDisagreement _(matched by name only; imported by 3)_
+- [`src/omnia-v9/integrations/config.mjs`](../../src/omnia-v9/integrations/config.mjs) — exports resolveOmniaV9Mode, isOmniaV9Active, isOmniaV9CompareMode, isOmniaV9CanaryNullMode, OMNIA_V9_ALLOWED_MODES (+1) _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/external-effect-adapter.mjs`](../../src/omnia-v9/integrations/external-effect-adapter.mjs) — Provider-neutral external-effect adapter contract. V9's execution layer (external-effect-dispatcher.mjs, external-effect-recovery.mjs) depends only o… _(matched by name only; imported by 6)_
+- [`src/omnia-v9/integrations/external-effect-dispatcher.mjs`](../../src/omnia-v9/integrations/external-effect-dispatcher.mjs) — exports CRASH_POINTS, CrashInjected, isExternalEffectKillSwitchEngaged, ExternalEffectKillSwitchEngagedError, ExternalEffectFinalAdmissionError (+2) _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/external-effect-evidence-store.mjs`](../../src/omnia-v9/integrations/external-effect-evidence-store.mjs) — exports ExternalEffectEvidenceStoreError, ExternalEffectEvidenceStore _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/external-effect-execution-store.mjs`](../../src/omnia-v9/integrations/external-effect-execution-store.mjs) — exports ExternalEffectExecutionStoreError, ExternalEffectExecutionStore _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/external-effect-recovery.mjs`](../../src/omnia-v9/integrations/external-effect-recovery.mjs) — exports RECOVERY_ACTIONS, recoverOneExecution, recoverUnresolvedExecutions _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/external-effect-state-machine.mjs`](../../src/omnia-v9/integrations/external-effect-state-machine.mjs) — The durable state model for an external-effect execution -- one row per logical external consequence (e.g. one email). This module is the single sour… _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/metrics.mjs`](../../src/omnia-v9/integrations/metrics.mjs) — exports buildConfusionMatrix, buildShadowReliabilityMetrics, buildFounderBurdenEstimate, summarizeLatencyMs _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/null-consequence-adapter.mjs`](../../src/omnia-v9/integrations/null-consequence-adapter.mjs) — exports NULL_SINK_RESULT, NullConsequenceAdapterError, NullConsequenceAdapter _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/null-sink-v2.mjs`](../../src/omnia-v9/integrations/null-sink-v2.mjs) — exports SIMULATION_MODES, NullSinkV2Error, NullSinkV2Adapter _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/outbound-admission.mjs`](../../src/omnia-v9/integrations/outbound-admission.mjs) — exports deriveOutboundActionIntent, evaluateOutboundAdmission, createOutboundAdmissionHook, resolveOutboundFinalAdmissionHook _(matched by name only; imported by 4)_
+- [`src/omnia-v9/integrations/outbound-consequence-gate.mjs`](../../src/omnia-v9/integrations/outbound-consequence-gate.mjs) — exports buildOutboundConsequenceContext, normalizeOutboundEffectPayload, digestOutboundEffectPayload, enforceOutboundConsequence _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/outreach-consequence-admission.mjs`](../../src/omnia-v9/integrations/outreach-consequence-admission.mjs) — exports OUTREACH_CONSEQUENCE_POLICY_DIGEST, OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST, createAuthoritativeOutreachConsequenceGate _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/owner-review.mjs`](../../src/omnia-v9/integrations/owner-review.mjs) — Owner exception packets: the compact artifact a human (Mohamed) actually looks at for the cases V9 could not resolve on its own -- a LEGACY_ALLOW_V9_… _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/providers/email-effect-primitives.mjs`](../../src/omnia-v9/integrations/providers/email-effect-primitives.mjs) — exports EMAIL_RE, MAX_SUBJECT_LENGTH, MAX_BODY_LENGTH, DEFINITE_REJECTION_HTTP_STATUSES, validateRecipientAddress (+5) _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs) — exports GmailEffectAdapterError, generateMessageId, gmailArgumentsDigest, GmailEffectAdapter _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — exports POSTAL_EFFECT_ADAPTER_VERSION, PostalEffectAdapterError, PostalEffectAdapter, postalProviderEffectIdentity, postalEffectTag _(matched by name only; tested; imported by 1)_
+- [`src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs`](../../src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs) — exports POSTAL_SENDER_EVIDENCE_CONSUMER_VERSION, classifyPostalSenderEvidence, consumePostalSenderEvidence _(matched by name only; tested; imported by 1)_
+- [`src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-evidence.mjs) — exports POSTAL_WEBHOOK_EVIDENCE_VERSION, POSTAL_QUARANTINE_REASONS, verifyPostalWebhookSignature, normalizePostalWebhookEvent, deriveCurrentPostalSta… _(matched by name only; tested; imported by 2)_
+- [`src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs`](../../src/omnia-v9/integrations/providers/postal-webhook-ledger.mjs) — exports POSTAL_WEBHOOK_LEDGER_VERSION, createMemoryPostalWebhookLedger, createPostgresPostalWebhookLedger, createPostalReconciliationLookup _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/reality-shadow-cedar.mjs`](../../src/omnia-v9/integrations/reality-shadow-cedar.mjs) — exports RealCedarBindingError, classifyRealCedarFailure, deriveProposalFacts, bindRealCedarAuthority, resetRealCedarAuthorityCache _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/reality-shadow-dataset.mjs`](../../src/omnia-v9/integrations/reality-shadow-dataset.mjs) — exports DATASET_LABELS, classifyDatasetLabel, isCedarSubstitutionEligible, buildLabeledCandidates, REAL_OPERATIONAL_SAMPLE_COUNT (+2) _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/reality-shadow-evaluator.mjs`](../../src/omnia-v9/integrations/reality-shadow-evaluator.mjs) — exports buildRealityShadowHook, classifyRealityShadowFailure _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/replay-scenarios.mjs`](../../src/omnia-v9/integrations/replay-scenarios.mjs) — exports buildReplayScenarios _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/replay.mjs`](../../src/omnia-v9/integrations/replay.mjs) — exports runScenario, runReplay _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/shadow-approval.mjs`](../../src/omnia-v9/integrations/shadow-approval.mjs) — exports SHADOW_APPROVAL_PURPOSE, ShadowApprovalError, issueShadowApproval, revokeShadowApproval, resolveShadowAuthorityContext _(matched by name only; imported by 3)_
+- [`src/omnia-v9/kernel.mjs`](../../src/omnia-v9/kernel.mjs) — exports createActionIntent, createEvidenceRecord, createApproval, verifyIntent, verifyEvidence (+5) _(matched by name only; imported by 11)_
+- [`src/omnia-v9/outbound-shadow.mjs`](../../src/omnia-v9/outbound-shadow.mjs) — exports buildOutboundShadowArtifacts, evaluateOutboundShadow _(matched by name only; no static importers)_
+- [`src/omnia-v9/persistent-admission.mjs`](../../src/omnia-v9/persistent-admission.mjs) — exports persistAndReserveAdmission _(matched by name only; no static importers)_
+- [`src/omnia-v9/policy-bundle.mjs`](../../src/omnia-v9/policy-bundle.mjs) — exports PolicyBundleError, buildPolicyBundle _(matched by name only; imported by 1)_
+- [`src/omnia-v9/pre-effect-authority-reconciler.mjs`](../../src/omnia-v9/pre-effect-authority-reconciler.mjs) — exports reconcilePreEffectAuthority _(matched by name only; no static importers)_
+- [`src/omnia-v9/proof-store.mjs`](../../src/omnia-v9/proof-store.mjs) — exports OmniaV9ProofStoreError, OmniaV9ProofStore _(matched by name only; no static importers)_
+- [`src/omnia-v9/schema.mjs`](../../src/omnia-v9/schema.mjs) — exports validateClosedRecord, EFFECT_CLASSES, EVIDENCE_ORIGINS, EPISTEMIC_RELATIONS, VERIFICATION_CLAIMS (+5) _(matched by name only; imported by 1)_
+- [`src/v7-frontier-state.mjs`](../../src/v7-frontier-state.mjs) — The computation behind the frontier artifacts: baselines, epochs, the mission _(matched by name only; tested; imported by 1)_
+- [`src/v7-gap-ledger.mjs`](../../src/v7-gap-ledger.mjs) — The V7 gap ledger: what is still open, decided by running a check rather than _(matched by name only; tested; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/v7-artifact-index.mjs`](../../scripts/v7-artifact-index.mjs) — Maps every artifact the V7 contract names to what actually exists.
-- [`scripts/v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — PHASE 3: the claims this repository makes about itself, and what backs them.
-- [`scripts/v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates the six frontier artifacts the V7 contract names and this repository
-- [`scripts/v7-gap-ledger.mjs`](../../scripts/v7-gap-ledger.mjs) — Recomputes the V7 gap ledger from current source. PHASE 1.
-- [`scripts/v7-live-truth.mjs`](../../scripts/v7-live-truth.mjs) — PHASE 0: recover live truth.
-- [`scripts/v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — PHASE 3: what each rule would require as proof, and what it actually has.
+- [`scripts/v7-artifact-index.mjs`](../../scripts/v7-artifact-index.mjs) — Maps every artifact the V7 contract names to what actually exists. _(matched by name only)_
+- [`scripts/v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — PHASE 3: the claims this repository makes about itself, and what backs them. _(matched by name only)_
+- [`scripts/v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates the six frontier artifacts the V7 contract names and this repository _(matched by name only)_
+- [`scripts/v7-gap-ledger.mjs`](../../scripts/v7-gap-ledger.mjs) — Recomputes the V7 gap ledger from current source. PHASE 1. _(matched by name only)_
+- [`scripts/v7-live-truth.mjs`](../../scripts/v7-live-truth.mjs) — PHASE 0: recover live truth. _(matched by name only)_
+- [`scripts/v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — PHASE 3: what each rule would require as proof, and what it actually has. _(matched by name only)_
 
 ## Config, data, artifacts and services (33)
 
-- [`artifacts/omnia-v9/canary-latency.json`](../../artifacts/omnia-v9/canary-latency.json) — omnia.v9.canary-latency.v1
-- [`artifacts/omnia-v9/closure-report.json`](../../artifacts/omnia-v9/closure-report.json) — omnia_v9_test · P3_POLICY_VERIFIED · omnia.v9.closure-report.v2
-- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json)
-- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1
-- [`artifacts/omnia-v9/frozen-baseline.json`](../../artifacts/omnia-v9/frozen-baseline.json) — omnia.v9.frozen-baseline.v1
-- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1
-- [`artifacts/omnia-v9/integration-report.json`](../../artifacts/omnia-v9/integration-report.json) — omnia.v9.integration-report.v1
-- [`artifacts/omnia-v9/reality-shadow-latency.json`](../../artifacts/omnia-v9/reality-shadow-latency.json) — OBSERVED · omnia.v9.reality-shadow-latency.v1
-- [`artifacts/omnia-v9/reality-shadow-report.json`](../../artifacts/omnia-v9/reality-shadow-report.json) — omnia.v9.reality-shadow-report.v1
-- [`artifacts/omnia-v9/replay-report.json`](../../artifacts/omnia-v9/replay-report.json) — omnia.v9.replay-report.v1
-- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1
-- [`artifacts/v7/artifact-index.json`](../../artifacts/v7/artifact-index.json) — uberbond.v7-artifact-index.v1
-- [`artifacts/v7/baselines.json`](../../artifacts/v7/baselines.json) — uberbond.v7-baselines.v1
-- [`artifacts/v7/claim-evidence-registry.json`](../../artifacts/v7/claim-evidence-registry.json) — uberbond.v7-claim-evidence-registry.v1
-- [`artifacts/v7/evaluation-epoch.json`](../../artifacts/v7/evaluation-epoch.json) — uberbond.v7-evaluation-epoch.v1
-- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — uberbond.v7-final-frontier-state.v1
-- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1
-- [`artifacts/v7/gap-ledger.json`](../../artifacts/v7/gap-ledger.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · EXTERNAL_BLOCKED · uberbond.v7-gap-ledger.v1
-- [`artifacts/v7/live-truth.json`](../../artifacts/v7/live-truth.json) — CARRIER_INCOMPLETE__CANONICAL_V9_NOT_MATERIALIZED · uberbond.v7-live-truth.v1
-- [`artifacts/v7/mission-dag.json`](../../artifacts/v7/mission-dag.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · uberbond.v7-mission-dag.v1
-- [`artifacts/v7/proof-obligations.json`](../../artifacts/v7/proof-obligations.json) — uberbond.v7-proof-obligations.v1
-- [`artifacts/v7/resource-allocation.json`](../../artifacts/v7/resource-allocation.json) — uberbond.v7-resource-allocation.v1
-- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2
-- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3
-- [`migrations/005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql)
-- [`migrations/006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql)
-- [`migrations/007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql)
-- [`migrations/008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql)
-- [`migrations/009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no
-- [`migrations/010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately
-- [`migrations/011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with,
-- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar)
-- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json)
+- [`artifacts/omnia-v9/canary-latency.json`](../../artifacts/omnia-v9/canary-latency.json) — omnia.v9.canary-latency.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/closure-report.json`](../../artifacts/omnia-v9/closure-report.json) — omnia_v9_test · P3_POLICY_VERIFIED · omnia.v9.closure-report.v2 _(matched by name only)_
+- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json) _(matched by name only)_
+- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/frozen-baseline.json`](../../artifacts/omnia-v9/frozen-baseline.json) — omnia.v9.frozen-baseline.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/integration-report.json`](../../artifacts/omnia-v9/integration-report.json) — omnia.v9.integration-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/reality-shadow-latency.json`](../../artifacts/omnia-v9/reality-shadow-latency.json) — OBSERVED · omnia.v9.reality-shadow-latency.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/reality-shadow-report.json`](../../artifacts/omnia-v9/reality-shadow-report.json) — omnia.v9.reality-shadow-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/replay-report.json`](../../artifacts/omnia-v9/replay-report.json) — omnia.v9.replay-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1 _(matched by name only)_
+- [`artifacts/v7/artifact-index.json`](../../artifacts/v7/artifact-index.json) — uberbond.v7-artifact-index.v1 _(matched by name only)_
+- [`artifacts/v7/baselines.json`](../../artifacts/v7/baselines.json) — uberbond.v7-baselines.v1 _(matched by name only)_
+- [`artifacts/v7/claim-evidence-registry.json`](../../artifacts/v7/claim-evidence-registry.json) — uberbond.v7-claim-evidence-registry.v1 _(matched by name only)_
+- [`artifacts/v7/evaluation-epoch.json`](../../artifacts/v7/evaluation-epoch.json) — uberbond.v7-evaluation-epoch.v1 _(matched by name only)_
+- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — uberbond.v7-final-frontier-state.v1 _(matched by name only)_
+- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1 _(matched by name only)_
+- [`artifacts/v7/gap-ledger.json`](../../artifacts/v7/gap-ledger.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · EXTERNAL_BLOCKED · uberbond.v7-gap-ledger.v1 _(matched by name only)_
+- [`artifacts/v7/live-truth.json`](../../artifacts/v7/live-truth.json) — CARRIER_INCOMPLETE__CANONICAL_V9_NOT_MATERIALIZED · uberbond.v7-live-truth.v1 _(matched by name only)_
+- [`artifacts/v7/mission-dag.json`](../../artifacts/v7/mission-dag.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · uberbond.v7-mission-dag.v1 _(matched by name only)_
+- [`artifacts/v7/proof-obligations.json`](../../artifacts/v7/proof-obligations.json) — uberbond.v7-proof-obligations.v1 _(matched by name only)_
+- [`artifacts/v7/resource-allocation.json`](../../artifacts/v7/resource-allocation.json) — uberbond.v7-resource-allocation.v1 _(matched by name only)_
+- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2 _(matched by name only)_
+- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3 _(matched by name only)_
+- [`migrations/005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql) _(matched by name only)_
+- [`migrations/006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql) _(matched by name only)_
+- [`migrations/007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql) _(matched by name only)_
+- [`migrations/008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql) _(matched by name only)_
+- [`migrations/009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no _(matched by name only)_
+- [`migrations/010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately _(matched by name only)_
+- [`migrations/011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with, _(matched by name only)_
+- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar) _(matched by name only)_
+- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json) _(matched by name only)_
 
 ## Tests (41)
 

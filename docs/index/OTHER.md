@@ -33,168 +33,168 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## .cache
 
-- [`gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — uberbond.gamechanger-mesh-state.v2
+- [`gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — uberbond.gamechanger-mesh-state.v2 _(matched by name only)_
 
 ## .codex
 
-- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator for Codex
+- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator for Codex _(matched by name only)_
 
 ## .cursor
 
-- [`.cursor/rules/uberbond-context.mdc`](../../.cursor/rules/uberbond-context.mdc) — description: UberBond universal context bootstrap
+- [`.cursor/rules/uberbond-context.mdc`](../../.cursor/rules/uberbond-context.mdc) — description: UberBond universal context bootstrap _(matched by name only)_
 
 ## actors
 
-- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Verified Inquiry-Path Defects (pay only for findings that re-verify)
-- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Verified Inquiry-Path Defects input
-- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor
-- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Verified Inquiry-Path Defects
-- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify Store shell. All decisions live in src/inquiry-findings.mjs and
+- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Verified Inquiry-Path Defects (pay only for findings that re-verify) _(matched by name only)_
+- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Verified Inquiry-Path Defects input _(matched by name only)_
+- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor _(matched by name only)_
+- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Verified Inquiry-Path Defects _(matched by name only)_
+- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify Store shell. All decisions live in src/inquiry-findings.mjs and _(matched by name only)_
 
 ## apps
 
-- [`apps/phoenix-mcp/README.md`](../../apps/phoenix-mcp/README.md) — PHOENIX Direct MCP Connector (real tools)
-- [`apps/phoenix-mcp/package-lock.json`](../../apps/phoenix-mcp/package-lock.json) — uberbond-phoenix-mcp
-- [`apps/phoenix-mcp/package.json`](../../apps/phoenix-mcp/package.json) — uberbond-phoenix-mcp
-- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls,
-- [`apps/phoenix-mcp/test/all-native.test.mjs`](../../apps/phoenix-mcp/test/all-native.test.mjs) — 1 test — e.g. "all fifteen native atoms through real subprocess MCP, denial and restart"
-- [`apps/phoenix-mcp/test/native-fixtures.mjs`](../../apps/phoenix-mcp/test/native-fixtures.mjs) — exports fixtures
-- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools"
+- [`apps/phoenix-mcp/README.md`](../../apps/phoenix-mcp/README.md) — PHOENIX Direct MCP Connector (real tools) _(matched by name only)_
+- [`apps/phoenix-mcp/package-lock.json`](../../apps/phoenix-mcp/package-lock.json) — uberbond-phoenix-mcp _(matched by name only)_
+- [`apps/phoenix-mcp/package.json`](../../apps/phoenix-mcp/package.json) — uberbond-phoenix-mcp _(matched by name only)_
+- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls, _(matched by name only)_
+- [`apps/phoenix-mcp/test/all-native.test.mjs`](../../apps/phoenix-mcp/test/all-native.test.mjs) — 1 test — e.g. "all fifteen native atoms through real subprocess MCP, denial and restart" _(matched by name only)_
+- [`apps/phoenix-mcp/test/native-fixtures.mjs`](../../apps/phoenix-mcp/test/native-fixtures.mjs) — exports fixtures _(matched by name only)_
+- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools" _(matched by name only)_
 
 ## data
 
-- [`db.sample.json`](../../data/db.sample.json)
-- [`frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1
-- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1
-- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1
-- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2
-- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1
-- [`data/genesis/architecture-assumptions.json`](../../data/genesis/architecture-assumptions.json) — uberbond.genesis-architecture-assumptions.v1
-- [`data/genesis/impossible-tasks.json`](../../data/genesis/impossible-tasks.json) — uberbond.genesis-impossible-tasks.v1
-- [`data/opportunity-factory/seed-register.json`](../../data/opportunity-factory/seed-register.json) — Freelance Web Developer · EVIDENCED · uberbond.opportunity-seed-register.v1
+- [`db.sample.json`](../../data/db.sample.json) _(matched by name only)_
+- [`frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1 _(matched by name only)_
+- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1 _(matched by name only)_
+- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1 _(matched by name only)_
+- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2 _(matched by name only)_
+- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1 _(matched by name only)_
+- [`data/genesis/architecture-assumptions.json`](../../data/genesis/architecture-assumptions.json) — uberbond.genesis-architecture-assumptions.v1 _(matched by name only)_
+- [`data/genesis/impossible-tasks.json`](../../data/genesis/impossible-tasks.json) — uberbond.genesis-impossible-tasks.v1 _(matched by name only)_
+- [`data/opportunity-factory/seed-register.json`](../../data/opportunity-factory/seed-register.json) — Freelance Web Developer · EVIDENCED · uberbond.opportunity-seed-register.v1 _(matched by name only)_
 
 ## deploy
 
-- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock
-- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime
-- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock
-- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock
-- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded"
-- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc)
+- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded" _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc) _(matched by name only)_
 
 ## historical-archive
 
 - [`README.md`](../../historical-archive/README.md) — Historical Archive — NOT part of the canonical codebase
-- [`UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip`](../../historical-archive/UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip) — 2026-08-13
-- [`UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_20260813_FINAL.zip`](../../historical-archive/UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_20260813_FINAL.zip) — 2026-08-13
+- [`UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip`](../../historical-archive/UBERBOND_LEAD_INTELLIGENCE_OUTREACH_COMPLETE_20260813.zip) — 2026-08-13 _(matched by name only)_
+- [`UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_20260813_FINAL.zip`](../../historical-archive/UBERBOND_OUTREACH_INSTANTLY_PARITY_COMPLETE_20260813_FINAL.zip) — 2026-08-13 _(matched by name only)_
 
 ## integrations
 
-- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — You are UberMind Ω20, my director for UberBond work. Deliver the highest-quality completed work using the fewest Claude Pro turns possible. Never trade quality for savings.
-- [`integrations/claude-ai/README.md`](../../integrations/claude-ai/README.md) — UberMind Ω20 for claude.ai and the Claude apps (Claude Pro)
-- [`integrations/claude-ai/dist/ubermind-lean.zip`](../../integrations/claude-ai/dist/ubermind-lean.zip)
-- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill
+- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — You are UberMind Ω20, my director for UberBond work. Deliver the highest-quality completed work using the fewest Claude Pro turns possible. Never trade quality for savings. _(matched by name only)_
+- [`integrations/claude-ai/README.md`](../../integrations/claude-ai/README.md) — UberMind Ω20 for claude.ai and the Claude apps (Claude Pro) _(matched by name only)_
+- [`integrations/claude-ai/dist/ubermind-lean.zip`](../../integrations/claude-ai/dist/ubermind-lean.zip) _(matched by name only)_
+- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill _(matched by name only)_
 
 ## mind activation
 
-- [`ACTIVATION_STATUS_2026-10-10.md`](../../mind%20activation/ACTIVATION_STATUS_2026-10-10.md) — 2026-10-10 · UberMind / Claude Pro Activation: exact status
-- [`CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for the existing Claude Pro Project
-- [`CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts
-- [`NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next execution frontier
-- [`PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority
-- [`README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint
-- [`SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — uberbond.mind-activation.source-receipt-index.v1
+- [`ACTIVATION_STATUS_2026-10-10.md`](../../mind%20activation/ACTIVATION_STATUS_2026-10-10.md) — 2026-10-10 · UberMind / Claude Pro Activation: exact status _(matched by name only)_
+- [`CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for the existing Claude Pro Project _(matched by name only)_
+- [`CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(matched by name only)_
+- [`NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next execution frontier _(matched by name only)_
+- [`PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority _(matched by name only)_
+- [`README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint _(matched by name only)_
+- [`SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — uberbond.mind-activation.source-receipt-index.v1 _(matched by name only)_
 
 ## operator-tools
 
-- [`uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Dedicated, manually invoked, SINGLE probe execution, NEVER a cron hook. No external effect without authenticated provider transport, six separately s…
+- [`uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Dedicated, manually invoked, SINGLE probe execution, NEVER a cron hook. No external effect without authenticated provider transport, six separately s… _(matched by name only)_
 
 ## plugins
 
-- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge
-- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge
+- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge _(matched by name only)_
 
 ## policy
 
-- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar)
-- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json)
-- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1
+- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar) _(matched by name only)_
+- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json) _(matched by name only)_
+- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1 _(matched by name only)_
 
 ## relay
 
-- [`README.md`](../../relay/README.md) — UberBond Relay Adapter
-- [`relay/api/agent-relay/health.mjs`](../../relay/api/agent-relay/health.mjs) — exports handler
-- [`relay/api/agent-relay/tasks.mjs`](../../relay/api/agent-relay/tasks.mjs) — exports handler
-- [`relay/api/agent-relay/tasks/[...path].mjs`](../../relay/api/agent-relay/tasks/%5B...path%5D.mjs) — exports handler
-- [`relay/lib/contract.mjs`](../../relay/lib/contract.mjs) — Small Vercel-native relay adapter contract. This surface is intentionally
-- [`package.json`](../../relay/package.json) — uberbondd-relay-adapter
-- [`vercel.json`](../../relay/vercel.json)
+- [`README.md`](../../relay/README.md) — UberBond Relay Adapter _(matched by name only)_
+- [`relay/api/agent-relay/health.mjs`](../../relay/api/agent-relay/health.mjs) — exports handler _(matched by name only)_
+- [`relay/api/agent-relay/tasks.mjs`](../../relay/api/agent-relay/tasks.mjs) — exports handler _(matched by name only)_
+- [`relay/api/agent-relay/tasks/[...path].mjs`](../../relay/api/agent-relay/tasks/%5B...path%5D.mjs) — exports handler _(matched by name only)_
+- [`relay/lib/contract.mjs`](../../relay/lib/contract.mjs) — Small Vercel-native relay adapter contract. This surface is intentionally _(matched by name only)_
+- [`package.json`](../../relay/package.json) — uberbondd-relay-adapter _(matched by name only)_
+- [`vercel.json`](../../relay/vercel.json) _(matched by name only)_
 
 ## runtime
 
-- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator
-- [`runtime/free-mesh/wrangler.jsonc`](../../runtime/free-mesh/wrangler.jsonc)
-- [`runtime/supabase/functions/README.md`](../../runtime/supabase/functions/README.md) — Supabase GENESIS runtime
-- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts)
-- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts)
-- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts)
-- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts)
-- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1
-- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue.
+- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator _(matched by name only)_
+- [`runtime/free-mesh/wrangler.jsonc`](../../runtime/free-mesh/wrangler.jsonc) _(matched by name only)_
+- [`runtime/supabase/functions/README.md`](../../runtime/supabase/functions/README.md) — Supabase GENESIS runtime _(matched by name only)_
+- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1 _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue. _(matched by name only)_
 
 ## schemas
 
-- [`capability-genome.schema.json`](../../schemas/capability-genome.schema.json) — UberBond Capability Genome Capability
-- [`uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — UBER/OS machine manifest
-- [`uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet
+- [`capability-genome.schema.json`](../../schemas/capability-genome.schema.json) — UberBond Capability Genome Capability _(matched by name only)_
+- [`uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — UBER/OS machine manifest _(matched by name only)_
+- [`uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet _(matched by name only)_
 
 ## skill-observations
 
-- [`cross-cutting-principles.md`](../../skill-observations/cross-cutting-principles.md) — UberBond Skill Cross-Cutting Principles
-- [`last-review-date.txt`](../../skill-observations/last-review-date.txt) — never
-- [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep)
-- [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — id: 1 — status: open
-- [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — id: 2 — status: open
-- [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep)
-- [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor)
+- [`cross-cutting-principles.md`](../../skill-observations/cross-cutting-principles.md) — UberBond Skill Cross-Cutting Principles _(matched by name only)_
+- [`last-review-date.txt`](../../skill-observations/last-review-date.txt) — never _(matched by name only)_
+- [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep) _(matched by name only)_
+- [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — id: 1 — status: open _(matched by name only)_
+- [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — id: 2 — status: open _(matched by name only)_
+- [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep) _(matched by name only)_
+- [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor) _(matched by name only)_
 
 ## tools
 
-- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — UberSocket Chat Bridge
-- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js)
-- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js)
-- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — UberSocket Chat Bridge
-- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html)
-- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js)
+- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — UberSocket Chat Bridge _(matched by name only)_
+- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js) _(matched by name only)_
+- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js) _(matched by name only)_
+- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — UberSocket Chat Bridge _(matched by name only)_
+- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html) _(matched by name only)_
+- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js) _(matched by name only)_
 
 ## uberos
 
-- [`README.md`](../../uberos/README.md) — UBER/OS
-- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in)
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh)
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release)
-- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health)
-- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc)
-- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk)
-- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh)
-- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh)
+- [`README.md`](../../uberos/README.md) — UBER/OS _(matched by name only)_
+- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in) _(matched by name only)_
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh) _(matched by name only)_
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release) _(matched by name only)_
+- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health) _(matched by name only)_
+- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc) _(matched by name only)_
+- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk) _(matched by name only)_
+- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh) _(matched by name only)_
+- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh) _(matched by name only)_
 
 ## winnr
 
 **Email infrastructure and warmup**
 
-- [`CURRENT_STATE.json`](../../winnr/CURRENT_STATE.json) — winnr · INDEPENDENTLY_OBSERVED_3_OF_3_INBOX · uberbond.winnr.current-observations.v1
-- [`CURRENT_STATE.md`](../../winnr/CURRENT_STATE.md) — Winnr Current State
-- [`EVIDENCE_INDEX.md`](../../winnr/EVIDENCE_INDEX.md) — Winnr Evidence Index
-- [`EVIDENCE_LEDGER.md`](../../winnr/EVIDENCE_LEDGER.md) — Winnr Evidence Ledger
-- [`EXECUTION_LINEAGE.md`](../../winnr/EXECUTION_LINEAGE.md) — Winnr Execution Lineage
-- [`FINAL_ACTIVATION_2026-10-02.md`](../../winnr/FINAL_ACTIVATION_2026-10-02.md) — 2026-10-02 · Winnr Final Activation Receipt — 2026-10-02
-- [`LIVE_RECONCILIATION_2026-10-02.md`](../../winnr/LIVE_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Live Reconciliation — 2026-10-02 — Status: TECHNICAL CONNECTOR COMPLETE / PLACEMENT SPLIT / CAMPAIGN NOT ACTIVATED
-- [`LIVE_RECONCILIATION_2026-10-04.md`](../../winnr/LIVE_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Winnr Live Reconciliation — 2026-10-04
-- [`NEON_MIRROR.md`](../../winnr/NEON_MIRROR.md) — Neon Mirror Boundary
-- [`NEXT_STEPS.md`](../../winnr/NEXT_STEPS.md) — Winnr Next Steps
-- [`PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`](../../winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Personal Inbox Reconciliation — 2026-10-02 — Truth class: OWNER_REPORTED_PLACEMENT. The reported messages, senders and receiving address were not specified. Preserve this as useful ev…
-- [`PLACEMENT_RECOVERY.md`](../../winnr/PLACEMENT_RECOVERY.md) — Winnr Placement Recovery Protocol — Status: NEXT ACTIVE EXPERIMENT
-- [`README.md`](../../winnr/README.md) — Winnr Canonical Vault — Status: CURRENT WINNR RETRIEVAL ROOT
-- [`SECURITY_BOUNDARIES.md`](../../winnr/SECURITY_BOUNDARIES.md) — Winnr Security Boundaries
+- [`CURRENT_STATE.json`](../../winnr/CURRENT_STATE.json) — winnr · INDEPENDENTLY_OBSERVED_3_OF_3_INBOX · uberbond.winnr.current-observations.v1 _(matched by name only)_
+- [`CURRENT_STATE.md`](../../winnr/CURRENT_STATE.md) — Winnr Current State _(matched by name only)_
+- [`EVIDENCE_INDEX.md`](../../winnr/EVIDENCE_INDEX.md) — Winnr Evidence Index _(matched by name only)_
+- [`EVIDENCE_LEDGER.md`](../../winnr/EVIDENCE_LEDGER.md) — Winnr Evidence Ledger _(matched by name only)_
+- [`EXECUTION_LINEAGE.md`](../../winnr/EXECUTION_LINEAGE.md) — Winnr Execution Lineage _(matched by name only)_
+- [`FINAL_ACTIVATION_2026-10-02.md`](../../winnr/FINAL_ACTIVATION_2026-10-02.md) — 2026-10-02 · Winnr Final Activation Receipt — 2026-10-02 _(matched by name only)_
+- [`LIVE_RECONCILIATION_2026-10-02.md`](../../winnr/LIVE_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Live Reconciliation — 2026-10-02 — Status: TECHNICAL CONNECTOR COMPLETE / PLACEMENT SPLIT / CAMPAIGN NOT ACTIVATED _(matched by name only)_
+- [`LIVE_RECONCILIATION_2026-10-04.md`](../../winnr/LIVE_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Winnr Live Reconciliation — 2026-10-04 _(matched by name only)_
+- [`NEON_MIRROR.md`](../../winnr/NEON_MIRROR.md) — Neon Mirror Boundary _(matched by name only)_
+- [`NEXT_STEPS.md`](../../winnr/NEXT_STEPS.md) — Winnr Next Steps _(matched by name only)_
+- [`PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`](../../winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Personal Inbox Reconciliation — 2026-10-02 — Truth class: OWNER_REPORTED_PLACEMENT. The reported messages, senders and receiving address were not specified. Preserve this as useful ev… _(matched by name only)_
+- [`PLACEMENT_RECOVERY.md`](../../winnr/PLACEMENT_RECOVERY.md) — Winnr Placement Recovery Protocol — Status: NEXT ACTIVE EXPERIMENT _(matched by name only)_
+- [`README.md`](../../winnr/README.md) — Winnr Canonical Vault — Status: CURRENT WINNR RETRIEVAL ROOT _(matched by name only)_
+- [`SECURITY_BOUNDARIES.md`](../../winnr/SECURITY_BOUNDARIES.md) — Winnr Security Boundaries _(matched by name only)_
 

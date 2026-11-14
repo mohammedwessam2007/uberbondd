@@ -12,8 +12,8 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Inquiry Path Coherence Engine — Status: IMPLEMENTED + FIELD-CALIBRATED ON PUBLIC SITES (2026-10-21) / ZERO OUTBOUND / ZERO REVENUE
-- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Verified Inquiry-Path Defects
+- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Inquiry Path Coherence Engine — Status: IMPLEMENTED + FIELD-CALIBRATED ON PUBLIC SITES (2026-10-21) / ZERO OUTBOUND / ZERO REVENUE _(matched by name only)_
+- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Verified Inquiry-Path Defects _(matched by name only)_
 
 ## Commands (4)
 
@@ -21,38 +21,38 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31 _(3 mentions)_
+- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31 _(matched by name only)_ _(3 mentions)_
 - [`docs/research/report-source.md`](../research/report-source.md) — UberBond Nightfall Research, Distribution, and Economic Command Report _(3 mentions)_
 
 ## Source modules (9)
 
-- [`src/audit-rules.mjs`](../../src/audit-rules.mjs) — exports deterministicAudit, scoreProspect, chooseIssue, capabilitiesFromAudit _(imported by 4)_
-- [`src/dossier.mjs`](../../src/dossier.mjs) — exports buildDossier _(imported by 1)_
-- [`src/inquiry-findings.mjs`](../../src/inquiry-findings.mjs) — Bridge from the Inquiry Path Coherence Engine to Self-Verifying Findings. _(imported by 1)_
-- [`src/inquiry-path-coherence.mjs`](../../src/inquiry-path-coherence.mjs) — Inquiry Path Coherence Engine. _(tested; imported by 2)_
-- [`src/inquiry-path-probe.mjs`](../../src/inquiry-path-probe.mjs) — Read-only public fetcher for the Inquiry Path Coherence Engine. _(imported by 3)_
-- [`src/inquiry-path-runtime-witness.mjs`](../../src/inquiry-path-runtime-witness.mjs) — Runtime witness for the Inquiry Path Coherence Engine. _(imported by 2)_
-- [`src/lead-path-sprint-fulfillment.mjs`](../../src/lead-path-sprint-fulfillment.mjs) — exports LEAD_PATH_SPRINT_FULFILLMENT_VERSION, LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU, LEAD_PATH_SPRINT_STATES, canonicalPaymentTruthDigest (+3) _(imported by 6)_
-- [`src/proof-carrying-renderer.mjs`](../../src/proof-carrying-renderer.mjs) — exports verifyRenderedSurface _(imported by 1)_
-- [`src/self-verifying-findings.mjs`](../../src/self-verifying-findings.mjs) — Self-Verifying Findings: a data product that is re-verified at the moment of sale. _(tested; imported by 2)_
+- [`src/audit-rules.mjs`](../../src/audit-rules.mjs) — exports deterministicAudit, scoreProspect, chooseIssue, capabilitiesFromAudit _(matched by name only; imported by 4)_
+- [`src/dossier.mjs`](../../src/dossier.mjs) — exports buildDossier _(matched by name only; imported by 1)_
+- [`src/inquiry-findings.mjs`](../../src/inquiry-findings.mjs) — Bridge from the Inquiry Path Coherence Engine to Self-Verifying Findings. _(matched by name only; imported by 1)_
+- [`src/inquiry-path-coherence.mjs`](../../src/inquiry-path-coherence.mjs) — Inquiry Path Coherence Engine. _(matched by name only; tested; imported by 2)_
+- [`src/inquiry-path-probe.mjs`](../../src/inquiry-path-probe.mjs) — Read-only public fetcher for the Inquiry Path Coherence Engine. _(matched by name only; imported by 3)_
+- [`src/inquiry-path-runtime-witness.mjs`](../../src/inquiry-path-runtime-witness.mjs) — Runtime witness for the Inquiry Path Coherence Engine. _(matched by name only; imported by 2)_
+- [`src/lead-path-sprint-fulfillment.mjs`](../../src/lead-path-sprint-fulfillment.mjs) — exports LEAD_PATH_SPRINT_FULFILLMENT_VERSION, LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU, LEAD_PATH_SPRINT_STATES, canonicalPaymentTruthDigest (+3) _(matched by name only; imported by 6)_
+- [`src/proof-carrying-renderer.mjs`](../../src/proof-carrying-renderer.mjs) — exports verifyRenderedSurface _(matched by name only; imported by 1)_
+- [`src/self-verifying-findings.mjs`](../../src/self-verifying-findings.mjs) — Self-Verifying Findings: a data product that is re-verified at the moment of sale. _(matched by name only; tested; imported by 2)_
 
 ## Scripts (4)
 
-- [`scripts/inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe. _(npm: `inquiry:probe`)_
-- [`scripts/review-probes.mjs`](../../scripts/review-probes.mjs) — Independent review probes — NOT part of the product. Attacks the 10 mission claims. _(npm: `probes`)_
-- [`scripts/verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Sale rehearsal for the Verified Inquiry-Path Defects mechanism: runs the
-- [`scripts/visual-qa.mjs`](../../scripts/visual-qa.mjs) _(npm: `visual`)_
+- [`scripts/inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe. _(matched by name only; npm: `inquiry:probe`)_
+- [`scripts/review-probes.mjs`](../../scripts/review-probes.mjs) — Independent review probes — NOT part of the product. Attacks the 10 mission claims. _(matched by name only; npm: `probes`)_
+- [`scripts/verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Sale rehearsal for the Verified Inquiry-Path Defects mechanism: runs the _(matched by name only)_
+- [`scripts/visual-qa.mjs`](../../scripts/visual-qa.mjs) _(matched by name only; npm: `visual`)_
 
 ## Config, data, artifacts and services (8)
 
-- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Verified Inquiry-Path Defects (pay only for findings that re-verify)
-- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Verified Inquiry-Path Defects input
-- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor
-- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify Store shell. All decisions live in src/inquiry-findings.mjs and
-- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0
-- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1
-- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1
-- [`artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json`](../../artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json) — 2026-10-21 · An inquiry form requires 12 fields before submission · PUBLIC_WEB_READ_ONLY_OBSERVATION · uberbond.inquiry-path-coherence-field-receipt.v1
+- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Verified Inquiry-Path Defects (pay only for findings that re-verify) _(matched by name only)_
+- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Verified Inquiry-Path Defects input _(matched by name only)_
+- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor _(matched by name only)_
+- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify Store shell. All decisions live in src/inquiry-findings.mjs and _(matched by name only)_
+- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0 _(matched by name only)_
+- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
+- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
+- [`artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json`](../../artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json) — 2026-10-21 · An inquiry form requires 12 fields before submission · PUBLIC_WEB_READ_ONLY_OBSERVATION · uberbond.inquiry-path-coherence-field-receipt.v1 _(matched by name only)_
 
 ## Tests (2)
 

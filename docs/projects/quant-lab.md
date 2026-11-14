@@ -12,31 +12,31 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · UBERMIND Ω52 / Hyperdimensional Invention, Mathematical Reality and Quantitative Survival
+- [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · UBERMIND Ω52 / Hyperdimensional Invention, Mathematical Reality and Quantitative Survival _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (5)
 
-- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(15 mentions)_
-- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — UberBond: MACHIAVELLI Wealth Engine — Status: FIRST EXECUTION PROGRAM — research, invention, lab and ledgers built; cleared contribution profit $0.00 _(9 mentions)_
-- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,… _(7 mentions)_
-- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(3 mentions)_
-- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(3 mentions)_
+- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(matched by name only)_ _(15 mentions)_
+- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — UberBond: MACHIAVELLI Wealth Engine — Status: FIRST EXECUTION PROGRAM — research, invention, lab and ledgers built; cleared contribution profit $0.00 _(matched by name only)_ _(9 mentions)_
+- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,… _(matched by name only)_ _(7 mentions)_
+- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(matched by name only)_ _(3 mentions)_
+- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (5)
 
-- [`src/quant-backtest.mjs`](../../src/quant-backtest.mjs) — Quant backtest engine for the Machiavelli research lab. _(imported by 2)_
-- [`src/quant-data-vault.mjs`](../../src/quant-data-vault.mjs) — Quant Data Vault: market data with provenance a third party can re-derive. _(imported by 1)_
-- [`src/quant-paper-ledger.mjs`](../../src/quant-paper-ledger.mjs) — Forward paper ledger for the Machiavelli quant lab. _(imported by 1)_
-- [`src/quant-research-protocol.mjs`](../../src/quant-research-protocol.mjs) — Pre-registered research protocol for the Machiavelli quant lab. _(imported by 1)_
-- [`src/quant-strategies.mjs`](../../src/quant-strategies.mjs) — Pre-registered strategy families for the Machiavelli quant lab. _(imported by 1)_
+- [`src/quant-backtest.mjs`](../../src/quant-backtest.mjs) — Quant backtest engine for the Machiavelli research lab. _(matched by name only; imported by 2)_
+- [`src/quant-data-vault.mjs`](../../src/quant-data-vault.mjs) — Quant Data Vault: market data with provenance a third party can re-derive. _(matched by name only; imported by 1)_
+- [`src/quant-paper-ledger.mjs`](../../src/quant-paper-ledger.mjs) — Forward paper ledger for the Machiavelli quant lab. _(matched by name only; imported by 1)_
+- [`src/quant-research-protocol.mjs`](../../src/quant-research-protocol.mjs) — Pre-registered research protocol for the Machiavelli quant lab. _(matched by name only; imported by 1)_
+- [`src/quant-strategies.mjs`](../../src/quant-strategies.mjs) — Pre-registered strategy families for the Machiavelli quant lab. _(matched by name only; imported by 1)_
 
 ## Scripts (1)
 
-- [`scripts/quant-lab.mjs`](../../scripts/quant-lab.mjs) — Machiavelli quant lab: load verified public data, run the pre-registered
+- [`scripts/quant-lab.mjs`](../../scripts/quant-lab.mjs) — Machiavelli quant lab: load verified public data, run the pre-registered _(matched by name only)_
 
 ## Config, data, artifacts and services (1)
 
-- [`artifacts/quant-lab/experiments-2021-01_2026-09.json`](../../artifacts/quant-lab/experiments-2021-01_2026-09.json) — uberbond.quant-lab-experiments.v1
+- [`artifacts/quant-lab/experiments-2021-01_2026-09.json`](../../artifacts/quant-lab/experiments-2021-01_2026-09.json) — uberbond.quant-lab-experiments.v1 _(matched by name only)_
 
 ## Tests (1)
 

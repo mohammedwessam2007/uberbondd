@@ -12,15 +12,15 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (9)
 
-- [`docs/DOMAIN_MAILBOX_READINESS.md`](../DOMAIN_MAILBOX_READINESS.md) — Domain and Mailbox Readiness
-- [`docs/OUTREACH_DOMAIN_FLEET.md`](../OUTREACH_DOMAIN_FLEET.md) — UberBond Outreach Domain Fleet — 2026-09-20
-- [`docs/UBER_EGRESS_AND_QUALITY_CAPACITY.md`](../UBER_EGRESS_AND_QUALITY_CAPACITY.md) — UberEgress + quality-preserving outreach capacity
-- [`docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md`](../UBERBOND_DOMAIN_MAILBOX_READINESS.md) — UberBond Domain and Mailbox Readiness OS
-- [`docs/reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md`](../reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md) — 2026-10-19 · UberWarm 1–6: rotating authenticated DNS spotcheck on existing included API
-- [`docs/reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md`](../reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md) — 2026-10-18 · UberWarm 1–6: provider DNS hold without Winnr paid warming
-- [`docs/reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md`](../reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md) — 2026-10-18 · UberWarm 1–6: no-paid provider-DNS hold control
-- [`docs/UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md`](../UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md) — 2026-09-26 · UberRelay — authorized third-party egress bridge — Status: source implemented on feature branch; no live provider account, credential, DNS mutation, purchase, or email send is claimed.
-- [`docs/UBERDNS_GODADDY_DONOR_NOTE_2026-09-16.md`](../UBERDNS_GODADDY_DONOR_NOTE_2026-09-16.md) — 2026-09-16 · UberDNS GoDaddy donor note — 2026-09-16
+- [`docs/DOMAIN_MAILBOX_READINESS.md`](../DOMAIN_MAILBOX_READINESS.md) — Domain and Mailbox Readiness _(matched by name only)_
+- [`docs/OUTREACH_DOMAIN_FLEET.md`](../OUTREACH_DOMAIN_FLEET.md) — UberBond Outreach Domain Fleet — 2026-09-20 _(matched by name only)_
+- [`docs/UBER_EGRESS_AND_QUALITY_CAPACITY.md`](../UBER_EGRESS_AND_QUALITY_CAPACITY.md) — UberEgress + quality-preserving outreach capacity _(matched by name only)_
+- [`docs/UBERBOND_DOMAIN_MAILBOX_READINESS.md`](../UBERBOND_DOMAIN_MAILBOX_READINESS.md) — UberBond Domain and Mailbox Readiness OS _(matched by name only)_
+- [`docs/reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md`](../reports/UBERWARM_ROTATING_AUTHENTICATED_DNS_SPOTCHECK_20261019.md) — 2026-10-19 · UberWarm 1–6: rotating authenticated DNS spotcheck on existing included API _(matched by name only)_
+- [`docs/reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md`](../reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md) — 2026-10-18 · UberWarm 1–6: provider DNS hold without Winnr paid warming _(matched by name only)_
+- [`docs/reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md`](../reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md) — 2026-10-18 · UberWarm 1–6: no-paid provider-DNS hold control _(matched by name only)_
+- [`docs/UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md`](../UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md) — 2026-09-26 · UberRelay — authorized third-party egress bridge — Status: source implemented on feature branch; no live provider account, credential, DNS mutation, purchase, or email send is claimed. _(matched by name only)_
+- [`docs/UBERDNS_GODADDY_DONOR_NOTE_2026-09-16.md`](../UBERDNS_GODADDY_DONOR_NOTE_2026-09-16.md) — 2026-09-16 · UberDNS GoDaddy donor note — 2026-09-16 _(matched by name only)_
 
 ## Commands (3)
 
@@ -28,46 +28,46 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(9 mentions)_
-- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION. _(6 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(3 mentions)_
+- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(matched by name only)_ _(9 mentions)_
+- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION. _(matched by name only)_ _(6 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (21)
 
-- [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — exports CROSS_DOMAIN_TRANSFER_EVALUATOR_VERSION, evaluateCrossDomainTransfer _(imported by 2)_
-- [`src/dns-verification.mjs`](../../src/dns-verification.mjs) — Read-only DNS verification. This module NEVER changes DNS -- it has no _(imported by 3)_
-- [`src/domain-mailbox-circuit-breaker.mjs`](../../src/domain-mailbox-circuit-breaker.mjs) — Automatic circuit breakers for the domain/mailbox readiness system. Pure, _(imported by 2)_
-- [`src/domain-mailbox-control-center.mjs`](../../src/domain-mailbox-control-center.mjs) — Beginner-friendly operator surface: "Domain and Mailbox Readiness." _(imported by 1)_
-- [`src/domain-mailbox-gate.mjs`](../../src/domain-mailbox-gate.mjs) — Deny-only pre-check composing with (never replacing) the existing _(imported by 2)_
-- [`src/domain-purpose-plan.mjs`](../../src/domain-purpose-plan.mjs) — Which host does what, on the two roots UberBond actually owns. _(tested; imported by 6)_
-- [`src/egress-health-pool.mjs`](../../src/egress-health-pool.mjs) — exports EGRESS_HEALTH_POLICY_VERSION, selectEgressRoute, normalizeEgressOutcome _(no static importers)_
-- [`src/fixed-host-blind-tunnel.mjs`](../../src/fixed-host-blind-tunnel.mjs) — exports inspectBlindTunnelConfig, connectTlsThroughBlindWebSocketTunnel, BLIND_TUNNEL_TRUTH_BOUNDARY _(tested; imported by 1)_
-- [`src/outreach-domain-fleet.mjs`](../../src/outreach-domain-fleet.mjs) — Live registrar evidence for the scalable outreach fleet. _(tested; imported by 7)_
-- [`src/outreach-fleet-dns-observatory.mjs`](../../src/outreach-fleet-dns-observatory.mjs) — Public-DNS observatory for the whole owned domain portfolio. _(tested; imported by 2)_
-- [`src/reserved-domains.mjs`](../../src/reserved-domains.mjs) — Reserved domains (RFC 2606 / RFC 6761). _(tested; imported by 1)_
-- [`src/sender-infrastructure-mesh.mjs`](../../src/sender-infrastructure-mesh.mjs) — exports SENDER_MESH_POLICY_VERSION, UBER_DISTRIBUTION_ORCHESTRATOR_VERSION, MESSAGE_CLASSES, allocateSenderInfrastructure, compileUberDistributionCyc… _(no static importers)_
-- [`src/sending-domain-registry.mjs`](../../src/sending-domain-registry.mjs) — Canonical SendingDomain registry. _(imported by 5)_
-- [`src/sending-mailbox-registry.mjs`](../../src/sending-mailbox-registry.mjs) — Canonical SendingMailbox registry. Same append-only-receipt-over-auditLog _(imported by 6)_
-- [`src/uberdns-control-plane.mjs`](../../src/uberdns-control-plane.mjs) — exports UBERDNS_VERSION, compileUberDnsPlan, applyUberDnsPlan _(imported by 1)_
-- [`src/uberdns-godaddy-adapter.mjs`](../../src/uberdns-godaddy-adapter.mjs) — exports UBERDNS_GODADDY_ADAPTER_VERSION, txtRecordPurpose, reconcileDnsRecord, createGoDaddyDnsAdapter _(tested; imported by 2)_
-- [`src/uberdoso-dns-contract.mjs`](../../src/uberdoso-dns-contract.mjs) — exports UBERDOSO_DNS_CONTRACT_VERSION, compileUberDosoVerifierContracts _(tested; imported by 2)_
-- [`src/uberdoso-dns-publication.mjs`](../../src/uberdoso-dns-publication.mjs) — Mail-cell bring-up output -> exact DNS publication packet. _(tested; imported by 1)_
-- [`src/uberegress-topology.mjs`](../../src/uberegress-topology.mjs) — exports UBEREGRESS_VERSION, UBEREGRESS_ROUTE_TYPES, compileUberEgressTopology _(tested; no static importers)_
-- [`src/uberfleet.mjs`](../../src/uberfleet.mjs) — exports UBERFLEET_VERSION, buildEncryptedSmtpAccount, openSmtpAccountCredential, selectFleetMailbox, probeSmtpFleetAccount (+1) _(tested; imported by 11)_
-- [`src/uberwarm2-provider-dns-spotcheck.mjs`](../../src/uberwarm2-provider-dns-spotcheck.mjs) — One bounded authenticated Winnr DNS GET per ordinary monitor invocation. Rotates domain selection by five-minute epoch slot; no writes, billing, mail… _(tested; imported by 1)_
+- [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — exports CROSS_DOMAIN_TRANSFER_EVALUATOR_VERSION, evaluateCrossDomainTransfer _(matched by name only; imported by 2)_
+- [`src/dns-verification.mjs`](../../src/dns-verification.mjs) — Read-only DNS verification. This module NEVER changes DNS -- it has no _(matched by name only; imported by 3)_
+- [`src/domain-mailbox-circuit-breaker.mjs`](../../src/domain-mailbox-circuit-breaker.mjs) — Automatic circuit breakers for the domain/mailbox readiness system. Pure, _(matched by name only; imported by 2)_
+- [`src/domain-mailbox-control-center.mjs`](../../src/domain-mailbox-control-center.mjs) — Beginner-friendly operator surface: "Domain and Mailbox Readiness." _(matched by name only; imported by 1)_
+- [`src/domain-mailbox-gate.mjs`](../../src/domain-mailbox-gate.mjs) — Deny-only pre-check composing with (never replacing) the existing _(matched by name only; imported by 2)_
+- [`src/domain-purpose-plan.mjs`](../../src/domain-purpose-plan.mjs) — Which host does what, on the two roots UberBond actually owns. _(matched by name only; tested; imported by 6)_
+- [`src/egress-health-pool.mjs`](../../src/egress-health-pool.mjs) — exports EGRESS_HEALTH_POLICY_VERSION, selectEgressRoute, normalizeEgressOutcome _(matched by name only; no static importers)_
+- [`src/fixed-host-blind-tunnel.mjs`](../../src/fixed-host-blind-tunnel.mjs) — exports inspectBlindTunnelConfig, connectTlsThroughBlindWebSocketTunnel, BLIND_TUNNEL_TRUTH_BOUNDARY _(matched by name only; tested; imported by 1)_
+- [`src/outreach-domain-fleet.mjs`](../../src/outreach-domain-fleet.mjs) — Live registrar evidence for the scalable outreach fleet. _(matched by name only; tested; imported by 7)_
+- [`src/outreach-fleet-dns-observatory.mjs`](../../src/outreach-fleet-dns-observatory.mjs) — Public-DNS observatory for the whole owned domain portfolio. _(matched by name only; tested; imported by 2)_
+- [`src/reserved-domains.mjs`](../../src/reserved-domains.mjs) — Reserved domains (RFC 2606 / RFC 6761). _(matched by name only; tested; imported by 1)_
+- [`src/sender-infrastructure-mesh.mjs`](../../src/sender-infrastructure-mesh.mjs) — exports SENDER_MESH_POLICY_VERSION, UBER_DISTRIBUTION_ORCHESTRATOR_VERSION, MESSAGE_CLASSES, allocateSenderInfrastructure, compileUberDistributionCyc… _(matched by name only; no static importers)_
+- [`src/sending-domain-registry.mjs`](../../src/sending-domain-registry.mjs) — Canonical SendingDomain registry. _(matched by name only; imported by 5)_
+- [`src/sending-mailbox-registry.mjs`](../../src/sending-mailbox-registry.mjs) — Canonical SendingMailbox registry. Same append-only-receipt-over-auditLog _(matched by name only; imported by 6)_
+- [`src/uberdns-control-plane.mjs`](../../src/uberdns-control-plane.mjs) — exports UBERDNS_VERSION, compileUberDnsPlan, applyUberDnsPlan _(matched by name only; imported by 1)_
+- [`src/uberdns-godaddy-adapter.mjs`](../../src/uberdns-godaddy-adapter.mjs) — exports UBERDNS_GODADDY_ADAPTER_VERSION, txtRecordPurpose, reconcileDnsRecord, createGoDaddyDnsAdapter _(matched by name only; tested; imported by 2)_
+- [`src/uberdoso-dns-contract.mjs`](../../src/uberdoso-dns-contract.mjs) — exports UBERDOSO_DNS_CONTRACT_VERSION, compileUberDosoVerifierContracts _(matched by name only; tested; imported by 2)_
+- [`src/uberdoso-dns-publication.mjs`](../../src/uberdoso-dns-publication.mjs) — Mail-cell bring-up output -> exact DNS publication packet. _(matched by name only; tested; imported by 1)_
+- [`src/uberegress-topology.mjs`](../../src/uberegress-topology.mjs) — exports UBEREGRESS_VERSION, UBEREGRESS_ROUTE_TYPES, compileUberEgressTopology _(matched by name only; tested; no static importers)_
+- [`src/uberfleet.mjs`](../../src/uberfleet.mjs) — exports UBERFLEET_VERSION, buildEncryptedSmtpAccount, openSmtpAccountCredential, selectFleetMailbox, probeSmtpFleetAccount (+1) _(matched by name only; tested; imported by 11)_
+- [`src/uberwarm2-provider-dns-spotcheck.mjs`](../../src/uberwarm2-provider-dns-spotcheck.mjs) — One bounded authenticated Winnr DNS GET per ordinary monitor invocation. Rotates domain selection by five-minute epoch slot; no writes, billing, mail… _(matched by name only; tested; imported by 1)_
 
 ## Scripts (3)
 
-- [`scripts/domain-purpose-plan.mjs`](../../scripts/domain-purpose-plan.mjs) — The intended purpose of every host under the two domains UberBond owns, and _(npm: `domain:plan`)_
-- [`scripts/outreach-fleet-dns-observe.mjs`](../../scripts/outreach-fleet-dns-observe.mjs) — Observe public DNS for all 30 owned domains and print (or write) a receipt. _(npm: `outreach:fleet-dns`)_
-- [`scripts/uberdoso-dns-publish.mjs`](../../scripts/uberdoso-dns-publish.mjs) — Publish the mail cell's DNS in one step after bring-up. _(npm: `uberdoso:dns-publish`)_
+- [`scripts/domain-purpose-plan.mjs`](../../scripts/domain-purpose-plan.mjs) — The intended purpose of every host under the two domains UberBond owns, and _(matched by name only; npm: `domain:plan`)_
+- [`scripts/outreach-fleet-dns-observe.mjs`](../../scripts/outreach-fleet-dns-observe.mjs) — Observe public DNS for all 30 owned domains and print (or write) a receipt. _(matched by name only; npm: `outreach:fleet-dns`)_
+- [`scripts/uberdoso-dns-publish.mjs`](../../scripts/uberdoso-dns-publish.mjs) — Publish the mail cell's DNS in one step after bring-up. _(matched by name only; npm: `uberdoso:dns-publish`)_
 
 ## Config, data, artifacts and services (4)
 
-- [`artifacts/outreach/fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · uberbond.outreach-fleet-dns-observatory.v1
-- [`artifacts/outreach/godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · www · uberbond.godaddy-dns-observation.v1
-- [`artifacts/outreach/godaddy-domain-fleet-2026-09-20.json`](../../artifacts/outreach/godaddy-domain-fleet-2026-09-20.json) — 2026-09-20 · VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION · uberbond.outreach-domain-fleet.v1
-- [`library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json`](../../library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json) — The Prince
+- [`artifacts/outreach/fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · uberbond.outreach-fleet-dns-observatory.v1 _(matched by name only)_
+- [`artifacts/outreach/godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · www · uberbond.godaddy-dns-observation.v1 _(matched by name only)_
+- [`artifacts/outreach/godaddy-domain-fleet-2026-09-20.json`](../../artifacts/outreach/godaddy-domain-fleet-2026-09-20.json) — 2026-09-20 · VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION · uberbond.outreach-domain-fleet.v1 _(matched by name only)_
+- [`library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json`](../../library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json) — The Prince _(matched by name only)_
 
 ## Tests (17)
 

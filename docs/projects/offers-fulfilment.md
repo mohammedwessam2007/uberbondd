@@ -12,89 +12,89 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (5)
 
-- [`docs/OFFER_QUARTET_OCT_2026_10_OF_10.md`](../OFFER_QUARTET_OCT_2026_10_OF_10.md) — UberBond October 2026 Flagship Offer Quartet — 10/10 Design Revision — Status: design-complete against the current offer-quality rubric. Prices remain market hypotheses until paid acceptanc…
-- [`docs/UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md`](../UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md) — UberBond Cost → Stage → Fulfill → Learn Spine
-- [`docs/AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md`](../AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md) — 2026-08-22 · UberBond AI Automation Service Bundle — 2026-08-22
-- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — delivery and acceptance SOP — Status: INTERNAL / OWNER-REVIEWED PROCEDURE
-- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — offer contract — Status: FROZEN_OWNER_REVIEW_ONLY
+- [`docs/OFFER_QUARTET_OCT_2026_10_OF_10.md`](../OFFER_QUARTET_OCT_2026_10_OF_10.md) — UberBond October 2026 Flagship Offer Quartet — 10/10 Design Revision — Status: design-complete against the current offer-quality rubric. Prices remain market hypotheses until paid acceptanc… _(matched by name only)_
+- [`docs/UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md`](../UBERBOND_COST_STAGE_FULFILL_LEARN_SPINE.md) — UberBond Cost → Stage → Fulfill → Learn Spine _(matched by name only)_
+- [`docs/AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md`](../AI_AUTOMATION_SERVICE_BUNDLE_2026-08-22.md) — 2026-08-22 · UberBond AI Automation Service Bundle — 2026-08-22 _(matched by name only)_
+- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_DELIVERY_ACCEPTANCE_SOP_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — delivery and acceptance SOP — Status: INTERNAL / OWNER-REVIEWED PROCEDURE _(matched by name only)_
+- [`docs/opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md`](../opportunities/WEBSITE_QA_DIAGNOSTIC_OFFER_CONTRACT_2026-08-13.md) — 2026-08-13 · Website QA & Release-Readiness Diagnostic — offer contract — Status: FROZEN_OWNER_REVIEW_ONLY _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (40)
 
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(62 mentions)_
-- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(45 mentions)_
-- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — UBERBOND Decision Engine _(40 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(36 mentions)_
-- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine _(35 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(14 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(13 mentions)_
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(12 mentions)_
-- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(10 mentions)_
-- [`docs/ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md`](../ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md) — 2026-09-28 · UberBond Expected-Success Cold Email Compiler V2 — 2026-09-28 — Status: evidence-weighted synthesis + novel optimization architecture. It does not claim a universally guaranteed best email.… _(10 mentions)_
-- [`docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`](../COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md) — 2026-09-28 · UberBond Cold Email System V5 — 10/10 Design Standard — Status: design-complete against UberBond's current evidence/rubric. "10/10" here means no material design gap remains in the current… _(9 mentions)_
-- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage _(9 mentions)_
-- [`docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md`](../memory/UBERBOND_OWNER_GOALS_2026-09-02.md) — 2026-09-02 · UberBond Owner Goals and Operating Doctrine — 2026-09-02 _(9 mentions)_
-- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact. _(9 mentions)_
-- [`docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — GPT-5.6 SOL COMPANY BRAIN EXECUTION MISSION _(9 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(62 mentions)_
+- [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(matched by name only)_ _(45 mentions)_
+- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — UBERBOND Decision Engine _(matched by name only)_ _(40 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(36 mentions)_
+- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine _(matched by name only)_ _(35 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(14 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(13 mentions)_
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_ _(12 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(matched by name only)_ _(10 mentions)_
+- [`docs/ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md`](../ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md) — 2026-09-28 · UberBond Expected-Success Cold Email Compiler V2 — 2026-09-28 — Status: evidence-weighted synthesis + novel optimization architecture. It does not claim a universally guaranteed best email.… _(matched by name only)_ _(10 mentions)_
+- [`docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`](../COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md) — 2026-09-28 · UberBond Cold Email System V5 — 10/10 Design Standard — Status: design-complete against UberBond's current evidence/rubric. "10/10" here means no material design gap remains in the current… _(matched by name only)_ _(9 mentions)_
+- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage _(matched by name only)_ _(9 mentions)_
+- [`docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md`](../memory/UBERBOND_OWNER_GOALS_2026-09-02.md) — 2026-09-02 · UberBond Owner Goals and Operating Doctrine — 2026-09-02 _(matched by name only)_ _(9 mentions)_
+- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact. _(matched by name only)_ _(9 mentions)_
+- [`docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — GPT-5.6 SOL COMPANY BRAIN EXECUTION MISSION _(matched by name only)_ _(9 mentions)_
 - [`docs/research/report-source.md`](../research/report-source.md) — UberBond Nightfall Research, Distribution, and Economic Command Report _(9 mentions)_
-- [`docs/COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md`](../COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Strategy Atlas V1 — 2026-09-28 — Status: current complete synthesis from the recovered UberBond Outbound Genome plus current public practitioner/data research. This is n… _(8 mentions)_
-- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(8 mentions)_
-- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(8 mentions)_
-- [`docs/KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md`](../KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md) — 2026-08-22 · UBERBOND KILIMANJARO OVERNIGHT TASKFORCE — 2026-08-22 _(8 mentions)_
-- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(7 mentions)_
-- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists. _(7 mentions)_
-- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(7 mentions)_
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(7 mentions)_
-- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen… _(7 mentions)_
-- [`docs/research/UBERBOND_RESEARCH_SINGULARITY.md`](../research/UBERBOND_RESEARCH_SINGULARITY.md) — UberBond Research Singularity — 2026-08-28 _(7 mentions)_
-- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(7 mentions)_
-- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon _(7 mentions)_
-- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(6 mentions)_
-- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(6 mentions)_
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(6 mentions)_
-- [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Current commercial/outreach hot pointer. _(5 mentions)_
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(5 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(5 mentions)_
-- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(5 mentions)_
-- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE _(5 mentions)_
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4 _(5 mentions)_
-- [`docs/UBERBOND_TRINITY_NIGHT_SHIFT.md`](../UBERBOND_TRINITY_NIGHT_SHIFT.md) — UberBond Trinity Night Shift _(5 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(5 mentions)_
-- [`docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md`](../contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md) — Powerhouse — Revenue Proof & Renewal Pack — Status: INTERNAL_CLIENT_SPECIFIC_DRAFT. Not created in Contra, sent, accepted, signed or funded. Powerhouse is a ranked prospect, not a won clien… _(4 mentions)_
+- [`docs/COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md`](../COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Strategy Atlas V1 — 2026-09-28 — Status: current complete synthesis from the recovered UberBond Outbound Genome plus current public practitioner/data research. This is n… _(matched by name only)_ _(8 mentions)_
+- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(matched by name only)_ _(8 mentions)_
+- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(matched by name only)_ _(8 mentions)_
+- [`docs/KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md`](../KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md) — 2026-08-22 · UBERBOND KILIMANJARO OVERNIGHT TASKFORCE — 2026-08-22 _(matched by name only)_ _(8 mentions)_
+- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(matched by name only)_ _(7 mentions)_
+- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists. _(matched by name only)_ _(7 mentions)_
+- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(matched by name only)_ _(7 mentions)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(7 mentions)_
+- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen… _(matched by name only)_ _(7 mentions)_
+- [`docs/research/UBERBOND_RESEARCH_SINGULARITY.md`](../research/UBERBOND_RESEARCH_SINGULARITY.md) — UberBond Research Singularity — 2026-08-28 _(matched by name only)_ _(7 mentions)_
+- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(matched by name only)_ _(7 mentions)_
+- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon _(matched by name only)_ _(7 mentions)_
+- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(matched by name only)_ _(6 mentions)_
+- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(matched by name only)_ _(6 mentions)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_ _(6 mentions)_
+- [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Current commercial/outreach hot pointer. _(matched by name only)_ _(5 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(5 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(5 mentions)_
+- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(matched by name only)_ _(5 mentions)_
+- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE _(matched by name only)_ _(5 mentions)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4 _(matched by name only)_ _(5 mentions)_
+- [`docs/UBERBOND_TRINITY_NIGHT_SHIFT.md`](../UBERBOND_TRINITY_NIGHT_SHIFT.md) — UberBond Trinity Night Shift _(matched by name only)_ _(5 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(5 mentions)_
+- [`docs/contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md`](../contracts/POWERHOUSE_CONTRA_PROJECT_DRAFT.md) — Powerhouse — Revenue Proof & Renewal Pack — Status: INTERNAL_CLIENT_SPECIFIC_DRAFT. Not created in Contra, sent, accepted, signed or funded. Powerhouse is a ranked prospect, not a won clien… _(matched by name only)_ _(4 mentions)_
 
 ## Source modules (18)
 
-- [`src/ai-creator-revenue-cell.mjs`](../../src/ai-creator-revenue-cell.mjs) — exports AI_CREATOR_REVENUE_CELL_VERSION, scoreCreatorExperiment, validateVirtualCreator, buildCreatorRevenueCell, recordCreatorOutcome _(tested; imported by 1)_
-- [`src/booking-calendar-contract.mjs`](../../src/booking-calendar-contract.mjs) — exports BOOKING_CALENDAR_POLICY_VERSION, BOOKING_OPERATIONS, BOOKING_EVENT_TYPES, BOOKING_PROVIDER_CAPABILITIES, normalizeAvailabilityObservation (+6) _(tested; no static importers)_
-- [`src/creator-ai-automation-service-bundle.mjs`](../../src/creator-ai-automation-service-bundle.mjs) — Structured capture of a creator-posted "10 AI automations" service bundle. _(tested; no static importers)_
-- [`src/delivery-loop.mjs`](../../src/delivery-loop.mjs) — Delivery -> accepted result -> case evidence -> referral -> renewal -> _(imported by 1)_
-- [`src/delivery-transport-contract.mjs`](../../src/delivery-transport-contract.mjs) — exports DELIVERY_TRANSPORT_CONTRACT_VERSION, attemptDelivery, compileFulfillmentDeliveryEvent, evaluateAcceptanceWindow, compileLateCustomerEvent _(tested; imported by 1)_
-- [`src/first-cash-fulfillment-runtime.mjs`](../../src/first-cash-fulfillment-runtime.mjs) — exports FIRST_CASH_FULFILLMENT_RUNTIME_VERSION, FIRST_CASH_FULFILLMENT_JOB_TYPE, enqueueFirstCashFulfillment _(imported by 1)_
-- [`src/lead-path-sprint-fulfillment.mjs`](../../src/lead-path-sprint-fulfillment.mjs) — exports LEAD_PATH_SPRINT_FULFILLMENT_VERSION, LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU, LEAD_PATH_SPRINT_STATES, canonicalPaymentTruthDigest (+3) _(imported by 6)_
-- [`src/offer-compiler.mjs`](../../src/offer-compiler.mjs) — Evidence-to-offer compiler. Pure, side-effect-free: reads existing _(tested; imported by 2)_
-- [`src/offer-market-maker.mjs`](../../src/offer-market-maker.mjs) — Offer Market Maker: bounded, evidence-gated offer mutation over the existing _(imported by 1)_
-- [`src/overnight/journey/offer-compiler.mjs`](../../src/overnight/journey/offer-compiler.mjs) — exports JOURNEY_OFFER_COMPILER_POLICY_VERSION, DEFAULT_JOURNEY_OFFER_NAME, compileJourneyOffer _(tested; imported by 1)_
-- [`src/programmatic-fulfillment-router.mjs`](../../src/programmatic-fulfillment-router.mjs) — exports PROGRAMMATIC_FULFILLMENT_POLICY_VERSION, compileProgrammaticFulfillment, normalizeProvisioningReceipt _(no static importers)_
-- [`src/revenue-offers.mjs`](../../src/revenue-offers.mjs) — Canonical public revenue ladder. The free snapshot is the lead generator; _(tested; imported by 2)_
-- [`src/service-fulfillment.mjs`](../../src/service-fulfillment.mjs) — exports SERVICE_FULFILLMENT_VERSION, FULFILLMENT_STATUSES, compileFulfillmentPlan, applyFulfillmentEvent, summarizeFulfillment _(tested; imported by 3)_
-- [`src/service-sku.mjs`](../../src/service-sku.mjs) — exports SERVICE_SKU_POLICY_VERSION, PRICING_EVIDENCE_CLASSES, compileServiceSku, compileFulfillmentFromSku _(tested; no static importers)_
-- [`src/staging-content-repository.mjs`](../../src/staging-content-repository.mjs) — exports STAGING_CONTENT_POLICY_VERSION, compileStagedContent, stagingContentSchemaSql, claimReadyContentSql, createPostgresStagingContentRepository _(no static importers)_
-- [`src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs`](../../src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs) — exports TOTAL_COMMERCIAL_GENOME_OFFER_UNIVERSE_WEALTH_VERSION, compileTotalCommercialGenomeOfferUniverseWealth _(tested; imported by 1)_
-- [`src/uberdoso-delivery-policy.mjs`](../../src/uberdoso-delivery-policy.mjs) — exports UBERDOSO_DELIVERY_POLICY_VERSION, UBERDOSO_ALLOWED_RELATIONSHIPS, compileUberDosoDeliveryEligibility _(tested; imported by 1)_
-- [`src/uberreply-four-offer-genome.mjs`](../../src/uberreply-four-offer-genome.mjs) — exports UBERREPLY_FOUR_OFFER_GENOME_VERSION, UBERREPLY_DAILY_PORTFOLIO_TARGET, UBERREPLY_DAILY_LANE_TARGET, UBERREPLY_OFFER_PORTFOLIO, UBERREPLY_HYBR… _(tested; imported by 12)_
+- [`src/ai-creator-revenue-cell.mjs`](../../src/ai-creator-revenue-cell.mjs) — exports AI_CREATOR_REVENUE_CELL_VERSION, scoreCreatorExperiment, validateVirtualCreator, buildCreatorRevenueCell, recordCreatorOutcome _(matched by name only; tested; imported by 1)_
+- [`src/booking-calendar-contract.mjs`](../../src/booking-calendar-contract.mjs) — exports BOOKING_CALENDAR_POLICY_VERSION, BOOKING_OPERATIONS, BOOKING_EVENT_TYPES, BOOKING_PROVIDER_CAPABILITIES, normalizeAvailabilityObservation (+6) _(matched by name only; tested; no static importers)_
+- [`src/creator-ai-automation-service-bundle.mjs`](../../src/creator-ai-automation-service-bundle.mjs) — Structured capture of a creator-posted "10 AI automations" service bundle. _(matched by name only; tested; no static importers)_
+- [`src/delivery-loop.mjs`](../../src/delivery-loop.mjs) — Delivery -> accepted result -> case evidence -> referral -> renewal -> _(matched by name only; imported by 1)_
+- [`src/delivery-transport-contract.mjs`](../../src/delivery-transport-contract.mjs) — exports DELIVERY_TRANSPORT_CONTRACT_VERSION, attemptDelivery, compileFulfillmentDeliveryEvent, evaluateAcceptanceWindow, compileLateCustomerEvent _(matched by name only; tested; imported by 1)_
+- [`src/first-cash-fulfillment-runtime.mjs`](../../src/first-cash-fulfillment-runtime.mjs) — exports FIRST_CASH_FULFILLMENT_RUNTIME_VERSION, FIRST_CASH_FULFILLMENT_JOB_TYPE, enqueueFirstCashFulfillment _(matched by name only; imported by 1)_
+- [`src/lead-path-sprint-fulfillment.mjs`](../../src/lead-path-sprint-fulfillment.mjs) — exports LEAD_PATH_SPRINT_FULFILLMENT_VERSION, LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU, LEAD_PATH_SPRINT_STATES, canonicalPaymentTruthDigest (+3) _(matched by name only; imported by 6)_
+- [`src/offer-compiler.mjs`](../../src/offer-compiler.mjs) — Evidence-to-offer compiler. Pure, side-effect-free: reads existing _(matched by name only; tested; imported by 2)_
+- [`src/offer-market-maker.mjs`](../../src/offer-market-maker.mjs) — Offer Market Maker: bounded, evidence-gated offer mutation over the existing _(matched by name only; imported by 1)_
+- [`src/overnight/journey/offer-compiler.mjs`](../../src/overnight/journey/offer-compiler.mjs) — exports JOURNEY_OFFER_COMPILER_POLICY_VERSION, DEFAULT_JOURNEY_OFFER_NAME, compileJourneyOffer _(matched by name only; tested; imported by 1)_
+- [`src/programmatic-fulfillment-router.mjs`](../../src/programmatic-fulfillment-router.mjs) — exports PROGRAMMATIC_FULFILLMENT_POLICY_VERSION, compileProgrammaticFulfillment, normalizeProvisioningReceipt _(matched by name only; no static importers)_
+- [`src/revenue-offers.mjs`](../../src/revenue-offers.mjs) — Canonical public revenue ladder. The free snapshot is the lead generator; _(matched by name only; tested; imported by 2)_
+- [`src/service-fulfillment.mjs`](../../src/service-fulfillment.mjs) — exports SERVICE_FULFILLMENT_VERSION, FULFILLMENT_STATUSES, compileFulfillmentPlan, applyFulfillmentEvent, summarizeFulfillment _(matched by name only; tested; imported by 3)_
+- [`src/service-sku.mjs`](../../src/service-sku.mjs) — exports SERVICE_SKU_POLICY_VERSION, PRICING_EVIDENCE_CLASSES, compileServiceSku, compileFulfillmentFromSku _(matched by name only; tested; no static importers)_
+- [`src/staging-content-repository.mjs`](../../src/staging-content-repository.mjs) — exports STAGING_CONTENT_POLICY_VERSION, compileStagedContent, stagingContentSchemaSql, claimReadyContentSql, createPostgresStagingContentRepository _(matched by name only; no static importers)_
+- [`src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs`](../../src/uberbond-total-commercial-genome-offer-universe-and-wealth-engine.mjs) — exports TOTAL_COMMERCIAL_GENOME_OFFER_UNIVERSE_WEALTH_VERSION, compileTotalCommercialGenomeOfferUniverseWealth _(matched by name only; tested; imported by 1)_
+- [`src/uberdoso-delivery-policy.mjs`](../../src/uberdoso-delivery-policy.mjs) — exports UBERDOSO_DELIVERY_POLICY_VERSION, UBERDOSO_ALLOWED_RELATIONSHIPS, compileUberDosoDeliveryEligibility _(matched by name only; tested; imported by 1)_
+- [`src/uberreply-four-offer-genome.mjs`](../../src/uberreply-four-offer-genome.mjs) — exports UBERREPLY_FOUR_OFFER_GENOME_VERSION, UBERREPLY_DAILY_PORTFOLIO_TARGET, UBERREPLY_DAILY_LANE_TARGET, UBERREPLY_OFFER_PORTFOLIO, UBERREPLY_HYBR… _(matched by name only; tested; imported by 12)_
 
 ## Scripts (2)
 
-- [`scripts/delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs)
-- [`scripts/uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs)
+- [`scripts/delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs) _(matched by name only)_
+- [`scripts/uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (6)
 
-- [`artifacts/cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE · uberbond-cost-stage-fulfill-learn-frontier-1.0.0
-- [`artifacts/offer-factory-research-packet.json`](../../artifacts/offer-factory-research-packet.json) — White-label Lead-Path Revenue Leak Evidence Sprint · uberbond-offer-factory-research-packet-1.0.0
-- [`artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json`](../../artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json)
-- [`artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json`](../../artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json) — 2026-10-21 · uberbond.uberwarm-research-candidates.v1
-- [`config/ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1
-- [`migrations/100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables.
+- [`artifacts/cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE · uberbond-cost-stage-fulfill-learn-frontier-1.0.0 _(matched by name only)_
+- [`artifacts/offer-factory-research-packet.json`](../../artifacts/offer-factory-research-packet.json) — White-label Lead-Path Revenue Leak Evidence Sprint · uberbond-offer-factory-research-packet-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json`](../../artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json) _(matched by name only)_
+- [`artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json`](../../artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json) — 2026-10-21 · uberbond.uberwarm-research-candidates.v1 _(matched by name only)_
+- [`config/ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1 _(matched by name only)_
+- [`migrations/100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables. _(matched by name only)_
 
 ## Tests (19)
 

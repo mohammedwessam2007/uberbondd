@@ -12,39 +12,39 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (8)
 
-- [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Prometheus Architecture (as actually built, this branch)
-- [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Prometheus Canonical Integration Plan
-- [`docs/PROMETHEUS_ADAPTER_CAPITAL_WAVE.md`](../PROMETHEUS_ADAPTER_CAPITAL_WAVE.md) — Prometheus Adapter and Capital Planning Wave
-- [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Prometheus Branch Reconciliation
-- [`docs/PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md`](../PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md) — Prometheus commercial economics wave
-- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain
-- [`docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md`](../PROMETHEUS_ECONOMIC_SPINE_WAVE.md) — Prometheus economic spine wave
-- [`docs/PROMETHEUS_EXTERNAL_GATES.md`](../PROMETHEUS_EXTERNAL_GATES.md) — Prometheus External Gates
+- [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Prometheus Architecture (as actually built, this branch) _(matched by name only)_
+- [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Prometheus Canonical Integration Plan _(matched by name only)_
+- [`docs/PROMETHEUS_ADAPTER_CAPITAL_WAVE.md`](../PROMETHEUS_ADAPTER_CAPITAL_WAVE.md) — Prometheus Adapter and Capital Planning Wave _(matched by name only)_
+- [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Prometheus Branch Reconciliation _(matched by name only)_
+- [`docs/PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md`](../PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md) — Prometheus commercial economics wave _(matched by name only)_
+- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain _(matched by name only)_
+- [`docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md`](../PROMETHEUS_ECONOMIC_SPINE_WAVE.md) — Prometheus economic spine wave _(matched by name only)_
+- [`docs/PROMETHEUS_EXTERNAL_GATES.md`](../PROMETHEUS_EXTERNAL_GATES.md) — Prometheus External Gates _(matched by name only)_
 
 ## Standing documents (10)
 
-- [`docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`](../PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md) — Prometheus Final Implementation Report (V3, reconciled)
-- [`docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`](../PROMETHEUS_OPPORTUNITY_SYSTEM.md) — Prometheus Opportunity System
-- [`docs/PROMETHEUS_ORG_LAYER_WAVE.md`](../PROMETHEUS_ORG_LAYER_WAVE.md) — Prometheus organization-layer wave
-- [`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`](../PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md) — Prometheus Parallel Spine Reconciliation
-- [`docs/PROMETHEUS_PR_HOUSEKEEPING.md`](../PROMETHEUS_PR_HOUSEKEEPING.md) — Prometheus PR Housekeeping
-- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response
-- [`docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`](../PROMETHEUS_SELF_UPGRADE_ENGINE.md) — Prometheus Self-Upgrade Engine
-- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — Prometheus self-upgrade and control-tower wave
-- [`docs/PROMETHEUS_SOURCE_ADAPTERS.md`](../PROMETHEUS_SOURCE_ADAPTERS.md) — Prometheus Source Adapters
-- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Prometheus Task Universe wave
+- [`docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`](../PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md) — Prometheus Final Implementation Report (V3, reconciled) _(matched by name only)_
+- [`docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`](../PROMETHEUS_OPPORTUNITY_SYSTEM.md) — Prometheus Opportunity System _(matched by name only)_
+- [`docs/PROMETHEUS_ORG_LAYER_WAVE.md`](../PROMETHEUS_ORG_LAYER_WAVE.md) — Prometheus organization-layer wave _(matched by name only)_
+- [`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`](../PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md) — Prometheus Parallel Spine Reconciliation _(matched by name only)_
+- [`docs/PROMETHEUS_PR_HOUSEKEEPING.md`](../PROMETHEUS_PR_HOUSEKEEPING.md) — Prometheus PR Housekeeping _(matched by name only)_
+- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(matched by name only)_
+- [`docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`](../PROMETHEUS_SELF_UPGRADE_ENGINE.md) — Prometheus Self-Upgrade Engine _(matched by name only)_
+- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — Prometheus self-upgrade and control-tower wave _(matched by name only)_
+- [`docs/PROMETHEUS_SOURCE_ADAPTERS.md`](../PROMETHEUS_SOURCE_ADAPTERS.md) — Prometheus Source Adapters _(matched by name only)_
+- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Prometheus Task Universe wave _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (4)
 
-- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation _(8 mentions)_
-- [`docs/UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md`](../UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md) — 2026-08-21 · UberBond Work Overnight Report _(6 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(4 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(3 mentions)_
+- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation _(matched by name only)_ _(8 mentions)_
+- [`docs/UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md`](../UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md) — 2026-08-21 · UberBond Work Overnight Report _(matched by name only)_ _(6 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (2)
 
-- [`src/prometheus-control-tower.mjs`](../../src/prometheus-control-tower.mjs) — Truthful morning/control-tower aggregation. _(tested; imported by 2)_
-- [`src/prometheus-economic-spine.mjs`](../../src/prometheus-economic-spine.mjs) — Canonical Prometheus economic spine composition. _(tested; imported by 1)_
+- [`src/prometheus-control-tower.mjs`](../../src/prometheus-control-tower.mjs) — Truthful morning/control-tower aggregation. _(matched by name only; tested; imported by 2)_
+- [`src/prometheus-economic-spine.mjs`](../../src/prometheus-economic-spine.mjs) — Canonical Prometheus economic spine composition. _(matched by name only; tested; imported by 1)_
 
 ## Tests (4)
 

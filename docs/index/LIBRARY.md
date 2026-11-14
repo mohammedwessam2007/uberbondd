@@ -14,21 +14,21 @@ UberMind grand library: manifests, founder 52-concept sources, project-instructi
 
 ## UberMind doctrine and library
 
-- [`library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json`](../../library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json) — The Prince
-- [`library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md`](../../library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md) — Founder Original 52-Concept Source Retrieval Card (Ω47–Ω52)
-- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md) — UberMind 52-atom founder directive audit
-- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json) — uberbond.ubermind.direct-founder-52-coverage.v1
-- [`library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md`](../../library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md) — 2026-10-24 · Founder original directives · Machiavelli through Ω52
-- [`library/ubermind/LIBRARY_BOOTSTRAP.md`](../../library/ubermind/LIBRARY_BOOTSTRAP.md) — UBERMIND GRAND LIBRARY · PERMANENT RECOVERY PROTOCOL · 2026-10-24
-- [`library/ubermind/LIBRARY_MANIFEST.json`](../../library/ubermind/LIBRARY_MANIFEST.json) — uberbond.ubermind.permanent-library-catalog.v1
-- [`library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md`](../../library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md) — UberMind Grand Library: searchable master index
-- [`library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md`](../../library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md) — Modern and historical sources: rigorous reading docket — Status: original UberBond source-linked study index, NOT copies of proprietary books. Historic titles may have specific public-domai…
-- [`library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md`](../../library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md) — UBERBOND PERMANENT PROJECT READING INSTRUCTIONS (compact)
-- [`library/ubermind/RIGHTS_AND_LIMITS.md`](../../library/ubermind/RIGHTS_AND_LIMITS.md) — Book and corpus rights
-- [`library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt`](../../library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt) — UBERMIND Ω∞ V5 / FULL-SPECTRUM OPERATIONAL INTELLIGENCE
-- [`library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json`](../../library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json) — ubermind.v10.design-audit.v1
-- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION
-- [`library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md`](../../library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md) — UberMind Ω∞ V10: one active constitution, all ten design checks verified
-- [`library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / SOVEREIGN EVIDENCE-FIRST CONTINUUM
-- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS
-- [`library/ubermind/UBERMIND_V7_READ_FIRST.md`](../../library/ubermind/UBERMIND_V7_READ_FIRST.md) — UberMind Ω∞ V7: continuity and executable idea integration
+- [`library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json`](../../library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json) — The Prince _(matched by name only)_
+- [`library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md`](../../library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md) — Founder Original 52-Concept Source Retrieval Card (Ω47–Ω52) _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md) — UberMind 52-atom founder directive audit _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json) — uberbond.ubermind.direct-founder-52-coverage.v1 _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md`](../../library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md) — 2026-10-24 · Founder original directives · Machiavelli through Ω52 _(matched by name only)_
+- [`library/ubermind/LIBRARY_BOOTSTRAP.md`](../../library/ubermind/LIBRARY_BOOTSTRAP.md) — UBERMIND GRAND LIBRARY · PERMANENT RECOVERY PROTOCOL · 2026-10-24 _(matched by name only)_
+- [`library/ubermind/LIBRARY_MANIFEST.json`](../../library/ubermind/LIBRARY_MANIFEST.json) — uberbond.ubermind.permanent-library-catalog.v1 _(matched by name only)_
+- [`library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md`](../../library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md) — UberMind Grand Library: searchable master index _(matched by name only)_
+- [`library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md`](../../library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md) — Modern and historical sources: rigorous reading docket — Status: original UberBond source-linked study index, NOT copies of proprietary books. Historic titles may have specific public-domai… _(matched by name only)_
+- [`library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md`](../../library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md) — UBERBOND PERMANENT PROJECT READING INSTRUCTIONS (compact) _(matched by name only)_
+- [`library/ubermind/RIGHTS_AND_LIMITS.md`](../../library/ubermind/RIGHTS_AND_LIMITS.md) — Book and corpus rights _(matched by name only)_
+- [`library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt`](../../library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt) — UBERMIND Ω∞ V5 / FULL-SPECTRUM OPERATIONAL INTELLIGENCE _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json`](../../library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json) — ubermind.v10.design-audit.v1 _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md`](../../library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md) — UberMind Ω∞ V10: one active constitution, all ten design checks verified _(matched by name only)_
+- [`library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / SOVEREIGN EVIDENCE-FIRST CONTINUUM _(matched by name only)_
+- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS _(matched by name only)_
+- [`library/ubermind/UBERMIND_V7_READ_FIRST.md`](../../library/ubermind/UBERMIND_V7_READ_FIRST.md) — UberMind Ω∞ V7: continuity and executable idea integration _(matched by name only)_

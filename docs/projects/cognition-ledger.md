@@ -12,11 +12,11 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (5)
 
-- [`docs/GENESIS_COGNITION_EXCHANGE.md`](../GENESIS_COGNITION_EXCHANGE.md) — GENESIS Cognition Exchange — Status: source contract / zero-spend default
-- [`docs/GENESIS_SYSTEM_ONE_SUPPLIER.md`](../GENESIS_SYSTEM_ONE_SUPPLIER.md) — GENESIS JEV / System-One supplier
-- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics
-- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22
-- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22
+- [`docs/GENESIS_COGNITION_EXCHANGE.md`](../GENESIS_COGNITION_EXCHANGE.md) — GENESIS Cognition Exchange — Status: source contract / zero-spend default _(matched by name only)_
+- [`docs/GENESIS_SYSTEM_ONE_SUPPLIER.md`](../GENESIS_SYSTEM_ONE_SUPPLIER.md) — GENESIS JEV / System-One supplier _(matched by name only)_
+- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics _(matched by name only)_
+- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22 _(matched by name only)_
 
 ## Commands (9)
 
@@ -24,58 +24,58 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(5 mentions)_
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(3 mentions)_
-- [`docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`](../receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Infinite Opus reachability reconciliation — 2026-10-04 _(3 mentions)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(matched by name only)_ _(5 mentions)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_ _(3 mentions)_
+- [`docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`](../receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Infinite Opus reachability reconciliation — 2026-10-04 _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (23)
 
-- [`src/ai-compute-budget.mjs`](../../src/ai-compute-budget.mjs) — exports AI_COMPUTE_BUDGET_POLICY_VERSION, createComputeBudget, validateComputeBudget, reserveCompute, commitCompute (+2) _(imported by 4)_
-- [`src/cognition-economic-perimeter.mjs`](../../src/cognition-economic-perimeter.mjs) — exports ECONOMIC_PERIMETER_SCHEMA, HARD_ALL_IN_USD, MAX_INFERENCE_USD, RUNTIME_KEY_LIMIT_USD, TYPINGMIND_KEY_LIMIT_USD (+5) _(imported by 5)_
-- [`src/cognition-ledger.mjs`](../../src/cognition-ledger.mjs) — exports COGNITION_LEDGER_VERSION, createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, markCognitionDispatched (+10) _(imported by 6)_
-- [`src/cognition-route-inventory.mjs`](../../src/cognition-route-inventory.mjs) — exports COGNITION_ROUTE_INVENTORY_SCHEMA, COGNITION_ROUTES, cognitionRouteInventory _(imported by 5)_
-- [`src/cognition-transport-guard.mjs`](../../src/cognition-transport-guard.mjs) — exports COGNITION_PERIMETER_ADMISSION, assertCognitionPerimeterAdmission _(imported by 9)_
-- [`src/cognitive-capital-ledger.mjs`](../../src/cognitive-capital-ledger.mjs) — exports COGNITIVE_CAPITAL_LEDGER_SCHEMA, createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognitiveCapitalAsset, closeCognitiveCapita… _(tested; imported by 1)_
-- [`src/cognitive-event-journal.mjs`](../../src/cognitive-event-journal.mjs) — exports COGNITIVE_EVENT_JOURNAL_POLICY_VERSION, COGNITIVE_JOURNAL_ENTRY_SCHEMA, compileCognitiveJournalEntry, verifyCognitiveJournalEntries, readCogn… _(tested; imported by 8)_
-- [`src/cognitive-journal-layered-store.mjs`](../../src/cognitive-journal-layered-store.mjs) — exports COGNITIVE_JOURNAL_LAYERED_POLICY_VERSION, COGNITIVE_JOURNAL_LAYERED_SCHEMA, verifyCognitiveJournalTail, compileLayeredCognitiveJournalStore _(tested; imported by 1)_
-- [`src/cognitive-journal-segments.mjs`](../../src/cognitive-journal-segments.mjs) — exports COGNITIVE_JOURNAL_SEGMENT_POLICY_VERSION, COGNITIVE_JOURNAL_SEGMENT_SCHEMA, COGNITIVE_JOURNAL_MANIFEST_SCHEMA, compileCognitiveJournalSegment… _(tested; imported by 6)_
-- [`src/cognitive-superoptimizer.mjs`](../../src/cognitive-superoptimizer.mjs) — exports COGNITIVE_SUPEROPTIMIZER_VERSION, profileCognitiveHotPaths, assessSemanticPage, recordFrontierThoughtCapital, compareCounterfactualRoutes (+3) _(tested; no static importers)_
-- [`src/decision-franchise-batch.mjs`](../../src/decision-franchise-batch.mjs) — exports executeSequentialDecisionFranchiseFanout, modelFanoutReferenceEconomics _(tested; imported by 1)_
-- [`src/decision-franchise-certifier.mjs`](../../src/decision-franchise-certifier.mjs) — exports certifyExhaustiveCrownDecisionFranchise _(tested; imported by 1)_
-- [`src/decision-franchise.mjs`](../../src/decision-franchise.mjs) — exports executeDecisionFranchise, verifyDistinctFranchiseFanout, modelDecisionFranchiseCompression, compileDecisionFranchiseExecutor, executeCertifie… _(tested; imported by 2)_
-- [`src/genesis-cognition-exchange.mjs`](../../src/genesis-cognition-exchange.mjs) — exports GENESIS_COGNITION_EXCHANGE_VERSION, GENESIS_COGNITION_JOB_KINDS, compileGenesisCognitionJob, admitGenesisCognitionSupplier, selectGenesisCogn… _(tested; imported by 1)_
-- [`src/genesis-sensing-cognition-evidence.mjs`](../../src/genesis-sensing-cognition-evidence.mjs) — exports GENESIS_SENSING_COGNITION_EVIDENCE, normalizeSensingCognitionEvidence _(imported by 1)_
-- [`src/genesis-system-one-critic.mjs`](../../src/genesis-system-one-critic.mjs) — exports GENESIS_SYSTEM_ONE_CRITIC_VERSION, compileGenesisSystemOneCritique _(tested; imported by 1)_
-- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — exports INVARIANT_COGNITION_COMPILER_VERSION, INVARIANT_COGNITION_MAX_GLOBAL_TOP_K, INVARIANT_COGNITION_AUTHORITY, INVARIANT_COGNITION_TRUTH_BOUNDARY… _(imported by 1)_
-- [`src/provable-execution-ledger.mjs`](../../src/provable-execution-ledger.mjs) — exports PROVABLE_EXECUTION_LEDGER_SCHEMA, createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions _(tested; imported by 2)_
-- [`src/provable-reference-economics.mjs`](../../src/provable-reference-economics.mjs) — exports directFrontierUnitCostMicrousd, directFrontierReferenceTotalMicrousd, validateProvableWorkItem, proveReferenceEconomics _(tested; imported by 2)_
-- [`src/system-one-decision-adapter.mjs`](../../src/system-one-decision-adapter.mjs) — Provider-neutral System-One decision adapter with a direct TypeSafe/Jev transport. _(tested; imported by 5)_
-- [`src/system-one-routing-shadow.mjs`](../../src/system-one-routing-shadow.mjs) — exports SYSTEM_ONE_ROUTING_SHADOW_VERSION, compileMechanismRoutingProgram, shadowRouteMechanism _(tested; imported by 1)_
-- [`src/unified-cognition-ledger-bridge.mjs`](../../src/unified-cognition-ledger-bridge.mjs) — exports UNIFIED_COGNITION_BRIDGE_VERSION, deriveUnifiedCognitionMonth, deriveUnifiedCognitionHistory _(tested; imported by 1)_
-- [`src/unified-cognition-ledger.mjs`](../../src/unified-cognition-ledger.mjs) — exports UNIFIED_COGNITION_LEDGER_SCHEMA, COGNITION_COST_CLASSES, createUnifiedCognitionLedger, appendCognitionEvent, cognitionLedgerSummary _(imported by 1)_
+- [`src/ai-compute-budget.mjs`](../../src/ai-compute-budget.mjs) — exports AI_COMPUTE_BUDGET_POLICY_VERSION, createComputeBudget, validateComputeBudget, reserveCompute, commitCompute (+2) _(matched by name only; imported by 4)_
+- [`src/cognition-economic-perimeter.mjs`](../../src/cognition-economic-perimeter.mjs) — exports ECONOMIC_PERIMETER_SCHEMA, HARD_ALL_IN_USD, MAX_INFERENCE_USD, RUNTIME_KEY_LIMIT_USD, TYPINGMIND_KEY_LIMIT_USD (+5) _(matched by name only; imported by 5)_
+- [`src/cognition-ledger.mjs`](../../src/cognition-ledger.mjs) — exports COGNITION_LEDGER_VERSION, createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, markCognitionDispatched (+10) _(matched by name only; imported by 6)_
+- [`src/cognition-route-inventory.mjs`](../../src/cognition-route-inventory.mjs) — exports COGNITION_ROUTE_INVENTORY_SCHEMA, COGNITION_ROUTES, cognitionRouteInventory _(matched by name only; imported by 5)_
+- [`src/cognition-transport-guard.mjs`](../../src/cognition-transport-guard.mjs) — exports COGNITION_PERIMETER_ADMISSION, assertCognitionPerimeterAdmission _(matched by name only; imported by 9)_
+- [`src/cognitive-capital-ledger.mjs`](../../src/cognitive-capital-ledger.mjs) — exports COGNITIVE_CAPITAL_LEDGER_SCHEMA, createCognitiveCapitalLedger, appendObservedCapitalCost, registerCognitiveCapitalAsset, closeCognitiveCapita… _(matched by name only; tested; imported by 1)_
+- [`src/cognitive-event-journal.mjs`](../../src/cognitive-event-journal.mjs) — exports COGNITIVE_EVENT_JOURNAL_POLICY_VERSION, COGNITIVE_JOURNAL_ENTRY_SCHEMA, compileCognitiveJournalEntry, verifyCognitiveJournalEntries, readCogn… _(matched by name only; tested; imported by 8)_
+- [`src/cognitive-journal-layered-store.mjs`](../../src/cognitive-journal-layered-store.mjs) — exports COGNITIVE_JOURNAL_LAYERED_POLICY_VERSION, COGNITIVE_JOURNAL_LAYERED_SCHEMA, verifyCognitiveJournalTail, compileLayeredCognitiveJournalStore _(matched by name only; tested; imported by 1)_
+- [`src/cognitive-journal-segments.mjs`](../../src/cognitive-journal-segments.mjs) — exports COGNITIVE_JOURNAL_SEGMENT_POLICY_VERSION, COGNITIVE_JOURNAL_SEGMENT_SCHEMA, COGNITIVE_JOURNAL_MANIFEST_SCHEMA, compileCognitiveJournalSegment… _(matched by name only; tested; imported by 6)_
+- [`src/cognitive-superoptimizer.mjs`](../../src/cognitive-superoptimizer.mjs) — exports COGNITIVE_SUPEROPTIMIZER_VERSION, profileCognitiveHotPaths, assessSemanticPage, recordFrontierThoughtCapital, compareCounterfactualRoutes (+3) _(matched by name only; tested; no static importers)_
+- [`src/decision-franchise-batch.mjs`](../../src/decision-franchise-batch.mjs) — exports executeSequentialDecisionFranchiseFanout, modelFanoutReferenceEconomics _(matched by name only; tested; imported by 1)_
+- [`src/decision-franchise-certifier.mjs`](../../src/decision-franchise-certifier.mjs) — exports certifyExhaustiveCrownDecisionFranchise _(matched by name only; tested; imported by 1)_
+- [`src/decision-franchise.mjs`](../../src/decision-franchise.mjs) — exports executeDecisionFranchise, verifyDistinctFranchiseFanout, modelDecisionFranchiseCompression, compileDecisionFranchiseExecutor, executeCertifie… _(matched by name only; tested; imported by 2)_
+- [`src/genesis-cognition-exchange.mjs`](../../src/genesis-cognition-exchange.mjs) — exports GENESIS_COGNITION_EXCHANGE_VERSION, GENESIS_COGNITION_JOB_KINDS, compileGenesisCognitionJob, admitGenesisCognitionSupplier, selectGenesisCogn… _(matched by name only; tested; imported by 1)_
+- [`src/genesis-sensing-cognition-evidence.mjs`](../../src/genesis-sensing-cognition-evidence.mjs) — exports GENESIS_SENSING_COGNITION_EVIDENCE, normalizeSensingCognitionEvidence _(matched by name only; imported by 1)_
+- [`src/genesis-system-one-critic.mjs`](../../src/genesis-system-one-critic.mjs) — exports GENESIS_SYSTEM_ONE_CRITIC_VERSION, compileGenesisSystemOneCritique _(matched by name only; tested; imported by 1)_
+- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — exports INVARIANT_COGNITION_COMPILER_VERSION, INVARIANT_COGNITION_MAX_GLOBAL_TOP_K, INVARIANT_COGNITION_AUTHORITY, INVARIANT_COGNITION_TRUTH_BOUNDARY… _(matched by name only; imported by 1)_
+- [`src/provable-execution-ledger.mjs`](../../src/provable-execution-ledger.mjs) — exports PROVABLE_EXECUTION_LEDGER_SCHEMA, createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions _(matched by name only; tested; imported by 2)_
+- [`src/provable-reference-economics.mjs`](../../src/provable-reference-economics.mjs) — exports directFrontierUnitCostMicrousd, directFrontierReferenceTotalMicrousd, validateProvableWorkItem, proveReferenceEconomics _(matched by name only; tested; imported by 2)_
+- [`src/system-one-decision-adapter.mjs`](../../src/system-one-decision-adapter.mjs) — Provider-neutral System-One decision adapter with a direct TypeSafe/Jev transport. _(matched by name only; tested; imported by 5)_
+- [`src/system-one-routing-shadow.mjs`](../../src/system-one-routing-shadow.mjs) — exports SYSTEM_ONE_ROUTING_SHADOW_VERSION, compileMechanismRoutingProgram, shadowRouteMechanism _(matched by name only; tested; imported by 1)_
+- [`src/unified-cognition-ledger-bridge.mjs`](../../src/unified-cognition-ledger-bridge.mjs) — exports UNIFIED_COGNITION_BRIDGE_VERSION, deriveUnifiedCognitionMonth, deriveUnifiedCognitionHistory _(matched by name only; tested; imported by 1)_
+- [`src/unified-cognition-ledger.mjs`](../../src/unified-cognition-ledger.mjs) — exports UNIFIED_COGNITION_LEDGER_SCHEMA, COGNITION_COST_CLASSES, createUnifiedCognitionLedger, appendCognitionEvent, cognitionLedgerSummary _(matched by name only; imported by 1)_
 
 ## Scripts (4)
 
-- [`scripts/cognition-route-inventory-doctor.mjs`](../../scripts/cognition-route-inventory-doctor.mjs) _(npm: `infinite-opus:routes:doctor`)_
-- [`scripts/decision-franchise-million-benchmark.mjs`](../../scripts/decision-franchise-million-benchmark.mjs)
-- [`scripts/genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(npm: `genesis:cognition:doctor`)_
-- [`scripts/genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(npm: `genesis:system-one:doctor`)_
+- [`scripts/cognition-route-inventory-doctor.mjs`](../../scripts/cognition-route-inventory-doctor.mjs) _(matched by name only; npm: `infinite-opus:routes:doctor`)_
+- [`scripts/decision-franchise-million-benchmark.mjs`](../../scripts/decision-franchise-million-benchmark.mjs) _(matched by name only)_
+- [`scripts/genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(matched by name only; npm: `genesis:cognition:doctor`)_
+- [`scripts/genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(matched by name only; npm: `genesis:system-one:doctor`)_
 
 ## Config, data, artifacts and services (13)
 
-- [`artifacts/c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json)
-- [`artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1
-- [`artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1
-- [`config/in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1
-- [`config/ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1
-- [`open router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs`](../../open%20router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs) — 2026-09-30 · exports directFrontierUnitCostMicrousd, directFrontierReferenceTotalMicrousd, validateProvableWorkItem, proveReferenceEconomics
-- [`open router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs`](../../open%20router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports PROVABLE_EXECUTION_LEDGER_SCHEMA, createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions
-- [`open router/62_COGNITION_LEDGER_2026-09-30.mjs`](../../open%20router/62_COGNITION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports COGNITION_LEDGER_VERSION, createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, markCognitionDispatched (+10)
-- [`open router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-million-execution-receipt.v1
-- [`open router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-batch-fair-execution-receipt.v1
-- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts)
-- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts)
-- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1
+- [`artifacts/c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json) _(matched by name only)_
+- [`artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1 _(matched by name only)_
+- [`config/in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1 _(matched by name only)_
+- [`config/ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1 _(matched by name only)_
+- [`open router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs`](../../open%20router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs) — 2026-09-30 · exports directFrontierUnitCostMicrousd, directFrontierReferenceTotalMicrousd, validateProvableWorkItem, proveReferenceEconomics _(matched by name only)_
+- [`open router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs`](../../open%20router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports PROVABLE_EXECUTION_LEDGER_SCHEMA, createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions _(matched by name only)_
+- [`open router/62_COGNITION_LEDGER_2026-09-30.mjs`](../../open%20router/62_COGNITION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports COGNITION_LEDGER_VERSION, createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, markCognitionDispatched (+10) _(matched by name only)_
+- [`open router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-million-execution-receipt.v1 _(matched by name only)_
+- [`open router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-batch-fair-execution-receipt.v1 _(matched by name only)_
+- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1 _(matched by name only)_
 
 ## Tests (19)
 

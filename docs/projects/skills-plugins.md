@@ -12,86 +12,86 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (8)
 
-- [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — UberBond AI Skill & Plugin Assimilation Canon
-- [`.claude/skills/agent-reach/references/career.md`](../../.claude/skills/agent-reach/references/career.md) — Career / jobs research
-- [`.claude/skills/agent-reach/references/dev.md`](../../.claude/skills/agent-reach/references/dev.md) — GitHub / code research
-- [`.claude/skills/agent-reach/references/finance.md`](../../.claude/skills/agent-reach/references/finance.md) — Public finance / market research
-- [`.claude/skills/agent-reach/references/search.md`](../../.claude/skills/agent-reach/references/search.md) — Public web search
-- [`.claude/skills/agent-reach/references/social.md`](../../.claude/skills/agent-reach/references/social.md) — Public social/community research
-- [`.claude/skills/agent-reach/references/video.md`](../../.claude/skills/agent-reach/references/video.md) — Public video / podcast research
-- [`.claude/skills/agent-reach/references/web.md`](../../.claude/skills/agent-reach/references/web.md) — Web pages and RSS
+- [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — UberBond AI Skill & Plugin Assimilation Canon _(matched by name only)_
+- [`.claude/skills/agent-reach/references/career.md`](../../.claude/skills/agent-reach/references/career.md) — Career / jobs research _(matched by name only)_
+- [`.claude/skills/agent-reach/references/dev.md`](../../.claude/skills/agent-reach/references/dev.md) — GitHub / code research _(matched by name only)_
+- [`.claude/skills/agent-reach/references/finance.md`](../../.claude/skills/agent-reach/references/finance.md) — Public finance / market research _(matched by name only)_
+- [`.claude/skills/agent-reach/references/search.md`](../../.claude/skills/agent-reach/references/search.md) — Public web search _(matched by name only)_
+- [`.claude/skills/agent-reach/references/social.md`](../../.claude/skills/agent-reach/references/social.md) — Public social/community research _(matched by name only)_
+- [`.claude/skills/agent-reach/references/video.md`](../../.claude/skills/agent-reach/references/video.md) — Public video / podcast research _(matched by name only)_
+- [`.claude/skills/agent-reach/references/web.md`](../../.claude/skills/agent-reach/references/web.md) — Web pages and RSS _(matched by name only)_
 
 ## Standing documents (36)
 
-- [`.claude/skills/agent-reach/SKILL.md`](../../.claude/skills/agent-reach/SKILL.md) — Agent Reach — UberBond public research integration
-- [`.claude/skills/claude-automation-recommender/references/hooks-patterns.md`](../../.claude/skills/claude-automation-recommender/references/hooks-patterns.md) — Hooks Recommendations
-- [`.claude/skills/claude-automation-recommender/references/mcp-servers.md`](../../.claude/skills/claude-automation-recommender/references/mcp-servers.md) — MCP Server Recommendations
-- [`.claude/skills/claude-automation-recommender/references/plugins-reference.md`](../../.claude/skills/claude-automation-recommender/references/plugins-reference.md) — Plugin Recommendations
-- [`.claude/skills/claude-automation-recommender/references/skills-reference.md`](../../.claude/skills/claude-automation-recommender/references/skills-reference.md) — Skills Recommendations
-- [`.claude/skills/claude-automation-recommender/references/subagent-templates.md`](../../.claude/skills/claude-automation-recommender/references/subagent-templates.md) — Subagent Recommendations
-- [`.claude/skills/claude-automation-recommender/SKILL.md`](../../.claude/skills/claude-automation-recommender/SKILL.md) — Claude Automation Recommender — UberBond integration
-- [`.claude/skills/find-skills/SKILL.md`](../../.claude/skills/find-skills/SKILL.md) — Find Skills — UberBond project integration
-- [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Oracle Free → UberCel → UberLit → Jev live activation
-- [`.claude/skills/penetration-testing-with-strix/SKILL.md`](../../.claude/skills/penetration-testing-with-strix/SKILL.md) — Strix security employee — UberBond integration
-- [`.claude/skills/phoenix-neon-bundle-preflight/SKILL.md`](../../.claude/skills/phoenix-neon-bundle-preflight/SKILL.md) — PHOENIX Neon ZIP deployment preflight
-- [`.claude/skills/phoenix-swarm-pr-auditor/SKILL.md`](../../.claude/skills/phoenix-swarm-pr-auditor/SKILL.md) — PHOENIX multi-agent PR collision review
-- [`.claude/skills/task-observer/references/environments.md`](../../.claude/skills/task-observer/references/environments.md) — Task Observer environments and activation
-- [`.claude/skills/task-observer/references/migration.md`](../../.claude/skills/task-observer/references/migration.md) — Legacy observation-log migration
-- [`.claude/skills/task-observer/references/observation-log.md`](../../.claude/skills/task-observer/references/observation-log.md) — Observation log mechanics
-- [`.claude/skills/task-observer/references/signals.md`](../../.claude/skills/task-observer/references/signals.md) — Observation signals
-- [`.claude/skills/task-observer/references/skill-authoring.md`](../../.claude/skills/task-observer/references/skill-authoring.md) — Skill authoring and revision
-- [`.claude/skills/task-observer/references/weekly-review.md`](../../.claude/skills/task-observer/references/weekly-review.md) — Weekly observation review
-- [`.claude/skills/task-observer/SKILL.md`](../../.claude/skills/task-observer/SKILL.md) — Task Observer — UberBond integration
-- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator
-- [`.claude/skills/uberbond-cos-operator/SKILL.md`](../../.claude/skills/uberbond-cos-operator/SKILL.md) — PHOENIX CoS Operator
-- [`.claude/skills/uberbond-orchestrator/SKILL.md`](../../.claude/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator
-- [`.claude/skills/ubermind-adversarial-resilience/SKILL.md`](../../.claude/skills/ubermind-adversarial-resilience/SKILL.md) — Ω51: Adversarial Resilience and Evidence-Governed Forecasts
-- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK
-- [`.claude/skills/ubermind-math-invention/SKILL.md`](../../.claude/skills/ubermind-math-invention/SKILL.md) — Ω52 · Mathematical Imagination and Survivor's Quant Lab
-- [`.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md`](../../.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md) — Ω47 Machiavelli canonical retrieval addendum, 2026-10-24
-- [`.claude/skills/ubermind-social-strategy/SKILL.md`](../../.claude/skills/ubermind-social-strategy/SKILL.md) — UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\nΩ47 primary corpus installed: For Machiavelli-informed strategic/business/EQ tasks, consult OMEGA47_ADDENDUM.md, the sourcebook docs/architecture/…
-- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR
-- [`.claude/skills/ubermind-strategy-flash/SKILL.md`](../../.claude/skills/ubermind-strategy-flash/SKILL.md) — Ω48 OPUS CROWN · STRATEGY FLASH
-- [`.claude/skills/ubermind-system-reality/SKILL.md`](../../.claude/skills/ubermind-system-reality/SKILL.md) — Ω50 System Reality Strategy Skill
-- [`.claude/skills/wallbreaker/SKILL.md`](../../.claude/skills/wallbreaker/SKILL.md) — Wallbreaker
-- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator for Codex
-- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge
-- [`skill-observations/cross-cutting-principles.md`](../../skill-observations/cross-cutting-principles.md) — UberBond Skill Cross-Cutting Principles
-- [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — id: 1 — status: open
-- [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — id: 2 — status: open
+- [`.claude/skills/agent-reach/SKILL.md`](../../.claude/skills/agent-reach/SKILL.md) — Agent Reach — UberBond public research integration _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/references/hooks-patterns.md`](../../.claude/skills/claude-automation-recommender/references/hooks-patterns.md) — Hooks Recommendations _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/references/mcp-servers.md`](../../.claude/skills/claude-automation-recommender/references/mcp-servers.md) — MCP Server Recommendations _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/references/plugins-reference.md`](../../.claude/skills/claude-automation-recommender/references/plugins-reference.md) — Plugin Recommendations _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/references/skills-reference.md`](../../.claude/skills/claude-automation-recommender/references/skills-reference.md) — Skills Recommendations _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/references/subagent-templates.md`](../../.claude/skills/claude-automation-recommender/references/subagent-templates.md) — Subagent Recommendations _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/SKILL.md`](../../.claude/skills/claude-automation-recommender/SKILL.md) — Claude Automation Recommender — UberBond integration _(matched by name only)_
+- [`.claude/skills/find-skills/SKILL.md`](../../.claude/skills/find-skills/SKILL.md) — Find Skills — UberBond project integration _(matched by name only)_
+- [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Oracle Free → UberCel → UberLit → Jev live activation _(matched by name only)_
+- [`.claude/skills/penetration-testing-with-strix/SKILL.md`](../../.claude/skills/penetration-testing-with-strix/SKILL.md) — Strix security employee — UberBond integration _(matched by name only)_
+- [`.claude/skills/phoenix-neon-bundle-preflight/SKILL.md`](../../.claude/skills/phoenix-neon-bundle-preflight/SKILL.md) — PHOENIX Neon ZIP deployment preflight _(matched by name only)_
+- [`.claude/skills/phoenix-swarm-pr-auditor/SKILL.md`](../../.claude/skills/phoenix-swarm-pr-auditor/SKILL.md) — PHOENIX multi-agent PR collision review _(matched by name only)_
+- [`.claude/skills/task-observer/references/environments.md`](../../.claude/skills/task-observer/references/environments.md) — Task Observer environments and activation _(matched by name only)_
+- [`.claude/skills/task-observer/references/migration.md`](../../.claude/skills/task-observer/references/migration.md) — Legacy observation-log migration _(matched by name only)_
+- [`.claude/skills/task-observer/references/observation-log.md`](../../.claude/skills/task-observer/references/observation-log.md) — Observation log mechanics _(matched by name only)_
+- [`.claude/skills/task-observer/references/signals.md`](../../.claude/skills/task-observer/references/signals.md) — Observation signals _(matched by name only)_
+- [`.claude/skills/task-observer/references/skill-authoring.md`](../../.claude/skills/task-observer/references/skill-authoring.md) — Skill authoring and revision _(matched by name only)_
+- [`.claude/skills/task-observer/references/weekly-review.md`](../../.claude/skills/task-observer/references/weekly-review.md) — Weekly observation review _(matched by name only)_
+- [`.claude/skills/task-observer/SKILL.md`](../../.claude/skills/task-observer/SKILL.md) — Task Observer — UberBond integration _(matched by name only)_
+- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator _(matched by name only)_
+- [`.claude/skills/uberbond-cos-operator/SKILL.md`](../../.claude/skills/uberbond-cos-operator/SKILL.md) — PHOENIX CoS Operator _(matched by name only)_
+- [`.claude/skills/uberbond-orchestrator/SKILL.md`](../../.claude/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator _(matched by name only)_
+- [`.claude/skills/ubermind-adversarial-resilience/SKILL.md`](../../.claude/skills/ubermind-adversarial-resilience/SKILL.md) — Ω51: Adversarial Resilience and Evidence-Governed Forecasts _(matched by name only)_
+- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(matched by name only)_
+- [`.claude/skills/ubermind-math-invention/SKILL.md`](../../.claude/skills/ubermind-math-invention/SKILL.md) — Ω52 · Mathematical Imagination and Survivor's Quant Lab _(matched by name only)_
+- [`.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md`](../../.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md) — Ω47 Machiavelli canonical retrieval addendum, 2026-10-24 _(matched by name only)_
+- [`.claude/skills/ubermind-social-strategy/SKILL.md`](../../.claude/skills/ubermind-social-strategy/SKILL.md) — UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\nΩ47 primary corpus installed: For Machiavelli-informed strategic/business/EQ tasks, consult OMEGA47_ADDENDUM.md, the sourcebook docs/architecture/… _(matched by name only)_
+- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(matched by name only)_
+- [`.claude/skills/ubermind-strategy-flash/SKILL.md`](../../.claude/skills/ubermind-strategy-flash/SKILL.md) — Ω48 OPUS CROWN · STRATEGY FLASH _(matched by name only)_
+- [`.claude/skills/ubermind-system-reality/SKILL.md`](../../.claude/skills/ubermind-system-reality/SKILL.md) — Ω50 System Reality Strategy Skill _(matched by name only)_
+- [`.claude/skills/wallbreaker/SKILL.md`](../../.claude/skills/wallbreaker/SKILL.md) — Wallbreaker _(matched by name only)_
+- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator for Codex _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge _(matched by name only)_
+- [`skill-observations/cross-cutting-principles.md`](../../skill-observations/cross-cutting-principles.md) — UberBond Skill Cross-Cutting Principles _(matched by name only)_
+- [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — id: 1 — status: open _(matched by name only)_
+- [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — id: 2 — status: open _(matched by name only)_
 
 ## Other documents (1)
 
-- [`skill-observations/last-review-date.txt`](../../skill-observations/last-review-date.txt) — never
+- [`skill-observations/last-review-date.txt`](../../skill-observations/last-review-date.txt) — never _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (8)
 
-- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(5 mentions)_
-- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30 _(5 mentions)_
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(5 mentions)_
-- [`docs/CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md`](../CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md) — Claude Code External Capability Pack — UberBond _(4 mentions)_
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(4 mentions)_
-- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31 _(3 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(3 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(3 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(matched by name only)_ _(5 mentions)_
+- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30 _(matched by name only)_ _(5 mentions)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_ _(5 mentions)_
+- [`docs/CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md`](../CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md) — Claude Code External Capability Pack — UberBond _(matched by name only)_ _(4 mentions)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31 _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (2)
 
-- [`src/uberskills-core.mjs`](../../src/uberskills-core.mjs) — exports UBERSKILLS_CORE_VERSION, UBERSKILL_ATOMS, getUberSkillAtomSpec, compileUberSkillAtomPlan, executeUberSkillAtom (+2) _(imported by 26)_
-- [`src/uberskills-registry.mjs`](../../src/uberskills-registry.mjs) — exports UBERSKILLS_REGISTRY_VERSION, UBERSKILL_COMPILERS, compileRegisteredUberSkill _(imported by 1)_
+- [`src/uberskills-core.mjs`](../../src/uberskills-core.mjs) — exports UBERSKILLS_CORE_VERSION, UBERSKILL_ATOMS, getUberSkillAtomSpec, compileUberSkillAtomPlan, executeUberSkillAtom (+2) _(matched by name only; imported by 26)_
+- [`src/uberskills-registry.mjs`](../../src/uberskills-registry.mjs) — exports UBERSKILLS_REGISTRY_VERSION, UBERSKILL_COMPILERS, compileRegisteredUberSkill _(matched by name only; imported by 1)_
 
 ## Scripts (1)
 
-- [`scripts/uberskills-doctor.mjs`](../../scripts/uberskills-doctor.mjs)
+- [`scripts/uberskills-doctor.mjs`](../../scripts/uberskills-doctor.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (6)
 
-- [`.claude/skills/task-observer/scripts/migrate-log.py`](../../.claude/skills/task-observer/scripts/migrate-log.py)
-- [`artifacts/external-skill-plugin-registry.json`](../../artifacts/external-skill-plugin-registry.json) — Find Skills · PROJECT_SKILL_ADAPTED_AND_PINNED · uberbond-external-skill-plugin-registry-1.2.0
-- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge
-- [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep)
-- [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep)
-- [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor)
+- [`.claude/skills/task-observer/scripts/migrate-log.py`](../../.claude/skills/task-observer/scripts/migrate-log.py) _(matched by name only)_
+- [`artifacts/external-skill-plugin-registry.json`](../../artifacts/external-skill-plugin-registry.json) — Find Skills · PROJECT_SKILL_ADAPTED_AND_PINNED · uberbond-external-skill-plugin-registry-1.2.0 _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge _(matched by name only)_
+- [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep) _(matched by name only)_
+- [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep) _(matched by name only)_
+- [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor) _(matched by name only)_
 
 ## Tests (1)
 

@@ -12,66 +12,66 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (9)
 
-- [`docs/NORTH_STAR_PRECEDENCE.md`](../NORTH_STAR_PRECEDENCE.md) — UberBond Terminal North Star Precedence
-- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI…
-- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM
-- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum.
-- [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — UberBond Million-Repo Neural Continuum
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE
+- [`docs/NORTH_STAR_PRECEDENCE.md`](../NORTH_STAR_PRECEDENCE.md) — UberBond Terminal North Star Precedence _(matched by name only)_
+- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(matched by name only)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(matched by name only)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(matched by name only)_
+- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding _(matched by name only)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(matched by name only)_
+- [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — UberBond Million-Repo Neural Continuum _(matched by name only)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_
 
 ## Standing documents (2)
 
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md) — Sovereign Cognitive Continuum — Chat Completeness Appendix — Status: NO-DROP LITERAL-NAME APPENDIX / CHAT_SPEC_GOAL / HISTORICAL CONCEPT ALIAS MAP
-- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — UberBond Sovereign Option & Outcome Forecast Engine — Status: TERMINAL NORTH STAR ORGAN / CHAT_SPEC_GOAL / NOT A CLAIM OF PERFECT PREDICTION
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_CHAT_COMPLETENESS_APPENDIX.md) — Sovereign Cognitive Continuum — Chat Completeness Appendix — Status: NO-DROP LITERAL-NAME APPENDIX / CHAT_SPEC_GOAL / HISTORICAL CONCEPT ALIAS MAP _(matched by name only)_
+- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — UberBond Sovereign Option & Outcome Forecast Engine — Status: TERMINAL NORTH STAR ORGAN / CHAT_SPEC_GOAL / NOT A CLAIM OF PERFECT PREDICTION _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (5)
 
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(8 mentions)_
-- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(5 mentions)_
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(3 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(3 mentions)_
-- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(3 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(8 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(matched by name only)_ _(5 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(3 mentions)_
+- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (17)
 
-- [`src/epistemic-immune-system.mjs`](../../src/epistemic-immune-system.mjs) — What is known, what is not, and which of those the system can tell apart. _(tested; imported by 2)_
-- [`src/free-will-amplification.mjs`](../../src/free-will-amplification.mjs) — The loop that is supposed to make the chooser better, and how to tell whether _(tested; imported by 1)_
-- [`src/freedom-gradient.mjs`](../../src/freedom-gradient.mjs) — Effective freedom, which is not the number of options. _(tested; imported by 1)_
-- [`src/intent-compiler.mjs`](../../src/intent-compiler.mjs) — From a choice to something that happened in the world, and back. _(tested; imported by 2)_
-- [`src/inter-sovereign.mjs`](../../src/inter-sovereign.mjs) — Other people, who are not optimization objects. _(tested; imported by 1)_
-- [`src/memory-sovereignty.mjs`](../../src/memory-sovereignty.mjs) — What is remembered, what is modelled, and what is nobody's business. _(tested; imported by 2)_
-- [`src/meta-rational-boundary.mjs`](../../src/meta-rational-boundary.mjs) — Which kind of reasoning deserves trust for this question, and when to stop. _(tested; imported by 1)_
-- [`src/north-star-initiative-dispatch.mjs`](../../src/north-star-initiative-dispatch.mjs) — exports NORTH_STAR_INITIATIVE_DISPATCH_VERSION, compileInitiativeOccurrence, seedInitiativeCycle, observeInitiativeDispatch _(tested; imported by 1)_
-- [`src/north-star-initiative-runtime.mjs`](../../src/north-star-initiative-runtime.mjs) — exports NORTH_STAR_INITIATIVE_RUNTIME_VERSION, compileNorthStarInitiativeCycle, compileInitiativeExecutionReceipt _(tested; imported by 1)_
-- [`src/overnight/journey/epistemic.mjs`](../../src/overnight/journey/epistemic.mjs) — exports JOURNEY_EVIDENCE_VERSION, EPISTEMIC_RELATIONS, normalizeEpistemicStatement, isPublishableDiagnosticStatement _(imported by 4)_
-- [`src/present-free-will.mjs`](../../src/present-free-will.mjs) — The ordering that decides who wins when the parts of a person disagree. _(tested; imported by 1)_
-- [`src/ruin-firewall.mjs`](../../src/ruin-firewall.mjs) — Whether an option can destroy the chooser's ability to choose again. _(tested; imported by 1)_
-- [`src/salience-sovereignty.mjs`](../../src/salience-sovereignty.mjs) — What the system shows, what it leaves out, and whether that shaped the choice. _(tested; imported by 1)_
-- [`src/sovereign-decision-packet.mjs`](../../src/sovereign-decision-packet.mjs) — The option universe, the forecasts over it, and the packet handed back. _(tested; imported by 1)_
-- [`src/sovereign-privacy-firewall.mjs`](../../src/sovereign-privacy-firewall.mjs) — exports SOVEREIGN_PRIVACY_FIREWALL_VERSION, externalArtifactSha256, classifySovereignDisclosure, evaluateSovereignPrivacyFirewall, assertSovereignPri… _(tested; imported by 1)_
-- [`src/sovereignty-type-system.mjs`](../../src/sovereignty-type-system.mjs) — The type ladder between what is observed and what is done. _(tested; imported by 2)_
-- [`src/volitional-integrity.mjs`](../../src/volitional-integrity.mjs) — Volitional-integrity consequence gate for Personal Civilization. _(tested; imported by 1)_
+- [`src/epistemic-immune-system.mjs`](../../src/epistemic-immune-system.mjs) — What is known, what is not, and which of those the system can tell apart. _(matched by name only; tested; imported by 2)_
+- [`src/free-will-amplification.mjs`](../../src/free-will-amplification.mjs) — The loop that is supposed to make the chooser better, and how to tell whether _(matched by name only; tested; imported by 1)_
+- [`src/freedom-gradient.mjs`](../../src/freedom-gradient.mjs) — Effective freedom, which is not the number of options. _(matched by name only; tested; imported by 1)_
+- [`src/intent-compiler.mjs`](../../src/intent-compiler.mjs) — From a choice to something that happened in the world, and back. _(matched by name only; tested; imported by 2)_
+- [`src/inter-sovereign.mjs`](../../src/inter-sovereign.mjs) — Other people, who are not optimization objects. _(matched by name only; tested; imported by 1)_
+- [`src/memory-sovereignty.mjs`](../../src/memory-sovereignty.mjs) — What is remembered, what is modelled, and what is nobody's business. _(matched by name only; tested; imported by 2)_
+- [`src/meta-rational-boundary.mjs`](../../src/meta-rational-boundary.mjs) — Which kind of reasoning deserves trust for this question, and when to stop. _(matched by name only; tested; imported by 1)_
+- [`src/north-star-initiative-dispatch.mjs`](../../src/north-star-initiative-dispatch.mjs) — exports NORTH_STAR_INITIATIVE_DISPATCH_VERSION, compileInitiativeOccurrence, seedInitiativeCycle, observeInitiativeDispatch _(matched by name only; tested; imported by 1)_
+- [`src/north-star-initiative-runtime.mjs`](../../src/north-star-initiative-runtime.mjs) — exports NORTH_STAR_INITIATIVE_RUNTIME_VERSION, compileNorthStarInitiativeCycle, compileInitiativeExecutionReceipt _(matched by name only; tested; imported by 1)_
+- [`src/overnight/journey/epistemic.mjs`](../../src/overnight/journey/epistemic.mjs) — exports JOURNEY_EVIDENCE_VERSION, EPISTEMIC_RELATIONS, normalizeEpistemicStatement, isPublishableDiagnosticStatement _(matched by name only; imported by 4)_
+- [`src/present-free-will.mjs`](../../src/present-free-will.mjs) — The ordering that decides who wins when the parts of a person disagree. _(matched by name only; tested; imported by 1)_
+- [`src/ruin-firewall.mjs`](../../src/ruin-firewall.mjs) — Whether an option can destroy the chooser's ability to choose again. _(matched by name only; tested; imported by 1)_
+- [`src/salience-sovereignty.mjs`](../../src/salience-sovereignty.mjs) — What the system shows, what it leaves out, and whether that shaped the choice. _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-decision-packet.mjs`](../../src/sovereign-decision-packet.mjs) — The option universe, the forecasts over it, and the packet handed back. _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-privacy-firewall.mjs`](../../src/sovereign-privacy-firewall.mjs) — exports SOVEREIGN_PRIVACY_FIREWALL_VERSION, externalArtifactSha256, classifySovereignDisclosure, evaluateSovereignPrivacyFirewall, assertSovereignPri… _(matched by name only; tested; imported by 1)_
+- [`src/sovereignty-type-system.mjs`](../../src/sovereignty-type-system.mjs) — The type ladder between what is observed and what is done. _(matched by name only; tested; imported by 2)_
+- [`src/volitional-integrity.mjs`](../../src/volitional-integrity.mjs) — Volitional-integrity consequence gate for Personal Civilization. _(matched by name only; tested; imported by 1)_
 
 ## Scripts (4)
 
-- [`scripts/sovereign-initiative-host.mjs`](../../scripts/sovereign-initiative-host.mjs) — exports SOVEREIGN_INITIATIVE_HOST_VERSION, pumpInitiativeAgentMesh, runSovereignInitiativeHost
-- [`scripts/sovereign-initiative-runtime.mjs`](../../scripts/sovereign-initiative-runtime.mjs)
-- [`scripts/sovereign-initiative-selection-runtime.mjs`](../../scripts/sovereign-initiative-selection-runtime.mjs) — exports SOVEREIGN_INITIATIVE_RUNTIME_VERSION, runSovereignInitiativeRuntime
-- [`scripts/volitional-integrity-review.mjs`](../../scripts/volitional-integrity-review.mjs)
+- [`scripts/sovereign-initiative-host.mjs`](../../scripts/sovereign-initiative-host.mjs) — exports SOVEREIGN_INITIATIVE_HOST_VERSION, pumpInitiativeAgentMesh, runSovereignInitiativeHost _(matched by name only)_
+- [`scripts/sovereign-initiative-runtime.mjs`](../../scripts/sovereign-initiative-runtime.mjs) _(matched by name only)_
+- [`scripts/sovereign-initiative-selection-runtime.mjs`](../../scripts/sovereign-initiative-selection-runtime.mjs) — exports SOVEREIGN_INITIATIVE_RUNTIME_VERSION, runSovereignInitiativeRuntime _(matched by name only)_
+- [`scripts/volitional-integrity-review.mjs`](../../scripts/volitional-integrity-review.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (8)
 
-- [`artifacts/personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0
-- [`artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`](../../artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json) — TERMINAL_NORTH_STAR_PRECEDENCE_OVERLAY · uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.2.0
-- [`artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json`](../../artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json) — Personal Big Bang · NO_DROP_LITERAL_NAME_ALIAS_REGISTRY · uberbond-sovereign-cognitive-continuum-chat-completeness-aliases-1.0.0
-- [`artifacts/sovereign-cognitive-continuum-north-star.json`](../../artifacts/sovereign-cognitive-continuum-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-north-star-1.0.0
-- [`artifacts/sovereign-cognitive-continuum-total-north-star.json`](../../artifacts/sovereign-cognitive-continuum-total-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_SUPERSET_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-total-north-star-1.0.0
-- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0
-- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum)
-- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service)
+- [`artifacts/personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0 _(matched by name only)_
+- [`artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`](../../artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json) — TERMINAL_NORTH_STAR_PRECEDENCE_OVERLAY · uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.2.0 _(matched by name only)_
+- [`artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json`](../../artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json) — Personal Big Bang · NO_DROP_LITERAL_NAME_ALIAS_REGISTRY · uberbond-sovereign-cognitive-continuum-chat-completeness-aliases-1.0.0 _(matched by name only)_
+- [`artifacts/sovereign-cognitive-continuum-north-star.json`](../../artifacts/sovereign-cognitive-continuum-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-north-star-1.0.0 _(matched by name only)_
+- [`artifacts/sovereign-cognitive-continuum-total-north-star.json`](../../artifacts/sovereign-cognitive-continuum-total-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_SUPERSET_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-total-north-star-1.0.0 _(matched by name only)_
+- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0 _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service) _(matched by name only)_
 
 ## Tests (20)
 

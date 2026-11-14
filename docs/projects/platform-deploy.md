@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`docs/AGENT_WORKER_RUNTIME_V1.md`](../AGENT_WORKER_RUNTIME_V1.md) — UberBond Agent Worker Runtime V1
-- [`docs/DEPLOY.md`](../DEPLOY.md) — Deployment
-- [`docs/MAILHUB_PROVIDER_ADAPTERS.md`](../MAILHUB_PROVIDER_ADAPTERS.md) — UberBond MailHub provider-adapter layer — Status: implemented in the integration branch; no provider credential is configured and no external call, purchase, DNS mutation, mailbox creation,…
-- [`docs/PORTABLE_BACKEND_DEPLOYMENT.md`](../PORTABLE_BACKEND_DEPLOYMENT.md) — Provider-neutral backend bundle
-- [`docs/PROVIDER_ADAPTER_CONTRACT.md`](../PROVIDER_ADAPTER_CONTRACT.md) — Provider Adapter Contract
-- [`docs/VERCEL_GITHUB_RELAY.md`](../VERCEL_GITHUB_RELAY.md) — Vercel GitHub relay ingress
-- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock
-- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host
-- [`docs/receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md`](../receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md) — 2026-10-24 · PHOENIX direct MCP tool-server receipt (2026-10-24)
-- [`docs/reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md`](../reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md) — 2026-10-20 · Owner-approved held Railway baseline and callback — 2026-10-20
-- [`docs/reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md`](../reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md) — 2026-10-19 · UberWarm read-only provider event-delivery observation
-- [`docs/reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md`](../reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md) — 2026-10-18 · UberWarm 1–6: provider DNS hold without Winnr paid warming
-- [`docs/reports/UBERWARM_LIVE_PROVIDER_SCHEMA_AND_OWNER_PROBE_GATE_20261018.md`](../reports/UBERWARM_LIVE_PROVIDER_SCHEMA_AND_OWNER_PROBE_GATE_20261018.md) — 2026-10-18 · UberWarm verified Winnr mailbox schema and remaining owner-probe gate
-- [`docs/reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md`](../reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md) — 2026-10-18 · UberWarm 1–6: no-paid provider-DNS hold control
+- [`docs/AGENT_WORKER_RUNTIME_V1.md`](../AGENT_WORKER_RUNTIME_V1.md) — UberBond Agent Worker Runtime V1 _(matched by name only)_
+- [`docs/DEPLOY.md`](../DEPLOY.md) — Deployment _(matched by name only)_
+- [`docs/MAILHUB_PROVIDER_ADAPTERS.md`](../MAILHUB_PROVIDER_ADAPTERS.md) — UberBond MailHub provider-adapter layer — Status: implemented in the integration branch; no provider credential is configured and no external call, purchase, DNS mutation, mailbox creation,… _(matched by name only)_
+- [`docs/PORTABLE_BACKEND_DEPLOYMENT.md`](../PORTABLE_BACKEND_DEPLOYMENT.md) — Provider-neutral backend bundle _(matched by name only)_
+- [`docs/PROVIDER_ADAPTER_CONTRACT.md`](../PROVIDER_ADAPTER_CONTRACT.md) — Provider Adapter Contract _(matched by name only)_
+- [`docs/VERCEL_GITHUB_RELAY.md`](../VERCEL_GITHUB_RELAY.md) — Vercel GitHub relay ingress _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock _(matched by name only)_
+- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host _(matched by name only)_
+- [`docs/receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md`](../receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md) — 2026-10-24 · PHOENIX direct MCP tool-server receipt (2026-10-24) _(matched by name only)_
+- [`docs/reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md`](../reports/UBERWARM_HELD_RAILWAY_ACTIVATION_20261020.md) — 2026-10-20 · Owner-approved held Railway baseline and callback — 2026-10-20 _(matched by name only)_
+- [`docs/reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md`](../reports/UBERWARM_PROVIDER_EVENT_LOG_OBSERVER_20261019.md) — 2026-10-19 · UberWarm read-only provider event-delivery observation _(matched by name only)_
+- [`docs/reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md`](../reports/UBERWARM_INDEPENDENT_PROVIDER_DNS_HOLD_20261018.md) — 2026-10-18 · UberWarm 1–6: provider DNS hold without Winnr paid warming _(matched by name only)_
+- [`docs/reports/UBERWARM_LIVE_PROVIDER_SCHEMA_AND_OWNER_PROBE_GATE_20261018.md`](../reports/UBERWARM_LIVE_PROVIDER_SCHEMA_AND_OWNER_PROBE_GATE_20261018.md) — 2026-10-18 · UberWarm verified Winnr mailbox schema and remaining owner-probe gate _(matched by name only)_
+- [`docs/reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md`](../reports/UBERWARM_OWNED_PROVIDER_DNS_HOLD_CONTROL_20261018.md) — 2026-10-18 · UberWarm 1–6: no-paid provider-DNS hold control _(matched by name only)_
 
 ## Commands (5)
 
@@ -33,304 +33,304 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (12)
 
-- [`runtime/supabase/functions/README.md`](../../runtime/supabase/functions/README.md) — Supabase GENESIS runtime
-- [`services/uberwarm-callback/supabase/README.md`](../../services/uberwarm-callback/supabase/README.md) — UberWarm Supabase Edge receiving node
-- [`.claude/skills/claude-automation-recommender/references/mcp-servers.md`](../../.claude/skills/claude-automation-recommender/references/mcp-servers.md) — MCP Server Recommendations
-- [`.claude/skills/task-observer/references/environments.md`](../../.claude/skills/task-observer/references/environments.md) — Task Observer environments and activation
-- [`.claude/skills/task-observer/references/migration.md`](../../.claude/skills/task-observer/references/migration.md) — Legacy observation-log migration
-- [`.claude/skills/task-observer/references/observation-log.md`](../../.claude/skills/task-observer/references/observation-log.md) — Observation log mechanics
-- [`.claude/skills/task-observer/references/signals.md`](../../.claude/skills/task-observer/references/signals.md) — Observation signals
-- [`.claude/skills/task-observer/references/skill-authoring.md`](../../.claude/skills/task-observer/references/skill-authoring.md) — Skill authoring and revision
-- [`.claude/skills/task-observer/references/weekly-review.md`](../../.claude/skills/task-observer/references/weekly-review.md) — Weekly observation review
-- [`.claude/skills/task-observer/SKILL.md`](../../.claude/skills/task-observer/SKILL.md) — Task Observer — UberBond integration
-- [`.github/copilot-instructions.md`](../../.github/copilot-instructions.md) — UberBond Copilot instructions
-- [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API Provider-Policy Boundary
+- [`runtime/supabase/functions/README.md`](../../runtime/supabase/functions/README.md) — Supabase GENESIS runtime _(matched by name only)_
+- [`services/uberwarm-callback/supabase/README.md`](../../services/uberwarm-callback/supabase/README.md) — UberWarm Supabase Edge receiving node _(matched by name only)_
+- [`.claude/skills/claude-automation-recommender/references/mcp-servers.md`](../../.claude/skills/claude-automation-recommender/references/mcp-servers.md) — MCP Server Recommendations _(matched by name only)_
+- [`.claude/skills/task-observer/references/environments.md`](../../.claude/skills/task-observer/references/environments.md) — Task Observer environments and activation _(matched by name only)_
+- [`.claude/skills/task-observer/references/migration.md`](../../.claude/skills/task-observer/references/migration.md) — Legacy observation-log migration _(matched by name only)_
+- [`.claude/skills/task-observer/references/observation-log.md`](../../.claude/skills/task-observer/references/observation-log.md) — Observation log mechanics _(matched by name only)_
+- [`.claude/skills/task-observer/references/signals.md`](../../.claude/skills/task-observer/references/signals.md) — Observation signals _(matched by name only)_
+- [`.claude/skills/task-observer/references/skill-authoring.md`](../../.claude/skills/task-observer/references/skill-authoring.md) — Skill authoring and revision _(matched by name only)_
+- [`.claude/skills/task-observer/references/weekly-review.md`](../../.claude/skills/task-observer/references/weekly-review.md) — Weekly observation review _(matched by name only)_
+- [`.claude/skills/task-observer/SKILL.md`](../../.claude/skills/task-observer/SKILL.md) — Task Observer — UberBond integration _(matched by name only)_
+- [`.github/copilot-instructions.md`](../../.github/copilot-instructions.md) — UberBond Copilot instructions _(matched by name only)_
+- [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API Provider-Policy Boundary _(matched by name only)_
 
 ## Dated documents, newest first (14)
 
-- [`docs/reports/UBERWARM_SOVEREIGN_NO_PAID_WARMER_LIVE_OBSERVER_20261018.md`](../reports/UBERWARM_SOVEREIGN_NO_PAID_WARMER_LIVE_OBSERVER_20261018.md) — 2026-10-18 · UberWarm 1–6 sovereign zero-paid-warmer live observer
-- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS
-- [`docs/receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md) — 2026-10-04 · Revenue Singularity exact-head Vercel diagnosis — 2026-10-04
-- [`docs/receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md`](../receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md) — 2026-10-03 · Scoped invited business contact — provider governance reconciliation
-- [`docs/WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md`](../WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md) — 2026-10-02 · Winnr Runtime Activation Receipt — 2026-10-02 — Status: TRANSPORT VERIFIED / PLACEMENT NOT PROMOTED
-- [`docs/VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md`](../VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md) — 2026-09-29 · Vercel Immutable Install Repair — 2026-09-29 — Status: SOURCE REPAIR CANDIDATE / CLOUD RE-EXECUTION QUOTA-BLOCKED
-- [`docs/COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md`](../COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md) — 2026-09-27 · Cold Mail Server Authenticated Reality — 2026-09-27 — Truth class: authenticated account observations supplied from ChatGPT Work/Luna plus current public first-party terms/pricing. No purch…
-- [`docs/EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md`](../EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md) — 2026-09-27 · EmailPal Provider Evidence — 2026-09-27 — Truth class: current first-party public pricing/help/API/Terms/AUP evidence observed on 2026-09-27. This receipt does not claim an account, usable…
-- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no…
-- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION.
-- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22
-- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22
-- [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06
-- [`docs/VERCEL_DEPLOYMENT_RETRY_2026-09-02.md`](../VERCEL_DEPLOYMENT_RETRY_2026-09-02.md) — 2026-09-02 · Vercel deployment retry receipt — 2026-09-02
+- [`docs/reports/UBERWARM_SOVEREIGN_NO_PAID_WARMER_LIVE_OBSERVER_20261018.md`](../reports/UBERWARM_SOVEREIGN_NO_PAID_WARMER_LIVE_OBSERVER_20261018.md) — 2026-10-18 · UberWarm 1–6 sovereign zero-paid-warmer live observer _(matched by name only)_
+- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md) — 2026-10-04 · Revenue Singularity exact-head Vercel diagnosis — 2026-10-04 _(matched by name only)_
+- [`docs/receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md`](../receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md) — 2026-10-03 · Scoped invited business contact — provider governance reconciliation _(matched by name only)_
+- [`docs/WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md`](../WINNR_RUNTIME_ACTIVATION_RECEIPT_2026-10-02.md) — 2026-10-02 · Winnr Runtime Activation Receipt — 2026-10-02 — Status: TRANSPORT VERIFIED / PLACEMENT NOT PROMOTED _(matched by name only)_
+- [`docs/VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md`](../VERCEL_IMMUTABLE_INSTALL_REPAIR_2026-09-29.md) — 2026-09-29 · Vercel Immutable Install Repair — 2026-09-29 — Status: SOURCE REPAIR CANDIDATE / CLOUD RE-EXECUTION QUOTA-BLOCKED _(matched by name only)_
+- [`docs/COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md`](../COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md) — 2026-09-27 · Cold Mail Server Authenticated Reality — 2026-09-27 — Truth class: authenticated account observations supplied from ChatGPT Work/Luna plus current public first-party terms/pricing. No purch… _(matched by name only)_
+- [`docs/EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md`](../EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md) — 2026-09-27 · EmailPal Provider Evidence — 2026-09-27 — Truth class: current first-party public pricing/help/API/Terms/AUP evidence observed on 2026-09-27. This receipt does not claim an account, usable… _(matched by name only)_
+- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(matched by name only)_
+- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION. _(matched by name only)_
+- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06 _(matched by name only)_
+- [`docs/VERCEL_DEPLOYMENT_RETRY_2026-09-02.md`](../VERCEL_DEPLOYMENT_RETRY_2026-09-02.md) — 2026-09-02 · Vercel deployment retry receipt — 2026-09-02 _(matched by name only)_
 
 ## Other documents (1)
 
-- [`artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt`](../../artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt) — Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/
+- [`artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt`](../../artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt) — Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/ _(matched by name only)_
 
 ## Source modules (53)
 
-- [`portable-server.mjs`](../../portable-server.mjs) — Portable/self-host server entry used by the sovereign Docker images.
-- [`server-core.mjs`](../../server-core.mjs) — HTTP routing and handlers used by server.mjs.
-- [`server.mjs`](../../server.mjs) — Web process entry point.
-- [`src/agent-provider-execution.mjs`](../../src/agent-provider-execution.mjs) — SUPERSEDED. The canonical bounded model-invocation transaction is _(no static importers)_
-- [`src/agent-provider-worker.mjs`](../../src/agent-provider-worker.mjs) — exports AGENT_PROVIDER_WORKER_POLICY_VERSION, compileProviderWorkRequest, validateProviderWorkResult, runProviderWorker _(imported by 1)_
-- [`src/browser-runtime-pool.mjs`](../../src/browser-runtime-pool.mjs) — exports BROWSER_RUNTIME_POOL_POLICY_VERSION, BrowserRuntimePool, getSharedBrowserRuntime, closeSharedBrowserRuntimes _(tested; imported by 2)_
-- [`src/cloud-inspect-deployment.mjs`](../../src/cloud-inspect-deployment.mjs) — exports CLOUD_INSPECT_DEPLOYMENT_ATOM_ID, compileCloudInspectDeployment, executeCloudInspectDeployment _(tested; imported by 1)_
-- [`src/deploy-restart-recovery-receipt.mjs`](../../src/deploy-restart-recovery-receipt.mjs) — exports DEPLOY_RESTART_RECOVERY_RECEIPT_VERSION, restartRecoveryReceiptPreimage, verifyRestartRecoveryReceiptIntegrity, compileRestartRecoveryReceipt _(tested; imported by 4)_
-- [`src/founder-ops-runtime-probe.mjs`](../../src/founder-ops-runtime-probe.mjs) — exports FOUNDER_OPS_RUNTIME_PROBE_VERSION, founderOpsRuntimeIdentity, founderOpsTargetIdentity, founderOpsRuntimeProbeReceiptPreimage, verifyFounderO… _(tested; imported by 2)_
-- [`src/free-runtime-mesh.mjs`](../../src/free-runtime-mesh.mjs) — exports FREE_RUNTIME_MESH_VERSION, FREE_RUNTIME_LIMITS, compileFreeRuntimeWake, compileFreeBurstDispatch _(tested; no static importers)_
-- [`src/inquiry-path-runtime-witness.mjs`](../../src/inquiry-path-runtime-witness.mjs) — Runtime witness for the Inquiry Path Coherence Engine. _(imported by 2)_
-- [`src/jev-governed-runtime-service.mjs`](../../src/jev-governed-runtime-service.mjs) — exports GOVERNED_JEV_SERVICE_SCHEMA, createGovernedJevRuntimeService _(tested; imported by 3)_
-- [`src/model-provider-doctor.mjs`](../../src/model-provider-doctor.mjs) — What can this environment actually route to, and what is the smallest human _(imported by 2)_
-- [`src/model-provider-runtime-evidence.mjs`](../../src/model-provider-runtime-evidence.mjs) — exports MODEL_PROVIDER_RUNTIME_EVIDENCE_VERSION, modelProviderRuntimeReceiptPreimage, verifyModelProviderRuntimeEvidenceIntegrity, compileModelProvid… _(tested; imported by 3)_
-- [`src/native-runtime-substitutes.mjs`](../../src/native-runtime-substitutes.mjs) — exports NATIVE_RUNTIME_SUBSTITUTES_VERSION, compressLosslessContext, restoreLosslessContext, probeClaudeMemSubstitute, probeOmniRouteSubstitute (+2) _(imported by 1)_
-- [`src/nullstar-omega-observer-contract.mjs`](../../src/nullstar-omega-observer-contract.mjs) — What an observer must declare before anything it says counts as evidence. _(tested; imported by 1)_
-- [`src/open-model-runtime-executor.mjs`](../../src/open-model-runtime-executor.mjs) — exports OPEN_MODEL_RUNTIME_EXECUTOR_VERSION, OPEN_MODEL_RUNTIMES, OPENAI_API_STYLES, planOpenModelRuntime, createOpenModelRuntimeExecutor _(imported by 2)_
-- [`src/outreach-100k-runtime-bundle.mjs`](../../src/outreach-100k-runtime-bundle.mjs) — exports OUTREACH_100K_RUNTIME_BUNDLE_VERSION, compileOutreach100kRuntimeBundle, writeOutreach100kRuntimeBundle _(tested; imported by 1)_
-- [`src/outreach-100k-runtime-control.mjs`](../../src/outreach-100k-runtime-control.mjs) — exports OUTREACH_100K_RUNTIME_VERSION, DEFAULT_OUTREACH_100K_BUNDLE_PATH, DEFAULT_OUTREACH_100K_CORPUS_PATH, buildLiveOutreach100kSummary, prepareOut… _(imported by 2)_
-- [`src/outreach-provider-events.mjs`](../../src/outreach-provider-events.mjs) — exports OUTREACH_PROVIDER_EVENT_VERSION, WEBHOOK_SIGNATURE_HEADER, WEBHOOK_TIMESTAMP_HEADER, WEBHOOK_CLOCK_SKEW_SECONDS, webhookSignature (+4) _(tested; no static importers)_
-- [`src/payment-provider-verifier-dispatch.mjs`](../../src/payment-provider-verifier-dispatch.mjs) — exports PAYMENT_PROVIDER_VERIFIER_DISPATCH_VERSION, bindPaymentVerifierProviders, supportedPaymentProviders, createConfiguredPaymentVerifier _(imported by 1)_
-- [`src/phoenix-runtime-doctor.mjs`](../../src/phoenix-runtime-doctor.mjs) — exports PHOENIX_RUNTIME_DOCTOR_VERSION, runPhoenixRuntimeDoctor _(tested; imported by 1)_
-- [`src/portable-paypal-bridge.mjs`](../../src/portable-paypal-bridge.mjs) — exports createPortablePayPalBridge _(tested; imported by 2)_
-- [`src/provider-activation-receipt.mjs`](../../src/provider-activation-receipt.mjs) — Provider activation receipt: the typed, secret-free record an external _(tested; imported by 2)_
-- [`src/provider-adapter-contract.mjs`](../../src/provider-adapter-contract.mjs) — Versioned provider adapter contract for outreach-sending and _(imported by 4)_
-- [`src/provider-cut-evidence-overlay.mjs`](../../src/provider-cut-evidence-overlay.mjs) — exports PROVIDER_CUT_EVIDENCE_OVERLAY_VERSION, applyProviderCutEvidenceOverlay _(imported by 1)_
-- [`src/provider-http-adapters.mjs`](../../src/provider-http-adapters.mjs) — Provider-neutral HTTP adapters for mailbox/domain infrastructure vendors. _(tested; imported by 4)_
-- [`src/provider-infrastructure-events.mjs`](../../src/provider-infrastructure-events.mjs) — Normalization and replay-safe folding for provider infrastructure webhooks _(tested; imported by 1)_
-- [`src/provider-neutral-runtime-acceptance.mjs`](../../src/provider-neutral-runtime-acceptance.mjs) — exports PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION, verifyProviderNeutralRuntimeAcceptance _(tested; imported by 1)_
-- [`src/provider-receipt-redaction.mjs`](../../src/provider-receipt-redaction.mjs) — Shared provider-payload minimization. Provider adapters may receive secrets, _(imported by 6)_
-- [`src/relay-deployment-attempt.mjs`](../../src/relay-deployment-attempt.mjs) — exports RELAY_DEPLOYMENT_ATTEMPT_POLICY_VERSION, compileRelayDeploymentAttemptReceipt, reconcileRelayDeploymentAttempt _(tested; imported by 1)_
-- [`src/relay-deployment-eligibility.mjs`](../../src/relay-deployment-eligibility.mjs) — Pure preflight for the single authorized UberBond relay preview deployment. _(tested; imported by 5)_
-- [`src/relay-vercel-api-executor.mjs`](../../src/relay-vercel-api-executor.mjs) — Bounded one-shot transport for an already compiled exact relay preview request. _(tested; no static importers; npm: `check:relay-api-executor`)_
-- [`src/relay-vercel-api-request.mjs`](../../src/relay-vercel-api-request.mjs) — Pure compiler for the single exact UberBond relay preview request. _(tested; no static importers; npm: `check:relay-api-request`)_
-- [`src/runtime-cut-evidence-overlay.mjs`](../../src/runtime-cut-evidence-overlay.mjs) — exports RUNTIME_CUT_EVIDENCE_OVERLAY_VERSION, applyRuntimeCutEvidenceOverlay _(tested; imported by 1)_
-- [`src/runtime-evidence-attestation.mjs`](../../src/runtime-evidence-attestation.mjs) — exports RUNTIME_EVIDENCE_ATTESTATION_VERSION, runtimeEvidenceAttestationPayload, runtimeEvidencePublicKeyFingerprint, verifyRuntimeEvidenceAttestation _(tested; imported by 2)_
-- [`src/runtime-proof-ingestion.mjs`](../../src/runtime-proof-ingestion.mjs) — exports RUNTIME_PROOF_INGESTION_VERSION, validateRestartRecoveryRuntimeEvidence, validateSourceRepositoryHostRuntimeEvidence, validateWebRuntimeHostR… _(tested; imported by 1)_
-- [`src/runtime-transition-receipts.mjs`](../../src/runtime-transition-receipts.mjs) — exports RUNTIME_TRANSITION_RECEIPTS_VERSION, RUNTIME_TRANSITION_OBSERVER_VERSION, compileDurableWorkloadAssertion, compileCutoverRollbackAssertion, c… _(tested; imported by 3)_
-- [`src/ubercel-deployment-actuator.mjs`](../../src/ubercel-deployment-actuator.mjs) — exports UBERCEL_DEPLOYMENT_ACTUATOR_VERSION, executeUbercelDeployment _(tested; imported by 1)_
-- [`src/ubercel-deployment-control-plane.mjs`](../../src/ubercel-deployment-control-plane.mjs) — exports UBERCEL_CONTROL_PLANE_VERSION, compileUbercelDeployment, compileUbercelFailover, UBERCEL_ADAPTER_TYPES _(tested; imported by 4)_
-- [`src/ubercel-deployment-doctor.mjs`](../../src/ubercel-deployment-doctor.mjs) — Ubercel deployment state, read through UberBond rather than off a vendor. _(tested; imported by 1)_
-- [`src/uberlaunch-runtime-evidence.mjs`](../../src/uberlaunch-runtime-evidence.mjs) — exports UBERLAUNCH_RUNTIME_EVIDENCE_VERSION, compileUberLaunchRuntimeEvidence, prepareSovereignOneButtonLaunch _(tested; imported by 1)_
-- [`src/uberlit-runtime-doctor.mjs`](../../src/uberlit-runtime-doctor.mjs) — exports UBERLIT_RUNTIME_DOCTOR_SCHEMA, diagnoseUberLitRuntime _(tested; imported by 2)_
-- [`src/uberwarm-vercel-node-bridge.mjs`](../../src/uberwarm-vercel-node-bridge.mjs) — Vercel's vanilla Node functions expect a DEFAULT (req,res) handler. Request/Response method exports alone are not a Node-function endpoint. Preserve… _(tested; imported by 2)_
-- [`src/uberwarm2-bobwork-observer.mjs`](../../src/uberwarm2-bobwork-observer.mjs) — Read-only provider observation. No enroll, resume, campaign, or billing methods. _(tested; imported by 2)_
-- [`src/uberwarm2-protected-runtime-preflight-donor.mjs`](../../src/uberwarm2-protected-runtime-preflight-donor.mjs) — LANE P donor: protected-runtime readiness preflight compiler. _(no static importers)_
-- [`src/uberwarm2-provider-dns-spotcheck.mjs`](../../src/uberwarm2-provider-dns-spotcheck.mjs) — One bounded authenticated Winnr DNS GET per ordinary monitor invocation. Rotates domain selection by five-minute epoch slot; no writes, billing, mail… _(tested; imported by 1)_
-- [`src/uberwarm2-provider-event-log-observer.mjs`](../../src/uberwarm2-provider-event-log-observer.mjs) — Observes Winnr's authenticated webhook DELIVERY ATTEMPT metadata. No webhook is created, replayed, enabled, disabled or acknowledged here. A provider… _(tested; imported by 1)_
-- [`src/uberwarm2-sovereign-live-observer.mjs`](../../src/uberwarm2-sovereign-live-observer.mjs) — Sovereign UberWarm control-plane integration for Winnr's already-owned fleet. Only real, fully paginated provider GET inventory may enter. A provider… _(tested; imported by 1)_
-- [`src/uberwinnr-provider-adapter.mjs`](../../src/uberwinnr-provider-adapter.mjs) — exports UBERWINNR_PROVIDER_CONTRACT_VERSION, createWinnrInfrastructureAdapter _(imported by 1)_
-- [`src/vercel-ai-gateway-executor.mjs`](../../src/vercel-ai-gateway-executor.mjs) — Vercel AI Gateway adapter for the bounded UberBond agent-worker runtime. _(tested; imported by 1)_
-- [`src/web-runtime-host-receipt.mjs`](../../src/web-runtime-host-receipt.mjs) — exports WEB_RUNTIME_HOST_RECEIPT_VERSION, webRuntimeHostReceiptPreimage, verifyWebRuntimeHostReceiptIntegrity, compileWebRuntimeHostReceipt _(imported by 3)_
-- [`src/winnr-runtime-bootstrap.mjs`](../../src/winnr-runtime-bootstrap.mjs) — exports runWinnrRuntimeBootstrap _(imported by 2)_
+- [`portable-server.mjs`](../../portable-server.mjs) — Portable/self-host server entry used by the sovereign Docker images. _(matched by name only)_
+- [`server-core.mjs`](../../server-core.mjs) — HTTP routing and handlers used by server.mjs. _(matched by name only)_
+- [`server.mjs`](../../server.mjs) — Web process entry point. _(matched by name only)_
+- [`src/agent-provider-execution.mjs`](../../src/agent-provider-execution.mjs) — SUPERSEDED. The canonical bounded model-invocation transaction is _(matched by name only; no static importers)_
+- [`src/agent-provider-worker.mjs`](../../src/agent-provider-worker.mjs) — exports AGENT_PROVIDER_WORKER_POLICY_VERSION, compileProviderWorkRequest, validateProviderWorkResult, runProviderWorker _(matched by name only; imported by 1)_
+- [`src/browser-runtime-pool.mjs`](../../src/browser-runtime-pool.mjs) — exports BROWSER_RUNTIME_POOL_POLICY_VERSION, BrowserRuntimePool, getSharedBrowserRuntime, closeSharedBrowserRuntimes _(matched by name only; tested; imported by 2)_
+- [`src/cloud-inspect-deployment.mjs`](../../src/cloud-inspect-deployment.mjs) — exports CLOUD_INSPECT_DEPLOYMENT_ATOM_ID, compileCloudInspectDeployment, executeCloudInspectDeployment _(matched by name only; tested; imported by 1)_
+- [`src/deploy-restart-recovery-receipt.mjs`](../../src/deploy-restart-recovery-receipt.mjs) — exports DEPLOY_RESTART_RECOVERY_RECEIPT_VERSION, restartRecoveryReceiptPreimage, verifyRestartRecoveryReceiptIntegrity, compileRestartRecoveryReceipt _(matched by name only; tested; imported by 4)_
+- [`src/founder-ops-runtime-probe.mjs`](../../src/founder-ops-runtime-probe.mjs) — exports FOUNDER_OPS_RUNTIME_PROBE_VERSION, founderOpsRuntimeIdentity, founderOpsTargetIdentity, founderOpsRuntimeProbeReceiptPreimage, verifyFounderO… _(matched by name only; tested; imported by 2)_
+- [`src/free-runtime-mesh.mjs`](../../src/free-runtime-mesh.mjs) — exports FREE_RUNTIME_MESH_VERSION, FREE_RUNTIME_LIMITS, compileFreeRuntimeWake, compileFreeBurstDispatch _(matched by name only; tested; no static importers)_
+- [`src/inquiry-path-runtime-witness.mjs`](../../src/inquiry-path-runtime-witness.mjs) — Runtime witness for the Inquiry Path Coherence Engine. _(matched by name only; imported by 2)_
+- [`src/jev-governed-runtime-service.mjs`](../../src/jev-governed-runtime-service.mjs) — exports GOVERNED_JEV_SERVICE_SCHEMA, createGovernedJevRuntimeService _(matched by name only; tested; imported by 3)_
+- [`src/model-provider-doctor.mjs`](../../src/model-provider-doctor.mjs) — What can this environment actually route to, and what is the smallest human _(matched by name only; imported by 2)_
+- [`src/model-provider-runtime-evidence.mjs`](../../src/model-provider-runtime-evidence.mjs) — exports MODEL_PROVIDER_RUNTIME_EVIDENCE_VERSION, modelProviderRuntimeReceiptPreimage, verifyModelProviderRuntimeEvidenceIntegrity, compileModelProvid… _(matched by name only; tested; imported by 3)_
+- [`src/native-runtime-substitutes.mjs`](../../src/native-runtime-substitutes.mjs) — exports NATIVE_RUNTIME_SUBSTITUTES_VERSION, compressLosslessContext, restoreLosslessContext, probeClaudeMemSubstitute, probeOmniRouteSubstitute (+2) _(matched by name only; imported by 1)_
+- [`src/nullstar-omega-observer-contract.mjs`](../../src/nullstar-omega-observer-contract.mjs) — What an observer must declare before anything it says counts as evidence. _(matched by name only; tested; imported by 1)_
+- [`src/open-model-runtime-executor.mjs`](../../src/open-model-runtime-executor.mjs) — exports OPEN_MODEL_RUNTIME_EXECUTOR_VERSION, OPEN_MODEL_RUNTIMES, OPENAI_API_STYLES, planOpenModelRuntime, createOpenModelRuntimeExecutor _(matched by name only; imported by 2)_
+- [`src/outreach-100k-runtime-bundle.mjs`](../../src/outreach-100k-runtime-bundle.mjs) — exports OUTREACH_100K_RUNTIME_BUNDLE_VERSION, compileOutreach100kRuntimeBundle, writeOutreach100kRuntimeBundle _(matched by name only; tested; imported by 1)_
+- [`src/outreach-100k-runtime-control.mjs`](../../src/outreach-100k-runtime-control.mjs) — exports OUTREACH_100K_RUNTIME_VERSION, DEFAULT_OUTREACH_100K_BUNDLE_PATH, DEFAULT_OUTREACH_100K_CORPUS_PATH, buildLiveOutreach100kSummary, prepareOut… _(matched by name only; imported by 2)_
+- [`src/outreach-provider-events.mjs`](../../src/outreach-provider-events.mjs) — exports OUTREACH_PROVIDER_EVENT_VERSION, WEBHOOK_SIGNATURE_HEADER, WEBHOOK_TIMESTAMP_HEADER, WEBHOOK_CLOCK_SKEW_SECONDS, webhookSignature (+4) _(matched by name only; tested; no static importers)_
+- [`src/payment-provider-verifier-dispatch.mjs`](../../src/payment-provider-verifier-dispatch.mjs) — exports PAYMENT_PROVIDER_VERIFIER_DISPATCH_VERSION, bindPaymentVerifierProviders, supportedPaymentProviders, createConfiguredPaymentVerifier _(matched by name only; imported by 1)_
+- [`src/phoenix-runtime-doctor.mjs`](../../src/phoenix-runtime-doctor.mjs) — exports PHOENIX_RUNTIME_DOCTOR_VERSION, runPhoenixRuntimeDoctor _(matched by name only; tested; imported by 1)_
+- [`src/portable-paypal-bridge.mjs`](../../src/portable-paypal-bridge.mjs) — exports createPortablePayPalBridge _(matched by name only; tested; imported by 2)_
+- [`src/provider-activation-receipt.mjs`](../../src/provider-activation-receipt.mjs) — Provider activation receipt: the typed, secret-free record an external _(matched by name only; tested; imported by 2)_
+- [`src/provider-adapter-contract.mjs`](../../src/provider-adapter-contract.mjs) — Versioned provider adapter contract for outreach-sending and _(matched by name only; imported by 4)_
+- [`src/provider-cut-evidence-overlay.mjs`](../../src/provider-cut-evidence-overlay.mjs) — exports PROVIDER_CUT_EVIDENCE_OVERLAY_VERSION, applyProviderCutEvidenceOverlay _(matched by name only; imported by 1)_
+- [`src/provider-http-adapters.mjs`](../../src/provider-http-adapters.mjs) — Provider-neutral HTTP adapters for mailbox/domain infrastructure vendors. _(matched by name only; tested; imported by 4)_
+- [`src/provider-infrastructure-events.mjs`](../../src/provider-infrastructure-events.mjs) — Normalization and replay-safe folding for provider infrastructure webhooks _(matched by name only; tested; imported by 1)_
+- [`src/provider-neutral-runtime-acceptance.mjs`](../../src/provider-neutral-runtime-acceptance.mjs) — exports PROVIDER_NEUTRAL_RUNTIME_ACCEPTANCE_VERSION, verifyProviderNeutralRuntimeAcceptance _(matched by name only; tested; imported by 1)_
+- [`src/provider-receipt-redaction.mjs`](../../src/provider-receipt-redaction.mjs) — Shared provider-payload minimization. Provider adapters may receive secrets, _(matched by name only; imported by 6)_
+- [`src/relay-deployment-attempt.mjs`](../../src/relay-deployment-attempt.mjs) — exports RELAY_DEPLOYMENT_ATTEMPT_POLICY_VERSION, compileRelayDeploymentAttemptReceipt, reconcileRelayDeploymentAttempt _(matched by name only; tested; imported by 1)_
+- [`src/relay-deployment-eligibility.mjs`](../../src/relay-deployment-eligibility.mjs) — Pure preflight for the single authorized UberBond relay preview deployment. _(matched by name only; tested; imported by 5)_
+- [`src/relay-vercel-api-executor.mjs`](../../src/relay-vercel-api-executor.mjs) — Bounded one-shot transport for an already compiled exact relay preview request. _(matched by name only; tested; no static importers; npm: `check:relay-api-executor`)_
+- [`src/relay-vercel-api-request.mjs`](../../src/relay-vercel-api-request.mjs) — Pure compiler for the single exact UberBond relay preview request. _(matched by name only; tested; no static importers; npm: `check:relay-api-request`)_
+- [`src/runtime-cut-evidence-overlay.mjs`](../../src/runtime-cut-evidence-overlay.mjs) — exports RUNTIME_CUT_EVIDENCE_OVERLAY_VERSION, applyRuntimeCutEvidenceOverlay _(matched by name only; tested; imported by 1)_
+- [`src/runtime-evidence-attestation.mjs`](../../src/runtime-evidence-attestation.mjs) — exports RUNTIME_EVIDENCE_ATTESTATION_VERSION, runtimeEvidenceAttestationPayload, runtimeEvidencePublicKeyFingerprint, verifyRuntimeEvidenceAttestation _(matched by name only; tested; imported by 2)_
+- [`src/runtime-proof-ingestion.mjs`](../../src/runtime-proof-ingestion.mjs) — exports RUNTIME_PROOF_INGESTION_VERSION, validateRestartRecoveryRuntimeEvidence, validateSourceRepositoryHostRuntimeEvidence, validateWebRuntimeHostR… _(matched by name only; tested; imported by 1)_
+- [`src/runtime-transition-receipts.mjs`](../../src/runtime-transition-receipts.mjs) — exports RUNTIME_TRANSITION_RECEIPTS_VERSION, RUNTIME_TRANSITION_OBSERVER_VERSION, compileDurableWorkloadAssertion, compileCutoverRollbackAssertion, c… _(matched by name only; tested; imported by 3)_
+- [`src/ubercel-deployment-actuator.mjs`](../../src/ubercel-deployment-actuator.mjs) — exports UBERCEL_DEPLOYMENT_ACTUATOR_VERSION, executeUbercelDeployment _(matched by name only; tested; imported by 1)_
+- [`src/ubercel-deployment-control-plane.mjs`](../../src/ubercel-deployment-control-plane.mjs) — exports UBERCEL_CONTROL_PLANE_VERSION, compileUbercelDeployment, compileUbercelFailover, UBERCEL_ADAPTER_TYPES _(matched by name only; tested; imported by 4)_
+- [`src/ubercel-deployment-doctor.mjs`](../../src/ubercel-deployment-doctor.mjs) — Ubercel deployment state, read through UberBond rather than off a vendor. _(matched by name only; tested; imported by 1)_
+- [`src/uberlaunch-runtime-evidence.mjs`](../../src/uberlaunch-runtime-evidence.mjs) — exports UBERLAUNCH_RUNTIME_EVIDENCE_VERSION, compileUberLaunchRuntimeEvidence, prepareSovereignOneButtonLaunch _(matched by name only; tested; imported by 1)_
+- [`src/uberlit-runtime-doctor.mjs`](../../src/uberlit-runtime-doctor.mjs) — exports UBERLIT_RUNTIME_DOCTOR_SCHEMA, diagnoseUberLitRuntime _(matched by name only; tested; imported by 2)_
+- [`src/uberwarm-vercel-node-bridge.mjs`](../../src/uberwarm-vercel-node-bridge.mjs) — Vercel's vanilla Node functions expect a DEFAULT (req,res) handler. Request/Response method exports alone are not a Node-function endpoint. Preserve… _(matched by name only; tested; imported by 2)_
+- [`src/uberwarm2-bobwork-observer.mjs`](../../src/uberwarm2-bobwork-observer.mjs) — Read-only provider observation. No enroll, resume, campaign, or billing methods. _(matched by name only; tested; imported by 2)_
+- [`src/uberwarm2-protected-runtime-preflight-donor.mjs`](../../src/uberwarm2-protected-runtime-preflight-donor.mjs) — LANE P donor: protected-runtime readiness preflight compiler. _(matched by name only; no static importers)_
+- [`src/uberwarm2-provider-dns-spotcheck.mjs`](../../src/uberwarm2-provider-dns-spotcheck.mjs) — One bounded authenticated Winnr DNS GET per ordinary monitor invocation. Rotates domain selection by five-minute epoch slot; no writes, billing, mail… _(matched by name only; tested; imported by 1)_
+- [`src/uberwarm2-provider-event-log-observer.mjs`](../../src/uberwarm2-provider-event-log-observer.mjs) — Observes Winnr's authenticated webhook DELIVERY ATTEMPT metadata. No webhook is created, replayed, enabled, disabled or acknowledged here. A provider… _(matched by name only; tested; imported by 1)_
+- [`src/uberwarm2-sovereign-live-observer.mjs`](../../src/uberwarm2-sovereign-live-observer.mjs) — Sovereign UberWarm control-plane integration for Winnr's already-owned fleet. Only real, fully paginated provider GET inventory may enter. A provider… _(matched by name only; tested; imported by 1)_
+- [`src/uberwinnr-provider-adapter.mjs`](../../src/uberwinnr-provider-adapter.mjs) — exports UBERWINNR_PROVIDER_CONTRACT_VERSION, createWinnrInfrastructureAdapter _(matched by name only; imported by 1)_
+- [`src/vercel-ai-gateway-executor.mjs`](../../src/vercel-ai-gateway-executor.mjs) — Vercel AI Gateway adapter for the bounded UberBond agent-worker runtime. _(matched by name only; tested; imported by 1)_
+- [`src/web-runtime-host-receipt.mjs`](../../src/web-runtime-host-receipt.mjs) — exports WEB_RUNTIME_HOST_RECEIPT_VERSION, webRuntimeHostReceiptPreimage, verifyWebRuntimeHostReceiptIntegrity, compileWebRuntimeHostReceipt _(matched by name only; imported by 3)_
+- [`src/winnr-runtime-bootstrap.mjs`](../../src/winnr-runtime-bootstrap.mjs) — exports runWinnrRuntimeBootstrap _(matched by name only; imported by 2)_
 
 ## Scripts (24)
 
-- [`scripts/deploy-restart-recovery-drill.mjs`](../../scripts/deploy-restart-recovery-drill.mjs)
-- [`scripts/founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs)
-- [`scripts/free-runtime-burst.mjs`](../../scripts/free-runtime-burst.mjs)
-- [`scripts/free-runtime-witness.mjs`](../../scripts/free-runtime-witness.mjs)
-- [`scripts/genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION
-- [`scripts/infinite-opus-runtime-authorization-mint.mjs`](../../scripts/infinite-opus-runtime-authorization-mint.mjs) _(npm: `infinite-opus:runtime-auth:mint`)_
-- [`scripts/jev-native-runtime-tests.mjs`](../../scripts/jev-native-runtime-tests.mjs) — exports JEV_NATIVE_TEST_RECEIPT_SCHEMA, runJevNativeTests
-- [`scripts/jev-tensor-provider-metadata-readback.mjs`](../../scripts/jev-tensor-provider-metadata-readback.mjs) — exports JEV_TENSOR_METADATA_KEY, JEV_TENSOR_METADATA_SCHEMA, readJevTensorProviderBilling
-- [`scripts/model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(npm: `providers:doctor`)_
-- [`scripts/model-provider-runtime-probe.mjs`](../../scripts/model-provider-runtime-probe.mjs)
-- [`scripts/provider-neutral-backend-doctor.mjs`](../../scripts/provider-neutral-backend-doctor.mjs) — exports inspectPortableBackend
-- [`scripts/runtime-transition-assertion.mjs`](../../scripts/runtime-transition-assertion.mjs)
-- [`scripts/sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs)
-- [`scripts/sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse
-- [`scripts/ubercel-deploy.mjs`](../../scripts/ubercel-deploy.mjs) — exports runUbercelOperator
-- [`scripts/ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment
-- [`scripts/uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs)
-- [`scripts/uberlit-runtime-evidence.mjs`](../../scripts/uberlit-runtime-evidence.mjs)
-- [`scripts/uberwarm2-railway-read-monitor.mjs`](../../scripts/uberwarm2-railway-read-monitor.mjs) — Bounded provider read check. Optional append-only operational receipts, never probe claims.
-- [`scripts/vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs)
-- [`scripts/vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs)
-- [`scripts/vercel-immutable-install.mjs`](../../scripts/vercel-immutable-install.mjs) — exports VERCEL_IMMUTABLE_INSTALL_VERSION, parsePorcelainPaths, packageTruthDirt, compileVercelImmutableInstallPlan, executeVercelImmutableInstall
-- [`scripts/verify-uberwarm-railway-callback.mjs`](../../scripts/verify-uberwarm-railway-callback.mjs)
-- [`scripts/web-runtime-host-drill.mjs`](../../scripts/web-runtime-host-drill.mjs)
+- [`scripts/deploy-restart-recovery-drill.mjs`](../../scripts/deploy-restart-recovery-drill.mjs) _(matched by name only)_
+- [`scripts/founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) _(matched by name only)_
+- [`scripts/free-runtime-burst.mjs`](../../scripts/free-runtime-burst.mjs) _(matched by name only)_
+- [`scripts/free-runtime-witness.mjs`](../../scripts/free-runtime-witness.mjs) _(matched by name only)_
+- [`scripts/genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION _(matched by name only)_
+- [`scripts/infinite-opus-runtime-authorization-mint.mjs`](../../scripts/infinite-opus-runtime-authorization-mint.mjs) _(matched by name only; npm: `infinite-opus:runtime-auth:mint`)_
+- [`scripts/jev-native-runtime-tests.mjs`](../../scripts/jev-native-runtime-tests.mjs) — exports JEV_NATIVE_TEST_RECEIPT_SCHEMA, runJevNativeTests _(matched by name only)_
+- [`scripts/jev-tensor-provider-metadata-readback.mjs`](../../scripts/jev-tensor-provider-metadata-readback.mjs) — exports JEV_TENSOR_METADATA_KEY, JEV_TENSOR_METADATA_SCHEMA, readJevTensorProviderBilling _(matched by name only)_
+- [`scripts/model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(matched by name only; npm: `providers:doctor`)_
+- [`scripts/model-provider-runtime-probe.mjs`](../../scripts/model-provider-runtime-probe.mjs) _(matched by name only)_
+- [`scripts/provider-neutral-backend-doctor.mjs`](../../scripts/provider-neutral-backend-doctor.mjs) — exports inspectPortableBackend _(matched by name only)_
+- [`scripts/runtime-transition-assertion.mjs`](../../scripts/runtime-transition-assertion.mjs) _(matched by name only)_
+- [`scripts/sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs) _(matched by name only)_
+- [`scripts/sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse _(matched by name only)_
+- [`scripts/ubercel-deploy.mjs`](../../scripts/ubercel-deploy.mjs) — exports runUbercelOperator _(matched by name only)_
+- [`scripts/ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment _(matched by name only)_
+- [`scripts/uberlit-runtime-doctor.mjs`](../../scripts/uberlit-runtime-doctor.mjs) _(matched by name only)_
+- [`scripts/uberlit-runtime-evidence.mjs`](../../scripts/uberlit-runtime-evidence.mjs) _(matched by name only)_
+- [`scripts/uberwarm2-railway-read-monitor.mjs`](../../scripts/uberwarm2-railway-read-monitor.mjs) — Bounded provider read check. Optional append-only operational receipts, never probe claims. _(matched by name only)_
+- [`scripts/vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs) _(matched by name only)_
+- [`scripts/vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs) _(matched by name only)_
+- [`scripts/vercel-immutable-install.mjs`](../../scripts/vercel-immutable-install.mjs) — exports VERCEL_IMMUTABLE_INSTALL_VERSION, parsePorcelainPaths, packageTruthDirt, compileVercelImmutableInstallPlan, executeVercelImmutableInstall _(matched by name only)_
+- [`scripts/verify-uberwarm-railway-callback.mjs`](../../scripts/verify-uberwarm-railway-callback.mjs) _(matched by name only)_
+- [`scripts/web-runtime-host-drill.mjs`](../../scripts/web-runtime-host-drill.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (179)
 
-- [`.claude/skills/task-observer/scripts/migrate-log.py`](../../.claude/skills/task-observer/scripts/migrate-log.py)
-- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm)
-- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker
-- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI
-- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker
-- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst
-- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh
-- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits
-- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification
-- [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — Night Verification War
-- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification
-- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration
-- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector
-- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv
-- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor
-- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler
-- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S…
-- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch
-- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper
-- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal
-- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec…
-- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient
-- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation
-- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake
-- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control
-- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — UberBond Sandwich Autocatalytic Loop
-- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor
-- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer
-- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh
-- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs
-- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate
-- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification
-- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head
-- [`.github/workflows/uberwarm-main-canon.yml`](../../.github/workflows/uberwarm-main-canon.yml) — UberWarm isolated release canonical receipts
-- [`.github/workflows/uberwarm-provider-identity-canon-20261018.yml`](../../.github/workflows/uberwarm-provider-identity-canon-20261018.yml) — 2026-10-18 · UberWarm verified provider schema canonical receipt
-- [`Dockerfile`](../../Dockerfile)
-- [`Dockerfile.sovereign`](../../Dockerfile.sovereign) — Sovereign builds are intentionally boring: dependencies must already exist in
-- [`Dockerfile.sovereign.dockerignore`](../../Dockerfile.sovereign.dockerignore)
-- [`Dockerfile.uberwarm-one-shot`](../../Dockerfile.uberwarm-one-shot) — Manual, one-use image, deliberately NOT the five-minute read-only monitor.
-- [`Dockerfile.uberwarm-read-monitor`](../../Dockerfile.uberwarm-read-monitor)
-- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor
-- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls,
-- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools"
-- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1
-- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1
-- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1
-- [`artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1
-- [`artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-escalation-runtime.v1
-- [`artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1
-- [`artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0
-- [`artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0
-- [`artifacts/outreach/free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan
-- [`artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03
-- [`artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED
-- [`artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan
-- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json)
-- [`artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json`](../../artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json)
-- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — uberbond.global-runtime-closure.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json) — 2026-10-03
-- [`artifacts/outreach/provider-activation-receipts-2026-09-01.json`](../../artifacts/outreach/provider-activation-receipts-2026-09-01.json) — 2026-09-01 · uberbond-provider-activation-receipts-1.0.0
-- [`artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json`](../../artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json) — 2026-10-02 · uberbond.v6-owner-authenticated-read.v1
-- [`artifacts/ubercel/deployment-signals.json`](../../artifacts/ubercel/deployment-signals.json) — uberbond.ubercel-deployment-signals.v1
-- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json) — RESEARCHED_NOT_CONFIGURED · uberbond.ai-gateway-provider-research.v1
-- [`config/infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1
-- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime
-- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock
-- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock
-- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded"
-- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc)
-- [`docker-compose.sovereign.yml`](../../docker-compose.sovereign.yml) — Sovereign self-host compose stack.
-- [`docker-compose.yml`](../../docker-compose.yml) — Local/portable compose stack.
-- [`docs/NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json`](../NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json) — 2026-08-29 · PASS
-- [`docs/PORTABLE_BACKEND_CHECKPOINT.json`](../PORTABLE_BACKEND_CHECKPOINT.json) — CURRENT_SOURCE_HARDENED__EXACT_EXECUTION_PENDING · uberbond.portable-backend.checkpoint.v2
-- [`docs/migrations-pending/20261017_uberwarm2_https_provider_status.sql`](../migrations-pending/20261017_uberwarm2_https_provider_status.sql) — 2026-10-17 · Additive compatibility step for installations that already applied
-- [`lite/vercel.json`](../../lite/vercel.json)
-- [`migrations/20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column
-- [`open router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs`](../../open%20router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs) — 2026-09-30 · exports INFINITE_OPUS_TASK_SCHEMA, createInfiniteOpusRuntime, createInfiniteOpusJobHandlers
-- [`open router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs`](../../open%20router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs) — 2026-09-30 · exports requestHandler
-- [`open router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml`](../../open%20router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml) — 2026-09-30
-- [`open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json`](../../open%20router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json) — 2026-10-07 · INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS · uberbond.open-router.current-runtime.v1
-- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh)
-- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh)
-- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh)
-- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh)
-- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh)
-- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh)
-- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh)
-- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh)
-- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh)
-- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh)
-- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh)
-- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh)
-- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh)
-- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh)
-- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh)
-- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh)
-- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh)
-- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh)
-- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh)
-- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh)
-- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh)
-- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh)
-- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh)
-- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh)
-- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh)
-- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh)
-- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs)
-- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh)
-- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline
-- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier
-- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR…
-- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh)
-- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh)
-- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl)
-- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path)
-- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum)
-- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service)
-- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service)
-- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path)
-- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service)
-- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate)
-- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query)
-- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console)
-- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service)
-- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service)
-- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer)
-- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway)
-- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service)
-- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy)
-- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service)
-- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path)
-- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service)
-- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter)
-- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path)
-- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service)
-- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service)
-- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker)
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service)
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer)
-- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service)
-- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path)
-- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service)
-- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service)
-- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer)
-- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path)
-- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service)
-- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path)
-- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service)
-- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl)
-- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service)
-- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service)
-- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service)
-- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh)
-- [`railway-worker.json`](../../railway-worker.json) — Railway worker service config.
-- [`railway.json`](../../railway.json) — Railway web service config.
-- [`relay/vercel.json`](../../relay/vercel.json)
-- [`render.yaml`](../../render.yaml) — Render blueprint (web + worker).
-- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator
-- [`runtime/free-mesh/wrangler.jsonc`](../../runtime/free-mesh/wrangler.jsonc)
-- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts)
-- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts)
-- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts)
-- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts)
-- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1
-- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue.
-- [`services/uberwarm-callback/railway-entry.mjs`](../../services/uberwarm-callback/railway-entry.mjs) — exports close, fetch
-- [`services/uberwarm-callback/railway/index.tsx`](../../services/uberwarm-callback/railway/index.tsx) — railway-entry.mjs
-- [`services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs`](../../services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs) — Vercel's vanilla Node functions expect a DEFAULT (req,res) handler. Request/Response method exports alone are not a Node-function endpoint. Preserve…
-- [`services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql`](../../services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql) — 2026-10-19 · Dedicated, inaccessible-by-Data-API inbound safety quarantine.
-- [`services/uberwarm-callback/supabase/index.ts`](../../services/uberwarm-callback/supabase/index.ts) — Supabase Edge fallback for Winnr signed delivery events. No sending ability.
-- [`services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs) — 4 tests — e.g. "Vercel default handlers are functions, explicit raw-body bypass configured"
-- [`vercel.json`](../../vercel.json) — Vercel routes, functions and crons.
+- [`.claude/skills/task-observer/scripts/migrate-log.py`](../../.claude/skills/task-observer/scripts/migrate-log.py) _(matched by name only)_
+- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) _(matched by name only)_
+- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker _(matched by name only)_
+- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI _(matched by name only)_
+- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker _(matched by name only)_
+- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst _(matched by name only)_
+- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh _(matched by name only)_
+- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits _(matched by name only)_
+- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification _(matched by name only)_
+- [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — Night Verification War _(matched by name only)_
+- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification _(matched by name only)_
+- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S… _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec… _(matched by name only)_
+- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient _(matched by name only)_
+- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation _(matched by name only)_
+- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake _(matched by name only)_
+- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control _(matched by name only)_
+- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — UberBond Sandwich Autocatalytic Loop _(matched by name only)_
+- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor _(matched by name only)_
+- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer _(matched by name only)_
+- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh _(matched by name only)_
+- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs _(matched by name only)_
+- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate _(matched by name only)_
+- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification _(matched by name only)_
+- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head _(matched by name only)_
+- [`.github/workflows/uberwarm-main-canon.yml`](../../.github/workflows/uberwarm-main-canon.yml) — UberWarm isolated release canonical receipts _(matched by name only)_
+- [`.github/workflows/uberwarm-provider-identity-canon-20261018.yml`](../../.github/workflows/uberwarm-provider-identity-canon-20261018.yml) — 2026-10-18 · UberWarm verified provider schema canonical receipt _(matched by name only)_
+- [`Dockerfile`](../../Dockerfile) _(matched by name only)_
+- [`Dockerfile.sovereign`](../../Dockerfile.sovereign) — Sovereign builds are intentionally boring: dependencies must already exist in _(matched by name only)_
+- [`Dockerfile.sovereign.dockerignore`](../../Dockerfile.sovereign.dockerignore) _(matched by name only)_
+- [`Dockerfile.uberwarm-one-shot`](../../Dockerfile.uberwarm-one-shot) — Manual, one-use image, deliberately NOT the five-minute read-only monitor. _(matched by name only)_
+- [`Dockerfile.uberwarm-read-monitor`](../../Dockerfile.uberwarm-read-monitor) _(matched by name only)_
+- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor _(matched by name only)_
+- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls, _(matched by name only)_
+- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools" _(matched by name only)_
+- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-escalation-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1 _(matched by name only)_
+- [`artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json) _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json`](../../artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json) _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — uberbond.global-runtime-closure.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`artifacts/outreach/provider-activation-receipts-2026-09-01.json`](../../artifacts/outreach/provider-activation-receipts-2026-09-01.json) — 2026-09-01 · uberbond-provider-activation-receipts-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json`](../../artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json) — 2026-10-02 · uberbond.v6-owner-authenticated-read.v1 _(matched by name only)_
+- [`artifacts/ubercel/deployment-signals.json`](../../artifacts/ubercel/deployment-signals.json) — uberbond.ubercel-deployment-signals.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json) — RESEARCHED_NOT_CONFIGURED · uberbond.ai-gateway-provider-research.v1 _(matched by name only)_
+- [`config/infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1 _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded" _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc) _(matched by name only)_
+- [`docker-compose.sovereign.yml`](../../docker-compose.sovereign.yml) — Sovereign self-host compose stack. _(matched by name only)_
+- [`docker-compose.yml`](../../docker-compose.yml) — Local/portable compose stack. _(matched by name only)_
+- [`docs/NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json`](../NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json) — 2026-08-29 · PASS _(matched by name only)_
+- [`docs/PORTABLE_BACKEND_CHECKPOINT.json`](../PORTABLE_BACKEND_CHECKPOINT.json) — CURRENT_SOURCE_HARDENED__EXACT_EXECUTION_PENDING · uberbond.portable-backend.checkpoint.v2 _(matched by name only)_
+- [`docs/migrations-pending/20261017_uberwarm2_https_provider_status.sql`](../migrations-pending/20261017_uberwarm2_https_provider_status.sql) — 2026-10-17 · Additive compatibility step for installations that already applied _(matched by name only)_
+- [`lite/vercel.json`](../../lite/vercel.json) _(matched by name only)_
+- [`migrations/20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column _(matched by name only)_
+- [`open router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs`](../../open%20router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs) — 2026-09-30 · exports INFINITE_OPUS_TASK_SCHEMA, createInfiniteOpusRuntime, createInfiniteOpusJobHandlers _(matched by name only)_
+- [`open router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs`](../../open%20router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs) — 2026-09-30 · exports requestHandler _(matched by name only)_
+- [`open router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml`](../../open%20router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml) — 2026-09-30 _(matched by name only)_
+- [`open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json`](../../open%20router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json) — 2026-10-07 · INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS · uberbond.open-router.current-runtime.v1 _(matched by name only)_
+- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh) _(matched by name only)_
+- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh) _(matched by name only)_
+- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh) _(matched by name only)_
+- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh) _(matched by name only)_
+- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh) _(matched by name only)_
+- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh) _(matched by name only)_
+- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh) _(matched by name only)_
+- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh) _(matched by name only)_
+- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh) _(matched by name only)_
+- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh) _(matched by name only)_
+- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) _(matched by name only)_
+- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh) _(matched by name only)_
+- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) _(matched by name only)_
+- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh) _(matched by name only)_
+- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh) _(matched by name only)_
+- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh) _(matched by name only)_
+- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs) _(matched by name only)_
+- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline _(matched by name only)_
+- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier _(matched by name only)_
+- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR… _(matched by name only)_
+- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh) _(matched by name only)_
+- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh) _(matched by name only)_
+- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate) _(matched by name only)_
+- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker) _(matched by name only)_
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service) _(matched by name only)_
+- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl) _(matched by name only)_
+- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service) _(matched by name only)_
+- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service) _(matched by name only)_
+- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh) _(matched by name only)_
+- [`railway-worker.json`](../../railway-worker.json) — Railway worker service config. _(matched by name only)_
+- [`railway.json`](../../railway.json) — Railway web service config. _(matched by name only)_
+- [`relay/vercel.json`](../../relay/vercel.json) _(matched by name only)_
+- [`render.yaml`](../../render.yaml) — Render blueprint (web + worker). _(matched by name only)_
+- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator _(matched by name only)_
+- [`runtime/free-mesh/wrangler.jsonc`](../../runtime/free-mesh/wrangler.jsonc) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1 _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue. _(matched by name only)_
+- [`services/uberwarm-callback/railway-entry.mjs`](../../services/uberwarm-callback/railway-entry.mjs) — exports close, fetch _(matched by name only)_
+- [`services/uberwarm-callback/railway/index.tsx`](../../services/uberwarm-callback/railway/index.tsx) — railway-entry.mjs _(matched by name only)_
+- [`services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs`](../../services/uberwarm-callback/src/uberwarm-vercel-node-bridge.mjs) — Vercel's vanilla Node functions expect a DEFAULT (req,res) handler. Request/Response method exports alone are not a Node-function endpoint. Preserve… _(matched by name only)_
+- [`services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql`](../../services/uberwarm-callback/supabase/20261019_uberwarm_ingress.sql) — 2026-10-19 · Dedicated, inaccessible-by-Data-API inbound safety quarantine. _(matched by name only)_
+- [`services/uberwarm-callback/supabase/index.ts`](../../services/uberwarm-callback/supabase/index.ts) — Supabase Edge fallback for Winnr signed delivery events. No sending ability. _(matched by name only)_
+- [`services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs`](../../services/uberwarm-callback/tests/uberwarm-vercel-node-bridge.test.mjs) — 4 tests — e.g. "Vercel default handlers are functions, explicit raw-body bypass configured" _(matched by name only)_
+- [`vercel.json`](../../vercel.json) — Vercel routes, functions and crons. _(matched by name only)_
 
 ## Tests (79)
 

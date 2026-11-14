@@ -16,61 +16,61 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Source modules (9)
 
-- [`src/database-hygiene-maintenance.mjs`](../../src/database-hygiene-maintenance.mjs) — exports DATABASE_HYGIENE_POLICY_VERSION, compileMaintenancePlan _(no static importers)_
-- [`src/database-hygiene-repository.mjs`](../../src/database-hygiene-repository.mjs) — exports DATABASE_HYGIENE_REPOSITORY_VERSION, runSafeDatabaseHygiene _(imported by 1)_
-- [`src/database-query-postgres.mjs`](../../src/database-query-postgres.mjs) — exports DATABASE_QUERY_POSTGRES_ATOM_ID, compileDatabaseQueryPostgres, executeDatabaseQueryPostgres _(tested; imported by 1)_
-- [`src/embedded-postgres-platform.mjs`](../../src/embedded-postgres-platform.mjs) — exports APPROVED_EMBEDDED_POSTGRES_VERSION, resolveEmbeddedPostgresPlatform, approvedEmbeddedPostgresBuildScripts _(tested; imported by 2)_
-- [`src/json-import.mjs`](../../src/json-import.mjs) — exports loadJsonDatabase, importJsonDatabase _(tested; imported by 3)_
-- [`src/postgres-backup-restore-pg-adapter.mjs`](../../src/postgres-backup-restore-pg-adapter.mjs) — exports createPostgresBackupRestorePgAdapter _(imported by 1)_
-- [`src/postgres-backup-restore-receipt.mjs`](../../src/postgres-backup-restore-receipt.mjs) — exports POSTGRES_BACKUP_RESTORE_RECEIPT_VERSION, compilePostgresBackupRestoreReceipt _(imported by 1)_
-- [`src/postgres-backup-restore-runner.mjs`](../../src/postgres-backup-restore-runner.mjs) — exports POSTGRES_BACKUP_RESTORE_RUNNER_VERSION, databaseIdentity, runPostgresBackupRestoreRehearsal _(tested; imported by 1)_
-- [`src/store.mjs`](../../src/store.mjs) — exports COLLECTIONS, StoreError, ConflictError, JsonStore, PostgresStore (+2) _(tested; imported by 37)_
+- [`src/database-hygiene-maintenance.mjs`](../../src/database-hygiene-maintenance.mjs) — exports DATABASE_HYGIENE_POLICY_VERSION, compileMaintenancePlan _(matched by name only; no static importers)_
+- [`src/database-hygiene-repository.mjs`](../../src/database-hygiene-repository.mjs) — exports DATABASE_HYGIENE_REPOSITORY_VERSION, runSafeDatabaseHygiene _(matched by name only; imported by 1)_
+- [`src/database-query-postgres.mjs`](../../src/database-query-postgres.mjs) — exports DATABASE_QUERY_POSTGRES_ATOM_ID, compileDatabaseQueryPostgres, executeDatabaseQueryPostgres _(matched by name only; tested; imported by 1)_
+- [`src/embedded-postgres-platform.mjs`](../../src/embedded-postgres-platform.mjs) — exports APPROVED_EMBEDDED_POSTGRES_VERSION, resolveEmbeddedPostgresPlatform, approvedEmbeddedPostgresBuildScripts _(matched by name only; tested; imported by 2)_
+- [`src/json-import.mjs`](../../src/json-import.mjs) — exports loadJsonDatabase, importJsonDatabase _(matched by name only; tested; imported by 3)_
+- [`src/postgres-backup-restore-pg-adapter.mjs`](../../src/postgres-backup-restore-pg-adapter.mjs) — exports createPostgresBackupRestorePgAdapter _(matched by name only; imported by 1)_
+- [`src/postgres-backup-restore-receipt.mjs`](../../src/postgres-backup-restore-receipt.mjs) — exports POSTGRES_BACKUP_RESTORE_RECEIPT_VERSION, compilePostgresBackupRestoreReceipt _(matched by name only; imported by 1)_
+- [`src/postgres-backup-restore-runner.mjs`](../../src/postgres-backup-restore-runner.mjs) — exports POSTGRES_BACKUP_RESTORE_RUNNER_VERSION, databaseIdentity, runPostgresBackupRestoreRehearsal _(matched by name only; tested; imported by 1)_
+- [`src/store.mjs`](../../src/store.mjs) — exports COLLECTIONS, StoreError, ConflictError, JsonStore, PostgresStore (+2) _(matched by name only; tested; imported by 37)_
 
 ## Scripts (9)
 
-- [`scripts/disposable-postgres.mjs`](../../scripts/disposable-postgres.mjs) — One PostgreSQL server, for one unit of work, thrown away afterwards.
-- [`scripts/hydrate-embedded-postgres-fixture.mjs`](../../scripts/hydrate-embedded-postgres-fixture.mjs) — exports APPROVED_EMBEDDED_POSTGRES_VERSION, APPROVED_EMBEDDED_POSTGRES_SPEC, hydratePinnedEmbeddedPostgresFixture
-- [`scripts/infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs)
-- [`scripts/postgres-app-smoke.mjs`](../../scripts/postgres-app-smoke.mjs) _(npm: `smoke:postgres-app`)_
-- [`scripts/postgres-backup-restore-rehearsal.mjs`](../../scripts/postgres-backup-restore-rehearsal.mjs)
-- [`scripts/postgres-smoke.mjs`](../../scripts/postgres-smoke.mjs) _(npm: `smoke:postgres`)_
-- [`scripts/prepare-embedded-postgres-fixture.mjs`](../../scripts/prepare-embedded-postgres-fixture.mjs) — exports prepareEmbeddedPostgresFixture
-- [`scripts/run-real-postgres-tests.mjs`](../../scripts/run-real-postgres-tests.mjs) — Run the suites that need a real PostgreSQL, serially. _(npm: `test:postgres-real`)_
-- [`scripts/with-real-postgres.mjs`](../../scripts/with-real-postgres.mjs) — Run a command against a real, disposable PostgreSQL. _(npm: `test:postgres-real:embedded`, `test:mutation-war:full`)_
+- [`scripts/disposable-postgres.mjs`](../../scripts/disposable-postgres.mjs) — One PostgreSQL server, for one unit of work, thrown away afterwards. _(matched by name only)_
+- [`scripts/hydrate-embedded-postgres-fixture.mjs`](../../scripts/hydrate-embedded-postgres-fixture.mjs) — exports APPROVED_EMBEDDED_POSTGRES_VERSION, APPROVED_EMBEDDED_POSTGRES_SPEC, hydratePinnedEmbeddedPostgresFixture _(matched by name only)_
+- [`scripts/infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs) _(matched by name only)_
+- [`scripts/postgres-app-smoke.mjs`](../../scripts/postgres-app-smoke.mjs) _(matched by name only; npm: `smoke:postgres-app`)_
+- [`scripts/postgres-backup-restore-rehearsal.mjs`](../../scripts/postgres-backup-restore-rehearsal.mjs) _(matched by name only)_
+- [`scripts/postgres-smoke.mjs`](../../scripts/postgres-smoke.mjs) _(matched by name only; npm: `smoke:postgres`)_
+- [`scripts/prepare-embedded-postgres-fixture.mjs`](../../scripts/prepare-embedded-postgres-fixture.mjs) — exports prepareEmbeddedPostgresFixture _(matched by name only)_
+- [`scripts/run-real-postgres-tests.mjs`](../../scripts/run-real-postgres-tests.mjs) — Run the suites that need a real PostgreSQL, serially. _(matched by name only; npm: `test:postgres-real`)_
+- [`scripts/with-real-postgres.mjs`](../../scripts/with-real-postgres.mjs) — Run a command against a real, disposable PostgreSQL. _(matched by name only; npm: `test:postgres-real:embedded`, `test:mutation-war:full`)_
 
 ## Config, data, artifacts and services (31)
 
-- [`api/database-maintenance.mjs`](../../api/database-maintenance.mjs) — exports DATABASE_MAINTENANCE_SCHEDULE, createHandler
-- [`data/db.sample.json`](../../data/db.sample.json)
-- [`docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql`](../migrations-pending/20261012_uberwarm2_seed_one_shot.sql) — 2026-10-12 · UberWarm2 owner-controlled placement probes: physical one-shot and daily quota ledger.
-- [`docs/migrations-pending/20261017_uberwarm2_https_provider_status.sql`](../migrations-pending/20261017_uberwarm2_https_provider_status.sql) — 2026-10-17 · Additive compatibility step for installations that already applied
-- [`docs/migrations-pending/20261017_uberwarm2_operational_receipts.sql`](../migrations-pending/20261017_uberwarm2_operational_receipts.sql) — 2026-10-17 · Additive and separate from the one-shot effect ledger. Never rewrite probe claims.
-- [`docs/migrations-pending/20261017_uberwarm2_receiver_binding.sql`](../migrations-pending/20261017_uberwarm2_receiver_binding.sql) — 2026-10-17 · Private encrypted receiver credentials; does not grant consent to transmit mail.
-- [`migrations/001_initial.sql`](../../migrations/001_initial.sql)
-- [`migrations/002_durable_queue.sql`](../../migrations/002_durable_queue.sql)
-- [`migrations/003_shared_artifacts.sql`](../../migrations/003_shared_artifacts.sql)
-- [`migrations/004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql)
-- [`migrations/005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql)
-- [`migrations/006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql)
-- [`migrations/007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql)
-- [`migrations/008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql)
-- [`migrations/009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no
-- [`migrations/010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately
-- [`migrations/011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with,
-- [`migrations/100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables.
-- [`migrations/101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql)
-- [`migrations/102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave
-- [`migrations/103_external_artifact_storage.sql`](../../migrations/103_external_artifact_storage.sql) — Preserve legacy PostgreSQL artifact bytes by default while allowing future
-- [`migrations/104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql)
-- [`migrations/105_campaign_idempotency.sql`](../../migrations/105_campaign_idempotency.sql)
-- [`migrations/106_lead_intelligence_collections.sql`](../../migrations/106_lead_intelligence_collections.sql) — The store map has always reserved these collections for the recovered
-- [`migrations/20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column
-- [`migrations/20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal
-- [`migrations/20261006_powerhouse_sender_scope_resolution.sql`](../../migrations/20261006_powerhouse_sender_scope_resolution.sql) — 2026-10-06 · Exact-prospect, narrow sender-side scope resolution. This does not grant send
-- [`migrations/20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only.
-- [`migrations/20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts.
-- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh)
-- [`public/storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit
+- [`api/database-maintenance.mjs`](../../api/database-maintenance.mjs) — exports DATABASE_MAINTENANCE_SCHEDULE, createHandler _(matched by name only)_
+- [`data/db.sample.json`](../../data/db.sample.json) _(matched by name only)_
+- [`docs/migrations-pending/20261012_uberwarm2_seed_one_shot.sql`](../migrations-pending/20261012_uberwarm2_seed_one_shot.sql) — 2026-10-12 · UberWarm2 owner-controlled placement probes: physical one-shot and daily quota ledger. _(matched by name only)_
+- [`docs/migrations-pending/20261017_uberwarm2_https_provider_status.sql`](../migrations-pending/20261017_uberwarm2_https_provider_status.sql) — 2026-10-17 · Additive compatibility step for installations that already applied _(matched by name only)_
+- [`docs/migrations-pending/20261017_uberwarm2_operational_receipts.sql`](../migrations-pending/20261017_uberwarm2_operational_receipts.sql) — 2026-10-17 · Additive and separate from the one-shot effect ledger. Never rewrite probe claims. _(matched by name only)_
+- [`docs/migrations-pending/20261017_uberwarm2_receiver_binding.sql`](../migrations-pending/20261017_uberwarm2_receiver_binding.sql) — 2026-10-17 · Private encrypted receiver credentials; does not grant consent to transmit mail. _(matched by name only)_
+- [`migrations/001_initial.sql`](../../migrations/001_initial.sql) _(matched by name only)_
+- [`migrations/002_durable_queue.sql`](../../migrations/002_durable_queue.sql) _(matched by name only)_
+- [`migrations/003_shared_artifacts.sql`](../../migrations/003_shared_artifacts.sql) _(matched by name only)_
+- [`migrations/004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql) _(matched by name only)_
+- [`migrations/005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql) _(matched by name only)_
+- [`migrations/006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql) _(matched by name only)_
+- [`migrations/007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql) _(matched by name only)_
+- [`migrations/008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql) _(matched by name only)_
+- [`migrations/009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no _(matched by name only)_
+- [`migrations/010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately _(matched by name only)_
+- [`migrations/011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with, _(matched by name only)_
+- [`migrations/100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables. _(matched by name only)_
+- [`migrations/101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql) _(matched by name only)_
+- [`migrations/102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave _(matched by name only)_
+- [`migrations/103_external_artifact_storage.sql`](../../migrations/103_external_artifact_storage.sql) — Preserve legacy PostgreSQL artifact bytes by default while allowing future _(matched by name only)_
+- [`migrations/104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql) _(matched by name only)_
+- [`migrations/105_campaign_idempotency.sql`](../../migrations/105_campaign_idempotency.sql) _(matched by name only)_
+- [`migrations/106_lead_intelligence_collections.sql`](../../migrations/106_lead_intelligence_collections.sql) — The store map has always reserved these collections for the recovered _(matched by name only)_
+- [`migrations/20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column _(matched by name only)_
+- [`migrations/20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal _(matched by name only)_
+- [`migrations/20261006_powerhouse_sender_scope_resolution.sql`](../../migrations/20261006_powerhouse_sender_scope_resolution.sql) — 2026-10-06 · Exact-prospect, narrow sender-side scope resolution. This does not grant send _(matched by name only)_
+- [`migrations/20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only. _(matched by name only)_
+- [`migrations/20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts. _(matched by name only)_
+- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh) _(matched by name only)_
+- [`public/storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit _(matched by name only)_
 
 ## Tests (22)
 

@@ -12,31 +12,31 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — UberSocket Chat Bridge
+- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — UberSocket Chat Bridge _(matched by name only)_
 
 ## Source modules (9)
 
-- [`src/uber-socket-app-peer-router.mjs`](../../src/uber-socket-app-peer-router.mjs) — exports createAppPeerRouter _(tested; imported by 1)_
-- [`src/uber-socket-cognitive-backplane.mjs`](../../src/uber-socket-cognitive-backplane.mjs) — exports UBER_SOCKET_COGNITIVE_BACKPLANE_VERSION, createUberSocketCognitiveBackplane _(tested; imported by 1)_
-- [`src/uber-socket-connectome-runtime.mjs`](../../src/uber-socket-connectome-runtime.mjs) — exports UBER_SOCKET_CONNECTOME_RUNTIME_VERSION, createUberSocketConnectomeRuntime _(tested; imported by 1)_
-- [`src/uber-socket-durable-state.mjs`](../../src/uber-socket-durable-state.mjs) — exports UBER_SOCKET_DURABLE_STATE_VERSION, UBER_SOCKET_STATE_KEY, snapshotUberSocketState, persistUberSocketState, restoreUberSocketState _(tested; imported by 1)_
-- [`src/uber-socket-openai-secret.mjs`](../../src/uber-socket-openai-secret.mjs) — exports UBER_SOCKET_OPENAI_SECRET_VERSION, readUberSocketOpenAIKey, storeUberSocketOpenAIKey, clearUberSocketOpenAIKey _(imported by 1)_
-- [`src/uber-socket-project-mesh.mjs`](../../src/uber-socket-project-mesh.mjs) — exports createProjectMesh _(tested; imported by 1)_
-- [`src/uber-socket-runtime.mjs`](../../src/uber-socket-runtime.mjs) — exports getUberSocketRuntime, reloadUberSocketRuntime, resetUberSocketRuntimeForTests _(imported by 2)_
-- [`src/uber-socket-shared-content-fabric.mjs`](../../src/uber-socket-shared-content-fabric.mjs) — exports createSharedContentFabric _(tested; imported by 1)_
-- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — exports UBER_SOCKET_WHOLE_BRAIN_ORCHESTRATOR_VERSION, createUberSocketWholeBrainOrchestrator _(imported by 1)_
+- [`src/uber-socket-app-peer-router.mjs`](../../src/uber-socket-app-peer-router.mjs) — exports createAppPeerRouter _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-cognitive-backplane.mjs`](../../src/uber-socket-cognitive-backplane.mjs) — exports UBER_SOCKET_COGNITIVE_BACKPLANE_VERSION, createUberSocketCognitiveBackplane _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-connectome-runtime.mjs`](../../src/uber-socket-connectome-runtime.mjs) — exports UBER_SOCKET_CONNECTOME_RUNTIME_VERSION, createUberSocketConnectomeRuntime _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-durable-state.mjs`](../../src/uber-socket-durable-state.mjs) — exports UBER_SOCKET_DURABLE_STATE_VERSION, UBER_SOCKET_STATE_KEY, snapshotUberSocketState, persistUberSocketState, restoreUberSocketState _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-openai-secret.mjs`](../../src/uber-socket-openai-secret.mjs) — exports UBER_SOCKET_OPENAI_SECRET_VERSION, readUberSocketOpenAIKey, storeUberSocketOpenAIKey, clearUberSocketOpenAIKey _(matched by name only; imported by 1)_
+- [`src/uber-socket-project-mesh.mjs`](../../src/uber-socket-project-mesh.mjs) — exports createProjectMesh _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-runtime.mjs`](../../src/uber-socket-runtime.mjs) — exports getUberSocketRuntime, reloadUberSocketRuntime, resetUberSocketRuntimeForTests _(matched by name only; imported by 2)_
+- [`src/uber-socket-shared-content-fabric.mjs`](../../src/uber-socket-shared-content-fabric.mjs) — exports createSharedContentFabric _(matched by name only; tested; imported by 1)_
+- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — exports UBER_SOCKET_WHOLE_BRAIN_ORCHESTRATOR_VERSION, createUberSocketWholeBrainOrchestrator _(matched by name only; imported by 1)_
 
 ## Scripts (1)
 
-- [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs)
+- [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (5)
 
-- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js)
-- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js)
-- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — UberSocket Chat Bridge
-- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html)
-- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js)
+- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js) _(matched by name only)_
+- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js) _(matched by name only)_
+- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — UberSocket Chat Bridge _(matched by name only)_
+- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html) _(matched by name only)_
+- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js) _(matched by name only)_
 
 ## Tests (6)
 

@@ -12,7 +12,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM
+- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
 
 ## Commands (1)
 
@@ -20,25 +20,25 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Source modules (10)
 
-- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — exports APEX_REASONING_HYPERCOMPILER_VERSION, APEX_REASONING_MODES, compileApexReasoningArchitecture, buildIdentityBlindPacket, APEX_ARCHITECTURE_MUT… _(tested; imported by 2)_
-- [`src/artificial-imagination.mjs`](../../src/artificial-imagination.mjs) — exports compileArtificialImagination _(tested; imported by 1)_
-- [`src/compound-intelligence-evaluation.mjs`](../../src/compound-intelligence-evaluation.mjs) — exports COMPOUND_INTELLIGENCE_EVALUATION_VERSION, evaluateCompoundIntelligence _(tested; imported by 2)_
-- [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — exports CROSS_DOMAIN_TRANSFER_EVALUATOR_VERSION, evaluateCrossDomainTransfer _(imported by 2)_
-- [`src/elite-capability-reserve.mjs`](../../src/elite-capability-reserve.mjs) — exports ELITE_CAPABILITY_RESERVE_VERSION, ELITE_CAPABILITY_RESERVE_TARGET, eliteEligibility, buildEliteReserve _(imported by 2)_
-- [`src/frontier-reasoning-runtime.mjs`](../../src/frontier-reasoning-runtime.mjs) — exports FRONTIER_REASONING_RUNTIME_VERSION, compileFrontierExecutorWorker, attestFrontierExecution, executeFrontierMember _(tested; imported by 2)_
-- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — exports INVARIANT_COGNITION_COMPILER_VERSION, INVARIANT_COGNITION_MAX_GLOBAL_TOP_K, INVARIANT_COGNITION_AUTHORITY, INVARIANT_COGNITION_TRUTH_BOUNDARY… _(imported by 1)_
-- [`src/mission-brain-compiler.mjs`](../../src/mission-brain-compiler.mjs) — exports MISSION_BRAIN_COMPILER_VERSION, compileMissionBrain _(imported by 2)_
-- [`src/reasoning-architecture-lab.mjs`](../../src/reasoning-architecture-lab.mjs) — exports REASONING_ARCHITECTURE_LAB_VERSION, ARCHITECTURE_MUTATION_AXES, compileArchitectureCandidate, buildArchitectureArchive, compileArchitectureSe… _(tested; no static importers)_
-- [`src/transfer-evaluation-governor.mjs`](../../src/transfer-evaluation-governor.mjs) — exports TRANSFER_EVALUATION_GOVERNOR_VERSION, compileIndependentEvaluation, compileFreshContextRetention _(tested; imported by 1)_
+- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — exports APEX_REASONING_HYPERCOMPILER_VERSION, APEX_REASONING_MODES, compileApexReasoningArchitecture, buildIdentityBlindPacket, APEX_ARCHITECTURE_MUT… _(matched by name only; tested; imported by 2)_
+- [`src/artificial-imagination.mjs`](../../src/artificial-imagination.mjs) — exports compileArtificialImagination _(matched by name only; tested; imported by 1)_
+- [`src/compound-intelligence-evaluation.mjs`](../../src/compound-intelligence-evaluation.mjs) — exports COMPOUND_INTELLIGENCE_EVALUATION_VERSION, evaluateCompoundIntelligence _(matched by name only; tested; imported by 2)_
+- [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — exports CROSS_DOMAIN_TRANSFER_EVALUATOR_VERSION, evaluateCrossDomainTransfer _(matched by name only; imported by 2)_
+- [`src/elite-capability-reserve.mjs`](../../src/elite-capability-reserve.mjs) — exports ELITE_CAPABILITY_RESERVE_VERSION, ELITE_CAPABILITY_RESERVE_TARGET, eliteEligibility, buildEliteReserve _(matched by name only; imported by 2)_
+- [`src/frontier-reasoning-runtime.mjs`](../../src/frontier-reasoning-runtime.mjs) — exports FRONTIER_REASONING_RUNTIME_VERSION, compileFrontierExecutorWorker, attestFrontierExecution, executeFrontierMember _(matched by name only; tested; imported by 2)_
+- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — exports INVARIANT_COGNITION_COMPILER_VERSION, INVARIANT_COGNITION_MAX_GLOBAL_TOP_K, INVARIANT_COGNITION_AUTHORITY, INVARIANT_COGNITION_TRUTH_BOUNDARY… _(matched by name only; imported by 1)_
+- [`src/mission-brain-compiler.mjs`](../../src/mission-brain-compiler.mjs) — exports MISSION_BRAIN_COMPILER_VERSION, compileMissionBrain _(matched by name only; imported by 2)_
+- [`src/reasoning-architecture-lab.mjs`](../../src/reasoning-architecture-lab.mjs) — exports REASONING_ARCHITECTURE_LAB_VERSION, ARCHITECTURE_MUTATION_AXES, compileArchitectureCandidate, buildArchitectureArchive, compileArchitectureSe… _(matched by name only; tested; no static importers)_
+- [`src/transfer-evaluation-governor.mjs`](../../src/transfer-evaluation-governor.mjs) — exports TRANSFER_EVALUATION_GOVERNOR_VERSION, compileIndependentEvaluation, compileFreshContextRetention _(matched by name only; tested; imported by 1)_
 
 ## Scripts (2)
 
-- [`scripts/compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs)
-- [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs the epistemic organs over a supplied situation: what the search could not _(npm: `reasoning:doctor`)_
+- [`scripts/compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs) _(matched by name only)_
+- [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs the epistemic organs over a supplied situation: what the search could not _(matched by name only; npm: `reasoning:doctor`)_
 
 ## Config, data, artifacts and services (1)
 
-- [`artifacts/c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json)
+- [`artifacts/c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json) _(matched by name only)_
 
 ## Tests (10)
 

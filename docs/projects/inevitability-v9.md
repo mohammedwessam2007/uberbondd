@@ -12,34 +12,34 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`artifacts/inevitability-v9-carrier/README.md`](../../artifacts/inevitability-v9-carrier/README.md) — UberBond V9 exact-source repository carrier
+- [`artifacts/inevitability-v9-carrier/README.md`](../../artifacts/inevitability-v9-carrier/README.md) — UberBond V9 exact-source repository carrier _(matched by name only)_
 
 ## Scripts (1)
 
-- [`scripts/materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py)
+- [`scripts/materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) _(matched by name only)_
 
 ## Config, data, artifacts and services (20)
 
-- [`artifacts/inevitability-v9-carrier/MANIFEST.json`](../../artifacts/inevitability-v9-carrier/MANIFEST.json) — UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt · uberbond.v9.lossless-generator-carrier.3.0.0
-- [`artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64)
-- [`artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64)
-- [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — CANONICAL_V9_NOT_MATERIALIZED__EXTERNAL_SOURCE_ARTIFACT_BLOCKER · uberbond-canonical-v9-materialization-blocker-1.0.0
+- [`artifacts/inevitability-v9-carrier/MANIFEST.json`](../../artifacts/inevitability-v9-carrier/MANIFEST.json) — UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt · uberbond.v9.lossless-generator-carrier.3.0.0 _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64) _(matched by name only)_
+- [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — CANONICAL_V9_NOT_MATERIALIZED__EXTERNAL_SOURCE_ARTIFACT_BLOCKER · uberbond-canonical-v9-materialization-blocker-1.0.0 _(matched by name only)_
 
 ## Tests (1)
 

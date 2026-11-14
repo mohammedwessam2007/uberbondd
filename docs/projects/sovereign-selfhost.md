@@ -12,11 +12,11 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (5)
 
-- [`docs/SOVEREIGN_FOUNDER_FIRST_BOOT.md`](../SOVEREIGN_FOUNDER_FIRST_BOOT.md) — UberBond Sovereign Founder First Boot
-- [`docs/SOVEREIGN_INFRASTRUCTURE_INDEPENDENCE_ADDENDUM.md`](../SOVEREIGN_INFRASTRUCTURE_INDEPENDENCE_ADDENDUM.md) — Sovereign Infrastructure Independence Addendum — Status: CHAT_SPEC_GOAL / EXECUTION_TARGET / NOT_IMPLEMENTATION_PROOF
-- [`docs/SOVEREIGN_INSTITUTIONAL_HARNESS_HARDENING.md`](../SOVEREIGN_INSTITUTIONAL_HARNESS_HARDENING.md) — Sovereign Institutional Harness Hardening V2
-- [`docs/SOVEREIGN_INSTITUTIONAL_HARNESS.md`](../SOVEREIGN_INSTITUTIONAL_HARNESS.md) — Sovereign Institutional Harness — Status: IMPLEMENTED_INTERNAL_ENGINEERING_PRIMITIVE
-- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host
+- [`docs/SOVEREIGN_FOUNDER_FIRST_BOOT.md`](../SOVEREIGN_FOUNDER_FIRST_BOOT.md) — UberBond Sovereign Founder First Boot _(matched by name only)_
+- [`docs/SOVEREIGN_INFRASTRUCTURE_INDEPENDENCE_ADDENDUM.md`](../SOVEREIGN_INFRASTRUCTURE_INDEPENDENCE_ADDENDUM.md) — Sovereign Infrastructure Independence Addendum — Status: CHAT_SPEC_GOAL / EXECUTION_TARGET / NOT_IMPLEMENTATION_PROOF _(matched by name only)_
+- [`docs/SOVEREIGN_INSTITUTIONAL_HARNESS_HARDENING.md`](../SOVEREIGN_INSTITUTIONAL_HARNESS_HARDENING.md) — Sovereign Institutional Harness Hardening V2 _(matched by name only)_
+- [`docs/SOVEREIGN_INSTITUTIONAL_HARNESS.md`](../SOVEREIGN_INSTITUTIONAL_HARNESS.md) — Sovereign Institutional Harness — Status: IMPLEMENTED_INTERNAL_ENGINEERING_PRIMITIVE _(matched by name only)_
+- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host _(matched by name only)_
 
 ## Commands (3)
 
@@ -24,159 +24,159 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Other documents (1)
 
-- [`docs/handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md`](../handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md) — UberBond Sovereign Air Fabric — Current Continuity — Status: CURRENT ARCHITECTURAL LAW + SOURCE IMPLEMENTATION CONTEXT. Real owned-host operation still requires runtime evidence.
+- [`docs/handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md`](../handoffs/SOVEREIGN_AIR_FABRIC_CURRENT.md) — UberBond Sovereign Air Fabric — Current Continuity — Status: CURRENT ARCHITECTURAL LAW + SOURCE IMPLEMENTATION CONTEXT. Real owned-host operation still requires runtime evidence. _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (1)
 
-- [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Ω Cognitive Transcompiler — Status: RESEARCH_ARCHITECTURE + SOFTWARE_CANARY / NOT_ASI / NOT_FRONTIER_EQUIVALENCE / NOT_ZERO_HARDWARE _(3 mentions)_
+- [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Ω Cognitive Transcompiler — Status: RESEARCH_ARCHITECTURE + SOFTWARE_CANARY / NOT_ASI / NOT_FRONTIER_EQUIVALENCE / NOT_ZERO_HARDWARE _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (21)
 
-- [`src/compute-sovereignty-capacity.mjs`](../../src/compute-sovereignty-capacity.mjs) — exports COMPUTE_SOVEREIGNTY_CAPACITY_VERSION, compileComputeSovereigntyCapacityFrontier _(tested; imported by 2)_
-- [`src/compute-sovereignty.mjs`](../../src/compute-sovereignty.mjs) — exports COMPUTE_SOVEREIGNTY_SCHEMA, COMPUTE_SOVEREIGNTY_POLICY_VERSION, normalizeComputeOffer, compileComputeReusePlan, allocateSovereignCompute (+2) _(tested; imported by 3)_
-- [`src/sovereign-bootstrap-readiness.mjs`](../../src/sovereign-bootstrap-readiness.mjs) — exports SOVEREIGN_BOOTSTRAP_READINESS_VERSION, OFFLINE_MODEL_STATUS, REQUIRED_SOURCE_CONTRACTS, REQUIRED_AUTHORING_UNITS, compileSovereignBootstrapRe… _(tested; imported by 1)_
-- [`src/sovereign-compute-cell-fabric.mjs`](../../src/sovereign-compute-cell-fabric.mjs) — exports SOVEREIGN_COMPUTE_CELL_FABRIC_VERSION, normalizeResourceCell, allocateSovereignCells, SOVEREIGN_RESOURCE_CELL_TYPES, SOVEREIGN_CELL_OWNERSHIP… _(tested; imported by 2)_
-- [`src/sovereign-context-fabric.mjs`](../../src/sovereign-context-fabric.mjs) — exports SOVEREIGN_CONTEXT_FABRIC_POLICY_VERSION, BRAINSTATE_CAPSULE_SCHEMA_VERSION, CONTEXT_ABI_VERSION, CONTEXT_COGNITIVE_EVENT_KINDS, compileContex… _(tested; imported by 5)_
-- [`src/sovereign-coverage-content-digest.mjs`](../../src/sovereign-coverage-content-digest.mjs) — exports SOVEREIGN_COVERAGE_CONTENT_DIGEST_VERSION, sovereignCoverageContentDigest _(imported by 2)_
-- [`src/sovereign-coverage-denominator.mjs`](../../src/sovereign-coverage-denominator.mjs) — exports SOVEREIGN_COVERAGE_DENOMINATOR_VERSION, verifyCoverageDenominatorConservation _(imported by 2)_
-- [`src/sovereign-coverage-matrix.mjs`](../../src/sovereign-coverage-matrix.mjs) — The no-drop compiler: every canonical concept gets a row, or the build fails. _(tested; imported by 5)_
-- [`src/sovereign-cut-set-audit.mjs`](../../src/sovereign-cut-set-audit.mjs) — exports SOVEREIGN_CUT_SET_AUDIT_VERSION, SOVEREIGN_CUT_IDS, CUT_CLASSES, compileSovereignCutSetAudit _(tested; imported by 2)_
-- [`src/sovereign-expansion-kernel.mjs`](../../src/sovereign-expansion-kernel.mjs) — exports SOVEREIGN_EXPANSION_KERNEL_VERSION, SOVEREIGN_EXPANSION_LENSES, validateSovereignExpansionKernel, buildExpansionEnvelope, buildMissingUberBon… _(imported by 1)_
-- [`src/sovereign-institutional-harness-hardening.mjs`](../../src/sovereign-institutional-harness-hardening.mjs) — exports SOVEREIGN_HARNESS_HARDENING_VERSION, validateCriticalEvidenceBinding, validateReviewIndependence, validatePhaseProofContinuity, validateRunti… _(tested; no static importers)_
-- [`src/sovereign-institutional-harness.mjs`](../../src/sovereign-institutional-harness.mjs) — exports SOVEREIGN_INSTITUTIONAL_HARNESS_VERSION, HARNESS_PHASES, ARTICLE_DISCIPLINES, SOVEREIGN_DISCIPLINES, RUNTIME_LAYERS (+6) _(tested; imported by 1)_
-- [`src/sovereign-local-promotion.mjs`](../../src/sovereign-local-promotion.mjs) — exports SOVEREIGN_LOCAL_PROMOTION_VERSION, sovereignChangeFingerprint, compileSovereignLocalPromotionAdmission, compileSovereignLocalPromotionReceipt _(tested; imported by 1)_
-- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — exports SOVEREIGN_MONEY_MACHINE_PROOF_VERSION, MIN_ENDURANCE_MS, MAX_PULSE_GAP_MS, MAX_RECEIPT_AGE_MS, evaluateSovereignMoneyMachineProof _(tested; no static importers)_
-- [`src/sovereign-native-local-worker.mjs`](../../src/sovereign-native-local-worker.mjs) — exports SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION, compileNativeWorkerModelPrompt, compileNativeWorkerProposal _(tested; imported by 1)_
-- [`src/sovereign-release-handoff.mjs`](../../src/sovereign-release-handoff.mjs) — exports SOVEREIGN_RELEASE_HANDOFF_VERSION, compileSovereignReleaseRequest, verifySovereignReleaseRequest, admitOfflineReleasePack _(tested; imported by 4)_
-- [`src/sovereign-revenue-runtime.mjs`](../../src/sovereign-revenue-runtime.mjs) — exports SOVEREIGN_REVENUE_RUNTIME_VERSION, SOVEREIGN_REVENUE_ORGANS, compileSovereignRevenueRuntime _(tested; imported by 1)_
-- [`src/sovereign-root-recovery.mjs`](../../src/sovereign-root-recovery.mjs) — exports SOVEREIGN_ROOT_RECOVERY_VERSION, compileSovereignRecoveryCharter, admitSovereignRecovery _(tested; imported by 1)_
-- [`src/uber-sovereign-stack.mjs`](../../src/uber-sovereign-stack.mjs) — exports UBER_SOVEREIGN_STACK_VERSION, UBER_SOVEREIGN_LAYERS, compileUberSovereignStack _(tested; imported by 4)_
-- [`src/uber-sovereign-substrate.mjs`](../../src/uber-sovereign-substrate.mjs) — exports UBER_SOVEREIGN_SUBSTRATE_VERSION, UBER_SUBSTRATE_LAYERS, compileUberSourcePlan, compileUberForgePlan, compileUberStatePlan (+5) _(tested; imported by 1)_
-- [`src/ubercloud-sovereign-fabric.mjs`](../../src/ubercloud-sovereign-fabric.mjs) — exports UBERCLOUD_SOVEREIGN_FABRIC_VERSION, compileUberCloudPlan, compileUberCloudEvacuation _(tested; imported by 2)_
+- [`src/compute-sovereignty-capacity.mjs`](../../src/compute-sovereignty-capacity.mjs) — exports COMPUTE_SOVEREIGNTY_CAPACITY_VERSION, compileComputeSovereigntyCapacityFrontier _(matched by name only; tested; imported by 2)_
+- [`src/compute-sovereignty.mjs`](../../src/compute-sovereignty.mjs) — exports COMPUTE_SOVEREIGNTY_SCHEMA, COMPUTE_SOVEREIGNTY_POLICY_VERSION, normalizeComputeOffer, compileComputeReusePlan, allocateSovereignCompute (+2) _(matched by name only; tested; imported by 3)_
+- [`src/sovereign-bootstrap-readiness.mjs`](../../src/sovereign-bootstrap-readiness.mjs) — exports SOVEREIGN_BOOTSTRAP_READINESS_VERSION, OFFLINE_MODEL_STATUS, REQUIRED_SOURCE_CONTRACTS, REQUIRED_AUTHORING_UNITS, compileSovereignBootstrapRe… _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-compute-cell-fabric.mjs`](../../src/sovereign-compute-cell-fabric.mjs) — exports SOVEREIGN_COMPUTE_CELL_FABRIC_VERSION, normalizeResourceCell, allocateSovereignCells, SOVEREIGN_RESOURCE_CELL_TYPES, SOVEREIGN_CELL_OWNERSHIP… _(matched by name only; tested; imported by 2)_
+- [`src/sovereign-context-fabric.mjs`](../../src/sovereign-context-fabric.mjs) — exports SOVEREIGN_CONTEXT_FABRIC_POLICY_VERSION, BRAINSTATE_CAPSULE_SCHEMA_VERSION, CONTEXT_ABI_VERSION, CONTEXT_COGNITIVE_EVENT_KINDS, compileContex… _(matched by name only; tested; imported by 5)_
+- [`src/sovereign-coverage-content-digest.mjs`](../../src/sovereign-coverage-content-digest.mjs) — exports SOVEREIGN_COVERAGE_CONTENT_DIGEST_VERSION, sovereignCoverageContentDigest _(matched by name only; imported by 2)_
+- [`src/sovereign-coverage-denominator.mjs`](../../src/sovereign-coverage-denominator.mjs) — exports SOVEREIGN_COVERAGE_DENOMINATOR_VERSION, verifyCoverageDenominatorConservation _(matched by name only; imported by 2)_
+- [`src/sovereign-coverage-matrix.mjs`](../../src/sovereign-coverage-matrix.mjs) — The no-drop compiler: every canonical concept gets a row, or the build fails. _(matched by name only; tested; imported by 5)_
+- [`src/sovereign-cut-set-audit.mjs`](../../src/sovereign-cut-set-audit.mjs) — exports SOVEREIGN_CUT_SET_AUDIT_VERSION, SOVEREIGN_CUT_IDS, CUT_CLASSES, compileSovereignCutSetAudit _(matched by name only; tested; imported by 2)_
+- [`src/sovereign-expansion-kernel.mjs`](../../src/sovereign-expansion-kernel.mjs) — exports SOVEREIGN_EXPANSION_KERNEL_VERSION, SOVEREIGN_EXPANSION_LENSES, validateSovereignExpansionKernel, buildExpansionEnvelope, buildMissingUberBon… _(matched by name only; imported by 1)_
+- [`src/sovereign-institutional-harness-hardening.mjs`](../../src/sovereign-institutional-harness-hardening.mjs) — exports SOVEREIGN_HARNESS_HARDENING_VERSION, validateCriticalEvidenceBinding, validateReviewIndependence, validatePhaseProofContinuity, validateRunti… _(matched by name only; tested; no static importers)_
+- [`src/sovereign-institutional-harness.mjs`](../../src/sovereign-institutional-harness.mjs) — exports SOVEREIGN_INSTITUTIONAL_HARNESS_VERSION, HARNESS_PHASES, ARTICLE_DISCIPLINES, SOVEREIGN_DISCIPLINES, RUNTIME_LAYERS (+6) _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-local-promotion.mjs`](../../src/sovereign-local-promotion.mjs) — exports SOVEREIGN_LOCAL_PROMOTION_VERSION, sovereignChangeFingerprint, compileSovereignLocalPromotionAdmission, compileSovereignLocalPromotionReceipt _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — exports SOVEREIGN_MONEY_MACHINE_PROOF_VERSION, MIN_ENDURANCE_MS, MAX_PULSE_GAP_MS, MAX_RECEIPT_AGE_MS, evaluateSovereignMoneyMachineProof _(matched by name only; tested; no static importers)_
+- [`src/sovereign-native-local-worker.mjs`](../../src/sovereign-native-local-worker.mjs) — exports SOVEREIGN_NATIVE_LOCAL_WORKER_VERSION, compileNativeWorkerModelPrompt, compileNativeWorkerProposal _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-release-handoff.mjs`](../../src/sovereign-release-handoff.mjs) — exports SOVEREIGN_RELEASE_HANDOFF_VERSION, compileSovereignReleaseRequest, verifySovereignReleaseRequest, admitOfflineReleasePack _(matched by name only; tested; imported by 4)_
+- [`src/sovereign-revenue-runtime.mjs`](../../src/sovereign-revenue-runtime.mjs) — exports SOVEREIGN_REVENUE_RUNTIME_VERSION, SOVEREIGN_REVENUE_ORGANS, compileSovereignRevenueRuntime _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-root-recovery.mjs`](../../src/sovereign-root-recovery.mjs) — exports SOVEREIGN_ROOT_RECOVERY_VERSION, compileSovereignRecoveryCharter, admitSovereignRecovery _(matched by name only; tested; imported by 1)_
+- [`src/uber-sovereign-stack.mjs`](../../src/uber-sovereign-stack.mjs) — exports UBER_SOVEREIGN_STACK_VERSION, UBER_SOVEREIGN_LAYERS, compileUberSovereignStack _(matched by name only; tested; imported by 4)_
+- [`src/uber-sovereign-substrate.mjs`](../../src/uber-sovereign-substrate.mjs) — exports UBER_SOVEREIGN_SUBSTRATE_VERSION, UBER_SUBSTRATE_LAYERS, compileUberSourcePlan, compileUberForgePlan, compileUberStatePlan (+5) _(matched by name only; tested; imported by 1)_
+- [`src/ubercloud-sovereign-fabric.mjs`](../../src/ubercloud-sovereign-fabric.mjs) — exports UBERCLOUD_SOVEREIGN_FABRIC_VERSION, compileUberCloudPlan, compileUberCloudEvacuation _(matched by name only; tested; imported by 2)_
 
 ## Scripts (32)
 
-- [`scripts/compute-sovereignty-doctor.mjs`](../../scripts/compute-sovereignty-doctor.mjs) _(npm: `compute:doctor`)_
-- [`scripts/sovereign-24x7-acceptance.mjs`](../../scripts/sovereign-24x7-acceptance.mjs)
-- [`scripts/sovereign-bootstrap-doctor.mjs`](../../scripts/sovereign-bootstrap-doctor.mjs) — exports collectSovereignBootstrapReadiness
-- [`scripts/sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — exports SOVEREIGN_CONTEXT_AUTH_VERSION, authorizeContextSuppression
-- [`scripts/sovereign-context-checkpoint.mjs`](../../scripts/sovereign-context-checkpoint.mjs) — exports SOVEREIGN_CONTEXT_CHECKPOINT_VERSION, checkpointSovereignContext
-- [`scripts/sovereign-context-doctor.mjs`](../../scripts/sovereign-context-doctor.mjs) — exports SOVEREIGN_CONTEXT_DOCTOR_VERSION, TERMINAL_NORTH_STAR_PATH, CURRENT_HANDOFF_PATH, overlayExactCurrentContext, runSovereignContextDoctor
-- [`scripts/sovereign-context-journal-compact.mjs`](../../scripts/sovereign-context-journal-compact.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_COMPACTION_VERSION, compactContextJournalLayeredStore
-- [`scripts/sovereign-context-journal-migrate.mjs`](../../scripts/sovereign-context-journal-migrate.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_MIGRATION_VERSION, migrateContextJournalToLayeredStore
-- [`scripts/sovereign-context-local-recovery-drill.mjs`](../../scripts/sovereign-context-local-recovery-drill.mjs) — exports SOVEREIGN_CONTEXT_LOCAL_RECOVERY_VERSION, runLocalContextRecoveryDrill
-- [`scripts/sovereign-context-mount.mjs`](../../scripts/sovereign-context-mount.mjs) — exports SOVEREIGN_CONTEXT_MOUNT_VERSION, mountSovereignContext
-- [`scripts/sovereign-context-project-worker.mjs`](../../scripts/sovereign-context-project-worker.mjs) — exports SOVEREIGN_CONTEXT_PROJECT_WORKER_VERSION, projectWorkerContext
-- [`scripts/sovereign-context-query.mjs`](../../scripts/sovereign-context-query.mjs) — exports SOVEREIGN_CONTEXT_QUERY_VERSION, querySovereignContext
-- [`scripts/sovereign-context-replication-admission.mjs`](../../scripts/sovereign-context-replication-admission.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_ADMISSION_VERSION, admitContextReplicationDirectory
-- [`scripts/sovereign-context-replication-bundle.mjs`](../../scripts/sovereign-context-replication-bundle.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_BUNDLE_VERSION, verifyContextReplicationDirectory, exportContextReplicationDirectory
-- [`scripts/sovereign-context-segment-journal.mjs`](../../scripts/sovereign-context-segment-journal.mjs) — exports SOVEREIGN_CONTEXT_SEGMENT_JOURNAL_VERSION, verifyCognitiveJournalSegmentSnapshot, exportCognitiveJournalSegments
-- [`scripts/sovereign-context-source-ancestry.mjs`](../../scripts/sovereign-context-source-ancestry.mjs) — exports SOVEREIGN_CONTEXT_SOURCE_ANCESTRY_VERSION, probeContextSourceAncestry
-- [`scripts/sovereign-context-suppress.mjs`](../../scripts/sovereign-context-suppress.mjs) — exports SOVEREIGN_CONTEXT_SUPPRESS_VERSION, suppressContextEvent
-- [`scripts/sovereign-context-sync.mjs`](../../scripts/sovereign-context-sync.mjs) — exports SOVEREIGN_CONTEXT_SYNC_VERSION, syncSovereignContext
-- [`scripts/sovereign-coverage-matrix.mjs`](../../scripts/sovereign-coverage-matrix.mjs) — Extracts every concept from every canonical source and compiles the matrix. _(npm: `sovereign:coverage`)_
-- [`scripts/sovereign-coverage-terminal-closure.mjs`](../../scripts/sovereign-coverage-terminal-closure.mjs) — exports normalizeShortReferenceSurfaces, compileTerminalCoverage, writeTerminalCoverage
-- [`scripts/sovereign-cut-set-audit.mjs`](../../scripts/sovereign-cut-set-audit.mjs)
-- [`scripts/sovereign-forever-mission-renewer.mjs`](../../scripts/sovereign-forever-mission-renewer.mjs) — exports SOVEREIGN_FOREVER_MISSION_VERSION, SOVEREIGN_FOREVER_INTENT, renewSovereignForeverMission
-- [`scripts/sovereign-founder-dialogue-context.mjs`](../../scripts/sovereign-founder-dialogue-context.mjs) — exports SOVEREIGN_FOUNDER_DIALOGUE_CONTEXT_VERSION, mountFounderDialogueContext
-- [`scripts/sovereign-local-model-proxy.mjs`](../../scripts/sovereign-local-model-proxy.mjs)
-- [`scripts/sovereign-local-promote.mjs`](../../scripts/sovereign-local-promote.mjs) — exports runSovereignLocalPromotion
-- [`scripts/sovereign-local-worker-runner.mjs`](../../scripts/sovereign-local-worker-runner.mjs) — exports SOVEREIGN_LOCAL_WORKER_VERSION, runSovereignLocalWorker
-- [`scripts/sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs)
-- [`scripts/sovereign-release-request.mjs`](../../scripts/sovereign-release-request.mjs)
-- [`scripts/sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse
-- [`scripts/sovereign-root-recovery-doctor.mjs`](../../scripts/sovereign-root-recovery-doctor.mjs)
-- [`scripts/sovereign-self-host-doctor.mjs`](../../scripts/sovereign-self-host-doctor.mjs) — exports SOVEREIGN_SELF_HOST_DOCTOR_VERSION, inspectSovereignSelfHost
-- [`scripts/uber-sovereign-expansion-doctor.mjs`](../../scripts/uber-sovereign-expansion-doctor.mjs) — exports UBER_SOVEREIGN_EXPANSION_DOCTOR_VERSION, runUberSovereignExpansionDoctor
+- [`scripts/compute-sovereignty-doctor.mjs`](../../scripts/compute-sovereignty-doctor.mjs) _(matched by name only; npm: `compute:doctor`)_
+- [`scripts/sovereign-24x7-acceptance.mjs`](../../scripts/sovereign-24x7-acceptance.mjs) _(matched by name only)_
+- [`scripts/sovereign-bootstrap-doctor.mjs`](../../scripts/sovereign-bootstrap-doctor.mjs) — exports collectSovereignBootstrapReadiness _(matched by name only)_
+- [`scripts/sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — exports SOVEREIGN_CONTEXT_AUTH_VERSION, authorizeContextSuppression _(matched by name only)_
+- [`scripts/sovereign-context-checkpoint.mjs`](../../scripts/sovereign-context-checkpoint.mjs) — exports SOVEREIGN_CONTEXT_CHECKPOINT_VERSION, checkpointSovereignContext _(matched by name only)_
+- [`scripts/sovereign-context-doctor.mjs`](../../scripts/sovereign-context-doctor.mjs) — exports SOVEREIGN_CONTEXT_DOCTOR_VERSION, TERMINAL_NORTH_STAR_PATH, CURRENT_HANDOFF_PATH, overlayExactCurrentContext, runSovereignContextDoctor _(matched by name only)_
+- [`scripts/sovereign-context-journal-compact.mjs`](../../scripts/sovereign-context-journal-compact.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_COMPACTION_VERSION, compactContextJournalLayeredStore _(matched by name only)_
+- [`scripts/sovereign-context-journal-migrate.mjs`](../../scripts/sovereign-context-journal-migrate.mjs) — exports SOVEREIGN_CONTEXT_JOURNAL_MIGRATION_VERSION, migrateContextJournalToLayeredStore _(matched by name only)_
+- [`scripts/sovereign-context-local-recovery-drill.mjs`](../../scripts/sovereign-context-local-recovery-drill.mjs) — exports SOVEREIGN_CONTEXT_LOCAL_RECOVERY_VERSION, runLocalContextRecoveryDrill _(matched by name only)_
+- [`scripts/sovereign-context-mount.mjs`](../../scripts/sovereign-context-mount.mjs) — exports SOVEREIGN_CONTEXT_MOUNT_VERSION, mountSovereignContext _(matched by name only)_
+- [`scripts/sovereign-context-project-worker.mjs`](../../scripts/sovereign-context-project-worker.mjs) — exports SOVEREIGN_CONTEXT_PROJECT_WORKER_VERSION, projectWorkerContext _(matched by name only)_
+- [`scripts/sovereign-context-query.mjs`](../../scripts/sovereign-context-query.mjs) — exports SOVEREIGN_CONTEXT_QUERY_VERSION, querySovereignContext _(matched by name only)_
+- [`scripts/sovereign-context-replication-admission.mjs`](../../scripts/sovereign-context-replication-admission.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_ADMISSION_VERSION, admitContextReplicationDirectory _(matched by name only)_
+- [`scripts/sovereign-context-replication-bundle.mjs`](../../scripts/sovereign-context-replication-bundle.mjs) — exports SOVEREIGN_CONTEXT_REPLICATION_BUNDLE_VERSION, verifyContextReplicationDirectory, exportContextReplicationDirectory _(matched by name only)_
+- [`scripts/sovereign-context-segment-journal.mjs`](../../scripts/sovereign-context-segment-journal.mjs) — exports SOVEREIGN_CONTEXT_SEGMENT_JOURNAL_VERSION, verifyCognitiveJournalSegmentSnapshot, exportCognitiveJournalSegments _(matched by name only)_
+- [`scripts/sovereign-context-source-ancestry.mjs`](../../scripts/sovereign-context-source-ancestry.mjs) — exports SOVEREIGN_CONTEXT_SOURCE_ANCESTRY_VERSION, probeContextSourceAncestry _(matched by name only)_
+- [`scripts/sovereign-context-suppress.mjs`](../../scripts/sovereign-context-suppress.mjs) — exports SOVEREIGN_CONTEXT_SUPPRESS_VERSION, suppressContextEvent _(matched by name only)_
+- [`scripts/sovereign-context-sync.mjs`](../../scripts/sovereign-context-sync.mjs) — exports SOVEREIGN_CONTEXT_SYNC_VERSION, syncSovereignContext _(matched by name only)_
+- [`scripts/sovereign-coverage-matrix.mjs`](../../scripts/sovereign-coverage-matrix.mjs) — Extracts every concept from every canonical source and compiles the matrix. _(matched by name only; npm: `sovereign:coverage`)_
+- [`scripts/sovereign-coverage-terminal-closure.mjs`](../../scripts/sovereign-coverage-terminal-closure.mjs) — exports normalizeShortReferenceSurfaces, compileTerminalCoverage, writeTerminalCoverage _(matched by name only)_
+- [`scripts/sovereign-cut-set-audit.mjs`](../../scripts/sovereign-cut-set-audit.mjs) _(matched by name only)_
+- [`scripts/sovereign-forever-mission-renewer.mjs`](../../scripts/sovereign-forever-mission-renewer.mjs) — exports SOVEREIGN_FOREVER_MISSION_VERSION, SOVEREIGN_FOREVER_INTENT, renewSovereignForeverMission _(matched by name only)_
+- [`scripts/sovereign-founder-dialogue-context.mjs`](../../scripts/sovereign-founder-dialogue-context.mjs) — exports SOVEREIGN_FOUNDER_DIALOGUE_CONTEXT_VERSION, mountFounderDialogueContext _(matched by name only)_
+- [`scripts/sovereign-local-model-proxy.mjs`](../../scripts/sovereign-local-model-proxy.mjs) _(matched by name only)_
+- [`scripts/sovereign-local-promote.mjs`](../../scripts/sovereign-local-promote.mjs) — exports runSovereignLocalPromotion _(matched by name only)_
+- [`scripts/sovereign-local-worker-runner.mjs`](../../scripts/sovereign-local-worker-runner.mjs) — exports SOVEREIGN_LOCAL_WORKER_VERSION, runSovereignLocalWorker _(matched by name only)_
+- [`scripts/sovereign-native-local-model-worker.mjs`](../../scripts/sovereign-native-local-model-worker.mjs) _(matched by name only)_
+- [`scripts/sovereign-release-request.mjs`](../../scripts/sovereign-release-request.mjs) _(matched by name only)_
+- [`scripts/sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse _(matched by name only)_
+- [`scripts/sovereign-root-recovery-doctor.mjs`](../../scripts/sovereign-root-recovery-doctor.mjs) _(matched by name only)_
+- [`scripts/sovereign-self-host-doctor.mjs`](../../scripts/sovereign-self-host-doctor.mjs) — exports SOVEREIGN_SELF_HOST_DOCTOR_VERSION, inspectSovereignSelfHost _(matched by name only)_
+- [`scripts/uber-sovereign-expansion-doctor.mjs`](../../scripts/uber-sovereign-expansion-doctor.mjs) — exports UBER_SOVEREIGN_EXPANSION_DOCTOR_VERSION, runUberSovereignExpansionDoctor _(matched by name only)_
 
 ## Config, data, artifacts and services (86)
 
-- [`Dockerfile.sovereign`](../../Dockerfile.sovereign) — Sovereign builds are intentionally boring: dependencies must already exist in
-- [`Dockerfile.sovereign.dockerignore`](../../Dockerfile.sovereign.dockerignore)
-- [`api/sovereign-control.mjs`](../../api/sovereign-control.mjs) — The founder's read-only view of the sovereign organs.
-- [`artifacts/sovereign-institutional-harness-hardening.json`](../../artifacts/sovereign-institutional-harness-hardening.json) — IMPLEMENTED_INTERNAL_HARDENING_PRIMITIVE · uberbond.sovereign-institutional-harness-hardening.v2
-- [`artifacts/sovereign-institutional-harness.json`](../../artifacts/sovereign-institutional-harness.json) — uberbond.sovereign-institutional-harness.v1
-- [`artifacts/sovereign/enforcement-manifest.json`](../../artifacts/sovereign/enforcement-manifest.json) — uberbond.sovereign-enforcement-manifest.v1
-- [`artifacts/sovereign/external-gate-manifest.json`](../../artifacts/sovereign/external-gate-manifest.json) — uberbond.sovereign-external-gate-manifest.v1
-- [`artifacts/sovereign/implementation-coverage-matrix.json`](../../artifacts/sovereign/implementation-coverage-matrix.json) — COVERAGE_MATRIX_COMPILED · uberbond.sovereign-coverage-matrix.v1
-- [`artifacts/sovereign/implementation-manifest-terminal-closure.json`](../../artifacts/sovereign/implementation-manifest-terminal-closure.json) — uberbond.implementation-manifest.terminal-closure.v1
-- [`artifacts/sovereign/implementation-manifest.json`](../../artifacts/sovereign/implementation-manifest.json) — uberbond.sovereign-implementation-manifest.v1
-- [`docker-compose.sovereign.yml`](../../docker-compose.sovereign.yml) — Sovereign self-host compose stack.
-- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh)
-- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh)
-- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh)
-- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh)
-- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh)
-- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh)
-- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh)
-- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh)
-- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh)
-- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh)
-- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh)
-- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh)
-- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh)
-- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh)
-- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh)
-- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh)
-- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh)
-- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh)
-- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh)
-- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh)
-- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh)
-- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh)
-- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh)
-- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh)
-- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh)
-- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh)
-- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs)
-- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh)
-- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline
-- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier
-- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR…
-- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh)
-- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh)
-- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl)
-- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path)
-- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum)
-- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service)
-- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service)
-- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path)
-- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service)
-- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate)
-- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query)
-- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console)
-- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service)
-- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service)
-- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer)
-- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway)
-- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service)
-- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy)
-- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service)
-- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path)
-- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service)
-- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter)
-- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path)
-- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service)
-- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service)
-- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker)
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service)
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer)
-- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service)
-- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path)
-- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service)
-- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service)
-- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer)
-- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path)
-- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service)
-- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path)
-- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service)
-- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl)
-- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service)
-- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service)
-- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service)
-- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh)
+- [`Dockerfile.sovereign`](../../Dockerfile.sovereign) — Sovereign builds are intentionally boring: dependencies must already exist in _(matched by name only)_
+- [`Dockerfile.sovereign.dockerignore`](../../Dockerfile.sovereign.dockerignore) _(matched by name only)_
+- [`api/sovereign-control.mjs`](../../api/sovereign-control.mjs) — The founder's read-only view of the sovereign organs. _(matched by name only)_
+- [`artifacts/sovereign-institutional-harness-hardening.json`](../../artifacts/sovereign-institutional-harness-hardening.json) — IMPLEMENTED_INTERNAL_HARDENING_PRIMITIVE · uberbond.sovereign-institutional-harness-hardening.v2 _(matched by name only)_
+- [`artifacts/sovereign-institutional-harness.json`](../../artifacts/sovereign-institutional-harness.json) — uberbond.sovereign-institutional-harness.v1 _(matched by name only)_
+- [`artifacts/sovereign/enforcement-manifest.json`](../../artifacts/sovereign/enforcement-manifest.json) — uberbond.sovereign-enforcement-manifest.v1 _(matched by name only)_
+- [`artifacts/sovereign/external-gate-manifest.json`](../../artifacts/sovereign/external-gate-manifest.json) — uberbond.sovereign-external-gate-manifest.v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-coverage-matrix.json`](../../artifacts/sovereign/implementation-coverage-matrix.json) — COVERAGE_MATRIX_COMPILED · uberbond.sovereign-coverage-matrix.v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-manifest-terminal-closure.json`](../../artifacts/sovereign/implementation-manifest-terminal-closure.json) — uberbond.implementation-manifest.terminal-closure.v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-manifest.json`](../../artifacts/sovereign/implementation-manifest.json) — uberbond.sovereign-implementation-manifest.v1 _(matched by name only)_
+- [`docker-compose.sovereign.yml`](../../docker-compose.sovereign.yml) — Sovereign self-host compose stack. _(matched by name only)_
+- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh) _(matched by name only)_
+- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh) _(matched by name only)_
+- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh) _(matched by name only)_
+- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh) _(matched by name only)_
+- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh) _(matched by name only)_
+- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh) _(matched by name only)_
+- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh) _(matched by name only)_
+- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh) _(matched by name only)_
+- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh) _(matched by name only)_
+- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh) _(matched by name only)_
+- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) _(matched by name only)_
+- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh) _(matched by name only)_
+- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) _(matched by name only)_
+- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh) _(matched by name only)_
+- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh) _(matched by name only)_
+- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh) _(matched by name only)_
+- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs) _(matched by name only)_
+- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline _(matched by name only)_
+- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier _(matched by name only)_
+- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR… _(matched by name only)_
+- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh) _(matched by name only)_
+- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh) _(matched by name only)_
+- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate) _(matched by name only)_
+- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker) _(matched by name only)_
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service) _(matched by name only)_
+- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl) _(matched by name only)_
+- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service) _(matched by name only)_
+- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service) _(matched by name only)_
+- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh) _(matched by name only)_
 
 ## Tests (51)
 

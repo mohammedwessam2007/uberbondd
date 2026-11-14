@@ -12,18 +12,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (12)
 
-- [`docs/CAPABILITY_GENOME_CANON.md`](../CAPABILITY_GENOME_CANON.md) — UberBond Capability Genome Canon — Status: foundation integrated; measured public repository-candidate harvest proven; measured skill-body import proven; first measured body-to-capability n…
-- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon
-- [`docs/CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md`](../CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md) — Claude Code External Capability Pack — UberBond
-- [`docs/GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md`](../GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md) — GENESIS realization: Capability Chimera Compiler — Status: SOURCE IMPLEMENTATION CANDIDATE / HELD-OUT REAL-USAGE HYPOTHESIS UNVALIDATED
-- [`docs/PHOENIX_COS_CAPABILITY_OPERATOR.md`](../PHOENIX_COS_CAPABILITY_OPERATOR.md) — PHOENIX CoS Capability Operator
-- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator
-- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge
-- [`docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`](../UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md) — 2026-10-01 · UberWarm² Capability Donor Synthesis — Truth class: CLEAN-ROOM CAPABILITY SYNTHESIS + SOURCE IMPLEMENTATION. No provider purchase, DNS mutation, credential entry, external seed-network crea…
-- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31
-- [`docs/research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md`](../research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md) — 2026-08-31 · World Capability Ecosystem Evidence Package — 2026-08-31
-- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30
-- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier
+- [`docs/CAPABILITY_GENOME_CANON.md`](../CAPABILITY_GENOME_CANON.md) — UberBond Capability Genome Canon — Status: foundation integrated; measured public repository-candidate harvest proven; measured skill-body import proven; first measured body-to-capability n… _(matched by name only)_
+- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(matched by name only)_
+- [`docs/CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md`](../CLAUDE_EXTERNAL_CAPABILITY_PACK_SETUP.md) — Claude Code External Capability Pack — UberBond _(matched by name only)_
+- [`docs/GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md`](../GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md) — GENESIS realization: Capability Chimera Compiler — Status: SOURCE IMPLEMENTATION CANDIDATE / HELD-OUT REAL-USAGE HYPOTHESIS UNVALIDATED _(matched by name only)_
+- [`docs/PHOENIX_COS_CAPABILITY_OPERATOR.md`](../PHOENIX_COS_CAPABILITY_OPERATOR.md) — PHOENIX CoS Capability Operator _(matched by name only)_
+- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge _(matched by name only)_
+- [`docs/UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md`](../UBERWARM2_CAPABILITY_DONOR_SYNTHESIS_2026-10-01.md) — 2026-10-01 · UberWarm² Capability Donor Synthesis — Truth class: CLEAN-ROOM CAPABILITY SYNTHESIS + SOURCE IMPLEMENTATION. No provider purchase, DNS mutation, credential entry, external seed-network crea… _(matched by name only)_
+- [`docs/memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md`](../memory/AI_CAPABILITY_FULL_INTEGRATION_RECEIPT_2026-08-31.md) — 2026-08-31 · UberBond AI Capability Full Integration Receipt — 2026-08-31 _(matched by name only)_
+- [`docs/research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md`](../research/CAPABILITY_GENOME_ECOSYSTEM_2026-08-31.md) — 2026-08-31 · World Capability Ecosystem Evidence Package — 2026-08-31 _(matched by name only)_
+- [`docs/memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md`](../memory/AI_CAPABILITY_ASSIMILATION_RECEIPT_2026-08-30.md) — 2026-08-30 · UberBond AI Capability Assimilation Receipt — 2026-08-30 _(matched by name only)_
+- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(matched by name only)_
 
 ## Commands (7)
 
@@ -31,110 +31,110 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (16)
 
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(7 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(7 mentions)_
-- [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — UberBond Wallbreaker Canon — Status: CANONICAL PLANNING PRIMITIVE _(6 mentions)_
-- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(4 mentions)_
-- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory _(4 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(4 mentions)_
-- [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — UberBond Neural Exocortex Genome Canon _(4 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(4 mentions)_
-- [`.claude/skills/wallbreaker/SKILL.md`](../../.claude/skills/wallbreaker/SKILL.md) — Wallbreaker _(3 mentions)_
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(3 mentions)_
-- [`docs/FRONTIER_INTELLIGENCE_FOUNDRY.md`](../FRONTIER_INTELLIGENCE_FOUNDRY.md) — UberBond Frontier Intelligence Foundry — Status: source-canonical design and executable normalization/tournament/reproduction contracts. This document does not claim the final one-million c… _(3 mentions)_
-- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(3 mentions)_
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(3 mentions)_
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(7 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(7 mentions)_
+- [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — UberBond Wallbreaker Canon — Status: CANONICAL PLANNING PRIMITIVE _(matched by name only)_ _(6 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md`](../memory/UBERBOND_AUTONOMOUS_FRONTIER_INTELLIGENCE_LOOP_2026-09-03.md) — 2026-09-03 · UberBond Autonomous Frontier Intelligence Loop — Status: durable long-horizon doctrine / capability-expansion memory _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(4 mentions)_
+- [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — UberBond Neural Exocortex Genome Canon _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(4 mentions)_
+- [`.claude/skills/wallbreaker/SKILL.md`](../../.claude/skills/wallbreaker/SKILL.md) — Wallbreaker _(matched by name only)_ _(3 mentions)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(3 mentions)_
+- [`docs/FRONTIER_INTELLIGENCE_FOUNDRY.md`](../FRONTIER_INTELLIGENCE_FOUNDRY.md) — UberBond Frontier Intelligence Foundry — Status: source-canonical design and executable normalization/tournament/reproduction contracts. This document does not claim the final one-million c… _(matched by name only)_ _(3 mentions)_
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_ _(3 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (41)
 
-- [`src/billion-capability-universe.mjs`](../../src/billion-capability-universe.mjs) — exports BILLION_CAPABILITY_UNIVERSE_VERSION, BILLION_CAPABILITY_OBJECT_TARGET, GITHUB_REPOSITORY_DISCOVERY_HORIZON, CAPABILITY_OBJECT_CLASSES, buildB… _(tested; imported by 1)_
-- [`src/capability-benchmark.mjs`](../../src/capability-benchmark.mjs) — exports CAPABILITY_BENCHMARK_ATOM_ID, compileCapabilityBenchmark, executeCapabilityBenchmark _(tested; imported by 1)_
-- [`src/capability-chimera-compiler.mjs`](../../src/capability-chimera-compiler.mjs) — exports CAPABILITY_CHIMERA_COMPILER_VERSION, searchCapabilityChimeras, evaluateCapabilityChimeraTournament _(tested; imported by 1)_
-- [`src/capability-dedupe.mjs`](../../src/capability-dedupe.mjs) — exports CAPABILITY_DEDUPE_ATOM_ID, compileCapabilityDedupe, executeCapabilityDedupe _(tested; imported by 1)_
-- [`src/capability-discover.mjs`](../../src/capability-discover.mjs) — exports CAPABILITY_DISCOVER_ATOM_ID, compileCapabilityDiscover, executeCapabilityDiscover _(tested; imported by 1)_
-- [`src/capability-genome-admission.mjs`](../../src/capability-genome-admission.mjs) — exports CAPABILITY_GENOME_ADMISSION_VERSION, dedupeCapabilities, evaluateLicense, scanCapabilityInstructions, admitCapability (+2) _(imported by 6)_
-- [`src/capability-genome-body-fetch.mjs`](../../src/capability-genome-body-fetch.mjs) — exports CAPABILITY_GENOME_BODY_FETCH_VERSION, gitBlobSha1, executeGithubSkillBodyReads, executePinnedRawSkillBodyReads _(tested; imported by 2)_
-- [`src/capability-genome-body-import.mjs`](../../src/capability-genome-body-import.mjs) — exports CAPABILITY_GENOME_BODY_IMPORT_VERSION, SKILL_BODY_CORPUS_SCHEMA, normalizePublicSkillBody, buildMeasuredSkillBodyCorpus, verifyRefetchedSkill… _(tested; imported by 3)_
-- [`src/capability-genome-body-normalize.mjs`](../../src/capability-genome-body-normalize.mjs) — Turns an imported skill body into a canonical capability record. _(tested; imported by 1)_
-- [`src/capability-genome-discovery.mjs`](../../src/capability-genome-discovery.mjs) — exports CAPABILITY_GENOME_DISCOVERY_VERSION, loadCapabilityGenomeSourceRegistry, planIncrementalDiscovery, normalizeDiscoveryArtifact, buildCapabilit… _(imported by 3)_
-- [`src/capability-genome-doctor.mjs`](../../src/capability-genome-doctor.mjs) — exports CAPABILITY_GENOME_DOCTOR_VERSION, inspectCapabilityGenome _(imported by 2)_
-- [`src/capability-genome-execution-admission.mjs`](../../src/capability-genome-execution-admission.mjs) — exports CAPABILITY_GENOME_EXECUTION_ADMISSION_VERSION, validateCapabilityExecutionState, guardedCapabilityExecutionReceipt _(tested; no static importers)_
-- [`src/capability-genome-harvest.mjs`](../../src/capability-genome-harvest.mjs) — exports CAPABILITY_GENOME_HARVEST_VERSION, CORPUS_STATE_SCHEMA, normalizeWorldRepositoryCandidate, buildMeasuredRepositoryCorpus, planGithubRepositor… _(tested; imported by 3)_
-- [`src/capability-genome-money-atlas.mjs`](../../src/capability-genome-money-atlas.mjs) — exports MONEY_CAPABILITY_TARGETS, MONEY_CAPABILITY_QUERY_FAMILIES, buildMoneyCapabilitySearchAtlas, scoreMoneyRepositoryCandidate, selectMoneyCapabil… _(tested; imported by 1)_
-- [`src/capability-genome-runtime.mjs`](../../src/capability-genome-runtime.mjs) — exports CAPABILITY_GENOME_RUNTIME_VERSION, retrieveCapabilities, selectMinimumCapabilityBundle, capabilityFitness, evaluateBenchmark (+3) _(imported by 7)_
-- [`src/capability-genome-schema.mjs`](../../src/capability-genome-schema.mjs) — exports CAPABILITY_GENOME_SCHEMA_VERSION, CAPABILITY_SOURCE_TYPES, CAPABILITY_PROMOTION_STATES, CAPABILITY_SIDE_EFFECT_CLASSES, CAPABILITY_DATA_CLASS… _(imported by 6)_
-- [`src/capability-graph.mjs`](../../src/capability-graph.mjs) — Machine-readable representation of what UberBond can actually do on THIS _(tested; imported by 5)_
-- [`src/capability-mechanism-identity.mjs`](../../src/capability-mechanism-identity.mjs) — exports MECHANISM_IDENTITY_VERSION, canonicalMechanismIdentity, sameMechanism _(imported by 1)_
-- [`src/capability-receipt-loader.mjs`](../../src/capability-receipt-loader.mjs) — exports loadCapabilityReceipts _(tested; imported by 1)_
-- [`src/capability-retrieve.mjs`](../../src/capability-retrieve.mjs) — exports CAPABILITY_RETRIEVE_ATOM_ID, compileCapabilityRetrieve, executeCapabilityRetrieve _(tested; imported by 1)_
-- [`src/capability-revoke.mjs`](../../src/capability-revoke.mjs) — exports CAPABILITY_REVOKE_ATOM_ID, compileCapabilityRevoke, executeCapabilityRevoke _(tested; imported by 1)_
-- [`src/capability-scaled-security.mjs`](../../src/capability-scaled-security.mjs) — exports CAPABILITY_SCALED_SECURITY_VERSION, SECURITY_TIERS, C26_EVIDENCE_CLASSES, C26_THREAT_FAMILIES, classifyCapabilitySecurityTier (+4) _(tested; imported by 2)_
-- [`src/capability-security-admit.mjs`](../../src/capability-security-admit.mjs) — exports CAPABILITY_SECURITY_ADMIT_ATOM_ID, compileCapabilitySecurityAdmit, executeCapabilitySecurityAdmit _(tested; imported by 1)_
-- [`src/capability-source-atlas.mjs`](../../src/capability-source-atlas.mjs) — exports CAPABILITY_SOURCE_ATLAS_VERSION, CAPABILITY_OBJECT_TARGET, SOURCE_FAMILIES, HIGH_PRIORITY_DOMAINS, buildCapabilitySourceAtlas _(imported by 1)_
-- [`src/capability-total-state.mjs`](../../src/capability-total-state.mjs) — exports CAPABILITY_TOTAL_STATE_VERSION, inspectCapabilityTotalState _(tested; imported by 2)_
-- [`src/capability-world-harvester.mjs`](../../src/capability-world-harvester.mjs) — exports CAPABILITY_WORLD_HARVESTER_VERSION, compileWorldSourceAdapterPlan, normalizeWorldCapabilityObservation, buildWorldCapabilityAssimilationBatch _(tested; imported by 2)_
-- [`src/elite-capability-reserve.mjs`](../../src/elite-capability-reserve.mjs) — exports ELITE_CAPABILITY_RESERVE_VERSION, ELITE_CAPABILITY_RESERVE_TARGET, eliteEligibility, buildEliteReserve _(imported by 2)_
-- [`src/external-capability-bootstrap-plan.mjs`](../../src/external-capability-bootstrap-plan.mjs) — The host bootstrap plan, extracted from scripts/bootstrap-external-capabilities.mjs _(imported by 1)_
-- [`src/external-capability-control-plane.mjs`](../../src/external-capability-control-plane.mjs) — exports EXTERNAL_CAPABILITY_POLICY_VERSION, validateExternalCapabilityRegistry, summarizeExternalCapabilities, planExternalCapabilityUse, defaultCapa… _(tested; imported by 3)_
-- [`src/external-capability-reality-safe.mjs`](../../src/external-capability-reality-safe.mjs) — exports SAFE_EXTERNAL_CAPABILITY_GAPS, evaluateSafeExternalCapabilityReality _(tested; imported by 1)_
-- [`src/frontier-capability-closure-router.mjs`](../../src/frontier-capability-closure-router.mjs) — exports FRONTIER_CAPABILITY_CLOSURE_ROUTER_VERSION, CLOSURE_CLASSES, routeFrontierCapabilityClosures _(tested; imported by 2)_
-- [`src/frontier-capability-fusion.mjs`](../../src/frontier-capability-fusion.mjs) — exports FRONTIER_CAPABILITY_FUSION_VERSION, FRONTIER_MECHANISMS, PUBLIC_DONOR_MECHANISMS, chooseReasoningEffort, supplierEligibility (+2) _(tested; imported by 1)_
-- [`src/frontier-capability-harvest.mjs`](../../src/frontier-capability-harvest.mjs) — exports FRONTIER_CAPABILITY_HARVEST_VERSION, FRONTIER_CAPABILITY_SEEDS, planFrontierCapabilityHarvest _(no static importers)_
-- [`src/human-capability-genome.mjs`](../../src/human-capability-genome.mjs) — Human capability as a dependency graph, and what growing it costs elsewhere. _(tested; imported by 2)_
-- [`src/missing-capability-build-path.mjs`](../../src/missing-capability-build-path.mjs) — exports MISSING_CAPABILITY_BUILD_PATH_VERSION, resolveMissingCapabilityPath _(tested; imported by 1)_
-- [`src/native-capability-market.mjs`](../../src/native-capability-market.mjs) — exports NATIVE_CAPABILITY_MARKET_VERSION, inspectNativeCapabilityMarket, retrieveNativeCapabilities _(tested; imported by 2)_
-- [`src/native-capability-universe.mjs`](../../src/native-capability-universe.mjs) — exports NATIVE_CAPABILITY_UNIVERSE_VERSION, inspectNativeCapabilityUniverse, routeNativeCapability _(imported by 3)_
-- [`src/native-frontier-capability-market.mjs`](../../src/native-frontier-capability-market.mjs) — exports NATIVE_FRONTIER_CAPABILITY_MARKET_VERSION, inspectNativeFrontierCapabilityMarket _(imported by 1)_
-- [`src/overnight/control/capability-tournament.mjs`](../../src/overnight/control/capability-tournament.mjs) — Bounded tournament for market capability primitives. _(imported by 1)_
-- [`src/overnight/control/market-capability-registry.mjs`](../../src/overnight/control/market-capability-registry.mjs) — Bounded, machine-readable inventory of useful market capability primitives. _(imported by 1)_
-- [`src/uberwarm2-send-capability.mjs`](../../src/uberwarm2-send-capability.mjs) — One-shot authority to transmit exactly one owner-seed probe. _(tested; imported by 3)_
+- [`src/billion-capability-universe.mjs`](../../src/billion-capability-universe.mjs) — exports BILLION_CAPABILITY_UNIVERSE_VERSION, BILLION_CAPABILITY_OBJECT_TARGET, GITHUB_REPOSITORY_DISCOVERY_HORIZON, CAPABILITY_OBJECT_CLASSES, buildB… _(matched by name only; tested; imported by 1)_
+- [`src/capability-benchmark.mjs`](../../src/capability-benchmark.mjs) — exports CAPABILITY_BENCHMARK_ATOM_ID, compileCapabilityBenchmark, executeCapabilityBenchmark _(matched by name only; tested; imported by 1)_
+- [`src/capability-chimera-compiler.mjs`](../../src/capability-chimera-compiler.mjs) — exports CAPABILITY_CHIMERA_COMPILER_VERSION, searchCapabilityChimeras, evaluateCapabilityChimeraTournament _(matched by name only; tested; imported by 1)_
+- [`src/capability-dedupe.mjs`](../../src/capability-dedupe.mjs) — exports CAPABILITY_DEDUPE_ATOM_ID, compileCapabilityDedupe, executeCapabilityDedupe _(matched by name only; tested; imported by 1)_
+- [`src/capability-discover.mjs`](../../src/capability-discover.mjs) — exports CAPABILITY_DISCOVER_ATOM_ID, compileCapabilityDiscover, executeCapabilityDiscover _(matched by name only; tested; imported by 1)_
+- [`src/capability-genome-admission.mjs`](../../src/capability-genome-admission.mjs) — exports CAPABILITY_GENOME_ADMISSION_VERSION, dedupeCapabilities, evaluateLicense, scanCapabilityInstructions, admitCapability (+2) _(matched by name only; imported by 6)_
+- [`src/capability-genome-body-fetch.mjs`](../../src/capability-genome-body-fetch.mjs) — exports CAPABILITY_GENOME_BODY_FETCH_VERSION, gitBlobSha1, executeGithubSkillBodyReads, executePinnedRawSkillBodyReads _(matched by name only; tested; imported by 2)_
+- [`src/capability-genome-body-import.mjs`](../../src/capability-genome-body-import.mjs) — exports CAPABILITY_GENOME_BODY_IMPORT_VERSION, SKILL_BODY_CORPUS_SCHEMA, normalizePublicSkillBody, buildMeasuredSkillBodyCorpus, verifyRefetchedSkill… _(matched by name only; tested; imported by 3)_
+- [`src/capability-genome-body-normalize.mjs`](../../src/capability-genome-body-normalize.mjs) — Turns an imported skill body into a canonical capability record. _(matched by name only; tested; imported by 1)_
+- [`src/capability-genome-discovery.mjs`](../../src/capability-genome-discovery.mjs) — exports CAPABILITY_GENOME_DISCOVERY_VERSION, loadCapabilityGenomeSourceRegistry, planIncrementalDiscovery, normalizeDiscoveryArtifact, buildCapabilit… _(matched by name only; imported by 3)_
+- [`src/capability-genome-doctor.mjs`](../../src/capability-genome-doctor.mjs) — exports CAPABILITY_GENOME_DOCTOR_VERSION, inspectCapabilityGenome _(matched by name only; imported by 2)_
+- [`src/capability-genome-execution-admission.mjs`](../../src/capability-genome-execution-admission.mjs) — exports CAPABILITY_GENOME_EXECUTION_ADMISSION_VERSION, validateCapabilityExecutionState, guardedCapabilityExecutionReceipt _(matched by name only; tested; no static importers)_
+- [`src/capability-genome-harvest.mjs`](../../src/capability-genome-harvest.mjs) — exports CAPABILITY_GENOME_HARVEST_VERSION, CORPUS_STATE_SCHEMA, normalizeWorldRepositoryCandidate, buildMeasuredRepositoryCorpus, planGithubRepositor… _(matched by name only; tested; imported by 3)_
+- [`src/capability-genome-money-atlas.mjs`](../../src/capability-genome-money-atlas.mjs) — exports MONEY_CAPABILITY_TARGETS, MONEY_CAPABILITY_QUERY_FAMILIES, buildMoneyCapabilitySearchAtlas, scoreMoneyRepositoryCandidate, selectMoneyCapabil… _(matched by name only; tested; imported by 1)_
+- [`src/capability-genome-runtime.mjs`](../../src/capability-genome-runtime.mjs) — exports CAPABILITY_GENOME_RUNTIME_VERSION, retrieveCapabilities, selectMinimumCapabilityBundle, capabilityFitness, evaluateBenchmark (+3) _(matched by name only; imported by 7)_
+- [`src/capability-genome-schema.mjs`](../../src/capability-genome-schema.mjs) — exports CAPABILITY_GENOME_SCHEMA_VERSION, CAPABILITY_SOURCE_TYPES, CAPABILITY_PROMOTION_STATES, CAPABILITY_SIDE_EFFECT_CLASSES, CAPABILITY_DATA_CLASS… _(matched by name only; imported by 6)_
+- [`src/capability-graph.mjs`](../../src/capability-graph.mjs) — Machine-readable representation of what UberBond can actually do on THIS _(matched by name only; tested; imported by 5)_
+- [`src/capability-mechanism-identity.mjs`](../../src/capability-mechanism-identity.mjs) — exports MECHANISM_IDENTITY_VERSION, canonicalMechanismIdentity, sameMechanism _(matched by name only; imported by 1)_
+- [`src/capability-receipt-loader.mjs`](../../src/capability-receipt-loader.mjs) — exports loadCapabilityReceipts _(matched by name only; tested; imported by 1)_
+- [`src/capability-retrieve.mjs`](../../src/capability-retrieve.mjs) — exports CAPABILITY_RETRIEVE_ATOM_ID, compileCapabilityRetrieve, executeCapabilityRetrieve _(matched by name only; tested; imported by 1)_
+- [`src/capability-revoke.mjs`](../../src/capability-revoke.mjs) — exports CAPABILITY_REVOKE_ATOM_ID, compileCapabilityRevoke, executeCapabilityRevoke _(matched by name only; tested; imported by 1)_
+- [`src/capability-scaled-security.mjs`](../../src/capability-scaled-security.mjs) — exports CAPABILITY_SCALED_SECURITY_VERSION, SECURITY_TIERS, C26_EVIDENCE_CLASSES, C26_THREAT_FAMILIES, classifyCapabilitySecurityTier (+4) _(matched by name only; tested; imported by 2)_
+- [`src/capability-security-admit.mjs`](../../src/capability-security-admit.mjs) — exports CAPABILITY_SECURITY_ADMIT_ATOM_ID, compileCapabilitySecurityAdmit, executeCapabilitySecurityAdmit _(matched by name only; tested; imported by 1)_
+- [`src/capability-source-atlas.mjs`](../../src/capability-source-atlas.mjs) — exports CAPABILITY_SOURCE_ATLAS_VERSION, CAPABILITY_OBJECT_TARGET, SOURCE_FAMILIES, HIGH_PRIORITY_DOMAINS, buildCapabilitySourceAtlas _(matched by name only; imported by 1)_
+- [`src/capability-total-state.mjs`](../../src/capability-total-state.mjs) — exports CAPABILITY_TOTAL_STATE_VERSION, inspectCapabilityTotalState _(matched by name only; tested; imported by 2)_
+- [`src/capability-world-harvester.mjs`](../../src/capability-world-harvester.mjs) — exports CAPABILITY_WORLD_HARVESTER_VERSION, compileWorldSourceAdapterPlan, normalizeWorldCapabilityObservation, buildWorldCapabilityAssimilationBatch _(matched by name only; tested; imported by 2)_
+- [`src/elite-capability-reserve.mjs`](../../src/elite-capability-reserve.mjs) — exports ELITE_CAPABILITY_RESERVE_VERSION, ELITE_CAPABILITY_RESERVE_TARGET, eliteEligibility, buildEliteReserve _(matched by name only; imported by 2)_
+- [`src/external-capability-bootstrap-plan.mjs`](../../src/external-capability-bootstrap-plan.mjs) — The host bootstrap plan, extracted from scripts/bootstrap-external-capabilities.mjs _(matched by name only; imported by 1)_
+- [`src/external-capability-control-plane.mjs`](../../src/external-capability-control-plane.mjs) — exports EXTERNAL_CAPABILITY_POLICY_VERSION, validateExternalCapabilityRegistry, summarizeExternalCapabilities, planExternalCapabilityUse, defaultCapa… _(matched by name only; tested; imported by 3)_
+- [`src/external-capability-reality-safe.mjs`](../../src/external-capability-reality-safe.mjs) — exports SAFE_EXTERNAL_CAPABILITY_GAPS, evaluateSafeExternalCapabilityReality _(matched by name only; tested; imported by 1)_
+- [`src/frontier-capability-closure-router.mjs`](../../src/frontier-capability-closure-router.mjs) — exports FRONTIER_CAPABILITY_CLOSURE_ROUTER_VERSION, CLOSURE_CLASSES, routeFrontierCapabilityClosures _(matched by name only; tested; imported by 2)_
+- [`src/frontier-capability-fusion.mjs`](../../src/frontier-capability-fusion.mjs) — exports FRONTIER_CAPABILITY_FUSION_VERSION, FRONTIER_MECHANISMS, PUBLIC_DONOR_MECHANISMS, chooseReasoningEffort, supplierEligibility (+2) _(matched by name only; tested; imported by 1)_
+- [`src/frontier-capability-harvest.mjs`](../../src/frontier-capability-harvest.mjs) — exports FRONTIER_CAPABILITY_HARVEST_VERSION, FRONTIER_CAPABILITY_SEEDS, planFrontierCapabilityHarvest _(matched by name only; no static importers)_
+- [`src/human-capability-genome.mjs`](../../src/human-capability-genome.mjs) — Human capability as a dependency graph, and what growing it costs elsewhere. _(matched by name only; tested; imported by 2)_
+- [`src/missing-capability-build-path.mjs`](../../src/missing-capability-build-path.mjs) — exports MISSING_CAPABILITY_BUILD_PATH_VERSION, resolveMissingCapabilityPath _(matched by name only; tested; imported by 1)_
+- [`src/native-capability-market.mjs`](../../src/native-capability-market.mjs) — exports NATIVE_CAPABILITY_MARKET_VERSION, inspectNativeCapabilityMarket, retrieveNativeCapabilities _(matched by name only; tested; imported by 2)_
+- [`src/native-capability-universe.mjs`](../../src/native-capability-universe.mjs) — exports NATIVE_CAPABILITY_UNIVERSE_VERSION, inspectNativeCapabilityUniverse, routeNativeCapability _(matched by name only; imported by 3)_
+- [`src/native-frontier-capability-market.mjs`](../../src/native-frontier-capability-market.mjs) — exports NATIVE_FRONTIER_CAPABILITY_MARKET_VERSION, inspectNativeFrontierCapabilityMarket _(matched by name only; imported by 1)_
+- [`src/overnight/control/capability-tournament.mjs`](../../src/overnight/control/capability-tournament.mjs) — Bounded tournament for market capability primitives. _(matched by name only; imported by 1)_
+- [`src/overnight/control/market-capability-registry.mjs`](../../src/overnight/control/market-capability-registry.mjs) — Bounded, machine-readable inventory of useful market capability primitives. _(matched by name only; imported by 1)_
+- [`src/uberwarm2-send-capability.mjs`](../../src/uberwarm2-send-capability.mjs) — One-shot authority to transmit exactly one owner-seed probe. _(matched by name only; tested; imported by 3)_
 
 ## Scripts (11)
 
-- [`scripts/capability-genome-body-import.mjs`](../../scripts/capability-genome-body-import.mjs) _(npm: `capabilities:genome:body-import`)_
-- [`scripts/capability-genome-doctor.mjs`](../../scripts/capability-genome-doctor.mjs) _(npm: `capabilities:genome:doctor`)_
-- [`scripts/capability-genome-harvest.mjs`](../../scripts/capability-genome-harvest.mjs) _(npm: `capabilities:genome:harvest`)_
-- [`scripts/capability-genome-money-world-pulse.mjs`](../../scripts/capability-genome-money-world-pulse.mjs) — exports normalizeMoneyWorldCapabilityPulseInput
-- [`scripts/capability-genome-normalize-bodies.mjs`](../../scripts/capability-genome-normalize-bodies.mjs) — Re-read the pinned skill bodies and normalize them into capability records. _(npm: `capabilities:genome:normalize`)_
-- [`scripts/capability-total-doctor.mjs`](../../scripts/capability-total-doctor.mjs)
-- [`scripts/external-capability-doctor.mjs`](../../scripts/external-capability-doctor.mjs) _(npm: `capabilities:doctor`)_
-- [`scripts/frontier-capability-closure-status.mjs`](../../scripts/frontier-capability-closure-status.mjs)
-- [`scripts/genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(npm: `genesis:chimera:doctor`)_
-- [`scripts/missing-capability-build-path-doctor.mjs`](../../scripts/missing-capability-build-path-doctor.mjs)
-- [`scripts/native-capability-market-doctor.mjs`](../../scripts/native-capability-market-doctor.mjs)
+- [`scripts/capability-genome-body-import.mjs`](../../scripts/capability-genome-body-import.mjs) _(matched by name only; npm: `capabilities:genome:body-import`)_
+- [`scripts/capability-genome-doctor.mjs`](../../scripts/capability-genome-doctor.mjs) _(matched by name only; npm: `capabilities:genome:doctor`)_
+- [`scripts/capability-genome-harvest.mjs`](../../scripts/capability-genome-harvest.mjs) _(matched by name only; npm: `capabilities:genome:harvest`)_
+- [`scripts/capability-genome-money-world-pulse.mjs`](../../scripts/capability-genome-money-world-pulse.mjs) — exports normalizeMoneyWorldCapabilityPulseInput _(matched by name only)_
+- [`scripts/capability-genome-normalize-bodies.mjs`](../../scripts/capability-genome-normalize-bodies.mjs) — Re-read the pinned skill bodies and normalize them into capability records. _(matched by name only; npm: `capabilities:genome:normalize`)_
+- [`scripts/capability-total-doctor.mjs`](../../scripts/capability-total-doctor.mjs) _(matched by name only)_
+- [`scripts/external-capability-doctor.mjs`](../../scripts/external-capability-doctor.mjs) _(matched by name only; npm: `capabilities:doctor`)_
+- [`scripts/frontier-capability-closure-status.mjs`](../../scripts/frontier-capability-closure-status.mjs) _(matched by name only)_
+- [`scripts/genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(matched by name only; npm: `genesis:chimera:doctor`)_
+- [`scripts/missing-capability-build-path-doctor.mjs`](../../scripts/missing-capability-build-path-doctor.mjs) _(matched by name only)_
+- [`scripts/native-capability-market-doctor.mjs`](../../scripts/native-capability-market-doctor.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (27)
 
-- [`artifacts/capability-genome/atom-evidence-terms.json`](../../artifacts/capability-genome/atom-evidence-terms.json) — uberbond.capability-genome.atom-evidence-terms.v1
-- [`artifacts/capability-genome/capability-atoms.json`](../../artifacts/capability-genome/capability-atoms.json) — uberbond.capability-genome.atoms.v1
-- [`artifacts/capability-genome/foundation-receipt.json`](../../artifacts/capability-genome/foundation-receipt.json) — uberbond.capability-genome.foundation-receipt.v1
-- [`artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json`](../../artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json) — 2026-09-13 · FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED · uberbond.frontier-internal-satisfaction-review.v1
-- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1
-- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1
-- [`artifacts/capability-genome/harvest-seed-2026-09-12.json`](../../artifacts/capability-genome/harvest-seed-2026-09-12.json) — 2026-09-12 · HARVEST_STARTED_MEASURED_SEED · uberbond.capability-harvest-seed.v1
-- [`artifacts/capability-genome/night-run-5-dependency-cycle-2026-09-02.json`](../../artifacts/capability-genome/night-run-5-dependency-cycle-2026-09-02.json) — 2026-09-02 · PENDING_EXACT_HEAD_CI · uberbond.capability-genome.night-receipt.v1
-- [`artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json`](../../artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json) — 2026-09-01 · anthropics · PINNED_PUBLIC_SKILL_BODY_READ · uberbond.capability-genome.normalized-records.v1
-- [`artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1
-- [`artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1
-- [`artifacts/capability-genome/research/phoenix-public-repository-corpus.json`](../../artifacts/capability-genome/research/phoenix-public-repository-corpus.json) — MEASURED_READ_ONLY_UNTRUSTED_NOT_ADMITTED · uberbond.capability-genome.phoenix-research-corpus.v1
-- [`artifacts/capability-genome/reviewed-unmapped-needs.json`](../../artifacts/capability-genome/reviewed-unmapped-needs.json) — uberbond.capability-genome.reviewed-unmapped-needs.v1
-- [`artifacts/capability-genome/source-registry.json`](../../artifacts/capability-genome/source-registry.json) — Official MCP Registry · uberbond.capability-genome.sources.v1
-- [`artifacts/capability-reality/observed.json`](../../artifacts/capability-reality/observed.json) — uberbond.capability-reality.receipts.v1
-- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1
-- [`artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json`](../../artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json) — 2026-09-22 · Option-Constraint Eraser · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`artifacts/growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0
-- [`artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json`](../../artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json) — 2026-10-01 · DONOR_INTERNALIZED_CLEAN_ROOM · uberbond-capability-donor-ledger-1.0.0
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json) — 2026-10-17 · Authenticated CLI health attestation · UNIMPLEMENTED/UNKNOWN_IN_UBERBOND
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json) — uberbond.capability-family-map.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json) — uberbond.capability-genome.public-corpus.v0.1
-- [`data/frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1
-- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service)
-- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge
-- [`schemas/capability-genome.schema.json`](../../schemas/capability-genome.schema.json) — UberBond Capability Genome Capability
+- [`artifacts/capability-genome/atom-evidence-terms.json`](../../artifacts/capability-genome/atom-evidence-terms.json) — uberbond.capability-genome.atom-evidence-terms.v1 _(matched by name only)_
+- [`artifacts/capability-genome/capability-atoms.json`](../../artifacts/capability-genome/capability-atoms.json) — uberbond.capability-genome.atoms.v1 _(matched by name only)_
+- [`artifacts/capability-genome/foundation-receipt.json`](../../artifacts/capability-genome/foundation-receipt.json) — uberbond.capability-genome.foundation-receipt.v1 _(matched by name only)_
+- [`artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json`](../../artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json) — 2026-09-13 · FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED · uberbond.frontier-internal-satisfaction-review.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/capability-genome/harvest-seed-2026-09-12.json`](../../artifacts/capability-genome/harvest-seed-2026-09-12.json) — 2026-09-12 · HARVEST_STARTED_MEASURED_SEED · uberbond.capability-harvest-seed.v1 _(matched by name only)_
+- [`artifacts/capability-genome/night-run-5-dependency-cycle-2026-09-02.json`](../../artifacts/capability-genome/night-run-5-dependency-cycle-2026-09-02.json) — 2026-09-02 · PENDING_EXACT_HEAD_CI · uberbond.capability-genome.night-receipt.v1 _(matched by name only)_
+- [`artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json`](../../artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json) — 2026-09-01 · anthropics · PINNED_PUBLIC_SKILL_BODY_READ · uberbond.capability-genome.normalized-records.v1 _(matched by name only)_
+- [`artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1 _(matched by name only)_
+- [`artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1 _(matched by name only)_
+- [`artifacts/capability-genome/research/phoenix-public-repository-corpus.json`](../../artifacts/capability-genome/research/phoenix-public-repository-corpus.json) — MEASURED_READ_ONLY_UNTRUSTED_NOT_ADMITTED · uberbond.capability-genome.phoenix-research-corpus.v1 _(matched by name only)_
+- [`artifacts/capability-genome/reviewed-unmapped-needs.json`](../../artifacts/capability-genome/reviewed-unmapped-needs.json) — uberbond.capability-genome.reviewed-unmapped-needs.v1 _(matched by name only)_
+- [`artifacts/capability-genome/source-registry.json`](../../artifacts/capability-genome/source-registry.json) — Official MCP Registry · uberbond.capability-genome.sources.v1 _(matched by name only)_
+- [`artifacts/capability-reality/observed.json`](../../artifacts/capability-reality/observed.json) — uberbond.capability-reality.receipts.v1 _(matched by name only)_
+- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json`](../../artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json) — 2026-09-22 · Option-Constraint Eraser · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`artifacts/growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json`](../../artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json) — 2026-10-01 · DONOR_INTERNALIZED_CLEAN_ROOM · uberbond-capability-donor-ledger-1.0.0 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json) — 2026-10-17 · Authenticated CLI health attestation · UNIMPLEMENTED/UNKNOWN_IN_UBERBOND _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json) — uberbond.capability-family-map.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json) — uberbond.capability-genome.public-corpus.v0.1 _(matched by name only)_
+- [`data/frontier-capability-donors.json`](../../data/frontier-capability-donors.json) — uberbond.frontier-capability-donors.v1 _(matched by name only)_
+- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge _(matched by name only)_
+- [`schemas/capability-genome.schema.json`](../../schemas/capability-genome.schema.json) — UberBond Capability Genome Capability _(matched by name only)_
 
 ## Tests (44)
 

@@ -166,5 +166,11 @@ When asked about a specific UberBond project, open its page here first and follo
 |---|---:|---|
 | [NEU205 ONE](neu205.md) | 1 | Separate study-tool engineering continuation (public, source-only navigation; private course material is not in the repo). |
 
+## How files were assigned
+
+- **0** files by reading their content (purpose and use written per file; records in `artifacts/repository-index/semantics/`).
+- **0** tests by the modules they import.
+- **4677** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
+
 20 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

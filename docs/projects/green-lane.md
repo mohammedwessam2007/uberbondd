@@ -12,9 +12,9 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (3)
 
-- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock
-- [`docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md`](../receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md) — 2026-10-03 · Global Green-Lane Router — software closure receipt, 2026-10-03 — Truth class: INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF. Base: 1e600fd193fa2ca0d7590bbb0751150d1a3e8363 (main). Machine r…
-- [`docs/receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md`](../receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md) — 2026-10-03 · Global Green-Lane live reality bridge — 3 October 2026
+- [`deploy/cloudflare-free-runtime/README.md`](../../deploy/cloudflare-free-runtime/README.md) — UberBond Free Runtime Mission Clock _(matched by name only)_
+- [`docs/receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md`](../receipts/GLOBAL_GREEN_LANE_ROUTER_20261003.md) — 2026-10-03 · Global Green-Lane Router — software closure receipt, 2026-10-03 — Truth class: INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF. Base: 1e600fd193fa2ca0d7590bbb0751150d1a3e8363 (main). Machine r… _(matched by name only)_
+- [`docs/receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md`](../receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md) — 2026-10-03 · Global Green-Lane live reality bridge — 3 October 2026 _(matched by name only)_
 
 ## Commands (3)
 
@@ -22,40 +22,40 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Source modules (12)
 
-- [`src/free-first-outreach-router.mjs`](../../src/free-first-outreach-router.mjs) — Free-first outreach routing: which zero-cost provider, if any, may carry a _(tested; imported by 2)_
-- [`src/free-mission-clock-policy.mjs`](../../src/free-mission-clock-policy.mjs) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(tested; no static importers)_
-- [`src/free-runtime-mesh.mjs`](../../src/free-runtime-mesh.mjs) — exports FREE_RUNTIME_MESH_VERSION, FREE_RUNTIME_LIMITS, compileFreeRuntimeWake, compileFreeBurstDispatch _(tested; no static importers)_
-- [`src/global-green-lane-router.mjs`](../../src/global-green-lane-router.mjs) — GLOBAL_GREEN_LANE_ROUTER: the one canonical organ for global commercial route _(tested; imported by 4)_
-- [`src/global-policy-evidence.mjs`](../../src/global-policy-evidence.mjs) — GLOBAL POLICY EVIDENCE: provenance + freshness for every jurisdiction/provider _(tested; imported by 7)_
-- [`src/global-route-economics.mjs`](../../src/global-route-economics.mjs) — ROUTE ECONOMICS: the funnel per route class, from trusted ledgers only. _(tested; imported by 1)_
-- [`src/global-route-tournament.mjs`](../../src/global-route-tournament.mjs) — GLOBAL ROUTE TOURNAMENT + FITNESS. _(tested; imported by 3)_
-- [`src/green-lane-activation-truth.mjs`](../../src/green-lane-activation-truth.mjs) — FOUNDER ONE-BUTTON ROUTE TRUTH. _(tested; imported by 1)_
-- [`src/green-lane-discovery.mjs`](../../src/green-lane-discovery.mjs) — GREEN-LANE DISCOVERY: the lead generator consumes Green-Lane policy while it _(tested; imported by 2)_
-- [`src/uberdepin-permissioned-gateway.mjs`](../../src/uberdepin-permissioned-gateway.mjs) — exports admitPermissionedGateway _(imported by 1)_
-- [`src/ubergrant-zero-cost-registry.mjs`](../../src/ubergrant-zero-cost-registry.mjs) — exports evaluateZeroCostResource, compileZeroCostPortfolio _(imported by 1)_
-- [`src/uberzero-substitution-engine.mjs`](../../src/uberzero-substitution-engine.mjs) — exports evaluateSubstitutionMechanism, rankSubstitutionMechanisms _(imported by 1)_
+- [`src/free-first-outreach-router.mjs`](../../src/free-first-outreach-router.mjs) — Free-first outreach routing: which zero-cost provider, if any, may carry a _(matched by name only; tested; imported by 2)_
+- [`src/free-mission-clock-policy.mjs`](../../src/free-mission-clock-policy.mjs) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only; tested; no static importers)_
+- [`src/free-runtime-mesh.mjs`](../../src/free-runtime-mesh.mjs) — exports FREE_RUNTIME_MESH_VERSION, FREE_RUNTIME_LIMITS, compileFreeRuntimeWake, compileFreeBurstDispatch _(matched by name only; tested; no static importers)_
+- [`src/global-green-lane-router.mjs`](../../src/global-green-lane-router.mjs) — GLOBAL_GREEN_LANE_ROUTER: the one canonical organ for global commercial route _(matched by name only; tested; imported by 4)_
+- [`src/global-policy-evidence.mjs`](../../src/global-policy-evidence.mjs) — GLOBAL POLICY EVIDENCE: provenance + freshness for every jurisdiction/provider _(matched by name only; tested; imported by 7)_
+- [`src/global-route-economics.mjs`](../../src/global-route-economics.mjs) — ROUTE ECONOMICS: the funnel per route class, from trusted ledgers only. _(matched by name only; tested; imported by 1)_
+- [`src/global-route-tournament.mjs`](../../src/global-route-tournament.mjs) — GLOBAL ROUTE TOURNAMENT + FITNESS. _(matched by name only; tested; imported by 3)_
+- [`src/green-lane-activation-truth.mjs`](../../src/green-lane-activation-truth.mjs) — FOUNDER ONE-BUTTON ROUTE TRUTH. _(matched by name only; tested; imported by 1)_
+- [`src/green-lane-discovery.mjs`](../../src/green-lane-discovery.mjs) — GREEN-LANE DISCOVERY: the lead generator consumes Green-Lane policy while it _(matched by name only; tested; imported by 2)_
+- [`src/uberdepin-permissioned-gateway.mjs`](../../src/uberdepin-permissioned-gateway.mjs) — exports admitPermissionedGateway _(matched by name only; imported by 1)_
+- [`src/ubergrant-zero-cost-registry.mjs`](../../src/ubergrant-zero-cost-registry.mjs) — exports evaluateZeroCostResource, compileZeroCostPortfolio _(matched by name only; imported by 1)_
+- [`src/uberzero-substitution-engine.mjs`](../../src/uberzero-substitution-engine.mjs) — exports evaluateSubstitutionMechanism, rankSubstitutionMechanisms _(matched by name only; imported by 1)_
 
 ## Scripts (4)
 
-- [`scripts/free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(npm: `outreach:free-first:doctor`)_
-- [`scripts/free-runtime-burst.mjs`](../../scripts/free-runtime-burst.mjs)
-- [`scripts/free-runtime-witness.mjs`](../../scripts/free-runtime-witness.mjs)
-- [`scripts/global-policy-evidence.mjs`](../../scripts/global-policy-evidence.mjs) — Policy-evidence doctor and recorder for the Global Green-Lane Router. _(npm: `outreach:green-lane:doctor`, `outreach:green-lane:record`)_
+- [`scripts/free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(matched by name only; npm: `outreach:free-first:doctor`)_
+- [`scripts/free-runtime-burst.mjs`](../../scripts/free-runtime-burst.mjs) _(matched by name only)_
+- [`scripts/free-runtime-witness.mjs`](../../scripts/free-runtime-witness.mjs) _(matched by name only)_
+- [`scripts/global-policy-evidence.mjs`](../../scripts/global-policy-evidence.mjs) — Policy-evidence doctor and recorder for the Global Green-Lane Router. _(matched by name only; npm: `outreach:green-lane:doctor`, `outreach:green-lane:record`)_
 
 ## Config, data, artifacts and services (12)
 
-- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst
-- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh
-- [`artifacts/outreach/free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0
-- [`artifacts/outreach/global-green-lane-router-20261003.json`](../../artifacts/outreach/global-green-lane-router-20261003.json) — 2026-10-03 · INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF · uberbond.global-green-lane-router-receipt.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03
-- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED
-- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime
-- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock
-- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock
-- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded"
-- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc)
-- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1
+- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst _(matched by name only)_
+- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh _(matched by name only)_
+- [`artifacts/outreach/free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/global-green-lane-router-20261003.json`](../../artifacts/outreach/global-green-lane-router-20261003.json) — 2026-10-03 · INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF · uberbond.global-green-lane-router-receipt.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/package.json`](../../deploy/cloudflare-free-runtime/package.json) — uberbond-free-runtime _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/index.js`](../../deploy/cloudflare-free-runtime/src/index.js) — exports RuntimeClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded" _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/wrangler.jsonc`](../../deploy/cloudflare-free-runtime/wrangler.jsonc) _(matched by name only)_
+- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1 _(matched by name only)_
 
 ## Tests (15)
 

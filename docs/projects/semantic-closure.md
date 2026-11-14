@@ -16,56 +16,56 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Source modules (32)
 
-- [`src/absolute-frontier-quality-invariant.mjs`](../../src/absolute-frontier-quality-invariant.mjs) — exports ABSOLUTE_FRONTIER_QUALITY_POLICY_VERSION, ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE, ABSOLUTE_FRONTIER_DEGRA… _(tested; imported by 17)_
-- [`src/achieved-opus-equivalence-island.mjs`](../../src/achieved-opus-equivalence-island.mjs) — exports ACHIEVED_EQUIVALENCE_VERSION, DEFAULT_EQUIVALENCE_SOURCES, flattenExactLeaves, resolveJsonPointer, buildSourceGroundedObligations (+1) _(tested; imported by 2)_
-- [`src/canonical-execution-leaf-graph.mjs`](../../src/canonical-execution-leaf-graph.mjs) — exports CANONICAL_EXECUTION_LEAF_GRAPH_VERSION, compileCoverageBoundExecutionLeafGraph _(tested; imported by 2)_
-- [`src/canonical-execution-leaf-materializer.mjs`](../../src/canonical-execution-leaf-materializer.mjs) — exports CANONICAL_EXECUTION_LEAF_MATERIALIZER_VERSION, deriveConservativeParallelConflicts, materializeCanonicalExecutionLeaves _(tested; imported by 1)_
-- [`src/canonical-zero-loss-certificate.mjs`](../../src/canonical-zero-loss-certificate.mjs) — exports CANONICAL_ZERO_LOSS_CERTIFICATE_VERSION, certifyCanonicalZeroLoss, validateCanonicalZeroLossCertificate _(imported by 3)_
-- [`src/causal-semantic-crystallizer-v1.mjs`](../../src/causal-semantic-crystallizer-v1.mjs) — exports CAUSAL_SEMANTIC_CRYSTALLIZER_VERSION, describeCausalMotif, crystallizeSemanticCausalOperators, compileCausalGoalWithCrystals, frozenTrainingM… _(tested; no static importers)_
-- [`src/certified-frontier-residual.mjs`](../../src/certified-frontier-residual.mjs) — exports sourceDigest, buildExactAnchors, residualPacketHash, verifyCertifiedFrontierResidual, crownResidualMessages _(tested; imported by 1)_
-- [`src/execution-leaf-continuation.mjs`](../../src/execution-leaf-continuation.mjs) — exports EXECUTION_LEAF_CONTINUATION_VERSION, EXECUTION_LEAF_RESULT_ATTESTATION_VERSION, compileExecutionLeafContinuation, recordExecutionLeafResult,… _(tested; imported by 3)_
-- [`src/execution-leaf-graph-receipt-digest.mjs`](../../src/execution-leaf-graph-receipt-digest.mjs) — exports EXECUTION_LEAF_GRAPH_RECEIPT_DIGEST_VERSION, recomputeExecutionLeafGraphDigest, recomputeCanonicalExecutionBindingDigest _(imported by 4)_
-- [`src/execution-leaf-graph.mjs`](../../src/execution-leaf-graph.mjs) — exports EXECUTION_LEAF_GRAPH_VERSION, REQUIREMENT_DISPOSITIONS, EXECUTION_LEAF_KINDS, compileExecutionLeafGraph, requirementsFromCoverageRows _(tested; imported by 1)_
-- [`src/finite-closure-tribunal.mjs`](../../src/finite-closure-tribunal.mjs) — exports FINITE_CLOSURE_TRIBUNAL_VERSION, compileFiniteClosureTribunal _(tested; imported by 2)_
-- [`src/frontier-residual-cut.mjs`](../../src/frontier-residual-cut.mjs) — exports factorFrontierResidualCut, settleFrontierResidualCut _(imported by 1)_
-- [`src/infinite-opus-semantic-closure-host.mjs`](../../src/infinite-opus-semantic-closure-host.mjs) — exports INFINITE_OPUS_SEMANTIC_HOST_VERSION, createInfiniteOpusSemanticClosureHost _(tested; imported by 1)_
-- [`src/interpretation-closure.mjs`](../../src/interpretation-closure.mjs) — exports closeInterpretation _(imported by 1)_
-- [`src/omega-controlled-semantic-compiler.mjs`](../../src/omega-controlled-semantic-compiler.mjs) — exports OMEGA_CONTROLLED_SEMANTIC_COMPILER_VERSION, compileControlledIntent _(tested; no static importers)_
-- [`src/provider-cut-evidence-overlay.mjs`](../../src/provider-cut-evidence-overlay.mjs) — exports PROVIDER_CUT_EVIDENCE_OVERLAY_VERSION, applyProviderCutEvidenceOverlay _(imported by 1)_
-- [`src/remaining-cut-evidence-overlay.mjs`](../../src/remaining-cut-evidence-overlay.mjs) — exports REMAINING_CUT_EVIDENCE_OVERLAY_VERSION, applyRemainingCutEvidenceOverlay _(imported by 1)_
-- [`src/remaining-cut-evidence.mjs`](../../src/remaining-cut-evidence.mjs) — exports REMAINING_CUT_EVIDENCE_VERSION, REMAINING_CUT_IDS, remainingCutReceiptPreimage, verifyRemainingCutEvidenceIntegrity, compileRemainingCutEvide… _(tested; imported by 3)_
-- [`src/runtime-cut-evidence-overlay.mjs`](../../src/runtime-cut-evidence-overlay.mjs) — exports RUNTIME_CUT_EVIDENCE_OVERLAY_VERSION, applyRuntimeCutEvidenceOverlay _(tested; imported by 1)_
-- [`src/semantic-closure-kernel.mjs`](../../src/semantic-closure-kernel.mjs) — exports SEMANTIC_CLOSURE_VERSION, canonicalSemanticJson, semanticHash, semanticProgramHash, validateSemanticContext (+10) _(imported by 17)_
-- [`src/semantic-enforcement-evidence.mjs`](../../src/semantic-enforcement-evidence.mjs) — exports SEMANTIC_ENFORCEMENT_EVIDENCE_VERSION, bindVerifiedEnforcementEvidence _(tested; imported by 1)_
-- [`src/semantic-isa-v2.mjs`](../../src/semantic-isa-v2.mjs) — exports SEMANTIC_ISA_VERSION, SEMANTIC_ISA, validateSemanticProgram _(imported by 1)_
-- [`src/semantic-novelty-preflight.mjs`](../../src/semantic-novelty-preflight.mjs) — exports SEMANTIC_NOVELTY_PREFLIGHT_VERSION, compareBehavioralSignatures, compareBehavioralEvaluators, inspectSplitDegeneracy, admitNoveltyChallenge _(tested; imported by 1)_
-- [`src/semantic-recovery-surface.mjs`](../../src/semantic-recovery-surface.mjs) — exports SEMANTIC_RECOVERY_SURFACE_VERSION, detectConcreteRecoverySurfaces, hasConcreteRecoverySurface _(tested; imported by 1)_
-- [`src/semantic-requirement-tribunal.mjs`](../../src/semantic-requirement-tribunal.mjs) — exports SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION, SEMANTIC_REQUIREMENT_CLASSES, inferSemanticRequirementClass, compileSemanticRequirementTribunal _(tested; imported by 2)_
-- [`src/semantic-reuse-foundry.mjs`](../../src/semantic-reuse-foundry.mjs) — exports partialEvaluateSemanticProgram, verifySpecialization, buildVerifiedSemanticEGraph, selectActiveBoundaryCases, SEMANTIC_MICROCODE (+2) _(imported by 1)_
-- [`src/semantic-shadow-ledger.mjs`](../../src/semantic-shadow-ledger.mjs) — exports SEMANTIC_SHADOW_LEDGER_VERSION, recordSemanticShadowObservation, recordSemanticOutcome, summarizeSemanticCalibration _(imported by 2)_
-- [`src/semantic-test-title-evidence.mjs`](../../src/semantic-test-title-evidence.mjs) — exports SEMANTIC_TEST_TITLE_EVIDENCE_VERSION, isHostileTestTitle, isRecoveryTestTitle _(tested; imported by 1)_
-- [`src/terminal-convergence-adjudicator.mjs`](../../src/terminal-convergence-adjudicator.mjs) — exports selectVerifiedSurvivors, adjudicateFrozenGate _(tested; imported by 1)_
-- [`src/terminal-convergence-engine.mjs`](../../src/terminal-convergence-engine.mjs) — exports TERMINAL_CONVERGENCE_ENGINE_VERSION, compileTerminalConvergencePlan _(imported by 1)_
-- [`src/terminal-semantic-refusal-handoff.mjs`](../../src/terminal-semantic-refusal-handoff.mjs) — exports TERMINAL_SEMANTIC_REFUSAL_HANDOFF_VERSION, compileTerminalSemanticRefusalHandoff _(tested; imported by 1)_
-- [`src/ubermind-cognitive-residual-economics.mjs`](../../src/ubermind-cognitive-residual-economics.mjs) — exports UBERMIND_COGNITIVE_RESIDUAL_SCHEMA, calculateUberMindFidelityPortfolio _(tested; no static importers)_
+- [`src/absolute-frontier-quality-invariant.mjs`](../../src/absolute-frontier-quality-invariant.mjs) — exports ABSOLUTE_FRONTIER_QUALITY_POLICY_VERSION, ABSOLUTE_FRONTIER_QUALITY_DELTA, ABSOLUTE_FRONTIER_MIN_EVIDENCE_CONFIDENCE, ABSOLUTE_FRONTIER_DEGRA… _(matched by name only; tested; imported by 17)_
+- [`src/achieved-opus-equivalence-island.mjs`](../../src/achieved-opus-equivalence-island.mjs) — exports ACHIEVED_EQUIVALENCE_VERSION, DEFAULT_EQUIVALENCE_SOURCES, flattenExactLeaves, resolveJsonPointer, buildSourceGroundedObligations (+1) _(matched by name only; tested; imported by 2)_
+- [`src/canonical-execution-leaf-graph.mjs`](../../src/canonical-execution-leaf-graph.mjs) — exports CANONICAL_EXECUTION_LEAF_GRAPH_VERSION, compileCoverageBoundExecutionLeafGraph _(matched by name only; tested; imported by 2)_
+- [`src/canonical-execution-leaf-materializer.mjs`](../../src/canonical-execution-leaf-materializer.mjs) — exports CANONICAL_EXECUTION_LEAF_MATERIALIZER_VERSION, deriveConservativeParallelConflicts, materializeCanonicalExecutionLeaves _(matched by name only; tested; imported by 1)_
+- [`src/canonical-zero-loss-certificate.mjs`](../../src/canonical-zero-loss-certificate.mjs) — exports CANONICAL_ZERO_LOSS_CERTIFICATE_VERSION, certifyCanonicalZeroLoss, validateCanonicalZeroLossCertificate _(matched by name only; imported by 3)_
+- [`src/causal-semantic-crystallizer-v1.mjs`](../../src/causal-semantic-crystallizer-v1.mjs) — exports CAUSAL_SEMANTIC_CRYSTALLIZER_VERSION, describeCausalMotif, crystallizeSemanticCausalOperators, compileCausalGoalWithCrystals, frozenTrainingM… _(matched by name only; tested; no static importers)_
+- [`src/certified-frontier-residual.mjs`](../../src/certified-frontier-residual.mjs) — exports sourceDigest, buildExactAnchors, residualPacketHash, verifyCertifiedFrontierResidual, crownResidualMessages _(matched by name only; tested; imported by 1)_
+- [`src/execution-leaf-continuation.mjs`](../../src/execution-leaf-continuation.mjs) — exports EXECUTION_LEAF_CONTINUATION_VERSION, EXECUTION_LEAF_RESULT_ATTESTATION_VERSION, compileExecutionLeafContinuation, recordExecutionLeafResult,… _(matched by name only; tested; imported by 3)_
+- [`src/execution-leaf-graph-receipt-digest.mjs`](../../src/execution-leaf-graph-receipt-digest.mjs) — exports EXECUTION_LEAF_GRAPH_RECEIPT_DIGEST_VERSION, recomputeExecutionLeafGraphDigest, recomputeCanonicalExecutionBindingDigest _(matched by name only; imported by 4)_
+- [`src/execution-leaf-graph.mjs`](../../src/execution-leaf-graph.mjs) — exports EXECUTION_LEAF_GRAPH_VERSION, REQUIREMENT_DISPOSITIONS, EXECUTION_LEAF_KINDS, compileExecutionLeafGraph, requirementsFromCoverageRows _(matched by name only; tested; imported by 1)_
+- [`src/finite-closure-tribunal.mjs`](../../src/finite-closure-tribunal.mjs) — exports FINITE_CLOSURE_TRIBUNAL_VERSION, compileFiniteClosureTribunal _(matched by name only; tested; imported by 2)_
+- [`src/frontier-residual-cut.mjs`](../../src/frontier-residual-cut.mjs) — exports factorFrontierResidualCut, settleFrontierResidualCut _(matched by name only; imported by 1)_
+- [`src/infinite-opus-semantic-closure-host.mjs`](../../src/infinite-opus-semantic-closure-host.mjs) — exports INFINITE_OPUS_SEMANTIC_HOST_VERSION, createInfiniteOpusSemanticClosureHost _(matched by name only; tested; imported by 1)_
+- [`src/interpretation-closure.mjs`](../../src/interpretation-closure.mjs) — exports closeInterpretation _(matched by name only; imported by 1)_
+- [`src/omega-controlled-semantic-compiler.mjs`](../../src/omega-controlled-semantic-compiler.mjs) — exports OMEGA_CONTROLLED_SEMANTIC_COMPILER_VERSION, compileControlledIntent _(matched by name only; tested; no static importers)_
+- [`src/provider-cut-evidence-overlay.mjs`](../../src/provider-cut-evidence-overlay.mjs) — exports PROVIDER_CUT_EVIDENCE_OVERLAY_VERSION, applyProviderCutEvidenceOverlay _(matched by name only; imported by 1)_
+- [`src/remaining-cut-evidence-overlay.mjs`](../../src/remaining-cut-evidence-overlay.mjs) — exports REMAINING_CUT_EVIDENCE_OVERLAY_VERSION, applyRemainingCutEvidenceOverlay _(matched by name only; imported by 1)_
+- [`src/remaining-cut-evidence.mjs`](../../src/remaining-cut-evidence.mjs) — exports REMAINING_CUT_EVIDENCE_VERSION, REMAINING_CUT_IDS, remainingCutReceiptPreimage, verifyRemainingCutEvidenceIntegrity, compileRemainingCutEvide… _(matched by name only; tested; imported by 3)_
+- [`src/runtime-cut-evidence-overlay.mjs`](../../src/runtime-cut-evidence-overlay.mjs) — exports RUNTIME_CUT_EVIDENCE_OVERLAY_VERSION, applyRuntimeCutEvidenceOverlay _(matched by name only; tested; imported by 1)_
+- [`src/semantic-closure-kernel.mjs`](../../src/semantic-closure-kernel.mjs) — exports SEMANTIC_CLOSURE_VERSION, canonicalSemanticJson, semanticHash, semanticProgramHash, validateSemanticContext (+10) _(matched by name only; imported by 17)_
+- [`src/semantic-enforcement-evidence.mjs`](../../src/semantic-enforcement-evidence.mjs) — exports SEMANTIC_ENFORCEMENT_EVIDENCE_VERSION, bindVerifiedEnforcementEvidence _(matched by name only; tested; imported by 1)_
+- [`src/semantic-isa-v2.mjs`](../../src/semantic-isa-v2.mjs) — exports SEMANTIC_ISA_VERSION, SEMANTIC_ISA, validateSemanticProgram _(matched by name only; imported by 1)_
+- [`src/semantic-novelty-preflight.mjs`](../../src/semantic-novelty-preflight.mjs) — exports SEMANTIC_NOVELTY_PREFLIGHT_VERSION, compareBehavioralSignatures, compareBehavioralEvaluators, inspectSplitDegeneracy, admitNoveltyChallenge _(matched by name only; tested; imported by 1)_
+- [`src/semantic-recovery-surface.mjs`](../../src/semantic-recovery-surface.mjs) — exports SEMANTIC_RECOVERY_SURFACE_VERSION, detectConcreteRecoverySurfaces, hasConcreteRecoverySurface _(matched by name only; tested; imported by 1)_
+- [`src/semantic-requirement-tribunal.mjs`](../../src/semantic-requirement-tribunal.mjs) — exports SEMANTIC_REQUIREMENT_TRIBUNAL_VERSION, SEMANTIC_REQUIREMENT_CLASSES, inferSemanticRequirementClass, compileSemanticRequirementTribunal _(matched by name only; tested; imported by 2)_
+- [`src/semantic-reuse-foundry.mjs`](../../src/semantic-reuse-foundry.mjs) — exports partialEvaluateSemanticProgram, verifySpecialization, buildVerifiedSemanticEGraph, selectActiveBoundaryCases, SEMANTIC_MICROCODE (+2) _(matched by name only; imported by 1)_
+- [`src/semantic-shadow-ledger.mjs`](../../src/semantic-shadow-ledger.mjs) — exports SEMANTIC_SHADOW_LEDGER_VERSION, recordSemanticShadowObservation, recordSemanticOutcome, summarizeSemanticCalibration _(matched by name only; imported by 2)_
+- [`src/semantic-test-title-evidence.mjs`](../../src/semantic-test-title-evidence.mjs) — exports SEMANTIC_TEST_TITLE_EVIDENCE_VERSION, isHostileTestTitle, isRecoveryTestTitle _(matched by name only; tested; imported by 1)_
+- [`src/terminal-convergence-adjudicator.mjs`](../../src/terminal-convergence-adjudicator.mjs) — exports selectVerifiedSurvivors, adjudicateFrozenGate _(matched by name only; tested; imported by 1)_
+- [`src/terminal-convergence-engine.mjs`](../../src/terminal-convergence-engine.mjs) — exports TERMINAL_CONVERGENCE_ENGINE_VERSION, compileTerminalConvergencePlan _(matched by name only; imported by 1)_
+- [`src/terminal-semantic-refusal-handoff.mjs`](../../src/terminal-semantic-refusal-handoff.mjs) — exports TERMINAL_SEMANTIC_REFUSAL_HANDOFF_VERSION, compileTerminalSemanticRefusalHandoff _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-cognitive-residual-economics.mjs`](../../src/ubermind-cognitive-residual-economics.mjs) — exports UBERMIND_COGNITIVE_RESIDUAL_SCHEMA, calculateUberMindFidelityPortfolio _(matched by name only; tested; no static importers)_
 
 ## Scripts (6)
 
-- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(npm: `absolute:quality:doctor`)_
-- [`scripts/canonical-execution-leaf-materializer.mjs`](../../scripts/canonical-execution-leaf-materializer.mjs) — exports generateCanonicalExecutionLeafGraph
-- [`scripts/execution-leaf-continuation-plan.mjs`](../../scripts/execution-leaf-continuation-plan.mjs)
-- [`scripts/execution-leaf-graph-doctor.mjs`](../../scripts/execution-leaf-graph-doctor.mjs)
-- [`scripts/semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs)
-- [`scripts/terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs)
+- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(matched by name only; npm: `absolute:quality:doctor`)_
+- [`scripts/canonical-execution-leaf-materializer.mjs`](../../scripts/canonical-execution-leaf-materializer.mjs) — exports generateCanonicalExecutionLeafGraph _(matched by name only)_
+- [`scripts/execution-leaf-continuation-plan.mjs`](../../scripts/execution-leaf-continuation-plan.mjs) _(matched by name only)_
+- [`scripts/execution-leaf-graph-doctor.mjs`](../../scripts/execution-leaf-graph-doctor.mjs) _(matched by name only)_
+- [`scripts/semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs) _(matched by name only)_
+- [`scripts/terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (6)
 
-- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION · uberbond.causal-semantic-crystallizer-v1-adversarial-review.v1
-- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION · uberbond.causal-semantic-crystallizer-v1-independent-replication.v1
-- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_RECOMBINED_HYPOTHESIS_NOT_RESULT · uberbond.causal-semantic-crystallizer-v1-preregistration.v1
-- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json) — 2026-09-20 · CAUSAL_SEMANTIC_CRYSTALLIZER_V1_SUPPORTED__REVIEW_REQUIRED · uberbond.causal-semantic-crystallizer-v1-result.v1
-- [`config/absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1
-- [`open router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs`](../../open%20router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs) — 2026-09-30 · exports SEMANTIC_CLOSURE_VERSION, canonicalSemanticJson, semanticHash, semanticProgramHash, validateSemanticContext (+7)
+- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION · uberbond.causal-semantic-crystallizer-v1-adversarial-review.v1 _(matched by name only)_
+- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION · uberbond.causal-semantic-crystallizer-v1-independent-replication.v1 _(matched by name only)_
+- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_RECOMBINED_HYPOTHESIS_NOT_RESULT · uberbond.causal-semantic-crystallizer-v1-preregistration.v1 _(matched by name only)_
+- [`artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json) — 2026-09-20 · CAUSAL_SEMANTIC_CRYSTALLIZER_V1_SUPPORTED__REVIEW_REQUIRED · uberbond.causal-semantic-crystallizer-v1-result.v1 _(matched by name only)_
+- [`config/absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1 _(matched by name only)_
+- [`open router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs`](../../open%20router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs) — 2026-09-30 · exports SEMANTIC_CLOSURE_VERSION, canonicalSemanticJson, semanticHash, semanticProgramHash, validateSemanticContext (+7) _(matched by name only)_
 
 ## Tests (32)
 

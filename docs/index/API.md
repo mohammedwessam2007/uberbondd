@@ -20,39 +20,39 @@ Serverless route handlers (Vercel-style).
 
 ## Agent mesh, relay and autonomy
 
-- [`agent-mesh-cron.mjs`](../../api/agent-mesh-cron.mjs) — exports createHandler
-- [`agent-relay.mjs`](../../api/agent-relay.mjs) — exports createHandler
+- [`agent-mesh-cron.mjs`](../../api/agent-mesh-cron.mjs) — exports createHandler _(matched by name only)_
+- [`agent-relay.mjs`](../../api/agent-relay.mjs) — exports createHandler _(matched by name only)_
 
 ## Self-maintenance and verification
 
-- [`self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config
+- [`self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config _(matched by name only)_
 
 ## Email infrastructure and warmup
 
-- [`api/webhooks/winnr.mjs`](../../api/webhooks/winnr.mjs) — Signed Winnr webhook receiver: immutable idempotency + one-way suppression.
+- [`api/webhooks/winnr.mjs`](../../api/webhooks/winnr.mjs) — Signed Winnr webhook receiver: immutable idempotency + one-way suppression. _(matched by name only)_
 
 ## Outreach and distribution
 
-- [`unsubscribe.mjs`](../../api/unsubscribe.mjs) — exports createHandlers
-- [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — exports createFetchHandler, POST
+- [`unsubscribe.mjs`](../../api/unsubscribe.mjs) — exports createHandlers _(matched by name only)_
+- [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — exports createFetchHandler, POST _(matched by name only)_
 
 ## Commerce, payments and economics
 
-- [`api/payments/paypal-capture.mjs`](../../api/payments/paypal-capture.mjs) — exports createFetchHandler, GET
-- [`api/payments/paypal-order.mjs`](../../api/payments/paypal-order.mjs) — exports createFetchHandler, POST
-- [`api/webhooks/billing.mjs`](../../api/webhooks/billing.mjs) — exports createFetchHandler, POST
-- [`api/webhooks/paypal.mjs`](../../api/webhooks/paypal.mjs) — exports createFetchHandler, POST
+- [`api/payments/paypal-capture.mjs`](../../api/payments/paypal-capture.mjs) — exports createFetchHandler, GET _(matched by name only)_
+- [`api/payments/paypal-order.mjs`](../../api/payments/paypal-order.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`api/webhooks/billing.mjs`](../../api/webhooks/billing.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`api/webhooks/paypal.mjs`](../../api/webhooks/paypal.mjs) — exports createFetchHandler, POST _(matched by name only)_
 
 ## Sovereign infrastructure and runtime
 
-- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — exports createHandler
-- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — exports createHandler
-- [`database-maintenance.mjs`](../../api/database-maintenance.mjs) — exports DATABASE_MAINTENANCE_SCHEDULE, createHandler
-- [`sovereign-control.mjs`](../../api/sovereign-control.mjs) — The founder's read-only view of the sovereign organs.
-- [`ultimate-graph.mjs`](../../api/ultimate-graph.mjs) — exports createHandler
+- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — exports createHandler _(matched by name only)_
+- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — exports createHandler _(matched by name only)_
+- [`database-maintenance.mjs`](../../api/database-maintenance.mjs) — exports DATABASE_MAINTENANCE_SCHEDULE, createHandler _(matched by name only)_
+- [`sovereign-control.mjs`](../../api/sovereign-control.mjs) — The founder's read-only view of the sovereign organs. _(matched by name only)_
+- [`ultimate-graph.mjs`](../../api/ultimate-graph.mjs) — exports createHandler _(matched by name only)_
 
 ## Founder operations and command center
 
-- [`command-center.mjs`](../../api/command-center.mjs) — exports createHandler
-- [`founder-center.mjs`](../../api/founder-center.mjs) — exports FREE_MODEL, startEconomicOutcomeMission, createHandler
-- [`founder-ops.mjs`](../../api/founder-ops.mjs) — exports createHandler
+- [`command-center.mjs`](../../api/command-center.mjs) — exports createHandler _(matched by name only)_
+- [`founder-center.mjs`](../../api/founder-center.mjs) — exports FREE_MODEL, startEconomicOutcomeMission, createHandler _(matched by name only)_
+- [`founder-ops.mjs`](../../api/founder-ops.mjs) — exports createHandler _(matched by name only)_

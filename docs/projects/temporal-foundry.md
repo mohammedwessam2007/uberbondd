@@ -12,28 +12,28 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/TEMPORAL_FOUNDRY_CANON.md`](../TEMPORAL_FOUNDRY_CANON.md) — UberBond Temporal Foundry Canon
-- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon
+- [`docs/TEMPORAL_FOUNDRY_CANON.md`](../TEMPORAL_FOUNDRY_CANON.md) — UberBond Temporal Foundry Canon _(matched by name only)_
+- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (4)
 
-- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(7 mentions)_
-- [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — UberBond Sandwich Method — Status: VERIFIED CURRENT SOURCE PROTOCOL / ZERO-EFFECT / RUNTIME EVIDENCE SEPARATE _(7 mentions)_
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(5 mentions)_
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(3 mentions)_
+- [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(7 mentions)_
+- [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — UberBond Sandwich Method — Status: VERIFIED CURRENT SOURCE PROTOCOL / ZERO-EFFECT / RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(7 mentions)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(5 mentions)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (4)
 
-- [`src/epoch-branching-evaluator.mjs`](../../src/epoch-branching-evaluator.mjs) — exports EPOCH_BRANCHING_EVALUATOR_VERSION, evaluateEpochBranchingCandidate, compareEpochBranchingCandidates, evaluateAncestorAblation _(tested; no static importers)_
-- [`src/temporal-foundry.mjs`](../../src/temporal-foundry.mjs) — exports TEMPORAL_FOUNDRY_VERSION, FUTURE_FUNCTION_STATES, analyzeFutureCapability, compileTemporalFoundryRaid _(tested; imported by 1)_
-- [`src/timeline-topology-challenge.mjs`](../../src/timeline-topology-challenge.mjs) — exports TIMELINE_TOPOLOGY_CHALLENGE_VERSION, compileTimelineTopologyChallenge _(tested; imported by 1)_
-- [`src/timeline-topology-engine.mjs`](../../src/timeline-topology-engine.mjs) — exports TIMELINE_TOPOLOGY_ENGINE_VERSION, TIMELINE_BOUNDARY_CLASSES, TIMELINE_NECESSITY_STATES, WORMHOLE_MECHANISM_CLASSES, WORMHOLE_EVIDENCE_CLASSES… _(tested; imported by 1)_
+- [`src/epoch-branching-evaluator.mjs`](../../src/epoch-branching-evaluator.mjs) — exports EPOCH_BRANCHING_EVALUATOR_VERSION, evaluateEpochBranchingCandidate, compareEpochBranchingCandidates, evaluateAncestorAblation _(matched by name only; tested; no static importers)_
+- [`src/temporal-foundry.mjs`](../../src/temporal-foundry.mjs) — exports TEMPORAL_FOUNDRY_VERSION, FUTURE_FUNCTION_STATES, analyzeFutureCapability, compileTemporalFoundryRaid _(matched by name only; tested; imported by 1)_
+- [`src/timeline-topology-challenge.mjs`](../../src/timeline-topology-challenge.mjs) — exports TIMELINE_TOPOLOGY_CHALLENGE_VERSION, compileTimelineTopologyChallenge _(matched by name only; tested; imported by 1)_
+- [`src/timeline-topology-engine.mjs`](../../src/timeline-topology-engine.mjs) — exports TIMELINE_TOPOLOGY_ENGINE_VERSION, TIMELINE_BOUNDARY_CLASSES, TIMELINE_NECESSITY_STATES, WORMHOLE_MECHANISM_CLASSES, WORMHOLE_EVIDENCE_CLASSES… _(matched by name only; tested; imported by 1)_
 
 ## Config, data, artifacts and services (3)
 
-- [`artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json`](../../artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_COUNTERFACTUAL_REACHABILITY_EVALUATOR__NOT_REAL_WORLD_CAUSAL_PROOF · uberbond.epoch-branching-evaluator-verification.v1
-- [`artifacts/temporal-foundry.json`](../../artifacts/temporal-foundry.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-temporal-foundry-1.0.0
-- [`artifacts/timeline-topology-engine.json`](../../artifacts/timeline-topology-engine.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-timeline-topology-engine-1.0.0
+- [`artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json`](../../artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_COUNTERFACTUAL_REACHABILITY_EVALUATOR__NOT_REAL_WORLD_CAUSAL_PROOF · uberbond.epoch-branching-evaluator-verification.v1 _(matched by name only)_
+- [`artifacts/temporal-foundry.json`](../../artifacts/temporal-foundry.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-temporal-foundry-1.0.0 _(matched by name only)_
+- [`artifacts/timeline-topology-engine.json`](../../artifacts/timeline-topology-engine.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-timeline-topology-engine-1.0.0 _(matched by name only)_
 
 ## Tests (4)
 

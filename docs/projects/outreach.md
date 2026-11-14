@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`docs/OUTREACH_OS_ARCHITECTURE.md`](../OUTREACH_OS_ARCHITECTURE.md) — Outreach OS Architecture
-- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon
-- [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Current commercial/outreach hot pointer.
-- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation
-- [`docs/OUTREACH_ACTIVATION_CARD.md`](../OUTREACH_ACTIVATION_CARD.md) — Outreach Activation Card
-- [`docs/OUTREACH_BENCHMARK.md`](../OUTREACH_BENCHMARK.md) — Outreach Benchmark
-- [`docs/OUTREACH_DOMAIN_FLEET.md`](../OUTREACH_DOMAIN_FLEET.md) — UberBond Outreach Domain Fleet — 2026-09-20
-- [`docs/OUTREACH_LIMITATIONS.md`](../OUTREACH_LIMITATIONS.md) — 2026-09-26 reconciliation notice
-- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a…
-- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript…
-- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING.
-- [`artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md) — 2026-10-03 · A.Ideal pre-meeting agent release worksheet — independent draft
-- [`artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md) — 2026-10-03 · BrandBuilder approval-to-publish acceptance worksheet — independent draft
-- [`artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md) — 2026-10-03 · Halfteck supplier release-evidence worksheet — independent draft
+- [`docs/OUTREACH_OS_ARCHITECTURE.md`](../OUTREACH_OS_ARCHITECTURE.md) — Outreach OS Architecture _(matched by name only)_
+- [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — UberOutbound Genome Canon _(matched by name only)_
+- [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Current commercial/outreach hot pointer. _(matched by name only)_
+- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation _(matched by name only)_
+- [`docs/OUTREACH_ACTIVATION_CARD.md`](../OUTREACH_ACTIVATION_CARD.md) — Outreach Activation Card _(matched by name only)_
+- [`docs/OUTREACH_BENCHMARK.md`](../OUTREACH_BENCHMARK.md) — Outreach Benchmark _(matched by name only)_
+- [`docs/OUTREACH_DOMAIN_FLEET.md`](../OUTREACH_DOMAIN_FLEET.md) — UberBond Outreach Domain Fleet — 2026-09-20 _(matched by name only)_
+- [`docs/OUTREACH_LIMITATIONS.md`](../OUTREACH_LIMITATIONS.md) — 2026-09-26 reconciliation notice _(matched by name only)_
+- [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(matched by name only)_
+- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(matched by name only)_
+- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING. _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md) — 2026-10-03 · A.Ideal pre-meeting agent release worksheet — independent draft _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md) — 2026-10-03 · BrandBuilder approval-to-publish acceptance worksheet — independent draft _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md) — 2026-10-03 · Halfteck supplier release-evidence worksheet — independent draft _(matched by name only)_
 
 ## Commands (7)
 
@@ -33,180 +33,180 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (7)
 
-- [`docs/OUTREACH_OS_TRUTH_RECONSTRUCTION.md`](../OUTREACH_OS_TRUTH_RECONSTRUCTION.md) — Outreach OS Truth Reconstruction (Wave 0)
-- [`docs/UBER_OUTREACH_CLOSURE_MERGE_NOTE.md`](../UBER_OUTREACH_CLOSURE_MERGE_NOTE.md) — Merge note
-- [`docs/ZERO_BARRIER_OUTREACH_FABRIC.md`](../ZERO_BARRIER_OUTREACH_FABRIC.md) — UberBond Zero-Barrier Outreach Fabric
-- [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — External policy evidence, 3 October 2026
-- [`artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Sylvester Electric — emergency availability reconciliation (DRAFT)
-- [`docs/outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md`](../outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md) — Bounded Outreach Canary Runbook
-- [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API Provider-Policy Boundary
+- [`docs/OUTREACH_OS_TRUTH_RECONSTRUCTION.md`](../OUTREACH_OS_TRUTH_RECONSTRUCTION.md) — Outreach OS Truth Reconstruction (Wave 0) _(matched by name only)_
+- [`docs/UBER_OUTREACH_CLOSURE_MERGE_NOTE.md`](../UBER_OUTREACH_CLOSURE_MERGE_NOTE.md) — Merge note _(matched by name only)_
+- [`docs/ZERO_BARRIER_OUTREACH_FABRIC.md`](../ZERO_BARRIER_OUTREACH_FABRIC.md) — UberBond Zero-Barrier Outreach Fabric _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — External policy evidence, 3 October 2026 _(matched by name only)_
+- [`artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Sylvester Electric — emergency availability reconciliation (DRAFT) _(matched by name only)_
+- [`docs/outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md`](../outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md) — Bounded Outreach Canary Runbook _(matched by name only)_
+- [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API Provider-Policy Boundary _(matched by name only)_
 
 ## Dated documents, newest first (26)
 
-- [`artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md) — 2026-10-03 · Halfteck contact-route reconciliation — independent draft
-- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md) — 2026-10-03 · External candidate reality receipt — 3 October 2026
-- [`artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md`](../../artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md) — 2026-10-03 · Intelo.ai — approval-to-WMS integration QA note
-- [`docs/receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md`](../receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md) — 2026-10-03 · Outreach completion reality refresh — 2026-10-03 — Truth class: current source, fresh protected production reads, independent public evidence and bounded remaining owner/legal facts.
-- [`docs/receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md`](../receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md) — 2026-10-03 · Work outreach final boss reality — 2026-10-03 — Truth class: live account observations, exact source/deployment receipts, and explicit failed-read boundaries. Supersedes [October 2 Work rec…
-- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen…
-- [`docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md`](../receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md) — 2026-10-02 · Outreach Software Closure — 2026-10-02 — Truth class: SOURCE + TEST + REACHABILITY RECEIPT. This is not a deployment receipt, not a customer receipt and not evidence of demand. Nothing was…
-- [`docs/COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md`](../COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Iteration Scorecard — 2026-09-28
-- [`docs/COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md`](../COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Strategy Atlas V1 — 2026-09-28 — Status: current complete synthesis from the recovered UberBond Outbound Genome plus current public practitioner/data research. This is n…
-- [`docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`](../COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md) — 2026-09-28 · UberBond Cold Email System V5 — 10/10 Design Standard — Status: design-complete against UberBond's current evidence/rubric. "10/10" here means no material design gap remains in the current…
-- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists.
-- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact.
-- [`docs/ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md`](../ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md) — 2026-09-28 · UberBond Expected-Success Cold Email Compiler V2 — 2026-09-28 — Status: evidence-weighted synthesis + novel optimization architecture. It does not claim a universally guaranteed best email.…
-- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no…
-- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c…
-- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory
-- [`docs/handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md`](../handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md) — 2026-09-20 · Live Outreach Activation Frontier — 2026-09-20
-- [`docs/CURRENT_HANDOFF_OUTREACH_UBER_CLOSURE_2026-09-16.md`](../CURRENT_HANDOFF_OUTREACH_UBER_CLOSURE_2026-09-16.md) — 2026-09-16 · Current handoff — Outreach Uber Closure
-- [`docs/UBER_OUTREACH_EXTERNAL_CLOSURE_2026-09-16.md`](../UBER_OUTREACH_EXTERNAL_CLOSURE_2026-09-16.md) — 2026-09-16 · UberBond outreach external-closure receipt — 2026-09-16
-- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_2026-09-15.md`](../OUTREACH_ONE_BUTTON_ACTIVATION_2026-09-15.md) — 2026-09-15 · UberBond One-Button Outreach Activation — 2026-09-15
-- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_CHECKLIST_2026-09-15.md`](../OUTREACH_ONE_BUTTON_ACTIVATION_CHECKLIST_2026-09-15.md) — 2026-09-15 · Live activation checklist
-- [`docs/OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md`](../OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md) — 2026-09-15 · Operator note
-- [`docs/UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md`](../UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md) — 2026-09-14 · UberOutbound Genome Completion Boundary
-- [`docs/outreach/INSTANTLY_FULL_COMPARISON_AND_UPGRADE_PLAN_2026-08-12.md`](../outreach/INSTANTLY_FULL_COMPARISON_AND_UPGRADE_PLAN_2026-08-12.md) — 2026-08-12 · UberBond vs Instantly: detailed comparison and upgrade plan
-- [`docs/outreach/INSTANTLY_PARITY_LEDGER_2026-08-12.md`](../outreach/INSTANTLY_PARITY_LEDGER_2026-08-12.md) — 2026-08-12 · UberBond outreach parity ledger
-- [`docs/outreach/MULTI_SECTOR_COMPARISON_2026-08-12.md`](../outreach/MULTI_SECTOR_COMPARISON_2026-08-12.md) — 2026-08-12 · UberBond versus Instantly: multi-sector comparison
+- [`artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md) — 2026-10-03 · Halfteck contact-route reconciliation — independent draft _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md) — 2026-10-03 · External candidate reality receipt — 3 October 2026 _(matched by name only)_
+- [`artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md`](../../artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md) — 2026-10-03 · Intelo.ai — approval-to-WMS integration QA note _(matched by name only)_
+- [`docs/receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md`](../receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md) — 2026-10-03 · Outreach completion reality refresh — 2026-10-03 — Truth class: current source, fresh protected production reads, independent public evidence and bounded remaining owner/legal facts. _(matched by name only)_
+- [`docs/receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md`](../receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md) — 2026-10-03 · Work outreach final boss reality — 2026-10-03 — Truth class: live account observations, exact source/deployment receipts, and explicit failed-read boundaries. Supersedes [October 2 Work rec… _(matched by name only)_
+- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen… _(matched by name only)_
+- [`docs/receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md`](../receipts/OUTREACH_SOFTWARE_CLOSURE_20261002.md) — 2026-10-02 · Outreach Software Closure — 2026-10-02 — Truth class: SOURCE + TEST + REACHABILITY RECEIPT. This is not a deployment receipt, not a customer receipt and not evidence of demand. Nothing was… _(matched by name only)_
+- [`docs/COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md`](../COLD_EMAIL_ITERATION_SCORECARD_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Iteration Scorecard — 2026-09-28 _(matched by name only)_
+- [`docs/COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md`](../COLD_EMAIL_STRATEGY_ATLAS_V1_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Strategy Atlas V1 — 2026-09-28 — Status: current complete synthesis from the recovered UberBond Outbound Genome plus current public practitioner/data research. This is n… _(matched by name only)_
+- [`docs/COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md`](../COLD_EMAIL_SYSTEM_V5_10_OF_10_2026-09-28.md) — 2026-09-28 · UberBond Cold Email System V5 — 10/10 Design Standard — Status: design-complete against UberBond's current evidence/rubric. "10/10" here means no material design gap remains in the current… _(matched by name only)_
+- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists. _(matched by name only)_
+- [`docs/OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md`](../OUTREACH_REPLY_RATE_FRONTIER_2026-09-28.md) — 2026-09-28 · UberBond Cold Email Reply-Rate Frontier — 2026-09-28 — Status: research synthesis only. No prospect send authorized by this artifact. _(matched by name only)_
+- [`docs/ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md`](../ULTIMATE_COLD_EMAIL_EXPECTED_SUCCESS_COMPILER_V2_2026-09-28.md) — 2026-09-28 · UberBond Expected-Success Cold Email Compiler V2 — 2026-09-28 — Status: evidence-weighted synthesis + novel optimization architecture. It does not claim a universally guaranteed best email.… _(matched by name only)_
+- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(matched by name only)_
+- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(matched by name only)_
+- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(matched by name only)_
+- [`docs/handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md`](../handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md) — 2026-09-20 · Live Outreach Activation Frontier — 2026-09-20 _(matched by name only)_
+- [`docs/CURRENT_HANDOFF_OUTREACH_UBER_CLOSURE_2026-09-16.md`](../CURRENT_HANDOFF_OUTREACH_UBER_CLOSURE_2026-09-16.md) — 2026-09-16 · Current handoff — Outreach Uber Closure _(matched by name only)_
+- [`docs/UBER_OUTREACH_EXTERNAL_CLOSURE_2026-09-16.md`](../UBER_OUTREACH_EXTERNAL_CLOSURE_2026-09-16.md) — 2026-09-16 · UberBond outreach external-closure receipt — 2026-09-16 _(matched by name only)_
+- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_2026-09-15.md`](../OUTREACH_ONE_BUTTON_ACTIVATION_2026-09-15.md) — 2026-09-15 · UberBond One-Button Outreach Activation — 2026-09-15 _(matched by name only)_
+- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_CHECKLIST_2026-09-15.md`](../OUTREACH_ONE_BUTTON_ACTIVATION_CHECKLIST_2026-09-15.md) — 2026-09-15 · Live activation checklist _(matched by name only)_
+- [`docs/OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md`](../OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md) — 2026-09-15 · Operator note _(matched by name only)_
+- [`docs/UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md`](../UBEROUTBOUND_GENOME_COMPLETION_2026-09-14.md) — 2026-09-14 · UberOutbound Genome Completion Boundary _(matched by name only)_
+- [`docs/outreach/INSTANTLY_FULL_COMPARISON_AND_UPGRADE_PLAN_2026-08-12.md`](../outreach/INSTANTLY_FULL_COMPARISON_AND_UPGRADE_PLAN_2026-08-12.md) — 2026-08-12 · UberBond vs Instantly: detailed comparison and upgrade plan _(matched by name only)_
+- [`docs/outreach/INSTANTLY_PARITY_LEDGER_2026-08-12.md`](../outreach/INSTANTLY_PARITY_LEDGER_2026-08-12.md) — 2026-08-12 · UberBond outreach parity ledger _(matched by name only)_
+- [`docs/outreach/MULTI_SECTOR_COMPARISON_2026-08-12.md`](../outreach/MULTI_SECTOR_COMPARISON_2026-08-12.md) — 2026-08-12 · UberBond versus Instantly: multi-sector comparison _(matched by name only)_
 
 ## Other documents (2)
 
-- [`artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt`](../../artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt) — Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/
-- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C…
+- [`artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt`](../../artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt) — Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/ _(matched by name only)_
+- [`docs/handoffs/OUTREACH_COMMERCIAL_CURRENT.md`](../handoffs/OUTREACH_COMMERCIAL_CURRENT.md) — UberBond Commercial Outreach Current — October 2026 — Status: CURRENT COMMERCIAL/DISTRIBUTION OVERLAY. This file is a retrieval and execution pointer beneath UberBond's terminal Sovereign C… _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (7)
 
-- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — UBERBOND Decision Engine _(15 mentions)_
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(8 mentions)_
-- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine _(6 mentions)_
-- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(4 mentions)_
-- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(3 mentions)_
-- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(3 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(3 mentions)_
+- [`docs/constitution/decision-engine-v1.md`](../constitution/decision-engine-v1.md) — UBERBOND Decision Engine _(matched by name only)_ _(15 mentions)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_ _(8 mentions)_
+- [`docs/constitution/learning-engine-v1.md`](../constitution/learning-engine-v1.md) — UBERBOND Learning Engine _(matched by name only)_ _(6 mentions)_
+- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(matched by name only)_ _(4 mentions)_
+- [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(matched by name only)_ _(3 mentions)_
+- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (37)
 
-- [`src/free-first-outreach-router.mjs`](../../src/free-first-outreach-router.mjs) — Free-first outreach routing: which zero-cost provider, if any, may carry a _(tested; imported by 2)_
-- [`src/governed-outreach-dispatch.mjs`](../../src/governed-outreach-dispatch.mjs) — exports GOVERNED_OUTREACH_DISPATCH_VERSION, dispatchGovernedOutreach _(tested; imported by 3)_
-- [`src/omnia-v9/integrations/outbound-admission.mjs`](../../src/omnia-v9/integrations/outbound-admission.mjs) — exports deriveOutboundActionIntent, evaluateOutboundAdmission, createOutboundAdmissionHook, resolveOutboundFinalAdmissionHook _(imported by 4)_
-- [`src/omnia-v9/integrations/outbound-consequence-gate.mjs`](../../src/omnia-v9/integrations/outbound-consequence-gate.mjs) — exports buildOutboundConsequenceContext, normalizeOutboundEffectPayload, digestOutboundEffectPayload, enforceOutboundConsequence _(imported by 2)_
-- [`src/omnia-v9/integrations/outreach-consequence-admission.mjs`](../../src/omnia-v9/integrations/outreach-consequence-admission.mjs) — exports OUTREACH_CONSEQUENCE_POLICY_DIGEST, OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST, createAuthoritativeOutreachConsequenceGate _(imported by 2)_
-- [`src/omnia-v9/outbound-shadow.mjs`](../../src/omnia-v9/outbound-shadow.mjs) — exports buildOutboundShadowArtifacts, evaluateOutboundShadow _(no static importers)_
-- [`src/outbound-operator-summary.mjs`](../../src/outbound-operator-summary.mjs) — exports OPERATOR_SUMMARY_POLICY_VERSION, buildOutboundOperatorSummary _(tested; imported by 1)_
-- [`src/outbound-send-authorization.mjs`](../../src/outbound-send-authorization.mjs) — exports OUTBOUND_SEND_AUTHORIZATION_VERSION, OUTBOUND_EMERGENCY_STOP_ENV, canonicalRecipientKey, outboundMessageDigest, decideOutboundSend (+6) _(tested; imported by 3)_
-- [`src/outreach-100k-artifact-preparer.mjs`](../../src/outreach-100k-artifact-preparer.mjs) — exports OUTREACH_100K_ARTIFACT_PREPARER_VERSION, DEFAULT_OUTREACH_100K_CANDIDATES_PATH, DEFAULT_OUTREACH_100K_EVIDENCE_PATH, prepareOutreach100kArtif… _(tested; imported by 1)_
-- [`src/outreach-100k-corpus-materializer.mjs`](../../src/outreach-100k-corpus-materializer.mjs) — exports OUTREACH_100K_CORPUS_MATERIALIZER_VERSION, materializeOutreach100kPacketCorpus _(tested; imported by 1)_
-- [`src/outreach-100k-launch-contract.mjs`](../../src/outreach-100k-launch-contract.mjs) — exports OUTREACH_100K_TARGET, OUTREACH_100K_CERTIFICATE_VERSION, compileOutreach100kLaunchCertificate, compileOutreach100kCompletion _(tested; imported by 2)_
-- [`src/outreach-100k-packet-compiler.mjs`](../../src/outreach-100k-packet-compiler.mjs) — exports OUTREACH_100K_PACKET_COMPILER_VERSION, compileOutreach100kPacket, compileOutreach100kPackets _(tested; imported by 1)_
-- [`src/outreach-100k-packet-corpus.mjs`](../../src/outreach-100k-packet-corpus.mjs) — exports OUTREACH_100K_CORPUS_VERSION, inspectOutreach100kPacketCorpus _(tested; imported by 2)_
-- [`src/outreach-100k-runtime-bundle.mjs`](../../src/outreach-100k-runtime-bundle.mjs) — exports OUTREACH_100K_RUNTIME_BUNDLE_VERSION, compileOutreach100kRuntimeBundle, writeOutreach100kRuntimeBundle _(tested; imported by 1)_
-- [`src/outreach-100k-runtime-control.mjs`](../../src/outreach-100k-runtime-control.mjs) — exports OUTREACH_100K_RUNTIME_VERSION, DEFAULT_OUTREACH_100K_BUNDLE_PATH, DEFAULT_OUTREACH_100K_CORPUS_PATH, buildLiveOutreach100kSummary, prepareOut… _(imported by 2)_
-- [`src/outreach-automation.mjs`](../../src/outreach-automation.mjs) — Deterministic, provider-neutral automation plans for the owner workbench. Plans can observe provider events and apply local workflow mutations. An HT… _(tested; no static importers)_
-- [`src/outreach-cold-route-policy.mjs`](../../src/outreach-cold-route-policy.mjs) — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — a deliberately narrow, fail-closed _(tested; imported by 3)_
-- [`src/outreach-domain-fleet.mjs`](../../src/outreach-domain-fleet.mjs) — Live registrar evidence for the scalable outreach fleet. _(tested; imported by 7)_
-- [`src/outreach-drift-doctor.mjs`](../../src/outreach-drift-doctor.mjs) — Outreach drift doctor: catches material divergence between _(tested; imported by 1)_
-- [`src/outreach-economics-snapshot.mjs`](../../src/outreach-economics-snapshot.mjs) — Production-reachable outreach economics, built on the EXISTING owners: _(tested; imported by 1)_
-- [`src/outreach-fleet-dns-observatory.mjs`](../../src/outreach-fleet-dns-observatory.mjs) — Public-DNS observatory for the whole owned domain portfolio. _(tested; imported by 2)_
-- [`src/outreach-governance.mjs`](../../src/outreach-governance.mjs) — exports OUTREACH_ROUTE_TYPES, OUTREACH_PERMISSION_SCOPES, OutreachGovernanceError, normalizeOutreachEmail, verifyInvitedBusinessContact (+11) _(imported by 10)_
-- [`src/outreach-launch-facts.mjs`](../../src/outreach-launch-facts.mjs) — Founder launch facts: the one owner-supplied input the outreach gates need. _(tested; imported by 1)_
-- [`src/outreach-launch-gate.mjs`](../../src/outreach-launch-gate.mjs) — exports OUTREACH_LAUNCH_GATE_VERSION, OUTREACH_LAUNCH_STATES, evaluateOutreachLaunchGate _(tested; imported by 5)_
-- [`src/outreach-operator.mjs`](../../src/outreach-operator.mjs) — Owner-use-case decision layer. This is deliberately not a claim that UberBond has recreated Instantly's paid infrastructure. It scores the jobs that… _(tested; imported by 1)_
-- [`src/outreach-provider-events.mjs`](../../src/outreach-provider-events.mjs) — exports OUTREACH_PROVIDER_EVENT_VERSION, WEBHOOK_SIGNATURE_HEADER, WEBHOOK_TIMESTAMP_HEADER, WEBHOOK_CLOCK_SKEW_SECONDS, webhookSignature (+4) _(tested; no static importers)_
-- [`src/outreach-upgrades.mjs`](../../src/outreach-upgrades.mjs) — exports OUTREACH_UPGRADES_VERSION, evaluateCampaignSendControls, buildCampaignControlPlan, buildDeliverabilityPreflight, buildProviderIntegrationSpec… _(tested; no static importers)_
-- [`src/outreach-workbench.mjs`](../../src/outreach-workbench.mjs) — exports OUTREACH_WORKBENCH_VERSION, MAX_SEQUENCE_STEPS, MAX_VARIANTS_PER_STEP, OUTREACH_STAGES, defaultSequence (+20) _(tested; imported by 1)_
-- [`src/outreach-zero-barrier-fabric.mjs`](../../src/outreach-zero-barrier-fabric.mjs) — exports compileZeroBarrierOutreachReadiness _(tested; imported by 1)_
-- [`src/uberbuy-outreach-bom.mjs`](../../src/uberbuy-outreach-bom.mjs) — exports UBERBUY_VERSION, compileOutreachBuyList _(tested; imported by 1)_
-- [`src/ubereconomics-outreach.mjs`](../../src/ubereconomics-outreach.mjs) — exports UBERECONOMICS_OUTREACH_VERSION, compileOutreachEconomics _(tested; imported by 1)_
-- [`src/uberoutbound-genome.mjs`](../../src/uberoutbound-genome.mjs) — exports UBEROUTBOUND_GENOME_VERSION, UBEROUTBOUND_EVIDENCE_STATES, UBEROUTBOUND_ACTIONS, UBEROUTBOUND_PROBLEM_ALTITUDES, UBEROUTBOUND_V1_PRIORS (+13) _(tested; imported by 9)_
-- [`src/uberoutbound-policy-registry.mjs`](../../src/uberoutbound-policy-registry.mjs) — exports UBEROUTBOUND_POLICY_REGISTRY_VERSION, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER, UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL, UBEROUTBOUND_TRIGGER_TAXONOMY… _(tested; imported by 3)_
-- [`src/uberoutbound-promotion-gate.mjs`](../../src/uberoutbound-promotion-gate.mjs) — exports UBEROUTBOUND_PROMOTION_GATE_VERSION, UBEROUTBOUND_PROMOTION_STATES, compileUberOutboundPromotionDecision, compileUberOutboundDegradationDecis… _(tested; imported by 2)_
-- [`src/uberoutbound-recipient-eligibility.mjs`](../../src/uberoutbound-recipient-eligibility.mjs) — UberOutbound recipient eligibility compiler. _(tested; imported by 9)_
-- [`src/uberoutbound-research-import.mjs`](../../src/uberoutbound-research-import.mjs) — exports UBEROUTBOUND_RESEARCH_IMPORT_VERSION, compileUberOutboundResearchImport, reconcileUberOutboundResearchAssets _(tested; imported by 1)_
-- [`src/ubertruth-outreach.mjs`](../../src/ubertruth-outreach.mjs) — exports UBERTRUTH_OUTREACH_VERSION, evaluateOutreachPersonalization _(tested; imported by 1)_
+- [`src/free-first-outreach-router.mjs`](../../src/free-first-outreach-router.mjs) — Free-first outreach routing: which zero-cost provider, if any, may carry a _(matched by name only; tested; imported by 2)_
+- [`src/governed-outreach-dispatch.mjs`](../../src/governed-outreach-dispatch.mjs) — exports GOVERNED_OUTREACH_DISPATCH_VERSION, dispatchGovernedOutreach _(matched by name only; tested; imported by 3)_
+- [`src/omnia-v9/integrations/outbound-admission.mjs`](../../src/omnia-v9/integrations/outbound-admission.mjs) — exports deriveOutboundActionIntent, evaluateOutboundAdmission, createOutboundAdmissionHook, resolveOutboundFinalAdmissionHook _(matched by name only; imported by 4)_
+- [`src/omnia-v9/integrations/outbound-consequence-gate.mjs`](../../src/omnia-v9/integrations/outbound-consequence-gate.mjs) — exports buildOutboundConsequenceContext, normalizeOutboundEffectPayload, digestOutboundEffectPayload, enforceOutboundConsequence _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/outreach-consequence-admission.mjs`](../../src/omnia-v9/integrations/outreach-consequence-admission.mjs) — exports OUTREACH_CONSEQUENCE_POLICY_DIGEST, OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST, createAuthoritativeOutreachConsequenceGate _(matched by name only; imported by 2)_
+- [`src/omnia-v9/outbound-shadow.mjs`](../../src/omnia-v9/outbound-shadow.mjs) — exports buildOutboundShadowArtifacts, evaluateOutboundShadow _(matched by name only; no static importers)_
+- [`src/outbound-operator-summary.mjs`](../../src/outbound-operator-summary.mjs) — exports OPERATOR_SUMMARY_POLICY_VERSION, buildOutboundOperatorSummary _(matched by name only; tested; imported by 1)_
+- [`src/outbound-send-authorization.mjs`](../../src/outbound-send-authorization.mjs) — exports OUTBOUND_SEND_AUTHORIZATION_VERSION, OUTBOUND_EMERGENCY_STOP_ENV, canonicalRecipientKey, outboundMessageDigest, decideOutboundSend (+6) _(matched by name only; tested; imported by 3)_
+- [`src/outreach-100k-artifact-preparer.mjs`](../../src/outreach-100k-artifact-preparer.mjs) — exports OUTREACH_100K_ARTIFACT_PREPARER_VERSION, DEFAULT_OUTREACH_100K_CANDIDATES_PATH, DEFAULT_OUTREACH_100K_EVIDENCE_PATH, prepareOutreach100kArtif… _(matched by name only; tested; imported by 1)_
+- [`src/outreach-100k-corpus-materializer.mjs`](../../src/outreach-100k-corpus-materializer.mjs) — exports OUTREACH_100K_CORPUS_MATERIALIZER_VERSION, materializeOutreach100kPacketCorpus _(matched by name only; tested; imported by 1)_
+- [`src/outreach-100k-launch-contract.mjs`](../../src/outreach-100k-launch-contract.mjs) — exports OUTREACH_100K_TARGET, OUTREACH_100K_CERTIFICATE_VERSION, compileOutreach100kLaunchCertificate, compileOutreach100kCompletion _(matched by name only; tested; imported by 2)_
+- [`src/outreach-100k-packet-compiler.mjs`](../../src/outreach-100k-packet-compiler.mjs) — exports OUTREACH_100K_PACKET_COMPILER_VERSION, compileOutreach100kPacket, compileOutreach100kPackets _(matched by name only; tested; imported by 1)_
+- [`src/outreach-100k-packet-corpus.mjs`](../../src/outreach-100k-packet-corpus.mjs) — exports OUTREACH_100K_CORPUS_VERSION, inspectOutreach100kPacketCorpus _(matched by name only; tested; imported by 2)_
+- [`src/outreach-100k-runtime-bundle.mjs`](../../src/outreach-100k-runtime-bundle.mjs) — exports OUTREACH_100K_RUNTIME_BUNDLE_VERSION, compileOutreach100kRuntimeBundle, writeOutreach100kRuntimeBundle _(matched by name only; tested; imported by 1)_
+- [`src/outreach-100k-runtime-control.mjs`](../../src/outreach-100k-runtime-control.mjs) — exports OUTREACH_100K_RUNTIME_VERSION, DEFAULT_OUTREACH_100K_BUNDLE_PATH, DEFAULT_OUTREACH_100K_CORPUS_PATH, buildLiveOutreach100kSummary, prepareOut… _(matched by name only; imported by 2)_
+- [`src/outreach-automation.mjs`](../../src/outreach-automation.mjs) — Deterministic, provider-neutral automation plans for the owner workbench. Plans can observe provider events and apply local workflow mutations. An HT… _(matched by name only; tested; no static importers)_
+- [`src/outreach-cold-route-policy.mjs`](../../src/outreach-cold-route-policy.mjs) — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — a deliberately narrow, fail-closed _(matched by name only; tested; imported by 3)_
+- [`src/outreach-domain-fleet.mjs`](../../src/outreach-domain-fleet.mjs) — Live registrar evidence for the scalable outreach fleet. _(matched by name only; tested; imported by 7)_
+- [`src/outreach-drift-doctor.mjs`](../../src/outreach-drift-doctor.mjs) — Outreach drift doctor: catches material divergence between _(matched by name only; tested; imported by 1)_
+- [`src/outreach-economics-snapshot.mjs`](../../src/outreach-economics-snapshot.mjs) — Production-reachable outreach economics, built on the EXISTING owners: _(matched by name only; tested; imported by 1)_
+- [`src/outreach-fleet-dns-observatory.mjs`](../../src/outreach-fleet-dns-observatory.mjs) — Public-DNS observatory for the whole owned domain portfolio. _(matched by name only; tested; imported by 2)_
+- [`src/outreach-governance.mjs`](../../src/outreach-governance.mjs) — exports OUTREACH_ROUTE_TYPES, OUTREACH_PERMISSION_SCOPES, OutreachGovernanceError, normalizeOutreachEmail, verifyInvitedBusinessContact (+11) _(matched by name only; imported by 10)_
+- [`src/outreach-launch-facts.mjs`](../../src/outreach-launch-facts.mjs) — Founder launch facts: the one owner-supplied input the outreach gates need. _(matched by name only; tested; imported by 1)_
+- [`src/outreach-launch-gate.mjs`](../../src/outreach-launch-gate.mjs) — exports OUTREACH_LAUNCH_GATE_VERSION, OUTREACH_LAUNCH_STATES, evaluateOutreachLaunchGate _(matched by name only; tested; imported by 5)_
+- [`src/outreach-operator.mjs`](../../src/outreach-operator.mjs) — Owner-use-case decision layer. This is deliberately not a claim that UberBond has recreated Instantly's paid infrastructure. It scores the jobs that… _(matched by name only; tested; imported by 1)_
+- [`src/outreach-provider-events.mjs`](../../src/outreach-provider-events.mjs) — exports OUTREACH_PROVIDER_EVENT_VERSION, WEBHOOK_SIGNATURE_HEADER, WEBHOOK_TIMESTAMP_HEADER, WEBHOOK_CLOCK_SKEW_SECONDS, webhookSignature (+4) _(matched by name only; tested; no static importers)_
+- [`src/outreach-upgrades.mjs`](../../src/outreach-upgrades.mjs) — exports OUTREACH_UPGRADES_VERSION, evaluateCampaignSendControls, buildCampaignControlPlan, buildDeliverabilityPreflight, buildProviderIntegrationSpec… _(matched by name only; tested; no static importers)_
+- [`src/outreach-workbench.mjs`](../../src/outreach-workbench.mjs) — exports OUTREACH_WORKBENCH_VERSION, MAX_SEQUENCE_STEPS, MAX_VARIANTS_PER_STEP, OUTREACH_STAGES, defaultSequence (+20) _(matched by name only; tested; imported by 1)_
+- [`src/outreach-zero-barrier-fabric.mjs`](../../src/outreach-zero-barrier-fabric.mjs) — exports compileZeroBarrierOutreachReadiness _(matched by name only; tested; imported by 1)_
+- [`src/uberbuy-outreach-bom.mjs`](../../src/uberbuy-outreach-bom.mjs) — exports UBERBUY_VERSION, compileOutreachBuyList _(matched by name only; tested; imported by 1)_
+- [`src/ubereconomics-outreach.mjs`](../../src/ubereconomics-outreach.mjs) — exports UBERECONOMICS_OUTREACH_VERSION, compileOutreachEconomics _(matched by name only; tested; imported by 1)_
+- [`src/uberoutbound-genome.mjs`](../../src/uberoutbound-genome.mjs) — exports UBEROUTBOUND_GENOME_VERSION, UBEROUTBOUND_EVIDENCE_STATES, UBEROUTBOUND_ACTIONS, UBEROUTBOUND_PROBLEM_ALTITUDES, UBEROUTBOUND_V1_PRIORS (+13) _(matched by name only; tested; imported by 9)_
+- [`src/uberoutbound-policy-registry.mjs`](../../src/uberoutbound-policy-registry.mjs) — exports UBEROUTBOUND_POLICY_REGISTRY_VERSION, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER, UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL, UBEROUTBOUND_TRIGGER_TAXONOMY… _(matched by name only; tested; imported by 3)_
+- [`src/uberoutbound-promotion-gate.mjs`](../../src/uberoutbound-promotion-gate.mjs) — exports UBEROUTBOUND_PROMOTION_GATE_VERSION, UBEROUTBOUND_PROMOTION_STATES, compileUberOutboundPromotionDecision, compileUberOutboundDegradationDecis… _(matched by name only; tested; imported by 2)_
+- [`src/uberoutbound-recipient-eligibility.mjs`](../../src/uberoutbound-recipient-eligibility.mjs) — UberOutbound recipient eligibility compiler. _(matched by name only; tested; imported by 9)_
+- [`src/uberoutbound-research-import.mjs`](../../src/uberoutbound-research-import.mjs) — exports UBEROUTBOUND_RESEARCH_IMPORT_VERSION, compileUberOutboundResearchImport, reconcileUberOutboundResearchAssets _(matched by name only; tested; imported by 1)_
+- [`src/ubertruth-outreach.mjs`](../../src/ubertruth-outreach.mjs) — exports UBERTRUTH_OUTREACH_VERSION, evaluateOutreachPersonalization _(matched by name only; tested; imported by 1)_
 
 ## Scripts (15)
 
-- [`scripts/free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(npm: `outreach:free-first:doctor`)_
-- [`scripts/genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst + Wallbreaker tournament for the outreach first-cash wall.
-- [`scripts/outbound-probes.mjs`](../../scripts/outbound-probes.mjs) _(npm: `probes:outbound`)_
-- [`scripts/outbound-safety-smoke.mjs`](../../scripts/outbound-safety-smoke.mjs) _(npm: `smoke:outbound`)_
-- [`scripts/outreach-drift-doctor.mjs`](../../scripts/outreach-drift-doctor.mjs) _(npm: `outreach:drift-doctor`)_
-- [`scripts/outreach-fleet-dns-observe.mjs`](../../scripts/outreach-fleet-dns-observe.mjs) — Observe public DNS for all 30 owned domains and print (or write) a receipt. _(npm: `outreach:fleet-dns`)_
-- [`scripts/outreach-launch-doctor.mjs`](../../scripts/outreach-launch-doctor.mjs)
-- [`scripts/outreach-launch-facts.mjs`](../../scripts/outreach-launch-facts.mjs) — One owner action: fill one facts file, then let the machine report what is missing. _(npm: `outreach:launch-facts`)_
-- [`scripts/outreach-reachability-audit.mjs`](../../scripts/outreach-reachability-audit.mjs) — Phase A forensic gap compiler for the outreach/lead-generation organ. _(npm: `outreach:reachability-audit`)_
-- [`scripts/outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — exports OUTREACH_REALITY_DOCTOR_VERSION, runOutreachRealityDoctor
-- [`scripts/uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs)
-- [`scripts/uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs)
-- [`scripts/uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs)
-- [`scripts/uberoutbound-genome-verify.mjs`](../../scripts/uberoutbound-genome-verify.mjs)
-- [`scripts/zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — exports runZeroBarrierOutreachDoctor
+- [`scripts/free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(matched by name only; npm: `outreach:free-first:doctor`)_
+- [`scripts/genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst + Wallbreaker tournament for the outreach first-cash wall. _(matched by name only)_
+- [`scripts/outbound-probes.mjs`](../../scripts/outbound-probes.mjs) _(matched by name only; npm: `probes:outbound`)_
+- [`scripts/outbound-safety-smoke.mjs`](../../scripts/outbound-safety-smoke.mjs) _(matched by name only; npm: `smoke:outbound`)_
+- [`scripts/outreach-drift-doctor.mjs`](../../scripts/outreach-drift-doctor.mjs) _(matched by name only; npm: `outreach:drift-doctor`)_
+- [`scripts/outreach-fleet-dns-observe.mjs`](../../scripts/outreach-fleet-dns-observe.mjs) — Observe public DNS for all 30 owned domains and print (or write) a receipt. _(matched by name only; npm: `outreach:fleet-dns`)_
+- [`scripts/outreach-launch-doctor.mjs`](../../scripts/outreach-launch-doctor.mjs) _(matched by name only)_
+- [`scripts/outreach-launch-facts.mjs`](../../scripts/outreach-launch-facts.mjs) — One owner action: fill one facts file, then let the machine report what is missing. _(matched by name only; npm: `outreach:launch-facts`)_
+- [`scripts/outreach-reachability-audit.mjs`](../../scripts/outreach-reachability-audit.mjs) — Phase A forensic gap compiler for the outreach/lead-generation organ. _(matched by name only; npm: `outreach:reachability-audit`)_
+- [`scripts/outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — exports OUTREACH_REALITY_DOCTOR_VERSION, runOutreachRealityDoctor _(matched by name only)_
+- [`scripts/uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs) _(matched by name only)_
+- [`scripts/uberoutbound-genome-verify.mjs`](../../scripts/uberoutbound-genome-verify.mjs) _(matched by name only)_
+- [`scripts/zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — exports runZeroBarrierOutreachDoctor _(matched by name only)_
 
 ## Config, data, artifacts and services (62)
 
-- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head
-- [`00_OUTREACH_NOW.json`](../../00_OUTREACH_NOW.json) — Machine pair of the outreach hot pointer.
-- [`artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json) — 2026-09-25 · uberbond.genesis-probe-receipt.v1
-- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED
-- [`artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json`](../../artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json)
-- [`artifacts/outbound-genome/completion-2026-09-14.json`](../../artifacts/outbound-genome/completion-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-completion-1.1.0
-- [`artifacts/outbound-genome/research-2026-09-14.json`](../../artifacts/outbound-genome/research-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-research-1.0.0
-- [`artifacts/outreach-capacity-economics.json`](../../artifacts/outreach-capacity-economics.json) — Preparation only · CURRENT · uberbond-outreach-capacity-economics-1.0.0
-- [`artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json`](../../artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json) — 2026-10-03 · uberbond.egypt-corporate-role-scope.v1
-- [`artifacts/outreach/clearbounce-powerhouse-20261004.jpg`](../../artifacts/outreach/clearbounce-powerhouse-20261004.jpg) — 2026-10-04
-- [`artifacts/outreach/clearbounce-powerhouse-20261004.json`](../../artifacts/outreach/clearbounce-powerhouse-20261004.json) — 2026-10-04 · uberbond.observed-route-verification.v1
-- [`artifacts/outreach/fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · uberbond.outreach-fleet-dns-observatory.v1
-- [`artifacts/outreach/free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0
-- [`artifacts/outreach/global-green-lane-router-20261003.json`](../../artifacts/outreach/global-green-lane-router-20261003.json) — 2026-10-03 · INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF · uberbond.global-green-lane-router-receipt.v1
-- [`artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json) — 2026-10-03 · uberbond.external-policy-evidence.v1
-- [`artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json`](../../artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json)
-- [`artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json) — Active
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan
-- [`artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json) — Active
-- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json) — 2026-10-03 · Active · uberbond.external-candidate-evidence.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03
-- [`artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED
-- [`artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan
-- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json)
-- [`artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json`](../../artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json)
-- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — uberbond.global-runtime-closure.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json) — 2026-10-03
-- [`artifacts/outreach/godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · www · uberbond.godaddy-dns-observation.v1
-- [`artifacts/outreach/godaddy-domain-fleet-2026-09-20.json`](../../artifacts/outreach/godaddy-domain-fleet-2026-09-20.json) — 2026-09-20 · VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION · uberbond.outreach-domain-fleet.v1
-- [`artifacts/outreach/live-activation-observation-2026-09-20.json`](../../artifacts/outreach/live-activation-observation-2026-09-20.json) — 2026-09-20 · uberbond.live-outreach-activation-observation.v1
-- [`artifacts/outreach/outreach-reachability-20261002.json`](../../artifacts/outreach/outreach-reachability-20261002.json) — 2026-10-02 · uberbond.outreach-reachability.v1
-- [`artifacts/outreach/outreach-software-gap-register-20261002.json`](../../artifacts/outreach/outreach-software-gap-register-20261002.json) — 2026-10-02 · uberbond.outreach-software-gap-register.v1
-- [`artifacts/outreach/phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json) — 2026-10-11 · Agency Revenue Leak Proof Pack · RESEARCH_CANDIDATES_NOT_SEND_READY · uberbond.phoenix.vendor-route-research.v1
-- [`artifacts/outreach/powerhouse-effect-package-20261002.json`](../../artifacts/outreach/powerhouse-effect-package-20261002.json) — 2026-10-02 · Sylvester Electric · PREPARED_NOT_READY · uberbond.effect-package.v1
-- [`artifacts/outreach/powerhouse-followup-request-20261002.json`](../../artifacts/outreach/powerhouse-followup-request-20261002.json) — 2026-10-02 · CLOSED_BY_MISSION_CONTROL · uberbond.mission-control-followup.v1
-- [`artifacts/outreach/powerhouse-message-tournament-20261002.json`](../../artifacts/outreach/powerhouse-message-tournament-20261002.json) — 2026-10-02 · CONDITIONAL_PENDING_VERIFICATION · uberbond.message-tournament.v1
-- [`artifacts/outreach/powerhouse-preflight-request-20261002.json`](../../artifacts/outreach/powerhouse-preflight-request-20261002.json) — 2026-10-02 · INDEPENDENT · uberbond.prospect-preflight-request.v1
-- [`artifacts/outreach/prospect-fetch-tasking-20261002.json`](../../artifacts/outreach/prospect-fetch-tasking-20261002.json) — 2026-10-02 · uberbond.prospect-fetch-tasking.v1
-- [`artifacts/outreach/prospect-tournament-20261002.json`](../../artifacts/outreach/prospect-tournament-20261002.json) — 2026-10-02 · Sylvester Electric · REJECTED · uberbond.prospect-tournament.v1
-- [`artifacts/outreach/prospect-verification-request-20261002.json`](../../artifacts/outreach/prospect-verification-request-20261002.json) — 2026-10-02 · INDEPENDENT / PART_OF_LARGER_GROUP / UNKNOWN · uberbond.prospect-verification-request.v1
-- [`artifacts/outreach/provider-activation-receipts-2026-09-01.json`](../../artifacts/outreach/provider-activation-receipts-2026-09-01.json) — 2026-09-01 · uberbond-provider-activation-receipts-1.0.0
-- [`artifacts/outreach/uber-closure-source-verification-2026-09-16.json`](../../artifacts/outreach/uber-closure-source-verification-2026-09-16.json) — 2026-09-16
-- [`artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json`](../../artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json) — 2026-10-01 · DONOR_INTERNALIZED_CLEAN_ROOM · uberbond-capability-donor-ledger-1.0.0
-- [`artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json`](../../artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json) — 2026-10-02 · uberbond.v6-owner-authenticated-read.v1
-- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1
-- [`artifacts/outreach/work-final-boss-reality-20261003.json`](../../artifacts/outreach/work-final-boss-reality-20261003.json) — 2026-10-03 · LIVE · uberbond.work-outreach-final-boss-reality.v1
-- [`artifacts/outreach/work-live-reality-closure-20261002.json`](../../artifacts/outreach/work-live-reality-closure-20261002.json) — 2026-10-02 · uberbond-control-postgres · LIVE · uberbond.work-live-reality-closure.v1
-- [`artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json`](../../artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json) — 2026-10-08 · THE CAUSAL COMPILER · uberbond.moonshot-890-outreach-revenue-opportunity-index.v1
-- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_RECEIPT_2026-09-15.json`](../OUTREACH_ONE_BUTTON_ACTIVATION_RECEIPT_2026-09-15.json) — 2026-09-15 · uberbond.outreach-one-button-activation.v1
-- [`docs/UBER_OUTREACH_CLOSURE_STATUS.json`](../UBER_OUTREACH_CLOSURE_STATUS.json) — SOURCE_READY_EXTERNAL_REALITY_PENDING
-- [`docs/outreach/OUTREACH_APPROVAL_REQUEST.example.json`](../outreach/OUTREACH_APPROVAL_REQUEST.example.json)
-- [`migrations/20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column
-- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1
-- [`public/outreach-one-button.js`](../../public/outreach-one-button.js)
-- [`schemas/uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet
+- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head _(matched by name only)_
+- [`00_OUTREACH_NOW.json`](../../00_OUTREACH_NOW.json) — Machine pair of the outreach hot pointer. _(matched by name only)_
+- [`artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json) — 2026-09-25 · uberbond.genesis-probe-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json`](../../artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json) _(matched by name only)_
+- [`artifacts/outbound-genome/completion-2026-09-14.json`](../../artifacts/outbound-genome/completion-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-completion-1.1.0 _(matched by name only)_
+- [`artifacts/outbound-genome/research-2026-09-14.json`](../../artifacts/outbound-genome/research-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-research-1.0.0 _(matched by name only)_
+- [`artifacts/outreach-capacity-economics.json`](../../artifacts/outreach-capacity-economics.json) — Preparation only · CURRENT · uberbond-outreach-capacity-economics-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json`](../../artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json) — 2026-10-03 · uberbond.egypt-corporate-role-scope.v1 _(matched by name only)_
+- [`artifacts/outreach/clearbounce-powerhouse-20261004.jpg`](../../artifacts/outreach/clearbounce-powerhouse-20261004.jpg) — 2026-10-04 _(matched by name only)_
+- [`artifacts/outreach/clearbounce-powerhouse-20261004.json`](../../artifacts/outreach/clearbounce-powerhouse-20261004.json) — 2026-10-04 · uberbond.observed-route-verification.v1 _(matched by name only)_
+- [`artifacts/outreach/fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · uberbond.outreach-fleet-dns-observatory.v1 _(matched by name only)_
+- [`artifacts/outreach/free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/global-green-lane-router-20261003.json`](../../artifacts/outreach/global-green-lane-router-20261003.json) — 2026-10-03 · INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF · uberbond.global-green-lane-router-receipt.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json) — 2026-10-03 · uberbond.external-policy-evidence.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json`](../../artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json) _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json) — Active _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json) — Active _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json) — 2026-10-03 · Active · uberbond.external-candidate-evidence.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json) _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json`](../../artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json) _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — uberbond.global-runtime-closure.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`artifacts/outreach/godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · www · uberbond.godaddy-dns-observation.v1 _(matched by name only)_
+- [`artifacts/outreach/godaddy-domain-fleet-2026-09-20.json`](../../artifacts/outreach/godaddy-domain-fleet-2026-09-20.json) — 2026-09-20 · VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION · uberbond.outreach-domain-fleet.v1 _(matched by name only)_
+- [`artifacts/outreach/live-activation-observation-2026-09-20.json`](../../artifacts/outreach/live-activation-observation-2026-09-20.json) — 2026-09-20 · uberbond.live-outreach-activation-observation.v1 _(matched by name only)_
+- [`artifacts/outreach/outreach-reachability-20261002.json`](../../artifacts/outreach/outreach-reachability-20261002.json) — 2026-10-02 · uberbond.outreach-reachability.v1 _(matched by name only)_
+- [`artifacts/outreach/outreach-software-gap-register-20261002.json`](../../artifacts/outreach/outreach-software-gap-register-20261002.json) — 2026-10-02 · uberbond.outreach-software-gap-register.v1 _(matched by name only)_
+- [`artifacts/outreach/phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json) — 2026-10-11 · Agency Revenue Leak Proof Pack · RESEARCH_CANDIDATES_NOT_SEND_READY · uberbond.phoenix.vendor-route-research.v1 _(matched by name only)_
+- [`artifacts/outreach/powerhouse-effect-package-20261002.json`](../../artifacts/outreach/powerhouse-effect-package-20261002.json) — 2026-10-02 · Sylvester Electric · PREPARED_NOT_READY · uberbond.effect-package.v1 _(matched by name only)_
+- [`artifacts/outreach/powerhouse-followup-request-20261002.json`](../../artifacts/outreach/powerhouse-followup-request-20261002.json) — 2026-10-02 · CLOSED_BY_MISSION_CONTROL · uberbond.mission-control-followup.v1 _(matched by name only)_
+- [`artifacts/outreach/powerhouse-message-tournament-20261002.json`](../../artifacts/outreach/powerhouse-message-tournament-20261002.json) — 2026-10-02 · CONDITIONAL_PENDING_VERIFICATION · uberbond.message-tournament.v1 _(matched by name only)_
+- [`artifacts/outreach/powerhouse-preflight-request-20261002.json`](../../artifacts/outreach/powerhouse-preflight-request-20261002.json) — 2026-10-02 · INDEPENDENT · uberbond.prospect-preflight-request.v1 _(matched by name only)_
+- [`artifacts/outreach/prospect-fetch-tasking-20261002.json`](../../artifacts/outreach/prospect-fetch-tasking-20261002.json) — 2026-10-02 · uberbond.prospect-fetch-tasking.v1 _(matched by name only)_
+- [`artifacts/outreach/prospect-tournament-20261002.json`](../../artifacts/outreach/prospect-tournament-20261002.json) — 2026-10-02 · Sylvester Electric · REJECTED · uberbond.prospect-tournament.v1 _(matched by name only)_
+- [`artifacts/outreach/prospect-verification-request-20261002.json`](../../artifacts/outreach/prospect-verification-request-20261002.json) — 2026-10-02 · INDEPENDENT / PART_OF_LARGER_GROUP / UNKNOWN · uberbond.prospect-verification-request.v1 _(matched by name only)_
+- [`artifacts/outreach/provider-activation-receipts-2026-09-01.json`](../../artifacts/outreach/provider-activation-receipts-2026-09-01.json) — 2026-09-01 · uberbond-provider-activation-receipts-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/uber-closure-source-verification-2026-09-16.json`](../../artifacts/outreach/uber-closure-source-verification-2026-09-16.json) — 2026-09-16 _(matched by name only)_
+- [`artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json`](../../artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json) — 2026-10-01 · DONOR_INTERNALIZED_CLEAN_ROOM · uberbond-capability-donor-ledger-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json`](../../artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json) — 2026-10-02 · uberbond.v6-owner-authenticated-read.v1 _(matched by name only)_
+- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1 _(matched by name only)_
+- [`artifacts/outreach/work-final-boss-reality-20261003.json`](../../artifacts/outreach/work-final-boss-reality-20261003.json) — 2026-10-03 · LIVE · uberbond.work-outreach-final-boss-reality.v1 _(matched by name only)_
+- [`artifacts/outreach/work-live-reality-closure-20261002.json`](../../artifacts/outreach/work-live-reality-closure-20261002.json) — 2026-10-02 · uberbond-control-postgres · LIVE · uberbond.work-live-reality-closure.v1 _(matched by name only)_
+- [`artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json`](../../artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json) — 2026-10-08 · THE CAUSAL COMPILER · uberbond.moonshot-890-outreach-revenue-opportunity-index.v1 _(matched by name only)_
+- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_RECEIPT_2026-09-15.json`](../OUTREACH_ONE_BUTTON_ACTIVATION_RECEIPT_2026-09-15.json) — 2026-09-15 · uberbond.outreach-one-button-activation.v1 _(matched by name only)_
+- [`docs/UBER_OUTREACH_CLOSURE_STATUS.json`](../UBER_OUTREACH_CLOSURE_STATUS.json) — SOURCE_READY_EXTERNAL_REALITY_PENDING _(matched by name only)_
+- [`docs/outreach/OUTREACH_APPROVAL_REQUEST.example.json`](../outreach/OUTREACH_APPROVAL_REQUEST.example.json) _(matched by name only)_
+- [`migrations/20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column _(matched by name only)_
+- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1 _(matched by name only)_
+- [`public/outreach-one-button.js`](../../public/outreach-one-button.js) _(matched by name only)_
+- [`schemas/uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet _(matched by name only)_
 
 ## Tests (54)
 

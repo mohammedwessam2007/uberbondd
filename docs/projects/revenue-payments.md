@@ -12,14 +12,14 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (8)
 
-- [`docs/PAYMENTS_LEMONSQUEEZY.md`](../PAYMENTS_LEMONSQUEEZY.md) — Lemon Squeezy Payment Setup
-- [`docs/REVENUE_MODEL.md`](../REVENUE_MODEL.md) — Revenue Model
-- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript…
-- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md) — 2026-10-05 · Revenue Singularity terminal commercial receipt — 2026-10-05
-- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier
-- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · UberBond Revenue frontier backup — 2026-10-04 17:53 +03:00 — Status: DURABLE RESTORE POINT / NO NEW COMMERCIAL EFFECT
-- [`docs/receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md) — 2026-10-04 · Revenue Singularity closure receipt — 2026-10-04
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4
+- [`docs/PAYMENTS_LEMONSQUEEZY.md`](../PAYMENTS_LEMONSQUEEZY.md) — Lemon Squeezy Payment Setup _(matched by name only)_
+- [`docs/REVENUE_MODEL.md`](../REVENUE_MODEL.md) — Revenue Model _(matched by name only)_
+- [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261005.md) — 2026-10-05 · Revenue Singularity terminal commercial receipt — 2026-10-05 _(matched by name only)_
+- [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier _(matched by name only)_
+- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · UberBond Revenue frontier backup — 2026-10-04 17:53 +03:00 — Status: DURABLE RESTORE POINT / NO NEW COMMERCIAL EFFECT _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_CLOSURE_2026-10-04.md) — 2026-10-04 · Revenue Singularity closure receipt — 2026-10-04 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.md) — 2026-10-04 · Revenue Singularity zero-drop terminal ledger — Oct 4 _(matched by name only)_
 
 ## Commands (1)
 
@@ -27,130 +27,130 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Dated documents, newest first (15)
 
-- [`docs/receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md) — 2026-10-04 · Revenue Singularity exact-head Vercel diagnosis — 2026-10-04
-- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md) — 2026-10-04 · Revenue Singularity terminal receipt — Oct 4
-- [`docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md) — 2026-10-04 · Oct 4 uncertain-effect repair — live terminal addendum
-- [`docs/receipts/REVENUE_TERMINAL_SOURCE_GATE_20261004.md`](../receipts/REVENUE_TERMINAL_SOURCE_GATE_20261004.md) — 2026-10-04 · Revenue Singularity Oct 4 source gate
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md) — 2026-10-03 · Revenue Singularity / G-SPOT / Revenue Constellation — coverage ledger (checkpoint 2) — Truth class: INTERNAL_PROGRESS. External effects this session: none (no send, spend, deploy, DNS, cre…
-- [`docs/AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md`](../AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md) — 2026-09-12 · UberBond Agent-Native Revenue Architecture
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md) — 2026-09-12 · UberBond 8H Revenue Singularity — Recovery Entry Point
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt) — 2026-09-11 · Use the exact founder command in UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt on a live authorized UberBond Founder Console/runtime. Source presence alone is not execut…
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt) — 2026-09-11 · From now until 12:00 PM Africa/Cairo on September 11, 2026, execute the canonical UberBond Sleep-to-Noon Revenue Singularity mission. Make me as much money as legally and truthfully possibl…
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md) — 2026-09-11 · The source bundle is complete. A live Founder Console/runtime must still ingest the command for the smoke test to execute. Do not report source readiness as an active overnight revenue run.
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md) — 2026-09-11 · Sleep-to-Noon Revenue Smoke Test
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md) — 2026-09-11 · Activation boundary
-- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth
+- [`docs/receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_EXACT_HEAD_VERCEL_2026-10-04.md) — 2026-10-04 · Revenue Singularity exact-head Vercel diagnosis — 2026-10-04 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.md) — 2026-10-04 · Revenue Singularity terminal receipt — Oct 4 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md) — 2026-10-04 · Oct 4 uncertain-effect repair — live terminal addendum _(matched by name only)_
+- [`docs/receipts/REVENUE_TERMINAL_SOURCE_GATE_20261004.md`](../receipts/REVENUE_TERMINAL_SOURCE_GATE_20261004.md) — 2026-10-04 · Revenue Singularity Oct 4 source gate _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-03.md) — 2026-10-03 · Revenue Singularity / G-SPOT / Revenue Constellation — coverage ledger (checkpoint 2) — Truth class: INTERNAL_PROGRESS. External effects this session: none (no send, spend, deploy, DNS, cre… _(matched by name only)_
+- [`docs/AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md`](../AGENT_NATIVE_REVENUE_ARCHITECTURE_2026-09-12.md) — 2026-09-12 · UberBond Agent-Native Revenue Architecture _(matched by name only)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md) — 2026-09-12 · UberBond 8H Revenue Singularity — Recovery Entry Point _(matched by name only)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt) — 2026-09-11 · Use the exact founder command in UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt on a live authorized UberBond Founder Console/runtime. Source presence alone is not execut… _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt) — 2026-09-11 · From now until 12:00 PM Africa/Cairo on September 11, 2026, execute the canonical UberBond Sleep-to-Noon Revenue Singularity mission. Make me as much money as legally and truthfully possibl… _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md) — 2026-09-11 · The source bundle is complete. A live Founder Console/runtime must still ingest the command for the smoke test to execute. Do not report source readiness as an active overnight revenue run. _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md) — 2026-09-11 · Sleep-to-Noon Revenue Smoke Test _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md) — 2026-09-11 · Activation boundary _(matched by name only)_
+- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth _(matched by name only)_
 
 ## Other documents (2)
 
-- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md) — Active Mission Pointer — Revenue Singularity / G-SPOT / Revenue Constellation
-- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md) — UberBond Revenue Singularity / G-SPOT / Revenue Constellation Mission — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONTINUATION — 2026-10-03
+- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md) — Active Mission Pointer — Revenue Singularity / G-SPOT / Revenue Constellation _(matched by name only)_
+- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md) — UberBond Revenue Singularity / G-SPOT / Revenue Constellation Mission — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONTINUATION — 2026-10-03 _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (19)
 
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(12 mentions)_
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(8 mentions)_
-- [`docs/receipts/WORK_WINNR_69_GATE_20261005.md`](../receipts/WORK_WINNR_69_GATE_20261005.md) — 2026-10-05 · Work continuation — Winnr $69 purchase gate, 5 October 2026 Cairo — Status: WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES. No purchase authorized or performed. _(8 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(5 mentions)_
-- [`docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md`](../distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md) — UberBond Distribution Singularity — 2026-08-28 _(4 mentions)_
-- [`docs/EXTERNAL_ASSET_REALITY.md`](../EXTERNAL_ASSET_REALITY.md) — External Asset Reality _(4 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(4 mentions)_
-- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(4 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(4 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(4 mentions)_
-- [`artifacts/world-brain-field-mission-2026-09-01/report-source.md`](../../artifacts/world-brain-field-mission-2026-09-01/report-source.md) — UberBond World Brain Field Mission — 2026-09-01 _(3 mentions)_
-- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(3 mentions)_
-- [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE _(3 mentions)_
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(3 mentions)_
-- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(3 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(3 mentions)_
-- [`docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md`](../memory/UBERBOND_OWNER_GOALS_2026-09-02.md) — 2026-09-02 · UberBond Owner Goals and Operating Doctrine — 2026-09-02 _(3 mentions)_
-- [`docs/PORTABLE_BACKEND_DEPLOYMENT.md`](../PORTABLE_BACKEND_DEPLOYMENT.md) — Provider-neutral backend bundle _(3 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(3 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(12 mentions)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_ _(8 mentions)_
+- [`docs/receipts/WORK_WINNR_69_GATE_20261005.md`](../receipts/WORK_WINNR_69_GATE_20261005.md) — 2026-10-05 · Work continuation — Winnr $69 purchase gate, 5 October 2026 Cairo — Status: WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES. No purchase authorized or performed. _(matched by name only)_ _(8 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(5 mentions)_
+- [`docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md`](../distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md) — UberBond Distribution Singularity — 2026-08-28 _(matched by name only)_ _(4 mentions)_
+- [`docs/EXTERNAL_ASSET_REALITY.md`](../EXTERNAL_ASSET_REALITY.md) — External Asset Reality _(matched by name only)_ _(4 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(4 mentions)_
+- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(4 mentions)_
+- [`artifacts/world-brain-field-mission-2026-09-01/report-source.md`](../../artifacts/world-brain-field-mission-2026-09-01/report-source.md) — UberBond World Brain Field Mission — 2026-09-01 _(matched by name only)_ _(3 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE _(matched by name only)_ _(3 mentions)_
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_OWNER_GOALS_2026-09-02.md`](../memory/UBERBOND_OWNER_GOALS_2026-09-02.md) — 2026-09-02 · UberBond Owner Goals and Operating Doctrine — 2026-09-02 _(matched by name only)_ _(3 mentions)_
+- [`docs/PORTABLE_BACKEND_DEPLOYMENT.md`](../PORTABLE_BACKEND_DEPLOYMENT.md) — Provider-neutral backend bundle _(matched by name only)_ _(3 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (39)
 
-- [`src/accounting-ledger-export-contract.mjs`](../../src/accounting-ledger-export-contract.mjs) — exports ACCOUNTING_LEDGER_EXPORT_POLICY_VERSION, ACCOUNTING_SOURCE_TRUTH_CLASSES, compileAccountingJournalProposal, compileAccountingExportBatch _(tested; no static importers)_
-- [`src/ai-creator-revenue-cell.mjs`](../../src/ai-creator-revenue-cell.mjs) — exports AI_CREATOR_REVENUE_CELL_VERSION, scoreCreatorExperiment, validateVirtualCreator, buildCreatorRevenueCell, recordCreatorOutcome _(tested; imported by 1)_
-- [`src/billing-webhook-boundary.mjs`](../../src/billing-webhook-boundary.mjs) — exports BILLING_WEBHOOK_POLICY_VERSION, verifyLemonSqueezyWebhook _(imported by 1)_
-- [`src/billing-webhook-repository.mjs`](../../src/billing-webhook-repository.mjs) — exports BILLING_WEBHOOK_REPOSITORY_VERSION, persistVerifiedBillingEvent, claimBillingEvents, finishBillingEvent, billingBacklogSummary _(imported by 2)_
-- [`src/capability-genome-money-atlas.mjs`](../../src/capability-genome-money-atlas.mjs) — exports MONEY_CAPABILITY_TARGETS, MONEY_CAPABILITY_QUERY_FAMILIES, buildMoneyCapabilitySearchAtlas, scoreMoneyRepositoryCandidate, selectMoneyCapabil… _(tested; imported by 1)_
-- [`src/commercial-first-payment-packet.mjs`](../../src/commercial-first-payment-packet.mjs) — Owner-reviewable first-payment packet. This composes the canonical _(tested; imported by 1)_
-- [`src/invoice-parse.mjs`](../../src/invoice-parse.mjs) — exports INVOICE_PARSE_ATOM_ID, compileInvoiceParse, executeInvoiceParse _(tested; imported by 1)_
-- [`src/money-entry-rails.mjs`](../../src/money-entry-rails.mjs) — Money Entry Rail Registry. _(imported by 1)_
-- [`src/money-queue.mjs`](../../src/money-queue.mjs) — Canonical Money Queue: the single ranked answer to "who is worth a governed _(imported by 1)_
-- [`src/payment-compression.mjs`](../../src/payment-compression.mjs) — Payment compression + cleared-payment truth. _(imported by 2)_
-- [`src/payment-operator-attention.mjs`](../../src/payment-operator-attention.mjs) — exports PAYMENT_OPERATOR_ATTENTION_POLICY_VERSION, classifyPaymentAttentionEntry, summarizePaymentOperatorAttention _(tested; imported by 1)_
-- [`src/payment-provider-verifier-dispatch.mjs`](../../src/payment-provider-verifier-dispatch.mjs) — exports PAYMENT_PROVIDER_VERIFIER_DISPATCH_VERSION, bindPaymentVerifierProviders, supportedPaymentProviders, createConfiguredPaymentVerifier _(imported by 1)_
-- [`src/payment-rail-doctor-core.mjs`](../../src/payment-rail-doctor-core.mjs) — Truthful readiness doctor for every payment rail that actually exists in source. _(imported by 2)_
-- [`src/payment-rail-doctor.mjs`](../../src/payment-rail-doctor.mjs) — Provider-neutral payment readiness facade. _(tested; imported by 3)_
-- [`src/payment-reconciliation-watchdog.mjs`](../../src/payment-reconciliation-watchdog.mjs) — exports PAYMENT_RECONCILIATION_WATCHDOG_VERSION, planPaymentReconciliation _(imported by 1)_
-- [`src/payment-reconciliation-worker.mjs`](../../src/payment-reconciliation-worker.mjs) — The thing that drives payment reconciliation. _(imported by 1)_
-- [`src/payment-renewal-truth.mjs`](../../src/payment-renewal-truth.mjs) — exports PAYMENT_RENEWAL_TRUTH_VERSION, reconcilePaymentRenewalTruth, reconcilePaymentRenewalTruthFromStore, canonicalPaymentFacts, PAYMENT_RENEWAL_TR… _(tested; imported by 7)_
-- [`src/payment-verify-cleared.mjs`](../../src/payment-verify-cleared.mjs) — exports PAYMENT_VERIFY_CLEARED_ATOM_ID, compilePaymentVerifyCleared, executePaymentVerifyCleared _(tested; imported by 1)_
-- [`src/payments.mjs`](../../src/payments.mjs) — exports PAYMENT_TRUTH_POLICY_VERSION, FIRST_CASH_SPRINT_PRODUCT, KNOWN_PRODUCTS, classifyPaymentEvent, verifyLemonSignature (+2) _(imported by 7)_
-- [`src/paypal-payment-truth-core.mjs`](../../src/paypal-payment-truth-core.mjs) — exports PAYPAL_PAYMENT_TRUTH_VERSION, PAYPAL_LIVE_API, PAYPAL_SANDBOX_API, FIRST_CASH_PAYPAL_SKU, FIRST_CASH_PAYPAL_AMOUNT_CENTS (+5) _(imported by 2)_
-- [`src/paypal-payment-truth.mjs`](../../src/paypal-payment-truth.mjs) — Canonical PayPal payment-truth boundary. _(tested; imported by 3)_
-- [`src/paypal-sandbox-adapter.mjs`](../../src/paypal-sandbox-adapter.mjs) — Read-only PayPal Sandbox provider adapter. It is intentionally a verifier _(tested; imported by 2)_
-- [`src/portable-paypal-bridge.mjs`](../../src/portable-paypal-bridge.mjs) — exports createPortablePayPalBridge _(tested; imported by 2)_
-- [`src/pre-customer-revenue-readiness.mjs`](../../src/pre-customer-revenue-readiness.mjs) — exports PRE_CUSTOMER_REVENUE_READINESS_VERSION, compilePreCustomerRevenueReadiness _(tested; imported by 2)_
-- [`src/receivables-contract.mjs`](../../src/receivables-contract.mjs) — exports RECEIVABLES_POLICY_VERSION, RECEIVABLE_OPERATIONS, RECEIVABLE_EVENT_TYPES, RECEIVABLE_PROVIDER_CAPABILITIES, compileReceivableCommand (+5) _(tested; no static importers)_
-- [`src/revenue-constellation.mjs`](../../src/revenue-constellation.mjs) — Revenue Constellation: a truthful, runtime-backed model of the commercial _(tested; imported by 1)_
-- [`src/revenue-decision-desk.mjs`](../../src/revenue-decision-desk.mjs) — exports REVENUE_DECISION_DESK_VERSION, scoreRevenueCandidate, evaluateRevenueCandidate, runRevenueDecisionDesk _(imported by 3)_
-- [`src/revenue-method-exchange.mjs`](../../src/revenue-method-exchange.mjs) — exports REVENUE_METHOD_EXCHANGE_VERSION, REVENUE_METHOD_SEEDS, validateRevenueMethod, compileRevenueMethodExchange, recordRevenueMethodOutcome (+2) _(tested; imported by 1)_
-- [`src/revenue-observed-fuel.mjs`](../../src/revenue-observed-fuel.mjs) — Bounded reuse of an actually observed independent verifier receipt. No _(imported by 1)_
-- [`src/revenue-offers.mjs`](../../src/revenue-offers.mjs) — Canonical public revenue ladder. The free snapshot is the lead generator; _(tested; imported by 2)_
-- [`src/revenue-real-prospect-canary.mjs`](../../src/revenue-real-prospect-canary.mjs) — exports REVENUE_REAL_PROSPECT_CANARY_VERSION, REVENUE_REAL_PROSPECT_CANARY_SOURCE, REVENUE_REAL_PROSPECT_CANARY_RECORD, compileRelaiCanaryProspect, r… _(tested; imported by 1)_
-- [`src/revenue-reality-ledger.mjs`](../../src/revenue-reality-ledger.mjs) — Revenue Reality Ledger. _(imported by 1)_
-- [`src/revenue-reliability.mjs`](../../src/revenue-reliability.mjs) — Revenue Reliability layer: statistics that keep the commercial loop honest. _(imported by 2)_
-- [`src/revenue-singularity-service.mjs`](../../src/revenue-singularity-service.mjs) — Read/plan service that binds the Revenue Singularity modules to the store. _(imported by 4)_
-- [`src/revenue-terminal-effect-truth.mjs`](../../src/revenue-terminal-effect-truth.mjs) — exports compileProspectEffectTruth, terminalReadinessWithEffectTruth _(tested; imported by 1)_
-- [`src/revenue.mjs`](../../src/revenue.mjs) — exports REPORT_EMAIL_POLICY_VERSION, RevenueEngine _(tested; imported by 3)_
-- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — exports SOVEREIGN_MONEY_MACHINE_PROOF_VERSION, MIN_ENDURANCE_MS, MAX_PULSE_GAP_MS, MAX_RECEIPT_AGE_MS, evaluateSovereignMoneyMachineProof _(tested; no static importers)_
-- [`src/sovereign-revenue-runtime.mjs`](../../src/sovereign-revenue-runtime.mjs) — exports SOVEREIGN_REVENUE_RUNTIME_VERSION, SOVEREIGN_REVENUE_ORGANS, compileSovereignRevenueRuntime _(tested; imported by 1)_
-- [`src/technology-to-money-translation.mjs`](../../src/technology-to-money-translation.mjs) — exports compileTechnologyToMoneyTranslation _(tested; imported by 1)_
+- [`src/accounting-ledger-export-contract.mjs`](../../src/accounting-ledger-export-contract.mjs) — exports ACCOUNTING_LEDGER_EXPORT_POLICY_VERSION, ACCOUNTING_SOURCE_TRUTH_CLASSES, compileAccountingJournalProposal, compileAccountingExportBatch _(matched by name only; tested; no static importers)_
+- [`src/ai-creator-revenue-cell.mjs`](../../src/ai-creator-revenue-cell.mjs) — exports AI_CREATOR_REVENUE_CELL_VERSION, scoreCreatorExperiment, validateVirtualCreator, buildCreatorRevenueCell, recordCreatorOutcome _(matched by name only; tested; imported by 1)_
+- [`src/billing-webhook-boundary.mjs`](../../src/billing-webhook-boundary.mjs) — exports BILLING_WEBHOOK_POLICY_VERSION, verifyLemonSqueezyWebhook _(matched by name only; imported by 1)_
+- [`src/billing-webhook-repository.mjs`](../../src/billing-webhook-repository.mjs) — exports BILLING_WEBHOOK_REPOSITORY_VERSION, persistVerifiedBillingEvent, claimBillingEvents, finishBillingEvent, billingBacklogSummary _(matched by name only; imported by 2)_
+- [`src/capability-genome-money-atlas.mjs`](../../src/capability-genome-money-atlas.mjs) — exports MONEY_CAPABILITY_TARGETS, MONEY_CAPABILITY_QUERY_FAMILIES, buildMoneyCapabilitySearchAtlas, scoreMoneyRepositoryCandidate, selectMoneyCapabil… _(matched by name only; tested; imported by 1)_
+- [`src/commercial-first-payment-packet.mjs`](../../src/commercial-first-payment-packet.mjs) — Owner-reviewable first-payment packet. This composes the canonical _(matched by name only; tested; imported by 1)_
+- [`src/invoice-parse.mjs`](../../src/invoice-parse.mjs) — exports INVOICE_PARSE_ATOM_ID, compileInvoiceParse, executeInvoiceParse _(matched by name only; tested; imported by 1)_
+- [`src/money-entry-rails.mjs`](../../src/money-entry-rails.mjs) — Money Entry Rail Registry. _(matched by name only; imported by 1)_
+- [`src/money-queue.mjs`](../../src/money-queue.mjs) — Canonical Money Queue: the single ranked answer to "who is worth a governed _(matched by name only; imported by 1)_
+- [`src/payment-compression.mjs`](../../src/payment-compression.mjs) — Payment compression + cleared-payment truth. _(matched by name only; imported by 2)_
+- [`src/payment-operator-attention.mjs`](../../src/payment-operator-attention.mjs) — exports PAYMENT_OPERATOR_ATTENTION_POLICY_VERSION, classifyPaymentAttentionEntry, summarizePaymentOperatorAttention _(matched by name only; tested; imported by 1)_
+- [`src/payment-provider-verifier-dispatch.mjs`](../../src/payment-provider-verifier-dispatch.mjs) — exports PAYMENT_PROVIDER_VERIFIER_DISPATCH_VERSION, bindPaymentVerifierProviders, supportedPaymentProviders, createConfiguredPaymentVerifier _(matched by name only; imported by 1)_
+- [`src/payment-rail-doctor-core.mjs`](../../src/payment-rail-doctor-core.mjs) — Truthful readiness doctor for every payment rail that actually exists in source. _(matched by name only; imported by 2)_
+- [`src/payment-rail-doctor.mjs`](../../src/payment-rail-doctor.mjs) — Provider-neutral payment readiness facade. _(matched by name only; tested; imported by 3)_
+- [`src/payment-reconciliation-watchdog.mjs`](../../src/payment-reconciliation-watchdog.mjs) — exports PAYMENT_RECONCILIATION_WATCHDOG_VERSION, planPaymentReconciliation _(matched by name only; imported by 1)_
+- [`src/payment-reconciliation-worker.mjs`](../../src/payment-reconciliation-worker.mjs) — The thing that drives payment reconciliation. _(matched by name only; imported by 1)_
+- [`src/payment-renewal-truth.mjs`](../../src/payment-renewal-truth.mjs) — exports PAYMENT_RENEWAL_TRUTH_VERSION, reconcilePaymentRenewalTruth, reconcilePaymentRenewalTruthFromStore, canonicalPaymentFacts, PAYMENT_RENEWAL_TR… _(matched by name only; tested; imported by 7)_
+- [`src/payment-verify-cleared.mjs`](../../src/payment-verify-cleared.mjs) — exports PAYMENT_VERIFY_CLEARED_ATOM_ID, compilePaymentVerifyCleared, executePaymentVerifyCleared _(matched by name only; tested; imported by 1)_
+- [`src/payments.mjs`](../../src/payments.mjs) — exports PAYMENT_TRUTH_POLICY_VERSION, FIRST_CASH_SPRINT_PRODUCT, KNOWN_PRODUCTS, classifyPaymentEvent, verifyLemonSignature (+2) _(matched by name only; imported by 7)_
+- [`src/paypal-payment-truth-core.mjs`](../../src/paypal-payment-truth-core.mjs) — exports PAYPAL_PAYMENT_TRUTH_VERSION, PAYPAL_LIVE_API, PAYPAL_SANDBOX_API, FIRST_CASH_PAYPAL_SKU, FIRST_CASH_PAYPAL_AMOUNT_CENTS (+5) _(matched by name only; imported by 2)_
+- [`src/paypal-payment-truth.mjs`](../../src/paypal-payment-truth.mjs) — Canonical PayPal payment-truth boundary. _(matched by name only; tested; imported by 3)_
+- [`src/paypal-sandbox-adapter.mjs`](../../src/paypal-sandbox-adapter.mjs) — Read-only PayPal Sandbox provider adapter. It is intentionally a verifier _(matched by name only; tested; imported by 2)_
+- [`src/portable-paypal-bridge.mjs`](../../src/portable-paypal-bridge.mjs) — exports createPortablePayPalBridge _(matched by name only; tested; imported by 2)_
+- [`src/pre-customer-revenue-readiness.mjs`](../../src/pre-customer-revenue-readiness.mjs) — exports PRE_CUSTOMER_REVENUE_READINESS_VERSION, compilePreCustomerRevenueReadiness _(matched by name only; tested; imported by 2)_
+- [`src/receivables-contract.mjs`](../../src/receivables-contract.mjs) — exports RECEIVABLES_POLICY_VERSION, RECEIVABLE_OPERATIONS, RECEIVABLE_EVENT_TYPES, RECEIVABLE_PROVIDER_CAPABILITIES, compileReceivableCommand (+5) _(matched by name only; tested; no static importers)_
+- [`src/revenue-constellation.mjs`](../../src/revenue-constellation.mjs) — Revenue Constellation: a truthful, runtime-backed model of the commercial _(matched by name only; tested; imported by 1)_
+- [`src/revenue-decision-desk.mjs`](../../src/revenue-decision-desk.mjs) — exports REVENUE_DECISION_DESK_VERSION, scoreRevenueCandidate, evaluateRevenueCandidate, runRevenueDecisionDesk _(matched by name only; imported by 3)_
+- [`src/revenue-method-exchange.mjs`](../../src/revenue-method-exchange.mjs) — exports REVENUE_METHOD_EXCHANGE_VERSION, REVENUE_METHOD_SEEDS, validateRevenueMethod, compileRevenueMethodExchange, recordRevenueMethodOutcome (+2) _(matched by name only; tested; imported by 1)_
+- [`src/revenue-observed-fuel.mjs`](../../src/revenue-observed-fuel.mjs) — Bounded reuse of an actually observed independent verifier receipt. No _(matched by name only; imported by 1)_
+- [`src/revenue-offers.mjs`](../../src/revenue-offers.mjs) — Canonical public revenue ladder. The free snapshot is the lead generator; _(matched by name only; tested; imported by 2)_
+- [`src/revenue-real-prospect-canary.mjs`](../../src/revenue-real-prospect-canary.mjs) — exports REVENUE_REAL_PROSPECT_CANARY_VERSION, REVENUE_REAL_PROSPECT_CANARY_SOURCE, REVENUE_REAL_PROSPECT_CANARY_RECORD, compileRelaiCanaryProspect, r… _(matched by name only; tested; imported by 1)_
+- [`src/revenue-reality-ledger.mjs`](../../src/revenue-reality-ledger.mjs) — Revenue Reality Ledger. _(matched by name only; imported by 1)_
+- [`src/revenue-reliability.mjs`](../../src/revenue-reliability.mjs) — Revenue Reliability layer: statistics that keep the commercial loop honest. _(matched by name only; imported by 2)_
+- [`src/revenue-singularity-service.mjs`](../../src/revenue-singularity-service.mjs) — Read/plan service that binds the Revenue Singularity modules to the store. _(matched by name only; imported by 4)_
+- [`src/revenue-terminal-effect-truth.mjs`](../../src/revenue-terminal-effect-truth.mjs) — exports compileProspectEffectTruth, terminalReadinessWithEffectTruth _(matched by name only; tested; imported by 1)_
+- [`src/revenue.mjs`](../../src/revenue.mjs) — exports REPORT_EMAIL_POLICY_VERSION, RevenueEngine _(matched by name only; tested; imported by 3)_
+- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — exports SOVEREIGN_MONEY_MACHINE_PROOF_VERSION, MIN_ENDURANCE_MS, MAX_PULSE_GAP_MS, MAX_RECEIPT_AGE_MS, evaluateSovereignMoneyMachineProof _(matched by name only; tested; no static importers)_
+- [`src/sovereign-revenue-runtime.mjs`](../../src/sovereign-revenue-runtime.mjs) — exports SOVEREIGN_REVENUE_RUNTIME_VERSION, SOVEREIGN_REVENUE_ORGANS, compileSovereignRevenueRuntime _(matched by name only; tested; imported by 1)_
+- [`src/technology-to-money-translation.mjs`](../../src/technology-to-money-translation.mjs) — exports compileTechnologyToMoneyTranslation _(matched by name only; tested; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/capability-genome-money-world-pulse.mjs`](../../scripts/capability-genome-money-world-pulse.mjs) — exports normalizeMoneyWorldCapabilityPulseInput
-- [`scripts/payment-rail-doctor.mjs`](../../scripts/payment-rail-doctor.mjs) — Which payment rail this runtime could actually take money through, and what _(npm: `payment:doctor`)_
-- [`scripts/revenue-decision-desk-doctor.mjs`](../../scripts/revenue-decision-desk-doctor.mjs)
-- [`scripts/revenue-method-exchange.mjs`](../../scripts/revenue-method-exchange.mjs)
-- [`scripts/revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local acceptance test, never a production pairing or economic receipt.
-- [`scripts/sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse
+- [`scripts/capability-genome-money-world-pulse.mjs`](../../scripts/capability-genome-money-world-pulse.mjs) — exports normalizeMoneyWorldCapabilityPulseInput _(matched by name only)_
+- [`scripts/payment-rail-doctor.mjs`](../../scripts/payment-rail-doctor.mjs) — Which payment rail this runtime could actually take money through, and what _(matched by name only; npm: `payment:doctor`)_
+- [`scripts/revenue-decision-desk-doctor.mjs`](../../scripts/revenue-decision-desk-doctor.mjs) _(matched by name only)_
+- [`scripts/revenue-method-exchange.mjs`](../../scripts/revenue-method-exchange.mjs) _(matched by name only)_
+- [`scripts/revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local acceptance test, never a production pairing or economic receipt. _(matched by name only)_
+- [`scripts/sovereign-revenue-runtime-pulse.mjs`](../../scripts/sovereign-revenue-runtime-pulse.mjs) — exports runSovereignRevenueRuntimePulse _(matched by name only)_
 
 ## Config, data, artifacts and services (28)
 
-- [`api/payments/paypal-capture.mjs`](../../api/payments/paypal-capture.mjs) — exports createFetchHandler, GET
-- [`api/payments/paypal-order.mjs`](../../api/payments/paypal-order.mjs) — exports createFetchHandler, POST
-- [`api/webhooks/billing.mjs`](../../api/webhooks/billing.mjs) — exports createFetchHandler, POST
-- [`api/webhooks/paypal.mjs`](../../api/webhooks/paypal.mjs) — exports createFetchHandler, POST
-- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1
-- [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · uberbond.first-money-edge-matrix.v1
-- [`artifacts/night-payment-closure/run-02-2026-09-02.json`](../../artifacts/night-payment-closure/run-02-2026-09-02.json) — 2026-09-02 · postgres · uberbond-night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-03-2026-09-02.json`](../../artifacts/night-payment-closure/run-03-2026-09-02.json) — 2026-09-02 · deterministic · SOFTWARE_GAP_CLOSED__RUNNER_EXECUTION_STILL_BLOCKED · uberbond-night-payment-closure-run-3.0.0
-- [`artifacts/night-payment-closure/run-04-2026-09-02.json`](../../artifacts/night-payment-closure/run-04-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-05-2026-09-02.json`](../../artifacts/night-payment-closure/run-05-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-06-2026-09-02.json`](../../artifacts/night-payment-closure/run-06-2026-09-02.json) — 2026-09-02 · OPEN_P1_TRUTH_BINDING_GAP · night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-07-2026-09-02.json`](../../artifacts/night-payment-closure/run-07-2026-09-02.json) — 2026-09-02 · first-cash payment-to-product binding · uberbond-night-payment-closure-run-07-1.0.0
-- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg)
-- [`artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png)
-- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED
-- [`artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png)
-- [`artifacts/revenue-smoke-test-2026-09-11.json`](../../artifacts/revenue-smoke-test-2026-09-11.json) — 2026-09-11 · uberbond.revenue-smoke-test.v1
-- [`artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json) — uberbond.paypal-egypt-activation-research.v1
-- [`config/ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1
-- [`config/revenue-method-exchange.json`](../../config/revenue-method-exchange.json) — uberbond.revenue-method-exchange.config.v1
-- [`docs/NIGHTFALL_PAYMENT_RECONCILIATION_LEASE_HANDOFF_2026-08-29_V2.json`](../NIGHTFALL_PAYMENT_RECONCILIATION_LEASE_HANDOFF_2026-08-29_V2.json) — 2026-08-29 · uberbond-nightfall-payment-reconciliation-handoff-2.0.0
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json) — 2026-09-11
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready) — 2026-09-11
-- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json) — 2026-10-04 · LIVE_VERIFIED · uberbond.revenue-terminal-coverage.v1
-- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json) — 2026-10-04 · uberbond.revenue-terminal-runtime-receipt.v1
-- [`docs/receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json`](../receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json) — 2026-10-01 · uberbond.crown.billing-recovery.v1
-- [`migrations/102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave
-- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service)
+- [`api/payments/paypal-capture.mjs`](../../api/payments/paypal-capture.mjs) — exports createFetchHandler, GET _(matched by name only)_
+- [`api/payments/paypal-order.mjs`](../../api/payments/paypal-order.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`api/webhooks/billing.mjs`](../../api/webhooks/billing.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`api/webhooks/paypal.mjs`](../../api/webhooks/paypal.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1 _(matched by name only)_
+- [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · uberbond.first-money-edge-matrix.v1 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-02-2026-09-02.json`](../../artifacts/night-payment-closure/run-02-2026-09-02.json) — 2026-09-02 · postgres · uberbond-night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-03-2026-09-02.json`](../../artifacts/night-payment-closure/run-03-2026-09-02.json) — 2026-09-02 · deterministic · SOFTWARE_GAP_CLOSED__RUNNER_EXECUTION_STILL_BLOCKED · uberbond-night-payment-closure-run-3.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-04-2026-09-02.json`](../../artifacts/night-payment-closure/run-04-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-05-2026-09-02.json`](../../artifacts/night-payment-closure/run-05-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-06-2026-09-02.json`](../../artifacts/night-payment-closure/run-06-2026-09-02.json) — 2026-09-02 · OPEN_P1_TRUTH_BINDING_GAP · night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-07-2026-09-02.json`](../../artifacts/night-payment-closure/run-07-2026-09-02.json) — 2026-09-02 · first-cash payment-to-product binding · uberbond-night-payment-closure-run-07-1.0.0 _(matched by name only)_
+- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg) _(matched by name only)_
+- [`artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png) _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png) _(matched by name only)_
+- [`artifacts/revenue-smoke-test-2026-09-11.json`](../../artifacts/revenue-smoke-test-2026-09-11.json) — 2026-09-11 · uberbond.revenue-smoke-test.v1 _(matched by name only)_
+- [`artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json) — uberbond.paypal-egypt-activation-research.v1 _(matched by name only)_
+- [`config/ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1 _(matched by name only)_
+- [`config/revenue-method-exchange.json`](../../config/revenue-method-exchange.json) — uberbond.revenue-method-exchange.config.v1 _(matched by name only)_
+- [`docs/NIGHTFALL_PAYMENT_RECONCILIATION_LEASE_HANDOFF_2026-08-29_V2.json`](../NIGHTFALL_PAYMENT_RECONCILIATION_LEASE_HANDOFF_2026-08-29_V2.json) — 2026-08-29 · uberbond-nightfall-payment-reconciliation-handoff-2.0.0 _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json) — 2026-09-11 _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready) — 2026-09-11 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json`](../receipts/REVENUE_SINGULARITY_COVERAGE_LEDGER_2026-10-04.json) — 2026-10-04 · LIVE_VERIFIED · uberbond.revenue-terminal-coverage.v1 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json`](../receipts/REVENUE_SINGULARITY_TERMINAL_20261004.json) — 2026-10-04 · uberbond.revenue-terminal-runtime-receipt.v1 _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json`](../receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json) — 2026-10-01 · uberbond.crown.billing-recovery.v1 _(matched by name only)_
+- [`migrations/102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave _(matched by name only)_
+- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) _(matched by name only)_
 
 ## Tests (69)
 

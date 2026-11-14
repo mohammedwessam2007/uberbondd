@@ -12,7 +12,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`docs/GAMECHANGER_MESH_24X7.md`](../GAMECHANGER_MESH_24X7.md) — UberBond Gamechanger Mesh 24/7 — Status: PUBLIC_READ_RESEARCH_ONLY
+- [`docs/GAMECHANGER_MESH_24X7.md`](../GAMECHANGER_MESH_24X7.md) — UberBond Gamechanger Mesh 24/7 — Status: PUBLIC_READ_RESEARCH_ONLY _(matched by name only)_
 
 ## Commands (2)
 
@@ -20,43 +20,43 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (10)
 
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(6 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(6 mentions)_
-- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(4 mentions)_
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(4 mentions)_
-- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator _(3 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(3 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(3 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(3 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(6 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(matched by name only)_ _(6 mentions)_
+- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(matched by name only)_ _(4 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(matched by name only)_ _(4 mentions)_
+- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(3 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (8)
 
-- [`src/competitor-catch-up-radar.mjs`](../../src/competitor-catch-up-radar.mjs) — exports compileCompetitorCatchUpRadar _(tested; imported by 1)_
-- [`src/future-primitive-extractor.mjs`](../../src/future-primitive-extractor.mjs) — exports compileFuturePrimitiveExtractor _(tested; imported by 1)_
-- [`src/gamechanger-for-life.mjs`](../../src/gamechanger-for-life.mjs) — Watching the world for changes that move what this particular life can reach. _(tested; imported by 1)_
-- [`src/gamechanger-frontier-learning-adapter.mjs`](../../src/gamechanger-frontier-learning-adapter.mjs) — exports GAMECHANGER_FRONTIER_LEARNING_ADAPTER_VERSION, discoveryFingerprint, adaptGamechangerReceipt _(imported by 2)_
-- [`src/gamechanger-genesis-adapter.mjs`](../../src/gamechanger-genesis-adapter.mjs) — exports GAMECHANGER_GENESIS_ADAPTER_VERSION, compileGamechangerIntoGenesis _(tested; imported by 1)_
-- [`src/gamechanger-mesh.mjs`](../../src/gamechanger-mesh.mjs) — exports GAMECHANGER_MESH_VERSION, GAMECHANGER_DOMAINS, GAMECHANGER_SOURCE_TIERS, GAMECHANGER_ATTENTION_STATES, canonicalizePublicUrl (+9) _(tested; imported by 2)_
-- [`src/gamechanger-search-adapters.mjs`](../../src/gamechanger-search-adapters.mjs) — exports buildGdeltSearchUrl, parseGdeltArticles, parseGitHubRepositories, parseHuggingFaceModels, mergeGamechangerState (+1) _(tested; imported by 1)_
-- [`src/zero-day-frontier-radar.mjs`](../../src/zero-day-frontier-radar.mjs) — exports compileZeroDayFrontierRadar _(tested; imported by 1)_
+- [`src/competitor-catch-up-radar.mjs`](../../src/competitor-catch-up-radar.mjs) — exports compileCompetitorCatchUpRadar _(matched by name only; tested; imported by 1)_
+- [`src/future-primitive-extractor.mjs`](../../src/future-primitive-extractor.mjs) — exports compileFuturePrimitiveExtractor _(matched by name only; tested; imported by 1)_
+- [`src/gamechanger-for-life.mjs`](../../src/gamechanger-for-life.mjs) — Watching the world for changes that move what this particular life can reach. _(matched by name only; tested; imported by 1)_
+- [`src/gamechanger-frontier-learning-adapter.mjs`](../../src/gamechanger-frontier-learning-adapter.mjs) — exports GAMECHANGER_FRONTIER_LEARNING_ADAPTER_VERSION, discoveryFingerprint, adaptGamechangerReceipt _(matched by name only; imported by 2)_
+- [`src/gamechanger-genesis-adapter.mjs`](../../src/gamechanger-genesis-adapter.mjs) — exports GAMECHANGER_GENESIS_ADAPTER_VERSION, compileGamechangerIntoGenesis _(matched by name only; tested; imported by 1)_
+- [`src/gamechanger-mesh.mjs`](../../src/gamechanger-mesh.mjs) — exports GAMECHANGER_MESH_VERSION, GAMECHANGER_DOMAINS, GAMECHANGER_SOURCE_TIERS, GAMECHANGER_ATTENTION_STATES, canonicalizePublicUrl (+9) _(matched by name only; tested; imported by 2)_
+- [`src/gamechanger-search-adapters.mjs`](../../src/gamechanger-search-adapters.mjs) — exports buildGdeltSearchUrl, parseGdeltArticles, parseGitHubRepositories, parseHuggingFaceModels, mergeGamechangerState (+1) _(matched by name only; tested; imported by 1)_
+- [`src/zero-day-frontier-radar.mjs`](../../src/zero-day-frontier-radar.mjs) — exports compileZeroDayFrontierRadar _(matched by name only; tested; imported by 1)_
 
 ## Scripts (3)
 
-- [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs)
-- [`scripts/gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) _(npm: `gamechanger:tick`, `gamechanger:plan`)_
-- [`scripts/sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs)
+- [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) _(matched by name only)_
+- [`scripts/gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) _(matched by name only; npm: `gamechanger:tick`, `gamechanger:plan`)_
+- [`scripts/sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (7)
 
-- [`.cache/gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — uberbond.gamechanger-mesh-state.v2
-- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh
-- [`artifacts/gamechanger-mesh-latest.json`](../../artifacts/gamechanger-mesh-latest.json) — GAMECHANGER_COVERAGE_COMPLETE · uberbond.gamechanger-mesh.tick.v2
-- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1
-- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1
-- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2
-- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1
+- [`.cache/gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — uberbond.gamechanger-mesh-state.v2 _(matched by name only)_
+- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh _(matched by name only)_
+- [`artifacts/gamechanger-mesh-latest.json`](../../artifacts/gamechanger-mesh-latest.json) — GAMECHANGER_COVERAGE_COMPLETE · uberbond.gamechanger-mesh.tick.v2 _(matched by name only)_
+- [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1 _(matched by name only)_
+- [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1 _(matched by name only)_
+- [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2 _(matched by name only)_
+- [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1 _(matched by name only)_
 
 ## Tests (9)
 

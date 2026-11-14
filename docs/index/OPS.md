@@ -16,85 +16,85 @@ Host installation, systemd units and operator shell scripts for the self-hosted 
 
 ## Continuity, memory and handoffs
 
-- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl)
-- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path)
-- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum)
-- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service)
-- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service)
-- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path)
-- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service)
-- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate)
-- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query)
-- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console)
-- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service)
-- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path)
-- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service)
-- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer)
-- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway)
-- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service)
-- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy)
-- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service)
-- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path)
-- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service)
-- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter)
-- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path)
-- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service)
-- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service)
-- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker)
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service)
-- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer)
-- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service)
-- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path)
-- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service)
-- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service)
-- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer)
-- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path)
-- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service)
-- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path)
-- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service)
+- [`ops/sovereign/uberbond-authorctl`](../../ops/sovereign/uberbond-authorctl) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-after-promotion.path`](../../ops/sovereign/uberbond-authoring-after-promotion.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum`](../../ops/sovereign/uberbond-authoring-continuum) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring-continuum.service`](../../ops/sovereign/uberbond-authoring-continuum.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-authoring.service`](../../ops/sovereign/uberbond-authoring.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.path`](../../ops/sovereign/uberbond-autonomy-verify.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-autonomy-verify.service`](../../ops/sovereign/uberbond-autonomy-verify.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-context-journal-migrate`](../../ops/sovereign/uberbond-context-journal-migrate) _(matched by name only)_
+- [`ops/sovereign/uberbond-context-query`](../../ops/sovereign/uberbond-context-query) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-intent-wake.path`](../../ops/sovereign/uberbond-founder-intent-wake.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-model-proxy`](../../ops/sovereign/uberbond-local-model-proxy) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-model-proxy.service`](../../ops/sovereign/uberbond-local-model-proxy.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promote.path`](../../ops/sovereign/uberbond-local-promote.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promote.service`](../../ops/sovereign/uberbond-local-promote.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-promoter`](../../ops/sovereign/uberbond-local-promoter) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.path`](../../ops/sovereign/uberbond-local-worker.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-local-worker.service`](../../ops/sovereign/uberbond-local-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-money-capability-harvest.service`](../../ops/sovereign/uberbond-money-capability-harvest.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-native-local-worker`](../../ops/sovereign/uberbond-native-local-worker) _(matched by name only)_
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-llama-runtime.service`](../../ops/sovereign/uberbond-offline-llama-runtime.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-signer.path`](../../ops/sovereign/uberbond-offline-signer.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-offline-signer.service`](../../ops/sovereign/uberbond-offline-signer.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-reconcile.service`](../../ops/sovereign/uberbond-reconcile.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-reconcile.timer`](../../ops/sovereign/uberbond-reconcile.timer) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-apply.path`](../../ops/sovereign/uberbond-release-apply.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-apply.service`](../../ops/sovereign/uberbond-release-apply.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-courier.path`](../../ops/sovereign/uberbond-release-courier.path) _(matched by name only)_
+- [`ops/sovereign/uberbond-release-courier.service`](../../ops/sovereign/uberbond-release-courier.service) _(matched by name only)_
 
 ## Frontier cognition and model routing
 
-- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh)
+- [`ops/sovereign/complete-live-jev-activation.sh`](../../ops/sovereign/complete-live-jev-activation.sh) _(matched by name only)_
 
 ## Sovereign infrastructure and runtime
 
-- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host
-- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh)
-- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh)
-- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh)
-- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh)
-- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh)
-- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh)
-- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh)
-- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh)
-- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh)
-- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh)
-- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh)
-- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh)
-- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh)
-- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh)
-- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh)
-- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh)
-- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh)
-- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh)
-- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh)
-- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh)
-- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh)
-- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh)
-- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh)
-- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh)
-- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh)
-- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs)
-- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh)
-- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline
-- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier
-- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR…
-- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh)
-- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh)
-- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl)
-- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service)
-- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service)
-- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service)
-- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh)
+- [`ops/sovereign/README.md`](../../ops/sovereign/README.md) — UberBond Sovereign Host _(matched by name only)_
+- [`ops/sovereign/activate-air-node.sh`](../../ops/sovereign/activate-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/activate-communication-center.sh`](../../ops/sovereign/activate-communication-center.sh) _(matched by name only)_
+- [`ops/sovereign/activate-owned-air-node.sh`](../../ops/sovereign/activate-owned-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-economic-founder-node.sh`](../../ops/sovereign/bootstrap-economic-founder-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-founder-node.sh`](../../ops/sovereign/bootstrap-founder-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-oracle-always-free-air-node.sh`](../../ops/sovereign/bootstrap-oracle-always-free-air-node.sh) _(matched by name only)_
+- [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh) _(matched by name only)_
+- [`ops/sovereign/configure-local-model.sh`](../../ops/sovereign/configure-local-model.sh) _(matched by name only)_
+- [`ops/sovereign/export-sovereign-kit.sh`](../../ops/sovereign/export-sovereign-kit.sh) _(matched by name only)_
+- [`ops/sovereign/import-sovereign-evidence.sh`](../../ops/sovereign/import-sovereign-evidence.sh) _(matched by name only)_
+- [`ops/sovereign/import-sovereign-kit.sh`](../../ops/sovereign/import-sovereign-kit.sh) _(matched by name only)_
+- [`ops/sovereign/init-air-cockpit.sh`](../../ops/sovereign/init-air-cockpit.sh) _(matched by name only)_
+- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh) _(matched by name only)_
+- [`ops/sovereign/install-authoring-node.sh`](../../ops/sovereign/install-authoring-node.sh) _(matched by name only)_
+- [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) _(matched by name only)_
+- [`ops/sovereign/install-host.sh`](../../ops/sovereign/install-host.sh) _(matched by name only)_
+- [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) _(matched by name only)_
+- [`ops/sovereign/install-offline-llama-runtime.sh`](../../ops/sovereign/install-offline-llama-runtime.sh) _(matched by name only)_
+- [`ops/sovereign/install-offline-signer-node.sh`](../../ops/sovereign/install-offline-signer-node.sh) _(matched by name only)_
+- [`ops/sovereign/install-release-courier.sh`](../../ops/sovereign/install-release-courier.sh) _(matched by name only)_
+- [`ops/sovereign/install-uberlit.sh`](../../ops/sovereign/install-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/pack-release-request.mjs`](../../ops/sovereign/pack-release-request.mjs) _(matched by name only)_
+- [`ops/sovereign/rollback-uberlit.sh`](../../ops/sovereign/rollback-uberlit.sh) _(matched by name only)_
+- [`ops/sovereign/sovereign-offline-signer-worker.mjs`](../../ops/sovereign/sovereign-offline-signer-worker.mjs) — exports runOfflineSignerPipeline _(matched by name only)_
+- [`ops/sovereign/sovereign-release-courier.mjs`](../../ops/sovereign/sovereign-release-courier.mjs) — exports runSovereignReleaseCourier _(matched by name only)_
+- [`ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs`](../../ops/sovereign/sovereign-runtime-rehearsal-receipt.mjs) — exports SOVEREIGN_RUNTIME_REHEARSAL_RECEIPT_VERSION, SOVEREIGN_RUNTIME_REHEARSAL_COMMANDS, sovereignRuntimeRehearsalPreimage, verifySovereignRuntimeR… _(matched by name only)_
+- [`ops/sovereign/sovereign-runtime-rehearsal.sh`](../../ops/sovereign/sovereign-runtime-rehearsal.sh) _(matched by name only)_
+- [`ops/sovereign/store-typesafe-key-interactive.sh`](../../ops/sovereign/store-typesafe-key-interactive.sh) _(matched by name only)_
+- [`ops/sovereign/uberbondctl`](../../ops/sovereign/uberbondctl) _(matched by name only)_
+- [`ops/sovereign/uberlit-tls-edge.service`](../../ops/sovereign/uberlit-tls-edge.service) _(matched by name only)_
+- [`ops/sovereign/uberlit-worker.service`](../../ops/sovereign/uberlit-worker.service) _(matched by name only)_
+- [`ops/sovereign/uberlit.service`](../../ops/sovereign/uberlit.service) _(matched by name only)_
+- [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh) _(matched by name only)_

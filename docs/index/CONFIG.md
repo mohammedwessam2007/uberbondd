@@ -27,99 +27,99 @@ Checked-in configuration and registries read by src and scripts.
 
 ## North Star and life systems
 
-- [`life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1
-- [`possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — RESEARCH_PROGRAM_NOT_MOONSHOT_IMPLEMENTATION_PROOF · uberbond.possibility-civilization-program.v1
+- [`life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1 _(matched by name only)_
+- [`possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — RESEARCH_PROGRAM_NOT_MOONSHOT_IMPLEMENTATION_PROOF · uberbond.possibility-civilization-program.v1 _(matched by name only)_
 
 ## UberMind doctrine and library
 
-- [`ubermind-omega47-strategic-philosophy-index.json`](../../config/ubermind-omega47-strategic-philosophy-index.json) — Jurisdictional Arbitrage · FOUNDER_DONOR_INDEX__NOT_LEGAL_CLEARANCE_OR_MODEL_FINETUNING · uberbond.ubermind.omega47.strategic-philosophy-index.v1
-- [`ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Takeovers, Proxy Contests and Poison Pills · FOUNDER_DONOR_RESEARCH_ONLY__NO_EXTERNAL_EFFECTS · uberbond.ubermind.omega49.asymmetric-strategy-index.v1
-- [`ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Stafford Beer · RESEARCH_ONLY · ubermind.omega50.research-index.v1
-- [`ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — FOUNDER_DONOR_PLUS_RESEARCH__NOT_DEPLOYED_SECURITY · ubermind.omega51.technical-dna.v1
-- [`ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1
-- [`ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — Niccolò Machiavelli (The Prince, The Discourses on Livy) · ubermind.v5.full-spectrum.52-card-activation-manifest
+- [`ubermind-omega47-strategic-philosophy-index.json`](../../config/ubermind-omega47-strategic-philosophy-index.json) — Jurisdictional Arbitrage · FOUNDER_DONOR_INDEX__NOT_LEGAL_CLEARANCE_OR_MODEL_FINETUNING · uberbond.ubermind.omega47.strategic-philosophy-index.v1 _(matched by name only)_
+- [`ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Takeovers, Proxy Contests and Poison Pills · FOUNDER_DONOR_RESEARCH_ONLY__NO_EXTERNAL_EFFECTS · uberbond.ubermind.omega49.asymmetric-strategy-index.v1 _(matched by name only)_
+- [`ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Stafford Beer · RESEARCH_ONLY · ubermind.omega50.research-index.v1 _(matched by name only)_
+- [`ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — FOUNDER_DONOR_PLUS_RESEARCH__NOT_DEPLOYED_SECURITY · ubermind.omega51.technical-dna.v1 _(matched by name only)_
+- [`ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1 _(matched by name only)_
+- [`ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — Niccolò Machiavelli (The Prince, The Discourses on Livy) · ubermind.v5.full-spectrum.52-card-activation-manifest _(matched by name only)_
 
 ## Continuity, memory and handoffs
 
 - [`repository-projects.json`](../../config/repository-projects.json) — Wessam Singularity · uberbond.repository-projects.v1
-- [`uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — uberbond.cognitive-lineage.v1
+- [`uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — uberbond.cognitive-lineage.v1 _(matched by name only)_
 
 ## GENESIS, moonshots and Perpetual Frontier
 
-- [`founder-moonshot-atomization-queue.json`](../../config/founder-moonshot-atomization-queue.json) — SOURCE_READY_FOR_CLAIM_ATOMIZATION · uberbond.founder-moonshot-atomization-queue.v1
-- [`founder-moonshot-literal-recovery.json`](../../config/founder-moonshot-literal-recovery.json) — PARTIAL_LITERAL_RECOVERY__GAPS_EXPLICIT__NO_REGENERATION · uberbond.founder-moonshot-literal-recovery.v2
-- [`genesis-live-activation.json`](../../config/genesis-live-activation.json) — uberbond.genesis-live-activation.v1
-- [`moonshot-common-ancestor-spine.json`](../../config/moonshot-common-ancestor-spine.json) — Truth & Evidence Substrate · CALLABLE_PROOF_ANCESTRY_SUBSTRATE_HOSTILE_PROBE_EXECUTED_AND_VERIFIED · uberbond.moonshot-common-ancestor-spine.v1
-- [`moonshot-reality-canaries.json`](../../config/moonshot-reality-canaries.json) — SPECULATIVE_CANARIES_NOT_IMPLEMENTATION_PROOF · uberbond.moonshot-reality-canaries.v1
-- [`moonshot-reality-program-registry.json`](../../config/moonshot-reality-program-registry.json) — CHAT_SPEC_GOAL_AND_RESEARCH_PROGRAM_NOT_IMPLEMENTATION_PROOF · uberbond.moonshot-reality-program-registry.v2
-- [`moonshot-realization-evidence-registry.json`](../../config/moonshot-realization-evidence-registry.json) — uberbond.moonshot-realization-evidence-registry.v1
-- [`moonshot-realization-state-overlay.json`](../../config/moonshot-realization-state-overlay.json) — uberbond.moonshot-realization-state-overlay.v1
-- [`moonshot-verified-child-mechanisms.json`](../../config/moonshot-verified-child-mechanisms.json) — Target-Blind Structural Representation Synthesis · MATCHED · uberbond.moonshot-verified-child-mechanisms.v1
-- [`moonshot-verified-mechanism-donors.json`](../../config/moonshot-verified-mechanism-donors.json) — EVIDENCE_BOUND_DONOR_POOL__GENERATED_COMBINATIONS_REMAIN_HYPOTHESES · uberbond.moonshot-verified-mechanism-donors.v1
+- [`founder-moonshot-atomization-queue.json`](../../config/founder-moonshot-atomization-queue.json) — SOURCE_READY_FOR_CLAIM_ATOMIZATION · uberbond.founder-moonshot-atomization-queue.v1 _(matched by name only)_
+- [`founder-moonshot-literal-recovery.json`](../../config/founder-moonshot-literal-recovery.json) — PARTIAL_LITERAL_RECOVERY__GAPS_EXPLICIT__NO_REGENERATION · uberbond.founder-moonshot-literal-recovery.v2 _(matched by name only)_
+- [`genesis-live-activation.json`](../../config/genesis-live-activation.json) — uberbond.genesis-live-activation.v1 _(matched by name only)_
+- [`moonshot-common-ancestor-spine.json`](../../config/moonshot-common-ancestor-spine.json) — Truth & Evidence Substrate · CALLABLE_PROOF_ANCESTRY_SUBSTRATE_HOSTILE_PROBE_EXECUTED_AND_VERIFIED · uberbond.moonshot-common-ancestor-spine.v1 _(matched by name only)_
+- [`moonshot-reality-canaries.json`](../../config/moonshot-reality-canaries.json) — SPECULATIVE_CANARIES_NOT_IMPLEMENTATION_PROOF · uberbond.moonshot-reality-canaries.v1 _(matched by name only)_
+- [`moonshot-reality-program-registry.json`](../../config/moonshot-reality-program-registry.json) — CHAT_SPEC_GOAL_AND_RESEARCH_PROGRAM_NOT_IMPLEMENTATION_PROOF · uberbond.moonshot-reality-program-registry.v2 _(matched by name only)_
+- [`moonshot-realization-evidence-registry.json`](../../config/moonshot-realization-evidence-registry.json) — uberbond.moonshot-realization-evidence-registry.v1 _(matched by name only)_
+- [`moonshot-realization-state-overlay.json`](../../config/moonshot-realization-state-overlay.json) — uberbond.moonshot-realization-state-overlay.v1 _(matched by name only)_
+- [`moonshot-verified-child-mechanisms.json`](../../config/moonshot-verified-child-mechanisms.json) — Target-Blind Structural Representation Synthesis · MATCHED · uberbond.moonshot-verified-child-mechanisms.v1 _(matched by name only)_
+- [`moonshot-verified-mechanism-donors.json`](../../config/moonshot-verified-mechanism-donors.json) — EVIDENCE_BOUND_DONOR_POOL__GENERATED_COMBINATIONS_REMAIN_HYPOTHESES · uberbond.moonshot-verified-mechanism-donors.v1 _(matched by name only)_
 
 ## ASI research and evidence programs
 
-- [`lawspace-experiment-registry.json`](../../config/lawspace-experiment-registry.json) — SPECULATIVE_RESEARCH_NOT_RUNTIME_PROOF · uberbond.lawspace-experiment-registry.v1
-- [`omega-frontier-closure-matrix.json`](../../config/omega-frontier-closure-matrix.json) — FAR_FROM_10_OF_10 · uberbond.omega-frontier-closure-matrix.v1
-- [`omega-private-evidence-scoreboard.json`](../../config/omega-private-evidence-scoreboard.json) — PASSED_BOUNDED_CONTROLLED_INTENT_NOT_OPEN_NL · uberbond.omega-private-evidence-scoreboard.v3
+- [`lawspace-experiment-registry.json`](../../config/lawspace-experiment-registry.json) — SPECULATIVE_RESEARCH_NOT_RUNTIME_PROOF · uberbond.lawspace-experiment-registry.v1 _(matched by name only)_
+- [`omega-frontier-closure-matrix.json`](../../config/omega-frontier-closure-matrix.json) — FAR_FROM_10_OF_10 · uberbond.omega-frontier-closure-matrix.v1 _(matched by name only)_
+- [`omega-private-evidence-scoreboard.json`](../../config/omega-private-evidence-scoreboard.json) — PASSED_BOUNDED_CONTROLLED_INTENT_NOT_OPEN_NL · uberbond.omega-private-evidence-scoreboard.v3 _(matched by name only)_
 
 ## Frontier cognition and model routing
 
-- [`absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1
-- [`apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1
-- [`frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — READY_FOR_POLICY_CLEARED_OBSERVATIONS · uberbond.frontier-learning-autopilot.v1
-- [`frontier-model-candidates.json`](../../config/frontier-model-candidates.json) — PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF · uberbond.frontier-model-candidates.v1
-- [`frontier-vm-v5-longitudinal-campaign.json`](../../config/frontier-vm-v5-longitudinal-campaign.json) — PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY · uberbond.frontier-vm-v5-longitudinal-campaign.v2
-- [`in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1
-- [`infinite-opus-activation-package.json`](../../config/infinite-opus-activation-package.json) — uberbond-runtime-20 · SOURCE_PACKAGE_WITH_GATEWAY_ONLY_TYPINGMIND__PRIVATE_RUNTIME_ACTIVATION_PENDING · uberbond.infinite-opus.activation-package.v1
-- [`infinite-opus-canary-authorization.template.json`](../../config/infinite-opus-canary-authorization.template.json) — uberbond.infinite-opus.canary-authorization.v1
-- [`infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1
-- [`infinite-opus-first-real-workload.json`](../../config/infinite-opus-first-real-workload.json) — uberbond.infinite-opus.first-real-workload.v1
-- [`infinite-opus-hostile-test-matrix.json`](../../config/infinite-opus-hostile-test-matrix.json) — uberbond.infinite-opus.hostile-test-matrix.v1
-- [`infinite-opus-live-market-candidates.json`](../../config/infinite-opus-live-market-candidates.json) — PUBLIC_CANDIDATE_ONLY · uberbond.infinite-opus.live-market-candidates.v1
-- [`infinite-opus-model-understanding.json`](../../config/infinite-opus-model-understanding.json) — uberbond.infinite-opus.model-understanding.v1
-- [`infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1
-- [`infinite-opus-typingmind-role-map.json`](../../config/infinite-opus-typingmind-role-map.json) — UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1
-- [`infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1
-- [`openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4
-- [`openrouter-processor-fabric-v5.json`](../../config/openrouter-processor-fabric-v5.json) — uberbond.openrouter.processor-fabric.v5
-- [`opus-equivalence-reference-2026-10-07.json`](../../config/opus-equivalence-reference-2026-10-07.json) — 2026-10-07 · uberbond.opus-equivalence.reference.v1
-- [`typingmind-opus-quality-mincost-v3.json`](../../config/typingmind-opus-quality-mincost-v3.json) — uberbond.typingmind.opus-quality-mincost.v3
-- [`ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1
+- [`absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1 _(matched by name only)_
+- [`apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1 _(matched by name only)_
+- [`frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — READY_FOR_POLICY_CLEARED_OBSERVATIONS · uberbond.frontier-learning-autopilot.v1 _(matched by name only)_
+- [`frontier-model-candidates.json`](../../config/frontier-model-candidates.json) — PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF · uberbond.frontier-model-candidates.v1 _(matched by name only)_
+- [`frontier-vm-v5-longitudinal-campaign.json`](../../config/frontier-vm-v5-longitudinal-campaign.json) — PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY · uberbond.frontier-vm-v5-longitudinal-campaign.v2 _(matched by name only)_
+- [`in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1 _(matched by name only)_
+- [`infinite-opus-activation-package.json`](../../config/infinite-opus-activation-package.json) — uberbond-runtime-20 · SOURCE_PACKAGE_WITH_GATEWAY_ONLY_TYPINGMIND__PRIVATE_RUNTIME_ACTIVATION_PENDING · uberbond.infinite-opus.activation-package.v1 _(matched by name only)_
+- [`infinite-opus-canary-authorization.template.json`](../../config/infinite-opus-canary-authorization.template.json) — uberbond.infinite-opus.canary-authorization.v1 _(matched by name only)_
+- [`infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1 _(matched by name only)_
+- [`infinite-opus-first-real-workload.json`](../../config/infinite-opus-first-real-workload.json) — uberbond.infinite-opus.first-real-workload.v1 _(matched by name only)_
+- [`infinite-opus-hostile-test-matrix.json`](../../config/infinite-opus-hostile-test-matrix.json) — uberbond.infinite-opus.hostile-test-matrix.v1 _(matched by name only)_
+- [`infinite-opus-live-market-candidates.json`](../../config/infinite-opus-live-market-candidates.json) — PUBLIC_CANDIDATE_ONLY · uberbond.infinite-opus.live-market-candidates.v1 _(matched by name only)_
+- [`infinite-opus-model-understanding.json`](../../config/infinite-opus-model-understanding.json) — uberbond.infinite-opus.model-understanding.v1 _(matched by name only)_
+- [`infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1 _(matched by name only)_
+- [`infinite-opus-typingmind-role-map.json`](../../config/infinite-opus-typingmind-role-map.json) — UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1 _(matched by name only)_
+- [`infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1 _(matched by name only)_
+- [`openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4 _(matched by name only)_
+- [`openrouter-processor-fabric-v5.json`](../../config/openrouter-processor-fabric-v5.json) — uberbond.openrouter.processor-fabric.v5 _(matched by name only)_
+- [`opus-equivalence-reference-2026-10-07.json`](../../config/opus-equivalence-reference-2026-10-07.json) — 2026-10-07 · uberbond.opus-equivalence.reference.v1 _(matched by name only)_
+- [`typingmind-opus-quality-mincost-v3.json`](../../config/typingmind-opus-quality-mincost-v3.json) — uberbond.typingmind.opus-quality-mincost.v3 _(matched by name only)_
+- [`ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1 _(matched by name only)_
 
 ## Capability Genome, skills and Wallbreaker
 
-- [`avengers-arsenal.json`](../../config/avengers-arsenal.json) — uberbond.avengers-arsenal-registry.v1
-- [`avengers-mission.json`](../../config/avengers-mission.json)
+- [`avengers-arsenal.json`](../../config/avengers-arsenal.json) — uberbond.avengers-arsenal-registry.v1 _(matched by name only)_
+- [`avengers-mission.json`](../../config/avengers-mission.json) _(matched by name only)_
 
 ## Agent mesh, relay and autonomy
 
-- [`ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1
+- [`ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1 _(matched by name only)_
 
 ## Self-maintenance and verification
 
-- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2
-- [`reachability-classification.json`](../../config/reachability-classification.json) — uberbond.reachability-classification.v1
-- [`recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1
+- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2 _(matched by name only)_
+- [`reachability-classification.json`](../../config/reachability-classification.json) — uberbond.reachability-classification.v1 _(matched by name only)_
+- [`recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1 _(matched by name only)_
 
 ## Governance, authority and proof
 
-- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3
+- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3 _(matched by name only)_
 
 ## Email infrastructure and warmup
 
-- [`uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — uberdoso.source-lock.v1
-- [`winnr-bootstrap-sealed.json`](../../config/winnr-bootstrap-sealed.json)
+- [`uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — uberdoso.source-lock.v1 _(matched by name only)_
+- [`winnr-bootstrap-sealed.json`](../../config/winnr-bootstrap-sealed.json) _(matched by name only)_
 
 ## Commerce, payments and economics
 
-- [`contra-account-observation.example.json`](../../config/contra-account-observation.example.json) — UNKNOWN
-- [`revenue-method-exchange.json`](../../config/revenue-method-exchange.json) — uberbond.revenue-method-exchange.config.v1
+- [`contra-account-observation.example.json`](../../config/contra-account-observation.example.json) — UNKNOWN _(matched by name only)_
+- [`revenue-method-exchange.json`](../../config/revenue-method-exchange.json) — uberbond.revenue-method-exchange.config.v1 _(matched by name only)_
 
 ## Founder operations and command center
 
-- [`system-readiness-input.json`](../../config/system-readiness-input.json) — PASSING
+- [`system-readiness-input.json`](../../config/system-readiness-input.json) — PASSING _(matched by name only)_
 
 ## Core and uncategorised
 
-- [`multidimensional-velocity-gap-registry.json`](../../config/multidimensional-velocity-gap-registry.json) — Compounding Velocity Kernel · MISSING_AS_ONE_RESIDENT_LOOP · uberbond.multidimensional-velocity-gap-registry.v1
+- [`multidimensional-velocity-gap-registry.json`](../../config/multidimensional-velocity-gap-registry.json) — Compounding Velocity Kernel · MISSING_AS_ONE_RESIDENT_LOOP · uberbond.multidimensional-velocity-gap-registry.v1 _(matched by name only)_

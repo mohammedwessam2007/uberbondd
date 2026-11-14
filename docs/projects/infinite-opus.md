@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture — Status: design canon for the Open Router intelligence-per-dollar subsystem.
-- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression.
-- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF
-- [`.claude/agents/ubermind-opus-frontier-judge.md`](../../.claude/agents/ubermind-opus-frontier-judge.md) — name: ubermind-opus-frontier-judge
-- [`open router/00_FINAL_SYSTEM.md`](../../open%20router/00_FINAL_SYSTEM.md) — 00 — Final Frontier-Max System
-- [`open router/01_PRACTICAL_MODEL_SEQUENCE.md`](../../open%20router/01_PRACTICAL_MODEL_SEQUENCE.md) — 01 — Practical Real-Life Model Sequence
-- [`open router/02_JEV_HYPERREFLEX.md`](../../open%20router/02_JEV_HYPERREFLEX.md) — 02 — Jev Hyperreflex
-- [`open router/03_30_DOLLAR_ECONOMICS.md`](../../open%20router/03_30_DOLLAR_ECONOMICS.md) — 03 — The $30 Economics
-- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS
-- [`docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`](../receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Infinite Opus reachability reconciliation — 2026-10-04
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt
-- [`docs/INFINITE_OPUS_CONTINUATION_MEGA_MAP_2026-09-30.md`](../INFINITE_OPUS_CONTINUATION_MEGA_MAP_2026-09-30.md) — 2026-09-30 · Infinite Opus Continuation Mega Map — 2026-09-30
-- [`docs/INFINITE_OPUS_MEGA_MAP_2026-09-30.md`](../INFINITE_OPUS_MEGA_MAP_2026-09-30.md) — 2026-09-30 · Infinite Opus Current Mega Map — 2026-09-30 — Status: merged pre-owner software closure on main. Live provider activation remains owner-gated.
-- [`docs/INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation.
+- [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture — Status: design canon for the Open Router intelligence-per-dollar subsystem. _(matched by name only)_
+- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(matched by name only)_
+- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(matched by name only)_
+- [`.claude/agents/ubermind-opus-frontier-judge.md`](../../.claude/agents/ubermind-opus-frontier-judge.md) — name: ubermind-opus-frontier-judge _(matched by name only)_
+- [`open router/00_FINAL_SYSTEM.md`](../../open%20router/00_FINAL_SYSTEM.md) — 00 — Final Frontier-Max System _(matched by name only)_
+- [`open router/01_PRACTICAL_MODEL_SEQUENCE.md`](../../open%20router/01_PRACTICAL_MODEL_SEQUENCE.md) — 01 — Practical Real-Life Model Sequence _(matched by name only)_
+- [`open router/02_JEV_HYPERREFLEX.md`](../../open%20router/02_JEV_HYPERREFLEX.md) — 02 — Jev Hyperreflex _(matched by name only)_
+- [`open router/03_30_DOLLAR_ECONOMICS.md`](../../open%20router/03_30_DOLLAR_ECONOMICS.md) — 03 — The $30 Economics _(matched by name only)_
+- [`open router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md`](../../open%20router/80_CURRENT_RUNTIME_FRONTIER_2026-10-07.md) — 2026-10-07 · Open Router current runtime frontier — 2026-10-07 — Status: INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md`](../receipts/INFINITE_OPUS_REACHABILITY_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Infinite Opus reachability reconciliation — 2026-10-04 _(matched by name only)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_
+- [`docs/INFINITE_OPUS_CONTINUATION_MEGA_MAP_2026-09-30.md`](../INFINITE_OPUS_CONTINUATION_MEGA_MAP_2026-09-30.md) — 2026-09-30 · Infinite Opus Continuation Mega Map — 2026-09-30 _(matched by name only)_
+- [`docs/INFINITE_OPUS_MEGA_MAP_2026-09-30.md`](../INFINITE_OPUS_MEGA_MAP_2026-09-30.md) — 2026-09-30 · Infinite Opus Current Mega Map — 2026-09-30 — Status: merged pre-owner software closure on main. Live provider activation remains owner-gated. _(matched by name only)_
+- [`docs/INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation. _(matched by name only)_
 
 ## Commands (15)
 
@@ -33,202 +33,202 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (29)
 
-- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup
-- [`open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md`](../../open%20router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md) — 05 — Zero-Loss Quality and Crown Succession
-- [`open router/06_24_7_NIGHT_SHIFT.md`](../../open%20router/06_24_7_NIGHT_SHIFT.md) — 06 — 24/7 Operation
-- [`open router/07_1000X_COMPRESSION_LAB.md`](../../open%20router/07_1000X_COMPRESSION_LAB.md) — 07 — 1000x Compression Lab
-- [`open router/08_PROMPTS.md`](../../open%20router/08_PROMPTS.md) — 08 — Canonical Interactive Prompts
-- [`open router/10_ACTIVATION_CHECKLIST.md`](../../open%20router/10_ACTIVATION_CHECKLIST.md) — 10 — Activation Checklist
-- [`open router/11_MODEL_MARKET_REFRESH.md`](../../open%20router/11_MODEL_MARKET_REFRESH.md) — 11 — Live Model-Market Refresh
-- [`open router/12_REFERENCE_VALUE_LEDGER.md`](../../open%20router/12_REFERENCE_VALUE_LEDGER.md) — 12 — Reference-Value Ledger
-- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN
-- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF
-- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM
-- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM
-- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS
-- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN
-- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET
-- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF
-- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF
-- [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — 22 — By-Construction Opus Equivalence Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / FORMAL-EQUIVALENCE PROGRAM
-- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS
-- [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Infinite Opus implementation and activation
-- [`open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md`](../../open%20router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL GAP-CLOSURE / LIVE ACTIVATION MONSTER PROMPT
-- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics
-- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT
-- [`open router/28_E0_E4_LIVE_PROOF_LEDGER.md`](../../open%20router/28_E0_E4_LIVE_PROOF_LEDGER.md) — Infinite Opus E0-E4 Live Proof Ledger — 2026-09-30
-- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time.
-- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation.
-- [`open router/JEV_HYPERREFLEX.md`](../../open%20router/JEV_HYPERREFLEX.md) — Jev Hyperreflex — Status: architecture doctrine. Jev is a replaceable System-One supplier, not sovereign reasoner.
-- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan.
-- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands.
+- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(matched by name only)_
+- [`open router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md`](../../open%20router/05_ZERO_LOSS_QUALITY_AND_CROWN_SUCCESSION.md) — 05 — Zero-Loss Quality and Crown Succession _(matched by name only)_
+- [`open router/06_24_7_NIGHT_SHIFT.md`](../../open%20router/06_24_7_NIGHT_SHIFT.md) — 06 — 24/7 Operation _(matched by name only)_
+- [`open router/07_1000X_COMPRESSION_LAB.md`](../../open%20router/07_1000X_COMPRESSION_LAB.md) — 07 — 1000x Compression Lab _(matched by name only)_
+- [`open router/08_PROMPTS.md`](../../open%20router/08_PROMPTS.md) — 08 — Canonical Interactive Prompts _(matched by name only)_
+- [`open router/10_ACTIVATION_CHECKLIST.md`](../../open%20router/10_ACTIVATION_CHECKLIST.md) — 10 — Activation Checklist _(matched by name only)_
+- [`open router/11_MODEL_MARKET_REFRESH.md`](../../open%20router/11_MODEL_MARKET_REFRESH.md) — 11 — Live Model-Market Refresh _(matched by name only)_
+- [`open router/12_REFERENCE_VALUE_LEDGER.md`](../../open%20router/12_REFERENCE_VALUE_LEDGER.md) — 12 — Reference-Value Ledger _(matched by name only)_
+- [`open router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md`](../../open%20router/13_FRONTIER_INTELLIGENCE_VIRTUAL_MACHINE.md) — 13 — Frontier Intelligence Virtual Machine — Status: ADDITIVE FRONTIER ARCHITECTURE / NOT YET EMPIRICALLY PROVEN _(matched by name only)_
+- [`open router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md`](../../open%20router/14_COGNITIVE_SUPERCOMPILER_AND_CAPITAL_FLYWHEEL.md) — 14 — Cognitive Supercompiler and Intelligence Capital Flywheel — Status: ADDITIVE FRONTIER ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_
+- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_
+- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_
+- [`open router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md`](../../open%20router/17_LONGITUDINAL_FRONTIER_VM_EXPERIMENT.md) — 17 — Longitudinal Frontier VM Experiment — Status: PRE-EXECUTION / REQUIRES LIVE CROWN + API CREDENTIAL + FRESH TASKS _(matched by name only)_
+- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN _(matched by name only)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(matched by name only)_
+- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_
+- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_
+- [`open router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md`](../../open%20router/22_BY_CONSTRUCTION_OPUS_EQUIVALENCE_FABRIC.md) — 22 — By-Construction Opus Equivalence Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / FORMAL-EQUIVALENCE PROGRAM _(matched by name only)_
+- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(matched by name only)_
+- [`open router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md`](../../open%20router/24_INFINITE_OPUS_IMPLEMENTATION_AND_ACTIVATION.md) — Infinite Opus implementation and activation _(matched by name only)_
+- [`open router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md`](../../open%20router/25_POST_1054_FINAL_ACTIVATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL GAP-CLOSURE / LIVE ACTIVATION MONSTER PROMPT _(matched by name only)_
+- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics _(matched by name only)_
+- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(matched by name only)_
+- [`open router/28_E0_E4_LIVE_PROOF_LEDGER.md`](../../open%20router/28_E0_E4_LIVE_PROOF_LEDGER.md) — Infinite Opus E0-E4 Live Proof Ledger — 2026-09-30 _(matched by name only)_
+- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(matched by name only)_
+- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(matched by name only)_
+- [`open router/JEV_HYPERREFLEX.md`](../../open%20router/JEV_HYPERREFLEX.md) — Jev Hyperreflex — Status: architecture doctrine. Jev is a replaceable System-One supplier, not sovereign reasoner. _(matched by name only)_
+- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(matched by name only)_
+- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands. _(matched by name only)_
 
 ## Dated documents, newest first (21)
 
-- [`docs/INFINITE_OPUS_ONE_COMMAND_OWNER_GATE_2026-09-30.md`](../INFINITE_OPUS_ONE_COMMAND_OWNER_GATE_2026-09-30.md) — 2026-09-30 · Infinite Opus One-Command Owner Gate
-- [`docs/INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md`](../INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus OpenRouter Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No provider call has been made by this package.
-- [`docs/INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30
-- [`docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus terminal activation handoff — 2026-09-30
-- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi…
-- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat.
-- [`docs/INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md`](../INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md) — 2026-09-30 · Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo — Status: PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY, ok true.
-- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30
-- [`docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30
-- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30
-- [`open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../../open%20router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30
-- [`open router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../../open%20router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation.
-- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi…
-- [`open router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../../open%20router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30
-- [`open router/75_RECOVERY_POINTER_2026-09-30.md`](../../open%20router/75_RECOVERY_POINTER_2026-09-30.md) — 2026-09-30 · OpenRouter Recovery Pointer — 2026-09-30
-- [`open router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md`](../../open%20router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md) — 2026-09-30 · Live Frontier + Receipt Court — 2026-09-30
-- [`open router/FINAL_CHAT_DELTA_V4_2026-09-29.md`](../../open%20router/FINAL_CHAT_DELTA_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Final Chat Delta — Exact Founder Intent Recovery — Status: ADDITIVE RECOVERY ADDENDUM / DOES NOT REPLACE V2 OR V3
-- [`open router/RECOVERY_AUDIT_V4_2026-09-29.md`](../../open%20router/RECOVERY_AUDIT_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Recovery Audit — 2026-09-29 — Status: EXACT REPOSITORY RECOVERY AUDIT / ADDITIVE TO V2+V3
-- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM
-- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED
-- [`docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — CLAUDE CODE / OPUS MAX GO-LIVE EXECUTION MISSION
+- [`docs/INFINITE_OPUS_ONE_COMMAND_OWNER_GATE_2026-09-30.md`](../INFINITE_OPUS_ONE_COMMAND_OWNER_GATE_2026-09-30.md) — 2026-09-30 · Infinite Opus One-Command Owner Gate _(matched by name only)_
+- [`docs/INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md`](../INFINITE_OPUS_OPENROUTER_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus OpenRouter Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No provider call has been made by this package. _(matched by name only)_
+- [`docs/INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(matched by name only)_
+- [`docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus terminal activation handoff — 2026-09-30 _(matched by name only)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat. _(matched by name only)_
+- [`docs/INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md`](../INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md) — 2026-09-30 · Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo — Status: PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY, ok true. _(matched by name only)_
+- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(matched by name only)_
+- [`docs/TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(matched by name only)_
+- [`open router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../../open%20router/36_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_
+- [`open router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md`](../../open%20router/37_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.md) — 2026-09-30 · TypingMind Opus-Quality / Minimum-Cost Workflow v3 — 2026-09-30 _(matched by name only)_
+- [`open router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md`](../../open%20router/43_MODEL_UNDERSTANDING_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus Model Understanding + TypingMind Gateway Map — 2026-09-30 — Status: source implementation / pre-live runtime activation. _(matched by name only)_
+- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_
+- [`open router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../../open%20router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(matched by name only)_
+- [`open router/75_RECOVERY_POINTER_2026-09-30.md`](../../open%20router/75_RECOVERY_POINTER_2026-09-30.md) — 2026-09-30 · OpenRouter Recovery Pointer — 2026-09-30 _(matched by name only)_
+- [`open router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md`](../../open%20router/78_LIVE_FRONTIER_RECEIPT_COURT_2026-09-30.md) — 2026-09-30 · Live Frontier + Receipt Court — 2026-09-30 _(matched by name only)_
+- [`open router/FINAL_CHAT_DELTA_V4_2026-09-29.md`](../../open%20router/FINAL_CHAT_DELTA_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Final Chat Delta — Exact Founder Intent Recovery — Status: ADDITIVE RECOVERY ADDENDUM / DOES NOT REPLACE V2 OR V3 _(matched by name only)_
+- [`open router/RECOVERY_AUDIT_V4_2026-09-29.md`](../../open%20router/RECOVERY_AUDIT_V4_2026-09-29.md) — 2026-09-29 · Open Router V4 Recovery Audit — 2026-09-29 — Status: EXACT REPOSITORY RECOVERY AUDIT / ADDITIVE TO V2+V3 _(matched by name only)_
+- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — CLAUDE CODE / OPUS MAX GO-LIVE EXECUTION MISSION _(matched by name only)_
 
 ## Other documents (1)
 
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (7)
 
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(9 mentions)_
-- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(8 mentions)_
-- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(6 mentions)_
-- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(5 mentions)_
-- [`docs/receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md`](../receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md) — 2026-10-01 · Crown missing edges — 2026-10-01T23:40Z _(5 mentions)_
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(5 mentions)_
-- [`docs/handoffs/UBERMIND_CURRENT_2026-10-08.md`](../handoffs/UBERMIND_CURRENT_2026-10-08.md) — 2026-10-08 · UberMind exact current terminal frontier — 2026-10-08 _(3 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(9 mentions)_
+- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(matched by name only)_ _(8 mentions)_
+- [`docs/OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md`](../OPENROUTER_FULL_FRONTIER_VM_RESTORED_2026-09-30.md) — 2026-09-30 · OpenRouter Full Frontier VM Restored Above TypingMind — 2026-09-30 _(matched by name only)_ _(6 mentions)_
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(matched by name only)_ _(5 mentions)_
+- [`docs/receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md`](../receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md) — 2026-10-01 · Crown missing edges — 2026-10-01T23:40Z _(matched by name only)_ _(5 mentions)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_ _(5 mentions)_
+- [`docs/handoffs/UBERMIND_CURRENT_2026-10-08.md`](../handoffs/UBERMIND_CURRENT_2026-10-08.md) — 2026-10-08 · UberMind exact current terminal frontier — 2026-10-08 _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (14)
 
-- [`src/achieved-opus-equivalence-island.mjs`](../../src/achieved-opus-equivalence-island.mjs) — exports ACHIEVED_EQUIVALENCE_VERSION, DEFAULT_EQUIVALENCE_SOURCES, flattenExactLeaves, resolveJsonPointer, buildSourceGroundedObligations (+1) _(tested; imported by 2)_
-- [`src/infinite-opus-activation-diagnostic.mjs`](../../src/infinite-opus-activation-diagnostic.mjs) — exports INFINITE_OPUS_ACTIVATION_DIAGNOSTIC_VERSION, inspectInfiniteOpusActivationEnvironment _(tested; imported by 3)_
-- [`src/infinite-opus-market.mjs`](../../src/infinite-opus-market.mjs) — exports compileInfiniteOpusMarket, selectCurrentPrice _(imported by 7)_
-- [`src/infinite-opus-model-understanding.mjs`](../../src/infinite-opus-model-understanding.mjs) — exports noRetestAuthority, estimateModelTariffMicrousd, compileModelUnderstanding, modelPriorForTask, chooseAnalyticLane _(tested; imported by 2)_
-- [`src/infinite-opus-native-runtime.mjs`](../../src/infinite-opus-native-runtime.mjs) — exports INFINITE_OPUS_TASK_SCHEMA, createInfiniteOpusRuntime, createInfiniteOpusJobHandlers _(imported by 12)_
-- [`src/infinite-opus-provider.mjs`](../../src/infinite-opus-provider.mjs) — exports createGovernedOpenRouterExecutor _(no static importers)_
-- [`src/infinite-opus-runtime.mjs`](../../src/infinite-opus-runtime.mjs) — exports compileCrownPacket, createInfiniteOpusRuntime _(no static importers)_
-- [`src/infinite-opus-scoreboard.mjs`](../../src/infinite-opus-scoreboard.mjs) — exports buildInfiniteOpusScoreboard _(imported by 1)_
-- [`src/infinite-opus-semantic-closure-host.mjs`](../../src/infinite-opus-semantic-closure-host.mjs) — exports INFINITE_OPUS_SEMANTIC_HOST_VERSION, createInfiniteOpusSemanticClosureHost _(tested; imported by 1)_
-- [`src/infinite-opus-store.mjs`](../../src/infinite-opus-store.mjs) — exports InfiniteOpusStore, cacheKey _(no static importers)_
-- [`src/infinite-opus-task-compilers.mjs`](../../src/infinite-opus-task-compilers.mjs) — exports compileExactVerifier, solveFiniteSpecification, verifyFiniteSolution, COGNITIVE_OPCODES, executeCognitiveBytecode (+2) _(no static importers)_
-- [`src/infinite-opus-typingmind-gateway.mjs`](../../src/infinite-opus-typingmind-gateway.mjs) — exports TYPINGMIND_UBERMIND_MODEL, TYPINGMIND_UBERMIND_GATEWAY_SCHEMA, verifyTypingMindGatewayBearer, compileTypingMindChatRequest, stableModelSessio… _(tested; imported by 4)_
-- [`src/infinite-opus-typingmind-live.mjs`](../../src/infinite-opus-typingmind-live.mjs) — exports TYPINGMIND_BUILDER_MODEL, TYPINGMIND_SOL_PRO_MODEL, TYPINGMIND_MIMO_MODEL, TYPINGMIND_DEEPSEEK_MODEL, TYPINGMIND_HAIKU55_MODEL (+7) _(tested; imported by 3)_
-- [`src/ubermind-opus-quality-cost-floor.mjs`](../../src/ubermind-opus-quality-cost-floor.mjs) — UberMind W23: Same-model, same-token-geometry API tariff optimizer. Uses publicly published Opus 5.5 prices as of 2026-10-09. Never infers output equ… _(tested; imported by 1)_
+- [`src/achieved-opus-equivalence-island.mjs`](../../src/achieved-opus-equivalence-island.mjs) — exports ACHIEVED_EQUIVALENCE_VERSION, DEFAULT_EQUIVALENCE_SOURCES, flattenExactLeaves, resolveJsonPointer, buildSourceGroundedObligations (+1) _(matched by name only; tested; imported by 2)_
+- [`src/infinite-opus-activation-diagnostic.mjs`](../../src/infinite-opus-activation-diagnostic.mjs) — exports INFINITE_OPUS_ACTIVATION_DIAGNOSTIC_VERSION, inspectInfiniteOpusActivationEnvironment _(matched by name only; tested; imported by 3)_
+- [`src/infinite-opus-market.mjs`](../../src/infinite-opus-market.mjs) — exports compileInfiniteOpusMarket, selectCurrentPrice _(matched by name only; imported by 7)_
+- [`src/infinite-opus-model-understanding.mjs`](../../src/infinite-opus-model-understanding.mjs) — exports noRetestAuthority, estimateModelTariffMicrousd, compileModelUnderstanding, modelPriorForTask, chooseAnalyticLane _(matched by name only; tested; imported by 2)_
+- [`src/infinite-opus-native-runtime.mjs`](../../src/infinite-opus-native-runtime.mjs) — exports INFINITE_OPUS_TASK_SCHEMA, createInfiniteOpusRuntime, createInfiniteOpusJobHandlers _(matched by name only; imported by 12)_
+- [`src/infinite-opus-provider.mjs`](../../src/infinite-opus-provider.mjs) — exports createGovernedOpenRouterExecutor _(matched by name only; no static importers)_
+- [`src/infinite-opus-runtime.mjs`](../../src/infinite-opus-runtime.mjs) — exports compileCrownPacket, createInfiniteOpusRuntime _(matched by name only; no static importers)_
+- [`src/infinite-opus-scoreboard.mjs`](../../src/infinite-opus-scoreboard.mjs) — exports buildInfiniteOpusScoreboard _(matched by name only; imported by 1)_
+- [`src/infinite-opus-semantic-closure-host.mjs`](../../src/infinite-opus-semantic-closure-host.mjs) — exports INFINITE_OPUS_SEMANTIC_HOST_VERSION, createInfiniteOpusSemanticClosureHost _(matched by name only; tested; imported by 1)_
+- [`src/infinite-opus-store.mjs`](../../src/infinite-opus-store.mjs) — exports InfiniteOpusStore, cacheKey _(matched by name only; no static importers)_
+- [`src/infinite-opus-task-compilers.mjs`](../../src/infinite-opus-task-compilers.mjs) — exports compileExactVerifier, solveFiniteSpecification, verifyFiniteSolution, COGNITIVE_OPCODES, executeCognitiveBytecode (+2) _(matched by name only; no static importers)_
+- [`src/infinite-opus-typingmind-gateway.mjs`](../../src/infinite-opus-typingmind-gateway.mjs) — exports TYPINGMIND_UBERMIND_MODEL, TYPINGMIND_UBERMIND_GATEWAY_SCHEMA, verifyTypingMindGatewayBearer, compileTypingMindChatRequest, stableModelSessio… _(matched by name only; tested; imported by 4)_
+- [`src/infinite-opus-typingmind-live.mjs`](../../src/infinite-opus-typingmind-live.mjs) — exports TYPINGMIND_BUILDER_MODEL, TYPINGMIND_SOL_PRO_MODEL, TYPINGMIND_MIMO_MODEL, TYPINGMIND_DEEPSEEK_MODEL, TYPINGMIND_HAIKU55_MODEL (+7) _(matched by name only; tested; imported by 3)_
+- [`src/ubermind-opus-quality-cost-floor.mjs`](../../src/ubermind-opus-quality-cost-floor.mjs) — UberMind W23: Same-model, same-token-geometry API tariff optimizer. Uses publicly published Opus 5.5 prices as of 2026-10-09. Never infers output equ… _(matched by name only; tested; imported by 1)_
 
 ## Scripts (23)
 
-- [`scripts/infinite-opus-achieved-equivalence-doctor.mjs`](../../scripts/infinite-opus-achieved-equivalence-doctor.mjs) — exports runAchievedOpusEquivalenceDoctor _(npm: `infinite-opus:equivalence:doctor`)_
-- [`scripts/infinite-opus-astra-preflight.mjs`](../../scripts/infinite-opus-astra-preflight.mjs) _(npm: `infinite-opus:astra:preflight`)_
-- [`scripts/infinite-opus-crown-admission-mint.mjs`](../../scripts/infinite-opus-crown-admission-mint.mjs) _(npm: `infinite-opus:crown:admit`)_
-- [`scripts/infinite-opus-crown-autofinish.mjs`](../../scripts/infinite-opus-crown-autofinish.mjs) — exports runCrownAutoFinish
-- [`scripts/infinite-opus-crown-financial-recovery.mjs`](../../scripts/infinite-opus-crown-financial-recovery.mjs) — exports RECOVERY_KEY, ORIGINAL_CLAIM, ORIGINAL_CALL, ORIGINAL_GENERATION, UNDISPATCHED (+2)
-- [`scripts/infinite-opus-crown-interrupted-recovery.mjs`](../../scripts/infinite-opus-crown-interrupted-recovery.mjs) — exports reconcileInterruptedCrownGeneration
-- [`scripts/infinite-opus-crown-recovery-diagnostic.mjs`](../../scripts/infinite-opus-crown-recovery-diagnostic.mjs) — exports readCrownRecoveryMetadata
-- [`scripts/infinite-opus-crown-tournament-adjudicate.mjs`](../../scripts/infinite-opus-crown-tournament-adjudicate.mjs) _(npm: `infinite-opus:crown:tournament`)_
-- [`scripts/infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs)
-- [`scripts/infinite-opus-haiku55-canary-reconcile.mjs`](../../scripts/infinite-opus-haiku55-canary-reconcile.mjs) — exports HAIKU55_RECONCILIATION_SCHEMA, reconcileHaiku55CanaryWithoutReplay
-- [`scripts/infinite-opus-haiku55-live-canary.mjs`](../../scripts/infinite-opus-haiku55-live-canary.mjs) — exports HAIKU55_LIVE_CANARY_SETTING, HAIKU55_LIVE_CANARY_MAX_USD, runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState
-- [`scripts/infinite-opus-hostile-test-doctor.mjs`](../../scripts/infinite-opus-hostile-test-doctor.mjs) _(npm: `infinite-opus:hostile:doctor`)_
-- [`scripts/infinite-opus-jev-live-canary.mjs`](../../scripts/infinite-opus-jev-live-canary.mjs) — exports JEV_LIVE_CANARY_SETTING, JEV_LIVE_CANARY_MAX_USD, runGovernedJevLiveCanary
-- [`scripts/infinite-opus-jev-pagefault-triage.mjs`](../../scripts/infinite-opus-jev-pagefault-triage.mjs) — exports NATIVE_JEV_TRIAGE_MAX_CALLS, NATIVE_JEV_TRIAGE_MAX_TOTAL_USD, runPendingNativeJevTriage
-- [`scripts/infinite-opus-market-refresh.mjs`](../../scripts/infinite-opus-market-refresh.mjs)
-- [`scripts/infinite-opus-openrouter-budget-reconcile.mjs`](../../scripts/infinite-opus-openrouter-budget-reconcile.mjs) _(npm: `infinite-opus:budget:reconcile`)_
-- [`scripts/infinite-opus-openrouter-canary.mjs`](../../scripts/infinite-opus-openrouter-canary.mjs) _(npm: `infinite-opus:canary`)_
-- [`scripts/infinite-opus-owner-gate-launcher.mjs`](../../scripts/infinite-opus-owner-gate-launcher.mjs) _(npm: `infinite-opus:activate:owner-gate`)_
-- [`scripts/infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs)
-- [`scripts/infinite-opus-preowner-doctor.mjs`](../../scripts/infinite-opus-preowner-doctor.mjs) _(npm: `infinite-opus:preowner:doctor`)_
-- [`scripts/infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) _(npm: `infinite-opus:recurrence`)_
-- [`scripts/infinite-opus-route-inventory.mjs`](../../scripts/infinite-opus-route-inventory.mjs) _(npm: `infinite-opus:routes`)_
-- [`scripts/infinite-opus-runtime-authorization-mint.mjs`](../../scripts/infinite-opus-runtime-authorization-mint.mjs) _(npm: `infinite-opus:runtime-auth:mint`)_
+- [`scripts/infinite-opus-achieved-equivalence-doctor.mjs`](../../scripts/infinite-opus-achieved-equivalence-doctor.mjs) — exports runAchievedOpusEquivalenceDoctor _(matched by name only; npm: `infinite-opus:equivalence:doctor`)_
+- [`scripts/infinite-opus-astra-preflight.mjs`](../../scripts/infinite-opus-astra-preflight.mjs) _(matched by name only; npm: `infinite-opus:astra:preflight`)_
+- [`scripts/infinite-opus-crown-admission-mint.mjs`](../../scripts/infinite-opus-crown-admission-mint.mjs) _(matched by name only; npm: `infinite-opus:crown:admit`)_
+- [`scripts/infinite-opus-crown-autofinish.mjs`](../../scripts/infinite-opus-crown-autofinish.mjs) — exports runCrownAutoFinish _(matched by name only)_
+- [`scripts/infinite-opus-crown-financial-recovery.mjs`](../../scripts/infinite-opus-crown-financial-recovery.mjs) — exports RECOVERY_KEY, ORIGINAL_CLAIM, ORIGINAL_CALL, ORIGINAL_GENERATION, UNDISPATCHED (+2) _(matched by name only)_
+- [`scripts/infinite-opus-crown-interrupted-recovery.mjs`](../../scripts/infinite-opus-crown-interrupted-recovery.mjs) — exports reconcileInterruptedCrownGeneration _(matched by name only)_
+- [`scripts/infinite-opus-crown-recovery-diagnostic.mjs`](../../scripts/infinite-opus-crown-recovery-diagnostic.mjs) — exports readCrownRecoveryMetadata _(matched by name only)_
+- [`scripts/infinite-opus-crown-tournament-adjudicate.mjs`](../../scripts/infinite-opus-crown-tournament-adjudicate.mjs) _(matched by name only; npm: `infinite-opus:crown:tournament`)_
+- [`scripts/infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs) _(matched by name only)_
+- [`scripts/infinite-opus-haiku55-canary-reconcile.mjs`](../../scripts/infinite-opus-haiku55-canary-reconcile.mjs) — exports HAIKU55_RECONCILIATION_SCHEMA, reconcileHaiku55CanaryWithoutReplay _(matched by name only)_
+- [`scripts/infinite-opus-haiku55-live-canary.mjs`](../../scripts/infinite-opus-haiku55-live-canary.mjs) — exports HAIKU55_LIVE_CANARY_SETTING, HAIKU55_LIVE_CANARY_MAX_USD, runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState _(matched by name only)_
+- [`scripts/infinite-opus-hostile-test-doctor.mjs`](../../scripts/infinite-opus-hostile-test-doctor.mjs) _(matched by name only; npm: `infinite-opus:hostile:doctor`)_
+- [`scripts/infinite-opus-jev-live-canary.mjs`](../../scripts/infinite-opus-jev-live-canary.mjs) — exports JEV_LIVE_CANARY_SETTING, JEV_LIVE_CANARY_MAX_USD, runGovernedJevLiveCanary _(matched by name only)_
+- [`scripts/infinite-opus-jev-pagefault-triage.mjs`](../../scripts/infinite-opus-jev-pagefault-triage.mjs) — exports NATIVE_JEV_TRIAGE_MAX_CALLS, NATIVE_JEV_TRIAGE_MAX_TOTAL_USD, runPendingNativeJevTriage _(matched by name only)_
+- [`scripts/infinite-opus-market-refresh.mjs`](../../scripts/infinite-opus-market-refresh.mjs) _(matched by name only)_
+- [`scripts/infinite-opus-openrouter-budget-reconcile.mjs`](../../scripts/infinite-opus-openrouter-budget-reconcile.mjs) _(matched by name only; npm: `infinite-opus:budget:reconcile`)_
+- [`scripts/infinite-opus-openrouter-canary.mjs`](../../scripts/infinite-opus-openrouter-canary.mjs) _(matched by name only; npm: `infinite-opus:canary`)_
+- [`scripts/infinite-opus-owner-gate-launcher.mjs`](../../scripts/infinite-opus-owner-gate-launcher.mjs) _(matched by name only; npm: `infinite-opus:activate:owner-gate`)_
+- [`scripts/infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs) _(matched by name only)_
+- [`scripts/infinite-opus-preowner-doctor.mjs`](../../scripts/infinite-opus-preowner-doctor.mjs) _(matched by name only; npm: `infinite-opus:preowner:doctor`)_
+- [`scripts/infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) _(matched by name only; npm: `infinite-opus:recurrence`)_
+- [`scripts/infinite-opus-route-inventory.mjs`](../../scripts/infinite-opus-route-inventory.mjs) _(matched by name only; npm: `infinite-opus:routes`)_
+- [`scripts/infinite-opus-runtime-authorization-mint.mjs`](../../scripts/infinite-opus-runtime-authorization-mint.mjs) _(matched by name only; npm: `infinite-opus:runtime-auth:mint`)_
 
 ## Config, data, artifacts and services (83)
 
-- [`config/infinite-opus-activation-package.json`](../../config/infinite-opus-activation-package.json) — uberbond-runtime-20 · SOURCE_PACKAGE_WITH_GATEWAY_ONLY_TYPINGMIND__PRIVATE_RUNTIME_ACTIVATION_PENDING · uberbond.infinite-opus.activation-package.v1
-- [`config/infinite-opus-canary-authorization.template.json`](../../config/infinite-opus-canary-authorization.template.json) — uberbond.infinite-opus.canary-authorization.v1
-- [`config/infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1
-- [`config/infinite-opus-first-real-workload.json`](../../config/infinite-opus-first-real-workload.json) — uberbond.infinite-opus.first-real-workload.v1
-- [`config/infinite-opus-hostile-test-matrix.json`](../../config/infinite-opus-hostile-test-matrix.json) — uberbond.infinite-opus.hostile-test-matrix.v1
-- [`config/infinite-opus-live-market-candidates.json`](../../config/infinite-opus-live-market-candidates.json) — PUBLIC_CANDIDATE_ONLY · uberbond.infinite-opus.live-market-candidates.v1
-- [`config/infinite-opus-model-understanding.json`](../../config/infinite-opus-model-understanding.json) — uberbond.infinite-opus.model-understanding.v1
-- [`config/infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1
-- [`config/infinite-opus-typingmind-role-map.json`](../../config/infinite-opus-typingmind-role-map.json) — UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1
-- [`config/infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1
-- [`config/opus-equivalence-reference-2026-10-07.json`](../../config/opus-equivalence-reference-2026-10-07.json) — 2026-10-07 · uberbond.opus-equivalence.reference.v1
-- [`config/typingmind-opus-quality-mincost-v3.json`](../../config/typingmind-opus-quality-mincost-v3.json) — uberbond.typingmind.opus-quality-mincost.v3
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json) — 2026-09-30 · COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1 · uberbond.ubermind.checkpoint.v1
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json`](../checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json) — uberbond.ubermind.checkpoint-pointer.v1
-- [`docs/receipts/INFINITE_OPUS_CONTINUATION_BACKUP_2026-09-30.json`](../receipts/INFINITE_OPUS_CONTINUATION_BACKUP_2026-09-30.json) — 2026-09-30 · CONTINUATION_BACKED_UP_IN_PR · uberbond.infinite-opus.continuation-backup.v1
-- [`docs/receipts/INFINITE_OPUS_EXECUTION_2026-09-29.json`](../receipts/INFINITE_OPUS_EXECUTION_2026-09-29.json) — 2026-09-29 · SOURCE_GATE_PASS_PRELIVE · uberbond.infinite-opus.execution-receipt.v1
-- [`docs/receipts/INFINITE_OPUS_POSTMERGE_1056_2026-09-30.json`](../receipts/INFINITE_OPUS_POSTMERGE_1056_2026-09-30.json) — 2026-09-30 · MERGED_PREOWNER_SOURCE_FRONTIER_VERIFIED · uberbond.infinite-opus.postmerge-1056.v1
-- [`docs/receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json`](../receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json) — 2026-09-30 · MERGED_PRELIVE_PROOF_LEDGER_FRONTIER · uberbond.infinite-opus.postmerge-1062.v1
-- [`docs/receipts/INFINITE_OPUS_POSTMERGE_2026-09-29.json`](../receipts/INFINITE_OPUS_POSTMERGE_2026-09-29.json) — 2026-09-29 · BOUNDED_SOURCE_EXERCISED_LIVE_ACTIVATION_BLOCKED · uberbond.infinite-opus.postmerge.v1
-- [`docs/receipts/INFINITE_OPUS_POST_1059_OWNER_GATE_2026-09-30.json`](../receipts/INFINITE_OPUS_POST_1059_OWNER_GATE_2026-09-30.json) — 2026-09-30 · PREOWNER_SOFTWARE_CLOSURE_MERGED__OWNER_LIVE_ACTIVATION_REMAINS · uberbond.infinite-opus.post1059-owner-gate.v1
-- [`docs/receipts/INFINITE_OPUS_TERMINAL_GAP_CLOSURE_2026-09-30.json`](../receipts/INFINITE_OPUS_TERMINAL_GAP_CLOSURE_2026-09-30.json) — 2026-09-30 · Night Verification War · PREOWNER_SOFTWARE_GAP_CLOSURE_VALIDATED__LIVE_EVIDENCE_STILL_REQUIRED · uberbond.infinite-opus.terminal-gap-closure-receipt.…
-- [`docs/receipts/INFINITE_OPUS_TERMINAL_VERIFICATION_2026-09-29.json`](../receipts/INFINITE_OPUS_TERMINAL_VERIFICATION_2026-09-29.json) — 2026-09-29 · FINITE_REALIZATION_TRIBUNAL_PASSED_WITH_SEPARATE_REALITY_BOUNDARIES
-- [`docs/receipts/INFINITE_OPUS_TYPINGMIND_RECOVERY_2026-09-30.json`](../receipts/INFINITE_OPUS_TYPINGMIND_RECOVERY_2026-09-30.json) — 2026-09-30 · uberbond.infinite-opus.typingmind-recovery.v1
-- [`open router/09_SCOREBOARD_SCHEMA.json`](../../open%20router/09_SCOREBOARD_SCHEMA.json) — uberbond.open-router.scoreboard.v1
-- [`open router/14_COGNITIVE_COMPILER_SPEC.json`](../../open%20router/14_COGNITIVE_COMPILER_SPEC.json) — ARCHITECTURE_CANDIDATE_NOT_EMPIRICALLY_PROVEN · uberbond.frontier-intelligence-vm.v1
-- [`open router/31_PROCESSOR_FABRIC_V5_2026-09-30.json`](../../open%20router/31_PROCESSOR_FABRIC_V5_2026-09-30.json) — 2026-09-30 · uberbond.openrouter.processor-fabric.v5
-- [`open router/32_PROCESSOR_AUCTION_V5_2026-09-30.mjs`](../../open%20router/32_PROCESSOR_AUCTION_V5_2026-09-30.mjs) — 2026-09-30 · exports chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig, estimateDirectOpusUsd (+11)
-- [`open router/33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs`](../../open%20router/33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json`](../../open%20router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json) — 2026-09-30 · EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4
-- [`open router/35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json`](../../open%20router/35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json) — 2026-09-30 · uberbond.typingmind.opus-quality-mincost.v3
-- [`open router/38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs`](../../open%20router/38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json`](../../open%20router/39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json) — 2026-09-30 · uberbond.infinite-opus.model-understanding.v1
-- [`open router/40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs`](../../open%20router/40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs) — 2026-09-30 · exports noRetestAuthority, estimateModelTariffMicrousd, compileModelUnderstanding, modelPriorForTask, chooseAnalyticLane
-- [`open router/41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs`](../../open%20router/41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/42_TYPINGMIND_ROLE_MAP_2026-09-30.json`](../../open%20router/42_TYPINGMIND_ROLE_MAP_2026-09-30.json) — 2026-09-30 · UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1
-- [`open router/44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs`](../../open%20router/44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs) — 2026-09-30 · exports TYPINGMIND_UBERMIND_MODEL, TYPINGMIND_UBERMIND_GATEWAY_SCHEMA, verifyTypingMindGatewayBearer, compileTypingMindChatRequest, stableModelSessio…
-- [`open router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs`](../../open%20router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs) — 2026-09-30 · exports TYPINGMIND_BUILDER_MODEL, TYPINGMIND_MIMO_MODEL, TYPINGMIND_DEEPSEEK_MODEL, TYPINGMIND_CROWN_MODEL, TYPINGMIND_JEV_MODEL (+3)
-- [`open router/46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs`](../../open%20router/46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs`](../../open%20router/47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterJevGovernedAdapter
-- [`open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs`](../../open%20router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs) — 2026-09-30
-- [`open router/53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json`](../../open%20router/53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json) — 2026-09-30 · uberbond-runtime-20 · SOURCE_PACKAGE_WITH_TYPINGMIND_UBERMIND_GATEWAY__NO_PRIVATE_RUNTIME_ACTIVATION_YET · uberbond.infinite-opus.activation-package.…
-- [`open router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs`](../../open%20router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs) — 2026-09-30
-- [`open router/56_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs`](../../open%20router/56_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs) — 2026-09-30
-- [`open router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs`](../../open%20router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs) — 2026-09-30 · exports directFrontierUnitCostMicrousd, directFrontierReferenceTotalMicrousd, validateProvableWorkItem, proveReferenceEconomics
-- [`open router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs`](../../open%20router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports PROVABLE_EXECUTION_LEDGER_SCHEMA, createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions
-- [`open router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterGovernedAdapter
-- [`open router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs`](../../open%20router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs) — 2026-09-30 · exports INFINITE_OPUS_TASK_SCHEMA, createInfiniteOpusRuntime, createInfiniteOpusJobHandlers
-- [`open router/61_CROWN_ADMISSION_2026-09-30.mjs`](../../open%20router/61_CROWN_ADMISSION_2026-09-30.mjs) — 2026-09-30 · exports CROWN_ADMISSION_SCHEMA, issueCrownAdmissionReceipt, verifyCrownAdmissionReceipt
-- [`open router/62_COGNITION_LEDGER_2026-09-30.mjs`](../../open%20router/62_COGNITION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports COGNITION_LEDGER_VERSION, createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, markCognitionDispatched (+10)
-- [`open router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs`](../../open%20router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs) — 2026-09-30 · exports SEMANTIC_CLOSURE_VERSION, canonicalSemanticJson, semanticHash, semanticProgramHash, validateSemanticContext (+7)
-- [`open router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs`](../../open%20router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs) — 2026-09-30 · exports compileDirectFrontierCounterfactual
-- [`open router/65_INFINITE_OPUS_TASK_COMPILERS_2026-09-30.mjs`](../../open%20router/65_INFINITE_OPUS_TASK_COMPILERS_2026-09-30.mjs) — 2026-09-30 · exports compileExactVerifier, solveFiniteSpecification, verifyFiniteSolution, COGNITIVE_OPCODES, executeCognitiveBytecode (+2)
-- [`open router/66_INFINITE_OPUS_MARKET_2026-09-30.mjs`](../../open%20router/66_INFINITE_OPUS_MARKET_2026-09-30.mjs) — 2026-09-30 · exports compileInfiniteOpusMarket, selectCurrentPrice
-- [`open router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs`](../../open%20router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs) — 2026-09-30 · exports validateOpenRouterLocalRequest
-- [`open router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs`](../../open%20router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterManagementReconciler
-- [`open router/69_OPENROUTER_CANARY_2026-09-30.mjs`](../../open%20router/69_OPENROUTER_CANARY_2026-09-30.mjs) — 2026-09-30
-- [`open router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs`](../../open%20router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs) — 2026-09-30 · exports requestHandler
-- [`open router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml`](../../open%20router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml) — 2026-09-30
-- [`open router/72_ENV_CONTRACT_SNAPSHOT_2026-09-30.example`](../../open%20router/72_ENV_CONTRACT_SNAPSHOT_2026-09-30.example) — 2026-09-30
-- [`open router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json`](../../open%20router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json) — 2026-09-30 · uberbond.openrouter.recovery-manifest.v2
-- [`open router/74_MULTIPLIER_TRACKER_2026-09-30.json`](../../open%20router/74_MULTIPLIER_TRACKER_2026-09-30.json) — 2026-09-30 · CONSERVATIVE_PLANNING_FLOOR · uberbond.openrouter.multiplier-tracker.v1
-- [`open router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-million-execution-receipt.v1
-- [`open router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-batch-fair-execution-receipt.v1
-- [`open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json`](../../open%20router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json) — 2026-10-07 · INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS · uberbond.open-router.current-runtime.v1
-- [`open router/BACKUP_RECEIPT_2026-09-29.json`](../../open%20router/BACKUP_RECEIPT_2026-09-29.json) — 2026-09-29 · V2_PLUS_V3_BACKUP_CONTENT_COMPLETE · uberbond.open-router.backup-receipt.v3
-- [`open router/CANON_SNAPSHOT_2026-09-29.json`](../../open%20router/CANON_SNAPSHOT_2026-09-29.json) — 2026-09-29 · FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF · uberbond.ubermind.frontier-max-canon.v1
-- [`open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json`](../../open%20router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_V4_EXACT_CONTENT_RECOVERED · uberbond.open-router.exact-content-receipt.v4
-- [`open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json`](../../open%20router/FINAL_COMPLETION_RECEIPT_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_VAULT_COMPLETE · uberbond.open-router.final-completion-receipt.v1
-- [`open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json) — 2026-09-29
-- [`open router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json`](../../open%20router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json) — 2026-09-29 · PUBLIC_CANDIDATES_NO_PROMOTION · uberbond.infinite-opus.deliverable-index.v1
-- [`open router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json) — 2026-09-29 · SYNTHETIC_DEMAND_SCALE_ONLY
-- [`open router/INFINITE_OPUS_MARKET_REFRESH_2026-09-29.json`](../../open%20router/INFINITE_OPUS_MARKET_REFRESH_2026-09-29.json) — 2026-09-29 · uberbond.infinite-opus.market-refresh.v1
-- [`open router/INFINITE_OPUS_NEGATIVE_KNOWLEDGE_2026-09-29.json`](../../open%20router/INFINITE_OPUS_NEGATIVE_KNOWLEDGE_2026-09-29.json) — 2026-09-29 · SOURCE_AND_SYNTHETIC_TEST_EVIDENCE_ONLY · uberbond.infinite-opus.negative-knowledge.v1
-- [`open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json`](../../open%20router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json) — 2026-09-29 · uberbond.infinite-opus.market.v1
-- [`open router/INFINITE_OPUS_SYNTHETIC_RECEIPT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_SYNTHETIC_RECEIPT_2026-09-29.json) — 2026-09-29 · BOUNDED_SOURCE_EXERCISED_LIVE_ACTIVATION_BLOCKED · uberbond.infinite-opus.doctor.v1
-- [`open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json`](../../open%20router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json) — 2026-09-29 · PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND · uberbond.open-router.live-model-market-snapshot.v2
-- [`open router/MANIFEST.json`](../../open%20router/MANIFEST.json) — V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_CONTENT_COMPLETE · uberbond.open-router.vault-manifest.v5
-- [`open router/OPEN_ROUTER_UBERMIND_CANON.json`](../../open%20router/OPEN_ROUTER_UBERMIND_CANON.json) — FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_PRE_LIVE_PROOF · uberbond.open-router.frontier-max.v5
-- [`open router/OPERATING_SPEC.json`](../../open%20router/OPERATING_SPEC.json) — FOUNDER_APPROVED_PRE_LIVE_EMPIRICAL_PROOF · uberbond.open-router.operating-spec.v2
-- [`open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json`](../../open%20router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json) — 2026-09-29 · uberbond.absolute-frontier-quality-lock.v1
-- [`open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json`](../../open%20router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED · uberbond.open-router.v5-frontier-vm-receipt.v4
-- [`open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json`](../../open%20router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json) — 2026-09-29 · V5_TYPINGMIND_POLICY_RECONCILED_SOURCE_ONLY · uberbond.open-router.v5-policy-reconciliation-receipt.v1
+- [`config/infinite-opus-activation-package.json`](../../config/infinite-opus-activation-package.json) — uberbond-runtime-20 · SOURCE_PACKAGE_WITH_GATEWAY_ONLY_TYPINGMIND__PRIVATE_RUNTIME_ACTIVATION_PENDING · uberbond.infinite-opus.activation-package.v1 _(matched by name only)_
+- [`config/infinite-opus-canary-authorization.template.json`](../../config/infinite-opus-canary-authorization.template.json) — uberbond.infinite-opus.canary-authorization.v1 _(matched by name only)_
+- [`config/infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1 _(matched by name only)_
+- [`config/infinite-opus-first-real-workload.json`](../../config/infinite-opus-first-real-workload.json) — uberbond.infinite-opus.first-real-workload.v1 _(matched by name only)_
+- [`config/infinite-opus-hostile-test-matrix.json`](../../config/infinite-opus-hostile-test-matrix.json) — uberbond.infinite-opus.hostile-test-matrix.v1 _(matched by name only)_
+- [`config/infinite-opus-live-market-candidates.json`](../../config/infinite-opus-live-market-candidates.json) — PUBLIC_CANDIDATE_ONLY · uberbond.infinite-opus.live-market-candidates.v1 _(matched by name only)_
+- [`config/infinite-opus-model-understanding.json`](../../config/infinite-opus-model-understanding.json) — uberbond.infinite-opus.model-understanding.v1 _(matched by name only)_
+- [`config/infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1 _(matched by name only)_
+- [`config/infinite-opus-typingmind-role-map.json`](../../config/infinite-opus-typingmind-role-map.json) — UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1 _(matched by name only)_
+- [`config/infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1 _(matched by name only)_
+- [`config/opus-equivalence-reference-2026-10-07.json`](../../config/opus-equivalence-reference-2026-10-07.json) — 2026-10-07 · uberbond.opus-equivalence.reference.v1 _(matched by name only)_
+- [`config/typingmind-opus-quality-mincost-v3.json`](../../config/typingmind-opus-quality-mincost-v3.json) — uberbond.typingmind.opus-quality-mincost.v3 _(matched by name only)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json) — 2026-09-30 · COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1 · uberbond.ubermind.checkpoint.v1 _(matched by name only)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json`](../checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json) — uberbond.ubermind.checkpoint-pointer.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_CONTINUATION_BACKUP_2026-09-30.json`](../receipts/INFINITE_OPUS_CONTINUATION_BACKUP_2026-09-30.json) — 2026-09-30 · CONTINUATION_BACKED_UP_IN_PR · uberbond.infinite-opus.continuation-backup.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_EXECUTION_2026-09-29.json`](../receipts/INFINITE_OPUS_EXECUTION_2026-09-29.json) — 2026-09-29 · SOURCE_GATE_PASS_PRELIVE · uberbond.infinite-opus.execution-receipt.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_POSTMERGE_1056_2026-09-30.json`](../receipts/INFINITE_OPUS_POSTMERGE_1056_2026-09-30.json) — 2026-09-30 · MERGED_PREOWNER_SOURCE_FRONTIER_VERIFIED · uberbond.infinite-opus.postmerge-1056.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json`](../receipts/INFINITE_OPUS_POSTMERGE_1062_2026-09-30.json) — 2026-09-30 · MERGED_PRELIVE_PROOF_LEDGER_FRONTIER · uberbond.infinite-opus.postmerge-1062.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_POSTMERGE_2026-09-29.json`](../receipts/INFINITE_OPUS_POSTMERGE_2026-09-29.json) — 2026-09-29 · BOUNDED_SOURCE_EXERCISED_LIVE_ACTIVATION_BLOCKED · uberbond.infinite-opus.postmerge.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_POST_1059_OWNER_GATE_2026-09-30.json`](../receipts/INFINITE_OPUS_POST_1059_OWNER_GATE_2026-09-30.json) — 2026-09-30 · PREOWNER_SOFTWARE_CLOSURE_MERGED__OWNER_LIVE_ACTIVATION_REMAINS · uberbond.infinite-opus.post1059-owner-gate.v1 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_TERMINAL_GAP_CLOSURE_2026-09-30.json`](../receipts/INFINITE_OPUS_TERMINAL_GAP_CLOSURE_2026-09-30.json) — 2026-09-30 · Night Verification War · PREOWNER_SOFTWARE_GAP_CLOSURE_VALIDATED__LIVE_EVIDENCE_STILL_REQUIRED · uberbond.infinite-opus.terminal-gap-closure-receipt.… _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_TERMINAL_VERIFICATION_2026-09-29.json`](../receipts/INFINITE_OPUS_TERMINAL_VERIFICATION_2026-09-29.json) — 2026-09-29 · FINITE_REALIZATION_TRIBUNAL_PASSED_WITH_SEPARATE_REALITY_BOUNDARIES _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_TYPINGMIND_RECOVERY_2026-09-30.json`](../receipts/INFINITE_OPUS_TYPINGMIND_RECOVERY_2026-09-30.json) — 2026-09-30 · uberbond.infinite-opus.typingmind-recovery.v1 _(matched by name only)_
+- [`open router/09_SCOREBOARD_SCHEMA.json`](../../open%20router/09_SCOREBOARD_SCHEMA.json) — uberbond.open-router.scoreboard.v1 _(matched by name only)_
+- [`open router/14_COGNITIVE_COMPILER_SPEC.json`](../../open%20router/14_COGNITIVE_COMPILER_SPEC.json) — ARCHITECTURE_CANDIDATE_NOT_EMPIRICALLY_PROVEN · uberbond.frontier-intelligence-vm.v1 _(matched by name only)_
+- [`open router/31_PROCESSOR_FABRIC_V5_2026-09-30.json`](../../open%20router/31_PROCESSOR_FABRIC_V5_2026-09-30.json) — 2026-09-30 · uberbond.openrouter.processor-fabric.v5 _(matched by name only)_
+- [`open router/32_PROCESSOR_AUCTION_V5_2026-09-30.mjs`](../../open%20router/32_PROCESSOR_AUCTION_V5_2026-09-30.mjs) — 2026-09-30 · exports chooseSolEffort, vectorizeJevQuestions, selectProcessorPlan, processorRolesFromConfig, estimateDirectOpusUsd (+11) _(matched by name only)_
+- [`open router/33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs`](../../open%20router/33_PROCESSOR_AUCTION_V5_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json`](../../open%20router/34_FRONTIER_VM_FULL_STACK_V4_2026-09-30.json) — 2026-09-30 · EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4 _(matched by name only)_
+- [`open router/35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json`](../../open%20router/35_TYPINGMIND_OPUS_QUALITY_MINCOST_V3_2026-09-30.json) — 2026-09-30 · uberbond.typingmind.opus-quality-mincost.v3 _(matched by name only)_
+- [`open router/38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs`](../../open%20router/38_FULL_STACK_NO_AMPUTATION_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json`](../../open%20router/39_MODEL_UNDERSTANDING_REGISTRY_2026-09-30.json) — 2026-09-30 · uberbond.infinite-opus.model-understanding.v1 _(matched by name only)_
+- [`open router/40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs`](../../open%20router/40_MODEL_UNDERSTANDING_ENGINE_2026-09-30.mjs) — 2026-09-30 · exports noRetestAuthority, estimateModelTariffMicrousd, compileModelUnderstanding, modelPriorForTask, chooseAnalyticLane _(matched by name only)_
+- [`open router/41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs`](../../open%20router/41_MODEL_UNDERSTANDING_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/42_TYPINGMIND_ROLE_MAP_2026-09-30.json`](../../open%20router/42_TYPINGMIND_ROLE_MAP_2026-09-30.json) — 2026-09-30 · UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1 _(matched by name only)_
+- [`open router/44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs`](../../open%20router/44_TYPINGMIND_GATEWAY_KERNEL_2026-09-30.mjs) — 2026-09-30 · exports TYPINGMIND_UBERMIND_MODEL, TYPINGMIND_UBERMIND_GATEWAY_SCHEMA, verifyTypingMindGatewayBearer, compileTypingMindChatRequest, stableModelSessio… _(matched by name only)_
+- [`open router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs`](../../open%20router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs) — 2026-09-30 · exports TYPINGMIND_BUILDER_MODEL, TYPINGMIND_MIMO_MODEL, TYPINGMIND_DEEPSEEK_MODEL, TYPINGMIND_CROWN_MODEL, TYPINGMIND_JEV_MODEL (+3) _(matched by name only)_
+- [`open router/46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs`](../../open%20router/46_TYPINGMIND_GATEWAY_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs`](../../open%20router/47_TYPINGMIND_LIVE_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/51_OPENROUTER_JEV_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterJevGovernedAdapter _(matched by name only)_
+- [`open router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs`](../../open%20router/52_OPENROUTER_JEV_GOVERNED_ADAPTER_TESTS_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json`](../../open%20router/53_INFINITE_OPUS_ACTIVATION_PACKAGE_2026-09-30.json) — 2026-09-30 · uberbond-runtime-20 · SOURCE_PACKAGE_WITH_TYPINGMIND_UBERMIND_GATEWAY__NO_PRIVATE_RUNTIME_ACTIVATION_YET · uberbond.infinite-opus.activation-package.… _(matched by name only)_
+- [`open router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs`](../../open%20router/55_INFINITE_OPUS_PREOWNER_DOCTOR_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/56_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs`](../../open%20router/56_INFINITE_OPUS_OWNER_GATE_LAUNCHER_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs`](../../open%20router/57_PROVABLE_REFERENCE_ECONOMICS_2026-09-30.mjs) — 2026-09-30 · exports directFrontierUnitCostMicrousd, directFrontierReferenceTotalMicrousd, validateProvableWorkItem, proveReferenceEconomics _(matched by name only)_
+- [`open router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs`](../../open%20router/58_PROVABLE_EXECUTION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports PROVABLE_EXECUTION_LEDGER_SCHEMA, createProvableExecutionLedger, appendProvableExecution, summarizeProvableExecutions _(matched by name only)_
+- [`open router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs`](../../open%20router/59_OPENROUTER_GOVERNED_ADAPTER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterGovernedAdapter _(matched by name only)_
+- [`open router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs`](../../open%20router/60_INFINITE_OPUS_NATIVE_RUNTIME_2026-09-30.mjs) — 2026-09-30 · exports INFINITE_OPUS_TASK_SCHEMA, createInfiniteOpusRuntime, createInfiniteOpusJobHandlers _(matched by name only)_
+- [`open router/61_CROWN_ADMISSION_2026-09-30.mjs`](../../open%20router/61_CROWN_ADMISSION_2026-09-30.mjs) — 2026-09-30 · exports CROWN_ADMISSION_SCHEMA, issueCrownAdmissionReceipt, verifyCrownAdmissionReceipt _(matched by name only)_
+- [`open router/62_COGNITION_LEDGER_2026-09-30.mjs`](../../open%20router/62_COGNITION_LEDGER_2026-09-30.mjs) — 2026-09-30 · exports COGNITION_LEDGER_VERSION, createCognitionLedger, cognitionBudgetSummary, reserveCognitionCall, markCognitionDispatched (+10) _(matched by name only)_
+- [`open router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs`](../../open%20router/63_SEMANTIC_CLOSURE_KERNEL_2026-09-30.mjs) — 2026-09-30 · exports SEMANTIC_CLOSURE_VERSION, canonicalSemanticJson, semanticHash, semanticProgramHash, validateSemanticContext (+7) _(matched by name only)_
+- [`open router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs`](../../open%20router/64_FRONTIER_COUNTERFACTUAL_COMPILER_2026-09-30.mjs) — 2026-09-30 · exports compileDirectFrontierCounterfactual _(matched by name only)_
+- [`open router/65_INFINITE_OPUS_TASK_COMPILERS_2026-09-30.mjs`](../../open%20router/65_INFINITE_OPUS_TASK_COMPILERS_2026-09-30.mjs) — 2026-09-30 · exports compileExactVerifier, solveFiniteSpecification, verifyFiniteSolution, COGNITIVE_OPCODES, executeCognitiveBytecode (+2) _(matched by name only)_
+- [`open router/66_INFINITE_OPUS_MARKET_2026-09-30.mjs`](../../open%20router/66_INFINITE_OPUS_MARKET_2026-09-30.mjs) — 2026-09-30 · exports compileInfiniteOpusMarket, selectCurrentPrice _(matched by name only)_
+- [`open router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs`](../../open%20router/67_OPENROUTER_LOCAL_REQUEST_GATE_2026-09-30.mjs) — 2026-09-30 · exports validateOpenRouterLocalRequest _(matched by name only)_
+- [`open router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs`](../../open%20router/68_OPENROUTER_MANAGEMENT_RECONCILER_2026-09-30.mjs) — 2026-09-30 · exports createOpenRouterManagementReconciler _(matched by name only)_
+- [`open router/69_OPENROUTER_CANARY_2026-09-30.mjs`](../../open%20router/69_OPENROUTER_CANARY_2026-09-30.mjs) — 2026-09-30 _(matched by name only)_
+- [`open router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs`](../../open%20router/70_SERVER_GATEWAY_SNAPSHOT_2026-09-30.mjs) — 2026-09-30 · exports requestHandler _(matched by name only)_
+- [`open router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml`](../../open%20router/71_RENDER_DEPLOYMENT_SNAPSHOT_2026-09-30.yaml) — 2026-09-30 _(matched by name only)_
+- [`open router/72_ENV_CONTRACT_SNAPSHOT_2026-09-30.example`](../../open%20router/72_ENV_CONTRACT_SNAPSHOT_2026-09-30.example) — 2026-09-30 _(matched by name only)_
+- [`open router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json`](../../open%20router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json) — 2026-09-30 · uberbond.openrouter.recovery-manifest.v2 _(matched by name only)_
+- [`open router/74_MULTIPLIER_TRACKER_2026-09-30.json`](../../open%20router/74_MULTIPLIER_TRACKER_2026-09-30.json) — 2026-09-30 · CONSERVATIVE_PLANNING_FLOOR · uberbond.openrouter.multiplier-tracker.v1 _(matched by name only)_
+- [`open router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/76_DECISION_FRANCHISE_MILLION_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-million-execution-receipt.v1 _(matched by name only)_
+- [`open router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json`](../../open%20router/77_DECISION_FRANCHISE_BATCH_FAIR_2_35M_EXECUTION_RECEIPT_2026-09-30.json) — 2026-09-30 · uberbond.decision-franchise-batch-fair-execution-receipt.v1 _(matched by name only)_
+- [`open router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json`](../../open%20router/79_CURRENT_RUNTIME_FRONTIER_2026-10-07.json) — 2026-10-07 · INTERNAL_OPEN_ROUTER_STACK_LIVE__CROWN_OWNER_SPEND_GATE_REMAINS · uberbond.open-router.current-runtime.v1 _(matched by name only)_
+- [`open router/BACKUP_RECEIPT_2026-09-29.json`](../../open%20router/BACKUP_RECEIPT_2026-09-29.json) — 2026-09-29 · V2_PLUS_V3_BACKUP_CONTENT_COMPLETE · uberbond.open-router.backup-receipt.v3 _(matched by name only)_
+- [`open router/CANON_SNAPSHOT_2026-09-29.json`](../../open%20router/CANON_SNAPSHOT_2026-09-29.json) — 2026-09-29 · FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF · uberbond.ubermind.frontier-max-canon.v1 _(matched by name only)_
+- [`open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json`](../../open%20router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_V4_EXACT_CONTENT_RECOVERED · uberbond.open-router.exact-content-receipt.v4 _(matched by name only)_
+- [`open router/FINAL_COMPLETION_RECEIPT_2026-09-29.json`](../../open%20router/FINAL_COMPLETION_RECEIPT_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_VAULT_COMPLETE · uberbond.open-router.final-completion-receipt.v1 _(matched by name only)_
+- [`open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json) — 2026-09-29 _(matched by name only)_
+- [`open router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json`](../../open%20router/INFINITE_OPUS_DELIVERABLE_INDEX_2026-09-29.json) — 2026-09-29 · PUBLIC_CANDIDATES_NO_PROMOTION · uberbond.infinite-opus.deliverable-index.v1 _(matched by name only)_
+- [`open router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_DEMAND_SCALE_RECEIPT_2026-09-29.json) — 2026-09-29 · SYNTHETIC_DEMAND_SCALE_ONLY _(matched by name only)_
+- [`open router/INFINITE_OPUS_MARKET_REFRESH_2026-09-29.json`](../../open%20router/INFINITE_OPUS_MARKET_REFRESH_2026-09-29.json) — 2026-09-29 · uberbond.infinite-opus.market-refresh.v1 _(matched by name only)_
+- [`open router/INFINITE_OPUS_NEGATIVE_KNOWLEDGE_2026-09-29.json`](../../open%20router/INFINITE_OPUS_NEGATIVE_KNOWLEDGE_2026-09-29.json) — 2026-09-29 · SOURCE_AND_SYNTHETIC_TEST_EVIDENCE_ONLY · uberbond.infinite-opus.negative-knowledge.v1 _(matched by name only)_
+- [`open router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json`](../../open%20router/INFINITE_OPUS_PRICE_REGISTRY_2026-09-29.json) — 2026-09-29 · uberbond.infinite-opus.market.v1 _(matched by name only)_
+- [`open router/INFINITE_OPUS_SYNTHETIC_RECEIPT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_SYNTHETIC_RECEIPT_2026-09-29.json) — 2026-09-29 · BOUNDED_SOURCE_EXERCISED_LIVE_ACTIVATION_BLOCKED · uberbond.infinite-opus.doctor.v1 _(matched by name only)_
+- [`open router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json`](../../open%20router/LIVE_MODEL_MARKET_SNAPSHOT_2026-09-29.json) — 2026-09-29 · PUBLIC_MARKET_CANDIDATE_SNAPSHOT__NO_CROWN_PROMOTION__ZERO_SPEND · uberbond.open-router.live-model-market-snapshot.v2 _(matched by name only)_
+- [`open router/MANIFEST.json`](../../open%20router/MANIFEST.json) — V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_CONTENT_COMPLETE · uberbond.open-router.vault-manifest.v5 _(matched by name only)_
+- [`open router/OPEN_ROUTER_UBERMIND_CANON.json`](../../open%20router/OPEN_ROUTER_UBERMIND_CANON.json) — FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_PRE_LIVE_PROOF · uberbond.open-router.frontier-max.v5 _(matched by name only)_
+- [`open router/OPERATING_SPEC.json`](../../open%20router/OPERATING_SPEC.json) — FOUNDER_APPROVED_PRE_LIVE_EMPIRICAL_PROOF · uberbond.open-router.operating-spec.v2 _(matched by name only)_
+- [`open router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json`](../../open%20router/SOURCE_SNAPSHOT_ABSOLUTE_QUALITY_LOCK_2026-09-29.json) — 2026-09-29 · uberbond.absolute-frontier-quality-lock.v1 _(matched by name only)_
+- [`open router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json`](../../open%20router/V5_FRONTIER_VM_RECEIPT_2026-09-29.json) — 2026-09-29 · OPEN_ROUTER_V5_FRONTIER_VM_PRESERVED · uberbond.open-router.v5-frontier-vm-receipt.v4 _(matched by name only)_
+- [`open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json`](../../open%20router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json) — 2026-09-29 · V5_TYPINGMIND_POLICY_RECONCILED_SOURCE_ONLY · uberbond.open-router.v5-policy-reconciliation-receipt.v1 _(matched by name only)_
 
 ## Tests (23)
 

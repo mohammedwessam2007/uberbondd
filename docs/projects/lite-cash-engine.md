@@ -12,45 +12,45 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`lite/README.md`](../../lite/README.md) — UberBond Cash Engine Lite
-- [`lite/UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — UberBond Wessam Command Center
+- [`lite/README.md`](../../lite/README.md) — UberBond Cash Engine Lite _(matched by name only)_
+- [`lite/UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — UberBond Wessam Command Center _(matched by name only)_
 
 ## Config, data, artifacts and services (34)
 
-- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits
-- [`lite/.env.example`](../../lite/.env.example)
-- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — exports handler
-- [`lite/api/health.mjs`](../../lite/api/health.mjs) — exports createHandler
-- [`lite/api/interest.mjs`](../../lite/api/interest.mjs) — exports createHandler
-- [`lite/api/report.mjs`](../../lite/api/report.mjs) — exports createHandler
-- [`lite/api/request-audit.mjs`](../../lite/api/request-audit.mjs) — exports createHandler
-- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — exports handler
-- [`lite/lib/db.mjs`](../../lite/lib/db.mjs) — exports getPool, q, ensureSchema, closePool, PROCESSING_STAGES (+16)
-- [`lite/lib/email.mjs`](../../lite/lib/email.mjs) — Owner notifications via Resend's plain HTTPS API — no SDK dependency.
-- [`lite/lib/http.mjs`](../../lite/lib/http.mjs) — exports readJson, clientAddress, requesterHash, sendJson, handleError
-- [`lite/lib/queue-diagnostics.mjs`](../../lite/lib/queue-diagnostics.mjs) — exports databaseFingerprint, readAuditRequestCounts, formatQueueDiagnostic, emitQueueDiagnostic
-- [`lite/lib/rate-limit.mjs`](../../lite/lib/rate-limit.mjs) — exports getLimits, decideAuditRateLimit, decideLeadRateLimit
-- [`lite/lib/report.mjs`](../../lite/lib/report.mjs) — Shapes a stored report from the production crawler + deterministic audit
-- [`lite/lib/schema.mjs`](../../lite/lib/schema.mjs) — Single source of truth for the Cash Engine Lite schema.
-- [`lite/lib/security.mjs`](../../lite/lib/security.mjs) — Vendored from src/security.mjs so the Vercel deployment (root directory: lite/)
-- [`lite/lib/tokens.mjs`](../../lite/lib/tokens.mjs) — exports createReportToken, hashToken, isTokenShape, sha256Hex
-- [`lite/lib/validate.mjs`](../../lite/lib/validate.mjs) — exports LiteInputError, parseEmail, normalizeDomain, parseWebsite, parseLeadInput
-- [`lite/migrations/lite_001.sql`](../../lite/migrations/lite_001.sql)
-- [`lite/package-lock.json`](../../lite/package-lock.json) — uberbond-cash-engine-lite
-- [`lite/package.json`](../../lite/package.json) — uberbond-cash-engine-lite
-- [`lite/public/icon.svg`](../../lite/public/icon.svg)
-- [`lite/public/index.html`](../../lite/public/index.html) — UberBond — Free Website Revenue Audit
-- [`lite/public/report.html`](../../lite/public/report.html) — Your Website Audit — UberBond
-- [`lite/public/report.js`](../../lite/public/report.js) — Cash Engine Lite — private report viewer. All crawled-site content is untrusted and is rendered with textContent only.
-- [`lite/public/site.js`](../../lite/public/site.js) — Cash Engine Lite — landing form. Same-origin API only; no keys in the browser.
-- [`lite/public/styles.css`](../../lite/public/styles.css)
-- [`lite/public/uberbond-static-data.js`](../../lite/public/uberbond-static-data.js)
-- [`lite/public/uberbond-static.html`](../../lite/public/uberbond-static.html) — UberBond · Wessam Command Center
-- [`lite/public/uberbond.css`](../../lite/public/uberbond.css)
-- [`lite/public/uberbond.html`](../../lite/public/uberbond.html) — UberBond · Wessam Command Center
-- [`lite/scripts/build-visual-cortex.mjs`](../../lite/scripts/build-visual-cortex.mjs)
-- [`lite/vercel.json`](../../lite/vercel.json)
-- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — Cash Engine Lite worker — executed by .github/workflows/lite-audits.yml.
+- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits _(matched by name only)_
+- [`lite/.env.example`](../../lite/.env.example) _(matched by name only)_
+- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — exports handler _(matched by name only)_
+- [`lite/api/health.mjs`](../../lite/api/health.mjs) — exports createHandler _(matched by name only)_
+- [`lite/api/interest.mjs`](../../lite/api/interest.mjs) — exports createHandler _(matched by name only)_
+- [`lite/api/report.mjs`](../../lite/api/report.mjs) — exports createHandler _(matched by name only)_
+- [`lite/api/request-audit.mjs`](../../lite/api/request-audit.mjs) — exports createHandler _(matched by name only)_
+- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — exports handler _(matched by name only)_
+- [`lite/lib/db.mjs`](../../lite/lib/db.mjs) — exports getPool, q, ensureSchema, closePool, PROCESSING_STAGES (+16) _(matched by name only)_
+- [`lite/lib/email.mjs`](../../lite/lib/email.mjs) — Owner notifications via Resend's plain HTTPS API — no SDK dependency. _(matched by name only)_
+- [`lite/lib/http.mjs`](../../lite/lib/http.mjs) — exports readJson, clientAddress, requesterHash, sendJson, handleError _(matched by name only)_
+- [`lite/lib/queue-diagnostics.mjs`](../../lite/lib/queue-diagnostics.mjs) — exports databaseFingerprint, readAuditRequestCounts, formatQueueDiagnostic, emitQueueDiagnostic _(matched by name only)_
+- [`lite/lib/rate-limit.mjs`](../../lite/lib/rate-limit.mjs) — exports getLimits, decideAuditRateLimit, decideLeadRateLimit _(matched by name only)_
+- [`lite/lib/report.mjs`](../../lite/lib/report.mjs) — Shapes a stored report from the production crawler + deterministic audit _(matched by name only)_
+- [`lite/lib/schema.mjs`](../../lite/lib/schema.mjs) — Single source of truth for the Cash Engine Lite schema. _(matched by name only)_
+- [`lite/lib/security.mjs`](../../lite/lib/security.mjs) — Vendored from src/security.mjs so the Vercel deployment (root directory: lite/) _(matched by name only)_
+- [`lite/lib/tokens.mjs`](../../lite/lib/tokens.mjs) — exports createReportToken, hashToken, isTokenShape, sha256Hex _(matched by name only)_
+- [`lite/lib/validate.mjs`](../../lite/lib/validate.mjs) — exports LiteInputError, parseEmail, normalizeDomain, parseWebsite, parseLeadInput _(matched by name only)_
+- [`lite/migrations/lite_001.sql`](../../lite/migrations/lite_001.sql) _(matched by name only)_
+- [`lite/package-lock.json`](../../lite/package-lock.json) — uberbond-cash-engine-lite _(matched by name only)_
+- [`lite/package.json`](../../lite/package.json) — uberbond-cash-engine-lite _(matched by name only)_
+- [`lite/public/icon.svg`](../../lite/public/icon.svg) _(matched by name only)_
+- [`lite/public/index.html`](../../lite/public/index.html) — UberBond — Free Website Revenue Audit _(matched by name only)_
+- [`lite/public/report.html`](../../lite/public/report.html) — Your Website Audit — UberBond _(matched by name only)_
+- [`lite/public/report.js`](../../lite/public/report.js) — Cash Engine Lite — private report viewer. All crawled-site content is untrusted and is rendered with textContent only. _(matched by name only)_
+- [`lite/public/site.js`](../../lite/public/site.js) — Cash Engine Lite — landing form. Same-origin API only; no keys in the browser. _(matched by name only)_
+- [`lite/public/styles.css`](../../lite/public/styles.css) _(matched by name only)_
+- [`lite/public/uberbond-static-data.js`](../../lite/public/uberbond-static-data.js) _(matched by name only)_
+- [`lite/public/uberbond-static.html`](../../lite/public/uberbond-static.html) — UberBond · Wessam Command Center _(matched by name only)_
+- [`lite/public/uberbond.css`](../../lite/public/uberbond.css) _(matched by name only)_
+- [`lite/public/uberbond.html`](../../lite/public/uberbond.html) — UberBond · Wessam Command Center _(matched by name only)_
+- [`lite/scripts/build-visual-cortex.mjs`](../../lite/scripts/build-visual-cortex.mjs) _(matched by name only)_
+- [`lite/vercel.json`](../../lite/vercel.json) _(matched by name only)_
+- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — Cash Engine Lite worker — executed by .github/workflows/lite-audits.yml. _(matched by name only)_
 
 ## Tests (7)
 

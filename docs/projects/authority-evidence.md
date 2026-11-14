@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression.
-- [`docs/DATA_MINIMIZATION_MATRIX.md`](../DATA_MINIMIZATION_MATRIX.md) — Data minimization matrix
-- [`docs/OMEGA_PRIVATE_EVIDENCE_STANDARD.md`](../OMEGA_PRIVATE_EVIDENCE_STANDARD.md) — Ω Private Evidence Standard — Status: PRIVATE RESEARCH GOVERNANCE
-- [`docs/WARMUP_POLICY.md`](../WARMUP_POLICY.md) — Warm-up Policy
-- [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — External policy evidence, 3 October 2026
-- [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API Provider-Policy Boundary
-- [`library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md`](../../library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md) — UberMind Ω∞ V10: one active constitution, all ten design checks verified
-- [`mind activation/PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority
-- [`docs/reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md`](../reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md) — 2026-10-19 · Exact one-shot evidence custody
-- [`docs/receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md`](../receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md) — 2026-10-18 · PHOENIX full Deep Atlas → Ultimate Graph local execution proof
-- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER
-- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10
-- [`docs/handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W16 live proof
-- [`docs/handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W17–W18: exact production checkpoint
+- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(matched by name only)_
+- [`docs/DATA_MINIMIZATION_MATRIX.md`](../DATA_MINIMIZATION_MATRIX.md) — Data minimization matrix _(matched by name only)_
+- [`docs/OMEGA_PRIVATE_EVIDENCE_STANDARD.md`](../OMEGA_PRIVATE_EVIDENCE_STANDARD.md) — Ω Private Evidence Standard — Status: PRIVATE RESEARCH GOVERNANCE _(matched by name only)_
+- [`docs/WARMUP_POLICY.md`](../WARMUP_POLICY.md) — Warm-up Policy _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — External policy evidence, 3 October 2026 _(matched by name only)_
+- [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API Provider-Policy Boundary _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md`](../../library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md) — UberMind Ω∞ V10: one active constitution, all ten design checks verified _(matched by name only)_
+- [`mind activation/PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority _(matched by name only)_
+- [`docs/reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md`](../reports/UBERWARM_SCOPED_EVIDENCE_CUSTODY_20261019.md) — 2026-10-19 · Exact one-shot evidence custody _(matched by name only)_
+- [`docs/receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md`](../receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md) — 2026-10-18 · PHOENIX full Deep Atlas → Ultimate Graph local execution proof _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W16 live proof _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W17–W18: exact production checkpoint _(matched by name only)_
 
 ## Commands (8)
 
@@ -33,191 +33,191 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (3)
 
-- [`open router/28_E0_E4_LIVE_PROOF_LEDGER.md`](../../open%20router/28_E0_E4_LIVE_PROOF_LEDGER.md) — Infinite Opus E0-E4 Live Proof Ledger — 2026-09-30
-- [`winnr/EVIDENCE_INDEX.md`](../../winnr/EVIDENCE_INDEX.md) — Winnr Evidence Index
-- [`winnr/EVIDENCE_LEDGER.md`](../../winnr/EVIDENCE_LEDGER.md) — Winnr Evidence Ledger
+- [`open router/28_E0_E4_LIVE_PROOF_LEDGER.md`](../../open%20router/28_E0_E4_LIVE_PROOF_LEDGER.md) — Infinite Opus E0-E4 Live Proof Ledger — 2026-09-30 _(matched by name only)_
+- [`winnr/EVIDENCE_INDEX.md`](../../winnr/EVIDENCE_INDEX.md) — Winnr Evidence Index _(matched by name only)_
+- [`winnr/EVIDENCE_LEDGER.md`](../../winnr/EVIDENCE_LEDGER.md) — Winnr Evidence Ledger _(matched by name only)_
 
 ## Dated documents, newest first (14)
 
-- [`docs/handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W19 final live checkpoint
-- [`docs/receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md`](../receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md) — 2026-10-09 · Powerhouse / Sylvester proof recheck / 2026-10-09
-- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING.
-- [`docs/handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md`](../handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md) — 2026-10-08 · UberMind 890-Sourced Evidence Flywheel — 2026-10-08
-- [`docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md) — 2026-10-04 · Oct 4 uncertain-effect repair — live terminal addendum
-- [`docs/receipts/FROZEN_PROSPECT_EFFECT_LIFECYCLE_20261003.md`](../receipts/FROZEN_PROSPECT_EFFECT_LIFECYCLE_20261003.md) — 2026-10-03 · Frozen prospect effect lifecycle correction
-- [`docs/receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md`](../receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md) — 2026-10-03 · Scoped invited business contact — provider governance reconciliation
-- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen…
-- [`docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md`](../APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md) — 2026-09-29 · APEX FQC External Evidence Handoff — 2026-09-29 — Status: SECRET-FREE HANDOFF READY / EXTERNAL EVIDENCE NOT YET OBSERVED
-- [`docs/EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md`](../EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md) — 2026-09-27 · EmailPal Provider Evidence — 2026-09-27 — Truth class: current first-party public pricing/help/API/Terms/AUP evidence observed on 2026-09-27. This receipt does not claim an account, usable…
-- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION.
-- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Public Evidence Receipt
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28
-- [`docs/opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md`](../opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md) — 2026-08-13 · UberBond buyer-proof pack — Website QA & Release Readiness — Status: FICTIONAL_FORMAT_ONLY / OWNER_REVIEW_REQUIRED
+- [`docs/handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W19 final live checkpoint _(matched by name only)_
+- [`docs/receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md`](../receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md) — 2026-10-09 · Powerhouse / Sylvester proof recheck / 2026-10-09 _(matched by name only)_
+- [`docs/handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md`](../handoffs/OUTREACH_WINNR_69_PURCHASE_EVIDENCE_2026-10-08.md) — 2026-10-08 · Outreach / Winnr $69 — October 8, 2026 purchase-versus-launch evidence — Status: HISTORICAL_PURCHASE_PRECHECK_READY__CURRENT_AUTHENTICATED_CHECKOUT_AND_OWNER_SPEND_CONFIRMATION_PENDING. _(matched by name only)_
+- [`docs/handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md`](../handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md) — 2026-10-08 · UberMind 890-Sourced Evidence Flywheel — 2026-10-08 _(matched by name only)_
+- [`docs/receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md`](../receipts/REVENUE_SINGULARITY_UNCERTAIN_EFFECT_LIVE_2026-10-04.md) — 2026-10-04 · Oct 4 uncertain-effect repair — live terminal addendum _(matched by name only)_
+- [`docs/receipts/FROZEN_PROSPECT_EFFECT_LIFECYCLE_20261003.md`](../receipts/FROZEN_PROSPECT_EFFECT_LIFECYCLE_20261003.md) — 2026-10-03 · Frozen prospect effect lifecycle correction _(matched by name only)_
+- [`docs/receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md`](../receipts/INVITED_ROUTE_PROVIDER_GOVERNANCE_20261003.md) — 2026-10-03 · Scoped invited business contact — provider governance reconciliation _(matched by name only)_
+- [`docs/receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md`](../receipts/COLD_ROUTE_POLICY_EVIDENCE_20261002.md) — 2026-10-02 · Cold-route policy evidence package — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — 2026-10-02 — Truth class: RESEARCH + CANDIDATE POLICY + INERT CODE ON A BRANCH. Not legal advice. No message sen… _(matched by name only)_
+- [`docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md`](../APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md) — 2026-09-29 · APEX FQC External Evidence Handoff — 2026-09-29 — Status: SECRET-FREE HANDOFF READY / EXTERNAL EVIDENCE NOT YET OBSERVED _(matched by name only)_
+- [`docs/EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md`](../EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md) — 2026-09-27 · EmailPal Provider Evidence — 2026-09-27 — Truth class: current first-party public pricing/help/API/Terms/AUP evidence observed on 2026-09-27. This receipt does not claim an account, usable… _(matched by name only)_
+- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION. _(matched by name only)_
+- [`docs/distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md`](../distribution/NIGHTFALL_PARTNER_CANARY_PUBLIC_EVIDENCE_2026-08-29.md) — 2026-08-29 · NIGHTFALL Partner Canary: Public Evidence Receipt _(matched by name only)_
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_
+- [`docs/opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md`](../opportunities/QA_DIAGNOSTIC_BUYER_PROOF_PACK_2026-08-13.md) — 2026-08-13 · UberBond buyer-proof pack — Website QA & Release Readiness — Status: FICTIONAL_FORMAT_ONLY / OWNER_REVIEW_REQUIRED _(matched by name only)_
 
 ## Other documents (1)
 
-- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); }
+- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(matched by name only)_
 
 ## Source modules (98)
 
-- [`src/apex-fqc-external-evidence-packet.mjs`](../../src/apex-fqc-external-evidence-packet.mjs) — exports APEX_FQC_EXTERNAL_EVIDENCE_VERSION, buildApexFqcCustodianRequest, compileApexFqcExternalEvidencePacket _(tested; imported by 1)_
-- [`src/benchmark-evidence-ledger.mjs`](../../src/benchmark-evidence-ledger.mjs) — exports BENCHMARK_EVIDENCE_LEDGER_VERSION, summarizeBenchmarkEvidence _(tested; imported by 1)_
-- [`src/c21-dimension-evidence-producer.mjs`](../../src/c21-dimension-evidence-producer.mjs) — exports C21_DIMENSION_EVIDENCE_PRODUCER_VERSION, compileC21DimensionEvidence _(tested; no static importers)_
-- [`src/c21-evidence-factory.mjs`](../../src/c21-evidence-factory.mjs) — exports C21_EVIDENCE_FACTORY_VERSION, CANONICAL_C21_DIMENSIONS, CRITICAL_C21_DIMENSIONS, EXTERNAL_BENCHMARK_SURFACES, compileC21EvidenceCampaign (+1) _(tested; imported by 3)_
-- [`src/causal-attribution-spine.mjs`](../../src/causal-attribution-spine.mjs) — exports CAUSAL_ATTRIBUTION_POLICY_VERSION, CAUSAL_NODE_TYPES, CAUSAL_EVIDENCE_CLASSES, normalizeCausalAttributionGraph, inboundEventToCausalFragment… _(no static importers)_
-- [`src/command-center-client-policy.mjs`](../../src/command-center-client-policy.mjs) — exports COMMAND_CENTER_CLIENT_POLICY_VERSION, COMMAND_CENTER_CACHE_SCHEMA, COMMAND_CENTER_MAX_CACHE_AGE_MS, COMMAND_CENTER_MAX_LIVE_AGE_MS, COMMAND_C… _(imported by 2)_
-- [`src/composed-effect-authority-audit.mjs`](../../src/composed-effect-authority-audit.mjs) — exports COMPOSED_EFFECT_AUTHORITY_AUDIT_VERSION, COMPOSITION_IDS, compileComposedEffectAuthorityAudit _(tested; imported by 2)_
-- [`src/consent-bridge-letter.mjs`](../../src/consent-bridge-letter.mjs) — Printable first touch for the consent bridge: a letter or a hand-out card. _(tested; imported by 1)_
-- [`src/consent-bridge.mjs`](../../src/consent-bridge.mjs) — Consent Bridge: turn a non-email first touch into the recipient's own request. _(tested; imported by 3)_
-- [`src/consent-receipt.mjs`](../../src/consent-receipt.mjs) — Evidence-grade consent receipts (founder moonshot #161, THE CONSENT PROTOCOL). _(tested; imported by 3)_
-- [`src/consequence-boundary.mjs`](../../src/consequence-boundary.mjs) — Composes the Deliverability Guard (src/deliverability-guard.mjs) with the _(tested; imported by 1)_
-- [`src/constitutional-governance.mjs`](../../src/constitutional-governance.mjs) — The rules about the rules, including the one that lets them be abolished. _(tested; imported by 1)_
-- [`src/content-addressed-proof-dag.mjs`](../../src/content-addressed-proof-dag.mjs) — exports CONTENT_ADDRESSED_PROOF_DAG_VERSION, compileProofDag, inspectProofAncestry, assertObservedProof _(tested; imported by 6)_
-- [`src/cost-aware-public-evidence-tier.mjs`](../../src/cost-aware-public-evidence-tier.mjs) — exports PUBLIC_EVIDENCE_TIER_POLICY_VERSION, EVIDENCE_SOURCE_TIERS, compileEvidenceAcquisitionPlan, compileEvidenceCacheEntry, publicEvidenceCacheSch… _(imported by 1)_
-- [`src/coverage-state-evidence-integrity.mjs`](../../src/coverage-state-evidence-integrity.mjs) — exports COVERAGE_STATE_EVIDENCE_INTEGRITY_VERSION, verifyCoverageStateEvidenceIntegrity _(tested; imported by 3)_
-- [`src/crown-owner-resume-authority.mjs`](../../src/crown-owner-resume-authority.mjs) — exports CROWN_OWNER_RESUME_CONFIRMATION, CROWN_OWNER_RESUME_MAX_INCREMENTAL_USD, CROWN_OWNER_RESUME_MAX_INCREMENTAL_MICROUSD, CROWN_OWNER_RESUME_MAX_… _(tested; imported by 1)_
-- [`src/crown-replacement-authority.mjs`](../../src/crown-replacement-authority.mjs) — exports REPLACEMENT_KEY, validReplacementAuthority _(imported by 1)_
-- [`src/effect-ledgers.mjs`](../../src/effect-ledgers.mjs) — Canonical vocabulary for "what this did to the world outside UberBond". _(imported by 378)_
-- [`src/evidence-beacon.mjs`](../../src/evidence-beacon.mjs) — Evidence Beacon: the pitch is the prospect's own verifiable evidence. _(tested; imported by 1)_
-- [`src/evidence-reference-integrity.mjs`](../../src/evidence-reference-integrity.mjs) — exports EVIDENCE_REFERENCE_INTEGRITY_VERSION, verifyEvidenceReferenceIntegrity _(tested; imported by 1)_
-- [`src/evidence-to-content-compiler.mjs`](../../src/evidence-to-content-compiler.mjs) — exports EVIDENCE_CONTENT_POLICY_VERSION, CONTENT_FORMATS, compileEvidenceContentPack _(tested; no static importers)_
-- [`src/external-proof-router.mjs`](../../src/external-proof-router.mjs) — exports EXTERNAL_PROOF_ROUTER_VERSION, EXTERNAL_PROOF_CLASSES, routeMissingProofs, canInternalEngineeringClose _(tested; imported by 3)_
-- [`src/external-reality-action-law.mjs`](../../src/external-reality-action-law.mjs) — exports EXTERNAL_REALITY_ACTION_LAW_VERSION, evaluateExternalRealityActionBoundary _(tested; imported by 1)_
-- [`src/founder-exception-market.mjs`](../../src/founder-exception-market.mjs) — exports FOUNDER_EXCEPTION_MARKET_VERSION, FOUNDER_ACTION_CEILING, allocateFounderExceptions _(tested; imported by 3)_
-- [`src/free-mission-clock-policy.mjs`](../../src/free-mission-clock-policy.mjs) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(tested; no static importers)_
-- [`src/frontier-absorption-proof.mjs`](../../src/frontier-absorption-proof.mjs) — exports verifyAbsorptionClaim _(no static importers)_
-- [`src/frontier-loop-proof.mjs`](../../src/frontier-loop-proof.mjs) — exports FRONTIER_LOOP_STAGES, verifyFrontierLoop _(no static importers)_
-- [`src/frontier-model-admission-proof.mjs`](../../src/frontier-model-admission-proof.mjs) — exports verifyFrontierModelAdmission _(no static importers)_
-- [`src/frontier-replacement-tournament-proof.mjs`](../../src/frontier-replacement-tournament-proof.mjs) — exports proveFreshFrontierReplacement _(tested; no static importers)_
-- [`src/frontier-routing-revalidation-proof.mjs`](../../src/frontier-routing-revalidation-proof.mjs) — exports verifyFrontierRoutingAtExecution _(tested; no static importers)_
-- [`src/frozen-prospect-effect-runtime.mjs`](../../src/frozen-prospect-effect-runtime.mjs) — Exact-digest, one-use dispatch for a frozen prospect effect. This is an _(tested; imported by 1)_
-- [`src/genesis-implementation-evidence-v2.mjs`](../../src/genesis-implementation-evidence-v2.mjs) — exports GENESIS_IMPLEMENTATION_EVIDENCE_V2_VERSION, GENESIS_IMPLEMENTATION_EVIDENCE, buildGenesisEvidenceLedger _(imported by 4)_
-- [`src/github-actions-oidc-verifier.mjs`](../../src/github-actions-oidc-verifier.mjs) — exports GITHUB_ACTIONS_OIDC_VERIFIER_POLICY_VERSION, GITHUB_ACTIONS_OIDC_ISSUER, GITHUB_ACTIONS_OIDC_JWKS, SELF_MAINTAINER_OIDC_AUDIENCE, requestGith… _(tested; imported by 3)_
-- [`src/github-actions-self-maintainer-authority.mjs`](../../src/github-actions-self-maintainer-authority.mjs) — exports GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION, issueGithubActionsSelfMaintainerAuthority, issueVerifiedGithubActionsSelfMaintainerA… _(imported by 2)_
-- [`src/global-policy-evidence.mjs`](../../src/global-policy-evidence.mjs) — GLOBAL POLICY EVIDENCE: provenance + freshness for every jurisdiction/provider _(tested; imported by 7)_
-- [`src/institution-cell-compiler.mjs`](../../src/institution-cell-compiler.mjs) — exports INSTITUTION_CELL_COMPILER_VERSION, INSTITUTION_EXECUTOR_CLASSES, compileInstitutionCell _(tested; imported by 4)_
-- [`src/live-activation-gate.mjs`](../../src/live-activation-gate.mjs) — The Live Activation Rule (section 8 of the mission). Evaluates the actual _(imported by 1)_
-- [`src/living-evidence-graph.mjs`](../../src/living-evidence-graph.mjs) — exports createLivingEvidenceGraph, planLivingEvidenceDelta, applyLivingEvidenceDelta, modelLivingEvidenceDeltaCompression _(tested; imported by 1)_
-- [`src/moonshot-evidence-propagation.mjs`](../../src/moonshot-evidence-propagation.mjs) — exports MOONSHOT_EVIDENCE_PROPAGATION_VERSION, foldMoonshotEvidence, summarizeMoonshotEvidence _(tested; no static importers)_
-- [`src/nullstar-omega-evidence-reuse.mjs`](../../src/nullstar-omega-evidence-reuse.mjs) — Stop a generation from measuring the same thing twice under two names. _(tested; imported by 1)_
-- [`src/omega-policy-meta-learner-v3.mjs`](../../src/omega-policy-meta-learner-v3.mjs) — exports OMEGA_POLICY_META_LEARNER_V3_VERSION, trainCalibratedMetaCrystal, selectCalibratedPolicy, evaluateCalibratedTransfer _(no static importers)_
-- [`src/omega-policy-meta-learner.mjs`](../../src/omega-policy-meta-learner.mjs) — exports OMEGA_POLICY_META_LEARNER_VERSION, extractStructuralFeatures, trainPolicyMetaCrystal, selectPolicyFromMetaCrystal, evaluateMetaTransfer _(imported by 1)_
-- [`src/omega-private-evidence-gate.mjs`](../../src/omega-private-evidence-gate.mjs) — exports OMEGA_PRIVATE_EVIDENCE_GATE_VERSION, evaluateOmegaPrivateEvidence _(tested; no static importers)_
-- [`src/omega-private-evidence-lab.mjs`](../../src/omega-private-evidence-lab.mjs) — exports OMEGA_PRIVATE_EVIDENCE_LAB_VERSION, commitHoldout, verifyHoldoutReveal, generateTask, solveTask (+3) _(no static importers)_
-- [`src/omnia-v9/authority-transition-ledger.mjs`](../../src/omnia-v9/authority-transition-ledger.mjs) — exports verifyAuthorityTransitionChain, proveReservedBefore _(imported by 1)_
-- [`src/omnia-v9/integrations/canary-null-authority.mjs`](../../src/omnia-v9/integrations/canary-null-authority.mjs) — exports CANARY_EXECUTABLE_DECISIONS, CANARY_KNOWN_NO_EXECUTION_DECISIONS, classifyCanaryGateOutcome, evaluateAndGateCanaryNull _(no static importers)_
-- [`src/omnia-v9/integrations/external-effect-adapter.mjs`](../../src/omnia-v9/integrations/external-effect-adapter.mjs) — Provider-neutral external-effect adapter contract. V9's execution layer (external-effect-dispatcher.mjs, external-effect-recovery.mjs) depends only o… _(imported by 6)_
-- [`src/omnia-v9/integrations/external-effect-dispatcher.mjs`](../../src/omnia-v9/integrations/external-effect-dispatcher.mjs) — exports CRASH_POINTS, CrashInjected, isExternalEffectKillSwitchEngaged, ExternalEffectKillSwitchEngagedError, ExternalEffectFinalAdmissionError (+2) _(imported by 1)_
-- [`src/omnia-v9/integrations/external-effect-evidence-store.mjs`](../../src/omnia-v9/integrations/external-effect-evidence-store.mjs) — exports ExternalEffectEvidenceStoreError, ExternalEffectEvidenceStore _(imported by 1)_
-- [`src/omnia-v9/integrations/external-effect-execution-store.mjs`](../../src/omnia-v9/integrations/external-effect-execution-store.mjs) — exports ExternalEffectExecutionStoreError, ExternalEffectExecutionStore _(no static importers)_
-- [`src/omnia-v9/integrations/external-effect-recovery.mjs`](../../src/omnia-v9/integrations/external-effect-recovery.mjs) — exports RECOVERY_ACTIONS, recoverOneExecution, recoverUnresolvedExecutions _(no static importers)_
-- [`src/omnia-v9/integrations/external-effect-state-machine.mjs`](../../src/omnia-v9/integrations/external-effect-state-machine.mjs) — The durable state model for an external-effect execution -- one row per logical external consequence (e.g. one email). This module is the single sour… _(imported by 1)_
-- [`src/omnia-v9/integrations/null-consequence-adapter.mjs`](../../src/omnia-v9/integrations/null-consequence-adapter.mjs) — exports NULL_SINK_RESULT, NullConsequenceAdapterError, NullConsequenceAdapter _(imported by 1)_
-- [`src/omnia-v9/integrations/outbound-consequence-gate.mjs`](../../src/omnia-v9/integrations/outbound-consequence-gate.mjs) — exports buildOutboundConsequenceContext, normalizeOutboundEffectPayload, digestOutboundEffectPayload, enforceOutboundConsequence _(imported by 2)_
-- [`src/omnia-v9/integrations/outreach-consequence-admission.mjs`](../../src/omnia-v9/integrations/outreach-consequence-admission.mjs) — exports OUTREACH_CONSEQUENCE_POLICY_DIGEST, OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST, createAuthoritativeOutreachConsequenceGate _(imported by 2)_
-- [`src/omnia-v9/integrations/providers/email-effect-primitives.mjs`](../../src/omnia-v9/integrations/providers/email-effect-primitives.mjs) — exports EMAIL_RE, MAX_SUBJECT_LENGTH, MAX_BODY_LENGTH, DEFINITE_REJECTION_HTTP_STATUSES, validateRecipientAddress (+5) _(imported by 1)_
-- [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs) — exports GmailEffectAdapterError, generateMessageId, gmailArgumentsDigest, GmailEffectAdapter _(no static importers)_
-- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — exports POSTAL_EFFECT_ADAPTER_VERSION, PostalEffectAdapterError, PostalEffectAdapter, postalProviderEffectIdentity, postalEffectTag _(tested; imported by 1)_
-- [`src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs`](../../src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs) — exports POSTAL_SENDER_EVIDENCE_CONSUMER_VERSION, classifyPostalSenderEvidence, consumePostalSenderEvidence _(tested; imported by 1)_
-- [`src/omnia-v9/policy-bundle.mjs`](../../src/omnia-v9/policy-bundle.mjs) — exports PolicyBundleError, buildPolicyBundle _(imported by 1)_
-- [`src/omnia-v9/pre-effect-authority-reconciler.mjs`](../../src/omnia-v9/pre-effect-authority-reconciler.mjs) — exports reconcilePreEffectAuthority _(no static importers)_
-- [`src/omnia-v9/proof-store.mjs`](../../src/omnia-v9/proof-store.mjs) — exports OmniaV9ProofStoreError, OmniaV9ProofStore _(no static importers)_
-- [`src/outreach-cold-route-policy.mjs`](../../src/outreach-cold-route-policy.mjs) — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — a deliberately narrow, fail-closed _(tested; imported by 3)_
-- [`src/outreach-governance.mjs`](../../src/outreach-governance.mjs) — exports OUTREACH_ROUTE_TYPES, OUTREACH_PERMISSION_SCOPES, OutreachGovernanceError, normalizeOutreachEmail, verifyInvitedBusinessContact (+11) _(imported by 10)_
-- [`src/overnight/distribution/policy.mjs`](../../src/overnight/distribution/policy.mjs) — exports OVERNIGHT_DISTRIBUTION_POLICY_VERSION, DISTRIBUTION_EVIDENCE_CLASSES, ZERO_EFFECTS, DISABLED_EXTERNAL_AUTHORITY, text (+13) _(imported by 3)_
-- [`src/proof-carrying-renderer.mjs`](../../src/proof-carrying-renderer.mjs) — exports verifyRenderedSurface _(imported by 1)_
-- [`src/proof-factory.mjs`](../../src/proof-factory.mjs) — Proof Factory + adversarial message critics. _(tested; imported by 1)_
-- [`src/prospect-effect-package.mjs`](../../src/prospect-effect-package.mjs) — Generic effect-package compiler for a verified, message-selected prospect. _(tested; imported by 3)_
-- [`src/prospect-evidence-reconciliation.mjs`](../../src/prospect-evidence-reconciliation.mjs) — exports PROSPECT_EVIDENCE_VERSION, CONTACT_VERIFICATION_STATES, PROSPECT_SOURCE_TYPES, EVIDENCE_CLASSES, clampEvidenceClassToSource (+7) _(tested; imported by 6)_
-- [`src/provider-cut-evidence-overlay.mjs`](../../src/provider-cut-evidence-overlay.mjs) — exports PROVIDER_CUT_EVIDENCE_OVERLAY_VERSION, applyProviderCutEvidenceOverlay _(imported by 1)_
-- [`src/recursive-governance-principals.mjs`](../../src/recursive-governance-principals.mjs) — exports RECURSIVE_GOVERNANCE_PRINCIPALS_VERSION, verifyRecursiveGovernancePrincipals _(imported by 3)_
-- [`src/recursive-governance-security.mjs`](../../src/recursive-governance-security.mjs) — exports RECURSIVE_GOVERNANCE_SECURITY_VERSION, admitRecursiveSecurityEvolution _(tested; imported by 1)_
-- [`src/recursive-revocation-graph.mjs`](../../src/recursive-revocation-graph.mjs) — exports RECURSIVE_REVOCATION_GRAPH_VERSION, compileDelegationGraph, revokeDelegationSubtree, delegationEffective _(tested; imported by 4)_
-- [`src/relay-preview-proof.mjs`](../../src/relay-preview-proof.mjs) — Bounded post-deployment proof for the dedicated UberBond relay preview. _(tested; no static importers)_
-- [`src/remaining-cut-evidence-overlay.mjs`](../../src/remaining-cut-evidence-overlay.mjs) — exports REMAINING_CUT_EVIDENCE_OVERLAY_VERSION, applyRemainingCutEvidenceOverlay _(imported by 1)_
-- [`src/reservation-recovery.mjs`](../../src/reservation-recovery.mjs) — exports RECOVERY_POLICY_VERSION, classifyStaleReservation, recoverStaleOutboundReservations _(tested; imported by 2)_
-- [`src/revenue-terminal-effect-truth.mjs`](../../src/revenue-terminal-effect-truth.mjs) — exports compileProspectEffectTruth, terminalReadinessWithEffectTruth _(tested; imported by 1)_
-- [`src/robust-minimax-strategy.mjs`](../../src/robust-minimax-strategy.mjs) — exports ROBUST_MINIMAX_STRATEGY_VERSION, selectMinimaxRegretStrategy _(tested; imported by 3)_
-- [`src/runtime-cut-evidence-overlay.mjs`](../../src/runtime-cut-evidence-overlay.mjs) — exports RUNTIME_CUT_EVIDENCE_OVERLAY_VERSION, applyRuntimeCutEvidenceOverlay _(tested; imported by 1)_
-- [`src/runtime-evidence-attestation.mjs`](../../src/runtime-evidence-attestation.mjs) — exports RUNTIME_EVIDENCE_ATTESTATION_VERSION, runtimeEvidenceAttestationPayload, runtimeEvidencePublicKeyFingerprint, verifyRuntimeEvidenceAttestation _(tested; imported by 2)_
-- [`src/runtime-proof-ingestion.mjs`](../../src/runtime-proof-ingestion.mjs) — exports RUNTIME_PROOF_INGESTION_VERSION, validateRestartRecoveryRuntimeEvidence, validateSourceRepositoryHostRuntimeEvidence, validateWebRuntimeHostR… _(tested; imported by 1)_
-- [`src/sandwich-evidence-binding.mjs`](../../src/sandwich-evidence-binding.mjs) — exports SANDWICH_EVIDENCE_BINDING_VERSION, SANDWICH_EVIDENCE_KINDS, compileEvidenceBoundSandwich _(tested; imported by 2)_
-- [`src/self-maintainer-continuation-policy.mjs`](../../src/self-maintainer-continuation-policy.mjs) — exports SELF_MAINTAINER_CONTINUATION_POLICY_VERSION, decideSelfMaintainerContinuation, gateSelfMaintainerPulse _(tested; imported by 5)_
-- [`src/shadow-canary-contract.mjs`](../../src/shadow-canary-contract.mjs) — Generic shadow-comparison primitive and the promotion gate from verified _(tested; no static importers)_
-- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — exports SOVEREIGN_MONEY_MACHINE_PROOF_VERSION, MIN_ENDURANCE_MS, MAX_PULSE_GAP_MS, MAX_RECEIPT_AGE_MS, evaluateSovereignMoneyMachineProof _(tested; no static importers)_
-- [`src/supplier-exit-drill.mjs`](../../src/supplier-exit-drill.mjs) — Proving UberBond can leave a supplier, by actually leaving one. _(tested; imported by 1)_
-- [`src/uberdoso-delivery-policy.mjs`](../../src/uberdoso-delivery-policy.mjs) — exports UBERDOSO_DELIVERY_POLICY_VERSION, UBERDOSO_ALLOWED_RELATIONSHIPS, compileUberDosoDeliveryEligibility _(tested; imported by 1)_
-- [`src/ubermaildoso-evidence-sync.mjs`](../../src/ubermaildoso-evidence-sync.mjs) — exports UBERMAILDOSO_EVIDENCE_SYNC_VERSION, compileMaildosoEvidenceSnapshot, syncMaildosoEvidence _(tested; imported by 1)_
-- [`src/ubermind-890-evidence-flywheel.mjs`](../../src/ubermind-890-evidence-flywheel.mjs) — exports UBERMIND_FLYWHEEL_SCHEMA, recover890FounderIdeaUniverse, compileUberMindEvidenceFlywheel _(tested; imported by 1)_
-- [`src/ubermind-w40-evidence-first-task-compiler.mjs`](../../src/ubermind-w40-evidence-first-task-compiler.mjs) — UBERMIND W40 • Evidence-First Mission Compiler Generates a bounded, reproducible ROUTING PROPOSAL, never performs inference, calls providers, tests c… _(tested; imported by 2)_
-- [`src/ubermind-w41-proof-constrained-route-auction.mjs`](../../src/ubermind-w41-proof-constrained-route-auction.mjs) — W41 - Minimal-cost quality-admissible route auction, research sandbox. Extends W36 official Claude 5.5 rates; no LLM/API calls or source writes. Ever… _(tested; imported by 1)_
-- [`src/uberos/authority.mjs`](../../src/uberos/authority.mjs) — exports UBEROS_AUTHORITY_VERSION, createAuthorityRoot, delegateAuthority, revokeAuthority, authorityIsUsable _(imported by 1)_
-- [`src/uberoutbound-policy-registry.mjs`](../../src/uberoutbound-policy-registry.mjs) — exports UBEROUTBOUND_POLICY_REGISTRY_VERSION, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER, UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL, UBEROUTBOUND_TRIGGER_TAXONOMY… _(tested; imported by 3)_
-- [`src/uberwarm2-delegated-evidence-custody.mjs`](../../src/uberwarm2-delegated-evidence-custody.mjs) — Scoped custody of separately observed source receipts by an owner-delegated operator. This does NOT make that operator the provider or recipient. Tru… _(tested; imported by 1)_
-- [`src/uberwarm2-trusted-receiver-evidence-donor.mjs`](../../src/uberwarm2-trusted-receiver-evidence-donor.mjs) — UberWarm² trusted receiver-evidence donor (Lane R). Bridges an external, protected, authenticated, READ-ONLY receiver connector (receiver OAuth/IMAP… _(imported by 1)_
-- [`src/uberwarm2-trusted-seed-consent-supplier.mjs`](../../src/uberwarm2-trusted-seed-consent-supplier.mjs) — UberWarm² trusted seed-consent supplier. Composes three independent, protected, read-only trusted observation sources (authenticated consent, current… _(tested; imported by 1)_
-- [`src/uberworm-policy.mjs`](../../src/uberworm-policy.mjs) — exports UBERWORM_PROTOCOL, UBERWORM_NODE, UBERWORM_TRUSTED_OWNER, UBERWORM_APPROVED_MODELS, UBERWORM_ACTIONS (+2) _(tested; imported by 1)_
-- [`src/verifier-trust.mjs`](../../src/verifier-trust.mjs) — exports admitVerifierEvidence, verifierMayCertify _(imported by 1)_
+- [`src/apex-fqc-external-evidence-packet.mjs`](../../src/apex-fqc-external-evidence-packet.mjs) — exports APEX_FQC_EXTERNAL_EVIDENCE_VERSION, buildApexFqcCustodianRequest, compileApexFqcExternalEvidencePacket _(matched by name only; tested; imported by 1)_
+- [`src/benchmark-evidence-ledger.mjs`](../../src/benchmark-evidence-ledger.mjs) — exports BENCHMARK_EVIDENCE_LEDGER_VERSION, summarizeBenchmarkEvidence _(matched by name only; tested; imported by 1)_
+- [`src/c21-dimension-evidence-producer.mjs`](../../src/c21-dimension-evidence-producer.mjs) — exports C21_DIMENSION_EVIDENCE_PRODUCER_VERSION, compileC21DimensionEvidence _(matched by name only; tested; no static importers)_
+- [`src/c21-evidence-factory.mjs`](../../src/c21-evidence-factory.mjs) — exports C21_EVIDENCE_FACTORY_VERSION, CANONICAL_C21_DIMENSIONS, CRITICAL_C21_DIMENSIONS, EXTERNAL_BENCHMARK_SURFACES, compileC21EvidenceCampaign (+1) _(matched by name only; tested; imported by 3)_
+- [`src/causal-attribution-spine.mjs`](../../src/causal-attribution-spine.mjs) — exports CAUSAL_ATTRIBUTION_POLICY_VERSION, CAUSAL_NODE_TYPES, CAUSAL_EVIDENCE_CLASSES, normalizeCausalAttributionGraph, inboundEventToCausalFragment… _(matched by name only; no static importers)_
+- [`src/command-center-client-policy.mjs`](../../src/command-center-client-policy.mjs) — exports COMMAND_CENTER_CLIENT_POLICY_VERSION, COMMAND_CENTER_CACHE_SCHEMA, COMMAND_CENTER_MAX_CACHE_AGE_MS, COMMAND_CENTER_MAX_LIVE_AGE_MS, COMMAND_C… _(matched by name only; imported by 2)_
+- [`src/composed-effect-authority-audit.mjs`](../../src/composed-effect-authority-audit.mjs) — exports COMPOSED_EFFECT_AUTHORITY_AUDIT_VERSION, COMPOSITION_IDS, compileComposedEffectAuthorityAudit _(matched by name only; tested; imported by 2)_
+- [`src/consent-bridge-letter.mjs`](../../src/consent-bridge-letter.mjs) — Printable first touch for the consent bridge: a letter or a hand-out card. _(matched by name only; tested; imported by 1)_
+- [`src/consent-bridge.mjs`](../../src/consent-bridge.mjs) — Consent Bridge: turn a non-email first touch into the recipient's own request. _(matched by name only; tested; imported by 3)_
+- [`src/consent-receipt.mjs`](../../src/consent-receipt.mjs) — Evidence-grade consent receipts (founder moonshot #161, THE CONSENT PROTOCOL). _(matched by name only; tested; imported by 3)_
+- [`src/consequence-boundary.mjs`](../../src/consequence-boundary.mjs) — Composes the Deliverability Guard (src/deliverability-guard.mjs) with the _(matched by name only; tested; imported by 1)_
+- [`src/constitutional-governance.mjs`](../../src/constitutional-governance.mjs) — The rules about the rules, including the one that lets them be abolished. _(matched by name only; tested; imported by 1)_
+- [`src/content-addressed-proof-dag.mjs`](../../src/content-addressed-proof-dag.mjs) — exports CONTENT_ADDRESSED_PROOF_DAG_VERSION, compileProofDag, inspectProofAncestry, assertObservedProof _(matched by name only; tested; imported by 6)_
+- [`src/cost-aware-public-evidence-tier.mjs`](../../src/cost-aware-public-evidence-tier.mjs) — exports PUBLIC_EVIDENCE_TIER_POLICY_VERSION, EVIDENCE_SOURCE_TIERS, compileEvidenceAcquisitionPlan, compileEvidenceCacheEntry, publicEvidenceCacheSch… _(matched by name only; imported by 1)_
+- [`src/coverage-state-evidence-integrity.mjs`](../../src/coverage-state-evidence-integrity.mjs) — exports COVERAGE_STATE_EVIDENCE_INTEGRITY_VERSION, verifyCoverageStateEvidenceIntegrity _(matched by name only; tested; imported by 3)_
+- [`src/crown-owner-resume-authority.mjs`](../../src/crown-owner-resume-authority.mjs) — exports CROWN_OWNER_RESUME_CONFIRMATION, CROWN_OWNER_RESUME_MAX_INCREMENTAL_USD, CROWN_OWNER_RESUME_MAX_INCREMENTAL_MICROUSD, CROWN_OWNER_RESUME_MAX_… _(matched by name only; tested; imported by 1)_
+- [`src/crown-replacement-authority.mjs`](../../src/crown-replacement-authority.mjs) — exports REPLACEMENT_KEY, validReplacementAuthority _(matched by name only; imported by 1)_
+- [`src/effect-ledgers.mjs`](../../src/effect-ledgers.mjs) — Canonical vocabulary for "what this did to the world outside UberBond". _(matched by name only; imported by 378)_
+- [`src/evidence-beacon.mjs`](../../src/evidence-beacon.mjs) — Evidence Beacon: the pitch is the prospect's own verifiable evidence. _(matched by name only; tested; imported by 1)_
+- [`src/evidence-reference-integrity.mjs`](../../src/evidence-reference-integrity.mjs) — exports EVIDENCE_REFERENCE_INTEGRITY_VERSION, verifyEvidenceReferenceIntegrity _(matched by name only; tested; imported by 1)_
+- [`src/evidence-to-content-compiler.mjs`](../../src/evidence-to-content-compiler.mjs) — exports EVIDENCE_CONTENT_POLICY_VERSION, CONTENT_FORMATS, compileEvidenceContentPack _(matched by name only; tested; no static importers)_
+- [`src/external-proof-router.mjs`](../../src/external-proof-router.mjs) — exports EXTERNAL_PROOF_ROUTER_VERSION, EXTERNAL_PROOF_CLASSES, routeMissingProofs, canInternalEngineeringClose _(matched by name only; tested; imported by 3)_
+- [`src/external-reality-action-law.mjs`](../../src/external-reality-action-law.mjs) — exports EXTERNAL_REALITY_ACTION_LAW_VERSION, evaluateExternalRealityActionBoundary _(matched by name only; tested; imported by 1)_
+- [`src/founder-exception-market.mjs`](../../src/founder-exception-market.mjs) — exports FOUNDER_EXCEPTION_MARKET_VERSION, FOUNDER_ACTION_CEILING, allocateFounderExceptions _(matched by name only; tested; imported by 3)_
+- [`src/free-mission-clock-policy.mjs`](../../src/free-mission-clock-policy.mjs) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only; tested; no static importers)_
+- [`src/frontier-absorption-proof.mjs`](../../src/frontier-absorption-proof.mjs) — exports verifyAbsorptionClaim _(matched by name only; no static importers)_
+- [`src/frontier-loop-proof.mjs`](../../src/frontier-loop-proof.mjs) — exports FRONTIER_LOOP_STAGES, verifyFrontierLoop _(matched by name only; no static importers)_
+- [`src/frontier-model-admission-proof.mjs`](../../src/frontier-model-admission-proof.mjs) — exports verifyFrontierModelAdmission _(matched by name only; no static importers)_
+- [`src/frontier-replacement-tournament-proof.mjs`](../../src/frontier-replacement-tournament-proof.mjs) — exports proveFreshFrontierReplacement _(matched by name only; tested; no static importers)_
+- [`src/frontier-routing-revalidation-proof.mjs`](../../src/frontier-routing-revalidation-proof.mjs) — exports verifyFrontierRoutingAtExecution _(matched by name only; tested; no static importers)_
+- [`src/frozen-prospect-effect-runtime.mjs`](../../src/frozen-prospect-effect-runtime.mjs) — Exact-digest, one-use dispatch for a frozen prospect effect. This is an _(matched by name only; tested; imported by 1)_
+- [`src/genesis-implementation-evidence-v2.mjs`](../../src/genesis-implementation-evidence-v2.mjs) — exports GENESIS_IMPLEMENTATION_EVIDENCE_V2_VERSION, GENESIS_IMPLEMENTATION_EVIDENCE, buildGenesisEvidenceLedger _(matched by name only; imported by 4)_
+- [`src/github-actions-oidc-verifier.mjs`](../../src/github-actions-oidc-verifier.mjs) — exports GITHUB_ACTIONS_OIDC_VERIFIER_POLICY_VERSION, GITHUB_ACTIONS_OIDC_ISSUER, GITHUB_ACTIONS_OIDC_JWKS, SELF_MAINTAINER_OIDC_AUDIENCE, requestGith… _(matched by name only; tested; imported by 3)_
+- [`src/github-actions-self-maintainer-authority.mjs`](../../src/github-actions-self-maintainer-authority.mjs) — exports GITHUB_ACTIONS_SELF_MAINTAINER_AUTHORITY_POLICY_VERSION, issueGithubActionsSelfMaintainerAuthority, issueVerifiedGithubActionsSelfMaintainerA… _(matched by name only; imported by 2)_
+- [`src/global-policy-evidence.mjs`](../../src/global-policy-evidence.mjs) — GLOBAL POLICY EVIDENCE: provenance + freshness for every jurisdiction/provider _(matched by name only; tested; imported by 7)_
+- [`src/institution-cell-compiler.mjs`](../../src/institution-cell-compiler.mjs) — exports INSTITUTION_CELL_COMPILER_VERSION, INSTITUTION_EXECUTOR_CLASSES, compileInstitutionCell _(matched by name only; tested; imported by 4)_
+- [`src/live-activation-gate.mjs`](../../src/live-activation-gate.mjs) — The Live Activation Rule (section 8 of the mission). Evaluates the actual _(matched by name only; imported by 1)_
+- [`src/living-evidence-graph.mjs`](../../src/living-evidence-graph.mjs) — exports createLivingEvidenceGraph, planLivingEvidenceDelta, applyLivingEvidenceDelta, modelLivingEvidenceDeltaCompression _(matched by name only; tested; imported by 1)_
+- [`src/moonshot-evidence-propagation.mjs`](../../src/moonshot-evidence-propagation.mjs) — exports MOONSHOT_EVIDENCE_PROPAGATION_VERSION, foldMoonshotEvidence, summarizeMoonshotEvidence _(matched by name only; tested; no static importers)_
+- [`src/nullstar-omega-evidence-reuse.mjs`](../../src/nullstar-omega-evidence-reuse.mjs) — Stop a generation from measuring the same thing twice under two names. _(matched by name only; tested; imported by 1)_
+- [`src/omega-policy-meta-learner-v3.mjs`](../../src/omega-policy-meta-learner-v3.mjs) — exports OMEGA_POLICY_META_LEARNER_V3_VERSION, trainCalibratedMetaCrystal, selectCalibratedPolicy, evaluateCalibratedTransfer _(matched by name only; no static importers)_
+- [`src/omega-policy-meta-learner.mjs`](../../src/omega-policy-meta-learner.mjs) — exports OMEGA_POLICY_META_LEARNER_VERSION, extractStructuralFeatures, trainPolicyMetaCrystal, selectPolicyFromMetaCrystal, evaluateMetaTransfer _(matched by name only; imported by 1)_
+- [`src/omega-private-evidence-gate.mjs`](../../src/omega-private-evidence-gate.mjs) — exports OMEGA_PRIVATE_EVIDENCE_GATE_VERSION, evaluateOmegaPrivateEvidence _(matched by name only; tested; no static importers)_
+- [`src/omega-private-evidence-lab.mjs`](../../src/omega-private-evidence-lab.mjs) — exports OMEGA_PRIVATE_EVIDENCE_LAB_VERSION, commitHoldout, verifyHoldoutReveal, generateTask, solveTask (+3) _(matched by name only; no static importers)_
+- [`src/omnia-v9/authority-transition-ledger.mjs`](../../src/omnia-v9/authority-transition-ledger.mjs) — exports verifyAuthorityTransitionChain, proveReservedBefore _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/canary-null-authority.mjs`](../../src/omnia-v9/integrations/canary-null-authority.mjs) — exports CANARY_EXECUTABLE_DECISIONS, CANARY_KNOWN_NO_EXECUTION_DECISIONS, classifyCanaryGateOutcome, evaluateAndGateCanaryNull _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/external-effect-adapter.mjs`](../../src/omnia-v9/integrations/external-effect-adapter.mjs) — Provider-neutral external-effect adapter contract. V9's execution layer (external-effect-dispatcher.mjs, external-effect-recovery.mjs) depends only o… _(matched by name only; imported by 6)_
+- [`src/omnia-v9/integrations/external-effect-dispatcher.mjs`](../../src/omnia-v9/integrations/external-effect-dispatcher.mjs) — exports CRASH_POINTS, CrashInjected, isExternalEffectKillSwitchEngaged, ExternalEffectKillSwitchEngagedError, ExternalEffectFinalAdmissionError (+2) _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/external-effect-evidence-store.mjs`](../../src/omnia-v9/integrations/external-effect-evidence-store.mjs) — exports ExternalEffectEvidenceStoreError, ExternalEffectEvidenceStore _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/external-effect-execution-store.mjs`](../../src/omnia-v9/integrations/external-effect-execution-store.mjs) — exports ExternalEffectExecutionStoreError, ExternalEffectExecutionStore _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/external-effect-recovery.mjs`](../../src/omnia-v9/integrations/external-effect-recovery.mjs) — exports RECOVERY_ACTIONS, recoverOneExecution, recoverUnresolvedExecutions _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/external-effect-state-machine.mjs`](../../src/omnia-v9/integrations/external-effect-state-machine.mjs) — The durable state model for an external-effect execution -- one row per logical external consequence (e.g. one email). This module is the single sour… _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/null-consequence-adapter.mjs`](../../src/omnia-v9/integrations/null-consequence-adapter.mjs) — exports NULL_SINK_RESULT, NullConsequenceAdapterError, NullConsequenceAdapter _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/outbound-consequence-gate.mjs`](../../src/omnia-v9/integrations/outbound-consequence-gate.mjs) — exports buildOutboundConsequenceContext, normalizeOutboundEffectPayload, digestOutboundEffectPayload, enforceOutboundConsequence _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/outreach-consequence-admission.mjs`](../../src/omnia-v9/integrations/outreach-consequence-admission.mjs) — exports OUTREACH_CONSEQUENCE_POLICY_DIGEST, OUTREACH_CONSEQUENCE_CONSTITUTION_DIGEST, createAuthoritativeOutreachConsequenceGate _(matched by name only; imported by 2)_
+- [`src/omnia-v9/integrations/providers/email-effect-primitives.mjs`](../../src/omnia-v9/integrations/providers/email-effect-primitives.mjs) — exports EMAIL_RE, MAX_SUBJECT_LENGTH, MAX_BODY_LENGTH, DEFINITE_REJECTION_HTTP_STATUSES, validateRecipientAddress (+5) _(matched by name only; imported by 1)_
+- [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs) — exports GmailEffectAdapterError, generateMessageId, gmailArgumentsDigest, GmailEffectAdapter _(matched by name only; no static importers)_
+- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — exports POSTAL_EFFECT_ADAPTER_VERSION, PostalEffectAdapterError, PostalEffectAdapter, postalProviderEffectIdentity, postalEffectTag _(matched by name only; tested; imported by 1)_
+- [`src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs`](../../src/omnia-v9/integrations/providers/postal-sender-evidence-consumer.mjs) — exports POSTAL_SENDER_EVIDENCE_CONSUMER_VERSION, classifyPostalSenderEvidence, consumePostalSenderEvidence _(matched by name only; tested; imported by 1)_
+- [`src/omnia-v9/policy-bundle.mjs`](../../src/omnia-v9/policy-bundle.mjs) — exports PolicyBundleError, buildPolicyBundle _(matched by name only; imported by 1)_
+- [`src/omnia-v9/pre-effect-authority-reconciler.mjs`](../../src/omnia-v9/pre-effect-authority-reconciler.mjs) — exports reconcilePreEffectAuthority _(matched by name only; no static importers)_
+- [`src/omnia-v9/proof-store.mjs`](../../src/omnia-v9/proof-store.mjs) — exports OmniaV9ProofStoreError, OmniaV9ProofStore _(matched by name only; no static importers)_
+- [`src/outreach-cold-route-policy.mjs`](../../src/outreach-cold-route-policy.mjs) — SMTP_RELAY_PUBLIC_BUSINESS_CONTACT_V1 — a deliberately narrow, fail-closed _(matched by name only; tested; imported by 3)_
+- [`src/outreach-governance.mjs`](../../src/outreach-governance.mjs) — exports OUTREACH_ROUTE_TYPES, OUTREACH_PERMISSION_SCOPES, OutreachGovernanceError, normalizeOutreachEmail, verifyInvitedBusinessContact (+11) _(matched by name only; imported by 10)_
+- [`src/overnight/distribution/policy.mjs`](../../src/overnight/distribution/policy.mjs) — exports OVERNIGHT_DISTRIBUTION_POLICY_VERSION, DISTRIBUTION_EVIDENCE_CLASSES, ZERO_EFFECTS, DISABLED_EXTERNAL_AUTHORITY, text (+13) _(matched by name only; imported by 3)_
+- [`src/proof-carrying-renderer.mjs`](../../src/proof-carrying-renderer.mjs) — exports verifyRenderedSurface _(matched by name only; imported by 1)_
+- [`src/proof-factory.mjs`](../../src/proof-factory.mjs) — Proof Factory + adversarial message critics. _(matched by name only; tested; imported by 1)_
+- [`src/prospect-effect-package.mjs`](../../src/prospect-effect-package.mjs) — Generic effect-package compiler for a verified, message-selected prospect. _(matched by name only; tested; imported by 3)_
+- [`src/prospect-evidence-reconciliation.mjs`](../../src/prospect-evidence-reconciliation.mjs) — exports PROSPECT_EVIDENCE_VERSION, CONTACT_VERIFICATION_STATES, PROSPECT_SOURCE_TYPES, EVIDENCE_CLASSES, clampEvidenceClassToSource (+7) _(matched by name only; tested; imported by 6)_
+- [`src/provider-cut-evidence-overlay.mjs`](../../src/provider-cut-evidence-overlay.mjs) — exports PROVIDER_CUT_EVIDENCE_OVERLAY_VERSION, applyProviderCutEvidenceOverlay _(matched by name only; imported by 1)_
+- [`src/recursive-governance-principals.mjs`](../../src/recursive-governance-principals.mjs) — exports RECURSIVE_GOVERNANCE_PRINCIPALS_VERSION, verifyRecursiveGovernancePrincipals _(matched by name only; imported by 3)_
+- [`src/recursive-governance-security.mjs`](../../src/recursive-governance-security.mjs) — exports RECURSIVE_GOVERNANCE_SECURITY_VERSION, admitRecursiveSecurityEvolution _(matched by name only; tested; imported by 1)_
+- [`src/recursive-revocation-graph.mjs`](../../src/recursive-revocation-graph.mjs) — exports RECURSIVE_REVOCATION_GRAPH_VERSION, compileDelegationGraph, revokeDelegationSubtree, delegationEffective _(matched by name only; tested; imported by 4)_
+- [`src/relay-preview-proof.mjs`](../../src/relay-preview-proof.mjs) — Bounded post-deployment proof for the dedicated UberBond relay preview. _(matched by name only; tested; no static importers)_
+- [`src/remaining-cut-evidence-overlay.mjs`](../../src/remaining-cut-evidence-overlay.mjs) — exports REMAINING_CUT_EVIDENCE_OVERLAY_VERSION, applyRemainingCutEvidenceOverlay _(matched by name only; imported by 1)_
+- [`src/reservation-recovery.mjs`](../../src/reservation-recovery.mjs) — exports RECOVERY_POLICY_VERSION, classifyStaleReservation, recoverStaleOutboundReservations _(matched by name only; tested; imported by 2)_
+- [`src/revenue-terminal-effect-truth.mjs`](../../src/revenue-terminal-effect-truth.mjs) — exports compileProspectEffectTruth, terminalReadinessWithEffectTruth _(matched by name only; tested; imported by 1)_
+- [`src/robust-minimax-strategy.mjs`](../../src/robust-minimax-strategy.mjs) — exports ROBUST_MINIMAX_STRATEGY_VERSION, selectMinimaxRegretStrategy _(matched by name only; tested; imported by 3)_
+- [`src/runtime-cut-evidence-overlay.mjs`](../../src/runtime-cut-evidence-overlay.mjs) — exports RUNTIME_CUT_EVIDENCE_OVERLAY_VERSION, applyRuntimeCutEvidenceOverlay _(matched by name only; tested; imported by 1)_
+- [`src/runtime-evidence-attestation.mjs`](../../src/runtime-evidence-attestation.mjs) — exports RUNTIME_EVIDENCE_ATTESTATION_VERSION, runtimeEvidenceAttestationPayload, runtimeEvidencePublicKeyFingerprint, verifyRuntimeEvidenceAttestation _(matched by name only; tested; imported by 2)_
+- [`src/runtime-proof-ingestion.mjs`](../../src/runtime-proof-ingestion.mjs) — exports RUNTIME_PROOF_INGESTION_VERSION, validateRestartRecoveryRuntimeEvidence, validateSourceRepositoryHostRuntimeEvidence, validateWebRuntimeHostR… _(matched by name only; tested; imported by 1)_
+- [`src/sandwich-evidence-binding.mjs`](../../src/sandwich-evidence-binding.mjs) — exports SANDWICH_EVIDENCE_BINDING_VERSION, SANDWICH_EVIDENCE_KINDS, compileEvidenceBoundSandwich _(matched by name only; tested; imported by 2)_
+- [`src/self-maintainer-continuation-policy.mjs`](../../src/self-maintainer-continuation-policy.mjs) — exports SELF_MAINTAINER_CONTINUATION_POLICY_VERSION, decideSelfMaintainerContinuation, gateSelfMaintainerPulse _(matched by name only; tested; imported by 5)_
+- [`src/shadow-canary-contract.mjs`](../../src/shadow-canary-contract.mjs) — Generic shadow-comparison primitive and the promotion gate from verified _(matched by name only; tested; no static importers)_
+- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — exports SOVEREIGN_MONEY_MACHINE_PROOF_VERSION, MIN_ENDURANCE_MS, MAX_PULSE_GAP_MS, MAX_RECEIPT_AGE_MS, evaluateSovereignMoneyMachineProof _(matched by name only; tested; no static importers)_
+- [`src/supplier-exit-drill.mjs`](../../src/supplier-exit-drill.mjs) — Proving UberBond can leave a supplier, by actually leaving one. _(matched by name only; tested; imported by 1)_
+- [`src/uberdoso-delivery-policy.mjs`](../../src/uberdoso-delivery-policy.mjs) — exports UBERDOSO_DELIVERY_POLICY_VERSION, UBERDOSO_ALLOWED_RELATIONSHIPS, compileUberDosoDeliveryEligibility _(matched by name only; tested; imported by 1)_
+- [`src/ubermaildoso-evidence-sync.mjs`](../../src/ubermaildoso-evidence-sync.mjs) — exports UBERMAILDOSO_EVIDENCE_SYNC_VERSION, compileMaildosoEvidenceSnapshot, syncMaildosoEvidence _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-890-evidence-flywheel.mjs`](../../src/ubermind-890-evidence-flywheel.mjs) — exports UBERMIND_FLYWHEEL_SCHEMA, recover890FounderIdeaUniverse, compileUberMindEvidenceFlywheel _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-w40-evidence-first-task-compiler.mjs`](../../src/ubermind-w40-evidence-first-task-compiler.mjs) — UBERMIND W40 • Evidence-First Mission Compiler Generates a bounded, reproducible ROUTING PROPOSAL, never performs inference, calls providers, tests c… _(matched by name only; tested; imported by 2)_
+- [`src/ubermind-w41-proof-constrained-route-auction.mjs`](../../src/ubermind-w41-proof-constrained-route-auction.mjs) — W41 - Minimal-cost quality-admissible route auction, research sandbox. Extends W36 official Claude 5.5 rates; no LLM/API calls or source writes. Ever… _(matched by name only; tested; imported by 1)_
+- [`src/uberos/authority.mjs`](../../src/uberos/authority.mjs) — exports UBEROS_AUTHORITY_VERSION, createAuthorityRoot, delegateAuthority, revokeAuthority, authorityIsUsable _(matched by name only; imported by 1)_
+- [`src/uberoutbound-policy-registry.mjs`](../../src/uberoutbound-policy-registry.mjs) — exports UBEROUTBOUND_POLICY_REGISTRY_VERSION, UBEROUTBOUND_VISIBLE_SOURCE_LEDGER, UBEROUTBOUND_EXPERT_RESEARCH_COUNCIL, UBEROUTBOUND_TRIGGER_TAXONOMY… _(matched by name only; tested; imported by 3)_
+- [`src/uberwarm2-delegated-evidence-custody.mjs`](../../src/uberwarm2-delegated-evidence-custody.mjs) — Scoped custody of separately observed source receipts by an owner-delegated operator. This does NOT make that operator the provider or recipient. Tru… _(matched by name only; tested; imported by 1)_
+- [`src/uberwarm2-trusted-receiver-evidence-donor.mjs`](../../src/uberwarm2-trusted-receiver-evidence-donor.mjs) — UberWarm² trusted receiver-evidence donor (Lane R). Bridges an external, protected, authenticated, READ-ONLY receiver connector (receiver OAuth/IMAP… _(matched by name only; imported by 1)_
+- [`src/uberwarm2-trusted-seed-consent-supplier.mjs`](../../src/uberwarm2-trusted-seed-consent-supplier.mjs) — UberWarm² trusted seed-consent supplier. Composes three independent, protected, read-only trusted observation sources (authenticated consent, current… _(matched by name only; tested; imported by 1)_
+- [`src/uberworm-policy.mjs`](../../src/uberworm-policy.mjs) — exports UBERWORM_PROTOCOL, UBERWORM_NODE, UBERWORM_TRUSTED_OWNER, UBERWORM_APPROVED_MODELS, UBERWORM_ACTIONS (+2) _(matched by name only; tested; imported by 1)_
+- [`src/verifier-trust.mjs`](../../src/verifier-trust.mjs) — exports admitVerifierEvidence, verifierMayCertify _(matched by name only; imported by 1)_
 
 ## Scripts (17)
 
-- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
-- [`scripts/c21-evidence-doctor.mjs`](../../scripts/c21-evidence-doctor.mjs) — exports C21_EVIDENCE_DOCTOR_VERSION, runC21EvidenceDoctor
-- [`scripts/composed-effect-authority-audit.mjs`](../../scripts/composed-effect-authority-audit.mjs)
-- [`scripts/consent-bridge-attribute.mjs`](../../scripts/consent-bridge-attribute.mjs) — Which requests on the website came from a printed code, and were they valid _(npm: `outreach:bridge-attribute`)_
-- [`scripts/consent-bridge-letters.mjs`](../../scripts/consent-bridge-letters.mjs) — Print-ready consent-bridge letters or hand-out cards for a short list of _(npm: `outreach:bridge-letters`)_
-- [`scripts/consent-bridge-plan.mjs`](../../scripts/consent-bridge-plan.mjs) — Plan a first-touch cohort: eligibility -> lawful channel -> invitation codes. _(npm: `outreach:bridge-plan`)_
-- [`scripts/genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION
-- [`scripts/global-policy-evidence.mjs`](../../scripts/global-policy-evidence.mjs) — Policy-evidence doctor and recorder for the Global Green-Lane Router. _(npm: `outreach:green-lane:doctor`, `outreach:green-lane:record`)_
-- [`scripts/governance-organ-doctor.mjs`](../../scripts/governance-organ-doctor.mjs) — Zero-effect reachability surface for pure admission / evidence / governance organs.
-- [`scripts/infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs)
-- [`scripts/revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local acceptance test, never a production pairing or economic receipt.
-- [`scripts/supplier-exit-drill.mjs`](../../scripts/supplier-exit-drill.mjs) — Runs the exit drill for real, against real bytes.
-- [`scripts/uberlit-jev-shadow-canary.mjs`](../../scripts/uberlit-jev-shadow-canary.mjs) _(npm: `jev:uberlit:canary`)_
-- [`scripts/ubermind-890-evidence-cycle.mjs`](../../scripts/ubermind-890-evidence-cycle.mjs) — exports UBERMIND_890_DOCTOR_SCHEMA, runUberMind890ProofCycle
-- [`scripts/ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction
-- [`scripts/v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — PHASE 3: the claims this repository makes about itself, and what backs them.
-- [`scripts/v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — PHASE 3: what each rule would require as proof, and what it actually has.
+- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(matched by name only; npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
+- [`scripts/c21-evidence-doctor.mjs`](../../scripts/c21-evidence-doctor.mjs) — exports C21_EVIDENCE_DOCTOR_VERSION, runC21EvidenceDoctor _(matched by name only)_
+- [`scripts/composed-effect-authority-audit.mjs`](../../scripts/composed-effect-authority-audit.mjs) _(matched by name only)_
+- [`scripts/consent-bridge-attribute.mjs`](../../scripts/consent-bridge-attribute.mjs) — Which requests on the website came from a printed code, and were they valid _(matched by name only; npm: `outreach:bridge-attribute`)_
+- [`scripts/consent-bridge-letters.mjs`](../../scripts/consent-bridge-letters.mjs) — Print-ready consent-bridge letters or hand-out cards for a short list of _(matched by name only; npm: `outreach:bridge-letters`)_
+- [`scripts/consent-bridge-plan.mjs`](../../scripts/consent-bridge-plan.mjs) — Plan a first-touch cohort: eligibility -> lawful channel -> invitation codes. _(matched by name only; npm: `outreach:bridge-plan`)_
+- [`scripts/genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION _(matched by name only)_
+- [`scripts/global-policy-evidence.mjs`](../../scripts/global-policy-evidence.mjs) — Policy-evidence doctor and recorder for the Global Green-Lane Router. _(matched by name only; npm: `outreach:green-lane:doctor`, `outreach:green-lane:record`)_
+- [`scripts/governance-organ-doctor.mjs`](../../scripts/governance-organ-doctor.mjs) — Zero-effect reachability surface for pure admission / evidence / governance organs. _(matched by name only)_
+- [`scripts/infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs) _(matched by name only)_
+- [`scripts/revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local acceptance test, never a production pairing or economic receipt. _(matched by name only)_
+- [`scripts/supplier-exit-drill.mjs`](../../scripts/supplier-exit-drill.mjs) — Runs the exit drill for real, against real bytes. _(matched by name only)_
+- [`scripts/uberlit-jev-shadow-canary.mjs`](../../scripts/uberlit-jev-shadow-canary.mjs) _(matched by name only; npm: `jev:uberlit:canary`)_
+- [`scripts/ubermind-890-evidence-cycle.mjs`](../../scripts/ubermind-890-evidence-cycle.mjs) — exports UBERMIND_890_DOCTOR_SCHEMA, runUberMind890ProofCycle _(matched by name only)_
+- [`scripts/ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction _(matched by name only)_
+- [`scripts/v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — PHASE 3: the claims this repository makes about itself, and what backs them. _(matched by name only)_
+- [`scripts/v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — PHASE 3: what each rule would require as proof, and what it actually has. _(matched by name only)_
 
 ## Config, data, artifacts and services (37)
 
-- [`artifacts/c21-evidence-campaign-2026-09-11.json`](../../artifacts/c21-evidence-campaign-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-factory.v1
-- [`artifacts/c21-evidence-status-2026-09-11.json`](../../artifacts/c21-evidence-status-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status.v1
-- [`artifacts/c21-evidence-status-refresh-2026-09-11.json`](../../artifacts/c21-evidence-status-refresh-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status-refresh.v1
-- [`artifacts/capability-genome/atom-evidence-terms.json`](../../artifacts/capability-genome/atom-evidence-terms.json) — uberbond.capability-genome.atom-evidence-terms.v1
-- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1
-- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1
-- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2
-- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1
-- [`artifacts/omega-evidence-seal-2026-09-15.json`](../../artifacts/omega-evidence-seal-2026-09-15.json) — 2026-09-15 · uberbond.omega-evidence-seal.v1
-- [`artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json`](../../artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json) — 2026-09-15 · NUMERICALLY_POSITIVE_BUT_PROMOTION_DISQUALIFIED · uberbond.omega-private-evidence-receipt.v1
-- [`artifacts/omega-private-evidence-v2-sealed-2026-09-15.json`](../../artifacts/omega-private-evidence-v2-sealed-2026-09-15.json) — 2026-09-15 · CLEAN_BOUNDED_POSITIVE_EVIDENCE_NOT_E10 · uberbond.omega-private-evidence-receipt.v2
-- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json)
-- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1
-- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1
-- [`artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json) — 2026-10-03 · uberbond.external-policy-evidence.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json)
-- [`artifacts/outreach/powerhouse-effect-package-20261002.json`](../../artifacts/outreach/powerhouse-effect-package-20261002.json) — 2026-10-02 · Sylvester Electric · PREPARED_NOT_READY · uberbond.effect-package.v1
-- [`artifacts/partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · uberbond-partner-canary-public-evidence-1.0.0
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json) — 2026-10-17 · Entity-linked project memory · RESEARCH_DESIGN_ONLY
-- [`artifacts/v7/claim-evidence-registry.json`](../../artifacts/v7/claim-evidence-registry.json) — uberbond.v7-claim-evidence-registry.v1
-- [`artifacts/v7/proof-obligations.json`](../../artifacts/v7/proof-obligations.json) — uberbond.v7-proof-obligations.v1
-- [`artifacts/work/astra-terminal-proof-2026-09-09.json`](../../artifacts/work/astra-terminal-proof-2026-09-09.json) — 2026-09-09
-- [`config/moonshot-realization-evidence-registry.json`](../../config/moonshot-realization-evidence-registry.json) — uberbond.moonshot-realization-evidence-registry.v1
-- [`config/omega-private-evidence-scoreboard.json`](../../config/omega-private-evidence-scoreboard.json) — PASSED_BOUNDED_CONTROLLED_INTENT_NOT_OPEN_NL · uberbond.omega-private-evidence-scoreboard.v3
-- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3
-- [`config/recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1
-- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock
-- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded"
-- [`migrations/005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql)
-- [`migrations/008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql)
-- [`migrations/011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with,
-- [`migrations/20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal
-- [`open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json`](../../open%20router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json) — 2026-09-29 · V5_TYPINGMIND_POLICY_RECONCILED_SOURCE_ONLY · uberbond.open-router.v5-policy-reconciliation-receipt.v1
-- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh)
-- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar)
-- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json)
-- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1
+- [`artifacts/c21-evidence-campaign-2026-09-11.json`](../../artifacts/c21-evidence-campaign-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-factory.v1 _(matched by name only)_
+- [`artifacts/c21-evidence-status-2026-09-11.json`](../../artifacts/c21-evidence-status-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status.v1 _(matched by name only)_
+- [`artifacts/c21-evidence-status-refresh-2026-09-11.json`](../../artifacts/c21-evidence-status-refresh-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status-refresh.v1 _(matched by name only)_
+- [`artifacts/capability-genome/atom-evidence-terms.json`](../../artifacts/capability-genome/atom-evidence-terms.json) — uberbond.capability-genome.atom-evidence-terms.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2 _(matched by name only)_
+- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1 _(matched by name only)_
+- [`artifacts/omega-evidence-seal-2026-09-15.json`](../../artifacts/omega-evidence-seal-2026-09-15.json) — 2026-09-15 · uberbond.omega-evidence-seal.v1 _(matched by name only)_
+- [`artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json`](../../artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json) — 2026-09-15 · NUMERICALLY_POSITIVE_BUT_PROMOTION_DISQUALIFIED · uberbond.omega-private-evidence-receipt.v1 _(matched by name only)_
+- [`artifacts/omega-private-evidence-v2-sealed-2026-09-15.json`](../../artifacts/omega-private-evidence-v2-sealed-2026-09-15.json) — 2026-09-15 · CLEAN_BOUNDED_POSITIVE_EVIDENCE_NOT_E10 · uberbond.omega-private-evidence-receipt.v2 _(matched by name only)_
+- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json) _(matched by name only)_
+- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json) — 2026-10-03 · uberbond.external-policy-evidence.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json) _(matched by name only)_
+- [`artifacts/outreach/powerhouse-effect-package-20261002.json`](../../artifacts/outreach/powerhouse-effect-package-20261002.json) — 2026-10-02 · Sylvester Electric · PREPARED_NOT_READY · uberbond.effect-package.v1 _(matched by name only)_
+- [`artifacts/partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · uberbond-partner-canary-public-evidence-1.0.0 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json) — 2026-10-17 · Entity-linked project memory · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/v7/claim-evidence-registry.json`](../../artifacts/v7/claim-evidence-registry.json) — uberbond.v7-claim-evidence-registry.v1 _(matched by name only)_
+- [`artifacts/v7/proof-obligations.json`](../../artifacts/v7/proof-obligations.json) — uberbond.v7-proof-obligations.v1 _(matched by name only)_
+- [`artifacts/work/astra-terminal-proof-2026-09-09.json`](../../artifacts/work/astra-terminal-proof-2026-09-09.json) — 2026-09-09 _(matched by name only)_
+- [`config/moonshot-realization-evidence-registry.json`](../../config/moonshot-realization-evidence-registry.json) — uberbond.moonshot-realization-evidence-registry.v1 _(matched by name only)_
+- [`config/omega-private-evidence-scoreboard.json`](../../config/omega-private-evidence-scoreboard.json) — PASSED_BOUNDED_CONTROLLED_INTENT_NOT_OPEN_NL · uberbond.omega-private-evidence-scoreboard.v3 _(matched by name only)_
+- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3 _(matched by name only)_
+- [`config/recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1 _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/src/policy.js`](../../deploy/cloudflare-free-runtime/src/policy.js) — exports FREE_MISSION_CLOCK_VERSION, MIN_INTERVAL_MS, MAX_ACTIVE_WINDOW_MS, MAX_TICKS_PER_WINDOW, compileFreeMissionClock _(matched by name only)_
+- [`deploy/cloudflare-free-runtime/test/policy.test.mjs`](../../deploy/cloudflare-free-runtime/test/policy.test.mjs) — 4 tests — e.g. "one-second eight-hour mission is accepted and bounded" _(matched by name only)_
+- [`migrations/005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql) _(matched by name only)_
+- [`migrations/008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql) _(matched by name only)_
+- [`migrations/011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with, _(matched by name only)_
+- [`migrations/20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal _(matched by name only)_
+- [`open router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json`](../../open%20router/V5_POLICY_RECONCILIATION_RECEIPT_2026-09-29.json) — 2026-09-29 · V5_TYPINGMIND_POLICY_RECONCILED_SOURCE_ONLY · uberbond.open-router.v5-policy-reconciliation-receipt.v1 _(matched by name only)_
+- [`ops/sovereign/init-release-authority.sh`](../../ops/sovereign/init-release-authority.sh) _(matched by name only)_
+- [`policy/omnia-v9/authorization.cedar`](../../policy/omnia-v9/authorization.cedar) _(matched by name only)_
+- [`policy/omnia-v9/schema.json`](../../policy/omnia-v9/schema.json) _(matched by name only)_
+- [`policy/outreach/global-policy-evidence.json`](../../policy/outreach/global-policy-evidence.json) — ACTIVE · uberbond.global-policy-evidence-bundle.v1 _(matched by name only)_
 
 ## Tests (119)
 

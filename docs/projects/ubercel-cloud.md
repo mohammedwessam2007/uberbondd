@@ -16,40 +16,40 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(7 mentions)_
-- [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Oracle Free → UberCel → UberLit → Jev live activation _(5 mentions)_
-- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(4 mentions)_
+- [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(matched by name only)_ _(7 mentions)_
+- [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Oracle Free → UberCel → UberLit → Jev live activation _(matched by name only)_ _(5 mentions)_
+- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(matched by name only)_ _(4 mentions)_
 
 ## Source modules (14)
 
-- [`src/ubercel-deployment-actuator.mjs`](../../src/ubercel-deployment-actuator.mjs) — exports UBERCEL_DEPLOYMENT_ACTUATOR_VERSION, executeUbercelDeployment _(tested; imported by 1)_
-- [`src/ubercel-deployment-control-plane.mjs`](../../src/ubercel-deployment-control-plane.mjs) — exports UBERCEL_CONTROL_PLANE_VERSION, compileUbercelDeployment, compileUbercelFailover, UBERCEL_ADAPTER_TYPES _(tested; imported by 4)_
-- [`src/ubercel-deployment-doctor.mjs`](../../src/ubercel-deployment-doctor.mjs) — Ubercel deployment state, read through UberBond rather than off a vendor. _(tested; imported by 1)_
-- [`src/ubercel-health-evidence.mjs`](../../src/ubercel-health-evidence.mjs) — Turns a health probe into evidence Ubercel can read, or explains why it cannot. _(tested; imported by 1)_
-- [`src/ubercel-uberlit-linux-adapter.mjs`](../../src/ubercel-uberlit-linux-adapter.mjs) — exports UBERCEL_UBERLIT_LINUX_ADAPTER_VERSION, createUberLitLinuxAdapterExecutor _(tested; imported by 1)_
-- [`src/ubercloud-contabo-cell-actuator.mjs`](../../src/ubercloud-contabo-cell-actuator.mjs) — exports UBERCLOUD_CONTABO_CELL_VERSION, compileContaboMailCellPlan, executeContaboMailCellAcquisition, reconcileContaboMailCell, createContaboApiClie… _(tested; imported by 1)_
-- [`src/ubercloud-contabo-cell-preflight.mjs`](../../src/ubercloud-contabo-cell-preflight.mjs) — exports UBERCLOUD_CONTABO_PREFLIGHT_VERSION, selectContaboMailCellInputs, discoverContaboMailCellInputs, createContaboPreflightClient _(tested; imported by 2)_
-- [`src/ubercloud-contabo-preflight-operator.mjs`](../../src/ubercloud-contabo-preflight-operator.mjs) — exports UBERCLOUD_CONTABO_PREFLIGHT_OPERATOR_VERSION, CONTABO_PREFLIGHT_ENV_NAMES, inspectContaboCredentialPresence, runContaboPreflightOperator _(imported by 1)_
-- [`src/ubercloud-sovereign-fabric.mjs`](../../src/ubercloud-sovereign-fabric.mjs) — exports UBERCLOUD_SOVEREIGN_FABRIC_VERSION, compileUberCloudPlan, compileUberCloudEvacuation _(tested; imported by 2)_
-- [`src/uberocean-compute-fabric.mjs`](../../src/uberocean-compute-fabric.mjs) — exports UBEROCEAN_COMPUTE_FABRIC_VERSION, normalizeUberOceanHost, compileUberOceanSubstrate, UBEROCEAN_HOST_CLASSES _(tested; imported by 2)_
-- [`src/uberocean-ubercel-bridge.mjs`](../../src/uberocean-ubercel-bridge.mjs) — exports UBEROCEAN_UBERCEL_BRIDGE_VERSION, compileUberOceanUbercelDeployment _(tested; no static importers)_
-- [`src/uberstatic-runtime.mjs`](../../src/uberstatic-runtime.mjs) — exports createUberStaticHandler, startUberStaticServer _(imported by 1)_
-- [`src/uberstatic.mjs`](../../src/uberstatic.mjs) — exports UBERSTATIC_SCHEMA, UBERSTATIC_POINTER_SCHEMA, UBERSTATIC_POLICY, normalizeStaticPath, compileUberStaticDeployment (+10) _(tested; imported by 2)_
-- [`src/ubersubstrate.mjs`](../../src/ubersubstrate.mjs) — UberSubstrate — evidence-weighted first-month outbound substrate planner. _(tested; no static importers)_
+- [`src/ubercel-deployment-actuator.mjs`](../../src/ubercel-deployment-actuator.mjs) — exports UBERCEL_DEPLOYMENT_ACTUATOR_VERSION, executeUbercelDeployment _(matched by name only; tested; imported by 1)_
+- [`src/ubercel-deployment-control-plane.mjs`](../../src/ubercel-deployment-control-plane.mjs) — exports UBERCEL_CONTROL_PLANE_VERSION, compileUbercelDeployment, compileUbercelFailover, UBERCEL_ADAPTER_TYPES _(matched by name only; tested; imported by 4)_
+- [`src/ubercel-deployment-doctor.mjs`](../../src/ubercel-deployment-doctor.mjs) — Ubercel deployment state, read through UberBond rather than off a vendor. _(matched by name only; tested; imported by 1)_
+- [`src/ubercel-health-evidence.mjs`](../../src/ubercel-health-evidence.mjs) — Turns a health probe into evidence Ubercel can read, or explains why it cannot. _(matched by name only; tested; imported by 1)_
+- [`src/ubercel-uberlit-linux-adapter.mjs`](../../src/ubercel-uberlit-linux-adapter.mjs) — exports UBERCEL_UBERLIT_LINUX_ADAPTER_VERSION, createUberLitLinuxAdapterExecutor _(matched by name only; tested; imported by 1)_
+- [`src/ubercloud-contabo-cell-actuator.mjs`](../../src/ubercloud-contabo-cell-actuator.mjs) — exports UBERCLOUD_CONTABO_CELL_VERSION, compileContaboMailCellPlan, executeContaboMailCellAcquisition, reconcileContaboMailCell, createContaboApiClie… _(matched by name only; tested; imported by 1)_
+- [`src/ubercloud-contabo-cell-preflight.mjs`](../../src/ubercloud-contabo-cell-preflight.mjs) — exports UBERCLOUD_CONTABO_PREFLIGHT_VERSION, selectContaboMailCellInputs, discoverContaboMailCellInputs, createContaboPreflightClient _(matched by name only; tested; imported by 2)_
+- [`src/ubercloud-contabo-preflight-operator.mjs`](../../src/ubercloud-contabo-preflight-operator.mjs) — exports UBERCLOUD_CONTABO_PREFLIGHT_OPERATOR_VERSION, CONTABO_PREFLIGHT_ENV_NAMES, inspectContaboCredentialPresence, runContaboPreflightOperator _(matched by name only; imported by 1)_
+- [`src/ubercloud-sovereign-fabric.mjs`](../../src/ubercloud-sovereign-fabric.mjs) — exports UBERCLOUD_SOVEREIGN_FABRIC_VERSION, compileUberCloudPlan, compileUberCloudEvacuation _(matched by name only; tested; imported by 2)_
+- [`src/uberocean-compute-fabric.mjs`](../../src/uberocean-compute-fabric.mjs) — exports UBEROCEAN_COMPUTE_FABRIC_VERSION, normalizeUberOceanHost, compileUberOceanSubstrate, UBEROCEAN_HOST_CLASSES _(matched by name only; tested; imported by 2)_
+- [`src/uberocean-ubercel-bridge.mjs`](../../src/uberocean-ubercel-bridge.mjs) — exports UBEROCEAN_UBERCEL_BRIDGE_VERSION, compileUberOceanUbercelDeployment _(matched by name only; tested; no static importers)_
+- [`src/uberstatic-runtime.mjs`](../../src/uberstatic-runtime.mjs) — exports createUberStaticHandler, startUberStaticServer _(matched by name only; imported by 1)_
+- [`src/uberstatic.mjs`](../../src/uberstatic.mjs) — exports UBERSTATIC_SCHEMA, UBERSTATIC_POINTER_SCHEMA, UBERSTATIC_POLICY, normalizeStaticPath, compileUberStaticDeployment (+10) _(matched by name only; tested; imported by 2)_
+- [`src/ubersubstrate.mjs`](../../src/ubersubstrate.mjs) — UberSubstrate — evidence-weighted first-month outbound substrate planner. _(matched by name only; tested; no static importers)_
 
 ## Scripts (7)
 
-- [`scripts/contabo-mail-cell-preflight.mjs`](../../scripts/contabo-mail-cell-preflight.mjs)
-- [`scripts/ubercel-deploy.mjs`](../../scripts/ubercel-deploy.mjs) — exports runUbercelOperator
-- [`scripts/ubercel-doctor.mjs`](../../scripts/ubercel-doctor.mjs) — Reports UberBond's deployment state through Ubercel. _(npm: `ubercel:doctor`)_
-- [`scripts/ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment
-- [`scripts/ubercel-record-health.mjs`](../../scripts/ubercel-record-health.mjs) — Records an observed health probe into the Ubercel signal file.
-- [`scripts/uberocean-admit-oracle-host.mjs`](../../scripts/uberocean-admit-oracle-host.mjs) _(npm: `uberocean:admit:oracle`)_
-- [`scripts/uberstatic.mjs`](../../scripts/uberstatic.mjs)
+- [`scripts/contabo-mail-cell-preflight.mjs`](../../scripts/contabo-mail-cell-preflight.mjs) _(matched by name only)_
+- [`scripts/ubercel-deploy.mjs`](../../scripts/ubercel-deploy.mjs) — exports runUbercelOperator _(matched by name only)_
+- [`scripts/ubercel-doctor.mjs`](../../scripts/ubercel-doctor.mjs) — Reports UberBond's deployment state through Ubercel. _(matched by name only; npm: `ubercel:doctor`)_
+- [`scripts/ubercel-economic-deploy.mjs`](../../scripts/ubercel-economic-deploy.mjs) — exports runUbercelEconomicDeployment _(matched by name only)_
+- [`scripts/ubercel-record-health.mjs`](../../scripts/ubercel-record-health.mjs) — Records an observed health probe into the Ubercel signal file. _(matched by name only)_
+- [`scripts/uberocean-admit-oracle-host.mjs`](../../scripts/uberocean-admit-oracle-host.mjs) _(matched by name only; npm: `uberocean:admit:oracle`)_
+- [`scripts/uberstatic.mjs`](../../scripts/uberstatic.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (1)
 
-- [`artifacts/ubercel/deployment-signals.json`](../../artifacts/ubercel/deployment-signals.json) — uberbond.ubercel-deployment-signals.v1
+- [`artifacts/ubercel/deployment-signals.json`](../../artifacts/ubercel/deployment-signals.json) — uberbond.ubercel-deployment-signals.v1 _(matched by name only)_
 
 ## Tests (14)
 

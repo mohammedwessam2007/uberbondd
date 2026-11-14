@@ -12,35 +12,35 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (9)
 
-- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage
-- [`docs/REALITY_ACTIVATION_REGISTER.md`](../REALITY_ACTIVATION_REGISTER.md) — Reality activation register
-- [`docs/SUMMIT_100_POST_CLOSURE_INTEGRATION_AUDIT.md`](../SUMMIT_100_POST_CLOSURE_INTEGRATION_AUDIT.md) — SUMMIT 100 Post-Closure Integration Audit
-- [`docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md`](../UBERBOND_BLACK_SKY_FINAL_RECEIPT.md) — UBERBOND BLACK SKY — final receipt
-- [`docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md`](../UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT
-- [`docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md`](../UBERBOND_SUMMIT_100_FINAL_RECEIPT.md) — UBERBOND_SUMMIT_100_FINAL_RECEIPT
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff.
-- [`docs/handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md`](../handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md) — 2026-09-02 · Claude Ragnarok Nightfall — Dawn Handoff
-- [`docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md`](../UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md) — 2026-08-29 · UberBond Master Memory Reconciliation — 2026-08-29
+- [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — UberBond Historical Project Lineage _(matched by name only)_
+- [`docs/REALITY_ACTIVATION_REGISTER.md`](../REALITY_ACTIVATION_REGISTER.md) — Reality activation register _(matched by name only)_
+- [`docs/SUMMIT_100_POST_CLOSURE_INTEGRATION_AUDIT.md`](../SUMMIT_100_POST_CLOSURE_INTEGRATION_AUDIT.md) — SUMMIT 100 Post-Closure Integration Audit _(matched by name only)_
+- [`docs/UBERBOND_BLACK_SKY_FINAL_RECEIPT.md`](../UBERBOND_BLACK_SKY_FINAL_RECEIPT.md) — UBERBOND BLACK SKY — final receipt _(matched by name only)_
+- [`docs/UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md`](../UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT _(matched by name only)_
+- [`docs/UBERBOND_SUMMIT_100_FINAL_RECEIPT.md`](../UBERBOND_SUMMIT_100_FINAL_RECEIPT.md) — UBERBOND_SUMMIT_100_FINAL_RECEIPT _(matched by name only)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_
+- [`docs/handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md`](../handoffs/CLAUDE_RAGNAROK_NIGHTFALL_2026-09-02.md) — 2026-09-02 · Claude Ragnarok Nightfall — Dawn Handoff _(matched by name only)_
+- [`docs/UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md`](../UBERBOND_MASTER_MEMORY_RECONCILIATION_2026-08-29.md) — 2026-08-29 · UberBond Master Memory Reconciliation — 2026-08-29 _(matched by name only)_
 
 ## Other documents (1)
 
-- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED
+- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (4)
 
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(9 mentions)_
-- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(5 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(4 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(9 mentions)_
+- [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_ _(5 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (1)
 
-- [`src/uberbond-memory-reconciliation.mjs`](../../src/uberbond-memory-reconciliation.mjs) — exports UBERBOND_MEMORY_RECONCILIATION_POLICY_VERSION, applyUberBondMemoryReconciliation _(tested; imported by 1)_
+- [`src/uberbond-memory-reconciliation.mjs`](../../src/uberbond-memory-reconciliation.mjs) — exports UBERBOND_MEMORY_RECONCILIATION_POLICY_VERSION, applyUberBondMemoryReconciliation _(matched by name only; tested; imported by 1)_
 
 ## Config, data, artifacts and services (2)
 
-- [`artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json`](../../artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json) — 2026-09-02 · uberbond-night-donor-reconciliation-1.0.0
-- [`artifacts/uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md · CANONICAL_LINEAGE · uberbond-memory-reconciliation-1.0.0
+- [`artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json`](../../artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json) — 2026-09-02 · uberbond-night-donor-reconciliation-1.0.0 _(matched by name only)_
+- [`artifacts/uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md · CANONICAL_LINEAGE · uberbond-memory-reconciliation-1.0.0 _(matched by name only)_
 
 ## Tests (3)
 

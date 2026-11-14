@@ -113,6 +113,23 @@ const PROJECT_CONFIG = JSON.parse(fs.readFileSync(path.join(path.dirname(fileURL
 // Tuple shape: [id, title, description, pathRegex, family, mentionsRegex|null]
 export const PROJECTS = PROJECT_CONFIG.projects.map(p => [p.id, p.title, p.description, new RegExp(p.path), p.family, p.mentions ? new RegExp(p.mentions, 'g') : null]);
 const MENTION_MIN = 3;
+// Content-based judgements written by a reading pass (see docs/projects/README.md). One JSON object per line:
+// {p, what, use, projects[], kind, conf}. They override name matching; files without a record fall back to names.
+const SEMANTICS_DIR = 'artifacts/repository-index/semantics';
+export function loadSemantics(root) {
+  const dir = path.join(root, SEMANTICS_DIR); const map = new Map();
+  if (!fs.existsSync(dir)) return map;
+  const valid = new Set(PROJECTS.map(p => p[0]));
+  for (const f of fs.readdirSync(dir).filter(f => f.endsWith('.jsonl')).sort()) {
+    for (const row of fs.readFileSync(path.join(dir, f), 'utf8').split('\n')) {
+      if (!row.trim()) continue;
+      let r; try { r = JSON.parse(row); } catch { continue; }
+      if (!r?.p) continue;
+      map.set(r.p, { what: String(r.what ?? '').trim(), use: String(r.use ?? '').trim(), kind: r.kind, conf: r.conf, projects: (r.projects ?? []).filter(id => valid.has(id)).slice(0, 3) });
+    }
+  }
+  return map;
+}
 export function projectsFor(file) {
   const key = file.toLowerCase().replace(/[_\s]+/g, m => (m.includes(' ') ? ' ' : '-'));
   return PROJECTS.filter(p => p[3].test(key)).map(p => p[0]);
@@ -243,12 +260,18 @@ export function buildIndex(root) {
     }
   }
   const tests = new Set(files.filter(f => f.startsWith('tests/')));
+  const semantics = loadSemantics(root);
+  const testTargets = new Map();
   const inbound = new Map();
   const entries = [];
   for (const file of files) {
     const abs = path.join(root, file);
     const bytes = fs.statSync(abs).size;
     const text = TEXT_RE.test(file) && bytes <= MAX_READ ? fs.readFileSync(abs, 'utf8') : null;
+    if (text && file.startsWith('tests/')) {
+      const t = [...new Set([...text.matchAll(/from\s+['"]\.\.\/(src\/[^'"]+|scripts\/[^'"]+|[a-z-]+\.mjs)['"]/g)].map(m => m[1]))];
+      if (t.length) testTargets.set(file, t);
+    }
     if (text && /\.(mjs|js|cjs)$/.test(file)) {
       for (const m of text.matchAll(/(?:from\s+|import\s*\(\s*|import\s+)['"](\.{1,2}\/[^'"]+)['"]/g)) {
         const target = path.posix.normalize(path.posix.join(path.posix.dirname(file), m[1]));
@@ -256,7 +279,16 @@ export function buildIndex(root) {
       }
     }
     const e = { path: file, area: classifyArea(file), domain: classifyDomain(file), bytes };
-    const projects = projectsFor(file); if (projects.length) e.projects = projects;
+    const sem = semantics.get(file);
+    let projects = projectsFor(file);
+    if (sem) {
+      if (sem.what) e.what = sem.what;
+      if (sem.use) e.use = sem.use;
+      if (sem.kind) e.kind = sem.kind;
+      if (sem.conf) e.conf = sem.conf;
+      if (sem.projects.length) { projects = sem.projects; e.by = 'content'; }
+    }
+    if (projects.length) e.projects = projects;
     if (text && /\.(md|txt)$/.test(file) && !FROZEN_RE.test(file)) {
       const mentions = {};
       for (const p of PROJECTS) if (p[5] && !projects.includes(p[0])) { const n = (text.match(p[5]) ?? []).length; if (n >= MENTION_MIN) mentions[p[0]] = n; }
@@ -273,12 +305,24 @@ export function buildIndex(root) {
     entries.push(e);
   }
   for (const e of entries) if (e.path.startsWith('src/') && /\.mjs$/.test(e.path)) e.importedBy = inbound.get(e.path) ?? 0;
+  // A test means what the modules it imports mean: inherit their content-based projects.
+  const byPath = new Map(entries.map(e => [e.path, e]));
+  for (const e of entries) {
+    if (e.by === 'content' || !testTargets.has(e.path)) continue;
+    const targets = testTargets.get(e.path).map(t => byPath.get(t)).filter(t => t?.by === 'content');
+    if (!targets.length) continue;
+    const count = new Map();
+    for (const t of targets) t.projects.forEach((id, i) => count.set(id, (count.get(id) ?? 0) + (3 - i)));
+    e.projects = [...count].sort((a, b) => b[1] - a[1]).slice(0, 3).map(x => x[0]);
+    e.by = 'imports'; e.kind = 'test';
+    e.what = `Tests ${targets.slice(0, 3).map(t => path.posix.basename(t.path, '.mjs')).join(', ')}${e.title ? ` (${e.title})` : ''}`;
+  }
   const count = key => entries.reduce((m, e) => (m[e[key]] = (m[e[key]] ?? 0) + 1, m), {});
   return {
     schema: REPOSITORY_INDEX_SCHEMA,
     truthBoundary: 'Navigation index only. Presence here proves a file exists, not that anything is implemented, deployed, reachable at runtime or externally proven.',
     regenerate: 'npm run repo:index',
-    totals: { files: entries.length, byArea: count('area'), byDomain: count('domain') },
+    totals: { files: entries.length, byArea: count('area'), byDomain: count('domain'), classifiedByContent: entries.filter(e => e.by === 'content').length, classifiedByImports: entries.filter(e => e.by === 'imports').length, classifiedByNameOnly: entries.filter(e => e.projects && !e.by).length },
     domains: DOMAINS.map(([id, title, description]) => ({ id, title, description })),
     areas: AREAS.map(([id, title, description]) => ({ id, title, description })),
     files: entries
@@ -297,8 +341,11 @@ function line(e, from, { showDir = false } = {}) {
   const label = showDir ? e.path : path.posix.basename(e.path);
   const bits = [];
   if (e.date) bits.push(e.date);
-  if (e.title) bits.push(e.title.replace(/\|/g, '/'));
+  const text = e.what || e.title;
+  if (text) bits.push(text.replace(/\|/g, '/'));
+  if (e.use) bits.push(`**Use:** ${e.use.replace(/\|/g, '/')}`);
   const meta = [];
+  if (e.projects && !e.by) meta.push('matched by name only');
   if (e.test) meta.push('tested');
   if (e.importedBy != null) meta.push(e.importedBy ? `imported by ${e.importedBy}` : 'no static importers');
   if (e.npm) meta.push(`npm: ${e.npm.map(n => `\`${n}\``).join(', ')}`);
@@ -443,6 +490,8 @@ function renderProjects(index) {
     outs.push([out, `${L.join('\n')}\n`]);
   }
   const none = index.files.filter(e => !e.projects && !FROZEN_RE.test(e.path)).length;
+  const tt = index.totals;
+  R.push('', '## How files were assigned', '', `- **${tt.classifiedByContent}** files by reading their content (purpose and use written per file; records in \`${SEMANTICS_DIR}/\`).`, `- **${tt.classifiedByImports}** tests by the modules they import.`, `- **${tt.classifiedByNameOnly}** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.`);
   R.push('', `${none} live files match no project keyword; find them through the [folder and domain index](${rel(readme, 'REPOSITORY_INDEX.md')}).`, '');
   outs.push([readme, `${R.join('\n')}\n`]);
   return outs;

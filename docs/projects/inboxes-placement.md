@@ -12,46 +12,46 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (7)
 
-- [`docs/AGENTMAIL_ADAPTER.md`](../AGENTMAIL_ADAPTER.md) — AgentMail Adapter
-- [`docs/UBERINBOX_FACTORY.md`](../UBERINBOX_FACTORY.md) — UberInbox Factory
-- [`docs/UBERINBOXES.md`](../UBERINBOXES.md) — UberInboxes
-- [`docs/COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md`](../COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md) — 2026-09-27 · Cold Mail Server Authenticated Reality — 2026-09-27 — Truth class: authenticated account observations supplied from ChatGPT Work/Luna plus current public first-party terms/pricing. No purch…
-- [`docs/EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md`](../EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md) — 2026-09-27 · EmailPal Provider Evidence — 2026-09-27 — Truth class: current first-party public pricing/help/API/Terms/AUP evidence observed on 2026-09-27. This receipt does not claim an account, usable…
-- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION.
-- [`docs/UBERINBOXES_CAPACITY_DECISION_2026-09-14.md`](../UBERINBOXES_CAPACITY_DECISION_2026-09-14.md) — 2026-09-14 · UberInboxes capacity decision — 2026-09-14
+- [`docs/AGENTMAIL_ADAPTER.md`](../AGENTMAIL_ADAPTER.md) — AgentMail Adapter _(matched by name only)_
+- [`docs/UBERINBOX_FACTORY.md`](../UBERINBOX_FACTORY.md) — UberInbox Factory _(matched by name only)_
+- [`docs/UBERINBOXES.md`](../UBERINBOXES.md) — UberInboxes _(matched by name only)_
+- [`docs/COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md`](../COLDMAILSERVER_AUTHENTICATED_REALITY_2026-09-27.md) — 2026-09-27 · Cold Mail Server Authenticated Reality — 2026-09-27 — Truth class: authenticated account observations supplied from ChatGPT Work/Luna plus current public first-party terms/pricing. No purch… _(matched by name only)_
+- [`docs/EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md`](../EMAILPAL_PROVIDER_EVIDENCE_2026-09-27.md) — 2026-09-27 · EmailPal Provider Evidence — 2026-09-27 — Truth class: current first-party public pricing/help/API/Terms/AUP evidence observed on 2026-09-27. This receipt does not claim an account, usable… _(matched by name only)_
+- [`docs/UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md`](../UBERCLAYINBOX_PROVIDER_EVIDENCE_2026-09-26.md) — 2026-09-26 · UberClayInbox Provider Evidence — 2026-09-26 — Truth class: CURRENT PUBLIC PROVIDER CLAIMS + INDEPENDENT LIVE-PROBED API DONOR + SOURCE IMPLEMENTATION. _(matched by name only)_
+- [`docs/UBERINBOXES_CAPACITY_DECISION_2026-09-14.md`](../UBERINBOXES_CAPACITY_DECISION_2026-09-14.md) — 2026-09-14 · UberInboxes capacity decision — 2026-09-14 _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(5 mentions)_
-- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(3 mentions)_
+- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(matched by name only)_ _(5 mentions)_
+- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (16)
 
-- [`src/agentmail-adapter.mjs`](../../src/agentmail-adapter.mjs) — Clean-room AgentMail adapter for UberBond's provider-neutral contract. _(tested; imported by 1)_
-- [`src/deliverability-guard.mjs`](../../src/deliverability-guard.mjs) — exports POLICY_VERSION, evaluateDeliverabilityGuard _(tested; imported by 1)_
-- [`src/gmail-inbound.mjs`](../../src/gmail-inbound.mjs) — exports INBOUND_SCOPES, GmailInboundError, inboundAuthUrl, sealInboundTokens, openInboundTokens (+3) _(no static importers)_
-- [`src/gmail.mjs`](../../src/gmail.mjs) — exports googleAuthUrl, exchangeCode, refresh, sealTokens, openTokens (+5) _(imported by 4)_
-- [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs) — exports GmailEffectAdapterError, generateMessageId, gmailArgumentsDigest, GmailEffectAdapter _(no static importers)_
-- [`src/uberattention-protocol.mjs`](../../src/uberattention-protocol.mjs) — exports issueRecipientAttentionPermit, evaluateAttentionRequest _(imported by 2)_
-- [`src/uberattention-stake-ledger.mjs`](../../src/uberattention-stake-ledger.mjs) — exports compileAttentionStake, settleAttentionStakeProposal _(imported by 1)_
-- [`src/uberclayinbox.mjs`](../../src/uberclayinbox.mjs) — UberClayInbox — governed ClayInbox infrastructure adapter. _(tested; imported by 1)_
-- [`src/uberinbox-factory.mjs`](../../src/uberinbox-factory.mjs) — UberInbox: clean-room, provider-neutral mailbox capacity planner. _(tested; no static importers)_
-- [`src/uberinboxes-scale-profiles.mjs`](../../src/uberinboxes-scale-profiles.mjs) — exports UBERINBOXES_SCALE_VERSION, UBERINBOXES_SCALE_PROFILES, compileScaledUberInboxesFleet, compareUberInboxesProfiles _(tested; no static importers)_
-- [`src/uberinboxes.mjs`](../../src/uberinboxes.mjs) — exports UBERINBOXES_VERSION, DEFAULT_UBERINBOXES_LOCAL_PARTS, compileUberInboxesFleet, materializeUberInboxes, reconcileUberInboxes _(tested; imported by 1)_
-- [`src/uberplacement.mjs`](../../src/uberplacement.mjs) — exports UBERPLACEMENT_VERSION, PLACEMENT_STATES, compilePlacementProbePlan, normalizePlacementObservation, compilePlacementReport (+1) _(tested; imported by 2)_
-- [`src/uberquality-capacity-governor.mjs`](../../src/uberquality-capacity-governor.mjs) — exports UBERQUALITY_CAPACITY_VERSION, compileQualityPreservingOutreachCapacity _(tested; imported by 1)_
-- [`src/uberreputation-credentials.mjs`](../../src/uberreputation-credentials.mjs) — exports compileReputationCredential _(imported by 1)_
-- [`src/uberwarm2-gmail-placement-reader.mjs`](../../src/uberwarm2-gmail-placement-reader.mjs) — Read-only recipient-side Gmail transport. No sending, label changes, OAuth _(tested; no static importers)_
-- [`src/uberworm-policy.mjs`](../../src/uberworm-policy.mjs) — exports UBERWORM_PROTOCOL, UBERWORM_NODE, UBERWORM_TRUSTED_OWNER, UBERWORM_APPROVED_MODELS, UBERWORM_ACTIONS (+2) _(tested; imported by 1)_
+- [`src/agentmail-adapter.mjs`](../../src/agentmail-adapter.mjs) — Clean-room AgentMail adapter for UberBond's provider-neutral contract. _(matched by name only; tested; imported by 1)_
+- [`src/deliverability-guard.mjs`](../../src/deliverability-guard.mjs) — exports POLICY_VERSION, evaluateDeliverabilityGuard _(matched by name only; tested; imported by 1)_
+- [`src/gmail-inbound.mjs`](../../src/gmail-inbound.mjs) — exports INBOUND_SCOPES, GmailInboundError, inboundAuthUrl, sealInboundTokens, openInboundTokens (+3) _(matched by name only; no static importers)_
+- [`src/gmail.mjs`](../../src/gmail.mjs) — exports googleAuthUrl, exchangeCode, refresh, sealTokens, openTokens (+5) _(matched by name only; imported by 4)_
+- [`src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/gmail-effect-adapter.mjs) — exports GmailEffectAdapterError, generateMessageId, gmailArgumentsDigest, GmailEffectAdapter _(matched by name only; no static importers)_
+- [`src/uberattention-protocol.mjs`](../../src/uberattention-protocol.mjs) — exports issueRecipientAttentionPermit, evaluateAttentionRequest _(matched by name only; imported by 2)_
+- [`src/uberattention-stake-ledger.mjs`](../../src/uberattention-stake-ledger.mjs) — exports compileAttentionStake, settleAttentionStakeProposal _(matched by name only; imported by 1)_
+- [`src/uberclayinbox.mjs`](../../src/uberclayinbox.mjs) — UberClayInbox — governed ClayInbox infrastructure adapter. _(matched by name only; tested; imported by 1)_
+- [`src/uberinbox-factory.mjs`](../../src/uberinbox-factory.mjs) — UberInbox: clean-room, provider-neutral mailbox capacity planner. _(matched by name only; tested; no static importers)_
+- [`src/uberinboxes-scale-profiles.mjs`](../../src/uberinboxes-scale-profiles.mjs) — exports UBERINBOXES_SCALE_VERSION, UBERINBOXES_SCALE_PROFILES, compileScaledUberInboxesFleet, compareUberInboxesProfiles _(matched by name only; tested; no static importers)_
+- [`src/uberinboxes.mjs`](../../src/uberinboxes.mjs) — exports UBERINBOXES_VERSION, DEFAULT_UBERINBOXES_LOCAL_PARTS, compileUberInboxesFleet, materializeUberInboxes, reconcileUberInboxes _(matched by name only; tested; imported by 1)_
+- [`src/uberplacement.mjs`](../../src/uberplacement.mjs) — exports UBERPLACEMENT_VERSION, PLACEMENT_STATES, compilePlacementProbePlan, normalizePlacementObservation, compilePlacementReport (+1) _(matched by name only; tested; imported by 2)_
+- [`src/uberquality-capacity-governor.mjs`](../../src/uberquality-capacity-governor.mjs) — exports UBERQUALITY_CAPACITY_VERSION, compileQualityPreservingOutreachCapacity _(matched by name only; tested; imported by 1)_
+- [`src/uberreputation-credentials.mjs`](../../src/uberreputation-credentials.mjs) — exports compileReputationCredential _(matched by name only; imported by 1)_
+- [`src/uberwarm2-gmail-placement-reader.mjs`](../../src/uberwarm2-gmail-placement-reader.mjs) — Read-only recipient-side Gmail transport. No sending, label changes, OAuth _(matched by name only; tested; no static importers)_
+- [`src/uberworm-policy.mjs`](../../src/uberworm-policy.mjs) — exports UBERWORM_PROTOCOL, UBERWORM_NODE, UBERWORM_TRUSTED_OWNER, UBERWORM_APPROVED_MODELS, UBERWORM_ACTIONS (+2) _(matched by name only; tested; imported by 1)_
 
 ## Scripts (2)
 
-- [`scripts/uberinboxes-apply.mjs`](../../scripts/uberinboxes-apply.mjs)
-- [`scripts/uberworm-agent-v2.mjs`](../../scripts/uberworm-agent-v2.mjs)
+- [`scripts/uberinboxes-apply.mjs`](../../scripts/uberinboxes-apply.mjs) _(matched by name only)_
+- [`scripts/uberworm-agent-v2.mjs`](../../scripts/uberworm-agent-v2.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (1)
 
-- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1
+- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1 _(matched by name only)_
 
 ## Tests (16)
 

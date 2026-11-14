@@ -12,16 +12,16 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (10)
 
-- [`docs/CHATGPT_CLAUDE_CLOUD_RELAY.md`](../CHATGPT_CLAUDE_CLOUD_RELAY.md) — UberBond cloud relay: ChatGPT to Claude Code
-- [`docs/CHATGPT_RELAY_CLIENT.md`](../CHATGPT_RELAY_CLIENT.md) — ChatGPT relay producer/reviewer
-- [`docs/UBERBOND_SOL_CLAUDE_CODE_5MB_EXTERNAL_EXECUTION_PACK.md`](../UBERBOND_SOL_CLAUDE_CODE_5MB_EXTERNAL_EXECUTION_PACK.md)
-- [`docs/UBERBOND_SOL_CLAUDE_CODE_GO_LIVE_MEGA_MISSION.md`](../UBERBOND_SOL_CLAUDE_CODE_GO_LIVE_MEGA_MISSION.md) — UBERBOND SOL → CLAUDE CODE GO-LIVE MASTER MISSION
-- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine
-- [`docs/handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md`](../handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md) — 2026-10-09 · UberMind W15: 12 Verified Public Work Candidates
-- [`docs/handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md`](../handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md) — 2026-10-09 · UberMind W15: Read Real GitHub Work
-- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP
-- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage
-- [`docs/handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md`](../handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md) — 2026-10-08 · UberMind W12 / Materialized Certified Work, Not Decorative Multipliers
+- [`docs/CHATGPT_CLAUDE_CLOUD_RELAY.md`](../CHATGPT_CLAUDE_CLOUD_RELAY.md) — UberBond cloud relay: ChatGPT to Claude Code _(matched by name only)_
+- [`docs/CHATGPT_RELAY_CLIENT.md`](../CHATGPT_RELAY_CLIENT.md) — ChatGPT relay producer/reviewer _(matched by name only)_
+- [`docs/UBERBOND_SOL_CLAUDE_CODE_5MB_EXTERNAL_EXECUTION_PACK.md`](../UBERBOND_SOL_CLAUDE_CODE_5MB_EXTERNAL_EXECUTION_PACK.md) _(matched by name only)_
+- [`docs/UBERBOND_SOL_CLAUDE_CODE_GO_LIVE_MEGA_MISSION.md`](../UBERBOND_SOL_CLAUDE_CODE_GO_LIVE_MEGA_MISSION.md) — UBERBOND SOL → CLAUDE CODE GO-LIVE MASTER MISSION _(matched by name only)_
+- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md`](../handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md) — 2026-10-09 · UberMind W15: 12 Verified Public Work Candidates _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md`](../handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md) — 2026-10-09 · UberMind W15: Read Real GitHub Work _(matched by name only)_
+- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP _(matched by name only)_
+- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md`](../handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md) — 2026-10-08 · UberMind W12 / Materialized Certified Work, Not Decorative Multipliers _(matched by name only)_
 
 ## Commands (2)
 
@@ -29,91 +29,91 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Dated documents, newest first (35)
 
-- [`docs/handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md`](../handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md) — 2026-10-08 · UberMind W13: Verified Source Work
-- [`docs/receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md`](../receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md) — 2026-10-07 · Contra collection-readiness closure packet — 2026-10-07 — Status: INTERNAL_READINESS_COMPILER_IMPLEMENTED__AUTHENTICATED_ACCOUNT_OBSERVATION_STILL_OWNER_ONLY
-- [`docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`](../handoffs/WORK_CONTRA_CURRENT_2026-10-06.md) — 2026-10-06 · Contra first-cash continuation — Status: CONTRA_EGYPT_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_SETUP_PENDING
-- [`docs/handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md`](../handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond late-night launch-readiness repair — Status: COVERAGE_REACHABILITY_CONTRADICTION_REPAIRED__VERCEL_RECHECK_PENDING
-- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY
-- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK
-- [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE
-- [`docs/receipts/WORK_WINNR_69_GATE_20261005.md`](../receipts/WORK_WINNR_69_GATE_20261005.md) — 2026-10-05 · Work continuation — Winnr $69 purchase gate, 5 October 2026 Cairo — Status: WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES. No purchase authorized or performed.
-- [`docs/receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md`](../receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md) — 2026-10-03 · Work admin recovery and exact production preflight — 2026-10-03
-- [`docs/receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md`](../receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md) — 2026-10-03 · Global Green-Lane live reality bridge — 3 October 2026
-- [`docs/receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md`](../receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md) — 2026-10-03 · Outreach completion reality refresh — 2026-10-03 — Truth class: current source, fresh protected production reads, independent public evidence and bounded remaining owner/legal facts.
-- [`docs/receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md`](../receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md) — 2026-10-03 · Work outreach final boss reality — 2026-10-03 — Truth class: live account observations, exact source/deployment receipts, and explicit failed-read boundaries. Supersedes [October 2 Work rec…
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION
-- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION
-- [`docs/receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md`](../receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md) — 2026-10-02 · UberBond Work live reality closure — 2026-10-02 — Truth class: LIVE RUNTIME + SOURCE REVIEW + EXPLICIT AUTHENTICATION BOUNDARIES. This receipt grants no send authority. Companion: [machine…
-- [`docs/receipts/WORK_PRODUCTION_HISTORY_REVIEW_20261002.md`](../receipts/WORK_PRODUCTION_HISTORY_REVIEW_20261002.md) — 2026-10-02 · Work production-history review — 2026-10-02
-- [`docs/INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md`](../INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md) — 2026-09-30 · Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo — Status: PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY, ok true.
-- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30
-- [`docs/prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md`](../prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md) — 2026-09-19 · Claude Cowork Mission — Finish UberBond Jev Live Activation
-- [`docs/memory/ASTRA_HARNESS_DONOR_2026-09-14.md`](../memory/ASTRA_HARNESS_DONOR_2026-09-14.md) — 2026-09-14 · Astra Structured-Harness Donor — 2026-09-14
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md) — 2026-09-12 · UberBond 8H Revenue Singularity — Recovery Entry Point
-- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt) — 2026-09-11 · Use the exact founder command in UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt on a live authorized UberBond Founder Console/runtime. Source presence alone is not execut…
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt) — 2026-09-11 · From now until 12:00 PM Africa/Cairo on September 11, 2026, execute the canonical UberBond Sleep-to-Noon Revenue Singularity mission. Make me as much money as legally and truthfully possibl…
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md) — 2026-09-11 · The source bundle is complete. A live Founder Console/runtime must still ingest the command for the smoke test to execute. Do not report source readiness as an active overnight revenue run.
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md) — 2026-09-11 · Sleep-to-Noon Revenue Smoke Test
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md) — 2026-09-11 · Activation boundary
-- [`docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md`](../prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md) — 2026-09-08 · UberBond final realization entrypoint
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE
-- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS
-- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF
-- [`docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — CLAUDE CODE / OPUS MAX GO-LIVE EXECUTION MISSION
-- [`docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — GPT-5.6 SOL COMPANY BRAIN EXECUTION MISSION
-- [`docs/UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md`](../UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md) — 2026-08-21 · UberBond Work Overnight Report
+- [`docs/handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md`](../handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md) — 2026-10-08 · UberMind W13: Verified Source Work _(matched by name only)_
+- [`docs/receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md`](../receipts/WORK_CONTRA_COLLECTION_READINESS_2026-10-07.md) — 2026-10-07 · Contra collection-readiness closure packet — 2026-10-07 — Status: INTERNAL_READINESS_COMPILER_IMPLEMENTED__AUTHENTICATED_ACCOUNT_OBSERVATION_STILL_OWNER_ONLY _(matched by name only)_
+- [`docs/handoffs/WORK_CONTRA_CURRENT_2026-10-06.md`](../handoffs/WORK_CONTRA_CURRENT_2026-10-06.md) — 2026-10-06 · Contra first-cash continuation — Status: CONTRA_EGYPT_ROUTE_PROVIDER_CONFIRMED__ACCOUNT_SETUP_PENDING _(matched by name only)_
+- [`docs/handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md`](../handoffs/WORK_LATE_NIGHT_REPAIR_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond late-night launch-readiness repair — Status: COVERAGE_REACHABILITY_CONTRADICTION_REPAIRED__VERCEL_RECHECK_PENDING _(matched by name only)_
+- [`docs/handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md`](../handoffs/WORK_LAUNCH_TODAY_CURRENT_2026-10-06.md) — 2026-10-06 · UberBond launch-today package — Winnr $69 + outreach + collection — Status: WINNR_69_PURCHASE_PRECHECK_READY _(matched by name only)_
+- [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(matched by name only)_
+- [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE _(matched by name only)_
+- [`docs/receipts/WORK_WINNR_69_GATE_20261005.md`](../receipts/WORK_WINNR_69_GATE_20261005.md) — 2026-10-05 · Work continuation — Winnr $69 purchase gate, 5 October 2026 Cairo — Status: WINNR_69_PURCHASE_BLOCKED_EXTERNAL_GATES. No purchase authorized or performed. _(matched by name only)_
+- [`docs/receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md`](../receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md) — 2026-10-03 · Work admin recovery and exact production preflight — 2026-10-03 _(matched by name only)_
+- [`docs/receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md`](../receipts/WORK_GLOBAL_GREEN_LANE_REALITY_20261003.md) — 2026-10-03 · Global Green-Lane live reality bridge — 3 October 2026 _(matched by name only)_
+- [`docs/receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md`](../receipts/WORK_OUTREACH_COMPLETION_REFRESH_20261003.md) — 2026-10-03 · Outreach completion reality refresh — 2026-10-03 — Truth class: current source, fresh protected production reads, independent public evidence and bounded remaining owner/legal facts. _(matched by name only)_
+- [`docs/receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md`](../receipts/WORK_OUTREACH_FINAL_BOSS_20261003.md) — 2026-10-03 · Work outreach final boss reality — 2026-10-03 — Truth class: live account observations, exact source/deployment receipts, and explicit failed-read boundaries. Supersedes [October 2 Work rec… _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE CODE OPUS 5.5 — UBERBOND WINNR FIRST-CASH MEGA MISSION — Status: FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md`](../prompts/CLAUDE_OPUS55_WINNR_FIRST_CASH_OPEN_ENDED_MEGA_MISSION_2026-10-02.md) — 2026-10-02 · CLAUDE OPUS 5.5 — UBERBOND WINNR -> FIRST CASH -> RECURRING REVENUE -> OPEN-ENDED ECONOMIC FRONTIER — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONSTITUTION _(matched by name only)_
+- [`docs/receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md`](../receipts/WORK_LIVE_REALITY_CLOSURE_20261002.md) — 2026-10-02 · UberBond Work live reality closure — 2026-10-02 — Truth class: LIVE RUNTIME + SOURCE REVIEW + EXPLICIT AUTHENTICATION BOUNDARIES. This receipt grants no send authority. Companion: [machine… _(matched by name only)_
+- [`docs/receipts/WORK_PRODUCTION_HISTORY_REVIEW_20261002.md`](../receipts/WORK_PRODUCTION_HISTORY_REVIEW_20261002.md) — 2026-10-02 · Work production-history review — 2026-10-02 _(matched by name only)_
+- [`docs/INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md`](../INFINITE_OPUS_WORK_ACTIVATION_RECEIPT_2026-09-30.md) — 2026-09-30 · Work activation receipt — 2026-09-30 UTC / 2026-10-01 Cairo — Status: PAID_PROPOSAL_RECEIVED_NOT_SEMANTIC_AUTHORITY, ok true. _(matched by name only)_
+- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(matched by name only)_
+- [`docs/prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md`](../prompts/CLAUDE_COWORK_ORACLE_UBERLIT_JEV_LIVE_ACTIVATION_2026-09-19.md) — 2026-09-19 · Claude Cowork Mission — Finish UberBond Jev Live Activation _(matched by name only)_
+- [`docs/memory/ASTRA_HARNESS_DONOR_2026-09-14.md`](../memory/ASTRA_HARNESS_DONOR_2026-09-14.md) — 2026-09-14 · Astra Structured-Harness Donor — 2026-09-14 _(matched by name only)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-12.md) — 2026-09-12 · UberBond 8H Revenue Singularity — Recovery Entry Point _(matched by name only)_
+- [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.activation.txt) — 2026-09-11 · Use the exact founder command in UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt on a live authorized UberBond Founder Console/runtime. Source presence alone is not execut… _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.command.txt) — 2026-09-11 · From now until 12:00 PM Africa/Cairo on September 11, 2026, execute the canonical UberBond Sleep-to-Noon Revenue Singularity mission. Make me as much money as legally and truthfully possibl… _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.note.md) — 2026-09-11 · The source bundle is complete. A live Founder Console/runtime must still ingest the command for the smoke test to execute. Do not report source readiness as an active overnight revenue run. _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.README.md) — 2026-09-11 · Sleep-to-Noon Revenue Smoke Test _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.status.md) — 2026-09-11 · Activation boundary _(matched by name only)_
+- [`docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md`](../prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md) — 2026-09-08 · UberBond final realization entrypoint _(matched by name only)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_
+- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/CLAUDE_OPUS_MAX_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — CLAUDE CODE / OPUS MAX GO-LIVE EXECUTION MISSION _(matched by name only)_
+- [`docs/prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md`](../prompts/GPT_5_6_SOL_NIGHTFALL_GO_LIVE_20260829.md) — 2026-08-29 · UBERBOND NIGHTFALL MAX — GPT-5.6 SOL COMPANY BRAIN EXECUTION MISSION _(matched by name only)_
+- [`docs/UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md`](../UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md) — 2026-08-21 · UberBond Work Overnight Report _(matched by name only)_
 
 ## Other documents (9)
 
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current
-- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION
-- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory
-- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain
-- [`docs/prompts/README.md`](../prompts/README.md) — UberBond Executive Prompt Index
-- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED
-- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md) — Active Mission Pointer — Revenue Singularity / G-SPOT / Revenue Constellation
-- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md) — UberBond Revenue Singularity / G-SPOT / Revenue Constellation Mission — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONTINUATION — 2026-10-03
-- [`library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt`](../../library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt) — UBERMIND Ω∞ V5 / FULL-SPECTRUM OPERATIONAL INTELLIGENCE
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(matched by name only)_
+- [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_
+- [`docs/prompts/GPT_5_6_SOL_COMPANY_BRAIN.md`](../prompts/GPT_5_6_SOL_COMPANY_BRAIN.md) — GPT-5.6 Sol — UberBond Company Brain _(matched by name only)_
+- [`docs/prompts/README.md`](../prompts/README.md) — UberBond Executive Prompt Index _(matched by name only)_
+- [`docs/prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md`](../prompts/UBERBOND_RAGNAROK_EXECUTION_PACKET.md) — UberBond Ragnarok Closure — Execution Packet — Status: ORCHESTRATED, PARTIALLY EXECUTED _(matched by name only)_
+- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/ACTIVE_MISSION_POINTER.md) — Active Mission Pointer — Revenue Singularity / G-SPOT / Revenue Constellation _(matched by name only)_
+- [`docs/prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md`](../prompts/revenue-singularity-gspot-constellation-2026-10-03/README.md) — UberBond Revenue Singularity / G-SPOT / Revenue Constellation Mission — Status: ACTIVE FOUNDER-DIRECTED EXECUTION CONTINUATION — 2026-10-03 _(matched by name only)_
+- [`library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt`](../../library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt) — UBERMIND Ω∞ V5 / FULL-SPECTRUM OPERATIONAL INTELLIGENCE _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (5)
 
-- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(7 mentions)_
-- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(4 mentions)_
-- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(3 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(3 mentions)_
-- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(3 mentions)_
+- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(matched by name only)_ _(7 mentions)_
+- [`open router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md`](../../open%20router/20_OPUS_QUALITY_INSANE_VOLUME_FABRIC.md) — 20 — Opus-Quality Insane-Volume Fabric — Status: FOUNDER-DIRECTED ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(4 mentions)_
+- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
+- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (4)
 
-- [`src/chatgpt-project-importer.mjs`](../../src/chatgpt-project-importer.mjs) — exports CHATGPT_PROJECT_IMPORTER_VERSION, importChatGPTProjectExport _(tested; imported by 1)_
-- [`src/chatgpt-relay-client.mjs`](../../src/chatgpt-relay-client.mjs) — Bounded producer/reviewer client for ChatGPT -> UberBond -> Claude Code. _(tested; imported by 1)_
-- [`src/omega-irreducible-work-ledger.mjs`](../../src/omega-irreducible-work-ledger.mjs) — exports OMEGA_IRREDUCIBLE_WORK_LEDGER_VERSION, compileIrreducibleWorkFloor, adjudicateWorkReductionClaim _(tested; no static importers)_
-- [`src/ubermind-real-work-counter.mjs`](../../src/ubermind-real-work-counter.mjs) — exports UBERMIND_REAL_WORK_COUNTER_SCHEMA, reconcileUberMindRealWorkCounter _(tested; imported by 2)_
+- [`src/chatgpt-project-importer.mjs`](../../src/chatgpt-project-importer.mjs) — exports CHATGPT_PROJECT_IMPORTER_VERSION, importChatGPTProjectExport _(matched by name only; tested; imported by 1)_
+- [`src/chatgpt-relay-client.mjs`](../../src/chatgpt-relay-client.mjs) — Bounded producer/reviewer client for ChatGPT -> UberBond -> Claude Code. _(matched by name only; tested; imported by 1)_
+- [`src/omega-irreducible-work-ledger.mjs`](../../src/omega-irreducible-work-ledger.mjs) — exports OMEGA_IRREDUCIBLE_WORK_LEDGER_VERSION, compileIrreducibleWorkFloor, adjudicateWorkReductionClaim _(matched by name only; tested; no static importers)_
+- [`src/ubermind-real-work-counter.mjs`](../../src/ubermind-real-work-counter.mjs) — exports UBERMIND_REAL_WORK_COUNTER_SCHEMA, reconcileUberMindRealWorkCounter _(matched by name only; tested; imported by 2)_
 
 ## Scripts (1)
 
-- [`scripts/infinite-opus-astra-preflight.mjs`](../../scripts/infinite-opus-astra-preflight.mjs) _(npm: `infinite-opus:astra:preflight`)_
+- [`scripts/infinite-opus-astra-preflight.mjs`](../../scripts/infinite-opus-astra-preflight.mjs) _(matched by name only; npm: `infinite-opus:astra:preflight`)_
 
 ## Config, data, artifacts and services (16)
 
-- [`artifacts/astra-harness-donor-2026-09-14.json`](../../artifacts/astra-harness-donor-2026-09-14.json) — 2026-09-14 · uberbond.astra-harness-donor.v1
-- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1
-- [`artifacts/outreach/work-final-boss-reality-20261003.json`](../../artifacts/outreach/work-final-boss-reality-20261003.json) — 2026-10-03 · LIVE · uberbond.work-outreach-final-boss-reality.v1
-- [`artifacts/outreach/work-live-reality-closure-20261002.json`](../../artifacts/outreach/work-live-reality-closure-20261002.json) — 2026-10-02 · uberbond-control-postgres · LIVE · uberbond.work-live-reality-closure.v1
-- [`artifacts/work-session-progress-baseline-2026-09-07.json`](../../artifacts/work-session-progress-baseline-2026-09-07.json) — 2026-09-07 · PROVISIONAL_BASELINE_REQUIRES_PHASE0_RECALIBRATION · uberbond-work-session-progress-1.0.0
-- [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Scarce-model allocation · SPECIFICATION_ONLY · uberbond.apotheosis-orchestration-spec.v1
-- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-gate4-handoff.v1
-- [`artifacts/work/apotheosis-native-activation-2026-09-15.json`](../../artifacts/work/apotheosis-native-activation-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-native-activation-receipt.v1
-- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1
-- [`artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json`](../../artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json) — 2026-09-08 · prospect-to-evidence reachability audit · 64_OF_64_ACCOUNTED__CURRENT_MAIN_OR_FRESH_CHILD_OR_GAP_OR_EXTERNAL · uberbond-astra-swarm-reconciliation-1.…
-- [`artifacts/work/astra-orchestrator-state-2026-09-08.json`](../../artifacts/work/astra-orchestrator-state-2026-09-08.json) — 2026-09-08 · ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED
-- [`artifacts/work/astra-terminal-proof-2026-09-09.json`](../../artifacts/work/astra-terminal-proof-2026-09-09.json) — 2026-09-09
-- [`config/infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1
-- [`docs/prompts/.sleep-to-noon-smoke-test-ready`](../prompts/.sleep-to-noon-smoke-test-ready)
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json) — 2026-09-11
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready) — 2026-09-11
+- [`artifacts/astra-harness-donor-2026-09-14.json`](../../artifacts/astra-harness-donor-2026-09-14.json) — 2026-09-14 · uberbond.astra-harness-donor.v1 _(matched by name only)_
+- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1 _(matched by name only)_
+- [`artifacts/outreach/work-final-boss-reality-20261003.json`](../../artifacts/outreach/work-final-boss-reality-20261003.json) — 2026-10-03 · LIVE · uberbond.work-outreach-final-boss-reality.v1 _(matched by name only)_
+- [`artifacts/outreach/work-live-reality-closure-20261002.json`](../../artifacts/outreach/work-live-reality-closure-20261002.json) — 2026-10-02 · uberbond-control-postgres · LIVE · uberbond.work-live-reality-closure.v1 _(matched by name only)_
+- [`artifacts/work-session-progress-baseline-2026-09-07.json`](../../artifacts/work-session-progress-baseline-2026-09-07.json) — 2026-09-07 · PROVISIONAL_BASELINE_REQUIRES_PHASE0_RECALIBRATION · uberbond-work-session-progress-1.0.0 _(matched by name only)_
+- [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Scarce-model allocation · SPECIFICATION_ONLY · uberbond.apotheosis-orchestration-spec.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-gate4-handoff.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-native-activation-2026-09-15.json`](../../artifacts/work/apotheosis-native-activation-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-native-activation-receipt.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1 _(matched by name only)_
+- [`artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json`](../../artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json) — 2026-09-08 · prospect-to-evidence reachability audit · 64_OF_64_ACCOUNTED__CURRENT_MAIN_OR_FRESH_CHILD_OR_GAP_OR_EXTERNAL · uberbond-astra-swarm-reconciliation-1.… _(matched by name only)_
+- [`artifacts/work/astra-orchestrator-state-2026-09-08.json`](../../artifacts/work/astra-orchestrator-state-2026-09-08.json) — 2026-09-08 · ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED _(matched by name only)_
+- [`artifacts/work/astra-terminal-proof-2026-09-09.json`](../../artifacts/work/astra-terminal-proof-2026-09-09.json) — 2026-09-09 _(matched by name only)_
+- [`config/infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1 _(matched by name only)_
+- [`docs/prompts/.sleep-to-noon-smoke-test-ready`](../prompts/.sleep-to-noon-smoke-test-ready) _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.bundle.json) — 2026-09-11 _(matched by name only)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.ready) — 2026-09-11 _(matched by name only)_
 
 ## Tests (7)
 

@@ -12,16 +12,16 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (1)
 
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_
 
 ## Source modules (1)
 
-- [`src/wessam-continuity.mjs`](../../src/wessam-continuity.mjs) — exports WESSAM_CONTINUITY_VERSION, WESSAM_ROOT_IDENTITY, compileWessamState, compileRecoveryCapsule, compileExternalTaskPacket (+1) _(tested; imported by 2)_
+- [`src/wessam-continuity.mjs`](../../src/wessam-continuity.mjs) — exports WESSAM_CONTINUITY_VERSION, WESSAM_ROOT_IDENTITY, compileWessamState, compileRecoveryCapsule, compileExternalTaskPacket (+1) _(matched by name only; tested; imported by 2)_
 
 ## Config, data, artifacts and services (2)
 
-- [`artifacts/wessam-singularity-prompt-recovery-2026-09-29.json`](../../artifacts/wessam-singularity-prompt-recovery-2026-09-29.json) — 2026-09-29 · WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt · FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ · uberbond.wessam-si…
-- [`docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json`](../receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json) — 2026-09-29 · mohammedwessam2007/uberbondd · LEADING_BROAD_MARKET_CANDIDATE_NOT_UBERBOND_PROMOTED · uberbond.wessam-singularity.activation-war-room.v1
+- [`artifacts/wessam-singularity-prompt-recovery-2026-09-29.json`](../../artifacts/wessam-singularity-prompt-recovery-2026-09-29.json) — 2026-09-29 · WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt · FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ · uberbond.wessam-si… _(matched by name only)_
+- [`docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json`](../receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json) — 2026-09-29 · mohammedwessam2007/uberbondd · LEADING_BROAD_MARKET_CANDIDATE_NOT_UBERBOND_PROMOTED · uberbond.wessam-singularity.activation-war-room.v1 _(matched by name only)_
 
 ## Tests (1)
 

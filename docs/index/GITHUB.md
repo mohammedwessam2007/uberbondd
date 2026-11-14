@@ -22,62 +22,62 @@ CI workflows and their runtime helpers.
 
 ## UberMind doctrine and library
 
-- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs
-- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate
+- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs _(matched by name only)_
+- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate _(matched by name only)_
 
 ## Continuity, memory and handoffs
 
-- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification
-- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration
-- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake
-- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control
-- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — UberBond Sandwich Autocatalytic Loop
+- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification _(matched by name only)_
+- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration _(matched by name only)_
+- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake _(matched by name only)_
+- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control _(matched by name only)_
+- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — UberBond Sandwich Autocatalytic Loop _(matched by name only)_
 
 ## GENESIS, moonshots and Perpetual Frontier
 
-- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh
+- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh _(matched by name only)_
 
 ## Agent mesh, relay and autonomy
 
-- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm)
-- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker
-- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker
-- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification
-- [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — Night Verification War
+- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) _(matched by name only)_
+- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker _(matched by name only)_
+- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker _(matched by name only)_
+- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification _(matched by name only)_
+- [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — Night Verification War _(matched by name only)_
 
 ## Self-maintenance and verification
 
-- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector
-- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv
-- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor
-- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler
-- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S…
-- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch
-- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper
-- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal
-- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec…
-- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor
-- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer
+- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S… _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec… _(matched by name only)_
+- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor _(matched by name only)_
+- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer _(matched by name only)_
 
 ## Email infrastructure and warmup
 
-- [`.github/workflows/uberwarm-main-canon.yml`](../../.github/workflows/uberwarm-main-canon.yml) — UberWarm isolated release canonical receipts
-- [`.github/workflows/uberwarm-provider-identity-canon-20261018.yml`](../../.github/workflows/uberwarm-provider-identity-canon-20261018.yml) — 2026-10-18 · UberWarm verified provider schema canonical receipt
+- [`.github/workflows/uberwarm-main-canon.yml`](../../.github/workflows/uberwarm-main-canon.yml) — UberWarm isolated release canonical receipts _(matched by name only)_
+- [`.github/workflows/uberwarm-provider-identity-canon-20261018.yml`](../../.github/workflows/uberwarm-provider-identity-canon-20261018.yml) — 2026-10-18 · UberWarm verified provider schema canonical receipt _(matched by name only)_
 
 ## Outreach and distribution
 
-- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head
+- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head _(matched by name only)_
 
 ## Commerce, payments and economics
 
-- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits
+- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits _(matched by name only)_
 
 ## Sovereign infrastructure and runtime
 
-- [`copilot-instructions.md`](../../.github/copilot-instructions.md) — UberBond Copilot instructions
-- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI
-- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst
-- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient
-- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation
-- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh
-- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification
+- [`copilot-instructions.md`](../../.github/copilot-instructions.md) — UberBond Copilot instructions _(matched by name only)_
+- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI _(matched by name only)_
+- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst _(matched by name only)_
+- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient _(matched by name only)_
+- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation _(matched by name only)_
+- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh _(matched by name only)_
+- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification _(matched by name only)_

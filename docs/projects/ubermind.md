@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`mind activation/README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint
-- [`.claude/agents/ubermind-haiku-scout.md`](../../.claude/agents/ubermind-haiku-scout.md) — name: ubermind-haiku-scout
-- [`.claude/agents/ubermind-opus-frontier-judge.md`](../../.claude/agents/ubermind-opus-frontier-judge.md) — name: ubermind-opus-frontier-judge
-- [`.claude/agents/ubermind-sonnet-falsifier.md`](../../.claude/agents/ubermind-sonnet-falsifier.md) — name: ubermind-sonnet-falsifier
-- [`.claude/skills/ubermind-adversarial-resilience/SKILL.md`](../../.claude/skills/ubermind-adversarial-resilience/SKILL.md) — Ω51: Adversarial Resilience and Evidence-Governed Forecasts
-- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK
-- [`.claude/skills/ubermind-math-invention/SKILL.md`](../../.claude/skills/ubermind-math-invention/SKILL.md) — Ω52 · Mathematical Imagination and Survivor's Quant Lab
-- [`.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md`](../../.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md) — Ω47 Machiavelli canonical retrieval addendum, 2026-10-24
-- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center
-- [`docs/architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md`](../architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md) — 2026-10-24 · UberMind Ω46: Human Intelligence and Commercial Strategy Sourcebook
-- [`docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47 · Machiavelli strategic canon
-- [`docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47: Sovereign Strategic Philosophy + Economic Doctrine Corpus
-- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief
-- [`docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md`](../architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md) — 2026-10-24 · UBERMIND Ω49 · Asymmetric Strategy, Institutional Power and Corporate Defense
+- [`mind activation/README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint _(matched by name only)_
+- [`.claude/agents/ubermind-haiku-scout.md`](../../.claude/agents/ubermind-haiku-scout.md) — name: ubermind-haiku-scout _(matched by name only)_
+- [`.claude/agents/ubermind-opus-frontier-judge.md`](../../.claude/agents/ubermind-opus-frontier-judge.md) — name: ubermind-opus-frontier-judge _(matched by name only)_
+- [`.claude/agents/ubermind-sonnet-falsifier.md`](../../.claude/agents/ubermind-sonnet-falsifier.md) — name: ubermind-sonnet-falsifier _(matched by name only)_
+- [`.claude/skills/ubermind-adversarial-resilience/SKILL.md`](../../.claude/skills/ubermind-adversarial-resilience/SKILL.md) — Ω51: Adversarial Resilience and Evidence-Governed Forecasts _(matched by name only)_
+- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(matched by name only)_
+- [`.claude/skills/ubermind-math-invention/SKILL.md`](../../.claude/skills/ubermind-math-invention/SKILL.md) — Ω52 · Mathematical Imagination and Survivor's Quant Lab _(matched by name only)_
+- [`.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md`](../../.claude/skills/ubermind-social-strategy/OMEGA47_ADDENDUM.md) — Ω47 Machiavelli canonical retrieval addendum, 2026-10-24 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md`](../architecture/UBERMIND_OMEGA46_HUMAN_STRATEGY_SOURCEBOOK_2026-10-24.md) — 2026-10-24 · UberMind Ω46: Human Intelligence and Commercial Strategy Sourcebook _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_MACHIAVELLI_COMPLETE_SOURCE_INDEX_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47 · Machiavelli strategic canon _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md`](../architecture/UBERMIND_OMEGA47_STRATEGIC_PHILOSOPHY_CORPUS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω47: Sovereign Strategic Philosophy + Economic Doctrine Corpus _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md`](../architecture/UBERMIND_OMEGA48_FRONTIER_MICROBRIEF_2026-10-24.md) — 2026-10-24 · UberMind Ω48 • Frontier-First Strategic Microbrief _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md`](../architecture/UBERMIND_OMEGA49_ASYMMETRIC_STRATEGY_2026-10-24.md) — 2026-10-24 · UBERMIND Ω49 · Asymmetric Strategy, Institutional Power and Corporate Defense _(matched by name only)_
 
 ## Commands (3)
 
@@ -33,238 +33,238 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (22)
 
-- [`.claude/skills/ubermind-social-strategy/SKILL.md`](../../.claude/skills/ubermind-social-strategy/SKILL.md) — UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\nΩ47 primary corpus installed: For Machiavelli-informed strategic/business/EQ tasks, consult OMEGA47_ADDENDUM.md, the sourcebook docs/architecture/…
-- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR
-- [`.claude/skills/ubermind-strategy-flash/SKILL.md`](../../.claude/skills/ubermind-strategy-flash/SKILL.md) — Ω48 OPUS CROWN · STRATEGY FLASH
-- [`.claude/skills/ubermind-system-reality/SKILL.md`](../../.claude/skills/ubermind-system-reality/SKILL.md) — Ω50 System Reality Strategy Skill
-- [`docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md`](../architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md) — Ω50 Resident Opus Cognitive Card
-- [`docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md`](../architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md) — Ω51 · Frontier Intelligence Red-Team and Resilience Contract
-- [`docs/architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md`](../architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md) — Ω52 · Opus Mathematical Invention and Quantitative Survival Card
-- [`docs/architecture/UBERMIND_V4_RESIDENT_PRINCIPLE_RECEIPT.md`](../architecture/UBERMIND_V4_RESIDENT_PRINCIPLE_RECEIPT.md) — Ω∞ V4 · Mandatory Principle Activation and End-of-Reply Receipt
-- [`docs/architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md`](../architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md) — UberMind Ω∞ V5 · Quality-First All-52 Applicability Contract
-- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill
-- [`library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md`](../../library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md) — Founder Original 52-Concept Source Retrieval Card (Ω47–Ω52)
-- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md) — UberMind 52-atom founder directive audit
-- [`library/ubermind/LIBRARY_BOOTSTRAP.md`](../../library/ubermind/LIBRARY_BOOTSTRAP.md) — UBERMIND GRAND LIBRARY · PERMANENT RECOVERY PROTOCOL · 2026-10-24
-- [`library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md`](../../library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md) — UberMind Grand Library: searchable master index
-- [`library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md`](../../library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md) — Modern and historical sources: rigorous reading docket — Status: original UberBond source-linked study index, NOT copies of proprietary books. Historic titles may have specific public-domai…
-- [`library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md`](../../library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md) — UBERBOND PERMANENT PROJECT READING INSTRUCTIONS (compact)
-- [`library/ubermind/RIGHTS_AND_LIMITS.md`](../../library/ubermind/RIGHTS_AND_LIMITS.md) — Book and corpus rights
-- [`library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md`](../../library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md) — UberMind Ω∞ V10: one active constitution, all ten design checks verified
-- [`library/ubermind/UBERMIND_V7_READ_FIRST.md`](../../library/ubermind/UBERMIND_V7_READ_FIRST.md) — UberMind Ω∞ V7: continuity and executable idea integration
-- [`mind activation/CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for the existing Claude Pro Project
-- [`mind activation/CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts
-- [`mind activation/PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority
+- [`.claude/skills/ubermind-social-strategy/SKILL.md`](../../.claude/skills/ubermind-social-strategy/SKILL.md) — UBERMIND Ω46 • HUMAN INTELLIGENCE CROWN\n\nΩ47 primary corpus installed: For Machiavelli-informed strategic/business/EQ tasks, consult OMEGA47_ADDENDUM.md, the sourcebook docs/architecture/… _(matched by name only)_
+- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(matched by name only)_
+- [`.claude/skills/ubermind-strategy-flash/SKILL.md`](../../.claude/skills/ubermind-strategy-flash/SKILL.md) — Ω48 OPUS CROWN · STRATEGY FLASH _(matched by name only)_
+- [`.claude/skills/ubermind-system-reality/SKILL.md`](../../.claude/skills/ubermind-system-reality/SKILL.md) — Ω50 System Reality Strategy Skill _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md`](../architecture/UBERMIND_OMEGA50_RESIDENT_CARD.md) — Ω50 Resident Opus Cognitive Card _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md`](../architecture/UBERMIND_OMEGA51_RESIDENT_CARD.md) — Ω51 · Frontier Intelligence Red-Team and Resilience Contract _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md`](../architecture/UBERMIND_OMEGA52_RESIDENT_CARD.md) — Ω52 · Opus Mathematical Invention and Quantitative Survival Card _(matched by name only)_
+- [`docs/architecture/UBERMIND_V4_RESIDENT_PRINCIPLE_RECEIPT.md`](../architecture/UBERMIND_V4_RESIDENT_PRINCIPLE_RECEIPT.md) — Ω∞ V4 · Mandatory Principle Activation and End-of-Reply Receipt _(matched by name only)_
+- [`docs/architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md`](../architecture/UBERMIND_V5_QUALITY_FIRST_FULL_52_ACTIVATION_CARD.md) — UberMind Ω∞ V5 · Quality-First All-52 Applicability Contract _(matched by name only)_
+- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill _(matched by name only)_
+- [`library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md`](../../library/ubermind/FOUNDER_52_SOURCE_STARTUP_CARD.md) — Founder Original 52-Concept Source Retrieval Card (Ω47–Ω52) _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_AUDIT.md) — UberMind 52-atom founder directive audit _(matched by name only)_
+- [`library/ubermind/LIBRARY_BOOTSTRAP.md`](../../library/ubermind/LIBRARY_BOOTSTRAP.md) — UBERMIND GRAND LIBRARY · PERMANENT RECOVERY PROTOCOL · 2026-10-24 _(matched by name only)_
+- [`library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md`](../../library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md) — UberMind Grand Library: searchable master index _(matched by name only)_
+- [`library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md`](../../library/ubermind/MODERN_BOOKS_AND_SOURCE_BIBLIOGRAPHY.md) — Modern and historical sources: rigorous reading docket — Status: original UberBond source-linked study index, NOT copies of proprietary books. Historic titles may have specific public-domai… _(matched by name only)_
+- [`library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md`](../../library/ubermind/PROJECT_INSTRUCTIONS_COPY_PASTE.md) — UBERBOND PERMANENT PROJECT READING INSTRUCTIONS (compact) _(matched by name only)_
+- [`library/ubermind/RIGHTS_AND_LIMITS.md`](../../library/ubermind/RIGHTS_AND_LIMITS.md) — Book and corpus rights _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md`](../../library/ubermind/UBERMIND_V10_SETUP_AND_PROOF.md) — UberMind Ω∞ V10: one active constitution, all ten design checks verified _(matched by name only)_
+- [`library/ubermind/UBERMIND_V7_READ_FIRST.md`](../../library/ubermind/UBERMIND_V7_READ_FIRST.md) — UberMind Ω∞ V7: continuity and executable idea integration _(matched by name only)_
+- [`mind activation/CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for the existing Claude Pro Project _(matched by name only)_
+- [`mind activation/CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(matched by name only)_
+- [`mind activation/PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority _(matched by name only)_
 
 ## Dated documents, newest first (69)
 
-- [`docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md`](../architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md) — 2026-10-24 · UBERMIND Ω50 · Systems Reality, Antifragility and Reflexive Strategy
-- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA
-- [`docs/architecture/UBERMIND_OMEGA51_VERIFICATION_CHECKPOINT_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_VERIFICATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · UberMind Ω51 Verification Checkpoint · 2026-10-24
-- [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · UBERMIND Ω52 / Hyperdimensional Invention, Mathematical Reality and Quantitative Survival
-- [`docs/architecture/UBERMIND_OMEGA52_VERIFIED_HANDOFF_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_VERIFIED_HANDOFF_2026-10-24.md) — 2026-10-24 · Ω52 Checkpoint / Hyperdimensional Invention and Quantitative Survival
-- [`docs/architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md`](../architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω∞ V4 / Principle Activation, Operational Accountability & Response Receipts
-- [`docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md`](../architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md) — 2026-10-24 · UberMind Ω∞ V6 / Cross-chat startup and verified full-spectrum adoption
-- [`docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md`](../architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md) — 2026-10-24 · UberMind Ω∞ V7: Proven Cross-Chat Continuity Gate
-- [`library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md`](../../library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md) — 2026-10-24 · Founder original directives · Machiavelli through Ω52
-- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER
-- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence
-- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38)
-- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage
-- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER
-- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10
-- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine
-- [`mind activation/ACTIVATION_STATUS_2026-10-10.md`](../../mind%20activation/ACTIVATION_STATUS_2026-10-10.md) — 2026-10-10 · UberMind / Claude Pro Activation: exact status
-- [`mind activation/NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next execution frontier
-- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow
-- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation
-- [`docs/architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md) — 2026-10-09 · UberMind Ω10 / Screenshot agents compared with the real UberMind brain
-- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA11 / Five-Hour Minimum Usage at the Same Quality
-- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁴ — Fidelity-First Residual Intelligence & Cost Frontier
-- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL
-- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry
-- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine
-- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md) — 2026-10-09 · UberMind Ω9: Claude 5.5 Lineup Budget-Aware Sovereign Routing
-- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics
-- [`docs/handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md`](../handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md) — 2026-10-09 · UberMind W15: 12 Verified Public Work Candidates
-- [`docs/handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md`](../handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md) — 2026-10-09 · UberMind W15: Read Real GitHub Work
-- [`docs/handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md`](../handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md) — 2026-10-09 · UberMind W16: public Jev cross-batch reuse
-- [`docs/handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W16 live proof
-- [`docs/handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md`](../handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md) — 2026-10-09 · UberMind W17: Durable Jev predispatch single-flight
-- [`docs/handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md`](../handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md) — 2026-10-09 · UberMind W18: blocked paid Jev claim observability
-- [`docs/handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W17–W18: exact production checkpoint
-- [`docs/handoffs/UBERMIND_W19_CACHE_AWARE_BUDGET_2026-10-09.md`](../handoffs/UBERMIND_W19_CACHE_AWARE_BUDGET_2026-10-09.md) — 2026-10-09 · UberMind W19: source-validated cache-aware Jev budget allocation
-- [`docs/handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W19 final live checkpoint
-- [`docs/handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md`](../handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md) — 2026-10-09 · UberMind W20: real public task → Jev shadow work bridge
-- [`docs/handoffs/UBERMIND_W21_SCALED_CACHE_AWARE_BUDGET_2026-10-09.md`](../handoffs/UBERMIND_W21_SCALED_CACHE_AWARE_BUDGET_2026-10-09.md) — 2026-10-09 · UberMind W21 — Actual Cache-Aware Scaled JEV Execution
-- [`docs/handoffs/UBERMIND_W22_GITHUB_PUBLIC_INTAKE_AUTH_2026-10-09.md`](../handoffs/UBERMIND_W22_GITHUB_PUBLIC_INTAKE_AUTH_2026-10-09.md) — 2026-10-09 · UberMind W22 / Reuse Existing Protected GitHub Credential for Real Public Issue Source
-- [`docs/handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md`](../handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md) — 2026-10-09 · UberMind Ω / Wave 23: The Same-Frontier-Model Cost Floor
-- [`docs/handoffs/UBERMIND_W29_LEAN_STARTUP_IMPORTS_2026-10-09.md`](../handoffs/UBERMIND_W29_LEAN_STARTUP_IMPORTS_2026-10-09.md) — 2026-10-09 · PHOENIX W29 — Measured Direct-Import Reduction, No Source Removal
-- [`docs/handoffs/UBERMIND_W30_HOT18_CONDITIONAL_FACTORY_2026-10-09.md`](../handoffs/UBERMIND_W30_HOT18_CONDITIONAL_FACTORY_2026-10-09.md) — 2026-10-09 · PHOENIX W30 / Conditional Software-Factory and Historic Resume Imports
-- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP
-- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage
-- [`docs/handoffs/UBERMIND_33333X_REALITY_GATE_2026-10-08.md`](../handoffs/UBERMIND_33333X_REALITY_GATE_2026-10-08.md) — 2026-10-08 · UberMind 33,333x Reality Gate — October 8, 2026
-- [`docs/handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md`](../handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md) — 2026-10-08 · UberMind 890-Sourced Evidence Flywheel — 2026-10-08
-- [`docs/handoffs/UBERMIND_CURRENT_2026-10-08.md`](../handoffs/UBERMIND_CURRENT_2026-10-08.md) — 2026-10-08 · UberMind exact current terminal frontier — 2026-10-08
-- [`docs/handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md`](../handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md) — 2026-10-08 · UberMind Fair-Cost Frontier Reference — 2026-10-08
-- [`docs/handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md`](../handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md) — 2026-10-08 · UberMind Scale Cycle: Exact JEV Workload Coalescer (2026-10-08)
-- [`docs/handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md`](../handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md) — 2026-10-08 · UberMind JEV Shared-State Tensor — 2026-10-08
-- [`docs/handoffs/UBERMIND_PRIVATE_PRODUCT_DECLARATION_2026-10-08.md`](../handoffs/UBERMIND_PRIVATE_PRODUCT_DECLARATION_2026-10-08.md) — 2026-10-08 · UberMind — Sovereign Private Product Declaration — Status: PRIVATE_PRODUCT_DECLARATION_ADOPTED
-- [`docs/handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md`](../handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md) — 2026-10-08 · UberMind Wave 10 — Trace Fresh Jev Price Source Without Minter of Authority
-- [`docs/handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md`](../handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md) — 2026-10-08 · UberMind Wave 11 — Capped Execution of 16,384-Request Exact Jev Preflight
-- [`docs/handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md`](../handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md) — 2026-10-08 · UberMind W12 / Materialized Certified Work, Not Decorative Multipliers
-- [`docs/handoffs/UBERMIND_W12_LIVE_187_VERIFIED_2026-10-08.md`](../handoffs/UBERMIND_W12_LIVE_187_VERIFIED_2026-10-08.md) — 2026-10-08 · UberMind W12 — verified production work-counter checkpoint
-- [`docs/handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md`](../handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md) — 2026-10-08 · UberMind W13: Verified Source Work
-- [`docs/handoffs/UBERMIND_W14_FINAL_2026-10-08.md`](../handoffs/UBERMIND_W14_FINAL_2026-10-08.md) — 2026-10-08 · UberMind W14 final checkpoint
-- [`docs/handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md`](../handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md) — 2026-10-08 · UberMind W14: Owner-visible actual work, never fabricated dollar savings
-- [`docs/handoffs/UBERMIND_W7_RECEIPT_ANTI_REPLAY_2026-10-08.md`](../handoffs/UBERMIND_W7_RECEIPT_ANTI_REPLAY_2026-10-08.md) — 2026-10-08 · UberMind Wave 7 / Independent Evidence Integrity: No Receipt Replay, No Mixed Contracts, No Overflow
-- [`docs/handoffs/UBERMIND_W8_FINITE_REFERENCE_CAPACITY_2026-10-08.md`](../handoffs/UBERMIND_W8_FINITE_REFERENCE_CAPACITY_2026-10-08.md) — 2026-10-08 · UberMind Wave 8 — Reference Capacity Arithmetic Cannot Manufacture $1 Million
-- [`docs/handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md`](../handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md) — 2026-10-08 · UberMind Wave 9 — No-Work Read-Only JEV Debt Triage Without Paid Route
-- [`docs/receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md`](../receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md) — 2026-10-02 · UberMind interrupted continuation — 2026-10-02 — Truth class: PROVIDER_PARTIALLY_RECONCILED; CROWN_NOT_ADMITTED; TYPINGMIND_NOT_SAVED.
-- [`docs/receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md`](../receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md) — 2026-10-01 · Crown financial reconstruction — 2026-10-01
-- [`docs/receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md`](../receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md) — 2026-10-01 · Crown missing edges — 2026-10-01T23:40Z
-- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt
-- [`docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md`](../UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED
-- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED
+- [`docs/architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md`](../architecture/UBERMIND_OMEGA50_SYSTEM_FRICTIONALISM_2026-10-24.md) — 2026-10-24 · UBERMIND Ω50 · Systems Reality, Antifragility and Reflexive Strategy _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA51_VERIFICATION_CHECKPOINT_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_VERIFICATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · UberMind Ω51 Verification Checkpoint · 2026-10-24 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · UBERMIND Ω52 / Hyperdimensional Invention, Mathematical Reality and Quantitative Survival _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA52_VERIFIED_HANDOFF_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_VERIFIED_HANDOFF_2026-10-24.md) — 2026-10-24 · Ω52 Checkpoint / Hyperdimensional Invention and Quantitative Survival _(matched by name only)_
+- [`docs/architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md`](../architecture/UBERMIND_V4_PRINCIPLE_ACTIVATION_AND_RECEIPTS_2026-10-24.md) — 2026-10-24 · UBERMIND Ω∞ V4 / Principle Activation, Operational Accountability & Response Receipts _(matched by name only)_
+- [`docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md`](../architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md) — 2026-10-24 · UberMind Ω∞ V6 / Cross-chat startup and verified full-spectrum adoption _(matched by name only)_
+- [`docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md`](../architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md) — 2026-10-24 · UberMind Ω∞ V7: Proven Cross-Chat Continuity Gate _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md`](../../library/ubermind/FOUNDER_DIRECTIVE_OMEGA47_TO_OMEGA52_ORIGINAL_2026-10-24.md) — 2026-10-24 · Founder original directives · Machiavelli through Ω52 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(matched by name only)_
+- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine _(matched by name only)_
+- [`mind activation/ACTIVATION_STATUS_2026-10-10.md`](../../mind%20activation/ACTIVATION_STATUS_2026-10-10.md) — 2026-10-10 · UberMind / Claude Pro Activation: exact status _(matched by name only)_
+- [`mind activation/NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next execution frontier _(matched by name only)_
+- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md) — 2026-10-09 · UberMind Ω10 / Screenshot agents compared with the real UberMind brain _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA11 / Five-Hour Minimum Usage at the Same Quality _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁴ — Fidelity-First Residual Intelligence & Cost Frontier _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md) — 2026-10-09 · UberMind Ω9: Claude 5.5 Lineup Budget-Aware Sovereign Routing _(matched by name only)_
+- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md`](../handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md) — 2026-10-09 · UberMind W15: 12 Verified Public Work Candidates _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md`](../handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md) — 2026-10-09 · UberMind W15: Read Real GitHub Work _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md`](../handoffs/UBERMIND_W16_JEV_REUSE_2026-10-09.md) — 2026-10-09 · UberMind W16: public Jev cross-batch reuse _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W16_LIVE_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W16 live proof _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md`](../handoffs/UBERMIND_W17_DURABLE_PUBLIC_JEV_SINGLEFLIGHT_2026-10-09.md) — 2026-10-09 · UberMind W17: Durable Jev predispatch single-flight _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md`](../handoffs/UBERMIND_W18_JEV_PENDING_DOCTOR_2026-10-09.md) — 2026-10-09 · UberMind W18: blocked paid Jev claim observability _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W18_LIVE_222_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W17–W18: exact production checkpoint _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W19_CACHE_AWARE_BUDGET_2026-10-09.md`](../handoffs/UBERMIND_W19_CACHE_AWARE_BUDGET_2026-10-09.md) — 2026-10-09 · UberMind W19: source-validated cache-aware Jev budget allocation _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md`](../handoffs/UBERMIND_W19_LIVE_227_PROOF_2026-10-09.md) — 2026-10-09 · UberMind W19 final live checkpoint _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md`](../handoffs/UBERMIND_W20_REAL_ISSUE_JEV_SHADOW_2026-10-09.md) — 2026-10-09 · UberMind W20: real public task → Jev shadow work bridge _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W21_SCALED_CACHE_AWARE_BUDGET_2026-10-09.md`](../handoffs/UBERMIND_W21_SCALED_CACHE_AWARE_BUDGET_2026-10-09.md) — 2026-10-09 · UberMind W21 — Actual Cache-Aware Scaled JEV Execution _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W22_GITHUB_PUBLIC_INTAKE_AUTH_2026-10-09.md`](../handoffs/UBERMIND_W22_GITHUB_PUBLIC_INTAKE_AUTH_2026-10-09.md) — 2026-10-09 · UberMind W22 / Reuse Existing Protected GitHub Credential for Real Public Issue Source _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md`](../handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md) — 2026-10-09 · UberMind Ω / Wave 23: The Same-Frontier-Model Cost Floor _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W29_LEAN_STARTUP_IMPORTS_2026-10-09.md`](../handoffs/UBERMIND_W29_LEAN_STARTUP_IMPORTS_2026-10-09.md) — 2026-10-09 · PHOENIX W29 — Measured Direct-Import Reduction, No Source Removal _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W30_HOT18_CONDITIONAL_FACTORY_2026-10-09.md`](../handoffs/UBERMIND_W30_HOT18_CONDITIONAL_FACTORY_2026-10-09.md) — 2026-10-09 · PHOENIX W30 / Conditional Software-Factory and Historic Resume Imports _(matched by name only)_
+- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP _(matched by name only)_
+- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage _(matched by name only)_
+- [`docs/handoffs/UBERMIND_33333X_REALITY_GATE_2026-10-08.md`](../handoffs/UBERMIND_33333X_REALITY_GATE_2026-10-08.md) — 2026-10-08 · UberMind 33,333x Reality Gate — October 8, 2026 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md`](../handoffs/UBERMIND_890_EVIDENCE_FLYWHEEL_2026-10-08.md) — 2026-10-08 · UberMind 890-Sourced Evidence Flywheel — 2026-10-08 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_CURRENT_2026-10-08.md`](../handoffs/UBERMIND_CURRENT_2026-10-08.md) — 2026-10-08 · UberMind exact current terminal frontier — 2026-10-08 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md`](../handoffs/UBERMIND_FAIR_REFERENCE_BATCH_2026-10-08.md) — 2026-10-08 · UberMind Fair-Cost Frontier Reference — 2026-10-08 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md`](../handoffs/UBERMIND_JEV_SCALED_PREFLIGHT_2026-10-08.md) — 2026-10-08 · UberMind Scale Cycle: Exact JEV Workload Coalescer (2026-10-08) _(matched by name only)_
+- [`docs/handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md`](../handoffs/UBERMIND_JEV_TENSOR_2026-10-08.md) — 2026-10-08 · UberMind JEV Shared-State Tensor — 2026-10-08 _(matched by name only)_
+- [`docs/handoffs/UBERMIND_PRIVATE_PRODUCT_DECLARATION_2026-10-08.md`](../handoffs/UBERMIND_PRIVATE_PRODUCT_DECLARATION_2026-10-08.md) — 2026-10-08 · UberMind — Sovereign Private Product Declaration — Status: PRIVATE_PRODUCT_DECLARATION_ADOPTED _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md`](../handoffs/UBERMIND_W10_PRICE_SOURCE_DIAGNOSTIC_2026-10-08.md) — 2026-10-08 · UberMind Wave 10 — Trace Fresh Jev Price Source Without Minter of Authority _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md`](../handoffs/UBERMIND_W11_SCALED_EXECUTION_2026-10-08.md) — 2026-10-08 · UberMind Wave 11 — Capped Execution of 16,384-Request Exact Jev Preflight _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md`](../handoffs/UBERMIND_W12_CERTIFIED_WORK_THROUGHPUT_2026-10-08.md) — 2026-10-08 · UberMind W12 / Materialized Certified Work, Not Decorative Multipliers _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W12_LIVE_187_VERIFIED_2026-10-08.md`](../handoffs/UBERMIND_W12_LIVE_187_VERIFIED_2026-10-08.md) — 2026-10-08 · UberMind W12 — verified production work-counter checkpoint _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md`](../handoffs/UBERMIND_W13_EXACT_SOURCE_WORK_2026-10-08.md) — 2026-10-08 · UberMind W13: Verified Source Work _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W14_FINAL_2026-10-08.md`](../handoffs/UBERMIND_W14_FINAL_2026-10-08.md) — 2026-10-08 · UberMind W14 final checkpoint _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md`](../handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md) — 2026-10-08 · UberMind W14: Owner-visible actual work, never fabricated dollar savings _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W7_RECEIPT_ANTI_REPLAY_2026-10-08.md`](../handoffs/UBERMIND_W7_RECEIPT_ANTI_REPLAY_2026-10-08.md) — 2026-10-08 · UberMind Wave 7 / Independent Evidence Integrity: No Receipt Replay, No Mixed Contracts, No Overflow _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W8_FINITE_REFERENCE_CAPACITY_2026-10-08.md`](../handoffs/UBERMIND_W8_FINITE_REFERENCE_CAPACITY_2026-10-08.md) — 2026-10-08 · UberMind Wave 8 — Reference Capacity Arithmetic Cannot Manufacture $1 Million _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md`](../handoffs/UBERMIND_W9_READONLY_NATIVE_TRIAGE_2026-10-08.md) — 2026-10-08 · UberMind Wave 9 — No-Work Read-Only JEV Debt Triage Without Paid Route _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md`](../receipts/UBERMIND_CROWN_INTERRUPTED_CONTINUATION_2026-10-02.md) — 2026-10-02 · UberMind interrupted continuation — 2026-10-02 — Truth class: PROVIDER_PARTIALLY_RECONCILED; CROWN_NOT_ADMITTED; TYPINGMIND_NOT_SAVED. _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md`](../receipts/UBERMIND_CROWN_FINANCIAL_RECONSTRUCTION_2026-10-01.md) — 2026-10-01 · Crown financial reconstruction — 2026-10-01 _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md`](../receipts/UBERMIND_CROWN_MISSING_EDGES_2026-10-01.md) — 2026-10-01 · Crown missing edges — 2026-10-01T23:40Z _(matched by name only)_
+- [`docs/receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md`](../receipts/UBERMIND_TERMINAL_RECOVERY_2026-10-01.md) — 2026-10-01 · UberMind terminal recovery — 2026-10-01 — Status: SOURCE_RECONCILED; ACTIVATION_NOT_PROVEN; NO_NEW_INFERENCE _(matched by name only)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_
+- [`docs/UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md`](../UBERMIND_CLOUD_MODEL_MARKET_COMPRESSION_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(matched by name only)_
+- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(matched by name only)_
 
 ## Other documents (8)
 
-- [`docs/architecture/UBERMIND_OMEGA_V10_TWITTER_STYLE_TEAM.txt`](../architecture/UBERMIND_OMEGA_V10_TWITTER_STYLE_TEAM.txt) — ╔══════════════════════════════════════════════════════════════════════════╗
-- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_TERMINAL_TREE.txt`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_TERMINAL_TREE.txt) — ╔══════════════════════════════════════════════════════════════════════════════╗
-- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt) — ╔══════════════════════════════════════════════════════════════════════╗
-- [`docs/architecture/UBERMIND_OMEGA_V7_TERMINAL_AGENT_TREE.txt`](../architecture/UBERMIND_OMEGA_V7_TERMINAL_AGENT_TREE.txt) — ╔═══════════════════════════════════════════════════════════════════════════════════════╗
-- [`library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt`](../../library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt) — UBERMIND Ω∞ V5 / FULL-SPECTRUM OPERATIONAL INTELLIGENCE
-- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION
-- [`library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / SOVEREIGN EVIDENCE-FIRST CONTINUUM
-- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS
+- [`docs/architecture/UBERMIND_OMEGA_V10_TWITTER_STYLE_TEAM.txt`](../architecture/UBERMIND_OMEGA_V10_TWITTER_STYLE_TEAM.txt) — ╔══════════════════════════════════════════════════════════════════════════╗ _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_TERMINAL_TREE.txt`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_TERMINAL_TREE.txt) — ╔══════════════════════════════════════════════════════════════════════════════╗ _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt) — ╔══════════════════════════════════════════════════════════════════════╗ _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V7_TERMINAL_AGENT_TREE.txt`](../architecture/UBERMIND_OMEGA_V7_TERMINAL_AGENT_TREE.txt) — ╔═══════════════════════════════════════════════════════════════════════════════════════╗ _(matched by name only)_
+- [`library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt`](../../library/ubermind/UBERMIND_CHATGPT_CUSTOM_INSTRUCTIONS_V5.txt) — UBERMIND Ω∞ V5 / FULL-SPECTRUM OPERATIONAL INTELLIGENCE _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION _(matched by name only)_
+- [`library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_GLOBAL_CUSTOM_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / SOVEREIGN EVIDENCE-FIRST CONTINUUM _(matched by name only)_
+- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (28)
 
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(28 mentions)_
-- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(12 mentions)_
-- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(12 mentions)_
-- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(11 mentions)_
-- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(11 mentions)_
-- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(11 mentions)_
-- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(9 mentions)_
-- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(8 mentions)_
-- [`open router/12_REFERENCE_VALUE_LEDGER.md`](../../open%20router/12_REFERENCE_VALUE_LEDGER.md) — 12 — Reference-Value Ledger _(8 mentions)_
-- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(8 mentions)_
-- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN _(7 mentions)_
-- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(7 mentions)_
-- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(7 mentions)_
-- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat. _(6 mentions)_
-- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics _(6 mentions)_
-- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(6 mentions)_
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(5 mentions)_
-- [`docs/INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(4 mentions)_
-- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM _(4 mentions)_
-- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(4 mentions)_
-- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(4 mentions)_
-- [`open router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../../open%20router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(4 mentions)_
-- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(4 mentions)_
-- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(4 mentions)_
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ — Wave 2 native production test integration _(3 mentions)_
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(3 mentions)_
-- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF _(3 mentions)_
-- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands. _(3 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(28 mentions)_
+- [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory and startup imports. _(matched by name only)_ _(12 mentions)_
+- [`open router/04_TYPINGMIND_IPAD_SETUP.md`](../../open%20router/04_TYPINGMIND_IPAD_SETUP.md) — 04 — TypingMind iPad Setup _(matched by name only)_ _(12 mentions)_
+- [`open router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md`](../../open%20router/16_PRIOR_ART_MATRIX_AND_RESEARCH_HYPOTHESIS.md) — 16 — Prior Art Matrix and Candidate Research Contribution — Status: CURRENT PUBLIC-PRIOR-ART POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_ _(11 mentions)_
+- [`open router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md`](../../open%20router/19_MILLION_DOLLAR_INTELLIGENCE_INVENTION_LAB.md) — 19 — Million-Dollar Intelligence Invention Lab — Status: RESEARCH / INVENTION PROGRAM — NO CLAIM OF 33,333x YET _(matched by name only)_ _(11 mentions)_
+- [`open router/ACTIVATION_CHECKLIST.md`](../../open%20router/ACTIVATION_CHECKLIST.md) — Activation Checklist — Status: practical setup checklist. Live model names, prices, and provider controls must be refreshed at activation time. _(matched by name only)_ _(11 mentions)_
+- [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical Proof Protocol — Status: required before claiming $30 frontier-equivalent compression. _(matched by name only)_ _(9 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(8 mentions)_
+- [`open router/12_REFERENCE_VALUE_LEDGER.md`](../../open%20router/12_REFERENCE_VALUE_LEDGER.md) — 12 — Reference-Value Ledger _(matched by name only)_ _(8 mentions)_
+- [`open router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md`](../../open%20router/48_TYPINGMIND_LIVE_GATEWAY_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Live Gateway — 2026-09-30 — Status: source implementation. Live activation requires the private runtime key, current bounded spend authorization, current Crown Admi… _(matched by name only)_ _(8 mentions)_
+- [`open router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md`](../../open%20router/18_MILLION_DOLLAR_INTELLIGENCE_TARGET.md) — 18 — Million-Dollar Intelligence Target — Status: FOUNDER-APPROVED RESEARCH TARGET / NOT YET PROVEN _(matched by name only)_ _(7 mentions)_
+- [`open router/README.md`](../../open%20router/README.md) — Open Router — UberMind Frontier-Max Program — Status: FOUNDER-APPROVED V2+V3 VAULT + V4 EXACT-RECOVERY ADDENDUM / PRE-LIVE ECONOMIC PROOF _(matched by name only)_ _(7 mentions)_
+- [`open router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_CLOUD_MODEL_MARKET_2026-09-29.md) — 2026-09-29 · UberMind Cloud Model Market Compression — 2026-09-29 — Status: IMPLEMENTED PRE-ACTIVATION / CLOUD-ONLY / ZERO-LOSS QUALITY LAW PRESERVED _(matched by name only)_ _(7 mentions)_
+- [`docs/INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md`](../INFINITE_OPUS_TYPINGMIND_SETUP_2026-09-30.md) — 2026-09-30 · Infinite Opus TypingMind Setup Receipt — 2026-09-30 — Status: owner-only activation guide. No secret belongs in Git or chat. _(matched by name only)_ _(6 mentions)_
+- [`open router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md`](../../open%20router/26_PROVABLE_33333X_REFERENCE_ECONOMICS.md) — Infinite Opus Provable 33,333x Reference Economics _(matched by name only)_ _(6 mentions)_
+- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(matched by name only)_ _(6 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(5 mentions)_
+- [`docs/INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(matched by name only)_ _(4 mentions)_
+- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — 15 — Novelty Boundary and Upgrade Ceiling — Status: PRIOR-ART-AWARE RESEARCH POSITION / NO GLOBAL NOVELTY CLAIM _(matched by name only)_ _(4 mentions)_
+- [`open router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md`](../../open%20router/23_PROJECT_INFINITE_OPUS_ONE_DOLLAR_EXECUTION_PROMPT.md) — PROJECT INFINITE OPUS _(matched by name only)_ _(4 mentions)_
+- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — PROJECT INFINITE OPUS — TERMINAL CONTINUATION MONSTER PROMPT _(matched by name only)_ _(4 mentions)_
+- [`open router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md`](../../open%20router/54_INFINITE_OPUS_PRODUCTION_ACTIVATION_2026-09-30.md) — 2026-09-30 · Infinite Opus Production Activation Package — 2026-09-30 _(matched by name only)_ _(4 mentions)_
+- [`open router/ECONOMICS_AND_SCOREBOARD.md`](../../open%20router/ECONOMICS_AND_SCOREBOARD.md) — Economics and Scoreboard — Status: operating economics doctrine. All example numbers require live re-verification before activation. _(matched by name only)_ _(4 mentions)_
+- [`open router/TYPINGMIND_AND_24_7.md`](../../open%20router/TYPINGMIND_AND_24_7.md) — TypingMind and 24/7 Operation — Status: founder-approved operating plan. _(matched by name only)_ _(4 mentions)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE2_NATIVE_TEST_2026-10-08.md) — 2026-10-08 · Sovereign Forge Ω∞ — Wave 2 native production test integration _(matched by name only)_ _(3 mentions)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_ _(3 mentions)_
+- [`open router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md`](../../open%20router/21_ONE_DOLLAR_DAY_24_7_OPUS_QUALITY_OPERATING_MODE.md) — 21 — One-Dollar-a-Day 24/7 Opus-Quality Operating Mode — Status: FOUNDER-DIRECTED OPERATING ARCHITECTURE / PRE-LIVE PROOF _(matched by name only)_ _(3 mentions)_
+- [`open router/TYPINGMIND_PROMPT_PACK.md`](../../open%20router/TYPINGMIND_PROMPT_PACK.md) — TypingMind Prompt Pack — Status: starter prompt architecture. Model names are role slots, not permanent brands. _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (28)
 
-- [`src/founder-directive-reconciler.mjs`](../../src/founder-directive-reconciler.mjs) — Reconciles a founder directive against the organism that already exists. _(tested; imported by 1)_
-- [`src/ubermind-33k-reality-gate.mjs`](../../src/ubermind-33k-reality-gate.mjs) — exports UBERMIND_33K_REALITY_GATE, evaluateReferenceCapacityModel, audit33kEvidencePrerequisites _(tested; imported by 1)_
-- [`src/ubermind-55-agent-mesh-total-cost.mjs`](../../src/ubermind-55-agent-mesh-total-cost.mjs) — exports UBERMIND_W37_MESH_SCHEMA, calculateUberMind55AllInMesh, requiredReuseForMeshCut _(tested; imported by 2)_
-- [`src/ubermind-55-family-subscription-price-proxy.mjs`](../../src/ubermind-55-family-subscription-price-proxy.mjs) — UberMind W36, 2026-10-10. Official 5.5 family uncached API tariff equivalents, NOT Pro quota weighting. Source 2026-10-10: https://claude.com/pricing… _(tested; imported by 3)_
-- [`src/ubermind-890-evidence-flywheel.mjs`](../../src/ubermind-890-evidence-flywheel.mjs) — exports UBERMIND_FLYWHEEL_SCHEMA, recover890FounderIdeaUniverse, compileUberMindEvidenceFlywheel _(tested; imported by 1)_
-- [`src/ubermind-cheapest-eligible-reference.mjs`](../../src/ubermind-cheapest-eligible-reference.mjs) — exports FAIR_FRONTIER_ROUTE_SCHEMA, compareFairFrontierRoutes, evaluateHistoricalTwoCaseBatchCounterfactual _(tested; imported by 1)_
-- [`src/ubermind-cognitive-exchange.mjs`](../../src/ubermind-cognitive-exchange.mjs) — exports UBERMIND_COGNITIVE_EXCHANGE_VERSION, chooseCognitionTopology, compileUberMindExchange, UBERMIND_ROLE_VOCABULARY _(tested; imported by 2)_
-- [`src/ubermind-cognitive-residual-economics.mjs`](../../src/ubermind-cognitive-residual-economics.mjs) — exports UBERMIND_COGNITIVE_RESIDUAL_SCHEMA, calculateUberMindFidelityPortfolio _(tested; no static importers)_
-- [`src/ubermind-conditional-agent-optimizer.mjs`](../../src/ubermind-conditional-agent-optimizer.mjs) — exports UBERMIND_EVENT_MESH_SCHEMA, calculateEventGatedUberMind55 _(tested; imported by 1)_
-- [`src/ubermind-exact-source-work.mjs`](../../src/ubermind-exact-source-work.mjs) — exports UBERMIND_SOURCE_WORK_SCHEMA, UBERMIND_SOURCE_WORK_PATHS, executeBoundedSourceWork, runUberMindLiveSourceWork, compileSourceWorkCheckpoint _(tested; imported by 3)_
-- [`src/ubermind-five-hour-quality-budget.mjs`](../../src/ubermind-five-hour-quality-budget.mjs) — UberMind W33: same-task, same-quality five-hour Claude Pro usage comparison. This module is read-only. It does not infer Anthropic quota or invoke mo… _(tested; no static importers)_
-- [`src/ubermind-five-percent-compression-gate.mjs`](../../src/ubermind-five-percent-compression-gate.mjs) — UberMind W35: Amdahl-style LOWER BOUND for five-hour Pro usage. Pure arithmetic. This does NOT observe Claude /usage or guarantee equal quality. Reus… _(tested; imported by 1)_
-- [`src/ubermind-jev-pending-doctor.mjs`](../../src/ubermind-jev-pending-doctor.mjs) — exports UBERMIND_JEV_PENDING_DOCTOR_SCHEMA, inspectJevPendingClaims _(tested; imported by 1)_
-- [`src/ubermind-omega42-agent-tree-console.mjs`](../../src/ubermind-omega42-agent-tree-console.mjs) — UBERMIND Ω42 / Truthful Agent-Tree console data and offline HTML rendering. An additive presentation around W40/W41, never another executor or model… _(tested; imported by 1)_
-- [`src/ubermind-omega49-source-selector.mjs`](../../src/ubermind-omega49-source-selector.mjs) — exports selectStrategy49 _(tested; imported by 1)_
-- [`src/ubermind-omega51-evidence.mjs`](../../src/ubermind-omega51-evidence.mjs) — Omega51: pure, bounded, zero-network retrieval and OWN-INFRASTRUCTURE resilience checks. _(tested; imported by 1)_
-- [`src/ubermind-omega52-research.mjs`](../../src/ubermind-omega52-research.mjs) — Ω52: local, pure, offline research primitives. No order placement, live feeds, or legal verdicts. _(tested; imported by 1)_
-- [`src/ubermind-opus-quality-cost-floor.mjs`](../../src/ubermind-opus-quality-cost-floor.mjs) — UberMind W23: Same-model, same-token-geometry API tariff optimizer. Uses publicly published Opus 5.5 prices as of 2026-10-09. Never infers output equ… _(tested; imported by 1)_
-- [`src/ubermind-pro-matched-cost-benchmark.mjs`](../../src/ubermind-pro-matched-cost-benchmark.mjs) — UberMind W32: PRIVATE READ-ONLY Claude Pro paired-workload comparator. Benchmark input is external human-observed evidence, never API dispatch. Will… _(tested; no static importers)_
-- [`src/ubermind-pro20-economics.mjs`](../../src/ubermind-pro20-economics.mjs) — UberMind Pro-$20 Economics: read-only tariff and subscription separation. PLAN ACCOUNTING TRUTH: - Claude Pro pays a fixed plan price and has usage/a… _(tested; no static importers)_
-- [`src/ubermind-public-issue-backlog.mjs`](../../src/ubermind-public-issue-backlog.mjs) — exports PUBLIC_ISSUE_BACKLOG_SCHEMA, compilePublicIssueBacklog _(tested; imported by 1)_
-- [`src/ubermind-public-workload-precommit.mjs`](../../src/ubermind-public-workload-precommit.mjs) — exports WORKLOAD_INTAKE_SCHEMA, precommitPublicWorkload, verifyPublicWorkloadManifest, reviewPairedWorkloadSubmission _(tested; imported by 1)_
-- [`src/ubermind-real-issue-jev-shadow.mjs`](../../src/ubermind-real-issue-jev-shadow.mjs) — exports REAL_ISSUE_JEV_SHADOW_SCHEMA, compileRealIssueJevShadowPrecommit _(tested; imported by 1)_
-- [`src/ubermind-real-work-counter.mjs`](../../src/ubermind-real-work-counter.mjs) — exports UBERMIND_REAL_WORK_COUNTER_SCHEMA, reconcileUberMindRealWorkCounter _(tested; imported by 2)_
-- [`src/ubermind-sealed-reference-bridge.mjs`](../../src/ubermind-sealed-reference-bridge.mjs) — exports SEALED_MEASURED_BRIDGE_SCHEMA, summarizeHistoricalSealedReference _(tested; imported by 1)_
-- [`src/ubermind-strategy-brief.mjs`](../../src/ubermind-strategy-brief.mjs) — Deterministic zero-inference strategic evidence selector; never a legal verdict or model router. _(tested; imported by 1)_
-- [`src/ubermind-w40-evidence-first-task-compiler.mjs`](../../src/ubermind-w40-evidence-first-task-compiler.mjs) — UBERMIND W40 • Evidence-First Mission Compiler Generates a bounded, reproducible ROUTING PROPOSAL, never performs inference, calls providers, tests c… _(tested; imported by 2)_
-- [`src/ubermind-w41-proof-constrained-route-auction.mjs`](../../src/ubermind-w41-proof-constrained-route-auction.mjs) — W41 - Minimal-cost quality-admissible route auction, research sandbox. Extends W36 official Claude 5.5 rates; no LLM/API calls or source writes. Ever… _(tested; imported by 1)_
+- [`src/founder-directive-reconciler.mjs`](../../src/founder-directive-reconciler.mjs) — Reconciles a founder directive against the organism that already exists. _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-33k-reality-gate.mjs`](../../src/ubermind-33k-reality-gate.mjs) — exports UBERMIND_33K_REALITY_GATE, evaluateReferenceCapacityModel, audit33kEvidencePrerequisites _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-55-agent-mesh-total-cost.mjs`](../../src/ubermind-55-agent-mesh-total-cost.mjs) — exports UBERMIND_W37_MESH_SCHEMA, calculateUberMind55AllInMesh, requiredReuseForMeshCut _(matched by name only; tested; imported by 2)_
+- [`src/ubermind-55-family-subscription-price-proxy.mjs`](../../src/ubermind-55-family-subscription-price-proxy.mjs) — UberMind W36, 2026-10-10. Official 5.5 family uncached API tariff equivalents, NOT Pro quota weighting. Source 2026-10-10: https://claude.com/pricing… _(matched by name only; tested; imported by 3)_
+- [`src/ubermind-890-evidence-flywheel.mjs`](../../src/ubermind-890-evidence-flywheel.mjs) — exports UBERMIND_FLYWHEEL_SCHEMA, recover890FounderIdeaUniverse, compileUberMindEvidenceFlywheel _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-cheapest-eligible-reference.mjs`](../../src/ubermind-cheapest-eligible-reference.mjs) — exports FAIR_FRONTIER_ROUTE_SCHEMA, compareFairFrontierRoutes, evaluateHistoricalTwoCaseBatchCounterfactual _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-cognitive-exchange.mjs`](../../src/ubermind-cognitive-exchange.mjs) — exports UBERMIND_COGNITIVE_EXCHANGE_VERSION, chooseCognitionTopology, compileUberMindExchange, UBERMIND_ROLE_VOCABULARY _(matched by name only; tested; imported by 2)_
+- [`src/ubermind-cognitive-residual-economics.mjs`](../../src/ubermind-cognitive-residual-economics.mjs) — exports UBERMIND_COGNITIVE_RESIDUAL_SCHEMA, calculateUberMindFidelityPortfolio _(matched by name only; tested; no static importers)_
+- [`src/ubermind-conditional-agent-optimizer.mjs`](../../src/ubermind-conditional-agent-optimizer.mjs) — exports UBERMIND_EVENT_MESH_SCHEMA, calculateEventGatedUberMind55 _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-exact-source-work.mjs`](../../src/ubermind-exact-source-work.mjs) — exports UBERMIND_SOURCE_WORK_SCHEMA, UBERMIND_SOURCE_WORK_PATHS, executeBoundedSourceWork, runUberMindLiveSourceWork, compileSourceWorkCheckpoint _(matched by name only; tested; imported by 3)_
+- [`src/ubermind-five-hour-quality-budget.mjs`](../../src/ubermind-five-hour-quality-budget.mjs) — UberMind W33: same-task, same-quality five-hour Claude Pro usage comparison. This module is read-only. It does not infer Anthropic quota or invoke mo… _(matched by name only; tested; no static importers)_
+- [`src/ubermind-five-percent-compression-gate.mjs`](../../src/ubermind-five-percent-compression-gate.mjs) — UberMind W35: Amdahl-style LOWER BOUND for five-hour Pro usage. Pure arithmetic. This does NOT observe Claude /usage or guarantee equal quality. Reus… _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-jev-pending-doctor.mjs`](../../src/ubermind-jev-pending-doctor.mjs) — exports UBERMIND_JEV_PENDING_DOCTOR_SCHEMA, inspectJevPendingClaims _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-omega42-agent-tree-console.mjs`](../../src/ubermind-omega42-agent-tree-console.mjs) — UBERMIND Ω42 / Truthful Agent-Tree console data and offline HTML rendering. An additive presentation around W40/W41, never another executor or model… _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-omega49-source-selector.mjs`](../../src/ubermind-omega49-source-selector.mjs) — exports selectStrategy49 _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-omega51-evidence.mjs`](../../src/ubermind-omega51-evidence.mjs) — Omega51: pure, bounded, zero-network retrieval and OWN-INFRASTRUCTURE resilience checks. _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-omega52-research.mjs`](../../src/ubermind-omega52-research.mjs) — Ω52: local, pure, offline research primitives. No order placement, live feeds, or legal verdicts. _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-opus-quality-cost-floor.mjs`](../../src/ubermind-opus-quality-cost-floor.mjs) — UberMind W23: Same-model, same-token-geometry API tariff optimizer. Uses publicly published Opus 5.5 prices as of 2026-10-09. Never infers output equ… _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-pro-matched-cost-benchmark.mjs`](../../src/ubermind-pro-matched-cost-benchmark.mjs) — UberMind W32: PRIVATE READ-ONLY Claude Pro paired-workload comparator. Benchmark input is external human-observed evidence, never API dispatch. Will… _(matched by name only; tested; no static importers)_
+- [`src/ubermind-pro20-economics.mjs`](../../src/ubermind-pro20-economics.mjs) — UberMind Pro-$20 Economics: read-only tariff and subscription separation. PLAN ACCOUNTING TRUTH: - Claude Pro pays a fixed plan price and has usage/a… _(matched by name only; tested; no static importers)_
+- [`src/ubermind-public-issue-backlog.mjs`](../../src/ubermind-public-issue-backlog.mjs) — exports PUBLIC_ISSUE_BACKLOG_SCHEMA, compilePublicIssueBacklog _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-public-workload-precommit.mjs`](../../src/ubermind-public-workload-precommit.mjs) — exports WORKLOAD_INTAKE_SCHEMA, precommitPublicWorkload, verifyPublicWorkloadManifest, reviewPairedWorkloadSubmission _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-real-issue-jev-shadow.mjs`](../../src/ubermind-real-issue-jev-shadow.mjs) — exports REAL_ISSUE_JEV_SHADOW_SCHEMA, compileRealIssueJevShadowPrecommit _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-real-work-counter.mjs`](../../src/ubermind-real-work-counter.mjs) — exports UBERMIND_REAL_WORK_COUNTER_SCHEMA, reconcileUberMindRealWorkCounter _(matched by name only; tested; imported by 2)_
+- [`src/ubermind-sealed-reference-bridge.mjs`](../../src/ubermind-sealed-reference-bridge.mjs) — exports SEALED_MEASURED_BRIDGE_SCHEMA, summarizeHistoricalSealedReference _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-strategy-brief.mjs`](../../src/ubermind-strategy-brief.mjs) — Deterministic zero-inference strategic evidence selector; never a legal verdict or model router. _(matched by name only; tested; imported by 1)_
+- [`src/ubermind-w40-evidence-first-task-compiler.mjs`](../../src/ubermind-w40-evidence-first-task-compiler.mjs) — UBERMIND W40 • Evidence-First Mission Compiler Generates a bounded, reproducible ROUTING PROPOSAL, never performs inference, calls providers, tests c… _(matched by name only; tested; imported by 2)_
+- [`src/ubermind-w41-proof-constrained-route-auction.mjs`](../../src/ubermind-w41-proof-constrained-route-auction.mjs) — W41 - Minimal-cost quality-admissible route auction, research sandbox. Extends W36 official Claude 5.5 rates; no LLM/API calls or source writes. Ever… _(matched by name only; tested; imported by 1)_
 
 ## Scripts (20)
 
-- [`scripts/build-ubermind-knowledge-archives.py`](../../scripts/build-ubermind-knowledge-archives.py)
-- [`scripts/build-ubermind-library-index.py`](../../scripts/build-ubermind-library-index.py)
-- [`scripts/query-ubermind-library.py`](../../scripts/query-ubermind-library.py)
-- [`scripts/ubermind-33k-reality-doctor.mjs`](../../scripts/ubermind-33k-reality-doctor.mjs) — exports runUberMind33kRealityDoctor
-- [`scripts/ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations
-- [`scripts/ubermind-55-family-price-doctor.mjs`](../../scripts/ubermind-55-family-price-doctor.mjs) — exports UBERMIND_55_DOCTOR_SCHEMA, inspectUberMind55TariffScenarios
-- [`scripts/ubermind-890-evidence-cycle.mjs`](../../scripts/ubermind-890-evidence-cycle.mjs) — exports UBERMIND_890_DOCTOR_SCHEMA, runUberMind890ProofCycle
-- [`scripts/ubermind-cheapest-reference-doctor.mjs`](../../scripts/ubermind-cheapest-reference-doctor.mjs) — exports runUberMindCheapestReferenceDoctor
-- [`scripts/ubermind-claude-ai-skill-pack.mjs`](../../scripts/ubermind-claude-ai-skill-pack.mjs) — Validates and packages the claude.ai-uploadable ubermind-lean skill.
-- [`scripts/ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) _(npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
-- [`scripts/ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — exports UBERMIND_OMEGA16_DOCTOR, uberMindOmega16ConditionalDoctor
-- [`scripts/ubermind-five-percent-preflight.mjs`](../../scripts/ubermind-five-percent-preflight.mjs) — exports UBERMIND_FIVE_PERCENT_PREFLIGHT_SCHEMA, runUberMindFivePercentPreflight
-- [`scripts/ubermind-omega42-agent-tree-console.mjs`](../../scripts/ubermind-omega42-agent-tree-console.mjs) — Offline operator: run fixed native W40/W41 tests against this checkout, then
-- [`scripts/ubermind-public-issue-intake.mjs`](../../scripts/ubermind-public-issue-intake.mjs) — exports PUBLIC_ISSUE_INTAKE, capturePublicIssueWorkload
-- [`scripts/ubermind-startup-context-audit.mjs`](../../scripts/ubermind-startup-context-audit.mjs) — exports UBERMIND_CONTEXT_AUDIT_SCHEMA, parseDirectClaudeImports, auditDirectClaudeImports
-- [`scripts/ubermind-strategy-brief.mjs`](../../scripts/ubermind-strategy-brief.mjs)
-- [`scripts/ubermind-v6-source-doctor.mjs`](../../scripts/ubermind-v6-source-doctor.mjs) — Verify source custody, not cognitive quality or downstream ChatGPT activation.
-- [`scripts/ubermind-w40-route-doctor.mjs`](../../scripts/ubermind-w40-route-doctor.mjs) — exports W40_ROUTE_DOCTOR, sampleUberMindW40Routes, evaluateUberMindW40ContractFile
-- [`scripts/ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction
-- [`scripts/verify-ubermind-archives.py`](../../scripts/verify-ubermind-archives.py)
+- [`scripts/build-ubermind-knowledge-archives.py`](../../scripts/build-ubermind-knowledge-archives.py) _(matched by name only)_
+- [`scripts/build-ubermind-library-index.py`](../../scripts/build-ubermind-library-index.py) _(matched by name only)_
+- [`scripts/query-ubermind-library.py`](../../scripts/query-ubermind-library.py) _(matched by name only)_
+- [`scripts/ubermind-33k-reality-doctor.mjs`](../../scripts/ubermind-33k-reality-doctor.mjs) — exports runUberMind33kRealityDoctor _(matched by name only)_
+- [`scripts/ubermind-55-agent-mesh-doctor.mjs`](../../scripts/ubermind-55-agent-mesh-doctor.mjs) — exports W37_MESH_DOCTOR_SCHEMA, W37_EXAMPLE_AUX_CALLS, getW37AllInMeshIllustrations _(matched by name only)_
+- [`scripts/ubermind-55-family-price-doctor.mjs`](../../scripts/ubermind-55-family-price-doctor.mjs) — exports UBERMIND_55_DOCTOR_SCHEMA, inspectUberMind55TariffScenarios _(matched by name only)_
+- [`scripts/ubermind-890-evidence-cycle.mjs`](../../scripts/ubermind-890-evidence-cycle.mjs) — exports UBERMIND_890_DOCTOR_SCHEMA, runUberMind890ProofCycle _(matched by name only)_
+- [`scripts/ubermind-cheapest-reference-doctor.mjs`](../../scripts/ubermind-cheapest-reference-doctor.mjs) — exports runUberMindCheapestReferenceDoctor _(matched by name only)_
+- [`scripts/ubermind-claude-ai-skill-pack.mjs`](../../scripts/ubermind-claude-ai-skill-pack.mjs) — Validates and packages the claude.ai-uploadable ubermind-lean skill. _(matched by name only)_
+- [`scripts/ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) _(matched by name only; npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
+- [`scripts/ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — exports UBERMIND_OMEGA16_DOCTOR, uberMindOmega16ConditionalDoctor _(matched by name only)_
+- [`scripts/ubermind-five-percent-preflight.mjs`](../../scripts/ubermind-five-percent-preflight.mjs) — exports UBERMIND_FIVE_PERCENT_PREFLIGHT_SCHEMA, runUberMindFivePercentPreflight _(matched by name only)_
+- [`scripts/ubermind-omega42-agent-tree-console.mjs`](../../scripts/ubermind-omega42-agent-tree-console.mjs) — Offline operator: run fixed native W40/W41 tests against this checkout, then _(matched by name only)_
+- [`scripts/ubermind-public-issue-intake.mjs`](../../scripts/ubermind-public-issue-intake.mjs) — exports PUBLIC_ISSUE_INTAKE, capturePublicIssueWorkload _(matched by name only)_
+- [`scripts/ubermind-startup-context-audit.mjs`](../../scripts/ubermind-startup-context-audit.mjs) — exports UBERMIND_CONTEXT_AUDIT_SCHEMA, parseDirectClaudeImports, auditDirectClaudeImports _(matched by name only)_
+- [`scripts/ubermind-strategy-brief.mjs`](../../scripts/ubermind-strategy-brief.mjs) _(matched by name only)_
+- [`scripts/ubermind-v6-source-doctor.mjs`](../../scripts/ubermind-v6-source-doctor.mjs) — Verify source custody, not cognitive quality or downstream ChatGPT activation. _(matched by name only)_
+- [`scripts/ubermind-w40-route-doctor.mjs`](../../scripts/ubermind-w40-route-doctor.mjs) — exports W40_ROUTE_DOCTOR, sampleUberMindW40Routes, evaluateUberMindW40ContractFile _(matched by name only)_
+- [`scripts/ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction _(matched by name only)_
+- [`scripts/verify-ubermind-archives.py`](../../scripts/verify-ubermind-archives.py) _(matched by name only)_
 
 ## Config, data, artifacts and services (39)
 
-- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs
-- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate
-- [`config/ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1
-- [`config/ubermind-omega47-strategic-philosophy-index.json`](../../config/ubermind-omega47-strategic-philosophy-index.json) — Jurisdictional Arbitrage · FOUNDER_DONOR_INDEX__NOT_LEGAL_CLEARANCE_OR_MODEL_FINETUNING · uberbond.ubermind.omega47.strategic-philosophy-index.v1
-- [`config/ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Takeovers, Proxy Contests and Poison Pills · FOUNDER_DONOR_RESEARCH_ONLY__NO_EXTERNAL_EFFECTS · uberbond.ubermind.omega49.asymmetric-strategy-index.v1
-- [`config/ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Stafford Beer · RESEARCH_ONLY · ubermind.omega50.research-index.v1
-- [`config/ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — FOUNDER_DONOR_PLUS_RESEARCH__NOT_DEPLOYED_SECURITY · ubermind.omega51.technical-dna.v1
-- [`config/ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1
-- [`config/ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — Niccolò Machiavelli (The Prince, The Discourses on Livy) · ubermind.v5.full-spectrum.52-card-activation-manifest
-- [`docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json`](../UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json) — 2026-09-29 · FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF · uberbond.ubermind.frontier-max-canon.v1
-- [`docs/architecture/UBERMIND_890_GENOME_ROUTING.mmd`](../architecture/UBERMIND_890_GENOME_ROUTING.mmd)
-- [`docs/architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd`](../architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd)
-- [`docs/architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd`](../architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd)
-- [`docs/architecture/UBERMIND_OMEGA42_EXAMPLE_CONTRACT.json`](../architecture/UBERMIND_OMEGA42_EXAMPLE_CONTRACT.json)
-- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.mmd`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.mmd) — 2026-10-09
-- [`docs/architecture/UBERMIND_OMEGA_V10_PAIRED_COST_QUALITY_TEAM.mmd`](../architecture/UBERMIND_OMEGA_V10_PAIRED_COST_QUALITY_TEAM.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER.mmd`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_EXECUTION_TREE.mmd`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_EXECUTION_TREE.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V13_5PCT_REALITY_ENGINE.mmd`](../architecture/UBERMIND_OMEGA_V13_5PCT_REALITY_ENGINE.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd`](../architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd) — 2026-10-10
-- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_MINIMUM_COST_2026-10-10.mmd`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_MINIMUM_COST_2026-10-10.mmd) — 2026-10-10
-- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY.mmd`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd)
-- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_TREE.mmd`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_TREE.mmd)
-- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY.mmd`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY.mmd)
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json) — 2026-09-30 · COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1 · uberbond.ubermind.checkpoint.v1
-- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json`](../checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json) — uberbond.ubermind.checkpoint-pointer.v1
-- [`docs/receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json`](../receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json) — 2026-10-01 · uberbond.crown.billing-recovery.v1
-- [`integrations/claude-ai/dist/ubermind-lean.zip`](../../integrations/claude-ai/dist/ubermind-lean.zip)
-- [`library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json`](../../library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json) — The Prince
-- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json) — uberbond.ubermind.direct-founder-52-coverage.v1
-- [`library/ubermind/LIBRARY_MANIFEST.json`](../../library/ubermind/LIBRARY_MANIFEST.json) — uberbond.ubermind.permanent-library-catalog.v1
-- [`library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json`](../../library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json) — ubermind.v10.design-audit.v1
-- [`mind activation/SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — uberbond.mind-activation.source-receipt-index.v1
-- [`open router/OPEN_ROUTER_UBERMIND_CANON.json`](../../open%20router/OPEN_ROUTER_UBERMIND_CANON.json) — FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_PRE_LIVE_PROOF · uberbond.open-router.frontier-max.v5
+- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs _(matched by name only)_
+- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate _(matched by name only)_
+- [`config/ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1 _(matched by name only)_
+- [`config/ubermind-omega47-strategic-philosophy-index.json`](../../config/ubermind-omega47-strategic-philosophy-index.json) — Jurisdictional Arbitrage · FOUNDER_DONOR_INDEX__NOT_LEGAL_CLEARANCE_OR_MODEL_FINETUNING · uberbond.ubermind.omega47.strategic-philosophy-index.v1 _(matched by name only)_
+- [`config/ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Takeovers, Proxy Contests and Poison Pills · FOUNDER_DONOR_RESEARCH_ONLY__NO_EXTERNAL_EFFECTS · uberbond.ubermind.omega49.asymmetric-strategy-index.v1 _(matched by name only)_
+- [`config/ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Stafford Beer · RESEARCH_ONLY · ubermind.omega50.research-index.v1 _(matched by name only)_
+- [`config/ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — FOUNDER_DONOR_PLUS_RESEARCH__NOT_DEPLOYED_SECURITY · ubermind.omega51.technical-dna.v1 _(matched by name only)_
+- [`config/ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1 _(matched by name only)_
+- [`config/ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — Niccolò Machiavelli (The Prince, The Discourses on Livy) · ubermind.v5.full-spectrum.52-card-activation-manifest _(matched by name only)_
+- [`docs/UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json`](../UBERMIND_30_DOLLAR_FRONTIER_MAX_CANON_2026-09-29.json) — 2026-09-29 · FOUNDER_APPROVED_OPERATING_DOCTRINE_PRE_LIVE_ECONOMIC_PROOF · uberbond.ubermind.frontier-max-canon.v1 _(matched by name only)_
+- [`docs/architecture/UBERMIND_890_GENOME_ROUTING.mmd`](../architecture/UBERMIND_890_GENOME_ROUTING.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd`](../architecture/UBERMIND_JEV_COMPLETE_ROUTING.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd`](../architecture/UBERMIND_MASTER_MODEL_ROUTING.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA42_EXAMPLE_CONTRACT.json`](../architecture/UBERMIND_OMEGA42_EXAMPLE_CONTRACT.json) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.mmd`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.mmd) — 2026-10-09 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V10_PAIRED_COST_QUALITY_TEAM.mmd`](../architecture/UBERMIND_OMEGA_V10_PAIRED_COST_QUALITY_TEAM.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER.mmd`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_EXECUTION_TREE.mmd`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_EXECUTION_TREE.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V13_5PCT_REALITY_ENGINE.mmd`](../architecture/UBERMIND_OMEGA_V13_5PCT_REALITY_ENGINE.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V14_CLAUDE55_QUALITY_COST_FRONTIER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd`](../architecture/UBERMIND_OMEGA_V15_ALL_IN_AGENT_MESH_COST_2026-10-10.mmd) — 2026-10-10 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_MINIMUM_COST_2026-10-10.mmd`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_MINIMUM_COST_2026-10-10.mmd) — 2026-10-10 _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V4_FIDELITY_COST_FRONTIER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd`](../architecture/UBERMIND_OMEGA_V5_PROMPT_FIRST_FRONTIER.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY.mmd`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_TREE.mmd`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_TREE.mmd) _(matched by name only)_
+- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY.mmd`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY.mmd) _(matched by name only)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json) — 2026-09-30 · COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1 · uberbond.ubermind.checkpoint.v1 _(matched by name only)_
+- [`docs/checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json`](../checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json) — uberbond.ubermind.checkpoint-pointer.v1 _(matched by name only)_
+- [`docs/receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json`](../receipts/UBERMIND_CROWN_BILLING_RECOVERY_2026-10-01.json) — 2026-10-01 · uberbond.crown.billing-recovery.v1 _(matched by name only)_
+- [`integrations/claude-ai/dist/ubermind-lean.zip`](../../integrations/claude-ai/dist/ubermind-lean.zip) _(matched by name only)_
+- [`library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json`](../../library/ubermind/BOOKS_PUBLIC_DOMAIN_US.json) — The Prince _(matched by name only)_
+- [`library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json`](../../library/ubermind/FOUNDER_DIRECTIVE_52_COVERAGE_MANIFEST.json) — uberbond.ubermind.direct-founder-52-coverage.v1 _(matched by name only)_
+- [`library/ubermind/LIBRARY_MANIFEST.json`](../../library/ubermind/LIBRARY_MANIFEST.json) — uberbond.ubermind.permanent-library-catalog.v1 _(matched by name only)_
+- [`library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json`](../../library/ubermind/UBERMIND_V10_10_OF_10_DESIGN_VALIDATION.json) — ubermind.v10.design-audit.v1 _(matched by name only)_
+- [`mind activation/SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — uberbond.mind-activation.source-receipt-index.v1 _(matched by name only)_
+- [`open router/OPEN_ROUTER_UBERMIND_CANON.json`](../../open%20router/OPEN_ROUTER_UBERMIND_CANON.json) — FOUNDER_APPROVED_V5_FRONTIER_INTELLIGENCE_VIRTUALIZATION_PRE_LIVE_PROOF · uberbond.open-router.frontier-max.v5 _(matched by name only)_
 
 ## Tests (40)
 

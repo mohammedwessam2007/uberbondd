@@ -12,17 +12,17 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (11)
 
-- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — UberBond Perpetual Frontier / GENESIS Canon — Status: CHAT_SPEC_GOAL promoted into durable repository canon
-- [`docs/GENESIS_COGNITION_EXCHANGE.md`](../GENESIS_COGNITION_EXCHANGE.md) — GENESIS Cognition Exchange — Status: source contract / zero-spend default
-- [`docs/GENESIS_ESCALATION_TRIBUNAL.md`](../GENESIS_ESCALATION_TRIBUNAL.md) — GENESIS Escalation Tribunal
-- [`docs/GENESIS_LIVE_IDEA_NURSERY.md`](../GENESIS_LIVE_IDEA_NURSERY.md) — GENESIS Live Idea Nursery — Status: ACTIVE ON DEMAND / EVIDENCE-BOUND / ZERO EXTERNAL EFFECT
-- [`docs/GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md`](../GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md) — GENESIS realization: Autonomy Compression Ratio — Status: SOURCE IMPLEMENTED / HYPOTHESIS NOT GENERALLY PROVEN
-- [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — GENESIS realization: Blackout-First Compute Planner — Status: SOURCE IMPLEMENTED / REAL HARDWARE HYPOTHESIS UNVALIDATED
-- [`docs/GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md`](../GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md) — GENESIS realization: Capability Chimera Compiler — Status: SOURCE IMPLEMENTATION CANDIDATE / HELD-OUT REAL-USAGE HYPOTHESIS UNVALIDATED
-- [`docs/GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md`](../GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md) — GENESIS realization: Autonomous Failure-to-Patch Reflex — Status: SOURCE IMPLEMENTED / REAL PATCH-QUALITY HYPOTHESIS UNVALIDATED
-- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22
-- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22
-- [`docs/memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md`](../memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md) — 2026-09-03 · GENESIS 275 implementation receipt — 2026-09-03 — Status: SOURCE/TEST SURFACE IMPLEMENTED — EXACT-HEAD EXECUTION STILL REQUIRED
+- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — UberBond Perpetual Frontier / GENESIS Canon — Status: CHAT_SPEC_GOAL promoted into durable repository canon _(matched by name only)_
+- [`docs/GENESIS_COGNITION_EXCHANGE.md`](../GENESIS_COGNITION_EXCHANGE.md) — GENESIS Cognition Exchange — Status: source contract / zero-spend default _(matched by name only)_
+- [`docs/GENESIS_ESCALATION_TRIBUNAL.md`](../GENESIS_ESCALATION_TRIBUNAL.md) — GENESIS Escalation Tribunal _(matched by name only)_
+- [`docs/GENESIS_LIVE_IDEA_NURSERY.md`](../GENESIS_LIVE_IDEA_NURSERY.md) — GENESIS Live Idea Nursery — Status: ACTIVE ON DEMAND / EVIDENCE-BOUND / ZERO EXTERNAL EFFECT _(matched by name only)_
+- [`docs/GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md`](../GENESIS_REALIZATION_AUTONOMY_COMPRESSION_RATIO.md) — GENESIS realization: Autonomy Compression Ratio — Status: SOURCE IMPLEMENTED / HYPOTHESIS NOT GENERALLY PROVEN _(matched by name only)_
+- [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — GENESIS realization: Blackout-First Compute Planner — Status: SOURCE IMPLEMENTED / REAL HARDWARE HYPOTHESIS UNVALIDATED _(matched by name only)_
+- [`docs/GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md`](../GENESIS_REALIZATION_CAPABILITY_CHIMERA_COMPILER.md) — GENESIS realization: Capability Chimera Compiler — Status: SOURCE IMPLEMENTATION CANDIDATE / HELD-OUT REAL-USAGE HYPOTHESIS UNVALIDATED _(matched by name only)_
+- [`docs/GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md`](../GENESIS_REALIZATION_FAILURE_TO_PATCH_REFLEX.md) — GENESIS realization: Autonomous Failure-to-Patch Reflex — Status: SOURCE IMPLEMENTED / REAL PATCH-QUALITY HYPOTHESIS UNVALIDATED _(matched by name only)_
+- [`docs/GENESIS_COGNITION_RUNTIME_20260922.md`](../GENESIS_COGNITION_RUNTIME_20260922.md) — 2026-09-22 · GENESIS cognition runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/GENESIS_SYSTEM_ONE_RUNTIME_20260922.md`](../GENESIS_SYSTEM_ONE_RUNTIME_20260922.md) — 2026-09-22 · GENESIS System-One runtime activation — 2026-09-22 _(matched by name only)_
+- [`docs/memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md`](../memory/GENESIS_275_IMPLEMENTATION_2026-09-03.md) — 2026-09-03 · GENESIS 275 implementation receipt — 2026-09-03 — Status: SOURCE/TEST SURFACE IMPLEMENTED — EXACT-HEAD EXECUTION STILL REQUIRED _(matched by name only)_
 
 ## Commands (23)
 
@@ -30,152 +30,152 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (1)
 
-- [`docs/GENESIS_SYSTEM_ONE_SUPPLIER.md`](../GENESIS_SYSTEM_ONE_SUPPLIER.md) — GENESIS JEV / System-One supplier
+- [`docs/GENESIS_SYSTEM_ONE_SUPPLIER.md`](../GENESIS_SYSTEM_ONE_SUPPLIER.md) — GENESIS JEV / System-One supplier _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (38)
 
-- [`docs/PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md) — PHOENIX Wave 10 / All 200 individually described research designs _(200 mentions)_
-- [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — PHOENIX Wave 8 / All 160 individually described research capabilities _(171 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(22 mentions)_
-- [`docs/PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md) — PHOENIX Wave 9 / All 180 individually identified capabilities _(13 mentions)_
-- [`docs/PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md) — PHOENIX Wave 7 / All 120 individually described research functions _(12 mentions)_
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(12 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(12 mentions)_
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(12 mentions)_
-- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(11 mentions)_
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(11 mentions)_
-- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(10 mentions)_
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(10 mentions)_
-- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(10 mentions)_
-- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(10 mentions)_
-- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,… _(9 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(9 mentions)_
-- [`library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md`](../../library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md) — UberMind Grand Library: searchable master index _(9 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(8 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(7 mentions)_
-- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(7 mentions)_
-- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(6 mentions)_
-- [`docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`](../FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md) — Founder 890: Universal Cross-Chat Integration Law — Truth class: FOUNDER_DIRECTIVE / CONTINUITY PROTOCOL. This changes mandatory recovery and integration behavior; it is not proof that all… _(6 mentions)_
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(6 mentions)_
-- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(6 mentions)_
-- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04 _(5 mentions)_
-- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(4 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(4 mentions)_
-- [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED _(4 mentions)_
-- [`docs/receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md`](../receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md) — 2026-10-19 · PHOENIX Atlas repair: complete local mutation gate and hosted blocker — Status: Local source-and-mutation acceptance satisfied. Hosted main preview and main merge remain blocked by external… _(4 mentions)_
-- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding _(4 mentions)_
-- [`docs/UBERBOND_ULTIMATE_GRAPH.md`](../UBERBOND_ULTIMATE_GRAPH.md) — UberBond Ultimate Graph _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(3 mentions)_
-- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE _(3 mentions)_
-- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(3 mentions)_
-- [`docs/MILLION_BRANCH_IDEATION_GENOME.md`](../MILLION_BRANCH_IDEATION_GENOME.md) — UberBond Million-Branch Ideation Genome — Status: FOUNDER_SPEC promoted into durable GENESIS extension _(3 mentions)_
-- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(3 mentions)_
-- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF _(3 mentions)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md) — PHOENIX Wave 10 / All 200 individually described research designs _(matched by name only)_ _(200 mentions)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — PHOENIX Wave 8 / All 160 individually described research capabilities _(matched by name only)_ _(171 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(22 mentions)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md) — PHOENIX Wave 9 / All 180 individually identified capabilities _(matched by name only)_ _(13 mentions)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md) — PHOENIX Wave 7 / All 120 individually described research functions _(matched by name only)_ _(12 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(matched by name only)_ _(12 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(matched by name only)_ _(12 mentions)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_ _(12 mentions)_
+- [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(11 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Total No-Drop North Star — Status: TERMINAL NORTH STAR SUPERSET / CHAT_SPEC_GOAL / NO-DROP CANON / NOT AN IMPLEMENTATION, OMNISCIENCE, PERFECT-PREDI… _(matched by name only)_ _(11 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(matched by name only)_ _(10 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(10 mentions)_
+- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(matched by name only)_ _(10 mentions)_
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Terminal North Star: Sovereign Cognitive Continuum. _(matched by name only)_ _(10 mentions)_
+- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,… _(matched by name only)_ _(9 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 _(matched by name only)_ _(9 mentions)_
+- [`library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md`](../../library/ubermind/MASTER_SEARCH_INDEX_890_AND_OMEGA46_52.md) — UberMind Grand Library: searchable master index _(matched by name only)_ _(9 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(8 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_ _(7 mentions)_
+- [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_ _(7 mentions)_
+- [`docs/architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md`](../architecture/UBERMIND_890_JEV_ALL_MODELS_ROUTING_2026-10-09.md) — 2026-10-09 · UberMind: 890-Genome × JEV × Complete Registered Model Workflow _(matched by name only)_ _(6 mentions)_
+- [`docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`](../FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md) — Founder 890: Universal Cross-Chat Integration Law — Truth class: FOUNDER_DIRECTIVE / CONTINUITY PROTOCOL. This changes mandatory recovery and integration behavior; it is not proof that all… _(matched by name only)_ _(6 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(6 mentions)_
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(matched by name only)_ _(6 mentions)_
+- [`docs/memory/UBERBOND_TODAY_CLOSURE_ORDER.md`](../memory/UBERBOND_TODAY_CLOSURE_ORDER.md) — UberBond Today Closure Order — 2026-09-04 _(matched by name only)_ _(5 mentions)_
+- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED _(matched by name only)_ _(4 mentions)_
+- [`docs/receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md`](../receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md) — 2026-10-19 · PHOENIX Atlas repair: complete local mutation gate and hosted blocker — Status: Local source-and-mutation acceptance satisfied. Hosted main preview and main merge remain blocked by external… _(matched by name only)_ _(4 mentions)_
+- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — UberBond Sovereign Initiative / North-Star Binding _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_ULTIMATE_GRAPH.md`](../UBERBOND_ULTIMATE_GRAPH.md) — UberBond Ultimate Graph _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md`](../handoffs/UBERBOND_890_FIRST_CASH_FINAL_ACTION_PLAN_2026-10-08.md) — 2026-10-08 · UberBond 890 × Revenue — decisive final action sequence — Status: RESEARCH_AND_EXECUTION_BLUEPRINT__NOT_SEND_AUTHORITY__NOT_PROOF_OF_REVENUE _(matched by name only)_ _(3 mentions)_
+- [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(matched by name only)_ _(3 mentions)_
+- [`docs/MILLION_BRANCH_IDEATION_GENOME.md`](../MILLION_BRANCH_IDEATION_GENOME.md) — UberBond Million-Branch Ideation Genome — Status: FOUNDER_SPEC promoted into durable GENESIS extension _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(3 mentions)_
+- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · UberBond Work Session Bootstrap — 2026-09-07 — Status: ACTIVE_WORK_HANDOFF / BRANCH_BOOTSTRAP / NOT_IMPLEMENTATION_PROOF _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (39)
 
-- [`src/gamechanger-genesis-adapter.mjs`](../../src/gamechanger-genesis-adapter.mjs) — exports GAMECHANGER_GENESIS_ADAPTER_VERSION, compileGamechangerIntoGenesis _(tested; imported by 1)_
-- [`src/genesis-boundary-experiment.mjs`](../../src/genesis-boundary-experiment.mjs) — Where the search stops, and what it is allowed to conclude when it stops there. _(tested; imported by 2)_
-- [`src/genesis-burst-registry.mjs`](../../src/genesis-burst-registry.mjs) — exports GENESIS_BURST_REGISTRY_VERSION, compileGenesisBurstRegistry _(tested; imported by 1)_
-- [`src/genesis-candidate-substrate-bridge.mjs`](../../src/genesis-candidate-substrate-bridge.mjs) — exports GENESIS_CANDIDATE_SUBSTRATE_BRIDGE_VERSION, compileGenesisCandidateSubstrateBridge, compileGenesisCandidateProbeWave _(tested; imported by 1)_
-- [`src/genesis-cognition-exchange.mjs`](../../src/genesis-cognition-exchange.mjs) — exports GENESIS_COGNITION_EXCHANGE_VERSION, GENESIS_COGNITION_JOB_KINDS, compileGenesisCognitionJob, admitGenesisCognitionSupplier, selectGenesisCogn… _(tested; imported by 1)_
-- [`src/genesis-cognitive-adapters.mjs`](../../src/genesis-cognitive-adapters.mjs) — exports GENESIS_COGNITIVE_ADAPTER_VERSION, eventFromGenesisEvolution, eventFromGenesisScientist, eventFromGenesisOntology, eventFromGenesisMetabolism… _(tested; imported by 1)_
-- [`src/genesis-economic-physics-evidence.mjs`](../../src/genesis-economic-physics-evidence.mjs) — exports GENESIS_ECONOMIC_PHYSICS_EVIDENCE, normalizeGenesisEvidencePack _(imported by 1)_
-- [`src/genesis-economic-physics.mjs`](../../src/genesis-economic-physics.mjs) — exports GENESIS_ECONOMIC_PHYSICS_VERSION, telescopeDeadweightLoss, buildTransactionCostAtlas, scanTrustFriction, mapCoordinationEntropy (+29) _(tested; imported by 1)_
-- [`src/genesis-escalation-tribunal.mjs`](../../src/genesis-escalation-tribunal.mjs) — exports GENESIS_ESCALATION_TRIBUNAL_VERSION, compileGenesisEscalationDecision, compileGenesisEscalationPortfolio _(tested; imported by 1)_
-- [`src/genesis-evolution-deepening.mjs`](../../src/genesis-evolution-deepening.mjs) — exports GENESIS_EVOLUTION_DEEPENING_VERSION, coevolveEvaluatorEcology, generateFutureRivals, evolveGenesisPolicies _(imported by 2)_
-- [`src/genesis-evolution-engine.mjs`](../../src/genesis-evolution-engine.mjs) — exports GENESIS_EVOLUTION_ENGINE_VERSION, buildSurpriseScore, detectWorldDiscontinuity, scoreCapabilityMultiplication, buildArtificialSerendipity (+7) _(tested; imported by 1)_
-- [`src/genesis-experiment-feasibility.mjs`](../../src/genesis-experiment-feasibility.mjs) — exports GENESIS_EXPERIMENT_FEASIBILITY_VERSION, GENESIS_EXPERIMENT_POLICY_CORE, compileFeasibleBoundedExperiment _(tested; imported by 2)_
-- [`src/genesis-final-frontier-evidence.mjs`](../../src/genesis-final-frontier-evidence.mjs) — exports GENESIS_FINAL_FRONTIER_EVIDENCE, normalizeFinalFrontierEvidence _(imported by 1)_
-- [`src/genesis-final-frontier.mjs`](../../src/genesis-final-frontier.mjs) — exports GENESIS_FINAL_FRONTIER_VERSION, evolveEvaluators, optimizeFounderLife, spawnEntrepreneurPopulation, speciateCognition (+72) _(tested; imported by 2)_
-- [`src/genesis-for-life.mjs`](../../src/genesis-for-life.mjs) — Generating lives that were never asked for, without any of them acquiring a vote. _(tested; imported by 1)_
-- [`src/genesis-frontier-deepening-evidence.mjs`](../../src/genesis-frontier-deepening-evidence.mjs) — exports GENESIS_FRONTIER_DEEPENING_EVIDENCE _(imported by 1)_
-- [`src/genesis-idea-burst.mjs`](../../src/genesis-idea-burst.mjs) — exports GENESIS_IDEA_BURST_VERSION, compileGenesisIdeaBurst _(tested; imported by 3)_
-- [`src/genesis-implementation-evidence-v2.mjs`](../../src/genesis-implementation-evidence-v2.mjs) — exports GENESIS_IMPLEMENTATION_EVIDENCE_V2_VERSION, GENESIS_IMPLEMENTATION_EVIDENCE, buildGenesisEvidenceLedger _(imported by 4)_
-- [`src/genesis-implementation-evidence.mjs`](../../src/genesis-implementation-evidence.mjs) — exports GENESIS_IMPLEMENTATION_EVIDENCE_VERSION, GENESIS_IMPLEMENTATION_EVIDENCE, parseGenesisRegistry, buildGenesisEvidenceLedger _(imported by 1)_
-- [`src/genesis-mechanism-compiler-core.mjs`](../../src/genesis-mechanism-compiler-core.mjs) — One compiler for turning mechanisms observed anywhere into new candidates. _(imported by 1)_
-- [`src/genesis-mechanism-compiler.mjs`](../../src/genesis-mechanism-compiler.mjs) — exports GENESIS_MECHANISM_COMPILER_VERSION, EVIDENCE_CLASSES, SOURCE_KINDS, MUTATION_OPERATORS, PRIMITIVE_ROLES (+9) _(tested; imported by 4)_
-- [`src/genesis-metabolism.mjs`](../../src/genesis-metabolism.mjs) — exports GENESIS_METABOLISM_VERSION, buildGenesisMetabolism _(tested; imported by 1)_
-- [`src/genesis-ontology-deepening.mjs`](../../src/genesis-ontology-deepening.mjs) — exports GENESIS_ONTOLOGY_DEEPENING_VERSION, inventBoundedLanguage, compileEconomicDsl, compileCompanyGenomeLanguage _(imported by 2)_
-- [`src/genesis-ontology.mjs`](../../src/genesis-ontology.mjs) — exports GENESIS_ONTOLOGY_VERSION, compileConcept, scoreConceptFitness, fuseConcepts, speciateConcept (+11) _(tested; imported by 2)_
-- [`src/genesis-scientist-deepening.mjs`](../../src/genesis-scientist-deepening.mjs) — exports GENESIS_SCIENTIST_DEEPENING_VERSION, simulateCounterfactualCivilization, formRealityTheories, assessCausalWitness _(imported by 2)_
-- [`src/genesis-scientist.mjs`](../../src/genesis-scientist.mjs) — exports GENESIS_SCIENTIST_VERSION, compileCausalEconomicGenome, buildCounterfactualWorlds, compileEconomicScientistProtocol, evaluateTheoryAgainstObs… _(tested; imported by 1)_
-- [`src/genesis-self-improvement-bridge.mjs`](../../src/genesis-self-improvement-bridge.mjs) — exports GENESIS_SELF_IMPROVEMENT_BRIDGE_VERSION, compileGenesisSelfImprovementAdmission _(tested; imported by 1)_
-- [`src/genesis-sensing-cognition-evidence.mjs`](../../src/genesis-sensing-cognition-evidence.mjs) — exports GENESIS_SENSING_COGNITION_EVIDENCE, normalizeSensingCognitionEvidence _(imported by 1)_
-- [`src/genesis-sensing-cognition.mjs`](../../src/genesis-sensing-cognition.mjs) — exports GENESIS_SENSING_COGNITION_VERSION, designSensorGenesis, buildPrecursorGraph, fuseWeakSignals, huntMissingVariables (+18) _(tested; imported by 1)_
-- [`src/genesis-system-one-critic.mjs`](../../src/genesis-system-one-critic.mjs) — exports GENESIS_SYSTEM_ONE_CRITIC_VERSION, compileGenesisSystemOneCritique _(tested; imported by 1)_
-- [`src/genesis-venture-organism-evidence.mjs`](../../src/genesis-venture-organism-evidence.mjs) — exports GENESIS_VENTURE_ORGANISM_EVIDENCE, normalizeVentureEvidence _(imported by 1)_
-- [`src/genesis-venture-organism.mjs`](../../src/genesis-venture-organism.mjs) — exports GENESIS_VENTURE_ORGANISM_VERSION, compileCompanyMorphogenesis, reproduceCompanyGenome, selectEconomicPopulation, compoundKnowledge (+42) _(tested; imported by 1)_
-- [`src/genesis-world-resilience-evidence.mjs`](../../src/genesis-world-resilience-evidence.mjs) — exports GENESIS_WORLD_RESILIENCE_EVIDENCE, normalizeWorldResilienceEvidence _(imported by 1)_
-- [`src/genesis-world-resilience.mjs`](../../src/genesis-world-resilience.mjs) — exports GENESIS_WORLD_RESILIENCE_VERSION, generateProtocolNativeCompany, designAgentNativeEconomy, morphJurisdiction, formTemporaryCoalition (+46) _(tested; imported by 1)_
-- [`src/perpetual-frontier-genesis.mjs`](../../src/perpetual-frontier-genesis.mjs) — exports PERPETUAL_FRONTIER_GENESIS_VERSION, GENESIS_EXPECTED_IDEA_COUNT, GENESIS_CORE_LANES, extractGenesisIdeaRegistry, validateGenesisIdeaRegistry… _(tested; imported by 5)_
-- [`src/source-genesis.mjs`](../../src/source-genesis.mjs) — exports SOURCE_GENESIS_VERSION, scoreSource, proposeSource, rankSources, discoverSourceCandidatesFromLinks _(imported by 1)_
-- [`src/uber-genesis-foundry.mjs`](../../src/uber-genesis-foundry.mjs) — exports UBER_GENESIS_FOUNDRY_VERSION, compileZeroDayFrontierRadar, compileFuturePrimitiveExtractor, compileFrontierAssimilationTournament, compilePre… _(imported by 11)_
-- [`src/uber-genesis-orchestrator.mjs`](../../src/uber-genesis-orchestrator.mjs) — exports UBER_GENESIS_ORCHESTRATOR_VERSION, compileUberGenesisMission _(imported by 1)_
-- [`src/uberbond-genesis-reactivation.mjs`](../../src/uberbond-genesis-reactivation.mjs) — exports UBERBOND_GENESIS_REACTIVATION_POLICY_VERSION, rankGenesisIdeasForCurrentGaps, compileGenesisReactivationEvents _(tested; imported by 1)_
+- [`src/gamechanger-genesis-adapter.mjs`](../../src/gamechanger-genesis-adapter.mjs) — exports GAMECHANGER_GENESIS_ADAPTER_VERSION, compileGamechangerIntoGenesis _(matched by name only; tested; imported by 1)_
+- [`src/genesis-boundary-experiment.mjs`](../../src/genesis-boundary-experiment.mjs) — Where the search stops, and what it is allowed to conclude when it stops there. _(matched by name only; tested; imported by 2)_
+- [`src/genesis-burst-registry.mjs`](../../src/genesis-burst-registry.mjs) — exports GENESIS_BURST_REGISTRY_VERSION, compileGenesisBurstRegistry _(matched by name only; tested; imported by 1)_
+- [`src/genesis-candidate-substrate-bridge.mjs`](../../src/genesis-candidate-substrate-bridge.mjs) — exports GENESIS_CANDIDATE_SUBSTRATE_BRIDGE_VERSION, compileGenesisCandidateSubstrateBridge, compileGenesisCandidateProbeWave _(matched by name only; tested; imported by 1)_
+- [`src/genesis-cognition-exchange.mjs`](../../src/genesis-cognition-exchange.mjs) — exports GENESIS_COGNITION_EXCHANGE_VERSION, GENESIS_COGNITION_JOB_KINDS, compileGenesisCognitionJob, admitGenesisCognitionSupplier, selectGenesisCogn… _(matched by name only; tested; imported by 1)_
+- [`src/genesis-cognitive-adapters.mjs`](../../src/genesis-cognitive-adapters.mjs) — exports GENESIS_COGNITIVE_ADAPTER_VERSION, eventFromGenesisEvolution, eventFromGenesisScientist, eventFromGenesisOntology, eventFromGenesisMetabolism… _(matched by name only; tested; imported by 1)_
+- [`src/genesis-economic-physics-evidence.mjs`](../../src/genesis-economic-physics-evidence.mjs) — exports GENESIS_ECONOMIC_PHYSICS_EVIDENCE, normalizeGenesisEvidencePack _(matched by name only; imported by 1)_
+- [`src/genesis-economic-physics.mjs`](../../src/genesis-economic-physics.mjs) — exports GENESIS_ECONOMIC_PHYSICS_VERSION, telescopeDeadweightLoss, buildTransactionCostAtlas, scanTrustFriction, mapCoordinationEntropy (+29) _(matched by name only; tested; imported by 1)_
+- [`src/genesis-escalation-tribunal.mjs`](../../src/genesis-escalation-tribunal.mjs) — exports GENESIS_ESCALATION_TRIBUNAL_VERSION, compileGenesisEscalationDecision, compileGenesisEscalationPortfolio _(matched by name only; tested; imported by 1)_
+- [`src/genesis-evolution-deepening.mjs`](../../src/genesis-evolution-deepening.mjs) — exports GENESIS_EVOLUTION_DEEPENING_VERSION, coevolveEvaluatorEcology, generateFutureRivals, evolveGenesisPolicies _(matched by name only; imported by 2)_
+- [`src/genesis-evolution-engine.mjs`](../../src/genesis-evolution-engine.mjs) — exports GENESIS_EVOLUTION_ENGINE_VERSION, buildSurpriseScore, detectWorldDiscontinuity, scoreCapabilityMultiplication, buildArtificialSerendipity (+7) _(matched by name only; tested; imported by 1)_
+- [`src/genesis-experiment-feasibility.mjs`](../../src/genesis-experiment-feasibility.mjs) — exports GENESIS_EXPERIMENT_FEASIBILITY_VERSION, GENESIS_EXPERIMENT_POLICY_CORE, compileFeasibleBoundedExperiment _(matched by name only; tested; imported by 2)_
+- [`src/genesis-final-frontier-evidence.mjs`](../../src/genesis-final-frontier-evidence.mjs) — exports GENESIS_FINAL_FRONTIER_EVIDENCE, normalizeFinalFrontierEvidence _(matched by name only; imported by 1)_
+- [`src/genesis-final-frontier.mjs`](../../src/genesis-final-frontier.mjs) — exports GENESIS_FINAL_FRONTIER_VERSION, evolveEvaluators, optimizeFounderLife, spawnEntrepreneurPopulation, speciateCognition (+72) _(matched by name only; tested; imported by 2)_
+- [`src/genesis-for-life.mjs`](../../src/genesis-for-life.mjs) — Generating lives that were never asked for, without any of them acquiring a vote. _(matched by name only; tested; imported by 1)_
+- [`src/genesis-frontier-deepening-evidence.mjs`](../../src/genesis-frontier-deepening-evidence.mjs) — exports GENESIS_FRONTIER_DEEPENING_EVIDENCE _(matched by name only; imported by 1)_
+- [`src/genesis-idea-burst.mjs`](../../src/genesis-idea-burst.mjs) — exports GENESIS_IDEA_BURST_VERSION, compileGenesisIdeaBurst _(matched by name only; tested; imported by 3)_
+- [`src/genesis-implementation-evidence-v2.mjs`](../../src/genesis-implementation-evidence-v2.mjs) — exports GENESIS_IMPLEMENTATION_EVIDENCE_V2_VERSION, GENESIS_IMPLEMENTATION_EVIDENCE, buildGenesisEvidenceLedger _(matched by name only; imported by 4)_
+- [`src/genesis-implementation-evidence.mjs`](../../src/genesis-implementation-evidence.mjs) — exports GENESIS_IMPLEMENTATION_EVIDENCE_VERSION, GENESIS_IMPLEMENTATION_EVIDENCE, parseGenesisRegistry, buildGenesisEvidenceLedger _(matched by name only; imported by 1)_
+- [`src/genesis-mechanism-compiler-core.mjs`](../../src/genesis-mechanism-compiler-core.mjs) — One compiler for turning mechanisms observed anywhere into new candidates. _(matched by name only; imported by 1)_
+- [`src/genesis-mechanism-compiler.mjs`](../../src/genesis-mechanism-compiler.mjs) — exports GENESIS_MECHANISM_COMPILER_VERSION, EVIDENCE_CLASSES, SOURCE_KINDS, MUTATION_OPERATORS, PRIMITIVE_ROLES (+9) _(matched by name only; tested; imported by 4)_
+- [`src/genesis-metabolism.mjs`](../../src/genesis-metabolism.mjs) — exports GENESIS_METABOLISM_VERSION, buildGenesisMetabolism _(matched by name only; tested; imported by 1)_
+- [`src/genesis-ontology-deepening.mjs`](../../src/genesis-ontology-deepening.mjs) — exports GENESIS_ONTOLOGY_DEEPENING_VERSION, inventBoundedLanguage, compileEconomicDsl, compileCompanyGenomeLanguage _(matched by name only; imported by 2)_
+- [`src/genesis-ontology.mjs`](../../src/genesis-ontology.mjs) — exports GENESIS_ONTOLOGY_VERSION, compileConcept, scoreConceptFitness, fuseConcepts, speciateConcept (+11) _(matched by name only; tested; imported by 2)_
+- [`src/genesis-scientist-deepening.mjs`](../../src/genesis-scientist-deepening.mjs) — exports GENESIS_SCIENTIST_DEEPENING_VERSION, simulateCounterfactualCivilization, formRealityTheories, assessCausalWitness _(matched by name only; imported by 2)_
+- [`src/genesis-scientist.mjs`](../../src/genesis-scientist.mjs) — exports GENESIS_SCIENTIST_VERSION, compileCausalEconomicGenome, buildCounterfactualWorlds, compileEconomicScientistProtocol, evaluateTheoryAgainstObs… _(matched by name only; tested; imported by 1)_
+- [`src/genesis-self-improvement-bridge.mjs`](../../src/genesis-self-improvement-bridge.mjs) — exports GENESIS_SELF_IMPROVEMENT_BRIDGE_VERSION, compileGenesisSelfImprovementAdmission _(matched by name only; tested; imported by 1)_
+- [`src/genesis-sensing-cognition-evidence.mjs`](../../src/genesis-sensing-cognition-evidence.mjs) — exports GENESIS_SENSING_COGNITION_EVIDENCE, normalizeSensingCognitionEvidence _(matched by name only; imported by 1)_
+- [`src/genesis-sensing-cognition.mjs`](../../src/genesis-sensing-cognition.mjs) — exports GENESIS_SENSING_COGNITION_VERSION, designSensorGenesis, buildPrecursorGraph, fuseWeakSignals, huntMissingVariables (+18) _(matched by name only; tested; imported by 1)_
+- [`src/genesis-system-one-critic.mjs`](../../src/genesis-system-one-critic.mjs) — exports GENESIS_SYSTEM_ONE_CRITIC_VERSION, compileGenesisSystemOneCritique _(matched by name only; tested; imported by 1)_
+- [`src/genesis-venture-organism-evidence.mjs`](../../src/genesis-venture-organism-evidence.mjs) — exports GENESIS_VENTURE_ORGANISM_EVIDENCE, normalizeVentureEvidence _(matched by name only; imported by 1)_
+- [`src/genesis-venture-organism.mjs`](../../src/genesis-venture-organism.mjs) — exports GENESIS_VENTURE_ORGANISM_VERSION, compileCompanyMorphogenesis, reproduceCompanyGenome, selectEconomicPopulation, compoundKnowledge (+42) _(matched by name only; tested; imported by 1)_
+- [`src/genesis-world-resilience-evidence.mjs`](../../src/genesis-world-resilience-evidence.mjs) — exports GENESIS_WORLD_RESILIENCE_EVIDENCE, normalizeWorldResilienceEvidence _(matched by name only; imported by 1)_
+- [`src/genesis-world-resilience.mjs`](../../src/genesis-world-resilience.mjs) — exports GENESIS_WORLD_RESILIENCE_VERSION, generateProtocolNativeCompany, designAgentNativeEconomy, morphJurisdiction, formTemporaryCoalition (+46) _(matched by name only; tested; imported by 1)_
+- [`src/perpetual-frontier-genesis.mjs`](../../src/perpetual-frontier-genesis.mjs) — exports PERPETUAL_FRONTIER_GENESIS_VERSION, GENESIS_EXPECTED_IDEA_COUNT, GENESIS_CORE_LANES, extractGenesisIdeaRegistry, validateGenesisIdeaRegistry… _(matched by name only; tested; imported by 5)_
+- [`src/source-genesis.mjs`](../../src/source-genesis.mjs) — exports SOURCE_GENESIS_VERSION, scoreSource, proposeSource, rankSources, discoverSourceCandidatesFromLinks _(matched by name only; imported by 1)_
+- [`src/uber-genesis-foundry.mjs`](../../src/uber-genesis-foundry.mjs) — exports UBER_GENESIS_FOUNDRY_VERSION, compileZeroDayFrontierRadar, compileFuturePrimitiveExtractor, compileFrontierAssimilationTournament, compilePre… _(matched by name only; imported by 11)_
+- [`src/uber-genesis-orchestrator.mjs`](../../src/uber-genesis-orchestrator.mjs) — exports UBER_GENESIS_ORCHESTRATOR_VERSION, compileUberGenesisMission _(matched by name only; imported by 1)_
+- [`src/uberbond-genesis-reactivation.mjs`](../../src/uberbond-genesis-reactivation.mjs) — exports UBERBOND_GENESIS_REACTIVATION_POLICY_VERSION, rankGenesisIdeasForCurrentGaps, compileGenesisReactivationEvents _(matched by name only; tested; imported by 1)_
 
 ## Scripts (21)
 
-- [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs)
-- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(npm: `genesis:blackout:doctor`)_
-- [`scripts/genesis-burst-index-doctor.mjs`](../../scripts/genesis-burst-index-doctor.mjs) _(npm: `genesis:bursts:doctor`)_
-- [`scripts/genesis-candidate-substrate-doctor.mjs`](../../scripts/genesis-candidate-substrate-doctor.mjs) _(npm: `genesis:candidate-mesh:doctor`)_
-- [`scripts/genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(npm: `genesis:chimera:doctor`)_
-- [`scripts/genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(npm: `genesis:cognition:doctor`)_
-- [`scripts/genesis-escalation-tribunal-doctor.mjs`](../../scripts/genesis-escalation-tribunal-doctor.mjs) _(npm: `genesis:escalation:doctor`)_
-- [`scripts/genesis-evolution-doctor.mjs`](../../scripts/genesis-evolution-doctor.mjs) _(npm: `genesis:evolution:doctor`)_
-- [`scripts/genesis-evolution-tick.mjs`](../../scripts/genesis-evolution-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(npm: `genesis:evolve`)_
-- [`scripts/genesis-experiment-feasibility-doctor.mjs`](../../scripts/genesis-experiment-feasibility-doctor.mjs) — exports runGenesisExperimentFeasibilityDoctor
-- [`scripts/genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(npm: `genesis:failure-reflex:doctor`)_
-- [`scripts/genesis-idea-burst-doctor.mjs`](../../scripts/genesis-idea-burst-doctor.mjs) _(npm: `genesis:idea-burst:doctor`)_
-- [`scripts/genesis-metabolism-tick.mjs`](../../scripts/genesis-metabolism-tick.mjs) _(npm: `genesis:metabolize`)_
-- [`scripts/genesis-ontology-tick.mjs`](../../scripts/genesis-ontology-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(npm: `genesis:ontology`)_
-- [`scripts/genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst + Wallbreaker tournament for the outreach first-cash wall.
-- [`scripts/genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION
-- [`scripts/genesis-scientist-tick.mjs`](../../scripts/genesis-scientist-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(npm: `genesis:scientist`)_
-- [`scripts/genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(npm: `genesis:system-one:doctor`)_
-- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(npm: `genesis:doctor`)_
-- [`scripts/perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) _(npm: `genesis:tick`, `frontier:plan`)_
-- [`scripts/uberbond-genesis-reactivation.mjs`](../../scripts/uberbond-genesis-reactivation.mjs)
+- [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) _(matched by name only)_
+- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(matched by name only; npm: `genesis:blackout:doctor`)_
+- [`scripts/genesis-burst-index-doctor.mjs`](../../scripts/genesis-burst-index-doctor.mjs) _(matched by name only; npm: `genesis:bursts:doctor`)_
+- [`scripts/genesis-candidate-substrate-doctor.mjs`](../../scripts/genesis-candidate-substrate-doctor.mjs) _(matched by name only; npm: `genesis:candidate-mesh:doctor`)_
+- [`scripts/genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(matched by name only; npm: `genesis:chimera:doctor`)_
+- [`scripts/genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(matched by name only; npm: `genesis:cognition:doctor`)_
+- [`scripts/genesis-escalation-tribunal-doctor.mjs`](../../scripts/genesis-escalation-tribunal-doctor.mjs) _(matched by name only; npm: `genesis:escalation:doctor`)_
+- [`scripts/genesis-evolution-doctor.mjs`](../../scripts/genesis-evolution-doctor.mjs) _(matched by name only; npm: `genesis:evolution:doctor`)_
+- [`scripts/genesis-evolution-tick.mjs`](../../scripts/genesis-evolution-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(matched by name only; npm: `genesis:evolve`)_
+- [`scripts/genesis-experiment-feasibility-doctor.mjs`](../../scripts/genesis-experiment-feasibility-doctor.mjs) — exports runGenesisExperimentFeasibilityDoctor _(matched by name only)_
+- [`scripts/genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(matched by name only; npm: `genesis:failure-reflex:doctor`)_
+- [`scripts/genesis-idea-burst-doctor.mjs`](../../scripts/genesis-idea-burst-doctor.mjs) _(matched by name only; npm: `genesis:idea-burst:doctor`)_
+- [`scripts/genesis-metabolism-tick.mjs`](../../scripts/genesis-metabolism-tick.mjs) _(matched by name only; npm: `genesis:metabolize`)_
+- [`scripts/genesis-ontology-tick.mjs`](../../scripts/genesis-ontology-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(matched by name only; npm: `genesis:ontology`)_
+- [`scripts/genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst + Wallbreaker tournament for the outreach first-cash wall. _(matched by name only)_
+- [`scripts/genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION _(matched by name only)_
+- [`scripts/genesis-scientist-tick.mjs`](../../scripts/genesis-scientist-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(matched by name only; npm: `genesis:scientist`)_
+- [`scripts/genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(matched by name only; npm: `genesis:system-one:doctor`)_
+- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(matched by name only; npm: `genesis:doctor`)_
+- [`scripts/perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) _(matched by name only; npm: `genesis:tick`, `frontier:plan`)_
+- [`scripts/uberbond-genesis-reactivation.mjs`](../../scripts/uberbond-genesis-reactivation.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (35)
 
-- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1
-- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1
-- [`artifacts/genesis-275-implementation-manifest.json`](../../artifacts/genesis-275-implementation-manifest.json) — uberbond.genesis-275-implementation-manifest.v1
-- [`artifacts/genesis-evolution-latest.json`](../../artifacts/genesis-evolution-latest.json) — uberbond.genesis-evolution.tick.v2
-- [`artifacts/genesis-metabolism-latest.json`](../../artifacts/genesis-metabolism-latest.json) — GENESIS_METABOLISM_READY · uberbond.genesis-metabolism.tick.v1
-- [`artifacts/genesis-ontology-latest.json`](../../artifacts/genesis-ontology-latest.json) — missing concept, mechanism, measurement, or theory would explain this unknown · ONTOGENESIS_CYCLE_READY · uberbond.genesis-ontology.tick.v1
-- [`artifacts/genesis-scientist-latest.json`](../../artifacts/genesis-scientist-latest.json) — uberbond.genesis-scientist.tick.v1
-- [`artifacts/genesis/GENESIS_BURST_INDEX.json`](../../artifacts/genesis/GENESIS_BURST_INDEX.json) — uberbond.genesis-burst-index.v1
-- [`artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1
-- [`artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-escalation-runtime.v1
-- [`artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json`](../../artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json) — 2026-09-22 · Capability Gap Closure Compiler · PUBLIC_PRIMARY_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json) — 2026-09-25 · uberbond.genesis-probe-receipt.v1
-- [`artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json`](../../artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json) — 2026-09-22 · Option-Constraint Eraser · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1
-- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED
-- [`artifacts/genesis/pr342-causal-closure-2026-09-04.json`](../../artifacts/genesis/pr342-causal-closure-2026-09-04.json) — 2026-09-04 · SOURCE_CAUSAL_REPAIR_PRESENT · uberbond.pr342-causal-closure.v1
-- [`artifacts/genesis/pr342-verification-watch-2026-09-04.json`](../../artifacts/genesis/pr342-verification-watch-2026-09-04.json) — 2026-09-04 · DIVERGED · uberbond.pr342-verification-watch.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-0015.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0015.json) — 2026-09-22 · Capability Chimera Compiler · uberbond.genesis-realization-receipt.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-0021.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0021.json) — 2026-09-22 · Autonomy Compression Ratio · uberbond.genesis-realization-receipt.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json) — 2026-09-22 · Autonomous Failure-to-Patch Reflex · uberbond.genesis-realization-receipt.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json) — 2026-09-22 · Blackout-First Compute Planner · uberbond.genesis-realization-receipt.v1
-- [`artifacts/perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — uberbond.perpetual-frontier-genesis.tick.v1
-- [`artifacts/perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY · uberbond-perpetual-frontier-genesis-1.1.0
-- [`artifacts/perpetual-frontier-implementation-ledger.json`](../../artifacts/perpetual-frontier-implementation-ledger.json) — Unknown-Unknown Engine · GENESIS_EVIDENCE_LEDGER_READY · uberbond.perpetual-frontier-implementation-ledger.v2
-- [`artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json) — 2026-09-20 · Multiplicity-Sensitive Structural Memory · CANDIDATE_NOT_PROMOTED · uberbond.v5-ontogenesis-receipt.v1
-- [`config/genesis-live-activation.json`](../../config/genesis-live-activation.json) — uberbond.genesis-live-activation.v1
-- [`data/genesis/architecture-assumptions.json`](../../data/genesis/architecture-assumptions.json) — uberbond.genesis-architecture-assumptions.v1
-- [`data/genesis/impossible-tasks.json`](../../data/genesis/impossible-tasks.json) — uberbond.genesis-impossible-tasks.v1
-- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts)
-- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts)
-- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts)
-- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts)
-- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1
-- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue.
+- [`artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1 _(matched by name only)_
+- [`artifacts/genesis-275-implementation-manifest.json`](../../artifacts/genesis-275-implementation-manifest.json) — uberbond.genesis-275-implementation-manifest.v1 _(matched by name only)_
+- [`artifacts/genesis-evolution-latest.json`](../../artifacts/genesis-evolution-latest.json) — uberbond.genesis-evolution.tick.v2 _(matched by name only)_
+- [`artifacts/genesis-metabolism-latest.json`](../../artifacts/genesis-metabolism-latest.json) — GENESIS_METABOLISM_READY · uberbond.genesis-metabolism.tick.v1 _(matched by name only)_
+- [`artifacts/genesis-ontology-latest.json`](../../artifacts/genesis-ontology-latest.json) — missing concept, mechanism, measurement, or theory would explain this unknown · ONTOGENESIS_CYCLE_READY · uberbond.genesis-ontology.tick.v1 _(matched by name only)_
+- [`artifacts/genesis-scientist-latest.json`](../../artifacts/genesis-scientist-latest.json) — uberbond.genesis-scientist.tick.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_BURST_INDEX.json`](../../artifacts/genesis/GENESIS_BURST_INDEX.json) — uberbond.genesis-burst-index.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-escalation-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json`](../../artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json) — 2026-09-22 · Capability Gap Closure Compiler · PUBLIC_PRIMARY_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json) — 2026-09-25 · uberbond.genesis-probe-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json`](../../artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json) — 2026-09-22 · Option-Constraint Eraser · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/genesis/pr342-causal-closure-2026-09-04.json`](../../artifacts/genesis/pr342-causal-closure-2026-09-04.json) — 2026-09-04 · SOURCE_CAUSAL_REPAIR_PRESENT · uberbond.pr342-causal-closure.v1 _(matched by name only)_
+- [`artifacts/genesis/pr342-verification-watch-2026-09-04.json`](../../artifacts/genesis/pr342-verification-watch-2026-09-04.json) — 2026-09-04 · DIVERGED · uberbond.pr342-verification-watch.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-0015.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0015.json) — 2026-09-22 · Capability Chimera Compiler · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-0021.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0021.json) — 2026-09-22 · Autonomy Compression Ratio · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json) — 2026-09-22 · Autonomous Failure-to-Patch Reflex · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json) — 2026-09-22 · Blackout-First Compute Planner · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — uberbond.perpetual-frontier-genesis.tick.v1 _(matched by name only)_
+- [`artifacts/perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY · uberbond-perpetual-frontier-genesis-1.1.0 _(matched by name only)_
+- [`artifacts/perpetual-frontier-implementation-ledger.json`](../../artifacts/perpetual-frontier-implementation-ledger.json) — Unknown-Unknown Engine · GENESIS_EVIDENCE_LEDGER_READY · uberbond.perpetual-frontier-implementation-ledger.v2 _(matched by name only)_
+- [`artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json) — 2026-09-20 · Multiplicity-Sensitive Structural Memory · CANDIDATE_NOT_PROMOTED · uberbond.v5-ontogenesis-receipt.v1 _(matched by name only)_
+- [`config/genesis-live-activation.json`](../../config/genesis-live-activation.json) — uberbond.genesis-live-activation.v1 _(matched by name only)_
+- [`data/genesis/architecture-assumptions.json`](../../data/genesis/architecture-assumptions.json) — uberbond.genesis-architecture-assumptions.v1 _(matched by name only)_
+- [`data/genesis/impossible-tasks.json`](../../data/genesis/impossible-tasks.json) — uberbond.genesis-impossible-tasks.v1 _(matched by name only)_
+- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts) _(matched by name only)_
+- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1 _(matched by name only)_
+- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue. _(matched by name only)_
 
 ## Tests (44)
 

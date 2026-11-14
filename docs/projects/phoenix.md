@@ -12,20 +12,20 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (14)
 
-- [`docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md`](../PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md) — PHOENIX Context Survival Protocol
-- [`docs/PHOENIX_15_NATIVE_ATOMS_EXPLAINED.md`](../PHOENIX_15_NATIVE_ATOMS_EXPLAINED.md) — The 15 native PHOENIX function handlers
-- [`docs/PHOENIX_ALL_1560_CAPABILITIES_EXPLAINED.md`](../PHOENIX_ALL_1560_CAPABILITIES_EXPLAINED.md) — Every recovered PHOENIX capability / 1,560 numbered, source-derived descriptions
-- [`docs/PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md) — PHOENIX Wave 10 / All 200 individually described research designs
-- [`docs/PHOENIX_CAPABILITIES_WAVE3_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE3_EXPLAINED.md) — PHOENIX Wave 3 / Full 320-function research catalog
-- [`docs/PHOENIX_CAPABILITIES_WAVE4_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE4_EXPLAINED.md) — PHOENIX Wave 4 / All 256 individually identified proposed capabilities
-- [`docs/PHOENIX_CAPABILITIES_WAVE5_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE5_EXPLAINED.md) — PHOENIX Wave 5 / All 204 proposed functions, individually described
-- [`docs/PHOENIX_CAPABILITIES_WAVE6_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE6_EXPLAINED.md) — PHOENIX Wave 6: 120 individually described research designs
-- [`docs/receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md`](../receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · PHOENIX activation checkpoint — 2026-10-24
-- [`docs/receipts/PHOENIX_CHAT_FIRST_SETUP_2026-10-24.md`](../receipts/PHOENIX_CHAT_FIRST_SETUP_2026-10-24.md) — 2026-10-24 · PHOENIX Chat-First Cloud Brain setup receipt
-- [`docs/receipts/PHOENIX_COS_ACTIVATION_2026-10-24.md`](../receipts/PHOENIX_COS_ACTIVATION_2026-10-24.md) — 2026-10-24 · PHOENIX CoS activation receipt (2026-10-24)
-- [`docs/receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md`](../receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md) — 2026-10-24 · PHOENIX direct MCP tool-server receipt (2026-10-24)
-- [`docs/receipts/PHOENIX_NEON_BUNDLE_PREFLIGHT_20261020.md`](../receipts/PHOENIX_NEON_BUNDLE_PREFLIGHT_20261020.md) — 2026-10-20 · PHOENIX prevention guard for the October 20 Neon no-entrypoint incident
-- [`docs/receipts/PHOENIX_SWARM_PR_OVERLAP_REVIEW_20261020.md`](../receipts/PHOENIX_SWARM_PR_OVERLAP_REVIEW_20261020.md) — 2026-10-20 · PHOENIX read-only swarm PR collision review / October 20, 2026 — Truth class: Fresh GitHub PR file-metadata inspection and deterministic local algorithm. Not a review of every source diff,…
+- [`docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md`](../PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md) — PHOENIX Context Survival Protocol _(matched by name only)_
+- [`docs/PHOENIX_15_NATIVE_ATOMS_EXPLAINED.md`](../PHOENIX_15_NATIVE_ATOMS_EXPLAINED.md) — The 15 native PHOENIX function handlers _(matched by name only)_
+- [`docs/PHOENIX_ALL_1560_CAPABILITIES_EXPLAINED.md`](../PHOENIX_ALL_1560_CAPABILITIES_EXPLAINED.md) — Every recovered PHOENIX capability / 1,560 numbered, source-derived descriptions _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md) — PHOENIX Wave 10 / All 200 individually described research designs _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE3_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE3_EXPLAINED.md) — PHOENIX Wave 3 / Full 320-function research catalog _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE4_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE4_EXPLAINED.md) — PHOENIX Wave 4 / All 256 individually identified proposed capabilities _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE5_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE5_EXPLAINED.md) — PHOENIX Wave 5 / All 204 proposed functions, individually described _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE6_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE6_EXPLAINED.md) — PHOENIX Wave 6: 120 individually described research designs _(matched by name only)_
+- [`docs/receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md`](../receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · PHOENIX activation checkpoint — 2026-10-24 _(matched by name only)_
+- [`docs/receipts/PHOENIX_CHAT_FIRST_SETUP_2026-10-24.md`](../receipts/PHOENIX_CHAT_FIRST_SETUP_2026-10-24.md) — 2026-10-24 · PHOENIX Chat-First Cloud Brain setup receipt _(matched by name only)_
+- [`docs/receipts/PHOENIX_COS_ACTIVATION_2026-10-24.md`](../receipts/PHOENIX_COS_ACTIVATION_2026-10-24.md) — 2026-10-24 · PHOENIX CoS activation receipt (2026-10-24) _(matched by name only)_
+- [`docs/receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md`](../receipts/PHOENIX_DIRECT_MCP_SERVER_2026-10-24.md) — 2026-10-24 · PHOENIX direct MCP tool-server receipt (2026-10-24) _(matched by name only)_
+- [`docs/receipts/PHOENIX_NEON_BUNDLE_PREFLIGHT_20261020.md`](../receipts/PHOENIX_NEON_BUNDLE_PREFLIGHT_20261020.md) — 2026-10-20 · PHOENIX prevention guard for the October 20 Neon no-entrypoint incident _(matched by name only)_
+- [`docs/receipts/PHOENIX_SWARM_PR_OVERLAP_REVIEW_20261020.md`](../receipts/PHOENIX_SWARM_PR_OVERLAP_REVIEW_20261020.md) — 2026-10-20 · PHOENIX read-only swarm PR collision review / October 20, 2026 — Truth class: Fresh GitHub PR file-metadata inspection and deterministic local algorithm. Not a review of every source diff,… _(matched by name only)_
 
 ## Commands (3)
 
@@ -33,134 +33,134 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Standing documents (10)
 
-- [`docs/PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md) — PHOENIX Wave 7 / All 120 individually described research functions
-- [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — PHOENIX Wave 8 / All 160 individually described research capabilities
-- [`docs/PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md) — PHOENIX Wave 9 / All 180 individually identified capabilities
-- [`docs/PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md`](../PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md) — PHOENIX Chat-First Cloud Brain
-- [`docs/PHOENIX_COS_CAPABILITY_OPERATOR.md`](../PHOENIX_COS_CAPABILITY_OPERATOR.md) — PHOENIX CoS Capability Operator
-- [`apps/phoenix-mcp/README.md`](../../apps/phoenix-mcp/README.md) — PHOENIX Direct MCP Connector (real tools)
-- [`artifacts/research/phoenix-ten-wave-intake/README.md`](../../artifacts/research/phoenix-ten-wave-intake/README.md) — PHOENIX Waves 3–10: source-pinned capability intake — TRUTH CLASS: RESEARCH + MEASURED READ-ONLY PUBLIC HEAD SNAPSHOT. ZERO donor execution or production authority.
-- [`.claude/skills/phoenix-neon-bundle-preflight/SKILL.md`](../../.claude/skills/phoenix-neon-bundle-preflight/SKILL.md) — PHOENIX Neon ZIP deployment preflight
-- [`.claude/skills/phoenix-swarm-pr-auditor/SKILL.md`](../../.claude/skills/phoenix-swarm-pr-auditor/SKILL.md) — PHOENIX multi-agent PR collision review
-- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge
+- [`docs/PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md) — PHOENIX Wave 7 / All 120 individually described research functions _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — PHOENIX Wave 8 / All 160 individually described research capabilities _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE9_EXPLAINED.md) — PHOENIX Wave 9 / All 180 individually identified capabilities _(matched by name only)_
+- [`docs/PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md`](../PHOENIX_CHAT_FIRST_CLOUD_BRAIN.md) — PHOENIX Chat-First Cloud Brain _(matched by name only)_
+- [`docs/PHOENIX_COS_CAPABILITY_OPERATOR.md`](../PHOENIX_COS_CAPABILITY_OPERATOR.md) — PHOENIX CoS Capability Operator _(matched by name only)_
+- [`apps/phoenix-mcp/README.md`](../../apps/phoenix-mcp/README.md) — PHOENIX Direct MCP Connector (real tools) _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/README.md`](../../artifacts/research/phoenix-ten-wave-intake/README.md) — PHOENIX Waves 3–10: source-pinned capability intake — TRUTH CLASS: RESEARCH + MEASURED READ-ONLY PUBLIC HEAD SNAPSHOT. ZERO donor execution or production authority. _(matched by name only)_
+- [`.claude/skills/phoenix-neon-bundle-preflight/SKILL.md`](../../.claude/skills/phoenix-neon-bundle-preflight/SKILL.md) — PHOENIX Neon ZIP deployment preflight _(matched by name only)_
+- [`.claude/skills/phoenix-swarm-pr-auditor/SKILL.md`](../../.claude/skills/phoenix-swarm-pr-auditor/SKILL.md) — PHOENIX multi-agent PR collision review _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md`](../../plugins/phoenix-capability-bridge/skills/phoenix-operator/SKILL.md) — PHOENIX Capability Bridge _(matched by name only)_
 
 ## Dated documents, newest first (15)
 
-- [`docs/receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md`](../receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md) — 2026-10-19 · PHOENIX Atlas repair: complete local mutation gate and hosted blocker — Status: Local source-and-mutation acceptance satisfied. Hosted main preview and main merge remain blocked by external…
-- [`docs/receipts/PHOENIX_JSON_STORE_ATOMIC_WRITES_20261019.md`](../receipts/PHOENIX_JSON_STORE_ATOMIC_WRITES_20261019.md) — 2026-10-19 · PHOENIX Vercel JSON-store atomic write repair / 2026-10-19 — Truth class: Source implementation and reproduced local runtime test, not hosted production deployment.
-- [`docs/receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md`](../receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md) — 2026-10-19 · PHOENIX mutation sandbox ENOTEMPTY race, October 19, 2026
-- [`docs/receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md`](../receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md) — 2026-10-19 · PHOENIX mutation-war hosted-build repair, 2026-10-19
-- [`docs/missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt`](../missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt) — 2026-10-18 · PHOENIX-UBERWARM-OMEGA-20261018-R1 / EXECUTE, DO NOT REWRITE
-- [`docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md`](../missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md) — 2026-10-18 · PHOENIX / UBERWARM TOTAL CLOSURE + SOVEREIGN BACKUP
-- [`docs/receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md`](../receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md) — 2026-10-18 · PHOENIX full Deep Atlas → Ultimate Graph local execution proof
-- [`docs/receipts/PHOENIX_ATLAS_SOURCE_REPAIR_20261018.md`](../receipts/PHOENIX_ATLAS_SOURCE_REPAIR_20261018.md) — 2026-10-18 · PHOENIX Atlas-to-Graph source repair, October 18, 2026 — Truth class: LOCAL EXECUTED SOURCE VERIFICATION; not a deployment or supplier promotion.
-- [`docs/receipts/PHOENIX_ATLAS_UNIFIED_WRITER_20261018.md`](../receipts/PHOENIX_ATLAS_UNIFIED_WRITER_20261018.md) — 2026-10-18 · PHOENIX Atlas / Ultimate Graph unified persistence receipt
-- [`docs/receipts/PHOENIX_TEN_WAVE_EXACT_ACCEPTANCE_2026-10-18.md`](../receipts/PHOENIX_TEN_WAVE_EXACT_ACCEPTANCE_2026-10-18.md) — 2026-10-18 · PHOENIX Ten-Wave Research Intake: Exact Acceptance Gate
-- [`docs/receipts/PHOENIX_TEN_WAVE_EXECUTION_2026-10-18.md`](../receipts/PHOENIX_TEN_WAVE_EXECUTION_2026-10-18.md) — 2026-10-18 · PHOENIX ten-wave acquisition: October 18 source-bound checkpoint — Truth class: PUBLIC SOURCE REACHABILITY + SOURCE-PINNED RESEARCH INDEX + LOCAL TEST EVIDENCE.
-- [`docs/receipts/PHOENIX_TEN_WAVE_FULL_CORPUS_2026-10-18.md`](../receipts/PHOENIX_TEN_WAVE_FULL_CORPUS_2026-10-18.md) — 2026-10-18 · PHOENIX full-corpus integration checkpoint
-- [`docs/reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md`](../reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md) — 2026-10-18 · PHOENIX Git backup and UberWarm post-merge recovery, 18 October 2026
-- [`docs/receipts/PHOENIX_TEN_WAVE_INTAKE_2026-10-17.md`](../receipts/PHOENIX_TEN_WAVE_INTAKE_2026-10-17.md) — 2026-10-17 · PHOENIX ten-wave acquisition: verified research intake checkpoint — Truth class: SOURCE-LINKED RESEARCH INTAKE + LOCAL TEST RESULTS, NOT DEPLOYMENT.
-- [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) — 2026-10-11 · PHOENIX First-Cash Main Progress / 2026-10-11 — Truth class: SOURCE-BOUNDED MAIN CHECKPOINT + AUTHENTICATED PROVIDER/CI RECEIPT POINTERS + PUBLIC RESEARCH, NOT RELEASE OR FIRST SEND.
+- [`docs/receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md`](../receipts/PHOENIX_ATLAS_FULL_MUTATION_ACCEPTANCE_20261019.md) — 2026-10-19 · PHOENIX Atlas repair: complete local mutation gate and hosted blocker — Status: Local source-and-mutation acceptance satisfied. Hosted main preview and main merge remain blocked by external… _(matched by name only)_
+- [`docs/receipts/PHOENIX_JSON_STORE_ATOMIC_WRITES_20261019.md`](../receipts/PHOENIX_JSON_STORE_ATOMIC_WRITES_20261019.md) — 2026-10-19 · PHOENIX Vercel JSON-store atomic write repair / 2026-10-19 — Truth class: Source implementation and reproduced local runtime test, not hosted production deployment. _(matched by name only)_
+- [`docs/receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md`](../receipts/PHOENIX_MUTATION_CLEANUP_RACE_20261019.md) — 2026-10-19 · PHOENIX mutation sandbox ENOTEMPTY race, October 19, 2026 _(matched by name only)_
+- [`docs/receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md`](../receipts/PHOENIX_MUTATION_SANDBOX_FIX_2026-10-19.md) — 2026-10-19 · PHOENIX mutation-war hosted-build repair, 2026-10-19 _(matched by name only)_
+- [`docs/missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt`](../missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt) — 2026-10-18 · PHOENIX-UBERWARM-OMEGA-20261018-R1 / EXECUTE, DO NOT REWRITE _(matched by name only)_
+- [`docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md`](../missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md) — 2026-10-18 · PHOENIX / UBERWARM TOTAL CLOSURE + SOVEREIGN BACKUP _(matched by name only)_
+- [`docs/receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md`](../receipts/PHOENIX_ATLAS_COMPLETE_GRAPH_PROOF_20261018.md) — 2026-10-18 · PHOENIX full Deep Atlas → Ultimate Graph local execution proof _(matched by name only)_
+- [`docs/receipts/PHOENIX_ATLAS_SOURCE_REPAIR_20261018.md`](../receipts/PHOENIX_ATLAS_SOURCE_REPAIR_20261018.md) — 2026-10-18 · PHOENIX Atlas-to-Graph source repair, October 18, 2026 — Truth class: LOCAL EXECUTED SOURCE VERIFICATION; not a deployment or supplier promotion. _(matched by name only)_
+- [`docs/receipts/PHOENIX_ATLAS_UNIFIED_WRITER_20261018.md`](../receipts/PHOENIX_ATLAS_UNIFIED_WRITER_20261018.md) — 2026-10-18 · PHOENIX Atlas / Ultimate Graph unified persistence receipt _(matched by name only)_
+- [`docs/receipts/PHOENIX_TEN_WAVE_EXACT_ACCEPTANCE_2026-10-18.md`](../receipts/PHOENIX_TEN_WAVE_EXACT_ACCEPTANCE_2026-10-18.md) — 2026-10-18 · PHOENIX Ten-Wave Research Intake: Exact Acceptance Gate _(matched by name only)_
+- [`docs/receipts/PHOENIX_TEN_WAVE_EXECUTION_2026-10-18.md`](../receipts/PHOENIX_TEN_WAVE_EXECUTION_2026-10-18.md) — 2026-10-18 · PHOENIX ten-wave acquisition: October 18 source-bound checkpoint — Truth class: PUBLIC SOURCE REACHABILITY + SOURCE-PINNED RESEARCH INDEX + LOCAL TEST EVIDENCE. _(matched by name only)_
+- [`docs/receipts/PHOENIX_TEN_WAVE_FULL_CORPUS_2026-10-18.md`](../receipts/PHOENIX_TEN_WAVE_FULL_CORPUS_2026-10-18.md) — 2026-10-18 · PHOENIX full-corpus integration checkpoint _(matched by name only)_
+- [`docs/reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md`](../reports/UBERBOND_PHOENIX_GIT_BACKUP_AND_UBERWARM_RELEASE_20261018.md) — 2026-10-18 · PHOENIX Git backup and UberWarm post-merge recovery, 18 October 2026 _(matched by name only)_
+- [`docs/receipts/PHOENIX_TEN_WAVE_INTAKE_2026-10-17.md`](../receipts/PHOENIX_TEN_WAVE_INTAKE_2026-10-17.md) — 2026-10-17 · PHOENIX ten-wave acquisition: verified research intake checkpoint — Truth class: SOURCE-LINKED RESEARCH INTAKE + LOCAL TEST RESULTS, NOT DEPLOYMENT. _(matched by name only)_
+- [`docs/receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md`](../receipts/PHOENIX_FIRST_CASH_MAIN_PROGRESS_2026-10-11.md) — 2026-10-11 · PHOENIX First-Cash Main Progress / 2026-10-11 — Truth class: SOURCE-BOUNDED MAIN CHECKPOINT + AUTHENTICATED PROVIDER/CI RECEIPT POINTERS + PUBLIC RESEARCH, NOT RELEASE OR FIRST SEND. _(matched by name only)_
 
 ## Other documents (1)
 
-- [`artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt`](../../artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt) — https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking
+- [`artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt`](../../artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt) — https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (34)
 
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(12 mentions)_
-- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(6 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(6 mentions)_
-- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics _(6 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage _(5 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER _(5 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md) — 2026-10-09 · UberMind Ω9: Claude 5.5 Lineup Budget-Aware Sovereign Routing _(5 mentions)_
-- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage _(5 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA11 / Five-Hour Minimum Usage at the Same Quality _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(4 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(4 mentions)_
-- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine _(4 mentions)_
-- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION _(4 mentions)_
-- [`mind activation/CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(4 mentions)_
-- [`mind activation/README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint _(4 mentions)_
-- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(3 mentions)_
-- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(3 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md) — 2026-10-09 · UberMind Ω10 / Screenshot agents compared with the real UberMind brain _(3 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt) — ╔══════════════════════════════════════════════════════════════════════╗ _(3 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER _(3 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38) _(3 mentions)_
-- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA _(3 mentions)_
-- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ / WAVE 1: PUBLIC WORKLOAD EVIDENCE INTEGRITY — Truth class: SOURCE PATCH + LOCAL TARGETED TESTS; GitHub CI, merge, deployment, provider/customer outcomes must be verified… _(3 mentions)_
-- [`docs/handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md`](../handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md) — 2026-10-09 · UberMind Ω / Wave 23: The Same-Frontier-Model Cost Floor _(3 mentions)_
-- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(3 mentions)_
-- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP _(3 mentions)_
-- [`docs/reports/UBERWARM_FINAL_ACTIVATION_OFFSITE_BACKUP_AND_PLACEMENT_20261018.md`](../reports/UBERWARM_FINAL_ACTIVATION_OFFSITE_BACKUP_AND_PLACEMENT_20261018.md) — 2026-10-18 · PHOENIX OMEGA / UberWarm execution and offsite recovery evidence _(3 mentions)_
-- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — You are UberMind Ω20, my director for UberBond work. Deliver the highest-quality completed work using the fewest Claude Pro turns possible. Never trade quality for savings. _(3 mentions)_
-- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill _(3 mentions)_
-- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS _(3 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_ _(12 mentions)_
+- [`.claude/skills/ubermind-lean/SKILL.md`](../../.claude/skills/ubermind-lean/SKILL.md) — UBERMIND Ω12 • EXECUTABLE SUBSCRIPTION-EFFICIENCY PLAYBOOK _(matched by name only)_ _(6 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V6_FRONTIER_ON_CALL_PROMPT_TREE_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA 6 / PROMPT -> SONNET MAIN -> FRONTIER ON CALL _(matched by name only)_ _(6 mentions)_
+- [`docs/architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md`](../architecture/UBERMIND_PRO20_SOVEREIGN_SYNERGY_2026-10-09.md) — 2026-10-09 · UberMind Ω: $20 Pro Sovereign Intelligence Compiler + Live-Editable Cost Physics _(matched by name only)_ _(6 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V18_PRECISION_EFFORT_AGENT_TREE_2026-10-10.md) — 2026-10-10 · UberMind Ω18 / Precise Effort, Conditional Specialists, Minimum Usage _(matched by name only)_ _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V19_EVIDENCE_COMPILER_ARROW_GRAPH_2026-10-10.md) — 2026-10-10 · UBERMIND Ω19 / EVIDENCE COMPILER: SMARTER, MORE CAPABLE, CHEAPER _(matched by name only)_ _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V9_55_LINEUP_PRO_OPERATING_PLAN_2026-10-09.md) — 2026-10-09 · UberMind Ω9: Claude 5.5 Lineup Budget-Aware Sovereign Routing _(matched by name only)_ _(5 mentions)_
+- [`docs/prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md`](../prompts/UBERMIND_V5_ONE_PROMPT_PRO_FRONTIER_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁵: Prompt-First Frontier Intelligence, Minimum Claude Pro Usage _(matched by name only)_ _(5 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md`](../architecture/UBERMIND_OMEGA_AGENT_TREE_V2_2026-10-09.md) — 2026-10-09 · UBERMIND Ω — Sovereign Agent Team v2 and exact cost equation _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V11_FIVE_HOUR_MINIMIZER_2026-10-09.md) — 2026-10-09 · UBERMIND OMEGA11 / Five-Hour Minimum Usage at the Same Quality _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V15_INTEGRATED_PRICE_QUALITY_2026-10-10.md) — 2026-10-10 · UBERMIND Ω15 / Combined Claude 5.5 family + subagents + JEV + exact source reuse + full intelligence _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V20_PROOF_CONSTRAINED_MICRO_AUCTION_2026-10-10.md) — 2026-10-10 · UBERMIND Ω20 / PROOF-CONSTRAINED MICROTASK AUCTION / 2026-10-10 _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V7_COGNITIVE_FOUNDRY_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁷ / The Sovereign Cognitive Foundry _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V8_FRONTIER_PRESSURE_ENGINE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω⁸ / The Frontier Pressure Engine _(matched by name only)_ _(4 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(matched by name only)_ _(4 mentions)_
+- [`docs/prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md`](../prompts/UBERMIND_OMEGA_V13_5PCT_INSTRUCTIONS_2026-10-10.md) — 2026-10-10 · UberMind Ω¹³ / Pro Five-Percent Reality Engine _(matched by name only)_ _(4 mentions)_
+- [`library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt`](../../library/ubermind/UBERMIND_V10_ONE_MASTER_PROJECT_INSTRUCTION.txt) — UBERBOND / UBERMIND Ω∞ V10 / SOVEREIGN FULL-SPECTRUM CONSTITUTION _(matched by name only)_ _(4 mentions)_
+- [`mind activation/CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(matched by name only)_ _(4 mentions)_
+- [`mind activation/README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint _(matched by name only)_ _(4 mentions)_
+- [`.claude/skills/ubermind-strategic-realism/SKILL.md`](../../.claude/skills/ubermind-strategic-realism/SKILL.md) — Ω47 STRATEGIC REALISM / ECONOMIC ADVANTAGE OPERATOR _(matched by name only)_ _(3 mentions)_
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution for every agent: startup order, no-amputation law, authority limits. _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md`](../architecture/UBERMIND_OMEGA_V10_SCREENSHOT_COMPARISON_2026-10-09.md) — 2026-10-09 · UberMind Ω10 / Screenshot agents compared with the real UberMind brain _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt`](../architecture/UBERMIND_OMEGA_V12_ULTRALEAN_TERMINAL.txt) — ╔══════════════════════════════════════════════════════════════════════╗ _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V14_55_TARIFF_VS_PRO_USAGE_2026-10-10.md) — 2026-10-10 · UBERMIND Ω14 / CLAUDE 5.5 HIGHEST-QUALITY / MINIMUM-PRICE FRONTIER _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md`](../architecture/UBERMIND_OMEGA_V16_CONDITIONAL_SWARM_COST_2026-10-10.md) — 2026-10-10 · UBERMIND Ω16 / Minimum-Sufficient Conditional Swarm (W38) _(matched by name only)_ _(3 mentions)_
+- [`docs/architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_ADVERSARIAL_RESILIENCE_2026-10-24.md) — 2026-10-24 · UBERMIND Ω51 / Adversarial Resilience and Strategic Evidence DNA _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md`](../handoffs/SOVEREIGN_FORGE_OMEGA_890_WAVE1_2026-10-08.md) — 2026-10-08 · SOVEREIGN FORGE Ω∞ / WAVE 1: PUBLIC WORKLOAD EVIDENCE INTEGRITY — Truth class: SOURCE PATCH + LOCAL TARGETED TESTS; GitHub CI, merge, deployment, provider/customer outcomes must be verified… _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md`](../handoffs/UBERMIND_W23_SAME_MODEL_COST_FLOOR_2026-10-09.md) — 2026-10-09 · UberMind Ω / Wave 23: The Same-Frontier-Model Cost Floor _(matched by name only)_ _(3 mentions)_
+- [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — PHOENIX MAIN HOT CHECKPOINT — 2026-10-11 — Status: WINNR_69_PURCHASE_READY__AWAITING_EXPLICIT_OWNER_SPEND_AUTHORIZATION _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md`](../prompts/UBERMIND_OMEGA_V12_GIVE_THIS_TO_CLAUDE_2026-10-09.md) — 2026-10-09 · UBERMIND Ω12 / ONE-PASTE CLAUDE BOOTSTRAP _(matched by name only)_ _(3 mentions)_
+- [`docs/reports/UBERWARM_FINAL_ACTIVATION_OFFSITE_BACKUP_AND_PLACEMENT_20261018.md`](../reports/UBERWARM_FINAL_ACTIVATION_OFFSITE_BACKUP_AND_PLACEMENT_20261018.md) — 2026-10-18 · PHOENIX OMEGA / UberWarm execution and offsite recovery evidence _(matched by name only)_ _(3 mentions)_
+- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — You are UberMind Ω20, my director for UberBond work. Deliver the highest-quality completed work using the fewest Claude Pro turns possible. Never trade quality for savings. _(matched by name only)_ _(3 mentions)_
+- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill _(matched by name only)_ _(3 mentions)_
+- [`library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt`](../../library/ubermind/UBERMIND_V7_PROJECT_INSTRUCTIONS.txt) — UBERMIND Ω∞ V7 / UBERBOND PROJECT INSTRUCTIONS _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (8)
 
-- [`src/phoenix-continuity-capsule.mjs`](../../src/phoenix-continuity-capsule.mjs) — exports PHOENIX_CAPSULE_VERSION, PHOENIX_MOONSHOT_CORPUS_SHA, PHOENIX_MOONSHOT_MANIFEST, verifyPhoenixCapsule, createPhoenixCapsule (+4) _(tested; imported by 1)_
-- [`src/phoenix-native-cli-health.mjs`](../../src/phoenix-native-cli-health.mjs) — exports PHOENIX_NATIVE_CLI_HEALTH_VERSION, inspectNativeCliAuth _(tested; imported by 1)_
-- [`src/phoenix-neon-zip-preflight.mjs`](../../src/phoenix-neon-zip-preflight.mjs) — PHOENIX pre-release static validation for Neon Node.js24 function ZIPs. No extraction, execution, networking, secret access or deployment. A good ZIP… _(tested; imported by 1)_
-- [`src/phoenix-owner-vault.mjs`](../../src/phoenix-owner-vault.mjs) — exports PHOENIX_VAULT_VERSION, validatePhoenixLocalDraft, savePhoenixLocalDraft, listPhoenixCapsules, readPhoenixCapsule _(tested; imported by 2)_
-- [`src/phoenix-runtime-doctor.mjs`](../../src/phoenix-runtime-doctor.mjs) — exports PHOENIX_RUNTIME_DOCTOR_VERSION, runPhoenixRuntimeDoctor _(tested; imported by 1)_
-- [`src/phoenix-swarm-pr-overlap.mjs`](../../src/phoenix-swarm-pr-overlap.mjs) — PHOENIX swarm integration intelligence. Evidence is PR changed-path metadata, never permission to close, merge, deploy, or discard a donor branch. _(tested; imported by 1)_
-- [`src/phoenix-ten-wave-intake.mjs`](../../src/phoenix-ten-wave-intake.mjs) — Evidence-bound bridge from the PHOENIX source snapshot into UberBond's _(tested; imported by 1)_
-- [`src/phoenix-ten-wave-mission-compiler.mjs`](../../src/phoenix-ten-wave-mission-compiler.mjs) — exports getPhoenixWaveStatus, listPhoenixWaveProposals, compilePhoenixProposalMission _(tested; imported by 1)_
+- [`src/phoenix-continuity-capsule.mjs`](../../src/phoenix-continuity-capsule.mjs) — exports PHOENIX_CAPSULE_VERSION, PHOENIX_MOONSHOT_CORPUS_SHA, PHOENIX_MOONSHOT_MANIFEST, verifyPhoenixCapsule, createPhoenixCapsule (+4) _(matched by name only; tested; imported by 1)_
+- [`src/phoenix-native-cli-health.mjs`](../../src/phoenix-native-cli-health.mjs) — exports PHOENIX_NATIVE_CLI_HEALTH_VERSION, inspectNativeCliAuth _(matched by name only; tested; imported by 1)_
+- [`src/phoenix-neon-zip-preflight.mjs`](../../src/phoenix-neon-zip-preflight.mjs) — PHOENIX pre-release static validation for Neon Node.js24 function ZIPs. No extraction, execution, networking, secret access or deployment. A good ZIP… _(matched by name only; tested; imported by 1)_
+- [`src/phoenix-owner-vault.mjs`](../../src/phoenix-owner-vault.mjs) — exports PHOENIX_VAULT_VERSION, validatePhoenixLocalDraft, savePhoenixLocalDraft, listPhoenixCapsules, readPhoenixCapsule _(matched by name only; tested; imported by 2)_
+- [`src/phoenix-runtime-doctor.mjs`](../../src/phoenix-runtime-doctor.mjs) — exports PHOENIX_RUNTIME_DOCTOR_VERSION, runPhoenixRuntimeDoctor _(matched by name only; tested; imported by 1)_
+- [`src/phoenix-swarm-pr-overlap.mjs`](../../src/phoenix-swarm-pr-overlap.mjs) — PHOENIX swarm integration intelligence. Evidence is PR changed-path metadata, never permission to close, merge, deploy, or discard a donor branch. _(matched by name only; tested; imported by 1)_
+- [`src/phoenix-ten-wave-intake.mjs`](../../src/phoenix-ten-wave-intake.mjs) — Evidence-bound bridge from the PHOENIX source snapshot into UberBond's _(matched by name only; tested; imported by 1)_
+- [`src/phoenix-ten-wave-mission-compiler.mjs`](../../src/phoenix-ten-wave-mission-compiler.mjs) — exports getPhoenixWaveStatus, listPhoenixWaveProposals, compilePhoenixProposalMission _(matched by name only; tested; imported by 1)_
 
 ## Scripts (11)
 
-- [`scripts/phoenix-capsule-doctor.mjs`](../../scripts/phoenix-capsule-doctor.mjs)
-- [`scripts/phoenix-cos-operator.mjs`](../../scripts/phoenix-cos-operator.mjs) — PHOENIX operator bridge for Chat On Steroids Core. _(npm: `capabilities:cos`)_
-- [`scripts/phoenix-neon-bundle-preflight.mjs`](../../scripts/phoenix-neon-bundle-preflight.mjs)
-- [`scripts/phoenix-repository-intake.py`](../../scripts/phoenix-repository-intake.py)
-- [`scripts/phoenix-repository-refs.py`](../../scripts/phoenix-repository-refs.py)
-- [`scripts/phoenix-swarm-pr-overlap.mjs`](../../scripts/phoenix-swarm-pr-overlap.mjs) — Read-only GitHub PR-snapshot auditor. Never prints environment credentials.
-- [`scripts/phoenix-ten-wave-genome-doctor.py`](../../scripts/phoenix-ten-wave-genome-doctor.py)
-- [`scripts/phoenix-ten-wave-import.mjs`](../../scripts/phoenix-ten-wave-import.mjs) — Read-only PHOENIX -> existing Capability Genome corpus bridge. _(npm: `capabilities:phoenix:import`)_
-- [`scripts/phoenix-ten-wave-overlap.py`](../../scripts/phoenix-ten-wave-overlap.py)
-- [`scripts/phoenix-ten-wave-query.mjs`](../../scripts/phoenix-ten-wave-query.mjs) — Bounded internal bridge from UberBond's Node workflow to the source-pinned _(npm: `capabilities:phoenix:query`)_
-- [`scripts/phoenix-ten-wave-reconcile.py`](../../scripts/phoenix-ten-wave-reconcile.py)
+- [`scripts/phoenix-capsule-doctor.mjs`](../../scripts/phoenix-capsule-doctor.mjs) _(matched by name only)_
+- [`scripts/phoenix-cos-operator.mjs`](../../scripts/phoenix-cos-operator.mjs) — PHOENIX operator bridge for Chat On Steroids Core. _(matched by name only; npm: `capabilities:cos`)_
+- [`scripts/phoenix-neon-bundle-preflight.mjs`](../../scripts/phoenix-neon-bundle-preflight.mjs) _(matched by name only)_
+- [`scripts/phoenix-repository-intake.py`](../../scripts/phoenix-repository-intake.py) _(matched by name only)_
+- [`scripts/phoenix-repository-refs.py`](../../scripts/phoenix-repository-refs.py) _(matched by name only)_
+- [`scripts/phoenix-swarm-pr-overlap.mjs`](../../scripts/phoenix-swarm-pr-overlap.mjs) — Read-only GitHub PR-snapshot auditor. Never prints environment credentials. _(matched by name only)_
+- [`scripts/phoenix-ten-wave-genome-doctor.py`](../../scripts/phoenix-ten-wave-genome-doctor.py) _(matched by name only)_
+- [`scripts/phoenix-ten-wave-import.mjs`](../../scripts/phoenix-ten-wave-import.mjs) — Read-only PHOENIX -> existing Capability Genome corpus bridge. _(matched by name only; npm: `capabilities:phoenix:import`)_
+- [`scripts/phoenix-ten-wave-overlap.py`](../../scripts/phoenix-ten-wave-overlap.py) _(matched by name only)_
+- [`scripts/phoenix-ten-wave-query.mjs`](../../scripts/phoenix-ten-wave-query.mjs) — Bounded internal bridge from UberBond's Node workflow to the source-pinned _(matched by name only; npm: `capabilities:phoenix:query`)_
+- [`scripts/phoenix-ten-wave-reconcile.py`](../../scripts/phoenix-ten-wave-reconcile.py) _(matched by name only)_
 
 ## Config, data, artifacts and services (31)
 
-- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification
-- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration
-- [`apps/phoenix-mcp/package-lock.json`](../../apps/phoenix-mcp/package-lock.json) — uberbond-phoenix-mcp
-- [`apps/phoenix-mcp/package.json`](../../apps/phoenix-mcp/package.json) — uberbond-phoenix-mcp
-- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls,
-- [`apps/phoenix-mcp/test/all-native.test.mjs`](../../apps/phoenix-mcp/test/all-native.test.mjs) — 1 test — e.g. "all fifteen native atoms through real subprocess MCP, denial and restart"
-- [`apps/phoenix-mcp/test/native-fixtures.mjs`](../../apps/phoenix-mcp/test/native-fixtures.mjs) — exports fixtures
-- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools"
-- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64) — 2026-10-18
-- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64) — 2026-10-18
-- [`artifacts/capability-genome/research/phoenix-public-repository-corpus.json`](../../artifacts/capability-genome/research/phoenix-public-repository-corpus.json) — MEASURED_READ_ONLY_UNTRUSTED_NOT_ADMITTED · uberbond.capability-genome.phoenix-research-corpus.v1
-- [`artifacts/outreach/phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json) — 2026-10-11 · Agency Revenue Leak Proof Pack · RESEARCH_CANDIDATES_NOT_SEND_READY · uberbond.phoenix.vendor-route-research.v1
-- [`artifacts/phoenix-activation-verification/native-mcp-receipts.json`](../../artifacts/phoenix-activation-verification/native-mcp-receipts.json) — COS_CAPABILITY_GATEWAY_STATUS · uberbond.external-proof-router.v1
-- [`artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json`](../../artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json) — 2026-10-18 · PARTIAL_LOCAL_REF_SURVIVABILITY_NOT_HISTORICAL_OFFSITE_RESTORE · uberbond.phoenix.uberwarm.omega.verification.v1
-- [`artifacts/research/phoenix-ten-wave-intake/identity-010-019.json`](../../artifacts/research/phoenix-ten-wave-intake/identity-010-019.json) — METADATA_RETURNED · phoenix.public-identity-metadata.v1
-- [`artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json`](../../artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json) — PUBLIC_METADATA_RETURNED · phoenix.repo-metadata-probe.v1
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json) — 2026-10-17 · Authenticated CLI health attestation · UNIMPLEMENTED/UNKNOWN_IN_UBERBOND
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json) — 2026-10-17 · PHOENIX Cross-Platform Leverage Atlas Wave 4 · RESEARCH_ONLY_NOT_INSTALLED
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json) — 2026-10-17 · Wave 10: Autonomous Possibility Engine · RESEARCH_ASSET_AND_SYNTHETIC_TEST_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json) — 2026-10-17 · OpenAdapt compiled flows · RESEARCH_DESIGN_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json) — 2026-10-17 · Entity-linked project memory · RESEARCH_DESIGN_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json) — 2026-10-17 · PHOENIX WAVE 7 - SCIENTIFIC DISCOVERY AND PRINCIPLE EVOLUTION · RESEARCH_DESIGN_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json) — 2026-10-17 · PHOENIX UNKNOWN-WORLD TRANSFER ENGINE · RESEARCH_DESIGN_AND_LOCAL_SYNTHETIC_DEMONSTRATION
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json) — 2026-10-17 · PHOENIX Wave 9: Missing-Machinery Compiler · RESEARCH_DESIGN_WITH_LOCAL_SYNTHETIC_DEMONSTRATION
-- [`artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json`](../../artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json) — 2026-10-18 · PUBLIC_HEAD_OBSERVED
-- [`artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json`](../../artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json) — METADATA_RETURNED · phoenix.github-metadata.v1
-- [`artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json`](../../artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json) — PUBLIC_REPO_METADATA_VERIFIED · uberbond.phoenix.targeted-github-metadata.v1
-- [`migrations/20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only.
-- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge
-- [`public/phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat
-- [`public/phoenix.js`](../../public/phoenix.js)
+- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification _(matched by name only)_
+- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration _(matched by name only)_
+- [`apps/phoenix-mcp/package-lock.json`](../../apps/phoenix-mcp/package-lock.json) — uberbond-phoenix-mcp _(matched by name only)_
+- [`apps/phoenix-mcp/package.json`](../../apps/phoenix-mcp/package.json) — uberbond-phoenix-mcp _(matched by name only)_
+- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls, _(matched by name only)_
+- [`apps/phoenix-mcp/test/all-native.test.mjs`](../../apps/phoenix-mcp/test/all-native.test.mjs) — 1 test — e.g. "all fifteen native atoms through real subprocess MCP, denial and restart" _(matched by name only)_
+- [`apps/phoenix-mcp/test/native-fixtures.mjs`](../../apps/phoenix-mcp/test/native-fixtures.mjs) — exports fixtures _(matched by name only)_
+- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools" _(matched by name only)_
+- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64) — 2026-10-18 _(matched by name only)_
+- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64) — 2026-10-18 _(matched by name only)_
+- [`artifacts/capability-genome/research/phoenix-public-repository-corpus.json`](../../artifacts/capability-genome/research/phoenix-public-repository-corpus.json) — MEASURED_READ_ONLY_UNTRUSTED_NOT_ADMITTED · uberbond.capability-genome.phoenix-research-corpus.v1 _(matched by name only)_
+- [`artifacts/outreach/phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json) — 2026-10-11 · Agency Revenue Leak Proof Pack · RESEARCH_CANDIDATES_NOT_SEND_READY · uberbond.phoenix.vendor-route-research.v1 _(matched by name only)_
+- [`artifacts/phoenix-activation-verification/native-mcp-receipts.json`](../../artifacts/phoenix-activation-verification/native-mcp-receipts.json) — COS_CAPABILITY_GATEWAY_STATUS · uberbond.external-proof-router.v1 _(matched by name only)_
+- [`artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json`](../../artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json) — 2026-10-18 · PARTIAL_LOCAL_REF_SURVIVABILITY_NOT_HISTORICAL_OFFSITE_RESTORE · uberbond.phoenix.uberwarm.omega.verification.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/identity-010-019.json`](../../artifacts/research/phoenix-ten-wave-intake/identity-010-019.json) — METADATA_RETURNED · phoenix.public-identity-metadata.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json`](../../artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json) — PUBLIC_METADATA_RETURNED · phoenix.repo-metadata-probe.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json) — 2026-10-17 · Authenticated CLI health attestation · UNIMPLEMENTED/UNKNOWN_IN_UBERBOND _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json) — 2026-10-17 · PHOENIX Cross-Platform Leverage Atlas Wave 4 · RESEARCH_ONLY_NOT_INSTALLED _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json) — 2026-10-17 · Wave 10: Autonomous Possibility Engine · RESEARCH_ASSET_AND_SYNTHETIC_TEST_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json) — 2026-10-17 · OpenAdapt compiled flows · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json) — 2026-10-17 · Entity-linked project memory · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json) — 2026-10-17 · PHOENIX WAVE 7 - SCIENTIFIC DISCOVERY AND PRINCIPLE EVOLUTION · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json) — 2026-10-17 · PHOENIX UNKNOWN-WORLD TRANSFER ENGINE · RESEARCH_DESIGN_AND_LOCAL_SYNTHETIC_DEMONSTRATION _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json) — 2026-10-17 · PHOENIX Wave 9: Missing-Machinery Compiler · RESEARCH_DESIGN_WITH_LOCAL_SYNTHETIC_DEMONSTRATION _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json`](../../artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json) — 2026-10-18 · PUBLIC_HEAD_OBSERVED _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json`](../../artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json) — METADATA_RETURNED · phoenix.github-metadata.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json`](../../artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json) — PUBLIC_REPO_METADATA_VERIFIED · uberbond.phoenix.targeted-github-metadata.v1 _(matched by name only)_
+- [`migrations/20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only. _(matched by name only)_
+- [`plugins/phoenix-capability-bridge/plugin.json`](../../plugins/phoenix-capability-bridge/plugin.json) — phoenix-capability-bridge _(matched by name only)_
+- [`public/phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat _(matched by name only)_
+- [`public/phoenix.js`](../../public/phoenix.js) _(matched by name only)_
 
 ## Tests (17)
 

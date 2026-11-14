@@ -12,112 +12,112 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (9)
 
-- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency…
-- [`docs/COMMAND_CENTER_2.md`](../COMMAND_CENTER_2.md) — UberBond Command Center 2.0
-- [`lite/UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — UberBond Wessam Command Center
-- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center
-- [`docs/handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md`](../handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md) — 2026-10-08 · UberMind W14: Owner-visible actual work, never fabricated dollar savings
-- [`docs/receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md`](../receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md) — 2026-10-03 · Work admin recovery and exact production preflight — 2026-10-03
-- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists.
-- [`docs/OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md`](../OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md) — 2026-09-15 · Operator note
-- [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06
+- [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(matched by name only)_
+- [`docs/COMMAND_CENTER_2.md`](../COMMAND_CENTER_2.md) — UberBond Command Center 2.0 _(matched by name only)_
+- [`lite/UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — UberBond Wessam Command Center _(matched by name only)_
+- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(matched by name only)_
+- [`docs/handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md`](../handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md) — 2026-10-08 · UberMind W14: Owner-visible actual work, never fabricated dollar savings _(matched by name only)_
+- [`docs/receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md`](../receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md) — 2026-10-03 · Work admin recovery and exact production preflight — 2026-10-03 _(matched by name only)_
+- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists. _(matched by name only)_
+- [`docs/OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md`](../OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md) — 2026-09-15 · Operator note _(matched by name only)_
+- [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06 _(matched by name only)_
 
 ## Dated documents, newest first (1)
 
-- [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED
+- [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(4 mentions)_
-- [`docs/memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md`](../memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md) — 2026-09-06 · UberBond NIGHT-10 Final Tribunal — 2026-09-06 _(3 mentions)_
-- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(3 mentions)_
+- [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(4 mentions)_
+- [`docs/memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md`](../memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md) — 2026-09-06 · UberBond NIGHT-10 Final Tribunal — 2026-09-06 _(matched by name only)_ _(3 mentions)_
+- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(matched by name only)_ _(3 mentions)_
 
 ## Source modules (17)
 
-- [`src/autonomy-command-center-control.mjs`](../../src/autonomy-command-center-control.mjs) — exports AUTONOMY_COMMAND_CENTER_CONTROL_VERSION, AUTONOMY_COMMAND_CENTER_ISSUE, AUTONOMY_PAUSE_LABEL, compileAutonomyCommand, helpMarkdown (+1) _(tested; imported by 1)_
-- [`src/autonomy-command-center-status.mjs`](../../src/autonomy-command-center-status.mjs) — exports AUTONOMY_COMMAND_CENTER_STATUS_VERSION, buildAutonomyCommandCenterStatus _(tested; imported by 2)_
-- [`src/command-center-client-policy.mjs`](../../src/command-center-client-policy.mjs) — exports COMMAND_CENTER_CLIENT_POLICY_VERSION, COMMAND_CENTER_CACHE_SCHEMA, COMMAND_CENTER_MAX_CACHE_AGE_MS, COMMAND_CENTER_MAX_LIVE_AGE_MS, COMMAND_C… _(imported by 2)_
-- [`src/command-center-ui-evolution.mjs`](../../src/command-center-ui-evolution.mjs) — exports COMMAND_CENTER_UI_EVOLUTION_POLICY, COMMAND_CENTER_UI_PROMOTION_AUTHORITY, uiEvolutionFingerprint, normalizeUiBenchmark, scoreUiBenchmark (+2) _(imported by 2)_
-- [`src/founder-command-center.mjs`](../../src/founder-command-center.mjs) — exports COMMAND_CENTER_POLICY_VERSION, buildFounderCommandCenter _(tested; imported by 2)_
-- [`src/founder-ops-runtime-probe.mjs`](../../src/founder-ops-runtime-probe.mjs) — exports FOUNDER_OPS_RUNTIME_PROBE_VERSION, founderOpsRuntimeIdentity, founderOpsTargetIdentity, founderOpsRuntimeProbeReceiptPreimage, verifyFounderO… _(tested; imported by 2)_
-- [`src/founder-ops-view.mjs`](../../src/founder-ops-view.mjs) — exports FOUNDER_OPS_VIEW_VERSION, buildFounderOpsView _(tested; imported by 1)_
-- [`src/omega-operator-crystallizer.mjs`](../../src/omega-operator-crystallizer.mjs) — exports OMEGA_OPERATOR_CRYSTALLIZER_VERSION, crystallizeParametricOperator, instantiateParametricOperator _(tested; no static importers)_
-- [`src/operator-escalation-transport.mjs`](../../src/operator-escalation-transport.mjs) — Deciding to page someone and actually reaching them are different problems. _(tested; imported by 2)_
-- [`src/operator-escalation.mjs`](../../src/operator-escalation.mjs) — exports OPERATOR_ESCALATION_POLICY_VERSION, ESCALATION_AUDIT_TYPE, ESCALATION_RESOLVED_AUDIT_TYPE, evaluateOperatorHealth, persistOperatorEscalations… _(tested; imported by 2)_
-- [`src/operator-health-snapshot.mjs`](../../src/operator-health-snapshot.mjs) — Compose the health snapshot the operator escalation kernel evaluates. _(tested; imported by 1)_
-- [`src/outbound-operator-summary.mjs`](../../src/outbound-operator-summary.mjs) — exports OPERATOR_SUMMARY_POLICY_VERSION, buildOutboundOperatorSummary _(tested; imported by 1)_
-- [`src/payment-operator-attention.mjs`](../../src/payment-operator-attention.mjs) — exports PAYMENT_OPERATOR_ATTENTION_POLICY_VERSION, classifyPaymentAttentionEntry, summarizePaymentOperatorAttention _(tested; imported by 1)_
-- [`src/sovereign-founder-console.mjs`](../../src/sovereign-founder-console.mjs) — exports SOVEREIGN_FOUNDER_CONSOLE_VERSION, FOUNDER_CONSOLE_COMMANDS, constantTimeTokenEqual, compileFounderConsoleBinding, parseFounderConsoleInput (… _(tested; imported by 2)_
-- [`src/sovereign-founder-private-gateway.mjs`](../../src/sovereign-founder-private-gateway.mjs) — exports SOVEREIGN_FOUNDER_PRIVATE_GATEWAY_VERSION, classifyFounderPrivateHost, compileFounderPrivateGatewayBinding, founderGatewayTokenFromAuthorizat… _(tested; imported by 1)_
-- [`src/uberbond-command-center-normalizer.mjs`](../../src/uberbond-command-center-normalizer.mjs) — exports UBERBOND_COMMAND_CENTER_NORMALIZER_POLICY_VERSION, normalizeUberBondCommandCenterStatus _(tested; imported by 1)_
-- [`src/uberbond-command-center-status.mjs`](../../src/uberbond-command-center-status.mjs) — exports UBERBOND_COMMAND_CENTER_SCHEMA, UBERBOND_COMMAND_CENTER_POLICY_VERSION, buildUberBondCommandCenterStatus, UBERBOND_COMMAND_CENTER_RECEIPTS _(tested; imported by 1)_
+- [`src/autonomy-command-center-control.mjs`](../../src/autonomy-command-center-control.mjs) — exports AUTONOMY_COMMAND_CENTER_CONTROL_VERSION, AUTONOMY_COMMAND_CENTER_ISSUE, AUTONOMY_PAUSE_LABEL, compileAutonomyCommand, helpMarkdown (+1) _(matched by name only; tested; imported by 1)_
+- [`src/autonomy-command-center-status.mjs`](../../src/autonomy-command-center-status.mjs) — exports AUTONOMY_COMMAND_CENTER_STATUS_VERSION, buildAutonomyCommandCenterStatus _(matched by name only; tested; imported by 2)_
+- [`src/command-center-client-policy.mjs`](../../src/command-center-client-policy.mjs) — exports COMMAND_CENTER_CLIENT_POLICY_VERSION, COMMAND_CENTER_CACHE_SCHEMA, COMMAND_CENTER_MAX_CACHE_AGE_MS, COMMAND_CENTER_MAX_LIVE_AGE_MS, COMMAND_C… _(matched by name only; imported by 2)_
+- [`src/command-center-ui-evolution.mjs`](../../src/command-center-ui-evolution.mjs) — exports COMMAND_CENTER_UI_EVOLUTION_POLICY, COMMAND_CENTER_UI_PROMOTION_AUTHORITY, uiEvolutionFingerprint, normalizeUiBenchmark, scoreUiBenchmark (+2) _(matched by name only; imported by 2)_
+- [`src/founder-command-center.mjs`](../../src/founder-command-center.mjs) — exports COMMAND_CENTER_POLICY_VERSION, buildFounderCommandCenter _(matched by name only; tested; imported by 2)_
+- [`src/founder-ops-runtime-probe.mjs`](../../src/founder-ops-runtime-probe.mjs) — exports FOUNDER_OPS_RUNTIME_PROBE_VERSION, founderOpsRuntimeIdentity, founderOpsTargetIdentity, founderOpsRuntimeProbeReceiptPreimage, verifyFounderO… _(matched by name only; tested; imported by 2)_
+- [`src/founder-ops-view.mjs`](../../src/founder-ops-view.mjs) — exports FOUNDER_OPS_VIEW_VERSION, buildFounderOpsView _(matched by name only; tested; imported by 1)_
+- [`src/omega-operator-crystallizer.mjs`](../../src/omega-operator-crystallizer.mjs) — exports OMEGA_OPERATOR_CRYSTALLIZER_VERSION, crystallizeParametricOperator, instantiateParametricOperator _(matched by name only; tested; no static importers)_
+- [`src/operator-escalation-transport.mjs`](../../src/operator-escalation-transport.mjs) — Deciding to page someone and actually reaching them are different problems. _(matched by name only; tested; imported by 2)_
+- [`src/operator-escalation.mjs`](../../src/operator-escalation.mjs) — exports OPERATOR_ESCALATION_POLICY_VERSION, ESCALATION_AUDIT_TYPE, ESCALATION_RESOLVED_AUDIT_TYPE, evaluateOperatorHealth, persistOperatorEscalations… _(matched by name only; tested; imported by 2)_
+- [`src/operator-health-snapshot.mjs`](../../src/operator-health-snapshot.mjs) — Compose the health snapshot the operator escalation kernel evaluates. _(matched by name only; tested; imported by 1)_
+- [`src/outbound-operator-summary.mjs`](../../src/outbound-operator-summary.mjs) — exports OPERATOR_SUMMARY_POLICY_VERSION, buildOutboundOperatorSummary _(matched by name only; tested; imported by 1)_
+- [`src/payment-operator-attention.mjs`](../../src/payment-operator-attention.mjs) — exports PAYMENT_OPERATOR_ATTENTION_POLICY_VERSION, classifyPaymentAttentionEntry, summarizePaymentOperatorAttention _(matched by name only; tested; imported by 1)_
+- [`src/sovereign-founder-console.mjs`](../../src/sovereign-founder-console.mjs) — exports SOVEREIGN_FOUNDER_CONSOLE_VERSION, FOUNDER_CONSOLE_COMMANDS, constantTimeTokenEqual, compileFounderConsoleBinding, parseFounderConsoleInput (… _(matched by name only; tested; imported by 2)_
+- [`src/sovereign-founder-private-gateway.mjs`](../../src/sovereign-founder-private-gateway.mjs) — exports SOVEREIGN_FOUNDER_PRIVATE_GATEWAY_VERSION, classifyFounderPrivateHost, compileFounderPrivateGatewayBinding, founderGatewayTokenFromAuthorizat… _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-command-center-normalizer.mjs`](../../src/uberbond-command-center-normalizer.mjs) — exports UBERBOND_COMMAND_CENTER_NORMALIZER_POLICY_VERSION, normalizeUberBondCommandCenterStatus _(matched by name only; tested; imported by 1)_
+- [`src/uberbond-command-center-status.mjs`](../../src/uberbond-command-center-status.mjs) — exports UBERBOND_COMMAND_CENTER_SCHEMA, UBERBOND_COMMAND_CENTER_POLICY_VERSION, buildUberBondCommandCenterStatus, UBERBOND_COMMAND_CENTER_RECEIPTS _(matched by name only; tested; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs)
-- [`scripts/sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs)
-- [`scripts/sovereign-founder-private-gateway.mjs`](../../scripts/sovereign-founder-private-gateway.mjs)
-- [`scripts/uberbond-command-center-control.mjs`](../../scripts/uberbond-command-center-control.mjs)
-- [`scripts/vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs)
-- [`scripts/vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs)
+- [`scripts/founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) _(matched by name only)_
+- [`scripts/sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs) _(matched by name only)_
+- [`scripts/sovereign-founder-private-gateway.mjs`](../../scripts/sovereign-founder-private-gateway.mjs) _(matched by name only)_
+- [`scripts/uberbond-command-center-control.mjs`](../../scripts/uberbond-command-center-control.mjs) _(matched by name only)_
+- [`scripts/vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs) _(matched by name only)_
+- [`scripts/vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs) _(matched by name only)_
 
 ## Config, data, artifacts and services (55)
 
-- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control
-- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — exports createHandler
-- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — exports createHandler
-- [`api/command-center.mjs`](../../api/command-center.mjs) — exports createHandler
-- [`api/founder-center.mjs`](../../api/founder-center.mjs) — exports FREE_MODEL, startEconomicOutcomeMission, createHandler
-- [`api/founder-ops.mjs`](../../api/founder-ops.mjs) — exports createHandler
-- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1
-- [`center.html`](../../center.html) — Founder center page.
-- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — exports handler
-- [`operator-tools/uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Dedicated, manually invoked, SINGLE probe execution, NEVER a cron hook. No external effect without authenticated provider transport, six separately s…
-- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh)
-- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh)
-- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh)
-- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh)
-- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console)
-- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service)
-- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway)
-- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service)
-- [`public/admin.html`](../../public/admin.html) — UberBond Revenue Engine · Command Center
-- [`public/admin.js`](../../public/admin.js)
-- [`public/command-center-autonomy.js`](../../public/command-center-autonomy.js)
-- [`public/command-center-sw.js`](../../public/command-center-sw.js)
-- [`public/command-center.css`](../../public/command-center.css)
-- [`public/command-center.html`](../../public/command-center.html) — UberBond Command Center
-- [`public/command-center.js`](../../public/command-center.js)
-- [`public/command-center.webmanifest`](../../public/command-center.webmanifest)
-- [`public/constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation.
-- [`public/constellation.css`](../../public/constellation.css)
-- [`public/constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation
-- [`public/constellation.js`](../../public/constellation.js)
-- [`public/icon.svg`](../../public/icon.svg)
-- [`public/index.html`](../../public/index.html) — UberBond Command Center
-- [`public/manifest.webmanifest`](../../public/manifest.webmanifest)
-- [`public/ops.css`](../../public/ops.css)
-- [`public/ops.html`](../../public/ops.html) — UberBond · Founder Ops
-- [`public/ops.js`](../../public/ops.js)
-- [`public/outreach-one-button.js`](../../public/outreach-one-button.js)
-- [`public/owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser:
-- [`public/phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat
-- [`public/phoenix.js`](../../public/phoenix.js)
-- [`public/prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls over the existing canonical read-only operations. The
-- [`public/report.html`](../../public/report.html) — Private Opportunity Report · UberBond
-- [`public/report.js`](../../public/report.js)
-- [`public/site.js`](../../public/site.js)
-- [`public/storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit
-- [`public/styles.css`](../../public/styles.css)
-- [`public/uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — UberBond · Connected Command Center
-- [`public/uberbond-connected.html`](../../public/uberbond-connected.html) — UberBond · Connected Command Center
-- [`public/uberbond-graph.css`](../../public/uberbond-graph.css)
-- [`public/uberbond-graph.js`](../../public/uberbond-graph.js)
-- [`public/uberbond-standalone.html`](../../public/uberbond-standalone.html) — UberBond · Wessam Command Center
-- [`public/uberbond.css`](../../public/uberbond.css)
-- [`public/uberbond.html`](../../public/uberbond.html) — UberBond · Wessam Command Center
-- [`public/uberbond.js`](../../public/uberbond.js)
-- [`renaissance.html`](../../renaissance.html) — Standalone Renaissance page.
+- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control _(matched by name only)_
+- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — exports createHandler _(matched by name only)_
+- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — exports createHandler _(matched by name only)_
+- [`api/command-center.mjs`](../../api/command-center.mjs) — exports createHandler _(matched by name only)_
+- [`api/founder-center.mjs`](../../api/founder-center.mjs) — exports FREE_MODEL, startEconomicOutcomeMission, createHandler _(matched by name only)_
+- [`api/founder-ops.mjs`](../../api/founder-ops.mjs) — exports createHandler _(matched by name only)_
+- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1 _(matched by name only)_
+- [`center.html`](../../center.html) — Founder center page. _(matched by name only)_
+- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — exports handler _(matched by name only)_
+- [`operator-tools/uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Dedicated, manually invoked, SINGLE probe execution, NEVER a cron hook. No external effect without authenticated provider transport, six separately s… _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-console-ubermesh.sh`](../../ops/sovereign/configure-founder-console-ubermesh.sh) _(matched by name only)_
+- [`ops/sovereign/configure-founder-private-gateway.sh`](../../ops/sovereign/configure-founder-private-gateway.sh) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console`](../../ops/sovereign/uberbond-founder-console) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-console.service`](../../ops/sovereign/uberbond-founder-console.service) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway`](../../ops/sovereign/uberbond-founder-private-gateway) _(matched by name only)_
+- [`ops/sovereign/uberbond-founder-private-gateway.service`](../../ops/sovereign/uberbond-founder-private-gateway.service) _(matched by name only)_
+- [`public/admin.html`](../../public/admin.html) — UberBond Revenue Engine · Command Center _(matched by name only)_
+- [`public/admin.js`](../../public/admin.js) _(matched by name only)_
+- [`public/command-center-autonomy.js`](../../public/command-center-autonomy.js) _(matched by name only)_
+- [`public/command-center-sw.js`](../../public/command-center-sw.js) _(matched by name only)_
+- [`public/command-center.css`](../../public/command-center.css) _(matched by name only)_
+- [`public/command-center.html`](../../public/command-center.html) — UberBond Command Center _(matched by name only)_
+- [`public/command-center.js`](../../public/command-center.js) _(matched by name only)_
+- [`public/command-center.webmanifest`](../../public/command-center.webmanifest) _(matched by name only)_
+- [`public/constellation-gspot.js`](../../public/constellation-gspot.js) — One-button G-SPOT ignition for Revenue Constellation. _(matched by name only)_
+- [`public/constellation.css`](../../public/constellation.css) _(matched by name only)_
+- [`public/constellation.html`](../../public/constellation.html) — UberBond Revenue Constellation _(matched by name only)_
+- [`public/constellation.js`](../../public/constellation.js) _(matched by name only)_
+- [`public/icon.svg`](../../public/icon.svg) _(matched by name only)_
+- [`public/index.html`](../../public/index.html) — UberBond Command Center _(matched by name only)_
+- [`public/manifest.webmanifest`](../../public/manifest.webmanifest) _(matched by name only)_
+- [`public/ops.css`](../../public/ops.css) _(matched by name only)_
+- [`public/ops.html`](../../public/ops.html) — UberBond · Founder Ops _(matched by name only)_
+- [`public/ops.js`](../../public/ops.js) _(matched by name only)_
+- [`public/outreach-one-button.js`](../../public/outreach-one-button.js) _(matched by name only)_
+- [`public/owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser: _(matched by name only)_
+- [`public/phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat _(matched by name only)_
+- [`public/phoenix.js`](../../public/phoenix.js) _(matched by name only)_
+- [`public/prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls over the existing canonical read-only operations. The _(matched by name only)_
+- [`public/report.html`](../../public/report.html) — Private Opportunity Report · UberBond _(matched by name only)_
+- [`public/report.js`](../../public/report.js) _(matched by name only)_
+- [`public/site.js`](../../public/site.js) _(matched by name only)_
+- [`public/storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit _(matched by name only)_
+- [`public/styles.css`](../../public/styles.css) _(matched by name only)_
+- [`public/uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — UberBond · Connected Command Center _(matched by name only)_
+- [`public/uberbond-connected.html`](../../public/uberbond-connected.html) — UberBond · Connected Command Center _(matched by name only)_
+- [`public/uberbond-graph.css`](../../public/uberbond-graph.css) _(matched by name only)_
+- [`public/uberbond-graph.js`](../../public/uberbond-graph.js) _(matched by name only)_
+- [`public/uberbond-standalone.html`](../../public/uberbond-standalone.html) — UberBond · Wessam Command Center _(matched by name only)_
+- [`public/uberbond.css`](../../public/uberbond.css) _(matched by name only)_
+- [`public/uberbond.html`](../../public/uberbond.html) — UberBond · Wessam Command Center _(matched by name only)_
+- [`public/uberbond.js`](../../public/uberbond.js) _(matched by name only)_
+- [`renaissance.html`](../../renaissance.html) — Standalone Renaissance page. _(matched by name only)_
 
 ## Tests (32)
 

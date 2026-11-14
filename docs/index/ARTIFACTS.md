@@ -62,47 +62,47 @@ JSON registries, receipts, research corpora and recovered history.
 
 ## backup
 
-- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64) — 2026-10-18
-- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64) — 2026-10-18
+- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_20261018.json.gz.b64) — 2026-10-18 _(matched by name only)_
+- [`artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64`](../../artifacts/backup/PHOENIX_GIT_REF_INDEX_POSTMERGE_20261018.json.gz.b64) — 2026-10-18 _(matched by name only)_
 
 ## capability-genome
 
 **Continuity, memory and handoffs**
 
-- [`artifacts/capability-genome/research/phoenix-public-repository-corpus.json`](../../artifacts/capability-genome/research/phoenix-public-repository-corpus.json) — MEASURED_READ_ONLY_UNTRUSTED_NOT_ADMITTED · uberbond.capability-genome.phoenix-research-corpus.v1
+- [`artifacts/capability-genome/research/phoenix-public-repository-corpus.json`](../../artifacts/capability-genome/research/phoenix-public-repository-corpus.json) — MEASURED_READ_ONLY_UNTRUSTED_NOT_ADMITTED · uberbond.capability-genome.phoenix-research-corpus.v1 _(matched by name only)_
 
 **GENESIS, moonshots and Perpetual Frontier**
 
-- [`genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1
-- [`genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1
+- [`genesis-frontier-deepening-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-frontier-deepening-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_FRONTIER_DEEPENING_RUNTIME_PROOF_PASSED · uberbond.genesis-frontier-deepening-runtime-proof.v1 _(matched by name only)_
+- [`genesis-partial-runtime-proof-2026-09-13.json`](../../artifacts/capability-genome/genesis-partial-runtime-proof-2026-09-13.json) — 2026-09-13 · GENESIS_PARTIAL_RUNTIME_PROOF_PASSED · uberbond.genesis-partial-runtime-proof.v1 _(matched by name only)_
 
 **Frontier cognition and model routing**
 
-- [`frontier-internal-satisfaction-review-2026-09-13.json`](../../artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json) — 2026-09-13 · FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED · uberbond.frontier-internal-satisfaction-review.v1
+- [`frontier-internal-satisfaction-review-2026-09-13.json`](../../artifacts/capability-genome/frontier-internal-satisfaction-review-2026-09-13.json) — 2026-09-13 · FRONTIER_INTERNAL_SATISFACTION_INDEPENDENTLY_REVIEWED · uberbond.frontier-internal-satisfaction-review.v1 _(matched by name only)_
 
 **Capability Genome, skills and Wallbreaker**
 
-- [`atom-evidence-terms.json`](../../artifacts/capability-genome/atom-evidence-terms.json) — uberbond.capability-genome.atom-evidence-terms.v1
-- [`capability-atoms.json`](../../artifacts/capability-genome/capability-atoms.json) — uberbond.capability-genome.atoms.v1
-- [`foundation-receipt.json`](../../artifacts/capability-genome/foundation-receipt.json) — uberbond.capability-genome.foundation-receipt.v1
-- [`harvest-seed-2026-09-12.json`](../../artifacts/capability-genome/harvest-seed-2026-09-12.json) — 2026-09-12 · HARVEST_STARTED_MEASURED_SEED · uberbond.capability-harvest-seed.v1
-- [`artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json`](../../artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json) — 2026-09-01 · anthropics · PINNED_PUBLIC_SKILL_BODY_READ · uberbond.capability-genome.normalized-records.v1
-- [`reviewed-unmapped-needs.json`](../../artifacts/capability-genome/reviewed-unmapped-needs.json) — uberbond.capability-genome.reviewed-unmapped-needs.v1
-- [`source-registry.json`](../../artifacts/capability-genome/source-registry.json) — Official MCP Registry · uberbond.capability-genome.sources.v1
+- [`atom-evidence-terms.json`](../../artifacts/capability-genome/atom-evidence-terms.json) — uberbond.capability-genome.atom-evidence-terms.v1 _(matched by name only)_
+- [`capability-atoms.json`](../../artifacts/capability-genome/capability-atoms.json) — uberbond.capability-genome.atoms.v1 _(matched by name only)_
+- [`foundation-receipt.json`](../../artifacts/capability-genome/foundation-receipt.json) — uberbond.capability-genome.foundation-receipt.v1 _(matched by name only)_
+- [`harvest-seed-2026-09-12.json`](../../artifacts/capability-genome/harvest-seed-2026-09-12.json) — 2026-09-12 · HARVEST_STARTED_MEASURED_SEED · uberbond.capability-harvest-seed.v1 _(matched by name only)_
+- [`artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json`](../../artifacts/capability-genome/pilot/normalized-capability-records-2026-09-01.json) — 2026-09-01 · anthropics · PINNED_PUBLIC_SKILL_BODY_READ · uberbond.capability-genome.normalized-records.v1 _(matched by name only)_
+- [`reviewed-unmapped-needs.json`](../../artifacts/capability-genome/reviewed-unmapped-needs.json) — uberbond.capability-genome.reviewed-unmapped-needs.v1 _(matched by name only)_
+- [`source-registry.json`](../../artifacts/capability-genome/source-registry.json) — Official MCP Registry · uberbond.capability-genome.sources.v1 _(matched by name only)_
 
 **Agent mesh, relay and autonomy**
 
-- [`night-run-5-dependency-cycle-2026-09-02.json`](../../artifacts/capability-genome/night-run-5-dependency-cycle-2026-09-02.json) — 2026-09-02 · PENDING_EXACT_HEAD_CI · uberbond.capability-genome.night-receipt.v1
+- [`night-run-5-dependency-cycle-2026-09-02.json`](../../artifacts/capability-genome/night-run-5-dependency-cycle-2026-09-02.json) — 2026-09-02 · PENDING_EXACT_HEAD_CI · uberbond.capability-genome.night-receipt.v1 _(matched by name only)_
 
 **Opportunity and world intelligence**
 
-- [`artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1
-- [`artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1
+- [`artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-repository-candidates-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1 _(matched by name only)_
+- [`artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json`](../../artifacts/capability-genome/pilot/world-skill-bodies-2026-08-31.json) — 2026-08-31 · uberbond.capability-genome.corpus-state.v1 _(matched by name only)_
 
 ## capability-reality
 
-- [`artifacts/capability-reality/observed.json`](../../artifacts/capability-reality/observed.json) — uberbond.capability-reality.receipts.v1
-- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1
+- [`artifacts/capability-reality/observed.json`](../../artifacts/capability-reality/observed.json) — uberbond.capability-reality.receipts.v1 _(matched by name only)_
+- [`artifacts/capability-reality/security-runtime-2026-09-13.json`](../../artifacts/capability-reality/security-runtime-2026-09-13.json) — 2026-09-13 · uberbond.owned-security-runtime.receipt.v1 _(matched by name only)_
 
 ## closure
 
@@ -110,378 +110,378 @@ JSON registries, receipts, research corpora and recovered history.
 
 ## commercial
 
-- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1
+- [`artifacts/commercial/first-money-partner-canary-2026-09-04.json`](../../artifacts/commercial/first-money-partner-canary-2026-09-04.json) — 2026-09-04 · White-label Lead-Path Revenue Leak Evidence Sprint · uberbond.commercial-canary.v1 _(matched by name only)_
 
 ## constitution
 
-- [`artifacts/constitution/directives.json`](../../artifacts/constitution/directives.json) — COMPILED_WITH_CANDIDATE_TESTS · uberbond-constitution-directives-1.0.0
-- [`artifacts/constitution/open-founder-decisions.json`](../../artifacts/constitution/open-founder-decisions.json) — uberbond-constitution-open-founder-decisions-1.0.0
-- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0
+- [`artifacts/constitution/directives.json`](../../artifacts/constitution/directives.json) — COMPILED_WITH_CANDIDATE_TESTS · uberbond-constitution-directives-1.0.0 _(matched by name only)_
+- [`artifacts/constitution/open-founder-decisions.json`](../../artifacts/constitution/open-founder-decisions.json) — uberbond-constitution-open-founder-decisions-1.0.0 _(matched by name only)_
+- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0 _(matched by name only)_
 
 ## cowork-jev-live
 
-- [`artifacts/cowork-jev-live/verification-20260919.json`](../../artifacts/cowork-jev-live/verification-20260919.json) — 2026-09-19 · uberbond.cowork-jev-live-activation.verification.v1
+- [`artifacts/cowork-jev-live/verification-20260919.json`](../../artifacts/cowork-jev-live/verification-20260919.json) — 2026-09-19 · uberbond.cowork-jev-live-activation.verification.v1 _(matched by name only)_
 
 ## event-horizon
 
-- [`artifacts/event-horizon/economic-genome-2026-08-31.json`](../../artifacts/event-horizon/economic-genome-2026-08-31.json) — 2026-08-31 · Partner Evidence Rail · CURRENT_CHAMPION · uberbond-event-horizon-1.0.0
+- [`artifacts/event-horizon/economic-genome-2026-08-31.json`](../../artifacts/event-horizon/economic-genome-2026-08-31.json) — 2026-08-31 · Partner Evidence Rail · CURRENT_CHAMPION · uberbond-event-horizon-1.0.0 _(matched by name only)_
 
 ## first-money
 
-- [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · uberbond.first-money-edge-matrix.v1
+- [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · uberbond.first-money-edge-matrix.v1 _(matched by name only)_
 
 ## genesis
 
 **Continuity, memory and handoffs**
 
-- [`pr342-causal-closure-2026-09-04.json`](../../artifacts/genesis/pr342-causal-closure-2026-09-04.json) — 2026-09-04 · SOURCE_CAUSAL_REPAIR_PRESENT · uberbond.pr342-causal-closure.v1
-- [`pr342-verification-watch-2026-09-04.json`](../../artifacts/genesis/pr342-verification-watch-2026-09-04.json) — 2026-09-04 · DIVERGED · uberbond.pr342-verification-watch.v1
+- [`pr342-causal-closure-2026-09-04.json`](../../artifacts/genesis/pr342-causal-closure-2026-09-04.json) — 2026-09-04 · SOURCE_CAUSAL_REPAIR_PRESENT · uberbond.pr342-causal-closure.v1 _(matched by name only)_
+- [`pr342-verification-watch-2026-09-04.json`](../../artifacts/genesis/pr342-verification-watch-2026-09-04.json) — 2026-09-04 · DIVERGED · uberbond.pr342-verification-watch.v1 _(matched by name only)_
 
 **GENESIS, moonshots and Perpetual Frontier**
 
-- [`GENESIS_BURST_INDEX.json`](../../artifacts/genesis/GENESIS_BURST_INDEX.json) — uberbond.genesis-burst-index.v1
-- [`GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1
-- [`GENESIS_ESCALATION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-escalation-runtime.v1
-- [`GENESIS_LIVE_NURSERY_20260922.json`](../../artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json) — 2026-09-22 · Capability Gap Closure Compiler · PUBLIC_PRIMARY_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json) — 2026-09-25 · uberbond.genesis-probe-receipt.v1
-- [`GENESIS_SELF_CAPABILITY_BURST_20260922.json`](../../artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json) — 2026-09-22 · Option-Constraint Eraser · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1
-- [`GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-0015.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0015.json) — 2026-09-22 · Capability Chimera Compiler · uberbond.genesis-realization-receipt.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-0021.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0021.json) — 2026-09-22 · Autonomy Compression Ratio · uberbond.genesis-realization-receipt.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json) — 2026-09-22 · Autonomous Failure-to-Patch Reflex · uberbond.genesis-realization-receipt.v1
-- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json) — 2026-09-22 · Blackout-First Compute Planner · uberbond.genesis-realization-receipt.v1
+- [`GENESIS_BURST_INDEX.json`](../../artifacts/genesis/GENESIS_BURST_INDEX.json) — uberbond.genesis-burst-index.v1 _(matched by name only)_
+- [`GENESIS_COGNITION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_COGNITION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-cognition-runtime.v1 _(matched by name only)_
+- [`GENESIS_ESCALATION_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_ESCALATION_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-escalation-runtime.v1 _(matched by name only)_
+- [`GENESIS_LIVE_NURSERY_20260922.json`](../../artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json) — 2026-09-22 · Capability Gap Closure Compiler · PUBLIC_PRIMARY_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_FIRST_CASH_BURST_20260925.json) — 2026-09-25 · Consent Bridge Invitations · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json`](../../artifacts/genesis/GENESIS_OUTREACH_PROBE_HIRING_SIGNAL_20260925.json) — 2026-09-25 · uberbond.genesis-probe-receipt.v1 _(matched by name only)_
+- [`GENESIS_SELF_CAPABILITY_BURST_20260922.json`](../../artifacts/genesis/GENESIS_SELF_CAPABILITY_BURST_20260922.json) — 2026-09-22 · Option-Constraint Eraser · CURRENT_EXACT_SOURCE_SIGNAL · uberbond.genesis-live-nursery.v1 _(matched by name only)_
+- [`GENESIS_SYSTEM_ONE_RUNTIME_20260922.json`](../../artifacts/genesis/GENESIS_SYSTEM_ONE_RUNTIME_20260922.json) — 2026-09-22 · ACTIVE · uberbond.genesis-system-one-runtime.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-0015.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0015.json) — 2026-09-22 · Capability Chimera Compiler · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-0021.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-0021.json) — 2026-09-22 · Autonomy Compression Ratio · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0007.json) — 2026-09-22 · Autonomous Failure-to-Patch Reflex · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json) — 2026-09-22 · Blackout-First Compute Planner · uberbond.genesis-realization-receipt.v1 _(matched by name only)_
 
 **Capability Genome, skills and Wallbreaker**
 
-- [`WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED
+- [`WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json`](../../artifacts/genesis/WALLBREAKER_OUTREACH_FIRST_CASH_20260925.json) — 2026-09-25 · CANDIDATE_SELECTED _(matched by name only)_
 
 ## inevitability-v9-carrier
 
 **ASI research and evidence programs**
 
-- [`MANIFEST.json`](../../artifacts/inevitability-v9-carrier/MANIFEST.json) — UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt · uberbond.v9.lossless-generator-carrier.3.0.0
-- [`README.md`](../../artifacts/inevitability-v9-carrier/README.md) — UberBond V9 exact-source repository carrier
-- [`artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64)
-- [`artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64)
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64)
+- [`MANIFEST.json`](../../artifacts/inevitability-v9-carrier/MANIFEST.json) — UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt · uberbond.v9.lossless-generator-carrier.3.0.0 _(matched by name only)_
+- [`README.md`](../../artifacts/inevitability-v9-carrier/README.md) — UberBond V9 exact-source repository carrier _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64) _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64) _(matched by name only)_
 
 ## jev-noetic-autocompiler
 
-- [`artifacts/jev-noetic-autocompiler/verification-20260919.json`](../../artifacts/jev-noetic-autocompiler/verification-20260919.json) — 2026-09-19 · DEPLOYMENT_RATE_LIMITED · uberbond.jev-noetic-autocompiler.verification.v1
+- [`artifacts/jev-noetic-autocompiler/verification-20260919.json`](../../artifacts/jev-noetic-autocompiler/verification-20260919.json) — 2026-09-19 · DEPLOYMENT_RATE_LIMITED · uberbond.jev-noetic-autocompiler.verification.v1 _(matched by name only)_
 
 ## jev-uberlit
 
-- [`artifacts/jev-uberlit/verification-20260919.json`](../../artifacts/jev-uberlit/verification-20260919.json) — 2026-09-19 · RUNNER_INFRASTRUCTURE_NON_EVIDENCE · uberbond.jev-uberlit-sovereign-activation.verification.v1
+- [`artifacts/jev-uberlit/verification-20260919.json`](../../artifacts/jev-uberlit/verification-20260919.json) — 2026-09-19 · RUNNER_INFRASTRUCTURE_NON_EVIDENCE · uberbond.jev-uberlit-sovereign-activation.verification.v1 _(matched by name only)_
 
 ## machiavelli
 
-- [`artifacts/machiavelli/profit-tournament.json`](../../artifacts/machiavelli/profit-tournament.json) — Capital-Control Holonomy Switch: EGP T-bill carry with a topological devaluation alarm · uberbond.machiavelli-profit-tournament.v1
-- [`artifacts/machiavelli/scoreboard.json`](../../artifacts/machiavelli/scoreboard.json) — uberbond.machiavelli-scoreboard.v1
-- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1
-- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1
-- [`artifacts/machiavelli/wealth-mechanism-atlas.json`](../../artifacts/machiavelli/wealth-mechanism-atlas.json) — uberbond.machiavelli-wealth-mechanism-atlas.v1
+- [`artifacts/machiavelli/profit-tournament.json`](../../artifacts/machiavelli/profit-tournament.json) — Capital-Control Holonomy Switch: EGP T-bill carry with a topological devaluation alarm · uberbond.machiavelli-profit-tournament.v1 _(matched by name only)_
+- [`artifacts/machiavelli/scoreboard.json`](../../artifacts/machiavelli/scoreboard.json) — uberbond.machiavelli-scoreboard.v1 _(matched by name only)_
+- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
+- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
+- [`artifacts/machiavelli/wealth-mechanism-atlas.json`](../../artifacts/machiavelli/wealth-mechanism-atlas.json) — uberbond.machiavelli-wealth-mechanism-atlas.v1 _(matched by name only)_
 
 ## night
 
-- [`artifacts/night/swarm/receipts/AUTO-04.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/AUTO-04.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0
-- [`artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0
-- [`artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0
+- [`artifacts/night/swarm/receipts/AUTO-04.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/AUTO-04.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-02.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json`](../../artifacts/night/swarm/receipts/DEPLOY-03.WORK-CURRENT.json) — PASS_REUSED_EXECUTED_IDENTICAL_SOURCE · uberbond-night-swarm-receipt-1.0.0 _(matched by name only)_
 
 ## night-frontier
 
-- [`artifacts/night-frontier/2026-09-03-run-08.json`](../../artifacts/night-frontier/2026-09-03-run-08.json) — 2026-09-03
-- [`artifacts/night-frontier/2026-09-03-run-09.json`](../../artifacts/night-frontier/2026-09-03-run-09.json) — 2026-09-03
-- [`artifacts/night-frontier/2026-09-03-run-10.json`](../../artifacts/night-frontier/2026-09-03-run-10.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-03-run-11.json`](../../artifacts/night-frontier/2026-09-03-run-11.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-03-run-12.json`](../../artifacts/night-frontier/2026-09-03-run-12.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-03-run-13.json`](../../artifacts/night-frontier/2026-09-03-run-13.json) — 2026-09-03 · IMPLEMENTATION_WRITE_BLOCKED
-- [`artifacts/night-frontier/2026-09-03-run-14.json`](../../artifacts/night-frontier/2026-09-03-run-14.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1
-- [`artifacts/night-frontier/2026-09-04-run-15.json`](../../artifacts/night-frontier/2026-09-04-run-15.json) — 2026-09-04 · CLEAN_TREE_COMPOSITION_ON_CURRENT_MAIN · uberbond-night-frontier-receipt-1.0.0
+- [`artifacts/night-frontier/2026-09-03-run-08.json`](../../artifacts/night-frontier/2026-09-03-run-08.json) — 2026-09-03 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-09.json`](../../artifacts/night-frontier/2026-09-03-run-09.json) — 2026-09-03 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-10.json`](../../artifacts/night-frontier/2026-09-03-run-10.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-11.json`](../../artifacts/night-frontier/2026-09-03-run-11.json) — 2026-09-03 · IMPLEMENTED_UNVERIFIED_HOSTED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-12.json`](../../artifacts/night-frontier/2026-09-03-run-12.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-13.json`](../../artifacts/night-frontier/2026-09-03-run-13.json) — 2026-09-03 · IMPLEMENTATION_WRITE_BLOCKED _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-03-run-14.json`](../../artifacts/night-frontier/2026-09-03-run-14.json) — 2026-09-03 · IMPLEMENTED_HOSTED_UNVERIFIED · uberbond.night-frontier-receipt.v1 _(matched by name only)_
+- [`artifacts/night-frontier/2026-09-04-run-15.json`](../../artifacts/night-frontier/2026-09-04-run-15.json) — 2026-09-04 · CLEAN_TREE_COMPOSITION_ON_CURRENT_MAIN · uberbond-night-frontier-receipt-1.0.0 _(matched by name only)_
 
 ## night-genome
 
-- [`artifacts/night-genome/2026-09-02-run-07.json`](../../artifacts/night-genome/2026-09-02-run-07.json) — 2026-09-02 · uberbond.night-genome.run-receipt.v1
-- [`artifacts/night-genome/2026-09-02T0431-run-01.json`](../../artifacts/night-genome/2026-09-02T0431-run-01.json) — 2026-09-02 · uberbond.night-genome.receipt.v1
-- [`artifacts/night-genome/2026-09-02T0533-run-02.json`](../../artifacts/night-genome/2026-09-02T0533-run-02.json) — 2026-09-02 · completed · uberbond-night-genome-receipt-1.0.0
-- [`artifacts/night-genome/2026-09-02T0636-run-03.json`](../../artifacts/night-genome/2026-09-02T0636-run-03.json) — 2026-09-02 · PENDING_EXACT_HEAD_CI · uberbond.night-genome.receipt.v1
-- [`artifacts/night-genome/2026-09-02T0730-run-04.json`](../../artifacts/night-genome/2026-09-02T0730-run-04.json) — 2026-09-02 · browser · uberbond.night-genome.receipt.v1
-- [`artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json`](../../artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json) — 2026-09-02 · uberbond-night-genome-run-receipt-1.0.0
+- [`artifacts/night-genome/2026-09-02-run-07.json`](../../artifacts/night-genome/2026-09-02-run-07.json) — 2026-09-02 · uberbond.night-genome.run-receipt.v1 _(matched by name only)_
+- [`artifacts/night-genome/2026-09-02T0431-run-01.json`](../../artifacts/night-genome/2026-09-02T0431-run-01.json) — 2026-09-02 · uberbond.night-genome.receipt.v1 _(matched by name only)_
+- [`artifacts/night-genome/2026-09-02T0533-run-02.json`](../../artifacts/night-genome/2026-09-02T0533-run-02.json) — 2026-09-02 · completed · uberbond-night-genome-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-genome/2026-09-02T0636-run-03.json`](../../artifacts/night-genome/2026-09-02T0636-run-03.json) — 2026-09-02 · PENDING_EXACT_HEAD_CI · uberbond.night-genome.receipt.v1 _(matched by name only)_
+- [`artifacts/night-genome/2026-09-02T0730-run-04.json`](../../artifacts/night-genome/2026-09-02T0730-run-04.json) — 2026-09-02 · browser · uberbond.night-genome.receipt.v1 _(matched by name only)_
+- [`artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json`](../../artifacts/night-genome/run-6-economic-fitness-boundaries-20260902.json) — 2026-09-02 · uberbond-night-genome-run-receipt-1.0.0 _(matched by name only)_
 
 ## night-integration
 
-- [`artifacts/night-integration/2026-09-03-run-08.json`](../../artifacts/night-integration/2026-09-03-run-08.json) — 2026-09-03 · uberbond.night-integration-handoff.v1
-- [`artifacts/night-integration/2026-09-03-run-09.json`](../../artifacts/night-integration/2026-09-03-run-09.json) — 2026-09-03 · STALE_BUT_INTENTIONALLY_NOT_REGENERATED_UNTIL_SOURCE_TRUTH_SETTLES · uberbond-night-integration-receipt-1.0.0
-- [`artifacts/night-integration/2026-09-03-run-10.json`](../../artifacts/night-integration/2026-09-03-run-10.json) — 2026-09-03 · completed · uberbond.night-integration-run.v1
-- [`artifacts/night-integration/2026-09-03-run-11.json`](../../artifacts/night-integration/2026-09-03-run-11.json) — 2026-09-03 · uberbond-night-integration-receipt-1.1.0
-- [`artifacts/night-integration/2026-09-03-run-12.json`](../../artifacts/night-integration/2026-09-03-run-12.json) — 2026-09-03 · ACTIVE_PEER_OWNED_SOURCE_CLAIMS_UNVERIFIED_HOSTED · uberbond-night-integration-receipt-1.0.0
-- [`artifacts/night-integration/2026-09-03-run-13.json`](../../artifacts/night-integration/2026-09-03-run-13.json) — 2026-09-03
+- [`artifacts/night-integration/2026-09-03-run-08.json`](../../artifacts/night-integration/2026-09-03-run-08.json) — 2026-09-03 · uberbond.night-integration-handoff.v1 _(matched by name only)_
+- [`artifacts/night-integration/2026-09-03-run-09.json`](../../artifacts/night-integration/2026-09-03-run-09.json) — 2026-09-03 · STALE_BUT_INTENTIONALLY_NOT_REGENERATED_UNTIL_SOURCE_TRUTH_SETTLES · uberbond-night-integration-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-integration/2026-09-03-run-10.json`](../../artifacts/night-integration/2026-09-03-run-10.json) — 2026-09-03 · completed · uberbond.night-integration-run.v1 _(matched by name only)_
+- [`artifacts/night-integration/2026-09-03-run-11.json`](../../artifacts/night-integration/2026-09-03-run-11.json) — 2026-09-03 · uberbond-night-integration-receipt-1.1.0 _(matched by name only)_
+- [`artifacts/night-integration/2026-09-03-run-12.json`](../../artifacts/night-integration/2026-09-03-run-12.json) — 2026-09-03 · ACTIVE_PEER_OWNED_SOURCE_CLAIMS_UNVERIFIED_HOSTED · uberbond-night-integration-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-integration/2026-09-03-run-13.json`](../../artifacts/night-integration/2026-09-03-run-13.json) — 2026-09-03 _(matched by name only)_
 
 ## night-payment-closure
 
-- [`artifacts/night-payment-closure/run-02-2026-09-02.json`](../../artifacts/night-payment-closure/run-02-2026-09-02.json) — 2026-09-02 · postgres · uberbond-night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-03-2026-09-02.json`](../../artifacts/night-payment-closure/run-03-2026-09-02.json) — 2026-09-02 · deterministic · SOFTWARE_GAP_CLOSED__RUNNER_EXECUTION_STILL_BLOCKED · uberbond-night-payment-closure-run-3.0.0
-- [`artifacts/night-payment-closure/run-04-2026-09-02.json`](../../artifacts/night-payment-closure/run-04-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-05-2026-09-02.json`](../../artifacts/night-payment-closure/run-05-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-06-2026-09-02.json`](../../artifacts/night-payment-closure/run-06-2026-09-02.json) — 2026-09-02 · OPEN_P1_TRUTH_BINDING_GAP · night-payment-closure-run-1.0.0
-- [`artifacts/night-payment-closure/run-07-2026-09-02.json`](../../artifacts/night-payment-closure/run-07-2026-09-02.json) — 2026-09-02 · first-cash payment-to-product binding · uberbond-night-payment-closure-run-07-1.0.0
+- [`artifacts/night-payment-closure/run-02-2026-09-02.json`](../../artifacts/night-payment-closure/run-02-2026-09-02.json) — 2026-09-02 · postgres · uberbond-night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-03-2026-09-02.json`](../../artifacts/night-payment-closure/run-03-2026-09-02.json) — 2026-09-02 · deterministic · SOFTWARE_GAP_CLOSED__RUNNER_EXECUTION_STILL_BLOCKED · uberbond-night-payment-closure-run-3.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-04-2026-09-02.json`](../../artifacts/night-payment-closure/run-04-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-05-2026-09-02.json`](../../artifacts/night-payment-closure/run-05-2026-09-02.json) — 2026-09-02 · uberbond-night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-06-2026-09-02.json`](../../artifacts/night-payment-closure/run-06-2026-09-02.json) — 2026-09-02 · OPEN_P1_TRUTH_BINDING_GAP · night-payment-closure-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-payment-closure/run-07-2026-09-02.json`](../../artifacts/night-payment-closure/run-07-2026-09-02.json) — 2026-09-02 · first-cash payment-to-product binding · uberbond-night-payment-closure-run-07-1.0.0 _(matched by name only)_
 
 ## night-postal
 
-- [`artifacts/night-postal/2026-09-02-run-01.json`](../../artifacts/night-postal/2026-09-02-run-01.json) — 2026-09-02 · DURABLE_PROGRESS_UNVERIFIED_BY_EXECUTION_ENVIRONMENT · uberbond.night-postal-handoff.v1
-- [`artifacts/night-postal/2026-09-02-run-02.json`](../../artifacts/night-postal/2026-09-02-run-02.json) — 2026-09-02 · P0_DRIFT_FIXED__EXACT_HEAD_EXECUTION_PROOF_PENDING · uberbond.night-postal-handoff.v1
-- [`artifacts/night-postal/2026-09-02-run-03.json`](../../artifacts/night-postal/2026-09-02-run-03.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-04.json`](../../artifacts/night-postal/2026-09-02-run-04.json) — 2026-09-02 · SOFTWARE_HARDENING_ADVANCED_VERIFICATION_EXTERNALLY_BLOCKED · uberbond-night-postal-run-receipt-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-05.json`](../../artifacts/night-postal/2026-09-02-run-05.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-06.json`](../../artifacts/night-postal/2026-09-02-run-06.json) — 2026-09-02 · SENDER_DNS_EVIDENCE_BOUNDARY_FIXED__EXACT_HEAD_EXECUTION_AND_FINAL_SAFETY_FEEDBACK_INTEGRATION_PENDING · uberbond-night-postal-run-1.0.0
-- [`artifacts/night-postal/2026-09-02-run-07.json`](../../artifacts/night-postal/2026-09-02-run-07.json) — 2026-09-02 · browser · DIVERGED_NO_OBSERVED_CODE_CONFLICT · uberbond-night-postal-run-1.0.0
+- [`artifacts/night-postal/2026-09-02-run-01.json`](../../artifacts/night-postal/2026-09-02-run-01.json) — 2026-09-02 · DURABLE_PROGRESS_UNVERIFIED_BY_EXECUTION_ENVIRONMENT · uberbond.night-postal-handoff.v1 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-02.json`](../../artifacts/night-postal/2026-09-02-run-02.json) — 2026-09-02 · P0_DRIFT_FIXED__EXACT_HEAD_EXECUTION_PROOF_PENDING · uberbond.night-postal-handoff.v1 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-03.json`](../../artifacts/night-postal/2026-09-02-run-03.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-04.json`](../../artifacts/night-postal/2026-09-02-run-04.json) — 2026-09-02 · SOFTWARE_HARDENING_ADVANCED_VERIFICATION_EXTERNALLY_BLOCKED · uberbond-night-postal-run-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-05.json`](../../artifacts/night-postal/2026-09-02-run-05.json) — 2026-09-02 · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-06.json`](../../artifacts/night-postal/2026-09-02-run-06.json) — 2026-09-02 · SENDER_DNS_EVIDENCE_BOUNDARY_FIXED__EXACT_HEAD_EXECUTION_AND_FINAL_SAFETY_FEEDBACK_INTEGRATION_PENDING · uberbond-night-postal-run-1.0.0 _(matched by name only)_
+- [`artifacts/night-postal/2026-09-02-run-07.json`](../../artifacts/night-postal/2026-09-02-run-07.json) — 2026-09-02 · browser · DIVERGED_NO_OBSERVED_CODE_CONFLICT · uberbond-night-postal-run-1.0.0 _(matched by name only)_
 
 ## night-verification
 
-- [`artifacts/night-verification/2026-09-02-run-01.json`](../../artifacts/night-verification/2026-09-02-run-01.json) — 2026-09-02 · ENVIRONMENT_BLOCKED_BEFORE_TEST_STEPS · uberbond.night-verification.receipt.v1
-- [`artifacts/night-verification/2026-09-02-run-02.json`](../../artifacts/night-verification/2026-09-02-run-02.json) — 2026-09-02 · claude/uberbond-overnight-shift-o73nrs · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_FRESH_EXACT_HEAD_RECEIPT · uberbond-night-verification-receipt-1.0.0
-- [`artifacts/night-verification/2026-09-02-run-03.json`](../../artifacts/night-verification/2026-09-02-run-03.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_AFTER_RETRY_WITH_REFRESHED_MUTATION_BACKLOG · uberbond-night-verification-receipt-1.0.0
-- [`artifacts/night-verification/2026-09-02-run-04.json`](../../artifacts/night-verification/2026-09-02-run-04.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_ADVANCED_NIGHT_GUARD_BACKLOG · uberbond-night-verification-receipt-1.0.0
-- [`artifacts/night-verification/2026-09-02-run-05.json`](../../artifacts/night-verification/2026-09-02-run-05.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_RUN05_MUTATION_BACKLOG_ADVANCED · uberbond-night-verification-receipt-1.0.0
-- [`artifacts/night-verification/2026-09-02-run-06.json`](../../artifacts/night-verification/2026-09-02-run-06.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_RUN06_MUTATION_BACKLOG_AND_PAYMENT_P1_REGISTERED · uberbond-night-verification-receipt-1.0.0
-- [`artifacts/night-verification/2026-09-02-run-07.json`](../../artifacts/night-verification/2026-09-02-run-07.json) — 2026-09-02 · UNEXECUTED_ENVIRONMENT_BLOCKED · uberbond-night-verification-receipt-1.0.0
+- [`artifacts/night-verification/2026-09-02-run-01.json`](../../artifacts/night-verification/2026-09-02-run-01.json) — 2026-09-02 · ENVIRONMENT_BLOCKED_BEFORE_TEST_STEPS · uberbond.night-verification.receipt.v1 _(matched by name only)_
+- [`artifacts/night-verification/2026-09-02-run-02.json`](../../artifacts/night-verification/2026-09-02-run-02.json) — 2026-09-02 · claude/uberbond-overnight-shift-o73nrs · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_FRESH_EXACT_HEAD_RECEIPT · uberbond-night-verification-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-verification/2026-09-02-run-03.json`](../../artifacts/night-verification/2026-09-02-run-03.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_AFTER_RETRY_WITH_REFRESHED_MUTATION_BACKLOG · uberbond-night-verification-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-verification/2026-09-02-run-04.json`](../../artifacts/night-verification/2026-09-02-run-04.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_ADVANCED_NIGHT_GUARD_BACKLOG · uberbond-night-verification-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-verification/2026-09-02-run-05.json`](../../artifacts/night-verification/2026-09-02-run-05.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_RUN05_MUTATION_BACKLOG_ADVANCED · uberbond-night-verification-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-verification/2026-09-02-run-06.json`](../../artifacts/night-verification/2026-09-02-run-06.json) — 2026-09-02 · VERIFICATION_ENVIRONMENT_BLOCKED_WITH_RUN06_MUTATION_BACKLOG_AND_PAYMENT_P1_REGISTERED · uberbond-night-verification-receipt-1.0.0 _(matched by name only)_
+- [`artifacts/night-verification/2026-09-02-run-07.json`](../../artifacts/night-verification/2026-09-02-run-07.json) — 2026-09-02 · UNEXECUTED_ENVIRONMENT_BLOCKED · uberbond-night-verification-receipt-1.0.0 _(matched by name only)_
 
 ## nullstar
 
-- [`artifacts/nullstar/directive-reconciliation.json`](../../artifacts/nullstar/directive-reconciliation.json) — THE ACTUAL MISSION · FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE
-- [`artifacts/nullstar/terminal-declarations.json`](../../artifacts/nullstar/terminal-declarations.json) — uberbond-nullstar-declarations-1.0.0
+- [`artifacts/nullstar/directive-reconciliation.json`](../../artifacts/nullstar/directive-reconciliation.json) — THE ACTUAL MISSION · FOUNDER_DIRECTIVE_RECONCILED_AGAINST_REPOSITORY_EVIDENCE _(matched by name only)_
+- [`artifacts/nullstar/terminal-declarations.json`](../../artifacts/nullstar/terminal-declarations.json) — uberbond-nullstar-declarations-1.0.0 _(matched by name only)_
 
 ## nullstar-omega
 
 **ASI research and evidence programs**
 
-- [`G0-to-G1.json`](../../artifacts/nullstar-omega/G0-to-G1.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`G1-to-G2.json`](../../artifacts/nullstar-omega/G1-to-G2.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`G2-discriminating-test.json`](../../artifacts/nullstar-omega/G2-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`G2-to-G3.json`](../../artifacts/nullstar-omega/G2-to-G3.json) — INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE
-- [`G3-prospective-declaration.json`](../../artifacts/nullstar-omega/G3-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0
-- [`G3-to-G4.json`](../../artifacts/nullstar-omega/G3-to-G4.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`G4-discriminating-test.json`](../../artifacts/nullstar-omega/G4-discriminating-test.json) — SOFTWARE_OUTCOME_SCORED · uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`G4-prospective-declaration.json`](../../artifacts/nullstar-omega/G4-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0
-- [`G4-to-G5.json`](../../artifacts/nullstar-omega/G4-to-G5.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`G5-discriminating-test.json`](../../artifacts/nullstar-omega/G5-discriminating-test.json) — SOME_DIMENSIONS_REFUSED_AS_EVIDENCE_REUSE · uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`G5-prospective-declaration.json`](../../artifacts/nullstar-omega/G5-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0
-- [`G5-to-G6.json`](../../artifacts/nullstar-omega/G5-to-G6.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED
-- [`G6-discriminating-test.json`](../../artifacts/nullstar-omega/G6-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0
-- [`baselines.json`](../../artifacts/nullstar-omega/baselines.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-omega-baselines-1.0.0
-- [`bottlenecks-G0.json`](../../artifacts/nullstar-omega/bottlenecks-G0.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`bottlenecks-G1.json`](../../artifacts/nullstar-omega/bottlenecks-G1.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`bottlenecks-G3.json`](../../artifacts/nullstar-omega/bottlenecks-G3.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`bottlenecks-G4.json`](../../artifacts/nullstar-omega/bottlenecks-G4.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`bottlenecks-G5.json`](../../artifacts/nullstar-omega/bottlenecks-G5.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`bottlenecks-G6.json`](../../artifacts/nullstar-omega/bottlenecks-G6.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED
-- [`denominator.json`](../../artifacts/nullstar-omega/denominator.json) — REPOSITORY_SELF_MODEL · NULLSTAR_OMEGA_DENOMINATOR_COMPILED
-- [`generalization.json`](../../artifacts/nullstar-omega/generalization.json) — TRANSFER_PROTOCOL_INVALID · uberbond-nullstar-omega-generalization-1.0.0
-- [`artifacts/nullstar-omega/generations/G0.json`](../../artifacts/nullstar-omega/generations/G0.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G1.json`](../../artifacts/nullstar-omega/generations/G1.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G2.json`](../../artifacts/nullstar-omega/generations/G2.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G3.json`](../../artifacts/nullstar-omega/generations/G3.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G4.json`](../../artifacts/nullstar-omega/generations/G4.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G5.json`](../../artifacts/nullstar-omega/generations/G5.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`artifacts/nullstar-omega/generations/G6.json`](../../artifacts/nullstar-omega/generations/G6.json) — NULLSTAR_OMEGA_GENERATION_RECORDED
-- [`holdout-manifest.json`](../../artifacts/nullstar-omega/holdout-manifest.json)
-- [`meta-improvement.json`](../../artifacts/nullstar-omega/meta-improvement.json) — MOVED_ELSEWHERE · uberbond-nullstar-omega-meta-improvement-1.0.0
-- [`reality-connection.json`](../../artifacts/nullstar-omega/reality-connection.json) — REALITY_CALIBRATED · uberbond-nullstar-omega-reality-connection-1.0.0
-- [`refutations.json`](../../artifacts/nullstar-omega/refutations.json) — uberbond-nullstar-omega-refutations-1.0.0
-- [`suite-retirement.json`](../../artifacts/nullstar-omega/suite-retirement.json) — SUITE_RETIRED · uberbond-nullstar-omega-suite-retirement-1.0.0
-- [`velocity.json`](../../artifacts/nullstar-omega/velocity.json) — uberbond-nullstar-omega-velocity-1.0.0
+- [`G0-to-G1.json`](../../artifacts/nullstar-omega/G0-to-G1.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`G1-to-G2.json`](../../artifacts/nullstar-omega/G1-to-G2.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`G2-discriminating-test.json`](../../artifacts/nullstar-omega/G2-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`G2-to-G3.json`](../../artifacts/nullstar-omega/G2-to-G3.json) — INSTRUMENT_CHANGED__DELTAS_ARE_NOT_A_CAPABILITY_CHANGE _(matched by name only)_
+- [`G3-prospective-declaration.json`](../../artifacts/nullstar-omega/G3-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
+- [`G3-to-G4.json`](../../artifacts/nullstar-omega/G3-to-G4.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`G4-discriminating-test.json`](../../artifacts/nullstar-omega/G4-discriminating-test.json) — SOFTWARE_OUTCOME_SCORED · uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`G4-prospective-declaration.json`](../../artifacts/nullstar-omega/G4-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
+- [`G4-to-G5.json`](../../artifacts/nullstar-omega/G4-to-G5.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`G5-discriminating-test.json`](../../artifacts/nullstar-omega/G5-discriminating-test.json) — SOME_DIMENSIONS_REFUSED_AS_EVIDENCE_REUSE · uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`G5-prospective-declaration.json`](../../artifacts/nullstar-omega/G5-prospective-declaration.json) — uberbond-nullstar-omega-prospective-declaration-1.0.0 _(matched by name only)_
+- [`G5-to-G6.json`](../../artifacts/nullstar-omega/G5-to-G6.json) — NULLSTAR_OMEGA_GENERATIONS_COMPARED _(matched by name only)_
+- [`G6-discriminating-test.json`](../../artifacts/nullstar-omega/G6-discriminating-test.json) — uberbond-nullstar-omega-discriminating-test-1.1.0 _(matched by name only)_
+- [`baselines.json`](../../artifacts/nullstar-omega/baselines.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-omega-baselines-1.0.0 _(matched by name only)_
+- [`bottlenecks-G0.json`](../../artifacts/nullstar-omega/bottlenecks-G0.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`bottlenecks-G1.json`](../../artifacts/nullstar-omega/bottlenecks-G1.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`bottlenecks-G3.json`](../../artifacts/nullstar-omega/bottlenecks-G3.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`bottlenecks-G4.json`](../../artifacts/nullstar-omega/bottlenecks-G4.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`bottlenecks-G5.json`](../../artifacts/nullstar-omega/bottlenecks-G5.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`bottlenecks-G6.json`](../../artifacts/nullstar-omega/bottlenecks-G6.json) — NULLSTAR_OMEGA_BOTTLENECKS_RANKED _(matched by name only)_
+- [`denominator.json`](../../artifacts/nullstar-omega/denominator.json) — REPOSITORY_SELF_MODEL · NULLSTAR_OMEGA_DENOMINATOR_COMPILED _(matched by name only)_
+- [`generalization.json`](../../artifacts/nullstar-omega/generalization.json) — TRANSFER_PROTOCOL_INVALID · uberbond-nullstar-omega-generalization-1.0.0 _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G0.json`](../../artifacts/nullstar-omega/generations/G0.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G1.json`](../../artifacts/nullstar-omega/generations/G1.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G2.json`](../../artifacts/nullstar-omega/generations/G2.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G3.json`](../../artifacts/nullstar-omega/generations/G3.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G4.json`](../../artifacts/nullstar-omega/generations/G4.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G5.json`](../../artifacts/nullstar-omega/generations/G5.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`artifacts/nullstar-omega/generations/G6.json`](../../artifacts/nullstar-omega/generations/G6.json) — NULLSTAR_OMEGA_GENERATION_RECORDED _(matched by name only)_
+- [`holdout-manifest.json`](../../artifacts/nullstar-omega/holdout-manifest.json) _(matched by name only)_
+- [`meta-improvement.json`](../../artifacts/nullstar-omega/meta-improvement.json) — MOVED_ELSEWHERE · uberbond-nullstar-omega-meta-improvement-1.0.0 _(matched by name only)_
+- [`reality-connection.json`](../../artifacts/nullstar-omega/reality-connection.json) — REALITY_CALIBRATED · uberbond-nullstar-omega-reality-connection-1.0.0 _(matched by name only)_
+- [`refutations.json`](../../artifacts/nullstar-omega/refutations.json) — uberbond-nullstar-omega-refutations-1.0.0 _(matched by name only)_
+- [`suite-retirement.json`](../../artifacts/nullstar-omega/suite-retirement.json) — SUITE_RETIRED · uberbond-nullstar-omega-suite-retirement-1.0.0 _(matched by name only)_
+- [`velocity.json`](../../artifacts/nullstar-omega/velocity.json) — uberbond-nullstar-omega-velocity-1.0.0 _(matched by name only)_
 
 ## nullstar-omega-absolute
 
-- [`artifacts/nullstar-omega-absolute/final-report.json`](../../artifacts/nullstar-omega-absolute/final-report.json) — NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main · EXECUTED · uberbond-nullstar-omega-absolute-final-report-1.0…
-- [`artifacts/nullstar-omega-absolute/gate-receipts.json`](../../artifacts/nullstar-omega-absolute/gate-receipts.json) — uberbond-nullstar-omega-absolute-gate-receipts-1.0.0
+- [`artifacts/nullstar-omega-absolute/final-report.json`](../../artifacts/nullstar-omega-absolute/final-report.json) — NULLSTAR OMEGA ABSOLUTE: reconcile the cognitive-measurement lineage onto current main · EXECUTED · uberbond-nullstar-omega-absolute-final-report-1.0… _(matched by name only)_
+- [`artifacts/nullstar-omega-absolute/gate-receipts.json`](../../artifacts/nullstar-omega-absolute/gate-receipts.json) — uberbond-nullstar-omega-absolute-gate-receipts-1.0.0 _(matched by name only)_
 
 ## nullstar-terminal
 
 **ASI research and evidence programs**
 
-- [`attribution-audit.json`](../../artifacts/nullstar-terminal/attribution-audit.json) — uberbond-nullstar-attribution-audit-1.0.0
-- [`baselines-v2.json`](../../artifacts/nullstar-terminal/baselines-v2.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-baselines-v2-1.0.0
-- [`branch-debt.json`](../../artifacts/nullstar-terminal/branch-debt.json) — uberbond-nullstar-branch-debt-1.0.0
-- [`branch-dispositions.json`](../../artifacts/nullstar-terminal/branch-dispositions.json) — UBER/OS Generation-0 sovereign operating-system substrate · NO_LONGER_GATES_A_BRANCH · uberbond-nullstar-branch-dispositions-1.0.0
-- [`completion-debt.json`](../../artifacts/nullstar-terminal/completion-debt.json) — uberbond-nullstar-completion-debt-1.0.0
-- [`cross-organ-transfer.json`](../../artifacts/nullstar-terminal/cross-organ-transfer.json) — uberbond-nullstar-cross-organ-transfer-1.0.0
-- [`failure-debt.json`](../../artifacts/nullstar-terminal/failure-debt.json) — FAILURE_DEBT_COMPILED
-- [`final-report.json`](../../artifacts/nullstar-terminal/final-report.json) — uberbond-nullstar-terminal-final-report-1.0.0
-- [`ga1-ablation.json`](../../artifacts/nullstar-terminal/ga1-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0
-- [`ga1-declaration.json`](../../artifacts/nullstar-terminal/ga1-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga1-result.json`](../../artifacts/nullstar-terminal/ga1-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga2-ablation.json`](../../artifacts/nullstar-terminal/ga2-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0
-- [`ga2-declaration.json`](../../artifacts/nullstar-terminal/ga2-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga2-result.json`](../../artifacts/nullstar-terminal/ga2-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga3-ablation.json`](../../artifacts/nullstar-terminal/ga3-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0
-- [`ga3-declaration.json`](../../artifacts/nullstar-terminal/ga3-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga3-result.json`](../../artifacts/nullstar-terminal/ga3-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga4-declaration.json`](../../artifacts/nullstar-terminal/ga4-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga4-result.json`](../../artifacts/nullstar-terminal/ga4-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga5-declaration.json`](../../artifacts/nullstar-terminal/ga5-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga5-result.json`](../../artifacts/nullstar-terminal/ga5-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga6-declaration.json`](../../artifacts/nullstar-terminal/ga6-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga6-result.json`](../../artifacts/nullstar-terminal/ga6-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga7-declaration.json`](../../artifacts/nullstar-terminal/ga7-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga7-result.json`](../../artifacts/nullstar-terminal/ga7-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`ga8-declaration.json`](../../artifacts/nullstar-terminal/ga8-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0
-- [`ga8-result.json`](../../artifacts/nullstar-terminal/ga8-result.json) — uberbond-nullstar-capability-generation-1.0.0
-- [`generalization-v2.json`](../../artifacts/nullstar-terminal/generalization-v2.json) — uberbond-nullstar-generalization-2.0.0
-- [`meta-improvement-v2.json`](../../artifacts/nullstar-terminal/meta-improvement-v2.json) — uberbond-nullstar-meta-improvement-2.0.0
-- [`probe-saturation.json`](../../artifacts/nullstar-terminal/probe-saturation.json) — uberbond-nullstar-probe-saturation-1.0.0
-- [`stranded-absent-determinations.json`](../../artifacts/nullstar-terminal/stranded-absent-determinations.json) — uberbond-nullstar-stranded-absent-determinations-1.0.0
-- [`stranded-supersession.json`](../../artifacts/nullstar-terminal/stranded-supersession.json) — uberbond-nullstar-stranded-supersession-1.0.0
+- [`attribution-audit.json`](../../artifacts/nullstar-terminal/attribution-audit.json) — uberbond-nullstar-attribution-audit-1.0.0 _(matched by name only)_
+- [`baselines-v2.json`](../../artifacts/nullstar-terminal/baselines-v2.json) — BASELINE_SET_PARTIAL_WITH_NAMED_BLOCKERS · uberbond-nullstar-baselines-v2-1.0.0 _(matched by name only)_
+- [`branch-debt.json`](../../artifacts/nullstar-terminal/branch-debt.json) — uberbond-nullstar-branch-debt-1.0.0 _(matched by name only)_
+- [`branch-dispositions.json`](../../artifacts/nullstar-terminal/branch-dispositions.json) — UBER/OS Generation-0 sovereign operating-system substrate · NO_LONGER_GATES_A_BRANCH · uberbond-nullstar-branch-dispositions-1.0.0 _(matched by name only)_
+- [`completion-debt.json`](../../artifacts/nullstar-terminal/completion-debt.json) — uberbond-nullstar-completion-debt-1.0.0 _(matched by name only)_
+- [`cross-organ-transfer.json`](../../artifacts/nullstar-terminal/cross-organ-transfer.json) — uberbond-nullstar-cross-organ-transfer-1.0.0 _(matched by name only)_
+- [`failure-debt.json`](../../artifacts/nullstar-terminal/failure-debt.json) — FAILURE_DEBT_COMPILED _(matched by name only)_
+- [`final-report.json`](../../artifacts/nullstar-terminal/final-report.json) — uberbond-nullstar-terminal-final-report-1.0.0 _(matched by name only)_
+- [`ga1-ablation.json`](../../artifacts/nullstar-terminal/ga1-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
+- [`ga1-declaration.json`](../../artifacts/nullstar-terminal/ga1-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga1-result.json`](../../artifacts/nullstar-terminal/ga1-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga2-ablation.json`](../../artifacts/nullstar-terminal/ga2-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
+- [`ga2-declaration.json`](../../artifacts/nullstar-terminal/ga2-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga2-result.json`](../../artifacts/nullstar-terminal/ga2-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga3-ablation.json`](../../artifacts/nullstar-terminal/ga3-ablation.json) — uberbond-nullstar-generation-ablation-1.0.0 _(matched by name only)_
+- [`ga3-declaration.json`](../../artifacts/nullstar-terminal/ga3-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga3-result.json`](../../artifacts/nullstar-terminal/ga3-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga4-declaration.json`](../../artifacts/nullstar-terminal/ga4-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga4-result.json`](../../artifacts/nullstar-terminal/ga4-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga5-declaration.json`](../../artifacts/nullstar-terminal/ga5-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga5-result.json`](../../artifacts/nullstar-terminal/ga5-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga6-declaration.json`](../../artifacts/nullstar-terminal/ga6-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga6-result.json`](../../artifacts/nullstar-terminal/ga6-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga7-declaration.json`](../../artifacts/nullstar-terminal/ga7-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga7-result.json`](../../artifacts/nullstar-terminal/ga7-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`ga8-declaration.json`](../../artifacts/nullstar-terminal/ga8-declaration.json) — uberbond-nullstar-capability-generation-declaration-1.0.0 _(matched by name only)_
+- [`ga8-result.json`](../../artifacts/nullstar-terminal/ga8-result.json) — uberbond-nullstar-capability-generation-1.0.0 _(matched by name only)_
+- [`generalization-v2.json`](../../artifacts/nullstar-terminal/generalization-v2.json) — uberbond-nullstar-generalization-2.0.0 _(matched by name only)_
+- [`meta-improvement-v2.json`](../../artifacts/nullstar-terminal/meta-improvement-v2.json) — uberbond-nullstar-meta-improvement-2.0.0 _(matched by name only)_
+- [`probe-saturation.json`](../../artifacts/nullstar-terminal/probe-saturation.json) — uberbond-nullstar-probe-saturation-1.0.0 _(matched by name only)_
+- [`stranded-absent-determinations.json`](../../artifacts/nullstar-terminal/stranded-absent-determinations.json) — uberbond-nullstar-stranded-absent-determinations-1.0.0 _(matched by name only)_
+- [`stranded-supersession.json`](../../artifacts/nullstar-terminal/stranded-supersession.json) — uberbond-nullstar-stranded-supersession-1.0.0 _(matched by name only)_
 
 ## omega-private-evidence
 
-- [`artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json`](../../artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json) — 2026-09-15 · LOCAL_ISOLATED_REPRODUCTION_RECEIPT_NOT_FULL_REPO_CI · uberbond.omega-private-evidence-receipt.v1
+- [`artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json`](../../artifacts/omega-private-evidence/structural-transfer-canary-2026-09-15.json) — 2026-09-15 · LOCAL_ISOLATED_REPRODUCTION_RECEIPT_NOT_FULL_REPO_CI · uberbond.omega-private-evidence-receipt.v1 _(matched by name only)_
 
 ## omnia-v9
 
-- [`artifacts/omnia-v9/canary-latency.json`](../../artifacts/omnia-v9/canary-latency.json) — omnia.v9.canary-latency.v1
-- [`artifacts/omnia-v9/closure-report.json`](../../artifacts/omnia-v9/closure-report.json) — omnia_v9_test · P3_POLICY_VERIFIED · omnia.v9.closure-report.v2
-- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json)
-- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1
-- [`artifacts/omnia-v9/frozen-baseline.json`](../../artifacts/omnia-v9/frozen-baseline.json) — omnia.v9.frozen-baseline.v1
-- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1
-- [`artifacts/omnia-v9/integration-report.json`](../../artifacts/omnia-v9/integration-report.json) — omnia.v9.integration-report.v1
-- [`artifacts/omnia-v9/reality-shadow-latency.json`](../../artifacts/omnia-v9/reality-shadow-latency.json) — OBSERVED · omnia.v9.reality-shadow-latency.v1
-- [`artifacts/omnia-v9/reality-shadow-report.json`](../../artifacts/omnia-v9/reality-shadow-report.json) — omnia.v9.reality-shadow-report.v1
-- [`artifacts/omnia-v9/replay-report.json`](../../artifacts/omnia-v9/replay-report.json) — omnia.v9.replay-report.v1
-- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1
+- [`artifacts/omnia-v9/canary-latency.json`](../../artifacts/omnia-v9/canary-latency.json) — omnia.v9.canary-latency.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/closure-report.json`](../../artifacts/omnia-v9/closure-report.json) — omnia_v9_test · P3_POLICY_VERIFIED · omnia.v9.closure-report.v2 _(matched by name only)_
+- [`artifacts/omnia-v9/external-effect-property-run-summary.json`](../../artifacts/omnia-v9/external-effect-property-run-summary.json) _(matched by name only)_
+- [`artifacts/omnia-v9/external-effect-recovery-report.json`](../../artifacts/omnia-v9/external-effect-recovery-report.json) — omnia.v9.external-effect-recovery-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/frozen-baseline.json`](../../artifacts/omnia-v9/frozen-baseline.json) — omnia.v9.frozen-baseline.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/gmail-preflight-report.json`](../../artifacts/omnia-v9/gmail-preflight-report.json) — omnia.v9.gmail-preflight-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/integration-report.json`](../../artifacts/omnia-v9/integration-report.json) — omnia.v9.integration-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/reality-shadow-latency.json`](../../artifacts/omnia-v9/reality-shadow-latency.json) — OBSERVED · omnia.v9.reality-shadow-latency.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/reality-shadow-report.json`](../../artifacts/omnia-v9/reality-shadow-report.json) — omnia.v9.reality-shadow-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/replay-report.json`](../../artifacts/omnia-v9/replay-report.json) — omnia.v9.replay-report.v1 _(matched by name only)_
+- [`artifacts/omnia-v9/zero-consequence-canary-report.json`](../../artifacts/omnia-v9/zero-consequence-canary-report.json) — omnia.v9.zero-consequence-canary-report.v1 _(matched by name only)_
 
 ## oracle-free-uberlit
 
-- [`artifacts/oracle-free-uberlit/verification-20260919.json`](../../artifacts/oracle-free-uberlit/verification-20260919.json) — 2026-09-19 · uberbond.oracle-free-uberlit-arm64-jev.verification.v1
+- [`artifacts/oracle-free-uberlit/verification-20260919.json`](../../artifacts/oracle-free-uberlit/verification-20260919.json) — 2026-09-19 · uberbond.oracle-free-uberlit-arm64-jev.verification.v1 _(matched by name only)_
 
 ## orchestration-assimilation
 
-- [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · uberbond.orchestration-assimilation-receipt.v1
+- [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · uberbond.orchestration-assimilation-receipt.v1 _(matched by name only)_
 
 ## outbound-genome
 
-- [`artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json`](../../artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json)
-- [`artifacts/outbound-genome/completion-2026-09-14.json`](../../artifacts/outbound-genome/completion-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-completion-1.1.0
-- [`artifacts/outbound-genome/research-2026-09-14.json`](../../artifacts/outbound-genome/research-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-research-1.0.0
+- [`artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json`](../../artifacts/outbound-genome/V1_COMPLETION_RECEIPT.json) _(matched by name only)_
+- [`artifacts/outbound-genome/completion-2026-09-14.json`](../../artifacts/outbound-genome/completion-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-completion-1.1.0 _(matched by name only)_
+- [`artifacts/outbound-genome/research-2026-09-14.json`](../../artifacts/outbound-genome/research-2026-09-14.json) — 2026-09-14 · uberbond-outbound-genome-research-1.0.0 _(matched by name only)_
 
 ## outreach
 
 **Continuity, memory and handoffs**
 
-- [`phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json) — 2026-10-11 · Agency Revenue Leak Proof Pack · RESEARCH_CANDIDATES_NOT_SEND_READY · uberbond.phoenix.vendor-route-research.v1
-- [`work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1
-- [`work-final-boss-reality-20261003.json`](../../artifacts/outreach/work-final-boss-reality-20261003.json) — 2026-10-03 · LIVE · uberbond.work-outreach-final-boss-reality.v1
-- [`work-live-reality-closure-20261002.json`](../../artifacts/outreach/work-live-reality-closure-20261002.json) — 2026-10-02 · uberbond-control-postgres · LIVE · uberbond.work-live-reality-closure.v1
+- [`phoenix-vendor-route-research-20261011.json`](../../artifacts/outreach/phoenix-vendor-route-research-20261011.json) — 2026-10-11 · Agency Revenue Leak Proof Pack · RESEARCH_CANDIDATES_NOT_SEND_READY · uberbond.phoenix.vendor-route-research.v1 _(matched by name only)_
+- [`work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1 _(matched by name only)_
+- [`work-final-boss-reality-20261003.json`](../../artifacts/outreach/work-final-boss-reality-20261003.json) — 2026-10-03 · LIVE · uberbond.work-outreach-final-boss-reality.v1 _(matched by name only)_
+- [`work-live-reality-closure-20261002.json`](../../artifacts/outreach/work-live-reality-closure-20261002.json) — 2026-10-02 · uberbond-control-postgres · LIVE · uberbond.work-live-reality-closure.v1 _(matched by name only)_
 
 **Frontier cognition and model routing**
 
-- [`artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json`](../../artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json)
-- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — uberbond.global-runtime-closure.v1
+- [`artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json`](../../artifacts/outreach/global-live-bridge-20261003/canonical-offer-fit-output.json) _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — uberbond.global-runtime-closure.v1 _(matched by name only)_
 
 **Governance, authority and proof**
 
-- [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — External policy evidence, 3 October 2026
-- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json)
-- [`live-activation-observation-2026-09-20.json`](../../artifacts/outreach/live-activation-observation-2026-09-20.json) — 2026-09-20 · uberbond.live-outreach-activation-observation.v1
+- [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — External policy evidence, 3 October 2026 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json`](../../artifacts/outreach/global-runtime-closure-20261003/policy-doctor.json) _(matched by name only)_
+- [`live-activation-observation-2026-09-20.json`](../../artifacts/outreach/live-activation-observation-2026-09-20.json) — 2026-09-20 · uberbond.live-outreach-activation-observation.v1 _(matched by name only)_
 
 **Email infrastructure and warmup**
 
-- [`fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · uberbond.outreach-fleet-dns-observatory.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json) — 2026-10-03
-- [`godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · www · uberbond.godaddy-dns-observation.v1
-- [`uberwarm2-capability-donor-ledger-2026-10-01.json`](../../artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json) — 2026-10-01 · DONOR_INTERNALIZED_CLEAN_ROOM · uberbond-capability-donor-ledger-1.0.0
+- [`fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · uberbond.outreach-fleet-dns-observatory.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/winnr-account-read-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · www · uberbond.godaddy-dns-observation.v1 _(matched by name only)_
+- [`uberwarm2-capability-donor-ledger-2026-10-01.json`](../../artifacts/outreach/uberwarm2-capability-donor-ledger-2026-10-01.json) — 2026-10-01 · DONOR_INTERNALIZED_CLEAN_ROOM · uberbond-capability-donor-ledger-1.0.0 _(matched by name only)_
 
 **Outreach and distribution**
 
-- [`INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md`](../../artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md) — 2026-10-03 · Intelo.ai — approval-to-WMS integration QA note
-- [`INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json`](../../artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json) — 2026-10-03 · uberbond.egypt-corporate-role-scope.v1
-- [`SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Sylvester Electric — emergency availability reconciliation (DRAFT)
-- [`clearbounce-powerhouse-20261004.jpg`](../../artifacts/outreach/clearbounce-powerhouse-20261004.jpg) — 2026-10-04
-- [`clearbounce-powerhouse-20261004.json`](../../artifacts/outreach/clearbounce-powerhouse-20261004.json) — 2026-10-04 · uberbond.observed-route-verification.v1
-- [`free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0
-- [`artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md) — 2026-10-03 · A.Ideal pre-meeting agent release worksheet — independent draft
-- [`artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json) — 2026-10-03 · uberbond.external-policy-evidence.v1
-- [`artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md) — 2026-10-03 · BrandBuilder approval-to-publish acceptance worksheet — independent draft
-- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json) — 2026-10-03 · Active · uberbond.external-candidate-evidence.v1
-- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md) — 2026-10-03 · External candidate reality receipt — 3 October 2026
-- [`artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt`](../../artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt) — Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/
-- [`artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json`](../../artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json)
-- [`godaddy-domain-fleet-2026-09-20.json`](../../artifacts/outreach/godaddy-domain-fleet-2026-09-20.json) — 2026-09-20 · VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION · uberbond.outreach-domain-fleet.v1
-- [`outreach-reachability-20261002.json`](../../artifacts/outreach/outreach-reachability-20261002.json) — 2026-10-02 · uberbond.outreach-reachability.v1
-- [`outreach-software-gap-register-20261002.json`](../../artifacts/outreach/outreach-software-gap-register-20261002.json) — 2026-10-02 · uberbond.outreach-software-gap-register.v1
-- [`prospect-fetch-tasking-20261002.json`](../../artifacts/outreach/prospect-fetch-tasking-20261002.json) — 2026-10-02 · uberbond.prospect-fetch-tasking.v1
-- [`prospect-tournament-20261002.json`](../../artifacts/outreach/prospect-tournament-20261002.json) — 2026-10-02 · Sylvester Electric · REJECTED · uberbond.prospect-tournament.v1
-- [`prospect-verification-request-20261002.json`](../../artifacts/outreach/prospect-verification-request-20261002.json) — 2026-10-02 · INDEPENDENT / PART_OF_LARGER_GROUP / UNKNOWN · uberbond.prospect-verification-request.v1
+- [`INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md`](../../artifacts/outreach/INTELO_APPROVAL_TO_WMS_RELEASE_GATE_PREWORK_20261003.md) — 2026-10-03 · Intelo.ai — approval-to-WMS integration QA note _(matched by name only)_
+- [`INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json`](../../artifacts/outreach/INTELO_CORPORATE_ROLE_SCOPE_REVIEW_20261003.json) — 2026-10-03 · uberbond.egypt-corporate-role-scope.v1 _(matched by name only)_
+- [`SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Sylvester Electric — emergency availability reconciliation (DRAFT) _(matched by name only)_
+- [`clearbounce-powerhouse-20261004.jpg`](../../artifacts/outreach/clearbounce-powerhouse-20261004.jpg) — 2026-10-04 _(matched by name only)_
+- [`clearbounce-powerhouse-20261004.json`](../../artifacts/outreach/clearbounce-powerhouse-20261004.json) — 2026-10-04 · uberbond.observed-route-verification.v1 _(matched by name only)_
+- [`free-first-provider-registry-2026-09-01.json`](../../artifacts/outreach/free-first-provider-registry-2026-09-01.json) — 2026-09-01 · uberbond-free-first-provider-registry-1.0.0 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/aideal-agent-release-prework-20261003.md) — 2026-10-03 · A.Ideal pre-meeting agent release worksheet — independent draft _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/authoritative-policy-evidence-20261003.json) — 2026-10-03 · uberbond.external-policy-evidence.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/fulcrum-brandbuilder-release-prework-20261003.md) — 2026-10-03 · BrandBuilder approval-to-publish acceptance worksheet — independent draft _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.json) — 2026-10-03 · Active · uberbond.external-candidate-evidence.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/verified-candidate-pool-20261003.md) — 2026-10-03 · External candidate reality receipt — 3 October 2026 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt`](../../artifacts/outreach/global-runtime-closure-20261003/ico-source-extract.txt) — Source: https://ico.org.uk/for-organisations/direct-marketing-and-privacy-and-electronic-communications/business-to-business-marketing/ _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json`](../../artifacts/outreach/global-runtime-closure-20261003/recorder-inputs.json) _(matched by name only)_
+- [`godaddy-domain-fleet-2026-09-20.json`](../../artifacts/outreach/godaddy-domain-fleet-2026-09-20.json) — 2026-09-20 · VERIFIED_BY_AUTHENTICATED_PORTFOLIO_OBSERVATION · uberbond.outreach-domain-fleet.v1 _(matched by name only)_
+- [`outreach-reachability-20261002.json`](../../artifacts/outreach/outreach-reachability-20261002.json) — 2026-10-02 · uberbond.outreach-reachability.v1 _(matched by name only)_
+- [`outreach-software-gap-register-20261002.json`](../../artifacts/outreach/outreach-software-gap-register-20261002.json) — 2026-10-02 · uberbond.outreach-software-gap-register.v1 _(matched by name only)_
+- [`prospect-fetch-tasking-20261002.json`](../../artifacts/outreach/prospect-fetch-tasking-20261002.json) — 2026-10-02 · uberbond.prospect-fetch-tasking.v1 _(matched by name only)_
+- [`prospect-tournament-20261002.json`](../../artifacts/outreach/prospect-tournament-20261002.json) — 2026-10-02 · Sylvester Electric · REJECTED · uberbond.prospect-tournament.v1 _(matched by name only)_
+- [`prospect-verification-request-20261002.json`](../../artifacts/outreach/prospect-verification-request-20261002.json) — 2026-10-02 · INDEPENDENT / PART_OF_LARGER_GROUP / UNKNOWN · uberbond.prospect-verification-request.v1 _(matched by name only)_
 
 **Commerce, payments and economics**
 
-- [`artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md) — 2026-10-03 · Halfteck supplier release-evidence worksheet — independent draft
-- [`artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md) — 2026-10-03 · Halfteck contact-route reconciliation — independent draft
-- [`powerhouse-effect-package-20261002.json`](../../artifacts/outreach/powerhouse-effect-package-20261002.json) — 2026-10-02 · Sylvester Electric · PREPARED_NOT_READY · uberbond.effect-package.v1
-- [`powerhouse-followup-request-20261002.json`](../../artifacts/outreach/powerhouse-followup-request-20261002.json) — 2026-10-02 · CLOSED_BY_MISSION_CONTROL · uberbond.mission-control-followup.v1
-- [`powerhouse-message-tournament-20261002.json`](../../artifacts/outreach/powerhouse-message-tournament-20261002.json) — 2026-10-02 · CONDITIONAL_PENDING_VERIFICATION · uberbond.message-tournament.v1
-- [`powerhouse-preflight-request-20261002.json`](../../artifacts/outreach/powerhouse-preflight-request-20261002.json) — 2026-10-02 · INDEPENDENT · uberbond.prospect-preflight-request.v1
+- [`artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-ai-release-prework-20261003.md) — 2026-10-03 · Halfteck supplier release-evidence worksheet — independent draft _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md) — 2026-10-03 · Halfteck contact-route reconciliation — independent draft _(matched by name only)_
+- [`powerhouse-effect-package-20261002.json`](../../artifacts/outreach/powerhouse-effect-package-20261002.json) — 2026-10-02 · Sylvester Electric · PREPARED_NOT_READY · uberbond.effect-package.v1 _(matched by name only)_
+- [`powerhouse-followup-request-20261002.json`](../../artifacts/outreach/powerhouse-followup-request-20261002.json) — 2026-10-02 · CLOSED_BY_MISSION_CONTROL · uberbond.mission-control-followup.v1 _(matched by name only)_
+- [`powerhouse-message-tournament-20261002.json`](../../artifacts/outreach/powerhouse-message-tournament-20261002.json) — 2026-10-02 · CONDITIONAL_PENDING_VERIFICATION · uberbond.message-tournament.v1 _(matched by name only)_
+- [`powerhouse-preflight-request-20261002.json`](../../artifacts/outreach/powerhouse-preflight-request-20261002.json) — 2026-10-02 · INDEPENDENT · uberbond.prospect-preflight-request.v1 _(matched by name only)_
 
 **Sovereign infrastructure and runtime**
 
-- [`global-green-lane-router-20261003.json`](../../artifacts/outreach/global-green-lane-router-20261003.json) — 2026-10-03 · INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF · uberbond.global-green-lane-router-receipt.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json) — Active
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan
-- [`artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json) — Active
-- [`artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03
-- [`artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1
-- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED
-- [`artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan
-- [`provider-activation-receipts-2026-09-01.json`](../../artifacts/outreach/provider-activation-receipts-2026-09-01.json) — 2026-09-01 · uberbond-provider-activation-receipts-1.0.0
-- [`uber-closure-source-verification-2026-09-16.json`](../../artifacts/outreach/uber-closure-source-verification-2026-09-16.json) — 2026-09-16
-- [`v6-runtime-ledger-read-powerhouse-20261002.json`](../../artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json) — 2026-10-02 · uberbond.v6-owner-authenticated-read.v1
+- [`global-green-lane-router-20261003.json`](../../artifacts/outreach/global-green-lane-router-20261003.json) — 2026-10-03 · INTERNAL_SOFTWARE_CLOSURE__NO_EXTERNAL_PROOF · uberbond.global-green-lane-router-receipt.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-aideal-uk-SC851331-request.json) — Active _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-aideal-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-halfteck-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-powerhouse-live-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json`](../../artifacts/outreach/global-live-bridge-20261003/green-bridge-runtime-live-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan _(matched by name only)_
+- [`artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json`](../../artifacts/outreach/global-live-bridge-20261003/green-halfteck-uk-09654088-request.json) — Active _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-aideal-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-green-discovery-20261003.json) — 2026-10-03 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-halfteck-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-powerhouse-final-20261003.json) — 2026-10-03 · CLEAN · uberbond.prospect-contact-history.v1 _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-router-final-status-20261003.json) — 2026-10-03 · NO_ROUTE_ATTRIBUTION_RECORDED _(matched by name only)_
+- [`artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json`](../../artifacts/outreach/global-runtime-closure-20261003/global-runtime-gates-final-20261003.json) — 2026-10-03 · Global Digital Opportunity Scan _(matched by name only)_
+- [`provider-activation-receipts-2026-09-01.json`](../../artifacts/outreach/provider-activation-receipts-2026-09-01.json) — 2026-09-01 · uberbond-provider-activation-receipts-1.0.0 _(matched by name only)_
+- [`uber-closure-source-verification-2026-09-16.json`](../../artifacts/outreach/uber-closure-source-verification-2026-09-16.json) — 2026-09-16 _(matched by name only)_
+- [`v6-runtime-ledger-read-powerhouse-20261002.json`](../../artifacts/outreach/v6-runtime-ledger-read-powerhouse-20261002.json) — 2026-10-02 · uberbond.v6-owner-authenticated-read.v1 _(matched by name only)_
 
 ## overnight
 
-- [`artifacts/overnight/deep-build-2026-09-06-run-1.json`](../../artifacts/overnight/deep-build-2026-09-06-run-1.json) — 2026-09-06 · uberbond.overnight-deep-build-receipt.v1
-- [`artifacts/overnight/deep-build-2026-09-06-run-2.json`](../../artifacts/overnight/deep-build-2026-09-06-run-2.json) — 2026-09-06 · deterministic · RESTORED_BYTE_FOR_BYTE_TO_PRIOR_PROTECTED_CONFIG · uberbond.overnight-deep-build-receipt.v1
-- [`artifacts/overnight/night-09-hostile-war-2026-09-06.json`](../../artifacts/overnight/night-09-hostile-war-2026-09-06.json) — 2026-09-06 · uberbond.night-09-hostile-war.v1
-- [`artifacts/overnight/run-3-verification-retrigger-2026-09-06.json`](../../artifacts/overnight/run-3-verification-retrigger-2026-09-06.json) — 2026-09-06 · uberbond.overnight.verification-retrigger.v1
+- [`artifacts/overnight/deep-build-2026-09-06-run-1.json`](../../artifacts/overnight/deep-build-2026-09-06-run-1.json) — 2026-09-06 · uberbond.overnight-deep-build-receipt.v1 _(matched by name only)_
+- [`artifacts/overnight/deep-build-2026-09-06-run-2.json`](../../artifacts/overnight/deep-build-2026-09-06-run-2.json) — 2026-09-06 · deterministic · RESTORED_BYTE_FOR_BYTE_TO_PRIOR_PROTECTED_CONFIG · uberbond.overnight-deep-build-receipt.v1 _(matched by name only)_
+- [`artifacts/overnight/night-09-hostile-war-2026-09-06.json`](../../artifacts/overnight/night-09-hostile-war-2026-09-06.json) — 2026-09-06 · uberbond.night-09-hostile-war.v1 _(matched by name only)_
+- [`artifacts/overnight/run-3-verification-retrigger-2026-09-06.json`](../../artifacts/overnight/run-3-verification-retrigger-2026-09-06.json) — 2026-09-06 · uberbond.overnight.verification-retrigger.v1 _(matched by name only)_
 
 ## phoenix-activation-verification
 
-- [`artifacts/phoenix-activation-verification/native-mcp-receipts.json`](../../artifacts/phoenix-activation-verification/native-mcp-receipts.json) — COS_CAPABILITY_GATEWAY_STATUS · uberbond.external-proof-router.v1
+- [`artifacts/phoenix-activation-verification/native-mcp-receipts.json`](../../artifacts/phoenix-activation-verification/native-mcp-receipts.json) — COS_CAPABILITY_GATEWAY_STATUS · uberbond.external-proof-router.v1 _(matched by name only)_
 
 ## quant-lab
 
-- [`artifacts/quant-lab/experiments-2021-01_2026-09.json`](../../artifacts/quant-lab/experiments-2021-01_2026-09.json) — uberbond.quant-lab-experiments.v1
+- [`artifacts/quant-lab/experiments-2021-01_2026-09.json`](../../artifacts/quant-lab/experiments-2021-01_2026-09.json) — uberbond.quant-lab-experiments.v1 _(matched by name only)_
 
 ## ragnarok
 
-- [`artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json`](../../artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json) — 2026-09-02 · uberbond-night-donor-reconciliation-1.0.0
+- [`artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json`](../../artifacts/ragnarok/night-donor-reconciliation-2026-09-02.json) — 2026-09-02 · uberbond-night-donor-reconciliation-1.0.0 _(matched by name only)_
 
 ## receipts
 
-- [`artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json`](../../artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json) — 2026-10-18 · uberwarm-phoenix-one-snapshot-anonymized-readiness-v1
-- [`artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json`](../../artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json) — 2026-10-18 · PARTIAL_LOCAL_REF_SURVIVABILITY_NOT_HISTORICAL_OFFSITE_RESTORE · uberbond.phoenix.uberwarm.omega.verification.v1
-- [`artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json`](../../artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json) — 2026-10-21 · An inquiry form requires 12 fields before submission · PUBLIC_WEB_READ_ONLY_OBSERVATION · uberbond.inquiry-path-coherence-field-receipt.v1
-- [`artifacts/receipts/uberwarm-bobwork-12-enrolled-2026-10-21.json`](../../artifacts/receipts/uberwarm-bobwork-12-enrolled-2026-10-21.json) — 2026-10-21 · SUCCESS_CRON_LAST_RUN_SUCCEEDED · uberbond.uberwarm-provider-enrollment-receipt.v1
+- [`artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json`](../../artifacts/receipts/UBERWARM_ANON_MAILBOX_READINESS_20261018.json) — 2026-10-18 · uberwarm-phoenix-one-snapshot-anonymized-readiness-v1 _(matched by name only)_
+- [`artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json`](../../artifacts/receipts/UBERWARM_PHOENIX_OMEGA_20261018_EXECUTION.json) — 2026-10-18 · PARTIAL_LOCAL_REF_SURVIVABILITY_NOT_HISTORICAL_OFFSITE_RESTORE · uberbond.phoenix.uberwarm.omega.verification.v1 _(matched by name only)_
+- [`artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json`](../../artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json) — 2026-10-21 · An inquiry form requires 12 fields before submission · PUBLIC_WEB_READ_ONLY_OBSERVATION · uberbond.inquiry-path-coherence-field-receipt.v1 _(matched by name only)_
+- [`artifacts/receipts/uberwarm-bobwork-12-enrolled-2026-10-21.json`](../../artifacts/receipts/uberwarm-bobwork-12-enrolled-2026-10-21.json) — 2026-10-21 · SUCCESS_CRON_LAST_RUN_SUCCEEDED · uberbond.uberwarm-provider-enrollment-receipt.v1 _(matched by name only)_
 
 ## recovery
 
@@ -499,7 +499,7 @@ JSON registries, receipts, research corpora and recovered history.
 - [`UBERBOND_CHAT_LINEAGE_DELTA_20260920.md`](../../artifacts/recovery/UBERBOND_CHAT_LINEAGE_DELTA_20260920.md) — 2026-09-20 · UberBond Chat-Lineage Delta — 2026-09-20
 - [`UBERBOND_CHAT_LINEAGE_RECOVERED_20260920.md`](../../artifacts/recovery/UBERBOND_CHAT_LINEAGE_RECOVERED_20260920.md) — 2026-09-20 · UberBond Chat-Lineage Recovery Ledger — 2026-09-20
 - [`UBERBOND_FINAL_LIVE_HEAD_ADDENDUM_20260920.md`](../../artifacts/recovery/UBERBOND_FINAL_LIVE_HEAD_ADDENDUM_20260920.md) — 2026-09-20 · UberBond Final Live-Head Recovery Addendum — 2026-09-20
-- [`UBERBOND_FINAL_SEMANTIC_ADDENDUM_20260920.md`](../../artifacts/recovery/UBERBOND_FINAL_SEMANTIC_ADDENDUM_20260920.md) — 2026-09-20 · UberBond Final Semantic Recovery Addendum — 2026-09-20
+- [`UBERBOND_FINAL_SEMANTIC_ADDENDUM_20260920.md`](../../artifacts/recovery/UBERBOND_FINAL_SEMANTIC_ADDENDUM_20260920.md) — 2026-09-20 · UberBond Final Semantic Recovery Addendum — 2026-09-20 _(matched by name only)_
 - [`UBERBOND_FOUNDER_INTENT_FINAL_DELTA_20260920.md`](../../artifacts/recovery/UBERBOND_FOUNDER_INTENT_FINAL_DELTA_20260920.md) — 2026-09-20 · UberBond Founder-Intent Final Recovery Delta — 2026-09-20
 - [`UBERBOND_ISSUE_LINEAGE_20260920.json`](../../artifacts/recovery/UBERBOND_ISSUE_LINEAGE_20260920.json) — 2026-09-20 · [relay:claude-code] Run the allowlisted deterministic verification suite and report the real pass/fail counts · uberbond.total-recovery.issue-lineage…
 - [`UBERBOND_ISSUE_LINEAGE_20260920_PART1.json`](../../artifacts/recovery/UBERBOND_ISSUE_LINEAGE_20260920_PART1.json) — 2026-09-20 · [relay:claude-code] Run the allowlisted deterministic verification suite and report the real pass/fail counts · uberbond.total-recovery.issue-lineage…
@@ -524,10 +524,10 @@ JSON registries, receipts, research corpora and recovered history.
 - [`UBERBOND_RECOVERY_COMPLETION_20260920.json`](../../artifacts/recovery/UBERBOND_RECOVERY_COMPLETION_20260920.json) — 2026-09-20 · uberbond.recovery.completion.v1
 - [`UBERBOND_RECOVERY_COMPLETION_ADDENDUM_20260920.md`](../../artifacts/recovery/UBERBOND_RECOVERY_COMPLETION_ADDENDUM_20260920.md) — 2026-09-20 · UberBond Recovery Completion Addendum — 2026-09-20
 - [`UBERBOND_RECOVERY_RECONCILIATION_20260920.json`](../../artifacts/recovery/UBERBOND_RECOVERY_RECONCILIATION_20260920.json) — 2026-09-20 · recovery: bind total UberBond corpus, history, and lineage · preserved and searchable · uberbond.recovery-reconciliation.v1
-- [`UBERBOND_REPOSITORY_TREE_73ee6e2.json`](../../artifacts/recovery/UBERBOND_REPOSITORY_TREE_73ee6e2.json) — uberbond.total-recovery.repository-tree.v1
+- [`UBERBOND_REPOSITORY_TREE_73ee6e2.json`](../../artifacts/recovery/UBERBOND_REPOSITORY_TREE_73ee6e2.json) — uberbond.total-recovery.repository-tree.v1 _(matched by name only)_
 - [`UBERBOND_TOTAL_RECOVERY_INDEX_20260920.md`](../../artifacts/recovery/UBERBOND_TOTAL_RECOVERY_INDEX_20260920.md) — 2026-09-20 · UberBond Total Recovery Index — 2026-09-20
 - [`UBERBOND_TOTAL_RECOVERY_TERMINAL_20260920.json`](../../artifacts/recovery/UBERBOND_TOTAL_RECOVERY_TERMINAL_20260920.json) — 2026-09-20 · uberbond.total-recovery.terminal.v1
-- [`UBERBOND_VERCEL_LIVE_STATE_20260920.json`](../../artifacts/recovery/UBERBOND_VERCEL_LIVE_STATE_20260920.json) — 2026-09-20 · uberbondd · uberbond-vercel-live-state-receipt-2026-09-20
+- [`UBERBOND_VERCEL_LIVE_STATE_20260920.json`](../../artifacts/recovery/UBERBOND_VERCEL_LIVE_STATE_20260920.json) — 2026-09-20 · uberbondd · uberbond-vercel-live-state-receipt-2026-09-20 _(matched by name only)_
 - [`artifacts/recovery/actions/ACTIONS_20260714_20260806.json`](../../artifacts/recovery/actions/ACTIONS_20260714_20260806.json) — 2026-07-14 · CI · completed · uberbond.recovery.actions-partition.v1
 - [`artifacts/recovery/actions/ACTIONS_20260807_20260818.json`](../../artifacts/recovery/actions/ACTIONS_20260807_20260818.json) — 2026-08-07 · Cash Engine Lite Audits · completed · uberbond.recovery.actions-partition.v1
 - [`artifacts/recovery/actions/ACTIONS_20260819_20260824.json`](../../artifacts/recovery/actions/ACTIONS_20260819_20260824.json) — 2026-08-19 · Cash Engine Lite Audits · completed · uberbond.recovery.actions-partition.v1
@@ -653,352 +653,352 @@ JSON registries, receipts, research corpora and recovered history.
 
 **North Star and life systems**
 
-- [`POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json`](../../artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json) — 2026-09-20 · deterministic · SOURCE_IMPLEMENTATION_PRESENT__EXECUTION_VERIFICATION_BLOCKED_BY_CI_INFRASTRUCTURE · uberbond.possibility-civilization-bootstrap-rece…
+- [`POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json`](../../artifacts/research/POSSIBILITY_CIVILIZATION_BOOTSTRAP_20260920.json) — 2026-09-20 · deterministic · SOURCE_IMPLEMENTATION_PRESENT__EXECUTION_VERIFICATION_BLOCKED_BY_CI_INFRASTRUCTURE · uberbond.possibility-civilization-bootstrap-rece… _(matched by name only)_
 
 **Continuity, memory and handoffs**
 
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json) — 2026-10-17 · Authenticated CLI health attestation · UNIMPLEMENTED/UNKNOWN_IN_UBERBOND
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json) — 2026-10-17 · PHOENIX Cross-Platform Leverage Atlas Wave 4 · RESEARCH_ONLY_NOT_INSTALLED
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json) — 2026-10-17 · Wave 10: Autonomous Possibility Engine · RESEARCH_ASSET_AND_SYNTHETIC_TEST_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json) — 2026-10-17 · OpenAdapt compiled flows · RESEARCH_DESIGN_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json) — 2026-10-17 · Entity-linked project memory · RESEARCH_DESIGN_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json) — 2026-10-17 · PHOENIX WAVE 7 - SCIENTIFIC DISCOVERY AND PRINCIPLE EVOLUTION · RESEARCH_DESIGN_ONLY
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json) — 2026-10-17 · PHOENIX UNKNOWN-WORLD TRANSFER ENGINE · RESEARCH_DESIGN_AND_LOCAL_SYNTHETIC_DEMONSTRATION
-- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json) — 2026-10-17 · PHOENIX Wave 9: Missing-Machinery Compiler · RESEARCH_DESIGN_WITH_LOCAL_SYNTHETIC_DEMONSTRATION
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CAPABILITY_GENOME_WAVE3_320_2026-10-17.json) — 2026-10-17 · Authenticated CLI health attestation · UNIMPLEMENTED/UNKNOWN_IN_UBERBOND _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_CROSS_PLATFORM_LEVERAGE_WAVE4_256_2026-10-17.json) — 2026-10-17 · PHOENIX Cross-Platform Leverage Atlas Wave 4 · RESEARCH_ONLY_NOT_INSTALLED _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE10_AUTONOMOUS_POSSIBILITY_ENGINE_200_2026-10-17.json) — 2026-10-17 · Wave 10: Autonomous Possibility Engine · RESEARCH_ASSET_AND_SYNTHETIC_TEST_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE5_TRANSCENDENT_AUTOMATION_204_2026-10-17.json) — 2026-10-17 · OpenAdapt compiled flows · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE6_PROOF_CARRYING_EVOLUTION_120_2026-10-17.json) — 2026-10-17 · Entity-linked project memory · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE7_DISCOVERY_ENGINE_120_2026-10-17.json) — 2026-10-17 · PHOENIX WAVE 7 - SCIENTIFIC DISCOVERY AND PRINCIPLE EVOLUTION · RESEARCH_DESIGN_ONLY _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json) — 2026-10-17 · PHOENIX UNKNOWN-WORLD TRANSFER ENGINE · RESEARCH_DESIGN_AND_LOCAL_SYNTHETIC_DEMONSTRATION _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE9_MISSING_MACHINERY_180_2026-10-17.json) — 2026-10-17 · PHOENIX Wave 9: Missing-Machinery Compiler · RESEARCH_DESIGN_WITH_LOCAL_SYNTHETIC_DEMONSTRATION _(matched by name only)_
 
 **GENESIS, moonshots and Perpetual Frontier**
 
-- [`FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json`](../../artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json) — 2026-10-08 · THE CAUSAL COMPILER · uberbond.moonshot-890-outreach-revenue-opportunity-index.v1
-- [`FOUNDER_MOONSHOT_0001_FORMALIZATION_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_0001_FORMALIZATION_20260920.json) — 2026-09-20 · DERIVED_FORMALIZATION__SOURCE_TEXT_IMMUTABLE · uberbond.founder-moonshot-formalization.v1
-- [`FOUNDER_MOONSHOT_890_IMPORT_VERIFICATION_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_890_IMPORT_VERIFICATION_20260920.json) — 2026-09-20 · THE ONTOLOGICAL SINGULARITY · FOUNDER_MOONSHOT_CORPUS_EXACT_890_OF_890 · uberbond.founder-moonshot-890-import-verification.v1
-- [`FOUNDER_MOONSHOT_LITERAL_RECOVERY_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_LITERAL_RECOVERY_20260920.json) — 2026-09-20 · THE ONTOLOGICAL SINGULARITY · DIRECT_SOURCE_EXACT_LITERAL_RECOVERY_COMPLETE · uberbond.founder-moonshot-literal-recovery-receipt.v2
-- [`FOUNDER_MOONSHOT_REALIZATION_LEDGER_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_REALIZATION_LEDGER_20260920.json) — 2026-09-20 · DETERMINISTIC_TRIAGE_AND_ROUTING_NOT_FEASIBILITY_PROOF · uberbond.founder-moonshot-realization-ledger.v1
-- [`MOONSHOTS_880_890_REALIZATION_STATE_20260920.json`](../../artifacts/research/MOONSHOTS_880_890_REALIZATION_STATE_20260920.json) — 2026-09-20 · THE RECURSION GENOME · SOFTWARE_REALIZATION_FRONTIER__CIVILIZATION_SCALE_PARENTS_REMAIN_EVIDENCE_GATED · uberbond.moonshots-880-890-realization-state…
-- [`MOONSHOT_890_REALITY_CLOSURE_STATE_20260920.json`](../../artifacts/research/MOONSHOT_890_REALITY_CLOSURE_STATE_20260920.json) — 2026-09-20 · SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967 · uberbond.moonshot-890-reality-closure-state.v1
-- [`MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_SOURCE_CAPABILITY__NOT_EXTERNAL_EXPERIMENT_PROOF · uberbond.moonshot-experiment-compiler-verification.v1
-- [`MOONSHOT_INTERNAL_ANCESTOR_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_INTERNAL_ANCESTOR_VERIFICATION_20260920.json) — 2026-09-20 · TRUTH_EVIDENCE_SUBSTRATE_VERIFIED · uberbond.moonshot-internal-ancestor-verification.v1
-- [`MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json`](../../artifacts/research/MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json) — 2026-09-20 · EXECUTED_MECHANISM_RECOMBINATION__ALL_DESCENDANTS_REMAIN_HYPOTHESES · uberbond.moonshot-mechanism-market-result.v1
-- [`MOONSHOT_PR968_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_PR968_VERIFICATION_20260920.json) — 2026-09-20 · EXACT_HEAD_CONNECTOR_EXECUTION_PLUS_ZERO_STEP_CI_INFRA_FAILURE · uberbond.moonshot-pr968-verification-receipt.v1
-- [`MOONSHOT_REALITY_MERGE_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_REALITY_MERGE_VERIFICATION_20260920.json) — 2026-09-20 · UberOutbound Exact Head · EXECUTED_SOURCE_EVIDENCE_WITH_HOSTED_RUNNER_INFRASTRUCTURE_FAILURES_SEPARATED · uberbond.moonshot-reality-merge-verificatio…
-- [`MOONSHOT_REALITY_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json) — 2026-09-20 · UberOutbound Exact Head · MOONSHOT_REALITY_DOCTOR_OK · uberbond.moonshot-reality-verification.v2
-- [`MOONSHOT_REALIZATION_PORTFOLIO_20260920.json`](../../artifacts/research/MOONSHOT_REALIZATION_PORTFOLIO_20260920.json) — 2026-09-20 · Constraint Genome · uberbond.moonshot-realization-portfolio.v1
-- [`MOONSHOT_REPLICATION_NETWORK_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_REPLICATION_NETWORK_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_REPLICATION_CONTROL_SUBSTRATE__NO_PROMOTION_AUTHORITY · uberbond.moonshot-replication-network-verification.v1
-- [`MOONSHOT_SIMULATION_ECOLOGY_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_SIMULATION_ECOLOGY_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_DECLARATIVE_SIMULATION_SUBSTRATE__NOT_REALITY_EVIDENCE · uberbond.moonshot-simulation-ecology-verification.v1
-- [`MOONSHOT_TECHNOLOGY_TREE_STATE_20260920.json`](../../artifacts/research/MOONSHOT_TECHNOLOGY_TREE_STATE_20260920.json) — 2026-09-20 · Epoch Branching Evaluator · RESEARCH_PROGRAM · uberbond.moonshot-technology-tree-state.v2
-- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,…
-- [`artifacts/research/founder-moonshot-literal-corpus/manifest.json`](../../artifacts/research/founder-moonshot-literal-corpus/manifest.json) — EXACT_LITERAL_890_OF_890_RECOVERY_FROM_DIRECT_PROJECT_TRANSCRIPT · uberbond.founder-moonshot-literal-corpus-manifest.v1
-- [`artifacts/research/phoenix-ten-wave-intake/README.md`](../../artifacts/research/phoenix-ten-wave-intake/README.md) — PHOENIX Waves 3–10: source-pinned capability intake — TRUTH CLASS: RESEARCH + MEASURED READ-ONLY PUBLIC HEAD SNAPSHOT. ZERO donor execution or production authority.
-- [`artifacts/research/phoenix-ten-wave-intake/identity-010-019.json`](../../artifacts/research/phoenix-ten-wave-intake/identity-010-019.json) — METADATA_RETURNED · phoenix.public-identity-metadata.v1
-- [`artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json`](../../artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json) — PUBLIC_METADATA_RETURNED · phoenix.repo-metadata-probe.v1
-- [`artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json`](../../artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json) — METADATA_RETURNED · phoenix.github-metadata.v1
-- [`artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt`](../../artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt) — https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking
+- [`FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json`](../../artifacts/research/FOUNDER_890_OUTREACH_FIRST_CASH_CROSSOVER_ATLAS_20261008.json) — 2026-10-08 · THE CAUSAL COMPILER · uberbond.moonshot-890-outreach-revenue-opportunity-index.v1 _(matched by name only)_
+- [`FOUNDER_MOONSHOT_0001_FORMALIZATION_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_0001_FORMALIZATION_20260920.json) — 2026-09-20 · DERIVED_FORMALIZATION__SOURCE_TEXT_IMMUTABLE · uberbond.founder-moonshot-formalization.v1 _(matched by name only)_
+- [`FOUNDER_MOONSHOT_890_IMPORT_VERIFICATION_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_890_IMPORT_VERIFICATION_20260920.json) — 2026-09-20 · THE ONTOLOGICAL SINGULARITY · FOUNDER_MOONSHOT_CORPUS_EXACT_890_OF_890 · uberbond.founder-moonshot-890-import-verification.v1 _(matched by name only)_
+- [`FOUNDER_MOONSHOT_LITERAL_RECOVERY_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_LITERAL_RECOVERY_20260920.json) — 2026-09-20 · THE ONTOLOGICAL SINGULARITY · DIRECT_SOURCE_EXACT_LITERAL_RECOVERY_COMPLETE · uberbond.founder-moonshot-literal-recovery-receipt.v2 _(matched by name only)_
+- [`FOUNDER_MOONSHOT_REALIZATION_LEDGER_20260920.json`](../../artifacts/research/FOUNDER_MOONSHOT_REALIZATION_LEDGER_20260920.json) — 2026-09-20 · DETERMINISTIC_TRIAGE_AND_ROUTING_NOT_FEASIBILITY_PROOF · uberbond.founder-moonshot-realization-ledger.v1 _(matched by name only)_
+- [`MOONSHOTS_880_890_REALIZATION_STATE_20260920.json`](../../artifacts/research/MOONSHOTS_880_890_REALIZATION_STATE_20260920.json) — 2026-09-20 · THE RECURSION GENOME · SOFTWARE_REALIZATION_FRONTIER__CIVILIZATION_SCALE_PARENTS_REMAIN_EVIDENCE_GATED · uberbond.moonshots-880-890-realization-state… _(matched by name only)_
+- [`MOONSHOT_890_REALITY_CLOSURE_STATE_20260920.json`](../../artifacts/research/MOONSHOT_890_REALITY_CLOSURE_STATE_20260920.json) — 2026-09-20 · SOURCE_AND_CONNECTOR_EXECUTION_EVIDENCE_PRESENT_IN_PR_967 · uberbond.moonshot-890-reality-closure-state.v1 _(matched by name only)_
+- [`MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_EXPERIMENT_COMPILER_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_SOURCE_CAPABILITY__NOT_EXTERNAL_EXPERIMENT_PROOF · uberbond.moonshot-experiment-compiler-verification.v1 _(matched by name only)_
+- [`MOONSHOT_INTERNAL_ANCESTOR_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_INTERNAL_ANCESTOR_VERIFICATION_20260920.json) — 2026-09-20 · TRUTH_EVIDENCE_SUBSTRATE_VERIFIED · uberbond.moonshot-internal-ancestor-verification.v1 _(matched by name only)_
+- [`MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json`](../../artifacts/research/MOONSHOT_MECHANISM_MARKET_RESULT_20260920.json) — 2026-09-20 · EXECUTED_MECHANISM_RECOMBINATION__ALL_DESCENDANTS_REMAIN_HYPOTHESES · uberbond.moonshot-mechanism-market-result.v1 _(matched by name only)_
+- [`MOONSHOT_PR968_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_PR968_VERIFICATION_20260920.json) — 2026-09-20 · EXACT_HEAD_CONNECTOR_EXECUTION_PLUS_ZERO_STEP_CI_INFRA_FAILURE · uberbond.moonshot-pr968-verification-receipt.v1 _(matched by name only)_
+- [`MOONSHOT_REALITY_MERGE_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_REALITY_MERGE_VERIFICATION_20260920.json) — 2026-09-20 · UberOutbound Exact Head · EXECUTED_SOURCE_EVIDENCE_WITH_HOSTED_RUNNER_INFRASTRUCTURE_FAILURES_SEPARATED · uberbond.moonshot-reality-merge-verificatio… _(matched by name only)_
+- [`MOONSHOT_REALITY_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_REALITY_VERIFICATION_20260920.json) — 2026-09-20 · UberOutbound Exact Head · MOONSHOT_REALITY_DOCTOR_OK · uberbond.moonshot-reality-verification.v2 _(matched by name only)_
+- [`MOONSHOT_REALIZATION_PORTFOLIO_20260920.json`](../../artifacts/research/MOONSHOT_REALIZATION_PORTFOLIO_20260920.json) — 2026-09-20 · Constraint Genome · uberbond.moonshot-realization-portfolio.v1 _(matched by name only)_
+- [`MOONSHOT_REPLICATION_NETWORK_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_REPLICATION_NETWORK_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_REPLICATION_CONTROL_SUBSTRATE__NO_PROMOTION_AUTHORITY · uberbond.moonshot-replication-network-verification.v1 _(matched by name only)_
+- [`MOONSHOT_SIMULATION_ECOLOGY_VERIFICATION_20260920.json`](../../artifacts/research/MOONSHOT_SIMULATION_ECOLOGY_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_DECLARATIVE_SIMULATION_SUBSTRATE__NOT_REALITY_EVIDENCE · uberbond.moonshot-simulation-ecology-verification.v1 _(matched by name only)_
+- [`MOONSHOT_TECHNOLOGY_TREE_STATE_20260920.json`](../../artifacts/research/MOONSHOT_TECHNOLOGY_TREE_STATE_20260920.json) — 2026-09-20 · Epoch Branching Evaluator · RESEARCH_PROGRAM · uberbond.moonshot-technology-tree-state.v2 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,… _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/manifest.json`](../../artifacts/research/founder-moonshot-literal-corpus/manifest.json) — EXACT_LITERAL_890_OF_890_RECOVERY_FROM_DIRECT_PROJECT_TRANSCRIPT · uberbond.founder-moonshot-literal-corpus-manifest.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/README.md`](../../artifacts/research/phoenix-ten-wave-intake/README.md) — PHOENIX Waves 3–10: source-pinned capability intake — TRUTH CLASS: RESEARCH + MEASURED READ-ONLY PUBLIC HEAD SNAPSHOT. ZERO donor execution or production authority. _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/identity-010-019.json`](../../artifacts/research/phoenix-ten-wave-intake/identity-010-019.json) — METADATA_RETURNED · phoenix.public-identity-metadata.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json`](../../artifacts/research/phoenix-ten-wave-intake/metadata-000-007.json) — PUBLIC_METADATA_RETURNED · phoenix.repo-metadata-probe.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json`](../../artifacts/research/phoenix-ten-wave-intake/repo-metadata-000-009.json) — METADATA_RETURNED · phoenix.github-metadata.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt`](../../artifacts/research/phoenix-ten-wave-intake/repositories.urls.txt) — https://github.com/ARCAGI-Labs/arc-agi-3-benchmarking _(matched by name only)_
 
 **ASI research and evidence programs**
 
-- [`CAUSAL_COMPILER_CANARY_V1_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V1_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.causal-compiler-canary-v1-adversarial-review.v1
-- [`CAUSAL_COMPILER_CANARY_V1_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V1_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_NARROW_SOFTWARE_PRIMITIVE_NOT_RESULT · uberbond.causal-compiler-canary-v1-preregistration.v1
-- [`CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json) — 2026-09-20 · CAUSAL_COMPILER_V1_PREREGISTERED_FALSIFIER_TRIGGERED · uberbond.causal-compiler-canary-v1-result.v1
-- [`CAUSAL_COMPILER_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.causal-compiler-canary-v2-adversarial-review.v1
-- [`CAUSAL_COMPILER_CANARY_V2_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V2_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_GOAL_DIRECTED_CAUSAL_PROGRAM_SYNTHESIS_NOT_RESULT · uberbond.causal-compiler-canary-v2-preregistration.v1
-- [`CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json) — 2026-09-20 · CAUSAL_COMPILER_V2_GOAL_DIRECTED_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED · uberbond.causal-compiler-canary-v2-result.v1
-- [`CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION · uberbond.causal-compiler-v2-independent-replication.v1
-- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION · uberbond.causal-semantic-crystallizer-v1-adversarial-review.v1
-- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION · uberbond.causal-semantic-crystallizer-v1-independent-replication.v1
-- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_RECOMBINED_HYPOTHESIS_NOT_RESULT · uberbond.causal-semantic-crystallizer-v1-preregistration.v1
-- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json) — 2026-09-20 · CAUSAL_SEMANTIC_CRYSTALLIZER_V1_SUPPORTED__REVIEW_REQUIRED · uberbond.causal-semantic-crystallizer-v1-result.v1
-- [`CUBEFREE_EXTERNAL_V7_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · POST_FAILURE_HYPOTHESIS_NOT_PROMOTED · uberbond.cubefree-external-v7-adversarial-review.v1
-- [`CUBEFREE_EXTERNAL_V7_PREFLIGHT_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_PREFLIGHT_20260920.json) — 2026-09-20 · PRE_EXECUTION_EXTERNAL_TARGET_AND_METRIC_ADMISSION__NOT_RESULT · uberbond.cubefree-external-v7-preflight.v1
-- [`CUBEFREE_EXTERNAL_V7_PREREGISTRATION_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_UNSEEN_PUBLIC_MULTIPLICITY_THRESHOLD_CHALLENGE_NOT_RESULT · uberbond.cubefree-external-v7-preregistration.v1
-- [`CUBEFREE_EXTERNAL_V7_RESULT_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_RESULT_20260920.json) — 2026-09-20 · V7_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED · uberbond.cubefree-external-v7-result.v1
-- [`EXTERNAL_ARITHMETIC_FAMILY_V5_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · MULTIPLICITY_SENSITIVE_STRUCTURAL_MEMORY · CANDIDATE_NOT_PROMOTED · uberbond.external-arithmetic-family-v5-adversarial-review.v1
-- [`EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json) — 2026-09-20 · Multiplicity-Sensitive Structural Memory · CANDIDATE_NOT_PROMOTED · uberbond.v5-ontogenesis-receipt.v1
-- [`EXTERNAL_ARITHMETIC_FAMILY_V5_PREFLIGHT_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREFLIGHT_20260920.json) — 2026-09-20 · PRE_EXECUTION_EXTERNAL_TARGET_ADMISSION__NOT_RESULT · uberbond.external-arithmetic-family-v5-preflight.v1
-- [`EXTERNAL_ARITHMETIC_FAMILY_V5_PREREGISTRATION_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_EXTERNALLY_SOURCED_HELD_OUT_STRUCTURAL_FAMILY_CHALLENGE_NOT_RESULT · uberbond.external-arithmetic-family-v5-preregistration.v1
-- [`EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json) — 2026-09-20 · V5_PARTIAL_EXTERNAL_FAMILY_TRANSFER_WITH_BOUNDARIES · uberbond.external-arithmetic-family-v5-result.v1
-- [`FIFTH_POWER_FREE_V11_PREREGISTRATION_20260920.json`](../../artifacts/research/FIFTH_POWER_FREE_V11_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_FRESH_UNSEEN_K_ORDER_GENERALIZATION_NOT_RESULT · uberbond.fifth-power-free-v11-preregistration.v1
-- [`FIFTH_POWER_FREE_V11_RESULT_20260920.json`](../../artifacts/research/FIFTH_POWER_FREE_V11_RESULT_20260920.json) — 2026-09-20 · V11_UNSEEN_FIFTH_POWER_FREE_EXACT_GENERALIZATION_SUPPORTED__REVIEW_REQUIRED · uberbond.fifth-power-free-v11-result.v1
-- [`FOURTH_POWER_FREE_V9_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.fourth-power-free-v9-adversarial-review.v1
-- [`FOURTH_POWER_FREE_V9_PREFLIGHT_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_PREFLIGHT_20260920.json) — 2026-09-20 · PRE_EXECUTION_EXTERNAL_TARGET_AND_COMPARATOR_ADMISSION__NOT_RESULT · uberbond.fourth-power-free-v9-preflight.v1
-- [`FOURTH_POWER_FREE_V9_PREREGISTRATION_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_PREREGISTRATION_20260920.json) — 2026-09-20 · uberbond.fourth-power-free-v9-preregistration.v1
-- [`FOURTH_POWER_FREE_V9_RESULT_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_RESULT_20260920.json) — 2026-09-20 · V9_UNSEEN_FOURTH_POWER_FREE_GENERALIZATION_SUPPORTED__REVIEW_REQUIRED · uberbond.fourth-power-free-v9-result.v1
-- [`MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.multiplicity-depth-memory-v8-adversarial-review.v1
-- [`MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_MULTIPLICITY_DEPTH_HYPOTHESIS_NOT_RESULT · uberbond.multiplicity-depth-memory-v8-preregistration.v1
-- [`MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json) — 2026-09-20 · V8_MULTIPLICITY_DEPTH_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-depth-memory-v8-result.v1
-- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__CONFIRMATORY_EVIDENCE · uberbond.multiplicity-sensitive-memory-v6-adversarial-review.v1
-- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_GRAMMAR_EXTENSION_NOT_RESULT · uberbond.multiplicity-sensitive-memory-v6-preregistration.v1
-- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json) — 2026-09-20 · PRE_EXECUTION_ARITHMETIC_CORRECTION__NO_V6_RESULT_EXISTED · uberbond.multiplicity-sensitive-memory-v6-preregistration-correction.v1
-- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json) — 2026-09-20 · INDEPENDENT_CROSS_LANGUAGE_REPRODUCTION__NOT_PREREGISTERED_REPLICATION · uberbond.multiplicity-sensitive-memory-v6-python-crosscheck.v1
-- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json) — 2026-09-20 · V6_MULTIPLICITY_SENSITIVE_MEMORY_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-sensitive-memory-v6-result.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_EXTERNAL_REPLICATION · uberbond.ontological-computing-canary-adversarial-review.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_SOFTWARE_CANARY_NOT_RESULT · uberbond.ontological-computing-canary-preregistration.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_RESULT_20260920.json) — 2026-09-20 · SOFTWARE_DEMONSTRATION_SUPPORTED__EXTERNAL_REVIEW_REQUIRED · uberbond.ontological-computing-canary-result.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_EXTERNAL_REPLICATION · uberbond.ontological-computing-canary-v2-adversarial-review.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V2_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_SOFTWARE_REPLICATION_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v2-preregistration.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V2_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_RESULT_20260920.json) — 2026-09-20 · V2_NARROW_REPRESENTATION_DISCOVERY_SUPPORTED__REVIEW_REQUIRED · uberbond.ontological-computing-canary-v2-result.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V3_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW · uberbond.ontological-computing-canary-v3-adversarial-review.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V3_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_PRIMITIVE_SYNTHESIS_AND_TRANSFER_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v3-preregistration.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V3_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_RESULT_20260920.json) — 2026-09-20 · V3_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED · uberbond.ontological-computing-canary-v3-result.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION · uberbond.ontological-computing-canary-v4b-adversarial-review.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_TARGET_BLIND_STRUCTURAL_PROGRAM_SYNTHESIS_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v4b-preregistration.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION_NOT_RESULT · uberbond.ontological-computing-v4b-independent-replication-preregistration.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920.json) — 2026-09-20 · V4B_INDEPENDENT_REPLICATION_MATCHED · uberbond.ontological-computing-v4b-independent-replication-result.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json) — 2026-09-20 · V4B_TARGET_BLIND_STRUCTURAL_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED · uberbond.ontological-computing-canary-v4b-result.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_EXTERNAL_REPLICATION · uberbond.ontological-computing-canary-v4-adversarial-review.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_SEMANTIC_NOVELTY_GATED_ONTOLOGY_EXTENSION_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v4-preregistration.v1
-- [`ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json) — 2026-09-20 · V4_NOVEL_PRIMITIVE_ADMISSION_AND_TRANSFER_SUPPORTED__REVIEW_REQUIRED · uberbond.ontological-computing-canary-v4-result.v1
-- [`ONTOLOGICAL_COMPUTING_V4B_PROMOTION_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_V4B_PROMOTION_REVIEW_20260920.json) — 2026-09-20 · NARROW_INTERNAL_SOFTWARE_DEMONSTRATION__NOT_PARENT_MOONSHOT_PROOF · uberbond.moonshot-mechanism-promotion-review.v1
-- [`ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json) — 2026-09-20 · BENCHMARK_DESIGN_EVIDENCE_NOT_RESULT · uberbond.ontological-computing-v4-design-preflight.v1
-- [`ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json) — 2026-09-20 · PRE_EXECUTION_BENCHMARK_CORRECTION__NO_V4_RESULT_EXISTED · uberbond.ontological-computing-v4-preregistration-correction.v1
-- [`PARAMETERIZED_MULTIPLICITY_DEPTH_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION · uberbond.parameterized-multiplicity-depth-independent-replication.v1
-- [`PARAMETERIZED_MULTIPLICITY_DEPTH_V10_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.parameterized-multiplicity-depth-v10-adversarial-review.v1
-- [`PARAMETERIZED_MULTIPLICITY_DEPTH_V10_PREREGISTRATION_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_REVIEW_EXACT_SEMANTIC_MECHANISM_NOT_RESULT · uberbond.parameterized-multiplicity-depth-v10-preregistration.v1
-- [`PARAMETERIZED_MULTIPLICITY_DEPTH_V10_RESULT_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_RESULT_20260920.json) — 2026-09-20 · V10_PARAMETERIZED_MULTIPLICITY_DEPTH_EXACT_SEMANTICS_SUPPORTED__REVIEW_REQUIRED · uberbond.parameterized-multiplicity-depth-v10-result.v1
-- [`artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json`](../../artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json) — PUBLIC_REPO_METADATA_VERIFIED · uberbond.phoenix.targeted-github-metadata.v1
+- [`CAUSAL_COMPILER_CANARY_V1_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V1_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.causal-compiler-canary-v1-adversarial-review.v1 _(matched by name only)_
+- [`CAUSAL_COMPILER_CANARY_V1_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V1_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_NARROW_SOFTWARE_PRIMITIVE_NOT_RESULT · uberbond.causal-compiler-canary-v1-preregistration.v1 _(matched by name only)_
+- [`CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V1_RESULT_20260920.json) — 2026-09-20 · CAUSAL_COMPILER_V1_PREREGISTERED_FALSIFIER_TRIGGERED · uberbond.causal-compiler-canary-v1-result.v1 _(matched by name only)_
+- [`CAUSAL_COMPILER_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.causal-compiler-canary-v2-adversarial-review.v1 _(matched by name only)_
+- [`CAUSAL_COMPILER_CANARY_V2_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V2_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_GOAL_DIRECTED_CAUSAL_PROGRAM_SYNTHESIS_NOT_RESULT · uberbond.causal-compiler-canary-v2-preregistration.v1 _(matched by name only)_
+- [`CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_CANARY_V2_RESULT_20260920.json) — 2026-09-20 · CAUSAL_COMPILER_V2_GOAL_DIRECTED_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED · uberbond.causal-compiler-canary-v2-result.v1 _(matched by name only)_
+- [`CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/CAUSAL_COMPILER_V2_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION · uberbond.causal-compiler-v2-independent-replication.v1 _(matched by name only)_
+- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION · uberbond.causal-semantic-crystallizer-v1-adversarial-review.v1 _(matched by name only)_
+- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_SOFTWARE_REPLICATION · uberbond.causal-semantic-crystallizer-v1-independent-replication.v1 _(matched by name only)_
+- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_RECOMBINED_HYPOTHESIS_NOT_RESULT · uberbond.causal-semantic-crystallizer-v1-preregistration.v1 _(matched by name only)_
+- [`CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json`](../../artifacts/research/CAUSAL_SEMANTIC_CRYSTALLIZER_V1_RESULT_20260920.json) — 2026-09-20 · CAUSAL_SEMANTIC_CRYSTALLIZER_V1_SUPPORTED__REVIEW_REQUIRED · uberbond.causal-semantic-crystallizer-v1-result.v1 _(matched by name only)_
+- [`CUBEFREE_EXTERNAL_V7_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · POST_FAILURE_HYPOTHESIS_NOT_PROMOTED · uberbond.cubefree-external-v7-adversarial-review.v1 _(matched by name only)_
+- [`CUBEFREE_EXTERNAL_V7_PREFLIGHT_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_PREFLIGHT_20260920.json) — 2026-09-20 · PRE_EXECUTION_EXTERNAL_TARGET_AND_METRIC_ADMISSION__NOT_RESULT · uberbond.cubefree-external-v7-preflight.v1 _(matched by name only)_
+- [`CUBEFREE_EXTERNAL_V7_PREREGISTRATION_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_UNSEEN_PUBLIC_MULTIPLICITY_THRESHOLD_CHALLENGE_NOT_RESULT · uberbond.cubefree-external-v7-preregistration.v1 _(matched by name only)_
+- [`CUBEFREE_EXTERNAL_V7_RESULT_20260920.json`](../../artifacts/research/CUBEFREE_EXTERNAL_V7_RESULT_20260920.json) — 2026-09-20 · V7_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED · uberbond.cubefree-external-v7-result.v1 _(matched by name only)_
+- [`EXTERNAL_ARITHMETIC_FAMILY_V5_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · MULTIPLICITY_SENSITIVE_STRUCTURAL_MEMORY · CANDIDATE_NOT_PROMOTED · uberbond.external-arithmetic-family-v5-adversarial-review.v1 _(matched by name only)_
+- [`EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_ONTOGENESIS_20260920.json) — 2026-09-20 · Multiplicity-Sensitive Structural Memory · CANDIDATE_NOT_PROMOTED · uberbond.v5-ontogenesis-receipt.v1 _(matched by name only)_
+- [`EXTERNAL_ARITHMETIC_FAMILY_V5_PREFLIGHT_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREFLIGHT_20260920.json) — 2026-09-20 · PRE_EXECUTION_EXTERNAL_TARGET_ADMISSION__NOT_RESULT · uberbond.external-arithmetic-family-v5-preflight.v1 _(matched by name only)_
+- [`EXTERNAL_ARITHMETIC_FAMILY_V5_PREREGISTRATION_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_EXTERNALLY_SOURCED_HELD_OUT_STRUCTURAL_FAMILY_CHALLENGE_NOT_RESULT · uberbond.external-arithmetic-family-v5-preregistration.v1 _(matched by name only)_
+- [`EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json`](../../artifacts/research/EXTERNAL_ARITHMETIC_FAMILY_V5_RESULT_20260920.json) — 2026-09-20 · V5_PARTIAL_EXTERNAL_FAMILY_TRANSFER_WITH_BOUNDARIES · uberbond.external-arithmetic-family-v5-result.v1 _(matched by name only)_
+- [`FIFTH_POWER_FREE_V11_PREREGISTRATION_20260920.json`](../../artifacts/research/FIFTH_POWER_FREE_V11_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_FRESH_UNSEEN_K_ORDER_GENERALIZATION_NOT_RESULT · uberbond.fifth-power-free-v11-preregistration.v1 _(matched by name only)_
+- [`FIFTH_POWER_FREE_V11_RESULT_20260920.json`](../../artifacts/research/FIFTH_POWER_FREE_V11_RESULT_20260920.json) — 2026-09-20 · V11_UNSEEN_FIFTH_POWER_FREE_EXACT_GENERALIZATION_SUPPORTED__REVIEW_REQUIRED · uberbond.fifth-power-free-v11-result.v1 _(matched by name only)_
+- [`FOURTH_POWER_FREE_V9_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.fourth-power-free-v9-adversarial-review.v1 _(matched by name only)_
+- [`FOURTH_POWER_FREE_V9_PREFLIGHT_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_PREFLIGHT_20260920.json) — 2026-09-20 · PRE_EXECUTION_EXTERNAL_TARGET_AND_COMPARATOR_ADMISSION__NOT_RESULT · uberbond.fourth-power-free-v9-preflight.v1 _(matched by name only)_
+- [`FOURTH_POWER_FREE_V9_PREREGISTRATION_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_PREREGISTRATION_20260920.json) — 2026-09-20 · uberbond.fourth-power-free-v9-preregistration.v1 _(matched by name only)_
+- [`FOURTH_POWER_FREE_V9_RESULT_20260920.json`](../../artifacts/research/FOURTH_POWER_FREE_V9_RESULT_20260920.json) — 2026-09-20 · V9_UNSEEN_FOURTH_POWER_FREE_GENERALIZATION_SUPPORTED__REVIEW_REQUIRED · uberbond.fourth-power-free-v9-result.v1 _(matched by name only)_
+- [`MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.multiplicity-depth-memory-v8-adversarial-review.v1 _(matched by name only)_
+- [`MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_MULTIPLICITY_DEPTH_HYPOTHESIS_NOT_RESULT · uberbond.multiplicity-depth-memory-v8-preregistration.v1 _(matched by name only)_
+- [`MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_DEPTH_MEMORY_V8_RESULT_20260920.json) — 2026-09-20 · V8_MULTIPLICITY_DEPTH_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-depth-memory-v8-result.v1 _(matched by name only)_
+- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__CONFIRMATORY_EVIDENCE · uberbond.multiplicity-sensitive-memory-v6-adversarial-review.v1 _(matched by name only)_
+- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_FAILURE_GENERIC_GRAMMAR_EXTENSION_NOT_RESULT · uberbond.multiplicity-sensitive-memory-v6-preregistration.v1 _(matched by name only)_
+- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PREREGISTRATION_CORRECTION_20260920.json) — 2026-09-20 · PRE_EXECUTION_ARITHMETIC_CORRECTION__NO_V6_RESULT_EXISTED · uberbond.multiplicity-sensitive-memory-v6-preregistration-correction.v1 _(matched by name only)_
+- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_PYTHON_CROSSCHECK_20260920.json) — 2026-09-20 · INDEPENDENT_CROSS_LANGUAGE_REPRODUCTION__NOT_PREREGISTERED_REPLICATION · uberbond.multiplicity-sensitive-memory-v6-python-crosscheck.v1 _(matched by name only)_
+- [`MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json`](../../artifacts/research/MULTIPLICITY_SENSITIVE_MEMORY_V6_RESULT_20260920.json) — 2026-09-20 · V6_MULTIPLICITY_SENSITIVE_MEMORY_HYPOTHESIS_SUPPORTED__REVIEW_REQUIRED · uberbond.multiplicity-sensitive-memory-v6-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_EXTERNAL_REPLICATION · uberbond.ontological-computing-canary-adversarial-review.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_SOFTWARE_CANARY_NOT_RESULT · uberbond.ontological-computing-canary-preregistration.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_RESULT_20260920.json) — 2026-09-20 · SOFTWARE_DEMONSTRATION_SUPPORTED__EXTERNAL_REVIEW_REQUIRED · uberbond.ontological-computing-canary-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_EXTERNAL_REPLICATION · uberbond.ontological-computing-canary-v2-adversarial-review.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V2_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_SOFTWARE_REPLICATION_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v2-preregistration.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V2_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V2_RESULT_20260920.json) — 2026-09-20 · V2_NARROW_REPRESENTATION_DISCOVERY_SUPPORTED__REVIEW_REQUIRED · uberbond.ontological-computing-canary-v2-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V3_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW · uberbond.ontological-computing-canary-v3-adversarial-review.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V3_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_PRIMITIVE_SYNTHESIS_AND_TRANSFER_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v3-preregistration.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V3_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V3_RESULT_20260920.json) — 2026-09-20 · V3_PREREGISTERED_FALSIFIER_TRIGGERED_OR_NOT_SUPPORTED · uberbond.ontological-computing-canary-v3-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_INDEPENDENT_REPLICATION · uberbond.ontological-computing-canary-v4b-adversarial-review.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_TARGET_BLIND_STRUCTURAL_PROGRAM_SYNTHESIS_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v4b-preregistration.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION_NOT_RESULT · uberbond.ontological-computing-v4b-independent-replication-preregistration.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_REPLICATION_RESULT_20260920.json) — 2026-09-20 · V4B_INDEPENDENT_REPLICATION_MATCHED · uberbond.ontological-computing-v4b-independent-replication-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4B_RESULT_20260920.json) — 2026-09-20 · V4B_TARGET_BLIND_STRUCTURAL_PRIMITIVE_SUPPORTED__REVIEW_REQUIRED · uberbond.ontological-computing-canary-v4b-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · ADVERSARIAL_INTERNAL_REVIEW__NOT_EXTERNAL_REPLICATION · uberbond.ontological-computing-canary-v4-adversarial-review.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_SEMANTIC_NOVELTY_GATED_ONTOLOGY_EXTENSION_CHALLENGE_NOT_RESULT · uberbond.ontological-computing-canary-v4-preregistration.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_CANARY_V4_RESULT_20260920.json) — 2026-09-20 · V4_NOVEL_PRIMITIVE_ADMISSION_AND_TRANSFER_SUPPORTED__REVIEW_REQUIRED · uberbond.ontological-computing-canary-v4-result.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_V4B_PROMOTION_REVIEW_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_V4B_PROMOTION_REVIEW_20260920.json) — 2026-09-20 · NARROW_INTERNAL_SOFTWARE_DEMONSTRATION__NOT_PARENT_MOONSHOT_PROOF · uberbond.moonshot-mechanism-promotion-review.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_V4_DESIGN_PREFLIGHT_20260920.json) — 2026-09-20 · BENCHMARK_DESIGN_EVIDENCE_NOT_RESULT · uberbond.ontological-computing-v4-design-preflight.v1 _(matched by name only)_
+- [`ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json`](../../artifacts/research/ONTOLOGICAL_COMPUTING_V4_PREREGISTRATION_CORRECTION_20260920.json) — 2026-09-20 · PRE_EXECUTION_BENCHMARK_CORRECTION__NO_V4_RESULT_EXISTED · uberbond.ontological-computing-v4-preregistration-correction.v1 _(matched by name only)_
+- [`PARAMETERIZED_MULTIPLICITY_DEPTH_INDEPENDENT_REPLICATION_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_INDEPENDENT_REPLICATION_20260920.json) — 2026-09-20 · INDEPENDENT_SECOND_IMPLEMENTATION_REPLICATION · uberbond.parameterized-multiplicity-depth-independent-replication.v1 _(matched by name only)_
+- [`PARAMETERIZED_MULTIPLICITY_DEPTH_V10_ADVERSARIAL_REVIEW_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_ADVERSARIAL_REVIEW_20260920.json) — 2026-09-20 · uberbond.parameterized-multiplicity-depth-v10-adversarial-review.v1 _(matched by name only)_
+- [`PARAMETERIZED_MULTIPLICITY_DEPTH_V10_PREREGISTRATION_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_PREREGISTRATION_20260920.json) — 2026-09-20 · PREREGISTERED_POST_REVIEW_EXACT_SEMANTIC_MECHANISM_NOT_RESULT · uberbond.parameterized-multiplicity-depth-v10-preregistration.v1 _(matched by name only)_
+- [`PARAMETERIZED_MULTIPLICITY_DEPTH_V10_RESULT_20260920.json`](../../artifacts/research/PARAMETERIZED_MULTIPLICITY_DEPTH_V10_RESULT_20260920.json) — 2026-09-20 · V10_PARAMETERIZED_MULTIPLICITY_DEPTH_EXACT_SEMANTICS_SUPPORTED__REVIEW_REQUIRED · uberbond.parameterized-multiplicity-depth-v10-result.v1 _(matched by name only)_
+- [`artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json`](../../artifacts/research/phoenix-ten-wave-intake/targeted-metadata-12.json) — PUBLIC_REPO_METADATA_VERIFIED · uberbond.phoenix.targeted-github-metadata.v1 _(matched by name only)_
 
 **Frontier cognition and model routing**
 
-- [`EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json`](../../artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_COUNTERFACTUAL_REACHABILITY_EVALUATOR__NOT_REAL_WORLD_CAUSAL_PROOF · uberbond.epoch-branching-evaluator-verification.v1
+- [`EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json`](../../artifacts/research/EPOCH_BRANCHING_EVALUATOR_VERIFICATION_20260920.json) — 2026-09-20 · EXECUTED_COUNTERFACTUAL_REACHABILITY_EVALUATOR__NOT_REAL_WORLD_CAUSAL_PROOF · uberbond.epoch-branching-evaluator-verification.v1 _(matched by name only)_
 
 **Commerce, payments and economics**
 
-- [`artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json`](../../artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json) — 2026-10-21 · uberbond.uberwarm-research-candidates.v1
+- [`artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json`](../../artifacts/research/uberwarm-cohorts/first-home-service-agencies-20261021.json) — 2026-10-21 · uberbond.uberwarm-research-candidates.v1 _(matched by name only)_
 
 **Opportunity and world intelligence**
 
-- [`artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json`](../../artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json) — 2026-10-18 · PUBLIC_HEAD_OBSERVED
+- [`artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json`](../../artifacts/research/phoenix-ten-wave-intake/public-head-243-20261018.json) — 2026-10-18 · PUBLIC_HEAD_OBSERVED _(matched by name only)_
 
 **Founder operations and command center**
 
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-001-089.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-001-089.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
-- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-802-890.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-802-890.json) — uberbond.founder-moonshot-literal-corpus-shard.v1
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-001-089.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-001-089.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-090-178.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-179-267.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-268-356.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-357-445.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-446-534.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-535-623.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-624-712.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-713-801.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
+- [`artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-802-890.json`](../../artifacts/research/founder-moonshot-literal-corpus/founder-moonshots-802-890.json) — uberbond.founder-moonshot-literal-corpus-shard.v1 _(matched by name only)_
 
 ## revenue-singularity
 
-- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg)
-- [`artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png)
-- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED
-- [`artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png)
+- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg) _(matched by name only)_
+- [`artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261004/webkit-ipad-local-acceptance.png) _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json`](../../artifacts/revenue-singularity/20261005/purchase-gate-wallbreaker.json) — CANDIDATE_SELECTED _(matched by name only)_
+- [`artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png`](../../artifacts/revenue-singularity/20261005/webkit-ipad-local-acceptance.png) _(matched by name only)_
 
 ## sovereign
 
-- [`artifacts/sovereign/enforcement-manifest.json`](../../artifacts/sovereign/enforcement-manifest.json) — uberbond.sovereign-enforcement-manifest.v1
-- [`artifacts/sovereign/external-gate-manifest.json`](../../artifacts/sovereign/external-gate-manifest.json) — uberbond.sovereign-external-gate-manifest.v1
-- [`artifacts/sovereign/implementation-coverage-matrix.json`](../../artifacts/sovereign/implementation-coverage-matrix.json) — COVERAGE_MATRIX_COMPILED · uberbond.sovereign-coverage-matrix.v1
-- [`artifacts/sovereign/implementation-manifest-terminal-closure.json`](../../artifacts/sovereign/implementation-manifest-terminal-closure.json) — uberbond.implementation-manifest.terminal-closure.v1
-- [`artifacts/sovereign/implementation-manifest.json`](../../artifacts/sovereign/implementation-manifest.json) — uberbond.sovereign-implementation-manifest.v1
+- [`artifacts/sovereign/enforcement-manifest.json`](../../artifacts/sovereign/enforcement-manifest.json) — uberbond.sovereign-enforcement-manifest.v1 _(matched by name only)_
+- [`artifacts/sovereign/external-gate-manifest.json`](../../artifacts/sovereign/external-gate-manifest.json) — uberbond.sovereign-external-gate-manifest.v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-coverage-matrix.json`](../../artifacts/sovereign/implementation-coverage-matrix.json) — COVERAGE_MATRIX_COMPILED · uberbond.sovereign-coverage-matrix.v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-manifest-terminal-closure.json`](../../artifacts/sovereign/implementation-manifest-terminal-closure.json) — uberbond.implementation-manifest.terminal-closure.v1 _(matched by name only)_
+- [`artifacts/sovereign/implementation-manifest.json`](../../artifacts/sovereign/implementation-manifest.json) — uberbond.sovereign-implementation-manifest.v1 _(matched by name only)_
 
 ## strategy
 
-- [`artifacts/strategy/machiavelli-principles.v1.json.br.b64`](../../artifacts/strategy/machiavelli-principles.v1.json.br.b64)
+- [`artifacts/strategy/machiavelli-principles.v1.json.br.b64`](../../artifacts/strategy/machiavelli-principles.v1.json.br.b64) _(matched by name only)_
 
 ## ubercel
 
-- [`artifacts/ubercel/deployment-signals.json`](../../artifacts/ubercel/deployment-signals.json) — uberbond.ubercel-deployment-signals.v1
+- [`artifacts/ubercel/deployment-signals.json`](../../artifacts/ubercel/deployment-signals.json) — uberbond.ubercel-deployment-signals.v1 _(matched by name only)_
 
 ## uberos
 
-- [`artifacts/uberos/generation-0-manifest.json`](../../artifacts/uberos/generation-0-manifest.json) — UBER/OS · uberos.machine-manifest.v1
+- [`artifacts/uberos/generation-0-manifest.json`](../../artifacts/uberos/generation-0-manifest.json) — UBER/OS · uberos.machine-manifest.v1 _(matched by name only)_
 
 ## v7
 
-- [`artifacts/v7/artifact-index.json`](../../artifacts/v7/artifact-index.json) — uberbond.v7-artifact-index.v1
-- [`artifacts/v7/baselines.json`](../../artifacts/v7/baselines.json) — uberbond.v7-baselines.v1
-- [`artifacts/v7/claim-evidence-registry.json`](../../artifacts/v7/claim-evidence-registry.json) — uberbond.v7-claim-evidence-registry.v1
-- [`artifacts/v7/evaluation-epoch.json`](../../artifacts/v7/evaluation-epoch.json) — uberbond.v7-evaluation-epoch.v1
-- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — uberbond.v7-final-frontier-state.v1
-- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1
-- [`artifacts/v7/gap-ledger.json`](../../artifacts/v7/gap-ledger.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · EXTERNAL_BLOCKED · uberbond.v7-gap-ledger.v1
-- [`artifacts/v7/live-truth.json`](../../artifacts/v7/live-truth.json) — CARRIER_INCOMPLETE__CANONICAL_V9_NOT_MATERIALIZED · uberbond.v7-live-truth.v1
-- [`artifacts/v7/mission-dag.json`](../../artifacts/v7/mission-dag.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · uberbond.v7-mission-dag.v1
-- [`artifacts/v7/proof-obligations.json`](../../artifacts/v7/proof-obligations.json) — uberbond.v7-proof-obligations.v1
-- [`artifacts/v7/resource-allocation.json`](../../artifacts/v7/resource-allocation.json) — uberbond.v7-resource-allocation.v1
+- [`artifacts/v7/artifact-index.json`](../../artifacts/v7/artifact-index.json) — uberbond.v7-artifact-index.v1 _(matched by name only)_
+- [`artifacts/v7/baselines.json`](../../artifacts/v7/baselines.json) — uberbond.v7-baselines.v1 _(matched by name only)_
+- [`artifacts/v7/claim-evidence-registry.json`](../../artifacts/v7/claim-evidence-registry.json) — uberbond.v7-claim-evidence-registry.v1 _(matched by name only)_
+- [`artifacts/v7/evaluation-epoch.json`](../../artifacts/v7/evaluation-epoch.json) — uberbond.v7-evaluation-epoch.v1 _(matched by name only)_
+- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — uberbond.v7-final-frontier-state.v1 _(matched by name only)_
+- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1 _(matched by name only)_
+- [`artifacts/v7/gap-ledger.json`](../../artifacts/v7/gap-ledger.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · EXTERNAL_BLOCKED · uberbond.v7-gap-ledger.v1 _(matched by name only)_
+- [`artifacts/v7/live-truth.json`](../../artifacts/v7/live-truth.json) — CARRIER_INCOMPLETE__CANONICAL_V9_NOT_MATERIALIZED · uberbond.v7-live-truth.v1 _(matched by name only)_
+- [`artifacts/v7/mission-dag.json`](../../artifacts/v7/mission-dag.json) — Canonical V9 cannot be reconstructed from the carrier in this repository · uberbond.v7-mission-dag.v1 _(matched by name only)_
+- [`artifacts/v7/proof-obligations.json`](../../artifacts/v7/proof-obligations.json) — uberbond.v7-proof-obligations.v1 _(matched by name only)_
+- [`artifacts/v7/resource-allocation.json`](../../artifacts/v7/resource-allocation.json) — uberbond.v7-resource-allocation.v1 _(matched by name only)_
 
 ## v9
 
-- [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — CANONICAL_V9_NOT_MATERIALIZED__EXTERNAL_SOURCE_ARTIFACT_BLOCKER · uberbond-canonical-v9-materialization-blocker-1.0.0
+- [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — CANONICAL_V9_NOT_MATERIALIZED__EXTERNAL_SOURCE_ARTIFACT_BLOCKER · uberbond-canonical-v9-materialization-blocker-1.0.0 _(matched by name only)_
 
 ## verification
 
-- [`artifacts/verification/self-maintainer-verification-monotonicity-20260910.json`](../../artifacts/verification/self-maintainer-verification-monotonicity-20260910.json) — 2026-09-10 · uberbond.verification-receipt.v1
+- [`artifacts/verification/self-maintainer-verification-monotonicity-20260910.json`](../../artifacts/verification/self-maintainer-verification-monotonicity-20260910.json) — 2026-09-10 · uberbond.verification-receipt.v1 _(matched by name only)_
 
 ## work
 
-- [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Scarce-model allocation · SPECIFICATION_ONLY · uberbond.apotheosis-orchestration-spec.v1
-- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-gate4-handoff.v1
-- [`artifacts/work/apotheosis-native-activation-2026-09-15.json`](../../artifacts/work/apotheosis-native-activation-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-native-activation-receipt.v1
-- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1
-- [`artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json`](../../artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json) — 2026-09-08 · prospect-to-evidence reachability audit · 64_OF_64_ACCOUNTED__CURRENT_MAIN_OR_FRESH_CHILD_OR_GAP_OR_EXTERNAL · uberbond-astra-swarm-reconciliation-1.…
-- [`artifacts/work/astra-orchestrator-state-2026-09-08.json`](../../artifacts/work/astra-orchestrator-state-2026-09-08.json) — 2026-09-08 · ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED
-- [`artifacts/work/astra-terminal-proof-2026-09-09.json`](../../artifacts/work/astra-terminal-proof-2026-09-09.json) — 2026-09-09
+- [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Scarce-model allocation · SPECIFICATION_ONLY · uberbond.apotheosis-orchestration-spec.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-gate4-handoff.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-native-activation-2026-09-15.json`](../../artifacts/work/apotheosis-native-activation-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-native-activation-receipt.v1 _(matched by name only)_
+- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1 _(matched by name only)_
+- [`artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json`](../../artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json) — 2026-09-08 · prospect-to-evidence reachability audit · 64_OF_64_ACCOUNTED__CURRENT_MAIN_OR_FRESH_CHILD_OR_GAP_OR_EXTERNAL · uberbond-astra-swarm-reconciliation-1.… _(matched by name only)_
+- [`artifacts/work/astra-orchestrator-state-2026-09-08.json`](../../artifacts/work/astra-orchestrator-state-2026-09-08.json) — 2026-09-08 · ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED _(matched by name only)_
+- [`artifacts/work/astra-terminal-proof-2026-09-09.json`](../../artifacts/work/astra-terminal-proof-2026-09-09.json) — 2026-09-09 _(matched by name only)_
 
 ## world-brain-field-mission-2026-09-01
 
 **Frontier cognition and model routing**
 
-- [`claude-engineering-handoff.json`](../../artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json) — uberbond.claude-handoff.v1
-- [`mission-summary.json`](../../artifacts/world-brain-field-mission-2026-09-01/mission-summary.json) — White-label Attribution Integrity + Lost-Booking Evidence Sprint · PREPARED_NOT_EXTERNALLY_ACTIVATED · uberbond.world-brain-field-mission.v1
+- [`claude-engineering-handoff.json`](../../artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json) — uberbond.claude-handoff.v1 _(matched by name only)_
+- [`mission-summary.json`](../../artifacts/world-brain-field-mission-2026-09-01/mission-summary.json) — White-label Attribution Integrity + Lost-Booking Evidence Sprint · PREPARED_NOT_EXTERNALLY_ACTIVATED · uberbond.world-brain-field-mission.v1 _(matched by name only)_
 
 **Capability Genome, skills and Wallbreaker**
 
-- [`capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1
-- [`capability-dedupe-family-map.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json) — uberbond.capability-family-map.v1
-- [`capability-genome-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json) — uberbond.capability-genome.public-corpus.v0.1
+- [`capability-atom-proposals.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-atom-proposals.json) — uberbond.capability-atoms.v1 _(matched by name only)_
+- [`capability-dedupe-family-map.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-dedupe-family-map.json) — uberbond.capability-family-map.v1 _(matched by name only)_
+- [`capability-genome-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/capability-genome-candidates.json) — uberbond.capability-genome.public-corpus.v0.1 _(matched by name only)_
 
 **Agent mesh, relay and autonomy**
 
-- [`ai-gateway-provider-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json) — RESEARCHED_NOT_CONFIGURED · uberbond.ai-gateway-provider-research.v1
+- [`ai-gateway-provider-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/ai-gateway-provider-report.json) — RESEARCHED_NOT_CONFIGURED · uberbond.ai-gateway-provider-research.v1 _(matched by name only)_
 
 **Commerce, payments and economics**
 
-- [`contradictions-unknowns.json`](../../artifacts/world-brain-field-mission-2026-09-01/contradictions-unknowns.json) — uberbond.world-brain-contradictions.v1
-- [`first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1
-- [`paypal-egypt-activation-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json) — uberbond.paypal-egypt-activation-research.v1
+- [`contradictions-unknowns.json`](../../artifacts/world-brain-field-mission-2026-09-01/contradictions-unknowns.json) — uberbond.world-brain-contradictions.v1 _(matched by name only)_
+- [`first-cash-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/first-cash-partner-candidates.json) — PROMOTE_FIRST_FIVE · uberbond.first-cash-partners.v1 _(matched by name only)_
+- [`paypal-egypt-activation-report.json`](../../artifacts/world-brain-field-mission-2026-09-01/paypal-egypt-activation-report.json) — uberbond.paypal-egypt-activation-research.v1 _(matched by name only)_
 
 **Opportunity and world intelligence**
 
-- [`canary-distribution-decision.json`](../../artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json) — uberbond.canary-distribution.v1
-- [`corpus-storage-comparison.json`](../../artifacts/world-brain-field-mission-2026-09-01/corpus-storage-comparison.json) — RESEARCH_ONLY_NO_PURCHASE_OR_ACCOUNT_CHANGE · uberbond.corpus-storage-research.v1
-- [`rejected-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json) — uberbond.rejected-partners.v1
-- [`report-source.md`](../../artifacts/world-brain-field-mission-2026-09-01/report-source.md) — UberBond World Brain Field Mission — 2026-09-01
-- [`source-ledger.json`](../../artifacts/world-brain-field-mission-2026-09-01/source-ledger.json) — uberbond.public-evidence-ledger.v1
+- [`canary-distribution-decision.json`](../../artifacts/world-brain-field-mission-2026-09-01/canary-distribution-decision.json) — uberbond.canary-distribution.v1 _(matched by name only)_
+- [`corpus-storage-comparison.json`](../../artifacts/world-brain-field-mission-2026-09-01/corpus-storage-comparison.json) — RESEARCH_ONLY_NO_PURCHASE_OR_ACCOUNT_CHANGE · uberbond.corpus-storage-research.v1 _(matched by name only)_
+- [`rejected-partner-candidates.json`](../../artifacts/world-brain-field-mission-2026-09-01/rejected-partner-candidates.json) — uberbond.rejected-partners.v1 _(matched by name only)_
+- [`report-source.md`](../../artifacts/world-brain-field-mission-2026-09-01/report-source.md) — UberBond World Brain Field Mission — 2026-09-01 _(matched by name only)_
+- [`source-ledger.json`](../../artifacts/world-brain-field-mission-2026-09-01/source-ledger.json) — uberbond.public-evidence-ledger.v1 _(matched by name only)_
 
 ## (top level)
 
 **North Star and life systems**
 
-- [`personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0
-- [`sovereign-cognitive-continuum-bootstrap-overlay.json`](../../artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json) — TERMINAL_NORTH_STAR_PRECEDENCE_OVERLAY · uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.2.0
-- [`sovereign-cognitive-continuum-chat-completeness-aliases.json`](../../artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json) — Personal Big Bang · NO_DROP_LITERAL_NAME_ALIAS_REGISTRY · uberbond-sovereign-cognitive-continuum-chat-completeness-aliases-1.0.0
-- [`sovereign-cognitive-continuum-north-star.json`](../../artifacts/sovereign-cognitive-continuum-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-north-star-1.0.0
-- [`sovereign-cognitive-continuum-total-north-star.json`](../../artifacts/sovereign-cognitive-continuum-total-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_SUPERSET_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-total-north-star-1.0.0
-- [`sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0
-- [`wessam-singularity-prompt-recovery-2026-09-29.json`](../../artifacts/wessam-singularity-prompt-recovery-2026-09-29.json) — 2026-09-29 · WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt · FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ · uberbond.wessam-si…
+- [`personal-civilization-engine-north-star.json`](../../artifacts/personal-civilization-engine-north-star.json) — Personal Civilization Engine · CHAT_SPEC_GOAL · personal-civilization-engine-north-star-1.0.0 _(matched by name only)_
+- [`sovereign-cognitive-continuum-bootstrap-overlay.json`](../../artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json) — TERMINAL_NORTH_STAR_PRECEDENCE_OVERLAY · uberbond-sovereign-cognitive-continuum-bootstrap-overlay-1.2.0 _(matched by name only)_
+- [`sovereign-cognitive-continuum-chat-completeness-aliases.json`](../../artifacts/sovereign-cognitive-continuum-chat-completeness-aliases.json) — Personal Big Bang · NO_DROP_LITERAL_NAME_ALIAS_REGISTRY · uberbond-sovereign-cognitive-continuum-chat-completeness-aliases-1.0.0 _(matched by name only)_
+- [`sovereign-cognitive-continuum-north-star.json`](../../artifacts/sovereign-cognitive-continuum-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-north-star-1.0.0 _(matched by name only)_
+- [`sovereign-cognitive-continuum-total-north-star.json`](../../artifacts/sovereign-cognitive-continuum-total-north-star.json) — Sovereign Cognitive Continuum · TERMINAL_NORTH_STAR_SUPERSET_CHAT_SPEC_GOAL · uberbond-sovereign-cognitive-continuum-total-north-star-1.0.0 _(matched by name only)_
+- [`sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0 _(matched by name only)_
+- [`wessam-singularity-prompt-recovery-2026-09-29.json`](../../artifacts/wessam-singularity-prompt-recovery-2026-09-29.json) — 2026-09-29 · WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt · FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ · uberbond.wessam-si… _(matched by name only)_
 
 **Continuity, memory and handoffs**
 
 - [`account-activation-receipt-2026-09-01.json`](../../artifacts/account-activation-receipt-2026-09-01.json) — 2026-09-01 · uberbondd · NOT_RUN · uberbond.account-activation-receipt.v1
-- [`astra-harness-donor-2026-09-14.json`](../../artifacts/astra-harness-donor-2026-09-14.json) — 2026-09-14 · uberbond.astra-harness-donor.v1
+- [`astra-harness-donor-2026-09-14.json`](../../artifacts/astra-harness-donor-2026-09-14.json) — 2026-09-14 · uberbond.astra-harness-donor.v1 _(matched by name only)_
 - [`branch-hygiene-audit-2026-08-31.json`](../../artifacts/branch-hygiene-audit-2026-08-31.json) — 2026-08-31 · uberbond-branch-hygiene-audit-1.0.0
-- [`project-nullstar-directive.json`](../../artifacts/project-nullstar-directive.json) — PROJECT NULLSTAR — Private UberBond Recursive Intelligence Acceleration Program · FOUNDER_DIRECTIVE_IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROO…
-- [`today-closure-checkpoint-2026-09-04.json`](../../artifacts/today-closure-checkpoint-2026-09-04.json) — 2026-09-04 · Avengers runtime · uberbond.today-closure-checkpoint.v1
-- [`uberbond-memory-index.json`](../../artifacts/uberbond-memory-index.json) — Current UberBond repository canon, bootstrap, historical lineage and current system artifacts · CURRENT_OWNER_DOCTRINE · uberbond-memory-index-1.0.0
-- [`uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md · CANONICAL_LINEAGE · uberbond-memory-reconciliation-1.0.0
-- [`uberbond-nightfall-lanes.json`](../../artifacts/uberbond-nightfall-lanes.json) — uberbond-nightfall-trinity-lanes-1.0.0
-- [`uberbond-omega-parallel-execution-graph.json`](../../artifacts/uberbond-omega-parallel-execution-graph.json) — Truth Tribunal · ACTIVE_EXECUTION_GRAPH · uberbond-omega-parallel-execution-1.0.0
+- [`project-nullstar-directive.json`](../../artifacts/project-nullstar-directive.json) — PROJECT NULLSTAR — Private UberBond Recursive Intelligence Acceleration Program · FOUNDER_DIRECTIVE_IMPORTED__CHAT_SPEC_GOAL__NOT_IMPLEMENTATION_PROO… _(matched by name only)_
+- [`today-closure-checkpoint-2026-09-04.json`](../../artifacts/today-closure-checkpoint-2026-09-04.json) — 2026-09-04 · Avengers runtime · uberbond.today-closure-checkpoint.v1 _(matched by name only)_
+- [`uberbond-memory-index.json`](../../artifacts/uberbond-memory-index.json) — Current UberBond repository canon, bootstrap, historical lineage and current system artifacts · CURRENT_OWNER_DOCTRINE · uberbond-memory-index-1.0.0 _(matched by name only)_
+- [`uberbond-memory-reconciliation.json`](../../artifacts/uberbond-memory-reconciliation.json) — UBERBOND_EVEREST_ZERO_COMPLETION_RECEIPT.md · CANONICAL_LINEAGE · uberbond-memory-reconciliation-1.0.0 _(matched by name only)_
+- [`uberbond-nightfall-lanes.json`](../../artifacts/uberbond-nightfall-lanes.json) — uberbond-nightfall-trinity-lanes-1.0.0 _(matched by name only)_
+- [`uberbond-omega-parallel-execution-graph.json`](../../artifacts/uberbond-omega-parallel-execution-graph.json) — Truth Tribunal · ACTIVE_EXECUTION_GRAPH · uberbond-omega-parallel-execution-1.0.0 _(matched by name only)_
 - [`uberbond-owner-goals-2026-09-02.json`](../../artifacts/uberbond-owner-goals-2026-09-02.json) — 2026-09-02 · White-label Attribution Integrity + Lost-Booking Evidence Sprint · PREPARED_NOT_EXTERNALLY_ACTIVATED · uberbond-owner-goals-1.0.0
-- [`uberbond-total-brain-recovery-addendum.json`](../../artifacts/uberbond-total-brain-recovery-addendum.json) — UberBond Growth Graph Expansion · VERIFIED_CURRENT · uberbond-total-brain-recovery-addendum-1.0.0
-- [`uberbond-total-brain.json`](../../artifacts/uberbond-total-brain.json) — uberbond-total-brain-1.0.0
-- [`work-session-progress-baseline-2026-09-07.json`](../../artifacts/work-session-progress-baseline-2026-09-07.json) — 2026-09-07 · PROVISIONAL_BASELINE_REQUIRES_PHASE0_RECALIBRATION · uberbond-work-session-progress-1.0.0
+- [`uberbond-total-brain-recovery-addendum.json`](../../artifacts/uberbond-total-brain-recovery-addendum.json) — UberBond Growth Graph Expansion · VERIFIED_CURRENT · uberbond-total-brain-recovery-addendum-1.0.0 _(matched by name only)_
+- [`uberbond-total-brain.json`](../../artifacts/uberbond-total-brain.json) — uberbond-total-brain-1.0.0 _(matched by name only)_
+- [`work-session-progress-baseline-2026-09-07.json`](../../artifacts/work-session-progress-baseline-2026-09-07.json) — 2026-09-07 · PROVISIONAL_BASELINE_REQUIRES_PHASE0_RECALIBRATION · uberbond-work-session-progress-1.0.0 _(matched by name only)_
 
 **GENESIS, moonshots and Perpetual Frontier**
 
-- [`connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE · uberbond-connectome-autopoiesis-1.0.0
-- [`emerging-ai-mechanism-library.json`](../../artifacts/emerging-ai-mechanism-library.json) — uberbond-emerging-ai-mechanism-library-1.0.0
-- [`gamechanger-mesh-latest.json`](../../artifacts/gamechanger-mesh-latest.json) — GAMECHANGER_COVERAGE_COMPLETE · uberbond.gamechanger-mesh.tick.v2
-- [`genesis-275-implementation-manifest.json`](../../artifacts/genesis-275-implementation-manifest.json) — uberbond.genesis-275-implementation-manifest.v1
-- [`genesis-evolution-latest.json`](../../artifacts/genesis-evolution-latest.json) — uberbond.genesis-evolution.tick.v2
-- [`genesis-metabolism-latest.json`](../../artifacts/genesis-metabolism-latest.json) — GENESIS_METABOLISM_READY · uberbond.genesis-metabolism.tick.v1
-- [`genesis-ontology-latest.json`](../../artifacts/genesis-ontology-latest.json) — missing concept, mechanism, measurement, or theory would explain this unknown · ONTOGENESIS_CYCLE_READY · uberbond.genesis-ontology.tick.v1
-- [`genesis-scientist-latest.json`](../../artifacts/genesis-scientist-latest.json) — uberbond.genesis-scientist.tick.v1
-- [`growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0
-- [`million-branch-ideation-genome.json`](../../artifacts/million-branch-ideation-genome.json) — UBERBOND_MILLION_BRANCH_IDEATION_GENOME_v1.md · FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION · uberbond-million-branch-ideation-genom…
-- [`million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2
-- [`million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1
-- [`perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — uberbond.perpetual-frontier-genesis.tick.v1
-- [`perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY · uberbond-perpetual-frontier-genesis-1.1.0
-- [`perpetual-frontier-implementation-ledger.json`](../../artifacts/perpetual-frontier-implementation-ledger.json) — Unknown-Unknown Engine · GENESIS_EVIDENCE_LEDGER_READY · uberbond.perpetual-frontier-implementation-ledger.v2
-- [`temporal-foundry.json`](../../artifacts/temporal-foundry.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-temporal-foundry-1.0.0
-- [`timeline-topology-engine.json`](../../artifacts/timeline-topology-engine.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-timeline-topology-engine-1.0.0
+- [`connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE · uberbond-connectome-autopoiesis-1.0.0 _(matched by name only)_
+- [`emerging-ai-mechanism-library.json`](../../artifacts/emerging-ai-mechanism-library.json) — uberbond-emerging-ai-mechanism-library-1.0.0 _(matched by name only)_
+- [`gamechanger-mesh-latest.json`](../../artifacts/gamechanger-mesh-latest.json) — GAMECHANGER_COVERAGE_COMPLETE · uberbond.gamechanger-mesh.tick.v2 _(matched by name only)_
+- [`genesis-275-implementation-manifest.json`](../../artifacts/genesis-275-implementation-manifest.json) — uberbond.genesis-275-implementation-manifest.v1 _(matched by name only)_
+- [`genesis-evolution-latest.json`](../../artifacts/genesis-evolution-latest.json) — uberbond.genesis-evolution.tick.v2 _(matched by name only)_
+- [`genesis-metabolism-latest.json`](../../artifacts/genesis-metabolism-latest.json) — GENESIS_METABOLISM_READY · uberbond.genesis-metabolism.tick.v1 _(matched by name only)_
+- [`genesis-ontology-latest.json`](../../artifacts/genesis-ontology-latest.json) — missing concept, mechanism, measurement, or theory would explain this unknown · ONTOGENESIS_CYCLE_READY · uberbond.genesis-ontology.tick.v1 _(matched by name only)_
+- [`genesis-scientist-latest.json`](../../artifacts/genesis-scientist-latest.json) — uberbond.genesis-scientist.tick.v1 _(matched by name only)_
+- [`growth-graph-capability-frontier.json`](../../artifacts/growth-graph-capability-frontier.json) — CORE_EXISTS_PROVIDER_ACTIVATION_GATED · uberbond-growth-graph-frontier-1.0.0 _(matched by name only)_
+- [`million-branch-ideation-genome.json`](../../artifacts/million-branch-ideation-genome.json) — UBERBOND_MILLION_BRANCH_IDEATION_GENOME_v1.md · FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION · uberbond-million-branch-ideation-genom… _(matched by name only)_
+- [`million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2 _(matched by name only)_
+- [`million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1 _(matched by name only)_
+- [`perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — uberbond.perpetual-frontier-genesis.tick.v1 _(matched by name only)_
+- [`perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — CHAT_SPEC_GOAL_WITH_EXECUTABLE_ZERO_EFFECT_FOUNDATION_MILLION_BRANCH_IDEATION_AND_LIVE_NURSERY · uberbond-perpetual-frontier-genesis-1.1.0 _(matched by name only)_
+- [`perpetual-frontier-implementation-ledger.json`](../../artifacts/perpetual-frontier-implementation-ledger.json) — Unknown-Unknown Engine · GENESIS_EVIDENCE_LEDGER_READY · uberbond.perpetual-frontier-implementation-ledger.v2 _(matched by name only)_
+- [`temporal-foundry.json`](../../artifacts/temporal-foundry.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-temporal-foundry-1.0.0 _(matched by name only)_
+- [`timeline-topology-engine.json`](../../artifacts/timeline-topology-engine.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_REALITY_EVIDENCE_SEPARATE · uberbond-timeline-topology-engine-1.0.0 _(matched by name only)_
 
 **ASI research and evidence programs**
 
-- [`c21-breadth-thirteen-contracts.json`](../../artifacts/c21-breadth-thirteen-contracts.json) — uberbond.c21-breadth-thirteen-contracts.v1
-- [`c21-breadth-thirteen-observed-summary.json`](../../artifacts/c21-breadth-thirteen-observed-summary.json) — uberbond.c21-breadth-thirteen-observed-summary.v1
-- [`c21-breadth-thirteen-populations.json`](../../artifacts/c21-breadth-thirteen-populations.json) — uberbond.c21-breadth-thirteen-populations.v1
-- [`c21-calibrated-ignorance-eval-v2.json`](../../artifacts/c21-calibrated-ignorance-eval-v2.json) — uberbond.c21.calibrated-ignorance-eval.v2
-- [`c21-calibrated-ignorance-result-v2.json`](../../artifacts/c21-calibrated-ignorance-result-v2.json) — uberbond.c21.calibrated-ignorance-result.v2
-- [`c21-critical-six-contracts.json`](../../artifacts/c21-critical-six-contracts.json) — uberbond.c21-critical-six-contracts.v1
-- [`c21-critical-six-observed-summary.json`](../../artifacts/c21-critical-six-observed-summary.json) — uberbond.c21-critical-six-observed-summary.v1
-- [`c21-critical-six-populations.json`](../../artifacts/c21-critical-six-populations.json) — uberbond.c21-critical-six-populations.v1
-- [`c21-d1-canonical-result.json`](../../artifacts/c21-d1-canonical-result.json) — uberbond.c21-d1-canonical-result.v1
-- [`c21-d1-observed-build.json`](../../artifacts/c21-d1-observed-build.json)
-- [`c21-d1-observed-search.json`](../../artifacts/c21-d1-observed-search.json)
-- [`c21-d1-observed-summary.json`](../../artifacts/c21-d1-observed-summary.json) — C21_SELF_IMPROVEMENT_TRANSFER_SUPPORTED · uberbond.c21-d1-observed-summary.v1
-- [`c21-d1-observed-topology.json`](../../artifacts/c21-d1-observed-topology.json)
-- [`c21-d1-task-population.json`](../../artifacts/c21-d1-task-population.json) — uberbond.c21-d1-task-population.v1
-- [`c21-evidence-campaign-2026-09-11.json`](../../artifacts/c21-evidence-campaign-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-factory.v1
-- [`c21-evidence-status-2026-09-11.json`](../../artifacts/c21-evidence-status-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status.v1
-- [`c21-evidence-status-refresh-2026-09-11.json`](../../artifacts/c21-evidence-status-refresh-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status-refresh.v1
-- [`c21-independent-revalidation-2026-09-11T1727Z.json`](../../artifacts/c21-independent-revalidation-2026-09-11T1727Z.json) — 2026-09-11 · uberbond.c21-independent-revalidation.v1
-- [`c21-self-improvement-frozen-contract.json`](../../artifacts/c21-self-improvement-frozen-contract.json) — uberbond.c21-self-improvement-contract.v1
-- [`c21-seven-critical-result.json`](../../artifacts/c21-seven-critical-result.json) — uberbond.c21-seven-critical-result.v1
-- [`c21-twenty-dimension-result.json`](../../artifacts/c21-twenty-dimension-result.json) — uberbond.c21-twenty-dimension-result.v1
-- [`literal-asi-claim-status-2026-09-11.json`](../../artifacts/literal-asi-claim-status-2026-09-11.json) — 2026-09-11 · LITERAL_ASI_CLAIM_REFUSED · uberbond.literal-asi-claim-status.v1
-- [`omega-evidence-seal-2026-09-15.json`](../../artifacts/omega-evidence-seal-2026-09-15.json) — 2026-09-15 · uberbond.omega-evidence-seal.v1
-- [`omega-negative-transfer-receipt-2026-09-15.json`](../../artifacts/omega-negative-transfer-receipt-2026-09-15.json) — 2026-09-15 · NEGATIVE_EVIDENCE · uberbond.omega-negative-transfer-receipt.v1
-- [`omega-private-evidence-v1-disqualified-2026-09-15.json`](../../artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json) — 2026-09-15 · NUMERICALLY_POSITIVE_BUT_PROMOTION_DISQUALIFIED · uberbond.omega-private-evidence-receipt.v1
-- [`omega-private-evidence-v2-sealed-2026-09-15.json`](../../artifacts/omega-private-evidence-v2-sealed-2026-09-15.json) — 2026-09-15 · CLEAN_BOUNDED_POSITIVE_EVIDENCE_NOT_E10 · uberbond.omega-private-evidence-receipt.v2
-- [`omega-private-holdout-commitments-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v1
-- [`omega-private-holdout-commitments-v2-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v2-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v2
-- [`omega-private-holdout-commitments-v3-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v3-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v3
-- [`omega-private-v2-unseen-algebra-failure-2026-09-15.json`](../../artifacts/omega-private-v2-unseen-algebra-failure-2026-09-15.json) — 2026-09-15 · NEGATIVE_TRANSFER_ON_UNSEEN_ALGEBRA · uberbond.omega-private-negative-evidence.v1
-- [`omega-private-v3-commitments-void-unopened-2026-09-15.json`](../../artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json) — 2026-09-15 · VOID_UNOPENED · uberbond.omega-private-holdout-void.v1
-- [`omega-sealed-transfer-receipt-2026-09-15.json`](../../artifacts/omega-sealed-transfer-receipt-2026-09-15.json) — 2026-09-15 · uberbond.omega-sealed-transfer-receipt.v1
-- [`omega-v4-evidence.json`](../../artifacts/omega-v4-evidence.json) — uberbond.omega.v4.evidence
-- [`omega-v4-seal.json`](../../artifacts/omega-v4-seal.json) — uberbond.omega.v4.seal
+- [`c21-breadth-thirteen-contracts.json`](../../artifacts/c21-breadth-thirteen-contracts.json) — uberbond.c21-breadth-thirteen-contracts.v1 _(matched by name only)_
+- [`c21-breadth-thirteen-observed-summary.json`](../../artifacts/c21-breadth-thirteen-observed-summary.json) — uberbond.c21-breadth-thirteen-observed-summary.v1 _(matched by name only)_
+- [`c21-breadth-thirteen-populations.json`](../../artifacts/c21-breadth-thirteen-populations.json) — uberbond.c21-breadth-thirteen-populations.v1 _(matched by name only)_
+- [`c21-calibrated-ignorance-eval-v2.json`](../../artifacts/c21-calibrated-ignorance-eval-v2.json) — uberbond.c21.calibrated-ignorance-eval.v2 _(matched by name only)_
+- [`c21-calibrated-ignorance-result-v2.json`](../../artifacts/c21-calibrated-ignorance-result-v2.json) — uberbond.c21.calibrated-ignorance-result.v2 _(matched by name only)_
+- [`c21-critical-six-contracts.json`](../../artifacts/c21-critical-six-contracts.json) — uberbond.c21-critical-six-contracts.v1 _(matched by name only)_
+- [`c21-critical-six-observed-summary.json`](../../artifacts/c21-critical-six-observed-summary.json) — uberbond.c21-critical-six-observed-summary.v1 _(matched by name only)_
+- [`c21-critical-six-populations.json`](../../artifacts/c21-critical-six-populations.json) — uberbond.c21-critical-six-populations.v1 _(matched by name only)_
+- [`c21-d1-canonical-result.json`](../../artifacts/c21-d1-canonical-result.json) — uberbond.c21-d1-canonical-result.v1 _(matched by name only)_
+- [`c21-d1-observed-build.json`](../../artifacts/c21-d1-observed-build.json) _(matched by name only)_
+- [`c21-d1-observed-search.json`](../../artifacts/c21-d1-observed-search.json) _(matched by name only)_
+- [`c21-d1-observed-summary.json`](../../artifacts/c21-d1-observed-summary.json) — C21_SELF_IMPROVEMENT_TRANSFER_SUPPORTED · uberbond.c21-d1-observed-summary.v1 _(matched by name only)_
+- [`c21-d1-observed-topology.json`](../../artifacts/c21-d1-observed-topology.json) _(matched by name only)_
+- [`c21-d1-task-population.json`](../../artifacts/c21-d1-task-population.json) — uberbond.c21-d1-task-population.v1 _(matched by name only)_
+- [`c21-evidence-campaign-2026-09-11.json`](../../artifacts/c21-evidence-campaign-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-factory.v1 _(matched by name only)_
+- [`c21-evidence-status-2026-09-11.json`](../../artifacts/c21-evidence-status-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status.v1 _(matched by name only)_
+- [`c21-evidence-status-refresh-2026-09-11.json`](../../artifacts/c21-evidence-status-refresh-2026-09-11.json) — 2026-09-11 · uberbond.c21-evidence-status-refresh.v1 _(matched by name only)_
+- [`c21-independent-revalidation-2026-09-11T1727Z.json`](../../artifacts/c21-independent-revalidation-2026-09-11T1727Z.json) — 2026-09-11 · uberbond.c21-independent-revalidation.v1 _(matched by name only)_
+- [`c21-self-improvement-frozen-contract.json`](../../artifacts/c21-self-improvement-frozen-contract.json) — uberbond.c21-self-improvement-contract.v1 _(matched by name only)_
+- [`c21-seven-critical-result.json`](../../artifacts/c21-seven-critical-result.json) — uberbond.c21-seven-critical-result.v1 _(matched by name only)_
+- [`c21-twenty-dimension-result.json`](../../artifacts/c21-twenty-dimension-result.json) — uberbond.c21-twenty-dimension-result.v1 _(matched by name only)_
+- [`literal-asi-claim-status-2026-09-11.json`](../../artifacts/literal-asi-claim-status-2026-09-11.json) — 2026-09-11 · LITERAL_ASI_CLAIM_REFUSED · uberbond.literal-asi-claim-status.v1 _(matched by name only)_
+- [`omega-evidence-seal-2026-09-15.json`](../../artifacts/omega-evidence-seal-2026-09-15.json) — 2026-09-15 · uberbond.omega-evidence-seal.v1 _(matched by name only)_
+- [`omega-negative-transfer-receipt-2026-09-15.json`](../../artifacts/omega-negative-transfer-receipt-2026-09-15.json) — 2026-09-15 · NEGATIVE_EVIDENCE · uberbond.omega-negative-transfer-receipt.v1 _(matched by name only)_
+- [`omega-private-evidence-v1-disqualified-2026-09-15.json`](../../artifacts/omega-private-evidence-v1-disqualified-2026-09-15.json) — 2026-09-15 · NUMERICALLY_POSITIVE_BUT_PROMOTION_DISQUALIFIED · uberbond.omega-private-evidence-receipt.v1 _(matched by name only)_
+- [`omega-private-evidence-v2-sealed-2026-09-15.json`](../../artifacts/omega-private-evidence-v2-sealed-2026-09-15.json) — 2026-09-15 · CLEAN_BOUNDED_POSITIVE_EVIDENCE_NOT_E10 · uberbond.omega-private-evidence-receipt.v2 _(matched by name only)_
+- [`omega-private-holdout-commitments-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v1 _(matched by name only)_
+- [`omega-private-holdout-commitments-v2-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v2-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v2 _(matched by name only)_
+- [`omega-private-holdout-commitments-v3-2026-09-15.json`](../../artifacts/omega-private-holdout-commitments-v3-2026-09-15.json) — 2026-09-15 · SEALED_NOT_EVALUATED · uberbond.omega-private-holdout-commitments.v3 _(matched by name only)_
+- [`omega-private-v2-unseen-algebra-failure-2026-09-15.json`](../../artifacts/omega-private-v2-unseen-algebra-failure-2026-09-15.json) — 2026-09-15 · NEGATIVE_TRANSFER_ON_UNSEEN_ALGEBRA · uberbond.omega-private-negative-evidence.v1 _(matched by name only)_
+- [`omega-private-v3-commitments-void-unopened-2026-09-15.json`](../../artifacts/omega-private-v3-commitments-void-unopened-2026-09-15.json) — 2026-09-15 · VOID_UNOPENED · uberbond.omega-private-holdout-void.v1 _(matched by name only)_
+- [`omega-sealed-transfer-receipt-2026-09-15.json`](../../artifacts/omega-sealed-transfer-receipt-2026-09-15.json) — 2026-09-15 · uberbond.omega-sealed-transfer-receipt.v1 _(matched by name only)_
+- [`omega-v4-evidence.json`](../../artifacts/omega-v4-evidence.json) — uberbond.omega.v4.evidence _(matched by name only)_
+- [`omega-v4-seal.json`](../../artifacts/omega-v4-seal.json) — uberbond.omega.v4.seal _(matched by name only)_
 
 **Frontier cognition and model routing**
 
-- [`c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json)
-- [`claude-implementation-queue.json`](../../artifacts/claude-implementation-queue.json) — Bind AI employee role contracts into relay task identity · IN_PROGRESS_CLAIMED_BY_PR_188 · uberbond-claude-implementation-queue-1.0.0
+- [`c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json) _(matched by name only)_
+- [`claude-implementation-queue.json`](../../artifacts/claude-implementation-queue.json) — Bind AI employee role contracts into relay task identity · IN_PROGRESS_CLAIMED_BY_PR_188 · uberbond-claude-implementation-queue-1.0.0 _(matched by name only)_
 - [`model-failover-activation-receipt-2026-08-31.json`](../../artifacts/model-failover-activation-receipt-2026-08-31.json) — 2026-08-31 · uberbond-model-failover-activation-receipt-1.0.0
-- [`sandwich-method.json`](../../artifacts/sandwich-method.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE · uberbond-sandwich-method-1.4.0
+- [`sandwich-method.json`](../../artifacts/sandwich-method.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE · uberbond-sandwich-method-1.4.0 _(matched by name only)_
 
 **Capability Genome, skills and Wallbreaker**
 
-- [`avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1
-- [`external-skill-plugin-registry.json`](../../artifacts/external-skill-plugin-registry.json) — Find Skills · PROJECT_SKILL_ADAPTED_AND_PINNED · uberbond-external-skill-plugin-registry-1.2.0
+- [`avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1 _(matched by name only)_
+- [`external-skill-plugin-registry.json`](../../artifacts/external-skill-plugin-registry.json) — Find Skills · PROJECT_SKILL_ADAPTED_AND_PINNED · uberbond-external-skill-plugin-registry-1.2.0 _(matched by name only)_
 
 **Agent mesh, relay and autonomy**
 
-- [`ai-employee-organization.json`](../../artifacts/ai-employee-organization.json) — ACTIVATE_FOR_DECISION_BOUND_MONITORS_ONLY · uberbond-ai-employee-organization-1.0.0
+- [`ai-employee-organization.json`](../../artifacts/ai-employee-organization.json) — ACTIVATE_FOR_DECISION_BOUND_MONITORS_ONLY · uberbond-ai-employee-organization-1.0.0 _(matched by name only)_
 
 **Outreach and distribution**
 
-- [`distribution-channel-portfolio.json`](../../artifacts/distribution-channel-portfolio.json) — PRIMARY_PREPARATION · uberbond-distribution-channel-portfolio-1.0.0
-- [`outreach-capacity-economics.json`](../../artifacts/outreach-capacity-economics.json) — Preparation only · CURRENT · uberbond-outreach-capacity-economics-1.0.0
+- [`distribution-channel-portfolio.json`](../../artifacts/distribution-channel-portfolio.json) — PRIMARY_PREPARATION · uberbond-distribution-channel-portfolio-1.0.0 _(matched by name only)_
+- [`outreach-capacity-economics.json`](../../artifacts/outreach-capacity-economics.json) — Preparation only · CURRENT · uberbond-outreach-capacity-economics-1.0.0 _(matched by name only)_
 
 **Commerce, payments and economics**
 
-- [`offer-factory-research-packet.json`](../../artifacts/offer-factory-research-packet.json) — White-label Lead-Path Revenue Leak Evidence Sprint · uberbond-offer-factory-research-packet-1.0.0
-- [`partner-canary-public-corroboration-20260829.json`](../../artifacts/partner-canary-public-corroboration-20260829.json) — 2026-08-29 · CORROBORATION_COMPLETE__TOP_THREE_SURVIVE_WITH_UNCERTAINTY__OUTREACH_BLOCKED · uberbond-partner-canary-public-corroboration-1.0.0
-- [`partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · uberbond-partner-canary-public-evidence-1.0.0
-- [`partner-canary-seed-universe-20260829.json`](../../artifacts/partner-canary-seed-universe-20260829.json) — 2026-08-29 · BXB Media · uberbond-partner-canary-seed-universe-1.0.0
-- [`partner-distribution-source-registry-20260829.json`](../../artifacts/partner-distribution-source-registry-20260829.json) — 2026-08-29 · uberbond-partner-distribution-source-registry-1.0.0
-- [`revenue-smoke-test-2026-09-11.json`](../../artifacts/revenue-smoke-test-2026-09-11.json) — 2026-09-11 · uberbond.revenue-smoke-test.v1
+- [`offer-factory-research-packet.json`](../../artifacts/offer-factory-research-packet.json) — White-label Lead-Path Revenue Leak Evidence Sprint · uberbond-offer-factory-research-packet-1.0.0 _(matched by name only)_
+- [`partner-canary-public-corroboration-20260829.json`](../../artifacts/partner-canary-public-corroboration-20260829.json) — 2026-08-29 · CORROBORATION_COMPLETE__TOP_THREE_SURVIVE_WITH_UNCERTAINTY__OUTREACH_BLOCKED · uberbond-partner-canary-public-corroboration-1.0.0 _(matched by name only)_
+- [`partner-canary-public-evidence-20260829.json`](../../artifacts/partner-canary-public-evidence-20260829.json) — 2026-08-29 · uberbond-partner-canary-public-evidence-1.0.0 _(matched by name only)_
+- [`partner-canary-seed-universe-20260829.json`](../../artifacts/partner-canary-seed-universe-20260829.json) — 2026-08-29 · BXB Media · uberbond-partner-canary-seed-universe-1.0.0 _(matched by name only)_
+- [`partner-distribution-source-registry-20260829.json`](../../artifacts/partner-distribution-source-registry-20260829.json) — 2026-08-29 · uberbond-partner-distribution-source-registry-1.0.0 _(matched by name only)_
+- [`revenue-smoke-test-2026-09-11.json`](../../artifacts/revenue-smoke-test-2026-09-11.json) — 2026-09-11 · uberbond.revenue-smoke-test.v1 _(matched by name only)_
 
 **Opportunity and world intelligence**
 
-- [`cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE · uberbond-cost-stage-fulfill-learn-frontier-1.0.0
-- [`opportunity-tournament-latest.json`](../../artifacts/opportunity-tournament-latest.json) — White-label Lead-Path Revenue Leak Evidence Sprint · RECOMMENDED_CANARY_PREPARATION · uberbond-opportunity-tournament-research-1.0.0
-- [`research-source-registry.json`](../../artifacts/research-source-registry.json) — Current System State · uberbond-research-source-registry-1.0.0
-- [`world-signal-taxonomy.json`](../../artifacts/world-signal-taxonomy.json) — active-buyer-pain · uberbond-world-signal-taxonomy-1.0.0
+- [`cost-stage-fulfill-learn-frontier.json`](../../artifacts/cost-stage-fulfill-learn-frontier.json) — IMPLEMENTED_INTERNAL_POLICY_AND_POSTGRES_CACHE · uberbond-cost-stage-fulfill-learn-frontier-1.0.0 _(matched by name only)_
+- [`opportunity-tournament-latest.json`](../../artifacts/opportunity-tournament-latest.json) — White-label Lead-Path Revenue Leak Evidence Sprint · RECOMMENDED_CANARY_PREPARATION · uberbond-opportunity-tournament-research-1.0.0 _(matched by name only)_
+- [`research-source-registry.json`](../../artifacts/research-source-registry.json) — Current System State · uberbond-research-source-registry-1.0.0 _(matched by name only)_
+- [`world-signal-taxonomy.json`](../../artifacts/world-signal-taxonomy.json) — active-buyer-pain · uberbond-world-signal-taxonomy-1.0.0 _(matched by name only)_
 
 **Sovereign infrastructure and runtime**
 
 - [`live-infrastructure-observation-20260829.json`](../../artifacts/live-infrastructure-observation-20260829.json) — 2026-08-29 · uberbondd · uberbond-live-infrastructure-observation-1.1.0
-- [`sovereign-institutional-harness-hardening.json`](../../artifacts/sovereign-institutional-harness-hardening.json) — IMPLEMENTED_INTERNAL_HARDENING_PRIMITIVE · uberbond.sovereign-institutional-harness-hardening.v2
-- [`sovereign-institutional-harness.json`](../../artifacts/sovereign-institutional-harness.json) — uberbond.sovereign-institutional-harness.v1
+- [`sovereign-institutional-harness-hardening.json`](../../artifacts/sovereign-institutional-harness-hardening.json) — IMPLEMENTED_INTERNAL_HARDENING_PRIMITIVE · uberbond.sovereign-institutional-harness-hardening.v2 _(matched by name only)_
+- [`sovereign-institutional-harness.json`](../../artifacts/sovereign-institutional-harness.json) — uberbond.sovereign-institutional-harness.v1 _(matched by name only)_
 
 **Founder operations and command center**
 
-- [`system-readiness.json`](../../artifacts/system-readiness.json) — PASSING · uberbond.system-readiness.v1
+- [`system-readiness.json`](../../artifacts/system-readiness.json) — PASSING · uberbond.system-readiness.v1 _(matched by name only)_
 

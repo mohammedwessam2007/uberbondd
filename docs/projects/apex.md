@@ -12,12 +12,12 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (6)
 
-- [`docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md`](../APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md) — 2026-09-29 · APEX FQC External Evidence Handoff — 2026-09-29 — Status: SECRET-FREE HANDOFF READY / EXTERNAL EVIDENCE NOT YET OBSERVED
-- [`docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`](../APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md) — 2026-09-29 · APEX Frontier Quality Compression Campaign — 2026-09-29 — Status: ENGINEERING READY / FRESH EXTERNAL CUSTODIAN + LIVE RUNTIME/PRICING EVIDENCE REQUIRED / ZERO EXECUTION AUTHORITY
-- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM
-- [`docs/APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md`](../APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md) — 2026-09-29 · APEX Public Frontier Scorecard — 2026-09-29 — Status: DATED DOCUMENTED-MECHANISM COMPARISON / NOT A GLOBAL PERFORMANCE RANKING
-- [`docs/APEX_SEALED_TOURNAMENT_2026-09-29.md`](../APEX_SEALED_TOURNAMENT_2026-09-29.md) — 2026-09-29 · APEX Sealed Architecture Tournament — 2026-09-29 — Status: IMPLEMENTED CANDIDATE / NO PRODUCTION PROMOTION AUTHORITY
-- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM
+- [`docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md`](../APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md) — 2026-09-29 · APEX FQC External Evidence Handoff — 2026-09-29 — Status: SECRET-FREE HANDOFF READY / EXTERNAL EVIDENCE NOT YET OBSERVED _(matched by name only)_
+- [`docs/APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md`](../APEX_FRONTIER_QUALITY_COMPRESSION_CAMPAIGN_2026-09-29.md) — 2026-09-29 · APEX Frontier Quality Compression Campaign — 2026-09-29 — Status: ENGINEERING READY / FRESH EXTERNAL CUSTODIAN + LIVE RUNTIME/PRICING EVIDENCE REQUIRED / ZERO EXECUTION AUTHORITY _(matched by name only)_
+- [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`docs/APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md`](../APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md) — 2026-09-29 · APEX Public Frontier Scorecard — 2026-09-29 — Status: DATED DOCUMENTED-MECHANISM COMPARISON / NOT A GLOBAL PERFORMANCE RANKING _(matched by name only)_
+- [`docs/APEX_SEALED_TOURNAMENT_2026-09-29.md`](../APEX_SEALED_TOURNAMENT_2026-09-29.md) — 2026-09-29 · APEX Sealed Architecture Tournament — 2026-09-29 — Status: IMPLEMENTED CANDIDATE / NO PRODUCTION PROMOTION AUTHORITY _(matched by name only)_
+- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
 
 ## Commands (3)
 
@@ -25,25 +25,25 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(25 mentions)_
-- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(13 mentions)_
-- [`docs/JEV_NOETIC_AUTOCOMPILER_2026-09-19.md`](../JEV_NOETIC_AUTOCOMPILER_2026-09-19.md) — 2026-09-19 · UberBond Jev / Noetic Autocompiler Integration — Status: source integration candidate; default-off; no live Jev call proven by this branch _(5 mentions)_
+- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(matched by name only)_ _(25 mentions)_
+- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(matched by name only)_ _(13 mentions)_
+- [`docs/JEV_NOETIC_AUTOCOMPILER_2026-09-19.md`](../JEV_NOETIC_AUTOCOMPILER_2026-09-19.md) — 2026-09-19 · UberBond Jev / Noetic Autocompiler Integration — Status: source integration candidate; default-off; no live Jev call proven by this branch _(matched by name only)_ _(5 mentions)_
 
 ## Source modules (4)
 
-- [`src/apex-fqc-external-evidence-packet.mjs`](../../src/apex-fqc-external-evidence-packet.mjs) — exports APEX_FQC_EXTERNAL_EVIDENCE_VERSION, buildApexFqcCustodianRequest, compileApexFqcExternalEvidencePacket _(tested; imported by 1)_
-- [`src/apex-fresh-campaign.mjs`](../../src/apex-fresh-campaign.mjs) — exports APEX_FRESH_CAMPAIGN_VERSION, APEX_FRESH_CAMPAIGN_ARCHITECTURE_CLASSES, prepareFreshApexCampaign, admitFreshCustodianManifest, assessFreshCamp… _(tested; imported by 2)_
-- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — exports APEX_REASONING_HYPERCOMPILER_VERSION, APEX_REASONING_MODES, compileApexReasoningArchitecture, buildIdentityBlindPacket, APEX_ARCHITECTURE_MUT… _(tested; imported by 2)_
-- [`src/apex-sealed-tournament.mjs`](../../src/apex-sealed-tournament.mjs) — exports APEX_SEALED_TOURNAMENT_VERSION, APEX_TOURNAMENT_CLAIM_MODES, APEX_ARCHITECTURE_CLASSES, sealedManifestCommitmentDigest, sealedCorpusDigestFro… _(tested; imported by 4)_
+- [`src/apex-fqc-external-evidence-packet.mjs`](../../src/apex-fqc-external-evidence-packet.mjs) — exports APEX_FQC_EXTERNAL_EVIDENCE_VERSION, buildApexFqcCustodianRequest, compileApexFqcExternalEvidencePacket _(matched by name only; tested; imported by 1)_
+- [`src/apex-fresh-campaign.mjs`](../../src/apex-fresh-campaign.mjs) — exports APEX_FRESH_CAMPAIGN_VERSION, APEX_FRESH_CAMPAIGN_ARCHITECTURE_CLASSES, prepareFreshApexCampaign, admitFreshCustodianManifest, assessFreshCamp… _(matched by name only; tested; imported by 2)_
+- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — exports APEX_REASONING_HYPERCOMPILER_VERSION, APEX_REASONING_MODES, compileApexReasoningArchitecture, buildIdentityBlindPacket, APEX_ARCHITECTURE_MUT… _(matched by name only; tested; imported by 2)_
+- [`src/apex-sealed-tournament.mjs`](../../src/apex-sealed-tournament.mjs) — exports APEX_SEALED_TOURNAMENT_VERSION, APEX_TOURNAMENT_CLAIM_MODES, APEX_ARCHITECTURE_CLASSES, sealedManifestCommitmentDigest, sealedCorpusDigestFro… _(matched by name only; tested; imported by 4)_
 
 ## Scripts (2)
 
-- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
-- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(npm: `apex:fqc:doctor`)_
+- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(matched by name only; npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
+- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(matched by name only; npm: `apex:fqc:doctor`)_
 
 ## Config, data, artifacts and services (1)
 
-- [`config/apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1
+- [`config/apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1 _(matched by name only)_
 
 ## Tests (5)
 

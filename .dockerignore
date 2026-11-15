@@ -1,0 +1,100 @@
+# PHOENIX: deny known local-only credentials, worktrees and recovery material.
+# Docker ignores are a build-context boundary, NOT a substitute for scanning
+# tracked source or injecting runtime secrets through protected variables.
+
+# Git metadata and local dependency trees (including nested worktrees).
+**/.git
+**/.git/**
+**/node_modules
+**/node_modules/**
+
+# Local configuration and private authentication material.
+**/.env
+**/.env.*
+**/.envrc
+**/.npmrc
+**/.pypirc
+
+# Developer/cloud credential stores and database/infra auth files.
+# These must never be copied by the root Dockerfile's COPY . . step.
+**/.aws
+**/.aws/**
+**/.ssh
+**/.ssh/**
+**/.azure
+**/.azure/**
+**/.kube
+**/.kube/**
+**/.config/gcloud
+**/.config/gcloud/**
+**/.secrets
+**/.secrets/**
+**/.netrc
+**/.pgpass
+**/credentials.json
+**/application_default_credentials.json
+**/*service-account*.json
+**/*private-key*.json
+**/*.tfstate
+**/*.tfstate.*
+secrets/
+**/id_rsa
+**/id_ed25519
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+
+# PHOENIX isolated worktrees, local recovery bundles and owner launch facts.
+**/.phoenix-*
+**/.phoenix-*/**
+**/phoenix_t*_work
+**/phoenix_t*_work/**
+**/launch-facts*.json
+**/*.dump
+**/*.backup
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/*.age
+**/*.gpg
+**/*.enc
+
+# Historical recovery ledgers are provenance, not runtime inputs. Keep them in
+# Git but never copy them into the production image's COPY . . layer.
+artifacts/recovery/
+artifacts/recovery/**
+# Historical forensics and recovery indexes are kept in Git, not shipped to
+# a runtime. Preserve the rest of docs/ and artifacts/ for live cognition.
+docs/forensics/
+docs/forensics/**
+docs/UBERBOND_SOL_CLAUDE_CODE_5MB_EXTERNAL_EXECUTION_PACK.md
+artifacts/backup/
+artifacts/backup/**
+# Import diagnostics may contain runtime records; preserve checked-in donor data.
+data/json-import-report.json
+
+# Local state and generated development artifacts.
+data/db.json
+data/screenshots
+data/quant-vault
+**/.cache
+**/.cache/**
+**/.venv
+**/.venv/**
+**/__pycache__
+**/__pycache__/**
+**/.pytest_cache
+**/.pytest_cache/**
+**/coverage
+**/coverage/**
+**/test-results
+**/test-results/**
+**/.playwright
+**/.playwright/**
+**/*.log
+**/*.zip
+**/*.tar
+**/*.tar.gz
+**/*.tgz
+**/*.7z

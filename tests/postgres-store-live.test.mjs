@@ -15,8 +15,19 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import { PostgresStore, ConflictError } from '../src/store.mjs';
+import { assertDisposableLocalPostgresTestTarget } from './helpers/postgres-destructive-test-target.mjs';
 
 const LIVE_URL = process.env.LIVE_POSTGRES_TEST_URL || '';
+
+// This suite executes migrations and TRUNCATE ... CASCADE. Refuse any remote,
+// production, shared, or unacknowledged target before opening a connection.
+// Run only against a dedicated disposable loopback database on an ephemeral port.
+if (LIVE_URL) {
+  assertDisposableLocalPostgresTestTarget({
+    databaseUrl: LIVE_URL,
+    acknowledgment: process.env.LIVE_POSTGRES_TEST_DISPOSABLE
+  });
+}
 
 if (!LIVE_URL) {
   // A real skip, not a passing placeholder: a green test named SKIPPED is

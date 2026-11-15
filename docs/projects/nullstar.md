@@ -10,6 +10,24 @@ Project NULLSTAR Omega: generations GA1-GA8, baselines, holdouts, calibration la
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A self-evaluation program: seeded task generators across planning, science, causality, tool use, research, invention and forecasting, a harness that strips ground truth before solving, sealed holdouts, out-of-pattern probes, and pre-registered improvement declarations across generations G1 to G8.
+
+**What you use it for.** Measuring whether the system genuinely improves between generations rather than memorizing its tests. Every module is reachable from a command.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 26 source modules: 2 reachable from the server/worker, 24 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 29 test files, 29 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [Readiness, reachability and coverage audits](readiness-audits.md) (2), [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) (1), [Reasoning architecture and evaluation](reasoning-lab.md) (1), [Sovereign Cognitive Continuum](sovereign-continuum.md) (1) |
+| Relied on by | [APEX campaigns](apex.md) (2), [Command center and founder console](command-center.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (6)
 
 - [`CLAUDE_START_V9.md`](../../CLAUDE_START_V9.md) — Instruction to materialize the V9 Inevitability Engine via a Python script, require LOSSLESS_VERIFIED hash, and treat it as immutable canon. · **Use:** start a Claude session on the V9 carrier

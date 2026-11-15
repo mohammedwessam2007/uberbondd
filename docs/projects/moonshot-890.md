@@ -10,6 +10,24 @@ Immutable 890 founder idea corpus and everything compiled from it: realization s
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Your 890 original ideas as an immutable, hash-verified corpus in ten shards, plus what is compiled from it: a realization state machine, a technology tree, a triage of which moonshots can be realized internally, a substrate mesh and a portfolio ranking of shared ancestor capabilities.
+
+**What you use it for.** Retrieving any original idea exactly, and choosing which shared building blocks to construct first. Source-complete does not mean realized.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 16 source modules: 0 reachable from the server/worker, 6 only from CLI commands, 10 from no entry point. |
+| Tests and commands | 26 test files, 10 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (15), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) (1), [OMNIA](omnia.md) (1), [Personal Civilization Engine](personal-civilization.md) (1) |
+| Relied on by | [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (4), [Temporal Foundry and timeline topology](temporal-foundry.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (13)
 
 - [`docs/MOONSHOT_REALITY_COMPILER_CANON.md`](../MOONSHOT_REALITY_COMPILER_CANON.md) — Compatibility canon naming reality states IMAGINED through EPOCH_CANDIDATE and terminal states for moonshots, pointing to Possibility Civilization canon. · **Use:** assign each moonshot an honest realization state

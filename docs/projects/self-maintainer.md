@@ -10,6 +10,24 @@ Self-upgrade under governance: self-maintainer runtime and trusted promotion, co
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Governed self-upgrade: a continuation gate, GitHub OIDC verification before any authority, authority limited to branch and pull request, enforced separation of proposer, evaluator, approver and deployer, and a Mutation War inventory of 58 guard mutations that tests must kill.
+
+**What you use it for.** Letting the system propose and test its own improvements without being able to weaken its own checks.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 20 source modules: 2 reachable from the server/worker, 4 only from CLI commands, 14 from no entry point. |
+| Tests and commands | 84 test files, 6 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (20), [Agent mesh and autonomy loop](agent-mesh.md) (15), [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (8), [Wallbreaker](wallbreaker.md) (4), [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) (2), [Sandwich Method](sandwich-method.md) (2), [Brain, Total Brain and Master Memory](brain-memory.md) (1), [Capability Genome](capability-genome.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (5), [Agent mesh and autonomy loop](agent-mesh.md) (1), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (1), [Night Shift, Nightfall and overnight lanes](night.md) (1), [Semantic closure and execution-leaf kernel](semantic-closure.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (9)
 
 - [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — Canon for the Connectome: typed bounded edges joining organs, with laws that new features must join it and no busywork bridges. · **Use:** Rule for integrating new capabilities into the organ graph.

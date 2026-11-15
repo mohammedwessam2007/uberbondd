@@ -10,6 +10,24 @@ Prospect identity, qualification, enrichment and preflight; lead generation and 
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Finding and qualifying who to contact: lead signal stacking and scoring, a suppression and prior-contact history compiler, evidence-class clamping that prevents laundering weak evidence, contact verification, and zero-cost company registry adapters.
+
+**What you use it for.** A ranked list of real prospects with verified facts and no one you have already contacted or suppressed.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 40 source modules: 27 reachable from the server/worker, 0 only from CLI commands, 13 from no entry point. |
+| Tests and commands | 69 test files, 7 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Server core, shared utilities and test harness](core-platform.md) (10), [OMNIA](omnia.md) (10), [Consent, authority, proof and effect ledgers](authority-evidence.md) (6), [Global green lane and free routing](green-lane.md) (4), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (3), [UberReply, replies and async closing](reply-closing.md) (2), [Postgres, stores and migrations](data-stores.md) (1), [Night Shift, Nightfall and overnight lanes](night.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (16), [Outreach (umbrella)](outreach.md) (11), [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) (10), [Global green lane and free routing](green-lane.md) (6), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (5), [Night Shift, Nightfall and overnight lanes](night.md) (2), [Command center and founder console](command-center.md) (1), [Infinite Opus and Frontier-Max](infinite-opus.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (11)
 
 - [`docs/DISCOVERY.md`](../DISCOVERY.md) — Describes automatic discovery of public business records via OpenStreetMap Overpass with a website data gate, dry-run first and attribution. · **Use:** Rules for the OSM discovery adapter.

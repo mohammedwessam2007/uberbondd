@@ -10,6 +10,24 @@ Autonomous agent loop, scheduler, pump, mesh control plane and activation gate, 
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The autonomous worker system: an autonomy loop with attenuation-only delegation and compute ceilings, durable run snapshots, cycle receipts that expose crashed cycles, a code-change contract that protects verification paths, and sandbox verification of agent edits.
+
+**What you use it for.** Letting agents do bounded work while you are away, with every cycle accounted for.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 40 source modules: 11 reachable from the server/worker, 17 only from CLI commands, 12 from no entry point. |
+| Tests and commands | 164 test files, 9 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (15), [Consent, authority, proof and effect ledgers](authority-evidence.md) (13), [Server core, shared utilities and test harness](core-platform.md) (9), [Prometheus](prometheus.md) (9), [DNS, domains and fleet](dns-domains.md) (7), [AI employees and Avengers](ai-employees.md) (5), [Postgres, stores and migrations](data-stores.md) (5), [Economic reliability and wealth engines](economic-engines.md) (5) |
+| Relied on by | [Self-maintainer, constitution and recursive governance](self-maintainer.md) (15), [Server core, shared utilities and test harness](core-platform.md) (4), [Kilimanjaro and founder absence](kilimanjaro.md) (3), [OpenRouter and Open Model Universe](model-routing.md) (2), [Sovereign Cognitive Continuum](sovereign-continuum.md) (2), [AI employees and Avengers](ai-employees.md) (1), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (1), [Postgres, stores and migrations](data-stores.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — 2026-09-12 correction that founder silence is not a pause; defines resident initiative loop generating and executing bounded missions. · **Use:** basis for autonomous initiative without founder prompting

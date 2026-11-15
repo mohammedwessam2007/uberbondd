@@ -10,6 +10,24 @@ Market-sensing and commercial-memory spine: control tower, economic spine, oppor
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The market-sensing spine: a source-neutral signal schema with evidence classes, ingestion, conversion of signals into Business Genome candidates, and evidence-gated commercial learning that never infers revenue.
+
+**What you use it for.** Turning world observations into candidate opportunities. All ten modules are wired into the server.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 10 source modules: 10 reachable from the server/worker, 0 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 25 test files, 2 npm commands |
+| Dated activity | 2026-08 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (8), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (4), [Command center and founder console](command-center.md) (1), [Offers, services and fulfilment](offers-fulfilment.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (9), [Command center and founder console](command-center.md) (1), [Night Shift, Nightfall and overnight lanes](night.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (9)
 
 - [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Real-vs-deferred diagram of Prometheus chain from MarketSignal through economic spine, experiment, distribution, learning; V3 notes deletions. · **Use:** map of Prometheus modules as built

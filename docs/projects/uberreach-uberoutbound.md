@@ -10,6 +10,24 @@ UberOutbound genome and policy registry, UberReach control plane and universal t
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Outbound strategy as policy: an evidence-weighted message genome, a per-recipient legal eligibility decision naming the rule, channel-neutral reach planning, and the postal sender identity required for compliant sends.
+
+**What you use it for.** Designing what to say and confirming you are legally allowed to say it to that person.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 14 source modules: 5 reachable from the server/worker, 1 only from CLI commands, 8 from no entry point. |
+| Tests and commands | 42 test files, 4 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [OMNIA](omnia.md) (5), [Prospecting and lead generation](prospecting-leadgen.md) (5), [Consent, authority, proof and effect ledgers](authority-evidence.md) (3), [Outreach (umbrella)](outreach.md) (3), [DNS, domains and fleet](dns-domains.md) (2), [UberReply, replies and async closing](reply-closing.md) (2), [UberWarm and UberWarm2](uberwarm.md) (2), [Postgres, stores and migrations](data-stores.md) (1) |
+| Relied on by | [Outreach (umbrella)](outreach.md) (8), [Distribution OS and channels](distribution-os.md) (3), [Global green lane and free routing](green-lane.md) (3), [Prospecting and lead generation](prospecting-leadgen.md) (3), [UberReply, replies and async closing](reply-closing.md) (3) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (9)
 
 - [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — Canon compiling founder Outbound Genome report into policy: objective of incremental cleared profit under eligibility, health and reputation constraints. · **Use:** policy basis for cold outreach decisions

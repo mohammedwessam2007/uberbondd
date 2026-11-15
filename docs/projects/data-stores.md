@@ -10,6 +10,24 @@ Postgres platform and backup/restore, embedded Postgres fixtures, store and queu
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Persistence: JSON and Postgres stores implementing every collection with reservation transactions, a durable job queue with leases, full-history audit paging, migrations and embedded Postgres test fixtures.
+
+**What you use it for.** Where all durable state lives; nearly every runtime project writes through it.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 11 source modules: 3 reachable from the server/worker, 3 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 110 test files, 11 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Server core, shared utilities and test harness](core-platform.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Outreach (umbrella)](outreach.md) (1), [Platform deployment and providers](platform-deploy.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (6), [Agent mesh and autonomy loop](agent-mesh.md) (5), [Command center and founder console](command-center.md) (5), [Winnr](winnr.md) (5), [Infinite Opus and Frontier-Max](infinite-opus.md) (4), [Outreach (umbrella)](outreach.md) (4), [Revenue and payments (umbrella)](revenue-payments.md) (4), [Economic reliability and wealth engines](economic-engines.md) (2) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (8)
 
 - [`docs/PORTABLE_BACKEND_DEPLOYMENT.md`](../PORTABLE_BACKEND_DEPLOYMENT.md) — Guide for docker-compose bundle (Postgres, migration, server, worker), backend doctor script, password constraints and PayPal route bridge. · **Use:** run backend on any Docker host

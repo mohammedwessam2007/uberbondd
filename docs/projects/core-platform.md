@@ -10,6 +10,24 @@ Web and worker entry points, shared utility modules (config, crypto, csv, http r
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The shared base: server and worker entry points, central config with startup validation, one secret-pattern scanner, encryption, strict input parsing, and the test runner.
+
+**What you use it for.** The foundation every other project stands on.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 10 source modules: 9 reachable from the server/worker, 0 only from CLI commands, 1 from no entry point. |
+| Tests and commands | 95 test files, 9 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Infinite Opus and Frontier-Max](infinite-opus.md) (18), [Outreach (umbrella)](outreach.md) (16), [Prospecting and lead generation](prospecting-leadgen.md) (16), [Jev and UberLit](jev-uberlit.md) (11), [Winnr](winnr.md) (11), [Crown](crown.md) (10), [Postgres, stores and migrations](data-stores.md) (6), [OMNIA](omnia.md) (6) |
+| Relied on by | [Inquiry-path audits and verified defects](inquiry-audit-product.md) (12), [Prospecting and lead generation](prospecting-leadgen.md) (10), [Agent mesh and autonomy loop](agent-mesh.md) (9), [Infinite Opus and Frontier-Max](infinite-opus.md) (5), [Outreach (umbrella)](outreach.md) (5), [Brain, Total Brain and Master Memory](brain-memory.md) (3), [Command center and founder console](command-center.md) (3), [Frontier intelligence runtime](frontier.md) (3) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (5)
 
 - [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md) — Version 1.4 architecture: web service, worker, PostgreSQL durable queue, Playwright audits, outbound reservations and reports. · **Use:** Understand the original web/worker/queue structure.

@@ -10,6 +10,24 @@ Research-only quant: backtest, data vault, paper ledger, research protocol, stra
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Research-only market analysis: checksum-verified public data, a backtester with no lookahead, explicit costs and deflated Sharpe, pre-registered strategy families, and a hash-chained paper ledger that cannot place orders.
+
+**What you use it for.** Killing false trading edges honestly. No live trading capability or authority; not wired to anything.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 5 source modules: 0 reachable from the server/worker, 0 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 2 test files, 0 npm commands |
+| Dated activity | 2026-10 |
+| Builds on | nothing |
+| Relied on by | [Economic reliability and wealth engines](economic-engines.md) (1), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (3)
 
 - [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — Status of MACHIAVELLI program: wealth mechanism atlas over 890 ideas, profit tournament, quant research lab files; cleared profit $0. · **Use:** index of wealth-invention deliverables and their state

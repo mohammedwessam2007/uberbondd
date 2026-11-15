@@ -10,6 +10,24 @@ Vercel, Render, Railway, Docker and Cloudflare/Supabase runtimes; provider adapt
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** How it is hosted: Vercel, Render, Railway, Docker and Cloudflare configuration, CI workflows, systemd units and install scripts, plus receipts proving restart recovery and that a release booted on an independent host.
+
+**What you use it for.** Deploying, restarting and proving the service can move hosts.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 7 source modules: 2 reachable from the server/worker, 0 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 41 test files, 3 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (3), [Inboxes, placement and reputation](inboxes-placement.md) (3), [Command center and founder console](command-center.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [Winnr](winnr.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Jev and UberLit](jev-uberlit.md) (3), [Agent mesh and autonomy loop](agent-mesh.md) (2), [UberWarm and UberWarm2](uberwarm.md) (2), [Consent, authority, proof and effect ledgers](authority-evidence.md) (1), [Command center and founder console](command-center.md) (1), [Postgres, stores and migrations](data-stores.md) (1), [First cash and first customer](first-cash.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/CLOUD_ACTIVATION_CONTRACT.md`](../CLOUD_ACTIVATION_CONTRACT.md) — Contract of what is needed to move mesh liveness to a deployed production scheduler, with observed Vercel project state on 2026-09-09. · **Use:** Checklist for activating the cloud scheduler.

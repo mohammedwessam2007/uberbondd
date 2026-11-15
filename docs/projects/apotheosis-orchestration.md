@@ -10,6 +10,24 @@ Founder orchestration packets P00-P49, Apotheosis runtime and final orchestrator
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Your orchestration specification made executable: packets P00 to P49, a runtime that selects context policy, allocates scarce strong-model reasoning, routes work down to cheaper models and hands off continuity, and a graph validator that tournaments orchestration candidates.
+
+**What you use it for.** Running large multi-agent builds in dependency order. Gate 4, real closed-loop evidence, is recorded as externally blocked.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 5 source modules: 1 reachable from the server/worker, 0 only from CLI commands, 4 from no entry point. |
+| Tests and commands | 9 test files, 0 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (2), [Sovereign self-host stack](sovereign-selfhost.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [PHOENIX](phoenix.md) (1), [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (1) |
+| Relied on by | [AI employees and Avengers](ai-employees.md) (2), [Frontier intelligence runtime](frontier.md) (1), [Skills, plugins and Task Observer](skills-plugins.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (9)
 
 - [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — Canon treating orchestration as capability with pinned Fable Orchestrator, Metaswarm, Superpowers as MIT donors; planner/adjudicator split. · **Use:** rules for multi-agent orchestration mechanisms

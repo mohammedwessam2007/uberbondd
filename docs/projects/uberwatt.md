@@ -10,6 +10,24 @@ UberWatt energy program and the moonshot energy/compute substrate mesh.
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Energy accounting for compute: meter intervals, verified savings and energy-equivalent local inference, with an observation-only protocol to build a household baseline first.
+
+**What you use it for.** Eventually budgeting local compute against real energy. One module, observation stage.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 1 source modules: 0 reachable from the server/worker, 0 only from CLI commands, 1 from no entry point. |
+| Tests and commands | 3 test files, 1 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (1), [Sovereign self-host stack](sovereign-selfhost.md) (1) |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (3)
 
 - [`docs/UBERWATT_FIRST_WINDOWS_NODE.md`](../UBERWATT_FIRST_WINDOWS_NODE.md) — Runbook turning a Windows HP into first UberWatt compute node with Ollama, physical safety rules and read-only hardware doctor script. · **Use:** set up first local compute node safely

@@ -10,6 +10,24 @@ Named counterparties and their receipts: Powerhouse EG scope and proof, Contra c
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Records about specific counterparties: Powerhouse proof rechecks and scope, a drafted Contra project and collection readiness, and a Halfteck supplier packet.
+
+**What you use it for.** The exact state of each real prospect or supplier conversation. The Contra project is a draft, not created or sent.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 1 source modules: 1 reachable from the server/worker, 0 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 4 test files, 0 npm commands |
+| Dated activity | 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1) |
+| Relied on by | [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (9)
 
 - [`artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md`](../../artifacts/outreach/SYLVESTER_EMERGENCY_AVAILABILITY_RECONCILIATION_DRAFT.md) — Draft evidence note on contradictory 24/7 emergency claims on one public electrician site, a client of Powerhouse; fetches not performed by this session. · **Use:** Proof-before-pitch material for Powerhouse engagement.

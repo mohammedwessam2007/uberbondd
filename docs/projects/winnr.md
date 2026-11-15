@@ -10,6 +10,24 @@ Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, pla
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The Winnr provider integration: an API client under a zero-paid route policy, token scope inspection, credential import, and a post-purchase bootstrap that registers bought domains and mailboxes into the sending fleet.
+
+**What you use it for.** Buying and onboarding pre-warmed mailboxes for first cash. The October 8 evidence shows the 69 dollar purchase awaiting your spend confirmation.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 14 source modules: 13 reachable from the server/worker, 0 only from CLI commands, 1 from no entry point. |
+| Tests and commands | 31 test files, 1 npm commands |
+| Dated activity | 2026-10 |
+| Builds on | [DNS, domains and fleet](dns-domains.md) (6), [Inboxes, placement and reputation](inboxes-placement.md) (6), [Postgres, stores and migrations](data-stores.md) (5), [UberWarm and UberWarm2](uberwarm.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (11), [UberWarm and UberWarm2](uberwarm.md) (10), [Platform deployment and providers](platform-deploy.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Outreach autoload reconciled 2026-10-04 with 2026-10-08 overlay: sender readiness, $69 Winnr purchase gate, 890 first-cash plan pointer. · **Use:** resume outreach/first-cash frontier in a new chat

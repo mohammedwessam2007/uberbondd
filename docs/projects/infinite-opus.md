@@ -10,6 +10,24 @@ Intelligence-per-dollar program: Infinite Opus runtime, market, scoreboard, task
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The intelligence-per-dollar program. A durable runtime with monthly budgets and Decision Franchises required before any paid call, a live model price market, a zero-loss quality invariant that forbids routing below the strongest baseline, and an OpenAI-compatible gateway serving your TypingMind iPad cockpit.
+
+**What you use it for.** Running strong-model-quality work on roughly a 30 dollar monthly budget. The most wired cognition project; realized savings remain unmeasured.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 31 source modules: 20 reachable from the server/worker, 2 only from CLI commands, 9 from no entry point. |
+| Tests and commands | 85 test files, 25 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Cognition ledger and economics](cognition-ledger.md) (18), [Semantic closure and execution-leaf kernel](semantic-closure.md) (12), [Consent, authority, proof and effect ledgers](authority-evidence.md) (11), [Crown](crown.md) (10), [OpenRouter and Open Model Universe](model-routing.md) (7), [Server core, shared utilities and test harness](core-platform.md) (5), [Postgres, stores and migrations](data-stores.md) (4), [UberMind](ubermind.md) (4) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (18), [Jev and UberLit](jev-uberlit.md) (7), [APEX campaigns](apex.md) (4), [Frontier intelligence runtime](frontier.md) (4), [OpenRouter and Open Model Universe](model-routing.md) (3), [UberMind](ubermind.md) (3), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Cognition ledger and economics](cognition-ledger.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture doc for the open router subsystem: layers from exact substrate through Jev, cheap swarm, Crown · **Use:** design canon for intelligence-per-dollar

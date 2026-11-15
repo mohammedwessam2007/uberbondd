@@ -10,6 +10,24 @@ Life-system organs: personal civilization kernel, life knowledge graph, possibil
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The life-system layer. A private life record with provable export and deletion, a provenance-carrying life knowledge graph, an options scorer that compares life choices per dimension without collapsing them into one number, a futures inventory showing which branches a decision opens or closes, and a human capability graph that searches for your binding bottleneck.
+
+**What you use it for.** Seeing your life options, capabilities and consequences clearly while you remain the chooser. About half its modules are not yet wired to any entry point.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 27 source modules: 8 reachable from the server/worker, 6 only from CLI commands, 13 from no entry point. |
+| Tests and commands | 41 test files, 2 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) (4), [Consent, authority, proof and effect ledgers](authority-evidence.md) (2), [Sovereign Cognitive Continuum](sovereign-continuum.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1) |
+| Relied on by | [Sovereign Cognitive Continuum](sovereign-continuum.md) (7), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Brain, Total Brain and Master Memory](brain-memory.md) (1), [Founder 890 moonshots](moonshot-890.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1), [Reasoning architecture and evaluation](reasoning-lab.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — Personal Civilization Engine North Star: life knowledge graph, ten life systems, conceptual donors and human sovereignty laws. · **Use:** contained life-system canon beneath terminal North Star

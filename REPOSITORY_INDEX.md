@@ -4,7 +4,7 @@
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**4982 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
+**4983 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
 
 ## 1. Read first
 
@@ -23,7 +23,7 @@
 | [scripts/ — CLIs and doctors](docs/index/SCRIPTS.md) | 403 | Command-line entry points; most are wired to an `npm run` name shown beside them. |
 | [docs/ — canon, handoffs, receipts](docs/index/DOCS.md) | 702 | Human-readable canon, architecture, handoffs, receipts, prompts and forensics. |
 | [artifacts/ — machine-readable state and evidence](docs/index/ARTIFACTS.md) | 705 | JSON registries, receipts, research corpora and recovered history. |
-| [config/](docs/index/CONFIG.md) | 57 | Checked-in configuration and registries read by src and scripts. |
+| [config/](docs/index/CONFIG.md) | 58 | Checked-in configuration and registries read by src and scripts. |
 | [api/](docs/index/API.md) | 18 | Serverless route handlers (Vercel-style). |
 | [public/](docs/index/PUBLIC.md) | 36 | Browser assets: command center, admin and constellation UI. |
 | [ops/](docs/index/OPS.md) | 76 | Host installation, systemd units and operator shell scripts for the self-hosted stack. |
@@ -44,7 +44,7 @@ Full detail with key documents, hub modules and commands: [`docs/index/DOMAINS.m
 |---|---:|---|
 | [North Star and life systems](docs/index/DOMAINS.md#north-star-and-life-systems) | 166 | Sovereign Cognitive Continuum, Personal Civilization Engine and their life organs: forecasting, decision packets, sovereignty guards, capability/experience/identity models. |
 | [UberMind doctrine and library](docs/index/DOMAINS.md#ubermind-doctrine-and-library) | 67 | UberMind constitutions V4-V10, the Omega46-52 resident cards, the founder 52-concept sources and the grand library archives. |
-| [Continuity, memory and handoffs](docs/index/DOMAINS.md#continuity-memory-and-handoffs) | 381 | Brain packet, Total Brain, Master Memory, PHOENIX checkpoints, context journals, handoffs and cross-chat recovery. |
+| [Continuity, memory and handoffs](docs/index/DOMAINS.md#continuity-memory-and-handoffs) | 382 | Brain packet, Total Brain, Master Memory, PHOENIX checkpoints, context journals, handoffs and cross-chat recovery. |
 | [History and forensics](docs/index/DOMAINS.md#history-and-forensics) | 280 | Frozen historical record: day-by-day forensics, recovered PR/issue/commit lineage, archived ZIPs and legacy root documents. |
 | [GENESIS, moonshots and Perpetual Frontier](docs/index/DOMAINS.md#genesis-moonshots-and-perpetual-frontier) | 274 | Founder 890 moonshot corpus and its compilers, GENESIS/GENESIS2/Ontogenesis, Gamechanger sensing, million-branch ideation. |
 | [ASI research and evidence programs](docs/index/DOMAINS.md#asi-research-and-evidence-programs) | 380 | NULLSTAR, Omega private-evidence lab, C21 evidence factory and the mathematical canary families used as held-out capability probes. |

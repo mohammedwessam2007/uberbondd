@@ -10,6 +10,24 @@ World capability discovery, harvest, normalization, dedupe, admission, retrieval
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The governed supplier market for capabilities: a typed schema, discovery from registered sources, normalization of public skill bodies, dedupe, license and instruction-scan admission, minimum-bundle retrieval and capability-by-model routing.
+
+**What you use it for.** Finding and safely adopting an outside capability when a real gap appears. Zero capabilities are approved or active so far.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 27 source modules: 5 reachable from the server/worker, 14 only from CLI commands, 8 from no entry point. |
+| Tests and commands | 49 test files, 11 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (23), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (3), [OMNIA](omnia.md) (3), [Command center and founder console](command-center.md) (1), [Inquiry-path audits and verified defects](inquiry-audit-product.md) (1), [Skills, plugins and Task Observer](skills-plugins.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (8), [PHOENIX](phoenix.md) (4), [Brain, Total Brain and Master Memory](brain-memory.md) (3), [Agent mesh and autonomy loop](agent-mesh.md) (2), [Neural Exocortex and Connectome](neural-exocortex.md) (2), [Skills, plugins and Task Observer](skills-plugins.md) (2), [Frontier intelligence runtime](frontier.md) (1), [Gamechanger mesh and frontier sensing](gamechanger.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — Policy for discovering, vetting and using external skills, plugins, MCP servers, memory and security tools beneath UberBond authority. · **Use:** Gate for installing or invoking external capabilities.

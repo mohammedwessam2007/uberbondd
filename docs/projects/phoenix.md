@@ -10,6 +10,24 @@ Context survival: PHOENIX protocol and checkpoints, continuity capsule, chat-fir
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Context survival. A context journal with projections, task bindings and schema versioning, so each task gets only its bound slice of context and a brain state can be carried as a capsule with integrity and freshness. Around it: the PHOENIX protocol, an MCP connector with eight tools, 15 deterministic zero-effect handlers and capability waves 3 to 10.
+
+**What you use it for.** Resuming in a new chat without retelling the project. The October 24 checkpoint records MCP tests passing and ChatGPT registration unverified.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 17 source modules: 2 reachable from the server/worker, 4 only from CLI commands, 11 from no entry point. |
+| Tests and commands | 45 test files, 3 npm commands |
+| Dated activity | 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (14), [Brain, Total Brain and Master Memory](brain-memory.md) (6), [Capability Genome](capability-genome.md) (4), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (3), [OMNIA](omnia.md) (3), [Command center and founder console](command-center.md) (1), [Sovereign Cognitive Continuum](sovereign-continuum.md) (1) |
+| Relied on by | [Brain, Total Brain and Master Memory](brain-memory.md) (17), [Agent mesh and autonomy loop](agent-mesh.md) (2), [Server core, shared utilities and test harness](core-platform.md) (2), [Sovereign Cognitive Continuum](sovereign-continuum.md) (2), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (1), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (1), [Skills, plugins and Task Observer](skills-plugins.md) (1), [Sovereign self-host stack](sovereign-selfhost.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md`](../PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md) — Protocol making chat checkpoints source-labeled events with stable IDs and a recovery challenge for the next chat; 890 donor synthesis. · **Use:** survive long ChatGPT conversations without losing decisions

@@ -10,6 +10,24 @@ Governed adaptive problem-solving kernel, cognitive reflex and Million-Wall solv
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The stuck-mission solver: compile the wall, generate materially different strategy families, score them under hard constraints, classify failures and derive countermoves, with a failure-to-patch reflex.
+
+**What you use it for.** Breaking a repeated failure without retrying the same thing. It plans only and carries no authority.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 4 source modules: 1 reachable from the server/worker, 2 only from CLI commands, 1 from no entry point. |
+| Tests and commands | 11 test files, 1 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (3), [Capability Genome](capability-genome.md) (1) |
+| Relied on by | [Self-maintainer, constitution and recursive governance](self-maintainer.md) (4), [Brain, Total Brain and Master Memory](brain-memory.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Economic reliability and wealth engines](economic-engines.md) (1), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`docs/WALLBREAKER_CANON.md`](../WALLBREAKER_CANON.md) — Wallbreaker canon: wall compile, strategy family tournament, failure classes, authority law, explicit Genome atom ID integration. · **Use:** governs stuck-mission problem solving

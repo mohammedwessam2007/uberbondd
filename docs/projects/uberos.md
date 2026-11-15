@@ -10,6 +10,24 @@ Sovereign compute substrate program: Buildroot generation 0, kernel adapter, sta
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A sovereign operating-system program: generation 0 is a minimal Buildroot Linux with UberBond authority, package provenance and kernel-adapter contracts. Linux is treated as the first replaceable kernel.
+
+**What you use it for.** A long-horizon substrate under your control. It does not claim to have replaced Linux or booted on your hardware.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 6 source modules: 0 reachable from the server/worker, 0 only from CLI commands, 6 from no entry point. |
+| Tests and commands | 1 test files, 0 npm commands |
+| Dated activity | undated |
+| Builds on | [Sovereign Cognitive Continuum](sovereign-continuum.md) (1) |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS canon: kernel-neutral OS evolution program starting from Linux, generation-0 build path, control-plane contracts, no physical boot yet. · **Use:** governs sovereign OS program

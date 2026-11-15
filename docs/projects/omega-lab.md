@@ -10,6 +10,24 @@ Omega private lab, policy meta-learner, intent superposition, lawspace, and the 
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A private evidence lab of controlled mathematical and causal canaries (cube-free, power-free, multiplicity-depth, causal compilers), with independent replications and a standard that reserves top marks for adversarial hidden-holdout results.
+
+**What you use it for.** Held-out probes of reasoning capability. It is self-contained research: 34 of 35 modules are not connected to anything else.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 35 source modules: 0 reachable from the server/worker, 1 only from CLI commands, 34 from no entry point. |
+| Tests and commands | 30 test files, 1 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (26), [Reasoning architecture and evaluation](reasoning-lab.md) (1) |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (4)
 
 - [`docs/OMEGA_PRIVATE_EVIDENCE_STANDARD.md`](../OMEGA_PRIVATE_EVIDENCE_STANDARD.md) — Governance standard reserving 10/10 evidence for adversarial hidden-holdout results, listing evidence dimensions like semantic compilation and transfer. · **Use:** bar for Omega lab capability claims

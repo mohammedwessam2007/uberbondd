@@ -10,6 +10,24 @@ Repository-native company memory: brain packet, Total Brain, Master Memory, cogn
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The repository's own memory and self-model: a cognitive graph of organs with typed edges, an event bus and append-only journal over it, a lifetime memory index across episodic, semantic, economic and evidence layers, plus Total Brain and Master Memory as the anti-forgetting canon of programs and lineage.
+
+**What you use it for.** Reconstructing the whole organism before narrowing to a task; the brain packet you run at startup comes from here.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 24 source modules: 3 reachable from the server/worker, 7 only from CLI commands, 14 from no entry point. |
+| Tests and commands | 69 test files, 9 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (33), [PHOENIX](phoenix.md) (17), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (4), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (4), [Capability Genome](capability-genome.md) (3), [Server core, shared utilities and test harness](core-platform.md) (3), [Wallbreaker](wallbreaker.md) (2), [Neural Exocortex and Connectome](neural-exocortex.md) (1) |
+| Relied on by | [PHOENIX](phoenix.md) (6), [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Uber Socket](uber-socket.md) (3), [Command center and founder console](command-center.md) (2), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [Neural Exocortex and Connectome](neural-exocortex.md) (2), [Sovereign Cognitive Continuum](sovereign-continuum.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/UNIVERSAL_CONTEXT_PROTOCOL.md`](../UNIVERSAL_CONTEXT_PROTOCOL.md) — Protocol for fresh sessions to recover whole organism with small resident context and complete retrievable context; L-minus-one Wessam overlay, 890 inheritance. · **Use:** cross-chat context recovery

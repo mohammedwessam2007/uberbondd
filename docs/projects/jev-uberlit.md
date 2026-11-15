@@ -10,6 +10,24 @@ Jev semantic control plane and its UberLit runtime: calibration vault, promotion
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Jev is the cheap fast semantic judge; UberLit is the host service it runs on. Jev coalesces same-scope questions into one paid call, keeps a calibration vault, reuses already-billed answers, and a noetic autocompiler turns verified cognition into cheaper reflexes.
+
+**What you use it for.** Handling routine judgements cheaply so only unresolved questions reach the Crown.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 17 source modules: 10 reachable from the server/worker, 4 only from CLI commands, 3 from no entry point. |
+| Tests and commands | 41 test files, 8 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Cognition ledger and economics](cognition-ledger.md) (7), [Infinite Opus and Frontier-Max](infinite-opus.md) (7), [Platform deployment and providers](platform-deploy.md) (3), [Server core, shared utilities and test harness](core-platform.md) (2), [Postgres, stores and migrations](data-stores.md) (2), [Semantic closure and execution-leaf kernel](semantic-closure.md) (2), [UberCel, UberCloud and UberOcean](ubercel-cloud.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (11), [Infinite Opus and Frontier-Max](infinite-opus.md) (3), [Cognition ledger and economics](cognition-ledger.md) (2), [APEX campaigns](apex.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (12)
 
 - [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture doc for the open router subsystem: layers from exact substrate through Jev, cheap swarm, Crown · **Use:** design canon for intelligence-per-dollar

@@ -10,6 +10,24 @@ Hash-locked lossless carrier of the 146 MB NULLSTAR Omega Infinity Inevitability
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A lossless, hash-locked carrier for the 146 MB Inevitability Engine V9 text, stored as a compressed V7 seed plus the deterministic generator for V8 and V9.
+
+**What you use it for.** Rebuilding that exact source file on demand without keeping a 146 MB blob in git.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | No source modules of its own (records and data, no source modules). |
+| Tests and commands | 1 test files, 0 npm commands |
+| Dated activity | undated |
+| Builds on | nothing |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`CLAUDE_START_V9.md`](../../CLAUDE_START_V9.md) — Instruction to materialize the V9 Inevitability Engine via a Python script, require LOSSLESS_VERIFIED hash, and treat it as immutable canon. · **Use:** start a Claude session on the V9 carrier

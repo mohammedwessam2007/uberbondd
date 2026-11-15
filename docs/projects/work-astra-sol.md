@@ -10,6 +10,24 @@ Prompts, bootstraps and receipts for GPT Work / Astra / Sol company-brain sessio
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The prompts, bootstraps and packet queues that drive GPT Work, Astra and Sol sessions and Claude mega-missions, including the progress baseline and the launch package that splits readiness into purchase, send, collection and delivery.
+
+**What you use it for.** Starting a working session for another assistant with the right mission and reporting format.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | No source modules of its own (doctrine and plans, no source modules). |
+| Tests and commands | 0 test files, 0 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | nothing |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (10)
 
 - [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — Charter defining AI workers as bounded employees: Sol company brain, Claude Code software factory and ChatGPT mission control roles. · **Use:** Role definitions for AI employees.

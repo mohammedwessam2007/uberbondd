@@ -10,6 +10,24 @@ Revenue Singularity service, Revenue Constellation spatial model, G-SPOT one-but
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The commercial cockpit: a service binding snapshot, radar and X-ray to the store, honest funnel statistics with intervals and the earliest broken stage, the Money Queue ranking who gets the next governed first touch, G-SPOT one-button orchestration, and a signed owner session.
+
+**What you use it for.** Seeing the whole funnel on your iPad and advancing it with one governed action. Fully wired; the October 5 receipt lists a legal hold as the remaining blocker.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 9 source modules: 9 reachable from the server/worker, 0 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 14 test files, 0 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Prospecting and lead generation](prospecting-leadgen.md) (10), [UberReply, replies and async closing](reply-closing.md) (5), [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [Revenue and payments (umbrella)](revenue-payments.md) (4), [Offers, services and fulfilment](offers-fulfilment.md) (2), [Outreach (umbrella)](outreach.md) (2), [Client engagements (Powerhouse, Contra, Halfteck)](client-engagements.md) (1), [Postgres, stores and migrations](data-stores.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (5), [Offers, services and fulfilment](offers-fulfilment.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (7)
 
 - [`.claude/CLAUDE.md`](../../.claude/CLAUDE.md) — Founder continuation dated 2026-10-03 (PR #1185) adding owner session UX, Revenue Constellation, G-SPOT orchestration, Money Queue and a coverage-ledger completion rule. · **Use:** loads active commercial/UI continuation scope into every Claude Code session

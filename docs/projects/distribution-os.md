@@ -10,6 +10,24 @@ Distribution control plane, channel and concentration models, vendor map, omnich
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Distribution as an allocation problem: a channel registry that ranks only channels backed by cleared-payment outcomes, a portfolio compiler with a cap of half per channel, a router to non-email first touch when cold email is ineligible, and an agent-commerce surface.
+
+**What you use it for.** Deciding where the next unit of distribution effort should go.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 15 source modules: 4 reachable from the server/worker, 0 only from CLI commands, 11 from no entry point. |
+| Tests and commands | 17 test files, 4 npm commands |
+| Dated activity | 2026-08 to 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (8), [Outreach (umbrella)](outreach.md) (4), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (3), [Inquiry-path audits and verified defects](inquiry-audit-product.md) (2), [UberReply, replies and async closing](reply-closing.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (1), [Global green lane and free routing](green-lane.md) (1), [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — Canon framing distribution as an allocation problem: one provider-neutral control plane over lead, outbound, inbound and learning, maximizing profit per founder minute. · **Use:** Constitution for distribution work.

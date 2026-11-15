@@ -10,6 +10,24 @@ Cognition ledger and transport guard, cognitive capital ledger and journal, unif
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The meter on every model call: a reserve, dispatch, settle, release ledger recording actual cost and request fingerprints, hard all-in dollar caps with a Crown reserve, an inventory of every route that can spend, and a transport guard that refuses calls outside the economic perimeter.
+
+**What you use it for.** Making it impossible to overspend on cognition by accident.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 13 source modules: 8 reachable from the server/worker, 3 only from CLI commands, 2 from no entry point. |
+| Tests and commands | 56 test files, 16 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Semantic closure and execution-leaf kernel](semantic-closure.md) (4), [Jev and UberLit](jev-uberlit.md) (2), [Infinite Opus and Frontier-Max](infinite-opus.md) (1) |
+| Relied on by | [Infinite Opus and Frontier-Max](infinite-opus.md) (18), [Jev and UberLit](jev-uberlit.md) (7), [Agent mesh and autonomy loop](agent-mesh.md) (3), [Server core, shared utilities and test harness](core-platform.md) (2), [OpenRouter and Open Model Universe](model-routing.md) (2), [AI employees and Avengers](ai-employees.md) (1), [Crown](crown.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/AGENT_WORKER_RUNTIME_V1.md`](../AGENT_WORKER_RUNTIME_V1.md) — Describes the worker that turns one claimed relay task into one bounded model execution with compute reservation, validation and receipt. · **Use:** Understand the schedulable model worker pipeline.

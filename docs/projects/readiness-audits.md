@@ -10,6 +10,24 @@ Coverage matrices, reachability classification, organ callability, readiness con
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The self-honesty tools: a capability inventory with statuses, a no-drop coverage compiler with one row per canon concept, a check that coverage cannot overclaim, proof that current-truth artifacts regenerate at head, and the doctor scripts.
+
+**What you use it for.** Knowing what is actually implemented, reachable and regenerable, as opposed to documented.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 14 source modules: 3 reachable from the server/worker, 3 only from CLI commands, 8 from no entry point. |
+| Tests and commands | 82 test files, 22 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (8), [Capability Genome](capability-genome.md) (8), [Economic reliability and wealth engines](economic-engines.md) (5), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (5), [Semantic closure and execution-leaf kernel](semantic-closure.md) (5), [Sovereign self-host stack](sovereign-selfhost.md) (5), [Brain, Total Brain and Master Memory](brain-memory.md) (4), [Command center and founder console](command-center.md) (4) |
+| Relied on by | [Semantic closure and execution-leaf kernel](semantic-closure.md) (4), [Command center and founder console](command-center.md) (2), [NULLSTAR Omega](nullstar.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [C21 and ASI evidence tribunals](c21-asi-evidence.md) (1), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (1), [Outreach (umbrella)](outreach.md) (1), [Prometheus](prometheus.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/AGENT_MESH_ENTRY_POINT.md`](../AGENT_MESH_ENTRY_POINT.md) — Records that the agent mesh control plane and relay client were unreachable from any non-test code, and how entry points were wired. · **Use:** Explain how the mesh became reachable and why green tests were not enough.

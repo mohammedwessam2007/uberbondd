@@ -10,6 +10,24 @@ First-cash canary guard and packets, first payment packet, fulfilment runtime, f
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The path to the first cleared payment: a nineteen-question readiness packet where permission to contact is a pure function of six gates, a canary capped by qualified conversations, and a seven-day first-payment packet.
+
+**What you use it for.** Answering whether you are ready for a first customer, with evidence for each gate.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 7 source modules: 6 reachable from the server/worker, 1 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 23 test files, 2 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Revenue and payments (umbrella)](revenue-payments.md) (6), [Consent, authority, proof and effect ledgers](authority-evidence.md) (5), [Offers, services and fulfilment](offers-fulfilment.md) (3), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (1), [Outreach (umbrella)](outreach.md) (1), [Platform deployment and providers](platform-deploy.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Command center and founder console](command-center.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (11)
 
 - [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Outreach autoload reconciled 2026-10-04 with 2026-10-08 overlay: sender readiness, $69 Winnr purchase gate, 890 first-cash plan pointer. · **Use:** resume outreach/first-cash frontier in a new chat

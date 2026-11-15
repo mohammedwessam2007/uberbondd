@@ -10,6 +10,24 @@ Opportunity registry, factory and tournament; Event Horizon economic genome; Wor
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Opportunity selection: a Business Genome compiler and tournament that caps confidence by evidence class, a catalog of 438 deduplicated opportunities with three buyer-signal finalists, mechanism recombination with red-teaming, and Event Horizon validation.
+
+**What you use it for.** Choosing the single commercial experiment worth running now, from a wide evidence-labelled field.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 11 source modules: 5 reachable from the server/worker, 2 only from CLI commands, 4 from no entry point. |
+| Tests and commands | 26 test files, 6 npm commands |
+| Dated activity | 2026-08 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (5), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Brain, Total Brain and Master Memory](brain-memory.md) (1), [OMNIA](omnia.md) (1), [Outreach (umbrella)](outreach.md) (1), [Quant research lab](quant-lab.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+| Relied on by | [Brain, Total Brain and Master Memory](brain-memory.md) (4), [Prometheus](prometheus.md) (4), [Agent mesh and autonomy loop](agent-mesh.md) (3), [Economic reliability and wealth engines](economic-engines.md) (3), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [C21 and ASI evidence tribunals](c21-asi-evidence.md) (1), [First cash and first customer](first-cash.md) (1), [Reasoning architecture and evaluation](reasoning-lab.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Real-vs-deferred diagram of Prometheus chain from MarketSignal through economic spine, experiment, distribution, learning; V3 notes deletions. · **Use:** map of Prometheus modules as built

@@ -10,6 +10,24 @@ Named historical milestone programs and their closure audits: Everest, SUMMIT 10
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The record of earlier named programs: Everest, SUMMIT 100, BLACK SKY, Reality Activation, Ragnarok, Night War, with their closure receipts and the register of external gates still open.
+
+**What you use it for.** Not forgetting what older programs donated, and seeing honest closure verdicts such as NIGHT-10 meeting 9 of 11 obligations.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | No source modules of its own (records and data, no source modules). |
+| Tests and commands | 3 test files, 0 npm commands |
+| Dated activity | 2026-08 to 2026-09 |
+| Builds on | nothing |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/HISTORICAL_PROJECT_LINEAGE.md`](../HISTORICAL_PROJECT_LINEAGE.md) — Preserved lineage from retained project artifacts: the historical Brain role and its decision laws, product families and distribution ambitions. · **Use:** Prevent historical amnesia about early program identity.

@@ -10,6 +10,24 @@ Uber Socket runtime, connectome runtime, cognitive backplane, project mesh, shar
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A live bridge between chat apps: a runtime wiring a conversation adapter, project mesh, shared content fabric and cognitive backplane, with persisted state, plus a Chrome extension pairing two ChatGPT tabs over an encrypted channel.
+
+**What you use it for.** Making separate chat sessions share context in real time. All nine modules are wired into the server.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 9 source modules: 9 reachable from the server/worker, 0 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 7 test files, 0 npm commands |
+| Dated activity | undated |
+| Builds on | [Brain, Total Brain and Master Memory](brain-memory.md) (3), [Claude, ChatGPT and assistant integrations](assistant-integrations.md) (1), [Cognition ledger and economics](cognition-ledger.md) (1), [OpenRouter and Open Model Universe](model-routing.md) (1), [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (1), [UberMind](ubermind.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (2) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`docs/UBERAGENT_V2.md`](../UBERAGENT_V2.md) — Spec of private Windows agent controlled via Supabase command table and Edge Function with hashed node token and allow-listed actions. · **Use:** operate founder's HP machine safely remotely

@@ -10,6 +10,24 @@ Terminal North Star and its sovereignty organs: will, volition, salience, episte
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** UberBond's terminal identity: you supply will, the system supplies intelligence, reality supplies feedback. The code here is the guard layer around that relation: a living model of you that refuses to freeze your identity, privacy views over your context, typed ignorance and bias attacks on conclusions, and an intent compiler that traces a choice through permissions to observed consequences.
+
+**What you use it for.** Keeping any amount of intelligence from turning into authority over what you want; the constitution every session reads first.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 22 source modules: 12 reachable from the server/worker, 7 only from CLI commands, 3 from no entry point. |
+| Tests and commands | 56 test files, 5 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Personal Civilization Engine](personal-civilization.md) (7), [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) (4), [Agent mesh and autonomy loop](agent-mesh.md) (2), [Brain, Total Brain and Master Memory](brain-memory.md) (2), [PHOENIX](phoenix.md) (2) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (2), [Personal Civilization Engine](personal-civilization.md) (2), [Reasoning architecture and evaluation](reasoning-lab.md) (2), [Brain, Total Brain and Master Memory](brain-memory.md) (1), [Sovereign Option and Outcome Forecast Engine](forecast-engine.md) (1), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (1), [Inboxes, placement and reputation](inboxes-placement.md) (1), [NULLSTAR Omega](nullstar.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (11)
 
 - [`docs/NORTH_STAR_PRECEDENCE.md`](../NORTH_STAR_PRECEDENCE.md) — Ordered list of the ten terminal North Star files and rule that older Personal Civilization or revenue-engine wording is subordinate. · **Use:** resolve conflicts between North Star documents

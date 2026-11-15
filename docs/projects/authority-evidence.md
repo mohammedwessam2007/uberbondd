@@ -10,6 +10,24 @@ Consent bridge and receipts, proof factory and proof DAG, evidence integrity, ef
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The shared truth plumbing nearly everything imports: one vocabulary for external-effect ledgers, a content-addressed proof graph, consent receipts suitable for CASL and GDPR, provider payload redaction, and a router that stops internal work from declaring completion when the missing proof is external.
+
+**What you use it for.** Making every claim traceable and every side effect counted. It is the most depended-on project in the repository.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 15 source modules: 5 reachable from the server/worker, 3 only from CLI commands, 7 from no entry point. |
+| Tests and commands | 105 test files, 10 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Inboxes, placement and reputation](inboxes-placement.md) (1), [Platform deployment and providers](platform-deploy.md) (1) |
+| Relied on by | [Brain, Total Brain and Master Memory](brain-memory.md) (33), [Omega private-evidence lab and canaries](omega-lab.md) (26), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (25), [Capability Genome](capability-genome.md) (23), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (20), [Frontier intelligence runtime](frontier.md) (15), [Founder 890 moonshots](moonshot-890.md) (15), [PHOENIX](phoenix.md) (14) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/DATA_MINIMIZATION_MATRIX.md`](../DATA_MINIMIZATION_MATRIX.md) — Matrix of what each consequential ingress may retain, verified by hostile payload probes, starting with the Lemon Squeezy webhook. · **Use:** Privacy and retention rules per ingress.

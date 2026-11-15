@@ -6,13 +6,13 @@ Checked-in configuration and registries read by src and scripts.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**57 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**58 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
 - [North Star and life systems](#north-star-and-life-systems) — 2
 - [UberMind doctrine and library](#ubermind-doctrine-and-library) — 6
-- [Continuity, memory and handoffs](#continuity-memory-and-handoffs) — 2
+- [Continuity, memory and handoffs](#continuity-memory-and-handoffs) — 3
 - [GENESIS, moonshots and Perpetual Frontier](#genesis-moonshots-and-perpetual-frontier) — 10
 - [ASI research and evidence programs](#asi-research-and-evidence-programs) — 3
 - [Frontier cognition and model routing](#frontier-cognition-and-model-routing) — 21
@@ -41,6 +41,7 @@ Checked-in configuration and registries read by src and scripts.
 
 ## Continuity, memory and handoffs
 
+- [`repository-project-briefs.json`](../../config/repository-project-briefs.json) — uberbond.repository-project-briefs.v1
 - [`repository-projects.json`](../../config/repository-projects.json) — Project roster config: 76 project ids with titles and descriptions spanning North Star to infrastructure. · **Use:** canonical list of repository projects for classification
 - [`uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — Mapping of historical program names to living cognitive organs as donors and aliases, not runtime proof. · **Use:** trace cognitive lineage of named programs
 

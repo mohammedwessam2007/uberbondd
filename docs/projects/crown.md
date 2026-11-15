@@ -10,6 +10,24 @@ Strongest-model seat: Crown admission, tournament, succession, sealed checkpoint
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The strongest-model seat and its rules: exact model revision pinning, admission receipts, sealed checkpoints, safe resume of interrupted paid generations, a proof interpreter that checks outputs close their obligations, and a succession process with quarantine and hidden battery.
+
+**What you use it for.** Guaranteeing the final judge is the real strongest model and that promotions to that seat are earned. Almost fully wired into the server.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 13 source modules: 12 reachable from the server/worker, 0 only from CLI commands, 1 from no entry point. |
+| Tests and commands | 36 test files, 5 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Semantic closure and execution-leaf kernel](semantic-closure.md) (2), [Cognition ledger and economics](cognition-ledger.md) (1), [Frontier intelligence runtime](frontier.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (10), [Infinite Opus and Frontier-Max](infinite-opus.md) (10), [Semantic closure and execution-leaf kernel](semantic-closure.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`open router/EMPIRICAL_PROOF_PROTOCOL.md`](../../open%20router/EMPIRICAL_PROOF_PROTOCOL.md) — Empirical proof protocol: paired fresh tasks, blind evaluation, regression definition before compression claims · **Use:** required evidence process

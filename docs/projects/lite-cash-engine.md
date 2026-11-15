@@ -10,6 +10,24 @@ Standalone `lite/` app and its deployment guides. Do not modify without a separa
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A standalone free-tier variant of the audit product: static site, serverless API, an Actions-based audit worker and Postgres. Kept separate from the main application.
+
+**What you use it for.** A cheap deployable version of the audit funnel. Do not modify without a separately justified mission.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | No source modules of its own (doctrine and plans, no source modules). |
+| Tests and commands | 4 test files, 0 npm commands |
+| Dated activity | 2026-08 |
+| Builds on | [Inquiry-path audits and verified defects](inquiry-audit-product.md) (2) |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`lite/README.md`](../../lite/README.md) — README for Cash Engine Lite: static site, Vercel API, GitHub Actions audit worker, Neon Postgres data flow · **Use:** understand the free-tier website audit variant

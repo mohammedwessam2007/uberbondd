@@ -263,6 +263,7 @@ export function buildIndex(root) {
   const semantics = loadSemantics(root);
   const testTargets = new Map();
   const inbound = new Map();
+  const edges = [];
   const entries = [];
   for (const file of files) {
     const abs = path.join(root, file);
@@ -275,6 +276,7 @@ export function buildIndex(root) {
     if (text && /\.(mjs|js|cjs)$/.test(file)) {
       for (const m of text.matchAll(/(?:from\s+|import\s*\(\s*|import\s+)['"](\.{1,2}\/[^'"]+)['"]/g)) {
         const target = path.posix.normalize(path.posix.join(path.posix.dirname(file), m[1]));
+        edges.push([file, target]);
         if (target.startsWith('src/') && !file.startsWith('tests/')) inbound.set(target, (inbound.get(target) ?? 0) + 1);
       }
     }
@@ -317,12 +319,43 @@ export function buildIndex(root) {
     e.by = 'imports'; e.kind = 'test';
     e.what = `Tests ${targets.slice(0, 3).map(t => path.posix.basename(t.path, '.mjs')).join(', ')}${e.title ? ` (${e.title})` : ''}`;
   }
+  // ---- system model: wiring, project dependencies, evidence profile, timeline
+  const out = new Map();
+  for (const [a, b] of edges) { if (!byPath.has(b)) continue; if (!out.has(a)) out.set(a, []); out.get(a).push(b); }
+  const reach = seeds => { const seen = new Set(seeds); const q = [...seeds]; while (q.length) for (const n of out.get(q.pop()) ?? []) if (!seen.has(n)) { seen.add(n); q.push(n); } return seen; };
+  const serverSeeds = entries.filter(e => /^(server|server-core|worker|portable-server)\.mjs$|^api\//.test(e.path)).map(e => e.path);
+  const cliSeeds = entries.filter(e => e.npm && e.area === 'scripts').map(e => e.path);
+  const wiredServer = reach(serverSeeds), wiredCli = reach(cliSeeds);
+  for (const e of entries) if (e.area === 'src' && /\.mjs$/.test(e.path)) e.wired = wiredServer.has(e.path) ? 'server' : wiredCli.has(e.path) ? 'cli' : 'none';
+  const primary = e => e?.projects?.[0];
+  const deps = {};
+  for (const [a, b] of edges) {
+    const A = byPath.get(a), B = byPath.get(b);
+    if (!A || !B || A.area === 'tests' || !primary(A) || !primary(B) || primary(A) === primary(B)) continue;
+    ((deps[primary(A)] ??= {})[primary(B)] ??= 0); deps[primary(A)][primary(B)]++;
+  }
+  const projectStats = {};
+  for (const [id] of PROJECTS) {
+    const mine = entries.filter(e => e.projects?.includes(id) && !FROZEN_RE.test(e.path));
+    const core = mine.filter(e => primary(e) === id);
+    const src = core.filter(e => e.area === 'src' && e.wired);
+    const dates = mine.map(e => e.date).filter(Boolean).sort();
+    const kinds = {}; for (const e of mine) if (e.kind) kinds[e.kind] = (kinds[e.kind] ?? 0) + 1;
+    const months = {}; for (const d of dates) months[d.slice(0, 7)] = (months[d.slice(0, 7)] ?? 0) + 1;
+    const st = { files: mine.length, core: core.length, modules: src.length, wiredServer: src.filter(e => e.wired === 'server').length, wiredCli: src.filter(e => e.wired === 'cli').length,
+      unwired: src.filter(e => e.wired === 'none').length, tests: mine.filter(e => e.area === 'tests').length, commands: new Set(mine.flatMap(e => e.npm ?? [])).size,
+      firstDate: dates[0] ?? null, lastDate: dates.at(-1) ?? null, kinds, months };
+    st.shape = !st.modules ? (((kinds.canon ?? 0) + (kinds.plan ?? 0) + (kinds.prompt ?? 0)) >= ((kinds.receipt ?? 0) + (kinds.data ?? 0)) ? 'doctrine and plans, no source modules' : 'records and data, no source modules')
+      : st.wiredServer / st.modules >= 0.5 ? 'code mostly wired into the server/worker' : (st.wiredServer + st.wiredCli) / st.modules >= 0.5 ? 'code mostly reachable from CLI commands' : 'code mostly not reachable from any entry point';
+    projectStats[id] = st;
+  }
   const count = key => entries.reduce((m, e) => (m[e[key]] = (m[e[key]] ?? 0) + 1, m), {});
   return {
     schema: REPOSITORY_INDEX_SCHEMA,
     truthBoundary: 'Navigation index only. Presence here proves a file exists, not that anything is implemented, deployed, reachable at runtime or externally proven.',
     regenerate: 'npm run repo:index',
     totals: { files: entries.length, byArea: count('area'), byDomain: count('domain'), classifiedByContent: entries.filter(e => e.by === 'content').length, classifiedByImports: entries.filter(e => e.by === 'imports').length, classifiedByNameOnly: entries.filter(e => e.projects && !e.by).length },
+    projectStats, projectDeps: deps,
     domains: DOMAINS.map(([id, title, description]) => ({ id, title, description })),
     areas: AREAS.map(([id, title, description]) => ({ id, title, description })),
     files: entries
@@ -439,14 +472,85 @@ function renderMaster(index) {
   return [out, `${L.join('\n')}\n`];
 }
 
+const BRIEFS = (() => { try { return JSON.parse(fs.readFileSync(path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'config', 'repository-project-briefs.json'), 'utf8')).briefs; } catch { return {}; } })();
+const projectTitle = Object.fromEntries(PROJECTS.map(p => [p[0], p[1]]));
+const projectFamily = Object.fromEntries(PROJECTS.map(p => [p[0], p[4]]));
+const usedBy = (index, id) => Object.entries(index.projectDeps).filter(([, v]) => v[id]).map(([k, v]) => [k, v[id]]).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const dependsOn = (index, id) => Object.entries(index.projectDeps[id] ?? {}).sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const period = st => (st.firstDate ? (st.firstDate.slice(0, 7) === st.lastDate.slice(0, 7) ? st.firstDate.slice(0, 7) : `${st.firstDate.slice(0, 7)} to ${st.lastDate.slice(0, 7)}`) : 'undated');
+function wiringSentence(st) {
+  if (!st.modules) return `No source modules of its own (${st.shape}).`;
+  return `${st.modules} source modules: ${st.wiredServer} reachable from the server/worker, ${st.wiredCli} only from CLI commands, ${st.unwired} from no entry point.`;
+}
+function understanding(index, id, from) {
+  const st = index.projectStats[id], b = BRIEFS[id], L = [];
+  const links = list => list.slice(0, 8).map(([k, n]) => `[${projectTitle[k]}](${rel(from, `${PROJECT_DIR}/${k}.md`)}) (${n})`).join(', ') || 'nothing';
+  if (b) L.push('## Understanding', '', `**What it is.** ${b.what}`, '', `**What you use it for.** ${b.use}`, '');
+  L.push('## At a glance (measured)', '', '| | |', '|---|---|',
+    `| Wiring | ${wiringSentence(st)} |`,
+    `| Tests and commands | ${st.tests} test files, ${st.commands} npm commands |`,
+    `| Dated activity | ${period(st)} |`,
+    `| Builds on | ${links(dependsOn(index, id))} |`,
+    `| Relied on by | ${links(usedBy(index, id))} |`, '',
+    '_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project\'s modules into another project\'s._', '');
+  return L;
+}
+function renderAtlas(index) {
+  const out = `${PROJECT_DIR}/ATLAS.md`;
+  const fams = [...new Set(PROJECTS.map(p => p[4]))];
+  const famId = f => `F${f.split('.')[0]}`;
+  const famDeps = {};
+  for (const [a, v] of Object.entries(index.projectDeps)) for (const [b, n] of Object.entries(v)) {
+    const A = projectFamily[a], B = projectFamily[b]; if (A === B) continue;
+    famDeps[`${A}|${B}`] = (famDeps[`${A}|${B}`] ?? 0) + n;
+  }
+  const t = index.totals;
+  const tot = Object.values(index.projectStats).reduce((m, st) => ({ m: m.m + st.modules, s: m.s + st.wiredServer, c: m.c + st.wiredCli, u: m.u + st.unwired }), { m: 0, s: 0, c: 0, u: 0 });
+  const L = [HEADER, '# UberBond atlas — the whole system in one page', '', BOUNDARY,
+    `This page is the model of the repository: what each of the ${PROJECTS.length} projects is, what it is for, how the projects depend on each other, how much of each is wired to a running entry point, and when each was active. It is built from ${t.classifiedByContent} per-file content judgements, the import graph and dated filenames. Open a project's own page for its files.`, '',
+    '## 1. The shape of the whole', '',
+    'UberBond is one organism in five bands. **Direction**: the North Star family says what the system is for and who decides. **Memory**: doctrine, handoffs and PHOENIX carry context between sessions. **Cognition**: invention, evaluation and model-routing projects produce and test ideas and decide how much model spend a task gets. **Action**: agents, capabilities, outreach, email infrastructure and revenue projects act in the world. **Ground**: governance, stores and deployment make every action counted, permitted and durable. Authority flows down from the founder; evidence flows up from reality.', '',
+    `Across all projects there are **${tot.m} source modules: ${tot.s} reachable from the server/worker, ${tot.c} only from CLI commands, and ${tot.u} from no entry point.** The last group is real code, usually with tests, that no server, worker, API route or npm command statically imports. Some may still be loaded dynamically, so treat it as a list to verify, not a verdict.`, '',
+    '## 2. How the families depend on each other', '', 'Arrows read "builds on". Edge labels count imports between modules of different families; only links of 8 or more are drawn.', '',
+    '```mermaid', 'flowchart LR'];
+  for (const f of fams) L.push(`  ${famId(f)}["${f.replace(/^\d+\. /, '')}"]`);
+  for (const [k, n] of Object.entries(famDeps).sort((a, b) => b[1] - a[1])) if (n >= 8) { const [A, B] = k.split('|'); L.push(`  ${famId(A)} -->|${n}| ${famId(B)}`); }
+  L.push('```', '', '## 3. Foundations: what the most other projects rely on', '', '| Project | Relied on by (projects) | Incoming imports |', '|---|---:|---:|');
+  const found = PROJECTS.map(p => [p[0], usedBy(index, p[0])]).map(([id, u]) => [id, u.length, u.reduce((a, x) => a + x[1], 0)]).sort((a, b) => b[1] - a[1] || b[2] - a[2]).slice(0, 12);
+  for (const [id, n, w] of found) L.push(`| [${projectTitle[id]}](${rel(out, `${PROJECT_DIR}/${id}.md`)}) | ${n} | ${w} |`);
+  L.push('', '## 4. Wiring: built versus connected', '', 'Projects with source modules, ordered by the share reachable from the server/worker. A low share means the code exists and is tested but no running entry point statically imports it.', '',
+    '| Project | Modules | Server/worker | CLI only | Unconnected | Tests |', '|---|---:|---:|---:|---:|---:|');
+  for (const [id] of [...PROJECTS].filter(p => index.projectStats[p[0]].modules).sort((a, b) => { const A = index.projectStats[a[0]], B = index.projectStats[b[0]]; return B.wiredServer / B.modules - A.wiredServer / A.modules || B.modules - A.modules; })) {
+    const st = index.projectStats[id]; L.push(`| [${projectTitle[id]}](${rel(out, `${PROJECT_DIR}/${id}.md`)}) | ${st.modules} | ${st.wiredServer} | ${st.wiredCli} | ${st.unwired} | ${st.tests} |`);
+  }
+  const months = [...new Set(Object.values(index.projectStats).flatMap(st => Object.keys(st.months)))].sort();
+  L.push('', '## 5. Timeline: when each project was active', '', 'Count of dated files per month (dates come from filenames). Blank means no dated file that month.', '',
+    `| Project | ${months.map(m => m.slice(2)).join(' | ')} |`, `|---|${months.map(() => '---:').join('|')}|`);
+  for (const [id] of [...PROJECTS].filter(p => index.projectStats[p[0]].firstDate).sort((a, b) => index.projectStats[a[0]].firstDate.localeCompare(index.projectStats[b[0]].firstDate) || a[0].localeCompare(b[0])))
+    L.push(`| [${projectTitle[id]}](${rel(out, `${PROJECT_DIR}/${id}.md`)}) | ${months.map(m => index.projectStats[id].months[m] ?? '').join(' | ')} |`);
+  L.push('', '## 6. Every project, explained', '');
+  for (const f of fams) {
+    L.push(`### ${f}`, '');
+    for (const [id, title] of PROJECTS.filter(p => p[4] === f)) {
+      const st = index.projectStats[id], b = BRIEFS[id];
+      L.push(`#### [${title}](${rel(out, `${PROJECT_DIR}/${id}.md`)})`, '');
+      if (b) L.push(b.what, '', `**Used for:** ${b.use}`, '');
+      const d = dependsOn(index, id).slice(0, 5).map(x => projectTitle[x[0]]).join(', '), u = usedBy(index, id).slice(0, 5).map(x => projectTitle[x[0]]).join(', ');
+      L.push(`_${st.files} files · ${wiringSentence(st)} ${st.tests} tests · active ${period(st)}${d ? ` · builds on: ${d}` : ''}${u ? ` · relied on by: ${u}` : ''}_`, '');
+    }
+  }
+  return [out, `${L.join('\n')}\n`];
+}
+
 function renderProjects(index) {
   const outs = [];
   const readme = `${PROJECT_DIR}/README.md`;
   const R = [HEADER, '# Projects — one context page per program', '', BOUNDARY,
+    `**Start with [ATLAS.md](ATLAS.md)**: the whole system on one page — what every project is and is for, how they depend on each other, what is wired to a running entry point, and when each was active.`, '',
     'Each page below gathers everything that belongs to one named program: what it is, what to read first, the latest dated documents, then every source module, script, test and data file. A file can appear on several pages.', '',
     '## For ChatGPT and other assistants', '',
     'When asked about a specific UberBond project, open its page here first and follow its "Read first" list before answering. Paste this line into Project instructions:', '',
-    '> For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/README.md` in `mohammedwessam2007/uberbondd`, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.', '',
+    '> For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/ATLAS.md` in `mohammedwessam2007/uberbondd` for the whole-system picture, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.', '',
     `**${PROJECTS.length} projects** in ${new Set(PROJECTS.map(p => p[4])).size} families. The roster lives in \`config/repository-projects.json\`; add a program there and run \`npm run repo:index\`.`, ''];
   let family = null;
   for (const [id, title, description, , fam] of PROJECTS) {
@@ -474,6 +578,7 @@ function renderProjects(index) {
       `**${all.length} files** match this project by name. [All projects](${rel(out, readme)}) · [Master index](${rel(out, 'REPOSITORY_INDEX.md')})`, '',
       'Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.', ''];
     const section = (h, items, opts = {}) => { if (items.length) { L.push(`## ${h} (${items.length})`, ''); for (const e of items) L.push(line(e, out, { showDir: true, ...opts })); L.push(''); } };
+    L.push(...understanding(index, id, out));
     section('Read first', first);
     if (cmds.length) L.push(`## Commands (${cmds.length})`, '', cmds.map(c => `\`npm run ${c}\``).join(' · '), '');
     section('Standing documents', canon.filter(e => !firstSet.has(e)));
@@ -493,6 +598,7 @@ function renderProjects(index) {
   const tt = index.totals;
   R.push('', '## How files were assigned', '', `- **${tt.classifiedByContent}** files by reading their content (purpose and use written per file; records in \`${SEMANTICS_DIR}/\`).`, `- **${tt.classifiedByImports}** tests by the modules they import.`, `- **${tt.classifiedByNameOnly}** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.`);
   R.push('', `${none} live files match no project keyword; find them through the [folder and domain index](${rel(readme, 'REPOSITORY_INDEX.md')}).`, '');
+  outs.push(renderAtlas(index));
   outs.push([readme, `${R.join('\n')}\n`]);
   return outs;
 }

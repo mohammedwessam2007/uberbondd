@@ -10,6 +10,24 @@ Economic reliability engine and control loop, metabolism, universal wealth engin
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Economic reasoning tools: founder outcome missions, a reliability engine that ranks actions by how much they raise the chance of non-zero money, candidate dispositions from probe to scale, a wealth-mechanism grammar with prohibited patterns, and a check for routes sharing one failure point.
+
+**What you use it for.** Choosing which money path to work on next and avoiding false redundancy.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 29 source modules: 13 reachable from the server/worker, 1 only from CLI commands, 15 from no entry point. |
+| Tests and commands | 41 test files, 0 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (7), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (3), [Revenue and payments (umbrella)](revenue-payments.md) (3), [Postgres, stores and migrations](data-stores.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (1), [Quant research lab](quant-lab.md) (1), [Wallbreaker](wallbreaker.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (5), [Readiness, reachability and coverage audits](readiness-audits.md) (5), [Revenue and payments (umbrella)](revenue-payments.md) (2), [Command center and founder console](command-center.md) (1), [Kilimanjaro and founder absence](kilimanjaro.md) (1), [UberReply, replies and async closing](reply-closing.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (6)
 
 - [`docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`](../ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md) — Defines how a command like make as much money as possible expands to a broad lawful economic search space rather than a single tactic. · **Use:** Interpret high-level money commands.

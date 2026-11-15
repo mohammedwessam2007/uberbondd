@@ -10,6 +10,24 @@ Neural exocortex genome and store, repository atlas (50K/million-repo), GitHub h
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A large external capability memory: a neural capability corpus with priors and merge rules, harvest storage outside working memory, a repository atlas plan, and the Connectome rule that every new feature must join the organ graph through typed edges.
+
+**What you use it for.** Holding far more capability knowledge than fits in context and finding missing links between modules.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 8 source modules: 1 reachable from the server/worker, 0 only from CLI commands, 7 from no entry point. |
+| Tests and commands | 14 test files, 1 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Brain, Total Brain and Master Memory](brain-memory.md) (2), [Capability Genome](capability-genome.md) (2), [Consent, authority, proof and effect ledgers](authority-evidence.md) (1), [Frontier intelligence runtime](frontier.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (1), [Brain, Total Brain and Master Memory](brain-memory.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (7)
 
 - [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — Canon for the Connectome: typed bounded edges joining organs, with laws that new features must join it and no busywork bridges. · **Use:** Rule for integrating new capabilities into the organ graph.

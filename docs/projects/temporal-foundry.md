@@ -10,6 +10,24 @@ Temporal foundry, timeline topology engine and challenge, epoch branching.
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Reasoning about time order: analyses of future capability states, a timeline topology engine that looks for shortcuts across planned timelines, and an epoch-branching evaluator with ancestor ablation over the 890 technology tree.
+
+**What you use it for.** Asking which future capability can be pulled forward and which prerequisite actually matters. Source-level only; none of its modules are wired.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 4 source modules: 0 reachable from the server/worker, 0 only from CLI commands, 4 from no entry point. |
+| Tests and commands | 4 test files, 0 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (3), [Founder 890 moonshots](moonshot-890.md) (1) |
+| Relied on by | [Sovereign self-host stack](sovereign-selfhost.md) (2) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (3)
 
 - [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — Protocol pairing exact current reality with a stronger descendant model; negative image filling drives one bounded enabling primitive per fold. · **Use:** iterative self-improvement planning

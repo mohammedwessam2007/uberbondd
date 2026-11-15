@@ -10,6 +10,24 @@ Cross-agent relay: agent relay adapters, ChatGPT/Claude/cloud relay clients, Git
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The transport between assistants: a cloud relay storing task packets as leased jobs, a GitHub Issues relay with claim and heartbeat comments, canonical multi-worker task and dispute packets, and a pinned Vercel preview deployment.
+
+**What you use it for.** Passing tasks between ChatGPT, Claude Code and cloud workers with leases and receipts.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 15 source modules: 4 reachable from the server/worker, 3 only from CLI commands, 8 from no entry point. |
+| Tests and commands | 43 test files, 7 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (3), [AI employees and Avengers](ai-employees.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (15), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (8), [Sandwich Method](sandwich-method.md) (3), [AI employees and Avengers](ai-employees.md) (1), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (1), [Command center and founder console](command-center.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [Uber Socket](uber-socket.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (12)
 
 - [`docs/ARGUS_RELAY_TRUTH.md`](../ARGUS_RELAY_TRUTH.md) — Truth reconstruction of Project Argus ChatGPT to UberBond to Claude Code relay: branch reconciliation, defects found and capability status, with Vercel deployment addendum. · **Use:** Honest history of the relay build.

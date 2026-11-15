@@ -10,6 +10,24 @@ UberDNS control plane and GoDaddy adapter, domain purpose plan, domain/mailbox r
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The domain and DNS layer: authoritative records of your owned domains, a plan separating product, outbound, reply and tracking hosts, append-only registries of every sending domain and mailbox, and an encrypted SMTP fleet with approval digests.
+
+**What you use it for.** Knowing the exact state of every sending domain and mailbox before trusting it with a send.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 19 source modules: 12 reachable from the server/worker, 2 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 43 test files, 4 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (5), [Server core, shared utilities and test harness](core-platform.md) (2), [UberMail and UberDoso](ubermail-uberdoso.md) (2), [Outreach (umbrella)](outreach.md) (1) |
+| Relied on by | [Outreach (umbrella)](outreach.md) (9), [UberMail and UberDoso](ubermail-uberdoso.md) (9), [Agent mesh and autonomy loop](agent-mesh.md) (7), [Winnr](winnr.md) (6), [Inboxes, placement and reputation](inboxes-placement.md) (4), [UberWarm and UberWarm2](uberwarm.md) (3), [Server core, shared utilities and test harness](core-platform.md) (2), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (2) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/OUTREACH_OS_ARCHITECTURE.md`](../OUTREACH_OS_ARCHITECTURE.md) — Pipeline diagram of outreach OS from sending domain to provider, mailbox, DNS, warmup, prospects, verification, campaign, personalization with module names. · **Use:** map of outreach modules

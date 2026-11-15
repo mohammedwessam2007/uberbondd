@@ -10,6 +10,24 @@ Claude Code project config and executors, ChatGPT project importer, MCP registra
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** How each assistant plugs in: Claude Code project memory and settings, the project MCP server exposing state and relay tools, a ChatGPT project importer, and pointers for Gemini, Cursor and Codex.
+
+**What you use it for.** Getting any assistant correctly oriented in this repository from its first message.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 1 source modules: 1 reachable from the server/worker, 0 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 13 test files, 0 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | nothing |
+| Relied on by | [Uber Socket](uber-socket.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory with V5-V10 UberMind directives, imports of North Star canon, startup steps, capability, Wallbreaker and routing laws. · **Use:** auto-loaded Claude session instructions

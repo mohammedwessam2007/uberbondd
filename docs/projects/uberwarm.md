@@ -10,6 +10,24 @@ Mailbox warmup: seed and receiver evidence, one-shot runtimes, provider observat
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Mailbox warmup you control: owner-approved seed probes with exact-form validation, one-shot send capabilities bound to a single approved send, a fail-closed check that adverse events are suppressed before sending, and a reputation lab setting conservative ramp caps.
+
+**What you use it for.** Building sender reputation before any cold email, with evidence instead of trust in a vendor's 'warmed' label. Most modules are donor or protected paths not yet wired.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 38 source modules: 7 reachable from the server/worker, 0 only from CLI commands, 31 from no entry point. |
+| Tests and commands | 49 test files, 0 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Winnr](winnr.md) (10), [DNS, domains and fleet](dns-domains.md) (3), [Inboxes, placement and reputation](inboxes-placement.md) (3), [Server core, shared utilities and test harness](core-platform.md) (2), [Postgres, stores and migrations](data-stores.md) (2), [Platform deployment and providers](platform-deploy.md) (2), [Outreach (umbrella)](outreach.md) (1), [UberMail and UberDoso](ubermail-uberdoso.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (2), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (2), [Winnr](winnr.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1), [Outreach (umbrella)](outreach.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (11)
 
 - [`docs/WARMUP_POLICY.md`](../WARMUP_POLICY.md) — Warm-up policy: 14-day minimum, 2/day ramp capped 40, distrust of early WARMUP_COMPLETE, and separation of five caps. · **Use:** enforce mailbox warm-up before cold sends

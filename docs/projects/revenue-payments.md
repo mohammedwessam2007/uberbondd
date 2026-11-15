@@ -10,6 +10,24 @@ Money path: revenue runtime and ledgers, PayPal and payment truth, billing webho
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Payment truth: reconciliation of cleared payments, refunds and renewals, Lemon Squeezy and PayPal event classification with signature checks, and fail-closed facades that refuse replayed or incomplete provider evidence.
+
+**What you use it for.** Knowing what money has actually cleared, never counting a link or an invoice as revenue.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 24 source modules: 16 reachable from the server/worker, 0 only from CLI commands, 8 from no entry point. |
+| Tests and commands | 63 test files, 1 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (10), [Postgres, stores and migrations](data-stores.md) (4), [Economic reliability and wealth engines](economic-engines.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1), [Distribution OS and channels](distribution-os.md) (1), [First cash and first customer](first-cash.md) (1), [Offers, services and fulfilment](offers-fulfilment.md) (1), [Skills, plugins and Task Observer](skills-plugins.md) (1) |
+| Relied on by | [First cash and first customer](first-cash.md) (6), [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) (4), [Agent mesh and autonomy loop](agent-mesh.md) (3), [Economic reliability and wealth engines](economic-engines.md) (3), [Command center and founder console](command-center.md) (1), [Global green lane and free routing](green-lane.md) (1), [Inquiry-path audits and verified defects](inquiry-audit-product.md) (1), [Night Shift, Nightfall and overnight lanes](night.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/DATA_MINIMIZATION_MATRIX.md`](../DATA_MINIMIZATION_MATRIX.md) — Matrix of what each consequential ingress may retain, verified by hostile payload probes, starting with the Lemon Squeezy webhook. · **Use:** Privacy and retention rules per ingress.

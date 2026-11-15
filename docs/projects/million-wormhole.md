@@ -10,6 +10,24 @@ Million-branch ideation genome, wormhole universe/tournament/operators, interste
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Combinatorial ideation at scale: an index that encodes a million cross-organ candidates, operators that generate them, shard tournaments, and a spec of 20 domains by 50 operators extending the 275-idea registry.
+
+**What you use it for.** Searching far, low-similarity combinations of existing organs for ideas ordinary brainstorming would miss.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 8 source modules: 0 reachable from the server/worker, 3 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 13 test files, 5 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Capability Genome](capability-genome.md) (1), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (1) |
+| Relied on by | [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (4), [Reasoning architecture and evaluation](reasoning-lab.md) (2), [C21 and ASI evidence tribunals](c21-asi-evidence.md) (1), [OMNIA](omnia.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (5)
 
 - [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — Canon for measuring dependency routes, critical path and causal floors, and testing alternate topologies that shorten paths. · **Use:** shorten roadmaps by deleting dependencies

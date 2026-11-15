@@ -10,6 +10,24 @@ Owned mail stack: UberMail agent API, foundry and JIT provisioning; UberDoso ker
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** An owned mail stack: UberDoso topology over your roots and the 28-domain fleet with sender selection and cooldown, a Postal-based mail cell, safe-failure SMTP submission, and UberMail, an inbox API for agents.
+
+**What you use it for.** Sending and receiving mail on infrastructure you own instead of renting each mailbox.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 17 source modules: 10 reachable from the server/worker, 2 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 38 test files, 1 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [DNS, domains and fleet](dns-domains.md) (9), [Consent, authority, proof and effect ledgers](authority-evidence.md) (6), [UberCel, UberCloud and UberOcean](ubercel-cloud.md) (2), [Inboxes, placement and reputation](inboxes-placement.md) (1) |
+| Relied on by | [Outreach (umbrella)](outreach.md) (5), [Agent mesh and autonomy loop](agent-mesh.md) (3), [Inboxes, placement and reputation](inboxes-placement.md) (3), [Server core, shared utilities and test harness](core-platform.md) (2), [DNS, domains and fleet](dns-domains.md) (2), [UberWarm and UberWarm2](uberwarm.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (7)
 
 - [`docs/UBER_EGRESS_AND_QUALITY_CAPACITY.md`](../UBER_EGRESS_AND_QUALITY_CAPACITY.md) — Defines quality-preserving daily max as min of mailbox, domain, egress, recipient budget, quality lead inventory; UberMail Foundry 200 Stalwart aliases. · **Use:** cap outreach volume by real bottlenecks

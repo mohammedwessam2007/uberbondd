@@ -10,6 +10,24 @@ OMNIA V9 policy-evidence-execution admission kernel, Cedar policy, V7 state and 
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The admission kernel between intelligence and consequence: creates and verifies action intents, evidence, approvals and execution receipts, answers allow, review or deny, and provides a provider-neutral effect adapter contract and Cedar policy. Carries the OMNIA lineage X10 to V9 and the V7 mission graph.
+
+**What you use it for.** The final gate on any consequential action. About a third of its 52 modules are wired.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 52 source modules: 16 reachable from the server/worker, 3 only from CLI commands, 33 from no entry point. |
+| Tests and commands | 60 test files, 2 npm commands |
+| Dated activity | 2026-08 |
+| Builds on | [Outreach (umbrella)](outreach.md) (3), [Consent, authority, proof and effect ledgers](authority-evidence.md) (2), [Command center and founder console](command-center.md) (1), [Million-branch ideation and Wormhole](million-wormhole.md) (1), [Sovereign Cognitive Continuum](sovereign-continuum.md) (1) |
+| Relied on by | [Prospecting and lead generation](prospecting-leadgen.md) (10), [Server core, shared utilities and test harness](core-platform.md) (6), [Night Shift, Nightfall and overnight lanes](night.md) (6), [Outreach (umbrella)](outreach.md) (6), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (5), [Capability Genome](capability-genome.md) (3), [Global green lane and free routing](green-lane.md) (3), [PHOENIX](phoenix.md) (3) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (6)
 
 - [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Plan for stranded OMNIA V9 and Canon/V3 lineages; V2 note records owner decision to compose Guard and V9 in consequence-boundary. · **Use:** record of V9 vs Guard integration decision

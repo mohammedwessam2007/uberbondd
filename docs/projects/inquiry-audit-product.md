@@ -10,6 +10,24 @@ The website lead-path audit product: inquiry path probe, coherence and runtime w
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The original product: a website lead-path audit. A robots-respecting crawler and read-only fetcher, deterministic audit rules, an engine that finds sites contradicting themselves on contact channels, and the intake-to-paid-report flow.
+
+**What you use it for.** Producing verified problem evidence for a prospect; it is both a sellable audit and the proof used in first touches.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 11 source modules: 7 reachable from the server/worker, 3 only from CLI commands, 1 from no entry point. |
+| Tests and commands | 28 test files, 6 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Server core, shared utilities and test harness](core-platform.md) (12), [Consent, authority, proof and effect ledgers](authority-evidence.md) (2), [Offers, services and fulfilment](offers-fulfilment.md) (2), [Postgres, stores and migrations](data-stores.md) (1), [Outreach (umbrella)](outreach.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (4), [Outreach (umbrella)](outreach.md) (3), [Distribution OS and channels](distribution-os.md) (2), [Cash Engine Lite](lite-cash-engine.md) (2), [Capability Genome](capability-genome.md) (1), [Command center and founder console](command-center.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (13)
 
 - [`docs/ARCHITECTURE.md`](../ARCHITECTURE.md) — Version 1.4 architecture: web service, worker, PostgreSQL durable queue, Playwright audits, outbound reservations and reports. · **Use:** Understand the original web/worker/queue structure.

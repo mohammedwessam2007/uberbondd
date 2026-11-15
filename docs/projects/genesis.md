@@ -10,6 +10,24 @@ Open-ended invention engine: idea bursts, mechanism compiler, ontology, scientis
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The invention engine. A mechanism compiler with stable statement identity, idea bursts drawn from the million-branch genome, an ontology and scientist layer, an escalation tribunal that decides implement, escalate or wait for reality, and an evidence ledger showing which of the 275 registry ideas have code behind them.
+
+**What you use it for.** Generating and testing new mechanisms and ideas nobody asked for, cheaply and without external effects. Reachable from CLI commands, not from the server.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 43 source modules: 0 reachable from the server/worker, 28 only from CLI commands, 15 from no entry point. |
+| Tests and commands | 61 test files, 23 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (25), [Million-branch ideation and Wormhole](million-wormhole.md) (4), [Founder 890 moonshots](moonshot-890.md) (4), [Brain, Total Brain and Master Memory](brain-memory.md) (2), [Frontier intelligence runtime](frontier.md) (2), [Gamechanger mesh and frontier sensing](gamechanger.md) (2), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (2), [Semantic closure and execution-leaf kernel](semantic-closure.md) (2) |
+| Relied on by | [Brain, Total Brain and Master Memory](brain-memory.md) (4), [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Capability Genome](capability-genome.md) (3), [Gamechanger mesh and frontier sensing](gamechanger.md) (3), [PHOENIX](phoenix.md) (3), [Frontier intelligence runtime](frontier.md) (2), [Founder 890 moonshots](moonshot-890.md) (2), [Economic reliability and wealth engines](economic-engines.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (13)
 
 - [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — Canon of permanent frontier law: earliest capability signals, opportunity resurrection, N+1 challengers, GENESIS/GENESIS2/Ontogenesis and 275-idea registry. · **Use:** governs frontier sensing and invention goals

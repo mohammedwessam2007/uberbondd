@@ -10,6 +10,24 @@ Sandwich method canon: agent task shaping, blueprint evolution, autocatalytic go
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** A work-decomposition method: pair exact current reality with a stronger descendant design, then fold the gap into bounded missions and canonical leaves, with governors for self-continuing tasks and evidence bound to each plan.
+
+**What you use it for.** Turning a big ambition into small verifiable steps that agents can execute. Not wired to any entry point.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 6 source modules: 0 reachable from the server/worker, 0 only from CLI commands, 6 from no entry point. |
+| Tests and commands | 13 test files, 0 npm commands |
+| Dated activity | undated |
+| Builds on | [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (3), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+| Relied on by | [Self-maintainer, constitution and recursive governance](self-maintainer.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Sovereign self-host stack](sovereign-selfhost.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — Protocol pairing exact current reality with a stronger descendant model; negative image filling drives one bounded enabling primitive per fold. · **Use:** iterative self-improvement planning

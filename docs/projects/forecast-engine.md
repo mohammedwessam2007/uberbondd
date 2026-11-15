@@ -10,6 +10,24 @@ Option universe, outcome distributions, adversarial ensembles, calibration ledge
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The decision-science organ: forecast methods that compete on hindcast accuracy, an ensemble that discounts forecasters sharing the same evidence, a sealed calibration ledger that scores forecasts against outcomes and separates forecast accuracy from decision quality, and a value-of-information governor that says when to stop researching.
+
+**What you use it for.** Getting option sets with honest outcome ranges before a material decision, and learning over time which methods deserve trust.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 9 source modules: 4 reachable from the server/worker, 0 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 29 test files, 1 npm commands |
+| Dated activity | undated |
+| Builds on | [Sovereign Cognitive Continuum](sovereign-continuum.md) (1) |
+| Relied on by | [Personal Civilization Engine](personal-civilization.md) (4), [Sovereign Cognitive Continuum](sovereign-continuum.md) (4), [Readiness, reachability and coverage audits](readiness-audits.md) (3), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (2), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (1), [Founder 890 moonshots](moonshot-890.md) (1), [NULLSTAR Omega](nullstar.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (3)
 
 - [`NORTH_STAR.md`](../../NORTH_STAR.md) — Root North Star: Wessam Singularity overlay, Sovereign Cognitive Continuum definition, no-drop, option/forecast, sovereignty and ASI aspiration laws. · **Use:** terminal objective read before mission selection

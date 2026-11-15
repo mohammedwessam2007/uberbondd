@@ -5,6 +5,8 @@
 
 > **CURRENT PRIVATE PROJECT STATE:** UberBond's **private internal ASI milestone is achieved at 100%**. Read [`PRIVATE_ASI_STATUS.md`](PRIVATE_ASI_STATUS.md) before interpreting historical ASI percentages. This is an internal project milestone, not an external scientific certification of literal ASI.
 
+> **THE WHOLE SYSTEM ON ONE PAGE:** [`docs/projects/ATLAS.md`](docs/projects/ATLAS.md) explains every project, how they depend on each other, what is wired to a running entry point and when each was active.
+
 > **ONE PROJECT AT A TIME:** [`docs/projects/`](docs/projects/README.md) has one context page per program (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...) listing what to read first and every related file.
 
 > **FIND ANYTHING:** [`REPOSITORY_INDEX.md`](REPOSITORY_INDEX.md) catalogues every tracked file by folder and by subject (regenerate with `npm run repo:index`). It is a navigation aid, not evidence of implementation.

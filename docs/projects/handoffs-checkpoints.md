@@ -10,6 +10,24 @@ Current handoff and system state, dated handoffs, session checkpoints and cross-
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The dated trail of where work stopped: the current handoff and system state, per-session handoffs, crash-safe checkpoints and the entry-point files assistants read first. Documents only, no source modules.
+
+**What you use it for.** Picking up exactly where a previous session left off, and seeing what was true on a given date.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | No source modules of its own (records and data, no source modules). |
+| Tests and commands | 11 test files, 4 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | nothing |
+| Relied on by | nothing |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md`](../PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md) — Protocol making chat checkpoints source-labeled events with stable IDs and a recovery challenge for the next chat; 890 donor synthesis. · **Use:** survive long ChatGPT conversations without losing decisions

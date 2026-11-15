@@ -10,6 +10,24 @@ Self-hosted deployment: sovereign Docker images and compose, `ops/sovereign`, bo
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Running on your own hardware: release handoff to offline packs, compute allocation by ownership and rights, a capacity frontier of owned versus rented compute, an institutional engineering harness, and the Docker images and install scripts under `ops/sovereign`.
+
+**What you use it for.** Independence from any single cloud or model provider. Largely tests and plans; no module is server-wired.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 11 source modules: 0 reachable from the server/worker, 3 only from CLI commands, 8 from no entry point. |
+| Tests and commands | 58 test files, 1 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (9), [Temporal Foundry and timeline topology](temporal-foundry.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Frontier intelligence runtime](frontier.md) (1), [OMNIA](omnia.md) (1), [PHOENIX](phoenix.md) (1), [Sandwich Method](sandwich-method.md) (1), [UberCel, UberCloud and UberOcean](ubercel-cloud.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (5), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (1), [UberCel, UberCloud and UberOcean](ubercel-cloud.md) (1), [UberWatt and energy-compute mesh](uberwatt.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (10)
 
 - [`docs/HARNESS_ASSURANCE_V3.md`](../HARNESS_ASSURANCE_V3.md) — Internal rubric of ten assurance dimensions mapped to the institutional harness primitives, with implementation status per dimension. · **Use:** Check structured-harness assurance coverage.

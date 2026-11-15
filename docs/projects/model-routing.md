@@ -10,6 +10,24 @@ Model market and routing: OpenRouter adapters and auctions, open model registry/
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The model market: one factory creating executors for OpenAI, Anthropic, Claude Code sandbox and Vercel gateway, a governed OpenRouter adapter, a router that subtracts known per-task weaknesses, failover bound to approved workers, and receipts of which provider actually ran.
+
+**What you use it for.** Picking the right model for each task and continuing through another when one hits a limit, with the real model identity recorded.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 22 source modules: 10 reachable from the server/worker, 6 only from CLI commands, 6 from no entry point. |
+| Tests and commands | 82 test files, 8 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (9), [Infinite Opus and Frontier-Max](infinite-opus.md) (3), [Agent mesh and autonomy loop](agent-mesh.md) (2), [Cognition ledger and economics](cognition-ledger.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1) |
+| Relied on by | [Infinite Opus and Frontier-Max](infinite-opus.md) (7), [Agent mesh and autonomy loop](agent-mesh.md) (5), [AI employees and Avengers](ai-employees.md) (4), [Frontier intelligence runtime](frontier.md) (3), [Readiness, reachability and coverage audits](readiness-audits.md) (2), [Command center and founder console](command-center.md) (1), [Kilimanjaro and founder absence](kilimanjaro.md) (1), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — Canon for Frontier Operator, Open Model Foundry and automation harvest: absorb frontier mechanisms into provider-neutral primitives. · **Use:** Governs frontier operator and open-model absorption.

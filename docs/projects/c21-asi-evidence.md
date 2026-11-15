@@ -10,6 +10,24 @@ C21 evidence factory and current-head tribunal, literal and system-level ASI cla
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The honesty gate on superintelligence claims: canonical evidence dimensions and external benchmark surfaces, an evaluator that rejects cosmetic aliases, and a tribunal that refuses literal ASI claims without system-level evidence.
+
+**What you use it for.** Stating the ASI status truthfully. The September 11 inventory records zero authenticated system-level receipts.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 7 source modules: 0 reachable from the server/worker, 0 only from CLI commands, 7 from no entry point. |
+| Tests and commands | 23 test files, 0 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Reasoning architecture and evaluation](reasoning-lab.md) (2), [Million-branch ideation and Wormhole](million-wormhole.md) (1), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (5)
 
 - [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_TOTAL_NORTH_STAR.md) — No-drop superset North Star with 139 sections plus ASI aspiration addendum and evidence ladder. · **Use:** complete terminal search-space canon

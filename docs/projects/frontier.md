@@ -10,6 +10,24 @@ Frontier VM, cognitive fabric, council and reasoning runtimes, absorption, tourn
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The multi-model reasoning runtime: plans cognition across reasoning tiers with a context spine, proves a frontier model is actually callable before use, admits models only with sealed benchmark evidence, and harvests frontier AI mechanisms from public sources.
+
+**What you use it for.** Getting frontier-grade answers by composing models instead of trusting one, and absorbing new techniques as they appear.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 31 source modules: 6 reachable from the server/worker, 6 only from CLI commands, 19 from no entry point. |
+| Tests and commands | 46 test files, 3 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (15), [Infinite Opus and Frontier-Max](infinite-opus.md) (4), [Server core, shared utilities and test harness](core-platform.md) (3), [Gamechanger mesh and frontier sensing](gamechanger.md) (3), [OpenRouter and Open Model Universe](model-routing.md) (3), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [APEX campaigns](apex.md) (1), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (1) |
+| Relied on by | [AI employees and Avengers](ai-employees.md) (5), [Agent mesh and autonomy loop](agent-mesh.md) (2), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [Crown](crown.md) (1), [Neural Exocortex and Connectome](neural-exocortex.md) (1), [Readiness, reachability and coverage audits](readiness-audits.md) (1), [Sovereign self-host stack](sovereign-selfhost.md) (1), [UberMind](ubermind.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (7)
 
 - [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — Canon for Frontier Operator, Open Model Foundry and automation harvest: absorb frontier mechanisms into provider-neutral primitives. · **Use:** Governs frontier operator and open-model absorption.

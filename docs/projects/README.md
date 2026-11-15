@@ -4,13 +4,15 @@
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
+**Start with [ATLAS.md](ATLAS.md)**: the whole system on one page — what every project is and is for, how they depend on each other, what is wired to a running entry point, and when each was active.
+
 Each page below gathers everything that belongs to one named program: what it is, what to read first, the latest dated documents, then every source module, script, test and data file. A file can appear on several pages.
 
 ## For ChatGPT and other assistants
 
 When asked about a specific UberBond project, open its page here first and follow its "Read first" list before answering. Paste this line into Project instructions:
 
-> For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/README.md` in `mohammedwessam2007/uberbondd`, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.
+> For any question about a specific UberBond project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), first open `docs/projects/ATLAS.md` in `mohammedwessam2007/uberbondd` for the whole-system picture, then the matching `docs/projects/<project>.md`, and read its "Read first" documents before answering. Treat the page as navigation; verify present-tense claims against current code and receipts.
 
 **76 projects** in 15 families. The roster lives in `config/repository-projects.json`; add a program there and run `npm run repo:index`.
 
@@ -172,5 +174,5 @@ When asked about a specific UberBond project, open its page here first and follo
 - **1232** tests by the modules they import.
 - **65** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
 
-0 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
+1 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

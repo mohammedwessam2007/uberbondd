@@ -10,6 +10,24 @@ Cognition program: constitutions V4-V10, Omega46-52 doctrine cards, founder 52 c
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The cognition doctrine and its economics. Doctrine: constitutions V4 to V10, the Omega46-52 lens cards, the founder 52 concepts and the grand library. Code: cost models for model mixes and agent meshes, a topology chooser that sizes cognition to consequence and reversibility, and exact source-work accounting.
+
+**What you use it for.** Telling every assistant how to think and report (the receipts), and deciding how much model spend a task deserves. Mostly doctrine; most of its modules are not wired.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 21 source modules: 5 reachable from the server/worker, 0 only from CLI commands, 16 from no entry point. |
+| Tests and commands | 34 test files, 0 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Infinite Opus and Frontier-Max](infinite-opus.md) (3), [Consent, authority, proof and effect ledgers](authority-evidence.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [Frontier intelligence runtime](frontier.md) (1) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (4), [Infinite Opus and Frontier-Max](infinite-opus.md) (4), [Readiness, reachability and coverage audits](readiness-audits.md) (1), [Uber Socket](uber-socket.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`AI_START_HERE.md`](../../AI_START_HERE.md) — Universal AI entry point indexing V10 constitution, project context pages, repository index and historical hot pointers. · **Use:** first file any AI reads to locate context

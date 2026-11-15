@@ -10,6 +10,24 @@ Founder-absence autonomous organism: Kilimanjaro scorecards and evidence, absenc
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Founder-absence readiness: classifies every blocker to unattended operation and whether code can remove it, scores absence from durable history, and tracks whether an escalation actually reached your device.
+
+**What you use it for.** Knowing honestly how close the system is to running while you are away. It records that no escalation transport reaching a human device ships yet.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 8 source modules: 0 reachable from the server/worker, 5 only from CLI commands, 3 from no entry point. |
+| Tests and commands | 31 test files, 3 npm commands |
+| Dated activity | 2026-08 to 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (6), [Agent mesh and autonomy loop](agent-mesh.md) (3), [Server core, shared utilities and test harness](core-platform.md) (2), [Postgres, stores and migrations](data-stores.md) (1), [Economic reliability and wealth engines](economic-engines.md) (1), [OpenRouter and Open Model Universe](model-routing.md) (1), [Offers, services and fulfilment](offers-fulfilment.md) (1), [Semantic closure and execution-leaf kernel](semantic-closure.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (4), [Readiness, reachability and coverage audits](readiness-audits.md) (2) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (7)
 
 - [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — 2026-09-12 correction that founder silence is not a pause; defines resident initiative loop generating and executing bounded missions. · **Use:** basis for autonomous initiative without founder prompting

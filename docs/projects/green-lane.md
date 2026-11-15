@@ -10,6 +10,24 @@ Global green-lane router and discovery, route economics and tournament, free run
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The lawful-route finder: a freshness-checked registry of jurisdiction and provider rules, a router through legal form, recipient type, consent and cost to the best permitted route, and a classifier of invited versus cold contact from dated evidence.
+
+**What you use it for.** Finding the lowest-friction contact route that is actually permitted for each prospect, or stopping.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 13 source modules: 8 reachable from the server/worker, 0 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 28 test files, 3 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (8), [Prospecting and lead generation](prospecting-leadgen.md) (6), [Outreach (umbrella)](outreach.md) (4), [OMNIA](omnia.md) (3), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (3), [Server core, shared utilities and test harness](core-platform.md) (1), [Distribution OS and channels](distribution-os.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1) |
+| Relied on by | [Outreach (umbrella)](outreach.md) (10), [Server core, shared utilities and test harness](core-platform.md) (4), [Prospecting and lead generation](prospecting-leadgen.md) (4) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (6)
 
 - [`docs/AI_ACCESS_AND_CREDIT_RUNBOOK.md`](../AI_ACCESS_AND_CREDIT_RUNBOOK.md) — Runbook for a 57-route catalog of AI credits, student, startup and free-tier programs with eligibility, owner-only actions and truth boundary. · **Use:** Find lawful routes to AI access and credits.

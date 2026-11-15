@@ -10,6 +10,24 @@ Founder-level meta North Star above UberBond: a falsifiable search for a persona
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The top of the hierarchy: a founder-level research program asking whether the machinery that produces your future selves and options can undergo a real regime change. It is defined as falsifiable, with a continuity module that packs your cognitive state into portable recovery capsules.
+
+**What you use it for.** Orienting everything beneath it, and carrying founder continuity across providers. It is a target, never a claimed result.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 1 source modules: 0 reachable from the server/worker, 1 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 1 test files, 0 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (2) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (2)
 
 - [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Founder-level meta North Star defining Wessam Singularity as falsifiable personal regime change above UberBond, with null hypothesis kept. · **Use:** top of founder hierarchy

@@ -10,6 +10,24 @@ Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observ
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Project skills and their governance: the UberSkills atom framework and its wrappers, the skills under `.claude/skills`, plugins, the Task Observer log, and the canon for vetting external skills and orchestration donors.
+
+**What you use it for.** Reusable procedures assistants can invoke, and the rule for admitting new ones.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 28 source modules: 0 reachable from the server/worker, 2 only from CLI commands, 26 from no entry point. |
+| Tests and commands | 36 test files, 5 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (5), [Capability Genome](capability-genome.md) (2), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [PHOENIX](phoenix.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1) |
+| Relied on by | [Capability Genome](capability-genome.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (13)
 
 - [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — Policy for discovering, vetting and using external skills, plugins, MCP servers, memory and security tools beneath UberBond authority. · **Use:** Gate for installing or invoking external capabilities.

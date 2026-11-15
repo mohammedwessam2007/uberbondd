@@ -10,6 +10,24 @@ Overnight control, intent, journey and distribution; Nightfall handoffs; night f
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The overnight lanes: Night Shift, Nightfall and Ragnarok-era parallel lanes with coordination rules and zero default external effects, synthetic journey diagnostics, and owner-reviewable upgrade manifests.
+
+**What you use it for.** Running coordinated overnight builds and reading in the morning exactly what was produced. Mostly historical now.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 17 source modules: 0 reachable from the server/worker, 4 only from CLI commands, 13 from no entry point. |
+| Tests and commands | 16 test files, 2 npm commands |
+| Dated activity | 2026-08 to 2026-09 |
+| Builds on | [OMNIA](omnia.md) (6), [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [Prospecting and lead generation](prospecting-leadgen.md) (2), [Prometheus](prometheus.md) (1), [Revenue and payments (umbrella)](revenue-payments.md) (1), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (1) |
+| Relied on by | [Prospecting and lead generation](prospecting-leadgen.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/OMEGA_OVERNIGHT_EXECUTION_REPORT.md`](../OMEGA_OVERNIGHT_EXECUTION_REPORT.md) — Report of overnight session on PR #40 branch finding P0 agent-mesh defects: terminal record resurrection and budget rollback from wall-clock ordering. · **Use:** record defects found in agent mesh durability

@@ -10,6 +10,24 @@ APEX frontier-quality-compression campaign, Jev reasoning hypercompiler, sealed 
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The experiment that tests the cost-compression claim: sealed architecture trials with committed digests and NULLSTAR holdouts, identity-blind packets, fresh campaigns under the zero-loss quality rule, and a handoff for an external custodian to supply unseen tasks.
+
+**What you use it for.** Finding out, falsifiably, whether a cheaper architecture really matches the strongest model.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 4 source modules: 0 reachable from the server/worker, 4 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 15 test files, 4 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [Infinite Opus and Frontier-Max](infinite-opus.md) (4), [NULLSTAR Omega](nullstar.md) (2), [Jev and UberLit](jev-uberlit.md) (1) |
+| Relied on by | [Infinite Opus and Frontier-Max](infinite-opus.md) (2), [Frontier intelligence runtime](frontier.md) (1), [Reasoning architecture and evaluation](reasoning-lab.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (6)
 
 - [`docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md`](../APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md) — 2026-09-29 · Secret-free handoff for an external custodian to supply sealed fresh-task manifests for the Frontier Quality Compression campaign; evidence not yet observed. · **Use:** Instructions for obtaining external evidence for the APEX FQC campaign.

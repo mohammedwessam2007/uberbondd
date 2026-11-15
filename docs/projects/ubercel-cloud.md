@@ -10,6 +10,24 @@ Owned deployment plane: UberCel actuator and doctor, UberCloud Contabo cells, Ub
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** An owned deployment plane: provider-neutral deploy and failover planning, a control plane treating cloud suppliers as replaceable cells, Contabo cell preflight, and a static deployment store with rollback.
+
+**What you use it for.** Deploying and moving services across providers without lock-in. Plans grant no authority; mostly unwired.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 15 source modules: 0 reachable from the server/worker, 4 only from CLI commands, 11 from no entry point. |
+| Tests and commands | 22 test files, 4 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (14), [Sovereign self-host stack](sovereign-selfhost.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (2), [UberMail and UberDoso](ubermail-uberdoso.md) (2), [Jev and UberLit](jev-uberlit.md) (1), [Outreach (umbrella)](outreach.md) (1), [Sovereign self-host stack](sovereign-selfhost.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (3)
 
 - [`.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md`](../../.claude/skills/oracle-free-uberlit-jev-activation/SKILL.md) — Live activation skill walking Oracle Always Free host -> UberCel -> UberLit -> Jev shadow readiness, stopping at owner auth, terms, secrets or spend. · **Use:** finish zero-spend Jev runtime activation

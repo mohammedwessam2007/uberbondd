@@ -10,6 +10,24 @@ Inbox supply and quality: UberInboxes, UberClayInbox, UberPlacement, UberReputat
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Inbox supply and quality: an IMAP reader, adapters for mailbox vendors with approval-gated writes, placement probes that fail closed on identity mismatch, and attention permits gating sender access to recipients.
+
+**What you use it for.** Reading replies and knowing whether mail lands in the inbox or spam.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 15 source modules: 6 reachable from the server/worker, 0 only from CLI commands, 9 from no entry point. |
+| Tests and commands | 40 test files, 0 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [DNS, domains and fleet](dns-domains.md) (4), [Server core, shared utilities and test harness](core-platform.md) (3), [UberMail and UberDoso](ubermail-uberdoso.md) (3), [Outreach (umbrella)](outreach.md) (1), [Platform deployment and providers](platform-deploy.md) (1), [Sovereign Cognitive Continuum](sovereign-continuum.md) (1) |
+| Relied on by | [Winnr](winnr.md) (6), [Outreach (umbrella)](outreach.md) (4), [Platform deployment and providers](platform-deploy.md) (3), [UberWarm and UberWarm2](uberwarm.md) (3), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Consent, authority, proof and effect ledgers](authority-evidence.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [UberMail and UberDoso](ubermail-uberdoso.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/AGENTMAIL_ADAPTER.md`](../AGENTMAIL_ADAPTER.md) — Describes the clean-room AgentMail provider adapter: inbox, message, thread, domain and webhook calls, idempotent provisioning and unknown-outcome handling. · **Use:** Reference for using AgentMail inboxes via UberBond.

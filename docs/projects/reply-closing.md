@@ -10,6 +10,24 @@ Reply taxonomy and tournament, four-offer genome, prework artifacts, reply radar
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** What happens after someone answers: four offer lanes with fit scoring, the prework artifact promised in the first touch, a reply classifier that halts automation on any material human reply and routes it to you, and the async-first funnel to payment.
+
+**What you use it for.** Closing without meetings by default, with every real human reply handled by you personally.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 12 source modules: 7 reachable from the server/worker, 1 only from CLI commands, 4 from no entry point. |
+| Tests and commands | 29 test files, 0 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (5), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (3), [Cognition ledger and economics](cognition-ledger.md) (1), [Server core, shared utilities and test harness](core-platform.md) (1), [Economic reliability and wealth engines](economic-engines.md) (1), [Outreach (umbrella)](outreach.md) (1) |
+| Relied on by | [Outreach (umbrella)](outreach.md) (5), [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) (5), [Prospecting and lead generation](prospecting-leadgen.md) (2), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (2), [Server core, shared utilities and test harness](core-platform.md) (1), [Distribution OS and channels](distribution-os.md) (1), [Offers, services and fulfilment](offers-fulfilment.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (9)
 
 - [`docs/UBERREPLY_4X25K_CANON.md`](../UBERREPLY_4X25K_CANON.md) — Splits 100K/day outreach target into four 25K offer lanes (lead-to-booking audit, AI release gate, ROI proof, bilingual audit) with buyers and promises. · **Use:** portfolio allocation across outreach offers

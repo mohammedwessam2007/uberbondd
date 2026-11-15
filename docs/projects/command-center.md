@@ -10,6 +10,24 @@ Command center UI and service worker, founder center/ops view, admin pages, oper
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Your control surface: the iPad Command Center and admin pages, an autonomy status report, client rules that keep stale data from looking live, a founder report on what can make money first, and an allocator for your scarce attention.
+
+**What you use it for.** Watching and steering the system from one screen with a short, exact owner-action queue.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 13 source modules: 6 reachable from the server/worker, 3 only from CLI commands, 4 from no entry point. |
+| Tests and commands | 37 test files, 1 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Postgres, stores and migrations](data-stores.md) (5), [Server core, shared utilities and test harness](core-platform.md) (3), [Consent, authority, proof and effect ledgers](authority-evidence.md) (2), [Brain, Total Brain and Master Memory](brain-memory.md) (2), [Offers, services and fulfilment](offers-fulfilment.md) (2), [Readiness, reachability and coverage audits](readiness-audits.md) (2), [Economic reliability and wealth engines](economic-engines.md) (1), [First cash and first customer](first-cash.md) (1) |
+| Relied on by | [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Capability Genome](capability-genome.md) (1), [OMNIA](omnia.md) (1), [PHOENIX](phoenix.md) (1), [Platform deployment and providers](platform-deploy.md) (1), [Prometheus](prometheus.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (10)
 
 - [`docs/COMMAND_CENTER_2.md`](../COMMAND_CENTER_2.md) — Describes the owner-authenticated Command Center 2.0 observer: runtime telemetry endpoint, in-memory credential, truth class display states, no execution authority. · **Use:** Reference for the iPad observer console.

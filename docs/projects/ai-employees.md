@@ -10,6 +10,24 @@ AI employee charter, relay and role contracts; Avengers arsenal, squad planner a
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** AI workers as bounded employees: role contracts that define what each role may do and refuse undeclared role claims, and the Avengers arsenal that registers model and tool profiles, probes readiness and composes squads by evidence.
+
+**What you use it for.** Assigning the right squad to a mission and keeping generic work from posing as privileged.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 11 source modules: 3 reachable from the server/worker, 8 only from CLI commands, 0 from no entry point. |
+| Tests and commands | 28 test files, 5 npm commands |
+| Dated activity | 2026-08 to 2026-09 |
+| Builds on | [Frontier intelligence runtime](frontier.md) (5), [Consent, authority, proof and effect ledgers](authority-evidence.md) (4), [OpenRouter and Open Model Universe](model-routing.md) (4), [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Cognition ledger and economics](cognition-ledger.md) (1), [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (1), [Semantic closure and execution-leaf kernel](semantic-closure.md) (1) |
+| Relied on by | [Agent mesh and autonomy loop](agent-mesh.md) (5), [Infinite Opus and Frontier-Max](infinite-opus.md) (1), [Relays (ChatGPT, Claude, cloud, GitHub)](relay.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (4)
 
 - [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — Charter defining AI workers as bounded employees: Sol company brain, Claude Code software factory and ChatGPT mission control roles. · **Use:** Role definitions for AI employees.

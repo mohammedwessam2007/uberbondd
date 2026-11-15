@@ -10,6 +10,24 @@ Everything outreach: cold email system, 100K corpus, governance, launch gates, w
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The outreach core: route policy and approval governance, canonical send eligibility with time zones, volume windows and suppression, a launch gate requiring adverse provider events reconciled first, Gmail transport, and invitation codes that turn an offline first touch into permissioned email.
+
+**What you use it for.** Deciding whether a specific contact may be messaged, and sending only through that gate. The most server-wired commercial project.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 40 source modules: 30 reachable from the server/worker, 4 only from CLI commands, 6 from no entry point. |
+| Tests and commands | 123 test files, 8 npm commands |
+| Dated activity | 2026-08 to 2026-10 |
+| Builds on | [Prospecting and lead generation](prospecting-leadgen.md) (11), [Global green lane and free routing](green-lane.md) (10), [DNS, domains and fleet](dns-domains.md) (9), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (8), [OMNIA](omnia.md) (6), [Consent, authority, proof and effect ledgers](authority-evidence.md) (5), [Server core, shared utilities and test harness](core-platform.md) (5), [UberReply, replies and async closing](reply-closing.md) (5) |
+| Relied on by | [Server core, shared utilities and test harness](core-platform.md) (16), [Distribution OS and channels](distribution-os.md) (4), [Global green lane and free routing](green-lane.md) (4), [OMNIA](omnia.md) (3), [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) (3), [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1), [Command center and founder console](command-center.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (14)
 
 - [`docs/OUTREACH_OS_ARCHITECTURE.md`](../OUTREACH_OS_ARCHITECTURE.md) — Pipeline diagram of outreach OS from sending domain to provider, mailbox, DNS, warmup, prospects, verification, campaign, personalization with module names. · **Use:** map of outreach modules

@@ -54,7 +54,7 @@ Commands: `npm run test:nullstar`
 
 Brain packet, Total Brain, Master Memory, PHOENIX checkpoints, context journals, handoffs and cross-chat recovery.
 
-**381 files** — [root 6](ROOT.md) · [src 46](SRC.md) · [tests 69](TESTS.md) · [scripts 31](SCRIPTS.md) · [docs 140](DOCS.md) · [artifacts 35](ARTIFACTS.md) · [config 2](CONFIG.md) · [public 10](PUBLIC.md) · [ops 37](OPS.md) · [.github 5](GITHUB.md)
+**382 files** — [root 6](ROOT.md) · [src 46](SRC.md) · [tests 69](TESTS.md) · [scripts 31](SCRIPTS.md) · [docs 140](DOCS.md) · [artifacts 35](ARTIFACTS.md) · [config 3](CONFIG.md) · [public 10](PUBLIC.md) · [ops 37](OPS.md) · [.github 5](GITHUB.md)
 
 Most-imported modules: [`uberbond-cognitive-bus`](../../src/uberbond-cognitive-bus.mjs) (10), [`uberbond-cognitive-graph`](../../src/uberbond-cognitive-graph.mjs) (9), [`context-projection`](../../src/context-projection.mjs) (8), [`context-journal-runtime`](../../src/context-journal-runtime.mjs) (7), [`context-privacy`](../../src/context-privacy.mjs) (3), [`context-task-binding`](../../src/context-task-binding.mjs) (3), [`current-truth-regeneration`](../../src/current-truth-regeneration.mjs) (3), [`context-schema-compatibility`](../../src/context-schema-compatibility.mjs) (2)
 

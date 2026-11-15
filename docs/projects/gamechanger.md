@@ -10,6 +10,24 @@ Always-on world sensing for discontinuities: Gamechanger mesh, zero-day frontier
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Always-on world sensing: a mesh over sixteen domains that canonicalizes, dedupes and scores public signals, paces polling within provider rate limits, and turns discoveries into frontier learning inputs and combinable idea packets.
+
+**What you use it for.** Noticing early when the outside world changes what is possible for you or the system.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 11 source modules: 2 reachable from the server/worker, 3 only from CLI commands, 6 from no entry point. |
+| Tests and commands | 26 test files, 2 npm commands |
+| Dated activity | 2026-09 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (3), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (3), [Capability Genome](capability-genome.md) (1) |
+| Relied on by | [Frontier intelligence runtime](frontier.md) (3), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [Readiness, reachability and coverage audits](readiness-audits.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (5)
 
 - [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — Canon of permanent frontier law: earliest capability signals, opportunity resurrection, N+1 challengers, GENESIS/GENESIS2/Ontogenesis and 275-idea registry. · **Use:** governs frontier sensing and invention goals

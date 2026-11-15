@@ -10,6 +10,24 @@ Reasoning architecture lab, compound intelligence evaluation, cross-domain trans
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** Evaluation machinery for compound intelligence: a parent tribunal with anti-gaming laws, cross-domain transfer measurement, novelty checks on challenges, and frozen independent holdouts that judge fresh-context retention.
+
+**What you use it for.** Testing whether a learned mechanism transfers and persists, without promoting it on its own say-so.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 6 source modules: 0 reachable from the server/worker, 1 only from CLI commands, 5 from no entry point. |
+| Tests and commands | 15 test files, 5 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (2), [Million-branch ideation and Wormhole](million-wormhole.md) (2), [Sovereign Cognitive Continuum](sovereign-continuum.md) (2), [APEX campaigns](apex.md) (1), [Brain, Total Brain and Master Memory](brain-memory.md) (1), [Infinite Opus and Frontier-Max](infinite-opus.md) (1), [Opportunity factory, Event Horizon and World Brain](opportunity-factory.md) (1), [Personal Civilization Engine](personal-civilization.md) (1) |
+| Relied on by | [C21 and ASI evidence tribunals](c21-asi-evidence.md) (2), [NULLSTAR Omega](nullstar.md) (1), [Omega private-evidence lab and canaries](omega-lab.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (11)
 
 - [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — Catalog of 160 Wave 8 unknown-world transfer designs like sealed prospective evaluation and solver-independent custodians. · **Use:** source-linked list of proposed wave 8 capabilities

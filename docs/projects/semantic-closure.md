@@ -10,6 +10,24 @@ Semantic closure kernel, requirement tribunal, terminal convergence, canonical e
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
+## Understanding
+
+**What it is.** The exactness kernel: canonical semantic hashing, a finite opcode executor, a closure checker with circuit certificates, and an execution-leaf graph of remaining work with resumable continuations and tamper-evident digests.
+
+**What you use it for.** Proving a task is actually closed before authority or money is spent on it, and resuming bounded leaves across sessions.
+
+## At a glance (measured)
+
+| | |
+|---|---|
+| Wiring | 26 source modules: 6 reachable from the server/worker, 4 only from CLI commands, 16 from no entry point. |
+| Tests and commands | 63 test files, 4 npm commands |
+| Dated activity | 2026-09 to 2026-10 |
+| Builds on | [Consent, authority, proof and effect ledgers](authority-evidence.md) (8), [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Crown](crown.md) (1), [Infinite Opus and Frontier-Max](infinite-opus.md) (1), [OpenRouter and Open Model Universe](model-routing.md) (1), [Self-maintainer, constitution and recursive governance](self-maintainer.md) (1) |
+| Relied on by | [Infinite Opus and Frontier-Max](infinite-opus.md) (12), [Readiness, reachability and coverage audits](readiness-audits.md) (5), [Cognition ledger and economics](cognition-ledger.md) (4), [Crown](crown.md) (2), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [Jev and UberLit](jev-uberlit.md) (2), [AI employees and Avengers](ai-employees.md) (1), [Kilimanjaro and founder absence](kilimanjaro.md) (1) |
+
+_Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
 ## Read first (4)
 
 - [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — Records a blackout-first wrapper over the execution-leaf continuation owner with fault-injection replay; hardware unvalidated. · **Use:** Understand the blackout-first planner realization.

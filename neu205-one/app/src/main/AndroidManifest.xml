@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  NEU205 ONE. Deliberately NO android.permission.INTERNET: the OS itself prevents any network
+  egress, so "offline" is enforced, not promised. New package id: never replaces or upgrades
+  the historical ai.neu205.pocket (v6) / ai.neu205.pocket.v8 / ai.neu205.one.candidate apps.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ai.neu205.one"
+    android:versionCode="3"
+    android:versionName="0.3.0-native">
+
+    <uses-sdk android:minSdkVersion="31" android:targetSdkVersion="36" />
+
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <uses-feature android:name="android.hardware.microphone" android:required="true" />
+
+    <queries>
+        <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
+    </queries>
+
+    <application
+        android:label="NEU205"
+        android:icon="@drawable/ic_neu205"
+        android:allowBackup="false"
+        android:extractNativeLibs="true"
+        android:largeHeap="true"
+        android:theme="@android:style/Theme.DeviceDefault.DayNight">
+
+        <activity
+            android:name="ai.neu205.one.app.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden|uiMode|fontScale|density">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name="ai.neu205.one.app.VoiceService"
+            android:exported="false"
+            android:foregroundServiceType="microphone" />
+    </application>
+</manifest>

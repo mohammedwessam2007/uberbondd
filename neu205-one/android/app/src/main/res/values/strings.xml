@@ -1,0 +1,4 @@
+<resources><string name="start">Start</string><string name="settings">Settings &amp; diagnostics</string><string name="save_pairing">Save pairing</string><string name="start_companion">Start my paired Termux companion with Start</string><string name="voice_settings">Offline voice settings</string><string name="share_metadata">Share metadata only</string><string name="private_import_intro">Optional private imports: only study packs signed by this candidate are accepted. Model validation retains a read-only document reference; it does not give Termux access.</string>
+<string name="v11_memory">Experimental v11 active memory (default off)</string>
+<string name="v11_exam">MCQ study mode for v11 (experimental)</string>
+</resources>

@@ -1,0 +1,77 @@
+[
+ {
+  "request": {
+   "schema": "neu205.evidence.v1",
+   "request_id": "ok-1",
+   "utterance_text": "What does the widget sheath contain?",
+   "max_passages": 3,
+   "latency_budget_ms": 500,
+   "corpus_sha256": "4c626684aa20de65ab31b78cfa694227c87dbd9e596c7e1cfa50349b8bc2aef8"
+  },
+  "expect_status": "OK",
+  "expect_first_chunk": "c00001"
+ },
+ {
+  "request": {
+   "schema": "neu205.evidence.v1",
+   "request_id": "pron-1",
+   "utterance_text": "what does it contain",
+   "max_passages": 3,
+   "latency_budget_ms": 500,
+   "corpus_sha256": "4c626684aa20de65ab31b78cfa694227c87dbd9e596c7e1cfa50349b8bc2aef8",
+   "conversation_topics": [
+    "widget sheath"
+   ]
+  },
+  "expect_status": "OK",
+  "expect_first_chunk": "c00001"
+ },
+ {
+  "request": {
+   "schema": "neu205.evidence.v1",
+   "request_id": "ion-1",
+   "utterance_text": "which signals are rich in K+",
+   "max_passages": 3,
+   "latency_budget_ms": 500,
+   "corpus_sha256": "4c626684aa20de65ab31b78cfa694227c87dbd9e596c7e1cfa50349b8bc2aef8"
+  },
+  "expect_status": "OK",
+  "expect_first_chunk": "c00002"
+ },
+ {
+  "request": {
+   "schema": "neu205.evidence.v1",
+   "request_id": "none-1",
+   "utterance_text": "What is the dose of aspirin in children?",
+   "max_passages": 3,
+   "latency_budget_ms": 500,
+   "corpus_sha256": "4c626684aa20de65ab31b78cfa694227c87dbd9e596c7e1cfa50349b8bc2aef8"
+  },
+  "expect_status": "NONE",
+  "expect_first_chunk": null
+ },
+ {
+  "request": {
+   "schema": "neu205.evidence.v1",
+   "request_id": "bad-1",
+   "utterance_text": "x",
+   "max_passages": 99,
+   "latency_budget_ms": 500,
+   "corpus_sha256": "4c626684aa20de65ab31b78cfa694227c87dbd9e596c7e1cfa50349b8bc2aef8"
+  },
+  "expect_status": "INVALID_REQUEST",
+  "expect_first_chunk": null
+ },
+ {
+  "request": {
+   "schema": "neu205.evidence.v1",
+   "request_id": "mm-1",
+   "utterance_text": "widget sheath",
+   "max_passages": 3,
+   "latency_budget_ms": 500,
+   "corpus_sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "expect_status": "CORPUS_MISMATCH",
+  "expect_first_chunk": null
+ }
+]

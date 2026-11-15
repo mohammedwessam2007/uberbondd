@@ -2,15 +2,15 @@
  "schema": "uberbond.economic-asset-atlas.v1",
  "truthBoundary": "Classification coverage only. A classified path, program or idea has an economic label and a basis; it has not been shown to earn anything.",
  "paths": {
-  "tracked": 5115,
-  "classified": 5115,
+  "tracked": 5116,
+  "classified": 5116,
   "unknown": 0,
   "byClass": {
    "AUTONOMY_INFRA": 630,
    "COST_REDUCTION_INFRA": 1222,
    "DEFENSIVE_STRATEGIC": 450,
    "DISTRIBUTION_INFRA": 371,
-   "ECONOMIC_INTELLIGENCE": 490,
+   "ECONOMIC_INTELLIGENCE": 491,
    "FULFILLMENT_INFRA": 283,
    "HISTORICAL_SUPERSEDED": 339,
    "PRIVATE_NONCOMMERCIAL": 140,
@@ -24,7 +24,7 @@
    "COST_REDUCER": 230,
    "DOMINATED": 184,
    "HISTORICAL": 339,
-   "INTERNAL_LEVERAGE": 3008,
+   "INTERNAL_LEVERAGE": 3009,
    "KEEP_PRIVATE": 628,
    "KILLED_ON_EVIDENCE": 46,
    "RESEARCH_OPTION": 222,
@@ -32,7 +32,7 @@
    "UNKNOWN_NEEDS_EVIDENCE": 275
   },
   "byBasisKind": {
-   "path-rule": 447,
+   "path-rule": 448,
    "project": 4668
   }
  },

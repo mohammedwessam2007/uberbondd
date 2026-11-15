@@ -1517,6 +1517,7 @@
 {"p":"docs/migrations-pending/20261017_uberwarm2_receiver_binding.sql","c":"COST_REDUCTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberwarm"}
 {"p":"docs/missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt","c":"COST_REDUCTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberwarm"}
 {"p":"docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md","c":"COST_REDUCTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberwarm"}
+{"p":"docs/monetization/JARVIS_PUBLISH_EMAIL_VERIFIER_PROMPT.md","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"path-rule:monetization-mission"}
 {"p":"docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"path-rule:monetization-mission"}
 {"p":"docs/neu205/CLAUDE_CODE_PUBLIC_RESUME.md","c":"PRIVATE_NONCOMMERCIAL","d":"KEEP_PRIVATE","b":"project:neu205"}
 {"p":"docs/opportunities/CLAUDE_INTEGRATION_MISSION.md","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"project:opportunity-factory"}

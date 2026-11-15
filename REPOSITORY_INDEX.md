@@ -4,7 +4,7 @@
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**5009 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
+**5010 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
 
 ## 1. Read first
 
@@ -21,7 +21,7 @@
 | [src/ — source modules](docs/index/SRC.md) | 1145 | Flat ES-module library; one mechanism per file, grouped here by domain. Imported by server, worker, scripts and tests. |
 | [tests/ — test suite](docs/index/TESTS.md) | 1412 | node:test files, almost all named after the src module or seam they cover. Run with `npm run test:deterministic`. |
 | [scripts/ — CLIs and doctors](docs/index/SCRIPTS.md) | 405 | Command-line entry points; most are wired to an `npm run` name shown beside them. |
-| [docs/ — canon, handoffs, receipts](docs/index/DOCS.md) | 703 | Human-readable canon, architecture, handoffs, receipts, prompts and forensics. |
+| [docs/ — canon, handoffs, receipts](docs/index/DOCS.md) | 704 | Human-readable canon, architecture, handoffs, receipts, prompts and forensics. |
 | [artifacts/ — machine-readable state and evidence](docs/index/ARTIFACTS.md) | 709 | JSON registries, receipts, research corpora and recovered history. |
 | [config/](docs/index/CONFIG.md) | 58 | Checked-in configuration and registries read by src and scripts. |
 | [api/](docs/index/API.md) | 18 | Serverless route handlers (Vercel-style). |
@@ -59,7 +59,7 @@ Full detail with key documents, hub modules and commands: [`docs/index/DOMAINS.m
 | [Opportunity and world intelligence](docs/index/DOMAINS.md#opportunity-and-world-intelligence) | 128 | Prometheus, Event Horizon, World Brain, opportunity factory, market signals, public-web research adapters and quant research. |
 | [Sovereign infrastructure and runtime](docs/index/DOMAINS.md#sovereign-infrastructure-and-runtime) | 523 | Self-host stack, UberCel/UberLit/UberCloud/UberOS, Postgres and stores, provider adapters, deployment and platform configuration. |
 | [Founder operations and command center](docs/index/DOMAINS.md#founder-operations-and-command-center) | 108 | Command center UI and status, founder-absence readiness, Kilimanjaro evidence, operator escalation and health. |
-| [Core and uncategorised](docs/index/DOMAINS.md#core-and-uncategorised) | 96 | Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule. |
+| [Core and uncategorised](docs/index/DOMAINS.md#core-and-uncategorised) | 97 | Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule. |
 
 ## 4. Conventions that make the flat folders navigable
 

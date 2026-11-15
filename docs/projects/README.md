@@ -172,5 +172,5 @@ When asked about a specific UberBond project, open its page here first and follo
 - **1232** tests by the modules they import.
 - **75** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
 
-17 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
+18 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

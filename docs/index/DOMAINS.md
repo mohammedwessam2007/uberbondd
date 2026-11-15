@@ -355,7 +355,7 @@ Commands: `npm run absence:doctor` · `npm run manifest:kilimanjaro` · `npm run
 
 Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule.
 
-**96 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 31](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 6](DOCS.md) · [artifacts 43](ARTIFACTS.md) · [config 2](CONFIG.md)
+**97 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 31](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 7](DOCS.md) · [artifacts 43](ARTIFACTS.md) · [config 2](CONFIG.md)
 
 Most-imported modules: [`adaptive-source-ceiling-governor`](../../src/adaptive-source-ceiling-governor.mjs) (2), [`operational-world-resource-admission`](../../src/operational-world-resource-admission.mjs) (2)
 
@@ -365,6 +365,7 @@ Key documents (canon first, then newest):
 - [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · Research audit defining velocity objective V and missing mechanisms so each mission shortens future work, listing existing acceleration machinery. · **Use:** plan compounding execution-speed improvements
 - [`docs/AUTOMATION_ACQUISITION_LOOP_2026-08-28.md`](../AUTOMATION_ACQUISITION_LOOP_2026-08-28.md) — 2026-08-28 · Loop for acquiring only missing automation capabilities from public repos, mapped to coverage, with dated GitHub observations and no authority grants. · **Use:** Rules and observations for capability acquisition.
 - [`docs/EXTERNAL_ASSET_REALITY.md`](../EXTERNAL_ASSET_REALITY.md) — Canonical statement of owner-supplied asset truth: owned outreach domains and the PayPal path being implemented, taking precedence over stale docs. · **Use:** Fix stale claims about domains and PayPal.
+- [`docs/monetization/JARVIS_PUBLISH_EMAIL_VERIFIER_PROMPT.md`](../monetization/JARVIS_PUBLISH_EMAIL_VERIFIER_PROMPT.md) — Prompt for Jarvis: publish the email verifier on the Apify Store
 - [`docs/research/report-source.md`](../research/report-source.md) — Nightfall research, distribution and economic command report recommending one canary at $450 and fallback at $900 · **Use:** full evidence report behind the canary choice
 - [`README.md`](../../README.md) — Repository entrypoint with hot pointers to outreach autoload, private ASI status, project pages, repository index and terminal North Star. · **Use:** first orientation for humans and agents opening the repo
 

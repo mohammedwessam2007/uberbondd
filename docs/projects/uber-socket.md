@@ -6,39 +6,41 @@ Uber Socket runtime, connectome runtime, cognitive backplane, project mesh, shar
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**22 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**25 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (2)
 
-- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — UberSocket Chat Bridge _(matched by name only)_
+- [`docs/UBERAGENT_V2.md`](../UBERAGENT_V2.md) — Spec of private Windows agent controlled via Supabase command table and Edge Function with hashed node token and allow-listed actions. · **Use:** operate founder's HP machine safely remotely
+- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — README for UberSocket Chrome extension bridging two user-armed ChatGPT tabs over an end-to-end encrypted Supabase Realtime channel; install and pairing steps. · **Use:** Install and pair the ChatGPT tab bridge
 
 ## Source modules (9)
 
-- [`src/uber-socket-app-peer-router.mjs`](../../src/uber-socket-app-peer-router.mjs) — exports createAppPeerRouter _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-cognitive-backplane.mjs`](../../src/uber-socket-cognitive-backplane.mjs) — exports UBER_SOCKET_COGNITIVE_BACKPLANE_VERSION, createUberSocketCognitiveBackplane _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-connectome-runtime.mjs`](../../src/uber-socket-connectome-runtime.mjs) — exports UBER_SOCKET_CONNECTOME_RUNTIME_VERSION, createUberSocketConnectomeRuntime _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-durable-state.mjs`](../../src/uber-socket-durable-state.mjs) — exports UBER_SOCKET_DURABLE_STATE_VERSION, UBER_SOCKET_STATE_KEY, snapshotUberSocketState, persistUberSocketState, restoreUberSocketState _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-openai-secret.mjs`](../../src/uber-socket-openai-secret.mjs) — exports UBER_SOCKET_OPENAI_SECRET_VERSION, readUberSocketOpenAIKey, storeUberSocketOpenAIKey, clearUberSocketOpenAIKey _(matched by name only; imported by 1)_
-- [`src/uber-socket-project-mesh.mjs`](../../src/uber-socket-project-mesh.mjs) — exports createProjectMesh _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-runtime.mjs`](../../src/uber-socket-runtime.mjs) — exports getUberSocketRuntime, reloadUberSocketRuntime, resetUberSocketRuntimeForTests _(matched by name only; imported by 2)_
-- [`src/uber-socket-shared-content-fabric.mjs`](../../src/uber-socket-shared-content-fabric.mjs) — exports createSharedContentFabric _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — exports UBER_SOCKET_WHOLE_BRAIN_ORCHESTRATOR_VERSION, createUberSocketWholeBrainOrchestrator _(matched by name only; imported by 1)_
+- [`src/uber-socket-app-peer-router.mjs`](../../src/uber-socket-app-peer-router.mjs) — Routes chat peer envelopes between apps over Uber Socket · **Use:** peer routing in Uber Socket _(tested; imported by 1)_
+- [`src/uber-socket-cognitive-backplane.mjs`](../../src/uber-socket-cognitive-backplane.mjs) — Creates Uber Socket cognitive backplane over the cognitive bus and event journal · **Use:** shared cognitive event backplane _(tested; imported by 1)_
+- [`src/uber-socket-connectome-runtime.mjs`](../../src/uber-socket-connectome-runtime.mjs) — Creates the Uber Socket connectome runtime over the UberBond cognitive graph · **Use:** expose cognitive graph connections inside Uber Socket _(tested; imported by 1)_
+- [`src/uber-socket-durable-state.mjs`](../../src/uber-socket-durable-state.mjs) — Snapshots, persists and restores Uber Socket state under a fixed key · **Use:** survive Uber Socket restarts _(tested; imported by 1)_
+- [`src/uber-socket-openai-secret.mjs`](../../src/uber-socket-openai-secret.mjs) — Reads, stores and clears the OpenAI API key used by Uber Socket · **Use:** manage Uber Socket model credential locally _(imported by 1)_
+- [`src/uber-socket-project-mesh.mjs`](../../src/uber-socket-project-mesh.mjs) — Creates a project mesh using the app peer router · **Use:** connect projects/apps inside Uber Socket _(tested; imported by 1)_
+- [`src/uber-socket-runtime.mjs`](../../src/uber-socket-runtime.mjs) — Singleton Uber Socket runtime wiring OpenAI conversation adapter, project mesh, content fabric, backplane, whole-brain orchestrator, ChatGPT importer and transport guard · **Use:** boot and reload the Uber Socket service _(imported by 2)_
+- [`src/uber-socket-shared-content-fabric.mjs`](../../src/uber-socket-shared-content-fabric.mjs) — Shared content fabric for Uber Socket peers · **Use:** share content across connected apps _(tested; imported by 1)_
+- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — Whole-brain orchestrator for Uber Socket that delegates to the UberMind cognitive exchange · **Use:** route Uber Socket requests through UberMind cognition topology _(imported by 1)_
 
 ## Scripts (1)
 
 - [`scripts/uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) _(matched by name only)_
 
-## Config, data, artifacts and services (5)
+## Config, data, artifacts and services (6)
 
-- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js) _(matched by name only)_
-- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js) _(matched by name only)_
-- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — UberSocket Chat Bridge _(matched by name only)_
-- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html) _(matched by name only)_
-- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js) _(matched by name only)_
+- [`artifacts/connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — Artifact describing a typed connectome graph, bus, resident worker, Sandwich governor, organs and event kinds; source-level only. · **Use:** connectome self-audit contract and status
+- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js) — Extension service worker managing Supabase Realtime websocket rooms, per-tab configs and encrypted peer envelopes; embeds a Supabase publishable key. · **Use:** Relay encrypted prompts between paired ChatGPT tabs
+- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js) — Content script that inserts peer prompts into ChatGPT prefixed as untrusted input, clicks send, observes the reply and shows a status badge. · **Use:** Drive ChatGPT DOM for the socket bridge
+- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — Chrome extension manifest for UberSocket Chat Bridge: permissions, host permissions, background worker, popup and content scripts. · **Use:** Package the UberSocket browser extension
+- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html) — Popup markup and styles for creating or pasting a pair code, choosing chat side, max turns and arming a tab. · **Use:** User control panel of the extension
+- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js) — Popup logic encoding/decoding pair codes and applying chat-side and turn settings to the active tab. · **Use:** Pair and arm ChatGPT tabs
 
-## Tests (6)
+## Tests (7)
 
-[`uber-socket-app-peer-router`](../../tests/uber-socket-app-peer-router.test.mjs) · [`uber-socket-cognitive-backplane`](../../tests/uber-socket-cognitive-backplane.test.mjs) · [`uber-socket-connectome-runtime`](../../tests/uber-socket-connectome-runtime.test.mjs) · [`uber-socket-durable-state`](../../tests/uber-socket-durable-state.test.mjs) · [`uber-socket-project-mesh`](../../tests/uber-socket-project-mesh.test.mjs) · [`uber-socket-shared-content-fabric`](../../tests/uber-socket-shared-content-fabric.test.mjs)
+[`chatgpt-project-importer`](../../tests/chatgpt-project-importer.test.mjs) · [`uber-socket-app-peer-router`](../../tests/uber-socket-app-peer-router.test.mjs) · [`uber-socket-cognitive-backplane`](../../tests/uber-socket-cognitive-backplane.test.mjs) · [`uber-socket-connectome-runtime`](../../tests/uber-socket-connectome-runtime.test.mjs) · [`uber-socket-durable-state`](../../tests/uber-socket-durable-state.test.mjs) · [`uber-socket-project-mesh`](../../tests/uber-socket-project-mesh.test.mjs) · [`uber-socket-shared-content-fabric`](../../tests/uber-socket-shared-content-fabric.test.mjs)
 

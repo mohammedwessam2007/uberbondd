@@ -30,40 +30,40 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 ## North Star and life systems
 
-- [`century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs) _(matched by name only)_
-- [`institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs) _(matched by name only)_
-- [`personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs the life loop end to end on a supplied situation and reports what the _(matched by name only; npm: `life:doctor`)_
-- [`personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — exports PRIVATE_OPERATOR_CONFIRMATION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_CYCLE_VERSION, PERSONAL_CIVILIZATION_PRIVATE_REALITY_RUNTIME_VERSION, fo… _(matched by name only)_
+- [`century-grade-continuity-doctor.mjs`](../../scripts/century-grade-continuity-doctor.mjs) — Doctor compiling a century continuity plan for synthetic encrypted private assets and verifying a rehearsal. · **Use:** check long-term portable continuity planning logic
+- [`institutional-financial-sovereignty-doctor.mjs`](../../scripts/institutional-financial-sovereignty-doctor.mjs) — Doctor compiling institutional financial ledger of entity obligations, admitting effects and reconciling evidence on synthetic data. · **Use:** check legal/financial obligation ledger logic
+- [`personal-civilization-doctor.mjs`](../../scripts/personal-civilization-doctor.mjs) — Runs life loop end to end (possibility, compression, gamechanger for life, genesis for life, freedom gradient, antifragility) on synthetic or supplied situation. · **Use:** exercise Personal Civilization organs as one pass _(npm: `life:doctor`)_
+- [`personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — Private reality cycle runtime: founder presence check, compile/close private reality cycles, decision loop and N-of-1 experiments, interactive session. · **Use:** founder-run private life decision cycles
 - [`sovereign-initiative-host.mjs`](../../scripts/sovereign-initiative-host.mjs) — exports SOVEREIGN_INITIATIVE_HOST_VERSION, pumpInitiativeAgentMesh, runSovereignInitiativeHost _(matched by name only)_
 - [`sovereign-initiative-runtime.mjs`](../../scripts/sovereign-initiative-runtime.mjs) _(matched by name only)_
 - [`sovereign-initiative-selection-runtime.mjs`](../../scripts/sovereign-initiative-selection-runtime.mjs) — exports SOVEREIGN_INITIATIVE_RUNTIME_VERSION, runSovereignInitiativeRuntime _(matched by name only)_
-- [`value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — exports runValueOfInformationDoctor _(matched by name only)_
-- [`volitional-integrity-review.mjs`](../../scripts/volitional-integrity-review.mjs) _(matched by name only)_
+- [`value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — Doctor wrapping the value-of-information governor · **Use:** check VOI governor that decides whether more research is worth it
+- [`volitional-integrity-review.mjs`](../../scripts/volitional-integrity-review.mjs) — CLI assessing volitional integrity, preference feedback loops and will boundary using living self model preference provenance · **Use:** review how a founder preference or choice was formed
 
 ## UberMind doctrine and library
 
-- [`ubermind-omega42-agent-tree-console.mjs`](../../scripts/ubermind-omega42-agent-tree-console.mjs) — Offline operator: run fixed native W40/W41 tests against this checkout, then _(matched by name only)_
-- [`ubermind-v6-source-doctor.mjs`](../../scripts/ubermind-v6-source-doctor.mjs) — Verify source custody, not cognitive quality or downstream ChatGPT activation. _(matched by name only)_
+- [`ubermind-omega42-agent-tree-console.mjs`](../../scripts/ubermind-omega42-agent-tree-console.mjs) — Offline operator console that runs fixed native W40/W41 tests on the checkout and reports results, refusing to bind results to HEAD when untracked changes exist · **Use:** truthful local report of UberMind agent-tree test status
+- [`ubermind-v6-source-doctor.mjs`](../../scripts/ubermind-v6-source-doctor.mjs) — Hashes and cross-checks the V6 52-operation registry against the founder 52-directive coverage manifest to verify source custody · **Use:** verify V6 52-card registry matches founder source files
 
 ## Continuity, memory and handoffs
 
-- [`context-universe.mjs`](../../scripts/context-universe.mjs) _(matched by name only)_
-- [`current-reality-freeze.mjs`](../../scripts/current-reality-freeze.mjs) — exports readinessRelevant, coverageRelevant, currentTruthRelevant, buildCurrentRealityFreeze _(matched by name only)_
-- [`current-truth-regeneration.mjs`](../../scripts/current-truth-regeneration.mjs) — exports parseGitPorcelainPaths, newlyDirtyPaths, parseTrackedPaths, executeCurrentTruthRegeneration _(matched by name only)_
-- [`memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs the memory truth boundary against this repository's own artifacts. _(matched by name only; npm: `memory:doctor`)_
-- [`phoenix-capsule-doctor.mjs`](../../scripts/phoenix-capsule-doctor.mjs) _(matched by name only)_
-- [`phoenix-cos-operator.mjs`](../../scripts/phoenix-cos-operator.mjs) — PHOENIX operator bridge for Chat On Steroids Core. _(matched by name only; npm: `capabilities:cos`)_
-- [`phoenix-neon-bundle-preflight.mjs`](../../scripts/phoenix-neon-bundle-preflight.mjs) _(matched by name only)_
-- [`phoenix-repository-intake.py`](../../scripts/phoenix-repository-intake.py) _(matched by name only)_
-- [`phoenix-repository-refs.py`](../../scripts/phoenix-repository-refs.py) _(matched by name only)_
-- [`phoenix-swarm-pr-overlap.mjs`](../../scripts/phoenix-swarm-pr-overlap.mjs) — Read-only GitHub PR-snapshot auditor. Never prints environment credentials. _(matched by name only)_
-- [`phoenix-ten-wave-genome-doctor.py`](../../scripts/phoenix-ten-wave-genome-doctor.py) _(matched by name only)_
-- [`phoenix-ten-wave-import.mjs`](../../scripts/phoenix-ten-wave-import.mjs) — Read-only PHOENIX -> existing Capability Genome corpus bridge. _(matched by name only; npm: `capabilities:phoenix:import`)_
-- [`phoenix-ten-wave-overlap.py`](../../scripts/phoenix-ten-wave-overlap.py) _(matched by name only)_
-- [`phoenix-ten-wave-query.mjs`](../../scripts/phoenix-ten-wave-query.mjs) — Bounded internal bridge from UberBond's Node workflow to the source-pinned _(matched by name only; npm: `capabilities:phoenix:query`)_
-- [`phoenix-ten-wave-reconcile.py`](../../scripts/phoenix-ten-wave-reconcile.py) _(matched by name only)_
-- [`pr-reconcile.mjs`](../../scripts/pr-reconcile.mjs) — Trial-merge every open PR against main and classify what stands in the way.
-- [`repository-index.mjs`](../../scripts/repository-index.mjs) — Repository Index: a deterministic, regenerable card catalog of every tracked file. _(matched by name only; npm: `repo:index`, `repo:index:check`)_
+- [`context-universe.mjs`](../../scripts/context-universe.mjs) — Lists git files, classifies them (startup canon etc.) and hashes them to build a context universe manifest. · **Use:** inventory repository context for loading
+- [`current-reality-freeze.mjs`](../../scripts/current-reality-freeze.mjs) — Builds a current reality freeze, classifying which paths are readiness, coverage or current-truth relevant. · **Use:** snapshot current truth artifacts
+- [`current-truth-regeneration.mjs`](../../scripts/current-truth-regeneration.mjs) — Regenerates current-truth artifacts, checking git porcelain for newly dirty paths and reference integrity. · **Use:** refresh current truth artifacts safely
+- [`memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs memory truth boundary over the memory index, asking historical counts commercial questions and reporting refusals. · **Use:** prevent historical counts read as traction _(npm: `memory:doctor`)_
+- [`phoenix-capsule-doctor.mjs`](../../scripts/phoenix-capsule-doctor.mjs) — CLI to make, verify, challenge, resume or reconcile a private local PHOENIX continuity capsule. · **Use:** carry context safely between chats
+- [`phoenix-cos-operator.mjs`](../../scripts/phoenix-cos-operator.mjs) — PHOENIX bridge for Chat On Steroids Core running only first-party zero-effect functions with CPU and output bounds. · **Use:** invoke zero-effect UberBond organs from connected terminal _(npm: `capabilities:cos`)_
+- [`phoenix-neon-bundle-preflight.mjs`](../../scripts/phoenix-neon-bundle-preflight.mjs) — Inspects a local Neon function ZIP for entrypoint and integrity with optional sha256 pin; no release authority. · **Use:** preflight Neon bundle before deployment
+- [`phoenix-repository-intake.py`](../../scripts/phoenix-repository-intake.py) — Samples public GitHub metadata for PHOENIX ten-wave repository inventory without cloning or executing. · **Use:** build PHOENIX research repository inventory
+- [`phoenix-repository-refs.py`](../../scripts/phoenix-repository-refs.py) — Reads repository refs for PHOENIX inventory in clean environment preventing auth helper token use. · **Use:** pin PHOENIX research repos to refs
+- [`phoenix-swarm-pr-overlap.mjs`](../../scripts/phoenix-swarm-pr-overlap.mjs) — Read-only GitHub PR snapshot auditor detecting overlapping paths across PRs. · **Use:** detect conflicting swarm PRs
+- [`phoenix-ten-wave-genome-doctor.py`](../../scripts/phoenix-ten-wave-genome-doctor.py) — Heuristic whole-token relevance doctor over PHOENIX ten-wave research inventory, refusing production/installed claims. · **Use:** check PHOENIX research genome claims stay research-only
+- [`phoenix-ten-wave-import.mjs`](../../scripts/phoenix-ten-wave-import.mjs) — Read-only bridge importing PHOENIX ten-wave intake into existing Capability Genome corpus. · **Use:** feed PHOENIX research into Capability Genome _(npm: `capabilities:phoenix:import`)_
+- [`phoenix-ten-wave-overlap.py`](../../scripts/phoenix-ten-wave-overlap.py) — Computes partial overlap between PHOENIX ten-wave registry entries. · **Use:** dedupe PHOENIX research catalogs
+- [`phoenix-ten-wave-query.mjs`](../../scripts/phoenix-ten-wave-query.mjs) — Bounded query bridge from Node workflow to source-pinned PHOENIX research index; no network or execution. · **Use:** search PHOENIX research index _(npm: `capabilities:phoenix:query`)_
+- [`phoenix-ten-wave-reconcile.py`](../../scripts/phoenix-ten-wave-reconcile.py) — Validates and reconciles PHOENIX ten-wave research catalogs against expected URL hash, writing receipts only. · **Use:** reconcile PHOENIX research catalogs
+- [`pr-reconcile.mjs`](../../scripts/pr-reconcile.mjs) — Trial-merges every open PR against main and classifies conflicts as MECHANICAL or SEMANTIC; read-only. · **Use:** triage open PR merge conflicts
+- [`repository-index.mjs`](../../scripts/repository-index.mjs) — Deterministic card catalog of every tracked file classified into domains, areas and keyword projects; writes docs/index and index JSON. · **Use:** npm run repo:index navigation catalog _(npm: `repo:index`, `repo:index:check`)_
 - [`uberbond-brain-bootstrap.mjs`](../../scripts/uberbond-brain-bootstrap.mjs) — exports UBERBOND_BRAIN_BOOTSTRAP_CLI_VERSION, MEMORY_RECONCILIATION_PATH, MASTER_MEMORY_RECONCILIATION_PATH, EXTERNAL_CAPABILITY_REGISTRY_PATH, CAPAB… _(matched by name only)_
 - [`uberbond-brain-safe.mjs`](../../scripts/uberbond-brain-safe.mjs) _(matched by name only; npm: `brain`)_
 - [`uberbond-cognitive-cycle-synaptic.mjs`](../../scripts/uberbond-cognitive-cycle-synaptic.mjs) _(matched by name only)_
@@ -81,145 +81,145 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 ## GENESIS, moonshots and Perpetual Frontier
 
-- [`constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs) _(matched by name only)_
-- [`gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) _(matched by name only)_
-- [`gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) _(matched by name only; npm: `gamechanger:tick`, `gamechanger:plan`)_
-- [`genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(matched by name only; npm: `genesis:blackout:doctor`)_
-- [`genesis-burst-index-doctor.mjs`](../../scripts/genesis-burst-index-doctor.mjs) _(matched by name only; npm: `genesis:bursts:doctor`)_
-- [`genesis-candidate-substrate-doctor.mjs`](../../scripts/genesis-candidate-substrate-doctor.mjs) _(matched by name only; npm: `genesis:candidate-mesh:doctor`)_
-- [`genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) _(matched by name only; npm: `genesis:chimera:doctor`)_
-- [`genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) _(matched by name only; npm: `genesis:cognition:doctor`)_
-- [`genesis-escalation-tribunal-doctor.mjs`](../../scripts/genesis-escalation-tribunal-doctor.mjs) _(matched by name only; npm: `genesis:escalation:doctor`)_
-- [`genesis-evolution-doctor.mjs`](../../scripts/genesis-evolution-doctor.mjs) _(matched by name only; npm: `genesis:evolution:doctor`)_
-- [`genesis-evolution-tick.mjs`](../../scripts/genesis-evolution-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(matched by name only; npm: `genesis:evolve`)_
-- [`genesis-experiment-feasibility-doctor.mjs`](../../scripts/genesis-experiment-feasibility-doctor.mjs) — exports runGenesisExperimentFeasibilityDoctor _(matched by name only)_
-- [`genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) _(matched by name only; npm: `genesis:failure-reflex:doctor`)_
-- [`genesis-idea-burst-doctor.mjs`](../../scripts/genesis-idea-burst-doctor.mjs) _(matched by name only; npm: `genesis:idea-burst:doctor`)_
-- [`genesis-metabolism-tick.mjs`](../../scripts/genesis-metabolism-tick.mjs) _(matched by name only; npm: `genesis:metabolize`)_
-- [`genesis-ontology-tick.mjs`](../../scripts/genesis-ontology-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(matched by name only; npm: `genesis:ontology`)_
-- [`genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst + Wallbreaker tournament for the outreach first-cash wall. _(matched by name only)_
-- [`genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — exports GENESIS_PARTIAL_RUNTIME_PROOF_VERSION _(matched by name only)_
-- [`genesis-scientist-tick.mjs`](../../scripts/genesis-scientist-tick.mjs) — The GENESIS chain runs gamechanger:plan -> genesis:evolve -> genesis:scientist -> genesis:ontology, each step reading what the last one wrote. A miss… _(matched by name only; npm: `genesis:scientist`)_
-- [`genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) _(matched by name only; npm: `genesis:system-one:doctor`)_
-- [`million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs) _(matched by name only)_
-- [`million-wormhole-search-tick.mjs`](../../scripts/million-wormhole-search-tick.mjs) _(matched by name only)_
-- [`million-wormhole-tier2-benchmark.mjs`](../../scripts/million-wormhole-tier2-benchmark.mjs) _(matched by name only)_
-- [`moonshot-reality-plan.mjs`](../../scripts/moonshot-reality-plan.mjs) _(matched by name only; npm: `moonshots:plan`)_
-- [`moonshot-substrate-mesh-doctor.mjs`](../../scripts/moonshot-substrate-mesh-doctor.mjs) _(matched by name only; npm: `moonshots:substrate-mesh`)_
-- [`perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) _(matched by name only; npm: `genesis:doctor`)_
-- [`perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) _(matched by name only; npm: `genesis:tick`, `frontier:plan`)_
+- [`constraint-mutation-doctor.mjs`](../../scripts/constraint-mutation-doctor.mjs) — Doctor compiling constraint mutation plans for repeated provider failure and capability gap scenarios. · **Use:** verify mechanism mutation instead of blind retry
+- [`gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) — Compiles Gamechanger outputs into GENESIS inputs and writes plan file. · **Use:** feed world signals into GENESIS
+- [`gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) — Gamechanger mesh tick: builds source fetch plan, GDELT search, tournament, frontier signals, idea atomization and thinker swarm. · **Use:** periodic world discontinuity sensing run _(npm: `gamechanger:tick`, `gamechanger:plan`)_
+- [`genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) — Doctor verifying execution-leaf graph digest and blackout recovery replay with ed25519-signed synthetic data. · **Use:** check blackout-first compute planner _(npm: `genesis:blackout:doctor`)_
+- [`genesis-burst-index-doctor.mjs`](../../scripts/genesis-burst-index-doctor.mjs) — Loads GENESIS burst index and payloads, compiles registry and compares declared materialized candidate counts. · **Use:** verify GENESIS burst index integrity _(npm: `genesis:bursts:doctor`)_
+- [`genesis-candidate-substrate-doctor.mjs`](../../scripts/genesis-candidate-substrate-doctor.mjs) — Loads 890 corpus, realization ledger, technology tree and substrate mesh to bridge GENESIS candidates to substrates. · **Use:** map GENESIS candidates onto moonshot substrates _(npm: `genesis:candidate-mesh:doctor`)_
+- [`genesis-capability-chimera-doctor.mjs`](../../scripts/genesis-capability-chimera-doctor.mjs) — Doctor searching capability chimera combinations and evaluating chimera tournaments on synthetic capabilities. · **Use:** check capability recombination compiler _(npm: `genesis:chimera:doctor`)_
+- [`genesis-cognition-exchange-doctor.mjs`](../../scripts/genesis-cognition-exchange-doctor.mjs) — Doctor compiling a GENESIS cognition job, selecting supplier within class/cost bounds and validating receipt. · **Use:** check GENESIS cognition supplier exchange _(npm: `genesis:cognition:doctor`)_
+- [`genesis-escalation-tribunal-doctor.mjs`](../../scripts/genesis-escalation-tribunal-doctor.mjs) — Doctor compiling GENESIS escalation decisions and portfolio for synthetic candidates by utility, testability and substrate needs. · **Use:** check escalation tribunal logic _(npm: `genesis:escalation:doctor`)_
+- [`genesis-evolution-doctor.mjs`](../../scripts/genesis-evolution-doctor.mjs) — Checks required GENESIS canon, source and test files exist and builds the implementation evidence ledger. · **Use:** genesis:doctor evidence health _(npm: `genesis:evolution:doctor`)_
+- [`genesis-evolution-tick.mjs`](../../scripts/genesis-evolution-tick.mjs) — GENESIS chain step after gamechanger:plan: runs evolution engine, scanning runtime receipts separately from source for reproducible ledger. · **Use:** genesis:evolve step of GENESIS pipeline _(npm: `genesis:evolve`)_
+- [`genesis-experiment-feasibility-doctor.mjs`](../../scripts/genesis-experiment-feasibility-doctor.mjs) — Doctor running GENESIS experiment feasibility evaluation. · **Use:** check feasibility of GENESIS experiments
+- [`genesis-failure-to-patch-doctor.mjs`](../../scripts/genesis-failure-to-patch-doctor.mjs) — Doctor compiling failure-to-patch reflex from rejected relay candidate and deciding self-maintainer continuation. · **Use:** check failure-to-patch reflex policy _(npm: `genesis:failure-reflex:doctor`)_
+- [`genesis-idea-burst-doctor.mjs`](../../scripts/genesis-idea-burst-doctor.mjs) — Compiles a GENESIS idea burst from live nursery artifact signal, domains and candidates. · **Use:** validate GENESIS idea burst artifacts _(npm: `genesis:idea-burst:doctor`)_
+- [`genesis-metabolism-tick.mjs`](../../scripts/genesis-metabolism-tick.mjs) — Builds GENESIS metabolism from inputs and writes output. · **Use:** periodic GENESIS metabolism update _(npm: `genesis:metabolize`)_
+- [`genesis-ontology-tick.mjs`](../../scripts/genesis-ontology-tick.mjs) — Final GENESIS chain step: ontology proposals with checks for explanatory utility, contradictions and redundant concepts. · **Use:** genesis:ontology Ontogenesis step _(npm: `genesis:ontology`)_
+- [`genesis-outreach-burst.mjs`](../../scripts/genesis-outreach-burst.mjs) — GENESIS idea burst plus Wallbreaker tournament for outreach first-cash wall; candidates bound to 890 ancestors, economics UNKNOWN. · **Use:** generate and rank lawful first-cash outreach alternatives
+- [`genesis-partial-runtime-proof.mjs`](../../scripts/genesis-partial-runtime-proof.mjs) — Produces GENESIS partial runtime proof using implementation evidence and closure router. · **Use:** record which GENESIS capabilities have runtime proof
+- [`genesis-scientist-tick.mjs`](../../scripts/genesis-scientist-tick.mjs) — GENESIS chain step running the scientist on evolution outputs. · **Use:** genesis:scientist hypothesis testing step _(npm: `genesis:scientist`)_
+- [`genesis-system-one-doctor.mjs`](../../scripts/genesis-system-one-doctor.mjs) — Doctor running zero-cost deterministic System One critique on a synthetic GENESIS candidate. · **Use:** check System One prefilter critic _(npm: `genesis:system-one:doctor`)_
+- [`million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs) — Checks million-wormhole index encode/decode bijection and compiles a recursive wormhole round. · **Use:** verify million-wormhole search space integrity
+- [`million-wormhole-search-tick.mjs`](../../scripts/million-wormhole-search-tick.mjs) — Runs one recursive wormhole round on a shard with top-K and target arguments. · **Use:** advance million-wormhole search
+- [`million-wormhole-tier2-benchmark.mjs`](../../scripts/million-wormhole-tier2-benchmark.mjs) — Benchmarks exhaustive 4096-shard compile versus compiled top priors for million-wormhole selection. · **Use:** measure compiled prior speedup
+- [`moonshot-reality-plan.mjs`](../../scripts/moonshot-reality-plan.mjs) — Compiles a canary wave from moonshot reality canaries config. · **Use:** plan reality canaries for moonshot ideas _(npm: `moonshots:plan`)_
+- [`moonshot-substrate-mesh-doctor.mjs`](../../scripts/moonshot-substrate-mesh-doctor.mjs) — Loads 890 corpus, realization ledger and technology tree, compiles substrate mesh and validates. · **Use:** check moonshot substrate routing _(npm: `moonshots:substrate-mesh`)_
+- [`perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) — Validates GENESIS idea registry and million-branch ideation genome against canon document and index. · **Use:** genesis:doctor for Perpetual Frontier registry _(npm: `genesis:doctor`)_
+- [`perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) — Builds a GENESIS cycle, ideation activation plan and sovereign expansion envelope, writing outputs. · **Use:** periodic Perpetual Frontier GENESIS cycle _(npm: `genesis:tick`, `frontier:plan`)_
 
 ## ASI research and evidence programs
 
-- [`c21-breadth-dimension-evaluator.mjs`](../../scripts/c21-breadth-dimension-evaluator.mjs) _(matched by name only)_
-- [`c21-breadth-evaluator-core.mjs`](../../scripts/c21-breadth-evaluator-core.mjs) — exports BREADTH_DIMENSIONS _(matched by name only)_
-- [`c21-breadth-semantics-a.mjs`](../../scripts/c21-breadth-semantics-a.mjs) _(matched by name only)_
-- [`c21-breadth-semantics-b.mjs`](../../scripts/c21-breadth-semantics-b.mjs) _(matched by name only)_
-- [`c21-breadth-workload-core.mjs`](../../scripts/c21-breadth-workload-core.mjs) _(matched by name only)_
-- [`c21-critical-dimension-evaluator.mjs`](../../scripts/c21-critical-dimension-evaluator.mjs) — exports C21_CRITICAL_DIMENSION_EVALUATOR_VERSION, evaluateCriticalDimension _(matched by name only)_
-- [`c21-critical-six-benchmark.mjs`](../../scripts/c21-critical-six-benchmark.mjs) _(matched by name only)_
-- [`c21-critical-workloads.mjs`](../../scripts/c21-critical-workloads.mjs) — exports makeCriticalWorkload, runCriticalWorkload, criticalWorkloadDigest _(matched by name only)_
-- [`c21-current-head.mjs`](../../scripts/c21-current-head.mjs) _(matched by name only)_
-- [`c21-d1-benchmark.mjs`](../../scripts/c21-d1-benchmark.mjs) _(matched by name only)_
-- [`c21-d1-population.mjs`](../../scripts/c21-d1-population.mjs) — exports C21_D1_POPULATION_SEED, C21_D1_POPULATION_HASH, c21d1Hash, expandC21D1Population _(matched by name only)_
-- [`c21-evidence-doctor.mjs`](../../scripts/c21-evidence-doctor.mjs) — exports C21_EVIDENCE_DOCTOR_VERSION, runC21EvidenceDoctor _(matched by name only)_
-- [`c21-self-improvement-evaluator.mjs`](../../scripts/c21-self-improvement-evaluator.mjs) — exports C21_SELF_IMPROVEMENT_EVALUATOR_VERSION, evaluateWholeSystemSelfImprovement _(matched by name only)_
-- [`literal-asi-claim-tribunal.mjs`](../../scripts/literal-asi-claim-tribunal.mjs) _(matched by name only)_
-- [`literal-asi-external-campaign.mjs`](../../scripts/literal-asi-external-campaign.mjs) _(matched by name only)_
-- [`nullstar-attribution-audit.mjs`](../../scripts/nullstar-attribution-audit.mjs) — CD002. Whether GA1's and GA2's promoted solvers are better than the minimal _(matched by name only; npm: `nullstar:attribution`)_
-- [`nullstar-baselines-v2.mjs`](../../scripts/nullstar-baselines-v2.mjs) — Sections 040, 041 and 176. Baselines on an instrument that can separate. _(matched by name only; npm: `nullstar:baselines-v2`)_
-- [`nullstar-branch-debt.mjs`](../../scripts/nullstar-branch-debt.mjs) — Sections 009, 010, 110, 151, 183. Branch debt, measured rather than asserted. _(matched by name only; npm: `nullstar:branch-debt`)_
-- [`nullstar-completion-debt.mjs`](../../scripts/nullstar-completion-debt.mjs) — Section 169. What is still open, and which of it is mine to close. _(matched by name only; npm: `nullstar:completion-debt`)_
-- [`nullstar-cross-organ-transfer.mjs`](../../scripts/nullstar-cross-organ-transfer.mjs) — CD005 and sections 087 to 090. Whether a promoted mechanism transfers. _(matched by name only; npm: `nullstar:transfer`)_
-- [`nullstar-directive-reconcile.mjs`](../../scripts/nullstar-directive-reconcile.mjs) — Reconciles the imported founder directive against this exact tree. _(matched by name only; npm: `nullstar:reconcile`)_
-- [`nullstar-failure-debt.mjs`](../../scripts/nullstar-failure-debt.mjs) — Section 008. Compile the failure-debt ledger from the recorded failures. _(matched by name only; npm: `nullstar:failure-debt`)_
-- [`nullstar-final-report.mjs`](../../scripts/nullstar-final-report.mjs) — Sections 221 and 222. The final report, computed rather than written. _(matched by name only; npm: `nullstar:final-report`)_
-- [`nullstar-ga1-ablation.mjs`](../../scripts/nullstar-ga1-ablation.mjs) — The same audit applied to GA1, because GA1 promoted from a tie too. _(matched by name only)_
-- [`nullstar-ga1.mjs`](../../scripts/nullstar-ga1.mjs) — GA1. The tournament, run against the criteria fixed before the candidates _(matched by name only; npm: `nullstar:ga1`)_
-- [`nullstar-ga2-ablation.mjs`](../../scripts/nullstar-ga2-ablation.mjs) — The candidate GA2 should have contained. _(matched by name only)_
-- [`nullstar-ga3-ablation.mjs`](../../scripts/nullstar-ga3-ablation.mjs) — GA3's declared ablation, plus a scoring weakness the run exposed. _(matched by name only)_
-- [`nullstar-generalization-v2.mjs`](../../scripts/nullstar-generalization-v2.mjs) — Sections 068 to 071. Whether the three promoted improvements generalize. _(matched by name only; npm: `nullstar:generalization`)_
-- [`nullstar-generation.mjs`](../../scripts/nullstar-generation.mjs) — A capability generation, run against criteria fixed before its candidates _(matched by name only; npm: `nullstar:generation`)_
-- [`nullstar-meta-improvement-v2.mjs`](../../scripts/nullstar-meta-improvement-v2.mjs) — Sections 063 to 067. An improvement to how generations are judged, and a _(matched by name only; npm: `nullstar:meta-improvement`)_
-- [`nullstar-omega-absolute-final-report.mjs`](../../scripts/nullstar-omega-absolute-final-report.mjs) — Sections 357 and 358. The final report, generated rather than written. _(matched by name only; npm: `omega:final-report`)_
-- [`nullstar-omega-baselines.mjs`](../../scripts/nullstar-omega-baselines.mjs) — Sections 025 through 032. Execute the baselines, or say precisely why not. _(matched by name only; npm: `omega:baselines`)_
-- [`nullstar-omega-bottleneck.mjs`](../../scripts/nullstar-omega-bottleneck.mjs) — Ranks bottlenecks from the latest generation's measured evidence. _(matched by name only; npm: `omega:bottleneck`)_
-- [`nullstar-omega-denominator.mjs`](../../scripts/nullstar-omega-denominator.mjs) — Compiles the denominator against this exact tree. _(matched by name only; npm: `omega:denominator`)_
-- [`nullstar-omega-g0.mjs`](../../scripts/nullstar-omega-g0.mjs) — G0: the anchor measurement. _(matched by name only; npm: `omega:g0`)_
-- [`nullstar-omega-g1.mjs`](../../scripts/nullstar-omega-g1.mjs) — G1: the candidate the G0 diagnosis named, and its discriminating test. _(matched by name only; npm: `omega:g1`)_
-- [`nullstar-omega-g2.mjs`](../../scripts/nullstar-omega-g2.mjs) — G2: recompute the bottleneck from scratch and run the successor's test. _(matched by name only; npm: `omega:g2`)_
-- [`nullstar-omega-g3.mjs`](../../scripts/nullstar-omega-g3.mjs) — G3. The first generation whose instrument is not reading its own answers. _(matched by name only; npm: `omega:g3`)_
-- [`nullstar-omega-g4.mjs`](../../scripts/nullstar-omega-g4.mjs) — G4. Execute the test the G3 bottleneck named. _(matched by name only; npm: `omega:g4`)_
-- [`nullstar-omega-g5.mjs`](../../scripts/nullstar-omega-g5.mjs) — G5. Try the remaining dimensions, with the reuse guard allowed to refuse them. _(matched by name only; npm: `omega:g5`)_
-- [`nullstar-omega-g6.mjs`](../../scripts/nullstar-omega-g6.mjs) — G6. Report the mean over what this suite actually measured. _(matched by name only; npm: `omega:g6`)_
-- [`nullstar-omega-generalization.mjs`](../../scripts/nullstar-omega-generalization.mjs) — Section 311. Did this session's improvement generalize beyond the family it _(matched by name only; npm: `omega:generalization`)_
-- [`nullstar-omega-meta.mjs`](../../scripts/nullstar-omega-meta.mjs) — Section 310. Run the meta-improvement evaluation over the real generation _(matched by name only; npm: `omega:meta`)_
-- [`nullstar-omega-reality-connect.mjs`](../../scripts/nullstar-omega-reality-connect.mjs) — Section 312. Record forecasts, then let the repository's own tools decide. _(matched by name only; npm: `omega:reality`)_
-- [`nullstar-omega-retire-suite.mjs`](../../scripts/nullstar-omega-retire-suite.mjs) — Sections 322 and 323. Retire the contaminated suite; keep its history. _(matched by name only; npm: `omega:retire-suite`)_
-- [`nullstar-omega-velocity.mjs`](../../scripts/nullstar-omega-velocity.mjs) — Improvement velocity across recorded generations. _(matched by name only; npm: `omega:velocity`)_
-- [`nullstar-probe-saturation.mjs`](../../scripts/nullstar-probe-saturation.mjs) — CD003. The probes were hand-written, so they test the failure modes their _(matched by name only; npm: `nullstar:probe-saturation`)_
-- [`nullstar-stranded-supersession.mjs`](../../scripts/nullstar-stranded-supersession.mjs) — CD012. Per-module archaeology on the stranded pre-rewrite src lineage. _(matched by name only)_
-- [`ontological-representation-canary.mjs`](../../scripts/ontological-representation-canary.mjs) _(matched by name only; npm: `moonshots:ontological-canary`)_
+- [`c21-breadth-dimension-evaluator.mjs`](../../scripts/c21-breadth-dimension-evaluator.mjs) — Evaluates one C21 breadth dimension against frozen contract digest and candidate results, returning reasons and median scores. · **Use:** score breadth capability dimensions for C21 evidence
+- [`c21-breadth-evaluator-core.mjs`](../../scripts/c21-breadth-evaluator-core.mjs) — Core constants for C21 breadth evaluation exporting the canonical BREADTH_DIMENSIONS list and helpers. · **Use:** shared definitions for C21 breadth evaluators
+- [`c21-breadth-semantics-a.mjs`](../../scripts/c21-breadth-semantics-a.mjs) — Workload semantics for C21 breadth tasks: novel goal-reachability problems on seeded DAGs with banned nodes. · **Use:** generate breadth benchmark tasks with known answers
+- [`c21-breadth-semantics-b.mjs`](../../scripts/c21-breadth-semantics-b.mjs) — More C21 breadth workload semantics: mechanism-rule induction and budgeted economic selection on seeded graphs. · **Use:** generate mechanism and economic breadth benchmark tasks
+- [`c21-breadth-workload-core.mjs`](../../scripts/c21-breadth-workload-core.mjs) — Seeded deterministic DAG generator and hash pick helpers using capability topology from invariant cognition compiler. · **Use:** reproducible task graphs for C21 breadth benchmarks
+- [`c21-critical-dimension-evaluator.mjs`](../../scripts/c21-critical-dimension-evaluator.mjs) — Evaluator for C21 critical capability dimensions returning versioned pass/fail evaluation. · **Use:** score the six critical dimensions for C21
+- [`c21-critical-six-benchmark.mjs`](../../scripts/c21-critical-six-benchmark.mjs) — Benchmark runner for six C21 critical dimensions against a pinned candidate commit and blob using contract and population files. · **Use:** produce critical-six benchmark evidence for a candidate revision
+- [`c21-critical-workloads.mjs`](../../scripts/c21-critical-workloads.mjs) — Builds, runs and digests C21 critical workloads. · **Use:** workload generation for critical-six benchmark
+- [`c21-current-head.mjs`](../../scripts/c21-current-head.mjs) — CLI freezing a current-head C21 campaign for a candidate revision and evaluating it via the current-head tribunal. · **Use:** run C21 tribunal against current main head
+- [`c21-d1-benchmark.mjs`](../../scripts/c21-d1-benchmark.mjs) — C21 D1 benchmark comparing million-wormhole shard compile, build distance and capability topology versus invariant compiler batch versions. · **Use:** measure whole-system self-improvement on dimension D1
+- [`c21-d1-population.mjs`](../../scripts/c21-d1-population.mjs) — Seeded, hash-pinned task population expander for the C21 D1 benchmark. · **Use:** reproducible task population for D1 evaluation
+- [`c21-evidence-doctor.mjs`](../../scripts/c21-evidence-doctor.mjs) — Doctor running C21 evidence factory over the benchmark evidence ledger. · **Use:** report C21 ASI evidence status
+- [`c21-self-improvement-evaluator.mjs`](../../scripts/c21-self-improvement-evaluator.mjs) — Evaluates whole-system self-improvement between baseline and candidate outputs for C21. · **Use:** decide whether a candidate improved over baseline
+- [`literal-asi-claim-tribunal.mjs`](../../scripts/literal-asi-claim-tribunal.mjs) — Evaluates a literal ASI claim from C21 result plus required external comparisons; refuses without comparisons. · **Use:** guard against unsupported ASI claims
+- [`literal-asi-external-campaign.mjs`](../../scripts/literal-asi-external-campaign.mjs) — Compiles a literal ASI external comparison campaign from the C21 twenty-dimension result. · **Use:** plan external comparisons for ASI evidence
+- [`nullstar-attribution-audit.mjs`](../../scripts/nullstar-attribution-audit.mjs) — Checks whether GA1/GA2 promoted solvers beat the minimal fixes they tied on items neither was selected against. · **Use:** audit whether NULLSTAR promotions bought real capability _(npm: `nullstar:attribution`)_
+- [`nullstar-baselines-v2.mjs`](../../scripts/nullstar-baselines-v2.mjs) — Runs baselines on seeded procedural task suite including ancestor tree B4, scoring zero when solver module absent. · **Use:** baseline comparison for NULLSTAR generations _(npm: `nullstar:baselines-v2`)_
+- [`nullstar-branch-debt.mjs`](../../scripts/nullstar-branch-debt.mjs) — Measures branch debt by classifying remote branches as contained-in-main, diverged, or pre-rewrite lineage via git ancestry. · **Use:** separate real reconcilable branch debt from rewrite artifacts _(npm: `nullstar:branch-debt`)_
+- [`nullstar-completion-debt.mjs`](../../scripts/nullstar-completion-debt.mjs) — Completion debt ledger where each open item names a check deciding its status, split SOFTWARE versus EXTERNAL. · **Use:** decide whether NULLSTAR may claim done _(npm: `nullstar:completion-debt`)_
+- [`nullstar-cross-organ-transfer.mjs`](../../scripts/nullstar-cross-organ-transfer.mjs) — Tests whether a promoted evidence-ranking solver transfers to the epistemic immune system vocabulary using three arms. · **Use:** measure cross-organ transfer of a NULLSTAR mechanism _(npm: `nullstar:transfer`)_
+- [`nullstar-directive-reconcile.mjs`](../../scripts/nullstar-directive-reconcile.mjs) — Reconciles imported founder directive sections against the exact tree via sovereign coverage matrix; malformed declarations not treated as absent. · **Use:** rate founder directive sections against repository _(npm: `nullstar:reconcile`)_
+- [`nullstar-failure-debt.mjs`](../../scripts/nullstar-failure-debt.mjs) — Compiles the failure-debt ledger of real defects found in NULLSTAR measurement integrity and suites. · **Use:** pass diagnosed failures to next session _(npm: `nullstar:failure-debt`)_
+- [`nullstar-final-report.mjs`](../../scripts/nullstar-final-report.mjs) — Generates the NULLSTAR final report from artifacts and live measurements, DONE verdict from completion ledger count. · **Use:** computed final NULLSTAR report _(npm: `nullstar:final-report`)_
+- [`nullstar-ga1-ablation.mjs`](../../scripts/nullstar-ga1-ablation.mjs) — GA1 ablation running a minimal second-difference fix against the promoted polynomial difference solver. · **Use:** check whether GA1 promotion was general or a hard-coded case
+- [`nullstar-ga1.mjs`](../../scripts/nullstar-ga1.mjs) — GA1 tournament against pre-fixed criteria; held-out seeds scored once, simpler candidate wins ties. · **Use:** run NULLSTAR generation GA1 _(npm: `nullstar:ga1`)_
+- [`nullstar-ga2-ablation.mjs`](../../scripts/nullstar-ga2-ablation.mjs) — GA2 ablation adding only REPLICATED_MEASUREMENT to the incumbent ladder to test whether freshness did measured work. · **Use:** check whether GA2 closed vocabulary or reasoning gap
+- [`nullstar-ga3-ablation.mjs`](../../scripts/nullstar-ga3-ablation.mjs) — GA3 ablation confirming the null hardcode candidate lost, and recording a superset-accepting scoreComposition weakness. · **Use:** confirm GA3 result and document scorer flaw
+- [`nullstar-generalization-v2.mjs`](../../scripts/nullstar-generalization-v2.mjs) — Tests whether three promoted solvers generalize via fresh seeds, hand-built out-of-pattern items and stronger probes. · **Use:** distinguish learned mechanism from generator shape _(npm: `nullstar:generalization`)_
+- [`nullstar-generation.mjs`](../../scripts/nullstar-generation.mjs) — Parameterised NULLSTAR generation runner (GA2-GA8) with statically imported candidate sets and tie resolution. · **Use:** run any NULLSTAR generation under identical judging _(npm: `nullstar:generation`)_
+- [`nullstar-meta-improvement-v2.mjs`](../../scripts/nullstar-meta-improvement-v2.mjs) — Improves how generations are judged using out-of-pattern probes and backtests the criterion on GA1-GA3. · **Use:** meta-improvement of NULLSTAR evaluation _(npm: `nullstar:meta-improvement`)_
+- [`nullstar-omega-absolute-final-report.mjs`](../../scripts/nullstar-omega-absolute-final-report.mjs) — Generates NULLSTAR Omega Absolute final report from artifacts, refusing gate receipts not naming the exact source head. · **Use:** exact-head bound final report _(npm: `omega:final-report`)_
+- [`nullstar-omega-baselines.mjs`](../../scripts/nullstar-omega-baselines.mjs) — Executes baselines B0-B5 on sealed tasks, exposing that original corpus scored 6/6 by construction. · **Use:** show trivial baselines against NULLSTAR scores _(npm: `omega:baselines`)_
+- [`nullstar-omega-bottleneck.mjs`](../../scripts/nullstar-omega-bottleneck.mjs) — Ranks bottlenecks from latest generation evidence using a declared dependency graph and refuted-hypothesis memory. · **Use:** pick next NULLSTAR bottleneck _(npm: `omega:bottleneck`)_
+- [`nullstar-omega-denominator.mjs`](../../scripts/nullstar-omega-denominator.mjs) — Compiles the NULLSTAR denominator of dimensions against the tree, detecting removals and reading calibration receipt placement. · **Use:** track which dimensions are measured _(npm: `omega:denominator`)_
+- [`nullstar-omega-g0.mjs`](../../scripts/nullstar-omega-g0.mjs) — G0 anchor measurement from local deterministic suites, mutation kills, doctors and reachability; unmeasurable dimensions null. · **Use:** baseline anchor generation for NULLSTAR Omega _(npm: `omega:g0`)_
+- [`nullstar-omega-g1.mjs`](../../scripts/nullstar-omega-g1.mjs) — G1 derived-answer corpus testing whether G0 saturation was due to difficulty; falsifiable prediction recorded. · **Use:** run NULLSTAR Omega generation G1 _(npm: `omega:g1`)_
+- [`nullstar-omega-g2.mjs`](../../scripts/nullstar-omega-g2.mjs) — G2 recomputes bottleneck and tests for any model provider or local runtime, recording NO_PROMOTION if external gap. · **Use:** run NULLSTAR Omega generation G2 _(npm: `omega:g2`)_
+- [`nullstar-omega-g3.mjs`](../../scripts/nullstar-omega-g3.mjs) — G3 using outcome-based measures: calibration Brier scores, self-diagnosis resolution and cross-domain breakage. · **Use:** run NULLSTAR Omega generation G3 _(npm: `omega:g3`)_
+- [`nullstar-omega-g4.mjs`](../../scripts/nullstar-omega-g4.mjs) — G4 scores software dimension from git: share of new src modules never edited afterwards; recomputes selfDiagnosis. · **Use:** run NULLSTAR Omega generation G4 _(npm: `omega:g4`)_
+- [`nullstar-omega-g5.mjs`](../../scripts/nullstar-omega-g5.mjs) — G5 attempts remaining dimensions with evidence-reuse guard allowed to refuse scoring. · **Use:** run NULLSTAR Omega generation G5 _(npm: `omega:g5`)_
+- [`nullstar-omega-g6.mjs`](../../scripts/nullstar-omega-g6.mjs) — G6 re-records against G2 so carried saturated readings are excluded from the mean. · **Use:** correct mean across mixed instruments _(npm: `omega:g6`)_
+- [`nullstar-omega-generalization.mjs`](../../scripts/nullstar-omega-generalization.mjs) — Measures whether reality-connection discipline generalized to two new families using cross-domain transfer evaluator. · **Use:** evidence of method generalization _(npm: `omega:generalization`)_
+- [`nullstar-omega-meta.mjs`](../../scripts/nullstar-omega-meta.mjs) — Runs meta-improvement evaluation over recorded generation history, treating retrospective episodes as non-establishing. · **Use:** evaluate whether diagnosis improves over generations _(npm: `omega:meta`)_
+- [`nullstar-omega-reality-connect.mjs`](../../scripts/nullstar-omega-reality-connect.mjs) — Records sealed forecasts before running repository procedures, derives outcomes by fixed rules and scores forecasts. · **Use:** calibration ladder evidence for NULLSTAR _(npm: `omega:reality`)_
+- [`nullstar-omega-retire-suite.mjs`](../../scripts/nullstar-omega-retire-suite.mjs) — Retires the contaminated independent suite while preserving historical generation scores and marking the broken instrument. · **Use:** retire flawed measurement suite _(npm: `omega:retire-suite`)_
+- [`nullstar-omega-velocity.mjs`](../../scripts/nullstar-omega-velocity.mjs) — Computes improvement velocity across generations, returning INSUFFICIENT_DATA with too few generations. · **Use:** report NULLSTAR improvement velocity _(npm: `omega:velocity`)_
+- [`nullstar-probe-saturation.mjs`](../../scripts/nullstar-probe-saturation.mjs) — Enumerates the full invention prompt grammar space to evaluate the promoted solver beyond three hand-written probes. · **Use:** exhaustive probe coverage for promoted solver _(npm: `nullstar:probe-saturation`)_
+- [`nullstar-stranded-supersession.mjs`](../../scripts/nullstar-stranded-supersession.mjs) — Per-module archaeology checking whether stranded pre-rewrite src module exports or concepts exist on main; returns ABSENT when not. · **Use:** find lost concepts in pre-rewrite branches
+- [`ontological-representation-canary.mjs`](../../scripts/ontological-representation-canary.mjs) — Runs the ontological representation canary and fails when falsifier triggers. · **Use:** Omega lab ontological canary check _(npm: `moonshots:ontological-canary`)_
 
 ## Frontier cognition and model routing
 
-- [`absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) _(matched by name only; npm: `absolute:quality:doctor`)_
-- [`apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(matched by name only; npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
-- [`apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(matched by name only; npm: `apex:fqc:doctor`)_
-- [`canonical-execution-leaf-materializer.mjs`](../../scripts/canonical-execution-leaf-materializer.mjs) — exports generateCanonicalExecutionLeafGraph _(matched by name only)_
-- [`cognition-route-inventory-doctor.mjs`](../../scripts/cognition-route-inventory-doctor.mjs) _(matched by name only; npm: `infinite-opus:routes:doctor`)_
-- [`compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs) _(matched by name only)_
-- [`decision-franchise-million-benchmark.mjs`](../../scripts/decision-franchise-million-benchmark.mjs) _(matched by name only)_
-- [`execution-leaf-continuation-plan.mjs`](../../scripts/execution-leaf-continuation-plan.mjs) _(matched by name only)_
-- [`execution-leaf-graph-doctor.mjs`](../../scripts/execution-leaf-graph-doctor.mjs) _(matched by name only)_
-- [`frontier-brain-compile.mjs`](../../scripts/frontier-brain-compile.mjs) _(matched by name only)_
-- [`frontier-capability-closure-status.mjs`](../../scripts/frontier-capability-closure-status.mjs) _(matched by name only)_
-- [`frontier-intelligence-1000-canary.mjs`](../../scripts/frontier-intelligence-1000-canary.mjs) — exports FRONTIER_CANARY_RECORDS, buildFrontier1000CanaryInputs, runFrontier1000Canary _(matched by name only)_
-- [`frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs) _(matched by name only)_
-- [`frontier-model-team-doctor.mjs`](../../scripts/frontier-model-team-doctor.mjs) _(matched by name only; npm: `models:frontier:doctor`)_
-- [`frontier-surface-doctor.mjs`](../../scripts/frontier-surface-doctor.mjs) — Operator-only reachability surface for internally safe, already operator-eligible _(matched by name only)_
-- [`frontier-vm-v5-doctor.mjs`](../../scripts/frontier-vm-v5-doctor.mjs) _(matched by name only; npm: `frontier-vm:doctor`)_
-- [`infinite-opus-achieved-equivalence-doctor.mjs`](../../scripts/infinite-opus-achieved-equivalence-doctor.mjs) — exports runAchievedOpusEquivalenceDoctor _(matched by name only; npm: `infinite-opus:equivalence:doctor`)_
-- [`infinite-opus-astra-preflight.mjs`](../../scripts/infinite-opus-astra-preflight.mjs) _(matched by name only; npm: `infinite-opus:astra:preflight`)_
-- [`infinite-opus-crown-admission-mint.mjs`](../../scripts/infinite-opus-crown-admission-mint.mjs) _(matched by name only; npm: `infinite-opus:crown:admit`)_
-- [`infinite-opus-crown-autofinish.mjs`](../../scripts/infinite-opus-crown-autofinish.mjs) — exports runCrownAutoFinish _(matched by name only)_
-- [`infinite-opus-crown-financial-recovery.mjs`](../../scripts/infinite-opus-crown-financial-recovery.mjs) — exports RECOVERY_KEY, ORIGINAL_CLAIM, ORIGINAL_CALL, ORIGINAL_GENERATION, UNDISPATCHED (+2) _(matched by name only)_
-- [`infinite-opus-crown-interrupted-recovery.mjs`](../../scripts/infinite-opus-crown-interrupted-recovery.mjs) — exports reconcileInterruptedCrownGeneration _(matched by name only)_
-- [`infinite-opus-crown-recovery-diagnostic.mjs`](../../scripts/infinite-opus-crown-recovery-diagnostic.mjs) — exports readCrownRecoveryMetadata _(matched by name only)_
-- [`infinite-opus-crown-tournament-adjudicate.mjs`](../../scripts/infinite-opus-crown-tournament-adjudicate.mjs) _(matched by name only; npm: `infinite-opus:crown:tournament`)_
-- [`infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs) _(matched by name only)_
-- [`infinite-opus-haiku55-canary-reconcile.mjs`](../../scripts/infinite-opus-haiku55-canary-reconcile.mjs) — exports HAIKU55_RECONCILIATION_SCHEMA, reconcileHaiku55CanaryWithoutReplay _(matched by name only)_
-- [`infinite-opus-haiku55-live-canary.mjs`](../../scripts/infinite-opus-haiku55-live-canary.mjs) — exports HAIKU55_LIVE_CANARY_SETTING, HAIKU55_LIVE_CANARY_MAX_USD, runGovernedHaiku55LiveCanary, inspectGovernedHaiku55LiveCanaryState _(matched by name only)_
-- [`infinite-opus-hostile-test-doctor.mjs`](../../scripts/infinite-opus-hostile-test-doctor.mjs) _(matched by name only; npm: `infinite-opus:hostile:doctor`)_
-- [`infinite-opus-jev-live-canary.mjs`](../../scripts/infinite-opus-jev-live-canary.mjs) — exports JEV_LIVE_CANARY_SETTING, JEV_LIVE_CANARY_MAX_USD, runGovernedJevLiveCanary _(matched by name only)_
-- [`infinite-opus-jev-pagefault-triage.mjs`](../../scripts/infinite-opus-jev-pagefault-triage.mjs) — exports NATIVE_JEV_TRIAGE_MAX_CALLS, NATIVE_JEV_TRIAGE_MAX_TOTAL_USD, runPendingNativeJevTriage _(matched by name only)_
-- [`infinite-opus-market-refresh.mjs`](../../scripts/infinite-opus-market-refresh.mjs) _(matched by name only)_
-- [`infinite-opus-openrouter-budget-reconcile.mjs`](../../scripts/infinite-opus-openrouter-budget-reconcile.mjs) _(matched by name only; npm: `infinite-opus:budget:reconcile`)_
-- [`infinite-opus-openrouter-canary.mjs`](../../scripts/infinite-opus-openrouter-canary.mjs) _(matched by name only; npm: `infinite-opus:canary`)_
-- [`infinite-opus-owner-gate-launcher.mjs`](../../scripts/infinite-opus-owner-gate-launcher.mjs) _(matched by name only; npm: `infinite-opus:activate:owner-gate`)_
-- [`infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs) _(matched by name only)_
-- [`infinite-opus-preowner-doctor.mjs`](../../scripts/infinite-opus-preowner-doctor.mjs) _(matched by name only; npm: `infinite-opus:preowner:doctor`)_
-- [`infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) _(matched by name only; npm: `infinite-opus:recurrence`)_
-- [`infinite-opus-route-inventory.mjs`](../../scripts/infinite-opus-route-inventory.mjs) _(matched by name only; npm: `infinite-opus:routes`)_
-- [`infinite-opus-runtime-authorization-mint.mjs`](../../scripts/infinite-opus-runtime-authorization-mint.mjs) _(matched by name only; npm: `infinite-opus:runtime-auth:mint`)_
-- [`jev-calibration-doctor.mjs`](../../scripts/jev-calibration-doctor.mjs) _(matched by name only; npm: `jev:calibration`)_
-- [`jev-doctor.mjs`](../../scripts/jev-doctor.mjs) _(matched by name only; npm: `jev:doctor`)_
-- [`jev-native-runtime-tests.mjs`](../../scripts/jev-native-runtime-tests.mjs) — exports JEV_NATIVE_TEST_RECEIPT_SCHEMA, runJevNativeTests _(matched by name only)_
-- [`jev-scaled-preflight-doctor.mjs`](../../scripts/jev-scaled-preflight-doctor.mjs) — exports runJevScaledPreflightDoctor _(matched by name only)_
-- [`jev-shadow-route.mjs`](../../scripts/jev-shadow-route.mjs) _(matched by name only; npm: `jev:shadow:route`)_
-- [`jev-shared-state-tensor-doctor.mjs`](../../scripts/jev-shared-state-tensor-doctor.mjs) — exports JEV_TENSOR_DOCTOR_SCHEMA, runJevTensorStartupDoctor _(matched by name only)_
-- [`jev-tensor-one-shot-live-canary.mjs`](../../scripts/jev-tensor-one-shot-live-canary.mjs) — exports JEV_TENSOR_CANARY_KEY, JEV_TENSOR_CANARY_MAX_USD, JEV_TENSOR_CANARY_SCHEMA, JEV_TENSOR_SYNTHETIC_CANARY_REQUESTS, runJevTensorOneShotCanary _(matched by name only)_
-- [`jev-tensor-provider-metadata-readback.mjs`](../../scripts/jev-tensor-provider-metadata-readback.mjs) — exports JEV_TENSOR_METADATA_KEY, JEV_TENSOR_METADATA_SCHEMA, readJevTensorProviderBilling _(matched by name only)_
-- [`model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Operator entry point for the model-provider doctor. _(matched by name only; npm: `providers:doctor`)_
-- [`model-provider-runtime-probe.mjs`](../../scripts/model-provider-runtime-probe.mjs) _(matched by name only)_
-- [`native-capability-market-doctor.mjs`](../../scripts/native-capability-market-doctor.mjs) _(matched by name only)_
-- [`open-router-canon-doctor.mjs`](../../scripts/open-router-canon-doctor.mjs) — exports auditOpenRouterCanon _(matched by name only; npm: `open-router:canon:doctor`)_
-- [`open-router-vault-doctor.mjs`](../../scripts/open-router-vault-doctor.mjs) _(matched by name only; npm: `open-router:vault:doctor`)_
-- [`query-ubermind-library.py`](../../scripts/query-ubermind-library.py) _(matched by name only)_
-- [`reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs the epistemic organs over a supplied situation: what the search could not _(matched by name only; npm: `reasoning:doctor`)_
-- [`sandwich-autocatalytic-seed.mjs`](../../scripts/sandwich-autocatalytic-seed.mjs) — exports runSandwichAutocatalyticSeed _(matched by name only)_
-- [`sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) _(matched by name only)_
-- [`sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) _(matched by name only)_
+- [`absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) — Doctor checking the absolute frontier quality lock config and APEX campaign against quality delta, evidence confidence and policy digest. · **Use:** verify zero-quality-loss invariant config is consistent _(npm: `absolute:quality:doctor`)_
+- [`apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) — CLI compiling an APEX frontier-quality-compression external evidence packet and custodian request from campaign and optional inputs. · **Use:** prepare external evidence for the APEX campaign _(npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
+- [`apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) — Doctor preparing a fresh APEX campaign by joining campaign config with frontier model candidate registry. · **Use:** check APEX campaign candidates are well-formed _(npm: `apex:fqc:doctor`)_
+- [`canonical-execution-leaf-materializer.mjs`](../../scripts/canonical-execution-leaf-materializer.mjs) — CLI wrapper generating the canonical execution-leaf graph via the materializer module. · **Use:** regenerate canonical execution-leaf graph artifact
+- [`cognition-route-inventory-doctor.mjs`](../../scripts/cognition-route-inventory-doctor.mjs) — Scans source for direct provider endpoints and executor factories and compares to the declared cognition route inventory. · **Use:** detect undeclared model call paths _(npm: `infinite-opus:routes:doctor`)_
+- [`compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs) — Deliberately negative doctor ensuring synthetic fixtures never mint positive compound-intelligence receipts without observed task-set evidence. · **Use:** guard C13 compound intelligence evaluation
+- [`decision-franchise-million-benchmark.mjs`](../../scripts/decision-franchise-million-benchmark.mjs) — Benchmark fanning out 2,352,942 recurring source decisions through decision franchise batch and modelling reference economics. · **Use:** measure decision franchise fanout economics
+- [`execution-leaf-continuation-plan.mjs`](../../scripts/execution-leaf-continuation-plan.mjs) — CLI compiling execution-leaf continuation and checkpoint from inputs and writing outputs. · **Use:** plan next execution leaves and checkpoint
+- [`execution-leaf-graph-doctor.mjs`](../../scripts/execution-leaf-graph-doctor.mjs) — Doctor compiling a coverage-bound execution-leaf graph from synthetic coverage matrix rows. · **Use:** check execution-leaf graph compiler
+- [`frontier-brain-compile.mjs`](../../scripts/frontier-brain-compile.mjs) — Reads JSON from stdin and compiles a frontier brain via frontier capability fusion, emitting a receipt. · **Use:** compile fused frontier capability brain
+- [`frontier-capability-closure-status.mjs`](../../scripts/frontier-capability-closure-status.mjs) — Routes frontier capability closures using GENESIS implementation evidence and partial runtime proof receipt. · **Use:** status of frontier capability closures
+- [`frontier-intelligence-1000-canary.mjs`](../../scripts/frontier-intelligence-1000-canary.mjs) — Builds and runs a 1000-record frontier intelligence canary through the foundry. · **Use:** canary test of frontier intelligence foundry
+- [`frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs) — Worker running frontier learning cycles from Gamechanger receipts via adapter. · **Use:** learn from Gamechanger signals in frontier runtime
+- [`frontier-model-team-doctor.mjs`](../../scripts/frontier-model-team-doctor.mjs) — Validates frontier model candidate registry, role coverage and compiles a frontier model team mission. · **Use:** check frontier model team composition _(npm: `models:frontier:doctor`)_
+- [`frontier-surface-doctor.mjs`](../../scripts/frontier-surface-doctor.mjs) — Operator reachability surface for safe planning organs (domain plan, first-cash canary, absence doctor, sprint fulfilment, model provider) excluding gated modules. · **Use:** inventory operator-eligible planning organs
+- [`frontier-vm-v5-doctor.mjs`](../../scripts/frontier-vm-v5-doctor.mjs) — Checks Frontier VM v5 longitudinal campaign config and required open router canon documents for activation readiness. · **Use:** frontier VM activation readiness _(npm: `frontier-vm:doctor`)_
+- [`infinite-opus-achieved-equivalence-doctor.mjs`](../../scripts/infinite-opus-achieved-equivalence-doctor.mjs) — Doctor for the achieved Opus equivalence island. · **Use:** check claims of achieved Opus-equivalent quality _(npm: `infinite-opus:equivalence:doctor`)_
+- [`infinite-opus-astra-preflight.mjs`](../../scripts/infinite-opus-astra-preflight.mjs) — Inspects Infinite Opus activation environment and compiles cognition economic perimeter with $20 runtime key limit and fee rate. · **Use:** preflight before activating Infinite Opus spend _(npm: `infinite-opus:astra:preflight`)_
+- [`infinite-opus-crown-admission-mint.mjs`](../../scripts/infinite-opus-crown-admission-mint.mjs) — Mints a Crown admission receipt from tournament and call evidence files, refusing on missing inputs. · **Use:** admit a model to the Crown seat _(npm: `infinite-opus:crown:admit`)_
+- [`infinite-opus-crown-autofinish.mjs`](../../scripts/infinite-opus-crown-autofinish.mjs) — Crown auto-finish: conservative token bounds, persists identity before billing reconciliation, encrypted custody of responses, refuses drift. · **Use:** complete Crown tournament runs with financial recovery
+- [`infinite-opus-crown-financial-recovery.mjs`](../../scripts/infinite-opus-crown-financial-recovery.mjs) — Forensic reconstruction of an original Crown generation's financial state, explicitly not semantic evidence. · **Use:** reconcile cost of an earlier Crown call
+- [`infinite-opus-crown-interrupted-recovery.mjs`](../../scripts/infinite-opus-crown-interrupted-recovery.mjs) — Reconciles an interrupted Crown generation with one metadata GET, no inference or promotion. · **Use:** recover interrupted Crown call state
+- [`infinite-opus-crown-recovery-diagnostic.mjs`](../../scripts/infinite-opus-crown-recovery-diagnostic.mjs) — Zero-spend diagnostic reading bounded Crown recovery metadata without sealed payloads or secrets. · **Use:** inspect Crown checkpoint recovery state
+- [`infinite-opus-crown-tournament-adjudicate.mjs`](../../scripts/infinite-opus-crown-tournament-adjudicate.mjs) — Compiles and adjudicates a Crown tournament from input evidence, refusing invalid evidence. · **Use:** decide Crown tournament outcome _(npm: `infinite-opus:crown:tournament`)_
+- [`infinite-opus-doctor.mjs`](../../scripts/infinite-opus-doctor.mjs) — Doctor creating Infinite Opus runtime on temp JSON store, selecting price and factoring frontier residual cut. · **Use:** health check of Infinite Opus runtime
+- [`infinite-opus-haiku55-canary-reconcile.mjs`](../../scripts/infinite-opus-haiku55-canary-reconcile.mjs) — Reconciles a Haiku 5.5 canary without replay; missing IDs are not evidence of free or failed inference. · **Use:** settle uncertain Haiku canary call
+- [`infinite-opus-haiku55-live-canary.mjs`](../../scripts/infinite-opus-haiku55-live-canary.mjs) — Governed live Haiku 5.5 canary via OpenRouter adapter with max USD cap, cognition ledger and transport guard. · **Use:** one bounded paid model canary call
+- [`infinite-opus-hostile-test-doctor.mjs`](../../scripts/infinite-opus-hostile-test-doctor.mjs) — Checks the Infinite Opus hostile test matrix config has the right schema and exactly 27 required hostile cases. · **Use:** ensure all hostile cases are declared before activation _(npm: `infinite-opus:hostile:doctor`)_
+- [`infinite-opus-jev-live-canary.mjs`](../../scripts/infinite-opus-jev-live-canary.mjs) — Governed live Jev canary through the Jev runtime service with max USD cap setting. · **Use:** one bounded live Jev semantic call
+- [`infinite-opus-jev-pagefault-triage.mjs`](../../scripts/infinite-opus-jev-pagefault-triage.mjs) — Triages pending native Jev page faults with call and USD caps; no-op on zero pending, stops on any uncertain call. · **Use:** clear pending Jev escalations within budget
+- [`infinite-opus-market-refresh.mjs`](../../scripts/infinite-opus-market-refresh.mjs) — Public inference-free refresh of Infinite Opus model market prices; publishes only via --output. · **Use:** refresh model price market data
+- [`infinite-opus-openrouter-budget-reconcile.mjs`](../../scripts/infinite-opus-openrouter-budget-reconcile.mjs) — Reconciles OpenRouter member spending via management key against the cognition economic perimeter. · **Use:** check OpenRouter spend stays within budget guardrails _(npm: `infinite-opus:budget:reconcile`)_
+- [`infinite-opus-openrouter-canary.mjs`](../../scripts/infinite-opus-openrouter-canary.mjs) — Runs an OpenRouter canary through Infinite Opus runtime with governed adapter and cognition perimeter admission. · **Use:** live OpenRouter connectivity canary _(npm: `infinite-opus:canary`)_
+- [`infinite-opus-owner-gate-launcher.mjs`](../../scripts/infinite-opus-owner-gate-launcher.mjs) — Launcher requiring --execute, private authorization file and canary output path before spawning gated live canary. · **Use:** owner-gated launch of paid canary _(npm: `infinite-opus:activate:owner-gate`)_
+- [`infinite-opus-postgres-proof.mjs`](../../scripts/infinite-opus-postgres-proof.mjs) — Proof on disposable test database that two Postgres-backed Infinite Opus runtimes coordinate correctly. · **Use:** prove Infinite Opus runtime state works on Postgres
+- [`infinite-opus-preowner-doctor.mjs`](../../scripts/infinite-opus-preowner-doctor.mjs) — Pre-owner doctor running deterministic test suites without credentials plus perimeter and route inventory checks. · **Use:** gate before owner authorizes live Infinite Opus _(npm: `infinite-opus:preowner:doctor`)_
+- [`infinite-opus-recurrence-map.mjs`](../../scripts/infinite-opus-recurrence-map.mjs) — Walks src, scripts, api and config files to map recurring patterns and outputs a recurrence map. · **Use:** find recurring cognition work for crystallization _(npm: `infinite-opus:recurrence`)_
+- [`infinite-opus-route-inventory.mjs`](../../scripts/infinite-opus-route-inventory.mjs) — Walks source files and compares against declared cognition route inventory, writing output. · **Use:** inventory all model call routes _(npm: `infinite-opus:routes`)_
+- [`infinite-opus-runtime-authorization-mint.mjs`](../../scripts/infinite-opus-runtime-authorization-mint.mjs) — Mints runtime authorization file from private input, refusing without it; performs no spend. · **Use:** create owner authorization for Infinite Opus runtime _(npm: `infinite-opus:runtime-auth:mint`)_
+- [`jev-calibration-doctor.mjs`](../../scripts/jev-calibration-doctor.mjs) — Summarizes Jev semantic calibration from shadow ledger under UberLit runtime root by task class. · **Use:** report Jev calibration status _(npm: `jev:calibration`)_
+- [`jev-doctor.mjs`](../../scripts/jev-doctor.mjs) — Checks System One readiness with TypeSafe pricing env and compiles a semantic program via noetic autocompiler. · **Use:** Jev readiness doctor _(npm: `jev:doctor`)_
+- [`jev-native-runtime-tests.mjs`](../../scripts/jev-native-runtime-tests.mjs) — Runs Jev native runtime tests without secrets or model calls; failures return INCOMPLETE. · **Use:** receipt of Jev native test suite
+- [`jev-scaled-preflight-doctor.mjs`](../../scripts/jev-scaled-preflight-doctor.mjs) — Doctor running Jev scaled preflight checks. · **Use:** preflight before scaled Jev operation
+- [`jev-shadow-route.mjs`](../../scripts/jev-shadow-route.mjs) — Shadow-routes a mechanism through System One decision adapter using UberLit TypeSafe key. · **Use:** compare Jev routing decision in shadow mode _(npm: `jev:shadow:route`)_
+- [`jev-shared-state-tensor-doctor.mjs`](../../scripts/jev-shared-state-tensor-doctor.mjs) — Startup doctor for the Jev shared state tensor. · **Use:** check Jev shared state tensor on startup
+- [`jev-tensor-one-shot-live-canary.mjs`](../../scripts/jev-tensor-one-shot-live-canary.mjs) — One-shot live Jev tensor canary with max USD and synthetic routine/moderate/exceptional requests; unknown cost requires reconciliation not retry. · **Use:** one bounded paid Jev tensor test
+- [`jev-tensor-provider-metadata-readback.mjs`](../../scripts/jev-tensor-provider-metadata-readback.mjs) — Reads provider billing metadata for the Jev tensor canary at integer microdollar precision. · **Use:** reconcile Jev canary billing
+- [`model-provider-doctor.mjs`](../../scripts/model-provider-doctor.mjs) — Prints model provider lane presence (never values), exits 1 while no lane configured. · **Use:** show whether any model provider is configured _(npm: `providers:doctor`)_
+- [`model-provider-runtime-probe.mjs`](../../scripts/model-provider-runtime-probe.mjs) — Probes model executor factory and compiles model provider runtime evidence to an output file. · **Use:** evidence a model provider actually responds
+- [`native-capability-market-doctor.mjs`](../../scripts/native-capability-market-doctor.mjs) — Inspects native capability market for a source revision. · **Use:** report native capability market state
+- [`open-router-canon-doctor.mjs`](../../scripts/open-router-canon-doctor.mjs) — Audits the open router canon folder documents. · **Use:** check Frontier-Max open router canon integrity _(npm: `open-router:canon:doctor`)_
+- [`open-router-vault-doctor.mjs`](../../scripts/open-router-vault-doctor.mjs) — Checks required open router canon files (final system, 1000x lab, Jev hyperreflex, TypingMind, activation checklist) and concept markers. · **Use:** verify open router vault completeness _(npm: `open-router:vault:doctor`)_
+- [`query-ubermind-library.py`](../../scripts/query-ubermind-library.py) — Local bounded retrieval of exact snippets from the four private UberMind ZIP packs by query. · **Use:** search Grand Library sources locally
+- [`reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs unknown-unknown mining, assumption escape and N-of-1 personal science together on a synthetic situation. · **Use:** check epistemic organs compose _(npm: `reasoning:doctor`)_
+- [`sandwich-autocatalytic-seed.mjs`](../../scripts/sandwich-autocatalytic-seed.mjs) — Seeds the Sandwich autocatalytic governor with finite completion seed via GitHub relay. · **Use:** start autocatalytic Sandwich loop
+- [`sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) — Doctor building Sandwich fold mission, evidence binding, agent task and blueprint revision proposals. · **Use:** check Sandwich method pipeline
+- [`sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) — Compiles Sandwich method plan, evidence-bound sandwich, agent task and canonical leaf handoff, writing output. · **Use:** produce Sandwich agent task plans
 - [`semantic-requirement-tribunal.mjs`](../../scripts/semantic-requirement-tribunal.mjs) _(matched by name only)_
 - [`terminal-convergence.mjs`](../../scripts/terminal-convergence.mjs) _(matched by name only)_
 - [`terminal-realization.mjs`](../../scripts/terminal-realization.mjs) — exports truthFailureSummary, executeTerminalRealization
@@ -231,49 +231,49 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`ubermind-claude-ai-skill-pack.mjs`](../../scripts/ubermind-claude-ai-skill-pack.mjs) — Validates and packages the claude.ai-uploadable ubermind-lean skill. _(matched by name only)_
 - [`ubermind-cloud-market-doctor.mjs`](../../scripts/ubermind-cloud-market-doctor.mjs) _(matched by name only; npm: `ubermind:cloud:doctor`, `ubermind:cloud:catalog`)_
 - [`ubermind-conditional-agent-doctor.mjs`](../../scripts/ubermind-conditional-agent-doctor.mjs) — exports UBERMIND_OMEGA16_DOCTOR, uberMindOmega16ConditionalDoctor _(matched by name only)_
-- [`ubermind-five-percent-preflight.mjs`](../../scripts/ubermind-five-percent-preflight.mjs) — exports UBERMIND_FIVE_PERCENT_PREFLIGHT_SCHEMA, runUberMindFivePercentPreflight _(matched by name only)_
-- [`ubermind-public-issue-intake.mjs`](../../scripts/ubermind-public-issue-intake.mjs) — exports PUBLIC_ISSUE_INTAKE, capturePublicIssueWorkload _(matched by name only)_
-- [`ubermind-startup-context-audit.mjs`](../../scripts/ubermind-startup-context-audit.mjs) — exports UBERMIND_CONTEXT_AUDIT_SCHEMA, parseDirectClaudeImports, auditDirectClaudeImports _(matched by name only)_
-- [`ubermind-strategy-brief.mjs`](../../scripts/ubermind-strategy-brief.mjs) _(matched by name only)_
-- [`ubermind-w40-route-doctor.mjs`](../../scripts/ubermind-w40-route-doctor.mjs) — exports W40_ROUTE_DOCTOR, sampleUberMindW40Routes, evaluateUberMindW40ContractFile _(matched by name only)_
-- [`ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — exports W41_DOCTOR_SCHEMA, uberMindW41IllustrativeAuction _(matched by name only)_
+- [`ubermind-five-percent-preflight.mjs`](../../scripts/ubermind-five-percent-preflight.mjs) — Offline preflight that runs source-bound E1 proof execution and measures source bytes of startup context against a five-percent compression gate, no model calls · **Use:** check whether UberMind startup context compression target is met without claiming token savings
+- [`ubermind-public-issue-intake.mjs`](../../scripts/ubermind-public-issue-intake.mjs) — Read-only fetcher of 12 explicitly approved public GitHub issues as a workload, using the existing relay credential, with secret scrubbing and bounded concurrency · **Use:** capture public-issue tasks as untrusted UberMind/Jev evaluation workload
+- [`ubermind-startup-context-audit.mjs`](../../scripts/ubermind-startup-context-audit.mjs) — Parses top-level @path imports in CLAUDE.md and reports their source byte sizes, explicitly not the tokenizer bill · **Use:** audit how much material Claude startup imports load
+- [`ubermind-strategy-brief.mjs`](../../scripts/ubermind-strategy-brief.mjs) — CLI that compiles a strategic brief by combining Omega49 source selection, Omega51 evidence and Omega52 research pointers for a question · **Use:** produce an Opus strategy microbrief from Omega doctrine sources
+- [`ubermind-w40-route-doctor.mjs`](../../scripts/ubermind-w40-route-doctor.mjs) — Samples routes from the W40 evidence-first task compiler and evaluates contract files against it · **Use:** check UberMind W40 task routing contract health
+- [`ubermind-w41-proof-route-doctor.mjs`](../../scripts/ubermind-w41-proof-route-doctor.mjs) — Runs an illustrative W41 proof-constrained route auction across task kinds such as existing-proven-work, novel architecture and source lookup · **Use:** inspect how W41 auction routes tasks by proof requirements
 
 ## Capability Genome, skills and Wallbreaker
 
-- [`avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — exports runDoctor _(matched by name only; npm: `avengers:doctor`, `avengers:doctor:probe`)_
-- [`avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — exports runPlanner _(matched by name only; npm: `avengers:plan`)_
-- [`avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — exports runTick _(matched by name only; npm: `avengers:tick`, `avengers:tick:dry`)_
-- [`capability-genome-body-import.mjs`](../../scripts/capability-genome-body-import.mjs) _(matched by name only; npm: `capabilities:genome:body-import`)_
-- [`capability-genome-doctor.mjs`](../../scripts/capability-genome-doctor.mjs) _(matched by name only; npm: `capabilities:genome:doctor`)_
-- [`capability-genome-harvest.mjs`](../../scripts/capability-genome-harvest.mjs) _(matched by name only; npm: `capabilities:genome:harvest`)_
-- [`capability-genome-money-world-pulse.mjs`](../../scripts/capability-genome-money-world-pulse.mjs) — exports normalizeMoneyWorldCapabilityPulseInput _(matched by name only)_
-- [`capability-genome-normalize-bodies.mjs`](../../scripts/capability-genome-normalize-bodies.mjs) — Re-read the pinned skill bodies and normalize them into capability records. _(matched by name only; npm: `capabilities:genome:normalize`)_
-- [`capability-total-doctor.mjs`](../../scripts/capability-total-doctor.mjs) _(matched by name only)_
-- [`external-capability-doctor.mjs`](../../scripts/external-capability-doctor.mjs) _(matched by name only; npm: `capabilities:doctor`)_
-- [`missing-capability-build-path-doctor.mjs`](../../scripts/missing-capability-build-path-doctor.mjs) _(matched by name only)_
-- [`neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) _(matched by name only)_
-- [`neural-exocortex-compact.mjs`](../../scripts/neural-exocortex-compact.mjs) _(matched by name only)_
-- [`neural-repository-atlas.mjs`](../../scripts/neural-repository-atlas.mjs) _(matched by name only)_
-- [`neural-repository-harvest.mjs`](../../scripts/neural-repository-harvest.mjs) _(matched by name only)_
-- [`uberskills-doctor.mjs`](../../scripts/uberskills-doctor.mjs) _(matched by name only)_
-- [`wallbreaker-plan.mjs`](../../scripts/wallbreaker-plan.mjs) _(matched by name only; npm: `wallbreaker`)_
+- [`avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — Doctor for the Avengers arsenal using local discovery and arsenal config. · **Use:** report health of the Avengers agent arsenal _(npm: `avengers:doctor`, `avengers:doctor:probe`)_
+- [`avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — Planner CLI that runs the Avengers squad planner on artifact input. · **Use:** plan which Avengers agents handle a task _(npm: `avengers:plan`)_
+- [`avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — Tick CLI running Avengers execution guard over artifact input. · **Use:** execute one guarded Avengers squad step _(npm: `avengers:tick`, `avengers:tick:dry`)_
+- [`capability-genome-body-import.mjs`](../../scripts/capability-genome-body-import.mjs) — CLI reading pinned public GitHub skill bodies and building a measured skill body corpus record. · **Use:** import skill bodies into the Capability Genome pilot _(npm: `capabilities:genome:body-import`)_
+- [`capability-genome-doctor.mjs`](../../scripts/capability-genome-doctor.mjs) — Capability Genome doctor feeding actual normalized records and accepting committed pilot artifacts only when bindings match. · **Use:** capabilities:genome:doctor health report _(npm: `capabilities:genome:doctor`)_
+- [`capability-genome-harvest.mjs`](../../scripts/capability-genome-harvest.mjs) — CLI planning partitioned GitHub repository searches and executing measured harvest writing corpus batches externally. · **Use:** capabilities:genome:harvest discovery runs _(npm: `capabilities:genome:harvest`)_
+- [`capability-genome-money-world-pulse.mjs`](../../scripts/capability-genome-money-world-pulse.mjs) — Normalizes money-world capability pulse input using harvest and money atlas modules. · **Use:** harvest capabilities relevant to money flows
+- [`capability-genome-normalize-bodies.mjs`](../../scripts/capability-genome-normalize-bodies.mjs) — Re-reads pinned skill bodies by commit/blob and normalizes into capability records with hashes and matched phrases, no copied prose. · **Use:** capabilities:genome:normalize reproducible normalization _(npm: `capabilities:genome:normalize`)_
+- [`capability-total-doctor.mjs`](../../scripts/capability-total-doctor.mjs) — Doctor loading capability receipts and inspecting total capability state for a source revision. · **Use:** report overall capability inventory state
+- [`external-capability-doctor.mjs`](../../scripts/external-capability-doctor.mjs) — Validates the external skill/plugin registry and summarizes capability status with zero external effects. · **Use:** npm run capabilities:doctor host health _(npm: `capabilities:doctor`)_
+- [`missing-capability-build-path-doctor.mjs`](../../scripts/missing-capability-build-path-doctor.mjs) — Resolves missing capability build paths for required atoms using Capability Genome acquisition. · **Use:** plan how to build missing capabilities
+- [`neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) — Compiles the neural exocortex cognitive graph from an external capability corpus directory final manifest; refuses without corpus dir. · **Use:** refresh exocortex cognitive graph from harvested corpus
+- [`neural-exocortex-compact.mjs`](../../scripts/neural-exocortex-compact.mjs) — Compacts the external neural exocortex corpus toward the final capability target; requires external corpus dir. · **Use:** compact large harvested capability corpus
+- [`neural-repository-atlas.mjs`](../../scripts/neural-repository-atlas.mjs) — Compiles a neural repository atlas harvest plan for a target repository count and pushed-after date. · **Use:** plan large-scale GitHub repository atlas harvest
+- [`neural-repository-harvest.mjs`](../../scripts/neural-repository-harvest.mjs) — Executes partitioned GitHub harvest, normalizes capability observations and writes batches and state to external exocortex store. · **Use:** run repository atlas harvest batches
+- [`uberskills-doctor.mjs`](../../scripts/uberskills-doctor.mjs) — Compiles every registered UberSkill atom with doctor inputs, choosing data class by effect type, and reports results · **Use:** health check of UberSkills registry compilers
+- [`wallbreaker-plan.mjs`](../../scripts/wallbreaker-plan.mjs) — Reads a problem JSON from file or stdin and runs planWallbreakerCycle · **Use:** npm run wallbreaker entry for stuck missions _(npm: `wallbreaker`)_
 
 ## Agent mesh, relay and autonomy
 
-- [`agent-evolution-operator.mjs`](../../scripts/agent-evolution-operator.mjs) — Operator surface for UberBond's already-existing bounded self-improvement wave. _(matched by name only; npm: `agent-evolution:doctor`, `agent-evolution:run`)_
-- [`agent-mesh-tick.mjs`](../../scripts/agent-mesh-tick.mjs) — One finite invocation of the UberBond cognitive bus. _(matched by name only; npm: `mesh:tick`, `mesh:plan`)_
-- [`agent-model-route.mjs`](../../scripts/agent-model-route.mjs) — Zero-effect operator entry point for the model router. _(matched by name only)_
-- [`agent-native-commerce-doctor.mjs`](../../scripts/agent-native-commerce-doctor.mjs) _(matched by name only)_
-- [`durable-scheduler-wake-pulse-doctor.mjs`](../../scripts/durable-scheduler-wake-pulse-doctor.mjs) _(matched by name only)_
-- [`github-relay-roundtrip.mjs`](../../scripts/github-relay-roundtrip.mjs) — Live round-trip proof for the GitHub-mediated relay (src/github-relay.mjs). _(matched by name only)_
-- [`github-relay-worker.mjs`](../../scripts/github-relay-worker.mjs) — Device-off worker for the GitHub-mediated relay (src/github-relay.mjs). _(matched by name only)_
-- [`night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — exports FRONTIER_OPEN_MODEL_MUTATIONS, validateRegistrations _(matched by name only)_
-- [`night-verification-mutation-extension.mjs`](../../scripts/night-verification-mutation-extension.mjs) _(matched by name only)_
-- [`orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs) _(matched by name only)_
-- [`overnight-foundations-doctor.mjs`](../../scripts/overnight-foundations-doctor.mjs) — Zero-effect operator reachability for the overnight organism foundations. _(matched by name only)_
-- [`overnight-upgrade-plan.mjs`](../../scripts/overnight-upgrade-plan.mjs) — CLI entrypoint for the governed overnight capability loop. _(matched by name only; npm: `overnight:plan`)_
-- [`queue-smoke.mjs`](../../scripts/queue-smoke.mjs) _(matched by name only; npm: `smoke:queue`)_
-- [`relay-status.mjs`](../../scripts/relay-status.mjs) — What is the relay actually doing right now? _(matched by name only)_
+- [`agent-evolution-operator.mjs`](../../scripts/agent-evolution-operator.mjs) — Operator CLI composing self-upgrade proposals with agent-evolution wave and relay transports; default zero-I/O doctor, --execute runs one local preparation relay cycle. · **Use:** run one bounded self-improvement relay cycle without promotion authority _(npm: `agent-evolution:doctor`, `agent-evolution:run`)_
+- [`agent-mesh-tick.mjs`](../../scripts/agent-mesh-tick.mjs) — One finite invocation of the cognitive bus: pumps bounded runs, ticks each configured worker once, ingests results, with activation gate and escalation. · **Use:** first runnable entry point for the agent mesh from cron or command _(npm: `mesh:tick`, `mesh:plan`)_
+- [`agent-model-route.mjs`](../../scripts/agent-model-route.mjs) — Zero-effect CLI computing a model routing decision receipt from already-permitted worker set; calls no provider. · **Use:** preview which model a task would route to
+- [`agent-native-commerce-doctor.mjs`](../../scripts/agent-native-commerce-doctor.mjs) — Doctor building an agent commerce manifest, delegated agent identity and executing a sample quote command with scopes and spend caps. · **Use:** self-check of agent-native commerce command gating
+- [`durable-scheduler-wake-pulse-doctor.mjs`](../../scripts/durable-scheduler-wake-pulse-doctor.mjs) — Doctor exercising the durable scheduler wake pulse with in-memory store and deduplicating queue. · **Use:** check scheduler wake pulse idempotency
+- [`github-relay-roundtrip.mjs`](../../scripts/github-relay-roundtrip.mjs) — Live proof creating a real GitHub issue, claiming, heartbeating, submitting and closing, asserting exclusion guards fire. · **Use:** prove GitHub issues relay round trip
+- [`github-relay-worker.mjs`](../../scripts/github-relay-worker.mjs) — Device-off worker polling agent-relay:task issues, claiming one, running only allowlisted repository verification, posting result receipts. · **Use:** run relay verification tasks without founder device
+- [`night-verification-frontier-open-model-mutations.mjs`](../../scripts/night-verification-frontier-open-model-mutations.mjs) — Mutation registrations guarding frontier/open-model invariants: no parallel execution from overlap, no scheduling authority, licenses not commercial eligibility, private models rejected. · **Use:** night verification mutation tests for frontier organs
+- [`night-verification-mutation-extension.mjs`](../../scripts/night-verification-mutation-extension.mjs) — Extra mutation set for Wallbreaker guards: uncertain provider outcomes never regain identical retry, authority blocks forbid circumvention. · **Use:** prove Wallbreaker retry guards are tested
+- [`orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs) — Builds orchestrator discovery plan from inputs and writes output. · **Use:** discover external orchestration frameworks to evaluate
+- [`overnight-foundations-doctor.mjs`](../../scripts/overnight-foundations-doctor.mjs) — Zero-effect operator inspection of overnight foundation modules (world harvester, UI evolution, compute capacity, lifetime memory, metabolism). · **Use:** make overnight foundation organs inspectable
+- [`overnight-upgrade-plan.mjs`](../../scripts/overnight-upgrade-plan.mjs) — Consumes a capability/economics packet and prints a tournament plus GPT->Claude->test->review task graph; no network or writes. · **Use:** plan governed overnight capability upgrades _(npm: `overnight:plan`)_
+- [`queue-smoke.mjs`](../../scripts/queue-smoke.mjs) — Smoke test of DurableQueue on embedded Postgres: abandoned job reclaim and cross-process heartbeat visibility. · **Use:** verify durable queue recovery _(npm: `smoke:queue`)_
+- [`relay-status.mjs`](../../scripts/relay-status.mjs) — Read-only GitHub relay status computing IDLE, ACTIVE, STRANDED or STALLED from issues and comments. · **Use:** see whether relay queue needs a human
 - [`uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) _(matched by name only)_
 - [`uber-socket-activation-doctor.mjs`](../../scripts/uber-socket-activation-doctor.mjs) _(matched by name only)_
 - [`uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) _(matched by name only)_
@@ -282,19 +282,19 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 ## Self-maintenance and verification
 
-- [`check-syntax.mjs`](../../scripts/check-syntax.mjs) — Parse-check every source file in the repository. _(matched by name only; npm: `check:syntax`)_
-- [`composed-effect-authority-audit.mjs`](../../scripts/composed-effect-authority-audit.mjs) _(matched by name only)_
-- [`constitution-doctor.mjs`](../../scripts/constitution-doctor.mjs) — V3 A021. The Constitution Doctor. _(matched by name only; npm: `constitution:doctor`)_
-- [`constitutional-market-status.mjs`](../../scripts/constitutional-market-status.mjs) _(matched by name only)_
-- [`governance-organ-doctor.mjs`](../../scripts/governance-organ-doctor.mjs) — Zero-effect reachability surface for pure admission / evidence / governance organs. _(matched by name only)_
-- [`integration-smoke.mjs`](../../scripts/integration-smoke.mjs) _(matched by name only; npm: `smoke`)_
-- [`mutation-journal.mjs`](../../scripts/mutation-journal.mjs) — A verdict that does not survive an interruption is a verdict nobody gets. _(matched by name only)_
-- [`mutation-verdict.mjs`](../../scripts/mutation-verdict.mjs) — How a mutation is applied, and how the resulting run is judged. _(matched by name only)_
-- [`mutation-war.mjs`](../../scripts/mutation-war.mjs) — Wave 19's exit gate, executable. _(matched by name only; npm: `test:mutation-war`)_
-- [`organ-callability-inventory.mjs`](../../scripts/organ-callability-inventory.mjs) _(matched by name only)_
-- [`organism-foundations-doctor.mjs`](../../scripts/organism-foundations-doctor.mjs) — Zero-effect operator doctor for the overnight organism foundations. _(matched by name only; npm: `organism:doctor`)_
-- [`reachability-report.mjs`](../../scripts/reachability-report.mjs) _(matched by name only)_
-- [`run-tests.mjs`](../../scripts/run-tests.mjs) — Discover and run a test suite. _(matched by name only; npm: `test:deterministic`)_
+- [`check-syntax.mjs`](../../scripts/check-syntax.mjs) — Walks owned source directories and parse-checks every file, replacing a broken 8,000-char chained node --check script. · **Use:** npm run check:syntax gate _(npm: `check:syntax`)_
+- [`composed-effect-authority-audit.mjs`](../../scripts/composed-effect-authority-audit.mjs) — Audit scanning production source so only the canonical dispatcher calls provider adapters' mutating dispatch paths. · **Use:** enforce single authority path for external effects
+- [`constitution-doctor.mjs`](../../scripts/constitution-doctor.mjs) — Compiles canon into Directive Objects and reports uncompiled, untested and externally consequential rules not mentioned by tests. · **Use:** find constitutional rules lacking guards _(npm: `constitution:doctor`)_
+- [`constitutional-market-status.mjs`](../../scripts/constitutional-market-status.mjs) — Exercises OMNIA constitutional primitives: authority attenuation, recursive revocation, proof DAG, institution cells, founder exception market, minimax strategy. · **Use:** status check of constitutional market mechanisms
+- [`governance-organ-doctor.mjs`](../../scripts/governance-organ-doctor.mjs) — Zero-effect reachability surface importing pure admission/governance organs and exposing revision identities without invoking them. · **Use:** inventory governance organs for reachability
+- [`integration-smoke.mjs`](../../scripts/integration-smoke.mjs) — Integration smoke test running the app against a local fixture site with robots.txt to exercise crawl and audit flow. · **Use:** end-to-end smoke test of server _(npm: `smoke`)_
+- [`mutation-journal.mjs`](../../scripts/mutation-journal.mjs) — Append-only mutation verdict journal bound to exact mutation fingerprint so interrupted mutation war runs resume. · **Use:** preserve mutation war verdicts across restarts
+- [`mutation-verdict.mjs`](../../scripts/mutation-verdict.mjs) — Applies a mutation to a tree copy and classifies the suite run as killed or survived for the intended reason. · **Use:** judge mutation war outcomes correctly
+- [`mutation-war.mjs`](../../scripts/mutation-war.mjs) — Mutation War registry: literal source edits against safety invariants with named suites that must fail; every guard must kill a test. · **Use:** prove safety guards are actually tested _(npm: `test:mutation-war`)_
+- [`organ-callability-inventory.mjs`](../../scripts/organ-callability-inventory.mjs) — Compiles organ callability inventory over sovereign stack layers using reachability from founder interactive entry points. · **Use:** report which organs are actually callable
+- [`organism-foundations-doctor.mjs`](../../scripts/organism-foundations-doctor.mjs) — Zero-effect doctor importing overnight organism foundation modules and exposing their version identities to make them reachable. · **Use:** reachability for overnight foundation organs _(npm: `organism:doctor`)_
+- [`reachability-report.mjs`](../../scripts/reachability-report.mjs) — Emits reachability report receipt: src modules reachable from production, operator scripts only, or no entry point. · **Use:** measure dead versus wired modules
+- [`run-tests.mjs`](../../scripts/run-tests.mjs) — Discovers and runs test files, excluding browser/DB suites, deduping imported test files. · **Use:** npm test runner _(npm: `test:deterministic`)_
 - [`self-maintainer-continuation-receipt.mjs`](../../scripts/self-maintainer-continuation-receipt.mjs) _(matched by name only)_
 - [`self-maintainer-pulse-preflight.mjs`](../../scripts/self-maintainer-pulse-preflight.mjs) _(matched by name only)_
 - [`separate-services-smoke.mjs`](../../scripts/separate-services-smoke.mjs) _(matched by name only; npm: `smoke:services`)_
@@ -303,103 +303,103 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 ## Governance, authority and proof
 
-- [`consent-bridge-attribute.mjs`](../../scripts/consent-bridge-attribute.mjs) — Which requests on the website came from a printed code, and were they valid _(matched by name only; npm: `outreach:bridge-attribute`)_
-- [`consent-bridge-letters.mjs`](../../scripts/consent-bridge-letters.mjs) — Print-ready consent-bridge letters or hand-out cards for a short list of _(matched by name only; npm: `outreach:bridge-letters`)_
-- [`consent-bridge-plan.mjs`](../../scripts/consent-bridge-plan.mjs) — Plan a first-touch cohort: eligibility -> lawful channel -> invitation codes. _(matched by name only; npm: `outreach:bridge-plan`)_
+- [`consent-bridge-attribute.mjs`](../../scripts/consent-bridge-attribute.mjs) — Read-only CLI matching website lead exports to printed consent-bridge invitation codes and printing per-channel counts. · **Use:** attribute inbound requests to printed letters _(npm: `outreach:bridge-attribute`)_
+- [`consent-bridge-letters.mjs`](../../scripts/consent-bridge-letters.mjs) — Founder-run CLI crawling prospects' public pages, keeping verifiable findings, issuing invitation codes and writing printable letter HTML; sends nothing. · **Use:** produce printed consent-bridge letters for postal first touch _(npm: `outreach:bridge-letters`)_
+- [`consent-bridge-plan.mjs`](../../scripts/consent-bridge-plan.mjs) — Plans a first-touch cohort: recipient eligibility, lawful channel routing, and invitation codes to an external ledger. · **Use:** plan lawful first-touch cohort before letters or email _(npm: `outreach:bridge-plan`)_
 - [`supplier-exit-drill.mjs`](../../scripts/supplier-exit-drill.mjs) — Runs the exit drill for real, against real bytes. _(matched by name only)_
-- [`v7-artifact-index.mjs`](../../scripts/v7-artifact-index.mjs) — Maps every artifact the V7 contract names to what actually exists. _(matched by name only)_
-- [`v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — PHASE 3: the claims this repository makes about itself, and what backs them. _(matched by name only)_
-- [`v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates the six frontier artifacts the V7 contract names and this repository _(matched by name only)_
-- [`v7-gap-ledger.mjs`](../../scripts/v7-gap-ledger.mjs) — Recomputes the V7 gap ledger from current source. PHASE 1. _(matched by name only)_
-- [`v7-live-truth.mjs`](../../scripts/v7-live-truth.mjs) — PHASE 0: recover live truth. _(matched by name only)_
-- [`v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — PHASE 3: what each rule would require as proof, and what it actually has. _(matched by name only)_
+- [`v7-artifact-index.mjs`](../../scripts/v7-artifact-index.mjs) — Maps each of 31 artifacts named by the V7 contract to generated, covered-by-existing or absent, keeping absences counted · **Use:** show which V7 contract artifacts really exist
+- [`v7-claim-evidence-registry.mjs`](../../scripts/v7-claim-evidence-registry.mjs) — Lists claims repository artifacts make about itself and checks whether backing evidence was produced at the current head · **Use:** detect stale self-claims such as mutation counts or readiness
+- [`v7-frontier-artifacts.mjs`](../../scripts/v7-frontier-artifacts.mjs) — Generates six V7 frontier artifacts (baselines, evaluation epoch, mission DAG, resource allocation, checkpoint, final state) from one computation · **Use:** produce V7 frontier state artifacts for the current head
+- [`v7-gap-ledger.mjs`](../../scripts/v7-gap-ledger.mjs) — Recomputes the V7 gap ledger from source; each gap owns a check, including stranded uncommitted work, expired deployment evidence, unguarded effect directives · **Use:** decide which V7 gaps are open at this head
+- [`v7-live-truth.mjs`](../../scripts/v7-live-truth.mjs) — Phase 0 live truth recovery reading git, doctors and artifacts, recording unobservable fields as UNOBSERVED, including V9 materializer report · **Use:** snapshot current live truth at session start
+- [`v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — Classifies each constitutional rule by what kind of evidence could settle it versus what it has, separating guard-settleable from non-code rules · **Use:** turn unguarded-rule counts into honest proof obligations
 
 ## Email infrastructure and warmup
 
-- [`domain-purpose-plan.mjs`](../../scripts/domain-purpose-plan.mjs) — The intended purpose of every host under the two domains UberBond owns, and _(matched by name only; npm: `domain:plan`)_
+- [`domain-purpose-plan.mjs`](../../scripts/domain-purpose-plan.mjs) — Reports intended purpose of every host under UberBond's two domains and, with --live, read-only DNS observations; planned records never self-verify. · **Use:** compare domain plan with observed DNS _(npm: `domain:plan`)_
 - [`uberdoso-dns-publish.mjs`](../../scripts/uberdoso-dns-publish.mjs) — Publish the mail cell's DNS in one step after bring-up. _(matched by name only; npm: `uberdoso:dns-publish`)_
 - [`uberdoso-postal-provision.rb`](../../scripts/uberdoso-postal-provision.rb) _(matched by name only)_
 - [`uberdoso-status.mjs`](../../scripts/uberdoso-status.mjs) _(matched by name only)_
 - [`uberinboxes-apply.mjs`](../../scripts/uberinboxes-apply.mjs) _(matched by name only)_
-- [`uberwarm-ingress-live-doctor.mjs`](../../scripts/uberwarm-ingress-live-doctor.mjs) — Real, read-only provider+canonical Neon fence. Never prints credentials. _(matched by name only)_
-- [`uberwarm2-enroll-winnr-receiver.mjs`](../../scripts/uberwarm2-enroll-winnr-receiver.mjs) — Explicit one-mailbox enrollment. Encrypted credentials stay within Railway PostgreSQL. _(matched by name only)_
-- [`uberwarm2-live-read-doctor.mjs`](../../scripts/uberwarm2-live-read-doctor.mjs) — Read-only live Winnr inventory/sender diagnostics. No SMTP or writes. Usage: node scripts/uberwarm2-live-read-doctor.mjs --probe [--email=owner@domai… _(matched by name only)_
-- [`uberwarm2-migrate-operational-journal.mjs`](../../scripts/uberwarm2-migrate-operational-journal.mjs) — Explicit additive migration for the dedicated Railway ledger database only. _(matched by name only)_
-- [`uberwarm2-migrate-receiver-binding.mjs`](../../scripts/uberwarm2-migrate-receiver-binding.mjs) _(matched by name only)_
-- [`uberwarm2-railway-read-monitor.mjs`](../../scripts/uberwarm2-railway-read-monitor.mjs) — Bounded provider read check. Optional append-only operational receipts, never probe claims. _(matched by name only)_
-- [`uberwarm2-zero-paid-cycle.mjs`](../../scripts/uberwarm2-zero-paid-cycle.mjs) — Reuse the existing paid-for Railway cron for ONE privately approved, owner-controlled placement canary; no bulk mailing or paid warmer. The read moni… _(matched by name only)_
-- [`uberworm-agent-v2.mjs`](../../scripts/uberworm-agent-v2.mjs) _(matched by name only)_
-- [`winnr-post-purchase-doctor.mjs`](../../scripts/winnr-post-purchase-doctor.mjs) _(matched by name only; npm: `outreach:winnr:doctor`)_
+- [`uberwarm-ingress-live-doctor.mjs`](../../scripts/uberwarm-ingress-live-doctor.mjs) — Read-only check of a Winnr webhook registration and the canonical Neon ingress health, evaluated by the ingress fence · **Use:** confirm UberWarm webhook ingress is registered and healthy
+- [`uberwarm2-enroll-winnr-receiver.mjs`](../../scripts/uberwarm2-enroll-winnr-receiver.mjs) — Explicit one-mailbox enrollment of a Winnr mailbox as an UberWarm2 receiver, storing encrypted credentials in Railway Postgres · **Use:** bind a single receiver mailbox for warmup observation
+- [`uberwarm2-live-read-doctor.mjs`](../../scripts/uberwarm2-live-read-doctor.mjs) — Read-only Winnr probe printing aggregates: token permissions, paid-warming census, organic fleet admission, DNS spot-check, event-log telemetry · **Use:** observe live warmup and provider state without any writes
+- [`uberwarm2-migrate-operational-journal.mjs`](../../scripts/uberwarm2-migrate-operational-journal.mjs) — Additive migration for the dedicated Railway ledger database creating the operational journal tables with exact reviewed checks · **Use:** provision UberWarm2 operational journal schema
+- [`uberwarm2-migrate-receiver-binding.mjs`](../../scripts/uberwarm2-migrate-receiver-binding.mjs) — Authorization-gated pg migration applying receiver-binding schema in a transaction, refusing without --apply and env flag · **Use:** create receiver binding tables for UberWarm2
+- [`uberwarm2-railway-read-monitor.mjs`](../../scripts/uberwarm2-railway-read-monitor.mjs) — Bounded provider read check that optionally writes append-only operational receipts via the journal, receiver binding and Bobwork observer · **Use:** scheduled monitor of warmup provider state on Railway
+- [`uberwarm2-zero-paid-cycle.mjs`](../../scripts/uberwarm2-zero-paid-cycle.mjs) — Railway cron entry running the read monitor then at most one owner-approved placement canary via the signed one-shot executor; uncertain results block recurrence · **Use:** zero-spend single placement canary cycle on existing cron
+- [`uberworm-agent-v2.mjs`](../../scripts/uberworm-agent-v2.mjs) — Local host agent that polls queued commands, admits them through UberWorm policy with approved models, uses DPAPI token cache, disable file and log · **Use:** run approved queued commands on a founder Windows machine
+- [`winnr-post-purchase-doctor.mjs`](../../scripts/winnr-post-purchase-doctor.mjs) — Optional-probe Winnr client check producing a post-purchase checklist for a domain with redacted summaries · **Use:** verify a newly bought Winnr domain is set up _(npm: `outreach:winnr:doctor`)_
 
 ## Outreach and distribution
 
-- [`discovery-smoke.mjs`](../../scripts/discovery-smoke.mjs) _(matched by name only; npm: `smoke:discovery`)_
-- [`free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Operator doctor for the free-first outreach lane. _(matched by name only; npm: `outreach:free-first:doctor`)_
-- [`outbound-probes.mjs`](../../scripts/outbound-probes.mjs) _(matched by name only; npm: `probes:outbound`)_
-- [`outbound-safety-smoke.mjs`](../../scripts/outbound-safety-smoke.mjs) _(matched by name only; npm: `smoke:outbound`)_
-- [`outreach-drift-doctor.mjs`](../../scripts/outreach-drift-doctor.mjs) _(matched by name only; npm: `outreach:drift-doctor`)_
-- [`outreach-fleet-dns-observe.mjs`](../../scripts/outreach-fleet-dns-observe.mjs) — Observe public DNS for all 30 owned domains and print (or write) a receipt. _(matched by name only; npm: `outreach:fleet-dns`)_
-- [`outreach-launch-doctor.mjs`](../../scripts/outreach-launch-doctor.mjs) _(matched by name only)_
-- [`outreach-launch-facts.mjs`](../../scripts/outreach-launch-facts.mjs) — One owner action: fill one facts file, then let the machine report what is missing. _(matched by name only; npm: `outreach:launch-facts`)_
-- [`outreach-reachability-audit.mjs`](../../scripts/outreach-reachability-audit.mjs) — Phase A forensic gap compiler for the outreach/lead-generation organ. _(matched by name only; npm: `outreach:reachability-audit`)_
-- [`outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — exports OUTREACH_REALITY_DOCTOR_VERSION, runOutreachRealityDoctor _(matched by name only)_
-- [`recipient-eligibility.mjs`](../../scripts/recipient-eligibility.mjs) — Decide lawful eligibility for a batch of candidate recipients. _(matched by name only; npm: `outreach:eligibility`)_
-- [`uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs) _(matched by name only)_
-- [`uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs) _(matched by name only)_
-- [`uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs) _(matched by name only)_
-- [`uberoutbound-genome-verify.mjs`](../../scripts/uberoutbound-genome-verify.mjs) _(matched by name only)_
-- [`uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs) _(matched by name only)_
-- [`zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — exports runZeroBarrierOutreachDoctor _(matched by name only)_
+- [`discovery-smoke.mjs`](../../scripts/discovery-smoke.mjs) — Smoke test spawning the app against a mock OpenStreetMap-style endpoint returning clinic nodes to exercise prospect discovery end to end. · **Use:** verify public-web prospect discovery pipeline locally _(npm: `smoke:discovery`)_
+- [`free-first-outreach-doctor.mjs`](../../scripts/free-first-outreach-doctor.mjs) — Read-only doctor separating ~75,100 monthly policy transport capacity across sixteen providers from zero live sendable, listing smallest owner actions. · **Use:** free-first outreach provider readiness and owner action queue _(npm: `outreach:free-first:doctor`)_
+- [`outbound-probes.mjs`](../../scripts/outbound-probes.mjs) — Probes send safety functions: send eligibility, contact eligibility and delivery signal classification against a store. · **Use:** check outbound send safety rules _(npm: `probes:outbound`)_
+- [`outbound-safety-smoke.mjs`](../../scripts/outbound-safety-smoke.mjs) — Smoke test with embedded Postgres exercising pipeline outbound safety behavior. · **Use:** verify outbound safety on real database _(npm: `smoke:outbound`)_
+- [`outreach-drift-doctor.mjs`](../../scripts/outreach-drift-doctor.mjs) — Prints outreach drift report and exits non-zero on drift. · **Use:** detect drift in outreach configuration _(npm: `outreach:drift-doctor`)_
+- [`outreach-fleet-dns-observe.mjs`](../../scripts/outreach-fleet-dns-observe.mjs) — Observes public DNS for all 30 owned outreach domains and optionally writes a dated observation receipt. · **Use:** fleet DNS evidence for outreach domains _(npm: `outreach:fleet-dns`)_
+- [`outreach-launch-doctor.mjs`](../../scripts/outreach-launch-doctor.mjs) — Doctor evaluating outreach launch gate with synthetic genome and domain state, then governed outreach dispatch. · **Use:** check launch gate and dispatch logic
+- [`outreach-launch-facts.mjs`](../../scripts/outreach-launch-facts.mjs) — Initializes or compiles a private launch facts file (incl. postal address) outside repo, reporting what is missing. · **Use:** single owner action to supply launch facts _(npm: `outreach:launch-facts`)_
+- [`outreach-reachability-audit.mjs`](../../scripts/outreach-reachability-audit.mjs) — Forensic gap compiler classifying outreach/lead-gen modules by real static import callers. · **Use:** find unwired outreach modules _(npm: `outreach:reachability-audit`)_
+- [`outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — Doctor combining DNS verification, UberDoso kernel/activation and UberLaunch runtime evidence for outreach reality. · **Use:** check real outreach infrastructure state
+- [`recipient-eligibility.mjs`](../../scripts/recipient-eligibility.mjs) — Decides lawful eligibility for a batch of candidate recipients from shared context; outputs no raw addresses. · **Use:** gate recipients before outreach _(npm: `outreach:eligibility`)_
+- [`uberoutbound-genome-completion-doctor.mjs`](../../scripts/uberoutbound-genome-completion-doctor.mjs) — Checks UberOutbound genome decisions against policy registry tables: claim matrix, contradiction map, deliverability constitution, legal and industry policies, segment policies · **Use:** verify completeness of outbound message genome policy coverage
+- [`uberoutbound-genome-doctor.mjs`](../../scripts/uberoutbound-genome-doctor.mjs) — Exercises UberOutbound genome compilers (decision, genotype, rendered message receipt, outcome receipt, learning packet) against the 2026-09-14 research artifact and canon · **Use:** health check of cold-email message genome machinery
+- [`uberoutbound-genome-final-doctor.mjs`](../../scripts/uberoutbound-genome-final-doctor.mjs) — End-to-end doctor combining outbound genome, policy registry, research import reconciliation, promotion gate and UberReach control plane decisions · **Use:** final gate that outbound genome stack is consistent before promotion
+- [`uberoutbound-genome-verify.mjs`](../../scripts/uberoutbound-genome-verify.mjs) — Runs node --check syntax checks over outbound genome, policy, research import, promotion gate, UberReply and UberReach modules and their doctors · **Use:** one-shot syntax verification of the outbound genome module set
+- [`uberreply-four-offer-doctor.mjs`](../../scripts/uberreply-four-offer-doctor.mjs) — Checks the UberReply four-offer genome v2: offer portfolio, daily allocation target, fitness comparison and offer lifecycle · **Use:** verify four-offer reply portfolio allocation logic
+- [`zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — Checks the zero-barrier outreach fabric combining DePIN gateway, reputation credentials, UberMail JIT provisioning, attention stake ledger and UberZero substitution · **Use:** health of zero-spend outreach substitution path
 
 ## Commerce, payments and economics
 
-- [`contra-collection-doctor.mjs`](../../scripts/contra-collection-doctor.mjs) _(matched by name only)_
-- [`delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs) _(matched by name only)_
-- [`first-cash-canary-packet.mjs`](../../scripts/first-cash-canary-packet.mjs) — The one machine-consumable answer to "can UberBond take its first $450 yet", _(matched by name only; npm: `firstcash:packet`)_
-- [`inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe. _(matched by name only; npm: `inquiry:probe`)_
-- [`machiavelli-scoreboard.mjs`](../../scripts/machiavelli-scoreboard.mjs) — Machiavelli Reality Scoreboard. _(matched by name only)_
-- [`payment-rail-doctor.mjs`](../../scripts/payment-rail-doctor.mjs) — Which payment rail this runtime could actually take money through, and what _(matched by name only; npm: `payment:doctor`)_
-- [`revenue-decision-desk-doctor.mjs`](../../scripts/revenue-decision-desk-doctor.mjs) _(matched by name only)_
-- [`revenue-method-exchange.mjs`](../../scripts/revenue-method-exchange.mjs) _(matched by name only)_
-- [`revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local acceptance test, never a production pairing or economic receipt. _(matched by name only)_
-- [`review-probes.mjs`](../../scripts/review-probes.mjs) — Independent review probes — NOT part of the product. Attacks the 10 mission claims. _(matched by name only; npm: `probes`)_
+- [`contra-collection-doctor.mjs`](../../scripts/contra-collection-doctor.mjs) — CLI evaluating Contra account observation JSON for collection readiness and default first-cash project plan. · **Use:** check readiness to collect payment via Contra
+- [`delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs) — Doctor attempting a delivery with a fake provider, compiling fulfillment delivery event and evaluating acceptance window. · **Use:** check delivery transport contract
+- [`first-cash-canary-packet.mjs`](../../scripts/first-cash-canary-packet.mjs) — Prints the first-cash canary packet: whether UberBond can take its first $450, each gate named, canContact first. · **Use:** answer whether first paid canary may contact anyone _(npm: `firstcash:packet`)_
+- [`inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe for a website or cohort, writing JSON receipt and Markdown snapshot; optional headless browser witness. · **Use:** produce verifiable lead-path defects for prospects _(npm: `inquiry:probe`)_
+- [`machiavelli-scoreboard.mjs`](../../scripts/machiavelli-scoreboard.mjs) — Machiavelli Reality Scoreboard combining quant receipts, profit tournament and paper evidence into per-tier money reality and $0-$25k allocations. · **Use:** capital allocation scenarios without trading
+- [`payment-rail-doctor.mjs`](../../scripts/payment-rail-doctor.mjs) — Reports which payment rail could take money from env presence only; LIVE_READY needs provider receipt and fresh KYC attestation. · **Use:** payment readiness check _(npm: `payment:doctor`)_
+- [`revenue-decision-desk-doctor.mjs`](../../scripts/revenue-decision-desk-doctor.mjs) — Doctor running revenue decision desk on one synthetic action with expected cleared contribution and founder minutes. · **Use:** check revenue action selection
+- [`revenue-method-exchange.mjs`](../../scripts/revenue-method-exchange.mjs) — Compiles revenue method exchange from config file and optional output. · **Use:** rank revenue methods
+- [`revenue-terminal-webkit-proof.mjs`](../../scripts/revenue-terminal-webkit-proof.mjs) — Local WebKit acceptance test of revenue terminal UI touch pinch handlers across Money, Demand, Proof, Outreach lenses. · **Use:** iPad interaction proof for Revenue Constellation
+- [`review-probes.mjs`](../../scripts/review-probes.mjs) — Independent review probes attacking discovery claims: Overpass QL injection, dry runs, website gating, dedup, attribution, auth errors. · **Use:** adversarial review of prospect discovery _(npm: `probes`)_
 - [`single-audit-radar.mjs`](../../scripts/single-audit-radar.mjs) — Single Audit Obligation Radar: read-only public data -> dated forecasts. _(matched by name only)_
-- [`verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Sale rehearsal for the Verified Inquiry-Path Defects mechanism: runs the _(matched by name only)_
-- [`visual-qa.mjs`](../../scripts/visual-qa.mjs) _(matched by name only; npm: `visual`)_
+- [`verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Runs the Verified Inquiry-Path Defects sale protocol against real public websites with a recording ledger, re-verifying a first-seen finding registry for decay · **Use:** rehearse defect-audit sale without charging or sending
+- [`visual-qa.mjs`](../../scripts/visual-qa.mjs) — Playwright Chromium script rendering storefront pages at several viewport sizes into previews directory · **Use:** visual QA screenshots of public UI _(npm: `visual`)_
 
 ## Opportunity and world intelligence
 
-- [`event-horizon-doctor.mjs`](../../scripts/event-horizon-doctor.mjs) — exports EVENT_HORIZON_ARTIFACT_PATH _(matched by name only; npm: `event-horizon:doctor`)_
-- [`opportunity-factory-dry-run.mjs`](../../scripts/opportunity-factory-dry-run.mjs) _(matched by name only)_
-- [`public-signal-harvest.mjs`](../../scripts/public-signal-harvest.mjs) _(matched by name only)_
-- [`quant-lab.mjs`](../../scripts/quant-lab.mjs) — Machiavelli quant lab: load verified public data, run the pre-registered _(matched by name only)_
-- [`web-runtime-host-drill.mjs`](../../scripts/web-runtime-host-drill.mjs) _(matched by name only)_
-- [`world-brain-field-mission-doctor.mjs`](../../scripts/world-brain-field-mission-doctor.mjs) — exports WORLD_BRAIN_FIELD_MISSION_ROOT _(matched by name only; npm: `world-brain:doctor`)_
+- [`event-horizon-doctor.mjs`](../../scripts/event-horizon-doctor.mjs) — Validates the Event Horizon artifact and checks its research SHA exists in git history, UNKNOWN_NO_GIT for tarballs. · **Use:** npm run event-horizon:doctor before commercial allocation changes _(npm: `event-horizon:doctor`)_
+- [`opportunity-factory-dry-run.mjs`](../../scripts/opportunity-factory-dry-run.mjs) — Dry run evaluating seed register opportunities, compiling opportunity packets and canary prospect drafts. · **Use:** exercise opportunity factory on seed register
+- [`public-signal-harvest.mjs`](../../scripts/public-signal-harvest.mjs) — Compiles X listening plan or dedupes/atomizes public posts into Gamechanger observations from stdin. · **Use:** turn public social posts into frontier signals
+- [`quant-lab.mjs`](../../scripts/quant-lab.mjs) — Machiavelli quant lab: loads verified public crypto data, runs pre-registered experiments with holdout and Treasury hurdle, writes receipt; no orders. · **Use:** research-only strategy experiments
+- [`web-runtime-host-drill.mjs`](../../scripts/web-runtime-host-drill.mjs) — Spawns the web runtime on a free port in a temp dir and compiles a web runtime host receipt from the drill · **Use:** prove web server boots on a host
+- [`world-brain-field-mission-doctor.mjs`](../../scripts/world-brain-field-mission-doctor.mjs) — Doctor for the World Brain field mission module · **Use:** check World Brain field mission state _(npm: `world-brain:doctor`)_
 
 ## Sovereign infrastructure and runtime
 
-- [`bootstrap-external-capabilities.mjs`](../../scripts/bootstrap-external-capabilities.mjs) _(npm: `capabilities:bootstrap`, `capabilities:bootstrap:apply`)_
-- [`build-ubermind-knowledge-archives.py`](../../scripts/build-ubermind-knowledge-archives.py) _(matched by name only)_
-- [`build-ubermind-library-index.py`](../../scripts/build-ubermind-library-index.py) _(matched by name only)_
-- [`compute-sovereignty-doctor.mjs`](../../scripts/compute-sovereignty-doctor.mjs) _(matched by name only; npm: `compute:doctor`)_
-- [`contabo-mail-cell-preflight.mjs`](../../scripts/contabo-mail-cell-preflight.mjs) _(matched by name only)_
-- [`deploy-restart-recovery-drill.mjs`](../../scripts/deploy-restart-recovery-drill.mjs) _(matched by name only)_
-- [`disposable-postgres.mjs`](../../scripts/disposable-postgres.mjs) — One PostgreSQL server, for one unit of work, thrown away afterwards. _(matched by name only)_
-- [`free-runtime-burst.mjs`](../../scripts/free-runtime-burst.mjs) _(matched by name only)_
-- [`free-runtime-witness.mjs`](../../scripts/free-runtime-witness.mjs) _(matched by name only)_
-- [`global-policy-evidence.mjs`](../../scripts/global-policy-evidence.mjs) — Policy-evidence doctor and recorder for the Global Green-Lane Router. _(matched by name only; npm: `outreach:green-lane:doctor`, `outreach:green-lane:record`)_
-- [`hydrate-embedded-postgres-fixture.mjs`](../../scripts/hydrate-embedded-postgres-fixture.mjs) — exports APPROVED_EMBEDDED_POSTGRES_VERSION, APPROVED_EMBEDDED_POSTGRES_SPEC, hydratePinnedEmbeddedPostgresFixture _(matched by name only)_
-- [`import-json.mjs`](../../scripts/import-json.mjs) _(matched by name only; npm: `db:import-json`)_
-- [`migrate.mjs`](../../scripts/migrate.mjs) _(matched by name only; npm: `db:migrate`)_
-- [`postgres-app-smoke.mjs`](../../scripts/postgres-app-smoke.mjs) _(matched by name only; npm: `smoke:postgres-app`)_
-- [`postgres-backup-restore-rehearsal.mjs`](../../scripts/postgres-backup-restore-rehearsal.mjs) _(matched by name only)_
-- [`postgres-smoke.mjs`](../../scripts/postgres-smoke.mjs) _(matched by name only; npm: `smoke:postgres`)_
-- [`prepare-embedded-postgres-fixture.mjs`](../../scripts/prepare-embedded-postgres-fixture.mjs) — exports prepareEmbeddedPostgresFixture _(matched by name only)_
-- [`provider-neutral-backend-doctor.mjs`](../../scripts/provider-neutral-backend-doctor.mjs) — exports inspectPortableBackend _(matched by name only)_
-- [`render-temp-build-bypass.cjs`](../../scripts/render-temp-build-bypass.cjs)
-- [`run-real-postgres-tests.mjs`](../../scripts/run-real-postgres-tests.mjs) — Run the suites that need a real PostgreSQL, serially. _(matched by name only; npm: `test:postgres-real`)_
-- [`runtime-transition-assertion.mjs`](../../scripts/runtime-transition-assertion.mjs) _(matched by name only)_
-- [`seed.mjs`](../../scripts/seed.mjs) _(matched by name only; npm: `seed`)_
+- [`bootstrap-external-capabilities.mjs`](../../scripts/bootstrap-external-capabilities.mjs) — Host package bootstrap for external capabilities; refuses plans that grow credential-configuring or service-starting steps before spawning, using effect ledgers. · **Use:** capabilities:bootstrap installing approved host runtimes _(npm: `capabilities:bootstrap`, `capabilities:bootstrap:apply`)_
+- [`build-ubermind-knowledge-archives.py`](../../scripts/build-ubermind-knowledge-archives.py) — Python script building UberMind knowledge ZIP archives from tracked scoped source and canon assets, excluding env, credentials and logs. · **Use:** produce Grand Library ZIPs for ChatGPT Project upload
+- [`build-ubermind-library-index.py`](../../scripts/build-ubermind-library-index.py) — Python script generating a searchable index of the UberMind Grand Library archives with truth notes about 890 ideas and archive names. · **Use:** searchable companion index for ChatGPT Project sources
+- [`compute-sovereignty-doctor.mjs`](../../scripts/compute-sovereignty-doctor.mjs) — CLI normalizing compute offers and allocating sovereign compute from args. · **Use:** choose compute providers under sovereignty constraints _(npm: `compute:doctor`)_
+- [`contabo-mail-cell-preflight.mjs`](../../scripts/contabo-mail-cell-preflight.mjs) — Runs the UberCloud Contabo preflight operator and prints JSON result. · **Use:** preflight check for Contabo mail cell host
+- [`deploy-restart-recovery-drill.mjs`](../../scripts/deploy-restart-recovery-drill.mjs) — Drill using test Postgres to simulate deploy restart and compile a restart recovery receipt. · **Use:** prove state survives deploy restarts
+- [`disposable-postgres.mjs`](../../scripts/disposable-postgres.mjs) — Starts one throwaway PostgreSQL server per unit of work (dedicated OS user since initdb forbids root) to isolate DB-backed mutation tests. · **Use:** isolated database for mutation war database guards
+- [`free-runtime-burst.mjs`](../../scripts/free-runtime-burst.mjs) — Runs a universal wealth job burst with bounded search cells and canaries, writing latest burst artifact. · **Use:** free runtime compute burst for wealth engine
+- [`free-runtime-witness.mjs`](../../scripts/free-runtime-witness.mjs) — Writes a free-runtime witness receipt with source SHA, event and run id, runtimeAlive, no effect authority. · **Use:** prove a free CI runtime executed
+- [`global-policy-evidence.mjs`](../../scripts/global-policy-evidence.mjs) — Doctor and recorder for Global Green-Lane Router policy evidence; hashes retrieved source text and validates authority before writing rows. · **Use:** record jurisdiction policy evidence for green-lane routing _(npm: `outreach:green-lane:doctor`, `outreach:green-lane:record`)_
+- [`hydrate-embedded-postgres-fixture.mjs`](../../scripts/hydrate-embedded-postgres-fixture.mjs) — Hydrates a pinned approved embedded Postgres version for test fixtures. · **Use:** provide embedded Postgres for tests
+- [`import-json.mjs`](../../scripts/import-json.mjs) — Imports a JSON file database into PostgresStore with dry-run and report output. · **Use:** migrate legacy JSON data into Postgres _(npm: `db:import-json`)_
+- [`migrate.mjs`](../../scripts/migrate.mjs) — Applies PostgreSQL migrations by initializing PostgresStore with DATABASE_URL. · **Use:** run database migrations at deploy _(npm: `db:migrate`)_
+- [`postgres-app-smoke.mjs`](../../scripts/postgres-app-smoke.mjs) — Smoke test booting app on embedded Postgres and checking summary backend and revenue event recording. · **Use:** verify app runs on PostgreSQL _(npm: `smoke:postgres-app`)_
+- [`postgres-backup-restore-rehearsal.mjs`](../../scripts/postgres-backup-restore-rehearsal.mjs) — Runs Postgres backup and restore rehearsal through pg adapter, tagged with git head. · **Use:** prove database backups restore
+- [`postgres-smoke.mjs`](../../scripts/postgres-smoke.mjs) — Smoke test of PostgresStore on embedded Postgres including JSON import and conflict errors. · **Use:** verify store behavior on Postgres _(npm: `smoke:postgres`)_
+- [`prepare-embedded-postgres-fixture.mjs`](../../scripts/prepare-embedded-postgres-fixture.mjs) — Prepares embedded Postgres fixture for the platform. · **Use:** test database fixture setup
+- [`provider-neutral-backend-doctor.mjs`](../../scripts/provider-neutral-backend-doctor.mjs) — Inspects provider-neutral backend entrypoint ensuring wrappers never bypass canonical external authentication facade. · **Use:** guard portable backend auth regression
+- [`render-temp-build-bypass.cjs`](../../scripts/render-temp-build-bypass.cjs) — Preload that exits early when a specific env flag and node -e module invocation indicate a temporary Render build override. · **Use:** skip temporary Render build step
+- [`run-real-postgres-tests.mjs`](../../scripts/run-real-postgres-tests.mjs) — Runs ~42 real-Postgres-requiring suites serially each in its own database. · **Use:** execute crash recovery and race tests _(npm: `test:postgres-real`)_
+- [`runtime-transition-assertion.mjs`](../../scripts/runtime-transition-assertion.mjs) — Compiles durable workload, cutover rollback or provider loss assertions from input files. · **Use:** receipts for runtime migration transitions
+- [`seed.mjs`](../../scripts/seed.mjs) — Seeds local JSON database with demo Global Digital Opportunity Scan campaign for audit offer with daily caps. · **Use:** initialize demo data for local app _(npm: `seed`)_
 - [`source-repository-host-drill.mjs`](../../scripts/source-repository-host-drill.mjs) _(matched by name only)_
 - [`sovereign-24x7-acceptance.mjs`](../../scripts/sovereign-24x7-acceptance.mjs) _(matched by name only)_
 - [`sovereign-autonomy-pulse.mjs`](../../scripts/sovereign-autonomy-pulse.mjs) — exports SOVEREIGN_AUTONOMY_PULSE_VERSION, compileLocalAutonomyState, runSovereignAutonomyPulse _(matched by name only)_
@@ -454,30 +454,30 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`uberlit-typesafe-secret.mjs`](../../scripts/uberlit-typesafe-secret.mjs) _(matched by name only; npm: `jev:uberlit:secret`)_
 - [`uberlit-worker-supervisor.mjs`](../../scripts/uberlit-worker-supervisor.mjs) _(matched by name only)_
 - [`uberlit.mjs`](../../scripts/uberlit.mjs) _(matched by name only)_
-- [`uberocean-admit-oracle-host.mjs`](../../scripts/uberocean-admit-oracle-host.mjs) _(matched by name only; npm: `uberocean:admit:oracle`)_
-- [`uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) _(matched by name only)_
-- [`uberstatic.mjs`](../../scripts/uberstatic.mjs) _(matched by name only)_
-- [`uberwatt-ollama-benchmark.ps1`](../../scripts/uberwatt-ollama-benchmark.ps1) _(matched by name only)_
-- [`uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1) _(matched by name only)_
-- [`vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs) _(matched by name only)_
-- [`vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs) _(matched by name only)_
-- [`vercel-immutable-install.mjs`](../../scripts/vercel-immutable-install.mjs) — exports VERCEL_IMMUTABLE_INSTALL_VERSION, parsePorcelainPaths, packageTruthDirt, compileVercelImmutableInstallPlan, executeVercelImmutableInstall _(matched by name only)_
-- [`verify-ubermind-archives.py`](../../scripts/verify-ubermind-archives.py) _(matched by name only)_
-- [`verify-uberwarm-railway-callback.mjs`](../../scripts/verify-uberwarm-railway-callback.mjs) _(matched by name only)_
-- [`verify-uberwarm-two-store-optout.mjs`](../../scripts/verify-uberwarm-two-store-optout.mjs) _(matched by name only)_
-- [`with-real-postgres.mjs`](../../scripts/with-real-postgres.mjs) — Run a command against a real, disposable PostgreSQL. _(matched by name only; npm: `test:postgres-real:embedded`, `test:mutation-war:full`)_
+- [`uberocean-admit-oracle-host.mjs`](../../scripts/uberocean-admit-oracle-host.mjs) — Compiles an admission decision for an Oracle free-tier host from owner evidence under the UberLit runtime root, probing via https and child processes · **Use:** admit Oracle Always Free host into UberOcean/UberLit runtime _(npm: `uberocean:admit:oracle`)_
+- [`uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) — Loads the UberOS generation-0 machine manifest and runs the system compiler on it, printing a JSON status · **Use:** validate UBER/OS generation 0 manifest
+- [`uberstatic.mjs`](../../scripts/uberstatic.mjs) — CLI to compile, write, activate, verify, list, roll back, delete and serve UberStatic static deployments with a pointer file · **Use:** operate the owned static-site deployment runtime
+- [`uberwatt-ollama-benchmark.ps1`](../../scripts/uberwatt-ollama-benchmark.ps1) — PowerShell script, content unreadable in digest; name indicates benchmarking local Ollama models on a Windows host · **Use:** measure local model performance for UberWatt energy-compute program
+- [`uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1) — PowerShell script, content unreadable in digest; name indicates a Windows host readiness doctor for UberWatt · **Use:** check Windows machine readiness for UberWatt compute
+- [`vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs) — Vercel build for the command center that first runs first-party civilization and independence contracts (UberGraph, UberMind, UberDNA, UberCloud, Ubercel) · **Use:** resurrection gate during command center deployment build
+- [`vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs) — Build sequence regenerating feature genome, atom atlas, synaptic map, deep atlas and ultimate graph, then syntax checks UI graph files · **Use:** build the command center visual graph for Vercel
+- [`vercel-immutable-install.mjs`](../../scripts/vercel-immutable-install.mjs) — Plans and executes a Vercel install that refuses when git porcelain shows package truth files dirtied · **Use:** keep Vercel dependency installs immutable
+- [`verify-ubermind-archives.py`](../../scripts/verify-ubermind-archives.py) — Offline Python validator of the four UberMind grand-library ZIPs, testing integrity and hashing members · **Use:** verify grand library archives before attaching to projects
+- [`verify-uberwarm-railway-callback.mjs`](../../scripts/verify-uberwarm-railway-callback.mjs) — Disposable Postgres test of the UberWarm callback service creating a railway database and verifying signed unsubscribe handling · **Use:** prove callback sidecar works against real Postgres
+- [`verify-uberwarm-two-store-optout.mjs`](../../scripts/verify-uberwarm-two-store-optout.mjs) — Large disposable-Postgres verification unpacking the Neon private opt-out function zip and checking opt-out across two stores · **Use:** prove opt-out suppression holds across canonical and private stores
+- [`with-real-postgres.mjs`](../../scripts/with-real-postgres.mjs) — Wraps a command with a disposable embedded PostgreSQL so real-database tests and mutation war guards run instead of skipping · **Use:** collect real-Postgres evidence in any environment _(npm: `test:postgres-real:embedded`, `test:mutation-war:full`)_
 
 ## Founder operations and command center
 
-- [`founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — If the founder turns the device off, what actually keeps running -- and what _(matched by name only; npm: `absence:doctor`)_
-- [`founder-economic-mission-pulse.mjs`](../../scripts/founder-economic-mission-pulse.mjs) — exports compileReliabilityPulse, runFounderEconomicMissionPulse _(matched by name only)_
-- [`founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) _(matched by name only)_
-- [`kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits the KILIMANJARO completion manifest from measured facts. _(matched by name only; npm: `manifest:kilimanjaro`)_
+- [`founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — Reports what keeps running if the founder device is off, classifies blockers, blocks CODE_READY while credential/account/payment blockers open. · **Use:** founder-absence readiness and smallest owner action _(npm: `absence:doctor`)_
+- [`founder-economic-mission-pulse.mjs`](../../scripts/founder-economic-mission-pulse.mjs) — Runs founder outcome mission with economic reliability control loop, input builder and autoprep against store and queue. · **Use:** periodic economic reliability pulse for founder mission
+- [`founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) — Probes the founder ops endpoint with admin token and compiles a runtime probe receipt with verifier and evidence refs. · **Use:** evidence that founder ops page is live
+- [`kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits Kilimanjaro completion manifest counted from repository plus parsed TAP suite totals; effect axes asserted zero. · **Use:** measured Kilimanjaro completion manifest _(npm: `manifest:kilimanjaro`)_
 - [`system-readiness.mjs`](../../scripts/system-readiness.mjs) — Produce artifacts/system-readiness.json from measured facts, not from claims. _(matched by name only; npm: `readiness`)_
 
 ## Core and uncategorised
 
-- [`compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — exports compileLatestFounderOutcomeMission _(matched by name only)_
-- [`materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) _(matched by name only)_
-- [`record-oracle-free-owner-evidence.mjs`](../../scripts/record-oracle-free-owner-evidence.mjs) _(matched by name only; npm: `oracle:record-free-evidence`)_
+- [`compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — CLI compiling the latest founder outcome mission. · **Use:** produce current founder outcome mission packet
+- [`materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) — Python materializer reconstructing the Inevitability Engine V9 source from base64 carrier, verifying manifest hashes. · **Use:** rebuild hash-locked V9 source from carrier
+- [`record-oracle-free-owner-evidence.mjs`](../../scripts/record-oracle-free-owner-evidence.mjs) — Records owner evidence for Oracle Always Free setup with source ref and incremental cost into UberLit runtime artifacts. · **Use:** evidence of zero-spend Oracle host activation _(npm: `oracle:record-free-evidence`)_
 - [`sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) _(matched by name only)_

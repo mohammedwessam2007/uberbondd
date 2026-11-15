@@ -6,26 +6,36 @@ UberWatt energy program and the moonshot energy/compute substrate mesh.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**7 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**11 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
 ## Read first (3)
 
-- [`docs/UBERWATT_FIRST_WINDOWS_NODE.md`](../UBERWATT_FIRST_WINDOWS_NODE.md) — UberWatt first Windows compute node — Status: SAFE FIRST-NODE BOOTSTRAP / NO MAINS CONTROL / NO POWER-LIMIT TUNING _(matched by name only)_
-- [`docs/UBERWATT_V0.md`](../UBERWATT_V0.md) — UberWatt v0 — Status: OBSERVATION-ONLY HOME ENERGY / COMPUTE-BUDGET CANARY _(matched by name only)_
-- [`docs/MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md`](../MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md) — 2026-09-22 · 890 Moonshot Energy / Compute / Model Mesh — Status: source integration; routing coverage, not 890 implementations _(matched by name only)_
+- [`docs/UBERWATT_FIRST_WINDOWS_NODE.md`](../UBERWATT_FIRST_WINDOWS_NODE.md) — Runbook turning a Windows HP into first UberWatt compute node with Ollama, physical safety rules and read-only hardware doctor script. · **Use:** set up first local compute node safely
+- [`docs/UBERWATT_V0.md`](../UBERWATT_V0.md) — Observation-only protocol recording utility meter kWh intervals to build energy baseline before any compute-budget savings claim. · **Use:** measure household energy for compute budget
+- [`docs/MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md`](../MOONSHOT_890_ENERGY_COMPUTE_MESH_20260922.md) — 2026-09-22 · Doc that every 890 moonshot has a substrate route UberWatt energy -> local cells -> model ladder -> reality gate, via moonshot-substrate-mesh. · **Use:** route moonshot realization through compute/energy substrate
 
-## Source modules (1)
+## Commands (1)
 
+`npm run moonshots:substrate-mesh`
+
+## Source modules (2)
+
+- [`src/moonshot-substrate-mesh.mjs`](../../src/moonshot-substrate-mesh.mjs) — Compiles moonshot substrate mesh and execution waves. · **Use:** Route 890 ideas to execution substrates _(tested; imported by 2)_
 - [`src/uberwatt.mjs`](../../src/uberwatt.mjs) — exports UBERWATT_SCHEMA, DEFAULT_JOULES_PER_OUTPUT_TOKEN, compileEnergyInterval, compileVerifiedSavings, compileEnergyEquivalentCompute (+6) _(matched by name only; tested; no static importers)_
 
-## Scripts (2)
+## Scripts (3)
 
-- [`scripts/uberwatt-ollama-benchmark.ps1`](../../scripts/uberwatt-ollama-benchmark.ps1) _(matched by name only)_
-- [`scripts/uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1) _(matched by name only)_
+- [`scripts/moonshot-substrate-mesh-doctor.mjs`](../../scripts/moonshot-substrate-mesh-doctor.mjs) — Loads 890 corpus, realization ledger and technology tree, compiles substrate mesh and validates. · **Use:** check moonshot substrate routing _(npm: `moonshots:substrate-mesh`)_
+- [`scripts/uberwatt-ollama-benchmark.ps1`](../../scripts/uberwatt-ollama-benchmark.ps1) — PowerShell script, content unreadable in digest; name indicates benchmarking local Ollama models on a Windows host · **Use:** measure local model performance for UberWatt energy-compute program
+- [`scripts/uberwatt-windows-doctor.ps1`](../../scripts/uberwatt-windows-doctor.ps1) — PowerShell script, content unreadable in digest; name indicates a Windows host readiness doctor for UberWatt · **Use:** check Windows machine readiness for UberWatt compute
 
-## Tests (1)
+## Config, data, artifacts and services (1)
 
-[`uberwatt`](../../tests/uberwatt.test.mjs)
+- [`artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json`](../../artifacts/genesis/realizations/genesis-candidate-20260922-self-0009.json) — 2026-09-22 · Realization record for 'Blackout-First Compute Planner' with simulated fault replay. · **Use:** track one GENESIS candidate realization
+
+## Tests (2)
+
+[`moonshot-substrate-mesh`](../../tests/moonshot-substrate-mesh.test.mjs) · [`uberwatt`](../../tests/uberwatt.test.mjs)
 

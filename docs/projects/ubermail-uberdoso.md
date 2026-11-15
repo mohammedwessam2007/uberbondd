@@ -6,14 +6,17 @@ Owned mail stack: UberMail agent API, foundry and JIT provisioning; UberDoso ker
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**48 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**65 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (2)
+## Read first (5)
 
-- [`docs/MAILHUB_PROVIDER_ADAPTERS.md`](../MAILHUB_PROVIDER_ADAPTERS.md) — UberBond MailHub provider-adapter layer — Status: implemented in the integration branch; no provider credential is configured and no external call, purchase, DNS mutation, mailbox creation,… _(matched by name only)_
-- [`docs/UBERMAIL_AGENT_API.md`](../UBERMAIL_AGENT_API.md) — UberMail Agent API — Status: clean-room private AgentMail-like control plane implemented for UberBond. This is not AgentMail source code, branding, infrastructure or an impersonation of the… _(matched by name only)_
+- [`docs/UBER_EGRESS_AND_QUALITY_CAPACITY.md`](../UBER_EGRESS_AND_QUALITY_CAPACITY.md) — Defines quality-preserving daily max as min of mailbox, domain, egress, recipient budget, quality lead inventory; UberMail Foundry 200 Stalwart aliases. · **Use:** cap outreach volume by real bottlenecks
+- [`docs/UBERINBOXES.md`](../UBERINBOXES.md) — Doc of uberinboxes fleet layer: 16 founder-alias mailboxes over two roots, PLANNED/ACCEPTED/OBSERVED states, gated apply script. · **Use:** materialize mailbox fleet via providers
+- [`docs/UBERMAIL_AGENT_API.md`](../UBERMAIL_AGENT_API.md) — Clean-room AgentMail-like control plane over UberDoso Postal stack: inbox lifecycle, threads, drafts, webhooks, scoped keys. · **Use:** developer mailbox API for agents
+- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Review of sender providers' terms (OutInfra, Google Workspace, Mailpool, Maildoso) concluding none is purchase-ready for the prospecting route. · **Use:** decide which mail provider can lawfully be bought
+- [`docs/UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md`](../UBERRELAY_AUTHORIZED_EGRESS_2026-09-26.md) — 2026-09-26 · Doc of UberRelay converting observed SMTP/HTTP relay provider facts (terms, authorization, reputation, capacity) into UberEgress route receipts; zero send authority. · **Use:** admit third-party mail transport into egress topology
 
 ## Commands (1)
 
@@ -21,51 +24,58 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Documents that discuss this project without naming it in the filename (9)
 
-- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · UberBond Outreach SaaS Extinction Ledger — Truth class: SOURCE IMPLEMENTATION + EXTERNAL ACTIVATION BLOCKERS. No provider purchase, DNS mutation, credential entry, or real message send is c… _(matched by name only)_ _(5 mentions)_
-- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · UberBond outreach arsenal — full inventory _(matched by name only)_ _(5 mentions)_
+- [`docs/OUTREACH_SAAS_EXTINCTION_2026-09-26.md`](../OUTREACH_SAAS_EXTINCTION_2026-09-26.md) — 2026-09-26 · Ledger replacing outreach SaaS with owned modules (UberMaildoso, UberFleet, UberReply etc.) plus 2026-10-01 UberWarm2 supersession of warm-up procurement. · **Use:** track which outreach SaaS spend is replaced and remaining blockers _(5 mentions)_
+- [`docs/UBER_OUTREACH_ARSENAL_2026-09-25.md`](../UBER_OUTREACH_ARSENAL_2026-09-25.md) — 2026-09-25 · Inventory of 107 Uber* modules and ~100 outreach/lead modules layer by layer with PRs, replaced SaaS and state; 1,083 tests pass. · **Use:** full map of outreach machinery _(5 mentions)_
 - [`docs/AGENTMAIL_ADAPTER.md`](../AGENTMAIL_ADAPTER.md) — AgentMail Adapter _(matched by name only)_ _(3 mentions)_
 - [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(matched by name only)_ _(3 mentions)_
-- [`docs/UBERINBOXES_CAPACITY_DECISION_2026-09-14.md`](../UBERINBOXES_CAPACITY_DECISION_2026-09-14.md) — 2026-09-14 · UberInboxes capacity decision — 2026-09-14 _(matched by name only)_ _(3 mentions)_
-- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — )}); } _(matched by name only)_ _(3 mentions)_
-- [`tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt`](../../tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt) — let body; _(matched by name only)_ _(3 mentions)_
-- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — req); } _(matched by name only)_ _(3 mentions)_
-- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final mission record referenced by the current handoff. _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERINBOXES_CAPACITY_DECISION_2026-09-14.md`](../UBERINBOXES_CAPACITY_DECISION_2026-09-14.md) — 2026-09-14 · Dated decision comparing Icemail Azure/SMTP capacity per domain and conflicting prices; requires live quote before purchase. · **Use:** size mailbox fleet capacity _(3 mentions)_
+- [`tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt`](../../tests/fixtures/retired-startup-guards/crown-safe-state-inventory.txt) — Frozen excerpt of server.mjs Infinite Opus admin routes (capital campaigns, franchises, contexts) at the retired Crown inventory guard. · **Use:** Fixture for retired startup-guard regression test _(3 mentions)_
+- [`tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt`](../../tests/fixtures/retired-startup-guards/owner-authorized-crown-resume-once.txt) — Frozen server.mjs excerpt of Infinite Opus routes and harden wrapper around the retired owner-authorized Crown resume guard. · **Use:** Fixture for retired Crown resume guard test _(3 mentions)_
+- [`tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt`](../../tests/fixtures/retired-startup-guards/r3-candidate-reconciliation.txt) — Frozen server.mjs excerpt of Infinite Opus capital asset and franchise routes for the retired R3 candidate reconciliation guard. · **Use:** Fixture for retired startup-guard test _(3 mentions)_
+- [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final report dated 2026-09-25: zero effects, $0 revenue, closed software gaps for lawful first batch, print-card $0 path, founder-only remaining actions. · **Use:** evidence of first-cash readiness state and remaining founder actions _(3 mentions)_
 
-## Source modules (19)
+## Source modules (22)
 
-- [`src/mailhub-control-plane.mjs`](../../src/mailhub-control-plane.mjs) — UberBond MailHub: provider-neutral control plane for domain/mailbox _(matched by name only; tested; imported by 1)_
-- [`src/uberdoso-activation.mjs`](../../src/uberdoso-activation.mjs) — exports UBERDOSO_ACTIVATION_VERSION, UBERDOSO_POSTAL_GIT_COMMIT, UBERDOSO_INSTALL_HELPER_COMMIT, UBERDOSO_MIN_HOST, compileUberDosoActivation _(matched by name only; tested; imported by 2)_
-- [`src/uberdoso-delivery-policy.mjs`](../../src/uberdoso-delivery-policy.mjs) — exports UBERDOSO_DELIVERY_POLICY_VERSION, UBERDOSO_ALLOWED_RELATIONSHIPS, compileUberDosoDeliveryEligibility _(matched by name only; tested; imported by 1)_
-- [`src/uberdoso-dns-contract.mjs`](../../src/uberdoso-dns-contract.mjs) — exports UBERDOSO_DNS_CONTRACT_VERSION, compileUberDosoVerifierContracts _(matched by name only; tested; imported by 2)_
-- [`src/uberdoso-dns-publication.mjs`](../../src/uberdoso-dns-publication.mjs) — Mail-cell bring-up output -> exact DNS publication packet. _(matched by name only; tested; imported by 1)_
-- [`src/uberdoso-job-handler.mjs`](../../src/uberdoso-job-handler.mjs) — exports UBERDOSO_JOB_VERSION, runUberDosoJob _(matched by name only; tested; imported by 1)_
-- [`src/uberdoso-kernel.mjs`](../../src/uberdoso-kernel.mjs) — exports UBERDOSO_POLICY_VERSION, UBERDOSO_POSTAL_VERSION, UBERDOSO_ROOTS, UBERDOSO_MAX_MAILBOXES_PER_DOMAIN, UBERDOSO_DEFAULT_COOLDOWN_DAYS (+5) _(matched by name only; tested; imported by 10)_
-- [`src/uberimap.mjs`](../../src/uberimap.mjs) — exports UBERIMAP_VERSION, connectImapSocket, parseRawEmail, buildEncryptedImapAccount, openImapCredential (+2) _(matched by name only; tested; imported by 9)_
-- [`src/ubermail-agent-api.mjs`](../../src/ubermail-agent-api.mjs) — exports UBERMAIL_AGENT_API_VERSION, UBERMAIL_AGENT_API_SCHEMA, UberMailError, createMemoryUberMailRepository, createUberMailAgentApi (+1) _(matched by name only; tested; imported by 2)_
-- [`src/ubermail-agent-http.mjs`](../../src/ubermail-agent-http.mjs) — exports UBERMAIL_AGENT_HTTP_VERSION, createUberMailAgentHttp _(matched by name only; tested; imported by 1)_
-- [`src/ubermail-capacity-exchange.mjs`](../../src/ubermail-capacity-exchange.mjs) — exports evaluateMailCapacityOffer, compileUberMailExchange _(matched by name only; imported by 1)_
-- [`src/ubermail-file-repository.mjs`](../../src/ubermail-file-repository.mjs) — exports UBERMAIL_FILE_REPOSITORY_VERSION, createFileUberMailRepository _(matched by name only; imported by 1)_
-- [`src/ubermail-foundry.mjs`](../../src/ubermail-foundry.mjs) — exports UBERMAIL_FOUNDRY_VERSION, UBERMAIL_FOUNDRY_BACKEND, compileUberMailFoundry _(matched by name only; tested; no static importers)_
-- [`src/ubermail-jit-provisioning.mjs`](../../src/ubermail-jit-provisioning.mjs) — exports compileJitProvisioningPlan _(matched by name only; imported by 1)_
-- [`src/ubermail-runtime.mjs`](../../src/ubermail-runtime.mjs) — exports UBERMAIL_RUNTIME_VERSION, defaultUberMailStatePath, createUberMailRuntime _(matched by name only; tested; imported by 1)_
-- [`src/ubermail-uberdoso-bridge.mjs`](../../src/ubermail-uberdoso-bridge.mjs) — exports UBERMAIL_UBERDOSO_BRIDGE_VERSION, createUberMailUberDosoTransport _(matched by name only; tested; imported by 1)_
-- [`src/ubermaildoso-evidence-sync.mjs`](../../src/ubermaildoso-evidence-sync.mjs) — exports UBERMAILDOSO_EVIDENCE_SYNC_VERSION, compileMaildosoEvidenceSnapshot, syncMaildosoEvidence _(matched by name only; tested; imported by 1)_
-- [`src/ubermaildoso.mjs`](../../src/ubermaildoso.mjs) — exports UBERMAILDOSO_VERSION, createUberMaildosoAdapter _(matched by name only; tested; imported by 2)_
+- [`src/agentmail-adapter.mjs`](../../src/agentmail-adapter.mjs) — Clean-room AgentMail inbox API adapter with idempotent provisioning, send/reply, bounded reads, redacted receipts; sends refused as non-admitted route · **Use:** optional AgentMail inbox provider integration _(tested; imported by 1)_
+- [`src/mailhub-control-plane.mjs`](../../src/mailhub-control-plane.mjs) — Provider-neutral domain/mailbox control plane: capability discovery, provisioning plans, readiness, sender-route ranking and receipts. · **Use:** Manage mail infrastructure across providers _(tested; imported by 1)_
+- [`src/omnia-v9/integrations/providers/postal-effect-adapter.mjs`](../../src/omnia-v9/integrations/providers/postal-effect-adapter.mjs) — Postal mail server effect adapter mapping Postal statuses, HTTPS-only config and provider effect identity. · **Use:** Send/reconcile owned Postal effects under V9 _(tested; imported by 1)_
+- [`src/provider-http-adapters.mjs`](../../src/provider-http-adapters.mjs) — HTTP adapters for Icemail, Mailforge, Maildoso and generic providers: approval-gated idempotent writes, DNS snapshots, mailbox status, zero-paid route denial · **Use:** talk to mailbox/domain infrastructure vendors _(tested; imported by 4)_
+- [`src/ubercloud-contabo-cell-actuator.mjs`](../../src/ubercloud-contabo-cell-actuator.mjs) — Plans, acquires and reconciles a Contabo mail cell via a Contabo API client · **Use:** buy and set up a Contabo host for mail _(tested; imported by 1)_
+- [`src/uberdoso-activation.mjs`](../../src/uberdoso-activation.mjs) — Compiles UberDoso activation pinned to Postal and install helper commits with minimum host spec · **Use:** activate self-hosted Postal mail cell _(tested; imported by 2)_
+- [`src/uberdoso-delivery-policy.mjs`](../../src/uberdoso-delivery-policy.mjs) — Compiles delivery eligibility for allowed sender-recipient relationships · **Use:** restrict who UberDoso may deliver to _(tested; imported by 1)_
+- [`src/uberdoso-dns-contract.mjs`](../../src/uberdoso-dns-contract.mjs) — Compiles verifier contracts for UberDoso DNS records · **Use:** verify mail DNS publication _(tested; imported by 2)_
+- [`src/uberdoso-dns-publication.mjs`](../../src/uberdoso-dns-publication.mjs) — Turns mail cell bring-up output (IP, PTR, DKIM) into DNS plan, GoDaddy record list and verifier contracts; publishes nothing · **Use:** prepare DNS publication for the Postal mail cell _(tested; imported by 1)_
+- [`src/uberdoso-job-handler.mjs`](../../src/uberdoso-job-handler.mjs) — Job handler running UberDoso cycles with sending domain and mailbox registries · **Use:** scheduled UberDoso maintenance _(tested; imported by 1)_
+- [`src/uberdoso-kernel.mjs`](../../src/uberdoso-kernel.mjs) — UberDoso topology over owned roots and 28-domain fleet, DNS plan, sender selection, cooldown and self-healing · **Use:** core policy of the self-hosted mail stack _(tested; imported by 10)_
+- [`src/ubermail-agent-api.mjs`](../../src/ubermail-agent-api.mjs) — UberMail agent API with repository abstraction, error types and HTTP error mapping · **Use:** agent-facing owned mail API _(tested; imported by 2)_
+- [`src/ubermail-agent-http.mjs`](../../src/ubermail-agent-http.mjs) — HTTP server wrapper exposing the UberMail agent API · **Use:** serve UberMail API over HTTP _(tested; imported by 1)_
+- [`src/ubermail-capacity-exchange.mjs`](../../src/ubermail-capacity-exchange.mjs) — Evaluates mail capacity offers and compiles an UberMail exchange · **Use:** trade/compare mail capacity _(imported by 1)_
+- [`src/ubermail-file-repository.mjs`](../../src/ubermail-file-repository.mjs) — File-backed repository for UberMail state · **Use:** persist UberMail data on disk _(imported by 1)_
+- [`src/ubermail-foundry.mjs`](../../src/ubermail-foundry.mjs) — Compiles mailbox identities for an owned Stalwart deployment · **Use:** plan sovereign mailboxes _(tested; no static importers)_
+- [`src/ubermail-jit-provisioning.mjs`](../../src/ubermail-jit-provisioning.mjs) — Compiles just-in-time mailbox provisioning plan · **Use:** provision mailboxes on demand _(imported by 1)_
+- [`src/ubermail-runtime.mjs`](../../src/ubermail-runtime.mjs) — Creates UberMail runtime combining agent API, HTTP, file repository and UberDoso transport · **Use:** boot UberMail service _(tested; imported by 1)_
+- [`src/ubermail-uberdoso-bridge.mjs`](../../src/ubermail-uberdoso-bridge.mjs) — Transport bridging UberMail to UberDoso Postal delivery · **Use:** send UberMail through Postal _(tested; imported by 1)_
+- [`src/ubermaildoso-evidence-sync.mjs`](../../src/ubermaildoso-evidence-sync.mjs) — Compiles Maildoso evidence snapshots and syncs into the sending mailbox registry · **Use:** keep mailbox registry aligned with Maildoso _(tested; imported by 1)_
+- [`src/ubermaildoso.mjs`](../../src/ubermaildoso.mjs) — Maildoso adapter requiring scoped approvals and spend limits, refusing any paid warm-up keys and path traversal · **Use:** governed Maildoso API access _(tested; imported by 2)_
 - [`src/ubersmtp-submission-adapter.mjs`](../../src/ubersmtp-submission-adapter.mjs) — exports UBERSMTP_SUBMISSION_VERSION, classifySmtpTransportError, createUberSmtpSubmissionTransport _(matched by name only; tested; imported by 3)_
 
-## Scripts (3)
+## Scripts (6)
 
+- [`scripts/contabo-mail-cell-preflight.mjs`](../../scripts/contabo-mail-cell-preflight.mjs) — Runs the UberCloud Contabo preflight operator and prints JSON result. · **Use:** preflight check for Contabo mail cell host
+- [`scripts/outreach-reality-doctor.mjs`](../../scripts/outreach-reality-doctor.mjs) — Doctor combining DNS verification, UberDoso kernel/activation and UberLaunch runtime evidence for outreach reality. · **Use:** check real outreach infrastructure state
 - [`scripts/uberdoso-dns-publish.mjs`](../../scripts/uberdoso-dns-publish.mjs) — Publish the mail cell's DNS in one step after bring-up. _(matched by name only; npm: `uberdoso:dns-publish`)_
 - [`scripts/uberdoso-postal-provision.rb`](../../scripts/uberdoso-postal-provision.rb) _(matched by name only)_
 - [`scripts/uberdoso-status.mjs`](../../scripts/uberdoso-status.mjs) _(matched by name only)_
+- [`scripts/zero-barrier-outreach-doctor.mjs`](../../scripts/zero-barrier-outreach-doctor.mjs) — Checks the zero-barrier outreach fabric combining DePIN gateway, reputation credentials, UberMail JIT provisioning, attention stake ledger and UberZero substitution · **Use:** health of zero-spend outreach substitution path
 
-## Config, data, artifacts and services (3)
+## Config, data, artifacts and services (4)
 
-- [`config/uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — uberdoso.source-lock.v1 _(matched by name only)_
+- [`artifacts/outreach/uber-closure-source-verification-2026-09-16.json`](../../artifacts/outreach/uber-closure-source-verification-2026-09-16.json) — 2026-09-16 · Source-level verification receipt for an Uber closure branch; explicitly no live DNS, mail cell, deliverability or sends claimed. · **Use:** record that closure code was verified at source only
+- [`config/uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — Source lock for UberDoso dependencies: Postal, install helper, MariaDB versions and policy. · **Use:** pin owned mail stack sources
 - [`ops/sovereign/bootstrap-uberdoso-mail-cell.sh`](../../ops/sovereign/bootstrap-uberdoso-mail-cell.sh) _(matched by name only)_
 - [`ops/sovereign/verify-uberdoso-mail-cell.sh`](../../ops/sovereign/verify-uberdoso-mail-cell.sh) _(matched by name only)_
 
-## Tests (21)
+## Tests (28)
 
-[`maildoso-provider-contract`](../../tests/maildoso-provider-contract.test.mjs) · [`mailhub-control-plane`](../../tests/mailhub-control-plane.test.mjs) · [`uberdoso-activation`](../../tests/uberdoso-activation.test.mjs) · [`uberdoso-delivery-policy`](../../tests/uberdoso-delivery-policy.test.mjs) · [`uberdoso-dns-contract`](../../tests/uberdoso-dns-contract.test.mjs) · [`uberdoso-dns-publication`](../../tests/uberdoso-dns-publication.test.mjs) · [`uberdoso-job-handler`](../../tests/uberdoso-job-handler.test.mjs) · [`uberdoso-kernel`](../../tests/uberdoso-kernel.test.mjs) · [`uberdoso-mail-cell-bootstrap`](../../tests/uberdoso-mail-cell-bootstrap.test.mjs) · [`uberdoso-resident-wiring`](../../tests/uberdoso-resident-wiring.test.mjs) · [`uberdoso-source-lock`](../../tests/uberdoso-source-lock.test.mjs) · [`uberimap-empty-search`](../../tests/uberimap-empty-search.test.mjs) · [`uberimap`](../../tests/uberimap.test.mjs) · [`ubermail-agent-api`](../../tests/ubermail-agent-api.test.mjs) · [`ubermail-agent-http`](../../tests/ubermail-agent-http.test.mjs) · [`ubermail-foundry`](../../tests/ubermail-foundry.test.mjs) · [`ubermail-runtime`](../../tests/ubermail-runtime.test.mjs) · [`ubermail-uberdoso-bridge`](../../tests/ubermail-uberdoso-bridge.test.mjs) · [`ubermaildoso-evidence-sync`](../../tests/ubermaildoso-evidence-sync.test.mjs) · [`ubermaildoso`](../../tests/ubermaildoso.test.mjs) · [`ubersmtp-submission-adapter`](../../tests/ubersmtp-submission-adapter.test.mjs)
+[`agentmail-adapter`](../../tests/agentmail-adapter.test.mjs) · [`maildoso-provider-contract`](../../tests/maildoso-provider-contract.test.mjs) · [`mailhub-control-plane`](../../tests/mailhub-control-plane.test.mjs) · [`outreach-reality-doctor`](../../tests/outreach-reality-doctor.test.mjs) · [`outreach-zero-barrier-donor-canaries`](../../tests/outreach-zero-barrier-donor-canaries.test.mjs) · [`outreach-zero-barrier-fabric`](../../tests/outreach-zero-barrier-fabric.test.mjs) · [`postal-effect-adapter`](../../tests/postal-effect-adapter.test.mjs) · [`postal-ragnarok-hardening`](../../tests/postal-ragnarok-hardening.test.mjs) · [`postal-ragnarok-mutation-source-guard`](../../tests/postal-ragnarok-mutation-source-guard.test.mjs) · [`postal-sender-evidence-mutation-source-guard`](../../tests/postal-sender-evidence-mutation-source-guard.test.mjs) · [`provider-http-adapters`](../../tests/provider-http-adapters.test.mjs) · [`ubercloud-contabo-cell-actuator`](../../tests/ubercloud-contabo-cell-actuator.test.mjs) · [`uberdoso-activation`](../../tests/uberdoso-activation.test.mjs) · [`uberdoso-delivery-policy`](../../tests/uberdoso-delivery-policy.test.mjs) · [`uberdoso-dns-contract`](../../tests/uberdoso-dns-contract.test.mjs) · [`uberdoso-dns-publication`](../../tests/uberdoso-dns-publication.test.mjs) · [`uberdoso-job-handler`](../../tests/uberdoso-job-handler.test.mjs) · [`uberdoso-kernel`](../../tests/uberdoso-kernel.test.mjs) · [`uberdoso-mail-cell-bootstrap`](../../tests/uberdoso-mail-cell-bootstrap.test.mjs) · [`uberdoso-source-lock`](../../tests/uberdoso-source-lock.test.mjs) · [`ubermail-agent-api`](../../tests/ubermail-agent-api.test.mjs) · [`ubermail-agent-http`](../../tests/ubermail-agent-http.test.mjs) · [`ubermail-foundry`](../../tests/ubermail-foundry.test.mjs) · [`ubermail-runtime`](../../tests/ubermail-runtime.test.mjs) · [`ubermail-uberdoso-bridge`](../../tests/ubermail-uberdoso-bridge.test.mjs) · [`ubermaildoso-evidence-sync`](../../tests/ubermaildoso-evidence-sync.test.mjs) · [`ubermaildoso`](../../tests/ubermaildoso.test.mjs) · [`ubersmtp-submission-adapter`](../../tests/ubersmtp-submission-adapter.test.mjs)
 

@@ -6,7 +6,7 @@ APEX frontier-quality-compression campaign, Jev reasoning hypercompiler, sealed 
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**18 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**33 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -17,35 +17,43 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
 - [`docs/APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md`](../APEX_PUBLIC_FRONTIER_SCORECARD_2026-09-29.md) — 2026-09-29 · APEX Public Frontier Scorecard — 2026-09-29 — Status: DATED DOCUMENTED-MECHANISM COMPARISON / NOT A GLOBAL PERFORMANCE RANKING _(matched by name only)_
 - [`docs/APEX_SEALED_TOURNAMENT_2026-09-29.md`](../APEX_SEALED_TOURNAMENT_2026-09-29.md) — 2026-09-29 · APEX Sealed Architecture Tournament — 2026-09-29 — Status: IMPLEMENTED CANDIDATE / NO PRODUCTION PROMOTION AUTHORITY _(matched by name only)_
-- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · Chat-frontier backup of UberMind/APEX frontier quality compression objective, competitive map, model mix hypotheses and proof status. · **Use:** recover UberMind/APEX reasoning after chat loss
 
-## Commands (3)
+## Commands (4)
 
-`npm run apex:fqc:custodian-request` · `npm run apex:fqc:doctor` · `npm run apex:fqc:evidence`
+`npm run absolute:quality:doctor` · `npm run apex:fqc:custodian-request` · `npm run apex:fqc:doctor` · `npm run apex:fqc:evidence`
 
-## Documents that discuss this project without naming it in the filename (3)
+## Dated documents, newest first (1)
 
-- [`docs/UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md`](../UBERMIND_FRONTIER_QUALITY_COMPRESSION_BACKUP_2026-09-29.md) — 2026-09-29 · UberMind Frontier Quality Compression Backup — 2026-09-29 — Status: DURABLE CHAT-FRONTIER BACKUP / SOURCE-ALIGNED / EMPIRICAL CLAIMS GATED _(matched by name only)_ _(25 mentions)_
-- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(matched by name only)_ _(13 mentions)_
-- [`docs/JEV_NOETIC_AUTOCOMPILER_2026-09-19.md`](../JEV_NOETIC_AUTOCOMPILER_2026-09-19.md) — 2026-09-19 · UberBond Jev / Noetic Autocompiler Integration — Status: source integration candidate; default-off; no live Jev call proven by this branch _(matched by name only)_ _(5 mentions)_
+- [`open router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md`](../../open%20router/SOURCE_SNAPSHOT_APEX_JEV_2026-09-29.md) — 2026-09-29 · Recovery snapshot of APEX + Jev reasoning hypercompiler doc · **Use:** preserve APEX architecture text
 
-## Source modules (4)
+## Documents that discuss this project without naming it in the filename (2)
 
-- [`src/apex-fqc-external-evidence-packet.mjs`](../../src/apex-fqc-external-evidence-packet.mjs) — exports APEX_FQC_EXTERNAL_EVIDENCE_VERSION, buildApexFqcCustodianRequest, compileApexFqcExternalEvidencePacket _(matched by name only; tested; imported by 1)_
-- [`src/apex-fresh-campaign.mjs`](../../src/apex-fresh-campaign.mjs) — exports APEX_FRESH_CAMPAIGN_VERSION, APEX_FRESH_CAMPAIGN_ARCHITECTURE_CLASSES, prepareFreshApexCampaign, admitFreshCustodianManifest, assessFreshCamp… _(matched by name only; tested; imported by 2)_
-- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — exports APEX_REASONING_HYPERCOMPILER_VERSION, APEX_REASONING_MODES, compileApexReasoningArchitecture, buildIdentityBlindPacket, APEX_ARCHITECTURE_MUT… _(matched by name only; tested; imported by 2)_
-- [`src/apex-sealed-tournament.mjs`](../../src/apex-sealed-tournament.mjs) — exports APEX_SEALED_TOURNAMENT_VERSION, APEX_TOURNAMENT_CLAIM_MODES, APEX_ARCHITECTURE_CLASSES, sealedManifestCommitmentDigest, sealedCorpusDigestFro… _(matched by name only; tested; imported by 4)_
+- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — Canon treating orchestration as capability with pinned Fable Orchestrator, Metaswarm, Superpowers as MIT donors; planner/adjudicator split. · **Use:** rules for multi-agent orchestration mechanisms _(13 mentions)_
+- [`docs/JEV_NOETIC_AUTOCOMPILER_2026-09-19.md`](../JEV_NOETIC_AUTOCOMPILER_2026-09-19.md) — 2026-09-19 · Integration doc for TypeSafe Jev as default-off System-One semantic supplier: adapter, shadow judgement, compile-on-outcome and decompile-on-drift laws. · **Use:** design reference for Jev System-One adapter _(5 mentions)_
 
-## Scripts (2)
+## Source modules (8)
 
-- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) _(matched by name only; npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
-- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) _(matched by name only; npm: `apex:fqc:doctor`)_
+- [`src/apex-fqc-external-evidence-packet.mjs`](../../src/apex-fqc-external-evidence-packet.mjs) — Builds custodian request and external evidence packet for an APEX frontier-quality-compression fresh campaign · **Use:** request independent custodian evidence for APEX campaign _(tested; imported by 1)_
+- [`src/apex-fresh-campaign.mjs`](../../src/apex-fresh-campaign.mjs) — Prepares fresh APEX campaigns, admits custodian manifests and assesses runtime readiness under the zero-loss quality invariant and sealed tournament · **Use:** set up a new sealed APEX evaluation campaign _(tested; imported by 2)_
+- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — Compiles APEX reasoning architectures and identity-blind packets, mutation families and evolution experiments evaluated in an arena · **Use:** evolve reasoning architectures for frontier quality at lower cost _(tested; imported by 2)_
+- [`src/apex-sealed-tournament.mjs`](../../src/apex-sealed-tournament.mjs) — Sealed architecture trials with manifest commitment digests and NULLSTAR holdouts, evaluating architecture tournaments · **Use:** compare reasoning architectures on sealed corpora _(tested; imported by 4)_
+- [`src/canonical-zero-loss-certificate.mjs`](../../src/canonical-zero-loss-certificate.mjs) — Certifies and validates canonical zero-loss quality certificates using quality invariant and sealed tournament · **Use:** prove a cheaper route lost no quality _(imported by 3)_
+- [`src/frontier-cognitive-admission.mjs`](../../src/frontier-cognitive-admission.mjs) — Builds live frontier benchmarks from sealed APEX trials and admission bundles, then compiles and validates admitted frontier plans. · **Use:** Admit models into frontier plans only with sealed benchmark and callability evidence _(tested; imported by 3)_
+- [`src/frontier-vm-burnin.mjs`](../../src/frontier-vm-burnin.mjs) — Compiles Frontier VM burn-in campaigns, certifies paired runs against zero-loss certificate, assesses ablations and compiles falsification checklists. · **Use:** Proof Burn-In before certified compression _(tested; no static importers)_
+- [`src/reasoning-architecture-lab.mjs`](../../src/reasoning-architecture-lab.mjs) — Compiles reasoning architecture candidates along mutation axes, archives them and evaluates generations against quality invariants · **Use:** search for better reasoning architectures _(tested; no static importers)_
+
+## Scripts (3)
+
+- [`scripts/absolute-frontier-quality-doctor.mjs`](../../scripts/absolute-frontier-quality-doctor.mjs) — Doctor checking the absolute frontier quality lock config and APEX campaign against quality delta, evidence confidence and policy digest. · **Use:** verify zero-quality-loss invariant config is consistent _(npm: `absolute:quality:doctor`)_
+- [`scripts/apex-fqc-external-evidence-doctor.mjs`](../../scripts/apex-fqc-external-evidence-doctor.mjs) — CLI compiling an APEX frontier-quality-compression external evidence packet and custodian request from campaign and optional inputs. · **Use:** prepare external evidence for the APEX campaign _(npm: `apex:fqc:custodian-request`, `apex:fqc:evidence`)_
+- [`scripts/apex-frontier-quality-campaign-doctor.mjs`](../../scripts/apex-frontier-quality-campaign-doctor.mjs) — Doctor preparing a fresh APEX campaign by joining campaign config with frontier model candidate registry. · **Use:** check APEX campaign candidates are well-formed _(npm: `apex:fqc:doctor`)_
 
 ## Config, data, artifacts and services (1)
 
-- [`config/apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1 _(matched by name only)_
+- [`config/apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — Pre-execution APEX campaign template: task class, frozen architectures, quality floor, budget and custodian policies, market watchlist. · **Use:** freeze APEX compression experiment before live run
 
-## Tests (5)
+## Tests (14)
 
-[`apex-fqc-external-evidence-packet`](../../tests/apex-fqc-external-evidence-packet.test.mjs) · [`apex-fresh-campaign`](../../tests/apex-fresh-campaign.test.mjs) · [`apex-frontier-quality-campaign-config`](../../tests/apex-frontier-quality-campaign-config.test.mjs) · [`apex-reasoning-hypercompiler`](../../tests/apex-reasoning-hypercompiler.test.mjs) · [`apex-sealed-tournament`](../../tests/apex-sealed-tournament.test.mjs)
+[`apex-fqc-external-evidence-packet`](../../tests/apex-fqc-external-evidence-packet.test.mjs) · [`apex-fresh-campaign`](../../tests/apex-fresh-campaign.test.mjs) · [`apex-frontier-quality-campaign-config`](../../tests/apex-frontier-quality-campaign-config.test.mjs) · [`apex-reasoning-hypercompiler`](../../tests/apex-reasoning-hypercompiler.test.mjs) · [`apex-sealed-tournament`](../../tests/apex-sealed-tournament.test.mjs) · [`frontier-cognitive-admission`](../../tests/frontier-cognitive-admission.test.mjs) · [`frontier-cognitive-evidence-provenance-bypass`](../../tests/frontier-cognitive-evidence-provenance-bypass.test.mjs) · [`frontier-cognitive-fabric-revision`](../../tests/frontier-cognitive-fabric-revision.test.mjs) · [`frontier-cognitive-fabric-router-contract`](../../tests/frontier-cognitive-fabric-router-contract.test.mjs) · [`frontier-cognitive-runtime-e2e`](../../tests/frontier-cognitive-runtime-e2e.test.mjs) · [`frontier-reasoning-execution-bridge`](../../tests/frontier-reasoning-execution-bridge.test.mjs) · [`frontier-vm-burnin`](../../tests/frontier-vm-burnin.test.mjs) · [`noetic-autocompiler`](../../tests/noetic-autocompiler.test.mjs) · [`reasoning-architecture-lab`](../../tests/reasoning-architecture-lab.test.mjs)
 

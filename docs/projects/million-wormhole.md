@@ -6,54 +6,66 @@ Million-branch ideation genome, wormhole universe/tournament/operators, interste
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**29 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**43 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (4)
+## Read first (5)
 
-- [`docs/MILLION_BRANCH_IDEATION_GENOME.md`](../MILLION_BRANCH_IDEATION_GENOME.md) — UberBond Million-Branch Ideation Genome — Status: FOUNDER_SPEC promoted into durable GENESIS extension _(matched by name only)_
-- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Prometheus Task Universe wave _(matched by name only)_
-- [`docs/THREAD_OPPORTUNITY_UNIVERSE.md`](../THREAD_OPPORTUNITY_UNIVERSE.md) — UberBond Thread Opportunity Universe _(matched by name only)_
-- [`docs/INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md`](../INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md) — 2026-09-15 · UberBond Interstellar Wormhole Mechanisms — Status: SPECULATIVE_RESEARCH_PROGRAM / NOT_IMPLEMENTATION_PROOF / NOT_ASI_CLAIM _(matched by name only)_
+- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — Canon for measuring dependency routes, critical path and causal floors, and testing alternate topologies that shorten paths. · **Use:** shorten roadmaps by deleting dependencies
+- [`docs/MILLION_BRANCH_IDEATION_GENOME.md`](../MILLION_BRANCH_IDEATION_GENOME.md) — Spec of 20 domains x 50 operators = 1,000 meta-generators extending the 275-idea registry, with recombination and public/private isolation law. · **Use:** generate and tournament new idea branches
+- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Wave adding task-universe primitives: TaskBlueprint, Trigger, PolicyDecision, DependencyEdge, TaskInstance, Evaluator over blueprint x entity x trigger. · **Use:** shared contract for generating bounded work
+- [`docs/INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md`](../INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md) — 2026-09-15 · Speculative research program for proof-carrying topology rewrites that shorten verified cognitive distance for future problem classes, with e-graph and other donors. · **Use:** research direction for reusable cognitive shortcuts
+- [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Research architecture for a self-hosting transcompiler mapping problems through constraint IR, equivalence search and substrate tournament to verified execution. · **Use:** research target for cheaper verified cognition
+
+## Commands (5)
+
+`npm run frontier:plan` · `npm run genesis:doctor` · `npm run genesis:tick` · `npm run test:genesis:bursts` · `npm run test:genesis:idea-burst`
 
 ## Other documents (1)
 
 - [`docs/handoffs/UBERBOND_WORMHOLE_CURRENT.md`](../handoffs/UBERBOND_WORMHOLE_CURRENT.md) — UberBond Wormhole Context — Current _(matched by name only)_
 
-## Documents that discuss this project without naming it in the filename (4)
+## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon _(matched by name only)_ _(4 mentions)_
-- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — UberBond Possibility Civilization Realization Canon — Status: EXECUTION CANON / RESEARCH PROGRAM / NOT PROOF THAT SPECULATIVE MOONSHOTS ARE PHYSICALLY POSSIBLE OR IMPLEMENTED _(matched by name only)_ _(3 mentions)_
+- [`docs/POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md`](../POSSIBILITY_CIVILIZATION_REALIZATION_CANON.md) — Execution canon for a universal moonshot realization machine: classify, constrain, decompose, cheapest decisive experiment, record reality. · **Use:** process for turning moonshots into tested states _(3 mentions)_
 - [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(3 mentions)_
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Full mission spec for the 2026-09-11 overnight revenue run: cleared-profit metric, PayPal destination truth boundary, no account changes · **Use:** defines rules and boundaries for the overnight revenue mission _(3 mentions)_
 
-## Source modules (10)
+## Source modules (14)
 
-- [`src/billion-capability-universe.mjs`](../../src/billion-capability-universe.mjs) — exports BILLION_CAPABILITY_UNIVERSE_VERSION, BILLION_CAPABILITY_OBJECT_TARGET, GITHUB_REPOSITORY_DISCOVERY_HORIZON, CAPABILITY_OBJECT_CLASSES, buildB… _(matched by name only; tested; imported by 1)_
-- [`src/million-branch-ideation-compat-data.mjs`](../../src/million-branch-ideation-compat-data.mjs) — exports MILLION_BRANCH_DOMAIN_NAMES, MILLION_BRANCH_OPERATOR_NAMES _(matched by name only; imported by 1)_
-- [`src/million-branch-ideation-compat.mjs`](../../src/million-branch-ideation-compat.mjs) — exports MILLION_BRANCH_IDEATION_GENOME_VERSION, MILLION_BRANCH_SOURCE_SHA256, MILLION_BRANCH_DOMAIN_COUNT, MILLION_BRANCH_DOMAINS, MILLION_BRANCH_OPE… _(matched by name only; imported by 1)_
-- [`src/million-branch-ideation-genome.mjs`](../../src/million-branch-ideation-genome.mjs) — Public compatibility entrypoint stays founder-generic. Personalization remains behind a separately authorized private context. _(matched by name only; tested; imported by 4)_
-- [`src/million-wormhole-compiled-prior.mjs`](../../src/million-wormhole-compiled-prior.mjs) — exports MILLION_WORMHOLE_COMPILED_PRIOR_VERSION, MILLION_WORMHOLE_EARLY_EXIT_PRIOR_VERSION, COMPILED_MAX_EXACT_TOP_K, compileTopMillionWormholePriors… _(matched by name only; tested; imported by 1)_
-- [`src/million-wormhole-operators.mjs`](../../src/million-wormhole-operators.mjs) — exports MILLION_WORMHOLE_OPERATORS _(matched by name only; imported by 3)_
-- [`src/million-wormhole-tournament.mjs`](../../src/million-wormhole-tournament.mjs) — exports MILLION_WORMHOLE_TOURNAMENT_VERSION, compileMillionWormholeShard, intelligenceDensity, compileRecursiveWormholeRound _(matched by name only; imported by 4)_
-- [`src/million-wormhole-universe.mjs`](../../src/million-wormhole-universe.mjs) — exports MILLION_WORMHOLE_UNIVERSE_VERSION, MILLION_WORMHOLE_CANDIDATE_COUNT, MILLION_WORMHOLE_SHARD_COUNT, MILLION_WORMHOLE_SHARD_SIZE, decodeMillion… _(matched by name only; imported by 4)_
-- [`src/task-universe.mjs`](../../src/task-universe.mjs) — Bounded Task Universe Engine primitives. _(matched by name only; tested; imported by 2)_
-- [`src/thread-opportunity-universe.mjs`](../../src/thread-opportunity-universe.mjs) — Broad opportunity universe extracted from the explicit commercial lanes in _(matched by name only; imported by 2)_
+- [`src/billion-capability-universe.mjs`](../../src/billion-capability-universe.mjs) — Plan for a billion capability object target and GitHub discovery horizon, summarizing harvest progress · **Use:** scale target framing for capability harvest _(tested; imported by 1)_
+- [`src/frontier-intelligence-foundry.mjs`](../../src/frontier-intelligence-foundry.mjs) — Classifies frontier source policy and provenance tiers, normalizes intelligence records, extracts mechanism atoms, scores discoveries and builds a million-candidate tournament. · **Use:** Harvest and rank frontier AI mechanisms from public sources _(tested; imported by 3)_
+- [`src/genesis-idea-burst.mjs`](../../src/genesis-idea-burst.mjs) — Compiles a GENESIS idea burst using the million-branch ideation genome. · **Use:** Generate bursts of new ideas _(tested; imported by 3)_
+- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — Compiles million-wormhole global prior top-K, build-distance batches and capability topology over opportunity registry and capability graph. · **Use:** Deterministic cognition invariants over the wormhole universe _(imported by 1)_
+- [`src/million-branch-ideation-compat-data.mjs`](../../src/million-branch-ideation-compat-data.mjs) — Domain and operator name lists for million-branch ideation (assumption inversion, counterfactual universe, swarm search). · **Use:** Data for million-branch ideation genome _(imported by 1)_
+- [`src/million-branch-ideation-compat.mjs`](../../src/million-branch-ideation-compat.mjs) — Builds and validates the million-branch ideation genome, activation plans and branching projections. · **Use:** Generate million-branch idea space _(imported by 1)_
+- [`src/million-branch-ideation-genome.mjs`](../../src/million-branch-ideation-genome.mjs) — Public founder-generic entrypoint re-exporting million-branch ideation with zero business and external effect authority. · **Use:** Stable API for ideation genome _(tested; imported by 4)_
+- [`src/million-wormhole-compiled-prior.mjs`](../../src/million-wormhole-compiled-prior.mjs) — Compiles exact top-K million-wormhole priors with early-exit variant. · **Use:** Select best wormhole candidates cheaply _(tested; imported by 1)_
+- [`src/million-wormhole-operators.mjs`](../../src/million-wormhole-operators.mjs) — List of million-wormhole operators. · **Use:** Operator set for wormhole candidate generation _(imported by 3)_
+- [`src/million-wormhole-tournament.mjs`](../../src/million-wormhole-tournament.mjs) — Compiles wormhole shards, intelligence density and recursive tournament rounds. · **Use:** Tournament over wormhole universe _(imported by 4)_
+- [`src/million-wormhole-universe.mjs`](../../src/million-wormhole-universe.mjs) — Encodes/decodes million-candidate wormhole index combining UberBond organs and operators into rendered candidates. · **Use:** Enumerate cross-organ wormhole combinations _(imported by 4)_
+- [`src/task-universe.mjs`](../../src/task-universe.mjs) — Task blueprints, triggers, policy evaluation, priority, dependency edges and just-in-time task instances with receipts · **Use:** bounded just-in-time work generation _(tested; imported by 2)_
+- [`src/timeline-topology-engine.mjs`](../../src/timeline-topology-engine.mjs) — Analyzes timeline boundaries and necessity states, evaluates wormhole candidates and builds timeline cannibalism packets · **Use:** find shortcuts across planned timelines _(tested; imported by 1)_
+- [`src/uber-genesis-foundry.mjs`](../../src/uber-genesis-foundry.mjs) — Compilers for zero-day radar, future primitive extractor, assimilation tournament, N+1 rule, artificial imagination, million-branch ideation · **Use:** Perpetual Frontier/GENESIS mechanism compilers _(imported by 11)_
 
-## Scripts (3)
+## Scripts (6)
 
-- [`scripts/million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs) _(matched by name only)_
-- [`scripts/million-wormhole-search-tick.mjs`](../../scripts/million-wormhole-search-tick.mjs) _(matched by name only)_
-- [`scripts/million-wormhole-tier2-benchmark.mjs`](../../scripts/million-wormhole-tier2-benchmark.mjs) _(matched by name only)_
+- [`scripts/c21-d1-benchmark.mjs`](../../scripts/c21-d1-benchmark.mjs) — C21 D1 benchmark comparing million-wormhole shard compile, build distance and capability topology versus invariant compiler batch versions. · **Use:** measure whole-system self-improvement on dimension D1
+- [`scripts/million-wormhole-search-doctor.mjs`](../../scripts/million-wormhole-search-doctor.mjs) — Checks million-wormhole index encode/decode bijection and compiles a recursive wormhole round. · **Use:** verify million-wormhole search space integrity
+- [`scripts/million-wormhole-search-tick.mjs`](../../scripts/million-wormhole-search-tick.mjs) — Runs one recursive wormhole round on a shard with top-K and target arguments. · **Use:** advance million-wormhole search
+- [`scripts/million-wormhole-tier2-benchmark.mjs`](../../scripts/million-wormhole-tier2-benchmark.mjs) — Benchmarks exhaustive 4096-shard compile versus compiled top priors for million-wormhole selection. · **Use:** measure compiled prior speedup
+- [`scripts/perpetual-frontier-genesis-doctor.mjs`](../../scripts/perpetual-frontier-genesis-doctor.mjs) — Validates GENESIS idea registry and million-branch ideation genome against canon document and index. · **Use:** genesis:doctor for Perpetual Frontier registry _(npm: `genesis:doctor`)_
+- [`scripts/perpetual-frontier-genesis-tick.mjs`](../../scripts/perpetual-frontier-genesis-tick.mjs) — Builds a GENESIS cycle, ideation activation plan and sovereign expansion envelope, writing outputs. · **Use:** periodic Perpetual Frontier GENESIS cycle _(npm: `genesis:tick`, `frontier:plan`)_
 
-## Config, data, artifacts and services (3)
+## Config, data, artifacts and services (4)
 
-- [`artifacts/million-branch-ideation-genome.json`](../../artifacts/million-branch-ideation-genome.json) — UBERBOND_MILLION_BRANCH_IDEATION_GENOME_v1.md · FOUNDER_SPEC_WITH_EXECUTABLE_ZERO_EFFECT_GENESIS_INTEGRATION · uberbond-million-branch-ideation-genom… _(matched by name only)_
-- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — uberbond.million-wormhole-tier2-search-policy-eval.v2 _(matched by name only)_
-- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — uberbond.million-wormhole-tier2-search-policy-eval.v1 _(matched by name only)_
+- [`artifacts/million-branch-ideation-genome.json`](../../artifacts/million-branch-ideation-genome.json) — Status record for the Million-Branch Ideation Genome: domains, operators, generators, capacity, module/doctor/test links into GENESIS. · **Use:** locate million-branch ideation implementation
+- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — Frozen plan for a second search-policy efficiency compression test with holdout top-k and promotion rules. · **Use:** pre-register wormhole search policy eval
+- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — Frozen plan testing search-policy efficiency and semantic equivalence with hostile cases. · **Use:** pre-register wormhole search policy eval
+- [`artifacts/perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — Machine canon for Perpetual Frontier/GENESIS: idea count and ranges, frontier mechanisms, core loop, million-branch ideation and live idea nursery pointers. · **Use:** machine-readable registry of the 275-idea frontier search space
 
-## Tests (8)
+## Tests (13)
 
-[`billion-capability-universe`](../../tests/billion-capability-universe.test.mjs) · [`genesis-million-branch-ideation`](../../tests/genesis-million-branch-ideation.test.mjs) · [`genesis-million-branch-tick-integration`](../../tests/genesis-million-branch-tick-integration.test.mjs) · [`million-branch-ideation-genome`](../../tests/million-branch-ideation-genome.test.mjs) · [`million-wormhole-compiled-prior`](../../tests/million-wormhole-compiled-prior.test.mjs) · [`million-wormhole-early-exit-prior`](../../tests/million-wormhole-early-exit-prior.test.mjs) · [`million-wormhole-search`](../../tests/million-wormhole-search.test.mjs) · [`task-universe`](../../tests/task-universe.test.mjs)
+[`billion-capability-universe`](../../tests/billion-capability-universe.test.mjs) · [`frontier-intelligence-1000-canary`](../../tests/frontier-intelligence-1000-canary.test.mjs) · [`frontier-intelligence-foundry`](../../tests/frontier-intelligence-foundry.test.mjs) · [`genesis-burst-registry`](../../tests/genesis-burst-registry.test.mjs) · [`genesis-idea-burst`](../../tests/genesis-idea-burst.test.mjs) · [`genesis-million-branch-ideation`](../../tests/genesis-million-branch-ideation.test.mjs) · [`genesis-million-branch-tick-integration`](../../tests/genesis-million-branch-tick-integration.test.mjs) · [`million-branch-ideation-genome`](../../tests/million-branch-ideation-genome.test.mjs) · [`million-wormhole-compiled-prior`](../../tests/million-wormhole-compiled-prior.test.mjs) · [`million-wormhole-early-exit-prior`](../../tests/million-wormhole-early-exit-prior.test.mjs) · [`million-wormhole-search`](../../tests/million-wormhole-search.test.mjs) · [`task-universe`](../../tests/task-universe.test.mjs) · [`timeline-topology-engine`](../../tests/timeline-topology-engine.test.mjs)
 

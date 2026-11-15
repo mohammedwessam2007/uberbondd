@@ -14,38 +14,38 @@ Standalone "cash engine lite" app. Do not touch without a separately justified m
 
 ## Commerce, payments and economics
 
-- [`.env.example`](../../lite/.env.example) _(matched by name only)_
-- [`README.md`](../../lite/README.md) — UberBond Cash Engine Lite _(matched by name only)_
-- [`UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — UberBond Wessam Command Center _(matched by name only)_
-- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — exports handler _(matched by name only)_
-- [`lite/api/health.mjs`](../../lite/api/health.mjs) — exports createHandler _(matched by name only)_
-- [`lite/api/interest.mjs`](../../lite/api/interest.mjs) — exports createHandler _(matched by name only)_
-- [`lite/api/report.mjs`](../../lite/api/report.mjs) — exports createHandler _(matched by name only)_
-- [`lite/api/request-audit.mjs`](../../lite/api/request-audit.mjs) — exports createHandler _(matched by name only)_
-- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — exports handler _(matched by name only)_
-- [`lite/lib/db.mjs`](../../lite/lib/db.mjs) — exports getPool, q, ensureSchema, closePool, PROCESSING_STAGES (+16) _(matched by name only)_
-- [`lite/lib/email.mjs`](../../lite/lib/email.mjs) — Owner notifications via Resend's plain HTTPS API — no SDK dependency. _(matched by name only)_
-- [`lite/lib/http.mjs`](../../lite/lib/http.mjs) — exports readJson, clientAddress, requesterHash, sendJson, handleError _(matched by name only)_
-- [`lite/lib/queue-diagnostics.mjs`](../../lite/lib/queue-diagnostics.mjs) — exports databaseFingerprint, readAuditRequestCounts, formatQueueDiagnostic, emitQueueDiagnostic _(matched by name only)_
-- [`lite/lib/rate-limit.mjs`](../../lite/lib/rate-limit.mjs) — exports getLimits, decideAuditRateLimit, decideLeadRateLimit _(matched by name only)_
-- [`lite/lib/report.mjs`](../../lite/lib/report.mjs) — Shapes a stored report from the production crawler + deterministic audit _(matched by name only)_
-- [`lite/lib/schema.mjs`](../../lite/lib/schema.mjs) — Single source of truth for the Cash Engine Lite schema. _(matched by name only)_
-- [`lite/lib/security.mjs`](../../lite/lib/security.mjs) — Vendored from src/security.mjs so the Vercel deployment (root directory: lite/) _(matched by name only)_
-- [`lite/lib/tokens.mjs`](../../lite/lib/tokens.mjs) — exports createReportToken, hashToken, isTokenShape, sha256Hex _(matched by name only)_
-- [`lite/lib/validate.mjs`](../../lite/lib/validate.mjs) — exports LiteInputError, parseEmail, normalizeDomain, parseWebsite, parseLeadInput _(matched by name only)_
-- [`lite/migrations/lite_001.sql`](../../lite/migrations/lite_001.sql) _(matched by name only)_
-- [`package-lock.json`](../../lite/package-lock.json) — uberbond-cash-engine-lite _(matched by name only)_
-- [`package.json`](../../lite/package.json) — uberbond-cash-engine-lite _(matched by name only)_
-- [`lite/public/icon.svg`](../../lite/public/icon.svg) _(matched by name only)_
-- [`lite/public/index.html`](../../lite/public/index.html) — UberBond — Free Website Revenue Audit _(matched by name only)_
-- [`lite/public/report.html`](../../lite/public/report.html) — Your Website Audit — UberBond _(matched by name only)_
-- [`lite/public/report.js`](../../lite/public/report.js) — Cash Engine Lite — private report viewer. All crawled-site content is untrusted and is rendered with textContent only. _(matched by name only)_
-- [`lite/public/site.js`](../../lite/public/site.js) — Cash Engine Lite — landing form. Same-origin API only; no keys in the browser. _(matched by name only)_
-- [`lite/public/styles.css`](../../lite/public/styles.css) _(matched by name only)_
-- [`lite/public/uberbond-static-data.js`](../../lite/public/uberbond-static-data.js) _(matched by name only)_
-- [`lite/public/uberbond-static.html`](../../lite/public/uberbond-static.html) — UberBond · Wessam Command Center _(matched by name only)_
-- [`lite/public/uberbond.css`](../../lite/public/uberbond.css) _(matched by name only)_
-- [`lite/public/uberbond.html`](../../lite/public/uberbond.html) — UberBond · Wessam Command Center _(matched by name only)_
-- [`lite/scripts/build-visual-cortex.mjs`](../../lite/scripts/build-visual-cortex.mjs) _(matched by name only)_
-- [`vercel.json`](../../lite/vercel.json) _(matched by name only)_
-- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — Cash Engine Lite worker — executed by .github/workflows/lite-audits.yml. _(matched by name only)_
+- [`.env.example`](../../lite/.env.example) — Environment variable template for Cash Engine Lite: Neon DATABASE_URL, optional Resend email settings · **Use:** configure the Lite deployment
+- [`README.md`](../../lite/README.md) — README for Cash Engine Lite: static site, Vercel API, GitHub Actions audit worker, Neon Postgres data flow · **Use:** understand the free-tier website audit variant
+- [`UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — Note on the Wessam Command Center served from Lite: bounded source snapshot, truth boundary, UI evolution law · **Use:** explains command center on Lite deployment
+- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — Vercel handler returning a bounded command-center snapshot: organ topology, model catalog summary, GENESIS checkpoint · **Use:** backend for the iPad command center on Lite
+- [`lite/api/health.mjs`](../../lite/api/health.mjs) — Lite health endpoint handler checking database · **Use:** uptime check for Lite deployment
+- [`lite/api/interest.mjs`](../../lite/api/interest.mjs) — Lite API handler capturing implementation interest leads with validation, rate limit and owner email · **Use:** collect leads from audit report viewers
+- [`lite/api/report.mjs`](../../lite/api/report.mjs) — Lite API handler serving a stored audit report by capability token · **Use:** private report retrieval
+- [`lite/api/request-audit.mjs`](../../lite/api/request-audit.mjs) — Lite API handler queuing a website audit request with validation, rate limit and queue diagnostics · **Use:** accept audit submissions from the public site
+- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — Vercel handler exposing an Ultimate Graph view for the Lite command center · **Use:** serve repository graph data to command center UI
+- [`lite/lib/db.mjs`](../../lite/lib/db.mjs) — Lite Postgres access layer: self-provisioning schema, audit request queue claim/complete/fail, leads · **Use:** data layer for Lite audits and leads
+- [`lite/lib/email.mjs`](../../lite/lib/email.mjs) — Owner notification via Resend HTTPS API, no-op without keys; logs only non-PII lead refs · **Use:** notify owner of new leads
+- [`lite/lib/http.mjs`](../../lite/lib/http.mjs) — Lite HTTP helpers: JSON body limits, salted requester hash, JSON responses and error handling · **Use:** shared request handling for Lite API
+- [`lite/lib/queue-diagnostics.mjs`](../../lite/lib/queue-diagnostics.mjs) — Incident telemetry emitting DB endpoint fingerprint and aggregate queue counts without secrets · **Use:** debug Vercel vs Actions queue mismatch
+- [`lite/lib/rate-limit.mjs`](../../lite/lib/rate-limit.mjs) — Pure rate-limit decisions for audit requests and leads · **Use:** abuse protection for Lite API
+- [`lite/lib/report.mjs`](../../lite/lib/report.mjs) — Builds a stored report from production crawler and audit-rule output, dropping internal eligibility signals · **Use:** shape audit reports for the private viewer
+- [`lite/lib/schema.mjs`](../../lite/lib/schema.mjs) — Embedded SQL schema string for Lite, kept byte-identical to the migration · **Use:** single source of Lite schema for bundling
+- [`lite/lib/security.mjs`](../../lite/lib/security.mjs) — Vendored URL safety guard blocking private/reserved IPs, credentials and non-http schemes · **Use:** SSRF protection for submitted websites
+- [`lite/lib/tokens.mjs`](../../lite/lib/tokens.mjs) — 256-bit report capability tokens with only SHA-256 stored · **Use:** private report link security
+- [`lite/lib/validate.mjs`](../../lite/lib/validate.mjs) — Input validation for email, domain, website and lead fields using the security guard · **Use:** validate Lite form input
+- [`lite/migrations/lite_001.sql`](../../lite/migrations/lite_001.sql) — SQL migration creating lite_audit_requests and lead tables for Cash Engine Lite · **Use:** database schema for Lite
+- [`package-lock.json`](../../lite/package-lock.json) — npm lockfile for uberbond-cash-engine-lite · **Use:** pin Lite dependencies
+- [`package.json`](../../lite/package.json) — Package manifest for Cash Engine Lite · **Use:** declare Lite dependencies and engines
+- [`lite/public/icon.svg`](../../lite/public/icon.svg) — SVG icon for the Lite site · **Use:** site favicon
+- [`lite/public/index.html`](../../lite/public/index.html) — Landing page for free website revenue audit submission · **Use:** public entry page of Cash Engine Lite
+- [`lite/public/report.html`](../../lite/public/report.html) — Private audit report page shell, noindex · **Use:** display a submitted site's audit report
+- [`lite/public/report.js`](../../lite/public/report.js) — Report viewer script rendering untrusted crawl content with textContent from token in URL · **Use:** client logic for audit report page
+- [`lite/public/site.js`](../../lite/public/site.js) — Landing form script posting to same-origin API and showing report link · **Use:** submit audits from the public page
+- [`lite/public/styles.css`](../../lite/public/styles.css) — Stylesheet for Lite landing and report pages · **Use:** visual styling of Lite site
+- [`lite/public/uberbond-static-data.js`](../../lite/public/uberbond-static-data.js) — Static data for command center: organ node list with truth states · **Use:** feed static command center view
+- [`lite/public/uberbond-static.html`](../../lite/public/uberbond-static.html) — Static HTML Wessam Command Center page · **Use:** offline/static command center on iPad
+- [`lite/public/uberbond.css`](../../lite/public/uberbond.css) — Stylesheet for the cinematic Wessam Command Center · **Use:** visual styling of command center
+- [`lite/public/uberbond.html`](../../lite/public/uberbond.html) — Wessam Command Center HTML shell served by Lite · **Use:** iPad command center page
+- [`lite/scripts/build-visual-cortex.mjs`](../../lite/scripts/build-visual-cortex.mjs) — Build script generating command-center visual cortex assets by running repo scripts and copying outputs into Lite · **Use:** build step for Lite command center data
+- [`vercel.json`](../../lite/vercel.json) — Vercel config for Lite: build command, functions, headers, rewrites · **Use:** deploy Lite on Vercel
+- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — GitHub Actions audit worker reusing production Playwright crawler and audit rules, never logging PII · **Use:** run queued Lite audits on schedule

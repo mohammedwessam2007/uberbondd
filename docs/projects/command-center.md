@@ -6,72 +6,85 @@ Command center UI and service worker, founder center/ops view, admin pages, oper
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**120 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**123 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (9)
+## Read first (11)
 
 - [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — UberBond Frontier Operator + Open Model Foundry + Automation Harvest — Status: provider-neutral foundation proposed and implemented on an isolated expansion branch; no paid Fable dependency… _(matched by name only)_
 - [`docs/COMMAND_CENTER_2.md`](../COMMAND_CENTER_2.md) — UberBond Command Center 2.0 _(matched by name only)_
-- [`lite/UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — UberBond Wessam Command Center _(matched by name only)_
-- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · UBERMIND Ω42: Evidence-first agent-tree command center _(matched by name only)_
+- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — 2026-08-18 wave adding self-upgrade proposal/mission packet contracts and Prometheus control tower founder report. · **Use:** record of governed self-upgrade loop
+- [`docs/SOVEREIGN_FOUNDER_FIRST_BOOT.md`](../SOVEREIGN_FOUNDER_FIRST_BOOT.md) — Runbook for one command bootstrapping an owner Linux machine with local llama-server model, Founder Console, worker, verifier and promoter. · **Use:** stand up local self-completion brainstem
+- [`lite/UBERBOND_COMMAND_CENTER.md`](../../lite/UBERBOND_COMMAND_CENTER.md) — Note on the Wessam Command Center served from Lite: bounded source snapshot, truth boundary, UI evolution law · **Use:** explains command center on Lite deployment
+- [`docs/architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md`](../architecture/UBERMIND_OMEGA42_AGENT_TREE_COMMAND_CENTER_2026-10-24.md) — 2026-10-24 · Omega42 local agent-tree command center design from founder screenshots: Opus advisor, Sonnet lead, Haiku workers, JEV forks, falsifier. · **Use:** design reference for multi-agent command center
 - [`docs/handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md`](../handoffs/UBERMIND_W14_OPERATOR_SCOREBOARD_2026-10-08.md) — 2026-10-08 · UberMind W14: Owner-visible actual work, never fabricated dollar savings _(matched by name only)_
-- [`docs/receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md`](../receipts/WORK_ADMIN_RECOVERY_PREFLIGHT_20261003.md) — 2026-10-03 · Work admin recovery and exact production preflight — 2026-10-03 _(matched by name only)_
-- [`docs/OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md`](../OUTREACH_1000_OPERATOR_DONOR_UNIVERSE_2026-09-28.md) — 2026-09-28 · UberBond 1,000-Operator Cold-Outreach Donor Universe — 2026-09-28 — Status: research universe, NOT a claim that a verified global "top 1,000" leaderboard exists. _(matched by name only)_
-- [`docs/OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md`](../OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md) — 2026-09-15 · Operator note _(matched by name only)_
+- [`docs/OUTREACH_ONE_BUTTON_ACTIVATION_2026-09-15.md`](../OUTREACH_ONE_BUTTON_ACTIVATION_2026-09-15.md) — 2026-09-15 · Spec of admin one-button that checks live outbound flags and approved autoSend campaign then resumes worker and runs 250 pulse. · **Use:** founder control to wake outreach
+- [`docs/OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md`](../OUTREACH_ONE_BUTTON_OPERATOR_NOTE_2026-09-15.md) — 2026-09-15 · Operator note: use /admin.html with ADMIN_TOKEN; button refuses with blocker or wakes worker; cannot flip dry-run. · **Use:** how founder presses the outreach button
 - [`docs/memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md`](../memory/UBERBOND_COMMAND_CENTER_DEPLOY_RECOVERY_2026-09-06.md) — 2026-09-06 · UberBond Command Center deploy recovery — 2026-09-06 _(matched by name only)_
-
-## Dated documents, newest first (1)
-
 - [`docs/memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md`](../memory/UBERBOND_COMMAND_CENTER_IPAD_ACTIVATION_2026-09-05.md) — 2026-09-05 · UberBond Command Center iPad Activation Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / LIVE PRIVATE PREVIEW AVAILABLE / EXACT-HEAD PROMOTION NOT YET VERIFIED _(matched by name only)_
+
+## Commands (1)
+
+`npm run visual`
 
 ## Documents that discuss this project without naming it in the filename (3)
 
 - [`docs/handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md`](../handoffs/CHATGPT_PROJECT_CONTINUITY_CURRENT.md) — UberBond ChatGPT Project Continuity — Current _(matched by name only)_ _(4 mentions)_
 - [`docs/memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md`](../memory/UBERBOND_NIGHT10_FINAL_TRIBUNAL_2026-09-06.md) — 2026-09-06 · UberBond NIGHT-10 Final Tribunal — 2026-09-06 _(matched by name only)_ _(3 mentions)_
-- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(matched by name only)_ _(3 mentions)_
+- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Explains refusal to fabricate a 52-file 300-mechanism Prometheus package without live adapters; scopes to shared capabilities instead. · **Use:** record honest scoping of Prometheus mission _(3 mentions)_
 
-## Source modules (17)
+## Source modules (19)
 
-- [`src/autonomy-command-center-control.mjs`](../../src/autonomy-command-center-control.mjs) — exports AUTONOMY_COMMAND_CENTER_CONTROL_VERSION, AUTONOMY_COMMAND_CENTER_ISSUE, AUTONOMY_PAUSE_LABEL, compileAutonomyCommand, helpMarkdown (+1) _(matched by name only; tested; imported by 1)_
-- [`src/autonomy-command-center-status.mjs`](../../src/autonomy-command-center-status.mjs) — exports AUTONOMY_COMMAND_CENTER_STATUS_VERSION, buildAutonomyCommandCenterStatus _(matched by name only; tested; imported by 2)_
-- [`src/command-center-client-policy.mjs`](../../src/command-center-client-policy.mjs) — exports COMMAND_CENTER_CLIENT_POLICY_VERSION, COMMAND_CENTER_CACHE_SCHEMA, COMMAND_CENTER_MAX_CACHE_AGE_MS, COMMAND_CENTER_MAX_LIVE_AGE_MS, COMMAND_C… _(matched by name only; imported by 2)_
-- [`src/command-center-ui-evolution.mjs`](../../src/command-center-ui-evolution.mjs) — exports COMMAND_CENTER_UI_EVOLUTION_POLICY, COMMAND_CENTER_UI_PROMOTION_AUTHORITY, uiEvolutionFingerprint, normalizeUiBenchmark, scoreUiBenchmark (+2) _(matched by name only; imported by 2)_
+- [`src/autonomy-command-center-control.mjs`](../../src/autonomy-command-center-control.mjs) — Compiles autonomy commands from a command-center GitHub issue with pause label, help and status markdown · **Use:** founder controls autonomy via an issue _(tested; imported by 1)_
+- [`src/autonomy-command-center-status.mjs`](../../src/autonomy-command-center-status.mjs) — Builds autonomy command center status report · **Use:** show autonomy state to the founder _(tested; imported by 2)_
+- [`src/command-center-client-policy.mjs`](../../src/command-center-client-policy.mjs) — Sanitizes command center snapshots, last-good cache with age limits, caps synaptic graph size, classifies live status · **Use:** client-side truthfulness rules for the command center _(imported by 2)_
+- [`src/command-center-ui-evolution.mjs`](../../src/command-center-ui-evolution.mjs) — Scores UI benchmark candidates and asserts that UI promotion is review-only · **Use:** govern automated UI improvements _(imported by 2)_
 - [`src/founder-command-center.mjs`](../../src/founder-command-center.mjs) — exports COMMAND_CENTER_POLICY_VERSION, buildFounderCommandCenter _(matched by name only; tested; imported by 2)_
 - [`src/founder-ops-runtime-probe.mjs`](../../src/founder-ops-runtime-probe.mjs) — exports FOUNDER_OPS_RUNTIME_PROBE_VERSION, founderOpsRuntimeIdentity, founderOpsTargetIdentity, founderOpsRuntimeProbeReceiptPreimage, verifyFounderO… _(matched by name only; tested; imported by 2)_
 - [`src/founder-ops-view.mjs`](../../src/founder-ops-view.mjs) — exports FOUNDER_OPS_VIEW_VERSION, buildFounderOpsView _(matched by name only; tested; imported by 1)_
-- [`src/omega-operator-crystallizer.mjs`](../../src/omega-operator-crystallizer.mjs) — exports OMEGA_OPERATOR_CRYSTALLIZER_VERSION, crystallizeParametricOperator, instantiateParametricOperator _(matched by name only; tested; no static importers)_
+- [`src/omnia-v9/integrations/owner-review.mjs`](../../src/omnia-v9/integrations/owner-review.mjs) — Builds compact owner exception packets for unresolved V9 cases and applies owner responses with expiry. · **Use:** One-glance owner decisions on V9 disagreements _(no static importers)_
 - [`src/operator-escalation-transport.mjs`](../../src/operator-escalation-transport.mjs) — Deciding to page someone and actually reaching them are different problems. _(matched by name only; tested; imported by 2)_
 - [`src/operator-escalation.mjs`](../../src/operator-escalation.mjs) — exports OPERATOR_ESCALATION_POLICY_VERSION, ESCALATION_AUDIT_TYPE, ESCALATION_RESOLVED_AUDIT_TYPE, evaluateOperatorHealth, persistOperatorEscalations… _(matched by name only; tested; imported by 2)_
 - [`src/operator-health-snapshot.mjs`](../../src/operator-health-snapshot.mjs) — Compose the health snapshot the operator escalation kernel evaluates. _(matched by name only; tested; imported by 1)_
 - [`src/outbound-operator-summary.mjs`](../../src/outbound-operator-summary.mjs) — exports OPERATOR_SUMMARY_POLICY_VERSION, buildOutboundOperatorSummary _(matched by name only; tested; imported by 1)_
 - [`src/payment-operator-attention.mjs`](../../src/payment-operator-attention.mjs) — exports PAYMENT_OPERATOR_ATTENTION_POLICY_VERSION, classifyPaymentAttentionEntry, summarizePaymentOperatorAttention _(matched by name only; tested; imported by 1)_
-- [`src/sovereign-founder-console.mjs`](../../src/sovereign-founder-console.mjs) — exports SOVEREIGN_FOUNDER_CONSOLE_VERSION, FOUNDER_CONSOLE_COMMANDS, constantTimeTokenEqual, compileFounderConsoleBinding, parseFounderConsoleInput (… _(matched by name only; tested; imported by 2)_
-- [`src/sovereign-founder-private-gateway.mjs`](../../src/sovereign-founder-private-gateway.mjs) — exports SOVEREIGN_FOUNDER_PRIVATE_GATEWAY_VERSION, classifyFounderPrivateHost, compileFounderPrivateGatewayBinding, founderGatewayTokenFromAuthorizat… _(matched by name only; tested; imported by 1)_
-- [`src/uberbond-command-center-normalizer.mjs`](../../src/uberbond-command-center-normalizer.mjs) — exports UBERBOND_COMMAND_CENTER_NORMALIZER_POLICY_VERSION, normalizeUberBondCommandCenterStatus _(matched by name only; tested; imported by 1)_
-- [`src/uberbond-command-center-status.mjs`](../../src/uberbond-command-center-status.mjs) — exports UBERBOND_COMMAND_CENTER_SCHEMA, UBERBOND_COMMAND_CENTER_POLICY_VERSION, buildUberBondCommandCenterStatus, UBERBOND_COMMAND_CENTER_RECEIPTS _(matched by name only; tested; imported by 1)_
+- [`src/prometheus-control-tower.mjs`](../../src/prometheus-control-tower.mjs) — Read-and-summarize morning report over command center, audits, payment truth, learning and capability records; reports UNKNOWN for missing sources · **Use:** founder-facing daily control tower _(tested; imported by 2)_
+- [`src/sovereign-founder-console.mjs`](../../src/sovereign-founder-console.mjs) — Founder console commands, constant-time token check, binding and snapshot compilation · **Use:** private founder command console _(tested; imported by 2)_
+- [`src/sovereign-founder-private-gateway.mjs`](../../src/sovereign-founder-private-gateway.mjs) — Classifies private host and authorizes founder gateway via bearer token · **Use:** protect founder console access _(tested; imported by 1)_
+- [`src/system-health-matrix.mjs`](../../src/system-health-matrix.mjs) — Health matrix including billing evidence backlog states NOT_OBSERVED/NO_WORKER/BACKLOG_AGEING/HEALTHY · **Use:** operator view of system health _(imported by 1)_
+- [`src/uberbond-command-center-normalizer.mjs`](../../src/uberbond-command-center-normalizer.mjs) — Normalizes command center status by mapping maturity/status names and rejoining candidate catalog fields · **Use:** feed consistent data to command center UI _(tested; imported by 1)_
+- [`src/uberbond-command-center-status.mjs`](../../src/uberbond-command-center-status.mjs) — Builds command center status from the cognitive graph and receipts · **Use:** status payload for the command center _(tested; imported by 1)_
 
-## Scripts (6)
+## Scripts (7)
 
-- [`scripts/founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) _(matched by name only)_
+- [`scripts/founder-ops-runtime-probe.mjs`](../../scripts/founder-ops-runtime-probe.mjs) — Probes the founder ops endpoint with admin token and compiles a runtime probe receipt with verifier and evidence refs. · **Use:** evidence that founder ops page is live
 - [`scripts/sovereign-founder-console-server.mjs`](../../scripts/sovereign-founder-console-server.mjs) _(matched by name only)_
 - [`scripts/sovereign-founder-private-gateway.mjs`](../../scripts/sovereign-founder-private-gateway.mjs) _(matched by name only)_
 - [`scripts/uberbond-command-center-control.mjs`](../../scripts/uberbond-command-center-control.mjs) _(matched by name only)_
-- [`scripts/vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs) _(matched by name only)_
-- [`scripts/vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs) _(matched by name only)_
+- [`scripts/vercel-command-center-build.mjs`](../../scripts/vercel-command-center-build.mjs) — Vercel build for the command center that first runs first-party civilization and independence contracts (UberGraph, UberMind, UberDNA, UberCloud, Ubercel) · **Use:** resurrection gate during command center deployment build
+- [`scripts/vercel-command-center-visual-cortex-build.mjs`](../../scripts/vercel-command-center-visual-cortex-build.mjs) — Build sequence regenerating feature genome, atom atlas, synaptic map, deep atlas and ultimate graph, then syntax checks UI graph files · **Use:** build the command center visual graph for Vercel
+- [`scripts/visual-qa.mjs`](../../scripts/visual-qa.mjs) — Playwright Chromium script rendering storefront pages at several viewport sizes into previews directory · **Use:** visual QA screenshots of public UI _(npm: `visual`)_
 
 ## Config, data, artifacts and services (55)
 
-- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control _(matched by name only)_
-- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — exports createHandler _(matched by name only)_
-- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — exports createHandler _(matched by name only)_
-- [`api/command-center.mjs`](../../api/command-center.mjs) — exports createHandler _(matched by name only)_
-- [`api/founder-center.mjs`](../../api/founder-center.mjs) — exports FREE_MODEL, startEconomicOutcomeMission, createHandler _(matched by name only)_
-- [`api/founder-ops.mjs`](../../api/founder-ops.mjs) — exports createHandler _(matched by name only)_
-- [`artifacts/outreach/work-admin-recovery-preflight-20261003.json`](../../artifacts/outreach/work-admin-recovery-preflight-20261003.json) — 2026-10-03 · CLEAN · uberbond.work-admin-recovery-production-preflight.v1 _(matched by name only)_
-- [`center.html`](../../center.html) — Founder center page. _(matched by name only)_
-- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — exports handler _(matched by name only)_
+- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — Dispatch workflow that checks a pause label on issue #604 then runs a finite completion pulse. · **Use:** wake autonomy loop unless founder paused it
+- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — Workflow reacting to owner comments on issue #604 to execute command-center control commands. · **Use:** founder control of autonomy via issue comments
+- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — Bearer-protected admin handler returning the system health matrix, with strict string-only header normalization. · **Use:** operator health check endpoint
+- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — Admin handler that re-queues dead-lettered jobs using config, store and queue. · **Use:** recover failed background jobs
+- [`api/command-center.mjs`](../../api/command-center.mjs) — Handler composing command-center status, normalizer and autonomy status into a single view. · **Use:** serve command center data to founder UI
+- [`api/founder-center.mjs`](../../api/founder-center.mjs) — Founder center handler that starts economic-outcome missions via GitHub relay with a free model constant, using store and queue. · **Use:** founder triggers outcome missions
+- [`api/founder-ops.mjs`](../../api/founder-ops.mjs) — Handler building the founder ops view from store and revenue data. · **Use:** founder operations dashboard data
+- [`artifacts/overnight/deep-build-2026-09-06-run-2.json`](../../artifacts/overnight/deep-build-2026-09-06-run-2.json) — 2026-09-06 · Second overnight run receipt: causal repairs, restored config, executed canon and command-center proofs, pending deployment. · **Use:** track overnight build repairs and evidence state
+- [`artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg`](../../artifacts/revenue-singularity/20261004/live-owner-session-gspot-xray.jpg) — Screenshot image of the live owner session showing G-SPOT and Prospect X-Ray UI, dated 2026-10-04. · **Use:** visual evidence of Revenue Constellation UI acceptance
+- [`center.html`](../../center.html) — Standalone noindex HTML page titled UberBond Communication Center with dark themed UI styles. · **Use:** founder communication console page
+- [`lite/api/command-center.mjs`](../../lite/api/command-center.mjs) — Vercel handler returning a bounded command-center snapshot: organ topology, model catalog summary, GENESIS checkpoint · **Use:** backend for the iPad command center on Lite
+- [`lite/api/ultimate-graph.mjs`](../../lite/api/ultimate-graph.mjs) — Vercel handler exposing an Ultimate Graph view for the Lite command center · **Use:** serve repository graph data to command center UI
+- [`lite/public/uberbond-static-data.js`](../../lite/public/uberbond-static-data.js) — Static data for command center: organ node list with truth states · **Use:** feed static command center view
+- [`lite/public/uberbond-static.html`](../../lite/public/uberbond-static.html) — Static HTML Wessam Command Center page · **Use:** offline/static command center on iPad
+- [`lite/public/uberbond.css`](../../lite/public/uberbond.css) — Stylesheet for the cinematic Wessam Command Center · **Use:** visual styling of command center
+- [`lite/public/uberbond.html`](../../lite/public/uberbond.html) — Wessam Command Center HTML shell served by Lite · **Use:** iPad command center page
+- [`lite/scripts/build-visual-cortex.mjs`](../../lite/scripts/build-visual-cortex.mjs) — Build script generating command-center visual cortex assets by running repo scripts and copying outputs into Lite · **Use:** build step for Lite command center data
 - [`operator-tools/uberwarm2-execute-approved-once.mjs`](../../operator-tools/uberwarm2-execute-approved-once.mjs) — Dedicated, manually invoked, SINGLE probe execution, NEVER a cron hook. No external effect without authenticated provider transport, six separately s… _(matched by name only)_
 - [`ops/sovereign/configure-founder-console-private.sh`](../../ops/sovereign/configure-founder-console-private.sh) _(matched by name only)_
 - [`ops/sovereign/configure-founder-console-tailnet.sh`](../../ops/sovereign/configure-founder-console-tailnet.sh) _(matched by name only)_
@@ -95,31 +108,23 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`public/constellation.js`](../../public/constellation.js) _(matched by name only)_
 - [`public/icon.svg`](../../public/icon.svg) _(matched by name only)_
 - [`public/index.html`](../../public/index.html) — UberBond Command Center _(matched by name only)_
-- [`public/manifest.webmanifest`](../../public/manifest.webmanifest) _(matched by name only)_
-- [`public/ops.css`](../../public/ops.css) _(matched by name only)_
-- [`public/ops.html`](../../public/ops.html) — UberBond · Founder Ops _(matched by name only)_
-- [`public/ops.js`](../../public/ops.js) _(matched by name only)_
-- [`public/outreach-one-button.js`](../../public/outreach-one-button.js) _(matched by name only)_
-- [`public/owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser: _(matched by name only)_
-- [`public/phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat _(matched by name only)_
-- [`public/phoenix.js`](../../public/phoenix.js) _(matched by name only)_
-- [`public/prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls over the existing canonical read-only operations. The _(matched by name only)_
-- [`public/report.html`](../../public/report.html) — Private Opportunity Report · UberBond _(matched by name only)_
-- [`public/report.js`](../../public/report.js) _(matched by name only)_
-- [`public/site.js`](../../public/site.js) _(matched by name only)_
-- [`public/storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit _(matched by name only)_
-- [`public/styles.css`](../../public/styles.css) _(matched by name only)_
-- [`public/uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — UberBond · Connected Command Center _(matched by name only)_
-- [`public/uberbond-connected.html`](../../public/uberbond-connected.html) — UberBond · Connected Command Center _(matched by name only)_
-- [`public/uberbond-graph.css`](../../public/uberbond-graph.css) _(matched by name only)_
-- [`public/uberbond-graph.js`](../../public/uberbond-graph.js) _(matched by name only)_
-- [`public/uberbond-standalone.html`](../../public/uberbond-standalone.html) — UberBond · Wessam Command Center _(matched by name only)_
-- [`public/uberbond.css`](../../public/uberbond.css) _(matched by name only)_
-- [`public/uberbond.html`](../../public/uberbond.html) — UberBond · Wessam Command Center _(matched by name only)_
-- [`public/uberbond.js`](../../public/uberbond.js) _(matched by name only)_
-- [`renaissance.html`](../../renaissance.html) — Standalone Renaissance page. _(matched by name only)_
+- [`public/manifest.webmanifest`](../../public/manifest.webmanifest) — Web app manifest for the public UberBond site enabling install-to-home-screen as a progressive web app. · **Use:** lets founder add the web console to iPad home screen
+- [`public/ops.css`](../../public/ops.css) — Dark-theme stylesheet for the Founder Ops page with status tone colors (cyan, green, amber, red). · **Use:** styles the founder ops readiness dashboard
+- [`public/ops.html`](../../public/ops.html) — Founder Ops HTML page (mobile web-app capable) showing UberBond operational readiness panels, loads ops.css and ops.js. · **Use:** founder view of system readiness on phone or iPad
+- [`public/ops.js`](../../public/ops.js) — Client script for Founder Ops page: polls API with an in-memory token and tones fields READY/NO/warn by status strings. · **Use:** render live readiness states in the founder ops page
+- [`public/owner-session.js`](../../public/owner-session.js) — Persistent owner session client: after one bearer-authenticated API call the server issues an HttpOnly cookie; token never stored in browser. · **Use:** keep founder logged in across page loads without storing the admin token
+- [`public/prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls for read-only prospect inspection, runtime inspection and frozen-prospect execution by exact digest; preserves 409 NOT_SENT receipts, never shows full postal address. · **Use:** operator inspects and dispatches one frozen prospect from the admin UI
+- [`public/uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — Self-contained read-only Connected Command Center page with inline styles showing connected system status. · **Use:** safe read-only founder command view
+- [`public/uberbond-connected.html`](../../public/uberbond-connected.html) — Redirect stub sending the legacy connected view to the read-only safe command center page. · **Use:** keep old links working after command center move
+- [`public/uberbond-graph.css`](../../public/uberbond-graph.css) — Styles for the graph console: search box, lens controls, and canvas overlay of the UberBond graph view. · **Use:** style the interactive brain/graph visualization
+- [`public/uberbond-graph.js`](../../public/uberbond-graph.js) — Canvas graph renderer with lenses (default brain), node/edge positions, hover, selection, history, pan/zoom and pinch gestures. · **Use:** interactive spatial view of UberBond's brain graph on iPad
+- [`public/uberbond-standalone.html`](../../public/uberbond-standalone.html) — Standalone single-file Wessam Command Center page with inline CSS, not requiring the main stylesheets. · **Use:** offline or standalone founder command center view
+- [`public/uberbond.css`](../../public/uberbond.css) — Stylesheet for Wessam Command Center with goal/donor color tokens and ambient background. · **Use:** style the main founder command center page
+- [`public/uberbond.html`](../../public/uberbond.html) — Wessam Command Center main HTML page loading uberbond.css and graph styles, ambient layout with graph stage. · **Use:** founder's primary command center web page
+- [`public/uberbond.js`](../../public/uberbond.js) — Command center client script holding bearer only in page memory, never in storage, URLs, caches or DOM. · **Use:** authenticated data loading for the command center
+- [`renaissance.html`](../../renaissance.html) — Standalone page titled INTELLECTUALITY Holiday Renaissance Week, gold-themed personal learning or activity plan. · **Use:** founder's personal holiday learning week page
 
-## Tests (32)
+## Tests (31)
 
-[`admin-ephemeral-client-hostile`](../../tests/admin-ephemeral-client-hostile.test.mjs) · [`admin-health-route`](../../tests/admin-health-route.test.mjs) · [`autonomy-command-center-control-wiring`](../../tests/autonomy-command-center-control-wiring.test.mjs) · [`autonomy-command-center-control`](../../tests/autonomy-command-center-control.test.mjs) · [`autonomy-command-center-status`](../../tests/autonomy-command-center-status.test.mjs) · [`autonomy-command-center-wiring`](../../tests/autonomy-command-center-wiring.test.mjs) · [`command-center-2-auth`](../../tests/command-center-2-auth.test.mjs) · [`command-center-2-policy`](../../tests/command-center-2-policy.test.mjs) · [`command-center-owner-auth-hostile`](../../tests/command-center-owner-auth-hostile.test.mjs) · [`founder-center-api`](../../tests/founder-center-api.test.mjs) · [`founder-command-center`](../../tests/founder-command-center.test.mjs) · [`founder-console-private-configurator`](../../tests/founder-console-private-configurator.test.mjs) · [`founder-ops-api`](../../tests/founder-ops-api.test.mjs) · [`founder-ops-private-isolation`](../../tests/founder-ops-private-isolation.test.mjs) · [`founder-ops-runtime-probe`](../../tests/founder-ops-runtime-probe.test.mjs) · [`founder-ops-view`](../../tests/founder-ops-view.test.mjs) · [`night-runtime-admin-retry-route`](../../tests/night-runtime-admin-retry-route.test.mjs) · [`omega-operator-crystallizer`](../../tests/omega-operator-crystallizer.test.mjs) · [`operator-escalation-episodes`](../../tests/operator-escalation-episodes.test.mjs) · [`operator-escalation-transport`](../../tests/operator-escalation-transport.test.mjs) · [`operator-escalation`](../../tests/operator-escalation.test.mjs) · [`operator-health-snapshot`](../../tests/operator-health-snapshot.test.mjs) · [`outbound-operator-summary`](../../tests/outbound-operator-summary.test.mjs) · [`outreach-live-operator-ui`](../../tests/outreach-live-operator-ui.test.mjs) · [`payment-operator-attention`](../../tests/payment-operator-attention.test.mjs) · [`render-root-command-center`](../../tests/render-root-command-center.test.mjs) · [`sovereign-founder-console-private-network-auth`](../../tests/sovereign-founder-console-private-network-auth.test.mjs) · [`sovereign-founder-console`](../../tests/sovereign-founder-console.test.mjs) · [`sovereign-founder-private-gateway`](../../tests/sovereign-founder-private-gateway.test.mjs) · [`uberbond-command-center-normalizer`](../../tests/uberbond-command-center-normalizer.test.mjs) · [`uberbond-command-center-status`](../../tests/uberbond-command-center-status.test.mjs) · [`value-of-information-operator-reachability`](../../tests/value-of-information-operator-reachability.test.mjs)
+[`admin-ephemeral-client-hostile`](../../tests/admin-ephemeral-client-hostile.test.mjs) · [`admin-health-route`](../../tests/admin-health-route.test.mjs) · [`autonomy-command-center-control-wiring`](../../tests/autonomy-command-center-control-wiring.test.mjs) · [`autonomy-command-center-control`](../../tests/autonomy-command-center-control.test.mjs) · [`autonomy-command-center-status`](../../tests/autonomy-command-center-status.test.mjs) · [`autonomy-command-center-wiring`](../../tests/autonomy-command-center-wiring.test.mjs) · [`billing-backlog-visibility`](../../tests/billing-backlog-visibility.test.mjs) · [`command-center-2-auth`](../../tests/command-center-2-auth.test.mjs) · [`command-center-2-policy`](../../tests/command-center-2-policy.test.mjs) · [`command-center-owner-auth-hostile`](../../tests/command-center-owner-auth-hostile.test.mjs) · [`founder-center-api`](../../tests/founder-center-api.test.mjs) · [`founder-console-private-configurator`](../../tests/founder-console-private-configurator.test.mjs) · [`founder-ops-api`](../../tests/founder-ops-api.test.mjs) · [`founder-ops-private-isolation`](../../tests/founder-ops-private-isolation.test.mjs) · [`founder-ops-runtime-probe`](../../tests/founder-ops-runtime-probe.test.mjs) · [`lite-owner-bearer-source`](../../tests/lite-owner-bearer-source.test.mjs) · [`omnia-v9-owner-review`](../../tests/omnia-v9-owner-review.test.mjs) · [`operator-escalation-episodes`](../../tests/operator-escalation-episodes.test.mjs) · [`operator-escalation-transport`](../../tests/operator-escalation-transport.test.mjs) · [`operator-escalation`](../../tests/operator-escalation.test.mjs) · [`outreach-one-button-ui`](../../tests/outreach-one-button-ui.test.mjs) · [`payment-operator-attention`](../../tests/payment-operator-attention.test.mjs) · [`render-root-command-center`](../../tests/render-root-command-center.test.mjs) · [`sovereign-air-cockpit`](../../tests/sovereign-air-cockpit.test.mjs) · [`sovereign-bootstrap-founder-control`](../../tests/sovereign-bootstrap-founder-control.test.mjs) · [`sovereign-founder-console-private-network-auth`](../../tests/sovereign-founder-console-private-network-auth.test.mjs) · [`sovereign-founder-console`](../../tests/sovereign-founder-console.test.mjs) · [`sovereign-founder-private-gateway`](../../tests/sovereign-founder-private-gateway.test.mjs) · [`uberbond-command-center-normalizer`](../../tests/uberbond-command-center-normalizer.test.mjs) · [`uberbond-command-center-status`](../../tests/uberbond-command-center-status.test.mjs) · [`ultimate-graph-api`](../../tests/ultimate-graph-api.test.mjs)
 

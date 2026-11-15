@@ -6,39 +6,45 @@ Research-only quant: backtest, data vault, paper ledger, research protocol, stra
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**9 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**17 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (3)
 
+- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — Status of MACHIAVELLI program: wealth mechanism atlas over 890 ideas, profit tournament, quant research lab files; cleared profit $0. · **Use:** index of wealth-invention deliverables and their state
+- [`.claude/skills/ubermind-math-invention/SKILL.md`](../../.claude/skills/ubermind-math-invention/SKILL.md) — Omega52 skill for classified invention (fiction/math/science) and research-only quant analysis via omega52 atoms config and strategy-brief script. · **Use:** mathematical invention and survival-quant research tasks
 - [`docs/architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_HYPERDIMENSIONAL_INVENTION_AND_QUANT_RESEARCH_2026-10-24.md) — 2026-10-24 · UBERMIND Ω52 / Hyperdimensional Invention, Mathematical Reality and Quantitative Survival _(matched by name only)_
 
-## Documents that discuss this project without naming it in the filename (5)
+## Documents that discuss this project without naming it in the filename (4)
 
 - [`docs/constitution/knowledge-graph-v1.md`](../constitution/knowledge-graph-v1.md) — UBERBOND Knowledge Graph _(matched by name only)_ _(15 mentions)_
-- [`docs/MACHIAVELLI_WEALTH_ENGINE.md`](../MACHIAVELLI_WEALTH_ENGINE.md) — UberBond: MACHIAVELLI Wealth Engine — Status: FIRST EXECUTION PROGRAM — research, invention, lab and ledgers built; cleared contribution profit $0.00 _(matched by name only)_ _(9 mentions)_
-- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — The IQ numbers are fictional power levels, not psychometrics. The rule here is stricter than before: if an idea could merely become a big company, it does not qualify. It should be capable,… _(matched by name only)_ _(7 mentions)_
+- [`artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt`](../../artifacts/research/founder-moonshot-literal-corpus/RAW_SOURCE_Branch_Branch_New_chat.txt) — Immutable raw founder transcript containing the 890 moonshot ideas (Causal Compiler, New Constant Hunter, etc.) with fictional IQ markers. · **Use:** literal source of truth for the 890 founder ideas _(7 mentions)_
 - [`docs/constitution/core-data-model-v1.md`](../constitution/core-data-model-v1.md) — UBERBOND Core Data Model _(matched by name only)_ _(3 mentions)_
-- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Outreach Provider Reality — 2026-09-27 — Truth class: current first-party public price/policy pages + exact live-main source review + dated inherited DNS/outreach receipt. This note does no… _(matched by name only)_ _(3 mentions)_
+- [`docs/OUTREACH_PROVIDER_REALITY_2026-09-27.md`](../OUTREACH_PROVIDER_REALITY_2026-09-27.md) — 2026-09-27 · Review of sender providers' terms (OutInfra, Google Workspace, Mailpool, Maildoso) concluding none is purchase-ready for the prospecting route. · **Use:** decide which mail provider can lawfully be bought _(3 mentions)_
 
-## Source modules (5)
+## Source modules (7)
 
-- [`src/quant-backtest.mjs`](../../src/quant-backtest.mjs) — Quant backtest engine for the Machiavelli research lab. _(matched by name only; imported by 2)_
-- [`src/quant-data-vault.mjs`](../../src/quant-data-vault.mjs) — Quant Data Vault: market data with provenance a third party can re-derive. _(matched by name only; imported by 1)_
-- [`src/quant-paper-ledger.mjs`](../../src/quant-paper-ledger.mjs) — Forward paper ledger for the Machiavelli quant lab. _(matched by name only; imported by 1)_
-- [`src/quant-research-protocol.mjs`](../../src/quant-research-protocol.mjs) — Pre-registered research protocol for the Machiavelli quant lab. _(matched by name only; imported by 1)_
-- [`src/quant-strategies.mjs`](../../src/quant-strategies.mjs) — Pre-registered strategy families for the Machiavelli quant lab. _(matched by name only; imported by 1)_
+- [`src/quant-backtest.mjs`](../../src/quant-backtest.mjs) — Backtest engine with no lookahead, explicit costs, walk-forward selection, deflated Sharpe and sealed holdout · **Use:** kill false trading edges in the research lab _(imported by 2)_
+- [`src/quant-data-vault.mjs`](../../src/quant-data-vault.mjs) — Fetches Binance public monthly archives, verifies publisher checksums, parses klines/funding with timestamp normalization · **Use:** provenanced market data for quant research _(imported by 1)_
+- [`src/quant-paper-ledger.mjs`](../../src/quant-paper-ledger.mjs) — Hash-chained forward paper-trading ledger of committed decisions and marks with costs; cannot place orders · **Use:** forward paper validation of strategies _(imported by 1)_
+- [`src/quant-research-protocol.mjs`](../../src/quant-research-protocol.mjs) — Pre-registered experiment protocol with fixed verdict rules, full grids, walk-forward, deflated Sharpe and T-bill baseline · **Use:** run honest quant experiments _(imported by 1)_
+- [`src/quant-strategies.mjs`](../../src/quant-strategies.mjs) — Pre-registered strategy families (buy-and-hold, momentum, funding carry, rotation) with cost profiles and hypotheses · **Use:** candidate strategies for the quant lab _(imported by 1)_
+- [`src/revenue-reality-ledger.mjs`](../../src/revenue-reality-ledger.mjs) — Hash-chained ledger separating simulated, paper, realized trading, collected receipts and cleared contribution profit; rewrites money claims to the supported tier · **Use:** stop confusion between simulated and cleared money _(imported by 1)_
+- [`src/ubermind-omega52-research.mjs`](../../src/ubermind-omega52-research.mjs) — Omega52 source selection, connected components sweep and ensemble vs time-average growth comparison · **Use:** offline quant/topology research primitives _(tested; imported by 1)_
 
-## Scripts (1)
+## Scripts (2)
 
-- [`scripts/quant-lab.mjs`](../../scripts/quant-lab.mjs) — Machiavelli quant lab: load verified public data, run the pre-registered _(matched by name only)_
+- [`scripts/machiavelli-scoreboard.mjs`](../../scripts/machiavelli-scoreboard.mjs) — Machiavelli Reality Scoreboard combining quant receipts, profit tournament and paper evidence into per-tier money reality and $0-$25k allocations. · **Use:** capital allocation scenarios without trading
+- [`scripts/quant-lab.mjs`](../../scripts/quant-lab.mjs) — Machiavelli quant lab: loads verified public crypto data, runs pre-registered experiments with holdout and Treasury hurdle, writes receipt; no orders. · **Use:** research-only strategy experiments
 
-## Config, data, artifacts and services (1)
+## Config, data, artifacts and services (3)
 
-- [`artifacts/quant-lab/experiments-2021-01_2026-09.json`](../../artifacts/quant-lab/experiments-2021-01_2026-09.json) — uberbond.quant-lab-experiments.v1 _(matched by name only)_
+- [`artifacts/machiavelli/profit-tournament.json`](../../artifacts/machiavelli/profit-tournament.json) — Large tournament over profit mechanisms (EGP T-bill carry, EGX flows, audit radar, SLA credit recovery) with verdicts, ranking and build-now list. · **Use:** choose research-only wealth mechanisms to pursue
+- [`artifacts/machiavelli/scoreboard.json`](../../artifacts/machiavelli/scoreboard.json) — Machiavelli scoreboard: reality refusals, paper results, research verdicts, capital allocation; no strategy has earned paper trading. · **Use:** honest status of wealth-engine strategies
+- [`artifacts/quant-lab/experiments-2021-01_2026-09.json`](../../artifacts/quant-lab/experiments-2021-01_2026-09.json) — Backtest experiment results 2021-01 to 2026-09 with cost profiles (fees, spread, slippage), capital assumption; no real-money authority. · **Use:** research evidence for quant strategy evaluation
 
-## Tests (1)
+## Tests (2)
 
-[`machiavelli-quant-lab`](../../tests/machiavelli-quant-lab.test.mjs)
+[`machiavelli-quant-lab`](../../tests/machiavelli-quant-lab.test.mjs) · [`ubermind-omega52-research`](../../tests/ubermind-omega52-research.test.mjs)
 

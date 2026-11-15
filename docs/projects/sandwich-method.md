@@ -6,41 +6,44 @@ Sandwich method canon: agent task shaping, blueprint evolution, autocatalytic go
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**23 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**28 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (2)
 
-- [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — UberBond Sandwich Method — Status: VERIFIED CURRENT SOURCE PROTOCOL / ZERO-EFFECT / RUNTIME EVIDENCE SEPARATE _(matched by name only)_
+- [`docs/SANDWICH_METHOD_CANON.md`](../SANDWICH_METHOD_CANON.md) — Protocol pairing exact current reality with a stronger descendant model; negative image filling drives one bounded enabling primitive per fold. · **Use:** iterative self-improvement planning
+- [`docs/TEMPORAL_FOUNDRY_CANON.md`](../TEMPORAL_FOUNDRY_CANON.md) — Canon for decomposing future-UberBond capabilities into functions, measuring present coverage and backcasting one enabling primitive. · **Use:** pull future capabilities into present
 
-## Documents that discuss this project without naming it in the filename (3)
+## Documents that discuss this project without naming it in the filename (2)
 
 - [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_ _(10 mentions)_
-- [`docs/TEMPORAL_FOUNDRY_CANON.md`](../TEMPORAL_FOUNDRY_CANON.md) — UberBond Temporal Foundry Canon _(matched by name only)_ _(3 mentions)_
-- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — UberBond Timeline Topology Engine Canon _(matched by name only)_ _(3 mentions)_
+- [`docs/TIMELINE_TOPOLOGY_ENGINE_CANON.md`](../TIMELINE_TOPOLOGY_ENGINE_CANON.md) — Canon for measuring dependency routes, critical path and causal floors, and testing alternate topologies that shorten paths. · **Use:** shorten roadmaps by deleting dependencies _(3 mentions)_
 
 ## Source modules (6)
 
-- [`src/sandwich-agent-task.mjs`](../../src/sandwich-agent-task.mjs) — exports SANDWICH_AGENT_TASK_VERSION, compileSandwichAgentTask _(matched by name only; tested; imported by 2)_
-- [`src/sandwich-autocatalytic-governor.mjs`](../../src/sandwich-autocatalytic-governor.mjs) — exports SANDWICH_AUTOCATALYTIC_GOVERNOR_VERSION, compileSandwichAutocatalyticDirective, compileSandwichAutocatalyticTask _(matched by name only; tested; imported by 2)_
-- [`src/sandwich-blueprint-evolution.mjs`](../../src/sandwich-blueprint-evolution.mjs) — exports SANDWICH_BLUEPRINT_EVOLUTION_VERSION, proposeSandwichBlueprintRevision, admitSandwichBlueprintRevision _(matched by name only; tested; imported by 1)_
-- [`src/sandwich-descendant-admission.mjs`](../../src/sandwich-descendant-admission.mjs) — exports SANDWICH_DESCENDANT_ADMISSION_VERSION, SANDWICH_DESCENDANT_CANON_PATH, compileSandwichDescendantAdmission _(matched by name only; tested; imported by 3)_
-- [`src/sandwich-evidence-binding.mjs`](../../src/sandwich-evidence-binding.mjs) — exports SANDWICH_EVIDENCE_BINDING_VERSION, SANDWICH_EVIDENCE_KINDS, compileEvidenceBoundSandwich _(matched by name only; tested; imported by 2)_
-- [`src/sandwich-method.mjs`](../../src/sandwich-method.mjs) — exports SANDWICH_METHOD_VERSION, SANDWICH_NODE_STATES, SANDWICH_FOLD_CLASSES, SANDWICH_TARGET_AUTHORITIES, SANDWICH_FOLD_OUTCOMES (+5) _(matched by name only; tested; imported by 4)_
+- [`src/sandwich-agent-task.mjs`](../../src/sandwich-agent-task.mjs) — Compiles a Sandwich Method agent task for the agent relay · **Use:** shape agent tasks per Sandwich Method _(tested; imported by 2)_
+- [`src/sandwich-autocatalytic-governor.mjs`](../../src/sandwich-autocatalytic-governor.mjs) — Compiles autocatalytic directives and tasks governing Sandwich Method self-continuation via the agent relay · **Use:** govern self-generating Sandwich tasks _(tested; imported by 2)_
+- [`src/sandwich-blueprint-evolution.mjs`](../../src/sandwich-blueprint-evolution.mjs) — Proposes and admits revisions to the Sandwich Method blueprint · **Use:** evolve the Sandwich blueprint under admission _(tested; imported by 1)_
+- [`src/sandwich-descendant-admission.mjs`](../../src/sandwich-descendant-admission.mjs) — Admits Sandwich descendants against the sovereign coverage matrix canon path · **Use:** admit new descendants into canon _(tested; imported by 3)_
+- [`src/sandwich-evidence-binding.mjs`](../../src/sandwich-evidence-binding.mjs) — Binds evidence kinds to Sandwich Method compilations · **Use:** evidence-bound Sandwich plans _(tested; imported by 2)_
+- [`src/sandwich-method.mjs`](../../src/sandwich-method.mjs) — Core Sandwich Method compiler with node states, fold classes, fold missions, canonical leaf handoff and fold result admission · **Use:** decompose work into folds and canonical leaves _(tested; imported by 4)_
 
 ## Scripts (3)
 
-- [`scripts/sandwich-autocatalytic-seed.mjs`](../../scripts/sandwich-autocatalytic-seed.mjs) — exports runSandwichAutocatalyticSeed _(matched by name only)_
-- [`scripts/sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) _(matched by name only)_
-- [`scripts/sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) _(matched by name only)_
+- [`scripts/sandwich-autocatalytic-seed.mjs`](../../scripts/sandwich-autocatalytic-seed.mjs) — Seeds the Sandwich autocatalytic governor with finite completion seed via GitHub relay. · **Use:** start autocatalytic Sandwich loop
+- [`scripts/sandwich-method-doctor.mjs`](../../scripts/sandwich-method-doctor.mjs) — Doctor building Sandwich fold mission, evidence binding, agent task and blueprint revision proposals. · **Use:** check Sandwich method pipeline
+- [`scripts/sandwich-method-plan.mjs`](../../scripts/sandwich-method-plan.mjs) — Compiles Sandwich method plan, evidence-bound sandwich, agent task and canonical leaf handoff, writing output. · **Use:** produce Sandwich agent task plans
 
-## Config, data, artifacts and services (2)
+## Config, data, artifacts and services (5)
 
-- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — UberBond Sandwich Autocatalytic Loop _(matched by name only)_
-- [`artifacts/sandwich-method.json`](../../artifacts/sandwich-method.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE · uberbond-sandwich-method-1.4.0 _(matched by name only)_
+- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — Dispatch workflow honoring the issue #604 pause fence and running the Sandwich post-finite autocatalytic fold. · **Use:** run Sandwich autocatalytic loop
+- [`artifacts/connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — Artifact describing a typed connectome graph, bus, resident worker, Sandwich governor, organs and event kinds; source-level only. · **Use:** connectome self-audit contract and status
+- [`artifacts/sandwich-method.json`](../../artifacts/sandwich-method.json) — Machine canon for the Sandwich Method pointing to module, planner, doctor, agent task compiler, blueprint evolution, temporal foundry, timeline topology and autocatalytic governor. · **Use:** registry of Sandwich Method components and tests
+- [`artifacts/temporal-foundry.json`](../../artifacts/temporal-foundry.json) — Machine canon for Temporal Foundry: engine, function states, laws, metrics, integration and tests; source-level future-function decomposition only. · **Use:** registry of Temporal Foundry implementation
+- [`artifacts/timeline-topology-engine.json`](../../artifacts/timeline-topology-engine.json) — Machine canon for the Timeline Topology Engine with challenge compiler, sandwich governor, sovereign worker compiler/runtime, boundary and necessity classes. · **Use:** registry of timeline topology analysis components
 
-## Tests (11)
+## Tests (12)
 
-[`sandwich-agent-task`](../../tests/sandwich-agent-task.test.mjs) · [`sandwich-autocatalytic-governor`](../../tests/sandwich-autocatalytic-governor.test.mjs) · [`sandwich-autocatalytic-seed`](../../tests/sandwich-autocatalytic-seed.test.mjs) · [`sandwich-blueprint-evolution`](../../tests/sandwich-blueprint-evolution.test.mjs) · [`sandwich-descendant-admission`](../../tests/sandwich-descendant-admission.test.mjs) · [`sandwich-descendant-canon-append-only`](../../tests/sandwich-descendant-canon-append-only.test.mjs) · [`sandwich-evidence-binding`](../../tests/sandwich-evidence-binding.test.mjs) · [`sandwich-method-doctor`](../../tests/sandwich-method-doctor.test.mjs) · [`sandwich-method-plan`](../../tests/sandwich-method-plan.test.mjs) · [`sandwich-method`](../../tests/sandwich-method.test.mjs) · [`sovereign-local-sandwich-continuum`](../../tests/sovereign-local-sandwich-continuum.test.mjs)
+[`connectome-resident-binding`](../../tests/connectome-resident-binding.test.mjs) · [`sandwich-agent-task`](../../tests/sandwich-agent-task.test.mjs) · [`sandwich-autocatalytic-governor`](../../tests/sandwich-autocatalytic-governor.test.mjs) · [`sandwich-autocatalytic-seed`](../../tests/sandwich-autocatalytic-seed.test.mjs) · [`sandwich-blueprint-evolution`](../../tests/sandwich-blueprint-evolution.test.mjs) · [`sandwich-descendant-admission`](../../tests/sandwich-descendant-admission.test.mjs) · [`sandwich-descendant-canon-append-only`](../../tests/sandwich-descendant-canon-append-only.test.mjs) · [`sandwich-evidence-binding`](../../tests/sandwich-evidence-binding.test.mjs) · [`sandwich-method-doctor`](../../tests/sandwich-method-doctor.test.mjs) · [`sandwich-method-plan`](../../tests/sandwich-method-plan.test.mjs) · [`sandwich-method`](../../tests/sandwich-method.test.mjs) · [`sovereign-local-sandwich-continuum`](../../tests/sovereign-local-sandwich-continuum.test.mjs)
 

@@ -6,59 +6,84 @@ Always-on world sensing for discontinuities: Gamechanger mesh, zero-day frontier
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**28 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**71 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (4)
 
+- [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — Canon of permanent frontier law: earliest capability signals, opportunity resurrection, N+1 challengers, GENESIS/GENESIS2/Ontogenesis and 275-idea registry. · **Use:** governs frontier sensing and invention goals
 - [`docs/GAMECHANGER_MESH_24X7.md`](../GAMECHANGER_MESH_24X7.md) — UberBond Gamechanger Mesh 24/7 — Status: PUBLIC_READ_RESEARCH_ONLY _(matched by name only)_
+- [`docs/PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE7_EXPLAINED.md) — Catalog of 120 Wave 7 discovery-engine designs for scientific frontier radar and bibliographic reconciliation. · **Use:** source-linked list of proposed wave 7 capabilities
+- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — Overlay pointing to Perpetual Frontier canon, GENESIS module, tick script, hourly workflow, doctor and tests. · **Use:** preserve frontier/GENESIS in Total Brain
 
 ## Commands (2)
 
 `npm run gamechanger:plan` · `npm run gamechanger:tick`
 
-## Documents that discuss this project without naming it in the filename (10)
+## Documents that discuss this project without naming it in the filename (9)
 
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(6 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_FRONTIER_ADDENDUM.md) — UberBond Total Brain — Perpetual Frontier / GENESIS Addendum — Status: LONG-HORIZON SUPERSET MEMORY OVERLAY _(matched by name only)_ _(6 mentions)_
-- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — UberBond Personal Civilization Engine North Star — Status: HIGHEST-LEVEL NORTH STAR / CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION CLAIM _(matched by name only)_ _(4 mentions)_
-- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — UberBond Sovereign Cognitive Continuum — Status: TERMINAL NORTH STAR / HIGHEST-LEVEL CHAT_SPEC_GOAL / NOT AN IMPLEMENTATION OR SUPERINTELLIGENCE CLAIM _(matched by name only)_ _(4 mentions)_
-- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — UberBond Capability Assimilator _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — Draft map linking cognitive-graph, cognitive-bus, adapters and lineage config into one organ diagram from world sensing to opportunities. · **Use:** see how organs connect in the brain _(6 mentions)_
+- [`docs/PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md`](../PERSONAL_CIVILIZATION_ENGINE_NORTH_STAR.md) — Personal Civilization Engine North Star: life knowledge graph, ten life systems, conceptual donors and human sovereignty laws. · **Use:** contained life-system canon beneath terminal North Star _(4 mentions)_
+- [`docs/SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md`](../SOVEREIGN_COGNITIVE_CONTINUUM_NORTH_STAR.md) — Terminal North Star document defining UberBond as private Sovereign Cognitive Continuum around Mohamed's will, with 40 organs. · **Use:** terminal objective canon _(4 mentions)_
+- [`.claude/skills/uberbond-capability-assimilator/SKILL.md`](../../.claude/skills/uberbond-capability-assimilator/SKILL.md) — Skill with a decision sequence for choosing the smallest approved external skill/plugin/MCP/runtime after dedupe, without widening authority. · **Use:** govern adoption of external capabilities in a task _(3 mentions)_
 - [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
 - [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(3 mentions)_
 - [`docs/prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_UBERBOND_OMEGA_SINGULARITY_MISSION_2026-09-07.md) — 2026-09-07 · UBERBOND OMEGA SINGULARITY MISSION — Status: EXECUTE_AGGRESSIVELY / NO-DROP / MULTI-LANE / CONTINUE_TO_REAL_BLOCKERS _(matched by name only)_ _(3 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(3 mentions)_
-- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Durable cross-chat canon and bootstrap prompt. _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — Superset anti-amputation memory with truth classes, preserving goals, donors, named initiatives and chat-only specs. · **Use:** reconstruct whole organism before narrowing _(3 mentions)_
+- [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Cross-chat canon: terminal North Star, 890 inheritance, no-drop superset, constitutional/life/economic loops, product dream, named-program lineage, effect and sovereignty charters. · **Use:** durable bootstrap before narrowing to any mission _(3 mentions)_
 
-## Source modules (8)
+## Source modules (23)
 
-- [`src/competitor-catch-up-radar.mjs`](../../src/competitor-catch-up-radar.mjs) — exports compileCompetitorCatchUpRadar _(matched by name only; tested; imported by 1)_
-- [`src/future-primitive-extractor.mjs`](../../src/future-primitive-extractor.mjs) — exports compileFuturePrimitiveExtractor _(matched by name only; tested; imported by 1)_
-- [`src/gamechanger-for-life.mjs`](../../src/gamechanger-for-life.mjs) — Watching the world for changes that move what this particular life can reach. _(matched by name only; tested; imported by 1)_
-- [`src/gamechanger-frontier-learning-adapter.mjs`](../../src/gamechanger-frontier-learning-adapter.mjs) — exports GAMECHANGER_FRONTIER_LEARNING_ADAPTER_VERSION, discoveryFingerprint, adaptGamechangerReceipt _(matched by name only; imported by 2)_
-- [`src/gamechanger-genesis-adapter.mjs`](../../src/gamechanger-genesis-adapter.mjs) — exports GAMECHANGER_GENESIS_ADAPTER_VERSION, compileGamechangerIntoGenesis _(matched by name only; tested; imported by 1)_
-- [`src/gamechanger-mesh.mjs`](../../src/gamechanger-mesh.mjs) — exports GAMECHANGER_MESH_VERSION, GAMECHANGER_DOMAINS, GAMECHANGER_SOURCE_TIERS, GAMECHANGER_ATTENTION_STATES, canonicalizePublicUrl (+9) _(matched by name only; tested; imported by 2)_
-- [`src/gamechanger-search-adapters.mjs`](../../src/gamechanger-search-adapters.mjs) — exports buildGdeltSearchUrl, parseGdeltArticles, parseGitHubRepositories, parseHuggingFaceModels, mergeGamechangerState (+1) _(matched by name only; tested; imported by 1)_
-- [`src/zero-day-frontier-radar.mjs`](../../src/zero-day-frontier-radar.mjs) — exports compileZeroDayFrontierRadar _(matched by name only; tested; imported by 1)_
+- [`src/adaptive-source-ceiling-governor.mjs`](../../src/adaptive-source-ceiling-governor.mjs) — Parses rate-limit headers and builds per-source ceiling policies and next actions for an always-on public-source sensorium · **Use:** pace public source polling within provider limits _(tested; imported by 2)_
+- [`src/autonomous-frontier-intelligence.mjs`](../../src/autonomous-frontier-intelligence.mjs) — Normalizes and scores frontier signals, builds idea atomization packets, thinker swarms, combination search spaces and judges outcomes · **Use:** turn frontier signals into combinable idea search _(tested; imported by 1)_
+- [`src/capability-source-atlas.mjs`](../../src/capability-source-atlas.mjs) — Builds capability source atlas with source families, high-priority domains and object target · **Use:** map where capabilities can be discovered _(imported by 1)_
+- [`src/competitor-catch-up-radar.mjs`](../../src/competitor-catch-up-radar.mjs) — Thin re-export compiling a competitor catch-up radar via the Uber Genesis foundry · **Use:** detect where competitors catch up _(tested; imported by 1)_
+- [`src/frontier-intelligence-foundry.mjs`](../../src/frontier-intelligence-foundry.mjs) — Classifies frontier source policy and provenance tiers, normalizes intelligence records, extracts mechanism atoms, scores discoveries and builds a million-candidate tournament. · **Use:** Harvest and rank frontier AI mechanisms from public sources _(tested; imported by 3)_
+- [`src/frontier-learning-autopilot.mjs`](../../src/frontier-learning-autopilot.mjs) — Normalizes approved observations and builds a mechanism learning queue and per-tick learning plan. · **Use:** Schedule learning from approved frontier observations _(imported by 1)_
+- [`src/frontier-learning-job-handler.mjs`](../../src/frontier-learning-job-handler.mjs) — Job handler that adapts Gamechanger receipts and runs a frontier learning cycle. · **Use:** Scheduler job for frontier learning from Gamechanger discoveries _(imported by 1)_
+- [`src/frontier-learning-runtime.mjs`](../../src/frontier-learning-runtime.mjs) — Builds frontier learning runtime plans over high-signal surfaces with an adaptive source-ceiling governor. · **Use:** Run bounded frontier learning cycles _(imported by 2)_
+- [`src/future-primitive-extractor.mjs`](../../src/future-primitive-extractor.mjs) — Thin wrapper exporting compileFuturePrimitiveExtractor via uber-genesis-foundry. · **Use:** Extract new primitives from frontier changes _(tested; imported by 1)_
+- [`src/gamechanger-for-life.mjs`](../../src/gamechanger-for-life.mjs) — Life-level Gamechanger classifying world signals as changing Mohamed's reachable futures or not, grounding evidence, window-vs-importance and attention budget. · **Use:** Stop novelty from reorganizing life without grounded change _(tested; imported by 1)_
+- [`src/gamechanger-frontier-learning-adapter.mjs`](../../src/gamechanger-frontier-learning-adapter.mjs) — Fingerprints discoveries and adapts Gamechanger receipts into frontier learning inputs. · **Use:** Bridge Gamechanger output into frontier learning _(imported by 2)_
+- [`src/gamechanger-genesis-adapter.mjs`](../../src/gamechanger-genesis-adapter.mjs) — Compiles Gamechanger signals into GENESIS mechanism inputs, capping evidence at supported inference. · **Use:** Turn world signals into GENESIS candidates without evidence inflation _(tested; imported by 1)_
+- [`src/gamechanger-mesh.mjs`](../../src/gamechanger-mesh.mjs) — Gamechanger mesh: domains, source tiers, URL canonicalization, observation normalization, dedupe, scoring, attention classes, fetch plans, tournament and frontier signals. · **Use:** Always-on world sensing for capability discontinuities _(tested; imported by 2)_
+- [`src/gamechanger-search-adapters.mjs`](../../src/gamechanger-search-adapters.mjs) — Builds GDELT search URLs and parses GDELT, GitHub repo and Hugging Face model results into Gamechanger state. · **Use:** Source adapters feeding Gamechanger sensing _(tested; imported by 1)_
+- [`src/genesis-sensing-cognition.mjs`](../../src/genesis-sensing-cognition.mjs) — Sensor genesis, precursor graph, weak-signal fusion, missing variables, information half-life, surprise autopsy, metacognition, conceptual wormholes, self-curriculum. · **Use:** Sensing and metacognition organs for GENESIS _(tested; imported by 1)_
+- [`src/perpetual-frontier-genesis.mjs`](../../src/perpetual-frontier-genesis.mjs) — Validates the 275-idea GENESIS registry and builds frontier shockwave plans, resurrection queues, unknown-unknown agendas and frontier-latency receipts with zero effects · **Use:** proposal-only Perpetual Frontier/GENESIS cycle planning _(tested; imported by 5)_
+- [`src/public-research-adapter-mesh.mjs`](../../src/public-research-adapter-mesh.mjs) — Searches across public research adapters individually or as a mesh with zero effects · **Use:** public web/world research queries _(no static importers)_
+- [`src/public-signal-harvester.mjs`](../../src/public-signal-harvester.mjs) — Plans X listening, extracts links, normalizes and dedupes public posts and turns them into Gamechanger observations · **Use:** harvest public social signals for frontier sensing _(tested; imported by 1)_
+- [`src/source-genesis.mjs`](../../src/source-genesis.mjs) — Scores, proposes and ranks new research sources and discovers candidates from links · **Use:** grow the set of sensing sources _(imported by 1)_
+- [`src/technology-to-money-translation.mjs`](../../src/technology-to-money-translation.mjs) — Shim exporting technology-to-money translation compiler from the genesis foundry · **Use:** entry point for frontier tech monetization planning _(tested; imported by 1)_
+- [`src/uber-genesis-foundry.mjs`](../../src/uber-genesis-foundry.mjs) — Compilers for zero-day radar, future primitive extractor, assimilation tournament, N+1 rule, artificial imagination, million-branch ideation · **Use:** Perpetual Frontier/GENESIS mechanism compilers _(imported by 11)_
+- [`src/uber-genesis-orchestrator.mjs`](../../src/uber-genesis-orchestrator.mjs) — Composes all genesis foundry compilers into one UberGenesis mission · **Use:** run a full GENESIS frontier mission _(imported by 1)_
+- [`src/zero-day-frontier-radar.mjs`](../../src/zero-day-frontier-radar.mjs) — One-line re-export of the zero-day frontier radar compiler from the GENESIS foundry. · **Use:** Entry point for frontier radar compilation _(tested; imported by 1)_
 
-## Scripts (3)
+## Scripts (5)
 
-- [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) _(matched by name only)_
-- [`scripts/gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) _(matched by name only; npm: `gamechanger:tick`, `gamechanger:plan`)_
+- [`scripts/frontier-learning-worker.mjs`](../../scripts/frontier-learning-worker.mjs) — Worker running frontier learning cycles from Gamechanger receipts via adapter. · **Use:** learn from Gamechanger signals in frontier runtime
+- [`scripts/gamechanger-genesis-plan.mjs`](../../scripts/gamechanger-genesis-plan.mjs) — Compiles Gamechanger outputs into GENESIS inputs and writes plan file. · **Use:** feed world signals into GENESIS
+- [`scripts/gamechanger-mesh-tick.mjs`](../../scripts/gamechanger-mesh-tick.mjs) — Gamechanger mesh tick: builds source fetch plan, GDELT search, tournament, frontier signals, idea atomization and thinker swarm. · **Use:** periodic world discontinuity sensing run _(npm: `gamechanger:tick`, `gamechanger:plan`)_
+- [`scripts/public-signal-harvest.mjs`](../../scripts/public-signal-harvest.mjs) — Compiles X listening plan or dedupes/atomizes public posts into Gamechanger observations from stdin. · **Use:** turn public social posts into frontier signals
 - [`scripts/sensorium-plan.mjs`](../../scripts/sensorium-plan.mjs) _(matched by name only)_
 
-## Config, data, artifacts and services (7)
+## Config, data, artifacts and services (13)
 
-- [`.cache/gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — uberbond.gamechanger-mesh-state.v2 _(matched by name only)_
-- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh _(matched by name only)_
-- [`artifacts/gamechanger-mesh-latest.json`](../../artifacts/gamechanger-mesh-latest.json) — GAMECHANGER_COVERAGE_COMPLETE · uberbond.gamechanger-mesh.tick.v2 _(matched by name only)_
+- [`.cache/gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — Persisted mesh memory: per-source fingerprints and last-checked timestamps restored/saved by the hourly Gamechanger workflow cache. · **Use:** lets hourly frontier sensing skip unchanged sources between runs
+- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — Hourly workflow running the Gamechanger mesh with cached state file persistence. · **Use:** scheduled frontier/discontinuity sensing
+- [`artifacts/gamechanger-mesh-latest.json`](../../artifacts/gamechanger-mesh-latest.json) — Latest Gamechanger mesh run: coverage, source plan, fetch/search receipts (many READ_FAILED), tournament, frontier signals. · **Use:** current frontier-sensing output
+- [`artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json`](../../artifacts/genesis/GENESIS_LIVE_NURSERY_20260922.json) — 2026-09-22 · Live nursery burst triggered by a Xiaomi MiMo release signal, materializing candidate ideas from selected generators. · **Use:** GENESIS candidates from a frontier model-release signal
+- [`artifacts/perpetual-frontier-genesis-latest.json`](../../artifacts/perpetual-frontier-genesis-latest.json) — Latest dry-run GENESIS cycle receipt: dormant opportunity inputs, cycle summary, zero external effects. · **Use:** latest snapshot of frontier GENESIS cycles
+- [`artifacts/perpetual-frontier-genesis.json`](../../artifacts/perpetual-frontier-genesis.json) — Machine canon for Perpetual Frontier/GENESIS: idea count and ranges, frontier mechanisms, core loop, million-branch ideation and live idea nursery pointers. · **Use:** machine-readable registry of the 275-idea frontier search space
+- [`artifacts/world-signal-taxonomy.json`](../../artifacts/world-signal-taxonomy.json) — Taxonomy of world signal classes (buyer pain, willingness to pay, provider price/policy, legal change, competitor change) with monitoring policy. · **Use:** decide which world facts to monitor for commercial decisions
+- [`config/frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — Frontier learning autopilot policy: upstream sources, wake policy, high-signal families, pipeline, promotion law. · **Use:** govern automatic learning from frontier observations
+- [`config/life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — Gap registry audited against main listing new primitives needed for life-altering frontier capabilities. · **Use:** track missing life-level frontier primitives
 - [`data/gamechanger-mesh/always-on-sensorium.json`](../../data/gamechanger-mesh/always-on-sensorium.json) — uberbond.always-on-sensorium.v1 _(matched by name only)_
 - [`data/gamechanger-mesh/sources.json`](../../data/gamechanger-mesh/sources.json) — uberbond.gamechanger-sources.v1 _(matched by name only)_
 - [`data/gamechanger-mesh/structured-sources.json`](../../data/gamechanger-mesh/structured-sources.json) — uberbond.gamechanger-structured-sources.v2 _(matched by name only)_
 - [`data/gamechanger-mesh/x-listening-profile.json`](../../data/gamechanger-mesh/x-listening-profile.json) — uberbond.x-listening-profile.v1 _(matched by name only)_
 
-## Tests (9)
+## Tests (26)
 
-[`competitor-catch-up-radar`](../../tests/competitor-catch-up-radar.test.mjs) · [`future-primitive-extractor`](../../tests/future-primitive-extractor.test.mjs) · [`gamechanger-for-life`](../../tests/gamechanger-for-life.test.mjs) · [`gamechanger-genesis-adapter`](../../tests/gamechanger-genesis-adapter.test.mjs) · [`gamechanger-genesis-plan-entry`](../../tests/gamechanger-genesis-plan-entry.test.mjs) · [`gamechanger-mesh`](../../tests/gamechanger-mesh.test.mjs) · [`gamechanger-search-adapters`](../../tests/gamechanger-search-adapters.test.mjs) · [`orchestration-gamechanger-source`](../../tests/orchestration-gamechanger-source.test.mjs) · [`zero-day-frontier-radar`](../../tests/zero-day-frontier-radar.test.mjs)
+[`adaptive-source-ceiling-governor`](../../tests/adaptive-source-ceiling-governor.test.mjs) · [`autonomous-frontier-intelligence`](../../tests/autonomous-frontier-intelligence.test.mjs) · [`capability-universe-v2`](../../tests/capability-universe-v2.test.mjs) · [`competitor-catch-up-radar`](../../tests/competitor-catch-up-radar.test.mjs) · [`frontier-intelligence-1000-canary`](../../tests/frontier-intelligence-1000-canary.test.mjs) · [`frontier-intelligence-foundry`](../../tests/frontier-intelligence-foundry.test.mjs) · [`frontier-intelligence-neural-bridge`](../../tests/frontier-intelligence-neural-bridge.test.mjs) · [`frontier-learning-job`](../../tests/frontier-learning-job.test.mjs) · [`frontier-learning`](../../tests/frontier-learning.test.mjs) · [`frontier-parity-autonomy`](../../tests/frontier-parity-autonomy.test.mjs) · [`future-primitive-extractor`](../../tests/future-primitive-extractor.test.mjs) · [`gamechanger-for-life`](../../tests/gamechanger-for-life.test.mjs) · [`gamechanger-genesis-adapter`](../../tests/gamechanger-genesis-adapter.test.mjs) · [`gamechanger-genesis-plan-entry`](../../tests/gamechanger-genesis-plan-entry.test.mjs) · [`gamechanger-mesh`](../../tests/gamechanger-mesh.test.mjs) · [`gamechanger-search-adapters`](../../tests/gamechanger-search-adapters.test.mjs) · [`genesis-evolution-tick`](../../tests/genesis-evolution-tick.test.mjs) · [`genesis-sensing-cognition`](../../tests/genesis-sensing-cognition.test.mjs) · [`native-live-research-security`](../../tests/native-live-research-security.test.mjs) · [`orchestration-frontier-tick`](../../tests/orchestration-frontier-tick.test.mjs) · [`orchestration-gamechanger-source`](../../tests/orchestration-gamechanger-source.test.mjs) · [`perpetual-frontier-genesis-tick`](../../tests/perpetual-frontier-genesis-tick.test.mjs) · [`perpetual-frontier-genesis`](../../tests/perpetual-frontier-genesis.test.mjs) · [`public-signal-harvester`](../../tests/public-signal-harvester.test.mjs) · [`technology-to-money-translation`](../../tests/technology-to-money-translation.test.mjs) · [`zero-day-frontier-radar`](../../tests/zero-day-frontier-radar.test.mjs)
 

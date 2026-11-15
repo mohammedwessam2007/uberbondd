@@ -12,8 +12,8 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Read first (2)
 
-- [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS Canon — Status: SOURCE PROGRAM ESTABLISHED; GENERATION-0 BUILD PATH + CONTROL-PLANE CONTRACTS IMPLEMENTED; PHYSICAL BOOT NOT YET OBSERVED. _(matched by name only)_
-- [`uberos/README.md`](../../uberos/README.md) — UBER/OS _(matched by name only)_
+- [`docs/UBER_OS_CANON.md`](../UBER_OS_CANON.md) — UBER/OS canon: kernel-neutral OS evolution program starting from Linux, generation-0 build path, control-plane contracts, no physical boot yet. · **Use:** governs sovereign OS program
+- [`uberos/README.md`](../../uberos/README.md) — Describes UBER/OS generation ladder G0-GOmega, Gen-0 minimal Buildroot 2026.08 Linux with UberBond contracts, and build/QEMU commands; disclaims production OS. · **Use:** Entry point for the sovereign OS substrate program
 
 ## Source modules (6)
 
@@ -26,21 +26,21 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 ## Scripts (1)
 
-- [`scripts/uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) _(matched by name only)_
+- [`scripts/uberos-doctor.mjs`](../../scripts/uberos-doctor.mjs) — Loads the UberOS generation-0 machine manifest and runs the system compiler on it, printing a JSON status · **Use:** validate UBER/OS generation 0 manifest
 
 ## Config, data, artifacts and services (11)
 
-- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification _(matched by name only)_
-- [`artifacts/uberos/generation-0-manifest.json`](../../artifacts/uberos/generation-0-manifest.json) — UBER/OS · uberos.machine-manifest.v1 _(matched by name only)_
-- [`schemas/uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — UBER/OS machine manifest _(matched by name only)_
-- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in) _(matched by name only)_
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh) _(matched by name only)_
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release) _(matched by name only)_
-- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health) _(matched by name only)_
-- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc) _(matched by name only)_
-- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk) _(matched by name only)_
-- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh) _(matched by name only)_
-- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh) _(matched by name only)_
+- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — PR workflow syntax-checking UBER/OS source modules and running uberos doctor and tests. · **Use:** verify UBER/OS source changes
+- [`artifacts/uberos/generation-0-manifest.json`](../../artifacts/uberos/generation-0-manifest.json) — UBER/OS generation-0 machine manifest: identity, authority root, packages, Buildroot bootstrap, kernel adapters, update and AI policy. · **Use:** specify first sovereign OS image
+- [`schemas/uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — JSON Schema for an UBER/OS machine manifest. · **Use:** validate UBER/OS machine manifests
+- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in) — Buildroot menu stub for UBER/OS noting Gen-0 uses only a rootfs overlay and no custom packages. · **Use:** Buildroot external tree config
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh) — Shell profile exporting UBEROS_GENERATION=0 and attenuation-only authority mode in the OS image. · **Use:** Mark generation and authority mode in rootfs
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release) — Small release identity file placed in the UBER/OS root filesystem overlay (content not shown in digest). · **Use:** Identify the UBER/OS release inside the image
+- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health) — Small health-check executable script included in the UBER/OS rootfs overlay (content not shown in digest). · **Use:** Report health inside the booted UBER/OS image
+- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc) — Buildroot external tree descriptor naming UBEROS as the UberBond sovereign OS overlay. · **Use:** Register UBER/OS with Buildroot
+- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk) — Empty Buildroot external makefile stating packages join only after provenance, license and permission review. · **Use:** Placeholder for future UBER/OS packages
+- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh) — Downloads SHA-256-pinned Buildroot 2026.08 into a cache and builds the Gen-0 image for x86_64 or aarch64 with the UBER/OS overlay. · **Use:** Build the UBER/OS generation-0 image
+- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh) — Boots the built UBER/OS image in QEMU for x86_64 or aarch64 without networking. · **Use:** Run the Gen-0 image locally
 
 ## Tests (1)
 

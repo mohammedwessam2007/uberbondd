@@ -27,99 +27,99 @@ Checked-in configuration and registries read by src and scripts.
 
 ## North Star and life systems
 
-- [`life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — uberbond.life-altering-frontier-gap-registry.v1 _(matched by name only)_
-- [`possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — RESEARCH_PROGRAM_NOT_MOONSHOT_IMPLEMENTATION_PROOF · uberbond.possibility-civilization-program.v1 _(matched by name only)_
+- [`life-altering-frontier-gap-registry.json`](../../config/life-altering-frontier-gap-registry.json) — Gap registry audited against main listing new primitives needed for life-altering frontier capabilities. · **Use:** track missing life-level frontier primitives
+- [`possibility-civilization-program.json`](../../config/possibility-civilization-program.json) — Possibility civilization research program: executable core, coverage contract, reality states, constraint classes, realization lanes, waves. · **Use:** program spec for realizing moonshots
 
 ## UberMind doctrine and library
 
-- [`ubermind-omega47-strategic-philosophy-index.json`](../../config/ubermind-omega47-strategic-philosophy-index.json) — Jurisdictional Arbitrage · FOUNDER_DONOR_INDEX__NOT_LEGAL_CLEARANCE_OR_MODEL_FINETUNING · uberbond.ubermind.omega47.strategic-philosophy-index.v1 _(matched by name only)_
-- [`ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Takeovers, Proxy Contests and Poison Pills · FOUNDER_DONOR_RESEARCH_ONLY__NO_EXTERNAL_EFFECTS · uberbond.ubermind.omega49.asymmetric-strategy-index.v1 _(matched by name only)_
-- [`ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Stafford Beer · RESEARCH_ONLY · ubermind.omega50.research-index.v1 _(matched by name only)_
-- [`ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — FOUNDER_DONOR_PLUS_RESEARCH__NOT_DEPLOYED_SECURITY · ubermind.omega51.technical-dna.v1 _(matched by name only)_
+- [`ubermind-omega47-strategic-philosophy-index.json`](../../config/ubermind-omega47-strategic-philosophy-index.json) — Omega47 donor index of thinkers (Machiavelli, Greene, Bismarck, von Neumann, Hart) and domains with hard gates; not legal clearance. · **Use:** source pointers for strategic philosophy lens
+- [`ubermind-omega49-asymmetric-strategy-index.json`](../../config/ubermind-omega49-asymmetric-strategy-index.json) — Omega49 index of asymmetric strategy thinkers (Luttwak, Boyd, Liddell Hart) and corporate defense topics; research only. · **Use:** source pointers for asymmetric strategy lens
+- [`ubermind-omega50-research-index.json`](../../config/ubermind-omega50-research-index.json) — Omega50 research index of Beer, Taleb, Land and friction domains like statutory time-arbitrage. · **Use:** source pointers for system-friction lens
+- [`ubermind-omega51-technical-dna.json`](../../config/ubermind-omega51-technical-dna.json) — Omega51 technical DNA dimensions and mandatory resilience/security items with corrections; not deployed security. · **Use:** source for adversarial resilience lens
 - [`ubermind-omega52-frontier-atoms.json`](../../config/ubermind-omega52-frontier-atoms.json) — ubermind.omega52.frontier-atoms.v1 _(matched by name only)_
 - [`ubermind-v6-52-operation-registry.json`](../../config/ubermind-v6-52-operation-registry.json) — Niccolò Machiavelli (The Prince, The Discourses on Livy) · ubermind.v5.full-spectrum.52-card-activation-manifest _(matched by name only)_
 
 ## Continuity, memory and handoffs
 
-- [`repository-projects.json`](../../config/repository-projects.json) — Wessam Singularity · uberbond.repository-projects.v1
-- [`uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — uberbond.cognitive-lineage.v1 _(matched by name only)_
+- [`repository-projects.json`](../../config/repository-projects.json) — Project roster config: 76 project ids with titles and descriptions spanning North Star to infrastructure. · **Use:** canonical list of repository projects for classification
+- [`uberbond-cognitive-lineage.json`](../../config/uberbond-cognitive-lineage.json) — Mapping of historical program names to living cognitive organs as donors and aliases, not runtime proof. · **Use:** trace cognitive lineage of named programs
 
 ## GENESIS, moonshots and Perpetual Frontier
 
-- [`founder-moonshot-atomization-queue.json`](../../config/founder-moonshot-atomization-queue.json) — SOURCE_READY_FOR_CLAIM_ATOMIZATION · uberbond.founder-moonshot-atomization-queue.v1 _(matched by name only)_
-- [`founder-moonshot-literal-recovery.json`](../../config/founder-moonshot-literal-recovery.json) — PARTIAL_LITERAL_RECOVERY__GAPS_EXPLICIT__NO_REGENERATION · uberbond.founder-moonshot-literal-recovery.v2 _(matched by name only)_
-- [`genesis-live-activation.json`](../../config/genesis-live-activation.json) — uberbond.genesis-live-activation.v1 _(matched by name only)_
-- [`moonshot-common-ancestor-spine.json`](../../config/moonshot-common-ancestor-spine.json) — Truth & Evidence Substrate · CALLABLE_PROOF_ANCESTRY_SUBSTRATE_HOSTILE_PROBE_EXECUTED_AND_VERIFIED · uberbond.moonshot-common-ancestor-spine.v1 _(matched by name only)_
-- [`moonshot-reality-canaries.json`](../../config/moonshot-reality-canaries.json) — SPECULATIVE_CANARIES_NOT_IMPLEMENTATION_PROOF · uberbond.moonshot-reality-canaries.v1 _(matched by name only)_
-- [`moonshot-reality-program-registry.json`](../../config/moonshot-reality-program-registry.json) — CHAT_SPEC_GOAL_AND_RESEARCH_PROGRAM_NOT_IMPLEMENTATION_PROOF · uberbond.moonshot-reality-program-registry.v2 _(matched by name only)_
-- [`moonshot-realization-evidence-registry.json`](../../config/moonshot-realization-evidence-registry.json) — uberbond.moonshot-realization-evidence-registry.v1 _(matched by name only)_
-- [`moonshot-realization-state-overlay.json`](../../config/moonshot-realization-state-overlay.json) — uberbond.moonshot-realization-state-overlay.v1 _(matched by name only)_
-- [`moonshot-verified-child-mechanisms.json`](../../config/moonshot-verified-child-mechanisms.json) — Target-Blind Structural Representation Synthesis · MATCHED · uberbond.moonshot-verified-child-mechanisms.v1 _(matched by name only)_
-- [`moonshot-verified-mechanism-donors.json`](../../config/moonshot-verified-mechanism-donors.json) — EVIDENCE_BOUND_DONOR_POOL__GENERATED_COMBINATIONS_REMAIN_HYPOTHESES · uberbond.moonshot-verified-mechanism-donors.v1 _(matched by name only)_
+- [`founder-moonshot-atomization-queue.json`](../../config/founder-moonshot-atomization-queue.json) — Queue splitting the 890 corpus into batches ready for claim atomization, with stable ID pattern and no-drop law. · **Use:** schedule atomization of moonshot claims
+- [`founder-moonshot-literal-recovery.json`](../../config/founder-moonshot-literal-recovery.json) — Historical literal recovery state of the moonshot corpus marked partial with explicit gaps and no regeneration; supersession law. · **Use:** track lineage of corpus recovery
+- [`genesis-live-activation.json`](../../config/genesis-live-activation.json) — GENESIS live activation config: nursery ref, generator genome, triggers, no automatic promotion, burst registry; on-demand not continuous. · **Use:** control live GENESIS idea bursts
+- [`moonshot-common-ancestor-spine.json`](../../config/moonshot-common-ancestor-spine.json) — Common ancestor spine hypotheses for moonshots (Truth & Evidence Substrate, Moonshot Reality Object, Constraint Genome) with statuses. · **Use:** route moonshot work through shared ancestors
+- [`moonshot-reality-canaries.json`](../../config/moonshot-reality-canaries.json) — Speculative canaries exercising the Moonshot Reality Compiler across evidence regimes before scaling. · **Use:** test the reality compiler on sample moonshots
+- [`moonshot-reality-program-registry.json`](../../config/moonshot-reality-program-registry.json) — Moonshot reality program registry: executable core, reality states, terminal states, universal pipeline, ancestor programs. · **Use:** define state machine for moonshot realization
+- [`moonshot-realization-evidence-registry.json`](../../config/moonshot-realization-evidence-registry.json) — Registry of evidence events for moonshot realization; child evidence does not promote parents. · **Use:** record evidence events per moonshot
+- [`moonshot-realization-state-overlay.json`](../../config/moonshot-realization-state-overlay.json) — Overlay of per-moonshot realization states and shared primitives. · **Use:** current realization state per moonshot
+- [`moonshot-verified-child-mechanisms.json`](../../config/moonshot-verified-child-mechanisms.json) — Registry of evidence-bound child mechanisms such as Target-Blind Structural Representation Synthesis, independent of parent moonshots. · **Use:** list promoted child mechanisms
+- [`moonshot-verified-mechanism-donors.json`](../../config/moonshot-verified-mechanism-donors.json) — Evidence-bound donor pool for mechanism recombination with no-laundering law. · **Use:** inputs to mechanism market recombination
 
 ## ASI research and evidence programs
 
-- [`lawspace-experiment-registry.json`](../../config/lawspace-experiment-registry.json) — SPECULATIVE_RESEARCH_NOT_RUNTIME_PROOF · uberbond.lawspace-experiment-registry.v1 _(matched by name only)_
-- [`omega-frontier-closure-matrix.json`](../../config/omega-frontier-closure-matrix.json) — FAR_FROM_10_OF_10 · uberbond.omega-frontier-closure-matrix.v1 _(matched by name only)_
-- [`omega-private-evidence-scoreboard.json`](../../config/omega-private-evidence-scoreboard.json) — PASSED_BOUNDED_CONTROLLED_INTENT_NOT_OPEN_NL · uberbond.omega-private-evidence-scoreboard.v3 _(matched by name only)_
+- [`lawspace-experiment-registry.json`](../../config/lawspace-experiment-registry.json) — Speculative lawspace research registry: hypotheses, canary domains, baselines, metrics, phases, promotion gate. · **Use:** plan lawspace experiments
+- [`omega-frontier-closure-matrix.json`](../../config/omega-frontier-closure-matrix.json) — Architecture coverage matrix across Omega frontier dimensions with empirical closure status far from 10/10. · **Use:** measure Omega architecture coverage honestly
+- [`omega-private-evidence-scoreboard.json`](../../config/omega-private-evidence-scoreboard.json) — Private evidence scoreboard: grade per dimension (controlled intent, holdout waves, CSP algebras, novel domains) and E10 requirements. · **Use:** track Omega private lab evidence grade
 
 ## Frontier cognition and model routing
 
-- [`absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — uberbond.absolute-frontier-quality-lock.v1 _(matched by name only)_
-- [`apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — PRE_EXECUTION_TEMPLATE__FRESH_CUSTODIAN_AND_LIVE_RUNTIME_PROOFS_REQUIRED · uberbond.apex-frontier-quality-compression-campaign-input.v1 _(matched by name only)_
-- [`frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — READY_FOR_POLICY_CLEARED_OBSERVATIONS · uberbond.frontier-learning-autopilot.v1 _(matched by name only)_
-- [`frontier-model-candidates.json`](../../config/frontier-model-candidates.json) — PUBLIC_OFFICIAL_SOURCE_CANDIDATE_CATALOG_NOT_RUNTIME_PROOF · uberbond.frontier-model-candidates.v1 _(matched by name only)_
-- [`frontier-vm-v5-longitudinal-campaign.json`](../../config/frontier-vm-v5-longitudinal-campaign.json) — PRE_LIVE_EXECUTION_NO_SPEND_AUTHORITY · uberbond.frontier-vm-v5-longitudinal-campaign.v2 _(matched by name only)_
-- [`in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — uberbond.in-kind-cognition-registry.v1 _(matched by name only)_
-- [`infinite-opus-activation-package.json`](../../config/infinite-opus-activation-package.json) — uberbond-runtime-20 · SOURCE_PACKAGE_WITH_GATEWAY_ONLY_TYPINGMIND__PRIVATE_RUNTIME_ACTIVATION_PENDING · uberbond.infinite-opus.activation-package.v1 _(matched by name only)_
-- [`infinite-opus-canary-authorization.template.json`](../../config/infinite-opus-canary-authorization.template.json) — uberbond.infinite-opus.canary-authorization.v1 _(matched by name only)_
-- [`infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — uberbond.infinite-opus.crown-call-evidence.v1 _(matched by name only)_
-- [`infinite-opus-first-real-workload.json`](../../config/infinite-opus-first-real-workload.json) — uberbond.infinite-opus.first-real-workload.v1 _(matched by name only)_
-- [`infinite-opus-hostile-test-matrix.json`](../../config/infinite-opus-hostile-test-matrix.json) — uberbond.infinite-opus.hostile-test-matrix.v1 _(matched by name only)_
-- [`infinite-opus-live-market-candidates.json`](../../config/infinite-opus-live-market-candidates.json) — PUBLIC_CANDIDATE_ONLY · uberbond.infinite-opus.live-market-candidates.v1 _(matched by name only)_
-- [`infinite-opus-model-understanding.json`](../../config/infinite-opus-model-understanding.json) — uberbond.infinite-opus.model-understanding.v1 _(matched by name only)_
-- [`infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — uberbond.infinite-opus.runtime-authorization-request.v1 _(matched by name only)_
-- [`infinite-opus-typingmind-role-map.json`](../../config/infinite-opus-typingmind-role-map.json) — UberMind Scout · uberbond.infinite-opus.typingmind-role-map.v1 _(matched by name only)_
-- [`infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — uberbond-global-28 · ARCHIVED_FALLBACK__DISABLE_IF_PRESENT · uberbond.infinite-opus.work-astra-activation.v1 _(matched by name only)_
-- [`openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — EXACT_SUBSTRATE · uberbond.openrouter.frontier-vm-full-stack.v4 _(matched by name only)_
-- [`openrouter-processor-fabric-v5.json`](../../config/openrouter-processor-fabric-v5.json) — uberbond.openrouter.processor-fabric.v5 _(matched by name only)_
-- [`opus-equivalence-reference-2026-10-07.json`](../../config/opus-equivalence-reference-2026-10-07.json) — 2026-10-07 · uberbond.opus-equivalence.reference.v1 _(matched by name only)_
-- [`typingmind-opus-quality-mincost-v3.json`](../../config/typingmind-opus-quality-mincost-v3.json) — uberbond.typingmind.opus-quality-mincost.v3 _(matched by name only)_
-- [`ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — ubermind.cloud-cognition-resources.v1 _(matched by name only)_
+- [`absolute-frontier-quality-lock.json`](../../config/absolute-frontier-quality-lock.json) — Quality-floor lock policy with digest, zero quality delta, evidence confidence minimum, protected surfaces; weakening fails closed. · **Use:** prevent cost routing from silently lowering quality
+- [`apex-frontier-quality-compression-campaign.json`](../../config/apex-frontier-quality-compression-campaign.json) — Pre-execution APEX campaign template: task class, frozen architectures, quality floor, budget and custodian policies, market watchlist. · **Use:** freeze APEX compression experiment before live run
+- [`frontier-learning-autopilot.json`](../../config/frontier-learning-autopilot.json) — Frontier learning autopilot policy: upstream sources, wake policy, high-signal families, pipeline, promotion law. · **Use:** govern automatic learning from frontier observations
+- [`frontier-model-candidates.json`](../../config/frontier-model-candidates.json) — Catalog of frontier model candidates from public official sources with admission law and discovery loop; not runtime proof. · **Use:** candidate list for model admission and Crown
+- [`frontier-vm-v5-longitudinal-campaign.json`](../../config/frontier-vm-v5-longitudinal-campaign.json) — Pre-live Frontier VM V5 campaign: phases, ablations, metrics, Crown quality floor, budget; authorizes no spend. · **Use:** freeze longitudinal compression evidence program
+- [`in-kind-cognition-registry.json`](../../config/in-kind-cognition-registry.json) — Registry of in-kind cognition classes (plan-included, free route, donated, credit-backed) not counted as cash compression. · **Use:** classify non-cash cognition in economics
+- [`infinite-opus-activation-package.json`](../../config/infinite-opus-activation-package.json) — Infinite Opus activation package: economic perimeter, provider/retry/cache policy, canary, stop conditions, OpenRouter key names and TypingMind gateway. · **Use:** activate Infinite Opus runtime safely
+- [`infinite-opus-canary-authorization.template.json`](../../config/infinite-opus-canary-authorization.template.json) — Non-secret template for owner canary authorization: max spend, model, task, expiry. · **Use:** authorize a bounded Infinite Opus canary spend
+- [`infinite-opus-crown-call-evidence.template.json`](../../config/infinite-opus-crown-call-evidence.template.json) — Template of fields required as evidence for a Crown model call: provider call ID, model, hashes, cost receipt, callability receipt. · **Use:** record verifiable Crown call evidence
+- [`infinite-opus-first-real-workload.json`](../../config/infinite-opus-first-real-workload.json) — Selection of the first live Infinite Opus workload: task class, quality contract, eligibility, recurrence targets, evidence plan. · **Use:** define first measured workload
+- [`infinite-opus-hostile-test-matrix.json`](../../config/infinite-opus-hostile-test-matrix.json) — Matrix of required hostile test cases bound to named executable test sources for Infinite Opus. · **Use:** coverage binding of hostile tests
+- [`infinite-opus-live-market-candidates.json`](../../config/infinite-opus-live-market-candidates.json) — Public model market candidates with pricing notes and promoted roles, all public-candidate-only. · **Use:** candidate models for Infinite Opus routing
+- [`infinite-opus-model-understanding.json`](../../config/infinite-opus-model-understanding.json) — Expiring per-model profiles describing model behavior for routing decisions. · **Use:** model priors for Infinite Opus routing
+- [`infinite-opus-runtime-authorization.template.json`](../../config/infinite-opus-runtime-authorization.template.json) — Template for monthly owner runtime spend authorization with Crown routes; approved copies must not be committed. · **Use:** authorize monthly cognition spend
+- [`infinite-opus-typingmind-role-map.json`](../../config/infinite-opus-typingmind-role-map.json) — TypingMind cockpit role map (Scout, Challenger, Builder, Hard Escalation, Crown Candidate) and preferred flow into runtime gateway. · **Use:** configure TypingMind agents for UberMind
+- [`infinite-opus-work-astra-activation-v1.json`](../../config/infinite-opus-work-astra-activation-v1.json) — Work/Astra activation config for Infinite Opus: production, OpenRouter, TypingMind, Render, spend gates, Crown bootstrap, stop conditions. · **Use:** activation plan executed by a Work session
+- [`openrouter-frontier-vm-full-stack-v4.json`](../../config/openrouter-frontier-vm-full-stack-v4.json) — Frontier VM V4 full-stack spec over OpenRouter: layers (Jev Hyperreflex, swarm, Adversarial Synthesis, Crown Pantheon, Reality Court, crystallization), compiler passes, compute auction. · **Use:** architecture of minimum-cost frontier-quality cognition
+- [`openrouter-processor-fabric-v5.json`](../../config/openrouter-processor-fabric-v5.json) — Processor fabric V5: model processors with mechanics, auction rules, quality law and telemetry to cut cost at Opus 5.5 quality. · **Use:** route tasks to model processors by cost and quality
+- [`opus-equivalence-reference-2026-10-07.json`](../../config/opus-equivalence-reference-2026-10-07.json) — 2026-10-07 · Reference pricing and availability for Opus 5.5 observed 2026-10-07 for the equivalence island. · **Use:** baseline tariff for compression calculations
+- [`typingmind-opus-quality-mincost-v3.json`](../../config/typingmind-opus-quality-mincost-v3.json) — TypingMind V3 policy to match Opus 5.5 quality at minimum cost: model roles, native flows, context/output economics, cost controls. · **Use:** configure TypingMind cockpit economics
+- [`ubermind-cloud-cognition-resources.json`](../../config/ubermind-cloud-cognition-resources.json) — Cloud-only cognition resource plan: OpenRouter transport, frozen monthly budget, Crown reserve, required resources and activation modes. · **Use:** provision cloud cognition without local GPU
 
 ## Capability Genome, skills and Wallbreaker
 
-- [`avengers-arsenal.json`](../../config/avengers-arsenal.json) — uberbond.avengers-arsenal-registry.v1 _(matched by name only)_
-- [`avengers-mission.json`](../../config/avengers-mission.json) _(matched by name only)_
+- [`avengers-arsenal.json`](../../config/avengers-arsenal.json) — Avengers arsenal config listing profiles and tools available to the squad. · **Use:** tool inventory for Avengers squad planner
+- [`avengers-mission.json`](../../config/avengers-mission.json) — Avengers mission graph: research, implement, independent review and adjudication nodes for one bounded engineering question with no business effects. · **Use:** template mission for the Avengers squad
 
 ## Agent mesh, relay and autonomy
 
-- [`ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — uberbond.ai-creator-revenue-cell.config.v1 _(matched by name only)_
+- [`ai-creator-revenue-cell.json`](../../config/ai-creator-revenue-cell.json) — Config for an AI creator revenue cell: creator, channels, experiment policy, initial niches, success metrics; no live platform action. · **Use:** define a content-creator revenue experiment
 
 ## Self-maintenance and verification
 
-- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — UBERBOND Knowledge Graph · omnia.v9.constitution-sources.p2 _(matched by name only)_
-- [`reachability-classification.json`](../../config/reachability-classification.json) — uberbond.reachability-classification.v1 _(matched by name only)_
-- [`recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — uberbond.recursive-governance-principals.declaration.v1 _(matched by name only)_
+- [`config/omnia-v9/constitution-sources.json`](../../config/omnia-v9/constitution-sources.json) — OMNIA V9 constitution source set (Knowledge Graph, Decision Engine, Learning Engine, Core Data Model) with precedence rules. · **Use:** inputs compiled into OMNIA V9 policy
+- [`reachability-classification.json`](../../config/reachability-classification.json) — Classification of every source module into categories behind gates (no Gmail grant, no enrichment provider, outbound contact not authorized). · **Use:** explain why modules are unreachable at runtime
+- [`recursive-governance-principals.json`](../../config/recursive-governance-principals.json) — Logical principal, credential and custody identities per generation for separation of duties in recursive governance. · **Use:** make self-update separation of duties explicit
 
 ## Governance, authority and proof
 
-- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — omnia.v9.policy-projection.p3 _(matched by name only)_
+- [`config/omnia-v9/policy-projection.json`](../../config/omnia-v9/policy-projection.json) — OMNIA V9 policy projection: rules, resolver facts and Cedar runtime contract. · **Use:** project constitution into Cedar admission policy
 
 ## Email infrastructure and warmup
 
-- [`uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — uberdoso.source-lock.v1 _(matched by name only)_
+- [`uberdoso-source-lock.json`](../../config/uberdoso-source-lock.json) — Source lock for UberDoso dependencies: Postal, install helper, MariaDB versions and policy. · **Use:** pin owned mail stack sources
 - [`winnr-bootstrap-sealed.json`](../../config/winnr-bootstrap-sealed.json) _(matched by name only)_
 
 ## Commerce, payments and economics
 
-- [`contra-account-observation.example.json`](../../config/contra-account-observation.example.json) — UNKNOWN _(matched by name only)_
-- [`revenue-method-exchange.json`](../../config/revenue-method-exchange.json) — uberbond.revenue-method-exchange.config.v1 _(matched by name only)_
+- [`contra-account-observation.example.json`](../../config/contra-account-observation.example.json) — Example schema for an owner-attested Contra account observation: wallet, tax profile, payout, blocking requirements. · **Use:** template to record Contra payout readiness
+- [`revenue-method-exchange.json`](../../config/revenue-method-exchange.json) — Revenue method exchange config: methods with forecast truth, source inspiration, max canaries, no external effects. · **Use:** compare candidate revenue methods
 
 ## Founder operations and command center
 
-- [`system-readiness-input.json`](../../config/system-readiness-input.json) — PASSING _(matched by name only)_
+- [`system-readiness-input.json`](../../config/system-readiness-input.json) — Input measurements and capability statuses used to generate system-readiness.json, including module graph counts. · **Use:** source for readiness receipt generation
 
 ## Core and uncategorised
 
-- [`multidimensional-velocity-gap-registry.json`](../../config/multidimensional-velocity-gap-registry.json) — Compounding Velocity Kernel · MISSING_AS_ONE_RESIDENT_LOOP · uberbond.multidimensional-velocity-gap-registry.v1 _(matched by name only)_
+- [`multidimensional-velocity-gap-registry.json`](../../config/multidimensional-velocity-gap-registry.json) — Audit of velocity gaps: Compounding Velocity Kernel, Global Cognitive Action Cache, Incremental Cognition Engine, Predictive Context Foundry; existing primitives and donors. · **Use:** plan speedup primitives for the system

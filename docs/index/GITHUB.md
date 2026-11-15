@@ -22,62 +22,62 @@ CI workflows and their runtime helpers.
 
 ## UberMind doctrine and library
 
-- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — UberMind Private Grand Library Packs _(matched by name only)_
-- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — UberMind V6 Founder Continuity Gate _(matched by name only)_
+- [`.github/workflows/ubermind-grand-library-build.yml`](../../.github/workflows/ubermind-grand-library-build.yml) — Workflow building and verifying UberMind private library archives and index with Python when library files change. · **Use:** build Grand Library knowledge packs
+- [`.github/workflows/ubermind-v6-continuity-gate.yml`](../../.github/workflows/ubermind-v6-continuity-gate.yml) — Workflow running the V6 source doctor when 890 corpus, founder directives, 52-operation registry or startup files change. · **Use:** guard founder source continuity
 
 ## Continuity, memory and handoffs
 
-- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PHOENIX MCP verification _(matched by name only)_
-- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — PHOENIX research canon regeneration _(matched by name only)_
-- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — UberBond Finite Completion Wake _(matched by name only)_
-- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — UberBond Command Center Control _(matched by name only)_
-- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — UberBond Sandwich Autocatalytic Loop _(matched by name only)_
+- [`.github/workflows/phoenix-mcp.yml`](../../.github/workflows/phoenix-mcp.yml) — PR workflow installing and testing apps/phoenix-mcp when its sources or the cos-operator change. · **Use:** verify PHOENIX MCP connector
+- [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — Branch-scoped workflow with contents:write that regenerates readiness canon for the PHOENIX waves 3-10 intake branch. · **Use:** repair generated canon on the PHOENIX research branch
+- [`.github/workflows/uberbond-autonomy-wake.yml`](../../.github/workflows/uberbond-autonomy-wake.yml) — Dispatch workflow that checks a pause label on issue #604 then runs a finite completion pulse. · **Use:** wake autonomy loop unless founder paused it
+- [`.github/workflows/uberbond-command-center-control.yml`](../../.github/workflows/uberbond-command-center-control.yml) — Workflow reacting to owner comments on issue #604 to execute command-center control commands. · **Use:** founder control of autonomy via issue comments
+- [`.github/workflows/uberbond-sandwich-autocatalytic.yml`](../../.github/workflows/uberbond-sandwich-autocatalytic.yml) — Dispatch workflow honoring the issue #604 pause fence and running the Sandwich post-finite autocatalytic fold. · **Use:** run Sandwich autocatalytic loop
 
 ## GENESIS, moonshots and Perpetual Frontier
 
-- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — UberBond Gamechanger Mesh _(matched by name only)_
+- [`.github/workflows/gamechanger-mesh-hourly.yml`](../../.github/workflows/gamechanger-mesh-hourly.yml) — Hourly workflow running the Gamechanger mesh with cached state file persistence. · **Use:** scheduled frontier/discontinuity sensing
 
 ## Agent mesh, relay and autonomy
 
-- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) _(matched by name only)_
-- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — Agent relay worker _(matched by name only)_
-- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker _(matched by name only)_
-- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — Night Postal Focused Verification _(matched by name only)_
-- [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — Night Verification War _(matched by name only)_
+- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) — Small arm file whose push to main triggers the founder-outcome overnight worker workflow. · **Use:** arm/trigger the overnight founder-outcome run
+- [`.github/workflows/agent-relay-worker.yml`](../../.github/workflows/agent-relay-worker.yml) — GitHub Actions worker reacting to relay issues and a schedule, with issues:write/contents:read only, to claim and verify relay tasks. · **Use:** device-off pickup of GitHub-relay agent tasks
+- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Workflow triggered by the arm file running a worker against the lite Postgres with autopilot off and discovery dry-run. · **Use:** run overnight founder-outcome mission in the cloud
+- [`.github/workflows/night-postal-focused.yml`](../../.github/workflows/night-postal-focused.yml) — PR workflow running syntax plus postal Ragnarok hardening and mutation guard tests. · **Use:** focused verification of postal send code
+- [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — PR workflow running syntax, deterministic suite, reachability ratchet and canon freshness checks with full history. · **Use:** Night Verification War gate on PRs
 
 ## Self-maintenance and verification
 
-- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — exports SELF_MAINTAINER_CONTEXT_SELECTOR_VERSION, createSelfMaintainerContextSelector _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — exports SELF_MAINTAINER_FREE_AI_PROFILE_VERSION, SELF_MAINTAINER_FREE_AI_GATEWAY_PROFILE, selfMaintainerFreeAiRuntimeEnv _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — exports SELF_MAINTAINER_MERGE_GOVERNOR_VERSION, admitSelfMaintainerPullRequest, runMergeGovernor _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — exports SELF_MAINTAINER_PROPOSAL_API_POLICY_VERSION, createSelfMaintainerProposalApiHandler _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — exports SELF_MAINTAINER_PROPOSAL_POLICY_VERSION, SELF_MAINTAINER_PROPOSAL_PROFILE, selfMaintainerProposalTaskReasons, isSelfMaintainerProposalTask, S… _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — exports SELF_MAINTAINER_PROPOSAL_DISPATCH_POLICY_VERSION, runSelfMaintainerProposalDispatch _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — exports SELF_MAINTAINER_PROPOSAL_MODEL_WRAPPER_VERSION, createSelfMaintainerProposalModelWrapper _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — exports SELF_MAINTAINER_SOURCE_BOUND_COMPILER_VERSION, compileSourceBoundSelfMaintainerProposal _(matched by name only)_
-- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — exports SELF_MAINTAINER_SOURCE_CONTEXT_VERSION, normalizeSourcePath, buildLocalSourceInventory, validateSourceInventoryEnvelope, validateContextSelec… _(matched by name only)_
-- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — UberBond Self Maintainer Merge Governor _(matched by name only)_
-- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — UberBond Self Maintainer _(matched by name only)_
+- [`.github/workflows/runtime/self-maintainer-context-selector.mjs`](../../.github/workflows/runtime/self-maintainer-context-selector.mjs) — Asks an authorized provider which exact source files it needs, without showing contents or allowing patches. · **Use:** first phase of self-maintainer proposal context selection
+- [`.github/workflows/runtime/self-maintainer-free-ai-profile.mjs`](../../.github/workflows/runtime/self-maintainer-free-ai-profile.mjs) — Immutable zero-cost Vercel AI Gateway model profile (M2.7) and env builder that prevents paid-model drift for the self-maintainer. · **Use:** pin free model lane for autonomous code proposals
+- [`.github/workflows/runtime/self-maintainer-merge-governor.mjs`](../../.github/workflows/runtime/self-maintainer-merge-governor.mjs) — Admits or rejects self-maintainer PRs against the agent code-change contract before merge. · **Use:** gate merging of autonomous maintenance PRs
+- [`.github/workflows/runtime/self-maintainer-proposal-api.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-api.mjs) — OIDC-verified HTTP handler combining context selector, model wrapper, free profile and proposal contract to produce change proposals. · **Use:** serve self-maintainer proposal requests
+- [`.github/workflows/runtime/self-maintainer-proposal-contract.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-contract.mjs) — Defines proposal task eligibility, raw proposal schema and compiler turning worker output into a contract-checked result. · **Use:** validate self-maintainer proposal shape
+- [`.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-dispatch.mjs) — Dispatches proposal tasks via GitHub relay and cloud relay with OIDC verification and source context. · **Use:** route self-maintainer tasks to proposal runtime
+- [`.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs`](../../.github/workflows/runtime/self-maintainer-proposal-model-wrapper.mjs) — Wraps a model executor so raw model edits are rebound to exact local source bytes before the protected compiler builds a change set. · **Use:** prevent model-forged source hashes in proposals
+- [`.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs`](../../.github/workflows/runtime/self-maintainer-source-bound-compiler.mjs) — Binds model-authored UPDATE/DELETE/CREATE edits to exact local hashes and tracked-file inventory before change-set compilation. · **Use:** source-bind autonomous edits
+- [`.github/workflows/runtime/self-maintainer-source-context.mjs`](../../.github/workflows/runtime/self-maintainer-source-context.mjs) — Builds and validates local source inventory and context envelopes with normalized paths for proposal runs. · **Use:** supply exact source context to self-maintainer
+- [`.github/workflows/uberbond-self-maintainer-merge-governor.yml`](../../.github/workflows/uberbond-self-maintainer-merge-governor.yml) — pull_request_target workflow admitting self-maintain branches via the merge governor. · **Use:** govern merges of self-maintainer PRs
+- [`.github/workflows/uberbond-self-maintainer.yml`](../../.github/workflows/uberbond-self-maintainer.yml) — Push/dispatch workflow with OIDC and write permissions running bounded maintenance from relay issues and cognitive cycle artifacts. · **Use:** autonomous bounded repository maintenance
 
 ## Email infrastructure and warmup
 
-- [`.github/workflows/uberwarm-main-canon.yml`](../../.github/workflows/uberwarm-main-canon.yml) — UberWarm isolated release canonical receipts _(matched by name only)_
-- [`.github/workflows/uberwarm-provider-identity-canon-20261018.yml`](../../.github/workflows/uberwarm-provider-identity-canon-20261018.yml) — 2026-10-18 · UberWarm verified provider schema canonical receipt _(matched by name only)_
+- [`.github/workflows/uberwarm-main-canon.yml`](../../.github/workflows/uberwarm-main-canon.yml) — Branch-specific workflow regenerating UberWarm release canonical receipts with effects disabled. · **Use:** produce UberWarm canonical receipts on integration branch
+- [`.github/workflows/uberwarm-provider-identity-canon-20261018.yml`](../../.github/workflows/uberwarm-provider-identity-canon-20261018.yml) — 2026-10-18 · Branch-specific workflow emitting source-only readiness receipt for the Winnr provider schema patch, no secrets or POSTs. · **Use:** canonical receipt for UberWarm/Winnr provider identity hold
 
 ## Outreach and distribution
 
-- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — UberOutbound Exact Head _(matched by name only)_
+- [`.github/workflows/uberoutbound-exact-head.yml`](../../.github/workflows/uberoutbound-exact-head.yml) — PR workflow recording exact HEAD and running the UberOutbound genome verifier. · **Use:** exact-head verification of outbound genome
 
 ## Commerce, payments and economics
 
-- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — Cash Engine Lite Audits _(matched by name only)_
+- [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — 30-minute scheduled workflow for Cash Engine Lite audits that also pulses a Supabase heartbeat continuity function. · **Use:** keep lite audit loop and continuity heartbeat running
 
 ## Sovereign infrastructure and runtime
 
-- [`copilot-instructions.md`](../../.github/copilot-instructions.md) — UberBond Copilot instructions _(matched by name only)_
-- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI _(matched by name only)_
-- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — UberBond Free Runtime Burst _(matched by name only)_
-- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — exports VERCEL_SANDBOX_CLIENT_POLICY_VERSION, decodeVercelOidcClaims, createVercelSandboxRestClient _(matched by name only)_
-- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — exports VERCEL_SANDBOX_WORKER_POLICY_VERSION, decodeWorkerPayload, runSandboxWorkerOperation _(matched by name only)_
-- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — UberLit Free Runtime Mesh _(matched by name only)_
-- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — UBEROS Source Verification _(matched by name only)_
+- [`copilot-instructions.md`](../../.github/copilot-instructions.md) — Copilot compatibility pointer to AI_START_HERE, AGENTS, universal context protocol and brain/context-universe commands. · **Use:** bootstrap GitHub Copilot into canonical context
+- [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI workflow on main and PRs running npm run check and a browser job with Playwright download skipped. · **Use:** baseline deterministic and browser test gate
+- [`.github/workflows/free-runtime-burst.yml`](../../.github/workflows/free-runtime-burst.yml) — Dispatch workflow running a bounded number of logical jobs and posting to a one-run callback URL/nonce from the free runtime coordinator. · **Use:** burst compute on free GitHub runners
+- [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — REST client for Vercel Sandbox with OIDC claim decoding. · **Use:** run candidate verification inside Vercel sandboxes
+- [`.github/workflows/runtime/vercel-sandbox-worker.mjs`](../../.github/workflows/runtime/vercel-sandbox-worker.mjs) — Sandbox worker applying a code change set and running the sandbox verifier with sanitized PATH/HOME and no forwarded credentials. · **Use:** verify autonomous changes in isolation
+- [`.github/workflows/uberlit-free-runtime.yml`](../../.github/workflows/uberlit-free-runtime.yml) — Five-minute and dispatch-triggered workflow running the free runtime witness script. · **Use:** witness UberLit free runtime mesh liveness
+- [`.github/workflows/uberos-source.yml`](../../.github/workflows/uberos-source.yml) — PR workflow syntax-checking UBER/OS source modules and running uberos doctor and tests. · **Use:** verify UBER/OS source changes

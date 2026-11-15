@@ -6,40 +6,43 @@ Hash-locked lossless carrier of the 146 MB NULLSTAR Omega Infinity Inevitability
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**23 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**26 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (2)
 
-- [`artifacts/inevitability-v9-carrier/README.md`](../../artifacts/inevitability-v9-carrier/README.md) — UberBond V9 exact-source repository carrier _(matched by name only)_
+- [`CLAUDE_START_V9.md`](../../CLAUDE_START_V9.md) — Instruction to materialize the V9 Inevitability Engine via a Python script, require LOSSLESS_VERIFIED hash, and treat it as immutable canon. · **Use:** start a Claude session on the V9 carrier
+- [`artifacts/inevitability-v9-carrier/README.md`](../../artifacts/inevitability-v9-carrier/README.md) — Explains the hash-locked carrier storing V7 XZ seed plus V8/V9 generator to rebuild the 146 MB V9 text. · **Use:** how to materialize V9 source
 
 ## Scripts (1)
 
-- [`scripts/materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) _(matched by name only)_
+- [`scripts/materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) — Python materializer reconstructing the Inevitability Engine V9 source from base64 carrier, verifying manifest hashes. · **Use:** rebuild hash-locked V9 source from carrier
 
-## Config, data, artifacts and services (20)
+## Config, data, artifacts and services (22)
 
-- [`artifacts/inevitability-v9-carrier/MANIFEST.json`](../../artifacts/inevitability-v9-carrier/MANIFEST.json) — UBERBOND_NULLSTAR_OMEGA_INFINITY_INEVITABILITY_ENGINE_V9.txt · uberbond.v9.lossless-generator-carrier.3.0.0 _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64) _(matched by name only)_
-- [`artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64) _(matched by name only)_
-- [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — CANONICAL_V9_NOT_MATERIALIZED__EXTERNAL_SOURCE_ARTIFACT_BLOCKER · uberbond-canonical-v9-materialization-blocker-1.0.0 _(matched by name only)_
+- [`artifacts/inevitability-v9-carrier/MANIFEST.json`](../../artifacts/inevitability-v9-carrier/MANIFEST.json) — Manifest of the V9 carrier: canonical/V8/V7 hashes, seed and generator parts, materialized path, invariants. · **Use:** verify lossless V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0001.py.xz.b64) — Base64 XZ chunk 1 of the deterministic V8/V9 generation program. · **Use:** input to materialize-inevitability-v9.py
+- [`artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64`](../../artifacts/inevitability-v9-carrier/generator/part-0002.py.xz.b64) — Base64 XZ chunk 2 of the deterministic V8/V9 generation program. · **Use:** input to materialize-inevitability-v9.py
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0001.xz.b64) — Base64 XZ chunk 1 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0002.xz.b64) — Base64 XZ chunk 2 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0003.xz.b64) — Base64 XZ chunk 3 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0004.xz.b64) — Base64 XZ chunk 4 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0005.xz.b64) — Base64 XZ chunk 5 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0006.xz.b64) — Base64 XZ chunk 6 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0007.xz.b64) — Base64 XZ chunk 7 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0008.xz.b64) — Base64 XZ chunk 8 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0009.xz.b64) — Base64 XZ chunk 9 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0010.xz.b64) — Base64 XZ chunk 10 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0011.xz.b64) — Base64 XZ chunk 11 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0012.xz.b64) — Base64 XZ chunk 12 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0013.xz.b64) — Base64 XZ chunk 13 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0014.xz.b64) — Base64 XZ chunk 14 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0015.xz.b64) — Base64 XZ chunk 15 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64`](../../artifacts/inevitability-v9-carrier/seed-v7/part-0016.xz.b64) — Base64 XZ chunk 16 of 16 of the V7 ancestor seed text. · **Use:** input to V9 reconstruction
+- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — V7 frontier checkpoint: resume point, gap summary with EXTERNAL_BLOCKED/FOUNDER_ONLY statuses, canonical V9 carrier incomplete, deployment. · **Use:** resume the V7 frontier in a new session
+- [`artifacts/v7/live-truth.json`](../../artifacts/v7/live-truth.json) — V7 live truth snapshot of git, canon, deployment and canonical V9 state, stale by default. · **Use:** current-truth read for V7 decisions
+- [`artifacts/v9/canonical-v9-materialization-blocker.json`](../../artifacts/v9/canonical-v9-materialization-blocker.json) — Blocker record: canonical V9 cannot be materialized because carrier parts are missing; repairs tried, Wallbreaker run, what would close it. · **Use:** explain the external blocker on the V9 carrier
 
 ## Tests (1)
 

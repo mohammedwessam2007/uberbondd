@@ -33,33 +33,33 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## .cache
 
-- [`gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — uberbond.gamechanger-mesh-state.v2 _(matched by name only)_
+- [`gamechanger-mesh-state.json`](../../.cache/gamechanger-mesh-state.json) — Persisted mesh memory: per-source fingerprints and last-checked timestamps restored/saved by the hourly Gamechanger workflow cache. · **Use:** lets hourly frontier sensing skip unchanged sources between runs
 
 ## .codex
 
-- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator for Codex _(matched by name only)_
+- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — Codex variant of the orchestrator skill: Codex validates planner graphs, node ownership and verification before dispatch. · **Use:** multi-agent coding orchestration under Codex
 
 ## .cursor
 
-- [`.cursor/rules/uberbond-context.mdc`](../../.cursor/rules/uberbond-context.mdc) — description: UberBond universal context bootstrap _(matched by name only)_
+- [`.cursor/rules/uberbond-context.mdc`](../../.cursor/rules/uberbond-context.mdc) — Always-apply Cursor rule pointing to AI_START_HERE, AGENTS and context-universe script before work. · **Use:** bootstrap Cursor sessions into canonical context
 
 ## actors
 
-- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Verified Inquiry-Path Defects (pay only for findings that re-verify) _(matched by name only)_
-- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Verified Inquiry-Path Defects input _(matched by name only)_
-- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor _(matched by name only)_
-- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Verified Inquiry-Path Defects _(matched by name only)_
-- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify Store shell. All decisions live in src/inquiry-findings.mjs and _(matched by name only)_
+- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Apify Actor spec for 'Verified Inquiry-Path Defects' with pay-only-for-reverified-findings pricing and Dockerfile reference. · **Use:** publish inquiry-defect checker on Apify Store
+- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Apify input schema: list of business websites, browser confirmation of call buttons, max pages per site. · **Use:** define Actor run inputs
+- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Apify Playwright Chrome image built from repo root copying src and Actor main.mjs. · **Use:** build the inquiry-defect Actor container
+- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Store listing describing detected defects (wrong dial number, invalid LocalBusiness schema, dead form host) and double-verification pay-per-event pricing. · **Use:** public product description for the Apify Actor
+- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify shell connecting inquiry-findings, path probe and runtime witness; charges one event per finding that re-verifies, deduped via named store. · **Use:** run the paid inquiry-defect Actor
 
 ## apps
 
-- [`apps/phoenix-mcp/README.md`](../../apps/phoenix-mcp/README.md) — PHOENIX Direct MCP Connector (real tools) _(matched by name only)_
-- [`apps/phoenix-mcp/package-lock.json`](../../apps/phoenix-mcp/package-lock.json) — uberbond-phoenix-mcp _(matched by name only)_
-- [`apps/phoenix-mcp/package.json`](../../apps/phoenix-mcp/package.json) — uberbond-phoenix-mcp _(matched by name only)_
-- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone PHOENIX MCP connector. No shell argument forwarding, model calls, _(matched by name only)_
-- [`apps/phoenix-mcp/test/all-native.test.mjs`](../../apps/phoenix-mcp/test/all-native.test.mjs) — 1 test — e.g. "all fifteen native atoms through real subprocess MCP, denial and restart" _(matched by name only)_
-- [`apps/phoenix-mcp/test/native-fixtures.mjs`](../../apps/phoenix-mcp/test/native-fixtures.mjs) — exports fixtures _(matched by name only)_
-- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — 5 tests — e.g. "real MCP client: discover, source-query, execute authorized native function and deny unknown tools" _(matched by name only)_
+- [`apps/phoenix-mcp/README.md`](../../apps/phoenix-mcp/README.md) — Docs for a PHOENIX MCP server exposing eight tools (status, waves, catalog, search, mission contract, route, native invoke) over cos-operator. · **Use:** install and use the PHOENIX MCP connector
+- [`apps/phoenix-mcp/package-lock.json`](../../apps/phoenix-mcp/package-lock.json) — npm lockfile for the uberbond-phoenix-mcp package. · **Use:** reproducible MCP server installs
+- [`apps/phoenix-mcp/package.json`](../../apps/phoenix-mcp/package.json) — Package manifest for the guarded first-party PHOENIX capability MCP server. · **Use:** define MCP server scripts and deps
+- [`apps/phoenix-mcp/server.mjs`](../../apps/phoenix-mcp/server.mjs) — Standalone MCP server (stdio and bearer HTTP) wrapping phoenix-cos-operator with no shell forwarding or writes. · **Use:** serve PHOENIX tools to MCP clients
+- [`apps/phoenix-mcp/test/all-native.test.mjs`](../../apps/phoenix-mcp/test/all-native.test.mjs) — Test invoking all fifteen native atoms through a real subprocess MCP client, plus denial and restart. · **Use:** verify every PHOENIX native atom end to end
+- [`apps/phoenix-mcp/test/native-fixtures.mjs`](../../apps/phoenix-mcp/test/native-fixtures.mjs) — Fixture inputs for the fifteen PHOENIX native atoms used by MCP tests. · **Use:** test data for native atom invocation
+- [`apps/phoenix-mcp/test/server.test.mjs`](../../apps/phoenix-mcp/test/server.test.mjs) — Tests for in-memory, stdio and HTTP MCP transports including bearer enforcement and malformed/oversized request rejection. · **Use:** verify PHOENIX MCP server security and protocol
 
 ## data
 
@@ -90,20 +90,20 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## integrations
 
-- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — You are UberMind Ω20, my director for UberBond work. Deliver the highest-quality completed work using the fewest Claude Pro turns possible. Never trade quality for savings. _(matched by name only)_
-- [`integrations/claude-ai/README.md`](../../integrations/claude-ai/README.md) — UberMind Ω20 for claude.ai and the Claude apps (Claude Pro) _(matched by name only)_
-- [`integrations/claude-ai/dist/ubermind-lean.zip`](../../integrations/claude-ai/dist/ubermind-lean.zip) _(matched by name only)_
-- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — UberMind Ω20 · claude.ai portable skill _(matched by name only)_
+- [`integrations/claude-ai/PROJECT_INSTRUCTIONS.md`](../../integrations/claude-ai/PROJECT_INSTRUCTIONS.md) — Claude.ai Project custom instructions for UberMind Omega20: truth rules, recovery order, single-pass routing, Reality Court check · **Use:** paste into the UberBond claude.ai Project
+- [`integrations/claude-ai/README.md`](../../integrations/claude-ai/README.md) — README listing the claude.ai skill zip, project instructions and skill source plus rebuild/test commands · **Use:** explains how to install UberMind into claude.ai
+- [`integrations/claude-ai/dist/ubermind-lean.zip`](../../integrations/claude-ai/dist/ubermind-lean.zip) — Packaged ubermind-lean skill ZIP for upload to claude.ai Capabilities · **Use:** upload artifact for the claude.ai UberMind skill
+- [`integrations/claude-ai/ubermind-lean/SKILL.md`](../../integrations/claude-ai/ubermind-lean/SKILL.md) — Portable claude.ai version of the ubermind-lean skill: environment limits, recovery order, 890 corpus usage · **Use:** skill text loaded in claude.ai for UberBond work
 
 ## mind activation
 
-- [`ACTIVATION_STATUS_2026-10-10.md`](../../mind%20activation/ACTIVATION_STATUS_2026-10-10.md) — 2026-10-10 · UberMind / Claude Pro Activation: exact status _(matched by name only)_
-- [`CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for the existing Claude Pro Project _(matched by name only)_
-- [`CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger: original ideas, UberMind waves and receipts _(matched by name only)_
-- [`NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next execution frontier _(matched by name only)_
-- [`PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Security, privacy, legal, spend and production authority _(matched by name only)_
-- [`README.md`](../../mind%20activation/README.md) — MIND ACTIVATION / UberMind Ω20 / PHOENIX checkpoint _(matched by name only)_
-- [`SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — uberbond.mind-activation.source-receipt-index.v1 _(matched by name only)_
+- [`ACTIVATION_STATUS_2026-10-10.md`](../../mind%20activation/ACTIVATION_STATUS_2026-10-10.md) — 2026-10-10 · Activation status table for UberMind/Claude Pro setup classifying facts as verified, reported or unknown · **Use:** honest record of Claude Project activation
+- [`CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for Claude Project: read-only final readiness review of draft PR 1377 · **Use:** move from activation to real work
+- [`CONTINUITY_AND_LINEAGE.md`](../../mind%20activation/CONTINUITY_AND_LINEAGE.md) — Continuity ledger pointing to 890 corpus, founder direction and PHOENIX sources, with recovery order · **Use:** pointer layer for resuming UberMind work
+- [`NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next-execution plan 2026-10-10: one real bounded Claude task, usage measurement rules, owner decisions · **Use:** near-term plan after activation
+- [`PRIVACY_AND_AUTHORITY.md`](../../mind%20activation/PRIVACY_AND_AUTHORITY.md) — Privacy/authority note: repo is public exposing 890 transcript; containment policy, Actions lock, PR 1377 state · **Use:** risk record and decisions needing owner approval
+- [`README.md`](../../mind%20activation/README.md) — README for the mind activation folder: checkpoint purpose, main SHA anchor, file index · **Use:** entrypoint to the Oct 10 UberMind checkpoint
+- [`SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — JSON index of sources, hashes, PR and issue state at the mind activation checkpoint · **Use:** machine pointers for the Oct 10 checkpoint
 
 ## operator-tools
 
@@ -122,79 +122,79 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## relay
 
-- [`README.md`](../../relay/README.md) — UberBond Relay Adapter _(matched by name only)_
-- [`relay/api/agent-relay/health.mjs`](../../relay/api/agent-relay/health.mjs) — exports handler _(matched by name only)_
-- [`relay/api/agent-relay/tasks.mjs`](../../relay/api/agent-relay/tasks.mjs) — exports handler _(matched by name only)_
-- [`relay/api/agent-relay/tasks/[...path].mjs`](../../relay/api/agent-relay/tasks/%5B...path%5D.mjs) — exports handler _(matched by name only)_
-- [`relay/lib/contract.mjs`](../../relay/lib/contract.mjs) — Small Vercel-native relay adapter contract. This surface is intentionally _(matched by name only)_
-- [`package.json`](../../relay/package.json) — uberbondd-relay-adapter _(matched by name only)_
-- [`vercel.json`](../../relay/vercel.json) _(matched by name only)_
+- [`README.md`](../../relay/README.md) — Explains the minimal Vercel relay adapter: read-only health contract, fails closed for task queue, lease and result routes; no DB or worker. · **Use:** documents scope of the Vercel relay surface
+- [`relay/api/agent-relay/health.mjs`](../../relay/api/agent-relay/health.mjs) — Vercel function returning the relay adapter health contract response. · **Use:** health probe for the Vercel relay deployment
+- [`relay/api/agent-relay/tasks.mjs`](../../relay/api/agent-relay/tasks.mjs) — Vercel function for relay task route that fails closed via the shared contract. · **Use:** refuse task queue operations on the stateless relay
+- [`relay/api/agent-relay/tasks/[...path].mjs`](../../relay/api/agent-relay/tasks/%5B...path%5D.mjs) — Catch-all Vercel function for relay task subpaths (lease/result) returning fail-closed responses. · **Use:** refuse lease and result routes on the Vercel relay
+- [`relay/lib/contract.mjs`](../../relay/lib/contract.mjs) — Relay adapter contract helpers: version, zero external effects ledger, JSON response builders and method-not-allowed. · **Use:** shared response logic for Vercel relay endpoints
+- [`package.json`](../../relay/package.json) — Package manifest for uberbondd-relay-adapter, private ESM package with engine constraints. · **Use:** package definition for the Vercel relay subproject
+- [`vercel.json`](../../relay/vercel.json) — Vercel configuration for the relay adapter: function settings and headers. · **Use:** deploy relay adapter on Vercel
 
 ## runtime
 
-- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — exports UberBondFreeCoordinator _(matched by name only)_
-- [`runtime/free-mesh/wrangler.jsonc`](../../runtime/free-mesh/wrangler.jsonc) _(matched by name only)_
-- [`runtime/supabase/functions/README.md`](../../runtime/supabase/functions/README.md) — Supabase GENESIS runtime _(matched by name only)_
-- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts) _(matched by name only)_
-- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts) _(matched by name only)_
-- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts) _(matched by name only)_
-- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) _(matched by name only)_
-- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · GENESIS cognition atomic claim v1 _(matched by name only)_
-- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · GENESIS escalation tribunal and source-realization queue. _(matched by name only)_
+- [`runtime/free-mesh/cloudflare-worker.mjs`](../../runtime/free-mesh/cloudflare-worker.mjs) — Cloudflare Worker exporting UberBondFreeCoordinator durable object for the free runtime mesh coordination. · **Use:** zero-cost coordinator node in the free runtime mesh
+- [`runtime/free-mesh/wrangler.jsonc`](../../runtime/free-mesh/wrangler.jsonc) — Wrangler config for uberbond-free-runtime-mesh worker with UBERBOND_COORDINATOR durable object binding and migrations. · **Use:** deploy free mesh coordinator on Cloudflare
+- [`runtime/supabase/functions/README.md`](../../runtime/supabase/functions/README.md) — Notes that these files mirror deployed Supabase GENESIS edge functions as of 2026-09-22; deployment state recorded separately. · **Use:** explain provenance of GENESIS Supabase runtime source
+- [`runtime/supabase/functions/genesis-cognition-node/index.ts`](../../runtime/supabase/functions/genesis-cognition-node/index.ts) — Supabase edge function for authenticated cognition supplier lease and receipt endpoint with sha256 hashing. · **Use:** suppliers claim GENESIS cognition jobs and return receipts
+- [`runtime/supabase/functions/genesis-escalation/index.ts`](../../runtime/supabase/functions/genesis-escalation/index.ts) — Supabase edge function evaluating GENESIS candidates against reality needs to produce escalation decisions. · **Use:** decide whether GENESIS candidates implement, escalate or wait
+- [`runtime/supabase/functions/genesis-reality/index.ts`](../../runtime/supabase/functions/genesis-reality/index.ts) — Supabase edge function heartbeat reading GENESIS_BURST_INDEX from GitHub repo and reconciling runtime candidates. · **Use:** keep GENESIS runtime state reconciled with repo burst index
+- [`runtime/supabase/functions/genesis-system-one-worker/index.ts`](../../runtime/supabase/functions/genesis-system-one-worker/index.ts) — Supabase edge worker acting as supplier jev-system-one that claims and processes GENESIS cognition jobs. · **Use:** deterministic System One supplier for GENESIS jobs
+- [`runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_cognition_atomic_claim_v1.sql) — 2026-09-22 · SQL function claim_genesis_cognition_job atomically leases one pending job by supplier class and cost cap, service-role only. · **Use:** prevent concurrent suppliers racing on GENESIS jobs
+- [`runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql`](../../runtime/supabase/migrations/20260922_genesis_escalation_tribunal_v1.sql) — 2026-09-22 · SQL migration creating genesis_escalation_decisions table with decisions like IMPLEMENT_NOW, ESCALATE_PAID_SEMANTIC, WAIT_REALITY_EVIDENCE. · **Use:** persist GENESIS escalation tribunal decisions and realization queue
 
 ## schemas
 
-- [`capability-genome.schema.json`](../../schemas/capability-genome.schema.json) — UberBond Capability Genome Capability _(matched by name only)_
-- [`uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — UBER/OS machine manifest _(matched by name only)_
-- [`uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — UberOutbound Genome Decision Packet _(matched by name only)_
+- [`capability-genome.schema.json`](../../schemas/capability-genome.schema.json) — JSON Schema for a Capability Genome capability record with required fields and definitions. · **Use:** validate normalized capability records
+- [`uberos-machine-manifest.schema.json`](../../schemas/uberos-machine-manifest.schema.json) — JSON Schema for an UBER/OS machine manifest. · **Use:** validate UBER/OS machine manifests
+- [`uberoutbound-genome.schema.json`](../../schemas/uberoutbound-genome.schema.json) — JSON Schema for UberOutbound Genome Decision Packet structure. · **Use:** validate outbound decision packets before send decisions
 
 ## skill-observations
 
-- [`cross-cutting-principles.md`](../../skill-observations/cross-cutting-principles.md) — UberBond Skill Cross-Cutting Principles _(matched by name only)_
-- [`last-review-date.txt`](../../skill-observations/last-review-date.txt) — never _(matched by name only)_
-- [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep) _(matched by name only)_
-- [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — id: 1 — status: open _(matched by name only)_
-- [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — id: 2 — status: open _(matched by name only)_
-- [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep) _(matched by name only)_
-- [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor) _(matched by name only)_
+- [`cross-cutting-principles.md`](../../skill-observations/cross-cutting-principles.md) — Seven cross-cutting skill principles: repo truth over memory, capability not authority, structural enforcement, dedupe, preserve originals · **Use:** Task Observer quality floor for all skills
+- [`last-review-date.txt`](../../skill-observations/last-review-date.txt) — Single value never, marking that observations have not been reviewed · **Use:** Task Observer review schedule state
+- [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep) — Empty placeholder keeping observation-log directory in git · **Use:** preserve Task Observer log directory
+- [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — Observation 2026-09-25: adding a test can stale readiness and constitution artifacts; proposes running readiness and constitution doctor after source commits · **Use:** proposed improvement to engineering closure checklist
+- [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — Observation 2026-09-25: importing a constant made a deliberately unwired module reachable; proposes moving constants to neutral modules · **Use:** proposed rule for reachability classification hygiene
+- [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep) — Empty placeholder for archived observations directory · **Use:** preserve archive directory
+- [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor) — Tiny file holding the minimum observation ID counter · **Use:** keep observation IDs monotonic after archiving
 
 ## tools
 
-- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — UberSocket Chat Bridge _(matched by name only)_
-- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js) _(matched by name only)_
-- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js) _(matched by name only)_
-- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — UberSocket Chat Bridge _(matched by name only)_
-- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html) _(matched by name only)_
-- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js) _(matched by name only)_
+- [`tools/uber-socket-extension/README.md`](../../tools/uber-socket-extension/README.md) — README for UberSocket Chrome extension bridging two user-armed ChatGPT tabs over an end-to-end encrypted Supabase Realtime channel; install and pairing steps. · **Use:** Install and pair the ChatGPT tab bridge
+- [`tools/uber-socket-extension/background.js`](../../tools/uber-socket-extension/background.js) — Extension service worker managing Supabase Realtime websocket rooms, per-tab configs and encrypted peer envelopes; embeds a Supabase publishable key. · **Use:** Relay encrypted prompts between paired ChatGPT tabs
+- [`tools/uber-socket-extension/content.js`](../../tools/uber-socket-extension/content.js) — Content script that inserts peer prompts into ChatGPT prefixed as untrusted input, clicks send, observes the reply and shows a status badge. · **Use:** Drive ChatGPT DOM for the socket bridge
+- [`tools/uber-socket-extension/manifest.json`](../../tools/uber-socket-extension/manifest.json) — Chrome extension manifest for UberSocket Chat Bridge: permissions, host permissions, background worker, popup and content scripts. · **Use:** Package the UberSocket browser extension
+- [`tools/uber-socket-extension/popup.html`](../../tools/uber-socket-extension/popup.html) — Popup markup and styles for creating or pasting a pair code, choosing chat side, max turns and arming a tab. · **Use:** User control panel of the extension
+- [`tools/uber-socket-extension/popup.js`](../../tools/uber-socket-extension/popup.js) — Popup logic encoding/decoding pair codes and applying chat-side and turn settings to the active tab. · **Use:** Pair and arm ChatGPT tabs
 
 ## uberos
 
-- [`README.md`](../../uberos/README.md) — UBER/OS _(matched by name only)_
-- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in) _(matched by name only)_
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh) _(matched by name only)_
-- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release) _(matched by name only)_
-- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health) _(matched by name only)_
-- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc) _(matched by name only)_
-- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk) _(matched by name only)_
-- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh) _(matched by name only)_
-- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh) _(matched by name only)_
+- [`README.md`](../../uberos/README.md) — Describes UBER/OS generation ladder G0-GOmega, Gen-0 minimal Buildroot 2026.08 Linux with UberBond contracts, and build/QEMU commands; disclaims production OS. · **Use:** Entry point for the sovereign OS substrate program
+- [`uberos/buildroot/Config.in`](../../uberos/buildroot/Config.in) — Buildroot menu stub for UBER/OS noting Gen-0 uses only a rootfs overlay and no custom packages. · **Use:** Buildroot external tree config
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/profile.d/uberos.sh) — Shell profile exporting UBEROS_GENERATION=0 and attenuation-only authority mode in the OS image. · **Use:** Mark generation and authority mode in rootfs
+- [`uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release`](../../uberos/buildroot/board/uberos/rootfs-overlay/etc/uberos-release) — Small release identity file placed in the UBER/OS root filesystem overlay (content not shown in digest). · **Use:** Identify the UBER/OS release inside the image
+- [`uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health`](../../uberos/buildroot/board/uberos/rootfs-overlay/usr/bin/uberos-health) — Small health-check executable script included in the UBER/OS rootfs overlay (content not shown in digest). · **Use:** Report health inside the booted UBER/OS image
+- [`uberos/buildroot/external.desc`](../../uberos/buildroot/external.desc) — Buildroot external tree descriptor naming UBEROS as the UberBond sovereign OS overlay. · **Use:** Register UBER/OS with Buildroot
+- [`uberos/buildroot/external.mk`](../../uberos/buildroot/external.mk) — Empty Buildroot external makefile stating packages join only after provenance, license and permission review. · **Use:** Placeholder for future UBER/OS packages
+- [`uberos/scripts/build-gen0.sh`](../../uberos/scripts/build-gen0.sh) — Downloads SHA-256-pinned Buildroot 2026.08 into a cache and builds the Gen-0 image for x86_64 or aarch64 with the UBER/OS overlay. · **Use:** Build the UBER/OS generation-0 image
+- [`uberos/scripts/run-qemu.sh`](../../uberos/scripts/run-qemu.sh) — Boots the built UBER/OS image in QEMU for x86_64 or aarch64 without networking. · **Use:** Run the Gen-0 image locally
 
 ## winnr
 
 **Email infrastructure and warmup**
 
-- [`CURRENT_STATE.json`](../../winnr/CURRENT_STATE.json) — winnr · INDEPENDENTLY_OBSERVED_3_OF_3_INBOX · uberbond.winnr.current-observations.v1 _(matched by name only)_
-- [`CURRENT_STATE.md`](../../winnr/CURRENT_STATE.md) — Winnr Current State _(matched by name only)_
-- [`EVIDENCE_INDEX.md`](../../winnr/EVIDENCE_INDEX.md) — Winnr Evidence Index _(matched by name only)_
-- [`EVIDENCE_LEDGER.md`](../../winnr/EVIDENCE_LEDGER.md) — Winnr Evidence Ledger _(matched by name only)_
-- [`EXECUTION_LINEAGE.md`](../../winnr/EXECUTION_LINEAGE.md) — Winnr Execution Lineage _(matched by name only)_
-- [`FINAL_ACTIVATION_2026-10-02.md`](../../winnr/FINAL_ACTIVATION_2026-10-02.md) — 2026-10-02 · Winnr Final Activation Receipt — 2026-10-02 _(matched by name only)_
-- [`LIVE_RECONCILIATION_2026-10-02.md`](../../winnr/LIVE_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Live Reconciliation — 2026-10-02 — Status: TECHNICAL CONNECTOR COMPLETE / PLACEMENT SPLIT / CAMPAIGN NOT ACTIVATED _(matched by name only)_
-- [`LIVE_RECONCILIATION_2026-10-04.md`](../../winnr/LIVE_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Winnr Live Reconciliation — 2026-10-04 _(matched by name only)_
-- [`NEON_MIRROR.md`](../../winnr/NEON_MIRROR.md) — Neon Mirror Boundary _(matched by name only)_
-- [`NEXT_STEPS.md`](../../winnr/NEXT_STEPS.md) — Winnr Next Steps _(matched by name only)_
-- [`PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`](../../winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Winnr Personal Inbox Reconciliation — 2026-10-02 — Truth class: OWNER_REPORTED_PLACEMENT. The reported messages, senders and receiving address were not specified. Preserve this as useful ev… _(matched by name only)_
-- [`PLACEMENT_RECOVERY.md`](../../winnr/PLACEMENT_RECOVERY.md) — Winnr Placement Recovery Protocol — Status: NEXT ACTIVE EXPERIMENT _(matched by name only)_
-- [`README.md`](../../winnr/README.md) — Winnr Canonical Vault — Status: CURRENT WINNR RETRIEVAL ROOT _(matched by name only)_
-- [`SECURITY_BOUNDARIES.md`](../../winnr/SECURITY_BOUNDARIES.md) — Winnr Security Boundaries _(matched by name only)_
+- [`CURRENT_STATE.json`](../../winnr/CURRENT_STATE.json) — Machine-readable Winnr state reconciled 2026-10: technical and campaign activation, runtime, frozen prospect canary 2026-10-04, placement, authority, next actions and evidence refs. · **Use:** Resume Winnr sender status from durable truth
+- [`CURRENT_STATE.md`](../../winnr/CURRENT_STATE.md) — Human-readable Winnr state as of 2026-10-04: Render deploy and source, IMAP 3/3 healthy, canaries absent from recent window, quarantine preserved. · **Use:** Read current Winnr production truth
+- [`EVIDENCE_INDEX.md`](../../winnr/EVIDENCE_INDEX.md) — Index of Winnr evidence: pre-purchase and support docs, custody and transport source files, PRs, placement phenotypes and reply verification. · **Use:** Locate Winnr evidence sources
+- [`EVIDENCE_LEDGER.md`](../../winnr/EVIDENCE_LEDGER.md) — Claim-state table dated 2026-10-02 for the $9 three-mailbox pilot: payment, credentials, SMTP/IMAP 3/3, placement 2/3 inbox, zero prospect sends, auth passes. · **Use:** Evidence status of each Winnr claim
+- [`EXECUTION_LINEAGE.md`](../../winnr/EXECUTION_LINEAGE.md) — Chronological history of Winnr procurement after Cold Mail Server and netcup failures, support confirmations, purchase choices, provisioning and superseded states. · **Use:** Avoid repeating failed Winnr steps
+- [`FINAL_ACTIVATION_2026-10-02.md`](../../winnr/FINAL_ACTIVATION_2026-10-02.md) — 2026-10-02 · Activation receipt 2026-10-02: two placement-green senders and one quarantined, transport 3/3, Gmail phenotype results and authentication comparison; no campaign authority. · **Use:** Record Winnr technical activation outcome
+- [`LIVE_RECONCILIATION_2026-10-02.md`](../../winnr/LIVE_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Reconciliation 2026-10-02: connector complete, placement split, campaign not activated; Render recheck, quarantine of ordinal 3, reply verifier results. · **Use:** Supersede older Winnr chat frontier
+- [`LIVE_RECONCILIATION_2026-10-04.md`](../../winnr/LIVE_RECONCILIATION_2026-10-04.md) — 2026-10-04 · Reconciliation 2026-10-04 after Revenue Singularity closure and IMAP repair: exact deploy, IMAP state, no campaign or prospect-send claim. · **Use:** Current Winnr production reconciliation
+- [`NEON_MIRROR.md`](../../winnr/NEON_MIRROR.md) — Boundary note that Neon is not proven production store; lists safe sanitized mirror fields and secrets never to mirror. · **Use:** Rules for mirroring Winnr evidence to Neon
+- [`NEXT_STEPS.md`](../../winnr/NEXT_STEPS.md) — Checklist of completed Winnr activation steps and the active frontier after personal inbox reconciliation. · **Use:** Executable continuation state for Winnr
+- [`PERSONAL_INBOX_RECONCILIATION_2026-10-02.md`](../../winnr/PERSONAL_INBOX_RECONCILIATION_2026-10-02.md) — 2026-10-02 · Reconciles founder-reported personal inbox arrival with inspected Gmail results (2 inbox, 1 spam) and live receipts, preserving truth classes. · **Use:** Interpret contradictory placement evidence
+- [`PLACEMENT_RECOVERY.md`](../../winnr/PLACEMENT_RECOVERY.md) — Protocol for testing whether Spam placement reflects reputation, phenotype or test artifacts using owner seed inboxes only, no fake engagement. · **Use:** Run placement recovery experiment
+- [`README.md`](../../winnr/README.md) — Root of the secret-free Winnr vault with pointer to 2026-10-08 $69 Startup purchase evidence and Oct 8 sender state; reading order. · **Use:** Start point for Winnr recovery
+- [`SECURITY_BOUNDARIES.md`](../../winnr/SECURITY_BOUNDARIES.md) — Lists secrets never stored in the Winnr vault, credential custody rules, blind-tunnel restrictions and that transport grants no outreach authority. · **Use:** Security rules for Winnr work
 

@@ -6,50 +6,53 @@ Neural exocortex genome and store, repository atlas (50K/million-repo), GitHub h
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**30 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**38 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
 ## Read first (4)
 
 - [`docs/CONNECTOME_AUTOPOIESIS_CANON.md`](../CONNECTOME_AUTOPOIESIS_CANON.md) — UberBond Connectome Autopoiesis — Status: VERIFIED SOURCE MECHANISM / ZERO-EFFECT / PHYSICAL RUNTIME EVIDENCE SEPARATE _(matched by name only)_
-- [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — UberBond Neural Exocortex Genome Canon _(matched by name only)_
-- [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — UberBond Million-Repo Neural Continuum _(matched by name only)_
-- [`docs/NEURAL_REPOSITORY_ATLAS_50K.md`](../NEURAL_REPOSITORY_ATLAS_50K.md) — UberBond 50K Neural Repository Atlas _(matched by name only)_
+- [`docs/NEURAL_EXOCORTEX_GENOME_CANON.md`](../NEURAL_EXOCORTEX_GENOME_CANON.md) — Canon for exocortex retaining 1,000,000 deduplicated neural capability records with bounded 64-capability mission cortex and compaction-manifest completion rule. · **Use:** governs neural capability harvest scale claims
+- [`docs/MILLION_REPO_NEURAL_CONTINUUM.md`](../MILLION_REPO_NEURAL_CONTINUUM.md) — North star funnel from 1M public repos to ~50K suppliers to elite capabilities, listing brain dimensions to cover. · **Use:** scope of repository-scale capability discovery
+- [`docs/NEURAL_REPOSITORY_ATLAS_50K.md`](../NEURAL_REPOSITORY_ATLAS_50K.md) — Mission doc to index at least 50,000 public repositories across AI families through a discovery-to-activation pipeline; stars are only a discovery prior. · **Use:** scope the 50K repository atlas harvest
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · UberBond Multidimensional Velocity Singularity Audit — Status: RESEARCH_AUDIT / EXECUTION_TARGET / NOT_RUNTIME_PROOF _(matched by name only)_ _(3 mentions)_
+- [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · Research audit defining velocity objective V and missing mechanisms so each mission shortens future work, listing existing acceleration machinery. · **Use:** plan compounding execution-speed improvements _(3 mentions)_
 - [`docs/prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_8H_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond 8-Hour Revenue Singularity _(matched by name only)_ _(3 mentions)_
-- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · UberBond Sleep-to-Noon Revenue Singularity _(matched by name only)_ _(3 mentions)_
+- [`docs/prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md`](../prompts/UBERBOND_SLEEP_TO_NOON_REVENUE_SINGULARITY_2026-09-11.md) — 2026-09-11 · Full mission spec for the 2026-09-11 overnight revenue run: cleared-profit metric, PayPal destination truth boundary, no account changes · **Use:** defines rules and boundaries for the overnight revenue mission _(3 mentions)_
 
-## Source modules (9)
+## Source modules (12)
 
-- [`src/connectome-autopoiesis.mjs`](../../src/connectome-autopoiesis.mjs) — exports CONNECTOME_AUTOPOIESIS_VERSION, CONNECTOME_SYNERGY_CONTRACTS, shortestConnectomePath, auditUberBondConnectome, compileConnectomeAutopoiesis _(matched by name only; tested; imported by 2)_
-- [`src/frontier-intelligence-neural-bridge.mjs`](../../src/frontier-intelligence-neural-bridge.mjs) — exports FRONTIER_NEURAL_BRIDGE_VERSION, frontierRecordsToNeuralReferences, selectFrontierCapabilityGenomeBackedCortex _(matched by name only; tested; no static importers)_
-- [`src/neural-exocortex-admission.mjs`](../../src/neural-exocortex-admission.mjs) — exports NEURAL_EXOCORTEX_ADMISSION_VERSION, compileNeuralCapabilityAcquisitionRequest, selectCapabilityGenomeBackedNeuralCortex _(matched by name only; tested; imported by 1)_
-- [`src/neural-exocortex-cognitive-binding.mjs`](../../src/neural-exocortex-cognitive-binding.mjs) — exports NEURAL_EXOCORTEX_COGNITIVE_BINDING_VERSION, NEURAL_EXOCORTEX_NODE, NEURAL_EXOCORTEX_EDGES, compileNeuralExocortexCognitiveGraph _(matched by name only; imported by 1)_
-- [`src/neural-exocortex-genome.mjs`](../../src/neural-exocortex-genome.mjs) — exports NEURAL_EXOCORTEX_GENOME_VERSION, NEURAL_EXOCORTEX_SCHEMA, FINAL_NEURAL_CAPABILITY_TARGET, ACTIVE_NEURAL_CORTEX_MAX, neuralCapabilityPrior (+6) _(matched by name only; tested; imported by 6)_
-- [`src/neural-exocortex-store.mjs`](../../src/neural-exocortex-store.mjs) — exports NEURAL_EXOCORTEX_STORE_VERSION, writeNeuralHarvestBatch, compactNeuralExocortexCorpus, readNeuralFinalManifest, writeNeuralHarvestState (+1) _(matched by name only; tested; imported by 3)_
-- [`src/neural-github-harvest.mjs`](../../src/neural-github-harvest.mjs) — exports NEURAL_GITHUB_HARVEST_VERSION, compileNeuralGithubPartitions, refineNeuralGithubPartition, executeNeuralGithubPartitions _(matched by name only; tested; imported by 1)_
-- [`src/neural-repository-atlas.mjs`](../../src/neural-repository-atlas.mjs) — exports NEURAL_REPOSITORY_ATLAS_VERSION, NEURAL_REPOSITORY_TARGET, NEURAL_FINAL_CAPABILITY_TARGET, NEURAL_ACTIVE_CORTEX_MAX, NEURAL_QUERY_FAMILIES (+… _(matched by name only; tested; imported by 3)_
-- [`src/uber-socket-connectome-runtime.mjs`](../../src/uber-socket-connectome-runtime.mjs) — exports UBER_SOCKET_CONNECTOME_RUNTIME_VERSION, createUberSocketConnectomeRuntime _(matched by name only; tested; imported by 1)_
+- [`src/connectome-autopoiesis.mjs`](../../src/connectome-autopoiesis.mjs) — Synergy contracts and shortest paths over the UberBond cognitive graph, auditing the connectome and compiling autopoiesis · **Use:** find missing links between modules _(tested; imported by 2)_
+- [`src/frontier-intelligence-neural-bridge.mjs`](../../src/frontier-intelligence-neural-bridge.mjs) — Converts frontier intelligence records into neural exocortex references and selects a Capability-Genome-backed cortex. · **Use:** Feed frontier discoveries into the neural exocortex _(tested; no static importers)_
+- [`src/neural-exocortex-admission.mjs`](../../src/neural-exocortex-admission.mjs) — Compiles neural capability acquisition requests and selects a Capability-Genome-admitted neural cortex. · **Use:** Admit exocortex capabilities via Genome gates _(tested; imported by 1)_
+- [`src/neural-exocortex-cognitive-binding.mjs`](../../src/neural-exocortex-cognitive-binding.mjs) — Binds neural exocortex as a node and edges in the UberBond cognitive graph. · **Use:** Connect exocortex into cognitive graph _(imported by 1)_
+- [`src/neural-exocortex-genome.mjs`](../../src/neural-exocortex-genome.mjs) — Neural capability priors, observation normalization, record merge, corpus build, reference bundle retrieval and active cortex selection with progress. · **Use:** Core neural exocortex capability corpus _(tested; imported by 6)_
+- [`src/neural-exocortex-store.mjs`](../../src/neural-exocortex-store.mjs) — Writes neural harvest batches, compacts corpus, reads final manifest and harvest state. · **Use:** Persist neural exocortex harvest outside memory _(tested; imported by 3)_
+- [`src/neural-github-harvest.mjs`](../../src/neural-github-harvest.mjs) — Compiles, refines and executes partitioned GitHub searches for neural repository harvest. · **Use:** Harvest GitHub repositories for exocortex _(tested; imported by 1)_
+- [`src/neural-repository-atlas.mjs`](../../src/neural-repository-atlas.mjs) — Neural repository atlas plan with query families, weights, star bands, repository scoring, tournament and coverage. · **Use:** Plan million-repo atlas coverage _(tested; imported by 3)_
+- [`src/uberbond-atlas-stream-writer.mjs`](../../src/uberbond-atlas-stream-writer.mjs) — Streams a redacted repository atlas to JSON leaf by leaf with bounded sizes and refusal of toJSON hooks · **Use:** write very large atlases without memory blowup or secret leaks _(tested; imported by 2)_
+- [`src/uberbond-cognitive-bus.mjs`](../../src/uberbond-cognitive-bus.mjs) — Compiles and routes cognitive events and closed-loop activations over the cognitive graph and connectome · **Use:** event bus connecting UberBond organs _(tested; imported by 10)_
+- [`src/uberbond-repository-deep-atlas.mjs`](../../src/uberbond-repository-deep-atlas.mjs) — Builds a chunk-indexed deep atlas of the repository with bounded structural expansion and streamed SHA-256 digest · **Use:** queryable complete index of repository contents _(tested; imported by 2)_
+- [`src/uberbond-ultimate-graph.mjs`](../../src/uberbond-ultimate-graph.mjs) — Compiles and queries the ultimate graph derived from the deep atlas · **Use:** whole-repository graph queries _(tested; imported by 1)_
 
 ## Scripts (4)
 
-- [`scripts/neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) _(matched by name only)_
-- [`scripts/neural-exocortex-compact.mjs`](../../scripts/neural-exocortex-compact.mjs) _(matched by name only)_
-- [`scripts/neural-repository-atlas.mjs`](../../scripts/neural-repository-atlas.mjs) _(matched by name only)_
-- [`scripts/neural-repository-harvest.mjs`](../../scripts/neural-repository-harvest.mjs) _(matched by name only)_
+- [`scripts/neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) — Compiles the neural exocortex cognitive graph from an external capability corpus directory final manifest; refuses without corpus dir. · **Use:** refresh exocortex cognitive graph from harvested corpus
+- [`scripts/neural-exocortex-compact.mjs`](../../scripts/neural-exocortex-compact.mjs) — Compacts the external neural exocortex corpus toward the final capability target; requires external corpus dir. · **Use:** compact large harvested capability corpus
+- [`scripts/neural-repository-atlas.mjs`](../../scripts/neural-repository-atlas.mjs) — Compiles a neural repository atlas harvest plan for a target repository count and pushed-after date. · **Use:** plan large-scale GitHub repository atlas harvest
+- [`scripts/neural-repository-harvest.mjs`](../../scripts/neural-repository-harvest.mjs) — Executes partitioned GitHub harvest, normalizes capability observations and writes batches and state to external exocortex store. · **Use:** run repository atlas harvest batches
 
 ## Config, data, artifacts and services (4)
 
-- [`artifacts/connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — VERIFIED_CURRENT_SOURCE_PROTOCOL_ZERO_EFFECT_RUNTIME_EVIDENCE_SEPARATE · uberbond-connectome-autopoiesis-1.0.0 _(matched by name only)_
+- [`artifacts/connectome-autopoiesis.json`](../../artifacts/connectome-autopoiesis.json) — Artifact describing a typed connectome graph, bus, resident worker, Sandwich governor, organs and event kinds; source-level only. · **Use:** connectome self-audit contract and status
 - [`ops/sovereign/install-neural-exocortex-harvester.sh`](../../ops/sovereign/install-neural-exocortex-harvester.sh) _(matched by name only)_
 - [`ops/sovereign/uberbond-neural-exocortex-harvest.service`](../../ops/sovereign/uberbond-neural-exocortex-harvest.service) _(matched by name only)_
 - [`ops/sovereign/uberbond-neural-exocortex-harvest.timer`](../../ops/sovereign/uberbond-neural-exocortex-harvest.timer) _(matched by name only)_
 
-## Tests (9)
+## Tests (14)
 
-[`connectome-autopoiesis`](../../tests/connectome-autopoiesis.test.mjs) · [`connectome-resident-binding`](../../tests/connectome-resident-binding.test.mjs) · [`frontier-intelligence-neural-bridge`](../../tests/frontier-intelligence-neural-bridge.test.mjs) · [`neural-exocortex-admission`](../../tests/neural-exocortex-admission.test.mjs) · [`neural-exocortex-genome`](../../tests/neural-exocortex-genome.test.mjs) · [`neural-exocortex-store`](../../tests/neural-exocortex-store.test.mjs) · [`neural-github-harvest`](../../tests/neural-github-harvest.test.mjs) · [`neural-repository-atlas`](../../tests/neural-repository-atlas.test.mjs) · [`uber-socket-connectome-runtime`](../../tests/uber-socket-connectome-runtime.test.mjs)
+[`connectome-autopoiesis`](../../tests/connectome-autopoiesis.test.mjs) · [`frontier-intelligence-neural-bridge`](../../tests/frontier-intelligence-neural-bridge.test.mjs) · [`neural-exocortex-admission`](../../tests/neural-exocortex-admission.test.mjs) · [`neural-exocortex-genome`](../../tests/neural-exocortex-genome.test.mjs) · [`neural-exocortex-store`](../../tests/neural-exocortex-store.test.mjs) · [`neural-github-harvest`](../../tests/neural-github-harvest.test.mjs) · [`neural-repository-atlas`](../../tests/neural-repository-atlas.test.mjs) · [`uberbond-atlas-stream-writer`](../../tests/uberbond-atlas-stream-writer.test.mjs) · [`uberbond-cognitive-bus`](../../tests/uberbond-cognitive-bus.test.mjs) · [`uberbond-repository-deep-atlas-growth-safe`](../../tests/uberbond-repository-deep-atlas-growth-safe.test.mjs) · [`uberbond-repository-deep-atlas-streaming-digest`](../../tests/uberbond-repository-deep-atlas-streaming-digest.test.mjs) · [`uberbond-repository-deep-atlas`](../../tests/uberbond-repository-deep-atlas.test.mjs) · [`uberbond-ultimate-graph`](../../tests/uberbond-ultimate-graph.test.mjs) · [`wallbreaker-cognitive-reflex`](../../tests/wallbreaker-cognitive-reflex.test.mjs)
 

@@ -6,47 +6,80 @@ Market-sensing and commercial-memory spine: control tower, economic spine, oppor
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**24 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**73 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (8)
+## Read first (9)
 
-- [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Prometheus Architecture (as actually built, this branch) _(matched by name only)_
-- [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Prometheus Canonical Integration Plan _(matched by name only)_
-- [`docs/PROMETHEUS_ADAPTER_CAPITAL_WAVE.md`](../PROMETHEUS_ADAPTER_CAPITAL_WAVE.md) — Prometheus Adapter and Capital Planning Wave _(matched by name only)_
-- [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Prometheus Branch Reconciliation _(matched by name only)_
-- [`docs/PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md`](../PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md) — Prometheus commercial economics wave _(matched by name only)_
-- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Prometheus Distribution Brain _(matched by name only)_
-- [`docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md`](../PROMETHEUS_ECONOMIC_SPINE_WAVE.md) — Prometheus economic spine wave _(matched by name only)_
-- [`docs/PROMETHEUS_EXTERNAL_GATES.md`](../PROMETHEUS_EXTERNAL_GATES.md) — Prometheus External Gates _(matched by name only)_
+- [`docs/PROMETHEUS_ARCHITECTURE.md`](../PROMETHEUS_ARCHITECTURE.md) — Real-vs-deferred diagram of Prometheus chain from MarketSignal through economic spine, experiment, distribution, learning; V3 notes deletions. · **Use:** map of Prometheus modules as built
+- [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Plan for stranded OMNIA V9 and Canon/V3 lineages; V2 note records owner decision to compose Guard and V9 in consequence-boundary. · **Use:** record of V9 vs Guard integration decision
+- [`docs/PROMETHEUS_ADAPTER_CAPITAL_WAVE.md`](../PROMETHEUS_ADAPTER_CAPITAL_WAVE.md) — 2026-08-18 wave adding lawful source adapter manifest contract (dry-run only) and proof-gated capital planning contract. · **Use:** record of Prometheus adapter and capital sockets
+- [`docs/PROMETHEUS_BRANCH_RECONCILIATION.md`](../PROMETHEUS_BRANCH_RECONCILIATION.md) — Bounded reconciliation of 26 open draft PRs, re-running tests on OMNIA V9 and Canon/V3 tip branches to detect duplication. · **Use:** evidence for merging stranded lineages
+- [`docs/PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md`](../PROMETHEUS_COMMERCIAL_ECONOMICS_WAVE.md) — 2026-08-18 wave: preparation-only loop signal->genome->score->offer->experiment->distribution->outcome; distribution allocator returns DO_NOT_DISTRIBUTE without cleared outcomes. · **Use:** record of commercial economics contract loop
+- [`docs/PROMETHEUS_DISTRIBUTION_BRAIN.md`](../PROMETHEUS_DISTRIBUTION_BRAIN.md) — Doc of distribution allocation counting only CLEARED_PAYMENT outcomes, with V3 note on canonical distribution-channel module and sampleConfidence. · **Use:** explains why distribution currently says do not distribute
+- [`docs/PROMETHEUS_ECONOMIC_SPINE_WAVE.md`](../PROMETHEUS_ECONOMIC_SPINE_WAVE.md) — Wave composing MarketSignal->BusinessGenome->score->offer->dry-run experiment in prometheus-economic-spine without parallel stores. · **Use:** record of economic spine vertical slice
+- [`docs/PROMETHEUS_EXTERNAL_GATES.md`](../PROMETHEUS_EXTERNAL_GATES.md) — Table of external gates blocking Prometheus progress: checkout URLs, V9 decision, Vercel target, GitHub Actions billing. · **Use:** list of owner actions needed
+- [`docs/UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md`](../UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md) — 2026-08-21 · ChatGPT Work independent red-team review of Prometheus and cognitive bus, finding integrity gaps and no external economic proof. · **Use:** independent review evidence
 
-## Standing documents (10)
+## Commands (2)
 
-- [`docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`](../PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md) — Prometheus Final Implementation Report (V3, reconciled) _(matched by name only)_
-- [`docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`](../PROMETHEUS_OPPORTUNITY_SYSTEM.md) — Prometheus Opportunity System _(matched by name only)_
-- [`docs/PROMETHEUS_ORG_LAYER_WAVE.md`](../PROMETHEUS_ORG_LAYER_WAVE.md) — Prometheus organization-layer wave _(matched by name only)_
-- [`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`](../PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md) — Prometheus Parallel Spine Reconciliation _(matched by name only)_
-- [`docs/PROMETHEUS_PR_HOUSEKEEPING.md`](../PROMETHEUS_PR_HOUSEKEEPING.md) — Prometheus PR Housekeeping _(matched by name only)_
-- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Project Prometheus — Scoped, Honest Response _(matched by name only)_
-- [`docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`](../PROMETHEUS_SELF_UPGRADE_ENGINE.md) — Prometheus Self-Upgrade Engine _(matched by name only)_
-- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — Prometheus self-upgrade and control-tower wave _(matched by name only)_
-- [`docs/PROMETHEUS_SOURCE_ADAPTERS.md`](../PROMETHEUS_SOURCE_ADAPTERS.md) — Prometheus Source Adapters _(matched by name only)_
-- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Prometheus Task Universe wave _(matched by name only)_
+`npm run check:approved-source-rehearsal` · `npm run test:approved-source-rehearsal`
 
-## Documents that discuss this project without naming it in the filename (4)
+## Standing documents (17)
 
-- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Instantly Reconciliation _(matched by name only)_ _(8 mentions)_
-- [`docs/UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md`](../UBERBOND_WORK_OVERNIGHT_REPORT_2026-08-21.md) — 2026-08-21 · UberBond Work Overnight Report _(matched by name only)_ _(6 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(4 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(3 mentions)_
+- [`docs/PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md`](../PROMETHEUS_FINAL_IMPLEMENTATION_REPORT.md) — V3 report resolving seven duplicate module pairs between parallel spines; completion matrix per subsystem. · **Use:** current status of Prometheus subsystems
+- [`docs/PROMETHEUS_OPPORTUNITY_SYSTEM.md`](../PROMETHEUS_OPPORTUNITY_SYSTEM.md) — Doc of opportunity-registry functions scoring candidates on 15 Money Model criteria with zero for missing evidence; V3 deletion notes. · **Use:** reference for opportunity scoring logic
+- [`docs/PROMETHEUS_ORG_LAYER_WAVE.md`](../PROMETHEUS_ORG_LAYER_WAVE.md) — Wave adding agent-relay handoff contract with dispute packets and mechanism-lab atoms/pairwise hypothesis combinations. · **Use:** record of relay bus and mechanism lab
+- [`docs/PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md`](../PROMETHEUS_PARALLEL_SPINE_RECONCILIATION.md) — Resolved record of two concurrent sessions' duplicate economic spines; per-pair evidence and decision choosing job-handlers-wired modules as canonical. · **Use:** explain which Prometheus modules survived and why
+- [`docs/PROMETHEUS_SCOPED_VERDICT.md`](../PROMETHEUS_SCOPED_VERDICT.md) — Explains refusal to fabricate a 52-file 300-mechanism Prometheus package without live adapters; scopes to shared capabilities instead. · **Use:** record honest scoping of Prometheus mission
+- [`docs/PROMETHEUS_SELF_UPGRADE_ENGINE.md`](../PROMETHEUS_SELF_UPGRADE_ENGINE.md) — Doc of self-upgrade lifecycle (proposal, BUILD-bias router, evaluateUpgradeGate) with V3 notes on deletions and shadow/canary primitives lacking callers. · **Use:** reference for evidence-gated self-upgrade
+- [`docs/PROMETHEUS_SELF_UPGRADE_WAVE.md`](../PROMETHEUS_SELF_UPGRADE_WAVE.md) — 2026-08-18 wave adding self-upgrade proposal/mission packet contracts and Prometheus control tower founder report. · **Use:** record of governed self-upgrade loop
+- [`docs/PROMETHEUS_SOURCE_ADAPTERS.md`](../PROMETHEUS_SOURCE_ADAPTERS.md) — Designed-but-deferred source adapter contract with AVAILABLE/UNCONFIGURED/... states; browser-crawler as first public web adapter. · **Use:** contract for future market signal adapters
+- [`docs/PROMETHEUS_TASK_UNIVERSE_WAVE.md`](../PROMETHEUS_TASK_UNIVERSE_WAVE.md) — Wave adding task-universe primitives: TaskBlueprint, Trigger, PolicyDecision, DependencyEdge, TaskInstance, Evaluator over blueprint x entity x trigger. · **Use:** shared contract for generating bounded work
+- [`docs/THREAD_OPPORTUNITY_UNIVERSE.md`](../THREAD_OPPORTUNITY_UNIVERSE.md) — Describes 435 deduplicated research-only opportunity candidates from Prometheus thread with hypothesis class and kill conditions. · **Use:** opportunity search-space inventory
+- [`.claude/skills/agent-reach/references/career.md`](../../.claude/skills/agent-reach/references/career.md) — Agent Reach reference limiting job/hiring research to public postings; forbids contact inference, messaging or applications. · **Use:** rules for public hiring-signal research
+- [`.claude/skills/agent-reach/references/finance.md`](../../.claude/skills/agent-reach/references/finance.md) — Agent Reach reference treating public market data as evidence inputs with source class; grants no trading or payment authority. · **Use:** rules for public finance/market research
+- [`.claude/skills/agent-reach/references/search.md`](../../.claude/skills/agent-reach/references/search.md) — Agent Reach reference for public web search: run doctor first, preserve query/URL/date/evidence class, no access bypass. · **Use:** rules for public search via Agent Reach
+- [`.claude/skills/agent-reach/references/social.md`](../../.claude/skills/agent-reach/references/social.md) — Agent Reach reference for public social/community sources: no login automation, cookies, posting or contact inference; stop at REVIEW if auth required. · **Use:** rules for buyer-language and trend research on social platforms
+- [`.claude/skills/agent-reach/references/video.md`](../../.claude/skills/agent-reach/references/video.md) — Agent Reach reference for public video/podcast metadata and transcripts; no private media download or access evasion. · **Use:** rules for media-based market research
+- [`.claude/skills/agent-reach/references/web.md`](../../.claude/skills/agent-reach/references/web.md) — Agent Reach reference for public pages and RSS: prefer primary sources, keep URLs and freshness, no paywall bypass. · **Use:** rules for web/RSS evidence collection
+- [`.claude/skills/agent-reach/SKILL.md`](../../.claude/skills/agent-reach/SKILL.md) — Project skill wrapping upstream Agent Reach as a public read-only research router, gated by the external capability control plane; denies login/CAPTCHA bypass. · **Use:** lawful public web/social research for Prometheus world sensing
 
-## Source modules (2)
+## Documents that discuss this project without naming it in the filename (3)
 
-- [`src/prometheus-control-tower.mjs`](../../src/prometheus-control-tower.mjs) — Truthful morning/control-tower aggregation. _(matched by name only; tested; imported by 2)_
-- [`src/prometheus-economic-spine.mjs`](../../src/prometheus-economic-spine.mjs) — Canonical Prometheus economic spine composition. _(matched by name only; tested; imported by 1)_
+- [`docs/INSTANTLY_RECONCILIATION.md`](../INSTANTLY_RECONCILIATION.md) — Reconciliation answering whether historical Instantly-like outreach code existed: found in uploaded 2026-08-13 lead-intelligence zip, with sha256 and its passing test suite. · **Use:** provenance for lead/outreach code lineage and dedupe decisions _(8 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — Superset anti-amputation memory with truth classes, preserving goals, donors, named initiatives and chat-only specs. · **Use:** reconstruct whole organism before narrowing _(4 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — Draft map linking cognitive-graph, cognitive-bus, adapters and lineage config into one organ diagram from world sensing to opportunities. · **Use:** see how organs connect in the brain _(3 mentions)_
 
-## Tests (4)
+## Source modules (20)
 
-[`prometheus-adversarial`](../../tests/prometheus-adversarial.test.mjs) · [`prometheus-control-tower`](../../tests/prometheus-control-tower.test.mjs) · [`prometheus-economic-spine`](../../tests/prometheus-economic-spine.test.mjs) · [`prometheus-scheduling`](../../tests/prometheus-scheduling.test.mjs)
+- [`src/approved-source-rehearsal.mjs`](../../src/approved-source-rehearsal.mjs) — Runs explicitly selected catalog buyer signals through commercial reconciliation preserving evidence tier; upgrades need external receipt refs · **Use:** rehearse commercial evidence spine without browsing or contact _(tested; imported by 1; npm: `check:approved-source-rehearsal`)_
+- [`src/capability-graph.mjs`](../../src/capability-graph.mjs) — Hand-maintained registry of what UberBond can do on this branch with statuses up to VERIFIED_LIVE, marking work on other branches MISSING · **Use:** honest capability inventory and validation _(tested; imported by 5)_
+- [`src/commercial-experiment.mjs`](../../src/commercial-experiment.mjs) — Compiles bounded commercial experiments from a prepared spine decision with stages DISCOVER to KILL, no send or spend authority · **Use:** contract for measurable commercial probes _(tested; imported by 1)_
+- [`src/commercial-learning.mjs`](../../src/commercial-learning.mjs) — Aggregates normalized commercial outcome receipts; ratios only when margins and owner time measured; never infers revenue · **Use:** evidence-gated commercial learning summaries _(tested; imported by 2)_
+- [`src/commercial-memory.mjs`](../../src/commercial-memory.mjs) — Records and queries experiment memory in audit log and flags hypotheses with both positive and negative outcomes as contradictions · **Use:** prevent one lucky result becoming doctrine _(tested; imported by 1)_
+- [`src/commercial-opportunity-catalog.mjs`](../../src/commercial-opportunity-catalog.mjs) — Evidence-labeled catalog of three ranked commercial experiments plus research-only thread opportunities, projected into the canonical opportunity registry · **Use:** canonical opportunity registry for commercial selection _(tested; imported by 6)_
+- [`src/commercial-outcome.mjs`](../../src/commercial-outcome.mjs) — Normalizes commercial outcomes, accepting cleared payment only with payment classifier decision and provider event proof · **Use:** lineage receipts of commercial outcomes _(tested; imported by 4)_
+- [`src/commercial-reconciliation.mjs`](../../src/commercial-reconciliation.mjs) — Bounded reconciliation: market signal registry to business genome to opportunity tournament, dry-run unless persist · **Use:** run commercial evidence spine end to end _(tested; imported by 2)_
+- [`src/gamechanger-mesh.mjs`](../../src/gamechanger-mesh.mjs) — Gamechanger mesh: domains, source tiers, URL canonicalization, observation normalization, dedupe, scoring, attention classes, fetch plans, tournament and frontier signals. · **Use:** Always-on world sensing for capability discontinuities _(tested; imported by 2)_
+- [`src/genome-extraction.mjs`](../../src/genome-extraction.mjs) — Converts ingested market signals into Business Genome candidates, populating only signal-supported fields and leaving others UNRESOLVED. · **Use:** Seam between market signals and opportunity registry _(tested; imported by 2)_
+- [`src/job-handlers.mjs`](../../src/job-handlers.mjs) — Scheduler job handler registry wiring Prometheus economic spine, market signals, opportunity tournament, payment reconciliation, PayPal sandbox and first-payment packet. · **Use:** Worker job dispatch for scheduled economic jobs _(imported by 2)_
+- [`src/market-signal-registry.mjs`](../../src/market-signal-registry.mjs) — Bounded MarketSignal ingestion over the audit log from adapter-supplied candidates; no network I/O. · **Use:** Ingest market signals into Prometheus _(tested; imported by 2)_
+- [`src/market-signal.mjs`](../../src/market-signal.mjs) — Source-neutral market signal schema with evidence classes, verification states, payload digest, dedupe and staleness. · **Use:** Universal shape for world observations _(tested; imported by 4)_
+- [`src/prometheus-control-tower.mjs`](../../src/prometheus-control-tower.mjs) — Read-and-summarize morning report over command center, audits, payment truth, learning and capability records; reports UNKNOWN for missing sources · **Use:** founder-facing daily control tower _(tested; imported by 2)_
+- [`src/prometheus-economic-spine.mjs`](../../src/prometheus-economic-spine.mjs) — Composes signal -> business genome -> opportunity score -> offer packet -> dry-run experiment; local-only receipt via audit writer · **Use:** prepare opportunity experiments without side effects _(tested; imported by 1)_
+- [`src/public-research-adapter-mesh.mjs`](../../src/public-research-adapter-mesh.mjs) — Searches across public research adapters individually or as a mesh with zero effects · **Use:** public web/world research queries _(no static importers)_
+- [`src/self-upgrade.mjs`](../../src/self-upgrade.mjs) — Turns referenced weaknesses into bounded engineering packets with BUILD/BUY/PARTNER/ADAPT/DEFER/REJECT routing defaulting to DEFER · **Use:** evidence-gated self-improvement proposals for engineering workers _(tested; imported by 3)_
+- [`src/source-genesis.mjs`](../../src/source-genesis.mjs) — Scores, proposes and ranks new research sources and discovers candidates from links · **Use:** grow the set of sensing sources _(imported by 1)_
+- [`src/thread-opportunity-universe.mjs`](../../src/thread-opportunity-universe.mjs) — Large registry of opportunity hypotheses across market intelligence, revenue assurance, agency, marketplaces, data, agentic commerce lanes from the Prometheus thread · **Use:** opportunity search-space memory _(imported by 2)_
+- [`src/web-context-extraction-contract.mjs`](../../src/web-context-extraction-contract.mjs) — Provider-neutral web extraction contract: compiles extraction requests, normalizes and folds results (COMPLETED/PARTIAL/REJECTED/UNCERTAIN), hashes content, validates adapters. · **Use:** Standard interface for public-web content extraction providers _(tested; no static importers)_
+
+## Config, data, artifacts and services (1)
+
+- [`artifacts/world-signal-taxonomy.json`](../../artifacts/world-signal-taxonomy.json) — Taxonomy of world signal classes (buyer pain, willingness to pay, provider price/policy, legal change, competitor change) with monitoring policy. · **Use:** decide which world facts to monitor for commercial decisions
+
+## Tests (26)
+
+[`agent-evolution-wave`](../../tests/agent-evolution-wave.test.mjs) · [`approved-source-rehearsal`](../../tests/approved-source-rehearsal.test.mjs) · [`capability-graph`](../../tests/capability-graph.test.mjs) · [`commercial-experiment`](../../tests/commercial-experiment.test.mjs) · [`commercial-learning`](../../tests/commercial-learning.test.mjs) · [`commercial-memory`](../../tests/commercial-memory.test.mjs) · [`commercial-opportunity-catalog`](../../tests/commercial-opportunity-catalog.test.mjs) · [`commercial-outcome`](../../tests/commercial-outcome.test.mjs) · [`commercial-reconciliation`](../../tests/commercial-reconciliation.test.mjs) · [`economic-anchor-forgery`](../../tests/economic-anchor-forgery.test.mjs) · [`economic-reliability-input-builder`](../../tests/economic-reliability-input-builder.test.mjs) · [`gamechanger-genesis-adapter`](../../tests/gamechanger-genesis-adapter.test.mjs) · [`gamechanger-mesh`](../../tests/gamechanger-mesh.test.mjs) · [`genesis-evolution-engine`](../../tests/genesis-evolution-engine.test.mjs) · [`genome-extraction`](../../tests/genome-extraction.test.mjs) · [`market-signal-registry`](../../tests/market-signal-registry.test.mjs) · [`market-signal`](../../tests/market-signal.test.mjs) · [`native-live-research-security`](../../tests/native-live-research-security.test.mjs) · [`opportunity-tournament`](../../tests/opportunity-tournament.test.mjs) · [`prometheus-adversarial`](../../tests/prometheus-adversarial.test.mjs) · [`prometheus-control-tower`](../../tests/prometheus-control-tower.test.mjs) · [`prometheus-economic-spine`](../../tests/prometheus-economic-spine.test.mjs) · [`prometheus-scheduling`](../../tests/prometheus-scheduling.test.mjs) · [`self-upgrade`](../../tests/self-upgrade.test.mjs) · [`task-universe`](../../tests/task-universe.test.mjs) · [`web-context-extraction-contract`](../../tests/web-context-extraction-contract.test.mjs)
 

@@ -6,22 +6,23 @@ Founder-level meta North Star above UberBond: a falsifiable search for a persona
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**5 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**6 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (2)
 
-- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Wessam Singularity Ω∞∞ — Founder-Level Meta North Star — Status: FOUNDER-APPROVED META-NORTH-STAR / RESEARCH AND EXECUTION PROGRAM / NOT AN ACHIEVEMENT CLAIM _(matched by name only)_
+- [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Founder-level meta North Star defining Wessam Singularity as falsifiable personal regime change above UberBond, with null hypothesis kept. · **Use:** top of founder hierarchy
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Root North Star: Wessam Singularity overlay, Sovereign Cognitive Continuum definition, no-drop, option/forecast, sovereignty and ASI aspiration laws. · **Use:** terminal objective read before mission selection
 
 ## Source modules (1)
 
-- [`src/wessam-continuity.mjs`](../../src/wessam-continuity.mjs) — exports WESSAM_CONTINUITY_VERSION, WESSAM_ROOT_IDENTITY, compileWessamState, compileRecoveryCapsule, compileExternalTaskPacket (+1) _(matched by name only; tested; imported by 2)_
+- [`src/wessam-continuity.mjs`](../../src/wessam-continuity.mjs) — Compiles portable Wessam cognitive state, recovery capsules and external task packets with secret filtering and privacy classes; verifies restored state; no self-granted authority. · **Use:** Carry founder continuity state across providers and devices _(tested; imported by 2)_
 
 ## Config, data, artifacts and services (2)
 
-- [`artifacts/wessam-singularity-prompt-recovery-2026-09-29.json`](../../artifacts/wessam-singularity-prompt-recovery-2026-09-29.json) — 2026-09-29 · WESSAM_SINGULARITY_ASTRA_TOTALITY_ENGINE_OMEGA_INFINITY_INFINITY_2026-09-29(1).txt · FULL_PROMPT_STRUCTURALLY_RECOVERED_AND_READ · uberbond.wessam-si… _(matched by name only)_
-- [`docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json`](../receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json) — 2026-09-29 · mohammedwessam2007/uberbondd · LEADING_BROAD_MARKET_CANDIDATE_NOT_UBERBOND_PROMOTED · uberbond.wessam-singularity.activation-war-room.v1 _(matched by name only)_
+- [`artifacts/wessam-singularity-prompt-recovery-2026-09-29.json`](../../artifacts/wessam-singularity-prompt-recovery-2026-09-29.json) — 2026-09-29 · Receipt that the Wessam Singularity Astra totality prompt was structurally recovered and read, with hierarchy and activation war room pointers. · **Use:** provenance for Wessam Singularity canon
+- [`docs/receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json`](../receipts/WESSAM_SINGULARITY_ACTIVATION_WAR_ROOM_2026-09-29.json) — 2026-09-29 · War-room JSON 2026-09-29: activation state, live model-market snapshot, owner-only gates for frontier model promotion · **Use:** records Wessam Singularity activation status and model candidates
 
 ## Tests (1)
 

@@ -6,55 +6,51 @@ Founder orchestration packets P00-P49, Apotheosis runtime and final orchestrator
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**40 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**33 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (9)
+## Read first (8)
 
-- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — UberBond Orchestration Capability Canon _(matched by name only)_
+- [`docs/ORCHESTRATION_CAPABILITY_CANON.md`](../ORCHESTRATION_CAPABILITY_CANON.md) — Canon treating orchestration as capability with pinned Fable Orchestrator, Metaswarm, Superpowers as MIT donors; planner/adjudicator split. · **Use:** rules for multi-agent orchestration mechanisms
 - [`docs/APOTHEOSIS_IMPLEMENTATION_STATE.md`](../APOTHEOSIS_IMPLEMENTATION_STATE.md) — APOTHEOSIS implementation state _(matched by name only)_
 - [`docs/APOTHEOSIS_ORCHESTRATION_CONTINUATION.md`](../APOTHEOSIS_ORCHESTRATION_CONTINUATION.md) — APOTHEOSIS orchestration continuation _(matched by name only)_
-- [`docs/UBERBOND_ENTERPRISE_ORCHESTRATOR_AND_SENDER_MESH.md`](../UBERBOND_ENTERPRISE_ORCHESTRATOR_AND_SENDER_MESH.md) — UberBond Enterprise Orchestrator + Sender Infrastructure Mesh _(matched by name only)_
-- [`docs/UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md) — UberBond Total Brain Orchestration Addendum — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-EVAPORATION OVERLAY _(matched by name only)_
-- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(matched by name only)_
-- [`.claude/skills/uberbond-orchestrator/SKILL.md`](../../.claude/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator _(matched by name only)_
-- [`.codex/skills/uberbond-orchestrator/SKILL.md`](../../.codex/skills/uberbond-orchestrator/SKILL.md) — UberBond Orchestrator for Codex _(matched by name only)_
+- [`docs/UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_ORCHESTRATION_ADDENDUM.md) — 2026-09-04 overlay preserving Fable-derived provider-neutral orchestration pattern from packet to DAG to verification. · **Use:** keep orchestration doctrine across sessions
+- [`docs/UBERBOND_TRINITY_NIGHT_SHIFT.md`](../UBERBOND_TRINITY_NIGHT_SHIFT.md) — Coordination law for three parallel build lanes: refresh main, run brain, dedupe, declare lane before writes. · **Use:** coordinate parallel night lanes
+- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Orchestration-only handoff dated 2026-09-12 preserving founder packets P00-P42, dependency corrections, evidence gates and continuation rules; unverified implementation. · **Use:** plan source for packetized implementation after canon startup
+- [`.claude/skills/uberbond-orchestrator/SKILL.md`](../../.claude/skills/uberbond-orchestrator/SKILL.md) — Skill selecting DIRECT, FABLE_GRAPH, SWARM or RECURSIVE_SWARM mode with a node contract (ownership, deps, verification, stop condition). · **Use:** structure complex multi-agent engineering work
 - [`docs/prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md`](../prompts/GPT_WORK_ASTRA_10_MINUTE_UBERBOND_ORCHESTRATOR_2026-09-08.md) — 2026-09-08 · UberBond final realization entrypoint _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (1)
 
-- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — UberBond Master Memory _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERBOND_MASTER_MEMORY.md`](../UBERBOND_MASTER_MEMORY.md) — Human-readable long-horizon memory: final goal, product families, recurring ladder, named-program lineage, later Open Router and Infinite Opus addenda. · **Use:** anti-forgetting memory for new sessions _(3 mentions)_
 
-## Source modules (10)
+## Source modules (6)
 
-- [`src/apotheosis-agent-mesh-runtime.mjs`](../../src/apotheosis-agent-mesh-runtime.mjs) — exports APOTHEOSIS_AGENT_MESH_RUNTIME_VERSION, compileApotheosisNativeDispatch, runApotheosisWorkerMission, compileApotheosisNativeContinuation, reco… _(matched by name only; tested; imported by 2)_
-- [`src/apotheosis-final-orchestrator.mjs`](../../src/apotheosis-final-orchestrator.mjs) — exports APOTHEOSIS_FINAL_ORCHESTRATOR_VERSION, verifyFreshIndependentApotheosisEvidence, sealApotheosisPopulation, verifyApotheosisPopulationSeal, se… _(matched by name only; tested; no static importers)_
-- [`src/apotheosis-orchestration-runtime.mjs`](../../src/apotheosis-orchestration-runtime.mjs) — exports APOTHEOSIS_ORCHESTRATION_RUNTIME_VERSION, compileApotheosisWorkerPacket, evaluateWorkerPacketOutcome, selectApotheosisContextPolicy, allocate… _(matched by name only; tested; imported by 5)_
-- [`src/claude-engineering-orchestrator.mjs`](../../src/claude-engineering-orchestrator.mjs) — exports CLAUDE_ENGINEERING_ORCHESTRATOR_POLICY_VERSION, createClaudeEngineeringExecutor _(matched by name only; tested; imported by 1)_
+- [`src/apotheosis-agent-mesh-runtime.mjs`](../../src/apotheosis-agent-mesh-runtime.mjs) — Compiles APOTHEOSIS native dispatch and continuation, runs worker missions and reconciles worker resumes via orchestration runtime · **Use:** run APOTHEOSIS packets on the agent mesh _(tested; imported by 2)_
+- [`src/apotheosis-final-orchestrator.mjs`](../../src/apotheosis-final-orchestrator.mjs) — Final APOTHEOSIS orchestrator: population sealing, context arm selection, downroute and arm comparison, continuity classification, gate-4 relay receipt verification, status · **Use:** assured evaluation and dispatch of orchestration policies _(tested; no static importers)_
+- [`src/apotheosis-orchestration-runtime.mjs`](../../src/apotheosis-orchestration-runtime.mjs) — Worker packets, context policy selection, scarce reasoning allocation, downrouting promotion, continuity handoff and orchestration arm comparison · **Use:** runtime for APOTHEOSIS packets P43-P49 _(tested; imported by 5)_
 - [`src/enterprise-journey-orchestrator.mjs`](../../src/enterprise-journey-orchestrator.mjs) — exports ENTERPRISE_JOURNEY_POLICY_VERSION, JOURNEY_NODE_TYPES, JOURNEY_CHANNELS, compileEnterpriseJourney _(matched by name only; no static importers)_
 - [`src/orchestration-frontier.mjs`](../../src/orchestration-frontier.mjs) — exports ORCHESTRATION_FRONTIER_VERSION, ORCHESTRATION_REFERENCE_PACK, validateOrchestrationGraph, readyOrchestrationNodes, scoreOrchestrationCandidat… _(matched by name only; tested; imported by 5)_
-- [`src/uber-genesis-orchestrator.mjs`](../../src/uber-genesis-orchestrator.mjs) — exports UBER_GENESIS_ORCHESTRATOR_VERSION, compileUberGenesisMission _(matched by name only; imported by 1)_
-- [`src/uber-orchestration-control-plane.mjs`](../../src/uber-orchestration-control-plane.mjs) — exports UBER_ORCHESTRATION_CONTROL_PLANE_VERSION, UBER_ORCHESTRATION_DEPENDENCIES, UBER_ORCHESTRATION_PHASES, compileUberOrchestrationPlan, inspectUb… _(matched by name only; tested; imported by 1)_
-- [`src/uber-socket-whole-brain-orchestrator.mjs`](../../src/uber-socket-whole-brain-orchestrator.mjs) — exports UBER_SOCKET_WHOLE_BRAIN_ORCHESTRATOR_VERSION, createUberSocketWholeBrainOrchestrator _(matched by name only; imported by 1)_
-- [`src/warmup-orchestrator.mjs`](../../src/warmup-orchestrator.mjs) — Durable warm-up orchestration. Warm-up is a distinct lane from cold _(matched by name only; imported by 2)_
+- [`src/uber-orchestration-control-plane.mjs`](../../src/uber-orchestration-control-plane.mjs) — Dependency and phase plan across Uber sovereign stack organs with integrity inspection · **Use:** order bring-up of owned organ stack _(tested; imported by 1)_
 
 ## Scripts (2)
 
-- [`scripts/orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs) _(matched by name only)_
+- [`scripts/orchestration-frontier-tick.mjs`](../../scripts/orchestration-frontier-tick.mjs) — Builds orchestrator discovery plan from inputs and writes output. · **Use:** discover external orchestration frameworks to evaluate
 - [`scripts/uber-orchestration-doctor.mjs`](../../scripts/uber-orchestration-doctor.mjs) _(matched by name only)_
 
-## Config, data, artifacts and services (7)
+## Config, data, artifacts and services (8)
 
 - [`artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json`](../../artifacts/orchestration-assimilation/2026-09-04-fable-n-plus-one.json) — 2026-09-04 · uberbond.orchestration-assimilation-receipt.v1 _(matched by name only)_
-- [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Scarce-model allocation · SPECIFICATION_ONLY · uberbond.apotheosis-orchestration-spec.v1 _(matched by name only)_
-- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-gate4-handoff.v1 _(matched by name only)_
-- [`artifacts/work/apotheosis-native-activation-2026-09-15.json`](../../artifacts/work/apotheosis-native-activation-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-native-activation-receipt.v1 _(matched by name only)_
-- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · scarce-model allocation · SOURCE_IMPLEMENTED_LOCAL_TESTED · uberbond.apotheosis-runtime-implementation-receipt.v1 _(matched by name only)_
-- [`artifacts/work/astra-orchestrator-state-2026-09-08.json`](../../artifacts/work/astra-orchestrator-state-2026-09-08.json) — 2026-09-08 · ORCHESTRATION_ONLY__IMPLEMENTATION_NOT_LAUNCHED _(matched by name only)_
-- [`open router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs`](../../open%20router/45_TYPINGMIND_LIVE_ORCHESTRATOR_2026-09-30.mjs) — 2026-09-30 · exports TYPINGMIND_BUILDER_MODEL, TYPINGMIND_MIMO_MODEL, TYPINGMIND_DEEPSEEK_MODEL, TYPINGMIND_CROWN_MODEL, TYPINGMIND_JEV_MODEL (+3) _(matched by name only)_
+- [`artifacts/uberbond-omega-parallel-execution-graph.json`](../../artifacts/uberbond-omega-parallel-execution-graph.json) — Active execution graph of parallel lanes (Truth Tribunal, Personal Civilization Core, Forecast, Sovereignty, Compute Sovereignty) with merge waves and progress footer. · **Use:** coordinate the Omega parallel build across agents
+- [`artifacts/work/apotheosis-continuation-2026-09-15.json`](../../artifacts/work/apotheosis-continuation-2026-09-15.json) — 2026-09-15 · Orchestration spec adding APOTHEOSIS packets P43-P49 (scarce-model allocation, worker packet quality, context selection) with activation contract and gates. · **Use:** continue APOTHEOSIS orchestration in native format
+- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · Handoff after APOTHEOSIS gate 3: completed gates, remaining real closed-loop evidence gate blocked externally, next action. · **Use:** resume APOTHEOSIS at gate 4
+- [`artifacts/work/apotheosis-native-activation-2026-09-15.json`](../../artifacts/work/apotheosis-native-activation-2026-09-15.json) — 2026-09-15 · Receipt of APOTHEOSIS native activation PR: runtime primitives, composition bridge and continuity driver locally tested; CI infra non-evidence. · **Use:** record APOTHEOSIS activation status
+- [`artifacts/work/apotheosis-runtime-implementation-2026-09-15.json`](../../artifacts/work/apotheosis-runtime-implementation-2026-09-15.json) — 2026-09-15 · Receipt of APOTHEOSIS runtime implementation of packets like scarce-model allocation and downrouting, locally tested, with progress percentages. · **Use:** record P43-P49 runtime implementation state
+- [`artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json`](../../artifacts/work/astra-current-main-swarm-reconciliation-2026-09-08.json) — 2026-09-08 · Reconciliation of 64 Astra swarm packets against current main: merged, open child, gap or external-only, with tribunal queue. · **Use:** dedupe stale swarm packets against current code
+- [`artifacts/work/astra-orchestrator-state-2026-09-08.json`](../../artifacts/work/astra-orchestrator-state-2026-09-08.json) — 2026-09-08 · Large Astra orchestrator state: checkpoints C03-C10, adversarial gap audit, ASI north star, prepared-not-dispatched packets, commercial truth. · **Use:** durable orchestrator state for Astra Work sessions
 
-## Tests (12)
+## Tests (9)
 
-[`apotheosis-agent-mesh-runtime`](../../tests/apotheosis-agent-mesh-runtime.test.mjs) · [`apotheosis-final-orchestrator`](../../tests/apotheosis-final-orchestrator.test.mjs) · [`apotheosis-orchestration-runtime`](../../tests/apotheosis-orchestration-runtime.test.mjs) · [`apotheosis-relay-source-identity`](../../tests/apotheosis-relay-source-identity.test.mjs) · [`claude-engineering-orchestrator`](../../tests/claude-engineering-orchestrator.test.mjs) · [`enterprise-orchestrator-sender-mesh`](../../tests/enterprise-orchestrator-sender-mesh.test.mjs) · [`orchestration-continuity`](../../tests/orchestration-continuity.test.mjs) · [`orchestration-frontier-tick`](../../tests/orchestration-frontier-tick.test.mjs) · [`orchestration-frontier`](../../tests/orchestration-frontier.test.mjs) · [`orchestration-gamechanger-source`](../../tests/orchestration-gamechanger-source.test.mjs) · [`uber-distribution-orchestrator`](../../tests/uber-distribution-orchestrator.test.mjs) · [`uber-orchestration-control-plane`](../../tests/uber-orchestration-control-plane.test.mjs)
+[`apotheosis-agent-mesh-runtime`](../../tests/apotheosis-agent-mesh-runtime.test.mjs) · [`apotheosis-final-orchestrator`](../../tests/apotheosis-final-orchestrator.test.mjs) · [`apotheosis-orchestration-runtime`](../../tests/apotheosis-orchestration-runtime.test.mjs) · [`apotheosis-relay-source-identity`](../../tests/apotheosis-relay-source-identity.test.mjs) · [`orchestration-continuity`](../../tests/orchestration-continuity.test.mjs) · [`orchestration-frontier-tick`](../../tests/orchestration-frontier-tick.test.mjs) · [`orchestration-frontier`](../../tests/orchestration-frontier.test.mjs) · [`orchestration-gamechanger-source`](../../tests/orchestration-gamechanger-source.test.mjs) · [`uber-orchestration-control-plane`](../../tests/uber-orchestration-control-plane.test.mjs)
 

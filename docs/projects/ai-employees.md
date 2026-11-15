@@ -6,14 +6,13 @@ AI employee charter, relay and role contracts; Avengers arsenal, squad planner a
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**38 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**57 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (2)
+## Read first (1)
 
 - [`docs/AI_EMPLOYEE_COMPANY_CHARTER.md`](../AI_EMPLOYEE_COMPANY_CHARTER.md) — UberBond AI Employee Company Charter _(matched by name only)_
-- [`docs/UBERAGENT_V2.md`](../UBERAGENT_V2.md) — UberAgent v2 — Status: PRIVATE, OWNER-CONTROLLED LOCAL WINDOWS AGENT _(matched by name only)_
 
 ## Commands (5)
 
@@ -30,40 +29,46 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`docs/memory/UBERBOND_CHECKPOINT_2026-08-30.md`](../memory/UBERBOND_CHECKPOINT_2026-08-30.md) — 2026-08-30 · UberBond Crash-Safe Checkpoint — 2026-08-30 _(matched by name only)_ _(3 mentions)_
 - [`docs/memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md`](../memory/UBERBOND_WHOLE_BRAIN_SINGULARITY_2026-09-05.md) — 2026-09-05 · UberBond Whole-Brain Singularity Checkpoint — 2026-09-05 — Status: DRAFT_BRANCH / IMPLEMENTATION IN PROGRESS _(matched by name only)_ _(3 mentions)_
 - [`docs/prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md`](../prompts/CLAUDE_OPUS_MAX_SOFTWARE_FACTORY.md) — Claude Code / Opus Max — UberBond Software Factory _(matched by name only)_ _(3 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(3 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — Draft map linking cognitive-graph, cognitive-bus, adapters and lineage config into one organ diagram from world sensing to opportunities. · **Use:** see how organs connect in the brain _(3 mentions)_
 
-## Source modules (12)
+## Source modules (15)
 
-- [`src/ai-employee-relay-result-admission.mjs`](../../src/ai-employee-relay-result-admission.mjs) — exports AI_EMPLOYEE_RELAY_RESULT_ADMISSION_POLICY_VERSION, validateEmployeeRoleRelayResultAdmission _(matched by name only; tested; imported by 1)_
-- [`src/ai-employee-relay.mjs`](../../src/ai-employee-relay.mjs) — exports AI_EMPLOYEE_RELAY_POLICY_VERSION, compileEmployeeAgentTask, evaluateEmployeeWorkerResultTruth, compileEmployeeTerminalReceipt _(matched by name only; tested; imported by 1)_
-- [`src/ai-employee-role-contract.mjs`](../../src/ai-employee-role-contract.mjs) — exports AI_EMPLOYEE_ROLE_POLICY_VERSION, compileEmployeeRoleContract, bindRoleToTask, validateRoleBoundExecution _(matched by name only; tested; imported by 3)_
-- [`src/ai-employee-terminal-identity.mjs`](../../src/ai-employee-terminal-identity.mjs) — exports AI_EMPLOYEE_TERMINAL_IDENTITY_POLICY_VERSION, employeeRoleIdentityFromTask, employeeRoleIdentityErrors, bindEmployeeRoleIdentityToResult, bin… _(matched by name only; tested; imported by 3)_
-- [`src/avengers-arsenal-config.mjs`](../../src/avengers-arsenal-config.mjs) — exports capabilityEntryToAvengersTool, mergeAvengersProfileOverrides, composeAvengersRegistry _(matched by name only; imported by 1)_
-- [`src/avengers-arsenal.mjs`](../../src/avengers-arsenal.mjs) — exports AVENGERS_ARSENAL_VERSION, AVENGERS_REGISTRY_SCHEMA, AVENGERS_READINESS_SCHEMA, AVENGERS_PLAN_SCHEMA, AVENGERS_EXECUTION_SCHEMA (+7) _(matched by name only; tested; imported by 4)_
-- [`src/avengers-artifact-input.mjs`](../../src/avengers-artifact-input.mjs) — Reading an Avengers artifact, and saying what it means when there is none. _(matched by name only; tested; imported by 2)_
-- [`src/avengers-execution-guard.mjs`](../../src/avengers-execution-guard.mjs) — exports AVENGERS_EXECUTION_GUARD_VERSION, executeCanonicallyVerifiedAvengersPlan, executeAdmittedFrontierAvenger _(matched by name only; tested; imported by 1)_
-- [`src/avengers-local-discovery.mjs`](../../src/avengers-local-discovery.mjs) — exports AVENGERS_LOCAL_DISCOVERY_VERSION, discoverLocalRuntimeModels _(matched by name only; tested; imported by 1)_
-- [`src/avengers-squad-planner.mjs`](../../src/avengers-squad-planner.mjs) — exports AVENGERS_SQUAD_PLANNER_VERSION, compileEvidenceRoutedAvengersSquad _(matched by name only; imported by 2)_
-- [`src/ghost-agent.mjs`](../../src/ghost-agent.mjs) — exports compileGhostAgentFromFranchise, executeGhostAgent, verifyGhostAgentBatch _(matched by name only; tested; imported by 1)_
+- [`src/agent-autonomy-pump.mjs`](../../src/agent-autonomy-pump.mjs) — Creates and advances autonomy runs, registering tasks safely, recording id joins mesh to relay to employee, and verifying DONE claims with evidence · **Use:** move autonomous tasks through relay and AI employees _(imported by 2)_
+- [`src/agent-autonomy-relay-adapter.mjs`](../../src/agent-autonomy-relay-adapter.mjs) — Converts autonomy TaskIntent into canonical role-bound AgentTask for AI employee relay without sending · **Use:** bridge autonomy loop to AI employee relay _(imported by 1)_
+- [`src/agent-relay.mjs`](../../src/agent-relay.mjs) — Canonical multi-worker relay contracts: compiles agent tasks, dispute packets and rounds, preserving role binding, refusing unbounded loops · **Use:** task packets between UberBond and AI workers _(tested; imported by 10)_
+- [`src/ai-employee-relay-result-admission.mjs`](../../src/ai-employee-relay-result-admission.mjs) — Validates admission of AI employee role-bound relay results using terminal identity checks · **Use:** accept employee results only with matching role identity _(tested; imported by 1)_
+- [`src/ai-employee-relay.mjs`](../../src/ai-employee-relay.mjs) — Compiles employee agent tasks retaining origin task id, evaluates employee result truth and terminal receipts · **Use:** relay tasks to role-bound AI employees with traceable attribution _(tested; imported by 1)_
+- [`src/ai-employee-role-contract.mjs`](../../src/ai-employee-role-contract.mjs) — Compiles AI employee role contracts, binds roles to tasks and validates role-bound execution · **Use:** define what each AI employee role may do _(tested; imported by 3)_
+- [`src/ai-employee-terminal-identity.mjs`](../../src/ai-employee-terminal-identity.mjs) — Extracts and binds employee role identity into results, receipts and submissions, refusing undeclared role claims including nested ones · **Use:** prevent generic work posing as privileged employee work _(tested; imported by 3)_
+- [`src/avengers-arsenal-config.mjs`](../../src/avengers-arsenal-config.mjs) — Converts capability entries to Avengers tools and merges profile overrides into a registry · **Use:** configure Avengers arsenal registry _(imported by 1)_
+- [`src/avengers-arsenal.mjs`](../../src/avengers-arsenal.mjs) — Avengers registry, readiness probing, squad compilation, profile executors and plan execution with license classes and local discovery · **Use:** manage a squad of model/tool profiles for missions _(tested; imported by 4)_
+- [`src/avengers-artifact-input.mjs`](../../src/avengers-artifact-input.mjs) — Reads Avengers doctor/plan/tick artifacts and reports missing steps as not-yet-run instead of crashes · **Use:** clear operator messages in the Avengers chain _(tested; imported by 2)_
+- [`src/avengers-execution-guard.mjs`](../../src/avengers-execution-guard.mjs) — Executes only canonically verified Avengers plans and admitted frontier avengers via cognitive admission, fabric, council and simulation runtimes · **Use:** guard Avengers execution behind admission _(tested; imported by 1)_
+- [`src/avengers-local-discovery.mjs`](../../src/avengers-local-discovery.mjs) — Discovers locally available runtime models as Avengers candidates · **Use:** find local models for the arsenal _(tested; imported by 1)_
+- [`src/avengers-squad-planner.mjs`](../../src/avengers-squad-planner.mjs) — Compiles evidence-routed Avengers squads using model router and orchestration frontier · **Use:** pick squad composition by evidence _(imported by 2)_
+- [`src/ghost-agent.mjs`](../../src/ghost-agent.mjs) — Compiles ghost agents from decision franchises and executes and verifies batches via semantic closure kernel. · **Use:** Run franchised decisions as lightweight agents _(tested; imported by 1)_
 - [`src/uberswarm-edge-fabric.mjs`](../../src/uberswarm-edge-fabric.mjs) — exports UBERSWARM_WORKER_STATES, admitUberSwarmWorker, compileUberSwarmPlan _(matched by name only; imported by 1)_
 
 ## Scripts (6)
 
-- [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — exports runDoctor _(matched by name only; npm: `avengers:doctor`, `avengers:doctor:probe`)_
-- [`scripts/avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — exports runPlanner _(matched by name only; npm: `avengers:plan`)_
-- [`scripts/avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — exports runTick _(matched by name only; npm: `avengers:tick`, `avengers:tick:dry`)_
+- [`scripts/avengers-arsenal-doctor.mjs`](../../scripts/avengers-arsenal-doctor.mjs) — Doctor for the Avengers arsenal using local discovery and arsenal config. · **Use:** report health of the Avengers agent arsenal _(npm: `avengers:doctor`, `avengers:doctor:probe`)_
+- [`scripts/avengers-arsenal-plan.mjs`](../../scripts/avengers-arsenal-plan.mjs) — Planner CLI that runs the Avengers squad planner on artifact input. · **Use:** plan which Avengers agents handle a task _(npm: `avengers:plan`)_
+- [`scripts/avengers-arsenal-tick.mjs`](../../scripts/avengers-arsenal-tick.mjs) — Tick CLI running Avengers execution guard over artifact input. · **Use:** execute one guarded Avengers squad step _(npm: `avengers:tick`, `avengers:tick:dry`)_
 - [`scripts/uberagent-autonomy-v2.ps1`](../../scripts/uberagent-autonomy-v2.ps1) _(matched by name only)_
 - [`scripts/uberagent-legacy.ps1`](../../scripts/uberagent-legacy.ps1) _(matched by name only)_
 - [`scripts/uberagent-lite.ps1`](../../scripts/uberagent-lite.ps1) _(matched by name only)_
 
-## Config, data, artifacts and services (4)
+## Config, data, artifacts and services (7)
 
-- [`artifacts/ai-employee-organization.json`](../../artifacts/ai-employee-organization.json) — ACTIVATE_FOR_DECISION_BOUND_MONITORS_ONLY · uberbond-ai-employee-organization-1.0.0 _(matched by name only)_
-- [`artifacts/avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Find Skills · PROJECT_SURFACE_DECLARED · uberbond.avengers-arsenal-readiness.v1 _(matched by name only)_
-- [`config/avengers-arsenal.json`](../../config/avengers-arsenal.json) — uberbond.avengers-arsenal-registry.v1 _(matched by name only)_
-- [`config/avengers-mission.json`](../../config/avengers-mission.json) _(matched by name only)_
+- [`artifacts/ai-employee-organization.json`](../../artifacts/ai-employee-organization.json) — AI employee org chart: departments, missions, statuses, staffing policy, cross-department workflow and owner-only actions. · **Use:** define AI employee roles and activation
+- [`artifacts/avengers-arsenal-readiness.json`](../../artifacts/avengers-arsenal-readiness.json) — Readiness inventory of declared tools/models (Find Skills, Claude-Mem, etc.) with callable counts and per-tool proof status. · **Use:** know which arsenal tools are actually callable
+- [`artifacts/claude-implementation-queue.json`](../../artifacts/claude-implementation-queue.json) — Queue of Claude implementation packets with statuses (claimed by PR, deferred, blocked on provider/budget) and no-build decisions. · **Use:** select next dependency-satisfied engineering packet
+- [`artifacts/today-closure-checkpoint-2026-09-04.json`](../../artifacts/today-closure-checkpoint-2026-09-04.json) — 2026-09-04 · Checkpoint for 2026-09-04: main SHA, latest verification PR, active software finish line (Avengers runtime, GENESIS 275), Claude status, finish order. · **Use:** resume the day's closure plan
+- [`config/avengers-arsenal.json`](../../config/avengers-arsenal.json) — Avengers arsenal config listing profiles and tools available to the squad. · **Use:** tool inventory for Avengers squad planner
+- [`config/avengers-mission.json`](../../config/avengers-mission.json) — Avengers mission graph: research, implement, independent review and adjudication nodes for one bounded engineering question with no business effects. · **Use:** template mission for the Avengers squad
+- [`docs/NIGHTFALL_DIRECT_RELAY_ROLE_ADMISSION_HANDOFF_2026-08-29_V7.json`](../NIGHTFALL_DIRECT_RELAY_ROLE_ADMISSION_HANDOFF_2026-08-29_V7.json) — 2026-08-29 · Handoff V7 for failing closed at direct cloud relay admission when employee identity is missing or self-asserted. · **Use:** track relay role-admission hardening PR
 
-## Tests (14)
+## Tests (28)
 
-[`ai-employee-cloud-relay-preservation`](../../tests/ai-employee-cloud-relay-preservation.test.mjs) · [`ai-employee-relay-result-admission`](../../tests/ai-employee-relay-result-admission.test.mjs) · [`ai-employee-relay`](../../tests/ai-employee-relay.test.mjs) · [`ai-employee-role-contract`](../../tests/ai-employee-role-contract.test.mjs) · [`ai-employee-role-integrity`](../../tests/ai-employee-role-integrity.test.mjs) · [`ai-employee-terminal-identity-wiring`](../../tests/ai-employee-terminal-identity-wiring.test.mjs) · [`ai-employee-terminal-identity`](../../tests/ai-employee-terminal-identity.test.mjs) · [`avengers-arsenal-scripts`](../../tests/avengers-arsenal-scripts.test.mjs) · [`avengers-arsenal`](../../tests/avengers-arsenal.test.mjs) · [`avengers-artifact-input`](../../tests/avengers-artifact-input.test.mjs) · [`avengers-execution-guard`](../../tests/avengers-execution-guard.test.mjs) · [`avengers-frontier-execution-guard`](../../tests/avengers-frontier-execution-guard.test.mjs) · [`avengers-local-discovery`](../../tests/avengers-local-discovery.test.mjs) · [`ghost-agent`](../../tests/ghost-agent.test.mjs)
+[`agent-autonomy-role-bound-origin`](../../tests/agent-autonomy-role-bound-origin.test.mjs) · [`agent-mesh-entry-point`](../../tests/agent-mesh-entry-point.test.mjs) · [`agent-relay`](../../tests/agent-relay.test.mjs) · [`agent-worker-role-gate`](../../tests/agent-worker-role-gate.test.mjs) · [`ai-employee-cloud-relay-preservation`](../../tests/ai-employee-cloud-relay-preservation.test.mjs) · [`ai-employee-relay-result-admission`](../../tests/ai-employee-relay-result-admission.test.mjs) · [`ai-employee-relay`](../../tests/ai-employee-relay.test.mjs) · [`ai-employee-role-contract`](../../tests/ai-employee-role-contract.test.mjs) · [`ai-employee-role-integrity`](../../tests/ai-employee-role-integrity.test.mjs) · [`ai-employee-terminal-identity-wiring`](../../tests/ai-employee-terminal-identity-wiring.test.mjs) · [`ai-employee-terminal-identity`](../../tests/ai-employee-terminal-identity.test.mjs) · [`autonomy-durable-pump`](../../tests/autonomy-durable-pump.test.mjs) · [`autonomy-hardening`](../../tests/autonomy-hardening.test.mjs) · [`autonomy-job`](../../tests/autonomy-job.test.mjs) · [`autonomy-scheduled-run`](../../tests/autonomy-scheduled-run.test.mjs) · [`autonomy-scheduler-fairness`](../../tests/autonomy-scheduler-fairness.test.mjs) · [`autonomy-scheduler-starvation-bound`](../../tests/autonomy-scheduler-starvation-bound.test.mjs) · [`avengers-arsenal-scripts`](../../tests/avengers-arsenal-scripts.test.mjs) · [`avengers-arsenal`](../../tests/avengers-arsenal.test.mjs) · [`avengers-artifact-input`](../../tests/avengers-artifact-input.test.mjs) · [`avengers-execution-guard`](../../tests/avengers-execution-guard.test.mjs) · [`avengers-frontier-execution-guard`](../../tests/avengers-frontier-execution-guard.test.mjs) · [`avengers-local-discovery`](../../tests/avengers-local-discovery.test.mjs) · [`cognitive-loop-crash-restart`](../../tests/cognitive-loop-crash-restart.test.mjs) · [`durable-audit-scan-ceiling`](../../tests/durable-audit-scan-ceiling.test.mjs) · [`ghost-agent`](../../tests/ghost-agent.test.mjs) · [`hostile-worker-and-provider-sweep`](../../tests/hostile-worker-and-provider-sweep.test.mjs) · [`worker-result-terminal-truth`](../../tests/worker-result-terminal-truth.test.mjs)
 

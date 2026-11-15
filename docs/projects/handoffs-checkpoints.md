@@ -6,34 +6,46 @@ Current handoff and system state, dated handoffs, session checkpoints and cross-
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**133 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**151 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
 ## Read first (14)
 
-- [`docs/UNIVERSAL_CONTEXT_PROTOCOL.md`](../UNIVERSAL_CONTEXT_PROTOCOL.md) — UberBond Universal Context Protocol _(matched by name only)_
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Dated navigation index for AI sessions (hot pointers, not immutable truth). _(matched by name only)_
+- [`docs/PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md`](../PHOENIX_CONTEXT_SURVIVAL_PROTOCOL.md) — Protocol making chat checkpoints source-labeled events with stable IDs and a recovery challenge for the next chat; 890 donor synthesis. · **Use:** survive long ChatGPT conversations without losing decisions
+- [`docs/UNIVERSAL_CONTEXT_PROTOCOL.md`](../UNIVERSAL_CONTEXT_PROTOCOL.md) — Protocol for fresh sessions to recover whole organism with small resident context and complete retrievable context; L-minus-one Wessam overlay, 890 inheritance. · **Use:** cross-chat context recovery
+- [`AGENTS.md`](../../AGENTS.md) — Session constitution: Wessam Singularity precedence, terminal North Star, 890 inheritance, PHOENIX, startup steps, no-amputation, truth and engineering laws. · **Use:** mandatory startup rules for every agent session
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Universal AI entry point indexing V10 constitution, project context pages, repository index and historical hot pointers. · **Use:** first file any AI reads to locate context
 - [`docs/CLAUDE_UBERBOND_HANDOFF.md`](../CLAUDE_UBERBOND_HANDOFF.md) — Claude / UberBond Handoff — 2026-08-19 Outreach OS Reconciliation Wave _(matched by name only)_
 - [`docs/CROSS_CHAT_CONTINUITY.md`](../CROSS_CHAT_CONTINUITY.md) — UberBond Cross-Chat Continuity _(matched by name only)_
 - [`docs/CURRENT_SYSTEM_STATE.md`](../CURRENT_SYSTEM_STATE.md) — UberBond — Current System State _(matched by name only)_
 - [`docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md`](../FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md) — Founder 890: Universal Cross-Chat Integration Law — Truth class: FOUNDER_DIRECTIVE / CONTINUITY PROTOCOL. This changes mandatory recovery and integration behavior; it is not proof that all… _(matched by name only)_
-- [`docs/LIVE_BRIDGE_HANDOFF.md`](../LIVE_BRIDGE_HANDOFF.md) — UberBond live bridge: ChatGPT ↔ Claude Code _(matched by name only)_
-- [`docs/OVERNIGHT_HANDOFF.md`](../OVERNIGHT_HANDOFF.md) — Bounded agent-evolution wave — 2026-08-20T01:14Z _(matched by name only)_
 - [`docs/architecture/UBERMIND_OMEGA51_VERIFICATION_CHECKPOINT_2026-10-24.md`](../architecture/UBERMIND_OMEGA51_VERIFICATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · UberMind Ω51 Verification Checkpoint · 2026-10-24 _(matched by name only)_
 - [`docs/architecture/UBERMIND_OMEGA52_VERIFIED_HANDOFF_2026-10-24.md`](../architecture/UBERMIND_OMEGA52_VERIFIED_HANDOFF_2026-10-24.md) — 2026-10-24 · Ω52 Checkpoint / Hyperdimensional Invention and Quantitative Survival _(matched by name only)_
 - [`docs/architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md`](../architecture/UBERMIND_V6_CROSS_CHAT_RECOVERY_AND_AUDIT_2026-10-24.md) — 2026-10-24 · UberMind Ω∞ V6 / Cross-chat startup and verified full-spectrum adoption _(matched by name only)_
 - [`docs/architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md`](../architecture/UBERMIND_V7_PROVEN_CROSS_CHAT_CONTINUITY_2026-10-24.md) — 2026-10-24 · UberMind Ω∞ V7: Proven Cross-Chat Continuity Gate _(matched by name only)_
-- [`docs/receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md`](../receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · PHOENIX activation checkpoint — 2026-10-24 _(matched by name only)_
+- [`docs/receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md`](../receipts/PHOENIX_ACTIVATION_CHECKPOINT_2026-10-24.md) — 2026-10-24 · PHOENIX activation checkpoint 2026-10-24: MCP tests pass, ChatGPT registration unverified, verdict partially working · **Use:** current state of PHOENIX MCP activation
+- [`docs/receipts/PHOENIX_SWARM_PR_OVERLAP_REVIEW_20261020.md`](../receipts/PHOENIX_SWARM_PR_OVERLAP_REVIEW_20261020.md) — 2026-10-20 · Read-only PR overlap review of six PRs using phoenix-swarm-pr-overlap tool; lists path collisions · **Use:** dedupe concurrent agent PRs before merge
+
+## Commands (3)
+
+`npm run nullstar:failure-debt` · `npm run repo:index` · `npm run repo:index:check`
+
+## Standing documents (7)
+
+- [`README.md`](../../README.md) — Repository entrypoint with hot pointers to outreach autoload, private ASI status, project pages, repository index and terminal North Star. · **Use:** first orientation for humans and agents opening the repo
+- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Orchestration-only handoff dated 2026-09-12 preserving founder packets P00-P42, dependency corrections, evidence gates and continuation rules; unverified implementation. · **Use:** plan source for packetized implementation after canon startup
+- [`mind activation/README.md`](../../mind%20activation/README.md) — README for the mind activation folder: checkpoint purpose, main SHA anchor, file index · **Use:** entrypoint to the Oct 10 UberMind checkpoint
+- [`mind activation/CLAUDE_NEXT_MISSION.md`](../../mind%20activation/CLAUDE_NEXT_MISSION.md) — Ready-to-paste next task for Claude Project: read-only final readiness review of draft PR 1377 · **Use:** move from activation to real work
+- [`open router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md`](../../open%20router/27_NEW_CHAT_INFINITE_OPUS_TERMINAL_CONTINUATION_MONSTER_PROMPT.md) — New-chat continuation prompt for Infinite Opus with exact restore steps and PR lineage · **Use:** continue Infinite Opus in a fresh chat
+- [`winnr/CURRENT_STATE.md`](../../winnr/CURRENT_STATE.md) — Human-readable Winnr state as of 2026-10-04: Render deploy and source, IMAP 3/3 healthy, canaries absent from recent window, quarantine preserved. · **Use:** Read current Winnr production truth
+- [`winnr/NEXT_STEPS.md`](../../winnr/NEXT_STEPS.md) — Checklist of completed Winnr activation steps and the active frontier after personal inbox reconciliation. · **Use:** Executable continuation state for Winnr
+
+## Dated documents, newest first (71)
+
+- [`docs/receipts/PR1388_MAIN_RECONCILIATION_2026-10-11.md`](../receipts/PR1388_MAIN_RECONCILIATION_2026-10-11.md) — 2026-10-11 · Records reconciling integration PR 1388 with main by building a merged tree preserving both handoff prefaces · **Use:** evidence of safe PR/main reconciliation
+- [`mind activation/NEXT_EXECUTION_2026-10-10.md`](../../mind%20activation/NEXT_EXECUTION_2026-10-10.md) — 2026-10-10 · Next-execution plan 2026-10-10: one real bounded Claude task, usage measurement rules, owner decisions · **Use:** near-term plan after activation
 - [`docs/handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md`](../handoffs/LEADGEN_OUTREACH_FULL_RECOVERY_2026-10-09.md) — 2026-10-09 · UberBond full lead-generation + outreach recovery / 2026-10-09 Cairo — Truth class: VERIFIED_CURRENT_SOURCE + DATED_RUNTIME_READBACK + HISTORICAL_PROVENANCE, not all modules live/campaign a… _(matched by name only)_
-
-## Standing documents (2)
-
-- [`START_HERE.md`](../../START_HERE.md) — Original Revenue Engine 1.4 quick start (historical orientation). _(matched by name only)_
-- [`UBERBOND_ORCHESTRATION_CHECKPOINTS.md`](../../UBERBOND_ORCHESTRATION_CHECKPOINTS.md) — Founder orchestration packets P00-P49 and continuation rules. _(matched by name only)_
-
-## Dated documents, newest first (65)
-
 - [`docs/handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md`](../handoffs/OUTREACH_PREPAYMENT_CURRENT_2026-10-09.md) — 2026-10-09 · Outreach before payments / 2026-10-09 (Africa/Cairo) — Truth class: source-linked read-only live audit + execution handoff. Does not authorize prospect email, marketing sends, new subscript… _(matched by name only)_
 - [`docs/handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md`](../handoffs/UBERMIND_W15_LIVE_WORK_BACKLOG_2026-10-09.md) — 2026-10-09 · UberMind W15: 12 Verified Public Work Candidates _(matched by name only)_
 - [`docs/handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md`](../handoffs/UBERMIND_W15_REAL_GITHUB_WORK_2026-10-09.md) — 2026-10-09 · UberMind W15: Read Real GitHub Work _(matched by name only)_
@@ -81,14 +93,17 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`docs/handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md`](../handoffs/WORK_FINISH_TO_WINNR_69_UPGRADE_2026-10-05.md) — 2026-10-05 · Work execution handoff — finish Revenue Singularity to Winnr $69 purchase gate — Status: ACTIVE EXECUTION HANDOFF / DO NOT RESTART SOLVED WORK _(matched by name only)_
 - [`docs/handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md`](../handoffs/WORK_WINNR_69_CURRENT_2026-10-05.md) — 2026-10-05 · Work current frontier — finish to Winnr $69 purchase readiness — Status: HISTORICAL__SUPERSEDED_PURCHASE_GATE _(matched by name only)_
 - [`docs/handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md`](../handoffs/REVENUE_SINGULARITY_CURRENT_2026-10-04.md) — 2026-10-04 · Revenue Singularity current handoff — Oct 4 terminal frontier _(matched by name only)_
-- [`docs/receipts/WINNR_TERMINAL_V2_FIRST_SEND_HANDOFF_20261002.md`](../receipts/WINNR_TERMINAL_V2_FIRST_SEND_HANDOFF_20261002.md) — 2026-10-02 · WORK_FIRST_SEND_HANDOFF — Terminal Execution Constitution V2 — 2026-10-02 — Truth class: SOURCE RECONCILIATION + GATE MAPPING. No message was sent. No production state was read or changed f… _(matched by name only)_
+- [`docs/receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md`](../receipts/REVENUE_FRONTIER_BACKUP_2026-10-04_1753.md) — 2026-10-04 · Backup branch receipt 2026-10-04 preserving revenue frontier main and commercial truth (no sends, no cleared revenue) · **Use:** restore point for revenue frontier
+- [`docs/receipts/WINNR_TERMINAL_V2_FIRST_SEND_HANDOFF_20261002.md`](../receipts/WINNR_TERMINAL_V2_FIRST_SEND_HANDOFF_20261002.md) — 2026-10-02 · First-send handoff under terminal execution constitution V2: PR 1165 reconciled, highest verified level 2 · **Use:** handoff of gates remaining before first Winnr send
 - [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.md) — 2026-09-30 · UberMind / Infinite Opus Crash-Safe Checkpoint — 2026-09-30 20:08 Egypt _(matched by name only)_
-- [`docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus terminal activation handoff — 2026-09-30 _(matched by name only)_
-- [`docs/INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_WORK_ASTRA_HANDOFF_2026-09-30.md) — 2026-09-30 · Infinite Opus Work / Astra terminal activation handoff — 2026-09-30 _(matched by name only)_
+- [`docs/INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md`](../INFINITE_OPUS_TERMINAL_ACTIVATION_HANDOFF_2026-09-30.md) — 2026-09-30 · Superseded 2026-09-30 handoff for direct TypingMind OpenRouter-key path, with truth boundary and USD 20/8 monthly key-limit economic perimeter. · **Use:** fallback lineage for Infinite Opus activation spend caps
+- [`open router/75_RECOVERY_POINTER_2026-09-30.md`](../../open%20router/75_RECOVERY_POINTER_2026-09-30.md) — 2026-09-30 · Recovery pointer stating 33,333x executed benchmark-capacity, production realized multiplier UNKNOWN · **Use:** current multiplier status for resumption
 - [`docs/APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md`](../APEX_FQC_EXTERNAL_EVIDENCE_HANDOFF_2026-09-29.md) — 2026-09-29 · APEX FQC External Evidence Handoff — 2026-09-29 — Status: SECRET-FREE HANDOFF READY / EXTERNAL EVIDENCE NOT YET OBSERVED _(matched by name only)_
+- [`open router/RECOVERY_AUDIT_V4_2026-09-29.md`](../../open%20router/RECOVERY_AUDIT_V4_2026-09-29.md) — 2026-09-29 · V4 recovery audit verifying all vault files against manifests and receipts before adding founder delta · **Use:** evidence vault was read in full
 - [`docs/handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md`](../handoffs/OUTREACH_ACTIVATION_FRONTIER_2026-09-20.md) — 2026-09-20 · Live Outreach Activation Frontier — 2026-09-20 _(matched by name only)_
-- [`docs/LEADGEN_100K_RECOVERY_CHECKPOINT_2026-09-17.md`](../LEADGEN_100K_RECOVERY_CHECKPOINT_2026-09-17.md) — 2026-09-17 · UberBond lead generation and 100K outreach recovery checkpoint _(matched by name only)_
+- [`docs/LEADGEN_100K_RECOVERY_CHECKPOINT_2026-09-17.md`](../LEADGEN_100K_RECOVERY_CHECKPOINT_2026-09-17.md) — 2026-09-17 · 2026-09-17 checkpoint of live Render state, outbound disabled, unknown campaign rows, and lead generation sources truth. · **Use:** resume lead generation and 100K outreach work
 - [`docs/CURRENT_HANDOFF_OUTREACH_UBER_CLOSURE_2026-09-16.md`](../CURRENT_HANDOFF_OUTREACH_UBER_CLOSURE_2026-09-16.md) — 2026-09-16 · Current handoff — Outreach Uber Closure _(matched by name only)_
+- [`docs/work/WORK_SESSION_BOOTSTRAP_2026-09-07.md`](../work/WORK_SESSION_BOOTSTRAP_2026-09-07.md) — 2026-09-07 · Work session bootstrap for sovereign continuum execution branch: identity, mandatory startup reads, truth classes · **Use:** start a GPT Work session without reducing UberBond's scope
 - [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1753.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 17:53 Africa/Cairo _(matched by name only)_
 - [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1810.md) — 2026-09-04 · UberBond Crash-Safe Closure Checkpoint — 2026-09-04 18:10 Africa/Cairo _(matched by name only)_
 - [`docs/memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md`](../memory/UBERBOND_CLOSURE_CHECKPOINT_2026-09-04_1855.md) — 2026-09-04 · UberBond Closure Checkpoint — 2026-09-04 18:55 Cairo _(matched by name only)_
@@ -110,44 +125,53 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`docs/memory/CHAT_IMPORT_PROTOCOL.md`](../memory/CHAT_IMPORT_PROTOCOL.md) — UberBond Chat Import Protocol _(matched by name only)_
 - [`docs/memory/UBERBOND_CHECKPOINT_CURRENT.md`](../memory/UBERBOND_CHECKPOINT_CURRENT.md) — UberBond Current Checkpoint Pointer _(matched by name only)_
 
-## Source modules (8)
+## Source modules (3)
 
-- [`src/crown-resume-checkpoint.mjs`](../../src/crown-resume-checkpoint.mjs) — exports RESUME_KEY, SOURCE_KEY, INTERRUPTED_RESUME_KEY, INTERRUPTED_GENERATION, crownResumeKeys (+3) _(matched by name only; tested; imported by 5)_
-- [`src/crown-sealed-checkpoint.mjs`](../../src/crown-sealed-checkpoint.mjs) — exports sealCrownCheckpoint, openCrownCheckpoint _(matched by name only; imported by 4)_
-- [`src/current-reality-freeze.mjs`](../../src/current-reality-freeze.mjs) — exports CURRENT_REALITY_FREEZE_VERSION, extractArtifactSourceCommit, extractPresentTenseMainClaims, classifyGeneratedArtifact, compileCurrentRealityF… _(matched by name only; tested; imported by 1)_
-- [`src/current-truth-reference-integrity.mjs`](../../src/current-truth-reference-integrity.mjs) — exports CURRENT_TRUTH_REFERENCE_INTEGRITY_VERSION, bindReferenceIntegrityToTruthReceipt, verifyCurrentTruthRegenerationWithReferenceIntegrity _(matched by name only; tested; imported by 1)_
-- [`src/current-truth-regeneration.mjs`](../../src/current-truth-regeneration.mjs) — exports CURRENT_TRUTH_REGENERATION_VERSION, EXPECTED_TRUTH_OUTPUTS, TRUTH_INPUT_PREFIXES, TRUTH_INPUT_FILES, truthInputDirtyPaths (+1) _(matched by name only; tested; imported by 3)_
-- [`src/prospect-preflight-handoff.mjs`](../../src/prospect-preflight-handoff.mjs) — Lead generator -> prospect preflight handoff. _(matched by name only; tested; imported by 1)_
-- [`src/sovereign-release-handoff.mjs`](../../src/sovereign-release-handoff.mjs) — exports SOVEREIGN_RELEASE_HANDOFF_VERSION, compileSovereignReleaseRequest, verifySovereignReleaseRequest, admitOfflineReleasePack _(matched by name only; tested; imported by 4)_
-- [`src/terminal-semantic-refusal-handoff.mjs`](../../src/terminal-semantic-refusal-handoff.mjs) — exports TERMINAL_SEMANTIC_REFUSAL_HANDOFF_VERSION, compileTerminalSemanticRefusalHandoff _(matched by name only; tested; imported by 1)_
+- [`src/current-reality-freeze.mjs`](../../src/current-reality-freeze.mjs) — Extracts artifact source commits and present-tense main claims, classifies generated artifacts and compiles a current reality freeze · **Use:** freeze what is true now before claims _(tested; imported by 1)_
+- [`src/memory-truth-boundary.mjs`](../../src/memory-truth-boundary.mjs) — Classifies counts (inventory vs customers), resolves existence and recalled names, reconciles memory against anti-amputation and anti-inflation laws. · **Use:** Answer from memory without inflating or forgetting _(tested; imported by 1)_
+- [`src/uberbond-brain-context.mjs`](../../src/uberbond-brain-context.mjs) — Validates bootstrap and memory index schemas (fail-closed on unknown) and compiles project context and handoff packets · **Use:** build the brain packet for new sessions _(tested; imported by 1)_
 
-## Scripts (3)
+## Scripts (10)
 
-- [`scripts/current-reality-freeze.mjs`](../../scripts/current-reality-freeze.mjs) — exports readinessRelevant, coverageRelevant, currentTruthRelevant, buildCurrentRealityFreeze _(matched by name only)_
-- [`scripts/current-truth-regeneration.mjs`](../../scripts/current-truth-regeneration.mjs) — exports parseGitPorcelainPaths, newlyDirtyPaths, parseTrackedPaths, executeCurrentTruthRegeneration _(matched by name only)_
+- [`scripts/context-universe.mjs`](../../scripts/context-universe.mjs) — Lists git files, classifies them (startup canon etc.) and hashes them to build a context universe manifest. · **Use:** inventory repository context for loading
+- [`scripts/current-reality-freeze.mjs`](../../scripts/current-reality-freeze.mjs) — Builds a current reality freeze, classifying which paths are readiness, coverage or current-truth relevant. · **Use:** snapshot current truth artifacts
+- [`scripts/current-truth-regeneration.mjs`](../../scripts/current-truth-regeneration.mjs) — Regenerates current-truth artifacts, checking git porcelain for newly dirty paths and reference integrity. · **Use:** refresh current truth artifacts safely
+- [`scripts/execution-leaf-continuation-plan.mjs`](../../scripts/execution-leaf-continuation-plan.mjs) — CLI compiling execution-leaf continuation and checkpoint from inputs and writing outputs. · **Use:** plan next execution leaves and checkpoint
+- [`scripts/nullstar-failure-debt.mjs`](../../scripts/nullstar-failure-debt.mjs) — Compiles the failure-debt ledger of real defects found in NULLSTAR measurement integrity and suites. · **Use:** pass diagnosed failures to next session _(npm: `nullstar:failure-debt`)_
+- [`scripts/phoenix-swarm-pr-overlap.mjs`](../../scripts/phoenix-swarm-pr-overlap.mjs) — Read-only GitHub PR snapshot auditor detecting overlapping paths across PRs. · **Use:** detect conflicting swarm PRs
+- [`scripts/pr-reconcile.mjs`](../../scripts/pr-reconcile.mjs) — Trial-merges every open PR against main and classifies conflicts as MECHANICAL or SEMANTIC; read-only. · **Use:** triage open PR merge conflicts
+- [`scripts/repository-index.mjs`](../../scripts/repository-index.mjs) — Deterministic card catalog of every tracked file classified into domains, areas and keyword projects; writes docs/index and index JSON. · **Use:** npm run repo:index navigation catalog _(npm: `repo:index`, `repo:index:check`)_
 - [`scripts/sovereign-context-checkpoint.mjs`](../../scripts/sovereign-context-checkpoint.mjs) — exports SOVEREIGN_CONTEXT_CHECKPOINT_VERSION, checkpointSovereignContext _(matched by name only)_
+- [`scripts/v7-live-truth.mjs`](../../scripts/v7-live-truth.mjs) — Phase 0 live truth recovery reading git, doctors and artifacts, recording unobservable fields as UNOBSERVED, including V9 materializer report · **Use:** snapshot current live truth at session start
 
-## Config, data, artifacts and services (15)
+## Config, data, artifacts and services (22)
 
-- [`artifacts/today-closure-checkpoint-2026-09-04.json`](../../artifacts/today-closure-checkpoint-2026-09-04.json) — 2026-09-04 · Avengers runtime · uberbond.today-closure-checkpoint.v1 _(matched by name only)_
-- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — EXTERNAL_BLOCKED · uberbond.v7-frontier-checkpoint.v1 _(matched by name only)_
-- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · P43-P49 runtime primitives · MERGED · uberbond.apotheosis-gate4-handoff.v1 _(matched by name only)_
-- [`artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json`](../../artifacts/world-brain-field-mission-2026-09-01/claude-engineering-handoff.json) — uberbond.claude-handoff.v1 _(matched by name only)_
+- [`UBERBOND_BOOTSTRAP.json`](../../UBERBOND_BOOTSTRAP.json) — Machine bootstrap: objective, truth hierarchy, canonPointers, goals, architecture spine, capability/product families, protected paths, external proof gates, startup protocol. · **Use:** machine-readable session startup and canon pointer list
+- [`artifacts/claude-implementation-queue.json`](../../artifacts/claude-implementation-queue.json) — Queue of Claude implementation packets with statuses (claimed by PR, deferred, blocked on provider/budget) and no-build decisions. · **Use:** select next dependency-satisfied engineering packet
+- [`artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json`](../../artifacts/outreach/global-runtime-closure-20261003/terminal-runtime-receipt.json) — Terminal receipt for the global runtime closure: merges, runtime SHA, Companies House credential state, selected prospect, effect state, one-button and test counts. · **Use:** durable summary of where green-lane outreach stopped
+- [`artifacts/outreach/live-activation-observation-2026-09-20.json`](../../artifacts/outreach/live-activation-observation-2026-09-20.json) — 2026-09-20 · Observation of outreach activation state combining external observations and repository doctor outputs, naming the next owner action. · **Use:** track why outreach is not yet activated and what owner must do
+- [`artifacts/system-readiness.json`](../../artifacts/system-readiness.json) — Generated readiness receipt: measurements, capability statuses (IMPLEMENTED, PASS_CURRENT_INTEGRATION) and truth boundary. · **Use:** current readiness truth read at startup
+- [`artifacts/today-closure-checkpoint-2026-09-04.json`](../../artifacts/today-closure-checkpoint-2026-09-04.json) — 2026-09-04 · Checkpoint for 2026-09-04: main SHA, latest verification PR, active software finish line (Avengers runtime, GENESIS 275), Claude status, finish order. · **Use:** resume the day's closure plan
+- [`artifacts/v7/final-frontier-state.json`](../../artifacts/v7/final-frontier-state.json) — V7 final frontier state: completion law, remaining blockers, mode, termination law and not-claimed list. · **Use:** state where the V7 mission terminates
+- [`artifacts/v7/frontier-checkpoint.json`](../../artifacts/v7/frontier-checkpoint.json) — V7 frontier checkpoint: resume point, gap summary with EXTERNAL_BLOCKED/FOUNDER_ONLY statuses, canonical V9 carrier incomplete, deployment. · **Use:** resume the V7 frontier in a new session
+- [`artifacts/work/apotheosis-gate4-handoff-2026-09-15.json`](../../artifacts/work/apotheosis-gate4-handoff-2026-09-15.json) — 2026-09-15 · Handoff after APOTHEOSIS gate 3: completed gates, remaining real closed-loop evidence gate blocked externally, next action. · **Use:** resume APOTHEOSIS at gate 4
 - [`docs/CURRENT_HANDOFF.json`](../CURRENT_HANDOFF.json) — Site Unavailable · MERGED_AND_EXECUTABLE · uberbond-handoff-3.2.0 _(matched by name only)_
-- [`docs/NIGHTFALL_ARTIFACT_STORAGE_BOUNDARY_HANDOFF_2026-08-29.json`](../NIGHTFALL_ARTIFACT_STORAGE_BOUNDARY_HANDOFF_2026-08-29.json) — 2026-08-29 · STALE_DONOR_ONLY · uberbond-nightfall-handoff-1.0 _(matched by name only)_
-- [`docs/NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json`](../NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json) — 2026-08-29 · PASS _(matched by name only)_
-- [`docs/NIGHTFALL_COMBINED_HARDENING_HANDOFF_2026-08-29.json`](../NIGHTFALL_COMBINED_HARDENING_HANDOFF_2026-08-29.json) — 2026-08-29 · BLOCKED_RUNTIME · uberbond.nightfall-combined-hardening-handoff.v1 _(matched by name only)_
-- [`docs/NIGHTFALL_DIRECT_RELAY_ROLE_ADMISSION_HANDOFF_2026-08-29_V7.json`](../NIGHTFALL_DIRECT_RELAY_ROLE_ADMISSION_HANDOFF_2026-08-29_V7.json) — 2026-08-29 · uberbond-nightfall-relay-admission-handoff-1.0.1 _(matched by name only)_
-- [`docs/NIGHTFALL_OVERPASS_RESILIENCE_HANDOFF_2026-08-29.json`](../NIGHTFALL_OVERPASS_RESILIENCE_HANDOFF_2026-08-29.json) — 2026-08-29 · uberbond.nightfall-overpass-resilience-handoff.v1 _(matched by name only)_
-- [`docs/NIGHTFALL_PAYMENT_RECONCILIATION_LEASE_HANDOFF_2026-08-29_V2.json`](../NIGHTFALL_PAYMENT_RECONCILIATION_LEASE_HANDOFF_2026-08-29_V2.json) — 2026-08-29 · uberbond-nightfall-payment-reconciliation-handoff-2.0.0 _(matched by name only)_
-- [`docs/PORTABLE_BACKEND_CHECKPOINT.json`](../PORTABLE_BACKEND_CHECKPOINT.json) — CURRENT_SOURCE_HARDENED__EXACT_EXECUTION_PENDING · uberbond.portable-backend.checkpoint.v2 _(matched by name only)_
+- [`docs/NIGHTFALL_ARTIFACT_STORAGE_BOUNDARY_HANDOFF_2026-08-29.json`](../NIGHTFALL_ARTIFACT_STORAGE_BOUNDARY_HANDOFF_2026-08-29.json) — 2026-08-29 · Nightfall handoff for extracting artifact/object-storage resilience slice from stale PR #214; status stale donor only, not executed. · **Use:** track an overnight lane's unfinished state
+- [`docs/NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json`](../NIGHTFALL_BROWSER_RUNTIME_POOL_HANDOFF_2026-08-29.json) — 2026-08-29 · Nightfall handoff for browser-runtime process reuse slice from a donor PR, marked COMPLETE_LOCAL with remaining gates. · **Use:** resume browser runtime pool lane
+- [`docs/NIGHTFALL_COMBINED_HARDENING_HANDOFF_2026-08-29.json`](../NIGHTFALL_COMBINED_HARDENING_HANDOFF_2026-08-29.json) — 2026-08-29 · Handoff consolidating payment-reconciliation, browser-runtime and Overpass-resilience slices into one candidate; status BLOCKED_RUNTIME. · **Use:** resume combined hardening promotion
 - [`docs/checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json`](../checkpoints/UBERMIND_INFINITE_OPUS_CHECKPOINT_2026-09-30_2008_EGYPT.json) — 2026-09-30 · COLD_FRONTIER_ROUTINE_SOURCE_RESEARCH_V1 · uberbond.ubermind.checkpoint.v1 _(matched by name only)_
 - [`docs/checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json`](../checkpoints/UBERMIND_INFINITE_OPUS_LATEST.json) — uberbond.ubermind.checkpoint-pointer.v1 _(matched by name only)_
-- [`open router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json`](../../open%20router/INFINITE_OPUS_CHECKPOINT_2026-09-29.json) — 2026-09-29 _(matched by name only)_
+- [`docs/receipts/INFINITE_OPUS_CONTINUATION_BACKUP_2026-09-30.json`](../receipts/INFINITE_OPUS_CONTINUATION_BACKUP_2026-09-30.json) — 2026-09-30 · JSON backup receipt of Infinite Opus continuation state in a PR as of 2026-09-30 · **Use:** resume Infinite Opus work after context loss
+- [`mind activation/SOURCE_AND_RECEIPT_INDEX.json`](../../mind%20activation/SOURCE_AND_RECEIPT_INDEX.json) — JSON index of sources, hashes, PR and issue state at the mind activation checkpoint · **Use:** machine pointers for the Oct 10 checkpoint
+- [`open router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json`](../../open%20router/73_OPENROUTER_RECOVERY_MANIFEST_2026-09-30.json) — 2026-09-30 · Recovery manifest listing open router backup files, groups, recovery order and no-amputation law · **Use:** recover the open router vault
+- [`open router/BACKUP_RECEIPT_2026-09-29.json`](../../open%20router/BACKUP_RECEIPT_2026-09-29.json) — 2026-09-29 · Backup receipt for v2+v3 open router vault content and recovery wiring · **Use:** proof vault was preserved
+- [`open router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json`](../../open%20router/EXACT_CONTENT_RECEIPT_V4_2026-09-29.json) — 2026-09-29 · Exact content receipt for v4 recovery with indexed file hashes and verbatim founder intent · **Use:** evidence of vault content integrity
+- [`open router/MANIFEST.json`](../../open%20router/MANIFEST.json) — Manifest of open router folder files, layers, authority order, pointers and recovery · **Use:** index of the open router vault
+- [`winnr/CURRENT_STATE.json`](../../winnr/CURRENT_STATE.json) — Machine-readable Winnr state reconciled 2026-10: technical and campaign activation, runtime, frozen prospect canary 2026-10-04, placement, authority, next actions and evidence refs. · **Use:** Resume Winnr sender status from durable truth
 
-## Tests (11)
+## Tests (9)
 
-[`crown-resume-checkpoint`](../../tests/crown-resume-checkpoint.test.mjs) · [`current-reality-freeze-integration`](../../tests/current-reality-freeze-integration.test.mjs) · [`current-reality-freeze`](../../tests/current-reality-freeze.test.mjs) · [`current-truth-reference-integrity`](../../tests/current-truth-reference-integrity.test.mjs) · [`current-truth-regeneration-porcelain`](../../tests/current-truth-regeneration-porcelain.test.mjs) · [`current-truth-regeneration`](../../tests/current-truth-regeneration.test.mjs) · [`current-truth-source-cleanliness`](../../tests/current-truth-source-cleanliness.test.mjs) · [`prospect-preflight-handoff`](../../tests/prospect-preflight-handoff.test.mjs) · [`sovereign-release-handoff-truth`](../../tests/sovereign-release-handoff-truth.test.mjs) · [`sovereign-release-handoff`](../../tests/sovereign-release-handoff.test.mjs) · [`terminal-semantic-refusal-handoff`](../../tests/terminal-semantic-refusal-handoff.test.mjs)
+[`current-reality-freeze-integration`](../../tests/current-reality-freeze-integration.test.mjs) · [`current-reality-freeze`](../../tests/current-reality-freeze.test.mjs) · [`current-truth-regeneration-porcelain`](../../tests/current-truth-regeneration-porcelain.test.mjs) · [`memory-truth-boundary`](../../tests/memory-truth-boundary.test.mjs) · [`nightfall-research-artifacts`](../../tests/nightfall-research-artifacts.test.mjs) · [`private-asi-status`](../../tests/private-asi-status.test.mjs) · [`repository-index`](../../tests/repository-index.test.mjs) · [`uberbond-brain-bootstrap`](../../tests/uberbond-brain-bootstrap.test.mjs) · [`uberbond-brain-context`](../../tests/uberbond-brain-context.test.mjs)
 
 ## Frozen history
 

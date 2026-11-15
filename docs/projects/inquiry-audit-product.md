@@ -6,55 +6,82 @@ The website lead-path audit product: inquiry path probe, coherence and runtime w
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**25 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**82 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (2)
+## Read first (9)
 
-- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Inquiry Path Coherence Engine — Status: IMPLEMENTED + FIELD-CALIBRATED ON PUBLIC SITES (2026-10-21) / ZERO OUTBOUND / ZERO REVENUE _(matched by name only)_
-- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Verified Inquiry-Path Defects _(matched by name only)_
+- [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Doc of engine detecting home-service websites that contradict themselves on phone/contact channels, field-calibrated on public sites 2026-10-21, as prospect evidence. · **Use:** produce verified problem evidence for first-touch outreach artifacts
+- [`docs/PAYMENTS_LEMONSQUEEZY.md`](../PAYMENTS_LEMONSQUEEZY.md) — Setup guide for Lemon Squeezy checkout products and HMAC-verified webhook with Railway env vars and test-mode unlock. · **Use:** configure Lemon Squeezy payments for audit products
+- [`docs/REVENUE_MODEL.md`](../REVENUE_MODEL.md) — Original revenue ladder for website audit product: free snapshot, $49 audit, $299 strategy audit, sprints, Watch subscription to $6k/month. · **Use:** historical pricing model of audit product
+- [`NEXT_STEPS.md`](../../NEXT_STEPS.md) — Early list of completed engine layers (discovery, audits, queue, send controls) and staged production deployment steps. · **Use:** historical deployment checklist for original revenue engine
+- [`START_HERE.md`](../../START_HERE.md) — Legacy start page for Revenue Engine 1.4 Mission 3 listing completed layers, verification commands and web/worker deployment shape with outbound disabled. · **Use:** historical setup guide for the original revenue engine
+- [`actors/verified-inquiry-defects/README.md`](../../actors/verified-inquiry-defects/README.md) — Store listing describing detected defects (wrong dial number, invalid LocalBusiness schema, dead form host) and double-verification pay-per-event pricing. · **Use:** public product description for the Apify Actor
+- [`lite/README.md`](../../lite/README.md) — README for Cash Engine Lite: static site, Vercel API, GitHub Actions audit worker, Neon Postgres data flow · **Use:** understand the free-tier website audit variant
+- [`docs/receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md`](../receipts/POWERHOUSE_PROOF_RECHECK_2026-10-09.md) — 2026-10-09 · Recheck of Sylvester/Powerhouse public pages on 2026-10-09 to avoid reusing stale proof in cold email · **Use:** keep prospect proof current before reuse
+- [`artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md`](../../artifacts/outreach/global-live-bridge-20261003/halfteck-contact-routing-prework-20261003.md) — 2026-10-03 · No-send QA worksheet showing inconsistent customer-service email labels and link targets on Halfteck's contact page, with repair order. · **Use:** bounded contact-path QA artifact offered under the Revenue Leak Proof Pack
 
-## Commands (4)
+## Commands (6)
 
-`npm run inquiry:probe` · `npm run probes` · `npm run test:inquiry-path` · `npm run visual`
+`npm run inquiry:probe` · `npm run seed` · `npm run smoke` · `npm run test:browser` · `npm run test:inquiry-path` · `npm run visual`
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · UberBond Event Horizon Economic Genome — 2026-08-31 _(matched by name only)_ _(3 mentions)_
-- [`docs/research/report-source.md`](../research/report-source.md) — UberBond Nightfall Research, Distribution, and Economic Command Report _(3 mentions)_
+- [`docs/research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md`](../research/EVENT_HORIZON_ECONOMIC_GENOME_2026-08-31.md) — 2026-08-31 · Event Horizon economic genome decision: $450 lead-path sprint stays champion, GCC e-invoice challenger, Partner Evidence Rail invention · **Use:** commercial allocation decision before changing the champion _(3 mentions)_
+- [`docs/research/report-source.md`](../research/report-source.md) — Nightfall research, distribution and economic command report recommending one canary at $450 and fallback at $900 · **Use:** full evidence report behind the canary choice _(3 mentions)_
 
-## Source modules (9)
+## Source modules (16)
 
-- [`src/audit-rules.mjs`](../../src/audit-rules.mjs) — exports deterministicAudit, scoreProspect, chooseIssue, capabilitiesFromAudit _(matched by name only; imported by 4)_
+- [`src/ai.mjs`](../../src/ai.mjs) — Enhances audits and classifies replies using the reply taxonomy behind the cognition transport guard · **Use:** model-assisted audit text and reply classification _(imported by 1)_
+- [`src/artifacts.mjs`](../../src/artifacts.mjs) — Persists crawl artifacts to disk · **Use:** save site crawl outputs for audits _(imported by 1)_
+- [`src/audit-rules.mjs`](../../src/audit-rules.mjs) — Deterministic website audit rules (structured data, headline, positioning) plus prospect scoring and issue choice · **Use:** core rules of the lead-path website audit _(imported by 4)_
+- [`src/browser-crawler.mjs`](../../src/browser-crawler.mjs) — Playwright site crawler respecting robots, resolving installed Chromium, extracting links and forms via shared runtime pool · **Use:** crawl prospect sites for audits _(imported by 3)_
+- [`src/browser-runtime-pool.mjs`](../../src/browser-runtime-pool.mjs) — Shared browser runtime pool with acquire and close · **Use:** reuse browser instances across crawls _(tested; imported by 2)_
 - [`src/dossier.mjs`](../../src/dossier.mjs) — exports buildDossier _(matched by name only; imported by 1)_
-- [`src/inquiry-findings.mjs`](../../src/inquiry-findings.mjs) — Bridge from the Inquiry Path Coherence Engine to Self-Verifying Findings. _(matched by name only; imported by 1)_
-- [`src/inquiry-path-coherence.mjs`](../../src/inquiry-path-coherence.mjs) — Inquiry Path Coherence Engine. _(matched by name only; tested; imported by 2)_
-- [`src/inquiry-path-probe.mjs`](../../src/inquiry-path-probe.mjs) — Read-only public fetcher for the Inquiry Path Coherence Engine. _(matched by name only; imported by 3)_
-- [`src/inquiry-path-runtime-witness.mjs`](../../src/inquiry-path-runtime-witness.mjs) — Runtime witness for the Inquiry Path Coherence Engine. _(matched by name only; imported by 2)_
-- [`src/lead-path-sprint-fulfillment.mjs`](../../src/lead-path-sprint-fulfillment.mjs) — exports LEAD_PATH_SPRINT_FULFILLMENT_VERSION, LEAD_PATH_SPRINT_PRICE, LEAD_PATH_SPRINT_SKU, LEAD_PATH_SPRINT_STATES, canonicalPaymentTruthDigest (+3) _(matched by name only; imported by 6)_
-- [`src/proof-carrying-renderer.mjs`](../../src/proof-carrying-renderer.mjs) — exports verifyRenderedSurface _(matched by name only; imported by 1)_
-- [`src/self-verifying-findings.mjs`](../../src/self-verifying-findings.mjs) — Self-Verifying Findings: a data product that is re-verified at the moment of sale. _(matched by name only; tested; imported by 2)_
+- [`src/inquiry-findings.mjs`](../../src/inquiry-findings.mjs) — Bridges inquiry coherence findings to self-verifying sellable findings with claim keys and independent re-probe at sale time. · **Use:** Sell only re-verified website lead-path defects _(imported by 1)_
+- [`src/inquiry-path-coherence.mjs`](../../src/inquiry-path-coherence.mjs) — Analyzes fetched HTML for contradictions between header phones, tel links, JSON-LD, hours and forms; findings carry excerpts and hashes. · **Use:** Core defect detector for lead-path audit product _(tested; imported by 2)_
+- [`src/inquiry-path-probe.mjs`](../../src/inquiry-path-probe.mjs) — Read-only public fetcher: GET only, robots.txt honored, public-address guard, same-origin inquiry pages, byte and delay limits, counted requests. · **Use:** Fetch prospect sites safely for inquiry audits _(imported by 3)_
+- [`src/inquiry-path-runtime-witness.mjs`](../../src/inquiry-path-runtime-witness.mjs) — Headless Chromium witness reading tel links after scripts run, confirming static mismatches without clicking or submitting. · **Use:** Second witness for call-tracking phone mismatches _(imported by 2)_
+- [`src/lead-path-sprint-fulfillment.mjs`](../../src/lead-path-sprint-fulfillment.mjs) — Lead-path sprint SKU, price and states with canonical payment truth validation before advancing fulfillment. · **Use:** Fulfil paid lead-path sprints only after payment truth _(imported by 6)_
+- [`src/offer-compiler.mjs`](../../src/offer-compiler.mjs) — Compiles offer packets from config revenue settings with deliverables, exclusions and timeline; unconfigured prices reported, never invented. · **Use:** Build evidence-backed audit offer packets _(tested; imported by 2)_
+- [`src/pipeline.mjs`](../../src/pipeline.mjs) — Main outbound Pipeline class: crawl, audit rules, dossier, copy, contacts, Gmail send with send-safety, deliverability guard, consequence gate and optional V9 admission · **Use:** core audit-to-outreach send pipeline _(imported by 3)_
+- [`src/revenue-offers.mjs`](../../src/revenue-offers.mjs) — Public revenue ladder catalog: free snapshot lead generator plus four paid audit/implementation routes, presentation metadata only · **Use:** define offers shown on the public site _(tested; imported by 2)_
+- [`src/revenue.mjs`](../../src/revenue.mjs) — RevenueEngine: public audit intake leads, consent receipts, payments witnesses, automatic report emails gated by its own kill switch · **Use:** run the website-audit lead intake and paid report flow _(tested; imported by 3)_
+- [`src/robots.mjs`](../../src/robots.mjs) — Parses robots.txt and stops crawling when robots fetch fails or is malformed · **Use:** lawful public crawling gate _(imported by 1)_
 
-## Scripts (4)
+## Scripts (5)
 
-- [`scripts/inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe. _(matched by name only; npm: `inquiry:probe`)_
-- [`scripts/review-probes.mjs`](../../scripts/review-probes.mjs) — Independent review probes — NOT part of the product. Attacks the 10 mission claims. _(matched by name only; npm: `probes`)_
-- [`scripts/verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Sale rehearsal for the Verified Inquiry-Path Defects mechanism: runs the _(matched by name only)_
-- [`scripts/visual-qa.mjs`](../../scripts/visual-qa.mjs) _(matched by name only; npm: `visual`)_
+- [`scripts/inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe for a website or cohort, writing JSON receipt and Markdown snapshot; optional headless browser witness. · **Use:** produce verifiable lead-path defects for prospects _(npm: `inquiry:probe`)_
+- [`scripts/integration-smoke.mjs`](../../scripts/integration-smoke.mjs) — Integration smoke test running the app against a local fixture site with robots.txt to exercise crawl and audit flow. · **Use:** end-to-end smoke test of server _(npm: `smoke`)_
+- [`scripts/seed.mjs`](../../scripts/seed.mjs) — Seeds local JSON database with demo Global Digital Opportunity Scan campaign for audit offer with daily caps. · **Use:** initialize demo data for local app _(npm: `seed`)_
+- [`scripts/verified-defects-rehearsal.mjs`](../../scripts/verified-defects-rehearsal.mjs) — Runs the Verified Inquiry-Path Defects sale protocol against real public websites with a recording ledger, re-verifying a first-seen finding registry for decay · **Use:** rehearse defect-audit sale without charging or sending
+- [`scripts/visual-qa.mjs`](../../scripts/visual-qa.mjs) — Playwright Chromium script rendering storefront pages at several viewport sizes into previews directory · **Use:** visual QA screenshots of public UI _(npm: `visual`)_
 
-## Config, data, artifacts and services (8)
+## Config, data, artifacts and services (20)
 
-- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Verified Inquiry-Path Defects (pay only for findings that re-verify) _(matched by name only)_
-- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Verified Inquiry-Path Defects input _(matched by name only)_
-- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Built by Apify from the repository root (dockerContextDir ../..) so the Actor _(matched by name only)_
-- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify Store shell. All decisions live in src/inquiry-findings.mjs and _(matched by name only)_
-- [`artifacts/constitution/reviewed-linkage-findings.json`](../../artifacts/constitution/reviewed-linkage-findings.json) — uberbond-constitution-reviewed-linkage-1.1.0 _(matched by name only)_
-- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
-- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · uberbond.verified-defects-sale-rehearsal.v1 _(matched by name only)_
-- [`artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json`](../../artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json) — 2026-10-21 · An inquiry form requires 12 fields before submission · PUBLIC_WEB_READ_ONLY_OBSERVATION · uberbond.inquiry-path-coherence-field-receipt.v1 _(matched by name only)_
+- [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Apify Actor spec for 'Verified Inquiry-Path Defects' with pay-only-for-reverified-findings pricing and Dockerfile reference. · **Use:** publish inquiry-defect checker on Apify Store
+- [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Apify input schema: list of business websites, browser confirmation of call buttons, max pages per site. · **Use:** define Actor run inputs
+- [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Apify Playwright Chrome image built from repo root copying src and Actor main.mjs. · **Use:** build the inquiry-defect Actor container
+- [`actors/verified-inquiry-defects/main.mjs`](../../actors/verified-inquiry-defects/main.mjs) — Apify shell connecting inquiry-findings, path probe and runtime witness; charges one event per finding that re-verifies, deduped via named store. · **Use:** run the paid inquiry-defect Actor
+- [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · Sale rehearsal ledger with no payment provider: 5 verified findings delivered and charged at 50 cents each with idempotency keys. · **Use:** rehearse verified-defects pay-per-finding sale
+- [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · Gated variant of the verified-defects sale rehearsal recording delivered items, charge events and revenue tier. · **Use:** rehearse gated pay-per-finding sale
+- [`artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json`](../../artifacts/receipts/inquiry-path-coherence-field-2026-10-21.json) — 2026-10-21 · First field run of the Inquiry Path Coherence Engine on agency candidates and calibration home-service sites, listing findings like invalid JSON-LD and hours mismatch. · **Use:** falsify and repair the audit engine before commercial use
+- [`lite/api/interest.mjs`](../../lite/api/interest.mjs) — Lite API handler capturing implementation interest leads with validation, rate limit and owner email · **Use:** collect leads from audit report viewers
+- [`lite/api/report.mjs`](../../lite/api/report.mjs) — Lite API handler serving a stored audit report by capability token · **Use:** private report retrieval
+- [`lite/api/request-audit.mjs`](../../lite/api/request-audit.mjs) — Lite API handler queuing a website audit request with validation, rate limit and queue diagnostics · **Use:** accept audit submissions from the public site
+- [`lite/lib/report.mjs`](../../lite/lib/report.mjs) — Builds a stored report from production crawler and audit-rule output, dropping internal eligibility signals · **Use:** shape audit reports for the private viewer
+- [`lite/public/index.html`](../../lite/public/index.html) — Landing page for free website revenue audit submission · **Use:** public entry page of Cash Engine Lite
+- [`lite/public/report.html`](../../lite/public/report.html) — Private audit report page shell, noindex · **Use:** display a submitted site's audit report
+- [`lite/public/report.js`](../../lite/public/report.js) — Report viewer script rendering untrusted crawl content with textContent from token in URL · **Use:** client logic for audit report page
+- [`lite/worker/run-audits.mjs`](../../lite/worker/run-audits.mjs) — GitHub Actions audit worker reusing production Playwright crawler and audit rules, never logging PII · **Use:** run queued Lite audits on schedule
+- [`public/report.html`](../../public/report.html) — Private Opportunity Report page shell for a token-gated website audit report. · **Use:** customer or founder views a private audit report
+- [`public/report.js`](../../public/report.js) — Report page script: reads token from URL, fetches report, renders findings with USD money and confidence formatting, HTML-escaped. · **Use:** display audit findings to a report recipient
+- [`public/site.js`](../../public/site.js) — Public site form script: consent checkboxes are the consent; a printed consent-bridge code typed or from URL only attributes the request. · **Use:** capture inbound audit requests with consent and letter attribution
+- [`public/storefront.html`](../../public/storefront.html) — Public storefront page marketing the UberBond Opportunity Audit of websites for positioning, conversion, trust, mobile and global-market issues. · **Use:** public landing page for the website audit offer
+- [`public/styles.css`](../../public/styles.css) — Main public site stylesheet (gold/blue dark theme) for storefront, report and nav components. · **Use:** styling for public storefront and report pages
 
-## Tests (2)
+## Tests (32)
 
-[`inquiry-path-coherence`](../../tests/inquiry-path-coherence.test.mjs) · [`self-verifying-findings`](../../tests/self-verifying-findings.test.mjs)
+[`browser-runtime-pool`](../../tests/browser-runtime-pool.test.mjs) · [`browser`](../../tests/browser.test.mjs) · [`cleared-revenue-truth`](../../tests/cleared-revenue-truth.test.mjs) · [`consent-bridge-letter`](../../tests/consent-bridge-letter.test.mjs) · [`core`](../../tests/core.test.mjs) · [`evidence-beacon`](../../tests/evidence-beacon.test.mjs) · [`first-cash-prospect-completion`](../../tests/first-cash-prospect-completion.test.mjs) · [`founder-command-center`](../../tests/founder-command-center.test.mjs) · [`founder-ops-view`](../../tests/founder-ops-view.test.mjs) · [`inquiry-path-coherence`](../../tests/inquiry-path-coherence.test.mjs) · [`lite-p0`](../../tests/lite-p0.test.mjs) · [`night-payment-customer-binding`](../../tests/night-payment-customer-binding.test.mjs) · [`night-payment-truth`](../../tests/night-payment-truth.test.mjs) · [`offer-compiler`](../../tests/offer-compiler.test.mjs) · [`diagnosis`](../../tests/overnight-journey/diagnosis.test.mjs) · [`fixtures.mjs`](../../tests/overnight-journey/fixtures.mjs) · [`observation`](../../tests/overnight-journey/observation.test.mjs) · [`offer-compiler`](../../tests/overnight-journey/offer-compiler.test.mjs) · [`paid-amount-buys-what-it-paid-for`](../../tests/paid-amount-buys-what-it-paid-for.test.mjs) · [`payment-receipt-witnesses-money`](../../tests/payment-receipt-witnesses-money.test.mjs) · [`payment-truth`](../../tests/payment-truth.test.mjs) · [`payment-webhook-object-state`](../../tests/payment-webhook-object-state.test.mjs) · [`payment-webhook-recovery`](../../tests/payment-webhook-recovery.test.mjs) · [`paypal-payment-renewal-truth`](../../tests/paypal-payment-renewal-truth.test.mjs) · [`pipeline-deliverability-guard`](../../tests/pipeline-deliverability-guard.test.mjs) · [`provider-payload-minimization`](../../tests/provider-payload-minimization.test.mjs) · [`revenue-offers`](../../tests/revenue-offers.test.mjs) · [`revenue-report-email-audit`](../../tests/revenue-report-email-audit.test.mjs) · [`revenue-report-email-recovery`](../../tests/revenue-report-email-recovery.test.mjs) · [`revenue`](../../tests/revenue.test.mjs) · [`self-verifying-findings`](../../tests/self-verifying-findings.test.mjs) · [`subscription-clearing-truth`](../../tests/subscription-clearing-truth.test.mjs)
 

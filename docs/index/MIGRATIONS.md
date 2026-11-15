@@ -16,32 +16,32 @@ SQL schema migrations.
 
 ## Email infrastructure and warmup
 
-- [`20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Winnr signature-verified adverse webhook event receipts. _(matched by name only)_
+- [`20261019_winnr_webhook_suppression.sql`](../../migrations/20261019_winnr_webhook_suppression.sql) — 2026-10-19 · Migration creating winnr_webhook_events table for signature-verified adverse events · **Use:** dedupe and record Winnr bounce/complaint events
 
 ## Commerce, payments and economics
 
-- [`102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Billing webhook claims are recoverable leases. A crashed worker must not leave _(matched by name only)_
+- [`102_payment_reconciliation_leases.sql`](../../migrations/102_payment_reconciliation_leases.sql) — Migration making billing webhook claims recoverable leases with retry metadata · **Use:** payment reconciliation robustness
 
 ## Sovereign infrastructure and runtime
 
-- [`001_initial.sql`](../../migrations/001_initial.sql) _(matched by name only)_
-- [`002_durable_queue.sql`](../../migrations/002_durable_queue.sql) _(matched by name only)_
-- [`003_shared_artifacts.sql`](../../migrations/003_shared_artifacts.sql) _(matched by name only)_
-- [`004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql) _(matched by name only)_
-- [`005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql) _(matched by name only)_
-- [`006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql) _(matched by name only)_
-- [`007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql) _(matched by name only)_
-- [`008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql) _(matched by name only)_
-- [`009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Reality-shadow-only registry. This table grants nothing: it carries no _(matched by name only)_
-- [`010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Durable receipts for the zero-consequence canary's null sink. Deliberately _(matched by name only)_
-- [`011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — OMNIA V9 external-effect crash-recovery mission (Mission 6). Composes with, _(matched by name only)_
-- [`100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — UberBond Cost -> Stage -> Fulfill -> Learn support tables. _(matched by name only)_
-- [`101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql) _(matched by name only)_
-- [`103_external_artifact_storage.sql`](../../migrations/103_external_artifact_storage.sql) — Preserve legacy PostgreSQL artifact bytes by default while allowing future _(matched by name only)_
-- [`104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql) _(matched by name only)_
-- [`105_campaign_idempotency.sql`](../../migrations/105_campaign_idempotency.sql) _(matched by name only)_
-- [`106_lead_intelligence_collections.sql`](../../migrations/106_lead_intelligence_collections.sql) — The store map has always reserved these collections for the recovered _(matched by name only)_
-- [`20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · The Postgres store has mapped outboundEvents.providerEventId to this column _(matched by name only)_
-- [`20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · The protected businessIdentity row already contains the owner-supplied legal _(matched by name only)_
-- [`20261006_powerhouse_sender_scope_resolution.sql`](../../migrations/20261006_powerhouse_sender_scope_resolution.sql) — 2026-10-06 · Exact-prospect, narrow sender-side scope resolution. This does not grant send _(matched by name only)_
-- [`20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Durable first-party PHOENIX continuity records. Owner-authenticated access only. _(matched by name only)_
+- [`001_initial.sql`](../../migrations/001_initial.sql) — Initial Postgres migration: schema_migrations, campaigns, leads, prospects and core tables · **Use:** base production database schema
+- [`002_durable_queue.sql`](../../migrations/002_durable_queue.sql) — Migration adding durable queue columns (priority, attempts, locks, heartbeat) to jobs · **Use:** durable job queue for worker
+- [`003_shared_artifacts.sql`](../../migrations/003_shared_artifacts.sql) — Migration creating shared artifacts table storing content bytes with sha256 and expiry · **Use:** store generated artifacts in Postgres
+- [`004_unattended_send_safety.sql`](../../migrations/004_unattended_send_safety.sql) — Migration creating outbound_reservations and related tables for unattended send idempotency · **Use:** prevent duplicate sends
+- [`005_omnia_v9_proof_store.sql`](../../migrations/005_omnia_v9_proof_store.sql) — Migration creating OMNIA V9 content-addressed object and revocation tables · **Use:** proof store for OMNIA V9 kernel
+- [`006_omnia_v9_execution_receipt_uniqueness.sql`](../../migrations/006_omnia_v9_execution_receipt_uniqueness.sql) — Migration binding one execution receipt per reservation with pre-effect digests · **Use:** enforce receipt uniqueness in OMNIA V9
+- [`007_omnia_v9_authorization_bound_receipts.sql`](../../migrations/007_omnia_v9_authorization_bound_receipts.sql) — Migration linking execution receipts to authorization decisions, policy and constitution digests · **Use:** authorization-bound receipts for OMNIA V9
+- [`008_omnia_v9_authority_transition_ledger.sql`](../../migrations/008_omnia_v9_authority_transition_ledger.sql) — Migration creating hash-chained OMNIA V9 authority transition event ledger · **Use:** append-only authority state history
+- [`009_omnia_v9_shadow_approval_registry.sql`](../../migrations/009_omnia_v9_shadow_approval_registry.sql) — Migration for shadow-only approval registry that structurally cannot grant authority · **Use:** restrict approvals to reality-shadow validation
+- [`010_omnia_v9_canary_null_receipts.sql`](../../migrations/010_omnia_v9_canary_null_receipts.sql) — Migration for null-sink canary receipts with one receipt per reservation · **Use:** support zero-consequence canary drills
+- [`011_omnia_v9_external_effect_executions.sql`](../../migrations/011_omnia_v9_external_effect_executions.sql) — Migration for OMNIA V9 external-effect execution objects and hash-chained transitions for crash recovery · **Use:** durable external effect execution tracking
+- [`100_cost_stage_fulfill_learn.sql`](../../migrations/100_cost_stage_fulfill_learn.sql) — Migration for cost-stage-fulfill-learn tables: public evidence cache and related internal-ref tables · **Use:** support evidence caching and fulfilment learning
+- [`101_autonomy_operations_hygiene.sql`](../../migrations/101_autonomy_operations_hygiene.sql) — Migration adding egress route health and autonomy hygiene tables · **Use:** track egress route state and quarantine
+- [`103_external_artifact_storage.sql`](../../migrations/103_external_artifact_storage.sql) — Migration adding external object storage backend columns to artifacts · **Use:** allow artifacts in object storage
+- [`104_postal_webhook_events.sql`](../../migrations/104_postal_webhook_events.sql) — Migration creating postal_webhook_events with authentication and quarantine fields · **Use:** record Postal mail server webhook events
+- [`105_campaign_idempotency.sql`](../../migrations/105_campaign_idempotency.sql) — Migration adding unique idempotency_key to campaigns · **Use:** prevent duplicate campaign creation
+- [`106_lead_intelligence_collections.sql`](../../migrations/106_lead_intelligence_collections.sql) — Migration creating provider_events and other lead-intelligence collections in Postgres · **Use:** back JSON-store collections with tables
+- [`20261004_outbound_events_provider_event_id.sql`](../../migrations/20261004_outbound_events_provider_event_id.sql) — 2026-10-04 · Migration adding missing provider_event_id column to outbound_events · **Use:** fix the 2026-10-04 persistence error
+- [`20261005_preserve_owner_footer_authorization.sql`](../../migrations/20261005_preserve_owner_footer_authorization.sql) — 2026-10-05 · Migration recording founder authorization to use stored postal address in email footers · **Use:** footer compliance flag for sends
+- [`20261006_powerhouse_sender_scope_resolution.sql`](../../migrations/20261006_powerhouse_sender_scope_resolution.sql) — 2026-10-06 · Migration recording Powerhouse sender-side scope resolution on that prospect's preflight context · **Use:** feed legal classification to effect compiler
+- [`20261008_phoenix_owner_vault.sql`](../../migrations/20261008_phoenix_owner_vault.sql) — 2026-10-08 · Migration creating append-only PHOENIX capsule table for owner continuity records · **Use:** durable PHOENIX vault storage

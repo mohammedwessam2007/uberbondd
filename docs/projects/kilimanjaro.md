@@ -6,39 +6,43 @@ Founder-absence autonomous organism: Kilimanjaro scorecards and evidence, absenc
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**45 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**65 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (7)
+## Read first (8)
 
+- [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — 2026-09-12 correction that founder silence is not a pause; defines resident initiative loop generating and executing bounded missions. · **Use:** basis for autonomous initiative without founder prompting
 - [`docs/GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md`](../GENESIS_REALIZATION_BLACKOUT_FIRST_COMPUTE_PLANNER.md) — GENESIS realization: Blackout-First Compute Planner — Status: SOURCE IMPLEMENTED / REAL HARDWARE HYPOTHESIS UNVALIDATED _(matched by name only)_
-- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Commercial truth for the ten AI-automation offers _(matched by name only)_
-- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Kilimanjaro Commercial Evidence Closure — 2026-08-28 _(matched by name only)_
-- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Distribution portfolio red team _(matched by name only)_
-- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Master-Two shared capability frontier _(matched by name only)_
-- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Kilimanjaro — Payment → delivery → acceptance → renewal truth _(matched by name only)_
-- [`docs/KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md`](../KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md) — 2026-08-28 · Kilimanjaro — AI Revenue Ops vertical-density tournament _(matched by name only)_
+- [`docs/KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md`](../KILIMANJARO_AI_AUTOMATION_COMMERCIAL_TRUTH_2026-08-28.md) — 2026-08-28 · Issue #74 report comparing ten creator-claimed AI-automation offers to live software pricing; ranks estimate follow-up, missed-call text-back as strongest. · **Use:** evidence for which automation service offers to pursue
+- [`docs/KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md`](../KILIMANJARO_COMMERCIAL_EVIDENCE_CLOSURE_2026-08-28.md) — 2026-08-28 · Contradiction-preserving evidence packet closing issues #74-#77 and #79 research, with evidence classes and no external effects. · **Use:** single commercial evidence reference for Kilimanjaro decisions
+- [`docs/KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md`](../KILIMANJARO_DISTRIBUTION_PORTFOLIO_2026-08-28.md) — 2026-08-28 · Issue #77 red-team scoring distribution motions; selects five (cold email, marketplaces, partners, diagnostic, SEO/AEO), paid media off. · **Use:** choose initial distribution channel portfolio
+- [`docs/KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md`](../KILIMANJARO_MASTER_TWO_CAPABILITY_FRONTIER_2026-08-28.md) — 2026-08-28 · Issue #76 answer: master Commercial Truth Spine and Governed Conversation & Trigger Engine first, as consolidation rule over existing modules. · **Use:** decide where new business features attach
+- [`docs/KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md`](../KILIMANJARO_PAYMENT_TO_RENEWAL_TRUTH_2026-08-28.md) — 2026-08-28 · Issue #79 economic ladder from offer to renewal with required durable evidence per transition; states zero customers/revenue. · **Use:** rule for what proves payment, delivery, acceptance, renewal
+- [`docs/KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md`](../KILIMANJARO_VERTICAL_TOURNAMENT_2026-08-28.md) — 2026-08-28 · Issue #75 weighted workflow-density tournament ranking verticals for AI revenue ops; home services 91, auto repair 87. · **Use:** pick target vertical for automation offers
 
 ## Commands (4)
 
-`npm run absence:doctor` · `npm run genesis:blackout:doctor` · `npm run manifest:kilimanjaro` · `npm run test:nullstar`
+`npm run absence:doctor` · `npm run manifest:kilimanjaro` · `npm run test:genesis:autonomy-compression` · `npm run test:nullstar`
 
 ## Dated documents, newest first (4)
 
-- [`docs/KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md`](../KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md) — 2026-08-22 · UBERBOND KILIMANJARO OVERNIGHT TASKFORCE — 2026-08-22 _(matched by name only)_
-- [`docs/KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md`](../KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md) — 2026-08-22 · KILIMANJARO zero-gap overnight report — 2026-08-22 _(matched by name only)_
-- [`docs/UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md`](../UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md) — 2026-08-22 · UberBond — Kilimanjaro Architecture Closure Report _(matched by name only)_
-- [`docs/KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md`](../KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md) — 2026-08-21 · UberBond Kilimanjaro Architecture Scorecard _(matched by name only)_
+- [`docs/KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md`](../KILIMANJARO_OVERNIGHT_TASKFORCE_2026-08-22.md) — 2026-08-22 · Overnight taskforce packet assigning GPT Work and Claude tasks toward KILIMANJARO_100 gates with global no-effect laws. · **Use:** brief parallel workers for overnight gap closure
+- [`docs/KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md`](../KILIMANJARO_ZERO_GAP_OVERNIGHT_REPORT_2026-08-22.md) — 2026-08-22 · Report that agent-mesh control plane was unreachable outside tests, lacking adapterFactory and relay task compiler, and how entry points were added. · **Use:** record of reachability fixes for agent mesh
+- [`docs/UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md`](../UBERBOND_FINAL_BOSS_KILIMANJARO_REPORT_2026-08-22.md) — 2026-08-22 · Kilimanjaro closure verdict INTERNAL_ARCHITECTURE_COMPLETE_EXTERNAL_PROOF_DOMINATES; zero customers/revenue; no human paging gap. · **Use:** record of Kilimanjaro architecture closure
+- [`docs/KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md`](../KILIMANJARO_ARCHITECTURE_SCORECARD_2026-08-21.md) — 2026-08-21 · Evidence-weighted readiness scorecard of main at 2026-08-21 using VERIFIED_LIVE/PASS_LOCAL/PARTIAL classes across cognitive and commercial areas. · **Use:** measure gap to founder-absence autonomous organism
 
 ## Documents that discuss this project without naming it in the filename (2)
 
-- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — UberBond Total Brain — Status: LONG-HORIZON SUPERSET MEMORY / ANTI-AMPUTATION CANON _(matched by name only)_ _(14 mentions)_
-- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — UberBond Cognitive Map — Status: DRAFT_BRANCH executable integration map _(matched by name only)_ _(4 mentions)_
+- [`docs/UBERBOND_TOTAL_BRAIN.md`](../UBERBOND_TOTAL_BRAIN.md) — Superset anti-amputation memory with truth classes, preserving goals, donors, named initiatives and chat-only specs. · **Use:** reconstruct whole organism before narrowing _(14 mentions)_
+- [`docs/UBERBOND_COGNITIVE_MAP.md`](../UBERBOND_COGNITIVE_MAP.md) — Draft map linking cognitive-graph, cognitive-bus, adapters and lineage config into one organ diagram from world sensing to opportunities. · **Use:** see how organs connect in the brain _(4 mentions)_
 
-## Source modules (9)
+## Source modules (13)
 
-- [`src/blackout-first-compute-planner.mjs`](../../src/blackout-first-compute-planner.mjs) — exports BLACKOUT_FIRST_COMPUTE_PLANNER_VERSION, compileBlackoutFirstComputePlan, applyBlackoutFirstEvent, evaluateBlackoutRecoveryReplay _(matched by name only; tested; imported by 1)_
+- [`src/agent-mesh-activation-gate.mjs`](../../src/agent-mesh-activation-gate.mjs) — Evaluates permitted mesh activation mode from evidence states; founder-absence score is informational and cannot upgrade activation · **Use:** block provider spend unless activation evidence suffices _(tested; imported by 1)_
+- [`src/agent-mesh-cycle-receipts.mjs`](../../src/agent-mesh-cycle-receipts.mjs) — Begin/finish cycle receipts with redacted reason codes, detection and reconciliation of abandoned cycles that started but never finished · **Use:** make crashed mesh cycles visible to absence readiness _(imported by 4)_
+- [`src/agent-mesh-zero-io-canary.mjs`](../../src/agent-mesh-zero-io-canary.mjs) — Zero external I/O canary runner recording liveness cycles after reconciling prior crashed cycles · **Use:** prove mesh liveness without any external effect _(tested; imported by 1)_
+- [`src/autonomy-compression-ratio.mjs`](../../src/autonomy-compression-ratio.mjs) — Measures autonomy compression across autonomy layers and compares replays · **Use:** quantify how much founder work autonomy removes _(tested; no static importers)_
 - [`src/founder-absence-blocker-doctor.mjs`](../../src/founder-absence-blocker-doctor.mjs) — What is actually standing between UberBond and running without its founder. _(matched by name only; tested; imported by 2)_
 - [`src/founder-absence-readiness.mjs`](../../src/founder-absence-readiness.mjs) — exports FOUNDER_ABSENCE_POLICY_VERSION, deriveFounderAbsenceObservationProof, evaluateFounderAbsenceReadinessFromDurableHistory, evaluateFounderAbsen… _(matched by name only; imported by 2)_
 - [`src/founder-directive-reconciler.mjs`](../../src/founder-directive-reconciler.mjs) — Reconciles a founder directive against the organism that already exists. _(matched by name only; tested; imported by 1)_
@@ -46,25 +50,28 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/founder-outcome-job-handlers.mjs`](../../src/founder-outcome-job-handlers.mjs) — exports createMissionAwareJobHandlers _(matched by name only; tested; imported by 1)_
 - [`src/founder-outcome-mission-supervisor.mjs`](../../src/founder-outcome-mission-supervisor.mjs) — exports FOUNDER_OUTCOME_MISSION_SUPERVISOR_VERSION, loadFounderOutcomeMission, observeFounderOutcomeClearedCash, runFounderOutcomeMissionSupervisor _(matched by name only; imported by 1)_
 - [`src/founder-outcome-mission.mjs`](../../src/founder-outcome-mission.mjs) — exports FOUNDER_OUTCOME_MISSION_VERSION, classifyFounderOutcomeIntent, compileFounderOutcomeMission, evaluateFounderOutcomeMission, compileFounderEco… _(matched by name only; tested; imported by 4)_
-- [`src/kilimanjaro-evidence.mjs`](../../src/kilimanjaro-evidence.mjs) — exports KILIMANJARO_EVIDENCE_VERSION, compileKilimanjaroEvidence _(matched by name only; tested; imported by 1)_
+- [`src/kilimanjaro-evidence.mjs`](../../src/kilimanjaro-evidence.mjs) — Compiles Kilimanjaro founder-absence evidence with zero effects. · **Use:** Evidence packet for Kilimanjaro scorecards _(tested; imported by 1)_
+- [`src/sovereign-money-machine-proof.mjs`](../../src/sovereign-money-machine-proof.mjs) — Evaluates endurance proof of an unattended money machine using pulse gaps and receipt ages · **Use:** judge founder-absence money machine claims _(tested; no static importers)_
 
 ## Scripts (4)
 
-- [`scripts/compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — exports compileLatestFounderOutcomeMission _(matched by name only)_
-- [`scripts/founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — If the founder turns the device off, what actually keeps running -- and what _(matched by name only; npm: `absence:doctor`)_
-- [`scripts/genesis-blackout-first-doctor.mjs`](../../scripts/genesis-blackout-first-doctor.mjs) _(matched by name only; npm: `genesis:blackout:doctor`)_
-- [`scripts/kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits the KILIMANJARO completion manifest from measured facts. _(matched by name only; npm: `manifest:kilimanjaro`)_
+- [`scripts/compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — CLI compiling the latest founder outcome mission. · **Use:** produce current founder outcome mission packet
+- [`scripts/founder-absence-doctor.mjs`](../../scripts/founder-absence-doctor.mjs) — Reports what keeps running if the founder device is off, classifies blockers, blocks CODE_READY while credential/account/payment blockers open. · **Use:** founder-absence readiness and smallest owner action _(npm: `absence:doctor`)_
+- [`scripts/founder-economic-mission-pulse.mjs`](../../scripts/founder-economic-mission-pulse.mjs) — Runs founder outcome mission with economic reliability control loop, input builder and autoprep against store and queue. · **Use:** periodic economic reliability pulse for founder mission
+- [`scripts/kilimanjaro-manifest.mjs`](../../scripts/kilimanjaro-manifest.mjs) — Emits Kilimanjaro completion manifest counted from repository plus parsed TAP suite totals; effect axes asserted zero. · **Use:** measured Kilimanjaro completion manifest _(npm: `manifest:kilimanjaro`)_
 
-## Config, data, artifacts and services (6)
+## Config, data, artifacts and services (8)
 
-- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) _(matched by name only)_
-- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Founder Outcome Overnight Worker _(matched by name only)_
+- [`.github/overnight/founder-outcome-arm`](../../.github/overnight/founder-outcome-arm) — Small arm file whose push to main triggers the founder-outcome overnight worker workflow. · **Use:** arm/trigger the overnight founder-outcome run
+- [`.github/workflows/founder-outcome-overnight-worker.yml`](../../.github/workflows/founder-outcome-overnight-worker.yml) — Workflow triggered by the arm file running a worker against the lite Postgres with autopilot off and discovery dry-run. · **Use:** run overnight founder-outcome mission in the cloud
+- [`api/founder-center.mjs`](../../api/founder-center.mjs) — Founder center handler that starts economic-outcome missions via GitHub relay with a free model constant, using store and queue. · **Use:** founder triggers outcome missions
+- [`artifacts/uberbond-owner-goals-2026-09-02.json`](../../artifacts/uberbond-owner-goals-2026-09-02.json) — 2026-09-02 · Owner goals capture 2026-09-02: economic north star, parallel loops, current champion offer, free-first doctrine, Genome/Wallbreaker/model/absence goals, anti-amnesia laws. · **Use:** preserve founder intent and strategic doctrine
 - [`ops/sovereign/install-founder-outcome-mission.sh`](../../ops/sovereign/install-founder-outcome-mission.sh) _(matched by name only)_
 - [`ops/sovereign/uberbond-founder-outcome-mission.path`](../../ops/sovereign/uberbond-founder-outcome-mission.path) _(matched by name only)_
 - [`ops/sovereign/uberbond-founder-outcome-mission.service`](../../ops/sovereign/uberbond-founder-outcome-mission.service) _(matched by name only)_
 - [`ops/sovereign/uberbond-founder-outcome-mission.timer`](../../ops/sovereign/uberbond-founder-outcome-mission.timer) _(matched by name only)_
 
-## Tests (15)
+## Tests (28)
 
-[`blackout-first-compute-planner`](../../tests/blackout-first-compute-planner.test.mjs) · [`founder-absence-blocker-doctor`](../../tests/founder-absence-blocker-doctor.test.mjs) · [`founder-absence-canonical-evidence`](../../tests/founder-absence-canonical-evidence.test.mjs) · [`founder-absence-deliverability`](../../tests/founder-absence-deliverability.test.mjs) · [`founder-absence-durable-history`](../../tests/founder-absence-durable-history.test.mjs) · [`founder-absence-duration-proof`](../../tests/founder-absence-duration-proof.test.mjs) · [`founder-absence-sovereignty-boundary`](../../tests/founder-absence-sovereignty-boundary.test.mjs) · [`founder-directive-reconciler`](../../tests/founder-directive-reconciler.test.mjs) · [`founder-minute-priority`](../../tests/founder-minute-priority.test.mjs) · [`founder-outcome-active-slot`](../../tests/founder-outcome-active-slot.test.mjs) · [`founder-outcome-job-handlers`](../../tests/founder-outcome-job-handlers.test.mjs) · [`founder-outcome-mission`](../../tests/founder-outcome-mission.test.mjs) · [`founder-outcome-supervisor`](../../tests/founder-outcome-supervisor.test.mjs) · [`kilimanjaro-evidence`](../../tests/kilimanjaro-evidence.test.mjs) · [`kilimanjaro-rehearsal`](../../tests/kilimanjaro-rehearsal.test.mjs)
+[`agent-mesh-abandoned-cycle-reconciliation`](../../tests/agent-mesh-abandoned-cycle-reconciliation.test.mjs) · [`agent-mesh-activation-evidence`](../../tests/agent-mesh-activation-evidence.test.mjs) · [`agent-mesh-activation-gate`](../../tests/agent-mesh-activation-gate.test.mjs) · [`agent-mesh-control-plane`](../../tests/agent-mesh-control-plane.test.mjs) · [`agent-mesh-cycle-receipt-concurrency`](../../tests/agent-mesh-cycle-receipt-concurrency.test.mjs) · [`agent-mesh-cycle-receipt-foundation-hardening`](../../tests/agent-mesh-cycle-receipt-foundation-hardening.test.mjs) · [`agent-mesh-cycle-receipt-time-integrity`](../../tests/agent-mesh-cycle-receipt-time-integrity.test.mjs) · [`agent-mesh-occurrence-key-bounds`](../../tests/agent-mesh-occurrence-key-bounds.test.mjs) · [`agent-mesh-same-occurrence-abandonment`](../../tests/agent-mesh-same-occurrence-abandonment.test.mjs) · [`agent-mesh-zero-io-canary`](../../tests/agent-mesh-zero-io-canary.test.mjs) · [`autonomy-compression-ratio`](../../tests/autonomy-compression-ratio.test.mjs) · [`bootstrap-economic-founder-node`](../../tests/bootstrap-economic-founder-node.test.mjs) · [`durable-truth-concurrency-sweep`](../../tests/durable-truth-concurrency-sweep.test.mjs) · [`founder-absence-canonical-evidence`](../../tests/founder-absence-canonical-evidence.test.mjs) · [`founder-absence-deliverability`](../../tests/founder-absence-deliverability.test.mjs) · [`founder-absence-durable-history`](../../tests/founder-absence-durable-history.test.mjs) · [`founder-absence-duration-proof`](../../tests/founder-absence-duration-proof.test.mjs) · [`founder-center-api`](../../tests/founder-center-api.test.mjs) · [`founder-directive-reconciler`](../../tests/founder-directive-reconciler.test.mjs) · [`founder-minute-priority`](../../tests/founder-minute-priority.test.mjs) · [`founder-outcome-active-slot`](../../tests/founder-outcome-active-slot.test.mjs) · [`founder-outcome-job-handlers`](../../tests/founder-outcome-job-handlers.test.mjs) · [`founder-outcome-mission`](../../tests/founder-outcome-mission.test.mjs) · [`founder-outcome-supervisor`](../../tests/founder-outcome-supervisor.test.mjs) · [`kilimanjaro-evidence`](../../tests/kilimanjaro-evidence.test.mjs) · [`operator-health-snapshot`](../../tests/operator-health-snapshot.test.mjs) · [`sovereign-money-machine-proof`](../../tests/sovereign-money-machine-proof.test.mjs) · [`ubercel-economic-deploy-smoke`](../../tests/ubercel-economic-deploy-smoke.test.mjs)
 

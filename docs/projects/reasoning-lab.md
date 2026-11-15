@@ -6,41 +6,61 @@ Reasoning architecture lab, compound intelligence evaluation, cross-domain trans
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**24 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**49 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (7)
 
+- [`docs/PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE8_EXPLAINED.md) — Catalog of 160 Wave 8 unknown-world transfer designs like sealed prospective evaluation and solver-independent custodians. · **Use:** source-linked list of proposed wave 8 capabilities
+- [`open router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md`](../../open%20router/15_NOVELTY_BOUNDARY_AND_UPGRADE_CEILING.md) — Novelty boundary note forbidding world-first claims, listing neighbor systems and the unifying research question · **Use:** keep claims honest about prior art
 - [`docs/APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md`](../APEX_JEV_REASONING_HYPERCOMPILER_2026-09-29.md) — 2026-09-29 · UberBond APEX + Jev Reasoning Hypercompiler — Status: SOURCE INTEGRATION CANDIDATE / PUBLIC-FRONTIER COVERAGE TARGET / NOT A GLOBAL-#1 CLAIM _(matched by name only)_
+- [`docs/INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md`](../INTERSTELLAR_WORMHOLE_MECHANISMS_2026-09-15.md) — 2026-09-15 · Speculative research program for proof-carrying topology rewrites that shorten verified cognitive distance for future problem classes, with e-graph and other donors. · **Use:** research direction for reusable cognitive shortcuts
+- [`docs/LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md`](../LAWSPACE_COMPUTING_BREAKTHROUGH_2026-09-15.md) — 2026-09-15 · Speculative hypothesis: compile problems into temporary dynamical laws whose evolution performs search, mappable to analog/optical substrates. · **Use:** research program for radically cheaper cognition
+- [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · Research audit defining velocity objective V and missing mechanisms so each mission shortens future work, listing existing acceleration machinery. · **Use:** plan compounding execution-speed improvements
+- [`docs/OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md`](../OMEGA_COGNITIVE_TRANSCOMPILER_2026-09-15.md) — 2026-09-15 · Research architecture for a self-hosting transcompiler mapping problems through constraint IR, equivalence search and substrate tournament to verified execution. · **Use:** research target for cheaper verified cognition
 
-## Commands (1)
+## Commands (4)
 
-`npm run reasoning:doctor`
+`npm run nullstar:generalization` · `npm run nullstar:transfer` · `npm run omega:generalization` · `npm run reasoning:doctor`
 
-## Source modules (10)
+## Source modules (15)
 
-- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — exports APEX_REASONING_HYPERCOMPILER_VERSION, APEX_REASONING_MODES, compileApexReasoningArchitecture, buildIdentityBlindPacket, APEX_ARCHITECTURE_MUT… _(matched by name only; tested; imported by 2)_
-- [`src/artificial-imagination.mjs`](../../src/artificial-imagination.mjs) — exports compileArtificialImagination _(matched by name only; tested; imported by 1)_
-- [`src/compound-intelligence-evaluation.mjs`](../../src/compound-intelligence-evaluation.mjs) — exports COMPOUND_INTELLIGENCE_EVALUATION_VERSION, evaluateCompoundIntelligence _(matched by name only; tested; imported by 2)_
-- [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — exports CROSS_DOMAIN_TRANSFER_EVALUATOR_VERSION, evaluateCrossDomainTransfer _(matched by name only; imported by 2)_
+- [`src/apex-reasoning-hypercompiler.mjs`](../../src/apex-reasoning-hypercompiler.mjs) — Compiles APEX reasoning architectures and identity-blind packets, mutation families and evolution experiments evaluated in an arena · **Use:** evolve reasoning architectures for frontier quality at lower cost _(tested; imported by 2)_
+- [`src/c21-dimension-evidence-producer.mjs`](../../src/c21-dimension-evidence-producer.mjs) — Compiles per-dimension C21 evidence from compound intelligence evaluation · **Use:** produce dimension receipts for C21 _(tested; no static importers)_
+- [`src/causal-compiler-canary-v1.mjs`](../../src/causal-compiler-canary-v1.mjs) — Simulates causal models and compiles minimum interventions to reach a goal, as a canary · **Use:** test causal minimum-intervention compilation _(tested; imported by 2)_
+- [`src/causal-compiler-canary-v2.mjs`](../../src/causal-compiler-canary-v2.mjs) — Second causal compiler canary compiling causal goals on top of v1 · **Use:** extended causal goal compilation canary _(tested; imported by 1)_
+- [`src/causal-semantic-crystallizer-v1.mjs`](../../src/causal-semantic-crystallizer-v1.mjs) — Crystallizes reusable semantic causal operators from motifs that may replace only isolated upstream cones, falling back to exact compiler · **Use:** reuse learned causal motifs safely _(tested; no static importers)_
+- [`src/compound-intelligence-evaluation.mjs`](../../src/compound-intelligence-evaluation.mjs) — C13-B parent tribunal binding evaluator, transfer and retention organs with anti-gaming laws for one compound intelligence candidate · **Use:** evaluate compound intelligence without promoting _(tested; imported by 2)_
+- [`src/cross-domain-transfer-evaluator.mjs`](../../src/cross-domain-transfer-evaluator.mjs) — Evaluates cross-domain transfer of a capability · **Use:** measure transfer for compound intelligence _(imported by 2)_
 - [`src/elite-capability-reserve.mjs`](../../src/elite-capability-reserve.mjs) — exports ELITE_CAPABILITY_RESERVE_VERSION, ELITE_CAPABILITY_RESERVE_TARGET, eliteEligibility, buildEliteReserve _(matched by name only; imported by 2)_
-- [`src/frontier-reasoning-runtime.mjs`](../../src/frontier-reasoning-runtime.mjs) — exports FRONTIER_REASONING_RUNTIME_VERSION, compileFrontierExecutorWorker, attestFrontierExecution, executeFrontierMember _(matched by name only; tested; imported by 2)_
-- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — exports INVARIANT_COGNITION_COMPILER_VERSION, INVARIANT_COGNITION_MAX_GLOBAL_TOP_K, INVARIANT_COGNITION_AUTHORITY, INVARIANT_COGNITION_TRUTH_BOUNDARY… _(matched by name only; imported by 1)_
-- [`src/mission-brain-compiler.mjs`](../../src/mission-brain-compiler.mjs) — exports MISSION_BRAIN_COMPILER_VERSION, compileMissionBrain _(matched by name only; imported by 2)_
-- [`src/reasoning-architecture-lab.mjs`](../../src/reasoning-architecture-lab.mjs) — exports REASONING_ARCHITECTURE_LAB_VERSION, ARCHITECTURE_MUTATION_AXES, compileArchitectureCandidate, buildArchitectureArchive, compileArchitectureSe… _(matched by name only; tested; no static importers)_
-- [`src/transfer-evaluation-governor.mjs`](../../src/transfer-evaluation-governor.mjs) — exports TRANSFER_EVALUATION_GOVERNOR_VERSION, compileIndependentEvaluation, compileFreshContextRetention _(matched by name only; tested; imported by 1)_
+- [`src/frontier-council-runtime.mjs`](../../src/frontier-council-runtime.mjs) — Runs a three-phase council: independent answers, identity-blind cross-critique, then blind adjudication; degraded councils are refused. · **Use:** Execute multi-model frontier councils with bias-reduced critique _(imported by 1)_
+- [`src/invariant-cognition-compiler.mjs`](../../src/invariant-cognition-compiler.mjs) — Compiles million-wormhole global prior top-K, build-distance batches and capability topology over opportunity registry and capability graph. · **Use:** Deterministic cognition invariants over the wormhole universe _(imported by 1)_
+- [`src/model-adaptation-admission.mjs`](../../src/model-adaptation-admission.mjs) — Admits model adaptations (prompt, retrieval, tools, decomposition, composition) under evidence gates. · **Use:** Gate model adaptation changes _(tested; imported by 1)_
+- [`src/reasoning-architecture-lab.mjs`](../../src/reasoning-architecture-lab.mjs) — Compiles reasoning architecture candidates along mutation axes, archives them and evaluates generations against quality invariants · **Use:** search for better reasoning architectures _(tested; no static importers)_
+- [`src/semantic-novelty-preflight.mjs`](../../src/semantic-novelty-preflight.mjs) — Compares behavioral signatures and evaluators, inspects split degeneracy and admits novelty challenges · **Use:** check a challenge is genuinely novel before evaluation _(tested; imported by 1)_
+- [`src/transfer-evaluation-governor.mjs`](../../src/transfer-evaluation-governor.mjs) — Freezes independent holdout protocols and judges fresh-context retention of learned mechanisms · **Use:** independent evaluation and retention evidence _(tested; imported by 1)_
+- [`src/world-intelligence.mjs`](../../src/world-intelligence.mjs) — Composes cognitive substrates into institutions, proposes new concepts (Ontogenesis), runs ontological crisis invalidation, scale bridging, boundary classification and self-alienating challengers. · **Use:** Sovereign Continuum cognition organs for choosing reasoning substrates _(tested; imported by 1)_
 
-## Scripts (2)
+## Scripts (7)
 
-- [`scripts/compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs) _(matched by name only)_
-- [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs the epistemic organs over a supplied situation: what the search could not _(matched by name only; npm: `reasoning:doctor`)_
+- [`scripts/c21-breadth-workload-core.mjs`](../../scripts/c21-breadth-workload-core.mjs) — Seeded deterministic DAG generator and hash pick helpers using capability topology from invariant cognition compiler. · **Use:** reproducible task graphs for C21 breadth benchmarks
+- [`scripts/c21-d1-benchmark.mjs`](../../scripts/c21-d1-benchmark.mjs) — C21 D1 benchmark comparing million-wormhole shard compile, build distance and capability topology versus invariant compiler batch versions. · **Use:** measure whole-system self-improvement on dimension D1
+- [`scripts/compound-intelligence-evaluation-doctor.mjs`](../../scripts/compound-intelligence-evaluation-doctor.mjs) — Deliberately negative doctor ensuring synthetic fixtures never mint positive compound-intelligence receipts without observed task-set evidence. · **Use:** guard C13 compound intelligence evaluation
+- [`scripts/nullstar-cross-organ-transfer.mjs`](../../scripts/nullstar-cross-organ-transfer.mjs) — Tests whether a promoted evidence-ranking solver transfers to the epistemic immune system vocabulary using three arms. · **Use:** measure cross-organ transfer of a NULLSTAR mechanism _(npm: `nullstar:transfer`)_
+- [`scripts/nullstar-generalization-v2.mjs`](../../scripts/nullstar-generalization-v2.mjs) — Tests whether three promoted solvers generalize via fresh seeds, hand-built out-of-pattern items and stronger probes. · **Use:** distinguish learned mechanism from generator shape _(npm: `nullstar:generalization`)_
+- [`scripts/nullstar-omega-generalization.mjs`](../../scripts/nullstar-omega-generalization.mjs) — Measures whether reality-connection discipline generalized to two new families using cross-domain transfer evaluator. · **Use:** evidence of method generalization _(npm: `omega:generalization`)_
+- [`scripts/reasoning-quality-doctor.mjs`](../../scripts/reasoning-quality-doctor.mjs) — Runs unknown-unknown mining, assumption escape and N-of-1 personal science together on a synthetic situation. · **Use:** check epistemic organs compose _(npm: `reasoning:doctor`)_
 
-## Config, data, artifacts and services (1)
+## Config, data, artifacts and services (5)
 
-- [`artifacts/c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json) _(matched by name only)_
+- [`artifacts/c13-invariant-cognition-v2-canonical-packet.json`](../../artifacts/c13-invariant-cognition-v2-canonical-packet.json) — C13 evaluation packet for the Invariant Cognition Compiler V2 composition: components, baselines, gain/regression thresholds, families, revocation snapshot. · **Use:** input to canonical C13 capability evaluation
+- [`artifacts/million-wormhole-tier2-search-policy-eval-v2.json`](../../artifacts/million-wormhole-tier2-search-policy-eval-v2.json) — Frozen plan for a second search-policy efficiency compression test with holdout top-k and promotion rules. · **Use:** pre-register wormhole search policy eval
+- [`artifacts/million-wormhole-tier2-search-policy-eval.json`](../../artifacts/million-wormhole-tier2-search-policy-eval.json) — Frozen plan testing search-policy efficiency and semantic equivalence with hostile cases. · **Use:** pre-register wormhole search policy eval
+- [`artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json`](../../artifacts/research/phoenix-ten-wave-intake/original-genomes/PHOENIX_WAVE8_UNKNOWN_WORLD_TRANSFER_160_2026-10-17.json) — 2026-10-17 · Wave 8 genome of 160 unknown-world transfer candidates with sources and synthetic local demonstration. · **Use:** research backlog for transfer to unknown environments
+- [`config/multidimensional-velocity-gap-registry.json`](../../config/multidimensional-velocity-gap-registry.json) — Audit of velocity gaps: Compounding Velocity Kernel, Global Cognitive Action Cache, Incremental Cognition Engine, Predictive Context Foundry; existing primitives and donors. · **Use:** plan speedup primitives for the system
 
-## Tests (10)
+## Tests (15)
 
-[`apex-reasoning-hypercompiler`](../../tests/apex-reasoning-hypercompiler.test.mjs) · [`artificial-imagination`](../../tests/artificial-imagination.test.mjs) · [`compound-intelligence-evaluation`](../../tests/compound-intelligence-evaluation.test.mjs) · [`frontier-reasoning-execution-bridge`](../../tests/frontier-reasoning-execution-bridge.test.mjs) · [`frontier-reasoning-runtime-boundary`](../../tests/frontier-reasoning-runtime-boundary.test.mjs) · [`frontier-reasoning-runtime`](../../tests/frontier-reasoning-runtime.test.mjs) · [`omega-lawspace-cross-domain`](../../tests/omega-lawspace-cross-domain.test.mjs) · [`reasoning-architecture-lab`](../../tests/reasoning-architecture-lab.test.mjs) · [`reasoning-quality-doctor`](../../tests/reasoning-quality-doctor.test.mjs) · [`transfer-evaluation-governor`](../../tests/transfer-evaluation-governor.test.mjs)
+[`apex-reasoning-hypercompiler`](../../tests/apex-reasoning-hypercompiler.test.mjs) · [`c03-transfer-voi`](../../tests/c03-transfer-voi.test.mjs) · [`c13-c21-real-integration`](../../tests/c13-c21-real-integration.test.mjs) · [`c21-dimension-evidence-producer`](../../tests/c21-dimension-evidence-producer.test.mjs) · [`causal-compiler-canary-v1`](../../tests/causal-compiler-canary-v1.test.mjs) · [`causal-compiler-canary-v2`](../../tests/causal-compiler-canary-v2.test.mjs) · [`causal-semantic-crystallizer-v1`](../../tests/causal-semantic-crystallizer-v1.test.mjs) · [`compound-intelligence-evaluation`](../../tests/compound-intelligence-evaluation.test.mjs) · [`frontier-council-identity-blind`](../../tests/frontier-council-identity-blind.test.mjs) · [`model-adaptation-admission`](../../tests/model-adaptation-admission.test.mjs) · [`reasoning-architecture-lab`](../../tests/reasoning-architecture-lab.test.mjs) · [`reasoning-quality-doctor`](../../tests/reasoning-quality-doctor.test.mjs) · [`semantic-novelty-preflight`](../../tests/semantic-novelty-preflight.test.mjs) · [`transfer-evaluation-governor`](../../tests/transfer-evaluation-governor.test.mjs) · [`world-intelligence`](../../tests/world-intelligence.test.mjs)
 

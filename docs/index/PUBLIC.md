@@ -16,21 +16,21 @@ Browser assets: command center, admin and constellation UI.
 
 ## Continuity, memory and handoffs
 
-- [`phoenix.html`](../../public/phoenix.html) — PHOENIX / UberBond continuity lifeboat _(matched by name only)_
-- [`phoenix.js`](../../public/phoenix.js) _(matched by name only)_
-- [`uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — UberBond · Connected Command Center _(matched by name only)_
-- [`uberbond-connected.html`](../../public/uberbond-connected.html) — UberBond · Connected Command Center _(matched by name only)_
-- [`uberbond-graph.css`](../../public/uberbond-graph.css) _(matched by name only)_
-- [`uberbond-graph.js`](../../public/uberbond-graph.js) _(matched by name only)_
-- [`uberbond-standalone.html`](../../public/uberbond-standalone.html) — UberBond · Wessam Command Center _(matched by name only)_
-- [`uberbond.css`](../../public/uberbond.css) _(matched by name only)_
-- [`uberbond.html`](../../public/uberbond.html) — UberBond · Wessam Command Center _(matched by name only)_
-- [`uberbond.js`](../../public/uberbond.js) _(matched by name only)_
+- [`phoenix.html`](../../public/phoenix.html) — PHOENIX continuity lifeboat page: dark UI for writing local continuity draft entries outside chat. · **Use:** capture decisions locally when chat context may be lost
+- [`phoenix.js`](../../public/phoenix.js) — Client logic for PHOENIX local drafts: up to 120 entries typed DECISION/IMPLEMENTATION/GOAL/TEST, bound to the 890 corpus hash, digest computed. · **Use:** build a hash-bound continuity draft to carry into a new chat
+- [`uberbond-connected-safe.html`](../../public/uberbond-connected-safe.html) — Self-contained read-only Connected Command Center page with inline styles showing connected system status. · **Use:** safe read-only founder command view
+- [`uberbond-connected.html`](../../public/uberbond-connected.html) — Redirect stub sending the legacy connected view to the read-only safe command center page. · **Use:** keep old links working after command center move
+- [`uberbond-graph.css`](../../public/uberbond-graph.css) — Styles for the graph console: search box, lens controls, and canvas overlay of the UberBond graph view. · **Use:** style the interactive brain/graph visualization
+- [`uberbond-graph.js`](../../public/uberbond-graph.js) — Canvas graph renderer with lenses (default brain), node/edge positions, hover, selection, history, pan/zoom and pinch gestures. · **Use:** interactive spatial view of UberBond's brain graph on iPad
+- [`uberbond-standalone.html`](../../public/uberbond-standalone.html) — Standalone single-file Wessam Command Center page with inline CSS, not requiring the main stylesheets. · **Use:** offline or standalone founder command center view
+- [`uberbond.css`](../../public/uberbond.css) — Stylesheet for Wessam Command Center with goal/donor color tokens and ambient background. · **Use:** style the main founder command center page
+- [`uberbond.html`](../../public/uberbond.html) — Wessam Command Center main HTML page loading uberbond.css and graph styles, ambient layout with graph stage. · **Use:** founder's primary command center web page
+- [`uberbond.js`](../../public/uberbond.js) — Command center client script holding bearer only in page memory, never in storage, URLs, caches or DOM. · **Use:** authenticated data loading for the command center
 
 ## Outreach and distribution
 
-- [`outreach-one-button.js`](../../public/outreach-one-button.js) _(matched by name only)_
-- [`prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls over the existing canonical read-only operations. The _(matched by name only)_
+- [`outreach-one-button.js`](../../public/outreach-one-button.js) — Browser one-button outreach launch control: reads gates first, treats typed 409 as refusal, dry-run never reaches provider, live needs second confirmation; one bounded canary path. · **Use:** founder launches governed first outreach canary from the web console
+- [`prospect-preflight-ui.js`](../../public/prospect-preflight-ui.js) — Browser controls for read-only prospect inspection, runtime inspection and frozen-prospect execution by exact digest; preserves 409 NOT_SENT receipts, never shows full postal address. · **Use:** operator inspects and dispatches one frozen prospect from the admin UI
 
 ## Founder operations and command center
 
@@ -48,13 +48,13 @@ Browser assets: command center, admin and constellation UI.
 - [`constellation.js`](../../public/constellation.js) _(matched by name only)_
 - [`icon.svg`](../../public/icon.svg) _(matched by name only)_
 - [`index.html`](../../public/index.html) — UberBond Command Center _(matched by name only)_
-- [`manifest.webmanifest`](../../public/manifest.webmanifest) _(matched by name only)_
-- [`ops.css`](../../public/ops.css) _(matched by name only)_
-- [`ops.html`](../../public/ops.html) — UberBond · Founder Ops _(matched by name only)_
-- [`ops.js`](../../public/ops.js) _(matched by name only)_
-- [`owner-session.js`](../../public/owner-session.js) — Persistent owner session client. The admin token is never stored in the browser: _(matched by name only)_
-- [`report.html`](../../public/report.html) — Private Opportunity Report · UberBond _(matched by name only)_
-- [`report.js`](../../public/report.js) _(matched by name only)_
-- [`site.js`](../../public/site.js) _(matched by name only)_
-- [`storefront.html`](../../public/storefront.html) — UberBond Opportunity Audit _(matched by name only)_
-- [`styles.css`](../../public/styles.css) _(matched by name only)_
+- [`manifest.webmanifest`](../../public/manifest.webmanifest) — Web app manifest for the public UberBond site enabling install-to-home-screen as a progressive web app. · **Use:** lets founder add the web console to iPad home screen
+- [`ops.css`](../../public/ops.css) — Dark-theme stylesheet for the Founder Ops page with status tone colors (cyan, green, amber, red). · **Use:** styles the founder ops readiness dashboard
+- [`ops.html`](../../public/ops.html) — Founder Ops HTML page (mobile web-app capable) showing UberBond operational readiness panels, loads ops.css and ops.js. · **Use:** founder view of system readiness on phone or iPad
+- [`ops.js`](../../public/ops.js) — Client script for Founder Ops page: polls API with an in-memory token and tones fields READY/NO/warn by status strings. · **Use:** render live readiness states in the founder ops page
+- [`owner-session.js`](../../public/owner-session.js) — Persistent owner session client: after one bearer-authenticated API call the server issues an HttpOnly cookie; token never stored in browser. · **Use:** keep founder logged in across page loads without storing the admin token
+- [`report.html`](../../public/report.html) — Private Opportunity Report page shell for a token-gated website audit report. · **Use:** customer or founder views a private audit report
+- [`report.js`](../../public/report.js) — Report page script: reads token from URL, fetches report, renders findings with USD money and confidence formatting, HTML-escaped. · **Use:** display audit findings to a report recipient
+- [`site.js`](../../public/site.js) — Public site form script: consent checkboxes are the consent; a printed consent-bridge code typed or from URL only attributes the request. · **Use:** capture inbound audit requests with consent and letter attribution
+- [`storefront.html`](../../public/storefront.html) — Public storefront page marketing the UberBond Opportunity Audit of websites for positioning, conversion, trust, mobile and global-market issues. · **Use:** public landing page for the website audit offer
+- [`styles.css`](../../public/styles.css) — Main public site stylesheet (gold/blue dark theme) for storefront, report and nav components. · **Use:** styling for public storefront and report pages

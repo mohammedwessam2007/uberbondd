@@ -6,34 +6,63 @@ Option universe, outcome distributions, adversarial ensembles, calibration ledge
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**19 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**59 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
-## Read first (1)
+## Read first (2)
 
-- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — UberBond Sovereign Option & Outcome Forecast Engine — Status: TERMINAL NORTH STAR ORGAN / CHAT_SPEC_GOAL / NOT A CLAIM OF PERFECT PREDICTION _(matched by name only)_
+- [`NORTH_STAR.md`](../../NORTH_STAR.md) — Root North Star: Wessam Singularity overlay, Sovereign Cognitive Continuum definition, no-drop, option/forecast, sovereignty and ASI aspiration laws. · **Use:** terminal objective read before mission selection
+- [`docs/SOVEREIGN_OPTION_FORECAST_ENGINE.md`](../SOVEREIGN_OPTION_FORECAST_ENGINE.md) — Spec of option universe, outcome distributions, forecasting stack, calibration ledger and sovereign decision packet. · **Use:** canon for decision forecasting
+
+## Commands (1)
+
+`npm run omega:reality`
 
 ## Documents that discuss this project without naming it in the filename (1)
 
 - [`docs/prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md`](../prompts/CLAUDE_CODE_SOVEREIGN_CONTINUUM_LIVE_MISSION_2026-09-07.md) — 2026-09-07 · CLAUDE CODE MASTER MISSION — SOVEREIGN CONTINUUM LIVE _(matched by name only)_ _(5 mentions)_
 
-## Source modules (8)
+## Source modules (24)
 
+- [`src/assumption-escape.mjs`](../../src/assumption-escape.mjs) — Diagnoses questions settled by their assumption set, proposes genuinely different foundations and finds distinguishing observations · **Use:** escape closed reasoning frames on decisions _(tested; imported by 1)_
+- [`src/bounded-experiment-compiler.mjs`](../../src/bounded-experiment-compiler.mjs) — Assesses budget, discrimination and reversibility of proposed experiments and delegates permission to the Intent Compiler · **Use:** decide if an experiment deserves execution _(tested; imported by 3)_
+- [`src/capital-allocation-intelligence.mjs`](../../src/capital-allocation-intelligence.mjs) — Per capital level, picks portfolio of profit engines maximizing risk-adjusted monthly contribution per founder hour under ruin, hours and one-per-correlation-group limits · **Use:** rank capital allocation scenarios for the founder _(imported by 1)_
 - [`src/decision-twin.mjs`](../../src/decision-twin.mjs) — DecisionTwin + UberClose: a model of the BUYING GROUP for one opportunity and _(matched by name only; imported by 1)_
 - [`src/forecast-adversarial-ensemble.mjs`](../../src/forecast-adversarial-ensemble.mjs) — What a room full of agreeing forecasters is actually worth. _(matched by name only; tested; imported by 2)_
 - [`src/forecast-decision-boundary.mjs`](../../src/forecast-decision-boundary.mjs) — Where reasoning stops, and the several different reasons it stops there. _(matched by name only; tested; imported by 1)_
 - [`src/forecast-parent-organ.mjs`](../../src/forecast-parent-organ.mjs) — Where a forecast earns the right to carry a number. _(matched by name only; tested; imported by 1)_
 - [`src/forecast-stack.mjs`](../../src/forecast-stack.mjs) — The methods a forecast is built from, and the ones that earned their place. _(matched by name only; tested; imported by 5)_
-- [`src/reality-calibration-ledger.mjs`](../../src/reality-calibration-ledger.mjs) — Forecasts scored against what actually happened. _(matched by name only; tested; imported by 4)_
-- [`src/single-audit-forecast-ledger.mjs`](../../src/single-audit-forecast-ledger.mjs) — Single Audit Obligation Forecast Ledger (Prediction Accounting over public data). _(matched by name only; tested; imported by 1)_
-- [`src/sovereign-decision-packet.mjs`](../../src/sovereign-decision-packet.mjs) — The option universe, the forecasts over it, and the packet handed back. _(matched by name only; tested; imported by 1)_
+- [`src/genesis-scientist.mjs`](../../src/genesis-scientist.mjs) — Causal economic genome, counterfactual worlds, scientist protocol, theory evaluation, prediction society, institution genome and future calibration ledger. · **Use:** Scientific method layer for GENESIS hypotheses _(tested; imported by 1)_
+- [`src/geographic-sovereignty-engine.mjs`](../../src/geographic-sovereignty-engine.mjs) — Compares geographic/licensure pathways with expiring source-authority evidence records and next blockers. · **Use:** Evaluate relocation or licensure pathways for founder life choices _(no static importers)_
+- [`src/life-decision-dimensions.mjs`](../../src/life-decision-dimensions.mjs) — Scores life options per dimension without totaling, reporting dominance, tradeoffs and Goodhart risk. · **Use:** Compare life options without one scalar _(tested; imported by 3)_
+- [`src/meta-rational-boundary.mjs`](../../src/meta-rational-boundary.mjs) — Selects reasoning method per question and returns terminal states like NO_MODEL, NO_RECOMMENDATION, UNKNOWN, REALITY_MUST_COMPUTE, ENOUGH. · **Use:** Decide when to stop reasoning or refuse _(tested; imported by 1)_
+- [`src/n-of-1-personal-science.mjs`](../../src/n-of-1-personal-science.mjs) — Segments personal series at regime changes, grades claim strength requiring within-person baselines, imports population priors with explicit transfer assumptions. · **Use:** Learn from founder's own data without pooling different selves _(tested; imported by 1)_
+- [`src/nullstar-omega-calibration-ladder.mjs`](../../src/nullstar-omega-calibration-ladder.mjs) — Steep calibration ladder placing claims on rungs by required evidence coverage; omitted counts refused. · **Use:** Stop narrow calibration being reported as reality-calibrated _(tested; imported by 1)_
+- [`src/nullstar-omega-reality-connection.mjs`](../../src/nullstar-omega-reality-connection.mjs) — Binds forecasts to observables decided by declared procedures; admits only procedure output, closes or voids reality loops. · **Use:** Ensure forecasts are scored by something other than forecaster _(tested; imported by 2)_
+- [`src/nullstar-omega-transfer-bindings.mjs`](../../src/nullstar-omega-transfer-bindings.mjs) — Binds founder decision and economic outcome forecasts to allowed deciders; founder and self-reports refused as deciders. · **Use:** Apply reality-connection discipline to founder and economic forecasts _(tested; imported by 1)_
+- [`src/personal-civilization-decision-loop.mjs`](../../src/personal-civilization-decision-loop.mjs) — Composes Sovereign Decision Packets from forecast ledger, forecast stack and life dimensions; refuses winners at value boundaries; closes loop with outcomes · **Use:** present founder decisions with options, forecasts, regret and outcome scoring _(tested; imported by 2)_
+- [`src/reachable-futures.mjs`](../../src/reachable-futures.mjs) — Projects futures counted by lineage, finds ancestors across independent lineages, time telescope and council of future selves without authority · **Use:** counterfactual future exploration for life decisions _(tested; imported by 1)_
+- [`src/reality-calibration-ledger.mjs`](../../src/reality-calibration-ledger.mjs) — Records sealed forecasts, scores them against outcomes, separates forecast accuracy from decision quality and summarizes calibration · **Use:** calibration ledger for forecasts _(tested; imported by 4)_
+- [`src/robust-minimax-strategy.mjs`](../../src/robust-minimax-strategy.mjs) — Selects a strategy minimizing maximum regret across scenarios · **Use:** OMNIA minimax-regret strategy planning _(tested; imported by 3)_
+- [`src/ruin-firewall.mjs`](../../src/ruin-firewall.mjs) — Screens options for absorbing ruin across domains before scoring, compiles recovery and correlated exposure · **Use:** veto options that can end recovery regardless of expected value _(tested; imported by 1)_
+- [`src/single-audit-forecast-ledger.mjs`](../../src/single-audit-forecast-ledger.mjs) — Forecasts US entities likely to cross the $1M Single Audit threshold from USAspending without FAC filings, scored by Brier later · **Use:** build a forecast track record to sell to audit firms _(tested; imported by 1)_
+- [`src/sovereign-decision-packet.mjs`](../../src/sovereign-decision-packet.mjs) — Builds option universes deduped by causal signature, forecasts each option only from named evidence, compiles decision packets · **Use:** Sovereign Decision Packet generation _(tested; imported by 1)_
+- [`src/value-of-information-governor.mjs`](../../src/value-of-information-governor.mjs) — Evaluates whether observing more evidence is worth it for a decision given a unit budget, current sufficiency, observe and defer options; zero-effect refusals. · **Use:** Decide whether to gather more information or stop before acting _(imported by 3)_
 
-## Config, data, artifacts and services (1)
+## Scripts (3)
 
-- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Sovereign Option & Outcome Forecast Engine · TERMINAL_NORTH_STAR_ORGAN_CHAT_SPEC_GOAL · uberbond-sovereign-option-outcome-forecast-engine-1.0.0 _(matched by name only)_
+- [`scripts/nullstar-omega-reality-connect.mjs`](../../scripts/nullstar-omega-reality-connect.mjs) — Records sealed forecasts before running repository procedures, derives outcomes by fixed rules and scores forecasts. · **Use:** calibration ladder evidence for NULLSTAR _(npm: `omega:reality`)_
+- [`scripts/personal-civilization-private.mjs`](../../scripts/personal-civilization-private.mjs) — Private reality cycle runtime: founder presence check, compile/close private reality cycles, decision loop and N-of-1 experiments, interactive session. · **Use:** founder-run private life decision cycles
+- [`scripts/value-of-information-doctor.mjs`](../../scripts/value-of-information-doctor.mjs) — Doctor wrapping the value-of-information governor · **Use:** check VOI governor that decides whether more research is worth it
 
-## Tests (9)
+## Config, data, artifacts and services (3)
 
-[`forecast-adversarial-ensemble`](../../tests/forecast-adversarial-ensemble.test.mjs) · [`forecast-decision-boundary`](../../tests/forecast-decision-boundary.test.mjs) · [`forecast-parent-organ`](../../tests/forecast-parent-organ.test.mjs) · [`forecast-stack`](../../tests/forecast-stack.test.mjs) · [`personal-civilization-private-reality-forecast-v2`](../../tests/personal-civilization-private-reality-forecast-v2.test.mjs) · [`reality-calibration-ledger`](../../tests/reality-calibration-ledger.test.mjs) · [`reality-calibration-seal-v2`](../../tests/reality-calibration-seal-v2.test.mjs) · [`single-audit-forecast-ledger`](../../tests/single-audit-forecast-ledger.test.mjs) · [`sovereign-decision-packet`](../../tests/sovereign-decision-packet.test.mjs)
+- [`api/sovereign-control.mjs`](../../api/sovereign-control.mjs) — GET-only founder view composing decision packet, sovereignty type system, ruin firewall, calibration ledger and other sovereign organs; excludes private core. · **Use:** read-only surface making sovereign organs reachable
+- [`artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json`](../../artifacts/sovereign-cognitive-continuum-bootstrap-overlay.json) — Precedence overlay making the Sovereign Cognitive Continuum terminal over older bootstrap wording, with startup orientation and decision-prediction laws. · **Use:** override stale bootstrap wording at session startup
+- [`artifacts/sovereign-option-outcome-forecast-engine.json`](../../artifacts/sovereign-option-outcome-forecast-engine.json) — Machine pair of the Option and Outcome Forecast Engine: option universe, forecast stack, uncertainty decomposition, calibration ledger fields, decision packet. · **Use:** machine-readable forecast engine canon
+
+## Tests (27)
+
+[`assumption-escape`](../../tests/assumption-escape.test.mjs) · [`bounded-experiment-compiler`](../../tests/bounded-experiment-compiler.test.mjs) · [`c03-transfer-voi`](../../tests/c03-transfer-voi.test.mjs) · [`forecast-adversarial-ensemble`](../../tests/forecast-adversarial-ensemble.test.mjs) · [`forecast-decision-boundary`](../../tests/forecast-decision-boundary.test.mjs) · [`forecast-parent-organ`](../../tests/forecast-parent-organ.test.mjs) · [`forecast-stack`](../../tests/forecast-stack.test.mjs) · [`genesis-scientist`](../../tests/genesis-scientist.test.mjs) · [`life-decision-dimensions`](../../tests/life-decision-dimensions.test.mjs) · [`meta-rational-boundary`](../../tests/meta-rational-boundary.test.mjs) · [`n-of-1-personal-science`](../../tests/n-of-1-personal-science.test.mjs) · [`nullstar-omega-calibration-ladder`](../../tests/nullstar-omega-calibration-ladder.test.mjs) · [`nullstar-omega-reality-connection`](../../tests/nullstar-omega-reality-connection.test.mjs) · [`nullstar-omega-transfer-bindings`](../../tests/nullstar-omega-transfer-bindings.test.mjs) · [`personal-civilization-decision-loop`](../../tests/personal-civilization-decision-loop.test.mjs) · [`personal-civilization-private-operator`](../../tests/personal-civilization-private-operator.test.mjs) · [`personal-civilization-private-reality-cycle`](../../tests/personal-civilization-private-reality-cycle.test.mjs) · [`personal-civilization-private-reality-forecast-v2`](../../tests/personal-civilization-private-reality-forecast-v2.test.mjs) · [`personal-civilization-private-reality-runtime`](../../tests/personal-civilization-private-reality-runtime.test.mjs) · [`reachable-futures`](../../tests/reachable-futures.test.mjs) · [`reality-calibration-ledger`](../../tests/reality-calibration-ledger.test.mjs) · [`reality-calibration-seal-v2`](../../tests/reality-calibration-seal-v2.test.mjs) · [`robust-minimax-strategy`](../../tests/robust-minimax-strategy.test.mjs) · [`ruin-firewall`](../../tests/ruin-firewall.test.mjs) · [`single-audit-forecast-ledger`](../../tests/single-audit-forecast-ledger.test.mjs) · [`sovereign-decision-packet`](../../tests/sovereign-decision-packet.test.mjs) · [`value-of-information-operator-reachability`](../../tests/value-of-information-operator-reachability.test.mjs)
 

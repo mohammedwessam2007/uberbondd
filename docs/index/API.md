@@ -20,39 +20,39 @@ Serverless route handlers (Vercel-style).
 
 ## Agent mesh, relay and autonomy
 
-- [`agent-mesh-cron.mjs`](../../api/agent-mesh-cron.mjs) — exports createHandler _(matched by name only)_
-- [`agent-relay.mjs`](../../api/agent-relay.mjs) — exports createHandler _(matched by name only)_
+- [`agent-mesh-cron.mjs`](../../api/agent-mesh-cron.mjs) — Cron handler running an agent-mesh cycle through the cron boundary with cycle receipts and zero-I/O canary. · **Use:** scheduled agent mesh tick
+- [`agent-relay.mjs`](../../api/agent-relay.mjs) — HTTP handler over github-relay for poll/claim/submit, normalizing GitHub state casing and forwarding caller provenance fields. · **Use:** ChatGPT/agents exchange tasks via GitHub relay
 
 ## Self-maintenance and verification
 
-- [`self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — exports config _(matched by name only)_
+- [`self-maintainer-proposal.mjs`](../../api/self-maintainer-proposal.mjs) — Thin serverless route exporting the self-maintainer proposal API handler config. · **Use:** expose self-maintainer proposal endpoint on Vercel
 
 ## Email infrastructure and warmup
 
-- [`api/webhooks/winnr.mjs`](../../api/webhooks/winnr.mjs) — Signed Winnr webhook receiver: immutable idempotency + one-way suppression. _(matched by name only)_
+- [`api/webhooks/winnr.mjs`](../../api/webhooks/winnr.mjs) — Winnr webhook handler verifying raw HMAC, inserting and suppressing adverse events, returning 503 on failure. · **Use:** suppress recipients on Winnr bounce/complaint events
 
 ## Outreach and distribution
 
-- [`unsubscribe.mjs`](../../api/unsubscribe.mjs) — exports createHandlers _(matched by name only)_
-- [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`unsubscribe.mjs`](../../api/unsubscribe.mjs) — Unsubscribe form and one-click List-Unsubscribe-Post handlers returning 2xx only after DB readback via UberWarm unsubscribe module. · **Use:** honor recipient opt-outs
+- [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — Postal webhook verifier (SHA-256 header only) recording evidence and pausing sender slots on authenticated DNS errors. · **Use:** ingest mail server events into sender health
 
 ## Commerce, payments and economics
 
-- [`api/payments/paypal-capture.mjs`](../../api/payments/paypal-capture.mjs) — exports createFetchHandler, GET _(matched by name only)_
-- [`api/payments/paypal-order.mjs`](../../api/payments/paypal-order.mjs) — exports createFetchHandler, POST _(matched by name only)_
-- [`api/webhooks/billing.mjs`](../../api/webhooks/billing.mjs) — exports createFetchHandler, POST _(matched by name only)_
-- [`api/webhooks/paypal.mjs`](../../api/webhooks/paypal.mjs) — exports createFetchHandler, POST _(matched by name only)_
+- [`api/payments/paypal-capture.mjs`](../../api/payments/paypal-capture.mjs) — GET handler capturing a PayPal order through paypal-payment-truth. · **Use:** complete PayPal checkout
+- [`api/payments/paypal-order.mjs`](../../api/payments/paypal-order.mjs) — POST handler creating a PayPal order via paypal-payment-truth. · **Use:** start PayPal checkout
+- [`api/webhooks/billing.mjs`](../../api/webhooks/billing.mjs) — POST billing webhook handler using billing boundary and repository. · **Use:** ingest billing provider events
+- [`api/webhooks/paypal.mjs`](../../api/webhooks/paypal.mjs) — PayPal webhook handler updating payment truth and first-cash fulfilment; acknowledges unresolved disputes while recording retention risk. · **Use:** payment events drive fulfilment and truth
 
 ## Sovereign infrastructure and runtime
 
-- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — exports createHandler _(matched by name only)_
-- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — exports createHandler _(matched by name only)_
-- [`database-maintenance.mjs`](../../api/database-maintenance.mjs) — exports DATABASE_MAINTENANCE_SCHEDULE, createHandler _(matched by name only)_
-- [`sovereign-control.mjs`](../../api/sovereign-control.mjs) — The founder's read-only view of the sovereign organs. _(matched by name only)_
-- [`ultimate-graph.mjs`](../../api/ultimate-graph.mjs) — exports createHandler _(matched by name only)_
+- [`api/admin/health-check.mjs`](../../api/admin/health-check.mjs) — Bearer-protected admin handler returning the system health matrix, with strict string-only header normalization. · **Use:** operator health check endpoint
+- [`api/admin/retry-dead-letter.mjs`](../../api/admin/retry-dead-letter.mjs) — Admin handler that re-queues dead-lettered jobs using config, store and queue. · **Use:** recover failed background jobs
+- [`database-maintenance.mjs`](../../api/database-maintenance.mjs) — Scheduled database hygiene handler behind the cron boundary. · **Use:** periodic database cleanup
+- [`sovereign-control.mjs`](../../api/sovereign-control.mjs) — GET-only founder view composing decision packet, sovereignty type system, ruin firewall, calibration ledger and other sovereign organs; excludes private core. · **Use:** read-only surface making sovereign organs reachable
+- [`ultimate-graph.mjs`](../../api/ultimate-graph.mjs) — Bearer-protected handler serving the cognitive ultimate graph JSON artifact with hardened headers. · **Use:** fetch the latest UberBond cognitive graph
 
 ## Founder operations and command center
 
-- [`command-center.mjs`](../../api/command-center.mjs) — exports createHandler _(matched by name only)_
-- [`founder-center.mjs`](../../api/founder-center.mjs) — exports FREE_MODEL, startEconomicOutcomeMission, createHandler _(matched by name only)_
-- [`founder-ops.mjs`](../../api/founder-ops.mjs) — exports createHandler _(matched by name only)_
+- [`command-center.mjs`](../../api/command-center.mjs) — Handler composing command-center status, normalizer and autonomy status into a single view. · **Use:** serve command center data to founder UI
+- [`founder-center.mjs`](../../api/founder-center.mjs) — Founder center handler that starts economic-outcome missions via GitHub relay with a free model constant, using store and queue. · **Use:** founder triggers outcome missions
+- [`founder-ops.mjs`](../../api/founder-ops.mjs) — Handler building the founder ops view from store and revenue data. · **Use:** founder operations dashboard data

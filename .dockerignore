@@ -1,0 +1,79 @@
+# PHOENIX: never transmit local secrets, state, or caches to a remote builder.
+# The root Dockerfile uses COPY . .; .gitignore alone does not protect its context.
+# No negation rules: later exceptions could silently re-include private files.
+
+# Source-control internals and local dependencies (including symlinked modules).
+.git
+**/.git
+node_modules
+**/node_modules
+
+# Local credentials and provider configuration, at any depth.
+.env
+.env.*
+**/.env
+**/.env.*
+.npmrc
+**/.npmrc
+.pypirc
+**/.pypirc
+.ssh
+**/.ssh
+.aws
+**/.aws
+.kube
+**/.kube
+
+# Local state, founder-private archives, and customer/business payloads.
+.cache
+**/.cache
+.local
+**/.local
+.phoenix-backups-private
+**/.phoenix-backups-private
+# Keep tracked data/genesis and public capability manifests available at runtime.
+# Only known local/private data paths are excluded.
+data/db.json
+**/data/db.json
+**/data/screenshots
+**/data/quant-vault
+launch-facts*.json
+**/launch-facts*.json
+
+# Private key material, databases, and logs must not enter an image layer.
+**/*.pem
+**/*.key
+**/*.p12
+**/*.pfx
+**/*.sqlite
+**/*.sqlite3
+**/*.db
+**/*.log
+
+# Known credential filenames that have no sensitive file extension.
+# These are not application configuration: runtime credentials use provider
+# secret references, never plaintext files copied into the image.
+.envrc
+**/.envrc
+.netrc
+**/.netrc
+.pgpass
+**/.pgpass
+.git-credentials
+**/.git-credentials
+id_rsa
+**/id_rsa
+id_ed25519
+**/id_ed25519
+credentials.json
+**/credentials.json
+secrets.json
+**/secrets.json
+service-account.json
+**/service-account.json
+
+# Terraform state can contain credentials and live infrastructure metadata.
+*.tfstate
+**/*.tfstate
+*.tfstate.*
+**/*.tfstate.*

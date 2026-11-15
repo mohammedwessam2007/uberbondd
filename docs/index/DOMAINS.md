@@ -155,7 +155,7 @@ Commands: `npm run absolute:quality:doctor` · `npm run apex:fqc:custodian-reque
 
 World capability discovery, admission and retrieval, the neural exocortex, Avengers arsenal, project skills and the Wallbreaker planner.
 
-**202 files** — [src 49](SRC.md) · [tests 52](TESTS.md) · [scripts 17](SCRIPTS.md) · [docs 9](DOCS.md) · [artifacts 13](ARTIFACTS.md) · [config 2](CONFIG.md) · [.claude 43](CLAUDE.md) · [other 17](OTHER.md)
+**203 files** — [src 49](SRC.md) · [tests 52](TESTS.md) · [scripts 17](SCRIPTS.md) · [docs 9](DOCS.md) · [artifacts 13](ARTIFACTS.md) · [config 2](CONFIG.md) · [.claude 43](CLAUDE.md) · [other 18](OTHER.md)
 
 Most-imported modules: [`uberskills-core`](../../src/uberskills-core.mjs) (26), [`capability-genome-runtime`](../../src/capability-genome-runtime.mjs) (7), [`wallbreaker`](../../src/wallbreaker.mjs) (7), [`capability-genome-admission`](../../src/capability-genome-admission.mjs) (6), [`capability-genome-schema`](../../src/capability-genome-schema.mjs) (6), [`neural-exocortex-genome`](../../src/neural-exocortex-genome.mjs) (6), [`capability-graph`](../../src/capability-graph.mjs) (5), [`avengers-arsenal`](../../src/avengers-arsenal.mjs) (4)
 
@@ -313,7 +313,7 @@ Commands: `npm run check:approved-source-rehearsal` · `npm run event-horizon:do
 
 Self-host stack, UberCel/UberLit/UberCloud/UberOS, Postgres and stores, provider adapters, deployment and platform configuration.
 
-**523 files** — [root 17](ROOT.md) · [src 94](SRC.md) · [tests 144](TESTS.md) · [scripts 88](SCRIPTS.md) · [docs 29](DOCS.md) · [artifacts 29](ARTIFACTS.md) · [api 5](API.md) · [ops 38](OPS.md) · [.github 7](GITHUB.md) · [migrations 21](MIGRATIONS.md) · [other 51](OTHER.md)
+**524 files** — [root 17](ROOT.md) · [src 94](SRC.md) · [tests 144](TESTS.md) · [scripts 88](SCRIPTS.md) · [docs 29](DOCS.md) · [artifacts 29](ARTIFACTS.md) · [api 5](API.md) · [ops 38](OPS.md) · [.github 7](GITHUB.md) · [migrations 21](MIGRATIONS.md) · [other 52](OTHER.md)
 
 Most-imported modules: [`store`](../../src/store.mjs) (37), [`utils`](../../src/utils.mjs) (23), [`config`](../../src/config.mjs) (13), [`host-family`](../../src/host-family.mjs) (9), [`crypto`](../../src/crypto.mjs) (8), [`global-policy-evidence`](../../src/global-policy-evidence.mjs) (7), [`provider-receipt-redaction`](../../src/provider-receipt-redaction.mjs) (6), [`uberlit-runtime`](../../src/uberlit-runtime.mjs) (6)
 
@@ -355,7 +355,7 @@ Commands: `npm run absence:doctor` · `npm run manifest:kilimanjaro` · `npm run
 
 Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule.
 
-**97 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 31](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 7](DOCS.md) · [artifacts 43](ARTIFACTS.md) · [config 2](CONFIG.md)
+**99 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 31](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 7](DOCS.md) · [artifacts 45](ARTIFACTS.md) · [config 2](CONFIG.md)
 
 Most-imported modules: [`adaptive-source-ceiling-governor`](../../src/adaptive-source-ceiling-governor.mjs) (2), [`operational-world-resource-admission`](../../src/operational-world-resource-admission.mjs) (2)
 

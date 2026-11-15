@@ -1,0 +1,288 @@
+{
+ "schema": "uberbond.apify-store-observatory.v1.full-search",
+ "source": "https://api.apify.com/v2/store?search=<term> (public, keyless)",
+ "observedAt": "2026-11-15T19:29:57.555Z",
+ "providerCalls": 78,
+ "definitions": {
+  "young": "all-time users <= 600",
+  "traction": "users in last 30 days >= 50",
+  "population": "every Actor the store search returns for the niche term, filtered by the niche title pattern"
+ },
+ "limits": [
+  "A niche is the intersection of one search term and one title pattern; differently named Actors are missed.",
+  "\"Young\" is inferred from low all-time users.",
+  "Usage is not revenue."
+ ],
+ "effects": {
+  "accounts": 0,
+  "messages": 0,
+  "spend": 0,
+  "writes": 0
+ },
+ "niches": [
+  {
+   "niche": "email verification",
+   "searchTerm": "email verifier",
+   "searchTotal": 7042,
+   "returned": 6255,
+   "coverage": 0.8882,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 381,
+   "users30Sum": 6793,
+   "youngActors": 369,
+   "youngWithTraction": 10,
+   "entrantTractionRate": 0.0271,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "blessiticus/email-verifier-pro (231)",
+    "scalelist/email-finder (134)",
+    "memo23/email-finder (122)",
+    "pnda/email-verifier (118)",
+    "sandy_yclept/work-email-finder (114)"
+   ]
+  },
+  {
+   "niche": "company enrichment",
+   "searchTerm": "company enrichment",
+   "searchTotal": 7471,
+   "returned": 6643,
+   "coverage": 0.8892,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 412,
+   "users30Sum": 9919,
+   "youngActors": 409,
+   "youngWithTraction": 7,
+   "entrantTractionRate": 0.0171,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "vhsgreed/allabolag-fresh-details (258)",
+    "blackfalcondata/xing-scraper (99)",
+    "datagleaner/website-contact-details-scraper (90)",
+    "scrapeverse/linkedin-company-profile-scraper (73)",
+    "factden/indeed-jobs-scraper (70)"
+   ]
+  },
+  {
+   "niche": "phone validation",
+   "searchTerm": "phone validator",
+   "searchTotal": 2131,
+   "returned": 1750,
+   "coverage": 0.8212,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 127,
+   "users30Sum": 824,
+   "youngActors": 123,
+   "youngWithTraction": 2,
+   "entrantTractionRate": 0.0163,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "memo23/phone-enrichment (63)",
+    "intelscrape/truepeoplesearch-scraper (57)"
+   ]
+  },
+  {
+   "niche": "ai search visibility",
+   "searchTerm": "ai visibility",
+   "searchTotal": 956,
+   "returned": 824,
+   "coverage": 0.8619,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 349,
+   "users30Sum": 1860,
+   "youngActors": 347,
+   "youngWithTraction": 5,
+   "entrantTractionRate": 0.0144,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "trakk/ahrefs-seo-scraper (178)",
+    "hyperbach/ai-search-answers (80)",
+    "parseforge/chatgpt-search-scraper (67)",
+    "memo23/ahrefs-scraper (60)",
+    "santhej/ai-rank-tracker-pro (50)"
+   ]
+  },
+  {
+   "niche": "lead lists (Apollo-style)",
+   "searchTerm": "leads finder",
+   "searchTotal": 3670,
+   "returned": 3164,
+   "coverage": 0.8621,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 306,
+   "users30Sum": 6785,
+   "youngActors": 293,
+   "youngWithTraction": 4,
+   "entrantTractionRate": 0.0137,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "themineworks/b2b-leads-finder (86)",
+    "winningsolutions/german-imprint-scraper (70)",
+    "flash_scraper/creator-leads-scraper (65)",
+    "atomus/leads-finder (56)"
+   ]
+  },
+  {
+   "niche": "contact or email from website",
+   "searchTerm": "contact details",
+   "searchTotal": 17940,
+   "returned": 14121,
+   "coverage": 0.7871,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 688,
+   "users30Sum": 11364,
+   "youngActors": 664,
+   "youngWithTraction": 7,
+   "entrantTractionRate": 0.0105,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "datagleaner/website-contact-details-scraper (90)",
+    "x_guru/google-maps-email-extractor (89)",
+    "themineworks/maps-leads (77)",
+    "solidscrape/contact-details-scraper (70)",
+    "memo23/apify-ziprecruiter-scraper (67)"
+   ]
+  },
+  {
+   "niche": "screenshot",
+   "searchTerm": "screenshot",
+   "searchTotal": 1805,
+   "returned": 1464,
+   "coverage": 0.8111,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 386,
+   "users30Sum": 3141,
+   "youngActors": 385,
+   "youngWithTraction": 3,
+   "entrantTractionRate": 0.0078,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "cheapapi/website-screenshot-api (303)",
+    "moonweil/url-screenshot-api (155)",
+    "i-scraper/website-screenshot (67)"
+   ]
+  },
+  {
+   "niche": "dns, whois, domain",
+   "searchTerm": "whois",
+   "searchTotal": 3147,
+   "returned": 2786,
+   "coverage": 0.8853,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 404,
+   "users30Sum": 885,
+   "youngActors": 403,
+   "youngWithTraction": 3,
+   "entrantTractionRate": 0.0074,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "sourabhbgp/similarweb-scraper (58)",
+    "automation-lab/domain-availability-checker (55)",
+    "bridgeworks/domain-checker (51)"
+   ]
+  },
+  {
+   "niche": "url status and broken links",
+   "searchTerm": "broken links",
+   "searchTotal": 1899,
+   "returned": 1661,
+   "coverage": 0.8747,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 356,
+   "users30Sum": 489,
+   "youngActors": 355,
+   "youngWithTraction": 2,
+   "entrantTractionRate": 0.0056,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "automation-lab/bulk-url-status-checker (56)",
+    "khadinakbar/broken-link-checker (51)"
+   ]
+  },
+  {
+   "niche": "google maps",
+   "searchTerm": "google maps",
+   "searchTotal": 4371,
+   "returned": 3602,
+   "coverage": 0.8241,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 1198,
+   "users30Sum": 69830,
+   "youngActors": 1160,
+   "youngWithTraction": 5,
+   "entrantTractionRate": 0.0043,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "memo23/google-maps-reviews-scraper (151)",
+    "damilo/google-maps-scraper (92)",
+    "x_guru/google-maps-email-extractor (89)",
+    "themineworks/maps-leads (77)",
+    "beatanalytics/google-maps-photos-scraper (51)"
+   ]
+  },
+  {
+   "niche": "seo or site audit",
+   "searchTerm": "seo audit",
+   "searchTotal": 4228,
+   "returned": 3428,
+   "coverage": 0.8108,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 532,
+   "users30Sum": 1022,
+   "youngActors": 531,
+   "youngWithTraction": 2,
+   "entrantTractionRate": 0.0038,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "neverempty/pagespeed-lighthouse-audit (74)",
+    "constant_quadruped/lighthouse-auditor (71)"
+   ]
+  },
+  {
+   "niche": "tech stack detection",
+   "searchTerm": "tech stack",
+   "searchTotal": 2451,
+   "returned": 2066,
+   "coverage": 0.8429,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 663,
+   "users30Sum": 1198,
+   "youngActors": 661,
+   "youngWithTraction": 1,
+   "entrantTractionRate": 0.0015,
+   "rateKind": "UPPER_BOUND",
+   "examples": [
+    "scrapemint/website-tech-stack-detector (61)"
+   ]
+  },
+  {
+   "niche": "sales triggers and intent",
+   "searchTerm": "sales triggers",
+   "searchTotal": 824,
+   "returned": 673,
+   "coverage": 0.8167,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 98,
+   "users30Sum": 143,
+   "youngActors": 98,
+   "youngWithTraction": 0,
+   "entrantTractionRate": 0,
+   "rateKind": "UPPER_BOUND",
+   "examples": []
+  },
+  {
+   "niche": "government contracts and grants",
+   "searchTerm": "government contracts",
+   "searchTotal": 1742,
+   "returned": 1467,
+   "coverage": 0.8421,
+   "stopped": "EMPTY_PAGE",
+   "titleMatched": 679,
+   "users30Sum": 894,
+   "youngActors": 679,
+   "youngWithTraction": 0,
+   "entrantTractionRate": 0,
+   "rateKind": "UPPER_BOUND",
+   "examples": []
+  }
+ ]
+}

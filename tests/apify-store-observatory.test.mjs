@@ -23,3 +23,17 @@ test('harvest pages until complete and stops without retrying when rate limited'
   assert.deepEqual([limited.stopped, n], ['RATE_LIMITED_NO_BLIND_RETRY', 1]);
   assert.deepEqual(normalizeItem({ title: 'X', username: 'u', name: 'x' }), { title: 'X', name: 'u/x', users30: 0, usersTotal: 0, runs30: 0, ok30: 0, rating: null, reviews: 0 });
 });
+test('full-search niche rates: computed over the whole search population and labelled exact or upper bound', async () => {
+  const { analyzeNichePopulations, harvestSearch } = await import('../scripts/apify-store-observatory.mjs');
+  const pop = { term: 'email verifier', total: 5, stopped: 'EMPTY_PAGE', actors: [a('Email Verifier A', 120, 300), a('Email Verifier B', 0, 3), a('Email Validator C', 1, 10), a('Bulk Email Verifier', 2877, 7592)] };
+  const [row] = analyzeNichePopulations({ 'email verification': pop });
+  assert.deepEqual([row.youngActors, row.youngWithTraction, row.entrantTractionRate, row.rateKind, row.coverage], [3, 1, 0.3333, 'UPPER_BOUND', 0.8]);
+  const [limited] = analyzeNichePopulations({ 'email verification': { ...pop, stopped: 'RATE_LIMITED_NO_BLIND_RETRY' } });
+  assert.deepEqual([limited.entrantTractionRate, limited.rateKind], [null, 'NOT_MEASURED'], 'a partial harvest is never reported as a rate');
+  const [exact] = analyzeNichePopulations({ 'email verification': { ...pop, total: 4, stopped: 'COMPLETE' } });
+  assert.equal(exact.rateKind, 'EXACT');
+  const urls = []; const page = [{ title: 'X', username: 'u', name: 'x', stats: {} }];
+  const h = await harvestSearch('email verifier', { pauseMs: 0, fetchImpl: async u => { urls.push(u); return { ok: true, status: 200, json: async () => ({ data: { total: 2, items: urls.length === 1 ? page : [] } }) }; } });
+  assert.deepEqual([h.actors.length, h.stopped, h.calls], [1, 'EMPTY_PAGE', 2]);
+  assert.match(urls[0], /search=email%20verifier/);
+});

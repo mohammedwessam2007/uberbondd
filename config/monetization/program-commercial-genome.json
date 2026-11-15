@@ -371,9 +371,9 @@
   },
   "authority-evidence": {
    "assetClass": "TRUST_INFRA",
-   "disposition": "COMPONENT_OF_CHAMPION",
-   "role": "Deliver-before-charge, charge-once and second-witness rules. Applied as the billing and DNS rules of the Definitive Email Verifier.",
-   "externalEvidence": "tests/definitive-email-verifier.test.mjs",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Deliver-before-charge, charge-once and second-witness rules. Reused as the billing and DNS rules of the Definitive Email Verifier, which was killed on 2026-11-15 for a platform reason (port 25), not because these rules failed; they ran correctly on Apify.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-live-test-2026-11-15.json",
    "buyer": "UNKNOWN",
    "nextTest": "none"
   },
@@ -460,8 +460,8 @@
   "distribution-os": {
    "assetClass": "DISTRIBUTION_INFRA",
    "disposition": "INTERNAL_LEVERAGE",
-   "role": "Channel portfolio. This mission adds measured marketplace-channel evidence.",
-   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "role": "Channel portfolio. Measured 2026-11-15: on the Apify Store a new listing in any of 14 tool niches reaches 50 monthly users at most 0% to 2.7% of the time (full-search upper bounds).",
+   "externalEvidence": "artifacts/monetization-singularity/apify-niche-full-search-2026-11-15.json",
    "buyer": "UNKNOWN",
    "nextTest": "none"
   },
@@ -483,9 +483,9 @@
   },
   "first-cash": {
    "assetClass": "ECONOMIC_INTELLIGENCE",
-   "disposition": "COMPONENT_OF_CHAMPION",
-   "role": "First-cash mission lineage. Track A of this mission.",
-   "externalEvidence": "docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "First-cash mission lineage. The 2026-11-15 Apify email-verifier attempt was killed by its pre-registered port-25 condition; no first cash yet.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-live-test-2026-11-15.json",
    "buyer": "UNKNOWN",
    "nextTest": "none"
   },
@@ -508,8 +508,8 @@
   "inquiry-audit-product": {
    "assetClass": "PRODUCT_CORE",
    "disposition": "KILLED_ON_EVIDENCE",
-   "role": "Lead-path audit. Killed for the Apify channel: site and SEO audit Actors show 0 of 34 young entrants reaching 50 monthly users. The $99 inbound check stays on hold without a marketplace that will list it.",
-   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "role": "Lead-path audit. Killed for the Apify channel: across the full store search, 2 of 531 young site-audit Actors reached 50 monthly users (an upper bound of 0.4%). The $99 inbound check stays on hold without a marketplace that will list it.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-niche-full-search-2026-11-15.json",
    "buyer": "UNKNOWN",
    "nextTest": "none"
   },
@@ -641,5 +641,6 @@
    "buyer": "UNKNOWN",
    "nextTest": "none"
   }
- }
+ },
+ "revisedOn": "2026-11-15 (after the Apify live test)"
 }

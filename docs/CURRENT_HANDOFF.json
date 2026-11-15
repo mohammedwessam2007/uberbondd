@@ -1613,7 +1613,7 @@
     "checkpointedAt": "2026-11-15",
     "sourceCommit": "cdec935647028aec3e1427641bfcb177f0ac3f70",
     "branch": "ccr-0338b026-8du80h",
-    "truthClass": "CURRENT_COMMERCIAL_STATE / TESTED_PRODUCT_UNPUBLISHED",
+    "truthClass": "CURRENT_COMMERCIAL_STATE / CHAMPION_KILLED_IN_LIVE_TEST",
     "readFirst": "docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md",
     "clearedContributionProfitUsd": 0,
     "payingCustomers": 0,
@@ -1621,7 +1621,7 @@
     "champion": {
       "name": "Definitive Email Verifier (Apify Actor)",
       "path": "actors/definitive-email-verifier/",
-      "promotionLevel": "4_TESTED_PRODUCT",
+      "promotionLevel": "KILLED_ON_EVIDENCE",
       "tests": "tests/definitive-email-verifier.test.mjs 18/18; 7/7 mutations killed",
       "notVerified": [
         "live SMTP against a real mail server",
@@ -1633,7 +1633,13 @@
         "port 25 closed on Apify",
         "more than 60% of rows unknown on three real lists",
         "under 5 users after 90 days listed"
-      ]
+      ],
+      "liveTest": {
+        "receipt": "artifacts/monetization-singularity/apify-live-test-2026-11-15.json",
+        "run": "N3Ecbz9sH4yRYvJCV",
+        "result": "all rows SMTP_UNAVAILABLE; Apify blocks outbound port 25",
+        "verdict": "KILL"
+      }
     },
     "evidence": {
       "apifyStoreObservatory": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
@@ -1658,13 +1664,12 @@
       "scoreAt": "30, 60 and 90 days after publication"
     },
     "founderOnlyActions": [
-      "Publish the Actor on Apify (account, apify push, one test run, pay-per-event price, publish)",
-      "Complete Apify payout identity with a PayPal account that can receive in Egypt",
+      "Rotate the Apify API token (it was pasted to Jarvis in chat)",
+      "Choose the next route (see report section 0 and the chat recommendation)",
       "Decide whether to warm or cancel the Winnr fleet (50 mailboxes, 1 warming)"
     ],
     "nextWithoutFounder": [
-      "phone-validation Actor on the same chassis (20% entrant traction, small sample)",
-      "fixed canary list to detect verdict drift"
+      "none on the Apify route: every measured niche is at most 2.7% for a new listing"
     ],
     "notHydratedThisSession": [
       "literal founder idea bodies",
@@ -1693,6 +1698,21 @@
         "tests/ubermind-startup-context-audit.test.mjs",
         "tests/ubermind-ultralean-skill.test.mjs"
       ]
+    },
+    "forecastScore": {
+      "port25WorksOnApify": {
+        "forecast": 0.75,
+        "outcome": false
+      }
+    },
+    "analysisCorrection": {
+      "defect": "niche entrant rates were computed inside the popular sample (survivorship)",
+      "corrected": "artifacts/monetization-singularity/apify-niche-full-search-2026-11-15.json",
+      "emailVerificationRate": {
+        "reported": 0.125,
+        "corrected": 0.0271
+      },
+      "withdrawnClaim": "no listing charged only for proven results (pnda/email-verifier does)"
     }
   }
 }

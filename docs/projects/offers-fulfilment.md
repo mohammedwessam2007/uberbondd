@@ -84,8 +84,8 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`UBERBOND_CANON.md`](../../UBERBOND_CANON.md) — Cross-chat canon: terminal North Star, 890 inheritance, no-drop superset, constitutional/life/economic loops, product dream, named-program lineage, effect and sovereignty charters. · **Use:** durable bootstrap before narrowing to any mission _(5 mentions)_
 - [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — Canon framing distribution as an allocation problem: one provider-neutral control plane over lead, outbound, inbound and learning, maximizing profit per founder minute. · **Use:** Constitution for distribution work. _(4 mentions)_
 - [`docs/distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md`](../distribution/UBERBOND_DISTRIBUTION_SINGULARITY.md) — Distribution Singularity research and local preparation document for GitHub issue 176 dated 2026-08-28. · **Use:** Strategic distribution research basis. _(4 mentions)_
+- [`docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md`](../monetization/MONETIZATION_SINGULARITY_2026-11-15.md) — 2026-11-15 · UberBond Ω∞: Monetization Singularity, first execution _(4 mentions)_
 - [`docs/PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md`](../PHOENIX_CAPABILITIES_WAVE10_EXPLAINED.md) — Catalog of 200 Wave 10 Autonomous Possibility Engine design candidates with function, area and falsifier test per ID. · **Use:** source-linked list of proposed wave 10 capabilities _(4 mentions)_
-- [`docs/UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md`](../UBERBOND_TOTAL_BRAIN_RECOVERY_ADDENDUM.md) — Overlay recording recovered lineages such as Growth Graph and owner laws from the 2026-09-03 anti-amputation sweep. · **Use:** preserve recovered named systems _(4 mentions)_
 
 ## Source modules (22)
 

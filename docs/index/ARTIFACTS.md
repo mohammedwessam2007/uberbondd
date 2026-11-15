@@ -6,7 +6,7 @@ JSON registries, receipts, research corpora and recovered history.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**709 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**711 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -24,7 +24,7 @@ JSON registries, receipts, research corpora and recovered history.
 - [jev-noetic-autocompiler](#jev-noetic-autocompiler) — 1
 - [jev-uberlit](#jev-uberlit) — 1
 - [machiavelli](#machiavelli) — 5
-- [monetization-singularity](#monetization-singularity) — 4
+- [monetization-singularity](#monetization-singularity) — 6
 - [night](#night) — 3
 - [night-frontier](#night-frontier) — 8
 - [night-genome](#night-genome) — 6
@@ -201,6 +201,8 @@ JSON registries, receipts, research corpora and recovered history.
 
 ## monetization-singularity
 
+- [`artifacts/monetization-singularity/apify-live-test-2026-11-15.json`](../../artifacts/monetization-singularity/apify-live-test-2026-11-15.json) — 2026-11-15 · definitive-email-verifier · SUCCEEDED · uberbond.apify-live-test.v1
+- [`artifacts/monetization-singularity/apify-niche-full-search-2026-11-15.json`](../../artifacts/monetization-singularity/apify-niche-full-search-2026-11-15.json) — 2026-11-15 · uberbond.apify-store-observatory.v1.full-search
 - [`artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json`](../../artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json) — 2026-11-15 · Instagram Hashtag Scraper · uberbond.apify-store-observatory.v1
 - [`artifacts/monetization-singularity/coverage.json`](../../artifacts/monetization-singularity/coverage.json) — uberbond.economic-asset-atlas.v1 _(matched by name only)_
 - [`artifacts/monetization-singularity/economic-asset-atlas.jsonl`](../../artifacts/monetization-singularity/economic-asset-atlas.jsonl) _(matched by name only)_

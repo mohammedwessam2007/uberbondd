@@ -2,38 +2,37 @@
  "schema": "uberbond.economic-asset-atlas.v1",
  "truthBoundary": "Classification coverage only. A classified path, program or idea has an economic label and a basis; it has not been shown to earn anything.",
  "paths": {
-  "tracked": 5116,
-  "classified": 5116,
+  "tracked": 5120,
+  "classified": 5120,
   "unknown": 0,
   "byClass": {
    "AUTONOMY_INFRA": 630,
-   "COST_REDUCTION_INFRA": 1222,
+   "COST_REDUCTION_INFRA": 1223,
    "DEFENSIVE_STRATEGIC": 450,
    "DISTRIBUTION_INFRA": 371,
-   "ECONOMIC_INTELLIGENCE": 491,
+   "ECONOMIC_INTELLIGENCE": 493,
    "FULFILLMENT_INFRA": 283,
    "HISTORICAL_SUPERSEDED": 339,
    "PRIVATE_NONCOMMERCIAL": 140,
    "PRODUCT_COMPONENT": 195,
-   "PRODUCT_CORE": 132,
+   "PRODUCT_CORE": 133,
    "RESEARCH_OPTION": 542,
    "TRUST_INFRA": 321
   },
   "byDisposition": {
-   "COMPONENT_OF_CHAMPION": 79,
    "COST_REDUCER": 230,
    "DOMINATED": 184,
    "HISTORICAL": 339,
-   "INTERNAL_LEVERAGE": 3009,
+   "INTERNAL_LEVERAGE": 3075,
    "KEEP_PRIVATE": 628,
-   "KILLED_ON_EVIDENCE": 46,
+   "KILLED_ON_EVIDENCE": 63,
    "RESEARCH_OPTION": 222,
    "RESTRICTED": 104,
    "UNKNOWN_NEEDS_EVIDENCE": 275
   },
   "byBasisKind": {
-   "path-rule": 448,
-   "project": 4668
+   "path-rule": 451,
+   "project": 4669
   }
  },
  "programs": {
@@ -42,11 +41,10 @@
   "missing": [],
   "extra": [],
   "byDisposition": {
-   "COMPONENT_OF_CHAMPION": 2,
    "COST_REDUCER": 1,
    "DOMINATED": 4,
    "HISTORICAL": 3,
-   "INTERNAL_LEVERAGE": 44,
+   "INTERNAL_LEVERAGE": 46,
    "KEEP_PRIVATE": 8,
    "KILLED_ON_EVIDENCE": 2,
    "RESEARCH_OPTION": 6,

@@ -27,7 +27,8 @@ export const DOMAIN_CLASS = Object.freeze({
 });
 // Ordered: first match wins. These outrank project and domain membership.
 export const PATH_RULES = Object.freeze([
-  ['champion-product', /^(actors\/definitive-email-verifier\/|tests\/definitive-email-verifier\.test\.mjs$)/, 'PRODUCT_CORE', 'COMPONENT_OF_CHAMPION'],
+  // Killed 2026-11-15: Apify blocks outbound port 25 (artifacts/monetization-singularity/apify-live-test-2026-11-15.json).
+  ['killed-email-verifier', /^(actors\/definitive-email-verifier\/|tests\/definitive-email-verifier\.test\.mjs$)/, 'PRODUCT_CORE', 'KILLED_ON_EVIDENCE'],
   ['monetization-mission', /^(artifacts\/monetization-singularity\/|docs\/monetization\/|config\/monetization\/|scripts\/(economic-asset-atlas|apify-store-observatory)\.mjs$|tests\/(economic-asset-atlas|apify-store-observatory)\.test\.mjs$)/, 'ECONOMIC_INTELLIGENCE', 'INTERNAL_LEVERAGE'],
   ['frozen-history', /^(docs\/forensics|artifacts\/recovery|historical-archive|docs\/history|docs\/archive)\//, 'HISTORICAL_SUPERSEDED', 'HISTORICAL'],
   ['navigation-index', /^(docs\/index\/|docs\/projects\/|REPOSITORY_INDEX\.md$|artifacts\/repository-index\/)/, 'COST_REDUCTION_INFRA', 'INTERNAL_LEVERAGE']

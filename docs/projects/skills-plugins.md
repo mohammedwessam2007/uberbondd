@@ -6,7 +6,7 @@ Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observ
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**131 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**132 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -30,7 +30,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 `npm run capabilities:bootstrap` · `npm run capabilities:bootstrap:apply` · `npm run capabilities:cos` · `npm run capabilities:doctor` · `npm run test:external-capabilities`
 
-## Standing documents (32)
+## Standing documents (33)
 
 - [`.claude/skills/agent-reach/references/search.md`](../../.claude/skills/agent-reach/references/search.md) — Agent Reach reference for public web search: run doctor first, preserve query/URL/date/evidence class, no access bypass. · **Use:** rules for public search via Agent Reach
 - [`.claude/skills/agent-reach/references/social.md`](../../.claude/skills/agent-reach/references/social.md) — Agent Reach reference for public social/community sources: no login automation, cookies, posting or contact inference; stop at REVIEW if auth required. · **Use:** rules for buyer-language and trend research on social platforms
@@ -64,6 +64,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — Observation 2026-09-25: adding a test can stale readiness and constitution artifacts; proposes running readiness and constitution doctor after source commits · **Use:** proposed improvement to engineering closure checklist
 - [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — Observation 2026-09-25: importing a constant made a deliberately unwired module reachable; proposes moving constants to neutral modules · **Use:** proposed rule for reachability classification hygiene
 - [`skill-observations/observation-log/0006-measure-channel-entrant-traction-before-building.md`](../../skill-observations/observation-log/0006-measure-channel-entrant-traction-before-building.md) — id: 6 — status: open _(matched by name only)_
+- [`skill-observations/observation-log/0007-check-platform-limits-and-population-denominators.md`](../../skill-observations/observation-log/0007-check-platform-limits-and-population-denominators.md) — id: 7 — status: open _(matched by name only)_
 
 ## Other documents (1)
 

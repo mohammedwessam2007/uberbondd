@@ -4,8 +4,44 @@ Date: 2026-11-15. Source: `main` at `cdec935`. Branch: `ccr-0338b026-8du80h`.
 Founder directive: "UBERBOND Ω∞: THE MONETIZATION SINGULARITY" (2026-11-15).
 Subordinate to the Sovereign Cognitive Continuum. `businessEffectAuthority: NONE`.
 
-**Cleared contribution profit: $0.00. Paying customers: 0. Products live: 0.**
+**Cleared contribution profit: $0.00. Paying customers: 0. Products live: 0. Champion killed in live test (section 0).**
 Nothing was published, deployed, sent, purchased or signed. External requests were read-only: the public Apify Store listing (about 14 GETs), DNS-over-HTTPS lookups for a handful of public domains, one public-IP lookup made by the Actor's test run, a download of a public-domain blocklist, three web searches, package installs, and reads of the founder's own Winnr and GitHub accounts.
+
+## 0. Outcome and corrections (added 2026-11-15, after the live test)
+
+**The champion is dead. Read this section before anything below it.**
+
+**Live test.** The founder's agent (Jarvis) uploaded the Actor to a private Apify listing and ran it (run `N3Ecbz9sH4yRYvJCV`):
+- Build and run both succeeded.
+- All addresses returned `SMTP_UNAVAILABLE`, and 0 events were charged.
+- The log line "Port 25 is not reachable" appeared. That met the kill condition in section 8.
+- Receipt: `artifacts/monetization-singularity/apify-live-test-2026-11-15.json`.
+
+**Forecast scored.** Section 7 gave about 75% that port 25 works on Apify. It does not, so the forecast was wrong. The facts were findable before building: several verifier READMEs on the Store say Apify runs on AWS EC2, which blocks outbound ports 25, 465 and 587. My one pre-build search turned up a single README claiming the opposite, and I treated that as enough.
+
+**Analysis defect corrected.** The niche entrant rates in section 4 were computed only within the 12,529 most popular Actors. That omits the hundreds of young listings with no users, so the rates were inflated by survivorship. Re-measured over each niche's full store search (`node scripts/apify-store-observatory.mjs --execute --full-search`, receipt `artifacts/monetization-singularity/apify-niche-full-search-2026-11-15.json`):
+
+| Niche | Matched listings | Young | Young with 50+ users / 30 d | Rate (upper bound) | Section 4 said |
+|---|---:|---:|---:|---:|---:|
+| Email verification | 381 | 369 | 10 | 2.7% | 12.5% |
+| Company enrichment | 412 | 409 | 7 | 1.7% | 10.3% |
+| Phone validation | 127 | 123 | 2 | 1.6% | 20% |
+| AI search visibility | 349 | 347 | 5 | 1.4% | 10.5% |
+| Contact or email from website | 688 | 664 | 7 | 1.1% | 4.4% |
+| Screenshot | 386 | 385 | 3 | 0.8% | 10.5% |
+| SEO or site audit | 532 | 531 | 2 | 0.4% | 0% |
+| Government contracts | 679 | 679 | 0 | 0% | 0% |
+
+Rates are upper bounds: the search stopped returning results at 79% to 89% of its reported total, and the missing tail is low-relevance, unpopular listings.
+
+**Claim withdrawn.** Section 4 said no listing advertised charging only for proven results. `pnda/email-verifier` does ("pay only for valid/invalid"). All 10 young verifiers that gained users offer live mailbox checks, which on Apify means running them from their own servers.
+
+**What this means.**
+- No commodity-tool niche on the Apify Store gives a new listing better than about a 1-in-37 chance of 50 monthly users. Apify is a lottery ticket, not a first-cash route.
+- The email verifier could only be revived with a paid host that has port 25 open and a clean IP reputation. It would still face 381 competitors and an edge that is already taken. Not recommended.
+- The Actor code stays as reusable parts. Its status: `actors/definitive-email-verifier/STATUS.md`.
+
+**Account hygiene.** Jarvis was given the Apify API token in chat. Rotate it: Apify Console → Settings → API & Integrations.
 
 ## 1. What changed today
 

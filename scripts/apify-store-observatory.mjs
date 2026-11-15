@@ -6,12 +6,23 @@
 //
 // Plan-only by default. `--execute` performs read-only GETs against
 // api.apify.com/v2/store (no account, no key) and writes the receipt.
-//   node scripts/apify-store-observatory.mjs --execute [--snapshot file.json]
+//   node scripts/apify-store-observatory.mjs --execute [--snapshot file.json]   popular-sample overview
+//   node scripts/apify-store-observatory.mjs --execute --full-search            per-niche rates (use these for decisions)
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 export const OBSERVATORY_SCHEMA = 'uberbond.apify-store-observatory.v1';
+// Each niche: a title pattern, plus the store search term that finds its full population.
+// Niche rates must be computed over the full search population: the popular-sample
+// listing omits the many young Actors with no users, which inflates entrant rates
+// (2026-11-15: email verification measured 12.5% on the sample, 2.7% on full search).
+export const NICHE_SEARCH = Object.freeze({
+  'email verification': 'email verifier', 'contact or email from website': 'contact details', 'lead lists (Apollo-style)': 'leads finder',
+  'google maps': 'google maps', 'screenshot': 'screenshot', 'phone validation': 'phone validator', 'company enrichment': 'company enrichment',
+  'ai search visibility': 'ai visibility', 'sales triggers and intent': 'sales triggers', 'dns, whois, domain': 'whois', 'tech stack detection': 'tech stack',
+  'seo or site audit': 'seo audit', 'url status and broken links': 'broken links', 'government contracts and grants': 'government contracts'
+});
 export const NICHES = Object.freeze({
   'email verification': /email.{0,12}(verif|valid)|verif.{0,10}email/i,
   'contact or email from website': /(website|domain|url).{0,25}(email|contact)|contact (details|info)|email (extract|scrap|find)/i,
@@ -53,6 +64,37 @@ export function analyzeStore(actors, { storeTotal = actors.length, niches = NICH
 
 export const normalizeItem = i => ({ title: i.title, name: `${i.username}/${i.name}`, users30: i.stats?.totalUsers30Days ?? 0, usersTotal: i.stats?.totalUsers ?? 0, runs30: i.stats?.publicActorRunStats30Days?.TOTAL ?? 0, ok30: i.stats?.publicActorRunStats30Days?.SUCCEEDED ?? 0, rating: i.stats?.actorReviewRating ?? null, reviews: i.stats?.actorReviewCount ?? 0 });
 
+// Every Actor the store search returns for one term (complete population for that term).
+export async function harvestSearch(term, { fetchImpl = globalThis.fetch, pageSize = 1000, maxPages = 30, pauseMs = 400 } = {}) {
+  const actors = []; let total = null; let calls = 0;
+  for (let page = 0; page < maxPages; page += 1) {
+    const res = await fetchImpl(`https://api.apify.com/v2/store?search=${encodeURIComponent(term)}&limit=${pageSize}&offset=${page * pageSize}`, { signal: AbortSignal.timeout(60000) }); calls += 1;
+    if (res.status === 403 || res.status === 429) return { actors, total, calls, stopped: 'RATE_LIMITED_NO_BLIND_RETRY' };
+    if (!res.ok) return { actors, total, calls, stopped: `HTTP_${res.status}` };
+    const { data } = await res.json(); total = data.total;
+    actors.push(...(data.items ?? []).map(normalizeItem));
+    if (!data.items?.length || actors.length >= total) return { actors, total, calls, stopped: actors.length >= total ? 'COMPLETE' : 'EMPTY_PAGE' };
+    await new Promise(r => setTimeout(r, pauseMs));
+  }
+  return { actors, total, calls, stopped: 'PAGE_CEILING' };
+}
+
+// Entrant traction over the full search population of each niche. A niche is
+// only reported when its search completed; otherwise the rate would be biased.
+export function analyzeNichePopulations(populations, { niches = NICHES } = {}) {
+  return Object.entries(populations).map(([niche, { term, actors, total, stopped }]) => {
+    const re = niches[niche];
+    const m = actors.filter(a => re.test(a.title ?? ''));
+    const y = m.filter(a => a.usersTotal <= YOUNG_MAX_TOTAL_USERS);
+    const hits = y.filter(a => a.users30 >= TRACTION_USERS_30D).sort((a, b) => b.users30 - a.users30);
+    // The search reports a total but may stop returning items before it (low-relevance tail).
+    // Missing Actors are overwhelmingly unpopular, so a rate on the returned set is an UPPER BOUND.
+    const coverage = total ? Math.round((10000 * actors.length) / total) / 10000 : 0;
+    const usable = ['COMPLETE', 'EMPTY_PAGE'].includes(stopped);
+    return { niche, searchTerm: term, searchTotal: total, returned: actors.length, coverage, stopped, titleMatched: m.length, users30Sum: m.reduce((s, a) => s + a.users30, 0), youngActors: y.length, youngWithTraction: hits.length, entrantTractionRate: usable ? (y.length ? Math.round((10000 * hits.length) / y.length) / 10000 : 0) : null, rateKind: stopped === 'COMPLETE' ? 'EXACT' : usable ? 'UPPER_BOUND' : 'NOT_MEASURED', examples: hits.slice(0, 5).map(a => `${a.name} (${a.users30})`) };
+  }).sort((a, b) => (b.entrantTractionRate ?? -1) - (a.entrantTractionRate ?? -1));
+}
+
 export async function harvest({ fetchImpl = globalThis.fetch, pageSize = 1000, maxPages = 40, pauseMs = 400 } = {}) {
   const actors = []; let total = null; let calls = 0;
   for (let page = 0; page < maxPages; page += 1) {
@@ -72,11 +114,24 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const arg = n => { const i = process.argv.indexOf(n); return i > 0 ? process.argv[i + 1] : null; };
   if (!process.argv.includes('--execute')) { console.log('plan-only: would read https://api.apify.com/v2/store (public, keyless, read-only). Re-run with --execute.'); process.exit(0); }
   const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+  if (process.argv.includes('--full-search')) {
+    const populations = {}; let calls = 0;
+    for (const [niche, term] of Object.entries(NICHE_SEARCH)) { const h = await harvestSearch(term); calls += h.calls; populations[niche] = { term, ...h }; }
+    const observedAt = new Date().toISOString();
+    const receipt = { schema: `${OBSERVATORY_SCHEMA}.full-search`, source: 'https://api.apify.com/v2/store?search=<term> (public, keyless)', observedAt, providerCalls: calls,
+      definitions: { young: `all-time users <= ${YOUNG_MAX_TOTAL_USERS}`, traction: `users in last 30 days >= ${TRACTION_USERS_30D}`, population: 'every Actor the store search returns for the niche term, filtered by the niche title pattern' },
+      limits: ['A niche is the intersection of one search term and one title pattern; differently named Actors are missed.', '"Young" is inferred from low all-time users.', 'Usage is not revenue.'],
+      effects: { accounts: 0, messages: 0, spend: 0, writes: 0 }, niches: analyzeNichePopulations(populations) };
+    const out = path.join(root, 'artifacts/monetization-singularity', `apify-niche-full-search-${observedAt.slice(0, 10)}.json`);
+    fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, `${JSON.stringify(receipt, null, 1)}\n`);
+    console.log(out); console.table(receipt.niches.map(n => ({ niche: n.niche, matched: n.titleMatched, young: n.youngActors, hit: n.youngWithTraction, rate: n.entrantTractionRate, kind: n.rateKind, coverage: n.coverage })));
+    process.exit(0);
+  }
   let actors; let meta;
   if (arg('--snapshot')) { const snap = JSON.parse(fs.readFileSync(arg('--snapshot'), 'utf8')); actors = snap.actors; meta = snap.meta; }
   else { const h = await harvest(); actors = h.actors; meta = { observedAt: new Date().toISOString(), storeTotal: h.total, providerCalls: h.calls, stopped: h.stopped }; }
   const receipt = { schema: OBSERVATORY_SCHEMA, source: 'https://api.apify.com/v2/store?sortBy=popularity (public, keyless)', ...meta,
-    limits: ['The listing returned only the most popular part of the store; Actors beyond the sample are counted as having no traction, which the sample tail (1 or 0 users in 30 days) supports but does not prove.', 'Users are counted per Actor; one person using three Actors is three users.', 'Niche membership is a title match and misses differently named Actors.', '"Young" is inferred from low all-time users because the listing has no creation date.', 'Usage is not revenue. No earnings figure is published per Actor.'],
+    limits: ['SUPERSEDED FOR NICHE RATES: per-niche entrant rates here are computed inside the popular sample only and are inflated by survivorship. Use the --full-search receipt for niche decisions.', 'The listing returned only the most popular part of the store; Actors beyond the sample are counted as having no traction, which the sample tail (1 or 0 users in 30 days) supports but does not prove.', 'Users are counted per Actor; one person using three Actors is three users.', 'Niche membership is a title match and misses differently named Actors.', '"Young" is inferred from low all-time users because the listing has no creation date.', 'Usage is not revenue. No earnings figure is published per Actor.'],
     effects: { accounts: 0, messages: 0, spend: 0, writes: 0 }, ...analyzeStore(actors, { storeTotal: meta.storeTotal }) };
   const out = path.join(root, 'artifacts/monetization-singularity', `apify-store-observatory-${String(meta.observedAt).slice(0, 10)}.json`);
   fs.mkdirSync(path.dirname(out), { recursive: true }); fs.writeFileSync(out, `${JSON.stringify(receipt, null, 1)}\n`);

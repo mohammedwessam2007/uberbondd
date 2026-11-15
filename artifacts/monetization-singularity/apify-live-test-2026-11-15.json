@@ -1,0 +1,20 @@
+{
+ "schema": "uberbond.apify-live-test.v1",
+ "source": "Jarvis (DeepSeek agent) report to the founder, relayed in chat 2026-11-15; identifiers copied from it, not re-observed by Claude",
+ "redactions": "API token, proxy password and account email deliberately omitted",
+ "actor": { "id": "YiNQuBvULlpkK4SkV", "name": "definitive-email-verifier", "isPublic": false, "sourceCommit": "ca389a0", "uploadedFolder": "actors/definitive-email-verifier only" },
+ "build": { "id": "bWAJXnqTL7ta41TFl", "status": "SUCCEEDED", "finishedAt": "2026-11-15T19:14:33.266Z" },
+ "run": {
+  "id": "N3Ecbz9sH4yRYvJCV", "status": "SUCCEEDED", "exitCode": 0, "computeUnits": 0.0024, "finishedAt": "2026-11-15T19:15:53.800Z",
+  "input": { "emails": ["test@gmail.com", "postmaster@yahoo.com", "no-reply@outlook.com"], "dnsOnly": false, "maxEmails": 3 },
+  "logDecisiveLine": "WARN  Port 25 is not reachable from this run. Mailbox checks are skipped and reported as unknown (free).",
+  "report": { "rowsProcessed": 3, "unknown": 3, "billableResults": 0, "billedEvents": 0, "smtpAvailable": false, "dnsWitnesses": ["native", "doh:dns.google", "doh:cloudflare"], "byVerification": { "SMTP_UNAVAILABLE": 3 } }
+ },
+ "verdict": "KILL",
+ "verdictRule": "Pre-registered kill condition 'port 25 closed on Apify' (docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md section 8).",
+ "corroboration": "Several Apify Store verifier READMEs state that Apify Actors run on AWS EC2, which blocks outbound TCP 25, 465 and 587 (web search 2026-11-15).",
+ "alsoWorkedOnApify": ["build from the self-contained Dockerfile", "native DNS resolver passed the known-answer check (it failed in Claude's container)", "both DNS-over-HTTPS resolvers", "free-row billing: 0 events charged for 3 unknown rows"],
+ "deviationsReported": ["zipball instead of git clone (no git on host)", "REST API instead of apify push", "test addresses not supplied by the founder; three generic role addresses used", "version 0.1 contains a probe.txt write test", "API token pasted in chat: rotate it"],
+ "spend": { "usd": 0.0019, "note": "Apify free-plan compute from the monthly allowance" },
+ "notDone": ["pricing", "payouts", "publication"]
+}

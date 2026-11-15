@@ -89,7 +89,7 @@ When asked about a specific UberBond project, open its page here first and follo
 |---|---:|---|
 | [Capability Genome](capability-genome.md) | 190 | World capability discovery, harvest, normalization, dedupe, admission, retrieval and routing; external capability control plane. |
 | [Wallbreaker](wallbreaker.md) | 27 | Governed adaptive problem-solving kernel, cognitive reflex and Million-Wall solver lineage. |
-| [Skills, plugins and Task Observer](skills-plugins.md) | 131 | Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observer observation log, skill assimilation canon. |
+| [Skills, plugins and Task Observer](skills-plugins.md) | 132 | Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observer observation log, skill assimilation canon. |
 
 ### 8. Governance, authority and proof
 
@@ -170,7 +170,7 @@ When asked about a specific UberBond project, open its page here first and follo
 
 - **3435** files by reading their content (purpose and use written per file; records in `artifacts/repository-index/semantics/`).
 - **1232** tests by the modules they import.
-- **75** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
+- **76** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
 
-18 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
+21 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

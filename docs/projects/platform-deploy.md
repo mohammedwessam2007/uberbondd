@@ -6,7 +6,7 @@ Vercel, Render, Railway, Docker and Cloudflare/Supabase runtimes; provider adapt
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**152 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**153 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -97,13 +97,14 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`scripts/vercel-immutable-install.mjs`](../../scripts/vercel-immutable-install.mjs) — Plans and executes a Vercel install that refuses when git porcelain shows package truth files dirtied · **Use:** keep Vercel dependency installs immutable
 - [`scripts/web-runtime-host-drill.mjs`](../../scripts/web-runtime-host-drill.mjs) — Spawns the web runtime on a free port in a temp dir and compiles a web runtime host receipt from the drill · **Use:** prove web server boots on a host
 
-## Config, data, artifacts and services (38)
+## Config, data, artifacts and services (39)
 
 - [`.env.example`](../../.env.example) — Template of environment variables: store backend, process role, database, proxy trust, base URL, artifact paths, plus provider and outbound settings. · **Use:** configure local or production runtime
 - [`.github/workflows/ci.yml`](../../.github/workflows/ci.yml) — CI workflow on main and PRs running npm run check and a browser job with Playwright download skipped. · **Use:** baseline deterministic and browser test gate
 - [`.github/workflows/lite-audits.yml`](../../.github/workflows/lite-audits.yml) — 30-minute scheduled workflow for Cash Engine Lite audits that also pulses a Supabase heartbeat continuity function. · **Use:** keep lite audit loop and continuity heartbeat running
 - [`.github/workflows/runtime/vercel-sandbox-client.mjs`](../../.github/workflows/runtime/vercel-sandbox-client.mjs) — REST client for Vercel Sandbox with OIDC claim decoding. · **Use:** run candidate verification inside Vercel sandboxes
 - [`Dockerfile`](../../Dockerfile) — Playwright-based image installing production deps and running server.mjs on port 8080. · **Use:** container build for the main app
+- [`actors/definitive-email-verifier/Dockerfile`](../../actors/definitive-email-verifier/Dockerfile) — Self-contained: built from this directory only. No UberBond source is copied into the image. _(matched by name only)_
 - [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Apify Playwright Chrome image built from repo root copying src and Actor main.mjs. · **Use:** build the inquiry-defect Actor container
 - [`artifacts/account-activation-receipt-2026-09-01.json`](../../artifacts/account-activation-receipt-2026-09-01.json) — 2026-09-01 · Receipt dated 2026-09-01 on Vercel AI Gateway, PayPal and deployment activation, status BLOCKED_RATE_LIMIT, with effect ledger. · **Use:** evidence of provider account activation state
 - [`artifacts/live-infrastructure-observation-20260829.json`](../../artifacts/live-infrastructure-observation-20260829.json) — 2026-08-29 · Observation dated 2026-08-29 of Vercel team/projects (uberbondd, lite-private) and authorized next deployment. · **Use:** record live hosting state

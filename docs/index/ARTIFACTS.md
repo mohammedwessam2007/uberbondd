@@ -6,7 +6,7 @@ JSON registries, receipts, research corpora and recovered history.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**705 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**709 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -24,6 +24,7 @@ JSON registries, receipts, research corpora and recovered history.
 - [jev-noetic-autocompiler](#jev-noetic-autocompiler) — 1
 - [jev-uberlit](#jev-uberlit) — 1
 - [machiavelli](#machiavelli) — 5
+- [monetization-singularity](#monetization-singularity) — 4
 - [night](#night) — 3
 - [night-frontier](#night-frontier) — 8
 - [night-genome](#night-genome) — 6
@@ -197,6 +198,13 @@ JSON registries, receipts, research corpora and recovered history.
 - [`artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-2026-10-22.json) — 2026-10-22 · Sale rehearsal ledger with no payment provider: 5 verified findings delivered and charged at 50 cents each with idempotency keys. · **Use:** rehearse verified-defects pay-per-finding sale
 - [`artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json`](../../artifacts/machiavelli/verified-defects-rehearsal-gated-2026-10-22.json) — 2026-10-22 · Gated variant of the verified-defects sale rehearsal recording delivered items, charge events and revenue tier. · **Use:** rehearse gated pay-per-finding sale
 - [`artifacts/machiavelli/wealth-mechanism-atlas.json`](../../artifacts/machiavelli/wealth-mechanism-atlas.json) — Atlas of wealth/invention mechanism records with families, potent primitives and reality catalogue built from a source corpus. · **Use:** search space for Machiavelli wealth engine
+
+## monetization-singularity
+
+- [`artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json`](../../artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json) — 2026-11-15 · Instagram Hashtag Scraper · uberbond.apify-store-observatory.v1
+- [`artifacts/monetization-singularity/coverage.json`](../../artifacts/monetization-singularity/coverage.json) — uberbond.economic-asset-atlas.v1 _(matched by name only)_
+- [`artifacts/monetization-singularity/economic-asset-atlas.jsonl`](../../artifacts/monetization-singularity/economic-asset-atlas.jsonl) _(matched by name only)_
+- [`artifacts/monetization-singularity/founder-idea-economic-atlas.json`](../../artifacts/monetization-singularity/founder-idea-economic-atlas.json) — THE CAUSAL COMPILER · uberbond.economic-asset-atlas.v1 _(matched by name only)_
 
 ## night
 

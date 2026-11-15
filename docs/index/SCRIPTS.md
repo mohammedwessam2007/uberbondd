@@ -6,7 +6,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**403 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**405 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -22,11 +22,11 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [Governance, authority and proof](#governance-authority-and-proof) — 10
 - [Email infrastructure and warmup](#email-infrastructure-and-warmup) — 14
 - [Outreach and distribution](#outreach-and-distribution) — 17
-- [Commerce, payments and economics](#commerce-payments-and-economics) — 13
+- [Commerce, payments and economics](#commerce-payments-and-economics) — 14
 - [Opportunity and world intelligence](#opportunity-and-world-intelligence) — 6
 - [Sovereign infrastructure and runtime](#sovereign-infrastructure-and-runtime) — 88
 - [Founder operations and command center](#founder-operations-and-command-center) — 5
-- [Core and uncategorised](#core-and-uncategorised) — 4
+- [Core and uncategorised](#core-and-uncategorised) — 5
 
 ## North Star and life systems
 
@@ -355,6 +355,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 - [`contra-collection-doctor.mjs`](../../scripts/contra-collection-doctor.mjs) — CLI evaluating Contra account observation JSON for collection readiness and default first-cash project plan. · **Use:** check readiness to collect payment via Contra
 - [`delivery-transport-doctor.mjs`](../../scripts/delivery-transport-doctor.mjs) — Doctor attempting a delivery with a fake provider, compiling fulfillment delivery event and evaluating acceptance window. · **Use:** check delivery transport contract
+- [`economic-asset-atlas.mjs`](../../scripts/economic-asset-atlas.mjs) — Economic Asset Atlas: gives every tracked path, every named program and every _(matched by name only)_
 - [`first-cash-canary-packet.mjs`](../../scripts/first-cash-canary-packet.mjs) — Prints the first-cash canary packet: whether UberBond can take its first $450, each gate named, canContact first. · **Use:** answer whether first paid canary may contact anyone _(npm: `firstcash:packet`)_
 - [`inquiry-path-probe.mjs`](../../scripts/inquiry-path-probe.mjs) — Read-only Inquiry Path Coherence probe for a website or cohort, writing JSON receipt and Markdown snapshot; optional headless browser witness. · **Use:** produce verifiable lead-path defects for prospects _(npm: `inquiry:probe`)_
 - [`machiavelli-scoreboard.mjs`](../../scripts/machiavelli-scoreboard.mjs) — Machiavelli Reality Scoreboard combining quant receipts, profit tournament and paper evidence into per-tier money reality and $0-$25k allocations. · **Use:** capital allocation scenarios without trading
@@ -477,6 +478,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 ## Core and uncategorised
 
+- [`apify-store-observatory.mjs`](../../scripts/apify-store-observatory.mjs) — Apify Store demand observatory. Reads the public, keyless Store listing and
 - [`compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — CLI compiling the latest founder outcome mission. · **Use:** produce current founder outcome mission packet
 - [`materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) — Python materializer reconstructing the Inevitability Engine V9 source from base64 carrier, verifying manifest hashes. · **Use:** rebuild hash-locked V9 source from carrier
 - [`record-oracle-free-owner-evidence.mjs`](../../scripts/record-oracle-free-owner-evidence.mjs) — Records owner evidence for Oracle Always Free setup with source ref and incremental cost into UberLit runtime artifacts. · **Use:** evidence of zero-spend Oracle host activation _(npm: `oracle:record-free-evidence`)_

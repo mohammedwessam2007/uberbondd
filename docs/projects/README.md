@@ -89,7 +89,7 @@ When asked about a specific UberBond project, open its page here first and follo
 |---|---:|---|
 | [Capability Genome](capability-genome.md) | 190 | World capability discovery, harvest, normalization, dedupe, admission, retrieval and routing; external capability control plane. |
 | [Wallbreaker](wallbreaker.md) | 27 | Governed adaptive problem-solving kernel, cognitive reflex and Million-Wall solver lineage. |
-| [Skills, plugins and Task Observer](skills-plugins.md) | 130 | Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observer observation log, skill assimilation canon. |
+| [Skills, plugins and Task Observer](skills-plugins.md) | 131 | Project skills under `.claude/skills`, UberSkills registry, plugins, Task Observer observation log, skill assimilation canon. |
 
 ### 8. Governance, authority and proof
 
@@ -97,7 +97,7 @@ When asked about a specific UberBond project, open its page here first and follo
 |---|---:|---|
 | [OMNIA](omnia.md) | 160 | OMNIA V9 policy-evidence-execution admission kernel, Cedar policy, V7 state and gap ledger, OMNIA lineage X10-X512M. |
 | [Consent, authority, proof and effect ledgers](authority-evidence.md) | 270 | Consent bridge and receipts, proof factory and proof DAG, evidence integrity, effect ledgers, consequence boundary, external proof router, supplier exit drills. |
-| [Readiness, reachability and coverage audits](readiness-audits.md) | 268 | Coverage matrices, reachability classification, organ callability, readiness conservation, health matrices and the doctor scripts. |
+| [Readiness, reachability and coverage audits](readiness-audits.md) | 269 | Coverage matrices, reachability classification, organ callability, readiness conservation, health matrices and the doctor scripts. |
 
 ### 9. Email infrastructure
 
@@ -107,7 +107,7 @@ When asked about a specific UberBond project, open its page here first and follo
 | [Winnr](winnr.md) | 119 | Winnr mailbox/domain provider integration: adapters, procurement, bootstrap, placement canaries, first-cash Winnr missions. |
 | [UberMail and UberDoso](ubermail-uberdoso.md) | 83 | Owned mail stack: UberMail agent API, foundry and JIT provisioning; UberDoso kernel, DNS contract and delivery policy; Maildoso bridge. |
 | [Inboxes, placement and reputation](inboxes-placement.md) | 108 | Inbox supply and quality: UberInboxes, UberClayInbox, UberPlacement, UberReputation, UberQuality, UberAttention, UberWorm, AgentMail, Gmail inbound. |
-| [DNS, domains and fleet](dns-domains.md) | 109 | UberDNS control plane and GoDaddy adapter, domain purpose plan, domain/mailbox readiness and circuit breakers, sending registries, UberFleet, egress topology. |
+| [DNS, domains and fleet](dns-domains.md) | 111 | UberDNS control plane and GoDaddy adapter, domain purpose plan, domain/mailbox readiness and circuit breakers, sending registries, UberFleet, egress topology. |
 
 ### 10. Outreach and distribution
 
@@ -127,7 +127,7 @@ When asked about a specific UberBond project, open its page here first and follo
 | [Revenue Singularity, Constellation and G-SPOT](revenue-constellation.md) | 61 | Revenue Singularity service, Revenue Constellation spatial model, G-SPOT one-button orchestration, Money Queue, owner session. |
 | [First cash and first customer](first-cash.md) | 100 | First-cash canary guard and packets, first payment packet, fulfilment runtime, first-customer playbook, pre-customer readiness. |
 | [Offers, services and fulfilment](offers-fulfilment.md) | 83 | Offer compiler, market maker and quartet; service SKUs; fulfilment router; delivery loop and transport; booking; staging content. |
-| [Economic reliability and wealth engines](economic-engines.md) | 102 | Economic reliability engine and control loop, metabolism, universal wealth engine, eight-hour simulators, capital allocator, Machiavelli wealth engine, commercial genome. |
+| [Economic reliability and wealth engines](economic-engines.md) | 107 | Economic reliability engine and control loop, metabolism, universal wealth engine, eight-hour simulators, capital allocator, Machiavelli wealth engine, commercial genome. |
 | [Inquiry-path audits and verified defects](inquiry-audit-product.md) | 88 | The website lead-path audit product: inquiry path probe, coherence and runtime witness, verified-defects actor, findings, audit rules, visual QA. |
 | [Client engagements (Powerhouse, Contra, Halfteck)](client-engagements.md) | 36 | Named counterparties and their receipts: Powerhouse EG scope and proof, Contra collection readiness and project draft, Halfteck supplier packet. |
 | [Cash Engine Lite](lite-cash-engine.md) | 43 | Standalone `lite/` app and its deployment guides. Do not modify without a separately justified mission. |
@@ -157,7 +157,7 @@ When asked about a specific UberBond project, open its page here first and follo
 | [UBER/OS](uberos.md) | 21 | Sovereign compute substrate program: Buildroot generation 0, kernel adapter, state engine, machine manifest. |
 | [UberWatt and energy-compute mesh](uberwatt.md) | 13 | UberWatt energy program and the moonshot energy/compute substrate mesh. |
 | [Postgres, stores and migrations](data-stores.md) | 205 | Postgres platform and backup/restore, embedded Postgres fixtures, store and queue, database hygiene, SQL migrations. |
-| [Platform deployment and providers](platform-deploy.md) | 152 | Vercel, Render, Railway, Docker and Cloudflare/Supabase runtimes; provider adapter contracts; systemd units and host install scripts; CI workflows. |
+| [Platform deployment and providers](platform-deploy.md) | 153 | Vercel, Render, Railway, Docker and Cloudflare/Supabase runtimes; provider adapter contracts; systemd units and host install scripts; CI workflows. |
 | [Server core, shared utilities and test harness](core-platform.md) | 151 | Web and worker entry points, shared utility modules (config, crypto, csv, http retry, input, pipeline, store), package manifest, syntax check and test runner. |
 
 ### 15. Side programs
@@ -170,7 +170,7 @@ When asked about a specific UberBond project, open its page here first and follo
 
 - **3435** files by reading their content (purpose and use written per file; records in `artifacts/repository-index/semantics/`).
 - **1232** tests by the modules they import.
-- **65** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
+- **75** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
 
-0 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
+17 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

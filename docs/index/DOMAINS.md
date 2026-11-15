@@ -155,7 +155,7 @@ Commands: `npm run absolute:quality:doctor` · `npm run apex:fqc:custodian-reque
 
 World capability discovery, admission and retrieval, the neural exocortex, Avengers arsenal, project skills and the Wallbreaker planner.
 
-**201 files** — [src 49](SRC.md) · [tests 52](TESTS.md) · [scripts 17](SCRIPTS.md) · [docs 9](DOCS.md) · [artifacts 13](ARTIFACTS.md) · [config 2](CONFIG.md) · [.claude 43](CLAUDE.md) · [other 16](OTHER.md)
+**202 files** — [src 49](SRC.md) · [tests 52](TESTS.md) · [scripts 17](SCRIPTS.md) · [docs 9](DOCS.md) · [artifacts 13](ARTIFACTS.md) · [config 2](CONFIG.md) · [.claude 43](CLAUDE.md) · [other 17](OTHER.md)
 
 Most-imported modules: [`uberskills-core`](../../src/uberskills-core.mjs) (26), [`capability-genome-runtime`](../../src/capability-genome-runtime.mjs) (7), [`wallbreaker`](../../src/wallbreaker.mjs) (7), [`capability-genome-admission`](../../src/capability-genome-admission.mjs) (6), [`capability-genome-schema`](../../src/capability-genome-schema.mjs) (6), [`neural-exocortex-genome`](../../src/neural-exocortex-genome.mjs) (6), [`capability-graph`](../../src/capability-graph.mjs) (5), [`avengers-arsenal`](../../src/avengers-arsenal.mjs) (4)
 
@@ -197,7 +197,7 @@ Commands: `npm run agent-evolution:doctor` · `npm run agent-evolution:run` · `
 
 Self-maintainer, recursive governance, constitution compiler, mutation testing, sandboxes, coverage and reachability audits, secret sweeps.
 
-**156 files** — [src 39](SRC.md) · [tests 76](TESTS.md) · [scripts 18](SCRIPTS.md) · [docs 4](DOCS.md) · [artifacts 4](ARTIFACTS.md) · [config 3](CONFIG.md) · [api 1](API.md) · [.github 11](GITHUB.md)
+**157 files** — [src 39](SRC.md) · [tests 76](TESTS.md) · [scripts 18](SCRIPTS.md) · [docs 4](DOCS.md) · [artifacts 5](ARTIFACTS.md) · [config 3](CONFIG.md) · [api 1](API.md) · [.github 11](GITHUB.md)
 
 Most-imported modules: [`effect-ledgers`](../../src/effect-ledgers.mjs) (378), [`secret-patterns`](../../src/secret-patterns.mjs) (24), [`self-maintainer-continuation-policy`](../../src/self-maintainer-continuation-policy.mjs) (5), [`audit-rules`](../../src/audit-rules.mjs) (4), [`recursive-revocation-graph`](../../src/recursive-revocation-graph.mjs) (4), [`coverage-state-evidence-integrity`](../../src/coverage-state-evidence-integrity.mjs) (3), [`github-actions-oidc-verifier`](../../src/github-actions-oidc-verifier.mjs) (3), [`recursive-governance-principals`](../../src/recursive-governance-principals.mjs) (3)
 
@@ -229,7 +229,7 @@ Commands: `npm run outreach:bridge-attribute` · `npm run outreach:bridge-letter
 
 UberWarm/UberWarm2, Winnr, UberMail, UberDoso, DNS and domain/mailbox fleet, placement and reputation.
 
-**296 files** — [src 96](SRC.md) · [tests 93](TESTS.md) · [scripts 14](SCRIPTS.md) · [docs 42](DOCS.md) · [artifacts 7](ARTIFACTS.md) · [config 2](CONFIG.md) · [api 1](API.md) · [.github 2](GITHUB.md) · [services 23](SERVICES.md) · [migrations 1](MIGRATIONS.md) · [other 15](OTHER.md)
+**297 files** — [src 96](SRC.md) · [tests 93](TESTS.md) · [scripts 14](SCRIPTS.md) · [docs 42](DOCS.md) · [artifacts 7](ARTIFACTS.md) · [config 2](CONFIG.md) · [api 1](API.md) · [.github 2](GITHUB.md) · [services 23](SERVICES.md) · [migrations 1](MIGRATIONS.md) · [other 16](OTHER.md)
 
 Most-imported modules: [`uberfleet`](../../src/uberfleet.mjs) (11), [`uberwinnr-adapter`](../../src/uberwinnr-adapter.mjs) (11), [`uberdoso-kernel`](../../src/uberdoso-kernel.mjs) (10), [`uberimap`](../../src/uberimap.mjs) (9), [`domain-purpose-plan`](../../src/domain-purpose-plan.mjs) (6), [`sending-mailbox-registry`](../../src/sending-mailbox-registry.mjs) (6), [`sending-domain-registry`](../../src/sending-domain-registry.mjs) (5), [`uberwarm2-seed-executor`](../../src/uberwarm2-seed-executor.mjs) (5)
 
@@ -271,7 +271,7 @@ Commands: `npm run outreach:drift-doctor` · `npm run outreach:eligibility` · `
 
 Offers, revenue runtime, PayPal/payment truth, fulfilment and delivery, economic reliability and wealth engines, the lite cash engine.
 
-**325 files** — [src 94](SRC.md) · [tests 117](TESTS.md) · [scripts 13](SCRIPTS.md) · [docs 27](DOCS.md) · [artifacts 30](ARTIFACTS.md) · [config 2](CONFIG.md) · [api 4](API.md) · [lite 35](LITE.md) · [.github 1](GITHUB.md) · [migrations 1](MIGRATIONS.md) · [other 1](OTHER.md)
+**328 files** — [src 94](SRC.md) · [tests 118](TESTS.md) · [scripts 14](SCRIPTS.md) · [docs 27](DOCS.md) · [artifacts 31](ARTIFACTS.md) · [config 2](CONFIG.md) · [api 4](API.md) · [lite 35](LITE.md) · [.github 1](GITHUB.md) · [migrations 1](MIGRATIONS.md) · [other 1](OTHER.md)
 
 Most-imported modules: [`payment-renewal-truth`](../../src/payment-renewal-truth.mjs) (7), [`payments`](../../src/payments.mjs) (7), [`commercial-opportunity-catalog`](../../src/commercial-opportunity-catalog.mjs) (6), [`commercial-outcome`](../../src/commercial-outcome.mjs) (4), [`first-cash-canary-packet`](../../src/first-cash-canary-packet.mjs) (4), [`revenue-singularity-service`](../../src/revenue-singularity-service.mjs) (4), [`economic-reliability-engine`](../../src/economic-reliability-engine.mjs) (3), [`inquiry-path-probe`](../../src/inquiry-path-probe.mjs) (3)
 
@@ -313,7 +313,7 @@ Commands: `npm run check:approved-source-rehearsal` · `npm run event-horizon:do
 
 Self-host stack, UberCel/UberLit/UberCloud/UberOS, Postgres and stores, provider adapters, deployment and platform configuration.
 
-**509 files** — [root 17](ROOT.md) · [src 94](SRC.md) · [tests 144](TESTS.md) · [scripts 88](SCRIPTS.md) · [docs 29](DOCS.md) · [artifacts 29](ARTIFACTS.md) · [api 5](API.md) · [ops 38](OPS.md) · [.github 7](GITHUB.md) · [migrations 21](MIGRATIONS.md) · [other 37](OTHER.md)
+**523 files** — [root 17](ROOT.md) · [src 94](SRC.md) · [tests 144](TESTS.md) · [scripts 88](SCRIPTS.md) · [docs 29](DOCS.md) · [artifacts 29](ARTIFACTS.md) · [api 5](API.md) · [ops 38](OPS.md) · [.github 7](GITHUB.md) · [migrations 21](MIGRATIONS.md) · [other 51](OTHER.md)
 
 Most-imported modules: [`store`](../../src/store.mjs) (37), [`utils`](../../src/utils.mjs) (23), [`config`](../../src/config.mjs) (13), [`host-family`](../../src/host-family.mjs) (9), [`crypto`](../../src/crypto.mjs) (8), [`global-policy-evidence`](../../src/global-policy-evidence.mjs) (7), [`provider-receipt-redaction`](../../src/provider-receipt-redaction.mjs) (6), [`uberlit-runtime`](../../src/uberlit-runtime.mjs) (6)
 
@@ -334,7 +334,7 @@ Commands: `npm run capabilities:bootstrap` · `npm run capabilities:bootstrap:ap
 
 Command center UI and status, founder-absence readiness, Kilimanjaro evidence, operator escalation and health.
 
-**107 files** — [root 1](ROOT.md) · [src 17](SRC.md) · [tests 30](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 14](DOCS.md) · [artifacts 11](ARTIFACTS.md) · [config 1](CONFIG.md) · [api 3](API.md) · [public 24](PUBLIC.md) · [other 1](OTHER.md)
+**108 files** — [root 1](ROOT.md) · [src 17](SRC.md) · [tests 30](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 14](DOCS.md) · [artifacts 12](ARTIFACTS.md) · [config 1](CONFIG.md) · [api 3](API.md) · [public 24](PUBLIC.md) · [other 1](OTHER.md)
 
 Most-imported modules: [`command-center-client-policy`](../../src/command-center-client-policy.mjs) (2), [`command-center-ui-evolution`](../../src/command-center-ui-evolution.mjs) (2), [`founder-absence-blocker-doctor`](../../src/founder-absence-blocker-doctor.mjs) (2), [`founder-absence-readiness`](../../src/founder-absence-readiness.mjs) (2), [`founder-command-center`](../../src/founder-command-center.mjs) (2), [`founder-ops-runtime-probe`](../../src/founder-ops-runtime-probe.mjs) (2), [`operator-escalation-transport`](../../src/operator-escalation-transport.mjs) (2), [`operator-escalation`](../../src/operator-escalation.mjs) (2)
 
@@ -355,12 +355,13 @@ Commands: `npm run absence:doctor` · `npm run manifest:kilimanjaro` · `npm run
 
 Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule.
 
-**90 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 29](TESTS.md) · [scripts 4](SCRIPTS.md) · [docs 5](DOCS.md) · [artifacts 42](ARTIFACTS.md) · [config 1](CONFIG.md)
+**96 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 31](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 6](DOCS.md) · [artifacts 43](ARTIFACTS.md) · [config 2](CONFIG.md)
 
 Most-imported modules: [`adaptive-source-ceiling-governor`](../../src/adaptive-source-ceiling-governor.mjs) (2), [`operational-world-resource-admission`](../../src/operational-world-resource-admission.mjs) (2)
 
 Key documents (canon first, then newest):
 
+- [`docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md`](../monetization/MONETIZATION_SINGULARITY_2026-11-15.md) — 2026-11-15 · UberBond Ω∞: Monetization Singularity, first execution
 - [`docs/MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md`](../MULTIDIMENSIONAL_VELOCITY_SINGULARITY_AUDIT_2026-09-15.md) — 2026-09-15 · Research audit defining velocity objective V and missing mechanisms so each mission shortens future work, listing existing acceleration machinery. · **Use:** plan compounding execution-speed improvements
 - [`docs/AUTOMATION_ACQUISITION_LOOP_2026-08-28.md`](../AUTOMATION_ACQUISITION_LOOP_2026-08-28.md) — 2026-08-28 · Loop for acquiring only missing automation capabilities from public repos, mapped to coverage, with dated GitHub observations and no authority grants. · **Use:** Rules and observations for capability acquisition.
 - [`docs/EXTERNAL_ASSET_REALITY.md`](../EXTERNAL_ASSET_REALITY.md) — Canonical statement of owner-supplied asset truth: owned outreach domains and the PayPal path being implemented, taking precedence over stale docs. · **Use:** Fix stale claims about domains and PayPal.

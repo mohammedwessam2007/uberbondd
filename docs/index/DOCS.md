@@ -6,7 +6,7 @@ Human-readable canon, architecture, handoffs, receipts, prompts and forensics.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**702 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**703 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -25,6 +25,7 @@ Human-readable canon, architecture, handoffs, receipts, prompts and forensics.
 - [memory](#memory) — 40
 - [migrations-pending](#migrations-pending) — 4
 - [missions](#missions) — 2
+- [monetization](#monetization) — 1
 - [neu205](#neu205) — 1
 - [opportunities](#opportunities) — 7
 - [outreach](#outreach) — 6
@@ -413,6 +414,10 @@ Human-readable canon, architecture, handoffs, receipts, prompts and forensics.
 
 - [`docs/missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt`](../missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt) — 2026-10-18 · Launcher text telling a new engine to read the full PHOENIX UberWarm closure spec and execute it under no-new-subscription constraints. · **Use:** Paste-in prompt to start the UberWarm total closure mission.
 - [`docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md`](../missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md) — 2026-10-18 · 44 KB mission spec PHOENIX-UBERWARM-OMEGA-20261018-R1: finish UberWarm placement observation, scheduler, disaster recovery and sovereign backup. · **Use:** Complete task specification for the UberWarm closure and backup mission.
+
+## monetization
+
+- [`docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md`](../monetization/MONETIZATION_SINGULARITY_2026-11-15.md) — 2026-11-15 · UberBond Ω∞: Monetization Singularity, first execution
 
 ## neu205
 

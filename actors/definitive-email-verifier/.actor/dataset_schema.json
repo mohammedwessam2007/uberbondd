@@ -1,0 +1,18 @@
+{
+  "actorSpecification": 1,
+  "fields": {},
+  "views": {
+    "overview": {
+      "title": "Results",
+      "transformation": { "fields": ["email", "status", "verification", "definitive", "didYouMean", "reasons"] },
+      "display": { "component": "table", "properties": {
+        "email": { "label": "Email", "format": "text" },
+        "status": { "label": "Status", "format": "text" },
+        "verification": { "label": "What was proven", "format": "text" },
+        "definitive": { "label": "Charged", "format": "boolean" },
+        "didYouMean": { "label": "Did you mean", "format": "text" },
+        "reasons": { "label": "Reasons", "format": "array" }
+      } }
+    }
+  }
+}

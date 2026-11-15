@@ -1,0 +1,11 @@
+{
+  "name": "definitive-email-verifier",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Email list verifier that charges only for results it can prove.",
+  "main": "main.mjs",
+  "scripts": { "start": "node main.mjs" },
+  "dependencies": { "apify": "^3.4.0" },
+  "engines": { "node": ">=20" }
+}

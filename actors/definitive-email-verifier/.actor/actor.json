@@ -1,0 +1,13 @@
+{
+  "actorSpecification": 1,
+  "name": "definitive-email-verifier",
+  "title": "Email Verifier - Pay Only for Proven Results",
+  "description": "Bulk email verifier for scraped lead lists. Live SMTP mailbox check, MX and catch-all detection, disposable and role flags. You are charged only for addresses proven deliverable or undeliverable. Catch-all, unknown, duplicate and malformed rows are free.",
+  "version": "1.0",
+  "buildTag": "latest",
+  "dockerfile": "../Dockerfile",
+  "input": "./input_schema.json",
+  "storages": { "dataset": "./dataset_schema.json" },
+  "minMemoryMbytes": 256,
+  "maxMemoryMbytes": 1024
+}

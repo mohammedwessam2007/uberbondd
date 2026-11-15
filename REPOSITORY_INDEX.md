@@ -4,7 +4,7 @@
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**4982 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
+**5009 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
 
 ## 1. Read first
 
@@ -19,11 +19,11 @@
 |---|---:|---|
 | [Repository root](docs/index/ROOT.md) | 41 | Entry points, constitutions, server/worker processes and platform manifests. |
 | [src/ — source modules](docs/index/SRC.md) | 1145 | Flat ES-module library; one mechanism per file, grouped here by domain. Imported by server, worker, scripts and tests. |
-| [tests/ — test suite](docs/index/TESTS.md) | 1409 | node:test files, almost all named after the src module or seam they cover. Run with `npm run test:deterministic`. |
-| [scripts/ — CLIs and doctors](docs/index/SCRIPTS.md) | 403 | Command-line entry points; most are wired to an `npm run` name shown beside them. |
-| [docs/ — canon, handoffs, receipts](docs/index/DOCS.md) | 702 | Human-readable canon, architecture, handoffs, receipts, prompts and forensics. |
-| [artifacts/ — machine-readable state and evidence](docs/index/ARTIFACTS.md) | 705 | JSON registries, receipts, research corpora and recovered history. |
-| [config/](docs/index/CONFIG.md) | 57 | Checked-in configuration and registries read by src and scripts. |
+| [tests/ — test suite](docs/index/TESTS.md) | 1412 | node:test files, almost all named after the src module or seam they cover. Run with `npm run test:deterministic`. |
+| [scripts/ — CLIs and doctors](docs/index/SCRIPTS.md) | 405 | Command-line entry points; most are wired to an `npm run` name shown beside them. |
+| [docs/ — canon, handoffs, receipts](docs/index/DOCS.md) | 703 | Human-readable canon, architecture, handoffs, receipts, prompts and forensics. |
+| [artifacts/ — machine-readable state and evidence](docs/index/ARTIFACTS.md) | 709 | JSON registries, receipts, research corpora and recovered history. |
+| [config/](docs/index/CONFIG.md) | 58 | Checked-in configuration and registries read by src and scripts. |
 | [api/](docs/index/API.md) | 18 | Serverless route handlers (Vercel-style). |
 | [public/](docs/index/PUBLIC.md) | 36 | Browser assets: command center, admin and constellation UI. |
 | [ops/](docs/index/OPS.md) | 76 | Host installation, systemd units and operator shell scripts for the self-hosted stack. |
@@ -34,7 +34,7 @@
 | [.claude/](docs/index/CLAUDE.md) | 43 | Claude Code project instructions, skills, agents and settings. |
 | [services/](docs/index/SERVICES.md) | 23 | Separately deployed small services (UberWarm callbacks, Neon functions). |
 | [migrations/](docs/index/MIGRATIONS.md) | 23 | SQL schema migrations. |
-| [Other top-level directories](docs/index/OTHER.md) | 105 | Small standalone packages and data: actors, apps, data, deploy, integrations, mind activation, operator-tools, plugins, policy, relay, runtime, schemas, skill-observations, tools, uberos, winnr, historical-archive. |
+| [Other top-level directories](docs/index/OTHER.md) | 121 | Small standalone packages and data: actors, apps, data, deploy, integrations, mind activation, operator-tools, plugins, policy, relay, runtime, schemas, skill-observations, tools, uberos, winnr, historical-archive. |
 
 ## 3. Browse by subject
 
@@ -49,17 +49,17 @@ Full detail with key documents, hub modules and commands: [`docs/index/DOMAINS.m
 | [GENESIS, moonshots and Perpetual Frontier](docs/index/DOMAINS.md#genesis-moonshots-and-perpetual-frontier) | 274 | Founder 890 moonshot corpus and its compilers, GENESIS/GENESIS2/Ontogenesis, Gamechanger sensing, million-branch ideation. |
 | [ASI research and evidence programs](docs/index/DOMAINS.md#asi-research-and-evidence-programs) | 380 | NULLSTAR, Omega private-evidence lab, C21 evidence factory and the mathematical canary families used as held-out capability probes. |
 | [Frontier cognition and model routing](docs/index/DOMAINS.md#frontier-cognition-and-model-routing) | 754 | UberMind economics, Infinite Opus, Crown, Jev, OpenRouter market, frontier VM/runtime, semantic closure and model/provider executors. |
-| [Capability Genome, skills and Wallbreaker](docs/index/DOMAINS.md#capability-genome-skills-and-wallbreaker) | 201 | World capability discovery, admission and retrieval, the neural exocortex, Avengers arsenal, project skills and the Wallbreaker planner. |
+| [Capability Genome, skills and Wallbreaker](docs/index/DOMAINS.md#capability-genome-skills-and-wallbreaker) | 202 | World capability discovery, admission and retrieval, the neural exocortex, Avengers arsenal, project skills and the Wallbreaker planner. |
 | [Agent mesh, relay and autonomy](docs/index/DOMAINS.md#agent-mesh-relay-and-autonomy) | 372 | Agent autonomy loop, mesh control plane, relays, Uber Socket, durable scheduling, job handlers, overnight and Nightfall lanes. |
-| [Self-maintenance and verification](docs/index/DOMAINS.md#self-maintenance-and-verification) | 156 | Self-maintainer, recursive governance, constitution compiler, mutation testing, sandboxes, coverage and reachability audits, secret sweeps. |
+| [Self-maintenance and verification](docs/index/DOMAINS.md#self-maintenance-and-verification) | 157 | Self-maintainer, recursive governance, constitution compiler, mutation testing, sandboxes, coverage and reachability audits, secret sweeps. |
 | [Governance, authority and proof](docs/index/DOMAINS.md#governance-authority-and-proof) | 172 | OMNIA admission kernel, consent and authority receipts, proof DAGs, evidence integrity and external-effect law. |
-| [Email infrastructure and warmup](docs/index/DOMAINS.md#email-infrastructure-and-warmup) | 296 | UberWarm/UberWarm2, Winnr, UberMail, UberDoso, DNS and domain/mailbox fleet, placement and reputation. |
+| [Email infrastructure and warmup](docs/index/DOMAINS.md#email-infrastructure-and-warmup) | 297 | UberWarm/UberWarm2, Winnr, UberMail, UberDoso, DNS and domain/mailbox fleet, placement and reputation. |
 | [Outreach and distribution](docs/index/DOMAINS.md#outreach-and-distribution) | 324 | Prospecting, qualification, message tournaments, outbound sending gates, reply handling, suppression and the Distribution OS. |
-| [Commerce, payments and economics](docs/index/DOMAINS.md#commerce-payments-and-economics) | 325 | Offers, revenue runtime, PayPal/payment truth, fulfilment and delivery, economic reliability and wealth engines, the lite cash engine. |
+| [Commerce, payments and economics](docs/index/DOMAINS.md#commerce-payments-and-economics) | 328 | Offers, revenue runtime, PayPal/payment truth, fulfilment and delivery, economic reliability and wealth engines, the lite cash engine. |
 | [Opportunity and world intelligence](docs/index/DOMAINS.md#opportunity-and-world-intelligence) | 128 | Prometheus, Event Horizon, World Brain, opportunity factory, market signals, public-web research adapters and quant research. |
-| [Sovereign infrastructure and runtime](docs/index/DOMAINS.md#sovereign-infrastructure-and-runtime) | 509 | Self-host stack, UberCel/UberLit/UberCloud/UberOS, Postgres and stores, provider adapters, deployment and platform configuration. |
-| [Founder operations and command center](docs/index/DOMAINS.md#founder-operations-and-command-center) | 107 | Command center UI and status, founder-absence readiness, Kilimanjaro evidence, operator escalation and health. |
-| [Core and uncategorised](docs/index/DOMAINS.md#core-and-uncategorised) | 90 | Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule. |
+| [Sovereign infrastructure and runtime](docs/index/DOMAINS.md#sovereign-infrastructure-and-runtime) | 523 | Self-host stack, UberCel/UberLit/UberCloud/UberOS, Postgres and stores, provider adapters, deployment and platform configuration. |
+| [Founder operations and command center](docs/index/DOMAINS.md#founder-operations-and-command-center) | 108 | Command center UI and status, founder-absence readiness, Kilimanjaro evidence, operator escalation and health. |
+| [Core and uncategorised](docs/index/DOMAINS.md#core-and-uncategorised) | 96 | Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule. |
 
 ## 4. Conventions that make the flat folders navigable
 

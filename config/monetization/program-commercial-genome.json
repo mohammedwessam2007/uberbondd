@@ -1,0 +1,645 @@
+{
+ "schema": "uberbond.program-commercial-genome.v1",
+ "authoredOn": "2026-11-15",
+ "truthBoundary": "A disposition is a judgement from the cited evidence on the authored date. buyer is UNKNOWN unless a buyer was observed. Nothing here is revenue.",
+ "assetClasses": [
+  "PRODUCT_CORE",
+  "PRODUCT_COMPONENT",
+  "ECONOMIC_INTELLIGENCE",
+  "DISTRIBUTION_INFRA",
+  "FULFILLMENT_INFRA",
+  "TRUST_INFRA",
+  "AUTONOMY_INFRA",
+  "COST_REDUCTION_INFRA",
+  "LICENSABLE_IP",
+  "PLATFORM_SEED",
+  "DEFENSIVE_STRATEGIC",
+  "RESEARCH_OPTION",
+  "PRIVATE_NONCOMMERCIAL",
+  "HISTORICAL_SUPERSEDED",
+  "COMMERCIALLY_DOMINATED",
+  "UNKNOWN"
+ ],
+ "dispositions": [
+  "COMPONENT_OF_CHAMPION",
+  "INTERNAL_LEVERAGE",
+  "COST_REDUCER",
+  "KEEP_PRIVATE",
+  "RESEARCH_OPTION",
+  "UNKNOWN_NEEDS_EVIDENCE",
+  "KILLED_ON_EVIDENCE",
+  "DOMINATED",
+  "RESTRICTED",
+  "HISTORICAL"
+ ],
+ "programs": {
+  "wessam-singularity": {
+   "assetClass": "PRIVATE_NONCOMMERCIAL",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Founder-level life program. Not an asset to sell.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "sovereign-continuum": {
+   "assetClass": "PRIVATE_NONCOMMERCIAL",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Sovereignty organs around the founder. Economic value is what money buys for it, not what it sells.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "personal-civilization": {
+   "assetClass": "PRIVATE_NONCOMMERCIAL",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Life-system models built on private life context. Never monetized.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "forecast-engine": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Calibration ledger and decision packets. Used here for base rates and kill criteria on commercial bets.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "Score the Actor forecast in docs/monetization against 90-day store stats."
+  },
+  "ubermind": {
+   "assetClass": "DEFENSIVE_STRATEGIC",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Doctrine and library. Modern book texts are not owned; cards are reasoning method, not product.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "phoenix": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Context survival lowers the cost of every later session. As an external MCP product it has no demand evidence; public write-ups put meaningful MCP income below 1 in 200 servers (self-reported blogs).",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "brain-memory": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Company memory. Saves founder retelling time.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "handoffs-checkpoints": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Resume state across sessions.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "apotheosis-orchestration": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Orchestration packets. Internal operating method.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "historical-lineage": {
+   "assetClass": "HISTORICAL_SUPERSEDED",
+   "disposition": "HISTORICAL",
+   "role": "Closed milestone programs kept for lineage.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "work-astra-sol": {
+   "assetClass": "HISTORICAL_SUPERSEDED",
+   "disposition": "HISTORICAL",
+   "role": "Session prompts and receipts.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "genesis": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Hypothesis generator. As a product it competes with general AI assistants and has no proof of better picks.",
+   "externalEvidence": "artifacts/machiavelli/profit-tournament.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "moonshot-890": {
+   "assetClass": "DEFENSIVE_STRATEGIC",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Founder idea corpus: an option set. Each idea is mapped in the founder-idea atlas.",
+   "externalEvidence": "artifacts/machiavelli/wealth-mechanism-atlas.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "gamechanger": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "World sensing. The Apify Store observatory in this mission is this organ pointed at a marketplace.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "million-wormhole": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "RESEARCH_OPTION",
+   "role": "Ideation search machinery. No buyer identified.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "temporal-foundry": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "RESEARCH_OPTION",
+   "role": "Timeline tooling. No buyer identified.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "neural-exocortex": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "DOMINATED",
+   "role": "Repository atlas and harvest. Free tools already map repositories for AI agents.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "sandwich-method": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Agent task shaping. Internal method.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "frontier": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Frontier runtime experiments.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "apex": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "RESEARCH_OPTION",
+   "role": "Quality-compression campaign. Unmeasured externally.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "nullstar": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Capability measurement research. No commercial buyer identified.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "omega-lab": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "UNKNOWN_NEEDS_EVIDENCE",
+   "role": "Held-out evaluation canaries. Evaluation buyers exist in general; nothing shows they would buy these.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "Find one public RFP or paid listing for held-out eval sets before any build."
+  },
+  "c21-asi-evidence": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Evidence tribunals. Internal truth discipline.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "inevitability-v9": {
+   "assetClass": "HISTORICAL_SUPERSEDED",
+   "disposition": "HISTORICAL",
+   "role": "Archived carrier.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "infinite-opus": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "COST_REDUCER",
+   "role": "Intelligence-per-dollar program. Savings are a target, not a measured result.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "crown": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Strongest-model seat rules.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "jev-uberlit": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Semantic control plane. Blocked on external host gates.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "model-routing": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "DOMINATED",
+   "role": "Routing and failover. As a product it is dominated by free and incumbent gateways.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "semantic-closure": {
+   "assetClass": "TRUST_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Requirement closure checks.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "cognition-ledger": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Compute accounting.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "reasoning-lab": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "RESEARCH_OPTION",
+   "role": "Reasoning evaluation.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "agent-mesh": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Agent loop and scheduler. As a product it is dominated by established workflow and agent runtimes.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "relay": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Cross-agent relays.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "uber-socket": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Runtime backplane.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "ai-employees": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Role contracts for workers.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "night": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Overnight lanes.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "self-maintainer": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Governed self-upgrade.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "assistant-integrations": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Assistant configuration.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "capability-genome": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Supplier discovery and admission. Same harvest-then-admit pattern used on the Apify Store here.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "wallbreaker": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Stuck-mission planner.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "skills-plugins": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Project skills. Skill directories found are free listings, not paid channels.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "omnia": {
+   "assetClass": "TRUST_INFRA",
+   "disposition": "RESEARCH_OPTION",
+   "role": "Admission kernel between intelligence and consequence. Free policy engines exist; no buyer has asked for this one.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "authority-evidence": {
+   "assetClass": "TRUST_INFRA",
+   "disposition": "COMPONENT_OF_CHAMPION",
+   "role": "Deliver-before-charge, charge-once and second-witness rules. Applied as the billing and DNS rules of the Definitive Email Verifier.",
+   "externalEvidence": "tests/definitive-email-verifier.test.mjs",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "readiness-audits": {
+   "assetClass": "TRUST_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Coverage and reachability audits.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "uberwarm": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Mailbox warmup. As a product it is dominated by bundled warmup at about $0.60 per mailbox per month.",
+   "externalEvidence": "Winnr account read 2026-11-15: 50 mailboxes on 10 domains, 1 mailbox warming",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "winnr": {
+   "assetClass": "DISTRIBUTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Mailbox supply for outreach. Not send-ready today.",
+   "externalEvidence": "Winnr account read 2026-11-15: 50 mailboxes on 10 domains, 1 mailbox warming",
+   "buyer": "UNKNOWN",
+   "nextTest": "Founder decision: warm the fleet or stop paying for it."
+  },
+  "ubermail-uberdoso": {
+   "assetClass": "DISTRIBUTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Owned mail stack.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "inboxes-placement": {
+   "assetClass": "PRODUCT_COMPONENT",
+   "disposition": "UNKNOWN_NEEDS_EVIDENCE",
+   "role": "Inbox placement reading. Placement testing is a paid category, but it needs a seed-inbox fleet and daily operations.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "Count working seed inboxes by provider before considering it."
+  },
+  "dns-domains": {
+   "assetClass": "PRODUCT_COMPONENT",
+   "disposition": "DOMINATED",
+   "role": "DNS and domain readiness. On the Apify Store the whole domain-security category has about 68 users in 30 days.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "outreach": {
+   "assetClass": "DISTRIBUTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Cold email system. Gated by send authority, warm mailboxes and founder-handled replies.",
+   "externalEvidence": "Winnr account read 2026-11-15: 50 mailboxes on 10 domains, 1 mailbox warming",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "prospecting-leadgen": {
+   "assetClass": "PRODUCT_COMPONENT",
+   "disposition": "RESTRICTED",
+   "role": "Prospect qualification and contact rules. Selling lead lists has demand (several Apollo-style Actors with over 1,000 monthly users each) but depends on third-party personal-data bases; not pursued.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "uberreach-uberoutbound": {
+   "assetClass": "DISTRIBUTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Outbound control plane.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "reply-closing": {
+   "assetClass": "FULFILLMENT_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Reply handling and async closing. Human replies stay with the founder.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "distribution-os": {
+   "assetClass": "DISTRIBUTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Channel portfolio. This mission adds measured marketplace-channel evidence.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "revenue-payments": {
+   "assetClass": "FULFILLMENT_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Payment truth and reconciliation. Needed for off-marketplace sales; a marketplace bills for itself.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "revenue-constellation": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Founder control surface.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "first-cash": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "COMPONENT_OF_CHAMPION",
+   "role": "First-cash mission lineage. Track A of this mission.",
+   "externalEvidence": "docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "offers-fulfilment": {
+   "assetClass": "PRODUCT_CORE",
+   "disposition": "UNKNOWN_NEEDS_EVIDENCE",
+   "role": "Offer quartet and fulfilment. No buyer has seen an offer; every route to one runs through outreach.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "One bounded willingness-to-pay probe once mailboxes are warm and the founder authorizes it."
+  },
+  "economic-engines": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Reality ledger, money-rail registry, capital allocator. Reused for truth labels here.",
+   "externalEvidence": "artifacts/machiavelli/profit-tournament.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "inquiry-audit-product": {
+   "assetClass": "PRODUCT_CORE",
+   "disposition": "KILLED_ON_EVIDENCE",
+   "role": "Lead-path audit. Killed for the Apify channel: site and SEO audit Actors show 0 of 34 young entrants reaching 50 monthly users. The $99 inbound check stays on hold without a marketplace that will list it.",
+   "externalEvidence": "artifacts/monetization-singularity/apify-store-observatory-2026-11-15.json",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "client-engagements": {
+   "assetClass": "FULFILLMENT_INFRA",
+   "disposition": "UNKNOWN_NEEDS_EVIDENCE",
+   "role": "Named counterparties and receipts. Not re-read in this mission.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "lite-cash-engine": {
+   "assetClass": "PRODUCT_CORE",
+   "disposition": "UNKNOWN_NEEDS_EVIDENCE",
+   "role": "Standalone app under a do-not-touch rule. Not evaluated in this mission.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "quant-lab": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "KILLED_ON_EVIDENCE",
+   "role": "Backtest protocol. Every strategy family tested was rejected or inconclusive; crypto rails are legally blocked for the founder.",
+   "externalEvidence": "artifacts/quant-lab/experiments-2021-01_2026-09.json: 17 experiments, none promoted",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "prometheus": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Market sensing and opportunity memory.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "opportunity-factory": {
+   "assetClass": "ECONOMIC_INTELLIGENCE",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Opportunity registry and ranking.",
+   "externalEvidence": "PR #1541 (unmerged): X1 KILL precision 0.348, X2 13/13 absorbed, S1 KILL",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "command-center": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Operator UI.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "kilimanjaro": {
+   "assetClass": "AUTONOMY_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Founder-absence readiness.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "green-lane": {
+   "assetClass": "COST_REDUCTION_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Zero-cost routing of work onto free runtimes.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "sovereign-selfhost": {
+   "assetClass": "DEFENSIVE_STRATEGIC",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Self-host stack. Provider independence.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "ubercel-cloud": {
+   "assetClass": "DEFENSIVE_STRATEGIC",
+   "disposition": "DOMINATED",
+   "role": "Owned deploy layer. As a product it is dominated by free self-host platforms.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "uberos": {
+   "assetClass": "DEFENSIVE_STRATEGIC",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Operating layer.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "uberwatt": {
+   "assetClass": "RESEARCH_OPTION",
+   "disposition": "RESEARCH_OPTION",
+   "role": "Energy and compute substrate research.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "data-stores": {
+   "assetClass": "FULFILLMENT_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Databases and stores.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "platform-deploy": {
+   "assetClass": "FULFILLMENT_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Deployment configuration.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "core-platform": {
+   "assetClass": "FULFILLMENT_INFRA",
+   "disposition": "INTERNAL_LEVERAGE",
+   "role": "Server core.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  },
+  "neu205": {
+   "assetClass": "PRIVATE_NONCOMMERCIAL",
+   "disposition": "KEEP_PRIVATE",
+   "role": "Separate study-tool program. Out of commercial scope.",
+   "externalEvidence": "NONE",
+   "buyer": "UNKNOWN",
+   "nextTest": "none"
+  }
+ }
+}

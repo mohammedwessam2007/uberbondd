@@ -6,7 +6,7 @@ node:test files, almost all named after the src module or seam they cover. Run w
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**1409 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**1412 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -22,11 +22,11 @@ node:test files, almost all named after the src module or seam they cover. Run w
 - [Governance, authority and proof](#governance-authority-and-proof) — 64
 - [Email infrastructure and warmup](#email-infrastructure-and-warmup) — 93
 - [Outreach and distribution](#outreach-and-distribution) — 125
-- [Commerce, payments and economics](#commerce-payments-and-economics) — 117
+- [Commerce, payments and economics](#commerce-payments-and-economics) — 118
 - [Opportunity and world intelligence](#opportunity-and-world-intelligence) — 33
 - [Sovereign infrastructure and runtime](#sovereign-infrastructure-and-runtime) — 144
 - [Founder operations and command center](#founder-operations-and-command-center) — 30
-- [Core and uncategorised](#core-and-uncategorised) — 29
+- [Core and uncategorised](#core-and-uncategorised) — 31
 
 ## North Star and life systems
 
@@ -1143,6 +1143,7 @@ node:test files, almost all named after the src module or seam they cover. Run w
 - [`delivery-and-partners.test.mjs`](../../tests/delivery-and-partners.test.mjs) — Tests offer-market-maker, payment-compression, delivery-loop (9 tests — e.g. "offer market never invents a fifth offer and proposes one dimension with control preserved")
 - [`delivery-transport-contract.test.mjs`](../../tests/delivery-transport-contract.test.mjs) — Tests delivery-transport-contract (7 tests — e.g. "provider-confirmed delivery compiles DELIVERY_RECORDED but never acceptance")
 - [`economic-anchor-forgery.test.mjs`](../../tests/economic-anchor-forgery.test.mjs) — Tests causal-attribution-spine, commercial-outcome (The CFO question: can somebody type revenue into existence?)
+- [`economic-asset-atlas.test.mjs`](../../tests/economic-asset-atlas.test.mjs) — Economic Asset Atlas: coverage is computed, never asserted by hand. _(matched by name only)_
 - [`economic-inevitability-engine.test.mjs`](../../tests/economic-inevitability-engine.test.mjs) — Tests economic-inevitability-engine (10 tests — e.g. "fully ready path is executable but not money until payment and delivery are observed")
 - [`economic-inevitability-resident.test.mjs`](../../tests/economic-inevitability-resident.test.mjs) — Tests universal-wealth-job-handler (3 tests — e.g. "resident wealth pulse exposes multipath execution readiness without leaking private path identities")
 - [`economic-metabolism.test.mjs`](../../tests/economic-metabolism.test.mjs) — Tests economic-metabolism (4 tests — e.g. "Economic Metabolism rejects malformed or unbounded interventions")
@@ -1461,9 +1462,11 @@ node:test files, almost all named after the src module or seam they cover. Run w
 - [`adaptive-source-ceiling-governor.test.mjs`](../../tests/adaptive-source-ceiling-governor.test.mjs) — Tests adaptive-source-ceiling-governor (5 tests — e.g. "parses provider rate headers")
 - [`admin-ephemeral-client-hostile.test.mjs`](../../tests/admin-ephemeral-client-hostile.test.mjs) — Hostile tests ensuring admin bearer never persists in browser storage or query URLs and server rejects query-token auth. · **Use:** Guard admin authentication against token leakage
 - [`admin-health-route.test.mjs`](../../tests/admin-health-route.test.mjs) — Tests the admin health route bearer check, method restriction, unconfigured refusal and that telemetry carries no addresses. · **Use:** Protect operational health telemetry endpoint
+- [`apify-store-observatory.test.mjs`](../../tests/apify-store-observatory.test.mjs) — Apify Store observatory: the analysis is pure; the harvest is read-only and stops on rate limits.
 - [`c03-transfer-voi.test.mjs`](../../tests/c03-transfer-voi.test.mjs) — Tests cross-domain-transfer-evaluator, value-of-information-governor (14 tests — e.g. "matched-budget multi-domain gains support transfer feasibility but not generality")
 - [`c13-c21-real-integration.test.mjs`](../../tests/c13-c21-real-integration.test.mjs) — Tests compound-intelligence-evaluation, system-level-asi-evidence (2 tests — e.g. "real C13 return authenticates directly in C21 under exact identity")
 - [`client-identity-trust.test.mjs`](../../tests/client-identity-trust.test.mjs) — Tests rate-limit client identity ignores spoofed X-Forwarded-For unless TRUST_PROXY_HOPS declares proxies. · **Use:** Prevent rate-limit bypass on public intake
+- [`definitive-email-verifier.test.mjs`](../../tests/definitive-email-verifier.test.mjs) — Definitive Email Verifier (actors/definitive-email-verifier): hostile tests.
 - [`e0-e4-coverage-foundry.test.mjs`](../../tests/e0-e4-coverage-foundry.test.mjs) — Tests semantic-closure-kernel, certified-frontier-residual (5 tests — e.g. "live E1 closure mints coverage and unlocks certified residual")
 - [`enforcement-surface-sovereignty-boundary.test.mjs`](../../tests/enforcement-surface-sovereignty-boundary.test.mjs) — Tests agent-code-change-contract (6 tests — e.g. "the whole enforcement surface is inside the boundary, not just the rules")
 - [`experiment-policy-consolidation.test.mjs`](../../tests/experiment-policy-consolidation.test.mjs) — Tests genesis-experiment-feasibility (4 tests — e.g. "no production module may restore the legacy GENESIS experiment compiler as a second policy route")

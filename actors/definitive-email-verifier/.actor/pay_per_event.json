@@ -1,0 +1,7 @@
+{
+  "verified-email": {
+    "eventTitle": "Proven result",
+    "eventDescription": "One address proven deliverable (mailbox accepted, random address refused), proven undeliverable (mailbox refused), or on a domain proven unable to receive mail. Catch-all, unknown, duplicate and malformed addresses are never charged.",
+    "eventPriceUsd": 0.0012
+  }
+}

@@ -1,0 +1,78 @@
+{
+ "schema": "uberbond.economic-asset-atlas.v1",
+ "truthBoundary": "Classification coverage only. A classified path, program or idea has an economic label and a basis; it has not been shown to earn anything.",
+ "paths": {
+  "tracked": 5115,
+  "classified": 5115,
+  "unknown": 0,
+  "byClass": {
+   "AUTONOMY_INFRA": 630,
+   "COST_REDUCTION_INFRA": 1222,
+   "DEFENSIVE_STRATEGIC": 450,
+   "DISTRIBUTION_INFRA": 371,
+   "ECONOMIC_INTELLIGENCE": 490,
+   "FULFILLMENT_INFRA": 283,
+   "HISTORICAL_SUPERSEDED": 339,
+   "PRIVATE_NONCOMMERCIAL": 140,
+   "PRODUCT_COMPONENT": 195,
+   "PRODUCT_CORE": 132,
+   "RESEARCH_OPTION": 542,
+   "TRUST_INFRA": 321
+  },
+  "byDisposition": {
+   "COMPONENT_OF_CHAMPION": 79,
+   "COST_REDUCER": 230,
+   "DOMINATED": 184,
+   "HISTORICAL": 339,
+   "INTERNAL_LEVERAGE": 3008,
+   "KEEP_PRIVATE": 628,
+   "KILLED_ON_EVIDENCE": 46,
+   "RESEARCH_OPTION": 222,
+   "RESTRICTED": 104,
+   "UNKNOWN_NEEDS_EVIDENCE": 275
+  },
+  "byBasisKind": {
+   "path-rule": 447,
+   "project": 4668
+  }
+ },
+ "programs": {
+  "roster": 76,
+  "withDisposition": 76,
+  "missing": [],
+  "extra": [],
+  "byDisposition": {
+   "COMPONENT_OF_CHAMPION": 2,
+   "COST_REDUCER": 1,
+   "DOMINATED": 4,
+   "HISTORICAL": 3,
+   "INTERNAL_LEVERAGE": 44,
+   "KEEP_PRIVATE": 8,
+   "KILLED_ON_EVIDENCE": 2,
+   "RESEARCH_OPTION": 6,
+   "RESTRICTED": 1,
+   "UNKNOWN_NEEDS_EVIDENCE": 5
+  },
+  "buyerObserved": 0
+ },
+ "founderIdeas": {
+  "expected": 890,
+  "mapped": 890,
+  "missingIds": [],
+  "duplicateIds": 0,
+  "id0625And0683Distinct": true,
+  "byDisposition": {
+   "DIRECT_CANDIDATE_UNVALIDATED": 225,
+   "ECONOMICALLY_IRRELEVANT_AT_THIS_STAGE": 156,
+   "FUTURE_RESEARCH_OPTION": 66,
+   "INDIRECT_ENABLER": 422,
+   "PRODUCT_COMBINATION_CANDIDATE": 21
+  },
+  "exercisedInAnExperiment": 37,
+  "bodiesLiveIn": "artifacts/research/founder-moonshot-literal-corpus/ (not copied here)"
+ },
+ "genesisDescendants": {
+  "note": "Ideas beyond #0890 live in the GENESIS registries (artifacts/perpetual-frontier-genesis.json and artifacts/genesis/). They are tracked paths in this atlas; they were not individually re-read or re-classified in this mission.",
+  "individuallyClassified": 0
+ }
+}

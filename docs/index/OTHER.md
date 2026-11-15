@@ -6,14 +6,14 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**105 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**121 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
 - [.cache](#-cache) — 1
 - [.codex](#-codex) — 1
 - [.cursor](#-cursor) — 1
-- [actors](#actors) — 5
+- [actors](#actors) — 20
 - [apps](#apps) — 7
 - [data](#data) — 9
 - [deploy](#deploy) — 6
@@ -26,7 +26,7 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 - [relay](#relay) — 7
 - [runtime](#runtime) — 9
 - [schemas](#schemas) — 3
-- [skill-observations](#skill-observations) — 7
+- [skill-observations](#skill-observations) — 8
 - [tools](#tools) — 6
 - [uberos](#uberos) — 9
 - [winnr](#winnr) — 14
@@ -45,6 +45,26 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 
 ## actors
 
+**Email infrastructure and warmup**
+
+- [`actors/definitive-email-verifier/src/dns.mjs`](../../actors/definitive-email-verifier/src/dns.mjs) — Mail-routing lookup with two independent witnesses. _(matched by name only)_
+
+**Sovereign infrastructure and runtime**
+
+- [`actors/definitive-email-verifier/.actor/actor.json`](../../actors/definitive-email-verifier/.actor/actor.json) — Email Verifier - Pay Only for Proven Results
+- [`actors/definitive-email-verifier/.actor/dataset_schema.json`](../../actors/definitive-email-verifier/.actor/dataset_schema.json) — Results
+- [`actors/definitive-email-verifier/.actor/input_schema.json`](../../actors/definitive-email-verifier/.actor/input_schema.json) — Email Verifier input
+- [`actors/definitive-email-verifier/.actor/pay_per_event.json`](../../actors/definitive-email-verifier/.actor/pay_per_event.json)
+- [`actors/definitive-email-verifier/Dockerfile`](../../actors/definitive-email-verifier/Dockerfile) — Self-contained: built from this directory only. No UberBond source is copied into the image. _(matched by name only)_
+- [`actors/definitive-email-verifier/README.md`](../../actors/definitive-email-verifier/README.md) — Email Verifier: pay only for proven results
+- [`actors/definitive-email-verifier/main.mjs`](../../actors/definitive-email-verifier/main.mjs) — Apify shell. Decisions live in src/ (tested in tests/definitive-email-verifier.test.mjs).
+- [`actors/definitive-email-verifier/package.json`](../../actors/definitive-email-verifier/package.json) — definitive-email-verifier
+- [`actors/definitive-email-verifier/src/DISPOSABLE_LIST_NOTICE.md`](../../actors/definitive-email-verifier/src/DISPOSABLE_LIST_NOTICE.md) — disposable-domains.txt is the blocklist published by the
+- [`actors/definitive-email-verifier/src/address.mjs`](../../actors/definitive-email-verifier/src/address.mjs) — Address parsing and offline classification. Pure: no network, no clock.
+- [`actors/definitive-email-verifier/src/disposable-domains.txt`](../../actors/definitive-email-verifier/src/disposable-domains.txt) — 0-mail.com _(matched by name only)_
+- [`actors/definitive-email-verifier/src/sale.mjs`](../../actors/definitive-email-verifier/src/sale.mjs) — Delivery and billing rules, kept apart from the Apify SDK so they can be tested.
+- [`actors/definitive-email-verifier/src/smtp.mjs`](../../actors/definitive-email-verifier/src/smtp.mjs) — SMTP recipient probe: asks a mail server whether it would accept a recipient,
+- [`actors/definitive-email-verifier/src/verify.mjs`](../../actors/definitive-email-verifier/src/verify.mjs) — Turns DNS and SMTP observations into one record per address.
 - [`actors/verified-inquiry-defects/.actor/actor.json`](../../actors/verified-inquiry-defects/.actor/actor.json) — Apify Actor spec for 'Verified Inquiry-Path Defects' with pay-only-for-reverified-findings pricing and Dockerfile reference. · **Use:** publish inquiry-defect checker on Apify Store
 - [`actors/verified-inquiry-defects/.actor/input_schema.json`](../../actors/verified-inquiry-defects/.actor/input_schema.json) — Apify input schema: list of business websites, browser confirmation of call buttons, max pages per site. · **Use:** define Actor run inputs
 - [`actors/verified-inquiry-defects/Dockerfile`](../../actors/verified-inquiry-defects/Dockerfile) — Apify Playwright Chrome image built from repo root copying src and Actor main.mjs. · **Use:** build the inquiry-defect Actor container
@@ -155,6 +175,7 @@ Small standalone packages and data: actors, apps, data, deploy, integrations, mi
 - [`skill-observations/observation-log/.gitkeep`](../../skill-observations/observation-log/.gitkeep) — Empty placeholder keeping observation-log directory in git · **Use:** preserve Task Observer log directory
 - [`skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md`](../../skill-observations/observation-log/0001-new-tests-can-stale-canon-artifacts.md) — Observation 2026-09-25: adding a test can stale readiness and constitution artifacts; proposes running readiness and constitution doctor after source commits · **Use:** proposed improvement to engineering closure checklist
 - [`skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md`](../../skill-observations/observation-log/0002-importing-a-constant-wires-a-gated-module.md) — Observation 2026-09-25: importing a constant made a deliberately unwired module reachable; proposes moving constants to neutral modules · **Use:** proposed rule for reachability classification hygiene
+- [`skill-observations/observation-log/0006-measure-channel-entrant-traction-before-building.md`](../../skill-observations/observation-log/0006-measure-channel-entrant-traction-before-building.md) — id: 6 — status: open _(matched by name only)_
 - [`skill-observations/observation-log/archive/.gitkeep`](../../skill-observations/observation-log/archive/.gitkeep) — Empty placeholder for archived observations directory · **Use:** preserve archive directory
 - [`skill-observations/observation-log/archive/.id-floor`](../../skill-observations/observation-log/archive/.id-floor) — Tiny file holding the minimum observation ID counter · **Use:** keep observation IDs monotonic after archiving
 

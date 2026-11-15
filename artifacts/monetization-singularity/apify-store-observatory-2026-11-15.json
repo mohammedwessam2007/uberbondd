@@ -1,0 +1,344 @@
+{
+ "schema": "uberbond.apify-store-observatory.v1",
+ "source": "https://api.apify.com/v2/store?sortBy=popularity (public, keyless)",
+ "observedAt": "2026-11-15T15:00:00.000Z",
+ "storeTotal": 121770,
+ "providerCalls": 13,
+ "stopped": "EMPTY_PAGE",
+ "limits": [
+  "The listing returned only the most popular part of the store; Actors beyond the sample are counted as having no traction, which the sample tail (1 or 0 users in 30 days) supports but does not prove.",
+  "Users are counted per Actor; one person using three Actors is three users.",
+  "Niche membership is a title match and misses differently named Actors.",
+  "\"Young\" is inferred from low all-time users because the listing has no creation date.",
+  "Usage is not revenue. No earnings figure is published per Actor."
+ ],
+ "effects": {
+  "accounts": 0,
+  "messages": 0,
+  "spend": 0,
+  "writes": 0
+ },
+ "sample": 12529,
+ "usersIn30Days": {
+  "atLeast1": {
+   "actors": 10222,
+   "shareOfStore": 0.0839
+  },
+  "atLeast10": {
+   "actors": 3194,
+   "shareOfStore": 0.0262
+  },
+  "atLeast50": {
+   "actors": 1196,
+   "shareOfStore": 0.0098
+  },
+  "atLeast100": {
+   "actors": 778,
+   "shareOfStore": 0.0064
+  },
+  "atLeast500": {
+   "actors": 236,
+   "shareOfStore": 0.0019
+  },
+  "atLeast1000": {
+   "actors": 127,
+   "shareOfStore": 0.001
+  }
+ },
+ "storeWideEntrantTraction": {
+  "youngActorsInSample": 11330,
+  "withTraction": 405,
+  "shareOfStore": 0.0033
+ },
+ "definitions": {
+  "young": "all-time users <= 600",
+  "traction": "users in last 30 days >= 50",
+  "nicheMatch": "regular expression over the Actor title only"
+ },
+ "niches": [
+  {
+   "niche": "phone validation",
+   "actors": 15,
+   "users30Sum": 700,
+   "actorsWithTraction": 5,
+   "youngActors": 10,
+   "youngWithTraction": 2,
+   "entrantTractionRate": 0.2,
+   "examples": [
+    "memo23/phone-enrichment (63)",
+    "intelscrape/truepeoplesearch-scraper (57)"
+   ]
+  },
+  {
+   "niche": "email verification",
+   "actors": 50,
+   "users30Sum": 5283,
+   "actorsWithTraction": 11,
+   "youngActors": 40,
+   "youngWithTraction": 5,
+   "entrantTractionRate": 0.125,
+   "examples": [
+    "blessiticus/email-verifier-pro (231)",
+    "memo23/email-finder (122)",
+    "pnda/email-verifier (118)"
+   ]
+  },
+  {
+   "niche": "screenshot",
+   "actors": 20,
+   "users30Sum": 2460,
+   "actorsWithTraction": 3,
+   "youngActors": 19,
+   "youngWithTraction": 2,
+   "entrantTractionRate": 0.1053,
+   "examples": [
+    "cheapapi/website-screenshot-api (303)",
+    "i-scraper/website-screenshot (67)"
+   ]
+  },
+  {
+   "niche": "ai search visibility",
+   "actors": 59,
+   "users30Sum": 1350,
+   "actorsWithTraction": 8,
+   "youngActors": 57,
+   "youngWithTraction": 6,
+   "entrantTractionRate": 0.1053,
+   "examples": [
+    "scrape.badger/google-search-scraper (129)",
+    "santamaria-automations/google-search-scraper (116)",
+    "johnvc/Google-AI-Overview-API (99)"
+   ]
+  },
+  {
+   "niche": "company enrichment",
+   "actors": 64,
+   "users30Sum": 10564,
+   "actorsWithTraction": 12,
+   "youngActors": 58,
+   "youngWithTraction": 6,
+   "entrantTractionRate": 0.1034,
+   "examples": [
+    "blackfalcondata/xing-scraper (99)",
+    "datagleaner/website-contact-details-scraper (90)",
+    "scrapeverse/linkedin-company-profile-scraper (73)"
+   ]
+  },
+  {
+   "niche": "sales triggers and intent",
+   "actors": 53,
+   "users30Sum": 1098,
+   "actorsWithTraction": 6,
+   "youngActors": 50,
+   "youngWithTraction": 4,
+   "entrantTractionRate": 0.08,
+   "examples": [
+    "memo23/crunchbase-scraper (185)",
+    "jungle_synthesizer/crunchbase-pro-companies-scraper (140)",
+    "johnvc/crunchbase-company-api (93)"
+   ]
+  },
+  {
+   "niche": "lead lists (Apollo-style)",
+   "actors": 133,
+   "users30Sum": 9363,
+   "actorsWithTraction": 25,
+   "youngActors": 106,
+   "youngWithTraction": 6,
+   "entrantTractionRate": 0.0566,
+   "examples": [
+    "memo23/google-ad-transparency-scraper-cheerio (135)",
+    "themineworks/b2b-leads-finder (86)",
+    "winningsolutions/german-imprint-scraper (70)"
+   ]
+  },
+  {
+   "niche": "dns, whois, domain",
+   "actors": 43,
+   "users30Sum": 431,
+   "actorsWithTraction": 3,
+   "youngActors": 42,
+   "youngWithTraction": 2,
+   "entrantTractionRate": 0.0476,
+   "examples": [
+    "sourabhbgp/similarweb-scraper (58)",
+    "automation-lab/domain-availability-checker (55)"
+   ]
+  },
+  {
+   "niche": "contact or email from website",
+   "actors": 325,
+   "users30Sum": 13824,
+   "actorsWithTraction": 39,
+   "youngActors": 270,
+   "youngWithTraction": 12,
+   "entrantTractionRate": 0.0444,
+   "examples": [
+    "memo23/email-finder (122)",
+    "oday/mawsool-linkedin-personal-email-finder (113)",
+    "scrape-lads/tiktok-profile-scraper (91)"
+   ]
+  },
+  {
+   "niche": "google maps",
+   "actors": 205,
+   "users30Sum": 67772,
+   "actorsWithTraction": 22,
+   "youngActors": 167,
+   "youngWithTraction": 3,
+   "entrantTractionRate": 0.018,
+   "examples": [
+    "memo23/google-maps-reviews-scraper (151)",
+    "damilo/google-maps-scraper (92)",
+    "x_guru/google-maps-email-extractor (89)"
+   ]
+  },
+  {
+   "niche": "tech stack detection",
+   "actors": 46,
+   "users30Sum": 384,
+   "actorsWithTraction": 1,
+   "youngActors": 45,
+   "youngWithTraction": 0,
+   "entrantTractionRate": 0,
+   "examples": []
+  },
+  {
+   "niche": "seo or site audit",
+   "actors": 35,
+   "users30Sum": 253,
+   "actorsWithTraction": 1,
+   "youngActors": 34,
+   "youngWithTraction": 0,
+   "entrantTractionRate": 0,
+   "examples": []
+  },
+  {
+   "niche": "government contracts and grants",
+   "actors": 115,
+   "users30Sum": 207,
+   "actorsWithTraction": 0,
+   "youngActors": 115,
+   "youngWithTraction": 0,
+   "entrantTractionRate": 0,
+   "examples": []
+  },
+  {
+   "niche": "url status and broken links",
+   "actors": 13,
+   "users30Sum": 29,
+   "actorsWithTraction": 0,
+   "youngActors": 12,
+   "youngWithTraction": 0,
+   "entrantTractionRate": 0,
+   "examples": []
+  }
+ ],
+ "unhappyDemand": [
+  {
+   "name": "apify/instagram-hashtag-scraper",
+   "title": "Instagram Hashtag Scraper",
+   "users30": 22337,
+   "rating": 3.5,
+   "reviews": 91
+  },
+  {
+   "name": "junglee/amazon-reviews-scraper",
+   "title": "Amazon Reviews Scraper",
+   "users30": 2373,
+   "rating": 2.7,
+   "reviews": 46
+  },
+  {
+   "name": "misceres/indeed-scraper",
+   "title": "Indeed Scraper",
+   "users30": 1971,
+   "rating": 3,
+   "reviews": 66
+  },
+  {
+   "name": "apify/facebook-reels-scraper",
+   "title": "Facebook Reels Scraper",
+   "users30": 1940,
+   "rating": 2.8,
+   "reviews": 18
+  },
+  {
+   "name": "code_crafter/leads-finder",
+   "title": "✨Leads Finder - $1.5/1k leads with Emails [Apollo Alternative]",
+   "users30": 1748,
+   "rating": 3.4,
+   "reviews": 540
+  },
+  {
+   "name": "fantastic-jobs/advanced-linkedin-job-search-api",
+   "title": "Advanced LinkedIn Job Search API",
+   "users30": 1627,
+   "rating": 3,
+   "reviews": 21
+  },
+  {
+   "name": "microworlds/leads-finder",
+   "title": "🍏 Leads Finder - Email 📧 + Mobile Number 📞​",
+   "users30": 1401,
+   "rating": 2.9,
+   "reviews": 120
+  },
+  {
+   "name": "datadoping/linkedin-profile-scraper",
+   "title": "Linkedin Profile Scraper with Email & Company Data (No Cookie)",
+   "users30": 1342,
+   "rating": 3.4,
+   "reviews": 11
+  },
+  {
+   "name": "pipelinelabs/lead-scraper-apollo-zoominfo-lusha-ppe",
+   "title": "🎉Leads Scraper ✅ $1/1k Leads ✅ 50K/Run With EMAILS✅Like Apollo",
+   "users30": 1227,
+   "rating": 2.9,
+   "reviews": 89
+  },
+  {
+   "name": "apidojo/youtube-scraper",
+   "title": "Youtube Scraper (Pay Per Result)",
+   "users30": 1102,
+   "rating": 3.3,
+   "reviews": 21
+  },
+  {
+   "name": "apify/instagram-api-scraper",
+   "title": "Instagram API Scraper",
+   "users30": 903,
+   "rating": 3,
+   "reviews": 34
+  },
+  {
+   "name": "dev_fusion/Linkedin-Profile-Scraper",
+   "title": "✨Mass Linkedin Profile Scraper with Email 📧 (No Cookies)",
+   "users30": 897,
+   "rating": 3,
+   "reviews": 156
+  },
+  {
+   "name": "pro100chok/semrush-scraper",
+   "title": "Semrush Full API SEO Scraper - Traffic, Authority, Backlinks",
+   "users30": 791,
+   "rating": 3,
+   "reviews": 6
+  },
+  {
+   "name": "watcher.data/search-threads-by-keywords",
+   "title": "Search Threads By Keywords",
+   "users30": 769,
+   "rating": 3.4,
+   "reviews": 10
+  },
+  {
+   "name": "scrape.badger/twitter-tweets-scraper",
+   "title": "X Tweet Scraper | $0.15/1K Tweets | Pay-Per-Result",
+   "users30": 645,
+   "rating": 3.6,
+   "reviews": 18
+  }
+ ]
+}

@@ -6,7 +6,7 @@ Checked-in configuration and registries read by src and scripts.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**57 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**58 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -23,7 +23,7 @@ Checked-in configuration and registries read by src and scripts.
 - [Email infrastructure and warmup](#email-infrastructure-and-warmup) — 2
 - [Commerce, payments and economics](#commerce-payments-and-economics) — 2
 - [Founder operations and command center](#founder-operations-and-command-center) — 1
-- [Core and uncategorised](#core-and-uncategorised) — 1
+- [Core and uncategorised](#core-and-uncategorised) — 2
 
 ## North Star and life systems
 
@@ -122,4 +122,5 @@ Checked-in configuration and registries read by src and scripts.
 
 ## Core and uncategorised
 
+- [`config/monetization/program-commercial-genome.json`](../../config/monetization/program-commercial-genome.json) — uberbond.program-commercial-genome.v1 _(matched by name only)_
 - [`multidimensional-velocity-gap-registry.json`](../../config/multidimensional-velocity-gap-registry.json) — Audit of velocity gaps: Compounding Velocity Kernel, Global Cognitive Action Cache, Incremental Cognition Engine, Predictive Context Foundry; existing primitives and donors. · **Use:** plan speedup primitives for the system

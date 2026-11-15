@@ -1,0 +1,15 @@
+{
+  "title": "Email Verifier input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "emails": { "title": "Email addresses", "type": "array", "editor": "stringList", "description": "Addresses to verify. Paste one per line.", "prefill": ["someone@example.com"] },
+    "datasetId": { "title": "Or: dataset ID from another Actor", "type": "string", "editor": "textfield", "description": "Verify the output of a lead scraper directly. Paste the dataset ID of a finished run (Google Maps Email Extractor, Leads Finder, Contact Details Scraper, ...)." },
+    "emailField": { "title": "Field that holds the email", "type": "string", "editor": "textfield", "default": "email", "description": "Field name in the dataset items. Nested fields use dots (contact.email). Arrays of emails are supported (emails)." },
+    "maxEmails": { "title": "Maximum addresses", "type": "integer", "default": 50000, "minimum": 1, "maximum": 200000, "description": "Stop reading input after this many addresses." },
+    "dnsOnly": { "title": "Skip mailbox (SMTP) check", "type": "boolean", "default": false, "description": "Only check syntax and whether the domain can receive mail. Fast. Charges only for domains proven unable to receive mail." },
+    "concurrency": { "title": "Domains checked in parallel", "type": "integer", "default": 10, "minimum": 1, "maximum": 25, "description": "Each domain is contacted by one connection at a time regardless of this value." },
+    "heloName": { "title": "HELO name (advanced)", "type": "string", "editor": "textfield", "description": "Hostname to announce to mail servers. Leave empty to announce this run's own IP address.", "sectionCaption": "Advanced", "sectionDescription": "Leave these empty unless you know you need them." },
+    "mailFrom": { "title": "Envelope sender (advanced)", "type": "string", "editor": "textfield", "description": "Leave empty to use the null sender, as mail servers do when they verify each other. No message is ever sent." }
+  }
+}

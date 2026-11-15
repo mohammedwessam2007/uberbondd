@@ -6,7 +6,7 @@ Coverage matrices, reachability classification, organ callability, readiness con
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**268 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**269 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -168,7 +168,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`scripts/v7-live-truth.mjs`](../../scripts/v7-live-truth.mjs) — Phase 0 live truth recovery reading git, doctors and artifacts, recording unobservable fields as UNOBSERVED, including V9 materializer report · **Use:** snapshot current live truth at session start
 - [`scripts/v7-proof-obligations.mjs`](../../scripts/v7-proof-obligations.mjs) — Classifies each constitutional rule by what kind of evidence could settle it versus what it has, separating guard-settleable from non-code rules · **Use:** turn unguarded-rule counts into honest proof obligations
 
-## Config, data, artifacts and services (49)
+## Config, data, artifacts and services (50)
 
 - [`.github/workflows/night-verification.yml`](../../.github/workflows/night-verification.yml) — PR workflow running syntax, deterministic suite, reachability ratchet and canon freshness checks with full history. · **Use:** Night Verification War gate on PRs
 - [`.github/workflows/phoenix-research-readiness-repair.yml`](../../.github/workflows/phoenix-research-readiness-repair.yml) — Branch-scoped workflow with contents:write that regenerates readiness canon for the PHOENIX waves 3-10 intake branch. · **Use:** repair generated canon on the PHOENIX research branch
@@ -180,6 +180,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`artifacts/first-money/first-money-edge-matrix-2026-09-04.json`](../../artifacts/first-money/first-money-edge-matrix-2026-09-04.json) — 2026-09-04 · Edge matrix classifying each first-money pipeline edge as verified ready or not, bound to the $450 lead-path sprint champion. · **Use:** check end-to-end first-money readiness
 - [`artifacts/genesis/pr342-causal-closure-2026-09-04.json`](../../artifacts/genesis/pr342-causal-closure-2026-09-04.json) — 2026-09-04 · Reconciliation of PR #342 GENESIS 275 real execution failures to their source causal repairs. · **Use:** prove each PR342 failure has a repair
 - [`artifacts/genesis/pr342-verification-watch-2026-09-04.json`](../../artifacts/genesis/pr342-verification-watch-2026-09-04.json) — 2026-09-04 · Verification retrigger receipt for PR #342 classifying GitHub/Vercel runs as infrastructure non-evidence or stale heads. · **Use:** track PR342 exact-head verification
+- [`artifacts/monetization-singularity/coverage.json`](../../artifacts/monetization-singularity/coverage.json) — uberbond.economic-asset-atlas.v1 _(matched by name only)_
 - [`artifacts/night-integration/2026-09-03-run-08.json`](../../artifacts/night-integration/2026-09-03-run-08.json) — 2026-09-03 · Night integration run 8 receipt: findings, peer claims and single next integration dependency; CI classified as infrastructure non-evidence. · **Use:** night integration lane convergence log
 - [`artifacts/night-integration/2026-09-03-run-09.json`](../../artifacts/night-integration/2026-09-03-run-09.json) — 2026-09-03 · Night integration run 9 receipt: convergence delta, payment-link candidate and stale canon note; CI classified as infrastructure non-evidence. · **Use:** night integration lane convergence log
 - [`artifacts/night-integration/2026-09-03-run-10.json`](../../artifacts/night-integration/2026-09-03-run-10.json) — 2026-09-03 · Night integration run 10 receipt: hosted verification and peer adjudication; CI classified as infrastructure non-evidence. · **Use:** night integration lane convergence log

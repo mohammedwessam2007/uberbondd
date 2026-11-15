@@ -6,7 +6,7 @@ UberDNS control plane and GoDaddy adapter, domain purpose plan, domain/mailbox r
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**109 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**111 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -41,6 +41,10 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 - [`docs/UBERDNS_GODADDY_DONOR_NOTE_2026-09-16.md`](../UBERDNS_GODADDY_DONOR_NOTE_2026-09-16.md) — 2026-09-16 · Note treating GoDaddy DNS API as replaceable supplier under UberDNS; DNS writes need plan digest, authorization, idempotency, verification. · **Use:** rules for GoDaddy DNS adapter
 - [`docs/UBERINBOXES_CAPACITY_DECISION_2026-09-14.md`](../UBERINBOXES_CAPACITY_DECISION_2026-09-14.md) — 2026-09-14 · Dated decision comparing Icemail Azure/SMTP capacity per domain and conflicting prices; requires live quote before purchase. · **Use:** size mailbox fleet capacity
+
+## Other documents (1)
+
+- [`actors/definitive-email-verifier/src/disposable-domains.txt`](../../actors/definitive-email-verifier/src/disposable-domains.txt) — 0-mail.com _(matched by name only)_
 
 ## Documents that discuss this project without naming it in the filename (3)
 
@@ -96,8 +100,9 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`scripts/uberlaunch-closure-doctor.mjs`](../../scripts/uberlaunch-closure-doctor.mjs) — Doctor compiling UberLaunch closure across DNS, postal identity and prospect forge. · **Use:** Launch closure checks.
 - [`scripts/winnr-post-purchase-doctor.mjs`](../../scripts/winnr-post-purchase-doctor.mjs) — Optional-probe Winnr client check producing a post-purchase checklist for a domain with redacted summaries · **Use:** verify a newly bought Winnr domain is set up _(npm: `outreach:winnr:doctor`)_
 
-## Config, data, artifacts and services (5)
+## Config, data, artifacts and services (6)
 
+- [`actors/definitive-email-verifier/src/dns.mjs`](../../actors/definitive-email-verifier/src/dns.mjs) — Mail-routing lookup with two independent witnesses. _(matched by name only)_
 - [`api/webhooks/postal.mjs`](../../api/webhooks/postal.mjs) — Postal webhook verifier (SHA-256 header only) recording evidence and pausing sender slots on authenticated DNS errors. · **Use:** ingest mail server events into sender health
 - [`artifacts/outreach/fleet-dns-observation-2026-09-25.json`](../../artifacts/outreach/fleet-dns-observation-2026-09-25.json) — 2026-09-25 · Observation receipt of DNS records across the outreach sender domain fleet dated 2026-09-25, with per-domain results, summary and zero-effect ledger. · **Use:** check sender-domain DNS readiness of the fleet before warming or sending
 - [`artifacts/outreach/godaddy-dns-observation-2026-09-20.json`](../../artifacts/outreach/godaddy-dns-observation-2026-09-20.json) — 2026-09-20 · Observation of GoDaddy UI DNS records for two canonical root domains; not propagation, mail server or DKIM proof. · **Use:** evidence of root-domain DNS state at 2026-09-20

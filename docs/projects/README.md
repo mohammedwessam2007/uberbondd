@@ -113,7 +113,7 @@ When asked about a specific UberBond project, open its page here first and follo
 
 | Project | Files | What it is |
 |---|---:|---|
-| [Outreach (umbrella)](outreach.md) | 386 | Everything outreach: cold email system, 100K corpus, governance, launch gates, workbench, provider reality, one-button activation. |
+| [Outreach (umbrella)](outreach.md) | 387 | Everything outreach: cold email system, 100K corpus, governance, launch gates, workbench, provider reality, one-button activation. |
 | [Prospecting and lead generation](prospecting-leadgen.md) | 180 | Prospect identity, qualification, enrichment and preflight; lead generation and intelligence; contact verification; company registry and public-web discovery. |
 | [UberReach, UberOutbound and UberLaunch](uberreach-uberoutbound.md) | 116 | UberOutbound genome and policy registry, UberReach control plane and universal transport, UberLaunch one-button closure, UberPostal identity, postal live send. |
 | [UberReply, replies and async closing](reply-closing.md) | 75 | Reply taxonomy and tournament, four-offer genome, prework artifacts, reply radar, inbound classification, proposal acceptance, UberClose, async no-meeting sales. |
@@ -170,7 +170,7 @@ When asked about a specific UberBond project, open its page here first and follo
 
 - **3435** files by reading their content (purpose and use written per file; records in `artifacts/repository-index/semantics/`).
 - **1232** tests by the modules they import.
-- **76** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
+- **77** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
 
-21 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
+24 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

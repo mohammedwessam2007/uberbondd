@@ -41,6 +41,14 @@ Rates are upper bounds: the search stopped returning results at 79% to 89% of it
 - The email verifier could only be revived with a paid host that has port 25 open and a clean IP reputation. It would still face 381 competitors and an edge that is already taken. Not recommended.
 - The Actor code stays as reusable parts. Its status: `actors/definitive-email-verifier/STATUS.md`.
 
+**Next route, chosen by the founder (2026-11-15).** The founder confirmed his mailboxes are warming and asked for income from existing work. Route: the October flagship offer (Agency Revenue Leak Proof Pack, $1,500 for 3 client sites), using the repository's own inquiry probe as the free first-touch evidence.
+- New tools: `scripts/agency-leak-scan.mjs` turns a list of agency websites into drafts, only when a hard defect on a home-service client site reproduces on a second check. `scripts/agency-leak-send.py` sends founder-approved drafts only, with caps, suppression and the CAN-SPAM footer.
+- Tests: `tests/agency-leak-pipeline.test.mjs`, 8 of 8 pass, 4 of 4 deliberate breakages caught.
+- Live smoke run on 4 real agencies: 0 drafts. Three hide their email behind forms; one had no hard defect on its client site.
+- Expected yield is low (a guess of 1 to 10 drafts per 100 agencies, not measured), so the agency list must be long.
+- Jarvis runbook: `docs/monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md`.
+- Not verified: Egyptian sender-side law for cold B2B email, deliverability from the founder's mailboxes, buyer response.
+
 **Account hygiene.** Jarvis was given the Apify API token in chat. Rotate it: Apify Console → Settings → API & Integrations.
 
 ## 1. What changed today

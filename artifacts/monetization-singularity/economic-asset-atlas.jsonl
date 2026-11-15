@@ -1520,6 +1520,7 @@
 {"p":"docs/migrations-pending/20261017_uberwarm2_receiver_binding.sql","c":"COST_REDUCTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberwarm"}
 {"p":"docs/missions/PHOENIX_UBERWARM_OMEGA_OTHER_ENGINE_LAUNCHER_20261018.txt","c":"COST_REDUCTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberwarm"}
 {"p":"docs/missions/PHOENIX_UBERWARM_TOTAL_CLOSURE_AND_SOVEREIGN_BACKUP_ACTIVATOR_20261018_R1.md","c":"COST_REDUCTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberwarm"}
+{"p":"docs/monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"path-rule:monetization-mission"}
 {"p":"docs/monetization/JARVIS_PUBLISH_EMAIL_VERIFIER_PROMPT.md","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"path-rule:monetization-mission"}
 {"p":"docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"path-rule:monetization-mission"}
 {"p":"docs/neu205/CLAUDE_CODE_PUBLIC_RESUME.md","c":"PRIVATE_NONCOMMERCIAL","d":"KEEP_PRIVATE","b":"project:neu205"}
@@ -2091,6 +2092,8 @@
 {"p":"schemas/uberos-machine-manifest.schema.json","c":"DEFENSIVE_STRATEGIC","d":"INTERNAL_LEVERAGE","b":"project:uberos"}
 {"p":"schemas/uberoutbound-genome.schema.json","c":"DISTRIBUTION_INFRA","d":"INTERNAL_LEVERAGE","b":"project:uberreach-uberoutbound"}
 {"p":"scripts/absolute-frontier-quality-doctor.mjs","c":"RESEARCH_OPTION","d":"RESEARCH_OPTION","b":"project:apex"}
+{"p":"scripts/agency-leak-scan.mjs","c":"UNKNOWN","d":"UNKNOWN_NEEDS_EVIDENCE","b":"unmatched"}
+{"p":"scripts/agency-leak-send.py","c":"UNKNOWN","d":"UNKNOWN_NEEDS_EVIDENCE","b":"unmatched"}
 {"p":"scripts/agent-evolution-operator.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:self-maintainer"}
 {"p":"scripts/agent-mesh-tick.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:agent-mesh"}
 {"p":"scripts/agent-model-route.mjs","c":"COST_REDUCTION_INFRA","d":"DOMINATED","b":"project:model-routing"}
@@ -3684,6 +3687,7 @@
 {"p":"tests/adaptive-source-ceiling-governor.test.mjs","c":"ECONOMIC_INTELLIGENCE","d":"INTERNAL_LEVERAGE","b":"project:gamechanger"}
 {"p":"tests/admin-ephemeral-client-hostile.test.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:command-center"}
 {"p":"tests/admin-health-route.test.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:command-center"}
+{"p":"tests/agency-leak-pipeline.test.mjs","c":"UNKNOWN","d":"UNKNOWN_NEEDS_EVIDENCE","b":"unmatched"}
 {"p":"tests/agent-autonomy-role-bound-origin.test.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:agent-mesh"}
 {"p":"tests/agent-code-artifact-store.test.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:agent-mesh"}
 {"p":"tests/agent-code-change.test.mjs","c":"AUTONOMY_INFRA","d":"INTERNAL_LEVERAGE","b":"project:agent-mesh"}

@@ -199,7 +199,7 @@ Self-maintainer, recursive governance, constitution compiler, mutation testing, 
 
 **157 files** — [src 39](SRC.md) · [tests 76](TESTS.md) · [scripts 18](SCRIPTS.md) · [docs 4](DOCS.md) · [artifacts 5](ARTIFACTS.md) · [config 3](CONFIG.md) · [api 1](API.md) · [.github 11](GITHUB.md)
 
-Most-imported modules: [`effect-ledgers`](../../src/effect-ledgers.mjs) (378), [`secret-patterns`](../../src/secret-patterns.mjs) (24), [`self-maintainer-continuation-policy`](../../src/self-maintainer-continuation-policy.mjs) (5), [`audit-rules`](../../src/audit-rules.mjs) (4), [`recursive-revocation-graph`](../../src/recursive-revocation-graph.mjs) (4), [`coverage-state-evidence-integrity`](../../src/coverage-state-evidence-integrity.mjs) (3), [`github-actions-oidc-verifier`](../../src/github-actions-oidc-verifier.mjs) (3), [`recursive-governance-principals`](../../src/recursive-governance-principals.mjs) (3)
+Most-imported modules: [`effect-ledgers`](../../src/effect-ledgers.mjs) (378), [`secret-patterns`](../../src/secret-patterns.mjs) (24), [`self-maintainer-continuation-policy`](../../src/self-maintainer-continuation-policy.mjs) (5), [`audit-rules`](../../src/audit-rules.mjs) (4), [`recursive-revocation-graph`](../../src/recursive-revocation-graph.mjs) (4), [`security`](../../src/security.mjs) (4), [`coverage-state-evidence-integrity`](../../src/coverage-state-evidence-integrity.mjs) (3), [`github-actions-oidc-verifier`](../../src/github-actions-oidc-verifier.mjs) (3)
 
 Key documents (canon first, then newest):
 
@@ -250,7 +250,7 @@ Commands: `npm run domain:plan` · `npm run outreach:winnr:doctor` · `npm run u
 
 Prospecting, qualification, message tournaments, outbound sending gates, reply handling, suppression and the Distribution OS.
 
-**324 files** — [root 3](ROOT.md) · [src 102](SRC.md) · [tests 125](TESTS.md) · [scripts 17](SCRIPTS.md) · [docs 48](DOCS.md) · [artifacts 23](ARTIFACTS.md) · [api 2](API.md) · [public 2](PUBLIC.md) · [.github 1](GITHUB.md) · [other 1](OTHER.md)
+**325 files** — [root 3](ROOT.md) · [src 102](SRC.md) · [tests 125](TESTS.md) · [scripts 17](SCRIPTS.md) · [docs 49](DOCS.md) · [artifacts 23](ARTIFACTS.md) · [api 2](API.md) · [public 2](PUBLIC.md) · [.github 1](GITHUB.md) · [other 1](OTHER.md)
 
 Most-imported modules: [`uberreply-four-offer-genome`](../../src/uberreply-four-offer-genome.mjs) (12), [`outreach-governance`](../../src/outreach-governance.mjs) (10), [`prospect-contact-history`](../../src/prospect-contact-history.mjs) (9), [`uberoutbound-genome`](../../src/uberoutbound-genome.mjs) (9), [`uberoutbound-recipient-eligibility`](../../src/uberoutbound-recipient-eligibility.mjs) (9), [`outreach-domain-fleet`](../../src/outreach-domain-fleet.mjs) (7), [`lead-generation`](../../src/lead-generation.mjs) (6), [`lead-path-sprint-fulfillment`](../../src/lead-path-sprint-fulfillment.mjs) (6)
 
@@ -273,7 +273,7 @@ Offers, revenue runtime, PayPal/payment truth, fulfilment and delivery, economic
 
 **328 files** — [src 94](SRC.md) · [tests 118](TESTS.md) · [scripts 14](SCRIPTS.md) · [docs 27](DOCS.md) · [artifacts 31](ARTIFACTS.md) · [config 2](CONFIG.md) · [api 4](API.md) · [lite 35](LITE.md) · [.github 1](GITHUB.md) · [migrations 1](MIGRATIONS.md) · [other 1](OTHER.md)
 
-Most-imported modules: [`payment-renewal-truth`](../../src/payment-renewal-truth.mjs) (7), [`payments`](../../src/payments.mjs) (7), [`commercial-opportunity-catalog`](../../src/commercial-opportunity-catalog.mjs) (6), [`commercial-outcome`](../../src/commercial-outcome.mjs) (4), [`first-cash-canary-packet`](../../src/first-cash-canary-packet.mjs) (4), [`revenue-singularity-service`](../../src/revenue-singularity-service.mjs) (4), [`economic-reliability-engine`](../../src/economic-reliability-engine.mjs) (3), [`inquiry-path-probe`](../../src/inquiry-path-probe.mjs) (3)
+Most-imported modules: [`payment-renewal-truth`](../../src/payment-renewal-truth.mjs) (7), [`payments`](../../src/payments.mjs) (7), [`commercial-opportunity-catalog`](../../src/commercial-opportunity-catalog.mjs) (6), [`commercial-outcome`](../../src/commercial-outcome.mjs) (4), [`first-cash-canary-packet`](../../src/first-cash-canary-packet.mjs) (4), [`inquiry-path-probe`](../../src/inquiry-path-probe.mjs) (4), [`revenue-singularity-service`](../../src/revenue-singularity-service.mjs) (4), [`economic-reliability-engine`](../../src/economic-reliability-engine.mjs) (3)
 
 Key documents (canon first, then newest):
 
@@ -355,7 +355,7 @@ Commands: `npm run absence:doctor` · `npm run manifest:kilimanjaro` · `npm run
 
 Server core, shared utilities and files whose name did not match a domain rule. Candidates for a future rule.
 
-**99 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 31](TESTS.md) · [scripts 5](SCRIPTS.md) · [docs 7](DOCS.md) · [artifacts 45](ARTIFACTS.md) · [config 2](CONFIG.md)
+**102 files** — [root 7](ROOT.md) · [src 2](SRC.md) · [tests 32](TESTS.md) · [scripts 7](SCRIPTS.md) · [docs 7](DOCS.md) · [artifacts 45](ARTIFACTS.md) · [config 2](CONFIG.md)
 
 Most-imported modules: [`adaptive-source-ceiling-governor`](../../src/adaptive-source-ceiling-governor.mjs) (2), [`operational-world-resource-admission`](../../src/operational-world-resource-admission.mjs) (2)
 

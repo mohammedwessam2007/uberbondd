@@ -6,7 +6,7 @@ node:test files, almost all named after the src module or seam they cover. Run w
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**1412 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**1413 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -26,7 +26,7 @@ node:test files, almost all named after the src module or seam they cover. Run w
 - [Opportunity and world intelligence](#opportunity-and-world-intelligence) — 33
 - [Sovereign infrastructure and runtime](#sovereign-infrastructure-and-runtime) — 144
 - [Founder operations and command center](#founder-operations-and-command-center) — 30
-- [Core and uncategorised](#core-and-uncategorised) — 31
+- [Core and uncategorised](#core-and-uncategorised) — 32
 
 ## North Star and life systems
 
@@ -1462,6 +1462,7 @@ node:test files, almost all named after the src module or seam they cover. Run w
 - [`adaptive-source-ceiling-governor.test.mjs`](../../tests/adaptive-source-ceiling-governor.test.mjs) — Tests adaptive-source-ceiling-governor (5 tests — e.g. "parses provider rate headers")
 - [`admin-ephemeral-client-hostile.test.mjs`](../../tests/admin-ephemeral-client-hostile.test.mjs) — Hostile tests ensuring admin bearer never persists in browser storage or query URLs and server rejects query-token auth. · **Use:** Guard admin authentication against token leakage
 - [`admin-health-route.test.mjs`](../../tests/admin-health-route.test.mjs) — Tests the admin health route bearer check, method restriction, unconfigured refusal and that telemetry carries no addresses. · **Use:** Protect operational health telemetry endpoint
+- [`agency-leak-pipeline.test.mjs`](../../tests/agency-leak-pipeline.test.mjs) — Agency Revenue Leak pipeline: scanner rules (stubbed web) and the Python sender (fake local SMTP).
 - [`apify-store-observatory.test.mjs`](../../tests/apify-store-observatory.test.mjs) — Apify Store observatory: the analysis is pure; the harvest is read-only and stops on rate limits.
 - [`c03-transfer-voi.test.mjs`](../../tests/c03-transfer-voi.test.mjs) — Tests cross-domain-transfer-evaluator, value-of-information-governor (14 tests — e.g. "matched-budget multi-domain gains support transfer feasibility but not generality")
 - [`c13-c21-real-integration.test.mjs`](../../tests/c13-c21-real-integration.test.mjs) — Tests compound-intelligence-evaluation, system-level-asi-evidence (2 tests — e.g. "real C13 return authenticates directly in C21 under exact identity")

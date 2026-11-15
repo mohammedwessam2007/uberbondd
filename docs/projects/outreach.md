@@ -6,7 +6,7 @@ Everything outreach: cold email system, 100K corpus, governance, launch gates, w
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**386 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**387 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -31,7 +31,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 `npm run outreach:drift-doctor` · `npm run outreach:eligibility` · `npm run outreach:fleet-dns` · `npm run outreach:free-first:doctor` · `npm run outreach:launch-facts` · `npm run outreach:reachability-audit` · `npm run probes:outbound` · `npm run smoke:outbound`
 
-## Standing documents (19)
+## Standing documents (20)
 
 - [`docs/OFFER_QUARTET_OCT_2026_10_OF_10.md`](../OFFER_QUARTET_OCT_2026_10_OF_10.md) — Design of four flagship offers (Agency Revenue Leak Proof Pack etc.) against a 10-point rubric with buyer, pain, promise, scope, prices as hypotheses. · **Use:** define the offers outreach sells
 - [`docs/OUTREACH_ACTIVATION_CARD.md`](../OUTREACH_ACTIVATION_CARD.md) — Card of current outreach asset truth: two owned domains, PayPal path, UberDoso transport, DNS evidence requirements. · **Use:** stop re-asking founder for domains or payment provider
@@ -49,6 +49,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`START_HERE.md`](../../START_HERE.md) — Legacy start page for Revenue Engine 1.4 Mission 3 listing completed layers, verification commands and web/worker deployment shape with outbound disabled. · **Use:** historical setup guide for the original revenue engine
 - [`UBERBOND_NIGHT_WAR_FINAL.md`](../../UBERBOND_NIGHT_WAR_FINAL.md) — Night War final report dated 2026-09-25: zero effects, $0 revenue, closed software gaps for lawful first batch, print-card $0 path, founder-only remaining actions. · **Use:** evidence of first-cash readiness state and remaining founder actions
 - [`artifacts/outreach/global-live-bridge-20261003/policy-evidence.md`](../../artifacts/outreach/global-live-bridge-20261003/policy-evidence.md) — Summary of external policy research 2026-10-03: UK corporate subscriber branch, CAN-SPAM atoms, Canada/Australia consent, UAE/Egypt unknown; zero authority. · **Use:** human-readable basis for jurisdiction routing of cold email
+- [`docs/monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md`](../monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md) — Prompt for Jarvis: first-cash outreach with the Agency Revenue Leak scanner _(matched by name only)_
 - [`docs/opportunities/CURRENT_ROUTE_LEDGER.md`](../opportunities/CURRENT_ROUTE_LEDGER.md) — Ledger as of 2026-08-10 of solicited freelance routes with official source, classification and action, research only. · **Use:** Decision table for which solicited application routes to pursue.
 - [`docs/outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md`](../outreach/BOUNDED_OUTREACH_CANARY_RUNBOOK.md) — Runbook activating at most one bounded outreach canary via Gmail API with env settings, caps, reconciliation and approval secrets. · **Use:** Steps for a one-message canary while generic cold email stays blocked.
 - [`docs/outreach/PROVIDER_POLICY_BOUNDARY.md`](../outreach/PROVIDER_POLICY_BOUNDARY.md) — Gmail API provider-policy boundary: only solicited, consented or requested messages admitted; public business contact denied; CASL pointer. · **Use:** Policy gate explaining why cold email cannot use Gmail API.
@@ -199,7 +200,7 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 - [`src/prospect-preflight.mjs`](../../src/prospect-preflight.mjs) — PROSPECT_PREFLIGHT chain: contact history, verification, registry lookup, green-lane router, cold-route envelope, message tournament, effect package · **Use:** single zero-authority gate before any prospect cold send _(tested; imported by 2)_
 - [`src/prospect-qualification-pipeline.mjs`](../../src/prospect-qualification-pipeline.mjs) — Composes qualification scorer and gate so the gate can only narrow eligibility · **Use:** single answer on whether a prospect may enter an outreach experiment _(tested; imported by 1)_
 - [`src/prospect-verification-intake.mjs`](../../src/prospect-verification-intake.mjs) — Classifies an externally fetched agency record as VERIFIED_CANDIDATE, REJECTED or INCOMPLETE using evidence classes, roles and negative recipient signals · **Use:** intake gate for externally observed prospect evidence _(tested; imported by 3)_
-- [`src/recipient-address-classifier.mjs`](../../src/recipient-address-classifier.mjs) — Classifies a recipient email as role inbox, named person, consumer, system, ambiguous or guess by combining publication and page evidence · **Use:** decide what kind of inbox a cold email targets _(tested; imported by 3)_
+- [`src/recipient-address-classifier.mjs`](../../src/recipient-address-classifier.mjs) — Classifies a recipient email as role inbox, named person, consumer, system, ambiguous or guess by combining publication and page evidence · **Use:** decide what kind of inbox a cold email targets _(tested; imported by 4)_
 - [`src/reservation-recovery.mjs`](../../src/reservation-recovery.mjs) — Compare-and-transition recovery of stuck outbound reservations using the existing store state machine · **Use:** recover interrupted sends without overwriting newer truth _(tested; imported by 2)_
 - [`src/reserved-domains.mjs`](../../src/reserved-domains.mjs) — Single decision point refusing RFC 2606/6761 reserved domains as sending domains outside simulation · **Use:** prevent test domains becoming send targets _(tested; imported by 1)_
 - [`src/revenue-singularity-service.mjs`](../../src/revenue-singularity-service.mjs) — Read/plan service binding Revenue Singularity modules to the store: snapshot, radar, money queue, constellation, X-Ray, G-SPOT, offer market, Contra collection route · **Use:** backend for Revenue Constellation, Money Queue and G-SPOT _(imported by 4)_

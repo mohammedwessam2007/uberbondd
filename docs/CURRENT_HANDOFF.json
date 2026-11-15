@@ -1665,8 +1665,8 @@
     },
     "founderOnlyActions": [
       "Rotate the Apify API token (it was pasted to Jarvis in chat)",
-      "Choose the next route (see report section 0 and the chat recommendation)",
-      "Decide whether to warm or cancel the Winnr fleet (50 mailboxes, 1 warming)"
+      "Run the agency outreach runbook with Jarvis; approve drafts by ID and type GO before sends",
+      "Answer every reply personally; bring any yes to Claude"
     ],
     "nextWithoutFounder": [
       "none on the Apify route: every measured niche is at most 2.7% for a new listing"
@@ -1713,6 +1713,29 @@
         "corrected": 0.0271
       },
       "withdrawnClaim": "no listing charged only for proven results (pnda/email-verifier does)"
+    },
+    "nextRoute": {
+      "chosenBy": "founder 2026-11-15",
+      "offer": "Agency Revenue Leak Proof Pack ($1,500 / 3 client sites)",
+      "tools": [
+        "scripts/agency-leak-scan.mjs",
+        "scripts/agency-leak-send.py"
+      ],
+      "tests": "tests/agency-leak-pipeline.test.mjs 8/8; 4/4 mutations",
+      "runbook": "docs/monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md",
+      "liveSmoke": "4 real agencies, 0 drafts (3 no published inbox, 1 no hard defect)",
+      "founderGates": [
+        "approve each draft by ID",
+        "fill sender.json with postal address and warmed mailboxes",
+        "type GO before each real send",
+        "answer every reply personally"
+      ],
+      "notVerified": [
+        "Egyptian sender-side law for cold B2B email",
+        "deliverability",
+        "buyer response"
+      ],
+      "onBuyerYes": "bring the thread to Claude for paid delivery and invoice wording"
     }
   }
 }

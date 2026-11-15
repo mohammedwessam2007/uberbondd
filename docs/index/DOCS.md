@@ -6,7 +6,7 @@ Human-readable canon, architecture, handoffs, receipts, prompts and forensics.
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**704 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**705 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -25,7 +25,7 @@ Human-readable canon, architecture, handoffs, receipts, prompts and forensics.
 - [memory](#memory) — 40
 - [migrations-pending](#migrations-pending) — 4
 - [missions](#missions) — 2
-- [monetization](#monetization) — 2
+- [monetization](#monetization) — 3
 - [neu205](#neu205) — 1
 - [opportunities](#opportunities) — 7
 - [outreach](#outreach) — 6
@@ -417,6 +417,7 @@ Human-readable canon, architecture, handoffs, receipts, prompts and forensics.
 
 ## monetization
 
+- [`docs/monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md`](../monetization/JARVIS_AGENCY_OUTREACH_PROMPT.md) — Prompt for Jarvis: first-cash outreach with the Agency Revenue Leak scanner _(matched by name only)_
 - [`docs/monetization/JARVIS_PUBLISH_EMAIL_VERIFIER_PROMPT.md`](../monetization/JARVIS_PUBLISH_EMAIL_VERIFIER_PROMPT.md) — Prompt for Jarvis: publish the email verifier on the Apify Store
 - [`docs/monetization/MONETIZATION_SINGULARITY_2026-11-15.md`](../monetization/MONETIZATION_SINGULARITY_2026-11-15.md) — 2026-11-15 · UberBond Ω∞: Monetization Singularity, first execution
 

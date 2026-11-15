@@ -6,7 +6,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**405 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**407 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
@@ -26,7 +26,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [Opportunity and world intelligence](#opportunity-and-world-intelligence) — 6
 - [Sovereign infrastructure and runtime](#sovereign-infrastructure-and-runtime) — 88
 - [Founder operations and command center](#founder-operations-and-command-center) — 5
-- [Core and uncategorised](#core-and-uncategorised) — 5
+- [Core and uncategorised](#core-and-uncategorised) — 7
 
 ## North Star and life systems
 
@@ -478,6 +478,8 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 ## Core and uncategorised
 
+- [`agency-leak-scan.mjs`](../../scripts/agency-leak-scan.mjs) — Agency Revenue Leak scan: turns a list of web-design/marketing agency websites
+- [`agency-leak-send.py`](../../scripts/agency-leak-send.py)
 - [`apify-store-observatory.mjs`](../../scripts/apify-store-observatory.mjs) — Apify Store demand observatory. Reads the public, keyless Store listing and
 - [`compile-founder-outcome-mission.mjs`](../../scripts/compile-founder-outcome-mission.mjs) — CLI compiling the latest founder outcome mission. · **Use:** produce current founder outcome mission packet
 - [`materialize-inevitability-v9.py`](../../scripts/materialize-inevitability-v9.py) — Python materializer reconstructing the Inevitability Engine V9 source from base64 carrier, verifying manifest hashes. · **Use:** rebuild hash-locked V9 source from carrier

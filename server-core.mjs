@@ -1204,6 +1204,12 @@ export const requestHandler = async (req, res) => {
   try {
     const url = new URL(req.url, config.baseUrl);
     const method = req.method;
+    // Database-free process liveness for external monitoring. This is NOT
+    // readiness: /api/health intentionally verifies queue/worker state.
+    // Place before session restoration so even stray cookies cannot wake Neon.
+    if (method === 'GET' && url.pathname === '/api/live') {
+      return json(res, 200, { ok: true, kind: 'liveness' });
+    }
     if (parseCookies(req.headers.cookie)[OWNER_SESSION_COOKIE]) {
       // Device logout survives web restarts. Failure to read revocations never
       // resurrects a cookie by falling back to process-local memory.

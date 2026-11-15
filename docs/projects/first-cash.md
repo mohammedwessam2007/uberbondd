@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 40 — see [symbols for this family](../index/specialized/SYMBOLS-revenue-and-commerce.md) |
+| Environment variables read | none — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `auditLog` · `leads` · `notifications` · `orders` · `prospects` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | `research.batch` — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `paypal.me` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | #0001 — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (11)
 
 - [`00_OUTREACH_NOW.md`](../../00_OUTREACH_NOW.md) — Outreach autoload reconciled 2026-10-04 with 2026-10-08 overlay: sender readiness, $69 Winnr purchase gate, 890 first-cash plan pointer. · **Use:** resume outreach/first-cash frontier in a new chat

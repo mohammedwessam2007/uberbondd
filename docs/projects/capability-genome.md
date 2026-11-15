@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 115 — see [symbols for this family](../index/specialized/SYMBOLS-capabilities-and-skills.md) |
+| Environment variables read | `UBERBOND_CAPABILITY_GENOME_CORPUS_DIR` · `UBERBOND_CAPABILITY_GENOME_NETWORK_READS` · `UBERBOND_SOURCE_SHA` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `leads` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `api.github.com` · `github.com` · `raw.githubusercontent.com` · `x.com` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`docs/AI_SKILL_PLUGIN_ASSIMILATION_CANON.md`](../AI_SKILL_PLUGIN_ASSIMILATION_CANON.md) — Policy for discovering, vetting and using external skills, plugins, MCP servers, memory and security tools beneath UberBond authority. · **Use:** Gate for installing or invoking external capabilities.

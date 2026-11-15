@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 94 — see [symbols for this family](../index/specialized/SYMBOLS-outreach-and-distribution.md) |
+| Environment variables read | `APP_BASE_URL` · `CONSENT_BRIDGE_SECRET` · `UBERBOND_INVITATION_SECRET` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `leads` · `prospects` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`docs/DISTRIBUTION_OS_CANON.md`](../DISTRIBUTION_OS_CANON.md) — Canon framing distribution as an allocation problem: one provider-neutral control plane over lead, outbound, inbound and learning, maximizing profit per founder minute. · **Use:** Constitution for distribution work.

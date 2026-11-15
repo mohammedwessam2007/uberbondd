@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 37 — see [symbols for this family](../index/specialized/SYMBOLS-infrastructure.md) |
+| Environment variables read | `UBERBOND_RUNTIME_EVIDENCE_HOST` · `UBERBOND_RUNTIME_EVIDENCE_PUBLIC_KEY_PEM` · `UBERBOND_WEB_PRIMARY_HOST` · `UBERMIND_SKIP_TEMP_RENDER_BUILD_OVERRIDE` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | none — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`docs/CLOUD_ACTIVATION_CONTRACT.md`](../CLOUD_ACTIVATION_CONTRACT.md) — Contract of what is needed to move mesh liveness to a deployed production scheduler, with observed Vercel project state on 2026-09-09. · **Use:** Checklist for activating the cloud scheduler.

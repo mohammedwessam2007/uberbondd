@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 6 — see [symbols for this family](../index/specialized/SYMBOLS-north-star-and-life.md) |
+| Environment variables read | none — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | none — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (2)
 
 - [`docs/WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md`](../WESSAM_SINGULARITY_TOTAL_NORTH_STAR.md) — Founder-level meta North Star defining Wessam Singularity as falsifiable personal regime change above UberBond, with null hypothesis kept. · **Use:** top of founder hierarchy

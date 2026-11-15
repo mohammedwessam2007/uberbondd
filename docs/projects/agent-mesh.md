@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 158 — see [symbols for this family](../index/specialized/SYMBOLS-agents-and-automation.md) |
+| Environment variables read | `AGENT_MESH_ENABLED` · `AGENT_MESH_EVIDENCE_FILE` · `AGENT_MESH_INGEST_AFTER` · `AGENT_MESH_INTERVAL_MINUTES` · `AGENT_MESH_MISSION` · `AGENT_MESH_OCCURRENCE_KEY` · `AGENT_MESH_RUN_LIMIT` · `AGENT_MESH_WORKERS` · `CLAUDE_CODE_SANDBOX_ISOLATION_FILE` · `GITHUB_OUTPUT` · `GITHUB_SHA` · `PATH` · `STORE_BACKEND` · `UBERBOND_MODEL_PROXY_SOCKET` · … (20 total) — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `accounts` · `auditLog` · `jobs` · `messages` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | `artifacts.cleanup` · `discovery.run` · `followups.process` · `maildoso.evidence.sync` · `monitoring.process` · `outbound.process` · `outbound.reservations.recover` · `prometheus.capability_gap.recompute` · `prometheus.capability_genome.plan` · `prometheus.commercial.catalog` · … (13 total) — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `api.maildoso.com` · `api.openai.com` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — 2026-09-12 correction that founder silence is not a pause; defines resident initiative loop generating and executing bounded missions. · **Use:** basis for autonomous initiative without founder prompting

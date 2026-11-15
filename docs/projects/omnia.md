@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 213 — see [symbols for this family](../index/specialized/SYMBOLS-governance-authority-and-proof.md) |
+| Environment variables read | none — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `accounts` · `auditLog` · `campaigns` · `omnia_v9_approval_usage` · `omnia_v9_authority_reservations` · `omnia_v9_authority_transition_events` · `omnia_v9_canary_null_receipts` · `omnia_v9_execution_authorization_bindings` · `omnia_v9_execution_receipt_bindings` · `omnia_v9_execution_transition_events` · `omnia_v9_external_effect_executions` · `omnia_v9_external_effect_provider_evidence` · `omnia_v9_null_provider_ledger` · `omnia_v9_objects` · … (19 total) — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (6)
 
 - [`docs/PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md`](../PROMETHEUS_CANONICAL_INTEGRATION_PLAN.md) — Plan for stranded OMNIA V9 and Canon/V3 lineages; V2 note records owner decision to compose Guard and V9 in consequence-boundary. · **Use:** record of V9 vs Guard integration decision

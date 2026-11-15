@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 112 — see [symbols for this family](../index/specialized/SYMBOLS-cognition-economics-and-model-routing.md) |
+| Environment variables read | `OPENAI_API_KEY` · `OPENROUTER_ALLOW_PROVIDER_FALLBACKS` · `OPENROUTER_API_KEY` · `OPENROUTER_PLATFORM_FEE_RATE` · `OPENROUTER_PROVIDER_SORT` · `OPENROUTER_REQUIRE_ZDR` · `OPEN_MODEL_MODEL` · `OPEN_MODEL_RUNTIME` · `UBERBOND_MODEL_PROVIDER_PROBE_COST_CEILING_CENTS` · `UBERBOND_MODEL_PROVIDER_PROBE_OBJECTIVE` · `UBERBOND_RUNTIME_EVIDENCE_HOST` · `UBERMIND_MONTHLY_COGNITION_BUDGET_USD` · `UBERMIND_PROTECTED_CROWN_ESCROW_USD` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `messages` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `ai-gateway.vercel.sh` · `api.anthropic.com` · `api.openai.com` · `huggingface.co` · `ollama.com` · `openrouter.ai` · `vercel.com` · `www.modelscope.cn` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`docs/FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md`](../FRONTIER_OPERATOR_OPEN_MODEL_AUTOMATION_CANON.md) — Canon for Frontier Operator, Open Model Foundry and automation harvest: absorb frontier mechanisms into provider-neutral primitives. · **Use:** Governs frontier operator and open-model absorption.

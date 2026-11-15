@@ -1,4 +1,5 @@
 import test from 'node:test';
+import { extractSymbols } from '../scripts/repository-index-specialized.mjs';
 import assert from 'node:assert/strict';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -69,4 +70,17 @@ test('project pages: a file joins every project its path names', () => {
   assert.equal(new Set(PROJECTS.map(p => p[0])).size, PROJECTS.length, 'project ids are unique');
   for (const [id] of PROJECTS) assert.ok(outputs.has(`docs/projects/${id}.md`), id);
   assert.match(outputs.get('docs/projects/phoenix.md'), /## Read first[\s\S]*PHOENIX_CONTEXT_SURVIVAL_PROTOCOL\.md/);
+});
+
+test('specialized indexes: symbols are extracted and every lookup page is produced', () => {
+  const syms = extractSymbols("export const A_POLICY_VERSION = 'x-1';\nexport async function run(a, b) {}\nexport const pick = (x) => x;\nexport class Store {}\nexport { helper as renamed } from './h.mjs';\n");
+  assert.deepEqual(syms.map(s => `${s.kind}:${s.name}`), ['function:run', 'function:pick', 'class:Store', 'const:A_POLICY_VERSION', 're-export:renamed']);
+  const outputs = renderAll(buildIndex(root));
+  for (const f of ['README', 'COMMANDS', 'ROUTES', 'ENV', 'DATA', 'JOBS', 'PROVIDERS', 'VERSIONS', 'CONCEPTS', 'MOONSHOTS-890', 'FOUNDER-52', 'CANON', 'CHRONOLOGY', 'UNWIRED', 'TESTS', 'SYMBOLS-AZ-A-C'])
+    assert.ok(outputs.has(`docs/index/specialized/${f}.md`), f);
+  const ideas = outputs.get('docs/index/specialized/MOONSHOTS-890.md');
+  assert.equal((ideas.match(/^\| `founder-moonshot-\d{4}` \|/gm) ?? []).length, 890, 'all 890 ideas listed exactly once');
+  assert.match(ideas, /founder-moonshot-0625[\s\S]*founder-moonshot-0683/);
+  assert.equal((outputs.get('docs/index/specialized/FOUNDER-52.md').match(/^\| \d+ \| `/gm) ?? []).length, 52);
+  assert.doesNotMatch(outputs.get('docs/index/specialized/ENV.md'), /=\S*(sk-|ghp_|-----BEGIN)/, 'no credential-shaped values');
 });

@@ -6,13 +6,13 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**403 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
+**404 files.** [Back to the master index](../../REPOSITORY_INDEX.md)
 
 ## Sections
 
 - [North Star and life systems](#north-star-and-life-systems) — 9
 - [UberMind doctrine and library](#ubermind-doctrine-and-library) — 2
-- [Continuity, memory and handoffs](#continuity-memory-and-handoffs) — 31
+- [Continuity, memory and handoffs](#continuity-memory-and-handoffs) — 32
 - [GENESIS, moonshots and Perpetual Frontier](#genesis-moonshots-and-perpetual-frontier) — 27
 - [ASI research and evidence programs](#asi-research-and-evidence-programs) — 49
 - [Frontier cognition and model routing](#frontier-cognition-and-model-routing) — 74
@@ -63,6 +63,7 @@ Command-line entry points; most are wired to an `npm run` name shown beside them
 - [`phoenix-ten-wave-query.mjs`](../../scripts/phoenix-ten-wave-query.mjs) — Bounded query bridge from Node workflow to source-pinned PHOENIX research index; no network or execution. · **Use:** search PHOENIX research index _(npm: `capabilities:phoenix:query`)_
 - [`phoenix-ten-wave-reconcile.py`](../../scripts/phoenix-ten-wave-reconcile.py) — Validates and reconciles PHOENIX ten-wave research catalogs against expected URL hash, writing receipts only. · **Use:** reconcile PHOENIX research catalogs
 - [`pr-reconcile.mjs`](../../scripts/pr-reconcile.mjs) — Trial-merges every open PR against main and classifies conflicts as MECHANICAL or SEMANTIC; read-only. · **Use:** triage open PR merge conflicts
+- [`repository-index-specialized.mjs`](../../scripts/repository-index-specialized.mjs) — Specialized lookup indexes, extracted from source and corpus: symbols, commands, HTTP routes, _(matched by name only)_
 - [`repository-index.mjs`](../../scripts/repository-index.mjs) — Deterministic card catalog of every tracked file classified into domains, areas and keyword projects; writes docs/index and index JSON. · **Use:** npm run repo:index navigation catalog _(npm: `repo:index`, `repo:index:check`)_
 - [`uberbond-brain-bootstrap.mjs`](../../scripts/uberbond-brain-bootstrap.mjs) — Brain bootstrap loading repository brain packet: memory, capability, event-horizon and world-brain state with a byte budget. · **Use:** Backs npm run brain at session start.
 - [`uberbond-brain-safe.mjs`](../../scripts/uberbond-brain-safe.mjs) — Safe brain CLI resolving source identity and capability total state before printing brain packet. · **Use:** Safer wrapper of the brain command. _(npm: `brain`)_

@@ -9,6 +9,7 @@ import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { renderSpecialized } from './repository-index-specialized.mjs';
 
 export const REPOSITORY_INDEX_SCHEMA = 'uberbond.repository-index.v1';
 const OUT_DIR = 'docs/index';
@@ -458,7 +459,11 @@ function renderMaster(index) {
     `4. Founder 890 corpus: ${link('docs/FOUNDER_890_UNIVERSAL_CROSS_CHAT_INTEGRATION.md')}`, '',
     '## 2. Browse by folder', '', '| Folder | Files | What it holds |', '|---|---:|---|'];
   for (const a of AREAS) if (t.byArea[a[0]]) L.push(`| [${a[1]}](${rel(out, areaFile(a[0]))}) | ${t.byArea[a[0]]} | ${a[2]} |`);
-  L.push('', '## 3. Browse by subject', '', `Full detail with key documents, hub modules and commands: ${link(`${OUT_DIR}/DOMAINS.md`, 'docs/index/DOMAINS.md')}`, '',
+  L.push('', '## 3. Understand, then look up', '',
+    `- **Whole system on one page:** ${link(`${PROJECT_DIR}/ATLAS.md`, 'docs/projects/ATLAS.md')} — every project explained, dependencies, wiring, timeline.`,
+    `- **One project:** ${link(`${PROJECT_DIR}/README.md`, 'docs/projects/README.md')} — ${PROJECTS.length} context pages.`,
+    `- **Exact lookups:** ${link('docs/index/specialized/README.md')} — a function, URL, environment variable, table, job, external host, founder idea by number, canon concept or date.`);
+  L.push('', '## 3b. Browse by subject', '', `Full detail with key documents, hub modules and commands: ${link(`${OUT_DIR}/DOMAINS.md`, 'docs/index/DOMAINS.md')}`, '',
     '| Domain | Files | Scope |', '|---|---:|---|');
   for (const d of DOMAINS) if (t.byDomain[d[0]]) L.push(`| [${d[1]}](${rel(out, `${OUT_DIR}/DOMAINS.md`)}#${slug(d[1].toLowerCase())}) | ${t.byDomain[d[0]]} | ${d[2]} |`);
   L.push('', '## 4. Conventions that make the flat folders navigable', '',
@@ -507,7 +512,7 @@ function renderAtlas(index) {
   const t = index.totals;
   const tot = Object.values(index.projectStats).reduce((m, st) => ({ m: m.m + st.modules, s: m.s + st.wiredServer, c: m.c + st.wiredCli, u: m.u + st.unwired }), { m: 0, s: 0, c: 0, u: 0 });
   const L = [HEADER, '# UberBond atlas — the whole system in one page', '', BOUNDARY,
-    `This page is the model of the repository: what each of the ${PROJECTS.length} projects is, what it is for, how the projects depend on each other, how much of each is wired to a running entry point, and when each was active. It is built from ${t.classifiedByContent} per-file content judgements, the import graph and dated filenames. Open a project's own page for its files.`, '',
+    `This page is the model of the repository: what each of the ${PROJECTS.length} projects is, what it is for, how the projects depend on each other, how much of each is wired to a running entry point, and when each was active. It is built from ${t.classifiedByContent} per-file content judgements, the import graph and dated filenames. Open a project's own page for its files, or the [specialized indexes](../index/specialized/README.md) to look up a function, route, variable, table, job, founder idea or concept.`, '',
     '## 1. The shape of the whole', '',
     'UberBond is one organism in five bands. **Direction**: the North Star family says what the system is for and who decides. **Memory**: doctrine, handoffs and PHOENIX carry context between sessions. **Cognition**: invention, evaluation and model-routing projects produce and test ideas and decide how much model spend a task gets. **Action**: agents, capabilities, outreach, email infrastructure and revenue projects act in the world. **Ground**: governance, stores and deployment make every action counted, permitted and durable. Authority flows down from the founder; evidence flows up from reality.', '',
     `Across all projects there are **${tot.m} source modules: ${tot.s} reachable from the server/worker, ${tot.c} only from CLI commands, and ${tot.u} from no entry point.** The last group is real code, usually with tests, that no server, worker, API route or npm command statically imports. Some may still be loaded dynamically, so treat it as a list to verify, not a verdict.`, '',
@@ -542,7 +547,7 @@ function renderAtlas(index) {
   return [out, `${L.join('\n')}\n`];
 }
 
-function renderProjects(index) {
+function renderProjects(index, spec) {
   const outs = [];
   const readme = `${PROJECT_DIR}/README.md`;
   const R = [HEADER, '# Projects — one context page per program', '', BOUNDARY,
@@ -579,6 +584,20 @@ function renderProjects(index) {
       'Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.', ''];
     const section = (h, items, opts = {}) => { if (items.length) { L.push(`## ${h} (${items.length})`, ''); for (const e of items) L.push(line(e, out, { showDir: true, ...opts })); L.push(''); } };
     L.push(...understanding(index, id, out));
+    const sf = spec?.surface?.[id];
+    if (sf) {
+      const sd = 'docs/index/specialized'; const lk = (file, label) => `[${label}](${rel(out, `${sd}/${file}`)})`;
+      const codes = (arr, n) => (arr.length ? `${arr.slice(0, n).map(x => `\`${x}\``).join(' · ')}${arr.length > n ? ` · … (${arr.length} total)` : ''}` : 'none');
+      const fam = PROJECTS.find(p => p[0] === id)[4];
+      L.push('## Technical surface (extracted)', '', '| | |', '|---|---|',
+        `| Exported symbols | ${sf.symbols} — see [symbols for this family](${rel(out, spec.symFileByFamily[fam])}) |`,
+        `| Environment variables read | ${codes(sf.env, 14)} — ${lk('ENV.md', 'all variables')} |`,
+        `| Collections and tables touched | ${codes(sf.stores, 14)} — ${lk('DATA.md', 'data stores')} |`,
+        `| Queue job types referenced | ${codes(sf.jobs, 10)} — ${lk('JOBS.md', 'jobs and schedules')} |`,
+        `| External hosts in its code | ${codes(sf.hosts, 10)} — ${lk('PROVIDERS.md', 'providers')} |`,
+        `| Founder 890 ideas cited by ID | ${sf.ideas.length ? `${sf.ideas.slice(0, 16).map(n => `#${String(n).padStart(4, '0')}`).join(' ')}${sf.ideas.length > 16 ? ` … (${sf.ideas.length} total)` : ''}` : 'none'} — ${lk('MOONSHOTS-890.md', 'all 890')} |`,
+        `| Also | ${lk('UNWIRED.md', 'unconnected modules')} · ${lk('TESTS.md', 'test map')} · ${lk('CANON.md', 'canon and plans')} · ${lk('CHRONOLOGY.md', 'chronology')} |`, '');
+    }
     section('Read first', first);
     if (cmds.length) L.push(`## Commands (${cmds.length})`, '', cmds.map(c => `\`npm run ${c}\``).join(' · '), '');
     section('Standing documents', canon.filter(e => !firstSet.has(e)));
@@ -603,8 +622,10 @@ function renderProjects(index) {
   return outs;
 }
 
-export function renderAll(index) {
-  const outputs = new Map([renderMaster(index), renderDomains(index), ...AREAS.filter(a => index.totals.byArea[a[0]]).map(a => renderArea(index, a)), ...renderProjects(index)]);
+const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+export function renderAll(index, root = REPO_ROOT) {
+  const spec = renderSpecialized(root, index, PROJECTS);
+  const outputs = new Map([renderMaster(index), renderDomains(index), ...AREAS.filter(a => index.totals.byArea[a[0]]).map(a => renderArea(index, a)), ...renderProjects(index, spec), ...spec.outputs]);
   outputs.set(OUT_JSON, `${JSON.stringify(index)}\n`);
   return outputs;
 }

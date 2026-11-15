@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 203 — see [symbols for this family](../index/specialized/SYMBOLS-cognition-economics-and-model-routing.md) |
+| Environment variables read | `OMNIA_V9_TEST_DATABASE_URL` · `OPENROUTER_API_KEY` · `OPENROUTER_MANAGEMENT_KEY` · `OPENROUTER_MEMBER_ID` · `PATH` · `UBERMAIL_WEBHOOK_MASTER_SECRET` · `UBERMIND_TYPINGMIND_ALLOWED_ORIGINS` · `UBERMIND_TYPINGMIND_GATEWAY_TOKEN` · `UBERMIND_TYPINGMIND_RATE_LIMIT_PER_MINUTE` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | none — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `openrouter.ai` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | #0015 #0057 — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`open router/ARCHITECTURE.md`](../../open%20router/ARCHITECTURE.md) — Architecture doc for the open router subsystem: layers from exact substrate through Jev, cheap swarm, Crown · **Use:** design canon for intelligence-per-dollar

@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 47 — see [symbols for this family](../index/specialized/SYMBOLS-founder-operations.md) |
+| Environment variables read | `UBERBOND_CONTROL_DIR` · `UBERBOND_SOURCE_ROOT` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `accounts` · `jobs` · `messages` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (7)
 
 - [`docs/SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md`](../SOVEREIGN_INITIATIVE_NORTH_STAR_BINDING.md) — 2026-09-12 correction that founder silence is not a pause; defines resident initiative loop generating and executing bounded missions. · **Use:** basis for autonomous initiative without founder prompting

@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 407 — see [symbols for this family](../index/specialized/SYMBOLS-invention-and-frontier.md) |
+| Environment variables read | `GITHUB_SHA` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `public.genesis_escalation_decisions` · `public.genesis_realization_queue` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `api.github.com` · `raw.githubusercontent.com` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | #0001 #0016 #0059 #0067 #0068 #0107 #0123 #0146 #0160 #0161 #0167 #0178 #0257 #0261 #0305 #0306 … (39 total) — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (13)
 
 - [`docs/PERPETUAL_FRONTIER_GENESIS_CANON.md`](../PERPETUAL_FRONTIER_GENESIS_CANON.md) — Canon of permanent frontier law: earliest capability signals, opportunity resurrection, N+1 challengers, GENESIS/GENESIS2/Ontogenesis and 275-idea registry. · **Use:** governs frontier sensing and invention goals

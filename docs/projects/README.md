@@ -32,7 +32,7 @@ When asked about a specific UberBond project, open its page here first and follo
 |---|---:|---|
 | [UberMind](ubermind.md) | 199 | Cognition program: constitutions V4-V10, Omega46-52 doctrine cards, founder 52 concepts, grand library, Mind Activation folder, and UberMind economics modules. |
 | [PHOENIX](phoenix.md) | 165 | Context survival: PHOENIX protocol and checkpoints, continuity capsule, chat-first cloud brain, capability waves 3-10, phoenix-mcp connector. |
-| [Brain, Total Brain and Master Memory](brain-memory.md) | 229 | Repository-native company memory: brain packet, Total Brain, Master Memory, cognitive graph and bus, synaptic map, feature genome, deep atlas. |
+| [Brain, Total Brain and Master Memory](brain-memory.md) | 230 | Repository-native company memory: brain packet, Total Brain, Master Memory, cognitive graph and bus, synaptic map, feature genome, deep atlas. |
 | [Handoffs and checkpoints](handoffs-checkpoints.md) | 138 | Current handoff and system state, dated handoffs, session checkpoints and cross-chat recovery protocols. |
 | [APOTHEOSIS and orchestration checkpoints](apotheosis-orchestration.md) | 33 | Founder orchestration packets P00-P49, Apotheosis runtime and final orchestrator, orchestration control plane. |
 | [Everest, SUMMIT 100, BLACK SKY, Ragnarok lineage](historical-lineage.md) | 29 | Named historical milestone programs and their closure audits: Everest, SUMMIT 100, BLACK SKY, Reality Activation, Ragnarok, Night War. |
@@ -172,7 +172,7 @@ When asked about a specific UberBond project, open its page here first and follo
 
 - **3435** files by reading their content (purpose and use written per file; records in `artifacts/repository-index/semantics/`).
 - **1232** tests by the modules they import.
-- **65** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
+- **66** by filename only: frozen history, plus anything added since the last reading pass. These are marked "matched by name only" on the pages.
 
 1 live files match no project keyword; find them through the [folder and domain index](../../REPOSITORY_INDEX.md).
 

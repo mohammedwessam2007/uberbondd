@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 58 — see [symbols for this family](../index/specialized/SYMBOLS-revenue-and-commerce.md) |
+| Environment variables read | `DATABASE_URL` · `LITE_HASH_SALT` · `LITE_MAX_ATTEMPTS` · `LITE_MAX_AUDITS_PER_RUN` · `LITE_MAX_PAGES` · `LITE_STALE_MINUTES` · `UBERBOND_RESTART_RECOVERY_RECEIPT_PATH` · `VERCEL_DEPLOYMENT_ID` · `VERCEL_ENV` · `VERCEL_GIT_COMMIT_REF` · `VERCEL_GIT_COMMIT_SHA` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `lite_audit_requests` · `lite_leads` · `lite_reports` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `api.resend.com` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (2)
 
 - [`lite/README.md`](../../lite/README.md) — README for Cash Engine Lite: static site, Vercel API, GitHub Actions audit worker, Neon Postgres data flow · **Use:** understand the free-tier website audit variant

@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 79 — see [symbols for this family](../index/specialized/SYMBOLS-invention-and-frontier.md) |
+| Environment variables read | none — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | none — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | #0001 #0002 #0003 #0004 #0005 #0006 #0007 #0008 #0009 #0010 #0011 #0012 #0013 #0014 #0015 #0016 … (890 total) — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (13)
 
 - [`docs/MOONSHOT_REALITY_COMPILER_CANON.md`](../MOONSHOT_REALITY_COMPILER_CANON.md) — Compatibility canon naming reality states IMAGINED through EPOCH_CANDIDATE and terminal states for moonshots, pointing to Possibility Civilization canon. · **Use:** assign each moonshot an honest realization state
@@ -61,7 +73,7 @@ _Wiring is static import reachability, not proof that code runs in production. "
 
 ## Documents that discuss this project without naming it in the filename (3)
 
-- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Universal AI entry point indexing V10 constitution, project context pages, repository index and historical hot pointers. · **Use:** first file any AI reads to locate context _(6 mentions)_
+- [`AI_START_HERE.md`](../../AI_START_HERE.md) — Universal AI entry point indexing V10 constitution, project context pages, repository index and historical hot pointers. · **Use:** first file any AI reads to locate context _(7 mentions)_
 - [`docs/handoffs/WORK_CURRENT.md`](../handoffs/WORK_CURRENT.md) — Main ChatGPT Work hot checkpoint dated 2026-10-11: first-cash progress, PR #1388 draft, Render at older SHA, Winnr pilot mailboxes, no outreach or cash yet. · **Use:** Primary recovery file for ChatGPT Work sessions on the first-cash frontier. _(3 mentions)_
 - [`docs/INQUIRY_PATH_COHERENCE_ENGINE.md`](../INQUIRY_PATH_COHERENCE_ENGINE.md) — Doc of engine detecting home-service websites that contradict themselves on phone/contact channels, field-calibrated on public sites 2026-10-21, as prospect evidence. · **Use:** produce verified problem evidence for first-touch outreach artifacts _(3 mentions)_
 

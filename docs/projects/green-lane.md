@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 92 — see [symbols for this family](../index/specialized/SYMBOLS-founder-operations.md) |
+| Environment variables read | `UBERBOND_RUNTIME_EVENT` · `UBERBOND_RUNTIME_RUN_ID` · `UBERBOND_RUNTIME_SHA` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `leads` · `outboundEvents` · `prospects` · `providerEvents` · `replies` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `api.github.com` · `developer.company-information.service.gov.uk` · `portal.pdpc.gov.eg` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (6)
 
 - [`docs/AI_ACCESS_AND_CREDIT_RUNBOOK.md`](../AI_ACCESS_AND_CREDIT_RUNBOOK.md) — Runbook for a 57-route catalog of AI credits, student, startup and free-tier programs with eligibility, owner-only actions and truth boundary. · **Use:** Find lawful routes to AI access and credits.

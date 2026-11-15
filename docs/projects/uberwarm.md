@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 137 — see [symbols for this family](../index/specialized/SYMBOLS-email-infrastructure.md) |
+| Environment variables read | `BOBWORK_API_KEY` · `DATABASE_URL` · `ORIGIN_SECRET` · `RAILWAY_GIT_COMMIT_SHA` · `UBERWARM_EXPECTED_CANONICAL_DATABASE` · `UBERWARM_NEON_ORIGIN_SECRET` · `UBERWARM_ONE_SHOT_PROBE_ID` · `UBERWARM_OPERATIONAL_RECEIPTS_ENABLED` · `UBERWARM_RECEIVER_AUTH_PROBE_AUTHORIZED` · `UBERWARM_RECEIVER_EMAIL` · `UBERWARM_RECEIVER_ENCRYPTION_KEY` · `UBERWARM_SOURCE_SHA` · `UBERWARM_UNSUBSCRIBE_SECRET` · `WINNR_API_TOKEN` · … (18 total) — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `public.uberwarm2_operational_receipts` · `public.uberwarm2_receiver_bindings` · `suppressions` · `uberwarm2_seed_probe_claims` · `uberwarm_ingress.signed_events` · `uberwarm_ingress.suppressions` · `winnr_webhook_events` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `app-emailwarmup.bobwork.ai` · `br-long-glade-at2hwz37-uberwarminbound.compute.c-9.us-east-1.aws.neon.tech` · `br-long-glade-at2hwz37-uberwarmoptout.compute.c-9.us-east-1.aws.neon.tech` · `gmail.googleapis.com` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (11)
 
 - [`docs/WARMUP_POLICY.md`](../WARMUP_POLICY.md) — Warm-up policy: 14-day minimum, 2/day ramp capped 40, distrust of early WARMUP_COMPLETE, and separation of five caps. · **Use:** enforce mailbox warm-up before cold sends

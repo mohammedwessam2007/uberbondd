@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 125 — see [symbols for this family](../index/specialized/SYMBOLS-revenue-and-commerce.md) |
+| Environment variables read | `UBERBOND_CONTROL_DIR` · `UBERBOND_FREE_RUNTIME_REASON` · `UBERBOND_FREE_RUNTIME_REQUESTED_JOBS` · `UBERBOND_ZERO_MARGINAL_DISCOVERY` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `auditLog` · `orders` · `revenueEvents` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | `discovery.run` · `monitoring.process` · `outbound.process` · `payment.reconciliation.tick` · `prometheus.agent.task` · `prometheus.capability_gap.recompute` · `prometheus.commercial.catalog` · `prometheus.commercial.opportunity.prepare` · `prometheus.commercial.tournament` · `prometheus.commercial_memory.contradiction_scan` · … (12 total) — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | #0001 #0002 #0003 #0004 #0005 #0006 #0007 #0008 #0009 #0010 #0011 #0012 #0013 #0014 #0015 #0016 … (890 total) — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (6)
 
 - [`docs/ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md`](../ECONOMIC_INTELLIGENCE_EXPLOSION_LAW.md) — Defines how a command like make as much money as possible expands to a broad lawful economic search space rather than a single tactic. · **Use:** Interpret high-level money commands.

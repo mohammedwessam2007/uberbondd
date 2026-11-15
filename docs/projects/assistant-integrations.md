@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 3 — see [symbols for this family](../index/specialized/SYMBOLS-agents-and-automation.md) |
+| Environment variables read | `CLAUDE_PROJECT_DIR` · `UBERBOND_AGENT_RELAY_ENABLED` · `UBERBOND_AGENT_RELAY_TOKEN` · `UBERBOND_AGENT_RELAY_URL` · `UBERBOND_RELAY_AGENT` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | none — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`CLAUDE.md`](../../CLAUDE.md) — Claude Code project memory with V5-V10 UberMind directives, imports of North Star canon, startup steps, capability, Wallbreaker and routing laws. · **Use:** auto-loaded Claude session instructions

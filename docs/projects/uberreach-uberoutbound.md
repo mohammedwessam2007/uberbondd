@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 90 — see [symbols for this family](../index/specialized/SYMBOLS-outreach-and-distribution.md) |
+| Environment variables read | `UBERBOND_CONTROL_DIR` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `accounts` · `postal_webhook_events` · `schema_migrations` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `crtc.gc.ca` · `ico.org.uk` · `mcit.gov.eg` · `sso.agc.gov.sg` · `www.acma.gov.au` · `www.fedlex.admin.ch` · `www.ftc.gov` · `www.gesetze-im-internet.de` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (9)
 
 - [`docs/UBEROUTBOUND_GENOME_CANON.md`](../UBEROUTBOUND_GENOME_CANON.md) — Canon compiling founder Outbound Genome report into policy: objective of incremental cleared profit under eligibility, health and reputation constraints. · **Use:** policy basis for cold outreach decisions

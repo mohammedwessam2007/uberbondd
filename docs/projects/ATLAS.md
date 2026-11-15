@@ -4,7 +4,7 @@
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-This page is the model of the repository: what each of the 76 projects is, what it is for, how the projects depend on each other, how much of each is wired to a running entry point, and when each was active. It is built from 3435 per-file content judgements, the import graph and dated filenames. Open a project's own page for its files.
+This page is the model of the repository: what each of the 76 projects is, what it is for, how the projects depend on each other, how much of each is wired to a running entry point, and when each was active. It is built from 3435 per-file content judgements, the import graph and dated filenames. Open a project's own page for its files, or the [specialized indexes](../index/specialized/README.md) to look up a function, route, variable, table, job, founder idea or concept.
 
 ## 1. The shape of the whole
 
@@ -308,7 +308,7 @@ The repository's own memory and self-model: a cognitive graph of organs with typ
 
 **Used for:** Reconstructing the whole organism before narrowing to a task; the brain packet you run at startup comes from here.
 
-_227 files · 24 source modules: 3 reachable from the server/worker, 7 only from CLI commands, 14 from no entry point. 69 tests · active 2026-08 to 2026-10 · builds on: Consent, authority, proof and effect ledgers, PHOENIX, GENESIS, GENESIS2 and Ontogenesis, Opportunity factory, Event Horizon and World Brain, Capability Genome · relied on by: PHOENIX, Readiness, reachability and coverage audits, Uber Socket, Command center and founder console, GENESIS, GENESIS2 and Ontogenesis_
+_228 files · 24 source modules: 3 reachable from the server/worker, 7 only from CLI commands, 14 from no entry point. 69 tests · active 2026-08 to 2026-10 · builds on: Consent, authority, proof and effect ledgers, PHOENIX, GENESIS, GENESIS2 and Ontogenesis, Opportunity factory, Event Horizon and World Brain, Capability Genome · relied on by: PHOENIX, Readiness, reachability and coverage audits, Uber Socket, Command center and founder console, GENESIS, GENESIS2 and Ontogenesis_
 
 #### [Handoffs and checkpoints](handoffs-checkpoints.md)
 

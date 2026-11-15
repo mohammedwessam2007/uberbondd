@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 69 — see [symbols for this family](../index/specialized/SYMBOLS-founder-operations.md) |
+| Environment variables read | `ADMIN_TOKEN` · `GITHUB_OUTPUT` · `OPEN_MODEL_ENDPOINT` · `OPEN_MODEL_MODEL` · `OPEN_MODEL_RUNTIME` · `UBERBOND_AUTHORCTL` · `UBERBOND_CONTROL_DIR` · `UBERBOND_CONTROL_PLANE_RECEIPT_PATH` · `UBERBOND_FOUNDER_CONSOLE_HOST` · `UBERBOND_FOUNDER_CONSOLE_PORT` · `UBERBOND_FOUNDER_CONSOLE_TOKEN` · `UBERBOND_FOUNDER_DIALOGUE_ENABLED` · `UBERBOND_FOUNDER_DIALOGUE_MAX_COST_CENTS` · `UBERBOND_FOUNDER_DIALOGUE_MAX_TOKENS` · … (23 total) — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `auditLog` · `leads` · `prospects` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | `payment.reconciliation.tick` — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | `ai-gateway.vercel.sh` — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (10)
 
 - [`docs/COMMAND_CENTER_2.md`](../COMMAND_CENTER_2.md) — Describes the owner-authenticated Command Center 2.0 observer: runtime telemetry endpoint, in-memory credential, truth class display states, no execution authority. · **Use:** Reference for the iPad observer console.

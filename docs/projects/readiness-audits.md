@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 70 — see [symbols for this family](../index/specialized/SYMBOLS-governance-authority-and-proof.md) |
+| Environment variables read | `GITHUB_SHA` · `UBERBOND_CANONICAL_BRANCH` · `UBERBOND_CANONICAL_HEAD` · `UBERBOND_ORGAN_CALLABILITY_OUTPUT` · `UBERBOND_ORGAN_RUNTIME_EVIDENCE_PATH` · `UBERBOND_SOURCE_SHA` · `V7_GAP_LEDGER_OUT` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | none — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (14)
 
 - [`docs/AGENT_MESH_ENTRY_POINT.md`](../AGENT_MESH_ENTRY_POINT.md) — Records that the agent mesh control plane and relay client were unreachable from any non-test code, and how entry points were wired. · **Use:** Explain how the mesh became reachable and why green tests were not enough.

@@ -6,7 +6,7 @@ Repository-native company memory: brain packet, Total Brain, Master Memory, cogn
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**229 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
+**230 files** match this project by name. [All projects](README.md) · [Master index](../../REPOSITORY_INDEX.md)
 
 Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CURRENT_SYSTEM_STATE.md`; dated documents describe their date, not today.
 
@@ -27,6 +27,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 | Relied on by | [PHOENIX](phoenix.md) (6), [Readiness, reachability and coverage audits](readiness-audits.md) (4), [Uber Socket](uber-socket.md) (3), [Command center and founder console](command-center.md) (2), [GENESIS, GENESIS2 and Ontogenesis](genesis.md) (2), [Neural Exocortex and Connectome](neural-exocortex.md) (2), [Sovereign Cognitive Continuum](sovereign-continuum.md) (2), [Agent mesh and autonomy loop](agent-mesh.md) (1) |
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
+
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 112 — see [symbols for this family](../index/specialized/SYMBOLS-doctrine-memory-and-continuity.md) |
+| Environment variables read | `GITHUB_SHA` · `UBERBOND_BRAINSTATE_PATH` · `UBERBOND_CONTEXT_AUTO_COMPACT_TAIL_ENTRIES` · `UBERBOND_CONTEXT_AUTO_MIGRATE_ENTRIES` · `UBERBOND_CONTEXT_JOURNAL_PATH` · `UBERBOND_CONTEXT_LAYERED_STORE_PATH` · `UBERBOND_CONTEXT_MOUNT_PATH` · `UBERBOND_CONTEXT_QUERY_MAX_HISTORY` · `UBERBOND_CONTEXT_RECOVERY_ROOT` · `UBERBOND_CONTEXT_REPLICATION_ROOT` · `UBERBOND_CONTEXT_SEGMENT_ROOT` · `UBERBOND_CONTEXT_SEGMENT_SIZE` · `UBERBOND_CONTEXT_SEGMENT_SNAPSHOT_PATH` · `UBERBOND_CONTROL_DIR` · … (20 total) — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `jobs` — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | #0625 #0683 — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
 
 ## Read first (14)
 
@@ -123,12 +135,13 @@ _Wiring is static import reachability, not proof that code runs in production. "
 - [`src/uberbond-ultimate-graph.mjs`](../../src/uberbond-ultimate-graph.mjs) — Compiles and queries the ultimate graph derived from the deep atlas · **Use:** whole-repository graph queries _(tested; imported by 1)_
 - [`src/whole-brain-cognitive-adapters.mjs`](../../src/whole-brain-cognitive-adapters.mjs) — Adapters converting feature genome, frontier model team doctor and compute sovereignty outputs into cognitive bus events. · **Use:** Feed subsystem state into the UberBond cognitive bus _(tested; imported by 1)_
 
-## Scripts (35)
+## Scripts (36)
 
 - [`scripts/context-universe.mjs`](../../scripts/context-universe.mjs) — Lists git files, classifies them (startup canon etc.) and hashes them to build a context universe manifest. · **Use:** inventory repository context for loading
 - [`scripts/memory-truth-doctor.mjs`](../../scripts/memory-truth-doctor.mjs) — Runs memory truth boundary over the memory index, asking historical counts commercial questions and reporting refusals. · **Use:** prevent historical counts read as traction _(npm: `memory:doctor`)_
 - [`scripts/neural-exocortex-brain-pulse.mjs`](../../scripts/neural-exocortex-brain-pulse.mjs) — Compiles the neural exocortex cognitive graph from an external capability corpus directory final manifest; refuses without corpus dir. · **Use:** refresh exocortex cognitive graph from harvested corpus
 - [`scripts/nullstar-stranded-supersession.mjs`](../../scripts/nullstar-stranded-supersession.mjs) — Per-module archaeology checking whether stranded pre-rewrite src module exports or concepts exist on main; returns ABSENT when not. · **Use:** find lost concepts in pre-rewrite branches
+- [`scripts/repository-index-specialized.mjs`](../../scripts/repository-index-specialized.mjs) — Specialized lookup indexes, extracted from source and corpus: symbols, commands, HTTP routes, _(matched by name only)_
 - [`scripts/repository-index.mjs`](../../scripts/repository-index.mjs) — Deterministic card catalog of every tracked file classified into domains, areas and keyword projects; writes docs/index and index JSON. · **Use:** npm run repo:index navigation catalog _(npm: `repo:index`, `repo:index:check`)_
 - [`scripts/sovereign-context-authorize-suppression.mjs`](../../scripts/sovereign-context-authorize-suppression.mjs) — Module authorizing suppression of a context event with privacy checks and effect ledgers. · **Use:** Owner-authorized step before suppressing remembered context.
 - [`scripts/sovereign-context-checkpoint.mjs`](../../scripts/sovereign-context-checkpoint.mjs) — Module checkpointing the sovereign context fabric using journal runtime and doctor. · **Use:** Writes a durable context checkpoint.

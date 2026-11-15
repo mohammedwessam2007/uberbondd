@@ -5,6 +5,8 @@ Single current ChatGPT Project instruction: `library/ubermind/UBERMIND_V10_ONE_M
 
 # UberBond Universal AI Entry Point
 
+**Specialized indexes (2026-11-15):** `docs/index/specialized/README.md` lists lookup tables for symbols, commands, HTTP routes, environment variables, data stores, jobs, external hosts, versions, canon concepts, all 890 founder ideas by ID, the 52 founder concepts, chronology, unconnected modules and test coverage.
+
 **System atlas (2026-11-15):** `docs/projects/ATLAS.md` is the one-page model of the whole repository: all projects explained, their dependencies, wiring and timeline. Read it before answering any whole-system question.
 
 **Project context pages (2026-11-14):** for a question about one named project (Outreach, UberMind, PHOENIX, UberWarm, GENESIS, ...), open `docs/projects/README.md`, then `docs/projects/<project>.md`, and read its "Read first" list.

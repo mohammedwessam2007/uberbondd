@@ -4,7 +4,7 @@
 
 > Navigation aid, not evidence. A listed file exists; that says nothing about whether it runs, is deployed, or has produced any external result.
 
-**4983 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
+**4984 tracked files**, catalogued by folder and by subject. This page is the map; the linked pages list every file with a one-line description.
 
 ## 1. Read first
 
@@ -20,7 +20,7 @@
 | [Repository root](docs/index/ROOT.md) | 41 | Entry points, constitutions, server/worker processes and platform manifests. |
 | [src/ — source modules](docs/index/SRC.md) | 1145 | Flat ES-module library; one mechanism per file, grouped here by domain. Imported by server, worker, scripts and tests. |
 | [tests/ — test suite](docs/index/TESTS.md) | 1409 | node:test files, almost all named after the src module or seam they cover. Run with `npm run test:deterministic`. |
-| [scripts/ — CLIs and doctors](docs/index/SCRIPTS.md) | 403 | Command-line entry points; most are wired to an `npm run` name shown beside them. |
+| [scripts/ — CLIs and doctors](docs/index/SCRIPTS.md) | 404 | Command-line entry points; most are wired to an `npm run` name shown beside them. |
 | [docs/ — canon, handoffs, receipts](docs/index/DOCS.md) | 702 | Human-readable canon, architecture, handoffs, receipts, prompts and forensics. |
 | [artifacts/ — machine-readable state and evidence](docs/index/ARTIFACTS.md) | 705 | JSON registries, receipts, research corpora and recovered history. |
 | [config/](docs/index/CONFIG.md) | 58 | Checked-in configuration and registries read by src and scripts. |
@@ -36,7 +36,13 @@
 | [migrations/](docs/index/MIGRATIONS.md) | 23 | SQL schema migrations. |
 | [Other top-level directories](docs/index/OTHER.md) | 105 | Small standalone packages and data: actors, apps, data, deploy, integrations, mind activation, operator-tools, plugins, policy, relay, runtime, schemas, skill-observations, tools, uberos, winnr, historical-archive. |
 
-## 3. Browse by subject
+## 3. Understand, then look up
+
+- **Whole system on one page:** [`docs/projects/ATLAS.md`](docs/projects/ATLAS.md) — every project explained, dependencies, wiring, timeline.
+- **One project:** [`docs/projects/README.md`](docs/projects/README.md) — 76 context pages.
+- **Exact lookups:** [`docs/index/specialized/README.md`](docs/index/specialized/README.md) — a function, URL, environment variable, table, job, external host, founder idea by number, canon concept or date.
+
+## 3b. Browse by subject
 
 Full detail with key documents, hub modules and commands: [`docs/index/DOMAINS.md`](docs/index/DOMAINS.md)
 
@@ -44,7 +50,7 @@ Full detail with key documents, hub modules and commands: [`docs/index/DOMAINS.m
 |---|---:|---|
 | [North Star and life systems](docs/index/DOMAINS.md#north-star-and-life-systems) | 166 | Sovereign Cognitive Continuum, Personal Civilization Engine and their life organs: forecasting, decision packets, sovereignty guards, capability/experience/identity models. |
 | [UberMind doctrine and library](docs/index/DOMAINS.md#ubermind-doctrine-and-library) | 67 | UberMind constitutions V4-V10, the Omega46-52 resident cards, the founder 52-concept sources and the grand library archives. |
-| [Continuity, memory and handoffs](docs/index/DOMAINS.md#continuity-memory-and-handoffs) | 382 | Brain packet, Total Brain, Master Memory, PHOENIX checkpoints, context journals, handoffs and cross-chat recovery. |
+| [Continuity, memory and handoffs](docs/index/DOMAINS.md#continuity-memory-and-handoffs) | 383 | Brain packet, Total Brain, Master Memory, PHOENIX checkpoints, context journals, handoffs and cross-chat recovery. |
 | [History and forensics](docs/index/DOMAINS.md#history-and-forensics) | 280 | Frozen historical record: day-by-day forensics, recovered PR/issue/commit lineage, archived ZIPs and legacy root documents. |
 | [GENESIS, moonshots and Perpetual Frontier](docs/index/DOMAINS.md#genesis-moonshots-and-perpetual-frontier) | 274 | Founder 890 moonshot corpus and its compilers, GENESIS/GENESIS2/Ontogenesis, Gamechanger sensing, million-branch ideation. |
 | [ASI research and evidence programs](docs/index/DOMAINS.md#asi-research-and-evidence-programs) | 380 | NULLSTAR, Omega private-evidence lab, C21 evidence factory and the mathematical canary families used as held-out capability probes. |

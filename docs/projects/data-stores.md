@@ -28,6 +28,18 @@ Before present-tense claims, also check `docs/CURRENT_HANDOFF.json` and `docs/CU
 
 _Wiring is static import reachability, not proof that code runs in production. "Builds on" counts imports from this project's modules into another project's._
 
+## Technical surface (extracted)
+
+| | |
+|---|---|
+| Exported symbols | 35 — see [symbols for this family](../index/specialized/SYMBOLS-infrastructure.md) |
+| Environment variables read | `DATABASE_SSL` · `DATABASE_URL` · `LD_LIBRARY_PATH` · `OMNIA_V9_TEST_DATABASE_URL` · `SOURCE_COMMIT` · `UBERBOND_CONTINUITY_MANIFEST_DIGEST` · `UBERBOND_RESTORE_EVIDENCE_REF` · `UBERBOND_RESTORE_OBSERVER_REF` · `UBERBOND_RESTORE_RECEIPT_PATH` · `UBERBOND_RESTORE_ROLLBACK_REF` · `UBERBOND_RUNTIME_IDENTITY` · `UBERBOND_SOURCE_COMMIT` — [all variables](../index/specialized/ENV.md) |
+| Collections and tables touched | `accounts` · `artifacts` · `auditLog` · `audit_log` · `automation_plans` · `automation_runs` · `billing_webhook_inbox` · `campaigns` · `discoveryRuns` · `discovery_runs` · `egress_route_health` · `jobs` · `lead_enrichment_runs` · `lead_field_results` · … (44 total) — [data stores](../index/specialized/DATA.md) |
+| Queue job types referenced | none — [jobs and schedules](../index/specialized/JOBS.md) |
+| External hosts in its code | none — [providers](../index/specialized/PROVIDERS.md) |
+| Founder 890 ideas cited by ID | none — [all 890](../index/specialized/MOONSHOTS-890.md) |
+| Also | [unconnected modules](../index/specialized/UNWIRED.md) · [test map](../index/specialized/TESTS.md) · [canon and plans](../index/specialized/CANON.md) · [chronology](../index/specialized/CHRONOLOGY.md) |
+
 ## Read first (8)
 
 - [`docs/PORTABLE_BACKEND_DEPLOYMENT.md`](../PORTABLE_BACKEND_DEPLOYMENT.md) — Guide for docker-compose bundle (Postgres, migration, server, worker), backend doctor script, password constraints and PayPal route bridge. · **Use:** run backend on any Docker host
